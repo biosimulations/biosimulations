@@ -12,7 +12,7 @@ import {
   Observable,
   pluck,
 } from 'rxjs';
-import { CombineArchiveManifestContent } from '@biosimulations/combine-api-client';
+import { CombineArchiveManifestContent } from '@biosimulations/combine-api-nest-client';
 import { ProjectFileInput } from '@biosimulations/datamodel/api';
 import { SimulationRunService } from '@biosimulations/api-nest-client';
 

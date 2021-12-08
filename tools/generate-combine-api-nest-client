@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+set -e
+
+# location of this script
+script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+# spec location
+spec_file=${script_dir}/../apps/combine-api/src/spec/spec.yml
+
+# output location
+lib_dir=${script_dir}/../libs/combine-api/nest-client
+
+rm -rf ${lib_dir}/src/lib/api/
+rm -rf ${lib_dir}/src/lib/model/
+
+npx @openapitools/openapi-generator-cli generate \
+    -g typescript-nestjs \
+    -i ${spec_file} \
+    -o ${lib_dir}/src/lib/ \
+    --global-property=skipFormModel=false \
+    --additional-properties=stringEnums=true,nestVersion=7.0.0,supportsES6=true \
+    --reserved-words-mappings abstract=abstract
+
+# Import `FormData` from `form-data` to allow use on server side
+sed -i '13s/^/import  FormData from "form-data"\n/' ${lib_dir}/src/lib/api/*.service.ts
+
+# Correct a definition in the generated code to play nicer with typescript compiler
+sed -i 's/        let formParams: { append(param: string, value: any): void; };/        let formParams: FormData = new FormData(); /g'  ${lib_dir}/src/lib/api/*.service.ts
+
+# Use the correct headers from the formdata rather than the default headers
+sed -i 's/    let headers = this.defaultHeaders;/        let headers:any = this.defaultHeaders;/' ${lib_dir}/src/lib/api/*.service.ts
+
+# Correct type of `queryParameters`
+sed -i 's/let queryParameters = {};/let queryParameters: any = {};/' ${lib_dir}/src/lib/api/*.service.ts
+
+perl -0777 -i -p -e 's/if \(useForm\) \{\n\s*formParams = new FormData\(\);/ if \(useForm\) \{formParams = new FormData\(\); headers= formParams.getHeaders\(\);/g' ${lib_dir}/src/lib/api/*.service.ts
+
+# Correct names of auto-generated type enumerations
+perl -0777 -i -p -e 's/_type: ([a-zA-Z0-9_]+Type);/_type: $1Enum;/' ${lib_dir}/src/lib/model/*.ts
+perl -0777 -i -p -e 's/export enum ([a-zA-Z0-9_]+Type) \{/export enum $1Enum {/' ${lib_dir}/src/lib/model/*.ts
+sed -i 's/ModelAndSimulationSimulationTypeEnum/ModelAndSimulationSimulationType/' ${lib_dir}/src/lib/model/modelAndSimulation.ts
+sed -i "s/Linear = 'linear'/linear = 'linear'/" ${lib_dir}/src/lib/model/sedAxisScale.ts
+sed -i "s/Log = 'log'/log = 'log'/" ${lib_dir}/src/lib/model/sedAxisScale.ts
+sed -i "s/Linear = 'linear'/linear = 'linear'/" ${lib_dir}/src/lib/model/sedUniformRange.ts
+sed -i "s/Log = 'log'/log = 'log'/" ${lib_dir}/src/lib/model/sedUniformRange.ts
+
+# Format the files
+nx format --projects combine-api-nest-client
+
+# Build the library
+nx build combine-api-nest-client --skip-cache

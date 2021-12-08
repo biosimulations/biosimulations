@@ -13,7 +13,7 @@ import {
   BioSimulationsCombineArchiveElementMetadata,
   BioSimulationsMetadataValue,
   BioSimulationsCustomMetadata,
-} from '@biosimulations/combine-api-client';
+} from '@biosimulations/combine-api-nest-client';
 import { firstValueFrom } from 'rxjs';
 
 import { CombineWrapperService } from '../combineWrapper.service';

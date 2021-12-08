@@ -483,7 +483,9 @@ export class Endpoints {
   ): string {
     id ? (id = `?id=${id}`) : (id = '');
     const tests = includeTests ? '?includeTests=true' : '';
-    return `${this.getSimulatorsApiBaseUrl(external)}/simulators/latest${id}${tests}`;
+    return `${this.getSimulatorsApiBaseUrl(
+      external,
+    )}/simulators/latest${id}${tests}`;
   }
   // SUBPATHS
   /**

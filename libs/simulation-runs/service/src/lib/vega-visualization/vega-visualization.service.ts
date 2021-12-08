@@ -202,8 +202,7 @@ export class VegaVisualizationService {
         iReport++;
         if (
           ['', 'Report'].includes(reportType) &&
-          (['*', output.id].includes(reportId) ||
-            reportId === `[${iReport}]`)
+          (['*', output.id].includes(reportId) || reportId === `[${iReport}]`)
         ) {
           reports.push(output as SedReport);
         }
@@ -246,23 +245,26 @@ export class VegaVisualizationService {
     const objectId = objectTypeIdArr[objectTypeIdArr.length - 1];
 
     const sedObjects: (SedSimulation | SedReport)[] = [];
-    const multipleSedObjects = objectId === '*' || Array.isArray(serializedSedDocument);
+    const multipleSedObjects =
+      objectId === '*' || Array.isArray(serializedSedDocument);
     const serializedSedDocuments = Array.isArray(serializedSedDocument)
       ? serializedSedDocument
       : [serializedSedDocument];
 
-    const sedDocuments = serializedSedDocuments.map((serializedSedDocument): SedDocument => {
-      return deserializeSedDocument({
-        _type: 'SedDocument',
-        version: serializedSedDocument.version,
-        level: serializedSedDocument.level,
-        models: serializedSedDocument.models,
-        simulations: serializedSedDocument.simulations,
-        tasks: serializedSedDocument.tasks,
-        dataGenerators: serializedSedDocument.dataGenerators,
-        outputs: serializedSedDocument.outputs,
-      });
-    });
+    const sedDocuments = serializedSedDocuments.map(
+      (serializedSedDocument): SedDocument => {
+        return deserializeSedDocument({
+          _type: 'SedDocument',
+          version: serializedSedDocument.version,
+          level: serializedSedDocument.level,
+          models: serializedSedDocument.models,
+          simulations: serializedSedDocument.simulations,
+          tasks: serializedSedDocument.tasks,
+          dataGenerators: serializedSedDocument.dataGenerators,
+          outputs: serializedSedDocument.outputs,
+        });
+      },
+    );
 
     for (const sedDocument of sedDocuments) {
       for (let iSim = 0; iSim < sedDocument.simulations.length; iSim++) {

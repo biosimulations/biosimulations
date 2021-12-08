@@ -2693,6 +2693,7 @@ components:
       - outputId
       - type
       - data
+      - _type
       type: object
       properties:
         _type:
@@ -3823,10 +3824,14 @@ components:
           type: string
         parameters:
           description: Parameters of the mathematical expression
-          type: string
+          type: array
+          items:
+            $ref: '#/components/schemas/SedParameter'
         variables:
           description: Variables of the mathematical expression
-          type: string
+          type: array
+          items:
+            $ref: '#/components/schemas/SedVariable'
         range:
           description: Identifier for the range used in the mathematical expression
           type: string
@@ -3851,7 +3856,7 @@ components:
           value: 2
         variables: []
         range: range
-        math: p* range
+        math: p * range
     CombineArchiveLog:
       required:
       - status

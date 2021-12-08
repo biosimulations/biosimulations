@@ -12,7 +12,7 @@ import {
   SedDataGenerator,
   SedOutput,
   CombineArchiveSedDocSpecsContent,
-} from '@biosimulations/combine-api-client';
+} from '@biosimulations/combine-api-nest-client';
 import { SimulationRunService } from '@biosimulations/api-nest-client';
 import { SimulationRunSedDocumentInput } from '@biosimulations/ontology/datamodel';
 

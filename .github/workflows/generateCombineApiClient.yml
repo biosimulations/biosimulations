@@ -28,8 +28,11 @@ jobs:
       - name: Install Nrwl CLI
         run: npm install -g @nrwl/cli
 
-      - name: Build client
-        run: tools/generate-combine-client
+      - name: Build Nest client
+        run: tools/generate-combine-api-nest-client
+
+      - name: Build Angular client
+        run: tools/generate-combine-api-angular-client
 
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v4
@@ -41,8 +44,8 @@ jobs:
       - name: Commit and push changes
         uses: EndBug/add-and-commit@v7.5.0
         with:
-          add: "['libs/combine/api-client/src/lib/api/', 'libs/combine/api-client/src/lib/model/']"
-          message: 'refactor(combine-api): update client'
+          add: "['libs/combine-api/nest-client/src/lib/api/', 'libs/combine-api/nest-client/src/lib/model/', 'libs/combine-api/nest-angular/src/lib/api/', 'libs/combine-api/nest-angular/src/lib/model/']"
+          message: 'refactor(combine-api): update clients'
           author_name: BioSimulations-Daemon
           author_email: biosimulationsdaemon@gmail.com
           signoff: true

@@ -21,6 +21,12 @@ import {
   SedAlgorithmParameterChange as ISedAlgorithmParameterChange,
   SerializedSedTask as ISedTask,
   SerializedSedRepeatedTask as ISedRepeatedTask,
+  SerializedSedFunctionalRange as ISedFunctionalRange,
+  SedUniformRange as ISedUniformRange,
+  SedUniformRangeType,
+  SedVectorRange as ISedVectorRange,
+  SerializedSedSetValueComputeModelChange as ISedSetValueComputeModelChange,
+  SerializedSedSubTask as ISedSubTask,
   SerializedSedDataGenerator as ISedDataGenerator,
   SerializedSedReport as ISedReport,
   SerializedSedPlot2D as ISedPlot2D,
@@ -135,6 +141,9 @@ export class SedVariable implements ISedVariable {
 
   @Prop({ type: String, required: true, default: undefined })
   public task!: string;
+
+  @Prop({ type: String, required: false, default: undefined })
+  public model?: string;
 }
 
 export const SedVariableSchema = SchemaFactory.createForClass(SedVariable);
@@ -194,7 +203,9 @@ export const SedAddElementModelChangeSchema = SchemaFactory.createForClass(
   storeSubdocValidationError: false,
   strict: 'throw',
 })
-export class SedReplaceElementModelChange implements ISedReplaceElementModelChange {
+export class SedReplaceElementModelChange
+  implements ISedReplaceElementModelChange
+{
   public _type!: 'SedReplaceElementModelChange';
 
   @Prop({ type: String, required: true, default: undefined })
@@ -219,7 +230,9 @@ export const SedReplaceElementModelChangeSchema = SchemaFactory.createForClass(
   storeSubdocValidationError: false,
   strict: 'throw',
 })
-export class SedRemoveElementModelChange implements ISedRemoveElementModelChange {
+export class SedRemoveElementModelChange
+  implements ISedRemoveElementModelChange
+{
   public _type!: 'SedRemoveElementModelChange';
 
   @Prop({ type: String, required: true, default: undefined })
@@ -543,6 +556,180 @@ export const SedTaskSchema = SchemaFactory.createForClass(SedTask);
   storeSubdocValidationError: false,
   strict: 'throw',
 })
+export class SedFunctionalRange implements ISedFunctionalRange {
+  public _type!: 'SedFunctionalRange';
+
+  @Prop({ type: String, required: true, default: undefined })
+  public id!: string;
+
+  @Prop({ type: String, required: false, default: undefined })
+  public name?: string;
+
+  @Prop({ type: String, required: true, default: undefined })
+  public range!: string;
+
+  @Prop({ type: [SedParameterSchema], required: true, default: undefined })
+  public parameters!: SedParameter[];
+
+  @Prop({ type: [SedVariableSchema], required: true, default: undefined })
+  public variables!: SedVariable[];
+
+  @Prop({ type: String, required: true, default: undefined })
+  public math!: string;
+}
+
+export const SedFunctionalRangeSchema =
+  SchemaFactory.createForClass(SedFunctionalRange);
+
+@Schema({
+  _id: false,
+  storeSubdocValidationError: false,
+  strict: 'throw',
+})
+export class SedUniformRange implements ISedUniformRange {
+  public _type!: 'SedUniformRange';
+
+  @Prop({ type: String, required: true, default: undefined })
+  public id!: string;
+
+  @Prop({ type: String, required: false, default: undefined })
+  public name?: string;
+
+  @Prop({ type: Number, required: true, default: undefined })
+  public start!: number;
+
+  @Prop({ type: Number, required: true, default: undefined })
+  public end!: number;
+
+  @Prop({ type: Number, required: true, default: undefined })
+  public numberOfSteps!: number;
+
+  @Prop({
+    type: String,
+    enum: SedUniformRangeType,
+    required: true,
+    default: undefined,
+  })
+  public type!: SedUniformRangeType;
+}
+
+export const SedUniformRangeSchema =
+  SchemaFactory.createForClass(SedUniformRange);
+
+@Schema({
+  _id: false,
+  storeSubdocValidationError: false,
+  strict: 'throw',
+})
+export class SedVectorRange implements ISedVectorRange {
+  public _type!: 'SedVectorRange';
+
+  @Prop({ type: String, required: true, default: undefined })
+  public id!: string;
+
+  @Prop({ type: String, required: false, default: undefined })
+  public name?: string;
+
+  @Prop({ type: [Number], required: true, default: undefined })
+  public values!: number[];
+}
+
+export const SedVectorRangeSchema =
+  SchemaFactory.createForClass(SedVectorRange);
+
+export type SedRangeTypes =
+  | SedFunctionalRange
+  | SedUniformRange
+  | SedVectorRange;
+
+@Schema({
+  _id: false,
+  storeSubdocValidationError: false,
+  strict: 'throw',
+  discriminatorKey: '_type',
+})
+export class SedRange {
+  @Prop({
+    type: String,
+    enum: [SedFunctionalRange.name, SedUniformRange.name, SedVectorRange.name],
+    required: true,
+    default: undefined,
+  })
+  public _type!: string;
+
+  @Prop({ type: String, required: true, default: undefined })
+  public id!: string;
+
+  @Prop({ type: String, required: false, default: undefined })
+  public name?: string;
+}
+
+export const SedRangeSchema = SchemaFactory.createForClass(SedRange);
+
+@Schema({
+  _id: false,
+  storeSubdocValidationError: false,
+  strict: 'throw',
+})
+export class SedSetValueComputeModelChange
+  implements ISedSetValueComputeModelChange
+{
+  public _type!: 'SedSetValueComputeModelChange';
+
+  @Prop({ type: String, required: true, default: undefined })
+  public id!: string;
+
+  @Prop({ type: String, required: false, default: undefined })
+  public name?: string;
+
+  @Prop({ type: String, required: true, default: undefined })
+  public model!: string;
+
+  @Prop({ type: SedTargetSchema, required: true, default: undefined })
+  public target!: SedTarget;
+
+  @Prop({ type: String, required: false, default: undefined })
+  public symbol?: string;
+
+  @Prop({ type: String, required: false, default: undefined })
+  public range?: string;
+
+  @Prop({ type: [SedParameterSchema], required: true, default: undefined })
+  public parameters!: SedParameter[];
+
+  @Prop({ type: [SedVariableSchema], required: true, default: undefined })
+  public variables!: SedVariable[];
+
+  @Prop({ type: String, required: true, default: undefined })
+  public math!: string;
+}
+
+export const SedSetValueComputeModelChangeSchema = SchemaFactory.createForClass(
+  SedSetValueComputeModelChange,
+);
+
+@Schema({
+  _id: false,
+  storeSubdocValidationError: false,
+  strict: 'throw',
+})
+export class SedSubTask implements ISedSubTask {
+  public _type!: 'SedSubTask';
+
+  @Prop({ type: String, required: true, default: undefined })
+  public task!: string;
+
+  @Prop({ type: Number, required: true, default: undefined })
+  public order!: number;
+}
+
+export const SedSubTaskSchema = SchemaFactory.createForClass(SedSubTask);
+
+@Schema({
+  _id: false,
+  storeSubdocValidationError: false,
+  strict: 'throw',
+})
 export class SedRepeatedTask implements ISedRepeatedTask {
   public _type!: 'SedRepeatedTask';
 
@@ -551,6 +738,25 @@ export class SedRepeatedTask implements ISedRepeatedTask {
 
   @Prop({ type: String, required: false, default: undefined })
   public name?: string;
+
+  @Prop({ type: [SedRangeSchema], required: true, default: undefined })
+  public ranges!: SedRangeTypes[];
+
+  @Prop({ type: String, required: true, default: undefined })
+  public range!: string;
+
+  @Prop({ type: Boolean, required: true, default: undefined })
+  public resetModelForEachIteration!: boolean;
+
+  @Prop({
+    type: [SedSetValueComputeModelChangeSchema],
+    required: true,
+    default: undefined,
+  })
+  public changes!: SedSetValueComputeModelChange[];
+
+  @Prop({ type: [SedSubTaskSchema], required: true, default: undefined })
+  public subTasks!: SedSubTask[];
 }
 
 export const SedRepeatedTaskSchema =
@@ -567,10 +773,7 @@ export type SedAbstractTaskTypes = SedTask | SedRepeatedTask;
 export class SedAbstractTask {
   @Prop({
     type: String,
-    enum: [
-      SedTask.name,
-      SedRepeatedTask.name
-    ],
+    enum: [SedTask.name, SedRepeatedTask.name],
     required: true,
     default: undefined,
   })
@@ -984,6 +1187,22 @@ sedModelChangeArraySchema.discriminator(
   SedComputeModelChange.name,
   SedComputeModelChangeSchema,
 );
+
+SedRangeSchema.discriminators = {};
+SedRangeSchema.discriminators[SedFunctionalRange.name] =
+  SedFunctionalRangeSchema;
+SedRangeSchema.discriminators[SedUniformRange.name] = SedUniformRangeSchema;
+SedRangeSchema.discriminators[SedVectorRange.name] = SedVectorRangeSchema;
+
+const sedRangeArraySchema = SedRepeatedTaskSchema.path(
+  'ranges',
+) as MongooseSchema.Types.DocumentArray;
+sedRangeArraySchema.discriminator(
+  SedFunctionalRange.name,
+  SedFunctionalRangeSchema,
+);
+sedRangeArraySchema.discriminator(SedUniformRange.name, SedUniformRangeSchema);
+sedRangeArraySchema.discriminator(SedVectorRange.name, SedVectorRangeSchema);
 
 SedAbstractTaskSchema.discriminators = {};
 SedAbstractTaskSchema.discriminators[SedTask.name] = SedTaskSchema;

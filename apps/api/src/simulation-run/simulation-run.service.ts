@@ -795,14 +795,16 @@ export class SimulationRunService {
           ? simulationExpt.id.substring(2)
           : simulationExpt.id;
 
-        const modelMap: {[id: string]: SedModel} = {};
-        const simulationMap: {[id: string]: SedSimulation} = {};
+        const modelMap: { [id: string]: SedModel } = {};
+        const simulationMap: { [id: string]: SedSimulation } = {};
         simulationExpt.models.forEach((model: SedModel): void => {
           modelMap[model.id] = model;
         });
-        simulationExpt.simulations.forEach((simulation: SedSimulation): void => {
-          simulationMap[simulation.id] = simulation;
-        });
+        simulationExpt.simulations.forEach(
+          (simulation: SedSimulation): void => {
+            simulationMap[simulation.id] = simulation;
+          },
+        );
 
         simulationExpt.tasks
           .flatMap((task: SedAbstractTask): SedTask[] => {
@@ -830,7 +832,7 @@ export class SimulationRunService {
                 break;
               }
             }
-            
+
             const algorithmKisaoId =
               taskAlgorithmMap[uri] || simulation.algorithm.kisaoId;
             const algorithmKisaoTerm = this.ontologiesService.getOntologyTerm(
@@ -859,7 +861,9 @@ export class SimulationRunService {
               simulation: {
                 type: {
                   id: simulation._type,
-                  name: SimulationTypeName[simulation._type as keyof typeof SimulationTypeName],
+                  name: SimulationTypeName[
+                    simulation._type as keyof typeof SimulationTypeName
+                  ],
                   url: 'https://sed-ml.org/',
                 },
                 uri: uri,

@@ -47,31 +47,31 @@ import { HtmlSnackBarComponent } from '@biosimulations/shared/ui';
 import { FileInput } from 'ngx-material-file-input';
 import {
   SedDocument,
-  SedDocumentType,
+  SedDocumentTypeEnum as SedDocumentType,
   SedModelChange,
   SedModelAttributeChange,
-  SedModelAttributeChangeType,
+  SedModelAttributeChangeTypeEnum as SedModelAttributeChangeType,
   SedSimulation,
-  SedOneStepSimulationType,
-  SedSteadyStateSimulationType,
-  SedUniformTimeCourseSimulationType,
+  SedOneStepSimulationTypeEnum as SedOneStepSimulationType,
+  SedSteadyStateSimulationTypeEnum as SedSteadyStateSimulationType,
+  SedUniformTimeCourseSimulationTypeEnum as SedUniformTimeCourseSimulationType,
   SedAlgorithm,
-  SedAlgorithmType,
+  SedAlgorithmTypeEnum as SedAlgorithmType,
   SedTask,
-  SedTaskType,
+  SedTaskTypeEnum as SedTaskType,
   SedDataGenerator,
-  SedDataGeneratorType,
+  SedDataGeneratorTypeEnum as SedDataGeneratorType,
   SedOutput,
   SedReport,
-  SedReportType,
+  SedReportTypeEnum as SedReportType,
   SedDataSet,
-  SedDataSetType,
+  SedDataSetTypeEnum as SedDataSetType,
   SedVariable,
-  SedVariableType,
-  SedTargetType,
+  SedVariableTypeEnum as SedVariableType,
+  SedTargetTypeEnum as SedTargetType,
   Namespace,
-  NamespaceType,
-} from '@biosimulations/combine-api-client';
+  NamespaceTypeEnum as NamespaceType,
+} from '@biosimulations/combine-api-angular-client';
 
 enum LocationType {
   file = 'file',
@@ -732,29 +732,35 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
         const changeVals: any[] = [];
         const varVals: any[] = [];
 
-        sedDoc?.models?.[0]?.changes?.forEach((change: SedModelChange): void => {
-          if (change._type === SedModelAttributeChangeType.SedModelAttributeChange) { // TODO: extend to other types of changes
-            change.target?.namespaces?.forEach((ns: Namespace): void => {
-              const prefixKey = ns.prefix || '';
-              if (!(prefixKey in nsMap)) {
-                this.addModelNamespace();
-              }
-              nsMap[prefixKey] = {
-                prefix: ns?.prefix || null,
-                uri: ns.uri,
-              };
-            });
+        sedDoc?.models?.[0]?.changes?.forEach(
+          (change: SedModelChange): void => {
+            if (
+              change._type ===
+              SedModelAttributeChangeType.SedModelAttributeChange
+            ) {
+              // TODO: extend to other types of changes
+              change.target?.namespaces?.forEach((ns: Namespace): void => {
+                const prefixKey = ns.prefix || '';
+                if (!(prefixKey in nsMap)) {
+                  this.addModelNamespace();
+                }
+                nsMap[prefixKey] = {
+                  prefix: ns?.prefix || null,
+                  uri: ns.uri,
+                };
+              });
 
-            this.addModelChange();
-            changeVals.push({
-              target: change.target.value,
-              id: change.id,
-              name: change?.name || null,
-              default: change.newValue,
-              newValue: null,
-            });
-          }
-        });
+              this.addModelChange();
+              changeVals.push({
+                target: change.target.value,
+                id: change.id,
+                name: change?.name || null,
+                default: change.newValue,
+                newValue: null,
+              });
+            }
+          },
+        );
 
         const simulation = sedDoc?.simulations?.[0];
 
@@ -789,10 +795,12 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
           }
         }
 
-        const dataGeneratorsMap: {[id: string]: SedDataGenerator} = {};
-        sedDoc?.dataGenerators?.forEach((dataGenerator: SedDataGenerator): void => {
-          dataGeneratorsMap[dataGenerator.id] = dataGenerator;
-        });
+        const dataGeneratorsMap: { [id: string]: SedDataGenerator } = {};
+        sedDoc?.dataGenerators?.forEach(
+          (dataGenerator: SedDataGenerator): void => {
+            dataGeneratorsMap[dataGenerator.id] = dataGenerator;
+          },
+        );
 
         sedDoc?.outputs
           ?.flatMap((output: SedOutput): SedReport[] => {
@@ -801,13 +809,12 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
             } else {
               return [];
             }
-          })
-          ?.[0]
-          .dataSets
-          ?.forEach((dataSet: SedDataSet): void => {
-            console.log(dataGeneratorsMap)
-            console.log(dataSet)
-            const modelVar = dataGeneratorsMap[dataSet.dataGenerator].variables[0];
+          })?.[0]
+          .dataSets?.forEach((dataSet: SedDataSet): void => {
+            console.log(dataGeneratorsMap);
+            console.log(dataSet);
+            const modelVar =
+              dataGeneratorsMap[dataSet.dataGenerator].variables[0];
 
             modelVar?.target?.namespaces?.forEach((ns: Namespace): void => {
               const prefixKey = ns.prefix || '';
@@ -1623,7 +1630,10 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     };
 
     let simulation: SedSimulation;
-    if (simulationTypeControl.value === SedOneStepSimulationType.SedOneStepSimulation) {
+    if (
+      simulationTypeControl.value ===
+      SedOneStepSimulationType.SedOneStepSimulation
+    ) {
       const oneStepSimulationParametersGroup = this.formGroup.controls
         .oneStepSimulationParameters as FormGroup;
       simulation = {
@@ -1632,7 +1642,10 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
         step: oneStepSimulationParametersGroup.controls.step.value,
         algorithm: algorithm,
       };
-    } else if (simulationTypeControl.value === SedSteadyStateSimulationType.SedSteadyStateSimulation) {
+    } else if (
+      simulationTypeControl.value ===
+      SedSteadyStateSimulationType.SedSteadyStateSimulation
+    ) {
       simulation = {
         _type: SedSteadyStateSimulationType.SedSteadyStateSimulation,
         id: 'simulation',
@@ -1642,12 +1655,20 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       const uniformTimeCourseSimulationParametersGroup = this.formGroup.controls
         .uniformTimeCourseSimulationParameters as FormGroup;
       simulation = {
-        _type: SedUniformTimeCourseSimulationType.SedUniformTimeCourseSimulation,
+        _type:
+          SedUniformTimeCourseSimulationType.SedUniformTimeCourseSimulation,
         id: 'simulation',
-        initialTime: uniformTimeCourseSimulationParametersGroup.controls.initialTime.value,
-        outputStartTime: uniformTimeCourseSimulationParametersGroup.controls.outputStartTime.value,
-        outputEndTime: uniformTimeCourseSimulationParametersGroup.controls.outputEndTime.value,
-        numberOfSteps: uniformTimeCourseSimulationParametersGroup.controls.numberOfSteps.value,
+        initialTime:
+          uniformTimeCourseSimulationParametersGroup.controls.initialTime.value,
+        outputStartTime:
+          uniformTimeCourseSimulationParametersGroup.controls.outputStartTime
+            .value,
+        outputEndTime:
+          uniformTimeCourseSimulationParametersGroup.controls.outputEndTime
+            .value,
+        numberOfSteps:
+          uniformTimeCourseSimulationParametersGroup.controls.numberOfSteps
+            .value,
         algorithm: algorithm,
       };
     }
