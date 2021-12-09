@@ -1,3 +1,4 @@
+import { UV_FS_O_FILEMAP } from 'constants';
 import { Endpoints } from './endpoints';
 describe('Endpoints', () => {
   let endpoints: Endpoints;
@@ -61,5 +62,48 @@ describe('Endpoints', () => {
     expect(
       endpoints.getSimulationRunContentFileS3Path('testSim', 'testFile'),
     ).toBe('simulations/testSim/contents/testFile');
+  });
+
+  it('Should return correct ontology url based on app', () => {
+    expect(endpoints.getOntologyEndpoint('simulators', true)).toBe(
+      'externalSimulatorsApi/ontologies',
+    );
+    expect(endpoints.getOntologyEndpoint('simulations', true)).toBe(
+      'externalApi/ontologies',
+    );
+  });
+
+  it('Should return correct ontology url for ontology name', () => {
+    expect(endpoints.getOntologyEndpoint('simulators', true, 'KISAO')).toBe(
+      'externalSimulatorsApi/ontologies/KISAO',
+    );
+  });
+
+  it('Should return correct ontology url for ontology term', () => {
+    expect(
+      endpoints.getOntologyEndpoint(
+        'simulators',
+        true,
+        'KISAO',
+        'KISAO_0000019',
+      ),
+    ).toBe('externalSimulatorsApi/ontologies/KISAO/KISAO_0000019');
+  });
+
+  it('Should return throw error for ontology term without ontology name', () => {
+    expect(() => {
+      endpoints.getOntologyEndpoint(
+        'simulators',
+        true,
+        undefined,
+        'KISAO_0000019',
+      );
+    }).toThrow('Cannot get a term without an ontology id');
+  });
+
+  it('Should return correct ontology url for ontology terms', () => {
+    expect(endpoints.getOntologyTermsEndpoint('simulators', true)).toBe(
+      'externalSimulatorsApi/ontologies/terms',
+    );
   });
 });
