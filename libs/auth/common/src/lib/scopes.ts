@@ -37,6 +37,11 @@ export const scopes: Scopes = {
       id: 'delete:Simulators',
       description: 'Delete simulation tools',
     },
+    deleteAll: {
+      audience: BIOSIMULATORS_AUDIENCE,
+      id: 'deleteAll:Simulators',
+      description: 'Delete all simulation tools',
+    },
   },
   images: {
     refresh: {
