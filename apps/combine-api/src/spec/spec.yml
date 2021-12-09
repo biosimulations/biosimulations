@@ -1799,7 +1799,6 @@ components:
       - _type
       - newValue
       - target
-      - id
       type: object
       properties:
         _type:
@@ -2969,7 +2968,6 @@ components:
       required:
       - _type
       - target
-      - id
       type: object
       properties:
         _type:
@@ -3003,7 +3001,6 @@ components:
       - _type
       - newElements
       - target
-      - id
       type: object
       properties:
         _type:
@@ -3072,7 +3069,6 @@ components:
       - _type
       - newElements
       - target
-      - id
       type: object
       properties:
         _type:
@@ -3126,7 +3122,6 @@ components:
       required:
       - _type
       - target
-      - id
       - math
       - variables
       - parameters
@@ -3794,7 +3789,6 @@ components:
       description: Dynamic change to an attribute of a model
       required:
       - _type
-      - id
       - model
       - target
       - parameters

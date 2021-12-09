@@ -156,8 +156,8 @@ export const SedVariableSchema = SchemaFactory.createForClass(SedVariable);
 export class SedModelAttributeChange implements ISedModelAttributeChange {
   public _type!: 'SedModelAttributeChange';
 
-  @Prop({ type: String, required: true, default: undefined })
-  public id!: string;
+  @Prop({ type: String, required: false, default: undefined })
+  public id?: string;
 
   @Prop({ type: String, required: false, default: undefined })
   public name?: string;
@@ -181,8 +181,8 @@ export const SedModelAttributeChangeSchema = SchemaFactory.createForClass(
 export class SedAddElementModelChange implements ISedAddElementModelChange {
   public _type!: 'SedAddElementModelChange';
 
-  @Prop({ type: String, required: true, default: undefined })
-  public id!: string;
+  @Prop({ type: String, required: false, default: undefined })
+  public id?: string;
 
   @Prop({ type: String, required: false, default: undefined })
   public name?: string;
@@ -208,8 +208,8 @@ export class SedReplaceElementModelChange
 {
   public _type!: 'SedReplaceElementModelChange';
 
-  @Prop({ type: String, required: true, default: undefined })
-  public id!: string;
+  @Prop({ type: String, required: false, default: undefined })
+  public id?: string;
 
   @Prop({ type: String, required: false, default: undefined })
   public name?: string;
@@ -235,8 +235,8 @@ export class SedRemoveElementModelChange
 {
   public _type!: 'SedRemoveElementModelChange';
 
-  @Prop({ type: String, required: true, default: undefined })
-  public id!: string;
+  @Prop({ type: String, required: false, default: undefined })
+  public id?: string;
 
   @Prop({ type: String, required: false, default: undefined })
   public name?: string;
@@ -257,8 +257,8 @@ export const SedRemoveElementModelChangeSchema = SchemaFactory.createForClass(
 export class SedComputeModelChange implements ISedComputeModelChange {
   public _type!: 'SedComputeModelChange';
 
-  @Prop({ type: String, required: true, default: undefined })
-  public id!: string;
+  @Prop({ type: String, required: false, default: undefined })
+  public id?: string;
 
   @Prop({ type: String, required: false, default: undefined })
   public name?: string;
@@ -676,8 +676,8 @@ export class SedSetValueComputeModelChange
 {
   public _type!: 'SedSetValueComputeModelChange';
 
-  @Prop({ type: String, required: true, default: undefined })
-  public id!: string;
+  @Prop({ type: String, required: false, default: undefined })
+  public id?: string;
 
   @Prop({ type: String, required: false, default: undefined })
   public name?: string;

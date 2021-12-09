@@ -12,7 +12,7 @@ export interface SedTarget {
 
 export interface SedModelAttributeChange {
   _type: 'SedModelAttributeChange';
-  id: string;
+  id?: string;
   name?: string;
   target: SedTarget;
   newValue: string;
@@ -20,7 +20,7 @@ export interface SedModelAttributeChange {
 
 export interface SedAddElementModelChange {
   _type: 'SedAddElementModelChange';
-  id: string;
+  id?: string;
   name?: string;
   target: SedTarget;
   newElements: string[];
@@ -28,7 +28,7 @@ export interface SedAddElementModelChange {
 
 export interface SedReplaceElementModelChange {
   _type: 'SedReplaceElementModelChange';
-  id: string;
+  id?: string;
   name?: string;
   target: SedTarget;
   newElements: string[];
@@ -36,14 +36,14 @@ export interface SedReplaceElementModelChange {
 
 export interface SedRemoveElementModelChange {
   _type: 'SedRemoveElementModelChange';
-  id: string;
+  id?: string;
   name?: string;
   target: SedTarget;
 }
 
 export interface SedComputeModelChange {
   _type: 'SedComputeModelChange';
-  id: string;
+  id?: string;
   name?: string;
   target: SedTarget;
   parameters: SedParameter[];
@@ -203,7 +203,7 @@ export type SerializedSedRange =
 
 export interface SedSetValueComputeModelChange {
   _type: 'SedSetValueComputeModelChange';
-  id: string;
+  id?: string;
   name?: string;
   model: SedModel;
   target: SedTarget;

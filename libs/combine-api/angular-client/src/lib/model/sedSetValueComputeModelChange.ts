@@ -24,7 +24,7 @@ export interface SedSetValueComputeModelChange {
   /**
    * Unique identifier within its parents SED document.
    */
-  id: string;
+  id?: string;
   /**
    * Brief description
    */

@@ -23,7 +23,7 @@ export interface SedReplaceElementModelChange {
   /**
    * Unique identifier within its parents SED document.
    */
-  id: string;
+  id?: string;
   /**
    * Brief description
    */

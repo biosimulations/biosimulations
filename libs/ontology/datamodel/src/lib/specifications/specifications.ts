@@ -159,8 +159,9 @@ export class SedModelAttributeChange implements ISedModelAttributeChange {
   public _type!: 'SedModelAttributeChange';
 
   @ApiProperty({ type: String })
+  @IsOptional()
   @IsString()
-  public id!: string;
+  public id?: string;
 
   @ApiProperty({ type: String, required: false, nullable: true })
   @IsOptional()
@@ -183,8 +184,9 @@ export class SedAddElementModelChange implements ISedAddElementModelChange {
   public _type!: 'SedAddElementModelChange';
 
   @ApiProperty({ type: String })
+  @IsOptional()
   @IsString()
-  public id!: string;
+  public id?: string;
 
   @ApiProperty({ type: String, required: false, nullable: true })
   @IsOptional()
@@ -209,8 +211,9 @@ export class SedReplaceElementModelChange
   public _type!: 'SedReplaceElementModelChange';
 
   @ApiProperty({ type: String })
+  @IsOptional()
   @IsString()
-  public id!: string;
+  public id?: string;
 
   @ApiProperty({ type: String, required: false, nullable: true })
   @IsOptional()
@@ -235,8 +238,9 @@ export class SedRemoveElementModelChange
   public _type!: 'SedRemoveElementModelChange';
 
   @ApiProperty({ type: String })
+  @IsOptional()
   @IsString()
-  public id!: string;
+  public id?: string;
 
   @ApiProperty({ type: String, required: false, nullable: true })
   @IsOptional()
@@ -255,8 +259,9 @@ export class SedComputeModelChange implements ISedComputeModelChange {
   public _type!: 'SedComputeModelChange';
 
   @ApiProperty({ type: String })
+  @IsOptional()
   @IsString()
-  public id!: string;
+  public id?: string;
 
   @ApiProperty({ type: String, required: false, nullable: true })
   @IsOptional()
@@ -610,8 +615,9 @@ export class SedSetValueComputeModelChange
   public _type!: 'SedSetValueComputeModelChange';
 
   @ApiProperty({ type: String })
+  @IsOptional()
   @IsString()
-  public id!: string;
+  public id?: string;
 
   @ApiProperty({ type: String, required: false, nullable: true })
   @IsOptional()
