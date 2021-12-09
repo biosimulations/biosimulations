@@ -3,7 +3,8 @@ import { ConfigService } from '@nestjs/config';
 import { InjectS3, S3 } from 'nestjs-s3';
 import * as AWS from 'aws-sdk';
 import { AWSError } from 'aws-sdk';
-
+import { Readable } from 'stream';
+import unzipper from 'unzipper';
 @Injectable()
 export class SharedStorageService {
   private BUCKET: string;
@@ -48,9 +49,32 @@ export class SharedStorageService {
     }
   }
 
+  public async extractZipObject(
+    file: string,
+    destination: string,
+    isPrivate = false,
+  ): Promise<AWS.S3.ManagedUpload.SendData[]> {
+    const zipStream = await unzipper.Open.s3(this.s3, {
+      Bucket: this.BUCKET,
+      Key: file,
+    });
+    const promises: Promise<AWS.S3.ManagedUpload.SendData>[] = [];
+    for await (const entry of zipStream.files) {
+      const type = entry.type;
+      if (type === 'File') {
+        const fileName = entry.path;
+        const s3Path = `${destination}/${fileName}`;
+        const upload = this.putObject(s3Path, entry.stream(), isPrivate);
+        promises.push(upload);
+      }
+    }
+    const resolved = Promise.all(promises);
+    return resolved;
+  }
+
   public async putObject(
     id: string,
-    data: Buffer,
+    data: Buffer | Readable,
     isPrivate = false,
   ): Promise<AWS.S3.ManagedUpload.SendData> {
     const acl = isPrivate ? 'private' : 'public-read';

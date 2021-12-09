@@ -3,9 +3,11 @@ import S3, { ManagedUpload } from 'aws-sdk/clients/s3';
 import { SharedStorageService } from './shared-storage.service';
 import { Endpoints } from '@biosimulations/config/common';
 import { ConfigService } from '@nestjs/config';
+
 // hack to get typing to work see https://github.com/DefinitelyTyped/DefinitelyTyped/issues/47780
 // eslint-disable-next-line unused-imports/no-unused-imports-ts
 import multer from 'multer';
+
 @Injectable()
 export class SimulationStorageService {
   private endpoints: Endpoints;
@@ -45,9 +47,13 @@ export class SimulationStorageService {
     return file;
   }
 
-  public async extractSimulationArchive(file: string): Promise<any> {
-    const s3File = await this.storage.getObject(file);
-    this.logger.debug(`Extracting ${file}`);
+  public async extractSimulationArchive(id: string): Promise<string[]> {
+    const file = this.endpoints.getSimulationRunCombineArchiveS3Path(id);
+    const destination = this.endpoints.getSimulationRunContentFileS3Path(id);
+    this.logger.debug(`Extracting ${file} to ${destination}`);
+    const output = await this.storage.extractZipObject(file, destination);
+    const locations = output.map((file) => file.Location);
+    return locations;
   }
 
   public async uploadSimulationArchive(

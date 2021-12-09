@@ -287,7 +287,16 @@ export class SimulationRunService {
     try {
       const s3file =
         await this.simulationStorageService.uploadSimulationArchive(id, file);
-      await this.simulationStorageService.extractSimulationArchive(s3file.Key);
+      const uploadedArchiveContents =
+        await this.simulationStorageService.extractSimulationArchive(id);
+      this.logger.debug(
+        `Uploaded archive contents: ${JSON.stringify(uploadedArchiveContents)}`,
+      );
+
+      // At this point, we have the urls of all the files in the archive but we don't use them
+      // we can use this info to create the Files in the database rather than wait for post processing
+      // Can we read the manifest here, or is combine-api still needed?
+
       const url = encodeURI(s3file.Location);
 
       const simulationProjectFile = {
@@ -319,6 +328,7 @@ export class SimulationRunService {
   public async createRunWithURL(
     body: UploadSimulationRunUrl,
   ): Promise<SimulationRunModelReturnType> {
+    // TODO refactor this to make use of streams instead of reading the entire file into memory
     const url = body.url;
     // If the url provides the following information, grab it and store it in the database
     //! This does not address the security issues of downloading user provided urls.
@@ -330,6 +340,7 @@ export class SimulationRunService {
 
     this.logger.debug(`Downloading file from ${url} ...`);
     const file = await firstValueFrom(
+      // TODO set the max content length for the request using axios options
       this.httpService.get(url, {
         responseType: 'arraybuffer',
       }),
@@ -573,7 +584,7 @@ export class SimulationRunService {
   private async getModel(id: string): Promise<SimulationRunModel | null> {
     return this.simulationRunModel.findById(id).catch((_) => null);
   }
-
+// TODO clean lint warning below and update warning to errors
   public async getRunSummaries(
     raiseErrors = false,
   ): Promise<SimulationRunSummary[]> {
