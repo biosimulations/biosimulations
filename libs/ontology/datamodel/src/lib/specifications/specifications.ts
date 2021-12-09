@@ -55,6 +55,7 @@ import {
   IsPositive,
   IsArray,
   IsBoolean,
+  IsNotEmpty,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { IsOntologyTerm } from '@biosimulations/ontology/utils';
@@ -71,6 +72,7 @@ export class Namespace implements INamespace {
     nullable: true,
   })
   @IsOptional()
+  @IsNotEmpty()
   @IsString()
   public prefix?: string;
 
@@ -91,6 +93,7 @@ export class SedTarget implements ISedTarget {
   public _type!: 'SedTarget';
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public value!: string;
 
@@ -106,6 +109,7 @@ export class SedParameter implements ISedParameter {
   public _type!: 'SedParameter';
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public id!: string;
 
@@ -125,6 +129,7 @@ export class SedVariable implements ISedVariable {
   public _type!: 'SedVariable';
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public id!: string;
 
@@ -135,6 +140,7 @@ export class SedVariable implements ISedVariable {
 
   @ApiProperty({ type: String, required: false, nullable: true })
   @IsOptional()
+  @IsNotEmpty()
   @IsString()
   public symbol?: string;
 
@@ -144,11 +150,13 @@ export class SedVariable implements ISedVariable {
   public target?: SedTarget;
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public task!: string;
 
   @ApiProperty({ type: String })
   @IsOptional()
+  @IsNotEmpty()
   @IsString()
   public model?: string;
 }
@@ -160,6 +168,7 @@ export class SedModelAttributeChange implements ISedModelAttributeChange {
 
   @ApiProperty({ type: String })
   @IsOptional()
+  @IsNotEmpty()
   @IsString()
   public id?: string;
 
@@ -185,6 +194,7 @@ export class SedAddElementModelChange implements ISedAddElementModelChange {
 
   @ApiProperty({ type: String })
   @IsOptional()
+  @IsNotEmpty()
   @IsString()
   public id?: string;
 
@@ -199,7 +209,8 @@ export class SedAddElementModelChange implements ISedAddElementModelChange {
   public target!: SedTarget;
 
   @ApiProperty({ type: [String] })
-  @IsString()
+  @IsString({ each: true })
+  @IsArray()
   public newElements!: string[];
 }
 
@@ -212,6 +223,7 @@ export class SedReplaceElementModelChange
 
   @ApiProperty({ type: String })
   @IsOptional()
+  @IsNotEmpty()
   @IsString()
   public id?: string;
 
@@ -226,7 +238,8 @@ export class SedReplaceElementModelChange
   public target!: SedTarget;
 
   @ApiProperty({ type: [String] })
-  @IsString()
+  @IsString({ each: true })
+  @IsArray()
   public newElements!: string[];
 }
 
@@ -239,6 +252,7 @@ export class SedRemoveElementModelChange
 
   @ApiProperty({ type: String })
   @IsOptional()
+  @IsNotEmpty()
   @IsString()
   public id?: string;
 
@@ -260,6 +274,7 @@ export class SedComputeModelChange implements ISedComputeModelChange {
 
   @ApiProperty({ type: String })
   @IsOptional()
+  @IsNotEmpty()
   @IsString()
   public id?: string;
 
@@ -284,6 +299,7 @@ export class SedComputeModelChange implements ISedComputeModelChange {
   public variables!: SedVariable[];
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public math!: string;
 }
@@ -306,6 +322,7 @@ export class SedModel implements ISedModel {
   public _type!: 'SedModel';
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public id!: string;
 
@@ -315,10 +332,12 @@ export class SedModel implements ISedModel {
   public name?: string;
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public language!: string;
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public source!: string;
 
@@ -401,6 +420,7 @@ export class SedUniformTimeCourseSimulation
   public _type!: 'SedUniformTimeCourseSimulation';
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public id!: string;
 
@@ -438,6 +458,7 @@ export class SedSteadyStateSimulation implements ISedSteadyStateSimulation {
   public _type!: 'SedSteadyStateSimulation';
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public id!: string;
 
@@ -458,6 +479,7 @@ export class SedOneStepSimulation implements ISedOneStepSimulation {
   public _type!: 'SedOneStepSimulation';
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public id!: string;
 
@@ -495,6 +517,7 @@ export class SedTask implements ISedTask {
   public _type!: 'SedTask';
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public id!: string;
 
@@ -504,10 +527,12 @@ export class SedTask implements ISedTask {
   public name?: string;
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public model!: string;
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public simulation!: string;
 }
@@ -518,6 +543,7 @@ export class SedFunctionalRange implements ISedFunctionalRange {
   public _type!: 'SedFunctionalRange';
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public id!: string;
 
@@ -527,6 +553,7 @@ export class SedFunctionalRange implements ISedFunctionalRange {
   public name?: string;
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public range!: string;
 
@@ -541,6 +568,7 @@ export class SedFunctionalRange implements ISedFunctionalRange {
   public variables!: SedVariable[];
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public math!: string;
 }
@@ -551,6 +579,7 @@ export class SedUniformRange implements ISedUniformRange {
   public _type!: 'SedUniformRange';
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public id!: string;
 
@@ -560,11 +589,11 @@ export class SedUniformRange implements ISedUniformRange {
   public name?: string;
 
   @ApiProperty({ type: Number })
-  @IsString()
+  @IsNumber()
   public start!: number;
 
   @ApiProperty({ type: Number })
-  @IsString()
+  @IsNumber()
   public end!: number;
 
   @ApiProperty({ type: Number })
@@ -583,6 +612,7 @@ export class SedVectorRange implements ISedVectorRange {
   public _type!: 'SedVectorRange';
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public id!: string;
 
@@ -616,6 +646,7 @@ export class SedSetValueComputeModelChange
 
   @ApiProperty({ type: String })
   @IsOptional()
+  @IsNotEmpty()
   @IsString()
   public id?: string;
 
@@ -625,6 +656,7 @@ export class SedSetValueComputeModelChange
   public name?: string;
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public model!: string;
 
@@ -635,11 +667,13 @@ export class SedSetValueComputeModelChange
 
   @ApiProperty({ type: String })
   @IsOptional()
+  @IsNotEmpty()
   @IsString()
   public symbol?: string;
 
   @ApiProperty({ type: String })
   @IsOptional()
+  @IsNotEmpty()
   @IsString()
   public range?: string;
 
@@ -654,6 +688,7 @@ export class SedSetValueComputeModelChange
   public variables!: SedVariable[];
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public math!: string;
 }
@@ -664,6 +699,7 @@ export class SedSubTask implements ISedSubTask {
   public _type!: 'SedSubTask';
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public task!: string;
 
@@ -672,12 +708,16 @@ export class SedSubTask implements ISedSubTask {
   public order!: number;
 }
 
+@ApiExtraModels(SedFunctionalRange)
+@ApiExtraModels(SedUniformRange)
+@ApiExtraModels(SedVectorRange)
 export class SedRepeatedTask implements ISedRepeatedTask {
   @ApiProperty({ type: String, enum: ['SedRepeatedTask'] })
   @Equals('SedRepeatedTask')
   public _type!: 'SedRepeatedTask';
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public id!: string;
 
@@ -687,6 +727,7 @@ export class SedRepeatedTask implements ISedRepeatedTask {
   public name?: string;
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public range!: string;
 
@@ -744,6 +785,7 @@ export class SedDataGenerator implements ISedDataGenerator {
   public _type!: 'SedDataGenerator';
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public id!: string;
 
@@ -763,6 +805,7 @@ export class SedDataGenerator implements ISedDataGenerator {
   public variables!: SedVariable[];
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public math!: string;
 }
@@ -773,10 +816,12 @@ export class SedDataSet implements ISedDataSet {
   public _type!: 'SedDataSet';
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public id!: string;
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public dataGenerator!: string;
 
@@ -786,6 +831,7 @@ export class SedDataSet implements ISedDataSet {
   public name?: string;
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public label!: string;
 }
@@ -796,6 +842,7 @@ export class SedReport implements ISedReport {
   public _type!: 'SedReport';
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public id!: string;
 
@@ -816,6 +863,7 @@ export class SedCurve implements ISedCurve {
   public _type!: 'SedCurve';
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public id!: string;
 
@@ -825,10 +873,12 @@ export class SedCurve implements ISedCurve {
   public name?: string;
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public xDataGenerator!: string;
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public yDataGenerator!: string;
 }
@@ -839,6 +889,7 @@ export class SedPlot2D implements ISedPlot2D {
   public _type!: 'SedPlot2D';
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public id!: string;
 
@@ -867,6 +918,7 @@ export class SedSurface implements ISedSurface {
   public _type!: 'SedSurface';
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public id!: string;
 
@@ -876,14 +928,17 @@ export class SedSurface implements ISedSurface {
   public name?: string;
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public xDataGenerator!: string;
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public yDataGenerator!: string;
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public zDataGenerator!: string;
 }
@@ -894,6 +949,7 @@ export class SedPlot3D implements ISedPlot3D {
   public _type!: 'SedPlot3D';
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public id!: string;
 
@@ -942,6 +998,7 @@ export class SimulationRunSedDocumentInput
   implements ISimulationRunSedDocumentInput
 {
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public id!: string;
 
@@ -1044,6 +1101,7 @@ export class SimulationRunSedDocument
   implements ISimulationRunSedDocument
 {
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public simulationRun!: string;
 

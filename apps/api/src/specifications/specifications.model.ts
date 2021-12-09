@@ -674,6 +674,12 @@ export const SedRangeSchema = SchemaFactory.createForClass(SedRange);
 export class SedSetValueComputeModelChange
   implements ISedSetValueComputeModelChange
 {
+  @Prop({
+    type: String,
+    enum: ['SedSetValueComputeModelChange'],
+    required: true,
+    default: undefined,
+  })
   public _type!: 'SedSetValueComputeModelChange';
 
   @Prop({ type: String, required: false, default: undefined })
@@ -714,6 +720,12 @@ export const SedSetValueComputeModelChangeSchema = SchemaFactory.createForClass(
   strict: 'throw',
 })
 export class SedSubTask implements ISedSubTask {
+  @Prop({
+    type: String,
+    enum: ['SedSubTask'],
+    required: true,
+    default: undefined,
+  })
   public _type!: 'SedSubTask';
 
   @Prop({ type: String, required: true, default: undefined })

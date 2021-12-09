@@ -100,7 +100,6 @@ export class SpecificationsService {
     for (const spec of specs) {
       const newSpec = new this.model(spec);
       newSpec.simulationRun = runId;
-      await newSpec.save();
       createdSpecs.push(newSpec.save());
     }
     await Promise.all(createdSpecs);
