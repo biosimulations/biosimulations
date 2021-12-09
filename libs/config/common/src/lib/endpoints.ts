@@ -108,7 +108,7 @@ export class Endpoints {
     if (termId && !ontologyId) {
       throw new Error('Cannot get a term without an ontology id');
     }
-    return `${api}/${ontologyId}${termId}`;
+    return `${api}${ontologyId}${termId}`;
   }
 
   /**
