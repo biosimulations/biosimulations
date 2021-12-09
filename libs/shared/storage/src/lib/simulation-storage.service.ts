@@ -1,8 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
-import S3, { ManagedUpload } from 'aws-sdk/clients/s3';
+import S3 from 'aws-sdk/clients/s3';
 import { SharedStorageService } from './shared-storage.service';
 import { Endpoints } from '@biosimulations/config/common';
 import { ConfigService } from '@nestjs/config';
+import { Readable } from 'stream';
 
 // hack to get typing to work see https://github.com/DefinitelyTyped/DefinitelyTyped/issues/47780
 // eslint-disable-next-line unused-imports/no-unused-imports-ts
@@ -58,14 +59,13 @@ export class SimulationStorageService {
 
   public async uploadSimulationArchive(
     runId: string,
-    file: Express.Multer.File,
-  ): Promise<ManagedUpload.SendData> {
-    const filename = file.originalname;
+    file: Buffer | Readable,
+  ): Promise<string> {
     const s3File = await this.storage.putObject(
       this.endpoints.getSimulationRunCombineArchiveS3Path(runId),
-      file.buffer,
+      file,
     );
-    return s3File;
+    return s3File.Location;
   }
 
   public async deleteSimulationArchive(runId: string): Promise<void> {

@@ -22,12 +22,12 @@ import {
   Patch,
   Post,
   Req,
-  Res,
   UploadedFile,
   UnsupportedMediaTypeException,
   HttpCode,
   UseInterceptors,
   HttpStatus,
+  Redirect,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import {
@@ -49,7 +49,7 @@ import {
   ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
 } from '@nestjs/swagger';
-import { Response, Request } from 'express';
+import { Request } from 'express';
 import {
   SimulationRun,
   SimulationUpload,
@@ -164,7 +164,7 @@ export class SimulationRunController {
   @ApiPayloadTooLargeResponse({
     type: ErrorResponseDocument,
     description:
-      'The submitted COMBINE/OMEX archive file is too large. Uploaded archives must be less than 1 GB. Larger archives up to 5 TB may be submitted via URLs.',
+      'The submitted COMBINE/OMEX archive file is too large. Uploaded archives must be less than 1 GB.',
   })
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
@@ -195,7 +195,11 @@ export class SimulationRunController {
       const parsedRun = this.getRunForFile(body);
       projectId = parsedRun?.projectId;
       this.checkPublishProjectPermission(user, projectId);
-      run = await this.createRunWithFile(parsedRun, file);
+      run = await this.service.createRunWithFile(
+        parsedRun,
+        file.buffer,
+        file.size,
+      );
     } else if (
       contentType?.startsWith('application/json') &&
       this.isUrlBody(body)
@@ -264,12 +268,6 @@ export class SimulationRunController {
     }
   }
 
-  private async createRunWithFile(
-    run: UploadSimulationRun,
-    file: Express.Multer.File,
-  ): Promise<SimulationRunModelReturnType> {
-    return this.service.createRunWithFile(run, file);
-  }
   /**
    *  Creates the controllers return type SimulationRun
    * @param run The value that is returned from the service.
@@ -511,20 +509,18 @@ export class SimulationRunController {
       'The request was successfully redirected to download the COMBINE/OMEX archive for the run',
   })
   @ApiTags('Downloads')
-  public async download(
-    @Param('runId') runId: string,
-    @Res({ passthrough: true }) response: Response,
-  ): Promise<void> {
-    const file = await this.service.download(runId);
-    if (file.mimeType) {
-      response.setHeader('Content-Type', file.mimeType);
-    }
-    const contentDisposition = `attachment; filename=${runId}.omex`;
-    response.setHeader('Content-Disposition', contentDisposition);
-    if (file.size) {
-      response.setHeader('Content-Size', file.size);
-    }
-    response.redirect(file.url);
+  @Redirect()
+  // The return type is used by the redirect decorator
+  public async download(@Param('runId') runId: string): Promise<{
+    url: string;
+    statusCode: number;
+  }> {
+    const url = await this.service.getFileUrl(runId);
+
+    return {
+      url: url,
+      statusCode: 302,
+    };
   }
 
   @ApiOperation({
