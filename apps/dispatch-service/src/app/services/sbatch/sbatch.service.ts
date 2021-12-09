@@ -168,7 +168,7 @@ echo -e '${cyan}================================================== Zipping outpu
 srun --job-name="Zip-outputs" zip '${outputArchiveS3Subpath}' reports.h5 log.yml plots.zip job.output
 echo -e ''
 echo -e '${cyan}=================================================== Saving outputs ==================================================${nc}'
-export PYTHONWARNINGS="ignore"; srun --job-name="Save-outputs-to-S3" aws --no-verify-ssl --endpoint-url ${storageEndpoint} s3 sync --acl public-read --exclude "*.sbatch" --exclude "*.omex" . 's3://${storageBucket}/${simulationRunS3Path}' 
+export PYTHONWARNINGS="ignore"; srun --job-name="Save-outputs-to-S3" aws --no-verify-ssl --endpoint-url ${storageEndpoint} s3 sync --acl public-read --exclude "*.sbatch" --exclude "*.omex" . 's3://${storageBucket}/${simulationRunS3Path}'
 `;
 
     return template;
