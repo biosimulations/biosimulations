@@ -50,13 +50,13 @@ export class SharedStorageService {
   }
 
   public async extractZipObject(
-    file: string,
+    zipFile: string,
     destination: string,
     isPrivate = false,
   ): Promise<AWS.S3.ManagedUpload.SendData[]> {
     const zipStream = await unzipper.Open.s3(this.s3, {
       Bucket: this.BUCKET,
-      Key: file,
+      Key: zipFile,
     });
     const promises: Promise<AWS.S3.ManagedUpload.SendData>[] = [];
     for await (const entry of zipStream.files) {
