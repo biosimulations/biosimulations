@@ -43,7 +43,6 @@ export class SbatchService {
     combineArchiveFilename: string,
     workDirname: string,
   ): string {
-    const homeDir = this.configService.get('hpc.homeDir');
     const executablesPath = this.configService.get('hpc.executablesPath');
 
     const modulePath = this.configService.get('hpc.module.path');
@@ -61,7 +60,7 @@ export class SbatchService {
     );
 
     const storageBucket = this.configService.get('storage.bucket');
-    const storageEndpoint = this.configService.get('storage.externalEndpoint');
+    const storageEndpoint = this.configService.get('storage.endpoint');
 
     const hsdsBasePath = this.configService.get('data.externalBasePath');
     const hsdsUsername = this.configService.get('data.username');
@@ -128,8 +127,6 @@ export class SbatchService {
       runId,
     );
     const simulationRunS3Path = this.endpoints.getSimulationRunS3Path(runId);
-    const simulationRunContentS3Subpath =
-      this.endpoints.getSimulationRunContentS3Subpath();
     const simulationRunResultsHsdsPath =
       this.endpoints.getSimulationRunResultsHsdsPath(runId);
     const outputArchiveS3Subpath = this.endpoints.getSimulationRunOutputS3Path(
@@ -161,9 +158,6 @@ echo -e ''
 echo -e '${cyan}============================================ Downloading COMBINE archive ============================================${nc}'
 ( ulimit -f 1048576; srun --job-name="Download-project" curl -L -o '${combineArchiveFilename}' ${runCombineArchiveUrl})
 echo -e ''
-echo -e '${cyan}============================================= Extracting COMBINE archive ============================================${nc}'
-srun --job-name="Unpack-project" unzip -o '${combineArchiveFilename}' -d '${simulationRunContentS3Subpath}'
-echo -e ''
 echo -e '${cyan}============================================= Executing COMBINE archive =============================================${nc}'
 srun --job-name="Execute-project" singularity run --tmpdir /local --bind ${workDirname}:/root "${allEnvVarsString}" ${simulatorImage} -i '/root/${combineArchiveFilename}' -o '/root'
 echo -e ''
@@ -174,7 +168,7 @@ echo -e '${cyan}================================================== Zipping outpu
 srun --job-name="Zip-outputs" zip '${outputArchiveS3Subpath}' reports.h5 log.yml plots.zip job.output
 echo -e ''
 echo -e '${cyan}=================================================== Saving outputs ==================================================${nc}'
-export PYTHONWARNINGS="ignore"; srun --job-name="Save-outputs-to-S3" aws --no-verify-ssl --endpoint-url ${storageEndpoint} s3 sync --acl public-read --exclude "*.sbatch" --exclude "*.omex" . 's3://${storageBucket}/${simulationRunS3Path}'
+export PYTHONWARNINGS="ignore"; srun --job-name="Save-outputs-to-S3" aws --no-verify-ssl --endpoint-url ${storageEndpoint} s3 sync --acl public-read --exclude "*.sbatch" --exclude "*.omex" . 's3://${storageBucket}/${simulationRunS3Path}' 
 `;
 
     return template;
@@ -192,7 +186,6 @@ export PYTHONWARNINGS="ignore"; srun --job-name="Save-outputs-to-S3" aws --no-ve
     dockerImageUrl: string,
     forceOverwrite: boolean,
   ): string {
-    const homeDir = this.configService.get('hpc.homeDir');
     const executablesPath = this.configService.get('hpc.executablesPath');
 
     const modulePath = this.configService.get('hpc.module.path');
