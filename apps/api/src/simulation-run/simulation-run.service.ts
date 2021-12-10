@@ -349,7 +349,7 @@ export class SimulationRunService {
       return this.createRunWithFile(body, file.data, size);
     } else {
       throw new BadRequestException(
-        `The COMBINE archive for the simulation run could not be obtained from ${url}. 
+        `The COMBINE archive for the simulation run could not be obtained from ${url}.
         Please check that the URL is accessible.`,
       );
     }
