@@ -12,12 +12,13 @@ import { Output, OutputData, Results } from './datamodel';
 import { AWSError, S3 } from 'aws-sdk';
 import { Endpoints } from '@biosimulations/config/common';
 import { ConfigService } from '@nestjs/config';
+import { AxiosError } from 'axios';
 
 interface OutputResult {
   dataset: Dataset;
   succeeded: boolean;
   value?: Output;
-  error?: any;
+  error?: AxiosError;
 }
 
 @Injectable()
@@ -52,7 +53,7 @@ export class ResultsService {
               value: value,
             };
           })
-          .catch((error: any): OutputResult => {
+          .catch((error: AxiosError): OutputResult => {
             return {
               dataset: dataset,
               succeeded: false,
@@ -70,9 +71,9 @@ export class ResultsService {
         outputs.push(outputResult.value);
       } else {
         const datasetAttrs = outputResult.dataset.attributes;
-        const error = outputResult.error;
+        const error = outputResult?.error;
         errorDetails.push(
-          `${datasetAttrs._type} '${datasetAttrs.uri} of simulation run '${runId}' could not be parsed: ${error.status}: ${error.message}.`,
+          `${datasetAttrs._type} '${datasetAttrs.uri} of simulation run '${runId}' could not be parsed: ${error?.response?.status}: ${error?.response?.data?.detail}.`,
         );
         errorSummaries.push(
           `${datasetAttrs._type} '${datasetAttrs.uri} of simulation run '${runId}' could not be parsed.`,

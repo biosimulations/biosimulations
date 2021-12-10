@@ -1093,7 +1093,9 @@ export class ViewService {
     while (toFlatten.length) {
       const el = toFlatten.pop();
       if (Array.isArray(el)) {
-        toFlatten.push(el);
+        el.forEach((subel: any[]): void => {
+          toFlatten.push(subel);
+        });
       } else {
         flattenedArray.push(el);
       }

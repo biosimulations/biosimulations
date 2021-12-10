@@ -16,7 +16,8 @@
     "target": "es2015",
     "module": "esnext",
     "typeRoots": [
-      "node_modules/@types"
+      "node_modules/@types",
+      "node_modules/@stdlib/types/"
     ],
     "lib": [
       "es2020",

@@ -12,6 +12,7 @@ import {
   PlotlyTraceType,
   PlotlyAxisType,
   PlotlyTraceMode,
+  PlotlyTrace,
 } from '@biosimulations/datamodel/common';
 import {
   UriSedDataSetMap,
@@ -19,7 +20,7 @@ import {
   Line2DVisualization,
   SedDocumentReports,
 } from '@biosimulations/datamodel-simulation-runs';
-import { ViewService } from '@biosimulations/simulation-runs/service';
+import { ViewService, flattenTaskResults, getRepeatedTaskTraceLabel } from '@biosimulations/simulation-runs/service';
 import { Observable, map, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Spec as VegaSpec } from 'vega';
@@ -169,7 +170,7 @@ export class DesignLine2DVisualizationComponent implements OnInit {
           const formGroup = this.formGroup;
           const traceMode = (formGroup.controls.traceMode as FormControl).value;
 
-          const traces = [];
+          const traces: PlotlyTrace[] = [];
           const xAxisTitlesSet = new Set<string>();
           const yAxisTitlesSet = new Set<string>();
           const errors: string[] = [];
@@ -207,18 +208,22 @@ export class DesignLine2DVisualizationComponent implements OnInit {
                   name = `${yLabel} vs ${xLabel}`;
                 }
 
-                const trace = {
-                  name: name,
-                  x: uriResultsMap?.[xDataUri]?.values,
-                  y: uriResultsMap?.[yDataUri]?.values,
-                  xaxis: 'x1',
-                  yaxis: 'y1',
-                  type: PlotlyTraceType.scatter,
-                  mode: traceMode,
-                };
+                const xData = uriResultsMap?.[xDataUri]?.values;
+                const yData = uriResultsMap?.[yDataUri]?.values;                
 
-                if (trace.x && trace.y) {
-                  traces.push(trace);
+                if (xData && yData) {
+                  const flatData = flattenTaskResults([xData, yData]);
+                  for (let iTrace = 0; iTrace < flatData.data[0].length; iTrace++) {
+                    traces.push({
+                      name: name + (flatData.data[0].length > 1 ? ` (${getRepeatedTaskTraceLabel(iTrace, flatData.outerShape)})` : ''),
+                      x: flatData.data[0][iTrace],
+                      y: flatData.data[1][iTrace],
+                      xaxis: 'x1',
+                      yaxis: 'y1',
+                      type: PlotlyTraceType.scatter,
+                      mode: traceMode,
+                    });
+                  }
                   xAxisTitlesSet.add(xLabel);
                   yAxisTitlesSet.add(yLabel);
                 } else if (xDataUri && yDataUri) {

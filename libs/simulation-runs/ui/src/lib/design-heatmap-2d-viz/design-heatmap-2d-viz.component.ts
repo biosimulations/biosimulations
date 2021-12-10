@@ -17,7 +17,7 @@ import {
   Heatmap2DVisualization,
   SedDocumentReports,
 } from '@biosimulations/datamodel-simulation-runs';
-import { ViewService } from '@biosimulations/simulation-runs/service';
+import { ViewService, flattenTaskResults, getRepeatedTaskTraceLabel } from '@biosimulations/simulation-runs/service';
 import { Observable, map, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Spec as VegaSpec } from 'vega';
@@ -191,11 +191,11 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
             if (selectedDataSet) {
               const data = uriResultsMap?.[selectedUri];
               if (data) {
-                const flattenedData = this.viewService.flattenArray(
-                  data.values,
-                );
-                zData.push(flattenedData);
-                yTicks.push(data.label);
+                const flatData = flattenTaskResults([data.values]);
+                for (let iTrace = 0; iTrace < flatData.data[0].length; iTrace++) {
+                  zData.push(flatData.data[0][iTrace]);
+                  yTicks.push(data.label + (flatData.data[0].length > 1 ? ` (${getRepeatedTaskTraceLabel(iTrace, flatData.outerShape)})` : ''));
+                }
               } else {
                 errors.push(`Y-data set '${selectedUri}'.`);
               }
@@ -207,7 +207,10 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
           if (selectedXUri) {
             const data = uriResultsMap?.[selectedXUri];
             if (data) {
-              xTicks = this.viewService.flattenArray(data.values);
+              xTicks = data.values;
+              while (Array.isArray(xTicks) && xTicks.length && Array.isArray(xTicks[0])) {
+                xTicks = xTicks[0];
+              }
               xAxisTitle = data.label;
             } else {
               errors.push(`X-data set '${selectedXUri}'.`);

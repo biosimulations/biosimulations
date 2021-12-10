@@ -157,21 +157,33 @@ export SINGULARITY_CACHEDIR=${singularityCacheDir}
 export SINGULARITY_PULLFOLDER=${singularityPullFolder}
 cd ${workDirname}
 echo -e '${cyan}Thank you for using runBioSimulations!${nc}'
+
+set -e
+
 echo -e ''
 echo -e '${cyan}============================================ Downloading COMBINE archive ============================================${nc}'
-( ulimit -f 1048576; srun --job-name="Download-project" curl -L -o '${combineArchiveFilename}' ${runCombineArchiveUrl})
+(ulimit -f 1048576; srun --job-name="Download-project" curl -L -o '${combineArchiveFilename}' ${runCombineArchiveUrl})
+
 echo -e ''
 echo -e '${cyan}============================================= Extracting COMBINE archive ============================================${nc}'
 srun --job-name="Unpack-project" unzip -o '${combineArchiveFilename}' -d '${simulationRunContentS3Subpath}'
+
 echo -e ''
 echo -e '${cyan}============================================= Executing COMBINE archive =============================================${nc}'
 srun --job-name="Execute-project" singularity run --tmpdir /local --bind ${workDirname}:/root "${allEnvVarsString}" ${simulatorImage} -i '/root/${combineArchiveFilename}' -o '/root'
+
+set +e
+
 echo -e ''
 echo -e '${cyan}=================================================== Saving results ==================================================${nc}'
 srun --job-name="Save-outputs-to-HSDS" hsload --endpoint ${hsdsBasePath} --username ${hsdsUsername} --password ${hsdsPassword} --verbose reports.h5 '${simulationRunResultsHsdsPath}'
+
+set -e
+
 echo -e ''
 echo -e '${cyan}================================================== Zipping outputs ==================================================${nc}'
 srun --job-name="Zip-outputs" zip '${outputArchiveS3Subpath}' reports.h5 log.yml plots.zip job.output
+
 echo -e ''
 echo -e '${cyan}=================================================== Saving outputs ==================================================${nc}'
 export PYTHONWARNINGS="ignore"; srun --job-name="Save-outputs-to-S3" aws --no-verify-ssl --endpoint-url ${storageEndpoint} s3 sync --acl public-read --exclude "*.sbatch" --exclude "*.omex" . 's3://${storageBucket}/${simulationRunS3Path}'

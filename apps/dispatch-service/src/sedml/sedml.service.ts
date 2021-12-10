@@ -34,7 +34,7 @@ export class SedmlService {
   public async processSedml(id: string): Promise<void> {
     this.logger.log(`Processing SED-ML documents for simulation run '${id}'.`);
     // get external url since combine service may not be local
-    const url = this.endpoints.getRunDownloadEndpoint(true, id);
+    const url = this.endpoints.getRunDownloadEndpoint(false, id);
     const req = this.combine.getSedMlSpecs(undefined, url);
     const sedml = req.pipe(
       pluck('data'),

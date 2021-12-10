@@ -116,7 +116,7 @@ interface PromiseResult<T> {
   id?: string;
   succeeded: boolean;
   value?: T;
-  error?: any;
+  error?: AxiosError;
 }
 
 @Injectable()
@@ -595,7 +595,7 @@ export class SimulationRunService {
               value: value,
             };
           })
-          .catch((error) => {
+          .catch((error: AxiosError) => {
             return {
               id: run.id,
               succeeded: false,
@@ -616,7 +616,7 @@ export class SimulationRunService {
       failures.forEach(
         (runSummaryResult: PromiseResult<SimulationRunSummary>) => {
           details.push(
-            `A summary of run '${runSummaryResult.id}' could not be retrieved: ${runSummaryResult.error.status}: ${runSummaryResult.error.message}.`,
+            `A summary of run '${runSummaryResult.id}' could not be retrieved: ${runSummaryResult?.error?.response?.status}: ${runSummaryResult?.error?.response?.data?.detail}.`,
           );
           summaries.push(runSummaryResult.id as string);
         },
@@ -689,7 +689,7 @@ export class SimulationRunService {
               value: value,
             };
           })
-          .catch((error) => {
+          .catch((error: AxiosError) => {
             return {
               succeeded: false,
               error: error,
@@ -709,7 +709,7 @@ export class SimulationRunService {
 
     if (!runSettledResult.succeeded) {
       this.logger.error(
-        `Simulation run with id '${id}' could not be found: ${runSettledResult.error.status}: ${runSettledResult.error.message}.`,
+        `Simulation run with id '${id}' could not be found: ${runSettledResult?.error?.response?.status}: ${runSettledResult?.error?.response?.data?.detail}.`,
       );
       throw new NotFoundException(
         `Simulation run with id '${id}' could not be found.`,
@@ -918,7 +918,7 @@ export class SimulationRunService {
 
       if (!filesResult.succeeded) {
         details.push(
-          `The files for simulation run '${id}' could not be retrieved: ${filesResult.error.status}: ${filesResult.error.message}.`,
+          `The files for simulation run '${id}' could not be retrieved: ${filesResult?.error?.response?.status}: ${filesResult?.error?.response?.data?.detail}.`,
         );
         summaries.push(
           `The files for simulation run '${id}' could not be retrieved.`,
@@ -927,7 +927,7 @@ export class SimulationRunService {
 
       if (!simulationExptsResult.succeeded) {
         details.push(
-          `The simulation experiments for simulation run '${id}' could not be retrieved: ${simulationExptsResult.error.status}: ${simulationExptsResult.error.message}.`,
+          `The simulation experiments for simulation run '${id}' could not be retrieved: ${simulationExptsResult?.error?.response?.status}: ${simulationExptsResult?.error?.response?.data?.detail}.`,
         );
         summaries.push(
           `The simulation experiments for simulation run '${id}' could not be retrieved.`,
@@ -936,7 +936,7 @@ export class SimulationRunService {
 
       if (!logResult.succeeded) {
         details.push(
-          `The log for simulation run '${id}' could not be retrieved: ${logResult.error.status}: ${logResult.error.message}.`,
+          `The log for simulation run '${id}' could not be retrieved: ${logResult?.error?.response?.status}: ${logResult?.error?.response?.data?.detail}.`,
         );
         summaries.push(
           `The log for simulation run '${id}' could not be retrieved.`,
@@ -982,7 +982,7 @@ export class SimulationRunService {
       };
     } else if (raiseErrors) {
       this.logger.error(
-        `The metadata for simulation run '${id}' could not be retrieved: ${rawMetadataResult.error.status}: ${rawMetadataResult.error.message}.`,
+        `The metadata for simulation run '${id}' could not be retrieved: ${rawMetadataResult?.error?.response?.status}: ${rawMetadataResult?.error?.response?.data?.detail}.`,
       );
       throw new InternalServerErrorException(
         `The metadata for simulation run '${id}' could not be retrieved.`,
@@ -1129,7 +1129,7 @@ export class SimulationRunService {
               value: value,
             };
           })
-          .catch((error) => {
+          .catch((error: AxiosError) => {
             return {
               succeeded: false,
               error: error,
@@ -1146,7 +1146,7 @@ export class SimulationRunService {
 
       if (!result.succeeded) {
         errorDetails.push(
-          `${check.errorMessage}: ${result.error.status}: ${result.error.message}`,
+          `${check.errorMessage}: ${result?.error?.response?.status}: ${result?.error?.response?.data?.detail}`,
         );
         errorSummaries.push(check.errorMessage);
       } else if (result.value === undefined) {
