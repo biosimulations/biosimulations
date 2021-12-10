@@ -14,7 +14,6 @@ import {
 } from '@nestjs/common';
 
 import {
-  AdminGuard,
   JwtGuard,
   permissions,
   PermissionsGuard,
@@ -46,7 +45,7 @@ import { scopes } from '@biosimulations/auth/common';
 @ApiTags('Simulators')
 @Controller('simulators')
 export class SimulatorsController {
-  constructor(private service: SimulatorsService) {}
+  public constructor(private service: SimulatorsService) {}
 
   @Get()
   @ApiOperation({
@@ -127,26 +126,6 @@ export class SimulatorsController {
     }
   }
 
-  compareSimulatorVersions(a: Simulator, b: Simulator): number {
-    const aVersion = a.version.replace(/-/g, '.');
-    const bVersion = b.version.replace(/-/g, '.');
-    try {
-      return compareVersions(aVersion, bVersion);
-    } catch {
-      try {
-        return compareVersionsWithAdditionalPoints(aVersion, bVersion);
-      } catch {
-        if (b.biosimulators.created > a.biosimulators.created) {
-          return -1;
-        } else if (b.biosimulators.created < a.biosimulators.created) {
-          return 1;
-        } else {
-          return 0;
-        }
-      }
-    }
-  }
-
   @Get(':id')
   @ApiOperation({
     summary: 'Get the versions of a simulation tool',
@@ -218,42 +197,13 @@ export class SimulatorsController {
     type: ErrorResponseDocument,
     description: 'No simulation tool has the requested id',
   })
-  async getSimulatorVersion(
+  public async getSimulatorVersion(
     @Param('id') id: string,
     @Param('version') version: string,
     @Query('includeTests') includeTests = 'false',
-  ): Promise<Simulator> {
+  ): Promise<Simulator | null> {
     const includeTestBool = includeTests == 'true';
     return this.getSimulatorByVersion(id, version, includeTestBool);
-  }
-
-  private async getSimulatorById(id: string, includeTests: boolean) {
-    const res = await this.service
-      .findById(id, includeTests)
-      .catch((_) => null);
-    if (!res?.length) {
-      throw new NotFoundException(`Simulator with id '${id}' was not found`);
-    }
-    return res;
-  }
-
-  private async getSimulatorByVersion(
-    id: string,
-    version: string,
-    includeTests: boolean,
-  ) {
-    const res = await this.service.findByVersion(id, version, includeTests);
-    if (!res) {
-      if (version) {
-        throw new NotFoundException(
-          `Simulator with id '${id}' and version '${version}' was not found`,
-        );
-      } else {
-        throw new NotFoundException(`Simulator with id '${id}' was not found`);
-      }
-    }
-
-    return res;
   }
 
   @Post()
@@ -286,17 +236,8 @@ export class SimulatorsController {
     description:
       'The version of the simulation tool could not be saved because the database already includes this version of this tool. Please use the `PUT` method to modify versions of simulation tools. Please see https://biosimulators.org/conventions and https://api.biosimulators.org for more information.',
   })
-  @ApiUnauthorizedResponse({
-    type: ErrorResponseDocument,
-    description: 'A valid authorization was not provided',
-  })
-  @ApiForbiddenResponse({
-    type: ErrorResponseDocument,
-    description:
-      'This account does not have permission to save specifications of simulation tools',
-  })
   @permissions(scopes.simulators.create.id)
-  async create(@Body() doc: Simulator): Promise<void> {
+  public async create(@Body() doc: Simulator): Promise<void> {
     await this.service.new(doc);
     return;
   }
@@ -325,13 +266,11 @@ export class SimulatorsController {
     description: 'The specifications of the simulation tool are valid',
   })
   @HttpCode(HttpStatus.NO_CONTENT)
-  async validateSimulator(@Body() doc: Simulator) {
+  public async validateSimulator(@Body() doc: Simulator): Promise<void> {
     await this.service.validate(doc);
     return;
   }
 
-  @UseGuards(JwtGuard, PermissionsGuard)
-  @ApiOAuth2([])
   @ApiParam({
     name: 'id',
     description: 'Id of the simulation tool',
@@ -367,26 +306,17 @@ export class SimulatorsController {
     description:
       'The specifications of the simulation tool are invalid. See https://biosimulators.org/conventions and https://api.biosimulators.org for examples and documentation.',
   })
-  @ApiUnauthorizedResponse({
-    type: ErrorResponseDocument,
-    description: 'A valid authorization was not provided',
-  })
-  @ApiForbiddenResponse({
-    type: ErrorResponseDocument,
-    description:
-      'This account does not have permission to update specifications of simulation tools',
-  })
   @permissions(scopes.simulators.update.id)
   @Put(':id/:version')
   @ApiOperation({
     summary: 'Update a version of a simulation tool',
     description: 'Update the specifications of a version of a simulation tool.',
   })
-  async update(
+  public async update(
     @Body() doc: Simulator,
     @Param('id') id: string,
     @Param('version') version: string,
-  ) {
+  ): Promise<Simulator> {
     return this.service.replace(id, version, doc).then((res) => res);
   }
 
@@ -427,15 +357,13 @@ export class SimulatorsController {
     summary: 'Delete a version of a simulation tool',
     description: 'Delete the specifications of a version of a simulation tool.',
   })
-  async deleteSimulatorVersion(
+  public async deleteSimulatorVersion(
     @Param('id') id: string,
     @Param('version') version: string,
   ) {
     return this.service.deleteOne(id, version);
   }
 
-  @UseGuards(JwtGuard, PermissionsGuard)
-  @ApiOAuth2([])
   @ApiParam({
     name: 'id',
     description: 'Id of the simulation tool',
@@ -449,15 +377,6 @@ export class SimulatorsController {
     type: ErrorResponseDocument,
     description: 'No simulation tool has the requested id',
   })
-  @ApiUnauthorizedResponse({
-    type: ErrorResponseDocument,
-    description: 'A valid authorization was not provided',
-  })
-  @ApiForbiddenResponse({
-    type: ErrorResponseDocument,
-    description:
-      'This account does not have permission to delete simulation tools',
-  })
   @permissions(scopes.simulators.delete.id)
   @Delete(':id')
   @ApiOperation({
@@ -466,24 +385,13 @@ export class SimulatorsController {
       'Delete the specifications of all versions of a simulation tool.',
   })
   @HttpCode(HttpStatus.NO_CONTENT)
-  async deleteSimulator(@Param('id') id: string) {
+  public async deleteSimulator(@Param('id') id: string): Promise<void> {
     return this.service.deleteMany(id);
   }
 
-  // No permissions, must be admin
-  @UseGuards(JwtGuard, AdminGuard)
-  @ApiOAuth2([])
+  @permissions(scopes.simulators.deleteAll.id)
   @ApiNoContentResponse({
     description: 'All simulation tools were successfully deleted',
-  })
-  @ApiUnauthorizedResponse({
-    type: ErrorResponseDocument,
-    description: 'A valid authorization was not provided',
-  })
-  @ApiForbiddenResponse({
-    type: ErrorResponseDocument,
-    description:
-      'This account does not have permission to delete simulation tools',
   })
   @Delete()
   @ApiOperation({
@@ -491,7 +399,55 @@ export class SimulatorsController {
     description: 'Clear the database. Use with extreme caution',
   })
   @HttpCode(HttpStatus.NO_CONTENT)
-  async deleteAll() {
+  public async deleteAll(): Promise<void> {
     return this.service.deleteAll();
+  }
+
+  private async getSimulatorById(id: string, includeTests: boolean) {
+    const res = await this.service
+      .findById(id, includeTests)
+      .catch((_) => null);
+    if (!res?.length) {
+      throw new NotFoundException(`Simulator with id '${id}' was not found`);
+    }
+    return res;
+  }
+
+  private async getSimulatorByVersion(
+    id: string,
+    version: string,
+    includeTests: boolean,
+  ): Promise<Simulator | null> {
+    const res = await this.service.findByVersion(id, version, includeTests);
+    if (!res) {
+      if (version) {
+        throw new NotFoundException(
+          `Simulator with id '${id}' and version '${version}' was not found`,
+        );
+      } else {
+        throw new NotFoundException(`Simulator with id '${id}' was not found`);
+      }
+    }
+
+    return res;
+  }
+  private compareSimulatorVersions(a: Simulator, b: Simulator): number {
+    const aVersion = a.version.replace(/-/g, '.');
+    const bVersion = b.version.replace(/-/g, '.');
+    try {
+      return compareVersions(aVersion, bVersion);
+    } catch {
+      try {
+        return compareVersionsWithAdditionalPoints(aVersion, bVersion);
+      } catch {
+        if (b.biosimulators.created > a.biosimulators.created) {
+          return -1;
+        } else if (b.biosimulators.created < a.biosimulators.created) {
+          return 1;
+        } else {
+          return 0;
+        }
+      }
+    }
   }
 }

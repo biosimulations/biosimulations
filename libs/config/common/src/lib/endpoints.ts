@@ -149,34 +149,6 @@ export class Endpoints {
     return `${this.getFilesEndpointBaseUrl(external)}${runId}${fileLocation}`;
   }
 
-  /**
-   * Get the URL for downloading a file from within a COMBINE archive.
-   * The COMBINE archive is extracted to the s3 bucket. Returns a URL to the file in the s3 bucket
-   * @param runId The id of the simulation run
-   * @param fileLocation The path of the file within COMBINE archive relative to its root. Should not include './'
-   * @returns A URL to download the file from within the COMBINE archive
-   */
-  public getSimulationRunFileContentEndpoint(
-    external: boolean,
-    runId: string,
-    fileLocation: string,
-  ): string {
-    if (fileLocation.startsWith('./')) {
-      fileLocation = fileLocation.substring(2);
-    }
-
-    const storageEndpoint = this.getStorageEndpointBaseUrl(external);
-    if (fileLocation == '.') {
-      return `${storageEndpoint}/${this.getSimulationRunCombineArchiveS3Path(
-        runId,
-      )}`;
-    } else {
-      return `${storageEndpoint}/${this.getSimulationRunS3Path(
-        runId,
-      )}/contents/${fileLocation}`;
-    }
-  }
-
   // SIMULATION RUNS
   /**
    *
@@ -257,14 +229,6 @@ export class Endpoints {
    */
   public getAddFileToCombineArchiveEndpoint(external: boolean): string {
     return this.getCombineFilesEndpointBaseUrl(external);
-  }
-
-  /**
-   * Create a URL for the route of the COMBINE API
-   * @returns A URL for extracting the inputs and outputs of models
-   */
-  public getCombineApiEndpoint(external: boolean): string {
-    return this.getCombineApiBaseUrl(external);
   }
 
   /**
@@ -488,6 +452,37 @@ export class Endpoints {
     )}/simulators/latest${id}${tests}`;
   }
   // SUBPATHS
+
+  // TODO remove the redundancy between the various s3 paths
+  // This seems to be used just to process files. I think it can be dramatically simplified now that files
+  // are directly extracted to S3
+  /**
+   * Get the URL for downloading a file from within a COMBINE archive.
+   * The COMBINE archive is extracted to the s3 bucket. Returns a URL to the file in the s3 bucket
+   * @param runId The id of the simulation run
+   * @param fileLocation The path of the file within COMBINE archive relative to its root. Should not include './'
+   * @returns A URL to download the file from within the COMBINE archive
+   */
+  public getSimulationRunFileContentEndpoint(
+    external: boolean,
+    runId: string,
+    fileLocation: string,
+  ): string {
+    if (fileLocation.startsWith('./')) {
+      fileLocation = fileLocation.substring(2);
+    }
+
+    const storageEndpoint = this.getStorageEndpointBaseUrl(external);
+    if (fileLocation == '.') {
+      return `${storageEndpoint}/${this.getSimulationRunCombineArchiveS3Path(
+        runId,
+      )}`;
+    } else {
+      return `${storageEndpoint}/${this.getSimulationRunS3Path(
+        runId,
+      )}/contents/${fileLocation}`;
+    }
+  }
   /**
    * Create a path a simulation run in an S3 bucket
    * @param runId Id of the simulation run
@@ -505,24 +500,18 @@ export class Endpoints {
   }
 
   /**
-   * Create a path for the contents of a COMBINE/OMEX archive of a simulation run, relative to the S3 bucket path for the run
-   */
-  public getSimulationRunContentS3Subpath(): string {
-    return this.simulationRunContentS3Subpath;
-  }
-
-  /**
    * Create a path for a file of a simulation run in an S3 bucket
    * @param runId Id of the simulation run
    * @param fileLocation Location of a file in the COMBINE/OMEX archive for the simulation run
    */
   public getSimulationRunContentFileS3Path(
     runId: string,
-    fileLocation: string,
+    fileLocation?: string,
   ): string {
+    const filePath = fileLocation ? `/${fileLocation}` : '';
     return `${this.getSimulationRunS3Path(runId)}/${
       this.simulationRunContentS3Subpath
-    }/${location}`;
+    }${filePath}`;
   }
 
   /**
@@ -635,12 +624,15 @@ export class Endpoints {
   public getSimulatorsApiBaseUrl(external: boolean): string {
     return external ? this.externalSimulatorsApi : this.simulatorsApi;
   }
-  private getDataServiceBaseUrl(external: boolean): string {
+  public getDataServiceBaseUrl(external: boolean): string {
     return external ? this.externalDataService : this.dataService;
   }
 
-  private getCombineApiBaseUrl(external: boolean): string {
+  public getCombineApiBaseUrl(external: boolean): string {
     return external ? this.externalCombineApi : this.combineApi;
+  }
+  public getStorageEndpointBaseUrl(external: boolean): string {
+    return external ? this.externalStorageEndpoint : this.storageEndpoint;
   }
 
   private getOntologiesEndpointBaseUrl(app: string, external: boolean): string {
@@ -693,9 +685,5 @@ export class Endpoints {
   private getCombineFilesEndpointBaseUrl(external: boolean): string {
     const api = this.getCombineApiBaseUrl(external);
     return `${api}/combine/file`;
-  }
-
-  private getStorageEndpointBaseUrl(external: boolean): string {
-    return external ? this.externalStorageEndpoint : this.storageEndpoint;
   }
 }

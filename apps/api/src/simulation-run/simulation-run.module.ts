@@ -8,7 +8,7 @@
  */
 
 import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { HttpModule } from '@nestjs/axios';
 
 import { MongooseModule } from '@nestjs/mongoose';
@@ -21,59 +21,30 @@ import {
 import { SimulationRunService } from './simulation-run.service';
 import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
 
-import { FilesService } from '../files/files.service';
-import { FileModel, FileModelSchema } from '../files/files.model';
-
-import { SpecificationsService } from '../specifications/specifications.service';
-import {
-  SpecificationsModel,
-  SpecificationsModelSchema,
-} from '../specifications/specifications.model';
-
-import { LogsService } from '../logs/logs.service';
-import { SimulationRunLog, SimulationRunLogSchema } from '../logs/logs.model';
-
-import { ResultsService } from '../results/results.service';
 import { HSDSClientModule } from '@biosimulations/hsds/client';
 
-import { MetadataService } from '../metadata/metadata.service';
-import {
-  SimulationRunMetadataModel,
-  SimulationRunMetadataSchema,
-} from '../metadata/metadata.model';
-
-import { ProjectModel, ProjectModelSchema } from '../projects/project.model';
-
-import { OntologyApiService } from '@biosimulations/ontology/api';
+import { OntologyApiModule } from '@biosimulations/ontology/api';
+import { ResultsModule } from '../results/results.module';
+import { LogsModule } from '../logs/logs.module';
+import { SpecificationsModule } from '../specifications/specifications.module';
+import { FilesModule } from '../files/files.module';
+import { MetadataModule } from '../metadata/metadata.module';
+import { ProjectsModule } from '../projects/projects.module';
 
 @Module({
-  controllers: [SimulationRunController],
   imports: [
     BiosimulationsAuthModule,
     HttpModule,
     SharedNatsClientModule,
+    ResultsModule,
+    OntologyApiModule,
+    LogsModule,
+    SpecificationsModule,
+    FilesModule,
+    MetadataModule,
+    forwardRef(() => ProjectsModule),
     MongooseModule.forFeature([
       { name: SimulationRunModel.name, schema: SimulationRunModelSchema },
-      {
-        name: SimulationRunMetadataModel.name,
-        schema: SimulationRunMetadataSchema,
-      },
-      {
-        name: FileModel.name,
-        schema: FileModelSchema,
-      },
-      {
-        name: SpecificationsModel.name,
-        schema: SpecificationsModelSchema,
-      },
-      {
-        name: SimulationRunLog.name,
-        schema: SimulationRunLogSchema,
-      },
-      {
-        name: ProjectModel.name,
-        schema: ProjectModelSchema,
-      },
     ]),
     // Need to provide hash keys to allow use on cluster.
     //See https://github.com/OptimalBits/bull/blob/develop/PATTERNS.md#redis-cluster
@@ -83,14 +54,8 @@ import { OntologyApiService } from '@biosimulations/ontology/api';
     }),
     HSDSClientModule,
   ],
-  providers: [
-    SimulationRunService,
-    FilesService,
-    SpecificationsService,
-    LogsService,
-    ResultsService,
-    MetadataService,
-    OntologyApiService,
-  ],
+  controllers: [SimulationRunController],
+  providers: [SimulationRunService],
+  exports: [SimulationRunService],
 })
 export class SimulationRunModule {}

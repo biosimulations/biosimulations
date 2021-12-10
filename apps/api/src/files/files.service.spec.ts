@@ -2,7 +2,7 @@ import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { FileModel } from './files.model';
 import { FilesService } from './files.service';
-import { SharedStorageService } from '@biosimulations/shared/storage';
+import { SimulationStorageService } from '@biosimulations/shared/storage';
 import { ConfigService } from '@nestjs/config';
 
 describe('FilesService', () => {
@@ -19,7 +19,7 @@ describe('FilesService', () => {
       providers: [
         FilesService,
         { provide: getModelToken(FileModel.name), useValue: {} },
-        { provide: SharedStorageService, useClass: mockStorage },
+        { provide: SimulationStorageService, useClass: mockStorage },
         ConfigService,
       ],
     }).compile();

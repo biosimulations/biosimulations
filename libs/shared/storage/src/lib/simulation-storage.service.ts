@@ -1,11 +1,14 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { ManagedUpload } from 'aws-sdk/clients/s3';
+import S3 from 'aws-sdk/clients/s3';
 import { SharedStorageService } from './shared-storage.service';
 import { Endpoints } from '@biosimulations/config/common';
 import { ConfigService } from '@nestjs/config';
+import { Readable } from 'stream';
+
 // hack to get typing to work see https://github.com/DefinitelyTyped/DefinitelyTyped/issues/47780
 // eslint-disable-next-line unused-imports/no-unused-imports-ts
 import multer from 'multer';
+
 @Injectable()
 export class SimulationStorageService {
   private endpoints: Endpoints;
@@ -19,21 +22,50 @@ export class SimulationStorageService {
     this.endpoints = new Endpoints(env);
   }
 
-  public async extractSimulationArchive(file: string): Promise<any> {
-    const s3File = await this.storage.getObject(file);
-    this.logger.debug(`Extracting ${file}`);
+  public async deleteSimulationRunResults(runId: string): Promise<void> {
+    await this.deleteSimulationArchive(runId);
+  }
+
+  public async deleteSimulationRunFile(
+    runId: string,
+    fileLocation: string,
+  ): Promise<void> {
+    const fileObject = this.endpoints.getSimulationRunContentFileS3Path(
+      runId,
+      fileLocation,
+    );
+    const output = await this.storage.deleteObject(fileObject);
+
+    // TODO check deletion worked
+  }
+
+  public async getSimulationRunOutputArchive(
+    runId: string,
+  ): Promise<S3.GetObjectOutput> {
+    const file = await this.storage.getObject(
+      this.endpoints.getSimulationRunOutputS3Path(runId),
+    );
+    return file;
+  }
+
+  public async extractSimulationArchive(id: string): Promise<string[]> {
+    const file = this.endpoints.getSimulationRunCombineArchiveS3Path(id);
+    const destination = this.endpoints.getSimulationRunContentFileS3Path(id);
+    this.logger.debug(`Extracting ${file} to ${destination}`);
+    const output = await this.storage.extractZipObject(file, destination);
+    const locations = output.map((file) => file.Location);
+    return locations;
   }
 
   public async uploadSimulationArchive(
     runId: string,
-    file: Express.Multer.File,
-  ): Promise<ManagedUpload.SendData> {
-    const filename = file.originalname;
+    file: Buffer | Readable,
+  ): Promise<string> {
     const s3File = await this.storage.putObject(
       this.endpoints.getSimulationRunCombineArchiveS3Path(runId),
-      file.buffer,
+      file,
     );
-    return s3File;
+    return s3File.Location;
   }
 
   public async deleteSimulationArchive(runId: string): Promise<void> {

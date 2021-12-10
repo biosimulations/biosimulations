@@ -20,29 +20,6 @@ import { isUrl } from '@biosimulations/datamodel-database';
   storeSubdocValidationError: false,
   strict: 'throw',
 })
-export class SimulationProjectFile {
-  @Prop({ type: String, required: false })
-  public originalName?: string;
-
-  @Prop({ type: String, required: false })
-  public uploadTransferEncoding?: string;
-
-  @Prop({ type: String, required: false })
-  public mimeType?: string;
-
-  @Prop({ type: String, required: true, validate: [isUrl] })
-  public url!: string;
-}
-
-export const SimulationProjectFileSchema = SchemaFactory.createForClass(
-  SimulationProjectFile,
-);
-
-@Schema({
-  _id: false,
-  storeSubdocValidationError: false,
-  strict: 'throw',
-})
 export class EnvironmentVariable {
   @Prop({ type: String, required: true })
   key!: string;
@@ -59,16 +36,11 @@ export class SimulationRunModel extends Document implements SimulationRun {
   id!: string;
 
   @Prop({
-    type: SimulationProjectFile,
-    required: true,
-  })
-  projectFile!: SimulationProjectFile;
-
-  @Prop({
     type: String,
-    required: false,
+    required: true,
+    validate: [isUrl],
   })
-  fileUrl?: string;
+  fileUrl!: string;
 
   @Prop({ type: String, required: true })
   name!: string;

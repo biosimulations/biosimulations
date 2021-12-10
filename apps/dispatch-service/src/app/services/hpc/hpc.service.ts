@@ -87,7 +87,6 @@ export class HpcService {
    * @param jobId id of the Slurm job
    */
   public async getJobStatus(jobId: string): Promise<SimulationRunStatusReason> {
-    // TODO this needs to be changed everyime job srun changes. Need a better long term solution
     const delimiter = '|';
     const jobStatesStr = (
       await this.sshService

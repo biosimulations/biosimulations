@@ -16,6 +16,7 @@ import {
   BadRequestException,
   CACHE_MANAGER,
   HttpStatus,
+  forwardRef,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
@@ -24,9 +25,7 @@ import {
   SimulationRunModel,
   SimulationRunModelReturnType,
   SimulationRunModelType,
-  SimulationProjectFile,
 } from './simulation-run.model';
-import { ProjectModel } from '../projects/project.model';
 import {
   UpdateSimulationRun,
   UploadSimulationRun,
@@ -86,7 +85,8 @@ import {
 } from '../metadata/metadata.model';
 import { OntologyApiService } from '@biosimulations/ontology/api';
 import { Cache } from 'cache-manager';
-import { AxiosError } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
+import { ProjectsService } from '../projects/projects.service';
 
 // 1 GB in bytes to be used as file size limits
 const ONE_GIGABYTE = 1000000000;
@@ -128,8 +128,6 @@ export class SimulationRunService {
   public constructor(
     @InjectModel(SimulationRunModel.name)
     private simulationRunModel: Model<SimulationRunModel>,
-    @InjectModel(ProjectModel.name)
-    private projectModel: Model<ProjectModel>,
     private simulationStorageService: SimulationStorageService,
     private httpService: HttpService,
     @Inject('NATS_CLIENT') private client: ClientProxy,
@@ -139,6 +137,8 @@ export class SimulationRunService {
     private logsService: LogsService,
     private metadataService: MetadataService,
     private ontologiesService: OntologyApiService,
+    @Inject(forwardRef(() => ProjectsService))
+    private projectService: ProjectsService,
     private configService: ConfigService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {
@@ -167,18 +167,14 @@ export class SimulationRunService {
   }
 
   /**
-   * Download the COMBINE/OMEX archive file for the provided id. The COMBINE/OMEX archive file is a ref on the object
+   * Download the COMBINE/OMEX archive file for the provided id. The archive is provided as a url on the fileUrl field
    * @param id The id of the simulation
    *
    */
-  public async download(id: string): Promise<{
-    size: number;
-    mimeType?: string;
-    url: string;
-  }> {
+  public async getFileUrl(id: string): Promise<string> {
     // Find the simulation with the id
     const run = await this.simulationRunModel
-      .findOne({ id }, { projectSize: 1, projectFile: 1 })
+      .findOne({ id }, { fileUrl: 1 })
       .exec();
 
     if (!run) {
@@ -187,16 +183,11 @@ export class SimulationRunService {
       );
     }
 
-    // Return the file and metadata
-    return {
-      size: run.projectSize,
-      mimeType: run.projectFile.mimeType,
-      url: run.projectFile.url,
-    };
+    return run.fileUrl;
   }
 
   public async deleteAll(): Promise<void> {
-    const count = await this.projectModel.count();
+    const count = await this.projectService.getCount();
     if (count > 0) {
       throw new BadRequestException(
         `${count} runs cannot be deleted because they have been published as projects.`,
@@ -209,13 +200,12 @@ export class SimulationRunService {
   }
 
   public async delete(id: string): Promise<void> {
-    const project = await this.projectModel
-      .findOne({ simulationRun: id })
-      .select('id')
-      .exec();
-    if (project) {
+    const projectId = await this.projectService.getProjectIdBySimulationRunId(
+      id,
+    );
+    if (projectId) {
       throw new BadRequestException(
-        `Simulation run '${id}' cannot be deleted because it has been published as project '${project.id}'.`,
+        `Simulation run '${id}' cannot be deleted because it has been published as project '${projectId}'.`,
       );
     }
 
@@ -283,24 +273,28 @@ export class SimulationRunService {
 
   public async createRunWithFile(
     run: UploadSimulationRun,
-    file: Express.Multer.File,
+    file: Buffer | Readable,
+    size: number,
   ): Promise<SimulationRunModelReturnType> {
     const id = String(new mongo.ObjectId());
 
     try {
       const s3file =
         await this.simulationStorageService.uploadSimulationArchive(id, file);
-      await this.simulationStorageService.extractSimulationArchive(s3file.Key);
-      const url = encodeURI(s3file.Location);
+      this.logger.debug(`Uploaded simulation archive to S3: ${s3file}`);
+      const uploadedArchiveContents =
+        await this.simulationStorageService.extractSimulationArchive(id);
+      this.logger.debug(
+        `Uploaded archive contents: ${JSON.stringify(uploadedArchiveContents)}`,
+      );
 
-      const simulationProjectFile = {
-        originalName: file.originalname,
-        uploadTransferEncoding: file.encoding,
-        mimeType: file.mimetype,
-        url: url,
-      };
+      // At this point, we have the urls of all the files in the archive but we don't use them
+      // We should save them to the files collection along with size information.
+      // then the post processing just needs to give us information about the format from the manifest
 
-      return this.createRun(run, file.size, simulationProjectFile, id);
+      const url = encodeURI(s3file);
+
+      return this.createRun(run, size, url, id);
     } catch (err) {
       const message =
         err instanceof Error && err.message
@@ -323,22 +317,28 @@ export class SimulationRunService {
     body: UploadSimulationRunUrl,
   ): Promise<SimulationRunModelReturnType> {
     const url = body.url;
-    // If the url provides the following information, grab it and store it in the database
-    //! This does not address the security issues of downloading user provided urls.
-    //! The content size may not be present or accurate. The backend must check the size. See #2536
-    let size = 0;
-    let mimeType;
-    let originalName;
-    let encoding;
 
     this.logger.debug(`Downloading file from ${url} ...`);
-    const file = await firstValueFrom(
-      this.httpService.get(url, {
-        responseType: 'arraybuffer',
-      }),
-    );
+    let file: AxiosResponse<Readable> | null = null;
+    try {
+      file = await firstValueFrom(
+        this.httpService.get(url, {
+          responseType: 'stream',
+          maxContentLength: ONE_GIGABYTE,
+        }),
+      );
+    } catch (err) {
+      // if the error is bc file too bug, give this more specific error.
+      // Otherwiise, just let file be null, which will throw the more generic 400 below
+      if ((err as AxiosError).message.includes('maxContentLength')) {
+        throw new PayloadTooLargeException(
+          `The maximum allowed size of the file is 1GB. The provided file was too large.`,
+        );
+      }
+    }
 
     if (file) {
+      let size = 0;
       const file_headers = file?.headers;
       try {
         size = Number(file_headers['content-length']);
@@ -346,35 +346,14 @@ export class SimulationRunService {
         size = 0;
         this.logger.warn(err);
       }
-      mimeType = file_headers['content-type'];
-      originalName = file_headers['content-disposition']?.split('filename=')[1];
-      encoding = file_headers['content-transfer-encoding'];
-      if (size && size > ONE_GIGABYTE) {
-        throw new PayloadTooLargeException(
-          `The maximum allowed size of the file is 1GB. The provided file was ${String(
-            size,
-          )}.`,
-        );
-      }
-      const fileObj: Express.Multer.File = {
-        buffer: file.data,
-        originalname: originalName,
-        mimetype: mimeType,
-        size,
-        encoding,
-        // Fields below are just to satisfy the interface and are not used
-        fieldname: 'file',
-        filename: originalName,
-        stream: Readable.from(file.data),
-        destination: '',
-        path: '',
-      };
+      this.logger.error(file.data.isPaused());
 
       this.logger.debug(`Downloaded file from ${url}.`);
-      return this.createRunWithFile(body, fileObj);
+      return this.createRunWithFile(body, file.data, size);
     } else {
       throw new BadRequestException(
-        `The COMBINE archive for the simulation run could not be obtained from ${url}. Please check that the URL is accessible.`,
+        `The COMBINE archive for the simulation run could not be obtained from ${url}.
+        Please check that the URL is accessible.`,
       );
     }
   }
@@ -386,7 +365,7 @@ export class SimulationRunService {
   private async createRun(
     run: UploadSimulationRun,
     projectSize: number,
-    projectFile: SimulationProjectFile,
+    fileUrl: string,
     id: string,
   ): Promise<SimulationRunModelReturnType> {
     const newSimulationRun = new this.simulationRunModel(run);
@@ -408,18 +387,13 @@ export class SimulationRunService {
       );
     }
 
-    const session = await this.simulationRunModel.startSession();
-    // If any of the code within the transaction fails, then mongo will abort and revert any changes
-    // We dont need to worry about any error handling since any thrown errors will be caught by the app level error handlers
-    await session.withTransaction(async (session) => {
-      newSimulationRun.$session(session);
-      newSimulationRun._id = new mongo.ObjectID(id);
-      newSimulationRun.id = String(newSimulationRun._id);
-      newSimulationRun.projectFile = projectFile;
-      newSimulationRun.projectSize = projectSize;
-      await newSimulationRun.save({ session: session });
-    });
-    session.endSession();
+    newSimulationRun._id = new mongo.ObjectID(id);
+    newSimulationRun.id = String(newSimulationRun._id);
+    newSimulationRun.fileUrl = fileUrl;
+
+    newSimulationRun.projectSize = projectSize;
+    await newSimulationRun.save();
+
     return toApi(newSimulationRun);
   }
 
@@ -576,7 +550,7 @@ export class SimulationRunService {
   private async getModel(id: string): Promise<SimulationRunModel | null> {
     return this.simulationRunModel.findById(id).catch((_) => null);
   }
-
+  // TODO clean lint warning below and update warning to errors
   public async getRunSummaries(
     raiseErrors = false,
   ): Promise<SimulationRunSummary[]> {

@@ -17,5 +17,6 @@ import { SpecificationsService } from './specifications.service';
     ]),
   ],
   providers: [SpecificationsService],
+  exports: [SpecificationsService],
 })
 export class SpecificationsModule {}

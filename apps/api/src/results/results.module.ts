@@ -26,5 +26,6 @@ import { HSDSClientModule } from '@biosimulations/hsds/client';
   ],
   providers: [ResultsService],
   controllers: [ResultsController],
+  exports: [ResultsService],
 })
 export class ResultsModule {}
