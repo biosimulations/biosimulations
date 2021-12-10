@@ -1227,7 +1227,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: maochenyan@gmail.com
 │  ├─ url: https://github.com/stevemao
 │  └─ licenseFile: compare-func/LICENSE
-├─ compare-versions@4.1.1
+├─ compare-versions@4.1.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/omichelsen/compare-versions
 │  ├─ publisher: Ole Michelsen
