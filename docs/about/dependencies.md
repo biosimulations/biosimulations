@@ -4738,7 +4738,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: james@talmage.io
 │  ├─ url: github.com/jamestalmage
 │  └─ licenseFile: supports-hyperlinks/license
-├─ swagger-ui-dist@4.1.2
+├─ swagger-ui-dist@4.1.3
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/swagger-api/swagger-ui
 │  ├─ licenseFile: swagger-ui-dist/LICENSE
