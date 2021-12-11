@@ -1,12 +1,11 @@
-import * as arrayShape from '@stdlib/array-shape';
-import * as array2iterator from '@stdlib/array-to-iterator';
-import * as iterLast from '@stdlib/iter-last';
-import * as iterSlice from '@stdlib/iter-slice';
-import * as array from '@stdlib/ndarray-array';
-import * as ndarray2array from '@stdlib/ndarray-base-to-array';
-import * as ind2sub from '@stdlib/ndarray-ind2sub';
-import * as iterprod from '@stdlib/stats-iter-prod';
-import { ndarray } from '@stdlib/types/ndarray';
+import arrayShape from '@stdlib/array-shape';
+import array2iterator from '@stdlib/array-to-iterator';
+import iterLast from '@stdlib/iter-last';
+import iterSlice from '@stdlib/iter-slice';
+import array from '@stdlib/ndarray-array';
+import ndarray2array from '@stdlib/ndarray-base-to-array';
+import ind2sub from '@stdlib/ndarray-ind2sub';
+import iterprod from '@stdlib/stats-iter-prod';
 
 export interface FlatTaskResults {
   data: any[][];
