@@ -57,7 +57,7 @@ def get_submit_run_endpoint(runbiosimulations_deployment):
 def get_simulation_run_view_url(runbiosimulations_deployment, run_id):
 
     if runbiosimulations_deployment == 'local':
-        return 'https://run.biosimulations.dev/simulations/{}'.format(run_id)
+        return 'http://localhost:4200/simulations/{}'.format(run_id)
     elif runbiosimulations_deployment == 'dev':
         return 'https://run.biosimulations.dev/simulations/{}'.format(run_id)
     else:
