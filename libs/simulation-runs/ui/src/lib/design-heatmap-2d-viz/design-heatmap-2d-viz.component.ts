@@ -468,7 +468,7 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
                     type: 'flatten',
                     fields: ['values'],
                     index: subtaskIndex,
-                  });     
+                  });
                   iterationSubTaskIndices.push(`toString(datum.${iterationIndex} + 1)`);
                   iterationSubTaskIndices.push(`toString(datum.${subtaskIndex} + 1)`);
 
@@ -518,7 +518,7 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
           });
 
           // scales
-          if (isDataScalar) {            
+          if (isDataScalar) {
             for (const signal of vega.signals) {
               if (signal.name === 'xScaleTickCount') {
                 signal.value = 0;

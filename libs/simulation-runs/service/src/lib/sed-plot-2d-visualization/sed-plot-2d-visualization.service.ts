@@ -67,7 +67,7 @@ export class SedPlot2DVisualizationService {
         const flatData = flattenTaskResults([xData, yData]);
         
         for (let iTrace = 0; iTrace < flatData.data[0].length; iTrace++) {
-          const name = (curve.name || curve.id) + 
+          const name = (curve.name || curve.id) +
             (flatData.data[0].length > 1 ? ` (${getRepeatedTaskTraceLabel(iTrace, flatData.outerShape)})` : '');
           traces.push({
             name: name,

@@ -209,7 +209,7 @@ export class DesignLine2DVisualizationComponent implements OnInit {
                 }
 
                 const xData = uriResultsMap?.[xDataUri]?.values;
-                const yData = uriResultsMap?.[yDataUri]?.values;                
+                const yData = uriResultsMap?.[yDataUri]?.values;
 
                 if (xData && yData) {
                   const flatData = flattenTaskResults([xData, yData]);
@@ -541,7 +541,7 @@ export class DesignLine2DVisualizationComponent implements OnInit {
                     type: 'flatten',
                     fields: ['values'],
                     index: subtaskIndex,
-                  });     
+                  });
                   iterationSubTaskIndices.push(`toString(datum.${iterationIndex} + 1)`);
                   iterationSubTaskIndices.push(`toString(datum.${subtaskIndex} + 1)`);
                 }
