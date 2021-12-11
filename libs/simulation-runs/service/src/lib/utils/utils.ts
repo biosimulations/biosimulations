@@ -20,16 +20,28 @@ export function flattenTaskResults(data: any[][]): FlatTaskResults {
     iterLast(array2iterator(shape)),
   ];
   return {
-    data: data
-      .map((datum): any[][] => {
-        const datumNdArray = array([datum], {shape: shape});
-        return ndarray2array(datumNdArray.data, flatShape, [ 2, 1 ], 0, 'row-major');
-      }),
+    data: data.map((datum): any[][] => {
+      const datumNdArray = array([datum], { shape: shape });
+      return ndarray2array(
+        datumNdArray.data,
+        flatShape,
+        [2, 1],
+        0,
+        'row-major',
+      );
+    }),
     outerShape: outerShape,
   };
 }
 
-export function getRepeatedTaskTraceLabel(index: number, shape: number[]): string {
+export function getRepeatedTaskTraceLabel(
+  index: number,
+  shape: number[],
+): string {
   const subs = ind2sub(shape, index);
-  return `Subtask ${subs.map((i: number) => { return (i + 1).toString()}).join('-')}`;
+  return `Subtask ${subs
+    .map((i: number) => {
+      return (i + 1).toString();
+    })
+    .join('-')}`;
 }

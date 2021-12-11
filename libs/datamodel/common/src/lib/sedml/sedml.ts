@@ -51,7 +51,8 @@ export interface SedComputeModelChange {
   math: string;
 }
 
-export interface SerializedSedComputeModelChange extends Omit<SedComputeModelChange, 'variables'> {
+export interface SerializedSedComputeModelChange
+  extends Omit<SedComputeModelChange, 'variables'> {
   variables: SerializedSedVariable[];
 }
 
@@ -147,7 +148,8 @@ export interface SedTask {
   simulation: SedSimulation;
 }
 
-export interface SerializedSedTask extends Omit<SedTask, 'model' | 'simulation'> {
+export interface SerializedSedTask
+  extends Omit<SedTask, 'model' | 'simulation'> {
   model: string;
   simulation: string;
 }
@@ -168,7 +170,8 @@ export interface SedFunctionalRange {
   math: string;
 }
 
-export interface SerializedSedFunctionalRange extends Omit<SedFunctionalRange, 'range' | 'variables'> {
+export interface SerializedSedFunctionalRange
+  extends Omit<SedFunctionalRange, 'range' | 'variables'> {
   range: string;
   variables: SerializedSedVariable[];
 }
@@ -214,7 +217,8 @@ export interface SedSetValueComputeModelChange {
   math: string;
 }
 
-export interface SerializedSedSetValueComputeModelChange extends Omit<SedSetValueComputeModelChange, 'model' | 'range' | 'variables'> {
+export interface SerializedSedSetValueComputeModelChange
+  extends Omit<SedSetValueComputeModelChange, 'model' | 'range' | 'variables'> {
   _type: 'SedSetValueComputeModelChange';
   model: string;
   range?: string;
@@ -236,7 +240,8 @@ export interface SedRepeatedTask {
   subTasks: SedSubTask[];
 }
 
-export interface SerializedSedRepeatedTask extends Omit<SedRepeatedTask, 'ranges' | 'range' | 'changes' | 'subTasks'> {
+export interface SerializedSedRepeatedTask
+  extends Omit<SedRepeatedTask, 'ranges' | 'range' | 'changes' | 'subTasks'> {
   ranges: SerializedSedRange[];
   range: string;
   changes: SerializedSedSetValueComputeModelChange[];
@@ -265,7 +270,8 @@ export interface SedVariable {
   model?: SedModel;
 }
 
-export interface SerializedSedVariable extends Omit<SedVariable, 'task' | 'model'> {
+export interface SerializedSedVariable
+  extends Omit<SedVariable, 'task' | 'model'> {
   task: string;
   model?: string;
 }
@@ -279,7 +285,8 @@ export interface SedDataGenerator {
   math: string;
 }
 
-export interface SerializedSedDataGenerator extends Omit<SedDataGenerator, 'variables'> {
+export interface SerializedSedDataGenerator
+  extends Omit<SedDataGenerator, 'variables'> {
   variables: SerializedSedVariable[];
 }
 
@@ -291,7 +298,8 @@ export interface SedDataSet {
   dataGenerator: SedDataGenerator;
 }
 
-export interface SerializedSedDataSet extends Omit<SedDataSet, 'dataGenerator'> {
+export interface SerializedSedDataSet
+  extends Omit<SedDataSet, 'dataGenerator'> {
   dataGenerator: string;
 }
 
@@ -319,7 +327,8 @@ export interface SedCurve {
   yDataGenerator: SedDataGenerator;
 }
 
-export interface SerializedSedCurve extends Omit<SedCurve, 'xDataGenerator' | 'yDataGenerator'> {
+export interface SerializedSedCurve
+  extends Omit<SedCurve, 'xDataGenerator' | 'yDataGenerator'> {
   xDataGenerator: string;
   yDataGenerator: string;
 }
@@ -346,7 +355,11 @@ export interface SedSurface {
   zDataGenerator: SedDataGenerator;
 }
 
-export interface SerializedSedSurface extends Omit<SedSurface, 'xDataGenerator' | 'yDataGenerator' | 'zDataGenerator'> {
+export interface SerializedSedSurface
+  extends Omit<
+    SedSurface,
+    'xDataGenerator' | 'yDataGenerator' | 'zDataGenerator'
+  > {
   xDataGenerator: string;
   yDataGenerator: string;
   zDataGenerator: string;
@@ -383,7 +396,11 @@ export interface SedDocument {
   outputs: SedOutput[];
 }
 
-export interface SerializedSedDocument extends Omit<SedDocument, 'models' | 'simulations' | 'tasks' | 'dataGenerators' | 'outputs'> {
+export interface SerializedSedDocument
+  extends Omit<
+    SedDocument,
+    'models' | 'simulations' | 'tasks' | 'dataGenerators' | 'outputs'
+  > {
   models: SerializedSedModel[];
   simulations: SerializedSedSimulation[];
   tasks: SerializedSedAbstractTask[];

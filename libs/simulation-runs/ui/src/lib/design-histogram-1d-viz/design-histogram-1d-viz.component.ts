@@ -17,7 +17,10 @@ import {
   Histogram1DVisualization,
   SedDocumentReports,
 } from '@biosimulations/datamodel-simulation-runs';
-import { ViewService, flattenTaskResults } from '@biosimulations/simulation-runs/service';
+import {
+  ViewService,
+  flattenTaskResults,
+} from '@biosimulations/simulation-runs/service';
 import { Observable, map, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Spec as VegaSpec } from 'vega';
@@ -396,7 +399,11 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
                 };
 
                 const iterationSubTaskIndices: string[] = [];
-                for(let iIterationSubTask = 0; iIterationSubTask < flatOuterShape.length; iIterationSubTask += 2) {
+                for (
+                  let iIterationSubTask = 0;
+                  iIterationSubTask < flatOuterShape.length;
+                  iIterationSubTask += 2
+                ) {
                   const iterationIndex = `iteration${iIterationSubTask / 2}`;
                   const subtaskIndex = `subtask${iIterationSubTask / 2}`;
                   flatDataSet.transform.push({
@@ -410,7 +417,7 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
                     index: subtaskIndex,
                   });
                 }
-                
+
                 concreteDataSets.push(flatDataSet);
 
                 filteredVegaDataSetNames.push(

@@ -20,7 +20,11 @@ import {
   Line2DVisualization,
   SedDocumentReports,
 } from '@biosimulations/datamodel-simulation-runs';
-import { ViewService, flattenTaskResults, getRepeatedTaskTraceLabel } from '@biosimulations/simulation-runs/service';
+import {
+  ViewService,
+  flattenTaskResults,
+  getRepeatedTaskTraceLabel,
+} from '@biosimulations/simulation-runs/service';
 import { Observable, map, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Spec as VegaSpec } from 'vega';
@@ -213,9 +217,20 @@ export class DesignLine2DVisualizationComponent implements OnInit {
 
                 if (xData && yData) {
                   const flatData = flattenTaskResults([xData, yData]);
-                  for (let iTrace = 0; iTrace < flatData.data[0].length; iTrace++) {
+                  for (
+                    let iTrace = 0;
+                    iTrace < flatData.data[0].length;
+                    iTrace++
+                  ) {
                     traces.push({
-                      name: name + (flatData.data[0].length > 1 ? ` (${getRepeatedTaskTraceLabel(iTrace, flatData.outerShape)})` : ''),
+                      name:
+                        name +
+                        (flatData.data[0].length > 1
+                          ? ` (${getRepeatedTaskTraceLabel(
+                              iTrace,
+                              flatData.outerShape,
+                            )})`
+                          : ''),
                       x: flatData.data[0][iTrace],
                       y: flatData.data[1][iTrace],
                       xaxis: 'x1',
@@ -426,7 +441,9 @@ export class DesignLine2DVisualizationComponent implements OnInit {
                 {
                   type: 'cross',
                   as: ['X', 'Y'],
-                  filter: `(${curveFilters.join('||')}) && datum.X.iterationSubTaskLabel == datum.Y.iterationSubTaskLabel`,
+                  filter: `(${curveFilters.join(
+                    '||',
+                  )}) && datum.X.iterationSubTaskLabel == datum.Y.iterationSubTaskLabel`,
                 },
               ],
               data: selectedDataSets,
@@ -529,7 +546,11 @@ export class DesignLine2DVisualizationComponent implements OnInit {
                 };
 
                 const iterationSubTaskIndices: string[] = [];
-                for(let iIterationSubTask = 0; iIterationSubTask < flatOuterShape.length; iIterationSubTask += 2) {
+                for (
+                  let iIterationSubTask = 0;
+                  iIterationSubTask < flatOuterShape.length;
+                  iIterationSubTask += 2
+                ) {
                   const iterationIndex = `iteration${iIterationSubTask / 2}`;
                   const subtaskIndex = `subtask${iIterationSubTask / 2}`;
                   flatDataSet.transform.push({
@@ -542,19 +563,26 @@ export class DesignLine2DVisualizationComponent implements OnInit {
                     fields: ['values'],
                     index: subtaskIndex,
                   });
-                  iterationSubTaskIndices.push(`toString(datum.${iterationIndex} + 1)`);
-                  iterationSubTaskIndices.push(`toString(datum.${subtaskIndex} + 1)`);
+                  iterationSubTaskIndices.push(
+                    `toString(datum.${iterationIndex} + 1)`,
+                  );
+                  iterationSubTaskIndices.push(
+                    `toString(datum.${subtaskIndex} + 1)`,
+                  );
                 }
-                
+
                 flatDataSet.transform.push({
                   type: 'formula',
                   expr: `[${iterationSubTaskIndices.join(', ')}]`,
-                  as: 'iterationSubTaskIndices'
+                  as: 'iterationSubTaskIndices',
                 });
 
                 flatDataSet.transform.push({
                   type: 'formula',
-                  expr: outerShapeSize > 1 ? `' ' + join(datum.iterationSubTaskIndices, '-')` : `''`,
+                  expr:
+                    outerShapeSize > 1
+                      ? `' ' + join(datum.iterationSubTaskIndices, '-')`
+                      : `''`,
                   as: 'iterationSubTaskLabel',
                 });
 

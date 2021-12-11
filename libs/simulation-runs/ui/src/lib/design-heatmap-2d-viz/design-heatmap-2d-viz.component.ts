@@ -17,7 +17,11 @@ import {
   Heatmap2DVisualization,
   SedDocumentReports,
 } from '@biosimulations/datamodel-simulation-runs';
-import { ViewService, flattenTaskResults, getRepeatedTaskTraceLabel } from '@biosimulations/simulation-runs/service';
+import {
+  ViewService,
+  flattenTaskResults,
+  getRepeatedTaskTraceLabel,
+} from '@biosimulations/simulation-runs/service';
 import { Observable, map, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Spec as VegaSpec } from 'vega';
@@ -192,9 +196,21 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
               const data = uriResultsMap?.[selectedUri];
               if (data) {
                 const flatData = flattenTaskResults([data.values]);
-                for (let iTrace = 0; iTrace < flatData.data[0].length; iTrace++) {
+                for (
+                  let iTrace = 0;
+                  iTrace < flatData.data[0].length;
+                  iTrace++
+                ) {
                   zData.push(flatData.data[0][iTrace]);
-                  yTicks.push(data.label + (flatData.data[0].length > 1 ? ` (${getRepeatedTaskTraceLabel(iTrace, flatData.outerShape)})` : ''));
+                  yTicks.push(
+                    data.label +
+                      (flatData.data[0].length > 1
+                        ? ` (${getRepeatedTaskTraceLabel(
+                            iTrace,
+                            flatData.outerShape,
+                          )})`
+                        : ''),
+                  );
                 }
               } else {
                 errors.push(`Y-data set '${selectedUri}'.`);
@@ -208,7 +224,11 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
             const data = uriResultsMap?.[selectedXUri];
             if (data) {
               xTicks = data.values;
-              while (Array.isArray(xTicks) && xTicks.length && Array.isArray(xTicks[0])) {
+              while (
+                Array.isArray(xTicks) &&
+                xTicks.length &&
+                Array.isArray(xTicks[0])
+              ) {
                 xTicks = xTicks[0];
               }
               xAxisTitle = data.label;
@@ -379,7 +399,8 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
               templateNames: ['rawXData', 'rawXData_filtered'],
               sourceName: (iDataSet: number): string => `rawXData`,
               filteredName: (iDataSet: number): string => `rawXData_filtered`,
-              flattenedName: (iDataSet: number): string => `rawXData_initial_flattened`,
+              flattenedName: (iDataSet: number): string =>
+                `rawXData_initial_flattened`,
               data: selectedXDataSet,
             },
           ];
@@ -456,7 +477,11 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
                 };
 
                 const iterationSubTaskIndices: string[] = [];
-                for(let iIterationSubTask = 0; iIterationSubTask < flatOuterShape.length; iIterationSubTask += 2) {
+                for (
+                  let iIterationSubTask = 0;
+                  iIterationSubTask < flatOuterShape.length;
+                  iIterationSubTask += 2
+                ) {
                   const iterationIndex = `iteration${iIterationSubTask / 2}`;
                   const subtaskIndex = `subtask${iIterationSubTask / 2}`;
                   flatDataSet.transform.push({
@@ -469,8 +494,12 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
                     fields: ['values'],
                     index: subtaskIndex,
                   });
-                  iterationSubTaskIndices.push(`toString(datum.${iterationIndex} + 1)`);
-                  iterationSubTaskIndices.push(`toString(datum.${subtaskIndex} + 1)`);
+                  iterationSubTaskIndices.push(
+                    `toString(datum.${iterationIndex} + 1)`,
+                  );
+                  iterationSubTaskIndices.push(
+                    `toString(datum.${subtaskIndex} + 1)`,
+                  );
 
                   if (vegaDataSet.templateNames[0] === 'rawXData') {
                     flatDataSet.transform.push({
@@ -479,16 +508,19 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
                     });
                   }
                 }
-                                
+
                 flatDataSet.transform.push({
                   type: 'formula',
                   expr: `[${iterationSubTaskIndices.join(', ')}]`,
-                  as: 'iterationSubTaskIndices'
+                  as: 'iterationSubTaskIndices',
                 });
 
                 flatDataSet.transform.push({
                   type: 'formula',
-                  expr: outerShapeSize > 1 ? `' ' + join(datum.iterationSubTaskIndices, '-')` : `''`,
+                  expr:
+                    outerShapeSize > 1
+                      ? `' ' + join(datum.iterationSubTaskIndices, '-')`
+                      : `''`,
                   as: 'iterationSubTaskLabel',
                 });
 
