@@ -111,7 +111,7 @@
     },
     {
       "name": "rawXData_flattened",
-      "source": "rawXData_filtered",
+      "source": "rawXData_initial_flattened",
       "transform": [
         {
           "type": "flatten",
@@ -141,12 +141,12 @@
         },
         {
           "type": "formula",
-          "expr": "datum.prev.values",
+          "expr": "datum.prev.values - (datum.next.values - datum.prev.values)/2",
           "as": "x0"
         },
         {
           "type": "formula",
-          "expr": "datum.next.values",
+          "expr": "datum.prev.values + (datum.next.values - datum.prev.values)/2",
           "as": "x1"
         },
         {

@@ -293,6 +293,7 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
             templateNames: string[];
             sourceName: (iDataSet: number) => string;
             filteredName: (iDataSet: number) => string;
+            flattenedName: (iDataSet: number) => string;
             joinedName?: string;
             joinedTransforms?: any[];
             data: { [outputUri: string]: string[] };
@@ -302,6 +303,8 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
           // y axis
           let isDataScalar = true;
           const selectedYDataSets: { [outputUri: string]: string[] } = {};
+          let flatOuterShape: number[] = [];
+          let outerShapeSize: number = 0;
           for (let selectedUri of selectedYUris) {
             if (selectedUri.startsWith('./')) {
               selectedUri = selectedUri.substring(2);
@@ -320,7 +323,11 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
                 }
                 selectedYDataSets[outputUri].push(data.id);
 
-                if (data.values.length > 1) {
+                const flatData = flattenTaskResults([data.values]);
+                flatOuterShape = flatData.outerShape;
+                outerShapeSize = flatData.data[0].length;
+
+                if (flatData.data[0].length && flatData.data[0][0].length > 1) {
                   isDataScalar = false;
                 }
               }
@@ -356,12 +363,15 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
               templateNames: [
                 'rawHeatmapData0',
                 'rawHeatmapData0_filtered',
+                'rawHeatmapData0_initial_flattened',
                 'rawHeatmapData_joined',
               ],
               sourceName: (iDataSet: number): string =>
                 `rawHeatmapData${iDataSet}`,
               filteredName: (iDataSet: number): string =>
                 `rawHeatmapData${iDataSet}_filtered`,
+              flattenedName: (iDataSet: number): string =>
+                `rawHeatmapData${iDataSet}_initial_flattened`,
               joinedName: 'rawHeatmapData_joined',
               data: selectedYDataSets,
             },
@@ -369,6 +379,7 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
               templateNames: ['rawXData', 'rawXData_filtered'],
               sourceName: (iDataSet: number): string => `rawXData`,
               filteredName: (iDataSet: number): string => `rawXData_filtered`,
+              flattenedName: (iDataSet: number): string => `rawXData_initial_flattened`,
               data: selectedXDataSet,
             },
           ];
@@ -396,7 +407,7 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
 
             // add concrete data sets
             const concreteDataSets: any[] = [];
-            const filteredVegaDataSetNames: string[] = [];
+            const flattenedVegaDataSetNames: string[] = [];
             Object.entries(vegaDataSet.data).forEach(
               (outputUriDataSetIds: [string, any], iDataSet: number): void => {
                 const outputUri = outputUriDataSetIds[0];
@@ -438,7 +449,58 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
                   ],
                 });
 
-                filteredVegaDataSetNames.push(
+                const flatDataSet: any = {
+                  name: vegaDataSet.flattenedName(iDataSet),
+                  source: concreteDataSets[concreteDataSets.length - 1].name,
+                  transform: [],
+                };
+
+                const iterationSubTaskIndices: string[] = [];
+                for(let iIterationSubTask = 0; iIterationSubTask < flatOuterShape.length; iIterationSubTask += 2) {
+                  const iterationIndex = `iteration${iIterationSubTask / 2}`;
+                  const subtaskIndex = `subtask${iIterationSubTask / 2}`;
+                  flatDataSet.transform.push({
+                    type: 'flatten',
+                    fields: ['values'],
+                    index: iterationIndex,
+                  });
+                  flatDataSet.transform.push({
+                    type: 'flatten',
+                    fields: ['values'],
+                    index: subtaskIndex,
+                  });     
+                  iterationSubTaskIndices.push(`toString(datum.${iterationIndex} + 1)`);
+                  iterationSubTaskIndices.push(`toString(datum.${subtaskIndex} + 1)`);
+
+                  if (vegaDataSet.templateNames[0] === 'rawXData') {
+                    flatDataSet.transform.push({
+                      type: 'filter',
+                      expr: `datum.${iterationIndex} == 0 && datum.${subtaskIndex} == 0`,
+                    });
+                  }
+                }
+                                
+                flatDataSet.transform.push({
+                  type: 'formula',
+                  expr: `[${iterationSubTaskIndices.join(', ')}]`,
+                  as: 'iterationSubTaskIndices'
+                });
+
+                flatDataSet.transform.push({
+                  type: 'formula',
+                  expr: outerShapeSize > 1 ? `' ' + join(datum.iterationSubTaskIndices, '-')` : `''`,
+                  as: 'iterationSubTaskLabel',
+                });
+
+                flatDataSet.transform.push({
+                  type: 'formula',
+                  expr: 'datum.label + datum.iterationSubTaskLabel',
+                  as: 'label',
+                });
+
+                concreteDataSets.push(flatDataSet);
+
+                flattenedVegaDataSetNames.push(
                   concreteDataSets[concreteDataSets.length - 1].name,
                 );
               },
@@ -447,7 +509,7 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
             if (vegaDataSet.joinedName) {
               concreteDataSets.push({
                 name: vegaDataSet.joinedName,
-                source: filteredVegaDataSetNames,
+                source: flattenedVegaDataSetNames,
                 transform: vegaDataSet.joinedTransforms || [],
               });
             }
@@ -456,7 +518,14 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
           });
 
           // scales
-          if (isDataScalar) {
+          if (isDataScalar) {            
+            for (const signal of vega.signals) {
+              if (signal.name === 'xScaleTickCount') {
+                signal.value = 0;
+                break;
+              }
+            }
+
             for (const scale of vega.scales) {
               if (scale.name === 'xScale') {
                 scale.type = 'quantize';
@@ -467,8 +536,8 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
             for (const data of vega.data) {
               if (data.name === 'rawXData_diffed') {
                 data.transform[0].filter = 'true';
-                data.transform[2].expr += ' - 1';
-                data.transform[3].expr += ' + 1';
+                data.transform[2].expr = '-1';
+                data.transform[3].expr = '1';
                 break;
               }
             }
