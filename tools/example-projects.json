@@ -69,12 +69,12 @@
     "disabled": false,
     "publishToBioSimulations": true,
     "bioSimulationsId": "HSP-synthesis-Szymanska-J-Theor-Biol-2009"
-  },
+  },  
   {
     "name": "Hodgkin-Huxley cell (Gleeson; NeuroML/LEMS; CVODE; NetPyNe)",
     "simulator": "netpyne",
     "filename": "neuroml-lems/Hodgkin-Huxley-cell-CVODE.omex",
-    "disabled": false,
+    "disabled": "NetPyNe needs to be debugged for use with HPC",
     "publishToBioSimulations": false,
     "bioSimulationsId": ""
   },
@@ -82,6 +82,14 @@
     "name": "Hodgkin-Huxley cell (Gleeson; NeuroML/LEMS; CVODE; Neuron)",
     "simulator": "neuron",
     "filename": "neuroml-lems/Hodgkin-Huxley-cell-CVODE.omex",
+    "disabled": false,
+    "publishToBioSimulations": false,
+    "bioSimulationsId": ""
+  },
+  {
+    "name": "Hodgkin-Huxley cell (Gleeson; NeuroML/LEMS; Euler; Brian 2)",
+    "simulator": "brian2",
+    "filename": "neuroml-lems/Hodgkin-Huxley-cell-Euler.omex",
     "disabled": false,
     "publishToBioSimulations": false,
     "bioSimulationsId": ""

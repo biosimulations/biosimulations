@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+set -e
+
+# location of this script
+script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+# spec location
+spec_file=${script_dir}/../apps/combine-api/src/spec/spec.yml
+
+# output location
+lib_dir=${script_dir}/../libs/combine-api/angular-client
+
+rm -rf ${lib_dir}/src/lib/api/
+rm -rf ${lib_dir}/src/lib/model/
+
+npx @openapitools/openapi-generator-cli generate \
+    -g typescript-angular \
+    -i ${spec_file} \
+    -o ${lib_dir}/src/lib/ \
+    --global-property=skipFormModel=false \
+    --additional-properties=stringEnums=true,ngVersion=13.0.3,supportsES6=true \
+    --reserved-words-mappings abstract=abstract
+
+# Correct names of auto-generated type enumerations
+sed -i "s/Linear = 'linear'/linear = 'linear'/" ${lib_dir}/src/lib/model/sedAxisScale.ts
+sed -i "s/Log = 'log'/log = 'log'/" ${lib_dir}/src/lib/model/sedAxisScale.ts
+sed -i "s/Linear = 'linear'/linear = 'linear'/" ${lib_dir}/src/lib/model/sedUniformRange.ts
+sed -i "s/Log = 'log'/log = 'log'/" ${lib_dir}/src/lib/model/sedUniformRange.ts
+sed -i '1s/^/\/* eslint-disable no-control-regex *\/\n/' ${lib_dir}/src/lib/configuration.ts
+perl -0777 -i -p -e 's/\\\//\//g' ${lib_dir}/src/lib/configuration.ts
+
+# correct localVarHeaders arguments
+sed -i 's/localVarHeaders: localVarHeaders,/headers: localVarHeaders,/g' ${lib_dir}/src/lib/api/*.service.ts
+
+# Fix lint issues
+nx run combine-api-angular-client:lint --fix
+
+# Format the files
+nx format --projects combine-api-angular-client
+
+# Build the library
+# nx build combine-api-angular-client

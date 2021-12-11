@@ -36,6 +36,9 @@ if env.lower() == 'prod':
 options = {
     'swagger_url': '/',
     'swagger_path': os.path.join(os.path.dirname(__file__), '..', 'vendor', 'swagger-ui-3.52.0'),
+    'swagger_ui_template_arguments': {
+        'title': 'BioSimulations COMBINE API',
+    },
 }
 app = connexion.App(__name__, specification_dir=spec_dirname, options=options)
 

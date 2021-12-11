@@ -6,8 +6,13 @@ import { HttpService } from '@nestjs/axios';
 import { map, mergeMap, pluck } from 'rxjs';
 import {
   SedDocument,
+  SedModel,
+  SedSimulation,
+  SedAbstractTask,
+  SedDataGenerator,
+  SedOutput,
   CombineArchiveSedDocSpecsContent,
-} from '@biosimulations/combine-api-client';
+} from '@biosimulations/combine-api-nest-client';
 import { SimulationRunService } from '@biosimulations/api-nest-client';
 import { SimulationRunSedDocumentInput } from '@biosimulations/ontology/datamodel';
 
@@ -29,7 +34,7 @@ export class SedmlService {
   public async processSedml(id: string): Promise<void> {
     this.logger.log(`Processing SED-ML documents for simulation run '${id}'.`);
     // get external url since combine service may not be local
-    const url = this.endpoints.getRunDownloadEndpoint(true, id);
+    const url = this.endpoints.getRunDownloadEndpoint(false, id);
     const req = this.combine.getSedMlSpecs(undefined, url);
     const sedml = req.pipe(
       pluck('data'),
@@ -50,14 +55,20 @@ export class SedmlService {
     contents.forEach((content: CombineArchiveSedDocSpecsContent) => {
       const id: string = content.location.path.replace('./', '');
       const spec: SedDocument = content.location.value;
-
+      const models: SedModel[] = spec.models;
+      const simulations: SedSimulation[] = spec.simulations;
+      const tasks: SedAbstractTask[] = spec.tasks;
+      const dataGenerators: SedDataGenerator[] = spec.dataGenerators;
+      const outputs: SedOutput[] = spec.outputs;
       sedmlSpecs.push({
         id: id,
-        dataGenerators: spec.dataGenerators,
-        models: spec.models,
-        outputs: spec.outputs,
-        tasks: spec.tasks,
-        simulations: spec.simulations,
+        level: spec.level,
+        version: spec.version,
+        models,
+        simulations,
+        tasks,
+        dataGenerators,
+        outputs,
       });
     });
     return sedmlSpecs;

@@ -127,13 +127,41 @@
       ]
     },
     {
+      "name": "rawData0_flattened",
+      "source": [
+        "rawData0_filtered"
+      ],
+      "transform": [
+        {
+          "type": "flatten",
+          "fields": ["values"],
+          "index": "iteration"
+        },
+        {
+          "type": "flatten",
+          "fields": ["values"],
+          "index": "subtask"
+        },
+        {
+          "type": "formula",
+          "expr": "[toString(datum.iteration + 1), toString(datum.subtask + 1)]",
+          "as": "iterationSubTaskIndices"
+        },
+        {
+          "type": "formula",
+          "expr": "datum.iterationSubTaskIndices.length ? ' '  + join(datum.iterationSubTaskIndices, '-') : ''",
+          "as": "iterationSubTaskLabel"
+        }
+      ]
+    },
+    {
       "name": "rawData_joined",
-      "source": ["rawData0_filtered"],
+      "source": ["rawData0_flattened"],
       "transform": [
         {
           "type": "cross",
           "as": ["X", "Y"],
-          "filter": "(datum.X.reportUri === 'simulation_1.sedml/report' && datum.X.id == 'data_set_time' && datum.Y.reportUri === 'simulation_1.sedml/report' && datum.Y.id == 'data_set_Sic') || (datum.X.reportUri === 'simulation_1.sedml/report' && datum.X.id == 'data_set_time' && datum.Y.reportUri === 'simulation_1.sedml/report' && datum.Y.id == 'data_set_Cdc20a')"
+          "filter": "((datum.X.reportUri === 'simulation_1.sedml/report' && datum.X.id == 'data_set_time' && datum.Y.reportUri === 'simulation_1.sedml/report' && datum.Y.id == 'data_set_Sic') || (datum.X.reportUri === 'simulation_1.sedml/report' && datum.X.id == 'data_set_time' && datum.Y.reportUri === 'simulation_1.sedml/report' && datum.Y.id == 'data_set_Cdc20a') && datum.X.iterationSubTaskLabel == datum.Y.iterationSubTaskLabel"
         }
       ]
     },
@@ -153,7 +181,7 @@
         },
         {
           "type": "formula",
-          "expr": "singleXAxis ? datum.Y.label : singleYAxis ? datum.X.label : datum.X.label + ' vs. ' + datum.Y.label",
+          "expr": "singleXAxis ? datum.Y.fullLabel : singleYAxis ? datum.X.fullLabel : datum.X.label + ' vs. ' + datum.Y.fullLabel",
           "as": "label"
         },
         {

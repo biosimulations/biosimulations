@@ -151,9 +151,19 @@ RUN apt-get install -y --no-install-recommends \
 
 ###################################
 # NetPyNe
+RUN apt-get install -y --no-install-recommends \
+    gcc \
+    g++ \
+    make \
+    mpi \
+    libmpich-dev
 
 ###################################
 # NEURON
+RUN apt-get install -y --no-install-recommends \
+    gcc \
+    g++ \
+    make
 
 ###################################
 # pyNeuroML, LEMS
@@ -298,13 +308,11 @@ COPY Dockerfile-assets/Pipfile.lock /app/Pipfile.lock
 # install environment
 RUN pipenv install --system --deploy
 
-# force reinstall of matplotlib due to inconsistent version
-RUN pip uninstall -y matplotlib \
-    && pip install "matplotlib==3.2.0" \
-    && python -c "import matplotlib.font_manager"
+# set up matplotlib font manager
+RUN python -c "import matplotlib.font_manager"
 
 # install assimulo because pipenv fails to install it
-ARG ASSIMULO_VERSION=3.2.5
+ARG ASSIMULO_VERSION=3.2.8
 RUN pip install git+https://github.com/modelon-community/Assimulo.git@Assimulo-${ASSIMULO_VERSION}
 
 EXPOSE 3333

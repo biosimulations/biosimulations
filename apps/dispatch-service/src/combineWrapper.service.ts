@@ -3,7 +3,7 @@ import {
   CombineArchiveManifest,
   CombineArchiveSedDocSpecs,
   SimulationProjectsService,
-} from '@biosimulations/combine-api-client';
+} from '@biosimulations/combine-api-nest-client';
 import { Injectable, HttpStatus } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { Observable } from 'rxjs';
@@ -45,6 +45,7 @@ export class CombineWrapperService {
       .srcHandlersCombineGetSedmlSpecsForCombineArchiveHandler(file, url)
       .pipe(this.getRetryBackoff());
   }
+
   private getRetryBackoff(): <T>(source: Observable<T>) => Observable<T> {
     return retryBackoff({
       initialInterval: 100,

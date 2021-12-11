@@ -17,7 +17,7 @@ import {
   Histogram1DVisualization,
   SedDocumentReports,
 } from '@biosimulations/datamodel-simulation-runs';
-import { ViewService } from '@biosimulations/simulation-runs/service';
+import { ViewService, flattenTaskResults } from '@biosimulations/simulation-runs/service';
 import { Observable, map, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Spec as VegaSpec } from 'vega';
@@ -254,6 +254,7 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
             templateNames: string[];
             sourceName: (iDataSet: number) => string;
             filteredName: (iDataSet: number) => string;
+            flattenedName: (iDataSet: number) => string;
             joinedName?: string;
             joinedTransforms?: any[];
             data: { [outputUri: string]: string[] };
@@ -263,6 +264,7 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
           const selectedDataSets: { [outputUri: string]: string[] } = {};
           const histogramExtent = [NaN, NaN];
           const xAxisTitles: string[] = [];
+          let flatOuterShape: number[] = [];
           for (let selectedUri of selectedDataSetUris) {
             if (selectedUri.startsWith('./')) {
               selectedUri = selectedUri.substring(2);
@@ -289,6 +291,9 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
                   : Math.max(histogramExtent[1], Math.max(...flatData));
 
                 xAxisTitles.push(data.label);
+
+                const outerFlatData = flattenTaskResults([data.values]);
+                flatOuterShape = outerFlatData.outerShape;
               }
             }
           }
@@ -297,11 +302,14 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
               templateNames: [
                 'rawData0',
                 'rawData0_filtered',
+                'rawData0_flattened',
                 'rawData_joined',
               ],
               sourceName: (iDataSet: number): string => `rawData${iDataSet}`,
               filteredName: (iDataSet: number): string =>
                 `rawData${iDataSet}_filtered`,
+              flattenedName: (iDataSet: number): string =>
+                `rawData${iDataSet}_flattened`,
               joinedName: 'rawData_joined',
               data: selectedDataSets,
             },
@@ -380,6 +388,30 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
                     },
                   ],
                 });
+
+                const flatDataSet: any = {
+                  name: vegaDataSet.flattenedName(iDataSet),
+                  source: concreteDataSets[concreteDataSets.length - 1].name,
+                  transform: [],
+                };
+
+                const iterationSubTaskIndices: string[] = [];
+                for(let iIterationSubTask = 0; iIterationSubTask < flatOuterShape.length; iIterationSubTask += 2) {
+                  const iterationIndex = `iteration${iIterationSubTask / 2}`;
+                  const subtaskIndex = `subtask${iIterationSubTask / 2}`;
+                  flatDataSet.transform.push({
+                    type: 'flatten',
+                    fields: ['values'],
+                    index: iterationIndex,
+                  });
+                  flatDataSet.transform.push({
+                    type: 'flatten',
+                    fields: ['values'],
+                    index: subtaskIndex,
+                  });
+                }
+                
+                concreteDataSets.push(flatDataSet);
 
                 filteredVegaDataSetNames.push(
                   concreteDataSets[concreteDataSets.length - 1].name,

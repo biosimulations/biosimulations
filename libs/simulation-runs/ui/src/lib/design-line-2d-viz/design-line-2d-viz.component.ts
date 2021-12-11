@@ -12,6 +12,7 @@ import {
   PlotlyTraceType,
   PlotlyAxisType,
   PlotlyTraceMode,
+  PlotlyTrace,
 } from '@biosimulations/datamodel/common';
 import {
   UriSedDataSetMap,
@@ -19,7 +20,7 @@ import {
   Line2DVisualization,
   SedDocumentReports,
 } from '@biosimulations/datamodel-simulation-runs';
-import { ViewService } from '@biosimulations/simulation-runs/service';
+import { ViewService, flattenTaskResults, getRepeatedTaskTraceLabel } from '@biosimulations/simulation-runs/service';
 import { Observable, map, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Spec as VegaSpec } from 'vega';
@@ -169,7 +170,7 @@ export class DesignLine2DVisualizationComponent implements OnInit {
           const formGroup = this.formGroup;
           const traceMode = (formGroup.controls.traceMode as FormControl).value;
 
-          const traces = [];
+          const traces: PlotlyTrace[] = [];
           const xAxisTitlesSet = new Set<string>();
           const yAxisTitlesSet = new Set<string>();
           const errors: string[] = [];
@@ -207,18 +208,22 @@ export class DesignLine2DVisualizationComponent implements OnInit {
                   name = `${yLabel} vs ${xLabel}`;
                 }
 
-                const trace = {
-                  name: name,
-                  x: uriResultsMap?.[xDataUri]?.values,
-                  y: uriResultsMap?.[yDataUri]?.values,
-                  xaxis: 'x1',
-                  yaxis: 'y1',
-                  type: PlotlyTraceType.scatter,
-                  mode: traceMode,
-                };
+                const xData = uriResultsMap?.[xDataUri]?.values;
+                const yData = uriResultsMap?.[yDataUri]?.values;
 
-                if (trace.x && trace.y) {
-                  traces.push(trace);
+                if (xData && yData) {
+                  const flatData = flattenTaskResults([xData, yData]);
+                  for (let iTrace = 0; iTrace < flatData.data[0].length; iTrace++) {
+                    traces.push({
+                      name: name + (flatData.data[0].length > 1 ? ` (${getRepeatedTaskTraceLabel(iTrace, flatData.outerShape)})` : ''),
+                      x: flatData.data[0][iTrace],
+                      y: flatData.data[1][iTrace],
+                      xaxis: 'x1',
+                      yaxis: 'y1',
+                      type: PlotlyTraceType.scatter,
+                      mode: traceMode,
+                    });
+                  }
                   xAxisTitlesSet.add(xLabel);
                   yAxisTitlesSet.add(yLabel);
                 } else if (xDataUri && yDataUri) {
@@ -310,6 +315,7 @@ export class DesignLine2DVisualizationComponent implements OnInit {
             templateNames: string[];
             sourceName: (iDataSet: number) => string;
             filteredName: (iDataSet: number) => string;
+            flattenedName: (iDataSet: number) => string;
             joinedName?: string;
             joinedTransforms?: any[];
             data: { [outputUri: string]: string[] };
@@ -322,6 +328,8 @@ export class DesignLine2DVisualizationComponent implements OnInit {
           const curveFilters: string[] = [];
           const xAxisTitlesSet = new Set<string>();
           const yAxisTitlesSet = new Set<string>();
+          let flatOuterShape: number[] = [];
+          let outerShapeSize: number = 0;
 
           for (const curve of this.curvesFormGroups) {
             for (const xDataUri of (curve.controls.xData as FormControl)
@@ -369,6 +377,11 @@ export class DesignLine2DVisualizationComponent implements OnInit {
                   curveFilters.push(`(${conditions.join(' && ')})`);
                   xAxisTitlesSet.add(xLabel);
                   yAxisTitlesSet.add(yLabel);
+
+                  const xData = uriResultsMap?.[xDataUri]?.values;
+                  const flatData = flattenTaskResults([xData]);
+                  flatOuterShape = flatData.outerShape;
+                  outerShapeSize = flatData.data[0].length;
                 }
               }
             }
@@ -400,17 +413,20 @@ export class DesignLine2DVisualizationComponent implements OnInit {
               templateNames: [
                 'rawData0',
                 'rawData0_filtered',
+                'rawData0_flattened',
                 'rawData_joined',
               ],
               sourceName: (iDataSet: number): string => `rawData${iDataSet}`,
               filteredName: (iDataSet: number): string =>
                 `rawData${iDataSet}_filtered`,
+              flattenedName: (iDataSet: number): string =>
+                `rawData${iDataSet}_flattened`,
               joinedName: 'rawData_joined',
               joinedTransforms: [
                 {
                   type: 'cross',
                   as: ['X', 'Y'],
-                  filter: curveFilters.join('||'),
+                  filter: `(${curveFilters.join('||')}) && datum.X.iterationSubTaskLabel == datum.Y.iterationSubTaskLabel`,
                 },
               ],
               data: selectedDataSets,
@@ -505,6 +521,50 @@ export class DesignLine2DVisualizationComponent implements OnInit {
                     },
                   ],
                 });
+
+                const flatDataSet: any = {
+                  name: vegaDataSet.flattenedName(iDataSet),
+                  source: concreteDataSets[concreteDataSets.length - 1].name,
+                  transform: [],
+                };
+
+                const iterationSubTaskIndices: string[] = [];
+                for(let iIterationSubTask = 0; iIterationSubTask < flatOuterShape.length; iIterationSubTask += 2) {
+                  const iterationIndex = `iteration${iIterationSubTask / 2}`;
+                  const subtaskIndex = `subtask${iIterationSubTask / 2}`;
+                  flatDataSet.transform.push({
+                    type: 'flatten',
+                    fields: ['values'],
+                    index: iterationIndex,
+                  });
+                  flatDataSet.transform.push({
+                    type: 'flatten',
+                    fields: ['values'],
+                    index: subtaskIndex,
+                  });
+                  iterationSubTaskIndices.push(`toString(datum.${iterationIndex} + 1)`);
+                  iterationSubTaskIndices.push(`toString(datum.${subtaskIndex} + 1)`);
+                }
+                
+                flatDataSet.transform.push({
+                  type: 'formula',
+                  expr: `[${iterationSubTaskIndices.join(', ')}]`,
+                  as: 'iterationSubTaskIndices'
+                });
+
+                flatDataSet.transform.push({
+                  type: 'formula',
+                  expr: outerShapeSize > 1 ? `' ' + join(datum.iterationSubTaskIndices, '-')` : `''`,
+                  as: 'iterationSubTaskLabel',
+                });
+
+                flatDataSet.transform.push({
+                  type: 'formula',
+                  expr: 'datum.label + datum.iterationSubTaskLabel',
+                  as: 'fullLabel',
+                });
+
+                concreteDataSets.push(flatDataSet);
 
                 filteredVegaDataSetNames.push(
                   concreteDataSets[concreteDataSets.length - 1].name,

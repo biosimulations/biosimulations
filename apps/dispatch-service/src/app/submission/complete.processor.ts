@@ -112,7 +112,7 @@ export class CompleteProcessor {
               value: value,
             };
           })
-          .catch((error) => {
+          .catch((error: AxiosError) => {
             let reason = '';
             reason += `The ${processingStep.name} could not be saved.`;
             reason += ` Please check that the ${processingStep.name} ${
@@ -123,7 +123,7 @@ export class CompleteProcessor {
               reason += ` A validation tool is\n    available at ${processingStep.validator}.`;
             }
 
-            const details = `The ${processingStep.name} for simulation run '${runId}' could not be saved: ${error.status}: ${error.message}`;
+            const details = `The ${processingStep.name} for simulation run '${runId}' could not be saved: ${error?.response?.status}: ${error?.response?.data?.detail}`;
             if (processingStep.required) {
               errors.push(reason);
               errorsDetails.push(details);

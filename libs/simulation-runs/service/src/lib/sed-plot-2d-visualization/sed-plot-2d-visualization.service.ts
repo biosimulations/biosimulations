@@ -15,6 +15,7 @@ import {
   SimulationRunOutputDatum,
 } from '@biosimulations/datamodel/api';
 */
+import { flattenTaskResults, getRepeatedTaskTraceLabel } from '../utils/utils';
 
 interface SedDatasetResults {
   uri: string;
@@ -55,19 +56,29 @@ export class SedPlot2DVisualizationService {
         sedDocLocation + '/' + plot.id + '/' + curve.xDataGenerator.id;
       const yId =
         sedDocLocation + '/' + plot.id + '/' + curve.yDataGenerator.id;
-      xAxisTitlesSet.add(curve.xDataGenerator.name || curve.xDataGenerator.id);
-      yAxisTitlesSet.add(curve.yDataGenerator.name || curve.yDataGenerator.id);
-      const trace = {
-        name: curve.name || curve.id,
-        x: resultsMap?.[xId]?.values,
-        y: resultsMap?.[yId]?.values,
-        xaxis: 'x1',
-        yaxis: 'y1',
-        type: PlotlyTraceType.scatter,
-        mode: PlotlyTraceMode.lines,
-      };
-      if (trace.x && trace.y) {
-        traces.push(trace as PlotlyTrace);
+      
+      const xData = resultsMap?.[xId]?.values;
+      const yData = resultsMap?.[yId]?.values;
+
+      if (xData && yData) {
+        xAxisTitlesSet.add(curve.xDataGenerator.name || curve.xDataGenerator.id);
+        yAxisTitlesSet.add(curve.yDataGenerator.name || curve.yDataGenerator.id);
+
+        const flatData = flattenTaskResults([xData, yData]);
+        
+        for (let iTrace = 0; iTrace < flatData.data[0].length; iTrace++) {
+          const name = (curve.name || curve.id) +
+            (flatData.data[0].length > 1 ? ` (${getRepeatedTaskTraceLabel(iTrace, flatData.outerShape)})` : '');
+          traces.push({
+            name: name,
+            x: flatData.data[0][iTrace],
+            y: flatData.data[1][iTrace],
+            xaxis: 'x1',
+            yaxis: 'y1',
+            type: PlotlyTraceType.scatter,
+            mode: PlotlyTraceMode.lines,
+          });
+        }
       } else {
         errors.push(`Curve '${curve.id}' of '${xId}' and '${yId}'.`);
       }

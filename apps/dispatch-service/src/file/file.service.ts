@@ -12,7 +12,7 @@ import {
   Observable,
   pluck,
 } from 'rxjs';
-import { CombineArchiveManifestContent } from '@biosimulations/combine-api-client';
+import { CombineArchiveManifestContent } from '@biosimulations/combine-api-nest-client';
 import { ProjectFileInput } from '@biosimulations/datamodel/api';
 import { SimulationRunService } from '@biosimulations/api-nest-client';
 
@@ -33,7 +33,7 @@ export class FileService {
 
   public async processFiles(id: string): Promise<void> {
     this.logger.log(`Processing files for simulation run '${id}'.`);
-    const url = this.endpoints.getRunDownloadEndpoint(true, id);
+    const url = this.endpoints.getRunDownloadEndpoint(false, id);
 
     await firstValueFrom(
       this.combine.getManifest(undefined, url).pipe(

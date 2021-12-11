@@ -22,9 +22,9 @@ import { MonitorProcessor } from './submission/monitor.processor';
 import { SimulationStatusService } from './services/simulationStatus.service';
 
 import {
-  CombineNestClientModule,
+  CombineApiNestClientWrapperModule,
   CombineAPIConfiguration,
-} from '@biosimulations/combine-nest-client';
+} from '@biosimulations/combine-api-nest-client-wrapper';
 import { JobQueue } from '@biosimulations/messages/messages';
 import { MetadataService } from '../metadata/metadata.service';
 import { CombineWrapperService } from '../combineWrapper.service';
@@ -41,7 +41,7 @@ import { Endpoints } from '@biosimulations/config/common';
     AuthClientModule,
     SharedNatsClientModule,
     DispatchNestClientModule,
-    CombineNestClientModule.forRootAsync({
+    CombineApiNestClientWrapperModule.forRootAsync({
       imports: [BiosimulationsConfigModule],
       useFactory: (configService: ConfigService) => {
         const env = configService.get('server.env');

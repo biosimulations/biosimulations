@@ -23,7 +23,8 @@ import {
   SedModel,
   SedSimulation,
   SedSimulationSchema,
-  SedTask,
+  SedAbstractTask,
+  SedAbstractTaskSchema,
   SedDataGenerator,
   SedOutput,
   SedOutputSchema,
@@ -294,7 +295,7 @@ export class SpecificationsController {
   })
   @ApiOkResponse({
     description: 'Specifications of the task',
-    type: SedTask,
+    schema: SedAbstractTaskSchema,
   })
   @ApiNotFoundResponse({
     type: ErrorResponseDocument,
@@ -305,11 +306,11 @@ export class SpecificationsController {
     @Param('runId') runId: string,
     @Param('experimentLocation') experimentLocation: string,
     @Param('taskId') taskId: string,
-  ): Promise<SedTask> {
+  ): Promise<SedAbstractTask> {
     const spec = await this.service.getElementSpecification(
       runId,
       experimentLocation,
-      SedElementType.SedTask,
+      SedElementType.SedAbstractTask,
       taskId,
     );
     if (!spec) {
@@ -480,6 +481,8 @@ export class SpecificationsController {
   private returnSpec(specs: SpecificationsModel): SimulationRunSedDocument {
     return {
       id: specs.id,
+      level: specs.level,
+      version: specs.version,
       models: specs.models,
       simulations: specs.simulations,
       outputs: specs.outputs,

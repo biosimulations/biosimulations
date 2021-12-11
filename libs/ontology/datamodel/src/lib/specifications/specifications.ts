@@ -9,23 +9,34 @@ import {
   SimulationRunSedDocument as ISimulationRunSedDocument,
   SimulationRunSedDocumentInput as ISimulationRunSedDocumentInput,
   SimulationRunSedDocumentInputsContainer as ISimulationRunSedDocumentInputsContainer,
-  SedModel as ISedModel,
+  SerializedSedModel as ISedModel,
   SedModelAttributeChange as ISedModelAttributeChange,
+  SedAddElementModelChange as ISedAddElementModelChange,
+  SedReplaceElementModelChange as ISedReplaceElementModelChange,
+  SedRemoveElementModelChange as ISedRemoveElementModelChange,
+  SerializedSedComputeModelChange as ISedComputeModelChange,
+  SerializedSedSetValueComputeModelChange as ISedSetValueComputeModelChange,
   SedOneStepSimulation as ISedOneStepSimulation,
   SedSteadyStateSimulation as ISedSteadyStateSimulation,
   SedUniformTimeCourseSimulation as ISedUniformTimeCourseSimulation,
   SedAlgorithm as ISedAlgorithm,
   SedAlgorithmParameterChange as ISedAlgorithmParameterChange,
-  SedTask as ISedTask,
-  SedRepeatedTask as ISedRepeatedTask,
-  SedDataGenerator as ISedDataGenerator,
-  SedReport as ISedReport,
-  SedPlot2D as ISedPlot2D,
-  SedPlot3D as ISedPlot3D,
-  SedDataSet as ISedDataSet,
-  SedCurve as ISedCurve,
-  SedSurface as ISedSurface,
-  SedVariable as ISedVariable,
+  SerializedSedTask as ISedTask,
+  SerializedSedRepeatedTask as ISedRepeatedTask,
+  SerializedSedSubTask as ISedSubTask,
+  SerializedSedFunctionalRange as ISedFunctionalRange,
+  SedUniformRange as ISedUniformRange,
+  SedUniformRangeType,
+  SedVectorRange as ISedVectorRange,
+  SerializedSedDataGenerator as ISedDataGenerator,
+  SerializedSedReport as ISedReport,
+  SerializedSedPlot2D as ISedPlot2D,
+  SerializedSedPlot3D as ISedPlot3D,
+  SerializedSedDataSet as ISedDataSet,
+  SerializedSedCurve as ISedCurve,
+  SerializedSedSurface as ISedSurface,
+  SerializedSedVariable as ISedVariable,
+  SedParameter as ISedParameter,
   SedTarget as ISedTarget,
   Namespace as INamespace,
   SedAxisScale,
@@ -41,6 +52,10 @@ import {
   Equals,
   Min,
   IsInt,
+  IsPositive,
+  IsArray,
+  IsBoolean,
+  IsNotEmpty,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { IsOntologyTerm } from '@biosimulations/ontology/utils';
@@ -57,6 +72,7 @@ export class Namespace implements INamespace {
     nullable: true,
   })
   @IsOptional()
+  @IsNotEmpty()
   @IsString()
   public prefix?: string;
 
@@ -77,6 +93,7 @@ export class SedTarget implements ISedTarget {
   public _type!: 'SedTarget';
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public value!: string;
 
@@ -86,14 +103,74 @@ export class SedTarget implements ISedTarget {
   public namespaces?: Namespace[];
 }
 
+export class SedParameter implements ISedParameter {
+  @ApiProperty({ type: String, enum: ['SedParameter'] })
+  @Equals('SedParameter')
+  public _type!: 'SedParameter';
+
+  @ApiProperty({ type: String })
+  @IsNotEmpty()
+  @IsString()
+  public id!: string;
+
+  @ApiProperty({ type: String, required: false, nullable: true })
+  @IsOptional()
+  @IsString()
+  public name?: string;
+
+  @ApiProperty({ type: Number, required: false, nullable: true })
+  @IsNumber()
+  public value!: number;
+}
+
+export class SedVariable implements ISedVariable {
+  @ApiProperty({ type: String, enum: ['SedVariable'] })
+  @Equals('SedVariable')
+  public _type!: 'SedVariable';
+
+  @ApiProperty({ type: String })
+  @IsNotEmpty()
+  @IsString()
+  public id!: string;
+
+  @ApiProperty({ type: String, required: false, nullable: true })
+  @IsOptional()
+  @IsString()
+  public name?: string;
+
+  @ApiProperty({ type: String, required: false, nullable: true })
+  @IsOptional()
+  @IsNotEmpty()
+  @IsString()
+  public symbol?: string;
+
+  @ApiProperty({ type: SedTarget, required: false, nullable: true })
+  @ValidateNested()
+  @Type(() => SedTarget)
+  public target?: SedTarget;
+
+  @ApiProperty({ type: String })
+  @IsNotEmpty()
+  @IsString()
+  public task!: string;
+
+  @ApiProperty({ type: String })
+  @IsOptional()
+  @IsNotEmpty()
+  @IsString()
+  public model?: string;
+}
+
 export class SedModelAttributeChange implements ISedModelAttributeChange {
   @ApiProperty({ type: String, enum: ['SedModelAttributeChange'] })
   @Equals('SedModelAttributeChange')
   public _type!: 'SedModelAttributeChange';
 
   @ApiProperty({ type: String })
+  @IsOptional()
+  @IsNotEmpty()
   @IsString()
-  public id!: string;
+  public id?: string;
 
   @ApiProperty({ type: String, required: false, nullable: true })
   @IsOptional()
@@ -110,15 +187,142 @@ export class SedModelAttributeChange implements ISedModelAttributeChange {
   public newValue!: string;
 }
 
-export type SedModelChange = SedModelAttributeChange;
+export class SedAddElementModelChange implements ISedAddElementModelChange {
+  @ApiProperty({ type: String, enum: ['SedAddElementModelChange'] })
+  @Equals('SedAddElementModelChange')
+  public _type!: 'SedAddElementModelChange';
+
+  @ApiProperty({ type: String })
+  @IsOptional()
+  @IsNotEmpty()
+  @IsString()
+  public id?: string;
+
+  @ApiProperty({ type: String, required: false, nullable: true })
+  @IsOptional()
+  @IsString()
+  public name?: string;
+
+  @ApiProperty({ type: SedTarget })
+  @ValidateNested()
+  @Type(() => SedTarget)
+  public target!: SedTarget;
+
+  @ApiProperty({ type: [String] })
+  @IsString({ each: true })
+  @IsArray()
+  public newElements!: string[];
+}
+
+export class SedReplaceElementModelChange
+  implements ISedReplaceElementModelChange
+{
+  @ApiProperty({ type: String, enum: ['SedReplaceElementModelChange'] })
+  @Equals('SedReplaceElementModelChange')
+  public _type!: 'SedReplaceElementModelChange';
+
+  @ApiProperty({ type: String })
+  @IsOptional()
+  @IsNotEmpty()
+  @IsString()
+  public id?: string;
+
+  @ApiProperty({ type: String, required: false, nullable: true })
+  @IsOptional()
+  @IsString()
+  public name?: string;
+
+  @ApiProperty({ type: SedTarget })
+  @ValidateNested()
+  @Type(() => SedTarget)
+  public target!: SedTarget;
+
+  @ApiProperty({ type: [String] })
+  @IsString({ each: true })
+  @IsArray()
+  public newElements!: string[];
+}
+
+export class SedRemoveElementModelChange
+  implements ISedRemoveElementModelChange
+{
+  @ApiProperty({ type: String, enum: ['SedRemoveElementModelChange'] })
+  @Equals('SedRemoveElementModelChange')
+  public _type!: 'SedRemoveElementModelChange';
+
+  @ApiProperty({ type: String })
+  @IsOptional()
+  @IsNotEmpty()
+  @IsString()
+  public id?: string;
+
+  @ApiProperty({ type: String, required: false, nullable: true })
+  @IsOptional()
+  @IsString()
+  public name?: string;
+
+  @ApiProperty({ type: SedTarget })
+  @ValidateNested()
+  @Type(() => SedTarget)
+  public target!: SedTarget;
+}
+
+export class SedComputeModelChange implements ISedComputeModelChange {
+  @ApiProperty({ type: String, enum: ['SedComputeModelChange'] })
+  @Equals('SedComputeModelChange')
+  public _type!: 'SedComputeModelChange';
+
+  @ApiProperty({ type: String })
+  @IsOptional()
+  @IsNotEmpty()
+  @IsString()
+  public id?: string;
+
+  @ApiProperty({ type: String, required: false, nullable: true })
+  @IsOptional()
+  @IsString()
+  public name?: string;
+
+  @ApiProperty({ type: SedTarget })
+  @ValidateNested()
+  @Type(() => SedTarget)
+  public target!: SedTarget;
+
+  @ApiProperty({ type: [SedParameter] })
+  @Type(() => SedParameter)
+  @ValidateNested({ each: true })
+  public parameters!: SedParameter[];
+
+  @ApiProperty({ type: [SedVariable] })
+  @Type(() => SedVariable)
+  @ValidateNested({ each: true })
+  public variables!: SedVariable[];
+
+  @ApiProperty({ type: String })
+  @IsNotEmpty()
+  @IsString()
+  public math!: string;
+}
+
+export type SedModelChange =
+  | SedModelAttributeChange
+  | SedAddElementModelChange
+  | SedReplaceElementModelChange
+  | SedRemoveElementModelChange
+  | SedComputeModelChange;
 
 @ApiExtraModels(SedModelAttributeChange)
+@ApiExtraModels(SedAddElementModelChange)
+@ApiExtraModels(SedReplaceElementModelChange)
+@ApiExtraModels(SedRemoveElementModelChange)
+@ApiExtraModels(SedComputeModelChange)
 export class SedModel implements ISedModel {
   @ApiProperty({ type: String, enum: ['SedModel'] })
   @Equals('SedModel')
   public _type!: 'SedModel';
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public id!: string;
 
@@ -128,21 +332,39 @@ export class SedModel implements ISedModel {
   public name?: string;
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public language!: string;
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public source!: string;
 
   @ApiProperty({
-    oneOf: [{ $ref: getSchemaPath(SedModelAttributeChange) }],
+    oneOf: [
+      { $ref: getSchemaPath(SedModelAttributeChange) },
+      { $ref: getSchemaPath(SedAddElementModelChange) },
+      { $ref: getSchemaPath(SedReplaceElementModelChange) },
+      { $ref: getSchemaPath(SedRemoveElementModelChange) },
+      { $ref: getSchemaPath(SedComputeModelChange) },
+    ],
   })
   @Type(() => Object, {
     discriminator: {
       property: '_type',
       subTypes: [
         { value: SedModelAttributeChange, name: 'SedModelAttributeChange' },
+        { value: SedAddElementModelChange, name: 'SedAddElementModelChange' },
+        {
+          value: SedReplaceElementModelChange,
+          name: 'SedReplaceElementModelChange',
+        },
+        {
+          value: SedRemoveElementModelChange,
+          name: 'SedRemoveElementModelChange',
+        },
+        { value: SedComputeModelChange, name: 'SedComputeModelChange' },
       ],
     },
     keepDiscriminatorProperty: true,
@@ -198,6 +420,7 @@ export class SedUniformTimeCourseSimulation
   public _type!: 'SedUniformTimeCourseSimulation';
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public id!: string;
 
@@ -235,6 +458,7 @@ export class SedSteadyStateSimulation implements ISedSteadyStateSimulation {
   public _type!: 'SedSteadyStateSimulation';
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public id!: string;
 
@@ -255,6 +479,7 @@ export class SedOneStepSimulation implements ISedOneStepSimulation {
   public _type!: 'SedOneStepSimulation';
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public id!: string;
 
@@ -286,15 +511,13 @@ export const SedSimulationSchema: SchemaObject = {
   ],
 };
 
-@ApiExtraModels(SedUniformTimeCourseSimulation)
-@ApiExtraModels(SedSteadyStateSimulation)
-@ApiExtraModels(SedOneStepSimulation)
 export class SedTask implements ISedTask {
   @ApiProperty({ type: String, enum: ['SedTask'] })
   @Equals('SedTask')
   public _type!: 'SedTask';
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public id!: string;
 
@@ -302,90 +525,25 @@ export class SedTask implements ISedTask {
   @IsOptional()
   @IsString()
   public name?: string;
-
-  @ApiProperty({ type: SedModel })
-  @ValidateNested()
-  @Type(() => SedModel)
-  public model!: SedModel;
-
-  @ApiProperty({
-    oneOf: [
-      { $ref: getSchemaPath(SedUniformTimeCourseSimulation) },
-      { $ref: getSchemaPath(SedSteadyStateSimulation) },
-      { $ref: getSchemaPath(SedOneStepSimulation) },
-    ],
-  })
-  @ValidateNested()
-  @Type(() => Object, {
-    discriminator: {
-      property: '_type',
-      subTypes: [
-        { value: SedOneStepSimulation, name: 'SedOneStepSimulation' },
-        { value: SedSteadyStateSimulation, name: 'SedSteadyStateSimulation' },
-        {
-          value: SedUniformTimeCourseSimulation,
-          name: 'SedUniformTimeCourseSimulation',
-        },
-      ],
-    },
-    keepDiscriminatorProperty: true,
-  })
-  public simulation!: SedSimulation;
-}
-
-export class SedRepeatedTask implements ISedRepeatedTask {
-  @ApiProperty({ type: String, enum: ['SedRepeatedTask'] })
-  @Equals('SedRepeatedTask')
-  public _type!: 'SedRepeatedTask';
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
-  public id!: string;
-
-  @ApiProperty({ type: String, required: false, nullable: true })
-  @IsOptional()
-  @IsString()
-  public name?: string;
-}
-
-export type SedAbstractTask = SedTask | SedRepeatedTask;
-
-export class SedVariable implements ISedVariable {
-  @ApiProperty({ type: String, enum: ['SedVariable'] })
-  @Equals('SedVariable')
-  public _type!: 'SedVariable';
+  public model!: string;
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
-  public id!: string;
-
-  @ApiProperty({ type: String, required: false, nullable: true })
-  @IsOptional()
-  @IsString()
-  public name?: string;
-
-  @ApiProperty({ type: String, required: false, nullable: true })
-  @IsOptional()
-  @IsString()
-  public symbol?: string;
-
-  @ApiProperty({ type: SedTarget, required: false, nullable: true })
-  @ValidateNested()
-  @Type(() => SedTarget)
-  public target?: SedTarget;
-
-  @ApiProperty({ type: SedTask })
-  @ValidateNested()
-  @Type(() => SedTask)
-  public task!: SedTask;
+  public simulation!: string;
 }
 
-export class SedDataGenerator implements ISedDataGenerator {
-  @ApiProperty({ type: String, enum: ['SedDataGenerator'] })
-  @Equals('SedDataGenerator')
-  public _type!: 'SedDataGenerator';
+export class SedFunctionalRange implements ISedFunctionalRange {
+  @ApiProperty({ type: String, enum: ['SedFunctionalRange'] })
+  @Equals('SedFunctionalRange')
+  public _type!: 'SedFunctionalRange';
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public id!: string;
 
@@ -393,6 +551,16 @@ export class SedDataGenerator implements ISedDataGenerator {
   @IsOptional()
   @IsString()
   public name?: string;
+
+  @ApiProperty({ type: String })
+  @IsNotEmpty()
+  @IsString()
+  public range!: string;
+
+  @ApiProperty({ type: [SedParameter] })
+  @Type(() => SedParameter)
+  @ValidateNested({ each: true })
+  public parameters!: SedParameter[];
 
   @ApiProperty({ type: [SedVariable] })
   @Type(() => SedVariable)
@@ -400,6 +568,244 @@ export class SedDataGenerator implements ISedDataGenerator {
   public variables!: SedVariable[];
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
+  @IsString()
+  public math!: string;
+}
+
+export class SedUniformRange implements ISedUniformRange {
+  @ApiProperty({ type: String, enum: ['SedUniformRange'] })
+  @Equals('SedUniformRange')
+  public _type!: 'SedUniformRange';
+
+  @ApiProperty({ type: String })
+  @IsNotEmpty()
+  @IsString()
+  public id!: string;
+
+  @ApiProperty({ type: String, required: false, nullable: true })
+  @IsOptional()
+  @IsString()
+  public name?: string;
+
+  @ApiProperty({ type: Number })
+  @IsNumber()
+  public start!: number;
+
+  @ApiProperty({ type: Number })
+  @IsNumber()
+  public end!: number;
+
+  @ApiProperty({ type: Number })
+  @IsPositive()
+  @IsInt()
+  public numberOfSteps!: number;
+
+  @ApiProperty({ type: String, enum: SedUniformRangeType })
+  @IsEnum(SedUniformRangeType)
+  public type!: SedUniformRangeType;
+}
+
+export class SedVectorRange implements ISedVectorRange {
+  @ApiProperty({ type: String, enum: ['SedVectorRange'] })
+  @Equals('SedVectorRange')
+  public _type!: 'SedVectorRange';
+
+  @ApiProperty({ type: String })
+  @IsNotEmpty()
+  @IsString()
+  public id!: string;
+
+  @ApiProperty({ type: String, required: false, nullable: true })
+  @IsOptional()
+  @IsString()
+  public name?: string;
+
+  @ApiProperty({ type: [Number] })
+  @IsNumber({}, { each: true })
+  @IsArray()
+  public values!: number[];
+}
+
+export type SedRange = SedFunctionalRange | SedUniformRange | SedVectorRange;
+
+export const SedRangeSchema: SchemaObject = {
+  oneOf: [
+    { $ref: getSchemaPath(SedFunctionalRange) },
+    { $ref: getSchemaPath(SedUniformRange) },
+    { $ref: getSchemaPath(SedVectorRange) },
+  ],
+};
+
+export class SedSetValueComputeModelChange
+  implements ISedSetValueComputeModelChange
+{
+  @ApiProperty({ type: String, enum: ['SedSetValueComputeModelChange'] })
+  @Equals('SedSetValueComputeModelChange')
+  public _type!: 'SedSetValueComputeModelChange';
+
+  @ApiProperty({ type: String })
+  @IsOptional()
+  @IsNotEmpty()
+  @IsString()
+  public id?: string;
+
+  @ApiProperty({ type: String, required: false, nullable: true })
+  @IsOptional()
+  @IsString()
+  public name?: string;
+
+  @ApiProperty({ type: String })
+  @IsNotEmpty()
+  @IsString()
+  public model!: string;
+
+  @ApiProperty({ type: SedTarget, required: false, nullable: true })
+  @ValidateNested()
+  @Type(() => SedTarget)
+  public target!: SedTarget;
+
+  @ApiProperty({ type: String })
+  @IsOptional()
+  @IsNotEmpty()
+  @IsString()
+  public symbol?: string;
+
+  @ApiProperty({ type: String })
+  @IsOptional()
+  @IsNotEmpty()
+  @IsString()
+  public range?: string;
+
+  @ApiProperty({ type: [SedParameter] })
+  @Type(() => SedParameter)
+  @ValidateNested({ each: true })
+  public parameters!: SedParameter[];
+
+  @ApiProperty({ type: [SedVariable] })
+  @Type(() => SedVariable)
+  @ValidateNested({ each: true })
+  public variables!: SedVariable[];
+
+  @ApiProperty({ type: String })
+  @IsNotEmpty()
+  @IsString()
+  public math!: string;
+}
+
+export class SedSubTask implements ISedSubTask {
+  @ApiProperty({ type: String, enum: ['SedSubTask'] })
+  @Equals('SedSubTask')
+  public _type!: 'SedSubTask';
+
+  @ApiProperty({ type: String })
+  @IsNotEmpty()
+  @IsString()
+  public task!: string;
+
+  @ApiProperty({ type: Number })
+  @IsNumber()
+  public order!: number;
+}
+
+@ApiExtraModels(SedFunctionalRange)
+@ApiExtraModels(SedUniformRange)
+@ApiExtraModels(SedVectorRange)
+export class SedRepeatedTask implements ISedRepeatedTask {
+  @ApiProperty({ type: String, enum: ['SedRepeatedTask'] })
+  @Equals('SedRepeatedTask')
+  public _type!: 'SedRepeatedTask';
+
+  @ApiProperty({ type: String })
+  @IsNotEmpty()
+  @IsString()
+  public id!: string;
+
+  @ApiProperty({ type: String, required: false, nullable: true })
+  @IsOptional()
+  @IsString()
+  public name?: string;
+
+  @ApiProperty({ type: String })
+  @IsNotEmpty()
+  @IsString()
+  public range!: string;
+
+  @ApiProperty({ type: Boolean })
+  @IsBoolean()
+  public resetModelForEachIteration!: boolean;
+
+  @ApiProperty({ type: [SedSetValueComputeModelChange] })
+  @Type(() => SedSetValueComputeModelChange)
+  @ValidateNested({ each: true })
+  public changes!: SedSetValueComputeModelChange[];
+
+  @ApiProperty({ type: [SedSubTask] })
+  @Type(() => SedSubTask)
+  @ValidateNested({ each: true })
+  public subTasks!: SedSubTask[];
+
+  @ApiProperty({
+    type: 'array',
+    items: {
+      oneOf: [
+        { $ref: getSchemaPath(SedFunctionalRange) },
+        { $ref: getSchemaPath(SedUniformRange) },
+        { $ref: getSchemaPath(SedVectorRange) },
+      ],
+    },
+  })
+  @Type(() => Object, {
+    discriminator: {
+      property: '_type',
+      subTypes: [
+        { value: SedFunctionalRange, name: 'SedFunctionalRange' },
+        { value: SedUniformRange, name: 'SedUniformRange' },
+        { value: SedVectorRange, name: 'SedVectorRange' },
+      ],
+    },
+    keepDiscriminatorProperty: true,
+  })
+  @ValidateNested({ each: true })
+  public ranges!: SedRange[];
+}
+
+export type SedAbstractTask = SedTask | SedRepeatedTask;
+
+export const SedAbstractTaskSchema: SchemaObject = {
+  oneOf: [
+    { $ref: getSchemaPath(SedTask) },
+    { $ref: getSchemaPath(SedRepeatedTask) },
+  ],
+};
+
+export class SedDataGenerator implements ISedDataGenerator {
+  @ApiProperty({ type: String, enum: ['SedDataGenerator'] })
+  @Equals('SedDataGenerator')
+  public _type!: 'SedDataGenerator';
+
+  @ApiProperty({ type: String })
+  @IsNotEmpty()
+  @IsString()
+  public id!: string;
+
+  @ApiProperty({ type: String, required: false, nullable: true })
+  @IsOptional()
+  @IsString()
+  public name?: string;
+
+  @ApiProperty({ type: [SedParameter] })
+  @Type(() => SedParameter)
+  @ValidateNested({ each: true })
+  public parameters!: SedParameter[];
+
+  @ApiProperty({ type: [SedVariable] })
+  @Type(() => SedVariable)
+  @ValidateNested({ each: true })
+  public variables!: SedVariable[];
+
+  @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public math!: string;
 }
@@ -410,13 +816,14 @@ export class SedDataSet implements ISedDataSet {
   public _type!: 'SedDataSet';
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public id!: string;
 
-  @ApiProperty({ type: SedDataGenerator })
-  @ValidateNested()
-  @Type(() => SedDataGenerator)
-  public dataGenerator!: SedDataGenerator;
+  @ApiProperty({ type: String })
+  @IsNotEmpty()
+  @IsString()
+  public dataGenerator!: string;
 
   @ApiProperty({ type: String, required: false, nullable: true })
   @IsOptional()
@@ -424,6 +831,7 @@ export class SedDataSet implements ISedDataSet {
   public name?: string;
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public label!: string;
 }
@@ -434,6 +842,7 @@ export class SedReport implements ISedReport {
   public _type!: 'SedReport';
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public id!: string;
 
@@ -454,6 +863,7 @@ export class SedCurve implements ISedCurve {
   public _type!: 'SedCurve';
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public id!: string;
 
@@ -462,15 +872,15 @@ export class SedCurve implements ISedCurve {
   @IsString()
   public name?: string;
 
-  @ApiProperty({ type: SedDataGenerator })
-  @ValidateNested()
-  @Type(() => SedDataGenerator)
-  public xDataGenerator!: SedDataGenerator;
+  @ApiProperty({ type: String })
+  @IsNotEmpty()
+  @IsString()
+  public xDataGenerator!: string;
 
-  @ApiProperty({ type: SedDataGenerator })
-  @ValidateNested()
-  @Type(() => SedDataGenerator)
-  public yDataGenerator!: SedDataGenerator;
+  @ApiProperty({ type: String })
+  @IsNotEmpty()
+  @IsString()
+  public yDataGenerator!: string;
 }
 
 export class SedPlot2D implements ISedPlot2D {
@@ -479,6 +889,7 @@ export class SedPlot2D implements ISedPlot2D {
   public _type!: 'SedPlot2D';
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public id!: string;
 
@@ -507,6 +918,7 @@ export class SedSurface implements ISedSurface {
   public _type!: 'SedSurface';
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public id!: string;
 
@@ -515,20 +927,20 @@ export class SedSurface implements ISedSurface {
   @IsString()
   public name?: string;
 
-  @ApiProperty({ type: SedDataGenerator })
-  @ValidateNested()
-  @Type(() => SedDataGenerator)
-  public xDataGenerator!: SedDataGenerator;
+  @ApiProperty({ type: String })
+  @IsNotEmpty()
+  @IsString()
+  public xDataGenerator!: string;
 
-  @ApiProperty({ type: SedDataGenerator })
-  @ValidateNested()
-  @Type(() => SedDataGenerator)
-  public yDataGenerator!: SedDataGenerator;
+  @ApiProperty({ type: String })
+  @IsNotEmpty()
+  @IsString()
+  public yDataGenerator!: string;
 
-  @ApiProperty({ type: SedDataGenerator })
-  @ValidateNested()
-  @Type(() => SedDataGenerator)
-  public zDataGenerator!: SedDataGenerator;
+  @ApiProperty({ type: String })
+  @IsNotEmpty()
+  @IsString()
+  public zDataGenerator!: string;
 }
 
 export class SedPlot3D implements ISedPlot3D {
@@ -537,6 +949,7 @@ export class SedPlot3D implements ISedPlot3D {
   public _type!: 'SedPlot3D';
 
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public id!: string;
 
@@ -579,12 +992,25 @@ export const SedOutputSchema: SchemaObject = {
 @ApiExtraModels(SedReport)
 @ApiExtraModels(SedPlot2D)
 @ApiExtraModels(SedPlot3D)
+@ApiExtraModels(SedTask)
+@ApiExtraModels(SedRepeatedTask)
 export class SimulationRunSedDocumentInput
   implements ISimulationRunSedDocumentInput
 {
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public id!: string;
+
+  @ApiProperty({ type: Number })
+  @IsPositive()
+  @IsInt()
+  public level!: number;
+
+  @ApiProperty({ type: Number })
+  @IsPositive()
+  @IsInt()
+  public version!: number;
 
   @ApiProperty({ type: [SedModel] })
   @Type(() => SedModel)
@@ -647,10 +1073,27 @@ export class SimulationRunSedDocumentInput
   @ValidateNested({ each: true })
   public outputs!: SedOutput[];
 
-  @ApiProperty({ type: [SedTask] })
-  @Type(() => SedTask)
+  @ApiProperty({
+    type: 'array',
+    items: {
+      oneOf: [
+        { $ref: getSchemaPath(SedTask) },
+        { $ref: getSchemaPath(SedRepeatedTask) },
+      ],
+    },
+  })
+  @Type(() => Object, {
+    discriminator: {
+      property: '_type',
+      subTypes: [
+        { value: SedTask, name: 'SedTask' },
+        { value: SedRepeatedTask, name: 'SedRepeatedTask' },
+      ],
+    },
+    keepDiscriminatorProperty: true,
+  })
   @ValidateNested({ each: true })
-  public tasks!: SedTask[];
+  public tasks!: SedAbstractTask[];
 }
 
 export class SimulationRunSedDocument
@@ -658,6 +1101,7 @@ export class SimulationRunSedDocument
   implements ISimulationRunSedDocument
 {
   @ApiProperty({ type: String })
+  @IsNotEmpty()
   @IsString()
   public simulationRun!: string;
 

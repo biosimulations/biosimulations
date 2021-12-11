@@ -1,0 +1,33 @@
+{
+  "root": "libs/combine-api/nest-client",
+  "sourceRoot": "libs/combine-api/nest-client/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/combine-api/nest-client",
+        "tsConfig": "libs/combine-api/nest-client/tsconfig.lib.json",
+        "packageJson": "libs/combine-api/nest-client/package.json",
+        "main": "libs/combine-api/nest-client/src/index.ts",
+        "assets": ["libs/combine-api/nest-client/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/combine-api/nest-client/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/combine-api/nest-client"],
+      "options": {
+        "jestConfig": "libs/combine-api/nest-client/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:combine", "platform:server", "shared:true", "type:client"]
+}

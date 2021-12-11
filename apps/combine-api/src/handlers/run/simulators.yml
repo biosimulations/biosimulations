@@ -19,6 +19,13 @@
     package: biosimulators_bionetgen
   exampleCombineArchive: bngl/test-bngl.omex
 
+- id: brian2
+  name: Brian 2
+  api:
+    module: biosimulators_pyneuroml.api.brian2
+    package: biosimulators_pyneuroml
+  exampleCombineArchive: neuroml-lems/Hodgkin-Huxley-cell-CVODE.omex
+
 - id: cbmpy
   name: CBMPy
   api:

@@ -57,7 +57,7 @@ export class ResultsController {
   @ApiQuery({
     name: 'includeData',
     description:
-      'Whether to include the simulation results or to only return the structurre of the results (e.g., ids, names of the avaialable reports and data sets).',
+      'Whether to include the simulation results or to only return the structure of the results (e.g., ids, names of the avaialable reports and data sets).',
     type: Boolean,
     required: false,
   })
@@ -143,7 +143,7 @@ export class ResultsController {
   @ApiQuery({
     name: 'includeData',
     description:
-      'Whether to include the simulation results or to only return the structurre of the results (e.g., ids, names of the avaialable reports and data sets).',
+      'Whether to include the simulation results or to only return the structure of the results (e.g., ids, names of the avaialable reports and data sets).',
     type: Boolean,
     required: false,
   })

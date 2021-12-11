@@ -56,127 +56,6 @@ class HandlersTestCase(unittest.TestCase):
         spec_dict, spec_url = read_api_spec_from_filename(self.API_SPECS_FILENAME)
         validate_api_spec(spec_dict)
 
-    def test_get_sedml_specs_for_combine_archive_url(self):
-        archive_filename = os.path.join(
-            self.FIXTURES_DIR, self.TEST_CASE + '.omex')
-        with open(archive_filename, 'rb') as file:
-            archive_url_content = file.read()
-
-        archive_url = 'https://archive.combine.org'
-        data = MultiDict([
-            ('url', archive_url),
-        ])
-        response = mock.Mock(
-            raise_for_status=lambda: None,
-            content=archive_url_content,
-        )
-        with mock.patch('requests.get', return_value=response):
-            endpoint = '/combine/sedml-specs'
-            with app.app.app.test_client() as client:
-                response = client.post(endpoint, data=data, content_type="multipart/form-data")
-        self.assertEqual(response.status_code, 200, response.json)
-        combine_specs = response.json
-
-        sed_output_specs_filename = os.path.join(
-            self.FIXTURES_DIR, self.TEST_CASE + '.sed-specs.json')
-        with open(sed_output_specs_filename, 'r') as file:
-            expected_combine_specs = json.load(file)
-        self.assertEqual(combine_specs, expected_combine_specs, combine_specs)
-
-        # validate request and response
-        if hasattr(self, "request_validator"):
-            request = OpenAPIRequest(
-                full_url_pattern='https://127.0.0.1/combine/sedml-specs',
-                method='post',
-                body={
-                    'url': archive_url,
-                },
-                mimetype='multipart/form-data',
-                parameters=RequestParameters(),
-            )
-            result = self.request_validator.validate(request)
-            result.raise_for_errors()
-
-            response = OpenAPIResponse(data=json.dumps(expected_combine_specs),
-                                       status_code=200,
-                                       mimetype='application/json')
-            result = self.response_validator.validate(request, response)
-            result.raise_for_errors()
-
-    def test_get_sedml_specs_for_combine_archive_file(self):
-        archive_filename = os.path.join(
-            self.FIXTURES_DIR, self.TEST_CASE + '.omex')
-        fid = open(archive_filename, 'rb')
-
-        data = MultiDict([
-            ('file', fid),
-        ])
-        endpoint = '/combine/sedml-specs'
-        with app.app.app.test_client() as client:
-            response = client.post(endpoint, data=data, content_type="multipart/form-data")
-        self.assertEqual(response.status_code, 200, response.json)
-        combine_specs = response.json
-
-        sed_output_specs_filename = os.path.join(
-            self.FIXTURES_DIR, self.TEST_CASE + '.sed-specs.json')
-        with open(sed_output_specs_filename, 'r') as file:
-            expected_combine_specs = json.load(file)
-        self.assertEqual(combine_specs, expected_combine_specs, combine_specs)
-
-        fid.close()
-
-        # validate request and response
-        if hasattr(self, "request_validator"):
-            with open(archive_filename, 'rb') as file:
-                file_content = file.read()
-
-            request = OpenAPIRequest(
-                full_url_pattern='https://127.0.0.1/combine/sedml-specs',
-                method='post',
-                body={
-                    'file': file_content,
-                },
-                mimetype='multipart/form-data',
-                parameters=RequestParameters(),
-            )
-
-            result = self.request_validator.validate(request)
-            result.raise_for_errors()
-
-            response = OpenAPIResponse(data=json.dumps(expected_combine_specs),
-                                       status_code=200,
-                                       mimetype='application/json')
-            result = self.response_validator.validate(request, response)
-            result.raise_for_errors()
-
-    def test_get_sedml_specs_for_combine_archive_error_handling(self):
-        endpoint = '/combine/sedml-specs'
-        data = MultiDict([
-            ('url', 'x'),
-        ])
-        with app.app.app.test_client() as client:
-            response = client.post(endpoint, data=data, content_type="multipart/form-data")
-        self.assertEqual(response.status_code, 400, response.json)
-        self.assertTrue(response.json['title'].startswith(
-            'COMBINE/OMEX archive could not be loaded'))
-
-        if hasattr(self, "response_validator"):
-            request = OpenAPIRequest(
-                full_url_pattern='https://127.0.0.1/combine/sedml-specs',
-                method='post',
-                body={
-                    'url': 'x',
-                },
-                mimetype=None,
-                parameters=RequestParameters(),
-            )
-            response = OpenAPIResponse(
-                data=json.dumps(response.json),
-                status_code=400,
-                mimetype='application/json')
-            result = self.response_validator.validate(request, response)
-            result.raise_for_errors()
-
     def test_get_manifest_for_combine_archive_url(self):
         archive_filename = os.path.join(
             self.FIXTURES_DIR, self.TEST_CASE + '.omex')
@@ -637,10 +516,44 @@ class HandlersTestCase(unittest.TestCase):
             },
         )
 
-        plot = sed_doc['outputs'][-1]
+        data_gen_u = next(data_gen for data_gen in sed_doc['dataGenerators'] if data_gen['id'] == 'data_generator_dynamics_U')
+        data_gen_v = next(data_gen for data_gen in sed_doc['dataGenerators'] if data_gen['id'] == 'data_generator_dynamics_V')
+        self.assertEqual(data_gen_u, {
+            "_type": "SedDataGenerator",
+            "id": "data_generator_dynamics_U",
+            "name": 'Dynamics of "U"',
+            "parameters": [],
+            "variables": [{
+                "_type": "SedVariable",
+                "id": "dynamics_U",
+                "name": 'Dynamics of "U"',
+                "target": {
+                    "_type": "SedTarget",
+                    "value": "U",
+                },
+                "task": "task",
+            }],
+            "math": "dynamics_U",            
+        })
+        self.assertEqual(data_gen_v, {
+            "_type": "SedDataGenerator",
+            "id": "data_generator_dynamics_V",
+            "name": 'Dynamics of "V"',
+            "parameters": [],
+            "variables": [{
+                "_type": "SedVariable",
+                "id": "dynamics_V",
+                "name": 'Dynamics of "V"',
+                "target": {
+                    "_type": "SedTarget",
+                    "value": "V",
+                },
+                "task": "task",
+            }],
+            "math": "dynamics_V",
+        })
 
-        del plot['curves'][0]['xDataGenerator']['variables'][0]['task']
-        del plot['curves'][0]['yDataGenerator']['variables'][0]['task']
+        plot = sed_doc['outputs'][-1]
 
         self.assertEqual(
             plot,
@@ -653,38 +566,10 @@ class HandlersTestCase(unittest.TestCase):
                         "_type": "SedCurve",
                         "id": "curve_1",
                         "name": "V vs U",
-                        "xDataGenerator": {
-                            "_type": "SedDataGenerator",
-                            "id": "data_generator_dynamics_U",
-                            "name": 'Dynamics of "U"',
-                            "variables": [{
-                                "_type": "SedVariable",
-                                "id": "dynamics_U",
-                                "name": 'Dynamics of "U"',
-                                "target": {
-                                    "_type": "SedTarget",
-                                    "value": "U",
-                                },
-                            }],
-                            "math": "dynamics_U",
-                        },
-                        "yDataGenerator": {
-                            "_type": "SedDataGenerator",
-                            "id": "data_generator_dynamics_V",
-                            "name": 'Dynamics of "V"',
-                            "variables": [{
-                                "_type": "SedVariable",
-                                "id": "dynamics_V",
-                                "name": 'Dynamics of "V"',
-                                "target": {
-                                    "_type": "SedTarget",
-                                    "value": "V",
-                                },
-                            }],
-                            "math": "dynamics_V",
-                        },
-                        "xScale": "linear",
-                        "yScale": "linear",
+                        "xDataGenerator": "data_generator_dynamics_U",
+                        "yDataGenerator": "data_generator_dynamics_V",
+                        'xScale': 'linear',
+                        'yScale': 'linear',
                     }
                 ]
             },

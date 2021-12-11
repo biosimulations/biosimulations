@@ -13,7 +13,7 @@ import {
   BioSimulationsCombineArchiveElementMetadata,
   BioSimulationsMetadataValue,
   BioSimulationsCustomMetadata,
-} from '@biosimulations/combine-api-client';
+} from '@biosimulations/combine-api-nest-client';
 import { firstValueFrom } from 'rxjs';
 
 import { CombineWrapperService } from '../combineWrapper.service';
@@ -33,7 +33,7 @@ export class MetadataService {
 
   public async createMetadata(id: string): Promise<void> {
     // get external endpoint since combine service my not be running locally
-    const url = this.endpoints.getRunDownloadEndpoint(true, id);
+    const url = this.endpoints.getRunDownloadEndpoint(false, id);
     this.logger.debug(
       `Fetching metadata for archive for simulation run '${id}' at URL: ${url}`,
     );

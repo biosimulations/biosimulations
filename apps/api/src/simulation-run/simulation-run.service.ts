@@ -66,6 +66,9 @@ import { ConfigService } from '@nestjs/config';
 import { FileModel } from '../files/files.model';
 import {
   SpecificationsModel,
+  SedModel,
+  SedSimulation,
+  SedAbstractTask,
   SedTask,
   SedReport,
   SedPlot2D,
@@ -113,7 +116,7 @@ interface PromiseResult<T> {
   id?: string;
   succeeded: boolean;
   value?: T;
-  error?: any;
+  error?: AxiosError;
 }
 
 @Injectable()
@@ -566,7 +569,7 @@ export class SimulationRunService {
               value: value,
             };
           })
-          .catch((error) => {
+          .catch((error: AxiosError) => {
             return {
               id: run.id,
               succeeded: false,
@@ -587,7 +590,7 @@ export class SimulationRunService {
       failures.forEach(
         (runSummaryResult: PromiseResult<SimulationRunSummary>) => {
           details.push(
-            `A summary of run '${runSummaryResult.id}' could not be retrieved: ${runSummaryResult.error.status}: ${runSummaryResult.error.message}.`,
+            `A summary of run '${runSummaryResult.id}' could not be retrieved: ${runSummaryResult?.error?.response?.status}: ${runSummaryResult?.error?.response?.data?.detail}.`,
           );
           summaries.push(runSummaryResult.id as string);
         },
@@ -660,7 +663,7 @@ export class SimulationRunService {
               value: value,
             };
           })
-          .catch((error) => {
+          .catch((error: AxiosError) => {
             return {
               succeeded: false,
               error: error,
@@ -680,7 +683,7 @@ export class SimulationRunService {
 
     if (!runSettledResult.succeeded) {
       this.logger.error(
-        `Simulation run with id '${id}' could not be found: ${runSettledResult.error.status}: ${runSettledResult.error.message}.`,
+        `Simulation run with id '${id}' could not be found: ${runSettledResult?.error?.response?.status}: ${runSettledResult?.error?.response?.data?.detail}.`,
       );
       throw new NotFoundException(
         `Simulation run with id '${id}' could not be found.`,
@@ -766,68 +769,92 @@ export class SimulationRunService {
           ? simulationExpt.id.substring(2)
           : simulationExpt.id;
 
-        simulationExpt.tasks.forEach((task: SedTask): void => {
-          const uri = docLocation + '/' + task.simulation.id;
-
-          let modelFormat: EdamTerm | null = null;
-          for (const format of BIOSIMULATIONS_FORMATS) {
-            if (
-              format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn &&
-              task.model.language.startsWith(
-                format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn,
-              )
-            ) {
-              modelFormat = format;
-              break;
-            }
-          }
-
-          const algorithmKisaoId =
-            taskAlgorithmMap[uri] || task.simulation.algorithm.kisaoId;
-          const algorithmKisaoTerm = this.ontologiesService.getOntologyTerm(
-            Ontologies.KISAO,
-            algorithmKisaoId,
-          );
-
-          summaryTasks.push({
-            uri: docLocation + '/' + task.id,
-            id: task.id,
-            name: task?.name,
-            model: {
-              uri: docLocation + '/' + task.model.id,
-              id: task.model.id,
-              name: task.model?.name,
-              source: task.model.source,
-              language: {
-                name: modelFormat?.name || undefined,
-                acronym:
-                  modelFormat?.biosimulationsMetadata?.acronym || undefined,
-                sedmlUrn: task.model.language,
-                edamId: modelFormat?.id || undefined,
-                url: modelFormat?.url || undefined,
-              },
-            },
-            simulation: {
-              type: {
-                id: task.simulation._type,
-                name: SimulationTypeName[task.simulation._type],
-                url: 'https://sed-ml.org/',
-              },
-              uri: uri,
-              id: task.simulation.id,
-              name: task.simulation?.name,
-              algorithm: {
-                kisaoId: algorithmKisaoId,
-                name:
-                  algorithmKisaoTerm?.name ||
-                  `${algorithmKisaoId} (deprecated)`,
-                url:
-                  algorithmKisaoTerm?.url ||
-                  'https://www.ebi.ac.uk/ols/ontologies/kisao',
-              },
-            },
-          });
+        const modelMap: { [id: string]: SedModel } = {};
+        const simulationMap: { [id: string]: SedSimulation } = {};
+        simulationExpt.models.forEach((model: SedModel): void => {
+          modelMap[model.id] = model;
         });
+        simulationExpt.simulations.forEach(
+          (simulation: SedSimulation): void => {
+            simulationMap[simulation.id] = simulation;
+          },
+        );
+
+        simulationExpt.tasks
+          .flatMap((task: SedAbstractTask): SedTask[] => {
+            if (task._type === 'SedTask') {
+              return [task as SedTask];
+            } else {
+              return [];
+            }
+          })
+          .forEach((task: SedTask): void => {
+            const uri = docLocation + '/' + task.simulation;
+
+            let modelFormat: EdamTerm | null = null;
+            const model = modelMap[task.model];
+            const simulation = simulationMap[task.simulation];
+
+            for (const format of BIOSIMULATIONS_FORMATS) {
+              if (
+                format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn &&
+                model.language.startsWith(
+                  format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn,
+                )
+              ) {
+                modelFormat = format;
+                break;
+              }
+            }
+
+            const algorithmKisaoId =
+              taskAlgorithmMap[uri] || simulation.algorithm.kisaoId;
+            const algorithmKisaoTerm = this.ontologiesService.getOntologyTerm(
+              Ontologies.KISAO,
+              algorithmKisaoId,
+            );
+
+            summaryTasks.push({
+              uri: docLocation + '/' + task.id,
+              id: task.id,
+              name: task?.name,
+              model: {
+                uri: docLocation + '/' + model.id,
+                id: model.id,
+                name: model?.name,
+                source: model.source,
+                language: {
+                  name: modelFormat?.name || undefined,
+                  acronym:
+                    modelFormat?.biosimulationsMetadata?.acronym || undefined,
+                  sedmlUrn: model.language,
+                  edamId: modelFormat?.id || undefined,
+                  url: modelFormat?.url || undefined,
+                },
+              },
+              simulation: {
+                type: {
+                  id: simulation._type,
+                  name: SimulationTypeName[
+                    simulation._type as keyof typeof SimulationTypeName
+                  ],
+                  url: 'https://sed-ml.org/',
+                },
+                uri: uri,
+                id: simulation.id,
+                name: simulation?.name,
+                algorithm: {
+                  kisaoId: algorithmKisaoId,
+                  name:
+                    algorithmKisaoTerm?.name ||
+                    `${algorithmKisaoId} (deprecated)`,
+                  url:
+                    algorithmKisaoTerm?.url ||
+                    'https://www.ebi.ac.uk/ols/ontologies/kisao',
+                },
+              },
+            });
+          });
 
         simulationExpt.outputs.forEach(
           (output: SedReport | SedPlot2D | SedPlot3D): void => {
@@ -865,7 +892,7 @@ export class SimulationRunService {
 
       if (!filesResult.succeeded) {
         details.push(
-          `The files for simulation run '${id}' could not be retrieved: ${filesResult.error.status}: ${filesResult.error.message}.`,
+          `The files for simulation run '${id}' could not be retrieved: ${filesResult?.error?.response?.status}: ${filesResult?.error?.response?.data?.detail}.`,
         );
         summaries.push(
           `The files for simulation run '${id}' could not be retrieved.`,
@@ -874,7 +901,7 @@ export class SimulationRunService {
 
       if (!simulationExptsResult.succeeded) {
         details.push(
-          `The simulation experiments for simulation run '${id}' could not be retrieved: ${simulationExptsResult.error.status}: ${simulationExptsResult.error.message}.`,
+          `The simulation experiments for simulation run '${id}' could not be retrieved: ${simulationExptsResult?.error?.response?.status}: ${simulationExptsResult?.error?.response?.data?.detail}.`,
         );
         summaries.push(
           `The simulation experiments for simulation run '${id}' could not be retrieved.`,
@@ -883,7 +910,7 @@ export class SimulationRunService {
 
       if (!logResult.succeeded) {
         details.push(
-          `The log for simulation run '${id}' could not be retrieved: ${logResult.error.status}: ${logResult.error.message}.`,
+          `The log for simulation run '${id}' could not be retrieved: ${logResult?.error?.response?.status}: ${logResult?.error?.response?.data?.detail}.`,
         );
         summaries.push(
           `The log for simulation run '${id}' could not be retrieved.`,
@@ -929,7 +956,7 @@ export class SimulationRunService {
       };
     } else if (raiseErrors) {
       this.logger.error(
-        `The metadata for simulation run '${id}' could not be retrieved: ${rawMetadataResult.error.status}: ${rawMetadataResult.error.message}.`,
+        `The metadata for simulation run '${id}' could not be retrieved: ${rawMetadataResult?.error?.response?.status}: ${rawMetadataResult?.error?.response?.data?.detail}.`,
       );
       throw new InternalServerErrorException(
         `The metadata for simulation run '${id}' could not be retrieved.`,
@@ -1076,7 +1103,7 @@ export class SimulationRunService {
               value: value,
             };
           })
-          .catch((error) => {
+          .catch((error: AxiosError) => {
             return {
               succeeded: false,
               error: error,
@@ -1093,7 +1120,7 @@ export class SimulationRunService {
 
       if (!result.succeeded) {
         errorDetails.push(
-          `${check.errorMessage}: ${result.error.status}: ${result.error.message}`,
+          `${check.errorMessage}: ${result?.error?.response?.status}: ${result?.error?.response?.data?.detail}`,
         );
         errorSummaries.push(check.errorMessage);
       } else if (result.value === undefined) {
@@ -1153,7 +1180,7 @@ export class SimulationRunService {
                   '/' +
                   output.id +
                   '/' +
-                  curve.xDataGenerator.id +
+                  curve.xDataGenerator +
                   '`',
               );
               expectedDataSetUris.add(
@@ -1162,7 +1189,7 @@ export class SimulationRunService {
                   '/' +
                   output.id +
                   '/' +
-                  curve.yDataGenerator.id +
+                  curve.yDataGenerator +
                   '`',
               );
             });
@@ -1175,7 +1202,7 @@ export class SimulationRunService {
                     '/' +
                     output.id +
                     '/' +
-                    surface.xDataGenerator.id +
+                    surface.xDataGenerator +
                     '`',
                 );
                 expectedDataSetUris.add(
@@ -1184,7 +1211,7 @@ export class SimulationRunService {
                     '/' +
                     output.id +
                     '/' +
-                    surface.yDataGenerator.id +
+                    surface.yDataGenerator +
                     '`',
                 );
                 expectedDataSetUris.add(
@@ -1193,7 +1220,7 @@ export class SimulationRunService {
                     '/' +
                     output.id +
                     '/' +
-                    surface.zDataGenerator.id +
+                    surface.zDataGenerator +
                     '`',
                 );
               },

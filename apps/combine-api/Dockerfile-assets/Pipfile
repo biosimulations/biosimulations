@@ -7,49 +7,50 @@ name = "pypi"
 flask = {version = "<2"}
 connexion = {extras = ["swagger-ui"],version = ">=2.7.0"}
 requests = "*"
-biosimulators-utils = {version = ">=0.1.137", extras = ["bngl", "cellml", "lems", "logging", "neuroml", "sbml", "smoldyn"]}
+biosimulators-utils = {version = ">=0.1.144", extras = ["bngl", "cellml", "lems", "logging", "neuroml", "sbml", "smoldyn"]}
 python-dateutil = "*"
 gunicorn = "*"
 flask-cors = "*"
 python-dotenv = "*"
 boto3 = "*"
-kisao = ">=2.29"
+kisao = ">=2.30"
 stringcase = "*"
 natsort = "*"
 rdflib = "*"
-numpy = "*"
+numpy = "<1.22" # to avoid pre-release
 # AMICI
-biosimulators-amici = ">=0.1.19"
+amici = "<=0.11.21" # avoid latest version because this requires SymPy >= 1.9 and CBMPy can't handle this because it (a) no version > 1.9 is available and (b) CBMpy can't handle versions of SymPy that don't have microversion numbers
+biosimulators-amici = ">=0.1.20"
 # BioNetGen
-biosimulators-bionetgen = ">=0.1.17"
+biosimulators-bionetgen = ">=0.1.18"
 # BoolNet
 biosimulators-boolnet = ">=0.1.17"
 # CBMPy
-sympy = "<1.9" # avoid versions without microversion numbers because CBMPy can't handle versions with only major and minor numbers
+sympy = "!=1.8,!=1.9" # avoid versions without microversion numbers because CBMPy can't handle versions with only major and minor numbers
 biosimulators-cbmpy = ">=0.1.13"
 # COBRApy
-biosimulators-cobrapy = ">=0.1.18"
+biosimulators-cobrapy = ">=0.1.20"
 # COPASI
-biosimulators-copasi = ">=0.1.31"
+biosimulators-copasi = ">=0.1.32"
 # GillesPy2
-biosimulators-gillespy2 = ">=0.1.33"
+biosimulators-gillespy2 = ">=0.1.34"
 # GINsim
 biosimulators-ginsim = ">=0.0.8"
 # LibSBMLSim
-biosimulators-libsbmlsim = ">=0.0.4"
+biosimulators-libsbmlsim = ">=0.0.5"
 # MASSpy
-biosimulators-masspy = ">=0.0.4"
+biosimulators-masspy = ">=0.0.5"
 # PySCeS
 cython = "<3" # to avoid prelease
-# assimulo = {version = ">=3.2.5", ref = "Assimulo-3.2.5", git = "https://github.com/modelon-community/Assimulo.git"}
-biosimulators-pysces = ">=0.1.23"
+# assimulo = {version = ">=3.2.8", ref = "Assimulo-3.2.8", git = "https://github.com/modelon-community/Assimulo.git"} # commented out because pipenv can't install assimulo; see https://github.com/pypa/pipenv/issues/4768
+biosimulators-pysces = ">=0.1.24"
 # pyNeuroML
-biosimulators-pyneuroml = {version = ">=0.0.10", extras = ["netpyne", "neuron"]}
+biosimulators-pyneuroml = {version = ">=0.0.12", extras = ["brian2", "netpyne", "neuron"]}
 # RBApy
 "rbapy" = {version = ">=1.0.2", git = "https://github.com/biosimulators/RBApy.git"}
 biosimulators-rbapy = ">=0.0.3"
 # Smoldyn
-smoldyn = ">=2.67.dev202109232145"
+smoldyn = ">=2.67"
 # tellurium
 biosimulators-tellurium = ">=0.1.24"
 # XPP
@@ -69,4 +70,4 @@ pytest-timeout = "*"
 python_version = "3.9"
 
 [pipenv]
-allow_prereleases = true # to allow Smoldyn prerelease
+allow_prereleases = true # to allow libCellML prerelease

@@ -13,7 +13,6 @@ import {
   DescribedIdentifier,
   SimulationRunSedDocument,
   SedAbstractTask,
-  SedTask,
   SedOutput,
   SedReport,
   SedPlot2D,
@@ -62,6 +61,7 @@ import {
 import { Endpoints } from '@biosimulations/config/common';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 import { environment } from '@biosimulations/shared/environments';
+import { deserializeSedDocument } from '../sed-document/sed-document';
 
 @Injectable({
   providedIn: 'root',
@@ -322,10 +322,19 @@ export class ViewService {
             const modelLanguageSedUrns = new Set<string>();
             const simulationTypes = new Set<string>();
             sedmlArchiveContents.forEach(
-              (sedDoc: SimulationRunSedDocument): void => {
-                sedDoc.tasks.forEach((abstractTask: SedAbstractTask): void => {
-                  if (abstractTask._type === 'SedTask') {
-                    const task = abstractTask as SedTask;
+              (serializedSedDoc: SimulationRunSedDocument): void => {
+                const sedDoc = deserializeSedDocument({
+                  _type: 'SedDocument',
+                  version: serializedSedDoc.version,
+                  level: serializedSedDoc.level,
+                  models: serializedSedDoc.models,
+                  simulations: serializedSedDoc.simulations,
+                  tasks: serializedSedDoc.tasks,
+                  dataGenerators: serializedSedDoc.dataGenerators,
+                  outputs: serializedSedDoc.outputs,
+                });
+                sedDoc.tasks.forEach((task: SedAbstractTask): void => {
+                  if (task._type === 'SedTask') {
                     modelLanguageSedUrns.add(task.model.language);
                     simulationTypes.add(task.simulation._type);
                   }
@@ -769,9 +778,20 @@ export class ViewService {
                   location = location.substring(2);
                 }
 
+                const sedDoc = deserializeSedDocument({
+                  _type: 'SedDocument',
+                  version: sedDocLocation.version,
+                  level: sedDocLocation.level,
+                  models: sedDocLocation.models,
+                  simulations: sedDocLocation.simulations,
+                  tasks: sedDocLocation.tasks,
+                  dataGenerators: sedDocLocation.dataGenerators,
+                  outputs: sedDocLocation.outputs,
+                });
+
                 return {
                   title: 'SED-ML charts for ' + location,
-                  visualizations: sedDocLocation.outputs
+                  visualizations: sedDoc.outputs
                     .flatMap((output: SedOutput): SedPlot2D[] => {
                       return output._type === 'SedPlot2D' ? [output] : [];
                     })
@@ -802,9 +822,20 @@ export class ViewService {
           // User-designed visualizations
           const sedmlReportArchiveContents = sedmlArchiveContents.map(
             (content: SimulationRunSedDocument): SedDocumentReports => {
+              const sedDoc = deserializeSedDocument({
+                _type: 'SedDocument',
+                version: content.version,
+                level: content.level,
+                models: content.models,
+                simulations: content.simulations,
+                tasks: content.tasks,
+                dataGenerators: content.dataGenerators,
+                outputs: content.outputs,
+              });
+
               return {
                 id: content.id,
-                outputs: content.outputs.flatMap(
+                outputs: sedDoc.outputs.flatMap(
                   (output: SedOutput): SedReport[] => {
                     return output._type === 'SedReport' ? [output] : [];
                   },
@@ -816,7 +847,18 @@ export class ViewService {
           const uriSedDataSetMap: UriSedDataSetMap = {};
           sedmlArchiveContents.forEach(
             (sedDocLocation: SimulationRunSedDocument): void => {
-              sedDocLocation.outputs.forEach((output: SedOutput): void => {
+              const sedDoc = deserializeSedDocument({
+                _type: 'SedDocument',
+                version: sedDocLocation.version,
+                level: sedDocLocation.level,
+                models: sedDocLocation.models,
+                simulations: sedDocLocation.simulations,
+                tasks: sedDocLocation.tasks,
+                dataGenerators: sedDocLocation.dataGenerators,
+                outputs: sedDocLocation.outputs,
+              });
+
+              sedDoc.outputs.forEach((output: SedOutput): void => {
                 if (output._type === 'SedReport') {
                   output.dataSets.forEach((dataSet: SedDataSet): void => {
                     let location = sedDocLocation.id;
@@ -1051,7 +1093,9 @@ export class ViewService {
     while (toFlatten.length) {
       const el = toFlatten.pop();
       if (Array.isArray(el)) {
-        toFlatten.push(el);
+        el.forEach((subel: any[]): void => {
+          toFlatten.push(subel);
+        });
       } else {
         flattenedArray.push(el);
       }
