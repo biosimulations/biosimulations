@@ -74,7 +74,7 @@
     "name": "Hodgkin-Huxley cell (Gleeson; NeuroML/LEMS; CVODE; NetPyNe)",
     "simulator": "netpyne",
     "filename": "neuroml-lems/Hodgkin-Huxley-cell-CVODE.omex",
-    "disabled": "NetPyNe needs to be debugged for use with HPC",
+    "disabled": false,
     "publishToBioSimulations": false,
     "bioSimulationsId": ""
   },
