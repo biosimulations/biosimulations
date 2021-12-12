@@ -2,7 +2,7 @@
 
 ## Overview
 
-Simulators should support SED-ML L1V3 or later. To accommodate a wide range of modeling frameworks and simulation algorithms, BioSimulators embraces the additional conventions for SED-ML described below, as well as the conventions for executing SED-ML documents described with the standard for [command-line interfaces for simulation tools](./Interfaces.md).
+Simulators should support SED-ML L1V3 or later. To accommodate a wide range of modeling frameworks and simulation algorithms, BioSimulators embraces the additional conventions for SED-ML described below, as well as the conventions for executing SED-ML documents described with the standard for [command-line interfaces for simulation tools](./interfaces.md).
 
 ## Model and data descriptor source paths
 
