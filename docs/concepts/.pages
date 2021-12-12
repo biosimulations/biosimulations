@@ -1,5 +1,11 @@
 nav: 
-    - Tools.md
+    - tools.md
+    - experiments.md
+    - reports.md
+    - visualizations.md
+    - logs.md
+    - metadata.md
+    - interfaces.md
+    - images.md
+    - specifications.md
     - ...
-
-    

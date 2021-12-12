@@ -74,7 +74,7 @@ docker run \
 ```
 Your COMBINE archive should be located at path-to-directory-of-COMBINE-archive/name-of-COMBINE-archive.
 
-The results will be saved to ```path-to-save-results```. The data for reports and plots will be saved in Hierarchical Data Format 5 (HDF5) format and plots will be saved in Portable Document Format (PDF) and bundled into a single zip archive. See the [specifications for reports](../concepts/Reports.md) for more information about the format of reports.
+The results will be saved to ```path-to-save-results```. The data for reports and plots will be saved in Hierarchical Data Format 5 (HDF5) format and plots will be saved in Portable Document Format (PDF) and bundled into a single zip archive. See the [specifications for reports](../concepts/reports.md) for more information about the format of reports.
 
 For reports, the rows of each data table will represent the data sets (```sedml:dataSet```) outlined in the SED-ML definition of the report. The heading of each row will be the label of the corresponding data set. For plots, the rows of each data table will represent the data generators (```sedml:dataGenerator```) outlined in the SED-ML definition of the plot. The heading of each row will be the id of the corresponding data generator
 
