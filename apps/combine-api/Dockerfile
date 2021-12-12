@@ -155,8 +155,10 @@ RUN apt-get install -y --no-install-recommends \
     gcc \
     g++ \
     make \
+    libmpich-dev \
     mpi \
-    libmpich-dev
+    mpi-default-bin \
+    mpich
 
 ###################################
 # NEURON
@@ -164,6 +166,8 @@ RUN apt-get install -y --no-install-recommends \
     gcc \
     g++ \
     make
+RUN pip install neuron
+ENV NEURON_HOME=/usr/local
 
 ###################################
 # pyNeuroML, LEMS
