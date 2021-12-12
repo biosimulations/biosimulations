@@ -77,6 +77,7 @@
 /simulators/maboss/2.3.4
 /simulators/masspy
 /simulators/masspy/0.1.2
+/simulators/masspy/0.1.5
 /simulators/mcell
 /simulators/mcell/3.5.0
 /simulators/metanetx
@@ -125,8 +126,7 @@
 /simulators/tellurium
 /simulators/tellurium/2.2.1
 /simulators/vcell
-/simulators/vcell/7.4.0.23
-/simulators/vcell/7.4.0.24
+/simulators/vcell/7.4.0.26
 /simulators/winbestkit
 /simulators/winbestkit/2.0.9
 /simulators/xpp
