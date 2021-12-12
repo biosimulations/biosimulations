@@ -11,7 +11,7 @@ import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { CombineApiService } from '../../../services/combine-api/combine-api.service';
 import {
-  DispatchService  as CommonDispatchService ,
+  DispatchService as CommonDispatchService,
   CombineApiService as CommonCombineApiService,
   SimulatorSpecsMap,
   SimulatorSpecs,
