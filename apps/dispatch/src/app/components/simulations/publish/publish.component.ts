@@ -88,7 +88,6 @@ export class PublishComponent implements OnInit, OnDestroy {
     return this.projectService.getProject(id).pipe(
       map((_): false => false),
       catchError((error: HttpErrorResponse): Observable<boolean> => {
-        console.log(error);
         return of(true);
       }),
     );

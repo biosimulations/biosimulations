@@ -78,7 +78,6 @@ describe('SimulatorsController', () => {
 
   it('should return the correct latest versions', async () => {
     const latest = await controller.getLatestSimulators();
-    console.log(latest);
     expect(latest[0].version).toBe('1.11');
     expect(latest[1].version).toBe('1.2');
     expect(latest[2].version).toBe('1.7');
