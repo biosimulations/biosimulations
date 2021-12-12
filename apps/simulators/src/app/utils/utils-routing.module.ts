@@ -98,7 +98,7 @@ const routes: Routes = [
     component: ValidateModelComponent,
     data: {
       breadcrumb: 'Validate a model (e.g., SBML)',
-      contextButtons: [        
+      contextButtons: [
         {
           route: ['/utils', 'convert-file'],
           icon: 'convert',

@@ -29,7 +29,7 @@ const routes: Routes = [
     path: '',
     pathMatch: 'full',
     component: HomeComponent,
-  },  
+  },
   {
     path: 'run',
     loadChildren: () =>
