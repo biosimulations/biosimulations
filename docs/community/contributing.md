@@ -3,7 +3,7 @@
 We welcome contributions to BioSimulations!
 
 ## Models, simulations, and visualizations
-Models, simulations, and visualizations can be contributed through [runBioSimulations](https://run.biosimulations.org) or its [REST API](https://api.biosimulations.org). Please see the [User guide](../users/user-tutorial) for more information.
+Models, simulations, and visualizations can be contributed through [runBioSimulations](https://run.biosimulations.org) or its [REST API](https://api.biosimulations.org). Please see the [User guide](../../users/viewing-projects) for more information.
 
 ## Modeling frameworks, model languages, simulation algorithms, and simulation tools
 Simulation tools can be contributed through [BioSimulators](https://biosimulators.org). Please see BioSimulators for information about the required format, a guide to contributing simulation tools, and examples.
