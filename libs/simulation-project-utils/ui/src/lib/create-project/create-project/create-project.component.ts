@@ -1842,7 +1842,9 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
           queryParams,
         });
       } else {
-        const url = `https://run.biosimulations.${environment.production ? 'org' : 'dev'}/run`;
+        const url = `https://run.biosimulations.${
+          environment.production ? 'org' : 'dev'
+        }/run`;
         const queryParamsString = new URLSearchParams(queryParams).toString();
         window.open(`${url}?${queryParamsString}`, '_blank');
       }

@@ -4,10 +4,6 @@ import { SimulationProjectUtilsUiModule } from '@biosimulations/simulation-proje
 import { UtilsRoutingModule } from './utils-routing.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SimulationProjectUtilsUiModule,
-    UtilsRoutingModule,
-  ],
+  imports: [CommonModule, SimulationProjectUtilsUiModule, UtilsRoutingModule],
 })
 export class UtilsModule {}

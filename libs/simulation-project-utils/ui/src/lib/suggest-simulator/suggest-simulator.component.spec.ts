@@ -36,9 +36,9 @@ describe('SuggestSimulatorComponent', () => {
       providers: [
         HttpClient,
         HttpHandler,
-        { 
-          provide: ConfigService, 
-          useValue: {}
+        {
+          provide: ConfigService,
+          useValue: {},
         },
         Storage,
       ],

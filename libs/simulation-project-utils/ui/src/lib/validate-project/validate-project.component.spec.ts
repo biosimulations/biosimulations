@@ -38,8 +38,8 @@ describe('ValidateProjectComponent', () => {
       providers: [
         HttpClient,
         HttpHandler,
-        { 
-          provide: ConfigService, 
+        {
+          provide: ConfigService,
           useValue: {
             appConfig: {
               exampleCombineArchives: {
@@ -49,7 +49,7 @@ describe('ValidateProjectComponent', () => {
                 exampleProjectPath: '',
               },
               maxUploadFileSize: 100000000,
-            }
+            },
           },
         },
         Storage,

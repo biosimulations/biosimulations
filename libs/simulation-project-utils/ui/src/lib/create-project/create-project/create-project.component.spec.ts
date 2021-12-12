@@ -38,13 +38,13 @@ describe('CreateProjectComponent', () => {
       providers: [
         HttpClient,
         HttpHandler,
-        { 
-          provide: ConfigService, 
+        {
+          provide: ConfigService,
           useValue: {
             appConfig: {
               maxUploadFileSize: 256000000,
-            }
-          } 
+            },
+          },
         },
         Storage,
       ],

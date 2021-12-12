@@ -50,9 +50,7 @@ const routes: Routes = [
   {
     path: 'utils',
     loadChildren: () =>
-      import('./utils/utils.module').then(
-        (m) => m.UtilsModule,
-      ),
+      import('./utils/utils.module').then((m) => m.UtilsModule),
     data: {
       breadcrumb: 'Utilities',
     },

@@ -38,8 +38,8 @@ describe('ValidateSimulationComponent', () => {
       providers: [
         HttpClient,
         HttpHandler,
-        { 
-          provide: ConfigService, 
+        {
+          provide: ConfigService,
           useValue: {
             appConfig: {
               exampleCombineArchives: {
@@ -49,7 +49,7 @@ describe('ValidateSimulationComponent', () => {
                 exampleSimulationPath: '',
               },
               maxUploadFileSize: 100000000,
-            }
+            },
           },
         },
         Storage,

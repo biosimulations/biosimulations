@@ -33,9 +33,7 @@ const routes: Routes = [
   {
     path: 'run',
     loadChildren: () =>
-      import('./components/run/run.module').then(
-        (m) => m.RunModule,
-      ),
+      import('./components/run/run.module').then((m) => m.RunModule),
     data: {
       breadcrumb: 'Run',
     },
@@ -44,9 +42,9 @@ const routes: Routes = [
   {
     path: 'simulations',
     loadChildren: () =>
-      import(
-        './components/simulations/simulations.module'
-      ).then((m) => m.SimulationsModule),
+      import('./components/simulations/simulations.module').then(
+        (m) => m.SimulationsModule,
+      ),
     data: {
       breadcrumb: 'Your simulations',
     },
@@ -54,9 +52,7 @@ const routes: Routes = [
   {
     path: 'utils',
     loadChildren: () =>
-      import('./components/utils/utils.module').then(
-        (m) => m.UtilsModule,
-      ),
+      import('./components/utils/utils.module').then((m) => m.UtilsModule),
     data: {
       breadcrumb: 'Utilities',
     },
@@ -64,9 +60,7 @@ const routes: Routes = [
   {
     path: 'help',
     loadChildren: () =>
-      import('./components/help/help.module').then(
-        (m) => m.HelpModule,
-      ),
+      import('./components/help/help.module').then((m) => m.HelpModule),
     data: {
       breadcrumb: 'Help',
     },
