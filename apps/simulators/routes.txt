@@ -105,6 +105,7 @@
 /simulators/optflux/3.4.0
 /simulators/pyneuroml
 /simulators/pyneuroml/0.5.11
+/simulators/pyneuroml/0.5.18
 /simulators/pysb
 /simulators/pysb/1.13.0
 /simulators/pysces
@@ -131,3 +132,10 @@
 /simulators/winbestkit/2.0.9
 /simulators/xpp
 /simulators/xpp/8.0
+/utils/convert-file
+/utils/create-project
+/utils/suggest-simulator
+/utils/validate-metadata
+/utils/validate-model
+/utils/validate-project
+/utils/validate-simulation

@@ -8,12 +8,6 @@
   </url>
    
   <url>
-    <loc>https://run.biosimulators.org/utils/create</loc>
-    <lastmod>2020-12-23</lastmod>
-    <changefreq>monthly</changefreq>
-  </url>
-   
-  <url>
     <loc>https://run.biosimulators.org/help</loc>
     <lastmod>2020-12-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -56,7 +50,13 @@
   </url>
    
   <url>
-    <loc>https://run.biosimulators.org/utils/convert</loc>
+    <loc>https://run.biosimulators.org/utils/convert-file</loc>
+    <lastmod>2020-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://run.biosimulators.org/utils/create-project</loc>
     <lastmod>2020-12-23</lastmod>
     <changefreq>monthly</changefreq>
   </url>

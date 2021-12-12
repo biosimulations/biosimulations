@@ -1,22 +1,22 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ConvertComponent } from './convert.component';
+import { ConvertFileComponent } from './convert-file.component';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 
-describe('ConvertComponent', () => {
-  let component: ConvertComponent;
-  let fixture: ComponentFixture<ConvertComponent>;
+describe('ConvertFileComponent', () => {
+  let component: ConvertFileComponent;
+  let fixture: ComponentFixture<ConvertFileComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, SharedUiModule, BiosimulationsIconsModule],
-      declarations: [ConvertComponent],
+      declarations: [ConvertFileComponent],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ConvertComponent);
+    fixture = TestBed.createComponent(ConvertFileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

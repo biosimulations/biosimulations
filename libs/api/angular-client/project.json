@@ -22,5 +22,5 @@
       }
     }
   },
-  "tags": ["scope:simulations", "type:client", "platform:web"]
+  "tags": ["scope:simulationRuns", "type:client", "platform:web"]
 }

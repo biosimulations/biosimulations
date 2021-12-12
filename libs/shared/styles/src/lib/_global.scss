@@ -1269,16 +1269,16 @@ sub {
 }
 
 .warning {
-  color: mat.get-color-from-palette($theme-accent);
+  color: #ff9800; // mat.get-color-from-palette($theme-accent);
 
   a {
-    color: mat.get-color-from-palette($theme-accent);
+    color: #ff9800; // mat.get-color-from-palette($theme-accent);
     text-decoration: underline;
   }
 }
 
 .alert {
-  background: $theme-accent-lightest;
+  background: #fff4e5; // $theme-accent-lightest;
   padding: 0.25rem;
   border-radius: 4px;
 }

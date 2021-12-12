@@ -29,23 +29,11 @@ const routes: Routes = [
     path: '',
     pathMatch: 'full',
     component: HomeComponent,
-  },
-  {
-    path: 'utils',
-    loadChildren: () =>
-      // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-      import('apps/dispatch/src/app/components/utils/utils.module').then(
-        (m) => m.UtilsModule,
-      ),
-    data: {
-      breadcrumb: 'Utilities',
-    },
-  },
+  },  
   {
     path: 'run',
     loadChildren: () =>
-      // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-      import('apps/dispatch/src/app/components/run/run.module').then(
+      import('./components/run/run.module').then(
         (m) => m.RunModule,
       ),
     data: {
@@ -56,19 +44,27 @@ const routes: Routes = [
   {
     path: 'simulations',
     loadChildren: () =>
-      // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
       import(
-        'apps/dispatch/src/app/components/simulations/simulations.module'
+        './components/simulations/simulations.module'
       ).then((m) => m.SimulationsModule),
     data: {
       breadcrumb: 'Your simulations',
     },
   },
   {
+    path: 'utils',
+    loadChildren: () =>
+      import('./components/utils/utils.module').then(
+        (m) => m.UtilsModule,
+      ),
+    data: {
+      breadcrumb: 'Utilities',
+    },
+  },
+  {
     path: 'help',
     loadChildren: () =>
-      // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-      import('apps/dispatch/src/app/components/help/help.module').then(
+      import('./components/help/help.module').then(
         (m) => m.HelpModule,
       ),
     data: {

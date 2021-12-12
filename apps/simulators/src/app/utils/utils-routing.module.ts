@@ -10,7 +10,7 @@ import {
   SuggestSimulatorComponent,
  } from '@biosimulations/simulation-project-utils/ui';
 
-const routes: Routes = [  
+const routes: Routes = [
   {
     path: 'convert-file',
     component: ConvertFileComponent,
@@ -137,7 +137,7 @@ const routes: Routes = [
     component: ValidateSimulationComponent,
     data: {
       breadcrumb: 'Validate a simulation experiment (SED-ML)',
-      contextButtons: [        
+      contextButtons: [
         {
           route: ['/utils', 'convert-file'],
           icon: 'convert',
