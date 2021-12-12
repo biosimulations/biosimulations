@@ -50,7 +50,7 @@ Projects can be visualized using both predefined and custom visualizations. The 
 Once you have configured your visualization, you can view it by clicking on the "View chart" button.  The "Export to Vega" button will export the visualization to a [Vega](https://vega.github.io/) specification. For more information on using Vega with BioSimulations, see [here](../concepts/visualizations.md).
 
 
-### Simulation Runs
+### Simulation runs
 ![Sidebar screenshot showing simulation run details](./images/sidebar-simulation-run.png){ align=left }
 More detailed information about the simulation execution and results can be viewed by following the links to the runBioSimulations page for the simulation. The "Logs" tab provides detailed output of the simulation execution, including each individual simulation step and the outputs (reports and plots) produced by the simulation. Each step of the simulation is presented as a collapsible section that can be expanded to show the outputs. Both structured log files and raw output files can be downloaded from the links. 
 

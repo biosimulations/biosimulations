@@ -65,12 +65,12 @@ BioSimulations recommends [Vega](https://vega.github.io/vega/) for data visualiz
 
 One key feature of Vega is that it modularly captures the graphical marks which comprise visualizations and how those graphical marks should be painted with data. This feature makes it easy to produce data visualizations for multiple simulation conditions by combining the same graphical marks with results from multiple simulations. This features also makes the provenance of data visualizations transparent. As a result, Vega is ideal for collaboration and publication.
 
-Vega files can be included in the COMBINE/OMEX archive of a simulation project to enable visualization on the [project view page](./user-guide.md#visualizations).
+Vega files can be included in the COMBINE/OMEX archive of a simulation project to enable visualization on the [project view page](./viewing-projects.md#visualizations).
 
 More information on how to create Vega files that can incorporate data from BioSimulations projects can be found at [here](../concepts/visualizations.md).
 
 ### Metadata 
-BioSimulations uses the [OMEX Meta](https://co.mbine.org/standards/omex-metadata) specification to capture metadata about the simulation project. BioSimulations has a list of recommended metadata fields that can be used to capture [metadata](./user-guide.md#metadata) about a simulation project. Information about how to use theses fields can be found [here](../concepts/metadata.md).
+BioSimulations uses the [OMEX Meta](https://co.mbine.org/standards/omex-metadata) specification to capture metadata about the simulation project. BioSimulations has a list of recommended metadata fields that can be used to capture [metadata](./viewing-projects.md#metadata) about a simulation project. Information about how to use theses fields can be found [here](../concepts/metadata.md).
 
 ### COMBINE/OMEX archives
 
@@ -86,7 +86,7 @@ BioSimulations uses COMBINE/OMEX archives to bundle the multiple files typically
 
 BioSimulations provides a validation tool for validating the contents of a COMBINE/OMEX archive. This tool is available on [runBioSimulations](https://run.biosimulations.org/utils/validate-project). The user can upload a COMBINE/OMEX archive or provide a URL to a COMBINE/OMEX archive. Optionally, the user can select a subset of the archive to validate (e.g., only SED-ML files). The tool will validate the contents of the archive and report any errors. The interface provides a report of the validation results, including validation of the model file, SED-ML file, metadata, archive manifest, and any images presented in the archive.
 
-![validation-tool](../images/validate.png)
+![validation-tool](./images/validate.png)
 
 !!!warning
     This application can only validate targets for simulation observables for unchanged models. Targets for modified models cannot be validated statically, independently from executing the associated SED-ML document. Simulation tools validate such targets when they execute their parent SED-ML document. For the same reason, this application cannot validate targets for model changes. Simulation tools validate such model change targets during their execution.
