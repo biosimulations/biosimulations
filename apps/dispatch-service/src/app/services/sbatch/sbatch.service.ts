@@ -84,8 +84,17 @@ export class SbatchService {
     const cyan = ConsoleFormatting.cyan;
 
     let allEnvVars = [...envVars];
-    const vars = this.configService.get('singularity').envVars;
 
+    allEnvVars.push({
+      key: 'HPC',
+      value: '1',
+    });
+    allEnvVars.push({
+      key: 'CPUS',
+      value: cpus.toString(),
+    });
+
+    const vars = this.configService.get('singularity').envVars;
     try {
       vars.forEach((envVarPurpose: any): void => {
         if (envVarPurpose.purpose === 'ALL') {
