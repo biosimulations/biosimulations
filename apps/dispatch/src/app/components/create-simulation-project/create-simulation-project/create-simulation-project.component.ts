@@ -811,8 +811,6 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
             }
           })?.[0]
           .dataSets?.forEach((dataSet: SedDataSet): void => {
-            console.log(dataGeneratorsMap);
-            console.log(dataSet);
             const modelVar =
               dataGeneratorsMap[dataSet.dataGenerator].variables[0];
 
