@@ -11,7 +11,7 @@ import {
   ValidationReport,
   ValidationMessage,
   ValidationStatus,
-  ModelLanguage, 
+  ModelLanguage,
   EdamTerm,
 } from '@biosimulations/datamodel/common';
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';

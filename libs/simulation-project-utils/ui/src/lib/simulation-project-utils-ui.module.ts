@@ -22,7 +22,7 @@ import { SuggestSimulatorComponent } from './suggest-simulator/suggest-simulator
     ValidateSimulationComponent,
     ValidateMetadataComponent,
     ValidateProjectComponent,
-    SuggestSimulatorComponent,    
+    SuggestSimulatorComponent,
   ],
   imports: [
     CommonModule,
