@@ -23,13 +23,13 @@ import {
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import {
   DispatchService,
+  CombineApiService,
   SimulatorsData,
   SimulatorSpecs,
   SimulatorSpecsMap,
   ModelingFrameworksAlgorithmsForModelFormat,
   AlgorithmParameter,
-} from '../../services/dispatch/dispatch.service';
-import { CombineApiService } from '../../services/combine/combine-api.service';
+} from '@biosimulations/simulation-project-utils/service';
 import { Observable, of, Subscription, BehaviorSubject } from 'rxjs';
 import { map, concatAll, withLatestFrom, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';

@@ -6,7 +6,7 @@ import {
   Validators,
   ValidationErrors,
 } from '@angular/forms';
-import { CombineApiService } from '../services/combine/combine-api.service';
+import { CombineApiService } from '@biosimulations/simulation-project-utils/service';
 import {
   ValidationReport,
   ValidationMessage,
