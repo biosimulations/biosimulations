@@ -56,6 +56,7 @@
     "shared-styles": "libs/shared/styles",
     "shared-ui": "libs/shared/ui",
     "shared-utils-routes": "libs/shared/utils/routes",
+    "simulation-project-utils-ui": "libs/simulation-project-utils/ui",
     "simulation-runs-service": "libs/simulation-runs/service",
     "simulation-runs-ui": "libs/simulation-runs/ui",
     "simulation-runs-viz": "libs/simulation-runs/viz",

@@ -19,6 +19,6 @@
     }
   },
   "generators": {},
-  "tags": ["scope:simulations", "type:service", "platform:any"],
+  "tags": ["scope:simulationRuns", "type:service", "platform:any"],
   "implicitDependencies": []
 }

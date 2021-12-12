@@ -1830,14 +1830,22 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
       const simulationAlgorithm: string =
         this.formGroup.value.simulationAlgorithm;
 
-      this.router.navigate(['/run'], {
-        queryParams: {
-          projectUrl: projectOrUrl,
-          modelFormat: modelFormat,
-          modelingFramework: modelingFramework,
-          simulationAlgorithm: simulationAlgorithm,
-        },
-      });
+      const queryParams = {
+        projectUrl: projectOrUrl,
+        modelFormat: modelFormat,
+        modelingFramework: modelingFramework,
+        simulationAlgorithm: simulationAlgorithm,
+      };
+
+      if (this.config.appId === 'dispatch') {
+        this.router.navigate(['/run'], {
+          queryParams,
+        });
+      } else {
+        const url = `https://run.biosimulations.${environment.production ? 'org' : 'dev'}/run`;
+        const queryParamsString = new URLSearchParams(queryParams).toString();
+        window.open(`${url}?${queryParamsString}`, '_blank');
+      }
 
       this.snackBar.open(
         'Your project was created. Please use this form to execute it.',

@@ -51,44 +51,44 @@
 
       <ng-container id="items">
         <biosimulations-dropdown-menu-item
-          heading="Create a project"
-          icon="write"
-          href="https://run.biosimulations.org/utils/create"
+          heading="Convert a file"
+          icon="convert"
+          [routerLink]="['/utils', 'convert-file']"
         >
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
-          heading="Convert a file"
-          icon="convert"
-          href="https://run.biosimulations.org/utils/convert"
+          heading="Create a project"
+          icon="write"
+          [routerLink]="['/utils', 'create-project']"
         >
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
           heading="Validate a model"
           icon="review"
-          href="https://run.biosimulations.org/utils/validate-model"
+          [routerLink]="['/utils', 'validate-model']"
         >
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
           heading="Validate a simulation"
           icon="review"
-          href="https://run.biosimulations.org/utils/validate-simulation"
+          [routerLink]="['/utils', 'validate-simulation']"
         >
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
           heading="Validate metadata"
           icon="review"
-          href="https://run.biosimulations.org/utils/validate-metadata"
+          [routerLink]="['/utils', 'validate-metadata']"
         >
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
           heading="Validate a project"
           icon="review"
-          href="https://run.biosimulations.org/utils/validate-project"
+          [routerLink]="['/utils', 'validate-project']"
         >
         </biosimulations-dropdown-menu-item>
 
@@ -102,7 +102,7 @@
         <biosimulations-dropdown-menu-item
           heading="Suggest a simulator"
           icon="idea"
-          href="https://run.biosimulations.org/utils/suggest-simulator"
+          [routerLink]="['/utils', 'suggest-simulator']"
         >
         </biosimulations-dropdown-menu-item>
 
@@ -273,49 +273,49 @@
 
     <biosimulations-navigation-item heading="Utilities" icon="construction">
       <biosimulations-navigation-subitem
-        heading="Create a project"
-        icon="write"
-        href="https://run.biosimulations.org/utils/create"
+        heading="Convert a file"
+        icon="convert"
+        [route]="['/utils', 'convert-file']"
       >
       </biosimulations-navigation-subitem>
 
       <biosimulations-navigation-subitem
-        heading="Convert a file"
-        icon="convert"
-        href="https://run.biosimulations.org/utils/convert"
+        heading="Create a project"
+        icon="write"
+        [route]="['/utils', 'create-project']"
       >
       </biosimulations-navigation-subitem>
 
       <biosimulations-navigation-subitem
         heading="Validate a model"
         icon="review"
-        href="https://run.biosimulations.org/utils/validate-model"
+        [route]="['/utils', 'validate-model']"
       >
       </biosimulations-navigation-subitem>
 
       <biosimulations-navigation-subitem
         heading="Validate a simulation"
         icon="review"
-        href="https://run.biosimulations.org/utils/validate-simulation"
+        [route]="['/utils', 'validate-simulation']"
       >
       </biosimulations-navigation-subitem>
 
       <biosimulations-navigation-subitem
         heading="Validate metadata"
         icon="review"
-        href="https://run.biosimulations.org/utils/validate-metadata"
+        [route]="['/utils', 'validate-metadata']"
       >
       </biosimulations-navigation-subitem>
 
       <biosimulations-navigation-subitem
         heading="Validate a project"
         icon="review"
-        href="https://run.biosimulations.org/utils/validate-project"
+        [route]="['/utils', 'validate-project']"
       >
       </biosimulations-navigation-subitem>
 
       <biosimulations-navigation-subitem
-        heading="Validate a project"
+        heading="Validate a simulator"
         icon="review"
         href="https://github.com/biosimulators/Biosimulators/issues/new?assignees=&labels=Validate%2Fsubmit+simulator&template=validate-submit-a-simulator.md&title="
       >
@@ -324,7 +324,7 @@
       <biosimulations-navigation-subitem
         heading="Suggest a simulator"
         icon="idea"
-        href="https://run.biosimulations.org/utils/suggest-simulator"
+        [route]="['/utils', 'suggest-simulator']"
       >
       </biosimulations-navigation-subitem>
 

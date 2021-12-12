@@ -97,12 +97,7 @@ def get_runbiosimulations_static_urls():
     return (
         get_root_static_urls()
         + get_help_static_urls()
-        + [
-            Url(
-                loc="create",
-                last_mod=datetime.datetime(2020, 12, 23),
-                change_freq=ChangeFreq.monthly
-            ),
+        + [            
             Url(
                 loc="run",
                 last_mod=datetime.datetime(2020, 12, 23),
@@ -114,7 +109,12 @@ def get_runbiosimulations_static_urls():
                 change_freq=ChangeFreq.monthly
             ),
             Url(
-                loc="utils/convert",
+                loc="utils/create-project",
+                last_mod=datetime.datetime(2020, 12, 23),
+                change_freq=ChangeFreq.monthly
+            ),
+            Url(
+                loc="utils/convert-file",
                 last_mod=datetime.datetime(2020, 12, 23),
                 change_freq=ChangeFreq.monthly
             ),
@@ -152,6 +152,41 @@ def get_simulator_static_urls():
         get_root_static_urls()
         + get_help_static_urls()
         + [
+            Url(
+                loc="utils/create-project",
+                last_mod=datetime.datetime(2020, 12, 23),
+                change_freq=ChangeFreq.monthly
+            ),
+            Url(
+                loc="utils/convert-file",
+                last_mod=datetime.datetime(2020, 12, 23),
+                change_freq=ChangeFreq.monthly
+            ),
+            Url(
+                loc="utils/validate-model",
+                last_mod=datetime.datetime(2020, 12, 23),
+                change_freq=ChangeFreq.monthly
+            ),
+            Url(
+                loc="utils/validate-simulation",
+                last_mod=datetime.datetime(2020, 12, 23),
+                change_freq=ChangeFreq.monthly
+            ),
+            Url(
+                loc="utils/validate-metadata",
+                last_mod=datetime.datetime(2020, 12, 23),
+                change_freq=ChangeFreq.monthly
+            ),
+            Url(
+                loc="utils/validate-project",
+                last_mod=datetime.datetime(2020, 12, 23),
+                change_freq=ChangeFreq.monthly
+            ),
+            Url(
+                loc="utils/suggest-simulator",
+                last_mod=datetime.datetime(2020, 12, 23),
+                change_freq=ChangeFreq.monthly
+            ),
             Url(
                 loc="conventions",
                 last_mod=datetime.datetime(2020, 12, 23),

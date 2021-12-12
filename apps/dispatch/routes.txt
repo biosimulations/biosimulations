@@ -6,8 +6,8 @@
 /help/terms
 /run
 /simulations
-/utils/create
-/utils/convert
+/utils/convert-file
+/utils/create-project
 /utils/suggest-simulator
 /utils/validate-metadata
 /utils/validate-model

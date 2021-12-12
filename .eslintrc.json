@@ -50,9 +50,19 @@
                 "onlyDependOnLibsWithTags": ["scope:shared"]
               },
               {
-                "sourceTag": "scope:simulations",
+                "sourceTag": "scope:simulationRuns",
                 "onlyDependOnLibsWithTags": [
-                  "scope:simulations",
+                  "scope:simulationRuns",
+                  "scope:shared",
+                  "scope:config",
+                  "scope:ontology"
+                ]
+              },
+              {
+                "sourceTag": "scope:simulationProjects",
+                "onlyDependOnLibsWithTags": [
+                  "scope:simulationProjects",
+                  "scope:combine",
                   "scope:shared",
                   "scope:config",
                   "scope:ontology"
@@ -72,6 +82,7 @@
               {
                 "sourceTag": "scope:simulators",
                 "onlyDependOnLibsWithTags": [
+                  "scope:simulationProjects",
                   "scope:simulators",
                   "scope:ontology",
                   "scope:shared",
@@ -90,7 +101,8 @@
                 "sourceTag": "scope:platform",
                 "onlyDependOnLibsWithTags": [
                   "scope:platform",
-                  "scope:simulations",
+                  "scope:simulationProjects",
+                  "scope:simulationRuns",
                   "scope:shared",                  
                   "shared:true"
                 ]
@@ -99,7 +111,8 @@
                 "sourceTag": "scope:dispatch",
                 "onlyDependOnLibsWithTags": [
                   "scope:dispatch",
-                  "scope:simulations",
+                  "scope:simulationProjects",
+                  "scope:simulationRuns",
                   "scope:ontology",
                   "scope:account",
                   "scope:shared",

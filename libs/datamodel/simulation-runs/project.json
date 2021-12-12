@@ -23,5 +23,5 @@
       }
     }
   },
-  "tags": ["scope:simulations", "type:datamodel", "platform:web"]
+  "tags": ["scope:simulationRuns", "type:datamodel", "platform:web"]
 }
