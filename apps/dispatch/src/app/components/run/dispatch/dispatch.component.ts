@@ -7,16 +7,18 @@ import {
   Validators,
   ValidationErrors,
 } from '@angular/forms';
+import { DispatchService } from '../../../services/dispatch/dispatch.service';
+import { SimulationService } from '../../../services/simulation/simulation.service';
+import { CombineApiService } from '../../../services/combine-api/combine-api.service';
 import {
-  DispatchService,
+  DispatchService  as CommonDispatchService ,
+  CombineApiService as CommonCombineApiService,
   SimulatorSpecsMap,
   SimulatorSpecs,
   SimulatorsData,
   OntologyTermsMap,
   OntologyTerm,
-} from '../../../services/dispatch/dispatch.service';
-import { SimulationService } from '../../../services/simulation/simulation.service';
-import { CombineApiService } from '../../../services/combine/combine-api.service';
+} from '@biosimulations/simulation-project-utils/service';
 import { Simulation } from '../../../datamodel';
 import {
   CombineArchiveSedDocSpecs,
@@ -131,8 +133,10 @@ export class DispatchComponent implements OnInit, OnDestroy {
     private router: Router,
     private formBuilder: FormBuilder,
     private dispatchService: DispatchService,
+    private commonDispatchService: CommonDispatchService,
     private simulationService: SimulationService,
     private combineApiService: CombineApiService,
+    private commonCombineApiService: CommonCombineApiService,
     private snackBar: MatSnackBar,
   ) {
     this.formGroup = this.formBuilder.group(
@@ -282,14 +286,14 @@ export class DispatchComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const simulatorsDataObs = this.dispatchService.getSimulatorsFromDb();
+    const simulatorsDataObs = this.commonDispatchService.getSimulatorsFromDb();
 
     const algSubObs = simulatorsDataObs.pipe(
       map(
         (
           simulatorsData: SimulatorsData,
         ): Observable<AlgorithmSubstitution[] | undefined> => {
-          return this.combineApiService.getSimilarAlgorithms(
+          return this.commonCombineApiService.getSimilarAlgorithms(
             Object.keys(simulatorsData.simulationAlgorithms),
           );
         },

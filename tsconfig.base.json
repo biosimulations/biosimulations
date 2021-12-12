@@ -163,6 +163,9 @@
       "@biosimulations/shared/utils/routes": [
         "libs/shared/utils/routes/src/index.ts"
       ],
+      "@biosimulations/simulation-project-utils/service": [
+        "libs/simulation-project-utils/service/src/index.ts"
+      ],
       "@biosimulations/simulation-project-utils/ui": [
         "libs/simulation-project-utils/ui/src/index.ts"
       ],

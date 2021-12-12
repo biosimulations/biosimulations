@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   DispatchService,
+  CombineApiService,
   SimulatorsData,
-} from '../services/dispatch/dispatch.service';
-import { CombineApiService } from '../services/combine/combine-api.service';
+} from '@biosimulations/simulation-project-utils/service';
 import {
   AlgorithmSubstitution,
   AlgorithmSubstitutionPolicy,
