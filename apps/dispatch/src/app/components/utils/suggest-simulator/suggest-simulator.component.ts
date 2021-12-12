@@ -3,14 +3,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   DispatchService,
   SimulatorsData,
-} from '../../../services/dispatch/dispatch.service';
-import { CombineApiService } from '../../../services/combine/combine-api.service';
+} from '../services/dispatch/dispatch.service';
+import { CombineApiService } from '../services/combine/combine-api.service';
 import {
   AlgorithmSubstitution,
   AlgorithmSubstitutionPolicy,
   AlgorithmSubstitutionPolicyLevels,
-  Algorithm as KisoaAlgorithm,
-} from '../../../kisao.interface';
+  AlgorithmSummary,
+} from '@biosimulations/datamodel/common';
 import { Observable } from 'rxjs';
 import { map, withLatestFrom, concatAll } from 'rxjs/operators';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -119,7 +119,7 @@ export class SuggestSimulatorComponent implements OnInit {
           algSubstitutions.forEach(
             (algSubstitution: AlgorithmSubstitution): void => {
               algSubstitution.algorithms.forEach(
-                (algorithm: KisoaAlgorithm): void => {
+                (algorithm: AlgorithmSummary): void => {
                   if (!(algorithm.id in algorithmsMap)) {
                     algorithmsMap[algorithm.id] = {
                       algorithm: {

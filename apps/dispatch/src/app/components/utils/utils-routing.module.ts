@@ -10,6 +10,18 @@ import { ConvertComponent } from './convert/convert.component';
 
 const routes: Routes = [
   {
+    path: 'create',
+    loadChildren: () =>
+      // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+      import(
+        'apps/dispatch/src/app/components/utils/create-project/create-project.module'
+      ).then((m) => m.CreateProjectModule),
+    data: {
+      breadcrumb: 'Create a simulation project',
+    },
+    pathMatch: 'full',
+  },
+  {
     path: 'convert',
     component: ConvertComponent,
     data: {

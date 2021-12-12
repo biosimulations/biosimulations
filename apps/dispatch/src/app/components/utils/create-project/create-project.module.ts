@@ -7,14 +7,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 
-import { CreateSimulationProjectRoutingModule } from './create-simulation-project-routing.module';
-import { CreateSimulationProjectComponent } from './create-simulation-project/create-simulation-project.component';
+import { CreateProjectRoutingModule } from './create-project-routing.module';
+import { CreateProjectComponent } from './create-project/create-project.component';
 
 @NgModule({
-  declarations: [CreateSimulationProjectComponent],
+  declarations: [CreateProjectComponent],
   imports: [
     CommonModule,
-    CreateSimulationProjectRoutingModule,
+    CreateProjectRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
@@ -23,4 +23,4 @@ import { CreateSimulationProjectComponent } from './create-simulation-project/cr
     BiosimulationsIconsModule,
   ],
 })
-export class CreateSimulationProjectModule {}
+export class CreateProjectModule {}

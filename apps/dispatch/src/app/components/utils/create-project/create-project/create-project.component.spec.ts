@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
-import { CreateSimulationProjectComponent } from './create-simulation-project.component';
+import { CreateProjectComponent } from './create-project.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { SharedUiModule } from '@biosimulations/shared/ui';
@@ -13,11 +13,10 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
 import { Storage } from '@ionic/storage-angular';
 import { ConfigService } from '@biosimulations/config/angular';
-import config from '../../../../assets/config.json';
 
-describe('CreateSimulationProjectComponent', () => {
-  let component: CreateSimulationProjectComponent;
-  let fixture: ComponentFixture<CreateSimulationProjectComponent>;
+describe('CreateProjectComponent', () => {
+  let component: CreateProjectComponent;
+  let fixture: ComponentFixture<CreateProjectComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -35,18 +34,25 @@ describe('CreateSimulationProjectComponent', () => {
           driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage],
         }),
       ],
-      declarations: [CreateSimulationProjectComponent],
+      declarations: [CreateProjectComponent],
       providers: [
         HttpClient,
         HttpHandler,
-        { provide: ConfigService, useValue: config },
+        { 
+          provide: ConfigService, 
+          useValue: {
+            appConfig: {
+              maxUploadFileSize: 256000000,
+            }
+          } 
+        },
         Storage,
       ],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CreateSimulationProjectComponent);
+    fixture = TestBed.createComponent(CreateProjectComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

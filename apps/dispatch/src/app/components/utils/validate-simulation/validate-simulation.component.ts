@@ -6,12 +6,12 @@ import {
   Validators,
   ValidationErrors,
 } from '@angular/forms';
-import { CombineApiService } from '../../../services/combine/combine-api.service';
+import { CombineApiService } from '../services/combine/combine-api.service';
 import {
   ValidationReport,
   ValidationMessage,
   ValidationStatus,
-} from '../../../datamodel/validation-report.interface';
+} from '@biosimulations/datamodel/common';
 import { Subscription } from 'rxjs';
 import { ConfigService } from '@biosimulations/config/angular';
 import { MatSnackBar } from '@angular/material/snack-bar';

@@ -15,6 +15,10 @@ import {
   SimulationTypeName,
   EdamTerm,
   OntologyTermMap,
+  AlgorithmSubstitutionPolicyLevels,
+  ALGORITHM_SUBSTITUTION_POLICIES,
+  AlgorithmSubstitution,
+  AlgorithmSubstitutionPolicy,
 } from '@biosimulations/datamodel/common';
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import {
@@ -24,14 +28,8 @@ import {
   SimulatorSpecsMap,
   ModelingFrameworksAlgorithmsForModelFormat,
   AlgorithmParameter,
-} from '../../../services/dispatch/dispatch.service';
-import {
-  AlgorithmSubstitutionPolicyLevels,
-  ALGORITHM_SUBSTITUTION_POLICIES,
-  AlgorithmSubstitution,
-  AlgorithmSubstitutionPolicy,
-} from '../../../kisao.interface';
-import { CombineApiService } from '../../../services/combine/combine-api.service';
+} from '../../services/dispatch/dispatch.service';
+import { CombineApiService } from '../../services/combine/combine-api.service';
 import { Observable, of, Subscription, BehaviorSubject } from 'rxjs';
 import { map, concatAll, withLatestFrom, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -116,11 +114,11 @@ interface CompatibleSimulator {
 }
 
 @Component({
-  selector: 'biosimulations-create-simulation-project',
-  templateUrl: './create-simulation-project.component.html',
-  styleUrls: ['./create-simulation-project.component.scss'],
+  selector: 'biosimulations-create-project',
+  templateUrl: './create-project.component.html',
+  styleUrls: ['./create-project.component.scss'],
 })
-export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
+export class CreateProjectComponent implements OnInit, OnDestroy {
   formGroup: FormGroup;
   modelNamespacesArray: FormArray;
   modelChangesArray: FormArray;
@@ -283,19 +281,19 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
 
     while (
       this.modelNamespacesArray.controls.length <
-      CreateSimulationProjectComponent.INIT_MODEL_NAMESPACES
+      CreateProjectComponent.INIT_MODEL_NAMESPACES
     ) {
       this.addModelNamespace();
     }
     while (
       this.modelChangesArray.controls.length <
-      CreateSimulationProjectComponent.INIT_MODEL_CHANGES
+      CreateProjectComponent.INIT_MODEL_CHANGES
     ) {
       this.addModelChange();
     }
     while (
       this.modelVariablesArray.controls.length <
-      CreateSimulationProjectComponent.INIT_MODEL_VARIABLES
+      CreateProjectComponent.INIT_MODEL_VARIABLES
     ) {
       this.addModelVariable();
     }

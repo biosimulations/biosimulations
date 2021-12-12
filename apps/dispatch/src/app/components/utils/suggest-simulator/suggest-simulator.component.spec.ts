@@ -12,7 +12,6 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
 import { Storage } from '@ionic/storage-angular';
 import { ConfigService } from '@biosimulations/config/angular';
-import config from '../../../../assets/config.json';
 
 describe('SuggestSimulatorComponent', () => {
   let component: SuggestSimulatorComponent;
@@ -37,7 +36,10 @@ describe('SuggestSimulatorComponent', () => {
       providers: [
         HttpClient,
         HttpHandler,
-        { provide: ConfigService, useValue: config },
+        { 
+          provide: ConfigService, 
+          useValue: {}
+        },
         Storage,
       ],
     }).compileComponents();

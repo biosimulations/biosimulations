@@ -1,5 +1,4 @@
 /
-/create
 /help
 /help/about
 /help/faq
@@ -7,6 +6,7 @@
 /help/terms
 /run
 /simulations
+/utils/create
 /utils/convert
 /utils/suggest-simulator
 /utils/validate-metadata

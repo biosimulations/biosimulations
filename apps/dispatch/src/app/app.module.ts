@@ -31,18 +31,6 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
-    path: 'create',
-    loadChildren: () =>
-      // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-      import(
-        'apps/dispatch/src/app/components/create-simulation-project/create-simulation-project.module'
-      ).then((m) => m.CreateSimulationProjectModule),
-    data: {
-      breadcrumb: 'Create a simulation project',
-    },
-    pathMatch: 'full',
-  },
-  {
     path: 'utils',
     loadChildren: () =>
       // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
