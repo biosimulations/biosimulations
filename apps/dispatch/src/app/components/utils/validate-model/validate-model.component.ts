@@ -6,13 +6,14 @@ import {
   Validators,
   ValidationErrors,
 } from '@angular/forms';
-import { CombineApiService } from '../../../services/combine/combine-api.service';
+import { CombineApiService } from '../services/combine/combine-api.service';
 import {
   ValidationReport,
   ValidationMessage,
   ValidationStatus,
-} from '../../../datamodel/validation-report.interface';
-import { ModelLanguage, EdamTerm } from '@biosimulations/datamodel/common';
+  ModelLanguage, 
+  EdamTerm,
+} from '@biosimulations/datamodel/common';
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import { Subscription } from 'rxjs';
 import { ConfigService } from '@biosimulations/config/angular';

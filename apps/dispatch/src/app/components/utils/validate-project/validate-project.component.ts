@@ -6,13 +6,11 @@ import {
   Validators,
   ValidationErrors,
 } from '@angular/forms';
-import { CombineApiService } from '../../../services/combine/combine-api.service';
+import { CombineApiService } from '../services/combine/combine-api.service';
 import {
   ValidationReport,
   ValidationMessage,
   ValidationStatus,
-} from '../../../datamodel/validation-report.interface';
-import {
   OmexMetadataInputFormat,
   OmexMetadataSchema,
 } from '@biosimulations/datamodel/common';

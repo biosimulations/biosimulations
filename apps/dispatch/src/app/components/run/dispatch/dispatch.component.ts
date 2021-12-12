@@ -25,14 +25,12 @@ import {
   SedModel,
   SedSimulation,
   Purpose,
-} from '@biosimulations/datamodel/common';
-import {
   AlgorithmSubstitutionPolicyLevels,
   ALGORITHM_SUBSTITUTION_POLICIES,
   AlgorithmSubstitution,
   AlgorithmSubstitutionPolicy,
-  Algorithm as KisaoAlgorithm,
-} from '../../../kisao.interface';
+  AlgorithmSummary,
+} from '@biosimulations/datamodel/common';
 import {
   SimulationRunStatus,
   EnvironmentVariable,
@@ -337,7 +335,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
 
           algSubs = Object.entries(simulatorsData.simulationAlgorithms).map(
             (keyVal: [string, OntologyTerm]): AlgorithmSubstitution => {
-              const alg: KisaoAlgorithm = {
+              const alg: AlgorithmSummary = {
                 _type: 'Algorithm',
                 id: keyVal[1].id,
                 name: keyVal[1].name,
@@ -363,7 +361,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
           })
           .forEach((algorithmSubstitution: AlgorithmSubstitution): void => {
             algorithmSubstitution.algorithms.forEach(
-              (algorithm: KisaoAlgorithm): void => {
+              (algorithm: AlgorithmSummary): void => {
                 if (!(algorithm.id in simulationAlgorithmsMap)) {
                   simulationAlgorithmsMap[algorithm.id] = {
                     id: algorithm.id,

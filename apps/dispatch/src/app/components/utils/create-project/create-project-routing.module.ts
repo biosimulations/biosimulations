@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { CreateSimulationProjectComponent } from './create-simulation-project/create-simulation-project.component';
+import { CreateProjectComponent } from './create-project/create-project.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: CreateSimulationProjectComponent,
+    component: CreateProjectComponent,
   },
 ];
 
@@ -14,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class CreateSimulationProjectRoutingModule {}
+export class CreateProjectRoutingModule {}

@@ -13,7 +13,6 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
 import { Storage } from '@ionic/storage-angular';
 import { ConfigService } from '@biosimulations/config/angular';
-import config from '../../../../assets/config.json';
 
 describe('ValidateProjectComponent', () => {
   let component: ValidateProjectComponent;
@@ -39,7 +38,20 @@ describe('ValidateProjectComponent', () => {
       providers: [
         HttpClient,
         HttpHandler,
-        { provide: ConfigService, useValue: config },
+        { 
+          provide: ConfigService, 
+          useValue: {
+            appConfig: {
+              exampleCombineArchives: {
+                repoOwnerName: '',
+                repoRef: '',
+                repoPath: '',
+                exampleProjectPath: '',
+              },
+              maxUploadFileSize: 100000000,
+            }
+          },
+        },
         Storage,
       ],
     }).compileComponents();

@@ -1,9 +1,3 @@
-export interface Algorithm {
-  _type: 'Algorithm';
-  id: string;
-  name: string;
-}
-
 export interface AlgorithmSubstitutionPolicy {
   _type: 'KisaoAlgorithmSubstitutionPolicy';
   id: string;
@@ -87,8 +81,14 @@ export const ALGORITHM_SUBSTITUTION_POLICIES: AlgorithmSubstitutionPolicy[] = [
   },
 ];
 
+export interface AlgorithmSummary {
+  _type: 'Algorithm';
+  id: string;
+  name: string;
+}
+
 export interface AlgorithmSubstitution {
   _type: 'KisaoAlgorithmSubstitution';
-  algorithms: Algorithm[];
+  algorithms: AlgorithmSummary[];
   maxPolicy: AlgorithmSubstitutionPolicy;
 }

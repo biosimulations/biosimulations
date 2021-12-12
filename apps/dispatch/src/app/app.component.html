@@ -17,13 +17,6 @@
     </biosimulations-topbar-menu-item>
 
     <biosimulations-topbar-menu-item
-      heading="Create a simulation"
-      icon="write"
-      [route]="['/create']"
-    >
-    </biosimulations-topbar-menu-item>
-
-    <biosimulations-topbar-menu-item
       heading="Run a simulation"
       icon="simulator"
       [route]="['/run']"
@@ -46,6 +39,13 @@
       </biosimulations-topbar-menu-item>
 
       <ng-container id="items">
+        <biosimulations-dropdown-menu-item
+          heading="Create a project"
+          icon="write"
+          [routerLink]="['/utils', 'create']"
+        >
+        </biosimulations-dropdown-menu-item>
+
         <biosimulations-dropdown-menu-item
           heading="Convert a file"
           icon="convert"
@@ -225,13 +225,6 @@
     </biosimulations-navigation-item>
 
     <biosimulations-navigation-item
-      heading="Create a simulation"
-      icon="write"
-      [route]="['/create']"
-    >
-    </biosimulations-navigation-item>
-
-    <biosimulations-navigation-item
       heading="Run a simulation"
       icon="simulator"
       [route]="['/run']"
@@ -246,6 +239,13 @@
     </biosimulations-navigation-item>
 
     <biosimulations-navigation-item heading="Utilities" icon="construction">
+      <biosimulations-navigation-subitem
+        heading="Create a project"
+        icon="write"
+        [route]="['/utils', 'create']"
+      >
+      </biosimulations-navigation-subitem>
+
       <biosimulations-navigation-subitem
         heading="Convert a file"
         icon="convert"
