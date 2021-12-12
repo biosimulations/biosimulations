@@ -128,6 +128,22 @@
     "projectSize": 446162
   },
   {
+    "id": "61b566651cbec5699b69b9af",
+    "name": "Hodgkin-Huxley cell (Gleeson; NeuroML/LEMS; CVODE; NetPyNe)",
+    "simulator": "netpyne",
+    "simulatorVersion": "1.0.0.2",
+    "cpus": 1,
+    "memory": 8,
+    "maxTime": 20,
+    "envVars": [],
+    "purpose": "academic",
+    "submittedLocally": false,
+    "status": "CREATED",
+    "submitted": "2021-12-12T03:03:02.673Z",
+    "updated": "2021-12-12T03:03:02.673Z",
+    "projectSize": 1340218
+  },
+  {
     "id": "61b436752ebaa83313280042",
     "name": "Hodgkin-Huxley cell (Gleeson; NeuroML/LEMS; CVODE; Neuron)",
     "simulator": "neuron",
