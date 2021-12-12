@@ -42,6 +42,11 @@ Please follow the steps below to create a containerized simulation tool that adh
     - ```-v, --version```: This argument should instruct the command-line program to report version information about itself.
     The easiest way to create a BioSimulators-compliant command-line interface is to create a [BioSimulators-compliant Python API](../../concepts/Interfaces#conventions-for-python-apis) and then use methods in [BioSimulators-utils](https://github.com/biosimulators/Biosimulators_utils) to build a command-line interface from this API. Implementing a BioSimulators-compliant Python API primarily entails implementing a single method for executing a single simulation of a single model. Additional information about creating BioSimulators-compliant Python APIs, command-line interfaces, and Docker images, including templates, is available [here](https://github.com/biosimulators/Biosimulators_simulator_template).
 
+    Simulation tools can also utilize two environment variables to obtain information about the environment that runBioSimulations uses to execute simulations.
+
+    * `HPC`: runBioSimulations sets this variable to `1` to indicate that the simulation tool is being executed in an HPC environment.
+    * `CPUS`: runBioSimulations sets this variable to the number of CPUs allocated to the job in which the simulation tool is being executed.
+
 1. **Create a Dockerfile** which describes how to build an image for your simulation tool.
     1. Use the ```FROM``` directive to choose a base operating system such as Ubuntu.
     1. Use the ```RUN``` directive to describe how to install your tool and any dependencies. Because Docker images are typically run as root, reserve /root for the home directory of the user which executes the image. Similarly, reserve /tmp for temporary files that must be created during the execution of the image. Install your simulation tool into a different directory than /root and /tmp such as /usr/local/bin.
