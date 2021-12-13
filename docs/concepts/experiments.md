@@ -30,7 +30,7 @@ In addition, the namespace prefixes used in XPaths should be defined within the 
 ```
 
 !!!note
-    The SED-ML specifications suggest that incomplete XPaths such as ```/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='A']``` should be used to indicate changes to model elements. BioSimulators discourages this convention of partial XPaths because these XPaths do not point to the attribute that is intended to be changed
+    The SED-ML specifications suggest that incomplete XPaths such as `/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='A']` should be used to indicate changes to model elements. BioSimulators discourages this convention of partial XPaths because these XPaths do not point to the attribute that is intended to be changed
 
 ## Namespaced for New/XML elements of changes to XML-encoded models
 
