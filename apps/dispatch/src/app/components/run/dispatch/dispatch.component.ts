@@ -570,7 +570,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     let archive: File | string = '';
     if (submitMethodControl.value === SubmitMethod.file) {
       const fileInput: FileInput = this.formGroup.controls.projectFile.value;
-      archive = fileInput.files[0].name;
+      archive = fileInput.files[0];
     } else {
       archive = this.formGroup.controls.projectUrl.value;
     }

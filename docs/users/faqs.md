@@ -10,38 +10,39 @@ Yes. The [search engine](https::/biosimulations.org/projects) supports wild card
 
 Yes. The [search engine](https::/biosimulations.org/projects) supports searching over individual attributes by prepending search queries with the key for the attribute, such as `title:xyz` to search for "xyz" in the title attribute of each project. The key for each attribute is the name of each attribute, lower cased, with spaces replaced by dashes, and without units (e.g., `project-size` for "Project size (MB)"). The table below summarizes the attributes that the search engine currently supports.
 
-| Field                 | Description            | Units | Key                     | Typical ids                                                                   |
-|-----------------------| -----------------------|-------|-------------------------|-------------------------------------------------------------------------------|
-| Id                    | BioSimulations id      |       | `id`                    |                                                                               |
-| Title                 | Tag line               |       | `title`                 |                                                                               |
-| Abstract              | Brief summary          |       | `abstract`              |                                                                               |
-| Description           | Extended summary       |       | `description`           |                                                                               |
-| Biology               | Genes, pathways        |       | `biology`               | [GO](http://geneontology.org/), [UniProt](https://www.uniprot.org/)           |
-| Taxa                  |                        |       | `taxa`                  | [Taxonomy](https://www.ncbi.nlm.nih.gov/taxonomy)                             |
-| Keywords              |                        |       | `keywords`              |                                                                               |
-| Model formats         |                        |       | `model-formats`         | [EDAM](https://edamontology.org/), [SED-ML URN](https://sed-ml.org/urns.html) |
-| Simulation types      |                        |       | `simulation-types`      |                                                                               |
-| Simulation algorithms |                        |       | `simulation-algorithms` | [KiSAO](https://github.com/SED-ML/KiSAO)                                      |
-| Simulation tools      |                        |       | `simulation-tools`      | [BioSimulators](https://biosimulators.org)                                    |
-| Reports               | Report formats         |       | `reports`               |                                                                               |
-| Visualizations        | Visualization formats  |       | `visualizations`        |                                                                               |
-| Project size          | COMBINE archive size   | MB    | `project-size`          |                                                                               |
-| CPUs                  | Requested CPUs         |       | `cpus`                  |                                                                               |
-| Memory                | Requested memory       | GB    | `memory`                |                                                                               |
-| Results size          | Size of outputs        | MB    | `results-size`          |                                                                               |
-| Runtime               |                        | min   | `runtime`               |                                                                               |
-| Organizations         |                        |       | `organizations`         | BioSimulations organization ids                                               |
-| Owner                 |                        |       | `owner`                 | BioSimulations account ids                                                    |
-| Creators              | Authors                |       | `creators`              | [ORCID](https://orcid.org/)                                                   |
-| Contributors          | Curators               |       | `contributors`          | [ORCID](https://orcid.org/)                                                   |
-| Funders               | Funding agencies       |       | `funders`               | [Funder Registry](https://www.crossref.org/services/funder-registry/)         |
-| Citations             | Publications           |       | `citations`             | [DOI](https://www.doi.org/), [PubMed](https://pubmed.ncbi.nlm.nih.gov/)       |
-| Identifiers           |                        |       | `identifiers`           | [Identifiers.org](https://identifiers.org/)                                   |
-| Additional metadata   |                        |       | `additional-metadata`   |                                                                               |
-| License               |                        |       | `license`               | [SPDX](https://spdx.org/)                                                     |
-| created               | Date archived created  |       | `created`               |                                                                               |
-| published             | Date project published |       | `published`             |                                                                               |
-| updated               | Date project updated   |       | `updated`               |                                                                               |
+| Field                 | Description                                                                                | Units | Key                     | Typical ids                                                                   |
+|-----------------------| -------------------------------------------------------------------------------------------|-------|-------------------------|-------------------------------------------------------------------------------|
+| Id                    | BioSimulations id                                                                          |       | `id`                    |                                                                               |
+| Title                 | Tag line                                                                                   |       | `title`                 |                                                                               |
+| Abstract              | Brief summary                                                                              |       | `abstract`              |                                                                               |
+| Description           | Extended summary                                                                           |       | `description`           |                                                                               |
+| Biology               | Genes, pathways                                                                            |       | `biology`               | [GO](http://geneontology.org/), [UniProt](https://www.uniprot.org/)           |
+| Taxa                  |                                                                                            |       | `taxa`                  | [Taxonomy](https://www.ncbi.nlm.nih.gov/taxonomy)                             |
+| Keywords              |                                                                                            |       | `keywords`              |                                                                               |
+| Model formats         |                                                                                            |       | `model-formats`         | [EDAM](https://edamontology.org/), [SED-ML URN](https://sed-ml.org/urns.html) |
+| Simulation types      |                                                                                            |       | `simulation-types`      |                                                                               |
+| Simulation algorithms |                                                                                            |       | `simulation-algorithms` | [KiSAO](https://github.com/SED-ML/KiSAO)                                      |
+| Simulation tools      |                                                                                            |       | `simulation-tools`      | [BioSimulators](https://biosimulators.org)                                    |
+| Reports               | Report formats                                                                             |       | `reports`               |                                                                               |
+| Visualizations        | Visualization formats                                                                      |       | `visualizations`        |                                                                               |
+| Project size          | COMBINE archive size                                                                       | MB    | `project-size`          |                                                                               |
+| CPUs                  | Requested CPUs                                                                             |       | `cpus`                  |                                                                               |
+| Memory                | Requested memory                                                                           | GB    | `memory`                |                                                                               |
+| Results size          | Size of outputs                                                                            | MB    | `results-size`          |                                                                               |
+| Runtime               |                                                                                            | min   | `runtime`               |                                                                               |
+| Simulation provenance | Whether the simulation experiment (SED-ML) was computationally generated from a model file |       | `simulation-provenance` |                                                                               |
+| Organizations         |                                                                                            |       | `organizations`         | BioSimulations organization ids                                               |
+| Owner                 |                                                                                            |       | `owner`                 | BioSimulations account ids                                                    |
+| Creators              | Authors                                                                                    |       | `creators`              | [ORCID](https://orcid.org/)                                                   |
+| Contributors          | Curators                                                                                   |       | `contributors`          | [ORCID](https://orcid.org/)                                                   |
+| Funders               | Funding agencies                                                                           |       | `funders`               | [Funder Registry](https://www.crossref.org/services/funder-registry/)         |
+| Citations             | Publications                                                                               |       | `citations`             | [DOI](https://www.doi.org/), [PubMed](https://pubmed.ncbi.nlm.nih.gov/)       |
+| Identifiers           |                                                                                            |       | `identifiers`           | [Identifiers.org](https://identifiers.org/)                                   |
+| Additional metadata   |                                                                                            |       | `additional-metadata`   |                                                                               |
+| License               |                                                                                            |       | `license`               | [SPDX](https://spdx.org/)                                                     |
+| created               | Date archived created                                                                      |       | `created`               |                                                                               |
+| published             | Date project published                                                                     |       | `published`             |                                                                               |
+| updated               | Date project updated                                                                       |       | `updated`               |                                                                               |
 
 **Which formats for projects does BioSimulations support?**
 

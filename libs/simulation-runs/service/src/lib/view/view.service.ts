@@ -11,6 +11,7 @@ import { catchError } from 'rxjs/operators';
 import {
   LabeledIdentifier,
   DescribedIdentifier,
+  LocationPredecessor,
   SimulationRunSedDocument,
   SedAbstractTask,
   SedOutput,
@@ -34,6 +35,7 @@ import { SimulationRunService } from '@biosimulations/angular-api-client';
 import { VegaVisualizationService } from '../vega-visualization/vega-visualization.service';
 import { SedPlot2DVisualizationService } from '../sed-plot-2d-visualization/sed-plot-2d-visualization.service';
 import {
+  LabeledIdentifierIsUrl,
   ProjectMetadata,
   Creator,
   SimulationRunMetadata as FormattedSimulationRunMetadata,
@@ -62,6 +64,7 @@ import { Endpoints } from '@biosimulations/config/common';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 import { environment } from '@biosimulations/shared/environments';
 import { deserializeSedDocument } from '../sed-document/sed-document';
+import isUrl from 'is-url';
 
 @Injectable({
   providedIn: 'root',
@@ -179,17 +182,17 @@ export class ViewService {
     };
 
     formattedMetadata.attributes.push({
-      values: metadata?.encodes,
+      values: metadata?.encodes?.map(this.uriIsUrl),
       icon: 'cell',
       title: 'Biology',
     });
     formattedMetadata.attributes.push({
-      values: metadata?.taxa,
+      values: metadata?.taxa?.map(this.uriIsUrl),
       icon: 'taxon',
       title: 'Taxon',
     });
     formattedMetadata.attributes.push({
-      values: metadata?.keywords,
+      values: metadata?.keywords?.map(this.uriIsUrl),
       icon: 'tags',
       title: 'Keyword',
     });
@@ -202,38 +205,59 @@ export class ViewService {
             label: (other.label || other.uri) as string,
             uri: other.uri,
           },
-        ],
+        ]
+        .map(this.uriIsUrl),
       });
     });
     formattedMetadata.attributes.push({
-      values: metadata?.seeAlso,
+      values: metadata?.seeAlso?.map(this.uriIsUrl),
       icon: 'link',
       title: 'More info',
     });
     formattedMetadata.attributes.push({
-      values: metadata?.sources,
+      values: metadata?.sources?.map(this.uriIsUrl),
       icon: 'code',
       title: 'Source',
     });
 
     formattedMetadata.attributes.push({
-      values: metadata?.citations,
+      values: metadata?.citations?.map(this.uriIsUrl),
       icon: 'file',
       title: 'Citation',
     });
     formattedMetadata.attributes.push({
-      values: metadata?.identifiers,
+      values: metadata?.identifiers?.map(this.uriIsUrl),
       icon: 'id',
       title: 'Cross reference',
     });
 
     formattedMetadata.attributes.push({
-      values: metadata?.predecessors,
+      values: metadata?.predecessors?.map(this.uriIsUrl),
       icon: 'backward',
       title: 'Predecessor',
     });
+
+    metadata?.locationPredecessors?.forEach((locationPredecessor: LocationPredecessor): void => {
+      const location = locationPredecessor.location.substring(locationPredecessor.location.indexOf('/') + 1);
+
+      formattedMetadata.attributes.push({
+        values: locationPredecessor.predecessors
+          ?.map((predecessor: LabeledIdentifier): LabeledIdentifier => {
+            return {
+              label: predecessor?.label,
+              uri: predecessor?.uri?.startsWith('http://omex-library.org/') && predecessor?.uri?.indexOf('.omex/') !== -1
+                ? predecessor?.uri?.substring(predecessor?.uri?.indexOf('.omex/') + 6)
+                : predecessor?.uri,
+            };
+          })
+          ?.map(this.uriIsUrl),
+        icon: 'backward',
+        title: `Predecessor (${location})`,
+      });
+    });
+
     formattedMetadata.attributes.push({
-      values: metadata?.successors,
+      values: metadata?.successors?.map(this.uriIsUrl),
       icon: 'forward',
       title: 'Successor',
     });
@@ -247,7 +271,8 @@ export class ViewService {
               uri: organization?.url || null,
             };
           },
-        ),
+        )
+        .map(this.uriIsUrl),
         icon: 'organization',
         title: 'Organization',
       });
@@ -257,24 +282,25 @@ export class ViewService {
             label: owner.name,
             uri: owner?.url || null,
           },
-        ],
+        ]
+        .map(this.uriIsUrl),
         icon: 'author',
         title: 'Owner',
       });
     }
     formattedMetadata.attributes.push({
-      values: metadata?.contributors,
+      values: metadata?.contributors?.map(this.uriIsUrl),
       icon: 'author',
       title: 'Curator',
     });
     formattedMetadata.attributes.push({
-      values: metadata?.funders,
+      values: metadata?.funders?.map(this.uriIsUrl),
       icon: 'funding',
       title: 'Funder',
     });
 
     formattedMetadata.attributes.push({
-      values: metadata?.license,
+      values: metadata?.license?.map(this.uriIsUrl),
       icon: 'license',
       title: 'License',
     });
@@ -1324,5 +1350,17 @@ export class ViewService {
       Object.assign(dataSet, runDataSet);
       return dataSet;
     }
+  }
+
+  private uriIsUrl(labeledIdentifier: LabeledIdentifier): LabeledIdentifierIsUrl {
+    return {
+      label: labeledIdentifier?.label,
+      uri: labeledIdentifier?.uri 
+        ? {
+            value: labeledIdentifier?.uri,
+            isUrl: isUrl(labeledIdentifier?.uri),
+          }
+        : null,
+    };
   }
 }

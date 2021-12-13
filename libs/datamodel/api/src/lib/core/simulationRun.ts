@@ -32,6 +32,7 @@ import {
 import {
   LabeledIdentifier,
   DescribedIdentifier,
+  LocationPredecessor,
   ABSTRACT,
   CITATIONS,
   CONTRIBUTORS,
@@ -44,6 +45,7 @@ import {
   LICENCE,
   MODIFIED,
   PREDECESSORS,
+  LOCATION_PREDECESSORS,
   SEEALSO,
   SOURCES,
   SUCCESSORS,
@@ -803,6 +805,9 @@ export class SimulationRunMetadataSummary
 
   @ApiProperty(PREDECESSORS)
   predecessors!: LabeledIdentifier[];
+
+  @ApiProperty(LOCATION_PREDECESSORS)
+  locationPredecessors!: LocationPredecessor[];
 
   @ApiProperty(SUCCESSORS)
   successors!: LabeledIdentifier[];

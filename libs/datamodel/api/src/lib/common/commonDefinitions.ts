@@ -2,9 +2,11 @@
 import {
   LabeledIdentifier as ILabeledIdentifier,
   DescribedIdentifier as IDescribedIdentifier,
+  LocationPredecessor as ILocationPredecessor,
 } from '@biosimulations/datamodel/common';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsString, IsOptional } from 'class-validator';
+import { IsString, IsOptional, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class LabeledIdentifier implements ILabeledIdentifier {
   @ApiProperty({ type: String, nullable: true, required: false, default: null })
@@ -51,6 +53,17 @@ export class DescribedIdentifier
   @IsOptional()
   @IsString()
   attribute_label!: string | null;
+}
+
+export class LocationPredecessor implements ILocationPredecessor {
+  @ApiProperty({ type: String })
+  @IsString()
+  location!: string;
+
+  @ApiProperty({ type: [LabeledIdentifier] })
+  @ValidateNested({ each: true })
+  @Type(() => LabeledIdentifier)
+  predecessors!: LabeledIdentifier[];
 }
 
 export const CREATORS = {
@@ -155,7 +168,7 @@ export const TAXA = {
   type: [LabeledIdentifier],
   description: 'The biological entity represented by the model element',
   externalDocs: {
-    description: 'Biomodels Biology Qualifiers hasTaxon',
+    description: 'BioModels Biology Qualifiers `hasTaxon`',
     url: 'http://biomodels.net/biology-qualifiers/hasTaxon',
   },
   example: [
@@ -172,7 +185,7 @@ export const ENCODES = {
   description:
     'Other biology (e.g., cell type, organ) captured by a modeling project',
   externalDocs: {
-    description: 'Biomodels Biology Qualifiers encodes',
+    description: 'BioModels Biology Qualifiers `encodes`',
     url: 'http://biomodels.net/biology-qualifiers/encodes',
   },
   example: [
@@ -218,6 +231,25 @@ export const PREDECESSORS = {
   ],
 };
 
+export const LOCATION_PREDECESSORS = {
+  type: [LocationPredecessor],
+  description:
+    'Predecessors of individual files of the project',
+  externalDocs: {
+    description: 'Biomodels Model Qualifiers isDerivedFrom',
+    url: 'http://biomodels.net/model-qualifiers/isDerivedFrom',
+  },
+  example: [
+    {
+      location: 'simulation.sedml',
+      predecessors: [{
+        label: 'Model',
+        uri: 'model.xml',
+      }],
+    }
+  ],
+};
+
 export const SUCCESSORS = {
   type: [LabeledIdentifier],
   description: 'Other modeling projects that were based on this project',
@@ -251,7 +283,7 @@ export const IDENTIFIERS = {
   type: [LabeledIdentifier],
   description: 'Identifiers for a modeling project',
   externalDocs: {
-    description: 'Biomodels Model Qualifiers Is',
+    description: 'BioModels Model Qualifiers `is`',
     url: 'http://biomodels.net/model-qualifiers/is',
   },
   example: [
@@ -266,7 +298,7 @@ export const CITATIONS = {
   type: [LabeledIdentifier],
   description: 'Citations for a modeling project',
   externalDocs: {
-    description: 'Biomodels Model Qualifiers IsDescribedBy',
+    description: 'BioModels Model Qualifiers `isDescribedBy`',
     url: 'http://biomodels.net/model-qualifiers/isDescribedBy',
   },
   example: [

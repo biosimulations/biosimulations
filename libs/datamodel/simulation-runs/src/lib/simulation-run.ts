@@ -15,10 +15,19 @@ export interface Creator {
   icon: BiosimulationsIcon;
 }
 
+export interface ValueIsUrl {
+  value: string;
+  isUrl: boolean;
+}
+
+export type LabeledIdentifierIsUrl = Omit<LabeledIdentifier, 'uri'> & {
+  uri: ValueIsUrl | null;
+}
+
 export interface Attribute {
   icon: BiosimulationsIcon;
   title: string;
-  values?: LabeledIdentifier[];
+  values?: LabeledIdentifierIsUrl[];
 }
 
 export interface ProjectMetadata {

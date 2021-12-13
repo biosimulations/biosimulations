@@ -70,6 +70,7 @@ export class BrowseService {
                   license: metadata?.license,
                   funders: metadata.funders,
                   other: metadata.other,
+                  locationPredecessors: metadata.locationPredecessors,
                   created: this.formatDate(metadata.created),
                   modified: metadata?.modified
                     ? this.formatDate(metadata?.modified)

@@ -7,7 +7,7 @@ import {
   SerializedSedDataGenerator as SedDataGenerator,
   SerializedSedOutput as SedOutput,
 } from '../sedml';
-import { LabeledIdentifier, DescribedIdentifier } from './archiveMetadata';
+import { LabeledIdentifier, DescribedIdentifier, LocationPredecessor } from './archiveMetadata';
 
 export enum SimulationRunStatus {
   // The api has created the entry
@@ -222,6 +222,7 @@ export interface SimulationRunMetadataSummary {
   taxa: LabeledIdentifier[];
   encodes: LabeledIdentifier[];
   predecessors: LabeledIdentifier[];
+  locationPredecessors: LocationPredecessor[];
   successors: LabeledIdentifier[];
   seeAlso: LabeledIdentifier[];
   identifiers: LabeledIdentifier[];

@@ -8,6 +8,7 @@ import { FormatService } from '@biosimulations/shared/services';
 import {
   LabeledIdentifier,
   DescribedIdentifier,
+  LocationPredecessor,
 } from '@biosimulations/datamodel/common';
 import { RowService } from '@biosimulations/shared/ui';
 import { ScrollService } from '@biosimulations/shared/angular';
@@ -431,6 +432,51 @@ export class BrowseComponent implements OnInit, AfterViewInit {
       },
       filterType: ColumnFilterType.number,
       units: 'min',
+    },
+    {
+      id: 'simulationProvenance',
+      key: ['metadata', 'locationPredecessors'],
+      heading: 'Simulation provenance',
+      leftIcon: 'backward',
+      hidden: false,
+      show: false,
+      filterable: true,
+      getter: (project: FormattedProjectSummary): string[] => {
+        const value = new Set(
+            project.metadata.locationPredecessors
+              .flatMap((locationPredecessor: LocationPredecessor): LabeledIdentifier[] => {
+                if (locationPredecessor.location.endsWith('.sedml')) {
+                  return locationPredecessor.predecessors;
+                } else {
+                  return [];
+                }
+              })
+              .map((predecessor: LabeledIdentifier): string => {
+                return predecessor.uri?.startsWith('http://omex-library.org/') &&  predecessor.uri.indexOf('.omex/') !== -1
+                  ? 'Simulation generated from model'
+                  : 'Other';
+              })
+          );
+        if (value.size === 0) {
+          value.add('Other');
+        }
+        return Array.from(value);
+      },
+      filterComparator: (value: string, other: string, sign = 1): number => {
+        if (value === 'Other') {
+          if (other === 'Other') {
+            return 0;
+          } else {
+            return sign;
+          }
+        } else {
+          if (other === 'Other') {
+            return -sign;
+          } else {
+            return RowService.comparator(value, other, sign);
+          }
+        }
+      },
     },
     {
       id: 'organizations',

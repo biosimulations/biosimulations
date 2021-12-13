@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { ArchiveMetadata as IArchiveMetadata } from '@biosimulations/datamodel/common';
+import { 
+  ArchiveMetadata as IArchiveMetadata,
+  ArchiveMetadataSummary as IArchiveMetadataSummary,
+} from '@biosimulations/datamodel/common';
 import {
   IsString,
   IsOptional,
@@ -22,9 +25,11 @@ import {
   IDENTIFIERS,
   KEYWORDS,
   LabeledIdentifier,
+  LocationPredecessor,
   LICENCE,
   MODIFIED,
   PREDECESSORS,
+  LOCATION_PREDECESSORS,
   SEEALSO,
   SOURCES,
   SUCCESSORS,
@@ -34,6 +39,10 @@ import {
 } from './commonDefinitions';
 
 type IArchiveMetadataType = Omit<IArchiveMetadata, 'created' | 'modified'> & {
+  created: string;
+  modified: string[];
+};
+type IArchiveMetadataSummaryType = Omit<IArchiveMetadataSummary, 'created' | 'modified'> & {
   created: string;
   modified: string[];
 };
@@ -145,6 +154,13 @@ export class ArchiveMetadata implements IArchiveMetadataType {
   @ValidateNested({ each: true })
   @Type(() => DescribedIdentifier)
   other: DescribedIdentifier[] = [];
+}
+
+export class ArchiveMetadataSummary extends ArchiveMetadata implements IArchiveMetadataSummaryType {
+  @ApiProperty(LOCATION_PREDECESSORS)
+  @ValidateNested({ each: true })
+  @Type(() => LocationPredecessor)
+  locationPredecessors: LocationPredecessor[] = [];
 }
 
 export class ArchiveMetadataContainer {
