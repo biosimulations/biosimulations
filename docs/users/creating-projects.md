@@ -57,7 +57,7 @@ To make it easy for investigators to work with a broad range of model formats, m
 
 [runBioSimulations](https://run.biosimulations.org/utils/create-project) provides a simple web form for building COMBINE/OMEX archives with SED-ML files from model files (e.g., CellML, SBML). This tool support all of the model languages supported by BioSimulations. 
 
-More detailed information about creating SED-ML files to work with BioSimulations can be found at [here](../concepts/experiments.md).
+More detailed information about creating SED-ML files to work with BioSimulations can be found at [here](../concepts/conventions/simulation-experiments.md).
 
 ### Visualizations
 
@@ -67,10 +67,10 @@ One key feature of Vega is that it modularly captures the graphical marks which 
 
 Vega files can be included in the COMBINE/OMEX archive of a simulation project to enable visualization on the [project view page](./viewing-projects.md#visualizations).
 
-More information on how to create Vega files that can incorporate data from BioSimulations projects can be found at [here](../concepts/visualizations.md).
+More information on how to create Vega files that can incorporate data from BioSimulations projects can be found at [here](../concepts/conventions/simulation-run-visualizations.md).
 
 ### Metadata 
-BioSimulations uses the [OMEX Meta](https://co.mbine.org/standards/omex-metadata) specification to capture metadata about the simulation project. BioSimulations has a list of recommended metadata fields that can be used to capture [metadata](./viewing-projects.md#metadata) about a simulation project. Information about how to use theses fields can be found [here](../concepts/metadata.md).
+BioSimulations uses the [OMEX Meta](https://co.mbine.org/standards/omex-metadata) specification to capture metadata about the simulation project. BioSimulations has a list of recommended metadata fields that can be used to capture [metadata](./viewing-projects.md#metadata) about a simulation project. Information about how to use theses fields can be found [here](../concepts/conventions/simulation-project-metadata.md).
 
 ### COMBINE/OMEX archives
 
