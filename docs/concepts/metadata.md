@@ -42,7 +42,7 @@ BioSimulations recommends that COMBINE/OMEX archives be annotated using the pred
 - Source of a modeling project:
     - Predicate: `http://dublincore.org/specifications/dublin-core/dcmi-terms/source`
     - Objects: URI (e.g., `https://github.com/org/repo`), Literal string
-- Predecessor of a modeling project:
+- Predecessor of a modeling project or individual file file:
     - Predicate: `http://biomodels.net/model-qualifiers/isDerivedFrom`
     - Objects: URI (e.g., `http://identifiers.org/biomodels.db:BIOMD0000000296`), Literal string
 - Successor of a modeling project:
@@ -92,7 +92,7 @@ Submissions to BioSimulations must include the following metadata:
 - License (`http://dublincore.org/specifications/dublin-core/dcmi-terms/license`)
 
 ## Recommendations for describing the SED-ML files and plots responsible for figures
-BioSimulations recommends using the ```http://dublincore.org/specifications/dublin-core/dcmi-terms/identifier``` predicate and literal strings to describe the SED-ML files, reports, and plots responsible for tables and figures in articles.
+BioSimulations recommends using the `http://dublincore.org/specifications/dublin-core/dcmi-terms/identifier` predicate and literal strings to describe the SED-ML files, reports, and plots responsible for tables and figures in articles.
 
 ```xml
 <rdf:Description rdf:about="http://omex-library.org/BioSim0001.omex/sim.sedml/figure1">
@@ -102,6 +102,20 @@ BioSimulations recommends using the ```http://dublincore.org/specifications/dubl
       <rdfs:label>Figure 1a</rdfs:label>
     </rdf:Description>
   </bqmodel:is>
+</rdf:Description>
+```
+
+## Recommendations for describing the provenance of computationally-generated files
+BioSimulations recommends using the `http://biomodels.net/model-qualifiers/isDerivedFrom` predicate to indicate the source of computationally-generated files, such as SED-ML files automatically created from model (e.g., SBML) files. The subjects and objects of such triples should be described using OMEX library URIs (e.g., `http://omex-library.org/BioSim0001.omex/simulation.sedml`, `http://omex-library.org/BioSim0001.omex/model.xml`) that represent their location within their parent COMBINE/OMEX archive.
+
+```xml
+<rdf:Description rdf:about="http://omex-library.org/BioSim0001.omex/simulation.sedml">
+  <bqmodel:isDerivedFrom>
+    <rdf:Description>
+      <dc:identifier rdf:resource="http://omex-library.org/BioSim0001.omex/model.xml"/>
+      <rdfs:label>model</rdfs:label>
+    </rdf:Description>
+  </bqmodel:isDerivedFrom>
 </rdf:Description>
 ```
 
