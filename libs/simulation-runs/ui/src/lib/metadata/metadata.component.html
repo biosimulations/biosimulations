@@ -66,7 +66,9 @@
               >
               <ng-template #noUrl>
                 {{ value.label || value.uri?.value }}
-                <span *ngIf="value.label && value.uri?.value">{{ ' ' }}({{ value.uri?.value }})</span>
+                <span *ngIf="value.label && value.uri?.value"
+                  >{{ ' ' }}({{ value.uri?.value }})</span
+                >
               </ng-template>
             </div>
           </ng-container>

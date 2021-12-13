@@ -22,7 +22,7 @@ export interface ValueIsUrl {
 
 export type LabeledIdentifierIsUrl = Omit<LabeledIdentifier, 'uri'> & {
   uri: ValueIsUrl | null;
-}
+};
 
 export interface Attribute {
   icon: BiosimulationsIcon;

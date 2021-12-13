@@ -233,8 +233,7 @@ export const PREDECESSORS = {
 
 export const LOCATION_PREDECESSORS = {
   type: [LocationPredecessor],
-  description:
-    'Predecessors of individual files of the project',
+  description: 'Predecessors of individual files of the project',
   externalDocs: {
     description: 'Biomodels Model Qualifiers isDerivedFrom',
     url: 'http://biomodels.net/model-qualifiers/isDerivedFrom',
@@ -242,11 +241,13 @@ export const LOCATION_PREDECESSORS = {
   example: [
     {
       location: 'simulation.sedml',
-      predecessors: [{
-        label: 'Model',
-        uri: 'model.xml',
-      }],
-    }
+      predecessors: [
+        {
+          label: 'Model',
+          uri: 'model.xml',
+        },
+      ],
+    },
   ],
 };
 
