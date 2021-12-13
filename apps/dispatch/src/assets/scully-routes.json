@@ -6,9 +6,4 @@
   { "route": "/" },
   { "route": "/run" },
   { "route": "/simulations" },
-  { "route": "/help" },
-  { "route": "/help/about" },
-  { "route": "/help/faq" },
-  { "route": "/help/terms" },
-  { "route": "/help/privacy" }
 ]

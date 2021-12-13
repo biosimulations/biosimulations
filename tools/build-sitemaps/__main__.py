@@ -50,36 +50,6 @@ def get_root_static_urls():
     ]
 
 
-def get_help_static_urls():
-    return [
-        Url(
-            loc="help",
-            last_mod=datetime.datetime(2020, 12, 23),
-            change_freq=ChangeFreq.monthly
-        ),
-        Url(
-            loc="help/faq",
-            last_mod=datetime.datetime(2020, 12, 23),
-            change_freq=ChangeFreq.monthly
-        ),
-        Url(
-            loc="help/about",
-            last_mod=datetime.datetime(2020, 12, 23),
-            change_freq=ChangeFreq.monthly
-        ),
-        Url(
-            loc="help/terms",
-            last_mod=datetime.datetime(2020, 12, 23),
-            change_freq=ChangeFreq.monthly
-        ),
-        Url(
-            loc="help/privacy",
-            last_mod=datetime.datetime(2020, 12, 23),
-            change_freq=ChangeFreq.monthly
-        ),
-    ]
-
-
 def get_biosimulations_static_urls():
     return (
         get_root_static_urls()
@@ -96,7 +66,6 @@ def get_biosimulations_static_urls():
 def get_runbiosimulations_static_urls():
     return (
         get_root_static_urls()
-        + get_help_static_urls()
         + [            
             Url(
                 loc="run",
@@ -150,7 +119,6 @@ def get_runbiosimulations_static_urls():
 def get_simulator_static_urls():
     return (
         get_root_static_urls()
-        + get_help_static_urls()
         + [
             Url(
                 loc="utils/create-project",
@@ -184,51 +152,6 @@ def get_simulator_static_urls():
             ),
             Url(
                 loc="utils/suggest-simulator",
-                last_mod=datetime.datetime(2020, 12, 23),
-                change_freq=ChangeFreq.monthly
-            ),
-            Url(
-                loc="conventions",
-                last_mod=datetime.datetime(2020, 12, 23),
-                change_freq=ChangeFreq.monthly
-            ),
-            Url(
-                loc="conventions/simulator-specs",
-                last_mod=datetime.datetime(2020, 12, 23),
-                change_freq=ChangeFreq.monthly
-            ),
-            Url(
-                loc="conventions/simulator-interfaces",
-                last_mod=datetime.datetime(2020, 12, 23),
-                change_freq=ChangeFreq.monthly
-            ),
-            Url(
-                loc="conventions/simulator-images",
-                last_mod=datetime.datetime(2020, 12, 23),
-                change_freq=ChangeFreq.monthly
-            ),
-            Url(
-                loc="conventions/simulation-experiments",
-                last_mod=datetime.datetime(2020, 12, 23),
-                change_freq=ChangeFreq.monthly
-            ),
-            Url(
-                loc="conventions/simulation-reports",
-                last_mod=datetime.datetime(2020, 12, 23),
-                change_freq=ChangeFreq.monthly
-            ),
-            Url(
-                loc="conventions/data-viz",
-                last_mod=datetime.datetime(2020, 12, 23),
-                change_freq=ChangeFreq.monthly
-            ),
-            Url(
-                loc="conventions/metadata",
-                last_mod=datetime.datetime(2020, 12, 23),
-                change_freq=ChangeFreq.monthly
-            ),
-            Url(
-                loc="conventions/simulation-logs",
                 last_mod=datetime.datetime(2020, 12, 23),
                 change_freq=ChangeFreq.monthly
             ),

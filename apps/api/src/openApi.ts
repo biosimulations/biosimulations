@@ -89,7 +89,7 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
       'MIT License',
       'https://github.com/biosimulations/biosimulations/blob/dev/LICENSE',
     )
-    .setTermsOfService('https://run.biosimulations.org/help/terms')
+    .setTermsOfService('https://docs.biosimulations.org/about/terms/')
     .setExternalDoc(
       'API specifications (Open API JSON)',
       'https://api.biosimulations.org/openapi.json',
@@ -97,7 +97,7 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
     .setExternalDoc('Documentation', 'https://docs.biosimulations.org')
     .setContact(
       'BioSimulations Team',
-      'https://run.biosimulations.org/help/about',
+      'https://docs.biosimulations.org/about/team/',
       'info@biosimulations.org',
     );
 

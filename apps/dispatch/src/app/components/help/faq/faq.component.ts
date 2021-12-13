@@ -108,7 +108,7 @@ export class FaqComponent {
     this.emailUrl = 'mailto:' + config.email;
 
     this.modelLanguageDocsUrl =
-      this.config.simulatorsAppUrl + 'conventions/simulation-experiments';
+      'https://docs.biosimulations.org/concepts/conventions/simulation-experiments/';
     this.exampleCombineArchivesUrl =
       'https://github.com/' +
       this.config.appConfig.exampleCombineArchives.repoOwnerName +

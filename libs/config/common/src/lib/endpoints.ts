@@ -610,8 +610,8 @@ export class Endpoints {
   }
 
   public getConventionsView(page?: string): string {
-    page ? (page = `/${page}`) : (page = '');
-    return `${this.simulatorsApp}/conventions${page}`;
+    page ? (page = `${page}/`) : (page = '');
+    return `https://docs.biosimulations.org/concepts/conventions/${page}`;
   }
 
   // BASE URLS

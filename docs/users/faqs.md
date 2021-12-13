@@ -162,7 +162,7 @@ Please [submit an issue](https://github.com/biosimulators/Biosimulators/issues/n
 
 **Which simulation formats does BioSimulations support?**
 
-BioSimulations supports these [conventions](https://biosimulators.org/conventions/simulation-experiments) for the [Simulation Experiment Description Markup Language (SED-ML)](https://sed-ml.org). SED-ML can be used to describe a broad range of simulations involving a broad range of modeling frameworks, model formats, simulation algorithms, and simulation tools.
+BioSimulations supports these [conventions](../concepts/conventions/simulation-experiments.md) for the [Simulation Experiment Description Markup Language (SED-ML)](https://sed-ml.org). SED-ML can be used to describe a broad range of simulations involving a broad range of modeling frameworks, model formats, simulation algorithms, and simulation tools.
 
 **Which versions of SED-ML does BioSimulations support?**
 
@@ -228,7 +228,7 @@ The simulation tools available through BioSimulations are provided under the lic
 
 Currently, BioSimulations supports the [Simulation Experiment Description Markup Language (SED-ML)](https://sed-ml.org) and [Vega](https://vega.github.io/vega/) formats. The SED-ML format supports basic line charts. Vega is a powerful format that can be used to describe a broad range of data visualizations, including interactive visualizations that brush complex diagrams with results from multiple individual simulations.
 
-BioSimulations follows these [conventions](https://biosimulators.org/conventions/data-viz) for incorporating Vega visualizations into COMBINE/OMEX archives for simulation projects. These conventions enable authors to describe how the outputs of simulation experiments (simulation results) should be linked to the inputs (data sets) of Vega data visualizations. Importantly, these conventions enable Vega data visualizations to be reused across multiple simulations, such as with different initial conditions, simulation algorithms, simulation tools, models, or modeling frameworks.
+BioSimulations follows these [conventions](../concepts/conventions/simulation-run-visualizations/) for incorporating Vega visualizations into COMBINE/OMEX archives for simulation projects. These conventions enable authors to describe how the outputs of simulation experiments (simulation results) should be linked to the inputs (data sets) of Vega data visualizations. Importantly, these conventions enable Vega data visualizations to be reused across multiple simulations, such as with different initial conditions, simulation algorithms, simulation tools, models, or modeling frameworks.
 
 **What types of plots does BioSimulations support?**
 
@@ -252,11 +252,11 @@ Additional rendering tools could be incorporated into BioSimulations. Please con
 
 **What metadata is required to publish a project?**
 
-The minimum metadata required for publication is described [here](https://biosimulators.org/conventions/metadata).
+The minimum metadata required for publication is described [here](../concepts/conventions/simulation-project-metadata/).
 
 **Which formats for metadata does BioSimulations support?**
 
-BioSimulations supports the [RDF-XML format](https://www.w3.org/TR/rdf-syntax-grammar/) and the predicates described [here](https://biosimulators.org/conventions/metadata).
+BioSimulations supports the [RDF-XML format](https://www.w3.org/TR/rdf-syntax-grammar/) and the predicates described [here](../concepts/conventions/simulation-project-metadata/).
 
 **What tools can be used to create RDF-XML files?**
 

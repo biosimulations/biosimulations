@@ -23,7 +23,7 @@ def handler(body, file=None):
             * ``validateSedml`` (:obj:`bool`, optional): Whether to validate the SED-ML files in the archive
             * ``validateSedmlModels`` (:obj:`bool`, optional): Whether to validate the sources of the models in the SED-ML files in the archive
             * ``validateOmexMetadata`` (:obj:`bool`, optional): Whether to validate the OMEX metdata files in the archive according to
-                `BioSimulators' conventions <https://biosimulators.org/conventions/metadata>`_
+                `BioSimulators' conventions <https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/>`_
             * ``validateImages`` (:obj:`bool`, optional): Whether to validate the images (BMP, GIF, JPEG, PNG, TIFF WEBP) files in the archive
 
         file (:obj:`werkzeug.datastructures.FileStorage`): COMBINE/OMEX archive file

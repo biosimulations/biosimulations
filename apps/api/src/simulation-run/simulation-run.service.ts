@@ -1064,7 +1064,7 @@ export class SimulationRunService {
       },
       {
         check: this.specificationsService.getSpecificationsBySimulation(id),
-        errorMessage: `Simulation specifications (SED-ML documents) could not be found for simulation run '${id}'. For publication, simulation experiments must be valid SED-ML documents. Please check that the SED-ML documents in the COMBINE archive are valid. More information is available at https://biosimulators.org/conventions/simulation-experiments and https://run.biosimulations.org/utils/validate-project.`,
+        errorMessage: `Simulation specifications (SED-ML documents) could not be found for simulation run '${id}'. For publication, simulation experiments must be valid SED-ML documents. Please check that the SED-ML documents in the COMBINE archive are valid. More information is available at https://docs.biosimulations.org/concepts/conventions/simulation-experiments/ and https://run.biosimulations.org/utils/validate-project.`,
         isValid: (specifications: SpecificationsModel[]): boolean =>
           specifications.length > 0,
       },
@@ -1078,7 +1078,7 @@ export class SimulationRunService {
       },
       {
         check: this.logsService.getLog(id) as Promise<CombineArchiveLog>,
-        errorMessage: `Simulation log could not be found for run '${id}'. For publication, simulation runs must have validate logs. More information is available at https://biosimulators.org/conventions/simulation-logs.`,
+        errorMessage: `Simulation log could not be found for run '${id}'. For publication, simulation runs must have validate logs. More information is available at https://docs.biosimulations.org/concepts/conventions/simulation-run-logs/.`,
         isValid: (log: CombineArchiveLog): boolean => {
           return (
             log.status === SimulationRunLogStatus.SUCCEEDED && !!log.output
@@ -1087,7 +1087,7 @@ export class SimulationRunService {
       },
       {
         check: this.metadataService.getMetadata(id),
-        errorMessage: `Metadata could not be found for simulation run '${id}'. For publication, simulation runs must meet BioSimulations' minimum metadata requirements. More information is available at https://biosimulators.org/conventions/metadata and https://run.biosimulations.org/utils/validate-project.`,
+        errorMessage: `Metadata could not be found for simulation run '${id}'. For publication, simulation runs must meet BioSimulations' minimum metadata requirements. More information is available at https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/ and https://run.biosimulations.org/utils/validate-project.`,
         isValid: (metadata: SimulationRunMetadataIdModel | null): boolean => {
           if (!metadata) {
             return false;

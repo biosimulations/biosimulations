@@ -27,7 +27,7 @@ export interface ValidateOmexMetadataFileOrUrl {
    */
   format: ValidateOmexMetadataFileOrUrlFormatEnum;
   /**
-   * Schema for validating OMEX Metadata files. The RDF schema, allows all semantic triples. The [BioSimulations schema](https://biosimulators.org/conventions/metadata) imposes additional requirements for minimal metadata about simulation projects. The BioSimulations schema is required for publishing projects to BioSimulations.
+   * Schema for validating OMEX Metadata files. The RDF schema, allows all semantic triples. The [BioSimulations schema](https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/) imposes additional requirements for minimal metadata about simulation projects. The BioSimulations schema is required for publishing projects to BioSimulations.
    */
   schema: ValidateOmexMetadataFileOrUrlSchemaEnum;
 }
