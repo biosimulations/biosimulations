@@ -8,6 +8,11 @@ export interface DescribedIdentifier extends LabeledIdentifier {
   attribute_label: string | null;
 }
 
+export interface LocationPredecessor {
+  location: string;
+  predecessors: LabeledIdentifier[];
+}
+
 export interface ArchiveMetadata {
   uri: string;
   title?: string;
@@ -30,4 +35,8 @@ export interface ArchiveMetadata {
   created?: Date | string;
   modified: Date[] | string[];
   other: DescribedIdentifier[];
+}
+
+export interface ArchiveMetadataSummary extends ArchiveMetadata {
+  locationPredecessors: LocationPredecessor[];  
 }

@@ -30,14 +30,13 @@ import { BiosimulationsException } from '@biosimulations/shared/exceptions';
 import { scopes } from '@biosimulations/auth/common';
 import { ManagementService as AccountManagementService } from '@biosimulations/account/management';
 import { Organization as Auth0Organization } from 'auth0';
-import { AxiosError } from 'axios';
 import { ModuleRef } from '@nestjs/core';
 
 interface ProjectSummaryResult {
   id: string;
   succeeded: boolean;
   value?: ProjectSummary;
-  error?: AxiosError;
+  error?: any;
 }
 
 @Injectable()
@@ -208,7 +207,7 @@ export class ProjectsService implements OnModuleInit {
             value: value,
           };
         })
-        .catch((error: AxiosError) => {
+        .catch((error: any) => {
           return {
             id: project.id,
             succeeded: false,
@@ -226,7 +225,8 @@ export class ProjectsService implements OnModuleInit {
     if (failures.length) {
       const msgs = failures.map(
         (settledResult: ProjectSummaryResult): string => {
-          return `Project ${settledResult.id}: ${settledResult?.error?.response?.status}: ${settledResult.error?.response?.data?.detail}`;
+          const error = settledResult?.error;
+          return `Project ${settledResult.id}: ${error?.isAxiosError ? error?.response?.status : error?.status}: ${error?.isAxiosError ? error?.response?.data?.detail : error?.message}`;
         },
       );
       this.logger.log(

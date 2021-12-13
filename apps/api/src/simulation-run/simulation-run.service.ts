@@ -34,6 +34,7 @@ import {
   SimulationRunTaskSummary,
   SimulationRunOutputSummary,
   ArchiveMetadata,
+  LocationPredecessor,
 } from '@biosimulations/datamodel/api';
 import {
   SimulationRunStatus,
@@ -925,34 +926,41 @@ export class SimulationRunService {
     if (rawMetadataResult.succeeded && rawMetadataResult.value) {
       const rawMetadata = rawMetadataResult.value;
 
-      let rawMetadatum!: ArchiveMetadata;
-      for (rawMetadatum of rawMetadata.metadata) {
+      let summaryRawMetadatum!: ArchiveMetadata;
+      const locationPredecessors: LocationPredecessor[] = [];
+      for (const rawMetadatum of rawMetadata.metadata) {
         if (rawMetadatum.uri.search('/') === -1) {
-          break;
+          summaryRawMetadatum = rawMetadatum;
+        } else {
+          locationPredecessors.push({
+            location: rawMetadatum.uri,
+            predecessors: rawMetadatum.predecessors,
+          });
         }
       }
 
       summary.metadata = {
-        title: rawMetadatum?.title,
-        abstract: rawMetadatum?.abstract,
-        description: rawMetadatum?.description,
-        thumbnails: rawMetadatum.thumbnails,
-        sources: rawMetadatum.sources,
-        keywords: rawMetadatum.keywords,
-        taxa: rawMetadatum.taxa,
-        encodes: rawMetadatum.encodes,
-        predecessors: rawMetadatum.predecessors,
-        successors: rawMetadatum.successors,
-        seeAlso: rawMetadatum.seeAlso,
-        identifiers: rawMetadatum.identifiers,
-        citations: rawMetadatum.citations,
-        creators: rawMetadatum.creators,
-        contributors: rawMetadatum.contributors,
-        license: rawMetadatum?.license,
-        funders: rawMetadatum.funders,
-        other: rawMetadatum.other,
-        created: rawMetadatum.created,
-        modified: rawMetadatum.modified?.[0] || undefined,
+        title: summaryRawMetadatum?.title,
+        abstract: summaryRawMetadatum?.abstract,
+        description: summaryRawMetadatum?.description,
+        thumbnails: summaryRawMetadatum.thumbnails,
+        keywords: summaryRawMetadatum.keywords,        
+        encodes: summaryRawMetadatum.encodes,
+        taxa: summaryRawMetadatum.taxa,
+        other: summaryRawMetadatum.other,
+        seeAlso: summaryRawMetadatum.seeAlso,
+        sources: summaryRawMetadatum.sources,        
+        predecessors: summaryRawMetadatum.predecessors,
+        locationPredecessors: locationPredecessors,
+        successors: summaryRawMetadatum.successors,
+        creators: summaryRawMetadatum.creators,
+        contributors: summaryRawMetadatum.contributors,
+        funders: summaryRawMetadatum.funders,
+        identifiers: summaryRawMetadatum.identifiers,
+        citations: summaryRawMetadatum.citations,
+        license: summaryRawMetadatum?.license,
+        created: summaryRawMetadatum.created,
+        modified: summaryRawMetadatum.modified?.[0] || undefined,
       };
     } else if (raiseErrors) {
       this.logger.error(

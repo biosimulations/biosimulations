@@ -59,13 +59,14 @@
             <div>
               <b>{{ attribute.title }}:</b>{{ ' ' }}
               <a
-                *ngIf="value.uri; else noUrl"
-                [href]="value.uri"
+                *ngIf="value.uri?.isUrl; else noUrl"
+                [href]="value.uri?.value"
                 target="_blank"
-                >{{ value.label }}</a
+                >{{ value.label || value.uri?.value }}</a
               >
               <ng-template #noUrl>
-                {{ value.label }}
+                {{ value.label || value.uri?.value }}
+                <span *ngIf="value.label && value.uri?.value">{{ ' ' }}({{ value.uri?.value }})</span>
               </ng-template>
             </div>
           </ng-container>
