@@ -6,7 +6,7 @@ The BioSimulators standard for Docker images of biosimulation software tools out
 
 ## Specifications of entry points 
 
-Simulation tools which implement the BioSimulators Docker image standard should provide an entry point that maps to a command-line interface that implements the [BioSimulators standard for command-line interfaces for biosimulation tools](./interfaces.md):
+Simulation tools which implement the BioSimulators Docker image standard should provide an entry point that maps to a command-line interface that implements the [BioSimulators standard for command-line interfaces for biosimulation tools](./simulator-interfaces.md):
 
 The entry point should map to a command-line interface for a biosimulator (`ENTRYPOINT ["simulator-standard-interface"]`).
 The default arguments for the entry point should be an empty list (`CMD []`).

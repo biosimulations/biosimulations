@@ -26,7 +26,7 @@ Please follow the steps below to create a containerized simulation tool that adh
 1. Implement a BioSimulators-compliant command-line interface to your simulation tool. The interface should accept two keyword arguments:
 
     - `-i, --archive`: A path to a COMBINE archive that contains descriptions of one or more simulation tasks.
-    - `-o, --out-dir`: A path to a directory where the outputs of the simulation tasks should be saved. Data for plots and reports should be saved in HDF5 format (see the [specifications for data sets](../concepts/reports.md) for more information) and plots should be saved in Portable Document Format (PDF)  bundled into a single zip archive. Data for reports and plots should be saved to `{ out-dir }/reports.h5` and plots should be saved to `{ out-dir/plots.zip }`. Within the HDF5 file and the zip file, reports and plots should be saved to paths equal to the relative path of their parent SED-ML documents within the parent COMBINE/OMEX archive and the id of the report/plot.
+    - `-o, --out-dir`: A path to a directory where the outputs of the simulation tasks should be saved. Data for plots and reports should be saved in HDF5 format (see the [specifications for data sets](../concepts/conventions/simulation-run-reports.md) for more information) and plots should be saved in Portable Document Format (PDF)  bundled into a single zip archive. Data for reports and plots should be saved to `{ out-dir }/reports.h5` and plots should be saved to `{ out-dir/plots.zip }`. Within the HDF5 file and the zip file, reports and plots should be saved to paths equal to the relative path of their parent SED-ML documents within the parent COMBINE/OMEX archive and the id of the report/plot.
 
     For reports, the rows of the data tables should correspond to the data sets (`sedml:dataSet`) specified in the SED-ML definition of the report (e.g., time, specific species). The heading of each row should be the label of the corresponding data set.
 
@@ -34,13 +34,13 @@ Please follow the steps below to create a containerized simulation tool that adh
 
     Data tables of steady-state simulations should have a single column of the steady-state predictions of each data set. Data tables of one step simulations should have two columns that represent the predicted start and end states of each data set. Data tables of time course simulations should have multiple columns that represent the predicted time course of each data set. Data tables of non-spatial simulations should not have additional dimensions. Data tables of spatial simulations should have additional dimensions that represent the spatial axes of the simulation.
 
-    See the [specifications for interfaces](..././concepts/interfaces) for more information.
+    See the [specifications for interfaces](../concepts/conventions/simulator-interfaces.md) for more information.
 
     In addition, we recommend providing optional arguments for reporting help and version information about your simulator:
 
     - `-h, --help`: This argument should instruct the command-line program to print help information about itself.
     - `-v, --version`: This argument should instruct the command-line program to report version information about itself.
-    The easiest way to create a BioSimulators-compliant command-line interface is to create a [BioSimulators-compliant Python API](../../concepts/interfaces#conventions-for-python-apis) and then use methods in [BioSimulators-utils](https://github.com/biosimulators/Biosimulators_utils) to build a command-line interface from this API. Implementing a BioSimulators-compliant Python API primarily entails implementing a single method for executing a single simulation of a single model. Additional information about creating BioSimulators-compliant Python APIs, command-line interfaces, and Docker images, including templates, is available [here](https://github.com/biosimulators/Biosimulators_simulator_template).
+    The easiest way to create a BioSimulators-compliant command-line interface is to create a [BioSimulators-compliant Python API](../concepts/conventions/simulator-interfaces.md#conventions-for-python-apis) and then use methods in [BioSimulators-utils](https://github.com/biosimulators/Biosimulators_utils) to build a command-line interface from this API. Implementing a BioSimulators-compliant Python API primarily entails implementing a single method for executing a single simulation of a single model. Additional information about creating BioSimulators-compliant Python APIs, command-line interfaces, and Docker images, including templates, is available [here](https://github.com/biosimulators/Biosimulators_simulator_template).
 
     Simulation tools can also utilize two environment variables to obtain information about the environment that runBioSimulations uses to execute simulations.
 
@@ -53,7 +53,7 @@ Please follow the steps below to create a containerized simulation tool that adh
     1. Ideally, the simulation tools inside images should be installed from internet sources so that the construction of an image is completely specified by its Dockerfile and, therefor, reproducible and portable. Additional files needed during the building of the image, such as licenses to commercial software, can be copied from a local directory such as assets/. These files can then be deleted and squashed out of the final image and injected again when the image is executed.
     1. Set the `ENTRYPOINT` directive to the path to your command-line interface.
     1. Set the `CMD` directive to `[]`.
-    1. Use the `ENV` directive to declare all [environment variables](../../concepts/interfaces/#environment-variables) that your simulation tool supports.
+    1. Use the `ENV` directive to declare all [environment variables](../concepts/conventions/simulator-interfaces.md#environment-variables) that your simulation tool supports.
     1. Do not use the USER directive to set the user which will execute the image so that the user can be set at execution time.
     1. Use the LABEL directive to provide the metadata about your simulation tool described below. This metadata is also necessary to submit your image to BioContainers , a broad registry of images for biological research.
     
@@ -164,17 +164,17 @@ Please follow these steps to contribute a tool to BioSimulators:
 
 1. **Optionally, build a standardized command-line interface for your simulator**. This interface should support the following standards and conventions:
 
-    The command-line interface should support the arguments outlined in BioSimulators' [specifications for command-line interfaces](../../concepts/interfaces) for simulation tools.
+    The command-line interface should support the arguments outlined in BioSimulators' [specifications for command-line interfaces](../concepts/conventions/simulator-interfaces.md) for simulation tools.
     
     - **COMBINE/OMEX archives** should be used as the format for inputs to your simulator.
     
     - **A standard modeling language** such as BNGL, CellML, NeuroML, or SBML should be used to describe models.
     
-    - **SED-ML** and the BioSimulators [SED-ML conventions](../../concepts/experiments) should be used to describe simulation experiments.
+    - **SED-ML** and the BioSimulators [SED-ML conventions](../concepts/conventions/simulation-experiments.md) should be used to describe simulation experiments.
     
-    - The process of executing COMBINE/OMEX archives should be logged using [BioSimulators' format for logs](../../concepts/logs) of the execution of COMBINE/OMEX archives.
+    - The process of executing COMBINE/OMEX archives should be logged using [BioSimulators' format for logs](../concepts/conventions/simulation-run-logs.md) of the execution of COMBINE/OMEX archives.
     
-    - Reports of simulation results should be saved according to the [BioSimulators format for reports](../../concepts/reports) of simulation results.
+    - Reports of simulation results should be saved according to the [BioSimulators format for reports](../concepts/conventions/simulation-run-reports.md) of simulation results.
     
     [BioSimulators utils](https://github.com/biosimulators/Biosimulators_utils) provides tools for implementing these standards. A detailed template for using BioSimulators utils to build a command-line interface for a simulator is available here.
 

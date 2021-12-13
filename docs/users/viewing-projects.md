@@ -47,7 +47,7 @@ BioSimulations collects metadata to enable searching, browsing and discovering p
 ### Visualizations
 
 Projects can be visualized using both predefined and custom visualizations. The "Select chart" tab allows you to select from visualizations that are defined and included in the project. Additionally, you can create your own custom visualization, by selecting one of the "Design a chart" options. These include histograms, heatmaps and lineplots. Selecting a plot time will open an additional menu with configuration options to select the datasets to be plotted.
-Once you have configured your visualization, you can view it by clicking on the "View chart" button.  The "Export to Vega" button will export the visualization to a [Vega](https://vega.github.io/) specification. For more information on using Vega with BioSimulations, see [here](../concepts/visualizations.md).
+Once you have configured your visualization, you can view it by clicking on the "View chart" button.  The "Export to Vega" button will export the visualization to a [Vega](https://vega.github.io/) specification. For more information on using Vega with BioSimulations, see [here](../concepts/conventions/simulation-run-visualizations.md).
 
 
 ### Simulation runs
