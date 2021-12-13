@@ -1355,7 +1355,7 @@ export class ViewService {
   private uriIsUrl(labeledIdentifier: LabeledIdentifier): LabeledIdentifierIsUrl {
     return {
       label: labeledIdentifier?.label,
-      uri: labeledIdentifier?.uri 
+      uri: labeledIdentifier?.uri
         ? {
             value: labeledIdentifier?.uri,
             isUrl: isUrl(labeledIdentifier?.uri),
