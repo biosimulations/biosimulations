@@ -849,7 +849,7 @@ export class SimulationProjectsService {
    * @param validateOmexManifest Whether to validate the manifest of the archive.  Default: &#x60;true&#x60;.
    * @param validateSedml Whether to validate the SED-ML files in the archive.  Default: &#x60;true&#x60;.
    * @param validateSedmlModels Whether to validate the source (e.g., CellML, SBML file) of each model of each SED-ML file in the archive.  Default: &#x60;true&#x60;.
-   * @param validateOmexMetadata Whether to validate the OMEX Metadata files in the archive according to [BioSimulators\\\&#39; conventions](https://biosimulators.org/conventions/metadata).  Default: &#x60;true&#x60;.
+   * @param validateOmexMetadata Whether to validate the OMEX Metadata files in the archive according to [BioSimulators\\\&#39; conventions](https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/).  Default: &#x60;true&#x60;.
    * @param validateImages Whether to validate the image (BMP, GIF, PNG, JPEG, TIFF, WEBP) files in the archive.  Default: &#x60;true&#x60;.
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.

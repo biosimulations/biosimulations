@@ -43,7 +43,7 @@ export interface ValidateCombineArchiveFileOrUrl {
    */
   validateSedmlModels?: boolean;
   /**
-   * Whether to validate the OMEX Metadata files in the archive according to [BioSimulators\' conventions](https://biosimulators.org/conventions/metadata).  Default: `true`.
+   * Whether to validate the OMEX Metadata files in the archive according to [BioSimulators\' conventions](https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/).  Default: `true`.
    */
   validateOmexMetadata?: boolean;
   /**

@@ -8,7 +8,7 @@
       fxHide.lt-md
     >
       <div class="hanging-indent">
-        <a [routerLink]="['/conventions']">
+        <a href="https://docs.biosimulations.org/concepts/conventions/" target="_blank">
           <biosimulations-icon icon="tutorial"></biosimulations-icon>
           Documentation for the BioSimulators standards
         </a>
@@ -302,7 +302,7 @@
             data for reports and plots will be saved in Hierarchical Data Format
             5 (HDF5) format and plots will be saved in Portable Document Format
             (PDF) and bundled into a single zip archive. See the
-            <a [routerLink]="['/conventions', 'simulation-reports']"
+            <a href="https://docs.biosimulations.org/concepts/conventions/simulation-run-reports/" target="_blank"
               >specifications for reports</a
             >
             for more information about the format of reports.
@@ -661,7 +661,7 @@ docker run -it --rm ghcr.io/biosimulators/biosimulators
                 <code>-o, --out-dir</code>: A path to a directory where the
                 outputs of the simulation tasks should be saved. Data for plots
                 and reports should be saved in HDF5 format (see the
-                <a [routerLink]="['/conventions', 'simulation-reports']"
+                <a href="https://docs.biosimulations.org/concepts/conventions/simulation-run-reports/" target="_blank"
                   >specifications for data sets</a
                 >
                 for more information) and plots should be saved in Portable
@@ -709,7 +709,7 @@ docker run -it --rm ghcr.io/biosimulators/biosimulators
 
               <p>
                 See the
-                <a [routerLink]="['/conventions', 'simulator-interfaces']"
+                <a href="https://docs.biosimulations.org/concepts/conventions/simulator-interfaces/" target="_blank"
                   >specifications for reports</a
                 >
                 for more information.
@@ -1062,7 +1062,7 @@ biosimulators-test-suite validate {{ '{' }} dockerhub-user-id {{ '}' }}/{{ '{' }
         <li>
           Annotate the capabilities of your simulation tool (e.g., supported
           modeling frameworks, simulation algorithms, model formats) using the
-          <a [routerLink]="['/conventions', 'simulator-specs']"
+          <a href="https://docs.biosimulations.org/concepts/conventions/simulator-capabilities/" target="_blank"
             >BioSimulators format for the specifications of simulation tools</a
           >.
         </li>
@@ -1080,7 +1080,7 @@ biosimulators-test-suite validate {{ '{' }} dockerhub-user-id {{ '}' }}/{{ '{' }
               The command-line interface should support the arguments outlined
               in
               <b
-                ><a [routerLink]="['/conventions', 'simulator-interfaces']"
+                ><a href="https://docs.biosimulations.org/concepts/conventions/simulator-interfaces/" target="_blank"
                   >BioSimulators' specifications for command-line interfaces for
                   simulation tools</a
                 ></b
@@ -1097,7 +1097,7 @@ biosimulators-test-suite validate {{ '{' }} dockerhub-user-id {{ '}' }}/{{ '{' }
             <li>
               <b
                 >SED-ML and the
-                <a [routerLink]="['/conventions', 'simulation-experiments']"
+                <a href="https://docs.biosimulations.org/concepts/conventions/simulation-experiments/" target="_blank"
                   >BioSimulators SED-ML conventions</a
                 ></b
               >
@@ -1107,7 +1107,7 @@ biosimulators-test-suite validate {{ '{' }} dockerhub-user-id {{ '}' }}/{{ '{' }
               Optionally, the process of executing COMBINE/OMEX archives can be
               logged using
               <b
-                ><a [routerLink]="['/conventions', 'simulation-logs']"
+                ><a href="https://docs.biosimulations.org/concepts/conventions/simulation-run-logs/" target="_blank"
                   >BioSimulators' format for logs of the execution of
                   COMBINE/OMEX archives</a
                 ></b
@@ -1116,7 +1116,7 @@ biosimulators-test-suite validate {{ '{' }} dockerhub-user-id {{ '}' }}/{{ '{' }
             <li>
               Reports of simulation results should be saved according to the
               <b
-                ><a [routerLink]="['/conventions', 'simulation-reports']"
+                ><a href="https://docs.biosimulations.org/concepts/conventions/simulation-run-reports/" target="_blank"
                   >BioSimulators format for reports of simulation results</a
                 ></b
               >.
@@ -1146,7 +1146,7 @@ biosimulators-test-suite validate {{ '{' }} dockerhub-user-id {{ '}' }}/{{ '{' }
           >
           Such an image will make it easier for others to use your tool.
           Containerized simulation tools should follow
-          <a [routerLink]="['/conventions', 'simulator-images']"
+          <a href="https://docs.biosimulations.org/concepts/conventions/simulator-images/" target="_blank"
             >BioSimulators' standard for Docker images for simulation tools</a
           >.
         </li>

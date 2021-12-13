@@ -1,9 +1,4 @@
 /
-/help
-/help/about
-/help/faq
-/help/privacy
-/help/terms
 /run
 /simulations
 /utils/convert-file

@@ -133,7 +133,7 @@ export class ValidationService {
    * @param validateOmexManifest Whether to validate the manifest of the archive.  Default: &#x60;true&#x60;.
    * @param validateSedml Whether to validate the SED-ML files in the archive.  Default: &#x60;true&#x60;.
    * @param validateSedmlModels Whether to validate the source (e.g., CellML, SBML file) of each model of each SED-ML file in the archive.  Default: &#x60;true&#x60;.
-   * @param validateOmexMetadata Whether to validate the OMEX Metadata files in the archive according to [BioSimulators\\\&#39; conventions](https://biosimulators.org/conventions/metadata).  Default: &#x60;true&#x60;.
+   * @param validateOmexMetadata Whether to validate the OMEX Metadata files in the archive according to [BioSimulators\\\&#39; conventions](https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/).  Default: &#x60;true&#x60;.
    * @param validateImages Whether to validate the image (BMP, GIF, PNG, JPEG, TIFF, WEBP) files in the archive.  Default: &#x60;true&#x60;.
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
@@ -364,7 +364,7 @@ export class ValidationService {
    * Validate metadata about a simulation project or a component of a simulation project
    * Validate an [OMEX Metadata](https://sys-bio.github.io/libOmexMeta/) file with metadata about a simulation project or a component of a simulation project.  Notes * Thumbnails described in OMEX Metadata files cannot be validated without the source images. As a result, such metadata files must be validated as part of the validation of COMBINE/OMEX archives (&#x60;/combine/validate&#x60;) which include the thumbnail files. * Currently, submission to BioSimulations requires metadata to be in RDF-XML format.
    * @param format Format of the document
-   * @param schema Schema for validating OMEX Metadata files. The RDF schema, allows all semantic triples. The [BioSimulations schema](https://biosimulators.org/conventions/metadata) imposes additional requirements for minimal metadata about simulation projects. The BioSimulations schema is required for publishing projects to BioSimulations.
+   * @param schema Schema for validating OMEX Metadata files. The RDF schema, allows all semantic triples. The [BioSimulations schema](https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/) imposes additional requirements for minimal metadata about simulation projects. The BioSimulations schema is required for publishing projects to BioSimulations.
    * @param file The two files uploaded in creating a combine archive
    * @param url URL
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.

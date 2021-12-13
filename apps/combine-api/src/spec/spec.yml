@@ -2549,7 +2549,7 @@ components:
         environment:
           $ref: '#/components/schemas/Environment'
           description: Values of simulator-specific environment variables to use run
-            the simulation. See the BioSimulators documentation (https://biosimulators.org/help)
+            the simulation. See the BioSimulators documentation (https://docs.biosimulations.org/)
             and the technical documentation for each simulation tool (https://docs.biosimulators.org/)
             for information about the available environment variables.
       example:
@@ -2871,7 +2871,7 @@ components:
         validateOmexMetadata:
           description: |-
             Whether to validate the OMEX Metadata files in the archive according to [BioSimulators'
-            conventions](https://biosimulators.org/conventions/metadata).
+            conventions](https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/).
 
             Default: `true`.
           type: boolean
@@ -2936,7 +2936,7 @@ components:
           type: string
         schema:
           description: "Schema for validating OMEX Metadata files. The RDF schema,\
-            \ allows all semantic triples. The [BioSimulations schema](https://biosimulators.org/conventions/metadata)\
+            \ allows all semantic triples. The [BioSimulations schema](https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/)\
             \ imposes additional requirements for minimal metadata about simulation\
             \ projects. The BioSimulations schema is required for publishing projects\
             \ to BioSimulations."

@@ -137,14 +137,14 @@ async function bootstrap() {
       'MIT License',
       'https://github.com/biosimulations/biosimulations/blob/dev/LICENSE',
     )
-    .setTermsOfService('https://biosimulators.org/help/terms')
+    .setTermsOfService('https://docs.biosimulations.org/about/terms/')
     .setExternalDoc(
       'API specifications (Open API JSON)',
       'https://api.biosimulators.org/openapi.json',
     )
     .setContact(
       'BioSimulators Team',
-      'https://biosimulators.org/help/about',
+      'https://docs.biosimulations.org/about/team/',
       'info@biosimulators.org',
     );
 

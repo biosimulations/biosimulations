@@ -40,14 +40,14 @@ function setupOpenApi(app: INestApplication) {
       'MIT License',
       'https://github.com/biosimulations/biosimulations/blob/dev/LICENSE',
     )
-    .setTermsOfService('https://biosimulations.org/help/terms')
+    .setTermsOfService('https://docs.biosimulations.org/about/terms/')
     .setExternalDoc(
       'API specifications (Open API JSON)',
       'https://account.api.biosimulations.org/openapi.json',
     )
     .setContact(
       'BioSimulations Team',
-      'https://biosimulations.org/help/about',
+      'https://docs.biosimulations.org/about/team/',
       'info@biosimulations.org',
     )
     .addSecurity('OpenIdc', openIDSchema)

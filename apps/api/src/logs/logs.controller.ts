@@ -167,7 +167,7 @@ export class LogsController {
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
     description:
-      'The log is invalid. See https://biosimulators.org/conventions and https://api.biosimulations.org for examples and documentation.',
+      'The log is invalid. See https://docs.biosimulations.org/concepts/conventions/ and https://api.biosimulations.org for examples and documentation.',
   })
   @ApiConflictResponse({
     type: ErrorResponseDocument,
@@ -259,7 +259,7 @@ export class LogsController {
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
     description:
-      'The log is invalid. See https://biosimulators.org/conventions and https://api.biosimulations.org for examples and documentation.',
+      'The log is invalid. See https://docs.biosimulations.org/concepts/conventions/ and https://api.biosimulations.org for examples and documentation.',
   })
   public async replaceLog(
     @Param('runId') runId: string,
@@ -286,7 +286,7 @@ export class LogsController {
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
     description:
-      'The log for the simulation run is invalid. See https://biosimulators.org/conventions and https://api.biosimulations.org for examples and documentation.',
+      'The log for the simulation run is invalid. See https://docs.biosimulations.org/concepts/conventions/ and https://api.biosimulations.org for examples and documentation.',
   })
   @ApiNoContentResponse({
     description: 'The log is valid',

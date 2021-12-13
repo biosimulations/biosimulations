@@ -121,7 +121,7 @@ export class ProjectsController {
   @ApiOperation({
     summary: 'Validate a project for publication',
     description:
-      'Check whether a project is valid for publication (e.g, succeeded and provides the [minimum required metadata](https://biosimulators.org/conventions/metadata). Returns 204 (No Content) for a publishable run, or a 400 (Bad Input) for a run that cannot be published. 400 errors include diagnostic information which describe why the run cannot be published.',
+      'Check whether a project is valid for publication (e.g, succeeded and provides the [minimum required metadata](https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/). Returns 204 (No Content) for a publishable run, or a 400 (Bad Input) for a run that cannot be published. 400 errors include diagnostic information which describe why the run cannot be published.',
   })
   @ApiQuery({
     name: 'validateSimulationResultsData',
