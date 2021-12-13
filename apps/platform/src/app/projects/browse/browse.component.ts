@@ -443,20 +443,25 @@ export class BrowseComponent implements OnInit, AfterViewInit {
       filterable: true,
       getter: (project: FormattedProjectSummary): string[] => {
         const value = new Set(
-            project.metadata.locationPredecessors
-              .flatMap((locationPredecessor: LocationPredecessor): LabeledIdentifier[] => {
+          project.metadata.locationPredecessors
+            .flatMap(
+              (
+                locationPredecessor: LocationPredecessor,
+              ): LabeledIdentifier[] => {
                 if (locationPredecessor.location.endsWith('.sedml')) {
                   return locationPredecessor.predecessors;
                 } else {
                   return [];
                 }
-              })
-              .map((predecessor: LabeledIdentifier): string => {
-                return predecessor.uri?.startsWith('http://omex-library.org/') &&  predecessor.uri.indexOf('.omex/') !== -1
-                  ? 'Simulation generated from model'
-                  : 'Other';
-              })
-          );
+              },
+            )
+            .map((predecessor: LabeledIdentifier): string => {
+              return predecessor.uri?.startsWith('http://omex-library.org/') &&
+                predecessor.uri.indexOf('.omex/') !== -1
+                ? 'Simulation generated from model'
+                : 'Other';
+            }),
+        );
         if (value.size === 0) {
           value.add('Other');
         }

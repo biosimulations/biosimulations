@@ -42,7 +42,10 @@ type IArchiveMetadataType = Omit<IArchiveMetadata, 'created' | 'modified'> & {
   created: string;
   modified: string[];
 };
-type IArchiveMetadataSummaryType = Omit<IArchiveMetadataSummary, 'created' | 'modified'> & {
+type IArchiveMetadataSummaryType = Omit<
+  IArchiveMetadataSummary,
+  'created' | 'modified'
+> & {
   created: string;
   modified: string[];
 };
@@ -156,7 +159,10 @@ export class ArchiveMetadata implements IArchiveMetadataType {
   other: DescribedIdentifier[] = [];
 }
 
-export class ArchiveMetadataSummary extends ArchiveMetadata implements IArchiveMetadataSummaryType {
+export class ArchiveMetadataSummary
+  extends ArchiveMetadata
+  implements IArchiveMetadataSummaryType
+{
   @ApiProperty(LOCATION_PREDECESSORS)
   @ValidateNested({ each: true })
   @Type(() => LocationPredecessor)

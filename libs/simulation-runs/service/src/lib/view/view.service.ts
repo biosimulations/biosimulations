@@ -205,8 +205,7 @@ export class ViewService {
             label: (other.label || other.uri) as string,
             uri: other.uri,
           },
-        ]
-        .map(this.uriIsUrl),
+        ].map(this.uriIsUrl),
       });
     });
     formattedMetadata.attributes.push({
@@ -237,24 +236,32 @@ export class ViewService {
       title: 'Predecessor',
     });
 
-    metadata?.locationPredecessors?.forEach((locationPredecessor: LocationPredecessor): void => {
-      const location = locationPredecessor.location.substring(locationPredecessor.location.indexOf('/') + 1);
+    metadata?.locationPredecessors?.forEach(
+      (locationPredecessor: LocationPredecessor): void => {
+        const location = locationPredecessor.location.substring(
+          locationPredecessor.location.indexOf('/') + 1,
+        );
 
-      formattedMetadata.attributes.push({
-        values: locationPredecessor.predecessors
-          ?.map((predecessor: LabeledIdentifier): LabeledIdentifier => {
-            return {
-              label: predecessor?.label,
-              uri: predecessor?.uri?.startsWith('http://omex-library.org/') && predecessor?.uri?.indexOf('.omex/') !== -1
-                ? predecessor?.uri?.substring(predecessor?.uri?.indexOf('.omex/') + 6)
-                : predecessor?.uri,
-            };
-          })
-          ?.map(this.uriIsUrl),
-        icon: 'backward',
-        title: `Predecessor (${location})`,
-      });
-    });
+        formattedMetadata.attributes.push({
+          values: locationPredecessor.predecessors
+            ?.map((predecessor: LabeledIdentifier): LabeledIdentifier => {
+              return {
+                label: predecessor?.label,
+                uri:
+                  predecessor?.uri?.startsWith('http://omex-library.org/') &&
+                  predecessor?.uri?.indexOf('.omex/') !== -1
+                    ? predecessor?.uri?.substring(
+                        predecessor?.uri?.indexOf('.omex/') + 6,
+                      )
+                    : predecessor?.uri,
+              };
+            })
+            ?.map(this.uriIsUrl),
+          icon: 'backward',
+          title: `Predecessor (${location})`,
+        });
+      },
+    );
 
     formattedMetadata.attributes.push({
       values: metadata?.successors?.map(this.uriIsUrl),
@@ -264,15 +271,14 @@ export class ViewService {
 
     if (owner) {
       formattedMetadata.attributes.push({
-        values: owner.organizations.map(
-          (organization: Organization): LabeledIdentifier => {
+        values: owner.organizations
+          .map((organization: Organization): LabeledIdentifier => {
             return {
               label: organization.name,
               uri: organization?.url || null,
             };
-          },
-        )
-        .map(this.uriIsUrl),
+          })
+          .map(this.uriIsUrl),
         icon: 'organization',
         title: 'Organization',
       });
@@ -282,8 +288,7 @@ export class ViewService {
             label: owner.name,
             uri: owner?.url || null,
           },
-        ]
-        .map(this.uriIsUrl),
+        ].map(this.uriIsUrl),
         icon: 'author',
         title: 'Owner',
       });
@@ -1352,7 +1357,9 @@ export class ViewService {
     }
   }
 
-  private uriIsUrl(labeledIdentifier: LabeledIdentifier): LabeledIdentifierIsUrl {
+  private uriIsUrl(
+    labeledIdentifier: LabeledIdentifier,
+  ): LabeledIdentifierIsUrl {
     return {
       label: labeledIdentifier?.label,
       uri: labeledIdentifier?.uri

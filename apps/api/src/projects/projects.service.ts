@@ -226,7 +226,11 @@ export class ProjectsService implements OnModuleInit {
       const msgs = failures.map(
         (settledResult: ProjectSummaryResult): string => {
           const error = settledResult?.error;
-          return `Project ${settledResult.id}: ${error?.isAxiosError ? error?.response?.status : error?.status}: ${error?.isAxiosError ? error?.response?.data?.detail : error?.message}`;
+          return `Project ${settledResult.id}: ${
+            error?.isAxiosError ? error?.response?.status : error?.status
+          }: ${
+            error?.isAxiosError ? error?.response?.data?.detail : error?.message
+          }`;
         },
       );
       this.logger.log(
