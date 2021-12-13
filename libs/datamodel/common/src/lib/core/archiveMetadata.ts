@@ -38,5 +38,5 @@ export interface ArchiveMetadata {
 }
 
 export interface ArchiveMetadataSummary extends ArchiveMetadata {
-  locationPredecessors: LocationPredecessor[];  
+  locationPredecessors: LocationPredecessor[];
 }
