@@ -1,4 +1,4 @@
-# BioSimulations documentation
+# BioSimulations and BioSimulators documentation
 
 ## Motivation and goals
 
