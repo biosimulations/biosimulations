@@ -35,7 +35,8 @@ RUN apk add --update --no-cache \
     pixman-dev \
     cairo-dev \
     pango-dev \
-    alpine-sdk
+    alpine-sdk \
+    cmake
 RUN ln -sf python3 /usr/bin/python
 RUN python3 -m ensurepip
 RUN pip3 install --no-cache --no-cache-dir  --upgrade pip setuptools
