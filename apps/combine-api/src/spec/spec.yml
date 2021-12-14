@@ -2550,7 +2550,7 @@ components:
           $ref: '#/components/schemas/Environment'
           description: Values of simulator-specific environment variables to use run
             the simulation. See the BioSimulators documentation (https://docs.biosimulations.org/)
-            and the technical documentation for each simulation tool (https://docs.biosimulators.org/)
+            and the technical documentation for each simulation tool (https://docs.biosimulations.org/users/biosimulators-packages/)
             for information about the available environment variables.
       example:
         _type: SimulationRun

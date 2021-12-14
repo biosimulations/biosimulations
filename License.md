@@ -1,4 +1,4 @@
-# MIT license
+MIT license
 
 Copyright (c) 2021 BioSimulations
 

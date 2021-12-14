@@ -154,7 +154,7 @@ informatik
 Informationstechnik
 Inra
 inrae
-ipython
+iPython
 iri
 Ison
 Jayit

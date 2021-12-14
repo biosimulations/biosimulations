@@ -1,6 +1,7 @@
 title: Developer guide
 nav:
-  - index.md
+  - Guide to contributing: index.md
+  - Nx tutorial: nx-tutorial.md
   - Developer code of conduct: conduct.md
   - Source code: source-code.md
   - ...

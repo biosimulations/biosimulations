@@ -20,7 +20,7 @@ ignore$
 ^\.github/action/spelling/
 # Ignore all GitHub workflow files
 ^\.github/workflows/
-^docs/about/dependencies.md$
+^docs/about/license.md$
 # ignore the changelog
 ^docs/CHANGELOG.md$
 ^docs/news/changelog.md$

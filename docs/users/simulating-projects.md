@@ -5,8 +5,9 @@
 
 [runBioSimulations](https://run.biosimulations.org) is a simple application that uses BioSimulators to execute modeling studies. runBioSimulations also provides a REST API for programmatically executing simulations.
 
-### Submit a simulation
-Please follow these steps to execute a modeling project:
+### Submit a simulation run
+
+Please follow these steps to execute a simulation project:
 
 1. Open the [project submission form](https://run.biosimulations.dev/run).
 1. Select a COMBINE/OMEX file to execute.
@@ -15,23 +16,22 @@ Please follow these steps to execute a modeling project:
 1. Optionally, enter your email address to receive notification when your project has completed and is ready for your analysis.
 1. Click the "Run" button. After you click the "Run" button, you will receive a URL where you will be able to view the status of your project and retrieve and visualize its results. If you provided an email address, you will be notified by email when your project has completed. This email will contain the same URL.
 
-### View the status of a project
+### View the status of a simulation run
 
+Please follow these steps to view the status of a simulation run:
 
-Please follow these steps to view the status of a project:
+1. Open the URL provided after you submitted your run.
+1. Click the "Overview" tab to view the status of the run.
+1. Once the run has completed, click the "Log" tab to view the console log for the execution of the run.
 
-1. Open the URL provided after you submitted your project.
-1. Click the "Overview" tab to view the status of the project.
-1. Once the project has completed, click the "Log" tab to view the console log for the execution of the project.
+### Retrieve the results of a simulation run
 
-### Retrieve Simulation results
+After your run has completed, please follow these steps to retrieve its results:
 
-After your project has completed, please follow these steps to retrieve its results:
+1. Open the URL provided after you submitted your run.
+1. Click the results icon to download the results of the run as a zip archive. This archive will contain a file for each report specified in each SED-ML file in the COMBINE/OMEX archive for your run.
 
-1. Open the URL provided after you submitted your project.
-1. Click the results icon to download the results of the project as a zip archive. This archive will contain a file for each report specified in each SED-ML file in the COMBINE/OMEX archive for your project.
-
-### View Simulation results
+### Visualize the results of a simulation run
 
 After your project has completed, please follow these steps to visualize its results:
 
@@ -45,7 +45,6 @@ After your project has completed, please follow these steps to visualize its res
 
 In addition to our web application, a REST API for executing projects is available at https://api.biosimulations.org/. This API supports the same simulation tools as the web interface.
 
-
 ### Running example simulation projects
 
 The runBioSimulation app contains a variety of example simulation projects that can be executed. You can click [here](https://run.biosimulations.dev/simulations?try=1) to automatically run the example projects. Alternatively, from the runBioSimulations app, you can run the example projects by clicking the "Try simulations" button.
@@ -58,9 +57,9 @@ These simulation projects are verified to be compatible with runBioSimulations. 
 
 The BioSimulators simulation tools can also be used to execute simulations on your own machine. Please follow these steps to use a containerized simulation tool to execute a modeling study on your own machine.
 
-1. **Install the Docker container engine**: Detailed instructions for all major operating systems are available from the [Docker website](https://docs.docker.com/get-docker/).
-1. ** Download the simulator(s) that you wish to use**: From your console, execute `docker pull ghcr.io/biosimulators/{ simulator-id }` for each simulator that you wish to use. This will download the simulators and install them onto your machine.
-1. **Use the selected simulator(s) to execute simulations and save their results**: Execute the following from your console:
+1. Install the Docker container engine: Detailed instructions for all major operating systems are available from the [Docker website](https://docs.docker.com/get-docker/).
+1. Download the simulator(s) that you wish to use: From your console, execute `docker pull ghcr.io/biosimulators/{ simulator-id }` for each simulator that you wish to use. This will download the simulators and install them onto your machine.
+1. Use the selected simulator(s) to execute simulations and save their results: Execute the following from your console:
 
 ```bash
 docker run \
@@ -72,7 +71,7 @@ docker run \
     --archive /tmp/project/{ name-of-COMBINE-archive } \
     --out-dir /tmp/results
 ```
-Your COMBINE archive should be located at path-to-directory-of-COMBINE-archive/name-of-COMBINE-archive.
+Your COMBINE archive should be located at `path-to-directory-of-COMBINE-archive/name-of-COMBINE-archive`.
 
 The results will be saved to `path-to-save-results`. The data for reports and plots will be saved in Hierarchical Data Format 5 (HDF5) format and plots will be saved in Portable Document Format (PDF) and bundled into a single zip archive. See the [specifications for reports](../concepts/conventions/simulation-run-reports.md) for more information about the format of reports.
 
@@ -88,10 +87,10 @@ All of the validated images for simulation tools are compatible with Singularity
 
 The steps below illustrate how Singularity can be used to execute the simulation tools in HPC environments.
 
-1. **Install Singularity**: Instructions are available at [https://sylabs.io/docs/](https://sylabs.io/docs/).
-1. **Pull the Docker image** by executing `docker pull ghcr.io/biosimulators/{ id }:{ version }`.
-1. **Convert the Docker image to a Singularity image** by executing `singularity pull { /path/to/save/singularity-image.sif } docker://ghcr.io/biosimulators/{ id }:{ version }`.
-1. **Run the Singularity image by executing** `singularity run { /path/to/save/singularity-image.sif } ....`
+1. Install Singularity: Instructions are available at [https://sylabs.io/docs/](https://sylabs.io/docs/).
+1. Pull the Docker image by executing `docker pull ghcr.io/biosimulators/{ id }:{ version }`.
+1. Convert the Docker image to a Singularity image by executing `singularity pull { /path/to/save/singularity-image.sif } docker://ghcr.io/biosimulators/{ id }:{ version }`.
+1. Run the Singularity image by executing `singularity run { /path/to/save/singularity-image.sif } ....`
 
 ## Using a command-line interface for a simulation tool to execute a simulation
 
@@ -99,11 +98,11 @@ The command-line interfaces for simulation tools can also be installed and run l
 
 Please follow these steps to use a command-line interface for a simulation tool to execute a modeling study.
 
-1. **Install Python >= 3.7**.
-1. **Install pip**.
-1. **Install the dependencies for the simulation tool**. Links to installation instructions are available from the pages for each simulation tool.
-1. **Install the command-line application for the simulation tool**. From your console, use pip to install the Python package which provides the command-line application. The names of the Python packages which provide the command-line applications are available from the pages for each simulation tool.
-1. **Use the command-line program to execute a simulation project and save its results**: Execute the following from your console:
+1. Install Python >= 3.7.
+1. Install pip.
+1. Install the dependencies for the simulation tool. Links to installation instructions are available from the pages for each simulation tool.
+1. Install the command-line application for the simulation tool. From your console, use pip to install the Python package which provides the command-line application. The names of the Python packages which provide the command-line applications are available from the pages for each simulation tool.
+1. Use the command-line program to execute a simulation project and save its results: Execute the following from your console:
 
 ```bash
 biosimulators-{ simulator-id } \
@@ -120,13 +119,13 @@ The Python APIs for simulation tools provide additional flexibility beyond their
 
 Please follow these steps to use a Python API for a simulation tool to execute a modeling study.
 
-1. **Install Python >= 3.7**.
-1. **Install pip**.
-1. **Install the dependencies for the simulation tool**. Links to installation instructions are available from the pages for each simulation tool.
-1. **Install the Python API for the simulation tool**. From your console, use pip to install the Python package which provides the Python API. The names of the Python packages which provide the Python APIs are available from the pages for each simulation tool.
-1. **Open a Python shell.**
-1. **Import the Python API for the simulation tool**. Import the Python module which provides the Python API. The names of the Python modules which provide the Python APIs are available from the pages for each simulation tool.
-1. **Use the Python API** to execute a simulation project and save its results: Execute the following from your Python shell:
+1. Install Python >= 3.7.
+1. Install pip.
+1. Install the dependencies for the simulation tool. Links to installation instructions are available from the pages for each simulation tool.
+1. Install the Python API for the simulation tool. From your console, use pip to install the Python package which provides the Python API. The names of the Python packages which provide the Python APIs are available from the pages for each simulation tool.
+1. Open a Python shell.
+1. Import the Python API for the simulation tool. Import the Python module which provides the Python API. The names of the Python modules which provide the Python APIs are available from the pages for each simulation tool.
+1. Use the Python API to execute a simulation project and save its results: Execute the following from your Python shell:
 
 ```python
 import { simulator_module }
@@ -137,11 +136,9 @@ output_dirname = '{ /path/to/save/outputs }'
 
 In the above example, the simulation project is located at `/path/to/COMBINE-archive.omex` and the results will be saved to `/path/to/save/outputs`.
 
-The `ghcr.io/biosimulators/biosimulators` Docker image contains most of the available Python APIs inside a single Python environment. An ipython shell to this environment can be launched by executing the following from your console:
+The `ghcr.io/biosimulators/biosimulators` Docker image contains most of the available Python APIs inside a single Python environment. An iPython shell to this environment can be launched by executing the following from your console:
 
 ```bash
 docker pull ghcr.io/biosimulators/biosimulators
 docker run -it --rm ghcr.io/biosimulators/biosimulators
 ```
-
-Additional interactive tutorials are available from [Binder](https://tutorial.biosimulators.org/).

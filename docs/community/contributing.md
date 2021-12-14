@@ -1,12 +1,12 @@
-# Contributing to BioSimulations
+# Contributing to BioSimulations and BioSimulators
 
-We welcome contributions to BioSimulations!
+We welcome contributions to BioSimulations and BioSimulators!
 
-## Models, simulations, and visualizations
-Models, simulations, and visualizations can be contributed through [runBioSimulations](https://run.biosimulations.org) or its [REST API](https://api.biosimulations.org). Please see the [User guide](../../users/viewing-projects) for more information.
+## Simulation projects
+Simulation projects can be contributed to [BioSimulations](https://biosimulations.org). Please see the [User guide](../../users/publishing-projects) for more information.
 
-## Modeling frameworks, model languages, simulation algorithms, and simulation tools
-Simulation tools can be contributed through [BioSimulators](https://biosimulators.org). Please see BioSimulators for information about the required format, a guide to contributing simulation tools, and examples.
+## Simulation tools
+Simulation tools can be contributed to [BioSimulators](https://biosimulators.org). Please see the [User guide](../../users/publishing-tools) for more information.
 
-## BioSimulations software
+## Platform
 We welcome contributions by GitHub pull requests to the [BioSimulations Git repository](https://github.com/biosimulations/biosimulations). Please see the [Guide to Contributing](/developers/) for information about how to get started. Please also contact the [core developers](mailto:info@biosimulations.org) to coordinate potential contributions.

@@ -56,17 +56,6 @@ const routes: Routes = [
     },
   },
   {
-    path: 'help',
-    loadChildren: () => import('./help/help.module').then((m) => m.HelpModule),
-    data: {
-      breadcrumb: 'Help',
-      preload: {
-        preload: true,
-        delay: 1000,
-      },
-    },
-  },
-  {
     path: 'error',
     loadChildren: () => SharedErrorComponentsModule,
   },
