@@ -1,4 +1,4 @@
-# Simulating Modeling Projects
+# Executing simulation projects (COMBINE/OMEX archives)
 
 
 ## Using runBioSimulations tool to execute a simulation in the cloud

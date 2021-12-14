@@ -1,4 +1,4 @@
-# User guide: finding, exploring & reusing projects
+# Finding, exploring & reusing published projects
 
 ## Finding projects
 

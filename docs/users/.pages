@@ -1,10 +1,13 @@
 title: User guide
-nav:
-  - 'Exploring projects': viewing-projects.md
-  - 'Finding simulation tools': finding-tools.md
+nav:  
+  - 'Exploring published projects': viewing-projects.md
   - 'Simulating projects': simulating-projects.md
-  - 'Publishing projects': creating-projects.md
-  - 'Creating new simulation tools': creating-tools.md
+  - 'Creating projects': creating-projects.md
+  - 'Validating projects': validating-projects.md  
+  - 'Publishing projects': publishing-projects.md
+  - 'Finding simulation tools': finding-tools.md
+  - 'Creating simulation tools': creating-tools.md
+  - 'Publishing simulation tools': publishing-tools.md
   - BioSimulations' REST API: api.md
   - FAQs: faqs.md
   - Additional resources: resources.md
