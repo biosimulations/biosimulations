@@ -45,7 +45,13 @@ plugins:
   - redirects:
       redirect_maps:
         'repositories/bigg.md': 'https://biosimulations.github.io/biosimulations-bigg'
-        'privacy.md': 'about/privacy.md'
+        'users': 'users/viewing-projects.md'        
+        'conventions': 'concepts/conventions/index.md'
+        'news': 'news/changelog.md'
+        'community': 'community/contributors.md'
+        'about': 'about/team.md'
+        'privacy': 'about/privacy.md'
+        'terms': 'about/terms.md'
   - git-revision-date
   - same-dir
   - awesome-pages
