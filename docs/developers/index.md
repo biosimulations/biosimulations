@@ -43,7 +43,7 @@ Upon each push and pull request to GitHub, GitHub will trigger actions to execut
 
 Please use GitHub pull requests to submit changes. Each request should include a brief description of the new and/or modified features. Upon each pull request, GitHub will trigger actions to lint and test all of the applications and libraries. Pull requests will be approved once all tests are passing and the pull request is reviewed by one of the lead developers.
 
-### Commmit convention
+### Commit convention
 
 BioSimulations and BioSimulators uses [conventional commits](https://www.conventionalcommits.org/) to enable changelog generation and versioning. Developers are encouraged to use [Commitizen](http://commitizen.github.io/cz-cli/) to easily create compliant commit messages. To use Commitizen, simply run `npm run commit` instead of ` git commit` to commit changes.
 

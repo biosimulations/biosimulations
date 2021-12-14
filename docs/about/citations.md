@@ -1,4 +1,4 @@
-# Citating BioSimulations and BioSimulators
+# Citing BioSimulations and BioSimulators
 
 ## BioSimulations
 Please check back soon for citation information!
