@@ -1,6 +1,6 @@
 # Contributors
 
-Numerous individuals and groups have contributed to BioSimulations, including:
+Numerous individuals and organizations have contributed to BioSimulations and BioSimulators, including the following:
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->

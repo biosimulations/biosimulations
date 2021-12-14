@@ -40,6 +40,7 @@ Interactive tutorials for creating projects can be found [here](https://tutorial
 
 
 ## Conventions for simulation projects
+
 To make it easy for investigators to work with a broad range of model formats, modeling frameworks, simulation types, simulation algorithms, and simulation tools, BioSimulations uses existing community standards for creating and describing projects. BioSimulations uses the Simulation Experiment Description Markup Language (SED-ML) to describe [simulation experiments](#sed-ml) and COMBINE/OMEX archive formats for packaging and distribution of simulation [projects](#combineomex-archives). Vega is used to describe charts, plots and [visualizations](#visualizations) of simulation results.  The OMEX-Meta format is used to describe the [metadata](#metadata) associated with a simulation project. More information about BioSimulation's use of these standards, and how to create and publish a project can be found below.
 
 ### SED-ML 
@@ -56,6 +57,18 @@ To make it easy for investigators to work with a broad range of model formats, m
 - How to export the observables to reports (e.g., CSV, HDF5)
 
 [runBioSimulations](https://run.biosimulations.org/utils/create-project) provides a simple web form for building COMBINE/OMEX archives with SED-ML files from model files (e.g., CellML, SBML). This tool support all of the model languages supported by BioSimulations. 
+
+Below are links to documentation about how to use SED-ML with specific model languages and a table of the URNs and URIs which should be used with SED-ML and OMEX manifests in COMBINE/OMEX archives.
+
+| Language                                                                                                       | EDAM format    | SED-ML URN                    | COMBINE archive specification URI                       | MIME type                 | Extensions        |
+| ---------------------------------------------------------------------------------------------------------------|----------------|-------------------------------|---------------------------------------------------------|---------------------------|-------------------|
+| [BNGL](https://docs.biosimulators.org/Biosimulators_BioNetGen/tutorial.html)                                   | `format_3972`  | `urn:sedml:language:bngl`     | `http://purl.org/NET/mediatypes/text/bngl+plain`        | `text/bngl+plain`         | `.bngl`           |
+| [CellML](http://sed-ml.org/specifications.html)                                                                | `format_3240`  | `urn:sedml:language:cellml`   | `http://identifiers.org/combine.specifications/cellml`  | `application/cellml+xml`  | `.xml`, `.cellml` |
+| [(NeuroML)/LEMS](https://docs.neuroml.org/Userdocs/Paths.html)                                                 | `format_9004`  | `urn:sedml:language:lems`     | `http://purl.org/NET/mediatypes/application/lems+xml`   | `application/lems+xml`    | `.xml`            |
+| [RBA](https://docs.biosimulators.org/Biosimulators_RBApy/tutorial.html)                                        | `format_9012`  | `urn:sedml:language:rba`      | `http://purl.org/NET/mediatypes/application/rba+zip`    | `application/rba+zip`     | `.zip`            |
+| [SBML](http://sed-ml.org/specifications.html)                                                                  | `format_2585`  | `urn:sedml:language:sbml`     | `http://identifiers.org/combine.specifications/sbml`    | `application/sbml+xml`    | `.xml`, `.sbml`   |
+| [Smoldyn](https://github.com/ssandrews/Smoldyn/blob/master/Using-Smoldyn-with-SED-ML-COMBINE-BioSimulators.md) | `format_9001`  | `urn:sedml:language:smoldyn`  | `http://purl.org/NET/mediatypes/text/smoldyn+plain`     | `text/smoldyn+plain`      | `.txt`            |
+| [XPP](https://docs.biosimulators.org/Biosimulators_XPP/tutorial.html)                                          | `format_9010`  | `urn:sedml:language:xpp`      | `http://purl.org/NET/mediatypes/text/x-xpp`             | `text/x-xpp`              | `.xpp`            |
 
 More detailed information about creating SED-ML files to work with BioSimulations can be found at [here](../concepts/conventions/simulation-experiments.md).
 

@@ -4,17 +4,17 @@ We welcome contributions of additional simulation tools! We encourage developers
 
 Please follow these steps to contribute a tool to BioSimulators:
 
-1. **Annotate the capabilities of your simulation tool** (e.g., supported modeling frameworks, simulation algorithms, model formats) using the BioSimulators format for the specifications of simulation tools.
+1. Annotate the capabilities of your simulation tool (e.g., supported modeling frameworks, simulation algorithms, model formats) using the BioSimulators format for the specifications of simulation tools.
 
-1. **Optionally, build a standardized command-line interface for your simulator**. This interface should support the following standards and conventions:
+1. Optionally, build a standardized command-line interface for your simulator. This interface should support the following standards and conventions:
 
     The command-line interface should support the arguments outlined in BioSimulators' [specifications for command-line interfaces](../concepts/conventions/simulator-interfaces.md) for simulation tools.
     
-    - **COMBINE/OMEX archives** should be used as the format for inputs to your simulator.
+    - COMBINE/OMEX archives should be used as the format for inputs to your simulator.
     
-    - **A standard modeling language** such as BNGL, CellML, NeuroML, or SBML should be used to describe models.
+    - A standard modeling language such as BNGL, CellML, NeuroML, or SBML should be used to describe models.
     
-    - **SED-ML** and the BioSimulators [SED-ML conventions](../concepts/conventions/simulation-experiments.md) should be used to describe simulation experiments.
+    - SED-ML and the BioSimulators [SED-ML conventions](../concepts/conventions/simulation-experiments.md) should be used to describe simulation experiments.
     
     - The process of executing COMBINE/OMEX archives should be logged using [BioSimulators' format for logs](../concepts/conventions/simulation-run-logs.md) of the execution of COMBINE/OMEX archives.
     
@@ -24,11 +24,11 @@ Please follow these steps to contribute a tool to BioSimulators:
 
 1. Optionally, containerize the command-line interface for your simulator. Such an image will make it easier for others to use your tool. Containerized simulation tools should follow BioSimulators' standard for Docker images for simulation tools.
 
-1. Optionally, publish your image to a public repository such as Docker Hub , GitHub Container Registry , or Quay  by executing docker push { image-url }. Docker Hub, GitHub Container Registry, and Quay each provide free accounts for public images.
+1. Optionally, publish your image to a public repository such as Docker Hub , GitHub Container Registry , or Quay  by executing `docker push { image-url }`. Docker Hub, GitHub Container Registry, and Quay each provide free accounts for public images.
 
-1. **[Submit an issue](https://github.com/biosimulators/Biosimulators/issues/new?assignees=&labels=Submit+simulator&template=contribute-a-simulator.md&title=)**  to the BioSimulators GitHub repository that describes briefly describes the URL to the specifications of your tool. This will initiate an automated workflow that will validate your simulation tool and either commit your tool to the BioSimulators registry or report problems with your simulation tool that must be addressed. The first version of each simulation tool submitted to the BioSimulators registry will also be manually reviewed by the BioSimulators Team prior to incorporation into the BioSimulators registry.
+1. [Submit an issue](https://github.com/biosimulators/Biosimulators/issues/new?assignees=&labels=Submit+simulator&template=contribute-a-simulator.md&title=)  to the BioSimulators GitHub repository that describes briefly describes the URL to the specifications of your tool. This will initiate an automated workflow that will validate your simulation tool and either commit your tool to the BioSimulators registry or report problems with your simulation tool that must be addressed. The first version of each simulation tool submitted to the BioSimulators registry will also be manually reviewed by the BioSimulators Team prior to incorporation into the BioSimulators registry.
 
-1. **Optionally, set up your continuous integration workflow to automatically push each release to BioSimulators**. Within your continuous integration workflow (e.g., CircleCI, GitHub actions, Jenkins, Travis), use the GitHub REST API to automatically create issues that submit versions of your simulator to BioSimulators.
+1. Optionally, set up your continuous integration workflow to automatically push each release to BioSimulators. Within your continuous integration workflow (e.g., CircleCI, GitHub actions, Jenkins, Travis), use the GitHub REST API to automatically create issues that submit versions of your simulator to BioSimulators.
 
     This requires a GitHub account and a personal access token with the public_repo scope. Instructions for creating an access token are available in the [GitHub documentation](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token).
 
@@ -69,10 +69,10 @@ Please follow these steps to contribute a tool to BioSimulators:
     
     The above is implemented by the Python method `biosimulators_utils.simulator_registry.submit.submit_simulator_to_biosimulators_registry`. See the [documentation](https://docs.biosimulators.org/Biosimulators_utils)  for more information.
 
-1. **Optionally, also publish the source code for your simulation tool to a repository** such as BitBucket , GitHub , or GitLab .
-1. **Optionally, also publish your simulation tool to a software repository** such as CRAN  (R), NPM  (JavaScript), or PyPi  (Python).
-1. **Optionally, also register your tool with bio.tools**. Visit [bio.tools](https://bio.tools/) to submit your tool to their registry of research tools.
-1. **Optionally, also submit your Dockerfile to BioContainers**. BioContainers accepts contributions via pull requests. See the[ BioContainers image registry](https://github.com/BioContainers/containers/pulls) for more information.
+1. Optionally, also publish the source code for your simulation tool to a repository such as BitBucket , GitHub , or GitLab .
+1. Optionally, also publish your simulation tool to a software repository such as CRAN  (R), NPM  (JavaScript), or PyPi  (Python).
+1. Optionally, also register your tool with bio.tools. Visit [bio.tools](https://bio.tools/) to submit your tool to their registry of research tools.
+1. Optionally, also submit your Dockerfile to BioContainers. BioContainers accepts contributions via pull requests. See the[ BioContainers image registry](https://github.com/BioContainers/containers/pulls) for more information.
 
 
 A sample [continuous integration workflow](https://github.com/biosimulators/Biosimulators_simulator_template/blob/dev/.github/workflows/ci.yml.template)  for GitHub Actions is available in the template simulator repository. Instructions for setting up this workflow are in the [README](https://github.com/biosimulators/Biosimulators_simulator_template/blob/dev/README.md) .
@@ -93,7 +93,7 @@ Each time a commit is pushed to the repository, the workflow executes the follow
 
 1. Compiles the documentation for the simulator.
 
-Each time the repository is tagged (git tag ...; git push --tags), the workflow also runs the above tasks. If the above tasks succeed, the workflow executes the following additional tasks:
+Each time the repository is tagged (`git tag ...; git push --tags`), the workflow also runs the above tasks. If the above tasks succeed, the workflow executes the following additional tasks:
 
 1. Creates a GitHub release for the tag.
 1. Pushes the compiled documentation to the repository (e.g., so it can be served by GitHub pages).

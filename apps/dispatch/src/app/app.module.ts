@@ -58,14 +58,6 @@ const routes: Routes = [
     },
   },
   {
-    path: 'help',
-    loadChildren: () =>
-      import('./components/help/help.module').then((m) => m.HelpModule),
-    data: {
-      breadcrumb: 'Help',
-    },
-  },
-  {
     path: 'error',
     loadChildren: () => SharedErrorComponentsModule,
   },

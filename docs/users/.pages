@@ -1,13 +1,16 @@
 title: User guide
 nav:  
+  - 'Overview': index.md
   - 'Exploring published projects': viewing-projects.md
   - 'Simulating projects': simulating-projects.md
   - 'Creating projects': creating-projects.md
   - 'Validating projects': validating-projects.md  
   - 'Publishing projects': publishing-projects.md
+  - 'Source model repositories': source-model-repositories.md
   - 'Finding simulation tools': finding-tools.md
   - 'Creating simulation tools': creating-tools.md
   - 'Publishing simulation tools': publishing-tools.md
-  - BioSimulations' REST API: api.md
+  - REST APIs: api.md  
+  - BioSimulators tools and libraries: biosimulators-packages.md
+  - Live and recorded tutorials: live-tutorials.md
   - FAQs: faqs.md
-  - Additional resources: resources.md

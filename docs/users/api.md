@@ -1,3 +1,3 @@
-# Programmatically working with BioSimulations via the REST API
+# Programmatically working with BioSimulations and BioSimulators via the REST APIs
 
-A comprehensive API is available for submitting and retrieving projects. Please see the documentation for the [REST API](https://api.biosimulations.org) for more information. The documentation includes numerous examples and a program for interactively querying the API.
+APIs are available for submitting and retrieving simulation projects, simulation runs, and simulation tools. Please see the documentation for the [BioSimulations REST API](https://api.biosimulations.org) and [BioSimulators REST API](https://api.biosimulators.org) for more information. The documentation include numerous examples and program for interactively querying the APIs.

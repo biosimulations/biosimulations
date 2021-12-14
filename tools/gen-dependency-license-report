@@ -2,23 +2,28 @@
 
 set -e
 
-DEP_LICENSES_PATH=./docs/about/dependencies.md
-license-checker --production --excludePackages biosimulations@0.0.0 --out ${DEP_LICENSES_PATH}
+LICENSES_TEMPLATE_PATH=./docs/about/license.template.md
+SOFTWARE_LICENSE_PATH=./docs/License.md
+LICENSES_PATH=./docs/about/license.md
+
+TEMP_LICENSES_PATH=$(mktemp)
+license-checker --production --excludePackages biosimulations@0.0.0 --out ${TEMP_LICENSES_PATH}
 
 # Remove local paths
 cwd=$(pwd)
-sed -i "s|$cwd/node_modules/||g" ${DEP_LICENSES_PATH}
+sed -i "s|$cwd/node_modules/||g" ${TEMP_LICENSES_PATH}
 
 # Remove paths to packages
-sed -i -E 's/[│ ]  [├└]─ path: .*$//g' ${DEP_LICENSES_PATH}
-sed -i '/^$/d' ${DEP_LICENSES_PATH}
+sed -i -E 's/[│ ]  [├└]─ path: .*$//g' ${TEMP_LICENSES_PATH}
+sed -i '/^$/d' ${TEMP_LICENSES_PATH}
 
 # Clean up directory tree
-sed -i ':a;N;$!ba;s/\n/\x00/g' ${DEP_LICENSES_PATH}
-sed -i 's/[│ ]  ├─ \([^\x00]*\)\x00├─/│  └─ \1\x00├─/g' ${DEP_LICENSES_PATH}
+sed -i ':a;N;$!ba;s/\n/\x00/g' ${TEMP_LICENSES_PATH}
+sed -i 's/[│ ]  ├─ \([^\x00]*\)\x00├─/│  └─ \1\x00├─/g' ${TEMP_LICENSES_PATH}
 sed -i 's/\x00/\
-/g' ${DEP_LICENSES_PATH}
+/g' ${TEMP_LICENSES_PATH}
 
-# Add header to top of file
-header="# Licenses for third-party dependencies\n\nBioSimulations is released under the MIT license. Below are the licenses of the dependencies of BioSimulations, including the location of each license file where available. This report was generated using [license-checker](https://github.com/davglass/license-checker)."
-printf "${header}\n\n\`\`\`\n$(cat ${DEP_LICENSES_PATH})\n\`\`\`" > ${DEP_LICENSES_PATH}
+# Write to license file
+SOFTWARE_LICENSE=$(cat ${SOFTWARE_LICENSE_PATH}) \
+DEPENDENCY_LICENSES=$(cat ${TEMP_LICENSES_PATH}) \
+  eval "echo \"$(<$LICENSES_TEMPLATE_PATH)\"" 2> /dev/null > $LICENSES_PATH

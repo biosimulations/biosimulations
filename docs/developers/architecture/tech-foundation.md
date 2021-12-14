@@ -1,5 +1,5 @@
 # Technological foundation
-BioSimulations is implemented using several open-source tools and cloud platforms.
+BioSimulations and BioSimulators are implemented using several open-source tools and cloud platforms, including those highlighted below.
 
 <div class="logos">
 <div class="logos-row">

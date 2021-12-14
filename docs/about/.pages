@@ -2,8 +2,7 @@ title: About
 nav:
   - Development team: team.md
   - Funding: funding.md
-  - 'Citing BioSimulations, runBioSimulations & BioSimulators': citations.md
+  - 'Citing us': citations.md
   - Privacy policy: privacy.md
   - Terms of service: terms.md
   - License: license.md
-  - Licenses for dependencies: dependencies.md  
