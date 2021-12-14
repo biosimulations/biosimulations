@@ -2,8 +2,6 @@ name: Docker
 on:
   workflow_call:
     secrets:
-      GITHUB_TOKEN:
-        required: true
       GHCR_USERNAME:
         required: true
       GHCR_TOKEN:

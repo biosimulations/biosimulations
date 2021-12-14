@@ -95,7 +95,6 @@ jobs:
     name: Build and push backend Docker images
     uses: biosimulations/biosimulations/.github/workflows/docker.yml@dev
     secrets:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GHCR_USERNAME: ${{ secrets.GHCR_USERNAME }}
         GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
 
