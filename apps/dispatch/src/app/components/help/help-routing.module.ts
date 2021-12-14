@@ -4,8 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { HelpComponent } from './help/help.component';
 import { AboutComponent } from './about/about.component';
 import { FaqComponent } from './faq/faq.component';
-import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
-import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 const routes: Routes = [
   {
@@ -55,36 +53,6 @@ const routes: Routes = [
           icon: 'policy',
           label: 'Privacy policy',
         },
-      ],
-    },
-  },
-  {
-    path: 'terms',
-    component: TermsOfServiceComponent,
-    data: {
-      breadcrumb: 'Terms of service',
-      contextButtons: [
-        { route: ['/help'], icon: 'tutorial', label: 'Tutorial' },
-        { route: ['/help', 'faq'], icon: 'help', label: 'FAQ' },
-        { route: ['/help', 'about'], icon: 'info', label: 'About' },
-        {
-          route: ['/help', 'privacy'],
-          icon: 'policy',
-          label: 'Privacy policy',
-        },
-      ],
-    },
-  },
-  {
-    path: 'privacy',
-    component: PrivacyPolicyComponent,
-    data: {
-      breadcrumb: 'Privacy policy',
-      contextButtons: [
-        { route: ['/help'], icon: 'tutorial', label: 'Tutorial' },
-        { route: ['/help', 'faq'], icon: 'help', label: 'FAQ' },
-        { route: ['/help', 'about'], icon: 'info', label: 'About' },
-        { route: ['/help', 'terms'], icon: 'legal', label: 'Terms of service' },
       ],
     },
   },

@@ -52,7 +52,7 @@ The runBioSimulation app contains a variety of example simulation projects that 
 
 These simulation projects are verified to be compatible with runBioSimulations. The [BioSimulators test suite](https://github.com/biosimulators/Biosimulators_test_suite/tree/deploy/examples/) describes the specific simulation tools that are compatible with each example project.
 
-## Using a containerized simulation tools 
+## Using containerized simulation tools 
 
 ### Execute a simulation locally
 
@@ -119,8 +119,6 @@ In the above example, the simulation project is located at `/path/to/COMBINE-arc
 The Python APIs for simulation tools provide additional flexibility beyond their Docker images and command-line interfaces. However, using these APIs typically requires additional effort beyond using the Docker images because it requires installing the dependencies for simulation tools, as well as some knowledge of the data structures used by BioSimulators.
 
 Please follow these steps to use a Python API for a simulation tool to execute a modeling study.
-
-
 
 1. **Install Python >= 3.7**.
 1. **Install pip**.

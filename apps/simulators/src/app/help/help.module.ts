@@ -9,8 +9,6 @@ import { HelpRoutingModule } from './help-routing.module';
 import { AboutComponent } from './about/about.component';
 import { FaqComponent } from './faq/faq.component';
 import { HelpComponent } from './help/help.component';
-import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
-import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { HighlightModule } from 'ngx-highlightjs';
 import { NgxJsonLdModule } from '@ngx-lite/json-ld';
 
@@ -19,8 +17,6 @@ import { NgxJsonLdModule } from '@ngx-lite/json-ld';
     AboutComponent,
     FaqComponent,
     HelpComponent,
-    TermsOfServiceComponent,
-    PrivacyPolicyComponent,
   ],
   imports: [
     CommonModule,

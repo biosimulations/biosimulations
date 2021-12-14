@@ -1,4 +1,4 @@
-site_name: BioSimulations documentation
+site_name: BioSimulations and BioSimulators documentation
 site_url: https://docs.biosimulations.org/
 docs_dir: .
 repo_url: https://github.com/biosimulations/biosimulations
@@ -12,12 +12,12 @@ theme:
       scheme: default
       toggle:
         icon: material/weather-sunny
-        name: Switch to dark mode
+        name: Switch to dark theme
     - media: '(prefers-color-scheme: biosimulations-dark)'
       scheme: slate
       toggle:
         icon: material/weather-night
-        name: Switch to light mode
+        name: Switch to light theme
   icon:
     repo: fontawesome/brands/github
   features:
@@ -67,5 +67,5 @@ extra:
       name: BioSimulations on Twitter
     - icon: fontawesome/brands/github
       link: https://github.com/biosimulations/biosimulations
-      name: BioSimulations on Github
+      name: BioSimulations on GitHub
 copyright: Copyright &copy; 2019 - 2021 BioSimulations Team
