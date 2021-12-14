@@ -124,7 +124,7 @@ BioSimulations executes projects using [runBioSimulations](https://run.biosimula
 
 **Where does runBioSimulations execute simulations and store their outputs?**
 
-runBioSimulations executes simulations using a high-performance computing cluster at UConn Health. The runBioSimulations user interface is deployed using Netlfiy. runBioSimulations' APIs are deployed using Google Cloud. runBioSimulations stores simulation projects (COMBINE/OMEX archives) and their results in MongoDB Atlas.
+runBioSimulations executes simulations using a high-performance computing cluster at UConn Health. The runBioSimulations user interface is deployed using Netlify. runBioSimulations' APIs are deployed using Google Cloud. runBioSimulations stores simulation projects (COMBINE/OMEX archives) and their results in MongoDB Atlas.
 
 **Which other tools can I use to execute COMBINE/OMEX archives? Are there any limitations executing archives with other tools?**
 
@@ -178,7 +178,7 @@ The list of simulations that you have submitted is only stored in your local bro
 
 **How long does runBioSimulations store simulations?**
 
-runBioSimulations stores simulations and their results permanently. For special cases, contact the [BioSimulators Team](mailto:infor@biosimualtors.org) to request deleting simulations and results.
+runBioSimulations stores simulations and their results permanently. For special cases, contact the [BioSimulators Team](mailto:infor@biosimulators.org) to request deleting simulations and results.
 
 **How can I share projects privately with colleagues and peer reviewers without publishing them?**
 
@@ -505,7 +505,7 @@ Instructions for using command-line interfaces to execute simulations are availa
 **How can I use a Python API to execute a simulation?**
 Instructions for using simulator Python APIs to execute simulations are available [here](../users/simulating-projects.md).
 
-In adddition, several interactive tutorials are available from [Binder](https://tutorial.biosimulators.org/).
+In addition, several interactive tutorials are available from [Binder](https://tutorial.biosimulators.org/).
 
 **Is a Docker image available with all of the Python APIs available?**
 Yes! `The ghcr.io/biosimulators/biosimulators` image contains most of the Python APIs (90% as of 2021-09-23). More information about the image is available [here](https://github.com/biosimulators/Biosimulators/pkgs/container/biosimulators).
@@ -578,15 +578,15 @@ We recommend using Shields.io to generate shields for simulators. Several exampl
 
 Indicate that a simulator is registered:
 Use `https://img.shields.io/badge/BioSimulators-registered-green` to generate the badge below.
-![Lastest badge](https://img.shields.io/badge/BioSimulators-registered-green)
+![Latest badge](https://img.shields.io/badge/BioSimulators-registered-green)
 
 Indicate that a simulator is valid:
 Use `https://img.shields.io/badge/BioSimulators-valid-green` to generate the badge below.
-![Lastest badge](https://img.shields.io/badge/BioSimulators-valid-green)
+![Latest badge](https://img.shields.io/badge/BioSimulators-valid-green)
 
 Indicate the latest registered version of a simulator:
 Use `https://img.shields.io/badge/BioSimulators-{ latest-version }-green` to generate the badge below.
-![Lastest badge](https://img.shields.io/badge/BioSimulators-2.2.1-green)
+![Latest badge](https://img.shields.io/badge/BioSimulators-2.2.1-green)
 
 ## Primary model repositories
 
