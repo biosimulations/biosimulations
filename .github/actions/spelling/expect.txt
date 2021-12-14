@@ -1,5 +1,4 @@
 abulovic
-adddition
 ADeepa
 agarny
 Akhil
@@ -31,7 +30,6 @@ BIOMD
 biomodeling
 biomodels
 bionetgen
-biosimualtors
 biosimulation
 biosimulator
 biosystems
@@ -55,7 +53,6 @@ changelog
 chaouiya
 Choi
 ciliberto
-Citating
 citeseerx
 cjmyers
 claudine
@@ -67,7 +64,6 @@ collex
 combinearchive
 combineomex
 commitizen
-Commmit
 config
 conventionalcommits
 copasi
@@ -104,7 +100,6 @@ edamontology
 edu
 Elmi
 emoji
-encompassses
 entrypoint
 escher
 eslint
@@ -197,7 +192,6 @@ kegg
 keio
 kisao
 kubernetes
-Lastest
 latestdoi
 lems
 libkisao
@@ -249,7 +243,6 @@ nanohub
 Nasir
 ncbi
 nestjs
-Netlfiy
 netlify
 netpyne
 Neuro
@@ -338,6 +331,7 @@ SGBN
 sif
 sinai
 SIO
+slurm
 smoldyn
 socio
 Somogyi
