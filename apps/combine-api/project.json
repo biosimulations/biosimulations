@@ -33,29 +33,27 @@
     "lint": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "commands": [
-          "flake8"
-        ],
+        "commands": ["flake8"],
         "cwd": "apps/combine-api",
         "parallel": false
       }
     },
     "docker": {
-      "builder": "@nx-tools/nx-docker:build",
+      "executor": "@nx-tools/nx-docker:build",
       "options": {
         "file": "./apps/combine-api/Dockerfile",
         "context": "./apps/combine-api",
         "push": true,
-        "build-args": [
-          "app=combine-api"
+        "build-args": ["app=combine-api"],
+        "cache-from": [
+          "type=registry,ref=ghcr.io/biosimulations/combine-api:buildcache"
         ],
-        "cache-from": ["type=registry,ref=ghcr.io/biosimulations/combine-api:buildcache"],
-        "cache-to": ["type=registry,ref=ghcr.io/biosimulations/combine-api:buildcache,mode=max"],
+        "cache-to": [
+          "type=registry,ref=ghcr.io/biosimulations/combine-api:buildcache,mode=max"
+        ],
         "metadata": {
           "enabled": true,
-          "images": [
-            "ghcr.io/biosimulations/combine-api"
-          ],
+          "images": ["ghcr.io/biosimulations/combine-api"],
           "labels": [
             "org.opencontainers.image.title=BioSimulations COMBINE API",
             "org.opencontainers.image.description=Docker image for the BioSimulations COMBINE API",

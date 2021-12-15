@@ -1,4 +1,4 @@
-{  
+{
   "projectType": "library",
   "root": "libs/combine-api/angular-client",
   "sourceRoot": "libs/combine-api/angular-client/src",
@@ -14,7 +14,9 @@
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/combine-api/angular-client"],
+      "outputs": [
+        "coverage/libs/combine-api/angular-client"
+      ],
       "options": {
         "jestConfig": "libs/combine-api/angular-client/jest.config.js",
         "passWithNoTests": true
@@ -29,5 +31,10 @@
       }
     }
   },
-  "tags": ["scope:combine", "type:client", "shared:true", "platform:web"]
+  "tags": [
+    "scope:combine",
+    "type:client",
+    "shared:true",
+    "platform:web"
+  ]
 }
