@@ -10,14 +10,14 @@ WORKDIR /app
 RUN apt-get update -y
 
 ###################################
-# install AMICI
+# AMICI
 RUN apt-get install --no-install-recommends -y \
         g++ \
         libatlas-base-dev \
         swig
 
 ###################################
-# install BioNetGen
+# BioNetGen
 ARG BIONETGEN_VERSION=2.6.0
 RUN apt-get install -y --no-install-recommends \
         perl \
@@ -33,7 +33,7 @@ RUN apt-get install -y --no-install-recommends \
 ENV PATH=${PATH}:/opt/BioNetGen-${BIONETGEN_VERSION}/
 
 ###################################
-# Install BoolNet
+# BoolNet
 ARG BOOLNET_VERSION=2.1.5
 RUN apt-get install -y --no-install-recommends \
         r-base \
@@ -74,7 +74,7 @@ RUN apt-get install -y --no-install-recommends \
         build-essential
 
 ###################################
-# Set up path for GINsim; needed up installation of GINsim Python package is fixed
+# GINsim: Set up path; needed up installation of GINsim Python package is fixed
 RUN mkdir -p /usr/share/man/man1/ \
     && apt-get install -y --no-install-recommends \
         default-jre \
@@ -88,11 +88,11 @@ RUN mkdir -p /usr/share/man/man1/ \
     && rm ginsim_setup.py
 
 ###################################
-# install libSBMLSIM
+# libSBMLSIM
 ARG LSBMLSIM_VERSION=1.4.0
 ARG LIBSBML_VERSION=5.19.0
 
-# install libSBML
+# libSBML
 RUN apt-get install --no-install-recommends -y \
         wget \
         libxml2 \
@@ -103,7 +103,7 @@ RUN apt-get install --no-install-recommends -y \
     && rm libSBML-${LIBSBML_VERSION}-Linux-x64.deb
 ENV LD_LIBRARY_PATH=/usr/lib64:$LD_LIBRARY_PATH
 
-# install LibSBMLSim
+# LibSBMLSim
 RUN apt-get install --no-install-recommends -y \
         wget \
         build-essential \
@@ -178,8 +178,8 @@ RUN mkdir -p /usr/share/man/man1/ \
 ###################################
 # PySCeS
 
-# Install SUNDIALS
-# Skip certificate check because the LLNL certificate is expired (as of 2021-11-03)
+# SUNDIALS
+# ignore certificate checking because certificate was expired as of 2021-11-10
 ARG SUNDIALS_VERSION=2.6.2
 RUN apt-get install -y --no-install-recommends \
         wget \
@@ -202,8 +202,7 @@ RUN apt-get install -y --no-install-recommends \
     && rm -r sundials-${SUNDIALS_VERSION}
 ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
-# install requirements for Assimulo
-ARG ASSIMULO_VERSION=3.2.5
+# Assimulo
 RUN apt-get install -y --no-install-recommends \
         g++ \
         gfortran \
@@ -211,7 +210,7 @@ RUN apt-get install -y --no-install-recommends \
         liblapack-dev \
         git
 
-# install requirements for PySCeS
+# PySCeS
 RUN apt-get install -y --no-install-recommends \
         git \
         gcc \
@@ -245,7 +244,7 @@ ENV PLOTTING_ENGINE=matplotlib \
     PYTHONWARNINGS="ignore:The 'warn' parameter of use():UserWarning:tellurium.tellurium,ignore:Matplotlib is currently using agg:UserWarning:tellurium.plotting.engine_mpl"
 
 ###################################
-# install XPP
+# XPP
 RUN apt-get install -y --no-install-recommends \
         wget \
         make \
