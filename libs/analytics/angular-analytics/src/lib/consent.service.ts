@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Consent, ConsentRecord } from './datamodel';
+import { Consent, ConsentRecord, cookieConsentType } from './datamodel';
 import { Storage } from '@ionic/storage-angular';
 
 import { CookieConsentComponent } from './cookie-consent/cookie-consent.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root',
@@ -45,15 +45,15 @@ export class ConsentService {
   }
 
   private startConsentFlow(): void {
-    const dialogRef = this.dialog.open(CookieConsentComponent, {
-      hasBackdrop: true,
-      maxWidth: '900px',
-
-      disableClose: true,
-      closeOnNavigation: false,
-    });
+    const dialogRef: MatDialogRef<CookieConsentComponent, cookieConsentType> =
+      this.dialog.open(CookieConsentComponent, {
+        hasBackdrop: true,
+        maxWidth: '900px',
+        disableClose: true,
+        closeOnNavigation: false,
+      });
     dialogRef.afterClosed().subscribe((result) => {
-      if (result && result.performanceCookies) {
+      if (result && result.performance) {
         const consentRecord: ConsentRecord = {
           date: new Date().toISOString(),
           consent: {

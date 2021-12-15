@@ -190,19 +190,6 @@
         analytics_storage: 'denied',
         advertising_storage: 'denied',
       });
-
-      // Make sure any changes are properly reflected in the privacy policy/cookie policy.
-
-      // Disable all advertising/tracking
-      gtag('set', 'allow_google_signals', false);
-
-      gtag('config', 'G-G3CVBC0V5N', {
-        send_page_view: false,
-        cookie_prefix: 'goog_analytics_perf_',
-        link_attribution: {
-          cookie_name: 'goog_analytics_la_perf',
-        },
-      });
     </script>
     <meta
       name="description"
