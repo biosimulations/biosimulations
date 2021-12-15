@@ -43,7 +43,7 @@ export class RequiredCookie implements Cookie {
      These cookies are first party cookies that contain no personal information\
      Examples include cookies that store your consent to the use of cookies or security cookies';
   public externalLink =
-    'https://www.biosimulations.org/cookies#neccesary-cookies';
+    'https://docs.biosimulations.org/about/cookies#neccesary-cookies';
   public displayName = 'Strictly Necessary Cookies';
   public toggleAllowed = true;
   public toggleDisabled = true;
@@ -57,7 +57,7 @@ export class PerformanceCookie implements Cookie {
     which features you use, and which links you click.\
     This information is aggregated and anonymized and cannot be traced to you individually ';
   public externalLink =
-    'https://www.biosimulations.org/cookies#performance-cookies';
+    'https://docs.biosimulations.org/about/cookies#performance-cookies';
   public displayName = 'Performance Cookies';
   public toggleAllowed = true;
   public toggleDisabled = false;
@@ -71,7 +71,7 @@ export class FunctionalCookie implements Cookie {
   Examples include cookies that remember your recent searches or keep you logged in.\
   These cookies do not contain any personal information';
   public externalLink =
-    'https://www.biosimulations.org/cookies#functional-cookies';
+    'https://docs.biosimulations.org/about/cookies#functional-cookies';
   public displayName = 'Functional Cookies';
   public toggleAllowed = true;
   public toggleDisabled = false;
@@ -83,7 +83,7 @@ export class TrackingCookie implements Cookie {
     'These cookies are generally third-party cookies that are used to track your online activity and behavior for marketing and advertising purposes.\
   We DO NOT USE any tracking cookies or third-party services to track your online activity and behavior.';
   public externalLink =
-    'https://www.biosimulations.org/cookies#tracking-cookies';
+    'https://docs.biosimulations.org/about/cookies#tracking-cookies';
   public displayName = 'Tracking Cookies';
   public toggleAllowed = false;
   public toggleDisabled = true;

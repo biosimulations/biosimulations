@@ -51,9 +51,10 @@ export class AnalyticsService {
 
     gtag('config', this.analyticsId, {
       send_page_view: false,
-      cookie_prefix: 'goog_analytics_perf_',
+      cookie_prefix: 'biosim_analytics',
       link_attribution: {
-        cookie_name: 'goog_analytics_la_perf',
+        enabled: true,
+        cookie_name: 'biosim_analytics_la',
       },
     });
 
