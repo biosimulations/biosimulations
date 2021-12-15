@@ -127,11 +127,19 @@
               >
             </mat-select>
             <mat-hint>
-              BioSimulations validates models using community-contributed
-              validation tools for each model language. The thoroughness of
-              these tools varies. In addition, some tools currently provide
-              limited diagnostic information. We welcome contributions of
-              improved validation tools.
+              <p>
+                BioSimulations validates models using community-contributed
+                validation tools for each model language. The thoroughness of
+                these tools varies. In addition, some tools currently provide
+                limited diagnostic information. We welcome contributions of
+                improved validation tools.
+              </p>
+              <p class="alert">
+                This form is limited to validating individual files. Thus, this
+                form does not validate imported files. Click
+                <a [routerLink]="['..', 'validate-project']">here</a> to more
+                comprehensively validate trees of model files packages as COMBINE/OMEX archives.
+              </p>
             </mat-hint>
           </mat-form-field>
         </div>
