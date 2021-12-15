@@ -568,7 +568,7 @@ export class Endpoints {
 
   public getSimulatorsView(id?: string, version?: string): string {
     id ? (id = `/${id}`) : (id = '');
-    version ? (version = `/${id}`) : (version = '');
+    version ? (version = `/${version}`) : (version = '');
     if (version && !id) {
       throw new Error('Cannot get a version without a simulator id');
     }
