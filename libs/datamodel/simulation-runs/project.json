@@ -12,7 +12,10 @@
           "libs/datamodel/simulation-runs/tsconfig.lib.json",
           "libs/datamodel/simulation-runs/tsconfig.spec.json"
         ],
-        "exclude": ["**/node_modules/**", "!libs/datamodel/simulation-runs/**/*"]
+        "exclude": [
+          "**/node_modules/**",
+          "!libs/datamodel/simulation-runs/**/*"
+        ]
       }
     },
     "test": {
@@ -23,5 +26,9 @@
       }
     }
   },
-  "tags": ["scope:simulationRuns", "type:datamodel", "platform:web"]
+  "tags": [
+    "scope:simulationRuns",
+    "type:datamodel",
+    "platform:web"
+  ]
 }

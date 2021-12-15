@@ -7,7 +7,9 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["libs/ontology/extra-sources/**/*.ts"]
+        "lintFilePatterns": [
+          "libs/ontology/extra-sources/**/*.ts"
+        ]
       }
     },
     "test": {

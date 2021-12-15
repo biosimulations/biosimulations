@@ -51,7 +51,7 @@
       }
     },
     "docker": {
-      "builder": "@nx-tools/nx-docker:build",
+      "executor": "@nx-tools/nx-docker:build",
       "options": {
         "file": "./Dockerfile",
         "push": true,

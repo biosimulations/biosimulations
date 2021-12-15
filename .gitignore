@@ -125,3 +125,5 @@ _pystmptmp*_parsetab.py
 
 # temporary subprocess files
 temp*.tmp
+
+.angular
