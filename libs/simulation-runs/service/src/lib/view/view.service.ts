@@ -681,14 +681,6 @@ export class ViewService {
           });
 
         return Object.values(root).sort((a: Path, b: Path): number => {
-          if (a._type == 'Directory' && b._type === 'File') {
-            return -1;
-          }
-
-          if (a._type == 'File' && b._type === 'Directory') {
-            return 1;
-          }
-
           return a.location.localeCompare(b.location, undefined, {
             numeric: true,
           });
