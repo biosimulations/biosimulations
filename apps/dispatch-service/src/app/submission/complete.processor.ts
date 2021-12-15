@@ -75,7 +75,8 @@ export class CompleteProcessor {
         name: 'simulation results',
         result: this.archiverService.updateResultsSize(runId),
         required: true,
-        moreInfo: 'https://docs.biosimulations.org/concepts/conventions/simulation-run-reports/',
+        moreInfo:
+          'https://docs.biosimulations.org/concepts/conventions/simulation-run-reports/',
         validator: undefined,
         plural: true,
       },
@@ -83,7 +84,8 @@ export class CompleteProcessor {
         name: 'log of the simulation run',
         result: this.logService.createLog(runId, false, '', false),
         required: true,
-        moreInfo: 'https://docs.biosimulations.org/concepts/conventions/simulation-run-logs/',
+        moreInfo:
+          'https://docs.biosimulations.org/concepts/conventions/simulation-run-logs/',
         validator: 'https://api.biosimulations.org',
         plural: false,
       },
@@ -91,7 +93,8 @@ export class CompleteProcessor {
         name: 'metadata for the COMBINE archive',
         result: this.metadataService.createMetadata(runId),
         required: false,
-        moreInfo: 'https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/',
+        moreInfo:
+          'https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/',
         validator: 'https://run.biosimulations.org/utils/validate-metadata',
         plural: false,
       },
