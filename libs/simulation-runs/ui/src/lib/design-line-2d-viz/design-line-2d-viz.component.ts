@@ -344,7 +344,7 @@ export class DesignLine2DVisualizationComponent implements OnInit {
           const xAxisTitlesSet = new Set<string>();
           const yAxisTitlesSet = new Set<string>();
           let flatOuterShape: number[] = [];
-          let outerShapeSize: number = 0;
+          let outerShapeSize = 0;
 
           for (const curve of this.curvesFormGroups) {
             for (const xDataUri of (curve.controls.xData as FormControl)

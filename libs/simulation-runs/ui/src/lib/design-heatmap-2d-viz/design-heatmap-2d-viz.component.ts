@@ -324,7 +324,7 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
           let isDataScalar = true;
           const selectedYDataSets: { [outputUri: string]: string[] } = {};
           let flatOuterShape: number[] = [];
-          let outerShapeSize: number = 0;
+          let outerShapeSize = 0;
           for (let selectedUri of selectedYUris) {
             if (selectedUri.startsWith('./')) {
               selectedUri = selectedUri.substring(2);

@@ -55,11 +55,11 @@ export class VegaVisualizationComponent implements AfterViewInit, OnDestroy {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  loading: boolean = true;
+  loading = true;
 
   private _spec: Spec | null | false = null;
 
-  error: string = '';
+  error = '';
 
   @Input()
   set spec(value: Observable<Spec | null | false>) {

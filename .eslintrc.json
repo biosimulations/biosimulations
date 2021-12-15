@@ -49,25 +49,7 @@
                 "sourceTag": "scope:shared",
                 "onlyDependOnLibsWithTags": ["scope:shared"]
               },
-              {
-                "sourceTag": "scope:simulationRuns",
-                "onlyDependOnLibsWithTags": [
-                  "scope:simulationRuns",
-                  "scope:shared",
-                  "scope:config",
-                  "scope:ontology"
-                ]
-              },
-              {
-                "sourceTag": "scope:simulationProjects",
-                "onlyDependOnLibsWithTags": [
-                  "scope:simulationProjects",
-                  "scope:combine",
-                  "scope:shared",
-                  "scope:config",
-                  "scope:ontology"
-                ]
-              },
+              
               {
                 "sourceTag": "scope:config",
                 "onlyDependOnLibsWithTags": [
@@ -80,41 +62,9 @@
                 "onlyDependOnLibsWithTags": ["scope:auth", "scope:config", "scope:shared", "type:environments"]
               },
               {
-                "sourceTag": "scope:simulators",
-                "onlyDependOnLibsWithTags": [
-                  "scope:simulationProjects",
-                  "scope:simulators",
-                  "scope:ontology",
-                  "scope:shared",
-                  "shared:true"
-                ]
-              },
-              {
                 "sourceTag": "scope:accounts",
                 "onlyDependOnLibsWithTags": [
                   "scope:accounts",
-                  "scope:shared",
-                  "shared:true"
-                ]
-              },
-              {
-                "sourceTag": "scope:platform",
-                "onlyDependOnLibsWithTags": [
-                  "scope:platform",
-                  "scope:simulationProjects",
-                  "scope:simulationRuns",
-                  "scope:shared",                  
-                  "shared:true"
-                ]
-              },
-              {
-                "sourceTag": "scope:dispatch",
-                "onlyDependOnLibsWithTags": [
-                  "scope:dispatch",
-                  "scope:simulationProjects",
-                  "scope:simulationRuns",
-                  "scope:ontology",
-                  "scope:account",
                   "scope:shared",
                   "shared:true"
                 ]
