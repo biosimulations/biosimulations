@@ -9,9 +9,10 @@ import {
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { Storage } from '@ionic/storage-angular';
-import { ConfigService } from '@biosimulations/config/angular';
+
 import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ANALYTICS_ID_TOKEN, APP_NAME_TOKEN } from './datamodel';
 
 describe('AnalyticsService', () => {
   let service: AnalyticsService;
@@ -33,12 +34,13 @@ describe('AnalyticsService', () => {
         },
         Storage,
         {
-          provide: ConfigService,
-          useValue: {
-            appName: 'testApp',
-            analyticsId: 'testId',
-          },
+          provide: APP_NAME_TOKEN,
+          useValue: "testApp"
         },
+        {
+          provide: ANALYTICS_ID_TOKEN,
+          useValue: "G-1234567891"
+        }
       ],
     });
     service = TestBed.inject(AnalyticsService);

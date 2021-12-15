@@ -3,12 +3,12 @@
  * @ Author -Bilal Shaikh
  * Inspired heavily by https://www.dottedsquirrel.com/google-analytics-angular/
  */
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { ConfigService } from '@biosimulations/config/angular';
+
 import { Subscription } from 'rxjs';
 import { ConsentService } from './consent.service';
-import { Consent } from './datamodel';
+import { ANALYTICS_ID_TOKEN, Consent } from './datamodel';
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 declare let gtag: Function;
@@ -22,11 +22,11 @@ export class AnalyticsService {
   public constructor(
     public router: Router,
     private route: ActivatedRoute,
-    private config: ConfigService,
+    @Inject(ANALYTICS_ID_TOKEN) private analyticsIdToken: string,
 
     private consentService: ConsentService,
   ) {
-    this.analyticsId = this.config.analyticsId;
+    this.analyticsId = analyticsIdToken;
     // Make sure any changes are properly reflected in the privacy policy/cookie policy.
     // Ordering is important here.
 
@@ -49,7 +49,6 @@ export class AnalyticsService {
   public async init(sendPageView: boolean): Promise<void> {
     // page views will be handled by analytics service. Give cookies clear names to ref in privacy policy.
 
-    console.error('init');
     gtag('config', this.analyticsId, {
       send_page_view: false,
       cookie_prefix: 'goog_analytics_perf_',
@@ -60,7 +59,6 @@ export class AnalyticsService {
 
     // Only want to have one subscription to the router
     if (!this.routerSubscription) {
-      console.error('subscribe');
       this.routerSubscription = this.router.events.subscribe((event) => {
         if (event instanceof NavigationEnd) {
           gtag('set', 'page_location', event.urlAfterRedirects);
