@@ -76,7 +76,7 @@
     "hammerjs": "2.0.8",
     "is-url": "1.2.4",
     "jwks-rsa": "2.0.5",
-    "mongoose": "6.0.14",
+    "mongoose": "6.1.2",
     "nats": "2.4.0",
     "nestjs-s3": "1.0.1",
     "ngx-material-file-input": "3.0.0",
