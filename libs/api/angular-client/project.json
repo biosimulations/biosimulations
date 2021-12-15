@@ -6,7 +6,9 @@
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/api/angular-client"],
+      "outputs": [
+        "coverage/libs/api/angular-client"
+      ],
       "options": {
         "jestConfig": "libs/api/angular-client/jest.config.js",
         "passWithNoTests": true
@@ -22,5 +24,8 @@
       }
     }
   },
-  "tags": ["scope:simulationRuns", "type:client", "platform:web"]
+  "tags": [
+    "type:client",
+    "platform:web"
+  ]
 }
