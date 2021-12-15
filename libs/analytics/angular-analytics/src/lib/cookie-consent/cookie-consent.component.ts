@@ -1,10 +1,8 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, Inject } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { ConfigService } from '@biosimulations/config/angular';
+
 import {
+  APP_NAME_TOKEN,
   Cookie,
   cookieConsentType,
   CookieType,
@@ -38,9 +36,9 @@ export class CookieConsentComponent {
   public appName: string;
   public constructor(
     public dialogRef: MatDialogRef<CookieConsentComponent, cookieConsentType>,
-    private config: ConfigService,
+    @Inject(APP_NAME_TOKEN) appName: string,
   ) {
-    this.appName = config.appName;
+    this.appName = appName;
   }
 
   public handleToggleClick(event: Event): void {

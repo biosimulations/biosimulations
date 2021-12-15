@@ -3,6 +3,8 @@
  * In general, nothing from here should be exported from the library
  */
 
+export const APP_NAME_TOKEN = Symbol('APP_NAME_TOKEN');
+export const ANALYTICS_ID_TOKEN = Symbol('ANALYTICS_ID_TOKEN');
 export interface Consent {
   ad_storage: 'granted' | 'denied';
   analytics_storage: 'granted' | 'denied';
