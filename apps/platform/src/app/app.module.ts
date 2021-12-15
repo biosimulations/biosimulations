@@ -23,6 +23,7 @@ import { HealthService } from '@biosimulations/angular-api-client';
 import { PwaModule } from '@biosimulations/shared/pwa';
 
 import config from '../assets/config.json';
+import { AngularAnalyticsModule } from '@biosimulations/angular-analytics';
 
 const routes: Routes = [
   {
@@ -59,6 +60,7 @@ routes.forEach((route: Route): void => {
     HttpClientModule,
     BrowserAnimationsModule,
     SharedErrorHandlerModule,
+    AngularAnalyticsModule,
     MarkdownModule.forRoot({ loader: HttpClient }),
     SharedUiModule,
     RouterModule.forRoot(routes, {
