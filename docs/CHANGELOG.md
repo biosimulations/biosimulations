@@ -1,3 +1,59 @@
+Changelog
+
+# [8.0.0](https://github.com/biosimulations/biosimulations/compare/v7.0.0...v8.0.0) (2021-12-15)
+
+
+### Bug Fixes
+
+* **config:** change name of env variable to avoid clash ([caf69f4](https://github.com/biosimulations/biosimulations/commit/caf69f4ef11439ad6b6269ee41e904283219225c))
+* **config:** correct endpoints for s3 contents path. Add some testing ([73f6034](https://github.com/biosimulations/biosimulations/commit/73f6034561fd88690a89f45d76dde9ed681b55ee)), closes [#3755](https://github.com/biosimulations/biosimulations/issues/3755)
+* **config:** fix endpoints for ontology url ([f7ba9c5](https://github.com/biosimulations/biosimulations/commit/f7ba9c5f55048092280a0eeef0740bccc84d4c4e)), closes [#3771](https://github.com/biosimulations/biosimulations/issues/3771)
+* **config:** fix prod file url ([5211afd](https://github.com/biosimulations/biosimulations/commit/5211afd21258dedd1483b7509270accfdc6f8dc8))
+* **config:** fix storage health endpoint ([14d303c](https://github.com/biosimulations/biosimulations/commit/14d303c8c304468238b446acb1cbb7a4023e29b3))
+* **dispatch-service:** corrected storage endpoint in sbatch sevice to external ([8eb34d4](https://github.com/biosimulations/biosimulations/commit/8eb34d4091e010b8c7b4ada5d29ceb1bf5c5a4d5))
+* fixed broken links in documentation ([fe96ded](https://github.com/biosimulations/biosimulations/commit/fe96dedddd943974a5768a0f4439095f6bea8958))
+* fixed broken links in documentation ([8de8a6f](https://github.com/biosimulations/biosimulations/commit/8de8a6f40ae046a95d5557d7d453220037eb9e27))
+* removed invalid and unecessary workflow_call secret inputs ([b925dfe](https://github.com/biosimulations/biosimulations/commit/b925dfed75d24546ac5a01c6ac43fbf378b594b7))
+* **simulators-api:** fix permissions for deletion of all simulation runs ([24aef29](https://github.com/biosimulations/biosimulations/commit/24aef2972670e4046707fb98072b0834f8435472)), closes [#3767](https://github.com/biosimulations/biosimulations/issues/3767)
+
+
+### Code Refactoring
+
+* **api:** simplify management of files ([e16c35f](https://github.com/biosimulations/biosimulations/commit/e16c35f374f5cbf0acda5f26288a1ed5c1ce04ec))
+
+
+### Features
+
+* **api,dispatch-service,dispatch:** expanded to full SED-ML data model ([2550def](https://github.com/biosimulations/biosimulations/commit/2550defc9918ae44dd2d5df53b6e2035ebcb7a00))
+* **api:** improved error logging ([4d75193](https://github.com/biosimulations/biosimulations/commit/4d75193c68578f4dd48740795dfe9a630109366e))
+* **auth:** add scope for deleting all simulation runs ([77a859c](https://github.com/biosimulations/biosimulations/commit/77a859caec20639adf77e6b0ac6d5ad00ecbb1ca))
+* **combine-api:** expanded to full Python SED-ML data model ([912f8d5](https://github.com/biosimulations/biosimulations/commit/912f8d57bf205c76f7a12b4147dbf63e7bed0e89))
+* **combine-api:** updated dependencies ([a7bf6e9](https://github.com/biosimulations/biosimulations/commit/a7bf6e9e4060658f62837e74172169abeb217f80))
+* **config:** load endpoints dynamically if not in browser ([90ddc18](https://github.com/biosimulations/biosimulations/commit/90ddc1895fb71d04663c86965bf8fa3a6d1ec785)), closes [#3585](https://github.com/biosimulations/biosimulations/issues/3585)
+* **dispatch-service:** added env variables to enable simulators to get number of CPUs ([fbdf8fa](https://github.com/biosimulations/biosimulations/commit/fbdf8fa354a6b06339d9831385c649a0e4d02e24))
+* **dispatch,dispatch-service:** added support for multidimensional plots ([6681d25](https://github.com/biosimulations/biosimulations/commit/6681d25aed91b2bc51f5442ab929390765c9ed63))
+* **dispatch,platform,api:** added filter and display of SED-ML file provenance ([d2a6c29](https://github.com/biosimulations/biosimulations/commit/d2a6c29a77ea1fc10289e576f10a6ef3bbb467b9))
+* **dispatch:** extend vega export to multidimensional data ([4474f0c](https://github.com/biosimulations/biosimulations/commit/4474f0cf3cc7711b5e7b5dd9062e8d8e1c2585d9))
+* expanded COMBINE archive creation to all types of model changes ([f65ffc5](https://github.com/biosimulations/biosimulations/commit/f65ffc5e6dde5a1edbbebbee83a20a73b1305479))
+
+
+### Performance Improvements
+
+* **api:** extract the combine archive directly on s3 via streams ([b5a0f08](https://github.com/biosimulations/biosimulations/commit/b5a0f0869610dc73e5119ecf44054e35f8354e15)), closes [#3094](https://github.com/biosimulations/biosimulations/issues/3094)
+
+
+### Reverts
+
+* "chore(deps): update dependency typescript to v4.5.4" ([f40932e](https://github.com/biosimulations/biosimulations/commit/f40932e6a41f56d94343ccad0af54d7368012572))
+* "chore(deps): update typescript-eslint monorepo to v5.7.0" ([dee846f](https://github.com/biosimulations/biosimulations/commit/dee846f58f5989ef2f40733d97cbbff2b5f0722c))
+* "chore(deps): update typescript-eslint monorepo to v5.7.0" ([16bcd80](https://github.com/biosimulations/biosimulations/commit/16bcd80c16b51ca2b3471b62f3fe10e0e2b448c7))
+
+
+### BREAKING CHANGES
+
+* **api:** the download project endpoint will fail for all previously submitted simulation
+runs. Runs submitted prior to this change will not be retrievable by the api or applications
+
 # [7.0.0](https://github.com/biosimulations/biosimulations/compare/v6.1.0...v7.0.0) (2021-12-02)
 
 
