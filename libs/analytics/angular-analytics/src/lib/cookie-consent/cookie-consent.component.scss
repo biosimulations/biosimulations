@@ -1,7 +1,17 @@
-button {
-  width: 15%;
-  margin-left: 80%;
+.submit-button {
+  float: right;
+}
+.notice {
+  margin-bottom: 1rem;
 }
 .terms-agreement {
-  margin: 1rem 1rem 1rem 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+::ng-deep .mat-content > mat-panel-title {
+  justify-content: flex-start;
+}
+::ng-deep .mat-content > mat-panel-description {
+  justify-content: flex-end;
 }

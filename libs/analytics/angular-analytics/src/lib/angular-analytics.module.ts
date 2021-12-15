@@ -18,14 +18,11 @@ import { MatButtonModule } from '@angular/material/button';
   ],
   providers: [AnalyticsService],
   declarations: [CookieConsentComponent],
-  exports: [CookieConsentComponent],
 })
 export class AngularAnalyticsModule {
-  constructor(
+  public constructor(
+    // Needs to be imported so DI can do its thing and run the constructors
     private consentService: ConsentService,
-    // Needs to be imported so DI can do its thing and run the constructor
     private analyticsService: AnalyticsService,
-  ) {
-    this.consentService.initConsent();
-  }
+  ) {}
 }
