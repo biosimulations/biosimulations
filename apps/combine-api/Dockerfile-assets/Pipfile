@@ -65,6 +65,7 @@ openapi-spec-validator = "*"
 parameterized = "*"
 requests = "*"
 pytest-timeout = "*"
+flaky = "*"
 
 [requires]
 python_version = "3.9"

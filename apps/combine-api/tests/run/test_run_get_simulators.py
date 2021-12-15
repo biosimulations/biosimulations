@@ -2,6 +2,7 @@ from biosimulators_utils.config import get_config
 from src import app
 from src.handlers.run.utils import get_simulator_api, get_simulators, exec_in_subprocess
 from unittest import mock
+import flaky
 import os
 import parameterized
 import pytest
@@ -92,6 +93,7 @@ class SimulatorsHaveValidApisTestCase(unittest.TestCase):
         )
     )
     @pytest.mark.timeout(TIMEOUT * 1.25)
+    @pytest.mark.flaky(max_runs=3)
     def test(self, id, simulator):
         exec_in_subprocess(self._test, simulator['api']['module'], simulator['exampleCombineArchive'], self.tmp_dirname,
                            timeout=TIMEOUT)
