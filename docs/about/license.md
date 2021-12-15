@@ -538,7 +538,7 @@ Below are the licenses of the dependencies of BioSimulations and BioSimulators, 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/connect/node_modules/@types/node/LICENSE
-├─ @types/node@16.11.12
+├─ @types/node@16.11.13
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/node/LICENSE
@@ -910,9 +910,9 @@ Below are the licenses of the dependencies of BioSimulations and BioSimulators, 
 │  ├─ url: http://substack.net
 │  └─ licenseFile: binary/README.markdown
 ├─ biosimulations@5.6.0
-│  ├─ licenses: [1m[31mUNLICENSED[39m[22m
+│  ├─ licenses: UNLICENSED
 │  ├─ private: true
-│  └─ licenseFile: /home/jonrkarr/Documents/biosimulations/License.md
+│  └─ licenseFile: /home/runner/work/biosimulations/biosimulations/License.md
 ├─ bl@4.1.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/rvagg/bl
