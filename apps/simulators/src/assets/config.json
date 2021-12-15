@@ -1,7 +1,10 @@
 {
   "appId": "simulators",
   "appName": "BioSimulators",
-  "appNameParts": ["Bio", "Simulators"],
+  "appNameParts": [
+    "Bio",
+    "Simulators"
+  ],
   "logo": "assets/images/biosimulators-logo/logo.svg",
   "banner": "assets/images/biosimulators-logo/logo-white.svg",
   "appUrl": "https://biosimulators.org/",
@@ -34,5 +37,6 @@
       "exampleProjectPath": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex"
     },
     "maxUploadFileSize": 256000000
-  }
+  },
+  "analyticsId": "G-GJJXENH1HG"
 }
