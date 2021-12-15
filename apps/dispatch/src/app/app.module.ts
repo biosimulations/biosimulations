@@ -23,6 +23,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '@biosimulations/shared/environments';
 import { ScullyLibModule } from '@scullyio/ng-lib';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import { AngularAnalyticsModule } from '@biosimulations/angular-analytics';
 
 const routes: Routes = [
   {
@@ -97,6 +98,7 @@ routes.forEach((route: Route): void => {
     }),
     ScullyLibModule,
     HighlightModule,
+    AngularAnalyticsModule.forRoot(config.appName, config.analyticsId),
   ],
   providers: [
     { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },

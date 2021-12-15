@@ -60,7 +60,7 @@ routes.forEach((route: Route): void => {
     HttpClientModule,
     BrowserAnimationsModule,
     SharedErrorHandlerModule,
-    AngularAnalyticsModule,
+
     MarkdownModule.forRoot({ loader: HttpClient }),
     SharedUiModule,
     RouterModule.forRoot(routes, {
@@ -74,6 +74,7 @@ routes.forEach((route: Route): void => {
       driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage],
     }),
     PwaModule,
+    AngularAnalyticsModule.forRoot(config.appName, config.analyticsId),
   ],
   providers: [
     { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },

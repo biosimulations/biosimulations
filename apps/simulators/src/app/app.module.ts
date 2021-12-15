@@ -29,6 +29,7 @@ import {
   SharedErrorComponentsModule,
   SharedErrorHandlerModule,
 } from '@biosimulations/shared/error-handler';
+import { AngularAnalyticsModule } from '@biosimulations/angular-analytics';
 
 const routes: Routes = [
   {
@@ -96,6 +97,7 @@ routes.forEach((route: Route): void => {
     }),
     HighlightModule,
     PwaModule,
+    AngularAnalyticsModule.forRoot(config.appName, config.analyticsId),
   ],
   providers: [
     { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },
