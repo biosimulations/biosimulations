@@ -1,5 +1,6 @@
 from ...exceptions import BadRequestException
 from ...utils import get_temp_file, make_validation_report
+from biosimulators_utils.config import Config
 from biosimulators_utils.sedml.data_model import ModelLanguage
 from biosimulators_utils.sedml.validation import validate_model_with_language
 import requests
@@ -84,5 +85,8 @@ def handler(body, file=None):
             file.write(response.content)
 
     # validate model
-    errors, warnings, _ = validate_model_with_language(model_filename, model_language)
+    config = Config(
+        VALIDATE_IMPORTED_MODEL_FILES=False,
+    )
+    errors, warnings, _ = validate_model_with_language(model_filename, model_language, config=config)
     return make_validation_report(errors, warnings, filenames=[model_filename])
