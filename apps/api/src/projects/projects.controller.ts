@@ -61,7 +61,7 @@ export class ProjectsController {
 
   @Get('summary')
   @ApiOperation({
-    summary: 'Get a summary of each published projects',
+    summary: 'Get a summary of each published project',
     description: 'Get a list of summaries of each published project',
   })
   @ApiOkResponse({
