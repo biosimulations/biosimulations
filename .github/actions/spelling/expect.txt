@@ -11,6 +11,7 @@ Apy
 architected
 argparse
 artgoldberg
+ASimulator
 ASinan
 Aur
 aurelien
@@ -42,6 +43,7 @@ bqmodel
 brightgreen
 broyden
 bshaikh
+BSimulation
 builtoncement
 Cannistra
 cbmpy
@@ -122,6 +124,7 @@ Fmodel
 foaf
 fontawesome
 FSBO
+Fsubmit
 FVA
 Fwww
 Galdzicki
