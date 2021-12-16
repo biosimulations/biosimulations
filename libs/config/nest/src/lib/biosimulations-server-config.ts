@@ -1,5 +1,5 @@
 import { registerAs } from '@nestjs/config';
-import { urls, appName } from '@biosimulations/config/common';
+import { appName } from '@biosimulations/config/common';
 
 export default registerAs('server', () => {
   // What is the environment?
@@ -8,7 +8,7 @@ export default registerAs('server', () => {
   // The name of the running app
   const app: appName = (process.env.APP as appName) || 'platformApi';
 
-  const host = process.env.HOST || urls[app];
+  const host = process.env.HOST;
 
   const port = process.env.SERVER_PORT
     ? parseInt(process.env.SERVER_PORT)
