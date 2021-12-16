@@ -170,6 +170,26 @@
         "logo": "https://static.biosimulations.org/biosimulators-logo/logo-github.png"
       }
     </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-G3CVBC0V5N"
+    ></script>
+
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+
+      gtag('js', new Date());
+
+      // This should not be changed!! The analytics service will enable analytics only once it is consented by the user. Import the analytics module into the app.
+      gtag('consent', 'default', {
+        analytics_storage: 'denied',
+        advertising_storage: 'denied',
+      });
+    </script>
     <meta
       name="description"
       content="Registry of containerized biosimulation tools with consistent command-line interfaces that enhance the reproducibility and reusability of biomodels."
