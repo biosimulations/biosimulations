@@ -228,10 +228,7 @@ export class SliderComponent extends Utilities implements OnInit, OnChanges {
   }
 
   /*Method to set current selected values */
-  private updateCurrentValue(
-    arrayValue: number[],
-    privateChange = false,
-  ) {
+  private updateCurrentValue(arrayValue: number[], privateChange = false) {
     this.minSelected = this.currentValues[0] = arrayValue[0];
     this.maxSelected = this.currentValues[1] = arrayValue[1];
     if (!privateChange) {

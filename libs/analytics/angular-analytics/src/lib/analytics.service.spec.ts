@@ -35,12 +35,12 @@ describe('AnalyticsService', () => {
         Storage,
         {
           provide: APP_NAME_TOKEN,
-          useValue: "testApp"
+          useValue: 'testApp',
         },
         {
           provide: ANALYTICS_ID_TOKEN,
-          useValue: "G-1234567891"
-        }
+          useValue: 'G-1234567891',
+        },
       ],
     });
     service = TestBed.inject(AnalyticsService);
