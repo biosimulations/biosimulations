@@ -538,7 +538,7 @@ Below are the licenses of the dependencies of BioSimulations and BioSimulators, 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/connect/node_modules/@types/node/LICENSE
-├─ @types/node@16.11.13
+├─ @types/node@16.11.14
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/node/LICENSE
