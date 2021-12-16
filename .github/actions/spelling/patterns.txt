@@ -1,5 +1,10 @@
 # See https://github.com/check-spelling/check-spelling/wiki/Configuration-Examples:-patterns
 
+# marker to ignore all code on line
+^.*\*#no-spell-check-line\*.*$
+# marker for ignoring a comment to the end of the line
+/#no-spell-check.*$
+
 # ignore long runs of a single character:
 \b([A-Za-z])\g{-1}{3,}\b
 
@@ -12,8 +17,3 @@ https?://(?:(?:www\.|)youtube\.com|youtu.be)/(?:channel/|embed/|playlist\?list=|
 /docs\.google\.com/[a-z]+/d/(?:e/|)[0-9a-zA-Z_-]+/?
 # Google Drive
 \bdrive\.google\.com/file/d/[0-9a-zA-Z_?=]*
-
-# marker to ignore all code on line
-^.*/\* #no-spell-check-line \*/.*$
-# marker for ignoring a comment to the end of the line
-// #no-spell-check.*$

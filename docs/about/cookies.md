@@ -17,7 +17,7 @@ BioSimulations and BioSimulations.org use cookies to improve your experience on 
 
 ## What types of cookies do we use?
 
-For an overview of the types of cookies, see [allaboutcookies.org](https://allaboutcookies.org) or [gdpr.eu/cookies](https://gdr.eu/cookies).
+For an overview of the types of cookies, see [allaboutcookies.org](https://allaboutcookies.org) or [gdpr.eu/cookies](https://gdpr.eu/cookies).
 
 All of the cookies that we use are first-party cookies. This means that no cookies are shared with third parties or external companies. 
 
@@ -47,19 +47,21 @@ Currently, we use the following cookies and alternative-storage methods:
 These cookies are used to collect data that allows us to improve the performance of our website.
 
 !!!note
-    These cookies may have additional characters appended to the end of the name. For example, ```biosim_analytics_ga``` may have the name ```biosim_analytics_ga_G3CVBC0V5N```
+    These cookies may have additional characters appended to the end of the name. For example,
+    <!-- * #no-spell-check* -->```biosim_analytics_ga``` may have the name ```biosim_analytics_ga_G3CVBC0V5N```
 
 Currently, we use the following cookies:
 
 - ```biosim_analytics_ga```: This cookie allows us to distinguish between users who are new to our website and users who have visited before. This helps us to keep accurate metrics about our website performance.
 
-- ```biosim_analytics_la``` This cookie is used to determine how users interact wth our website. For example, which links users follow to navigate to different sections of our website. This allows us to make improvements that are responsive to users' needs.
+- ```biosim_analytics_la``` This cookie is used to determine how users interact with our website. For example, which links users follow to navigate to different sections of our website. This allows us to make improvements that are responsive to users' needs.
 
-These cookies are used to gather information that is sent to Google Analytics. For more information, see [Google Analytics](https://developers.google.com/analytics/devguides/collection/gtagjs/cookie-usage). No personal information is collected or sent to Google Analytics.
+These cookies are used to gather information that is sent to Google Analytics. For more information, see <!-- * #no-spell-check* --> [Google Analytics](https://developers.google.com/analytics/devguides/collection/gtagjs/cookie-usage). 
+No personal information is collected or sent to Google Analytics.
 
 ### Functional cookies
 
-These cookies are used to support additonal, non-essential functionality that provides users with a more personalized and pleasant experience.
+These cookies are used to support additional, non-essential functionality that provides users with a more personalized and pleasant experience.
 
 Currently, we are not using any functional cookies.
 
