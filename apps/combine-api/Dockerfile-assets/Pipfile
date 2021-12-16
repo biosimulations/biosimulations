@@ -45,7 +45,7 @@ cython = "<3" # to avoid prelease
 # assimulo = {version = ">=3.2.8", ref = "Assimulo-3.2.8", git = "https://github.com/modelon-community/Assimulo.git"} # commented out because pipenv can't install assimulo; see https://github.com/pypa/pipenv/issues/4768
 biosimulators-pysces = ">=0.1.25"
 # pyNeuroML
-biosimulators-pyneuroml = {version = ">=0.0.14", extras = ["brian2", "netpyne", "neuron"]}
+biosimulators-pyneuroml = {version = ">=0.0.15", extras = ["brian2", "netpyne", "neuron"]}
 # RBApy
 rbapy = {version = ">=1.0.2", git = "https://github.com/biosimulators/RBApy.git"}
 biosimulators-rbapy = ">=0.0.4"

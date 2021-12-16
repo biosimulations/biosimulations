@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "f556bbebd5b7f9799125c61de78213bea01946d5930b3778e3c6af22f0151d2e"
+            "sha256": "644da16e1574cc0e43a5d0bbb9eed35ae5d1474100d1148a3f181516b27c3dfc"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -248,11 +248,11 @@
                 "neuron"
             ],
             "hashes": [
-                "sha256:33e7270d1496f511c64cc3ab2cfce4bfc26c7714ace7b1b073a3eae7866e16ae",
-                "sha256:5bb2ebf018ba0e2807d42575689dbf5100c4f068fc7d6a5adad4973da7d64b05"
+                "sha256:46ba8afce073a3d7db674f35d3d3a9b260e4399cdb373a0722d42e786808d660",
+                "sha256:495b6a7ca2c3e694336b1094eb299dca829f6b111423372ad5122fcba0c6ac86"
             ],
             "index": "pypi",
-            "version": "==0.0.14"
+            "version": "==0.0.15"
         },
         "biosimulators-pysces": {
             "hashes": [
@@ -391,7 +391,7 @@
                 "sha256:1ef33f089e0a494e8d1b487508356f055c865b1955b125c00c991a4358543c80",
                 "sha256:8eca49962b1bfc09c24d442aa55688be88efe5c24aeef89d3be135614b95c678"
             ],
-            "markers": "python_version >= '3.7' and python_version < '4.0'",
+            "markers": "python_version >= '3.7' and python_full_version < '4.0.0'",
             "version": "==1.9.0"
         },
         "cbmpy": {
@@ -1617,7 +1617,7 @@
                 "sha256:d20023bbeb42ee6d428a0fac6e0904631f545985a10cdd71a20aa58bc47a4209",
                 "sha256:deb4163ef11f75b520d822d9505c1f462761b4309b1bb713d08689759ea8b899"
             ],
-            "markers": "python_version >= '3.3' and python_version < '4.0'",
+            "markers": "python_version >= '3.3' and python_full_version < '4.0.0'",
             "version": "==1.5.5"
         },
         "platformdirs": {
@@ -1792,10 +1792,10 @@
         },
         "pyneuroml": {
             "hashes": [
-                "sha256:16e43538e9ab8ae0d3ffd39fa6fb195ae341392cfad83a6786b97490363071a9",
-                "sha256:49588e1b8b93681c12db6df96ef8f00760344e4368b48704376aaaa0654b4d40"
+                "sha256:1507517b3fd1381db7a5ad1c328f9d2836214107ef47c165ce8fdb52f490be1a",
+                "sha256:15fe9fa2039b217d619c03681d5a67cda24b33aabb99b7bb20efe75c121f5c54"
             ],
-            "version": "==0.5.19"
+            "version": "==0.5.18"
         },
         "pyomexmeta": {
             "hashes": [
@@ -2198,7 +2198,7 @@
                 "sha256:8b9d3066eba79801a9d56021e7637d3f4f8860cebc4986c326646e359424ca8f",
                 "sha256:ec8ffb747799fc12e843cc4fb6db3f3c36bc66388bc247d66c67eeeda9eeb345"
             ],
-            "markers": "python_version >= '3.7' and python_version < '4.0'",
+            "markers": "python_version >= '3.7' and python_full_version < '4.0.0'",
             "version": "==0.9.0.dev3"
         },
         "rfc3986": {
@@ -2216,7 +2216,7 @@
                 "sha256:4949e73de321784ef6664ebbc854ac82b20ff60b2865097b93f3b9b41e30da27",
                 "sha256:bbe04dd6ac09e4b00d22cb1051aa127beaf6e16c3d8687b026e96d3fca6aad52"
             ],
-            "markers": "python_version < '4.0' and python_full_version >= '3.6.2'",
+            "markers": "python_full_version >= '3.6.2' and python_full_version < '4.0.0'",
             "version": "==10.16.1"
         },
         "rpy2": {
@@ -2669,7 +2669,7 @@
                 "sha256:4987c65554f7a2dbf30c18fd48778ef124af6fab771a377103da0585e2336ece",
                 "sha256:c4fdf4019605b6e5423637e01bc9fe4daef873709a7973e195ceba0a62bbc844"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4.0'",
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_full_version < '4.0.0'",
             "version": "==1.26.7"
         },
         "validators": {
@@ -3106,7 +3106,7 @@
                 "sha256:4987c65554f7a2dbf30c18fd48778ef124af6fab771a377103da0585e2336ece",
                 "sha256:c4fdf4019605b6e5423637e01bc9fe4daef873709a7973e195ceba0a62bbc844"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4.0'",
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_full_version < '4.0.0'",
             "version": "==1.26.7"
         },
         "werkzeug": {
