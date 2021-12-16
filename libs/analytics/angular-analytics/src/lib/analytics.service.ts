@@ -12,6 +12,13 @@ import { ANALYTICS_ID_TOKEN, Consent } from './datamodel';
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 declare let gtag: Function;
+declare global {
+  interface Window {
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    gtag: typeof gtag;
+    dataLayer: any[];
+  }
+}
 @Injectable({
   providedIn: 'root',
 })
@@ -32,7 +39,30 @@ export class AnalyticsService {
 
     // This should be first so we don't store any cookies until/unless we get consent
     this.consentService.consent$.pipe().subscribe((consent: Consent) => {
+      // Basic set up of google analytics, but needs to have the above declarations for typescript to be happy
+
+      const s = document.createElement('script');
+      s.setAttribute(
+        'src',
+        `https://www.googletagmanager.com/gtag/js?id=${this.analyticsId}`,
+      );
+      s.async = true;
+      document.head.appendChild(s);
+
+      window.dataLayer = window.dataLayer || [];
+
+      // This must not be changes to an arrow function bc arrow functions do not have "arguments"
+      window.gtag = function () {
+        // eslint-disable-next-line prefer-rest-params
+        window.dataLayer.push(arguments);
+      };
+
+      // init google analytics
+      gtag('js', new Date());
+
+      // make sure consent is first. This should be the first call made to "gtag" function (after init above)
       gtag('consent', 'update', consent);
+
       // Disable all advertising/tracking
       gtag('set', 'allow_google_signals', false);
 
