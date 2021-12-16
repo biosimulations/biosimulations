@@ -14,7 +14,7 @@ export default registerAs('server', () => {
     ? parseInt(process.env.SERVER_PORT)
     : undefined;
 
-  const limit = process.env.SERVER_PAYLOAD_LIMIT;
+  const limit = process.env.SERVER_PAYLOAD_LIMIT || '50mb';
   const config = {
     env,
     app,
