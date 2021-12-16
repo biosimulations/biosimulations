@@ -73,7 +73,7 @@ export class ResultsService {
         const datasetAttrs = outputResult.dataset.attributes;
         const error = outputResult?.error;
         errorDetails.push(
-          `${datasetAttrs._type} '${datasetAttrs.uri} of simulation run '${runId}' could not be parsed: ${error?.response?.status}: ${error?.response?.data?.detail}.`,
+          `${datasetAttrs._type} '${datasetAttrs.uri} of simulation run '${runId}' could not be parsed: ${error?.response?.status}: ${error?.response?.data?.detail || error?.response?.statusText}.`,
         );
         errorSummaries.push(
           `${datasetAttrs._type} '${datasetAttrs.uri} of simulation run '${runId}' could not be parsed.`,

@@ -590,8 +590,9 @@ export class SimulationRunService {
       const summaries: string[] = [];
       failures.forEach(
         (runSummaryResult: PromiseResult<SimulationRunSummary>) => {
+          const error = runSummaryResult?.error; 
           details.push(
-            `A summary of run '${runSummaryResult.id}' could not be retrieved: ${runSummaryResult?.error?.response?.status}: ${runSummaryResult?.error?.response?.data?.detail}.`,
+            `A summary of run '${runSummaryResult.id}' could not be retrieved: ${error?.response?.status}: ${error?.response?.data?.detail || error?.response?.statusText}.`,
           );
           summaries.push(runSummaryResult.id as string);
         },
@@ -683,8 +684,9 @@ export class SimulationRunService {
       settledResults[4];
 
     if (!runSettledResult.succeeded) {
+      const error = runSettledResult?.error;
       this.logger.error(
-        `Simulation run with id '${id}' could not be found: ${runSettledResult?.error?.response?.status}: ${runSettledResult?.error?.response?.data?.detail}.`,
+        `Simulation run with id '${id}' could not be found: ${error?.response?.status}: ${error?.response?.data?.detail || error?.response?.statusText}.`,
       );
       throw new NotFoundException(
         `Simulation run with id '${id}' could not be found.`,
@@ -892,8 +894,9 @@ export class SimulationRunService {
       const summaries: string[] = [];
 
       if (!filesResult.succeeded) {
+        const error = filesResult?.error;
         details.push(
-          `The files for simulation run '${id}' could not be retrieved: ${filesResult?.error?.response?.status}: ${filesResult?.error?.response?.data?.detail}.`,
+          `The files for simulation run '${id}' could not be retrieved: ${error?.response?.status}: ${error?.response?.data?.detail || error?.response?.statusText}.`,
         );
         summaries.push(
           `The files for simulation run '${id}' could not be retrieved.`,
@@ -901,8 +904,9 @@ export class SimulationRunService {
       }
 
       if (!simulationExptsResult.succeeded) {
+        const error = simulationExptsResult?.error;
         details.push(
-          `The simulation experiments for simulation run '${id}' could not be retrieved: ${simulationExptsResult?.error?.response?.status}: ${simulationExptsResult?.error?.response?.data?.detail}.`,
+          `The simulation experiments for simulation run '${id}' could not be retrieved: ${error?.response?.status}: ${error?.response?.data?.detail || error?.response?.statusText}.`,
         );
         summaries.push(
           `The simulation experiments for simulation run '${id}' could not be retrieved.`,
@@ -910,8 +914,9 @@ export class SimulationRunService {
       }
 
       if (!logResult.succeeded) {
+        const error = logResult?.error;
         details.push(
-          `The log for simulation run '${id}' could not be retrieved: ${logResult?.error?.response?.status}: ${logResult?.error?.response?.data?.detail}.`,
+          `The log for simulation run '${id}' could not be retrieved: ${error?.response?.status}: ${error?.response?.data?.detail || error?.response?.statusText}.`,
         );
         summaries.push(
           `The log for simulation run '${id}' could not be retrieved.`,
@@ -963,8 +968,9 @@ export class SimulationRunService {
         modified: summaryRawMetadatum.modified?.[0] || undefined,
       };
     } else if (raiseErrors) {
+      const error = rawMetadataResult?.error;
       this.logger.error(
-        `The metadata for simulation run '${id}' could not be retrieved: ${rawMetadataResult?.error?.response?.status}: ${rawMetadataResult?.error?.response?.data?.detail}.`,
+        `The metadata for simulation run '${id}' could not be retrieved: ${error?.response?.status}: ${error?.response?.data?.detail || error?.response?.statusText}.`,
       );
       throw new InternalServerErrorException(
         `The metadata for simulation run '${id}' could not be retrieved.`,
@@ -1127,8 +1133,9 @@ export class SimulationRunService {
       let checkIsValid!: boolean;
 
       if (!result.succeeded) {
+        const error = result?.error;
         errorDetails.push(
-          `${check.errorMessage}: ${result?.error?.response?.status}: ${result?.error?.response?.data?.detail}`,
+          `${check.errorMessage}: ${error?.response?.status}: ${error?.response?.data?.detail || error?.response?.statusText}`,
         );
         errorSummaries.push(check.errorMessage);
       } else if (result.value === undefined) {
