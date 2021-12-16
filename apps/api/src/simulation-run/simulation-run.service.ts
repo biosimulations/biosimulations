@@ -590,7 +590,7 @@ export class SimulationRunService {
       const summaries: string[] = [];
       failures.forEach(
         (runSummaryResult: PromiseResult<SimulationRunSummary>) => {
-          const error = runSummaryResult?.error; 
+          const error = runSummaryResult?.error;
           details.push(
             `A summary of run '${runSummaryResult.id}' could not be retrieved: ${error?.response?.status}: ${error?.response?.data?.detail || error?.response?.statusText}.`,
           );
