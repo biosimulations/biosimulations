@@ -1,5 +1,13 @@
 Changelog
 
+## [8.2.1](https://github.com/biosimulations/biosimulations/compare/v8.2.0...v8.2.1) (2021-12-16)
+
+
+### Bug Fixes
+
+* add gtag snippet to dispatch and simulators ([f1b6332](https://github.com/biosimulations/biosimulations/commit/f1b633298b064a3a9d6ce8bdc404fd815ead5a5c))
+* **config:** add default server limit to config ([496b430](https://github.com/biosimulations/biosimulations/commit/496b430efd96e7d2b13b102ea8f7ef9d25b8e35a)), closes [#3828](https://github.com/biosimulations/biosimulations/issues/3828)
+
 # [8.2.0](https://github.com/biosimulations/biosimulations/compare/v8.1.0...v8.2.0) (2021-12-16)
 
 
