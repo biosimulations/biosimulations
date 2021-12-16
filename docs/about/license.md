@@ -549,10 +549,6 @@ Below are the licenses of the dependencies of BioSimulations and BioSimulators, 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: nkeys.js/node_modules/@types/node/LICENSE
-├─ @types/node@16.11.1
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
-│  └─ licenseFile: @types/connect/node_modules/@types/node/LICENSE
 ├─ @types/node@16.11.14
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -3744,7 +3740,7 @@ Below are the licenses of the dependencies of BioSimulations and BioSimulators, 
 │  ├─ publisher: Sindre Sorhus
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
-│  └─ licenseFile: @semantic-release/github/node_modules/p-retry/license
+│  └─ licenseFile: p-retry/license
 ├─ p-timeout@3.2.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/p-timeout
