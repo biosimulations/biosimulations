@@ -1,5 +1,20 @@
 Changelog
 
+# [8.1.0](https://github.com/biosimulations/biosimulations/compare/v8.0.0...v8.1.0) (2021-12-16)
+
+
+### Bug Fixes
+
+* fixed display of files in subdirectories ([ee62bbe](https://github.com/biosimulations/biosimulations/commit/ee62bbebf4cdeafcc3ec24f20a16bbc1178a0a82))
+* fixed file size extraction for empty files ([b3dce39](https://github.com/biosimulations/biosimulations/commit/b3dce39fc83d9d846d1e1a87e5435e9cdc5078b2))
+* fixed simulators view endpoint method ([e40f4cd](https://github.com/biosimulations/biosimulations/commit/e40f4cd29497f096d7341fd3c7b9c589b27f0093))
+* set minimum time step to 1 ([e92ffa5](https://github.com/biosimulations/biosimulations/commit/e92ffa5de8a163b7e844a8f47cdd55e02b2b3155))
+
+
+### Features
+
+* **combine-api:** added error messages for invalid S3 bucket configuration ([626a2f2](https://github.com/biosimulations/biosimulations/commit/626a2f2a6deadaaa71517a09c19451f975316ad0))
+
 # [8.0.0](https://github.com/biosimulations/biosimulations/compare/v7.0.0...v8.0.0) (2021-12-15)
 
 
