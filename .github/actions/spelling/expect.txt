@@ -129,6 +129,7 @@ FVA
 Fwww
 Galdzicki
 Garny
+gdpr
 geneontology
 Gennari
 ghcr
