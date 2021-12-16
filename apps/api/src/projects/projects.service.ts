@@ -229,7 +229,9 @@ export class ProjectsService implements OnModuleInit {
           return `Project ${settledResult.id}: ${
             error?.isAxiosError ? error?.response?.status : error?.status
           }: ${
-            error?.isAxiosError ? error?.response?.data?.detail || error?.response?.statusText : error?.message
+            error?.isAxiosError
+              ? error?.response?.data?.detail || error?.response?.statusText
+              : error?.message
           }`;
         },
       );
