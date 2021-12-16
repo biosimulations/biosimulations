@@ -1,5 +1,19 @@
 Changelog
 
+# [8.2.0](https://github.com/biosimulations/biosimulations/compare/v8.1.0...v8.2.0) (2021-12-16)
+
+
+### Bug Fixes
+
+* fixed log validation ([86fc30d](https://github.com/biosimulations/biosimulations/commit/86fc30d388cf1ee170952be7efabdbd5bc5faca7))
+
+
+### Features
+
+* add angular analytics package ([3363f7b](https://github.com/biosimulations/biosimulations/commit/3363f7bcae10fcc07383e36c617bb960b054f380))
+* added implementation of analytics and user consent ([2d87bb1](https://github.com/biosimulations/biosimulations/commit/2d87bb16abe21c9af02f402e3cfdb9265b3605e6))
+* **dispatch,platform,simulators:** add cookie consent and privacy settings to frontend apps ([e84cdea](https://github.com/biosimulations/biosimulations/commit/e84cdeaa8a230a068afbb490dc33a796a441cc59))
+
 # [8.1.0](https://github.com/biosimulations/biosimulations/compare/v8.0.0...v8.1.0) (2021-12-16)
 
 
