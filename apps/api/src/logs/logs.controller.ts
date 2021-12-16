@@ -69,6 +69,34 @@ export class LogsController {
   }
   */
 
+  @Post('validate')
+  @ApiOperation({
+    summary: 'Validate a log for a simulation run',
+    description: 'Validate a log for a simulation run',
+  })
+  @ApiBody({
+    description: 'Log for a simulation run',
+    type: CombineArchiveLog,
+  })
+  @ApiPayloadTooLargeResponse({
+    type: ErrorResponseDocument,
+    description:
+      'The submitted log is too large. Logs must be less than the server limit.',
+  })
+  @ApiBadRequestResponse({
+    type: ErrorResponseDocument,
+    description:
+      'The log for the simulation run is invalid. See https://docs.biosimulations.org/concepts/conventions/ and https://api.biosimulations.org for examples and documentation.',
+  })
+  @ApiNoContentResponse({
+    description: 'The log is valid',
+  })
+  @HttpCode(HttpStatus.NO_CONTENT)
+  public async validateLog(@Body() doc: CombineArchiveLog): Promise<void> {
+    await this.service.validateLog(doc);
+    return;
+  }
+
   @ApiOperation({
     summary: 'Get the log a simulation run',
     description: 'Get the log a simulation run',
@@ -266,34 +294,6 @@ export class LogsController {
     @Body() body: CombineArchiveLog,
   ): Promise<void> {
     await this.service.replaceLog(runId, body);
-    return;
-  }
-
-  @Post('validate')
-  @ApiOperation({
-    summary: 'Validate a log for a simulation run',
-    description: 'Validate a log for a simulation run',
-  })
-  @ApiBody({
-    description: 'Log for a simulation run',
-    type: CombineArchiveLog,
-  })
-  @ApiPayloadTooLargeResponse({
-    type: ErrorResponseDocument,
-    description:
-      'The submitted log is too large. Logs must be less than the server limit.',
-  })
-  @ApiBadRequestResponse({
-    type: ErrorResponseDocument,
-    description:
-      'The log for the simulation run is invalid. See https://docs.biosimulations.org/concepts/conventions/ and https://api.biosimulations.org for examples and documentation.',
-  })
-  @ApiNoContentResponse({
-    description: 'The log is valid',
-  })
-  @HttpCode(HttpStatus.NO_CONTENT)
-  public async validateLog(@Body() doc: CombineArchiveLog): Promise<void> {
-    await this.service.validateLog(doc);
     return;
   }
 }
