@@ -2,6 +2,7 @@ abulovic
 ADeepa
 agarny
 Akhil
+allaboutcookies
 allcontributors
 analogmachine
 annazhukova
@@ -31,6 +32,7 @@ BIOMD
 biomodeling
 biomodels
 bionetgen
+biosim
 biosimulation
 biosimulator
 biosystems
@@ -66,6 +68,7 @@ collex
 combinearchive
 combineomex
 commitizen
+compat
 config
 conventionalcommits
 copasi
@@ -76,6 +79,7 @@ crbm
 creativecommons
 crossref
 csv
+CVBC
 cvode
 datas
 dcmi
@@ -83,6 +87,7 @@ dcterms
 Deepa
 deserializing
 Deuflhard
+devguides
 diagramatic
 dirname
 DLenbury
@@ -149,6 +154,7 @@ goldberg
 google
 grantome
 gravatar
+gtagjs
 Gua
 gurobi
 hdf
