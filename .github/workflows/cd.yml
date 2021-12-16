@@ -198,7 +198,7 @@ jobs:
         env:
           GHCR_USERNAME: "${{ secrets.GHCR_USERNAME }}"
           GHCR_TOKEN: "${{ secrets.GHCR_TOKEN }}"
-          BRANCH: ${{ secrets.NAME }}
+          BRANCH: ${{ secrets.OVERLAY }}
 
         run: |
           git_sha=$(git rev-parse --short "$GITHUB_SHA")
