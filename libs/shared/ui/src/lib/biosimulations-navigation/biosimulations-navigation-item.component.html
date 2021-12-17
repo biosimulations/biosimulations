@@ -13,7 +13,7 @@
     [expandedHeight]="'48px'"
   >
     <mat-panel-title>
-      <a [href]="href" target="_blank" *ngIf="href; else plain">
+      <a [href]="href" rel="noopener" target="_blank" *ngIf="href; else plain">
         <biosimulations-icon [icon]="icon"></biosimulations-icon>
         {{ heading }}
       </a>

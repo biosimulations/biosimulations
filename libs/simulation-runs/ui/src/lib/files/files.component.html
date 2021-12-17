@@ -31,6 +31,7 @@
         </div>
         <a
           [href]="path.url"
+          rel="noopener"
           target="_blank"
           *ngIf="path.url"
           [download]="path.basename"
@@ -38,9 +39,13 @@
         >
       </div>
       <div class="cell format" [class.main-file]="path.master">
-        <a [href]="path.formatUrl" target="_blank" *ngIf="path.formatUrl">{{
-          path.format
-        }}</a>
+        <a
+          [href]="path.formatUrl"
+          rel="noopener"
+          target="_blank"
+          *ngIf="path.formatUrl"
+          >{{ path.format }}</a
+        >
       </div>
       <div class="cell main" [class.main-file]="path.master">
         {{ path.master ? '&#10003;' : '' }}

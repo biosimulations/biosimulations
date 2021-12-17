@@ -45,6 +45,7 @@
               <a
                 *ngIf="row.columns[column.id]?.centerHref as href; else noHref"
                 [href]="isObservable(href) ? (href | async) : href"
+                rel="noopener"
                 target="_blank"
               >
                 <ng-container *ngTemplateOutlet="centerTemplate"></ng-container>
@@ -116,6 +117,7 @@
               <a
                 *ngIf="row.columns[column.id]?.rightHref as href; else noHref"
                 [href]="isObservable(href) ? (href | async) : href"
+                rel="noopener"
                 target="_blank"
               >
                 <ng-container

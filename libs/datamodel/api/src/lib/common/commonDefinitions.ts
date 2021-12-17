@@ -236,7 +236,7 @@ export const LOCATION_PREDECESSORS = {
   description: 'Predecessors of individual files of the project',
   externalDocs: {
     description: 'Biomodels Model Qualifiers isDerivedFrom',
-    url: 'http://biomodels.net/model-qualifiers/isDerivedFrom',
+    url: 'https://biomodels.net/model-qualifiers/isDerivedFrom',
   },
   example: [
     {

@@ -36,7 +36,12 @@
       >
         <li *ngFor="let creator of project.creators">
           {{ creator.label }}{{ creator.uri ? ' ' : ''
-          }}<a [href]="creator.uri" target="_blank" *ngIf="creator.uri">
+          }}<a
+            [href]="creator.uri"
+            rel="noopener"
+            target="_blank"
+            *ngIf="creator.uri"
+          >
             <biosimulations-icon [icon]="creator.icon"></biosimulations-icon>
           </a>
         </li>
@@ -61,6 +66,7 @@
               <a
                 *ngIf="value.uri?.isUrl; else noUrl"
                 [href]="value.uri?.value"
+                rel="noopener"
                 target="_blank"
                 >{{ value.label || value.uri?.value }}</a
               >
@@ -93,6 +99,7 @@
             <b>{{ item.title }}:</b>{{ ' ' }}
             <a
               [href]="item.url"
+              rel="noopener"
               target="_blank"
               *ngIf="item.url; else noHref"
               >{{ item.value }}</a

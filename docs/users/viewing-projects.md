@@ -95,7 +95,7 @@ BioSimulations provides basic capabilities for reproducing and reusing a wide ra
 <div class="logos-row">
     <a
     href="https://cellcollective.org/"
-    target="_blank"
+    rel="noopener" target="_blank"
     title="Cell Collective"
     >
     <img
@@ -104,25 +104,25 @@ BioSimulations provides basic capabilities for reproducing and reusing a wide ra
     />
     </a>
 
-    <a href="https://fluxer.umbc.edu/" target="_blank" title="Fluxer">
+    <a href="https://fluxer.umbc.edu/" rel="noopener" target="_blank" title="Fluxer">
     <img class="zoom" src="/assets/images/about/partners/fluxer.svg" />
     </a>
 
     <a
     href="https://jjj.biochem.sun.ac.za/"
-    target="_blank"
+    rel="noopener" target="_blank"
     title="JWS Online"
     >
     <img class="zoom" src="/assets/images/about/partners/jws.svg" />
     </a>
 
-    <a href="https://stochss.org/" target="_blank" title="StochSS">
+    <a href="https://stochss.org/" rel="noopener" target="_blank" title="StochSS">
     <img class="zoom" src="/assets/images/about/partners/stochss.svg" />
     </a>
 
     <a
     href="https://vivarium-collective.github.io"
-    target="_blank"
+    rel="noopener" target="_blank"
     title="Vivarium"
     >
     <img class="zoom" src="/assets/images/about/partners/vivarium.svg" />

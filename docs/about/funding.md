@@ -4,16 +4,16 @@ BioSimulations and BioSimulators were developed with support from the [Center fo
 
 <div class="logos">
     <div class="logos-row">
-        <a href="https://nih.gov" target="_blank" title="NIH">
+        <a href="https://nih.gov" rel="noopener" target="_blank" title="NIH">
             <img class="zoom" src="/assets/images/about/funding/nih.svg" />
         </a>
-        <a href="https://nibib.nih.gov" target="_blank" title="NIBIB">
+        <a href="https://nibib.nih.gov" rel="noopener" target="_blank" title="NIBIB">
             <img class="zoom" src="/assets/images/about/funding/nibib.svg" />
         </a>
-        <a href="https://nigms.nih.gov" target="_blank" title="NIGMS">
+        <a href="https://nigms.nih.gov" rel="noopener" target="_blank" title="NIGMS">
             <img class="zoom" src="/assets/images/about/funding/nigms.svg" />
         </a>
-        <a href="https://nsf.gov" target="_blank" title="NSF">
+        <a href="https://nsf.gov" rel="noopener" target="_blank" title="NSF">
             <img class="zoom" src="/assets/images/about/funding/nsf.svg" />
         </a>
     </div>

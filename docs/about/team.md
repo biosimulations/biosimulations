@@ -6,7 +6,7 @@ BioSimulations and BioSimulators were developed by the [Center for Reproducible 
     <div class="logos-row">
         <a
         href="https://reproduciblebiomodels.org/"
-        target="_blank"
+        rel="noopener" target="_blank"
         title="Center for Reproducible Biomedical Modeling"
         >
             <img class="zoom" src="/assets/images/about/team/crbm.svg" />
@@ -14,7 +14,7 @@ BioSimulations and BioSimulators were developed by the [Center for Reproducible 
 
         <a
             href="https://www.karrlab.org/"
-            target="_blank"
+            rel="noopener" target="_blank"
             title="Center for Reproducible Biomedical Modeling"
         >
             <img class="zoom" src="/assets/images/about/team/karr-lab.svg" />
@@ -22,7 +22,7 @@ BioSimulations and BioSimulators were developed by the [Center for Reproducible 
 
         <a
             href="https://icahn.mssm.edu"
-            target="_blank"
+            rel="noopener" target="_blank"
             title="Icahn School of Medicine at Mount Sinai"
         >
             <img class="zoom" src="/assets/images/about/team/sinai.svg" />
@@ -30,7 +30,7 @@ BioSimulations and BioSimulators were developed by the [Center for Reproducible 
 
         <a
             href="https://health.uconn.edu/"
-            target="_blank"
+            rel="noopener" target="_blank"
             title="UConn Health"
         >
             <img class="zoom" src="/assets/images/about/team/uconn.svg" />
@@ -38,7 +38,7 @@ BioSimulations and BioSimulators were developed by the [Center for Reproducible 
 
         <a
             href="https://uw.edu"
-            target="_blank"
+            rel="noopener" target="_blank"
             title="University of Washington"
         >
             <img class="zoom" src="/assets/images/about/team/uw.svg" />

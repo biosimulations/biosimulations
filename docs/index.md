@@ -21,72 +21,72 @@ The BioSimulators platform supports all modeling frameworks, model formats, simu
 
 <div class="logos">
 <div class="logos-row">
-    <a href="https://www.bionetgen.org" target="_blank" title="BNGL">
+    <a href="https://www.bionetgen.org" rel="noopener" target="_blank" title="BNGL">
     <img
         class="zoom"
         src="/assets/images/about/partners/bionetgen.png"
     />
     </a>
 
-    <a href="https://www.cellml.org/" target="_blank" title="CellML">
+    <a href="https://www.cellml.org/" rel="noopener" target="_blank" title="CellML">
     <img class="zoom" src="/assets/images/about/partners/cellml.svg" />
     </a>
 
-    <a href="http://ginsim.org/" target="_blank" title="GINsim">
+    <a href="http://ginsim.org/" rel="noopener" target="_blank" title="GINsim">
     <img class="zoom" src="/assets/images/about/partners/ginsim.svg" />
     </a>
 
-    <a href="https://neuroml.org/" target="_blank" title="NeuroML">
+    <a href="https://neuroml.org/" rel="noopener" target="_blank" title="NeuroML">
     <img class="zoom" src="/assets/images/about/partners/neuroml.svg" />
     </a>
 
     <!--
-    <a href="http://www.pharmml.org/" target="_blank" title="pharmML">
+    <a href="http://www.pharmml.org/" rel="noopener" target="_blank" title="pharmML">
     <img class="zoom" src="/assets/images/about/partners/pharmml.svg" />
     </a>
     -->
 
-    <a href="https://rba.inrae.fr" target="_blank" title="RBA">
+    <a href="https://rba.inrae.fr" rel="noopener" target="_blank" title="RBA">
     <img class="zoom" src="/assets/images/about/partners/rba.png" />
     </a>
 
-    <a href="http://sbml.org" target="_blank" title="SBML">
+    <a href="http://sbml.org" rel="noopener" target="_blank" title="SBML">
     <img class="zoom" src="/assets/images/about/partners/sbml.svg" />
     </a>
 </div>
 
 <div class="logos-row">
-    <a href="http://www.ebi.ac.uk/sbo/" target="_blank" title="SBO">
+    <a href="http://www.ebi.ac.uk/sbo/" rel="noopener" target="_blank" title="SBO">
     <img class="zoom" src="/assets/images/about/partners/sbo.png" />
     </a>
 
-    <a href="https://sed-ml.org/" target="_blank" title="SED-ML">
+    <a href="https://sed-ml.org/" rel="noopener" target="_blank" title="SED-ML">
     <img class="zoom" src="/assets/images/about/partners/sed-ml.svg" />
     </a>
 
     <a
     href="http://co.mbine.org/standards/kisao"
-    target="_blank"
+    rel="noopener" target="_blank"
     title="KiSAO"
     >
     <img class="zoom" src="/assets/images/about/partners/kisao.svg" />
     </a>
 
-    <a href="https://escher.github.io/" target="_blank" title="Escher">
+    <a href="https://escher.github.io/" rel="noopener" target="_blank" title="Escher">
     <img class="zoom" src="/assets/images/about/partners/escher.svg" />
     </a>
 
-    <a href="https://sbgn.github.io/" target="_blank" title="SBGN">
+    <a href="https://sbgn.github.io/" rel="noopener" target="_blank" title="SBGN">
     <img class="zoom" src="/assets/images/about/partners/sbgn.png" />
     </a>
 
-    <a href="https://vega.github.io/vega/" target="_blank" title="Vega">
+    <a href="https://vega.github.io/vega/" rel="noopener" target="_blank" title="Vega">
     <img class="zoom" src="/assets/images/about/partners/vega.svg" />
     </a>
 
     <a
     href="https://co.mbine.org/standards/omex"
-    target="_blank"
+    rel="noopener" target="_blank"
     title="OMEX"
     >
     <img class="zoom" src="/assets/images/about/partners/omex.svg" />
@@ -96,13 +96,13 @@ The BioSimulators platform supports all modeling frameworks, model formats, simu
 <div class="logos-row">
     <a
     href="http://amici-dev.github.io/AMICI/"
-    target="_blank"
+    rel="noopener" target="_blank"
     title="AMICI"
     >
     <img class="zoom" src="/assets/images/about/partners/amici.svg" />
     </a>
 
-    <a href="https://bionetgen.org" target="_blank" title="BioNetGen">
+    <a href="https://bionetgen.org" rel="noopener" target="_blank" title="BioNetGen">
     <img
         class="zoom"
         src="/assets/images/about/partners/bionetgen.png"
@@ -112,7 +112,7 @@ The BioSimulators platform supports all modeling frameworks, model formats, simu
     <!--
     <a
     href="https://cayenne.readthedocs.io/"
-    target="_blank"
+    rel="noopener" target="_blank"
     title="Cayenne"
     >
     <img class="zoom" src="/assets/images/about/partners/cayenne.png" />
@@ -121,19 +121,19 @@ The BioSimulators platform supports all modeling frameworks, model formats, simu
 
     <a
     href="https://opencobra.github.io/cobrapy/"
-    target="_blank"
+    rel="noopener" target="_blank"
     title="COBRApy"
     >
     <img class="zoom" src="/assets/images/about/partners/cobrapy.svg" />
     </a>
 
-    <a href="http://copasi.org/" target="_blank" title="COPASI">
+    <a href="http://copasi.org/" rel="noopener" target="_blank" title="COPASI">
     <img class="zoom" src="/assets/images/about/partners/copasi.svg" />
     </a>
 
     <a
     href="https://gillespy2.github.io/GillesPy2/"
-    target="_blank"
+    rel="noopener" target="_blank"
     title="GillesPy2"
     >
     <img
@@ -145,7 +145,7 @@ The BioSimulators platform supports all modeling frameworks, model formats, simu
     <!--
     <a
     href="https://github.com/MyersResearchGroup/iBioSim"
-    target="_blank"
+    rel="noopener" target="_blank"
     title="iBioSim"
     >
     <img class="zoom" src="/assets/images/about/partners/ibiosim.svg" />
@@ -154,13 +154,13 @@ The BioSimulators platform supports all modeling frameworks, model formats, simu
 
     <a
     href="https://masspy.readthedocs.io/"
-    target="_blank"
+    rel="noopener" target="_blank"
     title="MASSpy"
     >
     <img class="zoom" src="/assets/images/about/partners/masspy.svg" />
     </a>
 
-    <a href="http://www.netpyne.org/" target="_blank" title="NetPyNe">
+    <a href="http://www.netpyne.org/" rel="noopener" target="_blank" title="NetPyNe">
     <img class="zoom" src="/assets/images/about/partners/netpyne.png" />
     </a>
 </div>
@@ -168,7 +168,7 @@ The BioSimulators platform supports all modeling frameworks, model formats, simu
 <div class="logos-row">
     <a
     href="https://sysbioinra.github.io/RBApy/"
-    target="_blank"
+    rel="noopener" target="_blank"
     title="RBApy"
     >
     <img class="zoom" src="/assets/images/about/partners/rbapy.svg" />
@@ -176,7 +176,7 @@ The BioSimulators platform supports all modeling frameworks, model formats, simu
 
     <a
     href="http://pysces.sourceforge.net/"
-    target="_blank"
+    rel="noopener" target="_blank"
     title="PySCeS"
     >
     <img class="zoom" src="/assets/images/about/partners/pysces.svg" />
@@ -184,7 +184,7 @@ The BioSimulators platform supports all modeling frameworks, model formats, simu
 
     <a
     href="http://tellurium.analogmachine.org/"
-    target="_blank"
+    rel="noopener" target="_blank"
     title="tellurium/libRoadRunner"
     >
     <img
@@ -193,7 +193,7 @@ The BioSimulators platform supports all modeling frameworks, model formats, simu
     />
     </a>
 
-    <a href="https://vcell.org/" target="_blank" title="VCell">
+    <a href="https://vcell.org/" rel="noopener" target="_blank" title="VCell">
     <img class="zoom" src="/assets/images/about/partners/vcell.svg" />
 </a>
 </div>
