@@ -663,6 +663,108 @@ pre {
 pre.dark {
   &,
   code {
+    // `{prefix of prefixes}-{color of colors}-{ground of grounds}`; 
+    // color=[black, red,  green, green, yellow, blue, magenta, cyan, white]
+    // ground=[fg, bg]
+    // prefix=[ansi-light, ansi
+    .ansi-black-fg {
+      color: #000000;
+    }
+    .ansi-red-fg {
+      color: #ff0000;
+    }
+    .ansi-green-fg {
+      color: #00ff00;
+    }
+    .ansi-yellow-fg {
+      color: #ffff00;
+    }
+    .ansi-blue-fg {
+      color: #0000ff;
+    }
+    .ansi-magenta-fg {
+      color: #ff00ff;
+    }
+    .ansi-cyan-fg {
+      color: #00ffff;
+    }
+    .ansi-white-fg {
+      color: #ffffff;
+    }
+    .ansi-bright-black-fg {
+      color: #7f7f7f;
+    }
+    .ansi-bright-red-fg {
+      color: #ff0000;
+    }
+    .ansi-bright-green-fg {
+      color: #00ff00;
+    }
+    .ansi-bright-yellow-fg {
+      color: #ffff00;
+    }
+    .ansi-bright-blue-fg {
+      color: #0000ff;
+    }
+    .ansi-bright-magenta-fg {
+      color: #ff00ff;
+    }
+    .ansi-bright-cyan-fg {
+      color: #00ffff;
+    }
+    .ansi-bright-white-fg {
+      color: #ffffff;
+    }
+    .ansi-black-bg {
+      background-color: #000000;
+    }
+    .ansi-red-bg {
+      background-color: #ff0000;
+    }
+    .ansi-green-bg {
+      background-color: #00ff00;
+    }
+    .ansi-yellow-bg {
+      background-color: #ffff00;
+    }
+    .ansi-blue-bg {
+      background-color: #0000ff;
+    }
+    .ansi-magenta-bg {
+      background-color: #ff00ff;
+    }
+    .ansi-cyan-bg {
+      background-color: #00ffff;
+    }
+    .ansi-white-bg {
+      background-color: #ffffff;
+    }
+    .ansi-bright-black-bg {
+      background-color: #7f7f7f;
+    }
+    .ansi-bright-red-bg {
+      background-color: #ff0000;
+    }
+    .ansi-bright-green-bg {
+      background-color: #00ff00;
+    }
+    .ansi-bright-yellow-bg {
+      background-color: #ffff00;
+    }
+    .ansi-bright-blue-bg {
+      background-color: #0000ff;
+    }
+    .ansi-bright-magenta-bg {
+      background-color: #ff00ff;
+    }
+    .ansi-bright-cyan-bg {
+      background-color: #00ffff;
+    }
+    .ansi-bright-white-bg {
+      background-color: #ffffff;
+    }
+  
+
     background: $dark-background;
     color: $light-text;
   }
@@ -670,6 +772,60 @@ pre.dark {
 
 .code {
   font-family: monospace;
+}
+.ansi-black {
+  color: #000;
+}
+.ansi-red {
+  color: (187, 0, 0);
+}
+.ansi-green {
+  color: (0, 187, 0);
+}
+.ansi-yellow {
+  color: (187, 187, 0);
+}
+.ansi-blue {
+  color: (0, 0, 187);
+}
+.ansi-magenta {
+  color: (187, 0, 187);
+}
+pre.stdout.dark.ng-star-inserted ::ng-deep {
+  color: (0, 187, 187);
+}
+.ansi-cyan-fg ::ng-deep {
+  color: (0, 187, 187);
+}
+.ansi-white {
+  color: (255, 255, 255);
+}
+.ansi-bright-black {
+  color: (85, 85, 85);
+}
+.ansi-bright-red {
+  color: (255, 85, 85);
+}
+.ansi-bright-green {
+  color: (85, 255, 85);
+}
+.ansi-bright-yellow {
+  color: (255, 255, 85);
+}
+.ansi-bright-blue {
+  color: (85, 85, 255);
+}
+.ansi-bright-magenta {
+  color: (255, 85, 255);
+}
+.ansi-bright-cyan {
+  color: (85, 255, 255);
+}
+.ansi-bright-white {
+  color: (255, 255, 255);
+}
+.ansi-bg-black {
+  background-color: #000;
 }
 
 /* range slider */

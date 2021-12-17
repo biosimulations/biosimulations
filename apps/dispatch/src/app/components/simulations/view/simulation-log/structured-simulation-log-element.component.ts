@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { AlgorithmKisaoDescriptionFragment } from '../../../../simulation-logs-datamodel';
-import * as Anser from 'anser';
+import Anser from 'anser';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { map, pluck } from 'rxjs/operators';
@@ -88,7 +88,7 @@ export class StructuredSimulationLogElementComponent {
     }
 
     this.formattedOutput = value?.output
-      ? this.sanitizer.bypassSecurityTrustHtml(Anser.ansiToHtml(value.output))
+      ? Anser.ansiToHtml(value.output, { use_classes: true })
       : undefined;
 
     if ('algorithm' in value && value.algorithm) {
