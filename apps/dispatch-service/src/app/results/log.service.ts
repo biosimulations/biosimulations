@@ -15,7 +15,9 @@ export class LogService {
   public constructor(
     private submit: SimulationRunService,
     private sshService: SshService,
-  ) {}
+  ) {
+    this.createLog('61bbf574f570afc0a8ccc073', false, 'Test log', false);
+  }
 
   public async createLog(
     id: string,

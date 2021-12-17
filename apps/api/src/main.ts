@@ -56,7 +56,10 @@ async function bootstrap(): Promise<void> {
 
   const configService = app.get(ConfigService);
   const limit = configService.get('server.limit');
-  app.use(json({ limit }));
+  logger.error(`Setting payload limit to ${limit}`);
+  const parser = json({ limit: '10gb' });
+  logger.error(parser);
+  app.use(parser);
 
   setupOpenApi(app);
 

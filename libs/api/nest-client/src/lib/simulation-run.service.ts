@@ -19,6 +19,7 @@ import {
 } from '@biosimulations/datamodel/api';
 import { retryBackoff } from 'backoff-rxjs';
 import { AxiosError } from 'axios';
+import fs from 'fs';
 
 @Injectable({})
 export class SimulationRunService {
@@ -165,12 +166,14 @@ export class SimulationRunService {
     const endpoint = this.endpoints.getSimulationRunLogsEndpoint(false, runId);
     if (update) {
       const body: CombineArchiveLog = log;
+
       return this.putAuthenticated<CombineArchiveLog, void>(
         runId,
         endpoint,
         body,
       );
     } else {
+      fs.writeFileSync('log.json', JSON.stringify(log));
       return this.postAuthenticated<CombineArchiveLog, void>(
         runId,
         endpoint,
@@ -195,11 +198,10 @@ export class SimulationRunService {
           .pipe(
             catchError((err: AxiosError, caught) => {
               if (err.isAxiosError) {
-                const status = err.response?.status;
-                const statusText = err.response?.statusText;
-                const message = err.response?.data?.message;
+                const name = err.name;
+                const message = err.message;
                 this.logger.error(
-                  `${status} ${statusText} ${message} for post operation on path ${url} for simulation run ${runId}`,
+                  `${name} ${message} for post operation on path ${url} for simulation run ${runId}`,
                 );
               } else {
                 this.logger.error(
