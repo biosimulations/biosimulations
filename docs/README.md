@@ -6,6 +6,19 @@
 [![Continuous Deployment](https://github.com/biosimulations/biosimulations/workflows/Continuous%20Deployment/badge.svg)](https://github.com/biosimulations/biosimulations/actions?query=workflow%3A%22Continuous+Deployment%22)
 
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/5204/badge)](https://bestpractices.coreinfrastructure.org/projects/5204)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=biosimulations_biosimulations&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=biosimulations_biosimulations)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=biosimulations_biosimulations&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=biosimulations_biosimulations)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=biosimulations_biosimulations&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=biosimulations_biosimulations)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=biosimulations_biosimulations&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=biosimulations_biosimulations)
+
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=biosimulations_biosimulations&metric=bugs)](https://sonarcloud.io/summary/new_code?id=biosimulations_biosimulations)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=biosimulations_biosimulations&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=biosimulations_biosimulations)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=biosimulations_biosimulations&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=biosimulations_biosimulations)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=biosimulations_biosimulations&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=biosimulations_biosimulations)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=biosimulations_biosimulations&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=biosimulations_biosimulations)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=biosimulations_biosimulations&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=biosimulations_biosimulations)
+
+
 
 [![All Contributors](https://img.shields.io/github/all-contributors/biosimulations/biosimulations/HEAD)](#contributors-)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-1.4-4baaaa.svg)](CODE_OF_CONDUCT.md)
