@@ -188,6 +188,8 @@ export class SimulationRunService {
       map((token) => {
         return this.http
           .post<U>(url, body, {
+            maxContentLength: Infinity,
+            maxBodyLength: Infinity,
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -195,11 +197,10 @@ export class SimulationRunService {
           .pipe(
             catchError((err: AxiosError, caught) => {
               if (err.isAxiosError) {
-                const status = err.response?.status;
-                const statusText = err.response?.statusText;
-                const message = err.response?.data?.message;
+                const name = err.name;
+                const message = err.message;
                 this.logger.error(
-                  `${status} ${statusText} ${message} for post operation on path ${url} for simulation run ${runId}`,
+                  `${name} ${message} for post operation on path ${url} for simulation run ${runId}`,
                 );
               } else {
                 this.logger.error(
@@ -226,6 +227,8 @@ export class SimulationRunService {
       map((token) => {
         return this.http
           .put<U>(url, body, {
+            maxContentLength: Infinity,
+            maxBodyLength: Infinity,
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -233,11 +236,10 @@ export class SimulationRunService {
           .pipe(
             catchError((err: AxiosError, caught) => {
               if (err.isAxiosError) {
-                const status = err.response?.status;
-                const statusText = err.response?.statusText;
-                const message = err.response?.data?.message;
+                const name = err.name;
+                const message = err.message;
                 this.logger.error(
-                  `${status} ${statusText} ${message} for put operation on path ${url} for simulation run ${runId}`,
+                  `${name} ${message} for put operation on path ${url} for simulation run ${runId}`,
                 );
               } else {
                 this.logger.error(
