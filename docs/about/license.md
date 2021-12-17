@@ -65,11 +65,6 @@ Below are the licenses of the dependencies of BioSimulations and BioSimulators, 
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/common/README.md
-├─ @angular/compiler@13.1.0
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/angular/angular
-│  ├─ publisher: angular
-│  └─ licenseFile: @angular/compiler/README.md
 ├─ @angular/core@13.1.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
@@ -84,21 +79,11 @@ Below are the licenses of the dependencies of BioSimulations and BioSimulators, 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/components
 │  └─ licenseFile: @angular/material/LICENSE
-├─ @angular/platform-browser-dynamic@13.1.0
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/angular/angular
-│  ├─ publisher: angular
-│  └─ licenseFile: @angular/platform-browser-dynamic/README.md
 ├─ @angular/platform-browser@13.1.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/platform-browser/README.md
-├─ @angular/router@13.1.0
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/angular/angular
-│  ├─ publisher: angular
-│  └─ licenseFile: @angular/router/README.md
 ├─ @babel/code-frame@7.15.8
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
