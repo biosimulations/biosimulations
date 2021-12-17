@@ -663,7 +663,7 @@ pre {
 pre.dark {
   &,
   code {
-    // `{prefix of prefixes}-{color of colors}-{ground of grounds}`; 
+    // `{prefix of prefixes}-{color of colors}-{ground of grounds}`;
     // color=[black, red,  green, green, yellow, blue, magenta, cyan, white]
     // ground=[fg, bg]
     // prefix=[ansi-light, ansi
@@ -763,7 +763,6 @@ pre.dark {
     .ansi-bright-white-bg {
       background-color: #ffffff;
     }
-  
 
     background: $dark-background;
     color: $light-text;
