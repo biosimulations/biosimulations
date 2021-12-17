@@ -4,13 +4,13 @@ In addition to projects contributed by investigators, BioSimulations also contai
 
 <div class="logos">
 <div class="logos-row">
-    <a href="http://bigg.ucsd.edu/" target="_blank" title="BiGG">
+    <a href="http://bigg.ucsd.edu/" rel="noopener" target="_blank" title="BiGG">
     <img class="zoom" src="/assets/images/about/partners/bigg.png" />
     </a>
 
     <a
     href="http://www.ebi.ac.uk/biomodels/"
-    target="_blank"
+    rel="noopener" target="_blank"
     title="BioModels"
     >
     <img
@@ -22,7 +22,7 @@ In addition to projects contributed by investigators, BioSimulations also contai
     <!--
     <a
     href="https://cellcollective.org/"
-    target="_blank"
+    rel="noopener" target="_blank"
     title="Cell Collective"
     >
     <img
@@ -31,13 +31,13 @@ In addition to projects contributed by investigators, BioSimulations also contai
     />
     </a>    
 
-    <a href="http://ginsim.org/" target="_blank" title="GINsim">
+    <a href="http://ginsim.org/" rel="noopener" target="_blank" title="GINsim">
     <img class="zoom" src="/assets/images/about/partners/ginsim.svg" />
     </a>
 
     <a
     href="https://jjj.biochem.sun.ac.za/"
-    target="_blank"
+    rel="noopener" target="_blank"
     title="JWS Online"
     >
     <img class="zoom" src="/assets/images/about/partners/jws.svg" />
@@ -46,7 +46,7 @@ In addition to projects contributed by investigators, BioSimulations also contai
 
     <a
     href="http://modeldb.science/"
-    target="_blank"
+    rel="noopener" target="_blank"
     title="ModelDB"
     >
     <img class="zoom" src="/assets/images/about/partners/modeldb.svg" />
@@ -54,7 +54,7 @@ In addition to projects contributed by investigators, BioSimulations also contai
 
     <a
     href="https://models.physiomeproject.org/"
-    target="_blank"
+    rel="noopener" target="_blank"
     title="Physiome Model Repository"
     >
     <img class="zoom" src="/assets/images/about/partners/physiome.svg" />
@@ -62,7 +62,7 @@ In addition to projects contributed by investigators, BioSimulations also contai
 
     <a
     href="https://rba.inrae.fr/models.html"
-    target="_blank"
+    rel="noopener" target="_blank"
     title="RBA"
     >
     <img class="zoom" src="/assets/images/about/partners/rba.png" />
@@ -70,7 +70,7 @@ In addition to projects contributed by investigators, BioSimulations also contai
 
     <a
     href="https://vcell.org/vcell-published-models"
-    target="_blank"
+    rel="noopener" target="_blank"
     title="VCell Published Models Database"
     >
     <img class="zoom" src="/assets/images/about/partners/vcell.svg" />

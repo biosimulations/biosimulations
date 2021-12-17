@@ -2,6 +2,8 @@
   <div class="icon-container">
     <biosimulations-icon [icon]="icon"></biosimulations-icon>
   </div>
-  <a *ngIf="href; else noHref" [href]="href" target="_blank">{{ heading }}</a>
+  <a *ngIf="href; else noHref" [href]="href" rel="noopener" target="_blank">{{
+    heading
+  }}</a>
   <ng-template #noHref>{{ heading }}</ng-template>
 </button>

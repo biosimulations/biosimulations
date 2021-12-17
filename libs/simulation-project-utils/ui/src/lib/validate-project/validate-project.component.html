@@ -81,7 +81,10 @@
             <p>
               Several example simulation projects are available from the
               BioSimulators test suite
-              <a [href]="exampleCombineArchivesUrl" target="_blank"
+              <a
+                [href]="exampleCombineArchivesUrl"
+                rel="noopener"
+                target="_blank"
                 ><biosimulations-icon icon="link"></biosimulations-icon></a
               >.
             </p>
@@ -268,7 +271,10 @@
           <div>
             <mat-checkbox formControlName="validateOmexManifest">
               Validate the OMEX manifest
-              <a href="https://combinearchive.org/" target="_blank"
+              <a
+                href="https://combinearchive.org/"
+                rel="noopener"
+                target="_blank"
                 ><biosimulations-icon icon="link"></biosimulations-icon
               ></a>
               file in the archive.
@@ -277,7 +283,7 @@
           <div>
             <mat-checkbox formControlName="validateSedml">
               Validate the simulation experiments (SED-ML
-              <a href="https://sed-ml.org/" target="_blank"
+              <a href="https://sed-ml.org/" rel="noopener" target="_blank"
                 ><biosimulations-icon icon="link"></biosimulations-icon
               ></a>
               files) in the archive.
@@ -286,10 +292,10 @@
           <div>
             <mat-checkbox formControlName="validateSedmlModels">
               Validate the sources of the models (e.g., CellML
-              <a href="https://www.cellml.org/" target="_blank"
+              <a href="https://www.cellml.org/" rel="noopener" target="_blank"
                 ><biosimulations-icon icon="link"></biosimulations-icon></a
               >, SBML
-              <a href="http://sbml.org/" target="_blank"
+              <a href="http://sbml.org/" rel="noopener" target="_blank"
                 ><biosimulations-icon icon="link"></biosimulations-icon
               ></a>
               files) in the simulation experiments (SED-ML files) in the
@@ -301,6 +307,7 @@
               Validate the metadata (OMEX Metadata
               <a
                 href="https://sys-bio.github.io/libOmexMeta/docs-build/index.html"
+                rel="noopener"
                 target="_blank"
                 ><biosimulations-icon icon="link"></biosimulations-icon
               ></a>

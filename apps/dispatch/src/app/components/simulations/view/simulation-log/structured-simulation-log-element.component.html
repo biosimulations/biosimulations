@@ -12,6 +12,7 @@
     <h4>
       Executed algorithm: {{ algorithm.name }} (<a
         [href]="algorithm.url"
+        rel="noopener"
         target="_blank"
         >{{ algorithm.id }}</a
       >)
@@ -30,7 +31,7 @@
           {{ fragment.value }}
         </span>
         <ng-template #descriptionLink>
-          <a [href]="fragment.value" target="_blank"
+          <a [href]="fragment.value" rel="noopener" target="_blank"
             ><biosimulations-icon icon="link"></biosimulations-icon
           ></a>
         </ng-template>

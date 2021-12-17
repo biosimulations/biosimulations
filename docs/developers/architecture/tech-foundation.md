@@ -3,21 +3,21 @@ BioSimulations and BioSimulators are implemented using several open-source tools
 
 <div class="logos">
 <div class="logos-row">
-    <a href="https://angular.io" target="_blank" title="Angular">
+    <a href="https://angular.io" rel="noopener" target="_blank" title="Angular">
     <img class="zoom" src="/assets/images/about/tech/angular.svg" />
     </a>
 
-    <a href="https://auth0.com/" target="_blank" title="Auth0">
+    <a href="https://auth0.com/" rel="noopener" target="_blank" title="Auth0">
     <img class="zoom" src="/assets/images/about/tech/auth0.svg" />
     </a>
 
-    <a href="https://www.docker.com/" target="_blank" title="Docker">
+    <a href="https://www.docker.com/" rel="noopener" target="_blank" title="Docker">
     <img class="zoom" src="/assets/images/about/tech/docker.svg" />
     </a>
 
     <a
     href="https://realfavicongenerator.net/"
-    target="_blank"
+    rel="noopener" target="_blank"
     title="Favicon Generator"
     >
     <img
@@ -28,31 +28,31 @@ BioSimulations and BioSimulators are implemented using several open-source tools
 
     <a
     href="https://fontawesome.com"
-    target="_blank"
+    rel="noopener" target="_blank"
     title="Font Awesome"
     >
     <img class="zoom" src="/assets/images/about/tech/font-awesome.svg" />
     </a>
 
-    <a href="https://www.github.com/" target="_blank" title="GitHub">
+    <a href="https://www.github.com/" rel="noopener" target="_blank" title="GitHub">
     <img class="zoom" src="/assets/images/about/tech/github.svg" />
     </a>
 
-    <a href="https://gravatar.com/" target="_blank" title="Gravatar">
+    <a href="https://gravatar.com/" rel="noopener" target="_blank" title="Gravatar">
     <img class="zoom" src="/assets/images/about/tech/gravatar.svg" />
     </a>
 
-    <a href="https://kubernetes.io/" target="_blank" title="Kubernetes">
+    <a href="https://kubernetes.io/" rel="noopener" target="_blank" title="Kubernetes">
     <img class="zoom" src="/assets/images/about/tech/kubernetes.svg" />
     </a>
 
-    <a href="https://www.mongodb.com/" target="_blank" title="MongoDB">
+    <a href="https://www.mongodb.com/" rel="noopener" target="_blank" title="MongoDB">
     <img class="zoom" src="/assets/images/about/tech/mongodb.svg" />
     </a>
 
     <a
     href="https://material.io/"
-    target="_blank"
+    rel="noopener" target="_blank"
     title="Material Design"
     >
     <img class="zoom" src="/assets/images/about/tech/material.svg" />
@@ -60,7 +60,7 @@ BioSimulations and BioSimulators are implemented using several open-source tools
 
     <a
     href="https://materialtheme.arcsine.dev/"
-    target="_blank"
+    rel="noopener" target="_blank"
     title="Material Theme Generator"
     >
     <img
@@ -69,19 +69,19 @@ BioSimulations and BioSimulators are implemented using several open-source tools
     />
     </a>
 
-    <a target="_blank" href="https://nestjs.com/" title="NestJS">
+    <a rel="noopener" target="_blank" href="https://nestjs.com/" title="NestJS">
     <img class="zoom" src="/assets/images/about/tech/nestjs.svg"
     /></a>
-    <a target="_blank" href="https://www.netlify.com" title="Netlify">
+    <a rel="noopener" target="_blank" href="https://www.netlify.com" title="Netlify">
     <img class="zoom" src="/assets/images/about/tech/netlify.svg"
     /></a>
-    <a target="_blank" href="https://www.openapis.org/" title="OpenAPI">
+    <a rel="noopener" target="_blank" href="https://www.openapis.org/" title="OpenAPI">
     <img class="zoom" src="/assets/images/about/tech/openapi.svg"
     /></a>
-    <a target="_blank" href="https://spdx.org" title="SPDX">
+    <a rel="noopener" target="_blank" href="https://spdx.org" title="SPDX">
     <img class="zoom" src="/assets/images/about/tech/spdx.svg"
     /></a>
-    <a target="_blank" href="https://swagger.io" title="Swagger">
+    <a rel="noopener" target="_blank" href="https://swagger.io" title="Swagger">
     <img class="zoom" src="/assets/images/about/tech/swagger.svg"
     /></a>
 </div>

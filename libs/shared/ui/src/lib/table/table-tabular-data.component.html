@@ -82,6 +82,7 @@
               class="biosimulations-button primary"
               *ngIf="element._cache[column.id].left.href as href; noHref"
               [href]="href"
+              rel="noopener"
               target="_blank"
             >
               <ng-container
@@ -174,6 +175,7 @@
               class="biosimulations-button primary"
               *ngIf="element._cache[column.id].center.href as href; else noHref"
               [href]="href"
+              rel="noopener"
               target="_blank"
             >
               <ng-container *ngTemplateOutlet="centerTemplate"></ng-container>
@@ -251,6 +253,7 @@
               class="biosimulations-button primary"
               *ngIf="element._cache[column.id].right.href as href; else noHref"
               [href]="href"
+              rel="noopener"
               target="_blank"
             >
               <ng-container

@@ -1,24 +1,32 @@
 <biosimulations-text-page-side-bar-section heading="Need help?">
   <div class="hanging-indent">
-    <a href="https://docs.biosimulations.org/users/" target="_blank">
+    <a
+      href="https://docs.biosimulations.org/users/"
+      rel="noopener"
+      target="_blank"
+    >
       <biosimulations-icon icon="help"></biosimulations-icon>
       View the documentation
     </a>
   </div>
   <div class="hanging-indent" *ngIf="tutorialsUrl">
-    <a [href]="tutorialsUrl" target="_blank">
+    <a [href]="tutorialsUrl" rel="noopener" target="_blank">
       <biosimulations-icon icon="tutorial"></biosimulations-icon>
       View the tutorials
     </a>
   </div>
   <div class="hanging-indent">
-    <a href="https://docs.biosimulations.org/users/faqs/" target="_blank">
+    <a
+      href="https://docs.biosimulations.org/users/faqs/"
+      rel="noopener"
+      target="_blank"
+    >
       <biosimulations-icon icon="info"></biosimulations-icon>
       View the FAQs
     </a>
   </div>
   <div class="hanging-indent">
-    <a [href]="config.newIssueUrl" target="_blank">
+    <a [href]="config.newIssueUrl" rel="noopener" target="_blank">
       <biosimulations-icon icon="comment"></biosimulations-icon>
       Submit an issue
     </a>
