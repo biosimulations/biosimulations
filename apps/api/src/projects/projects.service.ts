@@ -104,13 +104,20 @@ export class ProjectsService implements OnModuleInit {
     projectInput: ProjectInput,
     user: AuthToken,
   ): Promise<void> {
+    // validate project
     await this.simulationRunService.validateRun(projectInput.simulationRun);
 
+    // create project
     projectInput.owner = this.getOwner(projectInput, user);
 
     const project = new this.model(projectInput);
 
     await project.save();
+
+    // cache project summary
+    await this.getProjectSummary(projectInput.id);
+
+    // return
     return;
   }
 
@@ -131,6 +138,7 @@ export class ProjectsService implements OnModuleInit {
       );
     }
 
+    // get project
     const project = await this.model
       .findOne({ id: id })
       .collation(ProjectIdCollation);
@@ -139,6 +147,7 @@ export class ProjectsService implements OnModuleInit {
       throw new NotFoundException(`Project with id ${id} not found.`);
     }
 
+    // check permissions
     const owner = this.getOwner(projectInput, user);
 
     if (!isAdmin(user) && (project?.owner !== owner || !project?.owner)) {
@@ -147,12 +156,20 @@ export class ProjectsService implements OnModuleInit {
       );
     }
 
+    // validate and save project and update summary
     if (projectInput.simulationRun !== project.simulationRun) {
+      // validate project
       await this.simulationRunService.validateRun(projectInput.simulationRun);
+      
+      // save project
+      project.set(projectInput);
+      await project.save();
+
+      // cache project summary
+      await this.getProjectSummary(projectInput.id);
     }
 
-    project.set(projectInput);
-    await project.save();
+    // return
     return;
   }
 
