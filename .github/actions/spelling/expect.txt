@@ -252,6 +252,7 @@ Namespaced
 nanohub
 Nasir
 ncbi
+ncloc
 nestjs
 netlify
 netpyne
@@ -346,10 +347,12 @@ slurm
 smoldyn
 socio
 Somogyi
+sonarcloud
 sourced
 sourceforge
 SPARQL
 spdx
+sqale
 src
 ssandrews
 SSH
