@@ -199,7 +199,7 @@
     "localforage": "1.10.0",
     "lunr": "2.3.9",
     "ng-lazyload-image": "9.1.0",
-    "ng-packagr": "^13.0.0",
+    "ng-packagr": "13.1.2",
     "ngx-highlightjs": "6.1.0",
     "ngx-markdown": "13.0.0",
     "openapi-examples-validator": "4.6.0",
