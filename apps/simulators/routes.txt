@@ -13,6 +13,7 @@
 /simulators/boolsim/1.2.0
 /simulators/brian2
 /simulators/brian2/2.4.2
+/simulators/brian2/2.5.0.1
 /simulators/cbmpy
 /simulators/cbmpy/0.7.25
 /simulators/cellcollective
@@ -63,7 +64,6 @@
 /simulators/maboss/2.3.4
 /simulators/masspy
 /simulators/masspy/0.1.2
-/simulators/masspy/0.1.5
 /simulators/mcell
 /simulators/mcell/3.5.0
 /simulators/metanetx
