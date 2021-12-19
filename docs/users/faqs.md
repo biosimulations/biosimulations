@@ -138,21 +138,19 @@ Third, some of the inconsistencies in the implementation of COMBINE and SED-ML d
 
 **Is there a limit to the size of simulation projects that can be published through BioSimulations?**
 
-Simulation projects (COMBINE/OMEX archives) are limited to 5 TB each. However, archives submitted by web form uploads are limited 1 GB. Archives greater than 1 GB must be submitted via URLs. In addition, simulation results are currently limited to 5 TB per project. 
+Simulation projects (COMBINE/OMEX archives) are limited to 1 GB each. In addition, simulation results are currently limited to 5 TB per project. Please contact [runBioSimulations Team](mailto:info@biosimulations.org) to arrange larger projects.
 
 **How much resources are available to each simulation?**
 
 runBioSimulations currently allows users to request up the following amounts of resources for each simulation project:
 
-- Projects: 5 TB (Note, uploaded COMBINE/OMEX archives are limited to 1 GB. Larger COMBINE/OMEX archives must be loaded via URLs)
+- Projects: 1 GB
 - Cores: 24
 - RAM: 192 GB
 - Time: 20 days
 - Results: 5 TB (The produced HDF5 file and zip archive with HDF5 and plots each must be less than 5 TB)
 
-These limits are easily configurable. Please contact [runBioSimulations Team](mailto:info@biosimulations.org) if these limits would constrain your work.
-
-Furthermore, simulation runs are currently limited to 24 cores, 192 GB RAM, and 20 days of wall time.
+These limits are easily configurable. Please contact [runBioSimulations Team](mailto:info@biosimulations.org) to arrange additional resources.
 
 **How much resources are available to runBioSimulations?**
 
