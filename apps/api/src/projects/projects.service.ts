@@ -160,7 +160,7 @@ export class ProjectsService implements OnModuleInit {
     if (projectInput.simulationRun !== project.simulationRun) {
       // validate project
       await this.simulationRunService.validateRun(projectInput.simulationRun);
-      
+
       // save project
       project.set(projectInput);
       await project.save();
