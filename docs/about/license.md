@@ -154,7 +154,7 @@ Below are the licenses of the dependencies of BioSimulations and BioSimulators, 
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/microservices/LICENSE
-├─ @nestjs/mongoose@9.0.1
+├─ @nestjs/mongoose@9.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/mongoose
 │  ├─ publisher: Kamil Mysliwiec
