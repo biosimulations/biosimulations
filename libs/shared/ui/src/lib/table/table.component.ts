@@ -176,7 +176,7 @@ export class TableComponent implements OnInit, AfterViewInit {
 
   @Input()
   set data(data: any) {
-    if (data instanceof Observable) {      
+    if (data instanceof Observable) {
       this.subscription = data.subscribe((unresolvedData: any[]): void => {
         UtilsService.recursiveForkJoin(unresolvedData).subscribe(
           (resolvedData: any[] | undefined) => {
