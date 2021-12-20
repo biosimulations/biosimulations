@@ -4770,7 +4770,7 @@ Below are the licenses of the dependencies of BioSimulations and BioSimulators, 
 │  ├─ repository: https://github.com/swagger-api/swagger-ui
 │  ├─ licenseFile: swagger-ui-dist/LICENSE
 │  └─ noticeFile: swagger-ui-dist/NOTICE
-├─ swagger-ui-express@4.2.0
+├─ swagger-ui-express@4.3.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/scottie1984/swagger-ui-express
 │  ├─ publisher: Stephen Scott
