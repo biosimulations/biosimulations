@@ -14,6 +14,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SpinnerComponent } from '../spinner/spinner.component';
+import { FullPageSpinnerComponent } from '../spinner/full-page-spinner.component';
 import { TableComponent } from './table.component';
 import { TableTabularDataComponent } from './table-tabular-data.component';
 import { TableControlsComponent } from './table-controls.component';
@@ -55,6 +56,7 @@ describe('TableComponent', () => {
         TableTabularDataComponent,
         TableControlsComponent,
         SpinnerComponent,
+        FullPageSpinnerComponent,
       ],
     }).compileComponents();
   }));

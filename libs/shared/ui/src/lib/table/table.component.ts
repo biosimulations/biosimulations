@@ -146,7 +146,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     );
 
     if (this.dataSource.data) {
-      this.setData(this.dataSource.data);
+      this.setData(this.dataSource.data, this.dataSource.isLoading.value);
     }
   }
 
@@ -198,7 +198,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
   }
 
-  setData(data: any[]): void {
+  private setData(data: any[], isLoading=false): void {
     if (!this.columns) {
       this.dataSource.data = data;
       return;
@@ -367,7 +367,7 @@ export class TableComponent implements OnInit, AfterViewInit {
 
     // set data for table
     this.dataSource.data = sortedData;
-    this.dataSource.isLoading.next(false);
+    this.dataSource.isLoading.next(isLoading);
     this.dataLoaded = sortedData.length > 0;
 
     // set filtering
