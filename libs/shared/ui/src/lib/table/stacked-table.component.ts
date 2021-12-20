@@ -95,7 +95,7 @@ export class StackedTableComponent {
     }
   }
 
-  setData(data: any[]): void {
+  private setData(data: any[]): void {
     this._derivedData = [];
 
     const sortedData = RowService.sortData(

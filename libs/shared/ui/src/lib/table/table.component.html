@@ -1,5 +1,5 @@
-<div class="loading" *ngIf="isLoading | async">
-  <biosimulations-spinner></biosimulations-spinner>
-</div>
+<biosimulations-full-page-spinner *ngIf="isLoading | async; else content"></biosimulations-full-page-spinner>
 
-<ng-content></ng-content>
+<ng-template #content>
+  <ng-content></ng-content>
+</ng-template>
