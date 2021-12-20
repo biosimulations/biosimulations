@@ -129,7 +129,7 @@ Below are the licenses of the dependencies of BioSimulations and BioSimulators, 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/bull
 │  └─ licenseFile: @nestjs/bull/LICENSE
-├─ @nestjs/common@8.2.3
+├─ @nestjs/common@8.2.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
@@ -139,7 +139,7 @@ Below are the licenses of the dependencies of BioSimulations and BioSimulators, 
 │  ├─ repository: https://github.com/nestjs/config
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/config/LICENSE
-├─ @nestjs/core@8.2.3
+├─ @nestjs/core@8.2.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
@@ -149,7 +149,7 @@ Below are the licenses of the dependencies of BioSimulations and BioSimulators, 
 │  ├─ repository: https://github.com/nestjs/mapped-types
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/mapped-types/LICENSE
-├─ @nestjs/microservices@8.2.3
+├─ @nestjs/microservices@8.2.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
@@ -164,7 +164,7 @@ Below are the licenses of the dependencies of BioSimulations and BioSimulators, 
 │  ├─ repository: https://github.com/nestjs/passport
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/passport/LICENSE
-├─ @nestjs/platform-express@8.2.3
+├─ @nestjs/platform-express@8.2.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
@@ -3370,7 +3370,7 @@ Below are the licenses of the dependencies of BioSimulations and BioSimulators, 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/vercel/ms
 │  └─ licenseFile: npm/node_modules/ms/license.md
-├─ multer@1.4.3
+├─ multer@1.4.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/expressjs/multer
 │  └─ licenseFile: multer/LICENSE
