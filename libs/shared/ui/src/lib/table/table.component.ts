@@ -198,7 +198,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private setData(data: any[], isLoading=false): void {
+  private setData(data: any[], isLoading = false): void {
     if (!this.columns) {
       this.dataSource.data = data;
       return;

@@ -1,4 +1,6 @@
-<biosimulations-full-page-spinner *ngIf="isLoading | async; else content"></biosimulations-full-page-spinner>
+<biosimulations-full-page-spinner
+  *ngIf="isLoading | async; else content"
+></biosimulations-full-page-spinner>
 
 <ng-template #content>
   <ng-content></ng-content>
