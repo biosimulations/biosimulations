@@ -87,9 +87,9 @@ BioSimulations also provides the following recommendations:
 Submissions to BioSimulations must include the following metadata:
 
 - Title (`http://dublincore.org/specifications/dublin-core/dcmi-terms/title`)
-- Abstract (`http://dublincore.org/specifications/dublin-core/dcmi-terms/abstract`)
-- Author (`http://dublincore.org/specifications/dublin-core/dcmi-terms/creator`)
 - License (`http://dublincore.org/specifications/dublin-core/dcmi-terms/license`)
+
+This requirement is currently set low to accommodate old projects in community repositories that have minimal structured metadata. Over time, we aim to raise this requirement.
 
 ## Recommendations for describing the SED-ML files and plots responsible for figures
 BioSimulations recommends using the `http://dublincore.org/specifications/dublin-core/dcmi-terms/identifier` predicate and literal strings to describe the SED-ML files, reports, and plots responsible for tables and figures in articles.
