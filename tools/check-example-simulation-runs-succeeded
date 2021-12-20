@@ -60,7 +60,7 @@ def get_run_url(biosimulations_deployment, id):
         return 'https://run.biosimulations.org/simulations/{}'.format(id)
 
 
-def get_failed_runs(examples_deployment, biosimulations_deployment, validate_simulation_results_data=True):
+def get_failed_runs(examples_deployment, biosimulations_deployment, validate_simulation_results_data=True, example_names=None):
     """ Get a list of any example simulation runs that didn't succeed
 
     Args:
@@ -69,8 +69,10 @@ def get_failed_runs(examples_deployment, biosimulations_deployment, validate_sim
             (``dev``, ``prod``, or ``local``)
         validate_simulation_results_data (:obj:`bool`, optional): whether to validate
             the data of the simulation results
+        example_names (:obj:`list` of :obj:`str`, optional): names of examples to check; default: check all examples
 
     Returns:
+        :obj:`list` of :obj:`dict`: simulation runs that were checked
         :obj:`list` of :obj:`str`: ids and names of failed simulation runs
     """
 
@@ -80,6 +82,9 @@ def get_failed_runs(examples_deployment, biosimulations_deployment, validate_sim
     # read simulation runs
     with open(filename, 'r') as file:
         runs = json.load(file)
+
+    if example_names is not None:
+        runs = list(filter(lambda run: run['name'] in example_names, runs))
 
     # check the status of each run
     failures = []
@@ -99,7 +104,7 @@ def get_failed_runs(examples_deployment, biosimulations_deployment, validate_sim
             ))
 
     # return list of failed runs
-    return failures
+    return runs, failures
 
 
 if __name__ == '__main__':
@@ -112,15 +117,20 @@ if __name__ == '__main__':
         default='dev',
         help='BioSimulations deployment which for projects should be checked (`dev`, `prod`, `local`). Default: `dev`.'
     )
+    parser.add_argument(
+        '--example', type=str, nargs='*',
+        help='Names of the example simulations to execute. Default: execute all simulations.',
+        default=None, dest='example_names',
+    )
     args = parser.parse_args()
 
     examples_deployment = args.runbiosimulations_deployment
     if examples_deployment == 'local':
         examples_deployment = 'dev'
-    failures = get_failed_runs(examples_deployment, args.runbiosimulations_deployment)
+    runs, failures = get_failed_runs(examples_deployment, args.runbiosimulations_deployment, example_names=args.example_names)
 
     if failures:
         msg = 'The following {} example simulation runs did not succeed:\n\n{}'.format(len(failures), '\n\n'.join(failures))
         raise SystemExit(msg)
     else:
-        print('All example simulation runs succeeded!')
+        print('All {} example simulation runs succeeded!'.format(len(runs)))
