@@ -66,7 +66,7 @@ def get_biosimulations_static_urls():
 def get_runbiosimulations_static_urls():
     return (
         get_root_static_urls()
-        + [            
+        + [
             Url(
                 loc="run",
                 last_mod=datetime.datetime(2020, 12, 23),
