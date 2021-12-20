@@ -109,6 +109,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   columnsToShow!: string[];
   private idToColumn!: IdColumnMap;
   columnFilterData!: { [id: string]: any };
+  private dataSet = false;
   private dataLoaded = false;
   private dataSorted = false;
   isLoading!: Observable<boolean>;
@@ -146,7 +147,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     );
 
     if (this.dataSource.data) {
-      this.setData(this.dataSource.data, this.dataSource.isLoading.value);
+      this.setData(this.dataSource.data);
     }
   }
 
@@ -175,11 +176,12 @@ export class TableComponent implements OnInit, AfterViewInit {
 
   @Input()
   set data(data: any) {
-    if (data instanceof Observable) {
+    if (data instanceof Observable) {      
       this.subscription = data.subscribe((unresolvedData: any[]): void => {
         UtilsService.recursiveForkJoin(unresolvedData).subscribe(
           (resolvedData: any[] | undefined) => {
             if (resolvedData !== undefined) {
+              this.dataSet = true;
               this.setData(resolvedData);
             }
           },
@@ -189,6 +191,7 @@ export class TableComponent implements OnInit, AfterViewInit {
       UtilsService.recursiveForkJoin(data).subscribe(
         (resolvedData: any[] | undefined) => {
           if (resolvedData !== undefined) {
+            this.dataSet = true;
             this.setData(resolvedData);
           }
         },
@@ -198,7 +201,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private setData(data: any[], isLoading = false): void {
+  private setData(data: any[]): void {
     if (!this.columns) {
       this.dataSource.data = data;
       return;
@@ -367,7 +370,7 @@ export class TableComponent implements OnInit, AfterViewInit {
 
     // set data for table
     this.dataSource.data = sortedData;
-    this.dataSource.isLoading.next(isLoading);
+    this.dataSource.isLoading.next(!this.dataSet);
     this.dataLoaded = sortedData.length > 0;
 
     // set filtering
