@@ -1,5 +1,20 @@
 Changelog
 
+# [8.3.0](https://github.com/biosimulations/biosimulations/compare/v8.2.1...v8.3.0) (2021-12-20)
+
+
+### Bug Fixes
+
+* **dispatch-service:** fix dispatch service post limit ([95653f8](https://github.com/biosimulations/biosimulations/commit/95653f88710f37babc19ccfa85b7c7caabc9fec3)), closes [#3828](https://github.com/biosimulations/biosimulations/issues/3828)
+* **dispatch:** correct security issue with untrusted html input ([8b464b6](https://github.com/biosimulations/biosimulations/commit/8b464b64ecc1992031e49b76a4765ce68a70b7f4))
+* **ui:** fixed spinner exit for table component ([f26802c](https://github.com/biosimulations/biosimulations/commit/f26802cf284df664509f2052a5f29a4443ee9a36))
+
+
+### Features
+
+* **api:** added project summary caching at creation and updating ([20d99f2](https://github.com/biosimulations/biosimulations/commit/20d99f2bcccba153a4aae10b9872c212935563f6))
+* **dispatch:** added example simulation runs for Brian 2 ([710df68](https://github.com/biosimulations/biosimulations/commit/710df689dc79f3ac837ddda2034398371eb5f084))
+
 ## [8.2.1](https://github.com/biosimulations/biosimulations/compare/v8.2.0...v8.2.1) (2021-12-16)
 
 
