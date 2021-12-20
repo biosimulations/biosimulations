@@ -359,7 +359,6 @@ if __name__ == '__main__':
         '--example', type=str, nargs='*',
         help='Names of the example simulations to execute. Default: execute all simulations.',
         default=None, dest='example_names',
-
     )
     parser.add_argument(
         '--test', type=bool,

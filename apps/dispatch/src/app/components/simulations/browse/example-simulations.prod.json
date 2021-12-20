@@ -160,6 +160,22 @@
     "projectSize": 1340218
   },
   {
+    "id": "61c0c8237448927da3489d3e",
+    "name": "Hodgkin-Huxley cell (Gleeson; NeuroML/LEMS; Euler; Brian 2)",
+    "simulator": "brian2",
+    "simulatorVersion": "2.5.0.1",
+    "cpus": 1,
+    "memory": 8,
+    "maxTime": 20,
+    "envVars": [],
+    "purpose": "academic",
+    "submittedLocally": false,
+    "status": "CREATED",
+    "submitted": "2021-12-20T18:15:05.123Z",
+    "updated": "2021-12-20T18:15:05.123Z",
+    "projectSize": 1340271
+  },
+  {
     "id": "61babcc9b072d96cb9cade69",
     "name": "Hodgkin-Huxley cell (Gleeson; NeuroML/LEMS; Euler; pyNeuroML)",
     "simulator": "pyneuroml",
