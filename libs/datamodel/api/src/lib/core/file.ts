@@ -5,11 +5,11 @@ import {
   IsPositive,
   IsInt,
   IsBoolean,
-  IsUrl,
   IsMongoId,
   IsNotEmpty,
   ValidateNested,
 } from 'class-validator';
+import { IsUrl } from '@biosimulations/datamodel/utils';
 import { Type } from 'class-transformer';
 
 export class ProjectFileInput {
@@ -64,6 +64,7 @@ export class ProjectFileInput {
   @IsUrl({
     require_protocol: true,
     protocols: ['http', 'https'],
+    allowDecodedUrls: true,
   })
   public url!: string;
 
