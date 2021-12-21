@@ -139,8 +139,8 @@ export class SimulationRunMetadataModel extends Document {
   @Prop({ type: [MetadataModelSchema], minimize: false, required: false })
   public metadata!: [MetadataModel];
 
-  public created!: string;
-  public updated!: string;
+  public created!: Date;
+  public updated!: Date;
 }
 
 export const SimulationRunMetadataSchema: SchemaType<SimulationRunMetadataModel> =

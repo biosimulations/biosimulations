@@ -318,8 +318,8 @@ export class FilesController {
       file.format,
       file.master,
       file.url,
-      file.created,
-      file.updated,
+      file.created.toISOString(),
+      file.updated.toISOString(),
     );
   }
 }

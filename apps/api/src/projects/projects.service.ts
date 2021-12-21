@@ -214,7 +214,19 @@ export class ProjectsService implements OnModuleInit {
   /** Get a summary of each project
    */
   public async getProjectSummaries(): Promise<ProjectSummary[]> {
-    const projects = await this.model.find({}).select('id').exec();
+    const projects = await this.model.find({}).select('id updated').exec();
+    const projectIds = projects
+      .map((project: ProjectModel): string => {
+        const updated = project.updated.toISOString();
+        return `${project.id}-${updated}`;
+      })
+      .sort()
+      .join(',');
+    const cacheKey = `Project:Summaries:${projectIds}`;
+    return await this.getWithCache<ProjectSummary[]>(cacheKey, this._getProjectSummaries.bind(this, projects), 0);
+  }
+
+  private async _getProjectSummaries(projects: ProjectModel[]): Promise<ProjectSummary[]> {
     const promises = projects.map((project): Promise<ProjectSummaryResult> => {
       return this.getProjectSummary(project.id)
         .then((value: ProjectSummary) => {
@@ -281,13 +293,19 @@ export class ProjectsService implements OnModuleInit {
     const project = await this.model
       .findOne({ id })
       .collation(ProjectIdCollation);
-
+    
     if (!project) {
       throw new NotFoundException(
         `Project with id '${id}' could not be found.`,
       );
     }
 
+    const updated = project.updated.toISOString();
+    const cacheKey = `Project:Summary:${id}:${updated}`;
+    return await this.getWithCache<ProjectSummary>(cacheKey, this._getProjectSummary.bind(this, project), 0);
+  }
+
+  private async _getProjectSummary(project: ProjectModel): Promise<ProjectSummary> {
     const ownerAuth0Id = project?.owner;
     let owner: Account | undefined;
     if (ownerAuth0Id) {
@@ -295,14 +313,14 @@ export class ProjectsService implements OnModuleInit {
     }
 
     return {
-      id: id,
+      id: project.id,
       simulationRun: await this.simulationRunService.getRunSummary(
         project.simulationRun,
         true,
       ),
       owner: owner,
-      created: project.created,
-      updated: project.updated,
+      created: project.created.toISOString(),
+      updated: project.updated.toISOString(),
     };
   }
 
@@ -465,16 +483,18 @@ export class ProjectsService implements OnModuleInit {
    */
   private async getAccount(auth0Id: string): Promise<Account> {
     const cacheKey = `Account:info:${auth0Id}`;
-    const cachedAccount = (await this.cacheManager.get(
-      cacheKey,
-    )) as Account | null;
+    return await this.getWithCache<Account>(cacheKey, this._getAccount.bind(this, auth0Id));
+  }
 
-    if (cachedAccount) {
-      return cachedAccount;
+  private async getWithCache<T>(key: string, valueFunc: () => Promise<T>, ttl = 60 * 24, overwrite = false): Promise<T> {
+    const cachedValue = overwrite ? null : (await this.cacheManager.get(key)) as T | null;
+
+    if (cachedValue != null) {
+      return cachedValue;
     } else {
-      const account = await this._getAccount(auth0Id);
-      await this.cacheManager.set(cacheKey, account, { ttl: 60 * 24 }); // 1 day; to enable users and organizations to change their names
-      return account;
+      const value = await valueFunc();
+      await this.cacheManager.set(key, value, { ttl }); // 1 day; to enable users and organizations to change their names
+      return value;
     }
   }
 }

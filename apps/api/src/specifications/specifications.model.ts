@@ -1058,7 +1058,7 @@ export const SedOutputSchema = SchemaFactory.createForClass(SedOutput);
 })
 export class SpecificationsModel
   extends Document
-  implements ISimulationRunSedDocument
+  implements Omit<ISimulationRunSedDocument, 'created' | 'updated'>
 {
   @Prop({
     required: true,
@@ -1128,8 +1128,8 @@ export class SpecificationsModel
   })
   public simulations!: SedSimulationType[];
 
-  public created!: string;
-  public updated!: string;
+  public created!: Date;
+  public updated!: Date;
 }
 
 export const SpecificationsModelSchema =
