@@ -89,6 +89,8 @@ export class MonitorProcessor {
           runId,
           status: SimulationRunStatus.FAILED,
           statusReason: message,
+          projectId,
+          projectOwner,
         });
       }
     }
