@@ -1,5 +1,5 @@
 export class DataPaths {
-  private static simulationRunResultsPath = 'results';  
+  private static simulationRunResultsPath = 'results';
 
   public constructor() {}
 
