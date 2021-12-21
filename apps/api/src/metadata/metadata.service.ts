@@ -14,11 +14,11 @@ import {
   SimulationRunMetadataModel,
   SimulationRunMetadataIdModel,
 } from './metadata.model';
-import { Endpoints } from '@biosimulations/config/common';
+import { FilePaths } from '@biosimulations/shared/storage';
 
 @Injectable()
 export class MetadataService {
-  private endpoints;
+  private filePaths: FilePaths;
   private logger: Logger = new Logger(MetadataService.name);
   public constructor(
     @InjectModel(SimulationRunMetadataModel.name)
@@ -28,7 +28,7 @@ export class MetadataService {
     private config: ConfigService,
   ) {
     const env = config.get('server.env');
-    this.endpoints = new Endpoints(env);
+    this.filePaths = new FilePaths(env);
   }
 
   public async getAllMetadata(): Promise<
@@ -103,7 +103,7 @@ export class MetadataService {
     if (thumbnails.length > 0) {
       archiveMetadata.thumbnails = thumbnails.map((thumbnail: string) => {
         if (thumbnail.startsWith('./')) {
-          const endpoint = this.endpoints.getSimulationRunFileContentEndpoint(
+          const endpoint = this.filePaths.getSimulationRunFileContentEndpoint(
             true,
             runId,
             thumbnail,

@@ -1,4 +1,3 @@
-import { UV_FS_O_FILEMAP } from 'constants';
 import { Endpoints } from './endpoints';
 describe('Endpoints', () => {
   let endpoints: Endpoints;
@@ -25,11 +24,7 @@ describe('Endpoints', () => {
     expect(endpoints).toBeDefined();
   });
 
-  it('Should load correct environment', () => {
-    expect(endpoints.getPlatformAppHome()).toBe('https://biosimulations.org');
-  });
-
-  it('Should not  read environment variables in browser', () => {
+  it('Should not read environment variables in browser', () => {
     global.window = window;
     jest.resetModules(); // Most important - it clears the cache
     const endpointsModule = require('./endpoints');
@@ -56,12 +51,6 @@ describe('Endpoints', () => {
     expect(endpoints.getCombineApiBaseUrl(true)).toBe('externalCombineApi');
     expect(endpoints.getStorageEndpointBaseUrl(true)).toBe('externalStorage');
     expect(endpoints.getDataServiceBaseUrl(true)).toBe('externalDataService');
-  });
-
-  it('Should return correct s3 filepath', () => {
-    expect(
-      endpoints.getSimulationRunContentFileS3Path('testSim', 'testFile'),
-    ).toBe('simulations/testSim/contents/testFile');
   });
 
   it('Should return correct ontology url based on app', () => {

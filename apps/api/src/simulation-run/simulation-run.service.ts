@@ -57,7 +57,7 @@ import { BiosimulationsException } from '@biosimulations/shared/exceptions';
 import { Readable } from 'stream';
 import { firstValueFrom, Observable, of, map } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Endpoints } from '@biosimulations/config/common';
+import { Endpoints, AppRoutes } from '@biosimulations/config/common';
 import { FilesService } from '../files/files.service';
 import { SpecificationsService } from '../specifications/specifications.service';
 import { ResultsService } from '../results/results.service';
@@ -124,6 +124,7 @@ interface PromiseResult<T> {
 export class SimulationRunService {
   private vegaFormatOmexManifestUris: string[];
   private endpoints: Endpoints;
+  private appRoutes: AppRoutes;
   private logger = new Logger(SimulationRunService.name);
 
   public constructor(
@@ -156,6 +157,7 @@ export class SimulationRunService {
 
     const env = this.configService.get('server.env');
     this.endpoints = new Endpoints(env);
+    this.appRoutes = new AppRoutes(env);
   }
 
   public async setStatus(
@@ -1062,7 +1064,7 @@ export class SimulationRunService {
           name: simulator.name,
           version: rawRun.simulatorVersion,
           digest: rawRun.simulatorDigest,
-          url: this.endpoints.getSimulatorsView(rawRun.simulator),
+          url: this.appRoutes.getSimulatorsView(rawRun.simulator),
         },
         cpus: rawRun.cpus,
         memory: rawRun.memory,

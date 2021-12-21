@@ -14,19 +14,21 @@ import {
   SimulationRunSedDocument,
 } from '@biosimulations/datamodel/common';
 import { HttpClient } from '@angular/common/http';
-import { Endpoints } from '@biosimulations/config/common';
+import { Endpoints, FilePaths } from '@biosimulations/config/common';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SimulationRunService {
   private endpoints: Endpoints;
+  private filePaths: FilePaths;
 
   private cachedRunId?: string;
   private cachedRunObservables: { [endpoint: string]: Observable<any> } = {};
 
   constructor(private httpClient: HttpClient) {
     this.endpoints = new Endpoints(environment.env);
+    this.filePaths = new FilePaths(environment.env);
   }
 
   public getSimulationRun(id: string, cache = true): Observable<SimulationRun> {
@@ -39,12 +41,7 @@ export class SimulationRunService {
     return this.getData<IFile[]>(id, endpoint);
   }
 
-  public getSimulationRunFileContent(id: string, file: string) {
-    const endpoint = this.endpoints.getSimulationRunFileContentEndpoint(
-      true,
-      id,
-      file,
-    );
+  public getSimulationRunFileContent(id: string, endpoint: string) {
     return this.getData<any>(id, endpoint);
   }
 

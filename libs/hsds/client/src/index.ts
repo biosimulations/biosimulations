@@ -1,5 +1,3 @@
-import { SimulationHDFService } from './lib/dataset.service';
-import { HSDSClientModule } from './lib/hsds-client.module';
+export { SimulationHDFService } from './lib/dataset.service';
+export * from './lib/hsds-client.module';
 export * from './lib/datamodel';
-export { HSDSClientModule };
-export { SimulationHDFService };

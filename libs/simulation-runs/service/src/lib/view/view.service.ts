@@ -60,7 +60,7 @@ import {
   Organization as OrganizationSchema,
   WithContext,
 } from 'schema-dts';
-import { Endpoints } from '@biosimulations/config/common';
+import { Endpoints, AppRoutes, ResourceIdentifiers } from '@biosimulations/config/common';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 import { environment } from '@biosimulations/shared/environments';
 import { deserializeSedDocument } from '../sed-document/sed-document';
@@ -76,6 +76,8 @@ export class ViewService {
   private combineOmexFormat: EdamTerm;
 
   private endpoints = new Endpoints();
+  private appRoutes = new AppRoutes();
+  private resourceIdentifiers = new ResourceIdentifiers();
 
   public constructor(
     private simRunService: SimulationRunService,
@@ -486,7 +488,7 @@ export class ViewService {
               title: 'Simulator',
               value: `${simulationRunSummary.run.simulator.name} ${simulationRunSummary.run.simulator.version}`,
               icon: 'simulator',
-              url: this.endpoints.getSimulatorsView(
+              url: this.appRoutes.getSimulatorsView(
                 simulationRunSummary.run.simulator.id,
                 simulationRunSummary.run.simulator.version,
               ),
@@ -498,7 +500,7 @@ export class ViewService {
               title: 'Id',
               value: simulationRunSummary.id,
               icon: 'id',
-              url: this.endpoints.getSimulationRunsView(
+              url: this.appRoutes.getSimulationRunsView(
                 simulationRunSummary.id,
               ),
             });
@@ -740,7 +742,7 @@ export class ViewService {
         location: '',
         title: 'Log',
         format: 'YAML in BioSimulators log schema',
-        formatUrl: this.endpoints.getConventionsView('simulation-logs'),
+        formatUrl: this.appRoutes.getConventionsView('simulation-logs'),
         master: false,
         size: null,
         icon: 'logs',
@@ -775,6 +777,7 @@ export class ViewService {
               return this.makeVegaVisualization(
                 runId,
                 content.location,
+                content.url,
                 sedmlArchiveContents,
               );
             })
@@ -969,6 +972,7 @@ export class ViewService {
   private makeVegaVisualization(
     runId: string,
     fileLocation: string,
+    fileUrl: string,
     sedmlArchiveContents: SimulationRunSedDocument[],
   ): VegaVisualization {
     if (fileLocation.startsWith('./')) {
@@ -982,7 +986,7 @@ export class ViewService {
       userDesigned: false,
       renderer: 'Vega',
       vegaSpec: this.simRunService
-        .getSimulationRunFileContent(runId, fileLocation)
+        .getSimulationRunFileContent(runId, fileUrl)
         .pipe(
           shareReplay(1),
           map((spec: VegaSpec): VegaSpec | false => {
@@ -1138,12 +1142,12 @@ export class ViewService {
         name: 'runBioSimulations',
         description:
           'Database of runs of biosimulations, including models, simulation experiments, simulation results, and data visualizations of simulation results.',
-        url: this.endpoints.getDispatchAppHome(),
+        url: this.appRoutes.getDispatchAppHome(),
       },
       name: simulationRunSummary.name,
-      url: this.endpoints.getSimulationRunsView(runId),
+      url: this.appRoutes.getSimulationRunsView(runId),
       identifier: [
-        this.endpoints
+        this.appRoutes
           .getSimulationRunsView(runId)
           .replace('https://', 'http://'),
         `http://identifiers.org/runbiosimulations/${runId}`,
@@ -1308,16 +1312,16 @@ export class ViewService {
         name: 'BioSimulations',
         description:
           'Open registry of biosimulation projects, including models, simulation experiments, simulation results, and data visualizations of simulation results.',
-        url: this.endpoints.getPlatformAppHome(),
+        url: this.appRoutes.getPlatformAppHome(),
       };
-      dataSet.url = this.endpoints.getProjectsView(projectSummary.id);
+      dataSet.url = this.appRoutes.getProjectsView(projectSummary.id);
       dataSet.identifier = [...(dataSet.identifier as string[])];
-      (dataSet.identifier as string[])[0] = this.endpoints
+      (dataSet.identifier as string[])[0] = this.appRoutes
         .getProjectsView(projectSummary.id)
         .replace('https://', 'http://');
       (
         dataSet.identifier as string[]
-      )[1] = `http://identifiers.org/biosimulations/${projectSummary.id}`;
+      )[1] = this.resourceIdentifiers.getProjectIdentifier(projectSummary.id);
       dataSet.creativeWorkStatus = 'Published';
       dataSet.hasPart = runDataSet;
       dataSet.distribution = [

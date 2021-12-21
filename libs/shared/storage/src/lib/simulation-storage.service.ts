@@ -2,7 +2,7 @@ import { Injectable, Logger, InternalServerErrorException, HttpStatus } from '@n
 import S3 from 'aws-sdk/clients/s3';
 import * as AWS from 'aws-sdk';
 import { SharedStorageService } from './shared-storage.service';
-import { Endpoints } from '@biosimulations/config/common';
+import { FilePaths } from './file-paths/file-paths';
 import { ConfigService } from '@nestjs/config';
 import { Readable } from 'stream';
 
@@ -12,7 +12,7 @@ import multer from 'multer';
 
 @Injectable()
 export class SimulationStorageService {
-  private endpoints: Endpoints;
+  private filePaths: FilePaths;
   private logger = new Logger(SimulationStorageService.name);
 
   public constructor(
@@ -20,7 +20,7 @@ export class SimulationStorageService {
     private configService: ConfigService,
   ) {
     const env = this.configService.get('server.env');
-    this.endpoints = new Endpoints(env);
+    this.filePaths = new FilePaths(env);
   }
 
   public async deleteSimulationRunResults(runId: string): Promise<void> {
@@ -31,7 +31,7 @@ export class SimulationStorageService {
     runId: string,
     fileLocation: string,
   ): Promise<void> {
-    const fileObject = this.endpoints.getSimulationRunContentFileS3Path(
+    const fileObject = this.filePaths.getSimulationRunContentFilePath(
       runId,
       fileLocation,
     );
@@ -54,14 +54,14 @@ export class SimulationStorageService {
     runId: string,
   ): Promise<S3.GetObjectOutput> {
     const file = await this.storage.getObject(
-      this.endpoints.getSimulationRunOutputS3Path(runId),
+      this.filePaths.getSimulationRunOutputPath(runId),
     );
     return file;
   }
 
   public async extractSimulationArchive(id: string): Promise<string[]> {
-    const file = this.endpoints.getSimulationRunCombineArchiveS3Path(id);
-    const destination = this.endpoints.getSimulationRunContentFileS3Path(id);
+    const file = this.filePaths.getSimulationRunCombineArchivePath(id);
+    const destination = this.filePaths.getSimulationRunContentFilePath(id);
     this.logger.debug(`Extracting ${file} to ${destination}`);
     const output = await this.storage.extractZipObject(file, destination);
     const locations = output.map((file) => file.Location);
@@ -73,14 +73,14 @@ export class SimulationStorageService {
     file: Buffer | Readable,
   ): Promise<string> {
     const s3File = await this.storage.putObject(
-      this.endpoints.getSimulationRunCombineArchiveS3Path(runId),
+      this.filePaths.getSimulationRunCombineArchivePath(runId),
       file,
     );
     return s3File.Location;
   }
 
   public async deleteSimulationArchive(runId: string): Promise<void> {
-    const fileObject = this.endpoints.getSimulationRunCombineArchiveS3Path(runId);
+    const fileObject = this.filePaths.getSimulationRunCombineArchivePath(runId);
     await this.storage.deleteObject(fileObject);
 
     await this.storage.getObject(fileObject)

@@ -4,13 +4,14 @@ import { SimulationStatusService } from '../../../services/simulation/simulation
 import { FormattedSimulation } from './view.model';
 import { FormatService } from '@biosimulations/shared/services';
 import { Purpose } from '@biosimulations/datamodel/common';
-import { Endpoints } from '@biosimulations/config/common';
+import { Endpoints, AppRoutes } from '@biosimulations/config/common';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ViewService {
   private endpoints = new Endpoints();
+  private appRoutes = new AppRoutes();
 
   constructor() {}
 
@@ -51,7 +52,7 @@ export class ViewService {
       //     : 'N/A',
       submitted: FormatService.formatTime(new Date(simulation.submitted)),
       updated: FormatService.formatTime(new Date(simulation.updated)),
-      simulatorUrl: this.endpoints.getSimulatorsView(
+      simulatorUrl: this.appRoutes.getSimulatorsView(
         simulation.simulator,
         simulation.simulatorVersion,
       ),
