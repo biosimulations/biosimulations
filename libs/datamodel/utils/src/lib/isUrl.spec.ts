@@ -5,13 +5,13 @@ describe('isUrl', () => {
     require_protocol: true,
     protocols: ['http', 'https'],
     allowDecodedUrls: true,
-  }
+  };
 
   const options2: IsURLOptions = {
     require_protocol: false,
     protocols: ['http', 'https', 'ftp'],
     allowDecodedUrls: false,
-  }
+  };
 
   it('Should accept valid URLs', () => {
     let value: string;
@@ -30,12 +30,12 @@ describe('isUrl', () => {
 
     value = 'http://google.com/x/y';
     expect(isUrlConstraint(value, options)).toBe(true);
-  })
+  });
 
   it('Should accept fragments', () => {
     const value = 'http://google.com/x/y#z';
     expect(isUrlConstraint(value, options)).toBe(true);
-  })
+  });
 
   it('Should accept query arguments', () => {
     const value = 'http://google.com/a-b?c';

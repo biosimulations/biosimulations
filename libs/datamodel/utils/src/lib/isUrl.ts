@@ -10,9 +10,12 @@ import ValidatorJS from 'validator';
 
 export type IsURLOptions = ValidatorJS.IsURLOptions & {
   allowDecodedUrls?: boolean;
-}
+};
 
-export function IsUrl(options?: IsURLOptions, validationOptions?: ValidationOptions): PropertyDecorator {
+export function IsUrl(
+  options?: IsURLOptions,
+  validationOptions?: ValidationOptions,
+): PropertyDecorator {
   return ValidateBy(
     {
       name: IS_URL,
@@ -21,10 +24,13 @@ export function IsUrl(options?: IsURLOptions, validationOptions?: ValidationOpti
         validate: (value: any, args?: ValidationArguments): boolean => {
           return isUrlConstraint(value, options);
         },
-        defaultMessage: buildMessage(eachPrefix => eachPrefix + '$property must be an URL address', validationOptions),
+        defaultMessage: buildMessage(
+          (eachPrefix) => eachPrefix + '$property must be an URL address',
+          validationOptions,
+        ),
       },
     },
-    validationOptions
+    validationOptions,
   );
 }
 
