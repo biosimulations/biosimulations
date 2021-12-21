@@ -31,23 +31,12 @@ export class SimulationStorageService {
     runId: string,
     fileLocation: string,
   ): Promise<void> {
-    const fileObject = this.filePaths.getSimulationRunContentFilePath(
+    const s3path = this.filePaths.getSimulationRunContentFilePath(
       runId,
       fileLocation,
     );
-    const output = await this.storage.deleteObject(fileObject);
 
-    await this.storage.getObject(fileObject)
-      .then((file: AWS.S3.GetObjectOutput): void => {
-        if (!file.DeleteMarker) {
-          throw new InternalServerErrorException(`File '${fileLocation}' could not be deleted for simulation run '{runId}'.`);
-        }
-      })
-      .catch((error: any): void => {
-        if (error.status !== HttpStatus.NOT_FOUND && error.statusCode !== HttpStatus.NOT_FOUND) {
-          throw error;
-        }
-      });
+    await this.deleteS3Object(runId, s3path, `File '${fileLocation}' could not be deleted for simulation run '{runId}'.`);
   }
 
   public async getSimulationRunOutputArchive(
@@ -80,19 +69,30 @@ export class SimulationStorageService {
   }
 
   public async deleteSimulationArchive(runId: string): Promise<void> {
-    const fileObject = this.filePaths.getSimulationRunCombineArchivePath(runId);
-    await this.storage.deleteObject(fileObject);
+    const s3path = this.filePaths.getSimulationRunCombineArchivePath(runId);
+    await this.deleteS3Object(runId, s3path, `COMBINE archive could not be deleted for simulation run '{runId}'.`);
+  }
 
-    await this.storage.getObject(fileObject)
-      .then((file: AWS.S3.GetObjectOutput): void => {
-        if (!file.DeleteMarker) {
-          throw new InternalServerErrorException(`COMBINE archive could not be deleted for simulation run '{runId}'.`);
-        }
-      })
-      .catch((error: any): void => {
-        if (error.status !== HttpStatus.NOT_FOUND && error.statusCode !== HttpStatus.NOT_FOUND) {
-          throw error;
-        }
-      });
+  private async deleteS3Object(runId: string, s3path: string, errorMessage: string, confirm = true): Promise<void> {
+    // delete object
+    const deletionResult: AWS.S3.DeleteObjectOutput = await this.storage.deleteObject(s3path);
+
+    // confirm deletion operation was successful
+    if (deletionResult.DeleteMarker !== true) {
+      throw new InternalServerErrorException(errorMessage);
+    }
+
+    // confirm object no longer exists
+    if (confirm) {
+      await this.storage.getObject(s3path)
+        .then((file: AWS.S3.GetObjectOutput): void => {
+          throw new InternalServerErrorException(errorMessage);
+        })
+        .catch((error: any): void => {
+          if (!(error.statusCode === HttpStatus.NOT_FOUND && error.code === 'NoSuchKey')) {
+            throw error;
+          }
+        });
+    }
   }
 }
