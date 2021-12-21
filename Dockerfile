@@ -68,8 +68,10 @@ WORKDIR /app
 
 #Copy over dependency list
 COPY package.json /app/package.json
+COPY package-lock.json /app/package-lock.json
+
 # install the app and include only dependencies needed to run
-RUN npm install --only=production 
+RUN npm ci --only=production
 # copy artifact build from the 'build environment'
 RUN echo app is ${APP}
 COPY --from=build /app/dist/apps/${APP}/ .
