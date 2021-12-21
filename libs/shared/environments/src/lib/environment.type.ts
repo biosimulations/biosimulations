@@ -1,5 +1,6 @@
+export type envs = 'local' | 'dev' | 'stage' | 'prod';
 export type environmentType = {
   production: boolean;
-  env: 'dev' | 'prod' | 'local' | 'prod' | 'stage';
+  env: envs;
   baseUrl: string;
 };
