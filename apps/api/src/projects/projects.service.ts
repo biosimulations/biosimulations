@@ -223,10 +223,16 @@ export class ProjectsService implements OnModuleInit {
       .sort()
       .join(',');
     const cacheKey = `Project:Summaries:${projectIds}`;
-    return this.getWithCache<ProjectSummary[]>(cacheKey, this._getProjectSummaries.bind(this, projects), 0);
+    return this.getWithCache<ProjectSummary[]>(
+      cacheKey,
+      this._getProjectSummaries.bind(this, projects),
+      0,
+    );
   }
 
-  private async _getProjectSummaries(projects: ProjectModel[]): Promise<ProjectSummary[]> {
+  private async _getProjectSummaries(
+    projects: ProjectModel[],
+  ): Promise<ProjectSummary[]> {
     const promises = projects.map((project): Promise<ProjectSummaryResult> => {
       return this.getProjectSummary(project.id)
         .then((value: ProjectSummary) => {
@@ -293,7 +299,7 @@ export class ProjectsService implements OnModuleInit {
     const project = await this.model
       .findOne({ id })
       .collation(ProjectIdCollation);
-    
+
     if (!project) {
       throw new NotFoundException(
         `Project with id '${id}' could not be found.`,
@@ -302,10 +308,16 @@ export class ProjectsService implements OnModuleInit {
 
     const updated = project.updated.toISOString();
     const cacheKey = `Project:Summary:${id}:${updated}`;
-    return this.getWithCache<ProjectSummary>(cacheKey, this._getProjectSummary.bind(this, project), 0);
+    return this.getWithCache<ProjectSummary>(
+      cacheKey,
+      this._getProjectSummary.bind(this, project),
+      0,
+    );
   }
 
-  private async _getProjectSummary(project: ProjectModel): Promise<ProjectSummary> {
+  private async _getProjectSummary(
+    project: ProjectModel,
+  ): Promise<ProjectSummary> {
     const ownerAuth0Id = project?.owner;
     let owner: Account | undefined;
     if (ownerAuth0Id) {
@@ -483,11 +495,21 @@ export class ProjectsService implements OnModuleInit {
    */
   private async getAccount(auth0Id: string): Promise<Account> {
     const cacheKey = `Account:info:${auth0Id}`;
-    return this.getWithCache<Account>(cacheKey, this._getAccount.bind(this, auth0Id));
+    return this.getWithCache<Account>(
+      cacheKey,
+      this._getAccount.bind(this, auth0Id),
+    );
   }
 
-  private async getWithCache<T>(key: string, valueFunc: () => Promise<T>, ttl = 60 * 24, overwrite = false): Promise<T> {
-    const cachedValue = overwrite ? null : (await this.cacheManager.get(key)) as T | null;
+  private async getWithCache<T>(
+    key: string,
+    valueFunc: () => Promise<T>,
+    ttl = 60 * 24,
+    overwrite = false,
+  ): Promise<T> {
+    const cachedValue = overwrite
+      ? null
+      : ((await this.cacheManager.get(key)) as T | null);
 
     if (cachedValue != null) {
       return cachedValue;

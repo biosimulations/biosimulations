@@ -8,7 +8,10 @@ import { Project } from '@biosimulations/datamodel/common';
   strict: 'throw',
   collection: 'Projects',
 })
-export class ProjectModel extends Document implements Omit<Project, 'created' | 'updated'> {
+export class ProjectModel
+  extends Document
+  implements Omit<Project, 'created' | 'updated'>
+{
   @Prop({
     required: true,
     type: String,
