@@ -453,9 +453,6 @@ export class Endpoints {
   }
   // SUBPATHS
 
-  // TODO remove the redundancy between the various s3 paths
-  // This seems to be used just to process files. I think it can be dramatically simplified now that files
-  // are directly extracted to S3
   /**
    * Get the URL for downloading a file from within a COMBINE archive.
    * The COMBINE archive is extracted to the s3 bucket. Returns a URL to the file in the s3 bucket
@@ -479,16 +476,18 @@ export class Endpoints {
       )}`;
     } else {
       return `${storageEndpoint}/${this.getSimulationRunS3Path(
-        runId,
-      )}/contents/${fileLocation}`;
+        runId, `contents/${fileLocation}`
+        )}`;
     }
   }
+
   /**
    * Create a path a simulation run in an S3 bucket
    * @param runId Id of the simulation run
    */
-  public getSimulationRunS3Path(runId: string): string {
-    return `${this.simulationRunsS3Path}/${runId}`;
+  public getSimulationRunS3Path(runId: string, subPath?: string): string {
+    subPath = subPath ? `/${subPath}` : '';
+    return `${this.simulationRunsS3Path}/${runId}${subPath}`;
   }
 
   /**
@@ -496,7 +495,7 @@ export class Endpoints {
    * @param runId Id of the simulation run
    */
   public getSimulationRunCombineArchiveS3Path(runId: string): string {
-    return `${this.getSimulationRunS3Path(runId)}/archive.omex`;
+    return this.getSimulationRunS3Path(runId, 'archive.omex');
   }
 
   /**
@@ -509,17 +508,7 @@ export class Endpoints {
     fileLocation?: string,
   ): string {
     const filePath = fileLocation ? `/${fileLocation}` : '';
-    return `${this.getSimulationRunS3Path(runId)}/${
-      this.simulationRunContentS3Subpath
-    }${filePath}`;
-  }
-
-  /**
-   * Create a path for a file of a simulation run in an S3 bucket
-   * @param fileId Id of the file of a simulation run (`${runId}/contents/${fileLocationInCombineArchive}`)
-   */
-  public getSimulationRunFileS3Path(fileId: string): string {
-    return `${this.simulationRunsS3Path}/${fileId}`;
+    return this.getSimulationRunS3Path(runId, `${this.simulationRunContentS3Subpath}${filePath}`);
   }
 
   /**
@@ -529,7 +518,7 @@ export class Endpoints {
    */
   public getSimulationRunOutputS3Path(runId: string, absolute = true): string {
     if (absolute) {
-      return `${this.getSimulationRunS3Path(runId)}/${runId}.zip`;
+      return this.getSimulationRunS3Path(runId, `${runId}.zip`);
     } else {
       return `${runId}.zip`;
     }
