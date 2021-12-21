@@ -1,4 +1,4 @@
-import { environment } from '@biosimulations/shared/environments';
+import { environment, envs } from '@biosimulations/shared/environments';
 import { EndpointLoader, LoadedEndpoints } from './endpointLoader';
 
 /**
@@ -24,7 +24,7 @@ export class Endpoints {
   private externalStorageEndpoint: string;
   private externalDataService: string;
 
-  public constructor(env?: 'local' | 'dev' | 'stage' | 'prod') {
+  public constructor(env?: envs) {
     // We can read the env that is provided in the shared environment file as the default
     if (env == undefined) {
       env = environment.env;

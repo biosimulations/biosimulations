@@ -1,11 +1,12 @@
 import { Endpoints } from '@biosimulations/config/common';
+import { envs } from '@biosimulations/shared/environments';
 
 export class FilePaths {
   private endpoints: Endpoints;
   private static simulationRunsPath = 'simulations';
   private static simulationRunContentSubpath = 'contents';
 
-  public constructor(env?: 'local' | 'dev' | 'stage' | 'prod') {
+  public constructor(env?: envs) {
     this.endpoints = new Endpoints(env);
   }
 

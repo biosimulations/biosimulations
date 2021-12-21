@@ -1,3 +1,5 @@
+import { envs } from '@biosimulations/shared/environments';
+
 /* eslint-disable max-len */
 export type Endpoint =
   | 'api'
@@ -18,9 +20,9 @@ export type DynamicEndpoints = { [key in Endpoint]: string | undefined };
 export type LoadedEndpoints = { [key in Endpoint]: string };
 
 export class EndpointLoader {
-  private env: 'local' | 'dev' | 'stage' | 'prod';
+  private env: envs;
 
-  public constructor(env: 'local' | 'dev' | 'stage' | 'prod') {
+  public constructor(env: envs) {
     this.env = env;
   }
 
