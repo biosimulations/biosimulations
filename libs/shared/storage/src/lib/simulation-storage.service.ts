@@ -1,5 +1,6 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, InternalServerErrorException, HttpStatus } from '@nestjs/common';
 import S3 from 'aws-sdk/clients/s3';
+import * as AWS from 'aws-sdk';
 import { SharedStorageService } from './shared-storage.service';
 import { Endpoints } from '@biosimulations/config/common';
 import { ConfigService } from '@nestjs/config';
@@ -36,7 +37,17 @@ export class SimulationStorageService {
     );
     const output = await this.storage.deleteObject(fileObject);
 
-    // TODO check deletion worked
+    await this.storage.getObject(fileObject)
+      .then((file: AWS.S3.GetObjectOutput): void => {
+        if (!file.DeleteMarker) {
+          throw new InternalServerErrorException(`File '${fileLocation}' could not be deleted for simulation run '{runId}'.`);
+        }
+      })
+      .catch((error: any): void => {
+        if (error.status !== HttpStatus.NOT_FOUND && error.statusCode !== HttpStatus.NOT_FOUND) {
+          throw error;
+        }
+      });
   }
 
   public async getSimulationRunOutputArchive(
