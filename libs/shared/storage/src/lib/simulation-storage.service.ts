@@ -80,8 +80,19 @@ export class SimulationStorageService {
   }
 
   public async deleteSimulationArchive(runId: string): Promise<void> {
-    await this.storage.deleteObject(
-      this.endpoints.getSimulationRunCombineArchiveS3Path(runId),
-    );
+    const fileObject = this.endpoints.getSimulationRunCombineArchiveS3Path(runId);
+    await this.storage.deleteObject(fileObject);
+
+    await this.storage.getObject(fileObject)
+      .then((file: AWS.S3.GetObjectOutput): void => {
+        if (!file.DeleteMarker) {
+          throw new InternalServerErrorException(`COMBINE archive could not be deleted for simulation run '{runId}'.`);
+        }
+      })
+      .catch((error: any): void => {
+        if (error.status !== HttpStatus.NOT_FOUND && error.statusCode !== HttpStatus.NOT_FOUND) {
+          throw error;
+        }
+      });
   }
 }
