@@ -80,6 +80,9 @@ jobs:
         with:
           useRollingCache: true
 
+      - name: Compile Angular Dependecies 
+        run: ngcc
+
       - run: npx nx-cloud start-ci-run
         name: Start CI Run
         if: always()
@@ -196,6 +199,8 @@ jobs:
         uses: bahmutov/npm-install@v1
         with:
           useRollingCache: true
+      - name: Compile Angular Dependecies 
+        run: ngcc
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
