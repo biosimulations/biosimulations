@@ -69,7 +69,7 @@ WORKDIR /app
 #Copy over dependency list
 COPY package.json /app/package.json
 # install the app and include only dependencies needed to run
-RUN npm install --only=production  --legacy-peer-deps
+RUN npm install --only=production 
 # copy artifact build from the 'build environment'
 RUN echo app is ${APP}
 COPY --from=build /app/dist/apps/${APP}/ .
