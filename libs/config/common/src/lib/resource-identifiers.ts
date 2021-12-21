@@ -1,7 +1,7 @@
 export class ResourceIdentifiers {
-  private static simulatorPrefix = 'biosimulators'
-  private static simulationRunPrefix = 'runbiosimulations'
-  private static projectPrefix = 'biosimulations'
+  private static simulatorPrefix = 'biosimulators';
+  private static simulationRunPrefix = 'runbiosimulations';
+  private static projectPrefix = 'biosimulations';
 
   public constructor() {}
 

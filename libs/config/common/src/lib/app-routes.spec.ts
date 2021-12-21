@@ -28,14 +28,26 @@ describe('AppRoutes', () => {
   });
 
   it('Should load correct environment', () => {
-    expect(prodAppRoutes.getSimulatorsAppHome()).toBe('https://biosimulators.org');
-    expect(devAppRoutes.getSimulatorsAppHome()).toBe('https://biosimulators.dev');
+    expect(prodAppRoutes.getSimulatorsAppHome()).toBe(
+      'https://biosimulators.org',
+    );
+    expect(devAppRoutes.getSimulatorsAppHome()).toBe(
+      'https://biosimulators.dev',
+    );
 
-    expect(prodAppRoutes.getDispatchAppHome()).toBe('https://run.biosimulations.org');
-    expect(devAppRoutes.getDispatchAppHome()).toBe('https://run.biosimulations.dev');
+    expect(prodAppRoutes.getDispatchAppHome()).toBe(
+      'https://run.biosimulations.org',
+    );
+    expect(devAppRoutes.getDispatchAppHome()).toBe(
+      'https://run.biosimulations.dev',
+    );
 
-    expect(prodAppRoutes.getPlatformAppHome()).toBe('https://biosimulations.org');
-    expect(devAppRoutes.getPlatformAppHome()).toBe('https://biosimulations.dev');
+    expect(prodAppRoutes.getPlatformAppHome()).toBe(
+      'https://biosimulations.org',
+    );
+    expect(devAppRoutes.getPlatformAppHome()).toBe(
+      'https://biosimulations.dev',
+    );
   });
 
   it('Should not read environment variables in browser', () => {
@@ -45,44 +57,84 @@ describe('AppRoutes', () => {
     prodAppRoutes = new module.AppRoutes('prod');
     devAppRoutes = new module.AppRoutes('dev');
 
-    expect(prodAppRoutes.getPlatformAppHome()).toBe('https://biosimulations.org');
-    expect(devAppRoutes.getPlatformAppHome()).toBe('https://biosimulations.dev');
+    expect(prodAppRoutes.getPlatformAppHome()).toBe(
+      'https://biosimulations.org',
+    );
+    expect(devAppRoutes.getPlatformAppHome()).toBe(
+      'https://biosimulations.dev',
+    );
     // @ts-ignore
     delete global.window;
   });
 
   it('Should calculate correct simulators views', () => {
-    expect(prodAppRoutes.getSimulatorsView()).toBe('https://biosimulators.org/simulators');
-    expect(devAppRoutes.getSimulatorsView()).toBe('https://biosimulators.dev/simulators');
+    expect(prodAppRoutes.getSimulatorsView()).toBe(
+      'https://biosimulators.org/simulators',
+    );
+    expect(devAppRoutes.getSimulatorsView()).toBe(
+      'https://biosimulators.dev/simulators',
+    );
 
-    expect(prodAppRoutes.getSimulatorsView('copasi')).toBe('https://biosimulators.org/simulators/copasi');
-    expect(devAppRoutes.getSimulatorsView('copasi')).toBe('https://biosimulators.dev/simulators/copasi');
+    expect(prodAppRoutes.getSimulatorsView('copasi')).toBe(
+      'https://biosimulators.org/simulators/copasi',
+    );
+    expect(devAppRoutes.getSimulatorsView('copasi')).toBe(
+      'https://biosimulators.dev/simulators/copasi',
+    );
 
-    expect(prodAppRoutes.getSimulatorsView('copasi', '1')).toBe('https://biosimulators.org/simulators/copasi/1');
-    expect(devAppRoutes.getSimulatorsView('copasi', '1')).toBe('https://biosimulators.dev/simulators/copasi/1');
+    expect(prodAppRoutes.getSimulatorsView('copasi', '1')).toBe(
+      'https://biosimulators.org/simulators/copasi/1',
+    );
+    expect(devAppRoutes.getSimulatorsView('copasi', '1')).toBe(
+      'https://biosimulators.dev/simulators/copasi/1',
+    );
   });
 
   it('Should calculate correct simulation run views', () => {
-    expect(prodAppRoutes.getSimulationRunsView()).toBe('https://run.biosimulations.org/simulations');
-    expect(devAppRoutes.getSimulationRunsView()).toBe('https://run.biosimulations.dev/simulations');
+    expect(prodAppRoutes.getSimulationRunsView()).toBe(
+      'https://run.biosimulations.org/simulations',
+    );
+    expect(devAppRoutes.getSimulationRunsView()).toBe(
+      'https://run.biosimulations.dev/simulations',
+    );
 
-    expect(prodAppRoutes.getSimulationRunsView('xyz')).toBe('https://run.biosimulations.org/simulations/xyz');
-    expect(devAppRoutes.getSimulationRunsView('xyz')).toBe('https://run.biosimulations.dev/simulations/xyz');
+    expect(prodAppRoutes.getSimulationRunsView('xyz')).toBe(
+      'https://run.biosimulations.org/simulations/xyz',
+    );
+    expect(devAppRoutes.getSimulationRunsView('xyz')).toBe(
+      'https://run.biosimulations.dev/simulations/xyz',
+    );
   });
 
   it('Should calculate correct projects views', () => {
-    expect(prodAppRoutes.getProjectsView()).toBe('https://biosimulations.org/projects');
-    expect(devAppRoutes.getProjectsView()).toBe('https://biosimulations.dev/projects');
+    expect(prodAppRoutes.getProjectsView()).toBe(
+      'https://biosimulations.org/projects',
+    );
+    expect(devAppRoutes.getProjectsView()).toBe(
+      'https://biosimulations.dev/projects',
+    );
 
-    expect(prodAppRoutes.getProjectsView('abc')).toBe('https://biosimulations.org/projects/abc');
-    expect(devAppRoutes.getProjectsView('abc')).toBe('https://biosimulations.dev/projects/abc');
+    expect(prodAppRoutes.getProjectsView('abc')).toBe(
+      'https://biosimulations.org/projects/abc',
+    );
+    expect(devAppRoutes.getProjectsView('abc')).toBe(
+      'https://biosimulations.dev/projects/abc',
+    );
   });
 
   it('Should calculate correct conventions views', () => {
-    expect(prodAppRoutes.getConventionsView()).toBe('https://docs.biosimulations.org/concepts/conventions/');
-    expect(devAppRoutes.getConventionsView()).toBe('https://docs.biosimulations.org/concepts/conventions/');
+    expect(prodAppRoutes.getConventionsView()).toBe(
+      'https://docs.biosimulations.org/concepts/conventions/',
+    );
+    expect(devAppRoutes.getConventionsView()).toBe(
+      'https://docs.biosimulations.org/concepts/conventions/',
+    );
 
-    expect(prodAppRoutes.getConventionsView('abc')).toBe('https://docs.biosimulations.org/concepts/conventions/abc/');
-    expect(devAppRoutes.getConventionsView('abc')).toBe('https://docs.biosimulations.org/concepts/conventions/abc/');
+    expect(prodAppRoutes.getConventionsView('abc')).toBe(
+      'https://docs.biosimulations.org/concepts/conventions/abc/',
+    );
+    expect(devAppRoutes.getConventionsView('abc')).toBe(
+      'https://docs.biosimulations.org/concepts/conventions/abc/',
+    );
   });
 });

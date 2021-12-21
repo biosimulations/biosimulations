@@ -60,7 +60,11 @@ import {
   Organization as OrganizationSchema,
   WithContext,
 } from 'schema-dts';
-import { Endpoints, AppRoutes, ResourceIdentifiers } from '@biosimulations/config/common';
+import {
+  Endpoints,
+  AppRoutes,
+  ResourceIdentifiers,
+} from '@biosimulations/config/common';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 import { environment } from '@biosimulations/shared/environments';
 import { deserializeSedDocument } from '../sed-document/sed-document';
@@ -1319,9 +1323,8 @@ export class ViewService {
       (dataSet.identifier as string[])[0] = this.appRoutes
         .getProjectsView(projectSummary.id)
         .replace('https://', 'http://');
-      (
-        dataSet.identifier as string[]
-      )[1] = this.resourceIdentifiers.getProjectIdentifier(projectSummary.id);
+      (dataSet.identifier as string[])[1] =
+        this.resourceIdentifiers.getProjectIdentifier(projectSummary.id);
       dataSet.creativeWorkStatus = 'Published';
       dataSet.hasPart = runDataSet;
       dataSet.distribution = [

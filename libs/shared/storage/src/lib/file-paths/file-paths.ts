@@ -32,8 +32,9 @@ export class FilePaths {
       )}`;
     } else {
       return `${storageEndpoint}/${this.getSimulationRunPath(
-        runId, `contents/${fileLocation}`
-        )}`;
+        runId,
+        `contents/${fileLocation}`,
+      )}`;
     }
   }
 
@@ -64,7 +65,10 @@ export class FilePaths {
     fileLocation?: string,
   ): string {
     const filePath = fileLocation ? `/${fileLocation}` : '';
-    return this.getSimulationRunPath(runId, `${FilePaths.simulationRunContentSubpath}${filePath}`);
+    return this.getSimulationRunPath(
+      runId,
+      `${FilePaths.simulationRunContentSubpath}${filePath}`,
+    );
   }
 
   /**

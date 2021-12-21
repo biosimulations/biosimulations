@@ -1,4 +1,9 @@
-import { Injectable, Logger, InternalServerErrorException, HttpStatus } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  InternalServerErrorException,
+  HttpStatus,
+} from '@nestjs/common';
 import S3 from 'aws-sdk/clients/s3';
 import * as AWS from 'aws-sdk';
 import { SharedStorageService } from './shared-storage.service';
@@ -36,7 +41,11 @@ export class SimulationStorageService {
       fileLocation,
     );
 
-    await this.deleteS3Object(runId, s3path, `File '${fileLocation}' could not be deleted for simulation run '{runId}'.`);
+    await this.deleteS3Object(
+      runId,
+      s3path,
+      `File '${fileLocation}' could not be deleted for simulation run '{runId}'.`,
+    );
   }
 
   public async getSimulationRunOutputArchive(
@@ -70,12 +79,22 @@ export class SimulationStorageService {
 
   public async deleteSimulationArchive(runId: string): Promise<void> {
     const s3path = this.filePaths.getSimulationRunCombineArchivePath(runId);
-    await this.deleteS3Object(runId, s3path, `COMBINE archive could not be deleted for simulation run '{runId}'.`);
+    await this.deleteS3Object(
+      runId,
+      s3path,
+      `COMBINE archive could not be deleted for simulation run '{runId}'.`,
+    );
   }
 
-  private async deleteS3Object(runId: string, s3path: string, errorMessage: string, confirm = true): Promise<void> {
+  private async deleteS3Object(
+    runId: string,
+    s3path: string,
+    errorMessage: string,
+    confirm = true,
+  ): Promise<void> {
     // delete object
-    const deletionResult: AWS.S3.DeleteObjectOutput = await this.storage.deleteObject(s3path);
+    const deletionResult: AWS.S3.DeleteObjectOutput =
+      await this.storage.deleteObject(s3path);
 
     // confirm deletion operation was successful
     if (deletionResult.DeleteMarker !== true) {
@@ -84,12 +103,18 @@ export class SimulationStorageService {
 
     // confirm object no longer exists
     if (confirm) {
-      await this.storage.getObject(s3path)
+      await this.storage
+        .getObject(s3path)
         .then((file: AWS.S3.GetObjectOutput): void => {
           throw new InternalServerErrorException(errorMessage);
         })
         .catch((error: any): void => {
-          if (!(error.statusCode === HttpStatus.NOT_FOUND && error.code === 'NoSuchKey')) {
+          if (
+            !(
+              error.statusCode === HttpStatus.NOT_FOUND &&
+              error.code === 'NoSuchKey'
+            )
+          ) {
             throw error;
           }
         });
