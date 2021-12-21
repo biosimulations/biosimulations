@@ -1,4 +1,5 @@
 import { Endpoints } from '@biosimulations/config/common';
+import { FilePaths } from '@biosimulations/shared/storage';
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { HttpService } from '@nestjs/axios';
@@ -20,6 +21,7 @@ import { SimulationRunService } from '@biosimulations/api-nest-client';
 export class FileService {
   private logger = new Logger(FileService.name);
   private endpoints: Endpoints;
+  private filePaths: FilePaths;
 
   public constructor(
     private config: ConfigService,
@@ -29,6 +31,7 @@ export class FileService {
   ) {
     const env = config.get('server.env');
     this.endpoints = new Endpoints(env);
+    this.filePaths = new FilePaths(env);
   }
 
   public async processFiles(id: string): Promise<void> {
@@ -47,7 +50,7 @@ export class FileService {
             )
             .map((file: CombineArchiveManifestContent) => {
               const fileUrl =
-                this.endpoints.getSimulationRunFileContentEndpoint(
+                this.filePaths.getSimulationRunFileContentEndpoint(
                   false,
                   id,
                   file.location.path,

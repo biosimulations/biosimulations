@@ -24,23 +24,11 @@ export class Endpoints {
   private externalStorageEndpoint: string;
   private externalDataService: string;
 
-  // Front end apps
-  private simulatorsApp: string;
-  private dispatchApp: string;
-  private platformApp: string;
-
-  // Backend subpaths
-  private simulationRunResultsHsdsPath: string;
-  private simulationRunContentS3Subpath: string;
-  private simulationRunsS3Path: string;
-
-  private env: string;
   public constructor(env?: 'local' | 'dev' | 'stage' | 'prod') {
     // We can read the env that is provided in the shared environment file as the default
     if (env == undefined) {
       env = environment.env;
     }
-    this.env = env;
 
     const endpointLoader = new EndpointLoader(env);
     const loadedEndpoints: LoadedEndpoints = endpointLoader.loadEndpoints();
@@ -55,13 +43,6 @@ export class Endpoints {
     this.externalCombineApi = loadedEndpoints.externalCombineApi;
     this.externalStorageEndpoint = loadedEndpoints.externalStorageEndpoint;
     this.externalDataService = loadedEndpoints.externalDataService;
-    this.simulatorsApp = loadedEndpoints.simulatorsApp;
-    this.dispatchApp = loadedEndpoints.dispatchApp;
-    this.platformApp = loadedEndpoints.platformApp;
-
-    this.simulationRunsS3Path = 'simulations';
-    this.simulationRunContentS3Subpath = 'contents';
-    this.simulationRunResultsHsdsPath = 'results';
   }
 
   // HEALTH CHECKS
@@ -450,157 +431,6 @@ export class Endpoints {
     return `${this.getSimulatorsApiBaseUrl(
       external,
     )}/simulators/latest${id}${tests}`;
-  }
-  // SUBPATHS
-
-  /**
-   * Get the URL for downloading a file from within a COMBINE archive.
-   * The COMBINE archive is extracted to the s3 bucket. Returns a URL to the file in the s3 bucket
-   * @param runId The id of the simulation run
-   * @param fileLocation The path of the file within COMBINE archive relative to its root. Should not include './'
-   * @returns A URL to download the file from within the COMBINE archive
-   */
-  public getSimulationRunFileContentEndpoint(
-    external: boolean,
-    runId: string,
-    fileLocation: string,
-  ): string {
-    if (fileLocation.startsWith('./')) {
-      fileLocation = fileLocation.substring(2);
-    }
-
-    const storageEndpoint = this.getStorageEndpointBaseUrl(external);
-    if (fileLocation == '.') {
-      return `${storageEndpoint}/${this.getSimulationRunCombineArchiveS3Path(
-        runId,
-      )}`;
-    } else {
-      return `${storageEndpoint}/${this.getSimulationRunS3Path(
-        runId, `contents/${fileLocation}`
-        )}`;
-    }
-  }
-
-  /**
-   * Create a path a simulation run in an S3 bucket
-   * @param runId Id of the simulation run
-   */
-  public getSimulationRunS3Path(runId: string, subPath?: string): string {
-    subPath = subPath ? `/${subPath}` : '';
-    return `${this.simulationRunsS3Path}/${runId}${subPath}`;
-  }
-
-  /**
-   * Create a path for the COMBINE/OMEX archive of a simulation run in an S3 bucket
-   * @param runId Id of the simulation run
-   */
-  public getSimulationRunCombineArchiveS3Path(runId: string): string {
-    return this.getSimulationRunS3Path(runId, 'archive.omex');
-  }
-
-  /**
-   * Create a path for a file of a simulation run in an S3 bucket
-   * @param runId Id of the simulation run
-   * @param fileLocation Location of a file in the COMBINE/OMEX archive for the simulation run
-   */
-  public getSimulationRunContentFileS3Path(
-    runId: string,
-    fileLocation?: string,
-  ): string {
-    const filePath = fileLocation ? `/${fileLocation}` : '';
-    return this.getSimulationRunS3Path(runId, `${this.simulationRunContentS3Subpath}${filePath}`);
-  }
-
-  /**
-   * Create a path for a zip archive of the results of a simulation run in an S3 bucket
-   * @param runId Id of the simulation run
-   * @param absolute Whether to get the absolute path, or the path relative to the S3 path for the simulation run
-   */
-  public getSimulationRunOutputS3Path(runId: string, absolute = true): string {
-    if (absolute) {
-      return this.getSimulationRunS3Path(runId, `${runId}.zip`);
-    } else {
-      return `${runId}.zip`;
-    }
-  }
-
-  /**
-   * Create a path for the results of a simulation run in a HSDS
-   * @param runId Id of the simulation run
-   */
-  public getSimulationRunResultsHsdsPath(runId?: string): string {
-    runId ? (runId = `/${runId}`) : (runId = '');
-    return `/${this.simulationRunResultsHsdsPath}${runId}`;
-  }
-
-  /**
-   * Create a domain for the results of a simulation run in a HSDS
-   * @param runId Id of the simulation run
-   */
-  public getSimulationRunResultsHsdsDomain(runId?: string): string {
-    runId ? (runId = `${runId}.`) : (runId = '');
-    return `${runId}${this.simulationRunResultsHsdsPath}`;
-  }
-
-  // FRONT END
-  public getSimulatorsAppHome(): string {
-    return this.simulatorsApp;
-  }
-
-  public getDispatchAppHome(): string {
-    return this.dispatchApp;
-  }
-
-  public getPlatformAppHome(): string {
-    return this.platformApp;
-  }
-
-  public getSimulatorsView(id?: string, version?: string): string {
-    id ? (id = `/${id}`) : (id = '');
-    version ? (version = `/${version}`) : (version = '');
-    if (version && !id) {
-      throw new Error('Cannot get a version without a simulator id');
-    }
-    return `${this.simulatorsApp}/simulators${id}${version}`;
-  }
-
-  public getSimulationRunsView(id?: string): string {
-    id ? (id = `/${id}`) : (id = '');
-    return `${this.dispatchApp}/simulations${id}`;
-  }
-
-  public getProjectsView(id?: string): string {
-    id ? (id = `/${id}`) : (id = '');
-    return `${this.platformApp}/projects${id}`;
-  }
-
-  public getSimulatorIdentifier(id: string, identifiersOrg = false): string {
-    if (identifiersOrg) {
-      return `http://identifiers.org/biosimulators:${id}`;
-    } else {
-      return this.getSimulatorsView(id).replace('https://', 'http://');
-    }
-  }
-
-  public getSimulatorRunIdentifier(id: string, identifiersOrg = false): string {
-    if (identifiersOrg) {
-      return `http://identifiers.org/runbiosimulations:${id}`;
-    } else {
-      return this.getSimulationRunsView(id).replace('https://', 'http://');
-    }
-  }
-
-  public getProjectIdentifier(id: string, identifiersOrg = false): string {
-    if (identifiersOrg) {
-      return `http://identifiers.org/biosimulations:${id}`;
-    } else {
-      return this.getProjectsView(id).replace('https://', 'http://');
-    }
-  }
-
-  public getConventionsView(page?: string): string {
-    page ? (page = `${page}/`) : (page = '');
-    return `https://docs.biosimulations.org/concepts/conventions/${page}`;
   }
 
   // BASE URLS

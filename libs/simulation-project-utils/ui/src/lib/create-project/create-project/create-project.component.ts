@@ -34,7 +34,7 @@ import { Observable, of, Subscription, BehaviorSubject } from 'rxjs';
 import { map, concatAll, withLatestFrom, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import isUrl from 'is-url';
-import { Endpoints } from '@biosimulations/config/common';
+import { Endpoints, AppRoutes } from '@biosimulations/config/common';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -180,6 +180,7 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
     undefined;
 
   private endpoints = new Endpoints();
+  private appRoutes = new AppRoutes();
 
   constructor(
     private route: ActivatedRoute,
@@ -561,7 +562,7 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
           simulator: {
             id: simulatorId,
             name: this.simulatorSpecsMap?.[simulatorId]?.name as string,
-            url: this.endpoints.getSimulatorsView(simulatorId),
+            url: this.appRoutes.getSimulatorsView(simulatorId),
           },
           maxPolicy: compatability.algorithm,
           parametersCompatibility: compatability.parameters,

@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of, Subscription } from 'rxjs';
 import { map, catchError, concatAll, shareReplay } from 'rxjs/operators';
-import { Endpoints } from '@biosimulations/config/common';
+import { AppRoutes } from '@biosimulations/config/common';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { ProjectService } from '@biosimulations/angular-api-client';
 import { ConfigService } from '@biosimulations/config/angular';
@@ -42,7 +42,7 @@ export class PublishComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
-  private endpoints = new Endpoints();
+  private appRoutes = new AppRoutes();
 
   constructor(
     private route: ActivatedRoute,
@@ -145,7 +145,7 @@ export class PublishComponent implements OnInit, OnDestroy {
       })
       .pipe(
         map(() => {
-          const url = this.endpoints.getProjectsView(id);
+          const url = this.appRoutes.getProjectsView(id);
           const tabWindowId = window.open('about:blank', '_blank');
           if (tabWindowId) {
             tabWindowId.location.href = url;

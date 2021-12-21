@@ -36,3 +36,5 @@ import { SimulationHDFService } from './dataset.service';
 export class HSDSClientModule {
   constructor() {}
 }
+
+export * from './data-paths/data-paths';

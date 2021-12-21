@@ -1,5 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Endpoints } from '@biosimulations/config/common';
+import { FilePaths } from '@biosimulations/shared/storage';
+import { DataPaths } from '@biosimulations/hsds/client';
 import { ConfigService } from '@nestjs/config';
 import {
   EnvironmentVariable,
@@ -10,10 +12,14 @@ import {
 @Injectable()
 export class SbatchService {
   private endpoints: Endpoints;
+  private filePaths: FilePaths;
+  private dataPaths: DataPaths;
 
   public constructor(private configService: ConfigService) {
     const env = this.configService.get('server.env');
     this.endpoints = new Endpoints(env);
+    this.filePaths = new FilePaths(env);
+    this.dataPaths = new DataPaths();
   }
 
   private logger = new Logger(SbatchService.name);
@@ -135,10 +141,10 @@ export class SbatchService {
       true,
       runId,
     );
-    const simulationRunS3Path = this.endpoints.getSimulationRunS3Path(runId);
+    const simulationRunS3Path = this.filePaths.getSimulationRunPath(runId);
     const simulationRunResultsHsdsPath =
-      this.endpoints.getSimulationRunResultsHsdsPath(runId);
-    const outputArchiveS3Subpath = this.endpoints.getSimulationRunOutputS3Path(
+      this.dataPaths.getSimulationRunResultsPath(runId);
+    const outputArchiveS3Subpath = this.filePaths.getSimulationRunOutputPath(
       runId,
       false,
     );

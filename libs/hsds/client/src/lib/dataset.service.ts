@@ -16,7 +16,7 @@ import {
   isArrayAttribute,
   isStringAttribute,
 } from './datamodel';
-import { Endpoints } from '@biosimulations/config/common';
+import { DataPaths } from './data-paths/data-paths';
 import { ConfigService } from '@nestjs/config';
 import { retryBackoff } from 'backoff-rxjs';
 import { firstValueFrom, Observable } from 'rxjs';
@@ -27,7 +27,7 @@ const GROUP = 'groups';
 
 Injectable();
 export class SimulationHDFService {
-  private endpoints: Endpoints;
+  private dataPaths: DataPaths;
   private auth: string;
   private logger = new Logger(SimulationHDFService.name);
 
@@ -40,7 +40,7 @@ export class SimulationHDFService {
     private configService: ConfigService,
   ) {
     const env = this.configService.get('server.env');
-    this.endpoints = new Endpoints(env);
+    this.dataPaths = new DataPaths();
 
     const username = this.configService.get('data.username');
     const password = this.configService.get('data.password');
@@ -78,7 +78,7 @@ export class SimulationHDFService {
     runId: string,
     datasetId: string,
   ): Promise<InlineResponse20010 | undefined> {
-    const domain = this.endpoints.getSimulationRunResultsHsdsDomain(runId);
+    const domain = this.dataPaths.getSimulationRunResultsDomain(runId);
     const dataResponse = await this.datasetService
       .datasetsIdValueGet(
         datasetId,
@@ -99,7 +99,7 @@ export class SimulationHDFService {
   public async getResultsTimestamps(
     runId: string,
   ): Promise<{ created?: Date; updated?: Date }> {
-    const domain = this.endpoints.getSimulationRunResultsHsdsDomain(runId);
+    const domain = this.dataPaths.getSimulationRunResultsDomain(runId);
     const root_id = await this.getRootGroupId(domain);
     if (root_id) {
       const metadata = await this.getGroup(domain, root_id);
@@ -123,7 +123,7 @@ export class SimulationHDFService {
   }
 
   public async getDatasets(runId: string): Promise<Dataset[]> {
-    const domain = this.endpoints.getSimulationRunResultsHsdsDomain(runId);
+    const domain = this.dataPaths.getSimulationRunResultsDomain(runId);
 
     const response = await this.domainService
       .datasetsGet(domain, this.auth)
@@ -187,7 +187,7 @@ export class SimulationHDFService {
   }
 
   public async deleteDatasets(runId: string): Promise<void> {
-    const domain = this.endpoints.getSimulationRunResultsHsdsDomain(runId);
+    const domain = this.dataPaths.getSimulationRunResultsDomain(runId);
     await this.domainService.rootDelete(domain, this.auth);
   }
 
