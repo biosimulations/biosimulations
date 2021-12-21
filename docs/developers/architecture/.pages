@@ -2,4 +2,5 @@ nav:
     - Overview: overview.md
     - Decisions and philosophy: philosophy.md
     - tech-foundation.md
+    - deployment.md
     - ...
