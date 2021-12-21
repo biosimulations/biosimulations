@@ -312,8 +312,8 @@ export class ProjectsController {
     const project: Project = {
       id: projectModel.id,
       simulationRun: projectModel.simulationRun,
-      created: projectModel.created,
-      updated: projectModel.updated,
+      created: projectModel.created.toISOString(),
+      updated: projectModel.updated.toISOString(),
     };
 
     return project;

@@ -488,8 +488,8 @@ export class SpecificationsController {
       outputs: specs.outputs,
       tasks: specs.tasks,
       dataGenerators: specs.dataGenerators,
-      created: specs.created,
-      updated: specs.updated,
+      created: specs.created.toISOString(),
+      updated: specs.updated.toISOString(),
       simulationRun: specs.simulationRun,
     };
   }

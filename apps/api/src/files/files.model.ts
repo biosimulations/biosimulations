@@ -9,8 +9,8 @@ import { File } from '@biosimulations/datamodel/common';
   strict: 'throw',
 })
 export class FileModel extends Document implements File {
-  public created!: string;
-  public updated!: string;
+  public created!: Date;
+  public updated!: Date;
 
   @Prop({
     required: true,

@@ -8,7 +8,7 @@ import { Project } from '@biosimulations/datamodel/common';
   strict: 'throw',
   collection: 'Projects',
 })
-export class ProjectModel extends Document implements Project {
+export class ProjectModel extends Document implements Omit<Project, 'created' | 'updated'> {
   @Prop({
     required: true,
     type: String,
@@ -46,8 +46,8 @@ export class ProjectModel extends Document implements Project {
   })
   public owner?: string;
 
-  public created!: string;
-  public updated!: string;
+  public created!: Date;
+  public updated!: Date;
 }
 
 export const ProjectModelSchema: SchemaType<ProjectModel> =

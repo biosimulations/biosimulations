@@ -167,8 +167,8 @@ export class MetadataController {
       return new SimulationRunMetadata(
         metadata.simulationRun,
         data,
-        metadata.created,
-        metadata.updated,
+        metadata.created.toISOString(),
+        metadata.updated.toISOString(),
       );
     });
 
@@ -214,8 +214,8 @@ export class MetadataController {
     return new SimulationRunMetadata(
       metadata.simulationRun,
       metadata.metadata,
-      metadata.created,
-      metadata.updated,
+      metadata.created.toISOString(),
+      metadata.updated.toISOString(),
     );
   }
 }
