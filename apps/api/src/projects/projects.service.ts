@@ -223,7 +223,7 @@ export class ProjectsService implements OnModuleInit {
       .sort()
       .join(',');
     const cacheKey = `Project:Summaries:${projectIds}`;
-    return await this.getWithCache<ProjectSummary[]>(cacheKey, this._getProjectSummaries.bind(this, projects), 0);
+    return this.getWithCache<ProjectSummary[]>(cacheKey, this._getProjectSummaries.bind(this, projects), 0);
   }
 
   private async _getProjectSummaries(projects: ProjectModel[]): Promise<ProjectSummary[]> {
@@ -302,7 +302,7 @@ export class ProjectsService implements OnModuleInit {
 
     const updated = project.updated.toISOString();
     const cacheKey = `Project:Summary:${id}:${updated}`;
-    return await this.getWithCache<ProjectSummary>(cacheKey, this._getProjectSummary.bind(this, project), 0);
+    return this.getWithCache<ProjectSummary>(cacheKey, this._getProjectSummary.bind(this, project), 0);
   }
 
   private async _getProjectSummary(project: ProjectModel): Promise<ProjectSummary> {
@@ -483,7 +483,7 @@ export class ProjectsService implements OnModuleInit {
    */
   private async getAccount(auth0Id: string): Promise<Account> {
     const cacheKey = `Account:info:${auth0Id}`;
-    return await this.getWithCache<Account>(cacheKey, this._getAccount.bind(this, auth0Id));
+    return this.getWithCache<Account>(cacheKey, this._getAccount.bind(this, auth0Id));
   }
 
   private async getWithCache<T>(key: string, valueFunc: () => Promise<T>, ttl = 60 * 24, overwrite = false): Promise<T> {
