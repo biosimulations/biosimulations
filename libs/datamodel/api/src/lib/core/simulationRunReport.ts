@@ -29,9 +29,9 @@ export const SimulationRunOutputDatumValuesSchema: Omit<
     { type: 'array', items: { type: 'number', format: 'float' } },
     { type: 'array', items: { type: 'boolean' } },
     { type: 'array', items: { type: 'string' } },
-    { 
-      type: 'array', 
-      items: { 
+    {
+      type: 'array',
+      items: {
         // $ref: '#/components/schemas/SimulationRunOutputDatumValues'
       },
     },
