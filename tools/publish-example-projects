@@ -10,6 +10,7 @@ import requests.exceptions
 config = {
     **dotenv.dotenv_values("secret/secret.env"),
     **dotenv.dotenv_values("config/config.env"),
+    **dotenv.dotenv_values("shared/shared.env"),
 }
 
 EXAMPLE_SIMULATIONS_FILENAME = os.path.join(os.path.dirname(__file__), 'example-projects.json')
