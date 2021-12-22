@@ -36,7 +36,7 @@ export class EndpointLoader {
       storageEndpoint: 'storageEndpoint',
       dataService: 'dataService',
       externalApi: 'externalApi',
-      externalSimulatorsApi: 'exxternalSimulatorsApi',
+      externalSimulatorsApi: 'externalSimulatorsApi',
       externalCombineApi: 'externalCombineApi',
       externalStorageEndpoint: 'externalStorageEndpoint',
       externalDataService: 'externalDataService',
