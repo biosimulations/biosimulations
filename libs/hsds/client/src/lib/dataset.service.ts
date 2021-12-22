@@ -19,8 +19,9 @@ import {
 import { DataPaths } from './data-paths/data-paths';
 import { ConfigService } from '@nestjs/config';
 import { retryBackoff } from 'backoff-rxjs';
-import { firstValueFrom, Observable } from 'rxjs';
-import { AxiosError } from 'axios';
+import { firstValueFrom, Observable, map } from 'rxjs';
+import { AxiosResponse, AxiosError } from 'axios';
+import * as JSON5 from 'json5';
 
 const DATASET = 'datasets';
 const GROUP = 'groups';
@@ -88,7 +89,15 @@ export class SimulationHDFService {
         undefined,
         this.auth,
       )
-      .pipe(this.getRetryBackoff());
+      .pipe(
+        this.getRetryBackoff(),
+        map((response: AxiosResponse<InlineResponse20010>): AxiosResponse<InlineResponse20010> => {
+          if (typeof response.data === 'string' || response.data instanceof String) {
+            response.data = JSON5.parse(response.data as string);
+          }
+          return response;
+        }),
+      );
 
     const dataResponsePromise = await firstValueFrom(dataResponse);
 
