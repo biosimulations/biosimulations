@@ -1,5 +1,27 @@
 Changelog
 
+# [8.4.0](https://github.com/biosimulations/biosimulations/compare/v8.3.0...v8.4.0) (2021-12-22)
+
+
+### Bug Fixes
+
+* added project id, owner to CompleteJob for failures ([0a8d834](https://github.com/biosimulations/biosimulations/commit/0a8d834e100fc396da08403e5cef6e8c703c133c))
+* **api,dispatch:** fixed data model for simulation results ([7cd2b5e](https://github.com/biosimulations/biosimulations/commit/7cd2b5e2a3d37e7544c16b383ee6594b65afdf69))
+* **api,dispatch:** fixed data type for simulation results ([610cbc9](https://github.com/biosimulations/biosimulations/commit/610cbc97530b8b9965a98a356beb23e27fbf3cdc))
+* **api:** changed file URL validation to allow un-encoded URLs ([f78bc43](https://github.com/biosimulations/biosimulations/commit/f78bc43fd89bb990841786eacb5118b5645628c4))
+* fixed external simulators API endpoint ([25b3a3c](https://github.com/biosimulations/biosimulations/commit/25b3a3c0aabbf14949cf5386438b4bee87c95a03))
+* fixed spinner for loading table data ([e2e1314](https://github.com/biosimulations/biosimulations/commit/e2e13149988f7cd74f95849f9c473c914d44f5ee))
+
+
+### Features
+
+* added checks that S3 files were deleted ([390300c](https://github.com/biosimulations/biosimulations/commit/390300c6039cede0176f7a5824b01687dbae5a94))
+* **api:** added cache for project summaries ([6fc5bb7](https://github.com/biosimulations/biosimulations/commit/6fc5bb705a3cadb3ee2379145b3a362f8abac354))
+* **api:** added checks that S3 files were deleted ([5d3ccb9](https://github.com/biosimulations/biosimulations/commit/5d3ccb91f964b11e9ffca1db1cb5f51d2c1d4389))
+* **api:** added handled for NaN and Inf from HSDS ([7802310](https://github.com/biosimulations/biosimulations/commit/78023109c8a0b3c1c6d4e80ec65aec680b8a6172))
+* **combine-api:** relaxed required metadata for simulation projects ([2be28f1](https://github.com/biosimulations/biosimulations/commit/2be28f1a896256e29ea7f9387e66f6283538e094))
+* directed href targets ([d609f80](https://github.com/biosimulations/biosimulations/commit/d609f80c71549213eaac6b9b1fd8a43b7d2c038c))
+
 # [8.3.0](https://github.com/biosimulations/biosimulations/compare/v8.2.1...v8.3.0) (2021-12-20)
 
 
