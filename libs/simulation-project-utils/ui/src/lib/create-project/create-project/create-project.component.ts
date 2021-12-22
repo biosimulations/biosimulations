@@ -707,7 +707,7 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
         let msg =
           'Sorry! We were unable to get the input parameters and output variables of your model. ' +
           'This feature is only currently available for models encoded in BNGL, CellML, SBML, SBML-fbc, ' +
-          'SBML-qual, and Smoldyn.';
+          'SBML-qual, and Smoldyn. Please refresh to try again.';
         if (modelLocationType === LocationType.url) {
           msg += ` Please check that ${modelLocationDetails} is an accessible URL.`;
         }
@@ -1317,7 +1317,7 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
       ): void => {
         if (!observerableValues[0]) {
           this.snackBar.open(
-            'Sorry! We were unable to load information about the simularity among algorithms.',
+            'Sorry! We were unable to load information about the simularity among algorithms. Please refresh to try again.',
             'Ok',
             {
               duration: 5000,
@@ -1542,7 +1542,7 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
         catchError((error: HttpErrorResponse): Observable<string> => {
           console.error(error);
           this.snackBar.open(
-            'Sorry! We were unable to generate your COMBINE/OMEX archive.',
+            'Sorry! We were unable to generate your COMBINE/OMEX archive. Please refresh to try again.',
             'Ok',
             {
               duration: 5000,

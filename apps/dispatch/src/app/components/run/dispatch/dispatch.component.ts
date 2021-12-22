@@ -328,7 +328,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
           algSubs = curatedAlgSubs;
         } else {
           this.snackBar.open(
-            'Sorry! We were unable to load information about the simularity among algorithms.',
+            'Sorry! We were unable to load information about the simularity among algorithms. Please refresh to try again.',
             'Ok',
             {
               duration: 5000,

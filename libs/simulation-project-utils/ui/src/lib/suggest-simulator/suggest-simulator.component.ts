@@ -104,7 +104,7 @@ export class SuggestSimulatorComponent implements OnInit {
 
           if (!algSubstitutions) {
             this.snackBar.open(
-              'Sorry! We were unable to load information about the simularity among algorithms.',
+              'Sorry! We were unable to load information about the simularity among algorithms. Please refresh to try again.',
               'Ok',
               {
                 duration: 5000,
