@@ -5,9 +5,10 @@ set -e
 LICENSES_TEMPLATE_PATH=./docs/about/license.template.md
 SOFTWARE_LICENSE_PATH=./docs/License.md
 LICENSES_PATH=./docs/about/license.md
+VERSION=$(jq -r '.version' package.json)
 
 TEMP_LICENSES_PATH=$(mktemp)
-license-checker --production --excludePackages biosimulations@0.0.0 --out ${TEMP_LICENSES_PATH}
+license-checker --production --excludePackages biosimulations@${VERSION} --out ${TEMP_LICENSES_PATH}
 
 # Remove local paths
 cwd=$(pwd)
