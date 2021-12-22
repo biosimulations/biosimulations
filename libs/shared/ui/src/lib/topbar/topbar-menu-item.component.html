@@ -4,7 +4,7 @@
     *ngIf="href && !disabled; else button"
     [href]="href"
     rel="noopener"
-    target="_blank"
+    [target]="target"
   >
     <div class="button-content">
       <biosimulations-icon [icon]="icon"></biosimulations-icon>

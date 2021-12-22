@@ -5,6 +5,7 @@
   <ng-container id="buttons">
     <biosimulations-home-teaser-button
       [href]="config.simulatorsAppUrl"
+      target="biosimulators"
       width="180px"
       color="accent"
     >
@@ -27,6 +28,7 @@
 
     <biosimulations-home-teaser-button
       [href]="config.dispatchAppUrl"
+      target="runbiosimulations"
       width="180px"
       color="accent"
     >
@@ -38,6 +40,7 @@
 
     <biosimulations-home-teaser-button
       [href]="config.dispatchAppUrl"
+      target="runbiosimulations"
       width="180px"
       color="accent"
     >
@@ -373,13 +376,13 @@
           <a
             href="https://github.com/biosimulations/biosimulations/blob/dev/LICENSE"
             rel="noopener"
-            target="_blank"
+            target="license"
             ><biosimulations-icon icon="link"></biosimulations-icon></a
           >.
         </p>
         <p>
           Please see the
-          <a href="https://docs.biosimulations.org">documentation</a> for more
+          <a href="https://docs.biosimulations.org" target="biosimulations-docs">documentation</a> for more
           information.
         </p>
       </div>

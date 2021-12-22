@@ -24,6 +24,9 @@ export class BiosimulationsNavigationItemComponent {
   href = '';
 
   @Input()
+  target = '_blank';
+
+  @Input()
   aboveDivider = false;
 
   noExpansion = false;

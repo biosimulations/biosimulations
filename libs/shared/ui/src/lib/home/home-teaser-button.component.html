@@ -8,7 +8,7 @@
   </a>
 
   <ng-template #hrefButton>
-    <a [href]="href" rel="noopener" target="_blank">
+    <a [href]="href" rel="noopener" [target]="target">
       <ng-container *ngTemplateOutlet="buttonTemplate"></ng-container>
     </a>
   </ng-template>

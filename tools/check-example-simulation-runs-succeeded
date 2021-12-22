@@ -99,7 +99,7 @@ def get_failed_runs(examples_deployment, biosimulations_deployment, validate_sim
             except simplejson.errors.JSONDecodeError:
                 error = 'Valiation failed'
 
-            failures.append('<details><summary><b>{} (<a href="{}" target="_blank">{}</a>)</b></summary><br/>\n{}\n</details>'.format(
+            failures.append('<details><summary><b>{} (<a href="{}" target="biosimulations">{}</a>)</b></summary><br/>\n{}\n</details>'.format(
                 run['name'], get_run_url(biosimulations_deployment, run['id']), run['id'], error,
             ))
 

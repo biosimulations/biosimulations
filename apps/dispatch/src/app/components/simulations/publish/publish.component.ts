@@ -146,10 +146,7 @@ export class PublishComponent implements OnInit, OnDestroy {
       .pipe(
         map(() => {
           const url = this.appRoutes.getProjectsView(id);
-          const tabWindowId = window.open('about:blank', '_blank');
-          if (tabWindowId) {
-            tabWindowId.location.href = url;
-          }
+          const tabWindowId = window.open(url, 'biosimulations');
 
           this.snackBar.open(
             'Your project was successfully published!.',
