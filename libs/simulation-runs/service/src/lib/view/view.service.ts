@@ -494,7 +494,7 @@ export class ViewService {
               icon: 'simulator',
               url: this.appRoutes.getSimulatorsView(
                 simulationRunSummary.run.simulator.id,
-                simulationRunSummary.run.simulator.version,
+                // simulationRunSummary.run.simulator.version,
               ),
             });
 

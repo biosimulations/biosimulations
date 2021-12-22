@@ -54,7 +54,7 @@ export class ViewService {
       updated: FormatService.formatTime(new Date(simulation.updated)),
       simulatorUrl: this.appRoutes.getSimulatorsView(
         simulation.simulator,
-        simulation.simulatorVersion,
+        // simulation.simulatorVersion,
       ),
     };
   }
