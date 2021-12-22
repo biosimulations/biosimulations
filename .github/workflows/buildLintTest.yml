@@ -80,7 +80,7 @@ jobs:
         with:
           useRollingCache: true
 
-      - name: Compile Angular Dependecies 
+      - name: Compile Angular Dependencies 
         run: npm run compile
 
       - run: npx nx-cloud start-ci-run
@@ -97,7 +97,7 @@ jobs:
           npx nx affected --target=build --prod --parallel &
           P2=$!
 
-          npx nx affected --target=test --parallel &
+          npm run compile && npx nx affected --target=test --parallel &
           P3=$!
 
           # wait for processes to finish and collect exit codes
@@ -130,7 +130,7 @@ jobs:
           npx nx run-many --all --target=build --prod --parallel &
           P2=$!
 
-          npx nx run-many --all --target=test --parallel &
+          npm run compile && npx nx run-many --all --target=test --parallel &
           P3=$!
 
           # wait for processes to finish and collect exit codes
@@ -199,6 +199,7 @@ jobs:
         uses: bahmutov/npm-install@v1
         with:
           useRollingCache: true
+          
       - name: Compile Angular Dependecies 
         run: npm run compile
 
