@@ -94,6 +94,7 @@ export class SimulatorsService {
     // Preserve the original date
     doc.biosimulators.created = sim.biosimulators.created;
     sim.overwrite(doc);
+    sim.biosimulators.updated = new Date(Date.now());
     const res = sim.save();
     return res;
   }
