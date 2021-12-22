@@ -1,10 +1,12 @@
+import { SimulationRunOutputDatumElement } from '@biosimulations/datamodel/common';
+
 export class OutputData {
   public id!: string;
   public label!: string;
   public shape!: string;
   public type!: string;
   public name!: string;
-  public values!: any[];
+  public values!: SimulationRunOutputDatumElement[];
 }
 
 export class Output {

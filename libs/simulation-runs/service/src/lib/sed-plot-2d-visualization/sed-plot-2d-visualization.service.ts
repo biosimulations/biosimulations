@@ -7,6 +7,7 @@ import {
   PlotlyTraceType,
   SimulationRunOutput,
   SimulationRunOutputDatum,
+  SimulationRunOutputDatumElement,
 } from '@biosimulations/datamodel/common';
 /*
 import {
@@ -23,7 +24,7 @@ interface SedDatasetResults {
   location: string;
   outputId: string;
   label: string;
-  values: any[];
+  values: SimulationRunOutputDatumElement[];
 }
 
 interface SedDatasetResultsMap {

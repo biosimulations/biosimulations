@@ -9,6 +9,7 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { Output, OutputData, Results } from './datamodel';
+import { SimulationRunOutputDatumElement } from '@biosimulations/datamodel/common';
 import { AWSError, S3 } from 'aws-sdk';
 import { Endpoints } from '@biosimulations/config/common';
 import { ConfigService } from '@nestjs/config';
@@ -111,12 +112,12 @@ export class ResultsService {
     runId: string,
     outputUri: string,
     datasetId: string,
-  ): Promise<any[]> {
+  ): Promise<SimulationRunOutputDatumElement[][]> {
     // The index field will be needed when we are doing slicing of the data so this will need to change
 
     const response = await this.results.getDatasetValues(runId, datasetId);
     if (response && 'value' in response) {
-      return response.value as any[];
+      return response.value as SimulationRunOutputDatumElement[][];
     } else {
       throw new InternalServerErrorException(`Results could not be found for output '${outputUri}' of simulation run '${runId}'.`);
     }
