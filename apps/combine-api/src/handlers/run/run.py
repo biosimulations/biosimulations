@@ -20,6 +20,7 @@ import zipfile
 config = {
     **dotenv_values("secret/secret.env"),
     **dotenv_values("config/config.env"),
+    **dotenv_values("shared/shared.env"),
 }
 
 RUN_COMBINE_ARCHIVE_TIMEOUT = float(config.get('RUN_COMBINE_ARCHIVE_TIMEOUT', 30.))

@@ -31,10 +31,11 @@ class S3Bucket(object):
         return self.public_endpoint + str(id)
 
     @staticmethod
-    def get_configuration(config_filename="config/config.env", secret_filename="secret/secret.env"):
+    def get_configuration(config_filename="config/config.env", secret_filename="secret/secret.env", shared_filename="shared/shared.env"):
         config = {
             **dotenv_values(secret_filename),
             **dotenv_values(config_filename),
+            **dotenv_values(shared_filename),
         }
 
         endpoint = config.get("STORAGE_ENDPOINT")
