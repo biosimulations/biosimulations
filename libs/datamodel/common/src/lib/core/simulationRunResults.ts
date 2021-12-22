@@ -1,10 +1,12 @@
+export type SimulationRunOutputDatumElement = number | boolean | string | SimulationRunOutputDatumElement[];
+
 export interface SimulationRunOutputDatum {
   id: string;
   label: string;
   name?: string;
   shape: string;
   type: string;
-  values: any[];
+  values: SimulationRunOutputDatumElement[];
 }
 
 export type SimulationRunOutputData = SimulationRunOutputDatum[];

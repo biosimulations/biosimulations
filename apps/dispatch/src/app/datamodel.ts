@@ -2,6 +2,7 @@ import {
   SimulationRunStatus,
   EnvironmentVariable,
   Purpose,
+  SimulationRunOutputDatumElement,
 } from '@biosimulations/datamodel/common';
 
 export interface UnknownSimulation {
@@ -62,7 +63,7 @@ export interface SedDatasetResults {
   location: string;
   outputId: string;
   label: string;
-  values: any[];
+  values: SimulationRunOutputDatumElement[];
 }
 
 export interface SedOutputResults {
