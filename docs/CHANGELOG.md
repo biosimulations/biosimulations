@@ -1,6 +1,6 @@
-Changelog
+# Changelog
 
-# [8.4.0](https://github.com/biosimulations/biosimulations/compare/v8.3.0...v8.4.0) (2021-12-22)
+## [8.4.0](https://github.com/biosimulations/biosimulations/compare/v8.3.0...v8.4.0) (2021-12-22)
 
 
 ### Bug Fixes
@@ -22,7 +22,7 @@ Changelog
 * **combine-api:** relaxed required metadata for simulation projects ([2be28f1](https://github.com/biosimulations/biosimulations/commit/2be28f1a896256e29ea7f9387e66f6283538e094))
 * directed href targets ([d609f80](https://github.com/biosimulations/biosimulations/commit/d609f80c71549213eaac6b9b1fd8a43b7d2c038c))
 
-# [8.3.0](https://github.com/biosimulations/biosimulations/compare/v8.2.1...v8.3.0) (2021-12-20)
+## [8.3.0](https://github.com/biosimulations/biosimulations/compare/v8.2.1...v8.3.0) (2021-12-20)
 
 
 ### Bug Fixes
@@ -45,7 +45,7 @@ Changelog
 * add gtag snippet to dispatch and simulators ([f1b6332](https://github.com/biosimulations/biosimulations/commit/f1b633298b064a3a9d6ce8bdc404fd815ead5a5c))
 * **config:** add default server limit to config ([496b430](https://github.com/biosimulations/biosimulations/commit/496b430efd96e7d2b13b102ea8f7ef9d25b8e35a)), closes [#3828](https://github.com/biosimulations/biosimulations/issues/3828)
 
-# [8.2.0](https://github.com/biosimulations/biosimulations/compare/v8.1.0...v8.2.0) (2021-12-16)
+## [8.2.0](https://github.com/biosimulations/biosimulations/compare/v8.1.0...v8.2.0) (2021-12-16)
 
 
 ### Bug Fixes
@@ -59,7 +59,7 @@ Changelog
 * added implementation of analytics and user consent ([2d87bb1](https://github.com/biosimulations/biosimulations/commit/2d87bb16abe21c9af02f402e3cfdb9265b3605e6))
 * **dispatch,platform,simulators:** add cookie consent and privacy settings to frontend apps ([e84cdea](https://github.com/biosimulations/biosimulations/commit/e84cdeaa8a230a068afbb490dc33a796a441cc59))
 
-# [8.1.0](https://github.com/biosimulations/biosimulations/compare/v8.0.0...v8.1.0) (2021-12-16)
+## [8.1.0](https://github.com/biosimulations/biosimulations/compare/v8.0.0...v8.1.0) (2021-12-16)
 
 
 ### Bug Fixes
@@ -74,7 +74,7 @@ Changelog
 
 * **combine-api:** added error messages for invalid S3 bucket configuration ([626a2f2](https://github.com/biosimulations/biosimulations/commit/626a2f2a6deadaaa71517a09c19451f975316ad0))
 
-# [8.0.0](https://github.com/biosimulations/biosimulations/compare/v7.0.0...v8.0.0) (2021-12-15)
+## [8.0.0](https://github.com/biosimulations/biosimulations/compare/v7.0.0...v8.0.0) (2021-12-15)
 
 
 ### Bug Fixes
@@ -128,7 +128,7 @@ Changelog
 * **api:** the download project endpoint will fail for all previously submitted simulation
 runs. Runs submitted prior to this change will not be retrievable by the api or applications
 
-# [7.0.0](https://github.com/biosimulations/biosimulations/compare/v6.1.0...v7.0.0) (2021-12-02)
+## [7.0.0](https://github.com/biosimulations/biosimulations/compare/v6.1.0...v7.0.0) (2021-12-02)
 
 
 ### Bug Fixes
@@ -189,7 +189,7 @@ runs. Runs submitted prior to this change will not be retrievable by the api or 
 * **api:** The logs post endpoint no longer returns the log that was created. For that, use a
 GET request after posting the log.
 
-# [6.1.0](https://github.com/biosimulations/biosimulations/compare/v6.0.2...v6.1.0) (2021-11-14)
+## [6.1.0](https://github.com/biosimulations/biosimulations/compare/v6.0.2...v6.1.0) (2021-11-14)
 
 
 ### Bug Fixes
@@ -233,7 +233,7 @@ GET request after posting the log.
 
 * **api:** fixed IsImageDigest validator for non-strings ([53501b1](https://github.com/biosimulations/biosimulations/commit/53501b1eb3f323658aa23ae9007d625f212f6c6f))
 
-# [6.0.0](https://github.com/biosimulations/biosimulations/compare/v5.9.0...v6.0.0) (2021-11-04)
+## [6.0.0](https://github.com/biosimulations/biosimulations/compare/v5.9.0...v6.0.0) (2021-11-04)
 
 
 ### Bug Fixes
@@ -276,7 +276,7 @@ GET request after posting the log.
 
 * **api:** moves simulation run file information from 'Simulation Files' collection
 
-# [5.9.0](https://github.com/biosimulations/biosimulations/compare/v5.8.0...v5.9.0) (2021-10-24)
+## [5.9.0](https://github.com/biosimulations/biosimulations/compare/v5.8.0...v5.9.0) (2021-10-24)
 
 
 ### Bug Fixes
@@ -308,7 +308,7 @@ GET request after posting the log.
 
 * **simulators-api,api:** revert partially the changes in 98fb49d651c01d621d175051cb030621b273034a ([d88fcea](https://github.com/biosimulations/biosimulations/commit/d88fcead0eebe59f6394c9befca9e6ac7e132c83))
 
-# [5.8.0](https://github.com/biosimulations/biosimulations/compare/v5.7.3...v5.8.0) (2021-10-20)
+## [5.8.0](https://github.com/biosimulations/biosimulations/compare/v5.7.3...v5.8.0) (2021-10-20)
 
 
 ### Features
@@ -342,7 +342,7 @@ GET request after posting the log.
 * **account-api:** fixed route parameter names ([c7d8712](https://github.com/biosimulations/biosimulations/commit/c7d8712b0614d325bc1bf7fcc9145effcb6f2e60))
 * **api:** fixed route parameter names ([1496f0f](https://github.com/biosimulations/biosimulations/commit/1496f0fc1c9ca0d63a620f73c216d9ab0752cce2))
 
-# [5.7.0](https://github.com/biosimulations/biosimulations/compare/v5.6.2...v5.7.0) (2021-10-18)
+## [5.7.0](https://github.com/biosimulations/biosimulations/compare/v5.6.2...v5.7.0) (2021-10-18)
 
 
 ### Bug Fixes
@@ -372,7 +372,7 @@ GET request after posting the log.
 
 * **api:** fix permissions for endpoints ([f00f6d1](https://github.com/biosimulations/biosimulations/commit/f00f6d116cc64525656f4b36030ee0109f9ff3b0)), closes [#3242](https://github.com/biosimulations/biosimulations/issues/3242)
 * update client ids for api docs ([1ec36bb](https://github.com/biosimulations/biosimulations/commit/1ec36bb377ab939062da27455d199dbc3e4ada25))
-# [5.6.0](https://github.com/biosimulations/biosimulations/compare/v5.5.0...v5.6.0) (2021-10-17)
+## [5.6.0](https://github.com/biosimulations/biosimulations/compare/v5.5.0...v5.6.0) (2021-10-17)
 
 
 ### Bug Fixes
@@ -398,7 +398,7 @@ GET request after posting the log.
 
 * **deps:** revert update dependency eslint to v8 ([0fdb3d8](https://github.com/biosimulations/biosimulations/commit/0fdb3d81a59710e4667974ecf0e42c8ec65ffd34))
 
-# [5.5.0](https://github.com/biosimulations/biosimulations/compare/v5.4.0...v5.5.0) (2021-10-09)
+## [5.5.0](https://github.com/biosimulations/biosimulations/compare/v5.4.0...v5.5.0) (2021-10-09)
 
 
 ### Bug Fixes
@@ -413,7 +413,7 @@ GET request after posting the log.
 * **dispatch:** added check that simulation run was successful ([b4ade32](https://github.com/biosimulations/biosimulations/commit/b4ade32f2c3443d182f92ced5d12bf80341a260a))
 * **platform:** added validation for project ids; closes [#3183](https://github.com/biosimulations/biosimulations/issues/3183) ([01b6178](https://github.com/biosimulations/biosimulations/commit/01b61788565e3c42c1b11acf1e2f02b349321cfc))
 
-# [5.4.0](https://github.com/biosimulations/biosimulations/compare/v5.3.0...v5.4.0) (2021-10-08)
+## [5.4.0](https://github.com/biosimulations/biosimulations/compare/v5.3.0...v5.4.0) (2021-10-08)
 
 
 ### Bug Fixes
@@ -436,7 +436,7 @@ GET request after posting the log.
 
 * **combine-service:** reverted URL for COMBINE API ([d1dd8b5](https://github.com/biosimulations/biosimulations/commit/d1dd8b595ae1777c4e73b1e90d83f6a33603730c))
 
-# [5.3.0](https://github.com/biosimulations/biosimulations/compare/v5.2.0...v5.3.0) (2021-10-07)
+## [5.3.0](https://github.com/biosimulations/biosimulations/compare/v5.2.0...v5.3.0) (2021-10-07)
 
 
 ### Bug Fixes
@@ -478,7 +478,7 @@ GET request after posting the log.
 
 * **deps:** revert 235c9db3e9649cdb8b42e6575517aa651f9e1c2d ([05cb6f3](https://github.com/biosimulations/biosimulations/commit/05cb6f39142d576e4d9c866a6ee2177589aadbd3))
 
-# [5.2.0](https://github.com/biosimulations/biosimulations/compare/v5.1.1...v5.2.0) (2021-10-04)
+## [5.2.0](https://github.com/biosimulations/biosimulations/compare/v5.1.1...v5.2.0) (2021-10-04)
 
 
 ### Bug Fixes
@@ -505,7 +505,7 @@ GET request after posting the log.
 * **platform:** corrected handling of software license keys for simulation ([84bef20](https://github.com/biosimulations/biosimulations/commit/84bef20d9c035168d7d74fcffdeafae97091af8f))
 * **platform:** corrected handling of software license keys for simulation ([aba13fe](https://github.com/biosimulations/biosimulations/commit/aba13fe9c30c2355d6d63a9a3546fa78062b82d6))
 
-# [5.1.0](https://github.com/biosimulations/biosimulations/compare/v5.0.0...v5.1.0) (2021-09-29)
+## [5.1.0](https://github.com/biosimulations/biosimulations/compare/v5.0.0...v5.1.0) (2021-09-29)
 
 
 ### Bug Fixes
@@ -518,7 +518,7 @@ GET request after posting the log.
 
 * **dispatch:** require configuration of academic use for commercial solvers ([6c5307c](https://github.com/biosimulations/biosimulations/commit/6c5307c31dad3f59b2e7c01b07ea1b83218a7ff0))
 
-# [5.0.0](https://github.com/biosimulations/biosimulations/compare/v4.6.0...v5.0.0) (2021-09-28)
+## [5.0.0](https://github.com/biosimulations/biosimulations/compare/v4.6.0...v5.0.0) (2021-09-28)
 
 
 ### Bug Fixes
@@ -552,7 +552,7 @@ GET request after posting the log.
 * The ontology, dispatch, and platform apis are consolidated into one main backend
 api for biosimulations. There is a seperate api for biosimulators. The combine-service also provides a rest api that is mostly intended for internal use.
 
-# [4.6.0](https://github.com/biosimulations/biosimulations/compare/v4.5.0...v4.6.0) (2021-09-27)
+## [4.6.0](https://github.com/biosimulations/biosimulations/compare/v4.5.0...v4.6.0) (2021-09-27)
 
 
 ### Bug Fixes
@@ -578,7 +578,7 @@ api for biosimulations. There is a seperate api for biosimulators. The combine-s
 
 * **platform:** fix tests ([a8f6d0e](https://github.com/biosimulations/biosimulations/commit/a8f6d0ed968a9ccccd45249db4b71313ef7a5f5b))
 
-# [4.5.0](https://github.com/biosimulations/biosimulations/compare/v4.4.2...v4.5.0) (2021-09-26)
+## [4.5.0](https://github.com/biosimulations/biosimulations/compare/v4.4.2...v4.5.0) (2021-09-26)
 
 
 ### Features
@@ -604,7 +604,7 @@ api for biosimulations. There is a seperate api for biosimulators. The combine-s
 
 * fixed sorting of simulator versions with > 4 points ([e0b60ce](https://github.com/biosimulations/biosimulations/commit/e0b60ce7e857a949d73f4daed4cf51e9e2b0ca91))
 
-# [4.4.0](https://github.com/biosimulations/biosimulations/compare/v4.3.0...v4.4.0) (2021-09-22)
+## [4.4.0](https://github.com/biosimulations/biosimulations/compare/v4.3.0...v4.4.0) (2021-09-22)
 
 
 ### Features
@@ -617,7 +617,7 @@ api for biosimulations. There is a seperate api for biosimulators. The combine-s
 
 * remove ui commit scope [skip ci] ([5051250](https://github.com/biosimulations/biosimulations/commit/50512504bd98cf55f2111ad0bf074ae5837260ea))
 
-# [4.3.0](https://github.com/biosimulations/biosimulations/compare/v4.2.0...v4.3.0) (2021-09-15)
+## [4.3.0](https://github.com/biosimulations/biosimulations/compare/v4.2.0...v4.3.0) (2021-09-15)
 
 
 ### Bug Fixes
@@ -632,7 +632,7 @@ api for biosimulations. There is a seperate api for biosimulators. The combine-s
 * **simulators:** expanded specs for simulators ([32b100b](https://github.com/biosimulations/biosimulations/commit/32b100be3f5856bc8131427155031dc5abe1013a))
 * expanded simulator specs ([f281cd3](https://github.com/biosimulations/biosimulations/commit/f281cd31b7c3c7c08dfc47162944dcfdbb7c4761))
 
-# [4.2.0](https://github.com/biosimulations/biosimulations/compare/v4.1.0...v4.2.0) (2021-09-11)
+## [4.2.0](https://github.com/biosimulations/biosimulations/compare/v4.1.0...v4.2.0) (2021-09-11)
 
 
 ### Bug Fixes
@@ -651,7 +651,7 @@ api for biosimulations. There is a seperate api for biosimulators. The combine-s
 * **dispatch-service:** added passing software licenses from deployment secrets to Singularity run ([cc19999](https://github.com/biosimulations/biosimulations/commit/cc199990c6255b6b70bc436a9d16051602c4d0c5))
 * **storage:** add simulation storage service and timeout for s3 uploads ([0c24173](https://github.com/biosimulations/biosimulations/commit/0c241737989289f79b13ebc8efa265cc7c6fc91f))
 
-# [4.1.0](https://github.com/biosimulations/biosimulations/compare/v4.0.1...v4.1.0) (2021-09-06)
+## [4.1.0](https://github.com/biosimulations/biosimulations/compare/v4.0.1...v4.1.0) (2021-09-06)
 
 
 ### Features
@@ -670,7 +670,7 @@ api for biosimulations. There is a seperate api for biosimulators. The combine-s
 
 * 39a60b17d640b62639f6594024f4ba4c66baedc5 ([f804cce](https://github.com/biosimulations/biosimulations/commit/f804cce9e3b3787a11b2989743e86407a4c014dd)), closes [#2959](https://github.com/biosimulations/biosimulations/issues/2959)
 
-# [4.0.0](https://github.com/biosimulations/biosimulations/compare/v3.20.0...v4.0.0) (2021-09-04)
+## [4.0.0](https://github.com/biosimulations/biosimulations/compare/v3.20.0...v4.0.0) (2021-09-04)
 
 
 ### Bug Fixes
@@ -687,7 +687,7 @@ api for biosimulations. There is a seperate api for biosimulators. The combine-s
 
 * simulation runs sumbitted prior to the update will not display on the dispatch app
 
-# [3.20.0](https://github.com/biosimulations/biosimulations/compare/v3.19.0...v3.20.0) (2021-09-04)
+## [3.20.0](https://github.com/biosimulations/biosimulations/compare/v3.19.0...v3.20.0) (2021-09-04)
 
 
 ### Bug Fixes
@@ -708,14 +708,14 @@ api for biosimulations. There is a seperate api for biosimulators. The combine-s
 
 * revert commit 5dad745d1df0ffc3fb2fba8fc3b99b21b69b0521 ([f8cdd5b](https://github.com/biosimulations/biosimulations/commit/f8cdd5b338ec3fd7f8b7faf607ce893a9d343075))
 
-# [3.19.0](https://github.com/biosimulations/biosimulations/compare/v3.18.0...v3.19.0) (2021-09-02)
+## [3.19.0](https://github.com/biosimulations/biosimulations/compare/v3.18.0...v3.19.0) (2021-09-02)
 
 
 ### Features
 
 * **combine-service:** updated to biosimulators-utils 0.1.115, biosimulators-amici 0.1.18 ([9ad2945](https://github.com/biosimulations/biosimulations/commit/9ad29450a51b8ff181a00fe57c70b660dc917a60))
 
-# [3.18.0](https://github.com/biosimulations/biosimulations/compare/v3.17.0...v3.18.0) (2021-09-01)
+## [3.18.0](https://github.com/biosimulations/biosimulations/compare/v3.17.0...v3.18.0) (2021-09-01)
 
 
 ### Bug Fixes
@@ -730,7 +730,7 @@ api for biosimulations. There is a seperate api for biosimulators. The combine-s
 * **combine-service:** fixed error handling for run sim, simplified run sim options ([5e63d49](https://github.com/biosimulations/biosimulations/commit/5e63d49eb5a1ad5c27ac09dc970093f04ff79980))
 * **dispatch:** added support for new SBO modeling framework terms ([80ee759](https://github.com/biosimulations/biosimulations/commit/80ee759d6be92545b01f999c1a7c0630fa43f43d))
 
-# [3.17.0](https://github.com/biosimulations/Biosimulations/compare/v3.16.0...v3.17.0) (2021-09-01)
+## [3.17.0](https://github.com/biosimulations/Biosimulations/compare/v3.16.0...v3.17.0) (2021-09-01)
 
 
 ### Bug Fixes
@@ -743,7 +743,7 @@ api for biosimulations. There is a seperate api for biosimulators. The combine-s
 * add shared config file support ([976e578](https://github.com/biosimulations/Biosimulations/commit/976e57846a8c43fa10f8be4e70a8a1989bde683c))
 * **dispatch:** call the metadata endpoint to get simulation metadata ([ae1054f](https://github.com/biosimulations/Biosimulations/commit/ae1054f6f101b170cb1408d13ffdcbb39f0b25a1)), closes [#2866](https://github.com/biosimulations/Biosimulations/issues/2866)
 
-# [3.16.0](https://github.com/biosimulations/Biosimulations/compare/v3.15.0...v3.16.0) (2021-08-31)
+## [3.16.0](https://github.com/biosimulations/Biosimulations/compare/v3.15.0...v3.16.0) (2021-08-31)
 
 
 ### Bug Fixes
@@ -762,7 +762,7 @@ api for biosimulations. There is a seperate api for biosimulators. The combine-s
 * **dispatch-api:** set uris for metadata elements ([96e94fe](https://github.com/biosimulations/Biosimulations/commit/96e94fef4ea1a25ad95cba100c9b635618d29e7e))
 * **simulators:** added ability to capture Python APIs in simulator specs ([5ed44cb](https://github.com/biosimulations/Biosimulations/commit/5ed44cb904349e4f91eb6b8cf62f264eb6eeebdd))
 
-# [3.15.0](https://github.com/biosimulations/Biosimulations/compare/v3.14.0...v3.15.0) (2021-08-29)
+## [3.15.0](https://github.com/biosimulations/Biosimulations/compare/v3.14.0...v3.15.0) (2021-08-29)
 
 
 ### Bug Fixes
@@ -778,7 +778,7 @@ api for biosimulations. There is a seperate api for biosimulators. The combine-s
 * updated biosimulators documentation links to docs.biosimulatos.org ([bfa49bb](https://github.com/biosimulations/Biosimulations/commit/bfa49bb7530cb656689eb8632b365110fb6b5aca))
 * updated SBO for term for RBA ([fc64418](https://github.com/biosimulations/Biosimulations/commit/fc64418993cb06a162884461646b586801b7f37e))
 
-# [3.14.0](https://github.com/biosimulations/Biosimulations/compare/v3.13.0...v3.14.0) (2021-08-27)
+## [3.14.0](https://github.com/biosimulations/Biosimulations/compare/v3.13.0...v3.14.0) (2021-08-27)
 
 
 ### Bug Fixes
@@ -799,14 +799,14 @@ api for biosimulations. There is a seperate api for biosimulators. The combine-s
 * **dispatch-service:** process and create metadata for simulation runs ([99df19d](https://github.com/biosimulations/Biosimulations/commit/99df19d50c786992aad6d35da1443fa3b8126c98))
 * **exceptions:** change database errors to return 500 errors instead of 400 ([7390b7f](https://github.com/biosimulations/Biosimulations/commit/7390b7f3e35c6c1f0d1dfb8f145cf4ad8e5545c9))
 
-# [3.13.0](https://github.com/biosimulations/Biosimulations/compare/v3.12.0...v3.13.0) (2021-08-24)
+## [3.13.0](https://github.com/biosimulations/Biosimulations/compare/v3.12.0...v3.13.0) (2021-08-24)
 
 
 ### Features
 
 * **ontology:** updated to KiSAO 2.27 ([09ede72](https://github.com/biosimulations/Biosimulations/commit/09ede7208ce04542e5243ec96b4480471e98f8eb))
 
-# [3.12.0](https://github.com/biosimulations/Biosimulations/compare/v3.11.0...v3.12.0) (2021-08-23)
+## [3.12.0](https://github.com/biosimulations/Biosimulations/compare/v3.11.0...v3.12.0) (2021-08-23)
 
 
 ### Bug Fixes
@@ -818,14 +818,14 @@ api for biosimulations. There is a seperate api for biosimulators. The combine-s
 
 * **dispatch-api:** implement metadata endpoints ([9d067e9](https://github.com/biosimulations/Biosimulations/commit/9d067e983cd625a8d706bc1cb3cfa2033bdabf62))
 
-# [3.11.0](https://github.com/biosimulations/Biosimulations/compare/v3.10.0...v3.11.0) (2021-08-22)
+## [3.11.0](https://github.com/biosimulations/Biosimulations/compare/v3.10.0...v3.11.0) (2021-08-22)
 
 
 ### Features
 
 * **combine-service:** enabled NEURON, NetPyNe for simulation ([19661df](https://github.com/biosimulations/Biosimulations/commit/19661df2b96697934d2f9ca3b9949cac1570554e))
 
-# [3.10.0](https://github.com/biosimulations/Biosimulations/compare/v3.9.0...v3.10.0) (2021-08-21)
+## [3.10.0](https://github.com/biosimulations/Biosimulations/compare/v3.9.0...v3.10.0) (2021-08-21)
 
 
 ### Features
@@ -843,7 +843,7 @@ api for biosimulations. There is a seperate api for biosimulators. The combine-s
 * **ontology:** updated to KiSAO 2.26 ([f25f243](https://github.com/biosimulations/Biosimulations/commit/f25f243bf85af086902badfd22b25547d974b9fb))
 * **simulators:** added documentation for Python API conventions ([60669be](https://github.com/biosimulations/Biosimulations/commit/60669be5f166ac30a1af137240fbc049c13db331))
 
-# [3.9.0](https://github.com/biosimulations/Biosimulations/compare/v3.8.0...v3.9.0) (2021-08-19)
+## [3.9.0](https://github.com/biosimulations/Biosimulations/compare/v3.8.0...v3.9.0) (2021-08-19)
 
 
 ### Features
@@ -852,14 +852,14 @@ api for biosimulations. There is a seperate api for biosimulators. The combine-s
 * **dispatch,ontology:** started to add MASS, RBA formats ([43a6153](https://github.com/biosimulations/Biosimulations/commit/43a615325f9695700ac2c9b68b2e124b0b03e3f9))
 * **ontology:** updated to KiSAO 2.25 ([3fb5c54](https://github.com/biosimulations/Biosimulations/commit/3fb5c54af97d5631228c0e6456390377a867de5b))
 
-# [3.8.0](https://github.com/biosimulations/Biosimulations/compare/v3.7.0...v3.8.0) (2021-08-18)
+## [3.8.0](https://github.com/biosimulations/Biosimulations/compare/v3.7.0...v3.8.0) (2021-08-18)
 
 
 ### Features
 
 * **ontology:** updated to kisao 2.26 ([0f1f31a](https://github.com/biosimulations/Biosimulations/commit/0f1f31ae0383af38f9e7cd06aa28f022b7d6df07))
 
-# [3.7.0](https://github.com/biosimulations/Biosimulations/compare/v3.6.0...v3.7.0) (2021-08-18)
+## [3.7.0](https://github.com/biosimulations/Biosimulations/compare/v3.6.0...v3.7.0) (2021-08-18)
 
 
 ### Bug Fixes
@@ -885,7 +885,7 @@ api for biosimulations. There is a seperate api for biosimulators. The combine-s
 * **dispatch-api:** create api model for metadata ([#2815](https://github.com/biosimulations/Biosimulations/issues/2815)) ([d55f7a5](https://github.com/biosimulations/Biosimulations/commit/d55f7a5d29e1f3cbb23ab472f84a2d8b961af843))
 * **exceptions:** add better handling of validation errors ([e4e1986](https://github.com/biosimulations/Biosimulations/commit/e4e198623ae0d3f86460da18040faf9f28c9ee9a))
 
-# [3.6.0](https://github.com/biosimulations/Biosimulations/compare/v3.5.0...v3.6.0) (2021-08-11)
+## [3.6.0](https://github.com/biosimulations/Biosimulations/compare/v3.5.0...v3.6.0) (2021-08-11)
 
 
 ### Bug Fixes
@@ -899,7 +899,7 @@ api for biosimulations. There is a seperate api for biosimulators. The combine-s
 * **dispatch:** added example simulation run for represillator model with OpenCOR ([ebffbae](https://github.com/biosimulations/Biosimulations/commit/ebffbae270595afd8d479d0a5ab6e90623b2323a))
 * **dispatch:** added example simulation runs with visuaulizations using SBGN PD maps ([3c371e0](https://github.com/biosimulations/Biosimulations/commit/3c371e00758ab7a56b54afb5997da485fa3d071c))
 
-# [3.5.0](https://github.com/biosimulations/Biosimulations/compare/v3.4.1...v3.5.0) (2021-08-09)
+## [3.5.0](https://github.com/biosimulations/Biosimulations/compare/v3.4.1...v3.5.0) (2021-08-09)
 
 
 ### Bug Fixes
@@ -926,7 +926,7 @@ api for biosimulations. There is a seperate api for biosimulators. The combine-s
 * **deps:** pin dependency @ngbmodule/material-carousel to 0.7.1 ([0d1acde](https://github.com/biosimulations/Biosimulations/commit/0d1acde594b0bc455c50209603684b8da7f66a02))
 * **dispatch-api:** send correct message when simulation status changes ([a3c9c62](https://github.com/biosimulations/Biosimulations/commit/a3c9c6235102a33dafbc8414d0d5535c1a641f2f)), closes [#2739](https://github.com/biosimulations/Biosimulations/issues/2739)
 
-# [3.4.0](https://github.com/biosimulations/Biosimulations/compare/v3.3.0...v3.4.0) (2021-07-29)
+## [3.4.0](https://github.com/biosimulations/Biosimulations/compare/v3.3.0...v3.4.0) (2021-07-29)
 
 
 ### Bug Fixes
@@ -940,7 +940,7 @@ api for biosimulations. There is a seperate api for biosimulators. The combine-s
 * **dispatch:** expanded support for connecting SED-ML to Vega ([439bbeb](https://github.com/biosimulations/Biosimulations/commit/439bbebcfcc562304018711b9e0e485cba099eb1))
 * **ontology:** updated SBO for additional framework terms ([5eaa097](https://github.com/biosimulations/Biosimulations/commit/5eaa097753353e9134a81b92554f3ca7efd8335e))
 
-# [3.3.0](https://github.com/biosimulations/Biosimulations/compare/v3.2.0...v3.3.0) (2021-07-23)
+## [3.3.0](https://github.com/biosimulations/Biosimulations/compare/v3.2.0...v3.3.0) (2021-07-23)
 
 
 ### Bug Fixes
@@ -953,7 +953,7 @@ api for biosimulations. There is a seperate api for biosimulators. The combine-s
 * **dispatch,simulators:** added documentation about generating data visualizations ([0066522](https://github.com/biosimulations/Biosimulations/commit/00665225875e75a62a93dd93fd545f8e823f9ecc))
 * making creation data metadata optional ([7812d65](https://github.com/biosimulations/Biosimulations/commit/7812d654f1ddfed9f9c2ea00b63ae31c3a537942))
 
-# [3.2.0](https://github.com/biosimulations/Biosimulations/compare/v3.1.0...v3.2.0) (2021-07-22)
+## [3.2.0](https://github.com/biosimulations/Biosimulations/compare/v3.1.0...v3.2.0) (2021-07-22)
 
 
 ### Bug Fixes
@@ -968,7 +968,7 @@ api for biosimulations. There is a seperate api for biosimulators. The combine-s
 * **platform,platform-api:** platform gets projects from api ([f0b010d](https://github.com/biosimulations/Biosimulations/commit/f0b010d68b592765acb172c27a1b527ca4d9d157))
 * **simulators:** added documentation about recommendation to use Identifiers.org URIs ([5445b08](https://github.com/biosimulations/Biosimulations/commit/5445b08a46678b4f73ea25fec53b38c9fdc6de4d))
 
-# [3.1.0](https://github.com/biosimulations/Biosimulations/compare/v3.0.2...v3.1.0) (2021-07-19)
+## [3.1.0](https://github.com/biosimulations/Biosimulations/compare/v3.0.2...v3.1.0) (2021-07-19)
 
 
 ### Bug Fixes
@@ -1007,7 +1007,7 @@ api for biosimulations. There is a seperate api for biosimulators. The combine-s
 
 * try new server options ([1851742](https://github.com/biosimulations/Biosimulations/commit/1851742fdb222a6330a6b2f52b814ee7d3273c5a))
 
-# [3.0.0](https://github.com/biosimulations/Biosimulations/compare/v2.5.2...v3.0.0) (2021-07-13)
+## [3.0.0](https://github.com/biosimulations/Biosimulations/compare/v2.5.2...v3.0.0) (2021-07-13)
 
 
 ### Bug Fixes
@@ -1039,7 +1039,7 @@ api for biosimulations. There is a seperate api for biosimulators. The combine-s
 
 * **simulators-api:** Allow for date based versions ([0c8fb8d](https://github.com/biosimulations/Biosimulations/commit/0c8fb8d00a36675f652a665d9c279709e798c212)), closes [#2681](https://github.com/biosimulations/Biosimulations/issues/2681)
 
-# [2.5.0](https://github.com/biosimulations/Biosimulations/compare/v2.4.0...v2.5.0) (2021-07-09)
+## [2.5.0](https://github.com/biosimulations/Biosimulations/compare/v2.4.0...v2.5.0) (2021-07-09)
 
 
 ### Bug Fixes
@@ -1055,7 +1055,7 @@ api for biosimulations. There is a seperate api for biosimulators. The combine-s
 * **combine-service:** updating to biosimulators-utils 0.1.93 ([ca0a21e](https://github.com/biosimulations/Biosimulations/commit/ca0a21e33d7c2a54f8bd6d9aa9d8c6943da955b2))
 * **shared-exceptions:** add validation pipe error factory ([35edb4d](https://github.com/biosimulations/Biosimulations/commit/35edb4d4f73d82e4bbb17bbd701d13fc580093af))
 
-# [2.4.0](https://github.com/biosimulations/Biosimulations/compare/v2.3.0...v2.4.0) (2021-07-08)
+## [2.4.0](https://github.com/biosimulations/Biosimulations/compare/v2.3.0...v2.4.0) (2021-07-08)
 
 
 ### Bug Fixes
@@ -1076,7 +1076,7 @@ api for biosimulations. There is a seperate api for biosimulators. The combine-s
 * **ontology:** updating to KiSAO 2.19 with terms for logical modeling ([c47e63b](https://github.com/biosimulations/Biosimulations/commit/c47e63b7767eecde90c033d8c11ef55b89678d4a))
 * **ontology,combine-service:** update to KiSAO 2.20 ([fadf3da](https://github.com/biosimulations/Biosimulations/commit/fadf3da7c0e714267a89ac903acf516be5f00533))
 
-# [2.3.0](https://github.com/biosimulations/Biosimulations/compare/v2.2.1...v2.3.0) (2021-07-02)
+## [2.3.0](https://github.com/biosimulations/Biosimulations/compare/v2.2.1...v2.3.0) (2021-07-02)
 
 ### Features
 
@@ -1089,7 +1089,7 @@ api for biosimulations. There is a seperate api for biosimulators. The combine-s
 - **dispatch:** fix example simulation runs ([60d91c1](https://github.com/biosimulations/Biosimulations/commit/60d91c1bb70e6ae08274a9380143baa19fa51043)), closes [#2653](https://github.com/biosimulations/Biosimulations/issues/2653)
 - **simulators-api:** fix getting latest version ([4594c96](https://github.com/biosimulations/Biosimulations/commit/4594c96b53859e03960458cd001cf8614d64f64c)), closes [#2664](https://github.com/biosimulations/Biosimulations/issues/2664)
 
-# [2.2.0](https://github.com/biosimulations/Biosimulations/compare/v2.1.0...v2.2.0) (2021-06-30)
+## [2.2.0](https://github.com/biosimulations/Biosimulations/compare/v2.1.0...v2.2.0) (2021-06-30)
 
 ### Bug Fixes
 
@@ -1107,7 +1107,7 @@ api for biosimulations. There is a seperate api for biosimulators. The combine-s
 
 - **dispatch-service:** use /local as the singularity cache/working directory ([c63b58c](https://github.com/biosimulations/Biosimulations/commit/c63b58c35a0c3da71910523a3baf0f445f5e493a))
 
-# [2.1.0](https://github.com/biosimulations/Biosimulations/compare/v2.0.0...v2.1.0) (2021-06-18)
+## [2.1.0](https://github.com/biosimulations/Biosimulations/compare/v2.0.0...v2.1.0) (2021-06-18)
 
 ### Bug Fixes
 
@@ -1117,7 +1117,7 @@ api for biosimulations. There is a seperate api for biosimulators. The combine-s
 
 - **dispatch-api, dispatch-service:** add status reason to datamodel ([ca9bcb6](https://github.com/biosimulations/Biosimulations/commit/ca9bcb6c7d7ffcb0328ef679d5a82801995add45)), closes [#2441](https://github.com/biosimulations/Biosimulations/issues/2441)
 
-# [2.0.0](https://github.com/biosimulations/Biosimulations/compare/v1.0.0...v2.0.0) (2021-06-17)
+## [2.0.0](https://github.com/biosimulations/Biosimulations/compare/v1.0.0...v2.0.0) (2021-06-17)
 
 ### Bug Fixes
 
