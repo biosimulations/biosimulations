@@ -231,7 +231,7 @@ export class ValidateSimulationComponent implements OnInit, OnDestroy {
           if (submitMethodControl.value == SubmitMethod.url) {
             msg += ` Please check that ${simulation} is an accessible URL.`;
           }
-          msg += ' Please refresh to try again.'
+          msg += ' Please refresh to try again.';
 
           this.snackBar.open(msg, 'Ok', {
             duration: 5000,
