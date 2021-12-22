@@ -4,7 +4,7 @@ export interface SimulationRunOutputDatum {
   name?: string;
   shape: string;
   type: string;
-  values: (number | boolean | string)[];
+  values: any[];
 }
 
 export type SimulationRunOutputData = SimulationRunOutputDatum[];

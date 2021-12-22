@@ -23,7 +23,7 @@ interface SedDatasetResults {
   location: string;
   outputId: string;
   label: string;
-  values: (number | boolean | string)[];
+  values: any[];
 }
 
 interface SedDatasetResultsMap {
