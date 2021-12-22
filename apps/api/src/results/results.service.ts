@@ -208,8 +208,6 @@ export class ResultsService {
     }
 
     sedIds.forEach((sedId, index) => {
-      // These accesses by index should work, but this *feels* unsafe.
-      // The above check should help, but add more checking and error handling here
       const output: OutputData = {
         id: sedId,
         label: sedLabels[index],
