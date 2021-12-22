@@ -12,5 +12,6 @@ nav:
   - 'Publishing simulation tools': publishing-tools.md
   - REST APIs: api.md  
   - BioSimulators tools and libraries: biosimulators-packages.md
+  - Libraries for publishing primary repositories to BioSimulations: biosimulations-packages.md
   - Live and recorded tutorials: live-tutorials.md
   - FAQs: faqs.md
