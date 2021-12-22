@@ -1,5 +1,18 @@
 # Changelog
 
+# [8.5.0](https://github.com/biosimulations/biosimulations/compare/v8.4.1...v8.5.0) (2021-12-22)
+
+
+### Bug Fixes
+
+* **simulators-api:** fixed updating of updated timestamp; addresses [#3878](https://github.com/biosimulations/biosimulations/issues/3878) ([13ee425](https://github.com/biosimulations/biosimulations/commit/13ee42542af3f15c13954e7873313581cd76647c))
+* **ui,dispatch:** fixed unselecting files; closes [#3875](https://github.com/biosimulations/biosimulations/issues/3875) ([2f84e18](https://github.com/biosimulations/biosimulations/commit/2f84e187ee1ea2c865925d486b5235682814e0da))
+
+
+### Features
+
+* **ui:** added instructions to refresh on failures ([0181c3b](https://github.com/biosimulations/biosimulations/commit/0181c3be83cfe5602d258ca8276599348c123f9e))
+
 ## [8.4.1](https://github.com/biosimulations/biosimulations/compare/v8.4.0...v8.4.1) (2021-12-22)
 
 
