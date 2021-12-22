@@ -4,7 +4,7 @@ export class OutputData {
   public shape!: string;
   public type!: string;
   public name!: string;
-  public values!: string[] | number[] | boolean[];
+  public values!: any[];
 }
 
 export class Output {

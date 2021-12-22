@@ -17,18 +17,6 @@ import {
   ApiPropertyOptional,
 } from '@nestjs/swagger';
 
-import { SchemaObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
-
-export const SimulationRunOutputDatumValuesSchema: Omit<
-  SchemaObject,
-  'required'
-> = {
-  oneOf: [
-    { type: 'array', items: { type: 'number', format: 'float' } },
-    { type: 'array', items: { type: 'boolean' } },
-  ],
-};
-
 export class SimulationRunOutputDatum implements ISimulationRunOutputDatum {
   @ApiProperty({ type: String })
   public id!: string;
@@ -46,8 +34,8 @@ export class SimulationRunOutputDatum implements ISimulationRunOutputDatum {
   // "float64", "int" etc. Not the same as seddatatype
   public type!: string;
 
-  @ApiProperty(SimulationRunOutputDatumValuesSchema)
-  public values: (number | boolean | string)[] = [];
+  @ApiProperty({ type: Array })
+  public values: any[] = [];
 }
 
 export type SimulationRunOutputData = SimulationRunOutputDatum[];
