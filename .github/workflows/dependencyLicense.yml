@@ -20,9 +20,7 @@ jobs:
           node-version: lts/fermium
           cache: npm
 
-
       - name: Generate license report
-
         run: |
           npm install -g license-checker
           npm ci

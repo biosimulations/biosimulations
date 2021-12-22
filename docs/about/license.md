@@ -905,10 +905,6 @@ Below are the licenses of the dependencies of BioSimulations and BioSimulators, 
 │  ├─ email: mail@substack.net
 │  ├─ url: http://substack.net
 │  └─ licenseFile: binary/README.markdown
-├─ biosimulations@5.6.0
-│  ├─ licenses: UNLICENSED
-│  ├─ private: true
-│  └─ licenseFile: /home/runner/work/biosimulations/biosimulations/License.md
 ├─ bl@4.1.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/rvagg/bl
@@ -2719,6 +2715,12 @@ Below are the licenses of the dependencies of BioSimulations and BioSimulators, 
 │  ├─ email: i@izs.me
 │  ├─ url: http://blog.izs.me
 │  └─ licenseFile: npm/node_modules/json-stringify-safe/LICENSE
+├─ json5@2.2.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/json5/json5
+│  ├─ publisher: Aseem Kishore
+│  ├─ email: aseem.kishore@gmail.com
+│  └─ licenseFile: json5/LICENSE.md
 ├─ jsonc-parser@2.2.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/microsoft/node-jsonc-parser
