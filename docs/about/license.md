@@ -3328,7 +3328,7 @@ Below are the licenses of the dependencies of BioSimulations and BioSimulators, 
 │  ├─ email: iskren.chernev@gmail.com
 │  ├─ url: https://github.com/ichernev
 │  └─ licenseFile: moment/LICENSE
-├─ mongodb-connection-string-url@2.3.2
+├─ mongodb-connection-string-url@2.4.1
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/mongodb-js/mongodb-connection-string-url
 │  └─ licenseFile: mongodb-connection-string-url/LICENSE
@@ -3338,7 +3338,7 @@ Below are the licenses of the dependencies of BioSimulations and BioSimulators, 
 │  ├─ publisher: The MongoDB NodeJS Team
 │  ├─ email: dbx-node@mongodb.com
 │  └─ licenseFile: mongodb/LICENSE.md
-├─ mongoose@6.1.2
+├─ mongoose@6.1.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/Automattic/mongoose
 │  ├─ publisher: Guillermo Rauch
