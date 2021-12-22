@@ -107,13 +107,19 @@ export class ResultsService {
     return results;
   }
 
-  public async getValues(
+  private async getValues(
     runId: string,
+    outputUri: string,
     datasetId: string,
-  ): Promise<undefined | (string[] | number[] | boolean[])[]> {
+  ): Promise<any[]> {
     // The index field will be needed when we are doing slicing of the data so this will need to change
 
-    return (await this.results.getDatasetValues(runId, datasetId))?.value;
+    const response = await this.results.getDatasetValues(runId, datasetId);
+    if (response && 'value' in response) {
+      return response.value as any[];
+    } else {
+      throw new InternalServerErrorException(`Results could not be found for output '${outputUri}' of simulation run '${runId}'.`);
+    }
   }
 
   public async download(runId: string): Promise<S3.Body> {
@@ -168,7 +174,7 @@ export class ResultsService {
     const sedNames = dataset.attributes.sedmlDataSetNames as string[];
 
     const values = includeValues
-      ? (await this.getValues(runId, dataset.id)) || []
+      ? await this.getValues(runId, dataset.attributes.uri, dataset.id)
       : [];
 
     const consistent =
