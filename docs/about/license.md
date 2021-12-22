@@ -56,7 +56,7 @@ Below are the licenses of the dependencies of BioSimulations and BioSimulators, 
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/animations/README.md
-├─ @angular/cdk@13.1.0
+├─ @angular/cdk@13.1.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/components
 │  └─ licenseFile: @angular/cdk/LICENSE
@@ -75,7 +75,7 @@ Below are the licenses of the dependencies of BioSimulations and BioSimulators, 
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/forms/README.md
-├─ @angular/material@13.1.0
+├─ @angular/material@13.1.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/components
 │  └─ licenseFile: @angular/material/LICENSE
@@ -5353,7 +5353,7 @@ Below are the licenses of the dependencies of BioSimulations and BioSimulators, 
 │  ├─ repository: https://github.com/yargs/yargs-parser
 │  ├─ publisher: Ben Coe
 │  ├─ email: ben@npmjs.com
-│  └─ licenseFile: @nrwl/tao/node_modules/yargs-parser/LICENSE.txt
+│  └─ licenseFile: @nrwl/cli/node_modules/yargs-parser/LICENSE.txt
 ├─ yargs-parser@20.2.9
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/yargs/yargs-parser
