@@ -113,8 +113,8 @@ export class ValidateSimulationComponent implements OnInit, OnDestroy {
   }
 
   maxFileSizeValidator(control: FormControl): ValidationErrors | null {
-    const fileInput: FileInput = control.value;
-    const file: File | undefined = fileInput.files
+    const fileInput: FileInput | null = control.value;
+    const file: File | undefined = fileInput?.files
       ? fileInput.files[0]
       : undefined;
     const fileSize = file?.size;

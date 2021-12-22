@@ -307,7 +307,8 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
 
   maxFileSizeValidator(control: FormControl): ValidationErrors | null {
     const fileInput = control.value;
-    const fileSize = fileInput?.files[0].size;
+    const file = fileInput?.files?.[0];
+    const fileSize = file?.size;
     if (fileSize && fileSize > this.config.appConfig.maxUploadFileSize) {
       return {
         maxSize: true,
@@ -639,8 +640,8 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
       .modelLocationDetails as FormControl;
 
     const modelLocationType: LocationType = modelLocationTypeControl.value;
-    const modelLocationDetails: File | string =
-      modelLocationDetailsControl.value.files[0];
+    const modelLocationDetails: File | string | undefined =
+      modelLocationDetailsControl.value?.files?.[0];
 
     if (
       !modelLocationDetails ||
