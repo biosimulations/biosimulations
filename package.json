@@ -9,6 +9,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "nx workspace-lint && ng lint",
+    "compile": "ngcc",
     "e2e": "ng e2e",
     "prepare": "husky install",
     "affected:apps": "nx affected:apps",

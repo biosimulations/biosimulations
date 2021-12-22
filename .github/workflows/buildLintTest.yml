@@ -81,7 +81,7 @@ jobs:
           useRollingCache: true
 
       - name: Compile Angular Dependecies 
-        run: ngcc
+        run: npm run compile
 
       - run: npx nx-cloud start-ci-run
         name: Start CI Run
@@ -200,7 +200,7 @@ jobs:
         with:
           useRollingCache: true
       - name: Compile Angular Dependecies 
-        run: ngcc
+        run: npm run compile
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
