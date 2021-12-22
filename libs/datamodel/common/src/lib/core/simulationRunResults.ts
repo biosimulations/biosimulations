@@ -1,4 +1,8 @@
-export type SimulationRunOutputDatumElement = number | boolean | string | SimulationRunOutputDatumElement[];
+export type SimulationRunOutputDatumElement =
+  | number
+  | boolean
+  | string
+  | SimulationRunOutputDatumElement[];
 
 export interface SimulationRunOutputDatum {
   id: string;

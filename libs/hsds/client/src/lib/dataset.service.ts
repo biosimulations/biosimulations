@@ -91,12 +91,19 @@ export class SimulationHDFService {
       )
       .pipe(
         this.getRetryBackoff(),
-        map((response: AxiosResponse<InlineResponse20010>): AxiosResponse<InlineResponse20010> => {
-          if (typeof response.data === 'string' || response.data instanceof String) {
-            response.data = JSON5.parse(response.data as string);
-          }
-          return response;
-        }),
+        map(
+          (
+            response: AxiosResponse<InlineResponse20010>,
+          ): AxiosResponse<InlineResponse20010> => {
+            if (
+              typeof response.data === 'string' ||
+              response.data instanceof String
+            ) {
+              response.data = JSON5.parse(response.data as string);
+            }
+            return response;
+          },
+        ),
       );
 
     const dataResponsePromise = await firstValueFrom(dataResponse);

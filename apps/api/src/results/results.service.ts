@@ -119,7 +119,9 @@ export class ResultsService {
     if (response && 'value' in response) {
       return response.value as SimulationRunOutputDatumElement[][];
     } else {
-      throw new InternalServerErrorException(`Results could not be found for output '${outputUri}' of simulation run '${runId}'.`);
+      throw new InternalServerErrorException(
+        `Results could not be found for output '${outputUri}' of simulation run '${runId}'.`,
+      );
     }
   }
 
