@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# Clean up levels of headings in changelog
+
+set -e
+
+LOG_PATH="$(dirname "${BASH_SOURCE[0]}")/../docs/CHANGELOG.md"
+
+sed ':a;N;$!ba;s/\n# \[/\n## [/g' -i $LOG_PATH
