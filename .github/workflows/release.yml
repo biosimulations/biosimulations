@@ -58,6 +58,7 @@ jobs:
       - name: Commit changelog
         id: commit-changelog
         run: |
+          set +e
           git add docs/CHANGELOG.md
           git commit -m "chore(release): cleaned up changelog [skip ci]"
           if [[ $? = 0 ]]; then
