@@ -20,6 +20,8 @@ import { FileService } from '../../file/file.service';
 import { SedmlService } from '../../sedml/sedml.service';
 import { ProjectService } from '@biosimulations/api-nest-client';
 import { AxiosError } from 'axios';
+import { Observable } from 'rxjs';
+import { retryBackoff } from 'backoff-rxjs';
 
 interface ProcessingResult {
   succeeded: boolean;
@@ -247,10 +249,12 @@ export class CompleteProcessor {
 
       return this.projectService
         .getProject(projectId)
+        .pipe(this.getRetryBackoff())
         .toPromise()
         .then((project) => {
           this.projectService
             .updateProject(projectId, projectInput)
+            .pipe(this.getRetryBackoff())
             .toPromise()
             .then(() =>
               this.logger.log(
@@ -267,6 +271,7 @@ export class CompleteProcessor {
           if (err?.response?.status === HttpStatus.NOT_FOUND) {
             this.projectService
               .createProject(projectInput)
+              .pipe(this.getRetryBackoff())
               .toPromise()
               .then(() =>
                 this.logger.log(
@@ -327,5 +332,26 @@ export class CompleteProcessor {
     }
 
     return true;
+  }
+
+  private getRetryBackoff(): <T>(source: Observable<T>) => Observable<T> {
+    return retryBackoff({
+      initialInterval: 100,
+      maxRetries: 10,
+      resetOnSuccess: true,
+      shouldRetry: (error: AxiosError): boolean => {
+        const retryCodes = [
+          HttpStatus.REQUEST_TIMEOUT,
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          HttpStatus.BAD_GATEWAY,
+          HttpStatus.GATEWAY_TIMEOUT,
+          HttpStatus.SERVICE_UNAVAILABLE,
+          HttpStatus.TOO_MANY_REQUESTS,
+          undefined,
+          null,
+        ];
+        return retryCodes.includes(error?.response?.status);
+      },
+    });
   }
 }
