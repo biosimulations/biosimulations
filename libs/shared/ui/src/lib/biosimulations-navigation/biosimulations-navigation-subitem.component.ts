@@ -23,5 +23,8 @@ export class BiosimulationsNavigationSubitemComponent {
   href?: string;
 
   @Input()
+  target = '_blank';
+
+  @Input()
   disabled = false;
 }

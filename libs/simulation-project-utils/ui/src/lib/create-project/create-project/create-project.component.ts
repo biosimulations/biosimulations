@@ -1847,7 +1847,7 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
           environment.production ? 'org' : 'dev'
         }/run`;
         const queryParamsString = new URLSearchParams(queryParams).toString();
-        window.open(`${url}?${queryParamsString}`, '_blank');
+        window.open(`${url}?${queryParamsString}`, 'runbiosimulations');
       }
 
       this.snackBar.open(

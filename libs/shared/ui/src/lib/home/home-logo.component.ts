@@ -14,4 +14,7 @@ export class HomeLogoComponent {
 
   @Input()
   href = '';
+
+  @Input()
+  target = '_blank';
 }

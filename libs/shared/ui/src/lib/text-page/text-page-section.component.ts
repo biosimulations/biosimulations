@@ -20,6 +20,9 @@ export class TextPageSectionComponent {
   iconHref!: string | null;
 
   @Input()
+  iconTarget = '_blank';
+
+  @Input()
   iconClick!: (() => void) | null;
 
   @Input()

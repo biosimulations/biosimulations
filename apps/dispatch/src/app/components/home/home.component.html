@@ -5,6 +5,7 @@
   <ng-container id="buttons">
     <biosimulations-home-teaser-button
       [href]="config.simulatorsAppUrl"
+      target="biosimulators"
       width="180px"
       color="accent"
     >
@@ -15,6 +16,7 @@
     </biosimulations-home-teaser-button>
     <biosimulations-home-teaser-button
       [href]="config.platformAppUrl"
+      target="biosimulations"
       width="180px"
       color="accent"
     >
@@ -350,12 +352,12 @@
           <a
             href="https://github.com/biosimulations/biosimulations/blob/dev/LICENSE"
             rel="noopener"
-            target="_blank"
+            target="license"
             ><biosimulations-icon icon="link"></biosimulations-icon></a
           >. The simulation tools provided through runBioSimulations are
           available under the licenses specified for each simulation tool at
           BioSimulators
-          <a [href]="config.simulatorsAppUrl" rel="noopener" target="_blank"
+          <a [href]="config.simulatorsAppUrl" rel="noopener" target="biosimulators"
             ><biosimulations-icon icon="link"></biosimulations-icon></a
           >.
         </p>
@@ -364,7 +366,7 @@
           <a
             href="https://docs.biosimulations.org/about/team/"
             rel="noopener"
-            target="_blank"
+            target="biosimulations-docs"
             >documentation</a
           >
           for more information.

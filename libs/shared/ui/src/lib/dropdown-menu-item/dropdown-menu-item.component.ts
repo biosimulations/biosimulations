@@ -18,4 +18,7 @@ export class DropdownMenuItemComponent {
 
   @Input()
   href?: string;
+
+  @Input()
+  target = '_blank';
 }

@@ -29,7 +29,7 @@
                       }}<a
                         [href]="author.orcidUrl"
                         rel="noopener"
-                        target="_blank"
+                        target="orcid"
                         title="ORCID profile"
                       >
                         <biosimulations-icon
@@ -71,7 +71,7 @@
               <a
                 [href]="dispatchAppRunUrl"
                 rel="noopener"
-                target="_blank"
+                target="runbiosimulations"
                 class="text"
               >
                 {{ dispatchAppUrl }}
@@ -93,7 +93,7 @@
                   simulator.id
                 "
                 rel="noopener"
-                target="_blank"
+                target="images"
                 class="text"
               >
                 GHCR:biosimulators/{{ simulator.id }}
@@ -154,7 +154,7 @@
                 <a
                   href="https://docs.biosimulations.org/users/simulating-projects/"
                   rel="noopener"
-                  target="_blank"
+                  target="biosimulations-docs"
                   >Instructions</a
                 >
               </div>
@@ -175,7 +175,7 @@
                   simulator.id
                 "
                 rel="noopener"
-                target="_blank"
+                target="images"
                 class="text"
               >
                 GHCR:biosimulators/{{ simulator.id }}
@@ -236,7 +236,7 @@ docker://{{ simulator.image.url }} \
                 <a
                   href="https://docs.biosimulations.org/users/simulating-projects/"
                   rel="noopener"
-                  target="_blank"
+                  target="biosimulations-docs"
                   >Instructions</a
                 >
               </div>
@@ -335,7 +335,7 @@ docker://{{ simulator.image.url }} \
                 <a
                   href="https://docs.biosimulations.org/users/simulating-projects/"
                   rel="noopener"
-                  target="_blank"
+                  target="biosimulations-docs"
                   >Getting started guide</a
                 >
               </div>
@@ -419,7 +419,7 @@ simulator.exec_sedml_docs_in_combine_archive(
                 <a
                   href="https://docs.biosimulations.org/users/simulating-projects/"
                   rel="noopener"
-                  target="_blank"
+                  target="biosimulations-docs"
                   >Getting started guide</a
                 >
               </div>
@@ -430,7 +430,7 @@ simulator.exec_sedml_docs_in_combine_archive(
                 <a
                   href="https://tutorial.biosimulators.org/"
                   rel="noopener"
-                  target="_blank"
+                  target="biosimulators-tutorial"
                   >Tutorials</a
                 >
               </div>
@@ -632,7 +632,7 @@ simulator.exec_sedml_docs_in_combine_archive(
                         <a
                           [href]="fragment.value"
                           rel="noopener"
-                          target="_blank"
+                          target="ontology"
                           ><biosimulations-icon
                             icon="link"
                           ></biosimulations-icon
@@ -671,7 +671,7 @@ simulator.exec_sedml_docs_in_combine_archive(
                     <a
                       [href]="algorithm?.kisaoUrl"
                       rel="noopener"
-                      target="_blank"
+                      target="ontology"
                       >{{ algorithm?.kisaoId }}</a
                     >
                   </li>
@@ -695,7 +695,7 @@ simulator.exec_sedml_docs_in_combine_archive(
                       <a
                         [href]="framework.url"
                         rel="noopener"
-                        target="_blank"
+                        target="ontology"
                         >{{ framework.name }}</a
                       >
                     </ng-container>
@@ -719,7 +719,7 @@ simulator.exec_sedml_docs_in_combine_archive(
                   <li *ngFor="let format of algorithm.modelFormats">
                     <ng-container *ngIf="format as format">
                       <biosimulations-icon icon="format"></biosimulations-icon>
-                      <a [href]="format.term.url" rel="noopener" target="_blank"
+                      <a [href]="format.term.url" rel="noopener" target="ontology"
                         >{{ format.term.name
                         }}{{ format.version ? ' ' + format.version : '' }}</a
                       >:
@@ -805,7 +805,7 @@ simulator.exec_sedml_docs_in_combine_archive(
                   <li *ngFor="let format of algorithm.simulationFormats">
                     <ng-container *ngIf="format as format">
                       <biosimulations-icon icon="format"></biosimulations-icon>
-                      <a [href]="format.term.url" rel="noopener" target="_blank"
+                      <a [href]="format.term.url" rel="noopener" target="ontology"
                         >{{ format.term.name
                         }}{{ format.version ? ' ' + format.version : '' }}</a
                       >:
@@ -877,7 +877,7 @@ simulator.exec_sedml_docs_in_combine_archive(
                       {{ parameter.name }} (<a
                         [href]="parameter.kisaoUrl"
                         rel="noopener"
-                        target="_blank"
+                        target="ontology"
                         >{{ parameter.kisaoId }}</a
                       >)
                       <ul>
@@ -895,7 +895,7 @@ simulator.exec_sedml_docs_in_combine_archive(
                               >(<a
                                 [href]="parameter.valueUrl"
                                 rel="noopener"
-                                target="_blank"
+                                target="ontology"
                                 >{{ parameter.rawValue }}</a
                               >)</span
                             >
@@ -920,7 +920,7 @@ simulator.exec_sedml_docs_in_combine_archive(
                               (<a
                                 [href]="rangeEl?.url"
                                 rel="noopener"
-                                target="_blank"
+                                target="ontology"
                                 >{{ rangeEl?.id }}</a
                               >)
                             </li>
@@ -991,7 +991,7 @@ simulator.exec_sedml_docs_in_combine_archive(
                     {{ outputDimension.name }} (<a
                       [href]="outputDimension.url"
                       rel="noopener"
-                      target="_blank"
+                      target="ontology"
                       >{{ outputDimension.id }}</a
                     >)
                   </li>
@@ -1065,7 +1065,7 @@ simulator.exec_sedml_docs_in_combine_archive(
                   <li *ngFor="let format of algorithm.archiveFormats">
                     <ng-container *ngIf="format as format">
                       <biosimulations-icon icon="format"></biosimulations-icon>
-                      <a [href]="format.term.url" rel="noopener" target="_blank"
+                      <a [href]="format.term.url" rel="noopener" target="ontology"
                         >{{ format.term.name
                         }}{{ format.version ? ' ' + format.version : '' }}</a
                       >:
@@ -1240,7 +1240,7 @@ simulator.exec_sedml_docs_in_combine_archive(
                   <a
                     [href]="validationTests.testSuiteVersionUrl"
                     rel="noopener"
-                    target="_blank"
+                    target="biosimulators-test-suite"
                     >{{ validationTests.testSuiteVersion }}</a
                   >
                 </li>
@@ -1270,7 +1270,7 @@ simulator.exec_sedml_docs_in_combine_archive(
                 <a
                   [href]="validationTests.ghIssueUrl"
                   rel="noopener"
-                  target="_blank"
+                  target="biosimulators-test-suite"
                 >
                   <biosimulations-icon icon="link"></biosimulations-icon>
                   GitHub issue for validation
@@ -1280,7 +1280,7 @@ simulator.exec_sedml_docs_in_combine_archive(
                 <a
                   [href]="validationTests.ghActionRunUrl"
                   rel="noopener"
-                  target="_blank"
+                  target="biosimulators-test-suite"
                 >
                   <biosimulations-icon icon="link"></biosimulations-icon>
                   GitHub action run for validation
@@ -1290,7 +1290,7 @@ simulator.exec_sedml_docs_in_combine_archive(
                 <a
                   href="https://docs.biosimulators.org/Biosimulators_test_suite/"
                   rel="noopener"
-                  target="_blank"
+                  target="biosimulators-docs"
                 >
                   <biosimulations-icon icon="link"></biosimulations-icon>
                   Test suite
@@ -1322,7 +1322,7 @@ simulator.exec_sedml_docs_in_combine_archive(
               <p>
                 <code>{{ result.caseClass }}</code
                 >{{ ' ' }}
-                <a [href]="result.caseUrl" rel="noopener" target="_blank"
+                <a [href]="result.caseUrl" rel="noopener" target="biosimulators-test-suite"
                   ><biosimulations-icon icon="link"></biosimulations-icon
                 ></a>
               </p>
@@ -1336,7 +1336,7 @@ simulator.exec_sedml_docs_in_combine_archive(
                   <a
                     [href]="result.caseArchiveUrl"
                     rel="noopener"
-                    target="_blank"
+                    target="biosimulators-test-suite"
                     ><biosimulations-icon icon="link"></biosimulations-icon
                   ></a>
                 </p>

@@ -13,6 +13,9 @@ export class HomeTeaserButtonComponent {
   href!: string;
 
   @Input()
+  target = '_blank';
+
+  @Input()
   width = '156px';
 
   @Input()

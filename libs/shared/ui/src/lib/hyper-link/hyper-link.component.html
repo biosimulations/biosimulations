@@ -1,5 +1,5 @@
 <ng-template [ngIf]="href" [ngIfElse]="nolink">
-  <a [href]="href" rel="noopener" target="_blank">
+  <a [href]="href" rel="noopener" [target]="target">
     <ng-container *ngTemplateOutlet="content"></ng-container>
   </a>
 </ng-template>
