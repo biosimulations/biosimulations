@@ -7,7 +7,7 @@ import os
 import tempfile
 import yaml
 
-config = {    
+config = {
     **dotenv_values("secret/secret.env"),
     **dotenv_values("config/config.env"),
     **dotenv_values("shared/shared.env"),
