@@ -719,7 +719,10 @@ simulator.exec_sedml_docs_in_combine_archive(
                   <li *ngFor="let format of algorithm.modelFormats">
                     <ng-container *ngIf="format as format">
                       <biosimulations-icon icon="format"></biosimulations-icon>
-                      <a [href]="format.term.url" rel="noopener" target="ontology"
+                      <a
+                        [href]="format.term.url"
+                        rel="noopener"
+                        target="ontology"
                         >{{ format.term.name
                         }}{{ format.version ? ' ' + format.version : '' }}</a
                       >:
@@ -805,7 +808,10 @@ simulator.exec_sedml_docs_in_combine_archive(
                   <li *ngFor="let format of algorithm.simulationFormats">
                     <ng-container *ngIf="format as format">
                       <biosimulations-icon icon="format"></biosimulations-icon>
-                      <a [href]="format.term.url" rel="noopener" target="ontology"
+                      <a
+                        [href]="format.term.url"
+                        rel="noopener"
+                        target="ontology"
                         >{{ format.term.name
                         }}{{ format.version ? ' ' + format.version : '' }}</a
                       >:
@@ -1065,7 +1071,10 @@ simulator.exec_sedml_docs_in_combine_archive(
                   <li *ngFor="let format of algorithm.archiveFormats">
                     <ng-container *ngIf="format as format">
                       <biosimulations-icon icon="format"></biosimulations-icon>
-                      <a [href]="format.term.url" rel="noopener" target="ontology"
+                      <a
+                        [href]="format.term.url"
+                        rel="noopener"
+                        target="ontology"
                         >{{ format.term.name
                         }}{{ format.version ? ' ' + format.version : '' }}</a
                       >:
@@ -1322,7 +1331,10 @@ simulator.exec_sedml_docs_in_combine_archive(
               <p>
                 <code>{{ result.caseClass }}</code
                 >{{ ' ' }}
-                <a [href]="result.caseUrl" rel="noopener" target="biosimulators-test-suite"
+                <a
+                  [href]="result.caseUrl"
+                  rel="noopener"
+                  target="biosimulators-test-suite"
                   ><biosimulations-icon icon="link"></biosimulations-icon
                 ></a>
               </p>
