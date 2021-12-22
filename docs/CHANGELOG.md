@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.4.1](https://github.com/biosimulations/biosimulations/compare/v8.4.0...v8.4.1) (2021-12-22)
+
+
+### Bug Fixes
+
+* **combine-api:** fixed reading shared configuration ([5a83e6e](https://github.com/biosimulations/biosimulations/commit/5a83e6e0f4802eed023781dac8881f4c8e251a2e))
+
 ## [8.4.0](https://github.com/biosimulations/biosimulations/compare/v8.3.0...v8.4.0) (2021-12-22)
 
 
