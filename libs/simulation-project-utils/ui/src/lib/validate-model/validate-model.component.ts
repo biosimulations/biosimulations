@@ -251,6 +251,7 @@ export class ValidateModelComponent implements OnInit, OnDestroy {
           if (submitMethodControl.value == SubmitMethod.url) {
             msg += ` Please check that ${model} is an accessible URL.`;
           }
+          msg += ' Please refresh to try again.'
 
           this.snackBar.open(msg, 'Ok', {
             duration: 5000,

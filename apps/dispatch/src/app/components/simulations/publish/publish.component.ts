@@ -164,7 +164,7 @@ export class PublishComponent implements OnInit, OnDestroy {
           }
 
           this.snackBar.open(
-            'Sorry! We were unable to publish your project. Please try again later.',
+            'Sorry! We were unable to publish your project. Please refresh to try again.',
             'Ok',
             {
               duration: 5000,

@@ -228,7 +228,7 @@ export class SelectVisualizationComponent implements OnDestroy {
                     );
                   } else {
                     this.snackBar.open(
-                      'Sorry! We were unable to add the visualization to this project.',
+                      'Sorry! We were unable to add the visualization to this project. Please refresh to try again.',
                       'Ok',
                       {
                         duration: 5000,
@@ -244,7 +244,7 @@ export class SelectVisualizationComponent implements OnDestroy {
         }),
         catchError((): Observable<void> => {
           this.snackBar.open(
-            'Sorry! The data needed to export the visualization is not available.',
+            'Sorry! The data needed to export the visualization is not available. Please refresh to try again.',
             'Ok',
             {
               duration: 5000,
