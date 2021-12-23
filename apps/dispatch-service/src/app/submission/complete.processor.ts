@@ -261,7 +261,7 @@ export class CompleteProcessor {
             )
             .catch((error: any) =>
               this.logger.error(
-                `Project '${projectId}' could not be updated with simulation '${runId}': ${errorMsg}.`,
+                `Project '${projectId}' could not be updated with simulation '${runId}': ${this.getErrorMessage(error)}.`,
               ),
             );
         })
