@@ -270,7 +270,7 @@ export class ProjectsService implements OnModuleInit {
           }`;
         },
       );
-      this.logger.log(
+      this.logger.error(
         `Summaries could not be obtained for ${
           failures.length
         } projects:\n  ${msgs.join('\n  ')}`,
