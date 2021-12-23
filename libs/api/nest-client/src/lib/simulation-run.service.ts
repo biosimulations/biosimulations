@@ -68,11 +68,14 @@ export class SimulationRunService {
           SimulationRunSedDocumentInputsContainer,
           void
         >(runId, endpoint, { sedDocuments: [spec] });
-      })
+      }),
     );
   }
 
-  public postFiles(runId: string, files: ProjectFileInput[]): Observable<void[]> {
+  public postFiles(
+    runId: string,
+    files: ProjectFileInput[],
+  ): Observable<void[]> {
     this.logger.log(`Uploading files for simulation run '${runId}' ....`);
     const endpoint = this.endpoints.getSimulationRunFilesEndpoint(false, runId);
     return forkJoin(
@@ -83,7 +86,7 @@ export class SimulationRunService {
           endpoint,
           body,
         );
-      })
+      }),
     );
   }
 
