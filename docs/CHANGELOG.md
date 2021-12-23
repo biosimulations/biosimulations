@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.5.5](https://github.com/biosimulations/biosimulations/compare/v8.5.4...v8.5.5) (2021-12-23)
+
+
+### Bug Fixes
+
+* **api:** tried to correct logging for errors in uploading archives ([b492f02](https://github.com/biosimulations/biosimulations/commit/b492f02c04da3bc6bf1bdd7ec022ce85187ddfa1))
+
 ## [8.5.4](https://github.com/biosimulations/biosimulations/compare/v8.5.3...v8.5.4) (2021-12-23)
 
 
