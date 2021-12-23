@@ -117,7 +117,7 @@ export class CompleteProcessor {
               value: value,
             };
           })
-          .catch((error: AxiosError) => {
+          .catch((error: any) => {
             let reason = '';
             reason += `The ${processingStep.name} could not be saved.`;
             reason += ` Please check that the ${processingStep.name} ${
@@ -130,9 +130,7 @@ export class CompleteProcessor {
 
             const details = `The ${
               processingStep.name
-            } for simulation run '${runId}' could not be saved: ${
-              error?.response?.status
-            }: ${error?.response?.data?.detail || error?.response?.statusText}`;
+            } for simulation run '${runId}' could not be saved: ${this.getErrorMessage(error)}`;
             if (processingStep.required) {
               errors.push(reason);
               errorsDetails.push(details);
@@ -261,13 +259,9 @@ export class CompleteProcessor {
                 `Updated project '${projectId}' for simulation '${runId}'.`,
               ),
             )
-            .catch((error: AxiosError) =>
+            .catch((error: any) =>              
               this.logger.error(
-                `Project '${projectId}' could not be updated with simulation '${runId}': ${
-                  error?.response?.status
-                }: ${
-                  error?.response?.data?.detail || error?.response?.statusText
-                }.`,
+                `Project '${projectId}' could not be updated with simulation '${runId}': ${errorMsg}.`,
               ),
             );
         })
@@ -284,19 +278,12 @@ export class CompleteProcessor {
               )
               .catch((innerError: AxiosError) =>
                 this.logger.error(
-                  `Project '${projectId}' could not be created with simulation run '${runId}': ${
-                    innerError?.response?.status
-                  }: ${
-                    innerError?.response?.data?.detail ||
-                    innerError?.response?.statusText
-                  }.`,
+                  `Project '${projectId}' could not be created with simulation run '${runId}': ${this.getErrorMessage(innerError)}.`,
                 ),
               );
           } else {
             this.logger.error(
-              `Failed to update status: ${error?.response?.status}: ${
-                error?.response?.data?.detail || error?.response?.statusText
-              }.`,
+              `Failed to update status: ${this.getErrorMessage(error)}.`,
             );
           }
         });
@@ -365,5 +352,17 @@ export class CompleteProcessor {
         return retryCodes.includes(error?.response?.status);
       },
     });
+  }
+
+  private getErrorMessage(error: any): string {
+    if (error?.isAxiosError) {
+      return `${
+          error?.response?.status
+        }: ${
+          error?.response?.data?.detail || error?.response?.statusText
+        }`;
+    } else {
+      return `${error?.status || error?.statusCode}: ${error?.message}`;
+    }
   }
 }

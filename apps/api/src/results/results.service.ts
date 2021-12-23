@@ -13,13 +13,12 @@ import { SimulationRunOutputDatumElement } from '@biosimulations/datamodel/commo
 import { AWSError, S3 } from 'aws-sdk';
 import { Endpoints } from '@biosimulations/config/common';
 import { ConfigService } from '@nestjs/config';
-import { AxiosError } from 'axios';
 
 interface OutputResult {
   dataset: Dataset;
   succeeded: boolean;
   value?: Output;
-  error?: AxiosError;
+  error?: any;
 }
 
 @Injectable()
@@ -54,7 +53,7 @@ export class ResultsService {
               value: value,
             };
           })
-          .catch((error: AxiosError): OutputResult => {
+          .catch((error: any): OutputResult => {
             return {
               dataset: dataset,
               succeeded: false,
@@ -73,12 +72,15 @@ export class ResultsService {
       } else {
         const datasetAttrs = outputResult.dataset.attributes;
         const error = outputResult?.error;
+        const errorMsg = error?.isAxiosError 
+          ? `${
+              error?.response?.status
+            }: ${error?.response?.data?.detail || error?.response?.statusText}`
+          : `${error?.status || error?.statusCode}: ${error?.message}`;
         errorDetails.push(
           `${datasetAttrs._type} '${
             datasetAttrs.uri
-          } of simulation run '${runId}' could not be parsed: ${
-            error?.response?.status
-          }: ${error?.response?.data?.detail || error?.response?.statusText}.`,
+          } of simulation run '${runId}' could not be parsed: ${errorMsg}.`,
         );
         errorSummaries.push(
           `${datasetAttrs._type} '${datasetAttrs.uri} of simulation run '${runId}' could not be parsed.`,
