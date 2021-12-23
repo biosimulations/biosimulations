@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.5.1](https://github.com/biosimulations/biosimulations/compare/v8.5.0...v8.5.1) (2021-12-23)
+
+
+### Bug Fixes
+
+* **dispatch-service:** retry project publication after run completion ([e686664](https://github.com/biosimulations/biosimulations/commit/e68666451fc61bd27dd25e3775a4477fca5385e1))
+
 ## [8.5.0](https://github.com/biosimulations/biosimulations/compare/v8.4.1...v8.5.0) (2021-12-22)
 
 
