@@ -302,7 +302,9 @@ export class SimulationRunService {
       const details = `An error occurred in uploading the COMBINE archive for the simulation run: ${err?.status}: ${err?.message}.`;
       this.logger.error(details);
 
-      const message = `An error occurred in uploading the COMBINE archive for the simulation run${err instanceof Error && err.message ? ': ' + err?.message : ''}.`;
+      const message = `An error occurred in uploading the COMBINE archive for the simulation run${
+        err instanceof Error && err.message ? ': ' + err?.message : ''
+      }.`;
       throw new BiosimulationsException(
         HttpStatus.INTERNAL_SERVER_ERROR,
         message,
@@ -1030,7 +1032,9 @@ export class SimulationRunService {
     if (!runSettledResult.succeeded) {
       const error = runSettledResult?.error;
       this.logger.error(
-        `Simulation run with id '${id}' could not be found: ${this.getErrorMessage(error)}.`,
+        `Simulation run with id '${id}' could not be found: ${this.getErrorMessage(
+          error,
+        )}.`,
       );
       throw new NotFoundException(
         `Simulation run with id '${id}' could not be found.`,
@@ -1237,7 +1241,9 @@ export class SimulationRunService {
       if (!filesResult.succeeded) {
         const error = filesResult?.error;
         details.push(
-          `The files for simulation run '${id}' could not be retrieved: ${this.getErrorMessage(error)}.`,
+          `The files for simulation run '${id}' could not be retrieved: ${this.getErrorMessage(
+            error,
+          )}.`,
         );
         summaries.push(
           `The files for simulation run '${id}' could not be retrieved.`,
@@ -1247,7 +1253,9 @@ export class SimulationRunService {
       if (!simulationExptsResult.succeeded) {
         const error = simulationExptsResult?.error;
         details.push(
-          `The simulation experiments for simulation run '${id}' could not be retrieved: ${this.getErrorMessage(error)}.`,
+          `The simulation experiments for simulation run '${id}' could not be retrieved: ${this.getErrorMessage(
+            error,
+          )}.`,
         );
         summaries.push(
           `The simulation experiments for simulation run '${id}' could not be retrieved.`,
@@ -1257,7 +1265,9 @@ export class SimulationRunService {
       if (!logResult.succeeded) {
         const error = logResult?.error;
         details.push(
-          `The log for simulation run '${id}' could not be retrieved: ${this.getErrorMessage(error)}.`,
+          `The log for simulation run '${id}' could not be retrieved: ${this.getErrorMessage(
+            error,
+          )}.`,
         );
         summaries.push(
           `The log for simulation run '${id}' could not be retrieved.`,
@@ -1311,7 +1321,9 @@ export class SimulationRunService {
     } else if (raiseErrors) {
       const error = rawMetadataResult?.error;
       this.logger.error(
-        `The metadata for simulation run '${id}' could not be retrieved: ${this.getErrorMessage(error)}.`,
+        `The metadata for simulation run '${id}' could not be retrieved: ${this.getErrorMessage(
+          error,
+        )}.`,
       );
       throw new InternalServerErrorException(
         `The metadata for simulation run '${id}' could not be retrieved.`,
@@ -1324,11 +1336,9 @@ export class SimulationRunService {
 
   private getErrorMessage(error: any): string {
     if (error?.isAxiosError) {
-      return `${
-          error?.response?.status
-        }: ${
-          error?.response?.data?.detail || error?.response?.statusText
-        }`;
+      return `${error?.response?.status}: ${
+        error?.response?.data?.detail || error?.response?.statusText
+      }`;
     } else {
       return `${error?.status || error?.statusCode}: ${error?.message}`;
     }

@@ -100,7 +100,9 @@ export class SharedStorageService {
       return res;
     } catch (err) {
       if (err === timeoutErr) {
-        this.logger.error(`Timeout when uploading '${id}' to storage in ${this.S3_UPLOAD_TIMEOUT_TIME} ms.`)
+        this.logger.error(
+          `Timeout when uploading '${id}' to storage in ${this.S3_UPLOAD_TIMEOUT_TIME} ms.`,
+        );
         throw new Error('Timeout when uploading file to storage.');
       } else {
         const details =

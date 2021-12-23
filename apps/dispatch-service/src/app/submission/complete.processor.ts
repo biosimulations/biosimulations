@@ -130,7 +130,9 @@ export class CompleteProcessor {
 
             const details = `The ${
               processingStep.name
-            } for simulation run '${runId}' could not be saved: ${this.getErrorMessage(error)}`;
+            } for simulation run '${runId}' could not be saved: ${this.getErrorMessage(
+              error,
+            )}`;
             if (processingStep.required) {
               errors.push(reason);
               errorsDetails.push(details);
@@ -261,7 +263,9 @@ export class CompleteProcessor {
             )
             .catch((error: any) =>
               this.logger.error(
-                `Project '${projectId}' could not be updated with simulation '${runId}': ${this.getErrorMessage(error)}.`,
+                `Project '${projectId}' could not be updated with simulation '${runId}': ${this.getErrorMessage(
+                  error,
+                )}.`,
               ),
             );
         })
@@ -278,7 +282,9 @@ export class CompleteProcessor {
               )
               .catch((innerError: AxiosError) =>
                 this.logger.error(
-                  `Project '${projectId}' could not be created with simulation run '${runId}': ${this.getErrorMessage(innerError)}.`,
+                  `Project '${projectId}' could not be created with simulation run '${runId}': ${this.getErrorMessage(
+                    innerError,
+                  )}.`,
                 ),
               );
           } else {
@@ -356,11 +362,9 @@ export class CompleteProcessor {
 
   private getErrorMessage(error: any): string {
     if (error?.isAxiosError) {
-      return `${
-          error?.response?.status
-        }: ${
-          error?.response?.data?.detail || error?.response?.statusText
-        }`;
+      return `${error?.response?.status}: ${
+        error?.response?.data?.detail || error?.response?.statusText
+      }`;
     } else {
       return `${error?.status || error?.statusCode}: ${error?.message}`;
     }

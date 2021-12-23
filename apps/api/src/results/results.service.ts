@@ -73,14 +73,12 @@ export class ResultsService {
         const datasetAttrs = outputResult.dataset.attributes;
         const error = outputResult?.error;
         const errorMsg = error?.isAxiosError
-          ? `${
-              error?.response?.status
-            }: ${error?.response?.data?.detail || error?.response?.statusText}`
+          ? `${error?.response?.status}: ${
+              error?.response?.data?.detail || error?.response?.statusText
+            }`
           : `${error?.status || error?.statusCode}: ${error?.message}`;
         errorDetails.push(
-          `${datasetAttrs._type} '${
-            datasetAttrs.uri
-          } of simulation run '${runId}' could not be parsed: ${errorMsg}.`,
+          `${datasetAttrs._type} '${datasetAttrs.uri} of simulation run '${runId}' could not be parsed: ${errorMsg}.`,
         );
         errorSummaries.push(
           `${datasetAttrs._type} '${datasetAttrs.uri} of simulation run '${runId}' could not be parsed.`,
