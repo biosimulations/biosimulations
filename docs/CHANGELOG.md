@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.5.3](https://github.com/biosimulations/biosimulations/compare/v8.5.2...v8.5.3) (2021-12-23)
+
+
+### Bug Fixes
+
+* **dispatch-service:** fixed retrying of files and specs to avoid conflicts on incomplete posts ([620f0eb](https://github.com/biosimulations/biosimulations/commit/620f0eb59a1f347ea9bbbaaf0b3d0276654d8611))
+
 ## [8.5.2](https://github.com/biosimulations/biosimulations/compare/v8.5.1...v8.5.2) (2021-12-23)
 
 
