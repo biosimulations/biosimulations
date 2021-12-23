@@ -47,7 +47,7 @@ export class MonitorProcessor {
           jobStatusReason.status,
         )
       ) {
-        this.simStatusService.updateStatus(
+        await this.simStatusService.updateStatus(
           runId,
           SimulationRunStatus.PROCESSING,
           jobStatusReason.reason,
@@ -60,7 +60,7 @@ export class MonitorProcessor {
           projectOwner,
         });
       } else {
-        this.simStatusService.updateStatus(
+        await this.simStatusService.updateStatus(
           runId,
           jobStatusReason.status,
           jobStatusReason.reason,

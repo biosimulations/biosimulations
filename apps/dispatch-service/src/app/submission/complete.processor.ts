@@ -207,7 +207,7 @@ export class CompleteProcessor {
       `\n${postProcessingStatusColor}${postProcessingStatusReason}${postProcessingStatusEndColor}` +
       '\n' +
       `\n${cyan}================================ Run complete. Thank you for using runBioSimulations! ===============================${noColor}`;
-    this.logService
+    await this.logService
       .createLog(runId, true, extraStdLog, logPostSucceeded)
       .catch((run) =>
         this.logger.error(
@@ -229,7 +229,7 @@ export class CompleteProcessor {
       finalStatus = SimulationRunStatus.FAILED;
     }
 
-    this.simStatusService
+    await this.simStatusService
       .updateStatus(runId, finalStatus, finalStatusReason)
       .then((run) => {
         if (postProcessingStatus === SimulationRunStatus.SUCCEEDED) {
@@ -247,7 +247,7 @@ export class CompleteProcessor {
         owner: projectOwner,
       };
 
-      return this.projectService
+      await this.projectService
         .getProject(projectId)
         .pipe(this.getRetryBackoff())
         .toPromise()
@@ -261,14 +261,14 @@ export class CompleteProcessor {
                 `Updated project '${projectId}' for simulation '${runId}'.`,
               ),
             )
-            .catch((err) =>
-              this.logger.log(
-                `Project '${projectId}' could not be updated with simulation '${runId}'.`,
+            .catch((error: AxiosError) =>
+              this.logger.error(
+                `Project '${projectId}' could not be updated with simulation '${runId}': ${error?.response?.status}: ${error?.response?.data?.detail || error?.response?.statusText}.`,
               ),
             );
         })
-        .catch((err: AxiosError) => {
-          if (err?.response?.status === HttpStatus.NOT_FOUND) {
+        .catch((error: AxiosError) => {
+          if (error?.response?.status === HttpStatus.NOT_FOUND) {
             this.projectService
               .createProject(projectInput)
               .pipe(this.getRetryBackoff())
@@ -278,14 +278,13 @@ export class CompleteProcessor {
                   `Created project '${projectId}' for simulation '${runId}'.`,
                 ),
               )
-              .catch((err) =>
-                this.logger.log(
-                  `Project '${projectId}' could not be created with simulation run '${runId}'.`,
+              .catch((innerError: AxiosError) =>
+                this.logger.error(
+                  `Project '${projectId}' could not be created with simulation run '${runId}': ${innerError?.response?.status}: ${innerError?.response?.data?.detail || innerError?.response?.statusText}.`,
                 ),
               );
           } else {
-            this.logger.error('Failed to update status');
-            this.logger.error(err);
+            this.logger.error(`Failed to update status: ${error?.response?.status}: ${error?.response?.data?.detail || error?.response?.statusText}.`);
           }
         });
     }
