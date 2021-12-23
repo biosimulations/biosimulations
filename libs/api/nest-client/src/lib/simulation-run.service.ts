@@ -6,7 +6,7 @@ import { ConfigService } from '@nestjs/config';
 import { Endpoints } from '@biosimulations/config/common';
 import { AuthClientService } from '@biosimulations/auth/client';
 import { pluck, map, mergeMap, retry, catchError } from 'rxjs/operators';
-import { from, Observable, throwError } from 'rxjs';
+import { from, Observable, throwError, forkJoin } from 'rxjs';
 import {
   SimulationRunStatus,
   SimulationRunSedDocumentInput,
@@ -53,7 +53,7 @@ export class SimulationRunService {
   public postSpecs(
     runId: string,
     specs: SimulationRunSedDocumentInput[],
-  ): Observable<void> {
+  ): Observable<void[]> {
     this.logger.log(
       `Uploading simulation experiment specifications (SED-ML) for simulation run '${runId}' ....`,
     );
@@ -62,20 +62,28 @@ export class SimulationRunService {
         false,
         runId,
       );
-    return this.postAuthenticated<
-      SimulationRunSedDocumentInputsContainer,
-      void
-    >(runId, endpoint, { sedDocuments: specs });
+    return forkJoin(
+      specs.map((spec: SimulationRunSedDocumentInput): Observable<void> => {
+        return this.postAuthenticated<
+          SimulationRunSedDocumentInputsContainer,
+          void
+        >(runId, endpoint, { sedDocuments: [spec] });
+      })
+    );
   }
 
-  public postFiles(runId: string, files: ProjectFileInput[]): Observable<void> {
+  public postFiles(runId: string, files: ProjectFileInput[]): Observable<void[]> {
     this.logger.log(`Uploading files for simulation run '${runId}' ....`);
-    const body: ProjectFileInputsContainer = { files };
     const endpoint = this.endpoints.getSimulationRunFilesEndpoint(false, runId);
-    return this.postAuthenticated<ProjectFileInputsContainer, void>(
-      runId,
-      endpoint,
-      body,
+    return forkJoin(
+      files.map((file: ProjectFileInput): Observable<void> => {
+        const body: ProjectFileInputsContainer = { files: [file] };
+        return this.postAuthenticated<ProjectFileInputsContainer, void>(
+          runId,
+          endpoint,
+          body,
+        );
+      })
     );
   }
 
