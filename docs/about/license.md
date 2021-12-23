@@ -3821,12 +3821,12 @@ Below are the licenses of the dependencies of BioSimulations and BioSimulators, 
 │  ├─ email: jaredhanson@gmail.com
 │  ├─ url: http://www.jaredhanson.net/
 │  └─ licenseFile: passport-strategy/LICENSE
-├─ passport@0.5.0
+├─ passport@0.5.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jaredhanson/passport
 │  ├─ publisher: Jared Hanson
 │  ├─ email: jaredhanson@gmail.com
-│  ├─ url: http://www.jaredhanson.net/
+│  ├─ url: https://www.jaredhanson.me/
 │  └─ licenseFile: passport/LICENSE
 ├─ path-case@1.1.2
 │  ├─ licenses: MIT
