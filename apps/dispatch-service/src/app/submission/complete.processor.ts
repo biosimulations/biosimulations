@@ -259,7 +259,7 @@ export class CompleteProcessor {
                 `Updated project '${projectId}' for simulation '${runId}'.`,
               ),
             )
-            .catch((error: any) =>              
+            .catch((error: any) =>
               this.logger.error(
                 `Project '${projectId}' could not be updated with simulation '${runId}': ${errorMsg}.`,
               ),

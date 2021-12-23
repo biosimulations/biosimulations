@@ -72,7 +72,7 @@ export class ResultsService {
       } else {
         const datasetAttrs = outputResult.dataset.attributes;
         const error = outputResult?.error;
-        const errorMsg = error?.isAxiosError 
+        const errorMsg = error?.isAxiosError
           ? `${
               error?.response?.status
             }: ${error?.response?.data?.detail || error?.response?.statusText}`

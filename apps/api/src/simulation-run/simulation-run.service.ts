@@ -302,7 +302,7 @@ export class SimulationRunService {
       const details = `An error occurred in uploading the COMBINE archive for the simulation run: ${err?.status}: ${err?.message}.`;
       this.logger.error(details);
 
-      const message = `An error occurred in uploading the COMBINE archive for the simulation run${err instanceof Error && err.message ? ': ' + err?.message : ''}.`;      
+      const message = `An error occurred in uploading the COMBINE archive for the simulation run${err instanceof Error && err.message ? ': ' + err?.message : ''}.`;
       throw new BiosimulationsException(
         HttpStatus.INTERNAL_SERVER_ERROR,
         message,
