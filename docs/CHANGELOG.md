@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.5.2](https://github.com/biosimulations/biosimulations/compare/v8.5.1...v8.5.2) (2021-12-23)
+
+
+### Bug Fixes
+
+* **api,dispatch-service:** fixed logging for complete processor failures ([f2119d4](https://github.com/biosimulations/biosimulations/commit/f2119d46741eb85f89a91d84eeee93903900acc8))
+
 ## [8.5.1](https://github.com/biosimulations/biosimulations/compare/v8.5.0...v8.5.1) (2021-12-23)
 
 
