@@ -263,7 +263,11 @@ export class CompleteProcessor {
             )
             .catch((error: AxiosError) =>
               this.logger.error(
-                `Project '${projectId}' could not be updated with simulation '${runId}': ${error?.response?.status}: ${error?.response?.data?.detail || error?.response?.statusText}.`,
+                `Project '${projectId}' could not be updated with simulation '${runId}': ${
+                  error?.response?.status
+                }: ${
+                  error?.response?.data?.detail || error?.response?.statusText
+                }.`,
               ),
             );
         })
@@ -280,11 +284,20 @@ export class CompleteProcessor {
               )
               .catch((innerError: AxiosError) =>
                 this.logger.error(
-                  `Project '${projectId}' could not be created with simulation run '${runId}': ${innerError?.response?.status}: ${innerError?.response?.data?.detail || innerError?.response?.statusText}.`,
+                  `Project '${projectId}' could not be created with simulation run '${runId}': ${
+                    innerError?.response?.status
+                  }: ${
+                    innerError?.response?.data?.detail ||
+                    innerError?.response?.statusText
+                  }.`,
                 ),
               );
           } else {
-            this.logger.error(`Failed to update status: ${error?.response?.status}: ${error?.response?.data?.detail || error?.response?.statusText}.`);
+            this.logger.error(
+              `Failed to update status: ${error?.response?.status}: ${
+                error?.response?.data?.detail || error?.response?.statusText
+              }.`,
+            );
           }
         });
     }
