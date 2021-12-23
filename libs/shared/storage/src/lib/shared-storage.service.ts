@@ -1,4 +1,4 @@
-import { Injectable, HttpStatus } from '@nestjs/common';
+import { Injectable, HttpStatus, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectS3, S3 } from 'nestjs-s3';
 import * as AWS from 'aws-sdk';
@@ -9,7 +9,8 @@ import unzipper from 'unzipper';
 export class SharedStorageService {
   private BUCKET: string;
   private PUBLIC_ENDPOINT: string;
-  private S3_UPLOAD_TIMEOUT_TIME = 30000;
+  private S3_UPLOAD_TIMEOUT_TIME = 60000;
+  private logger = new Logger(SharedStorageService.name);
   public constructor(
     @InjectS3() private readonly s3: S3,
     private configService: ConfigService,
@@ -99,12 +100,19 @@ export class SharedStorageService {
       return res;
     } catch (err) {
       if (err === timeoutErr) {
-        throw new Error('Timeout when uploading file to storage');
+        this.logger.error(`Timeout when uploading '${id}' to storage in ${this.S3_UPLOAD_TIMEOUT_TIME} ms.`)
+        throw new Error('Timeout when uploading file to storage.');
       } else {
+        const details =
+          err instanceof Error && err.message
+            ? err?.message
+            : `Error when uploading ${id} to storage.`;
+        this.logger.error(details);
+
         const message =
           err instanceof Error && err.message
             ? err?.message
-            : 'Error when uploading file to storage';
+            : 'Error when uploading file to storage.';
         throw new Error(message);
       }
     }
