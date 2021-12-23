@@ -81,7 +81,7 @@
     "nats": "2.4.0",
     "nestjs-s3": "1.0.1",
     "ngx-material-file-input": "3.0.0",
-    "passport": "0.5.0",
+    "passport": "0.5.2",
     "passport-jwt": "4.0.0",
     "reflect-metadata": "0.1.13",
     "rxjs": "7.4.0",
