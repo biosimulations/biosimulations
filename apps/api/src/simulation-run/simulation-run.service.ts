@@ -299,7 +299,9 @@ export class SimulationRunService {
 
       return this.createRun(run, size, url, id);
     } catch (err: any) {
-      const details = `An error occurred in uploading the COMBINE archive for the simulation run: ${err?.status || err?.statusCode}: ${err?.message}.`;
+      const details = `An error occurred in uploading the COMBINE archive for the simulation run: ${
+        err?.status || err?.statusCode
+      }: ${err?.message}.`;
       this.logger.error(details);
 
       const message = `An error occurred in uploading the COMBINE archive for the simulation run${
