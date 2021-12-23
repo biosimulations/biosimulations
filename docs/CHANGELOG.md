@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.5.4](https://github.com/biosimulations/biosimulations/compare/v8.5.3...v8.5.4) (2021-12-23)
+
+
+### Bug Fixes
+
+* improved error logging, increasing AWS timeout ([cccf802](https://github.com/biosimulations/biosimulations/commit/cccf802c76f154ed09dc53a7b1a41df286d935a8))
+
 ## [8.5.3](https://github.com/biosimulations/biosimulations/compare/v8.5.2...v8.5.3) (2021-12-23)
 
 
