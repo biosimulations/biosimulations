@@ -115,7 +115,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v2.5.0
         with:
-          node-version: lts/fermium
+          node-version: '16'
 
       - name: Install Netlify CLI
         run: npm install -g netlify-cli
@@ -151,7 +151,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v2.5.0
         with:
-          node-version: 15.x
+          node-version: '16'
 
       - name: Download Build for app
         uses: actions/download-artifact@v2

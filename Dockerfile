@@ -1,7 +1,7 @@
 #############
 ### base ###
 #############
-FROM node:14-alpine as base
+FROM node:16-alpine as base
 
 #The name of the app to build
 ARG app
@@ -68,8 +68,11 @@ WORKDIR /app
 
 #Copy over dependency list
 COPY package.json /app/package.json
+COPY package-lock.json /app/package-lock.json
+
 # install the app and include only dependencies needed to run
-RUN npm install --only=production  --legacy-peer-deps
+RUN npm ci --only=production --ignore-scripts=true
+
 # copy artifact build from the 'build environment'
 RUN echo app is ${APP}
 COPY --from=build /app/dist/apps/${APP}/ .
