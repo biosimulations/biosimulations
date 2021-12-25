@@ -184,12 +184,6 @@ Below are the licenses of the dependencies of BioSimulations and BioSimulators, 
 │  ├─ repository: https://github.com/nestjs/terminus
 │  ├─ publisher: Livio Brunner
 │  └─ licenseFile: @nestjs/terminus/LICENSE
-├─ @ngbmodule/material-carousel@0.7.1
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/gabrielbusarello/material2-carousel
-│  ├─ publisher: Gabriel Busarello
-│  ├─ email: gabriel20053@gmail.com
-│  └─ licenseFile: @ngbmodule/material-carousel/README.md
 ├─ @nodelib/fs.scandir@2.1.5
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nodelib/nodelib/tree/master/packages/fs/fs.scandir
@@ -2236,6 +2230,12 @@ Below are the licenses of the dependencies of BioSimulations and BioSimulators, 
 │  ├─ email: dead_horse@qq.com
 │  ├─ url: http://deadhorse.me
 │  └─ licenseFile: npm/node_modules/humanize-ms/LICENSE
+├─ husky@7.0.4
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/typicode/husky
+│  ├─ publisher: Typicode
+│  ├─ email: typicode@gmail.com
+│  └─ licenseFile: husky/LICENSE
 ├─ iconv-lite@0.4.24
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/ashtuchkin/iconv-lite
