@@ -80,9 +80,6 @@ jobs:
         with:
           useRollingCache: true
 
-      - name: Compile Angular Dependencies 
-        run: npm run compile
-
       - run: npx nx-cloud start-ci-run
         name: Start CI Run
         if: always()
@@ -97,7 +94,7 @@ jobs:
           npx nx affected --target=build --prod --parallel &
           P2=$!
 
-          npm run compile && npx nx affected --target=test --parallel &
+          npx nx affected --target=test --parallel &
           P3=$!
 
           # wait for processes to finish and collect exit codes
@@ -130,7 +127,7 @@ jobs:
           npx nx run-many --all --target=build --prod --parallel &
           P2=$!
 
-          npm run compile && npx nx run-many --all --target=test --parallel &
+          npx nx run-many --all --target=test --parallel &
           P3=$!
 
           # wait for processes to finish and collect exit codes
@@ -199,10 +196,7 @@ jobs:
         uses: bahmutov/npm-install@v1
         with:
           useRollingCache: true
-          
-      - name: Compile Angular Dependecies 
-        run: npm run compile
-
+   
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 

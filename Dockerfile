@@ -71,7 +71,8 @@ COPY package.json /app/package.json
 COPY package-lock.json /app/package-lock.json
 
 # install the app and include only dependencies needed to run
-RUN npm ci --only=production
+RUN npm ci --only=production --ignore-scripts=true
+
 # copy artifact build from the 'build environment'
 RUN echo app is ${APP}
 COPY --from=build /app/dist/apps/${APP}/ .
