@@ -338,6 +338,15 @@
       "contributions": [
         "ideas"
       ]
+    },
+    {
+      "login": "freiburgermsu",
+      "name": "freiburgermsu",
+      "avatar_url": "https://avatars.githubusercontent.com/u/60083977?v=4",
+      "profile": "https://thesustainablevegan.org/",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
