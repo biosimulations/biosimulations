@@ -1,9 +1,7 @@
 /
 /simulators/amici
-/simulators/amici/0.11.18
-/simulators/amici/0.11.19
+/simulators/amici/0.11.22
 /simulators/bionetgen
-/simulators/bionetgen/2.6.0
 /simulators/bionetgen/2.7.0
 /simulators/biouml
 /simulators/biouml/2019.4
@@ -12,7 +10,6 @@
 /simulators/boolsim
 /simulators/boolsim/1.2.0
 /simulators/brian2
-/simulators/brian2/2.4.2
 /simulators/brian2/2.5.0.1
 /simulators/cbmpy
 /simulators/cbmpy/0.7.25
@@ -40,8 +37,7 @@
 /simulators/genysis
 /simulators/genysis/3.0
 /simulators/gillespy2
-/simulators/gillespy2/1.6.2
-/simulators/gillespy2/1.6.4
+/simulators/gillespy2/1.6.6
 /simulators/ginsim
 /simulators/ginsim/3.0.0b
 /simulators/gna
@@ -63,7 +59,7 @@
 /simulators/maboss
 /simulators/maboss/2.3.4
 /simulators/masspy
-/simulators/masspy/0.1.2
+/simulators/masspy/0.1.5
 /simulators/mcell
 /simulators/mcell/3.5.0
 /simulators/metanetx
@@ -79,9 +75,6 @@
 /simulators/neuron
 /simulators/neuron/8.0.0
 /simulators/opencor
-/simulators/opencor/2021-07-09
-/simulators/opencor/2021-08-19
-/simulators/opencor/2021-09-14
 /simulators/opencor/2021-10-05
 /simulators/openknee
 /simulators/openknee/1.0
@@ -90,12 +83,10 @@
 /simulators/optflux
 /simulators/optflux/3.4.0
 /simulators/pyneuroml
-/simulators/pyneuroml/0.5.11
 /simulators/pyneuroml/0.5.18
 /simulators/pysb
 /simulators/pysb/1.13.0
 /simulators/pysces
-/simulators/pysces/0.9.9
 /simulators/pysces/1.0.0
 /simulators/raven
 /simulators/raven/2.4.0
