@@ -1,7 +1,6 @@
 module.exports = {
   extends: ['@commitlint/config-conventional'],
   rules: {
-    'enableMultipleScopes': true,
     'body-max-line-length': async () => [1, 'always', 100],
     'footer-max-line-length': async () => [1, 'always', 100],
     'scope-enum': [
