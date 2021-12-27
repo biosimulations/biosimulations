@@ -320,5 +320,5 @@ By the end of the execution of a COMBINE/OMEX archive, the status of each SED do
 
 Below are helpful tools for building logs of the execution of COMBINE/OMEX archives:
 
-[BioSimulators utils](https://docs.biosimulators.org/Biosimulators_utils/)  is a Python library which provides functions for generating reports to the above specifications.
-[capturer](https://pypi.org/project/capturer/)  is a Python library for capturing standard output and standard error streams.
+- [BioSimulators utils](https://docs.biosimulators.org/Biosimulators_utils/)  is a Python library which provides functions for generating reports to the above specifications.
+- [capturer](https://pypi.org/project/capturer/)  is a Python library for capturing standard output and standard error streams.
