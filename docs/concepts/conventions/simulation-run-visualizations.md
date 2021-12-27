@@ -14,9 +14,10 @@ Below, we provide recommendations for using Vega to visualize the results of sim
 BioSimulators recommends creating Vega visualizations for simulation results as follows:
 
 1. Create one or more SED-ML files.
-2. Use tools such as the [Vega Editor](https://vega.github.io/editor) and [Altair](https://altair-viz.github.io/) to design the structures of visualizations for the results of the SED-ML files.
-3. Encode these diagramatic structures into Vega.
-4. Indicate the Vega signals whose attributes should be rendered with the values of the SED-ML simulation attributes.
+2. Use tools such as the [Vega Editor](https://vega.github.io/editor) and [Altair](https://altair-viz.github.io/) to design the structures that visualize the results of the SED-ML files.
+3. Encode these diagramatic structures into Vega, while using the [Vega documentation](https://vega.github.io/vega/docs/) as a guide.
+4. Indicate the Vega signals whose attributes should be rendered with the values of the attributes of SED-ML simulations.
+
     - To render the value of a Vega signal with information from a SED-ML file, add the key sedmlUri to the Vega signal.
     - To render an attribute of the bind attribute of a Vega signal with information from a SED-ML file, set the value of the attribute equal to a dictionary with a single key `sedmlUri`.
 
