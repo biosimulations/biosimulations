@@ -2,7 +2,7 @@
 
 ## Overview
 
-Simulators should support SED-ML L1V3 or later. To accommodate a wide range of modeling frameworks and simulation algorithms, BioSimulators embraces the additional conventions for SED-ML described below, as well as the conventions for executing SED-ML documents described with the standard for [command-line interfaces for simulation tools](./simulator-interfaces.md).
+Simulators should support SED-ML L1V3 or later. To accommodate a wide range of modeling frameworks and simulation algorithms, BioSimulators embraces the additional conventions for SED-ML described below, as well as the conventions for executing SED-ML documents described with the standard that is used for [command-line interfaces of simulation tools](./simulator-interfaces.md).
 
 ## Model and data descriptor source paths
 
@@ -41,7 +41,7 @@ SED-ML documents can use NewXML elements of AddXML and ChangeXML elements to spe
 
 ## Data Types for model attribute changes and algorithm parameters
 
-SED-ML specifies that the new values of model attribute changes (`sedml:changeAttribute/@sedml:newValue`) and values of algorithm parameters (`sedml:algorithmParameter/@sedml:value`) must be encoded into strings. To ensure that SED-ML files are portable across simulation tools, BioSimulators defines several data types for model attribute changes and algorithm parameters and outlines how each data type should be encoded into strings. The data type of each algorithm parameter should be defined in the specification of each simulation tool.
+SED-ML specifies that the new values of model attribute changes (`sedml:changeAttribute/@sedml:newValue`) and values of algorithm parameters (`sedml:algorithmParameter/@sedml:value`) must be encoded into strings. To ensure that SED-ML files are portable across simulation tools, BioSimulators defines several data types for model attribute changes and algorithm parameters, and outlines how each data type should be encoded into strings. The data type of each algorithm parameter should be defined in the specification of each simulation tool.
 
 - **boolean:** Represents Boolean values. Should be encoded into strings as `true`/`false` or `0`/`1`.
 - **integer:** Represents integers. Should be encoded in decimal notation (e.g., `1234`).
@@ -52,7 +52,7 @@ SED-ML specifies that the new values of model attribute changes (`sedml:changeAt
 - **object:** Represents key-value pairs. Should be encoding using JSON (e.g., `{a: 1, b: 2}` or `{a: 'x', b: 'y'}`).
 - **any:** Represents any other data type. Should be encoding using JSON (e.g., `[{a: 1, b: 2}]`).
 
-Enumerations for the value of an algorithm parameter values can be defined in the specification of a simulator using the `recommendedRange` attribute. This can be combined with any of the above data types.
+Enumerations of an algorithm parameter value can be defined in the specification of a simulator using the `recommendedRange` attribute. This can be combined with any of the above data types.
 
 ## Limit use of repeated tasks to the execution of independent simulation runs
 
@@ -60,17 +60,17 @@ In addition to capturing multiple independent simulation runs, `sedml:repeatedTa
 
 Simulation tools are encouraged to support a simpler subset of the features of `sedml:repeatedTask` that is sufficient to describe multiple independent simulation runs.
 
-- **`sedml:repeatedTask`**: Simulation tools should support `resetModel="True"` as described in the SED specifications; the model specifications and initial conditions should be reset. Simulator state such as the states of random number generators should not be reset. When `resetModel="False"`, simulation tools should support limited preservation of the state of simulations between iterations. Simulation tools should accumulate changes to the specifications of the model(s) involved in the task. Simulations tools should not copy the final simulation state from the previous iteration to the initial state of the next iteration.
+- **`sedml:repeatedTask`**: Simulation tools should support `resetModel="True"` as described in the SED specifications; the model specifications and initial conditions should be reset. Simulator state such as the states of random number generators should not be reset. When `resetModel="False"`, simulation tools should support limited preservation of the state of simulations between iterations. Simulation tools should accumulate changes to the specifications of the model(s) involved in the task. Simulation tools should not copy the final simulation state from the previous iteration to the initial state of the next iteration.
 
 - **Sub-tasks**: Successive subtasks should be executed independently, including when they involve the same model. The final state of the previous sub-task should not be used to set up the initial state for the next sub-task.
 
-- **Shape of model variables for the results of repeated tasks**: Repeated tasks should produce multi-dimensional results. The first dimension should represent the iterations of the main range of the repeated task. The second dimension should represent the sub-tasks of the repeated task. The results of sub-tasks should be ordered in the same order the sub-tasks were executed (in order of their order attributes). The result of each sub-task should be reshaped to the largest shape of its sibling sub-tasks by padding smaller results with `NaN`. Each nesting of repeated tasks should contribute two additional dimensions for their ranges and sub-tasks. The final dimensions should be the dimensions of the atomic tasks of the repeated task (e.g., time for tasks of uniform time courses).
+- **Shape of model variables for the results of repeated tasks**: Repeated tasks should produce multi-dimensional results. The first dimension should represent the iterations of the main range of the repeated task. The second dimension should represent the sub-tasks of the repeated task. The results of sub-tasks should be ordered in the same order -- the order of their attributes -- that the sub-tasks were executed. The result of each sub-task should be reshaped to the largest shape of its sibling sub-tasks by padding smaller results with `NaN`. Each nesting of repeated tasks should contribute two additional dimensions for their ranges and sub-tasks. The final dimensions should be the dimensions of the atomic tasks of the repeated task (e.g., time for tasks of uniform time courses).
 
 ## Canonical order of execution of tasks
 
 For reproducibility, simulation tools should execute tasks in the order in which they are defined in SED-ML files.
 
-Furthermore, because the order of execution can affect the results of simulations, in general, each task should be executed, including tasks which do not contribute to any output. This is particularly important for simulation tools that implement Monte Carlo algorithms. One exception is tasks whose results are invariant to their order of execution such as most deterministic simulations. Such tasks can be executed in any order or in parallel.
+Furthermore, because the order of execution can affect the results of simulations in general, each task should be executed, even those which do not contribute to any output. This is particularly important for simulation tools that implement Monte Carlo algorithms. One exception is tasks whose results are invariant to their order of execution, such as most deterministic simulations, which can be executed in any order or in parallel.
 
 
 
@@ -114,10 +114,10 @@ Example SED-ML files and COMBINE archives for all of the languages listed above 
 
 ## Recommended resources for implementing the execution of simulation experiments
 
-Below are helpful tools for implementing the execution of simulation experiments described with SED-ML:
+Below are helpful tools for implementing and executing simulation experiments described with SED-ML:
 
  
-- [BioSimulators utils ](https://docs.biosimulators.org/Biosimulators_utils/) is a Python library which provides functions implementing command-line interfaces to the above specifications, as well as functions for interpreting COMBINE/OMEX archives and SED-ML files, generating tables and plots of simulation plots, and logging the execution of COMBINE/OMEX archives. BioSimulators utils provides high-level access to some of the lower-level libraries listed below.
+- [BioSimulators utils ](https://docs.biosimulators.org/Biosimulators_utils/) is a Python library which provides functions implementing command-line interfaces to the above specifications, as well as functions for interpreting COMBINE/OMEX archives and SED-ML files, generating tables and plots of simulation data, and logging the execution of COMBINE/OMEX archives. BioSimulators utils provides high-level access to some of the lower-level libraries listed below.
 
 - [libSED-ML](https://github.com/fbergmann/libSEDML)  is a library for serializing and deserializing SED documents to and from XML files. libSED-ML provides bindings for several languages.
 
