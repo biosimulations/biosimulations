@@ -16,19 +16,19 @@ BioSimulators recommends creating Vega visualizations for simulation results as 
 1. Create one or more SED-ML files.
 2. Use tools such as the [Vega Editor](https://vega.github.io/editor) and [Altair](https://altair-viz.github.io/) to design the structures of visualizations for the results of the SED-ML files.
 3. Encode these diagramatic structures into Vega.
-4. Indicate the Vega signals whose attributes should be rendered with the values of the attributes of SED-ML simulations.
+4. Indicate the Vega signals whose attributes should be rendered with the values of the SED-ML simulation attributes.
     - To render the value of a Vega signal with information from a SED-ML file, add the key sedmlUri to the Vega signal.
     - To render an attribute of the bind attribute of a Vega signal with information from a SED-ML file, set the value of the attribute equal to a dictionary with a single key `sedmlUri`.
 
-The value of each `sedmlUri` key should be a list of the location of the SED-ML document, the id of the SED-ML simulation or report, and the name of the attribute of the simulation or report that the value of the signal or attribute of the bind attribute of the signal should be rendered with (e.g., `['location/of/simulation.sedml', 'simulationId', 'numberOfSteps']`). To indicate that a sedmlUri key should be rendered with a list of the values of an attribute of multiple simulations or reports, use `SedDocument:*`, `Simulation:*`, or `Report:*` for the SED-ML document location or simulation/report id (e.g., `['SedDocument:*', 'Report:*', 'id']` to render an attribute with a list of the ids of the all of the reports of all of the SED-ML files in the COMBINE/OMEX archive).
+The value of each `sedmlUri` key should be a list of the location of the SED-ML document, the id of the SED-ML simulation or report, and the name of the simulation or report attribute that should be rendered with the signal or attribute value of the signal bind attribute (e.g., `['location/of/simulation.sedml', 'simulationId', 'numberOfSteps']`). To indicate that a sedmlUri key should be rendered with a list of the values of an attribute of multiple simulations or reports, use `SedDocument:*`, `Simulation:*`, or `Report:*` for the SED-ML document location or simulation/report id (e.g., `['SedDocument:*', 'Report:*', 'id']` to render an attribute with a list of the ids of the all of the reports of all of the SED-ML files in the COMBINE/OMEX archive).
 
-5. Indicate the Vega data sets whose values should be rendered with the results of SED-ML reports by adding a key `sedmlUri` to such Vega datas. The values of these keys should be set as follows:
-    - To render a Vega data set with the results of all of the reports of all of the SED-ML files in the parent COMBINE/OMEX archive, the value of `sedmlUri` should be set to an empty array (`[]`).
-    - To render a Vega data set with the result of a single report of one of the SED-ML files in the parent COMBINE/OMEX archive, the value of `sedmlUri` should be set to a list of the location of the SED-ML document and the id of the SED-ML report (e.g., `['location/of/simulation.sedml', 'reportId']`).
+5. Indicate the Vega data sets whose values should be rendered with the results of SED-ML reports by adding a key `sedmlUri` to such Vega data sets. The values of these keys should be set as follows:
+    - To render a Vega data set with the results of all reports from all of the SED-ML files in the parent COMBINE/OMEX archive, the value of `sedmlUri` should be set to an empty array (`[]`).
+    - To render a Vega data set with the result of a single report from one SED-ML file in the parent COMBINE/OMEX archive, the value of `sedmlUri` should be set to a list of the locations of the SED-ML document and the id of the SED-ML report (e.g., `['location/of/simulation.sedml', 'reportId']`).
 
 6. Package the SED-ML and Vega files into a COMBINE/OMEX archive. Include the Vega files in the manifest of the archive with the format `http://purl.org/NET/mediatypes/application/vnd.vega.v5+json`.
 
-### Example data visualization snippet (Vega document which indicates which Vega data sets should be mapped to SED-ML reports)
+### Example data visualization snippet (Vega document that indicates which Vega data sets should be mapped to SED-ML reports)
 ```json
 {
   "signals": [
@@ -64,7 +64,7 @@ The value of each `sedmlUri` key should be a list of the location of the SED-ML 
 Rendering Vega visualizations of the results of SED-ML files in COMBINE archives
 
 
-Simulation software tools, such as RunBioSimulations, should render such Vega visualizations linked to SED-ML files in COMBINE/OMEX archives as illustrated below:
+Simulation software tools, such as RunBioSimulations, should render such Vega visualizations linked to SED-ML files in COMBINE/OMEX archives in the following sequence:
 
 1. Execute the SED-ML files in the COMBINE/OMEX archive and save each report.
 
@@ -74,7 +74,7 @@ Simulation software tools, such as RunBioSimulations, should render such Vega vi
 
 4. Use a JSON library to parse the Vega visualization files.
 
-5. Identify the Vega signals and data sets whose values are intended to be rendered with the values of attributes of simulations of SED-ML documents and the results of reports of SED-ML documents (Vega signals and data sets with the key `sedmlUri`).
+5. Identify the Vega signals and data sets whose values are intended to be rendered with the values of simulation attributes of SED-ML documents and the results of reports of SED-ML documents (Vega signals and data sets with the key `sedmlUri`).
 
 6. Set the values of these Vega signals and data sets equal to the values of the indicated attributes of SED-ML simulations and the results of SED-ML reports. As illustrated below, SED-ML reports should be encoded as lists of objects that represent the results of each SED-ML dataset. Data sets with multidimensional values should be captured using nested lists.
 
@@ -125,7 +125,7 @@ Simulation software tools, such as RunBioSimulations, should render such Vega vi
       "value": 2
     },
     {
-      "name": "Vega signal whose value should be rendered with the value of an attribute of a simulation of a SED-ML document",
+      "name": "Vega signal whose value should be rendered with the value of a simulation attribute of a SED-ML document",
       "value": 100
     }
   ],
