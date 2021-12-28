@@ -44,7 +44,7 @@ Below are links to detailed documentation for the command-line applications and 
 A template repository for creating a standardized interface to a simulation tool is available [here](https://github.com/biosimulators/Biosimulators_simulator_template).
 
 ## Core BioSimulators util package
-BioSimulators-utils provides (a) several utility command-line programs and a Python API for creating, validating, and executing simulation projects and (b) a Python API for creating standardized interfaces to simulation tools. A tutorial and documentation for the package is available [here](https://docs.biosimulators.org/Biosimulators_utils/).
+BioSimulators-utils provides (a) several utility command-line programs and (b) a Python API for creating, validating, and executing simulation projects and for creating standardized interfaces to simulation tools. A tutorial and the documentation for the package is available [here](https://docs.biosimulators.org/Biosimulators_utils/).
 
 ## Test suite for test simulation tools
-A tutorial and documentation for the BioSimulators test suite for simulation tools is available [here](https://docs.biosimulators.org/Biosimulators_test_suite/).
+A tutorial and the documentation for the BioSimulators test suite for simulation tools is available [here](https://docs.biosimulators.org/Biosimulators_test_suite/).
