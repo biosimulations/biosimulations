@@ -5,10 +5,10 @@
 Authors can publish simulation projects to BioSimulations in four easy steps. Importantly, this workflow supports a broad range of simulations involving a broad range of modeling frameworks, simulation algorithms, model formats, and simulation tools.
 
 1. Create a simulation project (COMBINE/OMEX archive).
-   -- Create one or more models (e.g., BNGL, CellML, SBML files).
-   -- Create one or more simulations (SED-ML files).
-   -- Create zero or more visualizations of the results of the simulations (SED-ML plots or Vega data visualizations).
-   -- Capture metadata about the project (e.g., taxa, citations, license in an OMEX Metadata RDF-XML file).
+    - Create one or more models (e.g., BNGL, CellML, SBML files).
+    - Create one or more simulations (SED-ML files).
+    - Create zero or more visualizations of the results of the simulations (SED-ML plots or Vega data visualizations).
+    - Capture metadata about the project (e.g., taxa, citations, license in an OMEX Metadata RDF-XML file).
 2. Execute the project using runBioSimulations.
 3. Use runBioSimulations to verify that the project executed as intended.
 4. Use runBioSimulations to publish the project.
