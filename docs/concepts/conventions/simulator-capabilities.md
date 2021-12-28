@@ -1,7 +1,7 @@
 # Format for the Specification of BioSimulation Tools
 
 ## Overview
-The BioSimulators format for the specifications of a simulation tool is a JSON schema that describes modeling frameworks (e.g., logical, constraint-based), simulation algorithms (e.g., CVODE, SSA), and modeling formats (e.g., CellML, COMBINE/OMEX, SBML, SED-ML) that a simulation tool supports, as well as the parameters of each algorithm (e.g., random number generator seed), their data types and their allowed and default values.
+The BioSimulators format for the specifications of a simulation tool is a JSON schema for describing the modeling frameworks (e.g., logical, constraint-based), simulation algorithms (e.g., CVODE, SSA), and modeling formats (e.g., CellML, COMBINE/OMEX, SBML, SED-ML) that a simulation tool supports, as well as the parameters of each algorithm (e.g., random number generator seed), their data types and their allowed and default values.
 
 The format can also capture a metadata about each simulation tool including its
 
