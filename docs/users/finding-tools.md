@@ -155,7 +155,7 @@
 ## Finding a simulation tool that is capable of executing a modeling project
 The simulation tools in the BioSimulators collection support different model formats, modeling frameworks, simulation types, simulation algorithms, and observables. To find a simulation tool, use the following steps:
 
-1. Determine the format and framework of your model and the simulation type and algorithm which you would like to execute. 
+1. Determine the format and framework of your model, and identify the simulation type and algorithm that you would like to execute. 
 1. Browse the [simulators](https://biosimulators.org/simulators) to identify a tool which can execute your project. 
 
 Alternatively, runBioSimulations provides a [utility](https://run.biosimulations.org/utils/suggest-simulator) to recommend a simulation tool for specific combinations of model formats, modeling frameworks, simulation types, and simulation algorithms.
