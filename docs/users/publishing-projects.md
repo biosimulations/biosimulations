@@ -26,7 +26,7 @@ More information about using runBioSimulations to review simulation results is a
 
 ![share-button](./images/share.png){align=right}
 
-Third, once the simulation run has completed and its results have been reviewed, publish the run to BioSimulations. To publish a simulation run, click on the "Publish" button in the page for the run. Then select a unique id for the project, consent to BioSimulations' terms, and click the "Publish" button.
+Third, once the simulation run has completed and its results have been reviewed, publish the run to BioSimulations by clicking the "Publish" button on the page for the run. Then select a unique id for the project, consent to BioSimulations' terms, and click the "Publish" button.
 
 ## Using BioSimulators to test projects prior to submission to BioSimulations
 
@@ -43,7 +43,7 @@ docker run ghcr.io/biosimulators/tellurium:2.2.1 -v /path/to/project:/root -v /p
 
 ## User accounts for owning projects
 
-No login is required to access BioSimulations. However, users must have an account to manage projects. This allows for proper crediting of authors and allows authors to manage and edit their projects. BioSimulations provides a free account for users who wish to publish and manage projects.
+No login is required to access BioSimulations. However, users must have an account to manage projects. This allows for proper crediting of authors, and it allows authors to manage and edit their projects. BioSimulations provides a free account for users who wish to publish and manage projects.
 
 !!!note
     User accounts are under development. If you are interested in submitting a project to BioSimulations, please contact us at info@biosimulations.org.
