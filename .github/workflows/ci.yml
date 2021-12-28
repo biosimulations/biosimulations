@@ -3,10 +3,6 @@ on:
   pull_request:
     branches:
       - dev
-    paths-ignore:
-      - "docs/**"
-      - "tools/**"
-      - ".all-contributorsrc"
 jobs:
   CI:
     uses: biosimulations/biosimulations/.github/workflows/buildLintTest.yml@dev
