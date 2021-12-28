@@ -1,6 +1,6 @@
 # Documentation for libraries for publishing primary model repositories to BioSimulations
 
-A portion of BioSimulations is derived from several primary model repositories that focus on models of specific biological systems, specific types of models, specific model formats, and/or specific simulation tools. We aim to automatically publish these repositories to BioSimulations each week. This publication will be implemented by a collection of Python packages and GitHub actions. Links to documentation for these packages will be available below.
+A portion of BioSimulations is derived from several primary model repositories that focus on models of specific biological systems, types of models, model formats, and/or simulation tools. We aim to automatically publish these repositories to BioSimulations each week. This publication will be implemented by a collection of Python packages and GitHub actions. Links to documentation for these packages will be available below.
 
 | Repository                                                       | Topic                     | Formalism          | Format         | Tools              | Docs for publication to BioSimulations                                         |
 |------------------------------------------------------------------|---------------------------|--------------------|----------------|--------------------|---------------------------------------------------------------|
