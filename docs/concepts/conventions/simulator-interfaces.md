@@ -2,12 +2,12 @@
 
 ## Overview
 
-The BioSimulators conventions for command-line applications and Python APIs for biosimulation tools are sets of requirements for the syntax and semantics of the inputs and outputs of biosimulation software tools. The conventions ensure that simulation tools can be consistently executed with the same input arguments (a path to a COMBINE/OMEX archive that defines models and simulations and a path to save the outputs of the simulation experiments defined in the archive) and that the simulation tools produce consistent outputs (reports and plots at consistent paths in consistent formats).
+The BioSimulators conventions for command-line applications and Python APIs for biosimulation tools are sets of requirements for the syntax and semantics of the inputs and outputs of biosimulation software tools. The conventions ensure that simulation tools can be consistently executed with the same input arguments (a path to a COMBINE/OMEX archive that defines models and simulations, and a path to save the outputs of the simulation experiments defined in the archive), and that the simulation tools produce consistent outputs (reports and plots at consistent paths in consistent formats).
 
 BioSimulators encourages developers to provide two interfaces for two purposes:
 
 - **Command-line entrypoints to Docker images:** These interfaces provide developers a wide degree of flexibility (e.g., to use different programming languages and dependencies), make it easy for BioSimulators to archive each version of each tool, and make it easy for investigators to use tools to execute COMBINE/OMEX archives. However, these entrypoints are not optimally efficient for all use cases, and they provide investigators limited flexibility.
-- **Python APIs:** APIs provide investigators additional flexibility, such as to develop higher-performance simulation services or co-simulate models using multiple tools. However, for optimal efficiency, these APIs require developers to use a specific programming language. In addition, these APIs require developers to package their tools for easy installation or provide straightforward installation instructions. Furthermore, these APIs are typically more complex for investigators to install and use.
+- **Python APIs:** APIs provide investigators additional flexibility, such as to develop higher-performance simulation services or to co-simulate models using multiple tools. However, for optimal efficiency, these APIs require developers to use a specific programming language and to package their tools for easy installation or provide straightforward installation instructions. Furthermore, these APIs are typically more complex for investigators to install and use.
 
 
 In most cases, we recommend that developers create BioSimulators-compliant interfaces in three steps:
@@ -56,7 +56,7 @@ Python APIs should be Python modules which provide the following attributes and 
 
 - `exec_sed_task ((task: Task, variables: list[Variable], preprocessed_task:Any=None) -> Tuple[VariableResults, TaskLog])`: Execute a single SED-ML task involving a single simulation of a single model and return the predicted value of each requested output variable and a log of the execution of the simulation.
 
-- `exec_sed_doc ((doc: SedDocument, variables: list[Variable]) -> Tuple[ReportResults, SedDocumentLog])`: Execute a single SED-ML document involving one or more simulations of one or more models and return data for each SED-ML report and plot and a log of the execution of the simulations, reports, and plots.
+- `exec_sed_doc ((doc: SedDocument, variables: list[Variable]) -> Tuple[ReportResults, SedDocumentLog])`: Execute a single SED-ML document involving one or more simulations of one or more models, return data for each SED-ML report and plot, and return a log of the execution of the simulations, reports, and plots.
 
 - `exec_sedml_docs_in_combine_archive ((archive_filename: str, out_dir: str, return_results: bool = False) -> Tuple[SedDocumentResults, CombineArchiveLog])`: Execute all of the tasks in all of the SED-ML files in a COMBINE/OMEX archive, export all of the requested reports and plots, optionally return the result of each output, and return a log of the execution of the archive.
 
@@ -77,7 +77,7 @@ Both command-line interfaces and Python APIs should also support the following c
 - **Use KiSAO to describe simulation algorithms and their parameters**. Interfaces to simulation tools should use KiSAO terms to indicate specific algorithms and algorithm parameters.
 - **Support the COMBINE/OMEX format for collections of models and simulations**. Interfaces to simulation tools should support the full COMBINE/OMEX specification.
 - **Execute all tasks described in the master file of the COMBINE/OMEX archive**: When a COMBINE/OMEX archive file contains a master SED-ML document, simulation tools should execute all tasks defined inside the master file. When an archive doesn't contain a master SED-ML file, simulation tools should execute all of the tasks defined in each SED-ML file in the archive.
-- **Support the BioSimulators format for reports of simulation results**: Interfaces to simulation tools should save reports in the [BioSimulators HDF5 format](./simulation-run-reports.md) for data for reports and plots of simulation results. Within the HDF5 file, each report and plot should be saved to a path equal to the combination of the relative path of its parent SED-ML file within the COMBINE/OMEX archive and the id of the report.
+- **Support the BioSimulators format for reports of simulation results**: Interfaces to simulation tools should save reports in the [BioSimulators HDF5 format](./simulation-run-reports.md) for simulation data from reports and plots. Within the HDF5 file, each report and plot should be saved to a path equal to the combination of the relative path of its parent SED-ML file within the COMBINE/OMEX archive and the id of the report.
 - **Save plots in Portable Document Format (PDF) bundled into a zip archive**. Within the zip archive, each plot should be saved to a path equal to the combination of the relative path of its parent SED-ML file within the COMBINE/OMEX archive, the id of the plot, and the extension .pdf
 - **Save simulation outputs to standard file paths**: Data for reports and plots should be saved to `{ out-dir }/reports.h5`. Plots should be saved to `{ out-dir }/plots.zip`.
 
