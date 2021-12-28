@@ -148,6 +148,6 @@ Please follow the steps below to create a containerized simulation tool that adh
     biosimulators-test-suite validate { dockerhub-user-id }/{ image-id } { path-to-specifications.json }
     ```
 
-    The command-line program for the test suite provides several helpful options such as for executing tasks directly through command-line interfaces and for executing individual test cases. More information is available [here](https://github.com/biosimulators/Biosimulators_test_suite)
+    The command-line program for the test suite provides several helpful options that apply to, for example, executing tasks directly through command-line interfaces and executing individual test cases. More information is available [here](https://github.com/biosimulators/Biosimulators_test_suite)
 
 
