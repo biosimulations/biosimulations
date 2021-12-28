@@ -2783,7 +2783,7 @@ Below are the licenses of the dependencies of BioSimulations and BioSimulators, 
 │  ├─ repository: https://github.com/brianloveswords/node-jws
 │  ├─ publisher: Brian J Brennan
 │  └─ licenseFile: jws/LICENSE
-├─ kareem@2.3.2
+├─ kareem@2.3.3
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/vkarpov15/kareem
 │  ├─ publisher: Valeri Karpov
@@ -3338,7 +3338,7 @@ Below are the licenses of the dependencies of BioSimulations and BioSimulators, 
 │  ├─ publisher: The MongoDB NodeJS Team
 │  ├─ email: dbx-node@mongodb.com
 │  └─ licenseFile: mongodb/LICENSE.md
-├─ mongoose@6.1.3
+├─ mongoose@6.1.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/Automattic/mongoose
 │  ├─ publisher: Guillermo Rauch
