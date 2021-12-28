@@ -117,7 +117,7 @@
     "@angular/router": "13.1.0",
     "@angular/service-worker": "13.1.0",
     "@auth0/auth0-spa-js": "1.19.3",
-    "@commitlint/cli": "16.0.0",
+    "@commitlint/cli": "16.0.1",
     "@commitlint/config-conventional": "16.0.0",
     "@fortawesome/angular-fontawesome": "0.10.1",
     "@fortawesome/fontawesome-svg-core": "1.2.36",
