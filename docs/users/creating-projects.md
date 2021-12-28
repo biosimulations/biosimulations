@@ -5,10 +5,10 @@
 Authors can publish simulation projects to BioSimulations in four easy steps. Importantly, this workflow supports a broad range of simulations involving a broad range of modeling frameworks, simulation algorithms, model formats, and simulation tools.
 
 1. Create a simulation project (COMBINE/OMEX archive).
-   - Create one or more models (e.g., BNGL, CellML, SBML files).
-   - Create one or more simulations (SED-ML files).
-   - Create zero or more visualizations of the results of the simulations (SED-ML plots or Vega data visualizations).
-   - Capture metadata about the project (e.g., taxa, citations, license in an OMEX Metadata RDF-XML file).
+    - Create one or more models (e.g., BNGL, CellML, SBML files).
+    - Create one or more simulations (SED-ML files).
+    - Create zero or more visualizations of the results of the simulations (SED-ML plots or Vega data visualizations).
+    - Capture metadata about the project (e.g., taxa, citations, license in an OMEX Metadata RDF-XML file).
 2. Execute the project using runBioSimulations.
 3. Use runBioSimulations to verify that the project executed as intended.
 4. Use runBioSimulations to publish the project.
@@ -41,7 +41,7 @@ Interactive tutorials for creating projects can be found [here](https://tutorial
 
 ## Conventions for simulation projects
 
-To make it easy for investigators to work with a broad range of model formats, modeling frameworks, simulation types, simulation algorithms, and simulation tools, BioSimulations uses existing community standards for creating and describing projects. BioSimulations uses the Simulation Experiment Description Markup Language (SED-ML) to describe [simulation experiments](#sed-ml) and COMBINE/OMEX archive formats for packaging and distribution of simulation [projects](#combineomex-archives). Vega is used to describe charts, plots and [visualizations](#visualizations) of simulation results.  The OMEX-Meta format is used to describe the [metadata](#metadata) associated with a simulation project. More information about BioSimulation's use of these standards, and how to create and publish a project can be found below.
+To make it easy for investigators to work with a broad range of model formats, modeling frameworks, simulation types, simulation algorithms, and simulation tools, BioSimulations uses existing community standards for creating and describing projects. BioSimulations uses the Simulation Experiment Description Markup Language (SED-ML) to describe [simulation experiments](#sed-ml) and COMBINE/OMEX archive formats for packaging and distributing simulation [projects](#combineomex-archives). Vega is used to describe charts, plots, and [visualizations](#visualizations) of simulation results.  The OMEX-Meta format is used to describe the [metadata](#metadata) associated with a simulation project. More information about BioSimulation's use of these standards, and how to create and publish a project can be found below.
 
 ### SED-ML 
 
@@ -56,9 +56,9 @@ To make it easy for investigators to work with a broad range of model formats, m
 - How to plot the observables
 - How to export the observables to reports (e.g., CSV, HDF5)
 
-[runBioSimulations](https://run.biosimulations.org/utils/create-project) provides a simple web form for building COMBINE/OMEX archives with SED-ML files from model files (e.g., CellML, SBML). This tool support all of the model languages supported by BioSimulations. 
+[runBioSimulations](https://run.biosimulations.org/utils/create-project) provides a simple web form for building COMBINE/OMEX archives with SED-ML files from model files (e.g., CellML, SBML). This tool supports all of the model languages supported by BioSimulations. 
 
-Below are links to documentation about how to use SED-ML with specific model languages and a table of the URNs and URIs which should be used with SED-ML and OMEX manifests in COMBINE/OMEX archives.
+The table below provides links to documentation about how to use SED-ML with specific model languages, and provides the URNs and URIs that should be used with SED-ML and OMEX manifests in COMBINE/OMEX archives.
 
 | Language                                                                                                       | EDAM format    | SED-ML URN                    | COMBINE archive specification URI                       | MIME type                 | Extensions        |
 | ---------------------------------------------------------------------------------------------------------------|----------------|-------------------------------|---------------------------------------------------------|---------------------------|-------------------|
@@ -83,7 +83,7 @@ Vega files can be included in the COMBINE/OMEX archive of a simulation project t
 More information on how to create Vega files that can incorporate data from BioSimulations projects can be found at [here](../concepts/conventions/simulation-run-visualizations.md).
 
 ### Metadata 
-BioSimulations uses the [OMEX Meta](https://co.mbine.org/standards/omex-metadata) specification to capture metadata about the simulation project. BioSimulations has a list of recommended metadata fields that can be used to capture [metadata](./viewing-projects.md#metadata) about a simulation project. Information about how to use theses fields can be found [here](../concepts/conventions/simulation-project-metadata.md).
+BioSimulations uses the [OMEX Meta](https://co.mbine.org/standards/omex-metadata) specification to capture metadata about the simulation project. BioSimulations has a list of recommended metadata fields that can be used to capture [metadata](./viewing-projects.md#metadata) about a simulation project. Information about how to use these fields can be found [here](../concepts/conventions/simulation-project-metadata.md).
 
 ### COMBINE/OMEX archives
 
