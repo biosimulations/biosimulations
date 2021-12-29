@@ -54,7 +54,7 @@ runBioSimulations is designed to be able to execute any COMBINE/OMEX archive and
 
 First, currently runBioSimulations focuses on the latest version of SED-ML (L1V3) and has limited ability to execute simulation experiments encoded using older versions of SED-ML. Going forward, runBioSimulations will support new versions of SED-ML through new versions of simulation tools submitted to BioSimulators that support these new versions of SED-ML. Because BioSimulators stores old versions of simulation tools, runBioSimulations will also maintain the ability to execute simulations that involve the current version of SED-ML.
 
-Second, runBioSimulations can only execute SED-ML files that involve model formats, modeling frameworks, and simulation algorithms that are supported by at least one of the standardized simulation tools in the BioSimulators registry. Presently, the standardized simulation tools support multiple formats, multiple frameworks, and over 40 algorithms. Going forward, we aim to expand this by working with the community to develop standardized interfaces to additional simulation tools and submitting them to BioSimulators.
+Second, runBioSimulations can only execute SED-ML files that involve model formats, modeling frameworks, and simulation algorithms that are supported by at least one of the standardized simulation tools in the BioSimulators registry. Presently, the standardized simulation tools support multiple formats, multiple frameworks, and over 40 algorithms. Going forward, we aim to expand this by working with the community to develop standardized interfaces for additional simulation tools and submitting them to BioSimulators.
 
 Third, runBioSimulations has limited ability to execute SED-ML documents that deviate from the specifications of the COMBINE/OMEX archive and SED-ML formats. In practice, this is the most significant limitation because some simulation tools produce SED-ML files which deviate from the specifications of SED-ML and because most of the existing SED-ML files at SED-ML.org and in model repositories such as BioModels deviate from the specifications of SED-ML. Below is a list of known issues which prevent runBioSimulations from executing many SED-ML files.
 
@@ -120,7 +120,7 @@ BioSimulations executes projects using simulation tools validated by [BioSimulat
 
 **How can I execute a project before publication to BioSimulations?**
 
-BioSimulations executes projects using [runBioSimulations](https://run.biosimulations.org), which uses the simulation tools validated by [BioSimulators](https://biosimulators.org). Investigators can directly use runBioSimulations to execute projects. In addition, each simulation tool is available as a Docker image that provides a consistent command-line interface, and most simulation tools provide consistent Python APIs. These tools can be used to perform the same simulations that BioSimulations will when it publishes your project. More information and tutorials are available from BioSimulators and runBioSimulations.
+BioSimulations executes projects using [runBioSimulations](https://run.biosimulations.org), which uses the simulation tools validated by [BioSimulators](https://biosimulators.org). Investigators can directly use runBioSimulations to execute projects. In addition, each simulation tool is available as a Docker image that provides a consistent command-line interface, and most simulation tools provide consistent Python APIs. These tools can be used to perform the same simulations as BioSimulations when it publishes your project. More information and tutorials are available from BioSimulators and runBioSimulations.
 
 **Where does runBioSimulations execute simulations and store their outputs?**
 
@@ -196,7 +196,7 @@ The owner of a project can associate the project with new simulation runs. This 
 
 !!! info
 
-    The runBioSimulations currently website only enables investigators to publish simulation runs anonymously. To be able to edit a project, currently, users must initially publish the project using BioSimulations' [REST API](https://api.biosimulations.org). 
+    The runBioSimulations website currently only enables investigators to publish simulation runs anonymously. To be able to edit a project, currently, users must initially publish the project using BioSimulations' [REST API](https://api.biosimulations.org). 
 
 Please contact the BioSimulations Team via [email](mailto:info@biosimulations.org) for additional assistance.
 
@@ -222,15 +222,15 @@ Archives created with the webform are temporarily stored for 1 day.
 
 There are several reasons why simulations can fail including:
 
-- The simulator that you selected is not capable of executing your archive. Because each simulator supports different modeling frameworks, simulation algorithms, and model formats, any given archive is only compatible with a subset of simulation tools. BioSimulators describes the modeling frameworks, simulation algorithms, and model formats that each simulation tool supports. We recommend using BioSimulators to determine which simulation tools are compatible with your archive. Note, that BioSimulators does not capture every detail about the capabilities of each simulation tool, in part, because BioSimulators relies on the community to curate simulation tools. For example, BioSimulators has limited information about which SBML elements (e.g., delays, events) most simulation tools support. As a result, to determine which tools are compatible with your archive, it may also be necessary to read the documentation for several potentially compatible simulation tools.
-- Your archive or one of the models or simulations inside your archive is invalid. In particular, because many modeling tools are just beginning to support SED-ML, some tools do not yet produce valid SED-ML files. We recommend creating simulations with tools that faithfully support SED-ML such as tellurium and VCell.
+- The simulator that you selected is not capable of executing your archive. Because each simulator supports different modeling frameworks, simulation algorithms, and model formats, any given archive is only compatible with a subset of simulation tools. BioSimulators describes the modeling frameworks, simulation algorithms, and model formats that each simulation tool supports. We recommend using BioSimulators to determine which simulation tools are compatible with your archive. Note, BioSimulators does not capture every detail about the capabilities of each simulation tool, in part, because BioSimulators relies on the community to curate simulation tools. For example, BioSimulators has limited information about which SBML elements (e.g., delays, events) most simulation tools support. As a result, to determine which tools are compatible with your archive, it may also be necessary to read the documentation for several potentially compatible simulation tools.
+- Your archive or one of the models or simulations inside your archive is invalid. In particular, because many modeling tools are just beginning to support SED-ML, and some tools do not yet produce valid SED-ML files. We recommend creating simulations with tools that faithfully support SED-ML such as tellurium and VCell.
 - Your archive describes one or more simulations that can't be solved. For example, many algorithms may not be able to solve a stiff model up to the desired tolerance in the specified number of execution steps. In this case, we recommend using an alternative algorithm such as CVODE or LSODA for continuous kinetic models or restructuring your model.
 - Your archive generates very large outputs. runBioSimulations is architected to support arbitrarily large models and simulations. However, because runBioSimulations hasn't yet been hardened from years of use, users may still discover bugs in runBioSimulations. In this case, please help us improve runBioSimulations by using [GitHub issues](https://github.com/biosimulators/Biosimulators/issues/new/choose) to report problems to the BioSimulators team.
 
-**How can I execute the same simulators that runBioSimulations uses on my own machine?**
+**How can I execute the same simulators as runBioSimulations on my own machine?**
 runBioSimulations uses the BioSimulators collection of standardized simulation software tools. BioSimulators containers standardized Docker images for each simulation tool that make it easy to execute simulations. These Docker images are easy to install and run on your own machine. The images can be used on top of any operating system. Please see https://biosimulators.org for more information about how to install and run these images.
 
-Most of the standardized simulation tools in BioSimulators also provide standardized Python APIs. These APIs provide additional flexibility such as to combine simulation tools together. A single Docker image with most of the Python APIs is also available. Please see https://biosimulators.org for more information.
+Most of the standardized simulation tools in BioSimulators also provide standardized Python APIs. These APIs provide additional flexibility such as combining simulation tools together. A single Docker image with most of the Python APIs is also available. Please see https://biosimulators.org for more information.
 
 **How is each project licensed?**
 
@@ -248,7 +248,7 @@ Developers can use runBioSimulations to provide their users capabilities to exec
 
 This page supports several query arguments:
 
-- `modelUrl`: URL for a model file to create a COMBINE archive from. This argument instructs the web form to prefill the model file input with this URL. f
+- `modelUrl`: URL for a model file that will be configured in a COMBINE archive. This argument instructs the web form to prefill the model file input with this URL.
 - `modelFormat`: EDAM id of the format of the models to execute (e.g., `format_2585` for SBML). This argument instructs the web form select this format.
 - `modelingFramework`: SBO id of the modeling framework of the simulations to execute (e.g., `SBO_0000293` for continuous kinetic framework). This argument instructs the web form to select this modeling framework.
 - `simulationType`: Name of the type of simulation to create (`OneStep`, `SteadyState`, `UniformTimeCourse`). This argument instructs the web form to select this simulation type.
@@ -258,7 +258,7 @@ For example, the URL `https://run.biosimulations.org/run?modelUrl=https%3A%2F%2F
 
 **How can I embed execution capabilities for my simulations into my website?**
 
-Developers can use runBioSimulations to provide their users capabilities to execute their simulations. Developers can achieve this simply by adding hyperlinks to the run simulations page, https://run.biosimulations.org/run.
+Developers can use runBioSimulations to provide capabilities of execute simulations to their users, by simply adding a hyperlink: https://run.biosimulations.org/run.
 
 The run simulations page supports several query arguments:
 
@@ -365,7 +365,7 @@ runBioSimulations provides an [online tool](https://run.biosimulations.org/utils
 
 **Which simulation algorithms does BioSimulations support?**
 
-BioSimulations supports all simulation algorithms validated by BioSimulators. Currently, this includes over 60 algorithms. BioSimulations is extensible to additional simulation tools. The community can extend BioSimulations' capabilities by contributing simulation tools to [BioSimulators](https://biosimulators.org). More information, tutorials, and examples are available from BioSimulators.
+BioSimulations supports all simulation algorithms that are validated by BioSimulators. Currently, this includes over 60 algorithms. See below for contributing an additional simulation algorithm.
 
 **How can I contribute an additional simulation algorithm?**
 
@@ -391,7 +391,7 @@ Data for reports and plots are saved in HDF5 format. See the [specifications for
 
 **How are results encoded into HDF5 files?**
 
-Within HDF5 files, the results of each report (`sedml:report`) and plot (`sedml:plot2D`, `sedml:plot3D`) are saved to paths equal to a combination of the relative path of the parent SED-ML document within the parent COMBINE/OMEX archive and the id of the report or plot.
+Within HDF5 files, the results of each report (`sedml:report`) and plot (`sedml:plot2D`, `sedml:plot3D`) are saved to paths that are a combination of the relative path of the parent SED-ML document within the parent COMBINE/OMEX archive and the id of the report or plot.
 
 For reports, the rows of these data tables correspond to the data sets (`sedml:dataSet`) specified in the SED-ML definition of the report. The heading of each row is the label of the corresponding data set. For plots, the rows of these data tables correspond to the data generators (`sedml:dataGenerator`) specified in the SED-ML definition of the curves and surfaces of the plot. The heading of each row is the id of the corresponding data generator.
 
