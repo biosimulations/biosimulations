@@ -59,6 +59,7 @@ body:
       options:
         - Production (Deployed on a .org domain)
         - Development (Deployed on a .dev domain)
+        - Offline (Some Library, Tool, or Image not on the web)
     validations:
       required: true
   - type: dropdown
