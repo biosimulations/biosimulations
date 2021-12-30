@@ -1124,7 +1124,7 @@ export class SimulationRunSedDocumentInputsContainer
   implements ISimulationRunSedDocumentInputsContainer
 {
   @ApiProperty({
-    description: 'SED documents',
+    description: 'SED-ML documents',
     type: [SimulationRunSedDocumentInput],
   })
   @ValidateNested({ each: true })

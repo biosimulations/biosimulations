@@ -94,7 +94,7 @@ def get_results_data_set_id(content, output, data_element):
     Args:
         content (:obj:`CombineArchiveContent`): content item of a COMBINE/OMEX
             archive
-        output (:obj:`Output`): SED report or plot
+        output (:obj:`Output`): SED-ML report or plot
         data_element (:obj:`DataSet` or :obj:`DataGenerator`): data set or
             generator
 

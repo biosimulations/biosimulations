@@ -14,11 +14,11 @@ import { SedPlot2D } from './sedPlot2D';
 import { SedPlot3D } from './sedPlot3D';
 
 /**
- * An output of a SED document.
+ * An output of a SED-ML document.
  */
 /**
  * @type SedOutput
- * An output of a SED document.
+ * An output of a SED-ML document.
  * @export
  */
 export type SedOutput = SedPlot2D | SedPlot3D | SedReport;

@@ -12,11 +12,11 @@
 import { SedAlgorithm } from './sedAlgorithm';
 
 /**
- * A SED steady state simulation.
+ * A SED-ML steady state simulation.
  */
 export interface SedSteadyStateSimulation {
   /**
-   * Unique identifier within its parent SED document.
+   * Unique identifier within its parent SED-ML document.
    */
   id: string;
   /**

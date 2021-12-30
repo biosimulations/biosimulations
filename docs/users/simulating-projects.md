@@ -1,6 +1,5 @@
 # Executing simulation projects (COMBINE/OMEX archives)
 
-
 ## Using runBioSimulations tool to execute a simulation in the cloud
 
 [runBioSimulations](https://run.biosimulations.org) is a simple application that uses BioSimulators to execute modeling studies. runBioSimulations also provides a REST API for programmatically executing simulations.
@@ -9,7 +8,7 @@
 
 Please follow these steps to execute a simulation project:
 
-1. Open the [project submission form](https://run.biosimulations.dev/run).
+1. Open the [project submission form](https://run.biosimulations.org/run).
 1. Select a COMBINE/OMEX file to execute.
 1. Select a simulation tool and a specific version of that tool.
 1. Enter a name for your project. We recommend choosing a descriptive name that will help you recall the purpose of your project. These names will be particularly helpful if you run multiple projects.
@@ -36,20 +35,17 @@ After your run has completed, please follow these steps to retrieve its results:
 After your project has completed, please follow these steps to visualize its results:
 
 1. Open the URL provided after you submitted your project.
-1. Click the "Design chart" tab to open a form for choosing which results to visualize.
-1. Select one of the SED-ML files in your project.
-1. Select one of the reports in the selected SED-ML file. This will display a time series chart of the selected report.
-1. Use the controls in the chart to customize the chart. For example, the controls can be used to view specific variables or zoom into the chart.
+1. Click the "Select chart" tab to open a form for choosing which results to visualize.
+1. Use the tab to select a pre-defined chart or design a custom chart. More information about creating visualizations is available [here](./creating-projects.md) and [here](./creating-vega-visualizations.md).
+1. Click the "View chart" tab to view the selected chart.
 
 ### Programmatically executing projects with the REST API
 
-In addition to our web application, a REST API for executing projects is available at https://api.biosimulations.org/. This API supports the same simulation tools as the web interface.
+In addition to our web application, a REST API for executing projects is available at [https://api.biosimulations.org/](https://api.biosimulations.org/). This API supports the same simulation tools as the web interface.
 
 ### Running example simulation projects
 
-The runBioSimulation app contains a variety of example simulation projects that can be executed. You can click [here](https://run.biosimulations.dev/simulations?try=1) to automatically run the example projects. Alternatively, from the runBioSimulations app, you can run the example projects by clicking the "Try simulations" button.
-
-These simulation projects are verified to be compatible with runBioSimulations. The [BioSimulators test suite](https://github.com/biosimulators/Biosimulators_test_suite/tree/deploy/examples/) describes the specific simulation tools that are compatible with each example project.
+The runBioSimulation app contains a variety of example simulation projects. Click [here](https://run.biosimulations.org/simulations?try=1) to explore runs of these projects. More information about these examples is available [here](https://github.com/biosimulators/Biosimulators_test_suite/tree/deploy/examples/).
 
 ## Using containerized simulation tools 
 
@@ -75,13 +71,13 @@ Your COMBINE archive should be located at `path-to-directory-of-COMBINE-archive/
 
 The results will be saved to `path-to-save-results`. The data for reports and plots will be saved in Hierarchical Data Format 5 (HDF5) format and plots will be saved in Portable Document Format (PDF) and bundled into a single zip archive. See the [specifications for reports](../concepts/conventions/simulation-run-reports.md) for more information about the format of reports.
 
-For reports, the rows of each data table will represent the data sets (`sedml:dataSet`) outlined in the SED-ML definition of the report. The heading of each row will be the label of the corresponding data set. For plots, the rows of each data table will represent the data generators (`sedml:dataGenerator`) outlined in the SED-ML definition of the plot. The heading of each row will be the id of the corresponding data generator
+For reports, the rows of each data table will represent the data sets (`sedml:dataSet`) outlined in the SED-ML definition of the report. The heading of each row will be the label of the corresponding data set. For plots, the rows of each data table will represent the data generators (`sedml:dataGenerator`) outlined in the SED-ML definition of the plot. The heading of each row will be the id of the corresponding data generator.
 
 Report tables of steady-state simulations will have a single column of the steady-state predictions of each data set. Report tables of one step simulations will have two columns that represent the predicted start and end states of each data set. Report tables of time course simulations will have multiple columns that represent the predicted time course of each data set. Report tables of non-spatial simulations will not have additional dimensions. Report tables of spatial simulations will have additional dimensions that represent the spatial axes of the simulation.
 
 ### Execute a simulation in an HPC environment
 
-The BioSimulators simulation tools can also be running in high-performance computing (HPC) environments where root access is not available by first converting the Docker images for the tools into Singularity images .
+The BioSimulators simulation tools can also be running in high-performance computing (HPC) environments where root access is not available by first converting the Docker images for the tools into Singularity images.
 
 All of the validated images for simulation tools are compatible with Singularity. As part of the validation process, we check that each Docker image can be converted into a [Singularity image](https://sylabs.io/).
 

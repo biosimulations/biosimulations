@@ -16,7 +16,7 @@ The `apps` directory contains code for the high level applications that are a pa
 
 ### Libraries
 
-The `libs` directory contains code that can be used by multiple apps. Each library contains a `README.md` file that describes its purpose and internal organization. To enforce proper separation of concerns and manage dependency trees, BioSimulations and BioSimulators employ provides constraints on the libraries that can be used by each app. For more information, read the [Nx documentation](https://nx.dev/angular/workspace/structure/monorepo-tags), and look at the repository's [linting rules](/.eslintrc). In general, BioSimulations and BioSimulators follow the [principles recommended by Nx](https://nx.dev/angular/guides/monorepo-nx-enterprise).
+The `libs` directory contains code that can be used by multiple applications. Each library contains a `README.md` file that describes its purpose. To enforce proper separation of concerns and manage dependency trees, BioSimulations and BioSimulators employ constraints on the libraries that can be used by each application. For more information, read the [Nx documentation](https://nx.dev/angular/workspace/structure/monorepo-tags), and look at the repository's [linting rules](https://github.com/biosimulations/biosimulations/blob/dev/.eslintrc.json). In general, BioSimulations and BioSimulators follow the [principles recommended by Nx](https://nx.dev/angular/guides/monorepo-nx-enterprise).
 
 ## Coding convention
 
@@ -27,7 +27,7 @@ BioSimulations and BioSimulators follow standard TypeScript style conventions:
 - Function names: `lowerCamelCase`
 - Variable names: `lowerCamelCase`
 
-Further information about style conventions can be found in the [lint rules definition](/.eslintrc).
+Further information about style conventions can be found in the [lint rules definition](https://github.com/biosimulations/biosimulations/blob/dev/.eslintrc.json).
 
 ## Linting
 

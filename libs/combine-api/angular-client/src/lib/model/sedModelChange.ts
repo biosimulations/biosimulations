@@ -16,11 +16,11 @@ import { SedRemoveElementModelChange } from './sedRemoveElementModelChange';
 import { SedModelAttributeChange } from './sedModelAttributeChange';
 
 /**
- * A SED model change.
+ * A SED-ML model change.
  */
 /**
  * @type SedModelChange
- * A SED model change.
+ * A SED-ML model change.
  * @export
  */
 export type SedModelChange =

@@ -12,7 +12,7 @@
 import { SedTarget } from './sedTarget';
 
 /**
- * A SED model attribute change.
+ * A SED-ML model attribute change.
  */
 export interface SedModelAttributeChange {
   /**
@@ -25,7 +25,7 @@ export interface SedModelAttributeChange {
   newValue: string;
   target: SedTarget;
   /**
-   * Unique identifier within its parents SED document.
+   * Unique identifier within its parent SED-ML document.
    */
   id?: string;
   /**

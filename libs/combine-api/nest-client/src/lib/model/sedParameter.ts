@@ -15,7 +15,7 @@
  */
 export interface SedParameter {
   /**
-   * Unique identifier within its parent SED document.
+   * Unique identifier within its parent SED-ML document.
    */
   id: string;
   /**

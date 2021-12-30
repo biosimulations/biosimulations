@@ -298,7 +298,7 @@ export class DesignLine2DVisualizationComponent implements OnInit {
         catchError((): Observable<PlotlyDataLayout> => {
           return of({
             dataErrors: [
-              'The results of one or more SED reports requested for the plot could not be loaded.',
+              'The results of one or more SED-ML reports requested for the plot could not be loaded.',
             ],
           });
         }),

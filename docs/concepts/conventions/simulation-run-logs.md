@@ -2,36 +2,34 @@
 
 ## Overview
 
-This format enables simulation tools to consistently communicate information about the status and outcome of the execution of SED-ML files in COMBINE/OMEX archives. The format can capture the following information:
+This format enables simulation tools to communicate information about the status and outcome of the execution of SED-ML files in COMBINE/OMEX archives. The format can capture the following information:
 
-- The status and outcome of the COMBINE archive and each SED document, task, report, plot, data set, curve and surface (`QUEUED`, `RUNNING`, `SUCCEEDED`, `SKIPPED`, or `FAILED`).
-- Information about the simulation function that was executed and the arguments that were used.
-- The standard output/error produced from executing the COMBINE archive and each SED document, task, and output.
-- The duration of the execution of the COMBINE archive and each SED document, task, and output.
-- The reason for each SED document, task or output that was skipped.
-- The reason for each failed SED document, task, or output.
+- The status and outcome of the COMBINE archive and each SED-ML document, task, report, plot, data set, curve and surface (e.g., queued, running, succeeded, failed).
+- Information about simulation functions that were executed and the arguments that were used.
+- The standard output/error produced from executing the COMBINE archive and each SED-ML document, task, and output.
+- The duration of the execution of the COMBINE archive and each SED-ML document, task, and output.
+- The reason for each skipped or failed SED-ML document, task or output.
 
 ## Specifications
 
+The schema for the format is available in [JSON schema](https://api.biosimulations.org/schema/CombineArchiveLog.json) and [Open API](https://api.biosimulations.org/openapi.json) formats. Documentation for the schema is available at [https://api.biosimulations.org/](https://api.biosimulations.org/).
 
-The schema for the format is available in [JSON schema](https://api.biosimulations.org/schema/CombineArchiveLog.json)  and [Open API](https://api.biosimulations.org/openapi.json) formats. Documentation for the schema is available at [https://api.biosimulations.org/](https://api.biosimulations.org/).
+Simulators are encouraged to log the execution of each individual SED-ML element, including each task, report, plot, data set, curve and surface.
 
-Simulators are encouraged to log the execution of each individual SED element, including each task, report, plot, data set, curve and surface.
-
-At the same time, the format provides simulation tools flexibility to log their execution at whatever level of granularity is convenient. Below are several possible levels of granularity.
+At the same time, the format provides simulation tools flexibility to log their execution at whatever level of granularity is possible. Below are several possible levels of granularity.
 
 - Individual task and output elements (e.g., data sets, curves, surfaces)
 - Individual tasks
-- Individual SED documents
-- The entire COMBINE/OMEX archive
+- Individual SED-ML documents
+- Entire COMBINE/OMEX archives
 
 !!!note 
-    the output attribute for the log of each COMBINE/OMEX archive, SED document, task, and output can include [ANSI escape codes](https://en.wikipedia.org/wiki/ANSI_escape_code) for color and other terminal formatting .
+    The output attribute for the log of each COMBINE/OMEX archive, SED-ML document, task, and output can include [ANSI escape codes](https://en.wikipedia.org/wiki/ANSI_escape_code) for color and other terminal formatting.
 
 
 ## Example logs
 
-Below is an example of an element-level log of a COMBINE/OMEX archive that involves a single SED document with two tasks at the beginning of its execution.
+Below is an example of an element-level log of a COMBINE/OMEX archive that involves a single SED-ML document with two tasks at the beginning of its execution.
 
 ```json
 {
@@ -190,7 +188,6 @@ Below is an example of an element-level log of the final state of the successful
 
 Below is an example of an element-level log of the final state of the failed execution of the same COMBINE/OMEX archive.
 
-
 ```json
 {
   "status": "FAILED",
@@ -272,8 +269,8 @@ Below is an example of an element-level log of the final state of the failed exe
   ]
 }
 ```
-Below is an example of a SED document-level log of the final state of the failed execution of the same COMBINE/OMEX archive.
 
+Below is an example of a SED-ML document-level log of the final state of the failed execution of the same COMBINE/OMEX archive.
 
 ```json
 
@@ -306,19 +303,18 @@ Below is an example of a SED document-level log of the final state of the failed
 
 Simulation tools are encouraged to flush logs of the execution of COMBINE/OMEX archives upon each of the following events:
 
-- **Start of the execution of the COMBINE/OMEX archive**. After this event, the status of the archive should be `RUNNING`, the status of each SED document and SED element that the simulation tool is capable of executing should be QUEUED, and the status of each SED document and SED element that the simulation tool is not capable fo executing should be SKIPPED.
-- **Start of the execution of each SED document**. This event should change the status of the document to `RUNNING`.
-- **Start of the execution of each SED task**. This event should change the status of the task to `RUNNING`.
-- **End of the execution of each SED task**. If the task succeeded, its status should be changed to `SUCCEEDED`. In addition, all data sets, curves, and surfaces which can now be generated should be generated, and their status should be changed to `SUCCEEDED`. The status of the parent reports and plots should be set to SUCCEEDED if all of their data sets, curves, and surfaces have been generated, or `RUNNING` if some of their data sets, curves, and surfaces cannot yet be generated because they depend on tasks which have not yet been executed. If the task failed, its status should be changed to `FAILED`, and the status of all data sets, curves, surfaces, reports, and plots which depend on the task should be changed to `FAILED`.
-- **End of the execution of each SED document**. If all of the task and outputs in the document succeeded, the document's status should be changed to `SUCCEEDED`. Otherwise, the document's status should be changed to `FAILED`.
+- Start of the execution of the COMBINE/OMEX archive. After this event, the status of the archive should be `RUNNING`, the status of each SED-ML document and SED-ML element that the simulation tool is capable of executing should be `QUEUED`, and the status of each SED-ML document and SED-ML element that the simulation tool is not capable fo executing should be `SKIPPED`.
+- Start of the execution of each SED-ML document. This event should change the status of the document to `RUNNING`.
+- Start of the execution of each SED-ML task. This event should change the status of the task to `RUNNING`.
+- End of the execution of each SED-ML task. If the task succeeded, its status should be changed to `SUCCEEDED`. In addition, all data sets, curves, and surfaces which can now be generated should be generated, and their status should be changed to `SUCCEEDED`. The status of the parent reports and plots should be set to `SUCCEEDED` if all of their data sets, curves, and surfaces have been generated, or `RUNNING` if some of their data sets, curves, and surfaces cannot yet be generated because they depend on tasks which have not yet been executed. If the task failed, its status should be changed to `FAILED`, and the status of all data sets, curves, surfaces, reports, and plots which depend on the task should be changed to `FAILED`.
+- End of the execution of each SED-ML document. If all of the task and outputs in the document succeeded, the document's status should be changed to `SUCCEEDED`. Otherwise, the document's status should be changed to `FAILED`.
 
-By the end of the execution of a COMBINE/OMEX archive, the status of each SED document, task, report, plot, data set, curve, and surface should be one of `SUCCEEDED`, `SKIPPED`, or `FAILED`.
-
+By the end of the execution of a COMBINE/OMEX archive, the status of each SED-ML document, task, report, plot, data set, curve, and surface should be one of `SUCCEEDED`, `SKIPPED`, or `FAILED`.
 
 
 ## Recommended resources for building logs of the execution of COMBINE/OMEX archives
 
 Below are helpful tools for building logs of the execution of COMBINE/OMEX archives:
 
-- [BioSimulators utils](https://docs.biosimulators.org/Biosimulators_utils/)  is a Python library which provides functions for generating reports to the above specifications.
-- [capturer](https://pypi.org/project/capturer/)  is a Python library for capturing standard output and standard error streams.
+- [BioSimulators utils](https://docs.biosimulators.org/Biosimulators_utils/) is a Python library which provides functions for generating reports to the above specifications.
+- [capturer](https://pypi.org/project/capturer/) is a Python library for capturing standard output and standard error streams.

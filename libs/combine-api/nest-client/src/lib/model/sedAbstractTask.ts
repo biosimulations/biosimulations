@@ -16,11 +16,11 @@ import { SedRepeatedTask } from './sedRepeatedTask';
 import { SedSubTask } from './sedSubTask';
 
 /**
- * A SED abstract task.
+ * A SED-ML abstract task.
  */
 /**
  * @type SedAbstractTask
- * A SED abstract task.
+ * A SED-ML abstract task.
  * @export
  */
 export type SedAbstractTask = SedRepeatedTask | SedTask;

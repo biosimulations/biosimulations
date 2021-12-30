@@ -12,11 +12,11 @@
 import { SedAlgorithm } from './sedAlgorithm';
 
 /**
- * A SED one step simulation.
+ * A SED-ML one step simulation.
  */
 export interface SedOneStepSimulation {
   /**
-   * Unique identifier within its parent SED document.
+   * Unique identifier within its parent SED-ML document.
    */
   id: string;
   /**

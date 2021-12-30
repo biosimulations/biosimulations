@@ -19,7 +19,7 @@ export interface SedUniformRange {
    */
   _type: SedUniformRangeTypeEnum;
   /**
-   * Unique identifier within is parent SED document.
+   * Unique identifier within is parent SED-ML document.
    */
   id: string;
   /**

@@ -12,11 +12,11 @@
 import { SedTarget } from './sedTarget';
 
 /**
- * A SED variable.
+ * A SED-ML variable.
  */
 export interface SedVariable {
   /**
-   * Unique identifier within its parent SED document.
+   * Unique identifier within its parent SED-ML document.
    */
   id: string;
   /**

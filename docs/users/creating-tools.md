@@ -1,7 +1,7 @@
 # Creating standardized interfaces to biosimulation tools
 We welcome contributions of additional simulation tools!
 
-All simulation tools submitted for validation by BioSimulators should support at least one modeling language, SED-ML, KiSAO, and COMBINE/OMEX.
+All simulation tools submitted for validation by BioSimulators should support at least one modeling language, SED-ML, KiSAO, and the COMBINE/OMEX format.
 
 - Modeling languages. Containers should support at least a subset of at least one modeling language such as BNGL, CellML, Kappa, NeuroML/LEMS, pharmML, SBML, or Smoldyn.
 
@@ -13,17 +13,17 @@ All simulation tools submitted for validation by BioSimulators should support at
     - Data generators for individual variables: `sedml:dataGenerator`, `sedml:variable`
     - Report outputs: `sedml:report`.
 
-- KiSAO. SED-ML documents interpreted by containers should use KiSAO terms to indicate algorithms and algorithm parameters. As necessary, create an [issue](https://github.com/SED-ML/KiSAO/issues/new?assignees=&labels=New+term&template=request-a-term.md&title=) on the KiSAO repository to request terms for additional algorithms and algorithm parameters.
+- KiSAO. SED-ML documents interpreted by containers should use KiSAO terms to indicate algorithms and algorithm parameters. As necessary, create [issues](https://github.com/SED-ML/KiSAO/issues/new?assignees=&labels=New+term&template=request-a-term.md&title=) on the KiSAO repository to request terms for additional algorithms and algorithm parameters.
 
-COMBINE/OMEX. Containers should support the full COMBINE/OMEX specification.
+- COMBINE/OMEX. Containers should support the full COMBINE/OMEX specification.
 
-Please follow the steps below to create a containerized simulation tool that adheres to the BioSimulators standards. Several examples are available from the [BioSimulators GitHub organization](https://github.com/biosimulations/). A template repository with template Python code for a command-line interface and a template for a Dockerfile is available [here](https://github.com/biosimulators/Biosimulators_simulator_template).
+Please follow the steps below to create a containerized simulation tool that adheres to the BioSimulators conventions. Several examples are available from the [BioSimulators GitHub organization](https://github.com/biosimulations/). A template repository with template Python code for a command-line interface and a template for a Dockerfile is available [here](https://github.com/biosimulators/Biosimulators_simulator_template).
 
 1. Optionally, create a Git repository for your command-line interface and Dockerfile.
 1. Implement a BioSimulators-compliant command-line interface to your simulation tool. The interface should accept two keyword arguments:
 
     - `-i, --archive`: A path to a COMBINE archive that contains descriptions of one or more simulation tasks.
-    - `-o, --out-dir`: A path to a directory where the outputs of the simulation tasks should be saved. Data for plots and reports should be saved in HDF5 format (see the [specifications for data sets](../concepts/conventions/simulation-run-reports.md) for more information) and plots should be saved in Portable Document Format (PDF)  bundled into a single zip archive. Data for reports and plots should be saved to `{ out-dir }/reports.h5` and plots should be saved to `{ out-dir/plots.zip }`. Within the HDF5 file and the zip file, reports and plots should be saved to paths equal to the relative path of their parent SED-ML documents within the parent COMBINE/OMEX archive and the id of the report/plot.
+    - `-o, --out-dir`: A path to a directory where the outputs of the simulation tasks should be saved. Data for plots and reports should be saved in HDF5 format (see the [specifications for data sets](../concepts/conventions/simulation-run-reports.md) for more information) and plots should be saved in Portable Document Format (PDF) bundled into a single zip archive. Data for reports and plots should be saved to `{ out-dir }/reports.h5` and plots should be saved to `{ out-dir/plots.zip }`. Within the HDF5 file and the zip file, reports and plots should be saved to paths equal to the relative path of their parent SED-ML documents within the parent COMBINE/OMEX archive and the id of the report/plot.
 
     For reports, the rows of the data tables should correspond to the data sets (`sedml:dataSet`) specified in the SED-ML definition of the report (e.g., time, specific species). The heading of each row should be the label of the corresponding data set.
 
@@ -37,6 +37,7 @@ Please follow the steps below to create a containerized simulation tool that adh
 
     - `-h, --help`: This argument should instruct the command-line program to print help information about itself.
     - `-v, --version`: This argument should instruct the command-line program to report version information about itself.
+
     The easiest way to create a BioSimulators-compliant command-line interface is to create a [BioSimulators-compliant Python API](../concepts/conventions/simulator-interfaces.md#conventions-for-python-apis) and then use methods in [BioSimulators-utils](https://github.com/biosimulators/Biosimulators_utils) to build a command-line interface from this API. Implementing a BioSimulators-compliant Python API primarily entails implementing a single method for executing a single simulation of a single model. Additional information about creating BioSimulators-compliant Python APIs, command-line interfaces, and Docker images, including templates, is available [here](https://github.com/biosimulators/Biosimulators_simulator_template).
 
     Simulation tools can also utilize two environment variables to obtain information about the environment that runBioSimulations uses to execute simulations.
@@ -47,12 +48,12 @@ Please follow the steps below to create a containerized simulation tool that adh
 1. Create a Dockerfile which describes how to build an image for your simulation tool.
     1. Use the `FROM` directive to choose a base operating system such as Ubuntu.
     1. Use the `RUN` directive to describe how to install your tool and any dependencies. Because Docker images are typically run as root, reserve `/root` for the home directory of the user which executes the image. Similarly, reserve `/tmp` for temporary files that must be created during the execution of the image. Install your simulation tool into a different directory than `/root` and `/tmp` such as `/usr/local/bin`.
-    1. Ideally, the simulation tools inside images should be installed from internet sources so that the construction of an image is completely specified by its Dockerfile and, therefor, reproducible and portable. Additional files needed during the building of the image, such as licenses to commercial software, can be copied from a local directory such as assets/. These files can then be deleted and squashed out of the final image and injected again when the image is executed.
+    1. Ideally, the simulation tools inside images should be installed from internet sources so that the construction of an image is completely specified by its Dockerfile and, therefore, reproducible and portable. Additional files needed during the building of the image, such as licenses to commercial software, can be copied from a local directory such as `assets/`. These files can then be deleted and squashed out of the final image and injected again when the image is executed.
     1. Set the `ENTRYPOINT` directive to the path to your command-line interface.
     1. Set the `CMD` directive to `[]`.
     1. Use the `ENV` directive to declare all [environment variables](../concepts/conventions/simulator-interfaces.md#environment-variables) that your simulation tool supports.
     1. Do not use the `USER` directive to set the user which will execute the image so that the user can be set at execution time.
-    1. Use the `LABEL` directive to provide the metadata about your simulation tool described below. This metadata is also necessary to submit your image to BioContainers , a broad registry of images for biological research.
+    1. Use the `LABEL` directive to provide the metadata about your simulation tool described below. This metadata is also necessary to submit your image to [BioContainers](https://biocontainers.pro/), a broad registry of images for biological research.
     
         Open Containers Initiative labels:    
 
@@ -96,9 +97,9 @@ Please follow the steps below to create a containerized simulation tool that adh
 
         - `about.license`: SPDX license id for the license for the simulation program (e.g., `SPDX:MIT`). See SPDX  for a list of licenses and their ids.
 
-        - `about.tags`: Comma-separated list of tags which describe the simulation program (e.g., `rule-based modeling,dynamical simulation,systems biology,BNGL,BioSimulators`). Please include the tag BioSimulators.
+        - `about.tags`: Comma-separated list of tags which describe the simulation program (e.g., `rule-based modeling,dynamical simulation,systems biology,BNGL,BioSimulators`). Please include the tag `BioSimulators`.
         
-        - `extra.identifiers.biotools`: Optionally, the bio.tools identifier for the simulation program (e.g., `bionetgen`). Visit bio.tools  to request an identifier for your simulation program.
+        - `extra.identifiers.biotools`: Optionally, the bio.tools identifier for the simulation program (e.g., `bionetgen`). Visit [bio.tools](https://bio.tools) to request an identifier for your simulation program.
 
         - `maintainer`: Name and email of the person/team who developed the image (e.g., `Jonathan Karr <karr@mssm.edu>`).
         
@@ -137,9 +138,9 @@ Please follow the steps below to create a containerized simulation tool that adh
       --file { path-to-Dockerfile } \
     ```
 
-1. Create a JSON-encoded file that specifies the capabilities of your simulation tool. This file should adhere to the schema described in the [BioSimulators API](https://api.biosimulators.org) .
+1. Create a JSON-encoded file that specifies the capabilities of your simulation tool. This file should adhere to the schema described [here](../concepts/conventions/simulator-capabilities.md).
 
-    Use SBO, KiSAO, and EDAM to describe the modeling frameworks, simulation algorithms, and modeling formats that your simulation tool supports. As necessary, use the linked issue trackers to request additional [SBO](https://sourceforge.net/p/sbo/term-request/), [KiSAO](https://github.com/SED-ML/KiSAO/issues/new?assignees=&labels=New+term&template=request-a-term.md&title=), and [EDAM](https://github.com/edamontology/edamontology/issues/new?template=new-format.md) terms. As necessary, also use the [SED-ML issue tracker](https://github.com/SED-ML/sed-ml/issues/new) to request URNs for additional modeling languages. Currently, there is no process to request additional model format specification URLs for using COMBINE with additional model formats.
+    Use SBO, KiSAO, and EDAM to describe the modeling frameworks, simulation algorithms, and modeling formats that your simulation tool supports. As necessary, use their issue trackers to request additional [SBO](https://sourceforge.net/p/sbo/term-request/), [KiSAO](https://github.com/SED-ML/KiSAO/issues/new?assignees=&labels=New+term&template=request-a-term.md&title=), and [EDAM](https://github.com/edamontology/edamontology/issues/new?template=new-format.md) terms. As necessary, also use the [SED-ML issue tracker](https://github.com/SED-ML/sed-ml/issues/new) to request URNs for additional modeling languages.
 
 1. Use the BioSimulators test suite to validate your image and its specifications. This will check that the image provides a BioSimulators-compliant Docker structure and command-line interface, and that it provides all of the simulation algorithms described in its specifications.
 
@@ -148,6 +149,4 @@ Please follow the steps below to create a containerized simulation tool that adh
     biosimulators-test-suite validate { dockerhub-user-id }/{ image-id } { path-to-specifications.json }
     ```
 
-    The command-line program for the test suite provides several helpful options such as for executing tasks directly through command-line interfaces and for executing individual test cases. More information is available [here](https://github.com/biosimulators/Biosimulators_test_suite)
-
-
+    The command-line program for the test suite provides several helpful options, such as for executing tasks directly through command-line interfaces and for executing individual test cases. More information is available [here](https://github.com/biosimulators/Biosimulators_test_suite).

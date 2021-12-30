@@ -14,7 +14,7 @@ First, execute your simulation project by uploading it to runBioSimulations and 
 ## Reviewing the simulation results of projects
 Second, once the simulation run has completed, use runBioSimulations to inspect its results. We recommend verifying the following aspects of runs: 
 
-* The COMBINE/OMEX archive includes all relevant sources files. 
+* The COMBINE/OMEX archive includes all relevant files. 
 * The simulation behaved as expected and the results are visualized as expected.
 * The simulation accurately reproduces biological behavior.
 * The simulation project metadata is accurate and complete.
@@ -43,13 +43,13 @@ docker run ghcr.io/biosimulators/tellurium:2.2.1 -v /path/to/project:/root -v /p
 
 ## User accounts for owning projects
 
-No login is required to access BioSimulations. However, users must have an account to manage projects. This allows for proper crediting of authors, and it allows authors to manage and edit their projects. BioSimulations provides a free account for users who wish to publish and manage projects.
+No login is required to access BioSimulations. However, users must have an account to manage projects. This allows for proper crediting of authors, and it allows authors to manage and edit their projects. These accounts are available for free.
 
 !!!note
-    User accounts are under development. If you are interested in submitting a project to BioSimulations, please contact us at info@biosimulations.org.
+    User accounts are under development. If you are interested in an account, please contact us at info@biosimulations.org.
 
 ## Privately sharing resources with colleagues, peer reviewers, and editors before publication
 
 ![share-button](./images/share.png){align=right}
 
-Before publishing a simulation run, you can share the run privately by providing colleagues the URL of the simulation run on runBioSimulations.org. This link can be retrieved by clicking on the "Share" button in the simulation run view page.
+Before publishing a simulation run, you can share the run privately by providing colleagues the URL of the simulation run on [https://run.biosimulations.org](https://run.biosimulations.org). This link can be retrieved by clicking on the "Share" button in the simulation run view page.

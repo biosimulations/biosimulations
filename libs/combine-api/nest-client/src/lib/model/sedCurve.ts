@@ -11,11 +11,11 @@
  */
 
 /**
- * Curve of a 2D SED plot
+ * Curve of a 2D SED-ML plot
  */
 export interface SedCurve {
   /**
-   * Unique identifier with its parent SED document.
+   * Unique identifier with its parent SED-ML document.
    */
   id: string;
   /**

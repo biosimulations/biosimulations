@@ -118,9 +118,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-          description: Unable to get the specifications of the SED outputs for COMBINE/OMEX
-            archive because the URL is unavailable or the URL is not a valid COMBINE/OMEX
-            archive.
+          description: Unable to get the specifications of the SED-ML outputs for
+            COMBINE/OMEX archive because the URL is unavailable or the URL is not
+            a valid COMBINE/OMEX archive.
         "500":
           content:
             application/json:
@@ -359,9 +359,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-          description: Unable to get the specifications of the SED outputs for COMBINE/OMEX
-            archive because the URL is unavailable or the URL is not a valid COMBINE/OMEX
-            archive.
+          description: Unable to get the specifications of the SED-ML outputs for
+            COMBINE/OMEX archive because the URL is unavailable or the URL is not
+            a valid COMBINE/OMEX archive.
         "413":
           content:
             application/json:
@@ -768,9 +768,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-          description: Unable to get the specifications of the SED outputs for COMBINE/OMEX
-            archive because the URL is unavailable or the URL is not a valid COMBINE/OMEX
-            archive.
+          description: Unable to get the specifications of the SED-ML outputs for
+            COMBINE/OMEX archive because the URL is unavailable or the URL is not
+            a valid COMBINE/OMEX archive.
         "413":
           content:
             application/json:
@@ -955,7 +955,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/SedDocument'
               examples:
-                Example SED document:
+                Example SED-ML document:
                   value:
                     _type: SedDocument
                     level: 1
@@ -965,7 +965,8 @@ paths:
                     tasks: []
                     dataGenerators: []
                     outputs: []
-          description: Possible observables of a SED task as a list of SED data generators.
+          description: Possible observables of a SED-ML task as a list of SED-ML data
+            generators.
         "400":
           content:
             application/json:
@@ -986,11 +987,11 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Server error.
       operationId: src.handlers.sed_ml.get_parameters_variables_for_simulation.handler
-      summary: Get the possible observables of a simulation as a list of SED variables.
+      summary: Get the possible observables of a simulation as a list of SED-ML variables.
 components:
   schemas:
     SedDocument:
-      description: A SED document.
+      description: A SED-ML document.
       required:
       - outputs
       - level
@@ -1326,7 +1327,7 @@ components:
           type: string
         value:
           $ref: '#/components/schemas/SedDocument'
-          description: Specifications of the SED document.
+          description: Specifications of the SED-ML document.
         _type:
           description: Type.
           enum:
@@ -1345,7 +1346,7 @@ components:
           dataGenerators: []
           outputs: []
     SedModel:
-      description: A SED model.
+      description: A SED-ML model.
       required:
       - id
       - language
@@ -1355,7 +1356,7 @@ components:
       type: object
       properties:
         id:
-          description: Unique identifier within its parent SED document.
+          description: Unique identifier within its parent SED-ML document.
           type: string
         name:
           description: Brief description.
@@ -1395,7 +1396,7 @@ components:
               uri: http://www.sbml.org/sbml/level3/version1/core
           newValue: "1.1"
     SedUniformTimeCourseSimulation:
-      description: A SED uniform time course simulation.
+      description: A SED-ML uniform time course simulation.
       required:
       - id
       - _type
@@ -1407,7 +1408,7 @@ components:
       type: object
       properties:
         id:
-          description: Unique identifier within its parent SED document.
+          description: Unique identifier within its parent SED-ML document.
           type: string
         name:
           description: Brief description.
@@ -1446,7 +1447,7 @@ components:
           kisaoId: KISAO_0000019
           changes: []
     SedSteadyStateSimulation:
-      description: A SED steady state simulation.
+      description: A SED-ML steady state simulation.
       required:
       - id
       - _type
@@ -1454,7 +1455,7 @@ components:
       type: object
       properties:
         id:
-          description: Unique identifier within its parent SED document.
+          description: Unique identifier within its parent SED-ML document.
           type: string
         name:
           description: Brief description.
@@ -1476,7 +1477,7 @@ components:
           kisaoId: KISAO_0000437
           changes: []
     SedOneStepSimulation:
-      description: A SED one step simulation.
+      description: A SED-ML one step simulation.
       required:
       - id
       - _type
@@ -1485,7 +1486,7 @@ components:
       type: object
       properties:
         id:
-          description: Unique identifier within its parent SED document.
+          description: Unique identifier within its parent SED-ML document.
           type: string
         _type:
           description: Type of the simulation.
@@ -1524,7 +1525,7 @@ components:
       - $ref: '#/components/schemas/SedOneStepSimulation'
       discriminator:
         propertyName: _type
-      description: A SED simulation.
+      description: A SED-ML simulation.
       type: object
       example:
         id: koSimulation
@@ -1564,7 +1565,7 @@ components:
         detail: Models of language XYZ are not supported
         type: NotImplementedError
     SedAlgorithm:
-      description: A SED algorithm.
+      description: A SED-ML algorithm.
       required:
       - _type
       - kisaoId
@@ -1596,7 +1597,7 @@ components:
       type: string
       example: KISAO_0000019
     SedAlgorithmParameterChange:
-      description: A SED algorithm parameter
+      description: A SED-ML algorithm parameter
       required:
       - kisaoId
       - newValue
@@ -1620,7 +1621,7 @@ components:
         newValue: "1000"
     SedModelLanguage:
       description: |-
-        A SED URN for a model language.
+        A SED-ML URN for a model language.
 
         The full list of recognized values is available at https://sed-ml.org/urns.html.
       type: string
@@ -1794,7 +1795,7 @@ components:
         _type: CombineArchiveContentFile
         filename: model.xml
     SedModelAttributeChange:
-      description: A SED model attribute change.
+      description: A SED-ML model attribute change.
       required:
       - _type
       - newValue
@@ -1813,7 +1814,7 @@ components:
           $ref: '#/components/schemas/SedTarget'
           description: Target
         id:
-          description: Unique identifier within its parents SED document.
+          description: Unique identifier within its parent SED-ML document.
           type: string
         name:
           description: Brief description
@@ -1839,7 +1840,7 @@ components:
       - $ref: '#/components/schemas/SedComputeModelChange'
       discriminator:
         propertyName: _type
-      description: A SED model change.
+      description: A SED-ML model change.
       type: object
       example:
         _type: SedModelAttributeChange
@@ -2979,7 +2980,7 @@ components:
           $ref: '#/components/schemas/SedTarget'
           description: Target
         id:
-          description: Unique identifier within its parents SED document.
+          description: Unique identifier within its parent SED-ML document.
           type: string
         name:
           description: Brief description
@@ -3012,7 +3013,7 @@ components:
           $ref: '#/components/schemas/SedTarget'
           description: Target
         id:
-          description: Unique identifier within its parents SED document.
+          description: Unique identifier within its parent SED-ML document.
           type: string
         name:
           description: Brief description
@@ -3045,7 +3046,7 @@ components:
       type: object
       properties:
         id:
-          description: Unique identifier within its parent SED document.
+          description: Unique identifier within its parent SED-ML document.
           type: string
         name:
           description: Brief description.
@@ -3080,7 +3081,7 @@ components:
           $ref: '#/components/schemas/SedTarget'
           description: Target
         id:
-          description: Unique identifier within its parents SED document.
+          description: Unique identifier within its parent SED-ML document.
           type: string
         name:
           description: Brief description
@@ -3109,7 +3110,7 @@ components:
       - $ref: '#/components/schemas/SedRepeatedTask'
       discriminator:
         propertyName: _type
-      description: A SED abstract task.
+      description: A SED-ML abstract task.
       type: object
       example:
         _type: SedTask
@@ -3136,7 +3137,7 @@ components:
           $ref: '#/components/schemas/SedTarget'
           description: Target
         id:
-          description: Unique identifier within its parents SED document.
+          description: Unique identifier within its parent SED-ML document.
           type: string
         name:
           description: Brief description
@@ -3178,7 +3179,7 @@ components:
           value: 60
         math: min_to_sec * time
     SedCurve:
-      description: Curve of a 2D SED plot
+      description: Curve of a 2D SED-ML plot
       required:
       - id
       - xDataGenerator
@@ -3187,7 +3188,7 @@ components:
       type: object
       properties:
         id:
-          description: Unique identifier with its parent SED document.
+          description: Unique identifier with its parent SED-ML document.
           type: string
         name:
           description: Brief description.
@@ -3210,7 +3211,7 @@ components:
         xDataGenerator: data_generator_time
         yDataGenerator: data_generator_atp
     SedDataGenerator:
-      description: Data generator for SED report or plot.
+      description: Data generator for SED-ML report or plot.
       required:
       - id
       - math
@@ -3220,7 +3221,7 @@ components:
       type: object
       properties:
         id:
-          description: Unique identifier within its parent SED document.
+          description: Unique identifier within its parent SED-ML document.
           type: string
         name:
           description: Brief description.
@@ -3260,7 +3261,7 @@ components:
           symbol: urn:sedml:symbol:time
         math: min_to_sec * time
     SedDataSet:
-      description: A SED data set
+      description: A SED-ML data set
       required:
       - id
       - label
@@ -3269,7 +3270,7 @@ components:
       type: object
       properties:
         id:
-          description: Unique identifier within its parent SED document.
+          description: Unique identifier within its parent SED-ML document.
           type: string
         label:
           description: Brief description
@@ -3299,7 +3300,7 @@ components:
       - $ref: '#/components/schemas/SedReport'
       discriminator:
         propertyName: _type
-      description: An output of a SED document.
+      description: An output of a SED-ML document.
       type: object
       example:
         _type: SedReport
@@ -3312,7 +3313,7 @@ components:
           label: ATP
           dataGenerator: data_generator_atp
     SedPlot2D:
-      description: Specifications for a 2D SED plot.
+      description: Specifications for a 2D SED-ML plot.
       required:
       - id
       - curves
@@ -3322,7 +3323,7 @@ components:
       type: object
       properties:
         id:
-          description: Unique identifier within its parent SED document.
+          description: Unique identifier within its parent SED-ML document.
           type: string
         name:
           description: Brief description.
@@ -3367,7 +3368,7 @@ components:
       type: object
       properties:
         id:
-          description: Unique id within its parent SED document.
+          description: Unique id within its parent SED-ML document.
           type: string
         name:
           description: Brief description.
@@ -3406,7 +3407,7 @@ components:
         yScale: linear
         zScale: log
     SedReport:
-      description: A SED report.
+      description: A SED-ML report.
       required:
       - id
       - _type
@@ -3414,7 +3415,7 @@ components:
       type: object
       properties:
         id:
-          description: Unique identifier within its parent SED document.
+          description: Unique identifier within its parent SED-ML document.
           type: string
         _type:
           description: Type of the output.
@@ -3450,7 +3451,7 @@ components:
       type: object
       properties:
         id:
-          description: Unique identifier within its parent SED document.
+          description: Unique identifier within its parent SED-ML document.
           type: string
         name:
           description: Brief description.
@@ -3477,7 +3478,7 @@ components:
         yDataGenerator: data_generator_y
         zDataGenerator: data_generator_atp
     SedTask:
-      description: A SED task.
+      description: A SED-ML task.
       required:
       - id
       - model
@@ -3486,7 +3487,7 @@ components:
       type: object
       properties:
         id:
-          description: Unique identifier within is parent SED document.
+          description: Unique identifier within is parent SED-ML document.
           type: string
         name:
           description: Brief description.
@@ -3509,7 +3510,7 @@ components:
         model: model
         simulation: koSimulation
     SedVariable:
-      description: A SED variable.
+      description: A SED-ML variable.
       required:
       - id
       - task
@@ -3517,7 +3518,7 @@ components:
       type: object
       properties:
         id:
-          description: Unique identifier within its parent SED document.
+          description: Unique identifier within its parent SED-ML document.
           type: string
         name:
           description: Brief description.
@@ -3564,7 +3565,7 @@ components:
           - SedUniformRange
           type: string
         id:
-          description: Unique identifier within is parent SED document.
+          description: Unique identifier within is parent SED-ML document.
           type: string
         name:
           description: Brief description
@@ -3622,7 +3623,7 @@ components:
           - SedVectorRange
           type: string
         id:
-          description: Unique identifier within is parent SED document.
+          description: Unique identifier within is parent SED-ML document.
           type: string
         name:
           description: Brief description
@@ -3660,7 +3661,7 @@ components:
           - SedFunctionalRange
           type: string
         id:
-          description: Unique identifier within is parent SED document.
+          description: Unique identifier within is parent SED-ML document.
           type: string
         name:
           description: Brief description
@@ -3720,7 +3721,7 @@ components:
         task: time_course_simulation
         order: 1
     SedRepeatedTask:
-      description: A SED repeated task.
+      description: A SED-ML repeated task.
       required:
       - id
       - _type
@@ -3732,7 +3733,7 @@ components:
       type: object
       properties:
         id:
-          description: Unique identifiers with its parent SED document.
+          description: Unique identifiers with its parent SED-ML document.
           type: string
         name:
           description: Brief description.
@@ -3802,7 +3803,7 @@ components:
           - SedSetValueComputeModelChange
           type: string
         id:
-          description: Unique identifier within its parents SED document.
+          description: Unique identifier within its parent SED-ML document.
           type: string
         name:
           description: Brief description

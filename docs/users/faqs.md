@@ -56,14 +56,14 @@ First, currently runBioSimulations focuses on the latest version of SED-ML (L1V3
 
 Second, runBioSimulations can only execute SED-ML files that involve model formats, modeling frameworks, and simulation algorithms that are supported by at least one of the standardized simulation tools in the BioSimulators registry. Presently, the standardized simulation tools support multiple formats, multiple frameworks, and over 40 algorithms. Going forward, we aim to expand this by working with the community to develop standardized interfaces for additional simulation tools and submitting them to BioSimulators.
 
-Third, runBioSimulations has limited ability to execute SED-ML documents that deviate from the specifications of the COMBINE/OMEX archive and SED-ML formats. In practice, this is the most significant limitation because some simulation tools produce SED-ML files which deviate from the specifications of SED-ML and because most of the existing SED-ML files at SED-ML.org and in model repositories such as BioModels deviate from the specifications of SED-ML. Below is a list of known issues which prevent runBioSimulations from executing many SED-ML files.
+Third, runBioSimulations has limited ability to execute SED-ML documents that deviate from the specifications of the COMBINE/OMEX archive and SED-ML formats. In practice, this is the most significant limitation because some simulation tools produce SED-ML files which deviate from the specifications of SED-ML and because most of the existing SED-ML files in model repositories such as BioModels deviate from the specifications of SED-ML (note, we are worked with the BioModels and other teams to correct these issues). Below is a list of known issues which prevent runBioSimulations from executing many SED-ML files.
 
 - Broken model references: The model sources in SED-ML files in some repositories such as BioModels are different from the actual locations of the model files.
 - Missing namespace definitions: Most simulation tools do not define URIs for the namespace prefixes used in XPath targets for model variables. Most existing SED-ML files at SED-ML.org and in model repositories also lack definitions of these namespace prefixes.
 - Missing attributes: Some simulation tools produce SED-ML files that are missing required attributes.
 - Invalid attribute values: Some simulation tools produce SED-ML files that have invalid values of some attributes.
 - Non-unique identifiers: Some simulation tools produce SED-ML files that have multiple elements with the same identifier. In such cases, references to these elements cannot be resolved.
-- Broken references: Some simulation tools produce SED-ML files that have broken references (e.g., no instance of sed:model has an id attribute equal to the value of the modelReference attribute of a sed:task).
+- Broken references: Some simulation tools produce SED-ML files that have broken references (e.g., no instance of `sedml:model` has an id attribute equal to the value of the modelReference attribute of a `sedml:task`).
 - Invalid XPaths to model variables: Some simulation tools produce SED-ML files that do not have correct XPaths to variables in models. Most frequently, this is because some simulation tools confuse the ids and names of model elements.
 - Incorrect KiSAO ids for algorithms: Some simulation tools produce SED-ML files that indicate different algorithms than what the simulation tool actually used to execute the simulation.
 - Inconsistent plot axes: Some simulation tools produces SED-ML files where curves in the same plot have mixed (linear and log) x, y, and/or z axes.
@@ -228,9 +228,9 @@ There are several reasons why simulations can fail including:
 - Your archive generates very large outputs. runBioSimulations is architected to support arbitrarily large models and simulations. However, because runBioSimulations hasn't yet been hardened from years of use, users may still discover bugs in runBioSimulations. In this case, please help us improve runBioSimulations by using [GitHub issues](https://github.com/biosimulators/Biosimulators/issues/new/choose) to report problems to the BioSimulators team.
 
 **How can I execute the same simulators as runBioSimulations on my own machine?**
-runBioSimulations uses the BioSimulators collection of standardized simulation software tools. BioSimulators containers standardized Docker images for each simulation tool that make it easy to execute simulations. These Docker images are easy to install and run on your own machine. The images can be used on top of any operating system. Please see https://biosimulators.org for more information about how to install and run these images.
+runBioSimulations uses the BioSimulators collection of standardized simulation software tools. BioSimulators containers standardized Docker images for each simulation tool that make it easy to execute simulations. These Docker images are easy to install and run on your own machine. The images can be used on top of any operating system. Please see [https://biosimulators.org](https://biosimulators.org) for more information about how to install and run these images.
 
-Most of the standardized simulation tools in BioSimulators also provide standardized Python APIs. These APIs provide additional flexibility such as combining simulation tools together. A single Docker image with most of the Python APIs is also available. Please see https://biosimulators.org for more information.
+Most of the standardized simulation tools in BioSimulators also provide standardized Python APIs. These APIs provide additional flexibility such as combining simulation tools together. A single Docker image with most of the Python APIs is also available. Please see [https://biosimulators.org](https://biosimulators.org) for more information.
 
 **How is each project licensed?**
 
@@ -244,7 +244,7 @@ We recommend using Shields.io to generate badges for projects. For example, `htt
 
 **How can I embed capabilities to create COMBINE/OMEX archives into my website?**
 
-Developers can use runBioSimulations to provide their users capabilities to execute their simulations. Developers can achieve this simply by adding hyperlinks to the create simulation project page, https://run.biosimulations.org/create.
+Developers can use runBioSimulations to provide their users capabilities to execute their simulations. Developers can achieve this simply by adding hyperlinks to the create simulation project page, [https://run.biosimulations.org/utils/create-project](https://run.biosimulations.org/utils/create-project).
 
 This page supports several query arguments:
 
@@ -258,7 +258,7 @@ For example, the URL `https://run.biosimulations.org/run?modelUrl=https%3A%2F%2F
 
 **How can I embed execution capabilities for my simulations into my website?**
 
-Developers can use runBioSimulations to provide capabilities of execute simulations to their users, by simply adding a hyperlink: https://run.biosimulations.org/run.
+Developers can use runBioSimulations to provide capabilities of execute simulations to their users, by simply adding a hyperlink to [https://run.biosimulations.org/run](https://run.biosimulations.org/run).
 
 The run simulations page supports several query arguments:
 
@@ -338,8 +338,8 @@ All of the simulation tools support the following features:
 - At least one of steady-state, one step, and uniform time course simulations: `sedml:steadyState`, `sedml:oneStep`, or `sedml:uniformTimeCourse`.
 - Algorithms and their parameters: `sedml:algorithm`, `sedml:algorithmParameter`.
 - Tasks for the execution of individual simulations of individual models: `sedml:task`.
-- Data generators for individual variables: `sedml:DataGenerator`
-- Report outputs: `sedml:Report`.
+- Data generators for individual variables: `sedml:dataGenerator`
+- Report outputs: `sedml:report`.
 
 Some of the simulation tools, such as tellurium, support the full SED-ML specification.
 
@@ -405,7 +405,7 @@ See the [specifications for data tables](../concepts/conventions/simulation-run-
 
 Currently, BioSimulations supports the [Simulation Experiment Description Markup Language (SED-ML)](https://sed-ml.org) and [Vega](https://vega.github.io/vega/) formats. The SED-ML format supports basic line charts. Vega is a powerful format that can be used to describe a broad range of data visualizations, including interactive visualizations that brush complex diagrams with results from multiple individual simulations.
 
-BioSimulations follows these [conventions](../concepts/conventions/simulation-run-visualizations/) for incorporating Vega visualizations into COMBINE/OMEX archives for simulation projects. These conventions enable authors to describe how the outputs of simulation experiments (simulation results) should be linked to the inputs (data sets) of Vega data visualizations. Importantly, these conventions enable Vega data visualizations to be reused across multiple simulations, such as with different initial conditions, simulation algorithms, simulation tools, models, or modeling frameworks.
+BioSimulations follows these [conventions](../concepts/conventions/simulation-run-visualizations.md) for incorporating Vega visualizations into COMBINE/OMEX archives for simulation projects. These conventions enable authors to describe how the outputs of simulation experiments (simulation results) should be linked to the inputs (data sets) of Vega data visualizations. Importantly, these conventions enable Vega data visualizations to be reused across multiple simulations, such as with different initial conditions, simulation algorithms, simulation tools, models, or modeling frameworks.
 
 **What types of plots does BioSimulations support?**
 
@@ -429,11 +429,11 @@ Additional rendering tools could be incorporated into BioSimulations. Please con
 
 **What metadata is required to publish a project?**
 
-The minimum metadata required for publication is described [here](../concepts/conventions/simulation-project-metadata/).
+The minimum metadata required for publication is described [here](../concepts/conventions/simulation-project-metadata.md).
 
 **Which formats for metadata does BioSimulations support?**
 
-BioSimulations supports the [RDF-XML format](https://www.w3.org/TR/rdf-syntax-grammar/) and the predicates described [here](../concepts/conventions/simulation-project-metadata/).
+BioSimulations supports the [RDF-XML format](https://www.w3.org/TR/rdf-syntax-grammar/) and the predicates described [here](../concepts/conventions/simulation-project-metadata.md).
 
 **What tools can be used to create RDF-XML files?**
 

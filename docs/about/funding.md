@@ -1,6 +1,6 @@
 # Funding
 
-BioSimulations and BioSimulators were developed with support from the [Center for Reproducible Biomodeling Modeling](https://reproduciblebiomodels.org) from the [National Institute of Bioimaging and Bioengineering](https://www.nigms.nih.gov) and the [National Institute of General Medical Sciences of the National Institutes of Health](https://nih.gov) and the [National Science Foundation](https://nsf.gov).
+BioSimulations and BioSimulators were developed with support from the [Center for Reproducible Biomodeling Modeling](https://reproduciblebiomodels.org) from the [National Institute of Bioimaging and Bioengineering](https://www.nigms.nih.gov), the [National Institute of General Medical Sciences of the National Institutes of Health](https://nih.gov), and the [National Science Foundation](https://nsf.gov).
 
 <div class="logos">
     <div class="logos-row">

@@ -12,11 +12,11 @@
 import { SedModelChange } from './sedModelChange';
 
 /**
- * A SED model.
+ * A SED-ML model.
  */
 export interface SedModel {
   /**
-   * Unique identifier within its parent SED document.
+   * Unique identifier within its parent SED-ML document.
    */
   id: string;
   /**
@@ -24,7 +24,7 @@ export interface SedModel {
    */
   name?: string;
   /**
-   * A SED URN for a model language.  The full list of recognized values is available at https://sed-ml.org/urns.html.
+   * A SED-ML URN for a model language.  The full list of recognized values is available at https://sed-ml.org/urns.html.
    */
   language: string;
   /**

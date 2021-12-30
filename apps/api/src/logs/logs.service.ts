@@ -205,7 +205,7 @@ export class LogsService {
     } else if ('surfaces' in apiLog) {
       return this.apiToDbSedPlot3DLog(apiLog);
     } else {
-      throw new BadRequestException('A SED output log is invalid');
+      throw new BadRequestException('A SED-ML output log is invalid');
     }
   }
 

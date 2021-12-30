@@ -21,7 +21,7 @@ export interface SedFunctionalRange {
    */
   _type: SedFunctionalRangeTypeEnum;
   /**
-   * Unique identifier within is parent SED document.
+   * Unique identifier within is parent SED-ML document.
    */
   id: string;
   /**

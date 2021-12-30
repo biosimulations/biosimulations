@@ -106,9 +106,9 @@ export class SimulationExperimentsService {
     );
   }
   /**
-   * Get the possible observables of a simulation as a list of SED variables.
+   * Get the possible observables of a simulation as a list of SED-ML variables.
    *
-   * @param modelLanguage A SED URN for a model language.  The full list of recognized values is available at https://sed-ml.org/urns.html.
+   * @param modelLanguage A SED-ML URN for a model language.  The full list of recognized values is available at https://sed-ml.org/urns.html.
    * @param simulationType Type of simulation.
    * @param modelingFramework Identifier for an SBO term
    * @param simulationAlgorithm KiSAO id

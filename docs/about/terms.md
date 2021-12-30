@@ -1,12 +1,12 @@
 # Terms of service
 
 ## Permitted usage
-BioSimulations, runBioSimulations, and BioSimulators promote open science by providing the community a central platform for sharing and executing biomodeling projects and simulation tools. The public simulation projects, simulation tools, and simulation results available through BioSimulations and BioSimulators are available under the open-source licenses chosen by their owners. These licenses are noted with each resource. BioSimulations imposes no additional restrictions on the use of these community-contributed resources beyond those imposed by their owners. These licences describe who can use each resource, for which purposes, and what attribution may be required.
+BioSimulations, runBioSimulations, and BioSimulators promote open science by providing the community a central platform for sharing and executing biomodeling projects and simulation tools. The public simulation projects, simulation tools, and simulation results available through BioSimulations and BioSimulators are available under the open-source licenses chosen by their contributors. These licenses are noted with each resource. BioSimulations imposes no additional restrictions on the use of these community-contributed resources beyond those imposed by their contributors. These licences describe who can use each resource, for which purposes, and what attribution may be required.
 
 To publish a simulation tool, execute a simulation project, or publish a simulation project, users must agree to grant BioSimulators, runBioSimulations, and BioSimulators free of charge, a license to store the tool, project, and/or simulation results.
 
 ## Attribution
-BioSimulations and BioSimulators request attribution (e.g., in publications, services, or products) for use of their simulation projects, simulation tools, and online services in accordance with good scientific practice. Please use the citation indicated [here](./citations.md).
+BioSimulations and BioSimulators request attribution (e.g., in publications, services, or products) for use of their simulation projects, simulation tools, and online services in accordance with good scientific practice. Please use the citations indicated [here](./citations.md).
 
 ## Privacy policy
 BioSimulations and BioSimulators collect limited personal data. Our [privacy policy](./privacy.md) describes how we collect, store, and use this data and who has access to this data.

@@ -21,7 +21,7 @@ export interface SedAddElementModelChange {
   _type: SedAddElementModelChangeTypeEnum;
   target: SedTarget;
   /**
-   * Unique identifier within its parents SED document.
+   * Unique identifier within its parent SED-ML document.
    */
   id?: string;
   /**

@@ -13,11 +13,11 @@ import { SedParameter } from './sedParameter';
 import { SedVariable } from './sedVariable';
 
 /**
- * Data generator for SED report or plot.
+ * Data generator for SED-ML report or plot.
  */
 export interface SedDataGenerator {
   /**
-   * Unique identifier within its parent SED document.
+   * Unique identifier within its parent SED-ML document.
    */
   id: string;
   /**

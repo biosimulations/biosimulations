@@ -18,11 +18,11 @@ import { SedSurface } from './sedSurface';
 import { SedCurve } from './sedCurve';
 
 /**
- * An output of a SED document.
+ * An output of a SED-ML document.
  */
 /**
  * @type SedOutput
- * An output of a SED document.
+ * An output of a SED-ML document.
  * @export
  */
 export type SedOutput = SedPlot2D | SedPlot3D | SedReport;

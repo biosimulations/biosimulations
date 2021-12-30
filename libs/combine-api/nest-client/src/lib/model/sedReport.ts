@@ -12,11 +12,11 @@
 import { SedDataSet } from './sedDataSet';
 
 /**
- * A SED report.
+ * A SED-ML report.
  */
 export interface SedReport {
   /**
-   * Unique identifier within its parent SED document.
+   * Unique identifier within its parent SED-ML document.
    */
   id: string;
   /**

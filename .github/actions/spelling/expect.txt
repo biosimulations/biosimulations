@@ -81,7 +81,6 @@ crossref
 csv
 CVBC
 cvode
-datas
 dcmi
 dcterms
 Deepa
@@ -170,7 +169,7 @@ hsauro
 Hsl
 html
 http
-hyperlinks
+hyperlink
 ibiosim
 icahn
 idl

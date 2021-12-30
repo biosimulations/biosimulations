@@ -15,11 +15,11 @@ import { SedSteadyStateSimulation } from './sedSteadyStateSimulation';
 import { SedAlgorithm } from './sedAlgorithm';
 
 /**
- * A SED simulation.
+ * A SED-ML simulation.
  */
 /**
  * @type SedSimulation
- * A SED simulation.
+ * A SED-ML simulation.
  * @export
  */
 export type SedSimulation =

@@ -80,7 +80,7 @@ def get_simulator_metadata(id):
 
 
 def use_simulator_api_to_exec_sedml_docs_in_combine_archive(api_name, *args, **kwargs):
-    """ Execute the SED tasks defined in a COMBINE/OMEX archive and save the outputs
+    """ Execute the SED-ML tasks defined in a COMBINE/OMEX archive and save the outputs
 
     Args:
         api (:obj:`str`): module which implements the API for the simulator

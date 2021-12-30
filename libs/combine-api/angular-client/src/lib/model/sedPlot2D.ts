@@ -13,11 +13,11 @@ import { SedAxisScale } from './sedAxisScale';
 import { SedCurve } from './sedCurve';
 
 /**
- * Specifications for a 2D SED plot.
+ * Specifications for a 2D SED-ML plot.
  */
 export interface SedPlot2D {
   /**
-   * Unique identifier within its parent SED document.
+   * Unique identifier within its parent SED-ML document.
    */
   id: string;
   /**

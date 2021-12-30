@@ -19,7 +19,7 @@ export interface ModelAndSimulation {
    */
   modelFile?: Blob;
   /**
-   * A SED URN for a model language.  The full list of recognized values is available at https://sed-ml.org/urns.html.
+   * A SED-ML URN for a model language.  The full list of recognized values is available at https://sed-ml.org/urns.html.
    */
   modelLanguage: string;
   /**
