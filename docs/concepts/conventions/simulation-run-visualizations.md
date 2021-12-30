@@ -13,7 +13,7 @@ Below, we provide recommendations for using Vega to visualize the results of sim
 
 BioSimulators recommends using Vega visualizations with SED-ML as follows:
 
-1. Use the folowing annotations to indicate the Vega signals whose attributes should be rendered with the values of the attributes of SED-ML simulations.
+1. Use the following annotations to indicate the Vega signals whose attributes should be rendered with the values of the attributes of SED-ML simulations.
 
     - To render the value of a Vega signal with information from a SED-ML file, add the key `sedmlUri` to the Vega signal.
     - To render an attribute of the `bind` attribute of a Vega signal with information from a SED-ML file, set the value of the attribute equal to a dictionary with a single key `sedmlUri`.

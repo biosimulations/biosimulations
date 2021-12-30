@@ -79,7 +79,6 @@ crbm
 creativecommons
 crossref
 csv
-CVBC
 cvode
 dcmi
 dcterms
@@ -248,7 +247,6 @@ mssm
 mylib
 naldi
 namespace
-Namespaced
 nanohub
 Nasir
 ncbi
@@ -412,6 +410,7 @@ xmlns
 xpath
 xpp
 xppodes
+XXXXXXXXXX
 YAML
 yml
 zenodo
