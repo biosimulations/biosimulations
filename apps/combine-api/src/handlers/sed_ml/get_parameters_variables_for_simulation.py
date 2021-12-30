@@ -15,7 +15,7 @@ import werkzeug.datastructures  # noqa: F401
 
 
 def handler(body, modelFile=None):
-    """ Get a SED report for a SED task that will record all of the
+    """ Get a SED-ML report for a SED-ML task that will record all of the
     possible observables of the task
 
     Args:
@@ -23,7 +23,7 @@ def handler(body, modelFile=None):
 
             * ``task`` whose value
             has schema ``SedTask`` with the
-            specifications of the desired SED task
+            specifications of the desired SED-ML task
         modelFile (:obj:`werkzeug.datastructures.FileStorage`): model file (e.g., SBML file)
 
     Returns:
@@ -92,7 +92,7 @@ def handler(body, modelFile=None):
             instance=exception
         )  # pragma: no cover: unreachable due to schema validation
 
-    # format SED variables for response
+    # format SED-ML variables for response
     model = {
         "_type": "SedModel",
         "id": "model",

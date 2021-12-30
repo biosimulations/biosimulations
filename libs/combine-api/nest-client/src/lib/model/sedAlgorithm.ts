@@ -12,7 +12,7 @@
 import { SedAlgorithmParameterChange } from './sedAlgorithmParameterChange';
 
 /**
- * A SED algorithm.
+ * A SED-ML algorithm.
  */
 export interface SedAlgorithm {
   /**

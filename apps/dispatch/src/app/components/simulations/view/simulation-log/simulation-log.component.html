@@ -389,7 +389,7 @@
     </ng-container>
 
     <ng-container *ngSwitchCase="StructuredLogLevel.SedDocument">
-      <h3 id="section=sed-documents">Simulation experiments (SED documents)</h3>
+      <h3 id="section=sed-documents">Simulation experiments (SED-ML documents)</h3>
       <biosimulations-structured-simulation-log-element
         *ngFor="let docLog of _structuredLog.sedDocuments; let iDoc = index"
         [elementId]="docLog.location"

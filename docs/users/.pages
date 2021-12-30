@@ -4,6 +4,7 @@ nav:
   - 'Exploring published projects': viewing-projects.md
   - 'Simulating projects': simulating-projects.md
   - 'Creating projects': creating-projects.md
+  - 'Creating Vega data visualizations': creating-vega-visualizations.md
   - 'Validating projects': validating-projects.md  
   - 'Publishing projects': publishing-projects.md
   - 'Source model repositories': source-model-repositories.md

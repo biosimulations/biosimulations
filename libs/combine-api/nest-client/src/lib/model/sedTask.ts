@@ -11,11 +11,11 @@
  */
 
 /**
- * A SED task.
+ * A SED-ML task.
  */
 export interface SedTask {
   /**
-   * Unique identifier within is parent SED document.
+   * Unique identifier within is parent SED-ML document.
    */
   id: string;
   /**

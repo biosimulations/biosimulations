@@ -22,7 +22,7 @@ BioSimulations uses COMBINE/OMEX archives to encapsulate the files and metadata 
 1. Create one or more models: Create files that describe the models that you would like to simulate and save these files to the directory for the project. Alternatively, download a model file from a repository such as BioModels.
     --8<-- "supportedLanguages.md"
 
-1. Create one or more simulations: Create a Simulation Experiment Description Markup Language  (SED-ML) file which describes the simulation(s) that you would like to execute and the simulation results that you would like to record.
+1. Create one or more simulations: Create a Simulation Experiment Description Markup Language (SED-ML) file which describes the simulation(s) that you would like to execute and the simulation results that you would like to record.
  
     Currently, all of the validated simulation tools support a subset of SED-ML L1V3 including:
 
@@ -30,25 +30,22 @@ BioSimulations uses COMBINE/OMEX archives to encapsulate the files and metadata 
     supportedSedml.md
     --8<--
     
-
 1. Create an OMEX manifest file which describes your model and simulation files: OMEX manifest is a format for describing a collection of files, including the format (e.g., CellML, SBML) of each file. Several example COMBINE archives are available [here](https://github.com/biosimulators/Biosimulators_test_suite/tree/dev/examples). More information about the OMEX manifest format is available at the COMBINE website.
 
-1. Package your project into a COMBINE archive: A COMBINE archive is a zip file which contains an OMEX manifest file and all of the other files which comprise a project. Several example COMBINE archives are available [here](). More information about the OMEX and COMBINE formats is available at the [COMBINE website](). The COMBINE website lists several software tools for creating COMBINE archives, including [COMBINE Archive]() and [COMBINE Archive Web]().
-
+1. Package your project into a COMBINE archive: A COMBINE archive is a zip file which contains an OMEX manifest file and all of the other files which comprise a project. Several example COMBINE archives are available [here](). More information about the OMEX and COMBINE formats is available at the [COMBINE website](https://combinearchive.org/). The COMBINE website lists several software tools for creating COMBINE archives, including [COMBINE Archive]() and [COMBINE Archive Web](https://cat.bio.informatik.uni-rostock.de/).
 
 Interactive tutorials for creating projects can be found [here](https://tutorial.biosimulators.org). 
 
-
 ## Conventions for simulation projects
 
-To make it easy for investigators to work with a broad range of model formats, modeling frameworks, simulation types, simulation algorithms, and simulation tools, BioSimulations uses existing community standards for creating and describing projects. BioSimulations uses the Simulation Experiment Description Markup Language (SED-ML) to describe [simulation experiments](#sed-ml) and COMBINE/OMEX archive formats for packaging and distributing simulation [projects](#combineomex-archives). Vega is used to describe charts, plots, and [visualizations](#visualizations) of simulation results.  The OMEX-Meta format is used to describe the [metadata](#metadata) associated with a simulation project. More information about BioSimulation's use of these standards, and how to create and publish a project can be found below.
+To make it easy for investigators to work with a broad range of model formats, modeling frameworks, simulation types, simulation algorithms, and simulation tools, BioSimulations uses existing community standards for creating and describing projects. BioSimulations uses the Simulation Experiment Description Markup Language (SED-ML) to describe [simulation experiments](#sed-ml) and COMBINE/OMEX archive formats for packaging and distributing simulation [projects](#combineomex-archives). Vega is used to describe charts, plots, and [visualizations](#visualizations) of simulation results.  The OMEX-Metadata format is used to describe the [metadata](#metadata) associated with a simulation project. More information about BioSimulation's use of these standards, and how to create and publish a project can be found below.
 
 ### SED-ML 
 
 [SED-ML](https://sed-ml.org/) is used to describe simulation experiments. This includes:
 
 - Which models to simulate
-- How to modify models to simulate variants such as alternative initial conditions
+- How to modify models to simulate variants, such as alternative initial conditions
 - What type of simulations to execute (e.g., steady-state, time course)
 - Which algorithms to use (e.g., CVODE, SSA)
 - Which observables to record
@@ -80,10 +77,10 @@ One key feature of Vega is that it modularly captures the graphical marks which 
 
 Vega files can be included in the COMBINE/OMEX archive of a simulation project to enable visualization on the [project view page](./viewing-projects.md#visualizations).
 
-More information on how to create Vega files that can incorporate data from BioSimulations projects can be found at [here](../concepts/conventions/simulation-run-visualizations.md).
+More information on how to create Vega files that can incorporate data from BioSimulations projects can be found at [here](./creating-vega-visualizations.md).
 
 ### Metadata 
-BioSimulations uses the [OMEX Meta](https://co.mbine.org/standards/omex-metadata) specification to capture metadata about the simulation project. BioSimulations has a list of recommended metadata fields that can be used to capture [metadata](./viewing-projects.md#metadata) about a simulation project. Information about how to use these fields can be found [here](../concepts/conventions/simulation-project-metadata.md).
+BioSimulations uses the [OMEX Metadata](https://co.mbine.org/standards/omex-metadata) specification to capture metadata about the simulation project. BioSimulations has a list of recommended metadata fields that can be used to capture [metadata](./viewing-projects.md#metadata) about a simulation project. Information about how to use these fields can be found [here](../concepts/conventions/simulation-project-metadata.md).
 
 ### COMBINE/OMEX archives
 

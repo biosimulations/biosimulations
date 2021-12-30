@@ -2,13 +2,13 @@
 
 ## Overview
 
-Metadata about COMBINE/OMEX archives should be annotated using triples of subjects, predicates, and objects in RDF XML files according to the OMEX Metadata guidelines.
+Metadata about COMBINE/OMEX archives should be annotated using triples of subjects, predicates, and objects in RDF XML files according to the [OMEX Metadata guidelines](https://doi.org/10.1515/jib-2021-0020).
 
-On top of these guidelines, BioSimulations recommends the predicates and identifier namespaces described below. In addition, the URI for each object should be annotated using `http://dublincore.org/specifications/dublin-core/dcmi-terms/identifier` and a human-readable description of each object should be annotated using `http://www.w3.org/2000/01/rdf-schema#label`. Futhermore, alternative predicates should also be described using `http://dublincore.org/specifications/dublin-core/dcmi-terms/description`
+On top of these guidelines, we recommend the predicates and identifier namespaces described below. In addition, the URI for each object should be annotated using `http://dublincore.org/specifications/dublin-core/dcmi-terms/identifier` and a human-readable description of each object should be annotated using `http://www.w3.org/2000/01/rdf-schema#label`. Futhermore, alternative predicates should also be described using `http://dublincore.org/specifications/dublin-core/dcmi-terms/description`.
 
 ## Recommended URIs for COMBINE/OMEX archives and the contents
 
-COMBINE/OMEX archives should be referenced using unique identifiers which begin with the prefix `http://omex-library.org/` and end with the file extension `.omex` (e.g., `http://omex-library.org/BioSimulations-0001.omex`). We recommend using identifiers that are a concatenation of `http://omex-library.org/` and the filename of the COMBINE archive (e.g., `BioSimulations-0001.omex`).
+COMBINE/OMEX archives should be referenced using unique identifiers which begin with the prefix `http://omex-library.org/` and end with the file extension `.omex` (e.g., `http://omex-library.org/BioSimulations-0001.omex`). We recommend using identifiers that are a concatenation of `http://omex-library.org/` and the local filename of the COMBINE archive (e.g., `BioSimulations-0001.omex`).
 
 Files in COMBINE archives should be referenced by concatenating the above identifiers with their location within their parent COMBINE archives (e.g., `http://omex-library.org/BioSimulations-0001.omex/simulation.sedml`).
 
@@ -16,7 +16,7 @@ Elements in SED-ML files in COMBINE archives should be referenced by concatenati
 
 ## Recommended predicates and objects for annotating COMBINE archives
 
-BioSimulations recommends that COMBINE/OMEX archives be annotated using the predicates and objects below.
+We recommend that COMBINE/OMEX archives be annotated using the predicates and objects outlined below.
 
 - Title:
     - Predicate: `http://dublincore.org/specifications/dublin-core/dcmi-terms/title`
@@ -39,10 +39,10 @@ BioSimulations recommends that COMBINE/OMEX archives be annotated using the pred
 - Other biology (e.g., cell type, organ) captured by a modeling project:
     - Predicate: `http://biomodels.net/biology-qualifiers/encodes`
     - Objects: URI (e.g., `https://www.uniprot.org/uniprot/P07527`), Literal string
-- Source of a modeling project:
+- Source of a modeling project (e.g., GitHub repository):
     - Predicate: `http://dublincore.org/specifications/dublin-core/dcmi-terms/source`
     - Objects: URI (e.g., `https://github.com/org/repo`), Literal string
-- Predecessor of a modeling project or individual file file:
+- Predecessor of a modeling project or individual file:
     - Predicate: `http://biomodels.net/model-qualifiers/isDerivedFrom`
     - Objects: URI (e.g., `http://identifiers.org/biomodels.db:BIOMD0000000296`), Literal string
 - Successor of a modeling project:
@@ -51,7 +51,7 @@ BioSimulations recommends that COMBINE/OMEX archives be annotated using the pred
 - More information about a modeling project:
     - Predicate: `http://www.w3.org/2000/01/rdf-schema#seeAlso`
     - Objects: URI (e.g., `http://mpf.biol.vt.edu/lab_website/`), Literal string
-- Other identifier for a modeling project:
+- Other identifier for a modeling project (e.g., in a primary model repository):
     - Predicate: `http://biomodels.net/model-qualifiers/is`
     - Objects: URI (e.g., `http://identifiers.org/biomodels.db:BIOMD0000000297`), Literal string
 - Citation for a modeling project:
@@ -76,7 +76,7 @@ BioSimulations recommends that COMBINE/OMEX archives be annotated using the pred
     - Predicate: `http://dublincore.org/specifications/dublin-core/dcmi-terms/modified`
     - Objects: WC3DTF-encoded literal string (e.g., `2021-06-01`)
 
-BioSimulations also provides the following recommendations:
+We also provides the following recommendations:
 
 - The title, abstract, description, license, and creation date predicates should only be used once per subject.
 
@@ -92,7 +92,7 @@ Submissions to BioSimulations must include the following metadata:
 This requirement is currently set low to accommodate old projects in community repositories that have minimal structured metadata. Over time, we aim to raise this requirement.
 
 ## Recommendations for describing the SED-ML files and plots responsible for figures
-BioSimulations recommends using the `http://dublincore.org/specifications/dublin-core/dcmi-terms/identifier` predicate and literal strings to describe the SED-ML files, reports, and plots responsible for tables and figures in articles.
+We recommend using the `http://dublincore.org/specifications/dublin-core/dcmi-terms/identifier` predicate and literal strings to describe the SED-ML files, reports, and plots responsible for tables and figures in articles.
 
 ```xml
 <rdf:Description rdf:about="http://omex-library.org/BioSim0001.omex/sim.sedml/figure1">
@@ -106,7 +106,7 @@ BioSimulations recommends using the `http://dublincore.org/specifications/dublin
 ```
 
 ## Recommendations for describing the provenance of computationally-generated files
-BioSimulations recommends using the `http://biomodels.net/model-qualifiers/isDerivedFrom` predicate to indicate the source of computationally-generated files, such as SED-ML files automatically created from model (e.g., SBML) files. The subjects and objects of such triples should be described using OMEX library URIs (e.g., `http://omex-library.org/BioSim0001.omex/simulation.sedml`, `http://omex-library.org/BioSim0001.omex/model.xml`) that represent their location within their parent COMBINE/OMEX archive.
+We recommend using the `http://biomodels.net/model-qualifiers/isDerivedFrom` predicate to indicate the source of computationally-generated files, such as SED-ML files automatically created from model files (e.g., SBML). The subjects and objects of such triples should be described using OMEX library URIs (e.g., `http://omex-library.org/BioSim0001.omex/simulation.sedml`, `http://omex-library.org/BioSim0001.omex/model.xml`) that represent their location within their parent COMBINE/OMEX archive.
 
 ```xml
 <rdf:Description rdf:about="http://omex-library.org/BioSim0001.omex/simulation.sedml">
@@ -119,9 +119,9 @@ BioSimulations recommends using the `http://biomodels.net/model-qualifiers/isDer
 </rdf:Description>
 ```
 
-## Example metadata about a simulation project (COMBINE/OMEX archive and SED-ML File)
+## Example metadata about a simulation project (COMBINE/OMEX archive and SED-ML file)
 
-As an example, below is a representation of metadata for the [Ciliberto 2003 model of the budding yeast cell cycle](https://identifiers.org/doi:10.1083/jcb.200306139) .
+As an example, below is a representation of metadata for the [Ciliberto 2003 model of the budding yeast cell cycle](https://identifiers.org/doi:10.1083/jcb.200306139).
 
 ```xml
 <!-- keywords -->

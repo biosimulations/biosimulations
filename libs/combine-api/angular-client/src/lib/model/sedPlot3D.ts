@@ -17,7 +17,7 @@ import { SedSurface } from './sedSurface';
  */
 export interface SedPlot3D {
   /**
-   * Unique id within its parent SED document.
+   * Unique id within its parent SED-ML document.
    */
   id: string;
   /**

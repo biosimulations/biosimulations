@@ -84,7 +84,7 @@ def handler(body, files=None):
         if content_type == 'SedDocument':
             sed_doc = export_sed_doc(content['location']['value'])
 
-            # save SED document to file
+            # save SED-ML document to file
             try:
                 SedmlSimulationWriter().run(
                     sed_doc,
@@ -165,7 +165,7 @@ def handler(body, files=None):
 
 
 def export_sed_doc(sed_doc_specs):
-    """ Export the specifications of SED document to SED-ML
+    """ Export the specifications of SED-ML document to SED-ML
 
     Args:
         sed_doc_specs (``SedDocument``)
@@ -178,7 +178,7 @@ def export_sed_doc(sed_doc_specs):
         version=sed_doc_specs['version'],
     )
 
-    # add models to SED document
+    # add models to SED-ML document
     model_id_map = {}
     for model_spec in sed_doc_specs['models']:
         model = Model(
@@ -248,7 +248,7 @@ def export_sed_doc(sed_doc_specs):
 
             model.changes.append(change)
 
-    # add simulations to SED document
+    # add simulations to SED-ML document
     simulation_id_map = {}
     for sim_spec in sed_doc_specs['simulations']:
         if sim_spec['_type'] == 'SedOneStepSimulation':
@@ -291,7 +291,7 @@ def export_sed_doc(sed_doc_specs):
         sed_doc.simulations.append(sim)
         simulation_id_map[sim.id] = sim
 
-    # add tasks to SED document
+    # add tasks to SED-ML document
     task_id_map = {}
     for task_spec in sed_doc_specs['tasks']:
         if task_spec['_type'] == 'SedTask':
@@ -330,7 +330,7 @@ def export_sed_doc(sed_doc_specs):
         sed_doc.tasks.append(task)
         task_id_map[task.id] = task
 
-    # add data generators to SED document
+    # add data generators to SED-ML document
     data_gen_id_map = {}
     for data_gen_spec in sed_doc_specs['dataGenerators']:
         data_gen = DataGenerator(
@@ -368,7 +368,7 @@ def export_sed_doc(sed_doc_specs):
         sed_doc.data_generators.append(data_gen)
         data_gen_id_map[data_gen.id] = data_gen
 
-    # add outputs to SED document
+    # add outputs to SED-ML document
     for output_spec in sed_doc_specs['outputs']:
         if output_spec['_type'] == 'SedReport':
             output = Report(

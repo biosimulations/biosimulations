@@ -14,11 +14,11 @@ import { SedRange } from './sedRange';
 import { SedSubTask } from './sedSubTask';
 
 /**
- * A SED repeated task.
+ * A SED-ML repeated task.
  */
 export interface SedRepeatedTask {
   /**
-   * Unique identifiers with its parent SED document.
+   * Unique identifiers with its parent SED-ML document.
    */
   id: string;
   /**

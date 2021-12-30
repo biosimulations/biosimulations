@@ -12,11 +12,11 @@
 import { SedAlgorithm } from './sedAlgorithm';
 
 /**
- * A SED uniform time course simulation.
+ * A SED-ML uniform time course simulation.
  */
 export interface SedUniformTimeCourseSimulation {
   /**
-   * Unique identifier within its parent SED document.
+   * Unique identifier within its parent SED-ML document.
    */
   id: string;
   /**

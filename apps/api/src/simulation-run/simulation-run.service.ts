@@ -749,10 +749,10 @@ export class SimulationRunService {
 
       if (expectedDataSetUris.size === 0) {
         errorDetails.push(
-          'Simulation run does not specify any SED reports or plots. For publication, simulation runs must produce data for at least one SED-ML report or plot.',
+          'Simulation run does not specify any SED-ML reports or plots. For publication, simulation runs must produce data for at least one SED-ML report or plot.',
         );
         errorSummaries.push(
-          'Simulation run does not specify any SED reports or plots. For publication, simulation runs must produce data for at least one SED-ML report or plot.',
+          'Simulation run does not specify any SED-ML reports or plots. For publication, simulation runs must produce data for at least one SED-ML report or plot.',
         );
       } else if (unproducedDatSetUris.length) {
         unproducedDatSetUris.sort();

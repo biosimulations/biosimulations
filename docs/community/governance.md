@@ -22,4 +22,4 @@ Prospective maintainers can request maintainer privileges by sending a message t
 
 ## Project meetings
 
-Maintainers are expected to participate in the project's meetings, which occur online at 11am EST on Thursdays. Other members of the community are also welcome to attend the project's meetings to provide input and feedback on the project. Please contact the maintainers at [info@biosimulations.org](mailto:info@biosimulations.org) for the link for the project meetings.
+Maintainers are expected to participate in the project's meetings, which occur online at 11am EST on Thursdays. Other members of the community are also welcome to attend the project's meetings to provide input and feedback on the project. Please contact the maintainers at [info@biosimulations.org](mailto:info@biosimulations.org) for a link to the project meetings.

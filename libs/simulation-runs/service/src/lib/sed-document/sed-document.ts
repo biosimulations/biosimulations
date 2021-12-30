@@ -41,7 +41,7 @@ type TempSedRange =
   | Exclude<SedRange, SedFunctionalRange>
   | TempSedFunctionalRange;
 
-/** Deserialize a serialized SED document.
+/** Deserialize a serialized SED-ML document.
  *
  * Deserialize the following relationships:
  *
@@ -61,7 +61,7 @@ type TempSedRange =
  * - `SedVariable.task` -> `SedAbstrackTask`
  * - `SedVariable.model` -> `SedModel`
  *
- * @param serializedSedDoc serialized SED document
+ * @param serializedSedDoc serialized SED-ML document
  */
 export function deserializeSedDocument(
   serializedSedDoc: SerializedSedDocument,

@@ -121,7 +121,7 @@ export class ResultsController {
     summary:
       'Get the results of an output (plot or report) of a simulation run',
     description:
-      'Get the results of a single output (SED plot or report of a SED-ML file) of a simulation run',
+      'Get the results of a single output (SED-ML plot or report of a SED-ML file) of a simulation run',
   })
   @Get(':runId/:experimentLocationAndOutputId')
   @ApiParam({
@@ -136,7 +136,7 @@ export class ResultsController {
   @ApiParam({
     name: 'experimentLocationAndOutputId',
     description:
-      'Forward slash-separated tuple of the location of the SED-ML file and the id of the SED output (e.g., `path/to/simulation.sedml/Table1`)',
+      'Forward slash-separated tuple of the location of the SED-ML file and the id of the SED-ML output (e.g., `path/to/simulation.sedml/Table1`)',
     required: true,
     type: String,
   })

@@ -22,7 +22,7 @@ export interface SedSetValueComputeModelChange {
    */
   _type: SedSetValueComputeModelChangeTypeEnum;
   /**
-   * Unique identifier within its parents SED document.
+   * Unique identifier within its parent SED-ML document.
    */
   id?: string;
   /**

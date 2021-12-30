@@ -162,6 +162,6 @@ Alternatively, runBioSimulations provides a [utility](https://run.biosimulations
 
 ## Programmatically retrieving information about simulation tools via the REST API
 
-An API is available for retrieving information about the simulation tools in the BioSimulators collection. Please see the [documentation](https://api.biosimulators.org/) for the REST API  for more information.
+An API is available for retrieving information about the simulation tools in the BioSimulators collection. Please see the [documentation](https://api.biosimulators.org/) for the REST API for more information.
 
 An interactive tutorial for using the API is available from [Binder](https://tutorial.biosimulators.org/).

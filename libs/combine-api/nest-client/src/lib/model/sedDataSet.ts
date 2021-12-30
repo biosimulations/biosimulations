@@ -11,11 +11,11 @@
  */
 
 /**
- * A SED data set
+ * A SED-ML data set
  */
 export interface SedDataSet {
   /**
-   * Unique identifier within its parent SED document.
+   * Unique identifier within its parent SED-ML document.
    */
   id: string;
   /**

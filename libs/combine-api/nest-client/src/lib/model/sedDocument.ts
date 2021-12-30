@@ -16,7 +16,7 @@ import { SedModel } from './sedModel';
 import { SedAbstractTask } from './sedAbstractTask';
 
 /**
- * A SED document.
+ * A SED-ML document.
  */
 export interface SedDocument {
   /**

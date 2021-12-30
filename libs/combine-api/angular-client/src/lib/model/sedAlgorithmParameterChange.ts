@@ -11,7 +11,7 @@
  */
 
 /**
- * A SED algorithm parameter
+ * A SED-ML algorithm parameter
  */
 export interface SedAlgorithmParameterChange {
   /**

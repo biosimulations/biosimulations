@@ -1,7 +1,7 @@
-# Format for the Specification of BioSimulation Tools
+# Format for the specification of BioSimulation tools
 
 ## Overview
-The BioSimulators format for the specifications of a simulation tool is a JSON schema for describing the modeling frameworks (e.g., logical, constraint-based), simulation algorithms (e.g., CVODE, SSA), and modeling formats (e.g., CellML, COMBINE/OMEX, SBML, SED-ML) that a simulation tool supports, as well as the parameters of each algorithm (e.g., random number generator seed), their data types and their allowed and default values.
+The BioSimulators format for the specifications of a simulation tool is a JSON schema for describing the modeling frameworks (e.g., logical, constraint-based), simulation algorithms (e.g., CVODE, SSA), and modeling formats (e.g., CellML, COMBINE/OMEX, SBML, SED-ML) that a simulation tool supports, as well as the parameters of each algorithm (e.g., random number generator seed), their data types, and their allowed and default values.
 
 The format can also capture a metadata about each simulation tool including its
 
@@ -16,25 +16,24 @@ The format can also capture a metadata about each simulation tool including its
 - License for the tool;
 - The authors of the tool; and
 - Dates when the tool was submitted to the BioSimulators registry and when it was last updated.
- 
 
 ## Schema
 
-The schema for the format is available in [JSON Schema](https://api.biosimulators.org/schema/Simulator.json) and [Open API](https://api.biosimulators.org/openapi.json) formats. Documentation for the schema is available at https://api.biosimulators.org/.
+The schema for the format is available in [JSON Schema](https://api.biosimulators.org/schema/Simulator.json) and [Open API](https://api.biosimulators.org/openapi.json) formats. Documentation for the schema is available at [https://api.biosimulators.org/](https://api.biosimulators.org/).
 
 The schema utilizes several ontologies:
 
-- Funding agencies: [Funder Registry](https://www.crossref.org/services/funder-registry/)  terms such as the National Science Foundation ([10.13039/100000001](http://doi.org/10.13039/100000001)), the National Institutes of Health ([10.13039/100000002](http://doi.org/10.13039/100000002)).
+- Funding agencies: [Funder Registry](https://www.crossref.org/services/funder-registry/) terms such as the National Science Foundation ([10.13039/100000001](http://doi.org/10.13039/100000001)) and the National Institutes of Health ([10.13039/100000002](http://doi.org/10.13039/100000002)).
  
 - Licenses: [SPDX](https://spdx.org/) terms such as GNU General Public License v3.0 or later ([GPL-3.0-or-later](https://spdx.org/licenses/GPL-3.0-or-later)).
 
-- Modeling formats: [EDAM](https://edamontology.org/)  terms such as BNGL ([format_3972](https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3972)), CellML ([format_3240](https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3240)), SBML ([format_2585](https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_2585)), SED-ML ([format_3685](https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3685)).
+- Modeling formats: [EDAM](https://edamontology.org/) terms such as BNGL ([format_3972](https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3972)), CellML ([format_3240](https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3240)), SBML ([format_2585](https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_2585)), and SED-ML ([format_3685](https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3685)).
 
-- Modeling frameworks: [SBO](https://www.ebi.ac.uk/sbo/) terms such as flux balance analysis framework ([SBO:0000624](https://www.ebi.ac.uk/ols/ontologies/sbo/terms?iri=http%3A%2F%2Fbiomodels.net%2FSBO%2FSBO_0000624)), non-spatial continuous kinetic framework ([SBO:0000293](https://www.ebi.ac.uk/ols/ontologies/sbo/terms?iri=http%3A%2F%2Fbiomodels.net%2FSBO%2FSBO_0000293)).
+- Modeling frameworks: [SBO](https://www.ebi.ac.uk/sbo/) terms such as flux balance analysis framework ([SBO:0000624](https://www.ebi.ac.uk/ols/ontologies/sbo/terms?iri=http%3A%2F%2Fbiomodels.net%2FSBO%2FSBO_0000624)) and non-spatial continuous kinetic framework ([SBO:0000293](https://www.ebi.ac.uk/ols/ontologies/sbo/terms?iri=http%3A%2F%2Fbiomodels.net%2FSBO%2FSBO_0000293)).
 
-- Programming languages: [Linguist](https://github.com/github/linguist)  terms such as C++, Java, JavaScript, Python, R
+- Programming languages: [Linguist](https://github.com/github/linguist) terms such as C++, Java, JavaScript, Python, R.
 
-- Simulation algorithms: [KiSAO](http://co.mbine.org/standards/kisao) terms such as CVODE ([KISAO:0000019](https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000019)), FBA ([KISAO:0000437](https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000437)), SSA ([KISAO:0000029](https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000029))
+- Simulation algorithms: [KiSAO](http://co.mbine.org/standards/kisao) terms such as CVODE ([KISAO:0000019](https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000019)), FBA ([KISAO:0000437](https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000437)), and SSA ([KISAO:0000029](https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000029)).
 
 ## Example
 

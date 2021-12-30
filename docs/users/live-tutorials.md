@@ -1,6 +1,6 @@
 # Live and recorded tutorials
 
-The BioSimulations Team periodically presents live tutorials. Below is the schedule of upcoming events and recordings of past events.
+The BioSimulations and BioSimulators Teams periodically present live tutorials. Below is the schedule of upcoming events and recordings of past events.
 
 ### HARMONY 2022
 We plan to present a tutorial at the HARMONY meeting in Spring 2022.
@@ -12,6 +12,6 @@ Slides from the tutorial are available [here](https://drive.google.com/file/d/1Z
 Video of the tutorial on runBioSimulations is available [here](https://www.youtube.com/watch?v=VZGzWBmagcs).
 
 ### HARMONY 2021
-The tutorial on runBioSimulations and BioSimulators is available from the links below
+The tutorial on runBioSimulations and BioSimulators is available from the links below:
 * [Video](https://www.youtube.com/watch?v=h0SCn0ZDqq8)
 * [Slides](https://drive.google.com/file/d/1Q0X6GNQlT5PfZOcBNVu1B92SSAxJWrnS/view?usp=sharing)

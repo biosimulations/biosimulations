@@ -20,4 +20,4 @@ Several example model files, SED-ML files, Vega files, and COMBINE/OMEX archives
 Links to detailed examples and documentation for the REST APIs is available [here](./api.md).
 
 ## Documentation for the BioSimulators simulation tools and core packages
-Links to detailed documentation each simulation tools and the core BioSimulators packages are available [here](./biosimulators-packages.md).
+Links to detailed documentation each simulation tool and the core BioSimulators packages are available [here](./biosimulators-packages.md).

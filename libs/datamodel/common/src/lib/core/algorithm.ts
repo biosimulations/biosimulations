@@ -20,12 +20,12 @@ export enum ModelChangeType {
 }
 
 export enum ModelChangeTypeName {
-  SedAttributeModelChange = 'SED attribute model change',
-  SedAddXmlModelChange = 'SED add XML model change',
-  SedRemoveXmlModelChange = 'SED remove XML model change',
-  SedChangeXmlModelChange = 'SED change XML model change',
-  SedComputeAttributeChangeModelChange = 'SED statically compute attribute model change',
-  SedSetValueAttributeModelChange = 'SED dynamically compute attribute model change',
+  SedAttributeModelChange = 'SED-ML attribute model change',
+  SedAddXmlModelChange = 'SED-ML add XML model change',
+  SedRemoveXmlModelChange = 'SED-ML remove XML model change',
+  SedChangeXmlModelChange = 'SED-ML change XML model change',
+  SedComputeAttributeChangeModelChange = 'SED-ML statically compute attribute model change',
+  SedSetValueAttributeModelChange = 'SED-ML dynamically compute attribute model change',
 }
 
 export interface IModelTarget {
@@ -52,9 +52,9 @@ export enum SimulationType {
 }
 
 export enum SimulationTypeName {
-  SedOneStepSimulation = 'SED one step simulation',
-  SedSteadyStateSimulation = 'SED steady state simulation',
-  SedUniformTimeCourseSimulation = 'SED uniform time course simulation',
+  SedOneStepSimulation = 'SED-ML one step simulation',
+  SedSteadyStateSimulation = 'SED-ML steady state simulation',
+  SedUniformTimeCourseSimulation = 'SED-ML uniform time course simulation',
 }
 
 export enum SimulationTypeBriefName {

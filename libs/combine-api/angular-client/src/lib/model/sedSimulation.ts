@@ -14,11 +14,11 @@ import { SedOneStepSimulation } from './sedOneStepSimulation';
 import { SedSteadyStateSimulation } from './sedSteadyStateSimulation';
 
 /**
- * A SED simulation.
+ * A SED-ML simulation.
  */
 /**
  * @type SedSimulation
- * A SED simulation.
+ * A SED-ML simulation.
  * @export
  */
 export type SedSimulation =

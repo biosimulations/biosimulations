@@ -103,7 +103,7 @@ def handler(body, file=None):
             instance=exception,
         )
 
-    # get specifications of SED outputs
+    # get specifications of SED-ML outputs
     contents_specs = []
 
     sedml_contents = get_sedml_contents(archive)
@@ -143,7 +143,7 @@ def handler(body, file=None):
 
 
 def get_sed_document_specs(sed_document):
-    """ Get the OpenAPI specifications of a SED document
+    """ Get the OpenAPI specifications of a SED-ML document
 
     Args:
         document (:obj:`SedDocument`): document
@@ -166,7 +166,7 @@ def get_sed_document_specs(sed_document):
 
 
 def get_model_specs(model):
-    """ Get the OpenAPI specifications of a SED model
+    """ Get the OpenAPI specifications of a SED-ML model
 
     Args:
         model (:obj:`Model`): model
@@ -188,7 +188,7 @@ def get_model_specs(model):
 
 
 def get_model_change_specs(change):
-    """ Get the OpenAPI specifications of a SED model change
+    """ Get the OpenAPI specifications of a SED-ML model change
 
     Args:
         change (:obj:`ModelChange`): model change
@@ -233,7 +233,7 @@ def get_model_change_specs(change):
 
 
 def get_simulation_specs(simulation):
-    """ Get the OpenAPI specifications of a SED simulation
+    """ Get the OpenAPI specifications of a SED-ML simulation
 
     Args:
         simulation (:obj:`Simulation`): simulation
@@ -285,7 +285,7 @@ def get_simulation_specs(simulation):
 
 
 def get_task_specs(task):
-    """ Get the OpenAPI specifications of a SED task
+    """ Get the OpenAPI specifications of a SED-ML task
 
     Args:
         task (:obj:`AbstractTask`): task
@@ -350,7 +350,7 @@ def get_task_specs(task):
 
 
 def get_range_specs(range):
-    """ Get the OpenAPI specifications of a SED range
+    """ Get the OpenAPI specifications of a SED-ML range
 
     Args:
         range (:obj:`Range`): range
@@ -393,7 +393,7 @@ def get_range_specs(range):
 
 
 def get_data_generator_specs(data_generator):
-    """ Get the OpenAPI specifications of a SED data generator
+    """ Get the OpenAPI specifications of a SED-ML data generator
 
     Args:
         data_generator (:obj:`DataGenerator`): data generator
@@ -416,7 +416,7 @@ def get_data_generator_specs(data_generator):
 
 
 def get_output_specs(output):
-    """ Get the OpenAPI specifications of a SED output
+    """ Get the OpenAPI specifications of a SED-ML output
 
     Args:
         output (:obj:`Output`): output
@@ -511,7 +511,7 @@ def get_output_specs(output):
 
 
 def get_data_set_specs(data_set):
-    """ Get the OpenAPI specifications of a SED data set
+    """ Get the OpenAPI specifications of a SED-ML data set
 
     Args:
         data_set (:obj:`DataSet`): data set
@@ -534,7 +534,7 @@ def get_data_set_specs(data_set):
 
 
 def get_curve_specs(curve):
-    """ Get the OpenAPI specifications of a SED curve
+    """ Get the OpenAPI specifications of a SED-ML curve
 
     Args:
         curve (:obj:`Curve`): curve
@@ -556,7 +556,7 @@ def get_curve_specs(curve):
 
 
 def get_surface_specs(surface):
-    """ Get the OpenAPI specifications of a SED surface
+    """ Get the OpenAPI specifications of a SED-ML surface
 
     Args:
         surface (:obj:`Surface`): surface
@@ -579,7 +579,7 @@ def get_surface_specs(surface):
 
 
 def get_parameter_specs(parameter):
-    """ Get the OpenAPI specifications of a SED parameter
+    """ Get the OpenAPI specifications of a SED-ML parameter
 
     Args:
         parameter (:obj:`Parameter`): parameter
@@ -598,7 +598,7 @@ def get_parameter_specs(parameter):
 
 
 def get_variable_specs(variable):
-    """ Get the OpenAPI specifications of a SED variable
+    """ Get the OpenAPI specifications of a SED-ML variable
 
     Args:
         variable (:obj:`Variable`): variable
@@ -625,7 +625,7 @@ def get_variable_specs(variable):
 
 
 def get_target_specs(target, namespaces):
-    """ Get the OpenAPI specifications of a SED target
+    """ Get the OpenAPI specifications of a SED-ML target
 
     Args:
         target (:obj:`string`): target

@@ -2,13 +2,14 @@
 
 ## Finding projects
 
-Published projects can be browsed at [https://biosimulations.org/projects](https://biosimulations.org/projects). Each card presents a project, with a thumbnail and title. Mousing over the thumbnail shows additional details about the project. You can customize the attributes you want to view. 
+Published projects can be browsed at [https://biosimulations.org/projects](https://biosimulations.org/projects). Each card presents a project, with a thumbnail and title. Mousing over the thumbnail shows additional details about the project. You can customize the attributes that are displayed. 
 
 ![browse-projects](./images/browse.png)
+
 ### Selecting attributes
 
 ![select-attributes](./images/select.png){align=right}
-Clicking on the search icon in the top-right corner of the page opens menu with an attributes sub-menu. From here, you can select the attributes you want to view. Selecting a field will add the attributes to the details presented in the project card when you mouse over the thumbnail.
+Clicking on the search icon in the top-right corner of the page opens a menu with an attributes sub-menu. From here, you can select the attributes that are displayed. Selecting a field will add the attributes to the details presented in the project card when you mouse over each thumbnail.
 
  <!-- The new lines must be followed by two spaces-->
 &NewLine;  
@@ -20,12 +21,12 @@ Clicking on the search icon in the top-right corner of the page opens menu with 
 
 ### Searching for projects
 ![search-projects](./images/search.png){align=right}
-Clicking on the the search icon at the top right of the page opens a search box. A search term, such as 'metabolism' can be entered in the search box. By default, the search term is searched against each [attribute](#selecting-attributes) of the project. Optionally, you can restrict the search to a specific attribute. For example, if you want to search for projects that have the value 'Escherichia coli' in the `taxa`  attribute, you can enter 'taxa:Escherichia coli' in the search box. For attributes with spaces in the name, replace any spaces with "-". For example, the term "last-updated:2020" searches for projects that contain the value "2020" in the `last updated` attribute. A list of the available fields is available in the [FAQs](faqs.md).
+Clicking on the the search icon at the top right of the page opens a search box. A search term, such as 'metabolism' can be entered in the search box. By default, the search term is searched against each [attribute](#selecting-attributes) of each project. Optionally, you can restrict the search to specific attributes. For example, if you want to search for projects that have the taxa 'Escherichia coli', you can enter 'taxa:Escherichia coli' in the search box. For attributes with spaces in the name, replace these spaces with "-". For example, the term "last-updated:2020" can be used to search for projects that contain the value "2020" in the ;last updated' attribute. A list of the available search fields is available in the [FAQs](faqs.md).
 
 ### Filtering projects
 
 ![filter-attributes](./images/filter.png){align=right}
-The list of displayed projects can be filtered by the values of their attributes. For each available attribute, a menu of values is presented. Selecting a value will filter the list of projects to include only those with that value.
+The list of displayed projects can be filtered by the values of their attributes. For each available attribute, a menu of values is presented. Selecting a value will filter the list of projects to include only those with the selected values.
 
  <!-- The new lines must be followed by two spaces-->
 &NewLine;  
@@ -37,28 +38,31 @@ The list of displayed projects can be filtered by the values of their attributes
 
 ## Exploring projects
 
-Clicking on a project card opens a page with the project details. The "Overview" tab provides the associated project [metadata](#Metadata), as well as information about underlying model and [simulation run](#simulation-runs). The "Select chart" tab allows you to configure [visualizations](#visualizations) of the simulation results that can then be viewed on the "View chart" tab. The "Files" tab provides downloads for the project [files](#files).
+Clicking on a project card opens a page with the project details. The "Overview" tab provides metadata about the seleted project, as well as information about underlying model and simulation run. The "Select chart" tab allows you to configure visualizations of the simulation results that can then be viewed on the "View chart" tab. The "Files" tab provides downloads for the files of the project.
 
 ### Metadata
 
-BioSimulations collects metadata to enable searching, browsing and discovering projects. The metadata includes information about authorship, license, funding and other provenance information. It also includes information about the modelled system, such as the modelled organism, and tags to describe the project.
+BioSimulations collects metadata to enable searching, browsing and discovering projects. The metadata includes information about authorship, license, funding and other provenance information. It also includes information about the modelled system, such as the modelled organism, and tags that describe the project.
 
 ![project-metadata](./images/metadata.png)
+
 ### Visualizations
 
-Projects can be visualized using both predefined and custom visualizations. The "Select chart" tab allows you to select from visualizations that are defined and included in the project. Additionally, you can create your own custom visualization, by selecting one of the "Design a chart" options: including histograms, heatmaps and lineplots. Selecting a plot time will open an additional menu with configuration options to select the datasets to be plotted.
-Once you have configured your visualization, you can view it by clicking on the "View chart" button.  The "Export to Vega" button will export the visualization to a [Vega](https://vega.github.io/) specification, which enables greater user customization of the visual. More information for using Vega with BioSimulations in available [here](../concepts/conventions/simulation-run-visualizations.md).
+Projects can be visualized using both predefined and custom visualizations. The "Select chart" tab allows you to select from pre-defined visualizations that were included in the project, including both basic charts described with SED-ML and more complex visualizations described with Vega. Additionally, you can create your own custom visualizations by selecting one of the "Design a chart" options including histograms, heatmaps and lineplots. Selecting a plot time will open an additional menu with configuration options to select the datasets to be plotted.
 
+Once you have configured your visualization, you can view it by clicking on the "View chart" button. The "Export to Vega" button will export the visualization to a [Vega](https://vega.github.io/) specification, which enables greater user customization of the visual. More information for using Vega with BioSimulations in available [here](../concepts/conventions/simulation-run-visualizations.md).
+
+More information about creating SED-ML and Vega visualizations is available [here](./creating-projects.md) and [here](./creating-vega-visualizations.md).
 
 ### Simulation runs
 ![Sidebar screenshot showing simulation run details](./images/sidebar-simulation-run.png){ align=left }
-More detailed information about the simulation execution and results can be viewed by following the links to the runBioSimulations page for the simulation. The "Logs" tab provides detailed output of the simulation execution, including each individual simulation step and the outputs (reports and plots) produced by the simulation. Each step of the simulation is presented as a collapsible section that can be expanded to show the outputs. Both structured log files and raw output files can be downloaded from the links. 
+More detailed information about the execution of the project and its results can be viewed by following the links to the runBioSimulations page for the project. The "Logs" tab provides detailed output of the simulation execution, including each individual simulation task and the outputs (reports and plots) produced by the simulation. Each task of the simulation is presented as a collapsible section that can be expanded to show the outputs. Both structured log files and raw output files can be downloaded from the links. 
 
 ## Reusing projects
 
 ### Creating and executing variants of simulations with runBioSimulations
 
-In addition to this full-featured web application, [runBioSimulations](https://run.biosimulations.org) provides a simpler web application and REST API for executing simulations. runBioSimulations simply enables users to execute COMBINE archives using a variety of simulation tools and generate time series plots of their results. This application does not require an account.
+In addition to this full-featured web application, [runBioSimulations](https://run.biosimulations.org) provides a simpler web application and REST API for executing simulations. runBioSimulations simply enables users to execute COMBINE archives using a variety of simulation tools and generate time series plots of their results. runBioSimulations does not require an account.
 
 ### Downloading projects and executing them with your own computers
 
