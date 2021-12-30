@@ -167,7 +167,7 @@
     "@types/csv2json": "1.4.2",
     "@types/highlight.js": "9.12.4",
     "@types/is-url": "1.2.30",
-    "@types/jest": "27.0.3",
+    "@types/jest": "27.4.0",
     "@types/lunr": "2.3.4",
     "@types/mongoose": "5.11.96",
     "@types/multer": "1.4.7",
