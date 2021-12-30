@@ -38,7 +38,7 @@ The list of displayed projects can be filtered by the values of their attributes
 
 ## Exploring projects
 
-Clicking on a project card opens a page with the project details. The "Overview" tab provides metadata about the seleted project, as well as information about underlying model and simulation run. The "Select chart" tab allows you to configure visualizations of the simulation results that can then be viewed on the "View chart" tab. The "Files" tab provides downloads for the files of the project.
+Clicking on a project card opens a page with the project details. The "Overview" tab provides metadata about the selected project, as well as information about underlying model and simulation run. The "Select chart" tab allows you to configure visualizations of the simulation results that can then be viewed on the "View chart" tab. The "Files" tab provides downloads for the files of the project.
 
 ### Metadata
 

@@ -54,7 +54,7 @@ Python APIs should be Python modules which provide the following attributes and 
 
 - `exec_sed_task ((task: Task, variables: list[Variable], preprocessed_task:Any=None) -> Tuple[VariableResults, TaskLog])`: A function which executes a single SED-ML task involving a single simulation of a single model and returns the predicted value of each requested output variable and a log of the execution of the simulation.
 
-- `exec_sed_doc ((doc: SedDocument, variables: list[Variable]) -> Tuple[ReportResults, SedDocumentLog])`: A function which executes a single SED-ML document involving one or more simulations of one or more models, return datas for each SED-ML report and plot, and returns a log of the execution of the simulations, reports, and plots.
+- `exec_sed_doc ((doc: SedDocument, variables: list[Variable]) -> Tuple[ReportResults, SedDocumentLog])`: A function which executes a single SED-ML document involving one or more simulations of one or more models, returns data for each SED-ML report and plot, and returns a log of the execution of the simulations, reports, and plots.
 
 - `exec_sedml_docs_in_combine_archive ((archive_filename: str, out_dir: str, return_results: bool = False) -> Tuple[SedDocumentResults, CombineArchiveLog])`: A function which executes all of the tasks in all of the SED-ML files in a COMBINE/OMEX archive, exports all of the requested reports and plots, optionally returns the result of each output, and returns a log of the execution of the archive.
 

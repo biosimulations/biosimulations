@@ -42,7 +42,7 @@ In participating in our vulnerability disclosure program in good faith, we ask t
 
 ## Official channels for reporting vulnerabilities
 
-Please report security issues to our lead devlopers via [info@biosimulations.org](mailto:info@biosimulations.org). Please provide as much relevant information as possible. The more details you provide, the easier it will be for us to triage and fix the issue.
+Please report security issues to our lead developers via [info@biosimulations.org](mailto:info@biosimulations.org). Please provide as much relevant information as possible. The more details you provide, the easier it will be for us to triage and fix the issue.
 
 ## Safe harbor
 
