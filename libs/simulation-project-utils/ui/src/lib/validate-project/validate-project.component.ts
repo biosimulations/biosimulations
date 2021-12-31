@@ -137,16 +137,28 @@ export class ValidateProjectComponent implements OnInit, OnDestroy {
 
       const omexMetadataFormat = params?.omexMetadataFormat;
       if (this.omexMetadataFormats.includes(omexMetadataFormat)) {
-        (this.formGroup.controls.omexMetadataFormat as FormControl).setValue(omexMetadataFormat);
+        (this.formGroup.controls.omexMetadataFormat as FormControl).setValue(
+          omexMetadataFormat,
+        );
       }
 
       const omexMetadataSchema = params?.omexMetadataSchema;
-      if (this.omexMetadataSchemas.map((format: LabelValue): string => format.value).includes(omexMetadataSchema)) {
-        (this.formGroup.controls.omexMetadataSchema as FormControl).setValue(omexMetadataSchema);
+      if (
+        this.omexMetadataSchemas
+          .map((format: LabelValue): string => format.value)
+          .includes(omexMetadataSchema)
+      ) {
+        (this.formGroup.controls.omexMetadataSchema as FormControl).setValue(
+          omexMetadataSchema,
+        );
       }
 
-      if (['0', 'false'].includes(params?.validateOmexManifest?.toLowerCase())) {
-        (this.formGroup.controls.validateOmexManifest as FormControl).setValue(false);
+      if (
+        ['0', 'false'].includes(params?.validateOmexManifest?.toLowerCase())
+      ) {
+        (this.formGroup.controls.validateOmexManifest as FormControl).setValue(
+          false,
+        );
       }
 
       if (['0', 'false'].includes(params?.validateSedml?.toLowerCase())) {
@@ -154,11 +166,17 @@ export class ValidateProjectComponent implements OnInit, OnDestroy {
       }
 
       if (['0', 'false'].includes(params?.validateSedmlModels?.toLowerCase())) {
-        (this.formGroup.controls.validateSedmlModels as FormControl).setValue(false);
+        (this.formGroup.controls.validateSedmlModels as FormControl).setValue(
+          false,
+        );
       }
 
-      if (['0', 'false'].includes(params?.validateOmexMetadata?.toLowerCase())) {
-        (this.formGroup.controls.validateOmexMetadata as FormControl).setValue(false);
+      if (
+        ['0', 'false'].includes(params?.validateOmexMetadata?.toLowerCase())
+      ) {
+        (this.formGroup.controls.validateOmexMetadata as FormControl).setValue(
+          false,
+        );
       }
 
       if (['0', 'false'].includes(params?.validateImages?.toLowerCase())) {
