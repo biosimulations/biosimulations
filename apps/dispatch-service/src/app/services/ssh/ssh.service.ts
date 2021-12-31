@@ -11,6 +11,7 @@ export class SshConnectionConfig {
     public privateKey: string,
   ) {}
 }
+
 @Injectable()
 export class SshService {
   private sshConfig: SshConnectionConfig =
