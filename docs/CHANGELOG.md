@@ -1,5 +1,12 @@
 # Changelog
 
+# [8.6.0](https://github.com/biosimulations/biosimulations/compare/v8.5.6...v8.6.0) (2021-12-31)
+
+
+### Features
+
+* **ontology:** added formats used by Physiome model repository ([b407218](https://github.com/biosimulations/biosimulations/commit/b40721893c8592e1418f21fe78462d1978270056))
+
 ## [8.5.6](https://github.com/biosimulations/biosimulations/compare/v8.5.5...v8.5.6) (2021-12-27)
 
 
