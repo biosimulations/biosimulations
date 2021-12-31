@@ -151,26 +151,30 @@ export class SbatchService {
 
     const template = `#!/bin/bash
 #SBATCH --job-name=Simulation-run-${runId}
-#SBATCH --time=${maxTimeFormatted}
+#SBATCH --chdir=${workDirname}
 #SBATCH --output=${workDirname}/job.output
 #SBATCH --error=${workDirname}/job.output
-#SBATCH --chdir=${workDirname}
 #SBATCH --ntasks=1
-#SBATCH --partition=${slurmPartition}
-#SBATCH --mem=${memoryFormatted}M
 #SBATCH --cpus-per-task=${cpus}
+#SBATCH --mem=${memoryFormatted}M
+#SBATCH --time=${maxTimeFormatted}
+#SBATCH --partition=${slurmPartition}
 #SBATCH --qos=${slurmQos}\n
 
+# configure error handling
+set -e
+
+# print thank you message
+echo -e '${cyan}Thank you for using runBioSimulations!${nc}'
+
+echo -e ''
+echo -e '${cyan}================================================ Loading Singularity ================================================${nc}'
 export MODULEPATH=${modulePath}
 source ${moduleInitScript}
 export ${executablesPath}
 module load ${singularityModule}
 export SINGULARITY_CACHEDIR=${singularityCacheDir}
 export SINGULARITY_PULLFOLDER=${singularityPullFolder}
-cd ${workDirname}
-echo -e '${cyan}Thank you for using runBioSimulations!${nc}'
-
-set -e
 
 echo -e ''
 echo -e '${cyan}============================================ Downloading COMBINE archive ============================================${nc}'
@@ -238,25 +242,32 @@ export PYTHONWARNINGS="ignore"; srun --job-name="Save-outputs-to-S3" aws --no-ve
 
     const template = `#!/bin/bash
 #SBATCH --job-name=Build-simulator-${simulator}-${simulatorVersion}
-#SBATCH --time=${maxTime}
 #SBATCH --chdir=${singularityPullFolder}
-#SBATCH --partition=${slurmPartition}
-#SBATCH --qos=${slurmQos}
-#SBATCH --ntasks=1
 #SBATCH --output=${singularityPullFolder}/${singularityImageName}.output
+#SBATCH --ntasks=1
 #SBATCH --cpus-per-task=${cpus}
 #SBATCH --mem=${memory}
+#SBATCH --time=${maxTime}
+#SBATCH --partition=${slurmPartition}
+#SBATCH --qos=${slurmQos}
 
+# configure error handling
+set -e
+
+# load Singularity
 export MODULEPATH=${modulePath}
 source ${moduleInitScript}
 export ${executablesPath}
 module load ${singularityModule}
+
+# set up Singularity
 export SINGULARITY_CACHEDIR=${singularityCacheDir}
 export SINGULARITY_PULLFOLDER=${singularityPullFolder}
-echo "Building On:"
-hostname
-echo "Using Singularity"
-singularity --version
+
+# report Singularity version and node
+echo "Building image with Singularity '$(singularity --version)' on '$(hostname)' ... "
+
+# build image
 singularity -v pull --tmpdir /local ${
       forceOverwrite ? '--force' : ''
     } ${dockerImageUrl}`;
