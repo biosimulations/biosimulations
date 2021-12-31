@@ -54,7 +54,7 @@ export class SbatchService {
     const modulePath = this.configService.get('hpc.module.path');
     const moduleInitScript = this.configService.get('hpc.module.initScript');
 
-    const slurmConstraints = this.configService.get('hpc.slurm.constraints');
+    const slurmConstraints = this.configService.get('hpc.slurm.constraints') || '';
     const slurmPartition = this.configService.get('hpc.slurm.partition');
     const slurmQos = this.configService.get('hpc.slurm.qos');
 
@@ -223,7 +223,7 @@ export PYTHONWARNINGS="ignore"; srun --job-name="Save-outputs-to-S3" aws --no-ve
     const modulePath = this.configService.get('hpc.module.path');
     const moduleInitScript = this.configService.get('hpc.module.initScript');
 
-    const slurmConstraints = this.configService.get('hpc.slurm.constraints');
+    const slurmConstraints = this.configService.get('hpc.slurm.constraints') || '';
     const slurmPartition = this.configService.get('hpc.slurm.partition');
     const slurmQos = this.configService.get('hpc.slurm.qos');
 
