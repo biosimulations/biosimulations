@@ -28,6 +28,7 @@ import { Dataset, WithContext } from 'schema-dts';
 import { BiosimulationsError } from '@biosimulations/shared/error-handler';
 import { environment } from '@biosimulations/shared/environments';
 import { SimulationRunService } from '@biosimulations/angular-api-client';
+import { Endpoints } from '@biosimulations/config/common';
 
 @Component({
   templateUrl: './view.component.html',
@@ -38,6 +39,7 @@ export class ViewComponent implements OnInit {
   public resultsLoaded$!: Observable<boolean>;
 
   public id!: string;
+  public archiveUrl!: string;
 
   private simulation$!: Observable<Simulation>;
   private statusCompleted$!: Observable<boolean>;
@@ -62,6 +64,8 @@ export class ViewComponent implements OnInit {
 
   public jsonLdData$!: Observable<WithContext<Dataset>>;
 
+  private endpoints = new Endpoints();
+
   public constructor(
     private simulationService: SimulationService,
     private simulationRunService: SimulationRunService,
@@ -74,6 +78,7 @@ export class ViewComponent implements OnInit {
 
   public ngOnInit(): void {
     const id = (this.id = this.route.snapshot.params['uuid']);
+    this.archiveUrl = this.endpoints.getRunDownloadEndpoint(true, id);
 
     this.initSimulationRun();
 

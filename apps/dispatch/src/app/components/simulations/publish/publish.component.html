@@ -129,7 +129,9 @@
 
   <ng-template #invalid>
     <ng-container *ngIf="valid$ | async as valid; else loading">
-      <p>The simulation run is not valid for publication.</p>
+      <p>The simulation project and/or this run is not valid for publication.</p>
+
+      <p class="error">{{ valid }}</p>
 
       <p>
         Information about the requirements for projects (COMBINE archives),
@@ -140,12 +142,23 @@
           rel="noopener"
           target="biosimulations-docs"
           >https://docs.biosimulations.org</a
-        >. Tools for validating projects, simulation experiments, and metadata
-        are also available from the above menu. These tools provide additional
-        diagnostic information beyond the error summary below.
+        >.
       </p>
 
-      <p class="error">{{ valid }}</p>
+      <p>
+        Click <a [routerLink]="['/utils', 'validate-project']" [queryParams]="{ archiveUrl: archiveUrl, autoRun: '1' }">here</a> to obtain information about errors in this project.
+      </p>
+
+      <p>
+        If the project and this run are valid, please refresh to try again. If the error persists, please submit an
+        issue
+        <a
+          href="https://github.com/biosimulations/biosimulations/issues/new/choose"
+          rel="noopener"
+          target="githubissues"
+          ><biosimulations-icon icon="link"></biosimulations-icon></a
+        >.
+      </p>
     </ng-container>
   </ng-template>
 </biosimulations-page>
