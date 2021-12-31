@@ -768,5 +768,328 @@
       "omexManifestUris": ["http://purl.org/NET/mediatypes/application/octet-stream"],
       "icon": "file"
     }
+  },
+  {
+    "name": "Adobe Illustrator Artwork",
+    "id": "format_9021",
+    "mediaTypes": ["application/pdf", "application/postscript"],
+    "fileExtensions": ["ai"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/Adobe_Illustrator_Artwork",
+    "biosimulationsMetadata": {
+      "acronym": "AI",
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/application/pdf",
+        "http://purl.org/NET/mediatypes/application/postscript"
+      ],
+      "icon": "image"
+    }
+  },
+  {
+    "name": "C source",
+    "id": "format_9022",
+    "mediaTypes": ["text/x-c"],
+    "fileExtensions": ["c"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/C_(programming_language)",
+    "biosimulationsMetadata": {
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/text/x-c"
+      ],
+      "icon": "code"
+    }
+  },
+  {
+    "name": "C++ header",
+    "id": "format_9023",
+    "mediaTypes": ["text/x-c++hdr"],
+    "fileExtensions": ["c"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/C%2B%2B",
+    "biosimulationsMetadata": {
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/text/x-c++hdr"
+      ],
+      "icon": "code"
+    }
+  },
+  {
+    "name": "C++ source",
+    "id": "format_9024",
+    "mediaTypes": ["text/x-c++src"],
+    "fileExtensions": ["c"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/C%2B%2B",
+    "biosimulationsMetadata": {
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/text/x-c++src"
+      ],
+      "icon": "code"
+    }
+  },
+  {
+    "name": "Dynamic-link library",
+    "id": "format_9025",
+    "mediaTypes": ["application/vnd.microsoft.portable-executable"],
+    "fileExtensions": ["dll"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/Dynamic-link_library",
+    "biosimulationsMetadata": {
+      "acronym": "DLL",
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/application/vnd.microsoft.portable-executable"
+      ],
+      "icon": "file"
+    }
+  },
+  {
+    "name": "Office Open XML document",
+    "id": "format_3506",
+    "mediaTypes": ["application/vnd.openxmlformats-officedocument.wordprocessingml.document"],
+    "fileExtensions": ["docx"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3506",
+    "biosimulationsMetadata": {
+      "acronym": "DOCX",
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+      ],
+      "icon": "file"
+    }
+  },
+  {
+    "name": "Microsoft Word",
+    "id": "format_9026",
+    "mediaTypes": ["application/msword"],
+    "fileExtensions": ["doc"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/Doc_(computing)",
+    "biosimulationsMetadata": {
+      "acronym": "DOC",
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/application/msword"
+      ],
+      "icon": "file"
+    }
+  },
+  {
+    "name": "Microsoft PowerPoint",
+    "id": "format_9027",
+    "mediaTypes": ["application/vnd.ms-powerpoint"],
+    "fileExtensions": ["ppt"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/Microsoft_PowerPoint",
+    "biosimulationsMetadata": {
+      "acronym": "PPT",
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/application/vnd.ms-powerpoint"
+      ],
+      "icon": "file"
+    }
+  },
+  {
+    "name": "Office Open XML presentation",
+    "id": "format_3838",
+    "mediaTypes": ["application/vnd.openxmlformats-officedocument.presentationml.presentation"],
+    "fileExtensions": ["pptx"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3838",
+    "biosimulationsMetadata": {
+      "acronym": "PPTX",
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/application/vnd.openxmlformats-officedocument.presentationml.presentation"
+      ],
+      "icon": "file"
+    }
+  },
+  {
+    "name": "Encapsulated PostScript",
+    "id": "format_3466",
+    "mediaTypes": ["application/postscript", "application/eps", "application/x-eps", "image/eps", "image/x-eps"],
+    "fileExtensions": ["eps"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3466",
+    "biosimulationsMetadata": {
+      "acronym": "EPS",
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/application/postscript",
+        "http://purl.org/NET/mediatypes/application/eps",
+        "http://purl.org/NET/mediatypes/application/x-eps",
+        "http://purl.org/NET/mediatypes/image/eps",
+        "http://purl.org/NET/mediatypes/image/x-eps"
+      ],
+      "icon": "image"
+    }
+  },
+  {
+    "name": "Hypertext Markup Language",
+    "id": "format_2331",
+    "mediaTypes": ["text/html", "application/xhtml+xml"],
+    "fileExtensions": ["html"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_2331",
+    "biosimulationsMetadata": {
+      "acronym": "HTML",
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/text/html",
+        "http://purl.org/NET/mediatypes/application/xhtml+xml"
+      ],
+      "icon": "file"
+    }
+  },
+  {
+    "name": "INI",
+    "id": "format_9028",
+    "mediaTypes": ["text/x-ini"],
+    "fileExtensions": ["ini", "conf"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/INI_file",
+    "biosimulationsMetadata": {
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/text/x-ini"
+      ],
+      "icon": "file"
+    }
+  },
+  {
+    "name": "JavaScript",
+    "id": "format_9029",
+    "mediaTypes": ["text/javascript", "text/x-javascript", "application/javascript", "application/x-javascript"],
+    "fileExtensions": ["js"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/JavaScript",
+    "biosimulationsMetadata": {
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/text/javascript",
+        "http://purl.org/NET/mediatypes/text/x-javascript",
+        "http://purl.org/NET/mediatypes/application/javascript",
+        "http://purl.org/NET/mediatypes/application/javascript"
+      ],
+      "icon": "code"
+    }
+  },
+  {
+    "name": "Gmsh mesh",
+    "id": "format_9030",
+    "mediaTypes": ["model/mesh"],
+    "fileExtensions": ["msh"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/Polygon_mesh#File_formats",
+    "biosimulationsMetadata": {
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/model/mesh"
+      ],
+      "icon": "file"
+    }
+  },
+  {
+    "name": "Resource Description Framework XML",
+    "id": "format_3261",
+    "mediaTypes": ["application/rdf+xml"],
+    "fileExtensions": ["rdf", "xml"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3261",
+    "biosimulationsMetadata": {
+      "acronym": "RDF-XML",
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/application/rdf+xml"
+      ],
+      "icon": "file"
+    }
+  },
+  {
+    "name": "reStructuredText",
+    "id": "format_9031",
+    "mediaTypes": ["text/x-rst"],
+    "fileExtensions": ["rst"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/ReStructuredText",
+    "biosimulationsMetadata": {
+      "acronym": "RST",
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/text/x-rst"
+      ],
+      "icon": "file"
+    }
+  },
+  {
+    "name": "Ruby",
+    "id": "format_9032",
+    "mediaTypes": ["text/x-ruby"],
+    "fileExtensions": ["rb"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/Ruby_(programming_language)",
+    "biosimulationsMetadata": {
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/text/x-ruby"
+      ],
+      "icon": "code"
+    }
+  },
+  {
+    "name": "Shared library",
+    "id": "format_9033",
+    "mediaTypes": ["application/x-sharedlib"],
+    "fileExtensions": ["so"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/Library_(computing)#Shared_libraries",
+    "biosimulationsMetadata": {
+      "acronym": "SO",
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/application/x-sharedlib"
+      ],
+      "icon": "file"
+    }
+  },
+  {
+    "name": "Microsoft Excel",
+    "id": "format_9034",
+    "mediaTypes": ["application/vnd.ms-excel"],
+    "fileExtensions": ["xls"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/Microsoft_Excel",
+    "biosimulationsMetadata": {
+      "acronym": "XLS",
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/application/x-sharedlib"
+      ],
+      "icon": "file"
+    }
+  },
+  {
+    "name": "Office Open XML spreadsheet",
+    "id": "format_3468",
+    "mediaTypes": ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"],
+    "fileExtensions": ["xlsx"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3468",
+    "biosimulationsMetadata": {
+      "acronym": "XLSX",
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      ],
+      "icon": "report"
+    }
+  },
+  {
+    "name": "XML User Interface Language",
+    "id": "format_9035",
+    "mediaTypes": ["text/xul"],
+    "fileExtensions": ["xul"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/XUL",
+    "biosimulationsMetadata": {
+      "acronym": "XUL",
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/text/xul"
+      ],
+      "icon": "file"
+    }
+  },
+  {
+    "name": "XYZ",
+    "id": "format_3877",
+    "mediaTypes": ["chemical/x-xyz"],
+    "fileExtensions": ["xyz", "coordinates", "connectivity"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3877",
+    "biosimulationsMetadata": {
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/chemical/x-xyz"
+      ],
+      "icon": "file"
+    }
+  },
+  {
+    "name": "Zipped Scalable Vector Graphics",
+    "id": "format_9036",
+    "mediaTypes": ["image/svg+xml"],
+    "fileExtensions": ["svgz"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/Scalable_Vector_Graphics",
+    "biosimulationsMetadata": {
+      "acronym": "SVGZ",
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/image/svg+xml"
+      ],
+      "icon": "image"
+    }
   }
 ]
