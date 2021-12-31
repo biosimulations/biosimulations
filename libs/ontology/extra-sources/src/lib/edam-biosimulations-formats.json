@@ -772,9 +772,11 @@
   {
     "name": "Adobe Illustrator Artwork",
     "id": "format_9021",
+    "description": "Native format for vector graphics used by Adobe Illustrator.",
     "mediaTypes": ["application/pdf", "application/postscript"],
     "fileExtensions": ["ai"],
     "moreInfoUrl": "https://en.wikipedia.org/wiki/Adobe_Illustrator_Artwork",
+    "parents": ["format_2333", "format_3547"],
     "biosimulationsMetadata": {
       "acronym": "AI",
       "omexManifestUris": [
@@ -787,9 +789,11 @@
   {
     "name": "C source",
     "id": "format_9022",
+    "description": "Format for source code for the C programming language.",
     "mediaTypes": ["text/x-c"],
     "fileExtensions": ["c"],
     "moreInfoUrl": "https://en.wikipedia.org/wiki/C_(programming_language)",
+    "parents": ["format_2330", "format_2032"],
     "biosimulationsMetadata": {
       "omexManifestUris": [
         "http://purl.org/NET/mediatypes/text/x-c"
@@ -800,9 +804,11 @@
   {
     "name": "C++ header",
     "id": "format_9023",
+    "description": "Format for header files for the C++ programming language.",
     "mediaTypes": ["text/x-c++hdr"],
-    "fileExtensions": ["c"],
+    "fileExtensions": ["h"],
     "moreInfoUrl": "https://en.wikipedia.org/wiki/C%2B%2B",
+    "parents": ["format_2330", "format_2032"],
     "biosimulationsMetadata": {
       "omexManifestUris": [
         "http://purl.org/NET/mediatypes/text/x-c++hdr"
@@ -813,9 +819,11 @@
   {
     "name": "C++ source",
     "id": "format_9024",
+    "description": "Format for source code for the C++ programming language.",
     "mediaTypes": ["text/x-c++src"],
-    "fileExtensions": ["c"],
+    "fileExtensions": ["cpp"],
     "moreInfoUrl": "https://en.wikipedia.org/wiki/C%2B%2B",
+    "parents": ["format_2330", "format_2032"],
     "biosimulationsMetadata": {
       "omexManifestUris": [
         "http://purl.org/NET/mediatypes/text/x-c++src"
@@ -826,9 +834,11 @@
   {
     "name": "Dynamic-link library",
     "id": "format_9025",
+    "description": "Format for shared libraries used by Microsoft Windows.",
     "mediaTypes": ["application/vnd.microsoft.portable-executable"],
     "fileExtensions": ["dll"],
     "moreInfoUrl": "https://en.wikipedia.org/wiki/Dynamic-link_library",
+    "parents": ["format_2333"],
     "biosimulationsMetadata": {
       "acronym": "DLL",
       "omexManifestUris": [
@@ -854,9 +864,11 @@
   {
     "name": "Microsoft Word",
     "id": "format_9026",
+    "description": "Format for word processing documents used by Microsoft Word.",
     "mediaTypes": ["application/msword"],
     "fileExtensions": ["doc"],
     "moreInfoUrl": "https://en.wikipedia.org/wiki/Doc_(computing)",
+    "parents": ["format_2333", "format_3507"],
     "biosimulationsMetadata": {
       "acronym": "DOC",
       "omexManifestUris": [
@@ -868,9 +880,11 @@
   {
     "name": "Microsoft PowerPoint",
     "id": "format_9027",
+    "description": "Format for presentations used by Microsoft PowerPoint.",
     "mediaTypes": ["application/vnd.ms-powerpoint"],
     "fileExtensions": ["ppt"],
     "moreInfoUrl": "https://en.wikipedia.org/wiki/Microsoft_PowerPoint",
+    "parents": ["format_2333", "format_3507"],
     "biosimulationsMetadata": {
       "acronym": "PPT",
       "omexManifestUris": [
@@ -929,9 +943,11 @@
   {
     "name": "INI",
     "id": "format_9028",
-    "mediaTypes": ["text/x-ini"],
+    "description": "Format for configuration files often used with Microsoft Windows.",
+    "mediaTypes": ["text/x-ini", "text/plain"],
     "fileExtensions": ["ini", "conf"],
     "moreInfoUrl": "https://en.wikipedia.org/wiki/INI_file",
+    "parents": ["format_2330"],
     "biosimulationsMetadata": {
       "omexManifestUris": [
         "http://purl.org/NET/mediatypes/text/x-ini"
@@ -942,9 +958,11 @@
   {
     "name": "JavaScript",
     "id": "format_9029",
+    "description": "Format for source code for the JavaScript programming language.",
     "mediaTypes": ["text/javascript", "text/x-javascript", "application/javascript", "application/x-javascript"],
     "fileExtensions": ["js"],
     "moreInfoUrl": "https://en.wikipedia.org/wiki/JavaScript",
+    "parents": ["format_2330", "format_2032"],
     "biosimulationsMetadata": {
       "omexManifestUris": [
         "http://purl.org/NET/mediatypes/text/javascript",
@@ -958,9 +976,11 @@
   {
     "name": "Gmsh mesh",
     "id": "format_9030",
+    "description": "Format for finite-element mesh used by Gmsh.",
     "mediaTypes": ["model/mesh"],
     "fileExtensions": ["msh"],
     "moreInfoUrl": "https://en.wikipedia.org/wiki/Polygon_mesh#File_formats",
+    "parents": ["format_2330", "format_3547"],
     "biosimulationsMetadata": {
       "omexManifestUris": [
         "http://purl.org/NET/mediatypes/model/mesh"
@@ -985,9 +1005,11 @@
   {
     "name": "reStructuredText",
     "id": "format_9031",
+    "description": "Markup language for textual documents.",
     "mediaTypes": ["text/x-rst"],
     "fileExtensions": ["rst"],
     "moreInfoUrl": "https://en.wikipedia.org/wiki/ReStructuredText",
+    "parents": ["format_2330"],
     "biosimulationsMetadata": {
       "acronym": "RST",
       "omexManifestUris": [
@@ -999,9 +1021,11 @@
   {
     "name": "Ruby",
     "id": "format_9032",
+    "description": "Format for source code for the Ruby programming language.",
     "mediaTypes": ["text/x-ruby"],
     "fileExtensions": ["rb"],
     "moreInfoUrl": "https://en.wikipedia.org/wiki/Ruby_(programming_language)",
+    "parents": ["format_2330", "format_2032"],
     "biosimulationsMetadata": {
       "omexManifestUris": [
         "http://purl.org/NET/mediatypes/text/x-ruby"
@@ -1012,9 +1036,11 @@
   {
     "name": "Shared library",
     "id": "format_9033",
+    "description": "Format for shared libraries used by Linux.",
     "mediaTypes": ["application/x-sharedlib"],
     "fileExtensions": ["so"],
     "moreInfoUrl": "https://en.wikipedia.org/wiki/Library_(computing)#Shared_libraries",
+    "parents": ["format_2333"],
     "biosimulationsMetadata": {
       "acronym": "SO",
       "omexManifestUris": [
@@ -1025,10 +1051,11 @@
   },
   {
     "name": "Microsoft Excel",
-    "id": "format_9034",
+    "id": "format_3468",
+    "description": "Format for spreadsheets used by Microsoft Excel",
     "mediaTypes": ["application/vnd.ms-excel"],
     "fileExtensions": ["xls"],
-    "moreInfoUrl": "https://en.wikipedia.org/wiki/Microsoft_Excel",
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3468",
     "biosimulationsMetadata": {
       "acronym": "XLS",
       "omexManifestUris": [
@@ -1039,10 +1066,10 @@
   },
   {
     "name": "Office Open XML spreadsheet",
-    "id": "format_3468",
+    "id": "format_3620",
     "mediaTypes": ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"],
     "fileExtensions": ["xlsx"],
-    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3468",
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3620",
     "biosimulationsMetadata": {
       "acronym": "XLSX",
       "omexManifestUris": [
@@ -1054,9 +1081,11 @@
   {
     "name": "XML User Interface Language",
     "id": "format_9035",
+    "description": "Language for defining user interfaces used by Mozilla.",
     "mediaTypes": ["text/xul"],
     "fileExtensions": ["xul"],
     "moreInfoUrl": "https://en.wikipedia.org/wiki/XUL",
+    "parents": ["format_2332"],
     "biosimulationsMetadata": {
       "acronym": "XUL",
       "omexManifestUris": [
@@ -1081,9 +1110,11 @@
   {
     "name": "Zipped Scalable Vector Graphics",
     "id": "format_9036",
+    "description": "Format for vector graphics.",
     "mediaTypes": ["image/svg+xml"],
     "fileExtensions": ["svgz"],
     "moreInfoUrl": "https://en.wikipedia.org/wiki/Scalable_Vector_Graphics",
+    "parents": ["format_2333", "format_3547"],
     "biosimulationsMetadata": {
       "acronym": "SVGZ",
       "omexManifestUris": [
