@@ -159,7 +159,7 @@ export class SbatchService {
 #SBATCH --mem=${memoryFormatted}M
 #SBATCH --time=${maxTimeFormatted}
 #SBATCH --partition=${slurmPartition}
-#SBATCH --qos=${slurmQos}\n
+#SBATCH --qos=${slurmQos}
 
 # configure error handling
 set -e
