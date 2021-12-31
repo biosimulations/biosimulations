@@ -24,3 +24,5 @@ ignore$
 # ignore the changelog
 ^docs/CHANGELOG.md$
 ^docs/news/changelog.md$
+# ignore the contributors list
+^docs/community/contributors.md$
