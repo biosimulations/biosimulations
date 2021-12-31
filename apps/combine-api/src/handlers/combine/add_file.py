@@ -3,8 +3,6 @@ from ...utils import get_temp_dir
 from biosimulators_utils.combine.data_model import CombineArchiveContent
 from biosimulators_utils.combine.io import CombineArchiveReader, CombineArchiveWriter
 import connexion
-import datetime
-import dateutil.tz
 import flask
 import os
 import requests
