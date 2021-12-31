@@ -74,10 +74,6 @@ def handler(body, files=None):
             instance=exception,
         )
 
-    now = datetime.datetime.utcnow().replace(microsecond=0).astimezone(dateutil.tz.tzutc())
-    if archive.updated:
-        archive.updated = now
-
     location_content_map = {os.path.relpath(content.location, '.'): content for content in archive.contents}
     new_location = os.path.relpath(new_content['location'], '.')
     content = location_content_map.get(new_location, None)
@@ -111,8 +107,6 @@ def handler(body, files=None):
 
     content.format = new_content['format']
     content.master = new_content['master']
-    if content.updated is not None:
-        content.updated = now
 
     # package COMBINE/OMEX archive
     CombineArchiveWriter().run(archive, archive_dirname, archive_filename)
