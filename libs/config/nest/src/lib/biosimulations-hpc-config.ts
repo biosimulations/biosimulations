@@ -18,6 +18,7 @@ export default registerAs('hpc', () => {
       initScript: process.env.HPC_MODULE_INIT_SCRIPT,
     },
     slurm: {
+      constraints: process.env.HPC_SLURM_CONSTRAINTS || '',
       partition: process.env.HPC_SLURM_PARTITION,
       qos: process.env.HPC_SLURM_QOS,
     },
