@@ -26,6 +26,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { BiosimulationsError } from '@biosimulations/shared/error-handler';
 import { HtmlSnackBarComponent } from '@biosimulations/shared/ui';
+import { Endpoints } from '@biosimulations/config/common';
 
 @Component({
   templateUrl: './publish.component.html',
@@ -33,6 +34,7 @@ import { HtmlSnackBarComponent } from '@biosimulations/shared/ui';
 })
 export class PublishComponent implements OnInit, OnDestroy {
   private uuid!: string;
+  public archiveUrl!: string;
 
   private simulation!: Simulation;
   valid$!: Observable<true | string>;
@@ -43,6 +45,8 @@ export class PublishComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   private appRoutes = new AppRoutes();
+
+  private endpoints = new Endpoints();
 
   constructor(
     private route: ActivatedRoute,
@@ -95,6 +99,7 @@ export class PublishComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.uuid = this.route.snapshot.params['uuid'];
+    this.archiveUrl = this.endpoints.getRunDownloadEndpoint(true, this.uuid);
 
     const simulation$ = this.simulationService.getSimulation(this.uuid).pipe(
       map((simulation: Simulation | UnknownSimulation): Simulation => {

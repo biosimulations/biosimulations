@@ -37,22 +37,32 @@
 
       <ng-template #metadataError>
         <div class="info-message">
-          No metadata could be loaded either because the project did not contain
-          metadata in RDF-XML format or because the metadata was invalid.
-          Metadata is not required for simulation. However metadata is required
-          for publication to BioSimulations. Information about BioSimulations
-          metadata requirements is available
-          <a
-            href="https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/"
-            rel="noopener"
-            target="biosimulations-docs"
-            >here</a
-          >. Further information about errors in metadata can be obtained using
-          the
-          <a [routerLink]="['/utils', 'validate-project']">COMBINE archive</a>
-          and
-          <a [routerLink]="['/utils', 'validate-metadata']">OMEX Metadata</a>
-          validation tools.
+          <p>
+            Sorry! No metadata could be loaded either because the project did not contain
+            metadata in RDF-XML format, the metadata was invalid, or an error occurred.
+            Metadata is not required for simulation. However, metadata is required
+            for publication to BioSimulations. Information about BioSimulations
+            metadata requirements is available
+            <a
+              href="https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/"
+              rel="noopener"
+              target="biosimulations-docs"
+              >here</a
+            >.
+          </p>
+          <p>
+            Click <a [routerLink]="['/utils', 'validate-project']" [queryParams]="{ archiveUrl: archiveUrl, validateSedml: '0', validateSedmlModels: '0', autoRun: '1' }">here</a> to obtain information about errors in the metadata for this project.
+          </p>
+          <p>
+            If the metadata is valid, please refresh to try again. If the error persists, please submit an
+            issue
+            <a
+              href="https://github.com/biosimulations/biosimulations/issues/new/choose"
+              rel="noopener"
+              target="githubissues"
+              ><biosimulations-icon icon="link"></biosimulations-icon></a
+            >.
+          </p>
         </div>
       </ng-template>
     </ng-template>
@@ -108,15 +118,22 @@
 
       <ng-template #filesError>
         <div class="info-message">
-          Sorry! An error occurred in loading the files for the simulation run.
-          Please refresh to try again. If the error persists, please submit an
-          issue
-          <a
-            href="https://github.com/biosimulations/biosimulations/issues/new/choose"
-            rel="noopener"
-            target="githubissues"
-            ><biosimulations-icon icon="link"></biosimulations-icon></a
-          >.
+          <p>
+            Sorry! The files for the simulation run could not be load either because the manifest for the project is invalid or an error occurred. Information about the OMEX manifest format is available <a href="https://combinearchive.org/" target="_blank">here</a>.
+          </p>
+          <p>
+            Click <a [routerLink]="['/utils', 'validate-project']" [queryParams]="{ archiveUrl: archiveUrl, validateSedml: '0', validateSedmlModels: '0', validateOmexMetadata: '0', validateImages: '0', autoRun: '1' }">here</a> to obtain information about errors in the manifest for this project.
+          </p>
+          <p>
+            If the manifest is valid, please refresh to try again. If the error persists, please submit an
+            issue
+            <a
+              href="https://github.com/biosimulations/biosimulations/issues/new/choose"
+              rel="noopener"
+              target="githubissues"
+              ><biosimulations-icon icon="link"></biosimulations-icon></a
+            >.
+          </p>
         </div>
       </ng-template>
     </ng-template>
@@ -153,15 +170,22 @@
       </div>
       <ng-template #visualizationErrors>
         <div class="info-message">
-          Sorry! An error occurred in loading the visualizations for the
-          simulation run. Please refresh to try again. If the error persists,
-          please submit an issue
-          <a
-            href="https://github.com/biosimulations/biosimulations/issues/new/choose"
-            rel="noopener"
-            target="githubissues"
-            ><biosimulations-icon icon="link"></biosimulations-icon></a
-          >.
+          <p>
+            Sorry! The visualizations for the simulation run could not be loaded because the simulation experiments (SED-ML files) for the run are invalid or an error occurred. Information about SED-ML is available <a href="http://sed-ml.org/" target="_blank">here</a> and <a href="https://docs.biosimulations.org/concepts/conventions/simulation-experiments/" target="biosimulations-docs">here</a>.
+          </p>
+          <p>
+            Click <a [routerLink]="['/utils', 'validate-project']" [queryParams]="{ archiveUrl: archiveUrl, validateSedmlModels: '0', validateOmexMetadata: '0', validateImages: '0', autoRun: '1' }">here</a> to obtain information about errors in the simulation experiments for this project.
+          </p>
+          <p>
+            If the manifest is valid, please refresh to try again. If the error persists, please submit an
+            issue
+            <a
+              href="https://github.com/biosimulations/biosimulations/issues/new/choose"
+              rel="noopener"
+              target="githubissues"
+              ><biosimulations-icon icon="link"></biosimulations-icon></a
+            >.
+          </p>
         </div>
       </ng-template>
     </ng-template>
@@ -205,14 +229,18 @@
 
       <ng-template #noLogs>
         <div class="info-message">
-          Sorry! The log for the simulation run could not be loaded. Please
-          refresh to try again. If the error persists, please submit an issue
-          <a
-            href="https://github.com/biosimulations/biosimulations/issues/new/choose"
-            rel="noopener"
-            target="githubissues"
-            ><biosimulations-icon icon="link"></biosimulations-icon></a
-          >.
+          <p>
+            Sorry! The log for the simulation run could not be loaded because the simulation tool did not produce a valid log or an error occurred.
+          </p>
+          <p>
+            Please refresh to try again. If the error persists, please submit an issue
+            <a
+              href="https://github.com/biosimulations/biosimulations/issues/new/choose"
+              rel="noopener"
+              target="githubissues"
+              ><biosimulations-icon icon="link"></biosimulations-icon></a
+            >.
+          </p>
         </div>
       </ng-template>
     </ng-template>
