@@ -32,7 +32,7 @@ SOFTWARE.
 ### Third-party dependencies
 
 Below are the licenses of the dependencies of the BioSimulations and BioSimulators platforms, including the location of each license file where available. This report was generated using [license-checker](https://github.com/davglass/license-checker). This report was last updated on the date at the bottom of this page.
- 
+
 ```
 ├─ @actions/exec@1.1.0
 │  ├─ licenses: MIT
