@@ -1,16 +1,16 @@
-<h3>Privacy Settings</h3>
+<h3>Privacy settings</h3>
 <p class="notice">
   To improve your experience with {{ appName }}, we use cookies to store
   information about your preferences and to track your use of the site. This
-  information does not identify you personally or preserve any personal
+  information does not identify you personally or preserve personal
   information about you. This allows us to improve the site and gather usage
-  information for funding and future development. Because we respect your right
-  to privacy, you can opt-out of this data
+  information for funding and development. Because we respect your right
+  to privacy, you can opt-out of this data.
 </p>
 <mat-accordion>
   <mat-expansion-panel *ngFor="let cookie of cookies">
     <mat-expansion-panel-header class="cookie-header">
-      <mat-panel-title>{{ cookie.displayName }} </mat-panel-title>
+      <mat-panel-title>{{ cookie.displayName }}</mat-panel-title>
       <mat-panel-description>
         <mat-slide-toggle
           class="cookie-toggle"
@@ -21,8 +21,7 @@
           labelPosition="before"
           #toggle
         >
-          {{ cookie.toggleDisabled ? 'Always' : '' }}
-          {{ toggle.checked ? 'Enabled' : 'Disabled' }}
+          {{ cookie.toggleDisabled ? 'Always ' : '' }}<span [class.toggle-disabled]="cookie.toggleDisabled">{{ toggle.checked ? 'Enabled' : 'Disabled' }}</span>
         </mat-slide-toggle>
       </mat-panel-description>
     </mat-expansion-panel-header>
@@ -34,7 +33,7 @@
     <mat-action-row>
       <button mat-button color="primary">
         <a href="{{ cookie.externalLink }}">
-          Learn more about our use of {{ cookie.displayName }}</a
+          Learn more about our use of {{ cookie.displayName | lowercase }}</a
         >
       </button>
     </mat-action-row>
