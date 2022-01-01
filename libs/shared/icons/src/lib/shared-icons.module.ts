@@ -126,6 +126,11 @@ import {
   faYoutube,
   faUncharted,
   faRProject,
+  faJava,
+  faJs,
+  faPhp,
+  faCss3,
+  faHtml5,
 } from '@fortawesome/free-brands-svg-icons';
 import {
   faFileAlt as farFileAlt,
@@ -181,6 +186,11 @@ export class BiosimulationsIconsModule {
       faChartBar,
       faUncharted,
       faRProject,
+      faJava,
+      faJs,
+      faPhp,
+      faCss3,
+      faHtml5,
       faUncharted,
       faPaintBrush,
       faList,

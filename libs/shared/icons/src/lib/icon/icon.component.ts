@@ -132,6 +132,11 @@ export type BiosimulationsIcon =
   | 'convert'
   | 'archive'
   | 'r'
+  | 'java'
+  | 'javascript'
+  | 'php'
+  | 'css'
+  | 'html'
   | 'image'
   | 'idea';
 @Component({
@@ -298,6 +303,11 @@ export class IconComponent {
 
     archive: { type: 'fas', name: 'file-archive' },
     r: { type: 'fab', name: 'r-project' },
+    java: { type: 'fab', name: 'java' },
+    javascript: { type: 'fab', name: 'js' },
+    php: { type: 'fab', name: 'php' },
+    css: { type: 'fab', name: 'css3' },
+    html: { type: 'fab', name: 'html5' },
     image: { type: 'fas', name: 'image' },
     idea: { type: 'fas', name: 'lightbulb' },
   };
