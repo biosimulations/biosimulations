@@ -175,7 +175,7 @@
     "@types/passport-jwt": "3.0.6",
     "@types/plotly.js": "1.54.18",
     "@types/sanitize-html": "2.6.1",
-    "@types/ssh2": "0.5.49",
+    "@types/ssh2": "0.5.50",
     "@types/throttle-debounce": "2.1.0",
     "@types/unzipper": "0.10.5",
     "@types/uuid": "8.3.3",
