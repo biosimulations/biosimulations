@@ -2,6 +2,13 @@
   text-transform: lowercase;
 }
 
+@media screen and (max-width: 959px) {
+  .toggle-label,
+  .learn-more-details {
+    display: none;
+  }
+}
+
 .submit-button {
   float: right;
 }
