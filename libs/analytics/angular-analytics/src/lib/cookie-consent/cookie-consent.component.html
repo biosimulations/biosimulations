@@ -2,10 +2,10 @@
 <p class="notice">
   To improve your experience with {{ appName }}, we use cookies to store
   information about your preferences and to track your use of the site. This
-  information does not identify you personally or preserve personal
-  information about you. This allows us to improve the site and gather usage
-  information for funding and development. Because we respect your right
-  to privacy, you can opt-out of this data.
+  information does not identify you personally or preserve personal information
+  about you. This allows us to improve the site and gather usage information for
+  funding and development. Because we respect your right to privacy, you can
+  opt-out of this data.
 </p>
 <mat-accordion>
   <mat-expansion-panel *ngFor="let cookie of cookies">
@@ -22,7 +22,10 @@
           #toggle
         >
           <span class="toggle-label">
-            {{ cookie.toggleDisabled ? 'Always ' : '' }}<span [class.toggle-disabled]="cookie.toggleDisabled">{{ toggle.checked ? 'Enabled' : 'Disabled' }}</span>
+            {{ cookie.toggleDisabled ? 'Always ' : ''
+            }}<span [class.toggle-disabled]="cookie.toggleDisabled">{{
+              toggle.checked ? 'Enabled' : 'Disabled'
+            }}</span>
           </span>
         </mat-slide-toggle>
       </mat-panel-description>
@@ -35,7 +38,10 @@
     <mat-action-row>
       <button mat-button color="primary">
         <a href="{{ cookie.externalLink }}">
-          Learn more<span class="learn-more-details">{{ ' ' }}about our use of {{ cookie.displayName | lowercase }}</span></a
+          Learn more<span class="learn-more-details"
+            >{{ ' ' }}about our use of
+            {{ cookie.displayName | lowercase }}</span
+          ></a
         >
       </button>
     </mat-action-row>
