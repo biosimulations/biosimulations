@@ -759,7 +759,7 @@
     }
   },
   {
-    "name": "Binary format",
+    "name": "Other binary format",
     "id": "format_2333",
     "mediaTypes": ["application/octet-stream"],
     "fileExtensions": [],
@@ -922,7 +922,7 @@
         "http://purl.org/NET/mediatypes/image/eps",
         "http://purl.org/NET/mediatypes/image/x-eps"
       ],
-      "icon": "image"
+      "icon": "file"
     }
   },
   {
@@ -937,7 +937,7 @@
         "http://purl.org/NET/mediatypes/text/html",
         "http://purl.org/NET/mediatypes/application/xhtml+xml"
       ],
-      "icon": "file"
+      "icon": "html"
     }
   },
   {
@@ -952,7 +952,7 @@
       "omexManifestUris": [
         "http://purl.org/NET/mediatypes/text/x-ini"
       ],
-      "icon": "file"
+      "icon": "parameter"
     }
   },
   {
@@ -970,7 +970,7 @@
         "http://purl.org/NET/mediatypes/application/javascript",
         "http://purl.org/NET/mediatypes/application/javascript"
       ],
-      "icon": "code"
+      "icon": "javascript"
     }
   },
   {
@@ -1111,16 +1111,366 @@
     "name": "Zipped Scalable Vector Graphics",
     "id": "format_9036",
     "description": "Format for vector graphics.",
-    "mediaTypes": ["image/svg+xml"],
+    "mediaTypes": [
+      "image/svg+xml",
+      "image/svg+xml-compressed"
+    ],
     "fileExtensions": ["svgz"],
     "moreInfoUrl": "https://en.wikipedia.org/wiki/Scalable_Vector_Graphics",
     "parents": ["format_2333", "format_3547"],
     "biosimulationsMetadata": {
       "acronym": "SVGZ",
       "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/image/svg+xml-compressed",
         "http://purl.org/NET/mediatypes/image/svg+xml"
       ],
       "icon": "image"
+    }
+  },
+  {
+    "name": "ActionScript",
+    "id": "format_9034",
+    "description": "Programming language for animations and interactive web applications used with Adobe Flash.",
+    "mediaTypes": [
+      "text/x-actionscript"
+    ],
+    "fileExtensions": ["as"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/ActionScript",
+    "parents": ["format_2330", "format_2032"],
+    "biosimulationsMetadata": {
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/text/x-actionscript"
+      ],
+      "icon": "code"
+    }
+  },
+  {
+    "name": "Java bytecode",
+    "id": "format_9037",
+    "description": "Format for Java bytecode that can be executed by a Java Virtual Machine (JVM).",
+    "mediaTypes": [
+      "application/x-java",
+      "application/x-java-vm",
+      "application/java-vm",
+      "application/java"
+    ],
+    "fileExtensions": ["class"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/Java_class_file",
+    "parents": ["format_2333", "format_2032"],
+    "biosimulationsMetadata": {
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/application/x-java",
+        "http://purl.org/NET/mediatypes/application/x-java-vm",
+        "http://purl.org/NET/mediatypes/application/java-vm",
+        "http://purl.org/NET/mediatypes/application/java"
+      ],
+      "icon": "java"
+    }
+  },
+  {
+    "name": "Cascading stylesheets",
+    "id": "format_9038",
+    "description": "Format for describing the presentation of a document written in a markup language such as HTML.",
+    "mediaTypes": [
+      "text/css"
+    ],
+    "fileExtensions": ["css"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/CSS",
+    "parents": ["format_2330", "format_3507"],
+    "biosimulationsMetadata": {
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/text/css"
+      ],
+      "icon": "css"
+    }
+  },
+  {
+    "name": "Adobe Flash source",
+    "id": "format_9039",
+    "description": "Format for sources of animations and interactive web applications used by Adobe Flash.",
+    "mediaTypes": [
+      "application/x-shockwave-flash",
+      "application/vnd.adobe.flash-movie"
+    ],
+    "fileExtensions": ["fla"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/Adobe_Flash",
+    "parents": ["format_2333", "format_3547"],
+    "biosimulationsMetadata": {
+      "acronym": "FLA",
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/application/x-shockwave-flash",
+        "http://purl.org/NET/mediatypes/application/vnd.adobe.flash-movie"
+      ],
+      "icon": "video"
+    }
+  },
+  {
+    "name": "Shockwave Flash",
+    "id": "format_9040",
+    "description": "Format for compiled animations and interactive web applications used by Adobe Flash.",
+    "mediaTypes": [
+      "application/x-shockwave-flash",
+      "application/vnd.adobe.flash-movie"
+    ],
+    "fileExtensions": ["swf"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/Adobe_Flash",
+    "parents": ["format_2333", "format_3547"],
+    "biosimulationsMetadata": {
+      "acronym": "SWF",
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/application/x-shockwave-flash",
+        "http://purl.org/NET/mediatypes/application/vnd.adobe.flash-movie"
+      ],
+      "icon": "video"
+    }
+  },
+  {
+    "name": "GraphML",
+    "id": "format_9041",
+    "description": "Format for visual representations of graphs.",
+    "mediaTypes": [
+      "application/graphml+xml",
+      "application/x-graphml+xml"
+    ],
+    "fileExtensions": ["graphml"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/GraphML",
+    "parents": ["format_2332", "format_3547", "format_3617"],
+    "biosimulationsMetadata": {
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/application/graphml+xml",
+        "http://purl.org/NET/mediatypes/application/x-graphml+xml"
+      ],
+      "icon": "image"
+    }
+  },
+  {
+    "name": "ICO image",
+    "id": "format_9042",
+    "description": "Format for computer icons.",
+    "mediaTypes": [
+      "image/x-icon",
+      "image/vnd.microsoft.icon"
+    ],
+    "fileExtensions": ["ico"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/ICO_(file_format)",
+    "parents": ["format_2333", "format_3547"],
+    "biosimulationsMetadata": {
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/image/x-icon",
+        "http://purl.org/NET/mediatypes/image/vnd.microsoft.icon"
+      ],
+      "icon": "image"
+    }
+  },
+  {
+    "name": "Java archive",
+    "id": "format_9043",
+    "description": "Format for packages of Java bytecode files.",
+    "mediaTypes": [
+      "application/java-archive",
+      "application/x-java-archive",
+      "application/jar",
+      "application/x-jar"
+    ],
+    "fileExtensions": ["jar"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/JAR_(file_format)",
+    "parents": ["format_2333", "format_2032"],
+    "biosimulationsMetadata": {
+      "acronym": "JAR",
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/application/java-archive",
+        "http://purl.org/NET/mediatypes/application/x-java-archive",
+        "http://purl.org/NET/mediatypes/application/jar",
+        "http://purl.org/NET/mediatypes/application/x-jar"
+      ],
+      "icon": "java"
+    }
+  },
+  {
+    "name": "Java source code",
+    "id": "format_9044",
+    "description": "Format for source code for the Java programming language.",
+    "mediaTypes": [
+      "text/x-java",
+      "text/x-java-source"
+    ],
+    "fileExtensions": ["java"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/Java_(programming_language)",
+    "parents": ["format_2330", "format_2032"],
+    "biosimulationsMetadata": {
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/text/x-java",
+        "http://purl.org/NET/mediatypes/text/x-java-source"
+      ],
+      "icon": "java"
+    }
+  },
+  {
+    "name": "Quicktime",
+    "id": "format_9045",
+    "description": "Format for videos used by Quicktime.",
+    "mediaTypes": [
+      "video/quicktime",
+      "image/mov"
+    ],
+    "fileExtensions": ["mov"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/QuickTime",
+    "parents": ["format_2333", "format_3547"],
+    "biosimulationsMetadata": {
+      "acronym": "MOV",
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/video/quicktime",
+        "http://purl.org/NET/mediatypes/image/mov"
+      ],
+      "icon": "video"
+    }
+  },
+  {
+    "name": "OpenDocument Text",
+    "id": "format_9046",
+    "description": "Format for word processing documents.",
+    "mediaTypes": [
+      "application/vnd.oasis.opendocument.text"
+    ],
+    "fileExtensions": ["odt"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/OpenDocument",
+    "parents": ["format_3987", "format_2332", "format_3507"],
+    "biosimulationsMetadata": {
+      "acronym": "ODT",
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/application/vnd.oasis.opendocument.text"
+      ],
+      "icon": "file"
+    }
+  },
+  {
+    "name": "PHP source code",
+    "id": "format_9047",
+    "description": "Format for source code for the PHP programming language.",
+    "mediaTypes": [
+      "application/x-httpd-php",
+      "text/x-php",
+      "application/x-php",
+      "application/x-httpd-php-source"
+    ],
+    "fileExtensions": ["php", "phps"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/PHP",
+    "parents": ["format_2330", "format_2032"],
+    "biosimulationsMetadata": {
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/application/x-httpd-php",
+        "http://purl.org/NET/mediatypes/text/x-php",
+        "http://purl.org/NET/mediatypes/application/x-php",
+        "http://purl.org/NET/mediatypes/application/x-httpd-php-source"
+      ],
+      "icon": "php"
+    }
+  },
+  {
+    "name": "Perl source code",
+    "id": "format_3998",
+    "description": "Format for source code for the Perl programming language.",
+    "mediaTypes": [
+      "text/x-perl",
+      "application/x-perl"
+    ],
+    "fileExtensions": ["pl", "cgi"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3998",
+    "parents": ["format_2330", "format_2032"],
+    "biosimulationsMetadata": {
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/text/x-perl",
+        "http://purl.org/NET/mediatypes/application/x-perl"
+      ],
+      "icon": "code"
+    }
+  },
+  {
+    "name": "Photoshop document",
+    "id": "format_9048",
+    "description": "Format for images used by Adobe Photoshop.",
+    "mediaTypes": [
+      "image/vnd.adobe.photoshop",
+      "application/x-photoshop",
+      "application/photoshop",
+      "application/psd",
+      "application/x-psd",
+      "image/psd",
+      "image/x-psd"
+    ],
+    "fileExtensions": ["psd"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/Adobe_Photoshop",
+    "parents": ["format_2333", "format_3547"],
+    "biosimulationsMetadata": {
+      "acronym": "PSD",
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/image/vnd.adobe.photoshop",
+        "http://purl.org/NET/mediatypes/application/x-photoshop",
+        "http://purl.org/NET/mediatypes/application/photoshop",
+        "http://purl.org/NET/mediatypes/application/psd",
+        "http://purl.org/NET/mediatypes/application/x-psd",
+        "http://purl.org/NET/mediatypes/image/psd",
+        "http://purl.org/NET/mediatypes/image/x-psd"
+      ],
+      "icon": "image"
+    }
+  },
+  {
+    "name": "Bourne shell script",
+    "id": "format_9049",
+    "description": "Format for scripts for the Bourne shell.",
+    "mediaTypes": [
+      "text/x-sh",
+      "application/x-sh"
+    ],
+    "fileExtensions": ["sh"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/Bourne_shell",
+    "parents": ["format_2330", "format_2032"],
+    "biosimulationsMetadata": {
+      "acronym": "SH",
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/text/x-sh",
+        "http://purl.org/NET/mediatypes/application/x-sh"
+      ],
+      "icon": "code"
+    }
+  },
+  {
+    "name": "Structured Query Language",
+    "id": "format_9050",
+    "description": "Format for source code for structured query languages.",
+    "mediaTypes": [
+      "application/sql"
+    ],
+    "fileExtensions": ["sql", "db"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/SQL",
+    "parents": ["format_2330", "format_3787"],
+    "biosimulationsMetadata": {
+      "acronym": "SQL",
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/application/sql"
+      ],
+      "icon": "code"
+    }
+  },
+  {
+    "name": "Extensible Stylesheet Language",
+    "id": "format_9051",
+    "description": "Format for specifying the visual formatting of XML documents.",
+    "mediaTypes": [
+      "application/xslfo+xml",
+      "text/xsl"
+    ],
+    "fileExtensions": ["xsl"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/XSL",
+    "parents": ["format_2332", "format_3507"],
+    "biosimulationsMetadata": {
+      "acronym": "XSL",
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/application/xslfo+xml",
+        "http://purl.org/NET/mediatypes/text/xsl"
+      ],
+      "icon": "file"
     }
   }
 ]
