@@ -21,7 +21,9 @@
           labelPosition="before"
           #toggle
         >
-          {{ cookie.toggleDisabled ? 'Always ' : '' }}<span [class.toggle-disabled]="cookie.toggleDisabled">{{ toggle.checked ? 'Enabled' : 'Disabled' }}</span>
+          <span class="toggle-label">
+            {{ cookie.toggleDisabled ? 'Always ' : '' }}<span [class.toggle-disabled]="cookie.toggleDisabled">{{ toggle.checked ? 'Enabled' : 'Disabled' }}</span>
+          </span>
         </mat-slide-toggle>
       </mat-panel-description>
     </mat-expansion-panel-header>
@@ -33,7 +35,7 @@
     <mat-action-row>
       <button mat-button color="primary">
         <a href="{{ cookie.externalLink }}">
-          Learn more about our use of {{ cookie.displayName | lowercase }}</a
+          Learn more<span class="learn-more-details">{{ ' ' }}about our use of {{ cookie.displayName | lowercase }}</span></a
         >
       </button>
     </mat-action-row>

@@ -40,11 +40,11 @@ export class RequiredCookie implements Cookie {
   public type = CookieTypes.required;
   public description =
     'These cookies are essential for the website to function correctly.\
-     These cookies are first party cookies that contain no personal information\
+     These cookies are first party cookies that contain no personal information.\
      Examples include cookies that store your consent to the use of cookies or security cookies.';
   public externalLink =
     'https://docs.biosimulations.org/about/cookies#neccesary-cookies';
-  public displayName = 'Strictly necessary cookies';
+  public displayName = 'Necessary cookies';
   public toggleAllowed = true;
   public toggleDisabled = true;
 }

@@ -48,7 +48,7 @@ export class ConsentService {
     const dialogRef: MatDialogRef<CookieConsentComponent, cookieConsentType> =
       this.dialog.open(CookieConsentComponent, {
         hasBackdrop: true,
-        maxWidth: '900px',
+        maxWidth: 'min(900px, calc(100vw - 1.5rem))',
         disableClose: true,
         closeOnNavigation: false,
       });
