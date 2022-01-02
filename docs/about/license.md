@@ -306,17 +306,17 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nuxt-contrib/opencollective
 │  └─ licenseFile: @nuxtjs/opencollective/LICENSE
-├─ @nx-tools/ci-context@2.0.1
+├─ @nx-tools/ci-context@2.2.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/gperdomor/nx-tools
 │  ├─ publisher: gperdomor
 │  └─ licenseFile: @nx-tools/docker-metadata/node_modules/@nx-tools/ci-context/README.md
-├─ @nx-tools/core@2.0.1
+├─ @nx-tools/core@2.2.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/gperdomor/nx-tools
 │  ├─ publisher: gperdomor
-│  └─ licenseFile: @nx-tools/docker-metadata/node_modules/@nx-tools/core/README.md
-├─ @nx-tools/docker-metadata@2.0.1
+│  └─ licenseFile: @nx-tools/core/README.md
+├─ @nx-tools/docker-metadata@2.2.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/gperdomor/nx-tools
 │  ├─ publisher: gperdomor
