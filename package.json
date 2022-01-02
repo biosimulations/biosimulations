@@ -53,7 +53,7 @@
     "@nestjs/schedule": "1.0.2",
     "@nestjs/swagger": "5.1.5",
     "@nestjs/terminus": "8.0.3",
-    "@nx-tools/docker-metadata": "2.0.1",
+    "@nx-tools/docker-metadata": "2.2.0",
     "@openapi-contrib/openapi-schema-to-json-schema": "3.1.1",
     "@semantic-release/npm": "8.0.3",
     "@sendgrid/mail": "7.6.0",
