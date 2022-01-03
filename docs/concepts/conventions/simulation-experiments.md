@@ -109,7 +109,7 @@ Simulation tools should recognize the URNs and IRIs below to identify model lang
 | [SBML](http://sbml.org/)                                              | 2585    | urn:sedml:language:sbml	   | http://identifiers.org/combine.specifications/sbml   | application/sbml+xml   | .xml, .sbml	 | [:link:](https://sed-ml.org/specifications.html)                              |
 | [Smoldyn](http://www.smoldyn.org/)                                    | 9001    | urn:sedml:language:smoldyn | http://purl.org/NET/mediatypes/text/smoldyn+plain	   | text/smoldyn+plain     | .txt	         | [:link:](https://github.com/ssandrews/Smoldyn/blob/master/Using-Smoldyn-with-SED-ML-COMBINE-BioSimulators.md)     |
 
-Example SED-ML files and COMBINE/OMEX archives for all of the languages listed above are available [here](https://github.com/biosimulators/Biosimulators_test_suite/tree/dev/examples).
+Example SED-ML files and COMBINE/OMEX archives for all of the languages listed above are available [here](https://github.com/biosimulators/Biosimulators_test_suite/tree/deploy/examples#compatibility-of-the-example-archives-with-simulation-tools).
 
 ## Recommended resources for implementing the execution of simulation experiments
 

@@ -170,7 +170,7 @@ Simulation software tools should render such Vega visualizations linked to SED-M
 
 ## Example COMBINE/OMEX archives with Vega visualizations
 
-Several example COMBINE/OMEX archives with Vega visualizations are available [here](https://github.com/biosimulators/Biosimulators_test_suite/tree/dev/examples), which include examples of canonical statistical charts and interactive maps of metabolic networks.
+Several example COMBINE/OMEX archives with Vega visualizations are available [here](https://github.com/biosimulators/Biosimulators_test_suite/tree/deploy/examples#compatibility-of-the-example-archives-with-simulation-tools), which include examples of canonical statistical charts and interactive maps of metabolic networks.
 
 ## Recommended resources for creating and rendering visualizations
 
