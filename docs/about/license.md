@@ -120,7 +120,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: i@izs.me
 │  ├─ url: https://izs.me
 │  └─ licenseFile: npm/node_modules/@isaacs/string-locale-compare/LICENSE
-├─ @nestjs/axios@0.0.3
+├─ @nestjs/axios@0.0.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/axios
 │  ├─ publisher: Kamil Mysliwiec
@@ -134,7 +134,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/common/LICENSE
-├─ @nestjs/config@1.1.5
+├─ @nestjs/config@1.1.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/config
 │  ├─ publisher: Kamil Mysliwiec
@@ -838,11 +838,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/axios/axios
 │  ├─ publisher: Matt Zabriskie
 │  └─ licenseFile: @sendgrid/client/node_modules/axios/LICENSE
-├─ axios@0.23.0
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/axios/axios
-│  ├─ publisher: Matt Zabriskie
-│  └─ licenseFile: @nestjs/axios/node_modules/axios/LICENSE
 ├─ axios@0.24.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/axios/axios
@@ -2961,13 +2956,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: john.david.dalton@gmail.com
 │  ├─ url: http://allyoucanleet.com/
 │  └─ licenseFile: lodash.get/LICENSE
-├─ lodash.has@4.5.2
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/lodash/lodash
-│  ├─ publisher: John-David Dalton
-│  ├─ email: john.david.dalton@gmail.com
-│  ├─ url: http://allyoucanleet.com/
-│  └─ licenseFile: lodash.has/LICENSE
 ├─ lodash.includes@4.3.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/lodash/lodash
