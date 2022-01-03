@@ -310,7 +310,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/gperdomor/nx-tools
 │  ├─ publisher: gperdomor
-│  └─ licenseFile: @nx-tools/docker-metadata/node_modules/@nx-tools/ci-context/README.md
+│  └─ licenseFile: @nx-tools/ci-context/README.md
 ├─ @nx-tools/core@2.2.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/gperdomor/nx-tools
