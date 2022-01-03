@@ -6,7 +6,7 @@ One key feature of Vega is that it modularly captures the graphical marks which 
 
 ## Tutorial
 
-We recommend creating Vega visualizations for simulation results as follows:
+Several complete examples of visualized simulation results in Vega, and the corresponding COMBINE archives, are available on GitHub [here](https://github.com/biosimulators/Biosimulators_test_suite/tree/dev/examples). The following steps guide through the creation of Vega visualizations for simulation results:
 
 1. Create one or more SED-ML files with one or more reports of the results of one or more simulations.
 2. Use tools such as the [Vega Editor](https://vega.github.io/editor) and [Altair](https://altair-viz.github.io/) to design diagrammatic structure(s) for visualizing these SED-ML reports.
@@ -26,7 +26,7 @@ We recommend creating Vega visualizations for simulation results as follows:
 
 ## Examples
 
-Below is an example snippet of a Vega document which illustrates how SED-ML reports can be mapped to Vega data sets. Several complete examples are available [here](https://github.com/biosimulators/Biosimulators_test_suite/tree/dev/examples).
+Below is an example snippet of a Vega document which illustrates how SED-ML reports can be mapped to Vega data sets. 
 ```json
 {
   "signals": [
