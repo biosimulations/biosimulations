@@ -144,7 +144,7 @@
     "@nx-tools/nx-docker": "2.2.0",
     "@scullyio/init": "2.1.0",
     "@scullyio/ng-lib": "2.1.0",
-    "@scullyio/scully": "2.0.3",
+    "@scullyio/scully": "2.1.0",
     "@semantic-release/changelog": "6.0.1",
     "@semantic-release/git": "10.0.1",
     "@stdlib/array-shape": "0.0.5",
