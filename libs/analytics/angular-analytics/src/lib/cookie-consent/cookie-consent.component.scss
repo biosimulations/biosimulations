@@ -1,10 +1,17 @@
-.toggle-disabled {
-  text-transform: lowercase;
+.mat-expansion-panel {
+  border-radius: 0;
+  .mat-expansion-panel-header.cdk-program-focused:not([aria-disabled=true]) {
+    background: none;
+  }
+}
+
+.mat-expansion-panel-spacing {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 @media screen and (max-width: 959px) {
-  .toggle-label,
-  .learn-more-details {
+  .toggle-label {
     display: none;
   }
 }
