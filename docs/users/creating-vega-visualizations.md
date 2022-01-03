@@ -6,6 +6,26 @@ One key feature of Vega is that it modularly captures the graphical marks which 
 
 Below is a brief tutorial on creating data visualizations with Vega and linking their inputs (Vega data sets) to the outputs of simulations (reports of SED-ML files), as well as several examples. In addition, [BioSimulators-utils](https://github.com/biosimulators/Biosimulators_utils) provides a command-line program and Python API for converting several types of structural diagrams of models into Vega data visualizations of simulation results. See [below](#tools-for-converting-visualizations-of-models-into-vega-data-visualizations) for more information. Links to additional tutorials and documentation for Vega are available [below](#more-information).
 
+## Background SED-ML, COMBINE archive, and Vega concepts
+
+This tutorial focuses on combining Vega data visualizations with simulation experiments described with SED-ML and the COMBINE/OMEX archive format. This requires familiarity with the SED-ML, COMBINE archive, and Vega concepts outlined below. Links to further information about these concepts is also provided below.
+
+* [Simulation Experiment Description Markup Language (SED-ML)](http://sed-ml.org/)
+    * Simulations (`sedml:oneStep`, `sedml:steadyState`, `sedml:uniformTimeCourse`)
+    * Reports (`sedml:report`)
+* [COMBINE/OMEX archive format](https://combinearchive.org/)
+    * Manifests which describe the `content` (files) of archives (XML files located at `manifest.xml` in COMBINE archives)
+    * The `location` (path) of each `content` (e.g., `path/to/simulation.sedml`)
+    * The `format` (media type) of each `content` (e.g., `http://identifiers.org/combine.specifications/sed-ml` for SED-ML, `http://purl.org/NET/mediatypes/application/vnd.vega.v5+json` for Vega)
+* [BioSimulations/BioSimulators format for the results of SED-ML reports](../concepts/conventions/simulation-run-reports.md)
+* [BioSimulations/BioSimulators conventions for executing COMBINE/OMEX archives with SED-ML files](../concepts/conventions/simulator-interfaces.md)
+* [Vega format for data visualizations](https://vega.github.io/vega/)
+    * [Signals](https://vega.github.io/vega/docs/signals/)
+        * [`value` property](https://vega.github.io/vega/docs/signals/#signal-properties)
+        * [`bind` property](https://vega.github.io/vega/docs/signals/#bind)
+    * [Data sets](https://vega.github.io/vega/docs/data/)
+        * [`values` property](https://vega.github.io/vega/docs/data/#properties)
+
 ## Tutorial
 
 The steps below outline how to create Vega data visualizations for simulation results.
@@ -16,12 +36,12 @@ The steps below outline how to create Vega data visualizations for simulation re
 
 3. Annotate the Vega signals whose values should be rendered with the values of attributes of simulations or reports of SED-ML documents (e.g., number of a steps of a uniform time course simulation).
 
-    - To set the `value` attribute of a Vega signal equal to the value of an attribute of a simulation or report of a SED-ML document, add a `sedmlUri` key to the signal with a value equal to a list of the location of the SED-ML document, the id of the SED-ML simulation or report, and the name of the attribute of the simulation or report (e.g., `['location/of/simulation.sedml', 'simulationId', 'numberOfSteps']`). To indicate that a signal should be rendered with a list of the values of an attribute of multiple simulations or reports, use `SedDocument:*`, `Simulation:*`, or `Report:*` for the SED-ML document location or simulation/report id (e.g., `['SedDocument:*', 'Report:*', 'id']` to render a signal with a list of the ids of the all of the reports of all of the SED-ML files in the parent COMBINE/OMEX archive).
+    - To set the `value` attribute of a Vega signal equal to the value of an attribute of a simulation or report of a SED-ML document, add a `sedmlUri` key to the signal with a value equal to a list of the location of the SED-ML document, the `id` of the SED-ML simulation or report, and the name of the attribute of the simulation or report (e.g., `['location/of/simulation.sedml', 'simulationId', 'numberOfSteps']`). To indicate that a signal should be rendered with a list of the values of an attribute of multiple simulations or reports, use `SedDocument:*`, `Simulation:*`, or `Report:*` for the SED-ML document location or simulation/report `id` (e.g., `['SedDocument:*', 'Report:*', 'id']` to render a signal with a list of the ids of the all of the reports of all of the SED-ML files in the parent COMBINE/OMEX archive).
     - Similarly, to set the `bind` attribute of a Vega signal equal to the value of an attribute of a simulation or report of a SED-ML document, add a `sedmlUri` key to the `bind` attribute with a value as described above.
 
 4. Annotate the Vega data sets whose values should be rendered with the results of SED-ML reports by adding `sedmlUri` keys to these Vega data sets. The values of these keys should be set as follows to indicate the simulation results that should be linked to each Vega data set:
     - To render a Vega data set with the results of all reports from all of the SED-ML files in the parent COMBINE/OMEX archive, the value of the `sedmlUri` key should be an empty array (i.e. `[]`).
-    - To render a Vega data set with the result of a single report from one SED-ML file in the parent COMBINE/OMEX archive, the value of the `sedmlUri` key should be a list of the location of the SED-ML document and the id of the report in the document (e.g., `['location/of/simulation.sedml', 'reportId']`).
+    - To render a Vega data set with the result of a single report from one SED-ML file in the parent COMBINE/OMEX archive, the value of the `sedmlUri` key should be a list of the location of the SED-ML document and the `id` of the report in the document (e.g., `['location/of/simulation.sedml', 'reportId']`).
 
 5. Package the SED-ML and Vega files into a COMBINE/OMEX archive. Include the Vega files in the manifest of the archive with the format `http://purl.org/NET/mediatypes/application/vnd.vega.v5+json`.
 
@@ -58,7 +78,7 @@ In comparison, below is an example snippet of a Vega document with a signal whos
 }
 ```
 
-When BioSimulations renders this Vega document, BioSimulations will retrieve the value of the `numberOfSteps` attribute of the simulation with id `simulation_1` of the SED-ML document at location `simulation_1.sedml` (e.g., `10`) and then set the `value` attribute of the signal equal to this value. After this transformation, the value of this signal will be structured as illustrated below.
+When BioSimulations renders this Vega document, BioSimulations will retrieve the value of the `numberOfSteps` attribute of the simulation with `id` `simulation_1` of the SED-ML document at location `simulation_1.sedml` (e.g., `10`) and then set the `value` attribute of the signal equal to this value. After this transformation, the value of this signal will be structured as illustrated below.
 
 ```json
 {
@@ -114,7 +134,7 @@ In comparison, below is an example snippet of a Vega document with a data set wh
 }
 ```
 
-When BioSimulations renders this Vega document, BioSimulations will retrieve the value of the report with id `reportId` from the SED-ML document at location `simulation.sedml`. The value of this report will be structured as illustrated below.
+When BioSimulations renders this Vega document, BioSimulations will retrieve the value of the report with `id` `reportId` from the SED-ML document at location `simulation.sedml`. The value of this report will be structured as illustrated below.
 ```json
 [
   {

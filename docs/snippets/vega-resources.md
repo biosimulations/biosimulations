@@ -2,7 +2,12 @@ Below are several helpful tools for creating Vega visualizations:
 
 * [Vega examples](https://vega.github.io/vega/examples/)
 * [Vega tutorials](https://vega.github.io/vega/tutorials/)
-* [Vega documentation](https://vega.github.io/vega/docs/)
+* [Vega documentation](https://vega.github.io/vega/docs/)    
+    * [Signals](https://vega.github.io/vega/docs/signals/)
+        * [`value` property](https://vega.github.io/vega/docs/signals/#signal-properties)
+        * [`bind` property](https://vega.github.io/vega/docs/signals/#bind)
+    * [Data sets](https://vega.github.io/vega/docs/data/)
+        * [`values` property](https://vega.github.io/vega/docs/data/#properties)
 * Software tools for creating Vega visualizations
     - [Altair](https://altair-viz.github.io/) is a Python library which provides methods for generating Vega visualizations. Altair provides similar capabilities to the Matplotib and Seaborn libraries.
     - [Lyra](http://vega.github.io/lyra/) is a interactive graphical program for designing data visualizations.
