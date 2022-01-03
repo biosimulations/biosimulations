@@ -379,9 +379,7 @@ export class ViewService {
               },
             );
 
-            const methods: ListItem[] = [];
-
-            Array.from(simulationTypes)
+            const simulationTypeItems = Array.from(simulationTypes)
               .map((simulationType: string): ListItem => {
                 return {
                   title: 'Simulation',
@@ -407,7 +405,7 @@ export class ViewService {
                 task.simulation.algorithm;
             });
 
-            Object.values(kisaoIdSimulationAlgorithmMap)
+            const algorithmItems = Object.values(kisaoIdSimulationAlgorithmMap)
               .map((algorithm): ListItem => {
                 return {
                   title: 'Algorithm',
@@ -423,6 +421,8 @@ export class ViewService {
                   numeric: true,
                 });
               });
+
+            const methods: ListItem[] = simulationTypeItems.concat(algorithmItems);
 
             const formats: ListItem[] = [];
             formats.push({
