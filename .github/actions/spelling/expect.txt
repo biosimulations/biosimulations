@@ -63,6 +63,7 @@ Brusch
 bshaikh
 BSimulation
 builtoncement
+Bulovic
 caltech
 Cannistra
 cbmpy
@@ -99,6 +100,7 @@ creativecommons
 crossref
 csv
 cvode
+Cybern
 danv
 dbrnz
 dcmi
@@ -108,7 +110,6 @@ Deepa
 deserializing
 Deuflhard
 devguides
-diagramatic
 dilawar
 Dinh
 dirname
@@ -133,6 +134,7 @@ edamontology
 edkerk
 edu
 Elmi
+Elowitz
 emoji
 entrypoint
 Ermentrout
@@ -155,6 +157,7 @@ Fengkai
 Ffilename
 Fformat
 FFroehlich
+filepath
 fkisao
 flexibile
 Fmodel
@@ -224,6 +227,7 @@ informatik
 Informationstechnik
 inra
 inrae
+ipynb
 iri
 Ison
 itersdesktop
@@ -295,6 +299,7 @@ mbdebian
 mbine
 mediatypes
 memoization
+Metab
 metadata
 metatoaster
 mhucka
@@ -311,6 +316,7 @@ mpf
 mpw
 mssm
 muenchen
+mybinder
 mylib
 naldi
 namespace
@@ -403,6 +409,7 @@ README
 readonly
 readthedocs
 realfavicongenerator
+Repressilator
 reproduciblebiomodels
 Rohwer
 rostock
