@@ -100,7 +100,7 @@ runBioSimulations should not be used for simulations involving confidential data
 
 **Where can I find example COMBINE/OMEX archives?**
 
-BioSimulations provides many archives. In addition, several example archives are available [here](https://github.com/biosimulators/Biosimulators_test_suite/tree/dev/examples).
+BioSimulations provides many archives. In addition, several example archives are available [here](https://github.com/biosimulators/Biosimulators_test_suite/tree/deploy/examples#compatibility-of-the-example-archives-with-simulation-tools).
 
 **How can I quickly run a sample set of simulations?**
 

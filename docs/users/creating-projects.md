@@ -30,7 +30,7 @@ BioSimulations uses COMBINE/OMEX archives to encapsulate the files and metadata 
     supportedSedml.md
     --8<--
     
-1. Create an OMEX manifest file which describes your model and simulation files: OMEX manifest is a format for describing a collection of files, including the format (e.g., CellML, SBML) of each file. Several example COMBINE archives are available [here](https://github.com/biosimulators/Biosimulators_test_suite/tree/dev/examples). More information about the OMEX manifest format is available at the COMBINE website.
+1. Create an OMEX manifest file which describes your model and simulation files: OMEX manifest is a format for describing a collection of files, including the format (e.g., CellML, SBML) of each file. Several example COMBINE archives are available [here](https://github.com/biosimulators/Biosimulators_test_suite/tree/deploy/examples#compatibility-of-the-example-archives-with-simulation-tools). More information about the OMEX manifest format is available at the COMBINE website.
 
 1. Package your project into a COMBINE archive: A COMBINE archive is a zip file which contains an OMEX manifest file and all of the other files which comprise a project. Several example COMBINE archives are available [here](). More information about the OMEX and COMBINE formats is available at the [COMBINE website](https://combinearchive.org/). The COMBINE website lists several software tools for creating COMBINE archives, including [COMBINE Archive]() and [COMBINE Archive Web](https://cat.bio.informatik.uni-rostock.de/).
 
