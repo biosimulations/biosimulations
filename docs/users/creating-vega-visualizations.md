@@ -26,7 +26,7 @@ We recommend creating Vega visualizations for simulation results as follows:
 
 ## Examples
 
-Below is an example snippet of a Vega document which illustrates how SED-ML reports can be mapped to Vega data sets. Several complete examples are available [here](https://github.com/biosimulators/Biosimulators_test_suite/tree/dev/examples).
+Below is an example snippet of a Vega document which illustrates how SED-ML reports can be mapped to Vega data sets. Several complete examples are available [here](https://github.com/biosimulators/Biosimulators_test_suite/tree/dev/examples#compatibility-of-the-example-archives-with-simulation-tools).
 ```json
 {
   "signals": [
