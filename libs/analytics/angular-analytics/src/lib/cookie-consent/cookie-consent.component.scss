@@ -1,6 +1,6 @@
 .mat-expansion-panel {
   border-radius: 0;
-  .mat-expansion-panel-header.cdk-program-focused:not([aria-disabled=true]) {
+  .mat-expansion-panel-header.cdk-program-focused:not([aria-disabled='true']) {
     background: none;
   }
 }

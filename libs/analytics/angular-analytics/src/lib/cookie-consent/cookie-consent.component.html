@@ -22,9 +22,14 @@
           #toggle
         >
           <span class="toggle-label">
-            {{ cookie.toggleDisabled
-              ? (toggle.checked ? 'Required' : 'Never used')
-              : (toggle.checked ? 'Enabled' : 'Disabled')
+            {{
+              cookie.toggleDisabled
+                ? toggle.checked
+                  ? 'Required'
+                  : 'Never used'
+                : toggle.checked
+                ? 'Enabled'
+                : 'Disabled'
             }}
           </span>
         </mat-slide-toggle>
@@ -36,9 +41,7 @@
     </p>
 
     <p>
-      <a href="{{ cookie.externalLink }}">
-        Learn more</a
-      >
+      <a href="{{ cookie.externalLink }}"> Learn more</a>
     </p>
   </mat-expansion-panel>
 </mat-accordion>
