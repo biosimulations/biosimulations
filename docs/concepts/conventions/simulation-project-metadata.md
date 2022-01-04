@@ -26,7 +26,7 @@ We recommend that COMBINE/OMEX archives be annotated using the predicates and ob
     - Object: Literal string
 - Description (long summary):
     - Predicate: `http://dublincore.org/specifications/dublin-core/dcmi-terms/description`
-    - Object: Literal string
+    - Object: String formatted using [original-flavored markdown](https://daringfireball.net/projects/markdown/)
 - Keyword:
     - Predicate: `http://prismstandard.org/namespaces/basic/2.0/keyword`
     - Object: Literal string

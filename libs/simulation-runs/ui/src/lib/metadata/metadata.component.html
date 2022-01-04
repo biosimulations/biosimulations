@@ -47,9 +47,7 @@
       </ul>
 
       <!-- description -->
-      <div class="description" *ngIf="project.description">
-        {{ project.description }}
-      </div>
+      <markdown [data]="project.description" class="description" *ngIf="project.description"></markdown>
     </biosimulations-text-page-content-section>
   </div>
   <!-- End summary/text data-->

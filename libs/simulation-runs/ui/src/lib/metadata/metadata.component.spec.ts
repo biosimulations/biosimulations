@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedUiModule } from '@biosimulations/shared/ui';
+import { MarkdownModule, MarkdownService } from 'ngx-markdown';
 
 import { MetadataComponent } from './metadata.component';
 
@@ -11,7 +12,12 @@ describe('MetadataComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [MetadataComponent],
-      imports: [BiosimulationsIconsModule, SharedUiModule],
+      imports: [
+        BiosimulationsIconsModule,
+        SharedUiModule,
+        MarkdownModule.forRoot(),
+      ],
+      providers: [MarkdownService],
     }).compileComponents();
   });
 

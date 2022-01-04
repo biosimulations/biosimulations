@@ -16,6 +16,8 @@ import { DesignHeatmap2DVisualizationComponent } from './design-heatmap-2d-viz/d
 import { DesignLine2DVisualizationComponent } from './design-line-2d-viz/design-line-2d-viz.component';
 import { RenderVisualizationComponent } from './render-viz/render-viz.component';
 import { ApiClientModule } from '@biosimulations/angular-api-client';
+import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -29,6 +31,14 @@ import { ApiClientModule } from '@biosimulations/angular-api-client';
     MatButtonModule,
     BiosimulationsIconsModule,
     ApiClientModule,
+    MarkdownModule.forRoot({ 
+      markedOptions: {
+        provide: MarkedOptions,
+        useValue: {
+          gfm: false,
+        },
+      },
+    })
   ],
   exports: [
     MetadataComponent,
