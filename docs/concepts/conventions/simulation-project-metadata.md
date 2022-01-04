@@ -26,7 +26,10 @@ We recommend that COMBINE/OMEX archives be annotated using the predicates and ob
     - Object: Literal string
 - Description (long summary):
     - Predicate: `http://dublincore.org/specifications/dublin-core/dcmi-terms/description`
-    - Object: String formatted using [original-flavored markdown](https://daringfireball.net/projects/markdown/)
+    - Object: String formatted using [original-flavored markdown](https://daringfireball.net/projects/markdown/) or [GitHub flavored markdown](https://github.github.com/gfm/)
+    !!! warning
+        Support for <!-- * #no-spell-check* --> [GitHub flavored markdown](https://github.github.com/gfm/) is available, with some limitations. 
+        For information about compatibility issues you can view the discussion on the underlying parser's repository <!-- * #no-spell-check* --> [here](https://github.com/markedjs/marked/discussions/1202).
 - Keyword:
     - Predicate: `http://prismstandard.org/namespaces/basic/2.0/keyword`
     - Object: Literal string
