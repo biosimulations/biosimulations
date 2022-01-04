@@ -31,7 +31,7 @@ import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
     MatButtonModule,
     BiosimulationsIconsModule,
     ApiClientModule,
-    MarkdownModule.forRoot({ 
+    MarkdownModule.forRoot({
       markedOptions: {
         provide: MarkedOptions,
         useValue: {
