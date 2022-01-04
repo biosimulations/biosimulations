@@ -35,7 +35,7 @@ import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
       markedOptions: {
         provide: MarkedOptions,
         useValue: {
-          gfm: false,
+          gfm: true, // Github-flavored markdown see (https://github.com/biosimulations/biosimulations/issues/3963)
         },
       },
     }),
