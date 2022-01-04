@@ -1,6 +1,9 @@
 import {
   CacheInterceptor,
   CacheTTL,
+  CacheKey,
+  CACHE_MANAGER,
+  Inject,
   Controller,
   Get,
   Post,
@@ -12,7 +15,7 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-
+import { Cache } from 'cache-manager';
 import { Ontologies } from '@biosimulations/datamodel/common';
 import { OntologyApiService } from './ontology-api.service';
 import {
@@ -27,6 +30,7 @@ import {
 import {
   OntologyTerm,
   OntologyIdsContainer,
+  OntologyId,
   ErrorResponseDocument,
 } from '@biosimulations/datamodel/api';
 import { OntologyInfo } from '@biosimulations/datamodel/api';
@@ -36,7 +40,9 @@ import { OntologyInfo } from '@biosimulations/datamodel/api';
 @UseInterceptors(CacheInterceptor)
 @CacheTTL(60 * 24 * 7) // 1 week
 export class OntologyApiController {
-  public constructor(private service: OntologyApiService) {}
+  public constructor(private service: OntologyApiService, @Inject(CACHE_MANAGER) private cacheManager: Cache) {}
+
+  private static version = 1;
 
   @Get()
   @ApiOperation({
@@ -49,6 +55,7 @@ export class OntologyApiController {
       'The ids of the ontologies used by BioSimulations and BioSimulators were successfully retrieved',
     type: [String],
   })
+  @CacheKey(`${OntologyApiController.version}`)
   public getList(): string[] {
     const ontologiesIds = new Set<string>();
     for (const [key, val] of Object.entries(Ontologies)) {
@@ -59,6 +66,7 @@ export class OntologyApiController {
   }
 
   @Get(':ontologyId/info')
+  @CacheKey(`:ontologyId/info/${OntologyApiController.version}`)
   @ApiOperation({
     summary: 'Get information about an ontology',
     description:
@@ -91,6 +99,7 @@ export class OntologyApiController {
   }
 
   @Get(':ontologyId')
+  @CacheKey(`:ontologyId/${OntologyApiController.version}`)
   @ApiOperation({
     summary: 'Get the terms in an ontology',
     description: 'Get a list of the terms in an ontology',
@@ -122,6 +131,7 @@ export class OntologyApiController {
   }
 
   @Get(':ontologyId/:termId')
+  @CacheKey(`:ontologyId/:termId/${OntologyApiController.version}`)
   @ApiOperation({
     summary: 'Get a term in an ontology',
     description:
@@ -191,16 +201,32 @@ export class OntologyApiController {
     type: ErrorResponseDocument,
   })
   @HttpCode(HttpStatus.OK)
-  public getTerms(
+  public async getTerms(
     @Body() ids: OntologyIdsContainer,
     @Query('fields') fields?: string | string[],
-  ): Partial<OntologyTerm[]> {
+  ): Promise<Partial<OntologyTerm[]>> {
     if (fields !== undefined) {
       if (!Array.isArray(fields)) {
         fields = [fields];
       }
     }
 
-    return this.service.getTerms(ids.ids, fields);
+    const idsKey = ids.ids
+      .map((id: OntologyId): string => {
+        return `${id.namespace}:${id.id}`;
+      })
+      .sort()
+      .join(',');
+    const fieldsKey = fields ? fields.join(',') : '';
+    const cacheKey = `${idsKey}:${fieldsKey}:${OntologyApiController.version}`;
+
+    const cachedValue = await this.cacheManager.get(cacheKey) as Partial<OntologyTerm[]> | null;
+    if (cachedValue) {
+      return cachedValue;
+    }
+
+    const value = this.service.getTerms(ids.ids, fields);
+    await this.cacheManager.set(cacheKey, value, { ttl: 0 });
+    return value;
   }
 }

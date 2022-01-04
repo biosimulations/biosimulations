@@ -10,6 +10,7 @@
 import {
   CacheInterceptor,
   CacheTTL,
+  CacheKey,
   Controller,
   Get,
   Param,
@@ -39,6 +40,8 @@ import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 export class ResultsController {
   public constructor(private service: ResultsService) {}
 
+  private static runResultsVersion = 1;
+
   @ApiOperation({
     summary: 'Get the results of all of the outputs of a simulation run',
     description:
@@ -67,6 +70,7 @@ export class ResultsController {
   })
   @UseInterceptors(CacheInterceptor)
   @CacheTTL(0)
+  @CacheKey(`:runId/${ResultsController.runResultsVersion}`)
   public async getResults(
     @Param('runId') runId: string,
     @Query('includeData', ParseBoolPipe) includeData = false,
@@ -117,6 +121,8 @@ export class ResultsController {
     res.send();
   }
 
+  private static outputResultsVersion = 1;
+
   @ApiOperation({
     summary:
       'Get the results of an output (plot or report) of a simulation run',
@@ -153,6 +159,7 @@ export class ResultsController {
   })
   @UseInterceptors(CacheInterceptor)
   @CacheTTL(0)
+  @CacheKey(`:runId/:experimentLocationAndOutputId/${ResultsController.outputResultsVersion}`)
   public async getResultReport(
     @Param('runId') runId: string,
     @Param('experimentLocationAndOutputId')

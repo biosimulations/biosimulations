@@ -438,11 +438,13 @@ export class SimulationRunService {
     );
   }
 
+  public static summaryVersion = 1;
+
   public async getRunSummary(
     id: string,
     raiseErrors = false,
   ): Promise<SimulationRunSummary> {
-    const cacheKey = `SimulationRun:summary:${raiseErrors}:${id}`;
+    const cacheKey = `SimulationRun:summary:${raiseErrors}:${id}:${SimulationRunService.summaryVersion}`;
     const cachedValue = (await this.cacheManager.get(
       cacheKey,
     )) as SimulationRunSummary | null;
