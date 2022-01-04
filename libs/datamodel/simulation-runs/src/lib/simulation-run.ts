@@ -30,8 +30,8 @@ export interface ProjectMetadata {
   abstract?: string;
   creators: Creator[];
   description?: string;
-  topAttributes: List[];
-  bottomAttributes: List[];
+  biology: List[];
+  provenance: List[];
 }
 
 export interface ListItem {

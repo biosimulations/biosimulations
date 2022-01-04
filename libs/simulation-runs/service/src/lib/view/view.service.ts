@@ -183,28 +183,39 @@ export class ViewService {
         },
       ),
       description: metadata?.description,
-      topAttributes: [],
-      bottomAttributes: [],
+      biology: [],
+      provenance: [],
     };
 
     // biology
     const encodes: ListItem[] = metadata?.encodes?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Biology', 'cell')) || [];
     const taxa: ListItem[] = metadata?.taxa?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Taxon', 'taxon')) || [];
-    formattedMetadata.topAttributes.push({
-      title: 'Biology',
-      items: encodes.concat(taxa),
-    });
-
-    // more information
+    const tags: ListItem[] = metadata?.keywords?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Keyword', 'tag')) || [];
+    const other: ListItem[] = metadata?.other?.flatMap((other: DescribedIdentifier): ListItem[] => {
+        const title = other.attribute_label || other.attribute_uri;
+        if (title) {
+          return this.labeledIdentifierToListItem(title, 'info', {
+            label: other.label,
+            uri: other.uri,
+          });
+        } else {
+          return [];
+        }
+      })
+      || [];
     const seeAlso: ListItem[] = metadata?.seeAlso?.flatMap(this.labeledIdentifierToListItem.bind(this, 'More info', 'link')) || [];
-    const sources: ListItem[] = metadata?.sources?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Source', 'code')) || [];
-    const citations: ListItem[] = metadata?.citations?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Citation', 'file')) || [];
-    formattedMetadata.bottomAttributes.push({
-      title: 'More information',
-      items: seeAlso.concat(sources).concat(citations),
+
+    formattedMetadata.biology.push({
+      title: 'Biology',
+      items: encodes
+        .concat(taxa)
+        .concat(tags)
+        .concat(other)
+        .concat(seeAlso),
     });
 
-    // related work
+    // Provenance
+    const sources: ListItem[] = metadata?.sources?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Source', 'code')) || [];
     const predecessors: ListItem[] = metadata?.predecessors?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Predecessor', 'backward')) || [];
     const successors: ListItem[] = metadata?.successors?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Successor', 'forward')) || [];
     let locationPredecessorItems: ListItem[] = [];
@@ -232,12 +243,9 @@ export class ViewService {
         );
       },
     );
-    formattedMetadata.bottomAttributes.push({
-      title: 'Related work',
-      items: predecessors.concat(locationPredecessorItems).concat(successors),
-    });
 
-    // contributors
+    const citations: ListItem[] = metadata?.citations?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Citation', 'file')) || [];
+
     let contributors: ListItem[] = [];
     if (owner) {
       contributors = contributors.concat(owner.organizations
@@ -260,24 +268,11 @@ export class ViewService {
     }
     contributors = contributors.concat(metadata?.contributors?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Curator', 'author')) || []);
     contributors = contributors.concat(metadata?.funders?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Funder', 'funding')) || []);
-    formattedMetadata.bottomAttributes.push({
-      title: 'Contributors',
-      items: contributors,
-    });
 
-    // license
-    formattedMetadata.bottomAttributes.push({
-      title: 'License',
-      items: metadata?.license?.flatMap(this.labeledIdentifierToListItem.bind(this, 'License', 'license')) || [],
-    })
+    const identifiers = metadata?.identifiers?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Id', 'id')) || [];
 
-    // identifiers
-    formattedMetadata.bottomAttributes.push({
-      title: 'Identifiers',
-      items: metadata?.identifiers?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Id', 'id')) || [],
-    })
+    const license = metadata?.license?.flatMap(this.labeledIdentifierToListItem.bind(this, 'License', 'license')) || [];
 
-    // dates
     const dates: ListItem[] = [];
     if (metadata?.created) {
       dates.push({
@@ -295,40 +290,31 @@ export class ViewService {
         url: null,
       });
     }
-    formattedMetadata.bottomAttributes.push({
-      title: 'Dates',
-      items: dates,
-    });
 
-    // other
-    const tags: ListItem[] = metadata?.keywords?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Keyword', 'tag')) || [];
-    const other: ListItem[] = metadata?.other?.flatMap((other: DescribedIdentifier): ListItem[] => {
-        const title = other.attribute_label || other.attribute_uri;
-        if (title) {
-          return this.labeledIdentifierToListItem(title, 'info', {
-            label: other.label,
-            uri: other.uri,
-          });
-        } else {
-          return [];
-        }
-      })
-      || [];
-    formattedMetadata.topAttributes.push({
-      title: 'Other',
-      items: tags.concat(other),
+    formattedMetadata.provenance.push({
+      title: 'Provenance',
+      items: sources
+        .concat(predecessors)
+        .concat(locationPredecessorItems)
+        .concat(successors)
+        .concat(citations)
+        .concat(contributors)
+        .concat(identifiers)
+        .concat(license)
+        .concat(dates),
     });
 
     // filter out empty categories
-    formattedMetadata.topAttributes = formattedMetadata.topAttributes
+    formattedMetadata.biology = formattedMetadata.biology
       .filter((attributes: List): boolean => {
         return attributes.items.length > 0;
       });
-    formattedMetadata.bottomAttributes = formattedMetadata.bottomAttributes
+    formattedMetadata.provenance = formattedMetadata.provenance
       .filter((attributes: List): boolean => {
         return attributes.items.length > 0;
       });
 
+    // return metadata
     return formattedMetadata;
   }
 
@@ -366,6 +352,8 @@ export class ViewService {
               },
             );
 
+            let methodsTools: ListItem[] = [];
+
             const simulationTypeItems = Array.from(simulationTypes)
               .map((simulationType: string): ListItem => {
                 return {
@@ -383,6 +371,7 @@ export class ViewService {
                   numeric: true,
                 });
               });
+            methodsTools = methodsTools.concat(simulationTypeItems);
 
             const kisaoIdSimulationAlgorithmMap: {
               [kisaoId: string]: SimulationRunAlgorithmSummary;
@@ -408,11 +397,9 @@ export class ViewService {
                   numeric: true,
                 });
               });
+            methodsTools = methodsTools.concat(algorithmItems);
 
-            const methods: ListItem[] = simulationTypeItems.concat(algorithmItems);
-
-            const formats: ListItem[] = [];
-            formats.push({
+            methodsTools.push({
               title: 'Project',
               value: 'COMBINE/OMEX',
               icon: 'archive',
@@ -464,7 +451,7 @@ export class ViewService {
                 });
               });
 
-            formats.push({
+            methodsTools.push({
               title: 'Simulation',
               value:
                 this.sedmlFormat?.biosimulationsMetadata?.acronym ||
@@ -474,8 +461,7 @@ export class ViewService {
               url: this.sedmlFormat.url,
             });
 
-            const tools: ListItem[] = [];
-            tools.push({
+            methodsTools.push({
               title: 'Simulator',
               value: `${simulationRunSummary.run.simulator.name} ${simulationRunSummary.run.simulator.version}`,
               icon: 'simulator',
@@ -544,9 +530,7 @@ export class ViewService {
 
             // return sections
             const sections = [
-              { title: 'Modeling methods', items: methods },
-              { title: 'Modeling formats', items: formats },
-              { title: 'Simulation tools', items: tools },
+              { title: 'Modeling methods & tools', items: methodsTools },
               { title: 'Simulation run', items: run },
             ];
             return sections.filter((section: List): boolean => {

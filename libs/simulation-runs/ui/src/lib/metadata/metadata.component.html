@@ -56,12 +56,12 @@
   <!-- End summary/text data-->
 
   <!-- Simulation information -->
-  <div class="simulation-column ragged-column" *ngIf="project?.topAttributes?.length || simulationRun?.length || project?.bottomAttributes?.length">
+  <div class="simulation-column ragged-column" *ngIf="project?.biology?.length || simulationRun?.length || project?.provenance?.length">
     <!-- project metadata -->
     <ng-container
       *ngTemplateOutlet="
         sectionsTemplate;
-        context: { sections: project?.topAttributes || [] }
+        context: { sections: project?.biology || [] }
       "
     ></ng-container>
 
@@ -77,7 +77,7 @@
     <ng-container
       *ngTemplateOutlet="
         sectionsTemplate;
-        context: { sections: project?.bottomAttributes || [] }
+        context: { sections: project?.provenance || [] }
       "
     ></ng-container>
 
