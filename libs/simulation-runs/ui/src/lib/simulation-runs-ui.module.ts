@@ -38,7 +38,7 @@ import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
           gfm: false,
         },
       },
-    })
+    }),
   ],
   exports: [
     MetadataComponent,

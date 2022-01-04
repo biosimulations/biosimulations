@@ -47,15 +47,23 @@
       </ul>
 
       <!-- description -->
-      <markdown [data]="project.description" class="description" *ngIf="project.description"></markdown>
+      <markdown
+        [data]="project.description"
+        class="description"
+        *ngIf="project.description"
+      ></markdown>
     </biosimulations-text-page-content-section>
   </div>
   <!-- End summary/text data-->
 
   <!-- Simulation information -->
-  <div 
-    *ngIf="project?.biology?.length || simulationRun?.length || project?.provenance?.length"
-    class="simulation-column ragged-column"    
+  <div
+    *ngIf="
+      project?.biology?.length ||
+      simulationRun?.length ||
+      project?.provenance?.length
+    "
+    class="simulation-column ragged-column"
     fxFlex="22rem"
     fxFlex.lt-md="100%"
   >
@@ -71,7 +79,7 @@
     <ng-container
       *ngTemplateOutlet="
         sectionsTemplate;
-        context: { sections: simulationRun || []}
+        context: { sections: simulationRun || [] }
       "
     ></ng-container>
 

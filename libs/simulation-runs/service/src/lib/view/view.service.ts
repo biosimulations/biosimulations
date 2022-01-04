@@ -188,10 +188,20 @@ export class ViewService {
     };
 
     // biology
-    const encodes: ListItem[] = metadata?.encodes?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Biology', 'cell')) || [];
-    const taxa: ListItem[] = metadata?.taxa?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Taxon', 'taxon')) || [];
-    const tags: ListItem[] = metadata?.keywords?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Keyword', 'tag')) || [];
-    const other: ListItem[] = metadata?.other?.flatMap((other: DescribedIdentifier): ListItem[] => {
+    const encodes: ListItem[] =
+      metadata?.encodes?.flatMap(
+        this.labeledIdentifierToListItem.bind(this, 'Biology', 'cell'),
+      ) || [];
+    const taxa: ListItem[] =
+      metadata?.taxa?.flatMap(
+        this.labeledIdentifierToListItem.bind(this, 'Taxon', 'taxon'),
+      ) || [];
+    const tags: ListItem[] =
+      metadata?.keywords?.flatMap(
+        this.labeledIdentifierToListItem.bind(this, 'Keyword', 'tag'),
+      ) || [];
+    const other: ListItem[] =
+      metadata?.other?.flatMap((other: DescribedIdentifier): ListItem[] => {
         const title = other.attribute_label || other.attribute_uri;
         if (title) {
           return this.labeledIdentifierToListItem(title, 'info', {
@@ -201,23 +211,30 @@ export class ViewService {
         } else {
           return [];
         }
-      })
-      || [];
-    const seeAlso: ListItem[] = metadata?.seeAlso?.flatMap(this.labeledIdentifierToListItem.bind(this, 'More info', 'link')) || [];
+      }) || [];
+    const seeAlso: ListItem[] =
+      metadata?.seeAlso?.flatMap(
+        this.labeledIdentifierToListItem.bind(this, 'More info', 'link'),
+      ) || [];
 
     formattedMetadata.biology.push({
       title: 'Biology',
-      items: encodes
-        .concat(taxa)
-        .concat(tags)
-        .concat(other)
-        .concat(seeAlso),
+      items: encodes.concat(taxa).concat(tags).concat(other).concat(seeAlso),
     });
 
     // Provenance
-    const sources: ListItem[] = metadata?.sources?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Source', 'code')) || [];
-    const predecessors: ListItem[] = metadata?.predecessors?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Predecessor', 'backward')) || [];
-    const successors: ListItem[] = metadata?.successors?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Successor', 'forward')) || [];
+    const sources: ListItem[] =
+      metadata?.sources?.flatMap(
+        this.labeledIdentifierToListItem.bind(this, 'Source', 'code'),
+      ) || [];
+    const predecessors: ListItem[] =
+      metadata?.predecessors?.flatMap(
+        this.labeledIdentifierToListItem.bind(this, 'Predecessor', 'backward'),
+      ) || [];
+    const successors: ListItem[] =
+      metadata?.successors?.flatMap(
+        this.labeledIdentifierToListItem.bind(this, 'Successor', 'forward'),
+      ) || [];
     let locationPredecessorItems: ListItem[] = [];
     metadata?.locationPredecessors?.forEach(
       (locationPredecessor: LocationPredecessor): void => {
@@ -225,53 +242,85 @@ export class ViewService {
           locationPredecessor.location.indexOf('/') + 1,
         );
 
-        locationPredecessorItems = locationPredecessorItems.concat(locationPredecessor.predecessors
-          ?.map((predecessor: LabeledIdentifier): LabeledIdentifier => {
-            return {
-              label: predecessor?.label,
-              uri:
-                predecessor?.uri?.startsWith('http://omex-library.org/') &&
-                predecessor?.uri?.indexOf('.omex/') !== -1
-                  ? predecessor?.uri?.substring(
-                      predecessor?.uri?.indexOf('.omex/') + 6,
-                    )
-                  : predecessor?.uri,
-            };
-          })
-          .flatMap(this.labeledIdentifierToListItem.bind(this, 'Predecessor (${location})', 'backward'))
-          || []
+        locationPredecessorItems = locationPredecessorItems.concat(
+          locationPredecessor.predecessors
+            ?.map((predecessor: LabeledIdentifier): LabeledIdentifier => {
+              return {
+                label: predecessor?.label,
+                uri:
+                  predecessor?.uri?.startsWith('http://omex-library.org/') &&
+                  predecessor?.uri?.indexOf('.omex/') !== -1
+                    ? predecessor?.uri?.substring(
+                        predecessor?.uri?.indexOf('.omex/') + 6,
+                      )
+                    : predecessor?.uri,
+              };
+            })
+            .flatMap(
+              this.labeledIdentifierToListItem.bind(
+                this,
+                'Predecessor (${location})',
+                'backward',
+              ),
+            ) || [],
         );
       },
     );
 
-    const citations: ListItem[] = metadata?.citations?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Citation', 'file')) || [];
+    const citations: ListItem[] =
+      metadata?.citations?.flatMap(
+        this.labeledIdentifierToListItem.bind(this, 'Citation', 'file'),
+      ) || [];
 
     let contributors: ListItem[] = [];
     if (owner) {
-      contributors = contributors.concat(owner.organizations
-        .map((organization: Organization): LabeledIdentifier => {
-          return {
-            label: organization.name,
-            uri: organization?.url || null,
-          };
-        })
-        .flatMap(this.labeledIdentifierToListItem.bind(this, 'Organization', 'organization'))
+      contributors = contributors.concat(
+        owner.organizations
+          .map((organization: Organization): LabeledIdentifier => {
+            return {
+              label: organization.name,
+              uri: organization?.url || null,
+            };
+          })
+          .flatMap(
+            this.labeledIdentifierToListItem.bind(
+              this,
+              'Organization',
+              'organization',
+            ),
+          ),
       );
-      contributors = contributors.concat([
-            {
-              label: owner.name,
-              uri: owner?.url || null,
-            },
-          ]
-          .flatMap(this.labeledIdentifierToListItem.bind(this, 'Owner', 'author'))
+      contributors = contributors.concat(
+        [
+          {
+            label: owner.name,
+            uri: owner?.url || null,
+          },
+        ].flatMap(
+          this.labeledIdentifierToListItem.bind(this, 'Owner', 'author'),
+        ),
       );
     }
-    contributors = contributors.concat(metadata?.contributors?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Curator', 'author')) || []);
-    contributors = contributors.concat(metadata?.funders?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Funder', 'funding')) || []);
+    contributors = contributors.concat(
+      metadata?.contributors?.flatMap(
+        this.labeledIdentifierToListItem.bind(this, 'Curator', 'author'),
+      ) || [],
+    );
+    contributors = contributors.concat(
+      metadata?.funders?.flatMap(
+        this.labeledIdentifierToListItem.bind(this, 'Funder', 'funding'),
+      ) || [],
+    );
 
-    const identifiers = metadata?.identifiers?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Id', 'id')) || [];
+    const identifiers =
+      metadata?.identifiers?.flatMap(
+        this.labeledIdentifierToListItem.bind(this, 'Id', 'id'),
+      ) || [];
 
-    const license = metadata?.license?.flatMap(this.labeledIdentifierToListItem.bind(this, 'License', 'license')) || [];
+    const license =
+      metadata?.license?.flatMap(
+        this.labeledIdentifierToListItem.bind(this, 'License', 'license'),
+      ) || [];
 
     const dates: ListItem[] = [];
     if (metadata?.created) {
@@ -305,14 +354,16 @@ export class ViewService {
     });
 
     // filter out empty categories
-    formattedMetadata.biology = formattedMetadata.biology
-      .filter((attributes: List): boolean => {
+    formattedMetadata.biology = formattedMetadata.biology.filter(
+      (attributes: List): boolean => {
         return attributes.items.length > 0;
-      });
-    formattedMetadata.provenance = formattedMetadata.provenance
-      .filter((attributes: List): boolean => {
+      },
+    );
+    formattedMetadata.provenance = formattedMetadata.provenance.filter(
+      (attributes: List): boolean => {
         return attributes.items.length > 0;
-      });
+      },
+    );
 
     // return metadata
     return formattedMetadata;
@@ -1349,14 +1400,14 @@ export class ViewService {
     }
 
     if (value) {
-      return [{
-        value: value,
-        url: uriIsUrl
-          ? labeledIdentifier?.uri
-          : null,
-        title,
-        icon,
-      }];
+      return [
+        {
+          value: value,
+          url: uriIsUrl ? labeledIdentifier?.uri : null,
+          title,
+          icon,
+        },
+      ];
     } else {
       return [];
     }

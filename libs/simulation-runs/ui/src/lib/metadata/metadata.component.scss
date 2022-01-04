@@ -38,16 +38,21 @@ biosimulations-carousel {
     margin-block-end: 0.5rem;
 
     ::ng-deep {
-      h1, h2, h3, h4, h5, h6 {
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
         background: none;
         padding: 0;
-        margin: 0;        
+        margin: 0;
       }
 
       h1 {
         @include mat-typography-level-to-styles($fontConfig, subheading-2);
         font-weight: 500;
-        border-bottom: 1px solid mat.get-color-from-palette($theme-primary);        
+        border-bottom: 1px solid mat.get-color-from-palette($theme-primary);
         margin-block-start: 1rem;
         margin-block-end: 0.25rem;
       }
@@ -55,7 +60,7 @@ biosimulations-carousel {
       h2 {
         @include mat-typography-level-to-styles($fontConfig, subheading-1);
         font-weight: 500;
-        border-bottom: 1px dashed mat.get-color-from-palette($theme-primary);     
+        border-bottom: 1px dashed mat.get-color-from-palette($theme-primary);
         margin-block-start: 1rem;
         margin-block-end: 0.25rem;
       }
@@ -73,7 +78,7 @@ biosimulations-carousel {
       }
 
       h5 {
-        @include mat-typography-level-to-styles($fontConfig, body-1);      
+        @include mat-typography-level-to-styles($fontConfig, body-1);
         margin-block-start: 0.5rem;
       }
 
