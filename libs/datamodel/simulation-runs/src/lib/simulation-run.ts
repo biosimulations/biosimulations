@@ -24,19 +24,14 @@ export type LabeledIdentifierIsUrl = Omit<LabeledIdentifier, 'uri'> & {
   uri: ValueIsUrl | null;
 };
 
-export interface Attribute {
-  icon: BiosimulationsIcon;
-  title: string;
-  values?: LabeledIdentifierIsUrl[];
-}
-
 export interface ProjectMetadata {
   thumbnails: string[];
   title: string;
   abstract?: string;
   creators: Creator[];
   description?: string;
-  attributes: Attribute[];
+  topAttributes: List[];
+  bottomAttributes: List[];
 }
 
 export interface ListItem {
