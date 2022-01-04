@@ -679,7 +679,7 @@ export class ViewService {
         format: 'JavaScript Object Notation (JSON) in BioSimulators schema',
         formatUrl: this.endpoints.getApiBaseUrl(true),
         master: false,
-        size: null,
+        size: 'N/A',
         icon: 'report',
         url: this.endpoints.getRunResultsEndpoint(
           true,
@@ -719,7 +719,7 @@ export class ViewService {
         format: 'YAML in BioSimulators log schema',
         formatUrl: this.appRoutes.getConventionsView('simulation-logs'),
         master: false,
-        size: null,
+        size: 'N/A',
         icon: 'logs',
         url: this.endpoints.getSimulationRunLogsEndpoint(
           true,
