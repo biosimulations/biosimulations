@@ -10,8 +10,7 @@
   <div
     *ngIf="project && project?.thumbnails?.length"
     class="thumbnails-column ragged-column"
-    fxFlex="22rem"
-    fxFlex.lt-sm="100%"
+    fxFlex.lt-md="100%"
   >
     <biosimulations-carousel [images]="project.thumbnails">
     </biosimulations-carousel>
@@ -56,7 +55,12 @@
   <!-- End summary/text data-->
 
   <!-- Simulation information -->
-  <div class="simulation-column ragged-column" *ngIf="project?.biology?.length || simulationRun?.length || project?.provenance?.length">
+  <div 
+    *ngIf="project?.biology?.length || simulationRun?.length || project?.provenance?.length"
+    class="simulation-column ragged-column"    
+    fxFlex="22rem"
+    fxFlex.lt-md="100%"
+  >
     <!-- project metadata -->
     <ng-container
       *ngTemplateOutlet="
