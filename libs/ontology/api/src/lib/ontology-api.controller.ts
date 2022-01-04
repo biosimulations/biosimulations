@@ -1,7 +1,4 @@
 import {
-  CacheInterceptor,
-  CacheTTL,
-  CacheKey,
   CACHE_MANAGER,
   Inject,
   Controller,
@@ -10,7 +7,6 @@ import {
   NotFoundException,
   Param,
   Query,
-  UseInterceptors,
   Body,
   HttpCode,
   HttpStatus,
@@ -37,11 +33,10 @@ import { OntologyInfo } from '@biosimulations/datamodel/api';
 
 @Controller('ontologies')
 @ApiTags('Ontologies')
-@UseInterceptors(CacheInterceptor)
-@CacheTTL(60 * 24 * 7) // 1 week
 export class OntologyApiController {
   public constructor(private service: OntologyApiService, @Inject(CACHE_MANAGER) private cacheManager: Cache) {}
 
+  private static cacheTtl = 60 * 24 * 7; // 1 week
   private static version = 1;
 
   @Get()
@@ -54,19 +49,20 @@ export class OntologyApiController {
     description:
       'The ids of the ontologies used by BioSimulations and BioSimulators were successfully retrieved',
     type: [String],
-  })
-  @CacheKey(`${OntologyApiController.version}`)
-  public getList(): string[] {
-    const ontologiesIds = new Set<string>();
-    for (const [key, val] of Object.entries(Ontologies)) {
-      ontologiesIds.add(key);
-    }
+  })  
+  public async getList(): Promise<string[]> {
+    const cacheKey = `${OntologyApiController.version}`;
 
-    return [...ontologiesIds].sort();
+    return this.getWithCache<string[]>(cacheKey, async (): Promise<string[]> => {
+      const ontologiesIds = new Set<string>();
+      for (const [key, val] of Object.entries(Ontologies)) {
+        ontologiesIds.add(key);
+      }
+      return [...ontologiesIds].sort();
+    });
   }
 
-  @Get(':ontologyId/info')
-  @CacheKey(`:ontologyId/info/${OntologyApiController.version}`)
+  @Get(':ontologyId/info')  
   @ApiOperation({
     summary: 'Get information about an ontology',
     description:
@@ -88,18 +84,21 @@ export class OntologyApiController {
     description: 'No ontology has the requested id',
     type: ErrorResponseDocument,
   })
-  public getOntologyInfo(
+  public async getOntologyInfo(
     @Param('ontologyId') ontologyId: Ontologies,
-  ): OntologyInfo {
-    const info = this.service.getOntologyInfo(ontologyId);
-    if (!info) {
-      throw new NotFoundException(`No ontology with id ${ontologyId} exists`);
-    }
-    return info;
+  ): Promise<OntologyInfo> {
+    const cacheKey = `${ontologyId}/info/${OntologyApiController.version}`;
+
+    return this.getWithCache<OntologyInfo>(cacheKey, async (): Promise<OntologyInfo> => {
+      const info = this.service.getOntologyInfo(ontologyId);
+      if (!info) {
+        throw new NotFoundException(`No ontology with id ${ontologyId} exists`);
+      }
+      return info;
+    });
   }
 
-  @Get(':ontologyId')
-  @CacheKey(`:ontologyId/${OntologyApiController.version}`)
+  @Get(':ontologyId')  
   @ApiOperation({
     summary: 'Get the terms in an ontology',
     description: 'Get a list of the terms in an ontology',
@@ -122,16 +121,19 @@ export class OntologyApiController {
   })
   public getOntologyTerms(
     @Param('ontologyId') ontologyId: Ontologies,
-  ): OntologyTerm[] {
-    const terms = this.service.getOntologyTerms(ontologyId);
-    if (!terms) {
-      throw new NotFoundException(`No ontology with id ${ontologyId} exists`);
-    }
-    return terms;
+  ): Promise<OntologyTerm[]> {
+    const cacheKey = `${ontologyId}/${OntologyApiController.version}`;
+
+    return this.getWithCache<OntologyTerm[]>(cacheKey, async (): Promise<OntologyTerm[]> => {
+      const terms = this.service.getOntologyTerms(ontologyId);
+      if (!terms) {
+        throw new NotFoundException(`No ontology with id ${ontologyId} exists`);
+      }
+      return terms;
+    });
   }
 
-  @Get(':ontologyId/:termId')
-  @CacheKey(`:ontologyId/:termId/${OntologyApiController.version}`)
+  @Get(':ontologyId/:termId')  
   @ApiOperation({
     summary: 'Get a term in an ontology',
     description:
@@ -163,14 +165,18 @@ export class OntologyApiController {
   public getOntologyTerm(
     @Param('ontologyId') ontologyId: Ontologies,
     @Param('termId') termId: string,
-  ): OntologyTerm {
-    const term = this.service.getOntologyTerm(ontologyId, termId);
-    if (!term) {
-      throw new NotFoundException(
-        `No '${ontologyId}' term with id '${termId}' exists`,
-      );
-    }
-    return term;
+  ): Promise<OntologyTerm> {
+    const cacheKey = `${ontologyId}/${termId}/${OntologyApiController.version}`;
+
+    return this.getWithCache<OntologyTerm>(cacheKey, async (): Promise<OntologyTerm> => {
+      const term = this.service.getOntologyTerm(ontologyId, termId);
+      if (!term) {
+        throw new NotFoundException(
+          `No '${ontologyId}' term with id '${termId}' exists`,
+        );
+      }
+      return term;
+    });
   }
 
   @Post('terms')
@@ -205,9 +211,14 @@ export class OntologyApiController {
     @Body() ids: OntologyIdsContainer,
     @Query('fields') fields?: string | string[],
   ): Promise<Partial<OntologyTerm[]>> {
-    if (fields !== undefined) {
-      if (!Array.isArray(fields)) {
-        fields = [fields];
+    let fieldsArr: string[] | undefined;
+    if (fields === undefined) {
+      fieldsArr = undefined;
+    } else {
+      if (Array.isArray(fields)) {
+        fieldsArr = fields;
+      } else {
+        fieldsArr = [fields];
       }
     }
 
@@ -217,16 +228,26 @@ export class OntologyApiController {
       })
       .sort()
       .join(',');
-    const fieldsKey = fields ? fields.join(',') : '';
+    const fieldsKey = fieldsArr ? fieldsArr.join(',') : '';
     const cacheKey = `${idsKey}:${fieldsKey}:${OntologyApiController.version}`;
 
-    const cachedValue = await this.cacheManager.get(cacheKey) as Partial<OntologyTerm[]> | null;
-    if (cachedValue) {
-      return cachedValue;
-    }
+    return this.getWithCache<Partial<OntologyTerm[]>>(cacheKey, async (): Promise<Partial<OntologyTerm[]>> => {
+      return this.service.getTerms(ids.ids, fieldsArr);
+    });
+  }
 
-    const value = this.service.getTerms(ids.ids, fields);
-    await this.cacheManager.set(cacheKey, value, { ttl: 0 });
-    return value;
+  private async getWithCache<T>(
+    key: string,
+    valueFunc: () => Promise<T>
+  ): Promise<T> {
+    const cachedValue = await this.cacheManager.get(key) as T | null;
+
+    if (cachedValue != null) {
+      return cachedValue;
+    } else {
+      const value = await valueFunc();
+      await this.cacheManager.set(key, value, { ttl: OntologyApiController.cacheTtl });
+      return value;
+    }
   }
 }

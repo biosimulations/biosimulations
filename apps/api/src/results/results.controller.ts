@@ -8,17 +8,16 @@
  */
 
 import {
-  CacheInterceptor,
-  CacheTTL,
-  CacheKey,
+  CACHE_MANAGER,
+  Inject,
   Controller,
   Get,
   Param,
   ParseBoolPipe,
   Query,
   Res,
-  UseInterceptors,
 } from '@nestjs/common';
+import { Cache } from 'cache-manager';
 import {
   ApiQuery,
   ApiOkResponse,
@@ -38,7 +37,10 @@ import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 @Controller('results')
 @ApiTags('Results')
 export class ResultsController {
-  public constructor(private service: ResultsService) {}
+  public constructor(
+    private service: ResultsService,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
+  ) {}
 
   private static runResultsVersion = 1;
 
@@ -68,23 +70,28 @@ export class ResultsController {
     description: 'The simulation results were successfully retrieved',
     type: SimulationRunResults,
   })
-  @UseInterceptors(CacheInterceptor)
-  @CacheTTL(0)
-  @CacheKey(`:runId/${ResultsController.runResultsVersion}`)
   public async getResults(
     @Param('runId') runId: string,
     @Query('includeData', ParseBoolPipe) includeData = false,
   ): Promise<SimulationRunResults> {
+    const cacheKey = `${runId}:${includeData}:${ResultsController.runResultsVersion}`;
+    const cachedValue = await this.cacheManager.get(cacheKey) as SimulationRunResults | null;
+    if (cachedValue) {
+      return cachedValue;
+    }
+
     const results = await this.service.getResults(runId, includeData);
 
-    const returnValue: SimulationRunResults = {
+    const value: SimulationRunResults = {
       simId: results.simId,
       created: results.created,
       updated: results.updated,
       outputs: results.outputs,
     };
 
-    return returnValue;
+    await this.cacheManager.set(cacheKey, value, { ttl: 0 });
+
+    return value;
   }
 
   @ApiOperation({
@@ -157,21 +164,26 @@ export class ResultsController {
     description: 'The simulation results were successfully retrieved',
     type: SimulationRunOutput,
   })
-  @UseInterceptors(CacheInterceptor)
-  @CacheTTL(0)
-  @CacheKey(`:runId/:experimentLocationAndOutputId/${ResultsController.outputResultsVersion}`)
   public async getResultReport(
     @Param('runId') runId: string,
     @Param('experimentLocationAndOutputId')
     experimentLocationAndOutputId: string,
     @Query('includeData', ParseBoolPipe) includeData = false,
   ): Promise<SimulationRunOutput> {
-    const resultModel = await this.service.getOutput(
+    const cacheKey = `${runId}:${experimentLocationAndOutputId}:${includeData}:${ResultsController.runResultsVersion}`;
+    const cachedValue = await this.cacheManager.get(cacheKey) as SimulationRunOutput | null;
+    if (cachedValue) {
+      return cachedValue;
+    }
+
+    const value = await this.service.getOutput(
       runId,
       experimentLocationAndOutputId,
       includeData,
     );
 
-    return resultModel;
+    await this.cacheManager.set(cacheKey, value, { ttl: 0 });
+
+    return value;
   }
 }
