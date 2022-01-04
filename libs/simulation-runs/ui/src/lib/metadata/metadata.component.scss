@@ -1,5 +1,6 @@
 @use '@angular/material' as mat;
 @import 'biosimulations-colors';
+@import 'biosimulations-typography';
 
 .thumbnails-column {
   display: flex;
@@ -29,30 +30,57 @@ biosimulations-carousel {
   .creators {
     font-style: italic;
     margin-block-start: 0;
-    margin-block-end: 0.5em;
+    margin-block-end: 0.5rem;
   }
 
   .description {
-    margin-block-start: 0.5em;
-    margin-block-end: 0.5em;
-  }
+    margin-block-start: 0.5rem;
+    margin-block-end: 0.5rem;
 
-  .attributes {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    grid-column-gap: 0.25rem;
-    grid-row-gap: 0.125rem;
-    margin-block-start: 0.5em;
+    ::ng-deep {
+      h1, h2, h3, h4, h5, h6 {
+        background: none;
+        padding: 0;
+        margin: 0;        
+      }
 
-    div:nth-child(odd) {
-      display: flex;
-      justify-content: center;
-    }
+      h1 {
+        @include mat-typography-level-to-styles($fontConfig, subheading-2);
+        font-weight: 500;
+        border-bottom: 1px solid mat.get-color-from-palette($theme-primary);        
+        margin-block-start: 1rem;
+        margin-block-end: 0.25rem;
+      }
 
-    a {
-      color: $dark-primary-text;
-      &:hover {
-        text-decoration: underline;
+      h2 {
+        @include mat-typography-level-to-styles($fontConfig, subheading-1);
+        font-weight: 500;
+        border-bottom: 1px dashed mat.get-color-from-palette($theme-primary);     
+        margin-block-start: 1rem;
+        margin-block-end: 0.25rem;
+      }
+
+      h3 {
+        @include mat-typography-level-to-styles($fontConfig, body-2);
+        font-weight: 500;
+        margin-block-start: 1rem;
+      }
+
+      h4 {
+        @include mat-typography-level-to-styles($fontConfig, body-2);
+        font-weight: 500;
+        margin-block-start: 0.5rem;
+      }
+
+      h5 {
+        @include mat-typography-level-to-styles($fontConfig, body-1);      
+        margin-block-start: 0.5rem;
+      }
+
+      h6 {
+        @include mat-typography-level-to-styles($fontConfig, body-1);
+        font-style: italic;
+        margin-block-start: 0.5rem;
       }
     }
   }
