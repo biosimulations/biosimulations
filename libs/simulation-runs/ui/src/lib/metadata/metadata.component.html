@@ -51,64 +51,62 @@
       <div class="description" *ngIf="project.description">
         {{ project.description }}
       </div>
-
-      <!-- attributes -->
-      <div class="attributes" *ngIf="project?.attributes?.length">
-        <ng-container *ngFor="let attribute of project?.attributes">
-          <ng-container *ngFor="let value of attribute.values">
-            <div>
-              <biosimulations-icon
-                [icon]="attribute.icon"
-              ></biosimulations-icon>
-            </div>
-            <div>
-              <b>{{ attribute.title }}:</b>{{ ' ' }}
-              <a
-                *ngIf="value.uri?.isUrl; else noUrl"
-                [href]="value.uri?.value"
-                rel="noopener"
-                target="_blank"
-                >{{ value.label || value.uri?.value }}</a
-              >
-              <ng-template #noUrl>
-                {{ value.label || value.uri?.value }}
-                <span *ngIf="value.label && value.uri?.value"
-                  >{{ ' ' }}({{ value.uri?.value }})</span
-                >
-              </ng-template>
-            </div>
-          </ng-container>
-        </ng-container>
-      </div>
     </biosimulations-text-page-content-section>
   </div>
   <!-- End summary/text data-->
 
   <!-- Simulation information -->
-  <div class="simulation-column ragged-column" *ngIf="simulationRun">
-    <biosimulations-text-page-side-bar-section
-      *ngFor="let section of simulationRun"
-      [heading]="section.title"
-    >
-      <table class="icon-list">
-        <tr *ngFor="let item of section.items">
-          <th>
-            <biosimulations-icon [icon]="item.icon"></biosimulations-icon>
-          </th>
-          <td>
-            <b>{{ item.title }}:</b>{{ ' ' }}
-            <a
-              [href]="item.url"
-              rel="noopener"
-              target="_blank"
-              *ngIf="item.url; else noHref"
-              >{{ item.value }}</a
-            >
-            <ng-template #noHref>{{ item.value }}</ng-template>
-          </td>
-        </tr>
-      </table>
-    </biosimulations-text-page-side-bar-section>
+  <div class="simulation-column ragged-column" *ngIf="project?.topAttributes?.length || simulationRun?.length || project?.bottomAttributes?.length">
+    <!-- project metadata -->
+    <ng-container
+      *ngTemplateOutlet="
+        sectionsTemplate;
+        context: { sections: project?.topAttributes || [] }
+      "
+    ></ng-container>
+
+    <!-- simulation run metadata -->
+    <ng-container
+      *ngTemplateOutlet="
+        sectionsTemplate;
+        context: { sections: simulationRun || []}
+      "
+    ></ng-container>
+
+    <!-- project metadata -->
+    <ng-container
+      *ngTemplateOutlet="
+        sectionsTemplate;
+        context: { sections: project?.bottomAttributes || [] }
+      "
+    ></ng-container>
+
+    <!-- template -->
+    <ng-template #sectionsTemplate let-sections="sections">
+      <biosimulations-text-page-side-bar-section
+        *ngFor="let section of sections"
+        [heading]="section.title"
+      >
+        <table class="icon-list">
+          <tr *ngFor="let item of section.items">
+            <th>
+              <biosimulations-icon [icon]="item.icon"></biosimulations-icon>
+            </th>
+            <td>
+              <b>{{ item.title }}:</b>{{ ' ' }}
+              <a
+                [href]="item.url"
+                rel="noopener"
+                target="_blank"
+                *ngIf="item.url; else noHref"
+                >{{ item.value }}</a
+              >
+              <ng-template #noHref>{{ item.value }}</ng-template>
+            </td>
+          </tr>
+        </table>
+      </biosimulations-text-page-side-bar-section>
+    </ng-template>
   </div>
   <!-- End simulation information -->
 </div>

@@ -35,7 +35,6 @@ import { SimulationRunService } from '@biosimulations/angular-api-client';
 import { VegaVisualizationService } from '../vega-visualization/vega-visualization.service';
 import { SedPlot2DVisualizationService } from '../sed-plot-2d-visualization/sed-plot-2d-visualization.service';
 import {
-  LabeledIdentifierIsUrl,
   ProjectMetadata,
   Creator,
   SimulationRunMetadata as FormattedSimulationRunMetadata,
@@ -184,163 +183,151 @@ export class ViewService {
         },
       ),
       description: metadata?.description,
-      attributes: [],
+      topAttributes: [],
+      bottomAttributes: [],
     };
 
-    formattedMetadata.attributes.push({
-      values: metadata?.encodes?.map(this.uriIsUrl),
-      icon: 'cell',
+    // biology
+    const encodes: ListItem[] = metadata?.encodes?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Biology', 'cell')) || [];
+    const taxa: ListItem[] = metadata?.taxa?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Taxon', 'taxon')) || [];
+    formattedMetadata.topAttributes.push({
       title: 'Biology',
-    });
-    formattedMetadata.attributes.push({
-      values: metadata?.taxa?.map(this.uriIsUrl),
-      icon: 'taxon',
-      title: 'Taxon',
-    });
-    formattedMetadata.attributes.push({
-      values: metadata?.keywords?.map(this.uriIsUrl),
-      icon: 'tags',
-      title: 'Keyword',
-    });
-    (metadata?.other || []).forEach((other: DescribedIdentifier): void => {
-      formattedMetadata.attributes.push({
-        icon: 'info',
-        title: (other.attribute_label || other.attribute_uri) as string,
-        values: [
-          {
-            label: (other.label || other.uri) as string,
-            uri: other.uri,
-          },
-        ].map(this.uriIsUrl),
-      });
-    });
-    formattedMetadata.attributes.push({
-      values: metadata?.seeAlso?.map(this.uriIsUrl),
-      icon: 'link',
-      title: 'More info',
-    });
-    formattedMetadata.attributes.push({
-      values: metadata?.sources?.map(this.uriIsUrl),
-      icon: 'code',
-      title: 'Source',
+      items: encodes.concat(taxa),
     });
 
-    formattedMetadata.attributes.push({
-      values: metadata?.citations?.map(this.uriIsUrl),
-      icon: 'file',
-      title: 'Citation',
-    });
-    formattedMetadata.attributes.push({
-      values: metadata?.identifiers?.map(this.uriIsUrl),
-      icon: 'id',
-      title: 'Cross reference',
+    // more information
+    const seeAlso: ListItem[] = metadata?.seeAlso?.flatMap(this.labeledIdentifierToListItem.bind(this, 'More info', 'link')) || [];
+    const sources: ListItem[] = metadata?.sources?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Source', 'code')) || [];
+    const citations: ListItem[] = metadata?.citations?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Citation', 'file')) || [];
+    formattedMetadata.bottomAttributes.push({
+      title: 'More information',
+      items: seeAlso.concat(sources).concat(citations),
     });
 
-    formattedMetadata.attributes.push({
-      values: metadata?.predecessors?.map(this.uriIsUrl),
-      icon: 'backward',
-      title: 'Predecessor',
-    });
-
+    // related work
+    const predecessors: ListItem[] = metadata?.predecessors?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Predecessor', 'backward')) || [];
+    const successors: ListItem[] = metadata?.successors?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Successor', 'forward')) || [];
+    let locationPredecessorItems: ListItem[] = [];
     metadata?.locationPredecessors?.forEach(
       (locationPredecessor: LocationPredecessor): void => {
         const location = locationPredecessor.location.substring(
           locationPredecessor.location.indexOf('/') + 1,
         );
 
-        formattedMetadata.attributes.push({
-          values: locationPredecessor.predecessors
-            ?.map((predecessor: LabeledIdentifier): LabeledIdentifier => {
-              return {
-                label: predecessor?.label,
-                uri:
-                  predecessor?.uri?.startsWith('http://omex-library.org/') &&
-                  predecessor?.uri?.indexOf('.omex/') !== -1
-                    ? predecessor?.uri?.substring(
-                        predecessor?.uri?.indexOf('.omex/') + 6,
-                      )
-                    : predecessor?.uri,
-              };
-            })
-            ?.map(this.uriIsUrl),
-          icon: 'backward',
-          title: `Predecessor (${location})`,
-        });
-      },
-    );
-
-    formattedMetadata.attributes.push({
-      values: metadata?.successors?.map(this.uriIsUrl),
-      icon: 'forward',
-      title: 'Successor',
-    });
-
-    if (owner) {
-      formattedMetadata.attributes.push({
-        values: owner.organizations
-          .map((organization: Organization): LabeledIdentifier => {
+        locationPredecessorItems = locationPredecessorItems.concat(locationPredecessor.predecessors
+          ?.map((predecessor: LabeledIdentifier): LabeledIdentifier => {
             return {
-              label: organization.name,
-              uri: organization?.url || null,
+              label: predecessor?.label,
+              uri:
+                predecessor?.uri?.startsWith('http://omex-library.org/') &&
+                predecessor?.uri?.indexOf('.omex/') !== -1
+                  ? predecessor?.uri?.substring(
+                      predecessor?.uri?.indexOf('.omex/') + 6,
+                    )
+                  : predecessor?.uri,
             };
           })
-          .map(this.uriIsUrl),
-        icon: 'organization',
-        title: 'Organization',
-      });
-      formattedMetadata.attributes.push({
-        values: [
-          {
-            label: owner.name,
-            uri: owner?.url || null,
-          },
-        ].map(this.uriIsUrl),
-        icon: 'author',
-        title: 'Owner',
-      });
+          .flatMap(this.labeledIdentifierToListItem.bind(this, 'Predecessor (${location})', 'backward'))
+          || []
+        );
+      },
+    );
+    formattedMetadata.bottomAttributes.push({
+      title: 'Related work',
+      items: predecessors.concat(locationPredecessorItems).concat(successors),
+    });
+
+    // contributors
+    let contributors: ListItem[] = [];
+    if (owner) {
+      contributors = contributors.concat(owner.organizations
+        .map((organization: Organization): LabeledIdentifier => {
+          return {
+            label: organization.name,
+            uri: organization?.url || null,
+          };
+        })
+        .flatMap(this.labeledIdentifierToListItem.bind(this, 'Organization', 'organization'))
+      );
+      contributors = contributors.concat([
+            {
+              label: owner.name,
+              uri: owner?.url || null,
+            },
+          ]
+          .flatMap(this.labeledIdentifierToListItem.bind(this, 'Owner', 'author'))
+      );
     }
-    formattedMetadata.attributes.push({
-      values: metadata?.contributors?.map(this.uriIsUrl),
-      icon: 'author',
-      title: 'Curator',
-    });
-    formattedMetadata.attributes.push({
-      values: metadata?.funders?.map(this.uriIsUrl),
-      icon: 'funding',
-      title: 'Funder',
+    contributors = contributors.concat(metadata?.contributors?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Curator', 'author')) || []);
+    contributors = contributors.concat(metadata?.funders?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Funder', 'funding')) || []);    
+    formattedMetadata.bottomAttributes.push({
+      title: 'Contributors',
+      items: contributors,
     });
 
-    formattedMetadata.attributes.push({
-      values: metadata?.license?.map(this.uriIsUrl),
-      icon: 'license',
+    // license
+    formattedMetadata.bottomAttributes.push({
       title: 'License',
-    });
+      items: metadata?.license?.flatMap(this.labeledIdentifierToListItem.bind(this, 'License', 'license')) || [],
+    })
 
+    // identifiers
+    formattedMetadata.bottomAttributes.push({
+      title: 'Identifiers',
+      items: metadata?.identifiers?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Id', 'id')) || [],
+    })
+
+    // dates
+    const dates: ListItem[] = [];
     if (metadata?.created) {
-      formattedMetadata.attributes.push({
+      dates.push({
         icon: 'date',
         title: 'Created',
-        values: [
-          {
-            label: FormatService.formatDate(new Date(metadata?.created)),
-            uri: null,
-          },
-        ],
+        value: FormatService.formatDate(new Date(metadata?.created)),
+        url: null,
       });
     }
-
     if (metadata?.modified) {
-      formattedMetadata.attributes.push({
+      dates.push({
         icon: 'date',
         title: 'Last modified',
-        values: [
-          {
-            label: FormatService.formatDate(new Date(metadata?.modified)),
-            uri: null,
-          },
-        ],
+        value: FormatService.formatDate(new Date(metadata?.modified)),
+        url: null,
       });
     }
+    formattedMetadata.bottomAttributes.push({
+      title: 'Dates',
+      items: dates,
+    });
+
+    // other
+    const tags: ListItem[] = metadata?.keywords?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Keyword', 'tag')) || [];
+    const other: ListItem[] = metadata?.other?.flatMap((other: DescribedIdentifier): ListItem[] => {
+        const title = other.attribute_label || other.attribute_uri;
+        if (title) {
+          return this.labeledIdentifierToListItem(title, 'info', {
+            label: other.label,
+            uri: other.uri,
+          });
+        } else {
+          return [];
+        }
+      }) 
+      || [];
+    formattedMetadata.topAttributes.push({
+      title: 'Other',
+      items: tags.concat(other),
+    });
+
+    // filter out empty categories
+    formattedMetadata.topAttributes = formattedMetadata.topAttributes
+      .filter((attributes: List): boolean => {
+        return attributes.items.length > 0;
+      });
+    formattedMetadata.bottomAttributes = formattedMetadata.bottomAttributes
+      .filter((attributes: List): boolean => {
+        return attributes.items.length > 0;
+      });
 
     return formattedMetadata;
   }
@@ -1356,17 +1343,38 @@ export class ViewService {
     }
   }
 
-  private uriIsUrl(
+  private labeledIdentifierToListItem(    
+    title: string,
+    icon: BiosimulationsIcon,
     labeledIdentifier: LabeledIdentifier,
-  ): LabeledIdentifierIsUrl {
-    return {
-      label: labeledIdentifier?.label,
-      uri: labeledIdentifier?.uri
-        ? {
-            value: labeledIdentifier?.uri,
-            isUrl: isUrl(labeledIdentifier?.uri),
-          }
-        : null,
-    };
+  ): ListItem[] {
+    const uriIsUrl = labeledIdentifier?.uri && isUrl(labeledIdentifier?.uri);
+    let value: string | null;
+    if (uriIsUrl) {
+      value = labeledIdentifier?.label || labeledIdentifier?.uri;
+    } else {
+      if (labeledIdentifier?.uri) {
+        if (labeledIdentifier?.label) {
+          value = `${labeledIdentifier?.label} (${labeledIdentifier?.uri})`;
+        } else {
+          value = labeledIdentifier?.uri;
+        }
+      } else {
+        value = labeledIdentifier?.label;
+      }
+    }
+
+    if (value) {
+      return [{
+        value: value,
+        url: uriIsUrl 
+          ? labeledIdentifier?.uri 
+          : null,
+        title,
+        icon, 
+      }];
+    } else {
+      return [];
+    }
   }
 }
