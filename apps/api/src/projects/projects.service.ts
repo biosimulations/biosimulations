@@ -222,7 +222,7 @@ export class ProjectsService implements OnModuleInit {
       })
       .sort()
       .join(',');
-    const cacheKey = `Project:Summaries:${projectIds}`;
+    const cacheKey = `Project:Summaries:${projectIds}:${SimulationRunService.summaryVersion}`;
     return this.getWithCache<ProjectSummary[]>(
       cacheKey,
       this._getProjectSummaries.bind(this, projects),
@@ -307,7 +307,7 @@ export class ProjectsService implements OnModuleInit {
     }
 
     const updated = project.updated.toISOString();
-    const cacheKey = `Project:Summary:${id}:${updated}`;
+    const cacheKey = `Project:Summary:${id}:${updated}:${SimulationRunService.summaryVersion}`;
     return this.getWithCache<ProjectSummary>(
       cacheKey,
       this._getProjectSummary.bind(this, project),
@@ -434,6 +434,8 @@ export class ProjectsService implements OnModuleInit {
     return undefined;
   }
 
+  private static accountVersion = 1;
+
   /** Get information about an account from Auth0
    * @param auth0Id: Auth0 user or client id
    */
@@ -494,7 +496,7 @@ export class ProjectsService implements OnModuleInit {
    * @param auth0Id: Auth0 user or client id
    */
   private async getAccount(auth0Id: string): Promise<Account> {
-    const cacheKey = `Account:info:${auth0Id}`;
+    const cacheKey = `Account:info:${auth0Id}:${ProjectsService.accountVersion}`;
     return this.getWithCache<Account>(
       cacheKey,
       this._getAccount.bind(this, auth0Id),
