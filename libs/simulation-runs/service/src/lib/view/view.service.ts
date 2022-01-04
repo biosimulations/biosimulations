@@ -259,7 +259,7 @@ export class ViewService {
       );
     }
     contributors = contributors.concat(metadata?.contributors?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Curator', 'author')) || []);
-    contributors = contributors.concat(metadata?.funders?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Funder', 'funding')) || []);    
+    contributors = contributors.concat(metadata?.funders?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Funder', 'funding')) || []);
     formattedMetadata.bottomAttributes.push({
       title: 'Contributors',
       items: contributors,
@@ -312,7 +312,7 @@ export class ViewService {
         } else {
           return [];
         }
-      }) 
+      })
       || [];
     formattedMetadata.topAttributes.push({
       title: 'Other',
@@ -1343,7 +1343,7 @@ export class ViewService {
     }
   }
 
-  private labeledIdentifierToListItem(    
+  private labeledIdentifierToListItem(
     title: string,
     icon: BiosimulationsIcon,
     labeledIdentifier: LabeledIdentifier,
@@ -1367,11 +1367,11 @@ export class ViewService {
     if (value) {
       return [{
         value: value,
-        url: uriIsUrl 
-          ? labeledIdentifier?.uri 
+        url: uriIsUrl
+          ? labeledIdentifier?.uri
           : null,
         title,
-        icon, 
+        icon,
       }];
     } else {
       return [];
