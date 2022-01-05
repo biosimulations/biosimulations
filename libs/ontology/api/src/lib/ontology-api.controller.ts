@@ -49,7 +49,7 @@ export class OntologyApiController {
     description:
       'The ids of the ontologies used by BioSimulations and BioSimulators were successfully retrieved',
     type: [String],
-  })  
+  })
   public async getList(): Promise<string[]> {
     const cacheKey = `${OntologyApiController.version}`;
 
@@ -62,7 +62,7 @@ export class OntologyApiController {
     });
   }
 
-  @Get(':ontologyId/info')  
+  @Get(':ontologyId/info')
   @ApiOperation({
     summary: 'Get information about an ontology',
     description:
@@ -98,7 +98,7 @@ export class OntologyApiController {
     });
   }
 
-  @Get(':ontologyId')  
+  @Get(':ontologyId')
   @ApiOperation({
     summary: 'Get the terms in an ontology',
     description: 'Get a list of the terms in an ontology',
@@ -133,7 +133,7 @@ export class OntologyApiController {
     });
   }
 
-  @Get(':ontologyId/:termId')  
+  @Get(':ontologyId/:termId')
   @ApiOperation({
     summary: 'Get a term in an ontology',
     description:
