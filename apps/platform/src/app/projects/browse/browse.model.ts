@@ -1,7 +1,6 @@
 import {
   LabeledIdentifier,
   DescribedIdentifier,
-  LocationPredecessor,
   EnvironmentVariable,
   SimulationRunTaskSummary,
   SimulationRunOutputSummary,
@@ -24,6 +23,11 @@ export interface FormattedSimulationRunSummary {
   updated: Date;
 }
 
+export interface LocationPredecessor {
+  location: string;
+  predecessor: LabeledIdentifier;
+}
+
 export interface FormattedProjectMetadataSummary {
   abstract?: string;
   description?: string;
@@ -39,7 +43,7 @@ export interface FormattedProjectMetadataSummary {
   funders: LabeledIdentifier[];
   other: DescribedIdentifier[];
   locationPredecessors: LocationPredecessor[];
-  created: Date;
+  created?: Date;
   modified?: Date;
 }
 

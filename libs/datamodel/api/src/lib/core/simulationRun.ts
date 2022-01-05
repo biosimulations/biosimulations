@@ -32,7 +32,7 @@ import {
 import {
   LabeledIdentifier,
   DescribedIdentifier,
-  LocationPredecessor,
+  URI,
   ABSTRACT,
   CITATIONS,
   CONTRIBUTORS,
@@ -45,7 +45,6 @@ import {
   LICENCE,
   MODIFIED,
   PREDECESSORS,
-  LOCATION_PREDECESSORS,
   SEEALSO,
   SOURCES,
   SUCCESSORS,
@@ -779,6 +778,9 @@ export class SimulationRunRunSummary implements ISimulationRunRunSummary {
 export class SimulationRunMetadataSummary
   implements ISimulationRunMetadataSummary
 {
+  @ApiProperty(URI)
+  uri!: string;
+
   @ApiPropertyOptional(TITLE)
   title?: string;
 
@@ -805,9 +807,6 @@ export class SimulationRunMetadataSummary
 
   @ApiProperty(PREDECESSORS)
   predecessors!: LabeledIdentifier[];
-
-  @ApiProperty(LOCATION_PREDECESSORS)
-  locationPredecessors!: LocationPredecessor[];
 
   @ApiProperty(SUCCESSORS)
   successors!: LabeledIdentifier[];
@@ -837,10 +836,10 @@ export class SimulationRunMetadataSummary
   other!: DescribedIdentifier[];
 
   @ApiProperty(CREATED)
-  created!: string;
+  created?: string;
 
   @ApiPropertyOptional(MODIFIED)
-  modified?: string;
+  modified?: string[];
 }
 
 export class SimulationRunSummary implements ISimulationRunSummary {
@@ -877,10 +876,10 @@ export class SimulationRunSummary implements ISimulationRunSummary {
   run!: SimulationRunRunSummary;
 
   @ApiPropertyOptional({
-    type: SimulationRunMetadataSummary,
+    type: [SimulationRunMetadataSummary],
     description: 'Summary of the metadata for the run',
   })
-  metadata?: SimulationRunMetadataSummary;
+  metadata?: SimulationRunMetadataSummary[];
 
   @ApiProperty({
     description: 'Timestamp when the simulation run was submitted',

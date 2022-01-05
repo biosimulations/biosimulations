@@ -2,11 +2,9 @@
 import {
   LabeledIdentifier as ILabeledIdentifier,
   DescribedIdentifier as IDescribedIdentifier,
-  LocationPredecessor as ILocationPredecessor,
 } from '@biosimulations/datamodel/common';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsString, IsOptional, ValidateNested } from 'class-validator';
-import { Type } from 'class-transformer';
+import { IsString, IsOptional } from 'class-validator';
 
 export class LabeledIdentifier implements ILabeledIdentifier {
   @ApiProperty({ type: String, nullable: true, required: false, default: null })
@@ -55,16 +53,11 @@ export class DescribedIdentifier
   attribute_label!: string | null;
 }
 
-export class LocationPredecessor implements ILocationPredecessor {
-  @ApiProperty({ type: String })
-  @IsString()
-  location!: string;
-
-  @ApiProperty({ type: [LabeledIdentifier] })
-  @ValidateNested({ each: true })
-  @Type(() => LabeledIdentifier)
-  predecessors!: LabeledIdentifier[];
-}
+export const URI = {
+  type: String,
+  description: 'URI for the subject of the metadata',
+  example: '.',
+};
 
 export const CREATORS = {
   type: [LabeledIdentifier],
@@ -227,26 +220,6 @@ export const PREDECESSORS = {
     {
       label: 'Balagaddé2008_E_coli_Predator_Prey',
       uri: 'http://identifiers.org/biomodels.db:BIOMD0000000296',
-    },
-  ],
-};
-
-export const LOCATION_PREDECESSORS = {
-  type: [LocationPredecessor],
-  description: 'Predecessors of individual files of the project',
-  externalDocs: {
-    description: 'Biomodels Model Qualifiers isDerivedFrom',
-    url: 'https://biomodels.net/model-qualifiers/isDerivedFrom',
-  },
-  example: [
-    {
-      location: 'simulation.sedml',
-      predecessors: [
-        {
-          label: 'Model',
-          uri: 'model.xml',
-        },
-      ],
     },
   ],
 };

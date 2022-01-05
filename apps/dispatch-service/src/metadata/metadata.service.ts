@@ -134,7 +134,7 @@ export class MetadataService {
         combineMetadata.contributors?.map(this.convertMetadataValue, this) ||
         [],
       license: [this.convertMetadataValue(combineMetadata.license)],
-      created: combineMetadata.created || '',
+      created: combineMetadata.created || undefined,
       modified: combineMetadata.modified || [],
       other:
         combineMetadata.other?.map((data: BioSimulationsCustomMetadata) => {

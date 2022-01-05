@@ -11,7 +11,6 @@ import { catchError } from 'rxjs/operators';
 import {
   LabeledIdentifier,
   DescribedIdentifier,
-  LocationPredecessor,
   SimulationRunSedDocument,
   SedAbstractTask,
   SedOutput,
@@ -21,6 +20,7 @@ import {
   SimulationTypeBriefName,
   PlotlyDataLayout,
   SimulationRunSummary,
+  SimulationRunMetadataSummary,
   SimulationRunAlgorithmSummary,
   SimulationRunOutput,
   SimulationRunOutputDatum,
@@ -132,7 +132,9 @@ export class ViewService {
     simulationRunSummary: SimulationRunSummary,
     owner?: Account,
   ): ProjectMetadata | null {
-    const metadata = simulationRunSummary.metadata;
+    const metadata = simulationRunSummary?.metadata?.filter((metadatum: SimulationRunMetadataSummary): boolean => {
+      return metadatum.uri === '.';
+    })?.[0];
     if (!metadata) {
       return null;
     }
@@ -235,37 +237,6 @@ export class ViewService {
       metadata?.successors?.flatMap(
         this.labeledIdentifierToListItem.bind(this, 'Successor', 'forward'),
       ) || [];
-    let locationPredecessorItems: ListItem[] = [];
-    metadata?.locationPredecessors?.forEach(
-      (locationPredecessor: LocationPredecessor): void => {
-        const location = locationPredecessor.location.substring(
-          locationPredecessor.location.indexOf('/') + 1,
-        );
-
-        locationPredecessorItems = locationPredecessorItems.concat(
-          locationPredecessor.predecessors
-            ?.map((predecessor: LabeledIdentifier): LabeledIdentifier => {
-              return {
-                label: predecessor?.label,
-                uri:
-                  predecessor?.uri?.startsWith('http://omex-library.org/') &&
-                  predecessor?.uri?.indexOf('.omex/') !== -1
-                    ? predecessor?.uri?.substring(
-                        predecessor?.uri?.indexOf('.omex/') + 6,
-                      )
-                    : predecessor?.uri,
-              };
-            })
-            .flatMap(
-              this.labeledIdentifierToListItem.bind(
-                this,
-                'Predecessor (${location})',
-                'backward',
-              ),
-            ) || [],
-        );
-      },
-    );
 
     const citations: ListItem[] =
       metadata?.citations?.flatMap(
@@ -331,11 +302,11 @@ export class ViewService {
         url: null,
       });
     }
-    if (metadata?.modified) {
+    if (metadata?.modified?.length) {
       dates.push({
         icon: 'date',
         title: 'Last modified',
-        value: FormatService.formatDate(new Date(metadata?.modified)),
+        value: FormatService.formatDate(new Date(metadata?.modified?.[0])),
         url: null,
       });
     }
@@ -344,7 +315,6 @@ export class ViewService {
       title: 'Provenance',
       items: sources
         .concat(predecessors)
-        .concat(locationPredecessorItems)
         .concat(successors)
         .concat(citations)
         .concat(contributors)
@@ -1239,7 +1209,9 @@ export class ViewService {
       educationalLevel: 'advanced',
     };
 
-    const projectMeta = simulationRunSummary.metadata;
+    const projectMeta = simulationRunSummary?.metadata?.filter((metadatum: SimulationRunMetadataSummary): boolean => {
+      return metadatum.uri === '.';
+    })?.[0];
     if (projectMeta) {
       if (projectMeta.title) {
         runDataSet.headline = projectMeta.title;

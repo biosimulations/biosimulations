@@ -2,13 +2,12 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { BrowseService } from './browse.service';
-import { FormattedProjectSummary } from './browse.model';
+import { FormattedProjectSummary, LocationPredecessor } from './browse.model';
 import { Column, ColumnFilterType } from '@biosimulations/shared/ui';
 import { FormatService } from '@biosimulations/shared/services';
 import {
   LabeledIdentifier,
   DescribedIdentifier,
-  LocationPredecessor,
 } from '@biosimulations/datamodel/common';
 import { RowService } from '@biosimulations/shared/ui';
 import { ScrollService } from '@biosimulations/shared/angular';
@@ -444,20 +443,12 @@ export class BrowseComponent implements OnInit, AfterViewInit {
       getter: (project: FormattedProjectSummary): string[] => {
         const value = new Set(
           project.metadata.locationPredecessors
-            .flatMap(
-              (
-                locationPredecessor: LocationPredecessor,
-              ): LabeledIdentifier[] => {
-                if (locationPredecessor.location.endsWith('.sedml')) {
-                  return locationPredecessor.predecessors;
-                } else {
-                  return [];
-                }
-              },
-            )
-            .map((predecessor: LabeledIdentifier): string => {
-              return predecessor.uri?.startsWith('http://omex-library.org/') &&
-                predecessor.uri.indexOf('.omex/') !== -1
+            .filter((locationPredecessor: LocationPredecessor): boolean => {
+              return locationPredecessor.location.endsWith('.sedml');
+            })
+            .map((predecessor: LocationPredecessor): string => {
+              return predecessor.predecessor.uri?.startsWith('http://omex-library.org/') &&
+                predecessor.predecessor.uri.indexOf('.omex/') !== -1
                 ? 'Simulation generated from model'
                 : 'Other';
             }),
