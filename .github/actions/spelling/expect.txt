@@ -102,7 +102,6 @@ csv
 cvode
 Cybern
 danv
-daringfireball
 dbrnz
 dcmi
 dcterms
@@ -176,6 +175,7 @@ Garny
 gdpr
 geneontology
 Gennari
+GFM
 ghcr
 gillespie
 gillespy
@@ -363,7 +363,6 @@ opencor
 openlinksw
 opensourcebrain
 orcid
-orgs
 osde
 pahle
 Paulev
