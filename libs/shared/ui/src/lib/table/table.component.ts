@@ -666,7 +666,9 @@ export class TableComponent implements OnInit, AfterViewInit {
       this.setColumnsToShow();
 
       if (openControlPanelId !== undefined) {
-        this.openControlPanelId = openControlPanelId;
+        setTimeout(() => {
+          this.openControlPanelId = openControlPanelId;
+        });
       }
     }
 
