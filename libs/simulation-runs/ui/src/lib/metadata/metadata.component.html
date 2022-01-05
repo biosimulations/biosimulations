@@ -32,7 +32,7 @@
       <!-- TODO create ORCID people list component -->
       <ul
         class="creators comma-separated ampersand-separator"
-        *ngIf="project.creators.length"
+        *ngIf="project?.creators?.length"
       >
         <li *ngFor="let creator of project.creators">
           {{ creator.label }}{{ creator.uri ? ' ' : ''
@@ -60,7 +60,7 @@
   <!-- Biology, simulation, & provenance information -->
   <div
     *ngIf="
-      project?.biology?.length ||
+      project?.modelSimulation?.length ||
       simulationRun?.length ||
       project?.provenance?.length
     "
@@ -72,7 +72,7 @@
     <ng-container
       *ngTemplateOutlet="
         sectionsTemplate;
-        context: { sections: project?.biology || [] }
+        context: { sections: project?.modelSimulation || [] }
       "
     ></ng-container>
 

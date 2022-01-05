@@ -103,7 +103,7 @@ export class ViewComponent implements OnInit {
     this.files$ = projectSummary$.pipe(
       mergeMap((projectSummary) =>
         this.service.getFormattedProjectContentFiles(
-          projectSummary.simulationRun.id,
+          projectSummary.simulationRun,
         ),
       ),
       shareReplay(1),

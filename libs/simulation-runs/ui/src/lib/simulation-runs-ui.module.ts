@@ -9,6 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { MetadataComponent } from './metadata/metadata.component';
+import { MetadataDialogComponent } from './metadata-dialog/metadata-dialog.component';
 import { FilesComponent } from './files/files.component';
 import { SelectVisualizationComponent } from './select-viz/select-viz.component';
 import { DesignHistogram1DVisualizationComponent } from './design-histogram-1d-viz/design-histogram-1d-viz.component';
@@ -17,6 +18,7 @@ import { DesignLine2DVisualizationComponent } from './design-line-2d-viz/design-
 import { RenderVisualizationComponent } from './render-viz/render-viz.component';
 import { ApiClientModule } from '@biosimulations/angular-api-client';
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   imports: [
@@ -39,9 +41,11 @@ import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
         },
       },
     }),
+    MatDialogModule,
   ],
   exports: [
     MetadataComponent,
+    MetadataDialogComponent,
     FilesComponent,
     SelectVisualizationComponent,
     DesignHistogram1DVisualizationComponent,
@@ -51,6 +55,7 @@ import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
   ],
   declarations: [
     MetadataComponent,
+    MetadataDialogComponent,
     FilesComponent,
     SelectVisualizationComponent,
     DesignHistogram1DVisualizationComponent,

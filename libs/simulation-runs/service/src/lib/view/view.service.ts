@@ -139,10 +139,14 @@ export class ViewService {
       return null;
     }
 
+    return this.formatMetadata(metadata, simulationRunSummary.id, owner);
+  }
+
+  private formatMetadata(metadata: SimulationRunMetadataSummary, id?: string, owner?: Account,): ProjectMetadata {
     // Check for undefined metadata for all fields
     const formattedMetadata: ProjectMetadata = {
       thumbnails: metadata?.thumbnails || [],
-      title: metadata?.title || simulationRunSummary.id,
+      title: metadata?.title || id || metadata?.uri,
       abstract: metadata?.abstract,
       creators: (metadata?.creators || []).map(
         (creator: LabeledIdentifier): Creator => {
@@ -185,7 +189,7 @@ export class ViewService {
         },
       ),
       description: metadata?.description,
-      biology: [],
+      modelSimulation: [],
       provenance: [],
     };
 
@@ -219,8 +223,8 @@ export class ViewService {
         this.labeledIdentifierToListItem.bind(this, 'More info', 'link'),
       ) || [];
 
-    formattedMetadata.biology.push({
-      title: 'Biology',
+    formattedMetadata.modelSimulation.push({
+      title: 'Model/simulation',
       items: encodes.concat(taxa).concat(tags).concat(other).concat(seeAlso),
     });
 
@@ -324,7 +328,7 @@ export class ViewService {
     });
 
     // filter out empty categories
-    formattedMetadata.biology = formattedMetadata.biology.filter(
+    formattedMetadata.modelSimulation = formattedMetadata.modelSimulation.filter(
       (attributes: List): boolean => {
         return attributes.items.length > 0;
       },
@@ -551,7 +555,7 @@ export class ViewService {
 
             // return sections
             const sections = [
-              { title: 'Modeling methods & tools', items: methodsTools },
+              { title: 'Methods & tools', items: methodsTools },
               { title: 'Simulation run', items: run },
             ];
             return sections.filter((section: List): boolean => {
@@ -596,9 +600,15 @@ export class ViewService {
     ];
   }
 
-  public getFormattedProjectContentFiles(runId: string): Observable<Path[]> {
-    return this.simRunService.getSimulationRunFiles(runId).pipe(
+  public getFormattedProjectContentFiles(simulationRunSummary: SimulationRunSummary): Observable<Path[]> {
+    return this.simRunService.getSimulationRunFiles(simulationRunSummary.id).pipe(
       map((contents: CombineArchiveFile[]): Path[] => {
+        const metadataMap: {[location: string]: ProjectMetadata} = {};
+
+        simulationRunSummary?.metadata?.forEach((metadatum: SimulationRunMetadataSummary): void => {
+          metadataMap[metadatum.uri] = this.formatMetadata(metadatum);
+        });        
+
         const root: { [path: string]: Path } = {};
 
         contents
@@ -620,11 +630,13 @@ export class ViewService {
               level++;
               parentPath += '/' + parentBasename;
               if (!(parentPath.substring(1) in root)) {
+                const location = parentPath.substring(1);
                 root[parentPath.substring(1)] = {
                   _type: 'Directory',
                   level: level,
-                  location: parentPath.substring(1),
+                  location: location,
                   title: parentBasename,
+                  metadata: metadataMap?.[location],
                 };
               }
             });
@@ -675,6 +687,7 @@ export class ViewService {
               formatUrl: this.omexManifestUriFormatMap?.[format]?.url,
               icon: (this.omexManifestUriFormatMap?.[format]
                 ?.biosimulationsMetadata?.icon || 'file') as BiosimulationsIcon,
+              metadata: metadataMap?.[location],
             };
           });
 

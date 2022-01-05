@@ -36,7 +36,7 @@ ul:last-child {
 
 /* Page content */
 .partial-width {
-  max-width: 1200px;
+  max-width: 1400px;
   margin-left: auto;
   margin-right: auto;
   overflow: auto;
@@ -1443,4 +1443,15 @@ sub {
   transition: width ease-in-out 1s;
   overflow: clip;
   width: 0;
+}
+
+/* dialogs */
+.mat-dialog-container {
+  padding: 2rem;
+}
+
+@media screen and (max-width: 959px) {
+  .mat-dialog-container {
+    padding: 1rem;
+  }
 }

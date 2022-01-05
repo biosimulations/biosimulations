@@ -1,5 +1,5 @@
 .clean-table {
-  grid-template-columns: 1fr 1fr 75px 75px;
+  grid-template-columns: repeat(2, 1fr) repeat(4, 80px);
 }
 
 .cell {
@@ -14,4 +14,12 @@
 
 .master-file {
   /* background: #efefef; */
+}
+
+.metadata, .download {
+  text-align: center;
+  .biosimulations-button {
+    position: relative;
+    top: -2px;
+  }
 }
