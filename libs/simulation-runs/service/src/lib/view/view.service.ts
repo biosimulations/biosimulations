@@ -607,7 +607,7 @@ export class ViewService {
 
         simulationRunSummary?.metadata?.forEach((metadatum: SimulationRunMetadataSummary): void => {
           metadataMap[metadatum.uri] = this.formatMetadata(metadatum);
-        });        
+        });
 
         const root: { [path: string]: Path } = {};
 
