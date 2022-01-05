@@ -1284,8 +1284,8 @@ export class SimulationRunService {
     if (rawMetadataResult.succeeded && rawMetadataResult.value) {
       summary.metadata = rawMetadataResult.value.metadata.map((rawMetadatum: ArchiveMetadata) => {
         const uriSlashPos = rawMetadatum.uri.search('/');
-        const uri = uriSlashPos === -1 
-          ? '.' 
+        const uri = uriSlashPos === -1
+          ? '.'
           : rawMetadatum.uri.substring(uriSlashPos + 1);
 
         return {
