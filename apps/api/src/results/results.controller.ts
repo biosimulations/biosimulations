@@ -75,7 +75,9 @@ export class ResultsController {
     @Query('includeData', ParseBoolPipe) includeData = false,
   ): Promise<SimulationRunResults> {
     const cacheKey = `${runId}:${includeData}:${ResultsController.runResultsVersion}`;
-    const cachedValue = await this.cacheManager.get(cacheKey) as SimulationRunResults | null;
+    const cachedValue = (await this.cacheManager.get(
+      cacheKey,
+    )) as SimulationRunResults | null;
     if (cachedValue) {
       return cachedValue;
     }
@@ -171,7 +173,9 @@ export class ResultsController {
     @Query('includeData', ParseBoolPipe) includeData = false,
   ): Promise<SimulationRunOutput> {
     const cacheKey = `${runId}:${experimentLocationAndOutputId}:${includeData}:${ResultsController.runResultsVersion}`;
-    const cachedValue = await this.cacheManager.get(cacheKey) as SimulationRunOutput | null;
+    const cachedValue = (await this.cacheManager.get(
+      cacheKey,
+    )) as SimulationRunOutput | null;
     if (cachedValue) {
       return cachedValue;
     }

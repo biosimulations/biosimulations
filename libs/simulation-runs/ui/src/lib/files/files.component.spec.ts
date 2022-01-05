@@ -16,7 +16,12 @@ describe('FilesComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [FilesComponent],
-      imports: [BiosimulationsIconsModule, MatListModule, SharedUiModule, MatDialogModule],
+      imports: [
+        BiosimulationsIconsModule,
+        MatListModule,
+        SharedUiModule,
+        MatDialogModule,
+      ],
       providers: [
         { provide: MatDialogRef, useValue: {} },
         {

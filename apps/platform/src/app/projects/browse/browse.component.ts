@@ -447,8 +447,9 @@ export class BrowseComponent implements OnInit, AfterViewInit {
               return locationPredecessor.location.endsWith('.sedml');
             })
             .map((predecessor: LocationPredecessor): string => {
-              return predecessor.predecessor.uri?.startsWith('http://omex-library.org/') &&
-                predecessor.predecessor.uri.indexOf('.omex/') !== -1
+              return predecessor.predecessor.uri?.startsWith(
+                'http://omex-library.org/',
+              ) && predecessor.predecessor.uri.indexOf('.omex/') !== -1
                 ? 'Simulation generated from model'
                 : 'Other';
             }),

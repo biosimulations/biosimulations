@@ -2,7 +2,7 @@
   <div class="head cell title">Name</div>
   <div class="head cell format">Format</div>
   <div class="head cell main">{{ usesMaster ? 'Main' : '' }}</div>
-  <div class="head cell metadata">{{ usesMetadata ? 'Metadata': '' }}</div>
+  <div class="head cell metadata">{{ usesMetadata ? 'Metadata' : '' }}</div>
   <div class="head cell download">Download</div>
   <div class="head cell size">Size</div>
 
@@ -21,7 +21,8 @@
       <div class="cell main"></div>
       <div class="cell metadata">
         <ng-container *ngIf="usesMetadata">
-          <button mat-icon-button
+          <button
+            mat-icon-button
             *ngIf="path?.metadata as metadata"
             (click)="openMetadata(metadata)"
             class="biosimulations-button text"
@@ -59,7 +60,8 @@
       </div>
       <div class="cell metadata">
         <ng-container *ngIf="usesMetadata">
-          <button mat-icon-button
+          <button
+            mat-icon-button
             *ngIf="path?.metadata as metadata"
             (click)="openMetadata(metadata)"
             class="biosimulations-button text"
@@ -69,14 +71,15 @@
         </ng-container>
       </div>
       <div class="cell download">
-        <a mat-icon-button
+        <a
+          mat-icon-button
           class="biosimulations-button text"
           [href]="path.url"
           rel="noopener"
           target="_blank"
           *ngIf="path.url"
           [download]="path.basename"
-          >
+        >
           <biosimulations-icon icon="download"></biosimulations-icon>
         </a>
       </div>

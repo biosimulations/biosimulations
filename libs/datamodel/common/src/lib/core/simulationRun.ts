@@ -7,10 +7,7 @@ import {
   SerializedSedDataGenerator as SedDataGenerator,
   SerializedSedOutput as SedOutput,
 } from '../sedml';
-import {
-  LabeledIdentifier,
-  DescribedIdentifier,
-} from './archiveMetadata';
+import { LabeledIdentifier, DescribedIdentifier } from './archiveMetadata';
 
 export enum SimulationRunStatus {
   // The api has created the entry

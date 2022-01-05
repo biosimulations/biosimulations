@@ -1282,36 +1282,39 @@ export class SimulationRunService {
     }
 
     if (rawMetadataResult.succeeded && rawMetadataResult.value) {
-      summary.metadata = rawMetadataResult.value.metadata.map((rawMetadatum: ArchiveMetadata) => {
-        const uriSlashPos = rawMetadatum.uri.search('/');
-        const uri = uriSlashPos === -1
-          ? '.'
-          : rawMetadatum.uri.substring(uriSlashPos + 1);
+      summary.metadata = rawMetadataResult.value.metadata.map(
+        (rawMetadatum: ArchiveMetadata) => {
+          const uriSlashPos = rawMetadatum.uri.search('/');
+          const uri =
+            uriSlashPos === -1
+              ? '.'
+              : rawMetadatum.uri.substring(uriSlashPos + 1);
 
-        return {
-          uri: uri,
-          title: rawMetadatum?.title,
-          abstract: rawMetadatum?.abstract,
-          description: rawMetadatum?.description,
-          thumbnails: rawMetadatum.thumbnails,
-          keywords: rawMetadatum.keywords,
-          encodes: rawMetadatum.encodes,
-          taxa: rawMetadatum.taxa,
-          other: rawMetadatum.other,
-          seeAlso: rawMetadatum.seeAlso,
-          sources: rawMetadatum.sources,
-          predecessors: rawMetadatum.predecessors,
-          successors: rawMetadatum.successors,
-          creators: rawMetadatum.creators,
-          contributors: rawMetadatum.contributors,
-          funders: rawMetadatum.funders,
-          identifiers: rawMetadatum.identifiers,
-          citations: rawMetadatum.citations,
-          license: rawMetadatum?.license,
-          created: rawMetadatum.created,
-          modified: rawMetadatum.modified,
-        };
-      });
+          return {
+            uri: uri,
+            title: rawMetadatum?.title,
+            abstract: rawMetadatum?.abstract,
+            description: rawMetadatum?.description,
+            thumbnails: rawMetadatum.thumbnails,
+            keywords: rawMetadatum.keywords,
+            encodes: rawMetadatum.encodes,
+            taxa: rawMetadatum.taxa,
+            other: rawMetadatum.other,
+            seeAlso: rawMetadatum.seeAlso,
+            sources: rawMetadatum.sources,
+            predecessors: rawMetadatum.predecessors,
+            successors: rawMetadatum.successors,
+            creators: rawMetadatum.creators,
+            contributors: rawMetadatum.contributors,
+            funders: rawMetadatum.funders,
+            identifiers: rawMetadatum.identifiers,
+            citations: rawMetadatum.citations,
+            license: rawMetadatum?.license,
+            created: rawMetadatum.created,
+            modified: rawMetadatum.modified,
+          };
+        },
+      );
     } else if (raiseErrors) {
       const error = rawMetadataResult?.error;
       this.logger.error(

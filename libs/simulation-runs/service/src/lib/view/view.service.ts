@@ -132,9 +132,11 @@ export class ViewService {
     simulationRunSummary: SimulationRunSummary,
     owner?: Account,
   ): ProjectMetadata | null {
-    const metadata = simulationRunSummary?.metadata?.filter((metadatum: SimulationRunMetadataSummary): boolean => {
-      return metadatum.uri === '.';
-    })?.[0];
+    const metadata = simulationRunSummary?.metadata?.filter(
+      (metadatum: SimulationRunMetadataSummary): boolean => {
+        return metadatum.uri === '.';
+      },
+    )?.[0];
     if (!metadata) {
       return null;
     }
@@ -142,7 +144,11 @@ export class ViewService {
     return this.formatMetadata(metadata, simulationRunSummary.id, owner);
   }
 
-  private formatMetadata(metadata: SimulationRunMetadataSummary, id?: string, owner?: Account,): ProjectMetadata {
+  private formatMetadata(
+    metadata: SimulationRunMetadataSummary,
+    id?: string,
+    owner?: Account,
+  ): ProjectMetadata {
     // Check for undefined metadata for all fields
     const formattedMetadata: ProjectMetadata = {
       thumbnails: metadata?.thumbnails || [],
@@ -328,11 +334,10 @@ export class ViewService {
     });
 
     // filter out empty categories
-    formattedMetadata.modelSimulation = formattedMetadata.modelSimulation.filter(
-      (attributes: List): boolean => {
+    formattedMetadata.modelSimulation =
+      formattedMetadata.modelSimulation.filter((attributes: List): boolean => {
         return attributes.items.length > 0;
-      },
-    );
+      });
     formattedMetadata.provenance = formattedMetadata.provenance.filter(
       (attributes: List): boolean => {
         return attributes.items.length > 0;
@@ -600,105 +605,112 @@ export class ViewService {
     ];
   }
 
-  public getFormattedProjectContentFiles(simulationRunSummary: SimulationRunSummary): Observable<Path[]> {
-    return this.simRunService.getSimulationRunFiles(simulationRunSummary.id).pipe(
-      map((contents: CombineArchiveFile[]): Path[] => {
-        const metadataMap: {[location: string]: ProjectMetadata} = {};
+  public getFormattedProjectContentFiles(
+    simulationRunSummary: SimulationRunSummary,
+  ): Observable<Path[]> {
+    return this.simRunService
+      .getSimulationRunFiles(simulationRunSummary.id)
+      .pipe(
+        map((contents: CombineArchiveFile[]): Path[] => {
+          const metadataMap: { [location: string]: ProjectMetadata } = {};
 
-        simulationRunSummary?.metadata?.forEach((metadatum: SimulationRunMetadataSummary): void => {
-          metadataMap[metadatum.uri] = this.formatMetadata(metadatum);
-        });
+          simulationRunSummary?.metadata?.forEach(
+            (metadatum: SimulationRunMetadataSummary): void => {
+              metadataMap[metadatum.uri] = this.formatMetadata(metadatum);
+            },
+          );
 
-        const root: { [path: string]: Path } = {};
+          const root: { [path: string]: Path } = {};
 
-        contents
-          .filter((content: CombineArchiveFile): boolean => {
-            return content.location != '.';
-          })
-          .forEach((content: CombineArchiveFile): void => {
-            let location = content.location;
-            if (location.substring(0, 2) === './') {
-              location = location.substring(2);
-            }
-
-            const parentBasenames = location.split('/');
-            const basename = parentBasenames.pop() as string;
-
-            let parentPath = '';
-            let level = -1;
-            parentBasenames.forEach((parentBasename: string): void => {
-              level++;
-              parentPath += '/' + parentBasename;
-              if (!(parentPath.substring(1) in root)) {
-                const location = parentPath.substring(1);
-                root[parentPath.substring(1)] = {
-                  _type: 'Directory',
-                  level: level,
-                  location: location,
-                  title: parentBasename,
-                  metadata: metadataMap?.[location],
-                };
+          contents
+            .filter((content: CombineArchiveFile): boolean => {
+              return content.location != '.';
+            })
+            .forEach((content: CombineArchiveFile): void => {
+              let location = content.location;
+              if (location.substring(0, 2) === './') {
+                location = location.substring(2);
               }
-            });
 
-            let format = content.format;
-            if (!(format in this.omexManifestUriFormatMap)) {
-              for (const uri of Object.keys(this.omexManifestUriFormatMap)) {
-                if (format.startsWith(uri)) {
-                  format = uri;
-                  break;
+              const parentBasenames = location.split('/');
+              const basename = parentBasenames.pop() as string;
+
+              let parentPath = '';
+              let level = -1;
+              parentBasenames.forEach((parentBasename: string): void => {
+                level++;
+                parentPath += '/' + parentBasename;
+                if (!(parentPath.substring(1) in root)) {
+                  const location = parentPath.substring(1);
+                  root[parentPath.substring(1)] = {
+                    _type: 'Directory',
+                    level: level,
+                    location: location,
+                    title: parentBasename,
+                    metadata: metadataMap?.[location],
+                  };
+                }
+              });
+
+              let format = content.format;
+              if (!(format in this.omexManifestUriFormatMap)) {
+                for (const uri of Object.keys(this.omexManifestUriFormatMap)) {
+                  if (format.startsWith(uri)) {
+                    format = uri;
+                    break;
+                  }
                 }
               }
-            }
 
-            let formatName!: string;
-            if (format in this.omexManifestUriFormatMap) {
-              const formatObj = this.omexManifestUriFormatMap[format];
-              formatName = formatObj.name;
-              if (formatObj?.biosimulationsMetadata?.acronym) {
-                formatName +=
-                  ' (' + formatObj.biosimulationsMetadata?.acronym + ')';
+              let formatName!: string;
+              if (format in this.omexManifestUriFormatMap) {
+                const formatObj = this.omexManifestUriFormatMap[format];
+                formatName = formatObj.name;
+                if (formatObj?.biosimulationsMetadata?.acronym) {
+                  formatName +=
+                    ' (' + formatObj.biosimulationsMetadata?.acronym + ')';
+                }
+              } else if (format.startsWith('http://purl.org/NET/mediatypes/')) {
+                formatName = format.substring(
+                  'http://purl.org/NET/mediatypes/'.length,
+                );
+              } else {
+                formatName = format;
               }
-            } else if (format.startsWith('http://purl.org/NET/mediatypes/')) {
-              formatName = format.substring(
-                'http://purl.org/NET/mediatypes/'.length,
-              );
-            } else {
-              formatName = format;
-            }
 
-            root[location] = {
-              _type: 'File',
-              level: parentBasenames.length,
-              location: location,
-              title: basename,
-              basename: basename,
-              format: formatName,
-              master: content?.master,
-              url: content.url,
-              size:
-                content.size === undefined
-                  ? 'N/A'
-                  : FormatService.formatDigitalSize(
-                      typeof content.size === 'string'
-                        ? parseFloat(content.size)
-                        : content.size,
-                    ),
-              formatUrl: this.omexManifestUriFormatMap?.[format]?.url,
-              icon: (this.omexManifestUriFormatMap?.[format]
-                ?.biosimulationsMetadata?.icon || 'file') as BiosimulationsIcon,
-              metadata: metadataMap?.[location],
-            };
-          });
+              root[location] = {
+                _type: 'File',
+                level: parentBasenames.length,
+                location: location,
+                title: basename,
+                basename: basename,
+                format: formatName,
+                master: content?.master,
+                url: content.url,
+                size:
+                  content.size === undefined
+                    ? 'N/A'
+                    : FormatService.formatDigitalSize(
+                        typeof content.size === 'string'
+                          ? parseFloat(content.size)
+                          : content.size,
+                      ),
+                formatUrl: this.omexManifestUriFormatMap?.[format]?.url,
+                icon: (this.omexManifestUriFormatMap?.[format]
+                  ?.biosimulationsMetadata?.icon ||
+                  'file') as BiosimulationsIcon,
+                metadata: metadataMap?.[location],
+              };
+            });
 
-        return Object.values(root).sort((a: Path, b: Path): number => {
-          return a.location.localeCompare(b.location, undefined, {
-            numeric: true,
+          return Object.values(root).sort((a: Path, b: Path): number => {
+            return a.location.localeCompare(b.location, undefined, {
+              numeric: true,
+            });
           });
-        });
-      }),
-      shareReplay(1),
-    );
+        }),
+        shareReplay(1),
+      );
   }
 
   public getFormattedOutputFiles(
@@ -1222,9 +1234,11 @@ export class ViewService {
       educationalLevel: 'advanced',
     };
 
-    const projectMeta = simulationRunSummary?.metadata?.filter((metadatum: SimulationRunMetadataSummary): boolean => {
-      return metadatum.uri === '.';
-    })?.[0];
+    const projectMeta = simulationRunSummary?.metadata?.filter(
+      (metadatum: SimulationRunMetadataSummary): boolean => {
+        return metadatum.uri === '.';
+      },
+    )?.[0];
     if (projectMeta) {
       if (projectMeta.title) {
         runDataSet.headline = projectMeta.title;

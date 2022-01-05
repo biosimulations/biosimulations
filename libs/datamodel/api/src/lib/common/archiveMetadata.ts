@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import {
-  ArchiveMetadata as IArchiveMetadata,
-} from '@biosimulations/datamodel/common';
+import { ArchiveMetadata as IArchiveMetadata } from '@biosimulations/datamodel/common';
 import {
   IsString,
   IsOptional,

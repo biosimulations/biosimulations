@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { ProjectSummary, SimulationRunMetadataSummary, LabeledIdentifier } from '@biosimulations/datamodel/common';
+import {
+  ProjectSummary,
+  SimulationRunMetadataSummary,
+  LabeledIdentifier,
+} from '@biosimulations/datamodel/common';
 import { FormattedProjectSummary, LocationPredecessor } from './browse.model';
 import { ProjectService } from '@biosimulations/angular-api-client';
 import { BiosimulationsError } from '@biosimulations/shared/error-handler';
@@ -23,9 +27,11 @@ export class BrowseService {
             .map((project: ProjectSummary): FormattedProjectSummary => {
               const run = project.simulationRun;
               const simulationRun = run.run;
-              const metadata = run?.metadata?.filter((metadatum: SimulationRunMetadataSummary): boolean => {
-                return metadatum.uri === '.';
-              })?.[0];
+              const metadata = run?.metadata?.filter(
+                (metadatum: SimulationRunMetadataSummary): boolean => {
+                  return metadatum.uri === '.';
+                },
+              )?.[0];
               if (!run.metadata) {
                 throw new BiosimulationsError(
                   'Project summary not found',
@@ -34,9 +40,12 @@ export class BrowseService {
                 );
               }
 
-              const otherMetadata = run?.metadata?.filter((metadatum: SimulationRunMetadataSummary): boolean => {
-                return metadatum.uri !== '.';
-              }) || [];
+              const otherMetadata =
+                run?.metadata?.filter(
+                  (metadatum: SimulationRunMetadataSummary): boolean => {
+                    return metadatum.uri !== '.';
+                  },
+                ) || [];
 
               const thumbnail = metadata?.thumbnails?.length
                 ? metadata?.thumbnails[0]
@@ -76,19 +85,28 @@ export class BrowseService {
                   license: metadata?.license,
                   funders: metadata?.funders || [],
                   other: metadata?.other || [],
-                  locationPredecessors: otherMetadata.flatMap((otherMetadatum: SimulationRunMetadataSummary): LocationPredecessor[] => {
-                    return (otherMetadatum?.predecessors || [])
-                      .map((predecessor: LabeledIdentifier): LocationPredecessor => {
-                        return {
-                          location: otherMetadatum.uri,
-                          predecessor: {
-                            label: predecessor?.label,
-                            uri: predecessor?.uri,
-                          },
-                        };
-                      });
-                  }),
-                  created: metadata?.created ? this.formatDate(metadata?.created) : undefined,
+                  locationPredecessors: otherMetadata.flatMap(
+                    (
+                      otherMetadatum: SimulationRunMetadataSummary,
+                    ): LocationPredecessor[] => {
+                      return (otherMetadatum?.predecessors || []).map(
+                        (
+                          predecessor: LabeledIdentifier,
+                        ): LocationPredecessor => {
+                          return {
+                            location: otherMetadatum.uri,
+                            predecessor: {
+                              label: predecessor?.label,
+                              uri: predecessor?.uri,
+                            },
+                          };
+                        },
+                      );
+                    },
+                  ),
+                  created: metadata?.created
+                    ? this.formatDate(metadata?.created)
+                    : undefined,
                   modified: metadata?.modified?.[0]
                     ? this.formatDate(metadata?.modified?.[0])
                     : undefined,

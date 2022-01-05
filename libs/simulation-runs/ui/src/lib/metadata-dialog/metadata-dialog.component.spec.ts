@@ -16,11 +16,7 @@ describe('MetadataDialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        MatDialogModule,
-        SharedUiModule,
-        RouterTestingModule,
-      ],
+      imports: [MatDialogModule, SharedUiModule, RouterTestingModule],
       providers: [
         { provide: MatDialogRef, useValue: {} },
         {
@@ -31,10 +27,7 @@ describe('MetadataDialogComponent', () => {
         },
         ScrollService,
       ],
-      declarations: [
-        MetadataDialogComponent,
-        MetadataComponent,
-      ],
+      declarations: [MetadataDialogComponent, MetadataComponent],
     }).compileComponents();
   }));
 
