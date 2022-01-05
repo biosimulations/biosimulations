@@ -1,16 +1,17 @@
 <div
   class="metadata"
   fxLayout="row"
-  fxLayout.lt-md="column"
+  fxLayout.lt-lg="column"
   fxLayoutAlign="space-between"
   fxLayoutGap="2rem"
-  fxLayoutGap.lt-md="1rem"
+  fxLayoutGap.lt-lg="1rem"
 >
   <!-- Begin thumbnails -->
   <div
     *ngIf="project && project?.thumbnails?.length"
     class="thumbnails-column ragged-column"
-    fxFlex.lt-md="100%"
+    fxFlex="22rem"
+    fxFlex.lt-lg="100%"
   >
     <biosimulations-carousel [images]="project.thumbnails">
     </biosimulations-carousel>
@@ -56,16 +57,16 @@
   </div>
   <!-- End summary/text data-->
 
-  <!-- Simulation information -->
+  <!-- Biology, simulation, & provenance information -->
   <div
     *ngIf="
       project?.biology?.length ||
       simulationRun?.length ||
       project?.provenance?.length
     "
-    class="simulation-column ragged-column"
+    class="attributes-column ragged-column"
     fxFlex="22rem"
-    fxFlex.lt-md="100%"
+    fxFlex.lt-lg="100%"
   >
     <!-- project metadata -->
     <ng-container
