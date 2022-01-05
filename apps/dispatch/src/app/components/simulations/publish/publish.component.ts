@@ -165,7 +165,7 @@ export class PublishComponent implements OnInit, OnDestroy {
         }),
         catchError((error: HttpErrorResponse): Observable<undefined> => {
           if (!environment.production) {
-            console.log(error);
+            console.error(error);
           }
 
           this.snackBar.open(

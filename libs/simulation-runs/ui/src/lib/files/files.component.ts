@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { Path } from '@biosimulations/datamodel-simulation-runs';
+import { Path, ProjectMetadata } from '@biosimulations/datamodel-simulation-runs';
+import { MatDialog } from '@angular/material/dialog';
+import { MetadataDialogComponent } from '../metadata-dialog/metadata-dialog.component';
 
 @Component({
   selector: 'biosimulations-project-files',
@@ -13,5 +15,15 @@ export class FilesComponent {
   @Input()
   usesMaster = false;
 
-  constructor() {}
+  @Input()
+  usesMetadata = false;
+
+  constructor(private dialog: MatDialog) {}
+
+  openMetadata(metadata: ProjectMetadata): void {
+    this.dialog.open(MetadataDialogComponent, {
+      width: 'min(calc(1400px - 4rem), calc(100vw - 1.5rem))',
+      data: metadata,
+    });
+  }
 }

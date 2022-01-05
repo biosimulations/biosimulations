@@ -3,7 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Observable, of, combineLatest, map, pluck, mergeMap, iif } from 'rxjs';
-import { shareReplay, catchError } from 'rxjs/operators';
+import { shareReplay, catchError, concatAll } from 'rxjs/operators';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import {
   ProjectMetadata,
@@ -134,7 +134,15 @@ export class ViewComponent implements OnInit {
       mergeMap((completed) =>
         iif(
           () => completed,
-          this.sharedViewService.getFormattedProjectContentFiles(id),
+          this.simulationRunService.getSimulationRunSummary(id).pipe(
+            map((simulationRunSummary) =>
+              this.sharedViewService.getFormattedProjectContentFiles(
+                simulationRunSummary,
+              ),
+            ),
+            concatAll(),
+            shareReplay(1),
+          ),
           of(null),
         ),
       ),

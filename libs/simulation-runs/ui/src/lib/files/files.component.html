@@ -2,6 +2,8 @@
   <div class="head cell title">Name</div>
   <div class="head cell format">Format</div>
   <div class="head cell main">{{ usesMaster ? 'Main' : '' }}</div>
+  <div class="head cell metadata">{{ usesMetadata ? 'Metadata': '' }}</div>
+  <div class="head cell download">Download</div>
   <div class="head cell size">Size</div>
 
   <ng-container *ngFor="let path of files">
@@ -17,6 +19,18 @@
       </div>
       <div class="cell format">Directory</div>
       <div class="cell main"></div>
+      <div class="cell metadata">
+        <ng-container *ngIf="usesMetadata">
+          <button mat-icon-button
+            *ngIf="path?.metadata as metadata"
+            (click)="openMetadata(metadata)"
+            class="biosimulations-button text"
+          >
+            <biosimulations-icon icon="info"></biosimulations-icon>
+          </button>
+        </ng-container>
+      </div>
+      <div class="cell download"></div>
       <div class="cell size"></div>
     </ng-container>
 
@@ -29,14 +43,7 @@
         <div class="icon-container">
           <biosimulations-icon [icon]="path.icon"></biosimulations-icon>
         </div>
-        <a
-          [href]="path.url"
-          rel="noopener"
-          target="_blank"
-          *ngIf="path.url"
-          [download]="path.basename"
-          >{{ path.title }}</a
-        >
+        {{ path.title }}
       </div>
       <div class="cell format" [class.main-file]="path.master">
         <a
@@ -49,6 +56,29 @@
       </div>
       <div class="cell main" [class.main-file]="path.master">
         {{ path.master ? '&#10003;' : '' }}
+      </div>
+      <div class="cell metadata">
+        <ng-container *ngIf="usesMetadata">
+          <button mat-icon-button
+            *ngIf="path?.metadata as metadata"
+            (click)="openMetadata(metadata)"
+            class="biosimulations-button text"
+          >
+            <biosimulations-icon icon="info"></biosimulations-icon>
+          </button>
+        </ng-container>
+      </div>
+      <div class="cell download">
+        <a mat-icon-button
+          class="biosimulations-button text"
+          [href]="path.url"
+          rel="noopener"
+          target="_blank"
+          *ngIf="path.url"
+          [download]="path.basename"
+          >
+          <biosimulations-icon icon="download"></biosimulations-icon>
+        </a>
       </div>
       <div class="cell size" [class.main-file]="path.master">
         <div *ngIf="path.size">{{ path.size }}</div>

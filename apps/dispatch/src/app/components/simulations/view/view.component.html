@@ -106,7 +106,7 @@
           heading="Project"
           *ngIf="projectFiles$ | async as files"
         >
-          <biosimulations-project-files [files]="files" [usesMaster]="false">
+          <biosimulations-project-files [files]="files" [usesMaster]="false" [usesMetadata]="false">
           </biosimulations-project-files>
         </biosimulations-text-page-content-section>
 
@@ -114,7 +114,7 @@
           heading="Project contents"
           *ngIf="files$ | async as files"
         >
-          <biosimulations-project-files [files]="files" [usesMaster]="true">
+          <biosimulations-project-files [files]="files" [usesMaster]="true" [usesMetadata]="true">
           </biosimulations-project-files>
         </biosimulations-text-page-content-section>
 
@@ -122,7 +122,7 @@
           heading="Simulation outputs"
           *ngIf="outputs$ | async as files"
         >
-          <biosimulations-project-files [files]="files" [usesMaster]="false">
+          <biosimulations-project-files [files]="files" [usesMaster]="false" [usesMetadata]="false">
           </biosimulations-project-files>
         </biosimulations-text-page-content-section>
       </div>

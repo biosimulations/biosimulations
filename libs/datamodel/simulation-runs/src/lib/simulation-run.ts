@@ -30,7 +30,7 @@ export interface ProjectMetadata {
   abstract?: string;
   creators: Creator[];
   description?: string;
-  biology: List[];
+  modelSimulation: List[];
   provenance: List[];
 }
 
@@ -135,6 +135,7 @@ export interface Directory {
   location: string;
   level: number;
   title: string;
+  metadata?: ProjectMetadata;
 }
 
 export interface File {
@@ -149,6 +150,7 @@ export interface File {
   master: boolean;
   url: string;
   size: string | null;
+  metadata?: ProjectMetadata;
 }
 
 export type Path = Directory | File;
