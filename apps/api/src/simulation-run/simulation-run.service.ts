@@ -34,7 +34,6 @@ import {
   SimulationRunTaskSummary,
   SimulationRunOutputSummary,
   ArchiveMetadata,
-  LocationPredecessor,
 } from '@biosimulations/datamodel/api';
 import {
   SimulationRunStatus,
@@ -1282,46 +1281,37 @@ export class SimulationRunService {
       throw new InternalServerErrorException(summaries.join('\n'));
     }
 
-    /* get top-level metadata for the project */
     if (rawMetadataResult.succeeded && rawMetadataResult.value) {
-      const rawMetadata = rawMetadataResult.value;
+      summary.metadata = rawMetadataResult.value.metadata.map((rawMetadatum: ArchiveMetadata) => {
+        const uriSlashPos = rawMetadatum.uri.search('/');
+        const uri = uriSlashPos === -1 
+          ? '.' 
+          : rawMetadatum.uri.substring(uriSlashPos + 1);
 
-      let summaryRawMetadatum!: ArchiveMetadata;
-      const locationPredecessors: LocationPredecessor[] = [];
-      for (const rawMetadatum of rawMetadata.metadata) {
-        if (rawMetadatum.uri.search('/') === -1) {
-          summaryRawMetadatum = rawMetadatum;
-        } else {
-          locationPredecessors.push({
-            location: rawMetadatum.uri,
-            predecessors: rawMetadatum.predecessors,
-          });
-        }
-      }
-
-      summary.metadata = {
-        title: summaryRawMetadatum?.title,
-        abstract: summaryRawMetadatum?.abstract,
-        description: summaryRawMetadatum?.description,
-        thumbnails: summaryRawMetadatum.thumbnails,
-        keywords: summaryRawMetadatum.keywords,
-        encodes: summaryRawMetadatum.encodes,
-        taxa: summaryRawMetadatum.taxa,
-        other: summaryRawMetadatum.other,
-        seeAlso: summaryRawMetadatum.seeAlso,
-        sources: summaryRawMetadatum.sources,
-        predecessors: summaryRawMetadatum.predecessors,
-        locationPredecessors: locationPredecessors,
-        successors: summaryRawMetadatum.successors,
-        creators: summaryRawMetadatum.creators,
-        contributors: summaryRawMetadatum.contributors,
-        funders: summaryRawMetadatum.funders,
-        identifiers: summaryRawMetadatum.identifiers,
-        citations: summaryRawMetadatum.citations,
-        license: summaryRawMetadatum?.license,
-        created: summaryRawMetadatum.created,
-        modified: summaryRawMetadatum.modified?.[0] || undefined,
-      };
+        return {
+          uri: uri,
+          title: rawMetadatum?.title,
+          abstract: rawMetadatum?.abstract,
+          description: rawMetadatum?.description,
+          thumbnails: rawMetadatum.thumbnails,
+          keywords: rawMetadatum.keywords,
+          encodes: rawMetadatum.encodes,
+          taxa: rawMetadatum.taxa,
+          other: rawMetadatum.other,
+          seeAlso: rawMetadatum.seeAlso,
+          sources: rawMetadatum.sources,
+          predecessors: rawMetadatum.predecessors,
+          successors: rawMetadatum.successors,
+          creators: rawMetadatum.creators,
+          contributors: rawMetadatum.contributors,
+          funders: rawMetadatum.funders,
+          identifiers: rawMetadatum.identifiers,
+          citations: rawMetadatum.citations,
+          license: rawMetadatum?.license,
+          created: rawMetadatum.created,
+          modified: rawMetadatum.modified,
+        };
+      });
     } else if (raiseErrors) {
       const error = rawMetadataResult?.error;
       this.logger.error(

@@ -10,7 +10,6 @@ import {
 import {
   LabeledIdentifier,
   DescribedIdentifier,
-  LocationPredecessor,
 } from './archiveMetadata';
 
 export enum SimulationRunStatus {
@@ -217,6 +216,7 @@ export interface SimulationRunRunSummary {
 }
 
 export interface SimulationRunMetadataSummary {
+  uri: string;
   title?: string;
   abstract?: string;
   description?: string;
@@ -226,7 +226,6 @@ export interface SimulationRunMetadataSummary {
   taxa: LabeledIdentifier[];
   encodes: LabeledIdentifier[];
   predecessors: LabeledIdentifier[];
-  locationPredecessors: LocationPredecessor[];
   successors: LabeledIdentifier[];
   seeAlso: LabeledIdentifier[];
   identifiers: LabeledIdentifier[];
@@ -236,8 +235,8 @@ export interface SimulationRunMetadataSummary {
   license?: LabeledIdentifier[];
   funders: LabeledIdentifier[];
   other: DescribedIdentifier[];
-  created: string;
-  modified?: string;
+  created?: string;
+  modified?: string[];
 }
 
 export interface SimulationRunSummary {
@@ -246,7 +245,7 @@ export interface SimulationRunSummary {
   tasks?: SimulationRunTaskSummary[];
   outputs?: SimulationRunOutputSummary[];
   run: SimulationRunRunSummary;
-  metadata?: SimulationRunMetadataSummary;
+  metadata?: SimulationRunMetadataSummary[];
   submitted: string;
   updated: string;
 }

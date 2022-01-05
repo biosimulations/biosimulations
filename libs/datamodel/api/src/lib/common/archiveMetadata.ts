@@ -2,7 +2,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
   ArchiveMetadata as IArchiveMetadata,
-  ArchiveMetadataSummary as IArchiveMetadataSummary,
 } from '@biosimulations/datamodel/common';
 import {
   IsString,
@@ -25,11 +24,9 @@ import {
   IDENTIFIERS,
   KEYWORDS,
   LabeledIdentifier,
-  LocationPredecessor,
   LICENCE,
   MODIFIED,
   PREDECESSORS,
-  LOCATION_PREDECESSORS,
   SEEALSO,
   SOURCES,
   SUCCESSORS,
@@ -38,19 +35,7 @@ import {
   FUNDERS,
 } from './commonDefinitions';
 
-type IArchiveMetadataType = Omit<IArchiveMetadata, 'created' | 'modified'> & {
-  created: string;
-  modified: string[];
-};
-type IArchiveMetadataSummaryType = Omit<
-  IArchiveMetadataSummary,
-  'created' | 'modified'
-> & {
-  created: string;
-  modified: string[];
-};
-
-export class ArchiveMetadata implements IArchiveMetadataType {
+export class ArchiveMetadata implements IArchiveMetadata {
   @ApiProperty({ type: 'string' })
   @IsString()
   uri!: string; // Should this be in the API
@@ -144,29 +129,21 @@ export class ArchiveMetadata implements IArchiveMetadataType {
 
   @ApiProperty(CREATED)
   @IsOptional()
+  @IsNotEmpty()
   @IsString()
-  created!: string;
+  created?: string;
 
   @ApiProperty(MODIFIED)
+  @IsOptional()
   @IsNotEmpty({ each: true })
   @IsString({ each: true })
   @IsArray()
-  modified: string[] = [];
+  modified?: string[];
 
   @ApiProperty({ type: [DescribedIdentifier] })
   @ValidateNested({ each: true })
   @Type(() => DescribedIdentifier)
   other: DescribedIdentifier[] = [];
-}
-
-export class ArchiveMetadataSummary
-  extends ArchiveMetadata
-  implements IArchiveMetadataSummaryType
-{
-  @ApiProperty(LOCATION_PREDECESSORS)
-  @ValidateNested({ each: true })
-  @Type(() => LocationPredecessor)
-  locationPredecessors: LocationPredecessor[] = [];
 }
 
 export class ArchiveMetadataContainer {
