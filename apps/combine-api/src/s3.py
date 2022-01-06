@@ -3,13 +3,22 @@ import boto3
 import typing
 
 
+DEFAULT_CONFIG_FILENAME = "config/config.env"
+DEFAULT_SECRET_FILENAME = "secret/secret.env"
+DEFAULT_SHARED_FILENAME = "shared/shared.env"
+
+
 class S3Bucket(object):
     bucket = None
     bucket_name = None
     public_endpoint = ""
 
-    def __init__(self) -> None:
-        config = self.get_configuration()
+    def __init__(self,
+                 config_filename: str = DEFAULT_CONFIG_FILENAME,
+                 secret_filename: str = DEFAULT_SECRET_FILENAME,
+                 shared_filename: str = DEFAULT_SHARED_FILENAME,
+                 ) -> None:
+        config = self.get_configuration(config_filename=config_filename, secret_filename=secret_filename, shared_filename=shared_filename)
         self.validate_configuration(config)
         self.public_endpoint = config['public_endpoint']
         self.bucket_name = config['default_bucket']
@@ -94,9 +103,9 @@ class S3Bucket(object):
         return [object.key for object in objects]
 
     @staticmethod
-    def get_configuration(config_filename: str = "config/config.env",
-                          secret_filename: str = "secret/secret.env",
-                          shared_filename: str = "shared/shared.env"
+    def get_configuration(config_filename: str = DEFAULT_CONFIG_FILENAME,
+                          secret_filename: str = DEFAULT_SECRET_FILENAME,
+                          shared_filename: str = DEFAULT_SHARED_FILENAME,
                           ) -> typing.Dict:
         config = {
             **dotenv_values(secret_filename),
