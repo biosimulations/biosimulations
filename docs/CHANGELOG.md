@@ -1,5 +1,32 @@
 # Changelog
 
+# [8.7.0](https://github.com/biosimulations/biosimulations/compare/v8.6.0...v8.7.0) (2022-01-06)
+
+
+### Bug Fixes
+
+* **dispatch-service:** separated input and output files for simulation runs ([dc98a46](https://github.com/biosimulations/biosimulations/commit/dc98a4604add2541e1214afa4701eb829c634a3f))
+* **dispatch,platform,ui:** corrected layout of metadata columns ([8044bc6](https://github.com/biosimulations/biosimulations/commit/8044bc62d06057696b1a12d22d61a9287d1dbd7f))
+* **dispatch,platform:** added modeling methods to metadata ([6da720e](https://github.com/biosimulations/biosimulations/commit/6da720ef4504515f9d9eafdb11e8a76d56a448cc))
+* **dispatch:** add rel noopenor for external links ([9efa059](https://github.com/biosimulations/biosimulations/commit/9efa059a50435583859f17ff05476694a84a5e59))
+* **ui:** fixed setting of open control panel in table controls ([ca529a3](https://github.com/biosimulations/biosimulations/commit/ca529a3be58ca72ab4791732de69ff0efa8383fa))
+
+
+### Features
+
+* **combine-api:** added utility methods for reading S3 files ([4e3df4f](https://github.com/biosimulations/biosimulations/commit/4e3df4fee4247f1d4ae371f634cb6af8084b93ee))
+* **dispatch-service:** added support for SLURM constraints ([df2acba](https://github.com/biosimulations/biosimulations/commit/df2acba2839c4def3139dc0a889af4242889fbde))
+* **dispatch,platform,ui:** added markdown rendering for project descriptions ([818d267](https://github.com/biosimulations/biosimulations/commit/818d2673f20c1a87f235618cae242c129b49630f))
+* **dispatch,platform,ui:** interleaved metadata about files into files tab ([9807406](https://github.com/biosimulations/biosimulations/commit/9807406cbcfc1c78b793d2068a98b4693725741e))
+* **dispatch:** made it easier to get errors with simulation projects ([4c7635f](https://github.com/biosimulations/biosimulations/commit/4c7635fb9997d8cb33f4c2051bb6ffeb9958c42e))
+* **ontology:** added additional formats used by Physiome ([3e951d0](https://github.com/biosimulations/biosimulations/commit/3e951d02cd6633aca35d444ce60dd076dbcb1dc8))
+
+
+### Performance Improvements
+
+* **api:** added caching for getting properties of ontology terms ([c273e88](https://github.com/biosimulations/biosimulations/commit/c273e88cb31efeaf7872aa48ad1aa38a05524b80))
+* **dispatch,platform:** reduced thumbnail image sizes ([049af36](https://github.com/biosimulations/biosimulations/commit/049af36affaf05b56a35834c0c342803d74ba46c))
+
 ## [8.6.0](https://github.com/biosimulations/biosimulations/compare/v8.5.6...v8.6.0) (2021-12-31)
 
 
