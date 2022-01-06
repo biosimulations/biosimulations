@@ -741,7 +741,8 @@ export class ViewService {
         level: 0,
         location: '',
         title: 'Outputs',
-        format: 'JavaScript Object Notation (JSON) in BioSimulators simulator schema',
+        format:
+          'JavaScript Object Notation (JSON) in BioSimulators simulator schema',
         formatUrl: this.endpoints.getApiBaseUrl(true),
         master: false,
         size: 'N/A',
