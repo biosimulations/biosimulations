@@ -20,14 +20,6 @@ ENV PATH /app/node_modules/.bin:$PATH
 # install nrwl cli
 RUN npm install -g @nrwl/cli
 
-# copy dependencies
-# Copy over dependency list
-COPY tsconfig.base.json /app/tsconfig.base.json
-COPY package.json /app/package.json
-COPY package-lock.json /app/package-lock.json
-COPY declarations.d.ts /app/declarations.d.ts
-# set working directory
-
 # install dependencies needed to compile canvas (needed for Vega-embed)
 ENV PYTHONUNBUFFERED=1
 RUN apk add --update --no-cache \
@@ -41,6 +33,15 @@ RUN apk add --update --no-cache \
 RUN ln -sf python3 /usr/bin/python
 RUN python3 -m ensurepip
 RUN pip3 install --no-cache --no-cache-dir  --upgrade pip setuptools
+
+# copy dependencies
+# Copy over dependency list
+COPY tsconfig.base.json /app/tsconfig.base.json
+COPY package.json /app/package.json
+COPY package-lock.json /app/package-lock.json
+COPY declarations.d.ts /app/declarations.d.ts
+# set working directory
+
 
 # install the app, including the dev dependencies
 RUN npm ci
@@ -82,6 +83,8 @@ RUN apk add --no-cache --virtual .gyp python3 make g++\
     # remove sharp since it is currently installed and the install comand below wont actually run the post install script
     # Therefore, the node module folder wont have the needed binaries
     # Removing it here causes a fresh install which works properly
+    # This is problematic however, since there is no longer a version lock
+    # TODO find a way to ensure version
     && npm uninstall sharp \ 
     && npm install sharp  --ignore-scripts=false \
     && apk del .gyp
