@@ -37,6 +37,7 @@ RUN apk add --update --no-cache \
     cairo-dev \
     pango-dev \
     alpine-sdk \
+    vips-dev \
     cmake
 RUN ln -sf python3 /usr/bin/python
 RUN python3 -m ensurepip
@@ -79,7 +80,7 @@ RUN apk add --no-cache --virtual .gyp python3 make g++\
     pango-dev \
     alpine-sdk \
     cmake  \
-    && npm install sharp \
+    && npm install sharp --ignore-scripts=false --verbose \
     && apk del .gyp
 
 # copy artifact build from the 'build environment'
