@@ -7,6 +7,7 @@ FROM node:16-alpine as base
 ARG app
 ENV APP=$app
 RUN echo building ${APP}
+
 #############
 ### build ###
 #############
@@ -27,7 +28,7 @@ COPY package-lock.json /app/package-lock.json
 COPY declarations.d.ts /app/declarations.d.ts
 # set working directory
 
-# install dependencies needed to compile canvas (needed for Vega-embed) and vips (needed for sharp)
+# install dependencies needed to compile canvas (needed for Vega-embed)
 ENV PYTHONUNBUFFERED=1
 RUN apk add --update --no-cache \
     python3 \
@@ -36,7 +37,6 @@ RUN apk add --update --no-cache \
     cairo-dev \
     pango-dev \
     alpine-sdk \
-    vips-dev \
     cmake
 RUN ln -sf python3 /usr/bin/python
 RUN python3 -m ensurepip
@@ -64,7 +64,6 @@ RUN nx build ${APP} --prod --with-deps
 # base image
 FROM base as prod
 
-
 WORKDIR /app
 
 #Copy over dependency list
@@ -73,6 +72,15 @@ COPY package-lock.json /app/package-lock.json
 
 # install the app and include only dependencies needed to run
 RUN npm ci --only=production --ignore-scripts=true
+RUN apk add --no-cache --virtual .gyp python3 make g++\
+    pkgconfig \
+    pixman-dev \
+    cairo-dev \
+    pango-dev \
+    alpine-sdk \
+    cmake  \
+    && npm install sharp \
+    && apk del .gyp
 
 # copy artifact build from the 'build environment'
 RUN echo app is ${APP}
