@@ -27,7 +27,7 @@ COPY package-lock.json /app/package-lock.json
 COPY declarations.d.ts /app/declarations.d.ts
 # set working directory
 
-# install dependencies needed to compile canvas (needed for Vega-embed)
+# install dependencies needed to compile canvas (needed for Vega-embed) and vips (needed for sharp)
 ENV PYTHONUNBUFFERED=1
 RUN apk add --update --no-cache \
     python3 \
@@ -36,6 +36,7 @@ RUN apk add --update --no-cache \
     cairo-dev \
     pango-dev \
     alpine-sdk \
+    vips-dev \
     cmake
 RUN ln -sf python3 /usr/bin/python
 RUN python3 -m ensurepip
