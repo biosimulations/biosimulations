@@ -37,7 +37,6 @@ RUN apk add --update --no-cache \
     cairo-dev \
     pango-dev \
     alpine-sdk \
-    vips-dev \
     cmake
 RUN ln -sf python3 /usr/bin/python
 RUN python3 -m ensurepip
@@ -80,7 +79,11 @@ RUN apk add --no-cache --virtual .gyp python3 make g++\
     pango-dev \
     alpine-sdk \
     cmake  \
-    && npm install sharp --ignore-scripts=false --verbose \
+    # remove sharp since it is currently installed and the install comand below wont actually run the post install script
+    # Therefore, the node module folder wont have the needed binaries
+    # Removing it here causes a fresh install which works properly
+    && npm uninstall sharp \ 
+    && npm install sharp  --ignore-scripts=false \
     && apk del .gyp
 
 # copy artifact build from the 'build environment'
