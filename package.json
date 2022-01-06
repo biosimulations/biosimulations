@@ -179,7 +179,7 @@
     "@types/multer": "1.4.7",
     "@types/node": "16.11.19",
     "@types/passport-jwt": "3.0.6",
-    "@types/plotly.js": "1.54.18",
+    "@types/plotly.js": "1.54.19",
     "@types/sanitize-html": "2.6.1",
     "@types/ssh2": "0.5.50",
     "@types/throttle-debounce": "2.1.0",
