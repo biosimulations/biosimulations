@@ -12,7 +12,7 @@ import {
 } from '@biosimulations/shared/ui';
 import { ViewSimulatorService } from './view-simulator.service';
 import { ConfigService } from '@biosimulations/config/angular';
-import { snackBarDuration } from '@biosimulations/config/common';
+import { SNACK_BAR_DURATION } from '@biosimulations/config/common';
 
 import { ViewSimulator, ViewVersion } from './view-simulator.interface';
 
@@ -264,7 +264,7 @@ export class ViewSimulatorComponent implements OnInit {
       'The command to pull the Docker image was copied to your clipboard.',
       'Ok',
       {
-        duration: snackBarDuration,
+        duration: SNACK_BAR_DURATION,
       },
     );
   }
@@ -276,7 +276,7 @@ export class ViewSimulatorComponent implements OnInit {
       'The command to run the Docker image was copied to your clipboard.',
       'Ok',
       {
-        duration: snackBarDuration,
+        duration: SNACK_BAR_DURATION,
       },
     );
   }
@@ -288,7 +288,7 @@ export class ViewSimulatorComponent implements OnInit {
       'The command to get help with the Docker image was copied to your clipboard.',
       'Ok',
       {
-        duration: snackBarDuration,
+        duration: SNACK_BAR_DURATION,
       },
     );
   }
@@ -300,7 +300,7 @@ export class ViewSimulatorComponent implements OnInit {
       'The command to pull the Singularity image was copied to your clipboard.',
       'Ok',
       {
-        duration: snackBarDuration,
+        duration: SNACK_BAR_DURATION,
       },
     );
   }
@@ -312,7 +312,7 @@ export class ViewSimulatorComponent implements OnInit {
       'The command to run the Singularity image was copied to your clipboard.',
       'Ok',
       {
-        duration: snackBarDuration,
+        duration: SNACK_BAR_DURATION,
       },
     );
   }
@@ -324,7 +324,7 @@ export class ViewSimulatorComponent implements OnInit {
       'The command to get help with the Singularity image was copied to your clipboard.',
       'Ok',
       {
-        duration: snackBarDuration,
+        duration: SNACK_BAR_DURATION,
       },
     );
   }
@@ -335,7 +335,7 @@ export class ViewSimulatorComponent implements OnInit {
       'The command to install the command-line application was copied to your clipboard.',
       'Ok',
       {
-        duration: snackBarDuration,
+        duration: SNACK_BAR_DURATION,
       },
     );
   }
@@ -348,7 +348,7 @@ export class ViewSimulatorComponent implements OnInit {
       'The command to run the command-line application was copied to your clipboard.',
       'Ok',
       {
-        duration: snackBarDuration,
+        duration: SNACK_BAR_DURATION,
       },
     );
   }
@@ -359,7 +359,7 @@ export class ViewSimulatorComponent implements OnInit {
       'The command to get help about the command-line application was copied to your clipboard.',
       'Ok',
       {
-        duration: snackBarDuration,
+        duration: SNACK_BAR_DURATION,
       },
     );
   }
@@ -371,7 +371,7 @@ export class ViewSimulatorComponent implements OnInit {
       'The command to install the Python package was copied to your clipboard.',
       'Ok',
       {
-        duration: snackBarDuration,
+        duration: SNACK_BAR_DURATION,
       },
     );
   }
@@ -383,7 +383,7 @@ export class ViewSimulatorComponent implements OnInit {
       'The command to import the Python module was copied to your clipboard.',
       'Ok',
       {
-        duration: snackBarDuration,
+        duration: SNACK_BAR_DURATION,
       },
     );
   }

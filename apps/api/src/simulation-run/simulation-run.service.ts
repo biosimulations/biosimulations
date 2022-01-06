@@ -238,6 +238,8 @@ export class SimulationRunService {
         throw error;
       }
     }
+
+    await this.simulationStorageService.deleteSimulation(id);
   }
 
   public async update(

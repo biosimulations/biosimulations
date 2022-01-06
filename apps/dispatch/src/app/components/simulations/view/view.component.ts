@@ -89,6 +89,7 @@ export class ViewComponent implements OnInit {
           this.simulationRunService.getSimulationRunSummary(id).pipe(
             map((simulationRunSummary) =>
               this.sharedViewService.getFormattedProjectMetadata(
+                simulationRunSummary.name,
                 simulationRunSummary,
               ),
             ),

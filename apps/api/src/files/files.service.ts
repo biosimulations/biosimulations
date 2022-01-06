@@ -4,6 +4,7 @@ import {
   NotFoundException,
   InternalServerErrorException,
   Logger,
+  HttpStatus,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -83,6 +84,16 @@ export class FilesService {
         return this.deleteFile(runId, file.location);
       }),
     );
+
+    await this.storage.deleteSimulationRunFile(runId, 'manifest.xml')
+      .catch((error: any) => {
+        if (!(
+          error.statusCode === HttpStatus.NOT_FOUND &&
+          error.code === 'NoSuchKey'
+        )) {
+          throw error;
+        }
+      });
   }
 
   public async deleteFile(runId: string, fileLocation: string): Promise<void> {

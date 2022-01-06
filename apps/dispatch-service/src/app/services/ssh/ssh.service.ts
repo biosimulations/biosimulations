@@ -27,9 +27,15 @@ export class SshService {
     '',
   );
   constructor(private configService: ConfigService) {}
-  public getSSHResultsDirectory(id: string): string {
+
+  public getSSHJobDirectory(id: string): string {
     return path.join(this.hpcBase, id);
   }
+
+  public getSSHJobOutputsDirectory(id: string): string {
+    return path.join(this.hpcBase, id, 'outputs');
+  }
+  
   public execStringCommand(
     cmd: string,
   ): Promise<{ stdout: string; stderr: string }> {

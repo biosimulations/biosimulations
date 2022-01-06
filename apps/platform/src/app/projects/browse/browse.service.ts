@@ -9,6 +9,7 @@ import { FormattedProjectSummary, LocationPredecessor } from './browse.model';
 import { ProjectService } from '@biosimulations/angular-api-client';
 import { BiosimulationsError } from '@biosimulations/shared/error-handler';
 import { HttpStatusCode } from '@angular/common/http';
+import { FilePaths } from '@biosimulations/config/common';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,10 @@ export class BrowseService {
   public DEFAULT_THUMBNAIL =
     './assets/images/default-resource-images/model-padded.svg';
 
+  private filePaths = new FilePaths();
+
   public constructor(private projectService: ProjectService) {}
+
   public getProjects(): Observable<FormattedProjectSummary[]> {
     const metadatas: Observable<FormattedProjectSummary[]> = this.projectService
       .getProjectSummaries()
@@ -48,7 +52,7 @@ export class BrowseService {
                 ) || [];
 
               const thumbnail = metadata?.thumbnails?.length
-                ? metadata?.thumbnails[0]
+                ? this.filePaths.getThumbnailEndpoint(true, metadata?.thumbnails[0], 'browse')
                 : this.DEFAULT_THUMBNAIL;
 
               return {

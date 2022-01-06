@@ -14,5 +14,5 @@
   "purpose": "academic",
   "email": "info@biosimulations.org",
   "public": false,
-  "url": "https://github.com/biosimulators/Biosimulators_test_suite/raw/dev/examples/sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex"
+  "url": "https://github.com/biosimulators/Biosimulators_test_suite/raw/deploy/examples/sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex"
 }')

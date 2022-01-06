@@ -82,7 +82,7 @@ def save_file_to_s3_bucket(filename, public=False, id=None):
     if id is None:
         id = str(uuid.uuid4())
 
-    url = s3_bucket.uploadFile(filename, public=public, id="temp/createdCombineArchive/" + id)
+    url = s3_bucket.upload_file(filename, key="temp/createdCombineArchive/" + id, public=public)
 
     return url
 

@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Endpoints } from '@biosimulations/config/common';
-import { FilePaths } from '@biosimulations/shared/storage';
+import { FilePaths } from '@biosimulations/config/common';
 import { DataPaths } from '@biosimulations/hsds/client';
 import { ConfigService } from '@nestjs/config';
 import {
@@ -146,7 +146,11 @@ export class SbatchService {
     const simulationRunS3Path = this.filePaths.getSimulationRunPath(runId);
     const simulationRunResultsHsdsPath =
       this.dataPaths.getSimulationRunResultsPath(runId);
-    const outputArchiveS3Subpath = this.filePaths.getSimulationRunOutputPath(
+    const outputArchiveS3Subpath = this.filePaths.getSimulationRunOutputArchivePath(
+      runId,
+      false,
+    );
+    const outputsS3Subpath = this.filePaths.getSimulationRunOutputsPath(
       runId,
       false,
     );
@@ -185,23 +189,53 @@ echo -e '${cyan}============================================ Downloading COMBINE
 
 echo -e ''
 echo -e '${cyan}============================================= Executing COMBINE archive =============================================${nc}'
-srun --job-name="Execute-project" singularity run --tmpdir /local --bind ${workDirname}:/root "${allEnvVarsString}" ${simulatorImage} -i '/root/${combineArchiveFilename}' -o '/root'
+srun --job-name="Execute-project" \
+  singularity run \
+    --tmpdir /local \
+    --bind ${workDirname}:/root \
+    "${allEnvVarsString}" \
+    ${simulatorImage} \
+      -i '/root/${combineArchiveFilename}' \
+      -o '/root/${outputsS3Subpath}'
 
 set +e
 
 echo -e ''
 echo -e '${cyan}=================================================== Saving results ==================================================${nc}'
-srun --job-name="Save-outputs-to-HSDS" hsload --endpoint ${hsdsBasePath} --username ${hsdsUsername} --password ${hsdsPassword} --verbose reports.h5 '${simulationRunResultsHsdsPath}'
+srun --job-name="Save-outputs-to-HSDS" \
+  hsload \
+    --endpoint ${hsdsBasePath} \
+    --username ${hsdsUsername} \
+    --password ${hsdsPassword} \
+    --verbose \
+    ${outputsS3Subpath}/reports.h5 \
+    '${simulationRunResultsHsdsPath}'
 
 set -e
 
 echo -e ''
 echo -e '${cyan}================================================== Zipping outputs ==================================================${nc}'
-srun --job-name="Zip-outputs" zip '${outputArchiveS3Subpath}' reports.h5 log.yml plots.zip job.output
+srun --job-name="Zip-outputs" \
+  zip \
+    -x '${outputsS3Subpath}/plots.zip' \
+    -r \
+    '${outputArchiveS3Subpath}' \
+    ${outputsS3Subpath} \
+    job.output
 
 echo -e ''
 echo -e '${cyan}=================================================== Saving outputs ==================================================${nc}'
-export PYTHONWARNINGS="ignore"; srun --job-name="Save-outputs-to-S3" aws --no-verify-ssl --endpoint-url ${storageEndpoint} s3 sync --acl public-read --exclude "*.sbatch" --exclude "*.omex" . 's3://${storageBucket}/${simulationRunS3Path}'
+export PYTHONWARNINGS="ignore"
+srun --job-name="Save-outputs-to-S3" \
+  aws \
+    --no-verify-ssl \
+    --endpoint-url ${storageEndpoint} \
+    s3 sync \
+      --acl public-read \
+      --exclude "job.sbatch" \
+      --exclude "${combineArchiveFilename}" \
+      . \
+      's3://${storageBucket}/${simulationRunS3Path}'
 `;
 
     return template;

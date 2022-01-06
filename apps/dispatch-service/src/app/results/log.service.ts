@@ -23,7 +23,7 @@ export class LogService {
     extraStdLog?: string,
     update = false,
   ): Promise<CombineArchiveLog> {
-    const path = this.sshService.getSSHResultsDirectory(id);
+    const path = this.sshService.getSSHJobDirectory(id);
     return this.makeLog(id, path, true, extraStdLog).then((value) => {
       return this.uploadLog(id, value, update).catch((error) => {
         this.logger.error(
@@ -56,7 +56,7 @@ export class LogService {
   }
 
   private async readStructuredLog(path: string): Promise<CombineArchiveLog> {
-    const yamlFile = `${path}/log.yml`;
+    const yamlFile = `${path}/outputs/log.yml`;
 
     return this.sshService
       .execStringCommand('cat ' + yamlFile)

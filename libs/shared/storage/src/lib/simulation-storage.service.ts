@@ -7,7 +7,7 @@ import {
 import S3 from 'aws-sdk/clients/s3';
 import * as AWS from 'aws-sdk';
 import { SharedStorageService } from './shared-storage.service';
-import { FilePaths } from './file-paths/file-paths';
+import { FilePaths, ThumbnailType, THUMBNAIL_WIDTH } from '@biosimulations/config/common';
 import { ConfigService } from '@nestjs/config';
 import { Readable } from 'stream';
 
@@ -29,7 +29,12 @@ export class SimulationStorageService {
   }
 
   public async deleteSimulationRunResults(runId: string): Promise<void> {
-    await this.deleteSimulationArchive(runId);
+    const s3path = this.filePaths.getSimulationRunOutputArchivePath(runId);
+    await this.deleteS3Object(
+      runId,
+      s3path,
+      `COMBINE archive could not be deleted for simulation run '{runId}'.`,
+    );
   }
 
   public async deleteSimulationRunFile(
@@ -46,13 +51,48 @@ export class SimulationStorageService {
       s3path,
       `File '${fileLocation}' could not be deleted for simulation run '{runId}'.`,
     );
+
+    // delete thumbnails
+    await Promise.all(
+      Object.keys(THUMBNAIL_WIDTH).map(async (thumbnailType: string): Promise<void> => {
+        const s3thumbnailPath = this.filePaths.getSimulationRunContentFilePath(
+          runId,
+          fileLocation,
+          thumbnailType as ThumbnailType,
+        );
+
+        await this.deleteS3Object(
+          runId,
+          s3thumbnailPath,
+          `Thumbnail '${fileLocation}' could not be deleted for simulation run '{runId}'.`,
+        )
+        .catch((error: any) => {
+          if (!(
+            error.statusCode === HttpStatus.NOT_FOUND &&
+            error.code === 'NoSuchKey'
+          )) {
+            throw error;
+          }
+        });
+      })
+    );
   }
 
   public async getSimulationRunOutputArchive(
     runId: string,
   ): Promise<S3.GetObjectOutput> {
     const file = await this.storage.getObject(
-      this.filePaths.getSimulationRunOutputPath(runId),
+      this.filePaths.getSimulationRunOutputArchivePath(runId),
+    );
+    return file;
+  }
+
+  public async getSimulationRunContentFile(
+    runId: string,
+    fileLocation: string,
+  ): Promise<S3.GetObjectOutput> {
+    const file = await this.storage.getObject(
+      this.filePaths.getSimulationRunContentFilePath(runId, fileLocation),
     );
     return file;
   }
@@ -77,12 +117,45 @@ export class SimulationStorageService {
     return s3File.Location;
   }
 
+  public async uploadSimulationRunFile(
+    runId: string,
+    fileLocation: string,
+    file: Buffer,
+    thumbnailType?: ThumbnailType,
+  ): Promise<void> {
+    await this.storage.putObject(
+      this.filePaths.getSimulationRunContentFilePath(runId, fileLocation, thumbnailType),
+      file,
+    );
+  }
+
   public async deleteSimulationArchive(runId: string): Promise<void> {
     const s3path = this.filePaths.getSimulationRunCombineArchivePath(runId);
     await this.deleteS3Object(
       runId,
       s3path,
       `COMBINE archive could not be deleted for simulation run '{runId}'.`,
+    );
+  }
+
+  public async deleteSimulation(runId: string): Promise<void> {
+    const s3prefix = this.filePaths.getSimulationRunPath(runId, '');
+    const s3paths: string[] = (await this.storage.listObjects(s3prefix))?.Contents?.flatMap((Content): string[] => {
+      if (Content?.Key) {
+        return [Content.Key];
+      } else {
+        return [];
+      }
+    }) || [];
+
+    await Promise.all(
+      s3paths.map(async (s3path: string): Promise<void> => {
+        return this.deleteS3Object(
+          runId,
+          s3path,
+          `COMBINE archive could not be deleted for simulation run '{runId}'.`,
+        );
+      })
     );
   }
 
