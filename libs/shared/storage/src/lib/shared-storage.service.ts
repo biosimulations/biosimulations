@@ -37,6 +37,20 @@ export class SharedStorageService {
     s3.config.update({ region: 'us-east-1' });
   }
 
+  public async listObjects(id: string): Promise<AWS.S3.ListObjectsOutput> {
+    const call = this.retryS3<any>(async (): Promise<any> => {
+      return this.s3.listObjects({ Bucket: this.BUCKET, Prefix: id }).promise();
+    });
+
+    const res = await call;
+
+    if (res.$response.error) {
+      throw res.$response.error.originalError;
+    } else {
+      return res;
+    }
+  }
+
   public async isObject(id: string): Promise<boolean> {
     const call = this.retryS3<any>(async (): Promise<any> => {
       return this.s3.headObject({ Bucket: this.BUCKET, Key: id }).promise();
@@ -182,7 +196,7 @@ export class SharedStorageService {
       async (retry): Promise<T> => {
         return func()
           .catch((error: any) => {
-            if (SharedStorageService.RETRY_ERROR_CODES.includes(error.status)) {
+            if (SharedStorageService.RETRY_ERROR_CODES.includes(error.status || error.statusCode)) {
               retry(error);
             }
             throw error;

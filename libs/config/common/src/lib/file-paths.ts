@@ -5,8 +5,9 @@ import { envs } from '@biosimulations/shared/environments';
 export class FilePaths {
   private endpoints: Endpoints;
   private static simulationRunsPath = 'simulations';
-  private static simulationRunContentSubpath = 'contents';
+  private static simulationRunContentsSubpath = 'contents';
   private static simulationRunThumbnailSubpath = 'thumbnails';
+  private static simulationRunOutputsSubpath = 'outputs';
 
   public constructor(env?: envs) {
     this.endpoints = new Endpoints(env);
@@ -80,7 +81,7 @@ export class FilePaths {
   ): string {
     const dirPath = thumbnailType
       ? FilePaths.simulationRunThumbnailSubpath + '/' + thumbnailType
-      : FilePaths.simulationRunContentSubpath;
+      : FilePaths.simulationRunContentsSubpath;
     const filePath = fileLocation !== undefined ? `/${fileLocation}` : '';
     return this.getSimulationRunPath(
       runId,
@@ -93,11 +94,26 @@ export class FilePaths {
    * @param runId Id of the simulation run
    * @param absolute Whether to get the absolute path, or the path relative to the S3 path for the simulation run
    */
-  public getSimulationRunOutputPath(runId: string, absolute = true): string {
+  public getSimulationRunOutputArchivePath(runId: string, absolute = true): string {
+    const relativePath = `${runId}.zip`; 
     if (absolute) {
-      return this.getSimulationRunPath(runId, `${runId}.zip`);
+      return this.getSimulationRunPath(runId, relativePath);
     } else {
-      return `${runId}.zip`;
+      return relativePath;
+    }
+  }
+
+  /**
+   * Create a path for a directory of outputs of a simulation run in an S3 bucket
+   * @param runId Id of the simulation run
+   * @param absolute Whether to get the absolute path, or the path relative to the S3 path for the simulation run
+   */
+  public getSimulationRunOutputsPath(runId: string, absolute = true): string {
+    const relativePath = FilePaths.simulationRunOutputsSubpath;
+    if (absolute) {
+      return this.getSimulationRunPath(runId, relativePath);
+    } else {
+      return relativePath;
     }
   }
 }

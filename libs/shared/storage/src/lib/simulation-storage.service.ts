@@ -29,7 +29,12 @@ export class SimulationStorageService {
   }
 
   public async deleteSimulationRunResults(runId: string): Promise<void> {
-    await this.deleteSimulationArchive(runId);
+    const s3path = this.filePaths.getSimulationRunOutputArchivePath(runId);
+    await this.deleteS3Object(
+      runId,
+      s3path,
+      `COMBINE archive could not be deleted for simulation run '{runId}'.`,
+    );
   }
 
   public async deleteSimulationRunFile(
@@ -56,14 +61,19 @@ export class SimulationStorageService {
           thumbnailType as ThumbnailType,
         );
 
-        const hasThumbnail = await this.storage.isObject(s3path);
-        if (hasThumbnail) {
-          await this.deleteS3Object(
-            runId,
-            s3thumbnailPath,
-            `Thumbnail '${fileLocation}' could not be deleted for simulation run '{runId}'.`,
-          );
-        }
+        await this.deleteS3Object(
+          runId,
+          s3thumbnailPath,
+          `Thumbnail '${fileLocation}' could not be deleted for simulation run '{runId}'.`,
+        )
+        .catch((error: any) => {
+          if (!(
+            error.statusCode === HttpStatus.NOT_FOUND &&
+            error.code === 'NoSuchKey'
+          )) {
+            throw error;
+          }
+        });
       })
     );
   }
@@ -72,7 +82,7 @@ export class SimulationStorageService {
     runId: string,
   ): Promise<S3.GetObjectOutput> {
     const file = await this.storage.getObject(
-      this.filePaths.getSimulationRunOutputPath(runId),
+      this.filePaths.getSimulationRunOutputArchivePath(runId),
     );
     return file;
   }
@@ -125,6 +135,27 @@ export class SimulationStorageService {
       runId,
       s3path,
       `COMBINE archive could not be deleted for simulation run '{runId}'.`,
+    );
+  }
+
+  public async deleteSimulation(runId: string): Promise<void> {
+    const s3prefix = this.filePaths.getSimulationRunPath(runId, '');
+    const s3paths: string[] = (await this.storage.listObjects(s3prefix))?.Contents?.flatMap((Content): string[] => {
+      if (Content?.Key) {
+        return [Content.Key];
+      } else {
+        return [];
+      }
+    }) || [];
+
+    await Promise.all(
+      s3paths.map(async (s3path: string): Promise<void> => {
+        return this.deleteS3Object(
+          runId,
+          s3path,
+          `COMBINE archive could not be deleted for simulation run '{runId}'.`,
+        );
+      })
     );
   }
 

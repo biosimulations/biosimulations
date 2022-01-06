@@ -16,7 +16,7 @@ export class ArchiverService {
   ) {}
   // TODO include the output archive in the files endpoint and get size from there
   public async updateResultsSize(id: string): Promise<void> {
-    const path = this.sshService.getSSHResultsDirectory(id);
+    const path = this.sshService.getSSHJobDirectory(id);
     const archive = `${path}/${id}.zip`;
     const command = `du -b ${archive} | cut -f1`;
     this.sshService.execStringCommand(command).then((output) => {
