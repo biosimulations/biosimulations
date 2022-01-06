@@ -1,5 +1,14 @@
 # Changelog
 
+## [8.7.1](https://github.com/biosimulations/biosimulations/compare/v8.7.0...v8.7.1) (2022-01-06)
+
+
+### Bug Fixes
+
+* add script ignore false to sharp install ([9b90d9b](https://github.com/biosimulations/biosimulations/commit/9b90d9bfeefe1e8b1044e9e2685e5de15bb3b2e4))
+* **dispatch-service:** added dependency for sharp to Dockerfile ([ba344c7](https://github.com/biosimulations/biosimulations/commit/ba344c7649c97b842b9794e3f58bd8af3cbe2712))
+* **dispatch,platform:** fixed name and URL for log format in files tab ([f13647f](https://github.com/biosimulations/biosimulations/commit/f13647fcaac05b5abdfb5ad4a754c3f4c18586ac))
+
 ## [8.7.0](https://github.com/biosimulations/biosimulations/compare/v8.6.0...v8.7.0) (2022-01-06)
 
 
