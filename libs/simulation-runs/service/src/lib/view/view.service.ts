@@ -741,7 +741,7 @@ export class ViewService {
         level: 0,
         location: '',
         title: 'Outputs',
-        format: 'JavaScript Object Notation (JSON) in BioSimulators schema',
+        format: 'JavaScript Object Notation (JSON) in BioSimulators simulator schema',
         formatUrl: this.endpoints.getApiBaseUrl(true),
         master: false,
         size: 'N/A',
@@ -781,8 +781,8 @@ export class ViewService {
         level: 0,
         location: '',
         title: 'Log',
-        format: 'YAML in BioSimulators log schema',
-        formatUrl: this.appRoutes.getConventionsView('simulation-logs'),
+        format: 'JavaScript Object Notation (JSON) in BioSimulators log schema',
+        formatUrl: this.appRoutes.getConventionsView('simulation-run-logs'),
         master: false,
         size: 'N/A',
         icon: 'logs',
@@ -790,7 +790,7 @@ export class ViewService {
           true,
           simulationRunSummary.id,
         ),
-        basename: 'log.yml',
+        basename: 'log.json',
       },
     ];
   }
