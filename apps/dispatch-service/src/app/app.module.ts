@@ -32,6 +32,7 @@ import { FileService } from '../file/file.service';
 import { SedmlService } from '../sedml/sedml.service';
 import { ProjectService } from '@biosimulations/api-nest-client';
 import { Endpoints } from '@biosimulations/config/common';
+import { SharedStorageModule } from '@biosimulations/shared/storage';
 
 @Module({
   imports: [
@@ -82,6 +83,7 @@ import { Endpoints } from '@biosimulations/config/common';
       name: JobQueue.health,
       prefix: '{health}',
     }),
+    SharedStorageModule,
   ],
   controllers: [],
   providers: [

@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Endpoints } from '@biosimulations/config/common';
-import { FilePaths } from '@biosimulations/shared/storage';
+import { FilePaths } from '@biosimulations/config/common';
 import { DataPaths } from '@biosimulations/hsds/client';
 import { ConfigService } from '@nestjs/config';
 import {

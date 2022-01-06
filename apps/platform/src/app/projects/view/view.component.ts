@@ -79,6 +79,7 @@ export class ViewComponent implements OnInit {
     this.projectMetadata$ = projectSummary$.pipe(
       map((projectSummary) =>
         this.service.getFormattedProjectMetadata(
+          projectSummary.id,
           projectSummary.simulationRun,
           projectSummary?.owner,
         ),

@@ -1,10 +1,12 @@
-import { Endpoints } from '@biosimulations/config/common';
+import { Endpoints } from './endpoints';
+import { ThumbnailType } from './ui';
 import { envs } from '@biosimulations/shared/environments';
 
 export class FilePaths {
   private endpoints: Endpoints;
   private static simulationRunsPath = 'simulations';
   private static simulationRunContentSubpath = 'contents';
+  private static simulationRunThumbnailSubpath = 'thumbnails';
 
   public constructor(env?: envs) {
     this.endpoints = new Endpoints(env);
@@ -21,6 +23,7 @@ export class FilePaths {
     external: boolean,
     runId: string,
     fileLocation: string,
+    thumbnailType?: ThumbnailType,
   ): string {
     if (fileLocation.startsWith('./')) {
       fileLocation = fileLocation.substring(2);
@@ -32,11 +35,20 @@ export class FilePaths {
         runId,
       )}`;
     } else {
-      return `${storageEndpoint}/${this.getSimulationRunPath(
+      return `${storageEndpoint}/${this.getSimulationRunContentFilePath(
         runId,
-        `contents/${fileLocation}`,
+        fileLocation,
+        thumbnailType,
       )}`;
     }
+  }
+
+  public getThumbnailEndpoint(external: boolean, fileUrl: string, thumbnailType: ThumbnailType): string {
+    const storageEndpoint = this.endpoints.getStorageEndpointBaseUrl(external);
+    const runIdFileTypeLocation = fileUrl.substring(storageEndpoint.length + 1).split('/');
+    const runId = runIdFileTypeLocation[1];
+    const fileLocation = runIdFileTypeLocation.slice(3).join('/');
+    return this.getSimulationRunFileContentEndpoint(true, runId, fileLocation, thumbnailType); 
   }
 
   /**
@@ -44,7 +56,7 @@ export class FilePaths {
    * @param runId Id of the simulation run
    */
   public getSimulationRunPath(runId: string, subPath?: string): string {
-    subPath = subPath ? `/${subPath}` : '';
+    subPath = subPath !== undefined ? `/${subPath}` : '';
     return `${FilePaths.simulationRunsPath}/${runId}${subPath}`;
   }
 
@@ -64,11 +76,15 @@ export class FilePaths {
   public getSimulationRunContentFilePath(
     runId: string,
     fileLocation?: string,
+    thumbnailType?: ThumbnailType,
   ): string {
-    const filePath = fileLocation ? `/${fileLocation}` : '';
+    const dirPath = thumbnailType 
+      ? FilePaths.simulationRunThumbnailSubpath + '/' + thumbnailType
+      : FilePaths.simulationRunContentSubpath;
+    const filePath = fileLocation !== undefined ? `/${fileLocation}` : '';
     return this.getSimulationRunPath(
       runId,
-      `${FilePaths.simulationRunContentSubpath}${filePath}`,
+      `${dirPath}${filePath}`,
     );
   }
 

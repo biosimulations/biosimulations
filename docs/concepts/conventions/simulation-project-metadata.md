@@ -35,6 +35,10 @@ We recommend that COMBINE/OMEX archives be annotated using the predicates and ob
 - Thumbnail image:
     - Predicate: `http://www.collex.org/schema#thumbnail`
     - Object: URI for a GIF, JPEG, PNG, or WEBP file inside the COMBINE/OMEX archive (e.g., `http://omex-library.org/Ciliberto.omex/BioSim0001.png`)
+        - Format: GIF, JPEG, PNG, or WEBP
+        - Size: At least 1216 pixels wide, and readable at approximately 350 pixels wide. Thumbnails are displayed at approximately 352-552 pixels in the project browse view. Thumbnails are displayed at approximately 352-1216 pixels in the project views.
+        - Aspect ratio: The optimal aspect ratio  for the project browse view is 1.625
+        - File size: No limit, images are automatically optimized
 - Organism captured by a modeling project:
     - Predicate: `http://biomodels.net/biology-qualifiers/hasTaxon`
     - Objects: Identifiers.org URI for an entry in NCBI Taxonomy (e.g., `http://identifiers.org/taxonomy/9606`), Literal string

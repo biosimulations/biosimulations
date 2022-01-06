@@ -4,13 +4,28 @@ import { InjectS3, S3 } from 'nestjs-s3';
 import * as AWS from 'aws-sdk';
 import { AWSError } from 'aws-sdk';
 import { Readable } from 'stream';
-import unzipper from 'unzipper';
+import unzipper, { File } from 'unzipper';
+import { promiseRetry } from './promise-retry/promise-retry';
+
 @Injectable()
 export class SharedStorageService {
   private BUCKET: string;
   private PUBLIC_ENDPOINT: string;
   private S3_UPLOAD_TIMEOUT_TIME = 60000;
   private logger = new Logger(SharedStorageService.name);
+  static RETRY_ERROR_CODES = [
+    HttpStatus.REQUEST_TIMEOUT,
+    HttpStatus.INTERNAL_SERVER_ERROR,
+    HttpStatus.BAD_GATEWAY,
+    HttpStatus.GATEWAY_TIMEOUT,
+    HttpStatus.SERVICE_UNAVAILABLE,
+    HttpStatus.TOO_MANY_REQUESTS,
+    undefined,
+    null,
+  ];
+  static NUM_RETRIES = 10;
+  static MIN_TIMEOUT = 100; // ms
+
   public constructor(
     @InjectS3() private readonly s3: S3,
     private configService: ConfigService,
@@ -23,7 +38,9 @@ export class SharedStorageService {
   }
 
   public async isObject(id: string): Promise<boolean> {
-    const call = this.s3.headObject({ Bucket: this.BUCKET, Key: id }).promise();
+    const call = this.retryS3<any>(async (): Promise<any> => {
+      return this.s3.headObject({ Bucket: this.BUCKET, Key: id }).promise();
+    });
 
     try {
       await call;
@@ -38,12 +55,14 @@ export class SharedStorageService {
   }
 
   public async getObject(id: string): Promise<AWS.S3.GetObjectOutput> {
-    const call = this.s3.getObject({ Bucket: this.BUCKET, Key: id }).promise();
+    const call = this.retryS3<any>(async (): Promise<any> => {
+      return this.s3.getObject({ Bucket: this.BUCKET, Key: id }).promise();
+    });
 
     const res = await call;
 
     if (res.$response.error) {
-      console.log(res.$response.error.message);
+      console.error(res.$response.error.message);
       throw res.$response.error.originalError;
     } else {
       return res;
@@ -55,20 +74,25 @@ export class SharedStorageService {
     destination: string,
     isPrivate = false,
   ): Promise<AWS.S3.ManagedUpload.SendData[]> {
-    const zipStream = await unzipper.Open.s3(this.s3, {
-      Bucket: this.BUCKET,
-      Key: zipFile,
+    const zipStreamPromise = this.retryS3<any>(async (): Promise<any> => {
+      return unzipper.Open.s3(this.s3, {
+        Bucket: this.BUCKET,
+        Key: zipFile,
+      });
     });
-    const promises: Promise<AWS.S3.ManagedUpload.SendData>[] = [];
-    for await (const entry of zipStream.files) {
-      const type = entry.type;
-      if (type === 'File') {
-        const fileName = entry.path;
-        const s3Path = `${destination}/${fileName}`;
-        const upload = this.putObject(s3Path, entry.stream(), isPrivate);
-        promises.push(upload);
-      }
-    }
+    const zipStream = await zipStreamPromise;
+    const promises: Promise<AWS.S3.ManagedUpload.SendData>[] = zipStream.files
+      .flatMap((entry: File): Promise<AWS.S3.ManagedUpload.SendData>[] => {
+        const type = entry.type;
+        if (type === 'File') {
+          const fileName = entry.path;
+          const s3Path = `${destination}/${fileName}`;
+          const upload = this.putObject(s3Path, entry.stream(), isPrivate);
+          return [upload];
+        } else {
+          return [];
+        }
+      });
     const resolved = Promise.all(promises);
     return resolved;
   }
@@ -87,12 +111,15 @@ export class SharedStorageService {
     };
 
     const public_url = this.PUBLIC_ENDPOINT + id;
-    const call = this.s3.upload(request);
+    const call = this.retryS3<any>(async (): Promise<any> => {
+      return this.s3.upload(request).promise();
+    });
+
     const timeoutErr = Symbol();
 
     try {
       const res = await this.timeout(
-        call.promise(),
+        call,
         this.S3_UPLOAD_TIMEOUT_TIME,
         timeoutErr,
       );
@@ -121,9 +148,11 @@ export class SharedStorageService {
   }
 
   public async deleteObject(id: string): Promise<AWS.S3.DeleteObjectOutput> {
-    const call = this.s3
-      .deleteObject({ Bucket: this.BUCKET, Key: id })
-      .promise();
+    const call = this.retryS3<any>(async (): Promise<any> => {
+      return this.s3
+        .deleteObject({ Bucket: this.BUCKET, Key: id })
+        .promise();
+    });
 
     const res = await call;
 
@@ -147,4 +176,23 @@ export class SharedStorageService {
       ),
     ]).finally(() => clearTimeout(Number(timer))) as Promise<Type>;
   }
+
+  private async retryS3<T>(func: () => Promise<T>): Promise<T> {
+    return promiseRetry<T>(
+      async (retry): Promise<T> => {
+        return func()
+          .catch((error: any) => {
+            if (SharedStorageService.RETRY_ERROR_CODES.includes(error.status)) {
+              retry(error);
+            }
+            throw error;
+          });
+      },
+      {
+        retries: SharedStorageService.NUM_RETRIES,
+        minTimeout: SharedStorageService.MIN_TIMEOUT,
+      }
+    );
+  }
 }
+

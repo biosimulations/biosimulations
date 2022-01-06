@@ -64,6 +64,7 @@ import {
   AppRoutes,
   ResourceIdentifiers,
 } from '@biosimulations/config/common';
+import { FilePaths } from '@biosimulations/config/common';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 import { environment } from '@biosimulations/shared/environments';
 import { deserializeSedDocument } from '../sed-document/sed-document';
@@ -79,6 +80,7 @@ export class ViewService {
   private combineOmexFormat: EdamTerm;
 
   private endpoints = new Endpoints();
+  private filePaths = new FilePaths();
   private appRoutes = new AppRoutes();
   private resourceIdentifiers = new ResourceIdentifiers();
 
@@ -129,6 +131,7 @@ export class ViewService {
   }
 
   public getFormattedProjectMetadata(
+    defaultTitle: string,
     simulationRunSummary: SimulationRunSummary,
     owner?: Account,
   ): ProjectMetadata | null {
@@ -141,18 +144,24 @@ export class ViewService {
       return null;
     }
 
-    return this.formatMetadata(metadata, simulationRunSummary.id, owner);
+    return this.formatMetadata(metadata, simulationRunSummary.id, defaultTitle, owner);
   }
 
   private formatMetadata(
     metadata: SimulationRunMetadataSummary,
-    id?: string,
+    runId: string,
+    defaultTitle: string,
     owner?: Account,
   ): ProjectMetadata {
+
+    const thumbnails = (metadata?.thumbnails || []).map((thumbnail: string): string => {
+      return this.filePaths.getThumbnailEndpoint(true, thumbnail, 'view');
+    });
+
     // Check for undefined metadata for all fields
     const formattedMetadata: ProjectMetadata = {
-      thumbnails: metadata?.thumbnails || [],
-      title: metadata?.title || id || metadata?.uri,
+      thumbnails: thumbnails,
+      title: metadata?.title || defaultTitle,
       abstract: metadata?.abstract,
       creators: (metadata?.creators || []).map(
         (creator: LabeledIdentifier): Creator => {
@@ -616,7 +625,7 @@ export class ViewService {
 
           simulationRunSummary?.metadata?.forEach(
             (metadatum: SimulationRunMetadataSummary): void => {
-              metadataMap[metadatum.uri] = this.formatMetadata(metadatum);
+              metadataMap[metadatum.uri] = this.formatMetadata(metadatum, simulationRunSummary.id, metadatum.uri);
             },
           );
 
@@ -1402,7 +1411,11 @@ export class ViewService {
       return [
         {
           value: value,
-          url: uriIsUrl ? labeledIdentifier?.uri : null,
+          url: uriIsUrl 
+            ? labeledIdentifier?.uri?.startsWith('http://identifiers.org/')
+              ? 'https://identifiers.org/' + labeledIdentifier?.uri?.substring('http://identifiers.org/'.length)
+              : labeledIdentifier?.uri
+            : null,
           title,
           icon,
         },

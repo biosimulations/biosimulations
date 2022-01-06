@@ -4,9 +4,16 @@ import { HttpModule } from '@nestjs/axios';
 import { Test, TestingModule } from '@nestjs/testing';
 import { CombineWrapperService } from '../combineWrapper.service';
 import { FileService } from './file.service';
+import { SimulationStorageService } from '@biosimulations/shared/storage';
 
 describe('FileService', () => {
   let service: FileService;
+
+  class mockStorage {
+    putObject() {}
+    getObject() {}
+    deleteObject() {}
+  }
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -16,6 +23,7 @@ describe('FileService', () => {
         FileService,
         { provide: CombineWrapperService, useValue: {} },
         { provide: SimulationRunService, useValue: {} },
+        { provide: SimulationStorageService, useClass: mockStorage },
       ],
     }).compile();
 

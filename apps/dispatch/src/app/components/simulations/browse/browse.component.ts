@@ -17,7 +17,7 @@ import exampleSimulationsDevJson from './example-simulations.dev.json';
 import exampleSimulationsProdJson from './example-simulations.prod.json';
 import { debounceTime, take } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { snackBarDuration } from '@biosimulations/config/common';
+import { SNACK_BAR_DURATION } from '@biosimulations/config/common';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteSimulationsDialogComponent } from './delete-simulations-dialog.component';
@@ -605,7 +605,7 @@ export class BrowseComponent implements OnInit {
               'The URL for sharing the simulation was copied to your clipboard.',
               'Ok',
               {
-                duration: snackBarDuration,
+                duration: SNACK_BAR_DURATION,
               },
             );
           };
@@ -630,7 +630,7 @@ export class BrowseComponent implements OnInit {
               'The URL for sharing the simulation was copied to your clipboard.',
               'Ok',
               {
-                duration: snackBarDuration,
+                duration: SNACK_BAR_DURATION,
               },
             );
           };

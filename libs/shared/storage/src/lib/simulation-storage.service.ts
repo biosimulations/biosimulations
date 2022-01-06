@@ -7,7 +7,7 @@ import {
 import S3 from 'aws-sdk/clients/s3';
 import * as AWS from 'aws-sdk';
 import { SharedStorageService } from './shared-storage.service';
-import { FilePaths } from './file-paths/file-paths';
+import { FilePaths, ThumbnailType, THUMBNAIL_WIDTH } from '@biosimulations/config/common';
 import { ConfigService } from '@nestjs/config';
 import { Readable } from 'stream';
 
@@ -46,6 +46,26 @@ export class SimulationStorageService {
       s3path,
       `File '${fileLocation}' could not be deleted for simulation run '{runId}'.`,
     );
+
+    // delete thumbnails
+    await Promise.all(
+      Object.keys(THUMBNAIL_WIDTH).map(async (thumbnailType: string): Promise<void> => {
+        const s3thumbnailPath = this.filePaths.getSimulationRunContentFilePath(
+          runId,
+          fileLocation,
+          thumbnailType as ThumbnailType,
+        );
+
+        const hasThumbnail = await this.storage.isObject(s3path);
+        if (hasThumbnail) {
+          await this.deleteS3Object(
+            runId,
+            s3thumbnailPath,
+            `Thumbnail '${fileLocation}' could not be deleted for simulation run '{runId}'.`,
+          );
+        }
+      })
+    );
   }
 
   public async getSimulationRunOutputArchive(
@@ -53,6 +73,16 @@ export class SimulationStorageService {
   ): Promise<S3.GetObjectOutput> {
     const file = await this.storage.getObject(
       this.filePaths.getSimulationRunOutputPath(runId),
+    );
+    return file;
+  }
+
+  public async getSimulationRunContentFile(
+    runId: string,
+    fileLocation: string,
+  ): Promise<S3.GetObjectOutput> {
+    const file = await this.storage.getObject(
+      this.filePaths.getSimulationRunContentFilePath(runId, fileLocation),
     );
     return file;
   }
@@ -75,6 +105,18 @@ export class SimulationStorageService {
       file,
     );
     return s3File.Location;
+  }
+
+  public async uploadSimulationRunFile(
+    runId: string,
+    fileLocation: string,
+    file: Buffer,
+    thumbnailType?: ThumbnailType,
+  ): Promise<void> {
+    await this.storage.putObject(
+      this.filePaths.getSimulationRunContentFilePath(runId, fileLocation, thumbnailType),
+      file,
+    );
   }
 
   public async deleteSimulationArchive(runId: string): Promise<void> {

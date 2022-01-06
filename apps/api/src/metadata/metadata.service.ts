@@ -14,7 +14,7 @@ import {
   SimulationRunMetadataModel,
   SimulationRunMetadataIdModel,
 } from './metadata.model';
-import { FilePaths } from '@biosimulations/shared/storage';
+import { FilePaths } from '@biosimulations/config/common';
 
 @Injectable()
 export class MetadataService {

@@ -361,12 +361,16 @@ export class CompleteProcessor {
   }
 
   private getErrorMessage(error: any): string {
+    let message: string;
+
     if (error?.isAxiosError) {
-      return `${error?.response?.status}: ${
+      message = `${error?.response?.status}: ${
         error?.response?.data?.detail || error?.response?.statusText
       }`;
     } else {
-      return `${error?.status || error?.statusCode}: ${error?.message}`;
+      message = `${error?.status || error?.statusCode}: ${error?.message}`;
     }
+
+    return message.replace(/\n/g, '\n  ');
   }
 }

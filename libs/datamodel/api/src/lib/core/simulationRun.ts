@@ -368,7 +368,7 @@ export class UploadSimulationRunUrl extends UploadSimulationRun {
     format: 'url',
     example:
       // eslint-disable-next-line max-len
-      'https://github.com/biosimulators/Biosimulators_test_suite/raw/dev/examples/sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex',
+      'https://github.com/biosimulators/Biosimulators_test_suite/raw/deploy/examples/sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex',
   })
   @IsUrl({
     require_protocol: true,

@@ -36,5 +36,3 @@ import { SimulationStorageService } from './simulation-storage.service';
   exports: [SimulationStorageService],
 })
 export class SharedStorageModule {}
-
-export * from './file-paths/file-paths';
