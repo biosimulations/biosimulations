@@ -7,6 +7,7 @@ FROM node:16-alpine as base
 ARG app
 ENV APP=$app
 RUN echo building ${APP}
+
 #############
 ### build ###
 #############
@@ -72,6 +73,15 @@ COPY package-lock.json /app/package-lock.json
 
 # install the app and include only dependencies needed to run
 RUN npm ci --only=production --ignore-scripts=true
+RUN apk add --no-cache --virtual .gyp python3 make g++\
+     pkgconfig \
+    pixman-dev \
+    cairo-dev \
+    pango-dev \
+    alpine-sdk \
+    cmake  \
+    && npm install sharp \
+    && apk del .gyp
 
 # copy artifact build from the 'build environment'
 RUN echo app is ${APP}
