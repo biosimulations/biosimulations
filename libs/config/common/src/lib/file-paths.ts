@@ -95,7 +95,7 @@ export class FilePaths {
    * @param absolute Whether to get the absolute path, or the path relative to the S3 path for the simulation run
    */
   public getSimulationRunOutputArchivePath(runId: string, absolute = true): string {
-    const relativePath = `${runId}.zip`; 
+    const relativePath = `${runId}.zip`;
     if (absolute) {
       return this.getSimulationRunPath(runId, relativePath);
     } else {
