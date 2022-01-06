@@ -35,7 +35,7 @@ export class SshService {
   public getSSHJobOutputsDirectory(id: string): string {
     return path.join(this.hpcBase, id, 'outputs');
   }
-  
+
   public execStringCommand(
     cmd: string,
   ): Promise<{ stdout: string; stderr: string }> {

@@ -52,7 +52,11 @@ export class BrowseService {
                 ) || [];
 
               const thumbnail = metadata?.thumbnails?.length
-                ? this.filePaths.getThumbnailEndpoint(true, metadata?.thumbnails[0], 'browse')
+                ? this.filePaths.getThumbnailEndpoint(
+                    true,
+                    metadata?.thumbnails[0],
+                    'browse',
+                  )
                 : this.DEFAULT_THUMBNAIL;
 
               return {

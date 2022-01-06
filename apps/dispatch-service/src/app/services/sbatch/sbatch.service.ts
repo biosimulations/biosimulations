@@ -146,10 +146,8 @@ export class SbatchService {
     const simulationRunS3Path = this.filePaths.getSimulationRunPath(runId);
     const simulationRunResultsHsdsPath =
       this.dataPaths.getSimulationRunResultsPath(runId);
-    const outputArchiveS3Subpath = this.filePaths.getSimulationRunOutputArchivePath(
-      runId,
-      false,
-    );
+    const outputArchiveS3Subpath =
+      this.filePaths.getSimulationRunOutputArchivePath(runId, false);
     const outputsS3Subpath = this.filePaths.getSimulationRunOutputsPath(
       runId,
       false,

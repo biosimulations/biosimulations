@@ -44,12 +44,23 @@ export class FilePaths {
     }
   }
 
-  public getThumbnailEndpoint(external: boolean, fileUrl: string, thumbnailType: ThumbnailType): string {
+  public getThumbnailEndpoint(
+    external: boolean,
+    fileUrl: string,
+    thumbnailType: ThumbnailType,
+  ): string {
     const storageEndpoint = this.endpoints.getStorageEndpointBaseUrl(external);
-    const runIdFileTypeLocation = fileUrl.substring(storageEndpoint.length + 1).split('/');
+    const runIdFileTypeLocation = fileUrl
+      .substring(storageEndpoint.length + 1)
+      .split('/');
     const runId = runIdFileTypeLocation[1];
     const fileLocation = runIdFileTypeLocation.slice(3).join('/');
-    return this.getSimulationRunFileContentEndpoint(true, runId, fileLocation, thumbnailType);
+    return this.getSimulationRunFileContentEndpoint(
+      true,
+      runId,
+      fileLocation,
+      thumbnailType,
+    );
   }
 
   /**
@@ -83,10 +94,7 @@ export class FilePaths {
       ? FilePaths.simulationRunThumbnailSubpath + '/' + thumbnailType
       : FilePaths.simulationRunContentsSubpath;
     const filePath = fileLocation !== undefined ? `/${fileLocation}` : '';
-    return this.getSimulationRunPath(
-      runId,
-      `${dirPath}${filePath}`,
-    );
+    return this.getSimulationRunPath(runId, `${dirPath}${filePath}`);
   }
 
   /**
@@ -94,7 +102,10 @@ export class FilePaths {
    * @param runId Id of the simulation run
    * @param absolute Whether to get the absolute path, or the path relative to the S3 path for the simulation run
    */
-  public getSimulationRunOutputArchivePath(runId: string, absolute = true): string {
+  public getSimulationRunOutputArchivePath(
+    runId: string,
+    absolute = true,
+  ): string {
     const relativePath = `${runId}.zip`;
     if (absolute) {
       return this.getSimulationRunPath(runId, relativePath);

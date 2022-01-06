@@ -144,7 +144,12 @@ export class ViewService {
       return null;
     }
 
-    return this.formatMetadata(metadata, simulationRunSummary.id, defaultTitle, owner);
+    return this.formatMetadata(
+      metadata,
+      simulationRunSummary.id,
+      defaultTitle,
+      owner,
+    );
   }
 
   private formatMetadata(
@@ -153,10 +158,11 @@ export class ViewService {
     defaultTitle: string,
     owner?: Account,
   ): ProjectMetadata {
-
-    const thumbnails = (metadata?.thumbnails || []).map((thumbnail: string): string => {
-      return this.filePaths.getThumbnailEndpoint(true, thumbnail, 'view');
-    });
+    const thumbnails = (metadata?.thumbnails || []).map(
+      (thumbnail: string): string => {
+        return this.filePaths.getThumbnailEndpoint(true, thumbnail, 'view');
+      },
+    );
 
     // Check for undefined metadata for all fields
     const formattedMetadata: ProjectMetadata = {
@@ -625,7 +631,11 @@ export class ViewService {
 
           simulationRunSummary?.metadata?.forEach(
             (metadatum: SimulationRunMetadataSummary): void => {
-              metadataMap[metadatum.uri] = this.formatMetadata(metadatum, simulationRunSummary.id, metadatum.uri);
+              metadataMap[metadatum.uri] = this.formatMetadata(
+                metadatum,
+                simulationRunSummary.id,
+                metadatum.uri,
+              );
             },
           );
 
@@ -1413,7 +1423,10 @@ export class ViewService {
           value: value,
           url: uriIsUrl
             ? labeledIdentifier?.uri?.startsWith('http://identifiers.org/')
-              ? 'https://identifiers.org/' + labeledIdentifier?.uri?.substring('http://identifiers.org/'.length)
+              ? 'https://identifiers.org/' +
+                labeledIdentifier?.uri?.substring(
+                  'http://identifiers.org/'.length,
+                )
               : labeledIdentifier?.uri
             : null,
           title,

@@ -161,12 +161,15 @@ export class ResultsService {
 
   public async deleteSimulationRunResults(runId: string): Promise<void> {
     await this.results.deleteDatasets(runId);
-    await this.simStorage.deleteSimulationRunResults(runId)
+    await this.simStorage
+      .deleteSimulationRunResults(runId)
       .catch((error: any) => {
-        if (!(
-          error.statusCode === HttpStatus.NOT_FOUND &&
-          error.code === 'NoSuchKey'
-        )) {
+        if (
+          !(
+            error.statusCode === HttpStatus.NOT_FOUND &&
+            error.code === 'NoSuchKey'
+          )
+        ) {
           throw error;
         }
       });

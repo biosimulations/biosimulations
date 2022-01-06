@@ -85,12 +85,15 @@ export class FilesService {
       }),
     );
 
-    await this.storage.deleteSimulationRunFile(runId, 'manifest.xml')
+    await this.storage
+      .deleteSimulationRunFile(runId, 'manifest.xml')
       .catch((error: any) => {
-        if (!(
-          error.statusCode === HttpStatus.NOT_FOUND &&
-          error.code === 'NoSuchKey'
-        )) {
+        if (
+          !(
+            error.statusCode === HttpStatus.NOT_FOUND &&
+            error.code === 'NoSuchKey'
+          )
+        ) {
           throw error;
         }
       });

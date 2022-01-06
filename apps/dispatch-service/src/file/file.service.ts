@@ -1,5 +1,14 @@
-import { Endpoints, FilePaths, THUMBNAIL_WIDTH, ThumbnailType } from '@biosimulations/config/common';
-import { Injectable, Logger, InternalServerErrorException } from '@nestjs/common';
+import {
+  Endpoints,
+  FilePaths,
+  THUMBNAIL_WIDTH,
+  ThumbnailType,
+} from '@biosimulations/config/common';
+import {
+  Injectable,
+  Logger,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { HttpService } from '@nestjs/axios';
 
@@ -58,11 +67,9 @@ export class FileService {
     const url = this.endpoints.getRunDownloadEndpoint(false, id);
 
     // get manifest
-    const manifestContent = this.combine.getManifest(undefined, url).pipe(
-      pluck('data'),
-      pluck('contents'),
-      shareReplay(1),
-    )
+    const manifestContent = this.combine
+      .getManifest(undefined, url)
+      .pipe(pluck('data'), pluck('contents'), shareReplay(1));
 
     // save manifest
     await firstValueFrom(
@@ -117,48 +124,73 @@ export class FileService {
     );
 
     // process thumbnails
-    const errors = (await firstValueFrom(
-      manifestContent.pipe(
-        // filter out images
-        map((contents: CombineArchiveManifestContent[]): CombineArchiveManifestContent[] => {
-          return contents
-            .filter((content: CombineArchiveManifestContent): boolean => {
-              return FileService.IMAGE_FORMAT_URIS.includes(content.format);
-            });
-        }),
+    const errors = (
+      await firstValueFrom(
+        manifestContent.pipe(
+          // filter out images
+          map(
+            (
+              contents: CombineArchiveManifestContent[],
+            ): CombineArchiveManifestContent[] => {
+              return contents.filter(
+                (content: CombineArchiveManifestContent): boolean => {
+                  return FileService.IMAGE_FORMAT_URIS.includes(content.format);
+                },
+              );
+            },
+          ),
 
-        // retrieve images, resize them, and save them
-        map((contents: CombineArchiveManifestContent[]): Observable<(void | string)[]> => {
-          return from(Promise.all(
-            contents.map((content: CombineArchiveManifestContent): Promise<void | string> => {
-              return this.processThumbnail(id, content)
-                .catch((error: any): string => {
-                  return `${content.location.path}: ${this.getErrorMessage(error)}`;
-                });
-            })
-          ));
-        }),
-        mergeMap((contents) => contents),
+          // retrieve images, resize them, and save them
+          map(
+            (
+              contents: CombineArchiveManifestContent[],
+            ): Observable<(void | string)[]> => {
+              return from(
+                Promise.all(
+                  contents.map(
+                    (
+                      content: CombineArchiveManifestContent,
+                    ): Promise<void | string> => {
+                      return this.processThumbnail(id, content).catch(
+                        (error: any): string => {
+                          return `${
+                            content.location.path
+                          }: ${this.getErrorMessage(error)}`;
+                        },
+                      );
+                    },
+                  ),
+                ),
+              );
+            },
+          ),
+          mergeMap((contents) => contents),
+        ),
       )
-    ))
-    .filter((error: void | string): boolean => {
+    ).filter((error: void | string): boolean => {
       return typeof error === 'string';
     });
 
     if (errors.length) {
       const sortedErrors = Array.from(new Set(errors)).sort();
       const details = sortedErrors.join('\n  * ');
-      throw new InternalServerErrorException(`Thumbnails could not be processed for ${sortedErrors.length} images:\n  * ${details}`);
+      throw new InternalServerErrorException(
+        `Thumbnails could not be processed for ${sortedErrors.length} images:\n  * ${details}`,
+      );
     }
 
     return;
   }
 
-  private async processThumbnail(runId: string, content: CombineArchiveManifestContent): Promise<void> {
+  private async processThumbnail(
+    runId: string,
+    content: CombineArchiveManifestContent,
+  ): Promise<void> {
     const location = content.location.path;
 
     // download file
-    const file: S3.GetObjectOutput = await this.storage.getSimulationRunContentFile(runId, location);
+    const file: S3.GetObjectOutput =
+      await this.storage.getSimulationRunContentFile(runId, location);
 
     // resize and upload file
     await Promise.all(
@@ -172,9 +204,14 @@ export class FileService {
             .toBuffer();
 
           // upload thumbnail
-          await this.storage.uploadSimulationRunFile(runId, location, thumbnail, typeWidth[0] as ThumbnailType);
+          await this.storage.uploadSimulationRunFile(
+            runId,
+            location,
+            thumbnail,
+            typeWidth[0] as ThumbnailType,
+          );
         },
-      )
+      ),
     );
   }
 

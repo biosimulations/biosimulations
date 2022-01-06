@@ -95,18 +95,20 @@ export class SharedStorageService {
       });
     });
     const zipStream = await zipStreamPromise;
-    const promises: Promise<AWS.S3.ManagedUpload.SendData>[] = zipStream.files
-      .flatMap((entry: File): Promise<AWS.S3.ManagedUpload.SendData>[] => {
-        const type = entry.type;
-        if (type === 'File') {
-          const fileName = entry.path;
-          const s3Path = `${destination}/${fileName}`;
-          const upload = this.putObject(s3Path, entry.stream(), isPrivate);
-          return [upload];
-        } else {
-          return [];
-        }
-      });
+    const promises: Promise<AWS.S3.ManagedUpload.SendData>[] =
+      zipStream.files.flatMap(
+        (entry: File): Promise<AWS.S3.ManagedUpload.SendData>[] => {
+          const type = entry.type;
+          if (type === 'File') {
+            const fileName = entry.path;
+            const s3Path = `${destination}/${fileName}`;
+            const upload = this.putObject(s3Path, entry.stream(), isPrivate);
+            return [upload];
+          } else {
+            return [];
+          }
+        },
+      );
     const resolved = Promise.all(promises);
     return resolved;
   }
@@ -163,9 +165,7 @@ export class SharedStorageService {
 
   public async deleteObject(id: string): Promise<AWS.S3.DeleteObjectOutput> {
     const call = this.retryS3<any>(async (): Promise<any> => {
-      return this.s3
-        .deleteObject({ Bucket: this.BUCKET, Key: id })
-        .promise();
+      return this.s3.deleteObject({ Bucket: this.BUCKET, Key: id }).promise();
     });
 
     const res = await call;
@@ -194,19 +194,21 @@ export class SharedStorageService {
   private async retryS3<T>(func: () => Promise<T>): Promise<T> {
     return promiseRetry<T>(
       async (retry): Promise<T> => {
-        return func()
-          .catch((error: any) => {
-            if (SharedStorageService.RETRY_ERROR_CODES.includes(error.status || error.statusCode)) {
-              retry(error);
-            }
-            throw error;
-          });
+        return func().catch((error: any) => {
+          if (
+            SharedStorageService.RETRY_ERROR_CODES.includes(
+              error.status || error.statusCode,
+            )
+          ) {
+            retry(error);
+          }
+          throw error;
+        });
       },
       {
         retries: SharedStorageService.NUM_RETRIES,
         minTimeout: SharedStorageService.MIN_TIMEOUT,
-      }
+      },
     );
   }
 }
-
