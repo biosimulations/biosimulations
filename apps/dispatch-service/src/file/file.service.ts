@@ -165,7 +165,7 @@ export class FileService {
       Object.entries(THUMBNAIL_WIDTH).map(
         async (typeWidth: [string, number]): Promise<void> => {
           const thumbnail = await sharp(file.Body as Buffer)
-            .resize({ 
+            .resize({
               width: typeWidth[1],
               withoutEnlargement: true,
             })

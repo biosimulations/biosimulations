@@ -1411,7 +1411,7 @@ export class ViewService {
       return [
         {
           value: value,
-          url: uriIsUrl 
+          url: uriIsUrl
             ? labeledIdentifier?.uri?.startsWith('http://identifiers.org/')
               ? 'https://identifiers.org/' + labeledIdentifier?.uri?.substring('http://identifiers.org/'.length)
               : labeledIdentifier?.uri

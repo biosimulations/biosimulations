@@ -48,7 +48,7 @@ export class FilePaths {
     const runIdFileTypeLocation = fileUrl.substring(storageEndpoint.length + 1).split('/');
     const runId = runIdFileTypeLocation[1];
     const fileLocation = runIdFileTypeLocation.slice(3).join('/');
-    return this.getSimulationRunFileContentEndpoint(true, runId, fileLocation, thumbnailType); 
+    return this.getSimulationRunFileContentEndpoint(true, runId, fileLocation, thumbnailType);
   }
 
   /**
@@ -78,7 +78,7 @@ export class FilePaths {
     fileLocation?: string,
     thumbnailType?: ThumbnailType,
   ): string {
-    const dirPath = thumbnailType 
+    const dirPath = thumbnailType
       ? FilePaths.simulationRunThumbnailSubpath + '/' + thumbnailType
       : FilePaths.simulationRunContentSubpath;
     const filePath = fileLocation !== undefined ? `/${fileLocation}` : '';
