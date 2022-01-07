@@ -75,7 +75,11 @@ jobs:
         env:
           PYTHONPATH: apps/combine-api
         run: |
-          ssh -i ~/.ssh/id_hpc ${{ steps.config.outputs.HPC_SSH_USERNAME }}@${{ steps.config.outputs.HPC_SSH_HOST }} -L localhost:4443:${{ steps.config.outputs.STORAGE_ENDPOINT }}:443 &
+          ssh \
+            -i ~/.ssh/id_hpc \
+            -L localhost:4443:${{ steps.config.outputs.STORAGE_ENDPOINT }}:443 \
+            -fNT \
+            ${{ steps.config.outputs.HPC_SSH_USERNAME }}@${{ steps.config.outputs.HPC_SSH_HOST }}
           python tools/delete-temporary-combine-archives
 
       # prod
@@ -90,5 +94,9 @@ jobs:
         env:
           PYTHONPATH: apps/combine-api
         run: |
-          ssh -i ~/.ssh/id_hpc ${{ steps.config.outputs.HPC_SSH_USERNAME }}@${{ steps.config.outputs.HPC_SSH_HOST }} -L localhost:4443:${{ steps.config.outputs.STORAGE_ENDPOINT }}:443 &
+          ssh \
+            -i ~/.ssh/id_hpc \
+            -L localhost:4443:${{ steps.config.outputs.STORAGE_ENDPOINT }}:443 \
+            -fNT \
+            ${{ steps.config.outputs.HPC_SSH_USERNAME }}@${{ steps.config.outputs.HPC_SSH_HOST }}
           python tools/delete-temporary-combine-archives
