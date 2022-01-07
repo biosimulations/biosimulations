@@ -87,13 +87,19 @@ jobs:
           INPUT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           INPUT_PUSH: ${{ inputs.push }}
         run: npx nx docker ${{matrix.app}}
-      - name: Get tag
-        id: tag
-        run: echo "::set-output name=tag::$(git rev-parse --short=7 HEAD)"
+        
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: name/app
+          tags: |
+            type=sha
+         
       - name: Start Docker Image
         env:
           app: ${{matrix.app}}
-          tag: ${{ steps.tag.outputs.tag }}
+          tag: ${{ steps.metada.outputs.tags[0] }}
           NATS_HOST: 127.0.0.1:4222
           REDIS_HOST: 127.0.0.1
           REDIS_PORT: 6379
