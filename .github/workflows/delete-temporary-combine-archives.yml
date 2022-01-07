@@ -62,6 +62,7 @@ jobs:
           ssh ${{ steps.config.outputs.HPC_SSH_USERNAME }}@${{ steps.config.outputs.HPC_SSH_HOST }} pwd
 
           source deployment/secrets/dev/dispatch-service/secret.env
+          HPC_SSH_PRIVATE_KEY=$(sed 's/\\n/\n/g' <<<"$HPC_SSH_PRIVATE_KEY")
           eval "$(ssh-agent -s)"
           ssh-add - <<< "${HPC_SSH_PRIVATE_KEY}"
 
