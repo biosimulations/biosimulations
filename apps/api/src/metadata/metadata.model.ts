@@ -93,6 +93,9 @@ export class MetadataModel implements ArchiveMetadata {
   public seeAlso: LabeledIdentifierModel[] = [];
 
   @Prop({ type: [LabeledIdentifierSchema] })
+  public references: LabeledIdentifierModel[] = [];
+
+  @Prop({ type: [LabeledIdentifierSchema] })
   public identifiers: LabeledIdentifierModel[] = [];
 
   @Prop({ type: [LabeledIdentifierSchema] })

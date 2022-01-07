@@ -1303,6 +1303,7 @@ export class SimulationRunService {
             taxa: rawMetadatum.taxa,
             other: rawMetadatum.other,
             seeAlso: rawMetadatum.seeAlso,
+            references: rawMetadatum.references,
             sources: rawMetadatum.sources,
             predecessors: rawMetadatum.predecessors,
             successors: rawMetadatum.successors,

@@ -32,6 +32,7 @@ export interface ProjectMetadata {
   description?: string;
   modelSimulation: List[];
   provenance: List[];
+  identifiers: List[];
 }
 
 export interface ListItem {
