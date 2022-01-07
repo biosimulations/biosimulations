@@ -8,7 +8,7 @@ Before getting started, please contact the lead developers at [info@biosimulatio
 
 ## Repository organization
 
-The repository is organized as a monorepo using tooling from [Nx](https://nx.dev/angular/getting-started/why-nx). A brief guide to working with Nx is available [here](./nx-tutorial.md).
+The repository is organized as a monorepo using tooling from [Nx](https://nx.dev/angular/getting-started/why-nx). A brief guide to working with Nx is available [here](./setup/nx-tutorial.md).
 
 ### Apps
 
