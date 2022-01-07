@@ -44,18 +44,26 @@ jobs:
           mkdir -p config
           mkdir -p secret
 
-      - name: Delete temporary COMBINE/OMEX archives for dev
+      # dev
+      - name: Set up configuration for dev
         run: |
           cp deployment/config/dev/shared.env shared/shared.env
           cp deployment/config/dev/combine-api/config.env config/config.env
           cp deployment/secrets/dev/combine-api/secret.env secret/secret.env
 
-          python tools/delete-temporary-combine-archives
+      - name: Delete temporary COMBINE/OMEX archives for dev
+        with:
+          PYTHONPATH: apps/combine-api
+        run: python tools/delete-temporary-combine-archives
 
-      - name: Delete temporary COMBINE/OMEX archives for prod
+      # prod
+      - name: Set up configuration for prod
         run: |
           cp deployment/config/prod/shared.env shared/shared.env
           cp deployment/config/prod/combine-api/config.env config/config.env
           cp deployment/secrets/prod/combine-api/secret.env secret/secret.env
 
-          python tools/delete-temporary-combine-archives
+      - name: Delete temporary COMBINE/OMEX archives for prod
+        with:
+          PYTHONPATH: apps/combine-api
+        run: python tools/delete-temporary-combine-archives
