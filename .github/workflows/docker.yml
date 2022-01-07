@@ -99,7 +99,7 @@ jobs:
       - name: Start Docker Image
         env:
           app: ${{matrix.app}}
-          tag: ${{ steps.metada.outputs.tags[0] }}
+          tag: ${{ steps.meta.outputs.tags[0] }}
           NATS_HOST: 127.0.0.1:4222
           REDIS_HOST: 127.0.0.1
           REDIS_PORT: 6379
