@@ -52,7 +52,7 @@ jobs:
           cp deployment/secrets/dev/combine-api/secret.env secret/secret.env
 
       - name: Delete temporary COMBINE/OMEX archives for dev
-        with:
+        env:
           PYTHONPATH: apps/combine-api
         run: python tools/delete-temporary-combine-archives
 
@@ -64,6 +64,6 @@ jobs:
           cp deployment/secrets/prod/combine-api/secret.env secret/secret.env
 
       - name: Delete temporary COMBINE/OMEX archives for prod
-        with:
+        env:
           PYTHONPATH: apps/combine-api
         run: python tools/delete-temporary-combine-archives
