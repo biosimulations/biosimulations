@@ -65,6 +65,7 @@ jobs:
         run: |
           eval "$(ssh-agent -s)"
           ssh-add - <<< "${{ steps.config.outputs.HPC_SSH_PRIVATE_KEY }}"
+          mkdir -p ~/.ssh
           ssh-keyscan -H ${{ steps.config.outputs.HPC_SSH_HOST }} >> ~/.ssh/known_hosts
 
       - name: Check HPC connection
