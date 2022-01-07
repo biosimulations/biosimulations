@@ -8,7 +8,7 @@ on:
       - docker-ci
 jobs:
   CI:
-    uses: biosimulations/biosimulations/.github/workflows/buildLintTest.yml@dev
+    uses: biosimulations/biosimulations/.github/workflows/buildLintTest.yml@docker-ci
 
   Docker:
     uses: biosimulations/biosimulations/.github/workflows/docker.yml@docker-ci
