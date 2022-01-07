@@ -1,5 +1,5 @@
 name: Docker
-on:
+on:    
   workflow_call:
     secrets:
       GHCR_USERNAME:
@@ -17,6 +17,19 @@ on:
         default: "[\"api\",\"simulators-api\",\"dispatch-service\",\"mail-service\",\"combine-api\", \"account-api\"]"
 jobs:
   build:
+    services:
+      nats: 
+        image: nats
+        ports:
+          - 4222:4222
+      redis:
+        image: redis
+        ports:
+          - 6379:6379
+      mongo:
+        image: mongo
+        ports:
+          - 27017:27017
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -74,3 +87,21 @@ jobs:
           INPUT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           INPUT_PUSH: ${{ inputs.push }}
         run: npx nx docker ${{matrix.app}}
+
+      - name: Start Docker Image
+        env:
+          app: ${{matrix.app}}
+        run: docker run -d --name ${{matrix.app}}  ${{format('ghcr.io/biosimulations/{0}:{1}', matrix.app,GITHUB_REF_NAME)}}
+      
+      - name: Wait for Docker Image to start
+        run: sleep 10
+      
+      - name: Confirm Docker Image is Running 
+        run: if [ $(docker inspect -f '{{.State.Running}}' ${{matrix.app}}) = "true" ]; then exit 0; else exit 1; fi
+      
+      - name: Stop Docker Image
+        if: always
+        run: docker stop ${{matrix.app}}
+      
+
+  
