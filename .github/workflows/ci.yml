@@ -3,6 +3,9 @@ on:
   pull_request:
     branches:
       - dev
+  push:
+    branches:
+      - docker-ci
 jobs:
   CI:
     uses: biosimulations/biosimulations/.github/workflows/buildLintTest.yml@dev
@@ -19,4 +22,5 @@ jobs:
       GHCR_TOKEN: ${{secrets.GHCR_TOKEN}}
     with:
       push: true
+
 
