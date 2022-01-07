@@ -93,13 +93,12 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: ${{format('ghcr.io/biosimulations/{0}', matrix.app)}}
-          tags: |
-            type=sha
+          tags: type=sha
          
       - name: Start Docker Image
         env:
           app: ${{matrix.app}}
-          image: ${{steps.meta.outputs.tags[0]}}
+          image: ${{steps.meta.outputs.tags}}
           NATS_HOST: 127.0.0.1:4222
           REDIS_HOST: 127.0.0.1
           REDIS_PORT: 6379
