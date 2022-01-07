@@ -1,0 +1,62 @@
+name: Delete temporary COMBINE/OMEX archives
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # daily
+  workflow_dispatch:
+
+jobs:
+  delete:
+    name: Delete temporary COMBINE/OMEX archives
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+          token: ${{ secrets.GH_ACCESS_TOKEN}}
+
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Install pip and setuptools
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --upgrade setuptools
+
+      - name: Install requirements
+        run: python -m pip install -r tools/delete-temporary-combine-archives/requirements.txt
+
+      - name: Checkout configuration repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+          token: ${{ secrets.GH_ACCESS_TOKEN}}
+          with:
+            repository: biosimulations/deployment
+            path: deployment
+            submodules: "true"
+
+      - name: Set up directory stucture for configuration
+        run: |
+          mkdir -p shared
+          mkdir -p config
+          mkdir -p secret
+
+      - name: Delete temporary COMBINE/OMEX archives for dev
+        run: |
+          cp deployment/config/dev/shared.env shared/shared.env
+          cp deployment/config/dev/combine-api/config.env config/config.env
+          cp deployment/secrets/dev/combine-api/secret.env secret/secret.env
+
+          python tools/delete-temporary-combine-archives
+
+      - name: Delete temporary COMBINE/OMEX archives for prod
+        run: |
+          cp deployment/config/prod/shared.env shared/shared.env
+          cp deployment/config/prod/combine-api/config.env config/config.env
+          cp deployment/secrets/prod/combine-api/secret.env secret/secret.env
+
+          python tools/delete-temporary-combine-archives

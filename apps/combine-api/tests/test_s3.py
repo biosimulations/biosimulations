@@ -1,6 +1,8 @@
+from botocore.exceptions import ClientError
 from unittest import mock
 from src import s3
 import boto3
+import datetime
 import os
 import tempfile
 import unittest
@@ -120,28 +122,103 @@ class S3TestCase(unittest.TestCase):
     def test_is_file(self):
         bucket = s3.S3Bucket(config_filename=self.config_filename, secret_filename=self.secret_filename)
 
-        def filter(Prefix=None):
-            return [mock.Mock(key='key')]
-        bucket.bucket = mock.Mock(objects=mock.Mock(filter=filter))
-        self.assertTrue(bucket.is_file('key'))
+        def get_object(Bucket=None, Key=None):
+            if Key == 'key1':
+                return {}
+            elif Key == 'key2':
+                raise ClientError({'Error': {'Code': 'NoSuchKey'}}, 'get_object')
+            elif Key == 'key3':
+                raise ClientError({'Error': {'Code': 'ValueError'}}, 'get_object')
+        bucket.client = mock.Mock(get_object=get_object)
+
+        self.assertTrue(bucket.is_file('key1'))
         self.assertFalse(bucket.is_file('key2'))
+        with self.assertRaises(ClientError):
+            bucket.is_file('key3')
 
     def test_get_file_properties(self):
         bucket = s3.S3Bucket(config_filename=self.config_filename, secret_filename=self.secret_filename)
 
-        def filter(Prefix=None):
-            return [mock.Mock(key='key')]
-        bucket.bucket = mock.Mock(objects=mock.Mock(filter=filter))
-        self.assertIsInstance(bucket.get_file_properties('key'), mock.Mock)
+        def get_object(Bucket=None, Key=None):
+            return {}
+        bucket.client = mock.Mock(get_object=get_object)
+        self.assertEqual(bucket.get_file_properties('key'), {})
 
     def test_list_files(self):
         bucket = s3.S3Bucket(config_filename=self.config_filename, secret_filename=self.secret_filename)
 
-        def filter(Prefix=None):
-            return [
-                mock.Mock(key='a'),
-                mock.Mock(key='b'),
-                mock.Mock(key='c'),
-            ]
-        bucket.bucket = mock.Mock(objects=mock.Mock(filter=filter))
-        self.assertEqual(bucket.list_files('key'), ['a', 'b', 'c'])
+        def list_objects(Bucket=None, Prefix=None, Marker=None, MaxKeys=1000):
+            bucket._counter += 1
+            if bucket._counter <= 1:
+                return {
+                    'Contents': [
+                        {'Key': 'a', 'LastModified': datetime.datetime(2021, 1, 1)},
+                        {'Key': 'b', 'LastModified': datetime.datetime(2022, 1, 1)},
+                        {'Key': 'c', 'LastModified': datetime.datetime(2020, 1, 1)},
+                    ],
+                    'IsTruncated': True,
+                }
+            else:
+                return {
+                    'Contents': [
+                    ],
+                    'IsTruncated': False,
+                }
+        bucket.client = mock.Mock(list_objects=list_objects)
+
+        bucket._counter = 0
+        self.assertEqual(list(bucket.list_files('key')), ['a', 'b', 'c'])
+
+        bucket._counter = 0
+        self.assertEqual(list(bucket.list_files('key', max_last_modified=datetime.datetime(2021, 1, 1))), ['a', 'c'])
+
+    def test_delete_file(self):
+        bucket = s3.S3Bucket(config_filename=self.config_filename, secret_filename=self.secret_filename)
+
+        def delete_objects(Delete=None):
+            return None
+        bucket.bucket = mock.Mock(delete_objects=delete_objects)
+        bucket.delete_file('key')
+
+    def test_delete_files_with_prefix(self):
+        bucket = s3.S3Bucket(config_filename=self.config_filename, secret_filename=self.secret_filename)
+
+        bucket._counter = 0
+
+        def list_objects(Bucket=None, Prefix=None, Marker=None, MaxKeys=1000):
+            bucket._counter += 1
+            if bucket._counter <= 1:
+                return {
+                    'Contents': [
+                        {'Key': 'a', 'LastModified': datetime.datetime(2021, 1, 1)},
+                        {'Key': 'b', 'LastModified': datetime.datetime(2022, 1, 1)},
+                        {'Key': 'c', 'LastModified': datetime.datetime(2020, 1, 1)},
+                    ],
+                    'NextMarker': 'x',
+                    'IsTruncated': True,
+                }
+            elif bucket._counter <= 2:
+                return {
+                    'Contents': [
+                        {'Key': 'a', 'LastModified': datetime.datetime(2021, 1, 1)},
+                        {'Key': 'b', 'LastModified': datetime.datetime(2022, 1, 1)},
+                        {'Key': 'c', 'LastModified': datetime.datetime(2020, 1, 1)},
+                    ],
+                    'NextMarker': None,
+                    'IsTruncated': True,
+                }
+            else:
+                return {
+                    'Contents': [
+                    ],
+                    'NextMarker': None,
+                    'IsTruncated': False,
+                }
+        bucket.client = mock.Mock(list_objects=list_objects)
+
+        def delete_objects(Delete=None):
+            return None
+
+        bucket.bucket = mock.Mock(delete_objects=delete_objects)
+
+        bucket.delete_files_with_prefix('key')

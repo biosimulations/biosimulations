@@ -1,5 +1,7 @@
+from botocore.exceptions import ClientError
 from dotenv import dotenv_values
 import boto3
+import datetime
 import typing
 
 
@@ -28,8 +30,12 @@ class S3Bucket(object):
                             aws_access_key_id=config['access_key_id'],
                             aws_secret_access_key=config['secret_access_key'],
                             verify=False)
-
-        self.client = boto3.client('s3')
+        self.client = boto3.client('s3',
+                                   endpoint_url=config['endpoint'],
+                                   aws_access_key_id=config['access_key_id'],
+                                   aws_secret_access_key=config['secret_access_key'],
+                                   verify=False,
+                                   )
         self.bucket = s3.Bucket(config['default_bucket'])
 
     def upload_file(self, filename: str, key: str, public: bool) -> str:
@@ -72,8 +78,10 @@ class S3Bucket(object):
         try:
             self.get_file_properties(key)
             return True
-        except FileExistsError:
-            return False
+        except ClientError as exception:
+            if exception.response['Error']['Code'] == 'NoSuchKey':
+                return False
+            raise exception
 
     def get_file_properties(self, key: str) -> typing.Dict:
         """ Get the properties of a file in the bucket
@@ -84,23 +92,63 @@ class S3Bucket(object):
         Returns:
             :obj:`boto3.resources.factory.s3.ObjectSummary`: file properties
         """
-        objects = self.bucket.objects.filter(Prefix=key)
-        for object in objects:
-            if object.key == key:
-                return object
-        raise FileExistsError('The bucket does not have an object with key `{}`'.format(key))
+        return self.client.get_object(Bucket=self.bucket_name, Key=key)
 
-    def list_files(self, prefix: str = None) -> typing.List[str]:
+    def list_files(self, prefix: str = None, max_last_modified: datetime.datetime = None, max_files: int = None) -> typing.List[str]:
         """ List the files in the bucket or beneath a prefix in the bucket
 
         Args:
             prefix (:obj:`str`, optional): path beneath which to get files
+            max_last_modified (:obj:`datetime.datetime`, optional): maximum accepted last modifification date
+            max_files (:obj:`int`, optional): maximum number of files to get
 
         Returns:
-            :obj:`list` of :obj:`str`: list of keys for the the files in the bucket or beneath the prefix
+            :obj:`generator` of :obj:`str`: generator of keys for the the files in the bucket or beneath the prefix
         """
-        objects = self.bucket.objects.filter(Prefix=prefix)
-        return [object.key for object in objects]
+        marker = ''
+        while True:
+            objects = self.client.list_objects(Bucket=self.bucket_name, Prefix=prefix, Marker=marker, MaxKeys=max_files or 1000)
+            for object in objects.get('Contents', []):
+                if max_last_modified is None or object['LastModified'] <= max_last_modified:
+                    yield object['Key']
+
+            marker = objects.get('NextMarker', objects.get('Contents', [])[-1]['Key'] if objects.get('Contents', []) else None)
+            if max_files or not objects['IsTruncated']:
+                break
+
+    def delete_file(self, key: str) -> None:
+        """ Delete a file in the bucket
+
+        Args:
+            key (:obj:`str`): key for the file to delete
+        """
+        self.bucket.delete_objects(
+            Delete={
+                'Objects': [
+                    {
+                        'Key': key,
+                    },
+                ],
+            }
+        )
+
+    def delete_files_with_prefix(self, prefix: str, max_last_modified: datetime.datetime = None) -> None:
+        """ Delete files with a prefix in the bucket
+
+        Args:
+            prefix (:obj:`str`): prefix for the files to delete
+            max_last_modified (:obj:`datetime.datetime`, optional): maximum accepted last modifification date
+        """
+        while True:
+            keys = list(self.list_files(prefix, max_last_modified=max_last_modified, max_files=1000))
+            if keys:
+                self.bucket.delete_objects(
+                    Delete={
+                        'Objects': [{'Key': key} for key in keys]
+                    }
+                )
+            else:
+                break  # pragma: no cover
 
     @staticmethod
     def get_configuration(config_filename: str = DEFAULT_CONFIG_FILENAME,
