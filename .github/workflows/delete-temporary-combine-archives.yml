@@ -58,7 +58,7 @@ jobs:
 
       - name: Log into HPC
         run: |
-          ssh ${steps.config.outputs.HPC_SSH_USERNAME}@${steps.config.outputs.HPC_SSH_HOST} -L localhost:4443:${steps.config.outputs.STORAGE_ENDPOINT:443} &
+          ssh ${{ steps.config.outputs.HPC_SSH_USERNAME }}@${{ steps.config.outputs.HPC_SSH_HOST }} -L localhost:4443:${{ steps.config.outputs.STORAGE_ENDPOINT }}:443 &
 
       - name: Set up directory stucture for configuration
         run: |
