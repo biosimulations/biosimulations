@@ -45,6 +45,7 @@ jobs:
           source deployment/secrets/dev/dispatch-service/secret.env
 
           HPC_SSH_PRIVATE_KEY=$(sed 's/\\n/%0A/g' <<<"$HPC_SSH_PRIVATE_KEY")
+          STORAGE_ENDPOINT=$(echo $STORAGE_ENDPOINT | cut -d '/' -f 3-)
 
           echo "::set-output name=HPC_SSH_HOST::$HPC_SSH_HOST"
           echo "::set-output name=HPC_SSH_USERNAME::$HPC_SSH_USERNAME"
