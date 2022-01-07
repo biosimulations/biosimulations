@@ -11,7 +11,7 @@ jobs:
     uses: biosimulations/biosimulations/.github/workflows/buildLintTest.yml@dev
 
   Docker:
-    uses: biosimulations/biosimulations/.github/workflows/docker.yml@dev
+    uses: biosimulations/biosimulations/.github/workflows/docker.yml@docker-ci
     secrets:
       GHCR_USERNAME: ${{secrets.GHCR_USERNAME}}
       GHCR_TOKEN: ${{secrets.GHCR_TOKEN}}
