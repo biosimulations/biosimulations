@@ -57,6 +57,16 @@ jobs:
         with:
           ssh-private-key: ${{ steps.config.outputs.HPC_SSH_PRIVATE_KEY }}
 
+      - name: Check HPC connection
+        run: |
+          ssh ${{ steps.config.outputs.HPC_SSH_USERNAME }}@${{ steps.config.outputs.HPC_SSH_HOST }} pwd
+
+          source deployment/secrets/dev/dispatch-service/secret.env
+          eval "$(ssh-agent -s)"
+          ssh-add - <<< "${HPC_SSH_PRIVATE_KEY}"
+
+          ssh ${{ steps.config.outputs.HPC_SSH_USERNAME }}@${{ steps.config.outputs.HPC_SSH_HOST }} pwd
+
       - name: Log into HPC
         run: |
           ssh ${{ steps.config.outputs.HPC_SSH_USERNAME }}@${{ steps.config.outputs.HPC_SSH_HOST }} -L localhost:4443:${{ steps.config.outputs.STORAGE_ENDPOINT }}:443 &
