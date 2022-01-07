@@ -51,6 +51,7 @@ jobs:
           chmod 0700 ~/.ssh
           echo "$HPC_SSH_PRIVATE_KEY" > ~/.ssh/id_hpc
           chmod 600 ~/.ssh/id_hpc
+          ssh-keyscan -H ${ HPC_SSH_HOST } >> ~/.ssh/known_hosts
 
           echo "::set-output name=HPC_SSH_HOST::$HPC_SSH_HOST"
           echo "::set-output name=HPC_SSH_USERNAME::$HPC_SSH_USERNAME"
