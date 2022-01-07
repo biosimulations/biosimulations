@@ -92,14 +92,14 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: name/app
+          images: ${{format('ghcr.io/biosimulations/{0}', matrix.app)}}
           tags: |
             type=sha
          
       - name: Start Docker Image
         env:
           app: ${{matrix.app}}
-          tag: ${{ steps.meta.outputs.tags[0] }}
+          image: ${{steps.meta.outputs.tags[0]}}
           NATS_HOST: 127.0.0.1:4222
           REDIS_HOST: 127.0.0.1
           REDIS_PORT: 6379
@@ -107,7 +107,7 @@ jobs:
           MANAGEMENT_ID: TEST_MANAGEMENT_ID
           MANAGEMENT_SECRET: TEST_MANAGEMENT_SECRET
 
-        run: docker run -d --name ${{matrix.app}} --network=host -e NATS_HOST -e REDIS_HOST -e REDIS_PORT -e MANAGEMENT_DOMAIN -e MANAGEMENT_ID -e MANAGEMENT_SECRET ${{format('ghcr.io/biosimulations/{0}:sha-{1}', matrix.app, env.tag)}}
+        run: docker run -d --name ${{matrix.app}} --network=host -e NATS_HOST -e REDIS_HOST -e REDIS_PORT -e MANAGEMENT_DOMAIN -e MANAGEMENT_ID -e MANAGEMENT_SECRET ${{tag}}
 
       - name: Wait for Docker Image to start
         run: sleep 10
