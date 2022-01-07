@@ -60,10 +60,10 @@
   <!-- Biology, simulation, provenance, & identifiers information -->
   <div
     *ngIf="
-      project?.modelSimulation?.length
-      || simulationRun?.length
-      || project?.provenance?.length
-      || project?.identifiers?.length
+      project?.modelSimulation?.length ||
+      simulationRun?.length ||
+      project?.provenance?.length ||
+      project?.identifiers?.length
     "
     class="attributes-column ragged-column"
     fxFlex="22rem"

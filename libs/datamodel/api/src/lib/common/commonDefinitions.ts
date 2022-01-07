@@ -195,7 +195,8 @@ export const ENCODES = {
 
 export const SOURCES = {
   type: [LabeledIdentifier],
-  description: 'The source code or definition of the modeling project or component of a project',
+  description:
+    'The source code or definition of the modeling project or component of a project',
   externalDocs: {
     description: 'Dublin Core Metadata Terms Source',
     url: 'https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/source',
@@ -226,7 +227,8 @@ export const PREDECESSORS = {
 
 export const SUCCESSORS = {
   type: [LabeledIdentifier],
-  description: 'Other modeling projects that were based on this project or component of a project',
+  description:
+    'Other modeling projects that were based on this project or component of a project',
   externalDocs: {
     description: 'The Scholarly Contributions and Roles Ontology Successor',
     url: 'https://sparontologies.github.io/scoro/current/scoro.html#d4e2176',
@@ -241,7 +243,8 @@ export const SUCCESSORS = {
 
 export const SEE_ALSO = {
   type: [LabeledIdentifier],
-  description: 'More information about a modeling project or component of a project',
+  description:
+    'More information about a modeling project or component of a project',
   externalDocs: {
     description: 'RDF Schema See Also',
     url: 'https://www.w3.org/TR/rdf-schema/#ch_seealso',
@@ -263,7 +266,8 @@ export const REFERENCES = {
   },
   example: [
     {
-      label: 'D Nadeau, C Marchand. Change in the kinetics of sulphacetamide tissue distribution in Walker tumor-bearing rats. Drug Metab Dispos 3(6): 565-76 (1975).',
+      label:
+        'D Nadeau, C Marchand. Change in the kinetics of sulphacetamide tissue distribution in Walker tumor-bearing rats. Drug Metab Dispos 3(6): 565-76 (1975).',
       uri: 'http://identifiers.org/pubmed:1234',
     },
   ],
@@ -316,7 +320,8 @@ export const FUNDERS = {
 
 export const CREATED = {
   type: String,
-  description: 'The date the modeling project or component of a project was created',
+  description:
+    'The date the modeling project or component of a project was created',
   externalDocs: {
     description: 'Dublin Core Metadata Terms Date Created',
     url: 'https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/created',
@@ -326,7 +331,8 @@ export const CREATED = {
 
 export const MODIFIED = {
   type: [String],
-  description: 'The dates the modeling project or component of a project was modified',
+  description:
+    'The dates the modeling project or component of a project was modified',
   externalDocs: {
     description: 'Dublin Core Metadata Terms Date Modified',
     url: 'https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/modified',

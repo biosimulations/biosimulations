@@ -353,9 +353,7 @@ export class ViewService {
 
     formattedMetadata.identifiers.push({
       title: 'Identifiers, citations & licenses',
-      items: identifiers
-        .concat(citations)
-        .concat(license),
+      items: identifiers.concat(citations).concat(license),
     });
 
     // filter out empty categories
