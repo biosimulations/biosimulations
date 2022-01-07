@@ -40,7 +40,7 @@ import flask
 import os
 import requests
 import requests.exceptions
-import src.utils
+import src.s3
 import werkzeug.datastructures  # noqa: F401
 import werkzeug.wrappers.response  # noqa: F401
 
@@ -158,7 +158,7 @@ def handler(body, files=None):
 
     else:
         # save COMBINE/OMEX archive to S3 bucket
-        archive_url = src.utils.save_temporary_combine_archive_to_s3_bucket(archive_filename, public=True)
+        archive_url = src.s3.save_temporary_combine_archive_to_s3_bucket(archive_filename, public=True)
 
         # return URL for archive in S3 bucket
         return archive_url

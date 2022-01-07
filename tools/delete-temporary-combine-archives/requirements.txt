@@ -1,2 +1,3 @@
 boto3
+python-dateutil
 python-dotenv

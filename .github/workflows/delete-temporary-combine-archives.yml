@@ -38,6 +38,26 @@ jobs:
           path: deployment
           submodules: "true"
 
+      - name: Get configuration
+        id: config
+        run: |
+          export $(grep -v '^#' deployment/config/dev/shared.env | xargs)
+          export $(grep -v '^#' deployment/secrets/dev/dispatch-service/secret.env | xargs)
+
+          echo "::set-output name=HPC_SSH_HOST::$HPC_SSH_HOST"
+          echo "::set-output name=HPC_SSH_USERNAME::$HPC_SSH_USERNAME"
+          echo "::set-output name=HPC_SSH_PRIVATE_KEY::$HPC_SSH_PRIVATE_KEY"
+          echo "::set-output name=STORAGE_ENDPOINT::$STORAGE_ENDPOINT"
+
+      - name: Install SSH key
+        uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ steps.config.outputs.HPC_SSH_PRIVATE_KEY }}
+
+      - name: Log into HPC
+        run: |
+          ssh ${steps.config.outputs.HPC_SSH_USERNAME}@${steps.config.outputs.HPC_SSH_HOST} -L localhost:4443:${steps.config.outputs.STORAGE_ENDPOINT:443} &
+
       - name: Set up directory stucture for configuration
         run: |
           mkdir -p shared
@@ -50,6 +70,7 @@ jobs:
           cp deployment/config/dev/shared.env shared/shared.env
           cp deployment/config/dev/combine-api/config.env config/config.env
           cp deployment/secrets/dev/combine-api/secret.env secret/secret.env
+          echo "STORAGE_ENDPOINT=https://localhost:4443" >> shared/shared.env
 
       - name: Delete temporary COMBINE/OMEX archives for dev
         env:
@@ -62,6 +83,7 @@ jobs:
           cp deployment/config/prod/shared.env shared/shared.env
           cp deployment/config/prod/combine-api/config.env config/config.env
           cp deployment/secrets/prod/combine-api/secret.env secret/secret.env
+          echo "STORAGE_ENDPOINT=https://localhost:4443" >> shared/shared.env
 
       - name: Delete temporary COMBINE/OMEX archives for prod
         env:
