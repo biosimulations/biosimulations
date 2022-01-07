@@ -89,7 +89,7 @@ jobs:
         run: npx nx docker ${{matrix.app}}
       - name: Get tag
         id: tag
-        run: echo "::set-output name=tag::$(git rev-parse --short HEAD)"
+        run: echo "::set-output name=tag::$(git rev-parse --short=7 HEAD)"
       - name: Start Docker Image
         env:
           app: ${{matrix.app}}
