@@ -176,7 +176,7 @@ export const TAXA = {
 export const ENCODES = {
   type: [LabeledIdentifier],
   description:
-    'Other biology (e.g., cell type, organ) captured by a modeling project',
+    'Other biology (e.g., cell type, organ) captured by a modeling project or component of a project',
   externalDocs: {
     description: 'BioModels Biology Qualifiers `encodes`',
     url: 'http://biomodels.net/biology-qualifiers/encodes',
@@ -195,7 +195,7 @@ export const ENCODES = {
 
 export const SOURCES = {
   type: [LabeledIdentifier],
-  description: 'The source code or definition of the modeling project',
+  description: 'The source code or definition of the modeling project or component of a project',
   externalDocs: {
     description: 'Dublin Core Metadata Terms Source',
     url: 'https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/source',
@@ -211,7 +211,7 @@ export const SOURCES = {
 export const PREDECESSORS = {
   type: [LabeledIdentifier],
   description:
-    'Other modeling projects that were used as a basis for this project',
+    'Other modeling projects that were used as a basis for this project or component of a project',
   externalDocs: {
     description: 'Biomodels Model Qualifiers isDerivedFrom',
     url: 'http://biomodels.net/model-qualifiers/isDerivedFrom',
@@ -226,7 +226,7 @@ export const PREDECESSORS = {
 
 export const SUCCESSORS = {
   type: [LabeledIdentifier],
-  description: 'Other modeling projects that were based on this project',
+  description: 'Other modeling projects that were based on this project or component of a project',
   externalDocs: {
     description: 'The Scholarly Contributions and Roles Ontology Successor',
     url: 'https://sparontologies.github.io/scoro/current/scoro.html#d4e2176',
@@ -239,9 +239,9 @@ export const SUCCESSORS = {
   ],
 };
 
-export const SEEALSO = {
+export const SEE_ALSO = {
   type: [LabeledIdentifier],
-  description: 'More information about a modeling project',
+  description: 'More information about a modeling project or component of a project',
   externalDocs: {
     description: 'RDF Schema See Also',
     url: 'https://www.w3.org/TR/rdf-schema/#ch_seealso',
@@ -253,9 +253,25 @@ export const SEEALSO = {
     },
   ],
 };
+
+export const REFERENCES = {
+  type: [LabeledIdentifier],
+  description: 'References for a modeling project or component of a project',
+  externalDocs: {
+    description: 'Dublin Core Metadata Initiative: `references` term',
+    url: 'http://purl.org/dc/terms/references',
+  },
+  example: [
+    {
+      label: 'D Nadeau, C Marchand. Change in the kinetics of sulphacetamide tissue distribution in Walker tumor-bearing rats. Drug Metab Dispos 3(6): 565-76 (1975).',
+      uri: 'http://identifiers.org/pubmed:1234',
+    },
+  ],
+};
+
 export const IDENTIFIERS = {
   type: [LabeledIdentifier],
-  description: 'Identifiers for a modeling project',
+  description: 'Identifiers for a modeling project or component of a project',
   externalDocs: {
     description: 'BioModels Model Qualifiers `is`',
     url: 'http://biomodels.net/model-qualifiers/is',
@@ -270,7 +286,7 @@ export const IDENTIFIERS = {
 
 export const CITATIONS = {
   type: [LabeledIdentifier],
-  description: 'Citations for a modeling project',
+  description: 'Citations for a modeling project or component of a project',
   externalDocs: {
     description: 'BioModels Model Qualifiers `isDescribedBy`',
     url: 'http://biomodels.net/model-qualifiers/isDescribedBy',
@@ -285,7 +301,7 @@ export const CITATIONS = {
 
 export const FUNDERS = {
   type: [LabeledIdentifier],
-  description: 'Funder for a modeling project',
+  description: 'Funder for a modeling project or component of a project',
   externalDocs: {
     description: 'The Scholarly Contributions and Roles Ontology Funder',
     url: 'https://sparontologies.github.io/scoro/current/scoro.html#d4e1256',
@@ -300,7 +316,7 @@ export const FUNDERS = {
 
 export const CREATED = {
   type: String,
-  description: 'The date the modeling project was created',
+  description: 'The date the modeling project or component of a project was created',
   externalDocs: {
     description: 'Dublin Core Metadata Terms Date Created',
     url: 'https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/created',
@@ -310,7 +326,7 @@ export const CREATED = {
 
 export const MODIFIED = {
   type: [String],
-  description: 'The dates the modeling project was modified',
+  description: 'The dates the modeling project or component of a project was modified',
   externalDocs: {
     description: 'Dublin Core Metadata Terms Date Modified',
     url: 'https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/modified',

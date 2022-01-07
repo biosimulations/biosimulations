@@ -123,6 +123,8 @@ export class MetadataService {
         combineMetadata.successors?.map(this.convertMetadataValue, this) || [],
       seeAlso:
         combineMetadata.seeAlso?.map(this.convertMetadataValue, this) || [],
+      references:
+        combineMetadata.references?.map(this.convertMetadataValue, this) || [],
       identifiers:
         combineMetadata.identifiers?.map(this.convertMetadataValue, this) || [],
       citations:

@@ -212,6 +212,7 @@ export class ViewService {
       description: metadata?.description,
       modelSimulation: [],
       provenance: [],
+      identifiers: [],
     };
 
     // biology
@@ -261,6 +262,10 @@ export class ViewService {
     const successors: ListItem[] =
       metadata?.successors?.flatMap(
         this.labeledIdentifierToListItem.bind(this, 'Successor', 'forward'),
+      ) || [];
+    const references: ListItem[] =
+      metadata?.references?.flatMap(
+        this.labeledIdentifierToListItem.bind(this, 'Reference', 'journal'),
       ) || [];
 
     const citations: ListItem[] =
@@ -341,11 +346,16 @@ export class ViewService {
       items: sources
         .concat(predecessors)
         .concat(successors)
-        .concat(citations)
+        .concat(references)
         .concat(contributors)
-        .concat(identifiers)
-        .concat(license)
         .concat(dates),
+    });
+
+    formattedMetadata.identifiers.push({
+      title: 'Identifiers, citations & licenses',
+      items: identifiers
+        .concat(citations)
+        .concat(license),
     });
 
     // filter out empty categories
@@ -354,6 +364,11 @@ export class ViewService {
         return attributes.items.length > 0;
       });
     formattedMetadata.provenance = formattedMetadata.provenance.filter(
+      (attributes: List): boolean => {
+        return attributes.items.length > 0;
+      },
+    );
+    formattedMetadata.identifiers = formattedMetadata.identifiers.filter(
       (attributes: List): boolean => {
         return attributes.items.length > 0;
       },

@@ -225,6 +225,7 @@ export interface SimulationRunMetadataSummary {
   predecessors: LabeledIdentifier[];
   successors: LabeledIdentifier[];
   seeAlso: LabeledIdentifier[];
+  references: LabeledIdentifier[];
   identifiers: LabeledIdentifier[];
   citations: LabeledIdentifier[];
   creators: LabeledIdentifier[];

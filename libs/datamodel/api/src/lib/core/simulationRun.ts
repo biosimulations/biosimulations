@@ -45,7 +45,8 @@ import {
   LICENCE,
   MODIFIED,
   PREDECESSORS,
-  SEEALSO,
+  SEE_ALSO,
+  REFERENCES,
   SOURCES,
   SUCCESSORS,
   TAXA,
@@ -811,8 +812,11 @@ export class SimulationRunMetadataSummary
   @ApiProperty(SUCCESSORS)
   successors!: LabeledIdentifier[];
 
-  @ApiProperty(SEEALSO)
+  @ApiProperty(SEE_ALSO)
   seeAlso!: LabeledIdentifier[];
+
+  @ApiProperty(REFERENCES)
+  references!: LabeledIdentifier[];
 
   @ApiProperty(IDENTIFIERS)
   identifiers!: LabeledIdentifier[];

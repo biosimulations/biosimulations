@@ -16,7 +16,7 @@ Elements in SED-ML files in COMBINE archives should be referenced by concatenati
 
 ## Recommended predicates and objects for annotating COMBINE archives
 
-We recommend that COMBINE/OMEX archives be annotated using the predicates and objects outlined below.
+We recommend that COMBINE/OMEX archives and components of archives be annotated using the predicates and objects outlined below.
 
 - Title:
     - Predicate: `http://dublincore.org/specifications/dublin-core/dcmi-terms/title`
@@ -39,37 +39,40 @@ We recommend that COMBINE/OMEX archives be annotated using the predicates and ob
         - Size: At least 1216 pixels wide, and readable at approximately 350 pixels wide. Thumbnails are displayed at approximately 352-552 pixels in the project browse view. Thumbnails are displayed at approximately 352-1216 pixels in the project views.
         - Aspect ratio: The optimal aspect ratio  for the project browse view is 1.625
         - File size: No limit, images are automatically optimized
-- Organism captured by a modeling project:
+- Organism captured by a project or component of a project:
     - Predicate: `http://biomodels.net/biology-qualifiers/hasTaxon`
     - Objects: Identifiers.org URI for an entry in NCBI Taxonomy (e.g., `http://identifiers.org/taxonomy/9606`), Literal string
-- Other biology (e.g., cell type, organ) captured by a modeling project:
+- Other biology (e.g., cell type, organ) captured by a project or component of a project:
     - Predicate: `http://biomodels.net/biology-qualifiers/encodes`
     - Objects: URI (e.g., `https://www.uniprot.org/uniprot/P07527`), Literal string
-- Source of a modeling project (e.g., GitHub repository):
+- Source of a project or component of a project (e.g., GitHub repository):
     - Predicate: `http://dublincore.org/specifications/dublin-core/dcmi-terms/source`
     - Objects: URI (e.g., `https://github.com/org/repo`), Literal string
-- Predecessor of a modeling project or individual file:
+- Predecessor of a project or component of a project:
     - Predicate: `http://biomodels.net/model-qualifiers/isDerivedFrom`
     - Objects: URI (e.g., `http://identifiers.org/biomodels.db:BIOMD0000000296`), Literal string
-- Successor of a modeling project:
+- Successor of a project or component of a project:
     - Predicate: `http://purl.org/spar/scoro/successor`
     - Objects: URI (e.g., `http://identifiers.org/biomodels.db:BIOMD0000000298`), Literal string
-- More information about a modeling project:
+- More information about a project or component of a project:
     - Predicate: `http://www.w3.org/2000/01/rdf-schema#seeAlso`
     - Objects: URI (e.g., `http://mpf.biol.vt.edu/lab_website/`), Literal string
-- Other identifier for a modeling project (e.g., in a primary model repository):
+- References for a project or component of a project:
+    - Predicate: `http://purl.org/dc/terms/references`
+    - Objects: URI (e.g., `http://identifiers.org/pubmed:1234`), Literal string
+- Other identifier for a project or component of a project (e.g., in a primary model repository):
     - Predicate: `http://biomodels.net/model-qualifiers/is`
     - Objects: URI (e.g., `http://identifiers.org/biomodels.db:BIOMD0000000297`), Literal string
-- Citation for a modeling project:
+- Citation for a project or component of a project:
     - Predicate: `http://biomodels.net/model-qualifiers/isDescribedBy`
-    - Objects: Identifiers.org DOI URI (e.g., `http://identifiers.org/doi:10.1083/jcb.200306139`), Literal string
+    - Objects: Identifiers.org DOI URI (e.g., `http://identifiers.org/doi:10.1083/jcb.200306139`, `http://identifiers.org/pubmed:1234`, `http://identifiers.org/arxiv:0807.4956v1`), Literal string
 - Author:
     - Predicate: `http://dublincore.org/specifications/dublin-core/dcmi-terms/creator`
     - Objects: ORCID Identifiers.org URI (e.g., `http://identifiers.org/orcid:0000-0001-7560-6013`), Literal string
 - Contributor (e.g., curator):
     - Predicate: `http://dublincore.org/specifications/dublin-core/dcmi-terms/contributor`
     - Objects: ORCID Identifiers.org URI (e.g., `http://identifiers.org/orcid:0000-0001-7560-6013`), Literal string
-- License for a modeling project:
+- License for a project or component of a project:
     - Predicate: `http://dublincore.org/specifications/dublin-core/dcmi-terms/identifier`
     - Objects: SPDX Identifiers.org URI (e.g., `http://identifiers.org/spdx:CCO`), Literal string
 - Funder:
@@ -130,7 +133,10 @@ We recommend using the `http://biomodels.net/model-qualifiers/isDerivedFrom` pre
 As an example, below is a representation of metadata for the [Ciliberto 2003 model of the budding yeast cell cycle](https://identifiers.org/doi:10.1083/jcb.200306139).
 
 ```xml
-<!-- keywords -->
+<rdf:RDF>
+  <!-- metadata about a COMBINE/OMEX archive -->
+  <rdf:Description rdf:about="http://omex-library.org/BioSim0001.omex">
+    <!-- keywords -->
     <prism:keyword>morphogenesis checkpoint</prism:keyword>
     <prism:keyword>G2</prism:keyword>
 
@@ -294,8 +300,10 @@ As an example, below is a representation of metadata for the [Ciliberto 2003 mod
     </dc:modified>
   </rdf:Description>
 
-  <!-- links from SED-ML plots to figures of articles -->
+
+  <!-- metadata about components of the archive -->
   <rdf:Description rdf:about="http://omex-library.org/BioSim0001.omex/simulation_1.sedml">
+    <!-- links from SED-ML plots to figures of articles -->
     <bqmodel:is>
       <rdf:Description>
         <dc:identifier rdf:resource="https://doi.org/10.1083/jcb.200306139"/>
