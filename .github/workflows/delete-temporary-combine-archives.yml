@@ -41,8 +41,8 @@ jobs:
       - name: Get configuration
         id: config
         run: |
-          export $(grep -v '^#' deployment/config/dev/shared.env | xargs)
-          export $(grep -v '^#' deployment/secrets/dev/dispatch-service/secret.env | xargs)
+          source deployment/config/dev/shared.env
+          source deployment/secrets/dev/dispatch-service/secret.env
 
           echo "::set-output name=HPC_SSH_HOST::$HPC_SSH_HOST"
           echo "::set-output name=HPC_SSH_USERNAME::$HPC_SSH_USERNAME"
