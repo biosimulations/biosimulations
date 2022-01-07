@@ -34,10 +34,9 @@ jobs:
         with:
           fetch-depth: 1
           token: ${{ secrets.GH_ACCESS_TOKEN}}
-          with:
-            repository: biosimulations/deployment
-            path: deployment
-            submodules: "true"
+          repository: biosimulations/deployment
+          path: deployment
+          submodules: "true"
 
       - name: Set up directory stucture for configuration
         run: |
