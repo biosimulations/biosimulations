@@ -91,7 +91,8 @@ jobs:
       - name: Start Docker Image
         env:
           app: ${{matrix.app}}
-        run: docker run -d --name ${{matrix.app}}  ${{format('ghcr.io/biosimulations/{0}:{1}', matrix.app,$GITHUB_REF_NAME)}}
+          tag: $GITHUB_REF_NAME
+        run: docker run -d --name ${{matrix.app}}  ${{format('ghcr.io/biosimulations/{0}:{1}', matrix.app, tag)}}
       
       - name: Wait for Docker Image to start
         run: sleep 10
