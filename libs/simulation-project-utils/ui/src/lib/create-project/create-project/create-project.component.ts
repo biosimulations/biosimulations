@@ -12,7 +12,7 @@ import {
 import {
   ValueType,
   SimulationType,
-  SimulationTypeName,
+  SimulationTypeBriefName,
   EdamTerm,
   OntologyTermMap,
   AlgorithmSubstitutionPolicyLevels,
@@ -133,15 +133,15 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
   private allSimulationTypes: OntologyTerm[] = [
     {
       id: SimulationType.SedOneStepSimulation,
-      name: SimulationTypeName.SedOneStepSimulation.substr(4),
+      name: SimulationTypeBriefName.SedOneStepSimulation,
     },
     {
       id: SimulationType.SedSteadyStateSimulation,
-      name: SimulationTypeName.SedSteadyStateSimulation.substr(4),
+      name: SimulationTypeBriefName.SedSteadyStateSimulation,
     },
     {
       id: SimulationType.SedUniformTimeCourseSimulation,
-      name: SimulationTypeName.SedUniformTimeCourseSimulation.substr(4),
+      name: SimulationTypeBriefName.SedUniformTimeCourseSimulation,
     },
   ];
   private allSimulationAlgorithms?: OntologyTerm[];
@@ -967,7 +967,7 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
         .map((simulationType: SimulationType): OntologyTerm => {
           return {
             id: simulationType,
-            name: SimulationTypeName[simulationType].substr(4),
+            name: SimulationTypeBriefName[simulationType],
           };
         })
         .sort((a: OntologyTerm, b: OntologyTerm): number => {

@@ -1,11 +1,14 @@
+import datetime
+import dateutil.tz
+import dotenv
 import flask
 import os
 import shutil
 import tempfile
+import uuid
 from biosimulators_utils.combine.data_model import CombineArchiveContent  # noqa: F401
 from biosimulators_utils.sedml.data_model import Output, DataSet, DataGenerator  # noqa: F401
 from .s3 import S3Bucket
-import uuid
 
 s3_bucket = None
 
@@ -13,11 +16,20 @@ s3_bucket = None
 __all__ = [
     'get_temp_dir',
     'get_temp_file',
-    'save_file_to_s3_bucket',
+    'save_temporary_combine_archive_to_s3_bucket',
+    'delete_temporary_combine_archives_in_s3_bucket',
     'get_results_data_set_id',
     'make_validation_report',
-    'convert_nested_list_to_validation_messages'
+    'convert_nested_list_to_validation_messages',
 ]
+
+config = {
+    **dotenv.dotenv_values("secret/secret.env"),
+    **dotenv.dotenv_values("config/config.env"),
+    **dotenv.dotenv_values("shared/shared.env"),
+}
+TEMP_COMBINE_ARCHIVE_S3_PREFIX = config.get('TEMP_COMBINE_ARCHIVE_S3_PREFIX', 'temp/createdCombineArchive/')
+TEMP_COMBINE_ARCHIVE_MAX_AGE = int(float(config.get('TEMP_COMBINE_ARCHIVE_MAX_AGE', '1')))
 
 
 def get_temp_dir():
@@ -68,7 +80,7 @@ def get_s3_bucket():
     return s3_bucket
 
 
-def save_file_to_s3_bucket(filename, public=False, id=None):
+def save_temporary_combine_archive_to_s3_bucket(filename, public=False, id=None):
     """ Save a file to the BioSimulations S3 bucket
 
     Args:
@@ -82,9 +94,27 @@ def save_file_to_s3_bucket(filename, public=False, id=None):
     if id is None:
         id = str(uuid.uuid4())
 
-    url = s3_bucket.upload_file(filename, key="temp/createdCombineArchive/" + id, public=public)
+    url = s3_bucket.upload_file(filename, key=TEMP_COMBINE_ARCHIVE_S3_PREFIX + id, public=public)
 
     return url
+
+
+def delete_temporary_combine_archives_in_s3_bucket(min_age=TEMP_COMBINE_ARCHIVE_MAX_AGE):
+    """ Delete the temporary COMBINE archives stored in the S3 bucket
+
+    Args:
+        min_age (:obj:`int`, optional): minimum file age for deletion in days
+    """
+    s3_bucket = get_s3_bucket()
+    now = datetime.datetime.utcnow().replace(tzinfo=dateutil.tz.tzutc())
+    s3_bucket.delete_files_with_prefix(
+        prefix=TEMP_COMBINE_ARCHIVE_S3_PREFIX,
+        max_last_modified=(
+            now - datetime.timedelta(days=min_age)
+            if min_age is not None else
+            None
+        ),
+    )
 
 
 def get_results_data_set_id(content, output, data_element):

@@ -158,7 +158,7 @@ def handler(body, files=None):
 
     else:
         # save COMBINE/OMEX archive to S3 bucket
-        archive_url = src.utils.save_file_to_s3_bucket(archive_filename, public=True)
+        archive_url = src.utils.save_temporary_combine_archive_to_s3_bucket(archive_filename, public=True)
 
         # return URL for archive in S3 bucket
         return archive_url

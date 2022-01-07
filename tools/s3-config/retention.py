@@ -11,8 +11,8 @@ def set_retention():
     prod_bucket = os.getenv("STORAGE_BUCKET_PROD")
     endpoint = os.getenv("STORAGE_ENDPOINT")
 
-    combine_prefix = "temp/createdCombineArchive/"
-    combine_expiration_days = 1
+    combine_prefix = os.getenv('TEMP_COMBINE_ARCHIVE_S3_PREFIX', 'temp/createdCombineArchive/')
+    combine_expiration_days = int(float(os.getenv('TEMP_COMBINE_ARCHIVE_MAX_AGE', '1')))
 
     s3 = boto3.resource('s3',
                         endpoint_url=endpoint,
