@@ -52,10 +52,20 @@ jobs:
           echo "::set-output name=HPC_SSH_PRIVATE_KEY::$HPC_SSH_PRIVATE_KEY"
           echo "::set-output name=STORAGE_ENDPOINT::$STORAGE_ENDPOINT"
 
+      #- name: Install SSH key
+      #  uses: webfactory/ssh-agent@v0.5.4
+      #  with:
+      #    ssh-private-key: ${{ steps.config.outputs.HPC_SSH_PRIVATE_KEY }}
+
+      #- name: Check HPC connection
+      #  run: |
+      #    ssh ${{ steps.config.outputs.HPC_SSH_USERNAME }}@${{ steps.config.outputs.HPC_SSH_HOST }} pwd
+
       - name: Install SSH key
-        uses: webfactory/ssh-agent@v0.5.4
-        with:
-          ssh-private-key: ${{ steps.config.outputs.HPC_SSH_PRIVATE_KEY }}
+        run: |
+          eval "$(ssh-agent -s)"
+          ssh-add - <<< "${{ steps.config.outputs.HPC_SSH_PRIVATE_KEY }}"
+          ssh-keyscan -H ${{ steps.config.outputs.HPC_SSH_HOST }} >> ~/.ssh/known_hosts
 
       - name: Check HPC connection
         run: |
