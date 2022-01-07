@@ -66,11 +66,19 @@ jobs:
           eval "$(ssh-agent -s)"
           ssh-add - <<< "${{ steps.config.outputs.HPC_SSH_PRIVATE_KEY }}"
           mkdir -p ~/.ssh
+          chmod 0700 ~/.ssh
           ssh-keyscan -H ${{ steps.config.outputs.HPC_SSH_HOST }} >> ~/.ssh/known_hosts
 
       - name: Check HPC connection
         run: |
-          ssh ${{ steps.config.outputs.HPC_SSH_USERNAME }}@${{ steps.config.outputs.HPC_SSH_HOST }} pwd
+          source deployment/secrets/dev/dispatch-service/secret.env
+          HPC_SSH_PRIVATE_KEY=$(sed 's/\\n/\n/g' <<<"$HPC_SSH_PRIVATE_KEY")
+          mkdir -p ~/.ssh
+          chmod 0700 ~/.ssh
+          echo "$HPC_SSH_PRIVATE_KEY" > ~/.ssh/id_hpc
+          chmod 600 ~/.ssh/id_hpc
+
+          ssh -i ~/.ssh/id_hpc ${{ steps.config.outputs.HPC_SSH_USERNAME }}@${{ steps.config.outputs.HPC_SSH_HOST }} pwd
 
       - name: Set up directory stucture for configuration
         run: |
