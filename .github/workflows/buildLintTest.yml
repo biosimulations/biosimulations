@@ -23,15 +23,10 @@ on:
         required: false
         type: boolean
         default: true
-      push:
-        required: false
-        type: boolean
-        default: true
 
 env:
   NX_CLOUD_DISTRIBUTED_EXECUTION: true
   INPUT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  INPUT_PUSH: ${{ inputs.push }}
 
 jobs:
   main:
@@ -67,7 +62,6 @@ jobs:
       - name: Install Flake8
         run: |
           python -m pip install flake8
-
       - name: Install npm dependencies
         uses: bahmutov/npm-install@v1
         with:
@@ -83,68 +77,50 @@ jobs:
           # launch processes concurrently and collect ids of processes
           npx nx affected --target=lint --parallel &
           P1=$!
-
           npx nx affected --target=build --prod --parallel &
           P2=$!
-
           npx nx affected --target=test --parallel &
           P3=$!
-
           # wait for processes to finish and collect exit codes
           wait $P1
           S1=$?
-
           wait $P2
           S2=$?
-
           wait $P3
           S3=$?
-
           # find highest exit code
           S_ARR=($S1 $S2 $S3)
           S=${S_ARR[0]}
           for n in "${S_ARR[@]}" ; do
               ((n > S)) && S=$n
           done
-
           # return highest exit code
           exit $S
-
       - name: Lint Build Test All
         if: ${{!inputs.affectedOnly}}
         run: |
           # launch processes concurrently and collect ids of processes
           npx nx run-many --all --target=lint --parallel &
           P1=$!
-
           npx nx run-many --all --target=build --prod --parallel &
           P2=$!
-
           npx nx run-many --all --target=test --parallel &
           P3=$!
-
           # wait for processes to finish and collect exit codes
           wait $P1
           S1=$?
-
           wait $P2
           S2=$?
-
           wait $P3
           S3=$?
-
           # find highest exit code
           S_ARR=($S1 $S2 $S3)
           S=${S_ARR[0]}
           for n in "${S_ARR[@]}" ; do
               ((n > S)) && S=$n
           done
-
           # return highest exit code
           exit $S
-
-
-
       - name: Stop CI run
         run: npx nx-cloud stop-all-agents
         if:  always()
@@ -184,7 +160,6 @@ jobs:
       - name: Install Flake8
         run: |
           python -m pip install flake8
-
       - name: Install npm dependencies
         uses: bahmutov/npm-install@v1
         with:

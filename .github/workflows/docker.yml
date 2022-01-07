@@ -17,6 +17,19 @@ on:
         default: "[\"api\",\"simulators-api\",\"dispatch-service\",\"mail-service\",\"combine-api\", \"account-api\"]"
 jobs:
   build:
+    services:
+      nats:
+        image: nats
+        ports:
+          - 4222:4222
+      redis:
+        image: redis
+        ports:
+          - 6379:6379
+      mongo:
+        image: mongo
+        ports:
+          - 27017:27017
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -74,3 +87,25 @@ jobs:
           INPUT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           INPUT_PUSH: ${{ inputs.push }}
         run: npx nx docker ${{matrix.app}}
+
+      - name: Start Docker Image
+        env:
+          app: ${{matrix.app}}
+          tag: $GITHUB_REF_NAME
+          NATS_HOST: 127.0.0.1:4222
+          REDIS_HOST: 127.0.0.1
+          REDIS_PORT: 6379
+          MANAGEMENT_DOMAIN: crbmdev.auth0.com
+          MANAGEMENT_ID: TEST_MANAGEMENT_ID
+          MANAGEMENT_SECRET: TEST_MANAGEMENT_SECRET
+
+        run: docker run -d --name ${{matrix.app}} --network=host -e NATS_HOST -e REDIS_HOST -e REDIS_PORT -e MANAGEMENT_DOMAIN -e MANAGEMENT_ID -e MANAGEMENT_SECRET ${{format('ghcr.io/biosimulations/{0}:{1}', matrix.app, env.tag)}}
+
+      - name: Wait for Docker Image to start
+        run: sleep 10
+
+      - name: Confirm Docker Image is Running
+        run: if [ $(docker inspect -f '{{.State.Running}}' ${{matrix.app}}) = "true" ]; then exit 0; else docker logs ${{matrix.app}} && exit 1; fi
+      - name: Stop Docker Image
+        if: always()
+        run: docker stop ${{matrix.app}}
