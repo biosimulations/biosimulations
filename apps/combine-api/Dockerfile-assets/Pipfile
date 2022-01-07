@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 flask = {version = "<2"}
 connexion = {extras = ["swagger-ui"],version = ">=2.7.0"}
+openapi-schema-validator = "<0.2" # due to conflicting required version of jsonschema with connexion >= 2.9
 requests = "*"
 biosimulators-utils = {version = ">=0.1.156", extras = ["bngl", "cellml", "lems", "logging", "neuroml", "sbml", "smoldyn"]}
 python-dateutil = "*"
@@ -17,7 +18,7 @@ kisao = ">=2.30"
 stringcase = "*"
 natsort = "*"
 rdflib = "*"
-numpy = ">=1.22.0" # to avoid pre-release
+numpy = "<1.22.0" # because Assiumulo requires numpy < 1.22
 # AMICI
 amici = "<=0.11.21" # avoid latest version because this requires SymPy >= 1.9 and CBMPy can't handle this because it (a) no version > 1.9 is available and (b) CBMpy can't handle versions of SymPy that don't have microversion numbers
 biosimulators-amici = ">=0.1.22"
@@ -52,10 +53,10 @@ biosimulators-rbapy = ">=0.0.4"
 # Smoldyn
 smoldyn = ">=2.67"
 # tellurium
+libroadrunner = "<2.2.0" # 2.2.0 requires numpy >= 1.22, which conflicts with Assimulo
 biosimulators-tellurium = ">=0.1.25"
 # XPP
 biosimulators-xpp = ">=0.0.9"
-openapi-schema-validator = "<0.2" # due to conflict required version of jsonschema with connexion >= 2.9
 
 [dev-packages]
 openapi-core = "*"
