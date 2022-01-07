@@ -107,7 +107,7 @@ jobs:
           MANAGEMENT_ID: TEST_MANAGEMENT_ID
           MANAGEMENT_SECRET: TEST_MANAGEMENT_SECRET
 
-        run: docker run -d --name ${{matrix.app}} --network=host -e NATS_HOST -e REDIS_HOST -e REDIS_PORT -e MANAGEMENT_DOMAIN -e MANAGEMENT_ID -e MANAGEMENT_SECRET ${{image}}
+        run: docker run -d --name ${{matrix.app}} --network=host -e NATS_HOST -e REDIS_HOST -e REDIS_PORT -e MANAGEMENT_DOMAIN -e MANAGEMENT_ID -e MANAGEMENT_SECRET ${{env.image}}
 
       - name: Wait for Docker Image to start
         run: sleep 10
