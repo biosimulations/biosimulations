@@ -9,8 +9,6 @@ jobs:
     secrets:
       GHCR_USERNAME: ${{secrets.GHCR_USERNAME}}
       GHCR_TOKEN: ${{secrets.GHCR_TOKEN}}
-    with:
-      push: true
 
   Docker:
     uses: biosimulations/biosimulations/.github/workflows/docker.yml@dev
@@ -19,4 +17,3 @@ jobs:
       GHCR_TOKEN: ${{secrets.GHCR_TOKEN}}
     with:
       push: true
-
