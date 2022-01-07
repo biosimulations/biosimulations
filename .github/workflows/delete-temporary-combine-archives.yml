@@ -44,6 +44,8 @@ jobs:
           source deployment/config/dev/shared.env
           source deployment/secrets/dev/dispatch-service/secret.env
 
+          HPC_SSH_PRIVATE_KEY=$(sed 's/\\n/%0A/g' <<<"$HPC_SSH_PRIVATE_KEY")
+
           echo "::set-output name=HPC_SSH_HOST::$HPC_SSH_HOST"
           echo "::set-output name=HPC_SSH_USERNAME::$HPC_SSH_USERNAME"
           echo "::set-output name=HPC_SSH_PRIVATE_KEY::$HPC_SSH_PRIVATE_KEY"
