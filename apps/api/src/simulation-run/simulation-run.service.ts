@@ -181,9 +181,7 @@ export class SimulationRunService {
     }
 
     if (!run.fileUrl) {
-      throw new NotFoundException(
-        'The COMBINE/OMEX archive for the requested simulation run is not available yet because it has not yet been saved to the database.',
-      );
+      throw new NotFoundException('The COMBINE/OMEX archive for the requested simulation run is not available yet because it has not yet been saved to the database.');
     }
 
     return run.fileUrl;
@@ -720,7 +718,7 @@ export class SimulationRunService {
    * @param file The file object returned by the Mutter library containing the COMBINE/OMEX archive file
    */
   public async createRun(
-    run: UploadSimulationRun,
+    run: UploadSimulationRun
   ): Promise<SimulationRunModelReturnType> {
     const newSimulationRun = new this.simulationRunModel(run);
     const simulator = await this.getSimulator(
@@ -892,7 +890,9 @@ export class SimulationRunService {
   ): SimulationRunModel {
     if (fileUrl) {
       model.fileUrl = fileUrl;
-      this.logger.debug(`Set '${model.id}' fileUrl to ${model.fileUrl}.`);
+      this.logger.debug(
+        `Set '${model.id}' fileUrl to ${model.fileUrl}.`,
+      );
     }
     return model;
   }

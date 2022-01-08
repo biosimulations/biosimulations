@@ -199,7 +199,9 @@ export class SimulationRunController {
       const parsedRun = this.getRunForFile(body);
       projectId = parsedRun?.projectId;
       this.checkPublishProjectPermission(user, projectId);
-      run = await this.service.createRun(parsedRun);
+      run = await this.service.createRun(
+        parsedRun,
+      );
       archiveType = 'file';
       urlOrFile = file.buffer;
       fileSize = file.size;
@@ -210,7 +212,7 @@ export class SimulationRunController {
       projectId = body?.projectId;
       this.checkPublishProjectPermission(user, projectId);
       run = await this.service.createRun(body);
-
+      
       archiveType = 'url';
       urlOrFile = body.url;
       fileSize = undefined;

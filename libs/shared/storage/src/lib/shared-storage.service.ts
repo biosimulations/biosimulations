@@ -11,7 +11,7 @@ import { promiseRetry } from './promise-retry/promise-retry';
 export class SharedStorageService {
   private BUCKET: string;
   private PUBLIC_ENDPOINT: string;
-  private S3_UPLOAD_TIMEOUT_TIME = 10 * 60 * 1000; // 10 minutes;
+  private S3_UPLOAD_TIMEOUT_TIME = 10 * 60 * 1000 // 10 minutes;
   private logger = new Logger(SharedStorageService.name);
   static RETRY_ERROR_CODES = [
     HttpStatus.REQUEST_TIMEOUT,

@@ -31,7 +31,7 @@ export class DispatchProcessor {
     @InjectQueue(JobQueue.monitor) private monitorQueue: Queue<MonitorJob>,
     private simulationStorageService: SimulationStorageService,
   ) {}
-
+  
   @Process()
   private async handleSubmission(job: Job<DispatchJob>): Promise<void> {
     const data = job.data;
@@ -42,9 +42,7 @@ export class DispatchProcessor {
 
     // download archive if provided as URL
     if (data.archiveType === 'url') {
-      this.logger.debug(
-        `Downloading archive for simulation run '${data.runId}' ...`,
-      );
+      this.logger.debug(`Downloading archive for simulation run '${data.runId}' ...`);
       const url = data.urlOrFile as string;
 
       let urlResponse: AxiosResponse<Readable> | null = null;
@@ -98,30 +96,23 @@ export class DispatchProcessor {
     }
 
     // save archive and individual files to S3 bucket
-    this.logger.debug(
-      `Saving archive for simulation run '${data.runId}' to S3 bucket ...`,
-    );
+    this.logger.debug(`Saving archive for simulation run '${data.runId}' to S3 bucket ...`);
 
     let fileUrl: string;
 
     try {
       // upload archive
       const s3file =
-        await this.simulationStorageService.uploadSimulationArchive(
-          data.runId,
-          file,
-        );
+        await this.simulationStorageService.uploadSimulationArchive(data.runId, file);
       this.logger.debug(`Uploaded simulation archive to S3: ${s3file}`);
-
+      
       // upload individual files
       // - Could be merged with file post-processing
       // - File size information could be collected here
       // - Post-processing would just need to get the format of each file
       const uploadedArchiveContents =
-        await this.simulationStorageService.extractSimulationArchive(
-          data.runId,
-        );
-
+        await this.simulationStorageService.extractSimulationArchive(data.runId);
+      
       this.logger.debug(
         `Uploaded archive contents: ${JSON.stringify(uploadedArchiveContents)}`,
       );
@@ -146,11 +137,8 @@ export class DispatchProcessor {
     }
 
     // update the properties of the simulation run
-    this.logger.debug(
-      `Updating the properties of simulation run '${data.runId}' ...`,
-    );
-    const error = await this.simRunService
-      .updateSimulationRunProject(data.runId, fileUrl, fileSize)
+    this.logger.debug(`Updating the properties of simulation run '${data.runId}' ...`);
+    const error = await this.simRunService.updateSimulationRunProject(data.runId, fileUrl, fileSize)
       .toPromise()
       .then(() => {
         return undefined;
@@ -172,9 +160,7 @@ export class DispatchProcessor {
     }
 
     // submit job to HPC
-    this.logger.debug(
-      `Submitting job for simulation run '${data.runId}' to HPC ...`,
-    );
+    this.logger.debug(`Submitting job for simulation run '${data.runId}' to HPC ...`);
     const response = await this.hpcService.submitJob(
       data.runId,
       data.simulator,
@@ -204,9 +190,7 @@ export class DispatchProcessor {
     const slurmjobId = response.stdout.trim().split(' ').slice(-1)[0];
 
     // Initiate monitoring of the job
-    this.logger.debug(
-      `Initiating monitoring for job '${slurmjobId}' for simulation run '${data.runId}' ...`,
-    );
+    this.logger.debug(`Initiating monitoring for job '${slurmjobId}' for simulation run '${data.runId}' ...`);
 
     const monitorData: MonitorJob = {
       slurmJobId: slurmjobId.toString(),
