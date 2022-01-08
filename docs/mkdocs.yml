@@ -60,6 +60,9 @@ extra_css:
 extra:
   version:
     provider: mike
+  analytics:
+    provider: google
+    property: G-8LMPX6MEZ5
   social:
     - icon: fontawesome/brands/twitter
       link: https://twitter.com/bio_sims
