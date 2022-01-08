@@ -14,6 +14,7 @@ import {
   SimulationRunMetadataSchema,
 } from '../metadata/metadata.model';
 import { SimulationRunService } from '../simulation-run/simulation-run.service';
+import { SimulationRunValidationService } from '../simulation-run/simulation-run-validation.service';
 import { ResultsService } from '../results/results.service';
 import { LogsService } from '../logs/logs.service';
 import { MetadataService } from '../metadata/metadata.service';
@@ -99,6 +100,7 @@ describe('ProjectsService', () => {
         FilesService,
         SpecificationsService,
         SimulationRunService,
+        SimulationRunValidationService,
         ResultsService,
         LogsService,
         MetadataService,
