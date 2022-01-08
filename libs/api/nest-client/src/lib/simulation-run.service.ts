@@ -129,7 +129,7 @@ export class SimulationRunService {
         return this.http
           .patch<SimulationRun>(
             this.endpoints.getSimulationRunEndpoint(false, runId),
-            {
+            { 
               fileUrl: fileUrl,
               projectSize: projectSize,
             },
