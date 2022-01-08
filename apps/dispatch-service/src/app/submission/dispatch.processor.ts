@@ -21,7 +21,7 @@ const ONE_GIGABYTE = 1000000000;
 
 @Processor(JobQueue.dispatch)
 export class DispatchProcessor {
-  private readonly logger = new Logger(DispatchProcessor.name);  
+  private readonly logger = new Logger(DispatchProcessor.name);
 
   public constructor(
     private httpService: HttpService,
@@ -137,7 +137,7 @@ export class DispatchProcessor {
     }
 
     // update the properties of the simulation run
-    this.logger.debug(`Updating the properties of simulation run '${data.runId}' ...`);    
+    this.logger.debug(`Updating the properties of simulation run '${data.runId}' ...`);
     const error = await this.simRunService.updateSimulationRunProject(data.runId, fileUrl, fileSize)
       .toPromise()
       .then(() => {
@@ -160,7 +160,7 @@ export class DispatchProcessor {
     }
 
     // submit job to HPC
-    this.logger.debug(`Submitting job for simulation run '${data.runId}' to HPC ...`);    
+    this.logger.debug(`Submitting job for simulation run '${data.runId}' to HPC ...`);
     const response = await this.hpcService.submitJob(
       data.runId,
       data.simulator,
@@ -190,7 +190,7 @@ export class DispatchProcessor {
     const slurmjobId = response.stdout.trim().split(' ').slice(-1)[0];
 
     // Initiate monitoring of the job
-    this.logger.debug(`Initiating monitoring for job '${slurmjobId}' for simulation run '${data.runId}' ...`);    
+    this.logger.debug(`Initiating monitoring for job '${slurmjobId}' for simulation run '${data.runId}' ...`);
 
     const monitorData: MonitorJob = {
       slurmJobId: slurmjobId.toString(),
