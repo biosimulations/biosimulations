@@ -5,6 +5,7 @@ import { SimulationRunService } from './simulation-run.service';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
 import { HttpModule } from '@nestjs/axios';
+import { SimulationRunValidationService } from './simulation-run-validation.service';
 
 /**
  * @file Test file for controller
@@ -38,6 +39,7 @@ describe('SimulationRunsController', () => {
       ],
       providers: [
         { provide: SimulationRunService, useClass: mockSimService },
+        { provide: SimulationRunValidationService, useClass: mockSimService },
         { provide: 'BullQueue_dispatch', useClass: dispatchQueue },
       ],
     }).compile();

@@ -69,6 +69,7 @@ import { Readable } from 'stream';
 // hack to get typing to work see https://github.com/DefinitelyTyped/DefinitelyTyped/issues/47780
 // eslint-disable-next-line unused-imports/no-unused-imports-ts
 import multer from 'multer';
+import { SimulationRunValidationService } from './simulation-run-validation.service';
 type multipartSimulationRunBody = { simulationRun: string };
 // 1gb in bytes plus a buffer to be used as file size limits
 const ONE_GIGABYTE = 1100000000;
@@ -82,6 +83,7 @@ export class SimulationRunController {
 
   public constructor(
     private service: SimulationRunService,
+    private validationService: SimulationRunValidationService,
     @InjectQueue('dispatch') private readonly dispatchQueue: Queue<DispatchJob>,
   ) {
     this.logger = new Logger(SimulationRunController.name);
@@ -597,7 +599,7 @@ export class SimulationRunController {
     @Query('validateSimulationResultsData')
     validateSimulationResultsData = 'false',
   ): Promise<void> {
-    await this.service.validateRun(
+    await this.validationService.validateRun(
       runId,
       validateSimulationResultsData == 'true',
     );
