@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
 
+import { Readable } from 'stream';
+
 import {
   EnvironmentVariable,
   Purpose,
@@ -27,6 +29,9 @@ export class DispatchJob {
   simulator!: string;
   version!: string;
   fileName!: string;
+  archiveType!: 'url' | 'file';
+  urlOrFile!: string | Buffer | Readable;
+  fileSize?: number;
   cpus!: number;
   memory!: number;
   maxTime!: number;
