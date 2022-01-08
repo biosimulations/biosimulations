@@ -1122,7 +1122,7 @@ export class TableComponent implements OnInit, AfterViewInit {
         columnsToShow.push(colId);
       }
     });
-    setTimeout(() => { 
+    setTimeout(() => {
       this.columnsToShow = columnsToShow;
       this?.columns?.forEach((column: Column): void => {
         column._visible = columnsToShow.includes(column.id);
