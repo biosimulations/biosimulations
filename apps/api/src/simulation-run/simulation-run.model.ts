@@ -37,10 +37,10 @@ export class SimulationRunModel extends Document implements SimulationRun {
 
   @Prop({
     type: String,
-    required: true,
+    required: false,
     validate: [isUrl],
   })
-  fileUrl!: string;
+  fileUrl?: string;
 
   @Prop({ type: String, required: true })
   name!: string;
@@ -68,14 +68,23 @@ export class SimulationRunModel extends Document implements SimulationRun {
   })
   statusReason: string | undefined;
 
-  @Prop()
-  runtime!: number;
+  @Prop({
+    type: Number,
+    required: false,
+  })
+  runtime?: number;
 
-  @Prop()
-  projectSize!: number;
+  @Prop({
+    type: Number,
+    required: false,
+  })
+  projectSize?: number;
 
-  @Prop()
-  resultsSize!: number;
+  @Prop({
+    type: Number,
+    required: false,
+  })
+  resultsSize?: number;
 
   @Prop({ type: String, required: true })
   simulator!: string;
