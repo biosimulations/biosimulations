@@ -409,6 +409,31 @@ export class PatchSimulationRun {
 
   @ApiPropertyOptional({
     description:
+      'S3 bucket URL for the COMBINE/OMEX archive for the simulation run',
+    type: String,
+  })
+  @IsOptional()
+  @IsUrl({
+    require_protocol: true,
+    protocols: ['http', 'https'],
+  })
+  @IsNotEmpty()
+  @IsString()
+  fileUrl?: string;
+
+  @ApiPropertyOptional({
+    description:
+      'Size of the COMBINE/OMEX archive for the simulation run',
+    type: Number,
+    example: 11234,
+  })
+  @IsOptional()
+  @Min(0)
+  @IsInt()
+  projectSize?: number;
+
+  @ApiPropertyOptional({
+    description:
       'Size of the results (zip of reports and plots) for the simulation run',
     type: Number,
     example: 11234,
