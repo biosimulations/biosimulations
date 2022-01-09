@@ -208,4 +208,10 @@ export class SimulationStorageService {
         });
     }
   }
+
+  public async getFileProperties(
+    s3path: string,
+  ): Promise<AWS.S3.HeadObjectOutput> {
+    return await this.storage.headObject(s3path);
+  }
 }

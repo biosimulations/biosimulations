@@ -30,6 +30,7 @@ import { MetadataService } from '../metadata/metadata.service';
 import { CombineWrapperService } from '../combineWrapper.service';
 import { FileService } from '../file/file.service';
 import { SedmlService } from '../sedml/sedml.service';
+import { SimulationResultsService } from '../simulation-results/simulation-results.service';
 import { ProjectService } from '@biosimulations/api-nest-client';
 import { Endpoints } from '@biosimulations/config/common';
 import { SharedStorageModule } from '@biosimulations/shared/storage';
@@ -100,6 +101,7 @@ import { SharedStorageModule } from '@biosimulations/shared/storage';
     CombineWrapperService,
     FileService,
     SedmlService,
+    SimulationResultsService,
     ProjectService,
   ],
 })
