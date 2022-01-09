@@ -24,7 +24,7 @@ The BioSimulations apps requires connecting to several infrastructure services f
     We recommend running a local NATS container with the following command:
 
     ```bash
-    docker run -d -p 4222:4222 --network host --name nats nats -js
+    docker run -d -p 4222:4222 --network host --name nats nats
     ```
 
 - MongoDB
