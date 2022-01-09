@@ -422,8 +422,7 @@ export class PatchSimulationRun {
   fileUrl?: string;
 
   @ApiPropertyOptional({
-    description:
-      'Size of the COMBINE/OMEX archive for the simulation run',
+    description: 'Size of the COMBINE/OMEX archive for the simulation run',
     type: Number,
     example: 11234,
   })
