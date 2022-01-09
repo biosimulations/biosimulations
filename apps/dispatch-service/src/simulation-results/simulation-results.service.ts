@@ -1,12 +1,6 @@
-import {
-  Endpoints,
-  FilePaths,
-} from '@biosimulations/config/common';
+import { Endpoints, FilePaths } from '@biosimulations/config/common';
 import { DataPaths } from '@biosimulations/hsds/client';
-import {
-  Injectable,
-  Logger,
-} from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { SshService } from '../app/services/ssh/ssh.service';
 import { ConfigService } from '@nestjs/config';
 
@@ -41,16 +35,15 @@ export class SimulationResultsService {
     const simulationRunResultsHsdsPath =
       this.dataPaths.getSimulationRunResultsPath(id);
 
-    const command = (
-      `hsload`
-      + ` --endpoint ${hsdsBasePath}`
-      + ` --username ${hsdsUsername}`
-      + ` --password ${hsdsPassword}`
-      + ` --verbose`
-      + ` ${simDirname}/${outputsS3Subpath}/reports.h5`
-      + ` '${simulationRunResultsHsdsPath}'`
-    );
-    console.log(command)
+    const command =
+      `hsload` +
+      ` --endpoint ${hsdsBasePath}` +
+      ` --username ${hsdsUsername}` +
+      ` --password ${hsdsPassword}` +
+      ` --verbose` +
+      ` ${simDirname}/${outputsS3Subpath}/reports.h5` +
+      ` '${simulationRunResultsHsdsPath}'`;
+    console.log(command);
     await this.sshService.execStringCommand(command);
 
     return;

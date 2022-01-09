@@ -82,26 +82,34 @@ export class FileService {
                 file.location.path != '.',
             )
             .map((file: CombineArchiveManifestContent) => {
-              const fileS3Path =
-                this.filePaths.getSimulationRunContentFilePath(
-                  id,
-                  file.location.path,
-                );
+              const fileS3Path = this.filePaths.getSimulationRunContentFilePath(
+                id,
+                file.location.path,
+              );
               const fileUrl =
                 this.filePaths.getSimulationRunFileContentEndpoint(
                   false,
                   id,
                   file.location.path,
                 );
-              const fileProperties: Promise<AWS.S3.HeadObjectOutput> = this.storage.getFileProperties(fileS3Path)
-                .catch((error: any) => {
-                  throw new InternalServerErrorException(`The size of '${file.location.path}' for simulation run '${id}' could not be retrieved: ${this.getErrorMessage(error)}`);
-                });
-              return from(fileProperties)
-                .pipe(
-                  map((properties: AWS.S3.HeadObjectOutput): ProjectFileInput => {
+              const fileProperties: Promise<AWS.S3.HeadObjectOutput> =
+                this.storage
+                  .getFileProperties(fileS3Path)
+                  .catch((error: any) => {
+                    throw new InternalServerErrorException(
+                      `The size of '${
+                        file.location.path
+                      }' for simulation run '${id}' could not be retrieved: ${this.getErrorMessage(
+                        error,
+                      )}`,
+                    );
+                  });
+              return from(fileProperties).pipe(
+                map((properties: AWS.S3.HeadObjectOutput): ProjectFileInput => {
                   if (properties.ContentLength === undefined) {
-                    throw new InternalServerErrorException(`The size of '${file.location.path}' for simulation run '${id}' could not be retrieved.`)
+                    throw new InternalServerErrorException(
+                      `The size of '${file.location.path}' for simulation run '${id}' could not be retrieved.`,
+                    );
                   }
 
                   return {
@@ -232,7 +240,9 @@ export class FileService {
         error?.response?.data?.detail || error?.response?.statusText
       }`;
     } else {
-      message = `${error?.status || error?.statusCode}: ${error?.message || error?.code}`;
+      message = `${error?.status || error?.statusCode}: ${
+        error?.message || error?.code
+      }`;
     }
 
     return message.replace(/\n/g, '\n  ');
