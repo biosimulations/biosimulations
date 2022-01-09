@@ -18,6 +18,7 @@ import { MetadataService } from '../../metadata/metadata.service';
 import { SimulationStatusService } from '../services/simulationStatus.service';
 import { FileService } from '../../file/file.service';
 import { SedmlService } from '../../sedml/sedml.service';
+import { SimulationResultsService } from '../../simulation-results/simulation-results.service';
 import { ProjectService } from '@biosimulations/api-nest-client';
 import { AxiosError } from 'axios';
 import { Observable } from 'rxjs';
@@ -38,6 +39,7 @@ export class CompleteProcessor {
     private metadataService: MetadataService,
     private fileService: FileService,
     private sedmlService: SedmlService,
+    private simulationResultsService: SimulationResultsService,
     private projectService: ProjectService,
   ) {}
 
@@ -83,6 +85,15 @@ export class CompleteProcessor {
         plural: true,
       },
       {
+        name: 'results of the simulation run',
+        result: this.simulationResultsService.processResults(runId),
+        required: true,
+        moreInfo:
+          'https://docs.biosimulations.org/concepts/conventions/simulation-run-reports/',
+        validator: undefined,
+        plural: true,
+      },
+      {
         name: 'log of the simulation run',
         result: this.logService.createLog(runId, false, '', false),
         required: true,
@@ -101,6 +112,8 @@ export class CompleteProcessor {
         plural: false,
       },
     ];
+
+    const iLogProcessingStep = 4;
 
     // Keep track of which processing step(s) failed
     const errors: string[] = [];
@@ -150,8 +163,8 @@ export class CompleteProcessor {
       ),
     );
 
-    const log = processingResults[3]?.value;
-    const logPostSucceeded = processingResults[3].succeeded;
+    const log = processingResults[iLogProcessingStep]?.value;
+    const logPostSucceeded = processingResults[iLogProcessingStep].succeeded;
     const runSuceededFromLog = this.getRunSuceededFromLog(log);
 
     /* calculate final status and reason */

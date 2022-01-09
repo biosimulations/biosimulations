@@ -51,10 +51,14 @@ export class SharedStorageService {
     }
   }
 
-  public async isObject(id: string): Promise<boolean> {
-    const call = this.retryS3<any>(async (): Promise<any> => {
+  public async headObject(id: string): Promise<AWS.S3.HeadObjectOutput> {
+    return await this.retryS3<any>(async (): Promise<any> => {
       return this.s3.headObject({ Bucket: this.BUCKET, Key: id }).promise();
     });
+  }
+
+  public async isObject(id: string): Promise<boolean> {
+    const call = this.headObject(id);
 
     try {
       await call;
