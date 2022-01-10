@@ -2,7 +2,6 @@
   "version": 2,
   "projects": {
     "account": "apps/account",
-    "account-api": "apps/account-api",
     "account-e2e": "apps/account-e2e",
     "account-management": "libs/account/management",
     "analytics-angular-analytics": "libs/analytics/angular-analytics",
