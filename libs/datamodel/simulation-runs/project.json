@@ -7,14 +7,8 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "linter": "eslint",
-        "tsConfig": [
-          "libs/datamodel/simulation-runs/tsconfig.lib.json",
-          "libs/datamodel/simulation-runs/tsconfig.spec.json"
-        ],
-        "exclude": [
-          "**/node_modules/**",
-          "!libs/datamodel/simulation-runs/**/*"
+        "lintFilePatterns": [
+          "libs/datamodel/database/**/*.ts"
         ]
       }
     },
