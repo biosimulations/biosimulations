@@ -51,7 +51,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/actions/toolkit
 │  └─ licenseFile: @actions/io/LICENSE.md
-├─ @angular/animations@13.1.0
+├─ @angular/animations@13.1.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
@@ -60,17 +60,17 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/components
 │  └─ licenseFile: @angular/cdk/LICENSE
-├─ @angular/common@13.1.0
+├─ @angular/common@13.1.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/common/README.md
-├─ @angular/core@13.1.0
+├─ @angular/core@13.1.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/core/README.md
-├─ @angular/forms@13.1.0
+├─ @angular/forms@13.1.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
@@ -79,7 +79,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/components
 │  └─ licenseFile: @angular/material/LICENSE
-├─ @angular/platform-browser@13.1.0
+├─ @angular/platform-browser@13.1.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
@@ -287,17 +287,17 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: i@izs.me
 │  ├─ url: https://izs.me
 │  └─ licenseFile: npm/node_modules/@npmcli/run-script/LICENSE
-├─ @nrwl/cli@13.2.3
+├─ @nrwl/cli@13.4.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nrwl/nx
 │  ├─ publisher: Victor Savkin
 │  └─ licenseFile: @nrwl/cli/LICENSE
-├─ @nrwl/devkit@13.2.3
+├─ @nrwl/devkit@13.4.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nrwl/nx
 │  ├─ publisher: Victor Savkin
 │  └─ licenseFile: @nrwl/devkit/LICENSE
-├─ @nrwl/tao@13.2.3
+├─ @nrwl/tao@13.4.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nrwl/nx
 │  ├─ publisher: Victor Savkin
@@ -3653,11 +3653,11 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
 │  └─ licenseFile: npm/node_modules/number-is-nan/license
-├─ nx@13.2.3
+├─ nx@13.4.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nrwl/nx
 │  ├─ publisher: Victor Savkin
-│  └─ licenseFile: @nrwl/tao/node_modules/nx/LICENSE
+│  └─ licenseFile: nx/LICENSE
 ├─ oauth-sign@0.9.0
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/mikeal/oauth-sign
@@ -5492,7 +5492,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/yargs/yargs-parser
 │  ├─ publisher: Ben Coe
 │  ├─ email: ben@npmjs.com
-│  └─ licenseFile: @nrwl/tao/node_modules/yargs-parser/LICENSE.txt
+│  └─ licenseFile: @nrwl/cli/node_modules/yargs-parser/LICENSE.txt
 ├─ yargs-parser@20.2.9
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/yargs/yargs-parser
