@@ -6,8 +6,9 @@ name = "pypi"
 [packages]
 flask = {version = "<2"}
 connexion = {extras = ["swagger-ui"],version = ">=2.7.0"}
+openapi-schema-validator = "<0.2" # due to conflicting required version of jsonschema with connexion >= 2.9
 requests = "*"
-biosimulators-utils = {version = ">=0.1.151", extras = ["bngl", "cellml", "lems", "logging", "neuroml", "sbml", "smoldyn"]}
+biosimulators-utils = {version = ">=0.1.156", extras = ["bngl", "cellml", "lems", "logging", "neuroml", "sbml", "smoldyn"]}
 python-dateutil = "*"
 gunicorn = "*"
 flask-cors = "*"
@@ -17,10 +18,10 @@ kisao = ">=2.30"
 stringcase = "*"
 natsort = "*"
 rdflib = "*"
-numpy = "<1.22" # to avoid pre-release
+numpy = "<1.22.0" # because Assiumulo requires numpy < 1.22
 # AMICI
 amici = "<=0.11.21" # avoid latest version because this requires SymPy >= 1.9 and CBMPy can't handle this because it (a) no version > 1.9 is available and (b) CBMpy can't handle versions of SymPy that don't have microversion numbers
-biosimulators-amici = ">=0.1.21"
+biosimulators-amici = ">=0.1.22"
 # BioNetGen
 biosimulators-bionetgen = ">=0.1.19"
 # BoolNet
@@ -29,17 +30,17 @@ biosimulators-boolnet = ">=0.1.18"
 sympy = "!=1.8,!=1.9" # avoid versions without microversion numbers because CBMPy can't handle versions with only major and minor numbers
 biosimulators-cbmpy = ">=0.1.14"
 # COBRApy
-biosimulators-cobrapy = ">=0.1.21"
+biosimulators-cobrapy = ">=0.1.22"
 # COPASI
 biosimulators-copasi = ">=0.1.34"
 # GillesPy2
-biosimulators-gillespy2 = ">=0.1.35"
+biosimulators-gillespy2 = ">=0.1.36"
 # GINsim
 biosimulators-ginsim = ">=0.0.9"
 # LibSBMLSim
 biosimulators-libsbmlsim = ">=0.0.6"
 # MASSpy
-biosimulators-masspy = ">=0.0.6"
+biosimulators-masspy = ">=0.0.7"
 # PySCeS
 cython = "<3" # to avoid prelease
 # assimulo = {version = ">=3.2.8", ref = "Assimulo-3.2.8", git = "https://github.com/modelon-community/Assimulo.git"} # commented out because pipenv can't install assimulo; see https://github.com/pypa/pipenv/issues/4768
@@ -52,6 +53,7 @@ biosimulators-rbapy = ">=0.0.4"
 # Smoldyn
 smoldyn = ">=2.67"
 # tellurium
+libroadrunner = "<2.2.0" # 2.2.0 requires numpy >= 1.22, which conflicts with Assimulo
 biosimulators-tellurium = ">=0.1.25"
 # XPP
 biosimulators-xpp = ">=0.0.9"

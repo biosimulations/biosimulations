@@ -2336,6 +2336,11 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/BioSimulationsMetadataValue'
+        references:
+          description: References for a COMBINE/OMEX or component of a COMBINE/OMEX.
+          type: array
+          items:
+            $ref: '#/components/schemas/BioSimulationsMetadataValue'
         created:
           format: date
           description: Date when the COMBINE/OMEX archive or its key content was created.
@@ -2419,7 +2424,13 @@ components:
         seeAlso:
         - _type: BioSimulationsMetadataValue
           uri: https://en.wikipedia.org/wiki/Semantic_triple
-          label: More information
+          label: Semantic triple
+        references:
+        - _type: BioSimulationsMetadataValue
+          uri: http://identifiers.org/pubmed:1234
+          label: "D Nadeau, C Marchand. Change in the kinetics of sulphacetamide tissue\
+            \ distribution in Walker tumor-bearing rats. Drug Metab Dispos 3(6): 565-76\
+            \ (1975)."
         created: 2018-01-17T00:00:00.000Z
         modified:
         - 2018-01-17T00:00:00.000Z

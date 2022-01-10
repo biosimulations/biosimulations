@@ -1,6 +1,6 @@
 {
   "name": "biosimulations",
-  "version": "8.7.1",
+  "version": "8.8.0",
   "license": "MIT",
   "scripts": {
     "ng": "nx",
@@ -149,7 +149,7 @@
     "@nx-python/nx-python": "0.1.7",
     "@nx-tools/nx-docker": "2.2.0",
     "@scullyio/init": "2.1.0",
-    "@scullyio/ng-lib": "2.1.0",
+    "@scullyio/ng-lib": "2.1.2",
     "@scullyio/scully": "2.1.0",
     "@semantic-release/changelog": "6.0.1",
     "@semantic-release/git": "10.0.1",

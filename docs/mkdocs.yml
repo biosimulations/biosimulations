@@ -45,14 +45,14 @@ plugins:
   - redirects:
       redirect_maps:
         'repositories/bigg.md': 'https://biosimulations.github.io/biosimulations-bigg'
-        'conventions': 'concepts/conventions/index.md'
-        'news': 'news/changelog.md'
-        'community': 'community/contributors.md'
-        'about': 'about/team.md'
-        'privacy': 'about/privacy.md'
-        'terms': 'about/terms.md'
+        'conventions.md': 'concepts/conventions/index.md'
+        'news.md': 'news/changelog.md'
+        'community.md': 'community/contributors.md'
+        'about.md': 'about/team.md'
+        'privacy.md': 'about/privacy.md'
+        'terms.md': 'about/terms.md'
   - git-revision-date
-  - same-dir
+  - same-dir  
   - awesome-pages
 
 extra_css:
@@ -60,6 +60,9 @@ extra_css:
 extra:
   version:
     provider: mike
+  analytics:
+    provider: google
+    property: G-8LMPX6MEZ5
   social:
     - icon: fontawesome/brands/twitter
       link: https://twitter.com/bio_sims

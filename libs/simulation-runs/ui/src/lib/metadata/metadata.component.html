@@ -57,12 +57,13 @@
   </div>
   <!-- End summary/text data-->
 
-  <!-- Biology, simulation, & provenance information -->
+  <!-- Biology, simulation, provenance, & identifiers information -->
   <div
     *ngIf="
       project?.modelSimulation?.length ||
       simulationRun?.length ||
-      project?.provenance?.length
+      project?.provenance?.length ||
+      project?.identifiers?.length
     "
     class="attributes-column ragged-column"
     fxFlex="22rem"
@@ -89,6 +90,13 @@
       *ngTemplateOutlet="
         sectionsTemplate;
         context: { sections: project?.provenance || [] }
+      "
+    ></ng-container>
+
+    <ng-container
+      *ngTemplateOutlet="
+        sectionsTemplate;
+        context: { sections: project?.identifiers || [] }
       "
     ></ng-container>
 

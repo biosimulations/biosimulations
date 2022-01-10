@@ -210,6 +210,7 @@ export class BrowseComponent implements OnInit, AfterViewInit {
     // predecessors
     // successors
     // seeAlso
+    // references
     {
       id: 'modelFormats',
       key: 'tasks',

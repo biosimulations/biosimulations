@@ -64,6 +64,7 @@ import { AuthToken } from '@biosimulations/auth/common';
 import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bull';
 import { scopes } from '@biosimulations/auth/common';
+import { Readable } from 'stream';
 
 // hack to get typing to work see https://github.com/DefinitelyTyped/DefinitelyTyped/issues/47780
 // eslint-disable-next-line unused-imports/no-unused-imports-ts
@@ -188,6 +189,9 @@ export class SimulationRunController {
     let run: SimulationRunModelReturnType;
     const user = req?.user as AuthToken;
     let projectId: string | undefined;
+    let archiveType: 'url' | 'file';
+    let urlOrFile: string | Buffer | Readable;
+    let fileSize: number | undefined;
 
     if (!contentType) {
       throw new UnsupportedMediaTypeException(
@@ -197,18 +201,21 @@ export class SimulationRunController {
       const parsedRun = this.getRunForFile(body);
       projectId = parsedRun?.projectId;
       this.checkPublishProjectPermission(user, projectId);
-      run = await this.service.createRunWithFile(
-        parsedRun,
-        file.buffer,
-        file.size,
-      );
+      run = await this.service.createRun(parsedRun);
+      archiveType = 'file';
+      urlOrFile = file.buffer;
+      fileSize = file.size;
     } else if (
       contentType?.startsWith('application/json') &&
       this.isUrlBody(body)
     ) {
       projectId = body?.projectId;
       this.checkPublishProjectPermission(user, projectId);
-      run = await this.service.createRunWithURL(body);
+      run = await this.service.createRun(body);
+
+      archiveType = 'url';
+      urlOrFile = body.url;
+      fileSize = undefined;
     } else {
       throw new UnsupportedMediaTypeException(
         "The content type must be 'application/json' or 'multipart/form-data'.",
@@ -219,6 +226,9 @@ export class SimulationRunController {
     const message: DispatchJob = {
       runId: run.id,
       fileName: file?.originalname || 'input.omex',
+      archiveType: archiveType,
+      urlOrFile: urlOrFile,
+      fileSize: fileSize,
       simulator: run.simulator,
       version: run.simulatorVersion,
       cpus: run.cpus,

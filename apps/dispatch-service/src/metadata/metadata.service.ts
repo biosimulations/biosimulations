@@ -33,7 +33,6 @@ export class MetadataService {
   }
 
   public async createMetadata(id: string): Promise<void> {
-    // get external endpoint since combine service my not be running locally
     const url = this.endpoints.getRunDownloadEndpoint(false, id);
     this.logger.debug(
       `Fetching metadata for archive for simulation run '${id}' at URL: ${url}`,
@@ -123,6 +122,8 @@ export class MetadataService {
         combineMetadata.successors?.map(this.convertMetadataValue, this) || [],
       seeAlso:
         combineMetadata.seeAlso?.map(this.convertMetadataValue, this) || [],
+      references:
+        combineMetadata.references?.map(this.convertMetadataValue, this) || [],
       identifiers:
         combineMetadata.identifiers?.map(this.convertMetadataValue, this) || [],
       citations:

@@ -45,7 +45,8 @@ import {
   LICENCE,
   MODIFIED,
   PREDECESSORS,
-  SEEALSO,
+  SEE_ALSO,
+  REFERENCES,
   SOURCES,
   SUCCESSORS,
   TAXA,
@@ -405,6 +406,30 @@ export class PatchSimulationRun {
   @IsOptional()
   @IsEnum(SimulationRunStatus)
   status?: SimulationRunStatus;
+
+  @ApiPropertyOptional({
+    description:
+      'S3 bucket URL for the COMBINE/OMEX archive for the simulation run',
+    type: String,
+  })
+  @IsOptional()
+  @IsUrl({
+    require_protocol: true,
+    protocols: ['http', 'https'],
+  })
+  @IsNotEmpty()
+  @IsString()
+  fileUrl?: string;
+
+  @ApiPropertyOptional({
+    description: 'Size of the COMBINE/OMEX archive for the simulation run',
+    type: Number,
+    example: 11234,
+  })
+  @IsOptional()
+  @Min(0)
+  @IsInt()
+  projectSize?: number;
 
   @ApiPropertyOptional({
     description:
@@ -811,8 +836,11 @@ export class SimulationRunMetadataSummary
   @ApiProperty(SUCCESSORS)
   successors!: LabeledIdentifier[];
 
-  @ApiProperty(SEEALSO)
+  @ApiProperty(SEE_ALSO)
   seeAlso!: LabeledIdentifier[];
+
+  @ApiProperty(REFERENCES)
+  references!: LabeledIdentifier[];
 
   @ApiProperty(IDENTIFIERS)
   identifiers!: LabeledIdentifier[];

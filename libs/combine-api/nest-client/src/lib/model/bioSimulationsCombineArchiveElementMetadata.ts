@@ -86,6 +86,10 @@ export interface BioSimulationsCombineArchiveElementMetadata {
    */
   seeAlso?: Array<BioSimulationsMetadataValue>;
   /**
+   * References for a COMBINE/OMEX or component of a COMBINE/OMEX.
+   */
+  references?: Array<BioSimulationsMetadataValue>;
+  /**
    * Date when the COMBINE/OMEX archive or its key content was created.
    */
   created: string;

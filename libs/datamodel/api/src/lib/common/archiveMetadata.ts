@@ -25,7 +25,8 @@ import {
   LICENCE,
   MODIFIED,
   PREDECESSORS,
-  SEEALSO,
+  SEE_ALSO,
+  REFERENCES,
   SOURCES,
   SUCCESSORS,
   TAXA,
@@ -89,10 +90,15 @@ export class ArchiveMetadata implements IArchiveMetadata {
   @Type(() => LabeledIdentifier)
   successors: LabeledIdentifier[] = [];
 
-  @ApiProperty(SEEALSO)
+  @ApiProperty(SEE_ALSO)
   @ValidateNested({ each: true })
   @Type(() => LabeledIdentifier)
   seeAlso: LabeledIdentifier[] = [];
+
+  @ApiProperty(REFERENCES)
+  @ValidateNested({ each: true })
+  @Type(() => LabeledIdentifier)
+  references: LabeledIdentifier[] = [];
 
   @ApiProperty(IDENTIFIERS)
   @ValidateNested({ each: true })

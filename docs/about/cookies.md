@@ -35,6 +35,15 @@ Currently, we use cookies and local storage for the following purposes:
     - `auth0`, `auth0_compat`: These cookies are used to verify that you are logged in.
     - `did`, `did-compat`: These cookies are used to protect BioSimulators and BioSimulations from bots and other automated attacks.
 
+- Store information about the simulation runs that you have submitted in the browser's local storage, to enable you to view the simulation runs you have loaded and submitted.
+
+### Functional cookies and local storage
+
+These cookies are used to support additional, non-essential functionality that provides users with a more personalized experience.
+
+- Currently, we do not use functional cookies
+
+
 ### Performance cookies and local storage
 
 These cookies are used to collect data for improving the performance of our websites.
@@ -46,12 +55,6 @@ Currently, we use cookies for the following purposes:
 - `biosim_analytics_la_XXXXXXXXXX`: This cookie is used to monitor how users interact with our websites. For example, which links users follow to navigate our websites. This information helps us improve our websites for users.
 
 These cookies are used to gather information that is sent to Google Analytics. No personal information is collected or sent to Google Analytics. For more information, see <!-- * #no-spell-check* --> [Google Analytics](https://developers.google.com/analytics/devguides/collection/gtagjs/cookie-usage). 
-
-### Functional cookies and local storage
-
-These cookies are used to support additional, non-essential functionality that provides users with a more personalized experience.
-
-Currently, we use local storage to store information about the simulation runs that you have submitted, as well as whether you have dismissed our privacy policy and terms of use.
 
 ### Tracking cookies and local storage
 

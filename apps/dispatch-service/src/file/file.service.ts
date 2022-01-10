@@ -30,6 +30,7 @@ import { SimulationRunService } from '@biosimulations/api-nest-client';
 import sharp from 'sharp';
 import { SimulationStorageService } from '@biosimulations/shared/storage';
 import S3 from 'aws-sdk/clients/s3';
+import * as AWS from 'aws-sdk';
 
 interface ThumbnailSettledResult {
   thumbnail: string;
@@ -81,31 +82,47 @@ export class FileService {
                 file.location.path != '.',
             )
             .map((file: CombineArchiveManifestContent) => {
+              const fileS3Path = this.filePaths.getSimulationRunContentFilePath(
+                id,
+                file.location.path,
+              );
               const fileUrl =
                 this.filePaths.getSimulationRunFileContentEndpoint(
                   false,
                   id,
                   file.location.path,
                 );
-              // This is a silly way to get the file size, but it works for now
-              const apiFile = this.httpService.head(fileUrl).pipe(
-                pluck('headers'),
-                pluck('content-length'),
-                map((size: string): ProjectFileInput => {
-                  const fileSize = parseInt(size) || 0;
-                  const fileObject: ProjectFileInput = {
+              const fileProperties: Promise<AWS.S3.HeadObjectOutput> =
+                this.storage
+                  .getFileProperties(fileS3Path)
+                  .catch((error: any) => {
+                    throw new InternalServerErrorException(
+                      `The size of '${
+                        file.location.path
+                      }' for simulation run '${id}' could not be retrieved: ${this.getErrorMessage(
+                        error,
+                      )}`,
+                    );
+                  });
+              return from(fileProperties).pipe(
+                map((properties: AWS.S3.HeadObjectOutput): ProjectFileInput => {
+                  if (properties.ContentLength === undefined) {
+                    throw new InternalServerErrorException(
+                      `The size of '${file.location.path}' for simulation run '${id}' could not be retrieved.`,
+                    );
+                  }
+
+                  return {
                     id: id + '/' + file.location.path.replace('./', ''),
                     name: file.location.value.filename,
                     location: file.location.path.replace('./', ''),
-                    size: fileSize,
+                    size: properties.ContentLength,
                     format: file.format,
                     master: file.master,
                     url: fileUrl,
                   };
-                  return fileObject;
                 }),
               );
-              return apiFile;
             });
           // Array of observables to observable of array
           return combineLatest(apiFiles);
@@ -223,7 +240,9 @@ export class FileService {
         error?.response?.data?.detail || error?.response?.statusText
       }`;
     } else {
-      message = `${error?.status || error?.statusCode}: ${error?.message}`;
+      message = `${error?.status || error?.statusCode}: ${
+        error?.message || error?.code
+      }`;
     }
 
     return message.replace(/\n/g, '\n  ');

@@ -119,6 +119,41 @@ export class SimulationRunService {
     return response;
   }
 
+  public updateSimulationRunProject(
+    runId: string,
+    fileUrl: string,
+    projectSize: number,
+  ): Observable<SimulationRun> {
+    return from(this.auth.getToken()).pipe(
+      map((token) => {
+        return this.http
+          .patch<SimulationRun>(
+            this.endpoints.getSimulationRunEndpoint(false, runId),
+            {
+              fileUrl: fileUrl,
+              projectSize: projectSize,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            },
+          )
+          .pipe(
+            catchError((error, caught) => {
+              this.logger.error(
+                `The S3 bucket URL and size of the COMBINE/OMEX arachive for simulation run '${runId}' could not be updated: ${error}`,
+              );
+              return caught;
+            }),
+            retry(5),
+            pluck('data'),
+          );
+      }),
+      mergeMap((value) => value),
+    );
+  }
+
   public updateSimulationRunResultsSize(
     runId: string,
     size: number,

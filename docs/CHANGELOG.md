@@ -1,5 +1,13 @@
 # Changelog
 
+## [8.8.0](https://github.com/biosimulations/biosimulations/compare/v8.7.1...v8.8.0) (2022-01-08)
+
+
+### Features
+
+* added workflow to delete temporary COMBINE archives ([0d722e9](https://github.com/biosimulations/biosimulations/commit/0d722e939b19726c0f91c310d8a0a6a31217aed8))
+* **api,combine-api,dispatch,platform:** added support for references for projects ([a544969](https://github.com/biosimulations/biosimulations/commit/a5449691805801726b643285a018dbff77e06a00))
+
 ## [8.7.1](https://github.com/biosimulations/biosimulations/compare/v8.7.0...v8.7.1) (2022-01-06)
 
 

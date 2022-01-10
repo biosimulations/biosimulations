@@ -1116,14 +1116,17 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   setColumnsToShow(): void {
-    this.columnsToShow = [];
+    const columnsToShow: string[] = [];
     Object.keys(this.showColumns).forEach((colId: string): void => {
       if (this.showColumns[colId]) {
-        this.columnsToShow.push(colId);
+        columnsToShow.push(colId);
       }
     });
-    this?.columns?.forEach((column: Column): void => {
-      column._visible = this.columnsToShow.includes(column.id);
+    setTimeout(() => {
+      this.columnsToShow = columnsToShow;
+      this?.columns?.forEach((column: Column): void => {
+        column._visible = columnsToShow.includes(column.id);
+      });
     });
   }
 
