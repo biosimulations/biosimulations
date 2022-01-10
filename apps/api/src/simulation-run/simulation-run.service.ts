@@ -49,7 +49,6 @@ import {
   DispatchProcessedPayload,
 } from '@biosimulations/messages/messages';
 import { ClientProxy } from '@nestjs/microservices';
-import { BiosimulationsException } from '@biosimulations/shared/exceptions';
 import { firstValueFrom, Observable, of, map } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Endpoints, AppRoutes } from '@biosimulations/config/common';
