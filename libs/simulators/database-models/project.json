@@ -5,7 +5,7 @@
   "generators": {},
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:lint",
+      "executor": "@nrwl/linter:eslint",
       "options": {
         "linter": "eslint",
         "tsConfig": [
@@ -26,5 +26,9 @@
       }
     }
   },
-  "tags": ["scope:simulators", "type:datamodel", "platform:server"]
+  "tags": [
+    "scope:simulators",
+    "type:datamodel",
+    "platform:server"
+  ]
 }
