@@ -203,21 +203,19 @@ export class SimulationRunController {
       const parsedRun = this.getRunForFile(body);
       projectId = parsedRun?.projectId;
       this.checkPublishProjectPermission(user, projectId);
-      run = await this.service.createRun(parsedRun);
-      archiveType = 'file';
-      urlOrFile = file.buffer;
-      fileSize = file.size;
+      run = await this.service.createRunWithFile(
+        parsedRun,
+        file.buffer,
+        file.size,
+      );
+      
     } else if (
       contentType?.startsWith('application/json') &&
       this.isUrlBody(body)
     ) {
       projectId = body?.projectId;
       this.checkPublishProjectPermission(user, projectId);
-      run = await this.service.createRun(body);
-
-      archiveType = 'url';
-      urlOrFile = body.url;
-      fileSize = undefined;
+      run = await this.service.createRunWithURL(body);
     } else {
       throw new UnsupportedMediaTypeException(
         "The content type must be 'application/json' or 'multipart/form-data'.",
@@ -228,9 +226,6 @@ export class SimulationRunController {
     const message: DispatchJob = {
       runId: run.id,
       fileName: file?.originalname || 'input.omex',
-      archiveType: archiveType,
-      urlOrFile: urlOrFile,
-      fileSize: fileSize,
       simulator: run.simulator,
       version: run.simulatorVersion,
       cpus: run.cpus,

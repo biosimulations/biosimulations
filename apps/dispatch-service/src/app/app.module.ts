@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { BullModule } from '@nestjs/bull';
 import { HttpModule } from '@nestjs/axios';
 import { HpcService } from './services/hpc/hpc.service';
@@ -49,6 +49,8 @@ import { SharedStorageModule } from '@biosimulations/shared/storage';
         const env = configService.get('server.env');
         const endpoints = new Endpoints(env);
         const combineBaseUrl = endpoints.getCombineApiBaseUrl(false);
+        const logger = new Logger('loading');
+        logger.error(combineBaseUrl);
         return new CombineAPIConfiguration({
           basePath: combineBaseUrl,
         });
