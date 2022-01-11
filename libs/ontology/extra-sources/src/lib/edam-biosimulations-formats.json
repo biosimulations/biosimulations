@@ -88,7 +88,7 @@
     "id": "format_9005",
     "description": "Interpreted programming language used as the primary scripting language for the NEURON simulator.",
     "mediaTypes": ["text/x-hoc", "text/plain"],
-    "fileExtensions": ["hoc"],
+    "fileExtensions": ["hoc", "nrn"],
     "moreInfoUrl": "https://en.wikipedia.org/wiki/Hoc_(programming_language)",
     "parents": ["format_2013", "format_2330"],
     "biosimulationsMetadata": {
@@ -502,11 +502,37 @@
     "name": "MATLAB data",
     "id": "format_3626",
     "mediaTypes": ["application/x-matlab-data"],
-    "fileExtensions": ["mat"],
+    "fileExtensions": ["mat", "sfit"],
     "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3626",
     "biosimulationsMetadata": {
       "omexManifestUris": ["http://purl.org/NET/mediatypes/application/x-matlab-data"],
       "icon": "report"
+    }
+  },
+  {
+    "name": "MATLAB figure",
+    "id": "format_9061",
+    "description": "Configuration for a MATLAB figure",
+    "mediaTypes": ["application/matlab-fig"],
+    "fileExtensions": ["fig"],
+    "moreInfoUrl": "https://www.mathworks.com/help/matlab/ref/openfig.html",
+    "parents": ["format_3626"],
+    "biosimulationsMetadata": {
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/application/matlab-fig"],
+      "icon": "chart"
+    }
+  },
+  {
+    "name": "MATLAB live script",
+    "id": "format_9065",
+    "description": "Interactive documents that combine MATLAB code with formatted text, equations, and images.",
+    "mediaTypes": ["application/matlab-live-script"],
+    "fileExtensions": ["mlx"],
+    "moreInfoUrl": "https://www.mathworks.com/help/releases/R2016a/matlab/matlab_prog/live-script-file-format.html",
+    "parents": ["format_2333", "format_3547"],
+    "biosimulationsMetadata": {
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/application/matlab-live-script"],
+      "icon": "code"
     }
   },
   {
@@ -639,7 +665,7 @@
     "id": "format_9019",
     "description": "File format used for scripts written in the Scilab programming language for execution within the Scilab software environment, typically for numerical computation.",
     "mediaTypes": ["application/x-scilab"],
-    "fileExtensions": ["sci"],
+    "fileExtensions": ["sci", "sce"],
     "moreInfoUrl": "https://www.scilab.org/",
     "parents": ["format_2330"],
     "biosimulationsMetadata": {
@@ -759,10 +785,10 @@
     }
   },
   {
-    "name": "Other binary format",
+    "name": "Other format",
     "id": "format_2333",
     "mediaTypes": ["application/octet-stream"],
-    "fileExtensions": [],
+    "fileExtensions": ["bin"],
     "moreInfoUrl": "https://www.iana.org/assignments/media-types/application/octet-stream",
     "biosimulationsMetadata": {
       "omexManifestUris": ["http://purl.org/NET/mediatypes/application/octet-stream"],
@@ -821,7 +847,7 @@
     "id": "format_9024",
     "description": "Format for source code for the C++ programming language.",
     "mediaTypes": ["text/x-c++src"],
-    "fileExtensions": ["cpp"],
+    "fileExtensions": ["cpp", "cc"],
     "moreInfoUrl": "https://en.wikipedia.org/wiki/C%2B%2B",
     "parents": ["format_2330", "format_2032"],
     "biosimulationsMetadata": {
@@ -1470,6 +1496,232 @@
         "http://purl.org/NET/mediatypes/application/xslfo+xml",
         "http://purl.org/NET/mediatypes/text/xsl"
       ],
+      "icon": "file"
+    }
+  },
+  {
+    "name": "NEURON MODeling Language",
+    "id": "format_9052",
+    "description": "Language for generating code for the NEURON Modeling Language.",
+    "mediaTypes": ["text/x-nmodl"],
+    "fileExtensions": ["mod", "inc"],
+    "moreInfoUrl": "https://bluebrain.github.io/nmodl/",
+    "parents": ["format_2013", "format_2330"],
+    "biosimulationsMetadata": {
+      "acronym": "NMODL",
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/text/x-nmodl"],
+      "modelFormatMetadata": {
+        "sedUrn": "urn:sedml:language:nmodl",
+        "validationAvailable": false,
+        "introspectionAvailable": false
+      },
+      "icon": "model"
+    }
+  },
+  {
+    "name": "XPP_SET",
+    "id": "format_9053",
+    "description": "Format used by the XPP mathematical modeling tool to represent software settings.",
+    "mediaTypes": [
+      "text/x-xpp-set",
+      "text/plain",
+      "text/xpp-set+plain",
+      "application/x-xpp-set"
+    ],
+    "fileExtensions": ["set"],
+    "moreInfoUrl": "http://www.math.pitt.edu/~bard/xpp/xpp.html",
+    "parents": ["format_2013"],
+    "biosimulationsMetadata": {
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/text/x-xpp-set"],
+      "icon": "parameter"
+    }
+  },
+  {
+    "name": "SLI",
+    "id": "format_9054",
+    "description": "Programming language used by the NEST simulator.",
+    "mediaTypes": [
+      "text/x-sli",
+      "text/plain"
+    ],
+    "fileExtensions": ["sli"],
+    "moreInfoUrl": "https://nest-simulator.readthedocs.io/en/stable/sli_docs/an-introduction-to-sli.html",
+    "parents": ["format_2013", "format_2330"],
+    "biosimulationsMetadata": {
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/text/x-sli"],
+      "modelFormatMetadata": {
+        "sedUrn": "urn:sedml:language:sli",
+        "validationAvailable": false,
+        "introspectionAvailable": false
+      },
+      "icon": "model"
+    }
+  },
+  {
+    "name": "NEURON session",
+    "id": "format_9055",
+    "description": "Format used by the NEURON mathematical modeling tool to represent software settings.",
+    "mediaTypes": [
+      "text/x-nrn-ses",
+      "text/plain"
+    ],
+    "fileExtensions": ["ses"],
+    "moreInfoUrl": "https://www.neuron.yale.edu/neuron/static/docs/saveses/saveses.html",
+    "parents": ["format_2013"],
+    "biosimulationsMetadata": {
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/text/x-nrn-ses"],
+      "icon": "parameter"
+    }
+  },
+  {
+    "name": "GENESIS",
+    "id": "format_9056",
+    "description": "Programming language used by the GENESIS simulator.",
+    "mediaTypes": [
+      "text/x-genesis",
+      "text/plain"
+    ],
+    "fileExtensions": ["g", "p"],
+    "moreInfoUrl": "http://genesis-sim.org/",
+    "parents": ["format_2013", "format_2330"],
+    "biosimulationsMetadata": {
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/text/x-genesis"],
+      "modelFormatMetadata": {
+        "sedUrn": "urn:sedml:language:genesis",
+        "validationAvailable": false,
+        "introspectionAvailable": false
+      },
+      "icon": "model"
+    }
+  },
+  {
+    "name": "Neocortical Simulator",
+    "id": "format_9057",
+    "description": "Programming language used by the Neocortical Simulator.",
+    "mediaTypes": [
+      "text/x-ncs",
+      "text/plain"
+    ],
+    "fileExtensions": ["in"],
+    "moreInfoUrl": "https://github.com/BrainComputationLab/ncs",
+    "parents": ["format_2013", "format_2330"],
+    "biosimulationsMetadata": {
+      "acronym": "NCS",
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/text/x-ncs"],
+      "modelFormatMetadata": {
+        "sedUrn": "urn:sedml:language:ncs",
+        "validationAvailable": false,
+        "introspectionAvailable": false
+      },
+      "icon": "model"
+    }
+  },
+  {
+    "name": "Tab-separated values",
+    "id": "format_3475",
+    "description": "Tabular data represented as tab-separated values in a text file.",
+    "mediaTypes": [
+      "text/tab-separated-values"
+    ],
+    "fileExtensions": ["tsv", "tab", "dat"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/Tab-separated_values",
+    "parents": ["format_3751"],
+    "biosimulationsMetadata": {
+      "acronym": "TSV",
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/text/tab-separated-values"],
+      "icon": "report"
+    }
+  },
+  {
+    "name": "Mathematica notebook",
+    "id": "format_9058",
+    "description": "Structured interactive documents that may contain text, graphics, sound, calculations, typeset expressions, and user interface elements.",
+    "mediaTypes": [
+      "application/vnd.wolfram.mathematica"
+    ],
+    "fileExtensions": ["nb"],
+    "moreInfoUrl": "https://www.wolfram.com/notebooks/",
+    "parents": ["format_2013"],
+    "biosimulationsMetadata": {
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/application/vnd.wolfram.mathematica"],
+      "icon": "code"
+    }
+  },
+  {
+    "name": "Autoconf",
+    "id": "format_9059",
+    "description": "Format for the Autoconf tool for producing configure scripts for building, installing, and packaging software on computer systems.",
+    "mediaTypes": [
+      "text/x-autoconf"
+    ],
+    "fileExtensions": ["ac"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/Autoconf",
+    "parents": ["format_2013"],
+    "biosimulationsMetadata": {
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/text/x-autoconf"],
+      "icon": "parameter"
+    }
+  },
+  {
+    "name": "Markdown",
+    "id": "format_9060",
+    "description": "Lightweight markup language for creating formatted text.",
+    "mediaTypes": [
+      "text/markdown"
+    ],
+    "fileExtensions": ["md"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/Markdown",
+    "parents": ["format_2013"],
+    "biosimulationsMetadata": {
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/text/markdown"],
+      "icon": "file"
+    }
+  },
+  {
+    "name": "Maple worksheet",
+    "id": "format_9062",
+    "description": "Maple worksheets are files that solve mathematical problems from the fields of mathematics, science, and engineering.",
+    "mediaTypes": [
+      "application/x-maple"
+    ],
+    "fileExtensions": ["mw"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/Markdown",
+    "parents": ["format_2013"],
+    "biosimulationsMetadata": {
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/application/x-maple"],
+      "icon": "code"
+    }
+  },
+  {
+    "name": "AUTO",
+    "id": "format_9063",
+    "description": "Format for bifurcation calculations.",
+    "mediaTypes": [
+      "text/x-xpp-auto",
+      "text/plain",
+      "text/xpp-auto+plain",
+      "application/x-xpp-auto"
+    ],
+    "fileExtensions": ["auto"],
+    "moreInfoUrl": "http://www.math.pitt.edu/~bard/bardware/tut/xppauto.html",
+    "parents": ["format_2013", "format_2332"],
+    "biosimulationsMetadata": {
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/text/x-xpp-auto"],
+      "icon": "model"
+    }
+  },
+  {
+    "name": "PostScript",
+    "id": "format_9064",
+    "description": "Page description language in the electronic publishing and desktop publishing business.",
+    "mediaTypes": [
+      "application/postscript"
+    ],
+    "fileExtensions": ["ps"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/PostScript",
+    "parents": ["format_2333", "format_3507"],
+    "biosimulationsMetadata": {
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/application/postscript"],
       "icon": "file"
     }
   }
