@@ -30,6 +30,7 @@ import { SpecificationsModule } from '../specifications/specifications.module';
 import { FilesModule } from '../files/files.module';
 import { MetadataModule } from '../metadata/metadata.module';
 import { ProjectsModule } from '../projects/projects.module';
+import { SimulationRunValidationService } from './simulation-run-validation.service';
 
 @Module({
   imports: [
@@ -55,7 +56,7 @@ import { ProjectsModule } from '../projects/projects.module';
     HSDSClientModule,
   ],
   controllers: [SimulationRunController],
-  providers: [SimulationRunService],
-  exports: [SimulationRunService],
+  providers: [SimulationRunService, SimulationRunValidationService],
+  exports: [SimulationRunService, SimulationRunValidationService],
 })
 export class SimulationRunModule {}

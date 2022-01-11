@@ -14,7 +14,7 @@ on:
       apps:
         required: false
         type: string
-        default: "[\"api\",\"simulators-api\",\"dispatch-service\",\"mail-service\",\"combine-api\", \"account-api\"]"
+        default: "[\"api\",\"simulators-api\",\"dispatch-service\",\"mail-service\",\"combine-api\"]"
 jobs:
   build:
     services:

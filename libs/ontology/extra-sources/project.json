@@ -7,9 +7,7 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": [
-          "libs/ontology/extra-sources/**/*.ts"
-        ]
+        "lintFilePatterns": ["libs/ontology/extra-sources/**/*.ts"]
       }
     },
     "test": {
@@ -20,10 +18,5 @@
       }
     }
   },
-  "tags": [
-    "scope:ontology",
-    "type:datamodel",
-    "platform:any",
-    "shared:false"
-  ]
+  "tags": ["scope:ontology", "type:datamodel", "platform:any", "shared:false"]
 }

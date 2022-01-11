@@ -5,16 +5,10 @@
   "generators": {},
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:lint",
+      "executor": "@nrwl/linter:eslint",
       "options": {
-        "linter": "eslint",
-        "tsConfig": [
-          "libs/shared/exceptions/filters/tsconfig.lib.json",
-          "libs/shared/exceptions/filters/tsconfig.spec.json"
-        ],
-        "exclude": [
-          "**/node_modules/**",
-          "!libs/shared/exceptions/filters/**/*"
+        "lintFilePatterns": [
+          "libs/datamodel/database/**/*.ts"
         ]
       }
     },
@@ -26,5 +20,9 @@
       }
     }
   },
-  "tags": ["scope:shared", "type:util", "platform:server"]
+  "tags": [
+    "scope:shared",
+    "type:util",
+    "platform:server"
+  ]
 }

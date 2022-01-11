@@ -21,7 +21,7 @@ export class VegaVisualizationService {
     spec: VegaSpec,
   ): VegaSpec | false {
     if (Array.isArray(spec?.signals)) {
-      for (const signal of spec?.signals) {
+      for (const signal of spec?.signals || []) {
         const anySignal = signal as any;
 
         if ('sedmlUri' in signal) {
@@ -59,7 +59,7 @@ export class VegaVisualizationService {
     }
 
     if (Array.isArray(spec?.data)) {
-      for (const data of spec?.data) {
+      for (const data of spec?.data || []) {
         const anyData = data as any;
         const name = anyData?.name;
         if ('sedmlUri' in anyData) {

@@ -47,11 +47,13 @@ export class SpecificationsController {
   @ApiOperation({
     summary: 'Get the simulation experiments of all simulation runs',
     description:
-      'Get a list of the specifications of all simulation experiments (SED-ML files in COMBINE/OMEX archives) of all simulation runs',
+      'Get a list of the specifications of all simulation experiments \
+      (SED-ML files in COMBINE/OMEX archives) of all simulation runs',
   })
   @ApiOkResponse({
     description:
-      'List of the specifications of all simulation experiments (SED-ML files in COMBINE/OMEX archives) of all simulation runs',
+      'List of the specifications of all simulation experiments \
+      (SED-ML files in COMBINE/OMEX archives) of all simulation runs',
     type: [SimulationRunSedDocument],
   })
   @permissions(scopes.specifications.read.id)
@@ -64,7 +66,8 @@ export class SpecificationsController {
   @ApiOperation({
     summary: 'Get the simulation experiments of a simulation run',
     description:
-      'Get a list of the specifications of the simulation experiments (SED-ML files in COMBINE/OMEX archive) of a simulation run',
+      'Get a list of the specifications of the simulation experiments \
+      (SED-ML files in COMBINE/OMEX archive) of a simulation run',
   })
   @ApiParam({
     name: 'runId',
@@ -77,7 +80,8 @@ export class SpecificationsController {
   })
   @ApiOkResponse({
     description:
-      'List of the specifications of the simulation experiments (SED-ML files in COMBINE/OMEX archive) of the simulation run',
+      'List of the specifications of the simulation experiments \
+      (SED-ML files in COMBINE/OMEX archive) of the simulation run',
     type: [SimulationRunSedDocument],
   })
   @ApiNotFoundResponse({
@@ -100,7 +104,8 @@ export class SpecificationsController {
   @ApiOperation({
     summary: 'Get a simulation experiment of a simulation run',
     description:
-      'Get the specification of a simulation experiment (SED-ML file in the COMBINE/OMEX archive) of a simulation run',
+      'Get the specification of a simulation experiment \
+      (SED-ML file in the COMBINE/OMEX archive) of a simulation run',
   })
   @ApiParam({
     name: 'runId',
@@ -114,13 +119,15 @@ export class SpecificationsController {
   @ApiParam({
     name: 'experimentLocation',
     description:
-      'Location of the simulation experiment (SED-ML file in the COMBINE/OMEX archive) of a simulation run',
+      'Location of the simulation experiment \
+      (SED-ML file in the COMBINE/OMEX archive) of a simulation run',
     required: true,
     type: String,
   })
   @ApiOkResponse({
     description:
-      'Specifications of the simulation experiment (SED-ML file) of the simulation run (of a COMBINE/OMEX archive)',
+      'Specifications of the simulation experiment \
+      (SED-ML file) of the simulation run (of a COMBINE/OMEX archive)',
     type: SimulationRunSedDocument,
   })
   @ApiNotFoundResponse({
@@ -145,7 +152,8 @@ export class SpecificationsController {
   @ApiOperation({
     summary: 'Get a model of a simulation run',
     description:
-      'Get the specification of a model (SED-ML model) of a simulation experiment (SED-ML file) of a simulation run (of a COMBINE/OMEX archive)',
+      'Get the specification of a model (SED-ML model) of a simulation experiment \
+      (SED-ML file) of a simulation run (of a COMBINE/OMEX archive)',
   })
   @ApiParam({
     name: 'runId',
@@ -159,14 +167,16 @@ export class SpecificationsController {
   @ApiParam({
     name: 'experimentLocation',
     description:
-      'Location of the simulation experiment (SED-ML file in the COMBINE/OMEX archive) of a simulation run',
+      'Location of the simulation experiment \
+      (SED-ML file in the COMBINE/OMEX archive) of a simulation run',
     required: true,
     type: String,
   })
   @ApiParam({
     name: 'modelId',
     description:
-      'Id of the model in the simulation experiment (SED-ML file in the COMBINE/OMEX archive) of a simulation run',
+      'Id of the model in the simulation experiment \
+      (SED-ML file in the COMBINE/OMEX archive) of a simulation run',
     required: true,
     type: String,
     schema: {
@@ -195,7 +205,8 @@ export class SpecificationsController {
     );
     if (!spec) {
       throw new NotFoundException(
-        `Specifications could not be found for model '${modelId}' at location '${experimentLocation}' for simulation run '${runId}'.`,
+        `Specifications could not be found for model \
+        '${modelId}' at location '${experimentLocation}' for simulation run '${runId}'.`,
       );
     }
     return spec;
@@ -205,7 +216,8 @@ export class SpecificationsController {
   @ApiOperation({
     summary: 'Get a simulation of a simulation run',
     description:
-      'Get the specification of a simulation (SED-ML simulation) of a simulation experiment (SED-ML file) of a simulation run (of a COMBINE/OMEX archive)',
+      'Get the specification of a simulation (SED-ML simulation) of a simulation experiment \
+      (SED-ML file) of a simulation run (of a COMBINE/OMEX archive)',
   })
   @ApiParam({
     name: 'runId',
@@ -255,7 +267,8 @@ export class SpecificationsController {
     );
     if (!spec) {
       throw new NotFoundException(
-        `Specifications could not be found for simulation '${simulationId}' at location '${experimentLocation}' for simulation run '${runId}'.`,
+        `Specifications could not be found for simulation \
+        '${simulationId}' at location '${experimentLocation}' for simulation run '${runId}'.`,
       );
     }
     return spec;
@@ -265,7 +278,8 @@ export class SpecificationsController {
   @ApiOperation({
     summary: 'Get a task of a simulation run',
     description:
-      'Get the specification of a task (SED-ML task) of a simulation experiment (SED-ML file) of a simulation run (of a COMBINE/OMEX archive)',
+      'Get the specification of a task (SED-ML task) of a simulation experiment \
+      (SED-ML file) of a simulation run (of a COMBINE/OMEX archive)',
   })
   @ApiParam({
     name: 'runId',
@@ -315,7 +329,8 @@ export class SpecificationsController {
     );
     if (!spec) {
       throw new NotFoundException(
-        `Specifications could not be found for task '${taskId}' at location '${experimentLocation}' for simulation run '${runId}'.`,
+        `Specifications could not be found for task \
+        '${taskId}' at location '${experimentLocation}' for simulation run '${runId}'.`,
       );
     }
     return spec;
@@ -325,7 +340,8 @@ export class SpecificationsController {
   @ApiOperation({
     summary: 'Get a data generator of a simulation run',
     description:
-      'Get the specification of a data generator (SED-ML data generator) of a simulation experiment (SED-ML file) of a simulation run (of a COMBINE/OMEX archive)',
+      'Get the specification of a data generator (SED-ML data generator) of a simulation experiment \
+      (SED-ML file) of a simulation run (of a COMBINE/OMEX archive)',
   })
   @ApiParam({
     name: 'runId',
@@ -375,7 +391,8 @@ export class SpecificationsController {
     );
     if (!spec) {
       throw new NotFoundException(
-        `Specifications could not be found for data generator '${dataGeneratorId}' at location '${experimentLocation}' for simulation run '${runId}'.`,
+        `Specifications could not be found for data generator \
+        '${dataGeneratorId}' at location '${experimentLocation}' for simulation run '${runId}'.`,
       );
     }
     return spec;
@@ -385,7 +402,8 @@ export class SpecificationsController {
   @ApiOperation({
     summary: 'Get an output of a simulation run',
     description:
-      'Get the specification of an output (SED-ML report or plot) of a simulation experiment (SED-ML file) of a simulation run (of a COMBINE/OMEX archive)',
+      'Get the specification of an output (SED-ML report or plot) of a simulation experiment \
+      (SED-ML file) of a simulation run (of a COMBINE/OMEX archive)',
   })
   @ApiParam({
     name: 'runId',
@@ -435,7 +453,8 @@ export class SpecificationsController {
     );
     if (!spec) {
       throw new NotFoundException(
-        `Specifications could not be found for output '${outputId}' at location '${experimentLocation}' for simulation run '${runId}'.`,
+        `Specifications could not be found for output \
+        '${outputId}' at location '${experimentLocation}' for simulation run '${runId}'.`,
       );
     }
     return spec;

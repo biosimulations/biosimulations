@@ -16,6 +16,7 @@ import {
   HttpStatus,
   CACHE_MANAGER,
   OnModuleInit,
+  forwardRef,
 } from '@nestjs/common';
 import { Cache } from 'cache-manager';
 import { InjectModel } from '@nestjs/mongoose';
@@ -31,6 +32,7 @@ import { scopes } from '@biosimulations/auth/common';
 import { ManagementService as AccountManagementService } from '@biosimulations/account/management';
 import { Organization as Auth0Organization } from 'auth0';
 import { ModuleRef } from '@nestjs/core';
+import { SimulationRunValidationService } from '../simulation-run/simulation-run-validation.service';
 
 interface ProjectSummaryResult {
   id: string;
@@ -44,12 +46,15 @@ export class ProjectsService implements OnModuleInit {
   private logger = new Logger('ProjectsService');
 
   private simulationRunService!: SimulationRunService;
+
   public constructor(
     @InjectModel(ProjectModel.name)
     private model: Model<ProjectModel>,
     private moduleRef: ModuleRef,
     private accountManagementService: AccountManagementService,
     private configService: ConfigService,
+    @Inject(forwardRef(() => SimulationRunValidationService))
+    private simulationRunValidationService: SimulationRunValidationService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
@@ -105,7 +110,9 @@ export class ProjectsService implements OnModuleInit {
     user: AuthToken,
   ): Promise<void> {
     // validate project
-    await this.simulationRunService.validateRun(projectInput.simulationRun);
+    await this.simulationRunValidationService.validateRun(
+      projectInput.simulationRun,
+    );
 
     // create project
     projectInput.owner = this.getOwner(projectInput, user);
@@ -159,7 +166,9 @@ export class ProjectsService implements OnModuleInit {
     // validate and save project and update summary
     if (projectInput.simulationRun !== project.simulationRun) {
       // validate project
-      await this.simulationRunService.validateRun(projectInput.simulationRun);
+      await this.simulationRunValidationService.validateRun(
+        projectInput.simulationRun,
+      );
 
       // save project
       project.set(projectInput);
@@ -374,7 +383,7 @@ export class ProjectsService implements OnModuleInit {
     }
 
     try {
-      await this.simulationRunService.validateRun(
+      await this.simulationRunValidationService.validateRun(
         projectInput.simulationRun,
         validateSimulationResultsData,
       );
