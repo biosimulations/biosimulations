@@ -96,7 +96,6 @@ We also provides the following recommendations:
 Submissions to BioSimulations must include the following metadata:
 
 - Title (`http://dublincore.org/specifications/dublin-core/dcmi-terms/title`)
-- License (`http://dublincore.org/specifications/dublin-core/dcmi-terms/license`)
 
 This requirement is currently set low to accommodate old projects in community repositories that have minimal structured metadata. Over time, we aim to raise this requirement.
 
