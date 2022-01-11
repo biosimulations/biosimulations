@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Endpoints } from '@biosimulations/config/common';
 import { FilePaths } from '@biosimulations/config/common';
+import { DataPaths } from '@biosimulations/hsds/client';
 import { ConfigService } from '@nestjs/config';
 import {
   EnvironmentVariable,
@@ -12,11 +13,13 @@ import {
 export class SbatchService {
   private endpoints: Endpoints;
   private filePaths: FilePaths;
+  private dataPaths: DataPaths;
 
   public constructor(private configService: ConfigService) {
     const env = this.configService.get('server.env');
     this.endpoints = new Endpoints(env);
     this.filePaths = new FilePaths(env);
+    this.dataPaths = new DataPaths();
   }
 
   private logger = new Logger(SbatchService.name);
@@ -66,6 +69,10 @@ export class SbatchService {
 
     const storageBucket = this.configService.get('storage.bucket');
     const storageEndpoint = this.configService.get('storage.externalEndpoint');
+
+    const hsdsBasePath = this.configService.get('data.externalBasePath');
+    const hsdsUsername = this.configService.get('data.username');
+    const hsdsPassword = this.configService.get('data.password');
 
     const simulatorImage = `docker://ghcr.io/biosimulators/${simulator}:${simulatorVersion}`;
 
@@ -137,6 +144,8 @@ export class SbatchService {
       runId,
     );
     const simulationRunS3Path = this.filePaths.getSimulationRunPath(runId);
+    const simulationRunResultsHsdsPath =
+      this.dataPaths.getSimulationRunResultsPath(runId);
     const outputArchiveS3Subpath =
       this.filePaths.getSimulationRunOutputArchivePath(runId, false);
     const outputsS3Subpath = this.filePaths.getSimulationRunOutputsPath(
@@ -186,6 +195,21 @@ srun --job-name="Execute-project" \
     ${simulatorImage} \
       -i '/root/${combineArchiveFilename}' \
       -o '/root/${outputsS3Subpath}'
+
+set +e
+
+echo -e ''
+echo -e '${cyan}=================================================== Saving results ==================================================${nc}'
+srun --job-name="Save-outputs-to-HSDS" \
+  hsload \
+    --endpoint ${hsdsBasePath} \
+    --username ${hsdsUsername} \
+    --password ${hsdsPassword} \
+    --verbose \
+    ${outputsS3Subpath}/reports.h5 \
+    '${simulationRunResultsHsdsPath}'
+
+set -e
 
 echo -e ''
 echo -e '${cyan}================================================== Zipping outputs ==================================================${nc}'
