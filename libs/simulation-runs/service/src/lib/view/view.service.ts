@@ -1410,6 +1410,8 @@ export class ViewService {
     }
   }
 
+  private static OTHER_URI_PREFIXES = ['mailto', 'tell', 'callto', 'wtai', 'sms', 'geo'];
+
   private labeledIdentifierToListItem(
     title: string,
     icon: BiosimulationsIcon,
@@ -1430,9 +1432,8 @@ export class ViewService {
         : labeledIdentifier?.uri;
     }
 
-    const otherUriPrefixes = ['mailto', 'tell', 'callto', 'wtai', 'sms', 'geo'];
     let isOtherUri = false;
-    for (const otherUriPrefix of otherUriPrefixes) {
+    for (const otherUriPrefix of ViewService.OTHER_URI_PREFIXES) {
       if (labeledIdentifier?.uri && labeledIdentifier?.uri?.toLowerCase()?.startsWith(otherUriPrefix + ':')) {
         isOtherUri = true;
         value = labeledIdentifier?.label || labeledIdentifier?.uri?.substring((otherUriPrefix + ':').length) || null;
