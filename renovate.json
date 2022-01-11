@@ -64,7 +64,7 @@
       "matchPackagePrefixes": [
         "@nestjs/"
       ],
-      "groupName": "nest",
+      "groupName": "nest"
     },
     {
       "matchPackagePrefixes": [
