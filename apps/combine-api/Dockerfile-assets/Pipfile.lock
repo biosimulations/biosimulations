@@ -38,11 +38,11 @@
         },
         "anyio": {
             "hashes": [
-                "sha256:24adc69309fb5779bc1e06158e143e0b6d2c56b302a3ac3de3083c705a6ed39d",
-                "sha256:2855a9423524abcdd652d942f8932fda1735210f77a6b392eafd9ff34d3fe020"
+                "sha256:a0aeffe2fb1fdf374a8e4b471444f0f3ac4fb9f5a5b542b48824475e0042a5a6",
+                "sha256:b5fa16c5ff93fa1046f2eeb5bbff2dad4d3514d6cda61d02816dba34fa8c3c2e"
             ],
             "markers": "python_full_version >= '3.6.2'",
-            "version": "==3.4.0"
+            "version": "==3.5.0"
         },
         "appdirs": {
             "hashes": [
@@ -289,11 +289,11 @@
                 "smoldyn"
             ],
             "hashes": [
-                "sha256:af1ba391462a0889ea71e681ee0aad8500c65cb5054b5965e36bc0c6daf5882a",
-                "sha256:fc469b47f8501b758a015724b43556a36917bdb2e1b609ca218e5bb146e563b4"
+                "sha256:20881e9871717d3bfc617ce79b2578c4fba52273c00ebf9229da30523bcdfc06",
+                "sha256:cab3392514cc2b01b683c14d9c3d7099f9d829b594573a8df6992c4059080bae"
             ],
             "index": "pypi",
-            "version": "==0.1.157"
+            "version": "==0.1.158"
         },
         "biosimulators-xpp": {
             "hashes": [
@@ -336,19 +336,19 @@
         },
         "boto3": {
             "hashes": [
-                "sha256:3003d64ebef678b89a9909d2df3836160c7cbad5cbfe6c995a61de0875b36237",
-                "sha256:948e81af347085e6bc5ff08368d7901afec9e7628adf180c9cc856c7b0ae3395"
+                "sha256:2c7eacd3edd38ec89456841edecd9c29382372180b675e43e22d16df6a582a4a",
+                "sha256:b427f103f7d1488ad360b665687a032741d0a0c9ebe6f1a40dcdda95b646859a"
             ],
             "index": "pypi",
-            "version": "==1.20.31"
+            "version": "==1.20.32"
         },
         "botocore": {
             "hashes": [
-                "sha256:187c736ce242bbea3d1440c580d270e0fd839276c5cc3938a85b8c59366c1803",
-                "sha256:bb34fa60ab894f9a4a1f7de36e32a68ce17f302108f83732c3ca99c7da2bf68c"
+                "sha256:49c39a4e0ece6e486aefa23d7c96c5f9a4c41a6ceab3cc41b157e8b5bea749e3",
+                "sha256:a33e6b30c5d64156d10ec6986fc96dfdf5c723ad7dc83e0d60af6407192b16b4"
             ],
             "markers": "python_version >= '3.6'",
-            "version": "==1.23.31"
+            "version": "==1.23.32"
         },
         "brian2": {
             "hashes": [
@@ -2508,13 +2508,11 @@
         },
         "smoldyn": {
             "hashes": [
-                "sha256:761ebd8b7e7a6fea5d40a6dc1447cfa08c5dd8b0b37d762b7f032c2e1f73d177",
-                "sha256:bf0e474d66c84ef4290acfebd912e604429b7bbc0e9dbb24076f45594789e1f6",
-                "sha256:cc3b8a4eeeb41e5d83d91b8a7660008a8d36e10acf4097e1a4ccba61b9373ca6",
-                "sha256:db46d3dcf3f064a3a2fba5e01138c79713640cd7f9d37acaa3a35fd3e7dd8667"
+                "sha256:796a2bb941df93e5b9824cdc41796f1498aca12c409a953a612cb85f362accd0",
+                "sha256:ddb3436cd2463ceabab4de32d4148c1794a94822be0a26c927767b5e6fdd9f83"
             ],
             "index": "pypi",
-            "version": "==2.68.dev202112142245"
+            "version": "==2.68.dev202201110844"
         },
         "sniffio": {
             "hashes": [
@@ -2744,6 +2742,14 @@
             "markers": "python_version >= '3.6'",
             "version": "==4.1"
         },
+        "uritools": {
+            "hashes": [
+                "sha256:420d94c1ff4bf90c678fca9c17b8314243bbcaa992c400a95e327f7f622e1edf",
+                "sha256:9a5a1495c55072093216f79931ca45fd81b59208aa64caae50ab68333514f97e"
+            ],
+            "markers": "python_version ~= '3.7'",
+            "version": "==4.0.0"
+        },
         "url-normalize": {
             "hashes": [
                 "sha256:d23d3a070ac52a67b83a1c59a0e68f8608d1cd538783b401bc9de2c0fac999b2",
@@ -2759,14 +2765,6 @@
             ],
             "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4'",
             "version": "==1.26.8"
-        },
-        "validators": {
-            "hashes": [
-                "sha256:0143dcca8a386498edaf5780cbd5960da1a4c85e0719f3ee5c9b41249c4fefbd",
-                "sha256:37cd9a9213278538ad09b5b9f9134266e7c226ab1fede1d500e29e0a8fbb9ea6"
-            ],
-            "markers": "python_version >= '3.4'",
-            "version": "==0.18.2"
         },
         "wcwidth": {
             "hashes": [
