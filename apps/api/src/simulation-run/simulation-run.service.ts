@@ -79,9 +79,10 @@ import { Cache } from 'cache-manager';
 import { AxiosError, AxiosResponse } from 'axios';
 import { ProjectsService } from '../projects/projects.service';
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
+import { FormatService } from '@biosimulations/shared/services';
 
 // 1 GB in bytes to be used as file size limits
-const ONE_GIGABYTE = 1000000000;
+const FILE_UPLOAD_LIMIT = 1e9; // bytes (1 GB)
 const toApi = <T extends SimulationRunModelType>(
   obj: T,
 ): SimulationRunModelReturnType => {
@@ -211,7 +212,7 @@ export class SimulationRunService {
       file = await firstValueFrom(
         this.httpService.get(url, {
           responseType: 'stream',
-          maxContentLength: ONE_GIGABYTE,
+          maxContentLength: FILE_UPLOAD_LIMIT,
         }),
       );
     } catch (err) {
@@ -219,7 +220,7 @@ export class SimulationRunService {
       // Otherwiise, just let file be null, which will throw the more generic 400 below
       if ((err as AxiosError).message.includes('maxContentLength')) {
         throw new PayloadTooLargeException(
-          `The maximum allowed size of the file is 1GB. The provided file was too large.`,
+          `The maximum allowed size of the file is ${this.FormatService(FILE_UPLOAD_LIMIT)}. The provided file was too large.`,
         );
       }
     }

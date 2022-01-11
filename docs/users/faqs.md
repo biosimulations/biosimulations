@@ -138,7 +138,7 @@ Third, some of the inconsistencies in the implementation of COMBINE and SED-ML d
 
 **Is there a limit to the size of simulation projects that can be published through BioSimulations?**
 
-Simulation projects (COMBINE/OMEX archives) are limited to 1 GB each. Furthermore, uploads are limited to 64 MB; larger archives must be submitted via URLs. In addition, simulation results are currently limited to 5 TB per project. Please contact [runBioSimulations Team](mailto:info@biosimulations.org) to arrange larger projects.
+Simulation projects (COMBINE/OMEX archives) are limited to 1 GB each. Furthermore, uploads are limited to 64 MB; larger archives can be submitted via URLs. In addition, simulation results are currently limited to 5 TB per project. Please contact [runBioSimulations Team](mailto:info@biosimulations.org) to arrange larger projects.
 
 **How much resources are available to each simulation?**
 
