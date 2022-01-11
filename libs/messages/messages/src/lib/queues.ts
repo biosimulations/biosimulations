@@ -16,6 +16,7 @@ export enum JobQueue {
   health = 'health',
 }
 
+// TODO project owner should just be a property of the SimulationRun model and not sent in message
 export class MonitorJob {
   slurmJobId!: string;
   runId!: string;
@@ -29,9 +30,6 @@ export class DispatchJob {
   simulator!: string;
   version!: string;
   fileName!: string;
-  archiveType!: 'url' | 'file';
-  urlOrFile!: string | Buffer | Readable;
-  fileSize?: number;
   cpus!: number;
   memory!: number;
   maxTime!: number;

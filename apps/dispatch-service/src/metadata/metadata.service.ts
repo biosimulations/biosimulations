@@ -33,7 +33,8 @@ export class MetadataService {
   }
 
   public async createMetadata(id: string): Promise<void> {
-    const url = this.endpoints.getRunDownloadEndpoint(false, id);
+    // This must be external so that combine archive can be downloaded by combine-service
+    const url = this.endpoints.getRunDownloadEndpoint(true, id);
     this.logger.debug(
       `Fetching metadata for archive for simulation run '${id}' at URL: ${url}`,
     );

@@ -37,10 +37,10 @@ export class SimulationRunModel extends Document implements SimulationRun {
 
   @Prop({
     type: String,
-    required: false,
+    required: true,
     validate: [isUrl],
   })
-  fileUrl?: string;
+  fileUrl!: string;
 
   @Prop({ type: String, required: true })
   name!: string;
