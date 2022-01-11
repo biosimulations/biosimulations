@@ -25,6 +25,10 @@
   ],
   "packageRules": [
     {
+      "matchLanguages": ["python"],
+      "automerge": false
+    },
+    {
       "matchDepTypes": [
         "devDependencies"
       ],
@@ -60,7 +64,7 @@
       "matchPackagePrefixes": [
         "@nestjs/"
       ],
-      "groupName": "nest"
+      "groupName": "nest",
     },
     {
       "matchPackagePrefixes": [
