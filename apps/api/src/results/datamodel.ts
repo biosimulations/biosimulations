@@ -19,6 +19,17 @@ export class Output {
   public updated!: string;
 }
 
+export class OutputParsingError {
+  public simId!: string;
+  public outputId!: string;
+  public type?: string;
+  public name?: string;
+  public errorSummary!: string;
+}
+export const isOutputParsingError = (obj: any): obj is OutputParsingError => {
+  return obj.errorSummary !== undefined;
+};
+
 export class Results {
   public simId!: string;
   public outputs!: Output[];

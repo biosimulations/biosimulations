@@ -8,17 +8,24 @@ import {
   InternalServerErrorException,
   HttpStatus,
 } from '@nestjs/common';
-import { Output, OutputData, Results } from './datamodel';
+import {
+  isOutputParsingError,
+  Output,
+  OutputData,
+  OutputParsingError,
+  Results,
+} from './datamodel';
 import { SimulationRunOutputDatumElement } from '@biosimulations/datamodel/common';
 import { AWSError, S3 } from 'aws-sdk';
 import { Endpoints } from '@biosimulations/config/common';
 import { ConfigService } from '@nestjs/config';
+import axios from 'axios';
 
 interface OutputResult {
   dataset: Dataset;
   succeeded: boolean;
   value?: Output;
-  error?: any;
+  error?: string;
 }
 
 @Injectable()
@@ -41,12 +48,34 @@ export class ResultsService {
     includeValues = true,
   ): Promise<Results> {
     const timestamps = this.results.getResultsTimestamps(runId);
-    const datasets = await this.results.getDatasets(runId);
+
+    const datasets = await this.results.getDatasets(runId).catch((error) => {
+      this.logger.error('Error retrieving datasets');
+      if (axios.isAxiosError(error)) {
+        this.logger.error(error.message);
+        if (error.response?.status == 404) {
+          throw new NotFoundException(
+            `Results could not be found for simulation run '${runId}'.`,
+          );
+        } else {
+          throw error;
+        }
+      } else {
+        throw error;
+      }
+    });
 
     const outputResults: OutputResult[] = await Promise.all(
       datasets.map((dataset: Dataset): Promise<OutputResult> => {
         return this.parseDataset(runId, includeValues, dataset)
-          .then((value: Output): OutputResult => {
+          .then((value: Output | OutputParsingError): OutputResult => {
+            if (isOutputParsingError(value)) {
+              return {
+                dataset,
+                succeeded: false,
+                error: value.errorSummary,
+              };
+            }
             return {
               dataset: dataset,
               succeeded: true,
@@ -71,12 +100,8 @@ export class ResultsService {
         outputs.push(outputResult.value);
       } else {
         const datasetAttrs = outputResult.dataset.attributes;
-        const error = outputResult?.error;
-        const errorMsg = error?.isAxiosError
-          ? `${error?.response?.status}: ${
-              error?.response?.data?.detail || error?.response?.statusText
-            }`
-          : `${error?.status || error?.statusCode}: ${error?.message}`;
+        const errorMsg = outputResult?.error;
+
         errorDetails.push(
           `${datasetAttrs._type} '${datasetAttrs.uri} of simulation run '${runId}' could not be parsed: ${errorMsg}.`,
         );
@@ -108,23 +133,6 @@ export class ResultsService {
     return results;
   }
 
-  private async getValues(
-    runId: string,
-    outputUri: string,
-    datasetId: string,
-  ): Promise<SimulationRunOutputDatumElement[][]> {
-    // The index field will be needed when we are doing slicing of the data so this will need to change
-
-    const response = await this.results.getDatasetValues(runId, datasetId);
-    if (response && 'value' in response) {
-      return response.value as SimulationRunOutputDatumElement[][];
-    } else {
-      throw new InternalServerErrorException(
-        `Results could not be found for output '${outputUri}' of simulation run '${runId}'.`,
-      );
-    }
-  }
-
   public async download(runId: string): Promise<S3.Body> {
     try {
       const file = await this.simStorage.getSimulationRunOutputArchive(runId);
@@ -154,7 +162,16 @@ export class ResultsService {
   ): Promise<Output> {
     const dataset = await this.results.getDatasetbyId(runId, reportId);
     if (dataset) {
-      return this.parseDataset(runId, includeData, dataset);
+      const parsedDataset = await this.parseDataset(
+        runId,
+        includeData,
+        dataset,
+      );
+      if (!isOutputParsingError(parsedDataset)) {
+        return parsedDataset;
+      } else {
+        throw new InternalServerErrorException(parsedDataset.errorSummary);
+      }
     }
     throw new BadRequestException('Output Not Found');
   }
@@ -175,11 +192,53 @@ export class ResultsService {
       });
   }
 
+  /**
+   *
+   * @param runId The id of the simulation run
+   * @param outputUri The uri of the dataset. This is used to give a human readable error message
+   * @param datasetId  The id of the dataset to get values of. This is used as the lookup key
+   * @returns Simulation Run output or an OutputParsingError if the output could not be retrieved
+   */
+  private async getValues(
+    runId: string,
+    outputUri: string,
+    datasetId: string,
+  ): Promise<SimulationRunOutputDatumElement[][] | OutputParsingError> {
+    // The index field will be needed when we are doing slicing of the data so this will need to change
+    try {
+      const response = await this.results.getDatasetValues(runId, datasetId);
+      if (response && 'value' in response) {
+        return response.value as SimulationRunOutputDatumElement[][];
+      } else {
+        throw Error(`No values found for ${outputUri}`);
+      }
+    } catch (error) {
+      const errPrefix = `Error getting values for output '${outputUri}' of simulation run '${runId}'`;
+      const errMsg = axios.isAxiosError(error)
+        ? `${errPrefix}: ${error.message}`
+        : `${errPrefix}: ${error}`;
+
+      return {
+        simId: runId,
+        outputId: outputUri,
+        errorSummary: errMsg,
+      };
+    }
+  }
+
+  /**
+   * Parse the raw dataset from HSDS and return an Output object. Checks for consistency of the hdf5 attributes
+   *
+   * @param runId
+   * @param includeValues
+   * @param dataset
+   * @returns Output object. If errors occur, return an OutputParsingError object.
+   */
   private async parseDataset(
     runId: string,
     includeValues: boolean,
     dataset: Dataset,
-  ): Promise<Output> {
+  ): Promise<Output | OutputParsingError> {
     const data: OutputData[] = [];
     const sedIds = dataset.attributes.sedmlDataSetIds as string[];
     const sedLabels = dataset.attributes.sedmlDataSetLabels as string[];
@@ -196,13 +255,21 @@ export class ResultsService {
       sedIds.length == sedShapes.length &&
       sedIds.length == sedTypes.length &&
       sedIds.length == sedNames.length &&
-      ((includeValues && sedIds.length == values.length) || !includeValues);
+      ((includeValues &&
+        !isOutputParsingError(values) &&
+        sedIds.length == values.length) ||
+        !includeValues);
 
-    if (!consistent) {
+    if (!consistent || isOutputParsingError(values)) {
       const summary =
-        `${dataset.attributes._type} '${dataset.attributes.uri}' from simulation run '${runId}' could not be parsed due to values and attributes with inconsistent sizes.` +
+        `${dataset.attributes._type} '${dataset.attributes.uri}' from simulation run '${runId}' \
+        could not be parsed due to values and attributes with inconsistent sizes.` +
         `\n` +
-        `\n  values: ${values.length}` +
+        `\n  values: ${
+          isOutputParsingError(values)
+            ? 'Error retrieving values:' + values.errorSummary
+            : values.length
+        }` +
         `\n  ids: ${sedIds.length}` +
         `\n  labels: ${sedLabels.length}` +
         `\n  names: ${sedNames.length}` +
@@ -218,7 +285,14 @@ export class ResultsService {
           `\n  shapes: ${sedShapes}` +
           `\n  types: ${sedTypes}`,
       );
-      throw new BadRequestException(summary);
+
+      return {
+        simId: runId,
+        outputId: dataset.attributes.uri,
+        type: dataset.attributes._type,
+        name: dataset.attributes.sedmlName,
+        errorSummary: summary,
+      };
     }
 
     sedIds.forEach((sedId, index) => {
