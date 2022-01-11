@@ -15,9 +15,9 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { Readable } from 'stream';
 import { SimulationStorageService } from '@biosimulations/shared/storage';
 import { SimulationRunService } from '@biosimulations/api-nest-client';
+import { FormatService } from '@biosimulations/shared/services';
 
-// 1 GB in bytes to be used as file size limits
-const ONE_GIGABYTE = 1000000000;
+const FILE_UPLOAD_LIMIT = 1e9; // bytes (1 GB)
 
 @Processor(JobQueue.dispatch)
 export class DispatchProcessor {
@@ -52,14 +52,14 @@ export class DispatchProcessor {
         urlResponse = await firstValueFrom(
           this.httpService.get(url, {
             responseType: 'stream',
-            maxContentLength: ONE_GIGABYTE,
+            maxContentLength: FILE_UPLOAD_LIMIT,
           }),
         );
       } catch (err) {
         // if the error is bc file too bug, give this more specific error.
         // Otherwiise, just let file be null, which will throw the more generic 400 below
         if ((err as AxiosError).message.includes('maxContentLength')) {
-          const message = `Projects (COMBINE archives) are limited to 1 GB. The archive at ${url} is too large.`;
+          const message = `Projects (COMBINE archives) are limited to ${FormatService.formatDigitalSize(FILE_UPLOAD_LIMIT)}. The archive at ${url} is too large.`;
           this.logger.error(message);
           await this.simStatusService.updateStatus(
             data.runId,

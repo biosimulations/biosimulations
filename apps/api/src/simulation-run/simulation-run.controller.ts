@@ -65,13 +65,16 @@ import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bull';
 import { scopes } from '@biosimulations/auth/common';
 import { Readable } from 'stream';
+import { FormatService } from '@biosimulations/shared/services';
 
 // hack to get typing to work see https://github.com/DefinitelyTyped/DefinitelyTyped/issues/47780
 // eslint-disable-next-line unused-imports/no-unused-imports-ts
 import multer from 'multer';
+
 type multipartSimulationRunBody = { simulationRun: string };
-// 1gb in bytes plus a buffer to be used as file size limits
-const ONE_GIGABYTE = 1100000000;
+
+const FILE_UPLOAD_LIMIT = 64e6; // bytes (64 MB)
+
 @ApiTags('Simulations')
 @Controller('runs')
 @ApiExtraModels(UploadSimulationRun, UploadSimulationRunUrl, SimulationUpload)
@@ -158,14 +161,13 @@ export class SimulationRunController {
     description:
       'The submitted mediatype is unsupported. The mediatype must be `application/json` or `multipart/form-data`.',
   })
-  // Set a file size limit of 1GB
   @UseInterceptors(
-    FileInterceptor('file', { limits: { fileSize: ONE_GIGABYTE } }),
+    FileInterceptor('file', { limits: { fileSize: 1.1 * FILE_UPLOAD_LIMIT } }),
   )
   @ApiPayloadTooLargeResponse({
     type: ErrorResponseDocument,
     description:
-      'The submitted COMBINE/OMEX archive file is too large. Uploaded archives must be less than 1 GB.',
+      `The submitted COMBINE/OMEX archive file is too large. Uploaded archives must be less than ${FormatService.formatDigitalSize(FILE_UPLOAD_LIMIT)}.`,
   })
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,

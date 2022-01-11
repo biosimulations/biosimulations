@@ -48,7 +48,7 @@ describe('ValidateModelComponent', () => {
                 repoPath: '',
                 exampleModelPath: '',
               },
-              maxUploadFileSize: 100000000,
+              maxUploadFileSize: 64000000,
             },
           },
         },
