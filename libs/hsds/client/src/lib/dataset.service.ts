@@ -20,7 +20,7 @@ import { DataPaths } from './data-paths/data-paths';
 import { ConfigService } from '@nestjs/config';
 import { retryBackoff } from 'backoff-rxjs';
 import { firstValueFrom, Observable, map } from 'rxjs';
-import { AxiosResponse, AxiosError } from 'axios';
+import axios, { AxiosResponse, AxiosError } from 'axios';
 import * as JSON5 from 'json5';
 
 const DATASET = 'datasets';
@@ -45,34 +45,11 @@ export class SimulationHDFService {
 
     const username = this.configService.get('data.username');
     const password = this.configService.get('data.password');
-    this.auth = 'Basic ' + btoa(`${username}:${password}`);
-  }
-
-  private getRetryBackoff(): <T>(source: Observable<T>) => Observable<T> {
-    const initialInterval = this.configService.get(
-      'data.clientInitialInterval',
+    const authString = Buffer.from(`${username}:${password}`).toString(
+      'base64',
     );
-    const maxRetries = this.configService.get('data.clientMaxRetries');
-    return retryBackoff({
-      initialInterval: initialInterval,
-      maxRetries: maxRetries,
-      resetOnSuccess: true,
-      shouldRetry: (error: AxiosError): boolean => {
-        return (
-          error.isAxiosError &&
-          [
-            HttpStatus.REQUEST_TIMEOUT,
-            HttpStatus.INTERNAL_SERVER_ERROR,
-            HttpStatus.BAD_GATEWAY,
-            HttpStatus.GATEWAY_TIMEOUT,
-            HttpStatus.SERVICE_UNAVAILABLE,
-            HttpStatus.TOO_MANY_REQUESTS,
-            undefined,
-            null,
-          ].includes(error?.response?.status)
-        );
-      },
-    });
+
+    this.auth = 'Basic ' + authString;
   }
 
   public async getDatasetValues(
@@ -116,7 +93,25 @@ export class SimulationHDFService {
     runId: string,
   ): Promise<{ created?: Date; updated?: Date }> {
     const domain = this.dataPaths.getSimulationRunResultsDomain(runId);
-    const root_id = await this.getRootGroupId(domain);
+    let root_id = undefined;
+    try {
+      root_id = await this.getRootGroupId(domain);
+    } catch (error) {
+      this.logger.error(
+        `Could not get timestamps for simulation run '${runId}'`,
+      );
+      if (axios.isAxiosError(error)) {
+        this.logger.error(error.message);
+      } else {
+        this.logger.error(error);
+      }
+
+      return {
+        created: undefined,
+        updated: undefined,
+      };
+    }
+
     if (root_id) {
       const metadata = await this.getGroup(domain, root_id);
       if (metadata?.created && metadata?.lastModified) {
@@ -216,6 +211,32 @@ export class SimulationHDFService {
     }
   }
 
+  private getRetryBackoff(): <T>(source: Observable<T>) => Observable<T> {
+    const initialInterval = this.configService.get(
+      'data.clientInitialInterval',
+    );
+    const maxRetries = this.configService.get('data.clientMaxRetries');
+    return retryBackoff({
+      initialInterval: initialInterval,
+      maxRetries: maxRetries,
+      resetOnSuccess: true,
+      shouldRetry: (error: AxiosError): boolean => {
+        return (
+          error.isAxiosError &&
+          [
+            HttpStatus.REQUEST_TIMEOUT,
+            HttpStatus.INTERNAL_SERVER_ERROR,
+            HttpStatus.BAD_GATEWAY,
+            HttpStatus.GATEWAY_TIMEOUT,
+            HttpStatus.SERVICE_UNAVAILABLE,
+            HttpStatus.TOO_MANY_REQUESTS,
+            undefined,
+            null,
+          ].includes(error?.response?.status)
+        );
+      },
+    });
+  }
   private async getGroup(
     domain: string,
     id: string,
