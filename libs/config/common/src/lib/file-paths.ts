@@ -93,11 +93,6 @@ export class FilePaths {
     const dirPath = thumbnailType
       ? FilePaths.simulationRunThumbnailSubpath + '/' + thumbnailType
       : FilePaths.simulationRunContentsSubpath;
-
-    if (fileLocation?.startsWith('./')) {
-      fileLocation = fileLocation.substring(2);
-    }
-
     const filePath = fileLocation !== undefined ? `/${fileLocation}` : '';
     return this.getSimulationRunPath(runId, `${dirPath}${filePath}`);
   }
