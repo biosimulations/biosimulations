@@ -1415,11 +1415,33 @@ export class ViewService {
     icon: BiosimulationsIcon,
     labeledIdentifier: LabeledIdentifier,
   ): ListItem[] {
+    let value: string | null = null;
+    let url: string | null = null;
+
     const uriIsUrl = labeledIdentifier?.uri && isUrl(labeledIdentifier?.uri);
-    let value: string | null;
     if (uriIsUrl) {
       value = labeledIdentifier?.label || labeledIdentifier?.uri;
-    } else {
+
+      url = labeledIdentifier?.uri?.startsWith('http://identifiers.org/')
+        ? 'https://identifiers.org/' +
+          labeledIdentifier?.uri?.substring(
+            'http://identifiers.org/'.length,
+          )
+        : labeledIdentifier?.uri;
+    }
+
+    const otherUriPrefixes = ['mailto', 'tell', 'callto', 'wtai', 'sms', 'geo'];
+    let isOtherUri = false;
+    for (const otherUriPrefix of otherUriPrefixes) {
+      if (labeledIdentifier?.uri && labeledIdentifier?.uri?.toLowerCase()?.startsWith(otherUriPrefix + ':')) {
+        isOtherUri = true;
+        value = labeledIdentifier?.label || labeledIdentifier?.uri?.substring((otherUriPrefix + ':').length) || null;
+        url = labeledIdentifier?.uri || null;
+        break;
+      }
+    }
+
+    if (!(uriIsUrl || isOtherUri)) {
       if (labeledIdentifier?.uri) {
         if (labeledIdentifier?.label) {
           value = `${labeledIdentifier?.label} (${labeledIdentifier?.uri})`;
@@ -1429,20 +1451,15 @@ export class ViewService {
       } else {
         value = labeledIdentifier?.label;
       }
+
+      url = null;
     }
 
     if (value) {
       return [
         {
           value: value,
-          url: uriIsUrl
-            ? labeledIdentifier?.uri?.startsWith('http://identifiers.org/')
-              ? 'https://identifiers.org/' +
-                labeledIdentifier?.uri?.substring(
-                  'http://identifiers.org/'.length,
-                )
-              : labeledIdentifier?.uri
-            : null,
+          url: url,
           title,
           icon,
         },
