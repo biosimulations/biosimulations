@@ -206,7 +206,7 @@ ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 RUN apt-get install -y --no-install-recommends \
         g++ \
         gfortran \
-        liblas-dev \
+        libblas-dev \
         liblapack-dev \
         git
 
