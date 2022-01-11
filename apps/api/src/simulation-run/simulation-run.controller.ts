@@ -208,7 +208,6 @@ export class SimulationRunController {
         file.buffer,
         file.size,
       );
-      
     } else if (
       contentType?.startsWith('application/json') &&
       this.isUrlBody(body)

@@ -158,18 +158,18 @@ export class SimulationRunService {
         await this.simulationStorageService.uploadSimulationArchive(id, file);
       this.logger.debug(`Uploaded simulation archive to S3: ${s3file}`);
 
-        this.simulationStorageService.extractSimulationArchive(id).then(
-           (uploadedArchiveContents) => {
-            this.logger.debug(
-              `Uploaded archive contents: ${JSON.stringify(uploadedArchiveContents)}`,
-            );}
-        ).catch(
-          (error) => {
-            this.logger.error(`Error extracting simulation archive: ${error}`);
-          }
-          
-        );
-      
+      this.simulationStorageService
+        .extractSimulationArchive(id)
+        .then((uploadedArchiveContents) => {
+          this.logger.debug(
+            `Uploaded archive contents: ${JSON.stringify(
+              uploadedArchiveContents,
+            )}`,
+          );
+        })
+        .catch((error) => {
+          this.logger.error(`Error extracting simulation archive: ${error}`);
+        });
 
       // At this point, we have the urls of all the files in the archive but we don't use them
       // We should save them to the files collection along with size information.
