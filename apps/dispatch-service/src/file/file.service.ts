@@ -1,6 +1,5 @@
 import {
   Endpoints,
-  FilePaths,
   THUMBNAIL_WIDTH,
   ThumbnailType,
 } from '@biosimulations/config/common';
@@ -21,14 +20,18 @@ import {
   Observable,
   pluck,
   from,
+  throwError,
 } from 'rxjs';
-import { shareReplay } from 'rxjs/operators';
+import { catchError, shareReplay } from 'rxjs/operators';
 import { CombineArchiveManifestContent } from '@biosimulations/combine-api-nest-client';
 import { ProjectFileInput } from '@biosimulations/datamodel/api';
 import { SimulationRunService } from '@biosimulations/api-nest-client';
 
 import sharp from 'sharp';
-import { SimulationStorageService } from '@biosimulations/shared/storage';
+import {
+  SimulationStorageService,
+  FileInfo,
+} from '@biosimulations/shared/storage';
 import S3 from 'aws-sdk/clients/s3';
 
 interface ThumbnailSettledResult {
@@ -41,7 +44,6 @@ interface ThumbnailSettledResult {
 export class FileService {
   private logger = new Logger(FileService.name);
   private endpoints: Endpoints;
-  private filePaths: FilePaths;
 
   private static IMAGE_FORMAT_URIS = [
     'http://purl.org/NET/mediatypes/image/gif',
@@ -59,13 +61,13 @@ export class FileService {
   ) {
     const env = config.get('server.env');
     this.endpoints = new Endpoints(env);
-    this.filePaths = new FilePaths(env);
   }
-
+  // TODO ONE OF These steps is failing
   public async processFiles(id: string): Promise<void> {
     this.logger.log(`Processing files for simulation run '${id}'.`);
-    const url = this.endpoints.getRunDownloadEndpoint(false, id);
-
+    // This needs to be true so combine api can access if we are running locally /on kubernetes
+    const url = this.endpoints.getRunDownloadEndpoint(true, id);
+    this.logger.error(`Downloading files from ${url}`);
     // get manifest
     const manifestContent = this.combine
       .getManifest(undefined, url)
@@ -81,31 +83,32 @@ export class FileService {
                 file.location.path != '.',
             )
             .map((file: CombineArchiveManifestContent) => {
-              const fileUrl =
-                this.filePaths.getSimulationRunFileContentEndpoint(
-                  false,
-                  id,
-                  file.location.path,
+              const fileInfo = this.storage
+                .getFileInfo(id, file.location.path)
+                .pipe(
+                  map((fileInfo: FileInfo): ProjectFileInput => {
+                    // TODO do we want to throw here if we don't have a size?
+                    const fileSize = fileInfo.size || 0;
+                    const fileObject: ProjectFileInput = {
+                      id: id + '/' + file.location.path.replace('./', ''),
+                      name: file.location.value.filename,
+                      location: file.location.path.replace('./', ''),
+                      size: fileSize,
+                      format: file.format,
+                      master: file.master,
+                      url: fileInfo.url,
+                    };
+                    return fileObject;
+                  }),
+                  catchError((err) => {
+                    this.logger.error(err);
+                    this.logger.error(
+                      `Could not get file info for ${file.location.path}`,
+                    );
+                    return throwError(() => err);
+                  }),
                 );
-              // This is a silly way to get the file size, but it works for now
-              const apiFile = this.httpService.head(fileUrl).pipe(
-                pluck('headers'),
-                pluck('content-length'),
-                map((size: string): ProjectFileInput => {
-                  const fileSize = parseInt(size) || 0;
-                  const fileObject: ProjectFileInput = {
-                    id: id + '/' + file.location.path.replace('./', ''),
-                    name: file.location.value.filename,
-                    location: file.location.path.replace('./', ''),
-                    size: fileSize,
-                    format: file.format,
-                    master: file.master,
-                    url: fileUrl,
-                  };
-                  return fileObject;
-                }),
-              );
-              return apiFile;
+              return fileInfo;
             });
           // Array of observables to observable of array
           return combineLatest(apiFiles);
@@ -174,6 +177,7 @@ export class FileService {
     if (errors.length) {
       const sortedErrors = Array.from(new Set(errors)).sort();
       const details = sortedErrors.join('\n  * ');
+      // TODO  This is an http exception, should not be thrown on the dispatch service. Use BioSimulationsException instead
       throw new InternalServerErrorException(
         `Thumbnails could not be processed for ${sortedErrors.length} images:\n  * ${details}`,
       );

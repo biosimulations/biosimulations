@@ -7,20 +7,20 @@ import {
 import S3 from 'aws-sdk/clients/s3';
 import * as AWS from 'aws-sdk';
 import { SharedStorageService } from './shared-storage.service';
-import {
-  FilePaths,
-  ThumbnailType,
-  THUMBNAIL_WIDTH,
-} from '@biosimulations/config/common';
+import { ThumbnailType, THUMBNAIL_WIDTH } from '@biosimulations/config/common';
 import { ConfigService } from '@nestjs/config';
 import { Readable } from 'stream';
 
 // hack to get typing to work see https://github.com/DefinitelyTyped/DefinitelyTyped/issues/47780
 // eslint-disable-next-line unused-imports/no-unused-imports-ts
 import multer from 'multer';
+import { from, map, Observable, pluck } from 'rxjs';
+import { FileInfo } from './datamodel';
+import { FilePaths } from './file-paths';
 
 @Injectable()
 export class SimulationStorageService {
+  // TODO change to return Observables to make retrying
   private filePaths: FilePaths;
   private logger = new Logger(SimulationStorageService.name);
 
@@ -172,6 +172,38 @@ export class SimulationStorageService {
         );
       }),
     );
+  }
+
+  public getFileInfo(
+    runId: string,
+    fileLocation: string,
+  ): Observable<FileInfo> {
+    // TODO get the object and URL id via shared methods
+    const filePath = fileLocation.replace('./', '');
+    const objectId = `simulations/${runId}/contents/${filePath}`;
+    const url = `https://storage.googleapis.com/biosimdev/${objectId}`;
+
+    const size = from(this.storage.getObjectInfo(objectId)).pipe(
+      pluck('ContentLength'),
+      map((size) => {
+        if (size) {
+          return {
+            size,
+            url,
+          };
+        } else {
+          this.logger.warn(`Could not get file size for ${objectId}`);
+          return {
+            size: undefined,
+            url,
+          };
+        }
+      }),
+      // TODO add proper backoff retry
+      // retry(3),
+    );
+
+    return size;
   }
 
   private async deleteS3Object(

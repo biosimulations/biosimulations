@@ -68,7 +68,9 @@ export class SbatchService {
     );
 
     const storageBucket = this.configService.get('storage.bucket');
-    const storageEndpoint = this.configService.get('storage.externalEndpoint');
+    const storageEndpoint = this.configService.get('storage.endpoint');
+    const storageKey = this.configService.get('storage.accessKey');
+    const storageSecret = this.configService.get('storage.secret');
 
     const hsdsBasePath = this.configService.get('data.externalBasePath');
     const hsdsUsername = this.configService.get('data.username');
@@ -200,7 +202,7 @@ set +e
 
 echo -e ''
 echo -e '${cyan}=================================================== Saving results ==================================================${nc}'
-srun --job-name="Save-outputs-to-HSDS" \
+srun --job-name="Save-results-to-HSDS" \
   hsload \
     --endpoint ${hsdsBasePath} \
     --username ${hsdsUsername} \
@@ -224,9 +226,10 @@ srun --job-name="Zip-outputs" \
 echo -e ''
 echo -e '${cyan}=================================================== Saving outputs ==================================================${nc}'
 export PYTHONWARNINGS="ignore"
+export AWS_ACCESS_KEY_ID=${storageKey}
+export AWS_SECRET_ACCESS_KEY=${storageSecret}
 srun --job-name="Save-outputs-to-S3" \
   aws \
-    --no-verify-ssl \
     --endpoint-url ${storageEndpoint} \
     s3 sync \
       --acl public-read \
