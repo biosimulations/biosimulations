@@ -10,7 +10,7 @@ openapi-schema-validator = "<0.2" # due to conflicting required version of jsons
 requests = "*"
 biosimulators-utils = {version = ">=0.1.157", extras = ["bngl", "cellml", "lems", "logging", "neuroml", "sbml", "smoldyn"]}
 python-dateutil = "*"
-gunicorn = "*"
+gunicorn = {extras = ["gevent"], version = "*"}
 flask-cors = "*"
 python-dotenv = "*"
 boto3 = "*"
