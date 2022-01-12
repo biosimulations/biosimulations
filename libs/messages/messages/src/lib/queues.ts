@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
 
-
 import {
   EnvironmentVariable,
   Purpose,
