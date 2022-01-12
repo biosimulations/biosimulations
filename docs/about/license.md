@@ -1160,6 +1160,11 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/cli-table/cli-table3
 │  ├─ publisher: James Talmage
 │  └─ licenseFile: npm/node_modules/cli-table3/LICENSE
+├─ cli-table3@0.6.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/cli-table/cli-table3
+│  ├─ publisher: James Talmage
+│  └─ licenseFile: cli-table3/LICENSE
 ├─ cliui@6.0.0
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/yargs/cliui
