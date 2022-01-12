@@ -1410,7 +1410,14 @@ export class ViewService {
     }
   }
 
-  private static OTHER_URI_PREFIXES = ['mailto', 'tell', 'callto', 'wtai', 'sms', 'geo'];
+  private static OTHER_URI_PREFIXES = [
+    'mailto',
+    'tell',
+    'callto',
+    'wtai',
+    'sms',
+    'geo',
+  ];
 
   private labeledIdentifierToListItem(
     title: string,
@@ -1426,17 +1433,21 @@ export class ViewService {
 
       url = labeledIdentifier?.uri?.startsWith('http://identifiers.org/')
         ? 'https://identifiers.org/' +
-          labeledIdentifier?.uri?.substring(
-            'http://identifiers.org/'.length,
-          )
+          labeledIdentifier?.uri?.substring('http://identifiers.org/'.length)
         : labeledIdentifier?.uri;
     }
 
     let isOtherUri = false;
     for (const otherUriPrefix of ViewService.OTHER_URI_PREFIXES) {
-      if (labeledIdentifier?.uri && labeledIdentifier?.uri?.toLowerCase()?.startsWith(otherUriPrefix + ':')) {
+      if (
+        labeledIdentifier?.uri &&
+        labeledIdentifier?.uri?.toLowerCase()?.startsWith(otherUriPrefix + ':')
+      ) {
         isOtherUri = true;
-        value = labeledIdentifier?.label || labeledIdentifier?.uri?.substring((otherUriPrefix + ':').length) || null;
+        value =
+          labeledIdentifier?.label ||
+          labeledIdentifier?.uri?.substring((otherUriPrefix + ':').length) ||
+          null;
         url = labeledIdentifier?.uri || null;
         break;
       }
