@@ -697,7 +697,7 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
     formData.append('simulationType', simulationType);
     formData.append('simulationAlgorithm', simulationAlgorithm);
 
-    const url = this.endpoints.getModelIntrospectionEndpoint(true);
+    const url = this.endpoints.getModelIntrospectionEndpoint(false);
     const sedDoc = this.http.post<SedDocument>(url, formData).pipe(
       catchError((error: HttpErrorResponse): Observable<null> => {
         if (!environment.production) {

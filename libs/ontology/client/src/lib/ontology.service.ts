@@ -58,7 +58,7 @@ export class OntologyService {
     if (!term) {
       const endpoint = this.endpoints.getOntologyEndpoint(
         this.configService.appId,
-        true,
+        false,
         ontologyId,
         termId,
       );
@@ -79,7 +79,7 @@ export class OntologyService {
 
     const endpoint = this.endpoints.getOntologyEndpoint(
       this.configService.appId,
-      true,
+      false,
       ontologyId,
     );
     terms = this.http.get<IOntologyTerm[]>(endpoint).pipe(
@@ -199,7 +199,7 @@ export class OntologyService {
   ): Observable<T[]> {
     const endpoint = this.endpoints.getOntologyTermsEndpoint(
       this.configService.appId,
-      true,
+      false,
     );
 
     const params: any = {};

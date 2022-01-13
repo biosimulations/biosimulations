@@ -86,7 +86,7 @@ export class DispatchService {
     if (this.simulatorsDataCache) {
       return this.simulatorsDataCache;
     }
-
+    // external true since the prod deployment has the latest sims, but can be changed if needed
     const endpoint = this.endpoints.getSimulatorsEndpoint(
       true,
       undefined,

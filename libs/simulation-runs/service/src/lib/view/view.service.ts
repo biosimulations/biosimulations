@@ -64,7 +64,7 @@ import {
   AppRoutes,
   ResourceIdentifiers,
 } from '@biosimulations/config/common';
-//import { FilePaths } from '@biosimulations/config/common';
+
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 import { environment } from '@biosimulations/shared/environments';
 import { deserializeSedDocument } from '../sed-document/sed-document';
@@ -80,7 +80,7 @@ export class ViewService {
   private combineOmexFormat: EdamTerm;
 
   private endpoints = new Endpoints();
-  //private filePaths = new FilePaths();
+  
   private appRoutes = new AppRoutes();
   private resourceIdentifiers = new ResourceIdentifiers();
 
@@ -160,7 +160,8 @@ export class ViewService {
   ): ProjectMetadata {
     const thumbnails = (metadata?.thumbnails || []).map(
       (thumbnail: string): string => {
-        //return this.filePaths.getThumbnailEndpoint(true, thumbnail, 'view');
+        //return this.filePaths.getThumbnailEndpoint(false, thumbnail, 'view');
+        // TODO Get "view" thumbnail endpoint
         console.error(thumbnail)
         return thumbnail;
       },
@@ -627,7 +628,7 @@ export class ViewService {
         icon: (this.combineOmexFormat?.biosimulationsMetadata?.icon ||
           'archive') as BiosimulationsIcon,
         url: this.endpoints.getRunDownloadEndpoint(
-          true,
+          false,
           simulationRunSummary.id,
         ),
         basename: 'project.omex',
@@ -758,12 +759,12 @@ export class ViewService {
         title: 'Outputs',
         format:
           'JavaScript Object Notation (JSON) in BioSimulators simulator schema',
-        formatUrl: this.endpoints.getApiBaseUrl(true),
+        formatUrl: this.endpoints.getApiBaseUrl(false),
         master: false,
         size: 'N/A',
         icon: 'report',
         url: this.endpoints.getRunResultsEndpoint(
-          true,
+          false,
           simulationRunSummary.id,
           undefined,
           true,
@@ -787,7 +788,7 @@ export class ViewService {
               ),
         icon: 'report',
         url: this.endpoints.getRunResultsDownloadEndpoint(
-          true,
+          false,
           simulationRunSummary.id,
         ),
         basename: 'outputs.zip',
@@ -803,7 +804,7 @@ export class ViewService {
         size: 'N/A',
         icon: 'logs',
         url: this.endpoints.getSimulationRunLogsEndpoint(
-          true,
+          false,
           simulationRunSummary.id,
         ),
         basename: 'log.json',
@@ -1212,7 +1213,7 @@ export class ViewService {
         {
           '@type': 'DataDownload',
           description: 'Project',
-          contentUrl: this.endpoints.getRunDownloadEndpoint(true, runId),
+          contentUrl: this.endpoints.getRunDownloadEndpoint(false, runId),
           encodingFormat: 'application/zip',
           contentSize:
             simulationRunSummary.run.projectSize === undefined
@@ -1225,7 +1226,7 @@ export class ViewService {
           '@type': 'DataDownload',
           description: 'Simulation results',
           contentUrl: this.endpoints.getRunResultsEndpoint(
-            true,
+            false,
             runId,
             undefined,
             true,
@@ -1235,7 +1236,7 @@ export class ViewService {
         {
           '@type': 'DataDownload',
           description: 'Simulation outputs',
-          contentUrl: this.endpoints.getRunResultsDownloadEndpoint(true, runId),
+          contentUrl: this.endpoints.getRunResultsDownloadEndpoint(false, runId),
           encodingFormat: 'application/zip',
           contentSize:
             simulationRunSummary.run.resultsSize === undefined
@@ -1247,7 +1248,7 @@ export class ViewService {
         {
           '@type': 'DataDownload',
           description: 'Simulation log',
-          contentUrl: this.endpoints.getSimulationRunLogsEndpoint(true, runId),
+          contentUrl: this.endpoints.getSimulationRunLogsEndpoint(false, runId),
           encodingFormat: 'application/json',
         },
       ],
@@ -1388,7 +1389,7 @@ export class ViewService {
           '@type': 'DataDownload',
           description: 'Project',
           contentUrl: this.endpoints.getProjectsEndpoint(
-            true,
+            false,
             projectSummary.id,
           ),
           encodingFormat: 'application/json',

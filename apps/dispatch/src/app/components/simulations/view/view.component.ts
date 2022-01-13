@@ -78,7 +78,7 @@ export class ViewComponent implements OnInit {
 
   public ngOnInit(): void {
     const id = (this.id = this.route.snapshot.params['uuid']);
-    this.archiveUrl = this.endpoints.getRunDownloadEndpoint(true, id);
+    this.archiveUrl = this.endpoints.getRunDownloadEndpoint(false, id);
 
     this.initSimulationRun();
 

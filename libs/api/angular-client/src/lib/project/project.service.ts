@@ -34,7 +34,7 @@ export class ProjectService {
   ): Observable<true | string> {
     return this.http
       .post<void>(
-        this.endpoints.getValidateProjectEndpoint(true),
+        this.endpoints.getValidateProjectEndpoint(false),
         projectInput,
         {
           headers: { 'Content-Type': 'application/json' },
@@ -59,7 +59,7 @@ export class ProjectService {
   }
 
   public publishProject(projectInput: ProjectInput): Observable<void> {
-    const url = this.endpoints.getProjectsEndpoint(true, projectInput.id);
+    const url = this.endpoints.getProjectsEndpoint(false, projectInput.id);
     const response = this.http
       .post<void>(url, projectInput, {
         headers: { 'Content-Type': 'application/json' },
@@ -69,12 +69,12 @@ export class ProjectService {
   }
 
   public getProject(projectId: string): Observable<Project> {
-    const url = this.endpoints.getProjectsEndpoint(true, projectId);
+    const url = this.endpoints.getProjectsEndpoint(false, projectId);
     return this.getData<Project>(projectId, url);
   }
 
   public getProjectSummaries(): Observable<ProjectSummary[]> {
-    const url = this.endpoints.getProjectSummariesEndpoint(true);
+    const url = this.endpoints.getProjectSummariesEndpoint(false);
 
     if (!this.cachedProjectSummaries) {
       this.cachedProjectSummaries = this.http
@@ -86,7 +86,7 @@ export class ProjectService {
   }
 
   public getProjectSummary(projectId: string): Observable<ProjectSummary> {
-    const url = this.endpoints.getProjectSummariesEndpoint(true, projectId);
+    const url = this.endpoints.getProjectSummariesEndpoint(false, projectId);
     return this.getData<ProjectSummary>(projectId, url);
   }
 
