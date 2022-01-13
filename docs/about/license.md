@@ -84,19 +84,19 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/platform-browser/README.md
-├─ @babel/code-frame@7.15.8
+├─ @babel/code-frame@7.16.7
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
 │  ├─ url: https://babel.dev/team
 │  └─ licenseFile: @babel/code-frame/LICENSE
-├─ @babel/helper-validator-identifier@7.15.7
+├─ @babel/helper-validator-identifier@7.16.7
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
 │  ├─ url: https://babel.dev/team
 │  └─ licenseFile: @babel/helper-validator-identifier/LICENSE
-├─ @babel/highlight@7.14.5
+├─ @babel/highlight@7.16.7
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
