@@ -1,5 +1,6 @@
 title: Setting Up
 nav:
-  - Local environment: environment.md
   - Nx tutorial: nx-tutorial.md
+  - Local environment: environment.md
+  - Configuring endpoints: endpoints.md
   - ...
