@@ -48,7 +48,6 @@ export class FilesService {
     runId: string,
     files: ProjectFileInput[],
   ): Promise<void> {
-    this.logger.log(files);
     await Promise.all(
       files.map((file) => {
         const fileModel = new this.model(file);
