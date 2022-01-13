@@ -390,7 +390,7 @@ export class BrowseComponent implements OnInit {
           simulation.resultsSize > 0
         ) {
           return this.endpoints.getRunResultsDownloadEndpoint(
-            true,
+            false,
             simulation.id,
           );
         } else {
@@ -408,7 +408,7 @@ export class BrowseComponent implements OnInit {
           simulation.resultsSize > 0
         ) {
           return this.endpoints.getRunResultsDownloadEndpoint(
-            true,
+            false,
             simulation.id,
           );
         } else {
@@ -521,7 +521,7 @@ export class BrowseComponent implements OnInit {
           return (simulation: ISimulation): void => {
             const queryParams: any = {
               projectUrl: this.endpoints.getRunDownloadEndpoint(
-                true,
+                false,
                 simulation.id,
               ),
               simulator: simulation.simulator,
@@ -542,7 +542,7 @@ export class BrowseComponent implements OnInit {
           return (simulation: ISimulation): void => {
             const queryParams: any = {
               projectUrl: this.endpoints.getRunDownloadEndpoint(
-                true,
+                false,
                 simulation.id,
               ),
               simulator: simulation.simulator,

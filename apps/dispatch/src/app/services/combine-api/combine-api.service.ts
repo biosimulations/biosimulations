@@ -13,7 +13,7 @@ export class CombineApiService {
   private endpoints = new Endpoints();
 
   private sedmlSpecsEndpoint =
-    this.endpoints.getSedmlSpecificationsEndpoint(true);
+    this.endpoints.getSedmlSpecificationsEndpoint(false);
 
   public constructor(private http: HttpClient) {}
 
