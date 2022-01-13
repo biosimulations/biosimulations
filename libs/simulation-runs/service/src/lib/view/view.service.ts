@@ -64,7 +64,7 @@ import {
   AppRoutes,
   ResourceIdentifiers,
 } from '@biosimulations/config/common';
-import { FilePaths } from '@biosimulations/config/common';
+//import { FilePaths } from '@biosimulations/config/common';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 import { environment } from '@biosimulations/shared/environments';
 import { deserializeSedDocument } from '../sed-document/sed-document';
@@ -80,7 +80,7 @@ export class ViewService {
   private combineOmexFormat: EdamTerm;
 
   private endpoints = new Endpoints();
-  private filePaths = new FilePaths();
+  //private filePaths = new FilePaths();
   private appRoutes = new AppRoutes();
   private resourceIdentifiers = new ResourceIdentifiers();
 
@@ -160,7 +160,9 @@ export class ViewService {
   ): ProjectMetadata {
     const thumbnails = (metadata?.thumbnails || []).map(
       (thumbnail: string): string => {
-        return this.filePaths.getThumbnailEndpoint(true, thumbnail, 'view');
+        //return this.filePaths.getThumbnailEndpoint(true, thumbnail, 'view');
+        console.error(thumbnail)
+        return thumbnail;
       },
     );
 
