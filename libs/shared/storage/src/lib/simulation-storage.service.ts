@@ -95,14 +95,52 @@ export class SimulationStorageService {
     return file;
   }
 
-  public async getSimulationRunContentFile(
+  public getSimulationRunContentFile(
     runId: string,
     fileLocation: string,
-  ): Promise<S3.GetObjectOutput> {
-    const file = await this.storage.getObject(
-      this.filePaths.getSimulationRunContentFilePath(runId, fileLocation),
-    );
+    // TODO refine the return type to specify stream or buffer
+  ): Observable<S3.Body | undefined> {
+    const file = from(
+      this.storage.getObject(
+        this.filePaths.getSimulationRunContentFilePath(runId, fileLocation),
+      ),
+    ).pipe(pluck('Body'));
+
     return file;
+  }
+  // TODO rename to getSimulationRunContentFileInfo
+  public getFileInfo(
+    runId: string,
+    fileLocation: string,
+  ): Observable<FileInfo> {
+    // TODO get the object and URL id via shared methods
+
+    const filePath = fileLocation.replace('./', '');
+    const objectId = `simulations/${runId}/contents/${filePath}`;
+    const url = `https://storage.googleapis.com/biosimdev/${objectId}`;
+
+    const size = from(this.storage.getObjectInfo(objectId)).pipe(
+      pluck('ContentLength'),
+      map((size) => {
+        if (size) {
+          return {
+            size,
+            // TODO return url from WebsiteRedirectLocation field in metadata if it exists
+            url,
+          };
+        } else {
+          this.logger.warn(`Could not get file size for ${objectId}`);
+          return {
+            size: undefined,
+            url,
+          };
+        }
+      }),
+      // TODO add proper backoff retry
+      // retry(3),
+    );
+
+    return size;
   }
 
   public async extractSimulationArchive(id: string): Promise<string[]> {
@@ -125,18 +163,28 @@ export class SimulationStorageService {
     return s3File.Location;
   }
 
-  public async uploadSimulationRunFile(
+  public async uploadSimulationRunThumbnail(
     runId: string,
-    fileLocation: string,
-    file: Buffer,
-    thumbnailType?: ThumbnailType,
+    location: string,
+    thumbnailType: ThumbnailType,
+    thumbnail: Buffer,
   ): Promise<void> {
     await this.storage.putObject(
       this.filePaths.getSimulationRunContentFilePath(
         runId,
-        fileLocation,
+        location,
         thumbnailType,
       ),
+      thumbnail,
+    );
+  }
+  public async uploadSimulationRunFile(
+    runId: string,
+    fileLocation: string,
+    file: Buffer,
+  ): Promise<void> {
+    await this.storage.putObject(
+      this.filePaths.getSimulationRunContentFilePath(runId, fileLocation),
       file,
     );
   }
@@ -172,38 +220,6 @@ export class SimulationStorageService {
         );
       }),
     );
-  }
-
-  public getFileInfo(
-    runId: string,
-    fileLocation: string,
-  ): Observable<FileInfo> {
-    // TODO get the object and URL id via shared methods
-    const filePath = fileLocation.replace('./', '');
-    const objectId = `simulations/${runId}/contents/${filePath}`;
-    const url = `https://storage.googleapis.com/biosimdev/${objectId}`;
-
-    const size = from(this.storage.getObjectInfo(objectId)).pipe(
-      pluck('ContentLength'),
-      map((size) => {
-        if (size) {
-          return {
-            size,
-            url,
-          };
-        } else {
-          this.logger.warn(`Could not get file size for ${objectId}`);
-          return {
-            size: undefined,
-            url,
-          };
-        }
-      }),
-      // TODO add proper backoff retry
-      // retry(3),
-    );
-
-    return size;
   }
 
   private async deleteS3Object(
