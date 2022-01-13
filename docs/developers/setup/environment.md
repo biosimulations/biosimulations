@@ -1,4 +1,4 @@
-# Setting up your local environment for development 
+# Running required backend services for local development
 
 ## Background Services
 
