@@ -14,7 +14,7 @@ import {
   SimulationRunMetadataModel,
   SimulationRunMetadataIdModel,
 } from './metadata.model';
-import { FilePaths } from '@biosimulations/config/common';
+import { FilePaths } from '@biosimulations/shared/storage';
 
 @Injectable()
 export class MetadataService {
@@ -88,35 +88,6 @@ export class MetadataService {
     return metadataObj.save();
   }
 
-  private transformMetadata(
-    runId: string,
-    archiveMetadata: ArchiveMetadata,
-  ): ArchiveMetadata {
-    const currentUri = archiveMetadata.uri;
-    if (currentUri.startsWith('./')) {
-      archiveMetadata.uri = `${runId}/${encodeURI(currentUri.substring(2))}`;
-    } else if (currentUri == '.') {
-      archiveMetadata.uri = `${runId}`;
-    }
-    const thumbnails = archiveMetadata.thumbnails;
-
-    if (thumbnails.length > 0) {
-      archiveMetadata.thumbnails = thumbnails.map((thumbnail: string) => {
-        if (thumbnail.startsWith('./')) {
-          const endpoint = this.filePaths.getSimulationRunFileContentEndpoint(
-            true,
-            runId,
-            thumbnail,
-          );
-
-          return endpoint;
-        }
-        return thumbnail;
-      });
-    }
-    return archiveMetadata;
-  }
-
   public async deleteSimulationRunMetadata(runId: string): Promise<void> {
     const metadata = await this.simulationRunMetadataModel
       .findOne({ simulationRun: runId })
@@ -149,4 +120,32 @@ export class MetadataService {
     }
   }
   */
+  private transformMetadata(
+    runId: string,
+    archiveMetadata: ArchiveMetadata,
+  ): ArchiveMetadata {
+    const currentUri = archiveMetadata.uri;
+    if (currentUri.startsWith('./')) {
+      archiveMetadata.uri = `${runId}/${encodeURI(currentUri.substring(2))}`;
+    } else if (currentUri == '.') {
+      archiveMetadata.uri = `${runId}`;
+    }
+    const thumbnails = archiveMetadata.thumbnails;
+
+    if (thumbnails.length > 0) {
+      archiveMetadata.thumbnails = thumbnails.map((thumbnail: string) => {
+        if (thumbnail.startsWith('./')) {
+          const endpoint = this.filePaths.getSimulationRunFileContentEndpoint(
+            true,
+            runId,
+            thumbnail,
+          );
+
+          return endpoint;
+        }
+        return thumbnail;
+      });
+    }
+    return archiveMetadata;
+  }
 }
