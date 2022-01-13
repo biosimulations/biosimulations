@@ -20,10 +20,10 @@ export class SimulatorService {
   private endpoints = new Endpoints();
 
   private allSims = this.http
-    .get<ISimulator[]>(this.endpoints.getSimulatorsEndpoint(true))
+    .get<ISimulator[]>(this.endpoints.getSimulatorsEndpoint(false))
     .pipe(shareReplay(1));
   private latestSims = this.http
-    .get<ISimulator[]>(this.endpoints.getLatestSimulatorsEndpoint(true))
+    .get<ISimulator[]>(this.endpoints.getLatestSimulatorsEndpoint(false))
     .pipe(shareReplay(1));
 
   public getAll(): Observable<ISimulator[]> {
@@ -89,7 +89,7 @@ export class SimulatorService {
     version: string,
   ): Observable<ISimulator> {
     return this.http.get<ISimulator>(
-      this.endpoints.getSimulatorsEndpoint(true, id, version, true),
+      this.endpoints.getSimulatorsEndpoint(false, id, version, true),
     );
   }
 

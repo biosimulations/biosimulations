@@ -12,7 +12,7 @@ describe('FilePaths', () => {
 
   it('Should return correct S3 URL', () => {
     expect(
-      filePaths.getSimulationRunFileContentEndpoint(true, 'x', 'file.txt'),
+      filePaths.getSimulationRunFileContentEndpoint(false, 'x', 'file.txt'),
     ).toBe(
       'https://files.biosimulations.org/s3/simulations/x/contents/file.txt',
     );

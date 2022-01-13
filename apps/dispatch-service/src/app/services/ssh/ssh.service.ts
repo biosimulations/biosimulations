@@ -4,7 +4,7 @@ import path from 'path';
 import { Client as SSHClient } from 'ssh2';
 
 export class SshConnectionConfig {
-  constructor(
+  public constructor(
     public host: string,
     public port: number,
     public username: string,
@@ -59,7 +59,7 @@ export class SshService {
                   );
                   resolve({ stdout, stderr });
                   conn.end();
-                  this.logger.log('Connection closed');
+                  this.logger.debug('Connection closed');
                 })
                 .on('data', (data: any) => {
                   stdout += data.toString('utf8');

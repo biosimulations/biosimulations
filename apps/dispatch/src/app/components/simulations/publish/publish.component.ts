@@ -48,7 +48,7 @@ export class PublishComponent implements OnInit, OnDestroy {
 
   private endpoints = new Endpoints();
 
-  constructor(
+  public constructor(
     private route: ActivatedRoute,
     private simulationService: SimulationService,
     private projectService: ProjectService,
@@ -68,13 +68,13 @@ export class PublishComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.subscriptions.forEach((subscription: Subscription) =>
       subscription.unsubscribe(),
     );
   }
 
-  idAvailableValidator(): AsyncValidatorFn {
+  public idAvailableValidator(): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
       return this.isIdAvailable(control.value).pipe(
         map((available: boolean): ValidationErrors | null => {
@@ -88,7 +88,7 @@ export class PublishComponent implements OnInit, OnDestroy {
     };
   }
 
-  isIdAvailable(id: string): Observable<boolean> {
+  public isIdAvailable(id: string): Observable<boolean> {
     return this.projectService.getProject(id).pipe(
       map((_): false => false),
       catchError((error: HttpErrorResponse): Observable<boolean> => {
@@ -99,7 +99,7 @@ export class PublishComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.uuid = this.route.snapshot.params['uuid'];
-    this.archiveUrl = this.endpoints.getRunDownloadEndpoint(true, this.uuid);
+    this.archiveUrl = this.endpoints.getRunDownloadEndpoint(false, this.uuid);
 
     const simulation$ = this.simulationService.getSimulation(this.uuid).pipe(
       map((simulation: Simulation | UnknownSimulation): Simulation => {
@@ -133,7 +133,7 @@ export class PublishComponent implements OnInit, OnDestroy {
     );
   }
 
-  publishSimulation(): void {
+  public publishSimulation(): void {
     this.submitPushed = true;
     this.formGroup.updateValueAndValidity();
 
