@@ -33,6 +33,7 @@ import { SedmlService } from '../sedml/sedml.service';
 import { ProjectService } from '@biosimulations/api-nest-client';
 import { Endpoints } from '@biosimulations/config/common';
 import { SharedStorageModule } from '@biosimulations/shared/storage';
+import { ThumbnailService } from '../thumbnail/thumbnail.service';
 
 @Module({
   imports: [
@@ -48,8 +49,8 @@ import { SharedStorageModule } from '@biosimulations/shared/storage';
         const env = configService.get('server.env');
         const endpoints = new Endpoints(env);
         const combineBaseUrl = endpoints.getCombineApiBaseUrl(false);
-        const logger = new Logger('loading');
-        logger.error(combineBaseUrl);
+        const logger = new Logger(AppModule.name);
+        logger.log(`Using Combine API: ${combineBaseUrl}`);
         return new CombineAPIConfiguration({
           basePath: combineBaseUrl,
         });
@@ -103,6 +104,7 @@ import { SharedStorageModule } from '@biosimulations/shared/storage';
     FileService,
     SedmlService,
     ProjectService,
+    ThumbnailService,
   ],
 })
 export class AppModule {}

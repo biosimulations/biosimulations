@@ -1,7 +1,10 @@
 export const SNACK_BAR_DURATION = 2000;
 
-export const THUMBNAIL_WIDTH = {
+export type ThumbnailType = 'view' | 'browse';
+export type ThumbnailWidth = {
+  [key in ThumbnailType]: number;
+};
+export const THUMBNAIL_WIDTH: ThumbnailWidth = {
   view: 1280 - 2 * 2 * 16,
   browse: 552,
 };
-export type ThumbnailType = keyof typeof THUMBNAIL_WIDTH;
