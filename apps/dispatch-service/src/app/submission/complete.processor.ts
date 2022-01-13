@@ -22,6 +22,7 @@ import { ProjectService } from '@biosimulations/api-nest-client';
 import { AxiosError } from 'axios';
 import { Observable } from 'rxjs';
 import { retryBackoff } from 'backoff-rxjs';
+import { ThumbnailService } from '../../thumbnail/thumbnail.service';
 
 interface ProcessingResult {
   succeeded: boolean;
@@ -31,6 +32,7 @@ interface ProcessingResult {
 @Processor(JobQueue.complete)
 export class CompleteProcessor {
   private readonly logger = new Logger(CompleteProcessor.name);
+
   public constructor(
     private archiverService: ArchiverService,
     private simStatusService: SimulationStatusService,
@@ -39,6 +41,7 @@ export class CompleteProcessor {
     private fileService: FileService,
     private sedmlService: SedmlService,
     private projectService: ProjectService,
+    private thumbnailsService: ThumbnailService,
   ) {}
 
   @Process()
@@ -63,6 +66,14 @@ export class CompleteProcessor {
         moreInfo: 'https://combinearchive.org',
         validator: 'https://run.biosimulations.org/utils/validate-project',
         plural: false,
+      },
+      {
+        name: 'Thumbnails',
+        result: this.thumbnailsService.processThumbnails(runId),
+        required: false,
+        moreInfo: '',
+        validator: '',
+        plural: true,
       },
       {
         name: 'simulation experiments (SED-ML documents)',
@@ -149,9 +160,9 @@ export class CompleteProcessor {
           }),
       ),
     );
-
-    const log = processingResults[3]?.value;
-    const logPostSucceeded = processingResults[3].succeeded;
+    const logProcessingStep = 4;
+    const log = processingResults[logProcessingStep]?.value;
+    const logPostSucceeded = processingResults[logProcessingStep].succeeded;
     const runSuceededFromLog = this.getRunSuceededFromLog(log);
 
     /* calculate final status and reason */
@@ -362,7 +373,7 @@ export class CompleteProcessor {
 
   private getErrorMessage(error: any): string {
     let message: string;
-
+    this.logger.error(`Error: ${error}`);
     if (error?.isAxiosError) {
       message = `${error?.response?.status}: ${
         error?.response?.data?.detail || error?.response?.statusText
