@@ -510,9 +510,14 @@ export class SimulationRunController {
   })
   @Get(':runId/download')
   @ApiResponse({
-    status: 302,
+    status: HttpStatus.MOVED_PERMANENTLY,
     description:
       'The request was successfully redirected to download the COMBINE/OMEX archive for the run',
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description:
+      'The request successfully  downloaded the COMBINE/OMEX archive for the run',
   })
   @ApiTags('Downloads')
   @Redirect()
@@ -525,7 +530,7 @@ export class SimulationRunController {
 
     return {
       url: url,
-      statusCode: 302,
+      statusCode: HttpStatus.MOVED_PERMANENTLY,
     };
   }
 
