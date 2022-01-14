@@ -63,6 +63,7 @@ import {
   Endpoints,
   AppRoutes,
   ResourceIdentifiers,
+  ThumbnailType,
 } from '@biosimulations/config/common';
 
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
@@ -80,7 +81,7 @@ export class ViewService {
   private combineOmexFormat: EdamTerm;
 
   private endpoints = new Endpoints();
-  
+
   private appRoutes = new AppRoutes();
   private resourceIdentifiers = new ResourceIdentifiers();
 
@@ -152,6 +153,34 @@ export class ViewService {
     );
   }
 
+  private formatCreators(creator: LabeledIdentifier): Creator {
+    let icon = 'link';
+    if (creator.uri) {
+      if (creator.uri.match(
+        /^https?:\/\/(wwww\.)?(identifiers\.org\/orcid[:/]|orcid\.org\/)/i
+      )) {
+        icon = 'orcid';
+      } else if (creator.uri.match(
+        /^https?:\/\/(wwww\.)?(identifiers\.org\/github[:/]|github\.com\/)/i
+      )) {
+        icon = 'github';
+      } else if (creator.uri.match(/^https?:\/\/(wwww\.)?(linkedin\.com\/)/i)) {
+        icon = 'linkedin';
+      } else if (creator.uri.match(/^https?:\/\/(wwww\.)?(twitter\.com\/)/i)) {
+        icon = 'twitter';
+      } else if (creator.uri.match(/^https?:\/\/(wwww\.)?(facebook\.com\/)/i)) {
+        icon = 'facebook';
+      } else if (creator.uri.match(/^mailto:/i)) {
+        icon = 'email';
+      }
+    }
+
+    return {
+      label: creator.label,
+      uri: creator.uri,
+      icon: icon as BiosimulationsIcon,
+    };
+  }
   private formatMetadata(
     metadata: SimulationRunMetadataSummary,
     runId: string,
@@ -159,59 +188,23 @@ export class ViewService {
     owner?: Account,
   ): ProjectMetadata {
     const thumbnails = (metadata?.thumbnails || []).map(
-      (thumbnail: string): string => {
-        //return this.filePaths.getThumbnailEndpoint(false, thumbnail, 'view');
-        // TODO Get "view" thumbnail endpoint
-        console.error(thumbnail)
-        return thumbnail;
-      },
+      (thumbnail: string): string =>
+      // handle cases where thumbnail is provided as url and relative path 
+      thumbnail.startsWith("http")? thumbnail:
+        this.endpoints.getSimulationRunFilesDownloadEndpoint(
+          false,
+          runId,
+          thumbnail,
+          ThumbnailType.view,
+        ),
     );
-
+      
     // Check for undefined metadata for all fields
     const formattedMetadata: ProjectMetadata = {
       thumbnails: thumbnails,
       title: metadata?.title || defaultTitle,
       abstract: metadata?.abstract,
-      creators: (metadata?.creators || []).map(
-        (creator: LabeledIdentifier): Creator => {
-          let icon = 'link';
-          if (creator.uri) {
-            if (
-              creator.uri.match(
-                /^https?:\/\/(wwww\.)?(identifiers\.org\/orcid[:/]|orcid\.org\/)/i,
-              )
-            ) {
-              icon = 'orcid';
-            } else if (
-              creator.uri.match(
-                /^https?:\/\/(wwww\.)?(identifiers\.org\/github[:/]|github\.com\/)/i,
-              )
-            ) {
-              icon = 'github';
-            } else if (
-              creator.uri.match(/^https?:\/\/(wwww\.)?(linkedin\.com\/)/i)
-            ) {
-              icon = 'linkedin';
-            } else if (
-              creator.uri.match(/^https?:\/\/(wwww\.)?(twitter\.com\/)/i)
-            ) {
-              icon = 'twitter';
-            } else if (
-              creator.uri.match(/^https?:\/\/(wwww\.)?(facebook\.com\/)/i)
-            ) {
-              icon = 'facebook';
-            } else if (creator.uri.match(/^mailto:/i)) {
-              icon = 'email';
-            }
-          }
-
-          return {
-            label: creator.label,
-            uri: creator.uri,
-            icon: icon as BiosimulationsIcon,
-          };
-        },
-      ),
+      creators: (metadata?.creators || []).map(this.formatCreators),
       description: metadata?.description,
       modelSimulation: [],
       provenance: [],
@@ -1236,7 +1229,10 @@ export class ViewService {
         {
           '@type': 'DataDownload',
           description: 'Simulation outputs',
-          contentUrl: this.endpoints.getRunResultsDownloadEndpoint(false, runId),
+          contentUrl: this.endpoints.getRunResultsDownloadEndpoint(
+            false,
+            runId,
+          ),
           encodingFormat: 'application/zip',
           contentSize:
             simulationRunSummary.run.resultsSize === undefined

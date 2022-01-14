@@ -9,15 +9,17 @@ import { FormattedProjectSummary, LocationPredecessor } from './browse.model';
 import { ProjectService } from '@biosimulations/angular-api-client';
 import { BiosimulationsError } from '@biosimulations/shared/error-handler';
 import { HttpStatusCode } from '@angular/common/http';
-
+import { Endpoints, ThumbnailType } from '@biosimulations/config/common';
 @Injectable({
   providedIn: 'root',
 })
 export class BrowseService {
+  private endpoints: Endpoints;
   public DEFAULT_THUMBNAIL =
     './assets/images/default-resource-images/model-padded.svg';
-
-  public constructor(private projectService: ProjectService) {}
+  public constructor(private projectService: ProjectService) {
+    this.endpoints = new Endpoints();
+  }
 
   public getProjects(): Observable<FormattedProjectSummary[]> {
     const metadatas: Observable<FormattedProjectSummary[]> = this.projectService
@@ -47,11 +49,21 @@ export class BrowseService {
                     return metadatum.uri !== '.';
                   },
                 ) || [];
-
-              const thumbnail = metadata?.thumbnails?.length
-                ? // TODO get 'browse' thumbnail
-                  metadata?.thumbnails[0]
-                : this.DEFAULT_THUMBNAIL;
+              let thumbnail = this.DEFAULT_THUMBNAIL;
+              if (metadata?.thumbnails?.length) {
+                // handle cases where thumbnails are provided as urls
+                if (metadata.thumbnails[0].startsWith('http')) {
+                  thumbnail = metadata.thumbnails[0];
+                  // handle cases where thumbnails are provided as relative paths
+                } else {
+                  thumbnail =
+                    this.endpoints.getSimulationRunFilesDownloadEndpoint(
+                      false,
+                      metadata.thumbnails[0],
+                      ThumbnailType.browse,
+                    );
+                }
+              }
 
               return {
                 id: project.id,
