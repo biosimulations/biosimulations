@@ -5,12 +5,10 @@ export type Endpoint =
   | 'api'
   | 'simulatorsApi'
   | 'combineApi'
-  | 'storageEndpoint'
   | 'dataService'
   | 'externalApi'
   | 'externalSimulatorsApi'
   | 'externalCombineApi'
-  | 'externalStorageEndpoint'
   | 'externalDataService'
   | 'simulatorsApp'
   | 'dispatchApp'
@@ -33,12 +31,10 @@ export class EndpointLoader {
       api: 'api',
       simulatorsApi: 'simulatorsApi',
       combineApi: 'combineApi',
-      storageEndpoint: 'storageEndpoint',
       dataService: 'dataService',
       externalApi: 'externalApi',
       externalSimulatorsApi: 'externalSimulatorsApi',
       externalCombineApi: 'externalCombineApi',
-      externalStorageEndpoint: 'externalStorageEndpoint',
       externalDataService: 'externalDataService',
       simulatorsApp: 'simulatorsApp',
       dispatchApp: 'dispatchApp',
@@ -57,10 +53,6 @@ export class EndpointLoader {
           dynamicEndpoints?.combineApi ||
           'https://combine.api.biosimulations.dev';
 
-        endpointsTemplate.storageEndpoint =
-          dynamicEndpoints?.storageEndpoint ||
-          'https://files-dev.biosimulations.org/s3';
-
         endpointsTemplate.simulatorsApp =
           dynamicEndpoints?.simulatorsApp || 'https://biosimulators.dev';
 
@@ -83,10 +75,6 @@ export class EndpointLoader {
         endpointsTemplate.externalCombineApi =
           dynamicEndpoints?.externalCombineApi ||
           'https://combine.api.biosimulations.dev';
-
-        endpointsTemplate.externalStorageEndpoint =
-          dynamicEndpoints?.externalStorageEndpoint ||
-          'https://files-dev.biosimulations.org/s3';
 
         endpointsTemplate.externalDataService =
           dynamicEndpoints?.externalDataService ||
@@ -104,10 +92,6 @@ export class EndpointLoader {
           dynamicEndpoints?.combineApi ||
           'https://combine.api.biosimulations.dev';
 
-        endpointsTemplate.storageEndpoint =
-          dynamicEndpoints?.storageEndpoint ||
-          'https://files-dev.biosimulations.org/s3';
-
         endpointsTemplate.simulatorsApp =
           dynamicEndpoints?.simulatorsApp || 'https://biosimulators.dev';
 
@@ -130,10 +114,6 @@ export class EndpointLoader {
         endpointsTemplate.externalCombineApi =
           dynamicEndpoints?.externalCombineApi ||
           'https://combine.api.biosimulations.dev';
-
-        endpointsTemplate.externalStorageEndpoint =
-          dynamicEndpoints?.externalStorageEndpoint ||
-          'https://files-dev.biosimulations.org/s3';
 
         endpointsTemplate.externalDataService =
           dynamicEndpoints?.externalDataService ||
@@ -152,10 +132,6 @@ export class EndpointLoader {
           dynamicEndpoints?.combineApi ||
           'https://combine.api.biosimulations.dev';
 
-        endpointsTemplate.storageEndpoint =
-          dynamicEndpoints?.storageEndpoint ||
-          'https://files-dev.biosimulations.org/s3';
-
         endpointsTemplate.simulatorsApp =
           dynamicEndpoints?.simulatorsApp || 'https://biosimulators.dev';
 
@@ -179,10 +155,6 @@ export class EndpointLoader {
           dynamicEndpoints?.externalCombineApi ||
           'https://combine.api.biosimulations.dev';
 
-        endpointsTemplate.externalStorageEndpoint =
-          dynamicEndpoints?.externalStorageEndpoint ||
-          'https://files-dev.biosimulations.org/s3';
-
         endpointsTemplate.externalDataService =
           dynamicEndpoints?.externalDataService ||
           'https://data.biosimulations.dev';
@@ -198,10 +170,6 @@ export class EndpointLoader {
         endpointsTemplate.combineApi =
           dynamicEndpoints?.combineApi ||
           'https://combine.api.biosimulations.org';
-
-        endpointsTemplate.storageEndpoint =
-          dynamicEndpoints?.storageEndpoint ||
-          'https://files.biosimulations.org/s3';
 
         endpointsTemplate.simulatorsApp =
           dynamicEndpoints?.simulatorsApp || 'https://biosimulators.org';
@@ -226,10 +194,6 @@ export class EndpointLoader {
           dynamicEndpoints?.externalCombineApi ||
           'https://combine.api.biosimulations.org';
 
-        endpointsTemplate.externalStorageEndpoint =
-          dynamicEndpoints?.externalStorageEndpoint ||
-          'https://files.biosimulations.org/s3';
-
         endpointsTemplate.externalDataService =
           dynamicEndpoints?.externalDataService ||
           'https://data.biosimulations.org';
@@ -248,13 +212,11 @@ export class EndpointLoader {
         api: process.env.API_URL,
         simulatorsApi: process.env.SIMULATORS_API_URL,
         combineApi: process.env.COMBINE_API_URL,
-        storageEndpoint: process.env.STORAGE_URL,
         dataService: process.env.DATA_SERVICE_URL,
 
         externalApi: process.env.EXTERNAL_API_URL,
         externalSimulatorsApi: process.env.EXTERNAL_SIMULATORS_API_URL,
         externalCombineApi: process.env.EXTERNAL_COMBINE_API_URL,
-        externalStorageEndpoint: process.env.EXTERNAL_STORAGE_URL,
         externalDataService: process.env.EXTERNAL_DATA_SERVICE_URL,
 
         simulatorsApp: process.env.SIMULATORS_APP_URL,

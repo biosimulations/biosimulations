@@ -6,11 +6,13 @@ import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 
 import * as https from 'https';
 import { SimulationStorageService } from './simulation-storage.service';
+import { FilePaths } from './file-paths';
 
 @Global()
 @Module({
   controllers: [],
   imports: [
+    BiosimulationsConfigModule,
     S3Module.forRootAsync({
       imports: [BiosimulationsConfigModule],
       inject: [ConfigService],
@@ -32,7 +34,7 @@ import { SimulationStorageService } from './simulation-storage.service';
       }),
     }),
   ],
-  providers: [SharedStorageService, SimulationStorageService],
-  exports: [SimulationStorageService],
+  providers: [SharedStorageService, SimulationStorageService, FilePaths],
+  exports: [SimulationStorageService, FilePaths],
 })
 export class SharedStorageModule {}

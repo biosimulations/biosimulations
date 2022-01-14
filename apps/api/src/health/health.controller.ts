@@ -118,8 +118,10 @@ export class HealthController {
   private bullCheck: HealthIndicatorFunction = () =>
     this.queue.isHealthy('Queue');
 
-  private s3Check: HealthIndicatorFunction = () =>
-    this.http.pingCheck('Storage', this.endpoints.getStorageHealthEndpoint());
+  private s3Check: HealthIndicatorFunction = () => {
+    const storageEndpoint = this.config.get('storage.endpoint');
+    return this.http.pingCheck('Storage', storageEndpoint);
+  };
 
   private hpcCheck: HealthIndicatorFunction = () =>
     this.microservice.pingCheck('HPC', {

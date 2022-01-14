@@ -13,7 +13,6 @@ export class Endpoints {
   private api: string;
   private simulatorsApi: string;
   private combineApi: string;
-  private storageEndpoint: string;
   private dataService: string;
 
   // Backend public/external services (i.e. Use endpoints that can be accessed via public URL.
@@ -21,7 +20,6 @@ export class Endpoints {
   private externalApi: string;
   private externalSimulatorsApi: string;
   private externalCombineApi: string;
-  private externalStorageEndpoint: string;
   private externalDataService: string;
 
   public constructor(env?: envs) {
@@ -36,12 +34,10 @@ export class Endpoints {
     this.api = loadedEndpoints.api;
     this.simulatorsApi = loadedEndpoints.simulatorsApi;
     this.combineApi = loadedEndpoints.combineApi;
-    this.storageEndpoint = loadedEndpoints.storageEndpoint;
     this.dataService = loadedEndpoints.dataService;
     this.externalApi = loadedEndpoints.externalApi;
     this.externalSimulatorsApi = loadedEndpoints.externalSimulatorsApi;
     this.externalCombineApi = loadedEndpoints.externalCombineApi;
-    this.externalStorageEndpoint = loadedEndpoints.externalStorageEndpoint;
     this.externalDataService = loadedEndpoints.externalDataService;
   }
 
@@ -57,10 +53,6 @@ export class Endpoints {
 
   public getCombineHealthEndpoint(): string {
     return `${this.getCombineApiBaseUrl(true)}/health`;
-  }
-
-  public getStorageHealthEndpoint(): string {
-    return `${this.getStorageEndpointBaseUrl(true)}/helloWorld.txt`;
   }
 
   /**
@@ -104,6 +96,7 @@ export class Endpoints {
   // FILES and FILE CONTENTS
 
   /** Get the URL for a file object, for all files for a simulation run, or to post files for a simulation run.
+   * @param external Whether the URL should be accessible from outside the local evironment
    * @param runId The id of the simulation run
    * @param fileLocation The location of the file within the COMBINE/OMEX archive for the simulation run
    * @returns The URL to get the content of a COMBINE archive
@@ -331,8 +324,11 @@ export class Endpoints {
 
   /**
    *
+   * @param external A boolean flag on whether the URL returned should be accessible from outside the current system.
    * @param runId The id of the simulation run
    * @param experimentLocation The local of the particular simulation spec (SED-ML file )
+   * @param elementType The sedml element type (e.g. "SedModel", "SedSimulation", "SedOutput")
+   * @param elementId The id of the sedml element
    * @returns The URL to the specified simulation spec
    */
   public getSimulationRunSimulationExperimentSpecificationsEndpoint(
@@ -449,9 +445,6 @@ export class Endpoints {
 
   public getCombineApiBaseUrl(external: boolean): string {
     return external ? this.externalCombineApi : this.combineApi;
-  }
-  public getStorageEndpointBaseUrl(external: boolean): string {
-    return external ? this.externalStorageEndpoint : this.storageEndpoint;
   }
 
   private getOntologiesEndpointBaseUrl(app: string, external: boolean): string {
