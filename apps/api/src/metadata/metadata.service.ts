@@ -5,7 +5,7 @@ import {
   NotFoundException,
   InternalServerErrorException,
 } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { DeleteResult } from 'mongodb';
@@ -18,18 +18,14 @@ import { FilePaths } from '@biosimulations/shared/storage';
 
 @Injectable()
 export class MetadataService {
-  private filePaths: FilePaths;
   private logger: Logger = new Logger(MetadataService.name);
   public constructor(
     @InjectModel(SimulationRunMetadataModel.name)
     private simulationRunMetadataModel: Model<SimulationRunMetadataModel>,
     @InjectModel(SimulationRunModel.name)
     private simulationModel: Model<SimulationRunModel>,
-    private config: ConfigService,
-  ) {
-    const env = config.get('server.env');
-    this.filePaths = new FilePaths(env);
-  }
+    private filePaths: FilePaths,
+  ) {}
 
   public async getAllMetadata(): Promise<
     SimulationRunMetadataIdModel[] | null
@@ -133,18 +129,9 @@ export class MetadataService {
     const thumbnails = archiveMetadata.thumbnails;
 
     if (thumbnails.length > 0) {
-      archiveMetadata.thumbnails = thumbnails.map((thumbnail: string) => {
-        if (thumbnail.startsWith('./')) {
-          const endpoint = this.filePaths.getSimulationRunFileContentEndpoint(
-            true,
-            runId,
-            thumbnail,
-          );
-
-          return endpoint;
-        }
-        return thumbnail;
-      });
+      archiveMetadata.thumbnails = thumbnails.map((thumbnail: string) =>
+        thumbnail.startsWith('./') ? thumbnail.replace('./', '') : thumbnail,
+      );
     }
     return archiveMetadata;
   }

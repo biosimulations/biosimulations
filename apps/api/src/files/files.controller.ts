@@ -3,6 +3,7 @@ import {
   ProjectFile,
   ProjectFileInputsContainer,
 } from '@biosimulations/datamodel/api';
+
 import {
   Controller,
   Post,
@@ -13,6 +14,8 @@ import {
   NotFoundException,
   HttpCode,
   HttpStatus,
+  Redirect,
+  Query,
   // Delete,
 } from '@nestjs/common';
 import {
@@ -27,17 +30,24 @@ import {
   ApiNoContentResponse,
   ApiUnauthorizedResponse,
   ApiForbiddenResponse,
+  ApiResponse,
+  ApiQuery,
 } from '@nestjs/swagger';
 import { FileModel } from './files.model';
 import { FilesService } from './files.service';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 import { scopes } from '@biosimulations/auth/common';
+import { ThumbnailType } from '@biosimulations/config/common';
+import { FilePaths } from '@biosimulations/shared/storage';
 
 @ApiTags('Files')
 @Controller('files')
 export class FilesController {
   private logger = new Logger(FilesController.name);
-  public constructor(private service: FilesService) {}
+  public constructor(
+    private service: FilesService,
+    private filePaths: FilePaths,
+  ) {}
 
   /*
   @Get()
@@ -124,6 +134,66 @@ export class FilesController {
       );
     }
     return this.createReturnFile(file);
+  }
+
+  @Get(':runId/:fileLocation/download')
+  @ApiOperation({
+    summary: 'Download a file',
+    description:
+      'Download a file (location in the COMBINE/OMEX archive) of a simulation run',
+  })
+  @ApiResponse({
+    status: HttpStatus.MOVED_PERMANENTLY,
+    description: 'Redirect to the file download URL',
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'The requested file could not be found',
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description:
+      'The request successfully  downloaded the file (location in the COMBINE/OMEX archive) for the run',
+  })
+  @ApiQuery({
+    name: 'thumbnail',
+    description: 'The resized thumbnail version of the file to download',
+    required: false,
+    enum: ThumbnailType,
+  })
+  @Redirect()
+  public async downloadFile(
+    @Param('runId') runId: string,
+    @Param('fileLocation') fileLocation: string,
+    @Query('thumbnail') thumbnail?: ThumbnailType,
+  ): Promise<{
+    url: string;
+    statusCode: number;
+  }> {
+    const file = await this.service.getFile(runId, fileLocation);
+    if (!file) {
+      throw new NotFoundException(
+        `A file could not found for simulation run '${runId}' and location '${fileLocation}'.`,
+      );
+    }
+
+    const url = file.url;
+    if (thumbnail) {
+      return {
+        url: this.filePaths.getSimulationRunFileContentEndpoint(
+          runId,
+          fileLocation,
+          thumbnail,
+        ),
+        statusCode: HttpStatus.MOVED_PERMANENTLY,
+      };
+    }
+    // use moved permanently to help with caching
+    // TODO do we want to generate the filepaths instead of having the dispatch-service save url to database?
+    return {
+      url: url,
+      statusCode: HttpStatus.MOVED_PERMANENTLY,
+    };
   }
 
   @Post(':runId')
