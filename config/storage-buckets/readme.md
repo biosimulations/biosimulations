@@ -4,6 +4,13 @@
 
 ## Production Bucket
 
+## Temp Development Bucket
+
+## Temp Prod Bucket
+
+## CORS settings
+The cors settings are used to configure the CORS policy for the bucket. The cors policy is contained in the `cors.py` file.
+
 ## Lifecycle Rules
 
 The configuration for the retention policies and the lifecycle management is contained in the retention.py file.
