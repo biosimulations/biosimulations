@@ -98,7 +98,7 @@ export class Endpoints {
 
   /** Get the URL for a file object, for all files for a simulation run, or to post files for a simulation run.
    * @param external Whether the URL should be accessible from outside the local evironment
-   *  @param runId The id of the simulation run
+   * @param runId The id of the simulation run
    * @param fileLocation The location of the file within the COMBINE/OMEX archive for the simulation run
    * @returns The URL to get the content of a COMBINE archive
    */
@@ -121,13 +121,12 @@ export class Endpoints {
     if (fileLocation && !runId) {
       throw new Error('Cannot get a file without a run id');
     }
-
     return `${this.getFilesEndpointBaseUrl(external)}${runId}${fileLocation}`;
   }
 
-  /** Get the URL to download a file in a simultion run
-   * @param external Whether the URL should be accessible from outside the local evironment
-   *  @param runId The id of the simulation run
+  /** Get the URL to download a file in a simulation run
+   * @param external Whether the URL should be accessible from outside the local environment
+   * @param runId The id of the simulation run
    * @param fileLocation The location of the file within the COMBINE/OMEX archive for the simulation run
    * @param thumbnail The type of resized thumbnail to return of the original file
    * @returns The URL to get the content of a COMBINE archive

@@ -20,7 +20,7 @@ interface JobState {
 export class HpcService {
   private logger = new Logger(HpcService.name);
 
-  constructor(
+  public constructor(
     private readonly configService: ConfigService,
     private sshService: SshService,
     private sbatchService: SbatchService,
@@ -66,14 +66,14 @@ export class HpcService {
       simDirname,
     );
 
-    // eslint-disable-next-line max-len
     const sbatchFilename = `${simDirname}/job.sbatch`;
+    // eslint-disable-next-line max-len
     const command = `mkdir ${simDirname} && echo "${sbatchString}" > ${sbatchFilename} && chmod +x ${sbatchFilename} && sbatch ${sbatchFilename}`;
 
     const res = this.sshService.execStringCommand(command);
 
     return res.catch((err) => {
-      console.error(
+      this.logger.error(
         `The job for simulation run '${runId}' could not be submitted.`,
       );
       return {
@@ -151,7 +151,8 @@ export class HpcService {
         simStatusReason = {
           status: SimulationRunStatus.SUCCEEDED,
           reason:
-            'The simulation project (COMBINE/OMEX archive) was successfully saved, the project executed successfully, and the results of the simulation experiments were sucessfully saved.',
+            'The simulation project (COMBINE/OMEX archive) was successfully saved, \
+            the project executed successfully, and the results of the simulation experiments were successfully saved.',
         };
       } else {
         simStatusReason = {

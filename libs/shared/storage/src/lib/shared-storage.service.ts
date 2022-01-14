@@ -30,10 +30,19 @@ export class SharedStorageService {
     @InjectS3() private readonly s3: S3,
     private configService: ConfigService,
   ) {
-    this.BUCKET = configService.get('storage.bucket') || 'biosimdev';
+    this.BUCKET =
+      configService.get('storage.bucket') || 'files.biosimulations.dev';
     s3.config.update({ region: 'us-east-1' });
   }
 
+  public getObjectUrl(id: string): string {
+    const url = this.s3.getSignedUrl('headObject', {
+      Bucket: this.BUCKET,
+      Key: id,
+    });
+    this.logger.error(`getObjectUrl: ${url}`);
+    return url.split('?')[0];
+  }
   public async getObjectInfo(id: string): Promise<AWS.S3.HeadObjectOutput> {
     const call = this.s3.headObject({ Bucket: this.BUCKET, Key: id }).promise();
 

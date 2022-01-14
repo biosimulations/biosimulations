@@ -21,16 +21,14 @@ import { FilePaths } from './file-paths';
 @Injectable()
 export class SimulationStorageService {
   // TODO change to return Observables to make retrying
-  private filePaths: FilePaths;
+
   private logger = new Logger(SimulationStorageService.name);
 
   public constructor(
     private storage: SharedStorageService,
     private configService: ConfigService,
-  ) {
-    const env = this.configService.get('server.env');
-    this.filePaths = new FilePaths(env);
-  }
+    private filePaths: FilePaths,
+  ) {}
 
   public async deleteSimulationRunResults(runId: string): Promise<void> {
     const s3path = this.filePaths.getSimulationRunOutputArchivePath(runId);
@@ -113,19 +111,22 @@ export class SimulationStorageService {
     runId: string,
     fileLocation: string,
   ): Observable<FileInfo> {
-    // TODO get the object and URL id via shared methods
-
-    const filePath = fileLocation.replace('./', '');
-    const objectId = `simulations/${runId}/contents/${filePath}`;
-    const url = `https://storage.googleapis.com/biosimdev/${objectId}`;
+    const objectId = this.filePaths.getSimulationRunContentFilePath(
+      runId,
+      fileLocation,
+    );
+    const url = this.filePaths.getSimulationRunFileContentEndpoint(
+      runId,
+      fileLocation,
+    );
 
     const size = from(this.storage.getObjectInfo(objectId)).pipe(
-      pluck('ContentLength'),
-      map((size) => {
+      map((info) => {
+        const size = info.ContentLength;
+
         if (size) {
           return {
             size,
-            // TODO return url from WebsiteRedirectLocation field in metadata if it exists
             url,
           };
         } else {
