@@ -3,7 +3,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { CombineWrapperService } from '../combineWrapper.service';
 import { HttpService } from '@nestjs/axios';
-import { map, mergeMap, pluck } from 'rxjs';
+import { firstValueFrom, map, mergeMap, pluck } from 'rxjs';
 import {
   SedDocument,
   SedModel,
@@ -33,7 +33,6 @@ export class SedmlService {
 
   public async processSedml(id: string): Promise<void> {
     this.logger.log(`Processing SED-ML documents for simulation run '${id}'.`);
-    // get external url since combine service may not be local
     const url = this.endpoints.getRunDownloadEndpoint(false, id);
     const req = this.combine.getSedMlSpecs(undefined, url);
     const sedml = req.pipe(
@@ -45,7 +44,7 @@ export class SedmlService {
       }),
     );
 
-    await sedml.toPromise();
+    await firstValueFrom(sedml);
   }
 
   private getSpecsFromArchiveContent(

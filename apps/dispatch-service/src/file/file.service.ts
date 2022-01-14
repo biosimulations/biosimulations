@@ -76,7 +76,7 @@ export class FileService {
                 .getFileInfo(id, file.location.path)
                 .pipe(
                   map((fileInfo: FileInfo): ProjectFileInput => {
-                    // TODO do we want to throw here if we don't have a size?
+                    
                     const fileSize = fileInfo.size || 0;
                     const fileObject: ProjectFileInput = {
                       id: id + '/' + file.location.path.replace('./', ''),
