@@ -110,6 +110,7 @@ flexibile
 Fmodel
 foaf
 fontawesome
+frontend
 FSBO
 Fsubmit
 FVA
@@ -187,6 +188,7 @@ linting
 Linux
 llnl
 localhost
+localtunnel
 LSODA
 mailto
 Marupilla
