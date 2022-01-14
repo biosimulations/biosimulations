@@ -1,6 +1,9 @@
 export const SNACK_BAR_DURATION = 2000;
 
-export type ThumbnailType = 'view' | 'browse';
+export enum ThumbnailType {
+  view = 'view',
+  browse = 'browse',
+}
 export type ThumbnailWidth = {
   [key in ThumbnailType]: number;
 };
