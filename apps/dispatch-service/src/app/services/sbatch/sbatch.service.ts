@@ -12,17 +12,17 @@ import {
 @Injectable()
 export class SbatchService {
   private endpoints: Endpoints;
-  private filePaths: FilePaths;
-  private dataPaths: DataPaths;
 
-  public constructor(private configService: ConfigService) {
+  private dataPaths: DataPaths;
+  private logger = new Logger(SbatchService.name);
+  public constructor(
+    private configService: ConfigService,
+    private filePaths: FilePaths,
+  ) {
     const env = this.configService.get('server.env');
     this.endpoints = new Endpoints(env);
-    this.filePaths = new FilePaths(env);
     this.dataPaths = new DataPaths();
   }
-
-  private logger = new Logger(SbatchService.name);
 
   /** Generate a Slurm script to execute a COMBINE/OMEX archive
    * @param runId id of the simulation run

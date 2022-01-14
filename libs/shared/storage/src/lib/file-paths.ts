@@ -1,18 +1,26 @@
-// TODO This belongs in the shared storage library
+import { ThumbnailType } from '@biosimulations/config/common';
+import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 
-import { Endpoints, ThumbnailType } from '@biosimulations/config/common';
-
-import { envs } from '@biosimulations/shared/environments';
-
+@Injectable()
 export class FilePaths {
-  private endpoints: Endpoints;
   private static simulationRunsPath = 'simulations';
   private static simulationRunContentsSubpath = 'contents';
   private static simulationRunThumbnailSubpath = 'thumbnails';
   private static simulationRunOutputsSubpath = 'outputs';
+  private storageEndpoint: string;
+  private storageWebEndpoint?: string;
+  private bucket: string;
 
-  public constructor(env?: envs) {
-    this.endpoints = new Endpoints(env);
+  public constructor(private configService: ConfigService) {
+    const storageEndpoint =
+      this.configService.get('storage.endpoint') ||
+      'https://storage.googleapis.com';
+    const bucket =
+      this.configService.get('storage.bucket') || 'files.biosimulations.dev';
+    this.storageEndpoint = storageEndpoint;
+    this.bucket = bucket;
+    this.storageWebEndpoint = this.configService.get('storage.webEndpoint');
   }
 
   /**
@@ -23,16 +31,13 @@ export class FilePaths {
    * @returns A URL to download the file from within the COMBINE archive
    */
   public getSimulationRunFileContentEndpoint(
-    external: boolean,
     runId: string,
     fileLocation: string,
     thumbnailType?: ThumbnailType,
   ): string {
-    if (fileLocation.startsWith('./')) {
-      fileLocation = fileLocation.substring(2);
-    }
+    const storageEndpoint =
+      this.storageWebEndpoint || `${this.storageEndpoint}/${this.bucket}`;
 
-    const storageEndpoint = this.endpoints.getStorageEndpointBaseUrl(external);
     if (fileLocation == '.') {
       return `${storageEndpoint}/${this.getSimulationRunCombineArchivePath(
         runId,
@@ -47,18 +52,16 @@ export class FilePaths {
   }
 
   public getThumbnailEndpoint(
-    external: boolean,
     fileUrl: string,
     thumbnailType: ThumbnailType,
   ): string {
-    const storageEndpoint = this.endpoints.getStorageEndpointBaseUrl(external);
+    const storageEndpoint = this.storageWebEndpoint || this.storageEndpoint;
     const runIdFileTypeLocation = fileUrl
       .substring(storageEndpoint.length + 1)
       .split('/');
     const runId = runIdFileTypeLocation[1];
     const fileLocation = runIdFileTypeLocation.slice(3).join('/');
     return this.getSimulationRunFileContentEndpoint(
-      true,
       runId,
       fileLocation,
       thumbnailType,
@@ -68,6 +71,7 @@ export class FilePaths {
   /**
    * Create a path a simulation run in an S3 bucket
    * @param runId Id of the simulation run
+   * @param subPath Path relative to the root path for a simulation run
    */
   public getSimulationRunPath(runId: string, subPath?: string): string {
     subPath = subPath !== undefined ? `/${subPath}` : '';
@@ -92,6 +96,9 @@ export class FilePaths {
     fileLocation?: string,
     thumbnailType?: ThumbnailType,
   ): string {
+    if (fileLocation?.startsWith('./')) {
+      fileLocation = fileLocation.substring(2);
+    }
     const dirPath = thumbnailType
       ? FilePaths.simulationRunThumbnailSubpath + '/' + thumbnailType
       : FilePaths.simulationRunContentsSubpath;
