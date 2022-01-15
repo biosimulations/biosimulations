@@ -198,3 +198,4 @@ The BioSimulators platform supports a broad range of modeling frameworks, model 
 </a>
 </div>
 </div>
+--8<-- "glossary.md"

@@ -151,3 +151,5 @@ Below are helpful tools for implementing command-line applications and Python AP
 - [libOmexMeta](https://github.com/sys-bio/libOmexMeta) is a library for reading and querying OMEX Metadata files. libOmexMeta provides bindings for several languages.
 - [argparse](https://docs.python.org/3/library/argparse.html) is a Python module for implementing command-line applications.
 - [Cement](https://builtoncement.com/) is a higher-level Python library for implementing more complex command-line applications.
+
+--8<-- "glossary.md"

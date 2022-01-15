@@ -100,3 +100,6 @@ Each time the repository is tagged (`git tag ...; git push --tags`), the workflo
 1. Builds the simulator and submits it to a software repository such as PyPI.
 1. Pushes the Docker image to the GitHub Container Registry with the above tags.
 1. Pushes the simulator to the BioSimulators Registry, via the GitHub API, to create an issue for adding a new version of the simulator to the BioSimulators database. This issue will then automatically use the BioSimulators test suite to validate the simulator and add a new version of the simulator to the database once the simulator passes the test suite.
+
+
+--8<-- "glossary.md"

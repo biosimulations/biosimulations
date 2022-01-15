@@ -186,3 +186,5 @@ vega-converters.md
 --8<--
 vega-resources.md
 --8<--
+
+--8<-- "glossary.md"

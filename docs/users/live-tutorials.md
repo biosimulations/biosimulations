@@ -15,3 +15,6 @@ Video of the tutorial on runBioSimulations is available [here](https://www.youtu
 The tutorial on runBioSimulations and BioSimulators is available from the links below:
 * [Video](https://www.youtube.com/watch?v=h0SCn0ZDqq8)
 * [Slides](https://drive.google.com/file/d/1Q0X6GNQlT5PfZOcBNVu1B92SSAxJWrnS/view?usp=sharing)
+
+
+--8<-- "glossary.md"

@@ -21,3 +21,6 @@ Links to detailed examples and documentation for the REST APIs is available [her
 
 ## Documentation for the BioSimulators simulation tools and core packages
 Links to detailed documentation each simulation tool and the core BioSimulators packages are available [here](./biosimulators-packages.md).
+
+
+--8<-- "glossary.md"

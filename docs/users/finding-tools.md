@@ -165,3 +165,5 @@ Alternatively, runBioSimulations provides a [utility](https://run.biosimulations
 An API is available for retrieving information about the simulation tools in the BioSimulators collection. Please see the [documentation](https://api.biosimulators.org/) for the REST API for more information.
 
 An interactive tutorial for using the API is available from [Binder](https://tutorial.biosimulators.org/).
+
+--8<-- "glossary.md"

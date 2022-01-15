@@ -120,3 +120,5 @@ Below are helpful tools for implementing the execution of simulation experiments
 - [libSED-ML](https://github.com/fbergmann/libSEDML) is a library for serializing and deserializing SED-ML documents to and from XML files. libSED-ML provides bindings for several languages.
 
 - [jlibSED-ML](https://sourceforge.net/projects/jlibsedml/) is a Java library for serializing and deserializing SED-ML documents to and from XML files. The library also provides methods for resolving models, working with XPath targets for model elements, applying model changes, orchestrating the execution of tasks, calculating the values of data generators, and logging the execution of simulations. Note, jLibSED-ML support SED-ML <= L1V2 and diverges from some of the conventions described here.
+
+--8<-- "glossary.md"
