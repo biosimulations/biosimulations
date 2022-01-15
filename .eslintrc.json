@@ -49,34 +49,7 @@
                 "sourceTag": "scope:shared",
                 "onlyDependOnLibsWithTags": ["scope:shared", "scope:config"]
               },
-              
-              {
-                "sourceTag": "scope:config",
-                "onlyDependOnLibsWithTags": [
-                  "scope:config",
-                  "type:environments"
-                ]
-              },
-              {
-                "sourceTag": "scope:auth",
-                "onlyDependOnLibsWithTags": ["scope:auth", "scope:config", "scope:shared", "type:environments"]
-              },
-              {
-                "sourceTag": "scope:accounts",
-                "onlyDependOnLibsWithTags": [
-                  "scope:accounts",
-                  "scope:shared",
-                  "shared:true"
-                ]
-              },
-              {
-                "sourceTag": "scope:messages",
-                "onlyDependOnLibsWithTags": [
-                  "scope:messages",
-                  "scope:shared",
-                  "shared:true"
-                ]
-              },
+
               {
                 "sourceTag": "*",
                 "onlyDependOnLibsWithTags": ["*"]

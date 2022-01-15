@@ -39,7 +39,7 @@ describe('Endpoints', () => {
     expect(endpoints.getApiBaseUrl(false)).toBe('api');
     expect(endpoints.getSimulatorsApiBaseUrl(false)).toBe('simulatorsApi');
     expect(endpoints.getCombineApiBaseUrl(false)).toBe('combineApi');
-    expect(endpoints.getStorageEndpointBaseUrl(false)).toBe('storage');
+
     expect(endpoints.getDataServiceBaseUrl(false)).toBe('dataService');
   });
 
@@ -49,7 +49,7 @@ describe('Endpoints', () => {
       'externalSimulatorsApi',
     );
     expect(endpoints.getCombineApiBaseUrl(true)).toBe('externalCombineApi');
-    expect(endpoints.getStorageEndpointBaseUrl(true)).toBe('externalStorage');
+
     expect(endpoints.getDataServiceBaseUrl(true)).toBe('externalDataService');
   });
 

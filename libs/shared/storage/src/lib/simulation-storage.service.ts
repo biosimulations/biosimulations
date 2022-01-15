@@ -7,7 +7,7 @@ import {
 import S3 from 'aws-sdk/clients/s3';
 import * as AWS from 'aws-sdk';
 import { SharedStorageService } from './shared-storage.service';
-import { ThumbnailType, THUMBNAIL_WIDTH } from '@biosimulations/config/common';
+import { ThumbnailType, THUMBNAIL_WIDTH } from '@biosimulations/datamodel/common';
 import { ConfigService } from '@nestjs/config';
 import { Readable } from 'stream';
 
