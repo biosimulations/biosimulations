@@ -62,9 +62,9 @@ import {
 import {
   Endpoints,
   AppRoutes,
-  ResourceIdentifiers,
-  ThumbnailType,
+  ResourceIdentifiers,  
 } from '@biosimulations/config/common';
+import { ThumbnailType } from '@biosimulations/datamodel/common';
 
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 import { environment } from '@biosimulations/shared/environments';

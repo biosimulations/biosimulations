@@ -20,3 +20,4 @@ export * from './error';
 export * from './meta';
 export * from './console-formatting';
 export * from './validation-report';
+export * from './thumbnail';

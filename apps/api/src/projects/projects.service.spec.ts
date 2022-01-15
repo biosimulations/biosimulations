@@ -24,6 +24,7 @@ import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 import {
   SharedStorageService,
   SimulationStorageService,
+  FilePaths,
 } from '@biosimulations/shared/storage';
 
 import { OntologyApiService } from '@biosimulations/ontology/api';
@@ -106,6 +107,7 @@ describe('ProjectsService', () => {
         MetadataService,
         OntologyApiService,
         { provide: AccountManagementService, useValue: {} },
+        { provide: Filepaths, useValue: {} },
       ],
     }).compile();
 

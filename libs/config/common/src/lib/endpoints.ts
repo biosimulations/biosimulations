@@ -1,5 +1,5 @@
 import { environment, envs } from '@biosimulations/shared/environments';
-import { ThumbnailType } from './ui';
+import { ThumbnailType } from '@biosimulations/datamodel/common';
 import { EndpointLoader, LoadedEndpoints } from './endpointLoader';
 
 /**

@@ -9,7 +9,8 @@ import { FormattedProjectSummary, LocationPredecessor } from './browse.model';
 import { ProjectService } from '@biosimulations/angular-api-client';
 import { BiosimulationsError } from '@biosimulations/shared/error-handler';
 import { HttpStatusCode } from '@angular/common/http';
-import { Endpoints, ThumbnailType } from '@biosimulations/config/common';
+import { Endpoints } from '@biosimulations/config/common';
+import { ThumbnailType } from '@biosimulations/datamodel/common';
 @Injectable({
   providedIn: 'root',
 })
