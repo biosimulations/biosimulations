@@ -1709,3 +1709,4 @@ As an example, below is the specification for [tellurium](https://biosimulators.
   }
 }
 ```
+--8<-- "glossary.md"

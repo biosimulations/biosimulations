@@ -91,3 +91,5 @@ BioSimulations uses COMBINE/OMEX archives to bundle the multiple files typically
 - Visualizations for visualizing simulation results (e.g., Vega files)
 - Supplementary files, such as data used to calibrate the model
 - Metadata about the simulation project (RDF-XML files that follow the OMEX Metadata guidelines)
+
+--8<-- "glossary.md"

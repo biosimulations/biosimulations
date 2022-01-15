@@ -77,3 +77,6 @@ In addition to projects contributed by investigators, BioSimulations also contai
     </a>
 </div>
 </div>
+
+
+--8<-- "glossary.md"

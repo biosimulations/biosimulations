@@ -312,3 +312,4 @@ As an example, below is a representation of metadata for the [Ciliberto 2003 mod
   </rdf:Description>
 </rdf:RDF>
 ```
+--8<-- "glossary.md"

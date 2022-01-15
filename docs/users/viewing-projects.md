@@ -133,3 +133,6 @@ BioSimulations provides basic capabilities for reproducing and reusing a wide ra
     </a>
 </div>
 </div>
+
+
+--8<-- "glossary.md"

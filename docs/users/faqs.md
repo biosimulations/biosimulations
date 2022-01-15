@@ -647,3 +647,5 @@ Organizations are groups of users and/or machine accounts. Currently, organizati
 **How does runBioSimulations store a list of my simulations without user accounts?**
 
 The list of your simulations is stored in your local browser. Unless you provided your email address, the runRioSimulations server does not know which simulations you submitted. As a result, if your clear your browser's cache, you will lose the list of your simulations, and it will not be possible to recover this list.
+
+--8<-- "glossary.md"

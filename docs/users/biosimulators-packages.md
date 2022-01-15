@@ -48,3 +48,5 @@ BioSimulators-utils provides (a) several utility command-line programs and a Pyt
 
 ## Test suite for test simulation tools
 A tutorial and documentation for the BioSimulators test suite for simulation tools is available [here](https://docs.biosimulators.org/Biosimulators_test_suite/).
+
+--8<-- "glossary.md"

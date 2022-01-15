@@ -11,3 +11,5 @@ A portion of BioSimulations is derived from several primary model repositories t
 | [Physiome](https://models.physiomeproject.org/)                  | Physiology                | Continuous kinetic | CellML         | OpenCOR and others |                                                               |
 | [RBA models](https://github.com/SysBioInra/Bacterial-RBA-models) | Resource allocation       | Resource balance   | RBA XML        | RBAPy              |                                                               |
 | [Rule Hub](https://github.com/RuleWorld/RuleHub)                 | Rule-based models         | Discrete kinetic   | BNGL           | BioNetGen          |                                                               |
+
+--8<-- "glossary.md"

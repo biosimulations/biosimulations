@@ -138,3 +138,5 @@ The `ghcr.io/biosimulators/biosimulators` Docker image contains most of the avai
 docker pull ghcr.io/biosimulators/biosimulators
 docker run -it --rm ghcr.io/biosimulators/biosimulators
 ```
+
+--8<-- "glossary.md"

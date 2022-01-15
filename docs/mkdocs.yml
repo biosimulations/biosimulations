@@ -29,6 +29,7 @@ theme:
     - navigation.top
     - search.suggest
 markdown_extensions:
+  - abbr
   - pymdownx.snippets:
       base_path:
         - snippets

@@ -98,3 +98,4 @@ RUN pip install /root/Biosimulators_tellurium
 ENTRYPOINT ["tellurium"]
 CMD []
 ```
+--8<-- "glossary.md"

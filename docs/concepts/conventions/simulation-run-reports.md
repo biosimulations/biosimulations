@@ -81,3 +81,5 @@ Below are helpful tools for building reports of simulation results:
 - [BioSimulators utils](https://docs.biosimulators.org/Biosimulators_utils/) is a Python library which provides functions for generating reports to the above specifications.
 - [h5py](https://www.h5py.org/)  is a high-level Python library for reading and writing HDF5 files.
 - [HDF5 libraries](https://www.hdfgroup.org/downloads/hdf5) for C, C++, and Java.
+
+--8<-- "glossary.md"

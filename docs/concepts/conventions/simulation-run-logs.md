@@ -318,3 +318,5 @@ Below are helpful tools for building logs of the execution of COMBINE/OMEX archi
 
 - [BioSimulators utils](https://docs.biosimulators.org/Biosimulators_utils/) is a Python library which provides functions for generating reports to the above specifications.
 - [capturer](https://pypi.org/project/capturer/) is a Python library for capturing standard output and standard error streams.
+
+--8<-- "glossary.md"

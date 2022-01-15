@@ -8,3 +8,5 @@ BioSimulations provides a tool for validating the contents of a COMBINE/OMEX arc
     This application can only validate targets for simulation observables for unchanged models. Targets for modified models cannot be validated statically, independently from executing the associated SED-ML document. Simulation tools validate such targets when they execute their parent SED-ML document. For the same reason, this application cannot validate targets for model changes. Simulation tools validate such model change targets during their execution.
 
 This validation can also be accessed programmatically from the [BioSimulations API](https://combine.api.biosimulations.org).
+
+--8<-- "glossary.md"

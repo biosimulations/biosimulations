@@ -25,3 +25,4 @@ These conventions encompass multiple formats and guidelines:
     - The standard output/error produced by the execution of the project and each SED-ML document, task, and output.
     - The reason why each SED-ML document, task or output could not be executed.
      
+--8<-- "glossary.md"
