@@ -1,12 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { SbatchService } from './sbatch.service';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
+import { FilePaths } from '@biosimulations/shared/storage';
 describe('SbatchService', () => {
   let service: SbatchService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [SbatchService],
+      providers: [SbatchService, { provide: FilePaths, useValue: {} }],
       imports: [BiosimulationsConfigModule],
     }).compile();
 
