@@ -3,7 +3,7 @@ import {
   InternalServerErrorException,
   Logger,
 } from '@nestjs/common';
-import { FileService } from '../file/file.service';
+
 import {
   THUMBNAIL_WIDTH,
   ThumbnailType,
@@ -16,13 +16,14 @@ import { CombineArchiveManifestContent } from '@biosimulations/combine-api-nest-
 import { SimulationStorageService } from '@biosimulations/shared/storage';
 import { firstValueFrom, from, map, mergeMap, Observable } from 'rxjs';
 import { SimulationRunService } from '@biosimulations/api-nest-client';
+import { ManifestService } from '../manifest/manifest.service';
 
 @Injectable()
 export class ThumbnailService {
   private logger = new Logger(ThumbnailService.name);
 
   public constructor(
-    private fileService: FileService,
+    private manifestService: ManifestService,
     private storage: SimulationStorageService,
     private submit: SimulationRunService,
   ) {}
@@ -33,7 +34,7 @@ export class ThumbnailService {
     runId: string,
     fileProcessingResults: Promise<void>,
   ): Promise<void> {
-    const manifestContent = this.fileService.getManifestContent(runId);
+    const manifestContent = this.manifestService.getManifestContent(runId);
 
     const errors = (
       await firstValueFrom(
