@@ -1,9 +1,17 @@
+import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
+import { Test, TestingModule } from '@nestjs/testing';
+import { ConfigService } from 'aws-sdk';
 import { FilePaths } from './file-paths';
+
 describe('FilePaths', () => {
   let filePaths: FilePaths;
 
-  beforeAll(() => {
-    filePaths = new FilePaths('prod');
+  beforeAll(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      imports: [BiosimulationsConfigModule],
+      providers: [FilePaths, ConfigService],
+    }).compile();
+    filePaths = module.get<FilePaths>(FilePaths);
   });
 
   it('Should be created', () => {
@@ -11,10 +19,8 @@ describe('FilePaths', () => {
   });
 
   it('Should return correct S3 URL', () => {
-    expect(
-      filePaths.getSimulationRunFileContentEndpoint(false, 'x', 'file.txt'),
-    ).toBe(
-      'https://files.biosimulations.org/s3/simulations/x/contents/file.txt',
+    expect(filePaths.getSimulationRunFileContentEndpoint('x', 'file.txt')).toBe(
+      'https://storage.googleapis.com/files.biosimulations.dev/simulations/x/contents/file.txt',
     );
   });
 

@@ -39,17 +39,14 @@ import { FileModel } from './files.model';
 import { FilesService } from './files.service';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 import { scopes } from '@biosimulations/auth/common';
-import { FilePaths } from '@biosimulations/shared/storage';
+
 import { Thumbnail } from '@biosimulations/datamodel/common';
 
 @ApiTags('Files')
 @Controller('files')
 export class FilesController {
   private logger = new Logger(FilesController.name);
-  public constructor(
-    private service: FilesService,
-    private filePaths: FilePaths,
-  ) {}
+  public constructor(private service: FilesService) {}
 
   /*
   @Get()
