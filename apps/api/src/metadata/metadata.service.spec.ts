@@ -1,4 +1,5 @@
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
+import { FilePaths } from '@biosimulations/shared/storage';
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { SimulationRunModel } from '../simulation-run/simulation-run.model';
@@ -22,6 +23,7 @@ describe('MetadataService', () => {
           provide: getModelToken(SimulationRunModel.name),
           useClass: MockModel,
         },
+        { provide: FilePaths, useValue: {} },
       ],
     }).compile();
 

@@ -107,7 +107,7 @@ describe('ProjectsService', () => {
         MetadataService,
         OntologyApiService,
         { provide: AccountManagementService, useValue: {} },
-        { provide: Filepaths, useValue: {} },
+        { provide: FilePaths, useValue: {} },
       ],
     }).compile();
 
