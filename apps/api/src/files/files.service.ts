@@ -1,4 +1,7 @@
-import { ProjectFileInput } from '@biosimulations/datamodel/api';
+import {
+  ProjectFileInput,
+  ProjectFileThumbnailInput,
+} from '@biosimulations/datamodel/api';
 import {
   Injectable,
   NotFoundException,
@@ -28,6 +31,21 @@ export class FilesService {
     this.endpoints = new Endpoints(env);
   }
 
+  public async addThumbnailUrls(
+    runId: string,
+    fileLocation: string,
+    thumbnailUrls: ProjectFileThumbnailInput,
+  ): Promise<void> {
+    const file = await this.model.findOne({
+      simulationRun: runId,
+      location: fileLocation,
+    });
+    if (!file) {
+      throw new NotFoundException('File not found');
+    }
+    file.thumbnailUrls = thumbnailUrls;
+    await file.save();
+  }
   public async getSimulationRunFiles(runId: string): Promise<FileModel[]> {
     return this.model.find({ simulationRun: runId }).exec();
   }

@@ -1,4 +1,4 @@
-import { ThumbnailType } from '@biosimulations/config/common';
+import { Thumbnail, ThumbnailType } from '@biosimulations/datamodel/common';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
@@ -33,7 +33,7 @@ export class FilePaths {
   public getSimulationRunFileContentEndpoint(
     runId: string,
     fileLocation: string,
-    thumbnailType?: ThumbnailType,
+    thumbnailType?: Thumbnail,
   ): string {
     const storageEndpoint =
       this.storageWebEndpoint || `${this.storageEndpoint}/${this.bucket}`;
@@ -53,7 +53,7 @@ export class FilePaths {
 
   public getThumbnailEndpoint(
     fileUrl: string,
-    thumbnailType: ThumbnailType,
+    thumbnailType: Thumbnail,
   ): string {
     const storageEndpoint = this.storageWebEndpoint || this.storageEndpoint;
     const runIdFileTypeLocation = fileUrl

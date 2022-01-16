@@ -2,6 +2,7 @@ import { permissions } from '@biosimulations/auth/nest';
 import {
   ProjectFile,
   ProjectFileInputsContainer,
+  ProjectFileThumbnailInput,
 } from '@biosimulations/datamodel/api';
 
 import {
@@ -16,6 +17,7 @@ import {
   HttpStatus,
   Redirect,
   Query,
+  Put,
   // Delete,
 } from '@nestjs/common';
 import {
@@ -37,8 +39,8 @@ import { FileModel } from './files.model';
 import { FilesService } from './files.service';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 import { scopes } from '@biosimulations/auth/common';
-import { ThumbnailType } from '@biosimulations/config/common';
 import { FilePaths } from '@biosimulations/shared/storage';
+import { Thumbnail } from '@biosimulations/datamodel/common';
 
 @ApiTags('Files')
 @Controller('files')
@@ -136,6 +138,32 @@ export class FilesController {
     return this.createReturnFile(file);
   }
 
+  @Put(':runId/:fileLocation/thumbnail')
+  @ApiOperation({
+    summary: 'Set the thumbnail for a file',
+    description:
+      'Set resized thumbnails for a file location in the COMBINE/OMEX archive of a simulation run',
+  })
+  @ApiBody({
+    description: 'URLs of thumbnails of a file',
+    type: ProjectFileThumbnailInput,
+  })
+  @ApiCreatedResponse({
+    description: 'URLs were successfully saved',
+  })
+  @ApiNotFoundResponse({
+    type: ErrorResponseDocument,
+    description: 'No file has the requested run id and file location',
+  })
+  @HttpCode(HttpStatus.CREATED)
+  public async addThumbnailUrls(
+    @Param('runId') runId: string,
+    @Param('fileLocation') fileLocation: string,
+    @Body() thumbnailUrls: ProjectFileThumbnailInput,
+  ): Promise<void> {
+    return this.service.addThumbnailUrls(runId, fileLocation, thumbnailUrls);
+  }
+
   @Get(':runId/:fileLocation/download')
   @ApiOperation({
     summary: 'Download a file',
@@ -159,13 +187,13 @@ export class FilesController {
     name: 'thumbnail',
     description: 'The resized thumbnail version of the file to download',
     required: false,
-    enum: ThumbnailType,
+    enum: Thumbnail,
   })
   @Redirect()
   public async downloadFile(
     @Param('runId') runId: string,
     @Param('fileLocation') fileLocation: string,
-    @Query('thumbnail') thumbnail?: ThumbnailType,
+    @Query('thumbnail') thumbnail?: Thumbnail,
   ): Promise<{
     url: string;
     statusCode: number;
@@ -178,18 +206,15 @@ export class FilesController {
     }
 
     const url = file.url;
-    if (thumbnail) {
+    const thumbnailUrl = thumbnail ? file.thumbnailUrls[thumbnail] : undefined;
+
+    if (thumbnail && thumbnailUrl) {
       return {
-        url: this.filePaths.getSimulationRunFileContentEndpoint(
-          runId,
-          fileLocation,
-          thumbnail,
-        ),
+        url: thumbnailUrl,
         statusCode: HttpStatus.MOVED_PERMANENTLY,
       };
     }
-    // use moved permanently to help with caching
-    // TODO do we want to generate the filepaths instead of having the dispatch-service save url to database?
+
     return {
       url: url,
       statusCode: HttpStatus.MOVED_PERMANENTLY,

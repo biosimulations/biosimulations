@@ -12,7 +12,7 @@ import {
   pluck,
   throwError,
 } from 'rxjs';
-import { catchError, shareReplay } from 'rxjs/operators';
+import { catchError, shareReplay, tap } from 'rxjs/operators';
 import { CombineArchiveManifestContent } from '@biosimulations/combine-api-nest-client';
 import { ProjectFileInput } from '@biosimulations/datamodel/api';
 import { SimulationRunService } from '@biosimulations/api-nest-client';
@@ -21,12 +21,6 @@ import {
   SimulationStorageService,
   FileInfo,
 } from '@biosimulations/shared/storage';
-
-interface ThumbnailSettledResult {
-  thumbnail: string;
-  success: boolean;
-  error?: any;
-}
 
 @Injectable()
 export class FileService {
@@ -76,7 +70,6 @@ export class FileService {
                 .getFileInfo(id, file.location.path)
                 .pipe(
                   map((fileInfo: FileInfo): ProjectFileInput => {
-                    
                     const fileSize = fileInfo.size || 0;
                     const fileObject: ProjectFileInput = {
                       id: id + '/' + file.location.path.replace('./', ''),
@@ -112,9 +105,8 @@ export class FileService {
           );
         }),
         mergeMap((files) => files),
+        tap((_) => this.logger.log(`Posted files for simulation run '${id}'.`)),
       ),
     );
-
-    return;
   }
 }

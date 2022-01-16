@@ -1,17 +1,33 @@
-import { ObjectIdValidator } from '@biosimulations/datamodel-database';
+import { isUrl, ObjectIdValidator } from '@biosimulations/datamodel-database';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as SchemaType, Types } from 'mongoose';
 import { SimulationRunModel } from '../simulation-run/simulation-run.model';
-import { File } from '@biosimulations/datamodel/common';
+import { File, ThumbnailUrls } from '@biosimulations/datamodel/common';
+
+@Schema({
+  storeSubdocValidationError: false,
+  strict: 'throw',
+  _id: false,
+  id: false,
+})
+class FileThumbnailUrlModel extends Document implements ThumbnailUrls {
+  @Prop({
+    required: false,
+    validate: [isUrl],
+  })
+  public view?: string;
+
+  @Prop({})
+  public browse?: string;
+}
+export const FileThumbnailUrlSchema: SchemaType<FileThumbnailUrlModel> =
+  SchemaFactory.createForClass(FileThumbnailUrlModel);
 @Schema({
   storeSubdocValidationError: false,
   collection: 'Files',
   strict: 'throw',
 })
 export class FileModel extends Document implements File {
-  public created!: Date;
-  public updated!: Date;
-
   @Prop({
     required: true,
     unique: true,
@@ -47,6 +63,15 @@ export class FileModel extends Document implements File {
 
   @Prop({})
   public location!: string;
+
+  @Prop({
+    type: FileThumbnailUrlSchema,
+  })
+  public thumbnailUrls!: ThumbnailUrls;
+
+  public created!: Date;
+  public updated!: Date;
+
   public constructor(
     id: string,
     name: string,
@@ -64,6 +89,10 @@ export class FileModel extends Document implements File {
     this.master = master;
     this.simulationRun = simulationRun;
     this.size = size;
+    this.thumbnailUrls = {
+      browse: undefined,
+      view: undefined,
+    };
   }
 }
 

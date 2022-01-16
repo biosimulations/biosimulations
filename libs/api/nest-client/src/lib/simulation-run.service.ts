@@ -1,4 +1,7 @@
-import { CombineArchiveLog } from '@biosimulations/datamodel/common';
+import {
+  CombineArchiveLog,
+  ThumbnailUrls,
+} from '@biosimulations/datamodel/common';
 import { SimulationRun } from '@biosimulations/datamodel/api';
 import { Injectable, Logger, HttpStatus } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
@@ -87,6 +90,24 @@ export class SimulationRunService {
           body,
         );
       }),
+    );
+  }
+
+  public putFileThumbnailUrls(
+    runId: string,
+    fileId: string,
+    thumbnailUrls: ThumbnailUrls,
+  ): Observable<void> {
+    this.logger.log(`Uploading thumbnailUrls for file ${runId}/${fileId}`);
+    const endpoint = `
+      ${this.endpoints.getSimulationRunFilesEndpoint(
+        false,
+        runId,
+      )}/${fileId}/thumbnail`;
+    return this.putAuthenticated<ThumbnailUrls, void>(
+      runId,
+      endpoint,
+      thumbnailUrls,
     );
   }
 
@@ -285,7 +306,7 @@ export class SimulationRunService {
                 const name = err.name;
                 const message = err.message;
                 this.logger.error(
-                  `${name} ${message} for put operation on path ${url} for simulation run ${runId}`,
+                  `${name} ${message} for PUT operation on path ${url} for simulation run ${runId}`,
                 );
               } else {
                 this.logger.error(

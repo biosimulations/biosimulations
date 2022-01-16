@@ -11,7 +11,7 @@ import {
 } from 'class-validator';
 import { IsUrl } from '@biosimulations/datamodel/utils';
 import { Type } from 'class-transformer';
-
+import { ThumbnailUrls } from '@biosimulations/datamodel/common';
 export class ProjectFileInput {
   @ApiProperty({
     type: String,
@@ -78,10 +78,30 @@ export class ProjectFileInput {
   public location!: string;
 }
 
-export class ProjectFile extends ProjectFileInput implements IFile {
-  public _id!: never;
-  public _v!: never;
+export class ProjectFileThumbnailInput implements ThumbnailUrls {
+  @ApiProperty({
+    description: 'URL where the view thumbnail can be retrieved',
+    type: String,
+  })
+  @IsUrl({
+    require_protocol: true,
+    // Must be https to avoid mixed content errors
+    protocols: ['https'],
+  })
+  public view?: string;
 
+  @ApiProperty({
+    description: 'URL where the view thumbnail can be retrieved',
+    type: String,
+  })
+  @IsUrl({
+    require_protocol: true,
+    // Must be https to avoid mixed content errors
+    protocols: ['https'],
+  })
+  public browse?: string;
+}
+export class ProjectFile extends ProjectFileInput implements IFile {
   @ApiProperty({
     description: 'Id of the associated simulation run',
     type: String,
@@ -104,6 +124,11 @@ export class ProjectFile extends ProjectFileInput implements IFile {
     // description: 'Timestamp when the file was last updated',
   })
   public updated!: string;
+
+  // Dont want to expose these fields in the API
+  public _id!: never;
+  public _v!: never;
+  public thumbnailUrls!: never;
 
   public constructor(
     id: string,
@@ -134,5 +159,5 @@ export class ProjectFile extends ProjectFileInput implements IFile {
 export class ProjectFileInputsContainer {
   @ValidateNested({ each: true })
   @Type(() => ProjectFileInput)
-  files!: ProjectFileInput[];
+  public files!: ProjectFileInput[];
 }
