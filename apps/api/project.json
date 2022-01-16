@@ -11,11 +11,13 @@
         "outputPath": "dist/apps/api",
         "main": "apps/api/src/main.ts",
         "tsConfig": "apps/api/tsconfig.app.json",
-        "assets": ["apps/api/src/assets"]
+        "assets": [
+          "apps/api/src/assets"
+        ]
       },
       "configurations": {
         "production": {
-          "optimization": true,
+          "optimization": false,
           "extractLicenses": true,
           "inspect": false,
           "fileReplacements": [
@@ -38,7 +40,9 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["apps/api/**/*.ts"]
+        "lintFilePatterns": [
+          "apps/api/**/*.ts"
+        ]
       }
     },
     "test": {
@@ -53,7 +57,9 @@
       "options": {
         "file": "./Dockerfile",
         "push": true,
-        "build-args": ["app=api"],
+        "build-args": [
+          "app=api"
+        ],
         "cache-from": [
           "type=registry,ref=ghcr.io/biosimulations/api:buildcache"
         ],
@@ -62,7 +68,9 @@
         ],
         "metadata": {
           "enabled": true,
-          "images": ["ghcr.io/biosimulations/api"],
+          "images": [
+            "ghcr.io/biosimulations/api"
+          ],
           "labels": [
             "org.opencontainers.image.title=BioSimulations API",
             "org.opencontainers.image.description=Docker image for the BioSimulations API",
@@ -85,6 +93,12 @@
       }
     }
   },
-  "tags": ["scope:dispatch", "type:api", "platform:server"],
-  "implicitDependencies": ["hdf5-api-client"]
+  "tags": [
+    "scope:dispatch",
+    "type:api",
+    "platform:server"
+  ],
+  "implicitDependencies": [
+    "hdf5-api-client"
+  ]
 }
