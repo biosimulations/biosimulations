@@ -1,5 +1,5 @@
 import { environment, envs } from '@biosimulations/shared/environments';
-import { ThumbnailType } from '@biosimulations/datamodel/common';
+import { Thumbnail } from '@biosimulations/datamodel/common';
 import { EndpointLoader, LoadedEndpoints } from './endpointLoader';
 
 /**
@@ -135,7 +135,7 @@ export class Endpoints {
     external: boolean,
     runId?: string,
     fileLocation?: string,
-    thumbnail?: ThumbnailType,
+    thumbnail?: Thumbnail,
   ): string {
     const thumbnailQuery = thumbnail ? `?thumbnail=${thumbnail}` : '';
 

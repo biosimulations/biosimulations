@@ -62,9 +62,9 @@ import {
 import {
   Endpoints,
   AppRoutes,
-  ResourceIdentifiers,  
+  ResourceIdentifiers,
 } from '@biosimulations/config/common';
-import { ThumbnailType } from '@biosimulations/datamodel/common';
+import { Thumbnail } from '@biosimulations/datamodel/common';
 
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 import { environment } from '@biosimulations/shared/environments';
@@ -156,13 +156,17 @@ export class ViewService {
   private formatCreators(creator: LabeledIdentifier): Creator {
     let icon = 'link';
     if (creator.uri) {
-      if (creator.uri.match(
-        /^https?:\/\/(wwww\.)?(identifiers\.org\/orcid[:/]|orcid\.org\/)/i
-      )) {
+      if (
+        creator.uri.match(
+          /^https?:\/\/(wwww\.)?(identifiers\.org\/orcid[:/]|orcid\.org\/)/i,
+        )
+      ) {
         icon = 'orcid';
-      } else if (creator.uri.match(
-        /^https?:\/\/(wwww\.)?(identifiers\.org\/github[:/]|github\.com\/)/i
-      )) {
+      } else if (
+        creator.uri.match(
+          /^https?:\/\/(wwww\.)?(identifiers\.org\/github[:/]|github\.com\/)/i,
+        )
+      ) {
         icon = 'github';
       } else if (creator.uri.match(/^https?:\/\/(wwww\.)?(linkedin\.com\/)/i)) {
         icon = 'linkedin';
@@ -189,16 +193,17 @@ export class ViewService {
   ): ProjectMetadata {
     const thumbnails = (metadata?.thumbnails || []).map(
       (thumbnail: string): string =>
-      // handle cases where thumbnail is provided as url and relative path 
-      thumbnail.startsWith("http")? thumbnail:
-        this.endpoints.getSimulationRunFilesDownloadEndpoint(
-          false,
-          runId,
-          thumbnail,
-          ThumbnailType.view,
-        ),
+        // handle cases where thumbnail is provided as url and relative path
+        thumbnail.startsWith('http')
+          ? thumbnail
+          : this.endpoints.getSimulationRunFilesDownloadEndpoint(
+              false,
+              runId,
+              thumbnail,
+              Thumbnail.view,
+            ),
     );
-      
+
     // Check for undefined metadata for all fields
     const formattedMetadata: ProjectMetadata = {
       thumbnails: thumbnails,
