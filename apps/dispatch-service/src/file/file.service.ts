@@ -9,10 +9,9 @@ import {
   map,
   mergeMap,
   Observable,
-  pluck,
   throwError,
 } from 'rxjs';
-import { catchError, shareReplay, tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { CombineArchiveManifestContent } from '@biosimulations/combine-api-nest-client';
 import { ProjectFileInput } from '@biosimulations/datamodel/api';
 import { SimulationRunService } from '@biosimulations/api-nest-client';
@@ -21,6 +20,7 @@ import {
   SimulationStorageService,
   FileInfo,
 } from '@biosimulations/shared/storage';
+import { ManifestService } from '../manifest/manifest.service';
 
 @Injectable()
 export class FileService {
@@ -30,7 +30,7 @@ export class FileService {
   public constructor(
     private config: ConfigService,
     private combine: CombineWrapperService,
-
+    private manifest: ManifestService,
     private submit: SimulationRunService,
     private storage: SimulationStorageService,
   ) {
@@ -38,24 +38,10 @@ export class FileService {
     this.endpoints = new Endpoints(env);
   }
 
-  public getManifestContent(
-    id: string,
-  ): Observable<CombineArchiveManifestContent[]> {
-    // This needs to be true so combine api can access if we are running locally /on kubernetes
-    const url = this.endpoints.getRunDownloadEndpoint(true, id);
-    this.logger.debug(`Downloading files from ${url}`);
-    // get manifest
-    const manifestContent = this.combine
-      .getManifest(undefined, url)
-      .pipe(pluck('data'), pluck('contents'), shareReplay(1));
-
-    return manifestContent;
-  }
-
   public async processFiles(id: string): Promise<void> {
     this.logger.log(`Processing files for simulation run '${id}'.`);
     //get manifest
-    const manifestContent = this.getManifestContent(id);
+    const manifestContent = this.manifest.getManifestContent(id);
     // save manifest
     await firstValueFrom(
       manifestContent.pipe(

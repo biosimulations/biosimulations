@@ -4,6 +4,7 @@ import { SshService } from '../ssh/ssh.service';
 import { ConfigService } from '@nestjs/config';
 import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
 import { SbatchService } from '../sbatch/sbatch.service';
+import { FilePaths } from '@biosimulations/shared/storage';
 
 describe('HpcService', () => {
   let service: HpcService;
@@ -11,7 +12,13 @@ describe('HpcService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [SharedNatsClientModule],
-      providers: [HpcService, SshService, ConfigService, SbatchService],
+      providers: [
+        HpcService,
+        SshService,
+        ConfigService,
+        SbatchService,
+        { provide: FilePaths, useValue: {} },
+      ],
     }).compile();
 
     service = module.get<HpcService>(HpcService);

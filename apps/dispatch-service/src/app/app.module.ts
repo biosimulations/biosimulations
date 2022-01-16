@@ -34,6 +34,7 @@ import { ProjectService } from '@biosimulations/api-nest-client';
 import { Endpoints } from '@biosimulations/config/common';
 import { SharedStorageModule } from '@biosimulations/shared/storage';
 import { ThumbnailService } from '../thumbnail/thumbnail.service';
+import { ManifestService } from '../manifest/manifest.service';
 
 @Module({
   imports: [
@@ -105,6 +106,7 @@ import { ThumbnailService } from '../thumbnail/thumbnail.service';
     SedmlService,
     ProjectService,
     ThumbnailService,
+    ManifestService,
   ],
 })
 export class AppModule {}
