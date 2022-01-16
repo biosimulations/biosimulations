@@ -64,12 +64,16 @@ export class CompleteProcessor {
       fileProcessingResults,
     );
     const sedMlProcessingResults = this.sedmlService.processSedml(runId);
-    const archiveProcessingResults = this.archiverService.updateResultsSize(runId);
-    const logProcessingResults = this.logService.createLog(runId, false, '', false);
-    const metadataProcessingResults = this.metadataService.createMetadata(runId);
-
-
-
+    const archiveProcessingResults =
+      this.archiverService.updateResultsSize(runId);
+    const logProcessingResults = this.logService.createLog(
+      runId,
+      false,
+      '',
+      false,
+    );
+    const metadataProcessingResults =
+      this.metadataService.createMetadata(runId);
 
     const processingSteps = [
       {
@@ -80,7 +84,7 @@ export class CompleteProcessor {
         validator: 'https://run.biosimulations.org/utils/validate-project',
         plural: false,
       },
-      
+
       {
         name: 'Thumbnails',
         result: thumbnailProcessingResults,
