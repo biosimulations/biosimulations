@@ -3,6 +3,7 @@ import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 import { S3Module } from 'nestjs-s3';
 import { SimulationStorageService } from './simulation-storage.service';
 import { SharedStorageService } from './shared-storage.service';
+import { FilePaths } from './file-paths';
 
 describe('SimulationStorageService', () => {
   let service: SimulationStorageService;
@@ -26,6 +27,7 @@ describe('SimulationStorageService', () => {
       providers: [
         SimulationStorageService,
         { provide: SharedStorageService, useValue: {} },
+        { provide: FilePaths, useValue: {} },
       ],
     }).compile();
 
