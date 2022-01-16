@@ -1,6 +1,7 @@
 /
 /simulators/amici
 /simulators/amici/0.11.22
+/simulators/amici/0.11.23
 /simulators/bionetgen
 /simulators/bionetgen/2.7.0
 /simulators/biouml
@@ -101,6 +102,8 @@
 /simulators/simvascular/2021-02-07
 /simulators/smoldyn
 /simulators/smoldyn/2.67
+/simulators/smoldyn/2.67.1
+/simulators/smoldyn/2.67.2
 /simulators/tellurium
 /simulators/tellurium/2.2.1
 /simulators/vcell
