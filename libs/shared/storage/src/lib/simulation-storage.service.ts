@@ -7,7 +7,11 @@ import {
 import S3 from 'aws-sdk/clients/s3';
 import * as AWS from 'aws-sdk';
 import { SharedStorageService } from './shared-storage.service';
-import { ThumbnailType, THUMBNAIL_WIDTH } from '@biosimulations/datamodel/common';
+import {
+  Thumbnail,
+  ThumbnailType,
+  THUMBNAIL_WIDTH,
+} from '@biosimulations/datamodel/common';
 import { ConfigService } from '@nestjs/config';
 import { Readable } from 'stream';
 
@@ -62,7 +66,7 @@ export class SimulationStorageService {
             this.filePaths.getSimulationRunContentFilePath(
               runId,
               fileLocation,
-              thumbnailType as ThumbnailType,
+              thumbnailType as Thumbnail,
             );
 
           await this.deleteS3Object(
@@ -169,8 +173,8 @@ export class SimulationStorageService {
     location: string,
     thumbnailType: ThumbnailType,
     thumbnail: Buffer,
-  ): Promise<void> {
-    await this.storage.putObject(
+  ): Promise<string> {
+    const upload = await this.storage.putObject(
       this.filePaths.getSimulationRunContentFilePath(
         runId,
         location,
@@ -178,6 +182,7 @@ export class SimulationStorageService {
       ),
       thumbnail,
     );
+    return upload.Location;
   }
   public async uploadSimulationRunFile(
     runId: string,

@@ -7,29 +7,32 @@ import { FileService } from '../file/file.service';
 import {
   THUMBNAIL_WIDTH,
   ThumbnailType,
-} from '@biosimulations/config/common';
+  ThumbnailUrls,
+  THUMBNAIL_TYPES,
+  IMAGE_FORMAT_URIS,
+} from '@biosimulations/datamodel/common';
 import sharp from 'sharp';
 import { CombineArchiveManifestContent } from '@biosimulations/combine-api-nest-client';
 import { SimulationStorageService } from '@biosimulations/shared/storage';
 import { firstValueFrom, from, map, mergeMap, Observable } from 'rxjs';
+import { SimulationRunService } from '@biosimulations/api-nest-client';
 
 @Injectable()
 export class ThumbnailService {
-  private static IMAGE_FORMAT_URIS = [
-    'http://purl.org/NET/mediatypes/image/gif',
-    'http://purl.org/NET/mediatypes/image/jpeg',
-    'http://purl.org/NET/mediatypes/image/png',
-    'http://purl.org/NET/mediatypes/image/webp',
-  ];
-
   private logger = new Logger(ThumbnailService.name);
 
   public constructor(
     private fileService: FileService,
     private storage: SimulationStorageService,
+    private submit: SimulationRunService,
   ) {}
 
-  public async processThumbnails(runId: string) {
+  // TODO pick either observables or promises
+
+  public async processThumbnails(
+    runId: string,
+    fileProcessingResults: Promise<void>,
+  ): Promise<void> {
     const manifestContent = this.fileService.getManifestContent(runId);
 
     const errors = (
@@ -55,13 +58,15 @@ export class ThumbnailService {
                     (
                       content: CombineArchiveManifestContent,
                     ): Promise<void | string> => {
-                      return this.processThumbnail(runId, content).catch(
-                        (error: any): string => {
-                          return `${
-                            content.location.path
-                          }: ${this.getErrorMessage(error)}`;
-                        },
-                      );
+                      return this.processThumbnail(
+                        runId,
+                        content,
+                        fileProcessingResults,
+                      ).catch((error: any): string => {
+                        return `${
+                          content.location.path
+                        }: ${this.getErrorMessage(error)}`;
+                      });
                     },
                   ),
                 ),
@@ -90,15 +95,28 @@ export class ThumbnailService {
   private async processThumbnail(
     runId: string,
     content: CombineArchiveManifestContent,
+    fileProcessingResults: Promise<void>,
   ): Promise<void> {
     const location = content.location.path;
 
     // download file
     const file = await firstValueFrom(
       this.storage.getSimulationRunContentFile(runId, location).pipe(
-        map((file) => {
+        map(async (file) => {
           if (file) {
-            return this.makeThumbnail(runId, location, file as Buffer);
+            const body = await this.makeThumbnail(
+              runId,
+              location,
+              file as Buffer,
+            );
+            this.logger.log('wait for file processing to complete');
+            await fileProcessingResults;
+            this.logger.log(
+              'File processing complete, submitting thumbnails URLs',
+            );
+            await firstValueFrom(
+              this.submit.putFileThumbnailUrls(runId, location, body),
+            );
           } else {
             throw new Error(`File ${location} not found`);
           }
@@ -111,28 +129,37 @@ export class ThumbnailService {
     runId: string,
     location: string,
     file: Buffer,
-  ): Promise<void> {
+  ): Promise<ThumbnailUrls> {
     // resize and upload file
-    await Promise.all(
-      Object.entries(THUMBNAIL_WIDTH).map(
-        async (typeWidth: [string, number]): Promise<void> => {
+
+    const thumbnailUrls: ThumbnailUrls[] = await Promise.all(
+      THUMBNAIL_TYPES.map(
+        async (thumbnailType: ThumbnailType): Promise<ThumbnailUrls> => {
           const thumbnail = await sharp(file as Buffer)
             .resize({
-              width: typeWidth[1],
+              width: THUMBNAIL_WIDTH[thumbnailType],
               withoutEnlargement: true,
             })
             .toBuffer();
 
           // upload thumbnail
-          await this.storage.uploadSimulationRunThumbnail(
+          const thumbnailUrl = await this.storage.uploadSimulationRunThumbnail(
             runId,
             location,
-            typeWidth[0] as ThumbnailType,
+            thumbnailType,
             thumbnail,
           );
+          // enclosing var in [] uses the value of the var as key, not the name
+          return { [thumbnailType]: thumbnailUrl };
         },
       ),
     );
+
+    const body: ThumbnailUrls = {};
+    thumbnailUrls.forEach((element) => {
+      Object.assign(body, element);
+    });
+    return body;
   }
 
   private getErrorMessage(error: any): string {
@@ -153,7 +180,7 @@ export class ThumbnailService {
     contents: CombineArchiveManifestContent[],
   ): CombineArchiveManifestContent[] {
     return contents.filter((content) => {
-      return ThumbnailService.IMAGE_FORMAT_URIS.includes(content.format);
+      return IMAGE_FORMAT_URIS.includes(content.format);
     });
   }
 }

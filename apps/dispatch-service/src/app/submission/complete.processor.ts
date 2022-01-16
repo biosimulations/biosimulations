@@ -58,18 +58,32 @@ export class CompleteProcessor {
       `Simulation run '${runId}' finished. Saving files, specifications, results, logs, metadata ...`,
     );
 
+    const fileProcessingResults = this.fileService.processFiles(runId);
+    const thumbnailProcessingResults = this.thumbnailsService.processThumbnails(
+      runId,
+      fileProcessingResults,
+    );
+    const sedMlProcessingResults = this.sedmlService.processSedml(runId);
+    const archiveProcessingResults = this.archiverService.updateResultsSize(runId);
+    const logProcessingResults = this.logService.createLog(runId, false, '', false);
+    const metadataProcessingResults = this.metadataService.createMetadata(runId);
+
+
+
+
     const processingSteps = [
       {
         name: 'COMBINE archive',
-        result: this.fileService.processFiles(runId),
+        result: fileProcessingResults,
         required: true,
         moreInfo: 'https://combinearchive.org',
         validator: 'https://run.biosimulations.org/utils/validate-project',
         plural: false,
       },
+      
       {
         name: 'Thumbnails',
-        result: this.thumbnailsService.processThumbnails(runId),
+        result: thumbnailProcessingResults,
         required: false,
         moreInfo: '',
         validator: '',
@@ -77,7 +91,7 @@ export class CompleteProcessor {
       },
       {
         name: 'simulation experiments (SED-ML documents)',
-        result: this.sedmlService.processSedml(runId),
+        result: sedMlProcessingResults,
         required: true,
         moreInfo:
           'https://docs.biosimulations.org/concepts/conventions/simulation-experiments/',
@@ -86,7 +100,7 @@ export class CompleteProcessor {
       },
       {
         name: 'simulation results',
-        result: this.archiverService.updateResultsSize(runId),
+        result: archiveProcessingResults,
         required: true,
         moreInfo:
           'https://docs.biosimulations.org/concepts/conventions/simulation-run-reports/',
@@ -95,7 +109,7 @@ export class CompleteProcessor {
       },
       {
         name: 'log of the simulation run',
-        result: this.logService.createLog(runId, false, '', false),
+        result: logProcessingResults,
         required: true,
         moreInfo:
           'https://docs.biosimulations.org/concepts/conventions/simulation-run-logs/',
@@ -104,7 +118,7 @@ export class CompleteProcessor {
       },
       {
         name: 'metadata for the COMBINE archive',
-        result: this.metadataService.createMetadata(runId),
+        result: metadataProcessingResults,
         required: false,
         moreInfo:
           'https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/',

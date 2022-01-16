@@ -10,7 +10,7 @@ import { ProjectService } from '@biosimulations/angular-api-client';
 import { BiosimulationsError } from '@biosimulations/shared/error-handler';
 import { HttpStatusCode } from '@angular/common/http';
 import { Endpoints } from '@biosimulations/config/common';
-import { ThumbnailType } from '@biosimulations/datamodel/common';
+import { Thumbnail } from '@biosimulations/datamodel/common';
 @Injectable({
   providedIn: 'root',
 })
@@ -61,7 +61,7 @@ export class BrowseService {
                     this.endpoints.getSimulationRunFilesDownloadEndpoint(
                       false,
                       metadata.thumbnails[0],
-                      ThumbnailType.browse,
+                      Thumbnail.browse,
                     );
                 }
               }
