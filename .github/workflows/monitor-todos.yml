@@ -1,0 +1,14 @@
+name: Monitor todos
+
+on: ["push"]
+
+jobs:
+  monitor:
+    name: Monitor todos
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: "Create issues for new todos and close issues for removed todos"
+        uses: "alstr/todo-to-issue-action@v4.5.3"
