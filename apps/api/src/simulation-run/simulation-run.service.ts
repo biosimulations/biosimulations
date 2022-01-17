@@ -496,57 +496,32 @@ export class SimulationRunService {
     simulator: string,
     simulatorVersion = 'latest',
   ): Promise<ISimulator | null | false> {
-    if (simulatorVersion === 'latest') {
-      const url = this.endpoints.getLatestSimulatorsEndpoint(false, simulator);
+    const url = this.endpoints.getSimulatorsEndpoint(
+      false,
+      simulator,
+      simulatorVersion,
+    );
 
-      return firstValueFrom(
-        this.httpService.get<ISimulator[]>(url).pipe(
-          this.getRetryBackoff(),
-          catchError((error: AxiosError): Observable<null | false> => {
-            this.logger.error(error.message);
-            if (error?.response?.status === HttpStatus.NOT_FOUND) {
-              return of(null);
-            } else {
-              return of(false);
-            }
-          }),
-          map((response): ISimulator | null | false => {
-            if (response === null || response === false) {
-              return response;
-            } else {
-              return response.data[0];
-            }
-          }),
-        ),
-      );
-    } else {
-      const url = this.endpoints.getSimulatorsEndpoint(
-        false,
-        simulator,
-        simulatorVersion,
-      );
-
-      return firstValueFrom(
-        this.httpService.get<ISimulator>(url).pipe(
-          this.getRetryBackoff(),
-          catchError((error: AxiosError): Observable<null | false> => {
-            this.logger.error(error.message);
-            if (error?.response?.status === HttpStatus.NOT_FOUND) {
-              return of(null);
-            } else {
-              return of(false);
-            }
-          }),
-          map((response): ISimulator | null | false => {
-            if (response === null || response === false) {
-              return response;
-            } else {
-              return response.data;
-            }
-          }),
-        ),
-      );
-    }
+    return firstValueFrom(
+      this.httpService.get<ISimulator>(url).pipe(
+        this.getRetryBackoff(),
+        catchError((error: AxiosError): Observable<null | false> => {
+          this.logger.error(error.message);
+          if (error?.response?.status === HttpStatus.NOT_FOUND) {
+            return of(null);
+          } else {
+            return of(false);
+          }
+        }),
+        map((response): ISimulator | null | false => {
+          if (response === null || response === false) {
+            return response;
+          } else {
+            return response.data;
+          }
+        }),
+      ),
+    );
   }
 
   private getRetryBackoff(): <T>(source: Observable<T>) => Observable<T> {

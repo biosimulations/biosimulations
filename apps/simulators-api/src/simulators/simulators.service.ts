@@ -8,6 +8,8 @@ import { Simulator } from '@biosimulations/simulators/database-models';
 import { Simulator as APISimulator } from '@biosimulations/ontology/datamodel';
 import { LeanDocument, Model } from 'mongoose';
 import { DeleteResult } from 'mongodb';
+import compareVersions from 'compare-versions';
+import compareVersionsWithAdditionalPoints from 'tiny-version-compare';
 
 @Injectable()
 export class SimulatorsService {
@@ -67,6 +69,29 @@ export class SimulatorsService {
     return this.simulator
       .findOne({ id: id, version: version }, projection)
       .exec();
+  }
+
+  public async findLatestVersion(
+    id: string,
+    includeTestResults = false,
+  ): Promise<Simulator> {
+    const versions = await this.simulator
+      .find({ id: id })
+      .select('version biosimulators.created')
+      .exec();
+    if (versions.length === 0) {
+      throw new NotFoundException(`No simulation tool has id '${id}'.`);
+    }    
+
+    versions.sort(SimulatorsService.compareSimulatorVersions)
+    const version = versions[versions.length - 1].version;
+
+    const simulator = await this.findByVersion(id, version, includeTestResults);
+    if (simulator == null) {
+      throw new InternalServerErrorException(`Version '${id}' of '${version}' could not be obtained.`);
+    } else {
+      return simulator;
+    }
   }
 
   public async new(doc: APISimulator): Promise<Simulator> {
@@ -145,6 +170,26 @@ export class SimulatorsService {
       throw new InternalServerErrorException(
         'Some simulation tools could not be deleted.',
       );
+    }
+  }
+
+  public static compareSimulatorVersions(a: APISimulator, b: APISimulator): number {
+    const aVersion = a.version.replace(/-/g, '.');
+    const bVersion = b.version.replace(/-/g, '.');
+    try {
+      return compareVersions(aVersion, bVersion);
+    } catch {
+      try {
+        return compareVersionsWithAdditionalPoints(aVersion, bVersion);
+      } catch {
+        if (b.biosimulators.created > a.biosimulators.created) {
+          return -1;
+        } else if (b.biosimulators.created < a.biosimulators.created) {
+          return 1;
+        } else {
+          return 0;
+        }
+      }
     }
   }
 }
