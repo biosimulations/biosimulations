@@ -81,14 +81,16 @@ export class SimulatorsService {
       .exec();
     if (versions.length === 0) {
       throw new NotFoundException(`No simulation tool has id '${id}'.`);
-    }    
+    }
 
-    versions.sort(SimulatorsService.compareSimulatorVersions)
+    versions.sort(SimulatorsService.compareSimulatorVersions);
     const version = versions[versions.length - 1].version;
 
     const simulator = await this.findByVersion(id, version, includeTestResults);
     if (simulator == null) {
-      throw new InternalServerErrorException(`Version '${id}' of '${version}' could not be obtained.`);
+      throw new InternalServerErrorException(
+        `Version '${id}' of '${version}' could not be obtained.`,
+      );
     } else {
       return simulator;
     }
@@ -173,7 +175,10 @@ export class SimulatorsService {
     }
   }
 
-  public static compareSimulatorVersions(a: APISimulator, b: APISimulator): number {
+  public static compareSimulatorVersions(
+    a: APISimulator,
+    b: APISimulator,
+  ): number {
     const aVersion = a.version.replace(/-/g, '.');
     const bVersion = b.version.replace(/-/g, '.');
     try {
