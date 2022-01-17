@@ -51,7 +51,12 @@ class MockSimulatorService {
       },
     ];
   }
+
+  compareSimulatorVersions(a: any, b: any): number {
+    return SimulatorsService.compareSimulatorVersions(a, b);
+  }
 }
+
 describe('SimulatorsController', () => {
   let controller: SimulatorsController;
 
