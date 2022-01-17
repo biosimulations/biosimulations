@@ -1,6 +1,9 @@
 name: Monitor todos
 
-on: ["push"]
+on: 
+  push:
+    branches:
+      - dev
 
 jobs:
   monitor:
