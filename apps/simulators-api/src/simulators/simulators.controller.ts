@@ -38,8 +38,6 @@ import {
 import { Simulator } from '@biosimulations/ontology/datamodel';
 import { SimulatorsService } from './simulators.service';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
-import compareVersions from 'compare-versions';
-import compareVersionsWithAdditionalPoints from 'tiny-version-compare';
 import { scopes } from '@biosimulations/auth/common';
 
 @ApiTags('Simulators')
@@ -77,32 +75,20 @@ export class SimulatorsController {
       'The requested simulation tool specifications were successfully retrieved',
     type: [Simulator],
   })
-  @ApiNotFoundResponse({
-    type: ErrorResponseDocument,
-    description: 'No simulation tool has the requested id',
-  })
   @ApiOperation({
     summary:
-      'Get the latest version of each simulation tool, or of a particular simulation tool',
+      'Get the latest version of each simulation tool',
     description:
-      'Get a list of the specifications of the latest version of each simulation tool, ' +
-      'or a list with one element which is the specifications of the latest version of a particular simulation tool.',
-  })
-  @ApiQuery({
-    name: 'id',
-    description: 'Id of the simulation tool',
-    required: false,
-    type: String,
+      'Get a list of the specifications of the latest version of each simulation tool.',
   })
   @ApiQuery({
     name: 'includeTests',
     description:
-      'Whether to include the results of the validation tests of the simulation tool (`Simulator.biosimulators.validationTests`) or exclude this attribute.',
+      'Whether to include the results of the validation tests of the simulation tools (`Simulator.biosimulators.validationTests`) or exclude this attribute.',
     required: false,
     type: Boolean,
   })
   public async getLatestSimulators(
-    @Query('id') id?: string,
     @Query('includeTests') includeTests = 'false',
   ): Promise<Simulator[]> {
     const includeBool = ['true', '1'].includes(includeTests.toLowerCase());
@@ -111,7 +97,7 @@ export class SimulatorsController {
     allSims.forEach((element) => {
       const latestSim = latest.get(element.id) as Simulator;
       if (latestSim) {
-        if (this.compareSimulatorVersions(latestSim, element) === -1) {
+        if (SimulatorsService.compareSimulatorVersions(latestSim, element) === -1) {
           latest.set(element.id, element);
         }
       } else {
@@ -119,11 +105,7 @@ export class SimulatorsController {
       }
     });
     const results = Array.from(latest.values());
-    if (id) {
-      return results.filter((value) => value.id === id);
-    } else {
-      return results;
-    }
+    return results;
   }
 
   @Get(':id')
@@ -160,6 +142,42 @@ export class SimulatorsController {
   ) {
     const includeBool = ['true', '1'].includes(includeTests.toLowerCase());
     return this.getSimulatorById(id, includeBool);
+  }
+
+  @Get(':id/latest')
+  @ApiOperation({
+    summary: 'Get the latest version of a simulation tool',
+    description: 'Get the specifications of the latest version of a simulation tool',
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'Id of the simulation tool',
+    example: 'tellurium',
+    required: true,
+    type: String,
+  })
+  @ApiQuery({
+    name: 'includeTests',
+    description:
+      'Whether to include the results of the validation tests of the simulation tool (`Simulator.biosimulators.validationTests`) or exclude this attribute.',
+    required: false,
+    type: Boolean,
+  })
+  @ApiOkResponse({
+    description:
+      'The specifications of the requested version of the requested simulation tool were successfully retrieved',
+    type: Simulator,
+  })
+  @ApiNotFoundResponse({
+    type: ErrorResponseDocument,
+    description: 'No simulation tool has the requested id',
+  })
+  public async getSimulatorLatestVersion(
+    @Param('id') id: string,
+    @Query('includeTests') includeTests = 'false',
+  ): Promise<Simulator> {
+    const includeTestBool = ['true', '1'].includes(includeTests.toLowerCase());
+    return this.service.findLatestVersion(id, includeTestBool);
   }
 
   @Get(':id/:version')
@@ -201,7 +219,7 @@ export class SimulatorsController {
     @Param('id') id: string,
     @Param('version') version: string,
     @Query('includeTests') includeTests = 'false',
-  ): Promise<Simulator | null> {
+  ): Promise<Simulator> {
     const includeTestBool = ['true', '1'].includes(includeTests.toLowerCase());
     return this.getSimulatorByVersion(id, version, includeTestBool);
   }
@@ -417,7 +435,7 @@ export class SimulatorsController {
     id: string,
     version: string,
     includeTests: boolean,
-  ): Promise<Simulator | null> {
+  ): Promise<Simulator> {
     const res = await this.service.findByVersion(id, version, includeTests);
     if (!res) {
       if (version) {
@@ -430,24 +448,5 @@ export class SimulatorsController {
     }
 
     return res;
-  }
-  private compareSimulatorVersions(a: Simulator, b: Simulator): number {
-    const aVersion = a.version.replace(/-/g, '.');
-    const bVersion = b.version.replace(/-/g, '.');
-    try {
-      return compareVersions(aVersion, bVersion);
-    } catch {
-      try {
-        return compareVersionsWithAdditionalPoints(aVersion, bVersion);
-      } catch {
-        if (b.biosimulators.created > a.biosimulators.created) {
-          return -1;
-        } else if (b.biosimulators.created < a.biosimulators.created) {
-          return 1;
-        } else {
-          return 0;
-        }
-      }
-    }
   }
 }

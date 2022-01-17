@@ -436,20 +436,17 @@ export class Endpoints {
 
   /**
    *
-   * @param id The id of the simulator
    * @param includeTests Whether to include the results of the validation tests
    * @returns  A URL to get the latest version of each simulator, or the latest version of a specific simulator
    */
   public getLatestSimulatorsEndpoint(
     external: boolean,
-    id?: string,
     includeTests = false,
   ): string {
-    id ? (id = `?id=${id}`) : (id = '');
     const tests = includeTests ? '?includeTests=true' : '';
     return `${this.getSimulatorsApiBaseUrl(
       external,
-    )}/simulators/latest${id}${tests}`;
+    )}/simulators/latest${tests}`;
   }
 
   // BASE URLS
