@@ -76,8 +76,7 @@ export class SimulatorsController {
     type: [Simulator],
   })
   @ApiOperation({
-    summary:
-      'Get the latest version of each simulation tool',
+    summary: 'Get the latest version of each simulation tool',
     description:
       'Get a list of the specifications of the latest version of each simulation tool.',
   })
@@ -97,7 +96,9 @@ export class SimulatorsController {
     allSims.forEach((element) => {
       const latestSim = latest.get(element.id) as Simulator;
       if (latestSim) {
-        if (SimulatorsService.compareSimulatorVersions(latestSim, element) === -1) {
+        if (
+          SimulatorsService.compareSimulatorVersions(latestSim, element) === -1
+        ) {
           latest.set(element.id, element);
         }
       } else {
@@ -147,7 +148,8 @@ export class SimulatorsController {
   @Get(':id/latest')
   @ApiOperation({
     summary: 'Get the latest version of a simulation tool',
-    description: 'Get the specifications of the latest version of a simulation tool',
+    description:
+      'Get the specifications of the latest version of a simulation tool',
   })
   @ApiParam({
     name: 'id',
