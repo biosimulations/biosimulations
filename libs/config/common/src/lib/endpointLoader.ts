@@ -38,7 +38,7 @@ export class EndpointLoader {
       externalDataService: 'externalDataService',
       simulatorsApp: 'simulatorsApp',
       dispatchApp: 'dispatchApp',
-      platformApp: ' platformApp',
+      platformApp: 'platformApp',
     };
 
     switch (this.env) {
