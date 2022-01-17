@@ -602,7 +602,7 @@ export class SimulationRunController {
   ): Promise<void> {
     await this.validationService.validateRun(
       runId,
-      validateSimulationResultsData == 'true',
+      ['true', '1'].includes(validateSimulationResultsData.toLowerCase()),
     );
     return;
   }

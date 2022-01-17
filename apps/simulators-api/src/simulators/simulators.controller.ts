@@ -66,7 +66,7 @@ export class SimulatorsController {
     type: [Simulator],
   })
   public getSimulators(@Query('includeTests') includeTests = 'false') {
-    const includeBool = includeTests == 'true';
+    const includeBool = ['true', '1'].includes(includeTests.toLowerCase());
 
     return this.service.findAll(includeBool);
   }
@@ -105,7 +105,7 @@ export class SimulatorsController {
     @Query('id') id?: string,
     @Query('includeTests') includeTests = 'false',
   ): Promise<Simulator[]> {
-    const includeBool = includeTests == 'true';
+    const includeBool = ['true', '1'].includes(includeTests.toLowerCase());
     const allSims = await this.service.findAll(includeBool);
     const latest = new Map<string, Simulator>();
     allSims.forEach((element) => {
@@ -158,7 +158,7 @@ export class SimulatorsController {
     @Param('id') id: string,
     @Query('includeTests') includeTests = 'false',
   ) {
-    const includeBool = includeTests == 'true';
+    const includeBool = ['true', '1'].includes(includeTests.toLowerCase());
     return this.getSimulatorById(id, includeBool);
   }
 
@@ -195,14 +195,14 @@ export class SimulatorsController {
   })
   @ApiNotFoundResponse({
     type: ErrorResponseDocument,
-    description: 'No simulation tool has the requested id',
+    description: 'No simulation tool has the requested id and version',
   })
   public async getSimulatorVersion(
     @Param('id') id: string,
     @Param('version') version: string,
     @Query('includeTests') includeTests = 'false',
   ): Promise<Simulator | null> {
-    const includeTestBool = includeTests == 'true';
+    const includeTestBool = ['true', '1'].includes(includeTests.toLowerCase());
     return this.getSimulatorByVersion(id, version, includeTestBool);
   }
 

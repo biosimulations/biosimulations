@@ -172,9 +172,9 @@ export class ProjectsController {
   ): Promise<void> {
     await this.service.validateProject(
       projectInput,
-      validateSimulationResultsData == 'true',
-      validateIdAvailable == 'true',
-      validateSimulationRunNotPublished == 'true',
+      ['true', '1'].includes(validateSimulationResultsData.toLowerCase()),
+      ['true', '1'].includes(validateIdAvailable.toLowerCase()),
+      ['true', '1'].includes(validateSimulationRunNotPublished.toLowerCase()),
     );
     return;
   }
