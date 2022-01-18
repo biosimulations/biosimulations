@@ -35,6 +35,7 @@ import { Endpoints } from '@biosimulations/config/common';
 import { SharedStorageModule } from '@biosimulations/shared/storage';
 import { ThumbnailService } from '../thumbnail/thumbnail.service';
 import { ManifestService } from '../manifest/manifest.service';
+import { ExtractionService } from '../extraction/extraction.service';
 
 @Module({
   imports: [
@@ -107,6 +108,7 @@ import { ManifestService } from '../manifest/manifest.service';
     ProjectService,
     ThumbnailService,
     ManifestService,
+    ExtractionService
   ],
 })
 export class AppModule {}

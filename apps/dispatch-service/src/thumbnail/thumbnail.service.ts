@@ -100,6 +100,11 @@ export class ThumbnailService {
   ): Promise<void> {
     const location = content.location.path;
 
+    this.logger.log(`Waiting for ${runId} file processing to complete`);
+    await fileProcessingResults;
+    this.logger.log(
+      `${runId} file processing complete, submitting thumbnails URLs`,
+    );
     // download file
     const file = await firstValueFrom(
       this.storage.getSimulationRunContentFile(runId, location).pipe(
@@ -110,11 +115,7 @@ export class ThumbnailService {
               location,
               file as Buffer,
             );
-            this.logger.log('wait for file processing to complete');
-            await fileProcessingResults;
-            this.logger.log(
-              'File processing complete, submitting thumbnails URLs',
-            );
+
             await firstValueFrom(
               this.submit.putFileThumbnailUrls(runId, location, body),
             );
