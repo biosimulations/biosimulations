@@ -48,7 +48,7 @@ describe('ValidateMetadataComponent', () => {
                 repoPath: '',
                 exampleMetadataPath: '',
               },
-              maxUploadFileSize: 100000000,
+              maxUploadFileSize: 64000000,
             },
           },
         },
