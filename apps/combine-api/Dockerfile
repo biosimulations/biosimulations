@@ -18,7 +18,7 @@ RUN apt-get install --no-install-recommends -y \
 
 ###################################
 # BioNetGen
-ARG BIONETGEN_VERSION=2.6.0
+ARG BIONETGEN_VERSION=2.7.0
 RUN apt-get install -y --no-install-recommends \
         perl \
         tar \
