@@ -53,7 +53,7 @@ if env.lower() == 'prod':
     os.remove(temp_spec_filename)
 
 # set maximum file upload size
-app.app.config['MAX_CONTENT_LENGTH'] = float(config.get('MAX_CONTENT_LENGTH', '256e6'))  # bytes
+app.app.config['MAX_CONTENT_LENGTH'] = float(config.get('MAX_CONTENT_LENGTH', 1.1 * 1e9))  # bytes
 
 # Validate_response = True will give error when API returns something that
 # does not match the schema. If you want to send a response even if invalid,

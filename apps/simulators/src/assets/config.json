@@ -36,7 +36,7 @@
       "exampleMetadataPath": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous/metadata.rdf",
       "exampleProjectPath": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex"
     },
-    "maxUploadFileSize": 256000000
+    "maxUploadFileSize": 64000000
   },
   "analyticsId": "G-GJJXENH1HG"
 }

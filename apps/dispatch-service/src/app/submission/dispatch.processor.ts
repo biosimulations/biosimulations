@@ -10,9 +10,6 @@ import { Job, Queue } from 'bull';
 import { HpcService } from '../services/hpc/hpc.service';
 import { SimulationStatusService } from '../services/simulationStatus.service';
 
-// 1 GB in bytes to be used as file size limits
-const ONE_GIGABYTE = 1000000000;
-
 @Processor(JobQueue.dispatch)
 export class DispatchProcessor {
   private readonly logger = new Logger(DispatchProcessor.name);

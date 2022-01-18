@@ -48,7 +48,7 @@ describe('ValidateProjectComponent', () => {
                 repoPath: '',
                 exampleProjectPath: '',
               },
-              maxUploadFileSize: 100000000,
+              maxUploadFileSize: 64000000,
             },
           },
         },

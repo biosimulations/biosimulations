@@ -42,7 +42,7 @@ describe('CreateProjectComponent', () => {
           provide: ConfigService,
           useValue: {
             appConfig: {
-              maxUploadFileSize: 256000000,
+              maxUploadFileSize: 64000000,
             },
           },
         },
