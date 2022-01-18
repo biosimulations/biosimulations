@@ -46,7 +46,9 @@ export class CompleteProcessor {
     private extractionService: ExtractionService,
   ) {}
 
-  @Process()
+  @Process({
+    concurrency: 10,
+  })
   private async handleProcessing(job: Job<CompleteJob>): Promise<void> {
     const data = job.data;
 
