@@ -168,8 +168,9 @@ export class SimulationRunController {
   )
   @ApiPayloadTooLargeResponse({
     type: ErrorResponseDocument,
-    description:
-      `The submitted COMBINE/OMEX archive file is too large. Uploaded archives must be less than ${FormatService.formatDigitalSize(FILE_UPLOAD_LIMIT)}.`,
+    description: `The submitted COMBINE/OMEX archive file is too large. Uploaded archives must be less than ${FormatService.formatDigitalSize(
+      FILE_UPLOAD_LIMIT,
+    )}.`,
   })
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
