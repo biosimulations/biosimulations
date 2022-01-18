@@ -321,12 +321,16 @@ RUN pip install git+https://github.com/modelon-community/Assimulo.git@Assimulo-$
 EXPOSE 3333
 CMD /bin/bash /xvfb-startup.sh \
     gunicorn \
-        --workers 1 \
         --bind 0.0.0.0:3333 src.app:app \
+        --workers 2 \
+        --threads 4 \
+        --worker-class gevent \
         --max-requests 10000 \
         --timeout 30 \
         --keep-alive 5 \
-        --log-level info
+        --worker-tmp-dir /dev/shm \
+        --log-level info \
+        --log-file=-
 
 #############
 ### build ###
@@ -346,7 +350,7 @@ RUN python -m compileall /app/src/ \
     && PYTHON_MAJOR_MINOR_VERSION=$(echo $PYTHON_VERSION | cut -d . -f 1-2) \
     && python -m compileall ${PY_PREFIX}/lib/python${PYTHON_MAJOR_MINOR_VERSION}/site-packages \
     || exit 0
- 
+
 LABEL \
     org.opencontainers.image.title="BioSimulations ${app}" \
     org.opencontainers.image.description="Docker image for BioSimulations ${app}" \
