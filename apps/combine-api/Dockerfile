@@ -315,11 +315,12 @@ RUN pipenv install --system --deploy
 RUN python -c "import matplotlib.font_manager"
 
 # install assimulo because pipenv fails to install it
-ARG ASSIMULO_VERSION=3.2.8
+ARG ASSIMULO_VERSION=3.2.9
 RUN pip install git+https://github.com/modelon-community/Assimulo.git@Assimulo-${ASSIMULO_VERSION}
 
 EXPOSE 3333
-CMD /bin/bash /xvfb-startup.sh gunicorn  --workers 1 --bind 0.0.0.0:3333 src.app:app --max-requests 10000 --timeout 5 --keep-alive 5 --log-level info
+CMD /bin/bash /xvfb-startup.sh gunicorn  --workers 1 --bind 0.0.0.0:3333 src.app:app --max-requests 10000 --timeout 30 --keep-alive 5 --log-level info
+
 #############
 ### build ###
 #############
