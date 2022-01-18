@@ -38,11 +38,22 @@ export class FileService {
     this.endpoints = new Endpoints(env);
   }
 
-  public async processFiles(id: string): Promise<void> {
+  public async processFiles(
+    id: string,
+    // we just need to make sure this is complete, not use the result. Change this to a specific type if we need the results
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    fileExtractionResults: Promise<any>,
+  ): Promise<void> {
     this.logger.log(`Processing files for simulation run '${id}'.`);
     //get manifest
     const manifestContent = this.manifest.getManifestContent(id);
     // save manifest
+
+    // ensure file is uploaded to storage and extracted before trying to get urls for files
+    this.logger.log(`Waiting for ${id} to be extracted`);
+    await fileExtractionResults;
+    this.logger.log('${runId} is extracted, processing thumbnails');
+
     await firstValueFrom(
       manifestContent.pipe(
         map((contents: CombineArchiveManifestContent[]) => {

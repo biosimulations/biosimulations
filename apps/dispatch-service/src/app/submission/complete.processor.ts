@@ -23,6 +23,7 @@ import { AxiosError } from 'axios';
 import { Observable } from 'rxjs';
 import { retryBackoff } from 'backoff-rxjs';
 import { ThumbnailService } from '../../thumbnail/thumbnail.service';
+import { ExtractionService } from '../../extraction/extraction.service';
 
 interface ProcessingResult {
   succeeded: boolean;
@@ -42,6 +43,7 @@ export class CompleteProcessor {
     private sedmlService: SedmlService,
     private projectService: ProjectService,
     private thumbnailsService: ThumbnailService,
+    private extractionService: ExtractionService,
   ) {}
 
   @Process()
@@ -58,7 +60,12 @@ export class CompleteProcessor {
       `Simulation run '${runId}' finished. Saving files, specifications, results, logs, metadata ...`,
     );
 
-    const fileProcessingResults = this.fileService.processFiles(runId);
+    const fileExtractionResults =
+      this.extractionService.extractSimulationArchive(runId);
+    const fileProcessingResults = this.fileService.processFiles(
+      runId,
+      fileExtractionResults,
+    );
     const thumbnailProcessingResults = this.thumbnailsService.processThumbnails(
       runId,
       fileProcessingResults,
@@ -88,7 +95,7 @@ export class CompleteProcessor {
       {
         name: 'Thumbnails',
         result: thumbnailProcessingResults,
-        required: false,
+        required: true,
         moreInfo: '',
         validator: '',
         plural: true,
