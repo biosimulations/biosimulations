@@ -1274,7 +1274,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: maochenyan@gmail.com
 │  ├─ url: https://github.com/stevemao
 │  └─ licenseFile: compare-func/LICENSE
-├─ compare-versions@4.1.2
+├─ compare-versions@4.1.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/omichelsen/compare-versions
 │  ├─ publisher: Ole Michelsen
