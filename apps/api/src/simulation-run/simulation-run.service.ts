@@ -158,8 +158,6 @@ export class SimulationRunService {
         await this.simulationStorageService.uploadSimulationArchive(id, file);
       this.logger.debug(`Uploaded simulation archive to S3: ${s3file}`);
 
-      
-
       // At this point, we have the urls of all the files in the archive but we don't use them
       // We should save them to the files collection along with size information.
       // then the post processing just needs to give us information about the format from the manifest

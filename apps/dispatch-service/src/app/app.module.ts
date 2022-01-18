@@ -108,7 +108,7 @@ import { ExtractionService } from '../extraction/extraction.service';
     ProjectService,
     ThumbnailService,
     ManifestService,
-    ExtractionService
+    ExtractionService,
   ],
 })
 export class AppModule {}
