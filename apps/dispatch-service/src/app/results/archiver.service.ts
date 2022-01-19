@@ -19,7 +19,8 @@ export class ArchiverService {
     const path = this.sshService.getSSHJobDirectory(id);
     const archive = `${path}/${id}.zip`;
     const command = `du -b ${archive} | cut -f1`;
-    this.sshService.execStringCommand(command).then((output) => {
+    // Need to await otherwise unhandled promise rejection
+    await this.sshService.execStringCommand(command).then((output) => {
       this.service
         .updateSimulationRunResultsSize(id, parseInt(output.stdout))
         .pipe(
