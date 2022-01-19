@@ -3413,7 +3413,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: The MongoDB NodeJS Team
 │  ├─ email: dbx-node@mongodb.com
 │  └─ licenseFile: mongodb/LICENSE.md
-├─ mongoose@6.1.5
+├─ mongoose@6.1.7
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/Automattic/mongoose
 │  ├─ publisher: Guillermo Rauch
