@@ -26,7 +26,9 @@ export class MonitorProcessor {
     @InjectQueue(JobQueue.complete) private completeQueue: Queue<CompleteJob>,
   ) {}
 
-  @Process()
+  @Process({
+    concurrency: 10,
+  })
   private async handleMonitoring(job: Job<MonitorJob>): Promise<void> {
     const data = job.data;
     const slurmJobId = data.slurmJobId;
