@@ -1,4 +1,5 @@
-[{
+[
+  {
     "name": "Budding yeast cell cycle (Irons, J Theor Biol, 2009; SBML-qual; BoolNet; synchronous)",
     "simulator": "boolnet",
     "filename": "sbml-qual/Irons-J-Theor-Biol-2009-yeast-cell-cycle.omex",
@@ -58,7 +59,7 @@
     "name": "Escherichia coli resource allocation (Bulović et al., Metab Eng, 2019; RBA TSV/XML; RBA; RBApy)",
     "simulator": "rbapy",
     "filename": "rba/Escherichia-coli-K12-WT.omex",
-    "disabled": false,
+    "disabled": true,
     "publishToBioSimulations": true,
     "bioSimulationsId": "Escherichia-coli-resource-allocation-Bulovic-Metab-Eng-2019"
   },
@@ -69,7 +70,7 @@
     "disabled": false,
     "publishToBioSimulations": true,
     "bioSimulationsId": "HSP-synthesis-Szymanska-J-Theor-Biol-2009"
-  },  
+  },
   {
     "name": "Hodgkin-Huxley cell (Gleeson; NeuroML/LEMS; CVODE; NetPyNe)",
     "simulator": "netpyne",
@@ -202,7 +203,7 @@
     "simulator": "pysces",
     "filename": "sbml-core/Edelstein-Biol-Cybern-1996-Nicotinic-excitation.omex",
     "disabled": false,
-    "publishToBioSimulations": true,    
+    "publishToBioSimulations": true,
     "bioSimulationsId": "Nicotinic-excitation-Edelstein-Biol-Cybern-1996"
   },
   {

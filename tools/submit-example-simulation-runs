@@ -66,7 +66,7 @@ def get_simulation_run_view_url(runbiosimulations_deployment, run_id):
 
 def main(runbiosimulations_deployment='dev', biosimulators_deployment='prod',
          biosimulators_test_suite_branch='deploy', example_names=None,
-         test_mode=False, browser=False, dry_run=False):
+         test_mode=False, browser=False, dry_run=False, timeout=999):
     """ Submit example simulations from the BioSimulators test suite to the runBioSimulations API and
     record their runs to ``example-simulations.json`` within the browse simulations module of the
     dispatch app so that users can load runs of these simulations as examples.
@@ -219,7 +219,7 @@ def main(runbiosimulations_deployment='dev', biosimulators_deployment='prod',
         new_simulation_runs.append(simulation_runs[name])
 
     if test_mode:
-        monitor_runs(new_simulation_runs, runbiosimulations_deployment)
+        monitor_runs(new_simulation_runs, runbiosimulations_deployment, timeout)
 
     else:
         sorted_simulation_runs = natsort.natsorted(list(simulation_runs.values()),
@@ -231,7 +231,7 @@ def main(runbiosimulations_deployment='dev', biosimulators_deployment='prod',
     shutil.rmtree(temp_dir)
 
 
-def monitor_runs(simulation_runs, runbiosimulations_deployment, timeout=240):
+def monitor_runs(simulation_runs, runbiosimulations_deployment, timeout=9999):
     total = len(simulation_runs)
     pending_runs = simulation_runs
     failed_runs = []
@@ -378,6 +378,13 @@ if __name__ == '__main__':
         action='store_true',
 
     )
+    parser.add_argument(
+        '--timeout', 
+        type=int, 
+        default=999,
+        help='Timeout in minutes for waiting for simulations to complete. Default: 999',
+        dest='timeout',
+    )
     args = parser.parse_args()
 
     main(runbiosimulations_deployment=args.runbiosimulations_deployment,
@@ -386,4 +393,5 @@ if __name__ == '__main__':
          example_names=args.example_names,
          test_mode=args.test_mode,
          browser=args.browser,
-         dry_run=args.dry_run)
+         dry_run=args.dry_run
+         timeout=args.timeout)
