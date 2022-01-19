@@ -15,7 +15,6 @@ class S3TestCase(unittest.TestCase):
 
         with open(self.config_filename, 'w') as file:
             file.write('STORAGE_ENDPOINT=https://server.com\n')
-            file.write('STORAGE_PUBLIC_ENDPOINT=https://server.com\n')
             file.write('TEMP_STORAGE_BUCKET=c\n')
 
         with open(self.secret_filename, 'w') as file:
@@ -31,8 +30,7 @@ class S3TestCase(unittest.TestCase):
 
         self.assertEqual(config, {
             'endpoint': 'https://server.com',
-            'public_endpoint': 'https://server.com',
-            'default_bucket': 'c',
+            'bucket': 'c',
             'access_key_id': 'd',
             'secret_access_key': 'e',
         })
@@ -42,7 +40,6 @@ class S3TestCase(unittest.TestCase):
     def test_get_invalid_configuration(self):
         with open(self.config_filename, 'w') as file:
             file.write('STORAGE_ENDPOINT=\n')
-            file.write('STORAGE_PUBLIC_ENDPOINT=\n')
             file.write('TEMP_STORAGE_BUCKET=\n')
 
         with open(self.secret_filename, 'w') as file:
@@ -53,8 +50,7 @@ class S3TestCase(unittest.TestCase):
 
         self.assertEqual(config, {
             'endpoint': '',
-            'public_endpoint': '',
-            'default_bucket': '',
+            'bucket': '',
             'access_key_id': '',
             'secret_access_key': '',
         })
@@ -73,8 +69,7 @@ class S3TestCase(unittest.TestCase):
 
         self.assertEqual(config, {
             'endpoint': None,
-            'public_endpoint': None,
-            'default_bucket': None,
+            'bucket': None,
             'access_key_id': None,
             'secret_access_key': None,
         })
@@ -93,8 +88,7 @@ class S3TestCase(unittest.TestCase):
 
         self.assertEqual(config, {
             'endpoint': '',
-            'public_endpoint': None,
-            'default_bucket': None,
+            'bucket': None,
             'access_key_id': '',
             'secret_access_key': None,
         })
@@ -108,8 +102,8 @@ class S3TestCase(unittest.TestCase):
         def upload_file(Filename=None, Key=None, ExtraArgs=None):
             return None
         bucket.bucket = mock.Mock(upload_file=upload_file)
-        self.assertEqual(bucket.upload_file('filename', 'key', False), bucket.public_endpoint + 'key')
-        self.assertEqual(bucket.upload_file('filename', 'key', True), bucket.public_endpoint + 'key')
+        self.assertEqual(bucket.upload_file('filename', 'key', False), bucket.endpoint + '/' + bucket.bucket_name + '/' + 'key')
+        self.assertEqual(bucket.upload_file('filename', 'key', True), bucket.endpoint + '/' + bucket.bucket_name + '/' + 'key')
 
     def test_download_file(self):
         bucket = s3.S3Bucket(config_filename=self.config_filename, secret_filename=self.secret_filename)

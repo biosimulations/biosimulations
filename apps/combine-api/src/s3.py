@@ -30,7 +30,7 @@ TEMP_STORAGE_MAX_AGE = int(float(config.get('TEMP_STORAGE_MAX_AGE', '1')))
 class S3Bucket(object):
     bucket = None
     bucket_name = None
-    public_endpoint = ""
+    endpoint = ""
 
     def __init__(self,
                  config_filename: str = DEFAULT_CONFIG_FILENAME,
@@ -39,8 +39,8 @@ class S3Bucket(object):
                  ) -> None:
         config = self.get_configuration(config_filename=config_filename, secret_filename=secret_filename, shared_filename=shared_filename)
         self.validate_configuration(config)
-        self.public_endpoint = config['public_endpoint']
-        self.bucket_name = config['default_bucket']
+        self.endpoint = config['endpoint']
+        self.bucket_name = config['bucket']
 
         s3 = boto3.resource('s3',
                             endpoint_url=config['endpoint'],
@@ -53,7 +53,7 @@ class S3Bucket(object):
                                    aws_secret_access_key=config['secret_access_key'],
                                    verify=False,
                                    )
-        self.bucket = s3.Bucket(config['default_bucket'])
+        self.bucket = s3.Bucket(config['bucket'])
 
     def upload_file(self, filename: str, key: str, public: bool) -> str:
         """ Upload a local file to a key in the bucket
@@ -72,7 +72,7 @@ class S3Bucket(object):
             extra_args = {}
 
         self.bucket.upload_file(filename, str(key), ExtraArgs=extra_args)
-        return self.public_endpoint + str(key)
+        return self.endpoint + '/' + self.bucket_name + '/' + str(key)
 
     def download_file(self, key: str, filename: str) -> None:
         """ Download a file from a key in the bucket to a local path
@@ -179,15 +179,13 @@ class S3Bucket(object):
         }
 
         endpoint = config.get("STORAGE_ENDPOINT")
-        public_endpoint = config.get("STORAGE_PUBLIC_ENDPOINT")
-        default_bucket = config.get("TEMP_STORAGE_BUCKET")
+        bucket = config.get("TEMP_STORAGE_BUCKET")
         access_key_id = config.get("STORAGE_ACCESS_KEY")
         secret_access_key = config.get("STORAGE_SECRET")
 
         return {
             'endpoint': endpoint,
-            'public_endpoint': public_endpoint,
-            'default_bucket': default_bucket,
+            'bucket': bucket,
             'access_key_id': access_key_id,
             'secret_access_key': secret_access_key,
         }
@@ -195,17 +193,20 @@ class S3Bucket(object):
     @staticmethod
     def validate_configuration(config: typing.Dict):
         errors = []
+
         if not config.get('endpoint', None):
-            errors.append('Storage endpoint (`STORAGE_ENDPOINT`) must be set, not `{}`.'.format(config.get('endpoint', None)))
-        if not config.get('public_endpoint', None):
-            errors.append('Public storage access (`STORAGE_PUBLIC_ENDPOINT`) must be set, not `{}`.'.format(
-                config.get('public_endpoint', None)))
-        if not config.get('default_bucket', None):
-            errors.append('Storage bucket (`TEMP_STORAGE_BUCKET`) key must be set, not `{}`.'.format(config.get('default_bucket', None)))
+            errors.append('Storage endpoint (`STORAGE_ENDPOINT`) must be set, not `{}`.'.format(
+                config.get('endpoint', None)))
+        if not config.get('bucket', None):
+            errors.append('Storage bucket (`TEMP_STORAGE_BUCKET`) key must be set, not `{}`.'.format(
+                config.get('bucket', None)))
         if not config.get('access_key_id', None):
-            errors.append('Storage access key (`STORAGE_ACCESS_KEY`) must be set, not `{}`.'.format(config.get('access_key_id', None)))
+            errors.append('Storage access key (`STORAGE_ACCESS_KEY`) must be set, not `{}`.'.format(
+                config.get('access_key_id', None)))
         if not config.get('secret_access_key', None):
-            errors.append('Storage secret (`STORAGE_SECRET`) must be set, not `{}`.'.format(config.get('secret_access_key', None)))
+            errors.append('Storage secret (`STORAGE_SECRET`) must be set, not `{}`.'.format(
+                config.get('secret_access_key', None)))
+
         if errors:
             raise ValueError('The configuration for the S3 bucket is not valid:\n  {}'.format('\n  '.join(errors)))
 
