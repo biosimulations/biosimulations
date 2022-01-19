@@ -16,7 +16,7 @@ class S3TestCase(unittest.TestCase):
         with open(self.config_filename, 'w') as file:
             file.write('STORAGE_ENDPOINT=https://server.com\n')
             file.write('STORAGE_PUBLIC_ENDPOINT=https://server.com\n')
-            file.write('STORAGE_BUCKET=c\n')
+            file.write('TEMP_STORAGE_BUCKET=c\n')
 
         with open(self.secret_filename, 'w') as file:
             file.write('STORAGE_ACCESS_KEY=d\n')
@@ -43,7 +43,7 @@ class S3TestCase(unittest.TestCase):
         with open(self.config_filename, 'w') as file:
             file.write('STORAGE_ENDPOINT=\n')
             file.write('STORAGE_PUBLIC_ENDPOINT=\n')
-            file.write('STORAGE_BUCKET=\n')
+            file.write('TEMP_STORAGE_BUCKET=\n')
 
         with open(self.secret_filename, 'w') as file:
             file.write('STORAGE_ACCESS_KEY=\n')
