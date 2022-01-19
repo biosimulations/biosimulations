@@ -318,10 +318,10 @@ RUN python -c "import matplotlib.font_manager"
 ARG ASSIMULO_VERSION=3.2.9
 RUN pip install git+https://github.com/modelon-community/Assimulo.git@Assimulo-${ASSIMULO_VERSION}
 
-EXPOSE 3333
+EXPOSE 3335
 CMD /bin/bash /xvfb-startup.sh \
     gunicorn \
-        --bind 0.0.0.0:3333 src.app:app \
+        --bind 0.0.0.0:3335 src.app:app \
         --workers 2 \
         --threads 4 \
         --worker-class gevent \
