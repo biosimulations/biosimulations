@@ -10,7 +10,7 @@ __all__ = [
     'S3Bucket',
     'get_s3_bucket',
     'save_temporary_combine_archive_to_s3_bucket',
-    'delete_temporary_combine_archives_in_s3_bucket',
+    'delete_temporary_files_in_s3_bucket',
 ]
 
 DEFAULT_SECRET_FILENAME = "secret/secret.env"
@@ -24,8 +24,7 @@ config = {
     **dotenv_values(DEFAULT_CONFIG_FILENAME),
     **dotenv_values(DEFAULT_SHARED_FILENAME),
 }
-TEMP_COMBINE_ARCHIVE_S3_PREFIX = config.get('TEMP_COMBINE_ARCHIVE_S3_PREFIX', 'temp/createdCombineArchive/')
-TEMP_COMBINE_ARCHIVE_MAX_AGE = int(float(config.get('TEMP_COMBINE_ARCHIVE_MAX_AGE', '1')))
+TEMP_STORAGE_MAX_AGE = int(float(config.get('TEMP_STORAGE_MAX_AGE', '1')))
 
 
 class S3Bucket(object):
@@ -181,7 +180,7 @@ class S3Bucket(object):
 
         endpoint = config.get("STORAGE_ENDPOINT")
         public_endpoint = config.get("STORAGE_PUBLIC_ENDPOINT")
-        default_bucket = config.get("STORAGE_BUCKET")
+        default_bucket = config.get("TEMP_STORAGE_BUCKET")
         access_key_id = config.get("STORAGE_ACCESS_KEY")
         secret_access_key = config.get("STORAGE_SECRET")
 
@@ -202,7 +201,7 @@ class S3Bucket(object):
             errors.append('Public storage access (`STORAGE_PUBLIC_ENDPOINT`) must be set, not `{}`.'.format(
                 config.get('public_endpoint', None)))
         if not config.get('default_bucket', None):
-            errors.append('Storage bucket (`STORAGE_BUCKET`) key must be set, not `{}`.'.format(config.get('default_bucket', None)))
+            errors.append('Storage bucket (`TEMP_STORAGE_BUCKET`) key must be set, not `{}`.'.format(config.get('default_bucket', None)))
         if not config.get('access_key_id', None):
             errors.append('Storage access key (`STORAGE_ACCESS_KEY`) must be set, not `{}`.'.format(config.get('access_key_id', None)))
         if not config.get('secret_access_key', None):
@@ -237,12 +236,12 @@ def save_temporary_combine_archive_to_s3_bucket(filename, public=False, id=None)
     if id is None:
         id = str(uuid.uuid4())
 
-    url = s3_bucket.upload_file(filename, key=TEMP_COMBINE_ARCHIVE_S3_PREFIX + id, public=public)
+    url = s3_bucket.upload_file(filename, key=id, public=public)
 
     return url
 
 
-def delete_temporary_combine_archives_in_s3_bucket(min_age=TEMP_COMBINE_ARCHIVE_MAX_AGE):
+def delete_temporary_files_in_s3_bucket(min_age=TEMP_STORAGE_MAX_AGE):
     """ Delete the temporary COMBINE archives stored in the S3 bucket
 
     Args:
@@ -251,7 +250,7 @@ def delete_temporary_combine_archives_in_s3_bucket(min_age=TEMP_COMBINE_ARCHIVE_
     s3_bucket = get_s3_bucket()
     now = datetime.datetime.utcnow().replace(tzinfo=dateutil.tz.tzutc())
     s3_bucket.delete_files_with_prefix(
-        prefix=TEMP_COMBINE_ARCHIVE_S3_PREFIX,
+        prefix='',
         max_last_modified=(
             now - datetime.timedelta(days=min_age)
             if min_age is not None else
