@@ -28,7 +28,10 @@ export class SshService {
     '',
   );
   public constructor(private configService: ConfigService) {
-    this.connection = this.initConnection();
+    const init = this.configService.get('hpc.sshInit', 'true');
+    if (!(init == 'false')) {
+      this.connection = this.initConnection();
+    }
   }
 
   public getSSHJobDirectory(id: string): string {
@@ -38,8 +41,9 @@ export class SshService {
   public getSSHJobOutputsDirectory(id: string): string {
     return path.join(this.hpcBase, id, 'outputs');
   }
-  public execStringCommand(
+  public async execStringCommand(
     cmd: string,
+    retryCount = 0,
   ): Promise<{ stdout: string; stderr: string }> {
     this.logger.debug(`Executing command`);
 
@@ -48,7 +52,7 @@ export class SshService {
         let stdout = '';
         let stderr = '';
 
-        this.connection.exec(cmd, (err, stream) => {
+        this.connection.exec(cmd, async (err, stream) => {
           if (err) {
             this.logger.error(err);
             reject(err);
@@ -71,6 +75,11 @@ export class SshService {
               });
           } else {
             this.logger.error('Stream is null');
+            if (retryCount < 3) {
+              await this.retryInit();
+              return this.execStringCommand(cmd, retryCount + 1);
+            }
+
             reject('Stream is null');
           }
         });
@@ -87,9 +96,9 @@ export class SshService {
     return connection.connect(config);
   }
 
-  private retryInit(): void {
+  private async retryInit(): Promise<void> {
     this.logger.log('Retrying SSH connection');
-    setTimeout(
+    await setTimeout(
       () => (this.connection = this.initConnection()),
       this.getRetryBackoff(),
     );
@@ -101,21 +110,23 @@ export class SshService {
         this.logger.debug('Connection ready');
       })
 
-      .on('timeout', (message: string) => {
+      .on('timeout', async (message: string) => {
         this.logger.error(`Connection timeout: ${message}`);
+        connection.removeAllListeners();
+        await this.retryInit();
       })
 
-      .on('error', (err) => {
+      .on('error', async (err) => {
         this.logger.error('Connection Error: ' + err);
 
         connection.removeAllListeners();
-        this.retryInit();
+        await this.retryInit();
       })
 
-      .on('end', () => {
+      .on('end', async () => {
         this.logger.error('Connection end');
         connection.removeAllListeners();
-        this.retryInit();
+        await this.retryInit();
       })
 
       .on('close', () => {

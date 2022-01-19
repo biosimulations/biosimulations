@@ -2,12 +2,22 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { SshService } from './ssh.service';
 import { ConfigService } from '@nestjs/config';
 
+class mockConfigService {
+  get(key: string, defaultValue = undefined) {
+    if (key == 'hpc.sshInit') {
+      return 'false';
+    }
+  }
+}
 describe('SshService', () => {
   let service: SshService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [SshService, ConfigService],
+      providers: [
+        SshService,
+        { provide: ConfigService, useClass: mockConfigService },
+      ],
     }).compile();
 
     service = module.get<SshService>(SshService);

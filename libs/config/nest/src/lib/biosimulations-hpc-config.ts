@@ -10,6 +10,7 @@ export default registerAs('hpc', () => {
       username: process.env.HPC_SSH_USERNAME,
       privateKey: process.env.HPC_SSH_PRIVATE_KEY,
     },
+    sshInit: process.env.HPC_SSH_INIT, // set to false to disable ssh init when testing
     hpcBaseDir: process.env.HPC_BASE_DIR,
     homeDir: process.env.HPC_HOME_DIR,
     executablesPath: process.env.HPC_EXECUTABLES_PATH,
