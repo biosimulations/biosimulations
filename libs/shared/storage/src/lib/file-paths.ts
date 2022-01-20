@@ -51,6 +51,26 @@ export class FilePaths {
     }
   }
 
+  /**
+   * Get the URL for downloading a file from within a COMBINE archive.
+   * The COMBINE archive is extracted to the s3 bucket. Returns a URL to the file in the s3 bucket
+   * @param runId The id of the simulation run
+   * @param fileLocation The path of the file within COMBINE archive relative to its root. Should not include './'
+   * @returns A URL to download the file from within the COMBINE archive
+   */
+  public getSimulationRunFileEndpoint(
+    runId: string,
+    fileLocation: string,
+    thumbnailType?: Thumbnail,
+  ): string {
+    const storageEndpoint =
+      this.storageWebEndpoint || `${this.storageEndpoint}/${this.bucket}`;
+    return `${storageEndpoint}/${this.getSimulationRunPath(
+      runId,
+      fileLocation,
+    )}`;
+  }
+
   public getThumbnailEndpoint(
     fileUrl: string,
     thumbnailType: Thumbnail,
@@ -90,11 +110,13 @@ export class FilePaths {
    * Create a path for a file of a simulation run in an S3 bucket
    * @param runId Id of the simulation run
    * @param fileLocation Location of a file in the COMBINE/OMEX archive for the simulation run
+   * @param absolute Whether to get the absolute path, or the path relative to the S3 path for the simulation run
    */
   public getSimulationRunContentFilePath(
     runId: string,
     fileLocation?: string,
     thumbnailType?: ThumbnailType,
+    absolute = true,
   ): string {
     if (fileLocation?.startsWith('./')) {
       fileLocation = fileLocation.substring(2);
@@ -103,7 +125,12 @@ export class FilePaths {
       ? FilePaths.simulationRunThumbnailSubpath + '/' + thumbnailType
       : FilePaths.simulationRunContentsSubpath;
     const filePath = fileLocation !== undefined ? `/${fileLocation}` : '';
-    return this.getSimulationRunPath(runId, `${dirPath}${filePath}`);
+    const relativePath = `${dirPath}${filePath}`;
+    if (absolute) {
+      return this.getSimulationRunPath(runId, relativePath);
+    } else {
+      return relativePath;
+    }
   }
 
   /**
@@ -116,6 +143,27 @@ export class FilePaths {
     absolute = true,
   ): string {
     const relativePath = `${runId}.zip`;
+    if (absolute) {
+      return this.getSimulationRunPath(runId, relativePath);
+    } else {
+      return relativePath;
+    }
+  }
+
+  /**
+   * Create a path for a log of a simulation run in an S3 bucket
+   * @param runId Id of the simulation run
+   * @param structured Whether to get the path for a structured (YAML) or plain text log
+   * @param absolute Whether to get the absolute path, or the path relative to the S3 path for the simulation run
+   */
+  public getSimulationRunLogPath(
+    runId: string,
+    structured = true,
+    absolute = true,    
+  ): string {
+    const relativePath = structured 
+      ? `${FilePaths.simulationRunOutputsSubpath}/log.yml`
+      : 'job.output';
     if (absolute) {
       return this.getSimulationRunPath(runId, relativePath);
     } else {

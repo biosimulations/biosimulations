@@ -18,7 +18,7 @@ import { Readable } from 'stream';
 // hack to get typing to work see https://github.com/DefinitelyTyped/DefinitelyTyped/issues/47780
 // eslint-disable-next-line unused-imports/no-unused-imports-ts
 import multer from 'multer';
-import { from, map, Observable, pluck } from 'rxjs';
+import { from, map, Observable } from 'rxjs';
 import { FileInfo } from './datamodel';
 import { FilePaths } from './file-paths';
 
@@ -97,29 +97,31 @@ export class SimulationStorageService {
     return file;
   }
 
-  public getSimulationRunContentFile(
+  public async getSimulationRunFile<T>(
     runId: string,
     fileLocation: string,
     // TODO refine the return type to specify stream or buffer
-  ): Observable<S3.Body | undefined> {
-    const file = from(
-      this.storage.getObject(
-        this.filePaths.getSimulationRunContentFilePath(runId, fileLocation),
-      ),
-    ).pipe(pluck('Body'));
-
-    return file;
+  ): Promise<T> {
+    return this.storage.getObject(
+      this.filePaths.getSimulationRunPath(runId, fileLocation),
+    ).then((object: AWS.S3.GetObjectOutput) => {
+      if (object === undefined) {
+        throw new InternalServerErrorException(`File '${fileLocation}' could not be retrieved for simulation run '${runId}'.`)
+      } else {
+        return object.Body as T;
+      }
+    });
   }
-  // TODO rename to getSimulationRunContentFileInfo
-  public getFileInfo(
+
+  public getSimulationRunFileInfo(
     runId: string,
     fileLocation: string,
   ): Observable<FileInfo> {
-    const objectId = this.filePaths.getSimulationRunContentFilePath(
+    const objectId = this.filePaths.getSimulationRunPath(
       runId,
       fileLocation,
     );
-    const url = this.filePaths.getSimulationRunFileContentEndpoint(
+    const url = this.filePaths.getSimulationRunFileEndpoint(
       runId,
       fileLocation,
     );

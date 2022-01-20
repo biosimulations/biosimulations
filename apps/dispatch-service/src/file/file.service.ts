@@ -21,6 +21,7 @@ import {
   FileInfo,
 } from '@biosimulations/shared/storage';
 import { ManifestService } from '../manifest/manifest.service';
+import { FilePaths } from '@biosimulations/shared/storage';
 
 @Injectable()
 export class FileService {
@@ -33,22 +34,24 @@ export class FileService {
     private manifest: ManifestService,
     private submit: SimulationRunService,
     private storage: SimulationStorageService,
+    private filePaths: FilePaths,
   ) {
     const env = config.get('server.env');
     this.endpoints = new Endpoints(env);
   }
 
   public async processFiles(
-    id: string,
+    runId: string,
     // we just need to make sure this is complete, not use the result. Change this to a specific type if we need the results
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     fileExtractionResults: Promise<any>,
   ): Promise<void> {
     this.logger.log(`Processing files for simulation run '${id}' ...`);
-    //get manifest
-    const manifestContent = this.manifest.getManifestContent(id);
 
-    // ensure file is uploaded to storage and extracted before trying to get urls for files
+    //get manifest
+    const manifestContent = this.manifest.getManifestContent(runId);
+
+    // wait for files to be extracted and uploaded to storage before trying to get information about them
     this.logger.log(`Extracting files for simulation run ${id} ...`);
     await fileExtractionResults;
 
@@ -66,12 +69,13 @@ export class FileService {
             )
             .map((file: CombineArchiveManifestContent) => {
               const fileInfo = this.storage
-                .getFileInfo(id, file.location.path)
+                .getSimulationRunFileInfo(runId, 
+                  this.filePaths.getSimulationRunContentFilePath(runId, file.location.path, undefined, false))
                 .pipe(
                   map((fileInfo: FileInfo): ProjectFileInput => {
                     const fileSize = fileInfo.size || 0;
                     const fileObject: ProjectFileInput = {
-                      id: id + '/' + file.location.path.replace('./', ''),
+                      id: runId + '/' + file.location.path.replace('./', ''),
                       name: file.location.value.filename,
                       location: file.location.path.replace('./', ''),
                       size: fileSize,
@@ -99,12 +103,12 @@ export class FileService {
         mergeMap((files: Observable<ProjectFileInput[]>) => {
           return files.pipe(
             map((files: ProjectFileInput[]) =>
-              this.submit.postFiles(id, files),
+              this.submit.postFiles(runId, files),
             ),
           );
         }),
         mergeMap((files) => files),
-        tap((_) => this.logger.log(`Posted files for simulation run '${id}'.`)),
+        tap((_) => this.logger.log(`Posted files for simulation run '${runId}'.`)),
       ),
     );
   }

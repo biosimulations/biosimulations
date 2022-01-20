@@ -17,6 +17,7 @@ import { SimulationStorageService } from '@biosimulations/shared/storage';
 import { firstValueFrom, from, map, mergeMap, Observable } from 'rxjs';
 import { SimulationRunService } from '@biosimulations/api-nest-client';
 import { ManifestService } from '../manifest/manifest.service';
+import { FilePaths } from '@biosimulations/shared/storage';
 
 @Injectable()
 export class ThumbnailService {
@@ -26,6 +27,7 @@ export class ThumbnailService {
     private manifestService: ManifestService,
     private storage: SimulationStorageService,
     private submit: SimulationRunService,
+    private filePaths: FilePaths,
   ) {}
 
   // TODO pick either observables or promises
@@ -106,25 +108,22 @@ export class ThumbnailService {
       `${runId} file processing complete, submitting thumbnails URLs`,
     );
     // download file
-    const file = await firstValueFrom(
-      this.storage.getSimulationRunContentFile(runId, location).pipe(
-        map(async (file) => {
-          if (file) {
-            const body = await this.makeThumbnail(
-              runId,
-              location,
-              file as Buffer,
-            );
+    const s3Key = this.filePaths.getSimulationRunContentFilePath(runId, location, undefined, false);
+    await this.storage.getSimulationRunFile<Buffer>(runId, s3Key)
+      .then(async (file: Buffer) => {
+          const body = await this.makeThumbnail(
+            runId,
+            location,
+            file,
+          );
 
-            await firstValueFrom(
-              this.submit.putFileThumbnailUrls(runId, location, body),
-            );
-          } else {
-            throw new Error(`File ${location} not found`);
-          }
-        }),
-      ),
-    );
+          await firstValueFrom(
+            this.submit.putFileThumbnailUrls(runId, location, body),
+          );
+      })
+      .catch((error: any) => {
+        throw new InternalServerErrorException(`File '${location}' for simulation run '${runId}' could not be retrieved.`);
+      });
   }
 
   private async makeThumbnail(

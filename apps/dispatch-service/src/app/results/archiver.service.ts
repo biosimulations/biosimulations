@@ -1,37 +1,40 @@
 import { Injectable, Logger } from '@nestjs/common';
 
 import { SimulationRunService } from '@biosimulations/api-nest-client';
-import { catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
-
-import { SshService } from '../services/ssh/ssh.service';
+import { SimulationStorageService } from '@biosimulations/shared/storage';
+import { FilePaths } from '@biosimulations/shared/storage';
 
 @Injectable()
 export class ArchiverService {
   private logger = new Logger('ArchiverService');
 
   public constructor(
-    private sshService: SshService,
     private service: SimulationRunService,
+    private storage: SimulationStorageService,
+    private filePaths: FilePaths,
   ) {}
+
   // TODO include the output archive in the files endpoint and get size from there
-  public async updateResultsSize(id: string): Promise<void> {
-    const path = this.sshService.getSSHJobDirectory(id);
-    const archive = `${path}/${id}.zip`;
-    const command = `du -b ${archive} | cut -f1`;
-    // Need to await otherwise unhandled promise rejection
-    await this.sshService.execStringCommand(command).then((output) => {
-      this.service
-        .updateSimulationRunResultsSize(id, parseInt(output.stdout))
-        .pipe(
-          catchError((err, caught) => {
-            this.logger.error(
-              `The results size for simulation run '${id}' could not be updated: ${err}`,
-            );
-            return of(null);
-          }),
-        )
-        .subscribe();
-    });
+  public async updateResultsSize(runId: string): Promise<void> {
+    const outputArchiveS3Path = this.filePaths.getSimulationRunOutputArchivePath(runId, false);
+
+    const fileInfo = await this.storage
+      .getSimulationRunFileInfo(runId, outputArchiveS3Path)
+      .toPromise();
+
+    if (fileInfo?.size === undefined) {
+      this.logger.error(
+          `The results size for simulation run '${runId}' could not be retrieved.`,
+        );
+    } else {
+      await this.service
+        .updateSimulationRunResultsSize(runId, fileInfo.size)
+        .toPromise()
+        .catch((error: any) => {
+          this.logger.error(
+            `The results size for simulation run '${runId}' could not be updated: ${error}`,
+          );
+        });
+    }
   }
 }

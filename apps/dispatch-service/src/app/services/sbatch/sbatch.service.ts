@@ -155,12 +155,17 @@ export class SbatchService {
       runId,
       false,
     );
+    const plainTextLogPath = this.filePaths.getSimulationRunLogPath(
+      runId,
+      false,
+      false,
+    );
 
     const template = `#!/bin/bash
 #SBATCH --job-name=Simulation-run-${runId}
 #SBATCH --chdir=${workDirname}
-#SBATCH --output=${workDirname}/job.output
-#SBATCH --error=${workDirname}/job.output
+#SBATCH --output=${workDirname}/${plainTextLogPath}
+#SBATCH --error=${workDirname}/${plainTextLogPath}
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=${cpus}
 #SBATCH --mem=${memoryFormatted}M
@@ -222,7 +227,7 @@ srun --job-name="Zip-outputs" \
     -r \
     '${outputArchiveS3Subpath}' \
     ${outputsS3Subpath} \
-    job.output
+    ${plainTextLogPath}
 
 echo -e ''
 echo -e '${cyan}=================================================== Saving outputs ==================================================${nc}'
