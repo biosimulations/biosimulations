@@ -1,5 +1,6 @@
 import { ErrorObject } from '@biosimulations/datamodel/api';
 import { HttpException, HttpStatus } from '@nestjs/common';
+import { StatusCodes, ReasonPhrases } from 'http-status-codes';
 
 export const makeErrorObject = (
   status: HttpStatus,
@@ -42,5 +43,12 @@ export const makeErrorObjectFromHttp = (exception: HttpException) => {
       resp = (resp as any)?.error as string;
     }
   }
-  return makeErrorObject(exception.getStatus(), exception.message, resp);
+
+  const status: number = exception.getStatus();
+  const code = StatusCodes?.[status] as ((keyof typeof ReasonPhrases) | undefined);
+  const title = code === undefined
+    ? exception.message
+    : ReasonPhrases?.[code] || exception.message;
+
+  return makeErrorObject(status, title, resp);
 };

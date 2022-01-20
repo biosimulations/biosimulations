@@ -4,6 +4,7 @@ import {
   ErrorSourceObject,
 } from '@biosimulations/datamodel/api';
 import { HttpException } from '@nestjs/common';
+import { StatusCodes, ReasonPhrases } from 'http-status-codes';
 
 // TODO refactor to be able to hold multiple errors
 export class BiosimulationsException extends Error {
@@ -25,12 +26,19 @@ export class BiosimulationsException extends Error {
   }
 
   createError(): ErrorObject {
+    const statusCode = StatusCodes?.[this.status] as ((keyof typeof ReasonPhrases) | undefined);
+    const title = statusCode === undefined
+      ? this.title
+      : ReasonPhrases?.[statusCode] || this.title;
+
     const error: ErrorObject = {
       status: this.status.toString(),
-      title: this.title,
+      title: title,
     };
     if (this.detail) {
-      error.detail = this.detail;
+      error.detail = `${this.title}: ${this.detail}`;
+    } else {
+      error.detail = this.title
     }
     if (this.code) {
       error.code = this.code;
