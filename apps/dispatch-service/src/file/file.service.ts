@@ -46,18 +46,18 @@ export class FileService {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     fileExtractionResults: Promise<any>,
   ): Promise<void> {
-    this.logger.log(`Processing files for simulation run '${id}' ...`);
+    this.logger.log(`Processing files for simulation run '${runId}' ...`);
 
     //get manifest
     const manifestContent = this.manifest.getManifestContent(runId);
 
     // wait for files to be extracted and uploaded to storage before trying to get information about them
-    this.logger.log(`Extracting files for simulation run ${id} ...`);
+    this.logger.log(`Extracting files for simulation run ${runId} ...`);
     await fileExtractionResults;
 
     // save manifest
     this.logger.log(
-      `Saving metadata about the files for simulation run ${id} ...`,
+      `Saving metadata about the files for simulation run ${runId} ...`,
     );
     await firstValueFrom(
       manifestContent.pipe(
