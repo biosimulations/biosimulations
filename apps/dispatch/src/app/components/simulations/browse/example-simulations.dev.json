@@ -96,7 +96,7 @@
     "projectSize": 1457406
   },
   {
-    "id": "61b436702ebaa8331328002e",
+    "id": "61e9ed331bfbbdaf3c1075ed",
     "name": "Escherichia coli resource allocation (Bulovi\u0107 et al., Metab Eng, 2019; RBA TSV/XML; RBA; RBApy)",
     "simulator": "rbapy",
     "simulatorVersion": "1.0.2",
@@ -107,9 +107,9 @@
     "purpose": "academic",
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-12-11T05:26:10.261Z",
-    "updated": "2021-12-11T05:26:10.261Z",
-    "projectSize": 11585469
+    "submitted": "2022-01-20T23:16:04.263Z",
+    "updated": "2022-01-20T23:16:04.263Z",
+    "projectSize": 7330564
   },
   {
     "id": "61b436722ebaa83313280038",
