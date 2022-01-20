@@ -119,7 +119,7 @@ export class HealthController {
     this.queue.isHealthy('Queue');
 
   private s3Check: HealthIndicatorFunction = () => {
-    const storageEndpoint = this.config.get('storage.endpoint');
+    const storageEndpoint = 'https://' + this.config.get('storage.bucket');
     return this.http.pingCheck('Storage', storageEndpoint);
   };
 
