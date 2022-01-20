@@ -79,9 +79,10 @@ import { Cache } from 'cache-manager';
 import { AxiosError, AxiosResponse } from 'axios';
 import { ProjectsService } from '../projects/projects.service';
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
+import { FormatService } from '@biosimulations/shared/services';
 
 // 1 GB in bytes to be used as file size limits
-const ONE_GIGABYTE = 1000000000;
+const MAX_ARCHIVE_SIZE = 1e9;
 const toApi = <T extends SimulationRunModelType>(
   obj: T,
 ): SimulationRunModelReturnType => {
@@ -158,7 +159,7 @@ export class SimulationRunService {
         await this.simulationStorageService.uploadSimulationArchive(id, file);
       this.logger.debug(`Uploaded simulation archive to S3: ${s3file}`);
 
-      // At this point, we have the urls of all the files in the archive but we don't use them
+      // At this point, we have the URLs of all the files in the archive but we don't use them
       // We should save them to the files collection along with size information.
       // then the post processing just needs to give us information about the format from the manifest
 
@@ -166,9 +167,7 @@ export class SimulationRunService {
 
       return this.createRun(run, size, url, id);
     } catch (err: any) {
-      const details = `An error occurred in uploading the COMBINE archive for the simulation run: ${
-        err?.status || err?.statusCode
-      }: ${err?.message}.`;
+      const details = `An error occurred in uploading the COMBINE archive for the simulation run: ${this.getErrorMessage(err)}.`;
       this.logger.error(details);
 
       const message = `An error occurred in uploading the COMBINE archive for the simulation run${
@@ -198,7 +197,7 @@ export class SimulationRunService {
       file = await firstValueFrom(
         this.httpService.get(url, {
           responseType: 'stream',
-          maxContentLength: ONE_GIGABYTE,
+          maxContentLength: MAX_ARCHIVE_SIZE,
         }),
       );
     } catch (err) {
@@ -206,7 +205,7 @@ export class SimulationRunService {
       // Otherwiise, just let file be null, which will throw the more generic 400 below
       if ((err as AxiosError).message.includes('maxContentLength')) {
         throw new PayloadTooLargeException(
-          `The maximum allowed size of the file is 1GB. The provided file was too large.`,
+          `The maximum allowed size of the file is ${FormatService.formatDigitalSize(MAX_ARCHIVE_SIZE)}. The provided file was too large.`,
         );
       }
     }
@@ -231,7 +230,7 @@ export class SimulationRunService {
     }
   }
   /**
-   * Download the COMBINE/OMEX archive file for the provided id. The archive is provided as a url on the fileUrl field
+   * Download the COMBINE/OMEX archive file for the provided id. The archive is provided as a URL on the fileUrl field
    * @param id The id of the simulation
    *
    */
