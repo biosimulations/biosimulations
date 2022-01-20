@@ -176,8 +176,8 @@ export class SimulationRunService {
       }.`;
       throw new BiosimulationsException(
         HttpStatus.INTERNAL_SERVER_ERROR,
+        'Simulation run could not be created',
         message,
-        undefined,
         undefined,
         undefined,
         undefined,
