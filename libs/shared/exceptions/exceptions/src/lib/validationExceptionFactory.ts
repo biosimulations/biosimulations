@@ -9,7 +9,7 @@ export const BiosimulationsValidationExceptionFactory = (
 
   const bioSimErr = new BiosimulationsException(
     HttpStatus.BAD_REQUEST,
-    'Validation Error',
+    'Object is invalid',
     message,
     undefined,
     undefined,

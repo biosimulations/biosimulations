@@ -122,7 +122,7 @@ export class SimulationRunValidationService {
     } catch {
       throw new BiosimulationsException(
         HttpStatus.BAD_REQUEST,
-        'Simulation run is not valid for publication.',
+        'Simulation run is not valid for publication',
         `'${id}' is not a valid id for a simulation run. Only successful simulation runs can be published.`,
       );
     }
@@ -130,7 +130,7 @@ export class SimulationRunValidationService {
     if (!run) {
       throw new BiosimulationsException(
         HttpStatus.BAD_REQUEST,
-        'Simulation run is not valid for publication.',
+        'Simulation run is not valid for publication',
         `A simulation run with id '${id}' could not be found. Only successful simulation runs can be published.`,
       );
     }
@@ -182,7 +182,7 @@ export class SimulationRunValidationService {
     if (errorDetails.length) {
       throw new BiosimulationsException(
         HttpStatus.BAD_REQUEST,
-        'Simulation run is not valid for publication.',
+        'Simulation run is not valid for publication',
         errorSummaries.join('\n\n'),
       );
     }
@@ -452,7 +452,7 @@ export class SimulationRunValidationService {
       );
       throw new BiosimulationsException(
         HttpStatus.BAD_REQUEST,
-        'Simulation run is not valid for publication.',
+        'Simulation run is not valid for publication',
         errorSummaries.join('\n\n'),
       );
     }
