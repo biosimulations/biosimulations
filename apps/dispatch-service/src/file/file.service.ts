@@ -53,7 +53,9 @@ export class FileService {
     await fileExtractionResults;
 
     // save manifest
-    this.logger.log(`Saving metadata about the files for simulation run ${id} ...`);
+    this.logger.log(
+      `Saving metadata about the files for simulation run ${id} ...`,
+    );
     await firstValueFrom(
       manifestContent.pipe(
         map((contents: CombineArchiveManifestContent[]) => {

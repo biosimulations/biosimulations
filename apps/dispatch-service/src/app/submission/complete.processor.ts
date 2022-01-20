@@ -98,7 +98,8 @@ export class CompleteProcessor {
         name: 'thumbnails',
         result: thumbnailProcessingResults,
         required: true,
-        moreInfo: 'https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/',
+        moreInfo:
+          'https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/',
         validator: '',
         plural: true,
       },
@@ -406,7 +407,9 @@ export class CompleteProcessor {
         error?.response?.data?.detail || error?.response?.statusText
       }`;
     } else {
-      message = `${error?.status || error?.statusCode || error.constructor.name}: ${error?.message}`;
+      message = `${
+        error?.status || error?.statusCode || error.constructor.name
+      }: ${error?.message}`;
     }
 
     return message.replace(/\n/g, '\n  ');

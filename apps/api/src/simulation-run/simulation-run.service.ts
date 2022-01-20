@@ -890,10 +890,14 @@ export class SimulationRunService {
           }
         });
       } catch (error: any) {
-        errorDetails.push(`An unexpected error occurred in computing the summary for simulation run '${id}': ${this.getErrorMessage(
-          error,
-        )}.`);
-        errorSummaries.push(`An unexpected error occurred in computing the summary for simulation run '${id}'.`);
+        errorDetails.push(
+          `An unexpected error occurred in computing the summary for simulation run '${id}': ${this.getErrorMessage(
+            error,
+          )}.`,
+        );
+        errorSummaries.push(
+          `An unexpected error occurred in computing the summary for simulation run '${id}'.`,
+        );
       }
     }
 
@@ -959,7 +963,9 @@ export class SimulationRunService {
         error?.response?.data?.detail || error?.response?.statusText
       }`;
     } else {
-      return `${error?.status || error?.statusCode || error.constructor.name}: ${error?.message}`;
+      return `${
+        error?.status || error?.statusCode || error.constructor.name
+      }: ${error?.message}`;
     }
   }
 }
