@@ -14,7 +14,7 @@ describe('HpcService', () => {
       imports: [SharedNatsClientModule],
       providers: [
         HpcService,
-        SshService,
+        { provide: SshService, useValue: {} },
         ConfigService,
         SbatchService,
         { provide: FilePaths, useValue: {} },
