@@ -105,8 +105,9 @@ jobs:
           MANAGEMENT_DOMAIN: crbmdev.auth0.com
           MANAGEMENT_ID: TEST_MANAGEMENT_ID
           MANAGEMENT_SECRET: TEST_MANAGEMENT_SECRET
+          HPC_SSH_INIT: false
 
-        run: docker run -d --name ${{matrix.app}} --network=host -e NATS_HOST -e REDIS_HOST -e REDIS_PORT -e MANAGEMENT_DOMAIN -e MANAGEMENT_ID -e MANAGEMENT_SECRET ${{env.image}}
+        run: docker run -d --name ${{matrix.app}} --network=host -e NATS_HOST -e REDIS_HOST -e REDIS_PORT -e MANAGEMENT_DOMAIN -e MANAGEMENT_ID -e MANAGEMENT_SECRET -e HPC_SSH_INIT ${{env.image}}
 
       - name: Wait for Docker Image to start
         run: sleep 10
