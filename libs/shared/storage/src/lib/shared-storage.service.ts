@@ -1,4 +1,4 @@
-import { Injectable, HttpStatus, Logger, RequestTimeoutException, InternalServerErrorException } from '@nestjs/common';
+import { Injectable, HttpStatus, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectS3, S3 } from 'nestjs-s3';
 import * as AWS from 'aws-sdk';
@@ -6,6 +6,7 @@ import { AWSError } from 'aws-sdk';
 import { Readable, PassThrough } from 'stream';
 import unzipper, { File } from 'unzipper';
 import { promiseRetry } from './promise-retry/promise-retry';
+import { BiosimulationsException } from '@biosimulations/shared/exceptions';
 
 @Injectable()
 export class SharedStorageService {
@@ -161,7 +162,11 @@ export class SharedStorageService {
         this.logger.error(
           `Timeout when uploading '${key}' to storage in ${this.S3_UPLOAD_TIMEOUT_TIME} ms.`,
         );
-        throw new RequestTimeoutException('Timeout when uploading file to storage.');
+        throw new BiosimulationsException(
+          HttpStatus.REQUEST_TIMEOUT,
+          'File could not be saved',
+          'Timeout when uploading file to storage.',
+        );
       } else {
         const details =
           err instanceof Error && err.message
@@ -173,7 +178,11 @@ export class SharedStorageService {
           err instanceof Error && err.message
             ? err?.message
             : 'Error when uploading file to storage.';
-        throw new InternalServerErrorException(message);
+        throw new BiosimulationsException(
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          'File could not be saved',
+          message,          
+        );
       }
     }
   }
