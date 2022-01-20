@@ -95,10 +95,10 @@ export class CompleteProcessor {
       },
 
       {
-        name: 'Thumbnails',
+        name: 'thumbnails',
         result: thumbnailProcessingResults,
         required: true,
-        moreInfo: '',
+        moreInfo: 'https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/',
         validator: '',
         plural: true,
       },
