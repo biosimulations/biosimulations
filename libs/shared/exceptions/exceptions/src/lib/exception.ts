@@ -35,20 +35,24 @@ export class BiosimulationsException extends Error {
       status: this.status.toString(),
       title: title,
     };
+
     if (this.detail) {
       error.detail = `${this.title}: ${this.detail}`;
     } else {
       error.detail = this.title
     }
+
     if (this.code) {
       error.code = this.code;
     }
+
     if (this.link) {
       const linkObject: AboutLinksObject = {
         about: this.link,
       };
       error.links = linkObject;
     }
+
     if (this.sourceParameter || this.sourcePointer) {
       const source: ErrorSourceObject = {};
       if (this.sourcePointer) {
@@ -59,14 +63,17 @@ export class BiosimulationsException extends Error {
       }
       error.source = source;
     }
+
     if (this.meta) {
       error.meta = this.meta;
     }
     return error;
   }
+
   getStatus(): number {
     return this.status;
   }
+
   getError(): ErrorObject {
     return this.errorObject;
   }
@@ -88,6 +95,7 @@ export class BiosimulationsException extends Error {
     }
   }
 }
+
 export function isBiosimulationsException(
   exception: BiosimulationsException | HttpException,
 ): exception is BiosimulationsException {
