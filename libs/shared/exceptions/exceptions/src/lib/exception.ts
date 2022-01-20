@@ -77,23 +77,6 @@ export class BiosimulationsException extends Error {
   getError(): ErrorObject {
     return this.errorObject;
   }
-
-  // TODO write test
-  static fromHTTP(exception: HttpException): BiosimulationsException {
-    const response = exception.getResponse() as any;
-    if (response && typeof response == 'object') {
-      return new BiosimulationsException(
-        exception.getStatus(),
-        response.error,
-        response.message,
-      );
-    } else {
-      return new BiosimulationsException(
-        exception.getStatus(),
-        exception.message,
-      );
-    }
-  }
 }
 
 export function isBiosimulationsException(
