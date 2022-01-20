@@ -467,7 +467,7 @@ export class SimulationRunValidationService {
         error?.response?.data?.detail || error?.response?.statusText
       }`;
     } else {
-      return `${error?.status || error?.statusCode}: ${error?.message}`;
+      return `${error?.status || error?.statusCode || error.constructor.name}: ${error?.message}`;
     }
   }
 }

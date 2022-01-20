@@ -172,7 +172,7 @@ export class ThumbnailService {
         error?.response?.data?.detail || error?.response?.statusText
       }`;
     } else {
-      message = `${error?.status || error?.statusCode}: ${error?.message}`;
+      message = `${error?.status || error?.statusCode || error.constructor.name}: ${error?.message}`;
     }
 
     return message.replace(/\n/g, '\n  ');
