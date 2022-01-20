@@ -515,6 +515,10 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/express/LICENSE
+├─ @types/http-status-codes@1.2.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/prettymuchbryce/node-http-status
+│  └─ licenseFile: @types/http-status-codes/LICENSE
 ├─ @types/json-schema@7.0.9
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -2273,6 +2277,11 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/joyent/node-http-signature
 │  ├─ publisher: Joyent, Inc
 │  └─ licenseFile: npm/node_modules/http-signature/LICENSE
+├─ http-status-codes@2.2.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/prettymuchbryce/http-status-codes
+│  ├─ publisher: Bryce Neal
+│  └─ licenseFile: http-status-codes/LICENSE
 ├─ https-proxy-agent@5.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/TooTallNate/node-https-proxy-agent
