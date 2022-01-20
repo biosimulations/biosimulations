@@ -32,7 +32,7 @@ export class SedmlService {
   }
 
   public async processSedml(id: string): Promise<void> {
-    this.logger.log(`Processing SED-ML documents for simulation run '${id}'.`);
+    this.logger.log(`Processing SED-ML documents for simulation run '${id}' ...`);
     const url = this.endpoints.getRunDownloadEndpoint(false, id);
     const req = this.combine.getSedMlSpecs(undefined, url);
     const sedml = req.pipe(
