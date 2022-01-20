@@ -1,9 +1,9 @@
-import { Injectable, HttpStatus, Logger } from '@nestjs/common';
+import { Injectable, HttpStatus, Logger, RequestTimeoutException, InternalServerErrorException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectS3, S3 } from 'nestjs-s3';
 import * as AWS from 'aws-sdk';
 import { AWSError } from 'aws-sdk';
-import { Readable } from 'stream';
+import { Readable, PassThrough } from 'stream';
 import unzipper, { File } from 'unzipper';
 import { promiseRetry } from './promise-retry/promise-retry';
 
@@ -35,16 +35,16 @@ export class SharedStorageService {
     s3.config.update({ region: 'us-east-1' });
   }
 
-  public getObjectUrl(id: string): string {
+  public getObjectUrl(key: string): string {
     const url = this.s3.getSignedUrl('headObject', {
       Bucket: this.BUCKET,
-      Key: id,
+      Key: key,
     });
-    this.logger.error(`getObjectUrl: ${url}`);
     return url.split('?')[0];
   }
-  public async getObjectInfo(id: string): Promise<AWS.S3.HeadObjectOutput> {
-    const call = this.s3.headObject({ Bucket: this.BUCKET, Key: id }).promise();
+
+  public async getObjectInfo(key: string): Promise<AWS.S3.HeadObjectOutput> {
+    const call = this.s3.headObject({ Bucket: this.BUCKET, Key: key }).promise();
 
     const res = await call;
 
@@ -54,9 +54,10 @@ export class SharedStorageService {
       return res;
     }
   }
-  public async listObjects(id: string): Promise<AWS.S3.ListObjectsOutput> {
+
+  public async listObjects(key: string): Promise<AWS.S3.ListObjectsOutput> {
     const call = this.s3
-      .listObjects({ Bucket: this.BUCKET, Prefix: id })
+      .listObjects({ Bucket: this.BUCKET, Prefix: key })
       .promise();
 
     const res = await call;
@@ -68,8 +69,8 @@ export class SharedStorageService {
     }
   }
 
-  public async isObject(id: string): Promise<boolean> {
-    const call = this.s3.headObject({ Bucket: this.BUCKET, Key: id }).promise();
+  public async isObject(key: string): Promise<boolean> {
+    const call = this.s3.headObject({ Bucket: this.BUCKET, Key: key }).promise();
 
     try {
       await call;
@@ -83,13 +84,13 @@ export class SharedStorageService {
     }
   }
 
-  public async getObject(id: string): Promise<AWS.S3.GetObjectOutput> {
-    const call = this.s3.getObject({ Bucket: this.BUCKET, Key: id }).promise();
+  public async getObject(key: string): Promise<AWS.S3.GetObjectOutput> {
+    const call = this.s3.getObject({ Bucket: this.BUCKET, Key: key }).promise();
 
     const res = await call;
 
     if (res.$response.error) {
-      console.error(res.$response.error.message);
+      this.logger.error(`Object with key '${key}' could not be retrieved: ${res.$response.error.message}`);
       throw res.$response.error.originalError;
     } else {
       return res;
@@ -126,19 +127,24 @@ export class SharedStorageService {
   }
 
   public async putObject(
-    id: string,
+    key: string,
     data: Buffer | Readable,
     isPrivate = false,
   ): Promise<AWS.S3.ManagedUpload.SendData> {
     const acl = isPrivate ? 'private' : 'public-read';
     const request: AWS.S3.PutObjectRequest = {
-      Key: id,
-      Body: data,
+      Key: key,
+      Body: isReadableStream(data) 
+        ? new PassThrough() 
+        : data,
       Bucket: this.BUCKET,
       ACL: acl,
     };
 
     const call = this.s3.upload(request).promise();
+    if (isReadableStream(data)) {      
+      (data as Readable).pipe(request.Body as PassThrough);
+    }
 
     const timeoutErr = Symbol();
 
@@ -153,28 +159,28 @@ export class SharedStorageService {
     } catch (err) {
       if (err === timeoutErr) {
         this.logger.error(
-          `Timeout when uploading '${id}' to storage in ${this.S3_UPLOAD_TIMEOUT_TIME} ms.`,
+          `Timeout when uploading '${key}' to storage in ${this.S3_UPLOAD_TIMEOUT_TIME} ms.`,
         );
-        throw new Error('Timeout when uploading file to storage.');
+        throw new RequestTimeoutException('Timeout when uploading file to storage.');
       } else {
         const details =
           err instanceof Error && err.message
             ? err?.message
-            : `Error when uploading ${id} to storage.`;
+            : `Error when uploading ${key} to storage.`;
         this.logger.error(details);
 
         const message =
           err instanceof Error && err.message
             ? err?.message
             : 'Error when uploading file to storage.';
-        throw new Error(message);
+        throw new InternalServerErrorException(message);
       }
     }
   }
 
-  public async deleteObject(id: string): Promise<AWS.S3.DeleteObjectOutput> {
+  public async deleteObject(key: string): Promise<AWS.S3.DeleteObjectOutput> {
     const call = this.s3
-      .deleteObject({ Bucket: this.BUCKET, Key: id })
+      .deleteObject({ Bucket: this.BUCKET, Key: key })
       .promise();
 
     const res = await call;
@@ -222,4 +228,17 @@ export class SharedStorageService {
       },
     );
   }
+}
+
+export function isStream(stream: any): boolean {
+  return stream !== null
+    && typeof stream === 'object'
+    && typeof stream.pipe === 'function';
+}
+
+export function isReadableStream(stream: any): boolean {
+  return isStream(stream)
+    && stream.readable !== false
+    && typeof stream._read === 'function'
+    && typeof stream._readableState === 'object';
 }
