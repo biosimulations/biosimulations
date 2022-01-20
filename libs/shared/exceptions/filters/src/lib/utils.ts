@@ -45,10 +45,11 @@ export const makeErrorObjectFromHttp = (exception: HttpException) => {
   }
 
   const status: number = exception.getStatus();
-  const code = StatusCodes?.[status] as ((keyof typeof ReasonPhrases) | undefined);
-  const title = code === undefined
-    ? exception.message
-    : ReasonPhrases?.[code] || exception.message;
+  const code = StatusCodes?.[status] as keyof typeof ReasonPhrases | undefined;
+  const title =
+    code === undefined
+      ? exception.message
+      : ReasonPhrases?.[code] || exception.message;
 
   return makeErrorObject(status, title, resp);
 };

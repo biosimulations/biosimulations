@@ -26,10 +26,13 @@ export class BiosimulationsException extends Error {
   }
 
   createError(): ErrorObject {
-    const statusCode = StatusCodes?.[this.status] as ((keyof typeof ReasonPhrases) | undefined);
-    const title = statusCode === undefined
-      ? this.title
-      : ReasonPhrases?.[statusCode] || this.title;
+    const statusCode = StatusCodes?.[this.status] as
+      | keyof typeof ReasonPhrases
+      | undefined;
+    const title =
+      statusCode === undefined
+        ? this.title
+        : ReasonPhrases?.[statusCode] || this.title;
 
     const error: ErrorObject = {
       status: this.status.toString(),
@@ -39,7 +42,7 @@ export class BiosimulationsException extends Error {
     if (this.detail) {
       error.detail = `${this.title}: ${this.detail}`;
     } else {
-      error.detail = this.title
+      error.detail = this.title;
     }
 
     if (this.code) {
