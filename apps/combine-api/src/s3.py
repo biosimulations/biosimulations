@@ -139,14 +139,9 @@ class S3Bucket(object):
         Args:
             key (:obj:`str`): key for the file to delete
         """
-        self.bucket.delete_objects(
-            Delete={
-                'Objects': [
-                    {
-                        'Key': key,
-                    },
-                ],
-            }
+        self.client.delete_object(
+            Bucket=self.bucket_name,
+            Key=key,
         )
 
     def delete_files_with_prefix(self, prefix: str, max_last_modified: datetime.datetime = None) -> None:
@@ -159,7 +154,8 @@ class S3Bucket(object):
         while True:
             keys = list(self.list_files(prefix, max_last_modified=max_last_modified, max_files=1000))
             if keys:
-                self.bucket.delete_objects(
+                self.client.delete_objects(
+                    Bucket=self.bucket_name,
                     Delete={
                         'Objects': [{'Key': key} for key in keys]
                     }
