@@ -169,9 +169,9 @@ class S3TestCase(unittest.TestCase):
     def test_delete_file(self):
         bucket = s3.S3Bucket(config_filename=self.config_filename, secret_filename=self.secret_filename)
 
-        def delete_objects(Delete=None):
+        def delete_object(Bucket=None, Key=None):
             return None
-        bucket.bucket = mock.Mock(delete_objects=delete_objects)
+        bucket.client = mock.Mock(delete_object=delete_object)
         bucket.delete_file('key')
 
     def test_delete_files_with_prefix(self):
@@ -208,11 +208,10 @@ class S3TestCase(unittest.TestCase):
                     'NextMarker': None,
                     'IsTruncated': False,
                 }
-        bucket.client = mock.Mock(list_objects=list_objects)
 
-        def delete_objects(Delete=None):
+        def delete_objects(Bucket=None, Delete=None):
             return None
 
-        bucket.bucket = mock.Mock(delete_objects=delete_objects)
+        bucket.client = mock.Mock(list_objects=list_objects, delete_objects=delete_objects)
 
         bucket.delete_files_with_prefix('key')
