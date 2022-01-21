@@ -45,7 +45,9 @@ export class SharedStorageService {
   }
 
   public async getObjectInfo(key: string): Promise<AWS.S3.HeadObjectOutput> {
-    const call = this.s3.headObject({ Bucket: this.BUCKET, Key: key }).promise();
+    const call = this.s3
+      .headObject({ Bucket: this.BUCKET, Key: key })
+      .promise();
 
     const res = await call;
 
@@ -71,7 +73,9 @@ export class SharedStorageService {
   }
 
   public async isObject(key: string): Promise<boolean> {
-    const call = this.s3.headObject({ Bucket: this.BUCKET, Key: key }).promise();
+    const call = this.s3
+      .headObject({ Bucket: this.BUCKET, Key: key })
+      .promise();
 
     try {
       await call;
@@ -91,7 +95,9 @@ export class SharedStorageService {
     const res = await call;
 
     if (res.$response.error) {
-      this.logger.error(`Object with key '${key}' could not be retrieved: ${res.$response.error.message}`);
+      this.logger.error(
+        `Object with key '${key}' could not be retrieved: ${res.$response.error.message}`,
+      );
       throw res.$response.error.originalError;
     } else {
       return res;
@@ -135,15 +141,13 @@ export class SharedStorageService {
     const acl = isPrivate ? 'private' : 'public-read';
     const request: AWS.S3.PutObjectRequest = {
       Key: key,
-      Body: isReadableStream(data) 
-        ? new PassThrough() 
-        : data,
+      Body: isReadableStream(data) ? new PassThrough() : data,
       Bucket: this.BUCKET,
       ACL: acl,
     };
 
     const call = this.s3.upload(request).promise();
-    if (isReadableStream(data)) {      
+    if (isReadableStream(data)) {
       (data as Readable).pipe(request.Body as PassThrough);
     }
 
@@ -181,7 +185,7 @@ export class SharedStorageService {
         throw new BiosimulationsException(
           HttpStatus.INTERNAL_SERVER_ERROR,
           'File could not be saved',
-          message,          
+          message,
         );
       }
     }
@@ -240,14 +244,18 @@ export class SharedStorageService {
 }
 
 export function isStream(stream: any): boolean {
-  return stream !== null
-    && typeof stream === 'object'
-    && typeof stream.pipe === 'function';
+  return (
+    stream !== null &&
+    typeof stream === 'object' &&
+    typeof stream.pipe === 'function'
+  );
 }
 
 export function isReadableStream(stream: any): boolean {
-  return isStream(stream)
-    && stream.readable !== false
-    && typeof stream._read === 'function'
-    && typeof stream._readableState === 'object';
+  return (
+    isStream(stream) &&
+    stream.readable !== false &&
+    typeof stream._read === 'function' &&
+    typeof stream._readableState === 'object'
+  );
 }

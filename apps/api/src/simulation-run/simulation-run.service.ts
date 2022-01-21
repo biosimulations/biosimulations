@@ -167,7 +167,9 @@ export class SimulationRunService {
 
       return this.createRun(run, size, url, id);
     } catch (err: any) {
-      const details = `An error occurred in uploading the COMBINE archive for the simulation run: ${this.getErrorMessage(err)}.`;
+      const details = `An error occurred in uploading the COMBINE archive for the simulation run: ${this.getErrorMessage(
+        err,
+      )}.`;
       this.logger.error(details);
 
       const message = `An error occurred in uploading the COMBINE archive for the simulation run${
@@ -205,7 +207,9 @@ export class SimulationRunService {
       // Otherwiise, just let file be null, which will throw the more generic 400 below
       if ((err as AxiosError).message.includes('maxContentLength')) {
         throw new PayloadTooLargeException(
-          `The maximum allowed size of the file is ${FormatService.formatDigitalSize(MAX_ARCHIVE_SIZE)}. The provided file was too large.`,
+          `The maximum allowed size of the file is ${FormatService.formatDigitalSize(
+            MAX_ARCHIVE_SIZE,
+          )}. The provided file was too large.`,
         );
       }
     }
