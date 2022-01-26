@@ -9,13 +9,12 @@ export class ExtractionService {
   ) {}
 
   public extractSimulationArchive(id: string): Promise<string[]> {
+    this.logger.debug('Beginning extraction of archive for simulation');
     return this.simulationStorageService
       .extractSimulationArchive(id)
       .then((uploadedArchiveContents) => {
         this.logger.debug(
-          `Uploaded archive contents: ${JSON.stringify(
-            uploadedArchiveContents,
-          )}`,
+          `Extracted simulation archive for simulation run '${id}'`,
         );
         return uploadedArchiveContents;
       })

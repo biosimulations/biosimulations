@@ -25,3 +25,9 @@ services:
     restart: unless-stopped
     ports: 
       - "6379:6379"
+  mongo: 
+    image: mongo:latest
+    restart: unless-stopped
+    ports: 
+      - "27017:27017"
+  

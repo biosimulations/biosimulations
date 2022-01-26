@@ -5,7 +5,6 @@ import * as AWS from 'aws-sdk';
 import { AWSError } from 'aws-sdk';
 import { Readable, PassThrough } from 'stream';
 import unzipper, { File } from 'unzipper';
-import { promiseRetry } from './promise-retry/promise-retry';
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
 
 @Injectable()
@@ -115,6 +114,7 @@ export class SharedStorageService {
     });
 
     const zipStream = await zipStreamPromise;
+
     const promises: Promise<AWS.S3.ManagedUpload.SendData>[] =
       zipStream.files.flatMap(
         (entry: File): Promise<AWS.S3.ManagedUpload.SendData>[] => {
@@ -205,8 +205,6 @@ export class SharedStorageService {
     }
   }
 
-  // TODO see if we need to keep these or just wrap the s3 calls in observables and use the rxjs retry options
-  // TODO restore retry logic to above calls
   private timeout<Type>(
     prom: Promise<Type>,
     time: number,
@@ -219,27 +217,6 @@ export class SharedStorageService {
         (_r, rej) => (timer = global.setTimeout(rej, time, exception)),
       ),
     ]).finally(() => clearTimeout(Number(timer))) as Promise<Type>;
-  }
-
-  private async retryS3<T>(func: () => Promise<T>): Promise<T> {
-    return promiseRetry<T>(
-      async (retry): Promise<T> => {
-        return func().catch((error: any) => {
-          if (
-            SharedStorageService.RETRY_ERROR_CODES.includes(
-              error.status || error.statusCode,
-            )
-          ) {
-            retry(error);
-          }
-          throw error;
-        });
-      },
-      {
-        retries: SharedStorageService.NUM_RETRIES,
-        minTimeout: SharedStorageService.MIN_TIMEOUT,
-      },
-    );
   }
 }
 
