@@ -65,15 +65,23 @@ export class FilesService {
   public async createFiles(
     runId: string,
     files: ProjectFileInput[],
-  ): Promise<void> {
-    await Promise.all(
-      files.map((file) => {
-        const fileModel = new this.model(file);
-        fileModel.simulationRun = runId;
-        return fileModel.save();
-      }),
-    );
-    return;
+  ): Promise<FileModel[]> {
+    const transaction = await this.model.db
+      .transaction(async (session) => {
+        return await Promise.all(
+          files.map(async (file) => {
+            const fileModel = new this.model(file);
+            fileModel.simulationRun = runId;
+            return fileModel.save({ session });
+          }),
+        );
+      })
+      .catch((error: any) => {
+        this.logger.error(error);
+        throw error;
+      });
+
+    return this.getSimulationRunFiles(runId);
   }
 
   /*

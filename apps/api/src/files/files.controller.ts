@@ -255,13 +255,15 @@ export class FilesController {
   @ApiCreatedResponse({
     description:
       'The metadata for the files for the simulation were successfully saved to the database',
+    type: [ProjectFile],
   })
   public async createFiles(
     @Param('runId') runId: string,
     @Body() files: ProjectFileInputsContainer,
-  ): Promise<void> {
-    await this.service.createFiles(runId, files.files);
-    return;
+  ): Promise<ProjectFile[]> {
+    this.logger.error('CALLED');
+    const returnFiles = await this.service.createFiles(runId, files.files);
+    return returnFiles.map((file) => this.createReturnFile(file));
   }
 
   //@Post(':runId')
