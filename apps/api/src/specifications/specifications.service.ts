@@ -71,17 +71,6 @@ export class SpecificationsService {
     return this.querySpecification(runId, experimentLocation).exec();
   }
 
-  private querySpecification(
-    runId: string,
-    experimentLocation: string,
-  ): Query<SpecificationsModel | null, Document<SpecificationsModel>> {
-    experimentLocation = this.normalizeExperimentLocation(experimentLocation);
-    return this.model.findOne({
-      simulationRun: runId,
-      $or: [{ id: experimentLocation }, { id: './' + experimentLocation }],
-    });
-  }
-
   public async getSpecificationsBySimulation(
     runId: string,
   ): Promise<SpecificationsModel[]> {
@@ -96,13 +85,17 @@ export class SpecificationsService {
     runId: string,
     specs: SimulationRunSedDocumentInput[],
   ): Promise<void> {
-    const createdSpecs = [];
-    for (const spec of specs) {
-      const newSpec = new this.model(spec);
-      newSpec.simulationRun = runId;
-      createdSpecs.push(newSpec.save());
-    }
-    await Promise.all(createdSpecs);
+    
+    const transaction = await this.model.db.transaction(async (session) => {
+      const newSpecs = specs.map(async (spec) => {
+        const newSpec = new this.model(spec);
+        newSpec.simulationRun = runId;
+        return newSpec.save({ session });
+      });
+
+      await Promise.all(newSpecs);
+    });
+
     return;
   }
 
@@ -134,6 +127,17 @@ export class SpecificationsService {
     }
   }
   */
+
+  private querySpecification(
+    runId: string,
+    experimentLocation: string,
+  ): Query<SpecificationsModel | null, Document<SpecificationsModel>> {
+    experimentLocation = this.normalizeExperimentLocation(experimentLocation);
+    return this.model.findOne({
+      simulationRun: runId,
+      $or: [{ id: experimentLocation }, { id: './' + experimentLocation }],
+    });
+  }
 
   private normalizeExperimentLocation(location: string): string {
     if (location.startsWith('./')) {

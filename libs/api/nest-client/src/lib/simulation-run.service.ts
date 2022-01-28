@@ -2,7 +2,7 @@ import {
   CombineArchiveLog,
   ThumbnailUrls,
 } from '@biosimulations/datamodel/common';
-import { SimulationRun } from '@biosimulations/datamodel/api';
+import { ProjectFile, SimulationRun } from '@biosimulations/datamodel/api';
 import { Injectable, Logger, HttpStatus } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
@@ -56,7 +56,7 @@ export class SimulationRunService {
   public postSpecs(
     runId: string,
     specs: SimulationRunSedDocumentInput[],
-  ): Observable<void[]> {
+  ): Observable<void> {
     this.logger.log(
       `Uploading simulation experiment specifications (SED-ML) for simulation run '${runId}' ....`,
     );
@@ -65,31 +65,23 @@ export class SimulationRunService {
         false,
         runId,
       );
-    return forkJoin(
-      specs.map((spec: SimulationRunSedDocumentInput): Observable<void> => {
-        return this.postAuthenticated<
-          SimulationRunSedDocumentInputsContainer,
-          void
-        >(runId, endpoint, { sedDocuments: [spec] });
-      }),
-    );
+    return this.postAuthenticated<
+      SimulationRunSedDocumentInputsContainer,
+      void
+    >(runId, endpoint, { sedDocuments: specs });
   }
 
   public postFiles(
     runId: string,
     files: ProjectFileInput[],
-  ): Observable<void[]> {
+  ): Observable<ProjectFile[]> {
     this.logger.log(`Uploading files for simulation run '${runId}' ....`);
     const endpoint = this.endpoints.getSimulationRunFilesEndpoint(false, runId);
-    return forkJoin(
-      files.map((file: ProjectFileInput): Observable<void> => {
-        const body: ProjectFileInputsContainer = { files: [file] };
-        return this.postAuthenticated<ProjectFileInputsContainer, void>(
-          runId,
-          endpoint,
-          body,
-        );
-      }),
+    const body: ProjectFileInputsContainer = { files: files };
+    return this.postAuthenticated<ProjectFileInputsContainer, ProjectFile[]>(
+      runId,
+      endpoint,
+      body,
     );
   }
 
