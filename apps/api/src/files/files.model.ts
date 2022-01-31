@@ -33,6 +33,7 @@ export class FileModel extends Document implements File {
     unique: true,
     index: true,
     immutable: true,
+    sparse: false,
   })
   public id: string;
 

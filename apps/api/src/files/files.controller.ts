@@ -153,6 +153,7 @@ export class FilesController {
     description: 'No file has the requested run id and file location',
   })
   @HttpCode(HttpStatus.CREATED)
+  @permissions(scopes.files.create.id)
   public async addThumbnailUrls(
     @Param('runId') runId: string,
     @Param('fileLocation') fileLocation: string,
@@ -203,7 +204,11 @@ export class FilesController {
     }
 
     const url = file.url;
-    const thumbnailUrl = thumbnail ? file.thumbnailUrls[thumbnail] : undefined;
+
+    //make sure to use optional chaining to prevent error if no thumbnails exist
+    const thumbnailUrl = thumbnail
+      ? file?.thumbnailUrls?.[thumbnail]
+      : undefined;
 
     if (thumbnail && thumbnailUrl) {
       return {
@@ -261,7 +266,6 @@ export class FilesController {
     @Param('runId') runId: string,
     @Body() files: ProjectFileInputsContainer,
   ): Promise<ProjectFile[]> {
-    this.logger.error('CALLED');
     const returnFiles = await this.service.createFiles(runId, files.files);
     return returnFiles.map((file) => this.createReturnFile(file));
   }
