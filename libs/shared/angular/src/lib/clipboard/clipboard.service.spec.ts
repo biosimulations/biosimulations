@@ -23,7 +23,9 @@ describe('ClipboardService', () => {
 
   it('should post notification', () => {
     expect(service).toBeDefined();
-    service.copyToClipboard("test1", "test2");
-    expect(mockSnackBar.open).toHaveBeenCalledWith("test2", undefined, { duration: SNACK_BAR_DURATION });
+    service.copyToClipboard('test1', 'test2');
+    expect(mockSnackBar.open).toHaveBeenCalledWith('test2', undefined, {
+      duration: SNACK_BAR_DURATION,
+    });
   });
 });

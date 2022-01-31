@@ -594,8 +594,16 @@ export class BrowseComponent implements OnInit {
           return null;
         } else {
           return (simulation: ISimulation): void => {
-            const toCopy = window.location.protocol + '//' + window.location.host + '/simulations/' + simulation.id;
-            this.clipboardService.copyToClipboard(toCopy, 'The URL for sharing the simulation was copied to your clipboard.');
+            const toCopy =
+              window.location.protocol +
+              '//' +
+              window.location.host +
+              '/simulations/' +
+              simulation.id;
+            this.clipboardService.copyToClipboard(
+              toCopy,
+              'The URL for sharing the simulation was copied to your clipboard.',
+            );
           };
         }
       },
@@ -607,8 +615,16 @@ export class BrowseComponent implements OnInit {
           return null;
         } else {
           return (simulation: ISimulation): void => {
-            const toCopy = window.location.protocol + '//' + window.location.host + '/simulations/' + simulation.id;
-            this.clipboardService.copyToClipboard(toCopy, 'The URL for sharing the simulation was copied to your clipboard.');
+            const toCopy =
+              window.location.protocol +
+              '//' +
+              window.location.host +
+              '/simulations/' +
+              simulation.id;
+            this.clipboardService.copyToClipboard(
+              toCopy,
+              'The URL for sharing the simulation was copied to your clipboard.',
+            );
           };
         }
       },

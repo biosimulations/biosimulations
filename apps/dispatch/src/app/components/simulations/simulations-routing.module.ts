@@ -38,13 +38,20 @@ function rerunProject(url: string, router: Router): void {
   return;
 }
 
-function shareProject(url: string, _: Router, clipboardService: ClipboardService): void {
+function shareProject(
+  url: string,
+  _: Router,
+  clipboardService: ClipboardService,
+): void {
   const parts = url.split('/');
   const id = parts[2].split('#')[0];
   const protocol = window.location.protocol;
   const host = window.location.host;
   const toCopy = protocol + '//' + host + '/simulations/' + id;
-  clipboardService.copyToClipboard(toCopy, 'The URL for sharing this simulation was copied to your clipboard.');
+  clipboardService.copyToClipboard(
+    toCopy,
+    'The URL for sharing this simulation was copied to your clipboard.',
+  );
 }
 
 function publishProject(url: string, router: Router): void {

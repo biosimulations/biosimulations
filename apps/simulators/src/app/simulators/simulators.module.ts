@@ -9,7 +9,7 @@ import { BrowseSimulatorsComponent } from './browse-simulators/browse-simulators
 import { ViewSimulatorComponent } from './view-simulator/view-simulator.component';
 import { HighlightModule } from 'ngx-highlightjs';
 import { NgxJsonLdModule } from '@ngx-lite/json-ld';
-import { SharedAngularModule} from '@biosimulations/shared/angular';
+import { SharedAngularModule } from '@biosimulations/shared/angular';
 
 @NgModule({
   declarations: [BrowseSimulatorsComponent, ViewSimulatorComponent],
