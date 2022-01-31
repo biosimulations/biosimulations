@@ -4,6 +4,7 @@ import { BreadCrumbsButtonComponent } from './bread-crumbs-button.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { MaterialWrapperModule } from '../../material-wrapper.module';
+import { SharedAngularModule } from '@biosimulations/shared/angular';
 
 describe('BreadCrumbsButtonComponent', () => {
   let component: BreadCrumbsButtonComponent;
@@ -15,6 +16,7 @@ describe('BreadCrumbsButtonComponent', () => {
         RouterTestingModule,
         BiosimulationsIconsModule,
         MaterialWrapperModule,
+        SharedAngularModule,
       ],
       declarations: [BreadCrumbsButtonComponent],
     }).compileComponents();

@@ -17,11 +17,11 @@ import exampleSimulationsDevJson from './example-simulations.dev.json';
 import exampleSimulationsProdJson from './example-simulations.prod.json';
 import { debounceTime, take } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { SNACK_BAR_DURATION } from '@biosimulations/config/common';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteSimulationsDialogComponent } from './delete-simulations-dialog.component';
 import { FormatService } from '@biosimulations/shared/services';
+import { ClipboardService } from '@biosimulations/shared/angular';
 
 @Component({
   templateUrl: './browse.component.html',
@@ -594,20 +594,8 @@ export class BrowseComponent implements OnInit {
           return null;
         } else {
           return (simulation: ISimulation): void => {
-            navigator.clipboard.writeText(
-              window.location.protocol +
-                '//' +
-                window.location.host +
-                '/simulations/' +
-                simulation.id,
-            );
-            this.snackBar.open(
-              'The URL for sharing the simulation was copied to your clipboard.',
-              'Ok',
-              {
-                duration: SNACK_BAR_DURATION,
-              },
-            );
+            const toCopy = window.location.protocol + '//' + window.location.host + '/simulations/' + simulation.id;
+            this.clipboardService.copyToClipboard(toCopy, 'The URL for sharing the simulation was copied to your clipboard.');
           };
         }
       },
@@ -619,20 +607,8 @@ export class BrowseComponent implements OnInit {
           return null;
         } else {
           return (simulation: ISimulation): void => {
-            navigator.clipboard.writeText(
-              window.location.protocol +
-                '//' +
-                window.location.host +
-                '/simulations/' +
-                simulation.id,
-            );
-            this.snackBar.open(
-              'The URL for sharing the simulation was copied to your clipboard.',
-              'Ok',
-              {
-                duration: SNACK_BAR_DURATION,
-              },
-            );
+            const toCopy = window.location.protocol + '//' + window.location.host + '/simulations/' + simulation.id;
+            this.clipboardService.copyToClipboard(toCopy, 'The URL for sharing the simulation was copied to your clipboard.');
           };
         }
       },
@@ -750,6 +726,7 @@ export class BrowseComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog,
+    private clipboardService: ClipboardService,
   ) {
     activatedRoute.queryParams.subscribe((params: Params): void => {
       if (params?.try) {

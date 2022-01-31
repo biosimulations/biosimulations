@@ -8,7 +8,7 @@ import { SimulationRunsVizModule } from '@biosimulations/simulation-runs/viz';
 import { SimulationRunsUiModule } from '@biosimulations/simulation-runs/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import { SharedAngularModule } from '@biosimulations/shared/angular';
 import { SimulationsRoutingModule } from './simulations-routing.module';
 import { BrowseComponent } from './browse/browse.component';
 import { DeleteSimulationsDialogComponent } from './browse/delete-simulations-dialog.component';
@@ -37,6 +37,7 @@ import { PublishComponent } from './publish/publish.component';
     BiosimulationsIconsModule,
     MatDialogModule,
     SimulationLogModule,
+    SharedAngularModule,
   ],
 })
 export class SimulationsModule {}
