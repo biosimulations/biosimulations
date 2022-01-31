@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { tap, switchMap } from 'rxjs/operators';
 import { Observable, BehaviorSubject, of } from 'rxjs';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import {
   TocSection,
   TocSectionsContainerDirective,
@@ -12,9 +11,8 @@ import {
 } from '@biosimulations/shared/ui';
 import { ViewSimulatorService } from './view-simulator.service';
 import { ConfigService } from '@biosimulations/config/angular';
-import { SNACK_BAR_DURATION } from '@biosimulations/config/common';
-
 import { ViewSimulator, ViewVersion } from './view-simulator.interface';
+import { ClipboardService } from '@biosimulations/shared/angular';
 
 @Component({
   selector: 'biosimulations-view-simulator',
@@ -32,7 +30,7 @@ export class ViewSimulatorComponent implements OnInit {
     private simService: ViewSimulatorService,
     private changeDetectorRef: ChangeDetectorRef,
     private config: ConfigService,
-    private snackBar: MatSnackBar,
+    private clipboardService: ClipboardService,
   ) {}
 
   public loadingSubject = new BehaviorSubject(true);
@@ -259,132 +257,60 @@ export class ViewSimulatorComponent implements OnInit {
 
   public copyDockerPullCmd(image = '{ image }'): void {
     const cmd = 'docker pull ' + image;
-    navigator.clipboard.writeText(cmd);
-    this.snackBar.open(
-      'The command to pull the Docker image was copied to your clipboard.',
-      'Ok',
-      {
-        duration: SNACK_BAR_DURATION,
-      },
-    );
+    this.clipboardService.copyToClipboard(cmd, 'The command to pull the Docker image was copied to your clipboard.');
   }
 
   public copyDockerRunCmd(image = '{ image }'): void {
     const cmd = `docker run ${image} -i /path/to/project.omex -o /path/to/outputs`;
-    navigator.clipboard.writeText(cmd);
-    this.snackBar.open(
-      'The command to run the Docker image was copied to your clipboard.',
-      'Ok',
-      {
-        duration: SNACK_BAR_DURATION,
-      },
-    );
+    this.clipboardService.copyToClipboard(cmd, 'The command to run the Docker image was copied to your clipboard.');
   }
 
   public copyDockerHelpCmd(image = '{ image }'): void {
     const cmd = 'docker run ' + image + ' --help';
-    navigator.clipboard.writeText(cmd);
-    this.snackBar.open(
-      'The command to get help with the Docker image was copied to your clipboard.',
-      'Ok',
-      {
-        duration: SNACK_BAR_DURATION,
-      },
-    );
+    const message = 'The command to get help with the Docker image was copied to your clipboard.';
+    this.clipboardService.copyToClipboard(cmd, message);
   }
 
   public copySingularityPullCmd(image = '{ image }'): void {
     const cmd = 'singularity pull docker://' + image;
-    navigator.clipboard.writeText(cmd);
-    this.snackBar.open(
-      'The command to pull the Singularity image was copied to your clipboard.',
-      'Ok',
-      {
-        duration: SNACK_BAR_DURATION,
-      },
-    );
+    this.clipboardService.copyToClipboard(cmd, 'The command to pull the Singularity image was copied to your clipboard.');
   }
 
   public copySingularityRunCmd(image = '{ image }'): void {
     const cmd = `singularity run docker://${image} -i /path/to/project.omex -o /path/to/outputs`;
-    navigator.clipboard.writeText(cmd);
-    this.snackBar.open(
-      'The command to run the Singularity image was copied to your clipboard.',
-      'Ok',
-      {
-        duration: SNACK_BAR_DURATION,
-      },
-    );
+    this.clipboardService.copyToClipboard(cmd, 'The command to run the Singularity image was copied to your clipboard.');
   }
 
   public copySingularityHelpCmd(image = '{ image }'): void {
     const cmd = 'singularity run docker://' + image + ' --help';
-    navigator.clipboard.writeText(cmd);
-    this.snackBar.open(
-      'The command to get help with the Singularity image was copied to your clipboard.',
-      'Ok',
-      {
-        duration: SNACK_BAR_DURATION,
-      },
-    );
+    const message = 'The command to get help with the Singularity image was copied to your clipboard.';
+    this.clipboardService.copyToClipboard(cmd, message);
   }
 
   public copyCliInstallCmd(cmd: string): void {
-    navigator.clipboard.writeText(cmd);
-    this.snackBar.open(
-      'The command to install the command-line application was copied to your clipboard.',
-      'Ok',
-      {
-        duration: SNACK_BAR_DURATION,
-      },
-    );
+    const message = 'The command to install the command-line application was copied to your clipboard.';
+    this.clipboardService.copyToClipboard(cmd, message);
   }
 
   public copyRunCliCmd(cmd?: string): void {
-    navigator.clipboard.writeText(
-      `${cmd as string} -i /path/to/project.omex -o /path/to/outputs`,
-    );
-    this.snackBar.open(
-      'The command to run the command-line application was copied to your clipboard.',
-      'Ok',
-      {
-        duration: SNACK_BAR_DURATION,
-      },
-    );
+    const toCopy = `${cmd as string} -i /path/to/project.omex -o /path/to/outputs`;
+    const message = 'The command to run the command-line application was copied to your clipboard.';
+    this.clipboardService.copyToClipboard(toCopy, message);
   }
 
   public copyCliHelpCmd(cmd?: string): void {
-    navigator.clipboard.writeText((cmd as string) + ' --help');
-    this.snackBar.open(
-      'The command to get help about the command-line application was copied to your clipboard.',
-      'Ok',
-      {
-        duration: SNACK_BAR_DURATION,
-      },
-    );
+    const toCopy = (cmd as string) + ' --help';
+    const message = 'The command to get help about the command-line application was copied to your clipboard.';
+    this.clipboardService.copyToClipboard(toCopy, message);
   }
 
   public copyPythonApiInstallCmd(pythonPackage = '{ package }'): void {
     const cmd = 'pip install ' + pythonPackage;
-    navigator.clipboard.writeText(cmd);
-    this.snackBar.open(
-      'The command to install the Python package was copied to your clipboard.',
-      'Ok',
-      {
-        duration: SNACK_BAR_DURATION,
-      },
-    );
+    this.clipboardService.copyToClipboard(cmd, 'The command to install the Python package was copied to your clipboard.');
   }
 
   public copyRunPythonCmd(module = '{ module }'): void {
     const cmd = `import ${module} as simulator\nsimulator.exec_sedml_docs_in_combine_archive(\n    '/path/to/project.omex', '/path/to/outputs')`;
-    navigator.clipboard.writeText(cmd);
-    this.snackBar.open(
-      'The command to import the Python module was copied to your clipboard.',
-      'Ok',
-      {
-        duration: SNACK_BAR_DURATION,
-      },
-    );
+    this.clipboardService.copyToClipboard(cmd, 'The command to import the Python module was copied to your clipboard.');
   }
 }

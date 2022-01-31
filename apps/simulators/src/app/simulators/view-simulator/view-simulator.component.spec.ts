@@ -11,6 +11,7 @@ import { ScrollService } from '@biosimulations/shared/angular';
 import { ConfigService } from '@biosimulations/config/angular';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { NgxJsonLdModule } from '@ngx-lite/json-ld';
+import { SharedAngularModule } from '@biosimulations/shared/angular';
 
 describe('ViewSimulatorComponent', () => {
   let component: ViewSimulatorComponent;
@@ -27,6 +28,7 @@ describe('ViewSimulatorComponent', () => {
         NoopAnimationsModule,
         HighlightModule,
         NgxJsonLdModule,
+        SharedAngularModule,
       ],
       declarations: [ViewSimulatorComponent],
       providers: [

@@ -1,8 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
-import { SNACK_BAR_DURATION } from '@biosimulations/config/common';
+import { ClipboardService } from '@biosimulations/shared/angular'
 
 @Component({
   selector: 'biosimulations-bread-crumbs-button',
@@ -20,22 +19,18 @@ export class BreadCrumbsButtonComponent {
   public route?: string | string[];
 
   @Input()
-  public onClick?: (route: string, router: Router) => string | void;
+  public onClick?: (route: string, router: Router, clipboardService: ClipboardService) => void;
 
   @Input()
   public hover?: string;
 
-  public constructor(private router: Router, private _snackBar: MatSnackBar) {}
+  public constructor(private router: Router, private clipboardService: ClipboardService) {}
 
   public clickHandler(): void {
-    if (this.onClick) {
-      const route = this.router.url;
-      const message = this.onClick(route, this.router);
-      if (message) {
-        this._snackBar.open(message, undefined, {
-          duration: SNACK_BAR_DURATION,
-        });
-      }
+    if (!this.onClick) {
+      return;
     }
+    const route = this.router.url;
+    this.onClick(route, this.router, this.clipboardService);
   }
 }

@@ -13,6 +13,7 @@ import {
 
 import { ConfigService } from '@biosimulations/config/angular';
 import { SharedUiModule } from '@biosimulations/shared/ui';
+import { SharedAngularModule } from '@biosimulations/shared/angular';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { BrowseComponent } from './browse.component';
 
@@ -27,6 +28,7 @@ describe('BrowseComponent', () => {
         RouterTestingModule,
         NoopAnimationsModule,
         SharedUiModule,
+        SharedAngularModule,
         BiosimulationsIconsModule,
         IonicStorageModule.forRoot({
           driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage],

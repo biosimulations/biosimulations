@@ -7,6 +7,7 @@ import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { BreadCrumbsComponent } from './bread-crumbs.component';
 import { BreadCrumbsButtonComponent } from './bread-crumbs-button/bread-crumbs-button.component';
 import { BreadCrumbsPositionComponent } from './bread-crumbs-position/bread-crumbs-position.component';
+import { SharedAngularModule } from '@biosimulations/shared/angular';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { BreadCrumbsPositionComponent } from './bread-crumbs-position/bread-crum
     MaterialWrapperModule,
     RouterModule,
     BiosimulationsIconsModule,
+    SharedAngularModule,
   ],
   exports: [
     BreadCrumbsComponent,
