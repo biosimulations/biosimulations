@@ -1,37 +1,42 @@
 import { Injectable, Logger } from '@nestjs/common';
 
 import { SimulationRunService } from '@biosimulations/api-nest-client';
-import { catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { map, mergeMap, pluck } from 'rxjs/operators';
+import { firstValueFrom, Observable } from 'rxjs';
 
-import { SshService } from '../services/ssh/ssh.service';
+import {
+  FileInfo,
+  OutputFileName,
+  SimulationStorageService,
+} from '@biosimulations/shared/storage';
+import { SimulationRun } from '@biosimulations/datamodel/api';
 
 @Injectable()
 export class ArchiverService {
   private logger = new Logger('ArchiverService');
 
   public constructor(
-    private sshService: SshService,
     private service: SimulationRunService,
+    private storage: SimulationStorageService,
   ) {}
-  // TODO include the output archive in the files endpoint and get size from there
-  public async updateResultsSize(id: string): Promise<void> {
-    const path = this.sshService.getSSHJobDirectory(id);
-    const archive = `${path}/${id}.zip`;
-    const command = `du -b ${archive} | cut -f1`;
-    // Need to await otherwise unhandled promise rejection
-    await this.sshService.execStringCommand(command).then((output) => {
-      this.service
-        .updateSimulationRunResultsSize(id, parseInt(output.stdout))
-        .pipe(
-          catchError((err, caught) => {
-            this.logger.error(
-              `The results size for simulation run '${id}' could not be updated: ${err}`,
+  public updateResultsSize(id: string): Observable<number | undefined> {
+    const info = this.storage
+      .getSimulationRunOutputFileInfo(id, OutputFileName.OUTPUT_ARCHIVE)
+      .pipe(
+        map((info: FileInfo) => {
+          if (info.size) {
+            return this.service.updateSimulationRunResultsSize(
+              id,
+              info.size,
+              info.url,
             );
-            return of(null);
-          }),
-        )
-        .subscribe();
-    });
+          } else {
+            throw new Error(`Could not update file size for ${id}`);
+          }
+        }),
+        mergeMap((result) => result),
+        pluck<SimulationRun, 'resultsSize'>('resultsSize'),
+      );
+    return info;
   }
 }
