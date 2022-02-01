@@ -3,13 +3,13 @@ import {
   SimulationRunStatusReason,
 } from '@biosimulations/datamodel/common';
 import {
-  CompleteJob,
+  CompleteJobData,
   JobQueue,
-  MonitorJob,
+  MonitorJobData,
 } from '@biosimulations/messages/messages';
-import { Processor, InjectQueue, Process } from '@nestjs/bull';
+import { Processor, InjectQueue, Process } from '@ejhayes/nestjs-bullmq';
 import { Logger } from '@nestjs/common';
-import { Job, Queue } from 'bull';
+import { Job, Queue } from 'bullmq';
 import { HpcService } from '../services/hpc/hpc.service';
 import { SimulationStatusService } from '../services/simulationStatus.service';
 
@@ -22,14 +22,16 @@ export class MonitorProcessor {
     private simStatusService: SimulationStatusService,
     private hpcService: HpcService,
 
-    @InjectQueue(JobQueue.monitor) private monitorQueue: Queue<MonitorJob>,
-    @InjectQueue(JobQueue.complete) private completeQueue: Queue<CompleteJob>,
+    @InjectQueue(JobQueue.monitor) private monitorQueue: Queue<MonitorJobData>,
+    @InjectQueue(JobQueue.process) private processQueue: Queue<CompleteJobData>,
   ) {}
 
   @Process({
     concurrency: 10,
   })
-  private async handleMonitoring(job: Job<MonitorJob>): Promise<void> {
+  private async handleMonitoring(
+    job: Job<MonitorJobData, void>,
+  ): Promise<void> {
     const data = job.data;
     const slurmJobId = data.slurmJobId;
     const projectId = data.projectId;
@@ -54,13 +56,13 @@ export class MonitorProcessor {
           SimulationRunStatus.PROCESSING,
           jobStatusReason.reason,
         );
-        this.completeQueue.add({
+        this.startProcessingJob(
           runId,
-          status: jobStatusReason.status,
-          statusReason: jobStatusReason.reason,
+          SimulationRunStatus.PROCESSING,
+          jobStatusReason.reason,
           projectId,
           projectOwner,
-        });
+        );
       } else {
         await this.simStatusService.updateStatus(
           runId,
@@ -68,6 +70,7 @@ export class MonitorProcessor {
           jobStatusReason.reason,
         );
         this.monitorQueue.add(
+          'monitor',
           { slurmJobId, runId, projectId, projectOwner, retryCount },
           { delay: DELAY },
         );
@@ -80,6 +83,7 @@ export class MonitorProcessor {
       if (retryCount < MAX_MONITOR_RETRY) {
         retryCount = retryCount + 1;
         this.monitorQueue.add(
+          'monitor',
           { slurmJobId, runId, projectId, projectOwner, retryCount },
           { delay: DELAY },
         );
@@ -87,14 +91,36 @@ export class MonitorProcessor {
         this.logger.error(
           `Simulation run '${runId}' appears to have failed because its status could not retrieved in the allowed ${MAX_MONITOR_RETRY} number of tries.`,
         );
-        this.completeQueue.add({
+        this.startProcessingJob(
           runId,
-          status: SimulationRunStatus.FAILED,
-          statusReason: message,
+          SimulationRunStatus.FAILED,
+          message,
           projectId,
           projectOwner,
-        });
+        );
       }
     }
+  }
+
+  private startProcessingJob(
+    runId: string,
+    status: SimulationRunStatus,
+    reason: string,
+    projectId: string | undefined,
+    projectOwner: string | undefined,
+  ): void {
+    this.processQueue.add(
+      'process',
+      {
+        runId,
+        status: status,
+        statusReason: reason,
+        projectId,
+        projectOwner,
+      },
+      {
+        jobId: `process--${runId}`,
+      },
+    );
   }
 }
