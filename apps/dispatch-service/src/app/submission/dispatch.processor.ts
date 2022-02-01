@@ -1,12 +1,14 @@
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import {
-  DispatchJob,
+  DispatchJobData,
   JobQueue,
-  MonitorJob,
+  MonitorJobData,
 } from '@biosimulations/messages/messages';
-import { InjectQueue, Process, Processor } from '@nestjs/bull';
+
+import { BiosimulationsException } from '@biosimulations/shared/exceptions';
+import { InjectQueue, Process, Processor } from '@ejhayes/nestjs-bullmq';
 import { Logger } from '@nestjs/common';
-import { Job, Queue } from 'bull';
+import { Job, Queue } from 'bullmq';
 import { HpcService } from '../services/hpc/hpc.service';
 import { SimulationStatusService } from '../services/simulationStatus.service';
 
@@ -17,11 +19,11 @@ export class DispatchProcessor {
   public constructor(
     private hpcService: HpcService,
     private simStatusService: SimulationStatusService,
-    @InjectQueue(JobQueue.monitor) private monitorQueue: Queue<MonitorJob>,
+    @InjectQueue(JobQueue.monitor) private monitorQueue: Queue<MonitorJobData>,
   ) {}
 
   @Process()
-  private async handleSubmission(job: Job<DispatchJob>): Promise<void> {
+  private async handleSubmission(job: Job<DispatchJobData>): Promise<void> {
     const data = job.data;
 
     this.logger.debug(`Starting job for simulation run '${data.runId}' ...`);
@@ -46,12 +48,19 @@ export class DispatchProcessor {
       // There was an error with submission of the job
       const message = `An error occurred in submitting an HPC job for simulation run '${data.runId}': ${response.stderr}`;
       this.logger.error(message);
-      await this.simStatusService.updateStatus(
-        data.runId,
-        SimulationRunStatus.FAILED,
+      if (job.attemptsMade >= (job.opts.attempts || 0)) {
+        await this.simStatusService.updateStatus(
+          data.runId,
+          SimulationRunStatus.FAILED,
+          message,
+        );
+      }
+
+      throw new BiosimulationsException(
+        500,
+        'Error occurred in job Submission',
         message,
       );
-      return;
     }
 
     // Get the Slurm id of the job
@@ -63,7 +72,7 @@ export class DispatchProcessor {
       `Initiating monitoring for job '${slurmjobId}' for simulation run '${data.runId}' ...`,
     );
 
-    const monitorData: MonitorJob = {
+    const monitorData: MonitorJobData = {
       slurmJobId: slurmjobId.toString(),
       runId: data.runId,
       projectId: data.projectId,
@@ -71,6 +80,6 @@ export class DispatchProcessor {
       retryCount: 0,
     };
 
-    this.monitorQueue.add(monitorData);
+    this.monitorQueue.add('monitor', monitorData);
   }
 }
