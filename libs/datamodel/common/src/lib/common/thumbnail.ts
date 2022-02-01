@@ -9,8 +9,11 @@ export enum Thumbnail {
   view = 'view',
   browse = 'browse',
 }
-
 export type ThumbnailUrls = { [key in Thumbnail]?: string };
+export type LocationThumbnailUrls = {
+  urls: ThumbnailUrls;
+  location: string;
+};
 // typescript 4.2 feature to get union type from enum
 export type ThumbnailType = `${Thumbnail}`;
 export type ThumbnailWidth = {
