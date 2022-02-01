@@ -4,7 +4,6 @@ import { ConfigService } from '@nestjs/config';
 
 import {
   combineLatest,
-  firstValueFrom,
   map,
   Observable,
   of,

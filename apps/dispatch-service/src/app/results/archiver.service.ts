@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 
 import { SimulationRunService } from '@biosimulations/api-nest-client';
 import { map, mergeMap, pluck } from 'rxjs/operators';
-import { firstValueFrom, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import {
   FileInfo,

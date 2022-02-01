@@ -9,6 +9,10 @@
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "rules": {
+        "max-len": "off",
+        "@typescript-eslint/explicit-member-accessibility": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "unused-imports/no-unused-vars-ts": "off",
         "@angular-eslint/directive-selector": [
           "error",
           {
