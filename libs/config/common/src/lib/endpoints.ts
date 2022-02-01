@@ -124,6 +124,26 @@ export class Endpoints {
     return `${this.getFilesEndpointBaseUrl(external)}${runId}${fileLocation}`;
   }
 
+  /**
+   * Get the endpoint for posting the thumbnails of an image file for a simulation run
+   * @param external Whether the URL should be accessible from outside the local evironment
+   * @param runId The id of the simulation run
+   * @param fileLocation The location of the file within the COMBINE/OMEX archive for the simulation run
+   * @returns The URL to post the thumbnails of an image file for a simulation run
+   */
+  public getSimulationRunThumbnailEndpoint(
+    external: boolean,
+    runId: string,
+    fileLocation: string,
+  ): string {
+    const fileUrl = this.getSimulationRunFilesEndpoint(
+      external,
+      runId,
+      fileLocation,
+    );
+    return `${fileUrl}/thumbnail`;
+  }
+
   /** Get the URL to download a file in a simulation run
    * @param external Whether the URL should be accessible from outside the local environment
    * @param runId The id of the simulation run
