@@ -2,8 +2,7 @@ import { Endpoints } from '@biosimulations/config/common';
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { CombineWrapperService } from '../combineWrapper.service';
-import { HttpService } from '@nestjs/axios';
-import { firstValueFrom, map, mergeMap, pluck } from 'rxjs';
+import { map, Observable, pluck } from 'rxjs';
 import {
   SedDocument,
   SedModel,
@@ -13,7 +12,6 @@ import {
   SedOutput,
   CombineArchiveSedDocSpecsContent,
 } from '@biosimulations/combine-api-nest-client';
-import { SimulationRunService } from '@biosimulations/api-nest-client';
 import { SimulationRunSedDocumentInput } from '@biosimulations/ontology/datamodel';
 
 @Injectable()
@@ -24,29 +22,25 @@ export class SedmlService {
   public constructor(
     private config: ConfigService,
     private combine: CombineWrapperService,
-    private httpService: HttpService,
-    private submit: SimulationRunService,
   ) {
     const env = config.get('server.env');
     this.endpoints = new Endpoints(env);
   }
 
-  public async processSedml(id: string): Promise<void> {
+  public processSedml(id: string): Observable<SimulationRunSedDocumentInput[]> {
     this.logger.log(
       `Processing SED-ML documents for simulation run '${id}' ...`,
     );
     const url = this.endpoints.getRunDownloadEndpoint(true, id);
-    const req = this.combine.getSedMlSpecs(undefined, url);
-    const sedml = req.pipe(
-      pluck('data'),
-      pluck('contents'),
-      map(this.getSpecsFromArchiveContent.bind(this)),
-      mergeMap((sedmlSpecs: SimulationRunSedDocumentInput[]) => {
-        return this.submit.postSpecs(id, sedmlSpecs);
-      }),
-    );
+    const sedml = this.combine
+      .getSedMlSpecs(undefined, url)
+      .pipe(
+        pluck('data'),
+        pluck('contents'),
+        map(this.getSpecsFromArchiveContent.bind(this)),
+      );
 
-    await firstValueFrom(sedml);
+    return sedml;
   }
 
   private getSpecsFromArchiveContent(
