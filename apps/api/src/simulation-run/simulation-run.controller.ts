@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 /**
  * @file Contains the controller for CRUD operations on simulation runs
- * @author Bilal Shaikh
+ * @author Bilal Shaikh, Jonathan Karr
  * @copyright BioSimulations Team 2020
  * @license MIT
  */
-import { DispatchJob } from '@biosimulations/messages/messages';
+import { DispatchJobData } from '@biosimulations/messages/messages';
 import { OptionalAuth, permissions } from '@biosimulations/auth/nest';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 import {
@@ -61,10 +61,9 @@ import {
 import { SimulationRunService } from './simulation-run.service';
 import { SimulationRunModelReturnType } from './simulation-run.model';
 import { AuthToken } from '@biosimulations/auth/common';
-import { InjectQueue } from '@nestjs/bull';
-import { Queue } from 'bull';
+import { InjectQueue } from '@ejhayes/nestjs-bullmq';
+import { Queue } from 'bullmq';
 import { scopes } from '@biosimulations/auth/common';
-import { Readable } from 'stream';
 
 // hack to get typing to work see https://github.com/DefinitelyTyped/DefinitelyTyped/issues/47780
 // eslint-disable-next-line unused-imports/no-unused-imports-ts
@@ -86,7 +85,8 @@ export class SimulationRunController {
   public constructor(
     private service: SimulationRunService,
     private validationService: SimulationRunValidationService,
-    @InjectQueue('dispatch') private readonly dispatchQueue: Queue<DispatchJob>,
+    @InjectQueue('dispatch')
+    private readonly dispatchQueue: Queue<DispatchJobData>,
   ) {
     this.logger = new Logger(SimulationRunController.name);
   }
@@ -155,7 +155,8 @@ export class SimulationRunController {
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
     description:
-      'The simulation run request does not adhere to the expected schema. Please see https://api.biosimulations.org for more information.',
+      'The simulation run request does not adhere to the expected schema.\
+      Please see https://api.biosimulations.org for more information.',
   })
   @ApiUnsupportedMediaTypeResponse({
     type: ErrorResponseDocument,
@@ -168,9 +169,10 @@ export class SimulationRunController {
   )
   @ApiPayloadTooLargeResponse({
     type: ErrorResponseDocument,
-    description: `The submitted COMBINE/OMEX archive file is too large. Uploaded archives must be less than ${FormatService.formatDigitalSize(
-      FILE_UPLOAD_LIMIT,
-    )}.`,
+    description: `The submitted COMBINE/OMEX archive file is too large.\
+     Uploaded archives must be less than ${FormatService.formatDigitalSize(
+       FILE_UPLOAD_LIMIT,
+     )}.`,
   })
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
@@ -192,9 +194,6 @@ export class SimulationRunController {
     let run: SimulationRunModelReturnType;
     const user = req?.user as AuthToken;
     let projectId: string | undefined;
-    let archiveType: 'url' | 'file';
-    let urlOrFile: string | Buffer | Readable;
-    let fileSize: number | undefined;
 
     if (!contentType) {
       throw new UnsupportedMediaTypeException(
@@ -223,7 +222,7 @@ export class SimulationRunController {
     }
     const response = this.makeSimulationRun(run);
 
-    const message: DispatchJob = {
+    const message: DispatchJobData = {
       runId: run.id,
       fileName: file?.originalname || 'input.omex',
       simulator: run.simulator,
@@ -236,7 +235,15 @@ export class SimulationRunController {
       projectId: projectId,
       projectOwner: user?.sub,
     };
-    const sim = await this.dispatchQueue.add(message);
+    const sim = await this.dispatchQueue.add('dispatch', message,
+    {
+      attempts: 10,
+      backoff: {
+        type: 'exponential',
+        delay: 1000,
+      },
+      
+    });
 
     return response;
   }
@@ -250,7 +257,9 @@ export class SimulationRunController {
       !user?.permissions?.includes(scopes.simulationRuns.externallyValidate.id)
     ) {
       throw new ForbiddenException(
-        'This account does not have permission to submit publication requests with simulation run requests. To publish a simulation run with this account, first request a run, then review the results of the run, and then publish the run.',
+        'This account does not have permission to submit publication requests with simulation run requests. \
+        To publish a simulation run with this account, first request a run, \
+        then review the results of the run, and then publish the run.',
       );
     }
   }
@@ -570,7 +579,11 @@ export class SimulationRunController {
   @ApiOperation({
     summary: 'Validate a simulation run',
     description:
-      'Check whether a simulation is valid for publication (e.g, succeeded and provides the [minimum required metadata](https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/). Returns 204 (No Content) for a publishable run, or a 400 (Bad Input) for a run that cannot be published. 400 errors include diagnostic information which describe why the run cannot be published.',
+      'Check whether a simulation is valid for publication \
+      (i.e, succeeded and provides the \
+      [minimum required metadata](https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/). \
+      Returns 204 (No Content) for a publishable run, or a 400 (Bad Input) for a run that cannot be published. \
+      400 errors include diagnostic information which describe why the run cannot be published.',
   })
   @ApiParam({
     name: 'runId',
@@ -584,7 +597,8 @@ export class SimulationRunController {
   @ApiQuery({
     name: 'validateSimulationResultsData',
     description:
-      'Whether to validate the data (e.g., numerical simulation results) for each SED-ML report and plot for each SED-ML document. Default: false.',
+      'Whether to validate the data (i.e., numerical simulation results)\
+       for each SED-ML report and plot for each SED-ML document. Default: false.',
     required: false,
     type: Boolean,
   })

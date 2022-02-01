@@ -16,7 +16,7 @@ import {
 import { ImagesModule } from '../images/images.module';
 import { LogsModule } from '../logs/logs.module';
 import { SharedStorageModule } from '@biosimulations/shared/storage';
-import { BullModule } from '@nestjs/bull';
+import { BullModule } from '@ejhayes/nestjs-bullmq';
 import { MetadataModule } from '../metadata/metadata.module';
 import { OntologyApiModule } from '@biosimulations/ontology/api';
 import { FilesModule } from '../files/files.module';
@@ -55,7 +55,7 @@ import { HealthModule } from '../health/health.module';
     BullModule.forRootAsync({
       imports: [BiosimulationsConfigModule],
       useFactory: async (configService: ConfigService) => ({
-        redis: {
+        connection: {
           host: configService.get('queue.host'),
           port: configService.get('queue.port'),
         },
