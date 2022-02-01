@@ -1,8 +1,4 @@
-import {
-  Injectable,
-  InternalServerErrorException,
-  Logger,
-} from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 
 import {
   THUMBNAIL_WIDTH,
@@ -10,101 +6,42 @@ import {
   ThumbnailUrls,
   THUMBNAIL_TYPES,
   IMAGE_FORMAT_URIS,
+  LocationThumbnailUrls,
 } from '@biosimulations/datamodel/common';
 import sharp from 'sharp';
-import { CombineArchiveManifestContent } from '@biosimulations/combine-api-nest-client';
+
 import { SimulationStorageService } from '@biosimulations/shared/storage';
-import { firstValueFrom, from, map, mergeMap, Observable } from 'rxjs';
-import { SimulationRunService } from '@biosimulations/api-nest-client';
-import { ManifestService } from '../manifest/manifest.service';
+import { firstValueFrom, map } from 'rxjs';
+import { ProjectFile } from '@biosimulations/datamodel/api';
 
 @Injectable()
 export class ThumbnailService {
   private logger = new Logger(ThumbnailService.name);
 
-  public constructor(
-    private manifestService: ManifestService,
-    private storage: SimulationStorageService,
-    private submit: SimulationRunService,
-  ) {}
-
-  // TODO pick either observables or promises
+  public constructor(private storage: SimulationStorageService) {}
 
   public async processThumbnails(
     runId: string,
-    fileProcessingResults: Promise<void>,
-  ): Promise<void> {
-    const manifestContent = this.manifestService.getManifestContent(runId);
+    files: ProjectFile[],
+  ): Promise<LocationThumbnailUrls[]> {
+    const manifestContent = this.filterImages(files);
+    const thumbnailUrls = await Promise.all(
+      manifestContent.map(
+        async (content: ProjectFile): Promise<LocationThumbnailUrls> => {
+          return await this.processThumbnail(runId, content);
+        },
+      ),
+    );
 
-    const errors = (
-      await firstValueFrom(
-        manifestContent.pipe(
-          // filter out images
-          map(
-            (
-              contents: CombineArchiveManifestContent[],
-            ): CombineArchiveManifestContent[] => {
-              return this.filterImages(contents);
-            },
-          ),
-
-          // retrieve images, resize them, and save them
-          map(
-            (
-              contents: CombineArchiveManifestContent[],
-            ): Observable<(void | string)[]> => {
-              return from(
-                Promise.all(
-                  contents.map(
-                    (
-                      content: CombineArchiveManifestContent,
-                    ): Promise<void | string> => {
-                      return this.processThumbnail(
-                        runId,
-                        content,
-                        fileProcessingResults,
-                      ).catch((error: any): string => {
-                        return `${
-                          content.location.path
-                        }: ${this.getErrorMessage(error)}`;
-                      });
-                    },
-                  ),
-                ),
-              );
-            },
-          ),
-          mergeMap((contents) => contents),
-        ),
-      )
-    ).filter((error: void | string): boolean => {
-      return typeof error === 'string';
-    });
-
-    if (errors.length) {
-      const sortedErrors = Array.from(new Set(errors)).sort();
-      const details = sortedErrors.join('\n  * ');
-      // TODO  This is an http exception, should not be thrown on the dispatch service. Use BioSimulationsException instead
-      throw new InternalServerErrorException(
-        `Thumbnails could not be processed for ${sortedErrors.length} images:\n  * ${details}`,
-      );
-    }
-
-    return;
+    return thumbnailUrls;
   }
 
   private async processThumbnail(
     runId: string,
-    content: CombineArchiveManifestContent,
-    fileProcessingResults: Promise<void>,
-  ): Promise<void> {
-    const location = content.location.path;
+    content: ProjectFile,
+  ): Promise<LocationThumbnailUrls> {
+    const location = content.location;
 
-    this.logger.log(`Waiting for ${runId} file processing to complete`);
-    await fileProcessingResults;
-    this.logger.log(
-      `${runId} file processing complete, submitting thumbnails URLs`,
-    );
     // download file
     const file = await firstValueFrom(
       this.storage.getSimulationRunContentFile(runId, location).pipe(
@@ -115,16 +52,18 @@ export class ThumbnailService {
               location,
               file as Buffer,
             );
-
-            await firstValueFrom(
-              this.submit.putFileThumbnailUrls(runId, location, body),
-            );
+            const locationThumbs: LocationThumbnailUrls = {
+              urls: body,
+              location,
+            };
+            return locationThumbs;
           } else {
             throw new Error(`File ${location} not found`);
           }
         }),
       ),
     );
+    return file;
   }
 
   private async makeThumbnail(
@@ -164,25 +103,7 @@ export class ThumbnailService {
     return body;
   }
 
-  private getErrorMessage(error: any): string {
-    let message: string;
-
-    if (error?.isAxiosError) {
-      message = `${error?.response?.status}: ${
-        error?.response?.data?.detail || error?.response?.statusText
-      }`;
-    } else {
-      message = `${
-        error?.status || error?.statusCode || error.constructor.name
-      }: ${error?.message}`;
-    }
-
-    return message.replace(/\n/g, '\n  ');
-  }
-
-  private filterImages(
-    contents: CombineArchiveManifestContent[],
-  ): CombineArchiveManifestContent[] {
+  private filterImages(contents: ProjectFile[]): ProjectFile[] {
     return contents.filter((content) => {
       return IMAGE_FORMAT_URIS.includes(content.format);
     });
