@@ -28,6 +28,7 @@ import { FilePaths } from './file-paths';
     }),
   ],
   providers: [SharedStorageService, SimulationStorageService, FilePaths],
+  // Dont export SharedStorageService, as it should only be used by the SimulationStorageService
   exports: [SimulationStorageService, FilePaths],
 })
 export class SharedStorageModule {}

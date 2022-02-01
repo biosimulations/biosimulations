@@ -19,7 +19,7 @@ import { Readable } from 'stream';
 // eslint-disable-next-line unused-imports/no-unused-imports-ts
 import multer from 'multer';
 import { from, map, Observable, pluck } from 'rxjs';
-import { FileInfo } from './datamodel';
+import { FileInfo, OutputFileName } from './datamodel';
 import { FilePaths } from './file-paths';
 
 @Injectable()
@@ -110,8 +110,8 @@ export class SimulationStorageService {
 
     return file;
   }
-  // TODO rename to getSimulationRunContentFileInfo
-  public getFileInfo(
+
+  public getSimulationRunContentFileInfo(
     runId: string,
     fileLocation: string,
   ): Observable<FileInfo> {
@@ -141,8 +141,45 @@ export class SimulationStorageService {
           };
         }
       }),
-      // TODO add proper backoff retry
-      // retry(3),
+    );
+
+    return size;
+  }
+
+  public getSimulationRunOutputFile(
+    runId: string,
+    file: OutputFileName,
+  ): Observable<S3.Body | undefined> {
+    return from(
+      this.storage.getObject(
+        this.filePaths.getSimulationRunOutputFilePath(runId, file, true),
+      ),
+    ).pipe(pluck('Body'));
+  }
+  public getSimulationRunOutputFileInfo(
+    runId: string,
+    file: OutputFileName,
+  ): Observable<FileInfo> {
+    const objectId = this.filePaths.getSimulationRunOutputFilePath(runId, file);
+
+    const url = this.filePaths.getSimulationRunOutputFileEndpoint(runId, file);
+
+    const size = from(this.storage.getObjectInfo(objectId)).pipe(
+      map((info) => {
+        const size = info.ContentLength;
+        if (size) {
+          return {
+            size,
+            url,
+          };
+        } else {
+          this.logger.warn(`Could not get file size for ${objectId}`);
+          return {
+            size: undefined,
+            url,
+          };
+        }
+      }),
     );
 
     return size;

@@ -116,6 +116,7 @@ export class SharedStorageService {
     const zipStream = await zipStreamPromise;
 
     const promises: Promise<AWS.S3.ManagedUpload.SendData>[] =
+      // using flatmap instead of map makes it easier to handle the empty case
       zipStream.files.flatMap(
         (entry: File): Promise<AWS.S3.ManagedUpload.SendData>[] => {
           const type = entry.type;

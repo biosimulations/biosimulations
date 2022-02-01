@@ -1,6 +1,7 @@
 import { Thumbnail, ThumbnailType } from '@biosimulations/datamodel/common';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { OutputFileName } from './datamodel';
 
 @Injectable()
 export class FilePaths {
@@ -49,6 +50,21 @@ export class FilePaths {
         thumbnailType,
       )}`;
     }
+  }
+  /**
+   * Get the url for the output files of a simulation run
+   * @param runId Id of the simulation run
+   * @param outputFile The name of the output file
+   * @returns The s3 url for the output file
+   */
+  public getSimulationRunOutputFileEndpoint(
+    runId: string,
+    outputFile: OutputFileName,
+  ): string {
+    const storageEndpoint =
+      this.storageWebEndpoint || `${this.storageEndpoint}/${this.bucket}`;
+    const path = this.getSimulationRunOutputFilePath(runId, outputFile);
+    return `${storageEndpoint}/${path}`;
   }
 
   public getThumbnailEndpoint(
@@ -104,6 +120,16 @@ export class FilePaths {
       : FilePaths.simulationRunContentsSubpath;
     const filePath = fileLocation !== undefined ? `/${fileLocation}` : '';
     return this.getSimulationRunPath(runId, `${dirPath}${filePath}`);
+  }
+
+  public getSimulationRunOutputFilePath(
+    runId: string,
+    outputFile: OutputFileName,
+    absolute = true,
+  ): string {
+    const outputsSubpath = this.getSimulationRunOutputsPath(runId, absolute);
+    const path = `${outputsSubpath}/${outputFile}`;
+    return path;
   }
 
   /**
