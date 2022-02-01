@@ -12,7 +12,7 @@ import { forwardRef, Module } from '@nestjs/common';
 import { HttpModule } from '@nestjs/axios';
 
 import { MongooseModule } from '@nestjs/mongoose';
-import { BullModule } from '@nestjs/bull';
+import { BullModule } from '@ejhayes/nestjs-bullmq';
 import { SimulationRunController } from './simulation-run.controller';
 import {
   SimulationRunModel,
@@ -51,7 +51,6 @@ import { SimulationRunValidationService } from './simulation-run-validation.serv
     //See https://github.com/OptimalBits/bull/blob/develop/PATTERNS.md#redis-cluster
     BullModule.registerQueue({
       name: 'dispatch',
-      prefix: '{dispatch}',
     }),
     HSDSClientModule,
   ],
