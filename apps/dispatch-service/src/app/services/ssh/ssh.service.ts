@@ -75,10 +75,6 @@ export class SshService {
               });
           } else {
             this.logger.error('Stream is null');
-            if (retryCount < 3) {
-              await this.retryInit();
-              return this.execStringCommand(cmd, retryCount + 1);
-            }
 
             reject('Stream is null');
           }
@@ -92,8 +88,15 @@ export class SshService {
     this.logger.debug('Initializing connection');
 
     const connection = new SSHClient();
+
     this.addConnectionListeners(connection);
-    return connection.connect(config);
+    try {
+      const client = connection.connect(config);
+      return client;
+    } catch (err) {
+      this.logger.error(err);
+      return connection;
+    }
   }
 
   private async retryInit(): Promise<void> {
@@ -103,6 +106,7 @@ export class SshService {
       this.getRetryBackoff(),
     );
   }
+
   private addConnectionListeners(connection: SSHClient): SSHClient {
     return connection
       .on('ready', () => {
@@ -112,27 +116,37 @@ export class SshService {
 
       .on('timeout', async (message: string) => {
         this.logger.error(`Connection timeout: ${message}`);
-        connection.removeAllListeners();
+        connection.removeAllListeners('end');
+        connection.removeAllListeners('close');
+        connection.destroy();
         await this.retryInit();
       })
 
       .on('error', async (err) => {
         this.logger.error('Connection Error: ' + err);
 
-        connection.removeAllListeners();
+        connection.removeAllListeners('end');
+        connection.removeAllListeners('close');
+        connection.destroy();
+        connection.removeAllListeners('error');
         await this.retryInit();
       })
 
       .on('end', async () => {
         this.logger.error('Connection end');
-        connection.removeAllListeners();
+
+        connection.removeAllListeners('end');
+        connection.removeAllListeners('close');
+        connection.destroy();
         await this.retryInit();
       })
 
-      .on('close', () => {
+      .on('close', async () => {
         this.logger.log('Connection closed');
-        connection.removeAllListeners();
-        connection = this.initConnection();
+        connection.removeAllListeners('end');
+        connection.removeAllListeners('close');
+        connection.destroy();
+        await this.retryInit();
       });
   }
 
