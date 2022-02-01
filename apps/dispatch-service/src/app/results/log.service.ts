@@ -1,80 +1,79 @@
 import { Injectable, Logger } from '@nestjs/common';
 
 import YAML from 'yaml';
-import { SimulationRunService } from '@biosimulations/api-nest-client';
 import {
   CombineArchiveLog,
   SimulationRunLogStatus,
 } from '@biosimulations/datamodel/common';
-import { SshService } from '../services/ssh/ssh.service';
+
+import {
+  OutputFileName,
+  SimulationStorageService,
+} from '@biosimulations/shared/storage';
+import { catchError, combineLatest, map, mergeMap, Observable, of } from 'rxjs';
 
 @Injectable()
 export class LogService {
   private logger = new Logger(LogService.name);
 
-  public constructor(
-    private submit: SimulationRunService,
-    private sshService: SshService,
-  ) {}
+  public constructor(private storage: SimulationStorageService) {}
 
-  public async createLog(
+  public createLog(
     id: string,
-    tryPlainLog = true,
     extraStdLog?: string,
-    update = false,
-  ): Promise<CombineArchiveLog> {
-    const path = this.sshService.getSSHJobDirectory(id);
-    return this.makeLog(id, path, true, extraStdLog).then((value) => {
-      return this.uploadLog(id, value, update).catch((error) => {
-        this.logger.error(
-          `Log for simulation run '${id}' is invalid: ${error}.`,
-        );
-        if (!tryPlainLog) {
-          throw error;
-        }
-        return this.makeLog(id, path, false, extraStdLog).then((value) => {
-          return this.uploadLog(id, value, update);
-        });
-      });
-    });
-  }
+  ): Observable<CombineArchiveLog> {
+    const stdLog: Observable<string | undefined> = this.storage
+      .getSimulationRunOutputFile(id, OutputFileName.RAW_LOG)
+      .pipe(
+        map((file) =>
+          extraStdLog
+            ? file?.toString('utf8') + extraStdLog
+            : file?.toString('utf8'),
+        ),
+      );
 
-  private async makeLog(
-    id: string,
-    path: string,
-    makeStructuredLog = true,
-    extraStdLog?: string,
-  ): Promise<CombineArchiveLog> {
-    const log = makeStructuredLog
-      ? await this.readStructuredLog(path)
-      : this.initStructureLog();
-    const stdLog = (await this.readStdLog(id, path)) + (extraStdLog || '');
+    const structuredLog = this.storage
+      // Get the simulation run structured log file from s3
+      .getSimulationRunOutputFile(id, OutputFileName.LOG)
+      .pipe(
+        map((log) => {
+          if (log) {
+            const logString = log.toString('utf8');
 
-    log.output = stdLog;
+            return YAML.parse(logString) as CombineArchiveLog;
+          } else {
+            // this will be caught right below
+            throw new Error('Unable to parse log file');
+          }
+        }),
+        catchError((err: any, caught) => {
+          this.logger.error(
+            `Failed to parse structured log for simulation run '${id}': ${err}`,
+          );
+          // if there was an error, initialize a new structured log, and add an exception to it
+          return of(this.initStructureLog()).pipe(
+            map((log: CombineArchiveLog) => {
+              log.exception = {
+                message:
+                  'The simulation tool did not produce a valid YAML-formatted log (`log.yml` file).',
+                type: 'Invalid log',
+              };
+              return log;
+            }),
+          );
+        }),
+      );
 
-    return log;
-  }
+    const finalLog = combineLatest([structuredLog, stdLog]).pipe(
+      mergeMap((combineLogs) => {
+        const [structuredLog, stdLog] = combineLogs;
 
-  private async readStructuredLog(path: string): Promise<CombineArchiveLog> {
-    const yamlFile = `${path}/outputs/log.yml`;
+        structuredLog.output = stdLog ?? '';
+        return of(structuredLog);
+      }),
+    );
 
-    return this.sshService
-      .execStringCommand('cat ' + yamlFile)
-      .then((output) => {
-        if (output.stderr != '') {
-          return this.initStructureLog();
-        }
-        return YAML.parse(output.stdout) as CombineArchiveLog;
-      })
-      .catch((_: any) => {
-        const log = this.initStructureLog();
-        log.exception = {
-          message:
-            'The simulation tool did not produce a valid YAML-formatted log (`log.yml` file).',
-          type: 'Invalid log',
-        };
-        return log;
-      });
+    return finalLog;
   }
 
   private initStructureLog(): CombineArchiveLog {
@@ -86,42 +85,5 @@ export class LogService {
       output: null,
       duration: null,
     };
-  }
-
-  private async readStdLog(id: string, path: string): Promise<string> {
-    const logFile = `${path}/job.output`;
-    return this.sshService
-      .execStringCommand('cat ' + logFile)
-      .then((output) => output.stdout)
-      .catch((reason) => {
-        this.logger.error(
-          `The job output for simulation run '${id}' could not be read: ${reason}`,
-        );
-        return '';
-      });
-  }
-
-  private uploadLog(
-    id: string,
-    log: CombineArchiveLog,
-    update = false,
-  ): Promise<CombineArchiveLog> {
-    return this.submit
-      .sendLog(id, log, update)
-      .toPromise()
-      .then((value) => {
-        this.logger.log(
-          `The log for simulation run '${id}' was successfully saved.`,
-        );
-        return log;
-      })
-      .catch((reason) => {
-        this.logger.error(
-          `The log for simulation run '${id}' could not be ${
-            update ? 'updated' : 'created'
-          }: ${reason}`,
-        );
-        throw reason;
-      });
   }
 }
