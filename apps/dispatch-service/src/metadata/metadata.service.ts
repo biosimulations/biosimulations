@@ -7,17 +7,15 @@ import {
 } from '@biosimulations/datamodel/api';
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { AxiosError } from 'axios';
 
 import {
   BioSimulationsCombineArchiveElementMetadata,
   BioSimulationsMetadataValue,
   BioSimulationsCustomMetadata,
 } from '@biosimulations/combine-api-nest-client';
-import { firstValueFrom } from 'rxjs';
+import { map, Observable, pluck, tap } from 'rxjs';
 
 import { CombineWrapperService } from '../combineWrapper.service';
-import { SimulationRunService } from '@biosimulations/api-nest-client';
 
 @Injectable()
 export class MetadataService {
@@ -26,66 +24,55 @@ export class MetadataService {
   public constructor(
     private service: CombineWrapperService,
     private config: ConfigService,
-    private submit: SimulationRunService,
   ) {
     const env = config.get('server.env');
     this.endpoints = new Endpoints(env);
   }
 
-  public async createMetadata(id: string): Promise<void> {
+  public createMetadata(id: string): Observable<ArchiveMetadataContainer> {
     // This must be external so that combine archive can be downloaded by combine-service
     const url = this.endpoints.getRunDownloadEndpoint(true, id);
     this.logger.debug(
       `Fetching metadata for archive for simulation run '${id}' at URL: ${url}`,
     );
 
-    const res = await firstValueFrom(
-      this.service.getArchiveMetadata(
-        OmexMetadataInputFormat.rdfxml,
-        undefined,
-        url,
-      ),
-    );
+    const postMetadata = this.service
+      .getArchiveMetadata(OmexMetadataInputFormat.rdfxml, undefined, url)
+      .pipe(
+        pluck('data'),
+        tap((_) => {
+          this.logger.log(`Extracted metadata for simulation run '${id}'.`);
+        }),
+        map(
+          (
+            data: BioSimulationsCombineArchiveElementMetadata[],
+          ): ArchiveMetadata[] =>
+            data
+              .filter(this.filterMetadata, this)
+              .map(this.convertMetadata, this),
+        ),
+        tap((_) =>
+          this.logger.log(`Converted metadata for simulation run '${id}'.`),
+        ),
+        map((data: ArchiveMetadata[]): ArchiveMetadataContainer => {
+          return {
+            metadata: data,
+          };
+        }),
+      );
 
-    const combineMetadata: BioSimulationsCombineArchiveElementMetadata[] =
-      res.data;
-
-    this.logger.log(`Extracted metadata for simulation run '${id}'.`);
-    //this.logger.error(JSON.stringify(combineMetadata))
-
-    const metadata: ArchiveMetadata[] = combineMetadata
-      .filter(
-        (metadata: BioSimulationsCombineArchiveElementMetadata): boolean => {
-          return (
-            metadata?.combineArchiveUri !== null &&
-            metadata?.combineArchiveUri !== undefined &&
-            metadata?.combineArchiveUri !== ''
-          );
-        },
-      )
-      .map(this.convertMetadata, this);
-    this.logger.log(`Converted metadata for simulation run '${id}'.`);
-    const postMetadata: ArchiveMetadataContainer = {
-      metadata,
-    };
-
-    const metadataReq = this.submit.postMetadata(id, postMetadata);
-
-    const metadataPostObserver = {
-      next: () => {
-        this.logger.log(`Posted metadata for simulation run '${id}'.`);
-      },
-      error: (err: AxiosError) => {
-        this.logger.error(
-          `Failed to post metadata for simulation run '${id}': ${err?.response?.data}.`,
-        );
-        // Its important to throw this error so that the calling service is aware posting metadata failed
-        throw err;
-      },
-    };
-    metadataReq.subscribe(metadataPostObserver);
+    return postMetadata;
   }
 
+  private filterMetadata(
+    metadata: BioSimulationsCombineArchiveElementMetadata,
+  ): boolean {
+    return (
+      metadata?.combineArchiveUri !== null &&
+      metadata?.combineArchiveUri !== undefined &&
+      metadata?.combineArchiveUri !== ''
+    );
+  }
   private convertMetadataValue(
     data: BioSimulationsMetadataValue,
   ): LabeledIdentifier {
