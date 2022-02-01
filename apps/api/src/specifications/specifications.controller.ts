@@ -487,7 +487,7 @@ export class SpecificationsController {
       'The payload is too large. The payload must be less than the server limit.',
   })
   @ApiCreatedResponse({
-    description: 'The simulation experiments were succcessfully saved',
+    description: 'The simulation experiments were successfully saved',
   })
   public async createSpecification(
     @Param('runId') runId: string,

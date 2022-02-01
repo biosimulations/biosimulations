@@ -159,5 +159,8 @@ export class ProjectFile extends ProjectFileInput implements IFile {
 export class ProjectFileInputsContainer {
   @ValidateNested({ each: true })
   @Type(() => ProjectFileInput)
+  @ApiProperty({
+    type: [ProjectFileInput],
+  })
   public files!: ProjectFileInput[];
 }
