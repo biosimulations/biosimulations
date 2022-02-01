@@ -8,8 +8,9 @@ import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { Endpoints } from '@biosimulations/config/common';
 import { AuthClientService } from '@biosimulations/auth/client';
-import { pluck, map, mergeMap, retry, catchError } from 'rxjs/operators';
-import { from, Observable, throwError, forkJoin } from 'rxjs';
+import { pluck, map, mergeMap, catchError } from 'rxjs/operators';
+import { from, Observable, throwError, OperatorFunction } from 'rxjs';
+
 import {
   SimulationRunStatus,
   SimulationRunSedDocumentInput,
@@ -21,7 +22,7 @@ import {
   ArchiveMetadataContainer,
 } from '@biosimulations/datamodel/api';
 import { retryBackoff } from 'backoff-rxjs';
-import { AxiosError } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 
 @Injectable({})
 export class SimulationRunService {
@@ -89,18 +90,27 @@ export class SimulationRunService {
     runId: string,
     fileId: string,
     thumbnailUrls: ThumbnailUrls,
-  ): Observable<void> {
+  ): Observable<ThumbnailUrls> {
     this.logger.log(`Uploading thumbnailUrls for file ${runId}/${fileId}`);
-    const endpoint = `
-      ${this.endpoints.getSimulationRunFilesEndpoint(
-        false,
-        runId,
-      )}/${fileId}/thumbnail`;
-    return this.putAuthenticated<ThumbnailUrls, void>(
+
+    const endpoint = this.endpoints.getSimulationRunThumbnailEndpoint(
+      false,
+      runId,
+      fileId,
+    );
+    const returnVal = this.putAuthenticated<ThumbnailUrls, undefined>(
       runId,
       endpoint,
       thumbnailUrls,
+    ).pipe(
+      // Just for documentation
+      map((val: any) => {
+        this.logger.log(`Uploaded thumbnailUrls for file ${runId}/${fileId}`);
+        return thumbnailUrls;
+      }),
     );
+
+    return returnVal;
   }
 
   public updateSimulationRunStatus(
@@ -108,94 +118,30 @@ export class SimulationRunService {
     status: SimulationRunStatus,
     statusReason: string,
   ): Observable<SimulationRun> {
-    const response = from(this.auth.getToken()).pipe(
-      map((token) => {
-        const httpRes = this.http
-          .patch<SimulationRun>(
-            this.endpoints.getSimulationRunEndpoint(false, runId),
-            {
-              status,
-              statusReason,
-            },
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            },
-          )
-          .pipe(this.getRetryBackoff(), pluck('data'));
-
-        return httpRes;
-      }),
-      mergeMap((value) => value),
-    );
+    const endpoint = this.endpoints.getSimulationRunEndpoint(false, runId);
+    type SimulationRunStatusPatch = {
+      status: SimulationRunStatus;
+      statusReason: string;
+    };
+    const response = this.patchAuthenticated<
+      SimulationRunStatusPatch,
+      SimulationRun
+    >(runId, endpoint, { status, statusReason });
     return response;
-  }
-
-  public updateSimulationRunProject(
-    runId: string,
-    fileUrl: string,
-    projectSize: number,
-  ): Observable<SimulationRun> {
-    return from(this.auth.getToken()).pipe(
-      map((token) => {
-        return this.http
-          .patch<SimulationRun>(
-            this.endpoints.getSimulationRunEndpoint(false, runId),
-            {
-              fileUrl: fileUrl,
-              projectSize: projectSize,
-            },
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            },
-          )
-          .pipe(
-            catchError((error, caught) => {
-              this.logger.error(
-                `The S3 bucket URL and size of the COMBINE/OMEX arachive for simulation run '${runId}' could not be updated: ${error}`,
-              );
-              return caught;
-            }),
-            retry(5),
-            pluck('data'),
-          );
-      }),
-      mergeMap((value) => value),
-    );
   }
 
   public updateSimulationRunResultsSize(
     runId: string,
     size: number,
+    // todo send url to api
+    url: string,
   ): Observable<SimulationRun> {
-    return from(this.auth.getToken()).pipe(
-      map((token) => {
-        return this.http
-          .patch<SimulationRun>(
-            this.endpoints.getSimulationRunEndpoint(false, runId),
-            { resultsSize: size },
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            },
-          )
-          .pipe(
-            catchError((error, caught) => {
-              this.logger.error(
-                `The size of the results for simulation run '${runId}' could not be updated: ${error}`,
-              );
-              return caught;
-            }),
-            retry(5),
-            pluck('data'),
-          );
-      }),
-      mergeMap((value) => value),
-    );
+    const endPointurl = this.endpoints.getSimulationRunEndpoint(false, runId);
+    const response = this.patchAuthenticated<
+      { resultsSize: number },
+      SimulationRun
+    >(runId, endPointurl, { resultsSize: size });
+    return response;
   }
 
   public getSimulationRun(runId: string): Observable<SimulationRun> {
@@ -238,6 +184,32 @@ export class SimulationRunService {
     }
   }
 
+  private patchAuthenticated<T, U>(
+    runId: string,
+    url: string,
+    body: T,
+  ): Observable<U> {
+    const response = from(this.auth.getToken()).pipe(
+      map((token) => {
+        const httpRes = this.http
+          .patch<U>(url, body, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .pipe(
+            this.getErrorHandler<U>('Patch', url, runId),
+            this.getRetryBackoff(),
+            pluck('data'),
+          );
+
+        return httpRes;
+      }),
+      mergeMap((value) => value),
+    );
+    return response;
+  }
+
   private postAuthenticated<T, U>(
     runId: string,
     url: string,
@@ -254,21 +226,7 @@ export class SimulationRunService {
             },
           })
           .pipe(
-            catchError((err: AxiosError, caught) => {
-              if (err.isAxiosError) {
-                const name = err.name;
-                const message = err.message;
-                this.logger.error(
-                  `${name} ${message} for post operation on path ${url} for simulation run ${runId}`,
-                );
-              } else {
-                this.logger.error(
-                  `The post operation to ${url} for simulation run ${runId} failed: ${err}`,
-                );
-              }
-
-              return throwError(() => err);
-            }),
+            this.getErrorHandler<U>('Post', url, runId),
             this.getRetryBackoff(),
             pluck('data'),
           );
@@ -277,6 +235,30 @@ export class SimulationRunService {
     );
   }
 
+  private getErrorHandler<U>(
+    method: string,
+    url: string,
+    runId: string,
+  ): OperatorFunction<AxiosResponse<U, any>, AxiosResponse<U, any>> {
+    const handler = catchError(
+      (err: unknown, caught: Observable<AxiosResponse<U, any>>) => {
+        if (axios.isAxiosError(err)) {
+          const name = err.name;
+          const message = err.message;
+          this.logger.error(
+            `${name} ${message} for ${method} operation on path ${url} for simulation run ${runId}`,
+          );
+        } else {
+          this.logger.error(
+            `The ${method} operation to ${url} for simulation run ${runId} failed: ${err}`,
+          );
+        }
+
+        return throwError(() => err);
+      },
+    );
+    return handler;
+  }
   private putAuthenticated<T, U>(
     runId: string,
     url: string,
@@ -293,21 +275,7 @@ export class SimulationRunService {
             },
           })
           .pipe(
-            catchError((err: AxiosError, caught) => {
-              if (err.isAxiosError) {
-                const name = err.name;
-                const message = err.message;
-                this.logger.error(
-                  `${name} ${message} for PUT operation on path ${url} for simulation run ${runId}`,
-                );
-              } else {
-                this.logger.error(
-                  `The put operation to ${url} for simulation run ${runId} failed: ${err}`,
-                );
-              }
-
-              return throwError(() => err);
-            }),
+            this.getErrorHandler<U>('Put', url, runId),
             this.getRetryBackoff(),
             pluck('data'),
           );
