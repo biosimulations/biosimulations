@@ -23,4 +23,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: bilalshaikh42/action-conventional-commits@v1.04
+      - uses: bilalshaikh42/action-conventional-commits@v2.0.1
