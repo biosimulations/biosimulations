@@ -127,6 +127,20 @@ export class FilePaths {
     outputFile: OutputFileName,
     absolute = true,
   ): string {
+    if (
+      outputFile === OutputFileName.OUTPUT_ARCHIVE ||
+      outputFile === OutputFileName.RAW_LOG
+    ) {
+      const outputPath = this.getSimulationRunPath(
+        runId,
+        outputFile,
+      );
+      if (absolute) {
+        return outputPath;
+      } else {
+        return outputFile;
+      }
+    }
     const outputsSubpath = this.getSimulationRunOutputsPath(runId, absolute);
     const path = `${outputsSubpath}/${outputFile}`;
     return path;
