@@ -62,7 +62,6 @@ export class HpcService {
       maxTime,
       envVars,
       purpose,
-      combineArchiveFilename,
       simDirname,
     );
 

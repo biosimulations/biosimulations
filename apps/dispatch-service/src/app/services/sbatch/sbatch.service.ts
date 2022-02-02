@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Endpoints } from '@biosimulations/config/common';
-import { FilePaths } from '@biosimulations/shared/storage';
+import { FilePaths, OutputFileName } from '@biosimulations/shared/storage';
 import { DataPaths } from '@biosimulations/hsds/client';
 import { ConfigService } from '@nestjs/config';
 import {
@@ -46,9 +46,10 @@ export class SbatchService {
     maxTime: number,
     envVars: EnvironmentVariable[],
     purpose: Purpose,
-    combineArchiveFilename: string,
     workDirname: string,
   ): string {
+    // TODO remove the input to function for this
+    const combineArchiveFilename = 'input.omex';
     const executablesPath = this.configService.get('hpc.executablesPath');
 
     const modulePath = this.configService.get('hpc.module.path');
@@ -149,18 +150,35 @@ export class SbatchService {
     const simulationRunS3Path = this.filePaths.getSimulationRunPath(runId);
     const simulationRunResultsHsdsPath =
       this.dataPaths.getSimulationRunResultsPath(runId);
-    const outputArchiveS3Subpath =
-      this.filePaths.getSimulationRunOutputArchivePath(runId, false);
+
     const outputsS3Subpath = this.filePaths.getSimulationRunOutputsPath(
       runId,
       false,
     );
 
+    const outputRawLogSubPath = this.filePaths.getSimulationRunOutputFilePath(
+      runId,
+      OutputFileName.RAW_LOG,
+      false,
+    );
+    const outputsReportsFileSubPath =
+      this.filePaths.getSimulationRunOutputFilePath(
+        runId,
+        OutputFileName.REPORTS,
+        false,
+      );
+    const outputsPlotsFileSubPath =
+      this.filePaths.getSimulationRunOutputFilePath(
+        runId,
+        OutputFileName.PLOTS,
+        false,
+      );
+
     const template = `#!/bin/bash
 #SBATCH --job-name=Simulation-run-${runId}
 #SBATCH --chdir=${workDirname}
-#SBATCH --output=${workDirname}/job.output
-#SBATCH --error=${workDirname}/job.output
+#SBATCH --output=${workDirname}/${OutputFileName.RAW_LOG}
+#SBATCH --error=${workDirname}/${OutputFileName.RAW_LOG}
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=${cpus}
 #SBATCH --mem=${memoryFormatted}M
@@ -209,7 +227,7 @@ srun --job-name="Save-results-to-HSDS" \
     --username ${hsdsUsername} \
     --password ${hsdsPassword} \
     --verbose \
-    ${outputsS3Subpath}/reports.h5 \
+    ${outputsReportsFileSubPath} \
     '${simulationRunResultsHsdsPath}'
 
 set -e
@@ -218,26 +236,54 @@ echo -e ''
 echo -e '${cyan}================================================== Zipping outputs ==================================================${nc}'
 srun --job-name="Zip-outputs" \
   zip \
-    -x '${outputsS3Subpath}/plots.zip' \
+    -x '${outputsPlotsFileSubPath}' \
     -r \
-    '${outputArchiveS3Subpath}' \
+    '${OutputFileName.OUTPUT_ARCHIVE}' \
     ${outputsS3Subpath} \
-    job.output
-
+    ${outputRawLogSubPath}
 echo -e ''
 echo -e '${cyan}=================================================== Saving outputs ==================================================${nc}'
 export PYTHONWARNINGS="ignore"
 export AWS_ACCESS_KEY_ID=${storageKey}
 export AWS_SECRET_ACCESS_KEY=${storageSecret}
+# We run the upload in steps to 1) get the content types right, and 2) make sure the final log has the upload operation included
 srun --job-name="Save-outputs-to-S3" \
   aws \
     --endpoint-url ${storageEndpoint} \
     s3 sync \
       --acl public-read \
       --exclude "job.sbatch" \
+      --exclude "*.h5" \
+      --exclude "*.yml" \
       --exclude "${combineArchiveFilename}" \
       . \
       's3://${storageBucket}/${simulationRunS3Path}'
+  aws \
+  --endpoint-url ${storageEndpoint} \
+  s3 sync \
+    . \
+    's3://${storageBucket}/${simulationRunS3Path}' \
+    --exclude '*' \
+    --include '*.h5' \
+    --content-type 'application/hdf5'\
+    --acl public-read
+  aws \
+  --endpoint-url ${storageEndpoint} \
+  s3 sync \
+    . \
+    's3://${storageBucket}/${simulationRunS3Path}' \
+    --exclude '*' \
+    --include '*.yml' \
+    --content-type 'application/yaml'\
+    --acl public-read
+  aws \
+    --endpoint-url ${storageEndpoint} \
+    s3 sync \
+      . \
+      's3://${storageBucket}/${simulationRunS3Path}' \
+      --exclude '*' \
+      --include '${OutputFileName.RAW_LOG}' \
+      --acl public-read
 `;
 
     return template;
