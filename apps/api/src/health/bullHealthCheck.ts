@@ -13,7 +13,7 @@ const JOB_NAME = 'healthCheck';
 export class HealthCheckProcessor {
   @Process(JOB_NAME)
   private async healthCheck(job: Job<any>): Promise<boolean> {
-    throw new Error("I'm not healthy");
+    
     return true;
   }
 }
