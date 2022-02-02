@@ -18,10 +18,19 @@ describe('FilePaths', () => {
   it('Should be created', () => {
     expect(filePaths).toBeDefined();
   });
-
+  it('should return the correct simulation run subpath', () => {
+    const runId = 'test-run-id';
+    const path = filePaths.getSimulationRunPath(runId);
+    expect(path).toEqual(`simulations/${runId}`);
+  });
+  it('should return the correct simulation run file path', () => {
+    const runId = 'test-run-id';
+    const path = filePaths.getSimulationRunPath(runId, 'file.test');
+    expect(path).toEqual(`simulations/${runId}/file.test`);
+  });
   it('should return correct path for output archive', () => {
     const runId = 'test-run-id';
-    const expectedPath = 'outputs/output.zip';
+    const expectedPath = 'output.zip';
     const path = filePaths.getSimulationRunOutputFilePath(
       runId,
       OutputFileName.OUTPUT_ARCHIVE,
@@ -31,7 +40,7 @@ describe('FilePaths', () => {
   });
   it('should return correct absolute path for output archive', () => {
     const runId = 'test-run-id';
-    const expectedPath = 'simulations/test-run-id/outputs/output.zip';
+    const expectedPath = `simulations/test-run-id/${OutputFileName.OUTPUT_ARCHIVE}`;
     const path = filePaths.getSimulationRunOutputFilePath(
       runId,
       OutputFileName.OUTPUT_ARCHIVE,
@@ -39,9 +48,19 @@ describe('FilePaths', () => {
     );
     expect(path).toEqual(expectedPath);
   });
+  it('should return correct absolute path for raw log', () => {
+    const runId = 'test-run-id';
+    const expectedPath = `simulations/test-run-id/${OutputFileName.RAW_LOG}`;
+    const path = filePaths.getSimulationRunOutputFilePath(
+      runId,
+      OutputFileName.RAW_LOG,
+      true,
+    );
+    expect(path).toEqual(expectedPath);
+  });
   it('should return correct path for raw log', () => {
     const runId = 'test-run-id';
-    const expectedPath = 'outputs/rawLog.txt';
+    const expectedPath = 'rawLog.txt';
     const path = filePaths.getSimulationRunOutputFilePath(
       runId,
       OutputFileName.RAW_LOG,
