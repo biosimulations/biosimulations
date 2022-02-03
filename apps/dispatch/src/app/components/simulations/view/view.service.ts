@@ -13,8 +13,6 @@ export class ViewService {
   private endpoints = new Endpoints();
   private appRoutes = new AppRoutes();
 
-  constructor() {}
-
   public formatSimulation(simulation: Simulation): FormattedSimulation {
     simulation = simulation as Simulation;
     const statusRunning = SimulationStatusService.isSimulationStatusRunning(
@@ -35,7 +33,6 @@ export class ViewService {
       envVars: simulation.envVars || [],
       purpose: simulation.purpose || Purpose.other,
       status: simulation.status,
-      statusReason: simulation?.statusReason,
       statusRunning: statusRunning,
       statusSucceeded: statusSucceeded,
       statusFailed: SimulationStatusService.isSimulationStatusFailed(

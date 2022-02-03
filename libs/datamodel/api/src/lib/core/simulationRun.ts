@@ -222,16 +222,6 @@ export class SimulationRun implements ISimulationRun {
   email: string | null;
 
   @ApiProperty({
-    description: 'Detail about the status of the simulation run',
-    type: String,
-    readOnly: true,
-  })
-  @IsOptional()
-  @IsNotEmpty()
-  @IsString()
-  statusReason?: string;
-
-  @ApiProperty({
     description: 'Status of the simulation run',
     type: String,
     enum: SimulationRunStatus,
@@ -312,7 +302,6 @@ export class SimulationRun implements ISimulationRun {
     projectSize?: number,
     resultsSize?: number,
     email?: string | null,
-    statusReason?: string,
   ) {
     this.id = id;
     this.name = name;
@@ -329,7 +318,6 @@ export class SimulationRun implements ISimulationRun {
     this.updated = updated;
     this.projectSize = projectSize;
     this.resultsSize = resultsSize;
-    this.statusReason = statusReason;
 
     this.runtime = runtime;
     this.email = email || null;
@@ -441,16 +429,6 @@ export class PatchSimulationRun {
   @Min(0)
   @IsInt()
   resultsSize?: number;
-
-  @ApiPropertyOptional({
-    description: 'Detail about the status of the simulation run',
-    type: Number,
-    example: 11234,
-  })
-  @IsOptional()
-  @IsNotEmpty()
-  @IsString()
-  statusReason?: string;
 }
 
 export class UpdateSimulationRun extends PartialType(PatchSimulationRun) {}
@@ -769,12 +747,6 @@ export class SimulationRunRunSummary implements ISimulationRunRunSummary {
     enum: SimulationRunStatus,
   })
   status!: SimulationRunStatus;
-
-  @ApiProperty({
-    description: 'Detail about the status of the simulation run',
-    type: String,
-  })
-  statusReason?: string;
 
   @ApiProperty({
     description: 'Runtime of the simulation run in seconds',

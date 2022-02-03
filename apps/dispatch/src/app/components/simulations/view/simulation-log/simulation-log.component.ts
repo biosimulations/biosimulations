@@ -42,9 +42,6 @@ export class SimulationLogComponent {
   status!: SimulationRunStatus;
 
   @Input()
-  statusReason?: string;
-
-  @Input()
   rawLog!: RawSimulationLog;
 
   StructuredLogLevel = StructuredLogLevel;

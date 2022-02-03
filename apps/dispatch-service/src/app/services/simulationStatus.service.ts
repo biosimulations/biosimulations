@@ -1,6 +1,7 @@
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { Injectable, Logger } from '@nestjs/common';
 import { SimulationRunService } from '@biosimulations/api-nest-client';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class SimulationStatusService {
@@ -11,11 +12,10 @@ export class SimulationStatusService {
   public updateStatus(
     runId: string,
     simStatus: SimulationRunStatus,
-    reason: string,
   ): Promise<void> {
-    return this.simService
-      .updateSimulationRunStatus(runId, simStatus, reason)
-      .toPromise()
+    return firstValueFrom(
+      this.simService.updateSimulationRunStatus(runId, simStatus),
+    )
       .then((val) => {
         this.logger.log(
           `The status of simulation run '${runId}' was successfully updated to '${simStatus}'.`,

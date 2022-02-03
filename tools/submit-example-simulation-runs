@@ -309,7 +309,7 @@ def monitor_runs(simulation_runs, runbiosimulations_deployment, timeout=9999):
             sim = response.json()
 
             print(BColors.FAIL + "FAILED {} --- {}".format(run['id'], run['name']) + BColors.ENDC)
-            print(BColors.FAIL + "  Error: {}".format(sim['statusReason']) + BColors.ENDC)
+            
     if len(timed_out_runs) > 0:
         print(BColors.WARNING + "One or more simulations timed-out" + BColors.ENDC)
         passed = False

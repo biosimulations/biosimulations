@@ -87,7 +87,6 @@ export interface SimulationRun {
   purpose: Purpose;
   email: string | null;
   status: SimulationRunStatus;
-  statusReason?: string;
   runtime?: number;
   projectSize?: number;
   resultsSize?: number;
@@ -206,7 +205,6 @@ export interface SimulationRunRunSummary {
   maxTime: number;
   envVars: EnvironmentVariable[];
   status: SimulationRunStatus;
-  statusReason?: string;
   runtime?: number;
   projectSize?: number;
   resultsSize?: number;

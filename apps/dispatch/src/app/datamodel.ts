@@ -19,7 +19,6 @@ export interface UnknownSimulation {
   envVars?: null;
   purpose?: null;
   status?: null;
-  statusReason?: undefined;
   runtime?: null;
   submitted?: null;
   updated?: null;
@@ -41,7 +40,6 @@ export interface Simulation {
   envVars: EnvironmentVariable[];
   purpose: Purpose;
   status: SimulationRunStatus;
-  statusReason?: string;
   runtime?: number;
   submitted: Date;
   updated: Date;
