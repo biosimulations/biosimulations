@@ -1,5 +1,84 @@
 # Changelog
 
+# [9.0.0](https://github.com/biosimulations/biosimulations/compare/v8.8.0...v9.0.0) (2022-02-03)
+
+
+### Bug Fixes
+
+* **api:** fix bull health check ([d953e60](https://github.com/biosimulations/biosimulations/commit/d953e60c8b480e71c6309e91e79dc1d283a5d6b5))
+* **api:** handle case when metadata is missing ([48dd040](https://github.com/biosimulations/biosimulations/commit/48dd040386a7a37e39a3ccd7a5cd1c3e418c18e4))
+* **api:** handle case when thumnails urls are not defined ([e0e7816](https://github.com/biosimulations/biosimulations/commit/e0e78166b4fc95506081105d3a37ea8387baa735))
+* **api:** prevent process crash for missing results and improve error handling ([50f62ff](https://github.com/biosimulations/biosimulations/commit/50f62ff76608ccf1b0c262634656c1903118c2bf)), closes [#4007](https://github.com/biosimulations/biosimulations/issues/4007)
+* **combine-api:** fixed configuration of Gunicorn deployment ([9acd09f](https://github.com/biosimulations/biosimulations/commit/9acd09faf6d280b95608f421e61fb1bc2c56be0f))
+* **combine-api:** reset timeout to 30 s ([ee162ee](https://github.com/biosimulations/biosimulations/commit/ee162eeccb0ae848587a08976cd40e97dfe487e2))
+* **config:** fixed value of platformApp in endpointsTemplate ([61d2d5f](https://github.com/biosimulations/biosimulations/commit/61d2d5fed604fdde728927b21bafc0f6222307d8))
+* **dispatch-service:** add retrying for job submission to hpc ([8161089](https://github.com/biosimulations/biosimulations/commit/81610890aaebb86864d0d0d89395ce554909aa70)), closes [#4099](https://github.com/biosimulations/biosimulations/issues/4099)
+* **dispatch-service:** fix ssh connection for stale connections ([ef44d57](https://github.com/biosimulations/biosimulations/commit/ef44d573ad027082ce2912f95d94071aecb73818)), closes [#4099](https://github.com/biosimulations/biosimulations/issues/4099)
+* **dispatch-service:** handle dependency between archive extraction and thumbnail generation ([9f94cee](https://github.com/biosimulations/biosimulations/commit/9f94cee2b2e9b8094a22f608a089019542beaf0e)), closes [#4063](https://github.com/biosimulations/biosimulations/issues/4063)
+* **dispatch-service:** modify sbatch script to get correct content tyes ([85259ab](https://github.com/biosimulations/biosimulations/commit/85259abbabbae369eae56a77550446706449ddf0)), closes [#4106](https://github.com/biosimulations/biosimulations/issues/4106)
+* **ui:** fixed updating of table ([43d87b9](https://github.com/biosimulations/biosimulations/commit/43d87b9de60169977a9fa6db33fde174864e2c93))
+* update angular and nrwl dependencies ([f5edd62](https://github.com/biosimulations/biosimulations/commit/f5edd62003ddf11d37fbd65911b7cb814f0e59e4))
+
+
+### Code Refactoring
+
+* **api:** remove statusReason field from SimulationRun ([3c2e670](https://github.com/biosimulations/biosimulations/commit/3c2e670a124f80992a5d7af889c149a365bc9c29)), closes [#4111](https://github.com/biosimulations/biosimulations/issues/4111)
+
+
+### Features
+
+* add cors and lifecycle config for storage buckets ([fe3e622](https://github.com/biosimulations/biosimulations/commit/fe3e6223a07f9eb6e16b8d96c429469ab14be03f)), closes [#3994](https://github.com/biosimulations/biosimulations/issues/3994)
+* **api,simulators-api:** support additional variants of true for query arguments ([116d6c2](https://github.com/biosimulations/biosimulations/commit/116d6c2e307a0a76018c9861031ce76a93a5bb2f))
+* **api:** add endpoint for putting endpoints of files. ([6aecd5b](https://github.com/biosimulations/biosimulations/commit/6aecd5b574d33232278344e962cf46e8f028b29f))
+* **api:** add endpoint to download files and thumbnails ([2b41eba](https://github.com/biosimulations/biosimulations/commit/2b41ebabce2c09804671c2ebe5d97e21c120bb9f)), closes [#3981](https://github.com/biosimulations/biosimulations/issues/3981)
+* **api:** standardized error messages ([3264f1e](https://github.com/biosimulations/biosimulations/commit/3264f1e5ba0e4dd7723b3df3b7b27e3af2a45265))
+* **api:** standardized titles of errors ([92c2e0b](https://github.com/biosimulations/biosimulations/commit/92c2e0b4788ac01f7dc5b320cf9fa078f8a368ae))
+* **combine-api:** update to BioNetGen 2.7.0 ([f2b53a1](https://github.com/biosimulations/biosimulations/commit/f2b53a1aed1bea76955866546d155c1631a4b2ed))
+* **combine-api:** updated dependencies ([9f0e1a2](https://github.com/biosimulations/biosimulations/commit/9f0e1a2867ed4de88db666a0ed9da4cd3b087e04))
+* **combine-api:** updated to assimulo 3.2.9 ([f323461](https://github.com/biosimulations/biosimulations/commit/f323461f8ec33bc7762f370361389b028d335c6c))
+* **combine-api:** updated to biosimulators-utils 0.1.157 ([0df1218](https://github.com/biosimulations/biosimulations/commit/0df12185461308050a67c24241a62120a9125bae))
+* **combine-api:** updated to biosimulators-utils 0.1.159 ([469461e](https://github.com/biosimulations/biosimulations/commit/469461e4a7c2aafbee67daf84c518ab043cd5db8))
+* **dispatch-service:** add final processing step for simulation runs ([d994867](https://github.com/biosimulations/biosimulations/commit/d9948678ab7250505e338d1444783b635410ae84))
+* **dispatch-service:** add processors for each step of simulation run workflow ([79aaa35](https://github.com/biosimulations/biosimulations/commit/79aaa35dbab72b9a1e626139aa4b58083bb47c41))
+* **dispatch-service:** add retries to ssh commands that fail to submit ([f7d6a05](https://github.com/biosimulations/biosimulations/commit/f7d6a05a6c2f2951147a6e17c14d5e26e434d5d4))
+* **dispatch-service:** add ui to monitor queues ([a9fc321](https://github.com/biosimulations/biosimulations/commit/a9fc32160ec9161c3c73716421da9de430c7c91f))
+* **dispatch-service:** define queues and jobs for simulation workflow ([cb4fac1](https://github.com/biosimulations/biosimulations/commit/cb4fac1d0e0e438ddf1838db903b988997d24000))
+* **dispatch-service:** improve logging of post-processing steps failures ([a09c4c4](https://github.com/biosimulations/biosimulations/commit/a09c4c406ea3020c0e844d77b806943b5e05f56f))
+* **dispatch,platform,ui:** added ability to render URIs such as for emails and telephones ([83a7f56](https://github.com/biosimulations/biosimulations/commit/83a7f56b88fbfd792dc78464c65634927b2dd749))
+* **ontology:** added formats used with ModelDB ([da23b89](https://github.com/biosimulations/biosimulations/commit/da23b897225f25b5344f89ce502404a27c3bd1c1))
+* relaxed license requirement for projects ([87cf473](https://github.com/biosimulations/biosimulations/commit/87cf4731e5cad1a93e53889d30d9aecdb1f174ae))
+* **storage:** add datamodel and methods for getting output files ([9cd4b19](https://github.com/biosimulations/biosimulations/commit/9cd4b19e76382d7ca44e38151feefc0ad07e39bc))
+* update maximum upload sizes and documentation ([14b0b5d](https://github.com/biosimulations/biosimulations/commit/14b0b5d1eb08e09cfdc61791e730ce5499466e72))
+
+
+### Performance Improvements
+
+* **api,dispatch-service:** change storage backend to Google Cloud ([9c26643](https://github.com/biosimulations/biosimulations/commit/9c266430e6361ceb62a62363ea974881c53a0cdf)), closes [#4039](https://github.com/biosimulations/biosimulations/issues/4039)
+* **api,dispatch-service:** update from Bull to BullMQ ([21717ff](https://github.com/biosimulations/biosimulations/commit/21717ff6a8268de2d60d60eb6b2ce90f8a6c7ef6))
+* **api:** improve specs and files reliability ([b335f4b](https://github.com/biosimulations/biosimulations/commit/b335f4b30da8e980db32cf050a6591b0a31ccf7b))
+* **combine-api:** improve production runner for combine-api ([c50c48b](https://github.com/biosimulations/biosimulations/commit/c50c48b1d7cba21b84c54d5663241ee62c107300))
+* **combine-api:** tweak deployment settings ([84693eb](https://github.com/biosimulations/biosimulations/commit/84693eba3195e8c0de4c93e5cf633e951772c49f))
+* **dispatch-service:** increase concurrency for monitoring jobs ([2865213](https://github.com/biosimulations/biosimulations/commit/2865213e54ec4220654eefdbc65c3c3d03c7d83c))
+* **dispatch-service:** increase concurrency of proccessing steps ([0a8f769](https://github.com/biosimulations/biosimulations/commit/0a8f7697c013c8ab07069edd4cffaf1b3b06c3e4)), closes [#4047](https://github.com/biosimulations/biosimulations/issues/4047)
+* **dispatch-service:** increase processor concurrency to 10 ([388154d](https://github.com/biosimulations/biosimulations/commit/388154d630256e780bac7cd3b28db58b508dbb85))
+* **dispatch-service:** maintain persistent ssh connections ([acccba7](https://github.com/biosimulations/biosimulations/commit/acccba7b2df44d66551e2d94782bdeedd75324dc))
+* **dispatch-service:** update archiver servcie to use s3 instead of ssh ([214918d](https://github.com/biosimulations/biosimulations/commit/214918d7d92df959cad3f67eeb5a02dba25ccfb1))
+* **dispatch-service:** use s3 to get logs, simplify workflow ([8fafd09](https://github.com/biosimulations/biosimulations/commit/8fafd09ed8d94358def3aa47f4edc0b0564b7770))
+* **storage:** switched to streaming downloaded files to S3 ([8caed80](https://github.com/biosimulations/biosimulations/commit/8caed80d9923e5f313d838251157261844d53e42))
+
+
+### Reverts
+
+*  "[CodeFactor] Apply fixes to commit ede3534" ([234107f](https://github.com/biosimulations/biosimulations/commit/234107fc210ff1ad10644b84dfa74f99e1ea8772))
+*  "refactor(dispatch-service): moved hsload to complete processor" ([13f9f82](https://github.com/biosimulations/biosimulations/commit/13f9f82db397a844d4ff6e499e65fb8fdf1417eb))
+* "refactor(dispatch-service): moved archive uploading to dispatch processor" ([5db7ea1](https://github.com/biosimulations/biosimulations/commit/5db7ea1b81b2d8faf6258c8f639b3cfc4fd3ac88))
+* revert "chore: format files. [skip ci]" ([d9457ca](https://github.com/biosimulations/biosimulations/commit/d9457ca9b1d18abba41f60ac2562f6e912a39cd9))
+
+
+### BREAKING CHANGES
+
+* **api:** the statusReason field has been removed from the api response
+
 ## [8.8.0](https://github.com/biosimulations/biosimulations/compare/v8.7.1...v8.8.0) (2022-01-08)
 
 
