@@ -3,4 +3,5 @@ export enum ConsoleFormatting {
   red = '\\033[0;31m',
   yellow = '\\033[1;33m',
   cyan = '\\033[0;36m',
+  green = '\\033[0;32m',
 }

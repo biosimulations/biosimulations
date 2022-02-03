@@ -15,7 +15,7 @@ export class FilesProcessor {
   public constructor(private fileService: FileService) {}
 
   @Process({ concurrency: 1 })
-  private async process(job: Job): Promise<JobReturn<ProjectFile[]>> {
+  private async process(job: Job): Promise<JobReturn<ProjectFile[] | undefined>> {
     const data = job.data;
     const runId = data.runId;
     const dependencies: Record<string, any> | undefined =
@@ -37,8 +37,7 @@ export class FilesProcessor {
       return {
         status: 'Failed',
         reason: 'No manifest found',
-        data: [],
-        help: 'The manifest of the file could not be found',
+        data: undefined,
       };
     }
 
@@ -63,8 +62,7 @@ export class FilesProcessor {
         return {
           status: 'Failed',
           reason: 'Files could not be posted to API',
-          data: [],
-          help: 'The files could not be posted to the API',
+          data: undefined,
         };
       }
     }
