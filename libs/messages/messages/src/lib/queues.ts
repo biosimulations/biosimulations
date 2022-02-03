@@ -7,8 +7,8 @@ import {
 } from '@biosimulations/datamodel/common';
 
 export enum JobQueue {
-  dispatch = 'dispatch',
-  monitor = 'monitor',
+  dispatch = 'dispatch', //submit a job to hpc
+  monitor = 'monitor', // monitor the hpc job
   process = 'process', // Top level job when simulation run is complete
   extract = 'extract', // extract the combine archive
   manifest = 'manifest', // create the manifest
@@ -23,14 +23,18 @@ export enum JobQueue {
   metadata = 'metadata', // get the metadata from combine api
   metadataPost = 'metadataPost', // post the metadata to API
   complete = 'complete', // gather all the work, submit final status and logs
+  publish = 'publish', // publish the simulation run as a project
   health = 'health', // health check
 }
 
+export enum JobStatus{
+  failed="Failed",
+  succeeded="Succeeded",
+}
 export class JobReturn<T> {
   status!: 'Failed' | 'Succeeded';
   reason!: string;
   data!: T;
-  help?: string;
 }
 
 // TODO project owner should just be a property of the SimulationRun model and not sent in message
@@ -62,6 +66,13 @@ export class CompleteJobData {
   statusReason!: string;
   projectId?: string;
   projectOwner?: string;
+}
+
+export class PublishJobData {
+  runId!: string;
+  projectId?: string;
+  projectOwner?: string;
+  finalStatus!: SimulationRunStatus;
 }
 
 export class ManifestJobData {
