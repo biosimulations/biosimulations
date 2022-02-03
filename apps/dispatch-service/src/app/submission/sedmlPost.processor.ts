@@ -12,7 +12,7 @@ export class SedMLPostProcessor {
 
   public constructor(private submit: SimulationRunService) {}
 
-  @Process({ name: JobQueue.sedmlProcess, concurrency: 1 })
+  @Process({ name: JobQueue.sedmlProcess, concurrency: 10 })
   private async process(job: Job): Promise<JobReturn<undefined>> {
     const data = job.data;
     const runId = data.runId;

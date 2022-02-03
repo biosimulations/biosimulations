@@ -284,7 +284,6 @@ export class ProcessProcessor {
       data: {
         runId: job.data.runId,
         status: job.data.status,
-        statusReason: job.data.statusReason,
         projectId: job.data.projectId,
         projectOwner: job.data.projectOwner,
       },

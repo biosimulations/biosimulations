@@ -14,7 +14,7 @@ export class LogsPostProcessor {
 
   public constructor(private submit: SimulationRunService) {}
 
-  @Process({ name: JobQueue.logsPost, concurrency: 1 })
+  @Process({ name: JobQueue.logsPost, concurrency: 10 })
   private async process(job: Job): Promise<JobReturn<undefined>> {
     const data = job.data;
     const runId = data.runId;

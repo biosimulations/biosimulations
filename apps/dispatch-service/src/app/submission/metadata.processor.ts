@@ -12,7 +12,7 @@ export class MetadataProcessor {
 
   public constructor(private metadataService: MetadataService) {}
 
-  @Process({ name: 'metadata', concurrency: 1 })
+  @Process({ name: 'metadata', concurrency: 10 })
   private async process(
     job: Job,
   ): Promise<JobReturn<ArchiveMetadataContainer | undefined>> {

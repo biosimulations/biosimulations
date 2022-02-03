@@ -20,12 +20,12 @@ type stepsInfo = {
   data: any;
   children: string[];
 };
-@Processor(JobQueue.complete)
+@Processor(JobQueue.publish)
 export class PublishProcessor {
   private readonly logger = new Logger(PublishProcessor.name);
   public constructor(private readonly projectService: ProjectService) {}
 
-  @Process()
+  @Process({name:"publish", concurrency: 10})
   public async processPublish(job: Job<PublishJobData, void, 'complete'>) {
     const data = job.data;
     const projectId = data.projectId;
