@@ -75,11 +75,10 @@ export class CompleteProcessor {
       warningSteps,
       succeededSteps,
     );
-    this.logger.error(originalLog);
 
     if (originalLog) {
       originalLog.output = originalLog.output + processingLog;
-      this.logger.error(originalLog.output);
+
       await firstValueFrom(this.submit.sendLog(runId, originalLog, true));
     }
 
@@ -94,13 +93,11 @@ export class CompleteProcessor {
       await this.simStatusService.updateStatus(
         runId,
         SimulationRunStatus.SUCCEEDED,
-        'All required processing steps completed successfully',
       );
     } else {
       await this.simStatusService.updateStatus(
         runId,
         SimulationRunStatus.FAILED,
-        'One or more required processing steps failed',
       );
     }
 
@@ -140,13 +137,13 @@ export class CompleteProcessor {
     const warningLog =
       warningSteps.length > 0
         ? `\n${yellow}${warningSteps
-            .map((step) => this.getFailedStepErrorMesage(step, warningSteps))
+            .map((step) => this.getFailedStepErrorMessage(step, warningSteps))
             .join('\n')}${noColor}`
         : '';
     const errorLog =
       errorSteps.length > 0
         ? `\n${red}${errorSteps
-            .map((step) => this.getFailedStepErrorMesage(step, errorSteps))
+            .map((step) => this.getFailedStepErrorMessage(step, errorSteps))
             .join('\n')}${noColor}`
         : '';
 
@@ -163,7 +160,10 @@ export class CompleteProcessor {
     return finalLog;
   }
 
-  private getFailedStepErrorMesage(step: stepsInfo, failedSteps: stepsInfo[]): string {
+  private getFailedStepErrorMessage(
+    step: stepsInfo,
+    failedSteps: stepsInfo[],
+  ): string {
     let message = step.description + '.....Failed';
     let failedDueToChild = false;
     const children = step.children;
@@ -175,9 +175,7 @@ export class CompleteProcessor {
     if (!failedDueToChild) {
       message = message + '\n' + step.errorMessage;
     } else {
-      message =
-        message +
-        'due to a dependent step failing';
+      message = message + 'due to a dependent step failing';
     }
     return message;
   }
