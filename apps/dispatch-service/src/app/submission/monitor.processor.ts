@@ -58,7 +58,7 @@ export class MonitorProcessor {
         );
         this.startProcessingJob(
           runId,
-          SimulationRunStatus.PROCESSING,
+          jobStatusReason.status,
           jobStatusReason.reason,
           projectId,
           projectOwner,

@@ -15,7 +15,7 @@ export class MetadataProcessor {
   @Process({ name: 'metadata', concurrency: 1 })
   private async process(
     job: Job,
-  ): Promise<JobReturn<ArchiveMetadataContainer>> {
+  ): Promise<JobReturn<ArchiveMetadataContainer | undefined>> {
     const data = job.data;
     const runId = data.runId;
 
@@ -38,7 +38,7 @@ export class MetadataProcessor {
         return {
           status: 'Failed',
           reason: 'The metadata of the file could not be found',
-          data: { metadata: [] },
+          data: undefined,
         };
       }
     }

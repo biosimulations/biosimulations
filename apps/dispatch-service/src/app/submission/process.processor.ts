@@ -30,7 +30,7 @@ export class ProcessProcessor {
       queueName: JobQueue.manifest,
       opts: {
         jobId: `${runId}`,
-        attempts: 10,
+        attempts: 5,
         backoff: {
           type: 'exponential',
           delay: 1000,
@@ -41,7 +41,8 @@ export class ProcessProcessor {
         description: 'Process the manifest file in the combine archive',
         moreInfo: 'https://combinearchive.org',
         validator: 'https://run.biosimulations.org/utils/validate-project',
-        help: 'The manifest for the combine archive could not be processed',
+        errorMessage:
+          'The manifest for the combine archive could not be processed',
         internalError: true,
         required: true,
       },
@@ -59,7 +60,7 @@ export class ProcessProcessor {
         description: 'Extract the files in the combine archive',
         moreInfo: 'https://combinearchive.org',
         validator: 'https://run.biosimulations.org/utils/validate-project',
-        help: `The files in the combine archive could not be extracted. Please ensure that the archive is a valid zip file.`,
+        errorMessage: `The files in the combine archive could not be extracted. Please ensure that the archive is a valid zip file.`,
         internalError: false,
         required: true,
       },
@@ -74,7 +75,7 @@ export class ProcessProcessor {
         description: 'Read the manifest and post the files to the API',
         moreInfo: undefined,
         validator: undefined,
-        help: `There was an error uploading file metadata to the API. Please try again and contact us if the problem persists.`,
+        errorMessage: `There was an error uploading file metadata to the API. Please try again and contact us if the problem persists.`,
         required: true,
         internalError: true,
       },
@@ -94,7 +95,7 @@ export class ProcessProcessor {
           'Create thumbnails from the images specified in the manifest',
         moreInfo: undefined,
         validator: 'https://run.biosimulations.org/utils/validate-project',
-        help: `There was an error creating thumbnails for the project. Please ensure that the images specified in the manifest are valid.`,
+        errorMessage: `There was an error creating thumbnails for the project. Please ensure that the images specified in the manifest are valid.`,
         required: false,
         internalError: false,
       },
@@ -113,7 +114,7 @@ export class ProcessProcessor {
         description: 'Post thumbnails to the API',
         moreInfo: undefined,
         validator: undefined,
-        help: `There was an error uploading thumbnails to the API. Please try again and contact us if the problem persists.`,
+        errorMessage: `There was an error uploading thumbnails to the API. Please try again and contact us if the problem persists.`,
         required: false,
         internalError: true,
       },
@@ -132,13 +133,14 @@ export class ProcessProcessor {
         moreInfo:
           'https://docs.biosimulations.org/concepts/conventions/simulation-experiments/',
         validator: 'https://run.biosimulations.org/utils/validate-simulation',
-        help: 'There was an error in processing the simulation experiments in the SED-ML file',
+        errorMessage:
+          'There was an error in processing the simulation experiments in the SED-ML file',
         required: true,
         internalError: false,
       },
       opts: {
         jobId: `${runId}`,
-        attempts: 10,
+        attempts: 5,
         backoff: {
           type: 'exponential',
           delay: 1000,
@@ -153,13 +155,13 @@ export class ProcessProcessor {
         description: 'Post the SED-ML file to the API',
         moreInfo: undefined,
         validator: undefined,
-        help: `There was an error uploading the SED-ML specifications to the API.`,
+        errorMessage: `There was an error uploading the SED-ML specifications to the API.`,
         required: true,
         internalError: true,
       },
       opts: {
         jobId: `${runId}`,
-        attempts: 10,
+        attempts: 5,
         backoff: {
           type: 'exponential',
           delay: 1000,
@@ -176,13 +178,13 @@ export class ProcessProcessor {
         description: 'Process and upload the outputs of the simulation run',
         moreInfo: undefined,
         validator: undefined,
-        help: `There was an error uploading the outputs to the API.`,
+        errorMessage: `There was an error uploading the outputs to the API.`,
         required: true,
         internalError: true,
       },
       opts: {
         jobId: `${runId}`,
-        attempts: 10,
+        attempts: 5,
         backoff: {
           type: 'exponential',
           delay: 1000,
@@ -199,7 +201,8 @@ export class ProcessProcessor {
         moreInfo:
           'https://docs.biosimulations.org/concepts/conventions/simulation-run-logs/',
         validator: 'https://api.biosimulations.org',
-        help: 'There was an error retrieving the logs of the simulation run',
+        errorMessage:
+          'There was an error retrieving the logs of the simulation run',
         required: true,
         internalError: true,
       },
@@ -220,13 +223,13 @@ export class ProcessProcessor {
         description: 'Post the logs to the API',
         moreInfo: undefined,
         validator: undefined,
-        help: `There was an error uploading the logs to the API.`,
+        errorMessage: `There was an error uploading the logs to the API.`,
         internalError: true,
         required: true,
       },
       opts: {
         jobId: `${runId}`,
-        attempts: 10,
+        attempts: 5,
         backoff: {
           type: 'exponential',
           delay: 1000,
@@ -240,11 +243,11 @@ export class ProcessProcessor {
       queueName: JobQueue.metadata,
       data: {
         runId: job.data.runId,
-        description: `Process the Metadata file in the combine archive`,
+        description: `Process the Metadata in the combine archive`,
         moreInfo:
           'https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/',
         validator: 'https://run.biosimulations.org/utils/validate-metadata',
-        help: 'There was an error in processing the metadata file',
+        errorMessage: 'There was an error in processing the metadata file',
         required: false,
         internalError: false,
       },
@@ -255,16 +258,16 @@ export class ProcessProcessor {
       queueName: JobQueue.metadataPost,
       data: {
         runId: job.data.runId,
-        description: 'Post the Metadata file to the API',
+        description: 'Post the Metadata to the API',
         moreInfo: undefined,
         validator: undefined,
-        help: `There was an error uploading the metadata to the API.`,
+        errorMessage: `There was an error uploading the metadata to the API.`,
         required: false,
         internalError: true,
       },
       opts: {
         jobId: `${runId}`,
-        attempts: 10,
+        attempts: 5,
         maxStalledCount: 3,
         lockDuration: 1000,
         backoff: {

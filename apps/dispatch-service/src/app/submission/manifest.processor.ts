@@ -15,13 +15,14 @@ export class ManifestProcessor {
   @Process({ name: 'manifest', concurrency: 1 })
   private async process(
     job: Job,
-  ): Promise<JobReturn<CombineArchiveManifestContent[]>> {
+  ): Promise<JobReturn<CombineArchiveManifestContent[] | undefined>> {
     const data = job.data;
     const runId = data.runId;
     try {
       const contents = await firstValueFrom(
         this.manifestService.getManifestContent(runId),
       );
+      
       job.updateProgress(100);
       return {
         status: 'Succeeded',
@@ -37,7 +38,7 @@ export class ManifestProcessor {
         return {
           status: 'Failed',
           reason: 'The manifest of the file could not be found',
-          data: [],
+          data: undefined,
         };
       }
     }

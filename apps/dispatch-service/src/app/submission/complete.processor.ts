@@ -1,341 +1,187 @@
+import { SimulationRunService } from '@biosimulations/api-nest-client';
 import {
-  SimulationRunStatus,
-  ConsoleFormatting,
   CombineArchiveLog,
+  ConsoleFormatting,
   SedOutputElementLog,
   SimulationRunLogStatus,
+  SimulationRunStatus,
 } from '@biosimulations/datamodel/common';
-import { ProjectInput } from '@biosimulations/datamodel/api';
-import { CompleteJob, JobQueue } from '@biosimulations/messages/messages';
+import { CompleteJobData, JobQueue } from '@biosimulations/messages/messages';
+import { Processor, Process, InjectQueue } from '@ejhayes/nestjs-bullmq';
+import { Logger } from '@nestjs/common';
 
-import { Processor, Process } from '@nestjs/bull';
-import { Logger, HttpStatus } from '@nestjs/common';
-import { Job } from 'bull';
-import { ArchiverService } from '../results/archiver.service';
-import { LogService } from '../results/log.service';
-import { MetadataService } from '../../metadata/metadata.service';
-
+import { FlowProducer, Job, JobNode, Queue } from 'bullmq';
+import { firstValueFrom } from 'rxjs';
 import { SimulationStatusService } from '../services/simulationStatus.service';
-import { FileService } from '../../file/file.service';
-import { SedmlService } from '../../sedml/sedml.service';
-import { ProjectService } from '@biosimulations/api-nest-client';
-import { AxiosError } from 'axios';
-import { Observable } from 'rxjs';
-import { retryBackoff } from 'backoff-rxjs';
-import { ThumbnailService } from '../../thumbnail/thumbnail.service';
-import { ExtractionService } from '../../extraction/extraction.service';
 
-interface ProcessingResult {
-  succeeded: boolean;
-  value?: any;
-}
-
+type stepsInfo = {
+  name: string;
+  status: string;
+  returnValue: any;
+  required: boolean;
+  errorMessage: string;
+  reason: string;
+  description: string;
+  data: any;
+  children: string[];
+};
 @Processor(JobQueue.complete)
 export class CompleteProcessor {
   private readonly logger = new Logger(CompleteProcessor.name);
-
+  private flowProducer = new FlowProducer();
   public constructor(
-    private archiverService: ArchiverService,
     private simStatusService: SimulationStatusService,
-    private logService: LogService,
-    private metadataService: MetadataService,
-    private fileService: FileService,
-    private sedmlService: SedmlService,
-    private projectService: ProjectService,
-    private thumbnailsService: ThumbnailService,
-    private extractionService: ExtractionService,
+
+    @InjectQueue(JobQueue.publish) private publishQueue: Queue,
+    private submit: SimulationRunService,
   ) {}
 
-  @Process({
-    concurrency: 10,
-  })
-  private async handleProcessing(job: Job<CompleteJob>): Promise<void> {
+  @Process({ name: 'complete', concurrency: 1 })
+  private async process(
+    job: Job<CompleteJobData, void, 'complete'>,
+  ): Promise<void> {
     const data = job.data;
-
-    const runId: string = data.runId;
-    const runStatus: SimulationRunStatus = data.status;
-    const runStatusReason: string = data.statusReason;
+    const runId = data.runId;
     const projectId = data.projectId;
     const projectOwner = data.projectOwner;
-
-    this.logger.debug(
-      `Simulation run '${runId}' finished. Saving files, specifications, results, logs, metadata ...`,
-    );
-
-    const fileExtractionResults =
-      this.extractionService.extractSimulationArchive(runId);
-    const fileProcessingResults = this.fileService.processFiles(
-      runId,
-      fileExtractionResults,
-    );
-    const thumbnailProcessingResults = this.thumbnailsService.processThumbnails(
-      runId,
-      fileProcessingResults,
-    );
-    const sedMlProcessingResults = this.sedmlService.processSedml(runId);
-    const archiveProcessingResults =
-      this.archiverService.updateResultsSize(runId);
-    const logProcessingResults = this.logService.createLog(
-      runId,
-      false,
-      '',
-      false,
-    );
-    const metadataProcessingResults =
-      this.metadataService.createMetadata(runId);
-
-    const processingSteps = [
-      {
-        name: 'COMBINE archive',
-        result: fileProcessingResults,
-        required: true,
-        moreInfo: 'https://combinearchive.org',
-        validator: 'https://run.biosimulations.org/utils/validate-project',
-        plural: false,
-      },
-
-      {
-        name: 'thumbnails',
-        result: thumbnailProcessingResults,
-        required: true,
-        moreInfo:
-          'https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/',
-        validator: '',
-        plural: true,
-      },
-      {
-        name: 'simulation experiments (SED-ML documents)',
-        result: sedMlProcessingResults,
-        required: true,
-        moreInfo:
-          'https://docs.biosimulations.org/concepts/conventions/simulation-experiments/',
-        validator: 'https://run.biosimulations.org/utils/validate-simulation',
-        plural: true,
-      },
-      {
-        name: 'simulation results',
-        result: archiveProcessingResults,
-        required: true,
-        moreInfo:
-          'https://docs.biosimulations.org/concepts/conventions/simulation-run-reports/',
-        validator: undefined,
-        plural: true,
-      },
-      {
-        name: 'log of the simulation run',
-        result: logProcessingResults,
-        required: true,
-        moreInfo:
-          'https://docs.biosimulations.org/concepts/conventions/simulation-run-logs/',
-        validator: 'https://api.biosimulations.org',
-        plural: false,
-      },
-      {
-        name: 'metadata for the COMBINE archive',
-        result: metadataProcessingResults,
-        required: false,
-        moreInfo:
-          'https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/',
-        validator: 'https://run.biosimulations.org/utils/validate-metadata',
-        plural: false,
-      },
-    ];
-
-    // Keep track of which processing step(s) failed
-    const errors: string[] = [];
-    const warnings: string[] = [];
-    const errorsDetails: string[] = [];
-    const warningsDetails: string[] = [];
-
-    const processingResults: ProcessingResult[] = await Promise.all(
-      processingSteps.map((processingStep) =>
-        processingStep.result
-          .then((value) => {
-            return {
-              succeeded: true,
-              value: value,
-            };
-          })
-          .catch((error: any) => {
-            let reason = '';
-            reason += `The ${processingStep.name} could not be saved.`;
-            reason += ` Please check that the ${processingStep.name} ${
-              processingStep.plural ? 'are' : 'is'
-            } valid.`;
-            reason += `\n    More information is available at ${processingStep.moreInfo}.`;
-            if (processingStep.validator) {
-              reason += ` A validation tool is\n    available at ${processingStep.validator}.`;
-            }
-
-            const details = `The ${
-              processingStep.name
-            } for simulation run '${runId}' could not be saved: ${this.getErrorMessage(
-              error,
-            )}`;
-            if (processingStep.required) {
-              errors.push(reason);
-              errorsDetails.push(details);
-              this.logger.error(details);
-            } else {
-              warnings.push(reason);
-              warningsDetails.push(details);
-              this.logger.warn(details);
-            }
-
-            return {
-              succeeded: false,
-            };
-          }),
-      ),
-    );
-    const logProcessingStep = 4;
-    const log = processingResults[logProcessingStep]?.value;
-    const logPostSucceeded = processingResults[logProcessingStep].succeeded;
-    const runSuceededFromLog = this.getRunSuceededFromLog(log);
-
-    /* calculate final status and reason */
-    let postProcessingStatus!: SimulationRunStatus;
-    let postProcessingStatusReason!: string;
-    let updateStatusMessage!: string;
-    if (errors.length === 0) {
-      postProcessingStatus = SimulationRunStatus.SUCCEEDED;
-      postProcessingStatusReason =
-        'The simulation run was successfully proccessed.';
-      updateStatusMessage = `Post-processing of simulation run '${runId}' completed with status '${postProcessingStatus}'.`;
-    } else {
-      postProcessingStatus = SimulationRunStatus.FAILED;
-      postProcessingStatusReason =
-        'The simulation run was not successfully proccessed.';
-      postProcessingStatusReason += '\n\nErrors:\n  * ' + errors.join('\n  * ');
-      updateStatusMessage = `Post-processing of simulation run '${runId}' completed with status '${postProcessingStatus}' due to ${
-        errorsDetails.length
-      } processing errors:\n  * ${errorsDetails.join('\n  * ')}`;
+    if (!job?.id) {
+      throw new Error('Job id is not defined');
     }
 
-    if (warnings.length) {
-      postProcessingStatusReason +=
-        '\n\nWarnings:\n  * ' + warnings.join('\n  * ');
-      updateStatusMessage += `\n\nThe post-processing of simulation run '${runId}' raised one or more warnings:\n  * ${warningsDetails.join(
-        '\n  * ',
-      )}`;
+    const flow = await this.flowProducer.getFlow({
+      id: job.id,
+      queueName: job.queueName,
+    });
+    const steps: stepsInfo[] = this.getJobTreeInfo(flow, true);
+
+    const errorSteps = steps.filter(
+      (step) => step.status === 'Failed' && step.required,
+    );
+
+    const warningSteps = steps.filter(
+      (step) => step.status === 'Failed' && !step.required,
+    );
+
+    const succeededSteps = steps.filter((step) => step.status === 'Succeeded');
+
+    const originalLog: CombineArchiveLog = steps
+      .filter((step) => step.name === 'Logs')
+      .map((step) => step.returnValue)[0];
+
+    const logSucceeded = this.getRunSucceededFromLog(originalLog);
+
+    const processingLog = this.makeLogString(
+      errorSteps,
+      warningSteps,
+      succeededSteps,
+    );
+    this.logger.error(originalLog);
+
+    if (originalLog) {
+      originalLog.output = originalLog.output + processingLog;
+      this.logger.error(originalLog.output);
+      await firstValueFrom(this.submit.sendLog(runId, originalLog, true));
     }
 
-    /* append post-processing status reason to log */
-    const cyan = ConsoleFormatting.cyan.replace('\\033', '\u001b');
-    const red = ConsoleFormatting.red.replace('\\033', '\u001b');
-    const yellow = ConsoleFormatting.yellow.replace('\\033', '\u001b');
-    const noColor = ConsoleFormatting.noColor.replace('\\033', '\u001b');
+    const runSucceeded = data.status === SimulationRunStatus.SUCCEEDED;
+    const processingSucceeded = errorSteps.length === 0;
+    const finalStatus =
+      logSucceeded && runSucceeded && processingSucceeded
+        ? SimulationRunStatus.SUCCEEDED
+        : SimulationRunStatus.FAILED;
 
-    let postProcessingStatusColor!: string;
-    let postProcessingStatusEndColor!: string;
-    if (errors.length > 0) {
-      postProcessingStatusColor = red;
-      postProcessingStatusEndColor = noColor;
-    } else if (warnings.length > 0) {
-      postProcessingStatusColor = yellow;
-      postProcessingStatusEndColor = noColor;
-    } else {
-      postProcessingStatusColor = '';
-      postProcessingStatusEndColor = '';
-    }
-
-    const extraStdLog =
-      '' +
-      '\n' +
-      `\n${cyan}=========================================== Post-processing simulation run ==========================================${noColor}` +
-      `\n${postProcessingStatusColor}${postProcessingStatusReason}${postProcessingStatusEndColor}` +
-      '\n' +
-      `\n${cyan}================================ Run complete. Thank you for using runBioSimulations! ===============================${noColor}`;
-    await this.logService
-      .createLog(runId, true, extraStdLog, logPostSucceeded)
-      .catch((run) =>
-        this.logger.error(
-          `Log for simulation run '${runId}' could not be updated.`,
-        ),
+    if (finalStatus === SimulationRunStatus.SUCCEEDED) {
+      await this.simStatusService.updateStatus(
+        runId,
+        SimulationRunStatus.SUCCEEDED,
+        'All required processing steps completed successfully',
       );
-
-    /* update final status */
-    let finalStatus: SimulationRunStatus;
-    const finalStatusReason =
-      runStatusReason + '\n\n' + postProcessingStatusReason;
-    if (
-      runStatus === SimulationRunStatus.SUCCEEDED &&
-      runSuceededFromLog &&
-      postProcessingStatus === SimulationRunStatus.SUCCEEDED
-    ) {
-      finalStatus = SimulationRunStatus.SUCCEEDED;
     } else {
-      finalStatus = SimulationRunStatus.FAILED;
+      await this.simStatusService.updateStatus(
+        runId,
+        SimulationRunStatus.FAILED,
+        'One or more required processing steps failed',
+      );
     }
 
-    await this.simStatusService
-      .updateStatus(runId, finalStatus, finalStatusReason)
-      .then((run) => {
-        if (postProcessingStatus === SimulationRunStatus.SUCCEEDED) {
-          return this.logger.log(updateStatusMessage);
-        } else {
-          return this.logger.error(updateStatusMessage);
-        }
+    // TODO confirm what is required for publish
+    const publishable =
+      processingSucceeded &&
+      logSucceeded &&
+      runSucceeded &&
+      warningSteps.length === 0;
+    if (publishable) {
+      this.publishQueue.add('publish', {
+        runId,
+        finalStatus,
+        projectOwner,
+        projectId,
       });
-
-    /* publish run as project */
-    if (projectId && finalStatus === SimulationRunStatus.SUCCEEDED) {
-      const projectInput: ProjectInput = {
-        id: projectId,
-        simulationRun: runId,
-        owner: projectOwner,
-      };
-
-      await this.projectService
-        .getProject(projectId)
-        .pipe(this.getRetryBackoff())
-        .toPromise()
-        .then((project) => {
-          this.projectService
-            .updateProject(projectId, projectInput)
-            .pipe(this.getRetryBackoff())
-            .toPromise()
-            .then(() =>
-              this.logger.log(
-                `Updated project '${projectId}' for simulation '${runId}'.`,
-              ),
-            )
-            .catch((error: any) =>
-              this.logger.error(
-                `Project '${projectId}' could not be updated with simulation '${runId}': ${this.getErrorMessage(
-                  error,
-                )}.`,
-              ),
-            );
-        })
-        .catch((error: AxiosError) => {
-          if (error?.response?.status === HttpStatus.NOT_FOUND) {
-            this.projectService
-              .createProject(projectInput)
-              .pipe(this.getRetryBackoff())
-              .toPromise()
-              .then(() =>
-                this.logger.log(
-                  `Created project '${projectId}' for simulation '${runId}'.`,
-                ),
-              )
-              .catch((innerError: AxiosError) =>
-                this.logger.error(
-                  `Project '${projectId}' could not be created with simulation run '${runId}': ${this.getErrorMessage(
-                    innerError,
-                  )}.`,
-                ),
-              );
-          } else {
-            this.logger.error(
-              `Failed to update status: ${this.getErrorMessage(error)}.`,
-            );
-          }
-        });
     }
   }
 
-  private getRunSuceededFromLog(log?: CombineArchiveLog): boolean {
+  private makeLogString(
+    errorSteps: stepsInfo[],
+    warningSteps: stepsInfo[],
+    succeededSteps: stepsInfo[],
+  ): string {
+    const cyan = ConsoleFormatting.cyan.replace('\\033', '\u001b');
+    const red = ConsoleFormatting.red.replace('\\033', '\u001b');
+    const yellow = ConsoleFormatting.yellow.replace('\\033', '\u001b');
+    const green = ConsoleFormatting.green.replace('\\033', '\u001b');
+    const noColor = ConsoleFormatting.noColor.replace('\\033', '\u001b');
+
+    const successLog =
+      succeededSteps.length > 0
+        ? `\n${green}${succeededSteps
+            .map((step) => step.description + '.....Succeeded')
+            .join('\n')}${noColor}`
+        : '';
+    const warningLog =
+      warningSteps.length > 0
+        ? `\n${yellow}${warningSteps
+            .map((step) => this.getFailedStepErrorMesage(step, warningSteps))
+            .join('\n')}${noColor}`
+        : '';
+    const errorLog =
+      errorSteps.length > 0
+        ? `\n${red}${errorSteps
+            .map((step) => this.getFailedStepErrorMesage(step, errorSteps))
+            .join('\n')}${noColor}`
+        : '';
+
+    const finalLog =
+      '' +
+      '\n' +
+      `${cyan}=========================================== Post-processing simulation run ==========================================${noColor}` +
+      '\n' +
+      successLog +
+      warningLog +
+      errorLog +
+      `\n${cyan}================================ Run complete. Thank you for using runBioSimulations! ===============================${noColor}`;
+
+    return finalLog;
+  }
+
+  private getFailedStepErrorMesage(step: stepsInfo, failedSteps: stepsInfo[]): string {
+    let message = step.description + '.....Failed';
+    let failedDueToChild = false;
+    const children = step.children;
+    children.forEach((child) => {
+      if (failedSteps.map((step) => step.name).includes(child)) {
+        failedDueToChild = true;
+      }
+    });
+    if (!failedDueToChild) {
+      message = message + '\n' + step.errorMessage;
+    } else {
+      message =
+        message +
+        'due to a dependent step failing';
+    }
+    return message;
+  }
+  private getRunSucceededFromLog(log?: CombineArchiveLog): boolean {
     if (log === undefined) {
       return false;
     }
@@ -378,40 +224,35 @@ export class CompleteProcessor {
     return true;
   }
 
-  private getRetryBackoff(): <T>(source: Observable<T>) => Observable<T> {
-    return retryBackoff({
-      initialInterval: 100,
-      maxRetries: 10,
-      resetOnSuccess: true,
-      shouldRetry: (error: AxiosError): boolean => {
-        const retryCodes = [
-          HttpStatus.REQUEST_TIMEOUT,
-          HttpStatus.INTERNAL_SERVER_ERROR,
-          HttpStatus.BAD_GATEWAY,
-          HttpStatus.GATEWAY_TIMEOUT,
-          HttpStatus.SERVICE_UNAVAILABLE,
-          HttpStatus.TOO_MANY_REQUESTS,
-          undefined,
-          null,
-        ];
-        return retryCodes.includes(error?.response?.status);
-      },
-    });
-  }
+  private getJobTreeInfo(flow: JobNode, root: boolean): stepsInfo[] {
+    const steps: stepsInfo[] = [];
 
-  private getErrorMessage(error: any): string {
-    let message: string;
-    this.logger.error(`Error: ${error}`);
-    if (error?.isAxiosError) {
-      message = `${error?.response?.status}: ${
-        error?.response?.data?.detail || error?.response?.statusText
-      }`;
-    } else {
-      message = `${
-        error?.status || error?.statusCode || error.constructor.name
-      }: ${error?.message}`;
+    if (!root) {
+      const children = flow?.children?.map((child) => child.job.name) || [];
+      let errorMessage = flow.job.data.errorMessage;
+      if (flow.job.data.moreInfo) {
+        errorMessage += ` More information is available at ${flow.job.data.moreInfo}.`;
+      }
+      if (flow.job.data.validator) {
+        errorMessage += ` A validation tool is available at ${flow.job.data.validator}.`;
+      }
+
+      steps.push({
+        name: flow.job.name,
+        status: flow.job.returnvalue.status,
+        reason: flow.job.returnvalue.reason,
+        returnValue: flow.job.returnvalue.data,
+        required: flow.job.data.required,
+        description: flow.job.data.description,
+        errorMessage,
+        data: flow.job.data,
+        children: children,
+      });
     }
+    flow?.children?.forEach((child) => {
+      steps.push(...this.getJobTreeInfo(child, false));
+    });
 
-    return message.replace(/\n/g, '\n  ');
+    return steps;
   }
 }
