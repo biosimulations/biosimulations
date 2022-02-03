@@ -15,7 +15,7 @@ export class ThumbnailsPostProcessor {
 
   public constructor(private submit: SimulationRunService) {}
 
-  @Process({ name: 'thumbnails', concurrency: 1 })
+  @Process({ name: 'thumbnails', concurrency: 10 })
   private async process(
     job: Job,
   ): Promise<JobReturn<ThumbnailUrls[] | undefined>> {

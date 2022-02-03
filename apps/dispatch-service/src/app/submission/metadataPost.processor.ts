@@ -13,7 +13,7 @@ export class MetadataPostProcessor {
 
   public constructor(private submit: SimulationRunService) {}
 
-  @Process({ name: JobQueue.metadataPost, concurrency: 1 })
+  @Process({ name: JobQueue.metadataPost, concurrency: 10 })
   private async process(job: Job): Promise<JobReturn<undefined>> {
     const data = job.data;
     const runId = data.runId;

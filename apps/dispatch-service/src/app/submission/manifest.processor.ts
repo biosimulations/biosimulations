@@ -12,7 +12,7 @@ export class ManifestProcessor {
 
   public constructor(private manifestService: ManifestService) {}
 
-  @Process({ name: 'manifest', concurrency: 1 })
+  @Process({ name: 'manifest', concurrency: 10 })
   private async process(
     job: Job,
   ): Promise<JobReturn<CombineArchiveManifestContent[] | undefined>> {

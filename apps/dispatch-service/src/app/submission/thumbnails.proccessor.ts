@@ -11,7 +11,7 @@ export class ThumbnailsProcessor {
 
   public constructor(private thumbnailsService: ThumbnailService) {}
 
-  @Process({ name: 'thumbnails', concurrency: 1 })
+  @Process({ name: 'thumbnails', concurrency: 10 })
   private async process(job: Job): Promise<JobReturn<LocationThumbnailUrls[]>> {
     const data = job.data;
     const runId = data.runId;

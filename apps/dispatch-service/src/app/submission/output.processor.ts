@@ -11,7 +11,7 @@ export class OutputProcessor {
 
   public constructor(private archiveService: ArchiverService) {}
 
-  @Process({ name: 'output', concurrency: 1 })
+  @Process({ name: 'output', concurrency: 10 })
   private async process(job: Job): Promise<JobReturn<number>> {
     const data = job.data;
     const runId = data.runId;

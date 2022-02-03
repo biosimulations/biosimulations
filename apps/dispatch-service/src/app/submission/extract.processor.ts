@@ -1,9 +1,9 @@
 import { JobQueue, JobReturn } from '@biosimulations/messages/messages';
 import { SimulationStorageService } from '@biosimulations/shared/storage';
 
-import { Processor, Process, InjectQueue } from '@ejhayes/nestjs-bullmq';
+import { Processor, Process } from '@ejhayes/nestjs-bullmq';
 import { Logger } from '@nestjs/common';
-import { Job, Queue } from 'bullmq';
+import { Job } from 'bullmq';
 
 @Processor(JobQueue.extract)
 export class ExtractProcessor {
@@ -11,10 +11,9 @@ export class ExtractProcessor {
 
   public constructor(
     private simulationStorageService: SimulationStorageService,
-    @InjectQueue(JobQueue.complete) private completeQueue: Queue,
   ) {}
 
-  @Process({ name: 'extract', concurrency: 1 })
+  @Process({ name: 'extract', concurrency: 10 })
   private async handleFileExtraction(job: Job): Promise<JobReturn<string[]>> {
     const data = job.data;
     const runId = data.runId;

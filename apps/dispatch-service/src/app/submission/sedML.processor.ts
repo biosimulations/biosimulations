@@ -12,7 +12,7 @@ export class SedMLProcessor {
 
   public constructor(private sedmlService: SedmlService) {}
 
-  @Process({ name: JobQueue.sedmlProcess, concurrency: 1 })
+  @Process({ name: JobQueue.sedmlProcess, concurrency: 10 })
   private async process(
     job: Job,
   ): Promise<JobReturn<SimulationRunSedDocumentInput[]>> {
