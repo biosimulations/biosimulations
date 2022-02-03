@@ -9,6 +9,7 @@ import {
 import { CompleteJobData, JobQueue } from '@biosimulations/messages/messages';
 import { Processor, Process, InjectQueue } from '@ejhayes/nestjs-bullmq';
 import { Logger } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 
 import { FlowProducer, Job, JobNode, Queue } from 'bullmq';
 import { firstValueFrom } from 'rxjs';
@@ -28,13 +29,19 @@ type stepsInfo = {
 @Processor(JobQueue.complete)
 export class CompleteProcessor {
   private readonly logger = new Logger(CompleteProcessor.name);
-  private flowProducer = new FlowProducer();
+  private flowProducer: FlowProducer;
   public constructor(
     private simStatusService: SimulationStatusService,
-
     @InjectQueue(JobQueue.publish) private publishQueue: Queue,
     private submit: SimulationRunService,
-  ) {}
+    private configService: ConfigService,
+  ) {
+    const queuehost = this.configService.get('queue.host');
+    const queueport = this.configService.get('queue.port');
+    this.flowProducer = new FlowProducer({
+      connection: { host: queuehost, port: queueport },
+    });
+  }
 
   @Process({ name: 'complete', concurrency: 1 })
   private async process(

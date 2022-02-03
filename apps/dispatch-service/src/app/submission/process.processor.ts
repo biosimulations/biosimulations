@@ -1,20 +1,28 @@
 import { JobQueue } from '@biosimulations/messages/messages';
 import { Processor, Process, InjectQueue } from '@ejhayes/nestjs-bullmq';
 import { Logger } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { FlowProducer, Job, Queue } from 'bullmq';
 
 @Processor(JobQueue.process)
 export class ProcessProcessor {
   private readonly logger = new Logger(ProcessProcessor.name);
 
-  private flowProducer = new FlowProducer();
+  private flowProducer: FlowProducer;
   public constructor(
     @InjectQueue(JobQueue.manifest) private manifestQueue: Queue,
     @InjectQueue(JobQueue.files) private filesQueue: Queue,
     @InjectQueue(JobQueue.extract) private extractQueue: Queue,
     @InjectQueue(JobQueue.thumbnailProcess)
     private thumbnailsQueue: Queue,
-  ) {}
+    private configService: ConfigService,
+  ) {
+    const queuehost = this.configService.get('queue.host');
+    const queueport = this.configService.get('queue.port');
+    this.flowProducer = new FlowProducer({
+      connection: { host: queuehost, port: queueport },
+    });
+  }
 
   @Process({ name: 'process', concurrency: 1 })
   private async process(job: Job): Promise<void> {
