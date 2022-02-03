@@ -4,6 +4,7 @@ import {
   Logger,
   NotFoundException,
   InternalServerErrorException,
+  BadRequestException,
 } from '@nestjs/common';
 
 import { InjectModel } from '@nestjs/mongoose';
@@ -54,10 +55,13 @@ export class MetadataService {
         `No simulation run could be found with id '${runId}'.`,
       );
     }
+    if(!metadata) {
+      throw new BadRequestException('No metadata provided.');
+    }
 
     const simulationRunMetadata = new this.simulationRunMetadataModel({
       simulationRun: runId,
-      metadata: metadata.map(this.transformMetadata.bind(this, runId)),
+      metadata: metadata?.map(this.transformMetadata.bind(this, runId)),
     });
     await simulationRunMetadata.save();
     return;
