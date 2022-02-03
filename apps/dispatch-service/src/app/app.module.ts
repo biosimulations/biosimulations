@@ -49,7 +49,17 @@ import { ThumbnailsPostProcessor } from './submission/thumbnailsPost.processor';
 import { SedMLPostProcessor } from './submission/sedmlPost.processor';
 import { MetadataPostProcessor } from './submission/metadataPost.processor';
 import { LogsPostProcessor } from './submission/logPost.processor';
+import { PublishProcessor } from './submission/publish.processor';
 
+const bullModuleOptions = {
+  useFactory: async (configService: ConfigService) => ({
+    connection: {
+      host: configService.get('queue.host'),
+      port: configService.get('queue.port'),
+    },
+  }),
+  inject: [ConfigService],
+};
 @Module({
   imports: [
     HttpModule,
@@ -103,153 +113,67 @@ import { LogsPostProcessor } from './submission/logPost.processor';
       },
       {
         name: JobQueue.complete,
-        useFactory: async (configService: ConfigService) => ({
-          connection: {
-            host: configService.get('queue.host'),
-            port: configService.get('queue.port'),
-          },
-        }),
-        inject: [ConfigService],
+        ...bullModuleOptions,
       },
       {
         name: JobQueue.monitor,
-        useFactory: async (configService: ConfigService) => ({
-          connection: {
-            host: configService.get('queue.host'),
-            port: configService.get('queue.port'),
-          },
-        }),
-        inject: [ConfigService],
+        ...bullModuleOptions,
       },
       {
         name: JobQueue.extract,
-        useFactory: async (configService: ConfigService) => ({
-          connection: {
-            host: configService.get('queue.host'),
-            port: configService.get('queue.port'),
-          },
-        }),
-        inject: [ConfigService],
+        ...bullModuleOptions,
       },
       {
         name: JobQueue.process,
-        useFactory: async (configService: ConfigService) => ({
-          connection: {
-            host: configService.get('queue.host'),
-            port: configService.get('queue.port'),
-          },
-        }),
-        inject: [ConfigService],
+        ...bullModuleOptions,
       },
       {
         name: JobQueue.files,
-        useFactory: async (configService: ConfigService) => ({
-          connection: {
-            host: configService.get('queue.host'),
-            port: configService.get('queue.port'),
-          },
-        }),
-        inject: [ConfigService],
+        ...bullModuleOptions,
       },
       {
         name: JobQueue.thumbnailProcess,
-        useFactory: async (configService: ConfigService) => ({
-          connection: {
-            host: configService.get('queue.host'),
-            port: configService.get('queue.port'),
-          },
-        }),
-        inject: [ConfigService],
+        ...bullModuleOptions,
       },
       {
         name: JobQueue.thumbnailPost,
-        useFactory: async (configService: ConfigService) => ({
-          connection: {
-            host: configService.get('queue.host'),
-            port: configService.get('queue.port'),
-          },
-        }),
-        inject: [ConfigService],
+        ...bullModuleOptions,
       },
       {
         name: JobQueue.sedmlProcess,
-        useFactory: async (configService: ConfigService) => ({
-          connection: {
-            host: configService.get('queue.host'),
-            port: configService.get('queue.port'),
-          },
-        }),
-        inject: [ConfigService],
+        ...bullModuleOptions,
       },
       {
         name: JobQueue.sedmlPost,
-        useFactory: async (configService: ConfigService) => ({
-          connection: {
-            host: configService.get('queue.host'),
-            port: configService.get('queue.port'),
-          },
-        }),
-        inject: [ConfigService],
+        ...bullModuleOptions,
       },
       {
         name: JobQueue.logs,
-        useFactory: async (configService: ConfigService) => ({
-          connection: {
-            host: configService.get('queue.host'),
-            port: configService.get('queue.port'),
-          },
-        }),
-        inject: [ConfigService],
+        ...bullModuleOptions,
       },
       {
         name: JobQueue.logsPost,
-        useFactory: async (configService: ConfigService) => ({
-          connection: {
-            host: configService.get('queue.host'),
-            port: configService.get('queue.port'),
-          },
-        }),
-        inject: [ConfigService],
+        ...bullModuleOptions,
       },
       {
         name: JobQueue.manifest,
-        useFactory: async (configService: ConfigService) => ({
-          connection: {
-            host: configService.get('queue.host'),
-            port: configService.get('queue.port'),
-          },
-        }),
-        inject: [ConfigService],
+        ...bullModuleOptions,
       },
       {
         name: JobQueue.output,
-        useFactory: async (configService: ConfigService) => ({
-          connection: {
-            host: configService.get('queue.host'),
-            port: configService.get('queue.port'),
-          },
-        }),
-        inject: [ConfigService],
+        ...bullModuleOptions,
       },
       {
         name: JobQueue.metadata,
-        useFactory: async (configService: ConfigService) => ({
-          connection: {
-            host: configService.get('queue.host'),
-            port: configService.get('queue.port'),
-          },
-        }),
-        inject: [ConfigService],
+        ...bullModuleOptions,
       },
       {
         name: JobQueue.metadataPost,
-        useFactory: async (configService: ConfigService) => ({
-          connection: {
-            host: configService.get('queue.host'),
-            port: configService.get('queue.port'),
-          },
-        }),
-        inject: [ConfigService],
+        ...bullModuleOptions,
+      },
+      {
+        name: JobQueue.publish,
+        ...bullModuleOptions,
       },
     ),
 
@@ -280,6 +204,7 @@ import { LogsPostProcessor } from './submission/logPost.processor';
     MetadataPostProcessor,
     LogsPostProcessor,
     CompleteProcessor,
+    PublishProcessor,
 
     // Services
     MetadataService,
