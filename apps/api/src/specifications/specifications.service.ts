@@ -85,7 +85,6 @@ export class SpecificationsService {
     runId: string,
     specs: SimulationRunSedDocumentInput[],
   ): Promise<void> {
-    
     const transaction = await this.model.db.transaction(async (session) => {
       const newSpecs = specs.map(async (spec) => {
         const newSpec = new this.model(spec);

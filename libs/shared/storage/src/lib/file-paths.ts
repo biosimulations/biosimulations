@@ -131,10 +131,7 @@ export class FilePaths {
       outputFile === OutputFileName.OUTPUT_ARCHIVE ||
       outputFile === OutputFileName.RAW_LOG
     ) {
-      const outputPath = this.getSimulationRunPath(
-        runId,
-        outputFile,
-      );
+      const outputPath = this.getSimulationRunPath(runId, outputFile);
       if (absolute) {
         return outputPath;
       } else {

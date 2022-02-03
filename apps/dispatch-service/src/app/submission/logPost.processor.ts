@@ -21,7 +21,7 @@ export class LogsPostProcessor {
 
     const children = await job.getChildrenValues();
     let logs: CombineArchiveLog | undefined;
-    
+
     try {
       logs = Object.keys(children)
         .filter((key) => key.includes('logs'))

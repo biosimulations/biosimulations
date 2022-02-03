@@ -2,13 +2,7 @@ import { Endpoints } from '@biosimulations/config/common';
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
-import {
-  combineLatest,
-  map,
-  Observable,
-  of,
-  throwError,
-} from 'rxjs';
+import { combineLatest, map, Observable, of, throwError } from 'rxjs';
 import { catchError, mergeAll } from 'rxjs/operators';
 import { CombineArchiveManifestContent } from '@biosimulations/combine-api-nest-client';
 import { ProjectFile, ProjectFileInput } from '@biosimulations/datamodel/api';

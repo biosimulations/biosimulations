@@ -25,7 +25,7 @@ export class PublishProcessor {
   private readonly logger = new Logger(PublishProcessor.name);
   public constructor(private readonly projectService: ProjectService) {}
 
-  @Process({name:"publish", concurrency: 10})
+  @Process({ name: 'publish', concurrency: 10 })
   public async processPublish(job: Job<PublishJobData, void, 'complete'>) {
     const data = job.data;
     const projectId = data.projectId;

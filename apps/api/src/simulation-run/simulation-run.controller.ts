@@ -235,14 +235,12 @@ export class SimulationRunController {
       projectId: projectId,
       projectOwner: user?.sub,
     };
-    const sim = await this.dispatchQueue.add('dispatch', message,
-    {
+    const sim = await this.dispatchQueue.add('dispatch', message, {
       attempts: 10,
       backoff: {
         type: 'exponential',
         delay: 1000,
       },
-      
     });
 
     return response;

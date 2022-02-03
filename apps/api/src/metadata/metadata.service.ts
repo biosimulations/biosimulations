@@ -55,7 +55,7 @@ export class MetadataService {
         `No simulation run could be found with id '${runId}'.`,
       );
     }
-    if(!metadata) {
+    if (!metadata) {
       throw new BadRequestException('No metadata provided.');
     }
 

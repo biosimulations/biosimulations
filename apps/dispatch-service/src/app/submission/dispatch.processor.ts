@@ -22,7 +22,7 @@ export class DispatchProcessor {
     @InjectQueue(JobQueue.monitor) private monitorQueue: Queue<MonitorJobData>,
   ) {}
 
-  @Process({concurrency:10})
+  @Process({ concurrency: 10 })
   private async handleSubmission(job: Job<DispatchJobData>): Promise<void> {
     const data = job.data;
 
@@ -52,7 +52,6 @@ export class DispatchProcessor {
         await this.simStatusService.updateStatus(
           data.runId,
           SimulationRunStatus.FAILED,
-          
         );
       }
 

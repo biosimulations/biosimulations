@@ -27,9 +27,9 @@ export enum JobQueue {
   health = 'health', // health check
 }
 
-export enum JobStatus{
-  failed="Failed",
-  succeeded="Succeeded",
+export enum JobStatus {
+  failed = 'Failed',
+  succeeded = 'Succeeded',
 }
 export class JobReturn<T> {
   status!: 'Failed' | 'Succeeded';

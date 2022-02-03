@@ -15,7 +15,9 @@ export class FilesProcessor {
   public constructor(private fileService: FileService) {}
 
   @Process({ concurrency: 10 })
-  private async process(job: Job): Promise<JobReturn<ProjectFile[] | undefined>> {
+  private async process(
+    job: Job,
+  ): Promise<JobReturn<ProjectFile[] | undefined>> {
     const data = job.data;
     const runId = data.runId;
     const dependencies: Record<string, any> | undefined =

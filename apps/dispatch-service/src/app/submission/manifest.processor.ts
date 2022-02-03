@@ -22,7 +22,7 @@ export class ManifestProcessor {
       const contents = await firstValueFrom(
         this.manifestService.getManifestContent(runId),
       );
-      
+
       job.updateProgress(100);
       return {
         status: 'Succeeded',
