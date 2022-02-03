@@ -4,6 +4,7 @@ import { TerminusModule } from '@nestjs/terminus';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 import { BullModule } from '@ejhayes/nestjs-bullmq';
 import { BullHealthIndicator, HealthCheckProcessor } from './bullHealthCheck';
+import { BullModuleOptions } from '@biosimulations/messages/messages';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { BullHealthIndicator, HealthCheckProcessor } from './bullHealthCheck';
     BiosimulationsConfigModule,
     BullModule.registerQueue({
       name: 'health',
+      ...BullModuleOptions,
     }),
   ],
   providers: [HealthCheckProcessor, BullHealthIndicator],
