@@ -67,7 +67,7 @@ def get_simulation_run_view_url(runbiosimulations_deployment, run_id):
 
 def main(runbiosimulations_deployment='dev', biosimulators_deployment='prod',
          biosimulators_test_suite_branch='deploy', example_names=None,
-         test_mode=False, browser=False, dry_run=False, timeout=999):
+         test_mode=False, browser=False, dry_run=False, timeout=999, stress=1):
     """ Submit example simulations from the BioSimulators test suite to the runBioSimulations API and
     record their runs to ``example-simulations.json`` within the browse simulations module of the
     dispatch app so that users can load runs of these simulations as examples.
@@ -129,6 +129,7 @@ def main(runbiosimulations_deployment='dev', biosimulators_deployment='prod',
     else:
         simulation_runs = {}
 
+    simulations = simulations * stress
     print(BColors.HEADER + "Submitting {} simulations ...".format(len(simulations)) + BColors.ENDC)
     for i_simulation, simulation in enumerate(simulations):
         name = simulation['name']
@@ -309,7 +310,7 @@ def monitor_runs(simulation_runs, runbiosimulations_deployment, timeout=9999):
             sim = response.json()
 
             print(BColors.FAIL + "FAILED {} --- {}".format(run['id'], run['name']) + BColors.ENDC)
-            
+
     if len(timed_out_runs) > 0:
         print(BColors.WARNING + "One or more simulations timed-out" + BColors.ENDC)
         passed = False
@@ -391,6 +392,14 @@ if __name__ == '__main__':
         help='Timeout in minutes for waiting for simulations to complete. Default: 999',
         dest='timeout',
     )
+    parser.add_argument(
+        '--stress',
+        type=int,
+        default=1,
+        help='Number of times to run each simulation. Default: 1',
+        dest='stress',
+    )
+
     args = parser.parse_args()
 
     main(runbiosimulations_deployment=args.runbiosimulations_deployment,
@@ -400,4 +409,5 @@ if __name__ == '__main__':
          test_mode=args.test_mode,
          browser=args.browser,
          dry_run=args.dry_run,
-         timeout=args.timeout)
+         timeout=args.timeout,
+         stress=args.stress)
