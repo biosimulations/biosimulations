@@ -232,7 +232,6 @@ export class SimulationService {
             id: dispatchSimulation.id,
             runtime: dispatchSimulation?.runtime || undefined,
             status: dispatchSimulation.status as unknown as SimulationRunStatus,
-
             submitted: new Date(dispatchSimulation.submitted),
             submittedLocally: false,
             simulator: dispatchSimulation.simulator,

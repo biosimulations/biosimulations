@@ -24,7 +24,7 @@ import {
   CombineApiNestClientWrapperModule,
   CombineAPIConfiguration,
 } from '@biosimulations/combine-api-nest-client-wrapper';
-import { JobQueue } from '@biosimulations/messages/messages';
+import { JobQueue, BullModuleOptions } from '@biosimulations/messages/messages';
 import { MetadataService } from '../metadata/metadata.service';
 import { CombineWrapperService } from '../combineWrapper.service';
 import { FileService } from '../file/file.service';
@@ -35,7 +35,6 @@ import { SharedStorageModule } from '@biosimulations/shared/storage';
 import { ThumbnailService } from '../thumbnail/thumbnail.service';
 import { ManifestService } from '../manifest/manifest.service';
 import { ExtractionService } from '../extraction/extraction.service';
-import { QueueScheduler } from 'bullmq';
 import { ExtractProcessor } from './submission/extract.processor';
 import { ProcessProcessor } from './submission/process.processor';
 import { FilesProcessor } from './submission/files.proccessor';
@@ -50,16 +49,8 @@ import { SedMLPostProcessor } from './submission/sedmlPost.processor';
 import { MetadataPostProcessor } from './submission/metadataPost.processor';
 import { LogsPostProcessor } from './submission/logPost.processor';
 import { PublishProcessor } from './submission/publish.processor';
+import { AppQueueManagerProvider } from './app.queues.provider';
 
-const bullModuleOptions = {
-  useFactory: async (configService: ConfigService) => ({
-    connection: {
-      host: configService.get('queue.host'),
-      port: configService.get('queue.port'),
-    },
-  }),
-  inject: [ConfigService],
-};
 @Module({
   imports: [
     HttpModule,
@@ -84,96 +75,78 @@ const bullModuleOptions = {
     }),
 
     BullModule.forRootAsync({
-      imports: [BiosimulationsConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        connection: {
-          host: configService.get('queue.host'),
-          port: configService.get('queue.port'),
-        },
-      }),
-      inject: [ConfigService],
+      ...BullModuleOptions,
     }),
     // Need to provide hash keys to allow use on cluster.
     //See https://github.com/OptimalBits/bull/blob/develop/PATTERNS.md#redis-cluster
     BullModule.registerQueueAsync(
       {
         name: JobQueue.dispatch,
-        useFactory: async (configService: ConfigService) => ({
-          connection: {
-            host: configService.get('queue.host'),
-            port: configService.get('queue.port'),
-          },
-          defaultJobOptions: {
-            removeOnComplete: true,
-            attempts: 10,
-            backoff: { type: 'exponential', delay: 1000 },
-          },
-        }),
-        inject: [ConfigService],
+        ...BullModuleOptions,
       },
       {
         name: JobQueue.complete,
-        ...bullModuleOptions,
+        ...BullModuleOptions,
       },
       {
         name: JobQueue.monitor,
-        ...bullModuleOptions,
+        ...BullModuleOptions,
       },
       {
         name: JobQueue.extract,
-        ...bullModuleOptions,
+        ...BullModuleOptions,
       },
       {
         name: JobQueue.process,
-        ...bullModuleOptions,
+        ...BullModuleOptions,
       },
       {
         name: JobQueue.files,
-        ...bullModuleOptions,
+        ...BullModuleOptions,
       },
       {
         name: JobQueue.thumbnailProcess,
-        ...bullModuleOptions,
+        ...BullModuleOptions,
       },
       {
         name: JobQueue.thumbnailPost,
-        ...bullModuleOptions,
+        ...BullModuleOptions,
       },
       {
         name: JobQueue.sedmlProcess,
-        ...bullModuleOptions,
+        ...BullModuleOptions,
       },
       {
         name: JobQueue.sedmlPost,
-        ...bullModuleOptions,
+        ...BullModuleOptions,
       },
       {
         name: JobQueue.logs,
-        ...bullModuleOptions,
+        ...BullModuleOptions,
       },
       {
         name: JobQueue.logsPost,
-        ...bullModuleOptions,
+        ...BullModuleOptions,
       },
       {
         name: JobQueue.manifest,
-        ...bullModuleOptions,
+        ...BullModuleOptions,
       },
       {
         name: JobQueue.output,
-        ...bullModuleOptions,
+        ...BullModuleOptions,
       },
       {
         name: JobQueue.metadata,
-        ...bullModuleOptions,
+        ...BullModuleOptions,
       },
       {
         name: JobQueue.metadataPost,
-        ...bullModuleOptions,
+        ...BullModuleOptions,
       },
       {
         name: JobQueue.publish,
-        ...bullModuleOptions,
+        ...BullModuleOptions,
       },
     ),
 
@@ -186,7 +159,7 @@ const bullModuleOptions = {
     SshService,
     ArchiverService,
     LogService,
-
+    AppQueueManagerProvider,
     // Processors
     DispatchProcessor,
     MonitorProcessor,
@@ -219,62 +192,5 @@ const bullModuleOptions = {
   ],
 })
 export class AppModule {
-  public constructor(private configService: ConfigService) {
-    // TODO maybe move all the queue schedulers to their own app/docker container
-    // Each replica of the container will add load to redis. only one scheduler is needed across the whole deployment
-    const connection = {
-      host: configService.get('queue.host'),
-      port: configService.get('queue.port'),
-    };
-
-    const scheduler = new QueueScheduler(JobQueue.dispatch, {
-      connection,
-    });
-
-    const completescheduler = new QueueScheduler(JobQueue.complete, {
-      connection,
-    });
-    const extractscheduler = new QueueScheduler(JobQueue.extract, {
-      connection,
-    });
-    const filesscheduler = new QueueScheduler(JobQueue.files, {
-      connection,
-    });
-    const metadatascheduler = new QueueScheduler(JobQueue.metadata, {
-      connection,
-    });
-    const metadataPostscheduler = new QueueScheduler(JobQueue.metadataPost, {
-      connection,
-    });
-
-    const logsScheduler = new QueueScheduler(JobQueue.logs, { connection });
-    const logsPostScheduler = new QueueScheduler(JobQueue.logsPost, {
-      connection,
-    });
-
-    const manifestsScheduler = new QueueScheduler(JobQueue.manifest, {
-      connection,
-    });
-
-    const outputsScheduler = new QueueScheduler(JobQueue.output, {
-      connection,
-    });
-    const thumbnailProcessScheduler = new QueueScheduler(
-      JobQueue.thumbnailProcess,
-      { connection },
-    );
-    const thumbnailPostScheduler = new QueueScheduler(JobQueue.thumbnailPost, {
-      connection,
-    });
-    const sedmlProcessScheduler = new QueueScheduler(JobQueue.sedmlProcess, {
-      connection,
-    });
-    const sedmlPostScheduler = new QueueScheduler(JobQueue.sedmlPost, {
-      connection,
-    });
-
-    const monitorScheduler = new QueueScheduler(JobQueue.monitor, {
-      connection,
-    });
-  }
+  public constructor(private configService: ConfigService) {}
 }

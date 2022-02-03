@@ -1,11 +1,32 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
 
+import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 import {
   EnvironmentVariable,
   Purpose,
   SimulationRunStatus,
 } from '@biosimulations/datamodel/common';
+import { Logger } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 
+export const BullModuleOptions = {
+  imports: [BiosimulationsConfigModule],
+  useFactory: async (configService: ConfigService) => {
+    const logger = new Logger('BullModuleInit');
+    logger.log(
+      `Connecting to ${configService.get('queue.host')}:${configService.get(
+        'queue.port',
+      )}`,
+    );
+    return {
+      connection: {
+        host: configService.get('queue.host'),
+        port: configService.get('queue.port'),
+      },
+    };
+  },
+  inject: [ConfigService],
+};
 export enum JobQueue {
   dispatch = 'dispatch', //submit a job to hpc
   monitor = 'monitor', // monitor the hpc job

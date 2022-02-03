@@ -31,6 +31,7 @@ import { FilesModule } from '../files/files.module';
 import { MetadataModule } from '../metadata/metadata.module';
 import { ProjectsModule } from '../projects/projects.module';
 import { SimulationRunValidationService } from './simulation-run-validation.service';
+import { BullModuleOptions } from '@biosimulations/messages/messages';
 
 @Module({
   imports: [
@@ -51,6 +52,7 @@ import { SimulationRunValidationService } from './simulation-run-validation.serv
     //See https://github.com/OptimalBits/bull/blob/develop/PATTERNS.md#redis-cluster
     BullModule.registerQueue({
       name: 'dispatch',
+      ...BullModuleOptions,
     }),
     HSDSClientModule,
   ],
