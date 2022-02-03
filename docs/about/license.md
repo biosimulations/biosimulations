@@ -123,6 +123,10 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/felixmosh/bull-board
 │  ├─ publisher: felixmosh
 │  └─ licenseFile: @bull-board/ui/README.md
+├─ @ejhayes/nestjs-bullmq@1.0.6
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/ejhayes/nestjs-bullmq
+│  └─ licenseFile: @ejhayes/nestjs-bullmq/LICENSE
 ├─ @gar/promisify@1.1.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/wraithgar/gar-promisify
@@ -1019,6 +1023,11 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/OptimalBits/bull
 │  ├─ publisher: OptimalBits
 │  └─ licenseFile: bull/LICENSE.md
+├─ bullmq@1.67.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/taskforcesh/bullmq
+│  ├─ publisher: Taskforce.sh Inc.
+│  └─ licenseFile: bullmq/LICENSE
 ├─ busboy@0.2.14
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/mscdex/busboy
@@ -2483,7 +2492,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: https://sindresorhus.com
 │  └─ licenseFile: into-stream/license
-├─ ioredis@4.28.0
+├─ ioredis@4.28.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/luin/ioredis
 │  ├─ publisher: luin
@@ -3507,6 +3516,16 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/vercel/ms
 │  └─ licenseFile: @bull-board/express/node_modules/ms/license.md
+├─ msgpackr-extract@1.0.16
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/kriszyp/msgpackr-extract
+│  ├─ publisher: Kris Zyp
+│  └─ licenseFile: msgpackr-extract/LICENSE
+├─ msgpackr@1.5.2
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/kriszyp/msgpackr
+│  ├─ publisher: Kris Zyp
+│  └─ licenseFile: msgpackr/LICENSE
 ├─ multer@1.4.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/expressjs/multer
@@ -3582,6 +3601,12 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/bitinn/node-fetch
 │  ├─ publisher: David Frank
 │  └─ licenseFile: node-fetch/LICENSE.md
+├─ node-gyp-build@4.3.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/prebuild/node-gyp-build
+│  ├─ publisher: Mathias Buus
+│  ├─ url: @mafintosh
+│  └─ licenseFile: node-gyp-build/LICENSE
 ├─ node-gyp@7.1.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nodejs/node-gyp
@@ -4551,7 +4576,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 ├─ semver@6.3.0
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/node-semver
-│  └─ licenseFile: conventional-changelog-writer/node_modules/semver/LICENSE
+│  └─ licenseFile: bullmq/node_modules/semver/LICENSE
 ├─ semver@7.3.4
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/node-semver
@@ -5171,7 +5196,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: 0BSD
 │  ├─ repository: https://github.com/Microsoft/tslib
 │  ├─ publisher: Microsoft Corp.
-│  └─ licenseFile: @nrwl/tao/node_modules/rxjs/node_modules/tslib/LICENSE.txt
+│  └─ licenseFile: bullmq/node_modules/tslib/LICENSE.txt
 ├─ tslib@2.1.0
 │  ├─ licenses: 0BSD
 │  ├─ repository: https://github.com/Microsoft/tslib
