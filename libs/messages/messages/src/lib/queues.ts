@@ -63,7 +63,6 @@ export class DispatchJobData {
 export class CompleteJobData {
   runId!: string;
   status!: SimulationRunStatus;
-  statusReason!: string;
   projectId?: string;
   projectOwner?: string;
 }

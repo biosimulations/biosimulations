@@ -116,17 +116,15 @@ export class SimulationRunService {
   public updateSimulationRunStatus(
     runId: string,
     status: SimulationRunStatus,
-    statusReason: string,
   ): Observable<SimulationRun> {
     const endpoint = this.endpoints.getSimulationRunEndpoint(false, runId);
     type SimulationRunStatusPatch = {
       status: SimulationRunStatus;
-      statusReason: string;
     };
     const response = this.patchAuthenticated<
       SimulationRunStatusPatch,
       SimulationRun
-    >(runId, endpoint, { status, statusReason });
+    >(runId, endpoint, { status });
     return response;
   }
 

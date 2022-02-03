@@ -63,12 +63,6 @@ export class SimulationRunModel extends Document implements SimulationRun {
   status!: SimulationRunStatus;
 
   @Prop({
-    type: String,
-    required: false,
-  })
-  statusReason: string | undefined;
-
-  @Prop({
     type: Number,
     required: false,
   })
@@ -151,7 +145,6 @@ export type SimulationRunModelType = Pick<
   | 'name'
   | 'email'
   | 'status'
-  | 'statusReason'
   | 'runtime'
   | 'projectSize'
   | 'resultsSize'

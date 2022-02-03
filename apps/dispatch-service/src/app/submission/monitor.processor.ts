@@ -54,7 +54,6 @@ export class MonitorProcessor {
         await this.simStatusService.updateStatus(
           runId,
           SimulationRunStatus.PROCESSING,
-          jobStatusReason.reason,
         );
         this.startProcessingJob(
           runId,
@@ -64,11 +63,7 @@ export class MonitorProcessor {
           projectOwner,
         );
       } else {
-        await this.simStatusService.updateStatus(
-          runId,
-          jobStatusReason.status,
-          jobStatusReason.reason,
-        );
+        await this.simStatusService.updateStatus(runId, jobStatusReason.status);
         this.monitorQueue.add(
           'monitor',
           { slurmJobId, runId, projectId, projectOwner, retryCount },
@@ -114,7 +109,6 @@ export class MonitorProcessor {
       {
         runId,
         status: status,
-        statusReason: reason,
         projectId,
         projectOwner,
       },
