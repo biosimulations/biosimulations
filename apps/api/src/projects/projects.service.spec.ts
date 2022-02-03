@@ -22,7 +22,6 @@ import { HttpModule } from '@nestjs/axios';
 import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 import {
-  SharedStorageService,
   SimulationStorageService,
   FilePaths,
 } from '@biosimulations/shared/storage';
@@ -91,7 +90,7 @@ describe('ProjectsService', () => {
           provide: getModelToken(SimulationRunMetadataModel.name),
           useValue: {},
         },
-        { provide: SharedStorageService, useClass: mockStorage },
+
         { provide: SimulationStorageService, useClass: mockStorage },
         {
           provide: SimulationHDFService,
