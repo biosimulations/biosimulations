@@ -1,5 +1,16 @@
 # Changelog
 
+## [9.0.1](https://github.com/biosimulations/biosimulations/compare/v9.0.0...v9.0.1) (2022-02-04)
+
+
+### Bug Fixes
+
+* **api:** fix health indicator queue connection ([d39463e](https://github.com/biosimulations/biosimulations/commit/d39463eefa708787abe41c496badf8f01bb406a3))
+* **deps:** update nrwl and angular ([f6188be](https://github.com/biosimulations/biosimulations/commit/f6188be939e867ba9d275e1cece1f12367db225d))
+* **dispatch-service:** fix flow processor connection options to queue ([0150b1e](https://github.com/biosimulations/biosimulations/commit/0150b1e124b1b8dd4b811356379aaa04847b439d))
+* **dispatch-service:** fix queue connection for dashboard ([3971d9f](https://github.com/biosimulations/biosimulations/commit/3971d9f86eaad3d39b464691d2845d8f071e736a))
+* fix connection options for queues ([26a67f2](https://github.com/biosimulations/biosimulations/commit/26a67f2cb8abcec502edd3d0ecdb5965c2769d18))
+
 ## [9.0.0](https://github.com/biosimulations/biosimulations/compare/v8.8.0...v9.0.0) (2022-02-03)
 
 
