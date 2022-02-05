@@ -60,6 +60,7 @@ export class BrowseService {
                   thumbnail =
                     this.endpoints.getSimulationRunFilesDownloadEndpoint(
                       false,
+                      run.id,
                       metadata.thumbnails[0],
                       Thumbnail.browse,
                     );
