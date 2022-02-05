@@ -125,7 +125,7 @@ jobs:
   buildPushDockerImages:
     name: Build and push backend Docker images
     needs: [Release]
-    uses: ./.github/workflows/docker
+    uses: ./.github/workflows/docker.yml
     secrets:
         GHCR_USERNAME: ${{ secrets.GHCR_USERNAME }}
         GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
