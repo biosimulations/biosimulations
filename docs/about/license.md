@@ -108,6 +108,10 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: The Babel Team
 │  ├─ url: https://babel.dev/team
 │  └─ licenseFile: @babel/runtime-corejs3/LICENSE
+├─ @biosimulations/nestjs-bullmq@1.0.7
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/biosimulations/nestjs-bullmq
+│  └─ licenseFile: @biosimulations/nestjs-bullmq/LICENSE
 ├─ @bull-board/api@3.9.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/felixmosh/bull-board
@@ -123,10 +127,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/felixmosh/bull-board
 │  ├─ publisher: felixmosh
 │  └─ licenseFile: @bull-board/ui/README.md
-├─ @ejhayes/nestjs-bullmq@1.0.6
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/ejhayes/nestjs-bullmq
-│  └─ licenseFile: @ejhayes/nestjs-bullmq/LICENSE
 ├─ @gar/promisify@1.1.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/wraithgar/gar-promisify
