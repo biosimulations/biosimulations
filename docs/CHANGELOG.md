@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.0.2](https://github.com/biosimulations/biosimulations/compare/v9.0.1...v9.0.2) (2022-02-05)
+
+
+### Bug Fixes
+
+* **deps:** security updates ([1e91f8a](https://github.com/biosimulations/biosimulations/commit/1e91f8ab989d3ee435287e9363bba1e31077f9dc))
+
 ## [9.0.1](https://github.com/biosimulations/biosimulations/compare/v9.0.0...v9.0.1) (2022-02-04)
 
 
