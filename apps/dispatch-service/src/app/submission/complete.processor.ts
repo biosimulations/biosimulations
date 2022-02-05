@@ -7,7 +7,7 @@ import {
   SimulationRunStatus,
 } from '@biosimulations/datamodel/common';
 import { CompleteJobData, JobQueue } from '@biosimulations/messages/messages';
-import { Processor, Process, InjectQueue } from '@ejhayes/nestjs-bullmq';
+import { Processor, Process, InjectQueue } from '@biosimulations/nestjs-bullmq';
 import { Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 

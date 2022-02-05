@@ -6,7 +6,7 @@ import {
 } from '@biosimulations/messages/messages';
 
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
-import { InjectQueue, Process, Processor } from '@ejhayes/nestjs-bullmq';
+import { InjectQueue, Process, Processor } from '@biosimulations/nestjs-bullmq';
 import { Logger } from '@nestjs/common';
 import { Job, Queue } from 'bullmq';
 import { HpcService } from '../services/hpc/hpc.service';

@@ -4,7 +4,7 @@ import {
   HealthIndicatorResult,
   HealthCheckError,
 } from '@nestjs/terminus';
-import { InjectQueue, Process, Processor } from '@ejhayes/nestjs-bullmq';
+import { InjectQueue, Process, Processor } from '@biosimulations/nestjs-bullmq';
 import { Job, Queue, QueueEvents } from 'bullmq';
 import { JobQueue } from '@biosimulations/messages/messages';
 import { ConfigService } from '@nestjs/config';

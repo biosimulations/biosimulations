@@ -4,7 +4,7 @@ import {
   ThumbnailUrls,
 } from '@biosimulations/datamodel/common';
 import { JobQueue, JobReturn } from '@biosimulations/messages/messages';
-import { Processor, Process } from '@ejhayes/nestjs-bullmq';
+import { Processor, Process } from '@biosimulations/nestjs-bullmq';
 import { Logger } from '@nestjs/common';
 import { Job } from 'bullmq';
 import { firstValueFrom } from 'rxjs';

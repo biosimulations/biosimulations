@@ -1,7 +1,7 @@
 import { JobQueue, JobReturn } from '@biosimulations/messages/messages';
 import { SimulationStorageService } from '@biosimulations/shared/storage';
 
-import { Processor, Process } from '@ejhayes/nestjs-bullmq';
+import { Processor, Process } from '@biosimulations/nestjs-bullmq';
 import { Logger } from '@nestjs/common';
 import { Job } from 'bullmq';
 
