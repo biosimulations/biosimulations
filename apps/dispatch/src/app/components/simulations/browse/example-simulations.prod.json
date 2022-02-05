@@ -1,6 +1,6 @@
 [
   {
-    "id": "61babc980ed8ec0655971d6f",
+    "id": "61fea483f499ccf25faafc4d",
     "name": "Budding yeast cell cycle (Irons, J Theor Biol, 2009; SBML-qual; BoolNet; synchronous)",
     "simulator": "boolnet",
     "simulatorVersion": "2.1.5",
@@ -11,12 +11,12 @@
     "purpose": "academic",
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-12-16T04:12:14.347Z",
-    "updated": "2021-12-16T04:12:14.347Z",
-    "projectSize": 316955
+    "submitted": "2022-02-05T16:23:31.790Z",
+    "updated": "2022-02-05T16:23:31.790Z",
+    "projectSize": 64521
   },
   {
-    "id": "61babc9e0ed8ec0655971d72",
+    "id": "61fea4848edd56f301e6a7ea",
     "name": "Budding yeast cell cycle (Irons, J Theor Biol, 2009; SBML-qual; GINsim; synchronous)",
     "simulator": "ginsim",
     "simulatorVersion": "3.0.0b",
@@ -27,12 +27,12 @@
     "purpose": "academic",
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-12-16T04:12:16.727Z",
-    "updated": "2021-12-16T04:12:16.727Z",
-    "projectSize": 316955
+    "submitted": "2022-02-05T16:23:32.519Z",
+    "updated": "2022-02-05T16:23:32.519Z",
+    "projectSize": 64521
   },
   {
-    "id": "61babca136c97ce4aaf7ce73",
+    "id": "61fea4853c41b662ca49b3c4",
     "name": "EGF and TNF\u03b1 signaling (Chaouiya et al., BMC Syst Biol, 2013; SBML-qual; synchronous updating; BoolNet)",
     "simulator": "boolnet",
     "simulatorVersion": "2.1.5",
@@ -43,12 +43,12 @@
     "purpose": "academic",
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-12-16T04:12:24.429Z",
-    "updated": "2021-12-16T04:12:24.429Z",
-    "projectSize": 137266
+    "submitted": "2022-02-05T16:23:33.335Z",
+    "updated": "2022-02-05T16:23:33.335Z",
+    "projectSize": 61882
   },
   {
-    "id": "61babca836c97ce4aaf7ce77",
+    "id": "61fea485f499ccf25faafc50",
     "name": "EGF and TNF\u03b1 signaling (Chaouiya et al., BMC Syst Biol, 2013; SBML-qual; synchronous updating; GINsim)",
     "simulator": "ginsim",
     "simulatorVersion": "3.0.0b",
@@ -59,12 +59,12 @@
     "purpose": "academic",
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-12-16T04:12:29.999Z",
-    "updated": "2021-12-16T04:12:29.999Z",
-    "projectSize": 137266
+    "submitted": "2022-02-05T16:23:34.044Z",
+    "updated": "2022-02-05T16:23:34.044Z",
+    "projectSize": 61882
   },
   {
-    "id": "61babcae36c97ce4aaf7ce7c",
+    "id": "61fea4863c41b662ca49b3c7",
     "name": "Escherichia coli core metabolism (COBRApy Team; SBML-fbc; FBA; CBMPy)",
     "simulator": "cbmpy",
     "simulatorVersion": "0.7.25",
@@ -75,12 +75,12 @@
     "purpose": "academic",
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-12-16T04:12:34.340Z",
-    "updated": "2021-12-16T04:12:34.340Z",
-    "projectSize": 1457406
+    "submitted": "2022-02-05T16:23:34.793Z",
+    "updated": "2022-02-05T16:23:34.793Z",
+    "projectSize": 134226
   },
   {
-    "id": "61babcb236c97ce4aaf7ce7f",
+    "id": "61fea4878edd56f301e6a7ed",
     "name": "Escherichia coli core metabolism (COBRApy Team; SBML-fbc; FBA; COBRApy)",
     "simulator": "cobrapy",
     "simulatorVersion": "0.22.1",
@@ -91,12 +91,12 @@
     "purpose": "academic",
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-12-16T04:12:36.868Z",
-    "updated": "2021-12-16T04:12:36.868Z",
-    "projectSize": 1457406
+    "submitted": "2022-02-05T16:23:35.588Z",
+    "updated": "2022-02-05T16:23:35.588Z",
+    "projectSize": 134226
   },
   {
-    "id": "61babcb50ed8ec0655971d7e",
+    "id": "61fea4888c1e3dc95a798006",
     "name": "Escherichia coli resource allocation (Bulovi\u0107 et al., Metab Eng, 2019; RBA TSV/XML; RBA; RBApy)",
     "simulator": "rbapy",
     "simulatorVersion": "1.0.2",
@@ -107,15 +107,15 @@
     "purpose": "academic",
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-12-16T04:12:43.501Z",
-    "updated": "2021-12-16T04:12:43.501Z",
-    "projectSize": 11585469
+    "submitted": "2022-02-05T16:23:37.260Z",
+    "updated": "2022-02-05T16:23:37.260Z",
+    "projectSize": 7330564
   },
   {
-    "id": "61babcbc0ed8ec0655971d85",
+    "id": "61fea4893c41b662ca49b3ca",
     "name": "Heat shock protein synthesis (Szymanska et al., J Theor Biol, 2009; SBML; CVODES; AMICI)",
     "simulator": "amici",
-    "simulatorVersion": "0.11.19",
+    "simulatorVersion": "0.11.24",
     "cpus": 1,
     "memory": 8,
     "maxTime": 20,
@@ -123,12 +123,12 @@
     "purpose": "academic",
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-12-16T04:12:48.004Z",
-    "updated": "2021-12-16T04:12:48.004Z",
-    "projectSize": 446162
+    "submitted": "2022-02-05T16:23:38.135Z",
+    "updated": "2022-02-05T16:23:38.135Z",
+    "projectSize": 343195
   },
   {
-    "id": "61babcc1b072d96cb9cade26",
+    "id": "61fea48b8c1e3dc95a79800b",
     "name": "Hodgkin-Huxley cell (Gleeson; NeuroML/LEMS; CVODE; NetPyNe)",
     "simulator": "netpyne",
     "simulatorVersion": "1.0.0.2",
@@ -139,12 +139,12 @@
     "purpose": "academic",
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-12-16T04:12:52.507Z",
-    "updated": "2021-12-16T04:12:52.507Z",
-    "projectSize": 1340218
+    "submitted": "2022-02-05T16:23:39.483Z",
+    "updated": "2022-02-05T16:23:39.483Z",
+    "projectSize": 1296787
   },
   {
-    "id": "61babcc5b072d96cb9cade46",
+    "id": "61fea48e49420059835774de",
     "name": "Hodgkin-Huxley cell (Gleeson; NeuroML/LEMS; CVODE; Neuron)",
     "simulator": "neuron",
     "simulatorVersion": "8.0.0",
@@ -155,12 +155,12 @@
     "purpose": "academic",
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-12-16T04:12:56.763Z",
-    "updated": "2021-12-16T04:12:56.763Z",
-    "projectSize": 1340218
+    "submitted": "2022-02-05T16:23:42.336Z",
+    "updated": "2022-02-05T16:23:42.336Z",
+    "projectSize": 1296787
   },
   {
-    "id": "61c0c8237448927da3489d3e",
+    "id": "61fea48e3c41b662ca49b3cd",
     "name": "Hodgkin-Huxley cell (Gleeson; NeuroML/LEMS; Euler; Brian 2)",
     "simulator": "brian2",
     "simulatorVersion": "2.5.0.1",
@@ -171,15 +171,15 @@
     "purpose": "academic",
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-12-20T18:15:05.123Z",
-    "updated": "2021-12-20T18:15:05.123Z",
-    "projectSize": 1340271
+    "submitted": "2022-02-05T16:23:43.238Z",
+    "updated": "2022-02-05T16:23:43.238Z",
+    "projectSize": 1296815
   },
   {
-    "id": "61babcc9b072d96cb9cade69",
+    "id": "61fea490f499ccf25faafc55",
     "name": "Hodgkin-Huxley cell (Gleeson; NeuroML/LEMS; Euler; pyNeuroML)",
     "simulator": "pyneuroml",
-    "simulatorVersion": "0.5.11",
+    "simulatorVersion": "0.5.18",
     "cpus": 1,
     "memory": 8,
     "maxTime": 20,
@@ -187,12 +187,12 @@
     "purpose": "academic",
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-12-16T04:13:00.359Z",
-    "updated": "2021-12-16T04:13:00.359Z",
-    "projectSize": 1340271
+    "submitted": "2022-02-05T16:23:44.407Z",
+    "updated": "2022-02-05T16:23:44.407Z",
+    "projectSize": 1296815
   },
   {
-    "id": "61babccdb072d96cb9cade6f",
+    "id": "61fea49049420059835774e3",
     "name": "Iron distribution (Parmar et al., BMC Syst Biol, 2017; SBML; CVODE; PySCeS)",
     "simulator": "pysces",
     "simulatorVersion": "1.0.0",
@@ -203,12 +203,12 @@
     "purpose": "academic",
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-12-16T04:13:05.969Z",
-    "updated": "2021-12-16T04:13:05.969Z",
-    "projectSize": 398835
+    "submitted": "2022-02-05T16:23:45.300Z",
+    "updated": "2022-02-05T16:23:45.300Z",
+    "projectSize": 110287
   },
   {
-    "id": "61babcd70ed8ec0655971de2",
+    "id": "61fea49149420059835774e6",
     "name": "Iron distribution (Parmar et al., BMC Syst Biol, 2017; SBML; CVODE; tellurium)",
     "simulator": "tellurium",
     "simulatorVersion": "2.2.1",
@@ -219,28 +219,12 @@
     "purpose": "academic",
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-12-16T04:13:15.309Z",
-    "updated": "2021-12-16T04:13:15.309Z",
-    "projectSize": 398835
+    "submitted": "2022-02-05T16:23:46.079Z",
+    "updated": "2022-02-05T16:23:46.079Z",
+    "projectSize": 110287
   },
   {
-    "id": "61babcd20ed8ec0655971ddb",
-    "name": "Iron distribution (Parmar et al., BMC Syst Biol, 2017; SBML; CVODE; VCell)",
-    "simulator": "vcell",
-    "simulatorVersion": "7.4.0.26",
-    "cpus": 1,
-    "memory": 8,
-    "maxTime": 20,
-    "envVars": [],
-    "purpose": "academic",
-    "submittedLocally": false,
-    "status": "CREATED",
-    "submitted": "2021-12-16T04:13:11.228Z",
-    "updated": "2021-12-16T04:13:11.228Z",
-    "projectSize": 398835
-  },
-  {
-    "id": "61babcdc0ed8ec0655971de7",
+    "id": "61fea492f499ccf25faafc5f",
     "name": "Lorenz system (Garny; CellML; CVODE; OpenCOR)",
     "simulator": "opencor",
     "simulatorVersion": "2021-10-05",
@@ -251,15 +235,15 @@
     "purpose": "academic",
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-12-16T04:13:17.493Z",
-    "updated": "2021-12-16T04:13:17.493Z",
-    "projectSize": 87090
+    "submitted": "2022-02-05T16:23:46.806Z",
+    "updated": "2022-02-05T16:23:46.806Z",
+    "projectSize": 55449
   },
   {
-    "id": "61babcde36c97ce4aaf7cef9",
+    "id": "61fea4933c41b662ca49b3d8",
     "name": "Lotka-Volterra model (Andrews; Smoldyn; Smoluchowski method)",
     "simulator": "smoldyn",
-    "simulatorVersion": "2.67",
+    "simulatorVersion": "2.67.2",
     "cpus": 1,
     "memory": 8,
     "maxTime": 20,
@@ -267,12 +251,12 @@
     "purpose": "academic",
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-12-16T04:13:19.310Z",
-    "updated": "2021-12-16T04:13:19.310Z",
-    "projectSize": 59445
+    "submitted": "2022-02-05T16:23:47.505Z",
+    "updated": "2022-02-05T16:23:47.505Z",
+    "projectSize": 18714
   },
   {
-    "id": "61babce0b072d96cb9cade84",
+    "id": "61fea4938c1e3dc95a798013",
     "name": "Morphogenesis checkpoint (Ciliberto et al., J Cell Biol, 2003; SBML; CVODE; PySCeS)",
     "simulator": "pysces",
     "simulatorVersion": "1.0.0",
@@ -283,12 +267,12 @@
     "purpose": "academic",
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-12-16T04:13:24.453Z",
-    "updated": "2021-12-16T04:13:24.453Z",
-    "projectSize": 339796
+    "submitted": "2022-02-05T16:23:48.277Z",
+    "updated": "2022-02-05T16:23:48.277Z",
+    "projectSize": 152890
   },
   {
-    "id": "61babce9b072d96cb9cade96",
+    "id": "61fea4948edd56f301e6a7fc",
     "name": "Morphogenesis checkpoint (Ciliberto et al., J Cell Biol, 2003; SBML; CVODE; tellurium)",
     "simulator": "tellurium",
     "simulatorVersion": "2.2.1",
@@ -299,28 +283,12 @@
     "purpose": "academic",
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-12-16T04:13:32.731Z",
-    "updated": "2021-12-16T04:13:32.731Z",
-    "projectSize": 339796
+    "submitted": "2022-02-05T16:23:49.043Z",
+    "updated": "2022-02-05T16:23:49.043Z",
+    "projectSize": 152890
   },
   {
-    "id": "61babce436c97ce4aaf7cf02",
-    "name": "Morphogenesis checkpoint (Ciliberto et al., J Cell Biol, 2003; SBML; CVODE; VCell)",
-    "simulator": "vcell",
-    "simulatorVersion": "7.4.0.26",
-    "cpus": 1,
-    "memory": 8,
-    "maxTime": 20,
-    "envVars": [],
-    "purpose": "academic",
-    "submittedLocally": false,
-    "status": "CREATED",
-    "submitted": "2021-12-16T04:13:28.961Z",
-    "updated": "2021-12-16T04:13:28.961Z",
-    "projectSize": 339796
-  },
-  {
-    "id": "61babced0ed8ec0655971e1a",
+    "id": "61fea4953c41b662ca49b3db",
     "name": "Morphogenesis checkpoint (Ciliberto et al., J Cell Biol, 2003; SBML; Fehlberg; LibSBMLSim)",
     "simulator": "libsbmlsim",
     "simulatorVersion": "1.4.0",
@@ -331,12 +299,12 @@
     "purpose": "academic",
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-12-16T04:13:35.053Z",
-    "updated": "2021-12-16T04:13:35.053Z",
-    "projectSize": 339813
+    "submitted": "2022-02-05T16:23:49.758Z",
+    "updated": "2022-02-05T16:23:49.758Z",
+    "projectSize": 152905
   },
   {
-    "id": "61babcef36c97ce4aaf7cf21",
+    "id": "61fea4968edd56f301e6a803",
     "name": "mTOR signaling (Varusai & Nguyen, Sci Rep, 2018; SBML; LSODA/LSODAR; COPASI)",
     "simulator": "copasi",
     "simulatorVersion": "4.34.251",
@@ -347,12 +315,12 @@
     "purpose": "academic",
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-12-16T04:13:37.765Z",
-    "updated": "2021-12-16T04:13:37.765Z",
-    "projectSize": 334132
+    "submitted": "2022-02-05T16:23:51.151Z",
+    "updated": "2022-02-05T16:23:51.151Z",
+    "projectSize": 213154
   },
   {
-    "id": "61babcf2b072d96cb9cadeb3",
+    "id": "61fea497f499ccf25faafc68",
     "name": "NFAT translocation (Tomida et al., EMBO J, 2003; SBML; LSODA/LSODAR; COPASI)",
     "simulator": "copasi",
     "simulatorVersion": "4.34.251",
@@ -363,12 +331,12 @@
     "purpose": "academic",
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-12-16T04:13:41.257Z",
-    "updated": "2021-12-16T04:13:41.257Z",
-    "projectSize": 152869
+    "submitted": "2022-02-05T16:23:51.922Z",
+    "updated": "2022-02-05T16:23:51.922Z",
+    "projectSize": 78393
   },
   {
-    "id": "61babcf60ed8ec0655971e49",
+    "id": "61fea4988c1e3dc95a79801c",
     "name": "Nicotinic excitatory post-synaptic potential (Edelstein et al., Biological Cybernetics, 1996; SBML; LSODA; PySCeS)",
     "simulator": "pysces",
     "simulatorVersion": "1.0.0",
@@ -379,12 +347,12 @@
     "purpose": "academic",
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-12-16T04:13:45.447Z",
-    "updated": "2021-12-16T04:13:45.447Z",
-    "projectSize": 280132
+    "submitted": "2022-02-05T16:23:52.715Z",
+    "updated": "2022-02-05T16:23:52.715Z",
+    "projectSize": 188724
   },
   {
-    "id": "61babcfa0ed8ec0655971e62",
+    "id": "61fea499f499ccf25faafc6b",
     "name": "Non-homologous end joining (Dolan et al., PLoS Comput Biol, 2020; BNGL; NFSim; BioNetGen)",
     "simulator": "bionetgen",
     "simulatorVersion": "2.7.0",
@@ -395,12 +363,12 @@
     "purpose": "academic",
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-12-16T04:13:48.759Z",
-    "updated": "2021-12-16T04:13:48.759Z",
-    "projectSize": 1279440
+    "submitted": "2022-02-05T16:23:53.923Z",
+    "updated": "2022-02-05T16:23:53.923Z",
+    "projectSize": 956878
   },
   {
-    "id": "61babcfd0ed8ec0655971e6d",
+    "id": "61fea49bf499ccf25faafc6e",
     "name": "Pituitary GH(3) cells (Wu & Chang, Biochem Pharmacol, 2006; XPP; CVODE; XPP)",
     "simulator": "xpp",
     "simulatorVersion": "8.0",
@@ -411,15 +379,15 @@
     "purpose": "academic",
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-12-16T04:13:53.644Z",
-    "updated": "2021-12-16T04:13:53.644Z",
-    "projectSize": 2142413
+    "submitted": "2022-02-05T16:23:55.603Z",
+    "updated": "2022-02-05T16:23:55.603Z",
+    "projectSize": 2055593
   },
   {
-    "id": "61babd02b072d96cb9cadf06",
+    "id": "61fea49c3c41b662ca49b3e8",
     "name": "RBC metabolism (Bordbar et al., Cell Syst, 2015; SBML-MASS; CVODE; MASSpy)",
     "simulator": "masspy",
-    "simulatorVersion": "0.1.2",
+    "simulatorVersion": "0.1.5",
     "cpus": 1,
     "memory": 8,
     "maxTime": 20,
@@ -427,12 +395,12 @@
     "purpose": "academic",
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-12-16T04:13:56.916Z",
-    "updated": "2021-12-16T04:13:56.916Z",
-    "projectSize": 1541878
+    "submitted": "2022-02-05T16:23:57.160Z",
+    "updated": "2022-02-05T16:23:57.160Z",
+    "projectSize": 1007445
   },
   {
-    "id": "61babd0536c97ce4aaf7cf8b",
+    "id": "61fea49d8edd56f301e6a810",
     "name": "Repressilator (Elowitz & Leibler, Nature, 2000; CellML; CVODE; OpenCOR)",
     "simulator": "opencor",
     "simulatorVersion": "2021-10-05",
@@ -443,12 +411,12 @@
     "purpose": "academic",
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-12-16T04:13:59.539Z",
-    "updated": "2021-12-16T04:13:59.539Z",
-    "projectSize": 195459
+    "submitted": "2022-02-05T16:23:58.079Z",
+    "updated": "2022-02-05T16:23:58.079Z",
+    "projectSize": 91148
   },
   {
-    "id": "61babd0836c97ce4aaf7cf97",
+    "id": "61fea49e8c1e3dc95a79802b",
     "name": "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; CVODE; tellurium)",
     "simulator": "tellurium",
     "simulatorVersion": "2.2.1",
@@ -459,31 +427,15 @@
     "purpose": "academic",
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-12-16T04:14:01.684Z",
-    "updated": "2021-12-16T04:14:01.684Z",
-    "projectSize": 216853
+    "submitted": "2022-02-05T16:23:58.878Z",
+    "updated": "2022-02-05T16:23:58.878Z",
+    "projectSize": 92196
   },
   {
-    "id": "61babd0a0ed8ec0655971ea4",
-    "name": "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; CVODE; VCell)",
-    "simulator": "vcell",
-    "simulatorVersion": "7.4.0.26",
-    "cpus": 1,
-    "memory": 8,
-    "maxTime": 20,
-    "envVars": [],
-    "purpose": "academic",
-    "submittedLocally": false,
-    "status": "CREATED",
-    "submitted": "2021-12-16T04:14:04.681Z",
-    "updated": "2021-12-16T04:14:04.681Z",
-    "projectSize": 216853
-  },
-  {
-    "id": "61babd0db072d96cb9cadf70",
+    "id": "61fea49f3c41b662ca49b3f1",
     "name": "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; CVODES; AMICI)",
     "simulator": "amici",
-    "simulatorVersion": "0.11.19",
+    "simulatorVersion": "0.11.24",
     "cpus": 1,
     "memory": 8,
     "maxTime": 20,
@@ -491,12 +443,12 @@
     "purpose": "academic",
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-12-16T04:14:06.949Z",
-    "updated": "2021-12-16T04:14:06.949Z",
-    "projectSize": 216853
+    "submitted": "2022-02-05T16:23:59.591Z",
+    "updated": "2022-02-05T16:23:59.591Z",
+    "projectSize": 92196
   },
   {
-    "id": "61babd0f0ed8ec0655971eb6",
+    "id": "61fea4a08c1e3dc95a79802e",
     "name": "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; LSODA/LSODAR; COPASI)",
     "simulator": "copasi",
     "simulatorVersion": "4.34.251",
@@ -507,12 +459,12 @@
     "purpose": "academic",
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-12-16T04:14:12.146Z",
-    "updated": "2021-12-16T04:14:12.146Z",
-    "projectSize": 216853
+    "submitted": "2022-02-05T16:24:00.383Z",
+    "updated": "2022-02-05T16:24:00.383Z",
+    "projectSize": 92196
   },
   {
-    "id": "61babd140ed8ec0655971ec5",
+    "id": "61fea4a0f499ccf25faafc7f",
     "name": "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; substituted; LibSBMLSim)",
     "simulator": "libsbmlsim",
     "simulatorVersion": "1.4.0",
@@ -523,12 +475,12 @@
     "purpose": "academic",
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-12-16T04:14:19.198Z",
-    "updated": "2021-12-16T04:14:19.198Z",
-    "projectSize": 216853
+    "submitted": "2022-02-05T16:24:01.167Z",
+    "updated": "2022-02-05T16:24:01.167Z",
+    "projectSize": 92196
   },
   {
-    "id": "61babd1bb072d96cb9cadfb0",
+    "id": "61fea4a18c1e3dc95a798031",
     "name": "Toy gene regulatory network (Saglam, 2020; BNGL; CVODE; BioNetGen)",
     "simulator": "bionetgen",
     "simulatorVersion": "2.7.0",
@@ -539,12 +491,12 @@
     "purpose": "academic",
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-12-16T04:14:23.061Z",
-    "updated": "2021-12-16T04:14:23.061Z",
-    "projectSize": 55777
+    "submitted": "2022-02-05T16:24:01.873Z",
+    "updated": "2022-02-05T16:24:01.873Z",
+    "projectSize": 18043
   },
   {
-    "id": "61babd1f36c97ce4aaf7cff2",
+    "id": "61fea4a2f499ccf25faafc82",
     "name": "Tumor-suppressive oscillations (Caravagna et al., J Theor Biol, 2010; SBML; CVODE; PySCeS)",
     "simulator": "pysces",
     "simulatorVersion": "1.0.0",
@@ -555,12 +507,12 @@
     "purpose": "academic",
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-12-16T04:14:27.060Z",
-    "updated": "2021-12-16T04:14:27.060Z",
-    "projectSize": 376328
+    "submitted": "2022-02-05T16:24:02.746Z",
+    "updated": "2022-02-05T16:24:02.746Z",
+    "projectSize": 303545
   },
   {
-    "id": "61babd27b072d96cb9cadff1",
+    "id": "61fea4a38edd56f301e6a821",
     "name": "Tumor-suppressive oscillations (Caravagna et al., J Theor Biol, 2010; SBML; CVODE; tellurium)",
     "simulator": "tellurium",
     "simulatorVersion": "2.2.1",
@@ -571,24 +523,8 @@
     "purpose": "academic",
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-12-16T04:14:33.856Z",
-    "updated": "2021-12-16T04:14:33.856Z",
-    "projectSize": 376328
-  },
-  {
-    "id": "61babd2336c97ce4aaf7d001",
-    "name": "Tumor-suppressive oscillations (Caravagna et al., J Theor Biol, 2010; SBML; CVODE; VCell)",
-    "simulator": "vcell",
-    "simulatorVersion": "7.4.0.26",
-    "cpus": 1,
-    "memory": 8,
-    "maxTime": 20,
-    "envVars": [],
-    "purpose": "academic",
-    "submittedLocally": false,
-    "status": "CREATED",
-    "submitted": "2021-12-16T04:14:31.015Z",
-    "updated": "2021-12-16T04:14:31.015Z",
-    "projectSize": 376328
+    "submitted": "2022-02-05T16:24:03.664Z",
+    "updated": "2022-02-05T16:24:03.664Z",
+    "projectSize": 303545
   }
 ]
