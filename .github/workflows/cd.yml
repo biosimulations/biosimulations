@@ -6,11 +6,38 @@ on:
       - "docs/**"
       - "tools/**"
 jobs:
+  Format:
+    uses: ./.github/workflows/format
+    secrets:
+       GPG_PRIVATE_KEY: ${{secrets.GPG_PRIVATE_KEY}}
+       GH_ACCESS_TOKEN: ${{secrets.GH_ACCESS_TOKEN}}
+    with:
+      branch: dev
+    
 
+  dependencyLicense:
+    uses: ./.github/workflows/dependencyLicense
+    secrets:
+       GPG_PRIVATE_KEY: ${{secrets.GPG_PRIVATE_KEY}}
+       GH_ACCESS_TOKEN: ${{secrets.GH_ACCESS_TOKEN}}
+    with:
+      branch: dev
+      
+  Release:
+    needs: [dependencyLicense, Format]
+    uses: ./.github/workflows/release
+    secrets:
+      GH_RELEASE_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
+      NPM_TOKEN: ${{secrets.NPM_TOKEN}}        
+      GPG_PRIVATE_KEY: ${{secrets.GPG_PRIVATE_KEY}}
+    with:
+      branch: dev
+      
   buildDevFrontEnds:
     env:
       NODE_OPTIONS: --max_old_space_size=6144
     name: Build development front end apps
+    needs: [Release]
     runs-on: ubuntu-latest
 
     strategy:
@@ -25,6 +52,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2.4.0
+        with:
+          ref: dev
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
 
@@ -52,6 +81,7 @@ jobs:
     env:
       NODE_OPTIONS: --max_old_space_size=6144
     name: Build production front end apps
+    needs: [Release]
     runs-on: ubuntu-latest
 
     strategy:
@@ -66,7 +96,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2.4.0
-
+        with:
+          ref: dev
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
 
@@ -93,7 +124,8 @@ jobs:
 
   buildPushDockerImages:
     name: Build and push backend Docker images
-    uses: biosimulations/biosimulations/.github/workflows/docker.yml@dev
+    needs: [Release]
+    uses: ./.github/workflows/docker
     secrets:
         GHCR_USERNAME: ${{ secrets.GHCR_USERNAME }}
         GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
@@ -175,7 +207,7 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2.4.0
-
+        
       - name: Call Webhook
         env:
           GHCR_USERNAME: "${{ secrets.GHCR_USERNAME }}"
@@ -205,11 +237,4 @@ jobs:
           echo '{"ref": "main","inputs":{"overlay": "'$BRANCH'","tag":"sha-'$git_sha'"}}' >body
           curl -X POST 'https://api.github.com/repos/biosimulations/deployment/actions/workflows/deploy.yml/dispatches' -H 'Authorization: Bearer ${{ secrets.GHCR_TOKEN }}' -H 'Content-Type: application/json' --data "@body"
 
-  Release:
-    needs: [buildPushDockerImages, buildProdFrontEnds, triggerProdDeployment]
-    uses: biosimulations/biosimulations/.github/workflows/release.yml@dev
-    secrets:
-      GH_RELEASE_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
-      NPM_TOKEN: ${{secrets.NPM_TOKEN}}        
-      GPG_PRIVATE_KEY: ${{secrets.GPG_PRIVATE_KEY}}
-        
+
