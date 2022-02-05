@@ -7,7 +7,7 @@ on:
       - "tools/**"
 jobs:
   Format:
-    uses: ./.github/workflows/format
+    uses: ./.github/workflows/format.yml
     secrets:
        GPG_PRIVATE_KEY: ${{secrets.GPG_PRIVATE_KEY}}
        GH_ACCESS_TOKEN: ${{secrets.GH_ACCESS_TOKEN}}
@@ -16,7 +16,7 @@ jobs:
     
 
   dependencyLicense:
-    uses: ./.github/workflows/dependencyLicense
+    uses: ./.github/workflows/dependencyLicense.yml
     secrets:
        GPG_PRIVATE_KEY: ${{secrets.GPG_PRIVATE_KEY}}
        GH_ACCESS_TOKEN: ${{secrets.GH_ACCESS_TOKEN}}
@@ -25,7 +25,7 @@ jobs:
       
   Release:
     needs: [dependencyLicense, Format]
-    uses: ./.github/workflows/release
+    uses: ./.github/workflows/release.yml
     secrets:
       GH_RELEASE_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
       NPM_TOKEN: ${{secrets.NPM_TOKEN}}        
