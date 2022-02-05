@@ -222,6 +222,11 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: i@izs.me
 │  ├─ url: http://blog.izs.me/
 │  └─ licenseFile: npm/node_modules/@npmcli/arborist/LICENSE
+├─ @npmcli/arborist@4.3.0
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/npm/arborist
+│  ├─ publisher: GitHub Inc.
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/@npmcli/arborist/LICENSE.md
 ├─ @npmcli/ci-detect@1.3.0
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/ci-detect
@@ -229,6 +234,13 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: i@izs.me
 │  ├─ url: https://izs.me
 │  └─ licenseFile: npm/node_modules/@npmcli/ci-detect/LICENSE
+├─ @npmcli/ci-detect@1.4.0
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/npm/ci-detect
+│  ├─ publisher: Isaac Z. Schlueter
+│  ├─ email: i@izs.me
+│  ├─ url: https://izs.me
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/@npmcli/ci-detect/LICENSE
 ├─ @npmcli/config@2.3.0
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/config
@@ -236,6 +248,13 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: i@izs.me
 │  ├─ url: https://izs.me
 │  └─ licenseFile: npm/node_modules/@npmcli/config/LICENSE
+├─ @npmcli/config@2.4.0
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/npm/config
+│  ├─ publisher: Isaac Z. Schlueter
+│  ├─ email: i@izs.me
+│  ├─ url: https://izs.me
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/@npmcli/config/LICENSE
 ├─ @npmcli/disparity-colors@1.0.1
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/disparity-colors
@@ -246,6 +265,10 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: ISC
 │  ├─ publisher: GitHub Inc.
 │  └─ licenseFile: npm/node_modules/@npmcli/fs/LICENSE.md
+├─ @npmcli/fs@1.1.0
+│  ├─ licenses: ISC
+│  ├─ publisher: GitHub Inc.
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/@npmcli/fs/LICENSE.md
 ├─ @npmcli/git@2.1.0
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/git
@@ -266,6 +289,11 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: npm Inc.
 │  ├─ email: support@npmjs.com
 │  └─ licenseFile: npm/node_modules/@npmcli/map-workspaces/LICENSE
+├─ @npmcli/map-workspaces@2.0.0
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/npm/map-workspaces
+│  ├─ publisher: GitHub Inc.
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/@npmcli/map-workspaces/LICENSE.md
 ├─ @npmcli/metavuln-calculator@1.1.1
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/metavuln-calculator
@@ -273,6 +301,13 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: i@izs.me
 │  ├─ url: https://izs.me
 │  └─ licenseFile: npm/node_modules/@npmcli/metavuln-calculator/LICENSE
+├─ @npmcli/metavuln-calculator@2.0.0
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/npm/metavuln-calculator
+│  ├─ publisher: Isaac Z. Schlueter
+│  ├─ email: i@izs.me
+│  ├─ url: https://izs.me
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/@npmcli/metavuln-calculator/LICENSE
 ├─ @npmcli/move-file@1.1.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/npm/move-file
@@ -286,6 +321,11 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  └─ licenseFile: npm/node_modules/@npmcli/name-from-folder/LICENSE
 ├─ @npmcli/node-gyp@1.0.2
 │  ├─ licenses: ISC
+│  ├─ publisher: Brian Jenkins
+│  └─ email: bonkydog@bonkydog.com
+├─ @npmcli/node-gyp@1.0.3
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/npm/node-gyp
 │  ├─ publisher: Brian Jenkins
 │  └─ email: bonkydog@bonkydog.com
 ├─ @npmcli/package-json@1.0.1
@@ -306,6 +346,13 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: i@izs.me
 │  ├─ url: https://izs.me
 │  └─ licenseFile: npm/node_modules/@npmcli/run-script/LICENSE
+├─ @npmcli/run-script@2.0.0
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/npm/run-script
+│  ├─ publisher: Isaac Z. Schlueter
+│  ├─ email: i@izs.me
+│  ├─ url: https://izs.me
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/@npmcli/run-script/LICENSE
 ├─ @nrwl/cli@13.7.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nrwl/nx
@@ -424,7 +471,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Stephan Bönnemann
 │  ├─ email: stephan@boennemann.me
 │  ├─ url: http://boennemann.me
-│  └─ licenseFile: @semantic-release/npm/node_modules/@semantic-release/error/LICENSE
+│  └─ licenseFile: @semantic-release/error/LICENSE
 ├─ @semantic-release/github@8.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/semantic-release/github
@@ -437,6 +484,12 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Pierre Vanduynslager
 │  ├─ url: https://twitter.com/@pvdlg_
 │  └─ licenseFile: @semantic-release/npm/LICENSE
+├─ @semantic-release/npm@9.0.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/semantic-release/npm
+│  ├─ publisher: Pierre Vanduynslager
+│  ├─ url: https://twitter.com/@pvdlg_
+│  └─ licenseFile: semantic-release/node_modules/@semantic-release/npm/LICENSE
 ├─ @semantic-release/release-notes-generator@10.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/semantic-release/release-notes-generator
@@ -590,10 +643,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/urijs/LICENSE
-├─ @types/validator@13.6.3
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
-│  └─ licenseFile: @types/validator/LICENSE
 ├─ @types/webidl-conversions@6.1.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -632,6 +681,13 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: fengmk2@gmail.com
 │  ├─ url: https://fengmk2.com
 │  └─ licenseFile: npm/node_modules/agentkeepalive/LICENSE
+├─ agentkeepalive@4.2.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/node-modules/agentkeepalive
+│  ├─ publisher: fengmk2
+│  ├─ email: fengmk2@gmail.com
+│  ├─ url: https://fengmk2.com
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/agentkeepalive/LICENSE
 ├─ aggregate-error@3.1.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/aggregate-error
@@ -650,13 +706,13 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Brian Woodward
 │  ├─ url: https://github.com/doowb
 │  └─ licenseFile: ansi-colors/LICENSE
-├─ ansi-escapes@4.3.2
+├─ ansi-escapes@5.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/ansi-escapes
 │  ├─ publisher: Sindre Sorhus
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: https://sindresorhus.com
-│  └─ licenseFile: ansi-escapes/license
+│  └─ licenseFile: marked-terminal/node_modules/ansi-escapes/license
 ├─ ansi-regex@2.1.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/chalk/ansi-regex
@@ -731,18 +787,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Rebecca Turner
 │  ├─ email: me@re-becca.org
 │  └─ licenseFile: npm/node_modules/aproba/LICENSE
-├─ archiver-utils@2.1.0
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/archiverjs/archiver-utils
-│  ├─ publisher: Chris Talkington
-│  ├─ url: http://christalkington.com/
-│  └─ licenseFile: archiver-utils/LICENSE
-├─ archiver@5.3.0
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/archiverjs/node-archiver
-│  ├─ publisher: Chris Talkington
-│  ├─ url: http://christalkington.com/
-│  └─ licenseFile: archiver/LICENSE
 ├─ archy@1.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/substack/node-archy
@@ -826,11 +870,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/caolan/async
 │  ├─ publisher: Caolan McMahon
 │  └─ licenseFile: cache-manager/node_modules/async/LICENSE
-├─ async@3.2.1
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/caolan/async
-│  ├─ publisher: Caolan McMahon
-│  └─ licenseFile: async/LICENSE
 ├─ asynckit@0.4.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/alexindigo/asynckit
@@ -916,6 +955,11 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/bin-links
 │  └─ licenseFile: npm/node_modules/bin-links/LICENSE
+├─ bin-links@3.0.0
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/npm/bin-links
+│  ├─ publisher: GitHub Inc.
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/bin-links/LICENSE
 ├─ binary-extensions@2.2.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/binary-extensions
@@ -973,12 +1017,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: The MongoDB NodeJS Team
 │  ├─ email: dbx-node@mongodb.com
 │  └─ licenseFile: bson/LICENSE.md
-├─ buffer-crc32@0.2.13
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/brianloveswords/buffer-crc32
-│  ├─ publisher: Brian J. Brennan
-│  ├─ email: brianloveswords@gmail.com
-│  └─ licenseFile: buffer-crc32/LICENSE
 ├─ buffer-equal-constant-time@1.0.1
 │  ├─ licenses: BSD-3-Clause
 │  ├─ repository: https://github.com/goinstant/buffer-equal-constant-time
@@ -1018,11 +1056,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/juliangruber/builtins
 │  └─ licenseFile: npm/node_modules/builtins/License
-├─ bull@3.29.3
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/OptimalBits/bull
-│  ├─ publisher: OptimalBits
-│  └─ licenseFile: bull/LICENSE.md
 ├─ bullmq@1.67.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/taskforcesh/bullmq
@@ -1129,6 +1162,10 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/chalk/chalk
 │  └─ licenseFile: chalk/license
+├─ chalk@5.0.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/chalk/chalk
+│  └─ licenseFile: marked-terminal/node_modules/chalk/license
 ├─ change-case@2.3.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/blakeembrey/change-case
@@ -1175,7 +1212,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/typestack/class-transformer
 │  ├─ publisher: TypeStack contributors
 │  └─ licenseFile: class-transformer/LICENSE
-├─ class-validator@0.13.1
+├─ class-validator@0.13.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typestack/class-validator
 │  ├─ publisher: TypeStack contributors
@@ -1194,6 +1231,13 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: me@shannonmoeller
 │  ├─ url: http://shannonmoeller.com
 │  └─ licenseFile: npm/node_modules/cli-columns/LICENSE
+├─ cli-columns@4.0.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/shannonmoeller/cli-columns
+│  ├─ publisher: Shannon Moeller
+│  ├─ email: me@shannonmoeller
+│  ├─ url: http://shannonmoeller.com
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/cli-columns/LICENSE
 ├─ cli-table3@0.6.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/cli-table/cli-table3
@@ -1209,7 +1253,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/yargs/cliui
 │  ├─ publisher: Ben Coe
 │  ├─ email: ben@npmjs.com
-│  └─ licenseFile: semantic-release/node_modules/cliui/LICENSE.txt
+│  └─ licenseFile: cliui/LICENSE.txt
 ├─ clone@1.0.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/pvorb/node-clone
@@ -1316,12 +1360,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/component/emitter
 │  └─ licenseFile: component-emitter/LICENSE
-├─ compress-commons@4.1.1
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/archiverjs/node-compress-commons
-│  ├─ publisher: Chris Talkington
-│  ├─ url: http://christalkington.com/
-│  └─ licenseFile: compress-commons/LICENSE
 ├─ concat-map@0.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/substack/node-concat-map
@@ -1464,17 +1502,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Brian White
 │  ├─ email: mscdex@mscdex.net
 │  └─ licenseFile: cpu-features/LICENSE
-├─ crc-32@1.2.0
-│  ├─ licenses: Apache-2.0
-│  ├─ repository: https://github.com/SheetJS/js-crc32
-│  ├─ publisher: sheetjs
-│  └─ licenseFile: crc-32/LICENSE
-├─ crc32-stream@4.0.2
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/archiverjs/node-crc32-stream
-│  ├─ publisher: Chris Talkington
-│  ├─ url: http://christalkington.com/
-│  └─ licenseFile: crc32-stream/LICENSE
 ├─ cron-parser@2.18.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/harrisiirak/cron-parser
@@ -1803,19 +1830,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/stacktracejs/error-stack-parser
 │  └─ licenseFile: error-stack-parser/LICENSE
-├─ es-abstract@1.19.1
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/ljharb/es-abstract
-│  ├─ publisher: Jordan Harband
-│  ├─ email: ljharb@gmail.com
-│  ├─ url: http://ljharb.codes
-│  └─ licenseFile: es-abstract/LICENSE
-├─ es-to-primitive@1.2.1
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/ljharb/es-to-primitive
-│  ├─ publisher: Jordan Harband
-│  ├─ email: ljharb@gmail.com
-│  └─ licenseFile: es-to-primitive/LICENSE
 ├─ es6-promisify@6.1.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/digitaldesignlabs/es6-promisify
@@ -1864,11 +1878,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: https://sindresorhus.com
 │  └─ licenseFile: execa/license
-├─ exit-on-epipe@1.0.1
-│  ├─ licenses: Apache-2.0
-│  ├─ repository: https://github.com/SheetJS/node-exit-on-epipe
-│  ├─ publisher: sheetjs
-│  └─ licenseFile: exit-on-epipe/LICENSE
 ├─ expand-template@2.0.3
 │  ├─ licenses: (MIT OR WTFPL)
 │  ├─ repository: https://github.com/ralphtheninja/expand-template
@@ -1993,19 +2002,13 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: https://sindresorhus.com
 │  └─ licenseFile: find-versions/license
-├─ follow-redirects@1.14.4
+├─ follow-redirects@1.14.7
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/follow-redirects/follow-redirects
 │  ├─ publisher: Ruben Verborgh
 │  ├─ email: ruben@verborgh.org
 │  ├─ url: https://ruben.verborgh.org/
 │  └─ licenseFile: follow-redirects/LICENSE
-├─ for-each@0.3.3
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/Raynos/for-each
-│  ├─ publisher: Raynos
-│  ├─ email: raynos2@gmail.com
-│  └─ licenseFile: for-each/LICENSE
 ├─ forever-agent@0.6.1
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/mikeal/forever-agent
@@ -2120,6 +2123,11 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Rebecca Turner
 │  ├─ email: me@re-becca.org
 │  └─ licenseFile: npm/node_modules/gauge/LICENSE
+├─ gauge@4.0.0
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/npm/gauge
+│  ├─ publisher: GitHub Inc.
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/gauge/LICENSE.md
 ├─ get-caller-file@2.0.5
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/stefanpenner/get-caller-file
@@ -2145,12 +2153,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: https://sindresorhus.com
 │  └─ licenseFile: get-stream/license
-├─ get-symbol-description@1.0.0
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/inspect-js/get-symbol-description
-│  ├─ publisher: Jordan Harband
-│  ├─ email: ljharb@gmail.com
-│  └─ licenseFile: get-symbol-description/LICENSE
 ├─ getpass@0.1.7
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/arekinath/node-getpass
@@ -2229,12 +2231,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
 │  └─ licenseFile: hard-rejection/license
-├─ has-bigints@1.0.1
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/ljharb/has-bigints
-│  ├─ publisher: Jordan Harband
-│  ├─ email: ljharb@gmail.com
-│  └─ licenseFile: has-bigints/LICENSE
 ├─ has-flag@3.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/has-flag
@@ -2256,13 +2252,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: ljharb@gmail.com
 │  ├─ url: http://ljharb.codes
 │  └─ licenseFile: has-symbols/LICENSE
-├─ has-tostringtag@1.0.0
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/inspect-js/has-tostringtag
-│  ├─ publisher: Jordan Harband
-│  ├─ email: ljharb@gmail.com
-│  ├─ url: http://ljharb.codes
-│  └─ licenseFile: has-tostringtag/LICENSE
 ├─ has-unicode@2.0.1
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/iarna/has-unicode
@@ -2296,6 +2285,13 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: me@re-becca.org
 │  ├─ url: http://re-becca.org
 │  └─ licenseFile: npm/node_modules/hosted-git-info/LICENSE
+├─ hosted-git-info@4.1.0
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/npm/hosted-git-info
+│  ├─ publisher: Rebecca Turner
+│  ├─ email: me@re-becca.org
+│  ├─ url: http://re-becca.org
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/hosted-git-info/LICENSE
 ├─ http-cache-semantics@4.1.0
 │  ├─ licenses: BSD-2-Clause
 │  ├─ repository: https://github.com/kornelski/http-cache-semantics
@@ -2399,6 +2395,13 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: i@izs.me
 │  ├─ url: http://blog.izs.me/
 │  └─ licenseFile: npm/node_modules/ignore-walk/LICENSE
+├─ ignore-walk@4.0.1
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/isaacs/ignore-walk
+│  ├─ publisher: Isaac Z. Schlueter
+│  ├─ email: i@izs.me
+│  ├─ url: http://blog.izs.me/
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/ignore-walk/LICENSE
 ├─ ignore@5.2.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/kaelzhang/node-ignore
@@ -2477,12 +2480,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/npm/init-package-json
 │  ├─ publisher: GitHub Inc.
 │  └─ licenseFile: npm/node_modules/init-package-json/LICENSE.md
-├─ internal-slot@1.0.3
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/ljharb/internal-slot
-│  ├─ publisher: Jordan Harband
-│  ├─ email: ljharb@gmail.com
-│  └─ licenseFile: internal-slot/LICENSE
 ├─ into-stream@6.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/into-stream
@@ -2527,25 +2524,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Qix
 │  ├─ url: http://github.com/qix-
 │  └─ licenseFile: simple-swizzle/node_modules/is-arrayish/LICENSE
-├─ is-bigint@1.0.4
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/inspect-js/is-bigint
-│  ├─ publisher: Jordan Harband
-│  ├─ email: ljharb@gmail.com
-│  └─ licenseFile: is-bigint/LICENSE
-├─ is-boolean-object@1.1.2
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/inspect-js/is-boolean-object
-│  ├─ publisher: Jordan Harband
-│  ├─ email: ljharb@gmail.com
-│  └─ licenseFile: is-boolean-object/LICENSE
-├─ is-callable@1.2.4
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/inspect-js/is-callable
-│  ├─ publisher: Jordan Harband
-│  ├─ email: ljharb@gmail.com
-│  ├─ url: http://ljharb.codes
-│  └─ licenseFile: is-callable/LICENSE
 ├─ is-cidr@4.0.2
 │  ├─ licenses: BSD-2-Clause
 │  ├─ repository: https://github.com/silverwind/is-cidr
@@ -2564,11 +2542,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Jordan Harband
 │  ├─ email: ljharb@gmail.com
 │  └─ licenseFile: is-core-module/LICENSE
-├─ is-date-object@1.0.5
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/inspect-js/is-date-object
-│  ├─ publisher: Jordan Harband
-│  └─ licenseFile: is-date-object/LICENSE
 ├─ is-extglob@2.1.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jonschlinkert/is-extglob
@@ -2621,18 +2594,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/es-shims/is-nan
 │  ├─ publisher: Jordan Harband
 │  └─ licenseFile: is-nan/LICENSE
-├─ is-negative-zero@2.0.1
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/inspect-js/is-negative-zero
-│  ├─ publisher: Jordan Harband
-│  ├─ email: ljharb@gmail.com
-│  └─ licenseFile: is-negative-zero/LICENSE
-├─ is-number-object@1.0.6
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/inspect-js/is-number-object
-│  ├─ publisher: Jordan Harband
-│  ├─ email: ljharb@gmail.com
-│  └─ licenseFile: is-number-object/LICENSE
 ├─ is-number@7.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jonschlinkert/is-number
@@ -2673,19 +2634,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Jon Schlinkert
 │  ├─ url: https://github.com/jonschlinkert
 │  └─ licenseFile: @octokit/endpoint/node_modules/is-plain-object/LICENSE
-├─ is-regex@1.1.4
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/inspect-js/is-regex
-│  ├─ publisher: Jordan Harband
-│  ├─ email: ljharb@gmail.com
-│  └─ licenseFile: is-regex/LICENSE
-├─ is-shared-array-buffer@1.0.1
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/inspect-js/is-shared-array-buffer
-│  ├─ publisher: Jordan Harband
-│  ├─ email: ljharb@gmail.com
-│  ├─ url: http://ljharb.codes
-│  └─ licenseFile: is-shared-array-buffer/LICENSE
 ├─ is-stream@2.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/is-stream
@@ -2693,18 +2641,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: https://sindresorhus.com
 │  └─ licenseFile: is-stream/license
-├─ is-string@1.0.7
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/ljharb/is-string
-│  ├─ publisher: Jordan Harband
-│  ├─ email: ljharb@gmail.com
-│  └─ licenseFile: is-string/LICENSE
-├─ is-symbol@1.0.4
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/inspect-js/is-symbol
-│  ├─ publisher: Jordan Harband
-│  ├─ email: ljharb@gmail.com
-│  └─ licenseFile: is-symbol/LICENSE
 ├─ is-text-path@1.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/is-text-path
@@ -2730,12 +2666,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/segmentio/is-url
 │  └─ licenseFile: is-url/LICENSE-MIT
-├─ is-weakref@1.0.1
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/inspect-js/is-weakref
-│  ├─ publisher: Jordan Harband
-│  ├─ email: ljharb@gmail.com
-│  └─ licenseFile: is-weakref/LICENSE
 ├─ isarray@0.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/juliangruber/isarray
@@ -2893,11 +2823,21 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/angus-c/just
 │  ├─ publisher: Angus Croll
 │  └─ licenseFile: npm/node_modules/just-diff-apply/LICENSE
+├─ just-diff-apply@4.0.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/angus-c/just
+│  ├─ publisher: Angus Croll
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/just-diff-apply/LICENSE
 ├─ just-diff@3.1.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angus-c/just
 │  ├─ publisher: Angus Croll
 │  └─ licenseFile: npm/node_modules/just-diff/LICENSE
+├─ just-diff@5.0.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/angus-c/just
+│  ├─ publisher: Angus Croll
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/just-diff/LICENSE
 ├─ jwa@1.4.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/brianloveswords/node-jwa
@@ -2931,71 +2871,114 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Jon Schlinkert
 │  ├─ url: https://github.com/jonschlinkert
 │  └─ licenseFile: kind-of/LICENSE
-├─ lazystream@1.0.0
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/jpommerening/node-lazystream
-│  ├─ publisher: Jonas Pommerening
-│  ├─ email: jonas.pommerening@gmail.com
-│  ├─ url: https://npmjs.org/~jpommerening
-│  └─ licenseFile: lazystream/LICENSE-MIT
 ├─ libnpmaccess@4.0.3
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/libnpmaccess
 │  ├─ publisher: Kat Marchán
 │  ├─ email: kzm@sykosomatic.org
 │  └─ licenseFile: npm/node_modules/libnpmaccess/LICENSE
+├─ libnpmaccess@5.0.1
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/npm/libnpmaccess
+│  ├─ publisher: GitHub Inc.
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/libnpmaccess/LICENSE
 ├─ libnpmdiff@2.0.4
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/libnpmdiff
 │  ├─ publisher: GitHub Inc.
 │  └─ licenseFile: npm/node_modules/libnpmdiff/LICENSE
+├─ libnpmdiff@3.0.0
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/npm/libnpmdiff
+│  ├─ publisher: GitHub Inc.
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/libnpmdiff/LICENSE
 ├─ libnpmexec@2.0.1
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/libnpmexec
 │  ├─ publisher: GitHub Inc.
 │  └─ licenseFile: npm/node_modules/libnpmexec/LICENSE
+├─ libnpmexec@3.0.3
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/npm/libnpmexec
+│  ├─ publisher: GitHub Inc.
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/libnpmexec/LICENSE
 ├─ libnpmfund@1.1.0
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/libnpmfund
 │  ├─ publisher: npm Inc.
 │  ├─ email: support@npmjs.com
 │  └─ licenseFile: npm/node_modules/libnpmfund/LICENSE
+├─ libnpmfund@2.0.2
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/npm/libnpmfund
+│  ├─ publisher: GitHub Inc.
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/libnpmfund/LICENSE
 ├─ libnpmhook@6.0.3
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/libnpmhook
 │  ├─ publisher: Kat Marchán
 │  ├─ email: kzm@sykosomatic.org
 │  └─ licenseFile: npm/node_modules/libnpmhook/LICENSE.md
+├─ libnpmhook@7.0.1
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/npm/libnpmhook
+│  ├─ publisher: GitHub Inc.
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/libnpmhook/LICENSE.md
 ├─ libnpmorg@2.0.3
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/libnpmorg
 │  ├─ publisher: Kat Marchán
 │  ├─ email: kzm@sykosomatic.org
 │  └─ licenseFile: npm/node_modules/libnpmorg/LICENSE
+├─ libnpmorg@3.0.1
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/npm/libnpmorg
+│  ├─ publisher: GitHub Inc.
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/libnpmorg/LICENSE
 ├─ libnpmpack@2.0.1
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/libnpmpack
 │  ├─ publisher: npm Inc.
 │  ├─ email: support@npmjs.com
 │  └─ licenseFile: npm/node_modules/libnpmpack/LICENSE
+├─ libnpmpack@3.0.1
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/npm/libnpmpack
+│  ├─ publisher: GitHub Inc.
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/libnpmpack/LICENSE
 ├─ libnpmpublish@4.0.2
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/libnpmpublish
 │  ├─ publisher: npm Inc.
 │  ├─ email: support@npmjs.com
 │  └─ licenseFile: npm/node_modules/libnpmpublish/LICENSE
+├─ libnpmpublish@5.0.1
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/npm/cli
+│  ├─ publisher: GitHub Inc.
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/libnpmpublish/LICENSE
 ├─ libnpmsearch@3.1.2
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/libnpmsearch
 │  ├─ publisher: Kat Marchán
 │  ├─ email: kzm@sykosomatic.org
 │  └─ licenseFile: npm/node_modules/libnpmsearch/LICENSE
+├─ libnpmsearch@4.0.1
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/npm/libnpmsearch
+│  ├─ publisher: GitHub Inc.
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/libnpmsearch/LICENSE
 ├─ libnpmteam@2.0.4
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/libnpmteam
 │  ├─ publisher: Kat Marchán
 │  ├─ email: kzm@zkat.tech
 │  └─ licenseFile: npm/node_modules/libnpmteam/LICENSE
+├─ libnpmteam@3.0.1
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/npm/libnpmteam
+│  ├─ publisher: GitHub Inc.
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/libnpmteam/LICENSE
 ├─ libnpmversion@1.2.1
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/libnpmversion
@@ -3003,7 +2986,12 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: i@izs.me
 │  ├─ url: https://izs.me
 │  └─ licenseFile: npm/node_modules/libnpmversion/LICENSE
-├─ libphonenumber-js@1.9.38
+├─ libnpmversion@2.0.2
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/npm/libnpmversion
+│  ├─ publisher: GitHub Inc.
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/libnpmversion/LICENSE
+├─ libphonenumber-js@1.9.47
 │  ├─ licenses: MIT
 │  ├─ repository: git+https://gitlab.com/catamphetamine/libphonenumber-js
 │  ├─ publisher: catamphetamine
@@ -3069,13 +3057,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: john.david.dalton@gmail.com
 │  ├─ url: http://allyoucanleet.com/
 │  └─ licenseFile: lodash.defaults/LICENSE
-├─ lodash.difference@4.5.0
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/lodash/lodash
-│  ├─ publisher: John-David Dalton
-│  ├─ email: john.david.dalton@gmail.com
-│  ├─ url: http://allyoucanleet.com/
-│  └─ licenseFile: lodash.difference/LICENSE
 ├─ lodash.escaperegexp@4.1.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/lodash/lodash
@@ -3167,13 +3148,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: john.david.dalton@gmail.com
 │  ├─ url: http://allyoucanleet.com/
 │  └─ licenseFile: lodash.set/LICENSE
-├─ lodash.union@4.6.0
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/lodash/lodash
-│  ├─ publisher: John-David Dalton
-│  ├─ email: john.david.dalton@gmail.com
-│  ├─ url: http://allyoucanleet.com/
-│  └─ licenseFile: lodash.union/LICENSE
 ├─ lodash.uniqby@4.7.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/lodash/lodash
@@ -3220,6 +3194,11 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: jfromaniello@gmail.com
 │  ├─ url: http://joseoncode.com
 │  └─ licenseFile: lru-memoizer/LICENSE
+├─ make-fetch-happen@10.0.0
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/npm/make-fetch-happen
+│  ├─ publisher: GitHub Inc.
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/make-fetch-happen/LICENSE
 ├─ make-fetch-happen@9.1.0
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/make-fetch-happen
@@ -3240,16 +3219,16 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: https://sindresorhus.com
 │  └─ licenseFile: map-obj/license
-├─ marked-terminal@4.2.0
+├─ marked-terminal@5.1.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/mikaelbr/marked-terminal
 │  ├─ publisher: Mikael Brevik
 │  └─ licenseFile: marked-terminal/LICENSE
-├─ marked@2.1.3
+├─ marked@4.0.12
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/markedjs/marked
 │  ├─ publisher: Christopher Jeffrey
-│  └─ licenseFile: marked/LICENSE.md
+│  └─ licenseFile: semantic-release/node_modules/marked/LICENSE.md
 ├─ media-typer@0.3.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jshttp/media-typer
@@ -3418,6 +3397,13 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: i@izs.me
 │  ├─ url: http://blog.izs.me/
 │  └─ licenseFile: npm/node_modules/minipass/LICENSE
+├─ minipass@3.1.6
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/isaacs/minipass
+│  ├─ publisher: Isaac Z. Schlueter
+│  ├─ email: i@izs.me
+│  ├─ url: http://blog.izs.me/
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/minipass/LICENSE
 ├─ minizlib@2.1.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/isaacs/minizlib
@@ -3553,6 +3539,10 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jshttp/negotiator
 │  └─ licenseFile: negotiator/LICENSE
+├─ negotiator@0.6.3
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/jshttp/negotiator
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/negotiator/LICENSE
 ├─ neo-async@2.6.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/suguru03/neo-async
@@ -3594,7 +3584,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Daniel Bugl
 │  ├─ email: daniel.bugl@touchlay.com
 │  └─ licenseFile: node-emoji/LICENSE
-├─ node-fetch@2.6.5
+├─ node-fetch@2.6.7
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/bitinn/node-fetch
 │  ├─ publisher: David Frank
@@ -3612,6 +3602,13 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: nathan@tootallnate.net
 │  ├─ url: http://tootallnate.net
 │  └─ licenseFile: npm/node_modules/node-gyp/LICENSE
+├─ node-gyp@8.4.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/nodejs/node-gyp
+│  ├─ publisher: Nathan Rajlich
+│  ├─ email: nathan@tootallnate.net
+│  ├─ url: http://tootallnate.net
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/node-gyp/LICENSE
 ├─ nopt@5.0.0
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/nopt
@@ -3631,12 +3628,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Meryn Stol
 │  ├─ email: merynstol@gmail.com
 │  └─ licenseFile: npm/node_modules/normalize-package-data/LICENSE
-├─ normalize-path@3.0.0
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/jonschlinkert/normalize-path
-│  ├─ publisher: Jon Schlinkert
-│  ├─ url: https://github.com/jonschlinkert
-│  └─ licenseFile: normalize-path/LICENSE
 ├─ normalize-url@6.1.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/normalize-url
@@ -3681,6 +3672,13 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: i@izs.me
 │  ├─ url: http://blog.izs.me/
 │  └─ licenseFile: npm/node_modules/npm-packlist/LICENSE
+├─ npm-packlist@3.0.0
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/npm/npm-packlist
+│  ├─ publisher: Isaac Z. Schlueter
+│  ├─ email: i@izs.me
+│  ├─ url: http://blog.izs.me/
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/npm-packlist/LICENSE
 ├─ npm-pick-manifest@6.1.1
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/npm-pick-manifest
@@ -3694,12 +3692,22 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: me@re-becca.org
 │  ├─ url: http://re-becca.org/
 │  └─ licenseFile: npm/node_modules/npm-profile/LICENSE
+├─ npm-profile@6.0.0
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/npm/npm-profile
+│  ├─ publisher: GitHub Inc.
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/npm-profile/LICENSE.md
 ├─ npm-registry-fetch@11.0.0
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/npm-registry-fetch
 │  ├─ publisher: Kat Marchán
 │  ├─ email: kzm@sykosomatic.org
 │  └─ licenseFile: npm/node_modules/npm-registry-fetch/LICENSE.md
+├─ npm-registry-fetch@12.0.1
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/npm/npm-registry-fetch
+│  ├─ publisher: GitHub Inc.
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/npm-registry-fetch/LICENSE.md
 ├─ npm-run-path@4.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/npm-run-path
@@ -3720,6 +3728,13 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: i@izs.me
 │  ├─ url: http://blog.izs.me
 │  └─ licenseFile: npm/LICENSE
+├─ npm@8.4.1
+│  ├─ licenses: Artistic-2.0
+│  ├─ repository: https://github.com/npm/cli
+│  ├─ publisher: Isaac Z. Schlueter
+│  ├─ email: i@izs.me
+│  ├─ url: http://blog.izs.me
+│  └─ licenseFile: semantic-release/node_modules/npm/LICENSE
 ├─ npmlog@4.1.2
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/npmlog
@@ -3734,6 +3749,11 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: i@izs.me
 │  ├─ url: http://blog.izs.me/
 │  └─ licenseFile: npm/node_modules/npmlog/LICENSE
+├─ npmlog@6.0.0
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/npm/npmlog
+│  ├─ publisher: GitHub Inc.
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/npmlog/LICENSE.md
 ├─ number-is-nan@1.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/number-is-nan
@@ -3780,17 +3800,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: ljharb@gmail.com
 │  ├─ url: http://ljharb.codes
 │  └─ licenseFile: object-keys/LICENSE
-├─ object.assign@4.1.2
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/ljharb/object.assign
-│  ├─ publisher: Jordan Harband
-│  └─ licenseFile: object.assign/LICENSE
-├─ object.getownpropertydescriptors@2.1.3
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/es-shims/object.getownpropertydescriptors
-│  ├─ publisher: Jordan Harband
-│  ├─ email: ljharb@gmail.com
-│  └─ licenseFile: object.getownpropertydescriptors/LICENSE
 ├─ on-finished@2.3.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jshttp/on-finished
@@ -3830,13 +3839,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
 │  └─ licenseFile: p-filter/license
-├─ p-finally@1.0.0
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/sindresorhus/p-finally
-│  ├─ publisher: Sindre Sorhus
-│  ├─ email: sindresorhus@gmail.com
-│  ├─ url: sindresorhus.com
-│  └─ licenseFile: p-finally/license
 ├─ p-is-promise@3.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/p-is-promise
@@ -3900,13 +3902,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
 │  └─ licenseFile: p-retry/license
-├─ p-timeout@3.2.0
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/sindresorhus/p-timeout
-│  ├─ publisher: Sindre Sorhus
-│  ├─ email: sindresorhus@gmail.com
-│  ├─ url: sindresorhus.com
-│  └─ licenseFile: p-timeout/license
 ├─ p-try@1.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/p-try
@@ -3928,6 +3923,13 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: i@izs.me
 │  ├─ url: https://izs.me
 │  └─ licenseFile: npm/node_modules/pacote/LICENSE
+├─ pacote@12.0.3
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/npm/pacote
+│  ├─ publisher: Isaac Z. Schlueter
+│  ├─ email: i@izs.me
+│  ├─ url: https://izs.me
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/pacote/LICENSE
 ├─ param-case@1.1.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/blakeembrey/param-case
@@ -3949,6 +3951,11 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: i@izs.me
 │  ├─ url: https://izs.me
 │  └─ licenseFile: npm/node_modules/parse-conflict-json/LICENSE
+├─ parse-conflict-json@2.0.1
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/npm/parse-conflict-json
+│  ├─ publisher: GitHub Inc.
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/parse-conflict-json/LICENSE.md
 ├─ parse-json@4.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/parse-json
@@ -4093,11 +4100,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Mathias Buus
 │  ├─ url: @mafintosh
 │  └─ licenseFile: prebuild-install/LICENSE
-├─ printj@1.1.2
-│  ├─ licenses: Apache-2.0
-│  ├─ repository: https://github.com/SheetJS/printj
-│  ├─ publisher: sheetjs
-│  └─ licenseFile: printj/LICENSE
 ├─ proc-log@1.0.0
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/proc-log
@@ -4136,12 +4138,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: hello@indigounited.com
 │  ├─ url: http://indigounited.com
 │  └─ licenseFile: npm/node_modules/promise-retry/LICENSE
-├─ promise.prototype.finally@3.1.3
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/es-shims/Promise.prototype.finally
-│  ├─ publisher: Jordan Harband
-│  ├─ email: ljharb@gmail.com
-│  └─ licenseFile: promise.prototype.finally/LICENSE
 ├─ promzard@0.3.0
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/isaacs/promzard
@@ -4323,11 +4319,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nodejs/readable-stream
 │  └─ licenseFile: npm/node_modules/readable-stream/LICENSE
-├─ readdir-glob@1.1.1
-│  ├─ licenses: Apache-2.0
-│  ├─ repository: https://github.com/Yqnn/node-readdir-glob
-│  ├─ publisher: Yann Armelin
-│  └─ licenseFile: readdir-glob/LICENSE
 ├─ readdir-scoped-modules@1.1.0
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/readdir-scoped-modules
@@ -4540,7 +4531,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: i@izs.me
 │  ├─ url: http://blog.izs.me/
 │  └─ licenseFile: sax/LICENSE
-├─ semantic-release@18.0.1
+├─ semantic-release@19.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/semantic-release/semantic-release
 │  ├─ publisher: Stephan Bönnemann
@@ -4673,6 +4664,12 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Ben Coe
 │  ├─ email: ben@npmjs.com
 │  └─ licenseFile: signal-exit/LICENSE.txt
+├─ signal-exit@3.0.6
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/tapjs/signal-exit
+│  ├─ publisher: Ben Coe
+│  ├─ email: ben@npmjs.com
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/signal-exit/LICENSE.txt
 ├─ signale@1.4.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/klaussinani/signale
@@ -4687,7 +4684,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: feross@feross.org
 │  ├─ url: https://feross.org
 │  └─ licenseFile: simple-concat/LICENSE
-├─ simple-get@4.0.0
+├─ simple-get@4.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/feross/simple-get
 │  ├─ publisher: Feross Aboukhadijeh
@@ -4726,6 +4723,12 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ url: http://blakeembrey.me
 │  └─ licenseFile: snake-case/LICENSE
 ├─ socks-proxy-agent@6.1.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/TooTallNate/node-socks-proxy-agent
+│  ├─ publisher: Nathan Rajlich
+│  ├─ email: nathan@tootallnate.net
+│  └─ url: http://n8.io/
+├─ socks-proxy-agent@6.1.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/TooTallNate/node-socks-proxy-agent
 │  ├─ publisher: Nathan Rajlich
@@ -4780,6 +4783,11 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ url: https://kemitchell.com
 │  └─ licenseFile: npm/node_modules/spdx-expression-parse/LICENSE
 ├─ spdx-license-ids@3.0.10
+│  ├─ licenses: CC0-1.0
+│  ├─ repository: https://github.com/jslicense/spdx-license-ids
+│  ├─ publisher: Shinnosuke Watanabe
+│  └─ url: https://github.com/shinnn
+├─ spdx-license-ids@3.0.11
 │  ├─ licenses: CC0-1.0
 │  ├─ repository: https://github.com/jslicense/spdx-license-ids
 │  ├─ publisher: Shinnosuke Watanabe
@@ -4892,18 +4900,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
 │  └─ licenseFile: string-width/license
-├─ string.prototype.trimend@1.0.4
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/es-shims/String.prototype.trimEnd
-│  ├─ publisher: Jordan Harband
-│  ├─ email: ljharb@gmail.com
-│  └─ licenseFile: string.prototype.trimend/LICENSE
-├─ string.prototype.trimstart@1.0.4
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/es-shims/String.prototype.trimStart
-│  ├─ publisher: Jordan Harband
-│  ├─ email: ljharb@gmail.com
-│  └─ licenseFile: string.prototype.trimstart/LICENSE
 ├─ string_decoder@0.10.31
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/rvagg/string_decoder
@@ -5242,13 +5238,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: https://sindresorhus.com
 │  └─ licenseFile: meow/node_modules/type-fest/license
-├─ type-fest@0.21.3
-│  ├─ licenses: (MIT OR CC0-1.0)
-│  ├─ repository: https://github.com/sindresorhus/type-fest
-│  ├─ publisher: Sindre Sorhus
-│  ├─ email: sindresorhus@gmail.com
-│  ├─ url: https://sindresorhus.com
-│  └─ licenseFile: ansi-escapes/node_modules/type-fest/license
 ├─ type-fest@0.6.0
 │  ├─ licenses: (MIT OR CC0-1.0)
 │  ├─ repository: https://github.com/sindresorhus/type-fest
@@ -5263,6 +5252,13 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
 │  └─ licenseFile: read-pkg-up/node_modules/type-fest/license
+├─ type-fest@1.4.0
+│  ├─ licenses: (MIT OR CC0-1.0)
+│  ├─ repository: https://github.com/sindresorhus/type-fest
+│  ├─ publisher: Sindre Sorhus
+│  ├─ email: sindresorhus@gmail.com
+│  ├─ url: https://sindresorhus.com
+│  └─ licenseFile: marked-terminal/node_modules/type-fest/license
 ├─ type-is@1.6.18
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jshttp/type-is
@@ -5274,6 +5270,13 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: feross@feross.org
 │  ├─ url: http://feross.org/
 │  └─ licenseFile: npm/node_modules/typedarray-to-buffer/LICENSE
+├─ typedarray-to-buffer@4.0.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/feross/typedarray-to-buffer
+│  ├─ publisher: Feross Aboukhadijeh
+│  ├─ email: feross@feross.org
+│  ├─ url: https://feross.org
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/typedarray-to-buffer/LICENSE
 ├─ typedarray@0.0.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/substack/typedarray
@@ -5288,12 +5291,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: mihai.bazon@gmail.com
 │  ├─ url: http://lisperator.net/
 │  └─ licenseFile: uglify-js/LICENSE
-├─ unbox-primitive@1.0.1
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/ljharb/unbox-primitive
-│  ├─ publisher: Jordan Harband
-│  ├─ email: ljharb@gmail.com
-│  └─ licenseFile: unbox-primitive/LICENSE
 ├─ unique-filename@1.1.1
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/iarna/unique-filename
@@ -5381,12 +5378,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: nathan@tootallnate.net
 │  ├─ url: http://n8.io/
 │  └─ licenseFile: util-deprecate/LICENSE
-├─ util.promisify@1.1.1
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/ljharb/util.promisify
-│  ├─ publisher: Jordan Harband
-│  ├─ email: ljharb@gmail.com
-│  └─ licenseFile: util.promisify/LICENSE
 ├─ utility-types@3.10.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/piotrwitek/utility-types
@@ -5485,12 +5476,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Sebastian Mayr
 │  ├─ email: github@smayr.name
 │  └─ licenseFile: whatwg-url/LICENSE.txt
-├─ which-boxed-primitive@1.0.2
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/inspect-js/which-boxed-primitive
-│  ├─ publisher: Jordan Harband
-│  ├─ email: ljharb@gmail.com
-│  └─ licenseFile: which-boxed-primitive/LICENSE
 ├─ which@2.0.2
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/isaacs/node-which
@@ -5525,7 +5510,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Sindre Sorhus
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: https://sindresorhus.com
-│  └─ licenseFile: semantic-release/node_modules/wrap-ansi/license
+│  └─ licenseFile: wrap-ansi/license
 ├─ wrappy@1.0.2
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/wrappy
@@ -5540,6 +5525,11 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: me@re-becca.org
 │  ├─ url: http://re-becca.org
 │  └─ licenseFile: npm/node_modules/write-file-atomic/LICENSE
+├─ write-file-atomic@4.0.0
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/npm/write-file-atomic
+│  ├─ publisher: GitHub Inc.
+│  └─ licenseFile: semantic-release/node_modules/npm/node_modules/write-file-atomic/LICENSE.md
 ├─ xml2js@0.4.19
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/Leonidas-from-XIV/node-xml2js
@@ -5602,17 +5592,11 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/yargs/yargs-parser
 │  ├─ publisher: Ben Coe
 │  ├─ email: ben@npmjs.com
-│  └─ licenseFile: meow/node_modules/yargs-parser/LICENSE.txt
+│  └─ licenseFile: yargs-parser/LICENSE.txt
 ├─ yargs@16.2.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/yargs/yargs
 │  └─ licenseFile: semantic-release/node_modules/yargs/LICENSE
-├─ zip-stream@4.1.0
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/archiverjs/node-zip-stream
-│  ├─ publisher: Chris Talkington
-│  ├─ url: http://christalkington.com/
-│  └─ licenseFile: zip-stream/LICENSE
 └─ zone.js@0.11.4
    ├─ licenses: MIT
    ├─ repository: https://github.com/angular/angular
