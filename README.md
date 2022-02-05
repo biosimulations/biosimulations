@@ -244,7 +244,7 @@ A key to the above emojis is available [here](https://allcontributors.org/docs/e
 
 
 ## Contributing to BioSimulations 🛠️
-We enthusiastically welcome contributions to BioSimulations! Please see the [guide to contributing](docs/CONTRIBUTING.md) and the [developer's code of conduct](docs/CODE_OF_CONDUCT.md).
+We enthusiastically welcome contributions to BioSimulations! Please see the [guide to contributing](https://docs.biosimulations.org/developers) and the [developer's code of conduct](https://docs.biosimulations.org/developers/conduct).
 
 ## Funding 💰
 
