@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.0.3](https://github.com/biosimulations/biosimulations/compare/v9.0.2...v9.0.3) (2022-02-05)
+
+
+### Bug Fixes
+
+* use custom version of nestjs/bullmq ([9161dbd](https://github.com/biosimulations/biosimulations/commit/9161dbd75f82e6646a9f8ff78e5a9a36911924f8))
+
 ## [9.0.2](https://github.com/biosimulations/biosimulations/compare/v9.0.1...v9.0.2) (2022-02-05)
 
 
