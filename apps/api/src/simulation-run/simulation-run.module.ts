@@ -12,7 +12,7 @@ import { forwardRef, Module } from '@nestjs/common';
 import { HttpModule } from '@nestjs/axios';
 
 import { MongooseModule } from '@nestjs/mongoose';
-import { BullModule } from '@ejhayes/nestjs-bullmq';
+import { BullModule } from '@biosimulations/nestjs-bullmq';
 import { SimulationRunController } from './simulation-run.controller';
 import {
   SimulationRunModel,
