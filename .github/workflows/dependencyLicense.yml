@@ -1,5 +1,12 @@
 name: Generate a report of the licenses of the dependencies
 on:
+  workflow_dispatch:
+  workflow_call:
+     secrets:
+      GH_ACCESS_TOKEN:
+        required: true
+      GPG_PRIVATE_KEY:
+        required: true
   push:
     branches: [dev]
     paths:
