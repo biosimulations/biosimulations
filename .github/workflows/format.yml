@@ -59,6 +59,7 @@ jobs:
           branch: ${{inputs.branch}}
           message: 'chore: format files. [skip ci]'
           signoff: true
+          pull: '--rebase --autostash ...'
         env:
           # This is necessary in order to push a commit to the repo
           GITHUB_TOKEN: ${{ secrets.GH_ACCESS_TOKEN}} # Leave this line unchanged
