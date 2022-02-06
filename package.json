@@ -65,7 +65,7 @@
     "@types/retry": "0.12.1",
     "@types/sharp": "0.29.5",
     "auth0": "2.37.0",
-    "aws-sdk": "2.1052.0",
+    "aws-sdk": "2.1069.0",
     "axios": "0.24.0",
     "backoff-rxjs": "6.5.7",
     "bullmq": "1.67.0",
