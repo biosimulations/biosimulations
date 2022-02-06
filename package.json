@@ -151,7 +151,7 @@
     "@nrwl/tao": "13.7.2",
     "@nrwl/workspace": "13.7.2",
     "@nx-python/nx-python": "0.1.7",
-    "@nx-tools/nx-docker": "2.2.0",
+    "@nx-tools/nx-docker": "2.3.0",
     "@scullyio/init": "2.1.11",
     "@scullyio/ng-lib": "2.1.11",
     "@scullyio/scully": "2.1.11",
