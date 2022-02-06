@@ -1,0 +1,200 @@
+on:
+  release:
+jobs:
+  buildDevFrontEnds:
+    env:
+      NODE_OPTIONS: --max_old_space_size=6144
+    name: Build development front end apps
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        app: 
+          - account
+          - platform
+          - simulators
+          - dispatch
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2.4.0
+        with:
+          ref: dev
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+
+      - name: Install npm dependencies
+        uses: bahmutov/npm-install@v1
+        with:
+          useRollingCache: true
+
+      - name: Install Nrwl CLI
+        run: npm install -g @nrwl/cli
+
+      - name: Build dev app
+
+        run: mv libs/shared/environments/src/lib/environment.stage.ts libs/shared/environments/src/lib/environment.prod.ts && nx build ${{matrix.app}} --prod --with-deps
+
+      - name: Upload build
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{matrix.app}}-dev
+          path: dist/apps/${{matrix.app}}
+          retention-days: 5
+          if-no-files-found: error
+
+  buildProdFrontEnds:
+    env:
+      NODE_OPTIONS: --max_old_space_size=6144
+    name: Build production front end apps
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        app:
+          - account
+          - platform
+          - simulators
+          - dispatch
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2.4.0
+        with:
+          ref: dev
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+
+      - name: Install npm dependencies
+        uses: bahmutov/npm-install@v1
+        with:
+          useRollingCache: true
+
+      - name: Install Nrwl CLI
+        run: npm install -g @nrwl/cli
+
+      - name: Build prod app
+
+        run:  nx build ${{matrix.app}} --prod --with-deps
+
+      - name: Upload build
+
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{matrix.app}}-prod
+          path: dist/apps/${{matrix.app}}
+          retention-days: 5
+          if-no-files-found: error
+
+  buildPushDockerImages:
+    name: Build and push backend Docker images
+    uses: ./.github/workflows/docker.yml
+    secrets:
+        GHCR_USERNAME: ${{ secrets.GHCR_USERNAME }}
+        GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
+
+  deployDevFrontend:
+    name: Publish the development frontend
+    runs-on: ubuntu-latest
+    needs: [buildDevFrontEnds, buildPushDockerImages]
+    environment: dev_environment
+    strategy:
+      matrix:
+        app:
+          - account
+          - platform
+          - simulators
+          - dispatch
+
+    steps:
+      - name: Install Node.js
+        uses: actions/setup-node@v2.5.1
+        with:
+          node-version: '16'
+
+      - name: Install Netlify CLI
+        run: npm install -g netlify-cli
+
+      - name: Download Build for app
+        uses: actions/download-artifact@v2
+        with:
+          name: ${{matrix.app}}-dev
+
+      - name: Push App
+        env:
+          idKey: ${{matrix.app}}_site_id
+          NETLIFY_AUTH_TOKEN: ${{secrets.NETLIFY_AUTH_TOKEN}}
+        run: |
+          export NETLIFY_SITE_ID=${{secrets[env.idKey]}}
+          export NETLIFY_AUTH_TOKEN=${{secrets.NETLIFY_AUTH_TOKEN}}
+          netlify deploy --prod
+  deployProdFrontend:
+    name: Publish the production frontend
+    runs-on: ubuntu-latest
+    needs: [buildProdFrontEnds, buildPushDockerImages,deployDevFrontend]
+    environment: prod_environment
+    strategy:
+      matrix:
+        app:
+          - account
+          - platform
+          - simulators
+          - dispatch
+
+    steps:
+      - name: Install Node.js
+        uses: actions/setup-node@v2.5.1
+        with:
+          node-version: '16'
+
+      - name: Download Build for app
+        uses: actions/download-artifact@v2
+        with:
+          name: ${{matrix.app}}-prod
+
+      - name: Push App
+        env:
+          idKey: ${{matrix.app}}_site_id
+          NETLIFY_AUTH_TOKEN: ${{secrets.NETLIFY_AUTH_TOKEN}}
+        run: |
+          export NETLIFY_SITE_ID=${{secrets[env.idKey]}}
+          export NETLIFY_AUTH_TOKEN=${{secrets.NETLIFY_AUTH_TOKEN}}
+          netlify deploy --prod
+  triggerDevDeployment:
+    name: Trigger a new deployment of the dev backend
+    runs-on: ubuntu-latest
+    needs: [buildPushDockerImages, buildDevFrontEnds]
+    environment: dev_environment
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2.4.0
+        
+      - name: Call Webhook
+        env:
+          GHCR_USERNAME: "${{ secrets.GHCR_USERNAME }}"
+          GHCR_TOKEN: "${{ secrets.GHCR_TOKEN }}"
+          BRANCH: ${{ secrets.OVERLAY }}
+        run: |
+          git_sha=$(git rev-parse --short "$GITHUB_SHA")
+          echo '{"ref": "main","inputs":{"overlay": "'$BRANCH'","tag":"$GITHUB_REF"}}' >body
+          curl -X POST 'https://api.github.com/repos/biosimulations/deployment/actions/workflows/deploy.yml/dispatches' -H 'Authorization: Bearer ${{ secrets.GHCR_TOKEN }}' -H 'Content-Type: application/json' --data "@body"
+  triggerProdDeployment:
+    name: Trigger a new deployment of the production backend
+    runs-on: ubuntu-latest
+    needs: [buildPushDockerImages, buildProdFrontEnds,triggerDevDeployment,deployDevFrontend]
+    environment: prod_environment
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2.4.0
+      - name: Call Webhook
+        env:
+          GHCR_USERNAME: "${{ secrets.GHCR_USERNAME }}"
+          GHCR_TOKEN: "${{ secrets.GHCR_TOKEN }}"
+          BRANCH: ${{ secrets.OVERLAY }}
+
+        run: |
+          git_sha=$(git rev-parse --short "$GITHUB_SHA")
+          echo '{"ref": "main","inputs":{"overlay": "'$BRANCH'","tag":"$GITHUB_REF"}}' >body
+          curl -X POST 'https://api.github.com/repos/biosimulations/deployment/actions/workflows/deploy.yml/dispatches' -H 'Authorization: Bearer ${{ secrets.GHCR_TOKEN }}' -H 'Content-Type: application/json' --data "@body"
