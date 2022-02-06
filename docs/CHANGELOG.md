@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.0.4](https://github.com/biosimulations/biosimulations/compare/v9.0.3...v9.0.4) (2022-02-06)
+
+
+### Bug Fixes
+
+* **platform:** fix display of thumnails in browse ([34cc39f](https://github.com/biosimulations/biosimulations/commit/34cc39f2d6687f6f5d10a64a3b9b6f1586b88d96))
+
 ## [9.0.3](https://github.com/biosimulations/biosimulations/compare/v9.0.2...v9.0.3) (2022-02-05)
 
 
