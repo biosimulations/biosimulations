@@ -887,7 +887,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/auth0/node-auth0
 │  ├─ publisher: Auth0
 │  └─ licenseFile: auth0/LICENSE
-├─ aws-sdk@2.1052.0
+├─ aws-sdk@2.1069.0
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/aws/aws-sdk-js
 │  ├─ publisher: Amazon Web Services
@@ -2716,8 +2716,8 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/mattdsteele/java-properties
 │  └─ licenseFile: java-properties/README.md
-├─ jmespath@0.15.0
-│  ├─ licenses: Apache 2.0
+├─ jmespath@0.16.0
+│  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/jmespath/jmespath.js
 │  ├─ publisher: James Saryerwinnie
 │  ├─ email: js@jamesls.com
