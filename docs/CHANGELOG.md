@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.1.2](https://github.com/biosimulations/biosimulations/compare/v9.1.1...v9.1.2) (2022-02-07)
+
+
+### Bug Fixes
+
+* fix height for consent screen on mobile ([30efa91](https://github.com/biosimulations/biosimulations/commit/30efa91742c46a66c4ed2f1c90db8b3097aa5d4f)), closes [#4143](https://github.com/biosimulations/biosimulations/issues/4143)
+
 ## [9.1.1](https://github.com/biosimulations/biosimulations/compare/v9.1.0...v9.1.1) (2022-02-07)
 
 
