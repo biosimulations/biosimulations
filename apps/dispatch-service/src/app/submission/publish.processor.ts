@@ -7,7 +7,7 @@ import { JobQueue, PublishJobData } from '@biosimulations/messages/messages';
 import { Processor, Process } from '@biosimulations/nestjs-bullmq';
 import { HttpStatus, Logger } from '@nestjs/common';
 import { AxiosError } from 'axios';
-import { retryBackoff } from 'backoff-rxjs';
+import { retryBackoff } from '@biosimulations/rxjs-backoff';
 import { Job } from 'bullmq';
 import { Observable } from 'rxjs';
 

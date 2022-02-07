@@ -5,7 +5,7 @@
  * @license MIT
  */
 import { HttpService } from '@nestjs/axios';
-import { retryBackoff } from 'backoff-rxjs';
+import { retryBackoff } from '@biosimulations/rxjs-backoff';
 import {
   Injectable,
   Inject,

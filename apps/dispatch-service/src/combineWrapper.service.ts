@@ -7,7 +7,7 @@ import {
 import { Injectable, HttpStatus } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { Observable } from 'rxjs';
-import { retryBackoff } from 'backoff-rxjs';
+import { retryBackoff } from '@biosimulations/rxjs-backoff';
 import { AxiosError } from 'axios';
 
 @Injectable()

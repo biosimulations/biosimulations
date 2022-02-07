@@ -21,7 +21,7 @@ import {
   ProjectFileInputsContainer,
   ArchiveMetadataContainer,
 } from '@biosimulations/datamodel/api';
-import { retryBackoff } from 'backoff-rxjs';
+import { retryBackoff } from '@biosimulations/rxjs-backoff';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
 @Injectable({})
