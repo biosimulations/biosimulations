@@ -833,11 +833,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/axios/axios
 │  ├─ publisher: Matt Zabriskie
 │  └─ licenseFile: axios/LICENSE
-├─ backoff-rxjs@6.5.7
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/alex-okrushko/backoff-rxjs
-│  ├─ publisher: Alex Okrushko
-│  └─ licenseFile: backoff-rxjs/LICENSE
 ├─ balanced-match@1.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/juliangruber/balanced-match
@@ -4063,14 +4058,14 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/benlesh/rxjs-for-await
 │  ├─ publisher: Ben Lesh
 │  ├─ email: ben@benlesh.com
-│  └─ licenseFile: rxjs-for-await/LICENSE
+│  └─ licenseFile: @nrwl/tao/node_modules/rxjs-for-await/LICENSE
 ├─ rxjs@6.6.7
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/reactivex/rxjs
 │  ├─ publisher: Ben Lesh
 │  ├─ email: ben@benlesh.com
 │  └─ licenseFile: @nrwl/tao/node_modules/rxjs/LICENSE.txt
-├─ rxjs@7.4.0
+├─ rxjs@7.5.2
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/reactivex/rxjs
 │  ├─ publisher: Ben Lesh
@@ -4753,11 +4748,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/Microsoft/tslib
 │  ├─ publisher: Microsoft Corp.
 │  └─ licenseFile: bullmq/node_modules/tslib/LICENSE.txt
-├─ tslib@2.1.0
-│  ├─ licenses: 0BSD
-│  ├─ repository: https://github.com/Microsoft/tslib
-│  ├─ publisher: Microsoft Corp.
-│  └─ licenseFile: rxjs/node_modules/tslib/LICENSE.txt
 ├─ tslib@2.3.1
 │  ├─ licenses: 0BSD
 │  ├─ repository: https://github.com/Microsoft/tslib
