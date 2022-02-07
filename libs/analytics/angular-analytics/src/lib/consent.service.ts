@@ -49,6 +49,7 @@ export class ConsentService {
       this.dialog.open(CookieConsentComponent, {
         hasBackdrop: true,
         maxWidth: 'min(900px, calc(100vw - 1.5rem))',
+        maxHeight: 'min(900px, calc(100vh - 2rem))',
         disableClose: true,
         closeOnNavigation: false,
       });
