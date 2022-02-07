@@ -1,5 +1,12 @@
 # Changelog
 
+# [9.1.0](https://github.com/biosimulations/biosimulations/compare/v9.0.5...v9.1.0) (2022-02-07)
+
+
+### Features
+
+* add version to environment ([0bca178](https://github.com/biosimulations/biosimulations/commit/0bca1785ed8ff3250ae5bcb41cd588f936557466))
+
 ## [9.0.5](https://github.com/biosimulations/biosimulations/compare/v9.0.4...v9.0.5) (2022-02-07)
 
 
