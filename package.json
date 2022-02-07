@@ -85,7 +85,7 @@
     "json5": "2.2.0",
     "jwks-rsa": "2.0.5",
     "mongoose": "6.1.7",
-    "nats": "2.4.0",
+    "nats": "2.6.0",
     "nestjs-s3": "1.0.1",
     "ngx-material-file-input": "3.0.0",
     "passport": "0.5.2",
