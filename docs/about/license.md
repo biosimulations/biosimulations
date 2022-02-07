@@ -1209,7 +1209,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: i@izs.me
 │  ├─ url: http://blog.izs.me/
 │  └─ licenseFile: npm/node_modules/color-support/LICENSE
-├─ color@4.1.0
+├─ color@4.2.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/Qix-/color
 │  └─ licenseFile: color/LICENSE
@@ -1557,12 +1557,12 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: me@jongleberry.com
 │  ├─ url: http://jongleberry.com
 │  └─ licenseFile: destroy/LICENSE
-├─ detect-libc@1.0.3
+├─ detect-libc@2.0.0
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/lovell/detect-libc
 │  ├─ publisher: Lovell Fuller
 │  ├─ email: npm@lovell.info
-│  └─ licenseFile: detect-libc/LICENSE
+│  └─ licenseFile: sharp/node_modules/detect-libc/LICENSE
 ├─ dezalgo@1.0.3
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/dezalgo
@@ -3243,7 +3243,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/lgeiger/node-abi
 │  ├─ publisher: Lukas Geiger
 │  └─ licenseFile: node-abi/LICENSE
-├─ node-addon-api@4.2.0
+├─ node-addon-api@4.3.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nodejs/node-addon-api
 │  └─ licenseFile: sharp/node_modules/node-addon-api/LICENSE.md
@@ -3695,7 +3695,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
 │  └─ licenseFile: pkg-conf/license
-├─ prebuild-install@7.0.0
+├─ prebuild-install@7.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/prebuild/prebuild-install
 │  ├─ publisher: Mathias Buus
@@ -4204,7 +4204,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/wesleytodd/setprototypeof
 │  ├─ publisher: Wes Todd
 │  └─ licenseFile: @bull-board/express/node_modules/setprototypeof/LICENSE
-├─ sharp@0.29.3
+├─ sharp@0.30.0
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/lovell/sharp
 │  ├─ publisher: Lovell Fuller
