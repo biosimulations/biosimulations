@@ -50,6 +50,7 @@ import { MetadataPostProcessor } from './submission/metadataPost.processor';
 import { LogsPostProcessor } from './submission/logPost.processor';
 import { PublishProcessor } from './submission/publish.processor';
 import { AppQueueManagerProvider } from './app.queues.provider';
+import { CleanUpProcessor } from './submission/cleanup.processor';
 
 @Module({
   imports: [
@@ -148,6 +149,10 @@ import { AppQueueManagerProvider } from './app.queues.provider';
         name: JobQueue.publish,
         ...BullModuleOptions,
       },
+      {
+        name: JobQueue.clean,
+        ...BullModuleOptions,
+      },
     ),
 
     SharedStorageModule,
@@ -178,6 +183,7 @@ import { AppQueueManagerProvider } from './app.queues.provider';
     LogsPostProcessor,
     CompleteProcessor,
     PublishProcessor,
+    CleanUpProcessor,
 
     // Services
     MetadataService,

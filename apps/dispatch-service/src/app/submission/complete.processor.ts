@@ -33,6 +33,7 @@ export class CompleteProcessor {
   public constructor(
     private simStatusService: SimulationStatusService,
     @InjectQueue(JobQueue.publish) private publishQueue: Queue,
+    @InjectQueue(JobQueue.clean) private cleanUpQueue: Queue,
     private submit: SimulationRunService,
     private configService: ConfigService,
   ) {
@@ -51,6 +52,8 @@ export class CompleteProcessor {
     const runId = data.runId;
     const projectId = data.projectId;
     const projectOwner = data.projectOwner;
+    const runStatus = data.status;
+
     if (!job?.id) {
       throw new Error('Job id is not defined');
     }
@@ -107,6 +110,37 @@ export class CompleteProcessor {
       await this.simStatusService.updateStatus(
         runId,
         SimulationRunStatus.FAILED,
+      );
+    }
+
+    const oneDay = 24 * 60 * 60 * 1000;
+    const oneWeek = 7 * oneDay;
+    //clean queues
+    if (finalStatus === SimulationRunStatus.SUCCEEDED) {
+      this.cleanUpQueue.add(
+        'Clean Successful',
+        {
+          runId: runId,
+          queueName: JobQueue.complete,
+        },
+        {
+          delay: oneDay,
+          removeOnComplete: 10,
+          removeOnFail: 100,
+        },
+      );
+    } else {
+      this.cleanUpQueue.add(
+        'Clean Failed',
+        {
+          runId: runId,
+          queueName: JobQueue.complete,
+        },
+        {
+          delay: oneWeek,
+          removeOnComplete: 10,
+          removeOnFail: 100,
+        },
       );
     }
 

@@ -67,12 +67,13 @@ export class MonitorProcessor {
         this.monitorQueue.add(
           'monitor',
           { slurmJobId, runId, projectId, projectOwner, retryCount },
-          { delay: DELAY },
+          { delay: DELAY, removeOnComplete: 100, removeOnFail: 100 },
         );
       }
     } else {
       this.logger.warn(
-        `The status of simulation run '${runId}' could not be updated because its status could not be retrieved from the HPC.`,
+        `The status of simulation run '${runId}' could not be updated because its status ` +
+          `could not be retrieved from the HPC.`,
       );
       // If we keep getting some unknown status that does not resolve, fail the job after some limit of retries
       if (retryCount < MAX_MONITOR_RETRY) {
@@ -80,11 +81,12 @@ export class MonitorProcessor {
         this.monitorQueue.add(
           'monitor',
           { slurmJobId, runId, projectId, projectOwner, retryCount },
-          { delay: DELAY },
+          { delay: DELAY, removeOnComplete: 100, removeOnFail: 100 },
         );
       } else {
         this.logger.error(
-          `Simulation run '${runId}' appears to have failed because its status could not retrieved in the allowed ${MAX_MONITOR_RETRY} number of tries.`,
+          `Simulation run '${runId}' appears to have failed because its status could not retrieved ` +
+            `in the allowed ${MAX_MONITOR_RETRY} number of tries.`,
         );
         this.startProcessingJob(
           runId,
@@ -114,6 +116,8 @@ export class MonitorProcessor {
       },
       {
         jobId: `process--${runId}`,
+        removeOnComplete: 100,
+        removeOnFail: 100,
       },
     );
   }

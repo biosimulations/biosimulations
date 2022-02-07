@@ -241,6 +241,8 @@ export class SimulationRunController {
         type: 'exponential',
         delay: 1000,
       },
+      removeOnComplete: 100,
+      removeOnFail: 100,
     });
 
     return response;

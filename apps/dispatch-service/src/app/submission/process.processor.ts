@@ -295,6 +295,9 @@ export class ProcessProcessor {
         projectId: job.data.projectId,
         projectOwner: job.data.projectOwner,
       },
+      opts: {
+        jobId: `${runId}`,
+      },
       // Needs all the different steps completed before it can be completed
       children: [
         postThumbnailsJob,
