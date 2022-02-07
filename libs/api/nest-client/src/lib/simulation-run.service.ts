@@ -9,7 +9,7 @@ import { ConfigService } from '@nestjs/config';
 import { Endpoints } from '@biosimulations/config/common';
 import { AuthClientService } from '@biosimulations/auth/client';
 import { pluck, map, mergeMap, catchError } from 'rxjs/operators';
-import { from, Observable, throwError, OperatorFunction } from 'rxjs';
+import { from, Observable, OperatorFunction } from 'rxjs';
 
 import {
   SimulationRunStatus,
@@ -22,7 +22,7 @@ import {
   ArchiveMetadataContainer,
 } from '@biosimulations/datamodel/api';
 import { retryBackoff } from '@biosimulations/rxjs-backoff';
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import axios, { AxiosError } from 'axios';
 
 @Injectable({})
 export class SimulationRunService {
@@ -196,9 +196,9 @@ export class SimulationRunService {
             },
           })
           .pipe(
-            this.getErrorHandler<U>('Patch', url, runId),
             this.getRetryBackoff(),
             pluck('data'),
+            this.getErrorHandler<U>('Patch', url, runId),
           );
 
         return httpRes;
@@ -224,9 +224,9 @@ export class SimulationRunService {
             },
           })
           .pipe(
-            this.getErrorHandler<U>('Post', url, runId),
             this.getRetryBackoff(),
             pluck('data'),
+            this.getErrorHandler<U>('Post', url, runId),
           );
       }),
       mergeMap((value) => value),
@@ -237,26 +237,23 @@ export class SimulationRunService {
     method: string,
     url: string,
     runId: string,
-  ): OperatorFunction<AxiosResponse<U, any>, AxiosResponse<U, any>> {
-    const handler = catchError(
-      (err: unknown, caught: Observable<AxiosResponse<U, any>>) => {
-        if (axios.isAxiosError(err)) {
-          const name = err.name;
-          const message = err.message;
-          this.logger.error(
-            `${name} ${message} for ${method} operation on path ${url} for simulation run ${runId}`,
-          );
-        } else {
-          this.logger.error(
-            `The ${method} operation to ${url} for simulation run ${runId} failed: ${err}`,
-          );
-        }
-
-        return throwError(() => err);
-      },
-    );
-    return handler;
+  ): OperatorFunction<U, U> {
+    return catchError((err, caught: Observable<U>) => {
+      if (axios.isAxiosError(err)) {
+        const name = err.name;
+        const message = err.message;
+        this.logger.error(
+          `${name} ${message} for ${method} operation on path ${url} for simulation run ${runId}`,
+        );
+      } else {
+        this.logger.error(
+          `The ${method} operation to ${url} for simulation run ${runId} failed: ${err}`,
+        );
+      }
+      throw err;
+    });
   }
+
   private putAuthenticated<T, U>(
     runId: string,
     url: string,
@@ -273,9 +270,9 @@ export class SimulationRunService {
             },
           })
           .pipe(
-            this.getErrorHandler<U>('Put', url, runId),
             this.getRetryBackoff(),
             pluck('data'),
+            this.getErrorHandler<U>('Put', url, runId),
           );
       }),
       mergeMap((value) => value),
