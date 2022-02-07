@@ -18,7 +18,7 @@ import {
 } from './datamodel';
 import { DataPaths } from './data-paths/data-paths';
 import { ConfigService } from '@nestjs/config';
-import { retryBackoff } from 'backoff-rxjs';
+import { retryBackoff } from '@biosimulations/rxjs-backoff';
 import { firstValueFrom, Observable, map } from 'rxjs';
 import axios, { AxiosResponse, AxiosError } from 'axios';
 import * as JSON5 from 'json5';
