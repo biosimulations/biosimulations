@@ -4,6 +4,7 @@ on:
    inputs:
     branch:
       required: true
+      description: 'The branch to format'
       type: string
   workflow_call:
      inputs:
@@ -52,13 +53,12 @@ jobs:
           git_commit_gpgsign: true
 
       - name: Commit Changes
-        uses: EndBug/add-and-commit@v7.5.0
+        uses: EndBug/add-and-commit@v8.0.2
         with:
           author_name: BioSimulations-Daemon
           author_email: biosimulationsdaemon@gmail.com
-          branch: ${{inputs.branch}}
           message: 'chore: format files. [skip ci]'
-          signoff: true
+          commit: --signoff
           pull: '--rebase --autostash'
         env:
           # This is necessary in order to push a commit to the repo
