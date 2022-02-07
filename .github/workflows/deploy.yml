@@ -1,5 +1,6 @@
 on:
   release:
+    types: [published]
 jobs:
   buildDevFrontEnds:
     env:
@@ -180,10 +181,24 @@ jobs:
           git_sha=$(git rev-parse --short "$GITHUB_SHA")
           echo '{"ref": "main","inputs":{"overlay": "'$BRANCH'","tag":"$GITHUB_REF"}}' >body
           curl -X POST 'https://api.github.com/repos/biosimulations/deployment/actions/workflows/deploy.yml/dispatches' -H 'Authorization: Bearer ${{ secrets.GHCR_TOKEN }}' -H 'Content-Type: application/json' --data "@body"
+  
+  testDevDeployment:
+    name: Test the development deployment 
+    runs-on: ubuntu-latest
+    needs: [triggerDevDeployment]
+    environment: dev_test_environment
+    steps: 
+      - name: Checkout Repository
+        uses: actions/cehckout@v2.4.0
+      - name: Install requirements
+        run: pip install -r tools/submit-example-simulation-runs.requirements.txt
+      - name: Run Test Against API
+        run: ./tools/submit-example-simulation-runs --runbiosimulations-deployment dev --biosimulators-deployment dev --test true --stress 1
+
   triggerProdDeployment:
     name: Trigger a new deployment of the production backend
     runs-on: ubuntu-latest
-    needs: [buildPushDockerImages, buildProdFrontEnds,triggerDevDeployment,deployDevFrontend]
+    needs: [buildPushDockerImages, buildProdFrontEnds,triggerDevDeployment,deployDevFrontend, testDevDeployment]
     environment: prod_environment
     steps:
       - name: Checkout Repository
