@@ -882,7 +882,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Ryan Zimmerman
 │  ├─ email: opensrc@ryanzim.com
 │  └─ licenseFile: at-least-node/LICENSE
-├─ auth0@2.37.0
+├─ auth0@2.39.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/auth0/node-auth0
 │  ├─ publisher: Auth0
@@ -1570,7 +1570,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/debug-js/debug
 │  ├─ publisher: Josh Junon
 │  ├─ email: josh.junon@protonmail.com
-│  └─ licenseFile: mquery/node_modules/debug/LICENSE
+│  └─ licenseFile: auth0/node_modules/debug/LICENSE
 ├─ debuglog@1.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sam-github/node-debuglog
@@ -1830,12 +1830,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/stacktracejs/error-stack-parser
 │  └─ licenseFile: error-stack-parser/LICENSE
-├─ es6-promisify@6.1.1
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/digitaldesignlabs/es6-promisify
-│  ├─ publisher: Mike Hall
-│  ├─ email: mikehall314@gmail.com
-│  └─ licenseFile: es6-promisify/LICENSE
 ├─ escalade@3.1.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/lukeed/escalade
@@ -4428,7 +4422,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: mail@substack.net
 │  ├─ url: http://substack.net
 │  └─ licenseFile: resolve/LICENSE
-├─ rest-facade@1.16.2
+├─ rest-facade@1.16.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/ngonzalvez/rest-facade
 │  ├─ publisher: Nicolás Gonzálvez
