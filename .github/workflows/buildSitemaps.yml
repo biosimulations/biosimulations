@@ -3,7 +3,19 @@ name: Build sitemap(s) for app(s)
 on:
   schedule:
     - cron: '0 0 * * 0' # weekly
-
+  workflow_call:
+    inputs:
+      apps:
+        description: 'Comma-separated list of the names of app(s) to build sitemaps for; default: build a sitemap for each app'
+        required: false
+        default: ''
+        type: string
+    secrets:
+      GH_ACCESS_TOKEN:
+        required: true
+      GPG_PRIVATE_KEY:
+        required: true
+        
   workflow_dispatch:
     inputs:
       apps:
@@ -54,7 +66,7 @@ jobs:
           author_name: BioSimulations-Daemon
           author_email: biosimulationsdaemon@gmail.com
           branch: dev
-          message: 'Updated sitemaps [skip ci]'
+          message: 'chore: update sitemaps [skip ci]'
           signoff: true
         env:
           # This is necessary in order to push a commit to the repo
