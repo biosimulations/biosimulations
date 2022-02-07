@@ -93,7 +93,7 @@
     "passport-jwt": "4.0.0",
     "reflect-metadata": "0.1.13",
     "retry": "0.13.1",
-    "rxjs": "7.4.0",
+    "rxjs": "7.5.2",
     "sharp": "0.30.0",
     "ssh2": "1.6.0",
     "stackdriver-errors-js": "0.12.0",
