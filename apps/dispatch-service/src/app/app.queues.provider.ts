@@ -24,6 +24,10 @@ export class AppQueueManagerProvider {
       connection,
     });
 
+    const cleanUpQueueScheduler = new QueueScheduler(JobQueue.clean, {
+      connection,
+    });
+
     const completescheduler = new QueueScheduler(JobQueue.complete, {
       connection,
     });

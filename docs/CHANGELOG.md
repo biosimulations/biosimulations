@@ -1,5 +1,27 @@
 # Changelog
 
+## [9.1.1](https://github.com/biosimulations/biosimulations/compare/v9.1.0...v9.1.1) (2022-02-07)
+
+
+### Bug Fixes
+
+* **dispatch-service:** bind the /tmp directory to /local on HPC ([3d05da1](https://github.com/biosimulations/biosimulations/commit/3d05da1073e39f7ec127a022c8163a39d02f5cd6)), closes [#4135](https://github.com/biosimulations/biosimulations/issues/4135)
+
+## [9.1.0](https://github.com/biosimulations/biosimulations/compare/v9.0.5...v9.1.0) (2022-02-07)
+
+
+### Features
+
+* add version to environment ([0bca178](https://github.com/biosimulations/biosimulations/commit/0bca1785ed8ff3250ae5bcb41cd588f936557466))
+
+## [9.0.5](https://github.com/biosimulations/biosimulations/compare/v9.0.4...v9.0.5) (2022-02-07)
+
+
+### Bug Fixes
+
+* **api,dispatch-service:** remove completed and failed jobs from queue ([bbf3301](https://github.com/biosimulations/biosimulations/commit/bbf330132da222303a4fb812a82863a19c95427f)), closes [#4176](https://github.com/biosimulations/biosimulations/issues/4176)
+* **dispatch-service:** correct ordering of processing steps in job, clean up log ([61115d2](https://github.com/biosimulations/biosimulations/commit/61115d2ad3b8f53cfc7c22ee29b26ae5283a276b)), closes [#4113](https://github.com/biosimulations/biosimulations/issues/4113)
+
 ## [9.0.4](https://github.com/biosimulations/biosimulations/compare/v9.0.3...v9.0.4) (2022-02-06)
 
 

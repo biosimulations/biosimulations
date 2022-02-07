@@ -45,6 +45,7 @@ export enum JobQueue {
   metadataPost = 'metadataPost', // post the metadata to API
   complete = 'complete', // gather all the work, submit final status and logs
   publish = 'publish', // publish the simulation run as a project
+  clean = 'clean', // clean up the queues
   health = 'health', // health check
 }
 

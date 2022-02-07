@@ -3,4 +3,5 @@ export type environmentType = {
   production: boolean;
   env: envs;
   baseUrl: string;
+  version: string;
 };

@@ -33,6 +33,7 @@ export class CompleteProcessor {
   public constructor(
     private simStatusService: SimulationStatusService,
     @InjectQueue(JobQueue.publish) private publishQueue: Queue,
+    @InjectQueue(JobQueue.clean) private cleanUpQueue: Queue,
     private submit: SimulationRunService,
     private configService: ConfigService,
   ) {
@@ -51,6 +52,8 @@ export class CompleteProcessor {
     const runId = data.runId;
     const projectId = data.projectId;
     const projectOwner = data.projectOwner;
+    const runStatus = data.status;
+
     if (!job?.id) {
       throw new Error('Job id is not defined');
     }
@@ -90,6 +93,8 @@ export class CompleteProcessor {
     }
 
     const runSucceeded = data.status === SimulationRunStatus.SUCCEEDED;
+    //const statusReason = data.statusReason;
+
     const processingSucceeded = errorSteps.length === 0;
     const finalStatus =
       logSucceeded && runSucceeded && processingSucceeded
@@ -108,7 +113,37 @@ export class CompleteProcessor {
       );
     }
 
-    // TODO confirm what is required for publish
+    const oneDay = 24 * 60 * 60 * 1000;
+    const oneWeek = 7 * oneDay;
+    //clean queues
+    if (finalStatus === SimulationRunStatus.SUCCEEDED) {
+      this.cleanUpQueue.add(
+        'Clean Successful',
+        {
+          runId: runId,
+          queueName: JobQueue.complete,
+        },
+        {
+          delay: oneDay,
+          removeOnComplete: 10,
+          removeOnFail: 100,
+        },
+      );
+    } else {
+      this.cleanUpQueue.add(
+        'Clean Failed',
+        {
+          runId: runId,
+          queueName: JobQueue.complete,
+        },
+        {
+          delay: oneWeek,
+          removeOnComplete: 10,
+          removeOnFail: 100,
+        },
+      );
+    }
+
     const publishable =
       processingSucceeded &&
       logSucceeded &&
@@ -138,7 +173,7 @@ export class CompleteProcessor {
     const successLog =
       succeededSteps.length > 0
         ? `\n${green}${succeededSteps
-            .map((step) => step.description + '.....Succeeded')
+            .map((step) => step.description + ' ...Succeeded')
             .join('\n')}${noColor}`
         : '';
     const warningLog =
@@ -158,11 +193,11 @@ export class CompleteProcessor {
       '' +
       '\n' +
       `${cyan}=========================================== Post-processing simulation run ==========================================${noColor}` +
-      '\n' +
       successLog +
       warningLog +
       errorLog +
-      `\n${cyan}================================ Run complete. Thank you for using runBioSimulations! ===============================${noColor}`;
+      '\n' +
+      `${cyan}================================ Run complete. Thank you for using runBioSimulations! ===============================${noColor}`;
 
     return finalLog;
   }
@@ -171,7 +206,7 @@ export class CompleteProcessor {
     step: stepsInfo,
     failedSteps: stepsInfo[],
   ): string {
-    let message = step.description + '.....Failed';
+    let message = step.description + ' ...Failed';
     let failedDueToChild = false;
     const children = step.children;
     children.forEach((child) => {
@@ -231,9 +266,12 @@ export class CompleteProcessor {
 
   private getJobTreeInfo(flow: JobNode, root: boolean): stepsInfo[] {
     const steps: stepsInfo[] = [];
-
+    flow?.children?.forEach((child) => {
+      steps.push(...this.getJobTreeInfo(child, false));
+    });
     if (!root) {
       const children = flow?.children?.map((child) => child.job.name) || [];
+
       let errorMessage = flow.job.data.errorMessage;
       if (flow.job.data.moreInfo) {
         errorMessage += ` More information is available at ${flow.job.data.moreInfo}.`;
@@ -254,9 +292,6 @@ export class CompleteProcessor {
         children: children,
       });
     }
-    flow?.children?.forEach((child) => {
-      steps.push(...this.getJobTreeInfo(child, false));
-    });
 
     return steps;
   }

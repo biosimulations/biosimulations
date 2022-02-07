@@ -48,6 +48,7 @@ export class DispatchProcessor {
       // There was an error with submission of the job
       const message = `An error occurred in submitting an HPC job for simulation run '${data.runId}': ${response.stderr}`;
       this.logger.error(message);
+      job.log(message);
       if (job.attemptsMade >= (job.opts.attempts || 0)) {
         await this.simStatusService.updateStatus(
           data.runId,
@@ -78,7 +79,16 @@ export class DispatchProcessor {
       projectOwner: data.projectOwner,
       retryCount: 0,
     };
+    const monitorOptions = {
+      attempts: 10,
+      backoff: {
+        type: 'exponential',
+        delay: 1000,
+      },
+      removeOnComplete: 100,
+      removeOnFail: 100,
+    };
 
-    this.monitorQueue.add('monitor', monitorData);
+    this.monitorQueue.add('monitor', monitorData, monitorOptions);
   }
 }
