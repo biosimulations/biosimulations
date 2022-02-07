@@ -6,6 +6,12 @@
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
     [
+      "@semantic-release/exec",
+      {
+        "verifyReleaseCmd": "sed -i 's/${lastRelease.version}/${nextRelease.version}/g' libs/shared/environments/src/lib/version.ts"
+      }
+    ],
+    [
       "@semantic-release/changelog",
       {
         "changelogFile": "docs/CHANGELOG.md",
@@ -19,10 +25,10 @@
         "assets": [
           "package.json",
           "package.lock.json",
-          "docs/CHANGELOG.md"
+          "docs/CHANGELOG.md",
+          "libs/shared/environments/src/lib/version.ts"
         ]
       }
-    ],
-    "@semantic-release/github"
+    ]
   ]
 }
