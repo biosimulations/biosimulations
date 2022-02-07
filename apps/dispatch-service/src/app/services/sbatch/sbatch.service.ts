@@ -48,7 +48,6 @@ export class SbatchService {
     purpose: Purpose,
     workDirname: string,
   ): string {
-    // TODO remove the input to function for this
     const combineArchiveFilename = 'input.omex';
     const executablesPath = this.configService.get('hpc.executablesPath');
 
@@ -212,6 +211,7 @@ srun --job-name="Execute-project" \
   singularity run \
     --tmpdir /local \
     --bind ${workDirname}:/root \
+    --bind /local:/tmp \
     "${allEnvVarsString}" \
     ${simulatorImage} \
       -i '/root/${combineArchiveFilename}' \
