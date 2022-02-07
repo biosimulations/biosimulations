@@ -51,6 +51,7 @@
     "shared-icons": "libs/shared/icons",
     "shared-nats-client": "libs/shared/nats-client",
     "shared-pwa": "libs/shared/pwa",
+    "shared-rxjs-backoff": "libs/shared/rxjs-backoff",
     "shared-services": "libs/shared/services",
     "shared-storage": "libs/shared/storage",
     "shared-styles": "libs/shared/styles",

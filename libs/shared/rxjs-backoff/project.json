@@ -1,0 +1,33 @@
+{
+  "root": "libs/shared/rxjs-backoff",
+  "sourceRoot": "libs/shared/rxjs-backoff/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/shared/rxjs-backoff",
+        "main": "libs/shared/rxjs-backoff/src/index.ts",
+        "tsConfig": "libs/shared/rxjs-backoff/tsconfig.lib.json",
+        "assets": ["libs/shared/rxjs-backoff/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/shared/rxjs-backoff/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/shared/rxjs-backoff"],
+      "options": {
+        "jestConfig": "libs/shared/rxjs-backoff/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:shared", "platform:any", "type:util"]
+}
