@@ -24,7 +24,7 @@
       {
         "assets": [
           "package.json",
-          "package.lock.json",
+          "package-lock.json",
           "docs/CHANGELOG.md",
           "libs/shared/environments/src/lib/version.ts"
         ]
