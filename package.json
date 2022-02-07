@@ -204,7 +204,7 @@
     "eslint-plugin-unused-imports": "2.0.0",
     "jest": "27.4.7",
     "jest-mock": "27.4.6",
-    "jest-preset-angular": "11.0.1",
+    "jest-preset-angular": "11.1.0",
     "license-checker": "25.0.1",
     "localforage": "1.10.0",
     "lunr": "2.3.9",
