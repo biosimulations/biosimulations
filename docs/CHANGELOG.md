@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.1.1](https://github.com/biosimulations/biosimulations/compare/v9.1.0...v9.1.1) (2022-02-07)
+
+
+### Bug Fixes
+
+* **dispatch-service:** bind the /tmp directory to /local on HPC ([3d05da1](https://github.com/biosimulations/biosimulations/commit/3d05da1073e39f7ec127a022c8163a39d02f5cd6)), closes [#4135](https://github.com/biosimulations/biosimulations/issues/4135)
+
 ## [9.1.0](https://github.com/biosimulations/biosimulations/compare/v9.0.5...v9.1.0) (2022-02-07)
 
 
