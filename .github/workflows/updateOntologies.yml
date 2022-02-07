@@ -44,13 +44,14 @@ jobs:
           git_commit_gpgsign: true
 
       - name: Commit Changes
-        uses: EndBug/add-and-commit@v7.5.0
+        uses: EndBug/add-and-commit@v8.0.2
         with:
           author_name: BioSimulations-Daemon
           author_email: biosimulationsdaemon@gmail.com
-          branch: dev
           message: 'chore: Updated Ontologies [skip ci]'
-          signoff: true
+          commit: --signoff
+          pull: '--rebase --autostash'
+          
         env:
           # This is necessary in order to push a commit to the repo
           GITHUB_TOKEN: ${{ secrets.GH_ACCESS_TOKEN}} # Leave this line unchanged

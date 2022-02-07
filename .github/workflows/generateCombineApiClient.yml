@@ -42,13 +42,14 @@ jobs:
           git_commit_gpgsign: true
 
       - name: Commit and push changes
-        uses: EndBug/add-and-commit@v7.5.0
+        uses: EndBug/add-and-commit@v8.0.2
         with:
           add: "['libs/combine-api/nest-client/src/lib/api/', 'libs/combine-api/nest-client/src/lib/model/', 'libs/combine-api/nest-angular/src/lib/api/', 'libs/combine-api/nest-angular/src/lib/model/']"
           message: 'refactor(combine-api): update clients'
           author_name: BioSimulations-Daemon
           author_email: biosimulationsdaemon@gmail.com
-          signoff: true
+          commit: --signoff
+          pull: '--rebase --autostash'
         env:
           # This is necessary in order to push a commit to the repo
           GITHUB_TOKEN: ${{ secrets.GH_ACCESS_TOKEN}} # Leave this line unchanged
