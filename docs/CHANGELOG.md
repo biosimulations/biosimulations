@@ -1,5 +1,13 @@
 # Changelog
 
+## [9.0.5](https://github.com/biosimulations/biosimulations/compare/v9.0.4...v9.0.5) (2022-02-07)
+
+
+### Bug Fixes
+
+* **api,dispatch-service:** remove completed and failed jobs from queue ([bbf3301](https://github.com/biosimulations/biosimulations/commit/bbf330132da222303a4fb812a82863a19c95427f)), closes [#4176](https://github.com/biosimulations/biosimulations/issues/4176)
+* **dispatch-service:** correct ordering of processing steps in job, clean up log ([61115d2](https://github.com/biosimulations/biosimulations/commit/61115d2ad3b8f53cfc7c22ee29b26ae5283a276b)), closes [#4113](https://github.com/biosimulations/biosimulations/issues/4113)
+
 ## [9.0.4](https://github.com/biosimulations/biosimulations/compare/v9.0.3...v9.0.4) (2022-02-06)
 
 
