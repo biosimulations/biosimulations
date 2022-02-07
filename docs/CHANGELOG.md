@@ -1,5 +1,12 @@
 # Changelog
 
+# [9.2.0](https://github.com/biosimulations/biosimulations/compare/v9.1.2...v9.2.0) (2022-02-07)
+
+
+### Features
+
+* add shared rxjs-backoff library ([e27269e](https://github.com/biosimulations/biosimulations/commit/e27269e0b1e2c73d14e64c860cb1387e42aeac16))
+
 ## [9.1.2](https://github.com/biosimulations/biosimulations/compare/v9.1.1...v9.1.2) (2022-02-07)
 
 
