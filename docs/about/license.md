@@ -423,6 +423,12 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: stephan@boennemann.me
 │  ├─ url: http://boennemann.me
 │  └─ licenseFile: @semantic-release/error/LICENSE
+├─ @semantic-release/exec@6.0.3
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/semantic-release/exec
+│  ├─ publisher: Pierre Vanduynslager
+│  ├─ url: https://github.com/pvdlg
+│  └─ licenseFile: @semantic-release/exec/LICENSE
 ├─ @semantic-release/github@8.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/semantic-release/github
@@ -1443,7 +1449,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/debug-js/debug
 │  ├─ publisher: Josh Junon
 │  ├─ email: josh.junon@protonmail.com
-│  └─ licenseFile: npm/node_modules/debug/LICENSE
+│  └─ licenseFile: @semantic-release/exec/node_modules/debug/LICENSE
 ├─ debuglog@1.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sam-github/node-debuglog
@@ -2518,7 +2524,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/npm/json-parse-even-better-errors
 │  ├─ publisher: Kat Marchán
 │  ├─ email: kzm@zkat.tech
-│  └─ licenseFile: npm/node_modules/json-parse-even-better-errors/LICENSE.md
+│  └─ licenseFile: json-parse-even-better-errors/LICENSE.md
 ├─ json-socket@0.3.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sebastianseilund/node-json-socket
@@ -3158,7 +3164,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 ├─ ms@2.1.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/zeit/ms
-│  └─ licenseFile: npm/node_modules/debug/node_modules/ms/license.md
+│  └─ licenseFile: @semantic-release/exec/node_modules/ms/license.md
 ├─ ms@2.1.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/vercel/ms
