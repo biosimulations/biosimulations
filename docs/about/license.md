@@ -3524,7 +3524,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/inspiredware/napi-build-utils
 │  ├─ publisher: Jim Schlight
 │  └─ licenseFile: napi-build-utils/LICENSE
-├─ nats@2.4.0
+├─ nats@2.6.0
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/nats-io/nats.js
 │  ├─ publisher: The NATS Authors
