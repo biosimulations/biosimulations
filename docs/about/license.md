@@ -967,7 +967,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/juliangruber/builtins
 │  └─ licenseFile: npm/node_modules/builtins/License
-├─ bullmq@1.68.4
+├─ bullmq@1.69.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/taskforcesh/bullmq
 │  ├─ publisher: Taskforce.sh Inc.
