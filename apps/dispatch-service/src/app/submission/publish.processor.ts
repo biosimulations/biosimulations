@@ -9,7 +9,7 @@ import { HttpStatus, Logger } from '@nestjs/common';
 import { AxiosError } from 'axios';
 import { retryBackoff } from '@biosimulations/rxjs-backoff';
 import { Job } from 'bullmq';
-import { Observable } from 'rxjs';
+import { catchError, firstValueFrom, map, Observable } from 'rxjs';
 
 type stepsInfo = {
   name: string;
@@ -66,52 +66,35 @@ export class PublishProcessor {
       owner: projectOwner,
     };
 
-    await this.projectService
-      .getProject(projectId)
-      .pipe(this.getRetryBackoff())
-      .toPromise()
-      .then((project) => {
+    const updatedProject$ = this.projectService.getProject(projectId).pipe(
+      this.getRetryBackoff(),
+      map((_project) => {
         this.projectService
           .updateProject(projectId, projectInput)
-          .pipe(this.getRetryBackoff())
-          .toPromise()
-          .then(() =>
-            this.logger.log(
-              `Updated project '${projectId}' for simulation '${runId}'.`,
-            ),
-          )
-          .catch((error: any) =>
-            this.logger.error(
-              `Project '${projectId}' could not be updated with simulation '${runId}': ${this.getErrorMessage(
-                error,
-              )}.`,
-            ),
-          );
-      })
-      .catch((error: AxiosError) => {
-        if (error?.response?.status === HttpStatus.NOT_FOUND) {
-          this.projectService
+          .pipe(this.getRetryBackoff());
+      }),
+      catchError((error) => {
+        if (error.response?.status === HttpStatus.NOT_FOUND) {
+          return this.projectService
             .createProject(projectInput)
-            .pipe(this.getRetryBackoff())
-            .toPromise()
-            .then(() =>
-              this.logger.log(
-                `Created project '${projectId}' for simulation '${runId}'.`,
-              ),
-            )
-            .catch((innerError: AxiosError) =>
-              this.logger.error(
-                `Project '${projectId}' could not be created with simulation run '${runId}': ${this.getErrorMessage(
-                  innerError,
-                )}.`,
-              ),
-            );
-        } else {
-          this.logger.error(
-            `Failed to update status: ${this.getErrorMessage(error)}.`,
-          );
+            .pipe(this.getRetryBackoff());
         }
-      });
+        throw error;
+      }),
+    );
+    await firstValueFrom(updatedProject$)
+      .then(() =>
+        this.logger.log(
+          `The project '${projectId}' was successfully published.`,
+        ),
+      )
+      .catch((error) =>
+        this.logger.error(
+          `The project '${projectId}' could not be published: ${this.getErrorMessage(
+            error,
+          )}`,
+        ),
+      );
   }
 
   private getRetryBackoff(): <T>(source: Observable<T>) => Observable<T> {

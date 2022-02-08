@@ -73,9 +73,11 @@ export class MailClientService {
   }
   private sendEmail(message: SendGrid.MailDataRequired): void {
     SendGrid.setApiKey(this.config.get('email').token as string);
-    SendGrid.send(message).then(() =>
-      this.logger.log(`Sent email to ${message.to}`),
-    );
+    SendGrid.send(message)
+      .then(() => this.logger.log(`Sent email to ${message.to}`))
+      .catch((error) =>
+        this.logger.error(`Failed to send email to ${message.to}`, error),
+      );
   }
 }
 

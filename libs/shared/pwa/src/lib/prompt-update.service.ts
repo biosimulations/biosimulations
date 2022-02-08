@@ -7,7 +7,10 @@ import { environment } from '@biosimulations/shared/environments';
   providedIn: 'root',
 })
 export class UpdateService {
-  constructor(private updates: SwUpdate, private appRef: ApplicationRef) {
+  public constructor(
+    private updates: SwUpdate,
+    private appRef: ApplicationRef,
+  ) {
     if (environment.production) {
       // Alert the user to reload if there is a major error
       updates.unrecoverable.subscribe((event) => {
@@ -28,7 +31,10 @@ export class UpdateService {
       // When updates are available, update automatically
       // TODO determine if we want to alert/ask user about this
       this.updates.available.subscribe((event) => {
-        this.updates.activateUpdate().then(() => document.location.reload());
+        this.updates
+          .activateUpdate()
+          .then(() => document.location.reload())
+          .catch((_err) => document.location.reload());
       });
     }
   }

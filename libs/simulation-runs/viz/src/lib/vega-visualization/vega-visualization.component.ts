@@ -123,9 +123,7 @@ export class VegaVisualizationComponent implements AfterViewInit, OnDestroy {
     }.bind(this);
 
     vegaEmbed(this._vegaContainer.nativeElement, this._spec as Spec, options)
-      .then(() => {
-        this.loading = false;
-      })
+      .then(() => (this.loading = false))
       .catch((error: Error): void => {
         console.error(error);
         this.loading = false;

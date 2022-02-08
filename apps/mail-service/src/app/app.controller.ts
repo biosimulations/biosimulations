@@ -22,8 +22,8 @@ export class AppController {
 
   @MessagePattern(DispatchMessage.processed)
   private sendEmail(@Payload() data: DispatchProcessedPayload): void {
-    firstValueFrom(this.simService.getSimulationRun(data.id)).then(
-      (job: SimulationRun) => {
+    firstValueFrom(this.simService.getSimulationRun(data.id))
+      .then((job: SimulationRun) => {
         const email = job.email;
         //const status = job.status  use the status to determine which email to send?
         if (email) {
@@ -34,14 +34,17 @@ export class AppController {
             new Date(job.submitted),
           );
         }
-      },
-    );
+        return;
+      })
+      .catch((reason) =>
+        this.logger.error("Couldn't send success email: " + reason),
+      );
   }
 
   @MessagePattern(DispatchMessage.failed)
   private sendFailedEmail(@Payload() data: DispatchProcessedPayload): void {
-    firstValueFrom(this.simService.getSimulationRun(data.id)).then(
-      (job: SimulationRun) => {
+    firstValueFrom(this.simService.getSimulationRun(data.id))
+      .then((job: SimulationRun) => {
         const email = job.email;
         //const status = job.status  use the status to determine which email to send?
         if (email) {
@@ -52,7 +55,10 @@ export class AppController {
             new Date(job.submitted),
           );
         }
-      },
-    );
+        return;
+      })
+      .catch((reason) =>
+        this.logger.error("Couldn't send failure email: " + reason),
+      );
   }
 }

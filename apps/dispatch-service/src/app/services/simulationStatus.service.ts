@@ -16,11 +16,11 @@ export class SimulationStatusService {
     return firstValueFrom(
       this.simService.updateSimulationRunStatus(runId, simStatus),
     )
-      .then((val) => {
+      .then((val) =>
         this.logger.log(
           `The status of simulation run '${runId}' was successfully updated to '${simStatus}'.`,
-        );
-      })
+        ),
+      )
       .catch((error) => {
         this.logger.error(
           `The status of simulation run '${runId}' could not be updated to '${simStatus}': ${error}`,

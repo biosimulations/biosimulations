@@ -215,7 +215,8 @@ export class SharedStorageService {
     return Promise.race([
       prom,
       new Promise(
-        (_r, rej) => (timer = global.setTimeout(rej, time, exception)),
+        (_resolve, reject) =>
+          (timer = global.setTimeout(reject, time, exception)),
       ),
     ]).finally(() => clearTimeout(Number(timer))) as Promise<Type>;
   }
