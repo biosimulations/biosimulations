@@ -146,7 +146,7 @@ jobs:
           BRANCH: ${{ secrets.OVERLAY }}
         run: |
           git_sha=$(git rev-parse --short "$GITHUB_SHA")
-          echo '{"ref": "main","inputs":{"overlay": "'$BRANCH'","tag":"'$GITHUB_REF'"}}' >body
+          echo '{"ref": "main","inputs":{"overlay": "'$BRANCH'","tag":"'${{github.ref_name}}'"}}' >body
           curl -X POST 'https://api.github.com/repos/biosimulations/deployment/actions/workflows/deploy.yml/dispatches' -H 'Authorization: Bearer ${{ secrets.GHCR_TOKEN }}' -H 'Content-Type: application/json' --data "@body"
   
   testDevDeployment:
@@ -216,5 +216,5 @@ jobs:
 
         run: |
           git_sha=$(git rev-parse --short "$GITHUB_SHA")
-          echo '{"ref": "main","inputs":{"overlay": "'$BRANCH'","tag":"'$GITHUB_REF'"}}' >body
+          echo '{"ref": "main","inputs":{"overlay": "'$BRANCH'","tag":"'${{github.ref_name}}'"}}' >body
           curl -X POST 'https://api.github.com/repos/biosimulations/deployment/actions/workflows/deploy.yml/dispatches' -H 'Authorization: Bearer ${{ secrets.GHCR_TOKEN }}' -H 'Content-Type: application/json' --data "@body"
