@@ -6,7 +6,7 @@ name = "pypi"
 [packages]
 flask = {version = "<2"}
 connexion = {extras = ["swagger-ui"],version = ">=2.7.0"}
-openapi-schema-validator = "<0.2" # due to conflicting required version of jsonschema with connexion >= 2.9
+openapi-schema-validator = "<0.3" # due to conflicting required version of jsonschema with connexion >= 2.9
 requests = "*"
 biosimulators-utils = {version = ">=0.1.159", extras = ["bngl", "cellml", "lems", "logging", "neuroml", "sbml", "smoldyn"]}
 python-dateutil = "*"
