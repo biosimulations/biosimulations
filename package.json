@@ -68,7 +68,7 @@
     "auth0": "2.39.0",
     "aws-sdk": "2.1070.0",
     "axios": "0.25.0",
-    "bullmq": "1.68.4",
+    "bullmq": "1.69.0",
     "cache-manager": "3.6.0",
     "cache-manager-redis-store": "2.0.0",
     "class-transformer": "0.5.1",
