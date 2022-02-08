@@ -139,7 +139,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: i@izs.me
 │  ├─ url: https://izs.me
 │  └─ licenseFile: npm/node_modules/@isaacs/string-locale-compare/LICENSE
-├─ @nestjs/axios@0.0.4
+├─ @nestjs/axios@0.0.5
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/axios
 │  ├─ publisher: Kamil Mysliwiec
@@ -148,7 +148,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/bull
 │  └─ licenseFile: @nestjs/bull/LICENSE
-├─ @nestjs/common@8.2.4
+├─ @nestjs/common@8.2.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
@@ -158,17 +158,17 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/nestjs/config
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/config/LICENSE
-├─ @nestjs/core@8.2.4
+├─ @nestjs/core@8.2.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/core/LICENSE
-├─ @nestjs/mapped-types@1.0.0
+├─ @nestjs/mapped-types@1.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/mapped-types
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/mapped-types/LICENSE
-├─ @nestjs/microservices@8.2.4
+├─ @nestjs/microservices@8.2.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
@@ -178,12 +178,12 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/nestjs/mongoose
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/mongoose/LICENSE
-├─ @nestjs/passport@8.0.1
+├─ @nestjs/passport@8.1.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/passport
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/passport/LICENSE
-├─ @nestjs/platform-express@8.2.4
+├─ @nestjs/platform-express@8.2.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
@@ -193,12 +193,12 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/nestjs/schedule
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/schedule/LICENSE
-├─ @nestjs/swagger@5.1.5
+├─ @nestjs/swagger@5.2.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/swagger
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/swagger/LICENSE
-├─ @nestjs/terminus@8.0.3
+├─ @nestjs/terminus@8.0.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/terminus
 │  ├─ publisher: Livio Brunner
@@ -832,6 +832,11 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/axios/axios
 │  ├─ publisher: Matt Zabriskie
+│  └─ licenseFile: @nestjs/common/node_modules/axios/LICENSE
+├─ axios@0.25.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/axios/axios
+│  ├─ publisher: Matt Zabriskie
 │  └─ licenseFile: axios/LICENSE
 ├─ balanced-match@1.0.2
 │  ├─ licenses: MIT
@@ -1073,7 +1078,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: hello@blakeembrey.com
 │  ├─ url: http://blakeembrey.me
 │  └─ licenseFile: change-case/LICENSE
-├─ check-disk-space@3.0.1
+├─ check-disk-space@3.1.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/Alex-D/check-disk-space
 │  ├─ publisher: Alex-D
