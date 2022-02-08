@@ -198,7 +198,7 @@
     "cypress": "9.4.1",
     "cz-conventional-changelog": "3.3.0",
     "dotenv": "10.0.0",
-    "eslint": "7.32.0",
+    "eslint": "8.8.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-cypress": "2.12.1",
     "eslint-plugin-unused-imports": "2.0.0",
