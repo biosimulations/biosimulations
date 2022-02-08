@@ -1,5 +1,13 @@
 # Changelog
 
+## [9.2.2](https://github.com/biosimulations/biosimulations/compare/v9.2.1...v9.2.2) (2022-02-08)
+
+
+### Bug Fixes
+
+* **dispatch:** make type of citation in JSON-LD data compatible with Google ([fa1b5b3](https://github.com/biosimulations/biosimulations/commit/fa1b5b3aee7aca8d2bd68e496111752e4cb4b513))
+* **platform,dispatch:** modify citation in schema.org metadata for compatibility with Google ([0f2bfc3](https://github.com/biosimulations/biosimulations/commit/0f2bfc3fe6439bb03276e06db2a220f61294401a)), closes [#4179](https://github.com/biosimulations/biosimulations/issues/4179)
+
 ## [9.2.1](https://github.com/biosimulations/biosimulations/compare/v9.2.0...v9.2.1) (2022-02-08)
 
 
