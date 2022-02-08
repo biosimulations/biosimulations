@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.2.1](https://github.com/biosimulations/biosimulations/compare/v9.2.0...v9.2.1) (2022-02-08)
+
+
+### Bug Fixes
+
+* **deps:** update nest ([#4140](https://github.com/biosimulations/biosimulations/issues/4140)) ([e20adc2](https://github.com/biosimulations/biosimulations/commit/e20adc27c08f2965628546f5c19cdb619a94c754))
+
 ## [9.2.0](https://github.com/biosimulations/biosimulations/compare/v9.1.2...v9.2.0) (2022-02-07)
 
 
