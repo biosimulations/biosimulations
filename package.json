@@ -57,7 +57,7 @@
     "@nestjs/terminus": "8.0.4",
     "@nx-tools/docker-metadata": "2.2.1",
     "@openapi-contrib/openapi-schema-to-json-schema": "3.1.1",
-    "@semantic-release/exec": "^6.0.3",
+    "@semantic-release/exec": "6.0.3",
     "@semantic-release/npm": "9.0.0",
     "@sendgrid/mail": "7.6.0",
     "@stoplight/json-ref-resolver": "3.1.3",
