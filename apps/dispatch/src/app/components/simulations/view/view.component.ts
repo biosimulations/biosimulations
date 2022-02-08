@@ -66,6 +66,11 @@ export class ViewComponent implements OnInit {
 
   private endpoints = new Endpoints();
 
+  public selectedTabIndex = 0;
+  public viewVisualizationTabDisabled = true;
+  public selectVisualizationTabIndex = 3;
+  public visualizationTabIndex = 4;
+
   public constructor(
     private simulationService: SimulationService,
     private simulationRunService: SimulationRunService,
@@ -281,11 +286,6 @@ export class ViewComponent implements OnInit {
       shareReplay(1),
     );
   }
-
-  selectedTabIndex = 0;
-  viewVisualizationTabDisabled = true;
-  selectVisualizationTabIndex = 3;
-  visualizationTabIndex = 4;
 
   public renderVisualization(visualization: Visualization): void {
     this.visualization = visualization;

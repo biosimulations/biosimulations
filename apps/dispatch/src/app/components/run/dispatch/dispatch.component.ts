@@ -83,13 +83,13 @@ type AlgorithmsMap = { [id: string]: Algorithm };
 })
 export class DispatchComponent implements OnInit, OnDestroy {
   private submitMethod: SubmitMethod = SubmitMethod.file;
-  formGroup: FormGroup;
+  public formGroup: FormGroup;
   private submitMethodControl: FormControl;
-  projectFileControl: FormControl;
-  projectUrlControl: FormControl;
-  modelFormatsControl: FormControl;
-  simulationAlgorithmsControl: FormControl;
-  simulationAlgorithmSubstitutionPolicyControl: FormControl;
+  public projectFileControl: FormControl;
+  public projectUrlControl: FormControl;
+  public modelFormatsControl: FormControl;
+  public simulationAlgorithmsControl: FormControl;
+  public simulationAlgorithmSubstitutionPolicyControl: FormControl;
   private simulatorControl: FormControl;
   private simulatorVersionControl: FormControl;
   private cpusControl: FormControl;
@@ -99,15 +99,15 @@ export class DispatchComponent implements OnInit, OnDestroy {
   private emailControl: FormControl;
   private emailConsentControl: FormControl;
 
-  exampleCombineArchiveUrl: string;
-  exampleCombineArchivesUrl: string;
+  public exampleCombineArchiveUrl: string;
+  public exampleCombineArchivesUrl: string;
 
   private modelFormatsMap?: OntologyTermsMap;
   private simulationAlgorithmsMap?: AlgorithmsMap;
 
-  modelFormats?: OntologyTerm[];
-  simulationAlgorithms?: Algorithm[];
-  ALGORITHM_SUBSTITUTION_POLICIES = ALGORITHM_SUBSTITUTION_POLICIES.filter(
+  public modelFormats?: OntologyTerm[];
+  public simulationAlgorithms?: Algorithm[];
+  public ALGORITHM_SUBSTITUTION_POLICIES = ALGORITHM_SUBSTITUTION_POLICIES.filter(
     (policy: AlgorithmSubstitutionPolicy): boolean => {
       return (
         policy.level >= AlgorithmSubstitutionPolicyLevels.SAME_METHOD &&
@@ -117,17 +117,17 @@ export class DispatchComponent implements OnInit, OnDestroy {
   );
 
   private simulatorIds = new Set<string>();
-  simulators: SimulatorIdNameDisabled[] = [];
-  simulatorVersions: string[] = [];
+  public simulators: SimulatorIdNameDisabled[] = [];
+  public simulatorVersions: string[] = [];
   private simulatorSpecsMap: SimulatorSpecsMap | undefined = undefined;
 
-  emailUrl!: string;
+  public emailUrl!: string;
 
-  submitPushed = false;
+  public submitPushed = false;
 
   private subscriptions: Subscription[] = [];
 
-  constructor(
+  public constructor(
     private config: ConfigService,
     private route: ActivatedRoute,
     private router: Router,
@@ -235,7 +235,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     this.emailUrl = 'mailto:' + config.email;
   }
 
-  maxFileSizeValidator(control: FormControl): ValidationErrors | null {
+  public maxFileSizeValidator(control: FormControl): ValidationErrors | null {
     if (
       control.value &&
       control.value.size > this.config.appConfig.maxUploadFileSize
@@ -248,7 +248,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     }
   }
 
-  integerValidator(formControl: FormControl): ValidationErrors | null {
+  public integerValidator(formControl: FormControl): ValidationErrors | null {
     const value = formControl.value as number;
 
     if (value == Math.floor(value)) {
@@ -258,7 +258,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     }
   }
 
-  formValidator(formGroup: FormGroup): ValidationErrors | null {
+  public formValidator(formGroup: FormGroup): ValidationErrors | null {
     const errors: ValidationErrors = {};
 
     if (formGroup.value.submitMethod == SubmitMethod.file) {
@@ -285,7 +285,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     const simulatorsDataObs = this.commonDispatchService.getSimulatorsFromDb();
 
     const algSubObs = simulatorsDataObs.pipe(
@@ -541,7 +541,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  makeArray(value: string | string[] | null): string[] {
+  public makeArray(value: string | string[] | null): string[] {
     if (!value) {
       return [];
     } else if (typeof value === 'string') {
@@ -551,7 +551,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     }
   }
 
-  changeSubmitMethod(): void {
+  public changeSubmitMethod(): void {
     const submitMethodControl = this.formGroup.controls
       .submitMethod as FormControl;
     if (submitMethodControl.value === SubmitMethod.file) {
@@ -563,7 +563,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     }
   }
 
-  changeProject(): void {
+  public changeProject(): void {
     const submitMethodControl = this.formGroup.controls
       .submitMethod as FormControl;
 
@@ -663,7 +663,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     }
   }
 
-  filterSimulators(): void {
+  public filterSimulators(): void {
     const modelFormatIds = this.formGroup.value.modelFormats;
     const simulationAlgorithmIds = this.formGroup.value.simulationAlgorithms;
     const algSubPolicy: number =
@@ -739,7 +739,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     return _intersection;
   }
 
-  onFormSubmit(): void {
+  public onFormSubmit(): void {
     this.submitPushed = true;
 
     if (!this.formGroup.valid) {
@@ -859,7 +859,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     );
   }
 
-  changeSimulator() {
+  public changeSimulator(): void {
     if (this.simulatorSpecsMap !== undefined) {
       this.simulatorVersions =
         this.simulatorSpecsMap[this.simulatorControl.value]?.versions || [];

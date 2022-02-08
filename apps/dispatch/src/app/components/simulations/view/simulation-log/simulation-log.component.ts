@@ -36,38 +36,42 @@ type StatusCountsMap = Map<SimulationRunLogStatus, StatusCount>;
   styleUrls: ['./simulation-log.component.scss'],
 })
 export class SimulationLogComponent {
-  constructor(private scrollService: ScrollService) {}
+  public constructor(private scrollService: ScrollService) {}
 
   @Input()
-  status!: SimulationRunStatus;
+  public status!: SimulationRunStatus;
 
   @Input()
-  rawLog!: RawSimulationLog;
+  public rawLog!: RawSimulationLog;
 
-  StructuredLogLevel = StructuredLogLevel;
+  public StructuredLogLevel = StructuredLogLevel;
   public _structuredLog!: CombineArchiveLog;
-  structuredLogLevel!: StructuredLogLevel;
-  numSedDocuments = 0;
-  numTasks = 0;
-  numReports = 0;
-  numPlots = 0;
-  sedDocumentStatusCounts!: StatusCount[];
-  taskStatusCounts!: StatusCount[];
-  reportStatusCounts!: StatusCount[];
-  plotStatusCounts!: StatusCount[];
-  logHasSedDocuments = false;
-  logHasTasks = false;
-  logHasReports = false;
-  logHasPlots = false;
+  public structuredLogLevel!: StructuredLogLevel;
+  public numSedDocuments = 0;
+  public numTasks = 0;
+  public numReports = 0;
+  public numPlots = 0;
+  public sedDocumentStatusCounts!: StatusCount[];
+  public taskStatusCounts!: StatusCount[];
+  public reportStatusCounts!: StatusCount[];
+  public plotStatusCounts!: StatusCount[];
+  public logHasSedDocuments = false;
+  public logHasTasks = false;
+  public logHasReports = false;
+  public logHasPlots = false;
 
-  taskLogs: { doc: SedDocumentLog; task: SedTaskLog }[] = [];
-  reportLogs: { doc: SedDocumentLog; report: SedReportLog }[] = [];
-  plotLogs: { doc: SedDocumentLog; plot: SedPlot2DLog | SedPlot3DLog }[] = [];
+  public taskLogs: { doc: SedDocumentLog; task: SedTaskLog }[] = [];
+  public reportLogs: { doc: SedDocumentLog; report: SedReportLog }[] = [];
+  public plotLogs: { doc: SedDocumentLog; plot: SedPlot2DLog | SedPlot3DLog }[] = [];
 
-  duration = 'N/A';
+  public duration = 'N/A';
+
+  public tocSections!: Observable<TocSection[]>;
+
+  private scrollOffset = 64 + 32 + 32 + 32;
 
   @Input()
-  set structuredLog(value: CombineArchiveLog | undefined) {
+  public set structuredLog(value: CombineArchiveLog | undefined) {
     value
       ? (this._structuredLog = value)
       : (this._structuredLog = {
@@ -82,11 +86,11 @@ export class SimulationLogComponent {
     this.processStructuredLog(value);
   }
 
-  get structuredLog(): CombineArchiveLog | undefined {
+  public get structuredLog(): CombineArchiveLog | undefined {
     return this._structuredLog;
   }
 
-  private processStructuredLog(log: CombineArchiveLog | undefined) {
+  private processStructuredLog(log: CombineArchiveLog | undefined): void {
     let level: StructuredLogLevel = StructuredLogLevel.None;
     this.numSedDocuments = 0;
     this.numTasks = 0;
@@ -306,22 +310,20 @@ export class SimulationLogComponent {
     return array;
   }
 
-  locationComparator(a: any, b: any): number {
+  public locationComparator(a: any, b: any): number {
     return a.location.localeCompare(b.location, undefined, { numeric: true });
   }
 
-  idComparator(a: any, b: any): number {
+  public idComparator(a: any, b: any): number {
     return a.id.localeCompare(b.id, undefined, { numeric: true });
   }
 
-  getStatus(): SimulationRunLogStatus {
+  public getStatus(): SimulationRunLogStatus {
     return statusConverter(this.status);
   }
 
-  tocSections!: Observable<TocSection[]>;
-
   @ViewChild(TocSectionsContainerDirective)
-  set tocSectionsContainer(container: TocSectionsContainerDirective) {
+  public set tocSectionsContainer(container: TocSectionsContainerDirective) {
     if (container) {
       setTimeout(() => {
         this.tocSections = container.sections$;
@@ -329,18 +331,16 @@ export class SimulationLogComponent {
     }
   }
 
-  private scrollOffset = 64 + 32 + 32 + 32;
-
-  scrollToElement(id: string): void {
+  public scrollToElement(id: string): void {
     const scrollTarget = document.getElementById(id) as HTMLElement;
     this.scrollService.scrollToElement(scrollTarget, this.scrollOffset);
   }
 
-  downloadRawLog(): void {
+  public downloadRawLog(): void {
     this.downloadLog(this.rawLog, 'log.txt', 'text/plain;charset=UTF-8');
   }
 
-  downloadStructuredLog(): void {
+  public downloadStructuredLog(): void {
     this.downloadLog(
       JSON.stringify(this.structuredLog, null, 2),
       'log.json',

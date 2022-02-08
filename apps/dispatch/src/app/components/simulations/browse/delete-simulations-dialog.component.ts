@@ -8,7 +8,7 @@ import { Simulation } from '../../../datamodel';
   styleUrls: ['./delete-simulations-dialog.component.scss'],
 })
 export class DeleteSimulationsDialogComponent {
-  constructor(
+  public constructor(
     private dialogRef: MatDialogRef<BrowseComponent>,
     @Inject(MAT_DIALOG_DATA) public simulation: Simulation | undefined,
   ) {}

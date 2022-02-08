@@ -37,10 +37,10 @@ export class PublishComponent implements OnInit, OnDestroy {
   public archiveUrl!: string;
 
   private simulation!: Simulation;
-  valid$!: Observable<true | string>;
+  public valid$!: Observable<true | string>;
 
-  formGroup: FormGroup;
-  submitPushed = false;
+  public formGroup: FormGroup;
+  public submitPushed = false;
 
   private subscriptions: Subscription[] = [];
 
@@ -91,7 +91,7 @@ export class PublishComponent implements OnInit, OnDestroy {
   public isIdAvailable(id: string): Observable<boolean> {
     return this.projectService.getProject(id).pipe(
       map((_): false => false),
-      catchError((error: HttpErrorResponse): Observable<boolean> => {
+      catchError((_error: HttpErrorResponse): Observable<boolean> => {
         return of(true);
       }),
     );

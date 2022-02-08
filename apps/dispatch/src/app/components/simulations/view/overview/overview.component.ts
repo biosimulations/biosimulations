@@ -8,7 +8,7 @@ import { FormattedSimulation } from '../view.model';
 })
 export class OverviewComponent {
   @Input()
-  simulation!: FormattedSimulation;
+  public simulation!: FormattedSimulation;
 
-  constructor() {}
+  public constructor() {}
 }
