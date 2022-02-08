@@ -30,9 +30,9 @@ import { ClipboardService } from '@biosimulations/shared/angular';
 export class BrowseComponent implements OnInit {
   private endpoints = new Endpoints();
 
-  @ViewChild(TableComponent) table!: TableComponent;
+  @ViewChild(TableComponent) public table!: TableComponent;
 
-  columns: Column[] = [
+  public columns: Column[] = [
     {
       id: 'id',
       heading: 'Id',
@@ -188,7 +188,7 @@ export class BrowseComponent implements OnInit {
       comparator: (
         a: SimulationRunStatus,
         b: SimulationRunStatus,
-        sign: number,
+        _sign: number,
       ): number => {
         const aVal = SimulationStatusService.getSimulationStatusOrder(a);
         const bVal = SimulationStatusService.getSimulationStatusOrder(b);
@@ -336,7 +336,7 @@ export class BrowseComponent implements OnInit {
           return null;
         }
       },
-      formatter: (hasReports: boolean): null => {
+      formatter: (_hasReports: boolean): null => {
         return null;
       },
       stackedFormatter: (hasReports: boolean): string | null => {
@@ -350,7 +350,7 @@ export class BrowseComponent implements OnInit {
       maxWidth: 38,
       filterable: false,
       sortable: false,
-      comparator: (a: boolean, b: boolean, sign: number): number => {
+      comparator: (a: boolean, b: boolean, _sign: number): number => {
         if (a > b) return -1;
         if (a < b) return 1;
         return 0;
@@ -415,7 +415,7 @@ export class BrowseComponent implements OnInit {
           return null;
         }
       },
-      formatter: (hasReports: boolean): null => {
+      formatter: (_hasReports: boolean): null => {
         return null;
       },
       stackedFormatter: (hasReports: boolean): string | null => {
@@ -429,7 +429,7 @@ export class BrowseComponent implements OnInit {
       maxWidth: 38,
       filterable: false,
       sortable: false,
-      comparator: (a: boolean, b: boolean, sign: number): number => {
+      comparator: (a: boolean, b: boolean, _sign: number): number => {
         if (a > b) return -1;
         if (a < b) return 1;
         return 0;
@@ -468,7 +468,7 @@ export class BrowseComponent implements OnInit {
           return null;
         }
       },
-      formatter: (status: SimulationRunStatus): null => {
+      formatter: (_status: SimulationRunStatus): null => {
         return null;
       },
       stackedFormatter: (status: SimulationRunStatus): string | null => {
@@ -485,7 +485,7 @@ export class BrowseComponent implements OnInit {
       comparator: (
         a: SimulationRunStatus,
         b: SimulationRunStatus,
-        sign: number,
+        _sign: number,
       ): number => {
         const aVal = SimulationStatusService.isSimulationStatusCompleted(a)
           ? 0
@@ -553,7 +553,7 @@ export class BrowseComponent implements OnInit {
           };
         }
       },
-      formatter: (status: SimulationRunStatus): null => {
+      formatter: (_status: SimulationRunStatus): null => {
         return null;
       },
       stackedFormatter: (status: SimulationRunStatus): string => {
@@ -628,7 +628,7 @@ export class BrowseComponent implements OnInit {
           };
         }
       },
-      formatter: (simulation: ISimulation): null => {
+      formatter: (_simulation: ISimulation): null => {
         return null;
       },
       stackedFormatter: (simulation: ISimulation): string => {
@@ -680,7 +680,7 @@ export class BrowseComponent implements OnInit {
           return ['/simulations', simulation.id, 'publish'];
         }
       },
-      formatter: (status: SimulationRunStatus): null => {
+      formatter: (_status: SimulationRunStatus): null => {
         return null;
       },
       stackedFormatter: (status: SimulationRunStatus): string => {
@@ -705,7 +705,7 @@ export class BrowseComponent implements OnInit {
       leftIcon: 'trash',
       leftAction: ColumnActionType.click,
       leftClick: (
-        simulation: ISimulation,
+        _simulation: ISimulation,
       ): ((simulation: ISimulation) => void) => {
         return (simulation: ISimulation): void => {
           this.removeSimulations(simulation);
@@ -713,16 +713,16 @@ export class BrowseComponent implements OnInit {
       },
       centerAction: ColumnActionType.click,
       centerClick: (
-        simulation: ISimulation,
+        _simulation: ISimulation,
       ): ((simulation: ISimulation) => void) => {
         return (simulation: ISimulation): void => {
           this.removeSimulations(simulation);
         };
       },
-      formatter: (id: string): null => {
+      formatter: (_id: string): null => {
         return null;
       },
-      stackedFormatter: (id: string): string => {
+      stackedFormatter: (_id: string): string => {
         return 'Remove simulation';
       },
       minWidth: 38,
@@ -733,9 +733,9 @@ export class BrowseComponent implements OnInit {
       showStacked: false,
     },
   ];
-  simulations!: Observable<ISimulation[]>;
+  public simulations!: Observable<ISimulation[]>;
 
-  constructor(
+  public constructor(
     private config: ConfigService,
     private simulationService: SimulationService,
     private snackBar: MatSnackBar,
@@ -759,7 +759,7 @@ export class BrowseComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.simulations = this.simulationService
       .getSimulations()
       /*
@@ -770,11 +770,11 @@ export class BrowseComponent implements OnInit {
       .pipe(debounceTime(16));
   }
 
-  getStackedHeading(simulation: ISimulation): string {
+  public getStackedHeading(simulation: ISimulation): string {
     return (simulation.name || 'N/A') + ' (' + simulation.id + ')';
   }
 
-  getStackedHeadingMoreInfoRouterLink(
+  public getStackedHeadingMoreInfoRouterLink(
     simulation: ISimulation,
   ): string[] | null {
     if (isUnknownSimulation(simulation)) {
@@ -784,7 +784,7 @@ export class BrowseComponent implements OnInit {
     }
   }
 
-  exportSimulations(): void {
+  public exportSimulations(): void {
     const simulations = this.simulationService.getSimulations();
     // Use the take operator to make sure that we don't download every time the observable emits
     simulations.pipe(take(1)).subscribe((sims: ISimulation[]) => {
@@ -798,7 +798,7 @@ export class BrowseComponent implements OnInit {
     });
   }
 
-  importSimulations(): void {
+  public importSimulations(): void {
     const input = document.createElement('input');
     input.setAttribute('type', 'file');
     input.onchange = (): void => {
@@ -821,7 +821,7 @@ export class BrowseComponent implements OnInit {
     input.click();
   }
 
-  removeSimulations(simulation?: ISimulation): void {
+  public removeSimulations(simulation?: ISimulation): void {
     const dialogRef = this.dialog.open(DeleteSimulationsDialogComponent, {
       width: '350px',
       data: simulation,
@@ -838,7 +838,7 @@ export class BrowseComponent implements OnInit {
     });
   }
 
-  loadExampleSimulations(): number {
+  public loadExampleSimulations(): number {
     const exampleSimulationsJson =
       environment.env == 'prod'
         ? exampleSimulationsProdJson

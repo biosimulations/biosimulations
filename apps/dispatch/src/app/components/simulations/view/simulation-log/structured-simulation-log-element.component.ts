@@ -38,36 +38,48 @@ interface FormattedSimulatorDetail {
   styleUrls: ['./structured-simulation-log-element.component.scss'],
 })
 export class StructuredSimulationLogElementComponent {
-  constructor(
+  public constructor(
     private sanitizer: DomSanitizer,
     private ontologyService: OntologyService,
     private structuredLogService: StructuredSimulationLogElementService,
   ) {}
 
   @Input()
-  isStructuredLog = true;
+  public isStructuredLog = true;
 
   @Input()
-  elementId!: string;
+  public elementId!: string;
 
   @Input()
-  elementType!: string;
+  public elementType!: string;
 
-  heading!: string;
+  @Input()
+  public compact = false;
+
+  @Input()
+  public iconActionType: IconActionType = 'scrollToTop';
+
+  @Input()
+  public first = false;
+
+  @Input()
+  public last = false;
+
+  public heading!: string;
 
   private _log!: logTypes;
 
-  noOutputMessage = '';
-  formattedOutput!: SafeHtml | undefined;
+  public noOutputMessage = '';
+  public formattedOutput!: SafeHtml | undefined;
 
-  algorithmKisaoTerm: Observable<KisaoTerm> | undefined;
-  algorithmKisaoTermDescription:
+  public algorithmKisaoTerm: Observable<KisaoTerm> | undefined;
+  public algorithmKisaoTermDescription:
     | Observable<AlgorithmKisaoDescriptionFragment[] | undefined>
     | undefined;
-  formattedSimulatorDetails: FormattedSimulatorDetail[] | undefined;
+  public formattedSimulatorDetails: FormattedSimulatorDetail[] | undefined;
 
   @Input()
-  set log(value: logTypes) {
+  public set log(value: logTypes) {
     this._log = value;
     this.heading = this.getHeading();
 
@@ -128,11 +140,11 @@ export class StructuredSimulationLogElementComponent {
     }
   }
 
-  get log(): logTypes {
+  public get log(): logTypes {
     return this._log;
   }
 
-  getHeading(): string {
+  public getHeading(): string {
     const duration = this.log?.duration;
 
     return (
@@ -145,16 +157,4 @@ export class StructuredSimulationLogElementComponent {
       ')'
     );
   }
-
-  @Input()
-  compact = false;
-
-  @Input()
-  iconActionType: IconActionType = 'scrollToTop';
-
-  @Input()
-  first = false;
-
-  @Input()
-  last = false;
 }
