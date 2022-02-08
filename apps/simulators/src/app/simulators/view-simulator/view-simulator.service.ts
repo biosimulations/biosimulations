@@ -290,7 +290,7 @@ export class ViewSimulatorService {
     jsonLdData.citation = sim.references.citations.map((citation) => {
       const formattedCitation = this.makeCitation(citation);
       return {
-        '@type': 'Article',
+        '@type': 'CreativeWork',
         headline: citation.title,
         abstract: formattedCitation.text,
         author: {

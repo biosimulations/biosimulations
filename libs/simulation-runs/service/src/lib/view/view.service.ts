@@ -55,8 +55,8 @@ import { Spec as VegaSpec } from 'vega';
 import {
   Dataset as DatasetSchema,
   Person as PersonSchema,
-  Article as ArticleSchema,
   Organization as OrganizationSchema,
+  CreativeWork as CreativeWorkSchema,
   WithContext,
 } from 'schema-dts';
 import {
@@ -1329,8 +1329,8 @@ export class ViewService {
         });
       runDataSet.citation = projectMeta.citations.map(
         (citation: LabeledIdentifier) => {
-          const article: ArticleSchema = {
-            '@type': 'Article',
+          const article: CreativeWorkSchema = {
+            '@type': 'CreativeWork',
           };
           if (citation.label) {
             article.description = citation.label;
