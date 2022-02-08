@@ -81,7 +81,7 @@ export class SimulationService {
     });
     return simulations;
   }
-  
+
   /**
    * Subscribes to the map of the simulators creates and observable list of simulators.
    * This simplifies returning the simulators.
@@ -264,7 +264,7 @@ export class SimulationService {
    * Contains the logic for the polling update.
    * Pull the simulator from cache, but add a debounce. Then, following subscription then must
    * wait some numer of seconds before firing. If the cached suimulation is still running, call
-   * the http service to get the latest simulation. Then, save it to the cache Since this is 
+   * the http service to get the latest simulation. Then, save it to the cache Since this is
    * happening inside a subscription of the simulator from cache, saving it triggers the subscription again.
    * This will repeat until the simulator is no longer in a running state, and therefore wont be saved to the
    * cache, and wont cause a repeat. When saving it to the cache also save to local storage

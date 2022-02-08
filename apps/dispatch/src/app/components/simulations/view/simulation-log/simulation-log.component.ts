@@ -62,7 +62,10 @@ export class SimulationLogComponent {
 
   public taskLogs: { doc: SedDocumentLog; task: SedTaskLog }[] = [];
   public reportLogs: { doc: SedDocumentLog; report: SedReportLog }[] = [];
-  public plotLogs: { doc: SedDocumentLog; plot: SedPlot2DLog | SedPlot3DLog }[] = [];
+  public plotLogs: {
+    doc: SedDocumentLog;
+    plot: SedPlot2DLog | SedPlot3DLog;
+  }[] = [];
 
   public duration = 'N/A';
 

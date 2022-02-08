@@ -107,14 +107,15 @@ export class DispatchComponent implements OnInit, OnDestroy {
 
   public modelFormats?: OntologyTerm[];
   public simulationAlgorithms?: Algorithm[];
-  public ALGORITHM_SUBSTITUTION_POLICIES = ALGORITHM_SUBSTITUTION_POLICIES.filter(
-    (policy: AlgorithmSubstitutionPolicy): boolean => {
-      return (
-        policy.level >= AlgorithmSubstitutionPolicyLevels.SAME_METHOD &&
-        policy.level <= AlgorithmSubstitutionPolicyLevels.SAME_FRAMEWORK
-      );
-    },
-  );
+  public ALGORITHM_SUBSTITUTION_POLICIES =
+    ALGORITHM_SUBSTITUTION_POLICIES.filter(
+      (policy: AlgorithmSubstitutionPolicy): boolean => {
+        return (
+          policy.level >= AlgorithmSubstitutionPolicyLevels.SAME_METHOD &&
+          policy.level <= AlgorithmSubstitutionPolicyLevels.SAME_FRAMEWORK
+        );
+      },
+    );
 
   private simulatorIds = new Set<string>();
   public simulators: SimulatorIdNameDisabled[] = [];
