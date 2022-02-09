@@ -137,7 +137,7 @@
     "@juggle/resize-observer": "3.3.1",
     "@nestjs/schematics": "8.0.5",
     "@nestjs/testing": "8.2.6",
-    "@ng-select/ng-select": "7.4.0",
+    "@ng-select/ng-select": "8.1.1",
     "@ngx-lite/json-ld": "0.6.4",
     "@nrwl/angular": "13.7.2",
     "@nrwl/cli": "13.7.2",
