@@ -4070,7 +4070,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Ben Lesh
 │  ├─ email: ben@benlesh.com
 │  └─ licenseFile: @nrwl/tao/node_modules/rxjs/LICENSE.txt
-├─ rxjs@7.5.2
+├─ rxjs@7.5.4
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/reactivex/rxjs
 │  ├─ publisher: Ben Lesh
