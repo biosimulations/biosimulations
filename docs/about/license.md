@@ -153,7 +153,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/common/LICENSE
-├─ @nestjs/config@1.1.6
+├─ @nestjs/config@1.1.7
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/config
 │  ├─ publisher: Kamil Mysliwiec
@@ -447,7 +447,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Pierre Vanduynslager
 │  ├─ url: https://twitter.com/@pvdlg_
 │  └─ licenseFile: @semantic-release/release-notes-generator/LICENSE
-├─ @sendgrid/client@7.6.0
+├─ @sendgrid/client@7.6.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sendgrid/sendgrid-nodejs
 │  ├─ publisher: Twilio SendGrid
@@ -461,7 +461,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: help@twilio.com
 │  ├─ url: sendgrid.com
 │  └─ licenseFile: @sendgrid/helpers/LICENSE
-├─ @sendgrid/mail@7.6.0
+├─ @sendgrid/mail@7.6.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sendgrid/sendgrid-nodejs
 │  ├─ publisher: Twilio SendGrid
@@ -558,7 +558,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: nkeys.js/node_modules/@types/node/LICENSE
-├─ @types/node@16.11.22
+├─ @types/node@16.11.24
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/node/LICENSE
@@ -816,7 +816,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/auth0/node-auth0
 │  ├─ publisher: Auth0
 │  └─ licenseFile: auth0/LICENSE
-├─ aws-sdk@2.1071.0
+├─ aws-sdk@2.1073.0
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/aws/aws-sdk-js
 │  ├─ publisher: Amazon Web Services
@@ -1850,7 +1850,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: https://sindresorhus.com
 │  └─ licenseFile: find-versions/license
-├─ follow-redirects@1.14.7
+├─ follow-redirects@1.14.8
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/follow-redirects/follow-redirects
 │  ├─ publisher: Ruben Verborgh
@@ -2912,7 +2912,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/markedjs/marked
 │  ├─ publisher: Christopher Jeffrey
-│  └─ licenseFile: semantic-release/node_modules/marked/LICENSE.md
+│  └─ licenseFile: marked/LICENSE.md
 ├─ media-typer@0.3.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jshttp/media-typer
@@ -4204,7 +4204,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/wesleytodd/setprototypeof
 │  ├─ publisher: Wes Todd
 │  └─ licenseFile: @bull-board/express/node_modules/setprototypeof/LICENSE
-├─ sharp@0.30.0
+├─ sharp@0.30.1
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/lovell/sharp
 │  ├─ publisher: Lovell Fuller
