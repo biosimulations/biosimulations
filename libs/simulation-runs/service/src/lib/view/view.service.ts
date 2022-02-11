@@ -1281,7 +1281,7 @@ export class ViewService {
         runDataSet.headline = projectMeta.title;
       }
       if (projectMeta.abstract) {
-        runDataSet.description = projectMeta.abstract;
+        runDataSet.description = projectMeta.abstract.substring(0, 5000);
       }
       if (projectMeta.description) {
         runDataSet.abstract = projectMeta.description;
@@ -1333,7 +1333,7 @@ export class ViewService {
             '@type': 'CreativeWork',
           };
           if (citation.label) {
-            article.description = citation.label;
+            article.description = citation.label.substring(0, 5000);
           }
           if (citation.uri) {
             article.identifier = citation.uri;
