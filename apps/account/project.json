@@ -44,8 +44,12 @@
             "output": "assets"
           }
         ],
-        "styles": ["libs/shared/styles/src/index.scss"],
-        "scripts": ["node_modules/marked/lib/marked.js"],
+        "styles": [
+          "libs/shared/styles/src/index.scss"
+        ],
+        "scripts": [
+          "node_modules/marked/marked.min.js"
+        ],
         "stylePreprocessorOptions": {
           "includePaths": [
             "libs/shared/styles/src/lib",
@@ -108,7 +112,10 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["apps/account/**/*.ts", "apps/account/**/*.ts"]
+        "lintFilePatterns": [
+          "apps/account/**/*.ts",
+          "apps/account/**/*.ts"
+        ]
       }
     },
     "test": {
@@ -119,6 +126,13 @@
       }
     }
   },
-  "tags": ["scope:account", "platform:web", "type:frontend"],
-  "implicitDependencies": ["shared-assets", "shared-styles"]
+  "tags": [
+    "scope:account",
+    "platform:web",
+    "type:frontend"
+  ],
+  "implicitDependencies": [
+    "shared-assets",
+    "shared-styles"
+  ]
 }

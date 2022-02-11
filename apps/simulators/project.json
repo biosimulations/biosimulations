@@ -47,8 +47,12 @@
           "apps/simulators/src/browserconfig.xml",
           "apps/simulators/src/sitemap.xml"
         ],
-        "styles": ["libs/shared/styles/src/index.scss"],
-        "scripts": ["node_modules/marked/lib/marked.js"],
+        "styles": [
+          "libs/shared/styles/src/index.scss"
+        ],
+        "scripts": [
+          "node_modules/marked/marked.min.js"
+        ],
         "stylePreprocessorOptions": {
           "includePaths": [
             "libs/shared/styles/src/lib",
@@ -125,6 +129,13 @@
       }
     }
   },
-  "tags": ["scope:simulators", "type:frontend", "platform:web"],
-  "implicitDependencies": ["shared-assets", "shared-styles"]
+  "tags": [
+    "scope:simulators",
+    "type:frontend",
+    "platform:web"
+  ],
+  "implicitDependencies": [
+    "shared-assets",
+    "shared-styles"
+  ]
 }

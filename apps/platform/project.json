@@ -47,9 +47,11 @@
           "apps/platform/src/browserconfig.xml",
           "apps/platform/src/sitemap.xml"
         ],
-        "styles": ["libs/shared/styles/src/index.scss"],
+        "styles": [
+          "libs/shared/styles/src/index.scss"
+        ],
         "scripts": [
-          "node_modules/marked/lib/marked.js",
+          "node_modules/marked/marked.min.js",
           "node_modules/plotly.js/dist/plotly.min.js"
         ],
         "stylePreprocessorOptions": {
@@ -115,7 +117,10 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["apps/platform/**/*.ts", "apps/platform/**/*.html"]
+        "lintFilePatterns": [
+          "apps/platform/**/*.ts",
+          "apps/platform/**/*.html"
+        ]
       }
     },
     "test": {
@@ -126,6 +131,13 @@
       }
     }
   },
-  "tags": ["scope:platform", "type:frontend", "platform:web"],
-  "implicitDependencies": ["shared-assets", "shared-styles"]
+  "tags": [
+    "scope:platform",
+    "type:frontend",
+    "platform:web"
+  ],
+  "implicitDependencies": [
+    "shared-assets",
+    "shared-styles"
+  ]
 }
