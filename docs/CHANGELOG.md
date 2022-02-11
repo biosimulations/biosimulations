@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.2.3](https://github.com/biosimulations/biosimulations/compare/v9.2.2...v9.2.3) (2022-02-11)
+
+
+### Bug Fixes
+
+* **dispatch-service:** remove http retries on combine wrapper service ([8239f3d](https://github.com/biosimulations/biosimulations/commit/8239f3d162bfb35c5b1797a5f7ea64d475d14fce)), closes [#4032](https://github.com/biosimulations/biosimulations/issues/4032)
+
 ## [9.2.2](https://github.com/biosimulations/biosimulations/compare/v9.2.1...v9.2.2) (2022-02-08)
 
 
