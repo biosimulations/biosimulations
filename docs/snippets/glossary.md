@@ -3,9 +3,9 @@
 *[CSV]: Comma-Separated Values: Format for tables of data.
 *[DAE]: Differential algebraic equations: Framework for modeling a system as a set of differential and algebraic equations.
 *[COMBINE/OMEX]: Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).
-*[container]: Technology used to encapsulate the computational environments requried to simulation software tools.
-*[containerization]: Technology used to encapsulate the computational environments requried to simulation software tools.
-*[Docker]: Technology used to encapsulate the computational environments requried to simulation software tools.
+*[container]: Technology used to encapsulate the computational environments required to simulation software tools.
+*[containerization]: Technology used to encapsulate the computational environments required to simulation software tools.
+*[Docker]: Technology used to encapsulate the computational environments required to simulation software tools.
 *[EDAM]: EMBRACE Data and Methods: Ontology for describing model formats.
 *[FBA]: Flux Balance Analysis: Framework for modeling the optimal steady-state flux distribution of a system.
 *[HDF5]: Hierarchical Data Format version 5: Format for capturing the results of simulations.
@@ -13,7 +13,7 @@
 *[HSDS]: Highly Scalable Data Service: Database for storing the results of simulations.
 *[GINML]: GINsim Markup Language: Format used by the GINsim simulation tool to describe logical models.
 *[iPython]: Interactive shell for Python.
-*[JSON]: JavaScript Object Notation: Format for inputs and ouputs to the BioSimulations and BioSimulators APIs.
+*[JSON]: JavaScript Object Notation: Format for inputs and outputs to the BioSimulations and BioSimulators APIs.
 *[KiSAO]: Kinetic Simulation and Algorithms Ontology: Ontology for describing simulation algorithms and their parameters.
 *[LEMS]: Low Entropy Model Specification: Format for describing neurophysiological simulations.
 *[MASS]: Mass Action Stoichiometric Simulation: High-level framework for generating dynamical models from constraint-based models.
