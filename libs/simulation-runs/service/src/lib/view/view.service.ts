@@ -458,7 +458,7 @@ export class ViewService {
               });
             methodsTools = methodsTools.concat(algorithmItems);
 
-            Array.from(modelLanguageSedUrns)
+            const modelFormatItems = Array.from(modelLanguageSedUrns)
               .filter((modelLanguageSedUrn): boolean => {
                 for (const format of BIOSIMULATIONS_FORMATS) {
                   if (
@@ -486,7 +486,7 @@ export class ViewService {
                     )
                   ) {
                     modelLanguage = {
-                      title: 'Model',
+                      title: 'Model format',
                       value:
                         format?.biosimulationsMetadata?.acronym || format.name,
                       icon: 'model',
@@ -502,6 +502,7 @@ export class ViewService {
                   numeric: true,
                 });
               });
+            methodsTools = methodsTools.concat(modelFormatItems);
 
             methodsTools.push({
               title: 'Simulation format',
