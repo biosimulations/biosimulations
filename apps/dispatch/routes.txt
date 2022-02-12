@@ -1,6 +1,6 @@
 /
-/run
-/simulations
+/runs
+/runs/new
 /utils/convert-file
 /utils/create-project
 /utils/suggest-simulator

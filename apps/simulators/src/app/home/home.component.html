@@ -1,5 +1,5 @@
 <biosimulations-home-teaser
-  heading="Registry of biosimulation tools"
+  heading="Easily find and obtain biosimulation tools"
   banner="assets/images/biosimulators-logo/logo-white.svg"
 >
   <ng-container id="buttons">
@@ -19,7 +19,7 @@
       width="180px"
       color="accent"
     >
-      <ng-container id="title">Find simulations</ng-container>
+      <ng-container id="title">Find projects</ng-container>
       <ng-container id="text">
         <p>@BioSimulations</p>
       </ng-container>
@@ -60,11 +60,10 @@
   <ng-container id="description">
     BioSimulators is a free
     <a [routerLink]="['/simulators']">registry of biosimulation tools</a>. The
-    simulators support a broad range of frameworks (e.g., logical, kinetic),
-    simulation algorithms (e.g., FBA, SSA), and formats (e.g., BNGL, CellML,
-    NeuroML/LEMS, SBML, Smoldyn). Many of the simulators provide Docker images
-    that support a consistent interface that builds on SED-ML, COMBINE, and
-    other standards. Together, BioSimulators makes it easier to execute
+    registry includes tools for a broad range of frameworks (e.g., logical, kinetic),
+    simulation algorithms (e.g., FBA, SSA), and model formats (e.g., BNGL, CellML,
+    NeuroML/LEMS, SBML, Smoldyn). Many of the simulation tools provide Python packages, command-line programs, and Docker images
+    with consistent interfaces. Together, BioSimulators makes it easier to run
     simulations. BioSimulators is powered by several
     <a
       href="https://docs.biosimulations.org/concepts/conventions/"
@@ -72,36 +71,33 @@
       target="biosimulations-docs"
       >conventions</a
     >
-    for specifications, interfaces, and images of simulators and reports of
-    simulation results.
+    including SED-ML, KiSAO, COMBINE, and other standards.
   </ng-container>
 </biosimulations-home-teaser>
 
 <biosimulations-home-section [columns]="3">
   <ng-container id="heading">
     Helping investigators
-    <span class="highlight-primary">execute biomodeling studies</span>
+    <span class="highlight-primary">run biosimulations</span>
   </ng-container>
 
   <biosimulations-home-subsection
     id="subsection"
-    heading="Simulate studies"
-    subheading="Execute many algorithms"
-    icon="simulator"
+    heading="Find simulation tools"
+    subheading="Download consistent interfaces to tools"
+    icon="reuse"
   >
-    The tools in the BioSimulators registry can execute a broad range of
-    modeling frameworks, simulation algorithms, and model formats.
+    BioSimulators makes it easy to find tools that can run specific simulations and download and run them.
   </biosimulations-home-subsection>
 
   <biosimulations-home-subsection
     id="subsection"
-    heading="Reuse published studies"
-    subheading="Evaluate new hypotheses"
-    icon="reuse"
+    heading="Run simulations"
+    subheading="Execute many algorithms"
+    icon="simulator"
   >
-    By making it easier to execute simulations, BioSimulators makes it easier
-    for investigators to reuse published simulations and for peer reviewers to
-    evaluate simulations.
+    The tools in the BioSimulators registry can run a broad range of
+    modeling frameworks, simulation algorithms, and model formats.
   </biosimulations-home-subsection>
 
   <biosimulations-home-subsection
@@ -116,7 +112,7 @@
   </biosimulations-home-subsection>
 </biosimulations-home-section>
 
-<biosimulations-home-section [columns]="4">
+<biosimulations-home-section [columns]="3">
   <ng-container id="heading"
     >Consistent access to
     <span class="highlight-primary"
@@ -208,21 +204,6 @@
       title="SED-ML"
       src="assets/images/about/partners/sed-ml.svg"
       href="https://sed-ml.org/"
-    >
-    </biosimulations-home-logo>
-  </biosimulations-home-subsection>
-
-  <biosimulations-home-subsection
-    id="subsection"
-    heading="Project formats"
-    subheading="BioSimulators supports the COMBINE/OMEX project format"
-    subheadingSize="small"
-    icon="project"
-  >
-    <biosimulations-home-logo
-      title="COMBINE/OMEX"
-      src="assets/images/about/partners/omex.svg"
-      href="https://combinearchive.org/"
     >
     </biosimulations-home-logo>
   </biosimulations-home-subsection>

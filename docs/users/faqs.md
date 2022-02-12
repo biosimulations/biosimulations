@@ -104,7 +104,7 @@ BioSimulations provides many archives. In addition, several example archives are
 
 **How can I quickly run a sample set of simulations?**
 
-Click [here](https://run.biosimulations.org/simulations?try=1) to load several example simulation projects from the [BioSimulators test suite](https://github.com/biosimulators/Biosimulators_test_suite/tree/deploy/examples/).
+Click [here](https://run.biosimulations.org/runs?try=1) to load several example simulation projects from the [BioSimulators test suite](https://github.com/biosimulators/Biosimulators_test_suite/tree/deploy/examples/).
 
 **How can I validate a COMBINE/OMEX archive?**
 
@@ -254,11 +254,11 @@ This page supports several query arguments:
 - `simulationType`: Name of the type of simulation to create (`OneStep`, `SteadyState`, `UniformTimeCourse`). This argument instructs the web form to select this simulation type.
 - `simulationAlgorithm`: KiSAO id of the simulation algorithm to execute (e.g., KISAO_0000019 for CVODE). This argument instructs the web form to select this algorithm.
 
-For example, the URL `https://run.biosimulations.org/run?modelUrl=https%3A%2F%2Fwww.ebi.ac.uk%2Fbiomodels%2Fmodel%2Fdownload%2FBIOMD0000000878.4%3Ffilename%3DLenbury2001.xml&modelFormat=format_2585&modelingFramework=SBO_0000293` can be used to link to the capability to create a COMBINE/OMEX archive for BioModels entry `BIOMD0000000878`.
+For example, the URL `https://run.biosimulations.org/runs/new?modelUrl=https%3A%2F%2Fwww.ebi.ac.uk%2Fbiomodels%2Fmodel%2Fdownload%2FBIOMD0000000878.4%3Ffilename%3DLenbury2001.xml&modelFormat=format_2585&modelingFramework=SBO_0000293` can be used to link to the capability to create a COMBINE/OMEX archive for BioModels entry `BIOMD0000000878`.
 
 **How can I embed execution capabilities for my simulations into my website?**
 
-Developers can use runBioSimulations to provide capabilities of execute simulations to their users, by simply adding a hyperlink to [https://run.biosimulations.org/run](https://run.biosimulations.org/run).
+Developers can use runBioSimulations to provide capabilities of execute simulations to their users, by simply adding a hyperlink to [https://run.biosimulations.org/runs/new](https://run.biosimulations.org/runs/new).
 
 The run simulations page supports several query arguments:
 
@@ -270,7 +270,7 @@ The run simulations page supports several query arguments:
 - `maxTime`: Recommended amount of time in minutes needed to execute the COMBINE/OMEX archive. This argument instructs the web form to preset the requested maximum execution time.
 - `runName`: Recommended name for the simulation run. This argument instructs the web form to preset the name of the simulation run.
 
-For example, the URL `https://run.biosimulations.org/run?projectUrl=https%3A%2F%2Fwww.ebi.ac.uk%2Fbiomodels%2Fmodel%2Fdownload%2FBIOMD0000000878` can be used to link to the capability to simulate BioModels entry BIOMD0000000878.
+For example, the URL `https://run.biosimulations.org/runs/new?projectUrl=https%3A%2F%2Fwww.ebi.ac.uk%2Fbiomodels%2Fmodel%2Fdownload%2FBIOMD0000000878` can be used to link to the capability to simulate BioModels entry BIOMD0000000878.
 
 **Does runBioSimulations provide an additional service for lower-latent simulation?**
 

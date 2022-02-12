@@ -416,7 +416,7 @@ export class ViewService {
             const simulationTypeItems = Array.from(simulationTypes)
               .map((simulationType: string): ListItem => {
                 return {
-                  title: 'Simulation',
+                  title: 'Simulation type',
                   value:
                     SimulationTypeBriefName[
                       simulationType as keyof typeof SimulationTypeBriefName
@@ -443,7 +443,7 @@ export class ViewService {
             const algorithmItems = Object.values(kisaoIdSimulationAlgorithmMap)
               .map((algorithm): ListItem => {
                 return {
-                  title: 'Algorithm',
+                  title: 'Simulation algorithm',
                   value: algorithm.name,
                   icon: 'code' as BiosimulationsIcon,
                   url:
@@ -457,13 +457,6 @@ export class ViewService {
                 });
               });
             methodsTools = methodsTools.concat(algorithmItems);
-
-            methodsTools.push({
-              title: 'Project',
-              value: 'COMBINE/OMEX',
-              icon: 'archive',
-              url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3686',
-            });
 
             Array.from(modelLanguageSedUrns)
               .filter((modelLanguageSedUrn): boolean => {
@@ -511,7 +504,7 @@ export class ViewService {
               });
 
             methodsTools.push({
-              title: 'Simulation',
+              title: 'Simulation format',
               value:
                 this.sedmlFormat?.biosimulationsMetadata?.acronym ||
                 this.sedmlFormat.name,
@@ -521,7 +514,14 @@ export class ViewService {
             });
 
             methodsTools.push({
-              title: 'Simulator',
+              title: 'Project format',
+              value: 'COMBINE/OMEX',
+              icon: 'archive',
+              url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3686',
+            });
+
+            methodsTools.push({
+              title: 'Simulation tool',
               value: `${simulationRunSummary.run.simulator.name} ${simulationRunSummary.run.simulator.version}`,
               icon: 'simulator',
               url: this.appRoutes.getSimulatorsView(

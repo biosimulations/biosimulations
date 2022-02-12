@@ -4,6 +4,6 @@
   { "route": "/construction" },
   { "route": "/maintainence" },
   { "route": "/" },
-  { "route": "/run" },
-  { "route": "/simulations" },
+  { "route": "/runs" },
+  { "route": "/runs/new" },
 ]

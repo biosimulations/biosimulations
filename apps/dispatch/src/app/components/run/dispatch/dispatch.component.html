@@ -1,5 +1,5 @@
 <biosimulations-page
-  heading="Run a simulation project"
+  heading="Run a simulation"
   *ngIf="simulators.length; else loading"
 >
   <form [formGroup]="formGroup" (ngSubmit)="onFormSubmit()">
@@ -123,7 +123,7 @@
 
             <p>
               Click
-              <a [routerLink]="['/simulations']" [queryParams]="{ try: '1' }"
+              <a [routerLink]="['/runs']" [queryParams]="{ try: '1' }"
                 >here</a
               >
               to load several example simulation projects from the BioSimulators

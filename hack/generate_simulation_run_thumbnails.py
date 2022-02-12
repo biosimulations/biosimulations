@@ -4,7 +4,6 @@ import json
 import requests
 
 deployment = 'prod'
-simulation_runs_path = 'simulations'
 
 bucket = s3.S3Bucket()
 
