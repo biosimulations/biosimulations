@@ -113,6 +113,23 @@ export class SimulationRunService {
     return returnVal;
   }
 
+  public updateSimulationRunFile(
+    runId: string,
+    fileUrl: string,
+    projectSize: number,
+  ): Observable<SimulationRun> {
+    const endpoint = this.endpoints.getSimulationRunEndpoint(false, runId);
+    type SimulationRunFilePatch = {
+      fileUrl: string;
+      projectSize: number;
+    };
+    const response = this.patchAuthenticated<
+      SimulationRunFilePatch,
+      SimulationRun
+    >(runId, endpoint, { fileUrl, projectSize });
+    return response;
+  }
+
   public updateSimulationRunStatus(
     runId: string,
     status: SimulationRunStatus,

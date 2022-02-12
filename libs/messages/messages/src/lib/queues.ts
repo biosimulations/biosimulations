@@ -70,9 +70,10 @@ export class MonitorJobData {
 
 export class DispatchJobData {
   runId!: string;
-  simulator!: string;
-  version!: string;
   fileName!: string;
+  archiveUrl?: string;
+  simulator!: string;
+  version!: string;  
   cpus!: number;
   memory!: number;
   maxTime!: number;
