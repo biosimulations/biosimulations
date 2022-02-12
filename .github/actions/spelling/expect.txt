@@ -289,10 +289,11 @@ scoro
 screenshot
 Seaborn
 sedml
+semanticscience
 SGBN
 sif
 sinai
-SIO
+sio
 slurm
 smoldyn
 socio
