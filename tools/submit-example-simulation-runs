@@ -140,7 +140,7 @@ def main(runbiosimulations_deployment='dev', biosimulators_deployment='prod',
         url = EXAMPLE_COMBINE_ARCHIVES_BASE_URL.format(
             biosimulators_test_suite_branch) + simulation['filename']
 
-        # get COMBINE archive
+        # get COMBINE/OMEX archive
         response = requests.get(url)
         response.raise_for_status()
 

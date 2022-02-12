@@ -9,7 +9,7 @@ import zipfile
 
 
 def handler(body, file=None):
-    ''' Get the manifest of a COMBINE archive
+    ''' Get the manifest of a COMBINE/OMEX archive
 
     Args:
         body (:obj:`dict`): dictionary with keys

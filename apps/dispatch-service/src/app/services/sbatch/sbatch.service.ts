@@ -202,11 +202,11 @@ export SINGULARITY_CACHEDIR=${singularityCacheDir}
 export SINGULARITY_PULLFOLDER=${singularityPullFolder}
 
 echo -e ''
-echo -e '${cyan}============================================ Downloading COMBINE archive ============================================${nc}'
+echo -e '${cyan}========================================== Downloading COMBINE/OMEX archive =========================================${nc}'
 (ulimit -f 1048576; srun --job-name="Download-project" curl -L -o '${combineArchiveFilename}' ${runCombineArchiveUrl})
 
 echo -e ''
-echo -e '${cyan}============================================= Executing COMBINE archive =============================================${nc}'
+echo -e '${cyan}=========================================== Executing COMBINE/OMEX archive ==========================================${nc}'
 srun --job-name="Execute-project" \
   singularity run \
     --tmpdir /local \

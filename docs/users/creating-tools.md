@@ -22,7 +22,7 @@ Please follow the steps below to create a containerized simulation tool that adh
 1. Optionally, create a Git repository for your command-line interface and Dockerfile.
 1. Implement a BioSimulators-compliant command-line interface to your simulation tool. The interface should accept two keyword arguments:
 
-    - `-i, --archive`: A path to a COMBINE archive that contains descriptions of one or more simulation tasks.
+    - `-i, --archive`: A path to a COMBINE/OMEX archive that contains descriptions of one or more simulation tasks.
     - `-o, --out-dir`: A path to a directory where the outputs of the simulation tasks should be saved. Data for plots and reports should be saved in HDF5 format (see the [specifications for data sets](../concepts/conventions/simulation-run-reports.md) for more information) and plots should be saved in Portable Document Format (PDF) bundled into a single zip archive. Data for reports and plots should be saved to `{ out-dir }/reports.h5` and plots should be saved to `{ out-dir/plots.zip }`. Within the HDF5 file and the zip file, reports and plots should be saved to paths equal to the relative path of their parent SED-ML documents within the parent COMBINE/OMEX archive and the id of the report/plot.
 
     For reports, the rows of the data tables should correspond to the data sets (`sedml:dataSet`) specified in the SED-ML definition of the report (e.g., time, specific species). The heading of each row should be the label of the corresponding data set.

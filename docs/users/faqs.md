@@ -1,6 +1,6 @@
 # Frequently asked questions
 
-## Simulation projects (COMBINE/OMEX archive)
+## Simulation projects (COMBINE/OMEX archives)
 
 **Can I search for projects by wild cards?**
 
@@ -25,7 +25,7 @@ Yes. The [search engine](https::/biosimulations.org/projects) supports searching
 | Simulation tools      |                                                                                            |       | `simulation-tools`      | [BioSimulators](https://biosimulators.org)                                    |
 | Reports               | Report formats                                                                             |       | `reports`               |                                                                               |
 | Visualizations        | Visualization formats                                                                      |       | `visualizations`        |                                                                               |
-| Project size          | COMBINE archive size                                                                       | MB    | `project-size`          |                                                                               |
+| Project size          | COMBINE/OMEX archive size                                                                       | MB    | `project-size`          |                                                                               |
 | CPUs                  | Requested CPUs                                                                             |       | `cpus`                  |                                                                               |
 | Memory                | Requested memory                                                                           | GB    | `memory`                |                                                                               |
 | Results size          | Size of outputs                                                                            | MB    | `results-size`          |                                                                               |
@@ -68,7 +68,7 @@ Third, runBioSimulations has limited ability to execute SED-ML documents that de
 - Incorrect KiSAO ids for algorithms: Some simulation tools produce SED-ML files that indicate different algorithms than what the simulation tool actually used to execute the simulation.
 - Inconsistent plot axes: Some simulation tools produces SED-ML files where curves in the same plot have mixed (linear and log) x, y, and/or z axes.
 
-runBioSimulations provides two web applications for [validating SED-ML files](https://run.biosimulations.org/utils/validate-simulation) and [COMBINE archives](https://run.biosimulations.org/utils/validate-project). [BioSimulators-utils](https://github.com/biosimulators/biosimulators_utils) provides a command-line program and Python API for validating SED-ML files and COMBINE archives.
+runBioSimulations provides two web applications for [validating SED-ML files](https://run.biosimulations.org/utils/validate-simulation) and [COMBINE/OMEX archives](https://run.biosimulations.org/utils/validate-project). [BioSimulators-utils](https://github.com/biosimulators/biosimulators_utils) provides a command-line program and Python API for validating SED-ML files and COMBINE/OMEX archives.
 
 We are working with the SED-ML community to clarify the specifications of SED-ML and resolve these inconsistencies. To drive consistency, we also developed the [BioSimulators test suite](https://github.com/biosimulators/Biosimulators_test_suite) for verifying whether simulation tools execute COMBINE/OMEX archives and SED-ML files consistently with the specifications of these formats. In addition, we developed [BioSimulators utils](https://github.com/biosimulators/Biosimulators_utils), a Python package which provides methods for more deeply validating COMBINE/OMEX archives and SED-ML files.
 
@@ -90,9 +90,9 @@ Below are several additional tools for creating SED-ML files and COMBINE/OMEX ar
     Most of these tools are not fully compliant with the SED-ML and COMBINE/OMEX archive standards.
 
 
-**Can projects include multiple models, simulations, and/or visualizations?**
+**Can projects (COMBINE/OMEX archives) include multiple models, simulations, and/or visualizations?**
 
-Yes. Projects can include one or more models, one or more simulations of those models, and zero or more visualizations of the results of those simulations.
+Yes. COMBINE/OMEX archives can include one or more models, one or more simulations of those models, and zero or more visualizations of the results of those simulations.
 
 **Can I use runBioSimulations to execute simulations involving confidential data (e.g., sensitive patient information)?**
 
@@ -144,7 +144,7 @@ Simulation projects (COMBINE/OMEX archives) are limited to 1 GB each. Furthermor
 
 runBioSimulations currently allows users to request up the following amounts of resources for each simulation project:
 
-- Projects: 1 GB
+- Projects (COMBINE/OMEX archives): 1 GB
 - Cores: 24
 - RAM: 192 GB
 - Time: 20 days
@@ -186,9 +186,9 @@ runBioSimulations stores simulations and their results permanently. For special 
 
 We recommend embedding hyperlinks to interactive versions of static figures in figure captions, availability sections, and/or supplementary materials. During peer review, private runBioSimulations hyperlinks can be used as described above. We recommend using Identifiers.org hyperlinks (<code>https://identifiers.org/biosimulations/{project-id}</code>, <code>https://identifiers.org/runbiosimulations/{run-id}</code>).
 
-**Do I need to create an account to publish a project?**
+**Do I need to create an account to publish a simulation project (run of a COMBINE/OMEX archive)?**
 
-No. Projects can be published anonymously without an account or registration. However, to be able to later edit a project, you must create an account and use that account to publish the project. Once the project is created, only that account will be able to edit the project.
+No. Runs can be published anonymously without an account or registration. However, to be able to later edit a project, you must create an account and use that account to publish the project. Once the project is created, only that account will be able to edit the project.
 
 **How can I edit a project that I published?**
 
@@ -214,7 +214,7 @@ BioSimulations stores projects permanently, including their source files and sim
 
 runBioSimulations stores simulations and their results permanently. For special cases, contact the [BioSimulators Team](mailto:info@biosimulators.org) to request deleting simulations and results.
 
-**How long does runBioSimulations store COMBINE archives created via the online webform?**
+**How long does runBioSimulations store COMBINE/OMEX archives created via the online webform?**
 
 Archives created with the webform are temporarily stored for 1 day.
 
@@ -248,7 +248,7 @@ Developers can use runBioSimulations to provide their users capabilities to exec
 
 This page supports several query arguments:
 
-- `modelUrl`: URL for a model file that will be configured in a COMBINE archive. This argument instructs the web form to prefill the model file input with this URL.
+- `modelUrl`: URL for a model file that will be configured in a COMBINE/OMEX archive. This argument instructs the web form to prefill the model file input with this URL.
 - `modelFormat`: EDAM id of the format of the models to execute (e.g., `format_2585` for SBML). This argument instructs the web form select this format.
 - `modelingFramework`: SBO id of the modeling framework of the simulations to execute (e.g., `SBO_0000293` for continuous kinetic framework). This argument instructs the web form to select this modeling framework.
 - `simulationType`: Name of the type of simulation to create (`OneStep`, `SteadyState`, `UniformTimeCourse`). This argument instructs the web form to select this simulation type.

@@ -36,7 +36,7 @@
   >
     <div class="partial-width files">
       <biosimulations-text-page-content-section
-        heading="Project"
+        heading="Simulation specification (COMBINE/OMEX archive)"
         *ngIf="projectFiles$ | async as files"
       >
         <biosimulations-project-files
@@ -49,7 +49,7 @@
       </biosimulations-text-page-content-section>
 
       <biosimulations-text-page-content-section
-        heading="Project contents"
+        heading="Contents of simulation specification"
         *ngIf="files$ | async as files"
       >
         <biosimulations-project-files

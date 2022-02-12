@@ -48,7 +48,7 @@ BioSimulations collects metadata to enable searching, browsing and discovering p
 
 ### Visualizations
 
-Projects can be visualized using both predefined and custom visualizations. The "Select chart" tab allows you to select from pre-defined visualizations that were included in the project, including both basic charts described with SED-ML and more complex visualizations described with Vega. Additionally, you can create your own custom visualizations by selecting one of the "Design a chart" options including histograms, heatmaps and lineplots. Selecting a plot time will open an additional menu with configuration options to select the datasets to be plotted.
+The results of simulations can be visualized using both predefined and custom visualizations. The "Select chart" tab allows you to select from pre-defined visualizations that the author included, including both basic charts described with SED-ML and more complex visualizations described with Vega. Additionally, you can create your own custom visualizations by selecting one of the "Design a chart" options including histograms, heatmaps and lineplots. Selecting a plot time will open an additional menu with configuration options to select the datasets to be plotted.
 
 Once you have configured your visualization, you can view it by clicking on the "View chart" button. The "Export to Vega" button will export the visualization to a [Vega](https://vega.github.io/) specification, which enables greater user customization of the visual. More information for using Vega with BioSimulations in available [here](../concepts/conventions/simulation-run-visualizations.md).
 
@@ -62,7 +62,7 @@ More detailed information about the execution of the project and its results can
 
 ### Creating and executing variants of simulations with runBioSimulations
 
-In addition to this full-featured web application, [runBioSimulations](https://run.biosimulations.org) provides a simpler web application and REST API for executing simulations. runBioSimulations simply enables users to execute COMBINE archives using a variety of simulation tools and generate time series plots of their results. runBioSimulations does not require an account.
+In addition to this full-featured web application, [runBioSimulations](https://run.biosimulations.org) provides a simpler web application and REST API for executing simulations. runBioSimulations simply enables users to execute COMBINE/OMEX archives using a variety of simulation tools and generate time series plots of their results. runBioSimulations does not require an account.
 
 ### Downloading projects and executing them with your own computers
 

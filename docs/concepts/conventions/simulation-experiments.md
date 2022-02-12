@@ -97,11 +97,11 @@ Some algorithms, such as flux balance analysis (FBA, [`KISAO_0000437`](https://w
 To facilitate automated interpretation of simulation results, the data sets within a report should have unique labels (`sedml:dataSet/@sedml:label`). Note, the same label can be used across multiple reports.
 
 
-## Guides for using SED-ML and the COMBINE archive format with specific model languages
+## Guides for using SED-ML and the COMBINE/OMEX archive format with specific model languages
 
 Simulation tools should recognize the URNs and IRIs below to identify model languages described in SED-ML files and COMBINE/OMEX archives. The links in the "Info" column below contain more information about how simulation tools should interpret SED-ML in combination with specific model languages.
 
-| Language                                                              | EDAM id | SED-ML URN	               | COMBINE archive specification URI	                   | MIME type              | Extensions     |Info                                                                           |
+| Language                                                              | EDAM id | SED-ML URN	               | COMBINE/OMEX archive specification URI	                   | MIME type              | Extensions     |Info                                                                           |
 | ---                                                                   | ---     | ---                        | ---                                                  |---                     | ---            |---                                                                            |
 | [BNGL](https://bionetgen.org/)                                        | 3972    | urn:sedml:language:bngl    | http://purl.org/NET/mediatypes/text/bngl+plain	   | text/bngl+plain	    | .bngl	         | [:link:](https://docs.biosimulators.org/Biosimulators_BioNetGen/tutorial.html)| 
 | [CellML](https://cellml.org/)                                         | 3240    | urn:sedml:language:cellml  | http://identifiers.org/combine.specifications/cellml | application/cellml+xml | .xml, .cellml	 | [:link:](https://sed-ml.org/specifications.html)                              | 

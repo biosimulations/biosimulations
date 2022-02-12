@@ -133,8 +133,8 @@ export class SimulationRunController {
     description:
       'Upload an COMBINE/OMEX archive file along with a description of the simulator to use to execute the archive.\
        The simulation will be excecuted and the status of the simulation run object will be updated. \
-      \nThe simulation can be uploaded as a COMBINE archive by using the multipart/form-data accept header.\
-      Alternatively, use the application/json accept header to provide a URL to an external COMBINE archive',
+      \nThe simulation can be uploaded as a COMBINE/OMEX archive by using the multipart/form-data accept header.\
+      Alternatively, use the application/json accept header to provide a URL to an external COMBINE/OMEX archive',
     requestBody: {
       content: {
         'application/json': {

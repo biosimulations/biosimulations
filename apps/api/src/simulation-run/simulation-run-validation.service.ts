@@ -155,12 +155,12 @@ export class SimulationRunValidationService {
 
     if (!run.projectSize) {
       errorDetails.push(
-        `The COMBINE archive for the run appears to be empty. An error may have occurred in saving the archive. \
+        `The COMBINE/OMEX archive for the run appears to be empty. An error may have occurred in saving the archive. \
         Archives must be properly saved for publication. If you believe this is incorrect, \
         please submit an issue at https://github.com/biosimulations/biosimulations/issues/new/choose.`,
       );
       errorSummaries.push(
-        `The COMBINE archive for the run appears to be empty. An error may have occurred in saving the archive. \
+        `The COMBINE/OMEX archive for the run appears to be empty. An error may have occurred in saving the archive. \
         Archives must be properly saved for publication. If you believe this is incorrect, please submit an issue \
         at https://github.com/biosimulations/biosimulations/issues/new/choose.`,
       );
@@ -194,14 +194,14 @@ export class SimulationRunValidationService {
     const checks: Check[] = [
       {
         check: this.filesService.getSimulationRunFiles(id),
-        errorMessage: `Files (contents of COMBINE archive) could not be found for simulation run '${id}'.`,
+        errorMessage: `Files (contents of COMBINE/OMEX archive) could not be found for simulation run '${id}'.`,
         isValid: (files: FileModel[]): boolean => files.length > 0,
       },
       {
         check: this.specificationsService.getSpecificationsBySimulation(id),
         errorMessage: `Simulation specifications (SED-ML documents) could not be found for simulation run '${id}'. \
         For publication, simulation experiments must be valid SED-ML documents. \
-        Please check that the SED-ML documents in the COMBINE archive are valid. \
+        Please check that the SED-ML documents in the COMBINE/OMEX archive are valid. \
         More information is available at https://docs.biosimulations.org/concepts/conventions/simulation-experiments/ \
         and https://run.biosimulations.org/utils/validate-project.`,
         isValid: (specifications: SpecificationsModel[]): boolean =>
@@ -421,14 +421,14 @@ export class SimulationRunValidationService {
         errorDetails.push(
           'One or more data sets of reports or data generators of plots was not recorded. ' +
             'For publication, there must be simulation results for each data set and data ' +
-            'generator specified in each SED-ML documents in the COMBINE archive. The ' +
+            'generator specified in each SED-ML documents in the COMBINE/OMEX archive. The ' +
             'following data sets and data generators were not recorded.\n\n  * ' +
             unproducedDatSetUris.join('\n  * '),
         );
         errorSummaries.push(
           'One or more data sets of reports or data generators of plots was not recorded. ' +
             'For publication, there must be simulation results for each data set and data ' +
-            'generator specified in each SED-ML documents in the COMBINE archive. The ' +
+            'generator specified in each SED-ML documents in the COMBINE/OMEX archive. The ' +
             'following data sets and data generators were not recorded.\n\n  * ' +
             unproducedDatSetUris.join('\n  * '),
         );

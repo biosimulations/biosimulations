@@ -25,11 +25,11 @@ export class FilePaths {
   }
 
   /**
-   * Get the URL for downloading a file from within a COMBINE archive.
-   * The COMBINE archive is extracted to the s3 bucket. Returns a URL to the file in the s3 bucket
+   * Get the URL for downloading a file from within a COMBINE/OMEX archive.
+   * The COMBINE/OMEX archive is extracted to the s3 bucket. Returns a URL to the file in the s3 bucket
    * @param runId The id of the simulation run
-   * @param fileLocation The path of the file within COMBINE archive relative to its root. Should not include './'
-   * @returns A URL to download the file from within the COMBINE archive
+   * @param fileLocation The path of the file within COMBINE/OMEX archive relative to its root. Should not include './'
+   * @returns A URL to download the file from within the COMBINE/OMEX archive
    */
   public getSimulationRunFileContentEndpoint(
     runId: string,
