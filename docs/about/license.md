@@ -811,7 +811,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Ryan Zimmerman
 │  ├─ email: opensrc@ryanzim.com
 │  └─ licenseFile: at-least-node/LICENSE
-├─ auth0@2.39.0
+├─ auth0@2.40.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/auth0/node-auth0
 │  ├─ publisher: Auth0
@@ -1850,7 +1850,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: https://sindresorhus.com
 │  └─ licenseFile: find-versions/license
-├─ follow-redirects@1.14.8
+├─ follow-redirects@1.14.7
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/follow-redirects/follow-redirects
 │  ├─ publisher: Ruben Verborgh
