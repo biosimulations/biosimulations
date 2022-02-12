@@ -143,6 +143,7 @@ Hindmarsh
 homepage
 hpc
 href
+HSDS
 Hsl
 html
 http
@@ -320,6 +321,7 @@ TFLOPs
 timecourse
 tmp
 Totte
+TSV
 ubuntu
 uchc
 uconn
@@ -351,6 +353,8 @@ WLSACCESSID
 WLSSECRET
 workflow
 www
+XLS
+XLSX
 xml
 xmlns
 xpath
