@@ -16,7 +16,6 @@ import {
   CACHE_MANAGER,
   HttpStatus,
   forwardRef,
-  PayloadTooLargeException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
@@ -76,13 +75,10 @@ import { CombineArchiveLog } from '@biosimulations/datamodel/common';
 import { SimulationRunMetadataIdModel } from '../metadata/metadata.model';
 import { OntologyApiService } from '@biosimulations/ontology/api';
 import { Cache } from 'cache-manager';
-import { AxiosError, AxiosResponse } from 'axios';
+import { AxiosError } from 'axios';
 import { ProjectsService } from '../projects/projects.service';
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
-import { FormatService } from '@biosimulations/shared/services';
 
-// 1 GB in bytes to be used as file size limits
-const MAX_ARCHIVE_SIZE = 1e9;
 const toApi = <T extends SimulationRunModelType>(
   obj: T,
 ): SimulationRunModelReturnType => {
@@ -164,14 +160,14 @@ export class SimulationRunService {
 
       const url = encodeURI(s3file);
 
-      return this.createRun(run, size, url, id);
+      return this.createRun(id, run, url, size);
     } catch (err: any) {
-      const details = `An error occurred in uploading the COMBINE/OMEX archive for the simulation run: ${this.getErrorMessage(
+      const details = `An error occurred in creating a run for the COMBINE/OMEX archive: ${this.getErrorMessage(
         err,
       )}.`;
       this.logger.error(details);
 
-      const message = `An error occurred in uploading the COMBINE/OMEX archive for the simulation run${
+      const message = `An error occurred in creating a run for the COMBINE/OMEX archive${
         err instanceof Error && err.message ? ': ' + err?.message : ''
       }.`;
       throw new BiosimulationsException(
@@ -191,46 +187,8 @@ export class SimulationRunService {
     body: UploadSimulationRunUrl,
   ): Promise<SimulationRunModelReturnType> {
     const url = body.url;
-
-    this.logger.debug(`Downloading file from ${url} ...`);
-    let file: AxiosResponse<Readable> | null = null;
-    try {
-      file = await firstValueFrom(
-        this.httpService.get(url, {
-          responseType: 'stream',
-          maxContentLength: MAX_ARCHIVE_SIZE,
-        }),
-      );
-    } catch (err) {
-      // if the error is bc file too bug, give this more specific error.
-      // Otherwiise, just let file be null, which will throw the more generic 400 below
-      if ((err as AxiosError).message.includes('maxContentLength')) {
-        throw new PayloadTooLargeException(
-          `The maximum allowed size of the file is ${FormatService.formatDigitalSize(
-            MAX_ARCHIVE_SIZE,
-          )}. The provided file was too large.`,
-        );
-      }
-    }
-
-    if (file) {
-      let size = 0;
-      const file_headers = file?.headers;
-      try {
-        size = Number(file_headers['content-length']);
-      } catch (err) {
-        size = 0;
-        this.logger.warn(err);
-      }
-
-      this.logger.debug(`Downloaded file from ${url}.`);
-      return this.createRunWithFile(body, file.data, size);
-    } else {
-      throw new BadRequestException(
-        `The COMBINE/OMEX archive for the simulation run could not be obtained from ${url}.
-        Please check that the URL is accessible.`,
-      );
-    }
+    const id = String(new mongo.ObjectId());
+    return this.createRun(id, body, url, undefined);
   }
   /**
    * Download the COMBINE/OMEX archive file for the provided id. The archive is provided as a URL on the fileUrl field
@@ -324,6 +282,8 @@ export class SimulationRunService {
       );
     }
 
+    this.updateModelFileUrl(model, run.fileUrl);
+    this.updateModelProjectSize(model, run.projectSize);
     this.updateModelResultSize(model, run.resultsSize);
     this.updateModelStatus(model, run.status);
 
@@ -448,10 +408,10 @@ export class SimulationRunService {
    * @param file The file object returned by the Mutter library containing the COMBINE/OMEX archive file
    */
   private async createRun(
-    run: UploadSimulationRun,
-    projectSize: number,
-    fileUrl: string,
     id: string,
+    run: UploadSimulationRun,    
+    fileUrl: string,
+    projectSize?: number,
   ): Promise<SimulationRunModelReturnType> {
     const newSimulationRun = new this.simulationRunModel(run);
     const simulator = await this.getSimulator(
@@ -542,6 +502,32 @@ export class SimulationRunService {
     return model;
   }
 
+  private updateModelFileUrl(
+    model: SimulationRunModel,
+    fileUrl: string | undefined,
+  ): SimulationRunModel {
+    if (fileUrl !== undefined) {
+      model.fileUrl = fileUrl;
+      this.logger.debug(
+        `Set fileUrl of simulation run '${model.id}' to '${fileUrl}'.`,
+      );
+    }
+    return model;
+  }
+
+  private updateModelProjectSize(
+    model: SimulationRunModel,
+    projectSize: number | undefined,
+  ): SimulationRunModel {
+    if (projectSize !== undefined) {
+      model.projectSize = projectSize;
+      this.logger.debug(
+        `Set projectSize of simulation run '${model.id}' to '${projectSize}'.`,
+      );
+    }
+    return model;
+  }
+
   private updateModelStatus(
     model: SimulationRunModel | null,
     status: SimulationRunStatus | undefined,
@@ -577,7 +563,7 @@ export class SimulationRunService {
       model.status = status;
       model.refreshCount = model.refreshCount + 1;
       this.logger.log(
-        `Set '${model.id}' status to '${model.status}' on update ${model.refreshCount}.`,
+        `Set status of simulation run '${model.id}' to '${model.status}' on update ${model.refreshCount}.`,
       );
       this.updateModelRunTime(model);
       if (status == SimulationRunStatus.FAILED) {
@@ -598,7 +584,7 @@ export class SimulationRunService {
     if (resultsSize) {
       model.resultsSize = resultsSize;
       this.logger.debug(
-        `Set '${model.id}' resultsSize to ${model.resultsSize}.`,
+        `Set resultsSize of simulation run '${model.id}' to '${resultsSize}'.`,
       );
     }
     return model;

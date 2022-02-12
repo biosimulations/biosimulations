@@ -194,6 +194,7 @@ export class SimulationRunController {
     let run: SimulationRunModelReturnType;
     const user = req?.user as AuthToken;
     let projectId: string | undefined;
+    let archiveUrl: string | undefined = undefined;
 
     if (!contentType) {
       throw new UnsupportedMediaTypeException(
@@ -215,6 +216,7 @@ export class SimulationRunController {
       projectId = body?.projectId;
       this.checkPublishProjectPermission(user, projectId);
       run = await this.service.createRunWithURL(body);
+      archiveUrl = body.url;
     } else {
       throw new UnsupportedMediaTypeException(
         "The content type must be 'application/json' or 'multipart/form-data'.",
@@ -225,6 +227,7 @@ export class SimulationRunController {
     const message: DispatchJobData = {
       runId: run.id,
       fileName: file?.originalname || 'input.omex',
+      archiveUrl: archiveUrl,
       simulator: run.simulator,
       version: run.simulatorVersion,
       cpus: run.cpus,
