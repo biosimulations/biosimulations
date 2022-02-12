@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.2.4](https://github.com/biosimulations/biosimulations/compare/v9.2.3...v9.2.4) (2022-02-12)
+
+
+### Bug Fixes
+
+* **platform:** truncated JSON-LD descriptions ([5fbb023](https://github.com/biosimulations/biosimulations/commit/5fbb0234b26c20c67189b48f717d7c23fc805507))
+
 ## [9.2.3](https://github.com/biosimulations/biosimulations/compare/v9.2.2...v9.2.3) (2022-02-11)
 
 
