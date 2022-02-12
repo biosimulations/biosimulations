@@ -8,13 +8,13 @@ On top of these guidelines, we recommend the predicates and identifier namespace
 
 ## Recommended URIs for COMBINE/OMEX archives and the contents
 
-COMBINE/OMEX archives should be referenced using unique identifiers which begin with the prefix `http://omex-library.org/` and end with the file extension `.omex` (e.g., `http://omex-library.org/BioSimulations-0001.omex`). We recommend using identifiers that are a concatenation of `http://omex-library.org/` and the local filename of the COMBINE archive (e.g., `BioSimulations-0001.omex`).
+COMBINE/OMEX archives should be referenced using unique identifiers which begin with the prefix `http://omex-library.org/` and end with the file extension `.omex` (e.g., `http://omex-library.org/BioSimulations-0001.omex`). We recommend using identifiers that are a concatenation of `http://omex-library.org/` and the local filename of the COMBINE/OMEX archive (e.g., `BioSimulations-0001.omex`).
 
-Files in COMBINE archives should be referenced by concatenating the above identifiers with their location within their parent COMBINE archives (e.g., `http://omex-library.org/BioSimulations-0001.omex/simulation.sedml`).
+Files in COMBINE/OMEX archives should be referenced by concatenating the above identifiers with their location within their parent COMBINE/OMEX archives (e.g., `http://omex-library.org/BioSimulations-0001.omex/simulation.sedml`).
 
-Elements in SED-ML files in COMBINE archives should be referenced by concatenating the above identifiers with their id (e.g., `http://omex-library.org/BioSimulations-0001.omex/simulation.sedml/Figure_3a`).
+Elements in SED-ML files in COMBINE/OMEX archives should be referenced by concatenating the above identifiers with their id (e.g., `http://omex-library.org/BioSimulations-0001.omex/simulation.sedml/Figure_3a`).
 
-## Recommended predicates and objects for annotating COMBINE archives
+## Recommended predicates and objects for annotating COMBINE/OMEX archives
 
 We recommend that COMBINE/OMEX archives and components of archives be annotated using the predicates and objects outlined below.
 
@@ -91,7 +91,7 @@ We also provides the following recommendations:
 
 - Identifiers.org URIs should be used when possible because Identifiers.org can be used to validate URIs and map URIs to URLs. For example, `http://identifiers.org/orcid:0000-0001-7560-6013` should be used rather than `https://orcid.org/0000-0001-7560-6013`.
 
-## Required metadata about COMBINE archives for BioSimulations
+## Required metadata about COMBINE/OMEX archives for BioSimulations
 
 Submissions to BioSimulations must include the following metadata:
 

@@ -9,7 +9,7 @@ One key feature of Vega is that it modularly captures the graphical marks which 
 
 Below, we provide recommendations for using Vega to visualize the results of simulation experiments described with SED-ML.
 
-## Creating Vega visualizations of the results of SED-ML files in COMBINE archives
+## Creating Vega visualizations of the results of SED-ML files in COMBINE/OMEX archives
 
 BioSimulators recommends using Vega visualizations with SED-ML as follows:
 
@@ -58,7 +58,7 @@ BioSimulators recommends using Vega visualizations with SED-ML as follows:
 }
 ```
 
-## Rendering Vega visualizations of the results of SED-ML files in COMBINE archives
+## Rendering Vega visualizations of the results of SED-ML files in COMBINE/OMEX archives
 
 
 Simulation software tools should render such Vega visualizations linked to SED-ML files in COMBINE/OMEX archives as follows:

@@ -67,7 +67,7 @@ docker run \
     --archive /tmp/project/{ name-of-COMBINE-archive } \
     --out-dir /tmp/results
 ```
-Your COMBINE archive should be located at `path-to-directory-of-COMBINE-archive/name-of-COMBINE-archive`.
+Your COMBINE/OMEX archive should be located at `path-to-directory-of-COMBINE-archive/name-of-COMBINE-archive`.
 
 The results will be saved to `path-to-save-results`. The data for reports and plots will be saved in Hierarchical Data Format 5 (HDF5) format and plots will be saved in Portable Document Format (PDF) and bundled into a single zip archive. See the [specifications for reports](../concepts/conventions/simulation-run-reports.md) for more information about the format of reports.
 

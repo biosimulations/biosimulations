@@ -36,9 +36,9 @@ Data for reports and plots of simulation results should be saved in HDF5 accordi
     - Data types of SED-ML data sets/generators: The data types of the data sets (reports) or data generators (plots) should be encoded into the key `sedmlDataSetDataTypes`. The value of this key should be an array of the data types of the data sets/generators, in the order in which the data sets/generators were defined in their parent SED-ML document. The data type of each data set should either be described using a NumPy `dtype` (e.g., `int64`) to indicate a data set whose value is non-null or `__None__` to indicate a data set whose value is `null`.
     - Shapes of SED-ML data sets/generators: The shapes of the data sets (reports) or data generators (plots) should be encoded into the key `sedmlDataSetShapes`. The value of this key should be an array of comma-separated lists of the shapes of the data sets/generators. The shapes of the data sets/generators should be listed in the order in which the data sets/generators were defined in their parent SED-ML document.
 
-- Metadata for SED-ML files: The following metadata should be encoded into attributes of the parent groups of HDF5 datasets which represent SED-ML files and their parent directories within their parent COMBINE archives.
+- Metadata for SED-ML files: The following metadata should be encoded into attributes of the parent groups of HDF5 datasets which represent SED-ML files and their parent directories within their parent COMBINE/OMEX archives.
 
-    - Complete id of the COMBINE archive location: The location of each SED-ML file and the location of each parent directory of each SED-ML file with their parent COMBINE archive (`omex-manifest:content/@location`) should be encoded into the keys `uri` and `combineArchiveLocation`.
+    - Complete id of the COMBINE/OMEX archive location: The location of each SED-ML file and the location of each parent directory of each SED-ML file with their parent COMBINE/OMEX archive (`omex-manifest:content/@location`) should be encoded into the keys `uri` and `combineArchiveLocation`.
 
 ## Example HDF5 report files
 

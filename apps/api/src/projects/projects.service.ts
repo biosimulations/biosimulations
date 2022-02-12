@@ -159,7 +159,7 @@ export class ProjectsService implements OnModuleInit {
 
     if (!isAdmin(user) && (project?.owner !== owner || !project?.owner)) {
       throw new ForbiddenException(
-        `This account does not have permissions to update project '${id}'. Projects can only be updated by the accounts which created them. Anonymously created projects can only be updated by the BioSimulations Team. Please contact the BioSimulations Team (info@biosimulations.org) for assistance.`,
+        `This account does not have permissions to update project '${id}'. Simulation projects can only be updated by the accounts which created them. Anonymously created projects can only be updated by the BioSimulations Team. Please contact the BioSimulations Team (info@biosimulations.org) for assistance.`,
       );
     }
 

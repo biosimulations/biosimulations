@@ -166,12 +166,12 @@ export class SimulationRunService {
 
       return this.createRun(run, size, url, id);
     } catch (err: any) {
-      const details = `An error occurred in uploading the COMBINE archive for the simulation run: ${this.getErrorMessage(
+      const details = `An error occurred in uploading the COMBINE/OMEX archive for the simulation run: ${this.getErrorMessage(
         err,
       )}.`;
       this.logger.error(details);
 
-      const message = `An error occurred in uploading the COMBINE archive for the simulation run${
+      const message = `An error occurred in uploading the COMBINE/OMEX archive for the simulation run${
         err instanceof Error && err.message ? ': ' + err?.message : ''
       }.`;
       throw new BiosimulationsException(
@@ -227,7 +227,7 @@ export class SimulationRunService {
       return this.createRunWithFile(body, file.data, size);
     } else {
       throw new BadRequestException(
-        `The COMBINE archive for the simulation run could not be obtained from ${url}.
+        `The COMBINE/OMEX archive for the simulation run could not be obtained from ${url}.
         Please check that the URL is accessible.`,
       );
     }

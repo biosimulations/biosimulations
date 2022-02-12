@@ -100,7 +100,7 @@ export class Endpoints {
    * @param external Whether the URL should be accessible from outside the local evironment
    * @param runId The id of the simulation run
    * @param fileLocation The location of the file within the COMBINE/OMEX archive for the simulation run
-   * @returns The URL to get the content of a COMBINE archive
+   * @returns The URL to get the content of a COMBINE/OMEX archive
    */
   public getSimulationRunFilesEndpoint(
     external: boolean,
@@ -149,7 +149,7 @@ export class Endpoints {
    * @param runId The id of the simulation run
    * @param fileLocation The location of the file within the COMBINE/OMEX archive for the simulation run
    * @param thumbnail The type of resized thumbnail to return of the original file
-   * @returns The URL to get the content of a COMBINE archive
+   * @returns The URL to get the content of a COMBINE/OMEX archive
    */
   public getSimulationRunFilesDownloadEndpoint(
     external: boolean,

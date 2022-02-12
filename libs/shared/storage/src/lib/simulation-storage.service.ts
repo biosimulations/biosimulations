@@ -39,7 +39,7 @@ export class SimulationStorageService {
     await this.deleteS3Object(
       runId,
       s3path,
-      `COMBINE archive could not be deleted for simulation run '{runId}'.`,
+      `COMBINE/OMEX archive could not be deleted for simulation run '{runId}'.`,
     );
   }
 
@@ -237,7 +237,7 @@ export class SimulationStorageService {
     await this.deleteS3Object(
       runId,
       s3path,
-      `COMBINE archive could not be deleted for simulation run '{runId}'.`,
+      `COMBINE/OMEX archive could not be deleted for simulation run '{runId}'.`,
     );
   }
 
@@ -259,7 +259,7 @@ export class SimulationStorageService {
         return this.deleteS3Object(
           runId,
           s3path,
-          `COMBINE archive could not be deleted for simulation run '{runId}'.`,
+          `COMBINE/OMEX archive could not be deleted for simulation run '{runId}'.`,
         );
       }),
     );

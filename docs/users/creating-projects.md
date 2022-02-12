@@ -30,9 +30,9 @@ BioSimulations uses COMBINE/OMEX archives to encapsulate the files and metadata 
     supportedSedml.md
     --8<--
     
-1. Create an OMEX manifest file which describes your model and simulation files: OMEX manifest is a format for describing a collection of files, including the format (e.g., CellML, SBML) of each file. Several example COMBINE archives are available [here](https://github.com/biosimulators/Biosimulators_test_suite/tree/deploy/examples#compatibility-of-the-example-archives-with-simulation-tools). More information about the OMEX manifest format is available at the COMBINE website.
+1. Create an OMEX manifest file which describes your model and simulation files: OMEX manifest is a format for describing a collection of files, including the format (e.g., CellML, SBML) of each file. Several example COMBINE/OMEX archives are available [here](https://github.com/biosimulators/Biosimulators_test_suite/tree/deploy/examples#compatibility-of-the-example-archives-with-simulation-tools). More information about the OMEX manifest format is available at the COMBINE website.
 
-1. Package your project into a COMBINE archive: A COMBINE archive is a zip file which contains an OMEX manifest file and all of the other files which comprise a project. Several example COMBINE archives are available [here](). More information about the OMEX and COMBINE formats is available at the [COMBINE website](https://combinearchive.org/). The COMBINE website lists several software tools for creating COMBINE archives, including [COMBINE Archive]() and [COMBINE Archive Web](https://cat.bio.informatik.uni-rostock.de/).
+1. Package your project into a COMBINE/OMEX archive: A COMBINE/OMEX archive is a zip file which contains an OMEX manifest file and all of the other files which comprise a project. Several example COMBINE/OMEX archives are available [here](). More information about the OMEX and COMBINE formats is available at the [COMBINE website](https://combinearchive.org/). The COMBINE website lists several software tools for creating COMBINE/OMEX archives, including [COMBINE Archive]() and [COMBINE Archive Web](https://cat.bio.informatik.uni-rostock.de/).
 
 Interactive tutorials for creating projects can be found [here](https://tutorial.biosimulators.org). 
 
@@ -57,7 +57,7 @@ To make it easy for investigators to work with a broad range of model formats, m
 
 The table below provides links to documentation about how to use SED-ML with specific model languages, and provides the URNs and URIs that should be used with SED-ML and OMEX manifests in COMBINE/OMEX archives.
 
-| Language                                                                                                       | EDAM format    | SED-ML URN                    | COMBINE archive specification URI                       | MIME type                 | Extensions        |
+| Language                                                                                                       | EDAM format    | SED-ML URN                    | COMBINE/OMEX archive specification URI                       | MIME type                 | Extensions        |
 | ---------------------------------------------------------------------------------------------------------------|----------------|-------------------------------|---------------------------------------------------------|---------------------------|-------------------|
 | [BNGL](https://docs.biosimulators.org/Biosimulators_BioNetGen/tutorial.html)                                   | `format_3972`  | `urn:sedml:language:bngl`     | `http://purl.org/NET/mediatypes/text/bngl+plain`        | `text/bngl+plain`         | `.bngl`           |
 | [CellML](http://sed-ml.org/specifications.html)                                                                | `format_3240`  | `urn:sedml:language:cellml`   | `http://identifiers.org/combine.specifications/cellml`  | `application/cellml+xml`  | `.xml`, `.cellml` |

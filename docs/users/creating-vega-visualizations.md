@@ -1,4 +1,4 @@
-# Creating Vega visualizations of the results of SED-ML files in COMBINE archives
+# Creating Vega visualizations of the results of SED-ML files in COMBINE/OMEX archives
 
 We recommend [Vega](https://vega.github.io/vega/) for data visualizations of simulation results. Vega is a powerful, declarative grammar for describing interactive, two-dimensional data visualizations.
 
@@ -6,15 +6,15 @@ One key feature of Vega is that it modularly captures the graphical marks which 
 
 Below is a brief tutorial on creating data visualizations with Vega and linking their inputs (Vega data sets) to the outputs of simulations (reports of SED-ML files), as well as several examples. In addition, [BioSimulators-utils](https://github.com/biosimulators/Biosimulators_utils) provides a command-line program and Python API for converting several types of structural diagrams of models into Vega data visualizations of simulation results. See [below](#tools-for-converting-visualizations-of-models-into-vega-data-visualizations) for more information. Links to additional tutorials and documentation for Vega are available [below](#more-information).
 
-## Background SED-ML, COMBINE archive, and Vega concepts
+## Background SED-ML, COMBINE/OMEX archive, and Vega concepts
 
-This tutorial focuses on combining Vega data visualizations with simulation experiments described with SED-ML and the COMBINE/OMEX archive format. This requires familiarity with the SED-ML, COMBINE archive, and Vega concepts outlined below. Links to further information about these concepts is also provided below.
+This tutorial focuses on combining Vega data visualizations with simulation experiments described with SED-ML and the COMBINE/OMEX archive format. This requires familiarity with the SED-ML, COMBINE/OMEX archive, and Vega concepts outlined below. Links to further information about these concepts is also provided below.
 
 * [Simulation Experiment Description Markup Language (SED-ML)](http://sed-ml.org/)
     * Simulations (`sedml:oneStep`, `sedml:steadyState`, `sedml:uniformTimeCourse`)
     * Reports (`sedml:report`)
 * [COMBINE/OMEX archive format](https://combinearchive.org/)
-    * Manifests which describe the `content` (files) of archives (XML files located at `manifest.xml` in COMBINE archives)
+    * Manifests which describe the `content` (files) of archives (XML files located at `manifest.xml` in COMBINE/OMEX archives)
     * The `location` (path) of each `content` (e.g., `path/to/simulation.sedml`)
     * The `format` (media type) of each `content` (e.g., `http://identifiers.org/combine.specifications/sed-ml` for SED-ML, `http://purl.org/NET/mediatypes/application/vnd.vega.v5+json` for Vega)
 * [BioSimulations/BioSimulators format for the results of SED-ML reports](../concepts/conventions/simulation-run-reports.md)

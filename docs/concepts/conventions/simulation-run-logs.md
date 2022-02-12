@@ -4,10 +4,10 @@
 
 This format enables simulation tools to communicate information about the status and outcome of the execution of SED-ML files in COMBINE/OMEX archives. The format can capture the following information:
 
-- The status and outcome of the COMBINE archive and each SED-ML document, task, report, plot, data set, curve and surface (e.g., queued, running, succeeded, failed).
+- The status and outcome of the COMBINE/OMEX archive and each SED-ML document, task, report, plot, data set, curve and surface (e.g., queued, running, succeeded, failed).
 - Information about simulation functions that were executed and the arguments that were used.
-- The standard output/error produced from executing the COMBINE archive and each SED-ML document, task, and output.
-- The duration of the execution of the COMBINE archive and each SED-ML document, task, and output.
+- The standard output/error produced from executing the COMBINE/OMEX archive and each SED-ML document, task, and output.
+- The duration of the execution of the COMBINE/OMEX archive and each SED-ML document, task, and output.
 - The reason for each skipped or failed SED-ML document, task or output.
 
 ## Specifications

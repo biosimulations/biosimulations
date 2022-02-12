@@ -4,7 +4,7 @@
   (selectedTabChange)="selectedTabChange($event)"
 >
   <!-- Begin summary of the run -->
-  <biosimulations-tab-page-tab heading="Simulation run" icon="overview">
+  <biosimulations-tab-page-tab heading="Run" icon="overview">
     <ng-container *ngIf="formattedSimulation$ | async as formattedSimulation">
       <biosimulations-simulation-run-overview
         [simulation]="formattedSimulation"
@@ -16,7 +16,7 @@
 
   <!-- Metadata about the entire project (COMBINE/OMEX archive) -->
   <biosimulations-tab-page-tab
-    heading="Simulation project"
+    heading="Simulation specification"
     icon="model"
     urlHashFragment="metadata"
   >
@@ -103,7 +103,7 @@
         class="partial-width files"
       >
         <biosimulations-text-page-content-section
-          heading="Project"
+          heading="Simulation specification (COMBINE/OMEX archive)"
           *ngIf="projectFiles$ | async as files"
         >
           <biosimulations-project-files
@@ -115,7 +115,7 @@
         </biosimulations-text-page-content-section>
 
         <biosimulations-text-page-content-section
-          heading="Project contents"
+          heading="Contents of simulation specification"
           *ngIf="files$ | async as files"
         >
           <biosimulations-project-files

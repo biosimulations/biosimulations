@@ -239,7 +239,7 @@ def save_temporary_combine_archive_to_s3_bucket(filename, public=False, id=None)
 
 
 def delete_temporary_files_in_s3_bucket(min_age=TEMP_STORAGE_MAX_AGE):
-    """ Delete the temporary COMBINE archives stored in the S3 bucket
+    """ Delete the temporary COMBINE/OMEX archives stored in the S3 bucket
 
     Args:
         min_age (:obj:`int`, optional): minimum file age for deletion in days

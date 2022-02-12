@@ -9,7 +9,7 @@ Information about upcoming live tutorials and recordings of past events is avail
 Jupyter notebooks with interactive tutorials are available from [Binder](https://tutorial.biosimulators.org/).
 
 * Programmatically introspecting model/simulation files
-* Programmatically creating SED-ML files and COMBINE/archives from archetypical model/simulation files
+* Programmatically creating SED-ML files and COMBINE/OMEX archives from archetypical model/simulation files
 * Programmatically retrieving information about the capabilities of simulation tools
 * Programmatically executing simulations in Python
 
