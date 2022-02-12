@@ -121,7 +121,7 @@
               <biosimulations-icon icon="logs"></biosimulations-icon>
               <pre><code>docker run \
 {{ simulator.image.url }} \
--i /path/to/project.omex \
+-i /path/to/archive.omex \
 -o /path/to/outputs</code></pre>
               <button
                 mat-icon-button
@@ -203,7 +203,7 @@ docker://{{ simulator.image.url }}</code></pre>
               <biosimulations-icon icon="logs"></biosimulations-icon>
               <pre><code>singularity run \
 docker://{{ simulator.image.url }} \
--i /path/to/project.omex \
+-i /path/to/archive.omex \
 -o /path/to/outputs</code></pre>
               <button
                 mat-icon-button
@@ -293,7 +293,7 @@ docker://{{ simulator.image.url }} \
             <li>
               <biosimulations-icon icon="logs"></biosimulations-icon>
               <pre><code>{{ simulator?.cli?.command }} \
--i /path/to/project.omex \
+-i /path/to/archive.omex \
 -o /path/to/outputs</code></pre>
               <button
                 mat-icon-button
@@ -391,7 +391,7 @@ docker://{{ simulator.image.url }} \
               <biosimulations-icon icon="logs"></biosimulations-icon>
               <pre><code>import {{ simulator?.pythonApi?.module }} as simulator
 simulator.exec_sedml_docs_in_combine_archive(
-'/path/to/project.omex', '/path/to/outputs')</code></pre>
+'/path/to/archive.omex', '/path/to/outputs')</code></pre>
               <button
                 mat-icon-button
                 class="biosimulations-button"

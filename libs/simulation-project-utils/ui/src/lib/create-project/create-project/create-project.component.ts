@@ -1852,7 +1852,7 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
       }
 
       this.snackBar.open(
-        'Your project was created. Please use this form to execute it.',
+        'Your archive was created. Please use this form to execute it.',
         'Ok',
         {
           duration: 5000,
@@ -1863,11 +1863,11 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
     } else {
       const a = document.createElement('a');
       a.href = projectOrUrl;
-      a.download = 'project.omex';
+      a.download = 'archive.omex';
       a.click();
 
       this.snackBar.open(
-        'Your project was downloaded to your computer.',
+        'Your archive was downloaded to your computer.',
         'Ok',
         {
           duration: 5000,
