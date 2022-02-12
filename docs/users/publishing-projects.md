@@ -35,11 +35,11 @@ BioSimulations uses BioSimulators Docker containers to execute simulation projec
 To run a project locally, pull the appropriate BioSimulators Docker image, and then run the simulator as follows:
 
 ```bash
-docker run ghcr.io/biosimulators/tellurium:2.2.1 -v /path/to/project:/root -v /path/to/output:/root/out -i project.omex -o /root/out
+docker run ghcr.io/biosimulators/tellurium:2.2.1 -v /path/to/project:/root -v /path/to/output:/root/out -i archive.omex -o /root/out
 ```
 
 !!!note
-    Ensure that the directories containing the project.omex file and the output directory are mounted in the container. For more information, see the Docker documentation [here](https://docs.docker.com/storage/bind-mounts/).
+    Ensure that the directories containing the `archive.omex` file and the output directory are mounted in the container. For more information, see the Docker documentation [here](https://docs.docker.com/storage/bind-mounts/).
 
 ## User accounts for owning projects
 

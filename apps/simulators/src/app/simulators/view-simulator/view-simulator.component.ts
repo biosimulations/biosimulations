@@ -264,7 +264,7 @@ export class ViewSimulatorComponent implements OnInit {
   }
 
   public copyDockerRunCmd(image = '{ image }'): void {
-    const cmd = `docker run ${image} -i /path/to/project.omex -o /path/to/outputs`;
+    const cmd = `docker run ${image} -i /path/to/archive.omex -o /path/to/outputs`;
     this.clipboardService.copyToClipboard(
       cmd,
       'The command to run the Docker image was copied to your clipboard.',
@@ -287,7 +287,7 @@ export class ViewSimulatorComponent implements OnInit {
   }
 
   public copySingularityRunCmd(image = '{ image }'): void {
-    const cmd = `singularity run docker://${image} -i /path/to/project.omex -o /path/to/outputs`;
+    const cmd = `singularity run docker://${image} -i /path/to/archive.omex -o /path/to/outputs`;
     this.clipboardService.copyToClipboard(
       cmd,
       'The command to run the Singularity image was copied to your clipboard.',
@@ -310,7 +310,7 @@ export class ViewSimulatorComponent implements OnInit {
   public copyRunCliCmd(cmd?: string): void {
     const toCopy = `${
       cmd as string
-    } -i /path/to/project.omex -o /path/to/outputs`;
+    } -i /path/to/archive.omex -o /path/to/outputs`;
     const message =
       'The command to run the command-line application was copied to your clipboard.';
     this.clipboardService.copyToClipboard(toCopy, message);
@@ -332,7 +332,7 @@ export class ViewSimulatorComponent implements OnInit {
   }
 
   public copyRunPythonCmd(module = '{ module }'): void {
-    const cmd = `import ${module} as simulator\nsimulator.exec_sedml_docs_in_combine_archive(\n    '/path/to/project.omex', '/path/to/outputs')`;
+    const cmd = `import ${module} as simulator\nsimulator.exec_sedml_docs_in_combine_archive(\n    '/path/to/archive.omex', '/path/to/outputs')`;
     this.clipboardService.copyToClipboard(
       cmd,
       'The command to import the Python module was copied to your clipboard.',

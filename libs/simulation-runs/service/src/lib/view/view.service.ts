@@ -630,7 +630,7 @@ export class ViewService {
           false,
           simulationRunSummary.id,
         ),
-        basename: 'project.omex',
+        basename: 'archive.omex',
       },
     ];
   }

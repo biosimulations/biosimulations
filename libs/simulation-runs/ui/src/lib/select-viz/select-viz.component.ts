@@ -213,7 +213,7 @@ export class SelectVisualizationComponent implements OnDestroy {
                 (fileOrUrl: ArrayBuffer | string | undefined): void => {
                   if (fileOrUrl) {
                     const a = document.createElement('a');
-                    a.download = 'project.omex';
+                    a.download = 'archive.omex';
                     a.href = fileOrUrl as string;
                     a.click();
 
@@ -228,7 +228,7 @@ export class SelectVisualizationComponent implements OnDestroy {
                     );
                   } else {
                     this.snackBar.open(
-                      'Sorry! We were unable to add the visualization to this project. Please refresh to try again.',
+                      'Sorry! We were unable to add the visualization to this COMBINE/OMEX archive. Please refresh to try again.',
                       'Ok',
                       {
                         duration: 5000,
