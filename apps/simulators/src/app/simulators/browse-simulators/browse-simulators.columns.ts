@@ -607,7 +607,7 @@ export const columns: Column[] = [
     },
     stackedFormatter: (id: string | undefined): string => {
       if (id) {
-        return 'https://run.biosimulations.org/run?simulator=' + id;
+        return 'https://run.biosimulations.org/runs/new?simulator=' + id;
       } else {
         return 'Not available';
       }
@@ -632,7 +632,7 @@ export const columns: Column[] = [
         element.image &&
         element.curationStatus === SimulatorCurationStatus['Image validated']
       ) {
-        return 'https://run.biosimulations.org/run?simulator=' + element.id;
+        return 'https://run.biosimulations.org/runs/new?simulator=' + element.id;
       } else {
         return null;
       }
@@ -642,7 +642,7 @@ export const columns: Column[] = [
         element.image &&
         element.curationStatus === SimulatorCurationStatus['Image validated']
       ) {
-        return 'https://run.biosimulations.org/run?simulator=' + element.id;
+        return 'https://run.biosimulations.org/runs/new?simulator=' + element.id;
       } else {
         return null;
       }

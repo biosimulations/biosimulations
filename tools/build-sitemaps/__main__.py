@@ -68,12 +68,12 @@ def get_runbiosimulations_static_urls():
         get_root_static_urls()
         + [
             Url(
-                loc="run",
+                loc="runs/new",
                 last_mod=datetime.datetime(2020, 12, 23),
                 change_freq=ChangeFreq.monthly
             ),
             Url(
-                loc="simulations",
+                loc="runs",
                 last_mod=datetime.datetime(2020, 12, 23),
                 change_freq=ChangeFreq.monthly
             ),

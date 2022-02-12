@@ -53,11 +53,11 @@ def get_run_url(biosimulations_deployment, id):
         :obj:`str`: URL for a simulation run
     """
     if biosimulations_deployment == 'local':
-        return 'http://localhost:3333/simulations/{}'.format(id)
+        return 'http://localhost:3333/runs/{}'.format(id)
     elif biosimulations_deployment == 'dev':
-        return 'https://run.biosimulations.dev/simulations/{}'.format(id)
+        return 'https://run.biosimulations.dev/runs/{}'.format(id)
     else:
-        return 'https://run.biosimulations.org/simulations/{}'.format(id)
+        return 'https://run.biosimulations.org/runs/{}'.format(id)
 
 
 def get_failed_runs(examples_deployment, biosimulations_deployment, validate_simulation_results_data=True, example_names=None):

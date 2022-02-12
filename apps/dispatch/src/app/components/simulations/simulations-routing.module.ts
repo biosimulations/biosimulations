@@ -13,7 +13,7 @@ import { ClipboardService } from '@biosimulations/shared/angular';
 function viewProject(url: string, router: Router): undefined {
   const parts = url.split('/');
   const id = parts[2].split('#')[0];
-  router.navigate(['/simulations', id]);
+  router.navigate(['/runs', id]);
   return undefined;
 }
 
@@ -32,7 +32,7 @@ function rerunProject(url: string, router: Router): void {
         simulatorVersion: simulationRun.simulatorVersion,
         runName: simulationRun.name + ' (rerun)',
       };
-      router.navigate(['/run'], { queryParams: queryParams });
+      router.navigate(['/runs/new'], { queryParams: queryParams });
     });
 
   return;
@@ -47,7 +47,7 @@ function shareProject(
   const id = parts[2].split('#')[0];
   const protocol = window.location.protocol;
   const host = window.location.host;
-  const toCopy = protocol + '//' + host + '/simulations/' + id;
+  const toCopy = protocol + '//' + host + '/runs/' + id;
   clipboardService.copyToClipboard(
     toCopy,
     'The URL for sharing this simulation was copied to your clipboard.',
@@ -57,7 +57,7 @@ function shareProject(
 function publishProject(url: string, router: Router): void {
   const parts = url.split('/');
   const id = parts[2].split('#')[0];
-  router.navigate(['/simulations', id, 'publish']);
+  router.navigate(['/runs', id, 'publish']);
   return;
 }
 
@@ -65,6 +65,15 @@ const routes: Routes = [
   {
     path: '',
     component: BrowseComponent,
+  },
+  {
+    path: 'new',
+    loadChildren: () =>
+      import('../run/run.module').then((m) => m.RunModule),
+    data: {
+      breadcrumb: 'Run',
+    },
+    pathMatch: 'full',
   },
   {
     path: ':uuid',

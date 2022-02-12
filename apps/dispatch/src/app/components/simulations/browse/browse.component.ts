@@ -42,7 +42,7 @@ export class BrowseComponent implements OnInit {
         if (isUnknownSimulation(simulation)) {
           return null;
         } else {
-          return ['/simulations', simulation.id];
+          return ['/runs', simulation.id];
         }
       },
       minWidth: 205,
@@ -316,7 +316,7 @@ export class BrowseComponent implements OnInit {
           simulation.resultsSize !== null &&
           simulation.resultsSize > 0
         ) {
-          return ['/simulations', simulation.id, '#tab=select-viz'];
+          return ['/runs', simulation.id, '#tab=select-viz'];
         } else {
           return null;
         }
@@ -331,7 +331,7 @@ export class BrowseComponent implements OnInit {
           simulation.resultsSize !== null &&
           simulation.resultsSize > 0
         ) {
-          return ['/simulations', simulation.id, '#tab=select-viz'];
+          return ['/runs', simulation.id, '#tab=select-viz'];
         } else {
           return null;
         }
@@ -453,7 +453,7 @@ export class BrowseComponent implements OnInit {
         if (
           SimulationStatusService.isSimulationStatusCompleted(simulation.status)
         ) {
-          return ['/simulations', simulation.id, '#tab=log'];
+          return ['/runs', simulation.id, '#tab=log'];
         } else {
           return null;
         }
@@ -463,7 +463,7 @@ export class BrowseComponent implements OnInit {
         if (
           SimulationStatusService.isSimulationStatusCompleted(simulation.status)
         ) {
-          return ['/simulations', simulation.id, '#tab=log'];
+          return ['/runs', simulation.id, '#tab=log'];
         } else {
           return null;
         }
@@ -528,7 +528,7 @@ export class BrowseComponent implements OnInit {
               simulatorVersion: simulation.simulatorVersion,
               runName: simulation.name + ' (rerun)',
             };
-            this.router.navigate(['/run'], { queryParams: queryParams });
+            this.router.navigate(['/runs/new'], { queryParams: queryParams });
           };
         }
       },
@@ -549,7 +549,7 @@ export class BrowseComponent implements OnInit {
               simulatorVersion: simulation.simulatorVersion,
               runName: simulation.name + ' (rerun)',
             };
-            this.router.navigate(['/run'], { queryParams: queryParams });
+            this.router.navigate(['/runs/new'], { queryParams: queryParams });
           };
         }
       },
@@ -598,7 +598,7 @@ export class BrowseComponent implements OnInit {
               window.location.protocol +
               '//' +
               window.location.host +
-              '/simulations/' +
+              '/runs/' +
               simulation.id;
             this.clipboardService.copyToClipboard(
               toCopy,
@@ -619,7 +619,7 @@ export class BrowseComponent implements OnInit {
               window.location.protocol +
               '//' +
               window.location.host +
-              '/simulations/' +
+              '/runs/' +
               simulation.id;
             this.clipboardService.copyToClipboard(
               toCopy,
@@ -639,7 +639,7 @@ export class BrowseComponent implements OnInit {
             window.location.protocol +
             '//' +
             window.location.host +
-            '/simulations/' +
+            '/runs/' +
             simulation.id
           );
         }
@@ -669,7 +669,7 @@ export class BrowseComponent implements OnInit {
         if (isUnknownSimulation(simulation)) {
           return null;
         } else {
-          return ['/simulations', simulation.id, 'publish'];
+          return ['/runs', simulation.id, 'publish'];
         }
       },
       centerAction: ColumnActionType.routerLink,
@@ -677,7 +677,7 @@ export class BrowseComponent implements OnInit {
         if (isUnknownSimulation(simulation)) {
           return null;
         } else {
-          return ['/simulations', simulation.id, 'publish'];
+          return ['/runs', simulation.id, 'publish'];
         }
       },
       formatter: (_status: SimulationRunStatus): null => {
@@ -780,7 +780,7 @@ export class BrowseComponent implements OnInit {
     if (isUnknownSimulation(simulation)) {
       return null;
     } else {
-      return ['/simulations', simulation.id];
+      return ['/runs', simulation.id];
     }
   }
 

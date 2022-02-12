@@ -32,22 +32,13 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
-    path: 'run',
-    loadChildren: () =>
-      import('./components/run/run.module').then((m) => m.RunModule),
-    data: {
-      breadcrumb: 'Run',
-    },
-    pathMatch: 'full',
-  },
-  {
-    path: 'simulations',
+    path: 'runs',
     loadChildren: () =>
       import('./components/simulations/simulations.module').then(
         (m) => m.SimulationsModule,
       ),
     data: {
-      breadcrumb: 'Your simulations',
+      breadcrumb: 'Your simulation runs',
     },
   },
   {

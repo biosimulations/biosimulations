@@ -9,9 +9,9 @@
 >
   <biosimulations-topbar-menu>
     <biosimulations-topbar-menu-item
-      heading="Try simulations"
+      heading="Try simulation runs"
       icon="experiment"
-      [route]="['/simulations']"
+      [route]="['/runs']"
       [queryParams]="{ try: '1' }"
     >
     </biosimulations-topbar-menu-item>
@@ -19,14 +19,14 @@
     <biosimulations-topbar-menu-item
       heading="Run a simulation"
       icon="simulator"
-      [route]="['/run']"
+      [route]="['/runs/new']"
     >
     </biosimulations-topbar-menu-item>
 
     <biosimulations-topbar-menu-item
-      heading="Your simulations"
+      heading="Your simulation runs"
       icon="simulation"
-      [route]="['/simulations']"
+      [route]="['/runs']"
     >
     </biosimulations-topbar-menu-item>
 
@@ -233,9 +233,9 @@
 
   <ng-container id="sidenav-menu">
     <biosimulations-navigation-item
-      heading="Try simulations"
+      heading="Try simulation runs"
       icon="experiment"
-      [route]="['/simulations']"
+      [route]="['/runs']"
       [queryParams]="{ try: '1' }"
     >
     </biosimulations-navigation-item>
@@ -243,14 +243,14 @@
     <biosimulations-navigation-item
       heading="Run a simulation"
       icon="simulator"
-      [route]="['/run']"
+      [route]="['/runs/new']"
     >
     </biosimulations-navigation-item>
 
     <biosimulations-navigation-item
-      heading="Your simulations"
+      heading="Your simulation runs"
       icon="simulation"
-      [route]="['/simulations']"
+      [route]="['/runs']"
     >
     </biosimulations-navigation-item>
 

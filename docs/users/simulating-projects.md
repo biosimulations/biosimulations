@@ -8,7 +8,7 @@
 
 Please follow these steps to execute a simulation project:
 
-1. Open the [project submission form](https://run.biosimulations.org/run).
+1. Open the [project submission form](https://run.biosimulations.org/runs/new).
 1. Select a COMBINE/OMEX file to execute.
 1. Select a simulation tool and a specific version of that tool.
 1. Enter a name for your project. We recommend choosing a descriptive name that will help you recall the purpose of your project. These names will be particularly helpful if you run multiple projects.
@@ -45,7 +45,7 @@ In addition to our web application, a REST API for executing projects is availab
 
 ### Running example simulation projects
 
-The runBioSimulation app contains a variety of example simulation projects. Click [here](https://run.biosimulations.org/simulations?try=1) to explore runs of these projects. More information about these examples is available [here](https://github.com/biosimulators/Biosimulators_test_suite/tree/deploy/examples/).
+The runBioSimulation app contains a variety of example simulation projects. Click [here](https://run.biosimulations.org/runs?try=1) to explore runs of these projects. More information about these examples is available [here](https://github.com/biosimulators/Biosimulators_test_suite/tree/deploy/examples/).
 
 ## Using containerized simulation tools 
 

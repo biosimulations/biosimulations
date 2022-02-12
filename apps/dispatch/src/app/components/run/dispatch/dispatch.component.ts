@@ -845,12 +845,12 @@ export class DispatchComponent implements OnInit, OnDestroy {
     };
     this.simulationService.storeNewLocalSimulation(simulation);
 
-    this.router.navigate(['/simulations', simulationId]);
+    this.router.navigate(['/runs', simulationId]);
 
     this.snackBar.open(
       `Your simulation was submitted. ` +
         'You can view the status of your simulation at this page ' +
-        'or from the "Your simulations page". ' +
+        'or from the "Your simulation runs page". ' +
         'When your simulation completes, you will be able to ' +
         'retrieve and visualize its results here.',
       'Ok',
