@@ -1,5 +1,17 @@
 # Changelog
 
+# [9.3.0](https://github.com/biosimulations/biosimulations/compare/v9.2.4...v9.3.0) (2022-02-12)
+
+
+### Bug Fixes
+
+* **platform:** displayed model formats for projects; closes [#4098](https://github.com/biosimulations/biosimulations/issues/4098) ([624b03c](https://github.com/biosimulations/biosimulations/commit/624b03ce8ea6b147c2f06a5b39c3dad97b286005))
+
+
+### Features
+
+* improved terminology ([75c41a6](https://github.com/biosimulations/biosimulations/commit/75c41a6a067b44bee5567bda7d1e72b182124105))
+
 ## [9.2.4](https://github.com/biosimulations/biosimulations/compare/v9.2.3...v9.2.4) (2022-02-12)
 
 
