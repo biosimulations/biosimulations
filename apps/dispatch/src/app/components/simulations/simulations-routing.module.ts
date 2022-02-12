@@ -68,8 +68,7 @@ const routes: Routes = [
   },
   {
     path: 'new',
-    loadChildren: () =>
-      import('../run/run.module').then((m) => m.RunModule),
+    loadChildren: () => import('../run/run.module').then((m) => m.RunModule),
     data: {
       breadcrumb: 'Run',
     },

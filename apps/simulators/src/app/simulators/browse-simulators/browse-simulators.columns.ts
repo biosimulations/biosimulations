@@ -632,7 +632,9 @@ export const columns: Column[] = [
         element.image &&
         element.curationStatus === SimulatorCurationStatus['Image validated']
       ) {
-        return 'https://run.biosimulations.org/runs/new?simulator=' + element.id;
+        return (
+          'https://run.biosimulations.org/runs/new?simulator=' + element.id
+        );
       } else {
         return null;
       }
@@ -642,7 +644,9 @@ export const columns: Column[] = [
         element.image &&
         element.curationStatus === SimulatorCurationStatus['Image validated']
       ) {
-        return 'https://run.biosimulations.org/runs/new?simulator=' + element.id;
+        return (
+          'https://run.biosimulations.org/runs/new?simulator=' + element.id
+        );
       } else {
         return null;
       }
