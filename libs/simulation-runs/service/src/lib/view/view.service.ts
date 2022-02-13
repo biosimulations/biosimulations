@@ -1212,7 +1212,10 @@ export class ViewService {
         {
           '@type': 'DataDownload',
           description: 'Project',
-          contentUrl: this.endpoints.getSimulationRunDownloadEndpoint(false, runId),
+          contentUrl: this.endpoints.getSimulationRunDownloadEndpoint(
+            false,
+            runId,
+          ),
           encodingFormat: 'application/zip',
           contentSize:
             simulationRunSummary.run.projectSize === undefined

@@ -99,7 +99,10 @@ export class PublishComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.uuid = this.route.snapshot.params['uuid'];
-    this.archiveUrl = this.endpoints.getSimulationRunDownloadEndpoint(false, this.uuid);
+    this.archiveUrl = this.endpoints.getSimulationRunDownloadEndpoint(
+      false,
+      this.uuid,
+    );
 
     const simulation$ = this.simulationService.getSimulation(this.uuid).pipe(
       map((simulation: Simulation | UnknownSimulation): Simulation => {
