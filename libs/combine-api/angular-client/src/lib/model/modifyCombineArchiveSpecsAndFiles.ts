@@ -10,18 +10,20 @@
  * Do not edit the class manually.
  */
 import { CombineArchive } from './combineArchive';
+import { FilenameOrUrl } from './filenameOrUrl';
 
 /**
- * Specifications of a COMBINE/OMEX archive (including its SED-ML files) and the other (non-SED-ML) files that it should contain.
+ * COMBINE/OMEX archive and (a) modified specifications for its SED-ML documents and/or (b) modified versions of its files.
  */
-export interface CombineArchiveSpecsAndFiles {
+export interface ModifyCombineArchiveSpecsAndFiles {
   specs: CombineArchive;
   /**
    * File (e.g., model) to place into the COMBINE/OMEX archive.
    */
   files?: Array<Blob>;
   /**
-   * Whether to download the archive or return a URL where the archive can be downloaded.
+   * Whether to download the modified archive or return a URL where the modified archive can be downloaded.
    */
   download?: boolean;
+  archive: FilenameOrUrl;
 }

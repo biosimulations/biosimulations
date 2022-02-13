@@ -2,10 +2,10 @@ from ...exceptions import BadRequestException
 from ...utils import get_temp_dir
 from .utils import export_sed_doc
 from biosimulators_utils.combine.data_model import (
-    CombineArchive,
     CombineArchiveContent,
 )
 from biosimulators_utils.combine.io import (
+    CombineArchiveReader,
     CombineArchiveWriter,
 )
 from biosimulators_utils.sedml.io import (
@@ -22,10 +22,10 @@ import werkzeug.wrappers.response  # noqa: F401
 
 
 def handler(body, files=None):
-    ''' Create a COMBINE/OMEX archive.
+    ''' Modify a COMBINE/OMEX archive.
 
     Args:
-        body (:obj:`dict`): dictionary with schema ``CreateCombineArchiveSpecsAndFiles`` with the
+        body (:obj:`dict`): dictionary with schema ``ModifyCombineArchiveSpecsAndFiles`` with the
             specifications of the COMBINE/OMEX archive to create
         files (:obj:`list` of :obj:`werkzeug.datastructures.FileStorage`, optional): files (e.g., SBML
             file)
@@ -35,18 +35,9 @@ def handler(body, files=None):
             archive or a URL to a COMBINE/OMEX archive
     '''
     download = body.get('download', False)
+    archive_filename_or_url = body['archive']
     archive_specs = body['specs']
     files = connexion.request.files.getlist('files')
-
-    # create temporary working directory
-    temp_dirname = get_temp_dir()
-
-    # create temporary files for archive
-    archive_dirname = os.path.join(temp_dirname, 'archive')
-    archive_filename = os.path.join(temp_dirname, 'archive.omex')
-
-    # initialize archive
-    archive = CombineArchive()
 
     # build map from model filenames to file objects
     filename_map = {
@@ -54,7 +45,67 @@ def handler(body, files=None):
         for file in files
     }
 
-    # add files to archive
+    # create temporary working directory
+    temp_dirname = get_temp_dir()
+    archive_filename = os.path.join(temp_dirname, 'archive.omex')
+
+    # save COMBINE/OMEX archive to local temporary file
+    if 'filename' in archive_filename_or_url and 'url' in archive_filename_or_url:
+        raise BadRequestException(
+            title='Only one of `filename` or `url` can be used at a time.',
+            instance=ValueError(),
+        )
+
+    elif 'filename' not in archive_filename_or_url and 'url' not in archive_filename_or_url:
+        raise BadRequestException(
+            title='One of `filename` or `url` must be used.',
+            instance=ValueError(),
+        )
+
+    elif 'filename' in archive_filename_or_url:
+        # get COMBINE/OMEX archive
+        archive_file = filename_map[archive_filename_or_url['filename']]
+
+        # save archive to local temporary file
+        archive_file.save(archive_filename)
+
+    else:
+        # get COMBINE/OMEX archive
+        archive_url = archive_filename_or_url['url']
+        try:
+            response = requests.get(archive_url)
+            response.raise_for_status()
+        except requests.exceptions.RequestException as exception:
+            title = 'COMBINE/OMEX archive could not be loaded from `{}`'.format(archive_url)
+            raise BadRequestException(
+                title=title,
+                instance=exception,
+            )
+
+        # save archive to local temporary file
+        with open(archive_filename, 'wb') as file:
+            file.write(response.content)
+
+    # read archive
+    archive_dirname = os.path.join(temp_dirname, 'archive')
+    try:
+        archive = CombineArchiveReader().run(archive_filename, archive_dirname)
+    except Exception as exception:
+        # return exception
+        raise BadRequestException(
+            title='`{}` is not a valid COMBINE/OMEX archive'.format(
+                archive_filename_or_url.get('filename', None) or archive_filename_or_url.get('url', None)
+            ),
+            instance=exception,
+        )
+
+    # build map of locations in archive to contents
+    archive_location_to_contents = {
+        os.path.relpath(content.location, '.'): content
+        for content in archive.contents
+    }
+
+    # add files to archive or modify existing files
     for content in archive_specs['contents']:
         content_type = content['location']['value']['_type']
         if content_type == 'SedDocument':
@@ -115,13 +166,19 @@ def handler(body, files=None):
                 instance=NotImplementedError('Invalid content')
             )  # pragma: no cover: unreachable due to schema validation
 
-        content = CombineArchiveContent(
-            location=content['location']['path'],
-            format=content['format'],
-            master=content['master'],
-        )
+        combine_archive_content = archive_location_to_contents.get(os.path.relpath(content['location']['path'], '.'), None)
+        if combine_archive_content is None:
+            combine_archive_content = CombineArchiveContent(
+                location=content['location']['path'],
+                format=content['format'],
+                master=content['master'],
+            )
 
-        archive.contents.append(content)
+            archive.contents.append(combine_archive_content)
+
+        else:
+            combine_archive_content.format = content['format']
+            combine_archive_content.master = content['master']
 
     # package COMBINE/OMEX archive
     CombineArchiveWriter().run(archive, archive_dirname, archive_filename)

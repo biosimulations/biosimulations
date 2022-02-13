@@ -124,8 +124,8 @@ export class ValidationService {
   }
 
   /**
-   * Validate a COMBINE archive and the simulation experiments and models inside it.
-   * Validate a COMBINE archive and the simulation experiments (SED-ML files) and models (e.g., SBML files) inside it.  Notes: * An OMEX Manifest file is required to validate OMEX Metadata files. As a result, the &#x60;validateOmexManifest&#x3D;false&#x60; option should often also be used with the &#x60;validateOmexMetadata&#x3D;false&#x60; option. * Currently, submission to BioSimulations requires metadata to be in RDF-XML format. * COMBINE/OMEX archives must pass all validation checks for publication to BioSimulations.
+   * Validate a COMBINE/OMEX archive and the simulation experiments and models inside it.
+   * Validate a COMBINE/OMEX archive and the simulation experiments (SED-ML files) and models (e.g., SBML files) inside it.  Notes: * An OMEX Manifest file is required to validate OMEX Metadata files. As a result, the &#x60;validateOmexManifest&#x3D;false&#x60; option should often also be used with the &#x60;validateOmexMetadata&#x3D;false&#x60; option. * Currently, submission to BioSimulations requires metadata to be in RDF-XML format. * COMBINE/OMEX archives must pass all validation checks for publication to BioSimulations.
    * @param omexMetadataFormat OMEX Metadata format
    * @param omexMetadataSchema OMEX Metadata schema
    * @param file The two files uploaded in creating a combine archive
