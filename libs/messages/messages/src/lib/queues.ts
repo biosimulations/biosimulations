@@ -28,6 +28,7 @@ export const BullModuleOptions = {
   inject: [ConfigService],
 };
 export enum JobQueue {
+  resolveCombineArchive = 'resolveCombineArchive', // resolve COMBINE/OMEX archive from a URL, upload it to S3, and then post it to the dispatch queue
   dispatch = 'dispatch', //submit a job to hpc
   monitor = 'monitor', // monitor the hpc job
   process = 'process', // Top level job when simulation run is complete
@@ -68,12 +69,25 @@ export class MonitorJobData {
   retryCount!: number;
 }
 
+export class ResolveCombineArchiveJobData {
+  runId!: string;
+  fileUrl!: string;
+  simulator!: string;
+  simulatorVersion!: string;  
+  cpus!: number;
+  memory!: number;
+  maxTime!: number;
+  envVars!: EnvironmentVariable[];
+  purpose!: Purpose;
+  projectId?: string;
+  projectOwner?: string;
+}
+
 export class DispatchJobData {
   runId!: string;
   fileName!: string;
-  archiveUrl?: string;
   simulator!: string;
-  version!: string;  
+  simulatorVersion!: string;  
   cpus!: number;
   memory!: number;
   maxTime!: number;

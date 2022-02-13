@@ -50,10 +50,16 @@ import { BullModuleOptions } from '@biosimulations/messages/messages';
     ]),
     // Need to provide hash keys to allow use on cluster.
     //See https://github.com/OptimalBits/bull/blob/develop/PATTERNS.md#redis-cluster
-    BullModule.registerQueue({
-      name: 'dispatch',
-      ...BullModuleOptions,
-    }),
+    BullModule.registerQueue(
+      {
+        name: 'resolveCombineArchive',
+        ...BullModuleOptions,
+      },
+      {
+        name: 'dispatch',
+        ...BullModuleOptions,
+      }
+    ),
     HSDSClientModule,
   ],
   controllers: [SimulationRunController],

@@ -5,7 +5,7 @@
  * @copyright BioSimulations Team 2020
  * @license MIT
  */
-import { DispatchJobData } from '@biosimulations/messages/messages';
+import { DispatchJobData, ResolveCombineArchiveJobData } from '@biosimulations/messages/messages';
 import { OptionalAuth, permissions } from '@biosimulations/auth/nest';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 import {
@@ -84,7 +84,9 @@ export class SimulationRunController {
 
   public constructor(
     private service: SimulationRunService,
-    private validationService: SimulationRunValidationService,
+    private validationService: SimulationRunValidationService,    
+    @InjectQueue('resolveCombineArchive')
+    private readonly resolveCombineArchiveQueue: Queue<ResolveCombineArchiveJobData>,
     @InjectQueue('dispatch')
     private readonly dispatchQueue: Queue<DispatchJobData>,
   ) {
@@ -194,7 +196,6 @@ export class SimulationRunController {
     let run: SimulationRunModelReturnType;
     const user = req?.user as AuthToken;
     let projectId: string | undefined;
-    let archiveUrl: string | undefined = undefined;
 
     if (!contentType) {
       throw new UnsupportedMediaTypeException(
@@ -209,6 +210,29 @@ export class SimulationRunController {
         file.buffer,
         file.size,
       );
+      const message: DispatchJobData = {
+        runId: run.id,
+        fileName: file?.originalname || 'archive.omex',
+        simulator: run.simulator,
+        simulatorVersion: run.simulatorVersion,
+        cpus: run.cpus,
+        memory: run.memory,
+        maxTime: run.maxTime,
+        envVars: run.envVars,
+        purpose: run.purpose,
+        projectId: projectId,
+        projectOwner: user?.sub,
+      };
+      const sim = await this.dispatchQueue.add('dispatch', message, {
+        attempts: 10,
+        backoff: {
+          type: 'exponential',
+          delay: 1000,
+        },
+        removeOnComplete: 100,
+        removeOnFail: 100,
+      });
+    
     } else if (
       contentType?.startsWith('application/json') &&
       this.isUrlBody(body)
@@ -216,38 +240,36 @@ export class SimulationRunController {
       projectId = body?.projectId;
       this.checkPublishProjectPermission(user, projectId);
       run = await this.service.createRunWithURL(body);
-      archiveUrl = body.url;
+
+      const message: ResolveCombineArchiveJobData = {
+        runId: run.id,
+        fileUrl: body.url,
+        simulator: run.simulator,
+        simulatorVersion: run.simulatorVersion,
+        cpus: run.cpus,
+        memory: run.memory,
+        maxTime: run.maxTime,
+        envVars: run.envVars,
+        purpose: run.purpose,
+        projectId: projectId,
+        projectOwner: user?.sub,
+      };
+      const sim = await this.resolveCombineArchiveQueue.add('resolve', message, {
+        attempts: 10,
+        backoff: {
+          type: 'exponential',
+          delay: 1000,
+        },
+        removeOnComplete: 100,
+        removeOnFail: 100,
+      });
+    
     } else {
       throw new UnsupportedMediaTypeException(
         "The content type must be 'application/json' or 'multipart/form-data'.",
       );
     }
     const response = this.makeSimulationRun(run);
-
-    const message: DispatchJobData = {
-      runId: run.id,
-      fileName: file?.originalname || 'input.omex',
-      archiveUrl: archiveUrl,
-      simulator: run.simulator,
-      version: run.simulatorVersion,
-      cpus: run.cpus,
-      memory: run.memory,
-      maxTime: run.maxTime,
-      envVars: run.envVars,
-      purpose: run.purpose,
-      projectId: projectId,
-      projectOwner: user?.sub,
-    };
-    const sim = await this.dispatchQueue.add('dispatch', message, {
-      attempts: 10,
-      backoff: {
-        type: 'exponential',
-        delay: 1000,
-      },
-      removeOnComplete: 100,
-      removeOnFail: 100,
-    });
-
     return response;
   }
 

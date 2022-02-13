@@ -48,7 +48,7 @@ export class SbatchService {
     purpose: Purpose,
     workDirname: string,
   ): string {
-    const combineArchiveFilename = 'input.omex';
+    const combineArchiveFilename = 'archive.omex';
     const executablesPath = this.configService.get('hpc.executablesPath');
 
     const modulePath = this.configService.get('hpc.module.path');

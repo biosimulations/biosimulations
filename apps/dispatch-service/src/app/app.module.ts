@@ -15,6 +15,7 @@ import { ImagesModule } from '../images/images.module';
 import { LogService } from './results/log.service';
 
 import { ConfigService } from '@nestjs/config';
+import { ResolveCombineArchiveProcessor } from './submission/resolveCombineArchive.processor';
 import { DispatchProcessor } from './submission/dispatch.processor';
 import { CompleteProcessor } from './submission/complete.processor';
 import { MonitorProcessor } from './submission/monitor.processor';
@@ -81,6 +82,10 @@ import { CleanUpProcessor } from './submission/cleanup.processor';
     // Need to provide hash keys to allow use on cluster.
     //See https://github.com/OptimalBits/bull/blob/develop/PATTERNS.md#redis-cluster
     BullModule.registerQueueAsync(
+      {
+        name: JobQueue.resolveCombineArchive,
+        ...BullModuleOptions,
+      },
       {
         name: JobQueue.dispatch,
         ...BullModuleOptions,
@@ -166,6 +171,7 @@ import { CleanUpProcessor } from './submission/cleanup.processor';
     LogService,
     AppQueueManagerProvider,
     // Processors
+    ResolveCombineArchiveProcessor,
     DispatchProcessor,
     MonitorProcessor,
     ProcessProcessor,
