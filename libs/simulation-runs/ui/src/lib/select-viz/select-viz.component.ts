@@ -191,7 +191,7 @@ export class SelectVisualizationComponent implements OnDestroy {
           } else {
             const sub = this.combineApiService
               .addFileToCombineArchive(
-                this.endpoints.getRunDownloadEndpoint(false, simulationRunId),
+                this.endpoints.getSimulationRunDownloadEndpoint(false, simulationRunId),
                 'plot.vg.json',
                 this.vegaFormatCombineUri,
                 false,

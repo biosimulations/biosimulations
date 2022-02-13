@@ -31,7 +31,7 @@ export class SedmlService {
     this.logger.log(
       `Processing SED-ML documents for simulation run '${id}' ...`,
     );
-    const url = this.endpoints.getRunDownloadEndpoint(true, id);
+    const url = this.endpoints.getSimulationRunDownloadEndpoint(true, id);
     const sedml = this.combine
       .getSedMlSpecs(undefined, url)
       .pipe(

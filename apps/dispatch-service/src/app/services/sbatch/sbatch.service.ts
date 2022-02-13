@@ -142,7 +142,7 @@ export class SbatchService {
             .join(',')
         : '';
     // Need to get external endpoint so that HPC can download the archive
-    const runCombineArchiveUrl = this.endpoints.getRunDownloadEndpoint(
+    const runCombineArchiveUrl = this.endpoints.getSimulationRunDownloadEndpoint(
       true,
       runId,
     );

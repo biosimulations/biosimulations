@@ -31,7 +31,7 @@ export class MetadataService {
 
   public createMetadata(id: string): Observable<ArchiveMetadataContainer> {
     // This must be external so that combine archive can be downloaded by combine-service
-    const url = this.endpoints.getRunDownloadEndpoint(true, id);
+    const url = this.endpoints.getSimulationRunDownloadEndpoint(true, id);
     this.logger.debug(
       `Fetching metadata for archive for simulation run '${id}' at URL: ${url}`,
     );
