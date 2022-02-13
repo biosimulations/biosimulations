@@ -4,10 +4,14 @@ import {
   HealthIndicatorResult,
   HealthCheckError,
 } from '@nestjs/terminus';
-import { InjectQueue, Process, Processor } from '@biosimulations/nestjs-bullmq';
+import {
+  InjectQueue,
+  InjectQueueEvents,
+  Process,
+  Processor,
+} from '@biosimulations/nestjs-bullmq';
 import { Job, Queue, QueueEvents } from 'bullmq';
 import { JobQueue } from '@biosimulations/messages/messages';
-import { ConfigService } from '@nestjs/config';
 
 const JOB_NAME = 'healthCheck';
 @Processor(JobQueue.health)
@@ -20,21 +24,12 @@ export class HealthCheckProcessor {
 
 @Injectable()
 export class BullHealthIndicator extends HealthIndicator {
-  private queueEvents: QueueEvents;
   private logger = new Logger('BullHealthIndicator');
   public constructor(
-    private configService: ConfigService,
+    @InjectQueueEvents(JobQueue.health) private queueEvents: QueueEvents,
     @InjectQueue(JobQueue.health) private readonly healthQueue: Queue,
   ) {
     super();
-    const queueport = this.configService.get('queue.port');
-    const queuehost = this.configService.get('queue.host');
-    this.queueEvents = new QueueEvents(JobQueue.health, {
-      connection: {
-        host: queuehost,
-        port: queueport,
-      },
-    });
   }
 
   public async isHealthy(key: string): Promise<HealthIndicatorResult> {
