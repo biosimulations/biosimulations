@@ -1,5 +1,12 @@
 # Changelog
 
+# [9.4.0](https://github.com/biosimulations/biosimulations/compare/v9.3.0...v9.4.0) (2022-02-13)
+
+
+### Features
+
+* **combine-api:** added endpoint for modifying COMBINE/OMEX archives ([01acfaa](https://github.com/biosimulations/biosimulations/commit/01acfaa6556e25626eb80d09e548215c7177f688))
+
 ## [9.3.0](https://github.com/biosimulations/biosimulations/compare/v9.2.4...v9.3.0) (2022-02-12)
 
 
