@@ -12,7 +12,7 @@
 import { ValidationMessage } from './validationMessage';
 
 /**
- * Information about whether a COMBINE archive is valid, potentially invalid (1 or more warnings), or invalid (1 or more errors).
+ * Information about whether a COMBINE/OMEX archive is valid, potentially invalid (1 or more warnings), or invalid (1 or more errors).
  */
 export interface ValidationReport {
   /**

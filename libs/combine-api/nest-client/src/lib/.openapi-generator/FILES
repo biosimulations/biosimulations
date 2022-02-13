@@ -31,7 +31,7 @@ model/combineArchiveManifestLocation.ts
 model/combineArchiveSedDocSpecs.ts
 model/combineArchiveSedDocSpecsContent.ts
 model/combineArchiveSedDocSpecsLocation.ts
-model/combineArchiveSpecsAndFiles.ts
+model/createCombineArchiveSpecsAndFiles.ts
 model/environment.ts
 model/environmentVariable.ts
 model/error.ts
@@ -45,6 +45,7 @@ model/kisaoAlgorithmSubstitutionPolicy.ts
 model/kisaoTerm.ts
 model/modelAndSimulation.ts
 model/models.ts
+model/modifyCombineArchiveSpecsAndFiles.ts
 model/namespace.ts
 model/rdfBlankNode.ts
 model/rdfLiteralNode.ts

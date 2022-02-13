@@ -9,34 +9,19 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ValidationMessage } from './validationMessage';
+import { CombineArchive } from './combineArchive';
 
 /**
- * Information about whether a COMBINE/OMEX archive is valid, potentially invalid (1 or more warnings), or invalid (1 or more errors).
+ * Specifications of a COMBINE/OMEX archive (including its SED-ML files) and the other (non-SED-ML) files that it should contain.
  */
-export interface ValidationReport {
+export interface CreateCombineArchiveSpecsAndFiles {
+  specs: CombineArchive;
   /**
-   * Errors with the archive.
+   * File (e.g., model) to place into the COMBINE/OMEX archive.
    */
-  errors?: Array<ValidationMessage>;
+  files?: Array<Blob>;
   /**
-   * Overall status of the archive.
+   * Whether to download the archive or return a URL where the archive can be downloaded.
    */
-  status: ValidationReportStatus;
-  /**
-   * Warnings for the archive.
-   */
-  warnings?: Array<ValidationMessage>;
-  /**
-   * Type
-   */
-  _type: ValidationReportTypeEnum;
-}
-export enum ValidationReportStatus {
-  Valid = 'valid',
-  Invalid = 'invalid',
-  Warnings = 'warnings',
-}
-export enum ValidationReportTypeEnum {
-  ValidationReport = 'ValidationReport',
+  download?: boolean;
 }

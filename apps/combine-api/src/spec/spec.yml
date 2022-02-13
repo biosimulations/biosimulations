@@ -161,13 +161,13 @@ paths:
     post:
       requestBody:
         description: Specifiations for the COMBINE/OMEX archive and its contents (specifications
-          of the SED-ML file and model file(s)).
+          of the SED-ML documents and file(s)).
         content:
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/CombineArchiveSpecsAndFiles'
+              $ref: '#/components/schemas/CreateCombineArchiveSpecsAndFiles'
             examples:
-              Example specifications for a COMBINE archive and files to be included in the archive:
+              Example specifications for a COMBINE/OMEX archive and files to be included in the archive:
                 value:
                   specs:
                     _type: CombineArchive
@@ -205,7 +205,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Url'
               examples:
-                Example URL for a COMBINE archive:
+                Example URL for a COMBINE/OMEX archive:
                   value: '"https://data.biosimulations.org/XYZ"'
             application/zip:
               schema:
@@ -213,13 +213,14 @@ paths:
               examples:
                 COMBINE/OMEX archive:
                   value: '"<FILE>"'
-          description: URL for the created COMBINE/OMEX archive.
+          description: Created COMBINE/OMEX archive or URL where the archive can be
+            retrieved.
         "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-          description: Specifications for COMBINE archive are invalid.
+          description: Specifications for COMBINE/OMEX archive are invalid.
         "413":
           content:
             application/json:
@@ -233,10 +234,10 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Server error.
       operationId: src.handlers.combine.create.handler
-      summary: Assemble a COMBINE/OMEX archive from model files and specifications
-        of a SED-ML document.
-      description: Assemble a COMBINE/OMEX archive from model files and specifications
-        of a SED-ML document.
+      summary: Create a COMBINE/OMEX archive from files and specifications of SED-ML
+        documents.
+      description: "Create a COMBINE/OMEX archive from files (e.g., BNGL, CellML,\
+        \ SBML) and specifications of SED-ML documents."
   /combine/validate:
     post:
       requestBody:
@@ -278,7 +279,7 @@ paths:
                     - - _type: ValidationMessage
                         summary: Archive may be invalid
                     status: warnings
-          description: Overall validity of COMBINE archive and errors and warnings
+          description: Overall validity of COMBINE/OMEX archive and errors and warnings
             about how it isn't or may not be valid.
         "400":
           content:
@@ -299,10 +300,10 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Server error.
       operationId: src.handlers.combine.validate.handler
-      summary: Validate a COMBINE archive and the simulation experiments and models
-        inside it.
+      summary: Validate a COMBINE/OMEX archive and the simulation experiments and
+        models inside it.
       description: |-
-        Validate a COMBINE archive and the simulation experiments (SED-ML files) and models (e.g., SBML files) inside it.
+        Validate a COMBINE/OMEX archive and the simulation experiments (SED-ML files) and models (e.g., SBML files) inside it.
 
         Notes:
         * An OMEX Manifest file is required to validate OMEX Metadata files. As a result, the `validateOmexManifest=false` option should often also be used with the `validateOmexMetadata=false` option.
@@ -334,7 +335,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/CombineArchiveSedDocSpecs'
               examples:
-                Example specifications of a COMBINE archive:
+                Example specifications of a COMBINE/OMEX archive:
                   value:
                     _type: CombineArchiveSedDocSpecs
                     contents:
@@ -749,7 +750,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/CombineArchiveManifest'
               examples:
-                Example specifications of a COMBINE archive:
+                Example specifications of a COMBINE/OMEX archive:
                   value:
                     _type: CombineArchiveManifest
                     contents:
@@ -988,6 +989,87 @@ paths:
           description: Server error.
       operationId: src.handlers.sed_ml.get_parameters_variables_for_simulation.handler
       summary: Get the possible observables of a simulation as a list of SED-ML variables.
+  /combine/modify:
+    post:
+      requestBody:
+        description: Specifiations for the COMBINE/OMEX archive and its contents (specifications
+          of the SED-ML documents and file(s)).
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ModifyCombineArchiveSpecsAndFiles'
+            examples:
+              Example specifications for a COMBINE/OMEX archive and files to be included in the archive:
+                value:
+                  specs:
+                    _type: CombineArchive
+                    contents:
+                    - _type: CombineArchiveContent
+                      location:
+                        _type: CombineArchiveLocation
+                        path: experiment1/model.xml
+                        value:
+                          _type: CombineArchiveContentFile
+                          filename: model.xml
+                      format: http://identifiers.org/combine.specifications/sbml
+                      master: false
+                    - _type: CombineArchiveContent
+                      location:
+                        _type: CombineArchiveLocation
+                        path: experiment1/simulation.sedml
+                        value:
+                          _type: CombineArchiveContentUrl
+                          url: https://simulation.org/simulation.sedml
+                      format: http://identifiers.org/combine.specifications/sed-ml
+                      master: true
+                  files:
+                  - <FILE>
+            encoding:
+              archive:
+                contentType: application/json
+              specs:
+                contentType: application/json
+        required: true
+      tags:
+      - Simulation projects
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Url'
+              examples:
+                Example URL for a COMBINE/OMEX archive:
+                  value: '"https://data.biosimulations.org/XYZ"'
+            application/zip:
+              schema:
+                $ref: '#/components/schemas/File'
+              examples:
+                COMBINE/OMEX archive:
+                  value: '"<FILE>"'
+          description: Modified COMBINE/OMEX archive or URL where the modified archive
+            can be retrieved.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Specifications for the COMBINE/OMEX archive are invalid.
+        "413":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Uploaded content is larger than the limit for this service.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Server error.
+      operationId: src.handlers.combine.modify.handler
+      summary: Modify the files and/or SED-ML documents in a COMBINE/OMEX archive
+      description: Modify the files or SED-ML documents in a COMBINE/OMEX archive.
 components:
   schemas:
     SedDocument:
@@ -1626,50 +1708,6 @@ components:
         The full list of recognized values is available at https://sed-ml.org/urns.html.
       type: string
       example: urn:sedml:language:sbml
-    CombineArchiveSpecsAndFiles:
-      description: Specifications of a COMBINE/OMEX archive (including its SED-ML
-        files) and the other (non-SED-ML) files that it should contain.
-      required:
-      - specs
-      type: object
-      properties:
-        specs:
-          $ref: '#/components/schemas/CombineArchive'
-          description: Specifications of the COMBINE archive.
-        files:
-          description: "File (e.g., model) to place into the COMBINE/OMEX archive."
-          type: array
-          items:
-            $ref: '#/components/schemas/File'
-        download:
-          description: Whether to download the archive or return a URL where the archive
-            can be downloaded.
-          type: boolean
-      example:
-        specs:
-          _type: CombineArchive
-          contents:
-          - _type: CombineArchiveContent
-            location:
-              _type: CombineArchiveLocation
-              path: experiment1/model.xml
-              value:
-                _type: CombineArchiveContentFile
-                filename: model.xml
-            format: http://identifiers.org/combine.specifications/sbml
-            master: false
-          - _type: CombineArchiveContent
-            location:
-              _type: CombineArchiveLocation
-              path: experiment1/simulation.sedml
-              value:
-                _type: CombineArchiveContentUrl
-                url: https://simulation.org/simulation.sedml
-            format: http://identifiers.org/combine.specifications/sed-ml
-            master: true
-        files:
-        - <FILE>
-      x-body-name: body
     Namespace:
       description: Namespace
       required:
@@ -1919,7 +1957,7 @@ components:
           type: string
       example:
         _type: ValidationMessage
-        summary: COMBINE archive is invalid.
+        summary: COMBINE/OMEX archive is invalid.
         details:
         - _type: ValidationMessage
           summary: SED-ML document is invalid
@@ -1927,7 +1965,7 @@ components:
           - _type: ValidationMessage
             summary: Model is invalid
     ValidationReport:
-      description: "Information about whether a COMBINE archive is valid, potentially\
+      description: "Information about whether a COMBINE/OMEX archive is valid, potentially\
         \ invalid (1 or more warnings), or invalid (1 or more errors)."
       required:
       - status
@@ -2110,7 +2148,7 @@ components:
           value: https://dublincore.org/specifications/dublin-core/dcmi-terms/title
         object:
           _type: literal
-          value: Title of my COMBINE archive
+          value: Title of my COMBINE/OMEX archive
     URI:
       description: Uniform Resource Identifier (URI)
       type: string
@@ -2549,7 +2587,7 @@ components:
             (see https://biosimulators.org/).
         archiveUrl:
           $ref: '#/components/schemas/Url'
-          description: URL for a COMBINE archive
+          description: URL for a COMBINE/OMEX archive
         archiveFile:
           $ref: '#/components/schemas/File'
           description: COMBINE/OMEX archive file
@@ -3863,6 +3901,100 @@ components:
         variables: []
         range: range
         math: p * range
+    ModifyCombineArchiveSpecsAndFiles:
+      description: COMBINE/OMEX archive and (a) modified specifications for its SED-ML
+        documents and/or (b) modified versions of its files.
+      required:
+      - specs
+      - archive
+      type: object
+      properties:
+        specs:
+          $ref: '#/components/schemas/CombineArchive'
+          description: Specifications of the COMBINE/OMEX archive.
+        files:
+          description: "File (e.g., model) to place into the COMBINE/OMEX archive."
+          type: array
+          items:
+            $ref: '#/components/schemas/File'
+        download:
+          description: Whether to download the modified archive or return a URL where
+            the modified archive can be downloaded.
+          type: boolean
+        archive:
+          $ref: '#/components/schemas/FilenameOrUrl'
+          description: COMBINE/OMEX archive or a URL where the archive can be retrieved.
+      example:
+        archive:
+          url: https://my.site/archive.omex
+        specs:
+          _type: CombineArchive
+          contents:
+          - _type: CombineArchiveContent
+            location:
+              _type: CombineArchiveLocation
+              path: experiment1/model.xml
+              value:
+                _type: CombineArchiveContentFile
+                filename: model.xml
+            format: http://identifiers.org/combine.specifications/sbml
+            master: false
+          - _type: CombineArchiveContent
+            location:
+              _type: CombineArchiveLocation
+              path: experiment1/simulation.sedml
+              value:
+                _type: CombineArchiveContentUrl
+                url: https://simulation.org/simulation.sedml
+            format: http://identifiers.org/combine.specifications/sed-ml
+            master: true
+        files:
+        - <FILE>
+      x-body-name: body
+    CreateCombineArchiveSpecsAndFiles:
+      description: Specifications of a COMBINE/OMEX archive (including its SED-ML
+        files) and the other (non-SED-ML) files that it should contain.
+      required:
+      - specs
+      type: object
+      properties:
+        specs:
+          $ref: '#/components/schemas/CombineArchive'
+          description: Specifications of the COMBINE/OMEX archive.
+        files:
+          description: "File (e.g., model) to place into the COMBINE/OMEX archive."
+          type: array
+          items:
+            $ref: '#/components/schemas/File'
+        download:
+          description: Whether to download the archive or return a URL where the archive
+            can be downloaded.
+          type: boolean
+      example:
+        specs:
+          _type: CombineArchive
+          contents:
+          - _type: CombineArchiveContent
+            location:
+              _type: CombineArchiveLocation
+              path: experiment1/model.xml
+              value:
+                _type: CombineArchiveContentFile
+                filename: model.xml
+            format: http://identifiers.org/combine.specifications/sbml
+            master: false
+          - _type: CombineArchiveContent
+            location:
+              _type: CombineArchiveLocation
+              path: experiment1/simulation.sedml
+              value:
+                _type: CombineArchiveContentUrl
+                url: https://simulation.org/simulation.sedml
+            format: http://identifiers.org/combine.specifications/sed-ml
+            master: true
+        files:
+        - <FILE>
+      x-body-name: body
     CombineArchiveLog:
       required:
       - status
