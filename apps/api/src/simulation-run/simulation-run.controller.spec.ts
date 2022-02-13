@@ -25,6 +25,9 @@ describe('SimulationRunsController', () => {
       };
     }
   }
+  class resolveCombineArchiveQueue {
+    add(job: any) {}
+  }
   class dispatchQueue {
     add(job: any) {}
   }
@@ -40,6 +43,7 @@ describe('SimulationRunsController', () => {
       providers: [
         { provide: SimulationRunService, useClass: mockSimService },
         { provide: SimulationRunValidationService, useClass: mockSimService },
+        { provide: 'BullQueue_resolveCombineArchive', useClass: resolveCombineArchiveQueue },
         { provide: 'BullQueue_dispatch', useClass: dispatchQueue },
       ],
     }).compile();
