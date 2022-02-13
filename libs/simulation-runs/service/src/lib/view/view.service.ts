@@ -626,7 +626,7 @@ export class ViewService {
               ),
         icon: (this.combineOmexFormat?.biosimulationsMetadata?.icon ||
           'archive') as BiosimulationsIcon,
-        url: this.endpoints.getRunDownloadEndpoint(
+        url: this.endpoints.getSimulationRunDownloadEndpoint(
           false,
           simulationRunSummary.id,
         ),
@@ -1212,7 +1212,7 @@ export class ViewService {
         {
           '@type': 'DataDownload',
           description: 'Project',
-          contentUrl: this.endpoints.getRunDownloadEndpoint(false, runId),
+          contentUrl: this.endpoints.getSimulationRunDownloadEndpoint(false, runId),
           encodingFormat: 'application/zip',
           contentSize:
             simulationRunSummary.run.projectSize === undefined

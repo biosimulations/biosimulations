@@ -520,7 +520,7 @@ export class BrowseComponent implements OnInit {
         } else {
           return (simulation: ISimulation): void => {
             const queryParams: any = {
-              projectUrl: this.endpoints.getRunDownloadEndpoint(
+              projectUrl: this.endpoints.getSimulationRunDownloadEndpoint(
                 false,
                 simulation.id,
               ),
@@ -541,7 +541,7 @@ export class BrowseComponent implements OnInit {
         } else {
           return (simulation: ISimulation): void => {
             const queryParams: any = {
-              projectUrl: this.endpoints.getRunDownloadEndpoint(
+              projectUrl: this.endpoints.getSimulationRunDownloadEndpoint(
                 false,
                 simulation.id,
               ),

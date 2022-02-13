@@ -20,7 +20,7 @@ export class ManifestService {
     id: string,
   ): Observable<CombineArchiveManifestContent[]> {
     // This needs to be true so combine api can access if we are running locally /on kubernetes
-    const url = this.endpoints.getRunDownloadEndpoint(true, id);
+    const url = this.endpoints.getSimulationRunDownloadEndpoint(true, id);
     this.logger.debug(`Getting manifest from ${url}`);
     // get manifest
     const manifestContent = this.combine

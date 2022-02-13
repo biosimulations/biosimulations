@@ -27,7 +27,7 @@ function rerunProject(url: string, router: Router): void {
     .get<SimulationRun>(endpoints.getSimulationRunEndpoint(true, id))
     .subscribe((simulationRun: SimulationRun): void => {
       const queryParams = {
-        projectUrl: endpoints.getRunDownloadEndpoint(true, id),
+        projectUrl: endpoints.getSimulationRunDownloadEndpoint(true, id),
         simulator: simulationRun.simulator,
         simulatorVersion: simulationRun.simulatorVersion,
         runName: simulationRun.name + ' (rerun)',

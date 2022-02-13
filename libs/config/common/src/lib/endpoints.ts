@@ -319,7 +319,7 @@ export class Endpoints {
    *
    * @returns A URL to download the COMBINE/OMEX archive of a simulation run
    */
-  public getRunDownloadEndpoint(external: boolean, id: string): string {
+  public getSimulationRunDownloadEndpoint(external: boolean, id: string): string {
     return `${this.getSimulationRunsEndpointBaseUrl(external)}/${id}/download`;
   }
 
