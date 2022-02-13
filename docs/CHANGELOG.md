@@ -1,5 +1,12 @@
 # Changelog
 
+# [9.5.0](https://github.com/biosimulations/biosimulations/compare/v9.4.0...v9.5.0) (2022-02-13)
+
+
+### Features
+
+* **combine-api:** upgraded to flask 2, connexion 2.11, openapi-schema-validator 0.2 ([9242e7d](https://github.com/biosimulations/biosimulations/commit/9242e7dec413d6e3601e050d60f65eb865ddc137))
+
 ## [9.4.0](https://github.com/biosimulations/biosimulations/compare/v9.3.0...v9.4.0) (2022-02-13)
 
 
