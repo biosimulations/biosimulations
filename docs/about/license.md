@@ -837,6 +837,11 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/axios/axios
 │  ├─ publisher: Matt Zabriskie
+│  └─ licenseFile: @nestjs/axios/node_modules/axios/LICENSE
+├─ axios@0.26.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/axios/axios
+│  ├─ publisher: Matt Zabriskie
 │  └─ licenseFile: axios/LICENSE
 ├─ balanced-match@1.0.2
 │  ├─ licenses: MIT
@@ -1850,7 +1855,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: https://sindresorhus.com
 │  └─ licenseFile: find-versions/license
-├─ follow-redirects@1.14.7
+├─ follow-redirects@1.14.8
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/follow-redirects/follow-redirects
 │  ├─ publisher: Ruben Verborgh
