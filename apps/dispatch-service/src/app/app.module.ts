@@ -52,6 +52,7 @@ import { LogsPostProcessor } from './submission/logPost.processor';
 import { PublishProcessor } from './submission/publish.processor';
 import { AppQueueManagerProvider } from './app.queues.provider';
 import { CleanUpProcessor } from './submission/cleanup.processor';
+import { SubmissionProcessor } from './submission/submit.processor';
 
 @Module({
   imports: [
@@ -82,6 +83,10 @@ import { CleanUpProcessor } from './submission/cleanup.processor';
     // Need to provide hash keys to allow use on cluster.
     //See https://github.com/OptimalBits/bull/blob/develop/PATTERNS.md#redis-cluster
     BullModule.registerQueueAsync(
+      {
+        name: JobQueue.submitSimulationRun,
+        ...BullModuleOptions,
+      },
       {
         name: JobQueue.resolveCombineArchive,
         ...BullModuleOptions,
@@ -190,6 +195,7 @@ import { CleanUpProcessor } from './submission/cleanup.processor';
     CompleteProcessor,
     PublishProcessor,
     CleanUpProcessor,
+    SubmissionProcessor,
 
     // Services
     MetadataService,
