@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.5.1](https://github.com/biosimulations/biosimulations/compare/v9.5.0...v9.5.1) (2022-02-14)
+
+
+### Performance Improvements
+
+* **api,dispatch-service:** move downloading COMBINE archive and uploading to S3 to dispatch service ([c325b7b](https://github.com/biosimulations/biosimulations/commit/c325b7b283f44773f3d0889fa9f7cb4ac6c008c9))
+
 ## [9.5.0](https://github.com/biosimulations/biosimulations/compare/v9.4.0...v9.5.0) (2022-02-13)
 
 
