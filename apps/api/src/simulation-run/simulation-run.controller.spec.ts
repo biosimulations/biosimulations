@@ -6,7 +6,7 @@ import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
 import { HttpModule } from '@nestjs/axios';
 import { SimulationRunValidationService } from './simulation-run-validation.service';
-
+import { JobQueue } from '@biosimulations/messages/messages';
 /**
  * @file Test file for controller
  * @author Bilal Shaikh
@@ -31,6 +31,7 @@ describe('SimulationRunsController', () => {
   class dispatchQueue {
     add(job: any) {}
   }
+  const queueToken = `BullQueue_${JobQueue.submitSimulationRun}`;
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [SimulationRunController],
@@ -43,8 +44,7 @@ describe('SimulationRunsController', () => {
       providers: [
         { provide: SimulationRunService, useClass: mockSimService },
         { provide: SimulationRunValidationService, useClass: mockSimService },
-        { provide: 'BullQueue_resolveCombineArchive', useClass: resolveCombineArchiveQueue },
-        { provide: 'BullQueue_dispatch', useClass: dispatchQueue },
+        { provide: queueToken, useClass: dispatchQueue },
       ],
     }).compile();
 
