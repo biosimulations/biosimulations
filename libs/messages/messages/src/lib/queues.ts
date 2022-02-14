@@ -28,7 +28,8 @@ export const BullModuleOptions = {
   inject: [ConfigService],
 };
 export enum JobQueue {
-  resolveCombineArchive = 'resolveCombineArchive', // resolve COMBINE/OMEX archive from a URL, upload it to S3, and then post it to the dispatch queue
+  submitSimulationRun = 'submitSimulationRun', // submitSimulationRun to the dispatch-service.
+  resolveCombineArchive = 'resolveCombineArchive', // resolve COMBINE/OMEX archive from a URL, upload it to S3, and then add it to the HPC queue
   dispatch = 'dispatch', //submit a job to hpc
   monitor = 'monitor', // monitor the hpc job
   process = 'process', // Top level job when simulation run is complete
@@ -69,11 +70,10 @@ export class MonitorJobData {
   retryCount!: number;
 }
 
-export class ResolveCombineArchiveJobData {
+export class SubmitHPCSimulationRunJobData {
   runId!: string;
-  fileUrl!: string;
   simulator!: string;
-  simulatorVersion!: string;  
+  simulatorVersion!: string;
   cpus!: number;
   memory!: number;
   maxTime!: number;
@@ -81,21 +81,25 @@ export class ResolveCombineArchiveJobData {
   purpose!: Purpose;
   projectId?: string;
   projectOwner?: string;
+}
+export class SubmitURLSimulationRunJobData extends SubmitHPCSimulationRunJobData {
+  fileUrl!: string;
 }
 
-export class DispatchJobData {
-  runId!: string;
+export class SubmitFileSimulationRunJobData extends SubmitHPCSimulationRunJobData {
   fileName!: string;
-  simulator!: string;
-  simulatorVersion!: string;  
-  cpus!: number;
-  memory!: number;
-  maxTime!: number;
-  envVars!: EnvironmentVariable[];
-  purpose!: Purpose;
-  projectId?: string;
-  projectOwner?: string;
 }
+
+export const isSubmitURLSimulationRunJobData = (
+  data: SubmitFileSimulationRunJobData | SubmitURLSimulationRunJobData,
+): data is SubmitURLSimulationRunJobData => {
+  return (data as SubmitURLSimulationRunJobData).fileUrl !== undefined;
+};
+export const isSubmitFileSimulationRunJobData = (
+  data: SubmitFileSimulationRunJobData | SubmitURLSimulationRunJobData,
+): data is SubmitFileSimulationRunJobData => {
+  return (data as SubmitFileSimulationRunJobData).fileName !== undefined;
+};
 
 export class CompleteJobData {
   runId!: string;
