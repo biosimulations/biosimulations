@@ -29,14 +29,6 @@
       "automerge": false
     },
     {
-      "matchDepTypes": [
-        "devDependencies"
-      ],
-      "addLabels": [
-        "dev"
-      ]
-    },
-    {
       "matchUpdateTypes": [
         "pin"
       ],
