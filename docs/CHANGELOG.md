@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.5.2](https://github.com/biosimulations/biosimulations/compare/v9.5.1...v9.5.2) (2022-02-14)
+
+
+### Bug Fixes
+
+* **dispatch:** restore /simulations links ([e86f8f6](https://github.com/biosimulations/biosimulations/commit/e86f8f6642cb0d2d1b97cdd4858595713a99d6bf))
+
 ## [9.5.1](https://github.com/biosimulations/biosimulations/compare/v9.5.0...v9.5.1) (2022-02-14)
 
 
