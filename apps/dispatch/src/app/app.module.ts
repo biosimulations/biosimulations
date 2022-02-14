@@ -41,6 +41,7 @@ const routes: Routes = [
       breadcrumb: 'Your simulation runs',
     },
   },
+  { path: 'simulations/:id', redirectTo: 'runs/:id', pathMatch: 'prefix' },
   {
     path: 'utils',
     loadChildren: () =>
