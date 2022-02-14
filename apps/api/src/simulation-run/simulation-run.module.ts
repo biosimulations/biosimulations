@@ -31,7 +31,7 @@ import { FilesModule } from '../files/files.module';
 import { MetadataModule } from '../metadata/metadata.module';
 import { ProjectsModule } from '../projects/projects.module';
 import { SimulationRunValidationService } from './simulation-run-validation.service';
-import { BullModuleOptions } from '@biosimulations/messages/messages';
+import { BullModuleOptions, JobQueue } from '@biosimulations/messages/messages';
 
 @Module({
   imports: [
@@ -48,18 +48,10 @@ import { BullModuleOptions } from '@biosimulations/messages/messages';
     MongooseModule.forFeature([
       { name: SimulationRunModel.name, schema: SimulationRunModelSchema },
     ]),
-    // Need to provide hash keys to allow use on cluster.
-    //See https://github.com/OptimalBits/bull/blob/develop/PATTERNS.md#redis-cluster
-    BullModule.registerQueue(
-      {
-        name: 'resolveCombineArchive',
-        ...BullModuleOptions,
-      },
-      {
-        name: 'dispatch',
-        ...BullModuleOptions,
-      }
-    ),
+    BullModule.registerQueue({
+      name: JobQueue.submitSimulationRun,
+      ...BullModuleOptions,
+    }),
     HSDSClientModule,
   ],
   controllers: [SimulationRunController],

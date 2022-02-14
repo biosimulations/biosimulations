@@ -5,7 +5,11 @@
  * @copyright BioSimulations Team 2020
  * @license MIT
  */
-import { DispatchJobData, ResolveCombineArchiveJobData } from '@biosimulations/messages/messages';
+import {
+  JobQueue,
+  SubmitFileSimulationRunJobData,
+  SubmitURLSimulationRunJobData,
+} from '@biosimulations/messages/messages';
 import { OptionalAuth, permissions } from '@biosimulations/auth/nest';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 import {
@@ -78,17 +82,17 @@ const FILE_UPLOAD_LIMIT = 64e6; // bytes (64 MB)
 @Controller('runs')
 @ApiExtraModels(UploadSimulationRun, UploadSimulationRunUrl, SimulationUpload)
 export class SimulationRunController {
-  private TIMEOUT_INTERVAL = 10000;
-  private RETRY_COUNT = 2;
   private logger: Logger;
 
   public constructor(
     private service: SimulationRunService,
-    private validationService: SimulationRunValidationService,    
-    @InjectQueue('resolveCombineArchive')
-    private readonly resolveCombineArchiveQueue: Queue<ResolveCombineArchiveJobData>,
-    @InjectQueue('dispatch')
-    private readonly dispatchQueue: Queue<DispatchJobData>,
+    private validationService: SimulationRunValidationService,
+    @InjectQueue(JobQueue.submitSimulationRun)
+    private readonly sumbitQ: Queue<
+      SubmitURLSimulationRunJobData | SubmitFileSimulationRunJobData,
+      void,
+      JobQueue.submitSimulationRun
+    >,
   ) {
     this.logger = new Logger(SimulationRunController.name);
   }
@@ -210,7 +214,7 @@ export class SimulationRunController {
         file.buffer,
         file.size,
       );
-      const message: DispatchJobData = {
+      const message: SubmitFileSimulationRunJobData = {
         runId: run.id,
         fileName: file?.originalname || 'archive.omex',
         simulator: run.simulator,
@@ -223,16 +227,8 @@ export class SimulationRunController {
         projectId: projectId,
         projectOwner: user?.sub,
       };
-      const sim = await this.dispatchQueue.add('dispatch', message, {
-        attempts: 10,
-        backoff: {
-          type: 'exponential',
-          delay: 1000,
-        },
-        removeOnComplete: 100,
-        removeOnFail: 100,
-      });
-    
+
+      await this.sumbitSimulation(message);
     } else if (
       contentType?.startsWith('application/json') &&
       this.isUrlBody(body)
@@ -241,7 +237,7 @@ export class SimulationRunController {
       this.checkPublishProjectPermission(user, projectId);
       run = await this.service.createRunWithURL(body);
 
-      const message: ResolveCombineArchiveJobData = {
+      const message: SubmitURLSimulationRunJobData = {
         runId: run.id,
         fileUrl: body.url,
         simulator: run.simulator,
@@ -254,16 +250,7 @@ export class SimulationRunController {
         projectId: projectId,
         projectOwner: user?.sub,
       };
-      const sim = await this.resolveCombineArchiveQueue.add('resolve', message, {
-        attempts: 10,
-        backoff: {
-          type: 'exponential',
-          delay: 1000,
-        },
-        removeOnComplete: 100,
-        removeOnFail: 100,
-      });
-    
+      await this.sumbitSimulation(message);
     } else {
       throw new UnsupportedMediaTypeException(
         "The content type must be 'application/json' or 'multipart/form-data'.",
@@ -271,6 +258,21 @@ export class SimulationRunController {
     }
     const response = this.makeSimulationRun(run);
     return response;
+  }
+
+  // TODO move to service to get strong typing without needing to define queue types as above
+  private async sumbitSimulation(
+    message: SubmitFileSimulationRunJobData | SubmitURLSimulationRunJobData,
+  ): Promise<void> {
+    await this.sumbitQ.add(JobQueue.submitSimulationRun, message, {
+      attempts: 10,
+      backoff: {
+        type: 'exponential',
+        delay: 1000,
+      },
+      removeOnComplete: 100,
+      removeOnFail: 100,
+    });
   }
 
   private checkPublishProjectPermission(

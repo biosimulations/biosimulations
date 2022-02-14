@@ -1,8 +1,8 @@
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import {
-  ResolveCombineArchiveJobData,
-  DispatchJobData,
   JobQueue,
+  SubmitFileSimulationRunJobData,
+  SubmitURLSimulationRunJobData,
 } from '@biosimulations/messages/messages';
 
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
@@ -27,18 +27,23 @@ export class ResolveCombineArchiveProcessor {
 
   public constructor(
     private simStatusService: SimulationStatusService,
-    @InjectQueue(JobQueue.dispatch) private dispatchQueue: Queue<DispatchJobData>,
+    @InjectQueue(JobQueue.dispatch)
+    private submitQ: Queue<SubmitFileSimulationRunJobData, void>,
     private httpService: HttpService,
     private simulationStorageService: SimulationStorageService,
     private simulationRunService: SimulationRunService,
   ) {}
 
   @Process({ concurrency: 10 })
-  private async handleSubmission(job: Job<ResolveCombineArchiveJobData>): Promise<void> {
+  private async handleSubmission(
+    job: Job<SubmitURLSimulationRunJobData>,
+  ): Promise<void> {
     const data = job.data;
 
     // resolve COMBINE/OMEX archive from URL
-    this.logger.debug(`Downloading COMBINE/OMEX archive for run '${data.runId}' from '${data.fileUrl}' ...`);
+    this.logger.debug(
+      `Downloading COMBINE/OMEX archive for run '${data.runId}' from '${data.fileUrl}' ...`,
+    );
     let file!: AxiosResponse<Readable>;
     try {
       file = await firstValueFrom(
@@ -55,23 +60,32 @@ export class ResolveCombineArchiveProcessor {
 
       if ((error as AxiosError).message.includes('maxContentLength')) {
         title = 'COMBINE/OMEX archive is too large';
-        message = `The COMBINE/OMEX archive is too large. The maximum allowed size of the file is ${FormatService.formatDigitalSize(MAX_ARCHIVE_SIZE)}.`;
+        message =
+          `The COMBINE/OMEX archive is too large.` +
+          `The maximum allowed size of the file is ${FormatService.formatDigitalSize(
+            MAX_ARCHIVE_SIZE,
+          )}.`;
       } else {
         title = 'COMBINE/OMEX archive could not be retrieved';
-        message = `An error occurred in resolving the COMBINE/OMEX archive for simulation run '${data.runId}': ${error?.response?.status}: ${error?.response?.data?.detail || error?.response?.statusText}`;
+        message = `An error occurred in resolving the COMBINE/OMEX archive for simulation run '${
+          data.runId
+        }': ${error?.response?.status}: ${
+          error?.response?.data?.detail || error?.response?.statusText
+        }`;
       }
 
       this.logger.error(message);
       job.log(message);
 
-      if ( 
-        title === 'COMBINE/OMEX archive is too large'
-        || job.attemptsMade >= (job.opts.attempts || 0)
+      if (
+        title === 'COMBINE/OMEX archive is too large' ||
+        job.attemptsMade >= (job.opts.attempts || 0)
       ) {
         await this.simStatusService.updateStatus(
           data.runId,
           SimulationRunStatus.FAILED,
         );
+        job.discard();
       }
 
       throw new BiosimulationsException(
@@ -89,7 +103,9 @@ export class ResolveCombineArchiveProcessor {
     let size = 0;
     const file_headers = file.headers;
 
-    const fileName = file_headers['content-disposition']?.split('filename=')?.[1] || 'archive.omex';
+    const fileName =
+      file_headers['content-disposition']?.split('filename=')?.[1] ||
+      'archive.omex';
 
     try {
       size = Number(file_headers['content-length']);
@@ -99,15 +115,24 @@ export class ResolveCombineArchiveProcessor {
     }
 
     // save COMBINE/OMEX archive to S3
-    this.logger.debug(`Saving COMBINE/OMEX archive for run '${data.runId}' ...`);
+    this.logger.debug(
+      `Saving COMBINE/OMEX archive for run '${data.runId}' ...`,
+    );
     try {
       const s3file =
-        await this.simulationStorageService.uploadSimulationArchive(data.runId, file.data);
-      this.logger.debug(`COMBINE/OMEX archive for run '${data.runId}' was saved to '${s3file}'.`);
+        await this.simulationStorageService.uploadSimulationArchive(
+          data.runId,
+          file.data,
+        );
+      this.logger.debug(
+        `COMBINE/OMEX archive for run '${data.runId}' was saved to '${s3file}'.`,
+      );
 
       const url = encodeURI(s3file);
 
-      await this.simulationRunService.updateSimulationRunFile(data.runId, url, size).toPromise();
+      await this.simulationRunService
+        .updateSimulationRunFile(data.runId, url, size)
+        .toPromise();
     } catch (error: any) {
       const title = 'COMBINE/OMEX archive could not be saved';
       const message = `An error occurred in saving the COMBINE/OMEX archive: ${this.getErrorMessage(
@@ -136,7 +161,7 @@ export class ResolveCombineArchiveProcessor {
     }
 
     // submit job to dispatch queue
-    const dispatchData: DispatchJobData = {
+    const dispatchData: SubmitFileSimulationRunJobData = {
       runId: data.runId,
       fileName: fileName,
       simulator: data.simulator,
@@ -149,17 +174,8 @@ export class ResolveCombineArchiveProcessor {
       projectId: data.projectId,
       projectOwner: data.projectOwner,
     };
-    const dispatchOptions = {
-      attempts: 10,
-      backoff: {
-        type: 'exponential',
-        delay: 1000,
-      },
-      removeOnComplete: 100,
-      removeOnFail: 100,
-    };
 
-    this.dispatchQueue.add('dispatch', dispatchData, dispatchOptions);
+    this.submitQ.add(JobQueue.submitSimulationRun, dispatchData);
   }
 
   private getErrorMessage(error: any): string {
