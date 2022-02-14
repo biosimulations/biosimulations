@@ -46,7 +46,6 @@ export class HpcService {
     maxTime: number,
     envVars: EnvironmentVariable[],
     purpose: Purpose,
-    combineArchiveFilename: string,
   ): Promise<{
     stdout: string;
     stderr: string;

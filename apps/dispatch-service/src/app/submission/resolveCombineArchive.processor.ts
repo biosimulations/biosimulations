@@ -27,7 +27,7 @@ export class ResolveCombineArchiveProcessor {
 
   public constructor(
     private simStatusService: SimulationStatusService,
-    @InjectQueue(JobQueue.dispatch)
+    @InjectQueue(JobQueue.submitSimulationRun)
     private submitQ: Queue<SubmitFileSimulationRunJobData, void>,
     private httpService: HttpService,
     private simulationStorageService: SimulationStorageService,

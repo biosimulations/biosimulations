@@ -1,8 +1,8 @@
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import {
-  DispatchJobData,
   JobQueue,
   MonitorJobData,
+  SubmitHPCSimulationRunJobData,
 } from '@biosimulations/messages/messages';
 
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
@@ -23,7 +23,9 @@ export class DispatchProcessor {
   ) {}
 
   @Process({ concurrency: 10 })
-  private async handleSubmission(job: Job<DispatchJobData>): Promise<void> {
+  private async handleSubmission(
+    job: Job<SubmitHPCSimulationRunJobData>,
+  ): Promise<void> {
     const data = job.data;
 
     this.logger.debug(`Starting job for simulation run '${data.runId}' ...`);
@@ -41,7 +43,6 @@ export class DispatchProcessor {
       data.maxTime,
       data.envVars,
       data.purpose,
-      data.fileName,
     );
 
     if (response.stderr != '' || response.stdout === null) {
