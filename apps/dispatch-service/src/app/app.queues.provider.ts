@@ -19,7 +19,10 @@ export class AppQueueManagerProvider {
         'queue.port',
       )}`,
     );
-
+    const resolveCombineArchiveScheduler = new QueueScheduler(
+      JobQueue.resolveCombineArchive,
+      { connection },
+    );
     const scheduler = new QueueScheduler(JobQueue.dispatch, {
       connection,
     });
