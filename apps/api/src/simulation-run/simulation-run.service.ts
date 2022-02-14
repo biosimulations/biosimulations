@@ -409,7 +409,7 @@ export class SimulationRunService {
    */
   private async createRun(
     id: string,
-    run: UploadSimulationRun,    
+    run: UploadSimulationRun,
     fileUrl: string,
     projectSize?: number,
   ): Promise<SimulationRunModelReturnType> {
