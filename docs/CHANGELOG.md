@@ -1,5 +1,12 @@
 # Changelog
 
+# [9.6.0](https://github.com/biosimulations/biosimulations/compare/v9.5.2...v9.6.0) (2022-02-15)
+
+
+### Features
+
+* **combine-api,api,dispatch,platform:** added support for SED-ML L1V4 styles ([1144336](https://github.com/biosimulations/biosimulations/commit/11443365d47d42fc470a7f20f98684908e06df72))
+
 ## [9.5.2](https://github.com/biosimulations/biosimulations/compare/v9.5.1...v9.5.2) (2022-02-14)
 
 
