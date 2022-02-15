@@ -52,7 +52,7 @@ export interface PlotlyTrace {
   line?: PlotlyTraceLine;
   marker?: PlotlyTraceMarker;
   fill?: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
-  fillColor?: string;
+  fillcolor?: string;
 }
 
 export interface PlotlyAxis {

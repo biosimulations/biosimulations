@@ -20,6 +20,7 @@ import {
 } from '@biosimulations/datamodel/api';
 */
 import { flattenTaskResults, getRepeatedTaskTraceLabel } from '../utils/utils';
+import hexToRgba from 'hex-to-rgba';
 
 interface SedDatasetResults {
   uri: string;
@@ -138,7 +139,7 @@ export class SedPlot2DVisualizationService {
               dash: style.line?.type 
                 ? sedLineStyleTypePlotlyMap?.[style.line?.type]
                 : undefined,
-              color: style.line?.color,
+              color: style.line?.color ? hexToRgba(style.line?.color) : undefined,
               width: style.line?.thickness,
             };
             if (trace.line.dash === undefined) {
@@ -152,12 +153,12 @@ export class SedPlot2DVisualizationService {
                 ? sedMarkerStyleTypePlotlyMap?.[style.marker?.type]
                 : undefined,
               size: style.marker?.size,
-              color: style.marker?.fillColor,
+              color: style.marker?.fillColor ? hexToRgba(style.marker?.fillColor) : undefined,
             };
 
             if (style.marker?.lineColor || style.marker?.lineThickness) {
               trace.marker.line = {
-                color: style.marker?.lineColor,
+                color: style.marker?.lineColor ? hexToRgba(style.marker?.lineColor) : undefined,
                 width: style.marker?.lineThickness,
               };
             }
@@ -165,7 +166,7 @@ export class SedPlot2DVisualizationService {
 
           if (style?.fill) {
             trace.fill = 'toself';
-            trace.fillColor = style.fill?.color;
+            trace.fillcolor = style.fill?.color ? hexToRgba(style.fill?.color) : undefined;
           }
 
           traces.push(trace);
