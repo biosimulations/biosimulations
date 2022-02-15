@@ -8,7 +8,45 @@
       "value": {
         "_type": "SedDocument",
         "level": 1,
-        "version": 3,
+        "version": 4,
+        "styles": [
+          {
+            "_type": "SedStyle",
+            "id": "style1",
+            "name": "Style 1",
+            "line": {
+              "_type": "SedLineStyle",
+              "type": "dash",
+              "color": "00FF00",
+              "thickness": 2.0
+            },
+            "marker": {
+              "_type": "SedMarkerStyle",
+              "type": "circle",
+              "size": 1.0,
+              "lineColor": "FF0000",
+              "lineThickness": 3.0,
+              "fillColor": "FFFF00"
+            },
+            "fill": {
+              "_type": "SedFillStyle",
+              "color": "0000FF"
+            }
+          },
+          {
+            "_type": "SedStyle",
+            "id": "style2",
+            "base": "style1",
+            "marker": {
+              "_type": "SedMarkerStyle",
+              "type": "square"
+            },
+            "fill": {
+              "_type": "SedFillStyle",
+              "color": "0000FF"
+            }
+          }
+        ],
         "models": [{
           "_type": "SedModel",
           "id": "BIOMD0000000912",
@@ -23,7 +61,7 @@
               "value": "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='r2']/@value",
               "namespaces": [{
                   "_type": "Namespace",
-                  "uri": "http://sed-ml.org/sed-ml/level1/version3"
+                  "uri": "http://sed-ml.org/sed-ml/level1/version4"
                 },
                 {
                   "_type": "Namespace",
@@ -84,7 +122,7 @@
                 "value": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='T']",
                 "namespaces": [{
                     "_type": "Namespace",
-                    "uri": "http://sed-ml.org/sed-ml/level1/version3"
+                    "uri": "http://sed-ml.org/sed-ml/level1/version4"
                   },
                   {
                     "_type": "Namespace",
@@ -111,7 +149,7 @@
                 "value": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='E']",
                 "namespaces": [{
                     "_type": "Namespace",
-                    "uri": "http://sed-ml.org/sed-ml/level1/version3"
+                    "uri": "http://sed-ml.org/sed-ml/level1/version4"
                   },
                   {
                     "_type": "Namespace",
@@ -138,7 +176,7 @@
                 "value": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='I']",
                 "namespaces": [{
                     "_type": "Namespace",
-                    "uri": "http://sed-ml.org/sed-ml/level1/version3"
+                    "uri": "http://sed-ml.org/sed-ml/level1/version4"
                   },
                   {
                     "_type": "Namespace",
@@ -191,7 +229,8 @@
                 "id": "plot_1_T_time",
                 "name": "T",
                 "xDataGenerator": "data_generator_time",
-                "yDataGenerator": "data_generator_T"
+                "yDataGenerator": "data_generator_T",
+                "style": "style2"
               },
               {
                 "_type": "SedCurve",

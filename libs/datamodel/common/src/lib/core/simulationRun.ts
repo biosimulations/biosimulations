@@ -1,6 +1,7 @@
 import { SimulationRunLogStatus } from './simulationRunLog';
 import { Purpose } from './purpose';
 import {
+  SerializedSedStyle as SedStyle,
   SerializedSedModel as SedModel,
   SerializedSedSimulation as SedSimulation,
   SerializedSedAbstractTask as SedAbstractTask,
@@ -98,6 +99,7 @@ export interface SimulationRunSedDocumentInput {
   id: string;
   level: number;
   version: number;
+  styles: SedStyle[];
   models: SedModel[];
   simulations: SedSimulation[];
   dataGenerators: SedDataGenerator[];

@@ -14,6 +14,7 @@ import { SedSimulation } from './sedSimulation';
 import { SedOutput } from './sedOutput';
 import { SedDataGenerator } from './sedDataGenerator';
 import { SedModel } from './sedModel';
+import { SedStyle } from './sedStyle';
 import { CombineArchiveContentFile } from './combineArchiveContentFile';
 import { SedAbstractTask } from './sedAbstractTask';
 import { SedDocument } from './sedDocument';

@@ -1,6 +1,13 @@
 from ...exceptions import BadRequestException
 from biosimulators_utils.sedml.data_model import (
     SedDocument,
+    Style,
+    LineStyle,
+    MarkerStyle,
+    FillStyle,
+    Color,
+    LineStyleType,
+    MarkerStyleType,
     Model,
     ModelAttributeChange,
     AddElementModelChange,
@@ -39,6 +46,59 @@ def export_sed_doc(sed_doc_specs):
         level=sed_doc_specs['level'],
         version=sed_doc_specs['version'],
     )
+
+    # add styles to SED-ML document
+    style_id_map = {}
+    for style_spec in sed_doc_specs['styles']:
+        style = Style(
+            id=style_spec.get('id'),
+            name=style_spec.get('name', None),
+        )
+        sed_doc.styles.append(style)
+        style_id_map[style.id] = style
+
+        if style_spec.get('line', None) is not None:
+            style.line = LineStyle(
+                type=style_spec['line'].get('type', None),
+                color=style_spec['line'].get('color', None),
+                thickness=style_spec['line'].get('thickness', None),
+            )
+            if style_spec['line'].get('type', None) is not None:
+                style.line.type = LineStyleType[style_spec['line']['type']]
+            if style_spec['line'].get('color', None) is not None:
+                style.line.color = Color(style_spec['line']['color'])
+
+        if style_spec.get('marker', None) is not None:
+            style.marker = MarkerStyle(
+                type=style_spec['marker'].get('type', None),
+                size=style_spec['marker'].get('size', None),
+                line_color=style_spec['marker'].get('lineColor', None),
+                line_thickness=style_spec['marker'].get('lineThickness', None),
+                fill_color=style_spec['marker'].get('fillColor', None),
+            )
+            if style_spec['marker'].get('type', None) is not None:
+                style.marker.type = MarkerStyleType[style_spec['marker']['type']]
+            if style_spec['marker'].get('lineColor', None) is not None:
+                style.marker.line_color = Color(style_spec['marker']['lineColor'])
+            if style_spec['marker'].get('fillColor', None) is not None:
+                style.marker.fill_color = Color(style_spec['marker']['fillColor'])
+
+        if style_spec.get('fill', None) is not None:
+            style.fill = FillStyle(
+                color=style_spec['fill'].get('color', None),
+            )
+            if style_spec['fill'].get('color', None) is not None:
+                style.fill.color = Color(style_spec['fill']['color'])
+
+    for style_spec, style in zip(sed_doc_specs['styles'], sed_doc.styles):
+        if style_spec.get('base', None) is not None:
+            style.base = style_id_map.get(style_spec['base'], None)
+            if style.base is None:
+                raise BadRequestException(
+                    title='Base style `{}` for style `{}` does not exist'.format(
+                        style_spec['base'], style.id),
+                    instance=ValueError('Style does not exist'),
+                )
 
     # add models to SED-ML document
     model_id_map = {}
@@ -265,8 +325,10 @@ def export_sed_doc(sed_doc_specs):
             for curve_spec in output_spec['curves']:
                 x_data_gen_id = curve_spec['xDataGenerator']
                 y_data_gen_id = curve_spec['yDataGenerator']
+                style_id = curve_spec.get('style', None)
                 x_data_gen = data_gen_id_map.get(x_data_gen_id, None)
                 y_data_gen = data_gen_id_map.get(y_data_gen_id, None)
+                style = style_id_map.get(style_id, None)
 
                 if not x_data_gen:
                     raise BadRequestException(
@@ -280,6 +342,12 @@ def export_sed_doc(sed_doc_specs):
                             y_data_gen_id, output_spec.get('id')),
                         instance=ValueError('Data generator does not exist'),
                     )
+                if style_id is not None and style is None:
+                    raise BadRequestException(
+                        title='Style `{}` for curve `{}` does not exist'.format(
+                            style_id, output_spec.get('id')),
+                        instance=ValueError('Style does not exist'),
+                    )
 
                 curve = Curve(
                     id=curve_spec.get('id'),
@@ -288,6 +356,7 @@ def export_sed_doc(sed_doc_specs):
                     y_data_generator=y_data_gen,
                     x_scale=AxisScale[output_spec['xScale']],
                     y_scale=AxisScale[output_spec['yScale']],
+                    style=style,
                 )
                 output.curves.append(curve)
 
@@ -300,9 +369,11 @@ def export_sed_doc(sed_doc_specs):
                 x_data_gen_id = surface_spec['xDataGenerator']
                 y_data_gen_id = surface_spec['yDataGenerator']
                 z_data_gen_id = surface_spec['zDataGenerator']
+                style_id = surface_spec.get('style', None)
                 x_data_gen = data_gen_id_map.get(x_data_gen_id, None)
                 y_data_gen = data_gen_id_map.get(y_data_gen_id, None)
                 z_data_gen = data_gen_id_map.get(z_data_gen_id, None)
+                style = style_id_map.get(style_id, None)
 
                 if not x_data_gen:
                     raise BadRequestException(
@@ -322,6 +393,12 @@ def export_sed_doc(sed_doc_specs):
                             z_data_gen_id, output_spec.get('id')),
                         instance=ValueError('Data generator does not exist'),
                     )
+                if style_id is not None and style is None:
+                    raise BadRequestException(
+                        title='Style `{}` for surface `{}` does not exist'.format(
+                            style_id, output_spec.get('id')),
+                        instance=ValueError('Style does not exist'),
+                    )
 
                 surface = Surface(
                     id=surface_spec.get('id'),
@@ -332,6 +409,7 @@ def export_sed_doc(sed_doc_specs):
                     x_scale=AxisScale[output_spec['xScale']],
                     y_scale=AxisScale[output_spec['yScale']],
                     z_scale=AxisScale[output_spec['zScale']],
+                    style=style,
                 )
                 output.surfaces.append(surface)
 

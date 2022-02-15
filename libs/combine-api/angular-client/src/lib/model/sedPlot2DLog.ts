@@ -22,10 +22,10 @@ export interface SedPlot2DLog {
   curves: Array<SedOutputElementLog> | null;
 }
 export enum SedPlot2DLogStatusEnum {
-  Queued = 'QUEUED',
-  Running = 'RUNNING',
-  Skipped = 'SKIPPED',
-  Succeeded = 'SUCCEEDED',
-  Failed = 'FAILED',
-  Unknown = 'UNKNOWN',
+  QUEUED = 'QUEUED',
+  RUNNING = 'RUNNING',
+  SKIPPED = 'SKIPPED',
+  SUCCEEDED = 'SUCCEEDED',
+  FAILED = 'FAILED',
+  UNKNOWN = 'UNKNOWN',
 }

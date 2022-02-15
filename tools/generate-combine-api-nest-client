@@ -19,7 +19,7 @@ npx @openapitools/openapi-generator-cli generate \
     -i ${spec_file} \
     -o ${lib_dir}/src/lib/ \
     --global-property=skipFormModel=false \
-    --additional-properties=stringEnums=true,nestVersion=7.0.0,supportsES6=true \
+    --additional-properties=stringEnums=true,enumPropertyNaming=original,nestVersion=7.0.0,supportsES6=true \
     --reserved-words-mappings abstract=abstract
 
 # Import `FormData` from `form-data` to allow use on server side

@@ -74,13 +74,40 @@ class CreateCombineArchiveTestCase(unittest.TestCase):
         self.assertEqual(sed_doc.level, sed_doc_specs['level'])
         self.assertEqual(sed_doc.version, sed_doc_specs['version'])
 
+        self.assertEqual(sed_doc.styles[0].id, sed_doc_specs['styles'][0]['id'])
+        self.assertEqual(sed_doc.styles[0].name, sed_doc_specs['styles'][0].get('name', None))
+        self.assertEqual(sed_doc.styles[0].base, sed_doc_specs['styles'][0].get('base', None))
+        self.assertEqual(sed_doc.styles[0].line.type.value, sed_doc_specs['styles'][0].get('line', None).get('type', None))
+        self.assertEqual(sed_doc.styles[0].line.color, sed_doc_specs['styles'][0].get('line', None).get('color', None))
+        self.assertEqual(sed_doc.styles[0].line.thickness, sed_doc_specs['styles'][0].get('line', None).get('thickness', None))
+        self.assertEqual(sed_doc.styles[0].marker.type.value, sed_doc_specs['styles'][0].get('marker', None).get('type', None))
+        self.assertEqual(sed_doc.styles[0].marker.size, sed_doc_specs['styles'][0].get('marker', None).get('size', None))
+        self.assertEqual(sed_doc.styles[0].marker.line_color, sed_doc_specs['styles'][0].get('marker', None).get('lineColor', None))
+        self.assertEqual(sed_doc.styles[0].marker.line_thickness, sed_doc_specs['styles'][0].get('marker', None).get('lineThickness', None))
+        self.assertEqual(sed_doc.styles[0].marker.fill_color, sed_doc_specs['styles'][0].get('marker', None).get('fillColor', None))
+        self.assertEqual(sed_doc.styles[0].fill.color, sed_doc_specs['styles'][0].get('fill', None).get('color', None))
+
+        self.assertEqual(sed_doc.styles[1].id, sed_doc_specs['styles'][1]['id'])
+        self.assertEqual(sed_doc.styles[1].name, sed_doc_specs['styles'][1].get('name', None))
+        self.assertEqual(sed_doc.styles[1].base.id, sed_doc_specs['styles'][1].get('base', None))
+        self.assertEqual(sed_doc.styles[1].line, sed_doc_specs['styles'][1].get('line', None))
+        self.assertEqual(sed_doc.styles[1].marker.type.value, sed_doc_specs['styles'][1].get('marker', None).get('type', None))
+        self.assertEqual(sed_doc.styles[1].marker.size, sed_doc_specs['styles'][1].get('marker', None).get('size', None))
+        self.assertEqual(sed_doc.styles[1].marker.line_color, sed_doc_specs['styles'][1].get('marker', None).get('lineColor', None))
+        self.assertEqual(sed_doc.styles[1].marker.line_thickness, sed_doc_specs['styles'][1].get('marker', None).get('lineThickness', None))
+        self.assertEqual(sed_doc.styles[1].marker.fill_color, sed_doc_specs['styles'][1].get('marker', None).get('fillColor', None))
+        self.assertEqual(sed_doc.styles[1].fill.color, sed_doc_specs['styles'][1].get('fill', None).get('color', None))
+
+        self.assertEqual(sed_doc.outputs[1].curves[0].style.id, sed_doc_specs['outputs'][1]['curves'][0]['style'])
+        self.assertEqual(sed_doc.outputs[2].surfaces[0].style.id, sed_doc_specs['outputs'][2]['surfaces'][0]['style'])
+
         self.assertEqual(sed_doc.tasks[0].model, sed_doc.models[0])
         self.assertEqual(len(sed_doc.models[0].changes), 2)
         self.assertEqual(sed_doc.models[0].changes[0].target,
                          "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='k1']/@value")
         self.assertEqual(sed_doc.models[0].changes[0].new_value, '1.2')
         self.assertEqual(sed_doc.models[0].changes[0].target_namespaces, {
-            None: 'http://sed-ml.org/sed-ml/level1/version3',
+            None: 'http://sed-ml.org/sed-ml/level1/version4',
             'sbml': 'http://www.sbml.org/sbml/level3/version1/core',
             'qual': 'http://www.sbml.org/sbml/level3/version1/qual/version1',
         })
@@ -92,7 +119,7 @@ class CreateCombineArchiveTestCase(unittest.TestCase):
         self.assertEqual(
             sed_doc.outputs[1].curves[0].x_data_generator.variables[0].target_namespaces,
             {
-                None: 'http://sed-ml.org/sed-ml/level1/version3',
+                None: 'http://sed-ml.org/sed-ml/level1/version4',
                 "sbml": "http://www.sbml.org/sbml/level3/version1/core",
                 "qual": "http://www.sbml.org/sbml/level3/version1/qual/version1"
             },
@@ -209,7 +236,7 @@ class CreateCombineArchiveTestCase(unittest.TestCase):
         self.assertEqual(
             sed_doc.outputs[1].curves[0].x_data_generator.variables[0].target_namespaces,
             {
-                None: 'http://sed-ml.org/sed-ml/level1/version3',
+                None: 'http://sed-ml.org/sed-ml/level1/version4',
                 "sbml": "http://www.sbml.org/sbml/level3/version1/core",
                 "qual": "http://www.sbml.org/sbml/level3/version1/qual/version1"
             },

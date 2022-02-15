@@ -11,7 +11,7 @@ import tempfile
 import unittest
 
 
-class CreateCombineArchiveTestCase(unittest.TestCase):
+class CreateModifyArchiveTestCase(unittest.TestCase):
     FIXTURES_DIR = os.path.join(os.path.dirname(__file__), '..', 'fixtures')
     TEST_CASE = 'Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations'
 
@@ -91,7 +91,7 @@ class CreateCombineArchiveTestCase(unittest.TestCase):
                          "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='k1']/@value")
         self.assertEqual(sed_doc.models[0].changes[0].new_value, '1.2')
         self.assertEqual(sed_doc.models[0].changes[0].target_namespaces, {
-            None: 'http://sed-ml.org/sed-ml/level1/version3',
+            None: 'http://sed-ml.org/sed-ml/level1/version4',
             'sbml': 'http://www.sbml.org/sbml/level3/version1/core',
             'qual': 'http://www.sbml.org/sbml/level3/version1/qual/version1',
         })
@@ -103,7 +103,7 @@ class CreateCombineArchiveTestCase(unittest.TestCase):
         self.assertEqual(
             sed_doc.outputs[1].curves[0].x_data_generator.variables[0].target_namespaces,
             {
-                None: 'http://sed-ml.org/sed-ml/level1/version3',
+                None: 'http://sed-ml.org/sed-ml/level1/version4',
                 "sbml": "http://www.sbml.org/sbml/level3/version1/core",
                 "qual": "http://www.sbml.org/sbml/level3/version1/qual/version1"
             },
@@ -238,7 +238,7 @@ class CreateCombineArchiveTestCase(unittest.TestCase):
         self.assertEqual(
             sed_doc.outputs[1].curves[0].x_data_generator.variables[0].target_namespaces,
             {
-                None: 'http://sed-ml.org/sed-ml/level1/version3',
+                None: 'http://sed-ml.org/sed-ml/level1/version4',
                 "sbml": "http://www.sbml.org/sbml/level3/version1/core",
                 "qual": "http://www.sbml.org/sbml/level3/version1/qual/version1"
             },

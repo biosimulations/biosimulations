@@ -9,23 +9,34 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { SedOutputElementLog } from './sedOutputElementLog';
-import { Exception } from './exception';
+import { SedFillStyle } from './sedFillStyle';
+import { SedLineStyle } from './sedLineStyle';
+import { SedMarkerStyle } from './sedMarkerStyle';
 
-export interface SedReportLog {
+/**
+ * Graphical style of a curve or surface
+ */
+export interface SedStyle {
+  /**
+   * Type
+   */
+  _type: SedStyleTypeEnum;
+  /**
+   * Identifier for its base style
+   */
+  base?: string;
+  line?: SedLineStyle;
+  marker?: SedMarkerStyle;
+  fill?: SedFillStyle;
+  /**
+   * Unique identifier within its parent SED-ML document.
+   */
   id: string;
-  status: SedReportLogStatus;
-  exception: Exception | null;
-  skipReason: Exception | null;
-  output: string | null;
-  duration: number | null;
-  dataSets: Array<SedOutputElementLog> | null;
+  /**
+   * Brief description.
+   */
+  name?: string;
 }
-export enum SedReportLogStatus {
-  QUEUED = 'QUEUED',
-  RUNNING = 'RUNNING',
-  SKIPPED = 'SKIPPED',
-  SUCCEEDED = 'SUCCEEDED',
-  FAILED = 'FAILED',
-  UNKNOWN = 'UNKNOWN',
+export enum SedStyleTypeEnum {
+  SedStyle = 'SedStyle',
 }

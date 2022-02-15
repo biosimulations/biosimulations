@@ -28,12 +28,12 @@ export interface ValidateModelFileOrUrl {
   language: ValidateModelFileOrUrlLanguageEnum;
 }
 export enum ValidateModelFileOrUrlLanguageEnum {
-  Bngl = 'BNGL',
-  CellMl = 'CellML',
-  Lems = 'LEMS',
-  NeuroMl = 'NeuroML',
-  Rba = 'RBA',
-  Sbml = 'SBML',
+  BNGL = 'BNGL',
+  CellML = 'CellML',
+  LEMS = 'LEMS',
+  NeuroML = 'NeuroML',
+  RBA = 'RBA',
+  SBML = 'SBML',
   Smoldyn = 'Smoldyn',
-  Xpp = 'XPP',
+  XPP = 'XPP',
 }

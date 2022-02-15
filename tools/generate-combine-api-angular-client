@@ -19,7 +19,7 @@ npx @openapitools/openapi-generator-cli generate \
     -i ${spec_file} \
     -o ${lib_dir}/src/lib/ \
     --global-property=skipFormModel=false \
-    --additional-properties=stringEnums=true,ngVersion=13.0.3,supportsES6=true \
+    --additional-properties=stringEnums=true,enumPropertyNaming=original,ngVersion=13.0.3,supportsES6=true \
     --reserved-words-mappings abstract=abstract
 
 # Correct names of auto-generated type enumerations

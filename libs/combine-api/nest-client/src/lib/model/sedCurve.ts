@@ -34,6 +34,10 @@ export interface SedCurve {
    * Type.
    */
   _type: SedCurveTypeEnum;
+  /**
+   * Identifier for its graphical style
+   */
+  style?: string;
 }
 export enum SedCurveTypeEnum {
   SedCurve = 'SedCurve',

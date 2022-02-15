@@ -26,10 +26,10 @@ export interface SedTaskLog {
   simulatorDetails: Array<SimulatorDetail> | null;
 }
 export enum SedTaskLogStatus {
-  Queued = 'QUEUED',
-  Running = 'RUNNING',
-  Skipped = 'SKIPPED',
-  Succeeded = 'SUCCEEDED',
-  Failed = 'FAILED',
-  Unknown = 'UNKNOWN',
+  QUEUED = 'QUEUED',
+  RUNNING = 'RUNNING',
+  SKIPPED = 'SKIPPED',
+  SUCCEEDED = 'SUCCEEDED',
+  FAILED = 'FAILED',
+  UNKNOWN = 'UNKNOWN',
 }

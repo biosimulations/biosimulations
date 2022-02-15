@@ -352,6 +352,7 @@ paths:
                           tasks: []
                           dataGenerators: []
                           outputs: []
+                          styles: []
                       format: http://identifiers.org/combine.specifications/sed-ml
                       master: true
           description: Specifications of the SED-ML files in the COMBINE/OMEX archive.
@@ -966,6 +967,7 @@ paths:
                     tasks: []
                     dataGenerators: []
                     outputs: []
+                    styles: []
           description: Possible observables of a SED-ML task as a list of SED-ML data
             generators.
         "400":
@@ -1083,6 +1085,7 @@ components:
       - tasks
       - dataGenerators
       - _type
+      - styles
       type: object
       properties:
         outputs:
@@ -1121,6 +1124,11 @@ components:
           enum:
           - SedDocument
           type: string
+        styles:
+          description: Graphical styles
+          type: array
+          items:
+            $ref: '#/components/schemas/SedStyle'
       example:
         _type: SedDocument
         level: 1
@@ -1130,6 +1138,7 @@ components:
         tasks: []
         dataGenerators: []
         outputs: []
+        styles: []
     CombineArchive:
       description: A COMBINE/OMEX archive.
       required:
@@ -1355,6 +1364,7 @@ components:
               tasks: []
               dataGenerators: []
               outputs: []
+              styles: []
           format: http://identifiers.org/combine.specifications/sed-ml
           master: true
     CombineArchiveSedDocSpecsContent:
@@ -1394,6 +1404,7 @@ components:
             tasks: []
             dataGenerators: []
             outputs: []
+            styles: []
         format: http://identifiers.org/combine.specifications/sed-ml
         master: true
     CombineArchiveSedDocSpecsLocation:
@@ -1427,6 +1438,7 @@ components:
           tasks: []
           dataGenerators: []
           outputs: []
+          styles: []
     SedModel:
       description: A SED-ML model.
       required:
@@ -3253,12 +3265,16 @@ components:
           enum:
           - SedCurve
           type: string
+        style:
+          description: Identifier for its graphical style
+          type: string
       example:
         _type: SedCurve
         id: atp_dynamics
         name: ATP dynamics
         xDataGenerator: data_generator_time
         yDataGenerator: data_generator_atp
+        style: my_style
     SedDataGenerator:
       description: Data generator for SED-ML report or plot.
       required:
@@ -3403,6 +3419,7 @@ components:
           name: ATP dynamics
           xDataGenerator: data_generator_time
           yDataGenerator: data_generator_atp
+          style: my_style
         xScale: linear
         yScale: log
     SedPlot3D:
@@ -3452,6 +3469,7 @@ components:
           xDataGenerator: data_generator_x
           yDataGenerator: data_generator_y
           zDataGenerator: data_generator_atp
+          style: my_style
         xScale: linear
         yScale: linear
         zScale: log
@@ -3519,6 +3537,9 @@ components:
           enum:
           - SedSurface
           type: string
+        style:
+          description: Identifier for its graphical style
+          type: string
       example:
         _type: SedSurface
         id: atp_concentration
@@ -3526,6 +3547,7 @@ components:
         xDataGenerator: data_generator_x
         yDataGenerator: data_generator_y
         zDataGenerator: data_generator_atp
+        style: my_style
     SedTask:
       description: A SED-ML task.
       required:
@@ -3995,6 +4017,157 @@ components:
         files:
         - <FILE>
       x-body-name: body
+    SedStyle:
+      description: Graphical style of a curve or surface
+      required:
+      - _type
+      - id
+      type: object
+      properties:
+        _type:
+          description: Type
+          enum:
+          - SedStyle
+          type: string
+        base:
+          description: Identifier for its base style
+          type: string
+        line:
+          $ref: '#/components/schemas/SedLineStyle'
+          description: Line style
+        marker:
+          $ref: '#/components/schemas/SedMarkerStyle'
+          description: Marker style
+        fill:
+          $ref: '#/components/schemas/SedFillStyle'
+          description: Fill style
+        id:
+          description: Unique identifier within its parent SED-ML document.
+          type: string
+        name:
+          description: Brief description.
+          type: string
+      example:
+        _type: SedStyle
+        id: my_style
+        name: My style
+        base: other_style
+        line:
+          _type: SedLineStyle
+          type: dashDotDot
+          color: FF0000
+          thickness: 2
+        marker:
+          _type: SedMarkerStyle
+          type: star
+          size: 12
+          lineColor: 00FF00
+          lineThickness: 3
+          fillColor: 0000FF
+        fill:
+          _type: SedFillStyle
+          color: FF00FF
+    SedLineStyle:
+      description: Graphical style of a line
+      required:
+      - _type
+      type: object
+      properties:
+        _type:
+          description: Type
+          enum:
+          - SedLineStyle
+          type: string
+        type:
+          description: Type
+          enum:
+          - none
+          - solid
+          - dash
+          - dot
+          - dashDot
+          - dashDotDot
+          type: string
+        color:
+          $ref: '#/components/schemas/SedColor'
+          description: Color
+        thickness:
+          description: Thickness or width
+          type: number
+      example:
+        _type: SedLineStyle
+        type: solid
+        color: 00FF00
+        thickness: 2
+    SedMarkerStyle:
+      description: Graphical style of a marker
+      required:
+      - _type
+      type: object
+      properties:
+        _type:
+          description: Type
+          enum:
+          - SedMarkerStyle
+          type: string
+        type:
+          description: Type
+          enum:
+          - none
+          - square
+          - circle
+          - diamond
+          - xCross
+          - plus
+          - star
+          - triangleUp
+          - triangleDown
+          - triangleLeft
+          - triangleRight
+          - hDash
+          - vDash
+          type: string
+        size:
+          description: Size
+          type: number
+        lineColor:
+          $ref: '#/components/schemas/SedColor'
+          description: Line color
+        fillColor:
+          $ref: '#/components/schemas/SedColor'
+          description: Fill color
+        lineThickness:
+          description: Line thickness or width
+          type: number
+      example:
+        _type: SedMarkerStyle
+        type: vDash
+        size: 10
+        lineColor: 00FF00
+        fillColor: FF0000
+        lineThickness: 2.5
+    SedFillStyle:
+      description: Graphical style of a fill
+      required:
+      - _type
+      - color
+      type: object
+      properties:
+        color:
+          $ref: '#/components/schemas/SedColor'
+          description: Color
+        _type:
+          description: Type
+          enum:
+          - SedFillStyle
+          type: string
+      example:
+        _type: SedFillStyle
+        color: 00FF00
+    SedColor:
+      description: A 6 or 8-digit case-insensitive hexidecimal color
+      type: string
+      example: 00FF00
     CombineArchiveLog:
       required:
       - status
