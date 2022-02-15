@@ -9,23 +9,20 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { SedOutputElementLog } from './sedOutputElementLog';
-import { Exception } from './exception';
 
-export interface SedReportLog {
-  id: string;
-  status: SedReportLogStatus;
-  exception: Exception | null;
-  skipReason: Exception | null;
-  output: string | null;
-  duration: number | null;
-  dataSets: Array<SedOutputElementLog> | null;
+/**
+ * Graphical style of a fill
+ */
+export interface SedFillStyle {
+  /**
+   * A 6 or 8-digit case-insensitive hexidecimal color
+   */
+  color: string;
+  /**
+   * Type
+   */
+  _type: SedFillStyleTypeEnum;
 }
-export enum SedReportLogStatus {
-  QUEUED = 'QUEUED',
-  RUNNING = 'RUNNING',
-  SKIPPED = 'SKIPPED',
-  SUCCEEDED = 'SUCCEEDED',
-  FAILED = 'FAILED',
-  UNKNOWN = 'UNKNOWN',
+export enum SedFillStyleTypeEnum {
+  SedFillStyle = 'SedFillStyle',
 }

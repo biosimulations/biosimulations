@@ -9,6 +9,13 @@ import {
   SimulationRunSedDocument as ISimulationRunSedDocument,
   SimulationRunSedDocumentInput as ISimulationRunSedDocumentInput,
   SimulationRunSedDocumentInputsContainer as ISimulationRunSedDocumentInputsContainer,
+  SerializedSedStyle as ISedStyle,
+  SedLineStyle as ISedLineStyle,
+  SedMarkerStyle as ISedMarkerStyle,
+  SedFillStyle as ISedFillStyle,
+  SedColor,
+  SedLineStyleType,
+  SedMarkerStyleType,
   SerializedSedModel as ISedModel,
   SedModelAttributeChange as ISedModelAttributeChange,
   SedAddElementModelChange as ISedAddElementModelChange,
@@ -58,7 +65,112 @@ import {
   IsNotEmpty,
 } from 'class-validator';
 import { Type } from 'class-transformer';
+import { IsHexidecimalColor } from '@biosimulations/datamodel/utils';
 import { IsOntologyTerm } from '@biosimulations/ontology/utils';
+
+export class SedLineStyle implements ISedLineStyle {
+  @ApiProperty({ type: String, enum: ['SedLineStyle'] })
+  @Equals('SedLineStyle')
+  public _type!: 'SedLineStyle';
+
+  @ApiProperty({ type: String, enum: SedLineStyleType, required: false, nullable: true })
+  @IsOptional()
+  @IsEnum(SedLineStyleType)
+  public type?: SedLineStyleType;
+
+  @ApiProperty({ type: String, required: false, nullable: true })
+  @IsOptional()
+  @IsHexidecimalColor()
+  public color?: SedColor;
+
+  @ApiProperty({ type: Number, required: false, nullable: true })
+  @IsOptional()
+  @Min(0)
+  @IsNumber()
+  public thickness?: number;
+}
+
+export class SedMarkerStyle implements ISedMarkerStyle {
+  @ApiProperty({ type: String, enum: ['SedMarkerStyle'] })
+  @Equals('SedMarkerStyle')
+  public _type!: 'SedMarkerStyle';
+
+  @ApiProperty({ type: String, enum: SedMarkerStyleType, required: false, nullable: true })
+  @IsOptional()
+  @IsEnum(SedMarkerStyleType)
+  public type?: SedMarkerStyleType;
+
+  @ApiProperty({ type: Number, required: false, nullable: true })
+  @IsOptional()
+  @Min(0)
+  @IsNumber()
+  public size?: number;
+
+  @ApiProperty({ type: String, required: false, nullable: true })
+  @IsOptional()
+  @IsHexidecimalColor()
+  public lineColor?: SedColor;
+
+  @ApiProperty({ type: Number, required: false, nullable: true })
+  @IsOptional()
+  @Min(0)
+  @IsNumber()
+  public lineThickness?: number;
+
+  @ApiProperty({ type: String, required: false, nullable: true })
+  @IsOptional()
+  @IsHexidecimalColor()
+  public fillColor?: SedColor;
+}
+
+export class SedFillStyle implements ISedFillStyle {
+  @ApiProperty({ type: String, enum: ['SedFillStyle'] })
+  @Equals('SedFillStyle')
+  public _type!: 'SedFillStyle';
+
+  @ApiProperty({ type: String, required: true, nullable: false })
+  @IsHexidecimalColor()
+  public color!: SedColor;
+}
+
+export class SedStyle implements ISedStyle {
+  @ApiProperty({ type: String, enum: ['SedStyle'] })
+  @Equals('SedStyle')
+  public _type!: 'SedStyle';
+
+  @ApiProperty({ type: String })
+  @IsNotEmpty()
+  @IsString()
+  public id!: string;
+
+  @ApiProperty({ type: String, required: false, nullable: true })
+  @IsOptional()
+  @IsString()
+  public name?: string;
+
+  @ApiProperty({ type: String, required: false, nullable: true })
+  @IsOptional()
+  @IsString()
+  public base?: string;
+
+  @ApiProperty({ type: SedLineStyle, required: false, nullable: true })
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => SedLineStyle)
+  public line?: SedLineStyle;
+
+  @ApiProperty({ type: SedMarkerStyle, required: false, nullable: true })
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => SedMarkerStyle)
+  public marker?: SedMarkerStyle;
+
+  @ApiProperty({ type: SedFillStyle, required: false, nullable: true })
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => SedFillStyle)
+  public fill?: SedFillStyle;
+}
 
 export class Namespace implements INamespace {
   @ApiProperty({ type: String, enum: ['Namespace'] })
@@ -98,6 +210,7 @@ export class SedTarget implements ISedTarget {
   public value!: string;
 
   @ApiProperty({ type: [Namespace], required: false, nullable: true })
+  @IsOptional()
   @Type(() => Namespace)
   @ValidateNested({ each: true })
   public namespaces?: Namespace[];
@@ -145,6 +258,7 @@ export class SedVariable implements ISedVariable {
   public symbol?: string;
 
   @ApiProperty({ type: SedTarget, required: false, nullable: true })
+  @IsOptional()
   @ValidateNested()
   @Type(() => SedTarget)
   public target?: SedTarget;
@@ -178,6 +292,7 @@ export class SedModelAttributeChange implements ISedModelAttributeChange {
   public name?: string;
 
   @ApiProperty({ type: SedTarget })
+  @IsOptional()
   @ValidateNested()
   @Type(() => SedTarget)
   public target!: SedTarget;
@@ -881,6 +996,12 @@ export class SedCurve implements ISedCurve {
   @IsNotEmpty()
   @IsString()
   public yDataGenerator!: string;
+
+  @ApiProperty({ type: String, required: false, nullable: true })
+  @IsOptional()
+  @IsNotEmpty()
+  @IsString()
+  public style?: string;
 }
 
 export class SedPlot2D implements ISedPlot2D {
@@ -941,6 +1062,12 @@ export class SedSurface implements ISedSurface {
   @IsNotEmpty()
   @IsString()
   public zDataGenerator!: string;
+
+  @ApiProperty({ type: String, required: false, nullable: true })
+  @IsOptional()
+  @IsNotEmpty()
+  @IsString()
+  public style?: string;
 }
 
 export class SedPlot3D implements ISedPlot3D {
@@ -1011,6 +1138,11 @@ export class SimulationRunSedDocumentInput
   @IsPositive()
   @IsInt()
   public version!: number;
+
+  @ApiProperty({ type: [SedStyle] })
+  @Type(() => SedStyle)
+  @ValidateNested({ each: true })
+  public styles!: SedStyle[];
 
   @ApiProperty({ type: [SedModel] })
   @Type(() => SedModel)

@@ -52,13 +52,13 @@ export interface ValidateCombineArchiveFileOrUrl {
   validateImages?: boolean;
 }
 export enum ValidateCombineArchiveFileOrUrlOmexMetadataFormat {
-  Ntriples = 'ntriples',
-  Nquads = 'nquads',
-  Rdfa = 'rdfa',
-  Rdfxml = 'rdfxml',
-  Turtle = 'turtle',
+  ntriples = 'ntriples',
+  nquads = 'nquads',
+  rdfa = 'rdfa',
+  rdfxml = 'rdfxml',
+  turtle = 'turtle',
 }
 export enum ValidateCombineArchiveFileOrUrlOmexMetadataSchema {
   BioSimulations = 'BioSimulations',
-  RdfTriples = 'rdf_triples',
+  rdf_triples = 'rdf_triples',
 }

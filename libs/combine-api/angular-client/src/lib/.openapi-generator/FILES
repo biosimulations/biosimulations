@@ -64,7 +64,10 @@ model/sedDataGenerator.ts
 model/sedDataSet.ts
 model/sedDocument.ts
 model/sedDocumentLog.ts
+model/sedFillStyle.ts
 model/sedFunctionalRange.ts
+model/sedLineStyle.ts
+model/sedMarkerStyle.ts
 model/sedModel.ts
 model/sedModelAttributeChange.ts
 model/sedModelChange.ts
@@ -85,6 +88,7 @@ model/sedReportLog.ts
 model/sedSetValueComputeModelChange.ts
 model/sedSimulation.ts
 model/sedSteadyStateSimulation.ts
+model/sedStyle.ts
 model/sedSubTask.ts
 model/sedSurface.ts
 model/sedTarget.ts

@@ -1,6 +1,8 @@
 import {
   SedDocument,
   SerializedSedDocument,
+  SedStyle,
+  SerializedSedStyle,
   SedModel,
   SerializedSedModel,
   SedSimulation,
@@ -45,6 +47,7 @@ type TempSedRange =
  *
  * Deserialize the following relationships:
  *
+ * - `SedStyle.base` -> `SedStyle`
  * - `SedTask.model` -> `SedModel`
  * - `SedTask.simulation` -> `SedSimulation`
  * - `SedRepeatedTask.range` -> `SedRange`
@@ -55,9 +58,11 @@ type TempSedRange =
  * - `SedDataSet.datagenerator` -> `SedDataGenerator`
  * - `SedCurve.xDataGenerator` -> `SedDataGenerator`
  * - `SedCurve.yDataGenerator` -> `SedDataGenerator`
+ * - `SedCurve.style` -> `SedStyle`
  * - `SedSurface.xDataGenerator` -> `SedDataGenerator`
  * - `SedSurface.yDataGenerator` -> `SedDataGenerator`
  * - `SedSurface.zDataGenerator` -> `SedDataGenerator`
+ * - `SedSurface.style` -> `SedStyle`
  * - `SedVariable.task` -> `SedAbstrackTask`
  * - `SedVariable.model` -> `SedModel`
  *
@@ -67,6 +72,36 @@ export function deserializeSedDocument(
   serializedSedDoc: SerializedSedDocument,
 ): SedDocument {
   serializedSedDoc = JSON.parse(JSON.stringify(serializedSedDoc));
+
+  const styleIdMap: IdMap<SedStyle> = {};
+  serializedSedDoc.styles.forEach(
+    (serializedStyle: SerializedSedStyle): void => {
+      const style: SedStyle = styleIdMap[serializedStyle.id] = {
+        _type: serializedStyle._type,
+        id: serializedStyle.id,
+        name: serializedStyle?.name,
+      };
+
+      if (serializedStyle?.line) {
+        style.line = Object.assign({}, serializedStyle.line);
+      }
+      if (serializedStyle?.marker) {
+        style.marker = Object.assign({}, serializedStyle.marker);
+      }
+      if (serializedStyle?.fill) {
+        style.fill = Object.assign({}, serializedStyle.fill);
+      }
+    },
+  );
+
+  serializedSedDoc.styles.forEach(
+    (serializedStyle: SerializedSedStyle): void => {
+      const style: SedStyle = styleIdMap[serializedStyle.id];
+      if (serializedStyle?.base) {
+        style.base = styleIdMap?.[serializedStyle.base];
+      }
+    }
+  )
 
   const modelIdMap: IdMap<SedModel> = {};
   serializedSedDoc.models.forEach(
@@ -360,6 +395,9 @@ export function deserializeSedDocument(
                   dataGeneratorIdMap[serializedCurve.xDataGenerator],
                 yDataGenerator:
                   dataGeneratorIdMap[serializedCurve.yDataGenerator],
+                style: serializedCurve?.style 
+                  ? styleIdMap?.[serializedCurve.style] 
+                  : undefined,
               };
             },
           ),
@@ -383,6 +421,9 @@ export function deserializeSedDocument(
                   dataGeneratorIdMap[serializedSurface.yDataGenerator],
                 zDataGenerator:
                   dataGeneratorIdMap[serializedSurface.zDataGenerator],
+                style: serializedSurface?.style 
+                  ? styleIdMap?.[serializedSurface.style]
+                  : undefined,
               };
             },
           ),
@@ -398,6 +439,11 @@ export function deserializeSedDocument(
     _type: serializedSedDoc._type,
     level: serializedSedDoc.level,
     version: serializedSedDoc.version,
+    styles: serializedSedDoc.styles.map(
+      (serializedStyle: SerializedSedStyle): SedStyle => {
+        return styleIdMap[serializedStyle.id];
+      },
+    ),
     models: serializedSedDoc.models.map(
       (serializedModel: SerializedSedModel): SedModel => {
         return modelIdMap[serializedModel.id];

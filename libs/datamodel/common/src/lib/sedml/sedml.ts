@@ -1,3 +1,65 @@
+export type SedColor = string;
+
+export enum SedLineStyleType {
+  none = 'none',
+  solid = 'solid',
+  dash = 'dash',
+  dot = 'dot',
+  dashDot = 'dashDot',
+  dashDotDot = 'dashDotDot',
+}
+
+export interface SedLineStyle {
+  _type: 'SedLineStyle';
+  type?: SedLineStyleType;
+  color?: SedColor;
+  thickness?: number;
+}
+
+export enum SedMarkerStyleType {
+  none = 'none',
+  square = 'square',
+  circle = 'circle',
+  diamond = 'diamond',
+  xCross = 'xCross',
+  plus = 'plus',
+  star = 'star',
+  triangleUp = 'triangleUp',
+  triangleDown = 'triangleDown',
+  triangleLeft = 'triangleLeft',
+  triangleRight = 'triangleRight',
+  hDash = 'hDash',
+  vDash = 'vDash',
+}
+
+export interface SedMarkerStyle {
+  _type: 'SedMarkerStyle';
+  type?: SedMarkerStyleType;
+  size?: number;
+  lineColor?: SedColor;
+  lineThickness?: number;
+  fillColor?: SedColor;
+}
+
+export interface SedFillStyle {
+  _type: 'SedFillStyle';
+  color: SedColor;
+}
+
+export interface SedStyle {
+  _type: 'SedStyle';
+  id: string;
+  name?: string;
+  base?: SedStyle;
+  line?: SedLineStyle;
+  marker?: SedMarkerStyle;
+  fill?: SedFillStyle;
+}
+
+export interface SerializedSedStyle extends Omit<SedStyle, 'base'> {
+  base?: string;
+}
+
 export interface Namespace {
   _type: 'Namespace';
   prefix?: string;
@@ -325,12 +387,14 @@ export interface SedCurve {
   name?: string;
   xDataGenerator: SedDataGenerator;
   yDataGenerator: SedDataGenerator;
+  style?: SedStyle;
 }
 
 export interface SerializedSedCurve
-  extends Omit<SedCurve, 'xDataGenerator' | 'yDataGenerator'> {
+  extends Omit<SedCurve, 'xDataGenerator' | 'yDataGenerator' | 'style'> {
   xDataGenerator: string;
   yDataGenerator: string;
+  style?: string;
 }
 
 export interface SedPlot2D {
@@ -353,16 +417,18 @@ export interface SedSurface {
   xDataGenerator: SedDataGenerator;
   yDataGenerator: SedDataGenerator;
   zDataGenerator: SedDataGenerator;
+  style?: SedStyle;
 }
 
 export interface SerializedSedSurface
   extends Omit<
     SedSurface,
-    'xDataGenerator' | 'yDataGenerator' | 'zDataGenerator'
+    'xDataGenerator' | 'yDataGenerator' | 'zDataGenerator' | 'style'
   > {
   xDataGenerator: string;
   yDataGenerator: string;
   zDataGenerator: string;
+  style?: string;
 }
 
 export interface SedPlot3D {
@@ -389,18 +455,20 @@ export interface SedDocument {
   _type: 'SedDocument';
   level: number;
   version: number;
+  styles: SedStyle[];
   models: SedModel[];
   simulations: SedSimulation[];
   tasks: SedAbstractTask[];
   dataGenerators: SedDataGenerator[];
-  outputs: SedOutput[];
+  outputs: SedOutput[];  
 }
 
 export interface SerializedSedDocument
   extends Omit<
     SedDocument,
-    'models' | 'simulations' | 'tasks' | 'dataGenerators' | 'outputs'
+    'styles' | 'models' | 'simulations' | 'tasks' | 'dataGenerators' | 'outputs'
   > {
+  styles: SerializedSedStyle[];
   models: SerializedSedModel[];
   simulations: SerializedSedSimulation[];
   tasks: SerializedSedAbstractTask[];

@@ -13,6 +13,7 @@ import { SedSimulation } from './sedSimulation';
 import { SedOutput } from './sedOutput';
 import { SedDataGenerator } from './sedDataGenerator';
 import { SedModel } from './sedModel';
+import { SedStyle } from './sedStyle';
 import { SedAbstractTask } from './sedAbstractTask';
 
 /**
@@ -51,6 +52,10 @@ export interface SedDocument {
    * Type.
    */
   _type: SedDocumentTypeEnum;
+  /**
+   * Graphical styles
+   */
+  styles: Array<SedStyle>;
 }
 export enum SedDocumentTypeEnum {
   SedDocument = 'SedDocument',

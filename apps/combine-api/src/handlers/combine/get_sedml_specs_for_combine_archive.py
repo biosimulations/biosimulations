@@ -3,6 +3,7 @@ from ...utils import get_temp_dir
 from biosimulators_utils.combine.io import CombineArchiveReader
 from biosimulators_utils.combine.utils import get_sedml_contents
 from biosimulators_utils.sedml.data_model import (  # noqa: F401
+    Style,
     Model,
     ModelChange,
     ModelAttributeChange,
@@ -155,12 +156,69 @@ def get_sed_document_specs(sed_document):
         '_type': 'SedDocument',
         'level': sed_document.level,
         'version': sed_document.version,
+        'styles': list(map(get_style_specs, sed_document.styles)),
         'models': list(map(get_model_specs, sed_document.models)),
         'simulations': list(map(get_simulation_specs, sed_document.simulations)),
         'tasks': list(map(get_task_specs, sed_document.tasks)),
         'dataGenerators': list(map(get_data_generator_specs, sed_document.data_generators)),
         'outputs': list(map(get_output_specs, sed_document.outputs)),
     }
+
+    return specs
+
+
+def get_style_specs(style):
+    """ Get the OpenAPI specifications of a SED-ML style
+
+    Args:
+        style (:obj:`Style`): style
+
+    Returns:
+        :obj:`dict` with schema `SedStyle`
+    """
+    specs = {
+        "_type": "SedStyle",
+        "id": style.id,
+    }
+
+    if style.name:
+        specs['name'] = style.name
+
+    if style.base:
+        specs['base'] = style.base.id
+
+    if style.line:
+        specs['line'] = {
+            "_type": "SedLineStyle",
+        }
+        if style.line.type:
+            specs['line']['type'] = style.line.type.value
+        if style.line.color:
+            specs['line']['color'] = style.line.color
+        if style.line.thickness:
+            specs['line']['thickness'] = style.line.thickness
+
+    if style.marker:
+        specs['marker'] = {
+            "_type": "SedMarkerStyle",
+        }
+        if style.marker.type:
+            specs['marker']['type'] = style.marker.type.value
+        if style.marker.size:
+            specs['marker']['size'] = style.marker.size
+        if style.marker.line_color:
+            specs['marker']['lineColor'] = style.marker.line_color
+        if style.marker.line_thickness:
+            specs['marker']['lineThickness'] = style.marker.line_thickness
+        if style.marker.fill_color:
+            specs['marker']['fillColor'] = style.marker.fill_color
+
+    if style.fill:
+        specs['fill'] = {
+            "_type": "SedFillStyle",
+        }
+        if style.fill.color:
+            specs['fill']['color'] = style.fill.color
 
     return specs
 
@@ -552,6 +610,9 @@ def get_curve_specs(curve):
     if curve.name:
         specs['name'] = curve.name
 
+    if curve.style:
+        specs['style'] = curve.style.id
+
     return specs
 
 
@@ -574,6 +635,9 @@ def get_surface_specs(surface):
 
     if surface.name:
         specs['name'] = surface.name
+
+    if surface.style:
+        specs['style'] = surface.style.id
 
     return specs
 

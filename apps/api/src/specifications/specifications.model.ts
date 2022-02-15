@@ -8,6 +8,13 @@ import { SimulationRunModel } from '../simulation-run/simulation-run.model';
 import { Document, Schema as MongooseSchema } from 'mongoose';
 import {
   SimulationRunSedDocument as ISimulationRunSedDocument,
+  SerializedSedStyle as ISedStyle,
+  SedLineStyle as ISedLineStyle,
+  SedMarkerStyle as ISedMarkerStyle,
+  SedFillStyle as ISedFillStyle,
+  SedColor,
+  SedLineStyleType,
+  SedMarkerStyleType,
   SerializedSedModel as ISedModel,
   SedModelAttributeChange as ISedModelAttributeChange,
   SedAddElementModelChange as ISedAddElementModelChange,
@@ -40,6 +47,119 @@ import {
   Namespace as INamespace,
   SedAxisScale,
 } from '@biosimulations/datamodel/common';
+
+@Schema({
+  _id: false,
+  storeSubdocValidationError: false,
+  strict: 'throw',
+})
+export class SedLineStyle implements ISedLineStyle {
+  @Prop({
+    type: String,
+    enum: ['SedLineStyle'],
+    required: true,
+    default: undefined,
+  })
+  public _type!: 'SedLineStyle';
+
+  @Prop({ type: String, enum: SedLineStyleType, required: false, default: undefined })
+  public type?: SedLineStyleType;
+
+  @Prop({ type: String, required: false, default: undefined })
+  public color?: SedColor;
+
+  @Prop({ type: Number, required: false, default: undefined })
+  public thickness?: number;
+}
+
+export const SedLineStyleSchema = SchemaFactory.createForClass(SedLineStyle);
+
+@Schema({
+  _id: false,
+  storeSubdocValidationError: false,
+  strict: 'throw',
+})
+export class SedMarkerStyle implements ISedMarkerStyle {
+  @Prop({
+    type: String,
+    enum: ['SedMarkerStyle'],
+    required: true,
+    default: undefined,
+  })
+  public _type!: 'SedMarkerStyle';
+
+  @Prop({ type: String, enum: SedMarkerStyleType, required: false, default: undefined })
+  public type?: SedMarkerStyleType;
+
+  @Prop({ type: Number, required: false, default: undefined })
+  public size?: number;
+
+  @Prop({ type: String, required: false, default: undefined })
+  public lineColor?: SedColor;
+
+  @Prop({ type: Number, required: false, default: undefined })
+  public lineThickness?: number;
+
+  @Prop({ type: String, required: false, default: undefined })
+  public fillColor?: SedColor;
+}
+
+export const SedMarkerStyleSchema = SchemaFactory.createForClass(SedMarkerStyle);
+
+@Schema({
+  _id: false,
+  storeSubdocValidationError: false,
+  strict: 'throw',
+})
+export class SedFillStyle implements ISedFillStyle {
+  @Prop({
+    type: String,
+    enum: ['SedFillStyle'],
+    required: true,
+    default: undefined,
+  })
+  public _type!: 'SedFillStyle';
+
+  @Prop({ type: String, required: true, default: undefined })
+  public color!: SedColor;
+}
+
+export const SedFillStyleSchema = SchemaFactory.createForClass(SedFillStyle);
+
+@Schema({
+  _id: false,
+  storeSubdocValidationError: false,
+  strict: 'throw',
+})
+export class SedStyle implements ISedStyle {
+  @Prop({
+    type: String,
+    enum: ['SedStyle'],
+    required: true,
+    default: undefined,
+  })
+  public _type!: 'SedStyle';
+
+  @Prop({ type: String, required: true, default: undefined })
+  public id!: string;
+
+  @Prop({ type: String, required: false, default: undefined })
+  public name?: string;
+
+  @Prop({ type: String, required: false, default: undefined })
+  public base?: string;
+
+  @Prop({ type: SedLineStyleSchema, required: false, default: undefined })
+  public line?: SedLineStyle;
+
+  @Prop({ type: SedMarkerStyleSchema, required: false, default: undefined })
+  public marker?: SedMarkerStyle;
+
+  @Prop({ type: SedFillStyleSchema, required: false, default: undefined })
+  public fill?: SedFillStyle;
+}
+
+export const SedStyleSchema = SchemaFactory.createForClass(SedStyle);
 
 @Schema({
   _id: false,
@@ -908,6 +1028,9 @@ export class SedCurve implements ISedCurve {
 
   @Prop({ type: String, required: true, default: undefined })
   public yDataGenerator!: string;
+
+  @Prop({ type: String, required: false, default: undefined })
+  public style?: string;
 }
 
 export const SedCurveSchema = SchemaFactory.createForClass(SedCurve);
@@ -976,6 +1099,9 @@ export class SedSurface implements ISedSurface {
 
   @Prop({ type: String, required: true, default: undefined })
   public zDataGenerator!: string;
+
+  @Prop({ type: String, required: false, default: undefined })
+  public style?: string;
 }
 
 export const SedSurfaceSchema = SchemaFactory.createForClass(SedSurface);
@@ -1092,6 +1218,13 @@ export class SpecificationsModel
     default: undefined,
   })
   public version!: number;
+
+  @Prop({
+    type: [SedStyleSchema],
+    required: true,
+    default: undefined,
+  })
+  public styles!: SedStyle[];
 
   @Prop({
     type: [SedOutputSchema],

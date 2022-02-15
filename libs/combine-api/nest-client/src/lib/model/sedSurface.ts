@@ -38,6 +38,10 @@ export interface SedSurface {
    * Type.
    */
   _type: SedSurfaceTypeEnum;
+  /**
+   * Identifier for its graphical style
+   */
+  style?: string;
 }
 export enum SedSurfaceTypeEnum {
   SedSurface = 'SedSurface',

@@ -26,10 +26,10 @@ export interface SedDocumentLog {
   outputs: Array<SedReportLog | SedPlot2DLog | SedPlot3DLog> | null;
 }
 export enum SedDocumentLogStatusEnum {
-  Queued = 'QUEUED',
-  Running = 'RUNNING',
-  Skipped = 'SKIPPED',
-  Succeeded = 'SUCCEEDED',
-  Failed = 'FAILED',
-  Unknown = 'UNKNOWN',
+  QUEUED = 'QUEUED',
+  RUNNING = 'RUNNING',
+  SKIPPED = 'SKIPPED',
+  SUCCEEDED = 'SUCCEEDED',
+  FAILED = 'FAILED',
+  UNKNOWN = 'UNKNOWN',
 }

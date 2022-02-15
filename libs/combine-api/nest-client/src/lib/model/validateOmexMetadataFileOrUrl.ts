@@ -32,13 +32,13 @@ export interface ValidateOmexMetadataFileOrUrl {
   schema: ValidateOmexMetadataFileOrUrlSchema;
 }
 export enum ValidateOmexMetadataFileOrUrlFormat {
-  Ntriples = 'ntriples',
-  Nquads = 'nquads',
-  Rdfa = 'rdfa',
-  Rdfxml = 'rdfxml',
-  Turtle = 'turtle',
+  ntriples = 'ntriples',
+  nquads = 'nquads',
+  rdfa = 'rdfa',
+  rdfxml = 'rdfxml',
+  turtle = 'turtle',
 }
 export enum ValidateOmexMetadataFileOrUrlSchema {
-  RdfTriples = 'rdf_triples',
+  rdf_triples = 'rdf_triples',
   BioSimulations = 'BioSimulations',
 }

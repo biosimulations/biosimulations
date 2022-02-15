@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import {
   SedPlot2D,
+  SedStyle,
   PlotlyDataLayout,
   PlotlyTrace,
   PlotlyTraceMode,
   PlotlyTraceType,
+  PlotlyTraceLineDash,
+  PlotlyTraceMarkerSymbol,
   SimulationRunOutput,
   SimulationRunOutputDatum,
   SimulationRunOutputDatumElement,
@@ -29,6 +32,31 @@ interface SedDatasetResults {
 
 interface SedDatasetResultsMap {
   [uri: string]: SedDatasetResults;
+}
+
+const sedLineStyleTypePlotlyMap: {[sedType: string]: PlotlyTraceLineDash | undefined} = {
+  none: undefined,
+  solid: 'solid',
+  dash: 'dash',
+  dot: 'dot',
+  dashDot: 'dashdot',
+  dashDotDot: 'longdashdot',
+}
+
+const sedMarkerStyleTypePlotlyMap: {[sedType: string]: PlotlyTraceMarkerSymbol | undefined} = {
+  none: undefined,
+  square: 'square',
+  circle: 'circle',
+  diamond: 'diamond',
+  xCross: 'x',
+  plus: 'cross',
+  star: 'star',
+  triangleUp: 'triangle-up',
+  triangleDown: 'triangle-down',
+  triangleLeft: 'triangle-left',
+  triangleRight: 'triangle-right',
+  hDash: 'line-ew',
+  vDash: 'line-ns',
 }
 
 @Injectable({
@@ -69,6 +97,8 @@ export class SedPlot2DVisualizationService {
           curve.yDataGenerator.name || curve.yDataGenerator.id,
         );
 
+        const style: SedStyle | undefined = curve?.style ? this.resolveStyle(curve.style) : undefined;
+
         const flatData = flattenTaskResults([xData, yData]);
 
         for (let iTrace = 0; iTrace < flatData.data[0].length; iTrace++) {
@@ -77,7 +107,7 @@ export class SedPlot2DVisualizationService {
             (flatData.data[0].length > 1
               ? ` (${getRepeatedTaskTraceLabel(iTrace, flatData.outerShape)})`
               : '');
-          traces.push({
+          const trace: PlotlyTrace = {
             name: name,
             x: flatData.data[0][iTrace],
             y: flatData.data[1][iTrace],
@@ -85,7 +115,60 @@ export class SedPlot2DVisualizationService {
             yaxis: 'y1',
             type: PlotlyTraceType.scatter,
             mode: PlotlyTraceMode.lines,
-          });
+          };
+
+          if (style?.line || style?.marker || style?.fill) {
+            if (style?.line || style?.marker) {
+              if (style?.line) {
+                if (style?.marker) {
+                  trace.mode = PlotlyTraceMode.linesMarkers; 
+                } else {
+                  trace.mode = PlotlyTraceMode.lines; 
+                }
+              } else {
+                trace.mode = PlotlyTraceMode.markers; 
+              }
+            } else {
+              trace.mode = PlotlyTraceMode.none;
+            }
+          }
+
+          if (style?.line) {
+            trace.line = {
+              dash: style.line?.type 
+                ? sedLineStyleTypePlotlyMap?.[style.line?.type]
+                : undefined,
+              color: style.line?.color,
+              width: style.line?.thickness,
+            };
+            if (trace.line.dash === undefined) {
+              trace.line.width = 0;
+            }
+          }
+
+          if (style?.marker) {
+            trace.marker = {
+              symbol: style.marker?.type 
+                ? sedMarkerStyleTypePlotlyMap?.[style.marker?.type]
+                : undefined,
+              size: style.marker?.size,
+              color: style.marker?.fillColor,
+            };
+
+            if (style.marker?.lineColor || style.marker?.lineThickness) {
+              trace.marker.line = {
+                color: style.marker?.lineColor,
+                width: style.marker?.lineThickness,
+              };
+            }
+          }
+
+          if (style?.fill) {
+            trace.fill = 'toself';
+            trace.fillColor = style.fill?.color;
+          }
+
+          traces.push(trace);
         }
       } else {
         errors.push(`Curve '${curve.id}' of '${xId}' and '${yId}'.`);
@@ -186,5 +269,73 @@ export class SedPlot2DVisualizationService {
 
   private getOutputIdFromSedmlLocationId(location: string): string {
     return location.split('/').reverse()[0];
+  }
+
+  private resolveStyle(style: SedStyle): SedStyle {    
+    let resolvedStyle!: SedStyle;
+
+    if (style?.base) {
+      resolvedStyle = this.resolveStyle(style.base)
+    } else {
+      resolvedStyle = {
+        _type: 'SedStyle',
+        id: style.id,
+      }
+    }
+
+    resolvedStyle.id = style.id;
+    resolvedStyle.name = style?.name;
+    resolvedStyle.base = style?.base;
+    
+    if (style?.line !== undefined) {
+      if (resolvedStyle?.line === undefined) {
+        resolvedStyle.line = {
+          _type: 'SedLineStyle',
+        }
+      }
+      if (style.line?.type !== undefined) {
+        resolvedStyle.line.type = style.line.type;
+      }
+      if (style.line?.color !== undefined) {
+        resolvedStyle.line.color = style.line.color;
+      }
+      if (style.line?.thickness !== undefined) {
+        resolvedStyle.line.thickness = style.line.thickness;
+      }
+    }
+
+    if (style?.marker !== undefined) {
+      if (resolvedStyle?.marker === undefined) {
+        resolvedStyle.marker = {
+          _type: 'SedMarkerStyle',
+        }
+      }
+      if (style.marker?.type !== undefined) {
+        resolvedStyle.marker.type = style.marker.type;
+      }
+      if (style.marker?.size !== undefined) {
+        resolvedStyle.marker.size = style.marker.size;
+      }
+      if (style.marker?.lineColor !== undefined) {
+        resolvedStyle.marker.lineColor = style.marker.lineColor;
+      }
+      if (style.marker?.lineThickness !== undefined) {
+        resolvedStyle.marker.lineThickness = style.marker.lineThickness;
+      }
+      if (style.marker?.fillColor !== undefined) {
+        resolvedStyle.marker.fillColor = style.marker.fillColor;
+      }
+    }
+
+    if (style?.fill !== undefined) {
+      if (resolvedStyle?.fill === undefined) {
+        resolvedStyle.fill = {
+          _type: 'SedFillStyle',
+          color: style.fill.color,
+        }
+      }
+    }
+
+    return resolvedStyle;
   }
 }

@@ -33,9 +33,9 @@ export interface ValidationReport {
   _type: ValidationReportTypeEnum;
 }
 export enum ValidationReportStatusEnum {
-  Valid = 'valid',
-  Invalid = 'invalid',
-  Warnings = 'warnings',
+  valid = 'valid',
+  invalid = 'invalid',
+  warnings = 'warnings',
 }
 export enum ValidationReportTypeEnum {
   ValidationReport = 'ValidationReport',

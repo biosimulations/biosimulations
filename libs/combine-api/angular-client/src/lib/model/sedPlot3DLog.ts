@@ -22,10 +22,10 @@ export interface SedPlot3DLog {
   surfaces: Array<SedOutputElementLog> | null;
 }
 export enum SedPlot3DLogStatusEnum {
-  Queued = 'QUEUED',
-  Running = 'RUNNING',
-  Skipped = 'SKIPPED',
-  Succeeded = 'SUCCEEDED',
-  Failed = 'FAILED',
-  Unknown = 'UNKNOWN',
+  QUEUED = 'QUEUED',
+  RUNNING = 'RUNNING',
+  SKIPPED = 'SKIPPED',
+  SUCCEEDED = 'SUCCEEDED',
+  FAILED = 'FAILED',
+  UNKNOWN = 'UNKNOWN',
 }

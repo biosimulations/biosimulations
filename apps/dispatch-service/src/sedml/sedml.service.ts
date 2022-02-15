@@ -5,6 +5,7 @@ import { CombineWrapperService } from '../combineWrapper.service';
 import { map, Observable, pluck } from 'rxjs';
 import {
   SedDocument,
+  SedStyle,
   SedModel,
   SedSimulation,
   SedAbstractTask,
@@ -50,6 +51,7 @@ export class SedmlService {
     contents.forEach((content: CombineArchiveSedDocSpecsContent) => {
       const id: string = content.location.path.replace('./', '');
       const spec: SedDocument = content.location.value;
+      const styles: SedStyle[] = spec.styles;
       const models: SedModel[] = spec.models;
       const simulations: SedSimulation[] = spec.simulations;
       const tasks: SedAbstractTask[] = spec.tasks;
@@ -59,6 +61,7 @@ export class SedmlService {
         id: id,
         level: spec.level,
         version: spec.version,
+        styles,
         models,
         simulations,
         tasks,

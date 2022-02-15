@@ -35,7 +35,45 @@
         "value": {
           "_type": "SedDocument",
           "level": 1,
-          "version": 3,
+          "version": 4,
+          "styles": [
+            {
+              "_type": "SedStyle",
+              "id": "style1",
+              "name": "Style 1",
+              "line": {
+                "_type": "SedLineStyle",
+                "type": "dash",
+                "color": "00FF00",
+                "thickness": 2.0
+              },
+              "marker": {
+                "_type": "SedMarkerStyle",
+                "type": "circle",
+                "size": 1.0,
+                "lineColor": "FF0000",
+                "lineThickness": 3.0,
+                "fillColor": "FFFF00"
+              },
+              "fill": {
+                "_type": "SedFillStyle",
+                "color": "0000FF"
+              }
+            },
+            {
+              "_type": "SedStyle",
+              "id": "style2",
+              "base": "style1",
+              "marker": {
+                "_type": "SedMarkerStyle",
+                "type": "square"
+              },
+              "fill": {
+                "_type": "SedFillStyle",
+                "color": "0000FF"
+              }
+            }
+          ],
           "models": [
             {
               "_type": "SedModel",
@@ -163,7 +201,8 @@
                   "_type": "SedCurve",
                   "id": "curve_x",
                   "xDataGenerator": "data_gen_x",
-                  "yDataGenerator": "data_gen_x"
+                  "yDataGenerator": "data_gen_x",
+                  "style": "style1"
                 }
               ]
             },
@@ -179,7 +218,8 @@
                   "id": "surface_x",
                   "xDataGenerator": "data_gen_x",
                   "yDataGenerator": "data_gen_x",
-                  "zDataGenerator": "data_gen_x"
+                  "zDataGenerator": "data_gen_x",
+                  "style": "style2"
                 }
               ]
             }

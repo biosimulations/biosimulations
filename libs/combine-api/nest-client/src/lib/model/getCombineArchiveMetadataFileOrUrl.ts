@@ -28,9 +28,9 @@ export interface GetCombineArchiveMetadataFileOrUrl {
   omexMetadataFormat: GetCombineArchiveMetadataFileOrUrlOmexMetadataFormat;
 }
 export enum GetCombineArchiveMetadataFileOrUrlOmexMetadataFormat {
-  Ntriples = 'ntriples',
-  Nquads = 'nquads',
-  Rdfa = 'rdfa',
-  Rdfxml = 'rdfxml',
-  Turtle = 'turtle',
+  ntriples = 'ntriples',
+  nquads = 'nquads',
+  rdfa = 'rdfa',
+  rdfxml = 'rdfxml',
+  turtle = 'turtle',
 }

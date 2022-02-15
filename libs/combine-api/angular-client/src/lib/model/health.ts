@@ -20,5 +20,5 @@ export interface Health {
   status: HealthStatusEnum;
 }
 export enum HealthStatusEnum {
-  Ok = 'ok',
+  ok = 'ok',
 }

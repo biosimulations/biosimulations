@@ -1763,6 +1763,7 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
       _type: SedDocumentType.SedDocument,
       level: 1,
       version: 3,
+      styles: [],
       models: [model],
       simulations: [simulation],
       tasks: [task],
