@@ -62,7 +62,12 @@ export class SedLineStyle implements ISedLineStyle {
   })
   public _type!: 'SedLineStyle';
 
-  @Prop({ type: String, enum: SedLineStyleType, required: false, default: undefined })
+  @Prop({
+    type: String,
+    enum: SedLineStyleType,
+    required: false,
+    default: undefined,
+  })
   public type?: SedLineStyleType;
 
   @Prop({ type: String, required: false, default: undefined })
@@ -88,7 +93,12 @@ export class SedMarkerStyle implements ISedMarkerStyle {
   })
   public _type!: 'SedMarkerStyle';
 
-  @Prop({ type: String, enum: SedMarkerStyleType, required: false, default: undefined })
+  @Prop({
+    type: String,
+    enum: SedMarkerStyleType,
+    required: false,
+    default: undefined,
+  })
   public type?: SedMarkerStyleType;
 
   @Prop({ type: Number, required: false, default: undefined })
@@ -104,7 +114,8 @@ export class SedMarkerStyle implements ISedMarkerStyle {
   public fillColor?: SedColor;
 }
 
-export const SedMarkerStyleSchema = SchemaFactory.createForClass(SedMarkerStyle);
+export const SedMarkerStyleSchema =
+  SchemaFactory.createForClass(SedMarkerStyle);
 
 @Schema({
   _id: false,

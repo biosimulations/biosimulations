@@ -73,7 +73,12 @@ export class SedLineStyle implements ISedLineStyle {
   @Equals('SedLineStyle')
   public _type!: 'SedLineStyle';
 
-  @ApiProperty({ type: String, enum: SedLineStyleType, required: false, nullable: true })
+  @ApiProperty({
+    type: String,
+    enum: SedLineStyleType,
+    required: false,
+    nullable: true,
+  })
   @IsOptional()
   @IsEnum(SedLineStyleType)
   public type?: SedLineStyleType;
@@ -95,7 +100,12 @@ export class SedMarkerStyle implements ISedMarkerStyle {
   @Equals('SedMarkerStyle')
   public _type!: 'SedMarkerStyle';
 
-  @ApiProperty({ type: String, enum: SedMarkerStyleType, required: false, nullable: true })
+  @ApiProperty({
+    type: String,
+    enum: SedMarkerStyleType,
+    required: false,
+    nullable: true,
+  })
   @IsOptional()
   @IsEnum(SedMarkerStyleType)
   public type?: SedMarkerStyleType;

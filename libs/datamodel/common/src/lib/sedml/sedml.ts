@@ -460,7 +460,7 @@ export interface SedDocument {
   simulations: SedSimulation[];
   tasks: SedAbstractTask[];
   dataGenerators: SedDataGenerator[];
-  outputs: SedOutput[];  
+  outputs: SedOutput[];
 }
 
 export interface SerializedSedDocument

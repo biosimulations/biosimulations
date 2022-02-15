@@ -35,16 +35,20 @@ interface SedDatasetResultsMap {
   [uri: string]: SedDatasetResults;
 }
 
-const sedLineStyleTypePlotlyMap: {[sedType: string]: PlotlyTraceLineDash | undefined} = {
+const sedLineStyleTypePlotlyMap: {
+  [sedType: string]: PlotlyTraceLineDash | undefined;
+} = {
   none: undefined,
   solid: 'solid',
   dash: 'dash',
   dot: 'dot',
   dashDot: 'dashdot',
   dashDotDot: 'longdashdot',
-}
+};
 
-const sedMarkerStyleTypePlotlyMap: {[sedType: string]: PlotlyTraceMarkerSymbol | undefined} = {
+const sedMarkerStyleTypePlotlyMap: {
+  [sedType: string]: PlotlyTraceMarkerSymbol | undefined;
+} = {
   none: undefined,
   square: 'square',
   circle: 'circle',
@@ -58,7 +62,7 @@ const sedMarkerStyleTypePlotlyMap: {[sedType: string]: PlotlyTraceMarkerSymbol |
   triangleRight: 'triangle-right',
   hDash: 'line-ew',
   vDash: 'line-ns',
-}
+};
 
 @Injectable({
   providedIn: 'root',
@@ -98,7 +102,9 @@ export class SedPlot2DVisualizationService {
           curve.yDataGenerator.name || curve.yDataGenerator.id,
         );
 
-        const style: SedStyle | undefined = curve?.style ? this.resolveStyle(curve.style) : undefined;
+        const style: SedStyle | undefined = curve?.style
+          ? this.resolveStyle(curve.style)
+          : undefined;
 
         const flatData = flattenTaskResults([xData, yData]);
 
@@ -122,12 +128,12 @@ export class SedPlot2DVisualizationService {
             if (style?.line || style?.marker) {
               if (style?.line) {
                 if (style?.marker) {
-                  trace.mode = PlotlyTraceMode.linesMarkers; 
+                  trace.mode = PlotlyTraceMode.linesMarkers;
                 } else {
-                  trace.mode = PlotlyTraceMode.lines; 
+                  trace.mode = PlotlyTraceMode.lines;
                 }
               } else {
-                trace.mode = PlotlyTraceMode.markers; 
+                trace.mode = PlotlyTraceMode.markers;
               }
             } else {
               trace.mode = PlotlyTraceMode.none;
@@ -136,10 +142,12 @@ export class SedPlot2DVisualizationService {
 
           if (style?.line) {
             trace.line = {
-              dash: style.line?.type 
+              dash: style.line?.type
                 ? sedLineStyleTypePlotlyMap?.[style.line?.type]
                 : undefined,
-              color: style.line?.color ? hexToRgba(style.line?.color) : undefined,
+              color: style.line?.color
+                ? hexToRgba(style.line?.color)
+                : undefined,
               width: style.line?.thickness,
             };
             if (trace.line.dash === undefined) {
@@ -149,16 +157,20 @@ export class SedPlot2DVisualizationService {
 
           if (style?.marker) {
             trace.marker = {
-              symbol: style.marker?.type 
+              symbol: style.marker?.type
                 ? sedMarkerStyleTypePlotlyMap?.[style.marker?.type]
                 : undefined,
               size: style.marker?.size,
-              color: style.marker?.fillColor ? hexToRgba(style.marker?.fillColor) : undefined,
+              color: style.marker?.fillColor
+                ? hexToRgba(style.marker?.fillColor)
+                : undefined,
             };
 
             if (style.marker?.lineColor || style.marker?.lineThickness) {
               trace.marker.line = {
-                color: style.marker?.lineColor ? hexToRgba(style.marker?.lineColor) : undefined,
+                color: style.marker?.lineColor
+                  ? hexToRgba(style.marker?.lineColor)
+                  : undefined,
                 width: style.marker?.lineThickness,
               };
             }
@@ -166,7 +178,9 @@ export class SedPlot2DVisualizationService {
 
           if (style?.fill) {
             trace.fill = 'toself';
-            trace.fillcolor = style.fill?.color ? hexToRgba(style.fill?.color) : undefined;
+            trace.fillcolor = style.fill?.color
+              ? hexToRgba(style.fill?.color)
+              : undefined;
           }
 
           traces.push(trace);
@@ -272,27 +286,27 @@ export class SedPlot2DVisualizationService {
     return location.split('/').reverse()[0];
   }
 
-  private resolveStyle(style: SedStyle): SedStyle {    
+  private resolveStyle(style: SedStyle): SedStyle {
     let resolvedStyle!: SedStyle;
 
     if (style?.base) {
-      resolvedStyle = this.resolveStyle(style.base)
+      resolvedStyle = this.resolveStyle(style.base);
     } else {
       resolvedStyle = {
         _type: 'SedStyle',
         id: style.id,
-      }
+      };
     }
 
     resolvedStyle.id = style.id;
     resolvedStyle.name = style?.name;
     resolvedStyle.base = style?.base;
-    
+
     if (style?.line !== undefined) {
       if (resolvedStyle?.line === undefined) {
         resolvedStyle.line = {
           _type: 'SedLineStyle',
-        }
+        };
       }
       if (style.line?.type !== undefined) {
         resolvedStyle.line.type = style.line.type;
@@ -309,7 +323,7 @@ export class SedPlot2DVisualizationService {
       if (resolvedStyle?.marker === undefined) {
         resolvedStyle.marker = {
           _type: 'SedMarkerStyle',
-        }
+        };
       }
       if (style.marker?.type !== undefined) {
         resolvedStyle.marker.type = style.marker.type;
@@ -333,7 +347,7 @@ export class SedPlot2DVisualizationService {
         resolvedStyle.fill = {
           _type: 'SedFillStyle',
           color: style.fill.color,
-        }
+        };
       }
     }
 

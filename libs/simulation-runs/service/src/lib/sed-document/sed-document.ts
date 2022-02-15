@@ -76,11 +76,11 @@ export function deserializeSedDocument(
   const styleIdMap: IdMap<SedStyle> = {};
   serializedSedDoc.styles.forEach(
     (serializedStyle: SerializedSedStyle): void => {
-      const style: SedStyle = styleIdMap[serializedStyle.id] = {
+      const style: SedStyle = (styleIdMap[serializedStyle.id] = {
         _type: serializedStyle._type,
         id: serializedStyle.id,
         name: serializedStyle?.name,
-      };
+      });
 
       if (serializedStyle?.line) {
         style.line = Object.assign({}, serializedStyle.line);
@@ -100,8 +100,8 @@ export function deserializeSedDocument(
       if (serializedStyle?.base) {
         style.base = styleIdMap?.[serializedStyle.base];
       }
-    }
-  )
+    },
+  );
 
   const modelIdMap: IdMap<SedModel> = {};
   serializedSedDoc.models.forEach(
@@ -395,8 +395,8 @@ export function deserializeSedDocument(
                   dataGeneratorIdMap[serializedCurve.xDataGenerator],
                 yDataGenerator:
                   dataGeneratorIdMap[serializedCurve.yDataGenerator],
-                style: serializedCurve?.style 
-                  ? styleIdMap?.[serializedCurve.style] 
+                style: serializedCurve?.style
+                  ? styleIdMap?.[serializedCurve.style]
                   : undefined,
               };
             },
@@ -421,7 +421,7 @@ export function deserializeSedDocument(
                   dataGeneratorIdMap[serializedSurface.yDataGenerator],
                 zDataGenerator:
                   dataGeneratorIdMap[serializedSurface.zDataGenerator],
-                style: serializedSurface?.style 
+                style: serializedSurface?.style
                   ? styleIdMap?.[serializedSurface.style]
                   : undefined,
               };
