@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   SedPlot2D,
   SedStyle,
+  SedLineStyleType,
   PlotlyDataLayout,
   PlotlyTrace,
   PlotlyTraceMode,
@@ -121,48 +122,48 @@ export class SedPlot2DVisualizationService {
             xaxis: 'x1',
             yaxis: 'y1',
             type: PlotlyTraceType.scatter,
-            mode: PlotlyTraceMode.lines,
           };
 
-          if (style?.line || style?.marker || style?.fill) {
-            if (style?.line || style?.marker) {
-              if (style?.line) {
-                if (style?.marker) {
-                  trace.mode = PlotlyTraceMode.linesMarkers;
-                } else {
-                  trace.mode = PlotlyTraceMode.lines;
-                }
+          const hasLine = !(style?.line && style.line?.type === SedLineStyleType.none);
+          const hasMarker = style?.marker && style.marker?.type && sedMarkerStyleTypePlotlyMap?.[style.marker.type];
+
+          if (hasLine || hasMarker) {
+            if (hasLine) {
+              if (hasMarker) {
+                trace.mode = PlotlyTraceMode.linesMarkers;
               } else {
-                trace.mode = PlotlyTraceMode.markers;
+                trace.mode = PlotlyTraceMode.lines;
               }
             } else {
-              trace.mode = PlotlyTraceMode.none;
+              trace.mode = PlotlyTraceMode.markers;
             }
+          } else {
+            trace.mode = PlotlyTraceMode.none;
           }
 
-          if (style?.line) {
+          if (hasLine) {
             trace.line = {
-              dash: style.line?.type
-                ? sedLineStyleTypePlotlyMap?.[style.line?.type]
+              dash: style?.line?.type
+                ? sedLineStyleTypePlotlyMap?.[style.line.type]
                 : undefined,
-              color: style.line?.color
-                ? hexToRgba(style.line?.color)
+              color: style?.line?.color
+                ? hexToRgba(style.line.color)
                 : undefined,
-              width: style.line?.thickness,
+              width: style?.line?.thickness,
             };
             if (trace.line.dash === undefined) {
               trace.line.width = 0;
             }
           }
 
-          if (style?.marker) {
+          if (hasMarker) {
             trace.marker = {
-              symbol: style.marker?.type
-                ? sedMarkerStyleTypePlotlyMap?.[style.marker?.type]
+              symbol: style?.marker?.type
+                ? sedMarkerStyleTypePlotlyMap[style.marker.type]
                 : undefined,
-              size: style.marker?.size,
-              color: style.marker?.fillColor
-                ? hexToRgba(style.marker?.fillColor)
+              size: style?.marker?.size,
+              color: style?.marker?.fillColor
+                ? hexToRgba(style.marker.fillColor)
                 : undefined,
             };
 
@@ -177,10 +178,13 @@ export class SedPlot2DVisualizationService {
           }
 
           if (style?.fill) {
+            console.warn(`Fill was ignored for curve '${curve.id}' of plot '${plot.id}'. SED-ML does not support fills for point curves.`);
+            /*
             trace.fill = 'toself';
             trace.fillcolor = style.fill?.color
               ? hexToRgba(style.fill?.color)
               : undefined;
+            */
           }
 
           traces.push(trace);
