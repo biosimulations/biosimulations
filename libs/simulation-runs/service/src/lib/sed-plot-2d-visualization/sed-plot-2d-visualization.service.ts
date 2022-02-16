@@ -124,8 +124,13 @@ export class SedPlot2DVisualizationService {
             type: PlotlyTraceType.scatter,
           };
 
-          const hasLine = !(style?.line && style.line?.type === SedLineStyleType.none);
-          const hasMarker = style?.marker && style.marker?.type && sedMarkerStyleTypePlotlyMap?.[style.marker.type];
+          const hasLine = !(
+            style?.line && style.line?.type === SedLineStyleType.none
+          );
+          const hasMarker =
+            style?.marker &&
+            style.marker?.type &&
+            sedMarkerStyleTypePlotlyMap?.[style.marker.type];
 
           if (hasLine || hasMarker) {
             if (hasLine) {
@@ -178,7 +183,9 @@ export class SedPlot2DVisualizationService {
           }
 
           if (style?.fill) {
-            console.warn(`Fill was ignored for curve '${curve.id}' of plot '${plot.id}'. SED-ML does not support fills for point curves.`);
+            console.warn(
+              `Fill was ignored for curve '${curve.id}' of plot '${plot.id}'. SED-ML does not support fills for point curves.`,
+            );
             /*
             trace.fill = 'toself';
             trace.fillcolor = style.fill?.color
