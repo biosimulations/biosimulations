@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.6.1](https://github.com/biosimulations/biosimulations/compare/v9.6.0...v9.6.1) (2022-02-16)
+
+
+### Bug Fixes
+
+* **dispatch,platform:** align rendering of styles with SED-ML L1V4 ([8e9b50d](https://github.com/biosimulations/biosimulations/commit/8e9b50db8777dcba33acb4227bd1f7f9145ee813))
+
 ## [9.6.0](https://github.com/biosimulations/biosimulations/compare/v9.5.2...v9.6.0) (2022-02-15)
 
 
