@@ -62,6 +62,13 @@ export class ProcessProcessor {
       queueName: JobQueue.extract,
       opts: {
         jobId: `${runId}`,
+        maxStalledCount: 3,
+        attempts: 5,
+        lockDuration: 120000, // wait up to 2 minutes before marking job as stalled
+        backoff: {
+          type: 'exponential',
+          delay: 1000,
+        },
       },
       data: {
         runId: job.data.runId,
@@ -109,6 +116,13 @@ export class ProcessProcessor {
       },
       opts: {
         jobId: `${runId}`,
+        maxStalledCount: 3,
+        attempts: 5,
+        lockDuration: 120000, // wait up to 2 minutes before marking job as stalled
+        backoff: {
+          type: 'exponential',
+          delay: 1000,
+        },
       },
       // Needs file processing completed
       children: [filesJob],
@@ -217,6 +231,7 @@ export class ProcessProcessor {
       opts: {
         jobId: `${runId}`,
         attempts: 3,
+        lockDuration: 60000, // wait up to 1 minutes before marking job as stalled
         backoff: {
           type: 'exponential',
           delay: 1000,
