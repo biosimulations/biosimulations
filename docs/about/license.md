@@ -144,21 +144,17 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/nestjs/axios
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/axios/LICENSE
-├─ @nestjs/bull@0.4.2
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/nestjs/bull
-│  └─ licenseFile: @nestjs/bull/LICENSE
-├─ @nestjs/common@8.2.6
+├─ @nestjs/common@8.3.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/common/LICENSE
-├─ @nestjs/config@1.1.7
+├─ @nestjs/config@1.2.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/config
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/config/LICENSE
-├─ @nestjs/core@8.2.6
+├─ @nestjs/core@8.3.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
@@ -168,7 +164,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/nestjs/mapped-types
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/mapped-types/LICENSE
-├─ @nestjs/microservices@8.2.6
+├─ @nestjs/microservices@8.3.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
@@ -178,12 +174,12 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/nestjs/mongoose
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/mongoose/LICENSE
-├─ @nestjs/passport@8.1.0
+├─ @nestjs/passport@8.2.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/passport
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/passport/LICENSE
-├─ @nestjs/platform-express@8.2.6
+├─ @nestjs/platform-express@8.3.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
@@ -304,17 +300,17 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: i@izs.me
 │  ├─ url: https://izs.me
 │  └─ licenseFile: npm/node_modules/@npmcli/run-script/LICENSE
-├─ @nrwl/cli@13.7.2
+├─ @nrwl/cli@13.8.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nrwl/nx
 │  ├─ publisher: Victor Savkin
 │  └─ licenseFile: @nrwl/cli/README.md
-├─ @nrwl/devkit@13.7.2
+├─ @nrwl/devkit@13.8.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nrwl/nx
 │  ├─ publisher: Victor Savkin
 │  └─ licenseFile: @nrwl/devkit/README.md
-├─ @nrwl/tao@13.7.2
+├─ @nrwl/tao@13.8.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nrwl/nx
 │  ├─ publisher: Victor Savkin
@@ -828,11 +824,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/axios/axios
 │  ├─ publisher: Matt Zabriskie
 │  └─ licenseFile: @sendgrid/client/node_modules/axios/LICENSE
-├─ axios@0.24.0
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/axios/axios
-│  ├─ publisher: Matt Zabriskie
-│  └─ licenseFile: @nestjs/common/node_modules/axios/LICENSE
 ├─ axios@0.25.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/axios/axios
@@ -1606,14 +1597,15 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
 │  └─ licenseFile: dot-prop/license
-├─ dotenv-expand@5.1.0
+├─ dotenv-expand@8.0.1
 │  ├─ licenses: BSD-2-Clause
+│  ├─ repository: https://github.com/motdotla/dotenv-expand
 │  ├─ publisher: motdotla
 │  └─ licenseFile: dotenv-expand/LICENSE
-├─ dotenv@10.0.0
+├─ dotenv@16.0.0
 │  ├─ licenses: BSD-2-Clause
 │  ├─ repository: https://github.com/motdotla/dotenv
-│  └─ licenseFile: dotenv/LICENSE
+│  └─ licenseFile: @nestjs/config/node_modules/dotenv/LICENSE
 ├─ duplexer2@0.1.4
 │  ├─ licenses: BSD-3-Clause
 │  ├─ repository: https://github.com/deoxxa/duplexer2
@@ -3394,7 +3386,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
 │  └─ licenseFile: number-is-nan/license
-├─ nx@13.7.2
+├─ nx@13.8.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nrwl/nx
 │  ├─ publisher: Victor Savkin
@@ -4068,7 +4060,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/benlesh/rxjs-for-await
 │  ├─ publisher: Ben Lesh
 │  ├─ email: ben@benlesh.com
-│  └─ licenseFile: @nrwl/tao/node_modules/rxjs-for-await/LICENSE
+│  └─ licenseFile: rxjs-for-await/LICENSE
 ├─ rxjs@6.6.7
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/reactivex/rxjs
