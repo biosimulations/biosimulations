@@ -114,7 +114,7 @@ export class CompleteProcessor {
     }
 
     const oneDay = 24 * 60 * 60 * 1000;
-    const oneWeek = 7 * oneDay;
+    
     //clean queues
     if (finalStatus === SimulationRunStatus.SUCCEEDED) {
       this.cleanUpQueue.add(
@@ -124,7 +124,6 @@ export class CompleteProcessor {
           queueName: JobQueue.complete,
         },
         {
-          delay: oneDay,
           removeOnComplete: 10,
           removeOnFail: 100,
         },
@@ -137,7 +136,7 @@ export class CompleteProcessor {
           queueName: JobQueue.complete,
         },
         {
-          delay: oneWeek,
+          delay: oneDay,
           removeOnComplete: 10,
           removeOnFail: 100,
         },
