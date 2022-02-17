@@ -66,6 +66,7 @@ export interface VegaVisualization {
   userDesigned: false;
   renderer: 'Vega';
   vegaSpec: Observable<VegaSpec | false>;
+  enabled: true;
 }
 
 export interface SedPlot2DVisualization {
@@ -75,6 +76,7 @@ export interface SedPlot2DVisualization {
   userDesigned: false;
   renderer: 'Plotly';
   plotlyDataLayout: Observable<Observable<PlotlyDataLayout>>;
+  enabled: true;
 }
 
 export interface Histogram1DVisualization {
@@ -88,6 +90,7 @@ export interface Histogram1DVisualization {
   uriSedDataSetMap: UriSedDataSetMap;
   plotlyDataLayoutSubject: BehaviorSubject<Observable<PlotlyDataLayout | null>>;
   plotlyDataLayout: Observable<Observable<PlotlyDataLayout | null>>;
+  enabled: boolean;
 }
 
 export interface Heatmap2DVisualization {
@@ -101,6 +104,7 @@ export interface Heatmap2DVisualization {
   uriSedDataSetMap: UriSedDataSetMap;
   plotlyDataLayoutSubject: BehaviorSubject<Observable<PlotlyDataLayout | null>>;
   plotlyDataLayout: Observable<Observable<PlotlyDataLayout | null>>;
+  enabled: boolean;
 }
 
 export interface Line2DVisualization {
@@ -114,6 +118,7 @@ export interface Line2DVisualization {
   uriSedDataSetMap: UriSedDataSetMap;
   plotlyDataLayoutSubject: BehaviorSubject<Observable<PlotlyDataLayout | null>>;
   plotlyDataLayout: Observable<Observable<PlotlyDataLayout | null>>;
+  enabled: boolean;
 }
 
 export type DesignVisualization =

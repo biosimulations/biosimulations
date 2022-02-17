@@ -15,6 +15,7 @@
               <mat-option
                 *ngFor="let visualization of visualizationList.visualizations"
                 [value]="visualization"
+                [disabled]="!visualization.enabled"
               >
                 {{ visualization.name }}
               </mat-option>
