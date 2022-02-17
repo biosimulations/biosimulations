@@ -930,6 +930,7 @@ export class ViewService {
           );
 
           const uriSedDataSetMap: UriSedDataSetMap = {};
+          let hasData2D = false;
           sedmlArchiveContents.forEach(
             (sedDocLocation: SimulationRunSedDocument): void => {
               const sedDoc = deserializeSedDocument({
@@ -943,6 +944,13 @@ export class ViewService {
                 dataGenerators: sedDocLocation.dataGenerators,
                 outputs: sedDocLocation.outputs,
               });
+
+              for (const simulation of sedDoc.simulations) {
+                if (simulation._type === 'SedUniformTimeCourseSimulation' && simulation.numberOfSteps >= 1) {
+                  hasData2D = true;
+                  break;
+                }
+              }
 
               sedDoc.outputs.forEach((output: SedOutput): void => {
                 if (output._type === 'SedReport') {
@@ -979,6 +987,7 @@ export class ViewService {
             renderer: 'Plotly',
             plotlyDataLayoutSubject: behaviorSubject,
             plotlyDataLayout: behaviorSubject.asObservable(),
+            enabled: true,
           });
 
           behaviorSubject = new BehaviorSubject<
@@ -995,6 +1004,7 @@ export class ViewService {
             renderer: 'Plotly',
             plotlyDataLayoutSubject: behaviorSubject,
             plotlyDataLayout: behaviorSubject.asObservable(),
+            enabled: hasData2D,
           });
 
           behaviorSubject = new BehaviorSubject<
@@ -1011,6 +1021,7 @@ export class ViewService {
             renderer: 'Plotly',
             plotlyDataLayoutSubject: behaviorSubject,
             plotlyDataLayout: behaviorSubject.asObservable(),
+            enabled: hasData2D,
           });
 
           const designVisualizationsList: VisualizationList[] = [
@@ -1064,6 +1075,7 @@ export class ViewService {
           }),
           shareReplay(1),
         ),
+      enabled: true,
     };
   }
 
@@ -1107,6 +1119,7 @@ export class ViewService {
           shareReplay(1),
         ),
       ),
+      enabled: true,
     };
   }
 

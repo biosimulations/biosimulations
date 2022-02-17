@@ -32,6 +32,7 @@ describe('RenderVisualizationComponent', () => {
       userDesigned: false,
       renderer: 'Vega',
       vegaSpec: of(false),
+      enabled: true,
     };
     fixture.detectChanges();
   });
