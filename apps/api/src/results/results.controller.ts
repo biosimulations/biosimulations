@@ -8,8 +8,6 @@
  */
 
 import {
-  CACHE_MANAGER,
-  Inject,
   Controller,
   Get,
   Param,
@@ -17,7 +15,7 @@ import {
   Query,
   Res,
 } from '@nestjs/common';
-import { Cache } from 'cache-manager';
+
 import {
   ApiQuery,
   ApiOkResponse,
@@ -37,12 +35,7 @@ import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 @Controller('results')
 @ApiTags('Results')
 export class ResultsController {
-  public constructor(
-    private service: ResultsService,
-    @Inject(CACHE_MANAGER) private cacheManager: Cache,
-  ) {}
-
-  private static runResultsVersion = 1;
+  public constructor(private service: ResultsService) {}
 
   @ApiOperation({
     summary: 'Get the results of all of the outputs of a simulation run',
@@ -74,14 +67,6 @@ export class ResultsController {
     @Param('runId') runId: string,
     @Query('includeData', ParseBoolPipe) includeData = false,
   ): Promise<SimulationRunResults> {
-    const cacheKey = `${runId}:${includeData}:${ResultsController.runResultsVersion}`;
-    const cachedValue = (await this.cacheManager.get(
-      cacheKey,
-    )) as SimulationRunResults | null;
-    if (cachedValue) {
-      return cachedValue;
-    }
-
     const results = await this.service.getResults(runId, includeData);
 
     const value: SimulationRunResults = {
@@ -90,8 +75,6 @@ export class ResultsController {
       updated: results.updated,
       outputs: results.outputs,
     };
-
-    await this.cacheManager.set(cacheKey, value, { ttl: 0 });
 
     return value;
   }
@@ -129,8 +112,6 @@ export class ResultsController {
     res.write(file);
     res.send();
   }
-
-  private static outputResultsVersion = 1;
 
   @ApiOperation({
     summary:
@@ -172,21 +153,11 @@ export class ResultsController {
     experimentLocationAndOutputId: string,
     @Query('includeData', ParseBoolPipe) includeData = false,
   ): Promise<SimulationRunOutput> {
-    const cacheKey = `${runId}:${experimentLocationAndOutputId}:${includeData}:${ResultsController.runResultsVersion}`;
-    const cachedValue = (await this.cacheManager.get(
-      cacheKey,
-    )) as SimulationRunOutput | null;
-    if (cachedValue) {
-      return cachedValue;
-    }
-
     const value = await this.service.getOutput(
       runId,
       experimentLocationAndOutputId,
       includeData,
     );
-
-    await this.cacheManager.set(cacheKey, value, { ttl: 0 });
 
     return value;
   }

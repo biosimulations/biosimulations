@@ -35,11 +35,7 @@ describe('ResultsController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ResultsController],
-      imports: [
-        BiosimulationsAuthModule,
-        BiosimulationsConfigModule,
-        CacheModule.register(),
-      ],
+      imports: [BiosimulationsAuthModule, BiosimulationsConfigModule],
       providers: [
         ResultsService,
         {
