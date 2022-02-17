@@ -1,5 +1,13 @@
 # Changelog
 
+## [9.6.3](https://github.com/biosimulations/biosimulations/compare/v9.6.2...v9.6.3) (2022-02-17)
+
+
+### Bug Fixes
+
+* **deps:** update nestjs ([418fc1a](https://github.com/biosimulations/biosimulations/commit/418fc1a3c83d6a328fc58ae854c0d554527913f0))
+* update nx ([f04edac](https://github.com/biosimulations/biosimulations/commit/f04edac173a9b3969312000e95261320cd9bcd60))
+
 ## [9.6.2](https://github.com/biosimulations/biosimulations/compare/v9.6.1...v9.6.2) (2022-02-17)
 
 
