@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.6.2](https://github.com/biosimulations/biosimulations/compare/v9.6.1...v9.6.2) (2022-02-17)
+
+
+### Performance Improvements
+
+* **dispatch-service:** tweak stall settings for cpu intensive jobs ([b3e651c](https://github.com/biosimulations/biosimulations/commit/b3e651cb475d7d8fc579fe8c87e717034e299c51))
+
 ## [9.6.1](https://github.com/biosimulations/biosimulations/compare/v9.6.0...v9.6.1) (2022-02-16)
 
 
