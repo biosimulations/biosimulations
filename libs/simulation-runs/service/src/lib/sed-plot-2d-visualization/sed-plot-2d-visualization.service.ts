@@ -156,9 +156,6 @@ export class SedPlot2DVisualizationService {
                 : undefined,
               width: style?.line?.thickness,
             };
-            if (trace.line.dash === undefined) {
-              trace.line.width = 0;
-            }
           }
 
           if (hasMarker) {
