@@ -20,8 +20,10 @@ class FileThumbnailUrlModel extends Document implements ThumbnailUrls {
   @Prop({})
   public browse?: string;
 }
+
 export const FileThumbnailUrlSchema: SchemaType<FileThumbnailUrlModel> =
   SchemaFactory.createForClass(FileThumbnailUrlModel);
+
 @Schema({
   storeSubdocValidationError: false,
   collection: 'Files',
