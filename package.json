@@ -159,7 +159,7 @@
     "@stdlib/array-shape": "0.0.5",
     "@stdlib/array-to-iterator": "0.0.6",
     "@stdlib/iter-last": "0.0.6",
-    "@stdlib/iter-pop": "0.0.6",
+    "@stdlib/iter-pop": "0.0.7",
     "@stdlib/iter-slice": "0.0.7",
     "@stdlib/ndarray-array": "0.0.9",
     "@stdlib/ndarray-base-broadcast-array": "0.0.6",
