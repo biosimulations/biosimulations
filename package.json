@@ -179,7 +179,7 @@
     "@types/lunr": "2.3.4",
     "@types/mongoose": "5.11.96",
     "@types/multer": "1.4.7",
-    "@types/node": "16.11.24",
+    "@types/node": "16.11.25",
     "@types/passport-jwt": "3.0.6",
     "@types/plotly.js": "1.54.20",
     "@types/ssh2": "0.5.51",
