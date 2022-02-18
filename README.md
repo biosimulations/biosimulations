@@ -2,8 +2,8 @@
 
 [![App Status](https://deployment.biosimulations.org/api/badge?name=biosimulations-dev&revision=true)](https://deployment.biosimulations.org/applications/biosimulations-dev)
 [![App Status](https://deployment.biosimulations.org/api/badge?name=biosimulations-prod&revision=true)](https://deployment.biosimulations.org/applications/biosimulations-prod)
-[![Continuous Integration](https://github.com/biosimulations/biosimulations/workflows/Continuous%20Integration/badge.svg)](https://github.com/biosimulations/biosimulations/actions?query=workflow%3A%22Continuous+Integration%22)
-[![Continuous Deployment](https://github.com/biosimulations/biosimulations/workflows/Continuous%20Deployment/badge.svg)](https://github.com/biosimulations/biosimulations/actions?query=workflow%3A%22Continuous+Deployment%22)
+[![Continuous Integration](https://github.com/biosimulations/biosimulations/actions/workflows/cd.yml/badge.svg)](https://github.com/biosimulations/biosimulations/actions/workflows/cd.yml)
+[![Continuous Deployment](https://github.com/biosimulations/biosimulations/actions/workflows/deploy.yml/badge.svg)](https://github.com/biosimulations/biosimulations/actions/workflows/deploy.yml)
 
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/5204/badge)](https://bestpractices.coreinfrastructure.org/projects/5204)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=biosimulations_biosimulations&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=biosimulations_biosimulations)
