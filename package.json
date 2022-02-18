@@ -152,7 +152,7 @@
     "@nx-python/nx-python": "0.1.7",
     "@nx-tools/nx-docker": "2.3.0",
     "@scullyio/init": "2.1.14",
-    "@scullyio/ng-lib": "2.1.13",
+    "@scullyio/ng-lib": "2.1.14",
     "@scullyio/scully": "2.1.13",
     "@semantic-release/changelog": "6.0.1",
     "@semantic-release/git": "10.0.1",
