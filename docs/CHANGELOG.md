@@ -1,5 +1,12 @@
 # Changelog
 
+# [9.7.0](https://github.com/biosimulations/biosimulations/compare/v9.6.4...v9.7.0) (2022-02-18)
+
+
+### Features
+
+* **dispatch,platform:** disabled 2d plots for 1d data ([3dcbe8a](https://github.com/biosimulations/biosimulations/commit/3dcbe8a85a4a886dd1c73a8a300d3962c4c40403))
+
 ## [9.6.4](https://github.com/biosimulations/biosimulations/compare/v9.6.3...v9.6.4) (2022-02-18)
 
 
