@@ -156,7 +156,7 @@
     "@scullyio/scully": "2.1.13",
     "@semantic-release/changelog": "6.0.1",
     "@semantic-release/git": "10.0.1",
-    "@stdlib/array-shape": "0.0.5",
+    "@stdlib/array-shape": "0.0.6",
     "@stdlib/array-to-iterator": "0.0.6",
     "@stdlib/iter-last": "0.0.6",
     "@stdlib/iter-pop": "0.0.6",
