@@ -13,7 +13,7 @@ export class ExtractProcessor {
     private simulationStorageService: SimulationStorageService,
   ) {}
 
-  @Process({ name: 'extract', concurrency: 10 })
+  @Process({ name: 'extract', concurrency: 1 })
   private async handleFileExtraction(job: Job): Promise<JobReturn<string[]>> {
     const data = job.data;
     const runId = data.runId;
