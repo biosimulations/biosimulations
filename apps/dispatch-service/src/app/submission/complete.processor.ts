@@ -172,7 +172,7 @@ export class CompleteProcessor {
     const successLog =
       succeededSteps.length > 0
         ? `\n${green}${succeededSteps
-            .map((step) => step.description + ' ...Succeeded')
+            .map((step) => step.description + ' ... succeeded.')
             .join('\n')}${noColor}`
         : '';
     const warningLog =
@@ -205,7 +205,7 @@ export class CompleteProcessor {
     step: stepsInfo,
     failedSteps: stepsInfo[],
   ): string {
-    let message = step.description + ' ...Failed';
+    let message = step.description + ' ... failed.';
     let failedDueToChild = false;
     const children = step.children;
     children.forEach((child) => {
