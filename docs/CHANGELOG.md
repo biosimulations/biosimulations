@@ -1,5 +1,13 @@
 # Changelog
 
+## [9.7.1](https://github.com/biosimulations/biosimulations/compare/v9.7.0...v9.7.1) (2022-02-18)
+
+
+### Bug Fixes
+
+* **api:** set minimum file size to 0 ([6daf637](https://github.com/biosimulations/biosimulations/commit/6daf637ecbe765cd0eeb2e7923ca701e865f88c1))
+* **dispatch,platform:** fixed default plot stroke width ([637a59c](https://github.com/biosimulations/biosimulations/commit/637a59c6e862d2b6ee7f39b37d0bc8fdf5622c4f))
+
 ## [9.7.0](https://github.com/biosimulations/biosimulations/compare/v9.6.4...v9.7.0) (2022-02-18)
 
 
