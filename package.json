@@ -153,7 +153,7 @@
     "@nx-tools/nx-docker": "2.3.0",
     "@scullyio/init": "2.1.13",
     "@scullyio/ng-lib": "2.1.12",
-    "@scullyio/scully": "2.1.12",
+    "@scullyio/scully": "2.1.13",
     "@semantic-release/changelog": "6.0.1",
     "@semantic-release/git": "10.0.1",
     "@stdlib/array-shape": "0.0.5",
