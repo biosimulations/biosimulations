@@ -2,7 +2,7 @@ import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
 import { File as IFile } from '@biosimulations/datamodel/common';
 import {
   IsString,
-  IsPositive,
+  Min,
   IsInt,
   IsBoolean,
   IsMongoId,
@@ -35,7 +35,7 @@ export class ProjectFileInput {
     type: Number,
     example: 1024,
   })
-  @IsPositive()
+  @Min(0)
   @IsInt()
   public size!: number;
 
