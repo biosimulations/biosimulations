@@ -946,7 +946,10 @@ export class ViewService {
               });
 
               for (const simulation of sedDoc.simulations) {
-                if (simulation._type === 'SedUniformTimeCourseSimulation' && simulation.numberOfSteps >= 1) {
+                if (
+                  simulation._type === 'SedUniformTimeCourseSimulation' &&
+                  simulation.numberOfSteps >= 1
+                ) {
                   hasData2D = true;
                   break;
                 }
