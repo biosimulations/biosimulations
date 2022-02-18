@@ -114,7 +114,7 @@ export class CompleteProcessor {
     }
 
     const oneDay = 24 * 60 * 60 * 1000;
-    
+
     //clean queues
     if (finalStatus === SimulationRunStatus.SUCCEEDED) {
       this.cleanUpQueue.add(
