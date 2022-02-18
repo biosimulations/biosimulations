@@ -1,4 +1,4 @@
-name: Continuous Integration
+name: Validate Pull Request
 on:
   pull_request:
     branches:
