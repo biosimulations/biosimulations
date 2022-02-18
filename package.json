@@ -164,7 +164,7 @@
     "@stdlib/ndarray-array": "0.0.9",
     "@stdlib/ndarray-base-broadcast-array": "0.0.6",
     "@stdlib/ndarray-base-to-array": "0.0.7",
-    "@stdlib/ndarray-ind2sub": "0.0.6",
+    "@stdlib/ndarray-ind2sub": "0.0.7",
     "@stdlib/stats-iter-prod": "0.0.6",
     "@stdlib/types": "0.0.13",
     "@types/archiver": "5.3.1",
