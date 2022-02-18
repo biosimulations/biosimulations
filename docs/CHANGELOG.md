@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.6.4](https://github.com/biosimulations/biosimulations/compare/v9.6.3...v9.6.4) (2022-02-18)
+
+
+### Performance Improvements
+
+* **dispatch-service:** clear out the old jobs from queue immediately after completion ([3732d84](https://github.com/biosimulations/biosimulations/commit/3732d84c60ed399c8a70a872d6c84e315bb31b60)), closes [#4236](https://github.com/biosimulations/biosimulations/issues/4236)
+
 ## [9.6.3](https://github.com/biosimulations/biosimulations/compare/v9.6.2...v9.6.3) (2022-02-17)
 
 
