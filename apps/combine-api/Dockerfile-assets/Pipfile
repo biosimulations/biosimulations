@@ -57,6 +57,7 @@ libroadrunner = "<2.2.0" # 2.2.0 requires numpy >= 1.22, which conflicts with As
 biosimulators-tellurium = ">=0.1.25"
 # XPP
 biosimulators-xpp = ">=0.0.9"
+ujson = "*"
 
 [dev-packages]
 openapi-core = "*"
