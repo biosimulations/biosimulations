@@ -2,6 +2,7 @@ import { ConfigService } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 import { CombineWrapperService } from '../combineWrapper.service';
 import { ManifestService } from './manifest.service';
+import { FilePaths } from '@biosimulations/shared/storage';
 
 describe('ManifestService', () => {
   let service: ManifestService;
@@ -12,6 +13,7 @@ describe('ManifestService', () => {
         ManifestService,
         ConfigService,
         { provide: CombineWrapperService, useValue: {} },
+        { provide: FilePaths, useValue: {} },
       ],
     }).compile();
 
