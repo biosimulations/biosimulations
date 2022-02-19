@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.7.4](https://github.com/biosimulations/biosimulations/compare/v9.7.3...v9.7.4) (2022-02-19)
+
+
+### Performance Improvements
+
+* **combine-api:** sped up JSON encoding ([44fe6c1](https://github.com/biosimulations/biosimulations/commit/44fe6c13f8c2fd4e621ec12bb5b3f4a99ee87ddf))
+
 ## [9.7.3](https://github.com/biosimulations/biosimulations/compare/v9.7.2...v9.7.3) (2022-02-19)
 
 
