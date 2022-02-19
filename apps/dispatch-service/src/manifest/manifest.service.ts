@@ -10,14 +10,16 @@ export class ManifestService {
   public constructor(
     private combine: CombineWrapperService,
     private filePaths: FilePaths,
-  ) {
-  }
+  ) {}
 
   public getManifestContent(
     id: string,
   ): Observable<CombineArchiveManifestContent[]> {
     // This needs to be true so COMBINE API can access if we are running locally on Kubernetes
-    const url = this.filePaths.getSimulationRunFileContentEndpoint(id, 'manifest.xml');
+    const url = this.filePaths.getSimulationRunFileContentEndpoint(
+      id,
+      'manifest.xml',
+    );
     this.logger.debug(`Getting manifest from ${url}`);
     // get manifest
     const manifestContent = this.combine
