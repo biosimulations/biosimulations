@@ -502,7 +502,7 @@ export class SpecificationsController {
       id: specs.id,
       level: specs.level,
       version: specs.version,
-      styles: specs.styles,
+      styles: specs?.styles || [],
       models: specs.models,
       simulations: specs.simulations,
       outputs: specs.outputs,
