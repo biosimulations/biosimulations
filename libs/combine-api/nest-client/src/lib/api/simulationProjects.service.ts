@@ -286,8 +286,8 @@ export class SimulationProjectsService {
     });
   }
   /**
-   * Get the specifications of the SED-ML files in a COMBINE/OMEX archive
-   * Get the specifications of the SED-ML files in a COMBINE/OMEX archive
+   * Get the specifications of an OMEX manifest or the OMEX manifest of a COMBINE archive
+   * Get the specifications of an OMEX manifest or the OMEX manifest of a COMBINE archive
    * @param file The two files uploaded in creating a combine archive
    * @param url URL
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.

@@ -223,7 +223,7 @@ class GetCombineArchiveManifestTestCase(unittest.TestCase):
             response = client.post(endpoint, data=data, content_type="multipart/form-data")
         self.assertEqual(response.status_code, 400, response.json)
         self.assertTrue(response.json['title'].startswith(
-            'COMBINE/OMEX archive could not be loaded'))
+            'File could not be loaded from'))
 
         if hasattr(self, "response_validator"):
             request = OpenAPIRequest(
@@ -250,7 +250,7 @@ class GetCombineArchiveManifestTestCase(unittest.TestCase):
             with app.app.app.test_client() as client:
                 response = client.post(endpoint, data=data, content_type="multipart/form-data")
         self.assertEqual(response.status_code, 400, response.json)
-        self.assertIn('not a valid zip archive', response.json['title'])
+        self.assertIn('File is not a valid manifest or a COMBINE/OMEX which contains a valid manifest', response.json['title'])
 
         archive_filename = os.path.join(
             self.FIXTURES_DIR, 'no-manifest.omex')
@@ -278,4 +278,4 @@ class GetCombineArchiveManifestTestCase(unittest.TestCase):
             with app.app.app.test_client() as client:
                 response = client.post(endpoint, data=data, content_type="multipart/form-data")
         self.assertEqual(response.status_code, 400, response.json)
-        self.assertIn('does not contain a valid manifest', response.json['title'])
+        self.assertIn('File is not a valid manifest or a COMBINE/OMEX which contains a valid manifest', response.json['title'])
