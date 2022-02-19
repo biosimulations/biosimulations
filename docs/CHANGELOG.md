@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.7.2](https://github.com/biosimulations/biosimulations/compare/v9.7.1...v9.7.2) (2022-02-19)
+
+
+### Bug Fixes
+
+* **api:** handled older simulation specifications that lack styles ([01d7829](https://github.com/biosimulations/biosimulations/commit/01d78290d1f6c5710c47b7005531e5b483371101))
+
 ## [9.7.1](https://github.com/biosimulations/biosimulations/compare/v9.7.0...v9.7.1) (2022-02-18)
 
 
