@@ -1,5 +1,18 @@
 # Changelog
 
+## [9.7.3](https://github.com/biosimulations/biosimulations/compare/v9.7.2...v9.7.3) (2022-02-19)
+
+
+### Bug Fixes
+
+* **dispatch-service:** corrected capitalization of SED-ML, COMBINE ([e267376](https://github.com/biosimulations/biosimulations/commit/e267376e9c56d5ad59537b2f1d4378ebdf4138cf))
+
+
+### Performance Improvements
+
+* **combine-api:** added ability to directly parse OMEX manifest files ([a43a50e](https://github.com/biosimulations/biosimulations/commit/a43a50ebb5738bb97bf8483148af1c9ca04bcbf0))
+* **dispatch-service:** switched to directly parsing manifests ([b86f48c](https://github.com/biosimulations/biosimulations/commit/b86f48c017106d79bd63ac0f53e8b5207db18bfd))
+
 ## [9.7.2](https://github.com/biosimulations/biosimulations/compare/v9.7.1...v9.7.2) (2022-02-19)
 
 
