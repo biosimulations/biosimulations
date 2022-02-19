@@ -729,7 +729,8 @@ paths:
   /combine/manifest:
     post:
       requestBody:
-        description: COMBINE/OMEX archive file or URL for a COMBINE/OMEX archive file.
+        description: "One of \n- OMEX manifest file\n- COMBINE/OMEX archive file\n\
+          - URL for a OMEX manifest file\n- URL for a COMBINE/OMEX archive file"
         content:
           multipart/form-data:
             schema:
@@ -786,8 +787,10 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Server error.
       operationId: src.handlers.combine.get_manifest.handler
-      summary: Get the specifications of the SED-ML files in a COMBINE/OMEX archive
-      description: Get the specifications of the SED-ML files in a COMBINE/OMEX archive
+      summary: Get the specifications of an OMEX manifest or the OMEX manifest of
+        a COMBINE archive
+      description: Get the specifications of an OMEX manifest or the OMEX manifest
+        of a COMBINE archive
   /combine/metadata/biosimulations:
     post:
       requestBody:
