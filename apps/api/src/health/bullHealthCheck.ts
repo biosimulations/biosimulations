@@ -47,6 +47,8 @@ export class BullHealthIndicator extends HealthIndicator {
         {
           timeout: 1000,
           attempts: 1,
+          removeOnComplete: 100,
+          removeOnFail: 100,
         },
       );
 
