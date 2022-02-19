@@ -28,7 +28,7 @@ export class OutputProcessor {
       return {
         status: 'Succeeded',
         data: size,
-        reason: 'Got output Successfully',
+        reason: 'Got output successfully',
       };
     } catch (e) {
       this.logger.error(e);

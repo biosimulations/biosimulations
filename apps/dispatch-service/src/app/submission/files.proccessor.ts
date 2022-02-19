@@ -50,7 +50,7 @@ export class FilesProcessor {
       );
       return {
         status: 'Succeeded',
-        reason: 'Files posted to API Successfully',
+        reason: 'Files posted to API successfully',
         data: files,
       };
     } catch (e) {

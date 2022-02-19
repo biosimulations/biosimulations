@@ -57,7 +57,7 @@ export class ThumbnailsPostProcessor {
       return {
         status: 'Succeeded',
         data: resolvedData,
-        reason: 'Uploaded thumbnails Successfully',
+        reason: 'Uploaded thumbnails successfully',
       };
     } catch (e) {
       this.logger.error(e);

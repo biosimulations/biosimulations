@@ -27,7 +27,7 @@ export class ManifestProcessor {
       return {
         status: 'Succeeded',
         data: contents,
-        reason: 'Got manifest Successfully',
+        reason: 'Got manifest successfully',
       };
     } catch (e) {
       this.logger.error(e);
