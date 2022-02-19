@@ -41,6 +41,7 @@ export class SshService {
   public getSSHJobOutputsDirectory(id: string): string {
     return path.join(this.hpcBase, id, 'outputs');
   }
+
   public async execStringCommand(
     cmd: string,
     retryCount = 0,

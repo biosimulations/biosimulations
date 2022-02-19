@@ -129,8 +129,8 @@ export class SbatchService {
 
     const allEnvVarsString =
       allEnvVars.length > 0
-        ? '--env ' +
-          allEnvVars
+        ? '--env "'
+          + allEnvVars
             .map((envVar: EnvironmentVariable): string => {
               const key = envVar.key.replace(/([^a-zA-Z0-9,._+@%/-])/, '\\$&');
               const val = envVar.value.replace(
@@ -140,6 +140,7 @@ export class SbatchService {
               return `${key}=${val}`;
             })
             .join(',')
+          + '"'
         : '';
     // Need to get external endpoint so that HPC can download the archive
     const runCombineArchiveUrl =
@@ -205,17 +206,21 @@ echo -e '${cyan}========================================== Downloading COMBINE/O
 
 echo -e ''
 echo -e '${cyan}=========================================== Executing COMBINE/OMEX archive ==========================================${nc}'
+TEMP_DIRNAME=$(mktemp --directory --tmpdir=/local)
+set +e
 srun --job-name="Execute-project" \
   singularity run \
-    --tmpdir /local \
     --bind ${workDirname}:/root \
-    --bind /local:/tmp \
-    "${allEnvVarsString}" \
+    --bind \${TEMP_DIRNAME}:/tmp \
+    ${allEnvVarsString} \
     ${simulatorImage} \
       -i '/root/${combineArchiveFilename}' \
       -o '/root/${outputsS3Subpath}'
-
-set +e
+executeArchiveStatus=$?
+rm -rf \${TEMP_DIRNAME}
+if [[ $executeArchiveStatus -ne 0 ]]; then
+  exit $executeArchiveStatus
+fi
 
 echo -e ''
 echo -e '${cyan}=================================================== Saving results ==================================================${nc}'
@@ -257,23 +262,23 @@ srun --job-name="Save-outputs-to-S3" \
       . \
       's3://${storageBucket}/${simulationRunS3Path}'
   aws \
-  --endpoint-url ${storageEndpoint} \
-  s3 sync \
-    . \
-    's3://${storageBucket}/${simulationRunS3Path}' \
-    --exclude '*' \
-    --include '*.h5' \
-    --content-type 'application/hdf5'\
-    --acl public-read
+    --endpoint-url ${storageEndpoint} \
+    s3 sync \
+      . \
+      's3://${storageBucket}/${simulationRunS3Path}' \
+      --exclude '*' \
+      --include '*.h5' \
+      --content-type 'application/hdf5'\
+      --acl public-read
   aws \
-  --endpoint-url ${storageEndpoint} \
-  s3 sync \
-    . \
-    's3://${storageBucket}/${simulationRunS3Path}' \
-    --exclude '*' \
-    --include '*.yml' \
-    --content-type 'application/yaml'\
-    --acl public-read
+    --endpoint-url ${storageEndpoint} \
+    s3 sync \
+      . \
+      's3://${storageBucket}/${simulationRunS3Path}' \
+      --exclude '*' \
+      --include '*.yml' \
+      --content-type 'application/yaml'\
+      --acl public-read
   aws \
     --endpoint-url ${storageEndpoint} \
     s3 sync \
