@@ -27,7 +27,7 @@ export class MetadataProcessor {
       return {
         status: 'Succeeded',
         data: metadataProcessingResults,
-        reason: 'Got metadata Successfully',
+        reason: 'Got metadata successfully',
       };
     } catch (e) {
       this.logger.error(e);

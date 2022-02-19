@@ -24,7 +24,7 @@ export class LogProcessor {
       return {
         status: 'Succeeded',
         data: logs,
-        reason: 'Read logs Successfully',
+        reason: 'Read logs successfully',
       };
     } catch (e) {
       if (job.attemptsMade < (job.opts.attempts || 0)) {
@@ -38,7 +38,7 @@ export class LogProcessor {
         job.log(details);
         return {
           status: 'Failed',
-          reason: 'The log could not be retrieved from the combine API',
+          reason: 'The log could not be retrieved from the COMBINE API',
           data: undefined,
         };
       }
