@@ -15,21 +15,21 @@ def handler(body, file=None):
         body (:obj:`dict`): dictionary with keys
 
             * ``url`` whose value has schema ``Url`` with the
-              URL for a COMBINE/OMEX archive
+              URL for a COMBINE/OMEX archive or a manifest for a COMBINE/OMEX archive
 
-        file (:obj:`werkzeug.datastructures.FileStorage`, optional): COMBINE/OMEX archive file
+        file (:obj:`werkzeug.datastructures.FileStorage`, optional): COMBINE/OMEX archive or OMEX manifest file
 
     Returns:
         ``CombineArchive``: manifest of the COMBINE/OMEX archive
     '''
-    archive_file = file
-    archive_url = body.get('url', None)
-    if archive_url and archive_file:
+    archive_or_manifest_file = file
+    archive_or_manifest_url = body.get('url', None)
+    if archive_or_manifest_url and archive_or_manifest_file:
         raise BadRequestException(
             title='Only one of `file` or `url` can be used at a time.',
             instance=ValueError(),
         )
-    if not archive_url and not archive_file:
+    if not archive_or_manifest_url and not archive_or_manifest_file:
         raise BadRequestException(
             title='One of `file` or `url` must be used.',
             instance=ValueError(),
@@ -37,47 +37,50 @@ def handler(body, file=None):
 
     # create temporary working directory
     temp_dirname = get_temp_dir()
-    archive_filename = os.path.join(temp_dirname, 'archive.omex')
+    archive_or_manifest_filename = os.path.join(temp_dirname, 'archive.omex')
+    manifest_filename = os.path.join(temp_dirname, 'manifest.xml')
 
-    # get COMBINE/OMEX archive
-    if archive_file:
-        archive_file.save(archive_filename)
+    # get COMBINE/OMEX archive or manifest
+    if archive_or_manifest_file:
+        archive_or_manifest_file.save(archive_or_manifest_filename)
 
     else:
         try:
-            response = requests.get(archive_url)
+            response = requests.get(archive_or_manifest_url)
             response.raise_for_status()
         except requests.exceptions.RequestException as exception:
-            title = 'COMBINE/OMEX archive could not be loaded from `{}`'.format(
-                archive_url)
+            title = 'File could not be loaded from `{}`'.format(
+                archive_or_manifest_url)
             raise BadRequestException(
                 title=title,
                 instance=exception,
             )
 
         # save archive to local temporary file
-        with open(archive_filename, 'wb') as file:
+        with open(archive_or_manifest_filename, 'wb') as file:
             file.write(response.content)
 
     # read archive
+    is_archive = False
     try:
-        with zipfile.ZipFile(archive_filename, 'r') as zip_file:
+        with zipfile.ZipFile(archive_or_manifest_filename, 'r') as zip_file:
+            is_archive = True
             zip_file.extract('manifest.xml', temp_dirname)
-    except zipfile.BadZipFile as exception:
-        raise BadRequestException(
-            title='COMBINE/OMEX archive is not a valid zip archive.',
-            instance=exception)
+    except zipfile.BadZipFile:
+        pass
     except KeyError as exception:
         raise BadRequestException(
             title='COMBINE/OMEX archive does not contain a manifest.',
             instance=exception)
 
-    manifest_filename = os.path.join(temp_dirname, 'manifest.xml')
+    if not is_archive:
+        manifest_filename = archive_or_manifest_filename
+
     reader = CombineArchiveReader()
-    contents = reader.read_manifest(manifest_filename, archive_filename)
+    contents = reader.read_manifest(manifest_filename, archive_or_manifest_filename)
     if reader.errors:
         raise BadRequestException(
-            title='COMBINE/OMEX archive does not contain a valid manifest.\n  {}'.format(
+            title='File is not a valid manifest or a COMBINE/OMEX which contains a valid manifest.\n  {}'.format(
                 flatten_nested_list_of_strings(reader.errors).replace('\n', '\n  ')),
             instance=ValueError())
 
