@@ -25,21 +25,21 @@ export class SedMLProcessor {
       return {
         status: 'Succeeded',
         data: sedMlProcessingResults,
-        reason: 'Processed and saved SedML Successfully',
+        reason: 'Processed and saved SED-ML successfully',
       };
     } catch (e) {
       if (job.attemptsMade < (job.opts.attempts || 0)) {
-        this.logger.warn('SedML processing failed, retrying');
+        this.logger.warn('SED-ML processing failed, retrying');
         throw e;
       } else {
-        const message = `The SedML could not be created for runId ${runId}`;
+        const message = `The SED-ML could not be created for runId ${runId}`;
         this.logger.error(message);
         job.log(message);
         const details = (e as Error).message;
         job.log(details);
         return {
           status: 'Failed',
-          reason: 'The SedML could not be retrieved from the combine API',
+          reason: 'The SED-ML could not be retrieved from the COMBINE API',
           data: [],
         };
       }

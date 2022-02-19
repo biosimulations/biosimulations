@@ -32,7 +32,7 @@ export class ProcessProcessor {
     const runId = job.data.runId;
     // Each job defined below should be as close to atomic as possible to enable retries.
 
-    // 1. Get manifest from combine api
+    // 1. Get manifest from COMBINE API
     const manifestJob = {
       name: 'Manifest',
       queueName: JobQueue.manifest,
@@ -46,11 +46,11 @@ export class ProcessProcessor {
       },
       data: {
         runId: job.data.runId,
-        description: 'Process the manifest file in the combine archive',
+        description: 'Process the manifest file in the COMBINE archive',
         moreInfo: 'https://combinearchive.org',
         validator: 'https://run.biosimulations.org/utils/validate-project',
         errorMessage:
-          'The manifest for the combine archive could not be processed',
+          'The manifest for the COMBINE archive could not be processed',
         internalError: true,
         required: true,
       },
@@ -72,10 +72,10 @@ export class ProcessProcessor {
       },
       data: {
         runId: job.data.runId,
-        description: 'Extract the files in the combine archive',
+        description: 'Extract the files in the COMBINE archive',
         moreInfo: 'https://combinearchive.org',
         validator: 'https://run.biosimulations.org/utils/validate-project',
-        errorMessage: `The files in the combine archive could not be extracted. Please ensure that the archive is a valid zip file.`,
+        errorMessage: `The files in the COMBINE archive could not be extracted. Please ensure that the archive is a valid zip file.`,
         internalError: false,
         required: true,
       },
@@ -151,7 +151,7 @@ export class ProcessProcessor {
       queueName: JobQueue.sedmlProcess,
       data: {
         runId: job.data.runId,
-        description: 'Process the SED-ML file in the combine archive',
+        description: 'Process the SED-ML file in the COMBINE archive',
         moreInfo:
           'https://docs.biosimulations.org/concepts/conventions/simulation-experiments/',
         validator: 'https://run.biosimulations.org/utils/validate-simulation',
@@ -266,7 +266,7 @@ export class ProcessProcessor {
       queueName: JobQueue.metadata,
       data: {
         runId: job.data.runId,
-        description: `Process the Metadata in the combine archive`,
+        description: `Process the metadata in the COMBINE archive`,
         moreInfo:
           'https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/',
         validator: 'https://run.biosimulations.org/utils/validate-metadata',
@@ -281,7 +281,7 @@ export class ProcessProcessor {
       queueName: JobQueue.metadataPost,
       data: {
         runId: job.data.runId,
-        description: 'Post the Metadata to the API',
+        description: 'Post the metadata to the API',
         moreInfo: undefined,
         validator: undefined,
         errorMessage: `There was an error uploading the metadata to the API.`,

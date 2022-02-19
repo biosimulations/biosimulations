@@ -42,7 +42,7 @@ export class ThumbnailsProcessor {
       return {
         status: 'Succeeded',
         data: thumbnailUrls,
-        reason: 'Processed and saved thumbnails Successfully',
+        reason: 'Processed and saved thumbnails successfully',
       };
     } catch (e) {
       this.logger.error(e);
