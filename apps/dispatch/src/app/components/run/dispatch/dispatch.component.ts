@@ -63,7 +63,7 @@ interface Simulator {
 }
 
 interface SimulatorPolicy {
-  maxPolicy: AlgorithmSubstitutionPolicy;
+  minPolicy: AlgorithmSubstitutionPolicy;
   simulator: Simulator;
 }
 
@@ -348,7 +348,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
               return {
                 _type: 'KisaoAlgorithmSubstitution',
                 algorithms: [alg, alg],
-                maxPolicy:
+                minPolicy:
                   ALGORITHM_SUBSTITUTION_POLICIES[
                     AlgorithmSubstitutionPolicyLevels.SAME_METHOD
                   ],
@@ -360,7 +360,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
         algSubs
           .filter((algorithmSubstitution: AlgorithmSubstitution): boolean => {
             return (
-              algorithmSubstitution.maxPolicy.level <=
+              algorithmSubstitution.minPolicy.level <=
               AlgorithmSubstitutionPolicyLevels.SAME_FRAMEWORK
             );
           })
@@ -380,7 +380,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
 
             const mainAlg = algorithmSubstitution.algorithms[0];
             const altAlg = algorithmSubstitution.algorithms[1];
-            const subPolicy = algorithmSubstitution.maxPolicy;
+            const subPolicy = algorithmSubstitution.minPolicy;
 
             Array.from(
               simulatorsData.simulationAlgorithms[mainAlg.id].simulators,
@@ -388,7 +388,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
               // main implementation
               simulationAlgorithmsMap[mainAlg.id].simulatorPolicies[simulator] =
                 {
-                  maxPolicy: {
+                  minPolicy: {
                     id: 'SAME_METHOD',
                     name: 'Same method',
                     level: AlgorithmSubstitutionPolicyLevels.SAME_METHOD,
@@ -409,7 +409,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
                 simulationAlgorithmsMap[altAlg.id].simulatorPolicies[
                   simulator
                 ] = {
-                  maxPolicy: subPolicy,
+                  minPolicy: subPolicy,
                   simulator: {
                     id: simulator,
                     name: simulatorsData.simulatorSpecs[simulator].name,
@@ -420,11 +420,11 @@ export class DispatchComponent implements OnInit, OnDestroy {
               if (
                 subPolicy.level <
                 simulationAlgorithmsMap[altAlg.id].simulatorPolicies[simulator]
-                  .maxPolicy.level
+                  .minPolicy.level
               ) {
                 simulationAlgorithmsMap[altAlg.id].simulatorPolicies[
                   simulator
-                ].maxPolicy = subPolicy;
+                ].minPolicy = subPolicy;
               }
             });
           });
@@ -683,7 +683,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
         simulationAlgorithmId
       ]?.simulatorPolicies
         ?.filter((simulatorPolicy: SimulatorPolicy): boolean => {
-          return simulatorPolicy.maxPolicy.level <= algSubPolicy;
+          return simulatorPolicy.minPolicy.level <= algSubPolicy;
         })
         ?.map((simulatorPolicy: SimulatorPolicy): string => {
           return simulatorPolicy.simulator.id;
@@ -699,7 +699,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
       (simulationAlgorithm: Algorithm): void => {
         const algSimulators = simulationAlgorithm.simulatorPolicies
           ?.filter((simulatorPolicy: SimulatorPolicy): boolean => {
-            return simulatorPolicy.maxPolicy.level <= algSubPolicy;
+            return simulatorPolicy.minPolicy.level <= algSubPolicy;
           })
           ?.map((simulatorPolicy: SimulatorPolicy): string => {
             return simulatorPolicy.simulator.id;

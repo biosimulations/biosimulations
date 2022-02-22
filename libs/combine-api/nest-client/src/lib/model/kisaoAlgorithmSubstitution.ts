@@ -16,7 +16,7 @@ import { KisaoAlgorithmSubstitutionPolicy } from './kisaoAlgorithmSubstitutionPo
  * The most restrictive substition policy at which at algorithm can be substituted for another.
  */
 export interface KisaoAlgorithmSubstitution {
-  maxPolicy: KisaoAlgorithmSubstitutionPolicy;
+  minPolicy: KisaoAlgorithmSubstitutionPolicy;
   /**
    * Type
    */

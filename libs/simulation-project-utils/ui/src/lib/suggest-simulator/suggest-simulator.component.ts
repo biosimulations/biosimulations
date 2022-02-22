@@ -24,7 +24,7 @@ interface Algorithm {
 
 interface AlgorithmPolicy {
   algorithms: Algorithm[];
-  maxPolicy: AlgorithmSubstitutionPolicy;
+  minPolicy: AlgorithmSubstitutionPolicy;
 }
 
 interface Simulator {
@@ -36,7 +36,7 @@ interface Simulator {
 
 interface SimulatorPolicy {
   simulators: Simulator[];
-  maxPolicy: AlgorithmSubstitutionPolicy;
+  minPolicy: AlgorithmSubstitutionPolicy;
 }
 
 interface AlgorithmData {
@@ -136,14 +136,14 @@ export class SuggestSimulatorComponent implements OnInit {
 
               const mainAlg = algSubstitution.algorithms[0];
               const altAlg = algSubstitution.algorithms[1];
-              const subPolicy = algSubstitution.maxPolicy;
+              const subPolicy = algSubstitution.minPolicy;
 
               // algorithm substitution
               if (
                 !(subPolicy.level in algorithmsMap[mainAlg.id].altAlgorithms)
               ) {
                 algorithmsMap[mainAlg.id].altAlgorithms[subPolicy.level] = {
-                  maxPolicy: subPolicy,
+                  minPolicy: subPolicy,
                   algorithms: {},
                 };
               }
@@ -151,7 +151,7 @@ export class SuggestSimulatorComponent implements OnInit {
                 !(subPolicy.level in algorithmsMap[altAlg.id].altAlgorithms)
               ) {
                 algorithmsMap[altAlg.id].altAlgorithms[subPolicy.level] = {
-                  maxPolicy: subPolicy,
+                  minPolicy: subPolicy,
                   algorithms: {},
                 };
               }
@@ -178,7 +178,7 @@ export class SuggestSimulatorComponent implements OnInit {
               mainAlgSimulators.forEach((simulator: string): void => {
                 // implementation of main algorithm
                 algorithmsMap[mainAlg.id].simulators[simulator] = {
-                  maxPolicy: {
+                  minPolicy: {
                     id: 'SAME_METHOD',
                     name: 'Same method',
                     level: AlgorithmSubstitutionPolicyLevels.SAME_METHOD,
@@ -201,7 +201,7 @@ export class SuggestSimulatorComponent implements OnInit {
                 // alt implementations
                 if (!(simulator in algorithmsMap[altAlg.id].simulators)) {
                   algorithmsMap[altAlg.id].simulators[simulator] = {
-                    maxPolicy: subPolicy,
+                    minPolicy: subPolicy,
                     simulatorAlgorithms: {
                       id: simulator,
                       name: simulatorSpecsMap[simulator].name,
@@ -213,9 +213,9 @@ export class SuggestSimulatorComponent implements OnInit {
 
                 if (
                   subPolicy.level <
-                  algorithmsMap[altAlg.id].simulators[simulator].maxPolicy.level
+                  algorithmsMap[altAlg.id].simulators[simulator].minPolicy.level
                 ) {
-                  algorithmsMap[altAlg.id].simulators[simulator].maxPolicy =
+                  algorithmsMap[altAlg.id].simulators[simulator].minPolicy =
                     subPolicy;
                   algorithmsMap[altAlg.id].simulators[
                     simulator
@@ -223,7 +223,7 @@ export class SuggestSimulatorComponent implements OnInit {
                 }
                 if (
                   subPolicy.level <=
-                  algorithmsMap[altAlg.id].simulators[simulator].maxPolicy.level
+                  algorithmsMap[altAlg.id].simulators[simulator].minPolicy.level
                 ) {
                   algorithmsMap[altAlg.id].simulators[
                     simulator
@@ -249,13 +249,13 @@ export class SuggestSimulatorComponent implements OnInit {
             algorithmData.altAlgorithms = Object.values(
               algorithmData.altAlgorithms,
             ).filter((algPolicy: AlgorithmPolicy): boolean => {
-              return algPolicy.maxPolicy.level > 1;
+              return algPolicy.minPolicy.level > 1;
             });
             algorithmData.altAlgorithms.sort(
               (a: AlgorithmPolicy, b: AlgorithmPolicy): number => {
-                if (a.maxPolicy.level < b.maxPolicy.level) {
+                if (a.minPolicy.level < b.minPolicy.level) {
                   return -1;
-                } else if (a.maxPolicy.level > b.maxPolicy.level) {
+                } else if (a.minPolicy.level > b.minPolicy.level) {
                   return 1;
                 } else {
                   return 0;
@@ -280,15 +280,15 @@ export class SuggestSimulatorComponent implements OnInit {
             Object.values(algorithmData.simulators).forEach(
               (simulatorPolicyAlgs: any): void => {
                 if (
-                  !(simulatorPolicyAlgs.maxPolicy.level in simulatorPolicices)
+                  !(simulatorPolicyAlgs.minPolicy.level in simulatorPolicices)
                 ) {
-                  simulatorPolicices[simulatorPolicyAlgs.maxPolicy.level] = {
-                    maxPolicy: simulatorPolicyAlgs.maxPolicy,
+                  simulatorPolicices[simulatorPolicyAlgs.minPolicy.level] = {
+                    minPolicy: simulatorPolicyAlgs.minPolicy,
                     simulators: [],
                   };
                 }
                 simulatorPolicices[
-                  simulatorPolicyAlgs.maxPolicy.level
+                  simulatorPolicyAlgs.minPolicy.level
                 ].simulators.push(simulatorPolicyAlgs.simulatorAlgorithms);
                 simulatorPolicyAlgs.simulatorAlgorithms.algorithms =
                   Object.values(
@@ -300,9 +300,9 @@ export class SuggestSimulatorComponent implements OnInit {
             algorithmData.simulators = Object.values(simulatorPolicices);
             algorithmData.simulators.sort(
               (a: SimulatorPolicy, b: SimulatorPolicy): number => {
-                if (a.maxPolicy.level < b.maxPolicy.level) {
+                if (a.minPolicy.level < b.minPolicy.level) {
                   return -1;
-                } else if (a.maxPolicy.level > b.maxPolicy.level) {
+                } else if (a.minPolicy.level > b.minPolicy.level) {
                   return 1;
                 } else {
                   return 0;

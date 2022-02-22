@@ -39,7 +39,7 @@ def get_similar_algorithms_for_algorithms(algorithmsStr):
 
     return natsort.natsorted(return_value,
                              key=lambda v:
-                             (v['algorithms'][0]['name'], v['maxPolicy']['level'], v['algorithms'][1]['name']))
+                             (v['algorithms'][0]['name'], v['minPolicy']['level'], v['algorithms'][1]['name']))
 
 
 @functools.lru_cache(maxsize=None)
@@ -85,7 +85,7 @@ def get_similar_algorithms_for_algorithm(algorithm):
                     "name": alt_alg.name,
                 }
             ],
-            "maxPolicy": {
+            "minPolicy": {
                 "_type": "KisaoAlgorithmSubstitutionPolicy",
                 "id": policy.name,
                 "name": stringcase.sentencecase(policy.name.lower()),
