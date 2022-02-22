@@ -297,7 +297,7 @@ ul.comma-separated {
 
 /* forms */
 biosimulations-root {
-  .mat-form-field {
+  .mat-form-field:not(.card-form-field) {
     display: block;
     letter-spacing: normal;
 
@@ -308,7 +308,7 @@ biosimulations-root {
     }
   }
 
-  .mat-form-field-appearance-fill {
+  .mat-form-field-appearance-fill:not(.card-form-field) {
     .mat-form-field-flex {
       padding: 0.4em;
       background-color: $light-bg-darker-5;
@@ -370,10 +370,7 @@ biosimulations-root {
     }
   }
 
-  .mat-form-field:not(.mat-form-field-appearance-legacy)
-    .ngx-mat-file-input
-    .mat-form-field-suffix
-    .mat-icon-button {
+  .mat-form-field:not(.mat-form-field-appearance-legacy) .ngx-mat-file-input .mat-form-field-suffix .mat-icon-button {
     width: 1.5em;
     height: 1.5em;
     margin-right: 0.2rem;
@@ -393,6 +390,44 @@ biosimulations-root {
 
   .mat-checkbox-ripple {
     display: none;
+  }
+}
+
+.card-form-section {
+  &:not(:last-child) {
+    margin-bottom: 2rem;
+  }
+
+  mat-checkbox {
+    display: block;
+    padding: 0.6rem 0;
+  }
+
+  mat-error {
+    font-size: 125%;
+    line-height: 1.3;
+    margin-top: 0.6rem;
+  }
+
+  .input-group {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+
+    margin: 0 -0.3rem;
+
+    mat-form-field {
+      flex: 1;
+      margin: 0 0.3rem;
+      min-width: 25rem;
+    }
+
+    mat-hint {
+      margin: 0 0.3rem;
+    }
+
+    padding-top: 0.6rem;
   }
 }
 
