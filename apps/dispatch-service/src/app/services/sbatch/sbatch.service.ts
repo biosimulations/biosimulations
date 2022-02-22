@@ -208,6 +208,7 @@ echo -e ''
 echo -e '${cyan}=========================================== Executing COMBINE/OMEX archive ==========================================${nc}'
 TEMP_DIRNAME=$(mktemp --directory --tmpdir=/local)
 set +e
+
 srun --job-name="Execute-project" \
   singularity run \
     --bind ${workDirname}:/root \
@@ -216,11 +217,8 @@ srun --job-name="Execute-project" \
     ${simulatorImage} \
       -i '/root/${combineArchiveFilename}' \
       -o '/root/${outputsS3Subpath}'
-executeArchiveStatus=$?
+
 rm -rf \${TEMP_DIRNAME}
-if [[ $executeArchiveStatus -ne 0 ]]; then
-  exit $executeArchiveStatus
-fi
 
 echo -e ''
 echo -e '${cyan}=================================================== Saving results ==================================================${nc}'
@@ -233,8 +231,6 @@ srun --job-name="Save-results-to-HSDS" \
     ${outputsReportsFileSubPath} \
     '${simulationRunResultsHsdsPath}'
 
-set -e
-
 echo -e ''
 echo -e '${cyan}================================================== Zipping outputs ==================================================${nc}'
 srun --job-name="Zip-outputs" \
@@ -244,23 +240,30 @@ srun --job-name="Zip-outputs" \
     '${OutputFileName.OUTPUT_ARCHIVE}' \
     ${outputsS3Subpath} \
     ${outputRawLogSubPath}
+
 echo -e ''
 echo -e '${cyan}=================================================== Saving outputs ==================================================${nc}'
 export PYTHONWARNINGS="ignore"
 export AWS_ACCESS_KEY_ID=${storageKey}
 export AWS_SECRET_ACCESS_KEY=${storageSecret}
 # We run the upload in steps to 1) get the content types right, and 2) make sure the final log has the upload operation included
-srun --job-name="Save-outputs-to-S3" \
+
+srun --job-name="Save-other-outputs-to-S3" \
   aws \
     --endpoint-url ${storageEndpoint} \
     s3 sync \
       --acl public-read \
       --exclude "job.sbatch" \
       --exclude "*.h5" \
+      --exclude "*.hdf" \
+      --exclude "*.hdf5" \
       --exclude "*.yml" \
+      --exclude "*.yaml" \
       --exclude "${combineArchiveFilename}" \
       . \
       's3://${storageBucket}/${simulationRunS3Path}'
+
+srun --job-name="Save-numerical-outputs-to-S3" \
   aws \
     --endpoint-url ${storageEndpoint} \
     s3 sync \
@@ -268,8 +271,12 @@ srun --job-name="Save-outputs-to-S3" \
       's3://${storageBucket}/${simulationRunS3Path}' \
       --exclude '*' \
       --include '*.h5' \
+      --include '*.hdf' \
+      --include '*.hdf5' \
       --content-type 'application/hdf5'\
       --acl public-read
+
+srun --job-name="Save-structured-log-to-S3" \
   aws \
     --endpoint-url ${storageEndpoint} \
     s3 sync \
@@ -277,8 +284,11 @@ srun --job-name="Save-outputs-to-S3" \
       's3://${storageBucket}/${simulationRunS3Path}' \
       --exclude '*' \
       --include '*.yml' \
+      --include '*.yaml' \
       --content-type 'application/yaml'\
       --acl public-read
+
+srun --job-name="Save-raw-log-to-S3" \
   aws \
     --endpoint-url ${storageEndpoint} \
     s3 sync \
