@@ -325,7 +325,7 @@ CMD /bin/bash /xvfb-startup.sh \
         --workers 2 \
         --threads 4 \
         --worker-class gevent \
-        --max-requests 10000 \
+        --max-requests 1000 \
         --timeout 30 \
         --keep-alive 5 \
         --worker-tmp-dir /dev/shm \
