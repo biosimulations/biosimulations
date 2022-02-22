@@ -6,7 +6,7 @@ import flask.json
 import functools
 import os
 import tempfile
-import ujson
+import orjson
 import uuid
 import yaml
 
@@ -66,7 +66,7 @@ class FastJSONEncoder(flask.json.JSONEncoder):
         return flask.json.JSONEncoder.default(self, obj)
 
     def encode(self, o):
-        return ujson.dumps(o)
+        return str(orjson.dumps(o), 'utf-8')
 
 
 app.app.json_encoder = FastJSONEncoder
