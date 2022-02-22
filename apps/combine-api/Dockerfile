@@ -329,7 +329,7 @@ CMD /bin/bash /xvfb-startup.sh \
         --timeout 30 \
         --keep-alive 5 \
         --worker-tmp-dir /dev/shm \
-        --log-level info \
+        --log-level debug \
         --log-file=-
 
 #############
