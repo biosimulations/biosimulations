@@ -11,7 +11,7 @@
  */
 
 /**
- * Algorithm substitution policy, the degree to switch algorithms can be substituted for each other.
+ * Algorithm substitution policy, the degree to witch algorithms can be substituted for each other.
  */
 export interface KisaoAlgorithmSubstitutionPolicy {
   /**
