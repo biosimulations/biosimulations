@@ -2019,7 +2019,7 @@ components:
         - - _type: ValidationMessage
             summary: Archive may be invalid
     KisaoAlgorithmSubstitutionPolicy:
-      description: "Algorithm substitution policy, the degree to switch algorithms\
+      description: "Algorithm substitution policy, the degree to witch algorithms\
         \ can be substituted for each other."
       required:
       - id
@@ -2070,8 +2070,8 @@ components:
         name: Same math
         level: 1
     KisaoAlgorithmSubstitution:
-      description: The most restrictive substition policy at which at algorithm can
-        be substituted for another.
+      description: The degree to which two algorithms can be substituted for each
+        other.
       required:
       - algorithms
       - minPolicy
@@ -2081,15 +2081,14 @@ components:
         minPolicy:
           $ref: '#/components/schemas/KisaoAlgorithmSubstitutionPolicy'
           description: Most restrictive (minimum) substitution policy at which the
-            algorithm can be substituted
+            algorithm can be substituted.
         _type:
           description: Type
           enum:
           - KisaoAlgorithmSubstitution
           type: string
         algorithms:
-          description: Pair of algorithms that can be substituted (up to a degree
-            of similarity).
+          description: Pair of algorithms.
           type: array
           items:
             $ref: '#/components/schemas/KisaoTerm'

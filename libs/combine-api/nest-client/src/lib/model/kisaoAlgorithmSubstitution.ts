@@ -13,7 +13,7 @@ import { KisaoTerm } from './kisaoTerm';
 import { KisaoAlgorithmSubstitutionPolicy } from './kisaoAlgorithmSubstitutionPolicy';
 
 /**
- * The most restrictive substition policy at which at algorithm can be substituted for another.
+ * The degree to which two algorithms can be substituted for each other.
  */
 export interface KisaoAlgorithmSubstitution {
   minPolicy: KisaoAlgorithmSubstitutionPolicy;
@@ -22,7 +22,7 @@ export interface KisaoAlgorithmSubstitution {
    */
   _type: KisaoAlgorithmSubstitutionTypeEnum;
   /**
-   * Pair of algorithms that can be substituted (up to a degree of similarity).
+   * Pair of algorithms.
    */
   algorithms: Array<KisaoTerm>;
 }
