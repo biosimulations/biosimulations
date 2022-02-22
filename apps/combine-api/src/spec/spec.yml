@@ -55,7 +55,7 @@ paths:
                     - _type: KisaoTerm
                       id: KISAO_0000088
                       name: LSODA
-                    maxPolicy:
+                    minPolicy:
                       _type: KisaoAlgorithmSubstitutionPolicy
                       id: DISTINCT_APPROXIMATIONS
                       name: Distinct approximations
@@ -2074,14 +2074,14 @@ components:
         be substituted for another.
       required:
       - algorithms
-      - maxPolicy
+      - minPolicy
       - _type
       type: object
       properties:
-        maxPolicy:
+        minPolicy:
           $ref: '#/components/schemas/KisaoAlgorithmSubstitutionPolicy'
-          description: Most restrictive substitution policy at which the algorithm
-            can be substituted
+          description: Most restrictive (minimum) substitution policy at which the
+            algorithm can be substituted
         _type:
           description: Type
           enum:
@@ -2102,7 +2102,7 @@ components:
         - _type: KisaoTerm
           id: KISAO_0000088
           name: LSODA
-        maxPolicy:
+        minPolicy:
           _type: KisaoAlgorithmSubstitutionPolicy
           id: DISTINCT_APPROXIMATIONS
           name: Distinct approximations

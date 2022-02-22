@@ -84,10 +84,10 @@
               <li *ngFor="let altAlgorithm of altAlgorithms">
                 <div>
                   <div>
-                    {{ altAlgorithm.maxPolicy.name }} (<code>{{
-                      altAlgorithm.maxPolicy.id
+                    {{ altAlgorithm.minPolicy.name }} (<code>{{
+                      altAlgorithm.minPolicy.id
                     }}</code>
-                    - Level {{ altAlgorithm.maxPolicy.level }})
+                    - Level {{ altAlgorithm.minPolicy.level }})
                   </div>
                   <ul>
                     <li *ngFor="let altAlg of altAlgorithm.algorithms">
@@ -153,10 +153,10 @@
               <li *ngFor="let simulatorsByPolicy of simulatorsByPolicies">
                 <div>
                   <div>
-                    {{ simulatorsByPolicy.maxPolicy.name }} (<code>{{
-                      simulatorsByPolicy.maxPolicy.id
+                    {{ simulatorsByPolicy.minPolicy.name }} (<code>{{
+                      simulatorsByPolicy.minPolicy.id
                     }}</code>
-                    - Level {{ simulatorsByPolicy.maxPolicy.level }})
+                    - Level {{ simulatorsByPolicy.minPolicy.level }})
                   </div>
                   <ul class="vertically-spaced">
                     <li *ngFor="let simulator of simulatorsByPolicy.simulators">
