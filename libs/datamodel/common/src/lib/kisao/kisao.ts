@@ -90,5 +90,5 @@ export interface AlgorithmSummary {
 export interface AlgorithmSubstitution {
   _type: 'KisaoAlgorithmSubstitution';
   algorithms: AlgorithmSummary[];
-  maxPolicy: AlgorithmSubstitutionPolicy;
+  minPolicy: AlgorithmSubstitutionPolicy;
 }

@@ -109,7 +109,7 @@ type PostCreateAction = 'download' | 'simulate';
 
 interface CompatibleSimulator {
   simulator: Simulator;
-  maxPolicy: AlgorithmSubstitutionPolicy;
+  minPolicy: AlgorithmSubstitutionPolicy;
   parametersCompatibility: boolean;
 }
 
@@ -565,7 +565,7 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
             name: this.simulatorSpecsMap?.[simulatorId]?.name as string,
             url: this.appRoutes.getSimulatorsView(simulatorId),
           },
-          maxPolicy: compatability.algorithm,
+          minPolicy: compatability.algorithm,
           parametersCompatibility: compatability.parameters,
         };
       },
@@ -1339,7 +1339,7 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
         algSubstitutions
           .filter((algSubstitution: AlgorithmSubstitution): boolean => {
             return (
-              algSubstitution.maxPolicy.level <=
+              algSubstitution.minPolicy.level <=
               AlgorithmSubstitutionPolicyLevels.SAME_FRAMEWORK
             );
           })
@@ -1348,7 +1348,7 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
               algSubstitution.algorithms[0].id +
                 '/' +
                 algSubstitution.algorithms[1].id
-            ] = algSubstitution.maxPolicy;
+            ] = algSubstitution.minPolicy;
           });
         this.algSubstitutions = algSubstitutionsMap;
 
