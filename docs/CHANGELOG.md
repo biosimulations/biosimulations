@@ -1,5 +1,23 @@
 # Changelog
 
+# [9.8.0](https://github.com/biosimulations/biosimulations/compare/v9.7.4...v9.8.0) (2022-02-22)
+
+
+### Bug Fixes
+
+* **combine-api:** fixed JSON serialization for Swagger app ([6d59f90](https://github.com/biosimulations/biosimulations/commit/6d59f901844d8bbfd69d50fe3fda09de19a77d92))
+* **combine-api:** fixed JSON serialization for Swagger app by replacing ujson with orjson ([e10c291](https://github.com/biosimulations/biosimulations/commit/e10c2911d94ad5dee1cfb0ea6f27ac4d7f059fa6))
+
+
+### Features
+
+* **combine-api:** upgraded Brian2, pyNeuroML, NEURON ([329e07a](https://github.com/biosimulations/biosimulations/commit/329e07aae60292b02321ececee7d6768d26e87df))
+
+
+### Performance Improvements
+
+* **combine-api:** decreasing number of requests in between restarting ([438c6fb](https://github.com/biosimulations/biosimulations/commit/438c6fb14bf25b51a74ea1f3dd28e76a945548a1))
+
 ## [9.7.4](https://github.com/biosimulations/biosimulations/compare/v9.7.3...v9.7.4) (2022-02-19)
 
 
