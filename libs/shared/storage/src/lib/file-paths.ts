@@ -152,7 +152,7 @@ export class FilePaths {
     runId: string,
     absolute = true,
   ): string {
-    const relativePath = `${runId}.zip`;
+    const relativePath = OutputFileName.OUTPUT_ARCHIVE;
     if (absolute) {
       return this.getSimulationRunPath(runId, relativePath);
     } else {
