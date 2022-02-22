@@ -2,11 +2,9 @@ from . import exceptions
 from dotenv import dotenv_values
 from flask_cors import CORS
 import connexion
-import flask.json
 import functools
 import os
 import tempfile
-import uuid
 import yaml
 
 config = {
