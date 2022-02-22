@@ -14,6 +14,7 @@
 /simulators/boolsim/1.2.0
 /simulators/brian2
 /simulators/brian2/2.5.0.1
+/simulators/brian2/2.5.0.3
 /simulators/cbmpy
 /simulators/cbmpy/0.7.25
 /simulators/cellcollective
@@ -77,6 +78,7 @@
 /simulators/netpyne/1.0.0.2
 /simulators/neuron
 /simulators/neuron/8.0.0
+/simulators/neuron/8.0.2
 /simulators/opencor
 /simulators/opencor/2021-10-05
 /simulators/openknee
@@ -87,6 +89,7 @@
 /simulators/optflux/3.4.0
 /simulators/pyneuroml
 /simulators/pyneuroml/0.5.18
+/simulators/pyneuroml/0.5.20
 /simulators/pysb
 /simulators/pysb/1.13.0
 /simulators/pysces

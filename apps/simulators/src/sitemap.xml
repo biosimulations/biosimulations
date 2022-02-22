@@ -87,13 +87,19 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/brian2</loc>
-    <lastmod>2021-12-16</lastmod>
+    <lastmod>2022-02-22</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/brian2/2.5.0.1</loc>
     <lastmod>2021-12-16</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/brian2/2.5.0.3</loc>
+    <lastmod>2022-02-22</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -297,13 +303,13 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/jneuroml</loc>
-    <lastmod>2021-12-16</lastmod>
+    <lastmod>2022-02-22</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/jneuroml/0.8.5</loc>
-    <lastmod>2021-12-16</lastmod>
+    <lastmod>2022-02-22</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -453,25 +459,31 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/netpyne</loc>
-    <lastmod>2021-12-16</lastmod>
+    <lastmod>2022-02-22</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/netpyne/1.0.0.2</loc>
-    <lastmod>2021-12-16</lastmod>
+    <lastmod>2022-02-22</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/neuron</loc>
-    <lastmod>2021-12-16</lastmod>
+    <lastmod>2022-02-22</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/neuron/8.0.0</loc>
     <lastmod>2021-12-16</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/neuron/8.0.2</loc>
+    <lastmod>2022-02-22</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -525,13 +537,19 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/pyneuroml</loc>
-    <lastmod>2021-12-16</lastmod>
+    <lastmod>2022-02-22</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/pyneuroml/0.5.18</loc>
     <lastmod>2021-12-16</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/pyneuroml/0.5.20</loc>
+    <lastmod>2022-02-22</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
