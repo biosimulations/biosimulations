@@ -1,6 +1,6 @@
 # Changelog
 
-# [9.8.0](https://github.com/biosimulations/biosimulations/compare/v9.7.4...v9.8.0) (2022-02-22)
+## [9.8.0](https://github.com/biosimulations/biosimulations/compare/v9.7.4...v9.8.0) (2022-02-22)
 
 
 ### Bug Fixes
