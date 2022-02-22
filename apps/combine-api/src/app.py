@@ -2,9 +2,12 @@ from . import exceptions
 from dotenv import dotenv_values
 from flask_cors import CORS
 import connexion
+import flask.json
 import functools
 import os
 import tempfile
+import orjson
+import uuid
 import yaml
 
 config = {
@@ -54,6 +57,20 @@ if env.lower() == 'prod':
 
 # set maximum file upload size
 app.app.config['MAX_CONTENT_LENGTH'] = float(config.get('MAX_CONTENT_LENGTH', 1.1 * 1e9))  # bytes
+
+
+class FastJSONEncoder(flask.json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, uuid.UUID):
+            return str(obj)
+        return flask.json.JSONEncoder.default(self, obj)
+
+    def encode(self, o):
+        return str(orjson.dumps(o), 'utf-8')
+
+
+app.app.json_encoder = FastJSONEncoder
+
 
 # Validate_response = True will give error when API returns something that
 # does not match the schema. If you want to send a response even if invalid,
