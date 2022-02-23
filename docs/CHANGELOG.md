@@ -1,5 +1,13 @@
 # Changelog
 
+# [9.10.0](https://github.com/biosimulations/biosimulations/compare/v9.9.1...v9.10.0) (2022-02-23)
+
+
+### Features
+
+* **combine-api:** updated to biosimulators-utils 0.1.162 ([58ab3a3](https://github.com/biosimulations/biosimulations/commit/58ab3a3eda1e5b11cec6d6d50881c5ea3b926120))
+* **dispatch:** soften language about warnings in simulation projects ([38d4476](https://github.com/biosimulations/biosimulations/commit/38d44761a71569f876e437f0e3cedb79ae44e913))
+
 ## [9.9.1](https://github.com/biosimulations/biosimulations/compare/v9.9.0...v9.9.1) (2022-02-23)
 
 
