@@ -1,5 +1,14 @@
 # Changelog
 
+## [9.8.1](https://github.com/biosimulations/biosimulations/compare/v9.8.0...v9.8.1) (2022-02-23)
+
+
+### Bug Fixes
+
+* **api:** fixed path to output archives ([155076b](https://github.com/biosimulations/biosimulations/commit/155076b0fd989ac0c60a7419ed06b1e6718349aa))
+* **dispatch-service:** corrected error tracking of S3 uploads, always trying to upload results to S3 ([ab40b15](https://github.com/biosimulations/biosimulations/commit/ab40b1555c1a5ca7b3b63a4a4a6678622824f933))
+* **dispatch-service:** fix temporary directories for containers ([190824c](https://github.com/biosimulations/biosimulations/commit/190824c1f20952a60872e1b77f809149b10e3691))
+
 ## [9.8.0](https://github.com/biosimulations/biosimulations/compare/v9.7.4...v9.8.0) (2022-02-22)
 
 
