@@ -1,5 +1,12 @@
 # Changelog
 
+# [9.9.0](https://github.com/biosimulations/biosimulations/compare/v9.8.1...v9.9.0) (2022-02-23)
+
+
+### Features
+
+* **dispatch-service:** organized Slurm scripts and logs for refreshing images ([8248642](https://github.com/biosimulations/biosimulations/commit/8248642793a615bc98487d10af724ed9b71790fc))
+
 ## [9.8.1](https://github.com/biosimulations/biosimulations/compare/v9.8.0...v9.8.1) (2022-02-23)
 
 
