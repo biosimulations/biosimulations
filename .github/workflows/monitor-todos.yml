@@ -14,4 +14,4 @@ jobs:
         uses: actions/checkout@v2
 
       - name: "Create issues for new todos and close issues for removed todos"
-        uses: alstr/todo-to-issue-action@v4.6.1
+        uses: alstr/todo-to-issue-action@v4.6.2
