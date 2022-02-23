@@ -105,13 +105,13 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/cbmpy</loc>
-    <lastmod>2021-12-22</lastmod>
+    <lastmod>2022-02-23</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/cbmpy/0.7.25</loc>
-    <lastmod>2021-12-22</lastmod>
+    <lastmod>2022-02-23</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -147,13 +147,25 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/cobrapy</loc>
-    <lastmod>2021-12-16</lastmod>
+    <lastmod>2022-02-23</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/cobrapy/0.22.1</loc>
-    <lastmod>2021-12-16</lastmod>
+    <lastmod>2022-02-23</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/cobrapy/0.23.0</loc>
+    <lastmod>2022-02-23</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/cobrapy/0.24.0</loc>
+    <lastmod>2022-02-23</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -723,13 +735,13 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/xpp</loc>
-    <lastmod>2021-12-22</lastmod>
+    <lastmod>2022-02-23</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/xpp/8.0</loc>
-    <lastmod>2021-12-22</lastmod>
+    <lastmod>2022-02-23</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    

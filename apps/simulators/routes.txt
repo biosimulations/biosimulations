@@ -24,6 +24,8 @@
 /simulators/cellnetanalyzer/2021.1
 /simulators/cobrapy
 /simulators/cobrapy/0.22.1
+/simulators/cobrapy/0.23.0
+/simulators/cobrapy/0.24.0
 /simulators/cobratoolbox
 /simulators/cobratoolbox/3.2
 /simulators/copasi
