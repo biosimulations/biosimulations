@@ -336,6 +336,9 @@ srun --job-name="Save-raw-log-to-S3" \
       .split('docker://ghcr.io/biosimulators/')[1]
       .replace(':', '_');
 
+    const refreshImagesDir = this.configService.get('hpc.refreshImagesDir');
+    const outputFilename = `${refreshImagesDir}/${simulator}/${simulatorVersion}.output`;
+
     const maxTime = this.configService.get('hpc.buildSingularityImage.maxTime');
     const cpus = this.configService.get('hpc.buildSingularityImage.cpus');
     const memory = this.configService.get('hpc.buildSingularityImage.memory');
@@ -343,7 +346,7 @@ srun --job-name="Save-raw-log-to-S3" \
     const template = `#!/bin/bash
 #SBATCH --job-name=Build-simulator-${simulator}-${simulatorVersion}
 #SBATCH --chdir=${singularityPullFolder}
-#SBATCH --output=${singularityPullFolder}/${singularityImageName}.output
+#SBATCH --output=${outputFilename}
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=${cpus}
 #SBATCH --mem=${memory}
