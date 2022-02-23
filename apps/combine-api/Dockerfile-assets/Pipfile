@@ -58,6 +58,7 @@ biosimulators-tellurium = ">=0.1.25"
 # XPP
 biosimulators-xpp = ">=0.0.9"
 orjson = "*"
+openapi-spec-validator = "<0.5"
 
 [dev-packages]
 openapi-core = "*"
