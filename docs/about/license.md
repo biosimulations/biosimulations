@@ -139,7 +139,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: i@izs.me
 │  ├─ url: https://izs.me
 │  └─ licenseFile: npm/node_modules/@isaacs/string-locale-compare/LICENSE
-├─ @nestjs/axios@0.0.5
+├─ @nestjs/axios@0.0.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/axios
 │  ├─ publisher: Kamil Mysliwiec
@@ -828,7 +828,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/axios/axios
 │  ├─ publisher: Matt Zabriskie
-│  └─ licenseFile: @nestjs/axios/node_modules/axios/LICENSE
+│  └─ licenseFile: auth0/node_modules/axios/LICENSE
 ├─ axios@0.26.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/axios/axios
@@ -1903,7 +1903,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Mathias Buus
 │  ├─ url: @mafintosh
 │  └─ licenseFile: fs-constants/LICENSE
-├─ fs-extra@10.0.0
+├─ fs-extra@10.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jprichardson/node-fs-extra
 │  ├─ publisher: JP Richardson
