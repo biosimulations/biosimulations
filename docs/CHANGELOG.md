@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.9.1](https://github.com/biosimulations/biosimulations/compare/v9.9.0...v9.9.1) (2022-02-23)
+
+
+### Bug Fixes
+
+* **platform:** fixed simulation type labels in project browse controls ([694cb6f](https://github.com/biosimulations/biosimulations/commit/694cb6f71f8181118fd56edda2def2ab4a139810))
+
 ## [9.9.0](https://github.com/biosimulations/biosimulations/compare/v9.8.1...v9.9.0) (2022-02-23)
 
 
