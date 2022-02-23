@@ -66,6 +66,7 @@
 /simulators/maboss/2.3.4
 /simulators/masspy
 /simulators/masspy/0.1.5
+/simulators/masspy/0.1.6
 /simulators/mcell
 /simulators/mcell/3.5.0
 /simulators/metanetx
