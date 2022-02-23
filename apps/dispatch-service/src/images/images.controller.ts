@@ -20,17 +20,23 @@ export class ImagesController {
 
   @MessagePattern(ImageMessage.refresh)
   async refreshImage(data: ImageMessagePayload) {
-    const url = data.url;
-    const homeDir = this.configService.get('hpc.homeDir');
+    const url = data.url;    
     const force = data.force;
     this.logger.log('Sending command to update ' + url);
-    const sbatch = this.sbatchService.generateImageUpdateSbatch(
+    const sbatchString = this.sbatchService.generateImageUpdateSbatch(
       data.simulator,
       data.version,
       url,
       force,
     );
-    const command = `echo "${sbatch}" > updateImage.sbatch && chmod +x updateImage.sbatch && sbatch updateImage.sbatch`;
+    const refreshImagesDir = this.configService.get('hpc.refreshImagesDir');
+    const sbatchFilename = `${refreshImagesDir}/${data.simulator}/${data.version}.sbatch`;
+    const command = [
+      `mkdir -p "${refreshImagesDir}/${data.simulator.replace('"', '\\"')}"`,
+      `{ cat > "${sbatchFilename.replace('"', '\\"')}" << 'EOF'\n${sbatchString}\nEOF\n}`,
+      `chmod +x "${sbatchFilename.replace('"', '\\"')}"`,
+      `sbatch "${sbatchFilename.replace('"', '\\"')}"`,
+    ].join(' && ');
     const out = await this.sshSerivce.execStringCommand(command);
 
     if (out.stderr != '') {

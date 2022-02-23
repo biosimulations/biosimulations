@@ -13,6 +13,7 @@ export default registerAs('hpc', () => {
     sshInit: process.env.HPC_SSH_INIT, // set to false to disable ssh init when testing
     hpcBaseDir: process.env.HPC_BASE_DIR,
     homeDir: process.env.HPC_HOME_DIR,
+    refreshImagesDir: process.env.HPC_REFRESH_IMAGES_DIR,
     executablesPath: process.env.HPC_EXECUTABLES_PATH,
     module: {
       path: process.env.HPC_MODULE_PATH,
