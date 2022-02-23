@@ -52,7 +52,7 @@ export class HpcService {
   }> {
     const simDirname = `${this.configService.get('hpc.hpcBaseDir')}/${runId}`;
 
-    const sbatchString = this.sbatchService.generateSbatch(
+    const sbatchString = this.sbatchService.generateRunSimulationSbatch(
       runId,
       simulator,
       simulatorVersion,

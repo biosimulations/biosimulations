@@ -37,7 +37,7 @@ export class SbatchService {
    * @param workDirname absolute path to a directory which should be used as the working directory
    *        for exeucting the COMBINE/OMEX archive, including where outputs should be saved
    */
-  public generateSbatch(
+  public generateRunSimulationSbatch(
     runId: string,
     simulator: string,
     simulatorVersion: string,
