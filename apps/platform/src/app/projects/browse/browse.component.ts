@@ -258,11 +258,12 @@ export class BrowseComponent implements OnInit, AfterViewInit {
         return Array.from(
           new Set(
             project.tasks.map((task): string => {
+              const sedmlLength = 'SED-ML'.length;
               return (
-                task.simulation.type.name.substring(4, 5).toUpperCase() +
+                task.simulation.type.name.substring(sedmlLength + 1, sedmlLength + 2).toUpperCase() +
                 task.simulation.type.name.substring(
-                  5,
-                  task.simulation.type.name.length - 11,
+                  sedmlLength + 2,
+                  task.simulation.type.name.length - ' simulation'.length,
                 )
               );
             }),
