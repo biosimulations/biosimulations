@@ -20,7 +20,7 @@ export class ImagesController {
 
   @MessagePattern(ImageMessage.refresh)
   async refreshImage(data: ImageMessagePayload) {
-    const url = data.url;    
+    const url = data.url;
     const force = data.force;
     this.logger.log('Sending command to update ' + url);
     const sbatchString = this.sbatchService.generateImageUpdateSbatch(
@@ -33,7 +33,10 @@ export class ImagesController {
     const sbatchFilename = `${refreshImagesDir}/${data.simulator}/${data.version}.sbatch`;
     const command = [
       `mkdir -p "${refreshImagesDir}/${data.simulator.replace('"', '\\"')}"`,
-      `{ cat > "${sbatchFilename.replace('"', '\\"')}" << 'EOF'\n${sbatchString}\nEOF\n}`,
+      `{ cat > "${sbatchFilename.replace(
+        '"',
+        '\\"',
+      )}" << 'EOF'\n${sbatchString}\nEOF\n}`,
       `chmod +x "${sbatchFilename.replace('"', '\\"')}"`,
       `sbatch "${sbatchFilename.replace('"', '\\"')}"`,
     ].join(' && ');

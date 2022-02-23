@@ -129,8 +129,8 @@ export class SbatchService {
 
     const allEnvVarsString =
       allEnvVars.length > 0
-        ? '--env "'
-          + allEnvVars
+        ? '--env "' +
+          allEnvVars
             .map((envVar: EnvironmentVariable): string => {
               const key = envVar.key.replace(/([^a-zA-Z0-9,._+@%/-])/, '\\$&');
               const val = envVar.value.replace(
@@ -139,8 +139,8 @@ export class SbatchService {
               );
               return `${key}=${val}`;
             })
-            .join(',')
-          + '"'
+            .join(',') +
+          '"'
         : '';
     // Need to get external endpoint so that HPC can download the archive
     const runCombineArchiveUrl =
