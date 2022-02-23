@@ -43,7 +43,7 @@
   "dependencies": {
     "@biosimulations/nestjs-bullmq": "1.1.0",
     "@bull-board/express": "3.10.0",
-    "@nestjs/axios": "0.0.5",
+    "@nestjs/axios": "0.0.6",
     "@nestjs/common": "8.3.1",
     "@nestjs/config": "1.2.0",
     "@nestjs/core": "8.3.1",
@@ -134,7 +134,7 @@
     "@fortawesome/free-solid-svg-icons": "5.15.4",
     "@ionic/storage-angular": "3.0.6",
     "@juggle/resize-observer": "3.3.1",
-    "@nestjs/schematics": "8.0.6",
+    "@nestjs/schematics": "8.0.7",
     "@nestjs/testing": "8.3.1",
     "@ng-select/ng-select": "8.1.1",
     "@ngx-lite/json-ld": "0.6.4",
