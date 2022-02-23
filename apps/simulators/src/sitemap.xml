@@ -459,19 +459,19 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/netpyne</loc>
-    <lastmod>2022-02-22</lastmod>
+    <lastmod>2022-02-23</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/netpyne/1.0.0.2</loc>
-    <lastmod>2022-02-22</lastmod>
+    <lastmod>2022-02-23</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/neuron</loc>
-    <lastmod>2022-02-22</lastmod>
+    <lastmod>2022-02-23</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -483,7 +483,7 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/neuron/8.0.2</loc>
-    <lastmod>2022-02-22</lastmod>
+    <lastmod>2022-02-23</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -537,7 +537,7 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/pyneuroml</loc>
-    <lastmod>2022-02-22</lastmod>
+    <lastmod>2022-02-23</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -549,7 +549,7 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/pyneuroml/0.5.20</loc>
-    <lastmod>2022-02-22</lastmod>
+    <lastmod>2022-02-23</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -681,7 +681,7 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/vcell</loc>
-    <lastmod>2022-02-19</lastmod>
+    <lastmod>2022-02-23</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -705,7 +705,7 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/vcell/7.4.0.37</loc>
-    <lastmod>2022-02-19</lastmod>
+    <lastmod>2022-02-23</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
