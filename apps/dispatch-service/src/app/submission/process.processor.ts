@@ -50,7 +50,7 @@ export class ProcessProcessor {
         moreInfo: 'https://combinearchive.org',
         validator: 'https://run.biosimulations.org/utils/validate-project',
         errorMessage:
-          'The manifest for the COMBINE archive could not be processed',
+          'The manifest for the COMBINE archive could not be processed.',
         internalError: true,
         required: true,
       },
@@ -156,7 +156,7 @@ export class ProcessProcessor {
           'https://docs.biosimulations.org/concepts/conventions/simulation-experiments/',
         validator: 'https://run.biosimulations.org/utils/validate-simulation',
         errorMessage:
-          'There was an error in processing the simulation experiments in the SED-ML file',
+          'There was an error in processing the simulation experiments in the SED-ML file.',
         required: true,
         internalError: false,
       },
@@ -224,7 +224,7 @@ export class ProcessProcessor {
           'https://docs.biosimulations.org/concepts/conventions/simulation-run-logs/',
         validator: 'https://api.biosimulations.org',
         errorMessage:
-          'There was an error retrieving the logs of the simulation run',
+          'There was an error retrieving the logs of the simulation run.',
         required: true,
         internalError: true,
       },
@@ -270,7 +270,7 @@ export class ProcessProcessor {
         moreInfo:
           'https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/',
         validator: 'https://run.biosimulations.org/utils/validate-metadata',
-        errorMessage: 'There was an error in processing the metadata file',
+        errorMessage: 'There was an error in processing the metadata file.',
         required: false,
         internalError: false,
       },
