@@ -205,7 +205,7 @@ export class CompleteProcessor {
     step: stepsInfo,
     failedSteps: stepsInfo[],
   ): string {
-    let message = step.description + ' ... failed.';
+    let message = step.description + ' ... failed';
     let failedDueToChild = false;
     const children = step.children;
     children.forEach((child) => {
@@ -214,9 +214,9 @@ export class CompleteProcessor {
       }
     });
     if (!failedDueToChild) {
-      message = message + '\n' + step.errorMessage;
+      message = message + ':\n' + step.errorMessage;
     } else {
-      message = message + 'due to a dependent step failing';
+      message = message + ' due to a dependent step failing.';
     }
     return message;
   }
