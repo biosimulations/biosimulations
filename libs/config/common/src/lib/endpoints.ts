@@ -110,7 +110,7 @@ export class Endpoints {
     if (runId) {
       runId = '/' + runId;
       if (fileLocation) {
-        fileLocation = '/' + fileLocation;
+        fileLocation = '/' + encodeURIComponent(fileLocation);
       } else {
         fileLocation = '';
       }
