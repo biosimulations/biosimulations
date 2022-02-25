@@ -1,5 +1,22 @@
 # Changelog
 
+# [9.11.0](https://github.com/biosimulations/biosimulations/compare/v9.10.0...v9.11.0) (2022-02-25)
+
+
+### Bug Fixes
+
+* **dispatch-service:** fixed formatting of post-processing error messages ([9fe1030](https://github.com/biosimulations/biosimulations/commit/9fe10309e7478f42be9ce86c2df85836448d2c00))
+
+
+### Features
+
+* **combine-api:** updated BioSimulators-utils to 0.1.163 and updated simulation tools ([bef3660](https://github.com/biosimulations/biosimulations/commit/bef36609bf3dfe6b77b1139cb60b0d72fc3637b7))
+
+
+### Reverts
+
+* **combine-api:** reverted to BioNetGen 2.7.0 ([66a255c](https://github.com/biosimulations/biosimulations/commit/66a255c7fece4575c0159ee9f700ce421fcab14c))
+
 ## [9.10.0](https://github.com/biosimulations/biosimulations/compare/v9.9.1...v9.10.0) (2022-02-23)
 
 
