@@ -6,6 +6,13 @@ import { AWSError } from 'aws-sdk';
 import { Readable, PassThrough } from 'stream';
 import unzipper, { File } from 'unzipper';
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
+import pLimit from 'p-limit';
+
+interface ResolvedSendData {
+  fileName: string;
+  value?: AWS.S3.ManagedUpload.SendData;
+  error?: any;
+}
 
 @Injectable()
 export class SharedStorageService {
@@ -19,24 +26,38 @@ export class SharedStorageService {
     undefined,
     null,
   ];
-  private static NUM_RETRIES = 10;
-  private static MIN_TIMEOUT = 100; // 100 ms
 
   private BUCKET: string;
-  private S3_UPLOAD_TIMEOUT_TIME = 10 * 60 * 1000; // 10 minutes;
+
+  private S3_CONNECTION_TIMEOUT_TIME_MS = 2 * 1000; // 2 seconds
+
+  private MAX_FILE_SIZE_BYTES = 1e10 * 8; // 10 Gigabytes
+  private MAX_EGRESS_BYTES_PER_SEC = 4e9; // 4 Gbps (for e2-standard-2 machines as of 2/26/2022)
+  private EXTRACTION_CONCURRENCY = 8;
+  private UPLOAD_TIMEOUT_SAFETY_FACTOR = 10;
+
+  private calcS3UploadTimeOutMs(sizeBytes: number): number {
+    return (
+      sizeBytes
+      / (this.MAX_EGRESS_BYTES_PER_SEC / this.EXTRACTION_CONCURRENCY)
+      * 1e3
+      * this.UPLOAD_TIMEOUT_SAFETY_FACTOR
+    );
+  }
+    
   private logger = new Logger(SharedStorageService.name);
 
   public constructor(
-    @InjectS3() private readonly s3: S3,
+    @InjectS3() private readonly s3Get: S3,
     private configService: ConfigService,
   ) {
     this.BUCKET =
       configService.get('storage.bucket') || 'files.biosimulations.dev';
-    s3.config.update({ region: 'us-east-1' });
+    s3Get.config.update({ region: configService.get('storage.region') }); // has to be set here because the NestJS wrapper doesn't appear to correctly set this
   }
 
   public getObjectUrl(key: string): string {
-    const url = this.s3.getSignedUrl('headObject', {
+    const url = this.s3Get.getSignedUrl('headObject', {
       Bucket: this.BUCKET,
       Key: key,
     });
@@ -44,7 +65,7 @@ export class SharedStorageService {
   }
 
   public async getObjectInfo(key: string): Promise<AWS.S3.HeadObjectOutput> {
-    const call = this.s3
+    const call = this.s3Get
       .headObject({ Bucket: this.BUCKET, Key: key })
       .promise();
 
@@ -58,7 +79,7 @@ export class SharedStorageService {
   }
 
   public async listObjects(key: string): Promise<AWS.S3.ListObjectsOutput> {
-    const call = this.s3
+    const call = this.s3Get
       .listObjects({ Bucket: this.BUCKET, Prefix: key })
       .promise();
 
@@ -72,7 +93,7 @@ export class SharedStorageService {
   }
 
   public async isObject(key: string): Promise<boolean> {
-    const call = this.s3
+    const call = this.s3Get
       .headObject({ Bucket: this.BUCKET, Key: key })
       .promise();
 
@@ -89,7 +110,7 @@ export class SharedStorageService {
   }
 
   public async getObject(key: string): Promise<AWS.S3.GetObjectOutput> {
-    const call = this.s3.getObject({ Bucket: this.BUCKET, Key: key }).promise();
+    const call = this.s3Get.getObject({ Bucket: this.BUCKET, Key: key }).promise();
 
     const res = await call;
 
@@ -108,36 +129,86 @@ export class SharedStorageService {
     destination: string,
     isPrivate = false,
   ): Promise<AWS.S3.ManagedUpload.SendData[]> {
-    const zipStreamPromise = unzipper.Open.s3(this.s3, {
+    const zipStreamPromise = unzipper.Open.s3(this.s3Get, {
       Bucket: this.BUCKET,
       Key: zipFile,
     });
 
     const zipStream = await zipStreamPromise;
+    const files = zipStream.files
+      .filter((entry: File): boolean => {
+        return entry.type === 'File';
+      });
 
-    const promises: Promise<AWS.S3.ManagedUpload.SendData>[] =
-      // using flatmap instead of map makes it easier to handle the empty case
-      zipStream.files.flatMap(
-        (entry: File): Promise<AWS.S3.ManagedUpload.SendData>[] => {
-          const type = entry.type;
-          if (type === 'File') {
-            const fileName = entry.path;
-            const s3Path = `${destination}/${fileName}`;
-            const upload = this.putObject(s3Path, entry.stream(), isPrivate);
-            return [upload];
-          } else {
-            return [];
-          }
+    const promiseLimit = pLimit(this.EXTRACTION_CONCURRENCY);
+    const promises: Promise<ResolvedSendData>[] =
+      files
+        .map((entry: File, iEntry: number): Promise<ResolvedSendData> => {
+          return promiseLimit(() => {
+            if (iEntry % 25 === 0) {
+              this.logger.debug(`Uploading file ${iEntry + 1} of ${files.length} for '${destination}': '${entry.path}'`);
+            }
+            return this.uploadExtractedZipFile(destination, entry, isPrivate);
+          });
         },
       );
-    const resolved = Promise.all(promises);
-    return resolved;
+    const resolvedPromises = await Promise.all(promises);
+
+    const failedPromises = resolvedPromises.flatMap(
+      (resolvedPromise: ResolvedSendData): ResolvedSendData[] => {
+        if (resolvedPromise?.error !== undefined) {
+          return [resolvedPromise];
+        } else {
+          return [];
+        }
+      });
+    if (failedPromises.length) {
+      const msgs = failedPromises.map((resolvedPromise: ResolvedSendData): string => {
+        this.logger.error(resolvedPromise.error)
+        return `{resolvedPromise.fileName}: {resolvedPromise.error}`;
+      });
+      throw new BiosimulationsException(
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          'Files could not be saved',
+          `{failedPromises.length} files could not be saved:\n  - {msgs.join('\n  - ')}`,
+        );
+    }
+
+    return resolvedPromises.flatMap(
+      (resolvedPromise: ResolvedSendData): AWS.S3.ManagedUpload.SendData[] => {
+        if (resolvedPromise?.value !== undefined) {
+          return [resolvedPromise.value];
+        } else {
+          return [];
+        }
+      });
+  }
+
+  private async uploadExtractedZipFile(destination: string, entry: File, isPrivate: boolean): Promise<ResolvedSendData> {
+    const fileName = entry.path;
+    const s3Path = `${destination}/${fileName}`;
+    const upload = await this.putObject(s3Path, entry.stream(), isPrivate, entry.uncompressedSize)
+      .then((value: AWS.S3.ManagedUpload.SendData): ResolvedSendData => {
+        return {
+          fileName,
+          value,
+        };
+      })
+      .catch((error: any): ResolvedSendData => {
+        this.logger.error(`${s3Path} could not be uploaded: ${error}`);
+        return {
+          fileName,
+          error,
+        }
+      });
+    return upload;
   }
 
   public async putObject(
     key: string,
     data: Buffer | Readable,
     isPrivate = false,
+    length: number,
   ): Promise<AWS.S3.ManagedUpload.SendData> {
     const acl = isPrivate ? 'private' : 'public-read';
     const request: AWS.S3.PutObjectRequest = {
@@ -147,53 +218,34 @@ export class SharedStorageService {
       ACL: acl,
     };
 
-    const call = this.s3.upload(request).promise();
+    const timeoutMs = Math.max(this.calcS3UploadTimeOutMs(Math.max(length, 8 * 1e6)), 10 * 1e3);    
+
+    const s3Post = new AWS.S3({
+      credentials: {
+        accessKeyId: this.configService.get('storage.accessKey') || '',
+        secretAccessKey: this.configService.get('storage.secret') || '',
+      },
+      endpoint: this.configService.get('storage.endpoint'),
+      region: this.configService.get('storage.region'),
+      s3ForcePathStyle: true,
+      maxRetries: 0,
+      httpOptions: {
+        connectTimeout: this.S3_CONNECTION_TIMEOUT_TIME_MS, // time to wait for starting the call
+        timeout: timeoutMs, // time to wait for a response
+      },
+    });
+
+    const call = s3Post.upload(request).promise();
     if (isReadableStream(data)) {
       (data as Readable).pipe(request.Body as PassThrough);
     }
 
-    const timeoutErr = Symbol();
-
-    try {
-      const res = await this.timeout(
-        call,
-        this.S3_UPLOAD_TIMEOUT_TIME,
-        timeoutErr,
-      );
-
-      return res;
-    } catch (err) {
-      if (err === timeoutErr) {
-        this.logger.error(
-          `Timeout when uploading '${key}' to storage in ${this.S3_UPLOAD_TIMEOUT_TIME} ms.`,
-        );
-        throw new BiosimulationsException(
-          HttpStatus.REQUEST_TIMEOUT,
-          'File could not be saved',
-          'Timeout when uploading file to storage.',
-        );
-      } else {
-        const details =
-          err instanceof Error && err.message
-            ? err?.message
-            : `Error when uploading ${key} to storage.`;
-        this.logger.error(details);
-
-        const message =
-          err instanceof Error && err.message
-            ? err?.message
-            : 'Error when uploading file to storage.';
-        throw new BiosimulationsException(
-          HttpStatus.INTERNAL_SERVER_ERROR,
-          'File could not be saved',
-          message,
-        );
-      }
-    }
+    const res = await call;
+    return res;
   }
 
   public async deleteObject(key: string): Promise<AWS.S3.DeleteObjectOutput> {
-    const call = this.s3
+    const call = this.s3Get
       .deleteObject({ Bucket: this.BUCKET, Key: key })
       .promise();
 
@@ -204,21 +256,6 @@ export class SharedStorageService {
     } else {
       return res;
     }
-  }
-
-  private timeout<Type>(
-    prom: Promise<Type>,
-    time: number,
-    exception: symbol,
-  ): Promise<Type> {
-    let timer: NodeJS.Timeout;
-    return Promise.race([
-      prom,
-      new Promise(
-        (_resolve, reject) =>
-          (timer = global.setTimeout(reject, time, exception)),
-      ),
-    ]).finally(() => clearTimeout(Number(timer))) as Promise<Type>;
   }
 }
 

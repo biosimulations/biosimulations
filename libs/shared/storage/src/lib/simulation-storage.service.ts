@@ -197,10 +197,13 @@ export class SimulationStorageService {
   public async uploadSimulationArchive(
     runId: string,
     file: Buffer | Readable,
+    length: number,
   ): Promise<string> {
     const s3File = await this.storage.putObject(
       this.filePaths.getSimulationRunCombineArchivePath(runId),
       file,
+      false,
+      length,
     );
     return s3File.Location;
   }
@@ -218,6 +221,8 @@ export class SimulationStorageService {
         thumbnailType,
       ),
       thumbnail,
+      false,
+      thumbnail.length,
     );
     return upload.Location;
   }
@@ -229,6 +234,8 @@ export class SimulationStorageService {
     await this.storage.putObject(
       this.filePaths.getSimulationRunContentFilePath(runId, fileLocation),
       file,
+      false,
+      file.length,
     );
   }
 
