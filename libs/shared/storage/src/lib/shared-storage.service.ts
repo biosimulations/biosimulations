@@ -4,9 +4,6 @@ import { InjectS3, S3 } from 'nestjs-s3';
 import * as AWS from 'aws-sdk';
 import { AWSError } from 'aws-sdk';
 import { Readable, PassThrough } from 'stream';
-import unzipper, { File } from 'unzipper';
-import { BiosimulationsException } from '@biosimulations/shared/exceptions';
-import pLimit from 'p-limit';
 
 interface ResolvedSendData {
   fileName: string;
