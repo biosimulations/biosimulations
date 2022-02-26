@@ -33,7 +33,6 @@ export enum JobQueue {
   dispatch = 'dispatch', //submit a job to hpc
   monitor = 'monitor', // monitor the hpc job
   process = 'process', // Top level job when simulation run is complete
-  extract = 'extract', // extract the COMBINE archive
   manifest = 'manifest', // create the manifest
   files = 'files', // process and post manifest to API
   thumbnailProcess = 'thumbnailProcess', // create thumbnails

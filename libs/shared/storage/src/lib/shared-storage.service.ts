@@ -16,30 +16,18 @@ interface ResolvedSendData {
 
 @Injectable()
 export class SharedStorageService {
-  private static RETRY_ERROR_CODES = [
-    HttpStatus.REQUEST_TIMEOUT,
-    HttpStatus.INTERNAL_SERVER_ERROR,
-    HttpStatus.BAD_GATEWAY,
-    HttpStatus.GATEWAY_TIMEOUT,
-    HttpStatus.SERVICE_UNAVAILABLE,
-    HttpStatus.TOO_MANY_REQUESTS,
-    undefined,
-    null,
-  ];
-
   private BUCKET: string;
 
   private S3_CONNECTION_TIMEOUT_TIME_MS = 2 * 1000; // 2 seconds
 
-  private MAX_FILE_SIZE_BYTES = 1e10 * 8; // 10 Gigabytes
   private MAX_EGRESS_BYTES_PER_SEC = 4e9; // 4 Gbps (for e2-standard-2 machines as of 2/26/2022)
-  private EXTRACTION_CONCURRENCY = 8;
+  private UPLOAD_CONCURRENCY = 8;
   private UPLOAD_TIMEOUT_SAFETY_FACTOR = 10;
 
   private calcS3UploadTimeOutMs(sizeBytes: number): number {
     return (
       sizeBytes
-      / (this.MAX_EGRESS_BYTES_PER_SEC / this.EXTRACTION_CONCURRENCY)
+      / (this.MAX_EGRESS_BYTES_PER_SEC / this.UPLOAD_CONCURRENCY)
       * 1e3
       * this.UPLOAD_TIMEOUT_SAFETY_FACTOR
     );
@@ -122,86 +110,6 @@ export class SharedStorageService {
     } else {
       return res;
     }
-  }
-
-  public async extractZipObject(
-    zipFile: string,
-    destination: string,
-    isPrivate = false,
-  ): Promise<AWS.S3.ManagedUpload.SendData[]> {
-    const zipStreamPromise = unzipper.Open.s3(this.s3Get, {
-      Bucket: this.BUCKET,
-      Key: zipFile,
-    });
-
-    const zipStream = await zipStreamPromise;
-    const files = zipStream.files
-      .filter((entry: File): boolean => {
-        return entry.type === 'File';
-      });
-
-    const promiseLimit = pLimit(this.EXTRACTION_CONCURRENCY);
-    const promises: Promise<ResolvedSendData>[] =
-      files
-        .map((entry: File, iEntry: number): Promise<ResolvedSendData> => {
-          return promiseLimit(() => {
-            if (iEntry % 25 === 0) {
-              this.logger.debug(`Uploading file ${iEntry + 1} of ${files.length} for '${destination}': '${entry.path}'`);
-            }
-            return this.uploadExtractedZipFile(destination, entry, isPrivate);
-          });
-        },
-      );
-    const resolvedPromises = await Promise.all(promises);
-
-    const failedPromises = resolvedPromises.flatMap(
-      (resolvedPromise: ResolvedSendData): ResolvedSendData[] => {
-        if (resolvedPromise?.error !== undefined) {
-          return [resolvedPromise];
-        } else {
-          return [];
-        }
-      });
-    if (failedPromises.length) {
-      const msgs = failedPromises.map((resolvedPromise: ResolvedSendData): string => {
-        this.logger.error(resolvedPromise.error)
-        return `{resolvedPromise.fileName}: {resolvedPromise.error}`;
-      });
-      throw new BiosimulationsException(
-          HttpStatus.INTERNAL_SERVER_ERROR,
-          'Files could not be saved',
-          `{failedPromises.length} files could not be saved:\n  - {msgs.join('\n  - ')}`,
-        );
-    }
-
-    return resolvedPromises.flatMap(
-      (resolvedPromise: ResolvedSendData): AWS.S3.ManagedUpload.SendData[] => {
-        if (resolvedPromise?.value !== undefined) {
-          return [resolvedPromise.value];
-        } else {
-          return [];
-        }
-      });
-  }
-
-  private async uploadExtractedZipFile(destination: string, entry: File, isPrivate: boolean): Promise<ResolvedSendData> {
-    const fileName = entry.path;
-    const s3Path = `${destination}/${fileName}`;
-    const upload = await this.putObject(s3Path, entry.stream(), isPrivate, entry.uncompressedSize)
-      .then((value: AWS.S3.ManagedUpload.SendData): ResolvedSendData => {
-        return {
-          fileName,
-          value,
-        };
-      })
-      .catch((error: any): ResolvedSendData => {
-        this.logger.error(`${s3Path} could not be uploaded: ${error}`);
-        return {
-          fileName,
-          error,
-        }
-      });
-    return upload;
   }
 
   public async putObject(

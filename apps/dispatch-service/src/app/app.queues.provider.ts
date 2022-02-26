@@ -34,9 +34,6 @@ export class AppQueueManagerProvider {
     const completescheduler = new QueueScheduler(JobQueue.complete, {
       connection,
     });
-    const extractscheduler = new QueueScheduler(JobQueue.extract, {
-      connection,
-    });
     const filesscheduler = new QueueScheduler(JobQueue.files, {
       connection,
     });
