@@ -14,7 +14,7 @@ export class ManifestService {
 
   public getManifestContent(
     id: string,
-  ): Observable<CombineArchiveManifestContent[]> {    
+  ): Observable<CombineArchiveManifestContent[]> {
     const url = this.filePaths.getSimulationRunFileContentEndpoint(
       id,
       'manifest.xml',
@@ -22,7 +22,7 @@ export class ManifestService {
 
     // print status message
     this.logger.debug(`Getting manifest from ${url}`);
-    
+
     // get manifest
     const manifestContent = this.combine
       .getManifest(undefined, url)
