@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.11.1](https://github.com/biosimulations/biosimulations/compare/v9.11.0...v9.11.1) (2022-02-26)
+
+
+### Bug Fixes
+
+* **dispatch-service:** fixed saving thumbnails in subdirectories of COMBINE archives ([01cff26](https://github.com/biosimulations/biosimulations/commit/01cff26d7992e8edeea44491beac5f4e9ef006de))
+
 ## [9.11.0](https://github.com/biosimulations/biosimulations/compare/v9.10.0...v9.11.0) (2022-02-25)
 
 
