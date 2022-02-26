@@ -1,5 +1,18 @@
 # Changelog
 
+## [9.11.2](https://github.com/biosimulations/biosimulations/compare/v9.11.1...v9.11.2) (2022-02-26)
+
+
+### Bug Fixes
+
+* **dispatch-service:** fixed extraction of larger COMBINE archives ([6274023](https://github.com/biosimulations/biosimulations/commit/62740238b79342588fcf197c81a5a0bfced9bad5))
+* **dispatch,platform:** fixed size of images in markdown descriptions of projects ([df64f0c](https://github.com/biosimulations/biosimulations/commit/df64f0cb33a33e6127d16bd1ed4d43f27426eb1a))
+
+
+### Reverts
+
+* **dispatch-service:** reverted to reading manifests out of COMBINE archives ([c2dc2ab](https://github.com/biosimulations/biosimulations/commit/c2dc2ab9c8cc12ec5905a0107bc0cbac9cef6037))
+
 ## [9.11.1](https://github.com/biosimulations/biosimulations/compare/v9.11.0...v9.11.1) (2022-02-26)
 
 
