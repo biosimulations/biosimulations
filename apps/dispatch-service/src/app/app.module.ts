@@ -35,8 +35,6 @@ import { Endpoints } from '@biosimulations/config/common';
 import { SharedStorageModule } from '@biosimulations/shared/storage';
 import { ThumbnailService } from '../thumbnail/thumbnail.service';
 import { ManifestService } from '../manifest/manifest.service';
-import { ExtractionService } from '../extraction/extraction.service';
-import { ExtractProcessor } from './submission/extract.processor';
 import { ProcessProcessor } from './submission/process.processor';
 import { FilesProcessor } from './submission/files.proccessor';
 import { ThumbnailsProcessor } from './submission/thumbnails.proccessor';
@@ -101,10 +99,6 @@ import { SubmissionProcessor } from './submission/submit.processor';
       },
       {
         name: JobQueue.monitor,
-        ...BullModuleOptions,
-      },
-      {
-        name: JobQueue.extract,
         ...BullModuleOptions,
       },
       {
@@ -180,7 +174,6 @@ import { SubmissionProcessor } from './submission/submit.processor';
     DispatchProcessor,
     MonitorProcessor,
     ProcessProcessor,
-    ExtractProcessor,
     ManifestProcessor,
     FilesProcessor,
     ThumbnailsProcessor,
@@ -206,7 +199,6 @@ import { SubmissionProcessor } from './submission/submit.processor';
     ProjectService,
     ThumbnailService,
     ManifestService,
-    ExtractionService,
   ],
 })
 export class AppModule {

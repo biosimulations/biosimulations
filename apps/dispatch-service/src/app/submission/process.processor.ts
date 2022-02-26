@@ -12,7 +12,6 @@ export class ProcessProcessor {
   public constructor(
     @InjectQueue(JobQueue.manifest) private manifestQueue: Queue,
     @InjectQueue(JobQueue.files) private filesQueue: Queue,
-    @InjectQueue(JobQueue.extract) private extractQueue: Queue,
     @InjectQueue(JobQueue.thumbnailProcess)
     private thumbnailsQueue: Queue,
     private configService: ConfigService,
@@ -56,31 +55,6 @@ export class ProcessProcessor {
       },
     };
 
-    // Extract files from archive onto s3
-    const extractJob = {
-      name: 'Sedml',
-      queueName: JobQueue.extract,
-      opts: {
-        jobId: `${runId}`,
-        maxStalledCount: 3,
-        attempts: 5,
-        lockDuration: 120000, // wait up to 2 minutes before marking job as stalled
-        backoff: {
-          type: 'exponential',
-          delay: 1000,
-        },
-      },
-      data: {
-        runId: job.data.runId,
-        description: 'Extract the files in the COMBINE archive',
-        moreInfo: 'https://combinearchive.org',
-        validator: 'https://run.biosimulations.org/utils/validate-project',
-        errorMessage: `The files in the COMBINE archive could not be extracted. Please ensure that the archive is a valid zip file.`,
-        internalError: false,
-        required: true,
-      },
-    };
-
     // Process the manifest and post the manifest to the API
     const filesJob = {
       name: 'Files',
@@ -97,8 +71,8 @@ export class ProcessProcessor {
       opts: {
         jobId: `${runId}`,
       },
-      // Needs extraction completed and manifest completed
-      children: [extractJob, manifestJob],
+      // Needs extraction completed (part of SBatch job) and manifest completed
+      children: [manifestJob],
     };
 
     const thumbnailsProcessJob = {

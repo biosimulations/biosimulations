@@ -172,6 +172,8 @@ export class SbatchService {
         false,
       );
 
+    const combineArchiveContentsDirname = this.filePaths.getSimulationRunContentFilePath(runId, undefined, undefined, false);
+
     const template = `#!/bin/bash
 #SBATCH --job-name=Simulation-run-${runId}
 #SBATCH --chdir=${workDirname}
@@ -221,6 +223,27 @@ srun --job-name="Execute-project" \
 rm -rf \${TEMP_DIRNAME}
 
 echo -e ''
+echo -e '${cyan}====================================== Saving contents of COMBINE/OMEX archive ======================================${nc}'
+
+export PYTHONWARNINGS="ignore"
+export AWS_ACCESS_KEY_ID=${storageKey}
+export AWS_SECRET_ACCESS_KEY=${storageSecret}
+
+srun --job-name="Unzip-COMBINE-archive" \
+  unzip ${combineArchiveFilename} -d ${combineArchiveContentsDirname}
+
+srun --job-name="Save-COMBINE-archive-contents-to-S3" \
+  aws \
+    --endpoint-url ${storageEndpoint} \
+    s3 sync \
+      ${combineArchiveContentsDirname} \
+      's3://${storageBucket}/${simulationRunS3Path}/${combineArchiveContentsDirname}' \
+      --include "*" \
+      --acl public-read
+
+rm -r ${combineArchiveContentsDirname}
+
+echo -e ''
 echo -e '${cyan}=================================================== Saving results ==================================================${nc}'
 srun --job-name="Save-results-to-HSDS" \
   hsload \
@@ -243,16 +266,15 @@ srun --job-name="Zip-outputs" \
 
 echo -e ''
 echo -e '${cyan}=================================================== Saving outputs ==================================================${nc}'
-export PYTHONWARNINGS="ignore"
-export AWS_ACCESS_KEY_ID=${storageKey}
-export AWS_SECRET_ACCESS_KEY=${storageSecret}
+
 # We run the upload in steps to 1) get the content types right, and 2) make sure the final log has the upload operation included
 
 srun --job-name="Save-other-outputs-to-S3" \
   aws \
     --endpoint-url ${storageEndpoint} \
     s3 sync \
-      --acl public-read \
+      . \
+      's3://${storageBucket}/${simulationRunS3Path}' \
       --exclude "job.sbatch" \
       --exclude "*.h5" \
       --exclude "*.hdf" \
@@ -260,8 +282,7 @@ srun --job-name="Save-other-outputs-to-S3" \
       --exclude "*.yml" \
       --exclude "*.yaml" \
       --exclude "${combineArchiveFilename}" \
-      . \
-      's3://${storageBucket}/${simulationRunS3Path}'
+      --acl public-read
 
 srun --job-name="Save-numerical-outputs-to-S3" \
   aws \

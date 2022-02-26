@@ -111,6 +111,7 @@ export class FilePaths {
     runId: string,
     fileLocation?: string,
     thumbnailType?: ThumbnailType,
+    absolute = true,
   ): string {
     if (fileLocation?.startsWith('./')) {
       fileLocation = fileLocation.substring(2);
@@ -119,7 +120,12 @@ export class FilePaths {
       ? FilePaths.simulationRunThumbnailSubpath + '/' + thumbnailType
       : FilePaths.simulationRunContentsSubpath;
     const filePath = fileLocation !== undefined ? `/${fileLocation}` : '';
-    return this.getSimulationRunPath(runId, `${dirPath}${filePath}`);
+    const relPath = `${dirPath}${filePath}`
+    if (absolute) {
+      return this.getSimulationRunPath(runId, relPath);
+    } else {
+      return relPath;
+    }
   }
 
   public getSimulationRunOutputFilePath(

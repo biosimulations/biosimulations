@@ -185,15 +185,6 @@ export class SimulationStorageService {
     return size;
   }
 
-  public async extractSimulationArchive(id: string): Promise<string[]> {
-    const file = this.filePaths.getSimulationRunCombineArchivePath(id);
-    const destination = this.filePaths.getSimulationRunContentFilePath(id);
-    this.logger.debug(`Extracting ${file} to ${destination}`);
-    const output = await this.storage.extractZipObject(file, destination);
-    const locations = output.map((file) => file.Location);
-    return locations;
-  }
-
   public async uploadSimulationArchive(
     runId: string,
     file: Buffer | Readable,
