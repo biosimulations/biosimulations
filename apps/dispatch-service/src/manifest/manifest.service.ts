@@ -14,13 +14,10 @@ export class ManifestService {
 
   public getManifestContent(
     id: string,
-  ): Observable<CombineArchiveManifestContent[]> {    
+  ): Observable<CombineArchiveManifestContent[]> {
     // TODO: Switch to getting the specifications of manifests directly from manifest XML files.
     //       This requires making the manifest queue dependent on the extraction queue
-    const url = this.filePaths.getSimulationRunFileContentEndpoint(
-      id,
-      '.',
-    );
+    const url = this.filePaths.getSimulationRunFileContentEndpoint(id, '.');
     // const url = this.filePaths.getSimulationRunFileContentEndpoint(
     //  id,
     //  'manifest.xml',
@@ -28,7 +25,7 @@ export class ManifestService {
 
     // print status message
     this.logger.debug(`Getting manifest from ${url}`);
-    
+
     // get manifest
     const manifestContent = this.combine
       .getManifest(undefined, url)
