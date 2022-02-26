@@ -123,6 +123,7 @@ export class ResolveCombineArchiveProcessor {
         await this.simulationStorageService.uploadSimulationArchive(
           data.runId,
           file.data,
+          size,
         );
       this.logger.debug(
         `COMBINE/OMEX archive for run '${data.runId}' was saved to '${s3file}'.`,
