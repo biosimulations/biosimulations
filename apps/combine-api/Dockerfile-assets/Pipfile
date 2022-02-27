@@ -8,7 +8,7 @@ flask = ">=2"
 connexion = {extras = ["swagger-ui"],version = ">=2.11.1"}
 openapi-schema-validator = "<0.3" # avoid prereleases
 requests = "*"
-biosimulators-utils = {version = ">=0.1.163", extras = ["bngl", "cellml", "lems", "logging", "neuroml", "sbml", "smoldyn"]}
+biosimulators-utils = {version = ">=0.1.166", extras = ["bngl", "cellml", "lems", "logging", "neuroml", "sbml", "smoldyn"]}
 python-dateutil = "*"
 gunicorn = {extras = ["gevent"], version = "*"}
 flask-cors = "*"
@@ -56,7 +56,7 @@ smoldyn = ">=2.67"
 libroadrunner = "<2.2.0" # 2.2.0 requires numpy >= 1.22, which conflicts with Assimulo
 biosimulators-tellurium = ">=0.1.25"
 # XPP
-biosimulators-xpp = ">=0.0.11"
+biosimulators-xpp = ">=0.0.12"
 orjson = "*"
 openapi-spec-validator = "<0.5"
 
