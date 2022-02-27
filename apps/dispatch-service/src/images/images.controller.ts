@@ -40,7 +40,7 @@ export class ImagesController {
       `chmod +x "${sbatchFilename.replace('"', '\\"')}"`,
       `sbatch "${sbatchFilename.replace('"', '\\"')}"`,
     ].join(' && ');
-    const out = await this.sshSerivce.execStringCommand(command);
+    const out = await this.sshSerivce.execStringCommand(command, 3);
 
     if (out.stderr != '') {
       return new ImageMessageResponse(false, out.stderr);

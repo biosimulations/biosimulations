@@ -44,6 +44,7 @@ export class SshService {
 
   public async execStringCommand(
     cmd: string,
+    retries = 0,
     retryCount = 0,
   ): Promise<{ stdout: string; stderr: string }> {
     this.logger.debug(`Executing command`);
@@ -61,7 +62,6 @@ export class SshService {
           }
           if (stream) {
             stream
-
               .on('close', (code: any, signal: any) => {
                 this.logger.debug(
                   'Stream :: close :: code: ' + code + ', signal: ' + signal,
@@ -76,6 +76,12 @@ export class SshService {
               });
           } else {
             this.logger.error('Stream is null');
+
+            if (retryCount < retries) {
+              this.logger.debug(`Retrying SSH connection ${retryCount + 1} of ${retries} ...`);
+              await this.retryInit();
+              return this.execStringCommand(cmd, retries, retryCount + 1);
+            }
 
             reject('Stream is null');
           }
