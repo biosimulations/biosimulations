@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.11.3](https://github.com/biosimulations/biosimulations/compare/v9.11.2...v9.11.3) (2022-02-27)
+
+
+### Bug Fixes
+
+* **dispatch-service:** restored retrying for image refreshing ([ca2d8be](https://github.com/biosimulations/biosimulations/commit/ca2d8be61cae5feca170977176f6645489244781))
+
 ## [9.11.2](https://github.com/biosimulations/biosimulations/compare/v9.11.1...v9.11.2) (2022-02-26)
 
 
