@@ -78,7 +78,9 @@ export class SshService {
             this.logger.error('Stream is null');
 
             if (retryCount < retries) {
-              this.logger.debug(`Retrying SSH connection ${retryCount + 1} of ${retries} ...`);
+              this.logger.debug(
+                `Retrying SSH connection ${retryCount + 1} of ${retries} ...`,
+              );
               await this.retryInit();
               return this.execStringCommand(cmd, retries, retryCount + 1);
             }

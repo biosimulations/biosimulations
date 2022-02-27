@@ -120,7 +120,7 @@ export class FilePaths {
       ? FilePaths.simulationRunThumbnailSubpath + '/' + thumbnailType
       : FilePaths.simulationRunContentsSubpath;
     const filePath = fileLocation !== undefined ? `/${fileLocation}` : '';
-    const relPath = `${dirPath}${filePath}`
+    const relPath = `${dirPath}${filePath}`;
     if (absolute) {
       return this.getSimulationRunPath(runId, relPath);
     } else {

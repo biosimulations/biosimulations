@@ -56,6 +56,11 @@ export class s3TestController {
     },
   })
   uploadFile(@UploadedFile() file: any, @Body() body: { id: string }) {
-    return this.service.putObject(body.id, file.buffer, false, file.Buffer.length);
+    return this.service.putObject(
+      body.id,
+      file.buffer,
+      false,
+      file.Buffer.length,
+    );
   }
 }

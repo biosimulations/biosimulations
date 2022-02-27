@@ -23,13 +23,12 @@ export class SharedStorageService {
 
   private calcS3UploadTimeOutMs(sizeBytes: number): number {
     return (
-      sizeBytes
-      / (this.MAX_EGRESS_BYTES_PER_SEC / this.UPLOAD_CONCURRENCY)
-      * 1e3
-      * this.UPLOAD_TIMEOUT_SAFETY_FACTOR
+      (sizeBytes / (this.MAX_EGRESS_BYTES_PER_SEC / this.UPLOAD_CONCURRENCY)) *
+      1e3 *
+      this.UPLOAD_TIMEOUT_SAFETY_FACTOR
     );
   }
-    
+
   private logger = new Logger(SharedStorageService.name);
 
   public constructor(
@@ -95,7 +94,9 @@ export class SharedStorageService {
   }
 
   public async getObject(key: string): Promise<AWS.S3.GetObjectOutput> {
-    const call = this.s3Get.getObject({ Bucket: this.BUCKET, Key: key }).promise();
+    const call = this.s3Get
+      .getObject({ Bucket: this.BUCKET, Key: key })
+      .promise();
 
     const res = await call;
 
@@ -123,7 +124,10 @@ export class SharedStorageService {
       ACL: acl,
     };
 
-    const timeoutMs = Math.max(this.calcS3UploadTimeOutMs(Math.max(length, 8 * 1e6)), 10 * 1e3);    
+    const timeoutMs = Math.max(
+      this.calcS3UploadTimeOutMs(Math.max(length, 8 * 1e6)),
+      10 * 1e3,
+    );
 
     const s3Post = new AWS.S3({
       credentials: {

@@ -151,7 +151,11 @@ export class SimulationRunService {
 
     try {
       const s3file =
-        await this.simulationStorageService.uploadSimulationArchive(id, file, size);
+        await this.simulationStorageService.uploadSimulationArchive(
+          id,
+          file,
+          size,
+        );
       this.logger.debug(`Uploaded simulation archive to S3: ${s3file}`);
 
       // At this point, we have the URLs of all the files in the archive but we don't use them

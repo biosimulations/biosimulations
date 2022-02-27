@@ -14,7 +14,7 @@ export class ManifestService {
 
   public getManifestContent(
     id: string,
-  ): Observable<CombineArchiveManifestContent[]> {    
+  ): Observable<CombineArchiveManifestContent[]> {
     const url = this.filePaths.getSimulationRunFileContentEndpoint(
       id,
       'manifest.xml',

@@ -172,7 +172,13 @@ export class SbatchService {
         false,
       );
 
-    const combineArchiveContentsDirname = this.filePaths.getSimulationRunContentFilePath(runId, undefined, undefined, false);
+    const combineArchiveContentsDirname =
+      this.filePaths.getSimulationRunContentFilePath(
+        runId,
+        undefined,
+        undefined,
+        false,
+      );
 
     const template = `#!/bin/bash
 #SBATCH --job-name=Simulation-run-${runId}
