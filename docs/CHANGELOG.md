@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.12.1](https://github.com/biosimulations/biosimulations/compare/v9.12.0...v9.12.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* **dispatch-service:** increased reliability of retrieving logs from S3 ([4c036ac](https://github.com/biosimulations/biosimulations/commit/4c036ac5b4d06d4983fa61941a9ed9a7828379aa))
+
 ## [9.12.0](https://github.com/biosimulations/biosimulations/compare/v9.11.3...v9.12.0) (2022-02-28)
 
 
