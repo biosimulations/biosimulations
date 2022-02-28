@@ -1,4 +1,4 @@
-name: Close stale Todo issues
+name: Close stale todo issues
 on:
   schedule:
     - cron: '0 0 * * 0' # weekly

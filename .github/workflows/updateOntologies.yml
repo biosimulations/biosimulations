@@ -1,4 +1,4 @@
-name: Ontology Update
+name: Update ontologies
 on:
   schedule:
     - cron: '0 0 * * 0' # weekly

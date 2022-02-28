@@ -1,4 +1,4 @@
-name: Format Source Code
+name: Format source code
 on:
   workflow_dispatch:
    inputs:

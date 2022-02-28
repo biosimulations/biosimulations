@@ -1,4 +1,4 @@
-name: Continuous Deployment
+name: Continuous deployment
 on:
   release:
     types: [published, edited]
