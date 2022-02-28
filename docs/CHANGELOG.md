@@ -1,5 +1,13 @@
 # Changelog
 
+# [9.12.0](https://github.com/biosimulations/biosimulations/compare/v9.11.3...v9.12.0) (2022-02-28)
+
+
+### Features
+
+* **combine-api:** updated to BioNetGen 2.8.0 ([73e6589](https://github.com/biosimulations/biosimulations/commit/73e658945d706d373b572765e089c79d2906905c))
+* **combine-api:** updated to biosimulators-utils 0.1.66, biosimulators-xpp 0.0.12 ([3fe0ad4](https://github.com/biosimulations/biosimulations/commit/3fe0ad4d87cb8920d06825ceb6da72c315308a04))
+
 ## [9.11.3](https://github.com/biosimulations/biosimulations/compare/v9.11.2...v9.11.3) (2022-02-27)
 
 
