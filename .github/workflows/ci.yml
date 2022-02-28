@@ -1,4 +1,4 @@
-name: Validate Pull Request
+name: Validate pull request
 on:
   pull_request:
     branches:

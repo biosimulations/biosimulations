@@ -1,4 +1,4 @@
-name: Spell checking
+name: Check spelling
 on:
   pull_request:
   push:
