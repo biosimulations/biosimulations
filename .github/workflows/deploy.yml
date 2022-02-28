@@ -207,11 +207,7 @@ jobs:
       - buildProdFrontEnds
       - deployDevFrontend
       - testDevDeployment
-    if: |
-      needs.buildPushDockerImages.result == 'success'
-      && needs.buildProdFrontEnds.result == 'success'
-      && needs.deployDevFrontend.result == 'success'
-      && (needs.testDevDeployment.outcome == 'success' || needs.testDevDeployment.outcome == 'failure')
+    if: ${{ always() }}
     # environment: review_dev_deployment_tests_environment
     steps:
       - name: Print status message
