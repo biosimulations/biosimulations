@@ -349,6 +349,7 @@ RUN python -m compileall /app/src/ \
     && PY_PREFIX=$(echo ${PY_EXEC_PATH} | rev | cut -d "/" -f 3- | rev) \
     && PYTHON_MAJOR_MINOR_VERSION=$(echo $PYTHON_VERSION | cut -d . -f 1-2) \
     && python -m compileall ${PY_PREFIX}/lib/python${PYTHON_MAJOR_MINOR_VERSION}/site-packages \
+    && PYTHONPATH=/app python -c "from src.handlers.run.utils import write_simulator_specs_cache; write_simulator_specs_cache();" \
     || exit 0
 
 LABEL \

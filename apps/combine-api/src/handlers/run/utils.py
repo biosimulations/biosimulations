@@ -8,11 +8,13 @@ import os
 import sys
 import time
 import types  # noqa: F401
+import werkzeug.wrappers.response  # noqa: F401
 import yaml
 
 
 __all__ = [
     'get_simulators',
+    'get_simulator_specs',
     'get_simulator_api',
     'get_simulator_metadata',
     'use_simulator_api_to_exec_sedml_docs_in_combine_archive',
@@ -29,6 +31,69 @@ def get_simulators():
             each available simulation tool
     """
     with open(os.path.join(os.path.dirname(__file__), 'simulators.yml'), 'r') as file:
+        return yaml.load(file, Loader=yaml.Loader)
+
+
+def get_simulator_specs():
+    """ Get the specifications of the available simulation tools
+
+    Returns:
+        :obj:`werkzeug.wrappers.response.Response`: response which contains a list of
+            elements encoded in schema ``Simulator``
+    """
+    simulators = []
+
+    for sim in get_simulators():
+        simulators.append(exec_in_subprocess(get_simulator_metadata, sim['id']))
+
+    return simulators
+
+
+def get_simulator_specs_cache_filename():
+    """ Get the path to cache the specifications of simulation tools
+
+    Returns:
+        :obj:`str`: path to cache the specifications of simulation tools
+    """
+    return os.path.expanduser(os.path.join('~', '.cache', 'simulators.yml'))
+
+
+def write_simulator_specs_cache(simulators=None, filename=None):
+    """ Get the specifications of simulations tools and cache them to a file
+
+    Args:
+        simulators (:obj:`werkzeug.wrappers.response.Response`, optional): response which contains a list of
+            elements encoded in schema ``Simulator``
+        filename (:obj:`str`, optional): path to cache the specifications of simulation tools
+    """
+    simulators = simulators or get_simulator_specs()
+
+    filename = filename or get_simulator_specs_cache_filename()
+
+    dirname = os.path.dirname(filename)
+    if not os.path.dirname(dirname):
+        os.makedirs(dirname)
+
+    with open(filename, 'w') as file:
+        file.write(yaml.dump(simulators))
+
+
+def read_simulator_specs_cache(filename=None):
+    """ Read the specifications of simulations tools from a file
+
+    Args:
+        filename (:obj:`str`, optional): path to read the specifications of simulation tools
+
+    Returns:
+        :obj:`werkzeug.wrappers.response.Response`: response which contains a list of
+            elements encoded in schema ``Simulator``
+    """
+    filename = filename or get_simulator_specs_cache_filename()
+
+    if not os.path.isfile(filename):
+        write_simulator_specs_cache(filename=filename)
+
+    with open(filename, 'r') as file:
         return yaml.load(file, Loader=yaml.Loader)
 
 
