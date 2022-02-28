@@ -339,7 +339,7 @@ def monitor_runs(simulation_runs, runbiosimulations_deployment, start_time, time
 
     print()
     print(BColors.HEADER + "Number of runs: " + str(total) + BColors.ENDC)
-    print(BColors.HEADER + "Total time: " + str(datetime.timedelta(seconds=(current_time-start_time))) + BColors.ENDC) + " s"
+    print(BColors.HEADER + "Total time (s): " + str(datetime.timedelta(seconds=(current_time-start_time))) + BColors.ENDC)
     print(BColors.OKGREEN + "Passed runs: " + str(total_passed) + BColors.ENDC)
     print(BColors.OKBLUE + "Pending runs: " + str(total_pending) + BColors.ENDC)
     print(BColors.WARNING + "Timed out runs: " + str(total_timedout) + BColors.ENDC)
