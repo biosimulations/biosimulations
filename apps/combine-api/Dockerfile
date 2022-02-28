@@ -324,7 +324,7 @@ CMD /bin/bash /xvfb-startup.sh \
         --bind 0.0.0.0:3333 src.app:app \
         --workers 2 \
         --threads 4 \
-        --worker-class gevent \
+        --worker-class gthread \
         --max-requests 1000 \
         --timeout 30 \
         --keep-alive 5 \
