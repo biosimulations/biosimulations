@@ -330,8 +330,8 @@ def monitor_runs(simulation_runs, runbiosimulations_deployment, start_time, time
         print(BColors.OKBLUE + "Starting validation" + BColors.ENDC)
         invalid_run_count = validate_runs(passed_runs, runbiosimulations_deployment)
         if invalid_run_count > 0:
-            total_passed-=invalid_run_count
-            total_failed_runs+=invalid_run_count
+            total_passed -= invalid_run_count
+            total_failed_runs += invalid_run_count
     print()
     print(BColors.HEADER + "Total Number of runs: " + str(total) + BColors.ENDC)
     print(BColors.HEADER + "Total time: " + str(datetime.timedelta(seconds=(current_time-start_time))) + BColors.ENDC)
