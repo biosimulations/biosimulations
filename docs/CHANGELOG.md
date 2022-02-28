@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.13.1](https://github.com/biosimulations/biosimulations/compare/v9.13.0...v9.13.1) (2022-02-28)
+
+
+### Performance Improvements
+
+* **combine-api:** sped up getting specifications of available simulation tools ([044bd80](https://github.com/biosimulations/biosimulations/commit/044bd80587402265c201a65d26a5dd6731ee6704))
+
 ## [9.13.0](https://github.com/biosimulations/biosimulations/compare/v9.12.1...v9.13.0) (2022-02-28)
 
 
