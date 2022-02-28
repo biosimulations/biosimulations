@@ -255,7 +255,6 @@ jobs:
           GHCR_USERNAME: "${{ secrets.GHCR_USERNAME }}"
           GHCR_TOKEN: "${{ secrets.GHCR_TOKEN }}"
           BRANCH: ${{ secrets.OVERLAY }}
-
         run: |
           git_sha=$(git rev-parse --short "$GITHUB_SHA")
           echo '{"ref": "main","inputs":{"overlay": "'$BRANCH'","tag":"'${{github.ref_name}}'"}}' >body
