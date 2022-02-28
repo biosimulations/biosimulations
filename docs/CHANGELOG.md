@@ -1,5 +1,17 @@
 # Changelog
 
+# [9.13.0](https://github.com/biosimulations/biosimulations/compare/v9.12.1...v9.13.0) (2022-02-28)
+
+
+### Features
+
+* **combine-api:** improved timeout error messages ([12f02e4](https://github.com/biosimulations/biosimulations/commit/12f02e46f0f290457982cd5563787f0d9c61a9da))
+
+
+### Performance Improvements
+
+* **combine-api:** tweaked settings to improve simulation execution ([45517ae](https://github.com/biosimulations/biosimulations/commit/45517ae85f13d321259a3cad2e316e8783aa10b8))
+
 ## [9.12.1](https://github.com/biosimulations/biosimulations/compare/v9.12.0...v9.12.1) (2022-02-28)
 
 
