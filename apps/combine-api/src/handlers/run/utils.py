@@ -1,5 +1,6 @@
 from biosimulators_utils.log.data_model import CombineArchiveLog  # noqa: F401
 from biosimulators_utils.report.data_model import SedDocumentResults  # noqa: F401
+from ...exceptions import RequestTimeoutException
 import functools
 import importlib
 import multiprocessing
@@ -157,7 +158,11 @@ def exec_in_subprocess(func, *args, poll_interval=0.01, timeout=None, **kwargs):
     while process.exception is None:
         time.sleep(poll_interval)
         if timeout is not None and (time.time() - start_time) > timeout:
-            raise TimeoutError('Execution did not complete in {} s.'.format(timeout))
+            msg = 'Execution did not complete in {} s. Requests are limited to {} s'.format(timeout, timeout)
+            raise RequestTimeoutException(
+                title='Request timed out',
+                instance=TimeoutError(msg),
+            )
     if process.exception:
         raise process.exception
     results = queue.get()

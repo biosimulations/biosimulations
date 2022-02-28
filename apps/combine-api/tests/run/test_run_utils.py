@@ -1,3 +1,4 @@
+from src.exceptions import RequestTimeoutException
 from src.handlers.run import utils
 import time
 import unittest
@@ -44,7 +45,7 @@ class CombineUtilsTestCase(unittest.TestCase):
         utils.exec_in_subprocess(func, timeout=None)
         utils.exec_in_subprocess(func, timeout=5)
 
-        with self.assertRaisesRegex(TimeoutError, 'did not complete in'):
+        with self.assertRaisesRegex(RequestTimeoutException, 'The server closed the network'):
             utils.exec_in_subprocess(func, timeout=0.1)
 
     def test_exec_in_subprocess_error_handling(self):

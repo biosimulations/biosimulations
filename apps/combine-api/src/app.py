@@ -88,6 +88,7 @@ app.add_error_handler(500, functools.partial(
     exceptions._render_exception,
     title='Server error'))
 app.add_error_handler(exceptions.BadRequestException, exceptions._render_exception)
+app.add_error_handler(exceptions.RequestTimeoutException, exceptions._render_exception)
 
 # enable cross-origin resource sharing
 CORS(app.app,
