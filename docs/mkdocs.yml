@@ -46,6 +46,7 @@ plugins:
   - redirects:
       redirect_maps:
         'repositories/bigg.md': 'https://biosimulations.github.io/biosimulations-bigg'
+        'repositories/modeldb.md': 'https://biosimulations.github.io/biosimulations-modeldb'
         'conventions.md': 'concepts/conventions/index.md'
         'news.md': 'news/changelog.md'
         'community.md': 'community/contributors.md'
