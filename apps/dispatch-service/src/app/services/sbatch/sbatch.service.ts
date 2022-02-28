@@ -209,6 +209,12 @@ export SINGULARITY_CACHEDIR=${singularityCacheDir}
 export SINGULARITY_PULLFOLDER=${singularityPullFolder}
 
 echo -e ''
+echo -e '${cyan}=================================================== Set up storage ==================================================${nc}'
+export PYTHONWARNINGS="ignore"
+export AWS_ACCESS_KEY_ID=${storageKey}
+export AWS_SECRET_ACCESS_KEY=${storageSecret}
+
+echo -e ''
 echo -e '${cyan}========================================== Downloading COMBINE/OMEX archive =========================================${nc}'
 (ulimit -f 1048576; srun --job-name="Download-project" curl -L -o '${combineArchiveFilename}' ${runCombineArchiveUrl})
 
@@ -229,36 +235,29 @@ srun --job-name="Execute-project" \
 rm -rf \${TEMP_DIRNAME}
 
 echo -e ''
-echo -e '${cyan}====================================== Saving contents of COMBINE/OMEX archive ======================================${nc}'
+echo -e '${cyan}===================================================== Saving log ====================================================${nc}'
 
-export PYTHONWARNINGS="ignore"
-export AWS_ACCESS_KEY_ID=${storageKey}
-export AWS_SECRET_ACCESS_KEY=${storageSecret}
-
-srun --job-name="Unzip-COMBINE-archive" \
-  unzip ${combineArchiveFilename} -d ${combineArchiveContentsDirname}
-
-srun --job-name="Save-COMBINE-archive-contents-to-S3" \
+srun --job-name="Save-raw-log-to-S3-1" \
   aws \
     --endpoint-url ${storageEndpoint} \
     s3 sync \
-      ${combineArchiveContentsDirname} \
-      's3://${storageBucket}/${simulationRunS3Path}/${combineArchiveContentsDirname}' \
-      --include "*" \
+      . \
+      's3://${storageBucket}/${simulationRunS3Path}' \
+      --exclude '*' \
+      --include '${OutputFileName.RAW_LOG}' \
       --acl public-read
 
-rm -r ${combineArchiveContentsDirname}
-
-echo -e ''
-echo -e '${cyan}=================================================== Saving results ==================================================${nc}'
-srun --job-name="Save-results-to-HSDS" \
-  hsload \
-    --endpoint ${hsdsBasePath} \
-    --username ${hsdsUsername} \
-    --password ${hsdsPassword} \
-    --verbose \
-    ${outputsReportsFileSubPath} \
-    '${simulationRunResultsHsdsPath}'
+srun --job-name="Save-structured-log-to-S3" \
+  aws \
+    --endpoint-url ${storageEndpoint} \
+    s3 sync \
+      . \
+      's3://${storageBucket}/${simulationRunS3Path}' \
+      --exclude '*' \
+      --include '*.yml' \
+      --include '*.yaml' \
+      --content-type 'application/yaml'\
+      --acl public-read
 
 echo -e ''
 echo -e '${cyan}================================================== Zipping outputs ==================================================${nc}'
@@ -275,6 +274,19 @@ echo -e '${cyan}=================================================== Saving outpu
 
 # We run the upload in steps to 1) get the content types right, and 2) make sure the final log has the upload operation included
 
+srun --job-name="Save-numerical-outputs-to-S3" \
+  aws \
+    --endpoint-url ${storageEndpoint} \
+    s3 sync \
+      . \
+      's3://${storageBucket}/${simulationRunS3Path}' \
+      --exclude '*' \
+      --include '*.h5' \
+      --include '*.hdf' \
+      --include '*.hdf5' \
+      --content-type 'application/hdf5'\
+      --acl public-read
+
 srun --job-name="Save-other-outputs-to-S3" \
   aws \
     --endpoint-url ${storageEndpoint} \
@@ -290,32 +302,50 @@ srun --job-name="Save-other-outputs-to-S3" \
       --exclude "${combineArchiveFilename}" \
       --acl public-read
 
-srun --job-name="Save-numerical-outputs-to-S3" \
+echo -e ''
+echo -e '${cyan}====================================== Saving contents of COMBINE/OMEX archive ======================================${nc}'
+
+srun --job-name="Unzip-COMBINE-archive" \
+  unzip ${combineArchiveFilename} -d ${combineArchiveContentsDirname}
+
+srun --job-name="Save-COMBINE-archive-contents-to-S3" \
+  aws \
+    --endpoint-url ${storageEndpoint} \
+    s3 sync \
+      ${combineArchiveContentsDirname} \
+      's3://${storageBucket}/${simulationRunS3Path}/${combineArchiveContentsDirname}' \
+      --include "*" \
+      --acl public-read
+
+rm -r ${combineArchiveContentsDirname}
+
+echo -e ''
+echo -e '${cyan}==================================================== Updating log ===================================================${nc}'
+
+srun --job-name="Save-raw-log-to-S3-2" \
   aws \
     --endpoint-url ${storageEndpoint} \
     s3 sync \
       . \
       's3://${storageBucket}/${simulationRunS3Path}' \
       --exclude '*' \
-      --include '*.h5' \
-      --include '*.hdf' \
-      --include '*.hdf5' \
-      --content-type 'application/hdf5'\
+      --include '${OutputFileName.RAW_LOG}' \
       --acl public-read
 
-srun --job-name="Save-structured-log-to-S3" \
-  aws \
-    --endpoint-url ${storageEndpoint} \
-    s3 sync \
-      . \
-      's3://${storageBucket}/${simulationRunS3Path}' \
-      --exclude '*' \
-      --include '*.yml' \
-      --include '*.yaml' \
-      --content-type 'application/yaml'\
-      --acl public-read
+echo -e ''
+echo -e '${cyan}=================================================== Saving results ==================================================${nc}'
+srun --job-name="Save-results-to-HSDS" \
+  hsload \
+    --endpoint ${hsdsBasePath} \
+    --username ${hsdsUsername} \
+    --password ${hsdsPassword} \
+    --verbose \
+    ${outputsReportsFileSubPath} \
+    '${simulationRunResultsHsdsPath}'
 
-srun --job-name="Save-raw-log-to-S3" \
+echo -e ''
+echo -e '${cyan}================================================== Saving final log =================================================${nc}'
+srun --job-name="Save-raw-log-to-S3-3" \
   aws \
     --endpoint-url ${storageEndpoint} \
     s3 sync \
