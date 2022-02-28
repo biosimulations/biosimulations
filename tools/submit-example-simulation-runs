@@ -223,12 +223,16 @@ def main(runbiosimulations_deployment='dev', biosimulators_deployment='prod',
         }
         new_simulation_runs.append(simulation_runs[name])
 
+    # clean up temporary directory
+    shutil.rmtree(temp_dir)
+
+    # test or save runs
     if test_mode:
         passed = monitor_runs(new_simulation_runs, runbiosimulations_deployment, start_time, timeout)
         if not passed:
             exit(1)
         else:
-            exit(0)
+            return
 
     else:
         sorted_simulation_runs = natsort.natsorted(list(simulation_runs.values()),
@@ -236,8 +240,6 @@ def main(runbiosimulations_deployment='dev', biosimulators_deployment='prod',
                                                    alg=natsort.IGNORECASE)
         with open(example_simulations_filename, 'w') as file:
             json.dump(sorted_simulation_runs, file, indent=2)
-
-    shutil.rmtree(temp_dir)
 
 
 def monitor_runs(simulation_runs, runbiosimulations_deployment, start_time, timeout=9999):
@@ -249,9 +251,9 @@ def monitor_runs(simulation_runs, runbiosimulations_deployment, start_time, time
     start_time = start_time
     current_time = time.time()
     timeout_occurred = False
-    print(BColors.HEADER + "Monitoring Simulation Runs with timeout" + BColors.BOLD + str(timeout) + BColors.ENDC)
+    print(BColors.HEADER + "Monitoring simulation runs with timeout" + BColors.BOLD + str(timeout) + BColors.ENDC)
     while(not timeout_occurred):
-        print(BColors.HEADER + "Getting Runs from API" + BColors.ENDC)
+        print(BColors.HEADER + "Getting runs from API" + BColors.ENDC)
         if len(pending_runs) == 0:
             break
         for run in pending_runs[:]:
@@ -309,6 +311,7 @@ def monitor_runs(simulation_runs, runbiosimulations_deployment, start_time, time
             break
 
         time.sleep(5)
+
     passed = True
     if len(failed_runs) > 0:
         print(BColors.FAIL + "One or more simulations failed" + BColors.ENDC)
@@ -325,6 +328,7 @@ def monitor_runs(simulation_runs, runbiosimulations_deployment, start_time, time
         passed = False
         for run in timed_out_runs:
             print(BColors.WARNING + "TIMEOUT {} --- {}".format(run['id'], run['name']) + BColors.ENDC)
+
     if passed:
         print(BColors.OKGREEN + "All runs passed" + BColors.ENDC)
         print(BColors.OKBLUE + "Starting validation" + BColors.ENDC)
@@ -332,14 +336,16 @@ def monitor_runs(simulation_runs, runbiosimulations_deployment, start_time, time
         if invalid_run_count > 0:
             total_passed -= invalid_run_count
             total_failed_runs += invalid_run_count
+
     print()
-    print(BColors.HEADER + "Total Number of runs: " + str(total) + BColors.ENDC)
-    print(BColors.HEADER + "Total time: " + str(datetime.timedelta(seconds=(current_time-start_time))) + BColors.ENDC)
-    print(BColors.OKBLUE + "Total Number of pending runs: " + str(total_pending) + BColors.ENDC)
-    print(BColors.OKGREEN + "Total Number of passed runs: " + str(total_passed) + BColors.ENDC)
-    print(BColors.WARNING + "Total Number of timed out runs: " + str(total_timedout) + BColors.ENDC)
-    print(BColors.FAIL + "Total Number of failed runs: " + str(total_failed_runs) + BColors.ENDC)
+    print(BColors.HEADER + "Number of runs: " + str(total) + BColors.ENDC)
+    print(BColors.HEADER + "Total time: " + str(datetime.timedelta(seconds=(current_time-start_time))) + BColors.ENDC) + " s"
+    print(BColors.OKGREEN + "Passed runs: " + str(total_passed) + BColors.ENDC)
+    print(BColors.OKBLUE + "Pending runs: " + str(total_pending) + BColors.ENDC)
+    print(BColors.WARNING + "Timed out runs: " + str(total_timedout) + BColors.ENDC)
+    print(BColors.FAIL + "Failed runs: " + str(total_failed_runs) + BColors.ENDC)
     print()
+
     return passed
 
 
