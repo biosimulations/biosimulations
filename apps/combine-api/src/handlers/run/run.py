@@ -23,7 +23,7 @@ config = {
     **dotenv_values("shared/shared.env"),
 }
 
-RUN_COMBINE_ARCHIVE_TIMEOUT = float(config.get('RUN_COMBINE_ARCHIVE_TIMEOUT', 30.))
+TIMEOUT = float(config.get('RUN_COMBINE_ARCHIVE_TIMEOUT', 30.))
 
 IGNORED_ENV_VARS = [
     'H5_REPORTS_PATH',
@@ -155,7 +155,7 @@ def handler(body, archiveFile=None):
         results, log = exec_in_subprocess(use_simulator_api_to_exec_sedml_docs_in_combine_archive,
                                           simulator['api']['module'],
                                           archive_filename, out_dir,
-                                          timeout=RUN_COMBINE_ARCHIVE_TIMEOUT,
+                                          timeout=TIMEOUT,
                                           config=config)
 
     # transform the results
