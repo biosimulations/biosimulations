@@ -6,6 +6,7 @@
 /simulators/amici/0.11.25
 /simulators/bionetgen
 /simulators/bionetgen/2.7.0
+/simulators/bionetgen/2.8.0
 /simulators/biouml
 /simulators/biouml/2019.4
 /simulators/boolnet

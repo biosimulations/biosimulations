@@ -39,13 +39,19 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/bionetgen</loc>
-    <lastmod>2021-12-22</lastmod>
+    <lastmod>2022-02-27</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/bionetgen/2.7.0</loc>
     <lastmod>2021-12-22</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/bionetgen/2.8.0</loc>
+    <lastmod>2022-02-27</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -747,13 +753,13 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/xpp</loc>
-    <lastmod>2022-02-25</lastmod>
+    <lastmod>2022-02-27</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/xpp/8.0</loc>
-    <lastmod>2022-02-25</lastmod>
+    <lastmod>2022-02-27</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
