@@ -44,7 +44,7 @@ options = {
         'title': 'BioSimulations COMBINE API',
     },
 }
-app = connexion.App(__name__, specification_dir=spec_dirname, server='gevent', options=options)
+app = connexion.App(__name__, specification_dir=spec_dirname, options=options)
 
 # Set up handlers for APIs
 app.add_api(spec_filename,

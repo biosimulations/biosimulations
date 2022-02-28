@@ -10,7 +10,7 @@ openapi-schema-validator = "<0.3" # avoid prereleases
 requests = "*"
 biosimulators-utils = {version = ">=0.1.166", extras = ["bngl", "cellml", "lems", "logging", "neuroml", "sbml", "smoldyn"]}
 python-dateutil = "*"
-gunicorn = {extras = ["gevent"], version = "*"}
+gunicorn = {extras = ["gthread"], version = "*"}
 flask-cors = "*"
 python-dotenv = "*"
 boto3 = "*"
