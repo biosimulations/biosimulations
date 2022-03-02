@@ -4,7 +4,7 @@
 
 Metadata about COMBINE/OMEX archives should be annotated using triples of subjects, predicates, and objects in RDF XML files according to the [OMEX Metadata guidelines](https://doi.org/10.1515/jib-2021-0020).
 
-On top of these guidelines, we recommend the predicates and identifier namespaces described below. In addition, the URI for each object should be annotated using `http://dublincore.org/specifications/dublin-core/dcmi-terms/identifier` and a human-readable description of each object should be annotated using `http://www.w3.org/2000/01/rdf-schema#label`. Futhermore, alternative predicates should also be described using `http://dublincore.org/specifications/dublin-core/dcmi-terms/description`.
+On top of these guidelines, we recommend the predicates and identifier namespaces described below. In addition, the URI for each object should be annotated using `http://purl.org/dc/elements/1.1/identifier` and a human-readable description of each object should be annotated using `http://www.w3.org/2000/01/rdf-schema#label`. Futhermore, alternative predicates should also be described using `http://purl.org/dc/elements/1.1/description`.
 
 ## Recommended URIs for COMBINE/OMEX archives and the contents
 
@@ -19,13 +19,13 @@ Elements in SED-ML files in COMBINE/OMEX archives should be referenced by concat
 We recommend that COMBINE/OMEX archives and components of archives be annotated using the predicates and objects outlined below.
 
 - Title:
-    - Predicate: `http://dublincore.org/specifications/dublin-core/dcmi-terms/title`
+    - Predicate: `http://purl.org/dc/elements/1.1/title`
     - Object: Literal string
 - Abstract (short summary):
-    - Predicate: `http://dublincore.org/specifications/dublin-core/dcmi-terms/abstract`
+    - Predicate: `http://purl.org/dc/elements/1.1/abstract`
     - Object: Literal string
 - Description (long summary):
-    - Predicate: `http://dublincore.org/specifications/dublin-core/dcmi-terms/description`
+    - Predicate: `http://purl.org/dc/elements/1.1/description`
     - Object: String formatted using [GitHub-flavored markdown](https://github.github.com/gfm/) (GFM)
     !!! warning
         BioSimulations uses [Marked](https://marked.js.org/) to render GFM. Marked supports most, but not all features of GFM. More information about Marked's support for GFM is available [here](https://github.com/markedjs/marked/discussions/1202).
@@ -46,7 +46,7 @@ We recommend that COMBINE/OMEX archives and components of archives be annotated 
     - Predicate: `http://biomodels.net/biology-qualifiers/encodes`
     - Objects: URI (e.g., `https://www.uniprot.org/uniprot/P07527`), Literal string
 - Source of a project or component of a project (e.g., GitHub repository):
-    - Predicate: `http://dublincore.org/specifications/dublin-core/dcmi-terms/source`
+    - Predicate: `http://purl.org/dc/elements/1.1/source`
     - Objects: URI (e.g., `https://github.com/org/repo`), Literal string
 - Predecessor of a project or component of a project:
     - Predicate: `http://biomodels.net/model-qualifiers/isDerivedFrom`
@@ -67,22 +67,22 @@ We recommend that COMBINE/OMEX archives and components of archives be annotated 
     - Predicate: `http://biomodels.net/model-qualifiers/isDescribedBy`
     - Objects: Identifiers.org DOI URI (e.g., `http://identifiers.org/doi:10.1083/jcb.200306139`, `http://identifiers.org/pubmed:1234`, `http://identifiers.org/arxiv:0807.4956v1`), Literal string
 - Author:
-    - Predicate: `http://dublincore.org/specifications/dublin-core/dcmi-terms/creator`
+    - Predicate: `http://purl.org/dc/elements/1.1/creator`
     - Objects: ORCID Identifiers.org URI (e.g., `http://identifiers.org/orcid:0000-0001-7560-6013`), Literal string
 - Contributor (e.g., curator):
-    - Predicate: `http://dublincore.org/specifications/dublin-core/dcmi-terms/contributor`
+    - Predicate: `http://purl.org/dc/elements/1.1/contributor`
     - Objects: ORCID Identifiers.org URI (e.g., `http://identifiers.org/orcid:0000-0001-7560-6013`), Literal string
 - License for a project or component of a project:
-    - Predicate: `http://dublincore.org/specifications/dublin-core/dcmi-terms/identifier`
+    - Predicate: `http://purl.org/dc/elements/1.1/identifier`
     - Objects: SPDX Identifiers.org URI (e.g., `http://identifiers.org/spdx:CCO`), Literal string
 - Funder:
     - Predicate: `http://purl.org/spar/scoro/funder`
     - Objects: FunderRegistry Identifiers.org URI (e.g., `http://identifiers.org/doi:10.13039/100000185`), Literal string
 - Creation date:
-    - Predicate: `http://dublincore.org/specifications/dublin-core/dcmi-terms/created`
+    - Predicate: `http://purl.org/dc/elements/1.1/created`
     - Objects: WC3DTF-encoded literal string (e.g., `2021-06-01`)
 - Modification date:
-    - Predicate: `http://dublincore.org/specifications/dublin-core/dcmi-terms/modified`
+    - Predicate: `http://purl.org/dc/elements/1.1/modified`
     - Objects: WC3DTF-encoded literal string (e.g., `2021-06-01`)
 
 We also provides the following recommendations:
@@ -95,12 +95,12 @@ We also provides the following recommendations:
 
 Submissions to BioSimulations must include the following metadata:
 
-- Title (`http://dublincore.org/specifications/dublin-core/dcmi-terms/title`)
+- Title (`http://purl.org/dc/elements/1.1/title`)
 
 This requirement is currently set low to accommodate old projects in community repositories that have minimal structured metadata. Over time, we aim to raise this requirement.
 
 ## Recommendations for describing the SED-ML files and plots responsible for figures
-We recommend using the `http://dublincore.org/specifications/dublin-core/dcmi-terms/identifier` predicate and literal strings to describe the SED-ML files, reports, and plots responsible for tables and figures in articles.
+We recommend using the `http://purl.org/dc/elements/1.1/identifier` predicate and literal strings to describe the SED-ML files, reports, and plots responsible for tables and figures in articles.
 
 ```xml
 <rdf:Description rdf:about="http://omex-library.org/BioSim0001.omex/sim.sedml/figure1">

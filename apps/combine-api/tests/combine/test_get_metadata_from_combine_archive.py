@@ -138,7 +138,7 @@ class GetMetadataTestCase(unittest.TestCase):
             },
             'predicate': {
                 '_type': 'RdfUriNode',
-                'value': 'http://dublincore.org/specifications/dublin-core/dcmi-terms/title',
+                'value': 'http://purl.org/dc/elements/1.1/title',
             },
             'object': {
                 '_type': 'RdfLiteralNode',
