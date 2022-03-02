@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.13.2](https://github.com/biosimulations/biosimulations/compare/v9.13.1...v9.13.2) (2022-03-02)
+
+
+### Bug Fixes
+
+* fixed URI for dc namespace, enabled SBML draft packages ([b3ec967](https://github.com/biosimulations/biosimulations/commit/b3ec9675f07dfaa243aa6125921fe40f9745814d))
+
 ## [9.13.1](https://github.com/biosimulations/biosimulations/compare/v9.13.0...v9.13.1) (2022-02-28)
 
 
