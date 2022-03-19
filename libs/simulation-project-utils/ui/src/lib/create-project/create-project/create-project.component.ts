@@ -634,20 +634,17 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
       this.modelParametersAndVariablesSubscription = undefined;
     }
 
-    const modelLocationTypeControl = this.formGroup.controls
-      .modelLocationType as FormControl;
-    const modelLocationDetailsControl = this.formGroup.controls
-      .modelLocationDetails as FormControl;
+    const modelLocationTypeControl = this.formGroup.controls.modelLocationType;
+    const modelLocationDetailsControl = this.formGroup.controls.modelLocationDetails;
 
     const modelLocationType: LocationType = modelLocationTypeControl.value;
-    const modelLocationDetails: File | string | undefined =
-      modelLocationDetailsControl.value?.files?.[0];
+    const modelFile: File = modelLocationDetailsControl.value?.files?.[0];
+    const modelUrl: string = modelLocationDetailsControl.value;
 
-    if (
-      !modelLocationDetails ||
-      (modelLocationType == LocationType.url &&
-        !isUrl(modelLocationDetails as string))
-    ) {
+    const missingFileForFileType = modelLocationType == LocationType.file && !modelFile;
+    const badUrlForUrlType = modelLocationType == LocationType.url && (!modelUrl || !isUrl(modelUrl));
+
+    if (missingFileForFileType || badUrlForUrlType) {
       return;
     }
 
@@ -682,9 +679,9 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
 
     const formData = new FormData();
     if (modelLocationType === LocationType.file) {
-      formData.append('modelFile', modelLocationDetails);
+      formData.append('modelFile', modelFile);
     } else {
-      formData.append('modelUrl', modelLocationDetails);
+      formData.append('modelUrl', modelUrl);
     }
     const modelLanguage =
       this.edamIdFormatMap[modelFormat]?.biosimulationsMetadata
@@ -709,7 +706,7 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
           'This feature is only currently available for models encoded in BNGL, CellML, SBML, SBML-fbc, ' +
           'SBML-qual, and Smoldyn. Please refresh to try again.';
         if (modelLocationType === LocationType.url) {
-          msg += ` Please check that ${modelLocationDetails} is an accessible URL.`;
+          msg += ` Please check that ${modelUrl} is an accessible URL.`;
         }
 
         this.snackBar.open(msg, 'Ok', {
