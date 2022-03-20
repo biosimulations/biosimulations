@@ -113,6 +113,7 @@
 /simulators/smoldyn/2.67
 /simulators/smoldyn/2.67.1
 /simulators/smoldyn/2.67.2
+/simulators/smoldyn/2.67.3
 /simulators/tellurium
 /simulators/tellurium/2.2.1
 /simulators/vcell
