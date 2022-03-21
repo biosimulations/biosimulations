@@ -105,4 +105,5 @@ CORS(app.app,
          'https://www.biosimulators.dev',
          'https://run.biosimulations.dev',
          'https://run.biosimulations.org',
+         'bio.libretexts.org',
      ])
