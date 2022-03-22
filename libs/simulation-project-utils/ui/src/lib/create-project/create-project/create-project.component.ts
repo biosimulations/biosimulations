@@ -635,14 +635,17 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
     }
 
     const modelLocationTypeControl = this.formGroup.controls.modelLocationType;
-    const modelLocationDetailsControl = this.formGroup.controls.modelLocationDetails;
+    const modelLocationDetailsControl =
+      this.formGroup.controls.modelLocationDetails;
 
     const modelLocationType: LocationType = modelLocationTypeControl.value;
     const modelFile: File = modelLocationDetailsControl.value?.files?.[0];
     const modelUrl: string = modelLocationDetailsControl.value;
 
-    const missingFileForFileType = modelLocationType == LocationType.file && !modelFile;
-    const badUrlForUrlType = modelLocationType == LocationType.url && (!modelUrl || !isUrl(modelUrl));
+    const missingFileForFileType =
+      modelLocationType == LocationType.file && !modelFile;
+    const badUrlForUrlType =
+      modelLocationType == LocationType.url && (!modelUrl || !isUrl(modelUrl));
 
     if (missingFileForFileType || badUrlForUrlType) {
       return;

@@ -139,7 +139,7 @@
     "@ng-select/ng-select": "8.1.1",
     "@ngx-lite/json-ld": "0.6.4",
     "@nrwl/angular": "13.8.2",
-    "@nrwl/cli": "13.8.2",
+    "@nrwl/cli": "^13.8.2",
     "@nrwl/cypress": "13.8.2",
     "@nrwl/eslint-plugin-nx": "13.8.2",
     "@nrwl/jest": "13.8.2",
