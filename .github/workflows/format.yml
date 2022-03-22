@@ -38,7 +38,7 @@ jobs:
         run: npm install @nrwl/cli
 
       - name: Format files
-        run: nx format --all
+        run: ./node_modules/.bin/nx format --all
 
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v4
