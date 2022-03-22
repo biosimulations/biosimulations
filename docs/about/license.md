@@ -112,17 +112,17 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/biosimulations/nestjs-bullmq
 │  └─ licenseFile: @biosimulations/nestjs-bullmq/LICENSE
-├─ @bull-board/api@3.10.0
+├─ @bull-board/api@3.10.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/felixmosh/bull-board
 │  ├─ publisher: felixmosh
 │  └─ licenseFile: @bull-board/api/README.md
-├─ @bull-board/express@3.10.0
+├─ @bull-board/express@3.10.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/felixmosh/bull-board
 │  ├─ publisher: felixmosh
 │  └─ licenseFile: @bull-board/express/README.md
-├─ @bull-board/ui@3.10.0
+├─ @bull-board/ui@3.10.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/felixmosh/bull-board
 │  ├─ publisher: felixmosh
@@ -897,10 +897,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: petka_antonov@hotmail.com
 │  ├─ url: http://github.com/petkaantonov/
 │  └─ licenseFile: unzipper/node_modules/bluebird/LICENSE
-├─ body-parser@1.19.1
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/expressjs/body-parser
-│  └─ licenseFile: @bull-board/express/node_modules/body-parser/LICENSE
 ├─ body-parser@1.19.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/expressjs/body-parser
@@ -979,13 +975,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Brian White
 │  ├─ email: mscdex@mscdex.net
 │  └─ licenseFile: busboy/LICENSE
-├─ bytes@3.1.1
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/visionmedia/bytes.js
-│  ├─ publisher: TJ Holowaychuk
-│  ├─ email: tj@vision-media.ca
-│  ├─ url: http://tjholowaychuk.com
-│  └─ licenseFile: @bull-board/express/node_modules/bytes/LICENSE
 ├─ bytes@3.1.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/visionmedia/bytes.js
@@ -1336,12 +1325,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: TJ Holowaychuk
 │  ├─ email: tj@learnboost.com
 │  └─ licenseFile: cookie-signature/Readme.md
-├─ cookie@0.4.1
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/jshttp/cookie
-│  ├─ publisher: Roman Shtylman
-│  ├─ email: shtylman@gmail.com
-│  └─ licenseFile: @bull-board/express/node_modules/cookie/LICENSE
 ├─ cookie@0.4.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jshttp/cookie
@@ -1745,12 +1728,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: LM
 │  ├─ email: ralphtheninja@riseup.net
 │  └─ licenseFile: expand-template/LICENSE
-├─ express@4.17.2
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/expressjs/express
-│  ├─ publisher: TJ Holowaychuk
-│  ├─ email: tj@vision-media.ca
-│  └─ licenseFile: @bull-board/express/node_modules/express/LICENSE
 ├─ express@4.17.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/expressjs/express
@@ -3638,7 +3615,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 ├─ path-to-regexp@0.1.7
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/component/path-to-regexp
-│  └─ licenseFile: @bull-board/express/node_modules/path-to-regexp/LICENSE
+│  └─ licenseFile: express/node_modules/path-to-regexp/LICENSE
 ├─ path-to-regexp@3.2.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/pillarjs/path-to-regexp
@@ -3779,10 +3756,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: BSD-3-Clause
 │  ├─ repository: https://github.com/ljharb/qs
 │  └─ licenseFile: superagent/node_modules/qs/LICENSE.md
-├─ qs@6.9.6
-│  ├─ licenses: BSD-3-Clause
-│  ├─ repository: https://github.com/ljharb/qs
-│  └─ licenseFile: @bull-board/express/node_modules/qs/LICENSE.md
 ├─ qs@6.9.7
 │  ├─ licenses: BSD-3-Clause
 │  ├─ repository: https://github.com/ljharb/qs
@@ -3814,13 +3787,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: tj@vision-media.ca
 │  ├─ url: http://tjholowaychuk.com
 │  └─ licenseFile: range-parser/LICENSE
-├─ raw-body@2.4.2
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/stream-utils/raw-body
-│  ├─ publisher: Jonathan Ong
-│  ├─ email: me@jongleberry.com
-│  ├─ url: http://jongleberry.com
-│  └─ licenseFile: @bull-board/express/node_modules/raw-body/LICENSE
 ├─ raw-body@2.4.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/stream-utils/raw-body
