@@ -139,22 +139,22 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: i@izs.me
 │  ├─ url: https://izs.me
 │  └─ licenseFile: npm/node_modules/@isaacs/string-locale-compare/LICENSE
-├─ @nestjs/axios@0.0.6
+├─ @nestjs/axios@0.0.7
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/axios
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/axios/LICENSE
-├─ @nestjs/common@8.3.1
+├─ @nestjs/common@8.4.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/common/LICENSE
-├─ @nestjs/config@1.2.0
+├─ @nestjs/config@1.2.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/config
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/config/LICENSE
-├─ @nestjs/core@8.3.1
+├─ @nestjs/core@8.4.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
@@ -164,12 +164,12 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/nestjs/mapped-types
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/mapped-types/LICENSE
-├─ @nestjs/microservices@8.3.1
+├─ @nestjs/microservices@8.4.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/microservices/LICENSE
-├─ @nestjs/mongoose@9.0.2
+├─ @nestjs/mongoose@9.0.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/mongoose
 │  ├─ publisher: Kamil Mysliwiec
@@ -179,7 +179,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/nestjs/passport
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/passport/LICENSE
-├─ @nestjs/platform-express@8.3.1
+├─ @nestjs/platform-express@8.4.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
@@ -194,7 +194,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/nestjs/swagger
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/swagger/LICENSE
-├─ @nestjs/terminus@8.0.4
+├─ @nestjs/terminus@8.0.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/terminus
 │  ├─ publisher: Livio Brunner
@@ -834,6 +834,11 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/axios/axios
 │  ├─ publisher: Matt Zabriskie
 │  └─ licenseFile: axios/LICENSE
+├─ axios@0.26.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/axios/axios
+│  ├─ publisher: Matt Zabriskie
+│  └─ licenseFile: @nestjs/common/node_modules/axios/LICENSE
 ├─ balanced-match@1.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/juliangruber/balanced-match
@@ -1074,7 +1079,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: hello@blakeembrey.com
 │  ├─ url: http://blakeembrey.me
 │  └─ licenseFile: change-case/LICENSE
-├─ check-disk-space@3.1.0
+├─ check-disk-space@3.3.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/Alex-D/check-disk-space
 │  ├─ publisher: Alex-D
@@ -1591,11 +1596,10 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
 │  └─ licenseFile: dot-prop/license
-├─ dotenv-expand@8.0.1
+├─ dotenv-expand@5.1.0
 │  ├─ licenses: BSD-2-Clause
-│  ├─ repository: https://github.com/motdotla/dotenv-expand
 │  ├─ publisher: motdotla
-│  └─ licenseFile: dotenv-expand/LICENSE
+│  └─ licenseFile: @nestjs/config/node_modules/dotenv-expand/LICENSE
 ├─ dotenv@16.0.0
 │  ├─ licenses: BSD-2-Clause
 │  ├─ repository: https://github.com/motdotla/dotenv
@@ -3377,7 +3381,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
 │  └─ licenseFile: object-assign/license
-├─ object-hash@2.2.0
+├─ object-hash@3.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/puleos/object-hash
 │  ├─ publisher: Scott Puleo
