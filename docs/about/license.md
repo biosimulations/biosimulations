@@ -4846,7 +4846,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: hello@blakeembrey.com
 │  ├─ url: http://blakeembrey.me
 │  └─ licenseFile: upper-case/LICENSE
-├─ urijs@1.19.7
+├─ urijs@1.19.10
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/medialize/URI.js
 │  ├─ publisher: Rodney Rehm
