@@ -32,11 +32,12 @@ jobs:
 
 
       - name: Install npm dependencies
-
         run: npm ci
+      
+      - name: Install nrwl cli 
+        run: npm install @nrwl/cli
 
       - name: Format files
-
         run: nx format --all
 
       - name: Import GPG key
