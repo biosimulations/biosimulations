@@ -833,12 +833,12 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/axios/axios
 │  ├─ publisher: Matt Zabriskie
-│  └─ licenseFile: axios/LICENSE
+│  └─ licenseFile: @nestjs/axios/node_modules/axios/LICENSE
 ├─ axios@0.26.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/axios/axios
 │  ├─ publisher: Matt Zabriskie
-│  └─ licenseFile: @nestjs/common/node_modules/axios/LICENSE
+│  └─ licenseFile: axios/LICENSE
 ├─ balanced-match@1.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/juliangruber/balanced-match
