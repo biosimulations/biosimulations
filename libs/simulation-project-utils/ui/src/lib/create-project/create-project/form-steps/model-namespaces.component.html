@@ -1,0 +1,32 @@
+<mat-card-title>Add the namespaces used within your model</mat-card-title>
+
+<div class="model-namespace-grid">
+  <div class="grid-label">Prefix</div>
+  <div class="grid-label">URI *</div>
+  <div></div>
+
+  <ng-container *ngFor="let formGroup of formGroups(); index as iModelNamespace" [formGroup]="formGroup">
+    <input class="grid-input" formControlName="prefix" [class.error-border]="showPrefixError(formGroup)" />
+    <input class="grid-input" formControlName="uri" [class.error-border]="showUriError(formGroup)" />
+    <button mat-icon-button title="Delete namespace" (click)="removeModelNamespace(iModelNamespace)">
+      <biosimulations-icon icon="trash"></biosimulations-icon>
+    </button>
+  </ng-container>
+
+  <button mat-flat-button class="biosimulations-button text" style="grid-column: 1 / 3" (click)="addModelNamespace()">
+    Additional namespace
+  </button>
+</div>
+
+<mat-hint>
+  Describe the namespaces needed to reference the parameters and variables of your model (e.g.,
+  <code>sbml</code>: <code>http://www.sbml.org/sbml/level2/version4</code> for SBML L2V4).
+</mat-hint>
+
+<mat-error *ngIf="nextClicked && formArray.invalid && !formArray.hasError('prefixUnique')">
+  One or more properties of one or more namespaces is invalid.
+</mat-error>
+
+<mat-error *ngIf="nextClicked && formArray.hasError('prefixUnique')">
+  The prefixes of the namespaces must be unique.
+</mat-error>

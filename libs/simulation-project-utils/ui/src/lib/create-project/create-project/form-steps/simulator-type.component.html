@@ -1,0 +1,54 @@
+<form [formGroup]="formGroup">
+  <mat-card-title>Select a modeling framework and simulation method</mat-card-title>
+
+  <div class="input-group">
+    <span class="input-prefix">1. </span>
+
+    <mat-form-field class="card-form-field" appearance="fill">
+      <mat-label>Select a modeling framework</mat-label>
+      <mat-select formControlName="framework" (ngModelChange)="updateDropdowns()">
+        <mat-option *ngFor="let framework of compatibleFrameworks" [value]="framework.id">
+          {{ framework.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="input-group">
+    <span class="input-prefix">2. </span>
+
+    <mat-form-field class="card-form-field" appearance="fill">
+      <mat-label>Select a type of simulation</mat-label>
+      <mat-select formControlName="simulationType" (ngModelChange)="updateDropdowns()">
+        <mat-option *ngFor="let simulationType of compatibleSimulationTypes" [value]="simulationType">
+          {{ getSimulationTypeName(simulationType) }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="input-group">
+    <span class="input-prefix">3. </span>
+
+    <mat-form-field class="card-form-field" appearance="fill">
+      <mat-label>Select a simulation algorithm</mat-label>
+      <mat-select formControlName="algorithm">
+        <mat-option *ngFor="let algorithm of compatibleAlgorithms" [value]="algorithm.id">
+          {{ algorithm.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <mat-error *ngIf="nextClicked && formGroup.hasError('required', 'framework')">
+    Please select a modeling framework.
+  </mat-error>
+
+  <mat-error *ngIf="nextClicked && formGroup.hasError('required', 'simulationType')">
+    Please select a type of simulation.
+  </mat-error>
+
+  <mat-error *ngIf="nextClicked && formGroup.hasError('required', 'algorithm')">
+    Please select a simulation algorithm.
+  </mat-error>
+</form>

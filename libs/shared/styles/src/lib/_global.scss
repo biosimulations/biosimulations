@@ -398,15 +398,34 @@ biosimulations-root {
     margin-bottom: 2rem;
   }
 
+  overflow: auto;
+
+  mat-card-title {
+    margin-bottom: 1.2rem;
+  }
+
   mat-checkbox {
     display: block;
-    padding: 0.6rem 0;
   }
 
   mat-error {
     font-size: 125%;
     line-height: 1.3;
     margin-top: 0.6rem;
+  }
+
+  .error-border {
+    border-bottom-color: $theme-warn-main;
+  }
+
+  button {
+    font-size: 150%;
+    color: rgb(0, 0, 0, 0.75);
+    margin-top: 0.9rem;
+
+    &.primary {
+      margin-left: auto;
+    }
   }
 
   .input-group {
@@ -427,7 +446,9 @@ biosimulations-root {
       margin: 0 0.3rem;
     }
 
-    padding-top: 0.6rem;
+    .input-prefix {
+      font-size: 175%;
+    }
   }
 }
 
