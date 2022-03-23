@@ -443,21 +443,21 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Pierre Vanduynslager
 │  ├─ url: https://twitter.com/@pvdlg_
 │  └─ licenseFile: @semantic-release/release-notes-generator/LICENSE
-├─ @sendgrid/client@7.6.1
+├─ @sendgrid/client@7.6.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sendgrid/sendgrid-nodejs
 │  ├─ publisher: Twilio SendGrid
 │  ├─ email: help@twilio.com
 │  ├─ url: sendgrid.com
 │  └─ licenseFile: @sendgrid/client/LICENSE
-├─ @sendgrid/helpers@7.6.0
+├─ @sendgrid/helpers@7.6.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sendgrid/sendgrid-nodejs
 │  ├─ publisher: Twilio SendGrid
 │  ├─ email: help@twilio.com
 │  ├─ url: sendgrid.com
 │  └─ licenseFile: @sendgrid/helpers/LICENSE
-├─ @sendgrid/mail@7.6.1
+├─ @sendgrid/mail@7.6.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sendgrid/sendgrid-nodejs
 │  ├─ publisher: Twilio SendGrid
@@ -823,7 +823,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/axios/axios
 │  ├─ publisher: Matt Zabriskie
-│  └─ licenseFile: @sendgrid/client/node_modules/axios/LICENSE
+│  └─ licenseFile: auth0/node_modules/jwks-rsa/node_modules/axios/LICENSE
 ├─ axios@0.25.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/axios/axios
