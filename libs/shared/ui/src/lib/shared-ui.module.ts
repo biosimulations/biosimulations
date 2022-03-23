@@ -47,11 +47,9 @@ import { HtmlSnackBarComponent } from './html-snack-bar/html-snack-bar.component
 import { SliderComponent } from './slider/slider.component';
 import { MatCarouselComponent } from './mat-carousel/carousel.component';
 import { MatCarouselSlideComponent } from './mat-carousel/carousel-slide/carousel-slide.component';
-import {
-  HammerGestureConfig,
-  HAMMER_GESTURE_CONFIG,
-  HammerModule,
-} from '@angular/platform-browser';
+import { BlankTargetDirective } from './blank-target-link/blank-target-link.directive';
+import { HammerGestureConfig, HAMMER_GESTURE_CONFIG, HammerModule } from '@angular/platform-browser';
+import { FormHostDirective } from './form-host/form-host.directive';
 @Injectable()
 export class MatCarouselHammerConfig extends HammerGestureConfig {
   public overrides = {
@@ -60,9 +58,7 @@ export class MatCarouselHammerConfig extends HammerGestureConfig {
   };
 }
 @NgModule({
-  providers: [
-    { provide: HAMMER_GESTURE_CONFIG, useClass: MatCarouselHammerConfig },
-  ],
+  providers: [{ provide: HAMMER_GESTURE_CONFIG, useClass: MatCarouselHammerConfig }],
   imports: [
     CommonModule,
     MaterialWrapperModule,
@@ -113,6 +109,8 @@ export class MatCarouselHammerConfig extends HammerGestureConfig {
     ColumnsComponent,
     CarouselComponent,
     BreadCrumbsModule,
+    BlankTargetDirective,
+    FormHostDirective,
   ],
   declarations: [
     TopbarComponent,
@@ -158,6 +156,8 @@ export class MatCarouselHammerConfig extends HammerGestureConfig {
     SliderComponent,
     MatCarouselComponent,
     MatCarouselSlideComponent,
+    BlankTargetDirective,
+    FormHostDirective,
   ],
 })
 export class SharedUiModule {}
