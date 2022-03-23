@@ -35,6 +35,7 @@ import { ConfigService } from '@biosimulations/config/angular';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { FileInput } from 'ngx-material-file-input';
+import { INTEGER_VALIDATOR } from '@biosimulations/shared/ui';
 
 interface SimulatorIdNameDisabled {
   id: string;
@@ -103,7 +104,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
   ) {
     this.formGroup = this.formBuilder.group(
       {
-        projectFile: ['', [this.maxFileSizeValidator.bind(this)]],
+        projectFile: ['', [this.commonDispatchService.maxFileSizeValidator()]],
         projectUrl: ['', []],
         modelFormats: ['', []],
         simulationAlgorithms: ['', []],
@@ -111,7 +112,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
         simulator: ['', [Validators.required]],
         simulatorVersion: ['', [Validators.required]],
         academicPurpose: [false],
-        cpus: [1, [Validators.required, Validators.min(1), Validators.max(24), this.integerValidator]],
+        cpus: [1, [Validators.required, Validators.min(1), Validators.max(24), INTEGER_VALIDATOR]],
         memory: [8, [Validators.required, Validators.min(0), Validators.max(192)]], // in GB
         maxTime: [20, [Validators.required, Validators.min(0), Validators.max(20 * 24 * 60)]], // in min
         name: ['', [Validators.required]],
@@ -727,23 +728,6 @@ export class DispatchComponent implements OnInit, OnDestroy {
   }
 
   // Form Validators
-
-  private maxFileSizeValidator(control: FormControl): ValidationErrors | null {
-    const maxSize = this.config.appConfig.maxUploadFileSize;
-    const fileValue = control.value?.files?.[0];
-    if (!fileValue || fileValue.size <= maxSize) {
-      return null;
-    }
-    return { maxSize: true };
-  }
-
-  private integerValidator(formControl: FormControl): ValidationErrors | null {
-    const value = formControl.value as number;
-    if (value == Math.floor(value)) {
-      return null;
-    }
-    return { integer: true };
-  }
 
   private formValidator(formGroup: FormGroup): ValidationErrors | null {
     const errors: ValidationErrors = {};
