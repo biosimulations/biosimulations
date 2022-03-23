@@ -1,116 +1,47 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChildren, QueryList, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { SimulationType, AlgorithmSubstitution } from '@biosimulations/datamodel/common';
 import {
-  FormBuilder,
-  FormGroup,
-  FormArray,
-  FormControl,
-  AbstractControl,
-  Validators,
-  ValidationErrors,
-} from '@angular/forms';
-import {
-  ValueType,
-  SimulationType,
-  SimulationTypeBriefName,
-  EdamTerm,
-  OntologyTermMap,
-  AlgorithmSubstitutionPolicyLevels,
-  ALGORITHM_SUBSTITUTION_POLICIES,
-  AlgorithmSubstitution,
-  AlgorithmSubstitutionPolicy,
-} from '@biosimulations/datamodel/common';
-import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
-import {
+  ArchiveCreationUtility,
+  ArchiveCreationSedDocumentData,
+  AlgorithmParameterMap,
   DispatchService,
   CombineApiService,
   SimulatorsData,
-  SimulatorSpecs,
-  SimulatorSpecsMap,
-  ModelingFrameworksAlgorithmsForModelFormat,
-  AlgorithmParameter,
 } from '@biosimulations/simulation-project-utils/service';
-import { Observable, of, Subscription, BehaviorSubject } from 'rxjs';
-import { map, concatAll, withLatestFrom, catchError } from 'rxjs/operators';
+import { CombineArchive, Namespace, SedVariable, SedModelChange } from '@biosimulations/combine-api-angular-client';
+import { Observable, of, Subscription, zip } from 'rxjs';
+import { catchError, concatMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import isUrl from 'is-url';
-import { Endpoints, AppRoutes } from '@biosimulations/config/common';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-
+import { Endpoints } from '@biosimulations/config/common';
+import { HttpClient, HttpErrorResponse, HttpEvent } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from '@biosimulations/shared/environments';
-import { validateValue } from '@biosimulations/datamodel/utils';
 import { ConfigService } from '@biosimulations/config/angular';
-import { HtmlSnackBarComponent } from '@biosimulations/shared/ui';
-import { FileInput } from 'ngx-material-file-input';
+import { FormHostDirective, HtmlSnackBarComponent } from '@biosimulations/shared/ui';
 import {
-  SedDocument,
-  SedDocumentTypeEnum as SedDocumentType,
-  SedModelChange,
-  SedModelAttributeChange,
-  SedModelAttributeChangeTypeEnum as SedModelAttributeChangeType,
-  SedSimulation,
-  SedOneStepSimulationTypeEnum as SedOneStepSimulationType,
-  SedSteadyStateSimulationTypeEnum as SedSteadyStateSimulationType,
-  SedUniformTimeCourseSimulationTypeEnum as SedUniformTimeCourseSimulationType,
-  SedAlgorithm,
-  SedAlgorithmTypeEnum as SedAlgorithmType,
-  SedTask,
-  SedTaskTypeEnum as SedTaskType,
-  SedDataGenerator,
-  SedDataGeneratorTypeEnum as SedDataGeneratorType,
-  SedOutput,
-  SedReport,
-  SedReportTypeEnum as SedReportType,
-  SedDataSet,
-  SedDataSetTypeEnum as SedDataSetType,
-  SedVariable,
-  SedVariableTypeEnum as SedVariableType,
-  SedTargetTypeEnum as SedTargetType,
-  Namespace,
-  NamespaceTypeEnum as NamespaceType,
-} from '@biosimulations/combine-api-angular-client';
+  UploadModelComponent,
+  UniformTimeCourseSimulationComponent,
+  SimulatorTypeComponent,
+  IntrospectingModelComponent,
+  FormStepComponent,
+  FormStepData,
+  AlgorithmParametersComponent,
+  ModelNamespacesComponent,
+  ModelChangesComponent,
+  ModelVariablesComponent,
+  SimulationToolsComponent,
+} from './form-steps';
 
-enum LocationType {
-  file = 'file',
-  url = 'url',
-}
-
-interface OntologyTerm {
-  id: string;
-  name: string;
-}
-
-enum ModelVariableType {
-  symbol = 'symbol',
-  target = 'target',
-}
-
-interface Simulator {
-  id: string;
-  name: string;
-  url: string;
-}
-
-interface MultipleSimulatorsAlgorithmParameter {
-  id: string;
-  name: string;
-  url: string;
-  simulators: Set<string>;
-  type: ValueType | '--multiple--';
-  value: string | null | '--multiple--';
-  formattedValue: string | '--multiple--';
-  recommendedRange: string[] | null | '--multiple--';
-  formattedRecommendedRange: string[] | '--multiple--';
-  formattedRecommendedRangeJoined: string | '--multiple--';
-}
-
-type PostCreateAction = 'download' | 'simulate';
-
-interface CompatibleSimulator {
-  simulator: Simulator;
-  minPolicy: AlgorithmSubstitutionPolicy;
-  parametersCompatibility: boolean;
+enum CreateProjectFormStep {
+  UploadModel = 'UploadModel',
+  FrameworkSimTypeAndAlgorithm = 'FrameworkSimTypeAndAlgorithm',
+  UniformTimeCourseSimulationParameters = 'UniformTimeCourseSimulationParameters',
+  AlgorithmParameters = 'AlgorithmParameters',
+  ModelNamespace = 'ModelNamespace',
+  ModelChanges = 'ModelChanges',
+  Observables = 'Observables',
+  SimulationTools = 'SimulationTools',
 }
 
 @Component({
@@ -118,1451 +49,516 @@ interface CompatibleSimulator {
   templateUrl: './create-project.component.html',
   styleUrls: ['./create-project.component.scss'],
 })
-export class CreateProjectComponent implements OnInit, OnDestroy {
-  formGroup: FormGroup;
-  modelNamespacesArray: FormArray;
-  modelChangesArray: FormArray;
-  simulationAlgorithmParametersArray: FormArray;
-  modelVariablesArray: FormArray;
+export class CreateProjectComponent implements OnInit, OnDestroy, AfterViewInit {
+  @ViewChildren(FormHostDirective) public formHostQuery!: QueryList<FormHostDirective>;
 
-  private simulatorSpecs?: SimulatorSpecs[];
-  private simulatorSpecsMap?: SimulatorSpecsMap;
-  private algSubstitutions?: { [id: string]: AlgorithmSubstitutionPolicy };
-  private allModelFormats?: OntologyTerm[];
-  private allModelingFrameworks?: OntologyTerm[];
-  private allSimulationTypes: OntologyTerm[] = [
-    {
-      id: SimulationType.SedOneStepSimulation,
-      name: SimulationTypeBriefName.SedOneStepSimulation,
-    },
-    {
-      id: SimulationType.SedSteadyStateSimulation,
-      name: SimulationTypeBriefName.SedSteadyStateSimulation,
-    },
-    {
-      id: SimulationType.SedUniformTimeCourseSimulation,
-      name: SimulationTypeBriefName.SedUniformTimeCourseSimulation,
-    },
-  ];
-  private allSimulationAlgorithms?: OntologyTerm[];
-  modelFormats?: OntologyTerm[];
-  modelingFrameworks?: OntologyTerm[];
-  simulationTypes?: OntologyTerm[];
-  simulationAlgorithms?: OntologyTerm[];
-  modelVariableTypes: OntologyTerm[] = [
-    {
-      id: ModelVariableType.symbol,
-      name: 'Symbol',
-    },
-    {
-      id: ModelVariableType.target,
-      name: 'Target',
-    },
-  ];
-  compatibleSimulators?: CompatibleSimulator[];
+  public formHost!: FormHostDirective;
+  public formPath: CreateProjectFormStep[] = [];
+  public shouldShowSpinner = true;
 
-  private edamIdFormatMap: OntologyTermMap<EdamTerm>;
-
-  modelFileTypeSpecifiers!: string;
-  private static INIT_MODEL_NAMESPACES = 1;
-  private static INIT_MODEL_CHANGES = 3;
-  private static INIT_MODEL_VARIABLES = 5;
-  exampleModelUrl =
-    'https://raw.githubusercontent.com/biosimulators/Biosimulators_utils/dev/tests/fixtures/BIOMD0000000297.xml';
-
-  private loading = new BehaviorSubject<boolean>(true);
-  loading$ = this.loading.asObservable();
-  submitPushed = false;
-  projectBeingCreated = false;
-
+  private currentFormStepComponent?: FormStepComponent;
+  private formData: { [step in CreateProjectFormStep]?: FormStepData } = {};
+  private simulatorsData?: SimulatorsData;
+  private algSubstitutions: AlgorithmSubstitution[] = [];
   private subscriptions: Subscription[] = [];
-  private modelParametersAndVariablesSubscription: Subscription | undefined =
-    undefined;
 
-  private endpoints = new Endpoints();
-  private appRoutes = new AppRoutes();
-
-  constructor(
+  public constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private formBuilder: FormBuilder,
     private dispatchService: DispatchService,
     private combineApiService: CombineApiService,
     private http: HttpClient,
     private snackBar: MatSnackBar,
     private config: ConfigService,
-  ) {
-    this.edamIdFormatMap = {};
-    BIOSIMULATIONS_FORMATS.forEach((format: EdamTerm): void => {
-      if (format.id) {
-        this.edamIdFormatMap[format.id] = format;
-      }
-    });
+  ) {}
 
-    const modelFileTypeSpecifiers = new Set<string>();
-    BIOSIMULATIONS_FORMATS.filter((format: EdamTerm): boolean => {
-      return (
-        format?.biosimulationsMetadata?.modelFormatMetadata
-          ?.introspectionAvailable === true
-      );
-    }).forEach((format: EdamTerm): void => {
-      format.fileExtensions.forEach((extension: string): void => {
-        modelFileTypeSpecifiers.add('.' + extension);
-      });
-      format.mediaTypes.forEach((mediaType: string): void => {
-        modelFileTypeSpecifiers.add(mediaType);
-      });
-    });
-    this.modelFileTypeSpecifiers = Array.from(modelFileTypeSpecifiers).join(
-      ',',
-    );
+  // Life cycle
 
-    this.formGroup = this.formBuilder.group(
-      {
-        modelLocationType: [LocationType.file, Validators.required],
-        modelLocationDetails: [
-          null,
-          [Validators.required, this.maxFileSizeValidator.bind(this)],
-        ],
-        modelFormat: [null, Validators.required],
-        modelNamespaces: this.formBuilder.array([], {
-          validators: [this.uniqueAttributeValidator.bind(this, 'prefix')],
-        }),
-        modelChanges: this.formBuilder.array([], {
-          validators: [this.uniqueAttributeValidator.bind(this, 'id')],
-        }),
-        modelingFramework: [null, Validators.required],
-        simulationType: [null, Validators.required],
-        oneStepSimulationParameters: this.formBuilder.group({
-          step: [null, this.positiveFloatValidator],
-        }),
-        uniformTimeCourseSimulationParameters: this.formBuilder.group(
-          {
-            initialTime: [null, this.floatValidator],
-            outputStartTime: [null, this.floatValidator],
-            outputEndTime: [null, this.floatValidator],
-            numberOfSteps: [null, this.nonNegativeIntegerValidator],
-            step: [null],
-          },
-          {
-            validators: this.uniformTimeCourseValidator,
-          },
-        ),
-        simulationAlgorithm: [null, Validators.required],
-        simulationAlgorithmParameters: this.formBuilder.array([]),
-        modelVariables: this.formBuilder.array([], {
-          validators: [this.uniqueAttributeValidator.bind(this, 'id')],
-        }),
-      },
-      {
-        validators: [this.hasCompatibleSimulatorValidator.bind(this)],
-      },
-    );
-
-    const modelFormatControl = this.formGroup.controls
-      .modelFormat as FormControl;
-    const modelingFrameworkControl = this.formGroup.controls
-      .modelingFramework as FormControl;
-    const simulationTypeControl = this.formGroup.controls
-      .simulationType as FormControl;
-    const uniformTimeCourseSimulationParametersControl = this.formGroup.controls
-      .uniformTimeCourseSimulationParameters as FormGroup;
-    const uniformTimeCourseSimulationStepControl =
-      uniformTimeCourseSimulationParametersControl.controls.step as FormControl;
-    uniformTimeCourseSimulationStepControl.disable();
-    const simulationAlgorithmControl = this.formGroup.controls
-      .simulationAlgorithm as FormControl;
-    this.modelNamespacesArray = this.formGroup.controls
-      .modelNamespaces as FormArray;
-    this.modelChangesArray = this.formGroup.controls.modelChanges as FormArray;
-    this.simulationAlgorithmParametersArray = this.formGroup.controls
-      .simulationAlgorithmParameters as FormArray;
-    this.modelVariablesArray = this.formGroup.controls
-      .modelVariables as FormArray;
-
-    while (
-      this.modelNamespacesArray.controls.length <
-      CreateProjectComponent.INIT_MODEL_NAMESPACES
-    ) {
-      this.addModelNamespace();
-    }
-    while (
-      this.modelChangesArray.controls.length <
-      CreateProjectComponent.INIT_MODEL_CHANGES
-    ) {
-      this.addModelChange();
-    }
-    while (
-      this.modelVariablesArray.controls.length <
-      CreateProjectComponent.INIT_MODEL_VARIABLES
-    ) {
-      this.addModelVariable();
-    }
-
-    modelFormatControl.disable();
-    modelingFrameworkControl.disable();
-    simulationTypeControl.disable();
-    simulationAlgorithmControl.disable();
-  }
-
-  maxFileSizeValidator(control: FormControl): ValidationErrors | null {
-    const fileInput = control.value;
-    const file = fileInput?.files?.[0];
-    const fileSize = file?.size;
-    if (fileSize && fileSize > this.config.appConfig.maxUploadFileSize) {
-      return {
-        maxSize: true,
-      };
-    } else {
-      return null;
-    }
-  }
-
-  urlValidator(control: AbstractControl): ValidationErrors | null {
-    const value = control.value;
-    if (value && isUrl(control.value)) {
-      return null;
-    } else {
-      return {
-        url: false,
-      };
-    }
-  }
-
-  positiveFloatValidator(control: FormControl): ValidationErrors | null {
-    const value = control.value;
-    if (isNaN(value) || value <= 0) {
-      return {
-        positiveFloat: true,
-      };
-    } else {
-      return null;
-    }
-  }
-
-  floatValidator(control: FormControl): ValidationErrors | null {
-    const value = control.value;
-    if (isNaN(value)) {
-      return {
-        float: true,
-      };
-    } else {
-      return null;
-    }
-  }
-
-  nonNegativeIntegerValidator(control: FormControl): ValidationErrors | null {
-    const value = control.value;
-    if (isNaN(value) || value < 0 || Math.floor(value) !== value) {
-      return {
-        nonNegativeInteger: true,
-      };
-    } else {
-      return null;
-    }
-  }
-
-  uniformTimeCourseValidator(formGroup: FormGroup): ValidationErrors | null {
-    const initialTime = formGroup.value.initialTime;
-    const outputStartTime = formGroup.value.outputStartTime;
-    const outputEndTime = formGroup.value.outputEndTime;
-
-    const errors: any = {};
-
-    if (
-      !isNaN(initialTime) &&
-      !isNaN(outputStartTime) &&
-      !isNaN(outputEndTime)
-    ) {
-      if (initialTime > outputStartTime) {
-        errors['initialTimeGreaterThanOutputStartTime'] = true;
-      }
-      if (outputStartTime > outputEndTime) {
-        errors['outputStartTimeGreaterThanOutputEndTime'] = true;
-      }
-    }
-
-    if (Object.keys(errors).length) {
-      return errors;
-    } else {
-      return null;
-    }
-  }
-
-  parameterValidator(formGroup: FormGroup): ValidationErrors | null {
-    const type = formGroup.value.type as ValueType | '--multiple--';
-    const formattedRecommendedRange = formGroup.value
-      .formattedRecommendedRange as string[] | null | '--multiple--';
-    const value: string = formGroup.value.newValue;
-
-    if (!value) {
-      return null;
-    }
-
-    if (type === '--multiple--') {
-      return null;
-    }
-
-    if (validateValue(value, type, (id: string) => true)) {
-      if (
-        [ValueType.string, ValueType.kisaoId].includes(type) &&
-        formattedRecommendedRange &&
-        formattedRecommendedRange !== '--multiple--'
-      ) {
-        if (formattedRecommendedRange.includes(value)) {
-          return null;
-        } else {
-          return { invalid: true };
-        }
-      } else {
-        return null;
-      }
-    } else {
-      return { invalid: true };
-    }
-  }
-
-  namespacePrefixValidator(formControl: FormControl): ValidationErrors | null {
-    const prefixPattern = /^[a-z_][a-z_0-9\-.]+$/i;
-    const value = formControl.value;
-    if (!value || (value && formControl.value.match(prefixPattern))) {
-      return null;
-    } else {
-      return {
-        validNamespacePrefix: true,
-      };
-    }
-  }
-
-  sedmlIdValidator(formControl: FormControl): ValidationErrors | null {
-    const idPattern = /^[a-z_][a-z0-9_]+$/i;
-    const value = formControl.value;
-    if (value && formControl.value.match(idPattern)) {
-      return null;
-    } else {
-      return {
-        validSedmlId: true,
-      };
-    }
-  }
-
-  uniqueAttributeValidator(
-    attrName: string,
-    formArray: AbstractControl,
-  ): ValidationErrors | null {
-    const values = (formArray as FormArray).value as any[];
-
-    const uniqueValues = new Set<string>(
-      values.map((value: any): string => {
-        return value?.[attrName];
-      }),
-    );
-
-    if (uniqueValues.size === values.length) {
-      return null;
-    } else {
-      const error: any = {};
-      error[attrName + 'Unique'] = true;
-      return error;
-    }
-  }
-
-  hasCompatibleSimulatorValidator(
-    formGroup: FormGroup,
-  ): ValidationErrors | null {
-    const modelFormatControl = formGroup.controls.modelFormat as FormControl;
-    const modelingFrameworkControl = formGroup.controls
-      .modelingFramework as FormControl;
-    const simulationAlgorithmControl = formGroup.controls
-      .simulationAlgorithm as FormControl;
-    const simulationAlgorithmParametersArray = formGroup.controls
-      .simulationAlgorithmParameters as FormArray;
-
-    const formatEdamId = modelFormatControl.value;
-    const frameworkSboId = modelingFrameworkControl.value;
-    const algKisaoId = simulationAlgorithmControl.value;
-
-    const simCompatibilities: {
-      [id: string]: {
-        algorithm: AlgorithmSubstitutionPolicy;
-        parameters: boolean;
-      };
-    } = {};
-    this.simulatorSpecs?.forEach((simulator: SimulatorSpecs): void => {
-      simulator.modelingFrameworksAlgorithmsForModelFormats.forEach(
-        (
-          modelingFrameworksAlgorithmsForModelFormat: ModelingFrameworksAlgorithmsForModelFormat,
-        ): void => {
-          if (
-            modelingFrameworksAlgorithmsForModelFormat.formatEdamIds.includes(
-              formatEdamId,
-            ) &&
-            modelingFrameworksAlgorithmsForModelFormat.frameworkSboIds.includes(
-              frameworkSboId,
-            )
-          ) {
-            if (
-              modelingFrameworksAlgorithmsForModelFormat.algorithmKisaoIds.includes(
-                algKisaoId,
-              )
-            ) {
-              simCompatibilities[simulator.id] = {
-                algorithm:
-                  ALGORITHM_SUBSTITUTION_POLICIES[
-                    AlgorithmSubstitutionPolicyLevels.SAME_METHOD
-                  ],
-                parameters: true,
-              };
-            }
-
-            modelingFrameworksAlgorithmsForModelFormat.algorithmKisaoIds.forEach(
-              (simAlgId: string): void => {
-                const policy =
-                  this.algSubstitutions?.[simAlgId + '/' + algKisaoId];
-                if (policy) {
-                  if (!(simulator.id in simCompatibilities)) {
-                    simCompatibilities[simulator.id] = {
-                      algorithm: policy,
-                      parameters: true,
-                    };
-                  } else if (
-                    policy.level <
-                    simCompatibilities[simulator.id].algorithm.level
-                  ) {
-                    simCompatibilities[simulator.id].algorithm = policy;
-                  }
-                }
-              },
-            );
-          }
-        },
-      );
-    });
-
-    formGroup.value.simulationAlgorithmParameters.forEach(
-      (control: any): void => {
-        if (control.newValue) {
-          Object.entries(simCompatibilities).forEach(
-            ([simulatorId, compatability]: [string, any]): void => {
-              if (
-                !control.simulators.has(simulatorId) &&
-                compatability.algorithm.level <
-                  AlgorithmSubstitutionPolicyLevels.SAME_FRAMEWORK
-              ) {
-                simCompatibilities[simulatorId].parameters = false;
-              }
-            },
-          );
-        }
-      },
-    );
-
-    this.compatibleSimulators = Object.entries(simCompatibilities).map(
-      ([simulatorId, compatability]: [string, any]): CompatibleSimulator => {
-        return {
-          simulator: {
-            id: simulatorId,
-            name: this.simulatorSpecsMap?.[simulatorId]?.name as string,
-            url: this.appRoutes.getSimulatorsView(simulatorId),
-          },
-          minPolicy: compatability.algorithm,
-          parametersCompatibility: compatability.parameters,
-        };
-      },
-    );
-
-    if (!this.simulatorSpecs || this.compatibleSimulators?.length) {
-      return null;
-    } else {
-      return {
-        hasCompatibleSimulator: true,
-      };
-    }
-  }
-
-  changeModelLocationType(): void {
-    const locationTypeControl = this.formGroup.controls
-      .modelLocationType as FormControl;
-    const locationType: LocationType = locationTypeControl.value;
-    if (locationType === LocationType.file) {
-      this.formGroup.setControl(
-        'modelLocationDetails',
-        this.formBuilder.control('', [
-          Validators.required,
-          this.maxFileSizeValidator.bind(this),
-        ]),
-      );
-    } else {
-      this.formGroup.setControl(
-        'modelLocationDetails',
-        this.formBuilder.control('', [this.urlValidator]),
-      );
-    }
-
-    this.getModelParametersAndVariables();
-  }
-
-  changeUniformTimeCourseSimulationStep(): void {
-    const paramsGroup = this.formGroup.controls
-      .uniformTimeCourseSimulationParameters as FormGroup;
-    const outputEndTimeControl = paramsGroup.controls
-      .outputEndTime as FormControl;
-    const outputStartTimeControl = paramsGroup.controls
-      .outputStartTime as FormControl;
-    const numberOfStepsControl = paramsGroup.controls
-      .numberOfSteps as FormControl;
-
-    if (
-      outputEndTimeControl.value != null &&
-      outputStartTimeControl.value != null &&
-      numberOfStepsControl.value != null
-    ) {
-      paramsGroup.controls.step.setValue(
-        (outputEndTimeControl.value - outputStartTimeControl.value) /
-          numberOfStepsControl.value,
-      );
-    }
-  }
-
-  getModelParametersAndVariables(): void {
-    if (this.modelParametersAndVariablesSubscription) {
-      this.modelParametersAndVariablesSubscription.unsubscribe();
-      const iSub = this.subscriptions.indexOf(
-        this.modelParametersAndVariablesSubscription,
-      );
-      this.subscriptions.splice(iSub, 1);
-      this.modelParametersAndVariablesSubscription = undefined;
-    }
-
-    const modelLocationTypeControl = this.formGroup.controls.modelLocationType;
-    const modelLocationDetailsControl =
-      this.formGroup.controls.modelLocationDetails;
-
-    const modelLocationType: LocationType = modelLocationTypeControl.value;
-    const modelFile: File = modelLocationDetailsControl.value?.files?.[0];
-    const modelUrl: string = modelLocationDetailsControl.value;
-
-    const missingFileForFileType =
-      modelLocationType == LocationType.file && !modelFile;
-    const badUrlForUrlType =
-      modelLocationType == LocationType.url && (!modelUrl || !isUrl(modelUrl));
-
-    if (missingFileForFileType || badUrlForUrlType) {
-      return;
-    }
-
-    const modelFormatControl = this.formGroup.controls
-      .modelFormat as FormControl;
-    const modelingFrameworkControl = this.formGroup.controls
-      .modelingFramework as FormControl;
-    const simulationTypeControl = this.formGroup.controls
-      .simulationType as FormControl;
-    const simulationAlgorithmControl = this.formGroup.controls
-      .simulationAlgorithm as FormControl;
-
-    const modelFormat = modelFormatControl.value as string;
-    const modelingFramework = modelingFrameworkControl.value as string;
-    const simulationType = simulationTypeControl.value as SimulationType;
-    const simulationAlgorithm = simulationAlgorithmControl.value as string;
-
-    if (
-      !modelFormat ||
-      !modelingFramework ||
-      !simulationType ||
-      !simulationAlgorithm
-    ) {
-      return;
-    }
-
-    const modelNamespacesArray = this.formGroup.controls
-      .modelNamespaces as FormArray;
-    const modelChangesArray = this.formGroup.controls.modelChanges as FormArray;
-    const modelVariablesArray = this.formGroup.controls
-      .modelVariables as FormArray;
-
-    const formData = new FormData();
-    if (modelLocationType === LocationType.file) {
-      formData.append('modelFile', modelFile);
-    } else {
-      formData.append('modelUrl', modelUrl);
-    }
-    const modelLanguage =
-      this.edamIdFormatMap[modelFormat]?.biosimulationsMetadata
-        ?.modelFormatMetadata?.sedUrn;
-    if (modelLanguage) {
-      // so Typescript recognizes this as a string
-      formData.append('modelLanguage', modelLanguage);
-    }
-    formData.append('modelingFramework', modelingFramework);
-    formData.append('simulationType', simulationType);
-    formData.append('simulationAlgorithm', simulationAlgorithm);
-
-    const url = this.endpoints.getModelIntrospectionEndpoint(false);
-    const sedDoc = this.http.post<SedDocument>(url, formData).pipe(
-      catchError((error: HttpErrorResponse): Observable<null> => {
-        if (!environment.production) {
-          console.error(error);
-        }
-
-        let msg =
-          'Sorry! We were unable to get the input parameters and output variables of your model. ' +
-          'This feature is only currently available for models encoded in BNGL, CellML, SBML, SBML-fbc, ' +
-          'SBML-qual, and Smoldyn. Please refresh to try again.';
-        if (modelLocationType === LocationType.url) {
-          msg += ` Please check that ${modelUrl} is an accessible URL.`;
-        }
-
-        this.snackBar.open(msg, 'Ok', {
-          duration: 5000,
-          horizontalPosition: 'center',
-          verticalPosition: 'bottom',
-        });
-        return of<null>(null);
-      }),
-    );
-    const modelParametersAndVariablesSubscription = sedDoc.subscribe(
-      (sedDoc: SedDocument | null): void => {
-        modelNamespacesArray.clear();
-        modelChangesArray.clear();
-        modelVariablesArray.clear();
-
-        const nsMap: {
-          [prefix: string]: { prefix: string | null; uri: string };
-        } = {};
-        const changeVals: any[] = [];
-        const varVals: any[] = [];
-
-        sedDoc?.models?.[0]?.changes?.forEach(
-          (change: SedModelChange): void => {
-            if (
-              change._type ===
-              SedModelAttributeChangeType.SedModelAttributeChange
-            ) {
-              // TODO: extend to other types of changes
-              change.target?.namespaces?.forEach((ns: Namespace): void => {
-                const prefixKey = ns.prefix || '';
-                if (!(prefixKey in nsMap)) {
-                  this.addModelNamespace();
-                }
-                nsMap[prefixKey] = {
-                  prefix: ns?.prefix || null,
-                  uri: ns.uri,
-                };
-              });
-
-              this.addModelChange();
-              changeVals.push({
-                target: change.target.value,
-                id: change.id,
-                name: change?.name || null,
-                default: change.newValue,
-                newValue: null,
-              });
-            }
-          },
-        );
-
-        const simulation = sedDoc?.simulations?.[0];
-
-        switch (simulation?._type) {
-          case 'SedUniformTimeCourseSimulation': {
-            const simParametersGroup = this.formGroup.controls
-              .uniformTimeCourseSimulationParameters as FormGroup;
-            simParametersGroup.controls.initialTime.setValue(
-              simulation?.initialTime,
-            );
-            simParametersGroup.controls.outputStartTime.setValue(
-              simulation?.outputStartTime,
-            );
-            simParametersGroup.controls.outputEndTime.setValue(
-              simulation?.outputEndTime,
-            );
-            simParametersGroup.controls.numberOfSteps.setValue(
-              simulation?.numberOfSteps,
-            );
-            simParametersGroup.controls.step.setValue(
-              (simulation?.outputEndTime - simulation?.outputStartTime) /
-                simulation?.numberOfSteps,
-            );
-            break;
-          }
-
-          case 'SedOneStepSimulation': {
-            const simParametersGroup = this.formGroup.controls
-              .oneStepSimulationParameters as FormGroup;
-            simParametersGroup.controls.step.setValue(simulation?.step);
-            break;
-          }
-        }
-
-        const dataGeneratorsMap: { [id: string]: SedDataGenerator } = {};
-        sedDoc?.dataGenerators?.forEach(
-          (dataGenerator: SedDataGenerator): void => {
-            dataGeneratorsMap[dataGenerator.id] = dataGenerator;
-          },
-        );
-
-        sedDoc?.outputs
-          ?.flatMap((output: SedOutput): SedReport[] => {
-            if (output._type === SedReportType.SedReport) {
-              return [output];
-            } else {
-              return [];
-            }
-          })?.[0]
-          .dataSets?.forEach((dataSet: SedDataSet): void => {
-            const modelVar =
-              dataGeneratorsMap[dataSet.dataGenerator].variables[0];
-
-            modelVar?.target?.namespaces?.forEach((ns: Namespace): void => {
-              const prefixKey = ns.prefix || '';
-              if (!(prefixKey in nsMap)) {
-                this.addModelNamespace();
-              }
-              nsMap[prefixKey] = {
-                prefix: ns?.prefix || null,
-                uri: ns.uri,
-              };
-            });
-
-            this.addModelVariable();
-            const varVal = {
-              id: modelVar.id,
-              name: modelVar?.name || null,
-              type: modelVar?.symbol
-                ? ModelVariableType.symbol
-                : ModelVariableType.target,
-              symbolOrTarget: modelVar?.symbol || modelVar?.target?.value,
-            };
-            varVals.push(varVal);
-          });
-
-        const nsVals = Object.values(nsMap).sort((a, b): number => {
-          return (a.prefix || '').localeCompare(b.prefix || '', undefined, {
-            numeric: true,
-          });
-        });
-
-        changeVals.sort((a, b): number => {
-          return a.id.localeCompare(b.id, undefined, { numeric: true });
-        });
-
-        varVals.sort((a, b): number => {
-          if (a.type === b.type) {
-            return a.id.localeCompare(b.id, undefined, { numeric: true });
-          } else {
-            return a.type.localeCompare(b.type, undefined, { numeric: true });
-          }
-        });
-
-        modelNamespacesArray.setValue(nsVals);
-        modelChangesArray.setValue(changeVals);
-        modelVariablesArray.setValue(varVals);
-      },
-    );
-    this.modelParametersAndVariablesSubscription =
-      modelParametersAndVariablesSubscription;
-    this.subscriptions.push(modelParametersAndVariablesSubscription);
-  }
-
-  changeModelFormat(): void {
-    const modelFormatControl = this.formGroup.controls
-      .modelFormat as FormControl;
-    const modelingFrameworkControl = this.formGroup.controls
-      .modelingFramework as FormControl;
-
-    const formatEdamId = modelFormatControl.value;
-
-    if (this.allModelingFrameworks && formatEdamId && this.simulatorSpecs) {
-      const sboIds = new Set<string>();
-      this.simulatorSpecs?.forEach((simulator: SimulatorSpecs): void => {
-        simulator.modelingFrameworksAlgorithmsForModelFormats.forEach(
-          (
-            modelingFrameworksAlgorithmsForModelFormat: ModelingFrameworksAlgorithmsForModelFormat,
-          ): void => {
-            if (
-              modelingFrameworksAlgorithmsForModelFormat.formatEdamIds.includes(
-                formatEdamId,
-              )
-            ) {
-              modelingFrameworksAlgorithmsForModelFormat.frameworkSboIds.forEach(
-                (sboId: string): void => {
-                  sboIds.add(sboId);
-                },
-              );
-            }
-          },
-        );
-      });
-
-      this.modelingFrameworks = this.allModelingFrameworks.filter(
-        (framework: OntologyTerm): boolean => {
-          return sboIds.has(framework.id);
-        },
-      );
-
-      if (this.modelingFrameworks.length === 1) {
-        modelingFrameworkControl.setValue(this.modelingFrameworks[0].id);
-      } else if (!sboIds.has(modelingFrameworkControl.value)) {
-        modelingFrameworkControl.setValue(null);
-      }
-
-      modelingFrameworkControl.enable();
-
-      if (sboIds.size === 0) {
-        modelFormatControl.setValue(null);
-      }
-    } else {
-      this.modelingFrameworks = undefined;
-      modelingFrameworkControl.disable();
-      modelingFrameworkControl.setValue(null);
-    }
-
-    this.changeModelingFramework();
-  }
-
-  changeModelingFramework(): void {
-    const modelFormatControl = this.formGroup.controls
-      .modelFormat as FormControl;
-    const modelingFrameworkControl = this.formGroup.controls
-      .modelingFramework as FormControl;
-    const simulationTypeControl = this.formGroup.controls
-      .simulationType as FormControl;
-
-    const formatEdamId = modelFormatControl.value;
-    const frameworkSboId = modelingFrameworkControl.value;
-
-    if (
-      this.allSimulationAlgorithms &&
-      formatEdamId &&
-      frameworkSboId &&
-      this.simulatorSpecs
-    ) {
-      const simulationTypes = new Set<SimulationType>();
-
-      this.simulatorSpecs.forEach((simulator: SimulatorSpecs): void => {
-        simulator.modelingFrameworksAlgorithmsForModelFormats.forEach(
-          (
-            modelingFrameworksAlgorithmsForModelFormat: ModelingFrameworksAlgorithmsForModelFormat,
-          ): void => {
-            if (
-              modelingFrameworksAlgorithmsForModelFormat.formatEdamIds.includes(
-                formatEdamId,
-              ) &&
-              modelingFrameworksAlgorithmsForModelFormat.frameworkSboIds.includes(
-                frameworkSboId,
-              )
-            ) {
-              modelingFrameworksAlgorithmsForModelFormat.simulationTypes.forEach(
-                (simulationType: SimulationType): void => {
-                  simulationTypes.add(simulationType);
-                },
-              );
-            }
-          },
-        );
-      });
-
-      this.simulationTypes = Array.from(simulationTypes)
-        .map((simulationType: SimulationType): OntologyTerm => {
-          return {
-            id: simulationType,
-            name: SimulationTypeBriefName[simulationType],
-          };
-        })
-        .sort((a: OntologyTerm, b: OntologyTerm): number => {
-          return a.name.localeCompare(b.name, undefined, { numeric: true });
-        });
-
-      if (this.simulationTypes.length === 1) {
-        simulationTypeControl.setValue(this.simulationTypes[0].id);
-      } else if (!simulationTypes.has(simulationTypeControl.value)) {
-        simulationTypeControl.setValue(null);
-      }
-
-      simulationTypeControl.enable();
-      if (this.simulationTypes.length === 0) {
-        modelingFrameworkControl.setValue(null);
-      }
-    } else if (!formatEdamId && frameworkSboId) {
-      modelingFrameworkControl.setValue(null);
-    } else {
-      this.simulationTypes = undefined;
-      simulationTypeControl.disable();
-      simulationTypeControl.setValue(null);
-    }
-
-    this.changeSimulationType();
-  }
-
-  changeSimulationType(): void {
-    const modelFormatControl = this.formGroup.controls
-      .modelFormat as FormControl;
-    const modelingFrameworkControl = this.formGroup.controls
-      .modelingFramework as FormControl;
-    const simulationTypeControl = this.formGroup.controls
-      .simulationType as FormControl;
-    const simulationAlgorithmControl = this.formGroup.controls
-      .simulationAlgorithm as FormControl;
-
-    const formatEdamId = modelFormatControl.value;
-    const frameworkSboId = modelingFrameworkControl.value;
-    const simulationType: SimulationType | null = simulationTypeControl.value;
-
-    let hasImplementation = false;
-    this.simulationTypes?.forEach((simulationTypeObj: OntologyTerm): void => {
-      if (simulationType === simulationTypeObj.id) {
-        hasImplementation = true;
-      }
-    });
-    if (simulationType && !hasImplementation) {
-      simulationTypeControl.setValue(null);
-    }
-
-    const oneStepSimulationParametersGroup = this.formGroup.controls
-      .oneStepSimulationParameters as FormGroup;
-    const uniformTimeCourseSimulationParametersGroup = this.formGroup.controls
-      .uniformTimeCourseSimulationParameters as FormGroup;
-
-    if (simulationType === SimulationType.SedOneStepSimulation) {
-      oneStepSimulationParametersGroup.enable();
-      uniformTimeCourseSimulationParametersGroup.disable();
-    } else if (simulationType === SimulationType.SedSteadyStateSimulation) {
-      oneStepSimulationParametersGroup.disable();
-      uniformTimeCourseSimulationParametersGroup.disable();
-    } else if (
-      simulationType === SimulationType.SedUniformTimeCourseSimulation
-    ) {
-      oneStepSimulationParametersGroup.disable();
-      uniformTimeCourseSimulationParametersGroup.enable();
-    } else {
-      oneStepSimulationParametersGroup.disable();
-      uniformTimeCourseSimulationParametersGroup.disable();
-    }
-
-    if (
-      this.allSimulationAlgorithms &&
-      formatEdamId &&
-      frameworkSboId &&
-      simulationType &&
-      this.simulatorSpecs
-    ) {
-      const kisaoIds = new Set<string>();
-      this.simulatorSpecs?.forEach((simulator: SimulatorSpecs): void => {
-        simulator.modelingFrameworksAlgorithmsForModelFormats.forEach(
-          (
-            modelingFrameworksAlgorithmsForModelFormat: ModelingFrameworksAlgorithmsForModelFormat,
-          ): void => {
-            if (
-              modelingFrameworksAlgorithmsForModelFormat.formatEdamIds.includes(
-                formatEdamId,
-              ) &&
-              modelingFrameworksAlgorithmsForModelFormat.frameworkSboIds.includes(
-                frameworkSboId,
-              ) &&
-              modelingFrameworksAlgorithmsForModelFormat.simulationTypes.includes(
-                simulationType,
-              )
-            ) {
-              modelingFrameworksAlgorithmsForModelFormat.algorithmKisaoIds.forEach(
-                (kisaoId: string): void => {
-                  kisaoIds.add(kisaoId);
-                },
-              );
-            }
-          },
-        );
-      });
-
-      this.simulationAlgorithms = this.allSimulationAlgorithms.filter(
-        (algorithm: OntologyTerm): boolean => {
-          return kisaoIds.has(algorithm.id);
-        },
-      );
-
-      if (this.simulationAlgorithms.length === 1) {
-        simulationAlgorithmControl.setValue(this.simulationAlgorithms[0].id);
-      } else if (!kisaoIds.has(simulationAlgorithmControl.value)) {
-        simulationAlgorithmControl.setValue(null);
-      }
-
-      simulationAlgorithmControl.enable();
-    } else {
-      this.simulationAlgorithms = undefined;
-      simulationAlgorithmControl.disable();
-      simulationAlgorithmControl.setValue(null);
-    }
-
-    this.changeSimulationAlgorithm();
-  }
-
-  changeSimulationAlgorithm(): void {
-    const modelFormatControl = this.formGroup.controls
-      .modelFormat as FormControl;
-    const modelingFrameworkControl = this.formGroup.controls
-      .modelingFramework as FormControl;
-    const simulationTypeControl = this.formGroup.controls
-      .simulationType as FormControl;
-    const simulationAlgorithmControl = this.formGroup.controls
-      .simulationAlgorithm as FormControl;
-    const simulationAlgorithmParametersArray = this.formGroup.controls
-      .simulationAlgorithmParameters as FormArray;
-
-    const formatEdamId = modelFormatControl.value;
-    const frameworkSboId = modelingFrameworkControl.value;
-    const simulationType = simulationTypeControl.value as SimulationType;
-    const algKisaoId = simulationAlgorithmControl.value;
-
-    let hasImplementation = false;
-    const allParams: {
-      [id: string]: MultipleSimulatorsAlgorithmParameter;
-    } = {};
-
-    this.simulatorSpecs?.forEach((simulator: SimulatorSpecs): void => {
-      simulator.modelingFrameworksAlgorithmsForModelFormats.forEach(
-        (
-          modelingFrameworksAlgorithmsForModelFormat: ModelingFrameworksAlgorithmsForModelFormat,
-        ): void => {
-          if (
-            modelingFrameworksAlgorithmsForModelFormat.formatEdamIds.includes(
-              formatEdamId,
-            ) &&
-            modelingFrameworksAlgorithmsForModelFormat.frameworkSboIds.includes(
-              frameworkSboId,
-            ) &&
-            modelingFrameworksAlgorithmsForModelFormat.algorithmKisaoIds.includes(
-              algKisaoId,
-            )
-          ) {
-            hasImplementation = true;
-            modelingFrameworksAlgorithmsForModelFormat.parameters.forEach(
-              (param: AlgorithmParameter): void => {
-                const allParam = allParams?.[param.id];
-                if (allParam) {
-                  allParam.simulators.add(simulator.id);
-                  if (allParam.type !== param.type) {
-                    allParam.type = '--multiple--';
-                  }
-                  if (allParam.formattedValue !== param.formattedValue) {
-                    allParam.value = '--multiple--';
-                    allParam.formattedValue = '--multiple--';
-                  }
-                  if (
-                    allParam.formattedRecommendedRangeJoined !==
-                    param.formattedRecommendedRangeJoined
-                  ) {
-                    allParam.recommendedRange = '--multiple--';
-                    allParam.formattedRecommendedRange = '--multiple--';
-                    allParam.formattedRecommendedRangeJoined = '--multiple--';
-                  }
-                } else {
-                  allParams[param.id] = {
-                    id: param.id,
-                    name: param.name,
-                    url: param.url,
-                    simulators: new Set<string>([simulator.id]),
-                    type: param.type,
-                    value: param.value,
-                    formattedValue: param.formattedValue,
-                    recommendedRange: param.recommendedRange,
-                    formattedRecommendedRange: param.formattedRecommendedRange,
-                    formattedRecommendedRangeJoined:
-                      param.formattedRecommendedRangeJoined,
-                  };
-                }
-              },
-            );
-          }
-        },
-      );
-    });
-
-    if (
-      algKisaoId &&
-      (!formatEdamId ||
-        !frameworkSboId ||
-        !simulationType ||
-        !hasImplementation)
-    ) {
-      simulationAlgorithmControl.setValue(null);
-    }
-
-    simulationAlgorithmParametersArray.clear();
-
-    Object.values(allParams)
-      .sort(
-        (
-          a: MultipleSimulatorsAlgorithmParameter,
-          b: MultipleSimulatorsAlgorithmParameter,
-        ): number => {
-          return a.name.localeCompare(b.name, undefined, { numeric: true });
-        },
-      )
-      .forEach((param: MultipleSimulatorsAlgorithmParameter): void => {
-        simulationAlgorithmParametersArray.push(
-          this.formBuilder.group(
-            {
-              id: [param.id],
-              name: [param.name],
-              url: [param.url],
-              simulators: param.simulators,
-              simulatorsStr: [Array.from(param.simulators).sort().join(', ')],
-              type: [param.type],
-              value: [param.value],
-              formattedValue: [param.formattedValue],
-              recommendedRange: [param.recommendedRange],
-              formattedRecommendedRange: [param.formattedRecommendedRange],
-              formattedRecommendedRangeJoined: [
-                param.formattedRecommendedRangeJoined,
-              ],
-              newValue: [''],
-            },
-            {
-              validators: [this.parameterValidator],
-            },
-          ),
-        );
-      });
-
-    this.getModelParametersAndVariables();
-  }
-
-  private setIntersection(a: Set<string>, b: Set<string>): Set<string> {
-    const _intersection = new Set<string>();
-    for (const elem of b) {
-      if (a.has(elem)) {
-        _intersection.add(elem);
-      }
-    }
-    return _intersection;
-  }
-
-  addModelNamespace(): void {
-    const modelNamespacesArray = this.formGroup.controls
-      .modelNamespaces as FormArray;
-    modelNamespacesArray.push(
-      this.formBuilder.group({
-        prefix: [null, [this.namespacePrefixValidator]],
-        uri: [null, [this.urlValidator]],
-      }),
-    );
-  }
-
-  removeModelNamespace(iNamespace: number): void {
-    const modelNamespacesArray = this.formGroup.controls
-      .modelNamespaces as FormArray;
-    modelNamespacesArray.removeAt(iNamespace);
-  }
-
-  addModelChange(): void {
-    const modelChangesArray = this.formGroup.controls.modelChanges as FormArray;
-    const modelChange = this.formBuilder.group({
-      id: [null, [this.sedmlIdValidator]],
-      name: [null, []],
-      target: [null, [Validators.required]],
-      default: [null, []],
-      newValue: [null, []],
-    });
-    modelChange.controls.default.disable();
-    modelChangesArray.push(modelChange);
-  }
-
-  removeModelChange(iChange: number): void {
-    const modelChangesArray = this.formGroup.controls.modelChanges as FormArray;
-    modelChangesArray.removeAt(iChange);
-  }
-
-  addModelVariable(): void {
-    const modelVariablesArray = this.formGroup.controls
-      .modelVariables as FormArray;
-    modelVariablesArray.push(
-      this.formBuilder.group({
-        id: [null, [this.sedmlIdValidator]],
-        name: [null],
-        type: [ModelVariableType.target, Validators.required],
-        symbolOrTarget: [null, Validators.required],
-      }),
-    );
-  }
-
-  removeModelVariable(iVariable: number): void {
-    const modelVariablesArray = this.formGroup.controls
-      .modelVariables as FormArray;
-    modelVariablesArray.removeAt(iVariable);
-  }
-
-  ngOnInit(): void {
+  public ngOnInit(): void {
     const simulatorsDataObs = this.dispatchService.getSimulatorsFromDb();
-    const algorithmSubObs = simulatorsDataObs.pipe(
-      map(
-        (
-          simulatorsData: SimulatorsData,
-        ): Observable<AlgorithmSubstitution[] | undefined> => {
-          return this.combineApiService.getSimilarAlgorithms(
-            Object.keys(simulatorsData.simulationAlgorithms),
-          );
-        },
-      ),
-      concatAll(),
-      withLatestFrom(simulatorsDataObs, this.route.queryParams),
-    );
-
-    const algorithmSubSubcription = algorithmSubObs.subscribe(
-      (
-        observerableValues: [
-          AlgorithmSubstitution[] | undefined,
-          SimulatorsData,
-          Params,
-        ],
-      ): void => {
-        if (!observerableValues[0]) {
-          this.snackBar.open(
-            'Sorry! We were unable to load information about the simularity among algorithms. Please refresh to try again.',
-            'Ok',
-            {
-              duration: 5000,
-              horizontalPosition: 'center',
-              verticalPosition: 'bottom',
-            },
-          );
-        }
-
-        // TODO set typing and refactor. TS will not catch the type errors here
-        const algSubstitutions: AlgorithmSubstitution[] =
-          observerableValues[0] === undefined ? [] : observerableValues[0];
-        const simulatorsData: SimulatorsData = observerableValues[1];
-        const queryParams: Params = observerableValues[2];
-
-        this.simulatorSpecsMap = simulatorsData.simulatorSpecs;
-        this.simulatorSpecs = Object.values(simulatorsData.simulatorSpecs);
-        const algSubstitutionsMap: any = {};
-        algSubstitutions
-          .filter((algSubstitution: AlgorithmSubstitution): boolean => {
-            return (
-              algSubstitution.minPolicy.level <=
-              AlgorithmSubstitutionPolicyLevels.SAME_FRAMEWORK
-            );
-          })
-          .forEach((algSubstitution: AlgorithmSubstitution): void => {
-            algSubstitutionsMap[
-              algSubstitution.algorithms[0].id +
-                '/' +
-                algSubstitution.algorithms[1].id
-            ] = algSubstitution.minPolicy;
-          });
-        this.algSubstitutions = algSubstitutionsMap;
-
-        this.allModelFormats = Object.values(simulatorsData.modelFormats).map(
-          (format: any): OntologyTerm => {
-            return {
-              id: format.id,
-              name: format.name,
-            };
-          },
-        );
-        this.allModelingFrameworks = Object.values(
-          simulatorsData.modelingFrameworks,
-        ).map((framework: any): OntologyTerm => {
-          return {
-            id: framework.id,
-            name: framework.name,
-          };
-        });
-        this.allSimulationAlgorithms = Object.values(
-          simulatorsData.simulationAlgorithms,
-        ).map((algorithm: any): OntologyTerm => {
-          return {
-            id: algorithm.id,
-            name: algorithm.name,
-          };
-        });
-
-        this.simulatorSpecs?.sort(
-          (a: SimulatorSpecs, b: SimulatorSpecs): number => {
-            return a.name.localeCompare(b.name, undefined, { numeric: true });
-          },
-        );
-        this.allModelFormats?.sort(
-          (a: OntologyTerm, b: OntologyTerm): number => {
-            return a.name.localeCompare(b.name, undefined, { numeric: true });
-          },
-        );
-        this.allModelingFrameworks?.sort(
-          (a: OntologyTerm, b: OntologyTerm): number => {
-            return a.name.localeCompare(b.name, undefined, { numeric: true });
-          },
-        );
-        this.allSimulationAlgorithms?.sort(
-          (a: OntologyTerm, b: OntologyTerm): number => {
-            return a.name.localeCompare(b.name, undefined, { numeric: true });
-          },
-        );
-
-        // setup model formats
-        const formatEdamIds = new Set<string>();
-        this.simulatorSpecs?.forEach((simulator: SimulatorSpecs): void => {
-          simulator.modelingFrameworksAlgorithmsForModelFormats.forEach(
-            (
-              modelingFrameworksAlgorithmsForModelFormat: ModelingFrameworksAlgorithmsForModelFormat,
-            ): void => {
-              modelingFrameworksAlgorithmsForModelFormat.formatEdamIds.forEach(
-                (formatEdamId: string): void => {
-                  formatEdamIds.add(formatEdamId);
-                },
-              );
-            },
-          );
-        });
-        this.modelFormats = this.allModelFormats.filter(
-          (format: OntologyTerm): boolean => {
-            return (
-              formatEdamIds.has(format.id) &&
-              this.edamIdFormatMap[format.id]?.biosimulationsMetadata
-                ?.modelFormatMetadata?.introspectionAvailable === true
-            );
-          },
-        );
-
-        // get references to controls
-        const modelLocationTypeControl = this.formGroup.controls
-          .modelLocationType as FormControl;
-        const modelFormatControl = this.formGroup.controls
-          .modelFormat as FormControl;
-        const modelingFrameworkControl = this.formGroup.controls
-          .modelingFramework as FormControl;
-        const simulationTypeControl = this.formGroup.controls
-          .simulationType as FormControl;
-        const simulationAlgorithmControl = this.formGroup.controls
-          .simulationAlgorithm as FormControl;
-
-        // Enable model format select menu
-        modelFormatControl.enable();
-
-        // set value of form based on query arguments
-        const modelUrl = queryParams?.modelUrl;
-        if (modelUrl) {
-          modelLocationTypeControl.setValue(LocationType.url);
-          const modelLocationDetailsControl = this.formGroup.controls
-            .modelLocationDetails as FormControl;
-          modelLocationDetailsControl.setValue(modelUrl);
-        }
-
-        let modelFormat = queryParams?.modelFormat;
-        if (modelFormat) {
-          modelFormat = modelFormat.toLowerCase();
-          const match = modelFormat.match(/^(format[:_])?(\d{1,4})$/);
-          if (match) {
-            modelFormat =
-              'format_' + '0'.repeat(4 - match[2].length) + match[2];
-          }
-          modelFormatControl.setValue(modelFormat);
-        }
-
-        let modelingFramework = queryParams?.modelingFramework;
-        if (modelingFramework) {
-          modelingFramework = modelingFramework.toUpperCase();
-          const match = modelingFramework.match(/^(SBO[:_])?(\d{1,7})$/);
-          if (match) {
-            modelingFramework =
-              'SBO_' + '0'.repeat(7 - match[2].length) + match[2];
-          }
-          modelingFrameworkControl.setValue(modelingFramework);
-        }
-
-        let simulationType = queryParams?.simulationType;
-        if (simulationType) {
-          if (!simulationType.startsWith('Sed')) {
-            simulationType = 'Sed' + simulationType;
-          }
-          if (!simulationType.endsWith('Simulation')) {
-            simulationType = simulationType + 'Simulation';
-          }
-
-          this.allSimulationTypes.forEach((simType: OntologyTerm): void => {
-            if (simulationType.toLowerCase() == simType.id.toLowerCase()) {
-              simulationType = simType.id;
-            }
-          });
-
-          simulationTypeControl.setValue(simulationType);
-        }
-
-        let simulationAlgorithm = queryParams?.simulationAlgorithm;
-        if (simulationAlgorithm) {
-          simulationAlgorithm = simulationAlgorithm.toUpperCase();
-          const match = simulationAlgorithm.match(/^(KISAO[:_])?(\d{1,7})$/);
-          if (match) {
-            simulationAlgorithm =
-              'KISAO_' + '0'.repeat(7 - match[2].length) + match[2];
-          }
-          simulationAlgorithmControl.setValue(simulationAlgorithm);
-        }
-
-        // clear errors
-        this.formGroup.setErrors(null);
-
-        // set loading to false
-        this.loading.next(false);
-      },
-    );
-    this.subscriptions.push(algorithmSubSubcription);
+    const algSubObs = simulatorsDataObs.pipe(concatMap(this.getAlgSubs.bind(this)));
+    const loadCompleteObs = zip([algSubObs, simulatorsDataObs, this.route.queryParams]);
+    const loadCompleteSub = loadCompleteObs.subscribe(this.loadComplete.bind(this));
+    this.subscriptions.push(loadCompleteSub);
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription: Subscription) =>
-      subscription.unsubscribe(),
-    );
+  public ngAfterViewInit(): void {
+    if (this.formHostQuery.first) {
+      this.setFormHost(this.formHostQuery.first);
+    } else {
+      const subscription = this.formHostQuery.changes.subscribe((comps: QueryList<FormHostDirective>) => {
+        if (this.formHost) {
+          return;
+        }
+        this.setFormHost(comps.first);
+      });
+      this.subscriptions.push(subscription);
+    }
   }
 
-  onFormSubmit(postCreateAction: PostCreateAction): void {
-    this.submitPushed = true;
+  public ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
+  }
 
-    this.formGroup.updateValueAndValidity();
+  // Control callbacks
 
-    if (!this.formGroup.valid) {
+  public onNextClicked(): void {
+    if (!this.currentFormStepComponent) {
       return;
     }
+    this.currentFormStepComponent.nextClicked = true;
+    const currentStep = this.currentFormStep();
+    const currentStepData = this.currentFormStepComponent?.getFormStepData();
+    if (!currentStepData || !currentStep) {
+      return; // The form did not validate, do not proceed to next step.
+    }
+    this.formData[currentStep] = currentStepData;
+    this.formPath.push(currentStep);
+    if (currentStep === CreateProjectFormStep.FrameworkSimTypeAndAlgorithm) {
+      this.showIntrospectingComponent();
+    } else {
+      this.loadCurrentFormStep();
+    }
+  }
 
-    this.projectBeingCreated = true;
+  public onBackClicked(): void {
+    const currentStep = this.currentFormStep();
+    if (!currentStep) {
+      return;
+    }
+    delete this.formData[currentStep];
+    this.formPath.pop();
+    this.loadCurrentFormStep();
+  }
 
-    const formData = new FormData();
-    const archiveSpecs = this.getArchiveSpecs();
-    const options: any = {};
-    formData.append('specs', JSON.stringify(archiveSpecs));
-    if (this.formGroup.value.modelLocationType === LocationType.file) {
-      const modelFileInput: FileInput =
-        this.formGroup.value.modelLocationDetails;
-      formData.append('files', modelFileInput.files[0]);
+  public onSimulateClicked(): void {
+    const formData = this.createSubmissionFormData();
+    this.submitFormData(formData, (projectUrl: string): void => {
+      this.simulateCreatedCombineArchive(projectUrl);
+    });
+  }
+
+  public onDownloadClicked(): void {
+    const formData = this.createSubmissionFormData();
+    this.submitFormData(formData, (projectUrl: string): void => {
+      this.downloadCreatedCombineArchive(projectUrl);
+    });
+  }
+  public shouldShowBackButton(): boolean {
+    const showingSpinner = this.currentFormStepComponent === undefined;
+    return this.formPath.length > 0 && !showingSpinner;
+  }
+
+  public shouldShowNextButton(): boolean {
+    const showingSpinner = this.currentFormStepComponent === undefined;
+    return !showingSpinner && this.currentFormStep() !== CreateProjectFormStep.SimulationTools;
+  }
+
+  // Setup
+
+  private setFormHost(formHost: FormHostDirective): void {
+    this.formHost = formHost;
+    // Since this function is called within change detection callbacks, editing the view further must
+    // be pushed off to the next turn of the run loop. See https://angular.io/errors/NG0100
+    setTimeout(() => {
+      this.loadCurrentFormStep();
+    });
+  }
+
+  private loadComplete(observerableValues: [AlgorithmSubstitution[] | undefined, SimulatorsData, Params]): void {
+    this.algSubstitutions = observerableValues[0] === undefined ? [] : observerableValues[0];
+    if (this.algSubstitutions.length === 0) {
+      this.showAlgorithmSubstitutionErrorSnackbar();
+    }
+    this.simulatorsData = observerableValues[1];
+    this.preloadDataFromParams(observerableValues[2]);
+    this.shouldShowSpinner = false;
+  }
+
+  private getAlgSubs(simulatorsData: SimulatorsData): Observable<AlgorithmSubstitution[] | undefined> {
+    const algorithmKeys = Object.keys(simulatorsData.simulationAlgorithms);
+    return this.combineApiService.getSimilarAlgorithms(algorithmKeys);
+  }
+
+  // Form step state machine
+
+  private loadCurrentFormStep(): void {
+    const currentStep = this.currentFormStep();
+    if (currentStep) {
+      this.loadFormStep(currentStep);
+    }
+  }
+
+  private showIntrospectingComponent(): void {
+    const formContainerRef = this.formHost.viewContainerRef;
+    formContainerRef.clear();
+    this.currentFormStepComponent = undefined;
+    this.createIntrospectingModelComponent(formContainerRef);
+  }
+
+  private loadFormStep(formStep: CreateProjectFormStep): void {
+    const formContainerRef = this.formHost.viewContainerRef;
+    formContainerRef.clear();
+
+    switch (formStep) {
+      case CreateProjectFormStep.UploadModel:
+        this.currentFormStepComponent = this.createUploadModelForm(formContainerRef);
+        break;
+      case CreateProjectFormStep.FrameworkSimTypeAndAlgorithm:
+        this.currentFormStepComponent = this.createSimulatorTypeForm(formContainerRef);
+        break;
+      case CreateProjectFormStep.UniformTimeCourseSimulationParameters:
+        this.currentFormStepComponent = this.createUniformTimeCourseForm(formContainerRef);
+        break;
+      case CreateProjectFormStep.AlgorithmParameters:
+        this.currentFormStepComponent = this.createAlgorithmParametersForm(formContainerRef);
+        break;
+      case CreateProjectFormStep.ModelNamespace:
+        this.currentFormStepComponent = this.createModelNamespaceForm(formContainerRef);
+        break;
+      case CreateProjectFormStep.ModelChanges:
+        this.currentFormStepComponent = this.createModelChangesForm(formContainerRef);
+        break;
+      case CreateProjectFormStep.Observables:
+        this.currentFormStepComponent = this.createObservablesForm(formContainerRef);
+        break;
+      case CreateProjectFormStep.SimulationTools:
+        this.currentFormStepComponent = this.createSimulationToolsForm(formContainerRef);
+        break;
     }
 
-    const url = this.endpoints.getCombineArchiveCreationEndpoint(true);
-    const projectOrUrl: Observable<string | any> = this.http
-      .post<string>(url, formData, options)
-      .pipe(
-        catchError((error: HttpErrorResponse): Observable<string> => {
-          console.error(error);
-          this.snackBar.open(
-            'Sorry! We were unable to generate your COMBINE/OMEX archive. Please refresh to try again.',
-            'Ok',
-            {
-              duration: 5000,
-              horizontalPosition: 'center',
-              verticalPosition: 'bottom',
-            },
-          );
-          return of<string>('');
-        }),
-      );
-    const projectOrUrlSub = projectOrUrl.subscribe(
-      (projectOrUrl: string | any): void => {
-        if (projectOrUrl) {
-          this.processCreatedCombineArchive(postCreateAction, projectOrUrl);
-        }
-      },
-    );
-    this.subscriptions.push(projectOrUrlSub);
+    const currentData = this.formData[formStep];
+    this.currentFormStepComponent?.populateFormFromFormStepData(currentData);
+  }
 
-    // print status
+  private currentFormStep(): CreateProjectFormStep | undefined {
+    const orderedSteps = [
+      CreateProjectFormStep.UploadModel,
+      CreateProjectFormStep.FrameworkSimTypeAndAlgorithm,
+      CreateProjectFormStep.UniformTimeCourseSimulationParameters,
+      CreateProjectFormStep.AlgorithmParameters,
+      CreateProjectFormStep.ModelNamespace,
+      CreateProjectFormStep.ModelChanges,
+      CreateProjectFormStep.Observables,
+      CreateProjectFormStep.SimulationTools,
+    ];
+
+    const conditions: { [step in CreateProjectFormStep]?: () => boolean } = {};
+    conditions[CreateProjectFormStep.UniformTimeCourseSimulationParameters] = this.shouldShowUniformTimeStep.bind(this);
+    conditions[CreateProjectFormStep.AlgorithmParameters] = this.shouldShowAlgorithmParametersStep.bind(this);
+
+    const lastStep = this.formPath.length > 0 ? this.formPath[this.formPath.length - 1] : undefined;
+    const lastIndex = lastStep === undefined ? -1 : orderedSteps.indexOf(lastStep);
+
+    for (let i = lastIndex + 1; i < orderedSteps.length; i++) {
+      const potentialStep = orderedSteps[i];
+      const stepCondition = conditions[potentialStep];
+      if (!stepCondition || stepCondition()) {
+        return potentialStep;
+      }
+    }
+
+    return undefined;
+  }
+
+  // Form step conditions
+
+  private shouldShowUniformTimeStep(): boolean {
+    const algorithmData = this.formData[CreateProjectFormStep.FrameworkSimTypeAndAlgorithm];
+    const simulationType = algorithmData?.simulationType;
+    return simulationType === SimulationType.SedUniformTimeCourseSimulation;
+  }
+
+  private shouldShowAlgorithmParametersStep(): boolean {
+    const algorithmData = this.formData[CreateProjectFormStep.FrameworkSimTypeAndAlgorithm];
+    const parameters = algorithmData?.parameters as AlgorithmParameterMap;
+    return parameters && Object.keys(parameters).length > 0;
+  }
+
+  // Form component creation
+
+  private createUploadModelForm(formContainerRef: ViewContainerRef): FormStepComponent {
+    const hostedComponent = formContainerRef.createComponent<FormStepComponent>(UploadModelComponent);
+    const uploadModelComponent = hostedComponent.instance as UploadModelComponent;
+    uploadModelComponent.setup(this.simulatorsData);
+    return uploadModelComponent;
+  }
+
+  private createSimulatorTypeForm(formContainerRef: ViewContainerRef): FormStepComponent | undefined {
+    const hostedComponent = formContainerRef.createComponent<FormStepComponent>(SimulatorTypeComponent);
+    const simTypeComponent = hostedComponent.instance as SimulatorTypeComponent;
+    const uploadModelFormData = this.formData[CreateProjectFormStep.UploadModel];
+    const modelFormat = uploadModelFormData?.modelFormat as string;
+    simTypeComponent.setup(this.simulatorsData, modelFormat);
+    return simTypeComponent;
+  }
+
+  private createIntrospectingModelComponent(formContainerRef: ViewContainerRef): void {
+    const hostedComponent = formContainerRef.createComponent<IntrospectingModelComponent>(IntrospectingModelComponent);
+    const component = hostedComponent.instance as IntrospectingModelComponent;
+    const uploadModelFormData = this.formData[CreateProjectFormStep.UploadModel];
+    const simMethodFormData = this.formData[CreateProjectFormStep.FrameworkSimTypeAndAlgorithm];
+    component.introspectModel(uploadModelFormData, simMethodFormData, this.introspectionHandler.bind(this));
+  }
+
+  private createUniformTimeCourseForm(formContainerRef: ViewContainerRef): FormStepComponent {
+    const hostedComponent = formContainerRef.createComponent<FormStepComponent>(UniformTimeCourseSimulationComponent);
+    return hostedComponent.instance;
+  }
+
+  private createAlgorithmParametersForm(formContainerRef: ViewContainerRef): FormStepComponent {
+    const algorithmData = this.formData[CreateProjectFormStep.FrameworkSimTypeAndAlgorithm];
+    const parameters = algorithmData?.parameters as AlgorithmParameterMap;
+    const hostedComponent = formContainerRef.createComponent<FormStepComponent>(AlgorithmParametersComponent);
+    const component = hostedComponent.instance as AlgorithmParametersComponent;
+    component.setup(parameters);
+    return component;
+  }
+
+  private createModelNamespaceForm(formContainerRef: ViewContainerRef): FormStepComponent {
+    const hostedComponent = formContainerRef.createComponent<FormStepComponent>(ModelNamespacesComponent);
+    return hostedComponent.instance;
+  }
+
+  private createModelChangesForm(formContainerRef: ViewContainerRef): FormStepComponent {
+    const hostedComponent = formContainerRef.createComponent<FormStepComponent>(ModelChangesComponent);
+    const namespaceData = this.formData[CreateProjectFormStep.ModelNamespace];
+    const namespaces = namespaceData?.namespaces as Namespace[];
+    const modelChangesComponent = hostedComponent.instance as ModelChangesComponent;
+    modelChangesComponent.setup(namespaces);
+    return modelChangesComponent;
+  }
+
+  private createObservablesForm(formContainerRef: ViewContainerRef): FormStepComponent {
+    const hostedComponent = formContainerRef.createComponent<FormStepComponent>(ModelVariablesComponent);
+    const namespaceData = this.formData[CreateProjectFormStep.ModelNamespace];
+    const namespaces = namespaceData?.namespaces as Namespace[];
+    const modelVariablesComponent = hostedComponent.instance as ModelVariablesComponent;
+    modelVariablesComponent.setup(namespaces);
+    return modelVariablesComponent;
+  }
+
+  private createSimulationToolsForm(formContainerRef: ViewContainerRef): FormStepComponent {
+    const hostedComponent = formContainerRef.createComponent<FormStepComponent>(SimulationToolsComponent);
+    const uploadModelData = this.formData[CreateProjectFormStep.UploadModel];
+    const simMethodData = this.formData[CreateProjectFormStep.FrameworkSimTypeAndAlgorithm];
+    const parametersData = this.formData[CreateProjectFormStep.AlgorithmParameters];
+    const simulationToolsComponent = hostedComponent.instance as SimulationToolsComponent;
+    simulationToolsComponent.setup(
+      uploadModelData?.modelFormat as string,
+      simMethodData?.framework as string,
+      simMethodData?.algorithm as string,
+      parametersData?.algorithmParameters as AlgorithmParameterMap,
+      this.simulatorsData as SimulatorsData,
+      this.algSubstitutions,
+      this.onSimulateClicked.bind(this),
+      this.onDownloadClicked.bind(this),
+    );
+    return simulationToolsComponent;
+  }
+
+  // Preload form data
+
+  private introspectionHandler(sedDocumentData: ArchiveCreationSedDocumentData | undefined): void {
+    if (sedDocumentData) {
+      this.preloadFormStepData(sedDocumentData);
+    }
+    this.loadCurrentFormStep();
+  }
+
+  private preloadFormStepData(introspectionData: ArchiveCreationSedDocumentData): void {
+    if (!introspectionData) {
+      return;
+    }
+    this.preloadUniformTimeCourseSimulationData(introspectionData);
+    this.formData[CreateProjectFormStep.ModelNamespace] = { namespaces: introspectionData.namespaces };
+    this.formData[CreateProjectFormStep.ModelChanges] = { modelChanges: introspectionData.modelChanges };
+    this.formData[CreateProjectFormStep.Observables] = { modelVariables: introspectionData.modelVariables };
+  }
+
+  private preloadDataFromParams(params: Params): void {
+    if (!params) {
+      return;
+    }
+    this.preloadUploadModelData(params.modelUrl, params.modelFormat);
+    this.preloadSimMethodData(params.modelingFramework, params.simulationType, params.simulationAlgorithm);
+  }
+
+  private preloadUploadModelData(modelUrl: string, modelFormat: string): void {
+    modelFormat = modelFormat?.toLowerCase();
+    const match = modelFormat?.match(/^(format[:_])?(\d{1,4})$/);
+    if (match) {
+      modelFormat = 'format_' + '0'.repeat(4 - match[2].length) + match[2];
+    }
+    const uploadModelData = this.formData[CreateProjectFormStep.UploadModel] || {};
+    uploadModelData.modelUrl = modelUrl;
+    uploadModelData.modelFormat = modelFormat;
+    this.formData[CreateProjectFormStep.UploadModel] = uploadModelData;
+  }
+
+  private preloadSimMethodData(framework: string, simulationType: string, algorithm: string): void {
+    framework = framework?.toUpperCase();
+    let match = framework?.match(/^(SBO[:_])?(\d{1,7})$/);
+    if (match) {
+      framework = 'SBO_' + '0'.repeat(7 - match[2].length) + match[2];
+    }
+
+    if (!simulationType?.startsWith('Sed')) {
+      simulationType = 'Sed' + simulationType;
+    }
+    if (!simulationType?.endsWith('Simulation')) {
+      simulationType = simulationType + 'Simulation';
+    }
+    ArchiveCreationUtility.SUPPORTED_SIMULATION_TYPES.forEach((simType: SimulationType): void => {
+      if (simulationType.toLowerCase() == simType.toLowerCase()) {
+        simulationType = simType;
+      }
+    });
+
+    algorithm = algorithm?.toUpperCase();
+    match = algorithm?.match(/^(KISAO[:_])?(\d{1,7})$/);
+    if (match) {
+      algorithm = 'KISAO_' + '0'.repeat(7 - match[2].length) + match[2];
+    }
+
+    const simMethodData = this.formData[CreateProjectFormStep.FrameworkSimTypeAndAlgorithm] || {};
+    simMethodData.framework = framework;
+    simMethodData.simulationType = simulationType;
+    simMethodData.algorithm = algorithm;
+    this.formData[CreateProjectFormStep.FrameworkSimTypeAndAlgorithm] = simMethodData;
+  }
+
+  private preloadUniformTimeCourseSimulationData(data: ArchiveCreationSedDocumentData): void {
+    const simulation = data.uniformTimeCourseSimulation;
+    if (!simulation) {
+      return;
+    }
+    const timeCourseData = {
+      initialTime: simulation.initialTime,
+      outputStartTime: simulation.outputStartTime,
+      outputEndTime: simulation.outputEndTime,
+      numberOfSteps: simulation.numberOfSteps,
+    };
+    this.formData[CreateProjectFormStep.UniformTimeCourseSimulationParameters] = timeCourseData;
+  }
+
+  // Submission
+
+  private getArchiveSpecs(): CombineArchive | undefined {
+    const uploadModelData = this.formData[CreateProjectFormStep.UploadModel];
+    const simulationMethodData = this.formData[CreateProjectFormStep.FrameworkSimTypeAndAlgorithm];
+    const algorithmParamData = this.formData[CreateProjectFormStep.AlgorithmParameters];
+    const timeCourseData = this.formData[CreateProjectFormStep.UniformTimeCourseSimulationParameters];
+    const namespacesData = this.formData[CreateProjectFormStep.ModelNamespace];
+    const modelChangesData = this.formData[CreateProjectFormStep.ModelChanges];
+    const modelVariablesData = this.formData[CreateProjectFormStep.Observables];
+    if (!uploadModelData || !simulationMethodData || !namespacesData || !modelChangesData || !modelVariablesData) {
+      return undefined;
+    }
+    const archiveCreationData = {
+      modelFormat: uploadModelData.modelFormat as string,
+      modelUrl: uploadModelData.modelUrl as string,
+      modelFile: uploadModelData.modelFile as File,
+      algorithmId: simulationMethodData.algorithm as string,
+      simulationType: simulationMethodData.simulationType as SimulationType,
+      initialTime: timeCourseData?.initialTime as number,
+      outputStartTime: timeCourseData?.outputStartTime as number,
+      outputEndTime: timeCourseData?.outputEndTime as number,
+      numberOfSteps: timeCourseData?.numberOfSteps as number,
+      algorithmParameters: algorithmParamData?.algorithmParameters as AlgorithmParameterMap,
+      namespaces: namespacesData.namespaces as Namespace[],
+      modelChanges: modelChangesData.modelChanges as SedModelChange[],
+      modelVariables: modelVariablesData.modelVariables as SedVariable[],
+    };
+    return ArchiveCreationUtility.createArchive(archiveCreationData);
+  }
+
+  private simulateCreatedCombineArchive(projectUrl: string): void {
+    const uploadData = this.formData[CreateProjectFormStep.UploadModel];
+    const simMethodData = this.formData[CreateProjectFormStep.FrameworkSimTypeAndAlgorithm];
+    if (!projectUrl || !uploadData || !simMethodData) {
+      return;
+    }
+    const queryParams = {
+      projectUrl: projectUrl,
+      modelFormat: uploadData.modelFormat as string,
+      modelingFramework: simMethodData.framework as string,
+      simulationAlgorithm: simMethodData.algorithm as string,
+    };
+    if (this.config.appId === 'dispatch') {
+      this.router.navigate(['/runs/new'], { queryParams });
+    } else {
+      const url = `https://run.biosimulations.${environment.production ? 'org' : 'dev'}/runs/new`;
+      const queryParamsString = new URLSearchParams(queryParams).toString();
+      window.open(`${url}?${queryParamsString}`, 'runbiosimulations');
+    }
+    this.showArchiveCreatedSnackbar();
+  }
+
+  private downloadCreatedCombineArchive(projectUrl: string): void {
+    const a = document.createElement('a');
+    a.href = projectUrl;
+    a.download = 'archive.omex';
+    a.click();
+    this.showArchiveDownloadedSnackbar();
+  }
+
+  private createSubmissionFormData(): FormData | undefined {
+    const uploadModelData = this.formData[CreateProjectFormStep.UploadModel];
+    if (!uploadModelData) {
+      return undefined;
+    }
+    const formData = new FormData();
+    formData.append('specs', JSON.stringify(this.getArchiveSpecs()));
+    const modelFile = uploadModelData.modelFile as File;
+    if (modelFile) {
+      formData.append('files', modelFile);
+    }
+    return formData;
+  }
+
+  private submitFormData(formData: FormData | undefined, completion: (projectUrl: string) => void): void {
+    if (!formData) {
+      return;
+    }
+    const endpoints = new Endpoints();
+    const url = endpoints.getCombineArchiveCreationEndpoint(true);
+    const projectOrUrl: Observable<string | HttpEvent<string>> = this.http.post<string>(url, formData, {}).pipe(
+      catchError((error: HttpErrorResponse): Observable<string> => {
+        console.error(error);
+        this.showProjectCreationErrorSnackbar();
+        return of<string>('');
+      }),
+    );
+    const projectOrUrlSub = projectOrUrl.subscribe((projectOrUrl: string | HttpEvent<string>): void => {
+      completion(projectOrUrl as string);
+    });
+    this.subscriptions.push(projectOrUrlSub);
+    this.showPleaseWaitSnackbar();
+  }
+
+  // Snackbars
+
+  private showArchiveDownloadedSnackbar(): void {
+    this.showDefaultConfiguredSnackbar('Your archive was downloaded to your computer.');
+  }
+
+  private showArchiveCreatedSnackbar(): void {
+    this.showDefaultConfiguredSnackbar('Your archive was created. Please use this form to execute it.');
+  }
+
+  private showAlgorithmSubstitutionErrorSnackbar(): void {
+    const msg =
+      'Sorry! We were unable to load information about the simularity among algorithms. Please refresh to try again.';
+    this.showDefaultConfiguredSnackbar(msg);
+  }
+
+  private showProjectCreationErrorSnackbar(): void {
+    const msg = 'Sorry! We were unable to generate your COMBINE/OMEX archive. Please refresh to try again.';
+    this.showDefaultConfiguredSnackbar(msg);
+  }
+
+  private showPleaseWaitSnackbar(): void {
     this.snackBar.openFromComponent(HtmlSnackBarComponent, {
       data: {
         message: 'Please wait while your project is created',
@@ -1574,331 +570,11 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
     });
   }
 
-  private getArchiveSpecs(): any {
-    const modelFormatControl = this.formGroup.controls
-      .modelFormat as FormControl;
-    const modelNamespacesArray = this.formGroup.controls
-      .modelNamespaces as FormArray;
-    const modelChangesArray = this.formGroup.controls.modelChanges as FormArray;
-    const simulationTypeControl = this.formGroup.controls
-      .simulationType as FormControl;
-    const simulationAlgorithmControl = this.formGroup.controls
-      .simulationAlgorithm as FormControl;
-    const simulationAlgorithmParametersArray = this.formGroup.controls
-      .simulationAlgorithmParameters as FormArray;
-    const modelVariablesArray = this.formGroup.controls
-      .modelVariables as FormArray;
-
-    const model: any = {
-      _type: 'SedModel',
-      id: 'model',
-      language:
-        this.edamIdFormatMap[modelFormatControl.value]?.biosimulationsMetadata
-          ?.modelFormatMetadata?.sedUrn,
-      source:
-        'model.' +
-        this.edamIdFormatMap[modelFormatControl.value].fileExtensions?.[0],
-      changes: [],
-    };
-
-    const algorithm: SedAlgorithm = {
-      _type: SedAlgorithmType.SedAlgorithm,
-      kisaoId: simulationAlgorithmControl.value,
-      changes: simulationAlgorithmParametersArray.value
-        .filter((param: any): boolean => {
-          return !!param.newValue;
-        })
-        .map((param: any) => {
-          let newValue = param.newValue;
-          if (
-            param.type === ValueType.kisaoId &&
-            param.recommendedRange &&
-            param.recommendedRange !== '--multiple--'
-          ) {
-            const iValue = param.formattedRecommendedRange.indexOf(newValue);
-            newValue = param.recommendedRange[iValue];
-          }
-
-          return {
-            _type: 'SedAlgorithmParameterChange',
-            kisaoId: param.id,
-            newValue: newValue,
-          };
-        }),
-    };
-
-    let simulation: SedSimulation;
-    if (
-      simulationTypeControl.value ===
-      SedOneStepSimulationType.SedOneStepSimulation
-    ) {
-      const oneStepSimulationParametersGroup = this.formGroup.controls
-        .oneStepSimulationParameters as FormGroup;
-      simulation = {
-        _type: SedOneStepSimulationType.SedOneStepSimulation,
-        id: 'simulation',
-        step: oneStepSimulationParametersGroup.controls.step.value,
-        algorithm: algorithm,
-      };
-    } else if (
-      simulationTypeControl.value ===
-      SedSteadyStateSimulationType.SedSteadyStateSimulation
-    ) {
-      simulation = {
-        _type: SedSteadyStateSimulationType.SedSteadyStateSimulation,
-        id: 'simulation',
-        algorithm: algorithm,
-      };
-    } else {
-      const uniformTimeCourseSimulationParametersGroup = this.formGroup.controls
-        .uniformTimeCourseSimulationParameters as FormGroup;
-      simulation = {
-        _type:
-          SedUniformTimeCourseSimulationType.SedUniformTimeCourseSimulation,
-        id: 'simulation',
-        initialTime:
-          uniformTimeCourseSimulationParametersGroup.controls.initialTime.value,
-        outputStartTime:
-          uniformTimeCourseSimulationParametersGroup.controls.outputStartTime
-            .value,
-        outputEndTime:
-          uniformTimeCourseSimulationParametersGroup.controls.outputEndTime
-            .value,
-        numberOfSteps:
-          uniformTimeCourseSimulationParametersGroup.controls.numberOfSteps
-            .value,
-        algorithm: algorithm,
-      };
-    }
-
-    const task: SedTask = {
-      _type: SedTaskType.SedTask,
-      id: 'task',
-      model: model.id,
-      simulation: simulation.id,
-    };
-
-    const dataGenerators: SedDataGenerator[] = [];
-    const dataSets: SedDataSet[] = [];
-
-    const targetNamespaces: Namespace[] = modelNamespacesArray.controls.map(
-      (control: AbstractControl): Namespace => {
-        const ns = control.value;
-        const nsObj: Namespace = {
-          _type: NamespaceType.Namespace,
-          uri: ns.uri,
-        };
-        if (ns.prefix) {
-          nsObj['prefix'] = ns.prefix;
-        }
-        return nsObj;
-      },
-    );
-
-    modelChangesArray.controls.forEach((control: AbstractControl): void => {
-      const formVar = control.value;
-      if (formVar.newValue) {
-        const change: SedModelAttributeChange = {
-          _type: SedModelAttributeChangeType.SedModelAttributeChange,
-          id: formVar.id,
-          target: {
-            _type: SedTargetType.SedTarget,
-            value: formVar.target,
-            namespaces: targetNamespaces,
-          },
-          newValue: formVar.newValue,
-        };
-        if (formVar.name) {
-          change['name'] = formVar.name;
-        }
-        model.changes.push(change);
-      }
+  private showDefaultConfiguredSnackbar(message: string): void {
+    this.snackBar.open(message, 'Ok', {
+      duration: 5000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
     });
-
-    modelVariablesArray.controls.forEach((control: AbstractControl): void => {
-      const formVar = control.value;
-      const sedVar: SedVariable = {
-        _type: SedVariableType.SedVariable,
-        id: 'variable_' + (formVar.id as string),
-        task: task.id,
-      };
-      if (formVar.name) {
-        sedVar['name'] = formVar.name;
-      }
-      if (formVar.type === ModelVariableType.symbol) {
-        sedVar['symbol'] = formVar.symbolOrTarget;
-      } else {
-        sedVar['target'] = {
-          _type: SedTargetType.SedTarget,
-          value: formVar.symbolOrTarget,
-          namespaces: targetNamespaces,
-        };
-      }
-
-      const dataGen: SedDataGenerator = {
-        _type: SedDataGeneratorType.SedDataGenerator,
-        id: 'data_generator_' + formVar.id,
-        parameters: [],
-        variables: [sedVar],
-        math: sedVar.id,
-      };
-      if (formVar.name) {
-        dataGen['name'] = formVar.name;
-      }
-      dataGenerators.push(dataGen);
-
-      const dataSet: SedDataSet = {
-        _type: SedDataSetType.SedDataSet,
-        id: formVar.id,
-        label: formVar.name || formVar.id,
-        dataGenerator: dataGen.id,
-      };
-      if (formVar.name) {
-        dataSet['name'] = formVar.name;
-      }
-      dataSets.push(dataSet);
-    });
-
-    const sedDoc: SedDocument = {
-      _type: SedDocumentType.SedDocument,
-      level: 1,
-      version: 3,
-      styles: [],
-      models: [model],
-      simulations: [simulation],
-      tasks: [task],
-      dataGenerators: dataGenerators,
-      outputs: [
-        {
-          _type: SedReportType.SedReport,
-          id: 'report',
-          dataSets: dataSets,
-        },
-      ],
-    };
-
-    let modelContent: any = {};
-    if (this.formGroup.value.modelLocationType === LocationType.file) {
-      const fileInput: FileInput = this.formGroup.value.modelLocationDetails;
-      const filename: string = fileInput.files[0].name;
-      modelContent = {
-        _type: 'CombineArchiveContentFile',
-        filename: filename,
-      };
-    } else {
-      modelContent = {
-        _type: 'CombineArchiveContentUrl',
-        url: this.formGroup.value.modelLocationDetails,
-      };
-    }
-
-    return {
-      _type: 'CombineArchive',
-      contents: [
-        {
-          _type: 'CombineArchiveContent',
-          format:
-            this.edamIdFormatMap[modelFormatControl.value]
-              .biosimulationsMetadata?.omexManifestUris[0],
-          master: false,
-          location: {
-            _type: 'CombineArchiveLocation',
-            path: model.source,
-            value: modelContent,
-          },
-        },
-        {
-          _type: 'CombineArchiveContent',
-          format: 'http://identifiers.org/combine.specifications/sed-ml',
-          master: true,
-          location: {
-            _type: 'CombineArchiveLocation',
-            path: 'simulation.sedml',
-            value: sedDoc,
-          },
-        },
-      ],
-    };
-  }
-
-  private processCreatedCombineArchive(
-    postCreateAction: PostCreateAction,
-    projectOrUrl: string | any,
-  ): void {
-    this.projectBeingCreated = false;
-
-    if (postCreateAction === 'simulate') {
-      const modelFormat: string = this.formGroup.value.modelFormat;
-      const modelingFramework: string = this.formGroup.value.modelingFramework;
-      const simulationAlgorithm: string =
-        this.formGroup.value.simulationAlgorithm;
-
-      const queryParams = {
-        projectUrl: projectOrUrl,
-        modelFormat: modelFormat,
-        modelingFramework: modelingFramework,
-        simulationAlgorithm: simulationAlgorithm,
-      };
-
-      if (this.config.appId === 'dispatch') {
-        this.router.navigate(['/runs/new'], {
-          queryParams,
-        });
-      } else {
-        const url = `https://run.biosimulations.${
-          environment.production ? 'org' : 'dev'
-        }/runs/new`;
-        const queryParamsString = new URLSearchParams(queryParams).toString();
-        window.open(`${url}?${queryParamsString}`, 'runbiosimulations');
-      }
-
-      this.snackBar.open(
-        'Your archive was created. Please use this form to execute it.',
-        'Ok',
-        {
-          duration: 5000,
-          horizontalPosition: 'center',
-          verticalPosition: 'bottom',
-        },
-      );
-    } else {
-      const a = document.createElement('a');
-      a.href = projectOrUrl;
-      a.download = 'archive.omex';
-      a.click();
-
-      this.snackBar.open(
-        'Your archive was downloaded to your computer.',
-        'Ok',
-        {
-          duration: 5000,
-          horizontalPosition: 'center',
-          verticalPosition: 'bottom',
-        },
-      );
-    }
-  }
-
-  private formSectionOpen = {
-    modelNamespaces: new BehaviorSubject<boolean>(false),
-    modelChanges: new BehaviorSubject<boolean>(false),
-    modelVariables: new BehaviorSubject<boolean>(false),
-    simulationAlgorithmParameters: new BehaviorSubject<boolean>(false),
-  };
-  formSectionOpen$ = {
-    modelNamespaces: this.formSectionOpen.modelNamespaces.asObservable(),
-    modelChanges: this.formSectionOpen.modelChanges.asObservable(),
-    modelVariables: this.formSectionOpen.modelVariables.asObservable(),
-    simulationAlgorithmParameters:
-      this.formSectionOpen.simulationAlgorithmParameters.asObservable(),
-  };
-  toggleFormSection(
-    name:
-      | 'modelNamespaces'
-      | 'modelChanges'
-      | 'modelVariables'
-      | 'simulationAlgorithmParameters',
-  ): void {
-    this.formSectionOpen[name].next(!this.formSectionOpen[name].value);
   }
 }

@@ -1,0 +1,43 @@
+<mat-card-title>Specify which variables should be recorded</mat-card-title>
+
+<div class="model-variables-grid">
+  <div class="grid-label">Id *</div>
+  <div class="grid-label">Name</div>
+  <div class="grid-label">Type *</div>
+  <div class="grid-label">Address *</div>
+  <div></div>
+
+  <ng-container *ngFor="let formGroup of formGroups(); index as iModelVariable" [formGroup]="formGroup">
+    <input class="grid-input" formControlName="id" [class.error-border]="shouldShowIdError(formGroup)" />
+    <input class="grid-input" formControlName="name" />
+
+    <mat-select class="grid-input" formControlName="type" disableOptionCentering>
+      <mat-option *ngFor="let variableType of modelVariableTypes" [value]="variableType.id">
+        {{ variableType.name }}
+      </mat-option>
+    </mat-select>
+
+    <input class="grid-input" formControlName="symbolOrTarget" />
+
+    <button mat-icon-button title="Delete variable" (click)="removeModelVariable(iModelVariable)">
+      <biosimulations-icon icon="trash"></biosimulations-icon>
+    </button>
+  </ng-container>
+
+  <button mat-flat-button class="biosimulations-button text" style="grid-column: 1 / 5" (click)="addModelVariable()">
+    Additional variable
+  </button>
+</div>
+
+<mat-hint>
+  Describe the variables (e.g., time symbol <code>urn:sedml:symbol:time</code>, species target
+  <code>/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='atp']</code>) that should be recorded from your
+  simulation and enter an unique id and, optionally, a descriptive name for each variable. For XML-based model languages
+  such as SBML, targets should be XPaths to XML attributes.
+</mat-hint>
+
+<mat-error *ngIf="nextClicked && formArray.invalid && !formArray.hasError('idUnique')">
+  One or more properties of one or more variables is invalid.
+</mat-error>
+
+<mat-error *ngIf="nextClicked && formArray.hasError('idUnique')"> The ids of the variables must be unique. </mat-error>
