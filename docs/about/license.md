@@ -431,7 +431,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Pierre Vanduynslager
 │  ├─ url: https://twitter.com/@pvdlg_
 │  └─ licenseFile: @semantic-release/github/LICENSE
-├─ @semantic-release/npm@9.0.0
+├─ @semantic-release/npm@9.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/semantic-release/npm
 │  ├─ publisher: Pierre Vanduynslager
