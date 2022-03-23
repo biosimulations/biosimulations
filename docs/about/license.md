@@ -1199,7 +1199,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: i@izs.me
 │  ├─ url: http://blog.izs.me/
 │  └─ licenseFile: npm/node_modules/color-support/LICENSE
-├─ color@4.2.0
+├─ color@4.2.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/Qix-/color
 │  └─ licenseFile: color/LICENSE
@@ -1536,6 +1536,12 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ url: http://jongleberry.com
 │  └─ licenseFile: destroy/LICENSE
 ├─ detect-libc@2.0.0
+│  ├─ licenses: Apache-2.0
+│  ├─ repository: https://github.com/lovell/detect-libc
+│  ├─ publisher: Lovell Fuller
+│  ├─ email: npm@lovell.info
+│  └─ licenseFile: prebuild-install/node_modules/detect-libc/LICENSE
+├─ detect-libc@2.0.1
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/lovell/detect-libc
 │  ├─ publisher: Lovell Fuller
@@ -4133,7 +4139,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/wesleytodd/setprototypeof
 │  ├─ publisher: Wes Todd
 │  └─ licenseFile: setprototypeof/LICENSE
-├─ sharp@0.30.1
+├─ sharp@0.30.3
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/lovell/sharp
 │  ├─ publisher: Lovell Fuller
