@@ -191,7 +191,7 @@
     "@typescript-eslint/parser": "5.10.2",
     "angular-plotly.js": "4.0.4",
     "anser": "2.1.1",
-    "canvas": "2.9.0",
+    "canvas": "2.9.1",
     "codelyzer": "6.0.2",
     "commitizen": "4.2.4",
     "cypress": "9.5.0",
