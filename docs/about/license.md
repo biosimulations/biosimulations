@@ -2509,7 +2509,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: i@izs.me
 │  ├─ url: http://blog.izs.me
 │  └─ licenseFile: json-stringify-safe/LICENSE
-├─ json5@2.2.0
+├─ json5@2.2.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/json5/json5
 │  ├─ publisher: Aseem Kishore
