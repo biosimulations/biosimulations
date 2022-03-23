@@ -81,7 +81,7 @@
     "http-status-codes": "2.2.0",
     "husky": "7.0.4",
     "is-url": "1.2.4",
-    "json5": "2.2.0",
+    "json5": "2.2.1",
     "jwks-rsa": "2.0.5",
     "mongoose": "6.1.7",
     "nats": "2.6.1",
