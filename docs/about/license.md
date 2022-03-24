@@ -4602,13 +4602,13 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: joseph@wildlyinaccurate.com
 │  ├─ url: https://wildlyinaccurate.com/
 │  └─ licenseFile: npm/node_modules/tiny-relative-date/LICENSE.md
-├─ tiny-version-compare@3.0.1
+├─ tiny-version-compare@3.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/fregante/tiny-version-compare
 │  ├─ publisher: Federico Brigante
-│  ├─ email: opensource@bfred.it
-│  ├─ url: bfred.it
-│  └─ licenseFile: tiny-version-compare/LICENSE
+│  ├─ email: me@fregante.com
+│  ├─ url: https://fregante.com
+│  └─ licenseFile: tiny-version-compare/license
 ├─ title-case@1.1.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/blakeembrey/title-case
