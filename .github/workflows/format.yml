@@ -36,9 +36,10 @@ jobs:
       
       - name: Install nrwl cli 
         run: npm install @nrwl/cli
-
+      - name: Debug files
+        run: ls -al
       - name: Format files
-        run: ./node_modules/.bin/nx format --all
+        run: npx nx format --all
 
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v4
