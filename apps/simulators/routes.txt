@@ -31,6 +31,7 @@
 /simulators/cobratoolbox/3.2
 /simulators/copasi
 /simulators/copasi/4.34.251
+/simulators/copasi/4.35.258
 /simulators/ecell4
 /simulators/ecell4/1.1.2
 /simulators/epilog

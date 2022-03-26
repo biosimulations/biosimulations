@@ -189,13 +189,19 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/copasi</loc>
-    <lastmod>2021-12-22</lastmod>
+    <lastmod>2022-03-26</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/copasi/4.34.251</loc>
     <lastmod>2021-12-22</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/copasi/4.35.258</loc>
+    <lastmod>2022-03-26</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
