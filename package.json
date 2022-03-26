@@ -186,7 +186,7 @@
     "@types/throttle-debounce": "2.1.0",
     "@types/unzipper": "0.10.5",
     "@types/uuid": "8.3.4",
-    "@types/validator": "13.7.1",
+    "@types/validator": "13.7.2",
     "@typescript-eslint/eslint-plugin": "5.10.2",
     "@typescript-eslint/parser": "5.10.2",
     "angular-plotly.js": "4.0.4",
