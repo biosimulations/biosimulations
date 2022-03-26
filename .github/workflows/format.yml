@@ -39,7 +39,7 @@ jobs:
       - name: Debug files
         run: ls -al
       - name: Format files
-        run: npx nx format --all
+        run: npm run nx format --all
 
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v4
