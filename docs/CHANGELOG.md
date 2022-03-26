@@ -1,5 +1,13 @@
 # Changelog
 
+## [9.13.3](https://github.com/biosimulations/biosimulations/compare/v9.13.2...v9.13.3) (2022-03-26)
+
+
+### Bug Fixes
+
+* **combine-api:** add libretext to cors ([adfdd37](https://github.com/biosimulations/biosimulations/commit/adfdd37a9c2b59d78a9150a571c75f79a51a02ce))
+* **dispatch:** ensure params can be fetched for models provided by url ([a708c1b](https://github.com/biosimulations/biosimulations/commit/a708c1bd424197567208c25459a849efeee14d8c))
+
 ## [9.13.2](https://github.com/biosimulations/biosimulations/compare/v9.13.1...v9.13.2) (2022-03-02)
 
 
