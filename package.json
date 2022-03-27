@@ -168,7 +168,7 @@
     "@stdlib/stats-iter-prod": "0.0.6",
     "@stdlib/types": "0.0.14",
     "@types/archiver": "5.3.1",
-    "@types/auth0": "2.34.14",
+    "@types/auth0": "2.34.15",
     "@types/cache-manager": "3.4.3",
     "@types/cache-manager-redis-store": "2.0.1",
     "@types/cron": "1.7.3",
