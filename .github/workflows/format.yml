@@ -35,7 +35,7 @@ jobs:
         run: npm ci
       
       - name: Install nrwl cli 
-        run: npm install -g @nrwl/cli
+        run: npm install -g @nrwl/cli && npm install -g nx@latest
 
       - name: Format files
         run: nx format --fix --all
