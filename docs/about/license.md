@@ -964,7 +964,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/juliangruber/builtins
 │  └─ licenseFile: npm/node_modules/builtins/License
-├─ bullmq@1.75.1
+├─ bullmq@1.78.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/taskforcesh/bullmq
 │  ├─ publisher: Taskforce.sh Inc.
@@ -1366,7 +1366,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Brian White
 │  ├─ email: mscdex@mscdex.net
 │  └─ licenseFile: cpu-features/LICENSE
-├─ cron-parser@2.18.0
+├─ cron-parser@4.2.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/harrisiirak/cron-parser
 │  ├─ publisher: Harri Siirak
@@ -1475,11 +1475,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Elijah Insua
 │  ├─ email: tmpvar@gmail.com
 │  └─ licenseFile: npm/node_modules/defaults/LICENSE
-├─ define-properties@1.1.3
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/ljharb/define-properties
-│  ├─ publisher: Jordan Harband
-│  └─ licenseFile: define-properties/LICENSE
 ├─ del@6.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/del
@@ -2345,11 +2340,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: hello@blakeembrey.com
 │  ├─ url: http://blakeembrey.me
 │  └─ licenseFile: is-lower-case/LICENSE
-├─ is-nan@1.3.2
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/es-shims/is-nan
-│  ├─ publisher: Jordan Harband
-│  └─ licenseFile: is-nan/LICENSE
 ├─ is-number@7.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jonschlinkert/is-number
@@ -2849,6 +2839,11 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: jfromaniello@gmail.com
 │  ├─ url: http://joseoncode.com
 │  └─ licenseFile: lru-memoizer/LICENSE
+├─ luxon@1.28.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/moment/luxon
+│  ├─ publisher: Isaac Cambron
+│  └─ licenseFile: luxon/license.md
 ├─ make-fetch-happen@10.0.0
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/make-fetch-happen
@@ -3377,13 +3372,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: mail@substack.net
 │  ├─ url: http://substack.net
 │  └─ licenseFile: object-inspect/LICENSE
-├─ object-keys@1.1.1
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/ljharb/object-keys
-│  ├─ publisher: Jordan Harband
-│  ├─ email: ljharb@gmail.com
-│  ├─ url: http://ljharb.codes
-│  └─ licenseFile: object-keys/LICENSE
 ├─ on-finished@2.3.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jshttp/on-finished
