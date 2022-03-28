@@ -12,6 +12,8 @@ import {
   SimulatorsData,
   OntologyTermsMap,
   OntologyTerm,
+  SimulationProjectUtilLoaderService,
+  SimulationProjectUtilData,
 } from '@biosimulations/simulation-project-utils/service';
 import { Simulation } from '../../../datamodel';
 import {
@@ -101,6 +103,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     private combineApiService: CombineApiService,
     private commonCombineApiService: CommonCombineApiService,
     private snackBar: MatSnackBar,
+    private loader: SimulationProjectUtilLoaderService,
   ) {
     this.formGroup = this.formBuilder.group(
       {
@@ -150,27 +153,21 @@ export class DispatchComponent implements OnInit, OnDestroy {
   // Life cycle
 
   public ngOnInit(): void {
-    const simulatorsDataObs = this.commonDispatchService.getSimulatorsFromDb();
-    const algSubObs = simulatorsDataObs.pipe(concatMap(this.getAlgSubs.bind(this)));
-    const loadCompleteObs = zip([algSubObs, simulatorsDataObs, this.route.queryParams]);
-    const loadCompleteSub = loadCompleteObs.subscribe(this.loadComplete.bind(this));
-    this.subscriptions.push(loadCompleteSub);
+    const loadObs = this.loader.loadSimulationUtilData();
+    const loadSub = loadObs.subscribe(this.loadComplete.bind(this));
+    this.subscriptions.push(loadSub);
   }
 
   public ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  private loadComplete(observerableValues: [AlgorithmSubstitution[] | undefined, SimulatorsData, Params]): void {
-    const curatedAlgSubs: AlgorithmSubstitution[] | undefined = observerableValues[0];
-    const simulatorsData: SimulatorsData = observerableValues[1];
-    const params: Params = observerableValues[2];
+  private loadComplete(data: SimulationProjectUtilData): void {
+    const curatedAlgSubs: AlgorithmSubstitution[] = data.algorithmSubstitutions;
+    const simulatorsData: SimulatorsData = data.simulators;
+    const params: Params = data.params;
 
     this.simulatorSpecsMap = simulatorsData.simulatorSpecs;
-
-    if (!curatedAlgSubs) {
-      this.showAlgorithmSubstitutionErrorSnackbar();
-    }
 
     const algSubs: AlgorithmSubstitution[] = curatedAlgSubs ? curatedAlgSubs : this.getBackupAlgSubs(simulatorsData);
     this.simulationAlgorithmsMap = this.getSimulationAlgorithmsMap(algSubs, simulatorsData);
@@ -700,18 +697,6 @@ export class DispatchComponent implements OnInit, OnDestroy {
   }
 
   // Snackbars
-
-  private showAlgorithmSubstitutionErrorSnackbar(): void {
-    this.snackBar.open(
-      'Sorry! We were unable to load information about the simularity among algorithms. Please refresh to try again.',
-      'Ok',
-      {
-        duration: 5000,
-        horizontalPosition: 'center',
-        verticalPosition: 'bottom',
-      },
-    );
-  }
 
   private showFormSubmittedSnackbar(): void {
     this.snackBar.open(

@@ -1,17 +1,17 @@
 import { Component, OnInit, OnDestroy, AfterViewInit, ViewChildren, QueryList, ViewContainerRef } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { Params } from '@angular/router';
 import { SimulationType, AlgorithmSubstitution } from '@biosimulations/datamodel/common';
 import {
   ArchiveCreationUtility,
   ArchiveCreationSedDocumentData,
   AlgorithmParameterMap,
-  DispatchService,
-  CombineApiService,
   SimulatorsData,
+  SimulationProjectUtilLoaderService,
+  SimulationProjectUtilData,
 } from '@biosimulations/simulation-project-utils/service';
 import { CombineArchive, Namespace, SedVariable, SedModelChange } from '@biosimulations/combine-api-angular-client';
-import { Observable, of, Subscription, zip } from 'rxjs';
-import { catchError, concatMap } from 'rxjs/operators';
+import { Observable, of, Subscription } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Endpoints } from '@biosimulations/config/common';
 import { HttpClient, HttpErrorResponse, HttpEvent } from '@angular/common/http';
@@ -63,23 +63,19 @@ export class CreateProjectComponent implements OnInit, OnDestroy, AfterViewInit 
   private subscriptions: Subscription[] = [];
 
   public constructor(
-    private route: ActivatedRoute,
     private router: Router,
-    private dispatchService: DispatchService,
-    private combineApiService: CombineApiService,
     private http: HttpClient,
     private snackBar: MatSnackBar,
     private config: ConfigService,
+    private loader: SimulationProjectUtilLoaderService,
   ) {}
 
   // Life cycle
 
   public ngOnInit(): void {
-    const simulatorsDataObs = this.dispatchService.getSimulatorsFromDb();
-    const algSubObs = simulatorsDataObs.pipe(concatMap(this.getAlgSubs.bind(this)));
-    const loadCompleteObs = zip([algSubObs, simulatorsDataObs, this.route.queryParams]);
-    const loadCompleteSub = loadCompleteObs.subscribe(this.loadComplete.bind(this));
-    this.subscriptions.push(loadCompleteSub);
+    const loadObs = this.loader.loadSimulationUtilData();
+    const loadSub = loadObs.subscribe(this.loadComplete.bind(this));
+    this.subscriptions.push(loadSub);
   }
 
   public ngAfterViewInit(): void {
@@ -165,19 +161,11 @@ export class CreateProjectComponent implements OnInit, OnDestroy, AfterViewInit 
     });
   }
 
-  private loadComplete(observerableValues: [AlgorithmSubstitution[] | undefined, SimulatorsData, Params]): void {
-    this.algSubstitutions = observerableValues[0] === undefined ? [] : observerableValues[0];
-    if (this.algSubstitutions.length === 0) {
-      this.showAlgorithmSubstitutionErrorSnackbar();
-    }
-    this.simulatorsData = observerableValues[1];
-    this.preloadDataFromParams(observerableValues[2]);
+  private loadComplete(data: SimulationProjectUtilData): void {
+    this.algSubstitutions = data.algorithmSubstitutions;
+    this.simulatorsData = data.simulators;
+    this.preloadDataFromParams(data.params);
     this.shouldShowSpinner = false;
-  }
-
-  private getAlgSubs(simulatorsData: SimulatorsData): Observable<AlgorithmSubstitution[] | undefined> {
-    const algorithmKeys = Object.keys(simulatorsData.simulationAlgorithms);
-    return this.combineApiService.getSimilarAlgorithms(algorithmKeys);
   }
 
   // Form step state machine
@@ -545,12 +533,6 @@ export class CreateProjectComponent implements OnInit, OnDestroy, AfterViewInit 
 
   private showArchiveCreatedSnackbar(): void {
     this.showDefaultConfiguredSnackbar('Your archive was created. Please use this form to execute it.');
-  }
-
-  private showAlgorithmSubstitutionErrorSnackbar(): void {
-    const msg =
-      'Sorry! We were unable to load information about the simularity among algorithms. Please refresh to try again.';
-    this.showDefaultConfiguredSnackbar(msg);
   }
 
   private showProjectCreationErrorSnackbar(): void {
