@@ -89,9 +89,9 @@ jobs:
         uses: bahmutov/npm-install@v1
         with:
           useRollingCache: true
-
-      - name: Install Nrwl CLI
-        run: npm install -g @nrwl/cli
+          
+      - name: Install nrwl cli 
+        run: npm install -g @nrwl/cli && npm install -g nx@latest
 
       - name: Build prod app
         run:  nx build ${{matrix.app}} --prod --with-deps
