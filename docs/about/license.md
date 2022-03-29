@@ -184,7 +184,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/platform-express/LICENSE
-├─ @nestjs/schedule@1.0.2
+├─ @nestjs/schedule@1.1.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/schedule
 │  ├─ publisher: Kamil Mysliwiec
@@ -1371,13 +1371,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/harrisiirak/cron-parser
 │  ├─ publisher: Harri Siirak
 │  └─ licenseFile: cron-parser/LICENSE
-├─ cron@1.7.2
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/kelektiv/node-cron
-│  ├─ publisher: Nick Campbell
-│  ├─ email: nicholas.j.campbell@gmail.com
-│  ├─ url: http://github.com/ncb000gt
-│  └─ licenseFile: @nestjs/schedule/node_modules/cron/LICENSE
 ├─ cron@1.8.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/kelektiv/node-cron
