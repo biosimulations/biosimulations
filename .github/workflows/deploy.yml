@@ -38,8 +38,9 @@ jobs:
         with:
           useRollingCache: true
 
-      - name: Install Nrwl CLI
-        run: npm install -g @nrwl/cli
+      - name: Install nrwl cli 
+        run: npm install -g @nrwl/cli && npm install -g nx@latest
+
 
       - name: Build dev app
         run: |
