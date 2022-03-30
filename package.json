@@ -83,7 +83,7 @@
     "is-url": "1.2.4",
     "json5": "2.2.1",
     "jwks-rsa": "2.0.5",
-    "mongoose": "6.1.7",
+    "mongoose": "6.2.9",
     "nats": "2.6.1",
     "nestjs-s3": "1.0.1",
     "ngx-material-file-input": "3.0.0",
