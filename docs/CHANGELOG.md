@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.13.4](https://github.com/biosimulations/biosimulations/compare/v9.13.3...v9.13.4) (2022-03-30)
+
+
+### Bug Fixes
+
+* **combine-api:** add protocol to biotext url for cors ([5e7c9e0](https://github.com/biosimulations/biosimulations/commit/5e7c9e01c2eb9b66d43bb5af717aa8fc80ae7a98))
+
 ## [9.13.3](https://github.com/biosimulations/biosimulations/compare/v9.13.2...v9.13.3) (2022-03-26)
 
 
