@@ -214,7 +214,7 @@
     "ngx-highlightjs": "6.1.2",
     "ngx-markdown": "13.1.0",
     "openapi-examples-validator": "4.6.0",
-    "plotly.js": "2.9.0",
+    "plotly.js": "2.11.1",
     "postcss": "8.4.12",
     "postcss-import": "14.0.2",
     "postcss-preset-env": "7.4.3",
