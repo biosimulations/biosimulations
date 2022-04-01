@@ -960,6 +960,12 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: mail@substack.net
 │  ├─ url: http://substack.net
 │  └─ licenseFile: buffers/README.markdown
+├─ buildcheck@0.0.3
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/mscdex/buildcheck
+│  ├─ publisher: Brian White
+│  ├─ email: mscdex@mscdex.net
+│  └─ licenseFile: buildcheck/LICENSE
 ├─ builtins@1.0.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/juliangruber/builtins
@@ -1360,7 +1366,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: David Clark
 │  ├─ email: david.dave.clark@gmail.com
 │  └─ licenseFile: cosmiconfig/LICENSE
-├─ cpu-features@0.0.2
+├─ cpu-features@0.0.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/mscdex/cpu-features
 │  ├─ publisher: Brian White
@@ -4300,7 +4306,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: dominic.tarr@gmail.com
 │  ├─ url: http://bit.ly/dominictarr
 │  └─ licenseFile: split/LICENCE
-├─ ssh2@1.6.0
+├─ ssh2@1.8.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/mscdex/ssh2
 │  ├─ publisher: Brian White
