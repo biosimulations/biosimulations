@@ -4559,7 +4559,7 @@
     "@type" : "owl:Class",
     "rdfs:comment" : "Modelling approach, typically used for metabolic models, where the flow of metabolites (flux) through a network can be calculated. This approach will generally produce a set of solutions (solution space), which may be reduced using objective functions and constraints on individual fluxes.",
     "rdfs:label" : "flux balance framework",
-    "rdfs:subClassOf" : "http://biomodels.net/SBO/SBO_0000693"
+    "rdfs:subClassOf" : "http://biomodels.net/SBO/SBO_0000694"
   }, {
     "@id" : "http://biomodels.net/SBO/SBO_0000625",
     "@type" : "owl:Class",
@@ -4971,13 +4971,18 @@
     "@type" : "owl:Class",
     "rdfs:comment" : "Modeling approach where the flow of resources (flux) through a network can be calculated. This approach will generally produce a set of solutions (solution space), which may be reduced using objective functions and constraints on individual fluxes.",
     "rdfs:label" : "resource balance framework",
-    "rdfs:subClassOf" : "http://biomodels.net/SBO/SBO_0000693"
+    "rdfs:subClassOf" : "http://biomodels.net/SBO/SBO_0000694"
   }, {
     "@id" : "http://biomodels.net/SBO/SBO_0000693",
     "@type" : "owl:Class",
     "rdfs:comment" : "Modelling approach which captures bounds on the possible behavior of a system, which may be further reduced using an objective function.",
     "rdfs:label" : "constraint-based framework",
     "rdfs:subClassOf" : "http://biomodels.net/SBO/SBO_0000004"
+  }, {
+    "@id" : "http://biomodels.net/SBO/SBO_0000694",
+    "@type" : "owl:Class",
+    "rdfs:label" : [ "Modelling approach for finding the optimal state of a system.", "optimization framework" ],
+    "rdfs:subClassOf" : "http://biomodels.net/SBO/SBO_0000693"
   }, {
     "@id" : "http://biomodels.net/SBO/part_of",
     "@type" : [ "owl:ObjectProperty", "owl:TransitiveProperty" ],
