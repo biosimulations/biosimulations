@@ -6,14 +6,12 @@
   "generators": {},
   "targets": {
     "build": {
-      "executor": "@nrwl/node:build",
+      "executor": "@nrwl/node:webpack",
       "options": {
         "outputPath": "dist/apps/mail-service",
         "main": "apps/mail-service/src/main.ts",
         "tsConfig": "apps/mail-service/tsconfig.app.json",
-        "assets": [
-          "apps/mail-service/src/assets"
-        ]
+        "assets": ["apps/mail-service/src/assets"]
       },
       "configurations": {
         "production": {
@@ -30,7 +28,7 @@
       }
     },
     "serve": {
-      "executor": "@nrwl/node:execute",
+      "executor": "@nrwl/node:node",
       "options": {
         "buildTarget": "mail-service:build"
       }
@@ -38,9 +36,7 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": [
-          "apps/mail-service/**/*.ts"
-        ]
+        "lintFilePatterns": ["apps/mail-service/**/*.ts"]
       }
     },
     "test": {
@@ -55,9 +51,7 @@
       "options": {
         "file": "./Dockerfile",
         "push": true,
-        "build-args": [
-          "app=mail-service"
-        ],
+        "build-args": ["app=mail-service"],
         "cache-from": [
           "type=registry,ref=ghcr.io/biosimulations/mail-service:buildcache"
         ],
@@ -66,9 +60,7 @@
         ],
         "metadata": {
           "enabled": true,
-          "images": [
-            "ghcr.io/biosimulations/mail-service"
-          ],
+          "images": ["ghcr.io/biosimulations/mail-service"],
           "labels": [
             "org.opencontainers.image.title=BioSimulations Mail Service",
             "org.opencontainers.image.description=Docker image for the BioSimulations Mail Service",
@@ -91,9 +83,5 @@
       }
     }
   },
-  "tags": [
-    "scope:mail",
-    "type:service",
-    "platform:server"
-  ]
+  "tags": ["scope:mail", "type:service", "platform:server"]
 }

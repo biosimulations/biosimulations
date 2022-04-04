@@ -6,14 +6,12 @@
   "generators": {},
   "targets": {
     "build": {
-      "executor": "@nrwl/node:build",
+      "executor": "@nrwl/node:webpack",
       "options": {
         "outputPath": "dist/apps/dispatch-service",
         "main": "apps/dispatch-service/src/main.ts",
         "tsConfig": "apps/dispatch-service/tsconfig.app.json",
-        "assets": [
-          "apps/dispatch-service/src/assets"
-        ]
+        "assets": ["apps/dispatch-service/src/assets"]
       },
       "configurations": {
         "production": {
@@ -30,7 +28,7 @@
       }
     },
     "serve": {
-      "executor": "@nrwl/node:execute",
+      "executor": "@nrwl/node:node",
       "options": {
         "buildTarget": "dispatch-service:build",
         "inspect": true,
@@ -40,9 +38,7 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": [
-          "apps/dispatch-service/**/*.ts"
-        ]
+        "lintFilePatterns": ["apps/dispatch-service/**/*.ts"]
       }
     },
     "test": {
@@ -57,9 +53,7 @@
       "options": {
         "file": "./Dockerfile",
         "push": true,
-        "build-args": [
-          "app=dispatch-service"
-        ],
+        "build-args": ["app=dispatch-service"],
         "cache-from": [
           "type=registry,ref=ghcr.io/biosimulations/simulation-service:buildcache"
         ],
@@ -94,10 +88,6 @@
       }
     }
   },
-  "tags": [
-    "scope:dispatch",
-    "type:service",
-    "platform:server"
-  ],
+  "tags": ["scope:dispatch", "type:service", "platform:server"],
   "implicitDependencies": []
 }
