@@ -6,14 +6,12 @@
   "generators": {},
   "targets": {
     "build": {
-      "executor": "@nrwl/node:build",
+      "executor": "@nrwl/node:webpack",
       "options": {
         "outputPath": "dist/apps/simulators-api",
         "main": "apps/simulators-api/src/main.ts",
         "tsConfig": "apps/simulators-api/tsconfig.app.json",
-        "assets": [
-          "apps/simulators-api/src/assets"
-        ]
+        "assets": ["apps/simulators-api/src/assets"]
       },
       "configurations": {
         "production": {
@@ -30,7 +28,7 @@
       }
     },
     "serve": {
-      "executor": "@nrwl/node:execute",
+      "executor": "@nrwl/node:node",
       "options": {
         "buildTarget": "simulators-api:build"
       }
@@ -38,9 +36,7 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": [
-          "apps/simulators-api/**/*.ts"
-        ]
+        "lintFilePatterns": ["apps/simulators-api/**/*.ts"]
       }
     },
     "test": {
@@ -55,9 +51,7 @@
       "options": {
         "file": "./Dockerfile",
         "push": true,
-        "build-args": [
-          "app=simulators-api"
-        ],
+        "build-args": ["app=simulators-api"],
         "cache-from": [
           "type=registry,ref=ghcr.io/biosimulations/simulators-api:buildcache"
         ],
@@ -66,9 +60,7 @@
         ],
         "metadata": {
           "enabled": true,
-          "images": [
-            "ghcr.io/biosimulations/simulators-api"
-          ],
+          "images": ["ghcr.io/biosimulations/simulators-api"],
           "tags": [
             "type=schedule",
             "type=ref,event=branch",
@@ -91,9 +83,5 @@
       }
     }
   },
-  "tags": [
-    "scope:simulators",
-    "type:api",
-    "platform:server"
-  ]
+  "tags": ["scope:simulators", "type:api", "platform:server"]
 }
