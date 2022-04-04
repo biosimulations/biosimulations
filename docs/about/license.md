@@ -51,7 +51,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/actions/toolkit
 │  └─ licenseFile: @actions/io/LICENSE.md
-├─ @angular/animations@13.2.1
+├─ @angular/animations@13.3.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
@@ -60,17 +60,17 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/components
 │  └─ licenseFile: @angular/cdk/LICENSE
-├─ @angular/common@13.2.1
+├─ @angular/common@13.3.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/common/README.md
-├─ @angular/core@13.2.1
+├─ @angular/core@13.3.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/core/README.md
-├─ @angular/forms@13.2.1
+├─ @angular/forms@13.3.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
@@ -79,7 +79,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/components
 │  └─ licenseFile: @angular/material/LICENSE
-├─ @angular/platform-browser@13.2.1
+├─ @angular/platform-browser@13.3.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
@@ -149,7 +149,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/common/LICENSE
-├─ @nestjs/config@1.2.1
+├─ @nestjs/config@2.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/config
 │  ├─ publisher: Kamil Mysliwiec
@@ -300,21 +300,21 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: i@izs.me
 │  ├─ url: https://izs.me
 │  └─ licenseFile: npm/node_modules/@npmcli/run-script/LICENSE
-├─ @nrwl/cli@13.8.2
+├─ @nrwl/cli@13.9.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nrwl/nx
 │  ├─ publisher: Victor Savkin
-│  └─ licenseFile: @nrwl/cli/README.md
-├─ @nrwl/devkit@13.8.2
+│  └─ licenseFile: @nrwl/cli/LICENSE
+├─ @nrwl/devkit@13.9.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nrwl/nx
 │  ├─ publisher: Victor Savkin
-│  └─ licenseFile: @nrwl/devkit/README.md
-├─ @nrwl/tao@13.8.2
+│  └─ licenseFile: @nrwl/devkit/LICENSE
+├─ @nrwl/tao@13.9.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nrwl/nx
 │  ├─ publisher: Victor Savkin
-│  └─ licenseFile: @nrwl/tao/README.md
+│  └─ licenseFile: @nrwl/tao/LICENSE
 ├─ @nuxtjs/opencollective@0.3.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nuxt-contrib/opencollective
@@ -494,6 +494,108 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Stoplight
 │  ├─ email: support@stoplight.io
 │  └─ licenseFile: @stoplight/types/LICENSE
+├─ @swc-node/core@1.8.2
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/Brooooooklyn/swc-node
+│  ├─ publisher: LongYinan
+│  ├─ email: lynweklm@gmail.com
+│  └─ licenseFile: @swc-node/core/LICENSE
+├─ @swc-node/register@1.4.2
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/Brooooooklyn/swc-node
+│  ├─ publisher: LongYinan
+│  ├─ email: lynweklm@gmail.com
+│  └─ licenseFile: @swc-node/register/LICENSE
+├─ @swc-node/sourcemap-support@0.1.11
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/Brooooooklyn/swc-node
+│  ├─ publisher: LongYinan
+│  ├─ email: lynweklm@gmail.com
+│  └─ licenseFile: @swc-node/sourcemap-support/LICENSE
+├─ @swc/core-android-arm-eabi@1.2.163
+│  ├─ licenses: Apache-2.0 AND MIT
+│  ├─ repository: https://github.com/swc-project/swc
+│  ├─ publisher: 강동윤
+│  ├─ email: kdy1997.dev@gmail.com
+│  └─ licenseFile: @swc/core-android-arm-eabi/README.md
+├─ @swc/core-android-arm64@1.2.163
+│  ├─ licenses: Apache-2.0 AND MIT
+│  ├─ repository: https://github.com/swc-project/swc
+│  ├─ publisher: 강동윤
+│  ├─ email: kdy1997.dev@gmail.com
+│  └─ licenseFile: @swc/core-android-arm64/README.md
+├─ @swc/core-darwin-arm64@1.2.163
+│  ├─ licenses: Apache-2.0 AND MIT
+│  ├─ repository: https://github.com/swc-project/swc
+│  ├─ publisher: 강동윤
+│  ├─ email: kdy1997.dev@gmail.com
+│  └─ licenseFile: @swc/core-darwin-arm64/README.md
+├─ @swc/core-darwin-x64@1.2.163
+│  ├─ licenses: Apache-2.0 AND MIT
+│  ├─ repository: https://github.com/swc-project/swc
+│  ├─ publisher: 강동윤
+│  ├─ email: kdy1997.dev@gmail.com
+│  └─ licenseFile: @swc/core-darwin-x64/README.md
+├─ @swc/core-freebsd-x64@1.2.163
+│  ├─ licenses: Apache-2.0 AND MIT
+│  ├─ repository: https://github.com/swc-project/swc
+│  ├─ publisher: 강동윤
+│  ├─ email: kdy1997.dev@gmail.com
+│  └─ licenseFile: @swc/core-freebsd-x64/README.md
+├─ @swc/core-linux-arm-gnueabihf@1.2.163
+│  ├─ licenses: Apache-2.0 AND MIT
+│  ├─ repository: https://github.com/swc-project/swc
+│  ├─ publisher: 강동윤
+│  ├─ email: kdy1997.dev@gmail.com
+│  └─ licenseFile: @swc/core-linux-arm-gnueabihf/README.md
+├─ @swc/core-linux-arm64-gnu@1.2.163
+│  ├─ licenses: Apache-2.0 AND MIT
+│  ├─ repository: https://github.com/swc-project/swc
+│  ├─ publisher: 강동윤
+│  ├─ email: kdy1997.dev@gmail.com
+│  └─ licenseFile: @swc/core-linux-arm64-gnu/README.md
+├─ @swc/core-linux-arm64-musl@1.2.163
+│  ├─ licenses: Apache-2.0 AND MIT
+│  ├─ repository: https://github.com/swc-project/swc
+│  ├─ publisher: 강동윤
+│  ├─ email: kdy1997.dev@gmail.com
+│  └─ licenseFile: @swc/core-linux-arm64-musl/README.md
+├─ @swc/core-linux-x64-gnu@1.2.163
+│  ├─ licenses: Apache-2.0 AND MIT
+│  ├─ repository: https://github.com/swc-project/swc
+│  ├─ publisher: 강동윤
+│  ├─ email: kdy1997.dev@gmail.com
+│  └─ licenseFile: @swc/core-linux-x64-gnu/README.md
+├─ @swc/core-linux-x64-musl@1.2.163
+│  ├─ licenses: Apache-2.0 AND MIT
+│  ├─ repository: https://github.com/swc-project/swc
+│  ├─ publisher: 강동윤
+│  ├─ email: kdy1997.dev@gmail.com
+│  └─ licenseFile: @swc/core-linux-x64-musl/README.md
+├─ @swc/core-win32-arm64-msvc@1.2.163
+│  ├─ licenses: Apache-2.0 AND MIT
+│  ├─ repository: https://github.com/swc-project/swc
+│  ├─ publisher: 강동윤
+│  ├─ email: kdy1997.dev@gmail.com
+│  └─ licenseFile: @swc/core-win32-arm64-msvc/README.md
+├─ @swc/core-win32-ia32-msvc@1.2.163
+│  ├─ licenses: Apache-2.0 AND MIT
+│  ├─ repository: https://github.com/swc-project/swc
+│  ├─ publisher: 강동윤
+│  ├─ email: kdy1997.dev@gmail.com
+│  └─ licenseFile: @swc/core-win32-ia32-msvc/README.md
+├─ @swc/core-win32-x64-msvc@1.2.163
+│  ├─ licenses: Apache-2.0 AND MIT
+│  ├─ repository: https://github.com/swc-project/swc
+│  ├─ publisher: 강동윤
+│  ├─ email: kdy1997.dev@gmail.com
+│  └─ licenseFile: @swc/core-win32-x64-msvc/README.md
+├─ @swc/core@1.2.163
+│  ├─ licenses: Apache-2.0
+│  ├─ repository: https://github.com/swc-project/swc
+│  ├─ publisher: 강동윤
+│  ├─ email: kdy1997.dev@gmail.com
+│  └─ licenseFile: @swc/core/LICENSE
 ├─ @tootallnate/once@1.1.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/TooTallNate/once
@@ -542,6 +644,12 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/json-schema/LICENSE
+├─ @types/json5@0.0.29
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+│  ├─ publisher: Jason Swearingen
+│  ├─ email: https://jasonswearingen.github.io
+│  └─ licenseFile: @types/json5/README.md
 ├─ @types/mime@1.3.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1058,7 +1166,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 ├─ chalk@4.1.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/chalk/chalk
-│  └─ licenseFile: @nrwl/tao/node_modules/chalk/license
+│  └─ licenseFile: nx/node_modules/chalk/license
 ├─ chalk@4.1.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/chalk/chalk
@@ -1427,6 +1535,12 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Josh Junon
 │  ├─ email: josh.junon@protonmail.com
 │  └─ licenseFile: @semantic-release/exec/node_modules/debug/LICENSE
+├─ debug@4.3.4
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/debug-js/debug
+│  ├─ publisher: Josh Junon
+│  ├─ email: josh.junon@protonmail.com
+│  └─ licenseFile: @swc-node/register/node_modules/debug/LICENSE
 ├─ debuglog@1.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sam-github/node-debuglog
@@ -1579,10 +1693,11 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
 │  └─ licenseFile: dot-prop/license
-├─ dotenv-expand@5.1.0
+├─ dotenv-expand@8.0.2
 │  ├─ licenses: BSD-2-Clause
+│  ├─ repository: https://github.com/motdotla/dotenv-expand
 │  ├─ publisher: motdotla
-│  └─ licenseFile: @nestjs/config/node_modules/dotenv-expand/LICENSE
+│  └─ licenseFile: dotenv-expand/LICENSE
 ├─ dotenv@16.0.0
 │  ├─ licenses: BSD-2-Clause
 │  ├─ repository: https://github.com/motdotla/dotenv
@@ -1889,7 +2004,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/jprichardson/node-fs-extra
 │  ├─ publisher: JP Richardson
 │  ├─ email: jprichardson@gmail.com
-│  └─ licenseFile: @nrwl/tao/node_modules/fs-extra/LICENSE
+│  └─ licenseFile: nx/node_modules/fs-extra/LICENSE
 ├─ fs-minipass@2.1.0
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/fs-minipass
@@ -2504,6 +2619,12 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: i@izs.me
 │  ├─ url: http://blog.izs.me
 │  └─ licenseFile: json-stringify-safe/LICENSE
+├─ json5@1.0.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/json5/json5
+│  ├─ publisher: Aseem Kishore
+│  ├─ email: aseem.kishore@gmail.com
+│  └─ licenseFile: tsconfig-paths/node_modules/json5/LICENSE.md
 ├─ json5@2.2.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/json5/json5
@@ -2519,7 +2640,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/microsoft/node-jsonc-parser
 │  ├─ publisher: Microsoft Corporation
-│  └─ licenseFile: @nrwl/tao/node_modules/jsonc-parser/LICENSE.md
+│  └─ licenseFile: nx/node_modules/jsonc-parser/LICENSE.md
 ├─ jsonfile@6.1.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jprichardson/node-jsonfile
@@ -3346,11 +3467,11 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
 │  └─ licenseFile: number-is-nan/license
-├─ nx@13.8.2
+├─ nx@13.9.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nrwl/nx
 │  ├─ publisher: Victor Savkin
-│  └─ licenseFile: nx/README.md
+│  └─ licenseFile: nx/LICENSE
 ├─ object-assign@4.1.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/object-assign
@@ -3638,6 +3759,13 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
 │  └─ licenseFile: load-json-file/node_modules/pify/license
+├─ pirates@4.0.4
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/danez/pirates
+│  ├─ publisher: Ari Porad
+│  ├─ email: ari@ariporad.com
+│  ├─ url: http://ariporad.com
+│  └─ licenseFile: pirates/LICENSE
 ├─ pkg-conf@2.1.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/pkg-conf
@@ -4008,7 +4136,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/reactivex/rxjs
 │  ├─ publisher: Ben Lesh
 │  ├─ email: ben@benlesh.com
-│  └─ licenseFile: @nrwl/tao/node_modules/rxjs/LICENSE.txt
+│  └─ licenseFile: nx/node_modules/rxjs/LICENSE.txt
 ├─ rxjs@7.5.5
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/reactivex/rxjs
@@ -4086,7 +4214,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 ├─ semver@7.3.4
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/node-semver
-│  └─ licenseFile: @nrwl/tao/node_modules/semver/LICENSE
+│  └─ licenseFile: nx/node_modules/semver/LICENSE
 ├─ semver@7.3.5
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/node-semver
@@ -4233,6 +4361,10 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/JoshGlazebrook/socks
 │  ├─ publisher: Josh Glazebrook
 │  └─ licenseFile: npm/node_modules/socks/LICENSE
+├─ source-map-support@0.5.21
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/evanw/node-source-map-support
+│  └─ licenseFile: @swc-node/sourcemap-support/node_modules/source-map-support/LICENSE.md
 ├─ source-map@0.5.6
 │  ├─ licenses: BSD-3-Clause
 │  ├─ repository: https://github.com/mozilla/source-map
@@ -4442,7 +4574,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Sindre Sorhus
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
-│  └─ licenseFile: load-json-file/node_modules/strip-bom/license
+│  └─ licenseFile: tsconfig-paths/node_modules/strip-bom/license
 ├─ strip-final-newline@2.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/strip-final-newline
@@ -4609,7 +4741,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: KARASZI István
 │  ├─ email: github@spam.raszi.hu
 │  ├─ url: http://raszi.hu/
-│  └─ licenseFile: @nrwl/tao/node_modules/tmp/LICENSE
+│  └─ licenseFile: nx/node_modules/tmp/LICENSE
 ├─ to-regex-range@5.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/micromatch/to-regex-range
@@ -4659,6 +4791,11 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
 │  └─ licenseFile: trim-newlines/license
+├─ tsconfig-paths@3.12.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/dividab/tsconfig-paths
+│  ├─ publisher: Jonas Kello
+│  └─ licenseFile: tsconfig-paths/LICENSE
 ├─ tslib@1.14.1
 │  ├─ licenses: 0BSD
 │  ├─ repository: https://github.com/Microsoft/tslib
@@ -4745,6 +4882,11 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: mail@substack.net
 │  ├─ url: http://substack.net
 │  └─ licenseFile: typedarray/LICENSE
+├─ typescript@4.5.5
+│  ├─ licenses: Apache-2.0
+│  ├─ repository: https://github.com/Microsoft/TypeScript
+│  ├─ publisher: Microsoft Corp.
+│  └─ licenseFile: typescript/LICENSE.txt
 ├─ uglify-js@3.14.2
 │  ├─ licenses: BSD-2-Clause
 │  ├─ repository: https://github.com/mishoo/UglifyJS
@@ -5019,7 +5161,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/yargs/yargs-parser
 │  ├─ publisher: Ben Coe
 │  ├─ email: ben@npmjs.com
-│  └─ licenseFile: @nrwl/cli/node_modules/yargs-parser/LICENSE.txt
+│  └─ licenseFile: nx/node_modules/yargs-parser/LICENSE.txt
 ├─ yargs-parser@20.2.9
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/yargs/yargs-parser
