@@ -75,6 +75,7 @@ export class SbatchService {
     const hsdsBasePath = this.configService.get('data.externalBasePath');
     const hsdsUsername = this.configService.get('data.username');
     const hsdsPassword = this.configService.get('data.password');
+    const hsdsRetries = 10;
 
     const simulatorImage = `docker://ghcr.io/biosimulators/${simulator}:${simulatorVersion}`;
 
@@ -339,6 +340,7 @@ srun --job-name="Save-results-to-HSDS" \
     --endpoint ${hsdsBasePath} \
     --username ${hsdsUsername} \
     --password ${hsdsPassword} \
+    --retries ${hsdsRetries} \
     --verbose \
     ${outputsReportsFileSubPath} \
     '${simulationRunResultsHsdsPath}'
