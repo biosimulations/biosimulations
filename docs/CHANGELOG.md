@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.13.5](https://github.com/biosimulations/biosimulations/compare/v9.13.4...v9.13.5) (2022-04-08)
+
+
+### Performance Improvements
+
+* **dispatch-service:** increase the number of retries for uploading results to hsds ([fc80ba4](https://github.com/biosimulations/biosimulations/commit/fc80ba489c5451ccfe3b7c1ff4f4efbf2bb1ab01))
+
 ## [9.13.4](https://github.com/biosimulations/biosimulations/compare/v9.13.3...v9.13.4) (2022-03-30)
 
 
