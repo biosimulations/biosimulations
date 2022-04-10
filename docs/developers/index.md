@@ -2,22 +2,20 @@
 
 We enthusiastically welcome contributions to BioSimulations and BioSimulators! This document describes how developers can contribute the BioSimulations and BioSimulators platforms (e.g., web applications, REST APIs, databases, and simulation services). Information for investigators about contributing simulation projects to BioSimulations is available [here](../users/publishing-projects.md). Information for simulation software tool developers about contributing simulation tools to BioSimulators is available at [here](../users/publishing-tools.md).
 
+## Code of Conduct
+
+All developer and contributors are expected to follow the [BioSimulations and BioSimulators Code of Conduct](./conduct.md).
+
+## Providing Feedback
+Please provide any Feedback through [GitHub Issues](https://github.com/biosimulations/biosimulations/issues) or our [Discussion Forum](https://github.com/biosimulations/biosimulations/discussions).
+
 ## Coordinating contributions
 
-Before getting started, please contact the lead developers at [info@biosimulations.org](mailto:info@biosimulations.org) to coordinate your planned contributions with other ongoing efforts. Please also use GitHub issues to announce your plans to the community so that other developers can provide input into your plans and coordinate their own work. As the development community grows, we will institute additional infrastructure as needed, such as a leadership committee and regular online meetings.
+Before getting started, please use GitHub issues to announce your plans to the community so that other developers can provide input into your plans and coordinate their own work. If you plan to include significant contribution or changes, please also contact the lead developers at [info@biosimulations.org](mailto:info@biosimulations.org) to coordinate your planned contributions with other ongoing efforts. As the development community grows, we will institute additional infrastructure as needed, such as a leadership committee and regular online meetings.
 
-## Repository organization
+## Development
 
-The repository is organized as a monorepo using tooling from [Nx](https://nx.dev/angular/getting-started/why-nx). A brief guide to working with Nx is available [here](./setup/nx-tutorial.md).
-
-### Apps
-
-The `apps` directory contains code for the high level applications that are a part of BioSimulations and BioSimulators. An application is code that is deployed independently, either as a website, API, or backend service. The applications are implemented using TypeScript, except the COMBINE API, which is implemented using Python. See the [README](https://github.com/biosimulations/biosimulations/blob/dev/apps/combine-api/README.md) for the COMBINE API for more information about installing, running, and editing the COMBINE API.
-
-### Libraries
-
-The `libs` directory contains code that can be used by multiple applications. Each library contains a `README.md` file that describes its purpose. The libraries are implemented using TypeScript. To enforce proper separation of concerns and manage dependency trees, BioSimulations and BioSimulators employ constraints on the libraries that can be used by each application. For more information, read the [Nx documentation](https://nx.dev/angular/workspace/structure/monorepo-tags), and look at the repository's [linting rules](https://github.com/biosimulations/biosimulations/blob/dev/.eslintrc.json). In general, BioSimulations and BioSimulators follow the [principles recommended by Nx](https://nx.dev/angular/guides/monorepo-nx-enterprise).
-
+Please see the [Getting Started](./setup/getting-started.md) guide for information on how to start working with the codebase and develop locally.
 ## Coding convention
 
 BioSimulations and BioSimulators follow standard TypeScript style conventions:
