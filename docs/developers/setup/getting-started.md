@@ -1,4 +1,4 @@
-# Getting Started with Developmnent
+# Getting Started with Development
 
 ## Developing Locally
 ### Prerequisites
@@ -70,7 +70,7 @@ To enforce proper separation of concerns and manage dependency trees, BioSimulat
 In the `project.json` file for each application and library, there are tags that are used to categorize the scope and type of the libraries. In general, the following tags are used:
 
 - `platform`: This tag can be one of `web`, `server` or `any`. The `web` tag indicates that the app or library is designed to run in browsers, and contains code that is specific to the web, such as Angular libraries, or code that makes use of Web APIs. These libraries can only be imported by apps and libraries that have the `web` tag. The `server` tag indicates that the app or library is designed to run on the server, and contains code that is specific to the server, such as file system interaction, interaction with the database, or imports of backend libraries. These libraries can only be imported by apps and libraries that have the `server` tag. The `any` tag indicates that the app or library can be used by both the web and server, and contains platform-agnostic code, such as utilities or data model definitions. 
-- `scope`: This tag is used to enforce seperation of concerns between applications. Each application is assigned a scope and can only import libraries that are in the same scope. The scope 'shared' indicates that the library can be imported by any application. Libraries can also be assigned a specific scope to ensure that helper libraries are encapsulated by the parent library and cannot be imported directly by an application. 
+- `scope`: This tag is used to enforce separation of concerns between applications. Each application is assigned a scope and can only import libraries that are in the same scope. The scope 'shared' indicates that the library can be imported by any application. Libraries can also be assigned a specific scope to ensure that helper libraries are encapsulated by the parent library and cannot be imported directly by an application. 
 - `type`: This tag can be used to enforce proper library organization. For example, a library that has a `type` of `ui` is intended to provide generic UI components that can be used by multiple applications. Therefore, libraries with a type of `ui` can be restricted from importing libraries with a `type` of `datamodel` which defines data models, to ensure that the UI components do not depend on the data models.
 The possibles types of libraries are 
     

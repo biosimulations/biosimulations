@@ -84,7 +84,7 @@ For local development, you can also disable authentication by commenting out the
 
 
 ## Mail Service
-BioSimulations uses [SendGrid](https://sendgrid.com/) for sending emails. If you are not working directly with the mail-service, you can skip this section.
+BioSimulations uses [SendGrid](https://sendgrid.com/) for sending email notifications to users. If you are not working directly with the mail-service, you can skip this section.
 
 - `SENDGRID_TOKEN`: Provide the API key for your SendGrid account.
 - `SUCCESS_TEMPLATE`: Provide the template id for the email sent to the user when a simulation is successfully completed.
