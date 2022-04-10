@@ -1,66 +1,91 @@
-# Running required backend services for local development
+# Setting the environment values for backend services
 
-## Background Services
+!!! tip
+    If you are unsure about which values to use, see the [services documentation](./services.md) or [contact us](/about/contact) for help.
 
-!!! tip 
-    We recommend using [VsCode](https://code.visualstudio.com/) for developing BioSimulations. The BioSimulations git repository contains a [development container](https://code.visualstudio.com/docs/remote/containers) [configuration](https://github.com/biosimulations/biosimulations/blob/dev/.devcontainer/devcontainer.json) that simplifies the setup of the local environment.
+In the `config/` directory, create a copy of the `config.env.sample` file, named `config.env`. Replace the placeholders for the following variables:
 
-The BioSimulations apps requires connecting to several infrastructure services for functions such as messaging, database, and storage. Developing BioSimulations locally requires access to the following services:
+## Database
 
-- Redis
+- `MONGODB_URI`: Provide the [URI](https://www.mongodb.com/docs/manual/reference/connection-string/#std-label-mongodb-uri) of your MongoDB database.
 
-    [Redis](https://redis.io/) is used for caching the results of the API and for managing queues for submitting, monitoring, and processing simulation runs.
+## S3 Storage
 
-    We recommend running a local redis container with the following command:
+- `STORAGE_ENDPOINT`: Provide the endpoint of your S3-compatible storage bucket.
+- `STORAGE_EXTERNAL_ENDPOINT`: Provide the public url to access files in your S3-compatible storage bucket.
+- `STORAGE_BUCKET`: Provide the name of your S3-compatible storage bucket.
+- `STORAGE_ACCESS_KEY_ID`: Provide the access key id of your S3-compatible storage bucket.
+- `STORAGE_SECRET_ACCESS_KEY`: Provide the secret access key of your S3-compatible storage bucket.
 
-    ```bash
-    docker run -d -p 6379:6379 --network host --name redis redis
-    ```
+## Redis connection
 
-- NATS messaging queue
+- `REDIS_HOST`: Provide the host of your Redis server.
+- `REDIS_PORT`: Provide the port of your Redis server.
 
-    [NATS](https://docs.nats.io/) is used for messaging between the API and the backend services. Currently, the NATS connection does not support guaranteed message delivery semantics. The latest [NATS Jetstream](https://docs.nats.io/nats-concepts/jetstream) adds support for exactly-once delivery semantics, which will be can be for submission jobs in the future.
+## NATS connection
+- `NATS_URL`: Provide the url of your [NATS message](https://docs.nats.io) server.
 
-    We recommend running a local NATS container with the following command:
+## HPC
+Several environment variables are needed to run simulations on an HPC. If you are developing portions of the system that do not require submitting jobs to the HPC, you can skip this section.
 
-    ```bash
-    docker run -d -p 4222:4222 --network host --name nats nats
-    ```
+### HPC Connection
+- `HPC_HOME_DIR`: Provide the path to the HPC user's home directory.
+- `HPC_BASE_DIR`: Provide the base path for the simulations to be stored on the HPC
+- `HPC_SSH_PRIVATE_KEY`: Provide the private key for SSH access to the HPC.
+- `HPC_SSH_HOST`: Provide the hostname of the HPC login node
+- `HPC_SSH_PORT`: Provide the port of the HPC login node
+- `HPC_SSH_USER`: Provide the username of the HPC user
 
-- MongoDB
+### SLURM script template
+These variables are used to generate the SLURM script that is submitted to the HPC.
 
-    [MongoDB](https://docs.mongodb.com/) is used as our primary database and contains information about the simulation runs, their logs, specifications, metadata, etc. It is accessed through the API.
+- `HPC_EXECUTABLES_PATH`: Provide the path to the HPC executables
+- `HPC_MODULE_PATH`: Provide the path to the HPC modules
+- `HPC_MODULE_INIT_SCRIPT`: Provide the module load commands for the HPC
+- 'HPC_SLURM_PARTITION`: Provide the SLURM partition to use
+- `HPC_SLURM_QOS`: Provide the SLURM QOS to use
 
-    We recommend running a local MongoDB container with the following command:
-    ```bash
-    docker run -d -p 27017:27017 --network host --name mongodb mongo
-    ```
+### Singularity
+These variables configure the Singularity application on the HPC
+- `HPC_SINGULARITY_MODULE`: Provide the name of the module that loads singularity
+- `HPC_SINGULARITY_CACHE_DIR`: Provide the path to the Singularity cache directory
+- `HPC_SINGULARITY_PULL_FOLDER`: Provide the path to the Singularity pull folder
 
-    Alternatively, you can use a free MongoDB cluster from [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/).
+## Highly Scalable Data Service
+The HSDS is used to store the simulation results. Please see the [HSDS repository](https://github.com/HDFGroup/hsds) for more information on setting up a HSDS instance.
 
-    These methods will allow you to develop BioSimulations locally, but will not have access to simulation stored on the development server. If you would like to develop against the dev biosimulations database, please [contact us](/about/contact/) for access.
+- `HSDS_BASEPATH`: Provide the URL for your HSDS instance.
+- `HSDS_USERNAME`: Provide the username for your HSDS instance.
+- `HSDS_PASSWORD`: Provide the password for your HSDS instance.
 
-- S3
+## Authentication Service
+BioSimulations uses [Auth0](https://auth0.com/) for authentication. Please see the [Auth0 documentation](https://auth0.com/docs/quickstart/backend/nodejs) for more information on setting up an Auth0 instance.
 
-    We recommend using an [AWS S3](https://aws.amazon.com/s3/) or [Google Cloud Storage](https://cloud.google.com/storage/) bucket for local development. If you would like to develop against the dev biosimulations bucket, please [contact us](/about/contact/) for access.
+Alternatively, any OAuth2 provider should be compatible with the BioSimulations codebase, with the exception of portions of the system that rely on information stored on the Auth0 database. Currently, this includes information about user profiles, and organization profiles. 
 
-    The dev biosimulations bucket can be accessed in the following ways: 
-    
-    - Connect to the UCONN VPN and use the endpoint `https://s3low.scality.uchc.edu`
+For local development, you can also disable authentication by commenting out the `@permissions` decorator from the API methods. For example, see the following section of the API source code: 
 
-    - Connect to the BioSimulations submit node on the UCONN HPC via SSH and use local port bindings. The bucket can then be accessed via 'https://localhost:4443.' You will likely need to disable ssl validation in the library, tool, or code that you are using to connect to the bucket. 
+```typescript
+  @permissions(scopes.files.create.id) //Comment out this line to disable authentication
+  public async addThumbnailUrls(
+    @Param('runId') runId: string,
+    @Param('fileLocation') fileLocation: string,
+    @Body() thumbnailUrls: ProjectFileThumbnailInput,
+  ): Promise<void> {
+    return this.service.addThumbnailUrls(runId, fileLocation, thumbnailUrls);
+  }
+```
 
-    ```bash
-     ssh -i ~/.ssh/id_hpc -L localhost:4443:s3low.scality.uchc.edu:443 crbmapi@biosim-submit-ext.cam.uchc.edu
-    ```
-     Where `id_hpc` is a private key that has access to the biosimulations user account. 
-
-     To request a ssh key, please [contact us](/about/contact/).
-
-- HPC
-    
-    Accessing the an appropriate HPC backend is the most bespoke part of setting up a local environment for development on the BioSimulations platform. If your development work does not require running simulations on the HPC, we recommend temporarily modifying the code to skip submitting jobs to the HPC or returning mock responses. This will allow you to continue to develop the API, and other aspects of the system without access to the HPC. For more information about which parts of the system interact with the HPC, see the [architecture deployment information](../architecture/deployment.md).
-
-     If you specifically require access to the HPC, please [contact us](/about/contact/).
+- `AUTH0_DOMAIN`: Provide the domain of your authentication service
+- `AUTH0_ISSUER`: Provide the issuer of your  authentication tokens
+- `API_AUDIENCE`: Provide the audience of your authentication tokens
+- `CLIENT_ID`: Provide the client id of the application authenticating against the authentication service
+- `CLIENT_SECRET`: Provide the client secret of the application authenticating against the authentication service
 
 
+## Mail Service
+BioSimulations uses [SendGrid](https://sendgrid.com/) for sending emails. If you are not working directly with the mail-service, you can skip this section.
+
+- `SENDGRID_TOKEN`: Provide the API key for your SendGrid account.
+- `SUCCESS_TEMPLATE`: Provide the template id for the email sent to the user when a simulation is successfully completed.
+- `FAILURE_TEMPLATE`: Provide the template id for the email sent to the user when a simulation fails.
