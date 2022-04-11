@@ -217,7 +217,6 @@ export class VegaVisualizationService {
         return reports[0];
       }
     }
-
     return undefined;
   }
 
@@ -328,6 +327,6 @@ export class VegaVisualizationService {
       return attributeValues[0];
     }
 
-    return undefined;
+    
   }
 }
