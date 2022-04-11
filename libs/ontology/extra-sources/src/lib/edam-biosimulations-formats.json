@@ -1147,8 +1147,7 @@
     "biosimulationsMetadata": {
       "acronym": "SVGZ",
       "omexManifestUris": [
-        "http://purl.org/NET/mediatypes/image/svg+xml-compressed",
-        "http://purl.org/NET/mediatypes/image/svg+xml"
+        "http://purl.org/NET/mediatypes/image/svg+xml-compressed"
       ],
       "icon": "image"
     }
