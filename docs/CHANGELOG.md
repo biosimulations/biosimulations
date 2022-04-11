@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.13.6](https://github.com/biosimulations/biosimulations/compare/v9.13.5...v9.13.6) (2022-04-11)
+
+
+### Bug Fixes
+
+* separated URIs for SVG and SVGZ ([13bf805](https://github.com/biosimulations/biosimulations/commit/13bf8059d1b65901777be11bc2322a42688bd0ce))
+
 ## [9.13.5](https://github.com/biosimulations/biosimulations/compare/v9.13.4...v9.13.5) (2022-04-08)
 
 
