@@ -326,7 +326,5 @@ export class VegaVisualizationService {
     } else {
       return attributeValues[0];
     }
-
-    
   }
 }
