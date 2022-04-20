@@ -1,13 +1,14 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { BrowseService } from './browse.service';
 import { FormattedProjectSummary, LocationPredecessor } from './browse.model';
-import { Column, ColumnFilterType } from '@biosimulations/shared/ui';
+import { Column, ColumnFilterType, TableComponent } from '@biosimulations/shared/ui';
 import { FormatService } from '@biosimulations/shared/services';
 import { LabeledIdentifier, DescribedIdentifier } from '@biosimulations/datamodel/common';
 import { RowService } from '@biosimulations/shared/ui';
 import { ScrollService } from '@biosimulations/shared/angular';
+import { ControlColumn, ControlsState } from '@biosimulations/shared/ui';
 
 @Component({
   selector: 'biosimulations-projects-browse',
@@ -674,6 +675,8 @@ export class BrowseComponent implements OnInit, AfterViewInit {
     },
   ];
 
+  @ViewChild(TableComponent) table!: TableComponent;
+
   constructor(private service: BrowseService, private route: ActivatedRoute, private scrollService: ScrollService) {
     this.openControls = this.openControls.bind(this);
   }
@@ -707,5 +710,16 @@ export class BrowseComponent implements OnInit, AfterViewInit {
 
   private processUriForSearch(uri: string): string {
     return uri.replace(/[/#:.]/g, ' ');
+  }
+
+  public controlsStateUpdated(state: ControlsState): void {
+    this.table.openControlPanel(state.openControlPanelId);
+    const showColumns: { [key: string]: boolean } = {};
+    state.columns.forEach((v: ControlColumn) => {
+      showColumns[v.id] = v._visible === true;
+    });
+    this.table.showColumns = showColumns;
+    this.table.setColumnsToShow();
+    this.table.setTableStateQueryFragment();
   }
 }

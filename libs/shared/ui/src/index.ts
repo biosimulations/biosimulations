@@ -11,3 +11,4 @@ export * from './lib/form-validators/form-validators';
 export * from './lib/multi-step-form';
 export { IconActionType } from './lib/text-page/text-page-content-section.component';
 export { HtmlSnackBarComponent } from './lib/html-snack-bar/html-snack-bar.component';
+export * from './lib/table-strangler/controls.model';

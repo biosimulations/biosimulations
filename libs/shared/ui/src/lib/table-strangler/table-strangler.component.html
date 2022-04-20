@@ -1,6 +1,6 @@
 <div
   class="title"
-  (click)="table.toggleControls()"
+  (click)="toggleControls()"
   [ngClass]="{ hidden: !closeable }"
 >
   <div class="title-inner">Controls</div>
@@ -14,7 +14,7 @@
   <mat-expansion-panel
     [expanded]="openControlPanelId === 1"
     [disabled]="openControlPanelId === 1"
-    (opened)="table.openControlPanel(1)"
+    (opened)="openControlPanel(1)"
   >
     <mat-expansion-panel-header collapsedHeight="32px" expandedHeight="32px">
       <mat-panel-title>
@@ -24,11 +24,11 @@
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>
       <mat-list>
-        <ng-container *ngFor="let column of table.columns">
+        <ng-container *ngFor="let column of columns">
           <mat-list-item *ngIf="column?.hidden !== true">
             <mat-checkbox
-              [checked]="table.showColumns[column.id]"
-              (change)="table.toggleColumn(column)"
+              [checked]="column.show == true"
+              (change)="toggleColumn($event, column)"
             >
               {{ column.heading }}
             </mat-checkbox>
@@ -41,7 +41,7 @@
   <mat-expansion-panel
     [expanded]="openControlPanelId === 2"
     [disabled]="openControlPanelId === 2"
-    (opened)="table.openControlPanel(2)"
+    (opened)="openControlPanel(2)"
   >
     <mat-expansion-panel-header collapsedHeight="32px" expandedHeight="32px">
       <mat-panel-title>
@@ -51,7 +51,7 @@
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>
       <mat-accordion class="controls">
-        <ng-template ngFor let-column [ngForOf]="table.columns">
+        <ng-template ngFor let-column [ngForOf]="columns">
           <mat-expansion-panel *ngIf="column.filterable !== false">
             <mat-expansion-panel-header
               collapsedHeight="32px"
@@ -68,7 +68,7 @@
                   <ng-template
                     let-range="range"
                     [ngTemplateOutletContext]="{
-                      range: table.columnFilterData[column.id]
+                      range: columnFilterData[column.id]
                     }"
                     [ngTemplateOutlet]="self"
                     #self
@@ -236,7 +236,7 @@
   <mat-expansion-panel
     [expanded]="openControlPanelId === 3"
     [disabled]="openControlPanelId === 3"
-    (opened)="table.openControlPanel(3)"
+    (opened)="openControlPanel(3)"
   >
     <mat-expansion-panel-header collapsedHeight="32px" expandedHeight="32px">
       <mat-panel-title>
