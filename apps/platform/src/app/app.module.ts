@@ -21,6 +21,7 @@ import { PwaModule } from '@biosimulations/shared/pwa';
 
 import config from '../assets/config.json';
 import { AngularAnalyticsModule } from '@biosimulations/angular-analytics';
+import { GridModule } from '@biosimulations/grid';
 
 const routes: Routes = [
   {
@@ -59,6 +60,7 @@ routes.forEach((route: Route): void => {
 
     MarkdownModule.forRoot({ loader: HttpClient }),
     SharedUiModule,
+    GridModule,
     RouterModule.forRoot(routes, {
       initialNavigation: 'enabled',
       scrollPositionRestoration: 'disabled',

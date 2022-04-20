@@ -27,7 +27,7 @@
     </div>
 
     <div class="controls-container enter-from-right" [ngClass]="{ visible: controlsOpen }">
-      <biosimulations-table-strangler
+      <biosimulations-grid-controls
         [table]="table"
         [columns]="columns"
         [openControlPanelId]="table.openControlPanelId"
@@ -36,7 +36,7 @@
         searchPlaceHolder="Query (e.g., metabolism)"
         searchToolTip="Enter a query such as 'metabolism'. By default, your query will be searched over all attributes. To search over a specific attribute, prefix your query with the heading of the attribute (with spaces replaced by dashes) such as 'last-updated: 2020'."
         [closeable]="false"
-        class="controls"></biosimulations-table-strangler>
+        class="controls"></biosimulations-grid-controls>
     </div>
   </div>
 </biosimulations-table>

@@ -109,6 +109,7 @@ export class MatCarouselHammerConfig extends HammerGestureConfig {
     CarouselComponent,
     BreadCrumbsModule,
     TableStranglerComponent,
+    SliderComponent,
   ],
   declarations: [
     TopbarComponent,

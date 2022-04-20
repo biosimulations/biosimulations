@@ -1,0 +1,31 @@
+{
+  "projectType": "library",
+  "root": "libs/grid",
+  "sourceRoot": "libs/grid/src",
+  "prefix": "biosimulations",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "coverage/libs/grid"
+      ],
+      "options": {
+        "jestConfig": "libs/grid/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/grid/src/**/*.ts",
+          "libs/grid/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": [
+    "platform: web",
+    "type:ui"
+  ]
+}

@@ -13,6 +13,7 @@ import { SharedErrorComponentsModule } from '@biosimulations/shared/error-handle
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { ApiClientModule } from '@biosimulations/angular-api-client';
 import { NgxJsonLdModule } from '@ngx-lite/json-ld';
+import { GridModule } from '@biosimulations/grid';
 
 @NgModule({
   declarations: [ViewComponent, ProjectCardComponent, BrowseComponent],
@@ -28,6 +29,7 @@ import { NgxJsonLdModule } from '@ngx-lite/json-ld';
     LazyLoadImageModule,
     ApiClientModule,
     NgxJsonLdModule,
+    GridModule,
   ],
 })
 export class ProjectsModule {}
