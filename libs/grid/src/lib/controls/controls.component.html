@@ -80,7 +80,7 @@
                       [minSelected]="range.minSelected"
                       [maxSelected]="range.maxSelected"
                       (onChange)="
-                        table.filterNumberValue(column, range, $event)
+                        handleNumberFilterChange(column, range, $event)
                       "
                     >
                     </biosimulations-slider>
@@ -88,7 +88,7 @@
                     <button
                       mat-icon-button
                       class="biosimulations-button text filter-set-clear-all"
-                      (click)="table.clearFilter(column)"
+                      (click)="clearFilter(column)"
                     >
                       Clear filter
                     </button>
@@ -103,15 +103,15 @@
                         matStartDate
                         placeholder="Start date"
                         (dateChange)="
-                          table.filterStartDateValue(column, $event)
+                          handleStartDateFilterChange(column, $event)
                         "
-                        [value]="table.columnFilterData[column.id][0]"
+                        [value]="columnFilterData[column.id][0]"
                       />
                       <input
                         matEndDate
                         placeholder="End date"
-                        (dateChange)="table.filterEndDateValue(column, $event)"
-                        [value]="table.columnFilterData[column.id][1]"
+                        (dateChange)="handleEndDateFilterChange(column, $event)"
+                        [value]="columnFilterData[column.id][1]"
                       />
                     </mat-date-range-input>
                     <mat-datepicker-toggle
@@ -124,7 +124,7 @@
                   <button
                     mat-icon-button
                     class="biosimulations-button text filter-set-clear-all"
-                    (click)="table.clearFilter(column)"
+                    (click)="clearFilter(column)"
                   >
                     Clear filter
                   </button>
@@ -133,13 +133,13 @@
                 <ng-container *ngSwitchCase="'stringAutoComplete'">
                   <mat-chip-list #chipList>
                     <ng-container
-                      *ngFor="let value of table.columnFilterData[column.id]"
+                      *ngFor="let value of columnFilterData[column.id]"
                     >
                       <ng-container *ngIf="value.checked">
                         <mat-chip
                           [selectable]="false"
                           [removable]="true"
-                          (removed)="table.filterSetValue(column, value, false)"
+                          (removed)="handleFilterSetValue(column, value, false)"
                         >
                           <div class="chip-content">
                             {{ value.formattedValue }}
@@ -159,7 +159,7 @@
                         [matAutocomplete]="auto"
                         [matChipInputFor]="chipList"
                         (keyup)="
-                          table.evalAutocompleteFilter(
+                          evalAutocompleteFilter(
                             column,
                             autoCompleteInput.value
                           )
@@ -170,12 +170,12 @@
                   <mat-autocomplete
                     #auto="matAutocomplete"
                     (optionSelected)="
-                      table.filterSetValue(column, $event.option.value, true);
+                      handleFilterSetValue(column, $event.option.value, true);
                       autoCompleteInput.value = ''
                     "
                   >
                     <ng-container
-                      *ngFor="let value of table.columnFilterData[column.id]"
+                      *ngFor="let value of columnFilterData[column.id]"
                     >
                       <mat-option
                         *ngIf="value?.filtered !== false"
@@ -189,7 +189,7 @@
                   <button
                     mat-icon-button
                     class="biosimulations-button text filter-set-clear-all"
-                    (click)="table.clearFilter(column)"
+                    (click)="clearFilter(column)"
                   >
                     Clear filter
                   </button>
@@ -198,13 +198,13 @@
                 <ng-container *ngSwitchDefault>
                   <mat-list>
                     <mat-list-item
-                      *ngFor="let value of table.columnFilterData[column.id]"
+                      *ngFor="let value of columnFilterData[column.id]"
                     >
                       <mat-checkbox
                         #checkbox
                         [checked]="value.checked"
                         (change)="
-                          table.filterSetValue(column, value, checkbox.checked)
+                          handleFilterSetValue(column, value, checkbox.checked)
                         "
                         ng-attr-title
                         [attr.title]="
@@ -220,7 +220,7 @@
                   <button
                     mat-icon-button
                     class="biosimulations-button text filter-set-clear-all"
-                    (click)="table.clearFilter(column)"
+                    (click)="clearFilter(column)"
                   >
                     Clear filter
                   </button>
@@ -250,8 +250,8 @@
           #searchInput
           matInput
           type="text"
-          [value]="table.searchQuery || null"
-          (keydown.enter)="table.searchRows(searchInput.value)"
+          [value]="searchQuery || null"
+          (keydown.enter)="handleSearch(searchInput.value)"
           [placeholder]="searchPlaceHolder"
           [matTooltip]="searchToolTip"
         />
@@ -259,7 +259,7 @@
           matSuffix
           mat-icon-button
           class="biosimulations-button text"
-          (click)="table.searchRows(searchInput.value)"
+          (click)="handleSearch(searchInput.value)"
         >
           <biosimulations-icon icon="search"></biosimulations-icon>
         </button>

@@ -6,10 +6,17 @@ import {
   EventEmitter,
 } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { TableComponent } from '@biosimulations/shared/ui';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+
 import { Column } from '@biosimulations/shared/ui';
 
-import { ControlColumn, ControlsState } from './controls.model';
+import {
+  ControlColumn,
+  ControlsState,
+  NumberFilterState,
+  NumberFilterRange,
+  ControlStateChange,
+} from './controls.model';
 
 @Component({
   selector: 'biosimulations-grid-controls',
@@ -20,8 +27,6 @@ import { ControlColumn, ControlsState } from './controls.model';
 export class GridControlsComponent {
   private controlsOpen = true;
 
-  @Input()
-  public table!: TableComponent;
   @Input()
   public openControlPanelId = 1;
   @Input()
@@ -42,13 +47,103 @@ export class GridControlsComponent {
   @Output()
   public controlsStateUpdated = new EventEmitter<ControlsState>();
 
+  @Output()
+  public filterStateUpdated = new EventEmitter<ControlStateChange>();
+
+  @Output()
+  public filtersCleared = new EventEmitter<ControlColumn>();
+
+  @Output()
+  public searchQueryUpdated = new EventEmitter<string>();
+  @Input()
   public columnFilterData: { [key: string]: any } = {};
+
+  public numberFilterState!: NumberFilterState;
+  @Input()
+  public searchQuery: string | null = null;
+  public startDateState: { column: Column; date: Date | null } | null = null;
+  public endDateState: { column: Column; date: Date | null } | null = null;
+  public setFilterValue: {
+    column: Column;
+    value: any;
+    selected: boolean;
+  } | null = null;
+  public autoCompleteFilterState: { column: Column; value: string } | null =
+    null;
 
   public ngOnInit(): void {
     this.columns.forEach((column) => {
       column._visible = column.show;
     });
-    this.columnFilterData = this.table.columnFilterData;
+  }
+
+  public evalAutocompleteFilter(column: Column, value: string) {
+    this.autoCompleteFilterState = {
+      column,
+      value,
+    };
+    this.updateFiltersState();
+  }
+
+  public handleSearch(search: string): void {
+    this.searchQuery = search;
+    this.searchQueryUpdated.emit(search);
+  }
+  public clearFilter(column: Column): void {
+    this.filtersCleared.emit(column);
+  }
+
+  public handleNumberFilterChange(
+    column: Column,
+    range: NumberFilterRange,
+    $event: number[],
+  ): void {
+    this.numberFilterState = {
+      column,
+      range,
+      $event,
+    };
+
+    this.updateFiltersState();
+  }
+
+  public handleStartDateFilterChange(
+    column: Column,
+    event: MatDatepickerInputEvent<Date>,
+  ): void {
+    const date: Date | null = event.value;
+
+    this.startDateState = {
+      column,
+      date,
+    };
+
+    this.updateFiltersState();
+  }
+
+  public handleEndDateFilterChange(
+    column: Column,
+    event: MatDatepickerInputEvent<Date>,
+  ): void {
+    const date: Date | null = event.value;
+    this.startDateState = {
+      column,
+      date,
+    };
+    this.updateFiltersState();
+  }
+
+  public handleFilterSetValue(
+    column: Column,
+    value: any,
+    selected: boolean,
+  ): void {
+    this.setFilterValue = {
+      column,
+      value,
+      selected,
+    };
+    this.updateFiltersState();
   }
 
   public toggleControls(): void {
@@ -69,11 +164,24 @@ export class GridControlsComponent {
     }
   }
 
+  public updateFiltersState(): void {
+    const controlStateChange: ControlStateChange = {
+      searchQuery: this.searchQuery,
+      numberFilterState: this.numberFilterState,
+      startDateState: this.startDateState,
+      endDateState: this.endDateState,
+      setFilterState: this.setFilterValue,
+      autoCompleteFilterState: this.autoCompleteFilterState,
+    };
+    this.filterStateUpdated.emit(controlStateChange);
+  }
   public updateControlsState(): void {
-    this.controlsStateUpdated.emit({
+    const controlState: ControlsState = {
       openControlPanelId: this.openControlPanelId,
       controlsOpen: this.controlsOpen,
       columns: this.columns,
-    });
+    };
+
+    this.controlsStateUpdated.emit(controlState);
   }
 }

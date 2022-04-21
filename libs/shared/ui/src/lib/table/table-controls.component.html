@@ -81,13 +81,17 @@
                       <input
                         matStartDate
                         placeholder="Start date"
-                        (dateChange)="table.filterStartDateValue(column, $event)"
-                        [value]="table.columnFilterData[column.id][0]" />
+                        (dateChange)="
+                          table.filterStartDateValue(column, $event.value)
+                        "
+                        [value]="table.columnFilterData[column.id][0]"
+                      />
                       <input
                         matEndDate
                         placeholder="End date"
-                        (dateChange)="table.filterEndDateValue(column, $event)"
-                        [value]="table.columnFilterData[column.id][1]" />
+                        (dateChange)="table.filterEndDateValue(column, $event.value)"
+                        [value]="table.columnFilterData[column.id][1]"
+                      />
                     </mat-date-range-input>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-date-range-picker #picker></mat-date-range-picker>

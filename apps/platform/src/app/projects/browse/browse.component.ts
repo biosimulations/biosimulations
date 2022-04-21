@@ -8,7 +8,11 @@ import { FormatService } from '@biosimulations/shared/services';
 import { LabeledIdentifier, DescribedIdentifier } from '@biosimulations/datamodel/common';
 import { RowService } from '@biosimulations/shared/ui';
 import { ScrollService } from '@biosimulations/shared/angular';
-import { ControlColumn, ControlsState } from '@biosimulations/shared/ui';
+import {
+  ControlsState,
+  ControlColumn,
+  ControlStateChange,
+} from '@biosimulations/grid';
 
 @Component({
   selector: 'biosimulations-projects-browse',
@@ -676,6 +680,7 @@ export class BrowseComponent implements OnInit, AfterViewInit {
   ];
 
   @ViewChild(TableComponent) table!: TableComponent;
+  public columnFilterData: { [key: string]: any } = {};
 
   constructor(private service: BrowseService, private route: ActivatedRoute, private scrollService: ScrollService) {
     this.openControls = this.openControls.bind(this);
@@ -721,5 +726,37 @@ export class BrowseComponent implements OnInit, AfterViewInit {
     this.table.showColumns = showColumns;
     this.table.setColumnsToShow();
     this.table.setTableStateQueryFragment();
+  }
+
+  public columnFiltersCleared(column: ControlColumn) {
+    this.table.clearFilter(column);
+  }
+
+  public filterStateUpdated(state: ControlStateChange): void {
+    this.table.searchRows(state.searchQuery);
+
+    const startDate = state.startDateState;
+    const endDate = state.endDateState;
+    const filterSet = state.setFilterState;
+
+    this.table.filterStartDateValue(
+      startDate?.column || null,
+      startDate?.date || null,
+    );
+    this.table.filterEndDateValue(
+      endDate?.column || null,
+      endDate?.date || null,
+    );
+    this.table.filterSetValue(
+      filterSet?.column || null,
+      filterSet?.value,
+      filterSet?.selected === true,
+    );
+    if (state.autoCompleteFilterState?.column) {
+      this.table.evalAutocompleteFilter(
+        state.autoCompleteFilterState?.column,
+        state.autoCompleteFilterState?.value,
+      );
+    }
   }
 }

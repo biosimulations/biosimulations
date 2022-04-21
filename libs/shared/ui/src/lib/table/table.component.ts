@@ -737,24 +737,29 @@ export class TableComponent implements OnInit, AfterViewInit {
     });
   }
 
-  filterSetValue(column: Column, value: any, show: boolean): void {
-    if (show) {
-      if (!(column.id in this.filter)) {
-        this.filter[column.id] = [];
+  filterSetValue(column: Column | null, value: any, show: boolean): void {
+    if (column) {
+      if (show) {
+        if (!(column.id in this.filter)) {
+          this.filter[column.id] = [];
+        }
+        this.filter[column.id].push(value.value);
+      } else {
+        this.filter[column.id].splice(
+          this.filter[column.id].indexOf(value.value),
+          1,
+        );
+        if (this.filter[column.id].length === 0) {
+          delete this.filter[column.id];
+        }
       }
-      this.filter[column.id].push(value.value);
-    } else {
-      this.filter[column.id].splice(this.filter[column.id].indexOf(value.value), 1);
-      if (this.filter[column.id].length === 0) {
-        delete this.filter[column.id];
-      }
+      value.checked = show;
+      this.columnIsFiltered[column.id] = column.id in this.filter;
+
+      this.setTableStateQueryFragment();
+
+      this.setDataSourceFilter();
     }
-    value.checked = show;
-    this.columnIsFiltered[column.id] = column.id in this.filter;
-
-    this.setTableStateQueryFragment();
-
-    this.setDataSourceFilter();
   }
 
   filterNumberValue(column: Column, fullRange: any, selectedRange: number[]): void {
@@ -773,58 +778,62 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.setDataSourceFilter();
   }
 
-  filterStartDateValue(column: Column, event: MatDatepickerInputEvent<Date>): void {
-    let min: any = null;
-    let max: any = null;
-    if (event.value == null) {
-      if (column.id in this.filter) {
-        if (this.filter[column.id][1] == null) {
-          delete this.filter[column.id];
-        } else {
-          this.filter[column.id][0] = null;
-          max = this.filter[column.id][1];
+  filterStartDateValue(column: Column | null, value: Date | null): void {
+    if (column) {
+      let min: any = null;
+      let max: any = null;
+      if (value == null) {
+        if (column.id in this.filter) {
+          if (this.filter[column.id][1] == null) {
+            delete this.filter[column.id];
+          } else {
+            this.filter[column.id][0] = null;
+            max = this.filter[column.id][1];
+          }
         }
-      }
-    } else {
-      if (column.id in this.filter) {
-        this.filter[column.id][0] = event.value;
       } else {
-        this.filter[column.id] = [event.value, null];
+        if (column.id in this.filter) {
+          this.filter[column.id][0] = value;
+        } else {
+          this.filter[column.id] = [value, null];
+        }
+        min = this.filter[column.id][0];
+        max = this.filter[column.id][1];
       }
-      min = this.filter[column.id][0];
-      max = this.filter[column.id][1];
+      this.columnIsFiltered[column.id] = column.id in this.filter;
+      this.columnFilterData[column.id] = [min, max];
+      this.setTableStateQueryFragment();
+      this.setDataSourceFilter();
     }
-    this.columnIsFiltered[column.id] = column.id in this.filter;
-    this.columnFilterData[column.id] = [min, max];
-    this.setTableStateQueryFragment();
-    this.setDataSourceFilter();
   }
 
-  filterEndDateValue(column: Column, event: MatDatepickerInputEvent<Date>): void {
-    let min: any = null;
-    let max: any = null;
-    if (event.value == null) {
-      if (column.id in this.filter) {
-        if (this.filter[column.id][0] == null) {
-          delete this.filter[column.id];
-        } else {
-          this.filter[column.id][1] = null;
-          min = this.filter[column.id][0];
+  filterEndDateValue(column: Column | null, value: Date | null): void {
+    if (column) {
+      let min: any = null;
+      let max: any = null;
+      if (value == null) {
+        if (column.id in this.filter) {
+          if (this.filter[column.id][0] == null) {
+            delete this.filter[column.id];
+          } else {
+            this.filter[column.id][1] = null;
+            min = this.filter[column.id][0];
+          }
         }
-      }
-    } else {
-      if (column.id in this.filter) {
-        this.filter[column.id][1] = event.value;
       } else {
-        this.filter[column.id] = [null, event.value];
+        if (column.id in this.filter) {
+          this.filter[column.id][1] = value;
+        } else {
+          this.filter[column.id] = [null, value];
+        }
+        min = this.filter[column.id][0];
+        max = this.filter[column.id][1];
       }
-      min = this.filter[column.id][0];
-      max = this.filter[column.id][1];
+      this.columnIsFiltered[column.id] = column.id in this.filter;
+      this.columnFilterData[column.id] = [min, max];
+      this.setTableStateQueryFragment();
+      this.setDataSourceFilter();
     }
-    this.columnIsFiltered[column.id] = column.id in this.filter;
-    this.columnFilterData[column.id] = [min, max];
-    this.setTableStateQueryFragment();
-    this.setDataSourceFilter();
   }
 
   setDataSourceFilter(): void {
@@ -1004,8 +1013,8 @@ export class TableComponent implements OnInit, AfterViewInit {
 
   searchQuery: string | undefined = undefined;
 
-  searchRows(query: string): void {
-    this.searchQuery = query.toLowerCase() || undefined;
+  searchRows(query: string | null): void {
+    this.searchQuery = query?.toLowerCase() || undefined;
     this.setTableStateQueryFragment();
     this.setDataSourceFilter();
   }
