@@ -1,3 +1,6 @@
+import { ColumnFilterType } from '../filters';
+import { FilterDefinition, FilterState, NumberFilterRange } from '../filters';
+
 export class ControlColumn {
   public id!: string;
 
@@ -14,17 +17,28 @@ export class ControlColumn {
 
   // Whether there should be a filter created for this attribute
   public filterable? = true;
+
+  // The filter of the attribute
+  public filter?: FilterDefinition;
 }
 
-export class NumberFilterRange {
-  public min!: number;
-  public max!: number;
-  public step!: number;
-  public minSelected!: number;
-  public maxSelected!: number;
-}
+export type SetFilterableColumn = ControlColumn & {
+  filterType: ColumnFilterType.string;
+  filterValues: string[];
+};
+export type DateFilterableColumn = ControlColumn & {
+  filterType: ColumnFilterType.date;
+  start: Date;
+};
 
-export class NumberFilterState {
+type FilterSearchState = {
+  searchQuery: searchState;
+  filterState: FilterState;
+};
+
+type searchState = string | null;
+
+export class NumberFilterStateChange {
   public column!: ControlColumn;
   public range!: NumberFilterRange;
   public $event!: number[];
@@ -38,21 +52,7 @@ export class ControlsState {
 
 export class ControlStateChange {
   public searchQuery: string | null = null;
-  public numberFilterState: NumberFilterState | null = null;
-  public setFilterState: {
-    column: ControlColumn;
-    // atribute value
-    value: any;
-    selected: boolean;
-  } | null = null;
-  public startDateState: {
-    column: ControlColumn | null;
-    date: Date | null;
-  } | null = null;
-  public endDateState: {
-    column: ControlColumn | null;
-    date: Date | null;
-  } | null = null;
+  public filterState?: FilterState;
 
   public autoCompleteFilterState: {
     column: ControlColumn;

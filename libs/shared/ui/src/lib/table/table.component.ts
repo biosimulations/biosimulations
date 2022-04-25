@@ -3,19 +3,19 @@ import { MatTable } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, MatSortable, MatSortHeader, Sort, SortDirection } from '@angular/material/sort';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
   Column,
   ColumnActionType,
-  ColumnFilterType,
   IdColumnMap,
   Side,
   RowService,
   ColumnSort,
   ColumnSortDirection,
   TableDataComponent,
+  ColumnFilterType,
 } from './table.interface';
 import { UtilsService } from '@biosimulations/shared/angular';
 import lunr from 'lunr';
@@ -44,7 +44,7 @@ export class TableDataSource extends MatTableDataSource<any> {
 interface TableState {
   filter?: { [id: string]: any[] };
   searchQuery?: string;
-  showColumns: { [id: string]: boolean };
+  showColumns?: { [id: string]: boolean };
   openControlPanelId?: number;
   sort?: Sort;
 }
@@ -550,9 +550,10 @@ export class TableComponent implements OnInit, AfterViewInit {
       this.columnIsFiltered = columnIsFiltered;
 
       this.setDataSourceFilter();
-
-      this.showColumns = showColumns;
-      this.setColumnsToShow();
+      if (showColumns) {
+        this.showColumns = showColumns;
+        this.setColumnsToShow();
+      }
 
       if (openControlPanelId !== undefined) {
         setTimeout(() => {
@@ -737,6 +738,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     });
   }
 
+  public setColumnStringFilter(columnId: string, filter: string[]): void {}
   filterSetValue(column: Column | null, value: any, show: boolean): void {
     if (column) {
       if (show) {
@@ -745,10 +747,7 @@ export class TableComponent implements OnInit, AfterViewInit {
         }
         this.filter[column.id].push(value.value);
       } else {
-        this.filter[column.id].splice(
-          this.filter[column.id].indexOf(value.value),
-          1,
-        );
+        this.filter[column.id].splice(this.filter[column.id].indexOf(value.value), 1);
         if (this.filter[column.id].length === 0) {
           delete this.filter[column.id];
         }

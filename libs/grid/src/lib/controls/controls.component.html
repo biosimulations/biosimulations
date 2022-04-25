@@ -103,7 +103,7 @@
                         matStartDate
                         placeholder="Start date"
                         (dateChange)="
-                          handleStartDateFilterChange(column, $event)
+                          handleStartDateFilterChange(column, $event, columnFilterData[column.id][1])
                         "
                         [value]="columnFilterData[column.id][0]"
                       />

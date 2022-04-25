@@ -8,13 +8,19 @@ import {
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
-import { Column } from '@biosimulations/shared/ui';
+import { Column } from '../columns';
+import {
+  ColumnFilterType,
+  NumberFilterRange,
+  FilterState,
+  isDateFilterDefinition,
+  DateFilterDefinition,
+} from '../filters';
 
 import {
   ControlColumn,
   ControlsState,
-  NumberFilterState,
-  NumberFilterRange,
+  NumberFilterStateChange,
   ControlStateChange,
 } from './controls.model';
 
@@ -22,7 +28,6 @@ import {
   selector: 'biosimulations-grid-controls',
   templateUrl: './controls.component.html',
   styleUrls: ['./controls.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GridControlsComponent {
   private controlsOpen = true;
@@ -44,6 +49,14 @@ export class GridControlsComponent {
   @Input()
   public columns: Column[] = [];
 
+  @Input()
+  public columnFilterData: { [key: string]: any } = {};
+
+  private filterState: FilterState = {};
+
+  @Input()
+  public searchQuery: string | null = null;
+
   @Output()
   public controlsStateUpdated = new EventEmitter<ControlsState>();
 
@@ -55,25 +68,54 @@ export class GridControlsComponent {
 
   @Output()
   public searchQueryUpdated = new EventEmitter<string>();
-  @Input()
-  public columnFilterData: { [key: string]: any } = {};
 
-  public numberFilterState!: NumberFilterState;
-  @Input()
-  public searchQuery: string | null = null;
+  @Output()
+  public filterChanged = new EventEmitter<FilterState>();
+
+  public numberFilterState!: NumberFilterStateChange;
+
   public startDateState: { column: Column; date: Date | null } | null = null;
   public endDateState: { column: Column; date: Date | null } | null = null;
-  public setFilterValue: {
-    column: Column;
-    value: any;
-    selected: boolean;
-  } | null = null;
+
   public autoCompleteFilterState: { column: Column; value: string } | null =
     null;
 
   public ngOnInit(): void {
     this.columns.forEach((column) => {
       column._visible = column.show;
+      if (column.filterable) {
+        if (column.filterDefinition) {
+          this.filterState[column.id] = column.filterDefinition;
+        } else if (column.filterType) {
+          if (column.filterType === ColumnFilterType.number) {
+            this.filterState[column.id] = {
+              type: column.filterType,
+              value: {
+                min: null,
+                max: null,
+              },
+            };
+          } else if (column.filterType === ColumnFilterType.date) {
+            this.filterState[column.id] = {
+              type: column.filterType,
+              value: {
+                start: null,
+                end: null,
+              },
+            };
+          } else if (column.filterType === ColumnFilterType.string) {
+            this.filterState[column.id] = {
+              type: column.filterType,
+              value: [],
+            };
+          } else {
+            this.filterState[column.id] = {
+              type: column.filterType,
+              value: '',
+            };
+          }
+        }
+      }
     });
   }
 
@@ -89,19 +131,18 @@ export class GridControlsComponent {
     this.searchQuery = search;
     this.searchQueryUpdated.emit(search);
   }
-  public clearFilter(column: Column): void {
-    this.filtersCleared.emit(column);
-  }
 
+  public clearFilter(column: Column): void {
+    this.filterState[column.id] = undefined;
+  }
   public handleNumberFilterChange(
     column: Column,
     range: NumberFilterRange,
     $event: number[],
   ): void {
-    this.numberFilterState = {
-      column,
-      range,
-      $event,
+    this.filterState[column.id] = {
+      type: ColumnFilterType.number,
+      value: range,
     };
 
     this.updateFiltersState();
@@ -110,15 +151,18 @@ export class GridControlsComponent {
   public handleStartDateFilterChange(
     column: Column,
     event: MatDatepickerInputEvent<Date>,
+    endDate: Date | null,
   ): void {
-    const date: Date | null = event.value;
+    const startDate: Date | null = event.value;
 
-    this.startDateState = {
-      column,
-      date,
-    };
-
-    this.updateFiltersState();
+    console.error(this.filterState);
+    if (isDateFilterDefinition(this.filterState[column.id])) {
+      (this.filterState[column.id] as DateFilterDefinition).value = {
+        start: startDate,
+        end: endDate,
+      };
+      this.updateFiltersState();
+    }
   }
 
   public handleEndDateFilterChange(
@@ -138,11 +182,23 @@ export class GridControlsComponent {
     value: any,
     selected: boolean,
   ): void {
-    this.setFilterValue = {
-      column,
-      value,
-      selected,
-    };
+    let columnState = this.filterState[column.id];
+    if (!columnState) {
+      columnState = {
+        type: ColumnFilterType.string,
+        value: selected ? [value] : [],
+      };
+    } else if (columnState.type === ColumnFilterType.string) {
+      // if the value is selected,add it to the list of values if it is not already there
+      // otherwise, remove it from the list of values
+      columnState.value = selected
+        ? columnState.value.includes(value.value)
+          ? columnState.value
+          : columnState.value.concat(value.value)
+        : columnState.value.filter((v) => v !== value.value);
+    }
+    console.error(columnState);
+    this.filterState[column.id] = columnState;
     this.updateFiltersState();
   }
 
@@ -167,10 +223,7 @@ export class GridControlsComponent {
   public updateFiltersState(): void {
     const controlStateChange: ControlStateChange = {
       searchQuery: this.searchQuery,
-      numberFilterState: this.numberFilterState,
-      startDateState: this.startDateState,
-      endDateState: this.endDateState,
-      setFilterState: this.setFilterValue,
+      filterState: this.filterState,
       autoCompleteFilterState: this.autoCompleteFilterState,
     };
     this.filterStateUpdated.emit(controlStateChange);
