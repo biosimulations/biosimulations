@@ -15,11 +15,12 @@ export class ControlColumn {
   // Whether the attribute is currently selected
   public _visible?: boolean;
 
-  // Whether there should be a filter created for this attribute
-  public filterable? = true;
+  // The filter of the attribute. If undefined, no filter is created
+  public filterDefinition?: FilterDefinition;
 
-  // The filter of the attribute
-  public filter?: FilterDefinition;
+  public units?: string;
+
+  public showFilterItemToolTips?: boolean;
 }
 
 export type SetFilterableColumn = ControlColumn & {

@@ -11,22 +11,28 @@ export enum ColumnFilterType {
 
 export type StringFilterDefinition = {
   type: ColumnFilterType.string;
-  value: string[];
+  value: {
+    label: string;
+    selected: boolean;
+  }[];
 };
 export type DateFilterDefinition = {
   type: ColumnFilterType.date;
   value: DateFilterRange;
 };
 export type NumberFilterRange = {
-  min: number | null;
-  max: number | null;
+  min: number;
+  max: number;
+  step: number;
+  minSelected: number;
+  maxSelected: number;
 };
 
 export type DateFilterRange = {
   start: Date | null;
   end: Date | null;
 };
-type NumberFilterDefinition = {
+export type NumberFilterDefinition = {
   type: ColumnFilterType.number;
   value: NumberFilterRange;
 };
@@ -41,6 +47,7 @@ export type FilterDefinition =
   | NumberFilterDefinition
   | DateFilterDefinition
   | StringAutoCompleteFilterDefinition;
+
 export type FilterState = {
   [columnId: string]: FilterDefinition | undefined;
 };
