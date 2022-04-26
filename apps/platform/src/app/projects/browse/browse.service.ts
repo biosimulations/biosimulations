@@ -7,17 +7,27 @@ import { BiosimulationsError } from '@biosimulations/shared/error-handler';
 import { HttpStatusCode } from '@angular/common/http';
 import { Endpoints } from '@biosimulations/config/common';
 import { Thumbnail } from '@biosimulations/datamodel/common';
+
 @Injectable({
   providedIn: 'root',
 })
 export class BrowseService {
   private endpoints: Endpoints;
   public DEFAULT_THUMBNAIL = './assets/images/default-resource-images/model-padded.svg';
+  private projects$: Observable<FormattedProjectSummary[]>;
+
   public constructor(private projectService: ProjectService) {
     this.endpoints = new Endpoints();
+    this.projects$ = this._getProjects();
   }
 
   public getProjects(): Observable<FormattedProjectSummary[]> {
+    if (!this.projects$) {
+      this.projects$ = this._getProjects();
+    }
+    return this.projects$;
+  }
+  public _getProjects(): Observable<FormattedProjectSummary[]> {
     const metadatas: Observable<FormattedProjectSummary[]> = this.projectService.getProjectSummaries().pipe(
       map((projects: ProjectSummary[]) => {
         return projects
