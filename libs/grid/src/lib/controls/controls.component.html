@@ -68,7 +68,7 @@
                   <ng-template
                     let-range="range"
                     [ngTemplateOutletContext]="{
-                      range: columnFilterData[column.id]
+                      range: column.filterDefinition?.value
                     }"
                     [ngTemplateOutlet]="self"
                     #self
@@ -103,15 +103,15 @@
                         matStartDate
                         placeholder="Start date"
                         (dateChange)="
-                          handleStartDateFilterChange(column, $event, columnFilterData[column.id][1])
+                          handleStartDateFilterChange(column, $event)
                         "
-                        [value]="columnFilterData[column.id][0]"
+                        [value]="$any(column.filterDefinition?.value)?.start"
                       />
                       <input
                         matEndDate
                         placeholder="End date"
                         (dateChange)="handleEndDateFilterChange(column, $event)"
-                        [value]="columnFilterData[column.id][1]"
+                        [value]="$any(column.filterDefinition?.value)?.end"
                       />
                     </mat-date-range-input>
                     <mat-datepicker-toggle
@@ -133,16 +133,16 @@
                 <ng-container *ngSwitchCase="'stringAutoComplete'">
                   <mat-chip-list #chipList>
                     <ng-container
-                      *ngFor="let value of columnFilterData[column.id]"
+                      *ngFor="let value of $any(column.filterDefinition).value"
                     >
-                      <ng-container *ngIf="value.checked">
+                      <ng-container *ngIf="value.selected">
                         <mat-chip
                           [selectable]="false"
                           [removable]="true"
                           (removed)="handleFilterSetValue(column, value, false)"
                         >
                           <div class="chip-content">
-                            {{ value.formattedValue }}
+                            {{ value.label }}
                           </div>
                           <button matChipRemove>
                             <mat-icon>cancel</mat-icon>
@@ -175,13 +175,13 @@
                     "
                   >
                     <ng-container
-                      *ngFor="let value of columnFilterData[column.id]"
+                      *ngFor="let value of $any(column.filterDefinition).value"
                     >
                       <mat-option
                         *ngIf="value?.filtered !== false"
                         [value]="value"
                       >
-                        {{ value.formattedValue }}
+                        {{ value.label }}
                       </mat-option>
                     </ng-container>
                   </mat-autocomplete>
@@ -197,25 +197,33 @@
 
                 <ng-container *ngSwitchDefault>
                   <mat-list>
-                    <mat-list-item
-                      *ngFor="let value of columnFilterData[column.id]"
-                    >
-                      <mat-checkbox
-                        #checkbox
-                        [checked]="value.checked"
-                        (change)="
-                          handleFilterSetValue(column, value, checkbox.checked)
-                        "
-                        ng-attr-title
-                        [attr.title]="
-                          column.showFilterItemToolTips === true
-                            ? value.formattedValue
-                            : null
+                    <ng-container>
+                      <mat-list-item
+                        *ngFor="
+                          let value of $any(column.filterDefinition).value
                         "
                       >
-                        {{ value.formattedValue }}
-                      </mat-checkbox>
-                    </mat-list-item>
+                        <mat-checkbox
+                          #checkbox
+                          [checked]="value.selected"
+                          (change)="
+                            handleFilterSetValue(
+                              column,
+                              value,
+                              checkbox.checked
+                            )
+                          "
+                          ng-attr-title
+                          [attr.title]="
+                            column.showFilterItemToolTips === true
+                              ? value.label
+                              : null
+                          "
+                        >
+                          {{ value.label }}
+                        </mat-checkbox>
+                      </mat-list-item>
+                    </ng-container>
                   </mat-list>
                   <button
                     mat-icon-button

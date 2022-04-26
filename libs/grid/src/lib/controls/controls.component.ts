@@ -1,10 +1,4 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  Input,
-  Output,
-  EventEmitter,
-} from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
@@ -15,6 +9,7 @@ import {
   FilterState,
   isDateFilterDefinition,
   DateFilterDefinition,
+  FilterDefinition,
 } from '../filters';
 
 import {
@@ -47,12 +42,9 @@ export class GridControlsComponent {
   public closeable = false;
 
   @Input()
-  public columns: Column[] = [];
+  public columns!: Column[];
 
-  @Input()
-  public columnFilterData: { [key: string]: any } = {};
-
-  private filterState: FilterState = {};
+  public filterState: FilterState = {};
 
   @Input()
   public searchQuery: string | null = null;
@@ -80,51 +72,44 @@ export class GridControlsComponent {
   public autoCompleteFilterState: { column: Column; value: string } | null =
     null;
 
+  private static updateStartDateFilterDefinition(
+    currentDefinition: DateFilterDefinition,
+    startDate: Date | null,
+  ): DateFilterDefinition {
+    if (!startDate) {
+      return currentDefinition;
+    }
+    return {
+      ...currentDefinition,
+      value: {
+        ...currentDefinition.value,
+        start: startDate,
+      },
+    };
+  }
+
+  private static makeFilterState(
+    currentState: FilterState,
+    columnId: string,
+    update: FilterDefinition,
+  ): FilterState {
+    const newState = { ...currentState };
+    newState[columnId] = update;
+    return newState;
+  }
+
   public ngOnInit(): void {
     this.columns.forEach((column) => {
       column._visible = column.show;
-      if (column.filterable) {
-        if (column.filterDefinition) {
-          this.filterState[column.id] = column.filterDefinition;
-        } else if (column.filterType) {
-          if (column.filterType === ColumnFilterType.number) {
-            this.filterState[column.id] = {
-              type: column.filterType,
-              value: {
-                min: null,
-                max: null,
-              },
-            };
-          } else if (column.filterType === ColumnFilterType.date) {
-            this.filterState[column.id] = {
-              type: column.filterType,
-              value: {
-                start: null,
-                end: null,
-              },
-            };
-          } else if (column.filterType === ColumnFilterType.string) {
-            this.filterState[column.id] = {
-              type: column.filterType,
-              value: [],
-            };
-          } else {
-            this.filterState[column.id] = {
-              type: column.filterType,
-              value: '',
-            };
-          }
-        }
-      }
+      this.filterState[column.id] = column.filterDefinition;
     });
   }
-
   public evalAutocompleteFilter(column: Column, value: string) {
     this.autoCompleteFilterState = {
       column,
       value,
     };
-    this.updateFiltersState();
+    //this.updateFiltersState();
   }
 
   public handleSearch(search: string): void {
@@ -140,66 +125,134 @@ export class GridControlsComponent {
     range: NumberFilterRange,
     $event: number[],
   ): void {
-    this.filterState[column.id] = {
-      type: ColumnFilterType.number,
-      value: range,
+    const minSelected = $event[0];
+    const maxSelected = $event[1];
+    const newRange = {
+      min: range.min,
+      max: range.max,
+      minSelected,
+      maxSelected,
+      step: range.step,
     };
 
-    this.updateFiltersState();
+    this.filterState[column.id] = {
+      type: ColumnFilterType.number,
+      value: newRange,
+    };
+
+    //this.updateFiltersState();
   }
 
   public handleStartDateFilterChange(
     column: Column,
     event: MatDatepickerInputEvent<Date>,
-    endDate: Date | null,
   ): void {
     const startDate: Date | null = event.value;
 
-    console.error(this.filterState);
-    if (isDateFilterDefinition(this.filterState[column.id])) {
-      (this.filterState[column.id] as DateFilterDefinition).value = {
-        start: startDate,
-        end: endDate,
-      };
-      this.updateFiltersState();
+    const filterDef = this.getColumnFilterDefinition(column);
+
+    if (isDateFilterDefinition(filterDef)) {
+      const newDefinition =
+        GridControlsComponent.updateStartDateFilterDefinition(
+          filterDef,
+          startDate,
+        );
+      const newState = GridControlsComponent.makeFilterState(
+        this.getCurrentFilterState(),
+        column.id,
+        newDefinition,
+      );
+
+      this.filterState[column.id] = newDefinition;
+
+      this.updateFiltersState(newState);
     }
+  }
+
+  private getCurrentFilterState(): FilterState {
+    return this.filterState;
+  }
+  private getColumnFilterDefinition(
+    column: Column,
+  ): FilterDefinition | undefined {
+    return this.getCurrentFilterState()[column.id];
   }
 
   public handleEndDateFilterChange(
     column: Column,
     event: MatDatepickerInputEvent<Date>,
   ): void {
-    const date: Date | null = event.value;
-    this.startDateState = {
-      column,
-      date,
-    };
-    this.updateFiltersState();
+    const startDate: Date | null = event.value;
+
+    const filterDef = this.getColumnFilterDefinition(column);
+
+    if (isDateFilterDefinition(filterDef)) {
+      const newDefinition = this.updateEndDateFilterDefinition(
+        filterDef,
+        startDate,
+      );
+      const newState = GridControlsComponent.makeFilterState(
+        this.getCurrentFilterState(),
+        column.id,
+        newDefinition,
+      );
+
+      this.filterState[column.id] = newDefinition;
+
+      this.updateFiltersState(newState);
+    }
   }
 
+  private updateEndDateFilterDefinition(
+    currentDefinition: DateFilterDefinition,
+    endDate: Date | null,
+  ): DateFilterDefinition {
+    if (!endDate) {
+      return currentDefinition;
+    }
+    return {
+      ...currentDefinition,
+      value: {
+        ...currentDefinition.value,
+        start: endDate,
+      },
+    };
+  }
   public handleFilterSetValue(
     column: Column,
-    value: any,
+    value: { label: string; selected: boolean },
     selected: boolean,
   ): void {
     let columnState = this.filterState[column.id];
+
     if (!columnState) {
       columnState = {
         type: ColumnFilterType.string,
-        value: selected ? [value] : [],
+        value: [
+          {
+            label: value.label,
+            selected,
+          },
+        ],
       };
     } else if (columnState.type === ColumnFilterType.string) {
-      // if the value is selected,add it to the list of values if it is not already there
-      // otherwise, remove it from the list of values
-      columnState.value = selected
-        ? columnState.value.includes(value.value)
-          ? columnState.value
-          : columnState.value.concat(value.value)
-        : columnState.value.filter((v) => v !== value.value);
+      const label = value.label;
+      const filterDefValues = columnState.value.map((v) => {
+        if ((v as any).label === label) {
+          return {
+            label,
+            selected,
+          };
+        }
+        return v;
+      });
+
+      columnState.value = filterDefValues;
     }
-    console.error(columnState);
+
     this.filterState[column.id] = columnState;
-    this.updateFiltersState();
+
+    this.updateFiltersState(this.filterState);
   }
 
   public toggleControls(): void {
@@ -220,12 +273,15 @@ export class GridControlsComponent {
     }
   }
 
-  public updateFiltersState(): void {
+  public updateFiltersState(state: FilterState): void {
+    this.filterState = state;
+
     const controlStateChange: ControlStateChange = {
       searchQuery: this.searchQuery,
       filterState: this.filterState,
       autoCompleteFilterState: this.autoCompleteFilterState,
     };
+
     this.filterStateUpdated.emit(controlStateChange);
   }
   public updateControlsState(): void {
