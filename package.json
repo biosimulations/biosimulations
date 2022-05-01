@@ -225,7 +225,7 @@
     "throttle-debounce": "3.0.1",
     "ts-jest": "27.1.4",
     "ts-node": "10.7.0",
-    "typescript": "4.5.5",
+    "typescript": "4.6.4",
     "vega": "5.21.0",
     "vega-embed": "6.20.8",
     "vega-lite": "5.2.0"
