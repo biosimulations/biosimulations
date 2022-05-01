@@ -355,6 +355,7 @@
 /projects/Yang-Tong-McCarver-Hines-Beard-2006
 /projects/Yates-Stark-Klein-Antia-Callard-2007
 /projects/Yeast-cell-cycle-Irons-J-Theor-Biol-2009
+/projects/biomodel_102802266
 /projects/e_coli_core
 /projects/iAB_RBC_283
 /projects/iAF1260
