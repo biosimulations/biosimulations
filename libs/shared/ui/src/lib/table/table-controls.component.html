@@ -89,7 +89,9 @@
                       <input
                         matEndDate
                         placeholder="End date"
-                        (dateChange)="table.filterEndDateValue(column, $event.value)"
+                        (dateChange)="
+                          table.filterEndDateValue(column, $event.value)
+                        "
                         [value]="table.columnFilterData[column.id][1]"
                       />
                     </mat-date-range-input>

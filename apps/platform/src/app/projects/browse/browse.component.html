@@ -20,8 +20,6 @@
       gdColumns.md="repeat(3, 1fr)"
       gdColumns.sm="repeat(2, 1fr)"
       gdColumns.xs="repeat(1, 1fr)">
-      <!-- TODO replace  data with datasource observable  -->
-
       <ng-container *ngIf="projectCardInputs$ | async as projectInputs">
         <biosimulations-project-card
           *ngFor="let project of projectInputs"
