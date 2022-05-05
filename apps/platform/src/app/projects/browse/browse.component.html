@@ -7,8 +7,8 @@
 
 <biosimulations-table
   #table
-  [data]="projects$"
-  [columns]="columns"
+  [data]="projects$ | async"
+  [columns]="(columns$ | async) || []"
   [defaultSort]="{ active: 'title', direction: 'asc' }">
   <div gdAuto="row" gdColumns.gt-sm="1fr auto" gdGap="0" gdRows.lt-md="1fr" class="container">
     <div
@@ -20,16 +20,19 @@
       gdColumns.md="repeat(3, 1fr)"
       gdColumns.sm="repeat(2, 1fr)"
       gdColumns.xs="repeat(1, 1fr)">
-      <biosimulations-project-card
-        *ngFor="let project of table.dataSource.filteredData"
-        [project]="project"
-        [columns]="columns"></biosimulations-project-card>
+      <!-- TODO replace  data with datasource observable  -->
+
+      <ng-container *ngIf="projectCardInputs$ | async as projectInputs">
+        <biosimulations-project-card
+          *ngFor="let project of projectInputs"
+          [projectInput]="project"></biosimulations-project-card>
+      </ng-container>
     </div>
 
     <div class="controls-container enter-from-right" [ngClass]="{ visible: controlsOpen }">
       <biosimulations-grid-controls
-        [columns]="columns"
-        [columnFilterData]="this.table.columnFilterData"
+        *ngIf="columns$ | async"
+        [columns]="(columns$ | async) || []"
         [openControlPanelId]="table.openControlPanelId"
         (controlsStateUpdated)="controlsStateUpdated($event)"
         (filterStateUpdated)="filterStateUpdated($event)"
