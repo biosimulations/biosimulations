@@ -1,9 +1,9 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { combineLatest, map, mergeMap, Observable, of } from 'rxjs';
 import { BrowseService } from './browse.service';
 import { FormattedProjectSummary, LocationPredecessor } from './browse.model';
-import { Column, ColumnFilterType, TableComponent } from '@biosimulations/shared/ui';
+import { ColumnFilterType, TableComponent } from '@biosimulations/shared/ui';
 import { FormatService } from '@biosimulations/shared/services';
 import { LabeledIdentifier, DescribedIdentifier } from '@biosimulations/datamodel/common';
 import { RowService } from '@biosimulations/shared/ui';
@@ -12,7 +12,13 @@ import {
   ControlsState,
   ControlColumn,
   ControlStateChange,
+  Column,
+  DateFilterDefinition,
+  NumberFilterDefinition,
+  StringFilterDefinition,
 } from '@biosimulations/grid';
+import { BrowseDataSource } from './datasource/datasource.service';
+import { ProjectCardInput } from '../project-card/project-card.component';
 
 @Component({
   selector: 'biosimulations-projects-browse',
@@ -65,6 +71,7 @@ export class BrowseComponent implements OnInit, AfterViewInit {
       heading: 'Biology',
       leftIcon: 'cell',
       filterable: true,
+
       hidden: false,
       show: true,
       getter: (project: FormattedProjectSummary): string[] => {
@@ -88,6 +95,7 @@ export class BrowseComponent implements OnInit, AfterViewInit {
       heading: 'Taxa',
       leftIcon: 'taxon',
       filterable: true,
+
       hidden: false,
       show: true,
       getter: (project: FormattedProjectSummary): string[] => {
@@ -111,6 +119,7 @@ export class BrowseComponent implements OnInit, AfterViewInit {
       heading: 'Keywords',
       leftIcon: 'tag',
       filterable: true,
+
       hidden: false,
       show: false,
       getter: (project: FormattedProjectSummary): string[] => {
@@ -657,6 +666,7 @@ export class BrowseComponent implements OnInit, AfterViewInit {
       heading: 'Published',
       leftIcon: 'date',
       hidden: false,
+
       show: false,
       filterable: true,
       formatter: (value: Date): string => {
@@ -678,16 +688,58 @@ export class BrowseComponent implements OnInit, AfterViewInit {
       filterType: ColumnFilterType.date,
     },
   ];
-
+  public columns$!: Observable<Column[]>;
+  public projectCardInputs$: Observable<ProjectCardInput[]> = of([]);
   @ViewChild(TableComponent) table!: TableComponent;
   public columnFilterData: { [key: string]: any } = {};
-
-  constructor(private service: BrowseService, private route: ActivatedRoute, private scrollService: ScrollService) {
+  public data$: Observable<FormattedProjectSummary[]>;
+  public constructor(
+    private service: BrowseService,
+    private route: ActivatedRoute,
+    private scrollService: ScrollService,
+    private dataService: BrowseDataSource,
+  ) {
     this.openControls = this.openControls.bind(this);
+    this.data$ = this.dataService.connect();
   }
 
-  ngOnInit(): void {
-    this.projects$ = this.service.getProjects();
+  public ngOnInit(): void {
+    this.projects$ = this.dataService.connect();
+    this.columns$ = this.dataService.columns$;
+
+    this.projectCardInputs$ = this.projects$.pipe(
+      mergeMap((projects: FormattedProjectSummary[]): Observable<ProjectCardInput[]> => {
+        const projectArr: Observable<ProjectCardInput>[] = projects.map(
+          (project: FormattedProjectSummary): Observable<ProjectCardInput> => {
+            return this.columns$.pipe(
+              map((columns: Column[]) => {
+                const data: any[] = [];
+                columns.forEach((column: Column) => {
+                  const columnId = column?.id;
+                  const cache = project?._cache;
+
+                  if (columnId && cache) {
+                    console.error(columnId);
+                    data.push({
+                      heading: column.heading,
+                      value: project._cache[columnId].value,
+                      icon: project._cache[columnId].left.icon,
+                    });
+                  }
+                });
+                return {
+                  route: `/projects/${project?.id}`,
+                  title: project?.title,
+                  thumbnail: project?.metadata?.thumbnail || './assets/images/loading.svg',
+                  data,
+                };
+              }),
+            );
+          },
+        );
+        return combineLatest(projectArr);
+      }),
+    );
 
     if (this.route.snapshot.fragment) {
       const opts = new URLSearchParams(this.route.snapshot.fragment) as any;
@@ -700,7 +752,7 @@ export class BrowseComponent implements OnInit, AfterViewInit {
     }
   }
 
-  ngAfterViewInit(): void {
+  public ngAfterViewInit(): void {
     this.scrollService.init();
   }
 
@@ -732,31 +784,59 @@ export class BrowseComponent implements OnInit, AfterViewInit {
     this.table.clearFilter(column);
   }
 
+  public setFilterValues(columns: Column[]) {
+    return columns.map((column) => {
+      if (column.filterType == ColumnFilterType.date) {
+        const def: DateFilterDefinition = {
+          type: ColumnFilterType.date,
+          value: {
+            start: null,
+            end: null,
+          },
+        };
+        column.filterDefinition = def;
+      }
+
+      if (column.filterType == ColumnFilterType.number) {
+        const row = this.table.getNumericColumnRange(
+          this.table.dataSource.data,
+
+          column,
+        );
+
+        const def: NumberFilterDefinition = {
+          type: ColumnFilterType.number,
+          value: {
+            min: row.min,
+            max: row.max,
+            step: row.step,
+            minSelected: row.minSelected,
+            maxSelected: row.maxSelected,
+          },
+        };
+        column.filterDefinition = def;
+      } else {
+        const row = this.table.getTextColumnValues(this.table.dataSource.data, column);
+        const values = [];
+        for (const v of row) {
+          values.push({
+            label: v.formattedValue,
+            selected: false,
+          });
+        }
+        const def: StringFilterDefinition = {
+          type: ColumnFilterType.string,
+          value: values,
+        };
+        column.filterDefinition = def;
+      }
+      return column;
+    });
+  }
+
   public filterStateUpdated(state: ControlStateChange): void {
-    this.table.searchRows(state.searchQuery);
-
-    const startDate = state.startDateState;
-    const endDate = state.endDateState;
-    const filterSet = state.setFilterState;
-
-    this.table.filterStartDateValue(
-      startDate?.column || null,
-      startDate?.date || null,
-    );
-    this.table.filterEndDateValue(
-      endDate?.column || null,
-      endDate?.date || null,
-    );
-    this.table.filterSetValue(
-      filterSet?.column || null,
-      filterSet?.value,
-      filterSet?.selected === true,
-    );
     if (state.autoCompleteFilterState?.column) {
-      this.table.evalAutocompleteFilter(
-        state.autoCompleteFilterState?.column,
-        state.autoCompleteFilterState?.value,
-      );
+      this.table.evalAutocompleteFilter(state.autoCompleteFilterState?.column, state.autoCompleteFilterState?.value);
     }
   }
 }

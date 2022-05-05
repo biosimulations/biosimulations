@@ -57,4 +57,5 @@ export interface FormattedProjectSummary {
   owner?: Account;
   created: Date;
   updated: Date;
+  _cache?: any;
 }
