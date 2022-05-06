@@ -1,5 +1,4 @@
 {
-  "root": "libs/mail-service/client",
   "sourceRoot": "libs/mail-service/client/src",
   "projectType": "library",
   "generators": {},
@@ -13,7 +12,7 @@
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "libs/mail-service/client/jest.config.js",
+        "jestConfig": "libs/mail-service/client/jest.config.ts",
         "passWithNoTests": true
       }
     }

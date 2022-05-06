@@ -1,5 +1,4 @@
 {
-  "root": "libs/datamodel/simulation-runs",
   "sourceRoot": "libs/datamodel/simulation-runs/src",
   "projectType": "library",
   "generators": {},
@@ -7,22 +6,16 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": [
-          "libs/datamodel/database/**/*.ts"
-        ]
+        "lintFilePatterns": ["libs/datamodel/database/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "libs/datamodel/simulation-runs/jest.config.js",
+        "jestConfig": "libs/datamodel/simulation-runs/jest.config.ts",
         "passWithNoTests": true
       }
     }
   },
-  "tags": [
-    "scope:simulationRuns",
-    "type:datamodel",
-    "platform:web"
-  ]
+  "tags": ["scope:simulationRuns", "type:datamodel", "platform:web"]
 }

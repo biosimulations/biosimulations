@@ -1,5 +1,4 @@
 {
-  "root": "libs/shared/exceptions/exceptions",
   "sourceRoot": "libs/shared/exceptions/exceptions/src",
   "projectType": "library",
   "generators": {},
@@ -13,7 +12,7 @@
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "libs/shared/exceptions/exceptions/jest.config.js",
+        "jestConfig": "libs/shared/exceptions/exceptions/jest.config.ts",
         "passWithNoTests": true
       }
     }

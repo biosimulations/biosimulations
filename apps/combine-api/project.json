@@ -1,6 +1,5 @@
 {
   "projectType": "application",
-  "root": "apps/combine-api",
   "sourceRoot": "apps/combine-api/src",
   "targets": {
     "build": {

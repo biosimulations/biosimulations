@@ -1,5 +1,4 @@
 {
-  "root": "libs/combine-api/nest-client",
   "sourceRoot": "libs/combine-api/nest-client/src",
   "projectType": "library",
   "targets": {
@@ -24,7 +23,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/combine-api/nest-client"],
       "options": {
-        "jestConfig": "libs/combine-api/nest-client/jest.config.js",
+        "jestConfig": "libs/combine-api/nest-client/jest.config.ts",
         "passWithNoTests": true
       }
     }

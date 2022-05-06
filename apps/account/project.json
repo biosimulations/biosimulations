@@ -5,7 +5,6 @@
       "style": "scss"
     }
   },
-  "root": "apps/account",
   "sourceRoot": "apps/account/src",
   "prefix": "biosimulations",
   "targets": {
@@ -44,12 +43,8 @@
             "output": "assets"
           }
         ],
-        "styles": [
-          "libs/shared/styles/src/index.scss"
-        ],
-        "scripts": [
-          "node_modules/marked/marked.min.js"
-        ],
+        "styles": ["libs/shared/styles/src/index.scss"],
+        "scripts": ["node_modules/marked/marked.min.js"],
         "stylePreprocessorOptions": {
           "includePaths": [
             "libs/shared/styles/src/lib",
@@ -112,27 +107,17 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": [
-          "apps/account/**/*.ts",
-          "apps/account/**/*.ts"
-        ]
+        "lintFilePatterns": ["apps/account/**/*.ts", "apps/account/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "apps/account/jest.config.js",
+        "jestConfig": "apps/account/jest.config.ts",
         "passWithNoTests": true
       }
     }
   },
-  "tags": [
-    "scope:account",
-    "platform:web",
-    "type:frontend"
-  ],
-  "implicitDependencies": [
-    "shared-assets",
-    "shared-styles"
-  ]
+  "tags": ["scope:account", "platform:web", "type:frontend"],
+  "implicitDependencies": ["shared-assets", "shared-styles"]
 }

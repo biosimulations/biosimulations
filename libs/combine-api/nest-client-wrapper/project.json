@@ -1,34 +1,22 @@
 {
-  "root": "libs/combine-api/nest-client-wrapper",
   "sourceRoot": "libs/combine-api/nest-client-wrapper/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "libs/combine-api/nest-client-wrapper/**/*.ts"
-        ]
+        "lintFilePatterns": ["libs/combine-api/nest-client-wrapper/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/libs/combine-api/nest-client-wrapper"
-      ],
+      "outputs": ["coverage/libs/combine-api/nest-client-wrapper"],
       "options": {
-        "jestConfig": "libs/combine-api/nest-client-wrapper/jest.config.js",
+        "jestConfig": "libs/combine-api/nest-client-wrapper/jest.config.ts",
         "passWithNoTests": true
       }
     }
   },
-  "tags": [
-    "shared:true",
-    "scope:combine",
-    "platform:server",
-    "type:client"
-  ]
+  "tags": ["shared:true", "scope:combine", "platform:server", "type:client"]
 }

@@ -1,5 +1,4 @@
 {
-  "root": "libs/auth/client",
   "sourceRoot": "libs/auth/client/src",
   "projectType": "library",
   "targets": {
@@ -13,7 +12,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/auth/client"],
       "options": {
-        "jestConfig": "libs/auth/client/jest.config.js",
+        "jestConfig": "libs/auth/client/jest.config.ts",
         "passWithNoTests": true
       }
     }

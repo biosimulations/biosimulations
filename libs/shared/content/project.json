@@ -1,6 +1,5 @@
 {
   "projectType": "library",
-  "root": "libs/shared/content",
   "sourceRoot": "libs/shared/content/src",
   "prefix": "biosimulations",
   "targets": {
@@ -13,7 +12,7 @@
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "libs/shared/content/jest.config.js",
+        "jestConfig": "libs/shared/content/jest.config.ts",
         "passWithNoTests": true
       }
     }

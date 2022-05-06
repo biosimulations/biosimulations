@@ -1,5 +1,4 @@
 {
-  "root": "libs/shared/nats-client",
   "sourceRoot": "libs/shared/nats-client/src",
   "projectType": "library",
   "generators": {},
@@ -13,7 +12,7 @@
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "libs/shared/nats-client/jest.config.js",
+        "jestConfig": "libs/shared/nats-client/jest.config.ts",
         "passWithNoTests": true
       }
     }

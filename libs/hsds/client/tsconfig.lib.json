@@ -1,4 +1,3 @@
-// Set the strict to false, and suppress ImplicitAnyIndexErrors to true to work with machine generated code
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
@@ -14,6 +13,6 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true
   },
-  "exclude": ["**/*.spec.ts"],
+  "exclude": ["**/*.spec.ts", "jest.config.ts"],
   "include": ["**/*.ts"]
 }

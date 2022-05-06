@@ -1,5 +1,4 @@
 {
-  "root": "apps/mail-service",
   "sourceRoot": "apps/mail-service/src",
   "projectType": "application",
   "prefix": "mail-service",
@@ -42,7 +41,7 @@
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "apps/mail-service/jest.config.js",
+        "jestConfig": "apps/mail-service/jest.config.ts",
         "passWithNoTests": true
       }
     },

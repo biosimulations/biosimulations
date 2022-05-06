@@ -1,5 +1,4 @@
 {
-  "root": "libs/ontology/extra-sources",
   "sourceRoot": "libs/ontology/extra-sources/src",
   "projectType": "library",
   "generators": {},
@@ -13,7 +12,7 @@
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "libs/ontology/extra-sources/jest.config.js",
+        "jestConfig": "libs/ontology/extra-sources/jest.config.ts",
         "passWithNoTests": true
       }
     }

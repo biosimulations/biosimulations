@@ -1,6 +1,5 @@
 {
   "projectType": "library",
-  "root": "libs/config/angular",
   "sourceRoot": "libs/config/angular/src",
   "prefix": "biosimulations",
   "targets": {
@@ -13,7 +12,7 @@
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "libs/config/angular/jest.config.js",
+        "jestConfig": "libs/config/angular/jest.config.ts",
         "passWithNoTests": true
       }
     }

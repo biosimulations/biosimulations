@@ -1,6 +1,5 @@
 {
   "projectType": "library",
-  "root": "libs/combine-api/angular-client",
   "sourceRoot": "libs/combine-api/angular-client/src",
   "prefix": "biosimulations",
   "ngPackage": {
@@ -14,7 +13,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/combine-api/angular-client"],
       "options": {
-        "jestConfig": "libs/combine-api/angular-client/jest.config.js",
+        "jestConfig": "libs/combine-api/angular-client/jest.config.ts",
         "passWithNoTests": true
       }
     },

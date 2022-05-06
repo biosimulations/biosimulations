@@ -1,6 +1,5 @@
 {
   "projectType": "library",
-  "root": "libs/simulation-runs/service",
   "sourceRoot": "libs/simulation-runs/service/src",
   "prefix": "biosimulations",
   "targets": {
@@ -13,7 +12,7 @@
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "libs/simulation-runs/service/jest.config.js",
+        "jestConfig": "libs/simulation-runs/service/jest.config.ts",
         "passWithNoTests": true
       }
     }

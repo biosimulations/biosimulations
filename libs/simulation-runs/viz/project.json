@@ -1,6 +1,5 @@
 {
   "projectType": "library",
-  "root": "libs/simulation-runs/viz",
   "sourceRoot": "libs/simulation-runs/viz/src",
   "prefix": "biosimulations",
   "targets": {
@@ -13,7 +12,7 @@
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "libs/simulation-runs/viz/jest.config.js",
+        "jestConfig": "libs/simulation-runs/viz/jest.config.ts",
         "passWithNoTests": true
       }
     }

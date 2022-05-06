@@ -1,6 +1,5 @@
 {
   "projectType": "library",
-  "root": "libs/shared/utils/routes",
   "sourceRoot": "libs/shared/utils/routes/src",
   "prefix": "biosimulations",
   "targets": {
@@ -13,7 +12,7 @@
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "libs/shared/utils/routes/jest.config.js",
+        "jestConfig": "libs/shared/utils/routes/jest.config.ts",
         "passWithNoTests": true
       }
     }
