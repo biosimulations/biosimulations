@@ -1,6 +1,5 @@
 {
   "projectType": "library",
-  "root": "libs/grid",
   "sourceRoot": "libs/grid/src",
   "prefix": "biosimulations",
   "targets": {
@@ -10,7 +9,7 @@
         "coverage/libs/grid"
       ],
       "options": {
-        "jestConfig": "libs/grid/jest.config.js",
+        "jestConfig": "libs/grid/jest.config.ts",
         "passWithNoTests": true
       }
     },
