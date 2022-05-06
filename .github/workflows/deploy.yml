@@ -20,7 +20,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v2.4.2
 
       - name: Install dependencies
         run: |
@@ -72,7 +72,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v2.4.2
 
       - name: Install dependencies
         run: |
@@ -158,7 +158,7 @@ jobs:
     environment: dev_environment
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v2.4.2
 
       - name: Call webhook
         env:
@@ -181,7 +181,7 @@ jobs:
     environment: dev_test_environment
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v2.4.2
 
       - name: Install Python
         uses: actions/setup-python@v2
@@ -257,7 +257,7 @@ jobs:
     environment: prod_environment
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v2.4.2
 
       - name: Call webhook
         env:
