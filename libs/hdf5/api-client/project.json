@@ -1,5 +1,4 @@
 {
-  "root": "libs/hdf5/api-client",
   "sourceRoot": "libs/hdf5/api-client/src",
   "projectType": "library",
   "targets": {
@@ -24,7 +23,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/hdf5/api-client"],
       "options": {
-        "jestConfig": "libs/hdf5/api-client/jest.config.js",
+        "jestConfig": "libs/hdf5/api-client/jest.config.ts",
         "passWithNoTests": true
       }
     }

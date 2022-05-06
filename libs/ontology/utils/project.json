@@ -1,5 +1,4 @@
 {
-  "root": "libs/ontology/utils",
   "sourceRoot": "libs/ontology/utils/src",
   "projectType": "library",
   "targets": {
@@ -13,7 +12,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/ontology/utils"],
       "options": {
-        "jestConfig": "libs/ontology/utils/jest.config.js",
+        "jestConfig": "libs/ontology/utils/jest.config.ts",
         "passWithNoTests": true
       }
     }

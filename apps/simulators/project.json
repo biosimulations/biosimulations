@@ -5,7 +5,6 @@
       "style": "scss"
     }
   },
-  "root": "apps/simulators",
   "sourceRoot": "apps/simulators/src",
   "prefix": "biosimulations",
   "targets": {
@@ -47,12 +46,8 @@
           "apps/simulators/src/browserconfig.xml",
           "apps/simulators/src/sitemap.xml"
         ],
-        "styles": [
-          "libs/shared/styles/src/index.scss"
-        ],
-        "scripts": [
-          "node_modules/marked/marked.min.js"
-        ],
+        "styles": ["libs/shared/styles/src/index.scss"],
+        "scripts": ["node_modules/marked/marked.min.js"],
         "stylePreprocessorOptions": {
           "includePaths": [
             "libs/shared/styles/src/lib",
@@ -124,18 +119,11 @@
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "apps/simulators/jest.config.js",
+        "jestConfig": "apps/simulators/jest.config.ts",
         "passWithNoTests": true
       }
     }
   },
-  "tags": [
-    "scope:simulators",
-    "type:frontend",
-    "platform:web"
-  ],
-  "implicitDependencies": [
-    "shared-assets",
-    "shared-styles"
-  ]
+  "tags": ["scope:simulators", "type:frontend", "platform:web"],
+  "implicitDependencies": ["shared-assets", "shared-styles"]
 }

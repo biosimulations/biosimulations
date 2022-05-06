@@ -1,5 +1,4 @@
 {
-  "root": "libs/auth/nest",
   "sourceRoot": "libs/auth/nest/src",
   "projectType": "library",
   "generators": {},
@@ -13,7 +12,7 @@
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "libs/auth/nest/jest.config.js",
+        "jestConfig": "libs/auth/nest/jest.config.ts",
         "passWithNoTests": true
       }
     }

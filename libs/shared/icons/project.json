@@ -1,6 +1,5 @@
 {
   "projectType": "library",
-  "root": "libs/shared/icons",
   "sourceRoot": "libs/shared/icons/src",
   "prefix": "biosimulations",
   "targets": {
@@ -13,7 +12,7 @@
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "libs/shared/icons/jest.config.js",
+        "jestConfig": "libs/shared/icons/jest.config.ts",
         "passWithNoTests": true
       }
     }

@@ -5,7 +5,6 @@
       "style": "scss"
     }
   },
-  "root": "apps/platform",
   "sourceRoot": "apps/platform/src",
   "prefix": "biosimulations",
   "targets": {
@@ -47,9 +46,7 @@
           "apps/platform/src/browserconfig.xml",
           "apps/platform/src/sitemap.xml"
         ],
-        "styles": [
-          "libs/shared/styles/src/index.scss"
-        ],
+        "styles": ["libs/shared/styles/src/index.scss"],
         "scripts": [
           "node_modules/marked/marked.min.js",
           "node_modules/plotly.js/dist/plotly.min.js"
@@ -117,27 +114,17 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": [
-          "apps/platform/**/*.ts",
-          "apps/platform/**/*.html"
-        ]
+        "lintFilePatterns": ["apps/platform/**/*.ts", "apps/platform/**/*.html"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "apps/platform/jest.config.js",
+        "jestConfig": "apps/platform/jest.config.ts",
         "passWithNoTests": true
       }
     }
   },
-  "tags": [
-    "scope:platform",
-    "type:frontend",
-    "platform:web"
-  ],
-  "implicitDependencies": [
-    "shared-assets",
-    "shared-styles"
-  ]
+  "tags": ["scope:platform", "type:frontend", "platform:web"],
+  "implicitDependencies": ["shared-assets", "shared-styles"]
 }

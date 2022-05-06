@@ -1,5 +1,4 @@
 {
-  "root": "apps/dispatch-e2e",
   "sourceRoot": "apps/dispatch-e2e/src",
   "projectType": "application",
   "targets": {

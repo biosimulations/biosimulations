@@ -1,5 +1,4 @@
 {
-  "root": "libs/ontology/api",
   "sourceRoot": "libs/ontology/api/src",
   "projectType": "library",
   "generators": {},
@@ -13,7 +12,7 @@
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "libs/ontology/api/jest.config.js",
+        "jestConfig": "libs/ontology/api/jest.config.ts",
         "passWithNoTests": true
       }
     }

@@ -5,7 +5,6 @@
       "style": "scss"
     }
   },
-  "root": "apps/dispatch",
   "sourceRoot": "apps/dispatch/src",
   "prefix": "biosimulations",
   "targets": {
@@ -47,9 +46,7 @@
           "apps/dispatch/src/browserconfig.xml",
           "apps/dispatch/src/sitemap.xml"
         ],
-        "styles": [
-          "libs/shared/styles/src/index.scss"
-        ],
+        "styles": ["libs/shared/styles/src/index.scss"],
         "scripts": [
           "node_modules/marked/marked.min.js",
           "node_modules/plotly.js/dist/plotly.min.js"
@@ -118,27 +115,17 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": [
-          "apps/dispatch/**/*.ts",
-          "apps/dispatch/**/*.html"
-        ]
+        "lintFilePatterns": ["apps/dispatch/**/*.ts", "apps/dispatch/**/*.html"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "apps/dispatch/jest.config.js",
+        "jestConfig": "apps/dispatch/jest.config.ts",
         "passWithNoTests": true
       }
     }
   },
-  "tags": [
-    "scope:dispatch",
-    "type:frontend",
-    "platform:web"
-  ],
-  "implicitDependencies": [
-    "shared-assets",
-    "shared-styles"
-  ]
+  "tags": ["scope:dispatch", "type:frontend", "platform:web"],
+  "implicitDependencies": ["shared-assets", "shared-styles"]
 }

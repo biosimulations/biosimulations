@@ -4,10 +4,10 @@
     "module": "commonjs",
     "outDir": "../../../dist/out-tsc",
     "declaration": true,
-        "noImplicitAny": false,
+    "noImplicitAny": false,
     "suppressImplicitAnyIndexErrors": true,
     "types": ["node"]
   },
-  "exclude": ["**/*.spec.ts"],
+  "exclude": ["**/*.spec.ts", "jest.config.ts"],
   "include": ["**/*.ts"]
 }

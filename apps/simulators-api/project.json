@@ -1,5 +1,4 @@
 {
-  "root": "apps/simulators-api",
   "sourceRoot": "apps/simulators-api/src",
   "projectType": "application",
   "prefix": "simulators-api",
@@ -42,7 +41,7 @@
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "apps/simulators-api/jest.config.js",
+        "jestConfig": "apps/simulators-api/jest.config.ts",
         "passWithNoTests": true
       }
     },

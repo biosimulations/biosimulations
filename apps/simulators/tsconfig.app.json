@@ -11,5 +11,6 @@
     "strict": true,
     "resolveJsonModule": true
   },
-  "files": ["src/main.ts", "src/polyfills.ts", "../../declarations.d.ts"]
+  "files": ["src/main.ts", "src/polyfills.ts", "../../declarations.d.ts"],
+  "exclude": ["jest.config.ts"]
 }

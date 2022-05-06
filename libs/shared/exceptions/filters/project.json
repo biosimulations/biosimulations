@@ -1,5 +1,4 @@
 {
-  "root": "libs/shared/exceptions/filters",
   "sourceRoot": "libs/shared/exceptions/filters/src",
   "projectType": "library",
   "generators": {},
@@ -7,22 +6,16 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": [
-          "libs/datamodel/database/**/*.ts"
-        ]
+        "lintFilePatterns": ["libs/datamodel/database/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "libs/shared/exceptions/filters/jest.config.js",
+        "jestConfig": "libs/shared/exceptions/filters/jest.config.ts",
         "passWithNoTests": true
       }
     }
   },
-  "tags": [
-    "scope:shared",
-    "type:util",
-    "platform:server"
-  ]
+  "tags": ["scope:shared", "type:util", "platform:server"]
 }

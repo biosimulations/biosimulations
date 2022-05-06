@@ -1,5 +1,4 @@
 {
-  "root": "libs/shared/storage",
   "sourceRoot": "libs/shared/storage/src",
   "projectType": "library",
   "targets": {
@@ -13,7 +12,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/shared/storage"],
       "options": {
-        "jestConfig": "libs/shared/storage/jest.config.js",
+        "jestConfig": "libs/shared/storage/jest.config.ts",
         "passWithNoTests": true
       }
     }

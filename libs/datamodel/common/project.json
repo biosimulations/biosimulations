@@ -1,5 +1,4 @@
 {
-  "root": "libs/datamodel/common",
   "sourceRoot": "libs/datamodel/common/src",
   "projectType": "library",
   "generators": {},
@@ -13,7 +12,7 @@
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "libs/datamodel/common/jest.config.js",
+        "jestConfig": "libs/datamodel/common/jest.config.ts",
         "passWithNoTests": true
       }
     }

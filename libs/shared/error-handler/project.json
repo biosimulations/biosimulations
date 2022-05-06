@@ -1,6 +1,5 @@
 {
   "projectType": "library",
-  "root": "libs/shared/error-handler",
   "sourceRoot": "libs/shared/error-handler/src",
   "prefix": "biosimulations",
   "targets": {
@@ -17,7 +16,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/shared/error-handler"],
       "options": {
-        "jestConfig": "libs/shared/error-handler/jest.config.js",
+        "jestConfig": "libs/shared/error-handler/jest.config.ts",
         "passWithNoTests": true
       }
     }
