@@ -50,7 +50,7 @@
     Please select a model format.
   </mat-error>
 
-  <mat-error *ngIf="nextClicked && formGroup.hasError('url', 'modelUrl')"> Please enter a valid url. </mat-error>
+  <mat-error *ngIf="nextClicked && formGroup.hasError('url', 'modelUrl')">Please enter a valid url.</mat-error>
 
   <mat-error *ngIf="nextClicked && (formGroup.hasError('noModel') || formGroup.hasError('multipleModels'))">
     Please provide either a model file or valid url.
