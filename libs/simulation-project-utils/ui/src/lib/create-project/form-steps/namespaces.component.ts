@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, AbstractControl, ValidationErrors } from '@angular/forms';
-import { FormStepComponent, FormStepData } from './form-step';
+import { IFormStepComponent, FormStepData } from '@biosimulations/shared/ui';
 import {
   UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR,
   NAMESPACE_PREFIX_VALIDATOR,
@@ -9,11 +9,11 @@ import {
 import { Namespace, NamespaceTypeEnum } from '@biosimulations/combine-api-angular-client';
 
 @Component({
-  selector: 'create-project-model-namespaces',
-  templateUrl: './model-namespaces.component.html',
+  selector: 'create-project-namespaces',
+  templateUrl: './namespaces.component.html',
   styleUrls: ['./form-steps.scss'],
 })
-export class ModelNamespacesComponent implements FormStepComponent {
+export class NamespacesComponent implements IFormStepComponent {
   public nextClicked = false;
 
   public formArray: FormArray;
@@ -22,24 +22,37 @@ export class ModelNamespacesComponent implements FormStepComponent {
     this.formArray = formBuilder.array([], {
       validators: [UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR('prefix')],
     });
-    this.addModelNamespace();
+    this.addNamespaceField();
   }
 
-  public populateFormFromFormStepData(formStepData: FormStepData): void {
-    const namespaces = formStepData?.namespaces as Namespace[];
-    if (!formStepData || !namespaces || namespaces.length === 0) {
+  /**
+   * Preloads any namespaces parsed out of the uploaded SedDocument into the form.
+   * @param introspectedNamespaces Namespaces parsed out of the uploaded SedDocument.
+   */
+  public loadIntrospectedNamespaces(introspectedNamespaces: Namespace[]): void {
+    if (!introspectedNamespaces || introspectedNamespaces.length === 0) {
       return;
     }
-    this.formArray.clear();
-    namespaces.forEach((namespace: Namespace): void => {
-      this.addModelNamespace(namespace);
-    });
+    this.loadNamespacesIntoForm(introspectedNamespaces);
   }
 
-  public getFormStepData(): FormStepData {
+  /**
+   * Loads any previously entered data back into the form. This will be called immediately before the
+   * form step appears and will overwrite any namespaces loaded via introspection.
+   * @param formStepData Data containing the previously entered namespaces.
+   */
+  public populateFormFromFormStepData(formStepData: FormStepData): void {
+    const namespaces = formStepData.namespaces as Namespace[];
+    if (!namespaces || namespaces.length === 0) {
+      return;
+    }
+    this.loadNamespacesIntoForm(namespaces);
+  }
+
+  public getFormStepData(): FormStepData | null {
     this.formArray.updateValueAndValidity();
     if (!this.formArray.valid) {
-      return undefined;
+      return null;
     }
     const namespaces: Namespace[] = [];
     this.formArray.controls.forEach((control: AbstractControl): void => {
@@ -57,12 +70,12 @@ export class ModelNamespacesComponent implements FormStepComponent {
     };
   }
 
-  public addModelNamespace(namespace?: Namespace): void {
+  public addNamespaceField(preloadedNamespace?: Namespace): void {
     this.formArray.push(
       this.formBuilder.group(
         {
-          prefix: [namespace?.prefix, [NAMESPACE_PREFIX_VALIDATOR]],
-          uri: [namespace?.uri, [URL_VALIDATOR]],
+          prefix: [preloadedNamespace?.prefix, [NAMESPACE_PREFIX_VALIDATOR]],
+          uri: [preloadedNamespace?.uri, [URL_VALIDATOR]],
         },
         {
           validators: [this.hasUriOrNeither],
@@ -71,8 +84,8 @@ export class ModelNamespacesComponent implements FormStepComponent {
     );
   }
 
-  public removeModelNamespace(iNamespace: number): void {
-    this.formArray.removeAt(iNamespace);
+  public removeNamespaceField(index: number): void {
+    this.formArray.removeAt(index);
   }
 
   public formGroups(): FormGroup[] {
@@ -88,6 +101,13 @@ export class ModelNamespacesComponent implements FormStepComponent {
     const invalidUri = formGroup.hasError('url', 'uri');
     const incompleteUri = formGroup.hasError('complete');
     return this.nextClicked && (invalidUri || incompleteUri);
+  }
+
+  private loadNamespacesIntoForm(namespaces: Namespace[]): void {
+    this.formArray.clear();
+    namespaces.forEach((namespace: Namespace): void => {
+      this.addNamespaceField(namespace);
+    });
   }
 
   private hasUriOrNeither(formGroup: FormGroup): ValidationErrors | null {

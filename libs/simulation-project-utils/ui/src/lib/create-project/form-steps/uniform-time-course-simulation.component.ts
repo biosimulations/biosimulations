@@ -1,18 +1,19 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { FormStepComponent, FormStepData } from './form-step';
+import { IFormStepComponent, FormStepData } from '@biosimulations/shared/ui';
 import {
   POSITIVE_INTEGER_VALIDATOR,
   NON_NEGATIVE_FLOAT_VALIDATOR,
   UNIFORM_TIME_SPAN_VALIDATOR,
 } from '@biosimulations/shared/ui';
+import { SedUniformTimeCourseSimulation } from '@biosimulations/combine-api-angular-client';
 
 @Component({
   selector: 'create-project-inform-time-course-simulation',
   templateUrl: './uniform-time-course-simulation.component.html',
   styleUrls: ['./form-steps.scss'],
 })
-export class UniformTimeCourseSimulationComponent implements FormStepComponent {
+export class UniformTimeCourseSimulationComponent implements IFormStepComponent {
   public formGroup: FormGroup;
   public nextClicked = false;
   public stepSize?: number;
@@ -32,20 +33,24 @@ export class UniformTimeCourseSimulationComponent implements FormStepComponent {
     );
   }
 
+  public loadIntrospectedTimeCourseData(timeCourseData: SedUniformTimeCourseSimulation): void {
+    this.formGroup.controls.initialTime.setValue(timeCourseData.initialTime);
+    this.formGroup.controls.outputStartTime.setValue(timeCourseData.outputStartTime);
+    this.formGroup.controls.outputEndTime.setValue(timeCourseData.outputEndTime);
+    this.formGroup.controls.numberOfSteps.setValue(timeCourseData.numberOfSteps);
+  }
+
   public populateFormFromFormStepData(formStepData: FormStepData): void {
-    if (!formStepData) {
-      return;
-    }
     this.formGroup.controls.initialTime.setValue(formStepData.initialTime);
     this.formGroup.controls.outputStartTime.setValue(formStepData.outputStartTime);
     this.formGroup.controls.outputEndTime.setValue(formStepData.outputEndTime);
     this.formGroup.controls.numberOfSteps.setValue(formStepData.numberOfSteps);
   }
 
-  public getFormStepData(): FormStepData {
+  public getFormStepData(): FormStepData | null {
     this.formGroup.updateValueAndValidity();
     if (!this.formGroup.valid) {
-      return undefined;
+      return null;
     }
     return {
       initialTime: this.formGroup.value.initialTime,

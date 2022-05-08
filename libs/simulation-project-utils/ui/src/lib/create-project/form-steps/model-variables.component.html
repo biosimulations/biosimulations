@@ -19,12 +19,16 @@
 
     <input class="grid-input" formControlName="symbolOrTarget" />
 
-    <button mat-icon-button title="Delete variable" (click)="removeModelVariable(iModelVariable)">
+    <button mat-icon-button title="Delete variable" (click)="removeModelVariableField(iModelVariable)">
       <biosimulations-icon icon="trash"></biosimulations-icon>
     </button>
   </ng-container>
 
-  <button mat-flat-button class="biosimulations-button text" style="grid-column: 1 / 5" (click)="addModelVariable()">
+  <button
+    mat-flat-button
+    class="biosimulations-button text"
+    style="grid-column: 1 / 5"
+    (click)="addModelVariableField()">
     Additional variable
   </button>
 </div>

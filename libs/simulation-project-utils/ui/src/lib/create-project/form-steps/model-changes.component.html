@@ -14,12 +14,12 @@
     <input class="grid-input" formControlName="target" [class.error-border]="shouldShowTargetError(formGroup)" />
     <input class="grid-input" formControlName="default" />
     <input class="grid-input" formControlName="newValue" />
-    <button mat-icon-button title="Delete chanage" (click)="removeModelChange(iModelChange)">
+    <button mat-icon-button title="Delete chanage" (click)="removeModelChangeField(iModelChange)">
       <biosimulations-icon icon="trash"></biosimulations-icon>
     </button>
   </ng-container>
 
-  <button mat-flat-button class="biosimulations-button text" style="grid-column: 1 / 6" (click)="addModelChange()">
+  <button mat-flat-button class="biosimulations-button text" style="grid-column: 1 / 6" (click)="addModelChangeField()">
     Additional change
   </button>
 </div>
@@ -41,5 +41,5 @@
   </p>
 </mat-hint>
 
-<mat-error *ngIf="nextClicked && formArray.invalid"> One or more properties of one or more changes invalid. </mat-error>
-<mat-error *ngIf="nextClicked && formArray.hasError('idUnique')"> The ids of the changes must be unique. </mat-error>
+<mat-error *ngIf="nextClicked && formArray.invalid">One or more properties of one or more changes invalid.</mat-error>
+<mat-error *ngIf="nextClicked && formArray.hasError('idUnique')">The ids of the changes must be unique.</mat-error>

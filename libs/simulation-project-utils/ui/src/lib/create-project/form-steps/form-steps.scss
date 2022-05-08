@@ -1,14 +1,3 @@
-.form-spinner {
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 1rem;
-}
-
-.loading-text {
-  display: block;
-  text-align: center;
-}
-
 .grid-label {
   font-size: 140%;
   color: rgb(0, 0, 0, 0.75);
@@ -102,4 +91,12 @@
     font-size: 200%;
     padding: 2rem 3rem;
   }
+}
+
+mat-card-title {
+  margin-bottom: 1.5rem;
+}
+
+.secondary-title {
+  margin-top: 1.2rem;
 }

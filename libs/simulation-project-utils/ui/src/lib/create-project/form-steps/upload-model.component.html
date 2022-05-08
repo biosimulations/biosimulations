@@ -15,7 +15,7 @@
   <div class="input-group">
     <mat-form-field class="card-form-field" appearance="fill">
       <mat-label>Choose model file</mat-label>
-      <ngx-mat-file-input formControlName="modelFile" [accept]="modelFileTypeSpecifiers"></ngx-mat-file-input>
+      <ngx-mat-file-input formControlName="modelFile" [accept]="supportedFileTypes()"></ngx-mat-file-input>
     </mat-form-field>
 
     <mat-hint>Or</mat-hint>
