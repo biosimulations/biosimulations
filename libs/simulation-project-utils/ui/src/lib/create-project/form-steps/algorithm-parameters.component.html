@@ -1,0 +1,66 @@
+<mat-card-title>Configure algorithm parameters</mat-card-title>
+
+<div class="algorithm-parameter-grid">
+  <div class="grid-label">Name</div>
+  <div class="grid-label">More info</div>
+  <div class="grid-label">Supporting simulators</div>
+  <div class="grid-label">Type</div>
+  <div class="grid-label">Default</div>
+  <div class="grid-label">Recommended range</div>
+  <div class="grid-label">New value</div>
+
+  <ng-container *ngFor="let param of parameterRows">
+    <div class="grid-value">{{ param.name }}</div>
+    <div class="grid-value centered-text">
+      <a [href]="param.url" blankTarget><biosimulations-icon icon="link"></biosimulations-icon></a>
+    </div>
+    <div class="grid-value">{{ param.simulators }}</div>
+    <div class="grid-value">{{ param.type }}</div>
+    <div class="grid-value">{{ param.formattedValue }}</div>
+    <div class="grid-value">{{ param.formattedRecommendedRangeJoined }}</div>
+    <input
+      class="grid-input"
+      (ngModelChange)="parameterChanged(param.id, $event)"
+      [ngModel]="parameters[param.id].newValue" />
+  </ng-container>
+</div>
+
+<mat-hint>
+  Enter new values to override the default values of one or more parameters. Leave blank to accept default values.
+</mat-hint>
+
+<mat-card-title class="secondary-title"
+  >Tools that likely have the capabilities to execute your simulation</mat-card-title
+>
+
+<div class="simulation-tools-grid">
+  <div class="grid-label">Name</div>
+  <div class="grid-label">Algorithm compatability</div>
+  <div class="grid-label">Algorithm parameter compatability</div>
+  <div class="grid-label">More info</div>
+
+  <ng-container *ngFor="let simulator of compatibleSimulators">
+    <div class="grid-value">
+      {{ simulator.simulator.name }}
+    </div>
+    <div class="grid-value">
+      {{ simulator.minPolicy.level }}.
+      {{ simulator.minPolicy.name }}
+    </div>
+    <div class="grid-value">
+      {{ simulator.parametersCompatibility ? 'Yes' : 'No' }}
+    </div>
+    <div class="grid-value centered-text">
+      <a [href]="simulator.simulator.url" blankTarget><biosimulations-icon icon="link"></biosimulations-icon></a>
+    </div>
+  </ng-container>
+</div>
+
+<mat-hint>
+  <p class="alert">
+    Not all simulation tools have the capabilities to execute all possible simulations because most simulation tools do
+    not support every aspect of modeling standards such as SBML and SED-ML. We are working to encourage developers to
+    more fully support these standards and to catalog which features each tool supports so that we are better able to
+    recommend simulation tools going forward.
+  </p>
+</mat-hint>

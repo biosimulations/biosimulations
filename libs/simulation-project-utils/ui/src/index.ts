@@ -1,5 +1,4 @@
 export * from './lib/simulation-project-utils-ui.module';
-export * from './lib/create-project/create-project/form-steps/form-step';
 export { ValidateModelComponent } from './lib/validate-model/validate-model.component';
 export { ValidateSimulationComponent } from './lib/validate-simulation/validate-simulation.component';
 export { ValidateMetadataComponent } from './lib/validate-metadata/validate-metadata.component';

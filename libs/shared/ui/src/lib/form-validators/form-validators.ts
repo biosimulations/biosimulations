@@ -1,7 +1,6 @@
 import { AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
+import { ConfigService } from '@biosimulations/config/angular';
 import isUrl from 'is-url';
-import { ValueType } from '@biosimulations/datamodel/common';
-import { validateValue } from '@biosimulations/datamodel/utils';
 
 export const URL_VALIDATOR: ValidatorFn = function (control: AbstractControl): ValidationErrors | null {
   const value = control.value;
@@ -95,3 +94,14 @@ export const UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR = function (attrName: string): V
     return error;
   };
 };
+
+export function CreateMaxFileSizeValidator(config: ConfigService): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const maxSize = config.appConfig?.maxUploadFileSize;
+    const fileValue = control.value?.files?.[0];
+    if (!fileValue || isNaN(maxSize) || fileValue.size <= maxSize) {
+      return null;
+    }
+    return { maxSize: true };
+  };
+}

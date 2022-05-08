@@ -1,0 +1,20 @@
+.button-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-spinner {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1rem;
+}
+
+.loading-text {
+  display: block;
+  text-align: center;
+}
+
+.extra-button-container {
+  display: flex;
+  gap: 16px;
+}

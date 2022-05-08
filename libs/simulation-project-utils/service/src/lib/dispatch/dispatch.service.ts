@@ -3,13 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, shareReplay, mergeAll } from 'rxjs/operators';
 import { Endpoints } from '@biosimulations/config/common';
-import { ConfigService } from '@biosimulations/config/angular';
 import { Ontologies, IOntologyId, IOntologyTerm } from '@biosimulations/datamodel/common';
 import { OntologyService } from '@biosimulations/ontology/client';
 import { ValueType, SimulationType } from '@biosimulations/datamodel/common';
 import { parseValue, formatValue } from '@biosimulations/datamodel/utils';
 import { ISimulator } from '@biosimulations/datamodel/common';
-import { AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 
 export interface AlgorithmParameter {
   id: string;
@@ -79,22 +77,7 @@ export class DispatchService {
 
   private simulatorsDataCache?: Observable<SimulatorsData>;
 
-  public constructor(
-    private config: ConfigService,
-    private http: HttpClient,
-    private ontologyService: OntologyService,
-  ) {}
-
-  public maxFileSizeValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const maxSize = this.config.appConfig.maxUploadFileSize;
-      const fileValue = control.value?.files?.[0];
-      if (!fileValue || fileValue.size <= maxSize) {
-        return null;
-      }
-      return { maxSize: true };
-    };
-  }
+  public constructor(private http: HttpClient, private ontologyService: OntologyService) {}
 
   public getSimulatorsFromDb(): Observable<SimulatorsData> {
     if (this.simulatorsDataCache) {

@@ -14,12 +14,10 @@ import {
   SimulatorTypeComponent,
   UniformTimeCourseSimulationComponent,
   AlgorithmParametersComponent,
-  IntrospectingModelComponent,
-  ModelNamespacesComponent,
+  NamespacesComponent,
   ModelChangesComponent,
   ModelVariablesComponent,
-  SimulationToolsComponent,
-} from './create-project/form-steps';
+} from './form-steps';
 
 @NgModule({
   declarations: [
@@ -28,12 +26,10 @@ import {
     SimulatorTypeComponent,
     UniformTimeCourseSimulationComponent,
     AlgorithmParametersComponent,
-    IntrospectingModelComponent,
     AlgorithmParametersComponent,
-    ModelNamespacesComponent,
+    NamespacesComponent,
     ModelChangesComponent,
     ModelVariablesComponent,
-    SimulationToolsComponent,
   ],
   imports: [
     CommonModule,

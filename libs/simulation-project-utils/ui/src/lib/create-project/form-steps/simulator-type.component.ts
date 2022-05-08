@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { FormStepComponent, FormStepData } from './form-step';
+import { IFormStepComponent, FormStepData } from '@biosimulations/shared/ui';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {
   OntologyTerm,
   SimulatorsData,
   OntologyTermsMap,
   FrameworkCompatibilityMap,
-  ArchiveCreationUtility,
+  CreateCompatibilityMap,
 } from '@biosimulations/simulation-project-utils/service';
 import { SimulationType, SimulationTypeBriefName } from '@biosimulations/datamodel/common';
 
@@ -15,7 +15,7 @@ import { SimulationType, SimulationTypeBriefName } from '@biosimulations/datamod
   templateUrl: './simulator-type.component.html',
   styleUrls: ['./form-steps.scss'],
 })
-export class SimulatorTypeComponent implements FormStepComponent {
+export class SimulatorTypeComponent implements IFormStepComponent {
   public nextClicked = false;
   public formGroup: FormGroup;
   public compatibleFrameworks: OntologyTerm[] = [];
@@ -51,7 +51,7 @@ export class SimulatorTypeComponent implements FormStepComponent {
       return;
     }
     this.allAlgorithms = simulatorsData.simulationAlgorithms;
-    this.compatibilityMap = ArchiveCreationUtility.createCompatibilityMap(simulatorsData, modelFormatId);
+    this.compatibilityMap = CreateCompatibilityMap(simulatorsData, modelFormatId);
     this.updateCompatibleFrameworks(simulatorsData);
     if (this.compatibleFrameworks?.length === 1) {
       this.formGroup.controls.framework.setValue(this.compatibleFrameworks[0].id);
@@ -60,9 +60,6 @@ export class SimulatorTypeComponent implements FormStepComponent {
   }
 
   public populateFormFromFormStepData(formStepData: FormStepData): void {
-    if (!formStepData) {
-      return;
-    }
     const frameworkId = formStepData.framework as string;
     const simulationType = formStepData.simulationType as SimulationType;
     const algorithmId = formStepData.algorithm as string;
@@ -84,10 +81,10 @@ export class SimulatorTypeComponent implements FormStepComponent {
     this.formGroup.controls.algorithm.enable();
   }
 
-  public getFormStepData(): FormStepData {
+  public getFormStepData(): FormStepData | null {
     this.formGroup.updateValueAndValidity();
     if (!this.formGroup.valid) {
-      return undefined;
+      return null;
     }
     const frameworkId = this.formGroup.value.framework;
     const simulationType = this.formGroup.value.simulationType as SimulationType;

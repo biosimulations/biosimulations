@@ -1,0 +1,41 @@
+<mat-card class="card-form-section mat-elevation-z3">
+  <ng-container *ngIf="!shouldShowSpinner; else loading">
+    <div formHost></div>
+    <div class="button-container">
+      <button
+        *ngIf="shouldShowBackButton()"
+        mat-flat-button
+        class="biosimulations-button text"
+        id="multi-step-form-back"
+        type="reset"
+        (click)="onBackClicked()">
+        Back
+      </button>
+      <button
+        *ngIf="shouldShowNextButton()"
+        mat-flat-button
+        class="biosimulations-button primary"
+        id="multi-step-form-next"
+        type="submit"
+        (click)="onNextClicked()">
+        Next
+      </button>
+      <div class="extra-button-container">
+        <ng-container *ngFor="let extraButton of currentExtraButtons">
+          <button
+            mat-flat-button
+            class="biosimulations-button primary"
+            type="submit"
+            (click)="onExtraButtonClicked(extraButton)">
+            {{ extraButton.label }}
+          </button>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+</mat-card>
+
+<ng-template #loading>
+  <mat-spinner class="form-spinner" [diameter]="60" [strokeWidth]="5"></mat-spinner>
+  <mat-hint class="loading-text">{{ loadingText }}</mat-hint>
+</ng-template>

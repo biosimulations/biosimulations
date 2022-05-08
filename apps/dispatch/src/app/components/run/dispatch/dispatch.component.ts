@@ -1,12 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { Params } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators, ValidationErrors } from '@angular/forms';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { CombineApiService } from '../../../services/combine-api/combine-api.service';
 import {
-  DispatchService as CommonDispatchService,
-  CombineApiService as CommonCombineApiService,
   SimulatorSpecsMap,
   SimulatorSpecs,
   SimulatorsData,
@@ -31,13 +29,12 @@ import {
 } from '@biosimulations/datamodel/common';
 import { SimulationRunStatus, EnvironmentVariable, SimulationRun } from '@biosimulations/datamodel/common';
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
-import { zip, Observable, Subscription } from 'rxjs';
-import { concatMap } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
 import { ConfigService } from '@biosimulations/config/angular';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { FileInput } from 'ngx-material-file-input';
-import { INTEGER_VALIDATOR } from '@biosimulations/shared/ui';
+import { CreateMaxFileSizeValidator, INTEGER_VALIDATOR } from '@biosimulations/shared/ui';
 
 interface SimulatorIdNameDisabled {
   id: string;
@@ -61,8 +58,6 @@ interface Algorithm {
   simulatorPolicies: { [simulator: string]: SimulatorPolicy };
   disabled: boolean;
 }
-
-type AlgorithmsMap = { [id: string]: Algorithm };
 
 @Component({
   selector: 'biosimulations-dispatch',
@@ -89,25 +84,22 @@ export class DispatchComponent implements OnInit, OnDestroy {
 
   // Data loaded from network
   private modelFormatsMap?: OntologyTermsMap;
-  private simulationAlgorithmsMap?: AlgorithmsMap;
+  private simulationAlgorithmsMap?: Record<string, Algorithm>;
   private simulatorSpecsMap?: SimulatorSpecsMap;
 
   public constructor(
     private config: ConfigService,
-    private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder,
     private dispatchService: DispatchService,
-    private commonDispatchService: CommonDispatchService,
     private simulationService: SimulationService,
     private combineApiService: CombineApiService,
-    private commonCombineApiService: CommonCombineApiService,
     private snackBar: MatSnackBar,
     private loader: SimulationProjectUtilLoaderService,
   ) {
     this.formGroup = this.formBuilder.group(
       {
-        projectFile: ['', [this.commonDispatchService.maxFileSizeValidator()]],
+        projectFile: ['', [CreateMaxFileSizeValidator(config)]],
         projectUrl: ['', []],
         modelFormats: ['', []],
         simulationAlgorithms: ['', []],
@@ -287,8 +279,11 @@ export class DispatchComponent implements OnInit, OnDestroy {
 
   // Algorithms getters
 
-  private getSimulationAlgorithmsMap(algSubs: AlgorithmSubstitution[], simulatorsData: SimulatorsData): AlgorithmsMap {
-    const simulationAlgorithmsMap: AlgorithmsMap = {};
+  private getSimulationAlgorithmsMap(
+    algSubs: AlgorithmSubstitution[],
+    simulatorsData: SimulatorsData,
+  ): Record<string, Algorithm> {
+    const simulationAlgorithmsMap: Record<string, Algorithm> = {};
     const filteredSubs = algSubs.filter(
       (sub) => sub.minPolicy.level <= AlgorithmSubstitutionPolicyLevels.SAME_FRAMEWORK,
     );
@@ -343,11 +338,6 @@ export class DispatchComponent implements OnInit, OnDestroy {
     });
 
     return simulationAlgorithmsMap;
-  }
-
-  private getAlgSubs(simulatorsData: SimulatorsData): Observable<AlgorithmSubstitution[] | undefined> {
-    const algorithmKeys = Object.keys(simulatorsData.simulationAlgorithms);
-    return this.commonCombineApiService.getSimilarAlgorithms(algorithmKeys);
   }
 
   private getBackupAlgSubs(simulatorsData: SimulatorsData): AlgorithmSubstitution[] {
