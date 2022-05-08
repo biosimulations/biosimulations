@@ -14,11 +14,15 @@ import { MatInputHarness } from '@angular/material/input/testing';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatFormFieldHarness } from '@angular/material/form-field/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
+import { FormStepData } from '@biosimulations/shared/ui';
 
 describe('UploadModelComponent', () => {
   let component: UploadModelComponent;
   let fixture: ComponentFixture<UploadModelComponent>;
   let loader: HarnessLoader;
+  let testFormats: OntologyTerm[];
+
+  const testUrl = 'http://www.biosimulations.org';
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -34,13 +38,18 @@ describe('UploadModelComponent', () => {
       ],
       providers: [ConfigService],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(UploadModelComponent);
     loader = TestbedHarnessEnvironment.loader(fixture);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
+    testFormats = [
+      createTestOntologyTerm('test format 1'),
+      createTestOntologyTerm('test format 2'),
+      createTestOntologyTerm('test format 3'),
+    ];
+    component.modelFormats = testFormats;
   });
 
   it('should create', () => {
@@ -48,14 +57,6 @@ describe('UploadModelComponent', () => {
   });
 
   it('should provide all format options in dropdown', async () => {
-    const testFormats = [
-      createTestOntologyTerm('test format 1'),
-      createTestOntologyTerm('test format 2'),
-      createTestOntologyTerm('test format 3'),
-    ];
-
-    component.modelFormats = testFormats;
-
     const selectHarness = await loader.getHarness(MatSelectHarness);
     await selectHarness.open();
     const options = await selectHarness.getOptions();
@@ -68,14 +69,6 @@ describe('UploadModelComponent', () => {
   });
 
   it('should prepopulate when provided formdata', async () => {
-    const testFormats = [
-      createTestOntologyTerm('test format 1'),
-      createTestOntologyTerm('test format 2'),
-      createTestOntologyTerm('test format 3'),
-    ];
-
-    component.modelFormats = testFormats;
-
     const formStepData = {
       modelFormat: 'id: test format 1',
       modelUrl: 'Fake test url',
@@ -98,31 +91,71 @@ describe('UploadModelComponent', () => {
   });
 
   it('should output FormStepData when valid format and url entered', async () => {
-    const testFormats = [
-      createTestOntologyTerm('test format 1'),
-      createTestOntologyTerm('test format 2'),
-      createTestOntologyTerm('test format 3'),
-    ];
+    await clickOption('name: test format 2')
 
-    const testUrl = 'http://www.biosimulations.org';
+    await insertUrl(testUrl);
 
-    component.modelFormats = testFormats;
-
-    const selectHarness = await loader.getHarness(MatSelectHarness);
-    await selectHarness.open();
-    await selectHarness.clickOptions({ text: 'name: test format 2' });
-
-    const formFieldHarness = await loader.getHarness(
-      MatFormFieldHarness.with({ floatingLabelText: 'Enter URL for model file' }),
-    );
-    const inputHarness = await formFieldHarness.getControl(MatInputHarness);
-    await inputHarness?.setValue(testUrl);
-
-    const formStepData = component.getFormStepData();
+    const formStepData = clickNext();
 
     expect(formStepData?.modelFormat).toBe('id: test format 2');
     expect(formStepData?.modelUrl).toBe(testUrl);
   });
+
+  it('should display error when no model format is selected', async () => {
+    await insertUrl(testUrl);
+
+    const outputData = clickNext();
+
+    expect(outputData).toBe(null);
+
+    const selectHarness = await loader.getHarness(MatSelectHarness);
+    let formatValidity = await selectHarness.isValid();
+    expect(formatValidity).toBe(false);
+
+    await clickOption('name: test format 2');
+
+    formatValidity = await selectHarness.isValid();
+    expect(formatValidity).toBe(true);
+  });
+
+  it('should display error when no model file or url provided', async () => {
+    await clickOption('name: test format 2');
+
+    let outputData = clickNext();
+
+    expect(outputData).toBe(null);
+
+    let errorMessage = fixture.debugElement.query(el => el.name === 'mat-error');
+    expect(errorMessage).toBeTruthy();
+
+    await insertUrl(testUrl);
+
+    outputData = clickNext();
+    expect(outputData).toBeTruthy();
+
+    errorMessage = fixture.debugElement.query(el => el.name === 'mat-error');
+    expect(errorMessage).toBeFalsy();
+  });
+
+  async function insertUrl(url: string): Promise<void> {
+    const formFieldHarness = await loader.getHarness(
+      MatFormFieldHarness.with({ floatingLabelText: 'Enter URL for model file' }),
+    );
+    const inputHarness = await formFieldHarness.getControl(MatInputHarness);
+    await inputHarness?.setValue(url);
+  }
+
+  async function clickOption(option: string): Promise<void> {
+    const selectHarness = await loader.getHarness(MatSelectHarness);
+    await selectHarness.open();
+    await selectHarness.clickOptions({ text: option });
+  }
+
+  function clickNext(): FormStepData | null {
+    component.nextClicked = true;
+    fixture.detectChanges();
+    return component.getFormStepData();
+  }
 
   function createTestOntologyTerm(testString: string): OntologyTerm {
     return {
