@@ -32,6 +32,7 @@
 /simulators/copasi
 /simulators/copasi/4.34.251
 /simulators/copasi/4.35.258
+/simulators/copasi/4.36.260
 /simulators/ecell4
 /simulators/ecell4/1.1.2
 /simulators/epilog
