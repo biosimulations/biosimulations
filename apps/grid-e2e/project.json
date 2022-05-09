@@ -1,0 +1,27 @@
+{
+  "sourceRoot": "apps/grid-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/grid-e2e/cypress.json",
+        "devServerTarget": "grid:storybook"
+      },
+      "configurations": {
+        "ci": {
+          "devServerTarget": "grid:storybook:ci"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/grid-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["grid"]
+}

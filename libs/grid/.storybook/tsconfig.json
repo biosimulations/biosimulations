@@ -1,0 +1,11 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "lib":["DOM"],
+    "noPropertyAccessFromIndexSignature": false,
+    "types":[],
+    "typeRoots":[],
+  },
+  "exclude": ["../**/*.spec.ts"],
+  "include": ["../src/**/*", "*.js"]
+}

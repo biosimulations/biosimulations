@@ -28,6 +28,7 @@
     "dispatch-e2e": "apps/dispatch-e2e",
     "dispatch-service": "apps/dispatch-service",
     "grid": "libs/grid",
+    "grid-e2e": "apps/grid-e2e",
     "hdf5-api-client": "libs/hdf5/api-client",
     "hsds-client": "libs/hsds/client",
     "mail-service": "apps/mail-service",

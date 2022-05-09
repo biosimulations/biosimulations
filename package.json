@@ -155,6 +155,7 @@
     "@nrwl/nest": "14.1.4",
     "@nrwl/node": "14.1.4",
     "@nrwl/nx-cloud": "14.0.3",
+    "@nrwl/storybook": "14.1.4",
     "@nrwl/workspace": "14.1.4",
     "@nx-python/nx-python": "0.1.7",
     "@nx-tools/nx-docker": "2.3.0",
@@ -174,6 +175,11 @@
     "@stdlib/ndarray-ind2sub": "0.0.7",
     "@stdlib/stats-iter-prod": "0.0.6",
     "@stdlib/types": "0.0.14",
+    "@storybook/addon-essentials": "~6.4.12",
+    "@storybook/angular": "~6.4.12",
+    "@storybook/builder-webpack5": "~6.4.12",
+    "@storybook/core-server": "~6.4.12",
+    "@storybook/manager-webpack5": "~6.4.12",
     "@types/archiver": "5.3.1",
     "@types/auth0": "2.34.17",
     "@types/cache-manager": "3.4.3",
@@ -236,7 +242,8 @@
     "typescript": "4.6.4",
     "vega": "5.21.0",
     "vega-embed": "6.20.8",
-    "vega-lite": "5.2.0"
+    "vega-lite": "5.2.0",
+    "webpack": "^5.64.0"
   },
   "config": {
     "commitizen": {
