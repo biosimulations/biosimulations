@@ -3,6 +3,7 @@ import { Endpoints } from '@biosimulations/config/common';
 import { FilePaths, OutputFileName } from '@biosimulations/shared/storage';
 import { DataPaths } from '@biosimulations/hsds/client';
 import { ConfigService } from '@nestjs/config';
+import { generateImageUpdateSbatch } from '@biosimulations/hpc/singularityBuilder';
 import { EnvironmentVariable, Purpose, ConsoleFormatting } from '@biosimulations/datamodel/common';
 
 @Injectable()
@@ -350,8 +351,6 @@ srun --job-name="Save-raw-log-to-S3-3" \
     const singularityCacheDir = this.configService.get('hpc.singularity.cacheDir');
     const singularityPullFolder = this.configService.get('hpc.singularity.pullFolder');
 
-    const singularityImageName = dockerImageUrl.split('docker://ghcr.io/biosimulators/')[1].replace(':', '_');
-
     const refreshImagesDir = this.configService.get('hpc.refreshImagesDir');
     const outputFilename = `${refreshImagesDir}/${simulator}/${simulatorVersion}.output`;
 
@@ -359,36 +358,25 @@ srun --job-name="Save-raw-log-to-S3-3" \
     const cpus = this.configService.get('hpc.buildSingularityImage.cpus');
     const memory = this.configService.get('hpc.buildSingularityImage.memory');
 
-    const template = `#!/bin/bash
-#SBATCH --job-name=Build-simulator-${simulator}-${simulatorVersion}
-#SBATCH --chdir=${singularityPullFolder}
-#SBATCH --output=${outputFilename}
-#SBATCH --ntasks=1
-#SBATCH --cpus-per-task=${cpus}
-#SBATCH --mem=${memory}
-#SBATCH --time=${maxTime}
-#SBATCH --constraint=${slurmConstraints}
-#SBATCH --partition=${slurmPartition}
-#SBATCH --qos=${slurmQos}
-
-# configure error handling
-set -e
-
-# load Singularity
-export MODULEPATH=${modulePath}
-source ${moduleInitScript}
-export ${executablesPath}
-module load ${singularityModule}
-
-# set up Singularity
-export SINGULARITY_CACHEDIR=${singularityCacheDir}
-export SINGULARITY_PULLFOLDER=${singularityPullFolder}
-
-# report Singularity version and node
-echo "Building image with Singularity '$(singularity --version)' on '$(hostname)' ... "
-
-# build image
-singularity -v pull --tmpdir /local ${forceOverwrite ? '--force' : ''} ${dockerImageUrl}`;
+    const template = generateImageUpdateSbatch({
+      simulator,
+      simulatorVersion,
+      singularityPullFolder,
+      outputFilename,
+      cpus,
+      memory,
+      maxTime,
+      slurmConstraints,
+      slurmPartition,
+      slurmQos,
+      modulePath,
+      moduleInitScript,
+      executablesPath,
+      singularityModule,
+      singularityCacheDir,
+      forceOverwrite,
+      dockerImageUrl,
+    });
     return template;
   }
 }
