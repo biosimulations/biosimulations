@@ -18,9 +18,7 @@ export type GenerateImageUpdateSbatchOptions = {
   dockerImageUrl: string;
 };
 
-export function generateImageUpdateSbatch(
-  data: GenerateImageUpdateSbatchOptions,
-): string {
+export function generateImageUpdateSbatch(data: GenerateImageUpdateSbatchOptions): string {
   return `#!/bin/bash
 #SBATCH --job-name=Build-simulator-${data.simulator}-${data.simulatorVersion}
 #SBATCH --chdir=${data.singularityPullFolder}
@@ -50,7 +48,5 @@ export SINGULARITY_PULLFOLDER=${data.singularityPullFolder}
 echo "Building image with Singularity '$(singularity --version)' on '$(hostname)' ... "
 
 # build image
-singularity -v pull --tmpdir /local ${data.forceOverwrite ? '--force' : ''} ${
-    data.dockerImageUrl
-  }`;
+singularity -v pull --tmpdir /local ${data.forceOverwrite ? '--force' : ''} ${data.dockerImageUrl}`;
 }
