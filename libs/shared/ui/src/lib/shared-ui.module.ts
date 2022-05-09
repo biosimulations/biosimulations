@@ -52,7 +52,7 @@ import { HammerGestureConfig, HAMMER_GESTURE_CONFIG, HammerModule } from '@angul
 import { FormHostDirective, MultiStepFormComponent } from './multi-step-form';
 @Injectable()
 export class MatCarouselHammerConfig extends HammerGestureConfig {
-  public overrides = {
+  public override overrides = {
     pinch: { enable: false },
     rotate: { enable: false },
   };
