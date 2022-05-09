@@ -28,6 +28,7 @@
     "dispatch-e2e": "apps/dispatch-e2e",
     "dispatch-service": "apps/dispatch-service",
     "hdf5-api-client": "libs/hdf5/api-client",
+    "hpc-singularity-builder": "libs/hpc/singularity-builder",
     "hsds-client": "libs/hsds/client",
     "mail-service": "apps/mail-service",
     "mail-service-client": "libs/mail-service/client",

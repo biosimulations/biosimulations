@@ -91,6 +91,9 @@
         "dist/libs/hdf5/api-client/src/",
         "libs/hdf5/api-client/src/index.ts"
       ],
+      "@biosimulations/hpc/singularityBuilder": [
+        "libs/hpc/singularity-builder/src/index.ts"
+      ],
       "@biosimulations/hsds/client": [
         "libs/hsds/client/src/index.ts"
       ],
