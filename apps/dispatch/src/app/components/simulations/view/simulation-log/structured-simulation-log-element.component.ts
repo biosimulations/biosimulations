@@ -19,13 +19,7 @@ import {
 } from '@biosimulations/datamodel/common';
 import { IconActionType } from '@biosimulations/shared/ui';
 
-type logTypes =
-  | SedDocumentLog
-  | SedTaskLog
-  | SedReportLog
-  | SedPlot2DLog
-  | SedPlot3DLog
-  | CombineArchiveLog;
+type logTypes = SedDocumentLog | SedTaskLog | SedReportLog | SedPlot2DLog | SedPlot3DLog | CombineArchiveLog;
 
 interface FormattedSimulatorDetail {
   key: string;
@@ -73,9 +67,7 @@ export class StructuredSimulationLogElementComponent {
   public formattedOutput!: SafeHtml | undefined;
 
   public algorithmKisaoTerm: Observable<KisaoTerm> | undefined;
-  public algorithmKisaoTermDescription:
-    | Observable<AlgorithmKisaoDescriptionFragment[] | undefined>
-    | undefined;
+  public algorithmKisaoTermDescription: Observable<AlgorithmKisaoDescriptionFragment[] | undefined> | undefined;
   public formattedSimulatorDetails: FormattedSimulatorDetail[] | undefined;
 
   @Input()
@@ -85,9 +77,7 @@ export class StructuredSimulationLogElementComponent {
 
     switch (value.status) {
       case SimulationRunLogStatus.QUEUED: {
-        const elementType =
-          this.elementType.substring(0, 1).toLowerCase() +
-          this.elementType.substring(1);
+        const elementType = this.elementType.substring(0, 1).toLowerCase() + this.elementType.substring(1);
         this.noOutputMessage = `Output will be available once the ${elementType} completes.`;
         break;
       }
@@ -99,14 +89,10 @@ export class StructuredSimulationLogElementComponent {
         break;
     }
 
-    this.formattedOutput = value?.output
-      ? Anser.ansiToHtml(value.output, { use_classes: true })
-      : undefined;
+    this.formattedOutput = value?.output ? Anser.ansiToHtml(value.output, { use_classes: true }) : undefined;
 
     if ('algorithm' in value && value.algorithm) {
-      this.algorithmKisaoTerm = this.ontologyService.getKisaoTerm(
-        value.algorithm,
-      );
+      this.algorithmKisaoTerm = this.ontologyService.getKisaoTerm(value.algorithm);
       this.algorithmKisaoTermDescription = this.algorithmKisaoTerm.pipe(
         pluck('description'),
         map(this.structuredLogService.formatKisaoDescription),

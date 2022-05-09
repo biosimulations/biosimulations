@@ -26,10 +26,7 @@ export class MetadataService {
   public defaultHeaders = new Map();
   public configuration = new Configuration();
 
-  constructor(
-    protected httpClient: HttpService,
-    @Optional() configuration: Configuration,
-  ) {
+  constructor(protected httpClient: HttpService, @Optional() configuration: Configuration) {
     this.configuration = configuration || this.configuration;
     this.basePath = configuration?.basePath || this.basePath;
   }
@@ -56,9 +53,7 @@ export class MetadataService {
     omexMetadataFormat: string,
     file?: Blob,
     url?: string,
-  ): Observable<
-    AxiosResponse<Array<BioSimulationsCombineArchiveElementMetadata>>
-  >;
+  ): Observable<AxiosResponse<Array<BioSimulationsCombineArchiveElementMetadata>>>;
   public srcHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
     omexMetadataFormat: string,
     file?: Blob,
@@ -74,8 +69,7 @@ export class MetadataService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
@@ -111,9 +105,7 @@ export class MetadataService {
       formParams.append('omexMetadataFormat', <any>omexMetadataFormat);
     }
 
-    return this.httpClient.post<
-      Array<BioSimulationsCombineArchiveElementMetadata>
-    >(
+    return this.httpClient.post<Array<BioSimulationsCombineArchiveElementMetadata>>(
       `${this.basePath}/combine/metadata/biosimulations`,
       convertFormParamsToString ? formParams.toString() : formParams,
       {
@@ -151,8 +143,7 @@ export class MetadataService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
@@ -235,8 +226,7 @@ export class MetadataService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }

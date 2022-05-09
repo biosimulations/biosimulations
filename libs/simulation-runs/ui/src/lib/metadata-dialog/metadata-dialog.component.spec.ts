@@ -1,9 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import {
-  MatDialogModule,
-  MAT_DIALOG_DATA,
-  MatDialogRef,
-} from '@angular/material/dialog';
+import { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MetadataDialogComponent } from './metadata-dialog.component';
 import { MetadataComponent } from '../metadata/metadata.component';
 import { SharedUiModule } from '@biosimulations/shared/ui';

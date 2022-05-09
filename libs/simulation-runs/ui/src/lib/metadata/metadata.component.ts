@@ -1,9 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
 import { Component, Input } from '@angular/core';
-import {
-  ProjectMetadata,
-  SimulationRunMetadata,
-} from '@biosimulations/datamodel-simulation-runs';
+import { ProjectMetadata, SimulationRunMetadata } from '@biosimulations/datamodel-simulation-runs';
 
 @Component({
   selector: 'biosimulations-project-metadata',

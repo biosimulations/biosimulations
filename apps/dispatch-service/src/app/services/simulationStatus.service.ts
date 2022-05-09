@@ -9,26 +9,14 @@ export class SimulationStatusService {
 
   public constructor(private simService: SimulationRunService) {}
 
-  public updateStatus(
-    runId: string,
-    simStatus: SimulationRunStatus,
-  ): Promise<void> {
-    return firstValueFrom(
-      this.simService.updateSimulationRunStatus(runId, simStatus),
-    )
+  public updateStatus(runId: string, simStatus: SimulationRunStatus): Promise<void> {
+    return firstValueFrom(this.simService.updateSimulationRunStatus(runId, simStatus))
       .then((val) =>
-        this.logger.log(
-          `The status of simulation run '${runId}' was successfully updated to '${simStatus}'.`,
-        ),
+        this.logger.log(`The status of simulation run '${runId}' was successfully updated to '${simStatus}'.`),
       )
       .catch((error) => {
-        this.logger.error(
-          `The status of simulation run '${runId}' could not be updated to '${simStatus}': ${error}`,
-        );
-        if (
-          simStatus === SimulationRunStatus.SUCCEEDED ||
-          simStatus === SimulationRunStatus.FAILED
-        ) {
+        this.logger.error(`The status of simulation run '${runId}' could not be updated to '${simStatus}': ${error}`);
+        if (simStatus === SimulationRunStatus.SUCCEEDED || simStatus === SimulationRunStatus.FAILED) {
           throw error;
         }
       });

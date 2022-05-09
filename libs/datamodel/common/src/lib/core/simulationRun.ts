@@ -45,9 +45,7 @@ export interface SimulationRunStatusReason {
   reason: string;
 }
 
-export const SimulationStatusToSimulationLogStatus = (
-  input: SimulationRunStatus,
-): SimulationRunLogStatus => {
+export const SimulationStatusToSimulationLogStatus = (input: SimulationRunStatus): SimulationRunLogStatus => {
   switch (input) {
     case SimulationRunStatus.CREATED: {
       return SimulationRunLogStatus.RUNNING;
@@ -111,8 +109,7 @@ export class SimulationRunSedDocumentInputsContainer {
   sedDocuments!: SimulationRunSedDocumentInput[];
 }
 
-export interface SimulationRunSedDocument
-  extends SimulationRunSedDocumentInput {
+export interface SimulationRunSedDocument extends SimulationRunSedDocumentInput {
   simulationRun: string;
   created: string;
   updated: string;

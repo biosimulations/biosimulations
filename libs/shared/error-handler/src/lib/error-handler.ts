@@ -1,8 +1,4 @@
-import {
-  Injectable,
-  ErrorHandler as BaseErrorHandler,
-  NgZone,
-} from '@angular/core';
+import { Injectable, ErrorHandler as BaseErrorHandler, NgZone } from '@angular/core';
 import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '@biosimulations/shared/environments';
@@ -49,8 +45,7 @@ export class ErrorHandler implements BaseErrorHandler {
       const reportedError = new Error(httpError.message);
 
       // Error status defaults to "okay", but error can never be okay
-      const errorText =
-        httpError.statusText == 'OK' ? null : httpError.statusText;
+      const errorText = httpError.statusText == 'OK' ? null : httpError.statusText;
       reportedError.name = errorText || httpError.name + httpError.status;
       if (environment.production) {
         this.errorHandler.report(reportedError);

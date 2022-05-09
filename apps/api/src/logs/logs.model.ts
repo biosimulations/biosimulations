@@ -48,18 +48,15 @@ export class SedOutputElementLog implements ISedOutputElementLog {
 
   @Prop({
     type: String,
-    enum: Object.entries(SimulationRunLogStatus).map(
-      (keyVal: [string, string]): string => {
-        return keyVal[1];
-      },
-    ),
+    enum: Object.entries(SimulationRunLogStatus).map((keyVal: [string, string]): string => {
+      return keyVal[1];
+    }),
     required: true,
     default: undefined,
   })
   status!: SimulationRunLogStatus;
 }
-export const SedOutputElementLogSchema =
-  SchemaFactory.createForClass(SedOutputElementLog);
+export const SedOutputElementLogSchema = SchemaFactory.createForClass(SedOutputElementLog);
 
 @Schema({
   _id: false,
@@ -74,11 +71,9 @@ export class SedReportLog implements ISedReportLog {
 
   @Prop({
     type: String,
-    enum: Object.entries(SimulationRunLogStatus).map(
-      (keyVal: [string, string]): string => {
-        return keyVal[1];
-      },
-    ),
+    enum: Object.entries(SimulationRunLogStatus).map((keyVal: [string, string]): string => {
+      return keyVal[1];
+    }),
     required: true,
     default: undefined,
   })
@@ -118,11 +113,9 @@ export class SedPlot2DLog implements ISedPlot2DLog {
 
   @Prop({
     type: String,
-    enum: Object.entries(SimulationRunLogStatus).map(
-      (keyVal: [string, string]): string => {
-        return keyVal[1];
-      },
-    ),
+    enum: Object.entries(SimulationRunLogStatus).map((keyVal: [string, string]): string => {
+      return keyVal[1];
+    }),
     required: true,
     default: undefined,
   })
@@ -162,11 +155,9 @@ export class SedPlot3DLog implements ISedPlot3DLog {
 
   @Prop({
     type: String,
-    enum: Object.entries(SimulationRunLogStatus).map(
-      (keyVal: [string, string]): string => {
-        return keyVal[1];
-      },
-    ),
+    enum: Object.entries(SimulationRunLogStatus).map((keyVal: [string, string]): string => {
+      return keyVal[1];
+    }),
     required: true,
     default: undefined,
   })
@@ -213,11 +204,9 @@ export class SedOutputLog implements ISedOutputLog {
 
   @Prop({
     type: String,
-    enum: Object.entries(SimulationRunLogStatus).map(
-      (keyVal: [string, string]): string => {
-        return keyVal[1];
-      },
-    ),
+    enum: Object.entries(SimulationRunLogStatus).map((keyVal: [string, string]): string => {
+      return keyVal[1];
+    }),
     required: true,
     default: undefined,
   })
@@ -249,8 +238,7 @@ export class SimulatorDetail implements ISimulatorDetail {
   @Prop({ type: Object, required: false, default: undefined })
   value!: any;
 }
-export const SimulatorDetailSchema =
-  SchemaFactory.createForClass(SimulatorDetail);
+export const SimulatorDetailSchema = SchemaFactory.createForClass(SimulatorDetail);
 
 @Schema({
   _id: false,
@@ -263,11 +251,9 @@ export class SedTaskLog implements ISedTaskLog {
 
   @Prop({
     type: String,
-    enum: Object.entries(SimulationRunLogStatus).map(
-      (keyVal: [string, string]): string => {
-        return keyVal[1];
-      },
-    ),
+    enum: Object.entries(SimulationRunLogStatus).map((keyVal: [string, string]): string => {
+      return keyVal[1];
+    }),
     required: true,
     default: undefined,
   })
@@ -308,11 +294,9 @@ export class SedDocumentLog implements ISedDocumentLog {
 
   @Prop({
     type: String,
-    enum: Object.entries(SimulationRunLogStatus).map(
-      (keyVal: [string, string]): string => {
-        return keyVal[1];
-      },
-    ),
+    enum: Object.entries(SimulationRunLogStatus).map((keyVal: [string, string]): string => {
+      return keyVal[1];
+    }),
     required: true,
     default: undefined,
   })
@@ -340,17 +324,14 @@ export class SedDocumentLog implements ISedDocumentLog {
   })
   outputs!: (SedReportLog | SedPlot2DLog | SedPlot3DLog)[] | null;
 }
-export const SedDocumentLogSchema =
-  SchemaFactory.createForClass(SedDocumentLog);
+export const SedDocumentLogSchema = SchemaFactory.createForClass(SedDocumentLog);
 
 SedOutputLogSchema.discriminators = {};
 SedOutputLogSchema.discriminators[SedReportLog.name] = SedReportLogSchema;
 SedOutputLogSchema.discriminators[SedPlot2DLog.name] = SedPlot2DLogSchema;
 SedOutputLogSchema.discriminators[SedPlot3DLog.name] = SedPlot3DLogSchema;
 
-const outputsArraySchema = SedDocumentLogSchema.path(
-  'outputs',
-) as MongooseSchema.Types.DocumentArray;
+const outputsArraySchema = SedDocumentLogSchema.path('outputs') as MongooseSchema.Types.DocumentArray;
 outputsArraySchema.discriminator(SedReportLog.name, SedReportLogSchema);
 outputsArraySchema.discriminator(SedPlot2DLog.name, SedPlot2DLogSchema);
 outputsArraySchema.discriminator(SedPlot3DLog.name, SedPlot3DLogSchema);
@@ -363,11 +344,9 @@ outputsArraySchema.discriminator(SedPlot3DLog.name, SedPlot3DLogSchema);
 export class CombineArchiveLog implements ICombineArchiveLog {
   @Prop({
     type: String,
-    enum: Object.entries(SimulationRunLogStatus).map(
-      (keyVal: [string, string]): string => {
-        return keyVal[1];
-      },
-    ),
+    enum: Object.entries(SimulationRunLogStatus).map((keyVal: [string, string]): string => {
+      return keyVal[1];
+    }),
     required: true,
     default: undefined,
   })
@@ -388,8 +367,7 @@ export class CombineArchiveLog implements ICombineArchiveLog {
   @Prop({ type: [SedDocumentLogSchema], required: false, default: undefined })
   sedDocuments!: SedDocumentLog[] | null;
 }
-export const CombineArchiveLogSchema =
-  SchemaFactory.createForClass(CombineArchiveLog);
+export const CombineArchiveLogSchema = SchemaFactory.createForClass(CombineArchiveLog);
 
 @Schema({
   collection: 'Simulation Run Logs',
@@ -417,8 +395,7 @@ export class SimulationRunLog extends Document {
   @Prop()
   updated!: Date;
 }
-export const SimulationRunLogSchema =
-  SchemaFactory.createForClass(SimulationRunLog);
+export const SimulationRunLogSchema = SchemaFactory.createForClass(SimulationRunLog);
 SimulationRunLogSchema.set('timestamps', {
   createdAt: 'created',
   updatedAt: 'updated',

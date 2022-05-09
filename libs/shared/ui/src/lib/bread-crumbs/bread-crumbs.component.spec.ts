@@ -13,16 +13,8 @@ describe('BreadCrumbsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        MaterialWrapperModule,
-        BiosimulationsIconsModule,
-        RouterTestingModule,
-      ],
-      declarations: [
-        BreadCrumbsComponent,
-        BreadCrumbsButtonsComponent,
-        BreadCrumbsButtonComponent,
-      ],
+      imports: [MaterialWrapperModule, BiosimulationsIconsModule, RouterTestingModule],
+      declarations: [BreadCrumbsComponent, BreadCrumbsButtonsComponent, BreadCrumbsButtonComponent],
     }).compileComponents();
   }));
 

@@ -5,10 +5,7 @@ import { BrowseService } from './browse.service';
 import { FormattedProjectSummary, LocationPredecessor } from './browse.model';
 import { Column, ColumnFilterType } from '@biosimulations/shared/ui';
 import { FormatService } from '@biosimulations/shared/services';
-import {
-  LabeledIdentifier,
-  DescribedIdentifier,
-} from '@biosimulations/datamodel/common';
+import { LabeledIdentifier, DescribedIdentifier } from '@biosimulations/datamodel/common';
 import { RowService } from '@biosimulations/shared/ui';
 import { ScrollService } from '@biosimulations/shared/angular';
 
@@ -66,9 +63,7 @@ export class BrowseComponent implements OnInit, AfterViewInit {
       hidden: false,
       show: true,
       getter: (project: FormattedProjectSummary): string[] => {
-        return project.metadata.encodes.map(
-          (v: LabeledIdentifier) => v.label || v.uri,
-        ) as string[];
+        return project.metadata.encodes.map((v: LabeledIdentifier) => v.label || v.uri) as string[];
       },
       extraSearchGetter: (project: FormattedProjectSummary): string => {
         return project.metadata.encodes
@@ -91,9 +86,7 @@ export class BrowseComponent implements OnInit, AfterViewInit {
       hidden: false,
       show: true,
       getter: (project: FormattedProjectSummary): string[] => {
-        return project.metadata.taxa.map(
-          (v: LabeledIdentifier) => v.label || v.uri,
-        ) as string[];
+        return project.metadata.taxa.map((v: LabeledIdentifier) => v.label || v.uri) as string[];
       },
       extraSearchGetter: (project: FormattedProjectSummary): string => {
         return project.metadata.taxa
@@ -116,9 +109,7 @@ export class BrowseComponent implements OnInit, AfterViewInit {
       hidden: false,
       show: false,
       getter: (project: FormattedProjectSummary): string[] => {
-        return project.metadata.keywords.map(
-          (v: LabeledIdentifier) => v.label,
-        ) as string[];
+        return project.metadata.keywords.map((v: LabeledIdentifier) => v.label) as string[];
       },
     },
     {
@@ -130,9 +121,7 @@ export class BrowseComponent implements OnInit, AfterViewInit {
       hidden: false,
       show: false,
       getter: (project: FormattedProjectSummary): string[] => {
-        return project.metadata.citations.map(
-          (v: LabeledIdentifier) => v.label || v.uri,
-        ) as string[];
+        return project.metadata.citations.map((v: LabeledIdentifier) => v.label || v.uri) as string[];
       },
       filterGetter: (project: FormattedProjectSummary): string => {
         return project.metadata.citations.length > 0 ? 'Yes' : 'No';
@@ -158,9 +147,7 @@ export class BrowseComponent implements OnInit, AfterViewInit {
       hidden: false,
       show: false,
       getter: (project: FormattedProjectSummary): string[] => {
-        return project.metadata.identifiers.map(
-          (v: LabeledIdentifier) => v.label || v.uri,
-        ) as string[];
+        return project.metadata.identifiers.map((v: LabeledIdentifier) => v.label || v.uri) as string[];
       },
       extraSearchGetter: (project: FormattedProjectSummary): string => {
         return project.metadata.identifiers
@@ -184,11 +171,7 @@ export class BrowseComponent implements OnInit, AfterViewInit {
       show: false,
       getter: (project: FormattedProjectSummary): string[] => {
         return project.metadata.other.map((v: DescribedIdentifier) => {
-          return (
-            (v.attribute_label || v.attribute_uri || '') +
-            ': ' +
-            (v.label || v.uri || '')
-          );
+          return (v.attribute_label || v.attribute_uri || '') + ': ' + (v.label || v.uri || '');
         }) as string[];
       },
       extraSearchGetter: (project: FormattedProjectSummary): string => {
@@ -223,11 +206,7 @@ export class BrowseComponent implements OnInit, AfterViewInit {
         return Array.from(
           new Set(
             project.tasks.map((task): string => {
-              return (
-                task.model.language.acronym ||
-                task.model.language.name ||
-                task.model.language.sedmlUrn
-              );
+              return task.model.language.acronym || task.model.language.name || task.model.language.sedmlUrn;
             }),
           ),
         ).sort();
@@ -260,9 +239,7 @@ export class BrowseComponent implements OnInit, AfterViewInit {
             project.tasks.map((task): string => {
               const sedmlLength = 'SED-ML'.length;
               return (
-                task.simulation.type.name
-                  .substring(sedmlLength + 1, sedmlLength + 2)
-                  .toUpperCase() +
+                task.simulation.type.name.substring(sedmlLength + 1, sedmlLength + 2).toUpperCase() +
                 task.simulation.type.name.substring(
                   sedmlLength + 2,
                   task.simulation.type.name.length - ' simulation'.length,
@@ -285,10 +262,7 @@ export class BrowseComponent implements OnInit, AfterViewInit {
         return Array.from(
           new Set(
             project.tasks.map((task): string => {
-              return (
-                task.simulation.algorithm.name ||
-                task.simulation.algorithm.kisaoId
-              );
+              return task.simulation.algorithm.name || task.simulation.algorithm.kisaoId;
             }),
           ),
         ).sort();
@@ -312,11 +286,7 @@ export class BrowseComponent implements OnInit, AfterViewInit {
       show: false,
       filterable: true,
       getter: (project: FormattedProjectSummary): string => {
-        return (
-          project.simulationRun.simulatorName +
-          ' ' +
-          project.simulationRun.simulatorVersion
-        );
+        return project.simulationRun.simulatorName + ' ' + project.simulationRun.simulatorVersion;
       },
       extraSearchGetter: (project: FormattedProjectSummary): string => {
         return project.simulationRun.simulator;
@@ -451,9 +421,8 @@ export class BrowseComponent implements OnInit, AfterViewInit {
               return locationPredecessor.location.endsWith('.sedml');
             })
             .map((predecessor: LocationPredecessor): string => {
-              return predecessor.predecessor.uri?.startsWith(
-                'http://omex-library.org/',
-              ) && predecessor.predecessor.uri.indexOf('.omex/') !== -1
+              return predecessor.predecessor.uri?.startsWith('http://omex-library.org/') &&
+                predecessor.predecessor.uri.indexOf('.omex/') !== -1
                 ? 'Simulation generated from model'
                 : 'Other';
             }),
@@ -488,18 +457,10 @@ export class BrowseComponent implements OnInit, AfterViewInit {
       hidden: false,
       show: false,
       getter: (project: FormattedProjectSummary): string[] => {
-        return (
-          project?.owner?.organizations?.map(
-            (organization) => organization.name,
-          ) || ['None']
-        );
+        return project?.owner?.organizations?.map((organization) => organization.name) || ['None'];
       },
       extraSearchGetter: (project: FormattedProjectSummary): string | null => {
-        return (
-          project?.owner?.organizations?.map(
-            (organization) => organization.id,
-          ) || ['None']
-        ).join(' ');
+        return (project?.owner?.organizations?.map((organization) => organization.id) || ['None']).join(' ');
       },
       comparator: (value: string, other: string, sign = 1): number => {
         if (value === 'None') {
@@ -587,9 +548,7 @@ export class BrowseComponent implements OnInit, AfterViewInit {
       hidden: false,
       show: false,
       getter: (project: FormattedProjectSummary): string[] => {
-        return project.metadata.creators.map(
-          (v: LabeledIdentifier) => v.label || v.uri,
-        ) as string[];
+        return project.metadata.creators.map((v: LabeledIdentifier) => v.label || v.uri) as string[];
       },
       extraSearchGetter: (project: FormattedProjectSummary): string => {
         return project.metadata.creators
@@ -613,9 +572,7 @@ export class BrowseComponent implements OnInit, AfterViewInit {
       hidden: false,
       show: false,
       getter: (project: FormattedProjectSummary): string[] => {
-        return project.metadata.contributors.map(
-          (v: LabeledIdentifier) => v.label || v.uri,
-        ) as string[];
+        return project.metadata.contributors.map((v: LabeledIdentifier) => v.label || v.uri) as string[];
       },
       extraSearchGetter: (project: FormattedProjectSummary): string => {
         return project.metadata.contributors
@@ -639,9 +596,7 @@ export class BrowseComponent implements OnInit, AfterViewInit {
       hidden: false,
       show: false,
       getter: (project: FormattedProjectSummary): string[] => {
-        return project.metadata.funders.map(
-          (v: LabeledIdentifier) => v.label || v.uri,
-        ) as string[];
+        return project.metadata.funders.map((v: LabeledIdentifier) => v.label || v.uri) as string[];
       },
       extraSearchGetter: (project: FormattedProjectSummary): string => {
         return project.metadata.funders
@@ -664,9 +619,7 @@ export class BrowseComponent implements OnInit, AfterViewInit {
       hidden: false,
       show: false,
       getter: (project: FormattedProjectSummary): string[] => {
-        return (project.metadata.license || []).map(
-          (v: LabeledIdentifier) => v.label || v.uri,
-        ) as string[];
+        return (project.metadata.license || []).map((v: LabeledIdentifier) => v.label || v.uri) as string[];
       },
       extraSearchGetter: (project: FormattedProjectSummary): string => {
         return (project.metadata.license || [])
@@ -721,11 +674,7 @@ export class BrowseComponent implements OnInit, AfterViewInit {
     },
   ];
 
-  constructor(
-    private service: BrowseService,
-    private route: ActivatedRoute,
-    private scrollService: ScrollService,
-  ) {
+  constructor(private service: BrowseService, private route: ActivatedRoute, private scrollService: ScrollService) {
     this.openControls = this.openControls.bind(this);
   }
 
@@ -735,10 +684,7 @@ export class BrowseComponent implements OnInit, AfterViewInit {
     if (this.route.snapshot.fragment) {
       const opts = new URLSearchParams(this.route.snapshot.fragment) as any;
       for (const key of opts.keys()) {
-        if (
-          ['search', 'sort', 'sortDir', 'columns', 'panel'].includes(key) ||
-          key.startsWith('filter.')
-        ) {
+        if (['search', 'sort', 'sortDir', 'columns', 'panel'].includes(key) || key.startsWith('filter.')) {
           this.controlsOpen = true;
           break;
         }

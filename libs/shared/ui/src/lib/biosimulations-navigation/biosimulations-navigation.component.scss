@@ -87,9 +87,7 @@
   }
 
   .content {
-    min-height: calc(
-      100vh - 56px
-    ); // TODO: substract an additional 52px when the privacy notice is visible
+    min-height: calc(100vh - 56px); // TODO: substract an additional 52px when the privacy notice is visible
   }
 }
 

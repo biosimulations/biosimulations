@@ -75,8 +75,7 @@ class EdamOntologyId implements IEdamOntologyId {
   id!: string;
 }
 
-export const EdamOntologyIdSchema =
-  SchemaFactory.createForClass(EdamOntologyId);
+export const EdamOntologyIdSchema = SchemaFactory.createForClass(EdamOntologyId);
 
 @Schema({
   _id: false,
@@ -106,9 +105,7 @@ class EdamOntologyIdVersion implements IEdamOntologyIdVersion {
   supportedFeatures!: string[];
 }
 
-export const EdamOntologyIdVersionSchema = SchemaFactory.createForClass(
-  EdamOntologyIdVersion,
-);
+export const EdamOntologyIdVersionSchema = SchemaFactory.createForClass(EdamOntologyIdVersion);
 
 @Schema({
   _id: false,
@@ -132,9 +129,7 @@ class FunderRegistryOntologyId implements IFunderRegistryOntologyId {
   id!: string;
 }
 
-export const FunderRegistryOntologyIdSchema = SchemaFactory.createForClass(
-  FunderRegistryOntologyId,
-);
+export const FunderRegistryOntologyIdSchema = SchemaFactory.createForClass(FunderRegistryOntologyId);
 
 @Schema({
   _id: false,
@@ -158,8 +153,7 @@ class LinguistOntologyId implements ILinguistOntologyId {
   id!: string;
 }
 
-export const LinguistOntologyIdSchema =
-  SchemaFactory.createForClass(LinguistOntologyId);
+export const LinguistOntologyIdSchema = SchemaFactory.createForClass(LinguistOntologyId);
 
 @Schema({
   _id: false,
@@ -182,8 +176,7 @@ class KisaoOntologyId implements IKisaoOntologyId {
   })
   id!: string;
 }
-export const KisaoOntologyIdSchema =
-  SchemaFactory.createForClass(KisaoOntologyId);
+export const KisaoOntologyIdSchema = SchemaFactory.createForClass(KisaoOntologyId);
 
 @Schema({
   _id: false,
@@ -252,5 +245,4 @@ class SpdxOntologyId implements ISpdxOntologyId {
   })
   id!: string;
 }
-export const SpdxOntologyIdSchema =
-  SchemaFactory.createForClass(SpdxOntologyId);
+export const SpdxOntologyIdSchema = SchemaFactory.createForClass(SpdxOntologyId);

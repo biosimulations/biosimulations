@@ -2,9 +2,7 @@ import { HttpStatus, ValidationError } from '@nestjs/common';
 import { BiosimulationsException } from './exception';
 import { inspect } from 'util';
 
-export const BiosimulationsValidationExceptionFactory = (
-  errors: ValidationError[],
-): BiosimulationsException => {
+export const BiosimulationsValidationExceptionFactory = (errors: ValidationError[]): BiosimulationsException => {
   const message = errors.map(getErrorMesage).join('\n\n');
 
   const bioSimErr = new BiosimulationsException(
@@ -22,9 +20,7 @@ export const BiosimulationsValidationExceptionFactory = (
 };
 
 function getErrorMesage(error: ValidationError, level = 0): string {
-  let msg = `${level === 0 ? 'Property or parameter' : 'Property'} '${
-    error.property
-  }' is invalid.`;
+  let msg = `${level === 0 ? 'Property or parameter' : 'Property'} '${error.property}' is invalid.`;
 
   const inspectedValue = inspect(error.value).replace(/\n/g, '\n    ');
   msg += `\n\n  Value:\n    ${inspectedValue}`;

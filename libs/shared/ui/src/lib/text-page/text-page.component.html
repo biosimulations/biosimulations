@@ -5,16 +5,14 @@
         <biosimulations-text-page-side-bar-section
           *ngIf="tocSections | async as sections"
           [heading]="contentsHeading"
-          [fxHide]="!contentsHeading"
-        >
+          [fxHide]="!contentsHeading">
           <ul>
             <ng-container *ngFor="let section of sections">
               <biosimulations-text-page-toc-item
                 *ngIf="section.heading | async as heading"
                 [heading]="heading"
                 [scrollTarget]="section.target"
-                [scrollOffset]="tocScrollSectionScrollOffset"
-              >
+                [scrollOffset]="tocScrollSectionScrollOffset">
               </biosimulations-text-page-toc-item>
             </ng-container>
           </ul>
@@ -24,11 +22,7 @@
       </div>
     </div>
 
-    <div
-      #sectionsContainer
-      class="sections-container content-container"
-      [ngClass]="{ compact: compact }"
-    >
+    <div #sectionsContainer class="sections-container content-container" [ngClass]="{ compact: compact }">
       <ng-content select="#content"></ng-content>
     </div>
   </div>

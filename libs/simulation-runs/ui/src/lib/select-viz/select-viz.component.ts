@@ -1,36 +1,16 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  Input,
-  Output,
-  EventEmitter,
-  ViewChild,
-  OnDestroy,
-} from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  FormControl,
-  Validators,
-} from '@angular/forms';
+import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter, ViewChild, OnDestroy } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable, of, Subscription, map } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HtmlSnackBarComponent } from '@biosimulations/shared/ui';
-import {
-  Visualization,
-  DesignVisualization,
-  VisualizationList,
-} from '@biosimulations/datamodel-simulation-runs';
+import { Visualization, DesignVisualization, VisualizationList } from '@biosimulations/datamodel-simulation-runs';
 // import { urls } from '@biosimulations/config/common';
 import { DesignHistogram1DVisualizationComponent } from '../design-histogram-1d-viz/design-histogram-1d-viz.component';
 import { DesignHeatmap2DVisualizationComponent } from '../design-heatmap-2d-viz/design-heatmap-2d-viz.component';
 import { DesignLine2DVisualizationComponent } from '../design-line-2d-viz/design-line-2d-viz.component';
 import { Spec as VegaSpec } from 'vega';
-import {
-  CombineApiService,
-  SimulationRunService,
-} from '@biosimulations/angular-api-client';
+import { CombineApiService, SimulationRunService } from '@biosimulations/angular-api-client';
 import { HttpErrorResponse } from '@angular/common/http';
 import { environment } from '@biosimulations/shared/environments';
 import { Endpoints } from '@biosimulations/config/common';
@@ -74,15 +54,12 @@ export class SelectVisualizationComponent implements OnDestroy {
     private simRunService: SimulationRunService,
     private snackBar: MatSnackBar,
   ) {
-    const vegaFormatCombineUri = BIOSIMULATIONS_FORMATS.filter(
-      (format) => format.id === 'format_3969',
-    )?.[0]?.biosimulationsMetadata?.omexManifestUris?.[0];
+    const vegaFormatCombineUri = BIOSIMULATIONS_FORMATS.filter((format) => format.id === 'format_3969')?.[0]
+      ?.biosimulationsMetadata?.omexManifestUris?.[0];
     if (vegaFormatCombineUri) {
       this.vegaFormatCombineUri = vegaFormatCombineUri;
     } else {
-      throw new Error(
-        'Vega format (EDAM:format_3969) must be annotated with one or more OMEX Manifest URIs',
-      );
+      throw new Error('Vega format (EDAM:format_3969) must be annotated with one or more OMEX Manifest URIs');
     }
 
     this.formGroup = formBuilder.group({
@@ -92,12 +69,9 @@ export class SelectVisualizationComponent implements OnDestroy {
       userLine2DFormGroup: formBuilder.group({}),
     });
 
-    this.userHistogram1DFormGroup = this.formGroup.controls
-      .userHistogram1DFormGroup as FormGroup;
-    this.userHeatmap2DFormGroup = this.formGroup.controls
-      .userHeatmap2DFormGroup as FormGroup;
-    this.userLine2DFormGroup = this.formGroup.controls
-      .userLine2DFormGroup as FormGroup;
+    this.userHistogram1DFormGroup = this.formGroup.controls.userHistogram1DFormGroup as FormGroup;
+    this.userHeatmap2DFormGroup = this.formGroup.controls.userHeatmap2DFormGroup as FormGroup;
+    this.userLine2DFormGroup = this.formGroup.controls.userLine2DFormGroup as FormGroup;
 
     this.userHistogram1DFormGroup.disable();
     this.userHeatmap2DFormGroup.disable();
@@ -158,15 +132,11 @@ export class SelectVisualizationComponent implements OnDestroy {
       verticalPosition: 'bottom',
     });
 
-    const vegaSpecSub = (
-      this.getDesignVisualizationComponent() as DesignVisualizationComponent
-    )
+    const vegaSpecSub = (this.getDesignVisualizationComponent() as DesignVisualizationComponent)
       .exportToVega()
       .pipe(
         map((vegaSpec: VegaSpec): void => {
-          const simulationRunId = (
-            this.getSelectedVisualization() as DesignVisualization
-          ).simulationRunId;
+          const simulationRunId = (this.getSelectedVisualization() as DesignVisualization).simulationRunId;
 
           // download
           const blob = new Blob([JSON.stringify(vegaSpec, null, 2)], {
@@ -179,22 +149,15 @@ export class SelectVisualizationComponent implements OnDestroy {
             a.download = 'visualization.json';
             a.click();
 
-            this.snackBar.open(
-              'Your visualization was successfully exported.',
-              'Ok',
-              {
-                duration: 5000,
-                horizontalPosition: 'center',
-                verticalPosition: 'bottom',
-              },
-            );
+            this.snackBar.open('Your visualization was successfully exported.', 'Ok', {
+              duration: 5000,
+              horizontalPosition: 'center',
+              verticalPosition: 'bottom',
+            });
           } else {
             const sub = this.combineApiService
               .addFileToCombineArchive(
-                this.endpoints.getSimulationRunDownloadEndpoint(
-                  false,
-                  simulationRunId,
-                ),
+                this.endpoints.getSimulationRunDownloadEndpoint(false, simulationRunId),
                 'plot.vg.json',
                 this.vegaFormatCombineUri,
                 false,
@@ -203,45 +166,37 @@ export class SelectVisualizationComponent implements OnDestroy {
                 false,
               )
               .pipe(
-                catchError(
-                  (error: HttpErrorResponse): Observable<undefined> => {
-                    if (!environment.production) {
-                      console.error(error);
-                    }
-                    return of<undefined>(undefined);
-                  },
-                ),
-              )
-              .subscribe(
-                (fileOrUrl: ArrayBuffer | string | undefined): void => {
-                  if (fileOrUrl) {
-                    const a = document.createElement('a');
-                    a.download = 'archive.omex';
-                    a.href = fileOrUrl as string;
-                    a.click();
-
-                    this.snackBar.open(
-                      'Your visualization was successfully exported.',
-                      'Ok',
-                      {
-                        duration: 5000,
-                        horizontalPosition: 'center',
-                        verticalPosition: 'bottom',
-                      },
-                    );
-                  } else {
-                    this.snackBar.open(
-                      'Sorry! We were unable to add the visualization to this COMBINE/OMEX archive. Please refresh to try again.',
-                      'Ok',
-                      {
-                        duration: 5000,
-                        horizontalPosition: 'center',
-                        verticalPosition: 'bottom',
-                      },
-                    );
+                catchError((error: HttpErrorResponse): Observable<undefined> => {
+                  if (!environment.production) {
+                    console.error(error);
                   }
-                },
-              );
+                  return of<undefined>(undefined);
+                }),
+              )
+              .subscribe((fileOrUrl: ArrayBuffer | string | undefined): void => {
+                if (fileOrUrl) {
+                  const a = document.createElement('a');
+                  a.download = 'archive.omex';
+                  a.href = fileOrUrl as string;
+                  a.click();
+
+                  this.snackBar.open('Your visualization was successfully exported.', 'Ok', {
+                    duration: 5000,
+                    horizontalPosition: 'center',
+                    verticalPosition: 'bottom',
+                  });
+                } else {
+                  this.snackBar.open(
+                    'Sorry! We were unable to add the visualization to this COMBINE/OMEX archive. Please refresh to try again.',
+                    'Ok',
+                    {
+                      duration: 5000,
+                      horizontalPosition: 'center',
+                      verticalPosition: 'bottom',
+                    },
+                  );
+                }
+              });
             this.subscriptions.push(sub);
           }
         }),
@@ -265,14 +220,11 @@ export class SelectVisualizationComponent implements OnDestroy {
   private getDesignVisualizationComponent(): DesignVisualizationComponent | null {
     const visualization = this.getSelectedVisualization();
     if (visualization._type === 'Histogram1DVisualization') {
-      return this
-        .designHistogram1DVisualization as DesignHistogram1DVisualizationComponent;
+      return this.designHistogram1DVisualization as DesignHistogram1DVisualizationComponent;
     } else if (visualization._type === 'Heatmap2DVisualization') {
-      return this
-        .designHeatmap2DVisualizationComponent as DesignHeatmap2DVisualizationComponent;
+      return this.designHeatmap2DVisualizationComponent as DesignHeatmap2DVisualizationComponent;
     } else if (visualization._type === 'Line2DVisualization') {
-      return this
-        .designLine2DVisualizationComponent as DesignLine2DVisualizationComponent;
+      return this.designLine2DVisualizationComponent as DesignLine2DVisualizationComponent;
     } else {
       return null;
     }

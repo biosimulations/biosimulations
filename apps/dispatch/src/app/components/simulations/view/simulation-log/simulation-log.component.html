@@ -4,30 +4,19 @@
   alwaysFixed="calc(64px + 32px + 32px + 2rem)"
   [tocScrollSectionScrollOffset]="128"
   *ngIf="structuredLogLevel !== undefined"
-  [compact]="structuredLogLevel >= StructuredLogLevel.SedDocument"
->
+  [compact]="structuredLogLevel >= StructuredLogLevel.SedDocument">
   <ng-container id="sideBar" [ngSwitch]="structuredLogLevel">
     <ng-container *ngSwitchCase="StructuredLogLevel.None">
-      <biosimulations-text-page-side-bar-section
-        heading="Summary"
-        fxShow
-        fxHide.lt-md
-      >
+      <biosimulations-text-page-side-bar-section heading="Summary" fxShow fxHide.lt-md>
         <ul>
           <li>
             Status:
-            <span [class]="['status-label', status]">{{
-              status | titlecase
-            }}</span>
+            <span [class]="['status-label', status]">{{ status | titlecase }}</span>
           </li>
         </ul>
       </biosimulations-text-page-side-bar-section>
 
-      <biosimulations-text-page-side-bar-section
-        heading="Log"
-        fxShow
-        fxHide.lt-md
-      >
+      <biosimulations-text-page-side-bar-section heading="Log" fxShow fxHide.lt-md>
         <ul>
           <li>
             <a (click)="scrollToElement('log')">COMBINE/OMEX archive</a>
@@ -37,26 +26,16 @@
     </ng-container>
 
     <ng-container *ngSwitchCase="StructuredLogLevel.CombineArchive">
-      <biosimulations-text-page-side-bar-section
-        heading="Summary"
-        fxShow
-        fxHide.lt-md
-      >
+      <biosimulations-text-page-side-bar-section heading="Summary" fxShow fxHide.lt-md>
         <ul>
           <li>
             Status:
-            <span [class]="['status-label', status]">{{
-              status | titlecase
-            }}</span>
+            <span [class]="['status-label', status]">{{ status | titlecase }}</span>
           </li>
         </ul>
       </biosimulations-text-page-side-bar-section>
 
-      <biosimulations-text-page-side-bar-section
-        heading="Log"
-        fxShow
-        fxHide.lt-md
-      >
+      <biosimulations-text-page-side-bar-section heading="Log" fxShow fxHide.lt-md>
         <ul>
           <li>
             <a (click)="scrollToElement('log')">COMBINE/OMEX archive</a>
@@ -66,17 +45,11 @@
     </ng-container>
 
     <ng-container *ngSwitchCase="StructuredLogLevel.SedDocument">
-      <biosimulations-text-page-side-bar-section
-        heading="Summary"
-        fxShow
-        fxHide.lt-md
-      >
+      <biosimulations-text-page-side-bar-section heading="Summary" fxShow fxHide.lt-md>
         <ul>
           <li>
             Status:
-            <span [class]="['status-label', status]">{{
-              status | titlecase
-            }}</span>
+            <span [class]="['status-label', status]">{{ status | titlecase }}</span>
           </li>
           <li>
             Simulation experiments ({{ numSedDocuments }})
@@ -91,17 +64,10 @@
         </ul>
       </biosimulations-text-page-side-bar-section>
 
-      <biosimulations-text-page-side-bar-section
-        heading="Experiments"
-        fxShow
-        fxHide.lt-md
-      >
+      <biosimulations-text-page-side-bar-section heading="Experiments" fxShow fxHide.lt-md>
         <ul>
           <li *ngFor="let docLog of _structuredLog.sedDocuments">
-            <a
-              [class]="['status-label', docLog.status]"
-              (click)="scrollToElement('log=' + docLog.location)"
-            >
+            <a [class]="['status-label', docLog.status]" (click)="scrollToElement('log=' + docLog.location)">
               {{ docLog.location }} ({{ docLog.status | slice: 0:1 }})
             </a>
           </li>
@@ -110,17 +76,11 @@
     </ng-container>
 
     <ng-container *ngSwitchDefault>
-      <biosimulations-text-page-side-bar-section
-        heading="Summary"
-        fxShow
-        fxHide.lt-md
-      >
+      <biosimulations-text-page-side-bar-section heading="Summary" fxShow fxHide.lt-md>
         <ul>
           <li>
             Status:
-            <span [class]="['status-label', status]">{{
-              status | titlecase
-            }}</span>
+            <span [class]="['status-label', status]">{{ status | titlecase }}</span>
           </li>
 
           <li>
@@ -186,33 +146,18 @@
         </ul>
       </biosimulations-text-page-side-bar-section>
 
-      <biosimulations-text-page-side-bar-section
-        heading="Tasks, reports &amp; plots"
-        fxShow
-        fxHide.lt-md
-      >
+      <biosimulations-text-page-side-bar-section heading="Tasks, reports &amp; plots" fxShow fxHide.lt-md>
         <ul>
           <li *ngIf="numTasks > 0 || !logHasTasks">
             <ng-container *ngIf="logHasTasks; else logNotAvailable">
-              <a (click)="scrollToElement('section=tasks')"
-                >Tasks ({{ numTasks }})</a
-              >
+              <a (click)="scrollToElement('section=tasks')">Tasks ({{ numTasks }})</a>
               <ul>
-                <ng-container
-                  *ngFor="let docLog of _structuredLog.sedDocuments"
-                >
+                <ng-container *ngFor="let docLog of _structuredLog.sedDocuments">
                   <li *ngFor="let taskLog of docLog.tasks">
                     <a
                       [class]="['status-label', taskLog.status]"
-                      (click)="
-                        scrollToElement(
-                          'log=task-' + docLog.location + '/' + taskLog.id
-                        )
-                      "
-                    >
-                      {{ docLog.location }} :: {{ taskLog.id }} ({{
-                        taskLog.status | slice: 0:1
-                      }})
+                      (click)="scrollToElement('log=task-' + docLog.location + '/' + taskLog.id)">
+                      {{ docLog.location }} :: {{ taskLog.id }} ({{ taskLog.status | slice: 0:1 }})
                     </a>
                   </li>
                 </ng-container>
@@ -224,26 +169,15 @@
           </li>
           <li *ngIf="numReports > 0 || !logHasReports">
             <ng-container *ngIf="logHasReports; else logNotAvailable">
-              <a (click)="scrollToElement('section=reports')"
-                >Reports ({{ numReports }})</a
-              >
+              <a (click)="scrollToElement('section=reports')">Reports ({{ numReports }})</a>
               <ul>
-                <ng-container
-                  *ngFor="let docLog of _structuredLog.sedDocuments"
-                >
+                <ng-container *ngFor="let docLog of _structuredLog.sedDocuments">
                   <ng-container *ngFor="let outputLog of docLog.outputs">
                     <li *ngIf="$any(outputLog)?.dataSets">
                       <a
                         [class]="['status-label', outputLog.status]"
-                        (click)="
-                          scrollToElement(
-                            'log=output-' + docLog.location + '/' + outputLog.id
-                          )
-                        "
-                      >
-                        {{ docLog.location }} :: {{ outputLog.id }} ({{
-                          outputLog.status | slice: 0:1
-                        }})
+                        (click)="scrollToElement('log=output-' + docLog.location + '/' + outputLog.id)">
+                        {{ docLog.location }} :: {{ outputLog.id }} ({{ outputLog.status | slice: 0:1 }})
                       </a>
                     </li>
                   </ng-container>
@@ -256,26 +190,15 @@
           </li>
           <li *ngIf="numPlots > 0 || !logHasPlots">
             <ng-container *ngIf="logHasPlots; else logNotAvailable">
-              <a (click)="scrollToElement('section=plots')"
-                >Plots ({{ numPlots }})</a
-              >
+              <a (click)="scrollToElement('section=plots')">Plots ({{ numPlots }})</a>
               <ul>
-                <ng-container
-                  *ngFor="let docLog of structuredLog?.sedDocuments || []"
-                >
+                <ng-container *ngFor="let docLog of structuredLog?.sedDocuments || []">
                   <ng-container *ngFor="let outputLog of docLog.outputs">
                     <li *ngIf="!$any(outputLog)?.dataSets">
                       <a
                         [class]="['status-label', outputLog.status]"
-                        (click)="
-                          scrollToElement(
-                            'log=output-' + docLog.location + '/' + outputLog.id
-                          )
-                        "
-                      >
-                        {{ docLog.location }} :: {{ outputLog.id }} ({{
-                          outputLog.status | slice: 0:1
-                        }})
+                        (click)="scrollToElement('log=output-' + docLog.location + '/' + outputLog.id)">
+                        {{ docLog.location }} :: {{ outputLog.id }} ({{ outputLog.status | slice: 0:1 }})
                       </a>
                     </li>
                   </ng-container>
@@ -290,11 +213,7 @@
       </biosimulations-text-page-side-bar-section>
     </ng-container>
 
-    <biosimulations-text-page-side-bar-section
-      heading="Download logs"
-      fxShow
-      fxHide.lt-md
-    >
+    <biosimulations-text-page-side-bar-section heading="Download logs" fxShow fxHide.lt-md>
       <ul class="icon-list">
         <li>
           <button
@@ -302,19 +221,13 @@
             class="biosimulations-button"
             title="Download log"
             (click)="downloadStructuredLog()"
-            [disabled]="structuredLog === undefined"
-          >
+            [disabled]="structuredLog === undefined">
             <biosimulations-icon icon="download"></biosimulations-icon>
             Structured log
           </button>
         </li>
         <li>
-          <button
-            mat-icon-button
-            class="biosimulations-button"
-            title="Download log"
-            (click)="downloadRawLog()"
-          >
+          <button mat-icon-button class="biosimulations-button" title="Download log" (click)="downloadRawLog()">
             <biosimulations-icon icon="download"></biosimulations-icon>
             Combined standard output and error
           </button>
@@ -343,15 +256,12 @@
         [compact]="true"
         iconActionType="toggle"
         [first]="true"
-        [last]="true"
-      >
+        [last]="true">
       </biosimulations-structured-simulation-log-element>
     </ng-container>
 
     <ng-container *ngSwitchCase="StructuredLogLevel.CombineArchive">
-      <h3 id="section=raw" class="top-margin">
-        Simulation project (COMBINE/OMEX archive)
-      </h3>
+      <h3 id="section=raw" class="top-margin">Simulation project (COMBINE/OMEX archive)</h3>
       <biosimulations-structured-simulation-log-element
         *ngIf="structuredLog"
         [log]="structuredLog"
@@ -361,8 +271,7 @@
         [compact]="true"
         iconActionType="toggle"
         [first]="true"
-        [last]="true"
-      >
+        [last]="true">
       </biosimulations-structured-simulation-log-element>
 
       <h3 id="section=raw">Simulation run</h3>
@@ -383,15 +292,12 @@
         [compact]="true"
         iconActionType="toggle"
         [first]="true"
-        [last]="true"
-      >
+        [last]="true">
       </biosimulations-structured-simulation-log-element>
     </ng-container>
 
     <ng-container *ngSwitchCase="StructuredLogLevel.SedDocument">
-      <h3 id="section=sed-documents">
-        Simulation experiments (SED-ML documents)
-      </h3>
+      <h3 id="section=sed-documents">Simulation experiments (SED-ML documents)</h3>
       <biosimulations-structured-simulation-log-element
         *ngFor="let docLog of _structuredLog.sedDocuments; let iDoc = index"
         [elementId]="docLog.location"
@@ -401,8 +307,7 @@
         [compact]="true"
         iconActionType="toggle"
         [first]="iDoc === 0"
-        [last]="iDoc === (_structuredLog?.sedDocuments?.length || 0) - 1"
-      >
+        [last]="iDoc === (_structuredLog?.sedDocuments?.length || 0) - 1">
       </biosimulations-structured-simulation-log-element>
 
       <h3 id="section=raw">Simulation run</h3>
@@ -423,8 +328,7 @@
         [compact]="true"
         iconActionType="toggle"
         [first]="true"
-        [last]="true"
-      >
+        [last]="true">
       </biosimulations-structured-simulation-log-element>
     </ng-container>
 
@@ -436,14 +340,11 @@
           [elementId]="docTaskLog.doc.location + ' :: ' + docTaskLog.task.id"
           elementType="Task"
           [log]="docTaskLog.task"
-          [id]="
-            'log=task-' + docTaskLog.doc.location + '/' + docTaskLog.task.id
-          "
+          [id]="'log=task-' + docTaskLog.doc.location + '/' + docTaskLog.task.id"
           [compact]="true"
           iconActionType="toggle"
           [first]="iTask === 0"
-          [last]="iTask === taskLogs.length - 1"
-        >
+          [last]="iTask === taskLogs.length - 1">
         </biosimulations-structured-simulation-log-element>
       </ng-container>
 
@@ -451,22 +352,14 @@
         <h3 id="section=reports">Reports</h3>
         <biosimulations-structured-simulation-log-element
           *ngFor="let docOutputLog of reportLogs; let iReport = index"
-          [elementId]="
-            docOutputLog.doc.location + ' :: ' + docOutputLog.report.id
-          "
+          [elementId]="docOutputLog.doc.location + ' :: ' + docOutputLog.report.id"
           elementType="Report"
           [log]="docOutputLog.report"
-          [id]="
-            'log=output-' +
-            docOutputLog.doc.location +
-            '/' +
-            docOutputLog.report.id
-          "
+          [id]="'log=output-' + docOutputLog.doc.location + '/' + docOutputLog.report.id"
           [compact]="true"
           iconActionType="toggle"
           [first]="iReport === 0"
-          [last]="iReport === reportLogs.length - 1"
-        >
+          [last]="iReport === reportLogs.length - 1">
         </biosimulations-structured-simulation-log-element>
       </ng-container>
 
@@ -474,22 +367,14 @@
         <h3 id="section=plots">Plots</h3>
         <biosimulations-structured-simulation-log-element
           *ngFor="let docOutputLog of plotLogs; let iPlot = index"
-          [elementId]="
-            docOutputLog.doc.location + ' :: ' + docOutputLog.plot.id
-          "
+          [elementId]="docOutputLog.doc.location + ' :: ' + docOutputLog.plot.id"
           elementType="Plot"
           [log]="docOutputLog.plot"
-          [id]="
-            'log=output-' +
-            docOutputLog.doc.location +
-            '/' +
-            docOutputLog.plot.id
-          "
+          [id]="'log=output-' + docOutputLog.doc.location + '/' + docOutputLog.plot.id"
           [compact]="true"
           iconActionType="toggle"
           [first]="iPlot === 0"
-          [last]="iPlot === plotLogs.length - 1"
-        >
+          [last]="iPlot === plotLogs.length - 1">
         </biosimulations-structured-simulation-log-element>
       </ng-container>
 
@@ -511,8 +396,7 @@
         [compact]="true"
         iconActionType="toggle"
         [first]="true"
-        [last]="true"
-      >
+        [last]="true">
       </biosimulations-structured-simulation-log-element>
     </ng-container>
   </ng-container>

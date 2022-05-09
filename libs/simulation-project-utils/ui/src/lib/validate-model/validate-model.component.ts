@@ -1,11 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  FormControl,
-  Validators,
-  ValidationErrors,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators, ValidationErrors } from '@angular/forms';
 import { CombineApiService } from '@biosimulations/simulation-project-utils/service';
 import {
   ValidationReport,
@@ -64,10 +58,7 @@ export class ValidateModelComponent implements OnInit, OnDestroy {
   ) {
     const modelFileFormats: string[] = [];
     BIOSIMULATIONS_FORMATS.filter((format: EdamTerm): boolean => {
-      return (
-        format?.biosimulationsMetadata?.modelFormatMetadata
-          ?.validationAvailable === true
-      );
+      return format?.biosimulationsMetadata?.modelFormatMetadata?.validationAvailable === true;
     }).forEach((format: EdamTerm): void => {
       format.fileExtensions.forEach((extension: string): void => {
         modelFileFormats.push('.' + extension);
@@ -81,10 +72,7 @@ export class ValidateModelComponent implements OnInit, OnDestroy {
     this.formGroup = this.formBuilder.group(
       {
         submitMethod: [SubmitMethod.file],
-        modelFile: [
-          '',
-          [Validators.required, this.maxFileSizeValidator.bind(this)],
-        ],
+        modelFile: ['', [Validators.required, this.maxFileSizeValidator.bind(this)]],
         modelUrl: ['', [this.urlValidator]],
         modelLanguage: [null],
       },
@@ -93,8 +81,7 @@ export class ValidateModelComponent implements OnInit, OnDestroy {
       //},
     );
 
-    this.submitMethodControl = this.formGroup.controls
-      .submitMethod as FormControl;
+    this.submitMethodControl = this.formGroup.controls.submitMethod as FormControl;
     this.modelFileControl = this.formGroup.controls.modelFile as FormControl;
     this.modelUrlControl = this.formGroup.controls.modelUrl as FormControl;
 
@@ -123,8 +110,7 @@ export class ValidateModelComponent implements OnInit, OnDestroy {
     this.activatedRoute.queryParams.subscribe((params: Params): void => {
       const modelUrl = params?.modelUrl;
       if (modelUrl) {
-        const submitMethodControl = this.formGroup.controls
-          .submitMethod as FormControl;
+        const submitMethodControl = this.formGroup.controls.submitMethod as FormControl;
         const modelUrlControl = this.formGroup.controls.modelUrl as FormControl;
         submitMethodControl.setValue(SubmitMethod.url);
         modelUrlControl.setValue(modelUrl);
@@ -135,15 +121,9 @@ export class ValidateModelComponent implements OnInit, OnDestroy {
 
   maxFileSizeValidator(control: FormControl): ValidationErrors | null {
     const fileInput: FileInput | null = control.value;
-    const file: File | undefined = fileInput?.files
-      ? fileInput.files[0]
-      : undefined;
+    const file: File | undefined = fileInput?.files ? fileInput.files[0] : undefined;
     const fileSize = file?.size;
-    if (
-      fileInput &&
-      fileSize &&
-      fileSize > this.config.appConfig.maxUploadFileSize
-    ) {
+    if (fileInput && fileSize && fileSize > this.config.appConfig.maxUploadFileSize) {
       return {
         maxSize: true,
       };
@@ -188,8 +168,7 @@ export class ValidateModelComponent implements OnInit, OnDestroy {
   }
 
   changeSubmitMethod(): void {
-    const submitMethodControl = this.formGroup.controls
-      .submitMethod as FormControl;
+    const submitMethodControl = this.formGroup.controls.submitMethod as FormControl;
     if (submitMethodControl.value === SubmitMethod.file) {
       this.formGroup.controls.modelFile.enable();
       this.formGroup.controls.modelUrl.disable();
@@ -212,8 +191,7 @@ export class ValidateModelComponent implements OnInit, OnDestroy {
     this.warnings = undefined;
 
     // get data for API
-    const submitMethodControl = this.formGroup.controls
-      .submitMethod as FormControl;
+    const submitMethodControl = this.formGroup.controls.submitMethod as FormControl;
 
     let model: File | string = '';
     if (submitMethodControl.value === SubmitMethod.file) {
@@ -231,14 +209,10 @@ export class ValidateModelComponent implements OnInit, OnDestroy {
           this.status = report.status;
 
           if (report?.errors?.length) {
-            this.errors = this.convertValidationMessagesToList(
-              report?.errors as ValidationMessage[],
-            );
+            this.errors = this.convertValidationMessagesToList(report?.errors as ValidationMessage[]);
           }
           if (report?.warnings?.length) {
-            this.warnings = this.convertValidationMessagesToList(
-              report?.warnings as ValidationMessage[],
-            );
+            this.warnings = this.convertValidationMessagesToList(report?.warnings as ValidationMessage[]);
           }
 
           this.snackBar.open('The validation of your model completed.', 'Ok', {
@@ -274,19 +248,12 @@ export class ValidateModelComponent implements OnInit, OnDestroy {
     });
   }
 
-  private convertValidationMessagesToList(
-    messages: ValidationMessage[],
-  ): string {
+  private convertValidationMessagesToList(messages: ValidationMessage[]): string {
     return messages
       .map((message: ValidationMessage): string => {
         let details = '';
         if (message?.details?.length) {
-          details =
-            '<ul>' +
-            this.convertValidationMessagesToList(
-              message?.details as ValidationMessage[],
-            ) +
-            '</ul>';
+          details = '<ul>' + this.convertValidationMessagesToList(message?.details as ValidationMessage[]) + '</ul>';
         }
 
         return '<li>' + message.summary + details + '</li>';

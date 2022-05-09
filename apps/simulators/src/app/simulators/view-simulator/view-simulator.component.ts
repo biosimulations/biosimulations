@@ -79,10 +79,7 @@ export class ViewSimulatorComponent implements OnInit {
       centerAction: ColumnActionType.href,
       centerHref: (version: ViewVersion): string | null => {
         if (version.image) {
-          return (
-            'https://github.com/orgs/biosimulators/packages/container/package/' +
-            this.id
-          );
+          return 'https://github.com/orgs/biosimulators/packages/container/package/' + this.id;
         } else {
           return null;
         }
@@ -105,18 +102,9 @@ export class ViewSimulatorComponent implements OnInit {
       formatter: (): null => {
         return null;
       },
-      stackedFormatter: (
-        label: string,
-        version: ViewVersion,
-      ): string | null => {
+      stackedFormatter: (label: string, version: ViewVersion): string | null => {
         if (version.validated) {
-          return (
-            this.config.dispatchAppUrl +
-            'run?simulator=' +
-            this.id +
-            '&simulatorVersion=' +
-            label
-          );
+          return this.config.dispatchAppUrl + 'run?simulator=' + this.id + '&simulatorVersion=' + label;
         } else {
           return null;
         }
@@ -124,11 +112,7 @@ export class ViewSimulatorComponent implements OnInit {
       rightIcon: 'simulator',
       rightIconTitle: (version: ViewVersion): string | null => {
         if (version.validated) {
-          return (
-            'Execute simulations with v' +
-            version.label +
-            ' @ runBioSimulations'
-          );
+          return 'Execute simulations with v' + version.label + ' @ runBioSimulations';
         } else {
           return null;
         }
@@ -137,26 +121,14 @@ export class ViewSimulatorComponent implements OnInit {
       rightAction: ColumnActionType.href,
       centerHref: (version: ViewVersion): string | null => {
         if (version.validated) {
-          return (
-            this.config.dispatchAppUrl +
-            'run?simulator=' +
-            this.id +
-            '&simulatorVersion=' +
-            version.label
-          );
+          return this.config.dispatchAppUrl + 'run?simulator=' + this.id + '&simulatorVersion=' + version.label;
         } else {
           return null;
         }
       },
       rightHref: (version: ViewVersion): string | null => {
         if (version.validated) {
-          return (
-            this.config.dispatchAppUrl +
-            'run?simulator=' +
-            this.id +
-            '&simulatorVersion=' +
-            version.label
-          );
+          return this.config.dispatchAppUrl + 'run?simulator=' + this.id + '&simulatorVersion=' + version.label;
         } else {
           return null;
         }
@@ -175,15 +147,12 @@ export class ViewSimulatorComponent implements OnInit {
     return version.label;
   }
 
-  public getVersionStackedHeadingMoreInfoRouterLink(
-    version: ViewVersion,
-  ): string[] {
+  public getVersionStackedHeadingMoreInfoRouterLink(version: ViewVersion): string[] {
     return ['/simulators', this.id, version.label];
   }
 
   public ngOnInit(): void {
-    this.getVersionLinkBound =
-      this.getVersionStackedHeadingMoreInfoRouterLink.bind(this);
+    this.getVersionLinkBound = this.getVersionStackedHeadingMoreInfoRouterLink.bind(this);
 
     const params = this.route.params;
     this.simulator = params.pipe(
@@ -210,19 +179,9 @@ export class ViewSimulatorComponent implements OnInit {
 
   public processSimulator(simulator: ViewSimulator): void {
     this.dispatchAppUrl =
-      this.config.dispatchAppUrl +
-      'runs/new' +
-      '?simulator=' +
-      simulator.id +
-      '&simulatorVersion=' +
-      simulator.version;
+      this.config.dispatchAppUrl + 'runs/new' + '?simulator=' + simulator.id + '&simulatorVersion=' + simulator.version;
     this.dispatchAppRunUrl =
-      this.config.dispatchAppUrl +
-      'runs/new' +
-      '?simulator=' +
-      simulator.id +
-      '&simulatorVersion=' +
-      simulator.version;
+      this.config.dispatchAppUrl + 'runs/new' + '?simulator=' + simulator.id + '&simulatorVersion=' + simulator.version;
     this.highlightVersion = (version: ViewVersion): boolean => {
       return version.label === simulator.version;
     };
@@ -257,24 +216,17 @@ export class ViewSimulatorComponent implements OnInit {
 
   public copyDockerPullCmd(image = '{ image }'): void {
     const cmd = 'docker pull ' + image;
-    this.clipboardService.copyToClipboard(
-      cmd,
-      'The command to pull the Docker image was copied to your clipboard.',
-    );
+    this.clipboardService.copyToClipboard(cmd, 'The command to pull the Docker image was copied to your clipboard.');
   }
 
   public copyDockerRunCmd(image = '{ image }'): void {
     const cmd = `docker run ${image} -i /path/to/archive.omex -o /path/to/outputs`;
-    this.clipboardService.copyToClipboard(
-      cmd,
-      'The command to run the Docker image was copied to your clipboard.',
-    );
+    this.clipboardService.copyToClipboard(cmd, 'The command to run the Docker image was copied to your clipboard.');
   }
 
   public copyDockerHelpCmd(image = '{ image }'): void {
     const cmd = 'docker run ' + image + ' --help';
-    const message =
-      'The command to get help with the Docker image was copied to your clipboard.';
+    const message = 'The command to get help with the Docker image was copied to your clipboard.';
     this.clipboardService.copyToClipboard(cmd, message);
   }
 
@@ -296,30 +248,24 @@ export class ViewSimulatorComponent implements OnInit {
 
   public copySingularityHelpCmd(image = '{ image }'): void {
     const cmd = 'singularity run docker://' + image + ' --help';
-    const message =
-      'The command to get help with the Singularity image was copied to your clipboard.';
+    const message = 'The command to get help with the Singularity image was copied to your clipboard.';
     this.clipboardService.copyToClipboard(cmd, message);
   }
 
   public copyCliInstallCmd(cmd: string): void {
-    const message =
-      'The command to install the command-line application was copied to your clipboard.';
+    const message = 'The command to install the command-line application was copied to your clipboard.';
     this.clipboardService.copyToClipboard(cmd, message);
   }
 
   public copyRunCliCmd(cmd?: string): void {
-    const toCopy = `${
-      cmd as string
-    } -i /path/to/archive.omex -o /path/to/outputs`;
-    const message =
-      'The command to run the command-line application was copied to your clipboard.';
+    const toCopy = `${cmd as string} -i /path/to/archive.omex -o /path/to/outputs`;
+    const message = 'The command to run the command-line application was copied to your clipboard.';
     this.clipboardService.copyToClipboard(toCopy, message);
   }
 
   public copyCliHelpCmd(cmd?: string): void {
     const toCopy = (cmd as string) + ' --help';
-    const message =
-      'The command to get help about the command-line application was copied to your clipboard.';
+    const message = 'The command to get help about the command-line application was copied to your clipboard.';
     this.clipboardService.copyToClipboard(toCopy, message);
   }
 
@@ -333,9 +279,6 @@ export class ViewSimulatorComponent implements OnInit {
 
   public copyRunPythonCmd(module = '{ module }'): void {
     const cmd = `import ${module} as simulator\nsimulator.exec_sedml_docs_in_combine_archive(\n    '/path/to/archive.omex', '/path/to/outputs')`;
-    this.clipboardService.copyToClipboard(
-      cmd,
-      'The command to import the Python module was copied to your clipboard.',
-    );
+    this.clipboardService.copyToClipboard(cmd, 'The command to import the Python module was copied to your clipboard.');
   }
 }

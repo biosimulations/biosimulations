@@ -3,26 +3,10 @@ import { Simulation, ISimulation, isUnknownSimulation } from '../../datamodel';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { SimulationStatusService } from './simulation-status.service';
 import { Storage } from '@ionic/storage-angular';
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpStatusCode,
-} from '@angular/common/http';
-import {
-  Observable,
-  BehaviorSubject,
-  combineLatest,
-  throwError,
-  of,
-} from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
+import { Observable, BehaviorSubject, combineLatest, throwError, of } from 'rxjs';
 import { ConfigService } from '@biosimulations/config/angular';
-import {
-  concatAll,
-  debounceTime,
-  shareReplay,
-  map,
-  catchError,
-} from 'rxjs/operators';
+import { concatAll, debounceTime, shareReplay, map, catchError } from 'rxjs/operators';
 import { SimulationRun } from '@biosimulations/datamodel/common';
 import { Endpoints } from '@biosimulations/config/common';
 import { SimulationRunService } from '@biosimulations/angular-api-client';
@@ -88,25 +72,19 @@ export class SimulationService {
    * @see getSimulations
    */
   private createSimulationsArray(): void {
-    this.simulationsMapSubject
-      .pipe(shareReplay(1))
-      .subscribe((simulationMap) => {
-        if (Object.values(simulationMap).length) {
-          combineLatest(
-            Object.values(simulationMap).map((sims) => sims.asObservable()),
-          ).subscribe((arr) => {
-            this.simulationsArrSubject.next(arr);
-          });
-        } else {
-          this.simulationsArrSubject.next([]);
-        }
-      });
+    this.simulationsMapSubject.pipe(shareReplay(1)).subscribe((simulationMap) => {
+      if (Object.values(simulationMap).length) {
+        combineLatest(Object.values(simulationMap).map((sims) => sims.asObservable())).subscribe((arr) => {
+          this.simulationsArrSubject.next(arr);
+        });
+      } else {
+        this.simulationsArrSubject.next([]);
+      }
+    });
   }
 
   private initSimulations(storedSimulations: ISimulation[]): void {
-    const simulations = storedSimulations.concat(
-      this.simulationsAddedBeforeStorageInitialized,
-    );
+    const simulations = storedSimulations.concat(this.simulationsAddedBeforeStorageInitialized);
     simulations.forEach((simulation: ISimulation): void => {
       // Save to local storage map
       if (!(simulation.id in this.simulationsMap)) {
@@ -156,11 +134,9 @@ export class SimulationService {
     if (this._storage && this.storageInitialized) {
       newSimulations.forEach((newSimulation: ISimulation): void => {
         if (newSimulation.id in this.simulationsMap) {
-          const submittedLocally =
-            this.simulationsMap[newSimulation.id]?.submittedLocally;
+          const submittedLocally = this.simulationsMap[newSimulation.id]?.submittedLocally;
           Object.assign(this.simulationsMap[newSimulation.id], newSimulation);
-          this.simulationsMap[newSimulation.id].submittedLocally =
-            submittedLocally || false;
+          this.simulationsMap[newSimulation.id].submittedLocally = submittedLocally || false;
         } else {
           this.simulations.push(newSimulation);
           this.simulationsMap[newSimulation.id] = newSimulation;
@@ -271,17 +247,12 @@ export class SimulationService {
    */
   private updateSimulation(uuid: string): void {
     const current = this.getSimulationFromCache(uuid).pipe(
-      debounceTime(
-        this.config.appConfig.simulationStatusRefreshIntervalSec * 1000,
-      ),
+      debounceTime(this.config.appConfig.simulationStatusRefreshIntervalSec * 1000),
     );
     current.subscribe((currentSim) => {
-      if (
-        SimulationStatusService.isSimulationStatusRunning(currentSim.status)
-      ) {
+      if (SimulationStatusService.isSimulationStatusRunning(currentSim.status)) {
         this.getSimulationHttp(uuid).subscribe((newSim) => {
-          newSim.submittedLocally =
-            currentSim.submittedLocally || newSim.submittedLocally;
+          newSim.submittedLocally = currentSim.submittedLocally || newSim.submittedLocally;
           this.storeSimulations([newSim]);
           this.cacheSimulation(newSim);
         });

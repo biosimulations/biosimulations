@@ -4,29 +4,20 @@ import path from 'path';
 import { Client as SSHClient } from 'ssh2';
 
 export class SshConnectionConfig {
-  public constructor(
-    public host: string,
-    public port: number,
-    public username: string,
-    public privateKey: string,
-  ) {}
+  public constructor(public host: string, public port: number, public username: string, public privateKey: string) {}
 }
 
 @Injectable({})
 export class SshService {
   private connection!: SSHClient;
-  private sshConfig: SshConnectionConfig =
-    this.configService.get<SshConnectionConfig>(
-      'hpc.ssh',
-      new SshConnectionConfig('', 0, '', ''),
-    );
+  private sshConfig: SshConnectionConfig = this.configService.get<SshConnectionConfig>(
+    'hpc.ssh',
+    new SshConnectionConfig('', 0, '', ''),
+  );
 
   private retry = 1;
   private logger = new Logger('SshService');
-  private hpcBase: string = this.configService.get<string>(
-    'hpc.hpcBaseDir',
-    '',
-  );
+  private hpcBase: string = this.configService.get<string>('hpc.hpcBaseDir', '');
   public constructor(private configService: ConfigService) {
     const init = this.configService.get('hpc.sshInit', 'true');
     if (!(init == 'false')) {
@@ -49,47 +40,41 @@ export class SshService {
   ): Promise<{ stdout: string; stderr: string }> {
     this.logger.debug(`Executing command`);
 
-    return new Promise<{ stdout: string; stderr: string }>(
-      (resolve, reject) => {
-        let stdout = '';
-        let stderr = '';
+    return new Promise<{ stdout: string; stderr: string }>((resolve, reject) => {
+      let stdout = '';
+      let stderr = '';
 
-        this.connection.exec(cmd, async (err, stream) => {
-          if (err) {
-            this.logger.error(err);
-            reject(err);
-            this.connection.end();
+      this.connection.exec(cmd, async (err, stream) => {
+        if (err) {
+          this.logger.error(err);
+          reject(err);
+          this.connection.end();
+        }
+        if (stream) {
+          stream
+            .on('close', (code: any, signal: any) => {
+              this.logger.debug('Stream :: close :: code: ' + code + ', signal: ' + signal);
+              resolve({ stdout, stderr });
+            })
+            .on('data', (data: any) => {
+              stdout += data.toString('utf8');
+            })
+            .stderr.on('data', (data) => {
+              stderr += data.toString('utf8');
+            });
+        } else {
+          this.logger.error('Stream is null');
+
+          if (retryCount < retries) {
+            this.logger.debug(`Retrying SSH connection ${retryCount + 1} of ${retries} ...`);
+            await this.retryInit();
+            return this.execStringCommand(cmd, retries, retryCount + 1);
           }
-          if (stream) {
-            stream
-              .on('close', (code: any, signal: any) => {
-                this.logger.debug(
-                  'Stream :: close :: code: ' + code + ', signal: ' + signal,
-                );
-                resolve({ stdout, stderr });
-              })
-              .on('data', (data: any) => {
-                stdout += data.toString('utf8');
-              })
-              .stderr.on('data', (data) => {
-                stderr += data.toString('utf8');
-              });
-          } else {
-            this.logger.error('Stream is null');
 
-            if (retryCount < retries) {
-              this.logger.debug(
-                `Retrying SSH connection ${retryCount + 1} of ${retries} ...`,
-              );
-              await this.retryInit();
-              return this.execStringCommand(cmd, retries, retryCount + 1);
-            }
-
-            reject('Stream is null');
-          }
-        });
-      },
-    );
+          reject('Stream is null');
+        }
+      });
+    });
   }
 
   private initConnection(): SSHClient {
@@ -110,10 +95,7 @@ export class SshService {
 
   private async retryInit(): Promise<void> {
     this.logger.log('Retrying SSH connection');
-    await setTimeout(
-      () => (this.connection = this.initConnection()),
-      this.getRetryBackoff(),
-    );
+    await setTimeout(() => (this.connection = this.initConnection()), this.getRetryBackoff());
   }
 
   private addConnectionListeners(connection: SSHClient): SSHClient {

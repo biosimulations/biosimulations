@@ -43,5 +43,4 @@ export class DependentPackage implements IDependentPackage {
   url!: string | null;
 }
 
-export const DependentPackageSchema =
-  SchemaFactory.createForClass(DependentPackage);
+export const DependentPackageSchema = SchemaFactory.createForClass(DependentPackage);

@@ -6,11 +6,7 @@ import { AppRoutes } from '@biosimulations/config/common';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { ProjectService } from '@biosimulations/angular-api-client';
 import { ConfigService } from '@biosimulations/config/angular';
-import {
-  Simulation,
-  UnknownSimulation,
-  isUnknownSimulation,
-} from '../../../datamodel';
+import { Simulation, UnknownSimulation, isUnknownSimulation } from '../../../datamodel';
 import { ProjectInput } from '@biosimulations/datamodel/common';
 import {
   FormBuilder,
@@ -58,20 +54,14 @@ export class PublishComponent implements OnInit, OnDestroy {
     private config: ConfigService,
   ) {
     this.formGroup = formBuilder.group({
-      id: [
-        null,
-        [Validators.required, Validators.pattern(/^[a-z0-9_-]{3,}$/i)],
-        [this.idAvailableValidator()],
-      ],
+      id: [null, [Validators.required, Validators.pattern(/^[a-z0-9_-]{3,}$/i)], [this.idAvailableValidator()]],
       isValid: [false, [Validators.required]],
       grantedLicense: [false, [Validators.required]],
     });
   }
 
   public ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription: Subscription) =>
-      subscription.unsubscribe(),
-    );
+    this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
   }
 
   public idAvailableValidator(): AsyncValidatorFn {
@@ -99,10 +89,7 @@ export class PublishComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.uuid = this.route.snapshot.params['uuid'];
-    this.archiveUrl = this.endpoints.getSimulationRunDownloadEndpoint(
-      false,
-      this.uuid,
-    );
+    this.archiveUrl = this.endpoints.getSimulationRunDownloadEndpoint(false, this.uuid);
 
     const simulation$ = this.simulationService.getSimulation(this.uuid).pipe(
       map((simulation: Simulation | UnknownSimulation): Simulation => {
@@ -124,12 +111,7 @@ export class PublishComponent implements OnInit, OnDestroy {
           id: 'test',
           simulationRun: this.uuid,
         };
-        return this.projectService.isProjectValid(
-          projectInput,
-          false,
-          false,
-          true,
-        );
+        return this.projectService.isProjectValid(projectInput, false, false, true);
       }),
       concatAll(),
       shareReplay(1),
@@ -156,30 +138,22 @@ export class PublishComponent implements OnInit, OnDestroy {
           const url = this.appRoutes.getProjectsView(id);
           const tabWindowId = window.open(url, 'biosimulations');
 
-          this.snackBar.open(
-            'Your project was successfully published!.',
-            'Ok',
-            {
-              duration: 5000,
-              horizontalPosition: 'center',
-              verticalPosition: 'bottom',
-            },
-          );
+          this.snackBar.open('Your project was successfully published!.', 'Ok', {
+            duration: 5000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+          });
         }),
         catchError((error: HttpErrorResponse): Observable<undefined> => {
           if (!environment.production) {
             console.error(error);
           }
 
-          this.snackBar.open(
-            'Sorry! We were unable to publish your project. Please refresh to try again.',
-            'Ok',
-            {
-              duration: 5000,
-              horizontalPosition: 'center',
-              verticalPosition: 'bottom',
-            },
-          );
+          this.snackBar.open('Sorry! We were unable to publish your project. Please refresh to try again.', 'Ok', {
+            duration: 5000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+          });
 
           return of<undefined>(undefined);
         }),

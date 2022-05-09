@@ -4,8 +4,7 @@
   class="biosimulations-button"
   [routerLink]="route"
   [matTooltip]="hover || label"
-  matTooltipPosition="below"
->
+  matTooltipPosition="below">
   <biosimulations-icon class="icon" [icon]="icon"></biosimulations-icon>
   <span class="label">{{ label }}</span>
 </a>
@@ -16,8 +15,7 @@
     class="biosimulations-button"
     (click)="clickHandler()"
     [matTooltip]="hover || label"
-    matTooltipPosition="below"
-  >
+    matTooltipPosition="below">
     <biosimulations-icon class="icon" [icon]="icon"></biosimulations-icon>
     <span class="label">{{ label }}</span>
   </a>

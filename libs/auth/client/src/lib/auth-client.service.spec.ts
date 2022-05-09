@@ -22,10 +22,7 @@ describe('AuthClientService', () => {
   beforeEach(async () => {
     const module = await Test.createTestingModule({
       imports: [HttpModule],
-      providers: [
-        AuthClientService,
-        { provide: ConfigService, useValue: MockConfigService },
-      ],
+      providers: [AuthClientService, { provide: ConfigService, useValue: MockConfigService }],
     }).compile();
 
     httpService = module.get<HttpService>(HttpService);
@@ -36,18 +33,10 @@ describe('AuthClientService', () => {
     expect(service).toBeTruthy();
   });
   it('should set config', () => {
-    expect((service as any).auth0_domain).toBe(
-      MockConfigService.get('', '').auth0_domain,
-    );
-    expect((service as any).client_secret).toBe(
-      MockConfigService.get('', '').client_secret,
-    );
-    expect((service as any).client_id).toBe(
-      MockConfigService.get('', '').client_id,
-    );
-    expect((service as any).api_audience).toBe(
-      MockConfigService.get('', '').api_audience,
-    );
+    expect((service as any).auth0_domain).toBe(MockConfigService.get('', '').auth0_domain);
+    expect((service as any).client_secret).toBe(MockConfigService.get('', '').client_secret);
+    expect((service as any).client_id).toBe(MockConfigService.get('', '').client_id);
+    expect((service as any).api_audience).toBe(MockConfigService.get('', '').api_audience);
   });
   it('should call client_credentials Endpoint', async () => {
     const result: any = {
@@ -59,9 +48,7 @@ describe('AuthClientService', () => {
       headers: {},
       config: {},
     };
-    const spy = jest
-      .spyOn(httpService, 'post')
-      .mockImplementationOnce(() => of(result));
+    const spy = jest.spyOn(httpService, 'post').mockImplementationOnce(() => of(result));
     const token = await service.getToken();
     expect(token).toBe(result.data.access_token);
     expect(spy).toHaveBeenCalled();
@@ -82,9 +69,7 @@ describe('AuthClientService', () => {
       headers: {},
       config: {},
     };
-    const spy = jest
-      .spyOn(httpService, 'post')
-      .mockImplementationOnce(() => of(result));
+    const spy = jest.spyOn(httpService, 'post').mockImplementationOnce(() => of(result));
     const testAudience = 'testAPIAudience';
     const token = await service.getToken(testAudience);
     expect(token).toBeTruthy();

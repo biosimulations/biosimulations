@@ -24,10 +24,7 @@ import {
 } from '@biosimulations/datamodel/common';
 import { addValidationForNullableAttributes } from '@biosimulations/datamodel-database';
 import { ExternalReferencesSchema, PersonSchema, UrlSchema } from './common';
-import {
-  BiosimulatorsMeta,
-  BiosimulatorsMetaSchema,
-} from './biosimulatorsMeta';
+import { BiosimulatorsMeta, BiosimulatorsMetaSchema } from './biosimulatorsMeta';
 
 @Schema({
   collection: 'Simulators',
@@ -89,11 +86,9 @@ export class Simulator extends Document implements ISimulator {
 
   @Prop({
     type: [String],
-    enum: Object.entries(SoftwareInterfaceType).map(
-      (keyVal: [string, string]): string => {
-        return keyVal[1];
-      },
-    ),
+    enum: Object.entries(SoftwareInterfaceType).map((keyVal: [string, string]): string => {
+      return keyVal[1];
+    }),
     required: true,
     default: undefined,
   })
@@ -101,11 +96,9 @@ export class Simulator extends Document implements ISimulator {
 
   @Prop({
     type: [String],
-    enum: Object.entries(OperatingSystemType).map(
-      (keyVal: [string, string]): string => {
-        return keyVal[1];
-      },
-    ),
+    enum: Object.entries(OperatingSystemType).map((keyVal: [string, string]): string => {
+      return keyVal[1];
+    }),
     required: true,
     default: undefined,
   })

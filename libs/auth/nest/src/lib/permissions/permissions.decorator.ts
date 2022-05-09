@@ -1,9 +1,5 @@
 import { applyDecorators, SetMetadata, UseGuards } from '@nestjs/common';
-import {
-  ApiOAuth2,
-  ApiUnauthorizedResponse,
-  ApiForbiddenResponse,
-} from '@nestjs/swagger';
+import { ApiOAuth2, ApiUnauthorizedResponse, ApiForbiddenResponse } from '@nestjs/swagger';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 import { JwtGuard, PermissionsGuard } from '../..';
 

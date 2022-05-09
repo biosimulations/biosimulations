@@ -19,19 +19,12 @@ export class BreadCrumbsButtonComponent {
   public route?: string | string[];
 
   @Input()
-  public onClick?: (
-    route: string,
-    router: Router,
-    clipboardService: ClipboardService,
-  ) => void;
+  public onClick?: (route: string, router: Router, clipboardService: ClipboardService) => void;
 
   @Input()
   public hover?: string;
 
-  public constructor(
-    private router: Router,
-    private clipboardService: ClipboardService,
-  ) {}
+  public constructor(private router: Router, private clipboardService: ClipboardService) {}
 
   public clickHandler(): void {
     if (!this.onClick) {

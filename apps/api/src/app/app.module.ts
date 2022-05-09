@@ -9,10 +9,7 @@ import { SimulationRunModule } from '../simulation-run/simulation-run.module';
 import { SharedExceptionsFiltersModule } from '@biosimulations/shared/exceptions/filters';
 import { ResultsModule } from '../results/results.module';
 import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
-import {
-  AuthTestModule,
-  BiosimulationsAuthModule,
-} from '@biosimulations/auth/nest';
+import { AuthTestModule, BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 import { ImagesModule } from '../images/images.module';
 import { LogsModule } from '../logs/logs.module';
 import { SharedStorageModule } from '@biosimulations/shared/storage';

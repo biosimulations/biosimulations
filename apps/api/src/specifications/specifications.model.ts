@@ -114,8 +114,7 @@ export class SedMarkerStyle implements ISedMarkerStyle {
   public fillColor?: SedColor;
 }
 
-export const SedMarkerStyleSchema =
-  SchemaFactory.createForClass(SedMarkerStyle);
+export const SedMarkerStyleSchema = SchemaFactory.createForClass(SedMarkerStyle);
 
 @Schema({
   _id: false,
@@ -300,9 +299,7 @@ export class SedModelAttributeChange implements ISedModelAttributeChange {
   public newValue!: string;
 }
 
-export const SedModelAttributeChangeSchema = SchemaFactory.createForClass(
-  SedModelAttributeChange,
-);
+export const SedModelAttributeChangeSchema = SchemaFactory.createForClass(SedModelAttributeChange);
 
 @Schema({
   _id: false,
@@ -325,18 +322,14 @@ export class SedAddElementModelChange implements ISedAddElementModelChange {
   public newElements!: string[];
 }
 
-export const SedAddElementModelChangeSchema = SchemaFactory.createForClass(
-  SedAddElementModelChange,
-);
+export const SedAddElementModelChangeSchema = SchemaFactory.createForClass(SedAddElementModelChange);
 
 @Schema({
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
 })
-export class SedReplaceElementModelChange
-  implements ISedReplaceElementModelChange
-{
+export class SedReplaceElementModelChange implements ISedReplaceElementModelChange {
   public _type!: 'SedReplaceElementModelChange';
 
   @Prop({ type: String, required: false, default: undefined })
@@ -352,18 +345,14 @@ export class SedReplaceElementModelChange
   public newElements!: string[];
 }
 
-export const SedReplaceElementModelChangeSchema = SchemaFactory.createForClass(
-  SedReplaceElementModelChange,
-);
+export const SedReplaceElementModelChangeSchema = SchemaFactory.createForClass(SedReplaceElementModelChange);
 
 @Schema({
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
 })
-export class SedRemoveElementModelChange
-  implements ISedRemoveElementModelChange
-{
+export class SedRemoveElementModelChange implements ISedRemoveElementModelChange {
   public _type!: 'SedRemoveElementModelChange';
 
   @Prop({ type: String, required: false, default: undefined })
@@ -376,9 +365,7 @@ export class SedRemoveElementModelChange
   public target!: SedTarget;
 }
 
-export const SedRemoveElementModelChangeSchema = SchemaFactory.createForClass(
-  SedRemoveElementModelChange,
-);
+export const SedRemoveElementModelChangeSchema = SchemaFactory.createForClass(SedRemoveElementModelChange);
 
 @Schema({
   _id: false,
@@ -407,9 +394,7 @@ export class SedComputeModelChange implements ISedComputeModelChange {
   public math!: string;
 }
 
-export const SedComputeModelChangeSchema = SchemaFactory.createForClass(
-  SedComputeModelChange,
-);
+export const SedComputeModelChangeSchema = SchemaFactory.createForClass(SedComputeModelChange);
 
 export type SedModelChangeType =
   | SedModelAttributeChange
@@ -449,8 +434,7 @@ export class SedModelChange {
   public target!: SedTarget;
 }
 
-export const SedModelChangeSchema =
-  SchemaFactory.createForClass(SedModelChange);
+export const SedModelChangeSchema = SchemaFactory.createForClass(SedModelChange);
 
 @Schema({
   _id: false,
@@ -489,9 +473,7 @@ export const SedModelSchema = SchemaFactory.createForClass(SedModel);
   storeSubdocValidationError: false,
   strict: 'throw',
 })
-export class SedAlgorithmParameterChange
-  implements ISedAlgorithmParameterChange
-{
+export class SedAlgorithmParameterChange implements ISedAlgorithmParameterChange {
   @Prop({
     type: String,
     enum: ['SedAlgorithmParameterChange'],
@@ -507,9 +489,7 @@ export class SedAlgorithmParameterChange
   public newValue!: string;
 }
 
-export const SedAlgorithmParameterChangeSchema = SchemaFactory.createForClass(
-  SedAlgorithmParameterChange,
-);
+export const SedAlgorithmParameterChangeSchema = SchemaFactory.createForClass(SedAlgorithmParameterChange);
 
 @Schema({
   _id: false,
@@ -543,9 +523,7 @@ export const SedAlgorithmSchema = SchemaFactory.createForClass(SedAlgorithm);
   storeSubdocValidationError: false,
   strict: 'throw',
 })
-export class SedUniformTimeCourseSimulation
-  implements ISedUniformTimeCourseSimulation
-{
+export class SedUniformTimeCourseSimulation implements ISedUniformTimeCourseSimulation {
   public _type!: 'SedUniformTimeCourseSimulation';
 
   @Prop({ type: String, required: true, default: undefined })
@@ -570,8 +548,7 @@ export class SedUniformTimeCourseSimulation
   public algorithm!: SedAlgorithm;
 }
 
-export const SedUniformTimeCourseSimulationSchema =
-  SchemaFactory.createForClass(SedUniformTimeCourseSimulation);
+export const SedUniformTimeCourseSimulationSchema = SchemaFactory.createForClass(SedUniformTimeCourseSimulation);
 
 @Schema({
   _id: false,
@@ -591,9 +568,7 @@ export class SedSteadyStateSimulation implements ISedSteadyStateSimulation {
   public algorithm!: SedAlgorithm;
 }
 
-export const SedSteadyStateSimulationSchema = SchemaFactory.createForClass(
-  SedSteadyStateSimulation,
-);
+export const SedSteadyStateSimulationSchema = SchemaFactory.createForClass(SedSteadyStateSimulation);
 
 @Schema({
   _id: false,
@@ -616,13 +591,9 @@ export class SedOneStepSimulation implements ISedOneStepSimulation {
   public algorithm!: SedAlgorithm;
 }
 
-export const SedOneStepSimulationSchema =
-  SchemaFactory.createForClass(SedOneStepSimulation);
+export const SedOneStepSimulationSchema = SchemaFactory.createForClass(SedOneStepSimulation);
 
-export type SedSimulationType =
-  | SedUniformTimeCourseSimulation
-  | SedSteadyStateSimulation
-  | SedOneStepSimulation;
+export type SedSimulationType = SedUniformTimeCourseSimulation | SedSteadyStateSimulation | SedOneStepSimulation;
 
 @Schema({
   _id: false,
@@ -633,11 +604,7 @@ export type SedSimulationType =
 export class SedSimulation {
   @Prop({
     type: String,
-    enum: [
-      SedOneStepSimulation.name,
-      SedSteadyStateSimulation.name,
-      SedUniformTimeCourseSimulation.name,
-    ],
+    enum: [SedOneStepSimulation.name, SedSteadyStateSimulation.name, SedUniformTimeCourseSimulation.name],
     required: true,
     default: undefined,
   })
@@ -709,8 +676,7 @@ export class SedFunctionalRange implements ISedFunctionalRange {
   public math!: string;
 }
 
-export const SedFunctionalRangeSchema =
-  SchemaFactory.createForClass(SedFunctionalRange);
+export const SedFunctionalRangeSchema = SchemaFactory.createForClass(SedFunctionalRange);
 
 @Schema({
   _id: false,
@@ -744,8 +710,7 @@ export class SedUniformRange implements ISedUniformRange {
   public type!: SedUniformRangeType;
 }
 
-export const SedUniformRangeSchema =
-  SchemaFactory.createForClass(SedUniformRange);
+export const SedUniformRangeSchema = SchemaFactory.createForClass(SedUniformRange);
 
 @Schema({
   _id: false,
@@ -765,13 +730,9 @@ export class SedVectorRange implements ISedVectorRange {
   public values!: number[];
 }
 
-export const SedVectorRangeSchema =
-  SchemaFactory.createForClass(SedVectorRange);
+export const SedVectorRangeSchema = SchemaFactory.createForClass(SedVectorRange);
 
-export type SedRangeTypes =
-  | SedFunctionalRange
-  | SedUniformRange
-  | SedVectorRange;
+export type SedRangeTypes = SedFunctionalRange | SedUniformRange | SedVectorRange;
 
 @Schema({
   _id: false,
@@ -802,9 +763,7 @@ export const SedRangeSchema = SchemaFactory.createForClass(SedRange);
   storeSubdocValidationError: false,
   strict: 'throw',
 })
-export class SedSetValueComputeModelChange
-  implements ISedSetValueComputeModelChange
-{
+export class SedSetValueComputeModelChange implements ISedSetValueComputeModelChange {
   @Prop({
     type: String,
     enum: ['SedSetValueComputeModelChange'],
@@ -841,9 +800,7 @@ export class SedSetValueComputeModelChange
   public math!: string;
 }
 
-export const SedSetValueComputeModelChangeSchema = SchemaFactory.createForClass(
-  SedSetValueComputeModelChange,
-);
+export const SedSetValueComputeModelChangeSchema = SchemaFactory.createForClass(SedSetValueComputeModelChange);
 
 @Schema({
   _id: false,
@@ -902,8 +859,7 @@ export class SedRepeatedTask implements ISedRepeatedTask {
   public subTasks!: SedSubTask[];
 }
 
-export const SedRepeatedTaskSchema =
-  SchemaFactory.createForClass(SedRepeatedTask);
+export const SedRepeatedTaskSchema = SchemaFactory.createForClass(SedRepeatedTask);
 
 export type SedAbstractTaskTypes = SedTask | SedRepeatedTask;
 
@@ -929,8 +885,7 @@ export class SedAbstractTask {
   public name?: string;
 }
 
-export const SedAbstractTaskSchema =
-  SchemaFactory.createForClass(SedAbstractTask);
+export const SedAbstractTaskSchema = SchemaFactory.createForClass(SedAbstractTask);
 
 @Schema({
   _id: false,
@@ -962,8 +917,7 @@ export class SedDataGenerator implements ISedDataGenerator {
   public math!: string;
 }
 
-export const SedDataGeneratorSchema =
-  SchemaFactory.createForClass(SedDataGenerator);
+export const SedDataGeneratorSchema = SchemaFactory.createForClass(SedDataGenerator);
 
 @Schema({
   _id: false,
@@ -1193,10 +1147,7 @@ export const SedOutputSchema = SchemaFactory.createForClass(SedOutput);
   strict: true,
   id: false,
 })
-export class SpecificationsModel
-  extends Document
-  implements Omit<ISimulationRunSedDocument, 'created' | 'updated'>
-{
+export class SpecificationsModel extends Document implements Omit<ISimulationRunSedDocument, 'created' | 'updated'> {
   @Prop({
     required: true,
     default: undefined,
@@ -1276,8 +1227,7 @@ export class SpecificationsModel
   public updated!: Date;
 }
 
-export const SpecificationsModelSchema =
-  SchemaFactory.createForClass(SpecificationsModel);
+export const SpecificationsModelSchema = SchemaFactory.createForClass(SpecificationsModel);
 
 SpecificationsModelSchema.set('timestamps', {
   createdAt: 'created',
@@ -1285,89 +1235,44 @@ SpecificationsModelSchema.set('timestamps', {
 });
 
 SedSimulationSchema.discriminators = {};
-SedSimulationSchema.discriminators[SedOneStepSimulation.name] =
-  SedOneStepSimulationSchema;
-SedSimulationSchema.discriminators[SedSteadyStateSimulation.name] =
-  SedSteadyStateSimulationSchema;
-SedSimulationSchema.discriminators[SedUniformTimeCourseSimulation.name] =
-  SedUniformTimeCourseSimulationSchema;
+SedSimulationSchema.discriminators[SedOneStepSimulation.name] = SedOneStepSimulationSchema;
+SedSimulationSchema.discriminators[SedSteadyStateSimulation.name] = SedSteadyStateSimulationSchema;
+SedSimulationSchema.discriminators[SedUniformTimeCourseSimulation.name] = SedUniformTimeCourseSimulationSchema;
 
-const sedSimulationsArraySchema = SpecificationsModelSchema.path(
-  'simulations',
-) as MongooseSchema.Types.DocumentArray;
-sedSimulationsArraySchema.discriminator(
-  SedOneStepSimulation.name,
-  SedOneStepSimulationSchema,
-);
-sedSimulationsArraySchema.discriminator(
-  SedSteadyStateSimulation.name,
-  SedSteadyStateSimulationSchema,
-);
-sedSimulationsArraySchema.discriminator(
-  SedUniformTimeCourseSimulation.name,
-  SedUniformTimeCourseSimulationSchema,
-);
+const sedSimulationsArraySchema = SpecificationsModelSchema.path('simulations') as MongooseSchema.Types.DocumentArray;
+sedSimulationsArraySchema.discriminator(SedOneStepSimulation.name, SedOneStepSimulationSchema);
+sedSimulationsArraySchema.discriminator(SedSteadyStateSimulation.name, SedSteadyStateSimulationSchema);
+sedSimulationsArraySchema.discriminator(SedUniformTimeCourseSimulation.name, SedUniformTimeCourseSimulationSchema);
 
 SedModelChangeSchema.discriminators = {};
-SedModelChangeSchema.discriminators[SedModelAttributeChange.name] =
-  SedModelAttributeChangeSchema;
-SedModelChangeSchema.discriminators[SedAddElementModelChange.name] =
-  SedAddElementModelChangeSchema;
-SedModelChangeSchema.discriminators[SedReplaceElementModelChange.name] =
-  SedReplaceElementModelChangeSchema;
-SedModelChangeSchema.discriminators[SedRemoveElementModelChange.name] =
-  SedRemoveElementModelChangeSchema;
-SedModelChangeSchema.discriminators[SedComputeModelChange.name] =
-  SedComputeModelChangeSchema;
+SedModelChangeSchema.discriminators[SedModelAttributeChange.name] = SedModelAttributeChangeSchema;
+SedModelChangeSchema.discriminators[SedAddElementModelChange.name] = SedAddElementModelChangeSchema;
+SedModelChangeSchema.discriminators[SedReplaceElementModelChange.name] = SedReplaceElementModelChangeSchema;
+SedModelChangeSchema.discriminators[SedRemoveElementModelChange.name] = SedRemoveElementModelChangeSchema;
+SedModelChangeSchema.discriminators[SedComputeModelChange.name] = SedComputeModelChangeSchema;
 
-const sedModelChangeArraySchema = SedModelSchema.path(
-  'changes',
-) as MongooseSchema.Types.DocumentArray;
-sedModelChangeArraySchema.discriminator(
-  SedModelAttributeChange.name,
-  SedModelAttributeChangeSchema,
-);
-sedModelChangeArraySchema.discriminator(
-  SedAddElementModelChange.name,
-  SedAddElementModelChangeSchema,
-);
-sedModelChangeArraySchema.discriminator(
-  SedReplaceElementModelChange.name,
-  SedReplaceElementModelChangeSchema,
-);
-sedModelChangeArraySchema.discriminator(
-  SedRemoveElementModelChange.name,
-  SedRemoveElementModelChangeSchema,
-);
-sedModelChangeArraySchema.discriminator(
-  SedComputeModelChange.name,
-  SedComputeModelChangeSchema,
-);
+const sedModelChangeArraySchema = SedModelSchema.path('changes') as MongooseSchema.Types.DocumentArray;
+sedModelChangeArraySchema.discriminator(SedModelAttributeChange.name, SedModelAttributeChangeSchema);
+sedModelChangeArraySchema.discriminator(SedAddElementModelChange.name, SedAddElementModelChangeSchema);
+sedModelChangeArraySchema.discriminator(SedReplaceElementModelChange.name, SedReplaceElementModelChangeSchema);
+sedModelChangeArraySchema.discriminator(SedRemoveElementModelChange.name, SedRemoveElementModelChangeSchema);
+sedModelChangeArraySchema.discriminator(SedComputeModelChange.name, SedComputeModelChangeSchema);
 
 SedRangeSchema.discriminators = {};
-SedRangeSchema.discriminators[SedFunctionalRange.name] =
-  SedFunctionalRangeSchema;
+SedRangeSchema.discriminators[SedFunctionalRange.name] = SedFunctionalRangeSchema;
 SedRangeSchema.discriminators[SedUniformRange.name] = SedUniformRangeSchema;
 SedRangeSchema.discriminators[SedVectorRange.name] = SedVectorRangeSchema;
 
-const sedRangeArraySchema = SedRepeatedTaskSchema.path(
-  'ranges',
-) as MongooseSchema.Types.DocumentArray;
-sedRangeArraySchema.discriminator(
-  SedFunctionalRange.name,
-  SedFunctionalRangeSchema,
-);
+const sedRangeArraySchema = SedRepeatedTaskSchema.path('ranges') as MongooseSchema.Types.DocumentArray;
+sedRangeArraySchema.discriminator(SedFunctionalRange.name, SedFunctionalRangeSchema);
 sedRangeArraySchema.discriminator(SedUniformRange.name, SedUniformRangeSchema);
 sedRangeArraySchema.discriminator(SedVectorRange.name, SedVectorRangeSchema);
 
 SedAbstractTaskSchema.discriminators = {};
 SedAbstractTaskSchema.discriminators[SedTask.name] = SedTaskSchema;
-SedAbstractTaskSchema.discriminators[SedRepeatedTask.name] =
-  SedRepeatedTaskSchema;
+SedAbstractTaskSchema.discriminators[SedRepeatedTask.name] = SedRepeatedTaskSchema;
 
-const sedTasksArraySchema = SpecificationsModelSchema.path(
-  'tasks',
-) as MongooseSchema.Types.DocumentArray;
+const sedTasksArraySchema = SpecificationsModelSchema.path('tasks') as MongooseSchema.Types.DocumentArray;
 sedTasksArraySchema.discriminator(SedTask.name, SedTaskSchema);
 sedTasksArraySchema.discriminator(SedRepeatedTask.name, SedRepeatedTaskSchema);
 
@@ -1376,9 +1281,7 @@ SedOutputSchema.discriminators[SedReport.name] = SedReportSchema;
 SedOutputSchema.discriminators[SedPlot2D.name] = SedPlot2DSchema;
 SedOutputSchema.discriminators[SedPlot3D.name] = SedPlot3DSchema;
 
-const sedOutputsArraySchema = SpecificationsModelSchema.path(
-  'outputs',
-) as MongooseSchema.Types.DocumentArray;
+const sedOutputsArraySchema = SpecificationsModelSchema.path('outputs') as MongooseSchema.Types.DocumentArray;
 sedOutputsArraySchema.discriminator(SedReport.name, SedReportSchema);
 sedOutputsArraySchema.discriminator(SedPlot2D.name, SedPlot2DSchema);
 sedOutputsArraySchema.discriminator(SedPlot3D.name, SedPlot3DSchema);

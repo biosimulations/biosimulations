@@ -14,11 +14,8 @@ export class FilePaths {
   private bucket: string;
 
   public constructor(private configService: ConfigService) {
-    const storageEndpoint =
-      this.configService.get('storage.endpoint') ||
-      'https://storage.googleapis.com';
-    const bucket =
-      this.configService.get('storage.bucket') || 'files.biosimulations.dev';
+    const storageEndpoint = this.configService.get('storage.endpoint') || 'https://storage.googleapis.com';
+    const bucket = this.configService.get('storage.bucket') || 'files.biosimulations.dev';
     this.storageEndpoint = storageEndpoint;
     this.bucket = bucket;
     this.storageWebEndpoint = this.configService.get('storage.webEndpoint');
@@ -31,24 +28,13 @@ export class FilePaths {
    * @param fileLocation The path of the file within COMBINE/OMEX archive relative to its root. Should not include './'
    * @returns A URL to download the file from within the COMBINE/OMEX archive
    */
-  public getSimulationRunFileContentEndpoint(
-    runId: string,
-    fileLocation: string,
-    thumbnailType?: Thumbnail,
-  ): string {
-    const storageEndpoint =
-      this.storageWebEndpoint || `${this.storageEndpoint}/${this.bucket}`;
+  public getSimulationRunFileContentEndpoint(runId: string, fileLocation: string, thumbnailType?: Thumbnail): string {
+    const storageEndpoint = this.storageWebEndpoint || `${this.storageEndpoint}/${this.bucket}`;
 
     if (fileLocation == '.') {
-      return `${storageEndpoint}/${this.getSimulationRunCombineArchivePath(
-        runId,
-      )}`;
+      return `${storageEndpoint}/${this.getSimulationRunCombineArchivePath(runId)}`;
     } else {
-      return `${storageEndpoint}/${this.getSimulationRunContentFilePath(
-        runId,
-        fileLocation,
-        thumbnailType,
-      )}`;
+      return `${storageEndpoint}/${this.getSimulationRunContentFilePath(runId, fileLocation, thumbnailType)}`;
     }
   }
   /**
@@ -57,31 +43,18 @@ export class FilePaths {
    * @param outputFile The name of the output file
    * @returns The s3 url for the output file
    */
-  public getSimulationRunOutputFileEndpoint(
-    runId: string,
-    outputFile: OutputFileName,
-  ): string {
-    const storageEndpoint =
-      this.storageWebEndpoint || `${this.storageEndpoint}/${this.bucket}`;
+  public getSimulationRunOutputFileEndpoint(runId: string, outputFile: OutputFileName): string {
+    const storageEndpoint = this.storageWebEndpoint || `${this.storageEndpoint}/${this.bucket}`;
     const path = this.getSimulationRunOutputFilePath(runId, outputFile);
     return `${storageEndpoint}/${path}`;
   }
 
-  public getThumbnailEndpoint(
-    fileUrl: string,
-    thumbnailType: Thumbnail,
-  ): string {
+  public getThumbnailEndpoint(fileUrl: string, thumbnailType: Thumbnail): string {
     const storageEndpoint = this.storageWebEndpoint || this.storageEndpoint;
-    const runIdFileTypeLocation = fileUrl
-      .substring(storageEndpoint.length + 1)
-      .split('/');
+    const runIdFileTypeLocation = fileUrl.substring(storageEndpoint.length + 1).split('/');
     const runId = runIdFileTypeLocation[1];
     const fileLocation = runIdFileTypeLocation.slice(3).join('/');
-    return this.getSimulationRunFileContentEndpoint(
-      runId,
-      fileLocation,
-      thumbnailType,
-    );
+    return this.getSimulationRunFileContentEndpoint(runId, fileLocation, thumbnailType);
   }
 
   /**
@@ -128,15 +101,8 @@ export class FilePaths {
     }
   }
 
-  public getSimulationRunOutputFilePath(
-    runId: string,
-    outputFile: OutputFileName,
-    absolute = true,
-  ): string {
-    if (
-      outputFile === OutputFileName.OUTPUT_ARCHIVE ||
-      outputFile === OutputFileName.RAW_LOG
-    ) {
+  public getSimulationRunOutputFilePath(runId: string, outputFile: OutputFileName, absolute = true): string {
+    if (outputFile === OutputFileName.OUTPUT_ARCHIVE || outputFile === OutputFileName.RAW_LOG) {
       const outputPath = this.getSimulationRunPath(runId, outputFile);
       if (absolute) {
         return outputPath;
@@ -154,10 +120,7 @@ export class FilePaths {
    * @param runId Id of the simulation run
    * @param absolute Whether to get the absolute path, or the path relative to the S3 path for the simulation run
    */
-  public getSimulationRunOutputArchivePath(
-    runId: string,
-    absolute = true,
-  ): string {
+  public getSimulationRunOutputArchivePath(runId: string, absolute = true): string {
     const relativePath = OutputFileName.OUTPUT_ARCHIVE;
     if (absolute) {
       return this.getSimulationRunPath(runId, relativePath);

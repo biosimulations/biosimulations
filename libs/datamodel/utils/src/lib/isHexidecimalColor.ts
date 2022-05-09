@@ -19,9 +19,7 @@ export function IsHexidecimalColor(validationOptions?: ValidationOptions) {
 }
 
 @ValidatorConstraint({ name: 'isHexidecimalColor' })
-export class IsHexidecimalColorConstraint
-  implements ValidatorConstraintInterface
-{
+export class IsHexidecimalColorConstraint implements ValidatorConstraintInterface {
   public validate(value: any, args?: ValidationArguments): boolean {
     if (!value || typeof value !== 'string') {
       return false;

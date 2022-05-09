@@ -14,15 +14,8 @@ export class AppQueueManagerProvider {
       port: configService.get('queue.port'),
     };
     const logger = new Logger(AppQueueManagerProvider.name);
-    logger.log(
-      `Connecting to ${configService.get('queue.host')}:${configService.get(
-        'queue.port',
-      )}`,
-    );
-    const resolveCombineArchiveScheduler = new QueueScheduler(
-      JobQueue.resolveCombineArchive,
-      { connection },
-    );
+    logger.log(`Connecting to ${configService.get('queue.host')}:${configService.get('queue.port')}`);
+    const resolveCombineArchiveScheduler = new QueueScheduler(JobQueue.resolveCombineArchive, { connection });
     const scheduler = new QueueScheduler(JobQueue.dispatch, {
       connection,
     });
@@ -56,10 +49,7 @@ export class AppQueueManagerProvider {
     const outputsScheduler = new QueueScheduler(JobQueue.output, {
       connection,
     });
-    const thumbnailProcessScheduler = new QueueScheduler(
-      JobQueue.thumbnailProcess,
-      { connection },
-    );
+    const thumbnailProcessScheduler = new QueueScheduler(JobQueue.thumbnailProcess, { connection });
     const thumbnailPostScheduler = new QueueScheduler(JobQueue.thumbnailPost, {
       connection,
     });

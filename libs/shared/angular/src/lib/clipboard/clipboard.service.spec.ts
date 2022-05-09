@@ -13,10 +13,7 @@ describe('ClipboardService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        ClipboardService,
-        { provide: MatSnackBar, useValue: mockSnackBar },
-      ],
+      providers: [ClipboardService, { provide: MatSnackBar, useValue: mockSnackBar }],
     });
     service = TestBed.inject(ClipboardService);
   });

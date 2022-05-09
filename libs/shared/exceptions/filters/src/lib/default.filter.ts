@@ -1,12 +1,6 @@
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 import { FormatService } from '@biosimulations/shared/services';
-import {
-  ExceptionFilter,
-  Catch,
-  ArgumentsHost,
-  HttpStatus,
-  Logger,
-} from '@nestjs/common';
+import { ExceptionFilter, Catch, ArgumentsHost, HttpStatus, Logger } from '@nestjs/common';
 import { Request, Response } from 'express';
 
 @Catch()
@@ -21,11 +15,7 @@ export class DefaultFilter implements ExceptionFilter {
     let title = 'Internal Server Error';
     let detail = 'An unexpected error occurred';
 
-    if (
-      'status' in exception &&
-      Number.isInteger(exception.status) &&
-      'message' in exception
-    ) {
+    if ('status' in exception && Number.isInteger(exception.status) && 'message' in exception) {
       status = exception.status;
       title = exception.message;
       detail = exception.message;
@@ -34,10 +24,7 @@ export class DefaultFilter implements ExceptionFilter {
         detail = `The submitted ${FormatService.formatDigitalSize(
           exception.length,
           1024,
-        )} payload is too large. Payloads are limited to ${FormatService.formatDigitalSize(
-          exception.limit,
-          1024,
-        )}.`;
+        )} payload is too large. Payloads are limited to ${FormatService.formatDigitalSize(exception.limit, 1024)}.`;
       }
     }
     const statusString = status.toString();

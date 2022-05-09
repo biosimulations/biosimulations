@@ -2,12 +2,7 @@ import { Component, Input } from '@angular/core';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 import { ScrollService } from '@biosimulations/shared/angular';
 
-export type IconActionType =
-  | 'scrollToTop'
-  | 'routerLink'
-  | 'href'
-  | 'toggle'
-  | null;
+export type IconActionType = 'scrollToTop' | 'routerLink' | 'href' | 'toggle' | null;
 
 @Component({
   selector: 'biosimulations-text-page-content-section',
@@ -58,19 +53,13 @@ export class TextPageContentSectionComponent {
 
   iconRouterLink: any = null;
   iconHref: string | null = null;
-  iconClick: (() => void) | null = this.scrollService.scrollToTop.bind(
-    this.scrollService,
-    this.scrollToTopOffset,
-  );
+  iconClick: (() => void) | null = this.scrollService.scrollToTop.bind(this.scrollService, this.scrollToTopOffset);
 
   setIconAction(): void {
     if (this._iconActionType === 'scrollToTop') {
       this.iconRouterLink = null;
       this.iconHref = null;
-      this.iconClick = this.scrollService.scrollToTop.bind(
-        this.scrollService,
-        this.scrollToTopOffset,
-      );
+      this.iconClick = this.scrollService.scrollToTop.bind(this.scrollService, this.scrollToTopOffset);
     } else if (this._iconActionType === 'routerLink') {
       this.iconRouterLink = this._iconAction;
       this.iconHref = null;

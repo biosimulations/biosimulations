@@ -111,20 +111,17 @@ export const scopes: Scopes = {
     read: {
       audience: BIOSIMULATIONS_AUDIENCE,
       id: 'read:Specifications',
-      description:
-        'Get information about simulation experiments of simulation runs',
+      description: 'Get information about simulation experiments of simulation runs',
     },
     create: {
       audience: BIOSIMULATIONS_AUDIENCE,
       id: 'write:Specifications',
-      description:
-        'Write and modify simulation experiments for simulation runs',
+      description: 'Write and modify simulation experiments for simulation runs',
     },
     update: {
       audience: BIOSIMULATIONS_AUDIENCE,
       id: 'write:Specifications',
-      description:
-        'Write and modify simulation experiments for simulation runs',
+      description: 'Write and modify simulation experiments for simulation runs',
     },
     delete: {
       audience: BIOSIMULATIONS_AUDIENCE,

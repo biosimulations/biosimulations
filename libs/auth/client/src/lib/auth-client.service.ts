@@ -15,27 +15,20 @@ export class AuthClientService {
   private auth0_domain: string;
   private token?: string;
 
-  public constructor(
-    private http: HttpService,
-    private readonly configService: ConfigService,
-  ) {
+  public constructor(private http: HttpService, private readonly configService: ConfigService) {
     this.auth0_domain = this.authConfig.auth0_domain;
     this.client_id = this.authConfig.client_id;
     this.api_audience = this.authConfig.api_audience;
     this.client_secret = this.authConfig.client_secret;
   }
-  public async getToken(
-    audience = this.api_audience,
-  ): Promise<string | undefined> {
+  public async getToken(audience = this.api_audience): Promise<string | undefined> {
     // If we have a token cached and its not expired send it. Also check that it is for same audience
     if (this.token) {
       if (isTokenCurrent(this.token) && hasAudience(this.token, audience)) {
         return this.token;
       }
     }
-    this.logger.debug(
-      `Getting auth token for audience ${audience} for client ${this.client_id}`,
-    );
+    this.logger.debug(`Getting auth token for audience ${audience} for client ${this.client_id}`);
 
     const newTok = await this.getTokenHTTP(audience).toPromise();
     this.token = newTok;

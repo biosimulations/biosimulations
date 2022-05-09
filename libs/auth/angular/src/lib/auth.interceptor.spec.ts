@@ -1,8 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { AuthInterceptor } from './auth.interceptor';
 import { AuthService } from './auth.service';
 import { AuthEnvironment } from './auth.environment';
@@ -61,9 +58,7 @@ describe('AuthInterceptor', () => {
     const editedReq = httpTest.expectOne(authEnv.apiDomain + '/someRoute');
 
     expect(editedReq.request.headers.has('Authorization')).toEqual(true);
-    expect(editedReq.request.headers.get('Authorization')).toBe(
-      'Bearer SuperSecretToken',
-    );
+    expect(editedReq.request.headers.get('Authorization')).toBe('Bearer SuperSecretToken');
   });
 
   it('Should not add a token to a non protected domain', () => {

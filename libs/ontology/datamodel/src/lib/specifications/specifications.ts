@@ -1,9 +1,4 @@
-import {
-  ApiProperty,
-  ApiResponseProperty,
-  getSchemaPath,
-  ApiExtraModels,
-} from '@nestjs/swagger';
+import { ApiProperty, ApiResponseProperty, getSchemaPath, ApiExtraModels } from '@nestjs/swagger';
 import { SchemaObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 import {
   SimulationRunSedDocument as ISimulationRunSedDocument,
@@ -339,9 +334,7 @@ export class SedAddElementModelChange implements ISedAddElementModelChange {
   public newElements!: string[];
 }
 
-export class SedReplaceElementModelChange
-  implements ISedReplaceElementModelChange
-{
+export class SedReplaceElementModelChange implements ISedReplaceElementModelChange {
   @ApiProperty({ type: String, enum: ['SedReplaceElementModelChange'] })
   @Equals('SedReplaceElementModelChange')
   public _type!: 'SedReplaceElementModelChange';
@@ -368,9 +361,7 @@ export class SedReplaceElementModelChange
   public newElements!: string[];
 }
 
-export class SedRemoveElementModelChange
-  implements ISedRemoveElementModelChange
-{
+export class SedRemoveElementModelChange implements ISedRemoveElementModelChange {
   @ApiProperty({ type: String, enum: ['SedRemoveElementModelChange'] })
   @Equals('SedRemoveElementModelChange')
   public _type!: 'SedRemoveElementModelChange';
@@ -498,9 +489,7 @@ export class SedModel implements ISedModel {
   public changes!: SedModelChange[];
 }
 
-export class SedAlgorithmParameterChange
-  implements ISedAlgorithmParameterChange
-{
+export class SedAlgorithmParameterChange implements ISedAlgorithmParameterChange {
   @ApiProperty({ type: String, enum: ['SedAlgorithmParameterChange'] })
   @Equals('SedAlgorithmParameterChange')
   public _type!: 'SedAlgorithmParameterChange';
@@ -537,9 +526,7 @@ export class SedAlgorithm implements ISedAlgorithm {
   public changes!: SedAlgorithmParameterChange[];
 }
 
-export class SedUniformTimeCourseSimulation
-  implements ISedUniformTimeCourseSimulation
-{
+export class SedUniformTimeCourseSimulation implements ISedUniformTimeCourseSimulation {
   @ApiProperty({ type: String, enum: ['SedUniformTimeCourseSimulation'] })
   @Equals('SedUniformTimeCourseSimulation')
   public _type!: 'SedUniformTimeCourseSimulation';
@@ -623,10 +610,7 @@ export class SedOneStepSimulation implements ISedOneStepSimulation {
   public algorithm!: SedAlgorithm;
 }
 
-export type SedSimulation =
-  | SedUniformTimeCourseSimulation
-  | SedSteadyStateSimulation
-  | SedOneStepSimulation;
+export type SedSimulation = SedUniformTimeCourseSimulation | SedSteadyStateSimulation | SedOneStepSimulation;
 
 export const SedSimulationSchema: SchemaObject = {
   oneOf: [
@@ -762,9 +746,7 @@ export const SedRangeSchema: SchemaObject = {
   ],
 };
 
-export class SedSetValueComputeModelChange
-  implements ISedSetValueComputeModelChange
-{
+export class SedSetValueComputeModelChange implements ISedSetValueComputeModelChange {
   @ApiProperty({ type: String, enum: ['SedSetValueComputeModelChange'] })
   @Equals('SedSetValueComputeModelChange')
   public _type!: 'SedSetValueComputeModelChange';
@@ -898,10 +880,7 @@ export class SedRepeatedTask implements ISedRepeatedTask {
 export type SedAbstractTask = SedTask | SedRepeatedTask;
 
 export const SedAbstractTaskSchema: SchemaObject = {
-  oneOf: [
-    { $ref: getSchemaPath(SedTask) },
-    { $ref: getSchemaPath(SedRepeatedTask) },
-  ],
+  oneOf: [{ $ref: getSchemaPath(SedTask) }, { $ref: getSchemaPath(SedRepeatedTask) }],
 };
 
 export class SedDataGenerator implements ISedDataGenerator {
@@ -1116,11 +1095,7 @@ export class SedPlot3D implements ISedPlot3D {
 export type SedOutput = SedReport | SedPlot2D | SedPlot3D;
 
 export const SedOutputSchema: SchemaObject = {
-  oneOf: [
-    { $ref: getSchemaPath(SedReport) },
-    { $ref: getSchemaPath(SedPlot2D) },
-    { $ref: getSchemaPath(SedPlot3D) },
-  ],
+  oneOf: [{ $ref: getSchemaPath(SedReport) }, { $ref: getSchemaPath(SedPlot2D) }, { $ref: getSchemaPath(SedPlot3D) }],
 };
 
 @ApiExtraModels(SedUniformTimeCourseSimulation)
@@ -1131,9 +1106,7 @@ export const SedOutputSchema: SchemaObject = {
 @ApiExtraModels(SedPlot3D)
 @ApiExtraModels(SedTask)
 @ApiExtraModels(SedRepeatedTask)
-export class SimulationRunSedDocumentInput
-  implements ISimulationRunSedDocumentInput
-{
+export class SimulationRunSedDocumentInput implements ISimulationRunSedDocumentInput {
   @ApiProperty({ type: String })
   @IsNotEmpty()
   @IsString()
@@ -1218,10 +1191,7 @@ export class SimulationRunSedDocumentInput
   @ApiProperty({
     type: 'array',
     items: {
-      oneOf: [
-        { $ref: getSchemaPath(SedTask) },
-        { $ref: getSchemaPath(SedRepeatedTask) },
-      ],
+      oneOf: [{ $ref: getSchemaPath(SedTask) }, { $ref: getSchemaPath(SedRepeatedTask) }],
     },
   })
   @Type(() => Object, {
@@ -1238,10 +1208,7 @@ export class SimulationRunSedDocumentInput
   public tasks!: SedAbstractTask[];
 }
 
-export class SimulationRunSedDocument
-  extends SimulationRunSedDocumentInput
-  implements ISimulationRunSedDocument
-{
+export class SimulationRunSedDocument extends SimulationRunSedDocumentInput implements ISimulationRunSedDocument {
   @ApiProperty({ type: String })
   @IsNotEmpty()
   @IsString()
@@ -1262,9 +1229,7 @@ export class SimulationRunSedDocument
   public updated!: string;
 }
 
-export class SimulationRunSedDocumentInputsContainer
-  implements ISimulationRunSedDocumentInputsContainer
-{
+export class SimulationRunSedDocumentInputsContainer implements ISimulationRunSedDocumentInputsContainer {
   @ApiProperty({
     description: 'SED-ML documents',
     type: [SimulationRunSedDocumentInput],

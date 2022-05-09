@@ -55,13 +55,9 @@ describe('AgreementComponent', () => {
     testHostFixture.whenStable().then(() => {
       expect(
         testHostFixture.nativeElement
-          .querySelector(
-            'biosimulations-login-agreement > div > mat-card > markdown > h1',
-          )
+          .querySelector('biosimulations-login-agreement > div > mat-card > markdown > h1')
           .textContent.toLowerCase(),
-      ).toEqual(
-        'code of conduct for developers of the biosimulations and biosimulators platforms'.toLowerCase(),
-      );
+      ).toEqual('code of conduct for developers of the biosimulations and biosimulators platforms'.toLowerCase());
     });
   }));
 
@@ -70,8 +66,7 @@ describe('AgreementComponent', () => {
     selector: `host-component`,
     template: `
       <biosimulations-login-agreement
-        agreementUrl="https://raw.githubusercontent.com/biosimulations/biosimulations/dev/docs/developers/conduct.md"
-      ></biosimulations-login-agreement>
+        agreementUrl="https://raw.githubusercontent.com/biosimulations/biosimulations/dev/docs/developers/conduct.md"></biosimulations-login-agreement>
     `,
   })
   class TestHostComponent {}

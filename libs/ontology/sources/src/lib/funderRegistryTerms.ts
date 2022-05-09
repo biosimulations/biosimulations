@@ -1,9 +1,4 @@
-import {
-  Ontologies,
-  FunderRegistryTerm,
-  OntologyInfo,
-  OntologyTermMap,
-} from '@biosimulations/datamodel/common';
+import { Ontologies, FunderRegistryTerm, OntologyInfo, OntologyTermMap } from '@biosimulations/datamodel/common';
 import funderRegistryJson from './funderRegistry.json';
 
 function getTerms(input: any): OntologyTermMap<FunderRegistryTerm> {

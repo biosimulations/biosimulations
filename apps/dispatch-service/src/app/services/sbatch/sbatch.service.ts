@@ -3,11 +3,7 @@ import { Endpoints } from '@biosimulations/config/common';
 import { FilePaths, OutputFileName } from '@biosimulations/shared/storage';
 import { DataPaths } from '@biosimulations/hsds/client';
 import { ConfigService } from '@nestjs/config';
-import {
-  EnvironmentVariable,
-  Purpose,
-  ConsoleFormatting,
-} from '@biosimulations/datamodel/common';
+import { EnvironmentVariable, Purpose, ConsoleFormatting } from '@biosimulations/datamodel/common';
 
 @Injectable()
 export class SbatchService {
@@ -15,10 +11,7 @@ export class SbatchService {
 
   private dataPaths: DataPaths;
   private logger = new Logger(SbatchService.name);
-  public constructor(
-    private configService: ConfigService,
-    private filePaths: FilePaths,
-  ) {
+  public constructor(private configService: ConfigService, private filePaths: FilePaths) {
     const env = this.configService.get('server.env');
     this.endpoints = new Endpoints(env);
     this.dataPaths = new DataPaths();
@@ -54,18 +47,13 @@ export class SbatchService {
     const modulePath = this.configService.get('hpc.module.path');
     const moduleInitScript = this.configService.get('hpc.module.initScript');
 
-    const slurmConstraints =
-      this.configService.get('hpc.slurm.constraints') || '';
+    const slurmConstraints = this.configService.get('hpc.slurm.constraints') || '';
     const slurmPartition = this.configService.get('hpc.slurm.partition');
     const slurmQos = this.configService.get('hpc.slurm.qos');
 
     const singularityModule = this.configService.get('hpc.singularity.module');
-    const singularityCacheDir = this.configService.get(
-      'hpc.singularity.cacheDir',
-    );
-    const singularityPullFolder = this.configService.get(
-      'hpc.singularity.pullFolder',
-    );
+    const singularityCacheDir = this.configService.get('hpc.singularity.cacheDir');
+    const singularityPullFolder = this.configService.get('hpc.singularity.pullFolder');
 
     const storageBucket = this.configService.get('storage.bucket');
     const storageEndpoint = this.configService.get('storage.endpoint');
@@ -87,9 +75,7 @@ export class SbatchService {
       maxTimeMin++;
       maxTimeSec = 0;
     }
-    const maxTimeFormatted = `${maxTimeMin}:${maxTimeSec
-      .toString()
-      .padStart(2, '0')}`;
+    const maxTimeFormatted = `${maxTimeMin}:${maxTimeSec.toString().padStart(2, '0')}`;
 
     const nc = ConsoleFormatting.noColor;
     const cyan = ConsoleFormatting.cyan;
@@ -113,10 +99,7 @@ export class SbatchService {
             key: envVarPurpose.key,
             value: envVarPurpose.value,
           });
-        } else if (
-          envVarPurpose.purpose == 'ACADEMIC' &&
-          purpose === Purpose.academic
-        ) {
+        } else if (envVarPurpose.purpose == 'ACADEMIC' && purpose === Purpose.academic) {
           allEnvVars.push({
             key: envVarPurpose.key,
             value: envVarPurpose.value,
@@ -134,52 +117,33 @@ export class SbatchService {
           allEnvVars
             .map((envVar: EnvironmentVariable): string => {
               const key = envVar.key.replace(/([^a-zA-Z0-9,._+@%/-])/, '\\$&');
-              const val = envVar.value.replace(
-                /([^a-zA-Z0-9,._+@%/-])/,
-                '\\$&',
-              );
+              const val = envVar.value.replace(/([^a-zA-Z0-9,._+@%/-])/, '\\$&');
               return `${key}=${val}`;
             })
             .join(',') +
           '"'
         : '';
     // Need to get external endpoint so that HPC can download the archive
-    const runCombineArchiveUrl =
-      this.endpoints.getSimulationRunDownloadEndpoint(true, runId);
+    const runCombineArchiveUrl = this.endpoints.getSimulationRunDownloadEndpoint(true, runId);
     const simulationRunS3Path = this.filePaths.getSimulationRunPath(runId);
-    const simulationRunResultsHsdsPath =
-      this.dataPaths.getSimulationRunResultsPath(runId);
+    const simulationRunResultsHsdsPath = this.dataPaths.getSimulationRunResultsPath(runId);
 
-    const outputsS3Subpath = this.filePaths.getSimulationRunOutputsPath(
+    const outputsS3Subpath = this.filePaths.getSimulationRunOutputsPath(runId, false);
+
+    const outputRawLogSubPath = this.filePaths.getSimulationRunOutputFilePath(runId, OutputFileName.RAW_LOG, false);
+    const outputsReportsFileSubPath = this.filePaths.getSimulationRunOutputFilePath(
       runId,
+      OutputFileName.REPORTS,
       false,
     );
+    const outputsPlotsFileSubPath = this.filePaths.getSimulationRunOutputFilePath(runId, OutputFileName.PLOTS, false);
 
-    const outputRawLogSubPath = this.filePaths.getSimulationRunOutputFilePath(
+    const combineArchiveContentsDirname = this.filePaths.getSimulationRunContentFilePath(
       runId,
-      OutputFileName.RAW_LOG,
+      undefined,
+      undefined,
       false,
     );
-    const outputsReportsFileSubPath =
-      this.filePaths.getSimulationRunOutputFilePath(
-        runId,
-        OutputFileName.REPORTS,
-        false,
-      );
-    const outputsPlotsFileSubPath =
-      this.filePaths.getSimulationRunOutputFilePath(
-        runId,
-        OutputFileName.PLOTS,
-        false,
-      );
-
-    const combineArchiveContentsDirname =
-      this.filePaths.getSimulationRunContentFilePath(
-        runId,
-        undefined,
-        undefined,
-        false,
-      );
 
     const template = `#!/bin/bash
 #SBATCH --job-name=Simulation-run-${runId}
@@ -378,22 +342,15 @@ srun --job-name="Save-raw-log-to-S3-3" \
     const modulePath = this.configService.get('hpc.module.path');
     const moduleInitScript = this.configService.get('hpc.module.initScript');
 
-    const slurmConstraints =
-      this.configService.get('hpc.slurm.constraints') || '';
+    const slurmConstraints = this.configService.get('hpc.slurm.constraints') || '';
     const slurmPartition = this.configService.get('hpc.slurm.partition');
     const slurmQos = this.configService.get('hpc.slurm.qos');
 
     const singularityModule = this.configService.get('hpc.singularity.module');
-    const singularityCacheDir = this.configService.get(
-      'hpc.singularity.cacheDir',
-    );
-    const singularityPullFolder = this.configService.get(
-      'hpc.singularity.pullFolder',
-    );
+    const singularityCacheDir = this.configService.get('hpc.singularity.cacheDir');
+    const singularityPullFolder = this.configService.get('hpc.singularity.pullFolder');
 
-    const singularityImageName = dockerImageUrl
-      .split('docker://ghcr.io/biosimulators/')[1]
-      .replace(':', '_');
+    const singularityImageName = dockerImageUrl.split('docker://ghcr.io/biosimulators/')[1].replace(':', '_');
 
     const refreshImagesDir = this.configService.get('hpc.refreshImagesDir');
     const outputFilename = `${refreshImagesDir}/${simulator}/${simulatorVersion}.output`;
@@ -431,9 +388,7 @@ export SINGULARITY_PULLFOLDER=${singularityPullFolder}
 echo "Building image with Singularity '$(singularity --version)' on '$(hostname)' ... "
 
 # build image
-singularity -v pull --tmpdir /local ${
-      forceOverwrite ? '--force' : ''
-    } ${dockerImageUrl}`;
+singularity -v pull --tmpdir /local ${forceOverwrite ? '--force' : ''} ${dockerImageUrl}`;
     return template;
   }
 }

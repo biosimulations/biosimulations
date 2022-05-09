@@ -1,9 +1,4 @@
-import {
-  ApiProperty,
-  ApiResponseProperty,
-  ApiPropertyOptional,
-  OmitType,
-} from '@nestjs/swagger';
+import { ApiProperty, ApiResponseProperty, ApiPropertyOptional, OmitType } from '@nestjs/swagger';
 import {
   Project as IProject,
   ProjectInput as IProjectInput,
@@ -13,32 +8,22 @@ import {
   Organization as IOrganization,
 } from '@biosimulations/datamodel/common';
 import { SimulationRunSummary } from './simulationRun';
-import {
-  IsNotEmpty,
-  IsString,
-  Matches,
-  IsMongoId,
-  IsOptional,
-} from 'class-validator';
+import { IsNotEmpty, IsString, Matches, IsMongoId, IsOptional } from 'class-validator';
 
 export class Project implements IProject {
   @ApiProperty({
     type: String,
-    description:
-      'Unique id of at least three letters, numbers, underscores, and dashes',
+    description: 'Unique id of at least three letters, numbers, underscores, and dashes',
     pattern: '^[a-zA-Z0-9_-]{3,}$',
   })
   @IsString({
-    message:
-      "'id' must be a unique combination of at least three letters, numbers, underscores, and dashes",
+    message: "'id' must be a unique combination of at least three letters, numbers, underscores, and dashes",
   })
   @IsNotEmpty({
-    message:
-      "'id' must be a unique combination of at least three letters, numbers, underscores, and dashes",
+    message: "'id' must be a unique combination of at least three letters, numbers, underscores, and dashes",
   })
   @Matches(/^[a-zA-Z0-9_-]{3,}$/, {
-    message:
-      "'id' must be a unique combination of at least three letters, numbers, underscores, and dashes",
+    message: "'id' must be a unique combination of at least three letters, numbers, underscores, and dashes",
   })
   public id!: string;
 
@@ -72,10 +57,7 @@ export class Project implements IProject {
   public updated!: string;
 }
 
-export class ProjectInput
-  extends OmitType(Project, ['created', 'updated'])
-  implements IProjectInput
-{
+export class ProjectInput extends OmitType(Project, ['created', 'updated']) implements IProjectInput {
   @ApiPropertyOptional({
     type: String,
     description:
@@ -143,8 +125,7 @@ export class Account implements IAccount {
 export class ProjectSummary implements IProjectSummary {
   @ApiProperty({
     type: String,
-    description:
-      'Unique id of at least three letters, numbers, underscores, and dashes',
+    description: 'Unique id of at least three letters, numbers, underscores, and dashes',
     pattern: '^[a-zA-Z0-9_-]{3,}$',
   })
   id!: string;

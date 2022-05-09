@@ -22,7 +22,4 @@ import { SedAlgorithm } from './sedAlgorithm';
  * A SED-ML simulation.
  * @export
  */
-export type SedSimulation =
-  | SedOneStepSimulation
-  | SedSteadyStateSimulation
-  | SedUniformTimeCourseSimulation;
+export type SedSimulation = SedOneStepSimulation | SedSteadyStateSimulation | SedUniformTimeCourseSimulation;

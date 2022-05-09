@@ -15,12 +15,8 @@ export class ViewService {
 
   public formatSimulation(simulation: Simulation): FormattedSimulation {
     simulation = simulation as Simulation;
-    const statusRunning = SimulationStatusService.isSimulationStatusRunning(
-      simulation.status,
-    );
-    const statusSucceeded = SimulationStatusService.isSimulationStatusSucceeded(
-      simulation.status,
-    );
+    const statusRunning = SimulationStatusService.isSimulationStatusRunning(simulation.status);
+    const statusSucceeded = SimulationStatusService.isSimulationStatusSucceeded(simulation.status);
     return {
       id: simulation.id,
       name: simulation.name,
@@ -35,14 +31,8 @@ export class ViewService {
       status: simulation.status,
       statusRunning: statusRunning,
       statusSucceeded: statusSucceeded,
-      statusFailed: SimulationStatusService.isSimulationStatusFailed(
-        simulation.status,
-      ),
-      statusLabel: SimulationStatusService.getSimulationStatusMessage(
-        simulation.status,
-        true,
-        false,
-      ),
+      statusFailed: SimulationStatusService.isSimulationStatusFailed(simulation.status),
+      statusLabel: SimulationStatusService.getSimulationStatusMessage(simulation.status, true, false),
       // runtime:
       //   simulation.runtime !== undefined
       //     ? Math.round(simulation.runtime / 1000).toString() + ' s'

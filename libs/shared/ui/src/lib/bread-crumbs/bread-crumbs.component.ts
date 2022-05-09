@@ -24,12 +24,8 @@ export class BreadCrumbsComponent implements OnInit {
     url = '',
     breadcrumbs: IBreadCrumb[] = [{ label: 'Home', url: '' }],
   ): IBreadCrumb[] {
-    let label =
-      route.routeConfig && route.routeConfig.data
-        ? route.routeConfig.data.breadcrumb
-        : null;
-    let path =
-      route.routeConfig && route.routeConfig.path ? route.routeConfig.path : '';
+    let label = route.routeConfig && route.routeConfig.data ? route.routeConfig.data.breadcrumb : null;
+    let path = route.routeConfig && route.routeConfig.path ? route.routeConfig.path : '';
     // TODO check this
 
     const lastRoutePart = path.split('/').pop() || path;
@@ -40,9 +36,7 @@ export class BreadCrumbsComponent implements OnInit {
         // which will typically need to get the name from the API
 
         path = path.replace(part, route.snapshot.params[paramName]);
-        label = label
-          ? label + ' ' + route.snapshot.params[paramName]
-          : route.snapshot.params[paramName];
+        label = label ? label + ' ' + route.snapshot.params[paramName] : route.snapshot.params[paramName];
       }
     };
 
@@ -57,9 +51,7 @@ export class BreadCrumbsComponent implements OnInit {
       url: nextUrl,
     };
 
-    const newBreadcrumbs = breadcrumb.label
-      ? [...breadcrumbs, breadcrumb]
-      : [...breadcrumbs];
+    const newBreadcrumbs = breadcrumb.label ? [...breadcrumbs, breadcrumb] : [...breadcrumbs];
     if (route.firstChild) {
       return this.buildBreadCrumb(route.firstChild, nextUrl, newBreadcrumbs);
     }
@@ -71,11 +63,7 @@ export class BreadCrumbsComponent implements OnInit {
       route = route.firstChild;
     }
 
-    if (
-      route.routeConfig &&
-      route.routeConfig.data &&
-      route.routeConfig.data.contextButtons
-    ) {
+    if (route.routeConfig && route.routeConfig.data && route.routeConfig.data.contextButtons) {
       return route.routeConfig.data.contextButtons as IContextButton[];
     } else {
       return [] as IContextButton[];
@@ -90,9 +78,7 @@ export class BreadCrumbsComponent implements OnInit {
       )
       .subscribe(() => {
         this.breadcrumbs = this.buildBreadCrumb(this.activatedRoute.root);
-        this.contextButtons = this.buildContextButtons(
-          this.activatedRoute.root,
-        );
+        this.contextButtons = this.buildContextButtons(this.activatedRoute.root);
       });
   }
 }

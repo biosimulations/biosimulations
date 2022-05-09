@@ -1,10 +1,6 @@
 import { SimulationRunSedDocumentInput } from '@biosimulations/ontology/datamodel';
 import { SedElementType } from '@biosimulations/datamodel/common';
-import {
-  Injectable,
-  Logger,
-  InternalServerErrorException,
-} from '@nestjs/common';
+import { Injectable, Logger, InternalServerErrorException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Document, Query } from 'mongoose';
 import { SpecificationsModel } from './specifications.model';
@@ -49,9 +45,7 @@ export class SpecificationsService {
       }
     }
 
-    const specs = await this.querySpecification(runId, experimentLocation)
-      .select(attribute)
-      .exec();
+    const specs = await this.querySpecification(runId, experimentLocation).select(attribute).exec();
 
     if (specs) {
       for (const element of specs.get(attribute)) {
@@ -64,16 +58,11 @@ export class SpecificationsService {
     return null;
   }
 
-  public async getSpecification(
-    runId: string,
-    experimentLocation: string,
-  ): Promise<SpecificationsModel | null> {
+  public async getSpecification(runId: string, experimentLocation: string): Promise<SpecificationsModel | null> {
     return this.querySpecification(runId, experimentLocation).exec();
   }
 
-  public async getSpecificationsBySimulation(
-    runId: string,
-  ): Promise<SpecificationsModel[]> {
+  public async getSpecificationsBySimulation(runId: string): Promise<SpecificationsModel[]> {
     return this.model.find({ simulationRun: runId }).exec();
   }
 
@@ -81,10 +70,7 @@ export class SpecificationsService {
     return this.model.find({}).exec();
   }
 
-  public async createSpecs(
-    runId: string,
-    specs: SimulationRunSedDocumentInput[],
-  ): Promise<void> {
+  public async createSpecs(runId: string, specs: SimulationRunSedDocumentInput[]): Promise<void> {
     const transaction = await this.model.db.transaction(async (session) => {
       const newSpecs = specs.map(async (spec) => {
         const newSpec = new this.model(spec);
@@ -99,17 +85,10 @@ export class SpecificationsService {
   }
 
   public async deleteSimulationRunSpecifications(runId: string): Promise<void> {
-    const res: DeleteResult = await this.model
-      .deleteMany({ simulationRun: runId })
-      .exec();
-    const count = await this.model
-      .find({ simulationRun: runId })
-      .count()
-      .exec();
+    const res: DeleteResult = await this.model.deleteMany({ simulationRun: runId }).exec();
+    const count = await this.model.find({ simulationRun: runId }).count().exec();
     if (count !== 0) {
-      throw new InternalServerErrorException(
-        'Some specifications could not be deleted.',
-      );
+      throw new InternalServerErrorException('Some specifications could not be deleted.');
     }
   }
 

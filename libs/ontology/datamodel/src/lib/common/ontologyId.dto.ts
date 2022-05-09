@@ -11,14 +11,7 @@ import {
   ISpdxOntologyId,
 } from '@biosimulations/datamodel/common';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import {
-  Equals,
-  IsEnum,
-  IsNotEmpty,
-  IsString,
-  IsOptional,
-  Matches,
-} from 'class-validator';
+import { Equals, IsEnum, IsNotEmpty, IsString, IsOptional, Matches } from 'class-validator';
 import { IsOntologyTerm } from '@biosimulations/ontology/utils';
 
 export class OntologyId implements IOntologyId {
@@ -47,10 +40,7 @@ export class EdamOntologyId extends OntologyId implements IEdamOntologyId {
   public id!: string;
 }
 
-export class EdamOntologyIdVersion
-  extends OntologyId
-  implements IEdamOntologyIdVersion
-{
+export class EdamOntologyIdVersion extends OntologyId implements IEdamOntologyIdVersion {
   @Equals(Ontologies.EDAM)
   @IsString()
   @ApiProperty({
@@ -177,10 +167,7 @@ export class EdamOntologyDockerImageIdVersion extends EdamOntologyIdVersion {
   public supportedFeatures: string[] = [];
 }
 
-export class FunderRegistryOntologyId
-  extends OntologyId
-  implements IFunderRegistryOntologyId
-{
+export class FunderRegistryOntologyId extends OntologyId implements IFunderRegistryOntologyId {
   @ApiProperty({
     type: String,
     enum: [Ontologies.FunderRegistry],
@@ -197,10 +184,7 @@ export class FunderRegistryOntologyId
   public id!: string;
 }
 
-export class LinguistOntologyId
-  extends OntologyId
-  implements ILinguistOntologyId
-{
+export class LinguistOntologyId extends OntologyId implements ILinguistOntologyId {
   @ApiProperty({
     type: String,
     enum: [Ontologies.Linguist],

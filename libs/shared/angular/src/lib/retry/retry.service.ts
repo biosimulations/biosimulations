@@ -16,42 +16,31 @@ export class RetryStrategy {
       HttpStatusCode.ServiceUnavailable,
     ],
     private excludedStatusCodes: (number | undefined)[] = [],
-    private shouldErrorBeRetried: (error: HttpErrorResponse) => boolean = (
-      error: HttpErrorResponse,
-    ) => true,
+    private shouldErrorBeRetried: (error: HttpErrorResponse) => boolean = (error: HttpErrorResponse) => true,
   ) {}
 
   public handler(attempts: Observable<any>): Observable<any> {
     return attempts.pipe(
-      mergeMap(
-        (
-          error: HttpErrorResponse,
-          iRetryAttempt: number,
-        ): Observable<number> => {
-          if (iRetryAttempt + 1 >= this.maxAttempts) {
-            return throwError(() => error);
-          }
+      mergeMap((error: HttpErrorResponse, iRetryAttempt: number): Observable<number> => {
+        if (iRetryAttempt + 1 >= this.maxAttempts) {
+          return throwError(() => error);
+        }
 
-          if (
-            this.includedStatusCodes.length &&
-            !this.includedStatusCodes.includes(error.status)
-          ) {
-            return throwError(() => error);
-          }
+        if (this.includedStatusCodes.length && !this.includedStatusCodes.includes(error.status)) {
+          return throwError(() => error);
+        }
 
-          if (this.excludedStatusCodes.includes(error.status)) {
-            return throwError(() => error);
-          }
+        if (this.excludedStatusCodes.includes(error.status)) {
+          return throwError(() => error);
+        }
 
-          if (!this.shouldErrorBeRetried(error)) {
-            return throwError(() => error);
-          }
+        if (!this.shouldErrorBeRetried(error)) {
+          return throwError(() => error);
+        }
 
-          const delay =
-            this.initialDelayMs * this.scalingFactor ** iRetryAttempt;
-          return timer(delay);
-        },
-      ),
+        const delay = this.initialDelayMs * this.scalingFactor ** iRetryAttempt;
+        return timer(delay);
+      }),
     );
   }
 }

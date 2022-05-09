@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Logger,
-  NotFoundException,
-  Param,
-  Post,
-} from '@nestjs/common';
+import { Body, Controller, Get, Logger, NotFoundException, Param, Post } from '@nestjs/common';
 import {
   ApiTags,
   ApiOperation,
@@ -88,14 +80,10 @@ export class SpecificationsController {
     type: ErrorResponseDocument,
     description: 'No simulation run has the requested id',
   })
-  public async getSpecificationsBySimulation(
-    @Param('runId') runId: string,
-  ): Promise<SimulationRunSedDocument[]> {
+  public async getSpecificationsBySimulation(@Param('runId') runId: string): Promise<SimulationRunSedDocument[]> {
     const specs = await this.service.getSpecificationsBySimulation(runId);
     if (specs.length === 0) {
-      throw new NotFoundException(
-        `No specifications could be found for simulation run '${runId}'.`,
-      );
+      throw new NotFoundException(`No specifications could be found for simulation run '${runId}'.`);
     }
     return specs.map(this.returnSpec);
   }
@@ -132,8 +120,7 @@ export class SpecificationsController {
   })
   @ApiNotFoundResponse({
     type: ErrorResponseDocument,
-    description:
-      'No simulation experiment has the requested simulation run id and location',
+    description: 'No simulation experiment has the requested simulation run id and location',
   })
   public async getSpecification(
     @Param('runId') runId: string,
@@ -189,8 +176,7 @@ export class SpecificationsController {
   })
   @ApiNotFoundResponse({
     type: ErrorResponseDocument,
-    description:
-      'No model has the requested simulation run id, experiment location, and model id',
+    description: 'No model has the requested simulation run id, experiment location, and model id',
   })
   public async getModelSpecification(
     @Param('runId') runId: string,
@@ -230,8 +216,7 @@ export class SpecificationsController {
   })
   @ApiParam({
     name: 'experimentLocation',
-    description:
-      'Location of the simulation experiment (SED-ML file in the COMBINE/OMEX archive) of a simulation run',
+    description: 'Location of the simulation experiment (SED-ML file in the COMBINE/OMEX archive) of a simulation run',
     required: true,
     type: String,
   })
@@ -251,8 +236,7 @@ export class SpecificationsController {
   })
   @ApiNotFoundResponse({
     type: ErrorResponseDocument,
-    description:
-      'No simulation has the requested simulation run id, experiment location, and simulation id',
+    description: 'No simulation has the requested simulation run id, experiment location, and simulation id',
   })
   public async getSimulationSpecification(
     @Param('runId') runId: string,
@@ -292,8 +276,7 @@ export class SpecificationsController {
   })
   @ApiParam({
     name: 'experimentLocation',
-    description:
-      'Location of the simulation experiment (SED-ML file in the COMBINE/OMEX archive) of a simulation run',
+    description: 'Location of the simulation experiment (SED-ML file in the COMBINE/OMEX archive) of a simulation run',
     required: true,
     type: String,
   })
@@ -313,8 +296,7 @@ export class SpecificationsController {
   })
   @ApiNotFoundResponse({
     type: ErrorResponseDocument,
-    description:
-      'No task has the requested simulation run id, experiment location, and task id',
+    description: 'No task has the requested simulation run id, experiment location, and task id',
   })
   public async getTaskSpecification(
     @Param('runId') runId: string,
@@ -354,8 +336,7 @@ export class SpecificationsController {
   })
   @ApiParam({
     name: 'experimentLocation',
-    description:
-      'Location of the simulation experiment (SED-ML file in the COMBINE/OMEX archive) of a simulation run',
+    description: 'Location of the simulation experiment (SED-ML file in the COMBINE/OMEX archive) of a simulation run',
     required: true,
     type: String,
   })
@@ -375,8 +356,7 @@ export class SpecificationsController {
   })
   @ApiNotFoundResponse({
     type: ErrorResponseDocument,
-    description:
-      'No data generator has the requested simulation run id, experiment location, and output id',
+    description: 'No data generator has the requested simulation run id, experiment location, and output id',
   })
   public async getDataGeneratorSpecification(
     @Param('runId') runId: string,
@@ -416,8 +396,7 @@ export class SpecificationsController {
   })
   @ApiParam({
     name: 'experimentLocation',
-    description:
-      'Location of the simulation experiment (SED-ML file in the COMBINE/OMEX archive) of a simulation run',
+    description: 'Location of the simulation experiment (SED-ML file in the COMBINE/OMEX archive) of a simulation run',
     required: true,
     type: String,
   })
@@ -437,8 +416,7 @@ export class SpecificationsController {
   })
   @ApiNotFoundResponse({
     type: ErrorResponseDocument,
-    description:
-      'No output has the requested simulation run id, experiment location, and output id',
+    description: 'No output has the requested simulation run id, experiment location, and output id',
   })
   public async getOutputSpecification(
     @Param('runId') runId: string,
@@ -477,14 +455,12 @@ export class SpecificationsController {
     },
   })
   @ApiBody({
-    description:
-      'Specifications of the simulation experiment of the simulation run',
+    description: 'Specifications of the simulation experiment of the simulation run',
     type: SimulationRunSedDocumentInputsContainer,
   })
   @ApiPayloadTooLargeResponse({
     type: ErrorResponseDocument,
-    description:
-      'The payload is too large. The payload must be less than the server limit.',
+    description: 'The payload is too large. The payload must be less than the server limit.',
   })
   @ApiCreatedResponse({
     description: 'The simulation experiments were successfully saved',

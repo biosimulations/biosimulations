@@ -1,8 +1,5 @@
 import { ProjectService } from '@biosimulations/api-nest-client';
-import {
-  ProjectInput,
-  SimulationRunStatus,
-} from '@biosimulations/datamodel/common';
+import { ProjectInput, SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { JobQueue, PublishJobData } from '@biosimulations/messages/messages';
 import { Processor, Process } from '@biosimulations/nestjs-bullmq';
 import { HttpStatus, Logger } from '@nestjs/common';
@@ -33,11 +30,7 @@ export class PublishProcessor {
     const runId = data.runId;
     const finalStatus = data.finalStatus;
 
-    if (
-      projectId &&
-      projectOwner &&
-      finalStatus === SimulationRunStatus.SUCCEEDED
-    ) {
+    if (projectId && projectOwner && finalStatus === SimulationRunStatus.SUCCEEDED) {
       await this.publishProject(projectId, runId, projectOwner);
     }
   }
@@ -45,9 +38,7 @@ export class PublishProcessor {
     let message: string;
     this.logger.error(`Error: ${error}`);
     if (error?.isAxiosError) {
-      message = `${error?.response?.status}: ${
-        error?.response?.data?.detail || error?.response?.statusText
-      }`;
+      message = `${error?.response?.status}: ${error?.response?.data?.detail || error?.response?.statusText}`;
     } else {
       message = `${error?.status || error?.statusCode}: ${error?.message}`;
     }
@@ -55,11 +46,7 @@ export class PublishProcessor {
     return message.replace(/\n/g, '\n  ');
   }
 
-  private async publishProject(
-    projectId: string,
-    runId: string,
-    projectOwner: string,
-  ): Promise<void> {
+  private async publishProject(projectId: string, runId: string, projectOwner: string): Promise<void> {
     const projectInput: ProjectInput = {
       id: projectId,
       simulationRun: runId,
@@ -69,31 +56,19 @@ export class PublishProcessor {
     const updatedProject$ = this.projectService.getProject(projectId).pipe(
       this.getRetryBackoff(),
       map((_project) => {
-        this.projectService
-          .updateProject(projectId, projectInput)
-          .pipe(this.getRetryBackoff());
+        this.projectService.updateProject(projectId, projectInput).pipe(this.getRetryBackoff());
       }),
       catchError((error) => {
         if (error.response?.status === HttpStatus.NOT_FOUND) {
-          return this.projectService
-            .createProject(projectInput)
-            .pipe(this.getRetryBackoff());
+          return this.projectService.createProject(projectInput).pipe(this.getRetryBackoff());
         }
         throw error;
       }),
     );
     await firstValueFrom(updatedProject$)
-      .then(() =>
-        this.logger.log(
-          `The project '${projectId}' was successfully published.`,
-        ),
-      )
+      .then(() => this.logger.log(`The project '${projectId}' was successfully published.`))
       .catch((error) =>
-        this.logger.error(
-          `The project '${projectId}' could not be published: ${this.getErrorMessage(
-            error,
-          )}`,
-        ),
+        this.logger.error(`The project '${projectId}' could not be published: ${this.getErrorMessage(error)}`),
       );
   }
 

@@ -7,28 +7,11 @@
  * @license MIT
  */
 
-import {
-  Controller,
-  Get,
-  Param,
-  ParseBoolPipe,
-  Query,
-  Res,
-} from '@nestjs/common';
+import { Controller, Get, Param, ParseBoolPipe, Query, Res } from '@nestjs/common';
 
-import {
-  ApiQuery,
-  ApiOkResponse,
-  ApiTags,
-  ApiOperation,
-  ApiParam,
-  ApiNotFoundResponse,
-} from '@nestjs/swagger';
+import { ApiQuery, ApiOkResponse, ApiTags, ApiOperation, ApiParam, ApiNotFoundResponse } from '@nestjs/swagger';
 import { ResultsService } from './results.service';
-import {
-  SimulationRunOutput,
-  SimulationRunResults,
-} from '@biosimulations/datamodel/api';
+import { SimulationRunOutput, SimulationRunResults } from '@biosimulations/datamodel/api';
 import { Response } from 'express';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 
@@ -39,8 +22,7 @@ export class ResultsController {
 
   @ApiOperation({
     summary: 'Get the results of all of the outputs of a simulation run',
-    description:
-      'Get the results of each report and plot of each SED-ML file for the simulation run',
+    description: 'Get the results of each report and plot of each SED-ML file for the simulation run',
   })
   @Get(':runId')
   @ApiParam({
@@ -114,10 +96,8 @@ export class ResultsController {
   }
 
   @ApiOperation({
-    summary:
-      'Get the results of an output (plot or report) of a simulation run',
-    description:
-      'Get the results of a single output (SED-ML plot or report of a SED-ML file) of a simulation run',
+    summary: 'Get the results of an output (plot or report) of a simulation run',
+    description: 'Get the results of a single output (SED-ML plot or report of a SED-ML file) of a simulation run',
   })
   @Get(':runId/:experimentLocationAndOutputId')
   @ApiParam({
@@ -153,11 +133,7 @@ export class ResultsController {
     experimentLocationAndOutputId: string,
     @Query('includeData', ParseBoolPipe) includeData = false,
   ): Promise<SimulationRunOutput> {
-    const value = await this.service.getOutput(
-      runId,
-      experimentLocationAndOutputId,
-      includeData,
-    );
+    const value = await this.service.getOutput(runId, experimentLocationAndOutputId, includeData);
 
     return value;
   }

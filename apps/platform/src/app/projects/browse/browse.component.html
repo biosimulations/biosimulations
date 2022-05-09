@@ -2,23 +2,15 @@
   <biosimulations-bread-crumbs-button
     icon="search"
     label="Search & filter"
-    [onClick]="openControls"
-  ></biosimulations-bread-crumbs-button>
+    [onClick]="openControls"></biosimulations-bread-crumbs-button>
 </biosimulations-bread-crumbs-position>
 
 <biosimulations-table
   #table
   [data]="projects$"
   [columns]="columns"
-  [defaultSort]="{ active: 'title', direction: 'asc' }"
->
-  <div
-    gdAuto="row"
-    gdColumns.gt-sm="1fr auto"
-    gdGap="0"
-    gdRows.lt-md="1fr"
-    class="container"
-  >
+  [defaultSort]="{ active: 'title', direction: 'asc' }">
+  <div gdAuto="row" gdColumns.gt-sm="1fr auto" gdGap="0" gdRows.lt-md="1fr" class="container">
     <div
       class="projects ragged-column"
       [ngClass]="{ visible: !controlsOpen }"
@@ -27,27 +19,21 @@
       gdColumns.lg="repeat(4, 1fr)"
       gdColumns.md="repeat(3, 1fr)"
       gdColumns.sm="repeat(2, 1fr)"
-      gdColumns.xs="repeat(1, 1fr)"
-    >
+      gdColumns.xs="repeat(1, 1fr)">
       <biosimulations-project-card
         *ngFor="let project of table.dataSource.filteredData"
         [project]="project"
-        [columns]="columns"
-      ></biosimulations-project-card>
+        [columns]="columns"></biosimulations-project-card>
     </div>
 
-    <div
-      class="controls-container enter-from-right"
-      [ngClass]="{ visible: controlsOpen }"
-    >
+    <div class="controls-container enter-from-right" [ngClass]="{ visible: controlsOpen }">
       <biosimulations-table-controls
         [table]="table"
         attributesHeading="Attributes"
         searchPlaceHolder="Query (e.g., metabolism)"
         searchToolTip="Enter a query such as 'metabolism'. By default, your query will be searched over all attributes. To search over a specific attribute, prefix your query with the heading of the attribute (with spaces replaced by dashes) such as 'last-updated: 2020'."
         [closeable]="false"
-        class="controls"
-      ></biosimulations-table-controls>
+        class="controls"></biosimulations-table-controls>
     </div>
   </div>
 </biosimulations-table>

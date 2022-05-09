@@ -36,9 +36,7 @@ enum Direction {
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.scss'],
 })
-export class MatCarouselComponent
-  implements AfterContentInit, AfterViewInit, MatCarousel, OnDestroy
-{
+export class MatCarouselComponent implements AfterContentInit, AfterViewInit, MatCarousel, OnDestroy {
   @Input() public timings = '250ms ease-in';
   @Input() public lazyLoad = false;
   @Input() public svgIconOverrides!: SvgIconOverrides;
@@ -200,15 +198,10 @@ export class MatCarouselComponent
     } else {
       this.slidesList.first.load = true;
       setTimeout(() => {
+        (this.slidesList.find((s, i) => i === 1 % this.slidesList.length) as MatCarouselSlideComponent).load = true;
         (
           this.slidesList.find(
-            (s, i) => i === 1 % this.slidesList.length,
-          ) as MatCarouselSlideComponent
-        ).load = true;
-        (
-          this.slidesList.find(
-            (s, i) =>
-              i === (this.slidesList.length - 1) % this.slidesList.length,
+            (s, i) => i === (this.slidesList.length - 1) % this.slidesList.length,
           ) as MatCarouselSlideComponent
         ).load = true;
       }, this.interval$.getValue() / 2);
@@ -221,9 +214,7 @@ export class MatCarouselComponent
 
     this.listKeyManager.updateActiveItem(0);
 
-    this.listKeyManager.change
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(() => this.playAnimation());
+    this.listKeyManager.change.pipe(takeUntil(this.destroy$)).subscribe(() => this.playAnimation());
   }
 
   public ngAfterViewInit(): void {
@@ -240,19 +231,13 @@ export class MatCarouselComponent
       this.startTimer(this._autoplay);
     });
 
-    this.maxWidth$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(() => this.slideTo(0));
+    this.maxWidth$.pipe(takeUntil(this.destroy$)).subscribe(() => this.slideTo(0));
 
-    this.loop$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((value) => this.listKeyManager.withWrap(value));
+    this.loop$.pipe(takeUntil(this.destroy$)).subscribe((value) => this.listKeyManager.withWrap(value));
 
     this.orientation$
       .pipe(takeUntil(this.destroy$))
-      .subscribe((value) =>
-        this.listKeyManager.withHorizontalOrientation(value),
-      );
+      .subscribe((value) => this.listKeyManager.withHorizontalOrientation(value));
 
     this.slides$
       .pipe(
@@ -303,10 +288,7 @@ export class MatCarouselComponent
   public onPanEnd(event: any, slideElem: HTMLElement): void {
     this.renderer.removeStyle(slideElem, 'cursor');
 
-    if (
-      !this.isOutOfBounds() &&
-      Math.abs(event.deltaX) > this.getWidth() * 0.25
-    ) {
+    if (!this.isOutOfBounds() && Math.abs(event.deltaX) > this.getWidth() * 0.25) {
       if (event.deltaX <= 0) {
         this.next();
         return;
@@ -322,8 +304,7 @@ export class MatCarouselComponent
     const left =
       sign *
       (this.carouselList.nativeElement.getBoundingClientRect().left -
-        (this.carouselList.nativeElement?.offsetParent?.getBoundingClientRect()
-          .left || 0));
+        (this.carouselList.nativeElement?.offsetParent?.getBoundingClientRect().left || 0));
     const lastIndex = this.slidesList.length - 1;
     const width = -this.getWidth() * lastIndex;
 
@@ -349,8 +330,7 @@ export class MatCarouselComponent
   }
 
   private getOffset(): number {
-    const offset =
-      (this.listKeyManager.activeItemIndex as number) * this.getWidth();
+    const offset = (this.listKeyManager.activeItemIndex as number) * this.getWidth();
 
     const sign = this.orientation === 'rtl' ? 1 : -1;
     return sign * offset;
@@ -370,13 +350,9 @@ export class MatCarouselComponent
 
       switch (direction) {
         case Direction.left:
-          return rtl
-            ? this.listKeyManager.setNextItemActive()
-            : this.listKeyManager.setPreviousItemActive();
+          return rtl ? this.listKeyManager.setNextItemActive() : this.listKeyManager.setPreviousItemActive();
         case Direction.right:
-          return rtl
-            ? this.listKeyManager.setPreviousItemActive()
-            : this.listKeyManager.setNextItemActive();
+          return rtl ? this.listKeyManager.setPreviousItemActive() : this.listKeyManager.setNextItemActive();
         case Direction.index:
           if (index !== undefined) {
             return this.listKeyManager.setActiveItem(index);
@@ -387,9 +363,7 @@ export class MatCarouselComponent
 
   private playAnimation(): void {
     const translation = this.getTranslation(this.getOffset());
-    const factory = this.animationBuilder.build(
-      animate(this.timings, style({ transform: translation })),
-    );
+    const factory = this.animationBuilder.build(animate(this.timings, style({ transform: translation })));
     const animation = factory.create(this.carouselList.nativeElement);
 
     animation.onStart(() => {
@@ -406,23 +380,12 @@ export class MatCarouselComponent
         ).load = true;
         (
           this.slidesList.find(
-            (s, i) =>
-              i ===
-              (this.currentIndex - 1 + this.slidesList.length) %
-                this.slidesList.length,
+            (s, i) => i === (this.currentIndex - 1 + this.slidesList.length) % this.slidesList.length,
           ) as MatCarouselSlideComponent
         ).load = true;
-        (
-          this.slidesList.find(
-            (s, i) => i === this.currentIndex,
-          ) as MatCarouselSlideComponent
-        ).load = true;
+        (this.slidesList.find((s, i) => i === this.currentIndex) as MatCarouselSlideComponent).load = true;
       }
-      this.renderer.setStyle(
-        this.carouselList.nativeElement,
-        'transform',
-        translation,
-      );
+      this.renderer.setStyle(this.carouselList.nativeElement, 'transform', translation);
       animation.destroy();
     });
     animation.play();

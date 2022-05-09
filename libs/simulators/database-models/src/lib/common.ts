@@ -72,8 +72,7 @@ export class ExternalReferences implements IExternalReferences {
   citations!: Citation[];
 }
 
-export const ExternalReferencesSchema =
-  SchemaFactory.createForClass(ExternalReferences);
+export const ExternalReferencesSchema = SchemaFactory.createForClass(ExternalReferences);
 
 @Schema({
   _id: false,

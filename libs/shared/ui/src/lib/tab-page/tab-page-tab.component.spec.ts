@@ -1,21 +1,8 @@
-import {
-  Component,
-  ContentChildren,
-  QueryList,
-  ViewChild,
-} from '@angular/core';
+import { Component, ContentChildren, QueryList, ViewChild } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import {
-  MatProgressSpinnerModule,
-  MatSpinner,
-} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule, MatSpinner } from '@angular/material/progress-spinner';
 
-import {
-  MatTab,
-  MatTabGroup,
-  MatTabsModule,
-  MAT_TAB_GROUP,
-} from '@angular/material/tabs';
+import { MatTab, MatTabGroup, MatTabsModule, MAT_TAB_GROUP } from '@angular/material/tabs';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { FullPageSpinnerComponent } from '../spinner/full-page-spinner.component';
 import { SpinnerComponent } from '../spinner/spinner.component';
@@ -62,11 +49,7 @@ describe('TabPageTabComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [TabPageTabComponent, TestHostComponent],
-      imports: [
-        MatTabsModule,
-        BiosimulationsIconsModule,
-        MatProgressSpinnerModule,
-      ],
+      imports: [MatTabsModule, BiosimulationsIconsModule, MatProgressSpinnerModule],
       providers: [
         {
           provide: MAT_TAB_GROUP,

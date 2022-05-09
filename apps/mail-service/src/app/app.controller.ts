@@ -3,10 +3,7 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 import { SimulationRunService } from '@biosimulations/api-nest-client';
 import { MailClientService } from '@biosimulations/mail-service/client';
 import { AppService } from './app.service';
-import {
-  DispatchMessage,
-  DispatchProcessedPayload,
-} from '@biosimulations/messages/messages';
+import { DispatchMessage, DispatchProcessedPayload } from '@biosimulations/messages/messages';
 import { SimulationRun } from '@biosimulations/datamodel/api';
 import { firstValueFrom } from 'rxjs';
 
@@ -27,18 +24,11 @@ export class AppController {
         const email = job.email;
         //const status = job.status  use the status to determine which email to send?
         if (email) {
-          this.emailClient.sendSuccessEmail(
-            email,
-            job.id,
-            job.name,
-            new Date(job.submitted),
-          );
+          this.emailClient.sendSuccessEmail(email, job.id, job.name, new Date(job.submitted));
         }
         return;
       })
-      .catch((reason) =>
-        this.logger.error("Couldn't send success email: " + reason),
-      );
+      .catch((reason) => this.logger.error("Couldn't send success email: " + reason));
   }
 
   @MessagePattern(DispatchMessage.failed)
@@ -48,17 +38,10 @@ export class AppController {
         const email = job.email;
         //const status = job.status  use the status to determine which email to send?
         if (email) {
-          this.emailClient.sendFailureEmail(
-            email,
-            job.id,
-            job.name,
-            new Date(job.submitted),
-          );
+          this.emailClient.sendFailureEmail(email, job.id, job.name, new Date(job.submitted));
         }
         return;
       })
-      .catch((reason) =>
-        this.logger.error("Couldn't send failure email: " + reason),
-      );
+      .catch((reason) => this.logger.error("Couldn't send failure email: " + reason));
   }
 }

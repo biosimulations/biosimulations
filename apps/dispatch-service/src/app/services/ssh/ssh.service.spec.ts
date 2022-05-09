@@ -14,10 +14,7 @@ describe('SshService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [
-        SshService,
-        { provide: ConfigService, useClass: mockConfigService },
-      ],
+      providers: [SshService, { provide: ConfigService, useClass: mockConfigService }],
     }).compile();
 
     service = module.get<SshService>(SshService);

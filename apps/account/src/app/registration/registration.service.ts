@@ -11,9 +11,7 @@ export class RegistrationService {
   constructor(private http: HttpClient) {}
 
   register(username: string, token: string | null, profile?: any) {
-    return this.http
-      .post(baseUrl, { username, token, profile })
-      .pipe(catchError(this.handleError));
+    return this.http.post(baseUrl, { username, token, profile }).pipe(catchError(this.handleError));
   }
 
   // TODO make sure this handles the error properly
@@ -22,9 +20,7 @@ export class RegistrationService {
   }
 
   // Todo Abstract this
-  uniqueUsernameAsyncValidator: AsyncValidatorFn = (
-    control: AbstractControl,
-  ) => {
+  uniqueUsernameAsyncValidator: AsyncValidatorFn = (control: AbstractControl) => {
     const value = control.value;
     return timer(500).pipe(
       switchMap((_) => this.http.get<any>(baseUrl + 'valid/' + control.value)),

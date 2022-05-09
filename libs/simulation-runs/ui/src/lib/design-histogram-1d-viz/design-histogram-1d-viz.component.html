@@ -13,38 +13,18 @@
       <mat-form-field appearance="fill">
         <mat-label>Select the data sets to plot</mat-label>
 
-        <mat-select
-          formControlName="dataSets"
-          required
-          disableOptionCentering
-          multiple
-        >
+        <mat-select formControlName="dataSets" required disableOptionCentering multiple>
           <ng-container *ngFor="let sedDocument of sedDocs">
             <mat-option
               [value]="sedDocument.id"
-              (click)="
-                setSelectedDataSets('SedDocument', sedDocument, sedDocument.id)
-              "
-            >
+              (click)="setSelectedDataSets('SedDocument', sedDocument, sedDocument.id)">
               {{ sedDocument.id }}
             </mat-option>
 
-            <div
-              *ngFor="let output of sedDocument.outputs"
-              class="multi-select-opt-group"
-            >
+            <div *ngFor="let output of sedDocument.outputs" class="multi-select-opt-group">
               <mat-option
                 [value]="sedDocument.id + '/' + output.id"
-                (click)="
-                  setSelectedDataSets(
-                    'SedReport',
-                    sedDocument,
-                    sedDocument.id,
-                    output,
-                    output.id
-                  )
-                "
-              >
+                (click)="setSelectedDataSets('SedReport', sedDocument, sedDocument.id, output, output.id)">
                 {{ output.id }}
               </mat-option>
 
@@ -62,8 +42,7 @@
                       dataset,
                       dataset.id
                     )
-                  "
-                >
+                  ">
                   {{ dataset.label }}
                 </mat-option>
               </div>

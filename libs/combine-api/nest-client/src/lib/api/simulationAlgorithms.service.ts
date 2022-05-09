@@ -24,10 +24,7 @@ export class SimulationAlgorithmsService {
   public defaultHeaders = new Map();
   public configuration = new Configuration();
 
-  constructor(
-    protected httpClient: HttpService,
-    @Optional() configuration: Configuration,
-  ) {
+  constructor(protected httpClient: HttpService, @Optional() configuration: Configuration) {
     this.configuration = configuration || this.configuration;
     this.basePath = configuration?.basePath || this.basePath;
   }
@@ -51,9 +48,7 @@ export class SimulationAlgorithmsService {
   public srcHandlersKisaoGetSimilarAlgorithmsHandler(
     algorithms: Array<string>,
   ): Observable<AxiosResponse<Array<KisaoAlgorithmSubstitution>>>;
-  public srcHandlersKisaoGetSimilarAlgorithmsHandler(
-    algorithms: Array<string>,
-  ): Observable<any> {
+  public srcHandlersKisaoGetSimilarAlgorithmsHandler(algorithms: Array<string>): Observable<any> {
     if (algorithms === null || algorithms === undefined) {
       throw new Error(
         'Required parameter algorithms was null or undefined when calling srcHandlersKisaoGetSimilarAlgorithmsHandler.',
@@ -69,21 +64,17 @@ export class SimulationAlgorithmsService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
 
     // to determine the Content-Type header
     const consumes: string[] = [];
-    return this.httpClient.get<Array<KisaoAlgorithmSubstitution>>(
-      `${this.basePath}/kisao/get-similar-algorithms`,
-      {
-        params: queryParameters,
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-      },
-    );
+    return this.httpClient.get<Array<KisaoAlgorithmSubstitution>>(`${this.basePath}/kisao/get-similar-algorithms`, {
+      params: queryParameters,
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+    });
   }
 }

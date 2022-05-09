@@ -23,10 +23,7 @@ import {
   SioOntologyIdSchema,
 } from './ontologyId';
 
-import {
-  AlgorithmParameter,
-  AlgorithmParameterSchema,
-} from './algorithmParameter';
+import { AlgorithmParameter, AlgorithmParameterSchema } from './algorithmParameter';
 
 import { DependentPackage, DependentPackageSchema } from './dependentPackage';
 
@@ -73,11 +70,9 @@ export class ModelChangePattern implements IModelChangePattern {
 
   @Prop({
     type: [String],
-    enum: Object.entries(ModelChangeType).map(
-      (keyVal: [string, string]): string => {
-        return keyVal[1];
-      },
-    ),
+    enum: Object.entries(ModelChangeType).map((keyVal: [string, string]): string => {
+      return keyVal[1];
+    }),
     required: true,
     default: undefined,
   })
@@ -90,22 +85,15 @@ export class ModelChangePattern implements IModelChangePattern {
   symbol!: ModelSymbol | null;
 }
 
-export const ModelChangePatternSchema =
-  SchemaFactory.createForClass(ModelChangePattern);
+export const ModelChangePatternSchema = SchemaFactory.createForClass(ModelChangePattern);
 
 ModelChangePatternSchema.post('validate', function (doc: Document, next): void {
   const target: ModelTarget | null = doc.get('target');
   const symbol: ModelSymbol | null = doc.get('symbol');
 
   if (target === null && symbol === null) {
-    doc.invalidate(
-      'target',
-      `Model changes must specify at least one of a 'target' or 'symbol'.`,
-    );
-    doc.invalidate(
-      'symbol',
-      `Model changes must specify at least one of a 'target' or 'symbol'.`,
-    );
+    doc.invalidate('target', `Model changes must specify at least one of a 'target' or 'symbol'.`);
+    doc.invalidate('symbol', `Model changes must specify at least one of a 'target' or 'symbol'.`);
   }
 
   next();
@@ -127,30 +115,19 @@ export class OutputVariablePattern implements IOutputVariablePattern {
   symbol!: ModelSymbol | null;
 }
 
-export const OutputVariablePatternSchema = SchemaFactory.createForClass(
-  OutputVariablePattern,
-);
+export const OutputVariablePatternSchema = SchemaFactory.createForClass(OutputVariablePattern);
 
-OutputVariablePatternSchema.post(
-  'validate',
-  function (doc: Document, next): void {
-    const target: ModelTarget | null = doc.get('target');
-    const symbol: ModelSymbol | null = doc.get('symbol');
+OutputVariablePatternSchema.post('validate', function (doc: Document, next): void {
+  const target: ModelTarget | null = doc.get('target');
+  const symbol: ModelSymbol | null = doc.get('symbol');
 
-    if (target === null && symbol === null) {
-      doc.invalidate(
-        'target',
-        `Output variables must specify at least one of a 'target' or 'symbol'.`,
-      );
-      doc.invalidate(
-        'symbol',
-        `Output variables must specify at least one of a 'target' or 'symbol'.`,
-      );
-    }
+  if (target === null && symbol === null) {
+    doc.invalidate('target', `Output variables must specify at least one of a 'target' or 'symbol'.`);
+    doc.invalidate('symbol', `Output variables must specify at least one of a 'target' or 'symbol'.`);
+  }
 
-    next();
-  },
-);
+  next();
+});
 
 @Schema({
   _id: false,
@@ -225,11 +202,9 @@ export class Algorithm implements IAlgorithm {
 
   @Prop({
     type: [String],
-    enum: Object.entries(SimulationType).map(
-      (keyVal: [string, string]): string => {
-        return keyVal[1];
-      },
-    ),
+    enum: Object.entries(SimulationType).map((keyVal: [string, string]): string => {
+      return keyVal[1];
+    }),
     required: true,
     default: undefined,
   })
@@ -245,11 +220,9 @@ export class Algorithm implements IAlgorithm {
 
   @Prop({
     type: [String],
-    enum: Object.entries(SoftwareInterfaceType).map(
-      (keyVal: [string, string]): string => {
-        return keyVal[1];
-      },
-    ),
+    enum: Object.entries(SoftwareInterfaceType).map((keyVal: [string, string]): string => {
+      return keyVal[1];
+    }),
     required: true,
     default: undefined,
   })

@@ -16,9 +16,7 @@ export class OutputProcessor {
     const data = job.data;
     const runId = data.runId;
     try {
-      const size = await firstValueFrom(
-        this.archiveService.updateResultsSize(runId),
-      );
+      const size = await firstValueFrom(this.archiveService.updateResultsSize(runId));
 
       if (!size) {
         throw new Error('Could not get size of archive');

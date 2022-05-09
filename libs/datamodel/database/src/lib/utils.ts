@@ -13,42 +13,36 @@ interface SchemaPaths {
 
 function getSchemaUserPaths(schema: Schema): SchemaPaths {
   const userPaths: { [key: string]: PathOptions } = {};
-  Object.entries(schema.paths).forEach(
-    (pathSchemaType: [string, SchemaType]): void => {
-      const path = pathSchemaType[0];
-      const schemaType = pathSchemaType[1];
+  Object.entries(schema.paths).forEach((pathSchemaType: [string, SchemaType]): void => {
+    const path = pathSchemaType[0];
+    const schemaType = pathSchemaType[1];
 
-      if (path === '_id' || path === '__v') {
-        userPaths[path] = {
-          readOnly: true,
-          isRequired: undefined,
-          defaultValue: undefined,
-        };
-        return;
-      }
+    if (path === '_id' || path === '__v') {
+      userPaths[path] = {
+        readOnly: true,
+        isRequired: undefined,
+        defaultValue: undefined,
+      };
+      return;
+    }
 
-      const timestamps = schema.get('timestamps');
-      const timestampPaths =
-        timestamps === undefined ? null : Object.values(timestamps);
-      if (timestampPaths && timestampPaths.includes(path)) {
-        userPaths[path] = {
-          readOnly: true,
-          isRequired: undefined,
-          defaultValue: undefined,
-        };
-        return;
-      }
+    const timestamps = schema.get('timestamps');
+    const timestampPaths = timestamps === undefined ? null : Object.values(timestamps);
+    if (timestampPaths && timestampPaths.includes(path)) {
+      userPaths[path] = {
+        readOnly: true,
+        isRequired: undefined,
+        defaultValue: undefined,
+      };
+      return;
+    }
 
-      userPaths[path] = getSchemaTypeOptions(path, schemaType);
-    },
-  );
+    userPaths[path] = getSchemaTypeOptions(path, schemaType);
+  });
   return userPaths;
 }
 
-function getSchemaTypeOptions(
-  path: string,
-  schemaType: SchemaType,
-): PathOptions {
+function getSchemaTypeOptions(path: string, schemaType: SchemaType): PathOptions {
   let isRequired: any = undefined;
   let defaultValue: any = undefined;
 
@@ -85,40 +79,32 @@ export function addValidationForNullableAttributes(schema: Schema<any>): void {
     }
   });
 
-  Object.entries(getSchemaUserPaths(schema)).forEach(
-    (pathOptions: [string, PathOptions]): void => {
+  Object.entries(getSchemaUserPaths(schema)).forEach((pathOptions: [string, PathOptions]): void => {
+    const path = pathOptions[0];
+    const options = pathOptions[1];
+
+    if (!options.readOnly && options.isRequired !== true && options.isRequired !== false) {
+      throw new Error(`'required' should be explicitly set for '${path}'`);
+    }
+  });
+
+  schema.pre('validate', function (next): void {
+    Object.entries(getSchemaUserPaths(schema)).forEach((pathOptions: [string, PathOptions]): void => {
       const path = pathOptions[0];
       const options = pathOptions[1];
 
-      if (
-        !options.readOnly &&
-        options.isRequired !== true &&
-        options.isRequired !== false
-      ) {
-        throw new Error(`'required' should be explicitly set for '${path}'`);
-      }
-    },
-  );
-
-  schema.pre('validate', function (next): void {
-    Object.entries(getSchemaUserPaths(schema)).forEach(
-      (pathOptions: [string, PathOptions]): void => {
-        const path = pathOptions[0];
-        const options = pathOptions[1];
-
-        if (!options.readOnly) {
-          if (options.isRequired === false) {
-            if (this.get(path) === undefined) {
-              if (options.defaultValue === undefined) {
-                this.invalidate(path, `'${path}' attribute must be defined`);
-              } else {
-                this.set(path, options.defaultValue);
-              }
+      if (!options.readOnly) {
+        if (options.isRequired === false) {
+          if (this.get(path) === undefined) {
+            if (options.defaultValue === undefined) {
+              this.invalidate(path, `'${path}' attribute must be defined`);
+            } else {
+              this.set(path, options.defaultValue);
             }
           }
         }
-      },
-    );
+      }
+    });
     next();
   });
 }

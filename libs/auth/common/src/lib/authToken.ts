@@ -1,10 +1,7 @@
 export interface AuthToken {
   iss: 'https://auth.biosimulations.org';
   sub: string;
-  aud:
-    | 'api.biosimulations.org'
-    | 'account.biosimulations.org'
-    | 'api.biosimulators.org';
+  aud: 'api.biosimulations.org' | 'account.biosimulations.org' | 'api.biosimulators.org';
   iat: number;
   exp: number;
   azp: string;

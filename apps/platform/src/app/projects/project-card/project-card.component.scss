@@ -5,9 +5,7 @@
 $card-padding: 0.25rem;
 $title-font-size: mat.font-size($fontConfig, 'body-2');
 $title-line-height: 1.2;
-$title-box-height: calc(
-  2 * #{$title-line-height} * #{$title-font-size} + 2 * #{$card-padding}
-);
+$title-box-height: calc(2 * #{$title-line-height} * #{$title-font-size} + 2 * #{$card-padding});
 $border-radius: 4px;
 
 .container {

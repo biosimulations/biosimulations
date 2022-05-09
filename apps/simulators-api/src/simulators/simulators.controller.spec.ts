@@ -1,7 +1,4 @@
-import {
-  AdminGuard,
-  BiosimulationsAuthModule,
-} from '@biosimulations/auth/nest';
+import { AdminGuard, BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 import { Simulator } from '@biosimulations/simulators/database-models';
 import { Test, TestingModule } from '@nestjs/testing';
 import { LeanDocument } from 'mongoose';
@@ -63,10 +60,7 @@ describe('SimulatorsController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [SimulatorsController, BiosimulationsAuthModule],
-      providers: [
-        { provide: SimulatorsService, useClass: MockSimulatorService },
-        AdminGuard,
-      ],
+      providers: [{ provide: SimulatorsService, useClass: MockSimulatorService }, AdminGuard],
     }).compile();
 
     controller = module.get<SimulatorsController>(SimulatorsController);

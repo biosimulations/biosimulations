@@ -1,9 +1,4 @@
-import {
-  Ontologies,
-  SioTerm,
-  OntologyInfo,
-  OntologyTermMap,
-} from '@biosimulations/datamodel/common';
+import { Ontologies, SioTerm, OntologyInfo, OntologyTermMap } from '@biosimulations/datamodel/common';
 import isUrl from 'is-url';
 import sioJson from './sio.json';
 
@@ -15,15 +10,10 @@ function getSioTerms(input: any): OntologyTermMap<SioTerm> {
   jsonParse.forEach((jsonTerm: any) => {
     if (jsonTerm['@id'] === 'http://semanticscience.org/ontology/sio.owl') {
       sioVersion = jsonTerm['owl:versionInfo'];
-    } else if (
-      jsonTerm['@id'].startsWith('http://semanticscience.org/resource/SIO_')
-    ) {
+    } else if (jsonTerm['@id'].startsWith('http://semanticscience.org/resource/SIO_')) {
       const termIRI = jsonTerm['@id'];
       const termNameSpace = Ontologies.SIO;
-      const termId = jsonTerm['@id'].replace(
-        'http://semanticscience.org/resource/',
-        '',
-      );
+      const termId = jsonTerm['@id'].replace('http://semanticscience.org/resource/', '');
       const termDescription = jsonTerm['rdfs:comment'] || null;
       const termName = jsonTerm['rdfs:label'];
       const termUrl =
@@ -32,28 +22,19 @@ function getSioTerms(input: any): OntologyTermMap<SioTerm> {
 
       let moreInfoUrl: string | null = null;
       const seeAlso = jsonTerm['http://www.w3.org/2000/01/rdf-schema#seeAlso'];
-      if (
-        seeAlso &&
-        seeAlso?.['@type'] === 'xsd:anyURI' &&
-        seeAlso?.['@value'] &&
-        isUrl(seeAlso?.['@value'])
-      ) {
+      if (seeAlso && seeAlso?.['@type'] === 'xsd:anyURI' && seeAlso?.['@value'] && isUrl(seeAlso?.['@value'])) {
         moreInfoUrl = seeAlso?.['@value'];
       }
 
       let parents!: string[];
       if ('rdfs:subClassOf' in jsonTerm) {
         parents = (
-          Array.isArray(jsonTerm['rdfs:subClassOf'])
-            ? jsonTerm['rdfs:subClassOf']
-            : [jsonTerm['rdfs:subClassOf']]
+          Array.isArray(jsonTerm['rdfs:subClassOf']) ? jsonTerm['rdfs:subClassOf'] : [jsonTerm['rdfs:subClassOf']]
         )
           .filter((term: string): boolean => {
             return term.startsWith('http://semanticscience.org/resource/');
           })
-          .map((term) =>
-            term.replace('http://semanticscience.org/resource/', ''),
-          );
+          .map((term) => term.replace('http://semanticscience.org/resource/', ''));
       } else {
         parents = [];
       }

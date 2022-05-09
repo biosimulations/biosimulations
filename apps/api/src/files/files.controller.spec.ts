@@ -36,8 +36,7 @@ describe('FilesController', () => {
                 url: 'https://files.biosimulations.org/testfile',
                 thumbnailUrls: {
                   view: 'https://files.biosimulations.org/testfile/thumbnail/view',
-                  browse:
-                    'https://files.biosimulations.org/testfile/thumbnail/browse',
+                  browse: 'https://files.biosimulations.org/testfile/thumbnail/browse',
                 },
               };
             }),
@@ -129,11 +128,7 @@ describe('FilesController', () => {
     });
   });
   it('should redirect to download thumbnail', async () => {
-    const results = await controller.downloadFile(
-      'simId',
-      'testfile',
-      Thumbnail.view,
-    );
+    const results = await controller.downloadFile('simId', 'testfile', Thumbnail.view);
     expect(results).toEqual({
       url: 'https://files.biosimulations.org/testfile/thumbnail/view',
       statusCode: 301,
@@ -148,11 +143,7 @@ describe('FilesController', () => {
       };
     });
 
-    const result = await controller.downloadFile(
-      'simID',
-      'fileLocation',
-      Thumbnail.view,
-    );
+    const result = await controller.downloadFile('simID', 'fileLocation', Thumbnail.view);
     expect(result).toEqual({
       url: 'https://files.biosimulations.org/testfile',
       statusCode: 301,

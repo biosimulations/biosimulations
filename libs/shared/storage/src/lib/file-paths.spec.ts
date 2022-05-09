@@ -31,51 +31,31 @@ describe('FilePaths', () => {
   it('should return correct path for output archive', () => {
     const runId = 'test-run-id';
     const expectedPath = 'output.zip';
-    const path = filePaths.getSimulationRunOutputFilePath(
-      runId,
-      OutputFileName.OUTPUT_ARCHIVE,
-      false,
-    );
+    const path = filePaths.getSimulationRunOutputFilePath(runId, OutputFileName.OUTPUT_ARCHIVE, false);
     expect(path).toEqual(expectedPath);
   });
   it('should return correct absolute path for output archive', () => {
     const runId = 'test-run-id';
     const expectedPath = `simulations/test-run-id/${OutputFileName.OUTPUT_ARCHIVE}`;
-    const path = filePaths.getSimulationRunOutputFilePath(
-      runId,
-      OutputFileName.OUTPUT_ARCHIVE,
-      true,
-    );
+    const path = filePaths.getSimulationRunOutputFilePath(runId, OutputFileName.OUTPUT_ARCHIVE, true);
     expect(path).toEqual(expectedPath);
   });
   it('should return correct absolute path for raw log', () => {
     const runId = 'test-run-id';
     const expectedPath = `simulations/test-run-id/${OutputFileName.RAW_LOG}`;
-    const path = filePaths.getSimulationRunOutputFilePath(
-      runId,
-      OutputFileName.RAW_LOG,
-      true,
-    );
+    const path = filePaths.getSimulationRunOutputFilePath(runId, OutputFileName.RAW_LOG, true);
     expect(path).toEqual(expectedPath);
   });
   it('should return correct path for raw log', () => {
     const runId = 'test-run-id';
     const expectedPath = 'rawLog.txt';
-    const path = filePaths.getSimulationRunOutputFilePath(
-      runId,
-      OutputFileName.RAW_LOG,
-      false,
-    );
+    const path = filePaths.getSimulationRunOutputFilePath(runId, OutputFileName.RAW_LOG, false);
     expect(path).toEqual(expectedPath);
   });
   it('should return correct path for structured Log', () => {
     const runId = 'test-run-id';
     const expectedPath = 'outputs/log.yml';
-    const path = filePaths.getSimulationRunOutputFilePath(
-      runId,
-      OutputFileName.LOG,
-      false,
-    );
+    const path = filePaths.getSimulationRunOutputFilePath(runId, OutputFileName.LOG, false);
     expect(path).toEqual(expectedPath);
   });
   it('Should return correct S3 URL', () => {
@@ -85,8 +65,8 @@ describe('FilePaths', () => {
   });
 
   it('Should return correct S3 filepath', () => {
-    expect(
-      filePaths.getSimulationRunContentFilePath('testSim', 'testFile'),
-    ).toBe('simulations/testSim/contents/testFile');
+    expect(filePaths.getSimulationRunContentFilePath('testSim', 'testFile')).toBe(
+      'simulations/testSim/contents/testFile',
+    );
   });
 });

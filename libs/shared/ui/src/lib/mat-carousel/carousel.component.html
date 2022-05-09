@@ -3,34 +3,26 @@
   class="carousel"
   tabindex="0"
   [style.max-width]="maxWidth"
-  [style.height]="!maintainAspectRatio ? '100%' : 'auto'"
->
+  [style.height]="!maintainAspectRatio ? '100%' : 'auto'">
   <ul
     #carouselList
     class="carousel-list"
     role="listbox"
     [attr.aria-label]="ariaLabel"
     [style.flex-direction]="orientation === 'rtl' ? 'row-reverse' : 'row'"
-    [style.height]="!maintainAspectRatio ? '100%' : 'auto'"
-  >
+    [style.height]="!maintainAspectRatio ? '100%' : 'auto'">
     <li
       #carouselSlide
       *ngFor="let slide of slidesList"
       class="carousel-slide"
       role="option"
-      [style.padding-bottom]="
-        maintainAspectRatio && proportion ? proportion + '%' : '0px'
-      "
+      [style.padding-bottom]="maintainAspectRatio && proportion ? proportion + '%' : '0px'"
       [style.height]="!maintainAspectRatio && slideHeight ? slideHeight : '0px'"
       (panleft)="onPan($event, carouselSlide)"
       (panright)="onPan($event, carouselSlide)"
       (panend)="onPanEnd($event, carouselSlide)"
-      (pancancel)="onPanEnd($event, carouselSlide)"
-    >
-      <ng-container
-        *ngIf="slide.load"
-        [ngTemplateOutlet]="slide.templateRef"
-      ></ng-container>
+      (pancancel)="onPanEnd($event, carouselSlide)">
+      <ng-container *ngIf="slide.load" [ngTemplateOutlet]="slide.templateRef"></ng-container>
     </li>
   </ul>
 
@@ -42,12 +34,10 @@
     aria-label="Previous slide"
     [color]="color"
     [disabled]="!loop && currentIndex == 0"
-    (click)="previous()"
-  >
+    (click)="previous()">
     <mat-icon
       *ngIf="svgIconOverrides?.arrowBack; else defaultArrowBack"
-      [svgIcon]="svgIconOverrides.arrowBack"
-    ></mat-icon>
+      [svgIcon]="svgIconOverrides.arrowBack"></mat-icon>
     <ng-template #defaultArrowBack>
       <mat-icon>arrow_back</mat-icon>
     </ng-template>
@@ -60,12 +50,10 @@
     aria-label="Next slide"
     [color]="color"
     [disabled]="!loop && currentIndex == slidesList.length - 1"
-    (click)="next()"
-  >
+    (click)="next()">
     <mat-icon
       *ngIf="svgIconOverrides?.arrowForward; else defaultArrowForward"
-      [svgIcon]="svgIconOverrides.arrowForward"
-    ></mat-icon>
+      [svgIcon]="svgIconOverrides.arrowForward"></mat-icon>
     <ng-template #defaultArrowForward>
       <mat-icon>arrow_forward</mat-icon>
     </ng-template>
@@ -75,8 +63,7 @@
     *ngIf="!hideIndicators"
     class="carousel-indicators"
     tabindex="-1"
-    [style.flex-direction]="orientation === 'rtl' ? 'row-reverse' : 'row'"
-  >
+    [style.flex-direction]="orientation === 'rtl' ? 'row-reverse' : 'row'">
     <button
       *ngFor="let slide of slidesList; let i = index"
       type="button"
@@ -86,7 +73,6 @@
       [attr.aria-label]="'Slide #' + i"
       [disabled]="i == currentIndex"
       (click)="slideTo(i)"
-      (focus)="carouselContainer.focus()"
-    ></button>
+      (focus)="carouselContainer.focus()"></button>
   </div>
 </div>

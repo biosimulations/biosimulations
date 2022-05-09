@@ -1,10 +1,4 @@
-import {
-  CallHandler,
-  ExecutionContext,
-  Injectable,
-  Logger,
-  NestInterceptor,
-} from '@nestjs/common';
+import { CallHandler, ExecutionContext, Injectable, Logger, NestInterceptor } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { StrictModeError } from './strict-mode-exception';
@@ -13,10 +7,7 @@ import { StrictModeError } from './strict-mode-exception';
 export class MongooseErrorInterceptor implements NestInterceptor {
   private logger = new Logger(MongooseErrorInterceptor.name);
 
-  public intercept(
-    context: ExecutionContext,
-    next: CallHandler,
-  ): Observable<any> {
+  public intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     // next.handle() is an Observable of the controller's result value
     return next.handle().pipe(
       catchError((error) => {

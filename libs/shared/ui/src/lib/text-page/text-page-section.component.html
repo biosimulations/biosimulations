@@ -6,8 +6,7 @@
     first: first,
     last: last,
     closed: closed
-  }"
->
+  }">
   <h3>
     <div class="heading">{{ heading }}</div>
     <ng-container *ngIf="icon">
@@ -15,8 +14,7 @@
         *ngIf="iconRouterLink; else noRouterLink"
         mat-icon-button
         class="icon-container biosimulations-button"
-        [routerLink]="iconRouterLink"
-      >
+        [routerLink]="iconRouterLink">
         <biosimulations-icon [icon]="icon"></biosimulations-icon>
       </a>
 
@@ -27,18 +25,12 @@
           class="icon-container biosimulations-button"
           [href]="iconHref"
           rel="noopener"
-          [target]="iconTarget"
-        >
+          [target]="iconTarget">
           <biosimulations-icon [icon]="icon"></biosimulations-icon>
         </a>
 
         <ng-template #noRouterHref>
-          <a
-            *ngIf="iconClick"
-            mat-icon-button
-            class="icon-container biosimulations-button"
-            (click)="iconClick()"
-          >
+          <a *ngIf="iconClick" mat-icon-button class="icon-container biosimulations-button" (click)="iconClick()">
             <biosimulations-icon [icon]="icon"></biosimulations-icon>
           </a>
         </ng-template>

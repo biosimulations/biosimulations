@@ -15,11 +15,7 @@ export interface ConsentRecord {
   date: string;
 }
 // https://gdpr.eu/cookies/
-export type CookieType =
-  | 'required'
-  | 'performance'
-  | 'functionality'
-  | 'tracking';
+export type CookieType = 'required' | 'performance' | 'functionality' | 'tracking';
 
 export enum CookieTypes {
   required = 'required',
@@ -42,8 +38,7 @@ export class RequiredCookie implements Cookie {
     'These cookies are essential for the website to function correctly.\
      These cookies are first party cookies that contain no personal information.\
      Examples include cookies that store your consent to the use of cookies or security cookies.';
-  public externalLink =
-    'https://docs.biosimulations.org/about/cookies#neccesary-cookies';
+  public externalLink = 'https://docs.biosimulations.org/about/cookies#neccesary-cookies';
   public displayName = 'Necessary cookies';
   public toggleAllowed = true;
   public toggleDisabled = true;
@@ -56,8 +51,7 @@ export class PerformanceCookie implements Cookie {
     They are first party cookies that collect information such as which pages you visit,\
     which features you use, and which links you click.\
     This information is aggregated and anonymized and cannot be traced to you individually.';
-  public externalLink =
-    'https://docs.biosimulations.org/about/cookies#performance-cookies';
+  public externalLink = 'https://docs.biosimulations.org/about/cookies#performance-cookies';
   public displayName = 'Performance cookies';
   public toggleAllowed = true;
   public toggleDisabled = false;
@@ -70,8 +64,7 @@ export class FunctionalCookie implements Cookie {
   They are first party cookies that contain information about your preferences.\
   Examples include cookies that remember your recent searches or keep you logged in.\
   These cookies do not contain any personal information.';
-  public externalLink =
-    'https://docs.biosimulations.org/about/cookies#functional-cookies';
+  public externalLink = 'https://docs.biosimulations.org/about/cookies#functional-cookies';
   public displayName = 'Functional cookies';
   public toggleAllowed = true;
   public toggleDisabled = false;
@@ -82,8 +75,7 @@ export class TrackingCookie implements Cookie {
   public description =
     'These cookies are generally third-party cookies that are used to track your online activity and behavior for marketing and advertising purposes.\
   We DO NOT USE any tracking cookies or third-party services to track your online activity and behavior.';
-  public externalLink =
-    'https://docs.biosimulations.org/about/cookies#tracking-cookies';
+  public externalLink = 'https://docs.biosimulations.org/about/cookies#tracking-cookies';
   public displayName = 'Tracking cookies';
   public toggleAllowed = false;
   public toggleDisabled = true;

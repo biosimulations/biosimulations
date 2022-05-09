@@ -7,13 +7,7 @@ import {
   OntologyInfo as IOntologyInfo,
 } from '@biosimulations/datamodel/common';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import {
-  IsNotEmpty,
-  IsString,
-  IsUrl,
-  IsEnum,
-  ValidateNested,
-} from 'class-validator';
+import { IsNotEmpty, IsString, IsUrl, IsEnum, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class OntologyInfo implements IOntologyInfo {

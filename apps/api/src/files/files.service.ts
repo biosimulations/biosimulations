@@ -1,14 +1,5 @@
-import {
-  ProjectFileInput,
-  ProjectFileThumbnailInput,
-} from '@biosimulations/datamodel/api';
-import {
-  Injectable,
-  NotFoundException,
-  InternalServerErrorException,
-  Logger,
-  HttpStatus,
-} from '@nestjs/common';
+import { ProjectFileInput, ProjectFileThumbnailInput } from '@biosimulations/datamodel/api';
+import { Injectable, NotFoundException, InternalServerErrorException, Logger, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { DeleteResult } from 'mongodb';
@@ -50,22 +41,13 @@ export class FilesService {
     return this.model.find({ simulationRun: runId }).exec();
   }
 
-  public async getFile(
-    runId: string,
-    fileLocation: string,
-  ): Promise<FileModel | null> {
+  public async getFile(runId: string, fileLocation: string): Promise<FileModel | null> {
     return this.model.findOne({
-      $or: [
-        { id: this.getFileId(runId, fileLocation, true) },
-        { id: this.getFileId(runId, fileLocation, false) },
-      ],
+      $or: [{ id: this.getFileId(runId, fileLocation, true) }, { id: this.getFileId(runId, fileLocation, false) }],
     });
   }
 
-  public async createFiles(
-    runId: string,
-    files: ProjectFileInput[],
-  ): Promise<FileModel[]> {
+  public async createFiles(runId: string, files: ProjectFileInput[]): Promise<FileModel[]> {
     const transaction = await this.model.db
       .transaction(async (session) => {
         return await Promise.all(
@@ -99,10 +81,7 @@ export class FilesService {
   */
 
   public async deleteSimulationRunFiles(runId: string): Promise<void> {
-    const files = await this.model
-      .find({ simulationRun: runId })
-      .select('location')
-      .exec();
+    const files = await this.model.find({ simulationRun: runId }).select('location').exec();
 
     await Promise.all(
       files.map((file) => {
@@ -110,27 +89,17 @@ export class FilesService {
       }),
     );
 
-    await this.storage
-      .deleteSimulationRunFile(runId, 'manifest.xml')
-      .catch((error: any) => {
-        if (
-          !(
-            error.statusCode === HttpStatus.NOT_FOUND &&
-            error.code === 'NoSuchKey'
-          )
-        ) {
-          throw error;
-        }
-      });
+    await this.storage.deleteSimulationRunFile(runId, 'manifest.xml').catch((error: any) => {
+      if (!(error.statusCode === HttpStatus.NOT_FOUND && error.code === 'NoSuchKey')) {
+        throw error;
+      }
+    });
   }
 
   public async deleteFile(runId: string, fileLocation: string): Promise<void> {
     const file = await this.model
       .findOne({
-        $or: [
-          { id: this.getFileId(runId, fileLocation, true) },
-          { id: this.getFileId(runId, fileLocation, false) },
-        ],
+        $or: [{ id: this.getFileId(runId, fileLocation, true) }, { id: this.getFileId(runId, fileLocation, false) }],
       })
       .select('id')
       .exec();
@@ -142,19 +111,13 @@ export class FilesService {
 
     await this.storage.deleteSimulationRunFile(runId, fileLocation);
 
-    const res: DeleteResult = await this.model
-      .deleteOne({ id: file.id })
-      .exec();
+    const res: DeleteResult = await this.model.deleteOne({ id: file.id }).exec();
     if (res.deletedCount !== 1) {
       throw new InternalServerErrorException('File could not be deleted.');
     }
   }
 
-  private getFileId(
-    runId: string,
-    fileLocation: string,
-    includeInitialRelPath = false,
-  ): string {
+  private getFileId(runId: string, fileLocation: string, includeInitialRelPath = false): string {
     if (fileLocation.startsWith('./')) {
       fileLocation = fileLocation.substring(2);
     }

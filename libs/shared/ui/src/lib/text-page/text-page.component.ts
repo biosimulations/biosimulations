@@ -1,9 +1,4 @@
-import {
-  Component,
-  Input,
-  ChangeDetectorRef,
-  ChangeDetectionStrategy,
-} from '@angular/core';
+import { Component, Input, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { TocSection } from '../toc/toc-section';
 import { Observable, BehaviorSubject } from 'rxjs';
@@ -68,9 +63,7 @@ export class TextPageComponent {
     private changeRef: ChangeDetectorRef,
     private scrollService: ScrollService,
   ) {
-    this.boundScroll = this.scrollService.addScrollListener(
-      this.scroll.bind(this),
-    );
+    this.boundScroll = this.scrollService.addScrollListener(this.scroll.bind(this));
 
     this.smallLayout = breakpointObserver.isMatched('(max-width: 959px)');
     breakpointObserver.observe(['(max-width: 959px)']).subscribe((result) => {
@@ -95,10 +88,7 @@ export class TextPageComponent {
   calcSideBarStyle() {
     let position: string | null = null;
     let width: string | null = null;
-    if (
-      (!this._heading || this._alwaysFixed != null || this.fixed) &&
-      !this.smallLayout
-    ) {
+    if ((!this._heading || this._alwaysFixed != null || this.fixed) && !this.smallLayout) {
       position = 'fixed';
       width = '16rem';
     }

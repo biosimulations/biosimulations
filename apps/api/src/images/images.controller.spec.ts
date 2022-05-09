@@ -10,11 +10,7 @@ describe('ImagesController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ImagesController],
-      imports: [
-        BiosimulationsAuthModule,
-        BiosimulationsConfigModule,
-        SharedNatsClientModule,
-      ],
+      imports: [BiosimulationsAuthModule, BiosimulationsConfigModule, SharedNatsClientModule],
     }).compile();
 
     controller = module.get<ImagesController>(ImagesController);

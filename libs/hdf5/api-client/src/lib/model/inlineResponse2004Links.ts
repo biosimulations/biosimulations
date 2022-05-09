@@ -38,10 +38,7 @@ export interface InlineResponse2004Links {
   collection?: InlineResponse2004Links.CollectionEnum;
 }
 export namespace InlineResponse2004Links {
-  export type ClassEnum =
-    | 'H5L_TYPE_HARD'
-    | 'H5L_TYPE_SOFT'
-    | 'H5L_TYPE_EXTERNAL';
+  export type ClassEnum = 'H5L_TYPE_HARD' | 'H5L_TYPE_SOFT' | 'H5L_TYPE_EXTERNAL';
   export const ClassEnum = {
     Hard: 'H5L_TYPE_HARD' as ClassEnum,
     Soft: 'H5L_TYPE_SOFT' as ClassEnum,

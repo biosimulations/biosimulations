@@ -45,9 +45,7 @@ export class CompleteProcessor {
   }
 
   @Process({ name: 'complete', concurrency: 1 })
-  private async process(
-    job: Job<CompleteJobData, void, 'complete'>,
-  ): Promise<void> {
+  private async process(job: Job<CompleteJobData, void, 'complete'>): Promise<void> {
     const data = job.data;
     const runId = data.runId;
     const projectId = data.projectId;
@@ -64,13 +62,9 @@ export class CompleteProcessor {
     });
     const steps: stepsInfo[] = this.getJobTreeInfo(flow, true);
 
-    const errorSteps = steps.filter(
-      (step) => step.status === 'Failed' && step.required,
-    );
+    const errorSteps = steps.filter((step) => step.status === 'Failed' && step.required);
 
-    const warningSteps = steps.filter(
-      (step) => step.status === 'Failed' && !step.required,
-    );
+    const warningSteps = steps.filter((step) => step.status === 'Failed' && !step.required);
 
     const succeededSteps = steps.filter((step) => step.status === 'Succeeded');
 
@@ -80,11 +74,7 @@ export class CompleteProcessor {
 
     const logSucceeded = this.getRunSucceededFromLog(originalLog);
 
-    const processingLog = this.makeLogString(
-      errorSteps,
-      warningSteps,
-      succeededSteps,
-    );
+    const processingLog = this.makeLogString(errorSteps, warningSteps, succeededSteps);
 
     if (originalLog) {
       originalLog.output = originalLog.output + processingLog;
@@ -97,20 +87,12 @@ export class CompleteProcessor {
 
     const processingSucceeded = errorSteps.length === 0;
     const finalStatus =
-      logSucceeded && runSucceeded && processingSucceeded
-        ? SimulationRunStatus.SUCCEEDED
-        : SimulationRunStatus.FAILED;
+      logSucceeded && runSucceeded && processingSucceeded ? SimulationRunStatus.SUCCEEDED : SimulationRunStatus.FAILED;
 
     if (finalStatus === SimulationRunStatus.SUCCEEDED) {
-      await this.simStatusService.updateStatus(
-        runId,
-        SimulationRunStatus.SUCCEEDED,
-      );
+      await this.simStatusService.updateStatus(runId, SimulationRunStatus.SUCCEEDED);
     } else {
-      await this.simStatusService.updateStatus(
-        runId,
-        SimulationRunStatus.FAILED,
-      );
+      await this.simStatusService.updateStatus(runId, SimulationRunStatus.FAILED);
     }
 
     const oneDay = 24 * 60 * 60 * 1000;
@@ -143,11 +125,7 @@ export class CompleteProcessor {
       );
     }
 
-    const publishable =
-      processingSucceeded &&
-      logSucceeded &&
-      runSucceeded &&
-      warningSteps.length === 0;
+    const publishable = processingSucceeded && logSucceeded && runSucceeded && warningSteps.length === 0;
     if (publishable) {
       this.publishQueue.add('publish', {
         runId,
@@ -158,11 +136,7 @@ export class CompleteProcessor {
     }
   }
 
-  private makeLogString(
-    errorSteps: stepsInfo[],
-    warningSteps: stepsInfo[],
-    succeededSteps: stepsInfo[],
-  ): string {
+  private makeLogString(errorSteps: stepsInfo[], warningSteps: stepsInfo[], succeededSteps: stepsInfo[]): string {
     const cyan = ConsoleFormatting.cyan.replace('\\033', '\u001b');
     const red = ConsoleFormatting.red.replace('\\033', '\u001b');
     const yellow = ConsoleFormatting.yellow.replace('\\033', '\u001b');
@@ -171,9 +145,7 @@ export class CompleteProcessor {
 
     const successLog =
       succeededSteps.length > 0
-        ? `\n${green}${succeededSteps
-            .map((step) => step.description + ' ... succeeded.')
-            .join('\n')}${noColor}`
+        ? `\n${green}${succeededSteps.map((step) => step.description + ' ... succeeded.').join('\n')}${noColor}`
         : '';
     const warningLog =
       warningSteps.length > 0
@@ -183,9 +155,7 @@ export class CompleteProcessor {
         : '';
     const errorLog =
       errorSteps.length > 0
-        ? `\n${red}${errorSteps
-            .map((step) => this.getFailedStepErrorMessage(step, errorSteps))
-            .join('\n')}${noColor}`
+        ? `\n${red}${errorSteps.map((step) => this.getFailedStepErrorMessage(step, errorSteps)).join('\n')}${noColor}`
         : '';
 
     const finalLog =
@@ -201,10 +171,7 @@ export class CompleteProcessor {
     return finalLog;
   }
 
-  private getFailedStepErrorMessage(
-    step: stepsInfo,
-    failedSteps: stepsInfo[],
-  ): string {
+  private getFailedStepErrorMessage(step: stepsInfo, failedSteps: stepsInfo[]): string {
     let message = step.description + ' ... failed';
     let failedDueToChild = false;
     const children = step.children;

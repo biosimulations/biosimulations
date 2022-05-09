@@ -4,9 +4,6 @@ export function getDelay(backoffDelay: number, maxInterval: number) {
 }
 
 /** Exponential backoff delay */
-export function exponentialBackoffDelay(
-  iteration: number,
-  initialInterval: number,
-) {
+export function exponentialBackoffDelay(iteration: number, initialInterval: number) {
   return Math.pow(2, iteration) * initialInterval;
 }

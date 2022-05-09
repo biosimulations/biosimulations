@@ -84,8 +84,7 @@ export class SedOutputLog implements ISedOutputLog {
 
   @ApiProperty({
     type: String,
-    example:
-      'Reading model ... done\nExecuting model ... done\nSaving results ... done\n',
+    example: 'Reading model ... done\nExecuting model ... done\nSaving results ... done\n',
     nullable: true,
   })
   @IsOptional()
@@ -168,8 +167,7 @@ export class SedTaskLog implements ISedTaskLog {
 
   @ApiProperty({
     type: String,
-    example:
-      'Reading model ... done\nExecuting model ... done\nSaving results ... done\n',
+    example: 'Reading model ... done\nExecuting model ... done\nSaving results ... done\n',
     nullable: true,
   })
   @IsOptional()
@@ -225,8 +223,7 @@ export class SedDocumentLog implements ISedDocumentLog {
 
   @ApiProperty({
     type: String,
-    example:
-      'Reading model ... done\nExecuting model ... done\nSaving results ... done\n',
+    example: 'Reading model ... done\nExecuting model ... done\nSaving results ... done\n',
     nullable: true,
   })
   @IsOptional()
@@ -337,8 +334,7 @@ export class CombineArchiveLog implements ICombineArchiveLog {
 
   @ApiProperty({
     type: String,
-    example:
-      'Reading model ... done\nExecuting model ... done\nSaving results ... done\n',
+    example: 'Reading model ... done\nExecuting model ... done\nSaving results ... done\n',
     nullable: true,
   })
   @IsOptional()

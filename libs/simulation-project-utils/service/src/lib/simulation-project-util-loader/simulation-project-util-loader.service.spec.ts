@@ -73,47 +73,41 @@ describe('SimulationProjectUtilLoaderService', () => {
     service = TestBed.inject(SimulationProjectUtilLoaderService);
   });
 
-  it(
-    'should load data',
-    waitForAsync(() => {
-      const mockDispatchService = TestBed.inject(DispatchService);
-      jest.spyOn(mockDispatchService, 'getSimulatorsFromDb');
+  it('should load data', waitForAsync(() => {
+    const mockDispatchService = TestBed.inject(DispatchService);
+    jest.spyOn(mockDispatchService, 'getSimulatorsFromDb');
 
-      const mockCombineService = TestBed.inject(CombineApiService);
-      jest.spyOn(mockCombineService, 'getSimilarAlgorithms');
+    const mockCombineService = TestBed.inject(CombineApiService);
+    jest.spyOn(mockCombineService, 'getSimilarAlgorithms');
 
-      const mockSnackBar = TestBed.inject(MatSnackBar);
-      jest.spyOn(mockSnackBar, 'open');
+    const mockSnackBar = TestBed.inject(MatSnackBar);
+    jest.spyOn(mockSnackBar, 'open');
 
-      const loadObs = service.loadSimulationUtilData();
-      loadObs.subscribe((data: SimulationProjectUtilData): void => {
-        expect(mockDispatchService.getSimulatorsFromDb).toHaveBeenCalled();
-        expect(mockCombineService.getSimilarAlgorithms).toHaveBeenCalledWith(expect.arrayContaining(['alg1', 'alg2']));
-        expect(mockSnackBar.open).not.toHaveBeenCalled();
-        expect(data).toBeTruthy();
-      });
-    }),
-  );
+    const loadObs = service.loadSimulationUtilData();
+    loadObs.subscribe((data: SimulationProjectUtilData): void => {
+      expect(mockDispatchService.getSimulatorsFromDb).toHaveBeenCalled();
+      expect(mockCombineService.getSimilarAlgorithms).toHaveBeenCalledWith(expect.arrayContaining(['alg1', 'alg2']));
+      expect(mockSnackBar.open).not.toHaveBeenCalled();
+      expect(data).toBeTruthy();
+    });
+  }));
 
-  it(
-    'should show snackbar when no substitutions',
-    waitForAsync(() => {
-      const mockDispatchService = TestBed.inject(DispatchService);
-      jest.spyOn(mockDispatchService, 'getSimulatorsFromDb');
+  it('should show snackbar when no substitutions', waitForAsync(() => {
+    const mockDispatchService = TestBed.inject(DispatchService);
+    jest.spyOn(mockDispatchService, 'getSimulatorsFromDb');
 
-      const mockCombineService = TestBed.inject(CombineApiService);
-      jest.spyOn(mockCombineService, 'getSimilarAlgorithms').mockReturnValue(of(undefined));
+    const mockCombineService = TestBed.inject(CombineApiService);
+    jest.spyOn(mockCombineService, 'getSimilarAlgorithms').mockReturnValue(of(undefined));
 
-      const mockSnackBar = TestBed.inject(MatSnackBar);
-      jest.spyOn(mockSnackBar, 'open');
+    const mockSnackBar = TestBed.inject(MatSnackBar);
+    jest.spyOn(mockSnackBar, 'open');
 
-      const loadObs = service.loadSimulationUtilData();
-      loadObs.subscribe((data: SimulationProjectUtilData): void => {
-        expect(mockDispatchService.getSimulatorsFromDb).toHaveBeenCalled();
-        expect(mockCombineService.getSimilarAlgorithms).toHaveBeenCalledWith(expect.arrayContaining(['alg1', 'alg2']));
-        expect(mockSnackBar.open).toHaveBeenCalled();
-        expect(data).toBeTruthy();
-      });
-    }),
-  );
+    const loadObs = service.loadSimulationUtilData();
+    loadObs.subscribe((data: SimulationProjectUtilData): void => {
+      expect(mockDispatchService.getSimulatorsFromDb).toHaveBeenCalled();
+      expect(mockCombineService.getSimilarAlgorithms).toHaveBeenCalledWith(expect.arrayContaining(['alg1', 'alg2']));
+      expect(mockSnackBar.open).toHaveBeenCalled();
+      expect(data).toBeTruthy();
+    });
+  }));
 });

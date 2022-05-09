@@ -35,10 +35,7 @@ export class LogsService {
     private logModel: Model<SimulationRunLog>,
   ) {}
 
-  public async createLog(
-    runId: string,
-    apiLog: ApiCombineArchiveLog,
-  ): Promise<void> {
+  public async createLog(runId: string, apiLog: ApiCombineArchiveLog): Promise<void> {
     const log = new this.logModel({
       simId: runId,
       log: this.apiToDbCombineArchiveLog(apiLog),
@@ -62,30 +59,20 @@ export class LogsService {
       projection['log.sedDocuments.outputs.output'] = 0;
     }
 
-    const log = await this.logModel
-      .findOne({ simId: runId }, projection)
-      .lean()
-      .exec();
+    const log = await this.logModel.findOne({ simId: runId }, projection).lean().exec();
 
     if (!log) {
-      throw new NotFoundException(
-        `No log could be found for simulation run '${runId}'.`,
-      );
+      throw new NotFoundException(`No log could be found for simulation run '${runId}'.`);
     }
 
     return log.log;
   }
 
-  public async replaceLog(
-    runId: string,
-    apiLog: ApiCombineArchiveLog,
-  ): Promise<void> {
+  public async replaceLog(runId: string, apiLog: ApiCombineArchiveLog): Promise<void> {
     const log = await this.logModel.findOne({ simId: runId }).exec();
 
     if (!log) {
-      throw new NotFoundException(
-        `No log could be found for simulation run '${runId}'.`,
-      );
+      throw new NotFoundException(`No log could be found for simulation run '${runId}'.`);
     }
 
     log.overwrite({
@@ -97,24 +84,15 @@ export class LogsService {
   }
 
   public async deleteLog(runId: string): Promise<void> {
-    const log = await this.logModel
-      .findOne({ simId: runId })
-      .select('simId')
-      .exec();
+    const log = await this.logModel.findOne({ simId: runId }).select('simId').exec();
 
     if (!log) {
-      throw new NotFoundException(
-        `No log could be found for simulation run '${runId}'.`,
-      );
+      throw new NotFoundException(`No log could be found for simulation run '${runId}'.`);
     }
 
-    const res: DeleteResult = await this.logModel
-      .deleteOne({ simId: runId })
-      .exec();
+    const res: DeleteResult = await this.logModel.deleteOne({ simId: runId }).exec();
     if (res.deletedCount !== 1) {
-      throw new InternalServerErrorException(
-        'The version of the simulation tool could not be deleted.',
-      );
+      throw new InternalServerErrorException('The version of the simulation tool could not be deleted.');
     }
   }
 
@@ -136,9 +114,7 @@ export class LogsService {
     dbLog.exception = this.apiToDbException(apiLog.exception);
     dbLog.skipReason = this.apiToDbException(apiLog.skipReason);
     if (Array.isArray(apiLog.sedDocuments)) {
-      dbLog.sedDocuments = apiLog.sedDocuments.map(
-        this.apiToDbSedDocumentLog.bind(this),
-      );
+      dbLog.sedDocuments = apiLog.sedDocuments.map(this.apiToDbSedDocumentLog.bind(this));
     }
     return dbLog;
   }
@@ -158,9 +134,11 @@ export class LogsService {
     }
 
     if (Array.isArray(apiLog.outputs)) {
-      dbLog.outputs = apiLog.outputs.map(
-        this.apiToDbSedOutputLog.bind(this),
-      ) as (DbSedReportLog | DbSedPlot2DLog | DbSedPlot3DLog)[];
+      dbLog.outputs = apiLog.outputs.map(this.apiToDbSedOutputLog.bind(this)) as (
+        | DbSedReportLog
+        | DbSedPlot2DLog
+        | DbSedPlot3DLog
+      )[];
     }
 
     return dbLog;
@@ -176,9 +154,7 @@ export class LogsService {
     dbLog.exception = this.apiToDbException(apiLog.exception);
     dbLog.skipReason = this.apiToDbException(apiLog.skipReason);
     if (Array.isArray(apiLog.simulatorDetails)) {
-      dbLog.simulatorDetails = apiLog.simulatorDetails.map(
-        this.apiToDbSimulatorDetail.bind(this),
-      );
+      dbLog.simulatorDetails = apiLog.simulatorDetails.map(this.apiToDbSimulatorDetail.bind(this));
     }
     return dbLog;
   }
@@ -216,9 +192,7 @@ export class LogsService {
     dbLog.exception = this.apiToDbException(apiLog.exception);
     dbLog.skipReason = this.apiToDbException(apiLog.skipReason);
     if (Array.isArray(apiLog.dataSets)) {
-      dbLog.dataSets = apiLog.dataSets.map(
-        this.apiToDbSedOutputElementLog.bind(this),
-      );
+      dbLog.dataSets = apiLog.dataSets.map(this.apiToDbSedOutputElementLog.bind(this));
     }
     return dbLog;
   }
@@ -230,9 +204,7 @@ export class LogsService {
     dbLog.exception = this.apiToDbException(apiLog.exception);
     dbLog.skipReason = this.apiToDbException(apiLog.skipReason);
     if (Array.isArray(apiLog.curves)) {
-      dbLog.curves = apiLog.curves.map(
-        this.apiToDbSedOutputElementLog.bind(this),
-      );
+      dbLog.curves = apiLog.curves.map(this.apiToDbSedOutputElementLog.bind(this));
     }
     return dbLog;
   }
@@ -244,9 +216,7 @@ export class LogsService {
     dbLog.exception = this.apiToDbException(apiLog.exception);
     dbLog.skipReason = this.apiToDbException(apiLog.skipReason);
     if (Array.isArray(apiLog.surfaces)) {
-      dbLog.surfaces = apiLog.surfaces.map(
-        this.apiToDbSedOutputElementLog.bind(this),
-      );
+      dbLog.surfaces = apiLog.surfaces.map(this.apiToDbSedOutputElementLog.bind(this));
     }
     return dbLog;
   }
@@ -271,9 +241,7 @@ export class LogsService {
     return dbException;
   }
 
-  private dbToApiCombineArchiveLog(
-    dbRunLog: SimulationRunLog,
-  ): ApiCombineArchiveLog {
+  private dbToApiCombineArchiveLog(dbRunLog: SimulationRunLog): ApiCombineArchiveLog {
     const dbLog = dbRunLog.toObject().log;
 
     dbLog?.sedDocuments?.forEach((sedDocumentLog): void => {

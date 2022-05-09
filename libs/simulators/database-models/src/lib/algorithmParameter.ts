@@ -51,19 +51,16 @@ export class AlgorithmParameter implements IAlgorithmParameter {
 
   @Prop({
     type: [String],
-    enum: Object.entries(SoftwareInterfaceType).map(
-      (keyVal: [string, string]): string => {
-        return keyVal[1];
-      },
-    ),
+    enum: Object.entries(SoftwareInterfaceType).map((keyVal: [string, string]): string => {
+      return keyVal[1];
+    }),
     required: true,
     default: undefined,
   })
   availableSoftwareInterfaceTypes!: SoftwareInterfaceType[];
 }
 
-export const AlgorithmParameterSchema =
-  SchemaFactory.createForClass(AlgorithmParameter);
+export const AlgorithmParameterSchema = SchemaFactory.createForClass(AlgorithmParameter);
 
 AlgorithmParameterSchema.post('validate', function (doc: Document, next): void {
   const type: ValueType = doc.get('type');

@@ -11,10 +11,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { DeleteResult } from 'mongodb';
 import { SimulationRunModel } from '../simulation-run/simulation-run.model';
-import {
-  SimulationRunMetadataModel,
-  SimulationRunMetadataIdModel,
-} from './metadata.model';
+import { SimulationRunMetadataModel, SimulationRunMetadataIdModel } from './metadata.model';
 import { FilePaths } from '@biosimulations/shared/storage';
 
 @Injectable()
@@ -28,32 +25,21 @@ export class MetadataService {
     private filePaths: FilePaths,
   ) {}
 
-  public async getAllMetadata(): Promise<
-    SimulationRunMetadataIdModel[] | null
-  > {
+  public async getAllMetadata(): Promise<SimulationRunMetadataIdModel[] | null> {
     const metadata = await this.simulationRunMetadataModel.find({}).exec();
     return metadata;
   }
 
-  public async getMetadata(
-    runId: string,
-  ): Promise<SimulationRunMetadataIdModel | null> {
-    const metadata = await this.simulationRunMetadataModel
-      .findOne({ simulationRun: runId }, { id: 0, __v: 0 })
-      .exec();
+  public async getMetadata(runId: string): Promise<SimulationRunMetadataIdModel | null> {
+    const metadata = await this.simulationRunMetadataModel.findOne({ simulationRun: runId }, { id: 0, __v: 0 }).exec();
 
     return metadata;
   }
 
-  public async createMetadata(
-    runId: string,
-    metadata: ArchiveMetadata[],
-  ): Promise<void> {
+  public async createMetadata(runId: string, metadata: ArchiveMetadata[]): Promise<void> {
     const sim = await this.simulationModel.findById(runId).catch((_) => null);
     if (!sim) {
-      throw new NotFoundException(
-        `No simulation run could be found with id '${runId}'.`,
-      );
+      throw new NotFoundException(`No simulation run could be found with id '${runId}'.`);
     }
     if (!metadata) {
       throw new BadRequestException('No metadata provided.');
@@ -67,15 +53,10 @@ export class MetadataService {
     return;
   }
 
-  public async modifyMetadata(
-    runId: string,
-    metadata: ArchiveMetadata[],
-  ): Promise<SimulationRunMetadataIdModel> {
+  public async modifyMetadata(runId: string, metadata: ArchiveMetadata[]): Promise<SimulationRunMetadataIdModel> {
     const metadataObj = await this.getMetadata(runId);
     if (!metadataObj) {
-      throw new NotFoundException(
-        `No simulation run could be found with id '${runId}'.`,
-      );
+      throw new NotFoundException(`No simulation run could be found with id '${runId}'.`);
     }
 
     const doc = {
@@ -94,14 +75,10 @@ export class MetadataService {
       .select('simulationRun')
       .exec();
     if (!metadata) {
-      throw new NotFoundException(
-        `Metadata could not found for simulation run '${runId}'.`,
-      );
+      throw new NotFoundException(`Metadata could not found for simulation run '${runId}'.`);
     }
 
-    const res: DeleteResult = await this.simulationRunMetadataModel
-      .deleteOne({ simulationRun: runId })
-      .exec();
+    const res: DeleteResult = await this.simulationRunMetadataModel.deleteOne({ simulationRun: runId }).exec();
     if (res.deletedCount !== 1) {
       throw new InternalServerErrorException('Metadata could not be deleted.');
     }
@@ -120,10 +97,7 @@ export class MetadataService {
     }
   }
   */
-  private transformMetadata(
-    runId: string,
-    archiveMetadata: ArchiveMetadata,
-  ): ArchiveMetadata {
+  private transformMetadata(runId: string, archiveMetadata: ArchiveMetadata): ArchiveMetadata {
     const currentUri = archiveMetadata.uri;
     if (currentUri.startsWith('./')) {
       archiveMetadata.uri = `${runId}/${encodeURI(currentUri.substring(2))}`;

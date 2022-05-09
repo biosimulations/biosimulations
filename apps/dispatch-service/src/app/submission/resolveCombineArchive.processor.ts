@@ -35,15 +35,11 @@ export class ResolveCombineArchiveProcessor {
   ) {}
 
   @Process({ concurrency: 10 })
-  private async handleSubmission(
-    job: Job<SubmitURLSimulationRunJobData>,
-  ): Promise<void> {
+  private async handleSubmission(job: Job<SubmitURLSimulationRunJobData>): Promise<void> {
     const data = job.data;
 
     // resolve COMBINE/OMEX archive from URL
-    this.logger.debug(
-      `Downloading COMBINE/OMEX archive for run '${data.runId}' from '${data.fileUrl}' ...`,
-    );
+    this.logger.debug(`Downloading COMBINE/OMEX archive for run '${data.runId}' from '${data.fileUrl}' ...`);
     let file!: AxiosResponse<Readable>;
     try {
       file = await firstValueFrom(
@@ -62,29 +58,19 @@ export class ResolveCombineArchiveProcessor {
         title = 'COMBINE/OMEX archive is too large';
         message =
           `The COMBINE/OMEX archive is too large.` +
-          `The maximum allowed size of the file is ${FormatService.formatDigitalSize(
-            MAX_ARCHIVE_SIZE,
-          )}.`;
+          `The maximum allowed size of the file is ${FormatService.formatDigitalSize(MAX_ARCHIVE_SIZE)}.`;
       } else {
         title = 'COMBINE/OMEX archive could not be retrieved';
-        message = `An error occurred in resolving the COMBINE/OMEX archive for simulation run '${
-          data.runId
-        }': ${error?.response?.status}: ${
-          error?.response?.data?.detail || error?.response?.statusText
-        }`;
+        message = `An error occurred in resolving the COMBINE/OMEX archive for simulation run '${data.runId}': ${
+          error?.response?.status
+        }: ${error?.response?.data?.detail || error?.response?.statusText}`;
       }
 
       this.logger.error(message);
       job.log(message);
 
-      if (
-        title === 'COMBINE/OMEX archive is too large' ||
-        job.attemptsMade >= (job.opts.attempts || 0)
-      ) {
-        await this.simStatusService.updateStatus(
-          data.runId,
-          SimulationRunStatus.FAILED,
-        );
+      if (title === 'COMBINE/OMEX archive is too large' || job.attemptsMade >= (job.opts.attempts || 0)) {
+        await this.simStatusService.updateStatus(data.runId, SimulationRunStatus.FAILED);
         job.discard();
       }
 
@@ -103,9 +89,7 @@ export class ResolveCombineArchiveProcessor {
     let size = 0;
     const file_headers = file.headers;
 
-    const fileName =
-      file_headers['content-disposition']?.split('filename=')?.[1] ||
-      'archive.omex';
+    const fileName = file_headers['content-disposition']?.split('filename=')?.[1] || 'archive.omex';
 
     try {
       size = Number(file_headers['content-length']);
@@ -115,38 +99,22 @@ export class ResolveCombineArchiveProcessor {
     }
 
     // save COMBINE/OMEX archive to S3
-    this.logger.debug(
-      `Saving COMBINE/OMEX archive for run '${data.runId}' ...`,
-    );
+    this.logger.debug(`Saving COMBINE/OMEX archive for run '${data.runId}' ...`);
     try {
-      const s3file =
-        await this.simulationStorageService.uploadSimulationArchive(
-          data.runId,
-          file.data,
-          size,
-        );
-      this.logger.debug(
-        `COMBINE/OMEX archive for run '${data.runId}' was saved to '${s3file}'.`,
-      );
+      const s3file = await this.simulationStorageService.uploadSimulationArchive(data.runId, file.data, size);
+      this.logger.debug(`COMBINE/OMEX archive for run '${data.runId}' was saved to '${s3file}'.`);
 
       const url = encodeURI(s3file);
 
-      await this.simulationRunService
-        .updateSimulationRunFile(data.runId, url, size)
-        .toPromise();
+      await this.simulationRunService.updateSimulationRunFile(data.runId, url, size).toPromise();
     } catch (error: any) {
       const title = 'COMBINE/OMEX archive could not be saved';
-      const message = `An error occurred in saving the COMBINE/OMEX archive: ${this.getErrorMessage(
-        error,
-      )}.`;
+      const message = `An error occurred in saving the COMBINE/OMEX archive: ${this.getErrorMessage(error)}.`;
       this.logger.error(message);
       job.log(message);
 
       if (job.attemptsMade >= (job.opts.attempts || 0)) {
-        await this.simStatusService.updateStatus(
-          data.runId,
-          SimulationRunStatus.FAILED,
-        );
+        await this.simStatusService.updateStatus(data.runId, SimulationRunStatus.FAILED);
       }
 
       throw new BiosimulationsException(
@@ -181,13 +149,9 @@ export class ResolveCombineArchiveProcessor {
 
   private getErrorMessage(error: any): string {
     if (error?.isAxiosError) {
-      return `${error?.response?.status}: ${
-        error?.response?.data?.detail || error?.response?.statusText
-      }`;
+      return `${error?.response?.status}: ${error?.response?.data?.detail || error?.response?.statusText}`;
     } else {
-      return `${
-        error?.status || error?.statusCode || error.constructor.name
-      }: ${error?.message}`;
+      return `${error?.status || error?.statusCode || error.constructor.name}: ${error?.message}`;
     }
   }
 }

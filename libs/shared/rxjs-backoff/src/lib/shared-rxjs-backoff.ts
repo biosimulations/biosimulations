@@ -1,13 +1,4 @@
-import {
-  defer,
-  iif,
-  Observable,
-  throwError,
-  timer,
-  SchedulerLike,
-  asyncScheduler,
-  of,
-} from 'rxjs';
+import { defer, iif, Observable, throwError, timer, SchedulerLike, asyncScheduler, of } from 'rxjs';
 
 import { concatMap, retryWhen, tap } from 'rxjs/operators';
 import { exponentialBackoffDelay, getDelay } from './utils';
@@ -35,9 +26,7 @@ export interface RetryBackoffConfig {
  * resubscriptions (if provided). Retrying can be cancelled at any point if
  * shouldRetry returns false.
  */
-export function retryBackoff(
-  config: number | RetryBackoffConfig,
-): <T>(source: Observable<T>) => Observable<T> {
+export function retryBackoff(config: number | RetryBackoffConfig): <T>(source: Observable<T>) => Observable<T> {
   const {
     initialInterval,
     maxRetries = Infinity,
@@ -56,9 +45,7 @@ export function retryBackoff(
               const attempt = index++;
               return iif(
                 () => attempt < maxRetries && shouldRetry(error),
-                timer(
-                  getDelay(backoffDelay(attempt, initialInterval), maxInterval),
-                ),
+                timer(getDelay(backoffDelay(attempt, initialInterval), maxInterval)),
                 throwError(error),
               );
             }),

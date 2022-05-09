@@ -86,10 +86,7 @@ mat-chip-list ::ng-deep {
     border-top: none;
   }
 
-  ::ng-deep
-    &.mat-form-field:not(.mat-form-field-appearance-legacy)
-    .mat-form-field-suffix
-    .mat-icon-button {
+  ::ng-deep &.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button {
     height: auto;
     width: auto;
     position: relative;

@@ -42,10 +42,7 @@ export class AnalyticsService {
       // Basic set up of google analytics, but needs to have the above declarations for typescript to be happy
 
       const s = document.createElement('script');
-      s.setAttribute(
-        'src',
-        `https://www.googletagmanager.com/gtag/js?id=${this.analyticsId}`,
-      );
+      s.setAttribute('src', `https://www.googletagmanager.com/gtag/js?id=${this.analyticsId}`);
       s.async = true;
       document.head.appendChild(s);
 
@@ -107,11 +104,7 @@ export class AnalyticsService {
 
   // https://developers.google.com/analytics/devguides/collection/gtagjs/events
   //https://support.google.com/analytics/answer/1033068#Anatomy&zippy=%2Cin-this-article
-  public pageviewEmitter(
-    page_location: string,
-    page_path: string,
-    page_title: string,
-  ): void {
+  public pageviewEmitter(page_location: string, page_path: string, page_title: string): void {
     gtag('page_view', {
       page_location,
       page_path,

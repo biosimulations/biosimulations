@@ -99,8 +99,7 @@ export class FileModel extends Document implements File {
   }
 }
 
-export const FileModelSchema: SchemaType<FileModel> =
-  SchemaFactory.createForClass(FileModel);
+export const FileModelSchema: SchemaType<FileModel> = SchemaFactory.createForClass(FileModel);
 FileModelSchema.set('strict', 'throw');
 FileModelSchema.set('timestamps', {
   createdAt: 'created',

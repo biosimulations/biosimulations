@@ -33,10 +33,7 @@ export class SimulationProjectsService {
   public defaultHeaders = new Map();
   public configuration = new Configuration();
 
-  constructor(
-    protected httpClient: HttpService,
-    @Optional() configuration: Configuration,
-  ) {
+  constructor(protected httpClient: HttpService, @Optional() configuration: Configuration) {
     this.configuration = configuration || this.configuration;
     this.basePath = configuration?.basePath || this.basePath;
   }
@@ -82,9 +79,7 @@ export class SimulationProjectsService {
     }
 
     if (files === null || files === undefined) {
-      throw new Error(
-        'Required parameter files was null or undefined when calling srcHandlersCombineAddFileHandler.',
-      );
+      throw new Error('Required parameter files was null or undefined when calling srcHandlersCombineAddFileHandler.');
     }
 
     if (newContent === null || newContent === undefined) {
@@ -97,8 +92,7 @@ export class SimulationProjectsService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/zip', 'application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
@@ -172,17 +166,14 @@ export class SimulationProjectsService {
     download?: boolean,
   ): Observable<any> {
     if (specs === null || specs === undefined) {
-      throw new Error(
-        'Required parameter specs was null or undefined when calling srcHandlersCombineCreateHandler.',
-      );
+      throw new Error('Required parameter specs was null or undefined when calling srcHandlersCombineCreateHandler.');
     }
 
     let headers: any = this.defaultHeaders;
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json', 'application/zip'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
@@ -235,18 +226,10 @@ export class SimulationProjectsService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersCombineGetFileHandler(
-    url: string,
-    location: string,
-  ): Observable<AxiosResponse<Blob>>;
-  public srcHandlersCombineGetFileHandler(
-    url: string,
-    location: string,
-  ): Observable<any> {
+  public srcHandlersCombineGetFileHandler(url: string, location: string): Observable<AxiosResponse<Blob>>;
+  public srcHandlersCombineGetFileHandler(url: string, location: string): Observable<any> {
     if (url === null || url === undefined) {
-      throw new Error(
-        'Required parameter url was null or undefined when calling srcHandlersCombineGetFileHandler.',
-      );
+      throw new Error('Required parameter url was null or undefined when calling srcHandlersCombineGetFileHandler.');
     }
 
     if (location === null || location === undefined) {
@@ -266,12 +249,8 @@ export class SimulationProjectsService {
     let headers: any = this.defaultHeaders;
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
-      'application/octet-stream',
-      'application/json',
-    ];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    let httpHeaderAccepts: string[] = ['application/octet-stream', 'application/json'];
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
@@ -297,16 +276,12 @@ export class SimulationProjectsService {
     file?: Blob,
     url?: string,
   ): Observable<AxiosResponse<CombineArchiveManifest>>;
-  public srcHandlersCombineGetManifestHandler(
-    file?: Blob,
-    url?: string,
-  ): Observable<any> {
+  public srcHandlersCombineGetManifestHandler(file?: Blob, url?: string): Observable<any> {
     let headers: any = this.defaultHeaders;
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
@@ -360,9 +335,7 @@ export class SimulationProjectsService {
     omexMetadataFormat: string,
     file?: Blob,
     url?: string,
-  ): Observable<
-    AxiosResponse<Array<BioSimulationsCombineArchiveElementMetadata>>
-  >;
+  ): Observable<AxiosResponse<Array<BioSimulationsCombineArchiveElementMetadata>>>;
   public srcHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
     omexMetadataFormat: string,
     file?: Blob,
@@ -378,8 +351,7 @@ export class SimulationProjectsService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
@@ -415,9 +387,7 @@ export class SimulationProjectsService {
       formParams.append('omexMetadataFormat', <any>omexMetadataFormat);
     }
 
-    return this.httpClient.post<
-      Array<BioSimulationsCombineArchiveElementMetadata>
-    >(
+    return this.httpClient.post<Array<BioSimulationsCombineArchiveElementMetadata>>(
       `${this.basePath}/combine/metadata/biosimulations`,
       convertFormParamsToString ? formParams.toString() : formParams,
       {
@@ -455,8 +425,7 @@ export class SimulationProjectsService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
@@ -513,16 +482,12 @@ export class SimulationProjectsService {
     file?: Blob,
     url?: string,
   ): Observable<AxiosResponse<CombineArchiveSedDocSpecs>>;
-  public srcHandlersCombineGetSedmlSpecsForCombineArchiveHandler(
-    file?: Blob,
-    url?: string,
-  ): Observable<any> {
+  public srcHandlersCombineGetSedmlSpecsForCombineArchiveHandler(file?: Blob, url?: string): Observable<any> {
     let headers: any = this.defaultHeaders;
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
@@ -586,23 +551,18 @@ export class SimulationProjectsService {
     download?: boolean,
   ): Observable<any> {
     if (specs === null || specs === undefined) {
-      throw new Error(
-        'Required parameter specs was null or undefined when calling srcHandlersCombineModifyHandler.',
-      );
+      throw new Error('Required parameter specs was null or undefined when calling srcHandlersCombineModifyHandler.');
     }
 
     if (archive === null || archive === undefined) {
-      throw new Error(
-        'Required parameter archive was null or undefined when calling srcHandlersCombineModifyHandler.',
-      );
+      throw new Error('Required parameter archive was null or undefined when calling srcHandlersCombineModifyHandler.');
     }
 
     let headers: any = this.defaultHeaders;
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json', 'application/zip'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
@@ -704,8 +664,7 @@ export class SimulationProjectsService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
@@ -800,27 +759,18 @@ export class SimulationProjectsService {
     environment?: Environment,
   ): Observable<any> {
     if (simulator === null || simulator === undefined) {
-      throw new Error(
-        'Required parameter simulator was null or undefined when calling srcHandlersRunRunHandler.',
-      );
+      throw new Error('Required parameter simulator was null or undefined when calling srcHandlersRunRunHandler.');
     }
 
     if (type === null || type === undefined) {
-      throw new Error(
-        'Required parameter type was null or undefined when calling srcHandlersRunRunHandler.',
-      );
+      throw new Error('Required parameter type was null or undefined when calling srcHandlersRunRunHandler.');
     }
 
     let headers: any = this.defaultHeaders;
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
-      'application/json',
-      'application/x-hdf',
-      'application/zip',
-    ];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    let httpHeaderAccepts: string[] = ['application/json', 'application/x-hdf', 'application/zip'];
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }

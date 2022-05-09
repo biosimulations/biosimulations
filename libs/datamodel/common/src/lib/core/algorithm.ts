@@ -1,12 +1,7 @@
 import { ValueType, SoftwareInterfaceType } from '../common/';
 import { Citation } from '../..';
 
-import {
-  ISboOntologyId,
-  IKisaoOntologyId,
-  IEdamOntologyIdVersion,
-  ISioOntologyId,
-} from '../common';
+import { ISboOntologyId, IKisaoOntologyId, IEdamOntologyIdVersion, ISioOntologyId } from '../common';
 
 import { DependentPackage } from './dependent-package';
 

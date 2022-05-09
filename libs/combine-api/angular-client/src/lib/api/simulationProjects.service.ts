@@ -12,14 +12,7 @@
 /* tslint:disable:no-unused-variable member-ordering */
 
 import { Inject, Injectable, Optional } from '@angular/core';
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpParams,
-  HttpResponse,
-  HttpEvent,
-  HttpParameterCodec,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse, HttpEvent, HttpParameterCodec } from '@angular/common/http';
 import { CustomHttpParameterCodec } from '../encoder';
 import { Observable } from 'rxjs';
 
@@ -77,11 +70,7 @@ export class SimulationProjectsService {
     return false;
   }
 
-  private addToHttpParams(
-    httpParams: HttpParams,
-    value: any,
-    key?: string,
-  ): HttpParams {
+  private addToHttpParams(httpParams: HttpParams, value: any, key?: string): HttpParams {
     if (typeof value === 'object' && value instanceof Date === false) {
       httpParams = this.addToHttpParamsRecursive(httpParams, value);
     } else {
@@ -90,38 +79,23 @@ export class SimulationProjectsService {
     return httpParams;
   }
 
-  private addToHttpParamsRecursive(
-    httpParams: HttpParams,
-    value?: any,
-    key?: string,
-  ): HttpParams {
+  private addToHttpParamsRecursive(httpParams: HttpParams, value?: any, key?: string): HttpParams {
     if (value == null) {
       return httpParams;
     }
 
     if (typeof value === 'object') {
       if (Array.isArray(value)) {
-        (value as any[]).forEach(
-          (elem) =>
-            (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key)),
-        );
+        (value as any[]).forEach((elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key)));
       } else if (value instanceof Date) {
         if (key != null) {
-          httpParams = httpParams.append(
-            key,
-            (value as Date).toISOString().substr(0, 10),
-          );
+          httpParams = httpParams.append(key, (value as Date).toISOString().substr(0, 10));
         } else {
           throw Error('key may not be null if value is Date');
         }
       } else {
         Object.keys(value).forEach(
-          (k) =>
-            (httpParams = this.addToHttpParamsRecursive(
-              httpParams,
-              value[k],
-              key != null ? `${key}.${k}` : k,
-            )),
+          (k) => (httpParams = this.addToHttpParamsRecursive(httpParams, value[k], key != null ? `${key}.${k}` : k)),
         );
       }
     } else if (key != null) {
@@ -189,9 +163,7 @@ export class SimulationProjectsService {
       );
     }
     if (files === null || files === undefined) {
-      throw new Error(
-        'Required parameter files was null or undefined when calling srcHandlersCombineAddFileHandler.',
-      );
+      throw new Error('Required parameter files was null or undefined when calling srcHandlersCombineAddFileHandler.');
     }
     if (newContent === null || newContent === undefined) {
       throw new Error(
@@ -201,22 +173,14 @@ export class SimulationProjectsService {
 
     let localVarHeaders = this.defaultHeaders;
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
     if (localVarHttpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = [
-        'application/zip',
-        'application/json',
-      ];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['application/zip', 'application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
     if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        'Accept',
-        localVarHttpHeaderAcceptSelected,
-      );
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
@@ -235,9 +199,7 @@ export class SimulationProjectsService {
 
     return this.httpClient.post(
       `${this.configuration.basePath}/combine/file`,
-      localVarConvertFormParamsToString
-        ? localVarFormParams.toString()
-        : localVarFormParams,
+      localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
       {
         responseType: 'blob',
         withCredentials: this.configuration.withCredentials,
@@ -290,29 +252,19 @@ export class SimulationProjectsService {
     options?: { httpHeaderAccept?: 'application/json' | 'application/zip' },
   ): Observable<any> {
     if (specs === null || specs === undefined) {
-      throw new Error(
-        'Required parameter specs was null or undefined when calling srcHandlersCombineCreateHandler.',
-      );
+      throw new Error('Required parameter specs was null or undefined when calling srcHandlersCombineCreateHandler.');
     }
 
     let localVarHeaders = this.defaultHeaders;
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
     if (localVarHttpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = [
-        'application/json',
-        'application/zip',
-      ];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['application/json', 'application/zip'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
     if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        'Accept',
-        localVarHttpHeaderAcceptSelected,
-      );
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
@@ -330,18 +282,13 @@ export class SimulationProjectsService {
     }
 
     let responseType_: 'text' | 'json' = 'json';
-    if (
-      localVarHttpHeaderAcceptSelected &&
-      localVarHttpHeaderAcceptSelected.startsWith('text')
-    ) {
+    if (localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
       responseType_ = 'text';
     }
 
     return this.httpClient.post<string>(
       `${this.configuration.basePath}/combine/create`,
-      localVarConvertFormParamsToString
-        ? localVarFormParams.toString()
-        : localVarFormParams,
+      localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
       {
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
@@ -397,9 +344,7 @@ export class SimulationProjectsService {
     },
   ): Observable<any> {
     if (url === null || url === undefined) {
-      throw new Error(
-        'Required parameter url was null or undefined when calling srcHandlersCombineGetFileHandler.',
-      );
+      throw new Error('Required parameter url was null or undefined when calling srcHandlersCombineGetFileHandler.');
     }
     if (location === null || location === undefined) {
       throw new Error(
@@ -409,38 +354,22 @@ export class SimulationProjectsService {
 
     let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (url !== undefined && url !== null) {
-      localVarQueryParameters = this.addToHttpParams(
-        localVarQueryParameters,
-        <any>url,
-        'url',
-      );
+      localVarQueryParameters = this.addToHttpParams(localVarQueryParameters, <any>url, 'url');
     }
     if (location !== undefined && location !== null) {
-      localVarQueryParameters = this.addToHttpParams(
-        localVarQueryParameters,
-        <any>location,
-        'location',
-      );
+      localVarQueryParameters = this.addToHttpParams(localVarQueryParameters, <any>location, 'location');
     }
 
     let localVarHeaders = this.defaultHeaders;
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
     if (localVarHttpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = [
-        'application/octet-stream',
-        'application/json',
-      ];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['application/octet-stream', 'application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
     if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        'Accept',
-        localVarHttpHeaderAcceptSelected,
-      );
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
     }
 
     return this.httpClient.get(`${this.configuration.basePath}/combine/file`, {
@@ -491,19 +420,14 @@ export class SimulationProjectsService {
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
     if (localVarHttpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
       const httpHeaderAccepts: string[] = ['application/json'];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
     if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        'Accept',
-        localVarHttpHeaderAcceptSelected,
-      );
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
@@ -521,18 +445,13 @@ export class SimulationProjectsService {
     }
 
     let responseType_: 'text' | 'json' = 'json';
-    if (
-      localVarHttpHeaderAcceptSelected &&
-      localVarHttpHeaderAcceptSelected.startsWith('text')
-    ) {
+    if (localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
       responseType_ = 'text';
     }
 
     return this.httpClient.post<CombineArchiveManifest>(
       `${this.configuration.basePath}/combine/manifest`,
-      localVarConvertFormParamsToString
-        ? localVarFormParams.toString()
-        : localVarFormParams,
+      localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
       {
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
@@ -567,9 +486,7 @@ export class SimulationProjectsService {
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: 'application/json' },
-  ): Observable<
-    HttpResponse<Array<BioSimulationsCombineArchiveElementMetadata>>
-  >;
+  ): Observable<HttpResponse<Array<BioSimulationsCombineArchiveElementMetadata>>>;
   public srcHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
     omexMetadataFormat: string,
     file?: Blob,
@@ -594,19 +511,14 @@ export class SimulationProjectsService {
 
     let localVarHeaders = this.defaultHeaders;
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
     if (localVarHttpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
       const httpHeaderAccepts: string[] = ['application/json'];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
     if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        'Accept',
-        localVarHttpHeaderAcceptSelected,
-      );
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
@@ -624,20 +536,13 @@ export class SimulationProjectsService {
     }
 
     let responseType_: 'text' | 'json' = 'json';
-    if (
-      localVarHttpHeaderAcceptSelected &&
-      localVarHttpHeaderAcceptSelected.startsWith('text')
-    ) {
+    if (localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
       responseType_ = 'text';
     }
 
-    return this.httpClient.post<
-      Array<BioSimulationsCombineArchiveElementMetadata>
-    >(
+    return this.httpClient.post<Array<BioSimulationsCombineArchiveElementMetadata>>(
       `${this.configuration.basePath}/combine/metadata/biosimulations`,
-      localVarConvertFormParamsToString
-        ? localVarFormParams.toString()
-        : localVarFormParams,
+      localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
       {
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
@@ -697,19 +602,14 @@ export class SimulationProjectsService {
 
     let localVarHeaders = this.defaultHeaders;
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
     if (localVarHttpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
       const httpHeaderAccepts: string[] = ['application/json'];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
     if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        'Accept',
-        localVarHttpHeaderAcceptSelected,
-      );
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
@@ -727,18 +627,13 @@ export class SimulationProjectsService {
     }
 
     let responseType_: 'text' | 'json' = 'json';
-    if (
-      localVarHttpHeaderAcceptSelected &&
-      localVarHttpHeaderAcceptSelected.startsWith('text')
-    ) {
+    if (localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
       responseType_ = 'text';
     }
 
     return this.httpClient.post<Array<RdfTriple>>(
       `${this.configuration.basePath}/combine/metadata/rdf`,
-      localVarConvertFormParamsToString
-        ? localVarFormParams.toString()
-        : localVarFormParams,
+      localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
       {
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
@@ -787,19 +682,14 @@ export class SimulationProjectsService {
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
     if (localVarHttpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
       const httpHeaderAccepts: string[] = ['application/json'];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
     if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        'Accept',
-        localVarHttpHeaderAcceptSelected,
-      );
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
@@ -817,18 +707,13 @@ export class SimulationProjectsService {
     }
 
     let responseType_: 'text' | 'json' = 'json';
-    if (
-      localVarHttpHeaderAcceptSelected &&
-      localVarHttpHeaderAcceptSelected.startsWith('text')
-    ) {
+    if (localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
       responseType_ = 'text';
     }
 
     return this.httpClient.post<CombineArchiveSedDocSpecs>(
       `${this.configuration.basePath}/combine/sedml-specs`,
-      localVarConvertFormParamsToString
-        ? localVarFormParams.toString()
-        : localVarFormParams,
+      localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
       {
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
@@ -886,34 +771,22 @@ export class SimulationProjectsService {
     options?: { httpHeaderAccept?: 'application/json' | 'application/zip' },
   ): Observable<any> {
     if (specs === null || specs === undefined) {
-      throw new Error(
-        'Required parameter specs was null or undefined when calling srcHandlersCombineModifyHandler.',
-      );
+      throw new Error('Required parameter specs was null or undefined when calling srcHandlersCombineModifyHandler.');
     }
     if (archive === null || archive === undefined) {
-      throw new Error(
-        'Required parameter archive was null or undefined when calling srcHandlersCombineModifyHandler.',
-      );
+      throw new Error('Required parameter archive was null or undefined when calling srcHandlersCombineModifyHandler.');
     }
 
     let localVarHeaders = this.defaultHeaders;
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
     if (localVarHttpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = [
-        'application/json',
-        'application/zip',
-      ];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['application/json', 'application/zip'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
     if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        'Accept',
-        localVarHttpHeaderAcceptSelected,
-      );
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
@@ -931,18 +804,13 @@ export class SimulationProjectsService {
     }
 
     let responseType_: 'text' | 'json' = 'json';
-    if (
-      localVarHttpHeaderAcceptSelected &&
-      localVarHttpHeaderAcceptSelected.startsWith('text')
-    ) {
+    if (localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
       responseType_ = 'text';
     }
 
     return this.httpClient.post<string>(
       `${this.configuration.basePath}/combine/modify`,
-      localVarConvertFormParamsToString
-        ? localVarFormParams.toString()
-        : localVarFormParams,
+      localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
       {
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
@@ -1037,19 +905,14 @@ export class SimulationProjectsService {
 
     let localVarHeaders = this.defaultHeaders;
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
     if (localVarHttpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
       const httpHeaderAccepts: string[] = ['application/json'];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
     if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        'Accept',
-        localVarHttpHeaderAcceptSelected,
-      );
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
@@ -1067,18 +930,13 @@ export class SimulationProjectsService {
     }
 
     let responseType_: 'text' | 'json' = 'json';
-    if (
-      localVarHttpHeaderAcceptSelected &&
-      localVarHttpHeaderAcceptSelected.startsWith('text')
-    ) {
+    if (localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
       responseType_ = 'text';
     }
 
     return this.httpClient.post<ValidationReport>(
       `${this.configuration.basePath}/combine/validate`,
-      localVarConvertFormParamsToString
-        ? localVarFormParams.toString()
-        : localVarFormParams,
+      localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
       {
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
@@ -1109,10 +967,7 @@ export class SimulationProjectsService {
     observe?: 'body',
     reportProgress?: boolean,
     options?: {
-      httpHeaderAccept?:
-        | 'application/json'
-        | 'application/x-hdf'
-        | 'application/zip';
+      httpHeaderAccept?: 'application/json' | 'application/x-hdf' | 'application/zip';
     },
   ): Observable<SimulationRunResults>;
   public srcHandlersRunRunHandler(
@@ -1124,10 +979,7 @@ export class SimulationProjectsService {
     observe?: 'response',
     reportProgress?: boolean,
     options?: {
-      httpHeaderAccept?:
-        | 'application/json'
-        | 'application/x-hdf'
-        | 'application/zip';
+      httpHeaderAccept?: 'application/json' | 'application/x-hdf' | 'application/zip';
     },
   ): Observable<HttpResponse<SimulationRunResults>>;
   public srcHandlersRunRunHandler(
@@ -1139,10 +991,7 @@ export class SimulationProjectsService {
     observe?: 'events',
     reportProgress?: boolean,
     options?: {
-      httpHeaderAccept?:
-        | 'application/json'
-        | 'application/x-hdf'
-        | 'application/zip';
+      httpHeaderAccept?: 'application/json' | 'application/x-hdf' | 'application/zip';
     },
   ): Observable<HttpEvent<SimulationRunResults>>;
   public srcHandlersRunRunHandler(
@@ -1154,42 +1003,26 @@ export class SimulationProjectsService {
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: {
-      httpHeaderAccept?:
-        | 'application/json'
-        | 'application/x-hdf'
-        | 'application/zip';
+      httpHeaderAccept?: 'application/json' | 'application/x-hdf' | 'application/zip';
     },
   ): Observable<any> {
     if (simulator === null || simulator === undefined) {
-      throw new Error(
-        'Required parameter simulator was null or undefined when calling srcHandlersRunRunHandler.',
-      );
+      throw new Error('Required parameter simulator was null or undefined when calling srcHandlersRunRunHandler.');
     }
     if (type === null || type === undefined) {
-      throw new Error(
-        'Required parameter type was null or undefined when calling srcHandlersRunRunHandler.',
-      );
+      throw new Error('Required parameter type was null or undefined when calling srcHandlersRunRunHandler.');
     }
 
     let localVarHeaders = this.defaultHeaders;
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
     if (localVarHttpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = [
-        'application/json',
-        'application/x-hdf',
-        'application/zip',
-      ];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['application/json', 'application/x-hdf', 'application/zip'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
     if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        'Accept',
-        localVarHttpHeaderAcceptSelected,
-      );
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
@@ -1207,18 +1040,13 @@ export class SimulationProjectsService {
     }
 
     let responseType_: 'text' | 'json' = 'json';
-    if (
-      localVarHttpHeaderAcceptSelected &&
-      localVarHttpHeaderAcceptSelected.startsWith('text')
-    ) {
+    if (localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
       responseType_ = 'text';
     }
 
     return this.httpClient.post<SimulationRunResults>(
       `${this.configuration.basePath}/run/run`,
-      localVarConvertFormParamsToString
-        ? localVarFormParams.toString()
-        : localVarFormParams,
+      localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
       {
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,

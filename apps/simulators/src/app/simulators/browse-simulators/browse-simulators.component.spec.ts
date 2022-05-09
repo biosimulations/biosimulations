@@ -13,12 +13,7 @@ describe('BrowseSimulatorsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        SharedUiModule,
-        HttpClientTestingModule,
-        RouterTestingModule,
-        NoopAnimationsModule,
-      ],
+      imports: [SharedUiModule, HttpClientTestingModule, RouterTestingModule, NoopAnimationsModule],
       declarations: [BrowseSimulatorsComponent],
       providers: [ConfigService],
     }).compileComponents();

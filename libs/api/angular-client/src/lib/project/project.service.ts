@@ -1,17 +1,9 @@
 import { Injectable } from '@angular/core';
 import { map, Observable, shareReplay, throwError, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpStatusCode,
-} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { Endpoints } from '@biosimulations/config/common';
-import {
-  Project,
-  ProjectInput,
-  ProjectSummary,
-} from '@biosimulations/datamodel/common';
+import { Project, ProjectInput, ProjectSummary } from '@biosimulations/datamodel/common';
 
 @Injectable({
   providedIn: 'root',
@@ -20,8 +12,7 @@ export class ProjectService {
   private endpoints = new Endpoints();
 
   private cachedProjectId?: string;
-  private cachedProjectObservables: { [endpoint: string]: Observable<any> } =
-    {};
+  private cachedProjectObservables: { [endpoint: string]: Observable<any> } = {};
   private cachedProjectSummaries!: Observable<ProjectSummary[]>;
 
   constructor(private http: HttpClient) {}
@@ -33,18 +24,14 @@ export class ProjectService {
     validateSimulationRunNotPublished = false,
   ): Observable<true | string> {
     return this.http
-      .post<void>(
-        this.endpoints.getValidateProjectEndpoint(false),
-        projectInput,
-        {
-          headers: { 'Content-Type': 'application/json' },
-          params: {
-            validateSimulationResultsData,
-            validateIdAvailable,
-            validateSimulationRunNotPublished,
-          },
+      .post<void>(this.endpoints.getValidateProjectEndpoint(false), projectInput, {
+        headers: { 'Content-Type': 'application/json' },
+        params: {
+          validateSimulationResultsData,
+          validateIdAvailable,
+          validateSimulationRunNotPublished,
         },
-      )
+      })
       .pipe(
         map((): true => true),
         catchError((error: HttpErrorResponse): Observable<string> => {
@@ -77,9 +64,7 @@ export class ProjectService {
     const url = this.endpoints.getProjectSummariesEndpoint(false);
 
     if (!this.cachedProjectSummaries) {
-      this.cachedProjectSummaries = this.http
-        .get<ProjectSummary[]>(url)
-        .pipe(shareReplay(1));
+      this.cachedProjectSummaries = this.http.get<ProjectSummary[]>(url).pipe(shareReplay(1));
     }
 
     return this.cachedProjectSummaries;

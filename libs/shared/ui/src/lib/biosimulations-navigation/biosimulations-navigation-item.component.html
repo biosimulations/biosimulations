@@ -4,21 +4,14 @@
     'no-content': noExpansion || route !== '',
     'above-divider': aboveDivider
   }"
-  [disabled]="disabled"
->
+  [disabled]="disabled">
   <mat-expansion-panel-header
     [routerLink]="route || null"
     [queryParams]="queryParams"
     [collapsedHeight]="'48px'"
-    [expandedHeight]="'48px'"
-  >
+    [expandedHeight]="'48px'">
     <mat-panel-title>
-      <a
-        [href]="href"
-        rel="noopener"
-        [target]="target"
-        *ngIf="href; else plain"
-      >
+      <a [href]="href" rel="noopener" [target]="target" *ngIf="href; else plain">
         <biosimulations-icon [icon]="icon"></biosimulations-icon>
         {{ heading }}
       </a>

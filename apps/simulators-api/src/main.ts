@@ -6,17 +6,10 @@
 import { Logger, INestApplication, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
-import {
-  SwaggerModule,
-  DocumentBuilder,
-  SwaggerCustomOptions,
-} from '@nestjs/swagger';
+import { SwaggerModule, DocumentBuilder, SwaggerCustomOptions } from '@nestjs/swagger';
 import { CustomOrigin } from '@nestjs/common/interfaces/external/cors-options.interface';
 import { ConfigService } from '@nestjs/config';
-import {
-  ScopesObject,
-  SecuritySchemeObject,
-} from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
+import { ScopesObject, SecuritySchemeObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 import { Resolver } from '@stoplight/json-ref-resolver';
 import * as toJsonSchema from '@openapi-contrib/openapi-schema-to-json-schema';
 import { json } from 'body-parser';
@@ -82,8 +75,7 @@ function setupOpenApi(
     swaggerOptions: uiOptions,
     customfavIcon:
       'https://github.com/biosimulations/biosimulations/raw/dev/libs/shared/assets/src/assets/icons/favicon-32x32.png',
-    customCssUrl:
-      'https://static.biosimulations.org/stylesheets/biosimulators_swagger.css',
+    customCssUrl: 'https://static.biosimulations.org/stylesheets/biosimulators_swagger.css',
   };
   SwaggerModule.setup(uiPath, app, document, customOptions);
 
@@ -133,26 +125,15 @@ async function bootstrap() {
     .setTitle('BioSimulators API')
     .setDescription('API for a registry of biosimulation software tools.')
     .setVersion('0.1')
-    .setLicense(
-      'MIT License',
-      'https://github.com/biosimulations/biosimulations/blob/dev/LICENSE',
-    )
+    .setLicense('MIT License', 'https://github.com/biosimulations/biosimulations/blob/dev/LICENSE')
     .setTermsOfService('https://docs.biosimulations.org/about/terms/')
-    .setExternalDoc(
-      'API specifications (Open API JSON)',
-      'https://api.biosimulators.org/openapi.json',
-    )
-    .setContact(
-      'BioSimulators Team',
-      'https://docs.biosimulations.org/about/team/',
-      'info@biosimulators.org',
-    );
+    .setExternalDoc('API specifications (Open API JSON)', 'https://api.biosimulators.org/openapi.json')
+    .setContact('BioSimulators Team', 'https://docs.biosimulations.org/about/team/', 'info@biosimulators.org');
 
   const tags = [
     {
       name: 'Simulators',
-      description:
-        'Operations for submitting, updating, retrieving, and deleting simulation tools.',
+      description: 'Operations for submitting, updating, retrieving, and deleting simulation tools.',
     },
     {
       name: 'Ontologies',
@@ -165,8 +146,7 @@ async function bootstrap() {
     },
     {
       name: 'Authentication testing',
-      description:
-        'Operations for checking authentication and permissions to this API.',
+      description: 'Operations for checking authentication and permissions to this API.',
     },
   ];
   for (const tag of tags) {
@@ -189,9 +169,7 @@ async function bootstrap() {
   const resolver = new Resolver();
   const resolvedDocument = await resolver.resolve(document);
   const schema = resolvedDocument.result.components.schemas.Simulator;
-  httpAdapter.get('/schema/Simulator.json', (req, res) =>
-    res.json(toJsonSchema(schema)),
-  );
+  httpAdapter.get('/schema/Simulator.json', (req, res) => res.json(toJsonSchema(schema)));
 
   const limit = configService.get('server.limit');
   app.use(json({ limit }));

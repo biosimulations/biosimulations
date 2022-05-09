@@ -2,19 +2,8 @@ import { Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { AuthEnvironment } from './auth.environment';
-import createAuth0Client, {
-  Auth0Client,
-  GetUserOptions,
-  GetTokenSilentlyOptions,
-} from '@auth0/auth0-spa-js';
-import {
-  from,
-  Observable,
-  throwError,
-  BehaviorSubject,
-  of,
-  combineLatest,
-} from 'rxjs';
+import createAuth0Client, { Auth0Client, GetUserOptions, GetTokenSilentlyOptions } from '@auth0/auth0-spa-js';
+import { from, Observable, throwError, BehaviorSubject, of, combineLatest } from 'rxjs';
 import { catchError, shareReplay, concatMap, tap } from 'rxjs/operators';
 
 @Injectable()
@@ -118,10 +107,7 @@ export class AuthService {
         // Have client, now call method to handle auth callback redirect
         tap((cbRes) => {
           // Get and set target redirect route from callback results
-          targetRoute =
-            cbRes.appState && cbRes.appState.target
-              ? cbRes.appState.target
-              : '/';
+          targetRoute = cbRes.appState && cbRes.appState.target ? cbRes.appState.target : '/';
         }),
         concatMap(() => {
           // Redirect callback complete; get user and login status
@@ -148,13 +134,7 @@ export class AuthService {
     });
   }
 
-  public getTokenSilently$(
-    options?: GetTokenSilentlyOptions,
-  ): Observable<string> {
-    return this.auth0Client$.pipe(
-      concatMap((client: Auth0Client) =>
-        from(client.getTokenSilently(options)),
-      ),
-    );
+  public getTokenSilently$(options?: GetTokenSilentlyOptions): Observable<string> {
+    return this.auth0Client$.pipe(concatMap((client: Auth0Client) => from(client.getTokenSilently(options))));
   }
 }

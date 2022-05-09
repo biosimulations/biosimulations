@@ -1,11 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { AnalyticsService } from './analytics.service';
-import {
-  MatDialogModule,
-  MAT_DIALOG_DATA,
-  MatDialogRef,
-} from '@angular/material/dialog';
+import { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { Storage } from '@ionic/storage-angular';
@@ -19,13 +15,7 @@ describe('AnalyticsService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        MatDialogModule,
-        MatExpansionModule,
-        MatSlideToggleModule,
-        RouterTestingModule,
-        NoopAnimationsModule,
-      ],
+      imports: [MatDialogModule, MatExpansionModule, MatSlideToggleModule, RouterTestingModule, NoopAnimationsModule],
       providers: [
         { provide: MatDialogRef, useValue: {} },
         {

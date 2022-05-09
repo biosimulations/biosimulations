@@ -11,10 +11,7 @@ import { ApiTags, ApiOperation } from '@nestjs/swagger';
 @Controller('health')
 @ApiTags('Health')
 export class HealthController {
-  public constructor(
-    private health: HealthCheckService,
-    private db: MongooseHealthIndicator,
-  ) {}
+  public constructor(private health: HealthCheckService, private db: MongooseHealthIndicator) {}
 
   @Get()
   @ApiOperation({
@@ -26,6 +23,5 @@ export class HealthController {
     return this.health.check([this.mongoCheck]);
   }
 
-  private mongoCheck: HealthIndicatorFunction = () =>
-    this.db.pingCheck('Database');
+  private mongoCheck: HealthIndicatorFunction = () => this.db.pingCheck('Database');
 }

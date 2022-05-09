@@ -1,7 +1,4 @@
-import {
-  CombineArchiveLog,
-  ThumbnailUrls,
-} from '@biosimulations/datamodel/common';
+import { CombineArchiveLog, ThumbnailUrls } from '@biosimulations/datamodel/common';
 import { ProjectFile, SimulationRun } from '@biosimulations/datamodel/api';
 import { Injectable, Logger, HttpStatus } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
@@ -16,11 +13,7 @@ import {
   SimulationRunSedDocumentInput,
   SimulationRunSedDocumentInputsContainer,
 } from '@biosimulations/datamodel/common';
-import {
-  ProjectFileInput,
-  ProjectFileInputsContainer,
-  ArchiveMetadataContainer,
-} from '@biosimulations/datamodel/api';
+import { ProjectFileInput, ProjectFileInputsContainer, ArchiveMetadataContainer } from '@biosimulations/datamodel/api';
 import { retryBackoff } from '@biosimulations/rxjs-backoff';
 import axios, { AxiosError } from 'axios';
 
@@ -29,80 +22,37 @@ export class SimulationRunService {
   private endpoints: Endpoints;
   private logger = new Logger(SimulationRunService.name);
 
-  public constructor(
-    private auth: AuthClientService,
-    private http: HttpService,
-    private configService: ConfigService,
-  ) {
+  public constructor(private auth: AuthClientService, private http: HttpService, private configService: ConfigService) {
     const env = this.configService.get('server.env');
     this.endpoints = new Endpoints(env);
   }
 
-  public postMetadata(
-    runId: string,
-    metadata: ArchiveMetadataContainer,
-  ): Observable<void> {
+  public postMetadata(runId: string, metadata: ArchiveMetadataContainer): Observable<void> {
     this.logger.log(`Uploading metadata for simulation run '${runId}' ....`);
-    const endpoint = this.endpoints.getSimulationRunMetadataEndpoint(
-      false,
-      runId,
-    );
-    return this.postAuthenticated<ArchiveMetadataContainer, void>(
-      runId,
-      endpoint,
-      metadata,
-    );
+    const endpoint = this.endpoints.getSimulationRunMetadataEndpoint(false, runId);
+    return this.postAuthenticated<ArchiveMetadataContainer, void>(runId, endpoint, metadata);
   }
 
-  public postSpecs(
-    runId: string,
-    specs: SimulationRunSedDocumentInput[],
-  ): Observable<void> {
-    this.logger.log(
-      `Uploading simulation experiment specifications (SED-ML) for simulation run '${runId}' ....`,
-    );
-    const endpoint =
-      this.endpoints.getSimulationRunSimulationExperimentSpecificationsEndpoint(
-        false,
-        runId,
-      );
-    return this.postAuthenticated<
-      SimulationRunSedDocumentInputsContainer,
-      void
-    >(runId, endpoint, { sedDocuments: specs });
+  public postSpecs(runId: string, specs: SimulationRunSedDocumentInput[]): Observable<void> {
+    this.logger.log(`Uploading simulation experiment specifications (SED-ML) for simulation run '${runId}' ....`);
+    const endpoint = this.endpoints.getSimulationRunSimulationExperimentSpecificationsEndpoint(false, runId);
+    return this.postAuthenticated<SimulationRunSedDocumentInputsContainer, void>(runId, endpoint, {
+      sedDocuments: specs,
+    });
   }
 
-  public postFiles(
-    runId: string,
-    files: ProjectFileInput[],
-  ): Observable<ProjectFile[]> {
+  public postFiles(runId: string, files: ProjectFileInput[]): Observable<ProjectFile[]> {
     this.logger.log(`Uploading files for simulation run '${runId}' ....`);
     const endpoint = this.endpoints.getSimulationRunFilesEndpoint(false, runId);
     const body: ProjectFileInputsContainer = { files: files };
-    return this.postAuthenticated<ProjectFileInputsContainer, ProjectFile[]>(
-      runId,
-      endpoint,
-      body,
-    );
+    return this.postAuthenticated<ProjectFileInputsContainer, ProjectFile[]>(runId, endpoint, body);
   }
 
-  public putFileThumbnailUrls(
-    runId: string,
-    fileId: string,
-    thumbnailUrls: ThumbnailUrls,
-  ): Observable<ThumbnailUrls> {
+  public putFileThumbnailUrls(runId: string, fileId: string, thumbnailUrls: ThumbnailUrls): Observable<ThumbnailUrls> {
     this.logger.log(`Uploading thumbnailUrls for file ${runId}/${fileId}`);
 
-    const endpoint = this.endpoints.getSimulationRunThumbnailEndpoint(
-      false,
-      runId,
-      fileId,
-    );
-    const returnVal = this.putAuthenticated<ThumbnailUrls, undefined>(
-      runId,
-      endpoint,
-      thumbnailUrls,
-    ).pipe(
+    const endpoint = this.endpoints.getSimulationRunThumbnailEndpoint(false, runId, fileId);
+    const returnVal = this.putAuthenticated<ThumbnailUrls, undefined>(runId, endpoint, thumbnailUrls).pipe(
       // Just for documentation
       map((val: any) => {
         this.logger.log(`Uploaded thumbnailUrls for file ${runId}/${fileId}`);
@@ -113,35 +63,25 @@ export class SimulationRunService {
     return returnVal;
   }
 
-  public updateSimulationRunFile(
-    runId: string,
-    fileUrl: string,
-    projectSize: number,
-  ): Observable<SimulationRun> {
+  public updateSimulationRunFile(runId: string, fileUrl: string, projectSize: number): Observable<SimulationRun> {
     const endpoint = this.endpoints.getSimulationRunEndpoint(false, runId);
     type SimulationRunFilePatch = {
       fileUrl: string;
       projectSize: number;
     };
-    const response = this.patchAuthenticated<
-      SimulationRunFilePatch,
-      SimulationRun
-    >(runId, endpoint, { fileUrl, projectSize });
+    const response = this.patchAuthenticated<SimulationRunFilePatch, SimulationRun>(runId, endpoint, {
+      fileUrl,
+      projectSize,
+    });
     return response;
   }
 
-  public updateSimulationRunStatus(
-    runId: string,
-    status: SimulationRunStatus,
-  ): Observable<SimulationRun> {
+  public updateSimulationRunStatus(runId: string, status: SimulationRunStatus): Observable<SimulationRun> {
     const endpoint = this.endpoints.getSimulationRunEndpoint(false, runId);
     type SimulationRunStatusPatch = {
       status: SimulationRunStatus;
     };
-    const response = this.patchAuthenticated<
-      SimulationRunStatusPatch,
-      SimulationRun
-    >(runId, endpoint, { status });
+    const response = this.patchAuthenticated<SimulationRunStatusPatch, SimulationRun>(runId, endpoint, { status });
     return response;
   }
 
@@ -152,10 +92,9 @@ export class SimulationRunService {
     url: string,
   ): Observable<SimulationRun> {
     const endPointurl = this.endpoints.getSimulationRunEndpoint(false, runId);
-    const response = this.patchAuthenticated<
-      { resultsSize: number },
-      SimulationRun
-    >(runId, endPointurl, { resultsSize: size });
+    const response = this.patchAuthenticated<{ resultsSize: number }, SimulationRun>(runId, endPointurl, {
+      resultsSize: size,
+    });
     return response;
   }
 
@@ -163,47 +102,28 @@ export class SimulationRunService {
     return from(this.auth.getToken()).pipe(
       map((token) => {
         return this.http
-          .get<SimulationRun>(
-            this.endpoints.getSimulationRunEndpoint(false, runId),
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
+          .get<SimulationRun>(this.endpoints.getSimulationRunEndpoint(false, runId), {
+            headers: {
+              Authorization: `Bearer ${token}`,
             },
-          )
+          })
           .pipe(this.getRetryBackoff(), pluck('data'));
       }),
       mergeMap((value) => value),
     );
   }
 
-  public sendLog(
-    runId: string,
-    log: CombineArchiveLog,
-    update = false,
-  ): Observable<void> {
+  public sendLog(runId: string, log: CombineArchiveLog, update = false): Observable<void> {
     const endpoint = this.endpoints.getSimulationRunLogsEndpoint(false, runId);
     if (update) {
       const body: CombineArchiveLog = log;
-      return this.putAuthenticated<CombineArchiveLog, void>(
-        runId,
-        endpoint,
-        body,
-      );
+      return this.putAuthenticated<CombineArchiveLog, void>(runId, endpoint, body);
     } else {
-      return this.postAuthenticated<CombineArchiveLog, void>(
-        runId,
-        endpoint,
-        log,
-      );
+      return this.postAuthenticated<CombineArchiveLog, void>(runId, endpoint, log);
     }
   }
 
-  private patchAuthenticated<T, U>(
-    runId: string,
-    url: string,
-    body: T,
-  ): Observable<U> {
+  private patchAuthenticated<T, U>(runId: string, url: string, body: T): Observable<U> {
     const response = from(this.auth.getToken()).pipe(
       map((token) => {
         const httpRes = this.http
@@ -212,11 +132,7 @@ export class SimulationRunService {
               Authorization: `Bearer ${token}`,
             },
           })
-          .pipe(
-            this.getRetryBackoff(),
-            pluck('data'),
-            this.getErrorHandler<U>('Patch', url, runId),
-          );
+          .pipe(this.getRetryBackoff(), pluck('data'), this.getErrorHandler<U>('Patch', url, runId));
 
         return httpRes;
       }),
@@ -225,11 +141,7 @@ export class SimulationRunService {
     return response;
   }
 
-  private postAuthenticated<T, U>(
-    runId: string,
-    url: string,
-    body: T,
-  ): Observable<U> {
+  private postAuthenticated<T, U>(runId: string, url: string, body: T): Observable<U> {
     return from(this.auth.getToken()).pipe(
       map((token) => {
         return this.http
@@ -240,42 +152,26 @@ export class SimulationRunService {
               Authorization: `Bearer ${token}`,
             },
           })
-          .pipe(
-            this.getRetryBackoff(),
-            pluck('data'),
-            this.getErrorHandler<U>('Post', url, runId),
-          );
+          .pipe(this.getRetryBackoff(), pluck('data'), this.getErrorHandler<U>('Post', url, runId));
       }),
       mergeMap((value) => value),
     );
   }
 
-  private getErrorHandler<U>(
-    method: string,
-    url: string,
-    runId: string,
-  ): OperatorFunction<U, U> {
+  private getErrorHandler<U>(method: string, url: string, runId: string): OperatorFunction<U, U> {
     return catchError((err, caught: Observable<U>) => {
       if (axios.isAxiosError(err)) {
         const name = err.name;
         const message = err.message;
-        this.logger.error(
-          `${name} ${message} for ${method} operation on path ${url} for simulation run ${runId}`,
-        );
+        this.logger.error(`${name} ${message} for ${method} operation on path ${url} for simulation run ${runId}`);
       } else {
-        this.logger.error(
-          `The ${method} operation to ${url} for simulation run ${runId} failed: ${err}`,
-        );
+        this.logger.error(`The ${method} operation to ${url} for simulation run ${runId} failed: ${err}`);
       }
       throw err;
     });
   }
 
-  private putAuthenticated<T, U>(
-    runId: string,
-    url: string,
-    body: T,
-  ): Observable<U> {
+  private putAuthenticated<T, U>(runId: string, url: string, body: T): Observable<U> {
     return from(this.auth.getToken()).pipe(
       map((token) => {
         return this.http
@@ -286,11 +182,7 @@ export class SimulationRunService {
               Authorization: `Bearer ${token}`,
             },
           })
-          .pipe(
-            this.getRetryBackoff(),
-            pluck('data'),
-            this.getErrorHandler<U>('Put', url, runId),
-          );
+          .pipe(this.getRetryBackoff(), pluck('data'), this.getErrorHandler<U>('Put', url, runId));
       }),
       mergeMap((value) => value),
     );

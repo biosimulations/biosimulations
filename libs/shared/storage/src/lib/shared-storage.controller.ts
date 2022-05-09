@@ -1,13 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  Post,
-  Res,
-  UploadedFile,
-  UseInterceptors,
-} from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { SharedStorageService } from './shared-storage.service';
@@ -19,21 +10,12 @@ import { Readable } from 'stream';
 export class s3TestController {
   public constructor(private service: SharedStorageService) {}
   @Get('/:id')
-  public async getFile(
-    @Param('id') id: string,
-    @Res({ passthrough: false }) res: Response,
-  ): Promise<void> {
+  public async getFile(@Param('id') id: string, @Res({ passthrough: false }) res: Response): Promise<void> {
     const data = await this.service.getObject(id);
     if (data.Body) {
       const stream = Readable.from(data.Body as Buffer);
-      res.setHeader(
-        'Content-Disposition',
-        `attachment; filename="${id.split('/').reverse()[0]}"`,
-      );
-      res.setHeader(
-        'Content-Type',
-        `${data.ContentType || 'application/octet-stream'}`,
-      );
+      res.setHeader('Content-Disposition', `attachment; filename="${id.split('/').reverse()[0]}"`);
+      res.setHeader('Content-Type', `${data.ContentType || 'application/octet-stream'}`);
       stream.pipe(res);
     }
   }
@@ -56,11 +38,6 @@ export class s3TestController {
     },
   })
   uploadFile(@UploadedFile() file: any, @Body() body: { id: string }) {
-    return this.service.putObject(
-      body.id,
-      file.buffer,
-      false,
-      file.Buffer.length,
-    );
+    return this.service.putObject(body.id, file.buffer, false, file.Buffer.length);
   }
 }

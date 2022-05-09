@@ -13,15 +13,11 @@ export class ManifestProcessor {
   public constructor(private manifestService: ManifestService) {}
 
   @Process({ name: 'manifest', concurrency: 10 })
-  private async process(
-    job: Job,
-  ): Promise<JobReturn<CombineArchiveManifestContent[] | undefined>> {
+  private async process(job: Job): Promise<JobReturn<CombineArchiveManifestContent[] | undefined>> {
     const data = job.data;
     const runId = data.runId;
     try {
-      const contents = await firstValueFrom(
-        this.manifestService.getManifestContent(runId),
-      );
+      const contents = await firstValueFrom(this.manifestService.getManifestContent(runId));
 
       job.updateProgress(100);
       return {

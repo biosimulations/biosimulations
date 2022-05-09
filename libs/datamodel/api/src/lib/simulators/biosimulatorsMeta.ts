@@ -140,8 +140,7 @@ export class BiosimulatorsMeta implements IBiosimulatorsMeta {
 
   @ApiProperty({
     type: Boolean,
-    description:
-      'Whether or not the image for the simulator has passed validation',
+    description: 'Whether or not the image for the simulator has passed validation',
   })
   @IsBoolean()
   public validated!: boolean;

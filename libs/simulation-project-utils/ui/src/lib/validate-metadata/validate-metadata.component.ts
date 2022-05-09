@@ -1,11 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  FormControl,
-  Validators,
-  ValidationErrors,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators, ValidationErrors } from '@angular/forms';
 import { CombineApiService } from '@biosimulations/simulation-project-utils/service';
 import {
   ValidationReport,
@@ -72,10 +66,7 @@ export class ValidateMetadataComponent implements OnInit, OnDestroy {
     this.formGroup = this.formBuilder.group(
       {
         submitMethod: [SubmitMethod.file],
-        metadataFile: [
-          '',
-          [Validators.required, this.maxFileSizeValidator.bind(this)],
-        ],
+        metadataFile: ['', [Validators.required, this.maxFileSizeValidator.bind(this)]],
         metadataUrl: ['', [this.urlValidator]],
         omexMetadataFormat: [OmexMetadataInputFormat.rdfxml],
         omexMetadataSchema: [OmexMetadataSchema.BioSimulations],
@@ -85,12 +76,9 @@ export class ValidateMetadataComponent implements OnInit, OnDestroy {
       //},
     );
 
-    this.submitMethodControl = this.formGroup.controls
-      .submitMethod as FormControl;
-    this.metadataFileControl = this.formGroup.controls
-      .metadataFile as FormControl;
-    this.metadataUrlControl = this.formGroup.controls
-      .metadataUrl as FormControl;
+    this.submitMethodControl = this.formGroup.controls.submitMethod as FormControl;
+    this.metadataFileControl = this.formGroup.controls.metadataFile as FormControl;
+    this.metadataUrlControl = this.formGroup.controls.metadataUrl as FormControl;
 
     this.metadataUrlControl.disable();
 
@@ -117,10 +105,8 @@ export class ValidateMetadataComponent implements OnInit, OnDestroy {
     this.activatedRoute.queryParams.subscribe((params: Params): void => {
       const metadataUrl = params?.metadataUrl;
       if (metadataUrl) {
-        const submitMethodControl = this.formGroup.controls
-          .submitMethod as FormControl;
-        const metadataUrlControl = this.formGroup.controls
-          .metadataUrl as FormControl;
+        const submitMethodControl = this.formGroup.controls.submitMethod as FormControl;
+        const metadataUrlControl = this.formGroup.controls.metadataUrl as FormControl;
         submitMethodControl.setValue(SubmitMethod.url);
         metadataUrlControl.setValue(metadataUrl);
         this.changeSubmitMethod();
@@ -130,15 +116,9 @@ export class ValidateMetadataComponent implements OnInit, OnDestroy {
 
   maxFileSizeValidator(control: FormControl): ValidationErrors | null {
     const fileInput: FileInput | null = control.value;
-    const file: File | undefined = fileInput?.files
-      ? fileInput.files[0]
-      : undefined;
+    const file: File | undefined = fileInput?.files ? fileInput.files[0] : undefined;
     const fileSize = file?.size;
-    if (
-      fileInput &&
-      fileSize &&
-      fileSize > this.config.appConfig.maxUploadFileSize
-    ) {
+    if (fileInput && fileSize && fileSize > this.config.appConfig.maxUploadFileSize) {
       return {
         maxSize: true,
       };
@@ -183,8 +163,7 @@ export class ValidateMetadataComponent implements OnInit, OnDestroy {
   }
 
   changeSubmitMethod(): void {
-    const submitMethodControl = this.formGroup.controls
-      .submitMethod as FormControl;
+    const submitMethodControl = this.formGroup.controls.submitMethod as FormControl;
     if (submitMethodControl.value === SubmitMethod.file) {
       this.formGroup.controls.metadataFile.enable();
       this.formGroup.controls.metadataUrl.disable();
@@ -207,13 +186,11 @@ export class ValidateMetadataComponent implements OnInit, OnDestroy {
     this.warnings = undefined;
 
     // get data for API
-    const submitMethodControl = this.formGroup.controls
-      .submitMethod as FormControl;
+    const submitMethodControl = this.formGroup.controls.submitMethod as FormControl;
 
     let metadata: File | string = '';
     if (submitMethodControl.value === SubmitMethod.file) {
-      const metadataFileInput: FileInput =
-        this.formGroup.controls.metadataFile.value;
+      const metadataFileInput: FileInput = this.formGroup.controls.metadataFile.value;
       metadata = metadataFileInput.files[0];
     } else {
       metadata = this.formGroup.controls.metadataUrl.value;
@@ -235,25 +212,17 @@ export class ValidateMetadataComponent implements OnInit, OnDestroy {
             verticalPosition: 'bottom',
           });
           if (report?.errors?.length) {
-            this.errors = this.convertValidationMessagesToList(
-              report?.errors as ValidationMessage[],
-            );
+            this.errors = this.convertValidationMessagesToList(report?.errors as ValidationMessage[]);
           }
           if (report?.warnings?.length) {
-            this.warnings = this.convertValidationMessagesToList(
-              report?.warnings as ValidationMessage[],
-            );
+            this.warnings = this.convertValidationMessagesToList(report?.warnings as ValidationMessage[]);
           }
 
-          this.snackBar.open(
-            'The validation of your metadata completed.',
-            'Ok',
-            {
-              duration: 5000,
-              horizontalPosition: 'center',
-              verticalPosition: 'bottom',
-            },
-          );
+          this.snackBar.open('The validation of your metadata completed.', 'Ok', {
+            duration: 5000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+          });
         } else {
           let msg = 'Sorry! We were unable to validate your metadata.';
           if (submitMethodControl.value == SubmitMethod.url) {
@@ -282,19 +251,12 @@ export class ValidateMetadataComponent implements OnInit, OnDestroy {
     });
   }
 
-  private convertValidationMessagesToList(
-    messages: ValidationMessage[],
-  ): string {
+  private convertValidationMessagesToList(messages: ValidationMessage[]): string {
     return messages
       .map((message: ValidationMessage): string => {
         let details = '';
         if (message?.details?.length) {
-          details =
-            '<ul>' +
-            this.convertValidationMessagesToList(
-              message?.details as ValidationMessage[],
-            ) +
-            '</ul>';
+          details = '<ul>' + this.convertValidationMessagesToList(message?.details as ValidationMessage[]) + '</ul>';
         }
 
         return '<li>' + message.summary + details + '</li>';

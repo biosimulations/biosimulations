@@ -14,10 +14,7 @@ import { HttpModule } from '@nestjs/axios';
 import { MongooseModule } from '@nestjs/mongoose';
 import { BullModule } from '@biosimulations/nestjs-bullmq';
 import { SimulationRunController } from './simulation-run.controller';
-import {
-  SimulationRunModel,
-  SimulationRunModelSchema,
-} from './simulation-run.model';
+import { SimulationRunModel, SimulationRunModelSchema } from './simulation-run.model';
 import { SimulationRunService } from './simulation-run.service';
 import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
 
@@ -45,9 +42,7 @@ import { BullModuleOptions, JobQueue } from '@biosimulations/messages/messages';
     FilesModule,
     MetadataModule,
     forwardRef(() => ProjectsModule),
-    MongooseModule.forFeature([
-      { name: SimulationRunModel.name, schema: SimulationRunModelSchema },
-    ]),
+    MongooseModule.forFeature([{ name: SimulationRunModel.name, schema: SimulationRunModelSchema }]),
     BullModule.registerQueue({
       name: JobQueue.submitSimulationRun,
       ...BullModuleOptions,

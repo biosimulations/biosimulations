@@ -4,10 +4,7 @@ import { Observable, of } from 'rxjs';
 import { map, catchError, shareReplay } from 'rxjs/operators';
 import { Endpoints } from '@biosimulations/config/common';
 
-import {
-  UploadSimulationRun,
-  UploadSimulationRunUrl,
-} from '@biosimulations/datamodel/common';
+import { UploadSimulationRun, UploadSimulationRunUrl } from '@biosimulations/datamodel/common';
 import { SimulationLogs } from '../../simulation-logs-datamodel';
 import {
   SimulationRunLogStatus,
@@ -51,13 +48,9 @@ export class DispatchService {
       purpose,
       projectId: undefined,
     };
-    return this.http.post<SimulationRun>(
-      this.endpoints.getSimulationRunEndpoint(false),
-      body,
-      {
-        headers: { 'Content-Type': 'application/json' },
-      },
-    );
+    return this.http.post<SimulationRun>(this.endpoints.getSimulationRunEndpoint(false), body, {
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 
   public submitJobForFile(
@@ -89,16 +82,11 @@ export class DispatchService {
     formData.append('file', fileToUpload, fileToUpload.name);
     formData.append('simulationRun', JSON.stringify(run));
 
-    const response = this.http.post<SimulationRun>(
-      this.endpoints.getSimulationRunEndpoint(false),
-      formData,
-    );
+    const response = this.http.post<SimulationRun>(this.endpoints.getSimulationRunEndpoint(false), formData);
     return response;
   }
 
-  public getSimulationLogs(
-    uuid: string,
-  ): Observable<SimulationLogs | undefined | false> {
+  public getSimulationLogs(uuid: string): Observable<SimulationLogs | undefined | false> {
     return this.simRunService.getSimulationRunLog(uuid).pipe(
       map((response: CombineArchiveLog): SimulationLogs => {
         // get structured log

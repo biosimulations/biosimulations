@@ -15,13 +15,10 @@ export class FilesProcessor {
   public constructor(private fileService: FileService) {}
 
   @Process({ concurrency: 10 })
-  private async process(
-    job: Job,
-  ): Promise<JobReturn<ProjectFile[] | undefined>> {
+  private async process(job: Job): Promise<JobReturn<ProjectFile[] | undefined>> {
     const data = job.data;
     const runId = data.runId;
-    const dependencies: Record<string, any> | undefined =
-      (await job.getDependencies()).processed || {};
+    const dependencies: Record<string, any> | undefined = (await job.getDependencies()).processed || {};
 
     let manifest: CombineArchiveManifestContent[] | undefined;
 
@@ -45,9 +42,7 @@ export class FilesProcessor {
 
     // try to process the files, catching any errors
     try {
-      const files = await firstValueFrom(
-        this.fileService.processFiles(runId, manifest),
-      );
+      const files = await firstValueFrom(this.fileService.processFiles(runId, manifest));
       return {
         status: 'Succeeded',
         reason: 'Files posted to API successfully',

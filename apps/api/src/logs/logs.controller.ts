@@ -36,12 +36,7 @@ import {
   ApiUnauthorizedResponse,
   ApiForbiddenResponse,
 } from '@nestjs/swagger';
-import {
-  CombineArchiveLog,
-  SedPlot2DLog,
-  SedPlot3DLog,
-  SedReportLog,
-} from '@biosimulations/ontology/datamodel';
+import { CombineArchiveLog, SedPlot2DLog, SedPlot3DLog, SedReportLog } from '@biosimulations/ontology/datamodel';
 import { CombineArchiveLog as ICombineArchiveLog } from '@biosimulations/datamodel/common';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 import { LogsService } from './logs.service';
@@ -80,8 +75,7 @@ export class LogsController {
   })
   @ApiPayloadTooLargeResponse({
     type: ErrorResponseDocument,
-    description:
-      'The submitted log is too large. Logs must be less than the server limit.',
+    description: 'The submitted log is too large. Logs must be less than the server limit.',
   })
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
@@ -129,10 +123,7 @@ export class LogsController {
     @Param('runId') runId: string,
     @Query('includeOutput') includeOutput = 'true',
   ): Promise<LeanDocument<ICombineArchiveLog>> {
-    const structLogs = await this.service.getLog(
-      runId,
-      includeOutput !== 'false',
-    );
+    const structLogs = await this.service.getLog(runId, includeOutput !== 'false');
     return structLogs;
   }
 
@@ -177,8 +168,7 @@ export class LogsController {
   })
   @ApiPayloadTooLargeResponse({
     type: ErrorResponseDocument,
-    description:
-      'The submitted log is too large. Logs must be less than the server limit.',
+    description: 'The submitted log is too large. Logs must be less than the server limit.',
   })
   @ApiUnauthorizedResponse({
     type: ErrorResponseDocument,
@@ -199,13 +189,9 @@ export class LogsController {
   })
   @ApiConflictResponse({
     type: ErrorResponseDocument,
-    description:
-      'The log could not be saved because the database already includes a log for the simulation run.',
+    description: 'The log could not be saved because the database already includes a log for the simulation run.',
   })
-  public async createLog(
-    @Param('runId') runId: string,
-    @Body() body: CombineArchiveLog,
-  ): Promise<void> {
+  public async createLog(@Param('runId') runId: string, @Body() body: CombineArchiveLog): Promise<void> {
     const log = await this.service.createLog(runId, body);
   }
 
@@ -264,8 +250,7 @@ export class LogsController {
   })
   @ApiPayloadTooLargeResponse({
     type: ErrorResponseDocument,
-    description:
-      'The submitted log is too large. Logs must be less than the server limit.',
+    description: 'The submitted log is too large. Logs must be less than the server limit.',
   })
   @ApiUnauthorizedResponse({
     type: ErrorResponseDocument,
@@ -277,8 +262,7 @@ export class LogsController {
   })
   @permissions(scopes.logs.update.id)
   @ApiOkResponse({
-    description:
-      'The specifications of the version of the simulation tool were successfully modified',
+    description: 'The specifications of the version of the simulation tool were successfully modified',
   })
   @ApiNotFoundResponse({
     type: ErrorResponseDocument,
@@ -289,10 +273,7 @@ export class LogsController {
     description:
       'The log is invalid. See https://docs.biosimulations.org/concepts/conventions/ and https://api.biosimulations.org for examples and documentation.',
   })
-  public async replaceLog(
-    @Param('runId') runId: string,
-    @Body() body: CombineArchiveLog,
-  ): Promise<void> {
+  public async replaceLog(@Param('runId') runId: string, @Body() body: CombineArchiveLog): Promise<void> {
     await this.service.replaceLog(runId, body);
     return;
   }

@@ -1,8 +1,4 @@
-import {
-  SimulationRunStatus,
-  EnvironmentVariable,
-  Purpose,
-} from '@biosimulations/datamodel/common';
+import { SimulationRunStatus, EnvironmentVariable, Purpose } from '@biosimulations/datamodel/common';
 
 export interface FormattedSimulation {
   id: string;

@@ -3,11 +3,7 @@ import { MatListModule } from '@angular/material/list';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { FilesComponent } from './files.component';
-import {
-  MatDialogModule,
-  MAT_DIALOG_DATA,
-  MatDialogRef,
-} from '@angular/material/dialog';
+import { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 describe('FilesComponent', () => {
   let component: FilesComponent;
@@ -16,12 +12,7 @@ describe('FilesComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [FilesComponent],
-      imports: [
-        BiosimulationsIconsModule,
-        MatListModule,
-        SharedUiModule,
-        MatDialogModule,
-      ],
+      imports: [BiosimulationsIconsModule, MatListModule, SharedUiModule, MatDialogModule],
       providers: [
         { provide: MatDialogRef, useValue: {} },
         {

@@ -13,15 +13,11 @@ export class SedMLProcessor {
   public constructor(private sedmlService: SedmlService) {}
 
   @Process({ name: JobQueue.sedmlProcess, concurrency: 10 })
-  private async process(
-    job: Job,
-  ): Promise<JobReturn<SimulationRunSedDocumentInput[]>> {
+  private async process(job: Job): Promise<JobReturn<SimulationRunSedDocumentInput[]>> {
     const data = job.data;
     const runId = data.runId;
     try {
-      const sedMlProcessingResults = await firstValueFrom(
-        this.sedmlService.processSedml(runId),
-      );
+      const sedMlProcessingResults = await firstValueFrom(this.sedmlService.processSedml(runId));
       return {
         status: 'Succeeded',
         data: sedMlProcessingResults,

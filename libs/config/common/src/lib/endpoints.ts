@@ -70,12 +70,7 @@ export class Endpoints {
    * Get URL for ontologies endpoint
    * @returns The endpoint for the ontologies
    */
-  public getOntologyEndpoint(
-    app: string,
-    external: boolean,
-    ontologyId?: string,
-    termId?: string,
-  ): string {
+  public getOntologyEndpoint(app: string, external: boolean, ontologyId?: string, termId?: string): string {
     const api = this.getOntologiesEndpointBaseUrl(app, external);
     ontologyId ? (ontologyId = `/${ontologyId}`) : (ontologyId = '');
     termId ? (termId = `/${termId}`) : (termId = '');
@@ -102,11 +97,7 @@ export class Endpoints {
    * @param fileLocation The location of the file within the COMBINE/OMEX archive for the simulation run
    * @returns The URL to get the content of a COMBINE/OMEX archive
    */
-  public getSimulationRunFilesEndpoint(
-    external: boolean,
-    runId?: string,
-    fileLocation?: string,
-  ): string {
+  public getSimulationRunFilesEndpoint(external: boolean, runId?: string, fileLocation?: string): string {
     if (runId) {
       runId = '/' + runId;
       if (fileLocation) {
@@ -131,16 +122,8 @@ export class Endpoints {
    * @param fileLocation The location of the file within the COMBINE/OMEX archive for the simulation run
    * @returns The URL to post the thumbnails of an image file for a simulation run
    */
-  public getSimulationRunThumbnailEndpoint(
-    external: boolean,
-    runId: string,
-    fileLocation: string,
-  ): string {
-    const fileUrl = this.getSimulationRunFilesEndpoint(
-      external,
-      runId,
-      fileLocation,
-    );
+  public getSimulationRunThumbnailEndpoint(external: boolean, runId: string, fileLocation: string): string {
+    const fileUrl = this.getSimulationRunFilesEndpoint(external, runId, fileLocation);
     return `${fileUrl}/thumbnail`;
   }
 
@@ -159,11 +142,7 @@ export class Endpoints {
   ): string {
     const thumbnailQuery = thumbnail ? `?thumbnail=${thumbnail}` : '';
 
-    return `${this.getSimulationRunFilesEndpoint(
-      external,
-      runId,
-      fileLocation,
-    )}/download/${thumbnailQuery}`;
+    return `${this.getSimulationRunFilesEndpoint(external, runId, fileLocation)}/download/${thumbnailQuery}`;
   }
 
   // SIMULATION RUNS
@@ -182,10 +161,7 @@ export class Endpoints {
    * @param id The id of the simulation run
    * @returns URL for getting a summary of a simulation run or each run
    */
-  public getSimulationRunSummariesEndpoint(
-    external: boolean,
-    id?: string,
-  ): string {
+  public getSimulationRunSummariesEndpoint(external: boolean, id?: string): string {
     const simulationRuns = this.getSimulationRunsEndpointBaseUrl(external);
 
     if (id) {
@@ -200,10 +176,7 @@ export class Endpoints {
    * @param id The id of the simulation run
    * @returns URL for validating a simulation run
    */
-  public getSimulationRunValidationEndpoint(
-    external: boolean,
-    id: string,
-  ): string {
+  public getSimulationRunValidationEndpoint(external: boolean, id: string): string {
     const simulationRuns = this.getSimulationRunsEndpointBaseUrl(external);
     return `${simulationRuns}/${id}/validate`;
   }
@@ -270,9 +243,7 @@ export class Endpoints {
   }
 
   public getCombineArchiveMetadataEndpoint(external: boolean): string {
-    return `${this.getCombineApiBaseUrl(
-      external,
-    )}/combine/metadata/biosimulations`;
+    return `${this.getCombineApiBaseUrl(external)}/combine/metadata/biosimulations`;
   }
 
   public getValidateModelEndpoint(external: boolean): string {
@@ -292,9 +263,7 @@ export class Endpoints {
   }
 
   public getSimilarAlgorithmsEndpoint(external: boolean): string {
-    return `${this.getCombineApiBaseUrl(
-      external,
-    )}/kisao/get-similar-algorithms`;
+    return `${this.getCombineApiBaseUrl(external)}/kisao/get-similar-algorithms`;
   }
 
   /**
@@ -302,10 +271,7 @@ export class Endpoints {
    * @param id The id of the simulation run
    * @returns A URL to get the metadata of the simulation run
    */
-  public getSimulationRunMetadataEndpoint(
-    external: boolean,
-    id?: string,
-  ): string {
+  public getSimulationRunMetadataEndpoint(external: boolean, id?: string): string {
     id ? (id = `/${id}`) : (id = '');
     return `${this.getMetadataEndpointBaseUrl(external)}${id}`;
   }
@@ -319,10 +285,7 @@ export class Endpoints {
    *
    * @returns A URL to download the COMBINE/OMEX archive of a simulation run
    */
-  public getSimulationRunDownloadEndpoint(
-    external: boolean,
-    id: string,
-  ): string {
+  public getSimulationRunDownloadEndpoint(external: boolean, id: string): string {
     return `${this.getSimulationRunsEndpointBaseUrl(external)}/${id}/download`;
   }
 
@@ -345,9 +308,7 @@ export class Endpoints {
   ): string {
     runId ? (runId = `/${encodeURIComponent(runId)}`) : (runId = '');
     experimentLocationAndOutputId
-      ? (experimentLocationAndOutputId = `/${encodeURIComponent(
-          experimentLocationAndOutputId,
-        )}`)
+      ? (experimentLocationAndOutputId = `/${encodeURIComponent(experimentLocationAndOutputId)}`)
       : (experimentLocationAndOutputId = '');
     if (experimentLocationAndOutputId && !runId) {
       throw new Error('Cannot get results of an output without an id');
@@ -385,9 +346,7 @@ export class Endpoints {
     elementId?: string,
   ): string {
     runId ? (runId = `/${runId}`) : (runId = '');
-    experimentLocation
-      ? (experimentLocation = `/${experimentLocation}`)
-      : (experimentLocation = '');
+    experimentLocation ? (experimentLocation = `/${experimentLocation}`) : (experimentLocation = '');
 
     let elementTypePath!: string;
     switch (elementType) {
@@ -415,9 +374,7 @@ export class Endpoints {
       throw new Error('Cannot get a specific specification without a run id');
     }
     if ((elementType || elementId) && !experimentLocation) {
-      throw new Error(
-        'Cannot get a specific element without an experiment location',
-      );
+      throw new Error('Cannot get a specific element without an experiment location');
     }
     if (elementId && !elementType) {
       throw new Error('Cannot get a specific element without a type');
@@ -443,18 +400,11 @@ export class Endpoints {
    * @param includeTests Whether to include the results of the validation tests
    * @returns  A URL to get the simulators, and specific simulator, or a specific version of a simulator
    */
-  public getSimulatorsEndpoint(
-    external: boolean,
-    id?: string,
-    version?: string,
-    includeTests = false,
-  ): string {
+  public getSimulatorsEndpoint(external: boolean, id?: string, version?: string, includeTests = false): string {
     id ? (id = `/${id}`) : (id = '');
     version ? (version = `/${version}`) : (version = '');
     const tests = includeTests ? '?includeTests=true' : '';
-    return `${this.getSimulatorsEndpointBaseUrl(
-      external,
-    )}${id}${version}${tests}`;
+    return `${this.getSimulatorsEndpointBaseUrl(external)}${id}${version}${tests}`;
   }
 
   /**
@@ -462,14 +412,9 @@ export class Endpoints {
    * @param includeTests Whether to include the results of the validation tests
    * @returns  A URL to get the latest version of each simulator, or the latest version of a specific simulator
    */
-  public getLatestSimulatorsEndpoint(
-    external: boolean,
-    includeTests = false,
-  ): string {
+  public getLatestSimulatorsEndpoint(external: boolean, includeTests = false): string {
     const tests = includeTests ? '?includeTests=true' : '';
-    return `${this.getSimulatorsApiBaseUrl(
-      external,
-    )}/simulators/latest${tests}`;
+    return `${this.getSimulatorsApiBaseUrl(external)}/simulators/latest${tests}`;
   }
 
   // BASE URLS
@@ -491,10 +436,7 @@ export class Endpoints {
   }
 
   private getOntologiesEndpointBaseUrl(app: string, external: boolean): string {
-    const api =
-      app === 'simulators'
-        ? this.getSimulatorsApiBaseUrl(external)
-        : this.getApiBaseUrl(external);
+    const api = app === 'simulators' ? this.getSimulatorsApiBaseUrl(external) : this.getApiBaseUrl(external);
     return `${api}/ontologies`;
   }
 

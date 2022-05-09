@@ -19,9 +19,7 @@ export interface Version {
 export class SimulatorService {
   private endpoints = new Endpoints();
 
-  private allSims = this.http
-    .get<ISimulator[]>(this.endpoints.getSimulatorsEndpoint(false))
-    .pipe(shareReplay(1));
+  private allSims = this.http.get<ISimulator[]>(this.endpoints.getSimulatorsEndpoint(false)).pipe(shareReplay(1));
   private latestSims = this.http
     .get<ISimulator[]>(this.endpoints.getLatestSimulatorsEndpoint(false))
     .pipe(shareReplay(1));
@@ -45,10 +43,7 @@ export class SimulatorService {
   public getOneByVersion(id: string, version: string): Observable<ISimulator> {
     return this.getAll().pipe(
       map((value: ISimulator[]) => {
-        return value.filter(
-          (simulator: ISimulator) =>
-            simulator.id === id && simulator.version === version,
-        )[0];
+        return value.filter((simulator: ISimulator) => simulator.id === id && simulator.version === version)[0];
       }),
     );
   }
@@ -84,13 +79,8 @@ export class SimulatorService {
     );
   }
 
-  public getValidationTestResultsForOneByVersion(
-    id: string,
-    version: string,
-  ): Observable<ISimulator> {
-    return this.http.get<ISimulator>(
-      this.endpoints.getSimulatorsEndpoint(false, id, version, true),
-    );
+  public getValidationTestResultsForOneByVersion(id: string, version: string): Observable<ISimulator> {
+    return this.http.get<ISimulator>(this.endpoints.getSimulatorsEndpoint(false, id, version, true));
   }
 
   public constructor(private http: HttpClient) {}

@@ -48,8 +48,7 @@ export class ProcessProcessor {
         description: 'Process the manifest file in the COMBINE archive',
         moreInfo: 'https://combinearchive.org',
         validator: 'https://run.biosimulations.org/utils/validate-project',
-        errorMessage:
-          'The manifest for the COMBINE archive could not be processed.',
+        errorMessage: 'The manifest for the COMBINE archive could not be processed.',
         internalError: true,
         required: true,
       },
@@ -80,8 +79,7 @@ export class ProcessProcessor {
       queueName: JobQueue.thumbnailProcess,
       data: {
         runId: job.data.runId,
-        description:
-          'Create thumbnails from the images specified in the manifest',
+        description: 'Create thumbnails from the images specified in the manifest',
         moreInfo: undefined,
         validator: 'https://run.biosimulations.org/utils/validate-project',
         errorMessage: `There was an error creating thumbnails for the project. Please ensure that the images specified in the manifest are valid.`,
@@ -126,11 +124,9 @@ export class ProcessProcessor {
       data: {
         runId: job.data.runId,
         description: 'Process the SED-ML file in the COMBINE archive',
-        moreInfo:
-          'https://docs.biosimulations.org/concepts/conventions/simulation-experiments/',
+        moreInfo: 'https://docs.biosimulations.org/concepts/conventions/simulation-experiments/',
         validator: 'https://run.biosimulations.org/utils/validate-simulation',
-        errorMessage:
-          'There was an error in processing the simulation experiments in the SED-ML file.',
+        errorMessage: 'There was an error in processing the simulation experiments in the SED-ML file.',
         required: true,
         internalError: false,
       },
@@ -194,11 +190,9 @@ export class ProcessProcessor {
       data: {
         runId: job.data.runId,
         description: 'Retrieve the logs of the simulation run',
-        moreInfo:
-          'https://docs.biosimulations.org/concepts/conventions/simulation-run-logs/',
+        moreInfo: 'https://docs.biosimulations.org/concepts/conventions/simulation-run-logs/',
         validator: 'https://api.biosimulations.org',
-        errorMessage:
-          'There was an error retrieving the logs of the simulation run.',
+        errorMessage: 'There was an error retrieving the logs of the simulation run.',
         required: true,
         internalError: true,
       },
@@ -241,8 +235,7 @@ export class ProcessProcessor {
       data: {
         runId: job.data.runId,
         description: `Process the metadata in the COMBINE archive`,
-        moreInfo:
-          'https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/',
+        moreInfo: 'https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/',
         validator: 'https://run.biosimulations.org/utils/validate-metadata',
         errorMessage: 'There was an error in processing the metadata file.',
         required: false,
@@ -288,13 +281,7 @@ export class ProcessProcessor {
         jobId: `${runId}`,
       },
       // Needs all the different steps completed before it can be completed
-      children: [
-        postThumbnailsJob,
-        postSedmlJob,
-        outputsJob,
-        postLogsJob,
-        postMetadataJob,
-      ],
+      children: [postThumbnailsJob, postSedmlJob, outputsJob, postLogsJob, postMetadataJob],
     });
   }
 }

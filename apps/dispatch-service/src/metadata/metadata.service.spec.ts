@@ -3,10 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { MetadataService } from './metadata.service';
 import { HttpModule } from '@nestjs/axios';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
-import {
-  CombineWrapperService,
-  MockCombineWrapperService,
-} from '../combineWrapper.service';
+import { CombineWrapperService, MockCombineWrapperService } from '../combineWrapper.service';
 import { SimulationRunService } from '@biosimulations/api-nest-client';
 
 describe('MetadataService', () => {

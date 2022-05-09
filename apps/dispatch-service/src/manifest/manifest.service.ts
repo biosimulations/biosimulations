@@ -7,18 +7,10 @@ import { FilePaths } from '@biosimulations/shared/storage';
 @Injectable()
 export class ManifestService {
   private logger: Logger = new Logger(ManifestService.name);
-  public constructor(
-    private combine: CombineWrapperService,
-    private filePaths: FilePaths,
-  ) {}
+  public constructor(private combine: CombineWrapperService, private filePaths: FilePaths) {}
 
-  public getManifestContent(
-    id: string,
-  ): Observable<CombineArchiveManifestContent[]> {
-    const url = this.filePaths.getSimulationRunFileContentEndpoint(
-      id,
-      'manifest.xml',
-    );
+  public getManifestContent(id: string): Observable<CombineArchiveManifestContent[]> {
+    const url = this.filePaths.getSimulationRunFileContentEndpoint(id, 'manifest.xml');
 
     // print status message
     this.logger.debug(`Getting manifest from ${url}`);

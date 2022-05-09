@@ -14,12 +14,7 @@ describe('ViewComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ViewComponent, PlotlyVisualizationComponent],
-      imports: [
-        BiosimulationsIconsModule,
-        HttpClientTestingModule,
-        SharedUiModule,
-        RouterTestingModule,
-      ],
+      imports: [BiosimulationsIconsModule, HttpClientTestingModule, SharedUiModule, RouterTestingModule],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   });

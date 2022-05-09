@@ -43,34 +43,18 @@ export class SimulationRunService {
     return this.getData<any>(id, endpoint);
   }
 
-  public getSimulationRunSimulationSpecifications(
-    id: string,
-  ): Observable<SimulationRunSedDocument[]> {
-    const endpoint =
-      this.endpoints.getSimulationRunSimulationExperimentSpecificationsEndpoint(
-        false,
-        id,
-      );
+  public getSimulationRunSimulationSpecifications(id: string): Observable<SimulationRunSedDocument[]> {
+    const endpoint = this.endpoints.getSimulationRunSimulationExperimentSpecificationsEndpoint(false, id);
     return this.getData<SimulationRunSedDocument[]>(id, endpoint);
   }
 
-  public getSimulationRunMetadata(
-    id: string,
-  ): Observable<SimulationRunMetadata> {
+  public getSimulationRunMetadata(id: string): Observable<SimulationRunMetadata> {
     const endpoint = this.endpoints.getSimulationRunMetadataEndpoint(false, id);
     return this.getData<SimulationRunMetadata>(id, endpoint);
   }
 
-  public getSimulationRunResults(
-    id: string,
-    includeData = false,
-  ): Observable<SimulationRunResults> {
-    const endpoint = this.endpoints.getRunResultsEndpoint(
-      false,
-      id,
-      undefined,
-      includeData,
-    );
+  public getSimulationRunResults(id: string, includeData = false): Observable<SimulationRunResults> {
+    const endpoint = this.endpoints.getRunResultsEndpoint(false, id, undefined, includeData);
     return this.getData<SimulationRunResults>(id, endpoint);
   }
 
@@ -79,12 +63,7 @@ export class SimulationRunService {
     outputId: string,
     includeData = false,
   ): Observable<SimulationRunOutput> {
-    const endpoint = this.endpoints.getRunResultsEndpoint(
-      false,
-      id,
-      outputId,
-      includeData,
-    );
+    const endpoint = this.endpoints.getRunResultsEndpoint(false, id, outputId, includeData);
     return this.getData<SimulationRunOutput>(id, endpoint);
   }
 
@@ -94,18 +73,11 @@ export class SimulationRunService {
   }
 
   public getSimulationRunSummary(id: string): Observable<SimulationRunSummary> {
-    const endpoint = this.endpoints.getSimulationRunSummariesEndpoint(
-      false,
-      id,
-    );
+    const endpoint = this.endpoints.getSimulationRunSummariesEndpoint(false, id);
     return this.getData<SimulationRunSummary>(id, endpoint);
   }
 
-  private getData<T>(
-    runId: string,
-    endpoint: string,
-    cache = true,
-  ): Observable<T> {
+  private getData<T>(runId: string, endpoint: string, cache = true): Observable<T> {
     if (cache && runId !== this.cachedRunId) {
       this.cachedRunId = runId;
       this.cachedRunObservables = {};

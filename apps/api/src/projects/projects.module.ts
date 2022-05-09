@@ -26,9 +26,7 @@ import { SpecificationsModule } from '../specifications/specifications.module';
     FilesModule,
     SpecificationsModule,
     AccountManagementModule,
-    MongooseModule.forFeature([
-      { name: ProjectModel.name, schema: ProjectModelSchema },
-    ]),
+    MongooseModule.forFeature([{ name: ProjectModel.name, schema: ProjectModelSchema }]),
     HSDSClientModule,
   ],
   providers: [ProjectsService],

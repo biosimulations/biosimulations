@@ -29,10 +29,7 @@ export class DatatypeService {
   public defaultHeaders: Record<string, string> = {};
   public configuration = new Configuration();
 
-  constructor(
-    protected httpClient: HttpService,
-    @Optional() configuration: Configuration,
-  ) {
+  constructor(protected httpClient: HttpService, @Optional() configuration: Configuration) {
     this.configuration = configuration || this.configuration;
     this.basePath = configuration?.basePath || this.basePath;
   }
@@ -84,9 +81,7 @@ export class DatatypeService {
     }
 
     if (attr === null || attr === undefined) {
-      throw new Error(
-        'Required parameter attr was null or undefined when calling collectionObjUuidAttributesAttrGet.',
-      );
+      throw new Error('Required parameter attr was null or undefined when calling collectionObjUuidAttributesAttrGet.');
     }
 
     let queryParameters: any = {};
@@ -101,8 +96,7 @@ export class DatatypeService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
@@ -110,11 +104,9 @@ export class DatatypeService {
     // to determine the Content-Type header
     const consumes: string[] = [];
     return this.httpClient.get<InlineResponse20015>(
-      `${this.basePath}/${encodeURIComponent(
-        String(collection),
-      )}/${encodeURIComponent(String(objUuid))}/attributes/${encodeURIComponent(
-        String(attr),
-      )}`,
+      `${this.basePath}/${encodeURIComponent(String(collection))}/${encodeURIComponent(
+        String(objUuid),
+      )}/attributes/${encodeURIComponent(String(attr))}`,
       {
         params: queryParameters,
         withCredentials: this.configuration.withCredentials,
@@ -163,15 +155,11 @@ export class DatatypeService {
     }
 
     if (attr === null || attr === undefined) {
-      throw new Error(
-        'Required parameter attr was null or undefined when calling collectionObjUuidAttributesAttrPut.',
-      );
+      throw new Error('Required parameter attr was null or undefined when calling collectionObjUuidAttributesAttrPut.');
     }
 
     if (body === null || body === undefined) {
-      throw new Error(
-        'Required parameter body was null or undefined when calling collectionObjUuidAttributesAttrPut.',
-      );
+      throw new Error('Required parameter body was null or undefined when calling collectionObjUuidAttributesAttrPut.');
     }
 
     let queryParameters: any = {};
@@ -186,25 +174,21 @@ export class DatatypeService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected: string | undefined =
-      this.configuration.selectHeaderContentType(consumes);
+    const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
     if (httpContentTypeSelected != undefined) {
       headers['Content-Type'] = httpContentTypeSelected;
     }
     return this.httpClient.put<object>(
-      `${this.basePath}/${encodeURIComponent(
-        String(collection),
-      )}/${encodeURIComponent(String(objUuid))}/attributes/${encodeURIComponent(
-        String(attr),
-      )}`,
+      `${this.basePath}/${encodeURIComponent(String(collection))}/${encodeURIComponent(
+        String(objUuid),
+      )}/attributes/${encodeURIComponent(String(attr))}`,
       body,
       {
         params: queryParameters,
@@ -248,9 +232,7 @@ export class DatatypeService {
     }
 
     if (objUuid === null || objUuid === undefined) {
-      throw new Error(
-        'Required parameter objUuid was null or undefined when calling collectionObjUuidAttributesGet.',
-      );
+      throw new Error('Required parameter objUuid was null or undefined when calling collectionObjUuidAttributesGet.');
     }
 
     let queryParameters: any = {};
@@ -271,8 +253,7 @@ export class DatatypeService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
@@ -280,9 +261,7 @@ export class DatatypeService {
     // to determine the Content-Type header
     const consumes: string[] = [];
     return this.httpClient.get<InlineResponse20014>(
-      `${this.basePath}/${encodeURIComponent(
-        String(collection),
-      )}/${encodeURIComponent(String(objUuid))}/attributes`,
+      `${this.basePath}/${encodeURIComponent(String(collection))}/${encodeURIComponent(String(objUuid))}/attributes`,
       {
         params: queryParameters,
         withCredentials: this.configuration.withCredentials,
@@ -304,15 +283,9 @@ export class DatatypeService {
     domain?: string,
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse20018>>;
-  public datatypesIdAclsGet(
-    id: string,
-    domain?: string,
-    authorization?: string,
-  ): Observable<any> {
+  public datatypesIdAclsGet(id: string, domain?: string, authorization?: string): Observable<any> {
     if (id === null || id === undefined) {
-      throw new Error(
-        'Required parameter id was null or undefined when calling datatypesIdAclsGet.',
-      );
+      throw new Error('Required parameter id was null or undefined when calling datatypesIdAclsGet.');
     }
 
     let queryParameters: any = {};
@@ -327,8 +300,7 @@ export class DatatypeService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
@@ -358,15 +330,9 @@ export class DatatypeService {
     domain?: string,
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse20013>>;
-  public datatypesIdDelete(
-    id: string,
-    domain?: string,
-    authorization?: string,
-  ): Observable<any> {
+  public datatypesIdDelete(id: string, domain?: string, authorization?: string): Observable<any> {
     if (id === null || id === undefined) {
-      throw new Error(
-        'Required parameter id was null or undefined when calling datatypesIdDelete.',
-      );
+      throw new Error('Required parameter id was null or undefined when calling datatypesIdDelete.');
     }
 
     let queryParameters: any = {};
@@ -381,22 +347,18 @@ export class DatatypeService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
 
     // to determine the Content-Type header
     const consumes: string[] = [];
-    return this.httpClient.delete<InlineResponse20013>(
-      `${this.basePath}/datatypes/${encodeURIComponent(String(id))}`,
-      {
-        params: queryParameters,
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-      },
-    );
+    return this.httpClient.delete<InlineResponse20013>(`${this.basePath}/datatypes/${encodeURIComponent(String(id))}`, {
+      params: queryParameters,
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+    });
   }
   /**
    * Get information about a committed Datatype
@@ -412,15 +374,9 @@ export class DatatypeService {
     domain?: string,
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse20012>>;
-  public datatypesIdGet(
-    id: string,
-    domain?: string,
-    authorization?: string,
-  ): Observable<any> {
+  public datatypesIdGet(id: string, domain?: string, authorization?: string): Observable<any> {
     if (id === null || id === undefined) {
-      throw new Error(
-        'Required parameter id was null or undefined when calling datatypesIdGet.',
-      );
+      throw new Error('Required parameter id was null or undefined when calling datatypesIdGet.');
     }
 
     let queryParameters: any = {};
@@ -435,22 +391,18 @@ export class DatatypeService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
 
     // to determine the Content-Type header
     const consumes: string[] = [];
-    return this.httpClient.get<InlineResponse20012>(
-      `${this.basePath}/datatypes/${encodeURIComponent(String(id))}`,
-      {
-        params: queryParameters,
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-      },
-    );
+    return this.httpClient.get<InlineResponse20012>(`${this.basePath}/datatypes/${encodeURIComponent(String(id))}`, {
+      params: queryParameters,
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+    });
   }
   /**
    * Commit a Datatype to the Domain.
@@ -466,15 +418,9 @@ export class DatatypeService {
     domain?: string,
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse2014>>;
-  public datatypesPost(
-    inlineObject6: InlineObject6,
-    domain?: string,
-    authorization?: string,
-  ): Observable<any> {
+  public datatypesPost(inlineObject6: InlineObject6, domain?: string, authorization?: string): Observable<any> {
     if (inlineObject6 === null || inlineObject6 === undefined) {
-      throw new Error(
-        'Required parameter inlineObject6 was null or undefined when calling datatypesPost.',
-      );
+      throw new Error('Required parameter inlineObject6 was null or undefined when calling datatypesPost.');
     }
 
     let queryParameters: any = {};
@@ -489,27 +435,21 @@ export class DatatypeService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected: string | undefined =
-      this.configuration.selectHeaderContentType(consumes);
+    const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
     if (httpContentTypeSelected != undefined) {
       headers['Content-Type'] = httpContentTypeSelected;
     }
-    return this.httpClient.post<InlineResponse2014>(
-      `${this.basePath}/datatypes`,
-      inlineObject6,
-      {
-        params: queryParameters,
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-      },
-    );
+    return this.httpClient.post<InlineResponse2014>(`${this.basePath}/datatypes`, inlineObject6, {
+      params: queryParameters,
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+    });
   }
 }

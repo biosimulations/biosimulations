@@ -1,10 +1,7 @@
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { Resolver } from '@stoplight/json-ref-resolver';
 import * as toJsonSchema from '@openapi-contrib/openapi-schema-to-json-schema';
-import {
-  ScopesObject,
-  SecuritySchemeObject,
-} from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
+import { ScopesObject, SecuritySchemeObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 import { INestApplication } from '@nestjs/common';
 import { getScopesForAudience } from '@biosimulations/auth/common';
 
@@ -12,14 +9,12 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
   const favIcon =
     'https://github.com/biosimulations/biosimulations/raw/dev/libs/shared/assets/src/assets/icons/favicon-32x32.png';
 
-  const cssUrl =
-    'https://static.biosimulations.org/stylesheets/biosimulations_swagger.css';
+  const cssUrl = 'https://static.biosimulations.org/stylesheets/biosimulations_swagger.css';
   // Swagger doc
   const tags = [
     {
       name: 'Projects',
-      description:
-        'Operations for publishing simulation runs and modifying, getting, and deleting published projects.',
+      description: 'Operations for publishing simulation runs and modifying, getting, and deleting published projects.',
     },
     {
       name: 'Simulations',
@@ -28,8 +23,7 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
     },
     {
       name: 'Files',
-      description:
-        'Operations for creating and retrieving metadata about the files in a simulation run',
+      description: 'Operations for creating and retrieving metadata about the files in a simulation run',
     },
     {
       name: 'Specifications',
@@ -38,23 +32,19 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
     },
     {
       name: 'Results',
-      description:
-        'Operations for viewing and retrieving the results of a simulation run.',
+      description: 'Operations for viewing and retrieving the results of a simulation run.',
     },
     {
       name: 'Logs',
-      description:
-        'Operations for submitting and retrieving a log of the execution of a simulation run.',
+      description: 'Operations for submitting and retrieving a log of the execution of a simulation run.',
     },
     {
       name: 'Metadata',
-      description:
-        'Operations for creating and retrieving the metadata associated with a simulation run',
+      description: 'Operations for creating and retrieving the metadata associated with a simulation run',
     },
     {
       name: 'Downloads',
-      description:
-        'Operations for downloading the files and results of a simulation run.',
+      description: 'Operations for downloading the files and results of a simulation run.',
     },
     {
       name: 'Ontologies',
@@ -67,13 +57,11 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
     },
     {
       name: 'Internal',
-      description:
-        'Operations for the management of BioSimulations by the BioSimulations Team.',
+      description: 'Operations for the management of BioSimulations by the BioSimulations Team.',
     },
     {
       name: 'Authentication testing',
-      description:
-        'Operations for checking authentication and permissions to this API.',
+      description: 'Operations for checking authentication and permissions to this API.',
     },
   ];
   const builder = new DocumentBuilder()
@@ -85,31 +73,19 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
       It it also used for the publishing, sharing and retrieving projects from the BioSimulations database',
     )
     .setVersion('0.1')
-    .setLicense(
-      'MIT License',
-      'https://github.com/biosimulations/biosimulations/blob/dev/LICENSE',
-    )
+    .setLicense('MIT License', 'https://github.com/biosimulations/biosimulations/blob/dev/LICENSE')
     .setTermsOfService('https://docs.biosimulations.org/about/terms/')
-    .setExternalDoc(
-      'API specifications (Open API JSON)',
-      'https://api.biosimulations.org/openapi.json',
-    )
+    .setExternalDoc('API specifications (Open API JSON)', 'https://api.biosimulations.org/openapi.json')
     .setExternalDoc('Documentation', 'https://docs.biosimulations.org')
-    .setContact(
-      'BioSimulations Team',
-      'https://docs.biosimulations.org/about/team/',
-      'info@biosimulations.org',
-    );
+    .setContact('BioSimulations Team', 'https://docs.biosimulations.org/about/team/', 'info@biosimulations.org');
 
   for (const tag of tags) {
     builder.addTag(tag.name, tag.description);
   }
 
   const scopes: ScopesObject = getScopesForAudience('api.biosimulations.org');
-  const authorizationUrl =
-    'https://auth.biosimulations.org/authorize?audience=api.biosimulations.org';
-  const openIdConnectUrl =
-    'https://auth.biosimulations.org/.well-known/openid-configuration';
+  const authorizationUrl = 'https://auth.biosimulations.org/authorize?audience=api.biosimulations.org';
+  const openIdConnectUrl = 'https://auth.biosimulations.org/.well-known/openid-configuration';
 
   const clientId = 'WEPUMb2Jo28NdEt1Z7fhUx54Bff8MnKF';
 
@@ -167,7 +143,5 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
   const resolver = new Resolver();
   const resolvedDocument = await resolver.resolve(document);
   const schema = resolvedDocument.result.components.schemas.CombineArchiveLog;
-  httpAdapter.get('/schema/CombineArchiveLog.json', (req, res) =>
-    res.json(toJsonSchema(schema)),
-  );
+  httpAdapter.get('/schema/CombineArchiveLog.json', (req, res) => res.json(toJsonSchema(schema)));
 }

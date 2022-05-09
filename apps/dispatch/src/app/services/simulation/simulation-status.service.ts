@@ -1,12 +1,7 @@
-import {
-  SimulationRunStatus,
-  SimulationRunStatusName,
-} from '@biosimulations/datamodel/common';
+import { SimulationRunStatus, SimulationRunStatusName } from '@biosimulations/datamodel/common';
 
 export class SimulationStatusService {
-  public static isSimulationStatusRunning(
-    status: SimulationRunStatus | undefined | null,
-  ): boolean {
+  public static isSimulationStatusRunning(status: SimulationRunStatus | undefined | null): boolean {
     return (
       status === SimulationRunStatus.CREATED ||
       status === SimulationRunStatus.QUEUED ||
@@ -15,30 +10,19 @@ export class SimulationStatusService {
     );
   }
 
-  public static isSimulationStatusCompleted(
-    status: SimulationRunStatus | undefined | null,
-  ): boolean {
-    return (
-      status === SimulationRunStatus.SUCCEEDED ||
-      status === SimulationRunStatus.FAILED
-    );
+  public static isSimulationStatusCompleted(status: SimulationRunStatus | undefined | null): boolean {
+    return status === SimulationRunStatus.SUCCEEDED || status === SimulationRunStatus.FAILED;
   }
 
-  public static isSimulationStatusSucceeded(
-    status: SimulationRunStatus | undefined | null,
-  ): boolean {
+  public static isSimulationStatusSucceeded(status: SimulationRunStatus | undefined | null): boolean {
     return status === SimulationRunStatus.SUCCEEDED;
   }
 
-  public static isSimulationStatusFailed(
-    status: SimulationRunStatus | undefined | null,
-  ): boolean {
+  public static isSimulationStatusFailed(status: SimulationRunStatus | undefined | null): boolean {
     return status === SimulationRunStatus.FAILED;
   }
 
-  public static getSimulationStatusOrder(
-    status: SimulationRunStatus | undefined | null,
-  ): number {
+  public static getSimulationStatusOrder(status: SimulationRunStatus | undefined | null): number {
     switch (status) {
       case SimulationRunStatus.SUCCEEDED:
         return 0;
@@ -69,10 +53,7 @@ export class SimulationStatusService {
     } else {
       const message = shortMessage ? status : SimulationRunStatusName[status];
       if (upperCaseFirstLetter) {
-        return (
-          message.substring(0, 1).toUpperCase() +
-          message.substring(1).toLowerCase()
-        );
+        return message.substring(0, 1).toUpperCase() + message.substring(1).toLowerCase();
       } else {
         return message.toLowerCase();
       }

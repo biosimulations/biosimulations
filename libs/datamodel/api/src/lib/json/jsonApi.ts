@@ -89,13 +89,7 @@ export interface PaginatedLinks {
  * or an empty array ([]), for requests that target resource collections
  */
 
-export type PrimaryData =
-  | null
-  | ResourceIdentifier
-  | ResourceObject
-  | ResourceIdentifier[]
-  | ResourceObject[]
-  | [];
+export type PrimaryData = null | ResourceIdentifier | ResourceObject | ResourceIdentifier[] | ResourceObject[] | [];
 
 /** Resource Objects
  *
@@ -212,11 +206,7 @@ Resource linkage MUST be represented as one of the following:
 
 */
 
-export type ResourceLinkage =
-  | null
-  | []
-  | ResourceIdentifier
-  | ResourceIdentifier[];
+export type ResourceLinkage = null | [] | ResourceIdentifier | ResourceIdentifier[];
 /* Resource Identifier Objects
 
 A “resource identifier object” is an object that identifies an individual resource.

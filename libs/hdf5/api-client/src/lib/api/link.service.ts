@@ -25,10 +25,7 @@ export class LinkService {
   public defaultHeaders: Record<string, string> = {};
   public configuration = new Configuration();
 
-  constructor(
-    protected httpClient: HttpService,
-    @Optional() configuration: Configuration,
-  ) {
+  constructor(protected httpClient: HttpService, @Optional() configuration: Configuration) {
     this.configuration = configuration || this.configuration;
     this.basePath = configuration?.basePath || this.basePath;
   }
@@ -68,9 +65,7 @@ export class LinkService {
     authorization?: string,
   ): Observable<any> {
     if (id === null || id === undefined) {
-      throw new Error(
-        'Required parameter id was null or undefined when calling groupsIdLinksGet.',
-      );
+      throw new Error('Required parameter id was null or undefined when calling groupsIdLinksGet.');
     }
 
     let queryParameters: any = {};
@@ -91,22 +86,18 @@ export class LinkService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
 
     // to determine the Content-Type header
     const consumes: string[] = [];
-    return this.httpClient.get<InlineResponse2004>(
-      `${this.basePath}/groups/${encodeURIComponent(String(id))}/links`,
-      {
-        params: queryParameters,
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-      },
-    );
+    return this.httpClient.get<InlineResponse2004>(`${this.basePath}/groups/${encodeURIComponent(String(id))}/links`, {
+      params: queryParameters,
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+    });
   }
   /**
    * Delete Link.
@@ -131,15 +122,11 @@ export class LinkService {
     authorization?: string,
   ): Observable<any> {
     if (id === null || id === undefined) {
-      throw new Error(
-        'Required parameter id was null or undefined when calling groupsIdLinksLinknameDelete.',
-      );
+      throw new Error('Required parameter id was null or undefined when calling groupsIdLinksLinknameDelete.');
     }
 
     if (linkname === null || linkname === undefined) {
-      throw new Error(
-        'Required parameter linkname was null or undefined when calling groupsIdLinksLinknameDelete.',
-      );
+      throw new Error('Required parameter linkname was null or undefined when calling groupsIdLinksLinknameDelete.');
     }
 
     let queryParameters: any = {};
@@ -154,8 +141,7 @@ export class LinkService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
@@ -163,9 +149,7 @@ export class LinkService {
     // to determine the Content-Type header
     const consumes: string[] = [];
     return this.httpClient.delete<object>(
-      `${this.basePath}/groups/${encodeURIComponent(
-        String(id),
-      )}/links/${encodeURIComponent(String(linkname))}`,
+      `${this.basePath}/groups/${encodeURIComponent(String(id))}/links/${encodeURIComponent(String(linkname))}`,
       {
         params: queryParameters,
         withCredentials: this.configuration.withCredentials,
@@ -196,15 +180,11 @@ export class LinkService {
     authorization?: string,
   ): Observable<any> {
     if (id === null || id === undefined) {
-      throw new Error(
-        'Required parameter id was null or undefined when calling groupsIdLinksLinknameGet.',
-      );
+      throw new Error('Required parameter id was null or undefined when calling groupsIdLinksLinknameGet.');
     }
 
     if (linkname === null || linkname === undefined) {
-      throw new Error(
-        'Required parameter linkname was null or undefined when calling groupsIdLinksLinknameGet.',
-      );
+      throw new Error('Required parameter linkname was null or undefined when calling groupsIdLinksLinknameGet.');
     }
 
     let queryParameters: any = {};
@@ -219,8 +199,7 @@ export class LinkService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
@@ -228,9 +207,7 @@ export class LinkService {
     // to determine the Content-Type header
     const consumes: string[] = [];
     return this.httpClient.get<InlineResponse2005>(
-      `${this.basePath}/groups/${encodeURIComponent(
-        String(id),
-      )}/links/${encodeURIComponent(String(linkname))}`,
+      `${this.basePath}/groups/${encodeURIComponent(String(id))}/links/${encodeURIComponent(String(linkname))}`,
       {
         params: queryParameters,
         withCredentials: this.configuration.withCredentials,
@@ -264,21 +241,15 @@ export class LinkService {
     authorization?: string,
   ): Observable<any> {
     if (id === null || id === undefined) {
-      throw new Error(
-        'Required parameter id was null or undefined when calling groupsIdLinksLinknamePut.',
-      );
+      throw new Error('Required parameter id was null or undefined when calling groupsIdLinksLinknamePut.');
     }
 
     if (linkname === null || linkname === undefined) {
-      throw new Error(
-        'Required parameter linkname was null or undefined when calling groupsIdLinksLinknamePut.',
-      );
+      throw new Error('Required parameter linkname was null or undefined when calling groupsIdLinksLinknamePut.');
     }
 
     if (inlineObject1 === null || inlineObject1 === undefined) {
-      throw new Error(
-        'Required parameter inlineObject1 was null or undefined when calling groupsIdLinksLinknamePut.',
-      );
+      throw new Error('Required parameter inlineObject1 was null or undefined when calling groupsIdLinksLinknamePut.');
     }
 
     let queryParameters: any = {};
@@ -293,23 +264,19 @@ export class LinkService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected: string | undefined =
-      this.configuration.selectHeaderContentType(consumes);
+    const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
     if (httpContentTypeSelected != undefined) {
       headers['Content-Type'] = httpContentTypeSelected;
     }
     return this.httpClient.put<object>(
-      `${this.basePath}/groups/${encodeURIComponent(
-        String(id),
-      )}/links/${encodeURIComponent(String(linkname))}`,
+      `${this.basePath}/groups/${encodeURIComponent(String(id))}/links/${encodeURIComponent(String(linkname))}`,
       inlineObject1,
       {
         params: queryParameters,

@@ -1,21 +1,11 @@
-import {
-  ValidationOptions,
-  ValidationArguments,
-  isURL,
-  IS_URL,
-  buildMessage,
-  ValidateBy,
-} from 'class-validator';
+import { ValidationOptions, ValidationArguments, isURL, IS_URL, buildMessage, ValidateBy } from 'class-validator';
 import ValidatorJS from 'validator';
 
 export type IsURLOptions = ValidatorJS.IsURLOptions & {
   allowDecodedUrls?: boolean;
 };
 
-export function IsUrl(
-  options?: IsURLOptions,
-  validationOptions?: ValidationOptions,
-): PropertyDecorator {
+export function IsUrl(options?: IsURLOptions, validationOptions?: ValidationOptions): PropertyDecorator {
   return ValidateBy(
     {
       name: IS_URL,

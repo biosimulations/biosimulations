@@ -1,8 +1,4 @@
-import {
-  Injectable,
-  NotFoundException,
-  InternalServerErrorException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException, InternalServerErrorException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Simulator } from '@biosimulations/simulators/database-models';
 import { Simulator as APISimulator } from '@biosimulations/ontology/datamodel';
@@ -17,13 +13,9 @@ export class SimulatorsService {
     const sim = new this.simulator(doc);
     return sim.validate();
   }
-  constructor(
-    @InjectModel(Simulator.name) private simulator: Model<Simulator>,
-  ) {}
+  constructor(@InjectModel(Simulator.name) private simulator: Model<Simulator>) {}
 
-  public async findAll(
-    includeTestResults = false,
-  ): Promise<LeanDocument<Simulator>[]> {
+  public async findAll(includeTestResults = false): Promise<LeanDocument<Simulator>[]> {
     let projection: any = {
       _id: 0,
       __v: 0,
@@ -38,10 +30,7 @@ export class SimulatorsService {
     return results;
   }
 
-  public async findById(
-    id: string,
-    includeTestResults = false,
-  ): Promise<LeanDocument<Simulator>[]> {
+  public async findById(id: string, includeTestResults = false): Promise<LeanDocument<Simulator>[]> {
     let projection: any = {
       _id: 0,
       __v: 0,
@@ -53,11 +42,7 @@ export class SimulatorsService {
     return this.simulator.find({ id: id }, projection).lean().exec();
   }
 
-  public async findByVersion(
-    id: string,
-    version: string,
-    includeTestResults = false,
-  ): Promise<Simulator | null> {
+  public async findByVersion(id: string, version: string, includeTestResults = false): Promise<Simulator | null> {
     let projection: any = {
       _id: 0,
       __v: 0,
@@ -66,19 +51,11 @@ export class SimulatorsService {
     if (includeTestResults) {
       projection = { _id: 0, __v: 0 };
     }
-    return this.simulator
-      .findOne({ id: id, version: version }, projection)
-      .exec();
+    return this.simulator.findOne({ id: id, version: version }, projection).exec();
   }
 
-  public async findLatestVersion(
-    id: string,
-    includeTestResults = false,
-  ): Promise<Simulator> {
-    const versions = await this.simulator
-      .find({ id: id })
-      .select('version biosimulators.created')
-      .exec();
+  public async findLatestVersion(id: string, includeTestResults = false): Promise<Simulator> {
+    const versions = await this.simulator.find({ id: id }).select('version biosimulators.created').exec();
     if (versions.length === 0) {
       throw new NotFoundException(`No simulation tool has id '${id}'.`);
     }
@@ -88,9 +65,7 @@ export class SimulatorsService {
 
     const simulator = await this.findByVersion(id, version, includeTestResults);
     if (simulator == null) {
-      throw new InternalServerErrorException(
-        `Version '${id}' of '${version}' could not be obtained.`,
-      );
+      throw new InternalServerErrorException(`Version '${id}' of '${version}' could not be obtained.`);
     } else {
       return simulator;
     }
@@ -104,19 +79,11 @@ export class SimulatorsService {
     return res;
   }
 
-  public async replace(
-    id: string,
-    version: string,
-    doc: APISimulator,
-  ): Promise<Simulator> {
-    const sim = await this.simulator
-      .findOne({ id: id, version: version })
-      .exec();
+  public async replace(id: string, version: string, doc: APISimulator): Promise<Simulator> {
+    const sim = await this.simulator.findOne({ id: id, version: version }).exec();
 
     if (!sim) {
-      throw new NotFoundException(
-        `No simulation tool has id '${id}' and version '${version}'.`,
-      );
+      throw new NotFoundException(`No simulation tool has id '${id}' and version '${version}'.`);
     }
     // Preserve the original date
     doc.biosimulators.created = sim.biosimulators.created;
@@ -127,23 +94,15 @@ export class SimulatorsService {
   }
 
   public async deleteOne(id: string, version: string): Promise<Simulator> {
-    const sim = await this.simulator
-      .findOne({ id: id, version: version }, { _id: 0, __v: 0 })
-      .exec();
+    const sim = await this.simulator.findOne({ id: id, version: version }, { _id: 0, __v: 0 }).exec();
 
     if (!sim) {
-      throw new NotFoundException(
-        `No simulation tool has id '${id}' and version '${version}'.`,
-      );
+      throw new NotFoundException(`No simulation tool has id '${id}' and version '${version}'.`);
     }
-    const res: DeleteResult = await this.simulator
-      .deleteOne({ id: id, version: version })
-      .exec();
+    const res: DeleteResult = await this.simulator.deleteOne({ id: id, version: version }).exec();
 
     if (res.deletedCount !== 1) {
-      throw new InternalServerErrorException(
-        'The version of the simulation tool could not be deleted.',
-      );
+      throw new InternalServerErrorException('The version of the simulation tool could not be deleted.');
     }
 
     return sim;
@@ -159,9 +118,7 @@ export class SimulatorsService {
 
     numVersions = await this.simulator.count({ id }).exec();
     if (numVersions !== 0) {
-      throw new InternalServerErrorException(
-        'Some versions of the simulation tool could not be deleted.',
-      );
+      throw new InternalServerErrorException('Some versions of the simulation tool could not be deleted.');
     }
   }
 
@@ -169,16 +126,11 @@ export class SimulatorsService {
     const sims = await this.simulator.deleteMany({});
     const count = await this.simulator.count();
     if (count !== 0) {
-      throw new InternalServerErrorException(
-        'Some simulation tools could not be deleted.',
-      );
+      throw new InternalServerErrorException('Some simulation tools could not be deleted.');
     }
   }
 
-  public static compareSimulatorVersions(
-    a: APISimulator,
-    b: APISimulator,
-  ): number {
+  public static compareSimulatorVersions(a: APISimulator, b: APISimulator): number {
     const aVersion = a.version.replace(/-/g, '.');
     const bVersion = b.version.replace(/-/g, '.');
     try {

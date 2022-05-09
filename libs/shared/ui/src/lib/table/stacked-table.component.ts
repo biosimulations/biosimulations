@@ -1,14 +1,7 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { UtilsService } from '@biosimulations/shared/angular';
-import {
-  Column,
-  ColumnActionType,
-  IdColumnMap,
-  ColumnSort,
-  Side,
-  RowService,
-} from './table.interface';
+import { Column, ColumnActionType, IdColumnMap, ColumnSort, Side, RowService } from './table.interface';
 import { TocSection } from '../toc/toc-section';
 import { TocSectionsContainerDirective } from '../toc/toc-sections-container.directive';
 
@@ -28,17 +21,12 @@ export class StackedTableComponent {
   @Input()
   set columns(columns: Column[]) {
     this._columns = columns;
-    this.displayedColumns = columns.filter(
-      (column: Column) => column.showStacked !== false,
-    );
+    this.displayedColumns = columns.filter((column: Column) => column.showStacked !== false);
 
-    this.idToColumn = columns.reduce(
-      (map: { [id: string]: Column }, col: Column) => {
-        map[col.id] = col;
-        return map;
-      },
-      {},
-    );
+    this.idToColumn = columns.reduce((map: { [id: string]: Column }, col: Column) => {
+      map[col.id] = col;
+      return map;
+    }, {});
 
     this.updateDerivedData();
     this.derivedData.next(this._derivedData);
@@ -74,22 +62,18 @@ export class StackedTableComponent {
   set data(data: any) {
     if (data instanceof Observable) {
       data.subscribe((unresolvedData: any[]) => {
-        UtilsService.recursiveForkJoin(unresolvedData).subscribe(
-          (resolvedData: any[] | undefined) => {
-            if (resolvedData !== undefined) {
-              this.setData(resolvedData);
-            }
-          },
-        );
-      });
-    } else if (data) {
-      UtilsService.recursiveForkJoin(data).subscribe(
-        (resolvedData: any[] | undefined) => {
+        UtilsService.recursiveForkJoin(unresolvedData).subscribe((resolvedData: any[] | undefined) => {
           if (resolvedData !== undefined) {
             this.setData(resolvedData);
           }
-        },
-      );
+        });
+      });
+    } else if (data) {
+      UtilsService.recursiveForkJoin(data).subscribe((resolvedData: any[] | undefined) => {
+        if (resolvedData !== undefined) {
+          this.setData(resolvedData);
+        }
+      });
     } else {
       this.setData([]);
     }
@@ -98,11 +82,7 @@ export class StackedTableComponent {
   private setData(data: any[]): void {
     this._derivedData = [];
 
-    const sortedData = RowService.sortData(
-      this.idToColumn,
-      data,
-      this.defaultSort,
-    );
+    const sortedData = RowService.sortData(this.idToColumn, data, this.defaultSort);
 
     sortedData.forEach((datum: any, index: number) => {
       const derivedDatum: any = {};
@@ -155,58 +135,26 @@ export class StackedTableComponent {
         );
 
         if (column.centerAction === ColumnActionType.routerLink) {
-          const tmp = RowService.getElementRouterLink(
-            datum,
-            column,
-            Side.center,
-          );
+          const tmp = RowService.getElementRouterLink(datum, column, Side.center);
           derivedDatum[column.id]['centerRouterLink'] = tmp.routerLink;
           derivedDatum[column.id]['centerFragment'] = tmp.fragment;
         } else if (column.centerAction === ColumnActionType.href) {
-          derivedDatum[column.id]['centerHref'] = RowService.getElementHref(
-            datum,
-            column,
-            Side.center,
-          );
+          derivedDatum[column.id]['centerHref'] = RowService.getElementHref(datum, column, Side.center);
         } else if (column.centerAction === ColumnActionType.click) {
-          derivedDatum[column.id]['centerClick'] = RowService.getElementClick(
-            datum,
-            column,
-            Side.center,
-          );
+          derivedDatum[column.id]['centerClick'] = RowService.getElementClick(datum, column, Side.center);
         }
 
         if (column.rightAction === ColumnActionType.routerLink) {
-          const tmp = RowService.getElementRouterLink(
-            datum,
-            column,
-            Side.right,
-          );
+          const tmp = RowService.getElementRouterLink(datum, column, Side.right);
           derivedDatum[column.id]['rightRouterLink'] = tmp.routerLink;
           derivedDatum[column.id]['rightFragment'] = tmp.fragment;
         } else if (column.rightAction === ColumnActionType.href) {
-          derivedDatum[column.id]['rightHref'] = RowService.getElementHref(
-            datum,
-            column,
-            Side.right,
-          );
+          derivedDatum[column.id]['rightHref'] = RowService.getElementHref(datum, column, Side.right);
         } else if (column.rightAction === ColumnActionType.click) {
-          derivedDatum[column.id]['rightClick'] = RowService.getElementClick(
-            datum,
-            column,
-            Side.right,
-          );
+          derivedDatum[column.id]['rightClick'] = RowService.getElementClick(datum, column, Side.right);
         }
-        derivedDatum[column.id]['rightIcon'] = RowService.getIcon(
-          datum,
-          column,
-          Side.right,
-        );
-        derivedDatum[column.id]['rightIconTitle'] = RowService.getIconTitle(
-          datum,
-          column,
-          Side.right,
-        );
+        derivedDatum[column.id]['rightIcon'] = RowService.getIcon(datum, column, Side.right);
+        derivedDatum[column.id]['rightIconTitle'] = RowService.getIconTitle(datum, column, Side.right);
       });
     });
   }

@@ -57,9 +57,7 @@
                 '[' +
                 qp.error +
                 ']: ' +
-                (qp.error_description
-                  ? qp.error_description + '. '
-                  : 'no accessCode received from the server. ') +
+                (qp.error_description ? qp.error_description + '. ' : 'no accessCode received from the server. ') +
                 (qp.error_uri ? 'More info: ' + qp.error_uri : '');
             }
 
@@ -67,9 +65,7 @@
               authId: oauth2.auth.name,
               source: 'auth',
               level: 'error',
-              message:
-                oauthErrorMsg ||
-                '[Authorization failed]: no accessCode received from the server',
+              message: oauthErrorMsg || '[Authorization failed]: no accessCode received from the server',
             });
           }
         } else {

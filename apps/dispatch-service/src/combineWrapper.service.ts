@@ -24,30 +24,17 @@ export class CombineWrapperService {
     );
   }
 
-  public getManifest(
-    file?: Blob,
-    url?: string,
-  ): Observable<AxiosResponse<CombineArchiveManifest>> {
+  public getManifest(file?: Blob, url?: string): Observable<AxiosResponse<CombineArchiveManifest>> {
     return this.service.srcHandlersCombineGetManifestHandler(file, url);
   }
 
-  public getSedMlSpecs(
-    file?: Blob,
-    url?: string,
-  ): Observable<AxiosResponse<CombineArchiveSedDocSpecs>> {
-    return this.service.srcHandlersCombineGetSedmlSpecsForCombineArchiveHandler(
-      file,
-      url,
-    );
+  public getSedMlSpecs(file?: Blob, url?: string): Observable<AxiosResponse<CombineArchiveSedDocSpecs>> {
+    return this.service.srcHandlersCombineGetSedmlSpecsForCombineArchiveHandler(file, url);
   }
 }
 
 export class MockCombineWrapperService {
-  public getArchiveMetadata(
-    omexMetadataFormat: string,
-    file?: Blob,
-    url?: string,
-  ) {
+  public getArchiveMetadata(omexMetadataFormat: string, file?: Blob, url?: string) {
     return 'Metadata';
   }
 }

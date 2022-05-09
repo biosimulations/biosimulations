@@ -21,12 +21,7 @@ describe('StackedTableComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        NoopAnimationsModule,
-        BiosimulationsIconsModule,
-        FlexLayoutModule,
-      ],
+      imports: [RouterTestingModule, NoopAnimationsModule, BiosimulationsIconsModule, FlexLayoutModule],
       declarations: [
         StackedTableComponent,
         PageComponent,

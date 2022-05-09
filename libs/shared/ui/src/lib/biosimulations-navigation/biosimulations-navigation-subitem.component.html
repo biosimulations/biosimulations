@@ -1,11 +1,5 @@
-<mat-list-item
-  [routerLink]="route || null"
-  [queryParams]="queryParams"
-  [disabled]="disabled"
->
+<mat-list-item [routerLink]="route || null" [queryParams]="queryParams" [disabled]="disabled">
   <biosimulations-icon [icon]="icon"></biosimulations-icon>
-  <a *ngIf="href; else noHref" [href]="href" rel="noopener" [target]="target">{{
-    heading
-  }}</a>
+  <a *ngIf="href; else noHref" [href]="href" rel="noopener" [target]="target">{{ heading }}</a>
   <ng-template #noHref>{{ heading }}</ng-template>
 </mat-list-item>

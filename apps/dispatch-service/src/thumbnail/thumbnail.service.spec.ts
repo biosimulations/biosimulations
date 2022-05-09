@@ -1,8 +1,5 @@
 import { SimulationRunService } from '@biosimulations/api-nest-client';
-import {
-  FilePaths,
-  SimulationStorageService,
-} from '@biosimulations/shared/storage';
+import { FilePaths, SimulationStorageService } from '@biosimulations/shared/storage';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ManifestService } from '../manifest/manifest.service';
 

@@ -1,11 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  Allow,
-  IsNotEmpty,
-  IsOptional,
-  IsString,
-  IsUrl,
-} from 'class-validator';
+import { Allow, IsNotEmpty, IsOptional, IsString, IsUrl } from 'class-validator';
 import {
   EdamOntologyId,
   FunderRegistryOntologyId,
@@ -48,9 +42,7 @@ export class BiosimulationsModelFormat implements IBiosimulationsModelFormat {
   public introspectionAvailable!: boolean;
 }
 
-export class BiosimulationsFormatMetadata
-  implements IBiosimulationsFormatMetadata
-{
+export class BiosimulationsFormatMetadata implements IBiosimulationsFormatMetadata {
   @ApiProperty({
     description: 'Acronym for the term',
     type: String,
@@ -66,8 +58,7 @@ export class BiosimulationsFormatMetadata
   public omexManifestUris!: string[];
 
   @ApiProperty({
-    description:
-      'Additional metadata about terms that represent model formats (e.g., CellML, SBML)',
+    description: 'Additional metadata about terms that represent model formats (e.g., CellML, SBML)',
     type: BiosimulationsModelFormat,
     required: false,
   })
@@ -114,8 +105,7 @@ export class EdamTerm extends EdamOntologyId implements IEdamTerm {
   public iri!: string;
 
   @ApiProperty({
-    description:
-      'URL with basic information about the term from an ontology browser such as OLS',
+    description: 'URL with basic information about the term from an ontology browser such as OLS',
     type: String,
     format: 'url',
   })
@@ -142,17 +132,13 @@ export class EdamTerm extends EdamOntologyId implements IEdamTerm {
   public children!: string[];
 
   @ApiProperty({
-    description:
-      'Additional metadata about the term beyond the information organized into the EDAM ontology',
+    description: 'Additional metadata about the term beyond the information organized into the EDAM ontology',
     type: BiosimulationsFormatMetadata,
   })
   public biosimulationsMetadata?: BiosimulationsFormatMetadata;
 }
 
-export class FunderRegistryTerm
-  extends FunderRegistryOntologyId
-  implements IFunderRegistryTerm
-{
+export class FunderRegistryTerm extends FunderRegistryOntologyId implements IFunderRegistryTerm {
   @ApiProperty({
     description: 'Name of the term',
     type: String,
@@ -174,8 +160,7 @@ export class FunderRegistryTerm
   public iri!: null;
 
   @ApiProperty({
-    description:
-      'URL with basic information about the term from an ontology browser such as OLS',
+    description: 'URL with basic information about the term from an ontology browser such as OLS',
     type: String,
     format: 'url',
   })
@@ -224,8 +209,7 @@ export class LinguistTerm extends LinguistOntologyId implements ILinguistTerm {
   public iri!: null;
 
   @ApiProperty({
-    description:
-      'URL with basic information about the term from an ontology browser such as OLS',
+    description: 'URL with basic information about the term from an ontology browser such as OLS',
     type: typeof null,
     nullable: true,
   })
@@ -273,8 +257,7 @@ export class KisaoTerm extends KisaoOntologyId implements IKisaoTerm {
   public iri!: string;
 
   @ApiProperty({
-    description:
-      'URL with basic information about the term from an ontology browser such as OLS',
+    description: 'URL with basic information about the term from an ontology browser such as OLS',
     type: String,
     format: 'url',
   })
@@ -323,8 +306,7 @@ export class SboTerm extends SboOntologyId implements ISboTerm {
   public iri!: string;
 
   @ApiProperty({
-    description:
-      'URL with basic information about the term from an ontology browser such as OLS',
+    description: 'URL with basic information about the term from an ontology browser such as OLS',
     type: String,
     format: 'url',
   })
@@ -372,8 +354,7 @@ export class SioTerm extends SioOntologyId implements ISioTerm {
   public iri!: string;
 
   @ApiProperty({
-    description:
-      'URL with basic information about the term from an ontology browser such as OLS',
+    description: 'URL with basic information about the term from an ontology browser such as OLS',
     type: String,
     format: 'url',
   })
@@ -430,8 +411,7 @@ export class SpdxTerm extends SpdxOntologyId implements ISpdxTerm {
     protocols: ['http', 'https'],
   })
   @ApiProperty({
-    description:
-      'URL with basic information about the term from an ontology browser such as OLS',
+    description: 'URL with basic information about the term from an ontology browser such as OLS',
     type: String,
     format: 'url',
   })

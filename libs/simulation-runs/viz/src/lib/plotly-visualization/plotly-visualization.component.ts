@@ -1,15 +1,5 @@
-import {
-  Component,
-  Input,
-  ElementRef,
-  AfterViewInit,
-  OnDestroy,
-} from '@angular/core';
-import {
-  PlotlyTrace,
-  PlotlyLayout,
-  PlotlyDataLayout,
-} from '@biosimulations/datamodel/common';
+import { Component, Input, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { PlotlyTrace, PlotlyLayout, PlotlyDataLayout } from '@biosimulations/datamodel/common';
 import { debounce } from 'throttle-debounce';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HtmlSnackBarComponent } from '@biosimulations/shared/ui';
@@ -103,8 +93,7 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
   private setLayout(): void {
     this.visible = this.hostElement.nativeElement.offsetParent != null;
     if (this.visible && this.layout) {
-      const rect =
-        this.hostElement.nativeElement.parentElement.getBoundingClientRect();
+      const rect = this.hostElement.nativeElement.parentElement.getBoundingClientRect();
       this.layout.width = rect.width;
       this.layout.height = rect.height;
     }

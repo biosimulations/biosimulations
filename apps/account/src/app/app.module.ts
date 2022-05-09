@@ -21,10 +21,7 @@ import { CommonModule } from '@angular/common';
       [
         {
           path: 'register',
-          loadChildren: () =>
-            import('./registration/registration.module').then(
-              (m) => m.RegistrationModule,
-            ),
+          loadChildren: () => import('./registration/registration.module').then((m) => m.RegistrationModule),
         },
         { path: '', redirectTo: 'register', pathMatch: 'full' },
       ],
@@ -39,10 +36,7 @@ import { CommonModule } from '@angular/common';
     HttpClientModule,
     MarkdownModule.forRoot({ loader: HttpClient }),
   ],
-  providers: [
-    { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },
-    ScrollService,
-  ],
+  providers: [{ provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } }, ScrollService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

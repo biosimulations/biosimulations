@@ -1,26 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  FormControl,
-  Validators,
-} from '@angular/forms';
-import {
-  SedReport,
-  SedDataSet,
-  PlotlyDataLayout,
-  PlotlyTraceType,
-} from '@biosimulations/datamodel/common';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { SedReport, SedDataSet, PlotlyDataLayout, PlotlyTraceType } from '@biosimulations/datamodel/common';
 import {
   UriSedDataSetMap,
   UriSetDataSetResultsMap,
   Histogram1DVisualization,
   SedDocumentReports,
 } from '@biosimulations/datamodel-simulation-runs';
-import {
-  ViewService,
-  flattenTaskResults,
-} from '@biosimulations/simulation-runs/service';
+import { ViewService, flattenTaskResults } from '@biosimulations/simulation-runs/service';
 import { Observable, map, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Spec as VegaSpec } from 'vega';
@@ -52,16 +39,10 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
 
   private endpoints = new Endpoints();
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private viewService: ViewService,
-  ) {}
+  constructor(private formBuilder: FormBuilder, private viewService: ViewService) {}
 
   ngOnInit(): void {
-    this.formGroup.setControl(
-      'dataSets',
-      this.formBuilder.control('', [Validators.minLength(1)]),
-    );
+    this.formGroup.setControl('dataSets', this.formBuilder.control('', [Validators.minLength(1)]));
     this.dataSetsFormControl = this.formGroup.controls.dataSets as FormControl;
   }
 
@@ -78,10 +59,7 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
 
     const selectedUris = new Set(formControl.value);
 
-    const uri =
-      sedDocumentId +
-      (reportId ? '/' + reportId : '') +
-      (dataSetId ? '/' + dataSetId : '');
+    const uri = sedDocumentId + (reportId ? '/' + reportId : '') + (dataSetId ? '/' + dataSetId : '');
     const selected = selectedUris.has(uri);
 
     if (type === 'SedDocument') {
@@ -131,8 +109,7 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
       if (selected) {
         let hasAllDataSets = true;
         for (const dataSet of report?.dataSets || []) {
-          const dataSetUri =
-            sedDocumentId + '/' + report?.id + '/' + dataSet.id;
+          const dataSetUri = sedDocumentId + '/' + report?.id + '/' + dataSet.id;
           if (!selectedUris.has(dataSetUri)) {
             hasAllDataSets = false;
             break;
@@ -164,283 +141,256 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
 
   public getPlotlyDataLayout(): Observable<PlotlyDataLayout> {
     const selectedDataSetUris = this.getSelectedDataSetUris();
-    return this.viewService
-      .getReportResults(this.simulationRunId, selectedDataSetUris)
-      .pipe(
-        map((uriResultsMap: UriSetDataSetResultsMap): PlotlyDataLayout => {
-          let allData: any = [];
-          const errors: string[] = [];
-          const xAxisTitles: string[] = [];
-          for (let selectedUri of selectedDataSetUris) {
-            if (selectedUri.startsWith('./')) {
-              selectedUri = selectedUri.substring(2);
-            }
-
-            const selectedDataSet = this.uriSedDataSetMap?.[selectedUri];
-            if (selectedDataSet) {
-              const data = uriResultsMap?.[selectedUri];
-              if (data) {
-                allData = allData.concat(
-                  this.viewService.flattenArray(data.values),
-                );
-                xAxisTitles.push(data.label);
-              } else {
-                errors.push(selectedUri);
-              }
-            }
+    return this.viewService.getReportResults(this.simulationRunId, selectedDataSetUris).pipe(
+      map((uriResultsMap: UriSetDataSetResultsMap): PlotlyDataLayout => {
+        let allData: any = [];
+        const errors: string[] = [];
+        const xAxisTitles: string[] = [];
+        for (let selectedUri of selectedDataSetUris) {
+          if (selectedUri.startsWith('./')) {
+            selectedUri = selectedUri.substring(2);
           }
 
-          const trace = {
-            x: allData,
-            xaxis: 'x1',
-            yaxis: 'y1',
-            type: PlotlyTraceType.histogram,
-          };
-
-          let xAxisTitle: string | undefined;
-          if (xAxisTitles.length === 1) {
-            xAxisTitle = xAxisTitles[0];
-          } else if (xAxisTitles.length > 1) {
-            xAxisTitle = 'Multiple';
+          const selectedDataSet = this.uriSedDataSetMap?.[selectedUri];
+          if (selectedDataSet) {
+            const data = uriResultsMap?.[selectedUri];
+            if (data) {
+              allData = allData.concat(this.viewService.flattenArray(data.values));
+              xAxisTitles.push(data.label);
+            } else {
+              errors.push(selectedUri);
+            }
           }
+        }
 
-          const dataLayout = {
-            data: trace.x.length ? [trace] : undefined,
-            layout: {
-              xaxis1: {
-                anchor: 'x1',
-                title: xAxisTitle,
-                type: 'linear',
-              },
-              yaxis1: {
-                anchor: 'y1',
-                title: 'Frequency',
-                type: 'linear',
-              },
-              grid: {
-                rows: 1,
-                columns: 1,
-                pattern: 'independent',
-              },
-              showlegend: false,
-              width: undefined,
-              height: undefined,
+        const trace = {
+          x: allData,
+          xaxis: 'x1',
+          yaxis: 'y1',
+          type: PlotlyTraceType.histogram,
+        };
+
+        let xAxisTitle: string | undefined;
+        if (xAxisTitles.length === 1) {
+          xAxisTitle = xAxisTitles[0];
+        } else if (xAxisTitles.length > 1) {
+          xAxisTitle = 'Multiple';
+        }
+
+        const dataLayout = {
+          data: trace.x.length ? [trace] : undefined,
+          layout: {
+            xaxis1: {
+              anchor: 'x1',
+              title: xAxisTitle,
+              type: 'linear',
             },
-            dataErrors: errors.length > 0 ? errors : undefined,
-          } as PlotlyDataLayout;
+            yaxis1: {
+              anchor: 'y1',
+              title: 'Frequency',
+              type: 'linear',
+            },
+            grid: {
+              rows: 1,
+              columns: 1,
+              pattern: 'independent',
+            },
+            showlegend: false,
+            width: undefined,
+            height: undefined,
+          },
+          dataErrors: errors.length > 0 ? errors : undefined,
+        } as PlotlyDataLayout;
 
-          return dataLayout;
-        }),
-        catchError((): Observable<PlotlyDataLayout> => {
-          return of({
-            dataErrors: [
-              'The results of one or more SED-ML reports requested for the plot could not be loaded.',
-            ],
-          });
-        }),
-      );
+        return dataLayout;
+      }),
+      catchError((): Observable<PlotlyDataLayout> => {
+        return of({
+          dataErrors: ['The results of one or more SED-ML reports requested for the plot could not be loaded.'],
+        });
+      }),
+    );
   }
 
   public exportToVega(): Observable<VegaSpec> {
     const selectedDataSetUris = this.getSelectedDataSetUris();
-    return this.viewService
-      .getReportResults(this.simulationRunId, selectedDataSetUris)
-      .pipe(
-        map((uriResultsMap: UriSetDataSetResultsMap): VegaSpec => {
-          if (Object.keys(uriResultsMap).length === 0) {
-            throw new Error(
-              'The data for the visualization could not be retrieved',
-            );
+    return this.viewService.getReportResults(this.simulationRunId, selectedDataSetUris).pipe(
+      map((uriResultsMap: UriSetDataSetResultsMap): VegaSpec => {
+        if (Object.keys(uriResultsMap).length === 0) {
+          throw new Error('The data for the visualization could not be retrieved');
+        }
+
+        let vegaDataSets: {
+          templateNames: string[];
+          sourceName: (iDataSet: number) => string;
+          filteredName: (iDataSet: number) => string;
+          flattenedName: (iDataSet: number) => string;
+          joinedName?: string;
+          joinedTransforms?: any[];
+          data: { [outputUri: string]: string[] };
+        }[] = [];
+        const vega: any = JSON.parse(JSON.stringify(vegaTemplate)) as any;
+
+        const selectedDataSets: { [outputUri: string]: string[] } = {};
+        const histogramExtent = [NaN, NaN];
+        const xAxisTitles: string[] = [];
+        let flatOuterShape: number[] = [];
+        for (let selectedUri of selectedDataSetUris) {
+          if (selectedUri.startsWith('./')) {
+            selectedUri = selectedUri.substring(2);
           }
 
-          let vegaDataSets: {
-            templateNames: string[];
-            sourceName: (iDataSet: number) => string;
-            filteredName: (iDataSet: number) => string;
-            flattenedName: (iDataSet: number) => string;
-            joinedName?: string;
-            joinedTransforms?: any[];
-            data: { [outputUri: string]: string[] };
-          }[] = [];
-          const vega: any = JSON.parse(JSON.stringify(vegaTemplate)) as any;
-
-          const selectedDataSets: { [outputUri: string]: string[] } = {};
-          const histogramExtent = [NaN, NaN];
-          const xAxisTitles: string[] = [];
-          let flatOuterShape: number[] = [];
-          for (let selectedUri of selectedDataSetUris) {
-            if (selectedUri.startsWith('./')) {
-              selectedUri = selectedUri.substring(2);
-            }
-
-            const selectedDataSet = this.uriSedDataSetMap?.[selectedUri];
-            if (selectedDataSet) {
-              const data = uriResultsMap?.[selectedUri];
-              if (data) {
-                const uriParts = selectedUri.split('/');
-                uriParts.pop();
-                const outputUri = uriParts.join('/');
-                if (!(outputUri in selectedDataSets)) {
-                  selectedDataSets[outputUri] = [];
-                }
-                selectedDataSets[outputUri].push(data.id);
-
-                const flatData = this.viewService.flattenArray(data.values);
-                histogramExtent[0] = isNaN(histogramExtent[0])
-                  ? Math.min(...flatData)
-                  : Math.min(histogramExtent[0], Math.min(...flatData));
-                histogramExtent[1] = isNaN(histogramExtent[1])
-                  ? Math.max(...flatData)
-                  : Math.max(histogramExtent[1], Math.max(...flatData));
-
-                xAxisTitles.push(data.label);
-
-                const outerFlatData = flattenTaskResults([data.values]);
-                flatOuterShape = outerFlatData.outerShape;
+          const selectedDataSet = this.uriSedDataSetMap?.[selectedUri];
+          if (selectedDataSet) {
+            const data = uriResultsMap?.[selectedUri];
+            if (data) {
+              const uriParts = selectedUri.split('/');
+              uriParts.pop();
+              const outputUri = uriParts.join('/');
+              if (!(outputUri in selectedDataSets)) {
+                selectedDataSets[outputUri] = [];
               }
+              selectedDataSets[outputUri].push(data.id);
+
+              const flatData = this.viewService.flattenArray(data.values);
+              histogramExtent[0] = isNaN(histogramExtent[0])
+                ? Math.min(...flatData)
+                : Math.min(histogramExtent[0], Math.min(...flatData));
+              histogramExtent[1] = isNaN(histogramExtent[1])
+                ? Math.max(...flatData)
+                : Math.max(histogramExtent[1], Math.max(...flatData));
+
+              xAxisTitles.push(data.label);
+
+              const outerFlatData = flattenTaskResults([data.values]);
+              flatOuterShape = outerFlatData.outerShape;
             }
           }
-          vegaDataSets = [
-            {
-              templateNames: [
-                'rawData0',
-                'rawData0_filtered',
-                'rawData0_flattened',
-                'rawData_joined',
-              ],
-              sourceName: (iDataSet: number): string => `rawData${iDataSet}`,
-              filteredName: (iDataSet: number): string =>
-                `rawData${iDataSet}_filtered`,
-              flattenedName: (iDataSet: number): string =>
-                `rawData${iDataSet}_flattened`,
-              joinedName: 'rawData_joined',
-              data: selectedDataSets,
-            },
-          ];
+        }
+        vegaDataSets = [
+          {
+            templateNames: ['rawData0', 'rawData0_filtered', 'rawData0_flattened', 'rawData_joined'],
+            sourceName: (iDataSet: number): string => `rawData${iDataSet}`,
+            filteredName: (iDataSet: number): string => `rawData${iDataSet}_filtered`,
+            flattenedName: (iDataSet: number): string => `rawData${iDataSet}_flattened`,
+            joinedName: 'rawData_joined',
+            data: selectedDataSets,
+          },
+        ];
 
-          let xAxisTitle: string | undefined;
-          if (xAxisTitles.length === 1) {
-            xAxisTitle = xAxisTitles[0];
-          } else if (xAxisTitles.length > 1) {
-            xAxisTitle = 'Multiple';
+        let xAxisTitle: string | undefined;
+        if (xAxisTitles.length === 1) {
+          xAxisTitle = xAxisTitles[0];
+        } else if (xAxisTitles.length > 1) {
+          xAxisTitle = 'Multiple';
+        }
+        const vegaSignals: { [name: string]: any } = {
+          histogramExtent: [
+            isNaN(histogramExtent[0]) ? null : histogramExtent[0],
+            isNaN(histogramExtent[1]) ? null : histogramExtent[1],
+          ],
+          xAxisTitle: xAxisTitle,
+        };
+
+        // signals
+        vega.signals.forEach((signalTemplate: any): void => {
+          if (signalTemplate.name in vegaSignals) {
+            signalTemplate.value = vegaSignals[signalTemplate.name];
           }
-          const vegaSignals: { [name: string]: any } = {
-            histogramExtent: [
-              isNaN(histogramExtent[0]) ? null : histogramExtent[0],
-              isNaN(histogramExtent[1]) ? null : histogramExtent[1],
-            ],
-            xAxisTitle: xAxisTitle,
-          };
+        });
 
-          // signals
-          vega.signals.forEach((signalTemplate: any): void => {
-            if (signalTemplate.name in vegaSignals) {
-              signalTemplate.value = vegaSignals[signalTemplate.name];
+        // data
+        vegaDataSets.forEach((vegaDataSet: any): void => {
+          // remove template data sets
+          for (let iData = vega.data.length - 1; iData >= 0; iData--) {
+            if (vegaDataSet.templateNames.includes(vega.data[iData].name)) {
+              vega.data.splice(iData, 1);
             }
-          });
+          }
 
-          // data
-          vegaDataSets.forEach((vegaDataSet: any): void => {
-            // remove template data sets
-            for (let iData = vega.data.length - 1; iData >= 0; iData--) {
-              if (vegaDataSet.templateNames.includes(vega.data[iData].name)) {
-                vega.data.splice(iData, 1);
-              }
-            }
+          // add concrete data sets
+          const concreteDataSets: any[] = [];
+          const filteredVegaDataSetNames: string[] = [];
+          Object.entries(vegaDataSet.data).forEach((outputUriDataSetIds: [string, any], iDataSet: number): void => {
+            const outputUri = outputUriDataSetIds[0];
+            const outputUriParts = outputUri.split('/');
+            const outputId = outputUriParts.pop();
+            const sedDocumentLocation = outputUriParts.join('/');
+            const dataSetIds = outputUriDataSetIds[1] as string[];
 
-            // add concrete data sets
-            const concreteDataSets: any[] = [];
-            const filteredVegaDataSetNames: string[] = [];
-            Object.entries(vegaDataSet.data).forEach(
-              (outputUriDataSetIds: [string, any], iDataSet: number): void => {
-                const outputUri = outputUriDataSetIds[0];
-                const outputUriParts = outputUri.split('/');
-                const outputId = outputUriParts.pop();
-                const sedDocumentLocation = outputUriParts.join('/');
-                const dataSetIds = outputUriDataSetIds[1] as string[];
-
-                concreteDataSets.push({
-                  name: vegaDataSet.sourceName(iDataSet),
-                  sedmlUri: [sedDocumentLocation, outputId],
-                  url: this.endpoints.getRunResultsEndpoint(
-                    true,
-                    this.simulationRunId,
-                    `${sedDocumentLocation}/${outputId}`,
-                    true,
-                  ),
-                  format: {
-                    type: 'json',
-                    property: 'data',
-                  },
-                });
-
-                concreteDataSets.push({
-                  name: vegaDataSet.filteredName(iDataSet),
-                  source: concreteDataSets[concreteDataSets.length - 1].name,
-                  transform: [
-                    {
-                      type: 'filter',
-                      expr: `indexof(['${dataSetIds.join(
-                        "', '",
-                      )}'], datum.id) !== -1`,
-                    },
-                    {
-                      type: 'formula',
-                      expr: `'${outputUri}'`,
-                      as: 'outputUri',
-                    },
-                  ],
-                });
-
-                const flatDataSet: any = {
-                  name: vegaDataSet.flattenedName(iDataSet),
-                  source: concreteDataSets[concreteDataSets.length - 1].name,
-                  transform: [],
-                };
-
-                const iterationSubTaskIndices: string[] = [];
-                for (
-                  let iIterationSubTask = 0;
-                  iIterationSubTask < flatOuterShape.length;
-                  iIterationSubTask += 2
-                ) {
-                  const iterationIndex = `iteration${iIterationSubTask / 2}`;
-                  const subtaskIndex = `subtask${iIterationSubTask / 2}`;
-                  flatDataSet.transform.push({
-                    type: 'flatten',
-                    fields: ['values'],
-                    index: iterationIndex,
-                  });
-                  flatDataSet.transform.push({
-                    type: 'flatten',
-                    fields: ['values'],
-                    index: subtaskIndex,
-                  });
-                }
-
-                concreteDataSets.push(flatDataSet);
-
-                filteredVegaDataSetNames.push(
-                  concreteDataSets[concreteDataSets.length - 1].name,
-                );
+            concreteDataSets.push({
+              name: vegaDataSet.sourceName(iDataSet),
+              sedmlUri: [sedDocumentLocation, outputId],
+              url: this.endpoints.getRunResultsEndpoint(
+                true,
+                this.simulationRunId,
+                `${sedDocumentLocation}/${outputId}`,
+                true,
+              ),
+              format: {
+                type: 'json',
+                property: 'data',
               },
-            );
+            });
 
-            if (vegaDataSet.joinedName) {
-              concreteDataSets.push({
-                name: vegaDataSet.joinedName,
-                source: filteredVegaDataSetNames,
-                transform: vegaDataSet.joinedTransforms || [],
+            concreteDataSets.push({
+              name: vegaDataSet.filteredName(iDataSet),
+              source: concreteDataSets[concreteDataSets.length - 1].name,
+              transform: [
+                {
+                  type: 'filter',
+                  expr: `indexof(['${dataSetIds.join("', '")}'], datum.id) !== -1`,
+                },
+                {
+                  type: 'formula',
+                  expr: `'${outputUri}'`,
+                  as: 'outputUri',
+                },
+              ],
+            });
+
+            const flatDataSet: any = {
+              name: vegaDataSet.flattenedName(iDataSet),
+              source: concreteDataSets[concreteDataSets.length - 1].name,
+              transform: [],
+            };
+
+            const iterationSubTaskIndices: string[] = [];
+            for (let iIterationSubTask = 0; iIterationSubTask < flatOuterShape.length; iIterationSubTask += 2) {
+              const iterationIndex = `iteration${iIterationSubTask / 2}`;
+              const subtaskIndex = `subtask${iIterationSubTask / 2}`;
+              flatDataSet.transform.push({
+                type: 'flatten',
+                fields: ['values'],
+                index: iterationIndex,
+              });
+              flatDataSet.transform.push({
+                type: 'flatten',
+                fields: ['values'],
+                index: subtaskIndex,
               });
             }
 
-            vega.data = concreteDataSets.concat(vega.data);
+            concreteDataSets.push(flatDataSet);
+
+            filteredVegaDataSetNames.push(concreteDataSets[concreteDataSets.length - 1].name);
           });
 
-          // return Vega spec
-          return vega;
-        }),
-      );
+          if (vegaDataSet.joinedName) {
+            concreteDataSets.push({
+              name: vegaDataSet.joinedName,
+              source: filteredVegaDataSetNames,
+              transform: vegaDataSet.joinedTransforms || [],
+            });
+          }
+
+          vega.data = concreteDataSets.concat(vega.data);
+        });
+
+        // return Vega spec
+        return vega;
+      }),
+    );
   }
 
   private getSelectedDataSetUris(): string[] {

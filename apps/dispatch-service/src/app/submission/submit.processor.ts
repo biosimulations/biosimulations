@@ -16,17 +16,9 @@ export class SubmissionProcessor {
 
   public constructor(
     @InjectQueue(JobQueue.dispatch)
-    private dispatchQ: Queue<
-      SubmitHPCSimulationRunJobData,
-      void,
-      JobQueue.dispatch
-    >,
+    private dispatchQ: Queue<SubmitHPCSimulationRunJobData, void, JobQueue.dispatch>,
     @InjectQueue(JobQueue.resolveCombineArchive)
-    private resolveQ: Queue<
-      SubmitURLSimulationRunJobData,
-      void,
-      JobQueue.resolveCombineArchive
-    >,
+    private resolveQ: Queue<SubmitURLSimulationRunJobData, void, JobQueue.resolveCombineArchive>,
   ) {}
 
   @Process({ concurrency: 10 })

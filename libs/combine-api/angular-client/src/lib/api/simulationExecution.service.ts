@@ -12,14 +12,7 @@
 /* tslint:disable:no-unused-variable member-ordering */
 
 import { Inject, Injectable, Optional } from '@angular/core';
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpParams,
-  HttpResponse,
-  HttpEvent,
-  HttpParameterCodec,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse, HttpEvent, HttpParameterCodec } from '@angular/common/http';
 import { CustomHttpParameterCodec } from '../encoder';
 import { Observable } from 'rxjs';
 
@@ -70,11 +63,7 @@ export class SimulationExecutionService {
     return false;
   }
 
-  private addToHttpParams(
-    httpParams: HttpParams,
-    value: any,
-    key?: string,
-  ): HttpParams {
+  private addToHttpParams(httpParams: HttpParams, value: any, key?: string): HttpParams {
     if (typeof value === 'object' && value instanceof Date === false) {
       httpParams = this.addToHttpParamsRecursive(httpParams, value);
     } else {
@@ -83,38 +72,23 @@ export class SimulationExecutionService {
     return httpParams;
   }
 
-  private addToHttpParamsRecursive(
-    httpParams: HttpParams,
-    value?: any,
-    key?: string,
-  ): HttpParams {
+  private addToHttpParamsRecursive(httpParams: HttpParams, value?: any, key?: string): HttpParams {
     if (value == null) {
       return httpParams;
     }
 
     if (typeof value === 'object') {
       if (Array.isArray(value)) {
-        (value as any[]).forEach(
-          (elem) =>
-            (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key)),
-        );
+        (value as any[]).forEach((elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key)));
       } else if (value instanceof Date) {
         if (key != null) {
-          httpParams = httpParams.append(
-            key,
-            (value as Date).toISOString().substr(0, 10),
-          );
+          httpParams = httpParams.append(key, (value as Date).toISOString().substr(0, 10));
         } else {
           throw Error('key may not be null if value is Date');
         }
       } else {
         Object.keys(value).forEach(
-          (k) =>
-            (httpParams = this.addToHttpParamsRecursive(
-              httpParams,
-              value[k],
-              key != null ? `${key}.${k}` : k,
-            )),
+          (k) => (httpParams = this.addToHttpParamsRecursive(httpParams, value[k], key != null ? `${key}.${k}` : k)),
         );
       }
     } else if (key != null) {
@@ -153,39 +127,28 @@ export class SimulationExecutionService {
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
     if (localVarHttpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
       const httpHeaderAccepts: string[] = ['application/json'];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
     if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        'Accept',
-        localVarHttpHeaderAcceptSelected,
-      );
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
     }
 
     let responseType_: 'text' | 'json' = 'json';
-    if (
-      localVarHttpHeaderAcceptSelected &&
-      localVarHttpHeaderAcceptSelected.startsWith('text')
-    ) {
+    if (localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
       responseType_ = 'text';
     }
 
-    return this.httpClient.get<Array<Simulator>>(
-      `${this.configuration.basePath}/run/simulators`,
-      {
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      },
-    );
+    return this.httpClient.get<Array<Simulator>>(`${this.configuration.basePath}/run/simulators`, {
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -208,10 +171,7 @@ export class SimulationExecutionService {
     observe?: 'body',
     reportProgress?: boolean,
     options?: {
-      httpHeaderAccept?:
-        | 'application/json'
-        | 'application/x-hdf'
-        | 'application/zip';
+      httpHeaderAccept?: 'application/json' | 'application/x-hdf' | 'application/zip';
     },
   ): Observable<SimulationRunResults>;
   public srcHandlersRunRunHandler(
@@ -223,10 +183,7 @@ export class SimulationExecutionService {
     observe?: 'response',
     reportProgress?: boolean,
     options?: {
-      httpHeaderAccept?:
-        | 'application/json'
-        | 'application/x-hdf'
-        | 'application/zip';
+      httpHeaderAccept?: 'application/json' | 'application/x-hdf' | 'application/zip';
     },
   ): Observable<HttpResponse<SimulationRunResults>>;
   public srcHandlersRunRunHandler(
@@ -238,10 +195,7 @@ export class SimulationExecutionService {
     observe?: 'events',
     reportProgress?: boolean,
     options?: {
-      httpHeaderAccept?:
-        | 'application/json'
-        | 'application/x-hdf'
-        | 'application/zip';
+      httpHeaderAccept?: 'application/json' | 'application/x-hdf' | 'application/zip';
     },
   ): Observable<HttpEvent<SimulationRunResults>>;
   public srcHandlersRunRunHandler(
@@ -253,42 +207,26 @@ export class SimulationExecutionService {
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: {
-      httpHeaderAccept?:
-        | 'application/json'
-        | 'application/x-hdf'
-        | 'application/zip';
+      httpHeaderAccept?: 'application/json' | 'application/x-hdf' | 'application/zip';
     },
   ): Observable<any> {
     if (simulator === null || simulator === undefined) {
-      throw new Error(
-        'Required parameter simulator was null or undefined when calling srcHandlersRunRunHandler.',
-      );
+      throw new Error('Required parameter simulator was null or undefined when calling srcHandlersRunRunHandler.');
     }
     if (type === null || type === undefined) {
-      throw new Error(
-        'Required parameter type was null or undefined when calling srcHandlersRunRunHandler.',
-      );
+      throw new Error('Required parameter type was null or undefined when calling srcHandlersRunRunHandler.');
     }
 
     let localVarHeaders = this.defaultHeaders;
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
     if (localVarHttpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = [
-        'application/json',
-        'application/x-hdf',
-        'application/zip',
-      ];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['application/json', 'application/x-hdf', 'application/zip'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
     if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        'Accept',
-        localVarHttpHeaderAcceptSelected,
-      );
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
     }
 
     // to determine the Content-Type header
@@ -306,18 +244,13 @@ export class SimulationExecutionService {
     }
 
     let responseType_: 'text' | 'json' = 'json';
-    if (
-      localVarHttpHeaderAcceptSelected &&
-      localVarHttpHeaderAcceptSelected.startsWith('text')
-    ) {
+    if (localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
       responseType_ = 'text';
     }
 
     return this.httpClient.post<SimulationRunResults>(
       `${this.configuration.basePath}/run/run`,
-      localVarConvertFormParamsToString
-        ? localVarFormParams.toString()
-        : localVarFormParams,
+      localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
       {
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,

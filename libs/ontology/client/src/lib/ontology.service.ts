@@ -31,10 +31,7 @@ export class OntologyService {
     [ontologyId: string]: Observable<OntologyTermMap<IOntologyTerm>>;
   } = {};
 
-  public constructor(
-    private http: HttpClient,
-    private configService: ConfigService,
-  ) {}
+  public constructor(private http: HttpClient, private configService: ConfigService) {}
 
   public getKisaoUrl(id: string): string {
     return (
@@ -43,10 +40,7 @@ export class OntologyService {
     );
   }
 
-  private fetchOntologyTerm<T extends IOntologyTerm>(
-    ontologyId: Ontologies,
-    termId: string,
-  ): Observable<T> {
+  private fetchOntologyTerm<T extends IOntologyTerm>(ontologyId: Ontologies, termId: string): Observable<T> {
     let ontologyTerms = this.fetchedOntologyTerms[ontologyId];
 
     if (!ontologyTerms) {
@@ -56,12 +50,7 @@ export class OntologyService {
     let term: Observable<IOntologyTerm> | undefined = ontologyTerms[termId];
 
     if (!term) {
-      const endpoint = this.endpoints.getOntologyEndpoint(
-        this.configService.appId,
-        false,
-        ontologyId,
-        termId,
-      );
+      const endpoint = this.endpoints.getOntologyEndpoint(this.configService.appId, false, ontologyId, termId);
       term = this.http.get<IOntologyTerm>(endpoint).pipe(shareReplay(1));
       ontologyTerms[termId] = term;
     }
@@ -69,19 +58,13 @@ export class OntologyService {
     return term as Observable<T>;
   }
 
-  private fetchOntologyTerms<T extends IOntologyTerm>(
-    ontologyId: Ontologies,
-  ): Observable<OntologyTermMap<T>> {
+  private fetchOntologyTerms<T extends IOntologyTerm>(ontologyId: Ontologies): Observable<OntologyTermMap<T>> {
     let terms = this.fetchedOntologies[ontologyId];
     if (terms) {
       return terms as Observable<OntologyTermMap<T>>;
     }
 
-    const endpoint = this.endpoints.getOntologyEndpoint(
-      this.configService.appId,
-      false,
-      ontologyId,
-    );
+    const endpoint = this.endpoints.getOntologyEndpoint(this.configService.appId, false, ontologyId);
     terms = this.http.get<IOntologyTerm[]>(endpoint).pipe(
       shareReplay(1),
       map((terms): OntologyTermMap<IOntologyTerm> => {
@@ -99,16 +82,11 @@ export class OntologyService {
     return terms as Observable<OntologyTermMap<T>>;
   }
 
-  public getOntologyTerms<T extends IOntologyTerm>(
-    ontologyId: Ontologies,
-  ): Observable<OntologyTermMap<T>> {
+  public getOntologyTerms<T extends IOntologyTerm>(ontologyId: Ontologies): Observable<OntologyTermMap<T>> {
     return this.fetchOntologyTerms(ontologyId);
   }
 
-  private getOntologyTerm<T extends IOntologyTerm>(
-    ontologyId: Ontologies,
-    termId: string,
-  ): Observable<T> {
+  private getOntologyTerm<T extends IOntologyTerm>(ontologyId: Ontologies, termId: string): Observable<T> {
     return this.fetchOntologyTerm<T>(ontologyId, termId).pipe(
       catchError((terms: OntologyTermMap<T>): Observable<T> => {
         return of({
@@ -128,10 +106,7 @@ export class OntologyService {
   }
 
   public getFunderRegistryTerm(id: string): Observable<FunderRegistryTerm> {
-    return this.getOntologyTerm<FunderRegistryTerm>(
-      Ontologies.FunderRegistry,
-      id,
-    );
+    return this.getOntologyTerm<FunderRegistryTerm>(Ontologies.FunderRegistry, id);
   }
 
   public getLinguistTerm(id: string): Observable<LinguistTerm> {
@@ -193,14 +168,8 @@ export class OntologyService {
     return this.getOntologyTerm<SpdxTerm>(Ontologies.SPDX, id);
   }
 
-  public getTerms<T extends Partial<IOntologyTerm>>(
-    ids: IOntologyId[],
-    fields?: string[],
-  ): Observable<T[]> {
-    const endpoint = this.endpoints.getOntologyTermsEndpoint(
-      this.configService.appId,
-      false,
-    );
+  public getTerms<T extends Partial<IOntologyTerm>>(ids: IOntologyId[], fields?: string[]): Observable<T[]> {
+    const endpoint = this.endpoints.getOntologyTermsEndpoint(this.configService.appId, false);
 
     const params: any = {};
     if (fields) {

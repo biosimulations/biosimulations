@@ -35,12 +35,7 @@ describe('SimulationRunsController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [SimulationRunController],
-      imports: [
-        BiosimulationsAuthModule,
-        BiosimulationsConfigModule,
-        SharedNatsClientModule,
-        HttpModule,
-      ],
+      imports: [BiosimulationsAuthModule, BiosimulationsConfigModule, SharedNatsClientModule, HttpModule],
       providers: [
         { provide: SimulationRunService, useClass: mockSimService },
         { provide: SimulationRunValidationService, useClass: mockSimService },

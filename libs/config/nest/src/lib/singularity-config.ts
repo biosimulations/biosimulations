@@ -7,9 +7,7 @@ interface PurposedEnvironmentVariable {
 }
 
 export default registerAs('singularity', () => {
-  const singularityRunEnvVars: PurposedEnvironmentVariable[] = Object.entries(
-    process.env as { [key: string]: string },
-  )
+  const singularityRunEnvVars: PurposedEnvironmentVariable[] = Object.entries(process.env as { [key: string]: string })
     .filter((keyVal: [string, string]): boolean => {
       return keyVal[0].startsWith('SINGULARITY_RUN_ENV_VAR_');
     })

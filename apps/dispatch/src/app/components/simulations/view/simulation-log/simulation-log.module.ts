@@ -10,16 +10,8 @@ import { StructuredSimulationLogElementComponent } from './structured-simulation
 import { HighlightModule } from 'ngx-highlightjs';
 
 @NgModule({
-  declarations: [
-    SimulationLogComponent,
-    StructuredSimulationLogElementComponent,
-  ],
+  declarations: [SimulationLogComponent, StructuredSimulationLogElementComponent],
   exports: [SimulationLogComponent],
-  imports: [
-    CommonModule,
-    SharedUiModule,
-    BiosimulationsIconsModule,
-    HighlightModule,
-  ],
+  imports: [CommonModule, SharedUiModule, BiosimulationsIconsModule, HighlightModule],
 })
 export class SimulationLogModule {}

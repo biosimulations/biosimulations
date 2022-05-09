@@ -1,8 +1,4 @@
-import {
-  ApiExtraModels,
-  ApiProperty,
-  ApiResponseProperty,
-} from '@nestjs/swagger';
+import { ApiExtraModels, ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
 import { ArchiveMetadata } from '../common/archiveMetadata';
 import { IsMongoId, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
@@ -18,8 +14,7 @@ export class SimulationRunMetadata {
   public id!: string;
 
   @ApiProperty({
-    description:
-      'Metadata about the COMBINE/OMEX archive of the simulation run or files in the archive',
+    description: 'Metadata about the COMBINE/OMEX archive of the simulation run or files in the archive',
     type: [ArchiveMetadata],
   })
   @ValidateNested({ each: true })
@@ -40,12 +35,7 @@ export class SimulationRunMetadata {
   })
   public modified: string;
 
-  public constructor(
-    simulationRun: string,
-    metadata: ArchiveMetadata[],
-    created: string,
-    modified: string,
-  ) {
+  public constructor(simulationRun: string, metadata: ArchiveMetadata[], created: string, modified: string) {
     this.id = simulationRun;
     this.metadata = metadata;
     this.created = created;

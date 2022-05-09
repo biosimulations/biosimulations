@@ -11,11 +11,7 @@ describe('SpecificationsController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [SpecificationsController],
-      imports: [
-        BiosimulationsAuthModule,
-        BiosimulationsConfigModule,
-        SharedNatsClientModule,
-      ],
+      imports: [BiosimulationsAuthModule, BiosimulationsConfigModule, SharedNatsClientModule],
       providers: [{ provide: SpecificationsService, useValue: {} }],
     }).compile();
 

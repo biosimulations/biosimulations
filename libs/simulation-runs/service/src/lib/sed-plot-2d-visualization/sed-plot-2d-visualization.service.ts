@@ -79,42 +79,31 @@ export class SedPlot2DVisualizationService {
       sedDocLocation = sedDocLocation.substring(2);
     }
 
-    const resultsMap: SedDatasetResultsMap =
-      this.getSimulationRunResults(results);
+    const resultsMap: SedDatasetResultsMap = this.getSimulationRunResults(results);
 
     const traces: PlotlyTrace[] = [];
     const xAxisTitlesSet = new Set<string>();
     const yAxisTitlesSet = new Set<string>();
     const errors: string[] = [];
     for (const curve of plot.curves) {
-      const xId =
-        sedDocLocation + '/' + plot.id + '/' + curve.xDataGenerator.id;
-      const yId =
-        sedDocLocation + '/' + plot.id + '/' + curve.yDataGenerator.id;
+      const xId = sedDocLocation + '/' + plot.id + '/' + curve.xDataGenerator.id;
+      const yId = sedDocLocation + '/' + plot.id + '/' + curve.yDataGenerator.id;
 
       const xData = resultsMap?.[xId]?.values;
       const yData = resultsMap?.[yId]?.values;
 
       if (xData && yData) {
-        xAxisTitlesSet.add(
-          curve.xDataGenerator.name || curve.xDataGenerator.id,
-        );
-        yAxisTitlesSet.add(
-          curve.yDataGenerator.name || curve.yDataGenerator.id,
-        );
+        xAxisTitlesSet.add(curve.xDataGenerator.name || curve.xDataGenerator.id);
+        yAxisTitlesSet.add(curve.yDataGenerator.name || curve.yDataGenerator.id);
 
-        const style: SedStyle | undefined = curve?.style
-          ? this.resolveStyle(curve.style)
-          : undefined;
+        const style: SedStyle | undefined = curve?.style ? this.resolveStyle(curve.style) : undefined;
 
         const flatData = flattenTaskResults([xData, yData]);
 
         for (let iTrace = 0; iTrace < flatData.data[0].length; iTrace++) {
           const name =
             (curve.name || curve.id) +
-            (flatData.data[0].length > 1
-              ? ` (${getRepeatedTaskTraceLabel(iTrace, flatData.outerShape)})`
-              : '');
+            (flatData.data[0].length > 1 ? ` (${getRepeatedTaskTraceLabel(iTrace, flatData.outerShape)})` : '');
           const trace: PlotlyTrace = {
             name: name,
             x: flatData.data[0][iTrace],
@@ -124,13 +113,8 @@ export class SedPlot2DVisualizationService {
             type: PlotlyTraceType.scatter,
           };
 
-          const hasLine = !(
-            style?.line && style.line?.type === SedLineStyleType.none
-          );
-          const hasMarker =
-            style?.marker &&
-            style.marker?.type &&
-            sedMarkerStyleTypePlotlyMap?.[style.marker.type];
+          const hasLine = !(style?.line && style.line?.type === SedLineStyleType.none);
+          const hasMarker = style?.marker && style.marker?.type && sedMarkerStyleTypePlotlyMap?.[style.marker.type];
 
           if (hasLine || hasMarker) {
             if (hasLine) {
@@ -148,32 +132,22 @@ export class SedPlot2DVisualizationService {
 
           if (hasLine) {
             trace.line = {
-              dash: style?.line?.type
-                ? sedLineStyleTypePlotlyMap?.[style.line.type]
-                : undefined,
-              color: style?.line?.color
-                ? hexToRgba(style.line.color)
-                : undefined,
+              dash: style?.line?.type ? sedLineStyleTypePlotlyMap?.[style.line.type] : undefined,
+              color: style?.line?.color ? hexToRgba(style.line.color) : undefined,
               width: style?.line?.thickness,
             };
           }
 
           if (hasMarker) {
             trace.marker = {
-              symbol: style?.marker?.type
-                ? sedMarkerStyleTypePlotlyMap[style.marker.type]
-                : undefined,
+              symbol: style?.marker?.type ? sedMarkerStyleTypePlotlyMap[style.marker.type] : undefined,
               size: style?.marker?.size,
-              color: style?.marker?.fillColor
-                ? hexToRgba(style.marker.fillColor)
-                : undefined,
+              color: style?.marker?.fillColor ? hexToRgba(style.marker.fillColor) : undefined,
             };
 
             if (style.marker?.lineColor || style.marker?.lineThickness) {
               trace.marker.line = {
-                color: style.marker?.lineColor
-                  ? hexToRgba(style.marker?.lineColor)
-                  : undefined,
+                color: style.marker?.lineColor ? hexToRgba(style.marker?.lineColor) : undefined,
                 width: style.marker?.lineThickness,
               };
             }
@@ -246,16 +220,12 @@ export class SedPlot2DVisualizationService {
     return dataLayout;
   }
 
-  private getSimulationRunResults(
-    result: SimulationRunOutput,
-  ): SedDatasetResultsMap {
+  private getSimulationRunResults(result: SimulationRunOutput): SedDatasetResultsMap {
     const datasetResultsMap: SedDatasetResultsMap = {};
 
     const sedmlLocationOutputId = result.outputId;
 
-    const sedmlLocation = this.getLocationFromSedmLocationId(
-      sedmlLocationOutputId,
-    );
+    const sedmlLocation = this.getLocationFromSedmLocationId(sedmlLocationOutputId);
 
     const outputId = this.getOutputIdFromSedmlLocationId(sedmlLocationOutputId);
 
@@ -278,12 +248,7 @@ export class SedPlot2DVisualizationService {
     // Remove the last "/" and the text after the last "/"
     // EG simulation_1.sedml/subfolder1/Figure_3b" => simulation_1.sedml/subfolder1
     // TODO write tests
-    let docLocation = outputLocationId
-      .split('/')
-      .reverse()
-      .slice(1)
-      .reverse()
-      .join('/');
+    let docLocation = outputLocationId.split('/').reverse().slice(1).reverse().join('/');
     if (docLocation.startsWith('./')) {
       docLocation = docLocation.substring(2);
     }

@@ -36,10 +36,7 @@ export class DomainService {
   public defaultHeaders: Record<string, string> = {};
   public configuration = new Configuration();
 
-  constructor(
-    protected httpClient: HttpService,
-    @Optional() configuration: Configuration,
-  ) {
+  constructor(protected httpClient: HttpService, @Optional() configuration: Configuration) {
     this.configuration = configuration || this.configuration;
     this.basePath = configuration?.basePath || this.basePath;
   }
@@ -61,10 +58,7 @@ export class DomainService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public aclsGet(
-    domain?: string,
-    authorization?: string,
-  ): Observable<AxiosResponse<InlineResponse20016>>;
+  public aclsGet(domain?: string, authorization?: string): Observable<AxiosResponse<InlineResponse20016>>;
   public aclsGet(domain?: string, authorization?: string): Observable<any> {
     let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
@@ -78,8 +72,7 @@ export class DomainService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
@@ -106,15 +99,9 @@ export class DomainService {
     domain?: string,
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse20017>>;
-  public aclsUserGet(
-    user: string,
-    domain?: string,
-    authorization?: string,
-  ): Observable<any> {
+  public aclsUserGet(user: string, domain?: string, authorization?: string): Observable<any> {
     if (user === null || user === undefined) {
-      throw new Error(
-        'Required parameter user was null or undefined when calling aclsUserGet.',
-      );
+      throw new Error('Required parameter user was null or undefined when calling aclsUserGet.');
     }
 
     let queryParameters: any = {};
@@ -129,22 +116,18 @@ export class DomainService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
 
     // to determine the Content-Type header
     const consumes: string[] = [];
-    return this.httpClient.get<InlineResponse20017>(
-      `${this.basePath}/acls/${encodeURIComponent(String(user))}`,
-      {
-        params: queryParameters,
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-      },
-    );
+    return this.httpClient.get<InlineResponse20017>(`${this.basePath}/acls/${encodeURIComponent(String(user))}`, {
+      params: queryParameters,
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+    });
   }
   /**
    * Set user\&#39;s access to the Domain.
@@ -169,15 +152,11 @@ export class DomainService {
     authorization?: string,
   ): Observable<any> {
     if (user === null || user === undefined) {
-      throw new Error(
-        'Required parameter user was null or undefined when calling aclsUserPut.',
-      );
+      throw new Error('Required parameter user was null or undefined when calling aclsUserPut.');
     }
 
     if (inlineObject7 === null || inlineObject7 === undefined) {
-      throw new Error(
-        'Required parameter inlineObject7 was null or undefined when calling aclsUserPut.',
-      );
+      throw new Error('Required parameter inlineObject7 was null or undefined when calling aclsUserPut.');
     }
 
     let queryParameters: any = {};
@@ -192,16 +171,14 @@ export class DomainService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected: string | undefined =
-      this.configuration.selectHeaderContentType(consumes);
+    const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
     if (httpContentTypeSelected != undefined) {
       headers['Content-Type'] = httpContentTypeSelected;
     }
@@ -223,10 +200,7 @@ export class DomainService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public datasetsGet(
-    domain?: string,
-    authorization?: string,
-  ): Observable<AxiosResponse<InlineResponse2006>>;
+  public datasetsGet(domain?: string, authorization?: string): Observable<AxiosResponse<InlineResponse2006>>;
   public datasetsGet(domain?: string, authorization?: string): Observable<any> {
     let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
@@ -240,22 +214,18 @@ export class DomainService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
 
     // to determine the Content-Type header
     const consumes: string[] = [];
-    return this.httpClient.get<InlineResponse2006>(
-      `${this.basePath}/datasets`,
-      {
-        params: queryParameters,
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-      },
-    );
+    return this.httpClient.get<InlineResponse2006>(`${this.basePath}/datasets`, {
+      params: queryParameters,
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+    });
   }
   /**
    * Create a Dataset.
@@ -271,15 +241,9 @@ export class DomainService {
     domain?: string,
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse2012>>;
-  public datasetsPost(
-    inlineObject2: InlineObject2,
-    domain?: string,
-    authorization?: string,
-  ): Observable<any> {
+  public datasetsPost(inlineObject2: InlineObject2, domain?: string, authorization?: string): Observable<any> {
     if (inlineObject2 === null || inlineObject2 === undefined) {
-      throw new Error(
-        'Required parameter inlineObject2 was null or undefined when calling datasetsPost.',
-      );
+      throw new Error('Required parameter inlineObject2 was null or undefined when calling datasetsPost.');
     }
 
     let queryParameters: any = {};
@@ -294,28 +258,22 @@ export class DomainService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected: string | undefined =
-      this.configuration.selectHeaderContentType(consumes);
+    const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
     if (httpContentTypeSelected != undefined) {
       headers['Content-Type'] = httpContentTypeSelected;
     }
-    return this.httpClient.post<InlineResponse2012>(
-      `${this.basePath}/datasets`,
-      inlineObject2,
-      {
-        params: queryParameters,
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-      },
-    );
+    return this.httpClient.post<InlineResponse2012>(`${this.basePath}/datasets`, inlineObject2, {
+      params: queryParameters,
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+    });
   }
   /**
    * Commit a Datatype to the Domain.
@@ -331,15 +289,9 @@ export class DomainService {
     domain?: string,
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse2014>>;
-  public datatypesPost(
-    inlineObject6: InlineObject6,
-    domain?: string,
-    authorization?: string,
-  ): Observable<any> {
+  public datatypesPost(inlineObject6: InlineObject6, domain?: string, authorization?: string): Observable<any> {
     if (inlineObject6 === null || inlineObject6 === undefined) {
-      throw new Error(
-        'Required parameter inlineObject6 was null or undefined when calling datatypesPost.',
-      );
+      throw new Error('Required parameter inlineObject6 was null or undefined when calling datatypesPost.');
     }
 
     let queryParameters: any = {};
@@ -354,28 +306,22 @@ export class DomainService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected: string | undefined =
-      this.configuration.selectHeaderContentType(consumes);
+    const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
     if (httpContentTypeSelected != undefined) {
       headers['Content-Type'] = httpContentTypeSelected;
     }
-    return this.httpClient.post<InlineResponse2014>(
-      `${this.basePath}/datatypes`,
-      inlineObject6,
-      {
-        params: queryParameters,
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-      },
-    );
+    return this.httpClient.post<InlineResponse2014>(`${this.basePath}/datatypes`, inlineObject6, {
+      params: queryParameters,
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+    });
   }
   /**
    * Get UUIDs for all non-root Groups in Domain.
@@ -385,10 +331,7 @@ export class DomainService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public groupsGet(
-    domain?: string,
-    authorization?: string,
-  ): Observable<AxiosResponse<InlineResponse2002>>;
+  public groupsGet(domain?: string, authorization?: string): Observable<AxiosResponse<InlineResponse2002>>;
   public groupsGet(domain?: string, authorization?: string): Observable<any> {
     let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
@@ -402,8 +345,7 @@ export class DomainService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
@@ -430,11 +372,7 @@ export class DomainService {
     authorization?: string,
     inlineObject?: InlineObject,
   ): Observable<AxiosResponse<InlineResponse2011>>;
-  public groupsPost(
-    domain?: string,
-    authorization?: string,
-    inlineObject?: InlineObject,
-  ): Observable<any> {
+  public groupsPost(domain?: string, authorization?: string, inlineObject?: InlineObject): Observable<any> {
     let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
@@ -447,28 +385,22 @@ export class DomainService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected: string | undefined =
-      this.configuration.selectHeaderContentType(consumes);
+    const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
     if (httpContentTypeSelected != undefined) {
       headers['Content-Type'] = httpContentTypeSelected;
     }
-    return this.httpClient.post<InlineResponse2011>(
-      `${this.basePath}/groups`,
-      inlineObject,
-      {
-        params: queryParameters,
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-      },
-    );
+    return this.httpClient.post<InlineResponse2011>(`${this.basePath}/groups`, inlineObject, {
+      params: queryParameters,
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+    });
   }
   /**
    * Delete the specified Domain or Folder.
@@ -478,10 +410,7 @@ export class DomainService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public rootDelete(
-    domain?: string,
-    authorization?: string,
-  ): Observable<AxiosResponse<InlineResponse2001>>;
+  public rootDelete(domain?: string, authorization?: string): Observable<AxiosResponse<InlineResponse2001>>;
   public rootDelete(domain?: string, authorization?: string): Observable<any> {
     let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
@@ -495,8 +424,7 @@ export class DomainService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
@@ -517,10 +445,7 @@ export class DomainService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public rootGet(
-    domain?: string,
-    authorization?: string,
-  ): Observable<AxiosResponse<InlineResponse200>>;
+  public rootGet(domain?: string, authorization?: string): Observable<AxiosResponse<InlineResponse200>>;
   public rootGet(domain?: string, authorization?: string): Observable<any> {
     let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
@@ -534,8 +459,7 @@ export class DomainService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
@@ -564,12 +488,7 @@ export class DomainService {
     authorization?: string,
     body?: object,
   ): Observable<AxiosResponse<InlineResponse201>>;
-  public rootPut(
-    domain?: string,
-    folder?: number,
-    authorization?: string,
-    body?: object,
-  ): Observable<any> {
+  public rootPut(domain?: string, folder?: number, authorization?: string, body?: object): Observable<any> {
     let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
@@ -585,16 +504,14 @@ export class DomainService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected: string | undefined =
-      this.configuration.selectHeaderContentType(consumes);
+    const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
     if (httpContentTypeSelected != undefined) {
       headers['Content-Type'] = httpContentTypeSelected;
     }

@@ -8,13 +8,7 @@ import {
   InternalServerErrorException,
   HttpStatus,
 } from '@nestjs/common';
-import {
-  isOutputParsingError,
-  Output,
-  OutputData,
-  OutputParsingError,
-  Results,
-} from './datamodel';
+import { isOutputParsingError, Output, OutputData, OutputParsingError, Results } from './datamodel';
 import { SimulationRunOutputDatumElement } from '@biosimulations/datamodel/common';
 import { AWSError, S3 } from 'aws-sdk';
 import { Endpoints } from '@biosimulations/config/common';
@@ -43,10 +37,7 @@ export class ResultsService {
 
   private logger = new Logger(ResultsService.name);
 
-  public async getResults(
-    runId: string,
-    includeValues = true,
-  ): Promise<Results> {
+  public async getResults(runId: string, includeValues = true): Promise<Results> {
     const timestamps = this.results.getResultsTimestamps(runId);
 
     const datasets = await this.results.getDatasets(runId).catch((error) => {
@@ -54,9 +45,7 @@ export class ResultsService {
       if (axios.isAxiosError(error)) {
         this.logger.error(error.message);
         if (error.response?.status == 404) {
-          throw new NotFoundException(
-            `Results could not be found for simulation run '${runId}'.`,
-          );
+          throw new NotFoundException(`Results could not be found for simulation run '${runId}'.`);
         } else {
           throw error;
         }
@@ -140,33 +129,21 @@ export class ResultsService {
       if (file.Body) {
         return file.Body;
       } else {
-        throw new NotFoundException(
-          `Results could not be found for simulation run '${runId}'.`,
-        );
+        throw new NotFoundException(`Results could not be found for simulation run '${runId}'.`);
       }
     } catch (error) {
       if ((error as AWSError).statusCode === HttpStatus.NOT_FOUND) {
-        throw new NotFoundException(
-          `Results could not be found for simulation run '${runId}'.`,
-        );
+        throw new NotFoundException(`Results could not be found for simulation run '${runId}'.`);
       } else {
         throw error;
       }
     }
   }
 
-  public async getOutput(
-    runId: string,
-    reportId: string,
-    includeData = false,
-  ): Promise<Output> {
+  public async getOutput(runId: string, reportId: string, includeData = false): Promise<Output> {
     const dataset = await this.results.getDatasetbyId(runId, reportId);
     if (dataset) {
-      const parsedDataset = await this.parseDataset(
-        runId,
-        includeData,
-        dataset,
-      );
+      const parsedDataset = await this.parseDataset(runId, includeData, dataset);
       if (!isOutputParsingError(parsedDataset)) {
         return parsedDataset;
       } else {
@@ -178,18 +155,11 @@ export class ResultsService {
 
   public async deleteSimulationRunResults(runId: string): Promise<void> {
     await this.results.deleteDatasets(runId);
-    await this.simStorage
-      .deleteSimulationRunResults(runId)
-      .catch((error: any) => {
-        if (
-          !(
-            error.statusCode === HttpStatus.NOT_FOUND &&
-            error.code === 'NoSuchKey'
-          )
-        ) {
-          throw error;
-        }
-      });
+    await this.simStorage.deleteSimulationRunResults(runId).catch((error: any) => {
+      if (!(error.statusCode === HttpStatus.NOT_FOUND && error.code === 'NoSuchKey')) {
+        throw error;
+      }
+    });
   }
 
   /**
@@ -214,9 +184,7 @@ export class ResultsService {
       }
     } catch (error) {
       const errPrefix = `Error getting values for output '${outputUri}' of simulation run '${runId}'`;
-      const errMsg = axios.isAxiosError(error)
-        ? `${errPrefix}: ${error.message}`
-        : `${errPrefix}: ${error}`;
+      const errMsg = axios.isAxiosError(error) ? `${errPrefix}: ${error.message}` : `${errPrefix}: ${error}`;
 
       return {
         simId: runId,
@@ -246,19 +214,14 @@ export class ResultsService {
     const sedTypes = dataset.attributes.sedmlDataSetDataTypes as string[];
     const sedNames = dataset.attributes.sedmlDataSetNames as string[];
 
-    const values = includeValues
-      ? await this.getValues(runId, dataset.attributes.uri, dataset.id)
-      : [];
+    const values = includeValues ? await this.getValues(runId, dataset.attributes.uri, dataset.id) : [];
 
     const consistent =
       sedIds.length == sedLabels.length &&
       sedIds.length == sedShapes.length &&
       sedIds.length == sedTypes.length &&
       sedIds.length == sedNames.length &&
-      ((includeValues &&
-        !isOutputParsingError(values) &&
-        sedIds.length == values.length) ||
-        !includeValues);
+      ((includeValues && !isOutputParsingError(values) && sedIds.length == values.length) || !includeValues);
 
     if (!consistent || isOutputParsingError(values)) {
       const summary =
@@ -266,9 +229,7 @@ export class ResultsService {
         could not be parsed due to values and attributes with inconsistent sizes.` +
         `\n` +
         `\n  values: ${
-          isOutputParsingError(values)
-            ? 'Error retrieving values:' + values.errorSummary
-            : values.length
+          isOutputParsingError(values) ? 'Error retrieving values:' + values.errorSummary : values.length
         }` +
         `\n  ids: ${sedIds.length}` +
         `\n  labels: ${sedLabels.length}` +

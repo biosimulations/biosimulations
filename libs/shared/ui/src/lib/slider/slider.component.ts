@@ -108,15 +108,13 @@ export class SliderComponent extends Utilities implements OnInit, OnChanges {
     if (this.sliderInitiated) {
       if (
         !this.isNullOrEmpty(changes.setMinSelectedValues) &&
-        changes.setMinSelectedValues.previousValue ===
-          changes.setMinSelectedValues.currentValue
+        changes.setMinSelectedValues.previousValue === changes.setMinSelectedValues.currentValue
       ) {
         return;
       }
       if (
         !this.isNullOrEmpty(changes.setMaxSelectedValues) &&
-        changes.setMaxSelectedValues.previousValue ===
-          changes.setMaxSelectedValues.currentValue
+        changes.setMaxSelectedValues.previousValue === changes.setMaxSelectedValues.currentValue
       ) {
         return;
       }
@@ -128,8 +126,7 @@ export class SliderComponent extends Utilities implements OnInit, OnChanges {
   public initializeSlider() {
     try {
       // Taking width of slider bar element.
-      this.sliderWidth =
-        this.el.nativeElement.children[0].children[0].offsetWidth;
+      this.sliderWidth = this.el.nativeElement.children[0].children[0].offsetWidth;
       this.resetModel();
       this.sliderInitiated = true;
     } catch (e) {
@@ -147,21 +144,12 @@ export class SliderComponent extends Utilities implements OnInit, OnChanges {
       this.initValues[1] - this.currentValues[1],
     ];
 
-    this.totalDiff = this.sliderModel.reduce(
-      (prevValue, curValue) => prevValue + curValue,
-      0,
-    );
+    this.totalDiff = this.sliderModel.reduce((prevValue, curValue) => prevValue + curValue, 0);
 
     // Validation for slider step
     if (this.totalDiff % this.step !== 0) {
       const newStep = this.findNextValidStepValue(this.totalDiff, this.step);
-      console.warn(
-        'Invalid step value "' +
-          this.step +
-          '" : and took "' +
-          newStep +
-          '" as default step',
-      );
+      console.warn('Invalid step value "' + this.step + '" : and took "' + newStep + '" as default step');
       this.step = newStep;
     }
     this.initializeStepIndicator();
@@ -170,10 +158,7 @@ export class SliderComponent extends Utilities implements OnInit, OnChanges {
 
   /*Method to do validation of init and seleted range values*/
   private validateSliderValues() {
-    if (
-      this.isNullOrEmpty(this.minValue) ||
-      this.isNullOrEmpty(this.maxValue)
-    ) {
+    if (this.isNullOrEmpty(this.minValue) || this.isNullOrEmpty(this.maxValue)) {
       this.updateInitValues([0, 0]);
       this.updateCurrentValue([0, 0], true);
     } else if (this.minValue > this.maxValue) {
@@ -232,9 +217,7 @@ export class SliderComponent extends Utilities implements OnInit, OnChanges {
     this.minSelected = this.currentValues[0] = arrayValue[0];
     this.maxSelected = this.currentValues[1] = arrayValue[1];
     if (!privateChange) {
-      this.onChange.emit(
-        this.multiRange ? this.currentValues : [this.currentValues[0]],
-      );
+      this.onChange.emit(this.multiRange ? this.currentValues : [this.currentValues[0]]);
     }
   }
 
@@ -248,10 +231,7 @@ export class SliderComponent extends Utilities implements OnInit, OnChanges {
   private setHandlerPosition() {
     let runningTotal = 0;
     // Updating selected values : current values
-    this.updateCurrentValue([
-      this.initValues[0] + this.sliderModel[0],
-      this.initValues[1] - this.sliderModel[2],
-    ]);
+    this.updateCurrentValue([this.initValues[0] + this.sliderModel[0], this.initValues[1] - this.sliderModel[2]]);
     /*Setting handler position */
     for (let i = 0, len = this.sliderModel.length - 1; i < len; i++) {
       runningTotal += this.sliderModel[i];
@@ -312,14 +292,9 @@ export class SliderComponent extends Utilities implements OnInit, OnChanges {
    * on-panmove
    */
   public handlerSliding(event: any) {
-    if (
-      (this.isMouseEventStart && event.clientX) ||
-      (this.isTouchEventStart && event.deltaX)
-    ) {
+    if ((this.isMouseEventStart && event.clientX) || (this.isTouchEventStart && event.deltaX)) {
       const movedX = Math.round(
-        (((event.clientX || event.deltaX) - this.startClientX) /
-          this.sliderWidth) *
-          this.totalDiff,
+        (((event.clientX || event.deltaX) - this.startClientX) / this.sliderWidth) * this.totalDiff,
       );
       const nextPLeft = this.startPleft + movedX;
       const nextPRight = this.startPRight - movedX;

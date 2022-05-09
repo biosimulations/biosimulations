@@ -24,10 +24,7 @@ export class ModelsService {
   public defaultHeaders = new Map();
   public configuration = new Configuration();
 
-  constructor(
-    protected httpClient: HttpService,
-    @Optional() configuration: Configuration,
-  ) {
+  constructor(protected httpClient: HttpService, @Optional() configuration: Configuration) {
     this.configuration = configuration || this.configuration;
     this.basePath = configuration?.basePath || this.basePath;
   }
@@ -55,11 +52,7 @@ export class ModelsService {
     file?: Blob,
     url?: string,
   ): Observable<AxiosResponse<ValidationReport>>;
-  public srcHandlersModelValidateHandler(
-    language: string,
-    file?: Blob,
-    url?: string,
-  ): Observable<any> {
+  public srcHandlersModelValidateHandler(language: string, file?: Blob, url?: string): Observable<any> {
     if (language === null || language === undefined) {
       throw new Error(
         'Required parameter language was null or undefined when calling srcHandlersModelValidateHandler.',
@@ -70,8 +63,7 @@ export class ModelsService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }

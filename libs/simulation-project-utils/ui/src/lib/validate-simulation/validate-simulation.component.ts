@@ -1,17 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  FormControl,
-  Validators,
-  ValidationErrors,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators, ValidationErrors } from '@angular/forms';
 import { CombineApiService } from '@biosimulations/simulation-project-utils/service';
-import {
-  ValidationReport,
-  ValidationMessage,
-  ValidationStatus,
-} from '@biosimulations/datamodel/common';
+import { ValidationReport, ValidationMessage, ValidationStatus } from '@biosimulations/datamodel/common';
 import { Subscription } from 'rxjs';
 import { ConfigService } from '@biosimulations/config/angular';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -58,10 +48,7 @@ export class ValidateSimulationComponent implements OnInit, OnDestroy {
     this.formGroup = this.formBuilder.group(
       {
         submitMethod: [SubmitMethod.file],
-        simulationFile: [
-          '',
-          [Validators.required, this.maxFileSizeValidator.bind(this)],
-        ],
+        simulationFile: ['', [Validators.required, this.maxFileSizeValidator.bind(this)]],
         simulationUrl: ['', [this.urlValidator]],
       },
       //{
@@ -69,12 +56,9 @@ export class ValidateSimulationComponent implements OnInit, OnDestroy {
       //},
     );
 
-    this.submitMethodControl = this.formGroup.controls
-      .submitMethod as FormControl;
-    this.simulationFileControl = this.formGroup.controls
-      .simulationFile as FormControl;
-    this.simulationUrlControl = this.formGroup.controls
-      .simulationUrl as FormControl;
+    this.submitMethodControl = this.formGroup.controls.submitMethod as FormControl;
+    this.simulationFileControl = this.formGroup.controls.simulationFile as FormControl;
+    this.simulationUrlControl = this.formGroup.controls.simulationUrl as FormControl;
 
     this.simulationUrlControl.disable();
 
@@ -101,10 +85,8 @@ export class ValidateSimulationComponent implements OnInit, OnDestroy {
     this.activatedRoute.queryParams.subscribe((params: Params): void => {
       const simulationUrl = params?.simulationUrl;
       if (simulationUrl) {
-        const submitMethodControl = this.formGroup.controls
-          .submitMethod as FormControl;
-        const simulationUrlControl = this.formGroup.controls
-          .simulationUrl as FormControl;
+        const submitMethodControl = this.formGroup.controls.submitMethod as FormControl;
+        const simulationUrlControl = this.formGroup.controls.simulationUrl as FormControl;
         submitMethodControl.setValue(SubmitMethod.url);
         simulationUrlControl.setValue(simulationUrl);
         this.changeSubmitMethod();
@@ -114,9 +96,7 @@ export class ValidateSimulationComponent implements OnInit, OnDestroy {
 
   maxFileSizeValidator(control: FormControl): ValidationErrors | null {
     const fileInput: FileInput | null = control.value;
-    const file: File | undefined = fileInput?.files
-      ? fileInput.files[0]
-      : undefined;
+    const file: File | undefined = fileInput?.files ? fileInput.files[0] : undefined;
     const fileSize = file?.size;
 
     if (fileSize && fileSize > this.config.appConfig.maxUploadFileSize) {
@@ -164,8 +144,7 @@ export class ValidateSimulationComponent implements OnInit, OnDestroy {
   }
 
   changeSubmitMethod(): void {
-    const submitMethodControl = this.formGroup.controls
-      .submitMethod as FormControl;
+    const submitMethodControl = this.formGroup.controls.submitMethod as FormControl;
     if (submitMethodControl.value === SubmitMethod.file) {
       this.formGroup.controls.simulationFile.enable();
       this.formGroup.controls.simulationUrl.disable();
@@ -188,8 +167,7 @@ export class ValidateSimulationComponent implements OnInit, OnDestroy {
     this.warnings = undefined;
 
     // get data for API
-    const submitMethodControl = this.formGroup.controls
-      .submitMethod as FormControl;
+    const submitMethodControl = this.formGroup.controls.submitMethod as FormControl;
 
     let simulation: File | string = '';
     if (submitMethodControl.value === SubmitMethod.file) {
@@ -207,25 +185,17 @@ export class ValidateSimulationComponent implements OnInit, OnDestroy {
           this.status = report.status;
 
           if (report?.errors?.length) {
-            this.errors = this.convertValidationMessagesToList(
-              report?.errors as ValidationMessage[],
-            );
+            this.errors = this.convertValidationMessagesToList(report?.errors as ValidationMessage[]);
           }
           if (report?.warnings?.length) {
-            this.warnings = this.convertValidationMessagesToList(
-              report?.warnings as ValidationMessage[],
-            );
+            this.warnings = this.convertValidationMessagesToList(report?.warnings as ValidationMessage[]);
           }
 
-          this.snackBar.open(
-            'The validation of your simulation completed.',
-            'Ok',
-            {
-              duration: 5000,
-              horizontalPosition: 'center',
-              verticalPosition: 'bottom',
-            },
-          );
+          this.snackBar.open('The validation of your simulation completed.', 'Ok', {
+            duration: 5000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+          });
         } else {
           let msg = 'Sorry! We were unable to validate your simulation.';
           if (submitMethodControl.value == SubmitMethod.url) {
@@ -254,19 +224,12 @@ export class ValidateSimulationComponent implements OnInit, OnDestroy {
     });
   }
 
-  private convertValidationMessagesToList(
-    messages: ValidationMessage[],
-  ): string {
+  private convertValidationMessagesToList(messages: ValidationMessage[]): string {
     return messages
       .map((message: ValidationMessage): string => {
         let details = '';
         if (message?.details?.length) {
-          details =
-            '<ul>' +
-            this.convertValidationMessagesToList(
-              message?.details as ValidationMessage[],
-            ) +
-            '</ul>';
+          details = '<ul>' + this.convertValidationMessagesToList(message?.details as ValidationMessage[]) + '</ul>';
         }
 
         return '<li>' + message.summary + details + '</li>';

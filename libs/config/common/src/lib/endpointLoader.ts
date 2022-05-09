@@ -43,160 +43,112 @@ export class EndpointLoader {
 
     switch (this.env) {
       case 'local':
-        endpointsTemplate.api =
-          dynamicEndpoints?.api || 'http://localhost:3333';
+        endpointsTemplate.api = dynamicEndpoints?.api || 'http://localhost:3333';
 
-        endpointsTemplate.simulatorsApi =
-          dynamicEndpoints?.simulatorsApi || 'https://api.biosimulators.dev';
+        endpointsTemplate.simulatorsApi = dynamicEndpoints?.simulatorsApi || 'https://api.biosimulators.dev';
 
-        endpointsTemplate.combineApi =
-          dynamicEndpoints?.combineApi ||
-          'https://combine.api.biosimulations.dev';
+        endpointsTemplate.combineApi = dynamicEndpoints?.combineApi || 'https://combine.api.biosimulations.dev';
 
-        endpointsTemplate.simulatorsApp =
-          dynamicEndpoints?.simulatorsApp || 'https://biosimulators.dev';
+        endpointsTemplate.simulatorsApp = dynamicEndpoints?.simulatorsApp || 'https://biosimulators.dev';
 
-        endpointsTemplate.dispatchApp =
-          dynamicEndpoints?.dispatchApp || 'https://run.biosimulations.dev';
+        endpointsTemplate.dispatchApp = dynamicEndpoints?.dispatchApp || 'https://run.biosimulations.dev';
 
-        endpointsTemplate.platformApp =
-          dynamicEndpoints?.platformApp || 'https://biosimulations.dev';
+        endpointsTemplate.platformApp = dynamicEndpoints?.platformApp || 'https://biosimulations.dev';
 
-        endpointsTemplate.dataService =
-          dynamicEndpoints?.dataService || 'https://data.biosimulations.dev';
+        endpointsTemplate.dataService = dynamicEndpoints?.dataService || 'https://data.biosimulations.dev';
 
-        endpointsTemplate.externalApi =
-          dynamicEndpoints?.externalApi || 'https://api.biosimulations.dev';
+        endpointsTemplate.externalApi = dynamicEndpoints?.externalApi || 'https://api.biosimulations.dev';
 
         endpointsTemplate.externalSimulatorsApi =
-          dynamicEndpoints?.externalSimulatorsApi ||
-          'https://api.biosimulators.dev';
+          dynamicEndpoints?.externalSimulatorsApi || 'https://api.biosimulators.dev';
 
         endpointsTemplate.externalCombineApi =
-          dynamicEndpoints?.externalCombineApi ||
-          'https://combine.api.biosimulations.dev';
+          dynamicEndpoints?.externalCombineApi || 'https://combine.api.biosimulations.dev';
 
         endpointsTemplate.externalDataService =
-          dynamicEndpoints?.externalDataService ||
-          'https://data.biosimulations.dev';
+          dynamicEndpoints?.externalDataService || 'https://data.biosimulations.dev';
         break;
 
       case 'dev':
-        endpointsTemplate.api =
-          dynamicEndpoints?.api || 'https://api.biosimulations.dev';
+        endpointsTemplate.api = dynamicEndpoints?.api || 'https://api.biosimulations.dev';
 
-        endpointsTemplate.simulatorsApi =
-          dynamicEndpoints?.simulatorsApi || 'https://api.biosimulators.dev';
+        endpointsTemplate.simulatorsApi = dynamicEndpoints?.simulatorsApi || 'https://api.biosimulators.dev';
 
-        endpointsTemplate.combineApi =
-          dynamicEndpoints?.combineApi ||
-          'https://combine.api.biosimulations.dev';
+        endpointsTemplate.combineApi = dynamicEndpoints?.combineApi || 'https://combine.api.biosimulations.dev';
 
-        endpointsTemplate.simulatorsApp =
-          dynamicEndpoints?.simulatorsApp || 'https://biosimulators.dev';
+        endpointsTemplate.simulatorsApp = dynamicEndpoints?.simulatorsApp || 'https://biosimulators.dev';
 
-        endpointsTemplate.dispatchApp =
-          dynamicEndpoints?.dispatchApp || 'https://run.biosimulations.dev';
+        endpointsTemplate.dispatchApp = dynamicEndpoints?.dispatchApp || 'https://run.biosimulations.dev';
 
-        endpointsTemplate.platformApp =
-          dynamicEndpoints?.platformApp || 'https://biosimulations.dev';
+        endpointsTemplate.platformApp = dynamicEndpoints?.platformApp || 'https://biosimulations.dev';
 
-        endpointsTemplate.dataService =
-          dynamicEndpoints?.dataService || 'https://data.biosimulations.dev';
+        endpointsTemplate.dataService = dynamicEndpoints?.dataService || 'https://data.biosimulations.dev';
 
-        endpointsTemplate.externalApi =
-          dynamicEndpoints?.externalApi || 'https://api.biosimulations.dev';
+        endpointsTemplate.externalApi = dynamicEndpoints?.externalApi || 'https://api.biosimulations.dev';
 
         endpointsTemplate.externalSimulatorsApi =
-          dynamicEndpoints?.externalSimulatorsApi ||
-          'https://api.biosimulators.dev';
+          dynamicEndpoints?.externalSimulatorsApi || 'https://api.biosimulators.dev';
 
         endpointsTemplate.externalCombineApi =
-          dynamicEndpoints?.externalCombineApi ||
-          'https://combine.api.biosimulations.dev';
+          dynamicEndpoints?.externalCombineApi || 'https://combine.api.biosimulations.dev';
 
         endpointsTemplate.externalDataService =
-          dynamicEndpoints?.externalDataService ||
-          'https://data.biosimulations.dev';
+          dynamicEndpoints?.externalDataService || 'https://data.biosimulations.dev';
 
         break;
 
       case 'stage':
-        endpointsTemplate.api =
-          dynamicEndpoints?.api || 'https://api.biosimulations.dev';
+        endpointsTemplate.api = dynamicEndpoints?.api || 'https://api.biosimulations.dev';
 
-        endpointsTemplate.simulatorsApi =
-          dynamicEndpoints?.simulatorsApi || 'https://api.biosimulators.dev';
+        endpointsTemplate.simulatorsApi = dynamicEndpoints?.simulatorsApi || 'https://api.biosimulators.dev';
 
-        endpointsTemplate.combineApi =
-          dynamicEndpoints?.combineApi ||
-          'https://combine.api.biosimulations.dev';
+        endpointsTemplate.combineApi = dynamicEndpoints?.combineApi || 'https://combine.api.biosimulations.dev';
 
-        endpointsTemplate.simulatorsApp =
-          dynamicEndpoints?.simulatorsApp || 'https://biosimulators.dev';
+        endpointsTemplate.simulatorsApp = dynamicEndpoints?.simulatorsApp || 'https://biosimulators.dev';
 
-        endpointsTemplate.dispatchApp =
-          dynamicEndpoints?.dispatchApp || 'https://run.biosimulations.dev';
+        endpointsTemplate.dispatchApp = dynamicEndpoints?.dispatchApp || 'https://run.biosimulations.dev';
 
-        endpointsTemplate.platformApp =
-          dynamicEndpoints?.platformApp || 'https://biosimulations.dev';
+        endpointsTemplate.platformApp = dynamicEndpoints?.platformApp || 'https://biosimulations.dev';
 
-        endpointsTemplate.dataService =
-          dynamicEndpoints?.dataService || 'https://data.biosimulations.dev';
+        endpointsTemplate.dataService = dynamicEndpoints?.dataService || 'https://data.biosimulations.dev';
 
-        endpointsTemplate.externalApi =
-          dynamicEndpoints?.externalApi || 'https://api.biosimulations.dev';
+        endpointsTemplate.externalApi = dynamicEndpoints?.externalApi || 'https://api.biosimulations.dev';
 
         endpointsTemplate.externalSimulatorsApi =
-          dynamicEndpoints?.externalSimulatorsApi ||
-          'https://api.biosimulators.dev';
+          dynamicEndpoints?.externalSimulatorsApi || 'https://api.biosimulators.dev';
 
         endpointsTemplate.externalCombineApi =
-          dynamicEndpoints?.externalCombineApi ||
-          'https://combine.api.biosimulations.dev';
+          dynamicEndpoints?.externalCombineApi || 'https://combine.api.biosimulations.dev';
 
         endpointsTemplate.externalDataService =
-          dynamicEndpoints?.externalDataService ||
-          'https://data.biosimulations.dev';
+          dynamicEndpoints?.externalDataService || 'https://data.biosimulations.dev';
         break;
 
       case 'prod':
-        endpointsTemplate.api =
-          dynamicEndpoints?.api || 'https://api.biosimulations.org';
+        endpointsTemplate.api = dynamicEndpoints?.api || 'https://api.biosimulations.org';
 
-        endpointsTemplate.simulatorsApi =
-          dynamicEndpoints?.simulatorsApi || 'https://api.biosimulators.org';
+        endpointsTemplate.simulatorsApi = dynamicEndpoints?.simulatorsApi || 'https://api.biosimulators.org';
 
-        endpointsTemplate.combineApi =
-          dynamicEndpoints?.combineApi ||
-          'https://combine.api.biosimulations.org';
+        endpointsTemplate.combineApi = dynamicEndpoints?.combineApi || 'https://combine.api.biosimulations.org';
 
-        endpointsTemplate.simulatorsApp =
-          dynamicEndpoints?.simulatorsApp || 'https://biosimulators.org';
+        endpointsTemplate.simulatorsApp = dynamicEndpoints?.simulatorsApp || 'https://biosimulators.org';
 
-        endpointsTemplate.dispatchApp =
-          dynamicEndpoints?.dispatchApp || 'https://run.biosimulations.org';
+        endpointsTemplate.dispatchApp = dynamicEndpoints?.dispatchApp || 'https://run.biosimulations.org';
 
-        endpointsTemplate.platformApp =
-          dynamicEndpoints?.platformApp || 'https://biosimulations.org';
+        endpointsTemplate.platformApp = dynamicEndpoints?.platformApp || 'https://biosimulations.org';
 
-        endpointsTemplate.dataService =
-          dynamicEndpoints?.dataService || 'https://data.biosimulations.org';
+        endpointsTemplate.dataService = dynamicEndpoints?.dataService || 'https://data.biosimulations.org';
 
-        endpointsTemplate.externalApi =
-          dynamicEndpoints?.externalApi || 'https://api.biosimulations.org';
+        endpointsTemplate.externalApi = dynamicEndpoints?.externalApi || 'https://api.biosimulations.org';
 
         endpointsTemplate.externalSimulatorsApi =
-          dynamicEndpoints?.externalSimulatorsApi ||
-          'https://api.biosimulators.org';
+          dynamicEndpoints?.externalSimulatorsApi || 'https://api.biosimulators.org';
 
         endpointsTemplate.externalCombineApi =
-          dynamicEndpoints?.externalCombineApi ||
-          'https://combine.api.biosimulations.org';
+          dynamicEndpoints?.externalCombineApi || 'https://combine.api.biosimulations.org';
 
         endpointsTemplate.externalDataService =
-          dynamicEndpoints?.externalDataService ||
-          'https://data.biosimulations.org';
+          dynamicEndpoints?.externalDataService || 'https://data.biosimulations.org';
         break;
     }
     return endpointsTemplate;

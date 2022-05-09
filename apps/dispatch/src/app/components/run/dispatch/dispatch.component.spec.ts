@@ -36,12 +36,7 @@ describe('DispatchComponent', () => {
         }),
       ],
       declarations: [DispatchComponent],
-      providers: [
-        HttpClient,
-        HttpHandler,
-        { provide: ConfigService, useValue: config },
-        Storage,
-      ],
+      providers: [HttpClient, HttpHandler, { provide: ConfigService, useValue: config }, Storage],
     }).compileComponents();
   }));
 

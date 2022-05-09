@@ -49,9 +49,7 @@ export interface Simulation {
 
 export type ISimulation = Simulation | UnknownSimulation;
 
-export function isUnknownSimulation(
-  simulation: Simulation | UnknownSimulation,
-): boolean {
+export function isUnknownSimulation(simulation: Simulation | UnknownSimulation): boolean {
   return simulation.status === undefined || simulation.status === null;
 }
 

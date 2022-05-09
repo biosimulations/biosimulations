@@ -14,10 +14,7 @@ describe('SimulationLogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        SimulationLogComponent,
-        StructuredSimulationLogElementComponent,
-      ],
+      declarations: [SimulationLogComponent, StructuredSimulationLogElementComponent],
       imports: [
         HttpClientTestingModule,
         SharedUiModule,

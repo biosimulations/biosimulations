@@ -23,11 +23,7 @@ describe('TextPageComponent', () => {
         TextPageSideBarSectionComponent,
         TextPageTocItemComponent,
       ],
-      imports: [
-        RouterTestingModule,
-        BiosimulationsIconsModule,
-        FlexLayoutModule,
-      ],
+      imports: [RouterTestingModule, BiosimulationsIconsModule, FlexLayoutModule],
       providers: [ScrollService],
     }).compileComponents();
   }));

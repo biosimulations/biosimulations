@@ -9,10 +9,7 @@
       </th>
       <td>
         <span class="heading">Simulator:</span>{{ ' '
-        }}<a
-          [href]="simulation.simulatorUrl"
-          rel="noopener"
-          target="biosimulators"
+        }}<a [href]="simulation.simulatorUrl" rel="noopener" target="biosimulators"
           >{{ simulation.simulator }} {{ simulation.simulatorVersion }}</a
         >
       </td>
@@ -21,9 +18,7 @@
       <th>
         <biosimulations-icon icon="processor"></biosimulations-icon>
       </th>
-      <td>
-        <span class="heading">CPU cores:</span>{{ ' ' }}{{ simulation.cpus }}
-      </td>
+      <td><span class="heading">CPU cores:</span>{{ ' ' }}{{ simulation.cpus }}</td>
     </tr>
     <tr>
       <th>
@@ -35,9 +30,7 @@
       <th>
         <biosimulations-icon icon="duration"></biosimulations-icon>
       </th>
-      <td>
-        <span class="heading">Max time:</span>{{ ' ' }}{{ simulation.maxTime }}
-      </td>
+      <td><span class="heading">Max time:</span>{{ ' ' }}{{ simulation.maxTime }}</td>
     </tr>
   </table>
 
@@ -48,9 +41,7 @@
       </th>
       <td>
         <span class="heading">Status:</span>{{ ' '
-        }}<span [ngClass]="{ error: simulation.statusFailed }">{{
-          simulation.statusLabel
-        }}</span>
+        }}<span [ngClass]="{ error: simulation.statusFailed }">{{ simulation.statusLabel }}</span>
         <span *ngIf="simulation.statusRunning"
           >{{ ' ' }}
           <biosimulations-icon icon="spinner"></biosimulations-icon>
@@ -69,9 +60,7 @@
       <th>
         <biosimulations-icon icon="date"></biosimulations-icon>
       </th>
-      <td>
-        <span class="heading">Submitted</span>: {{ simulation.submitted }}
-      </td>
+      <td><span class="heading">Submitted</span>: {{ simulation.submitted }}</td>
     </tr>
     <tr>
       <th>

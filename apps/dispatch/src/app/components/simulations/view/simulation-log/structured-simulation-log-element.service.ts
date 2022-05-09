@@ -7,9 +7,7 @@ import {
 @Injectable({ providedIn: 'root' })
 export class StructuredSimulationLogElementService {
   public constructor() {}
-  public formatKisaoDescription(
-    value: string | null,
-  ): AlgorithmKisaoDescriptionFragment[] | undefined {
+  public formatKisaoDescription(value: string | null): AlgorithmKisaoDescriptionFragment[] | undefined {
     if (!value) {
       return undefined;
     }

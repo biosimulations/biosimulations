@@ -20,33 +20,22 @@ export class SedmlService {
   private logger = new Logger(SedmlService.name);
   private endpoints: Endpoints;
 
-  public constructor(
-    private config: ConfigService,
-    private combine: CombineWrapperService,
-  ) {
+  public constructor(private config: ConfigService, private combine: CombineWrapperService) {
     const env = config.get('server.env');
     this.endpoints = new Endpoints(env);
   }
 
   public processSedml(id: string): Observable<SimulationRunSedDocumentInput[]> {
-    this.logger.log(
-      `Processing SED-ML documents for simulation run '${id}' ...`,
-    );
+    this.logger.log(`Processing SED-ML documents for simulation run '${id}' ...`);
     const url = this.endpoints.getSimulationRunDownloadEndpoint(true, id);
     const sedml = this.combine
       .getSedMlSpecs(undefined, url)
-      .pipe(
-        pluck('data'),
-        pluck('contents'),
-        map(this.getSpecsFromArchiveContent.bind(this)),
-      );
+      .pipe(pluck('data'), pluck('contents'), map(this.getSpecsFromArchiveContent.bind(this)));
 
     return sedml;
   }
 
-  private getSpecsFromArchiveContent(
-    contents: CombineArchiveSedDocSpecsContent[],
-  ): SimulationRunSedDocumentInput[] {
+  private getSpecsFromArchiveContent(contents: CombineArchiveSedDocSpecsContent[]): SimulationRunSedDocumentInput[] {
     const sedmlSpecs: SimulationRunSedDocumentInput[] = [];
     contents.forEach((content: CombineArchiveSedDocSpecsContent) => {
       const id: string = content.location.path.replace('./', '');

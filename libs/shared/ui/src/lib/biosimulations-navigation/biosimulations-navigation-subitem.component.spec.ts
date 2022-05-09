@@ -12,11 +12,7 @@ describe('BiosimulationsNavigationSubitemComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [BiosimulationsNavigationSubitemComponent],
-      imports: [
-        RouterTestingModule,
-        MaterialWrapperModule,
-        BiosimulationsIconsModule,
-      ],
+      imports: [RouterTestingModule, MaterialWrapperModule, BiosimulationsIconsModule],
     }).compileComponents();
   }));
 

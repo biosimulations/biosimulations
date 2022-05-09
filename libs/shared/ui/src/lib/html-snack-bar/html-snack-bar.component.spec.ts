@@ -1,10 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HtmlSnackBarComponent } from './html-snack-bar.component';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
-import {
-  MatSnackBarModule,
-  MAT_SNACK_BAR_DATA,
-} from '@angular/material/snack-bar';
+import { MatSnackBarModule, MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 
 describe('HtmlSnackBarComponent', () => {
   let component: HtmlSnackBarComponent;

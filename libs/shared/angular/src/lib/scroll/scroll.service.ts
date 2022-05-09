@@ -10,9 +10,7 @@ export class ScrollService {
   constructor(private router: Router) {}
 
   init(): void {
-    this.scrollContainer = document.getElementsByTagName(
-      ScrollService.scrollContainerId,
-    )[0];
+    this.scrollContainer = document.getElementsByTagName(ScrollService.scrollContainerId)[0];
     this.initRestoration();
   }
 
@@ -23,10 +21,7 @@ export class ScrollService {
     this.router.events
       .pipe(
         filter((routerEvent: Event): boolean => {
-          return (
-            routerEvent instanceof NavigationStart ||
-            routerEvent instanceof NavigationEnd
-          );
+          return routerEvent instanceof NavigationStart || routerEvent instanceof NavigationEnd;
         }),
       )
       .subscribe((routerEvent: Event): void => {
@@ -37,8 +32,7 @@ export class ScrollService {
             this.scrollTo({ top: 0, behavior: 'smooth' });
             nextScrollPosition = undefined;
           } else {
-            nextScrollPosition =
-              scollPositionHistory[routerEvent.restoredState.navigationId];
+            nextScrollPosition = scollPositionHistory[routerEvent.restoredState.navigationId];
           }
         } else {
           this.scrollTo({ top: nextScrollPosition, behavior: 'smooth' });

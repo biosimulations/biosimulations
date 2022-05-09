@@ -12,11 +12,7 @@ describe('MetadataComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [MetadataComponent],
-      imports: [
-        BiosimulationsIconsModule,
-        SharedUiModule,
-        MarkdownModule.forRoot(),
-      ],
+      imports: [BiosimulationsIconsModule, SharedUiModule, MarkdownModule.forRoot()],
       providers: [MarkdownService],
     }).compileComponents();
   });

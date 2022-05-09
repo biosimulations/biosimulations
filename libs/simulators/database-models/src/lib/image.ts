@@ -1,8 +1,4 @@
-import {
-  IImage,
-  IEdamOntologyIdVersion,
-  OperatingSystemType,
-} from '@biosimulations/datamodel/common';
+import { IImage, IEdamOntologyIdVersion, OperatingSystemType } from '@biosimulations/datamodel/common';
 import { EdamOntologyIdVersionSchema } from './ontologyId';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
@@ -37,11 +33,9 @@ export class Image implements IImage {
     type: String,
     required: false,
     enum: (
-      Object.entries(OperatingSystemType).map(
-        (keyVal: [string, string]): string => {
-          return keyVal[1];
-        },
-      ) as (string | null)[]
+      Object.entries(OperatingSystemType).map((keyVal: [string, string]): string => {
+        return keyVal[1];
+      }) as (string | null)[]
     ).concat([null]),
     default: undefined,
   })

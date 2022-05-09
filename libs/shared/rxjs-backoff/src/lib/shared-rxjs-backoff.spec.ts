@@ -1,12 +1,5 @@
 import { Observable, Observer, of, Subject, throwError } from 'rxjs';
-import {
-  concat,
-  map,
-  mergeMap,
-  multicast,
-  refCount,
-  take,
-} from 'rxjs/operators';
+import { concat, map, mergeMap, multicast, refCount, take } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
 import { retryBackoff, intervalBackoff } from './shared-rxjs-backoff';
 
@@ -23,30 +16,21 @@ describe('interval', () => {
   it('should emit sequence starting from 0 with exponentially increasing delay', () => {
     testScheduler.run(({ expectObservable }) => {
       const expected = '01-2---3-------4---------------(5|)';
-      expectObservable(intervalBackoff(1, testScheduler).pipe(take(6))).toBe(
-        expected,
-        [0, 1, 2, 3, 4, 5],
-      );
+      expectObservable(intervalBackoff(1, testScheduler).pipe(take(6))).toBe(expected, [0, 1, 2, 3, 4, 5]);
     });
   });
 
   it('should emit when relative interval set to zero', () => {
     testScheduler.run(({ expectObservable }) => {
       const expected = '(012345|)';
-      expectObservable(intervalBackoff(0, testScheduler).pipe(take(6))).toBe(
-        expected,
-        [0, 1, 2, 3, 4, 5],
-      );
+      expectObservable(intervalBackoff(0, testScheduler).pipe(take(6))).toBe(expected, [0, 1, 2, 3, 4, 5]);
     });
   });
 
   it('should consider negative interval as zero', () => {
     testScheduler.run(({ expectObservable }) => {
       const expected = '(012345|)';
-      expectObservable(intervalBackoff(-1, testScheduler).pipe(take(6))).toBe(
-        expected,
-        [0, 1, 2, 3, 4, 5],
-      );
+      expectObservable(intervalBackoff(-1, testScheduler).pipe(take(6))).toBe(expected, [0, 1, 2, 3, 4, 5]);
     });
   });
 
@@ -287,36 +271,24 @@ describe('retryBackoff operator', () => {
     });
   });
 
-  it(
-    'should handle a source which eventually throws, maxRetries=3, and result is ' +
-      'unsubscribed early',
-    () => {
-      testScheduler.run(({ expectObservable, cold, expectSubscriptions }) => {
-        const source = cold('--1-2-3-#');
-        const unsub = '      -------------!';
-        const subs = [
-          '                  ^-------!                ',
-          '                  ---------^---!           ',
-        ];
-        const expected = '   --1-2-3----1--';
+  it('should handle a source which eventually throws, maxRetries=3, and result is ' + 'unsubscribed early', () => {
+    testScheduler.run(({ expectObservable, cold, expectSubscriptions }) => {
+      const source = cold('--1-2-3-#');
+      const unsub = '      -------------!';
+      const subs = ['                  ^-------!                ', '                  ---------^---!           '];
+      const expected = '   --1-2-3----1--';
 
-        const result = source.pipe(
-          retryBackoff({ initialInterval: 1, maxRetries: 3 }),
-        );
+      const result = source.pipe(retryBackoff({ initialInterval: 1, maxRetries: 3 }));
 
-        expectObservable(result, unsub).toBe(expected);
-        expectSubscriptions(source.subscriptions).toBe(subs);
-      });
-    },
-  );
+      expectObservable(result, unsub).toBe(expected);
+      expectSubscriptions(source.subscriptions).toBe(subs);
+    });
+  });
 
   it('should not break unsubscription chain when unsubscribed explicitly', () => {
     testScheduler.run(({ expectObservable, cold, expectSubscriptions }) => {
       const source = cold('--1-2-3-#');
-      const subs = [
-        '                  ^-------!                ',
-        '                  ---------^---!           ',
-      ];
+      const subs = ['                  ^-------!                ', '                  ---------^---!           '];
       const expected = '   --1-2-3----1--';
       const unsub = '      -------------!           ';
 
@@ -409,8 +381,7 @@ describe('retryBackoff operator', () => {
 
   it('should increase the intervals calculated by backoffDelay function', () => {
     testScheduler.run(({ expectObservable, cold, expectSubscriptions }) => {
-      const constantDelay = (iteration: number, initialInterval: number) =>
-        initialInterval;
+      const constantDelay = (iteration: number, initialInterval: number) => initialInterval;
       const source = cold('-1-#');
       const subs = [
         '                  ^--!',
@@ -440,11 +411,7 @@ describe('retryBackoff operator', () => {
       const source1 = cold('--#');
       const source2 = cold('--#');
       const unsub = '      ---------!';
-      const subs = [
-        '                  ^-!       ',
-        '                  ---^-!    ',
-        '                  -------^-!',
-      ];
+      const subs = ['                  ^-!       ', '                  ---^-!    ', '                  -------^-!'];
       const expected = '   ----------';
 
       const op = retryBackoff({

@@ -17,13 +17,7 @@ export enum PlotlyTraceType {
   heatmap = 'heatmap',
 }
 
-export type PlotlyTraceLineDash =
-  | 'solid'
-  | 'dot'
-  | 'dash'
-  | 'longdash'
-  | 'dashdot'
-  | 'longdashdot';
+export type PlotlyTraceLineDash = 'solid' | 'dot' | 'dash' | 'longdash' | 'dashdot' | 'longdashdot';
 
 export interface PlotlyTraceLine {
   color?: string;
@@ -215,14 +209,7 @@ export interface PlotlyTrace {
   hoverongaps?: boolean;
   line?: PlotlyTraceLine;
   marker?: PlotlyTraceMarker;
-  fill?:
-    | 'none'
-    | 'tozeroy'
-    | 'tozerox'
-    | 'tonexty'
-    | 'tonextx'
-    | 'toself'
-    | 'tonext';
+  fill?: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
   fillcolor?: string;
 }
 

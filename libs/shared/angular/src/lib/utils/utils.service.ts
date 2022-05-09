@@ -57,8 +57,7 @@ export class UtilsService {
         });
       } else if (
         unresolvedDatumVal != null &&
-        (typeof unresolvedDatumVal === 'object' ||
-          typeof unresolvedDatumVal === 'function') &&
+        (typeof unresolvedDatumVal === 'object' || typeof unresolvedDatumVal === 'function') &&
         typeof unresolvedDatumVal.valueOf() === 'object'
       ) {
         const resolvedDatumVal: any = new unresolvedDatumVal.constructor();
@@ -98,8 +97,7 @@ export class UtilsService {
 
   static getSimulatorCurationStatus(simulator: any): SimulatorCurationStatus {
     // true type of simulator: Simulator
-    let curationStatus =
-      SimulatorCurationStatus['Registered with BioSimulators'];
+    let curationStatus = SimulatorCurationStatus['Registered with BioSimulators'];
     if (simulator.algorithms.length > 0) {
       curationStatus = SimulatorCurationStatus['Algorithms curated'];
 
@@ -127,10 +125,7 @@ export class UtilsService {
     return curationStatus;
   }
 
-  static getSimulatorCurationStatusMessage(
-    status: SimulatorCurationStatus,
-    showLabel = true,
-  ): string {
+  static getSimulatorCurationStatusMessage(status: SimulatorCurationStatus, showLabel = true): string {
     let label = '';
     if (showLabel) {
       for (const [key, val] of Object.entries(SimulatorCurationStatus)) {
@@ -140,10 +135,6 @@ export class UtilsService {
         }
       }
     }
-    return (
-      '★'.repeat(status) +
-      '☆'.repeat(SimulatorCurationStatus['Image validated'] - status) +
-      label
-    );
+    return '★'.repeat(status) + '☆'.repeat(SimulatorCurationStatus['Image validated'] - status) + label;
   }
 }

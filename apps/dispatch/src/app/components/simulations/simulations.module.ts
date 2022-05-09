@@ -18,13 +18,7 @@ import { SimulationLogModule } from './view/simulation-log/simulation-log.module
 import { PublishComponent } from './publish/publish.component';
 
 @NgModule({
-  declarations: [
-    BrowseComponent,
-    DeleteSimulationsDialogComponent,
-    ViewComponent,
-    OverviewComponent,
-    PublishComponent,
-  ],
+  declarations: [BrowseComponent, DeleteSimulationsDialogComponent, ViewComponent, OverviewComponent, PublishComponent],
   imports: [
     CommonModule,
     SimulationsRoutingModule,

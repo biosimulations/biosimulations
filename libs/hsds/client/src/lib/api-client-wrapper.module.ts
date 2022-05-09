@@ -25,9 +25,7 @@ Module({
   exports: [ApiModule],
 });
 export class APIClientWrapperModule {
-  public static async registerAsync(
-    options: HSDSConnectionAsyncOptions,
-  ): Promise<DynamicModule> {
+  public static async registerAsync(options: HSDSConnectionAsyncOptions): Promise<DynamicModule> {
     const imports = options.imports || [];
     const dynamicImports = await this.getImports(options);
     const finalImports = imports.concat(dynamicImports);
@@ -40,9 +38,7 @@ export class APIClientWrapperModule {
     };
   }
 
-  private static async getProviders(
-    options: HSDSConnectionAsyncOptions,
-  ): Promise<Provider<Configuration>[]> {
+  private static async getProviders(options: HSDSConnectionAsyncOptions): Promise<Provider<Configuration>[]> {
     return [
       {
         provide: Configuration,
@@ -51,9 +47,7 @@ export class APIClientWrapperModule {
       },
     ];
   }
-  private static async getImports(
-    options: HSDSConnectionAsyncOptions,
-  ): Promise<DynamicModule[]> {
+  private static async getImports(options: HSDSConnectionAsyncOptions): Promise<DynamicModule[]> {
     return [
       ...options.imports,
       {

@@ -88,17 +88,9 @@ export enum ColumnSortDirection {
 export type ColumnSortDirectionType = 'asc' | 'desc';
 
 export class RowService {
-  static getElementRouterLink(
-    element: any,
-    column: Column,
-    side: Side,
-  ): { routerLink: any; fragment: string | null } {
+  static getElementRouterLink(element: any, column: Column, side: Side): { routerLink: any; fragment: string | null } {
     let routerLinkFragment: any;
-    if (
-      side == Side.left &&
-      column.leftAction === ColumnActionType.routerLink &&
-      column.leftRouterLink !== undefined
-    ) {
+    if (side == Side.left && column.leftAction === ColumnActionType.routerLink && column.leftRouterLink !== undefined) {
       routerLinkFragment = column.leftRouterLink(element);
     } else if (
       side == Side.center &&
@@ -125,15 +117,10 @@ export class RowService {
         fragment: null,
       };
     } else if (Array.isArray(routerLinkFragment)) {
-      if (
-        routerLinkFragment.length > 0 &&
-        routerLinkFragment[routerLinkFragment.length - 1].substring(0, 1) ===
-          '#'
-      ) {
+      if (routerLinkFragment.length > 0 && routerLinkFragment[routerLinkFragment.length - 1].substring(0, 1) === '#') {
         return {
           routerLink: routerLinkFragment.slice(0, -1),
-          fragment:
-            routerLinkFragment[routerLinkFragment.length - 1].substring(1),
+          fragment: routerLinkFragment[routerLinkFragment.length - 1].substring(1),
         };
       } else {
         return {
@@ -151,11 +138,7 @@ export class RowService {
   }
 
   static getElementHref(element: any, column: Column, side: Side): any {
-    if (
-      side == Side.left &&
-      column.leftAction === ColumnActionType.href &&
-      column.leftHref !== undefined
-    ) {
+    if (side == Side.left && column.leftAction === ColumnActionType.href && column.leftHref !== undefined) {
       return column.leftHref(element);
     } else if (
       side == Side.center &&
@@ -163,27 +146,15 @@ export class RowService {
       column.centerHref !== undefined
     ) {
       return column.centerHref(element);
-    } else if (
-      side == Side.right &&
-      column.rightAction === ColumnActionType.href &&
-      column.rightHref !== undefined
-    ) {
+    } else if (side == Side.right && column.rightAction === ColumnActionType.href && column.rightHref !== undefined) {
       return column.rightHref(element);
     } else {
       return null;
     }
   }
 
-  static getElementClick(
-    element: any,
-    column: Column,
-    side: Side,
-  ): ((element: any) => void) | null {
-    if (
-      side == Side.left &&
-      column.leftAction === ColumnActionType.click &&
-      column.leftClick !== undefined
-    ) {
+  static getElementClick(element: any, column: Column, side: Side): ((element: any) => void) | null {
+    if (side == Side.left && column.leftAction === ColumnActionType.click && column.leftClick !== undefined) {
       return column.leftClick(element);
     } else if (
       side == Side.center &&
@@ -191,21 +162,13 @@ export class RowService {
       column.centerClick !== undefined
     ) {
       return column.centerClick(element);
-    } else if (
-      side == Side.right &&
-      column.rightAction === ColumnActionType.click &&
-      column.rightClick !== undefined
-    ) {
+    } else if (side == Side.right && column.rightAction === ColumnActionType.click && column.rightClick !== undefined) {
       return column.rightClick(element);
     }
     return null;
   }
 
-  static getElementValue(
-    element: any,
-    column: Column | undefined,
-    defaultKey?: string | undefined,
-  ): any {
+  static getElementValue(element: any, column: Column | undefined, defaultKey?: string | undefined): any {
     if (column !== undefined && column.getter !== undefined) {
       return column.getter(element);
     } else if (column !== undefined && column.key != undefined) {
@@ -264,11 +227,7 @@ export class RowService {
     }
   }
 
-  static getElementFilterValue(
-    element: any,
-    column: Column | undefined,
-    defaultKey?: string | undefined,
-  ): any {
+  static getElementFilterValue(element: any, column: Column | undefined, defaultKey?: string | undefined): any {
     if (column !== undefined && column.filterGetter !== undefined) {
       return column.filterGetter(element);
     } else if (column !== undefined && column.getter !== undefined) {
@@ -301,11 +260,7 @@ export class RowService {
     }
   }
 
-  static sortData(
-    idToColumn: IdColumnMap,
-    data: any[],
-    sort: ColumnSort,
-  ): any[] {
+  static sortData(idToColumn: IdColumnMap, data: any[], sort: ColumnSort): any[] {
     if (sort === undefined) {
       return data;
     }
@@ -329,10 +284,7 @@ export class RowService {
 
       const sign = sortDirection !== ColumnSortDirection.desc ? 1 : -1;
 
-      const comparator = RowService.getComparator(
-        column,
-        sortDirection === undefined,
-      );
+      const comparator = RowService.getComparator(column, sortDirection === undefined);
       return sign * comparator(aVal, bVal, sign);
     });
 
@@ -349,10 +301,7 @@ export class RowService {
     }
   }
 
-  static getFilterComparator(
-    column: Column | undefined,
-    useDefault = false,
-  ): any {
+  static getFilterComparator(column: Column | undefined, useDefault = false): any {
     if (useDefault || column === undefined) {
       return RowService.comparator;
     } else if (column.filterComparator !== undefined) {
@@ -384,12 +333,7 @@ export class RowService {
     return 0;
   }
 
-  static formatElementValue(
-    el: any,
-    value: any,
-    column: Column,
-    stacked = false,
-  ): any {
+  static formatElementValue(el: any, value: any, column: Column, stacked = false): any {
     if (stacked && column.stackedFormatter !== undefined) {
       return column.stackedFormatter(value, el);
     } else if (column.formatter !== undefined) {
@@ -417,17 +361,8 @@ export class RowService {
     }
   }
 
-  static getElementSearchValue(
-    value: any,
-    column: Column,
-    stacked = false,
-  ): string {
-    const val = RowService.formatElementValue(
-      value,
-      RowService.getElementValue(value, column),
-      column,
-      stacked,
-    );
+  static getElementSearchValue(value: any, column: Column, stacked = false): string {
+    const val = RowService.formatElementValue(value, RowService.getElementValue(value, column), column, stacked);
 
     let searchVal = '';
     if (val != null && val !== undefined) {

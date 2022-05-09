@@ -6,12 +6,7 @@ import { FileModel, FileModelSchema } from './files.model';
 import { FilesService } from './files.service';
 
 @Module({
-  imports: [
-    BiosimulationsAuthModule,
-    MongooseModule.forFeature([
-      { name: FileModel.name, schema: FileModelSchema },
-    ]),
-  ],
+  imports: [BiosimulationsAuthModule, MongooseModule.forFeature([{ name: FileModel.name, schema: FileModelSchema }])],
   controllers: [FilesController],
   providers: [FilesService],
   exports: [FilesService],

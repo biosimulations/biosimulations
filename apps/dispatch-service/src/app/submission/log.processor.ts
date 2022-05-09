@@ -13,9 +13,7 @@ export class LogProcessor {
   public constructor(private logService: LogService) {}
 
   @Process({ name: JobQueue.logs, concurrency: 10 })
-  private async process(
-    job: Job,
-  ): Promise<JobReturn<CombineArchiveLog | undefined>> {
+  private async process(job: Job): Promise<JobReturn<CombineArchiveLog | undefined>> {
     const data = job.data;
     const runId = data.runId;
     try {

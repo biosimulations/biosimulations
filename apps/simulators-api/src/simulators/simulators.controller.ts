@@ -13,11 +13,7 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 
-import {
-  JwtGuard,
-  permissions,
-  PermissionsGuard,
-} from '@biosimulations/auth/nest';
+import { JwtGuard, permissions, PermissionsGuard } from '@biosimulations/auth/nest';
 import {
   ApiTags,
   ApiBody,
@@ -48,8 +44,7 @@ export class SimulatorsController {
   @Get()
   @ApiOperation({
     summary: 'Get all simulation tools and all of their versions',
-    description:
-      'Get a list of the specifications of each available version of each simulation tool.',
+    description: 'Get a list of the specifications of each available version of each simulation tool.',
   })
   @ApiQuery({
     name: 'includeTests',
@@ -59,8 +54,7 @@ export class SimulatorsController {
     type: Boolean,
   })
   @ApiOkResponse({
-    description:
-      'The specifications of the simulation tools were successfully retrieved',
+    description: 'The specifications of the simulation tools were successfully retrieved',
     type: [Simulator],
   })
   public getSimulators(@Query('includeTests') includeTests = 'false') {
@@ -71,14 +65,12 @@ export class SimulatorsController {
 
   @Get('latest')
   @ApiOkResponse({
-    description:
-      'The requested simulation tool specifications were successfully retrieved',
+    description: 'The requested simulation tool specifications were successfully retrieved',
     type: [Simulator],
   })
   @ApiOperation({
     summary: 'Get the latest version of each simulation tool',
-    description:
-      'Get a list of the specifications of the latest version of each simulation tool.',
+    description: 'Get a list of the specifications of the latest version of each simulation tool.',
   })
   @ApiQuery({
     name: 'includeTests',
@@ -87,18 +79,14 @@ export class SimulatorsController {
     required: false,
     type: Boolean,
   })
-  public async getLatestSimulators(
-    @Query('includeTests') includeTests = 'false',
-  ): Promise<Simulator[]> {
+  public async getLatestSimulators(@Query('includeTests') includeTests = 'false'): Promise<Simulator[]> {
     const includeBool = ['true', '1'].includes(includeTests.toLowerCase());
     const allSims = await this.service.findAll(includeBool);
     const latest = new Map<string, Simulator>();
     allSims.forEach((element) => {
       const latestSim = latest.get(element.id) as Simulator;
       if (latestSim) {
-        if (
-          SimulatorsService.compareSimulatorVersions(latestSim, element) === -1
-        ) {
+        if (SimulatorsService.compareSimulatorVersions(latestSim, element) === -1) {
           latest.set(element.id, element);
         }
       } else {
@@ -112,8 +100,7 @@ export class SimulatorsController {
   @Get(':id')
   @ApiOperation({
     summary: 'Get the versions of a simulation tool',
-    description:
-      'Get a list of the specifications of each version of a simulation tool',
+    description: 'Get a list of the specifications of each version of a simulation tool',
   })
   @ApiParam({
     name: 'id',
@@ -129,18 +116,14 @@ export class SimulatorsController {
     type: Boolean,
   })
   @ApiOkResponse({
-    description:
-      'The specifications of the requested simulation toool were successfully retrieved',
+    description: 'The specifications of the requested simulation toool were successfully retrieved',
     type: [Simulator],
   })
   @ApiNotFoundResponse({
     type: ErrorResponseDocument,
     description: 'No simulation tool has the requested id',
   })
-  public async getSimulator(
-    @Param('id') id: string,
-    @Query('includeTests') includeTests = 'false',
-  ) {
+  public async getSimulator(@Param('id') id: string, @Query('includeTests') includeTests = 'false') {
     const includeBool = ['true', '1'].includes(includeTests.toLowerCase());
     return this.getSimulatorById(id, includeBool);
   }
@@ -148,8 +131,7 @@ export class SimulatorsController {
   @Get(':id/latest')
   @ApiOperation({
     summary: 'Get the latest version of a simulation tool',
-    description:
-      'Get the specifications of the latest version of a simulation tool',
+    description: 'Get the specifications of the latest version of a simulation tool',
   })
   @ApiParam({
     name: 'id',
@@ -229,8 +211,7 @@ export class SimulatorsController {
   @Post()
   @ApiOperation({
     summary: 'Add a version of a simulation tool to the database',
-    description:
-      'Add the specifications of a version of a simulation tool to the database.',
+    description: 'Add the specifications of a version of a simulation tool to the database.',
   })
   @ApiBody({
     description: 'Specifications of the version of the simulation tool',
@@ -238,12 +219,10 @@ export class SimulatorsController {
   })
   @ApiPayloadTooLargeResponse({
     type: ErrorResponseDocument,
-    description:
-      'The submitted simulator specifications is too large. Specifications must be less than 16 MB.',
+    description: 'The submitted simulator specifications is too large. Specifications must be less than 16 MB.',
   })
   @ApiCreatedResponse({
-    description:
-      'The version of the simulation tool was successfully saved to the database',
+    description: 'The version of the simulation tool was successfully saved to the database',
     type: Simulator,
   })
   @ApiBadRequestResponse({
@@ -274,8 +253,7 @@ export class SimulatorsController {
   })
   @ApiPayloadTooLargeResponse({
     type: ErrorResponseDocument,
-    description:
-      'The submitted simulator specifications is too large. Specifications must be less than 16 MB.',
+    description: 'The submitted simulator specifications is too large. Specifications must be less than 16 MB.',
   })
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
@@ -309,13 +287,11 @@ export class SimulatorsController {
   })
   @ApiPayloadTooLargeResponse({
     type: ErrorResponseDocument,
-    description:
-      'The submitted simulator specifications is too large. Specifications must be less than 16 MB.',
+    description: 'The submitted simulator specifications is too large. Specifications must be less than 16 MB.',
   })
   @ApiOkResponse({
     type: Simulator,
-    description:
-      'The specifications of the version of the simulation tool were successfully modified',
+    description: 'The specifications of the version of the simulation tool were successfully modified',
   })
   @ApiNotFoundResponse({
     type: ErrorResponseDocument,
@@ -368,8 +344,7 @@ export class SimulatorsController {
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description:
-      'This account does not have permission to delete simulation tools',
+    description: 'This account does not have permission to delete simulation tools',
   })
   @permissions(scopes.simulators.delete.id)
   @Delete(':id/:version')
@@ -377,10 +352,7 @@ export class SimulatorsController {
     summary: 'Delete a version of a simulation tool',
     description: 'Delete the specifications of a version of a simulation tool.',
   })
-  public async deleteSimulatorVersion(
-    @Param('id') id: string,
-    @Param('version') version: string,
-  ) {
+  public async deleteSimulatorVersion(@Param('id') id: string, @Param('version') version: string) {
     return this.service.deleteOne(id, version);
   }
 
@@ -401,8 +373,7 @@ export class SimulatorsController {
   @Delete(':id')
   @ApiOperation({
     summary: 'Delete all versions of a simulation tool',
-    description:
-      'Delete the specifications of all versions of a simulation tool.',
+    description: 'Delete the specifications of all versions of a simulation tool.',
   })
   @HttpCode(HttpStatus.NO_CONTENT)
   public async deleteSimulator(@Param('id') id: string): Promise<void> {
@@ -424,26 +395,18 @@ export class SimulatorsController {
   }
 
   private async getSimulatorById(id: string, includeTests: boolean) {
-    const res = await this.service
-      .findById(id, includeTests)
-      .catch((_) => null);
+    const res = await this.service.findById(id, includeTests).catch((_) => null);
     if (!res?.length) {
       throw new NotFoundException(`Simulator with id '${id}' was not found`);
     }
     return res;
   }
 
-  private async getSimulatorByVersion(
-    id: string,
-    version: string,
-    includeTests: boolean,
-  ): Promise<Simulator> {
+  private async getSimulatorByVersion(id: string, version: string, includeTests: boolean): Promise<Simulator> {
     const res = await this.service.findByVersion(id, version, includeTests);
     if (!res) {
       if (version) {
-        throw new NotFoundException(
-          `Simulator with id '${id}' and version '${version}' was not found`,
-        );
+        throw new NotFoundException(`Simulator with id '${id}' and version '${version}' was not found`);
       } else {
         throw new NotFoundException(`Simulator with id '${id}' was not found`);
       }

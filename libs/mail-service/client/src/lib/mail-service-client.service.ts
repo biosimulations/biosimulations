@@ -15,12 +15,7 @@ export class MailClientService {
    * @param name The name of the simulation run
    * @param date  The date that the simulation run was submitted
    */
-  public sendSuccessEmail(
-    to: string,
-    id: string,
-    name: string,
-    date: Date,
-  ): void {
+  public sendSuccessEmail(to: string, id: string, name: string, date: Date): void {
     const message: MailData = {
       to,
       templateId: this.successTemplate,
@@ -47,12 +42,7 @@ export class MailClientService {
    * @param name The name of the simulation run
    * @param date The date the simulation run was submitted
    */
-  public sendFailureEmail(
-    to: string,
-    id: string,
-    name: string,
-    date: Date,
-  ): void {
+  public sendFailureEmail(to: string, id: string, name: string, date: Date): void {
     const message: MailData = {
       to,
       templateId: this.failureTemplate,
@@ -75,9 +65,7 @@ export class MailClientService {
     SendGrid.setApiKey(this.config.get('email').token as string);
     SendGrid.send(message)
       .then(() => this.logger.log(`Sent email to ${message.to}`))
-      .catch((error) =>
-        this.logger.error(`Failed to send email to ${message.to}`, error),
-      );
+      .catch((error) => this.logger.error(`Failed to send email to ${message.to}`, error));
   }
 }
 

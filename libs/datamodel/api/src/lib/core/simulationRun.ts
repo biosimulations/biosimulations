@@ -7,12 +7,7 @@
  * @copyright BioSimulations Team, 2020
  * @license MIT
  */
-import {
-  ApiProperty,
-  ApiPropertyOptional,
-  PartialType,
-  PickType,
-} from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional, PartialType, PickType } from '@nestjs/swagger';
 import {
   SimulationRun as ISimulationRun,
   SimulationRunStatus,
@@ -141,8 +136,7 @@ export class SimulationRun implements ISimulationRun {
     description: 'Digest of the simulation tool for the simulation run',
     type: String,
     pattern: '^sha256:[a-z0-9]{64,64}$',
-    example:
-      'sha256:5d1595553608436a2a343f8ab7e650798ef5ba5dab007b9fe31cd342bf18ec81',
+    example: 'sha256:5d1595553608436a2a343f8ab7e650798ef5ba5dab007b9fe31cd342bf18ec81',
     readOnly: true,
   })
   @IsImageDigest()
@@ -187,8 +181,7 @@ export class SimulationRun implements ISimulationRun {
 
   @ApiPropertyOptional({
     type: [EnvironmentVariable],
-    description:
-      'Key-value pairs of environment variables to execute the simulator with',
+    description: 'Key-value pairs of environment variables to execute the simulator with',
     required: false,
     default: [],
   })
@@ -210,8 +203,7 @@ export class SimulationRun implements ISimulationRun {
   purpose: Purpose;
 
   @ApiPropertyOptional({
-    description:
-      'Email to receive notification about completion of the simulation run',
+    description: 'Email to receive notification about completion of the simulation run',
     type: String,
     format: 'email',
     example: 'info@biosimulations.org',
@@ -242,8 +234,7 @@ export class SimulationRun implements ISimulationRun {
   runtime?: number;
 
   @ApiProperty({
-    description:
-      'Size of the project (COMBINE/OMEX archive) for the simulation run',
+    description: 'Size of the project (COMBINE/OMEX archive) for the simulation run',
     type: Number,
     example: 1123,
     readOnly: true,
@@ -254,8 +245,7 @@ export class SimulationRun implements ISimulationRun {
   projectSize?: number;
 
   @ApiProperty({
-    description:
-      'Size of the results (zip of reports and plots) for the simulation run',
+    description: 'Size of the results (zip of reports and plots) for the simulation run',
     type: Number,
     example: 11234,
     readOnly: true,
@@ -275,8 +265,7 @@ export class SimulationRun implements ISimulationRun {
   submitted!: Date;
 
   @ApiProperty({
-    description:
-      'Timestamp when the status of the simulation run was last updated',
+    description: 'Timestamp when the status of the simulation run was last updated',
     type: String,
     format: 'date-time',
     readOnly: true,
@@ -343,8 +332,7 @@ export class UploadSimulationRun extends PickType(SimulationRun, [
   })
   @IsOptional()
   @Matches(/^[a-zA-Z0-9_-]{3,}$/, {
-    message:
-      "'projectId' must be a unique combination of at least three letters, numbers, underscores, and dashes",
+    message: "'projectId' must be a unique combination of at least three letters, numbers, underscores, and dashes",
   })
   @IsString()
   projectId?: string;
@@ -376,8 +364,7 @@ export class SimulationUpload {
   file!: string;
 
   @ApiProperty({
-    description:
-      'Details about how to execute the project (COMBINE/OMEX archive)',
+    description: 'Details about how to execute the project (COMBINE/OMEX archive)',
     type: UploadSimulationRun,
   })
   @Type(() => UploadSimulationRun)
@@ -396,8 +383,7 @@ export class PatchSimulationRun {
   status?: SimulationRunStatus;
 
   @ApiPropertyOptional({
-    description:
-      'S3 bucket URL for the COMBINE/OMEX archive for the simulation run',
+    description: 'S3 bucket URL for the COMBINE/OMEX archive for the simulation run',
     type: String,
   })
   @IsOptional()
@@ -420,8 +406,7 @@ export class PatchSimulationRun {
   projectSize?: number;
 
   @ApiPropertyOptional({
-    description:
-      'Size of the results (zip of reports and plots) for the simulation run',
+    description: 'Size of the results (zip of reports and plots) for the simulation run',
     type: Number,
     example: 11234,
   })
@@ -464,9 +449,7 @@ export class TypeSummary implements ITypeSummary {
   url!: string;
 }
 
-export class SimulationRunModelLanguageSummary
-  implements ISimulationRunModelLanguageSummary
-{
+export class SimulationRunModelLanguageSummary implements ISimulationRunModelLanguageSummary {
   @ApiPropertyOptional({
     type: String,
     description: 'Name of the language',
@@ -483,8 +466,7 @@ export class SimulationRunModelLanguageSummary
 
   @ApiProperty({
     type: String,
-    description:
-      'SED-ML URN for the language. More information is available at https://sed-ml.org/urns.html.',
+    description: 'SED-ML URN for the language. More information is available at https://sed-ml.org/urns.html.',
     example: 'urn:sedml:language:sbml',
   })
   sedmlUrn!: string;
@@ -500,15 +482,12 @@ export class SimulationRunModelLanguageSummary
   @ApiPropertyOptional({
     type: String,
     description: 'URL with more information about the language',
-    example:
-      'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_2585',
+    example: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_2585',
   })
   url?: string;
 }
 
-export class SimulationRunAlgorithmSummary
-  implements ISimulationRunAlgorithmSummary
-{
+export class SimulationRunAlgorithmSummary implements ISimulationRunAlgorithmSummary {
   @ApiProperty({
     type: String,
     description: 'KiSAO id of the algorithm',
@@ -568,9 +547,7 @@ export class SimulationRunModelSummary implements ISimulationRunModelSummary {
   language!: SimulationRunModelLanguageSummary;
 }
 
-export class SimulationRunSimulationSummary
-  implements ISimulationRunSimulationSummary
-{
+export class SimulationRunSimulationSummary implements ISimulationRunSimulationSummary {
   @ApiProperty({
     type: TypeSummary,
     description: 'Type of the simulation',
@@ -660,40 +637,33 @@ export class SimulationRunOutputSummary implements ISimulationRunOutputSummary {
   name?: string;
 }
 
-export class SimulationRunSimulatorSummary
-  implements ISimulationRunSimulatorSummary
-{
+export class SimulationRunSimulatorSummary implements ISimulationRunSimulatorSummary {
   @ApiProperty({
     type: String,
-    description:
-      'BioSimulators id of the simulation tool which executed the simulation run',
+    description: 'BioSimulators id of the simulation tool which executed the simulation run',
     example: 'tellurium',
   })
   id!: string;
 
   @ApiProperty({
-    description:
-      'Name of the simulation tool which executed the simulation run',
+    description: 'Name of the simulation tool which executed the simulation run',
     type: String,
     example: 'tellurium',
   })
   name!: string;
 
   @ApiProperty({
-    description:
-      'Version of the simulation tool which executed the simulation run',
+    description: 'Version of the simulation tool which executed the simulation run',
     type: String,
     example: '2.2.1',
   })
   version!: string;
 
   @ApiProperty({
-    description:
-      'Digest of the simulation tool which executed the simulation run',
+    description: 'Digest of the simulation tool which executed the simulation run',
     type: String,
     pattern: '^sha256:[a-z0-9]{64,64}$',
-    example:
-      'sha256:5d1595553608436a2a343f8ab7e650798ef5ba5dab007b9fe31cd342bf18ec81',
+    example: 'sha256:5d1595553608436a2a343f8ab7e650798ef5ba5dab007b9fe31cd342bf18ec81',
   })
   digest!: string;
 
@@ -736,8 +706,7 @@ export class SimulationRunRunSummary implements ISimulationRunRunSummary {
 
   @ApiProperty({
     type: [EnvironmentVariable],
-    description:
-      'Key-value pairs of environment variables to execute the simulator with',
+    description: 'Key-value pairs of environment variables to execute the simulator with',
   })
   envVars!: EnvironmentVariable[];
 
@@ -756,25 +725,21 @@ export class SimulationRunRunSummary implements ISimulationRunRunSummary {
   runtime?: number;
 
   @ApiProperty({
-    description:
-      'Size of the project (COMBINE/OMEX archive) for the simulation run',
+    description: 'Size of the project (COMBINE/OMEX archive) for the simulation run',
     type: Number,
     example: 1123,
   })
   projectSize?: number;
 
   @ApiProperty({
-    description:
-      'Size of the results (zip of reports and plots) for the simulation run',
+    description: 'Size of the results (zip of reports and plots) for the simulation run',
     type: Number,
     example: 11234,
   })
   resultsSize?: number;
 }
 
-export class SimulationRunMetadataSummary
-  implements ISimulationRunMetadataSummary
-{
+export class SimulationRunMetadataSummary implements ISimulationRunMetadataSummary {
   @ApiProperty(URI)
   uri!: string;
 
@@ -889,8 +854,7 @@ export class SimulationRunSummary implements ISimulationRunSummary {
   submitted!: string;
 
   @ApiProperty({
-    description:
-      'Timestamp when the status of the simulation run was last updated',
+    description: 'Timestamp when the status of the simulation run was last updated',
     type: String,
     format: 'date-time',
   })

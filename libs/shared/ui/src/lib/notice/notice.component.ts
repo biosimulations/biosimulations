@@ -53,11 +53,7 @@ export class NoticeComponent {
   constructor(private storage: Storage) {}
 
   async initStorage() {
-    if (
-      this._appName === undefined ||
-      this._type === undefined ||
-      this._version === undefined
-    ) {
+    if (this._appName === undefined || this._type === undefined || this._version === undefined) {
       return;
     }
 

@@ -37,10 +37,7 @@ export class DatasetService {
   public defaultHeaders: Record<string, string> = {};
   public configuration = new Configuration();
 
-  constructor(
-    protected httpClient: HttpService,
-    @Optional() configuration: Configuration,
-  ) {
+  constructor(protected httpClient: HttpService, @Optional() configuration: Configuration) {
     this.configuration = configuration || this.configuration;
     this.basePath = configuration?.basePath || this.basePath;
   }
@@ -92,9 +89,7 @@ export class DatasetService {
     }
 
     if (attr === null || attr === undefined) {
-      throw new Error(
-        'Required parameter attr was null or undefined when calling collectionObjUuidAttributesAttrGet.',
-      );
+      throw new Error('Required parameter attr was null or undefined when calling collectionObjUuidAttributesAttrGet.');
     }
 
     let queryParameters: any = {};
@@ -109,8 +104,7 @@ export class DatasetService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
@@ -118,11 +112,9 @@ export class DatasetService {
     // to determine the Content-Type header
     const consumes: string[] = [];
     return this.httpClient.get<InlineResponse20015>(
-      `${this.basePath}/${encodeURIComponent(
-        String(collection),
-      )}/${encodeURIComponent(String(objUuid))}/attributes/${encodeURIComponent(
-        String(attr),
-      )}`,
+      `${this.basePath}/${encodeURIComponent(String(collection))}/${encodeURIComponent(
+        String(objUuid),
+      )}/attributes/${encodeURIComponent(String(attr))}`,
       {
         params: queryParameters,
         withCredentials: this.configuration.withCredentials,
@@ -171,15 +163,11 @@ export class DatasetService {
     }
 
     if (attr === null || attr === undefined) {
-      throw new Error(
-        'Required parameter attr was null or undefined when calling collectionObjUuidAttributesAttrPut.',
-      );
+      throw new Error('Required parameter attr was null or undefined when calling collectionObjUuidAttributesAttrPut.');
     }
 
     if (body === null || body === undefined) {
-      throw new Error(
-        'Required parameter body was null or undefined when calling collectionObjUuidAttributesAttrPut.',
-      );
+      throw new Error('Required parameter body was null or undefined when calling collectionObjUuidAttributesAttrPut.');
     }
 
     let queryParameters: any = {};
@@ -194,25 +182,21 @@ export class DatasetService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected: string | undefined =
-      this.configuration.selectHeaderContentType(consumes);
+    const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
     if (httpContentTypeSelected != undefined) {
       headers['Content-Type'] = httpContentTypeSelected;
     }
     return this.httpClient.put<object>(
-      `${this.basePath}/${encodeURIComponent(
-        String(collection),
-      )}/${encodeURIComponent(String(objUuid))}/attributes/${encodeURIComponent(
-        String(attr),
-      )}`,
+      `${this.basePath}/${encodeURIComponent(String(collection))}/${encodeURIComponent(
+        String(objUuid),
+      )}/attributes/${encodeURIComponent(String(attr))}`,
       body,
       {
         params: queryParameters,
@@ -256,9 +240,7 @@ export class DatasetService {
     }
 
     if (objUuid === null || objUuid === undefined) {
-      throw new Error(
-        'Required parameter objUuid was null or undefined when calling collectionObjUuidAttributesGet.',
-      );
+      throw new Error('Required parameter objUuid was null or undefined when calling collectionObjUuidAttributesGet.');
     }
 
     let queryParameters: any = {};
@@ -279,8 +261,7 @@ export class DatasetService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
@@ -288,9 +269,7 @@ export class DatasetService {
     // to determine the Content-Type header
     const consumes: string[] = [];
     return this.httpClient.get<InlineResponse20014>(
-      `${this.basePath}/${encodeURIComponent(
-        String(collection),
-      )}/${encodeURIComponent(String(objUuid))}/attributes`,
+      `${this.basePath}/${encodeURIComponent(String(collection))}/${encodeURIComponent(String(objUuid))}/attributes`,
       {
         params: queryParameters,
         withCredentials: this.configuration.withCredentials,
@@ -306,10 +285,7 @@ export class DatasetService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public datasetsGet(
-    domain?: string,
-    authorization?: string,
-  ): Observable<AxiosResponse<InlineResponse2006>>;
+  public datasetsGet(domain?: string, authorization?: string): Observable<AxiosResponse<InlineResponse2006>>;
   public datasetsGet(domain?: string, authorization?: string): Observable<any> {
     let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
@@ -323,22 +299,18 @@ export class DatasetService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
 
     // to determine the Content-Type header
     const consumes: string[] = [];
-    return this.httpClient.get<InlineResponse2006>(
-      `${this.basePath}/datasets`,
-      {
-        params: queryParameters,
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-      },
-    );
+    return this.httpClient.get<InlineResponse2006>(`${this.basePath}/datasets`, {
+      params: queryParameters,
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+    });
   }
   /**
    * Get access lists on Dataset.
@@ -354,15 +326,9 @@ export class DatasetService {
     domain?: string,
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse20016>>;
-  public datasetsIdAclsGet(
-    id: string,
-    domain?: string,
-    authorization?: string,
-  ): Observable<any> {
+  public datasetsIdAclsGet(id: string, domain?: string, authorization?: string): Observable<any> {
     if (id === null || id === undefined) {
-      throw new Error(
-        'Required parameter id was null or undefined when calling datasetsIdAclsGet.',
-      );
+      throw new Error('Required parameter id was null or undefined when calling datasetsIdAclsGet.');
     }
 
     let queryParameters: any = {};
@@ -377,8 +343,7 @@ export class DatasetService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
@@ -403,20 +368,10 @@ export class DatasetService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public datasetsIdDelete(
-    id: string,
-    domain?: string,
-    authorization?: string,
-  ): Observable<AxiosResponse<object>>;
-  public datasetsIdDelete(
-    id: string,
-    domain?: string,
-    authorization?: string,
-  ): Observable<any> {
+  public datasetsIdDelete(id: string, domain?: string, authorization?: string): Observable<AxiosResponse<object>>;
+  public datasetsIdDelete(id: string, domain?: string, authorization?: string): Observable<any> {
     if (id === null || id === undefined) {
-      throw new Error(
-        'Required parameter id was null or undefined when calling datasetsIdDelete.',
-      );
+      throw new Error('Required parameter id was null or undefined when calling datasetsIdDelete.');
     }
 
     let queryParameters: any = {};
@@ -431,22 +386,18 @@ export class DatasetService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
 
     // to determine the Content-Type header
     const consumes: string[] = [];
-    return this.httpClient.delete<object>(
-      `${this.basePath}/datasets/${encodeURIComponent(String(id))}`,
-      {
-        params: queryParameters,
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-      },
-    );
+    return this.httpClient.delete<object>(`${this.basePath}/datasets/${encodeURIComponent(String(id))}`, {
+      params: queryParameters,
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+    });
   }
   /**
    * Get information about a Dataset.
@@ -462,15 +413,9 @@ export class DatasetService {
     domain?: string,
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse2007>>;
-  public datasetsIdGet(
-    id: string,
-    domain?: string,
-    authorization?: string,
-  ): Observable<any> {
+  public datasetsIdGet(id: string, domain?: string, authorization?: string): Observable<any> {
     if (id === null || id === undefined) {
-      throw new Error(
-        'Required parameter id was null or undefined when calling datasetsIdGet.',
-      );
+      throw new Error('Required parameter id was null or undefined when calling datasetsIdGet.');
     }
 
     let queryParameters: any = {};
@@ -485,22 +430,18 @@ export class DatasetService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
 
     // to determine the Content-Type header
     const consumes: string[] = [];
-    return this.httpClient.get<InlineResponse2007>(
-      `${this.basePath}/datasets/${encodeURIComponent(String(id))}`,
-      {
-        params: queryParameters,
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-      },
-    );
+    return this.httpClient.get<InlineResponse2007>(`${this.basePath}/datasets/${encodeURIComponent(String(id))}`, {
+      params: queryParameters,
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+    });
   }
   /**
    * Get information about a Dataset\&#39;s shape.
@@ -516,15 +457,9 @@ export class DatasetService {
     domain?: string,
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse2008>>;
-  public datasetsIdShapeGet(
-    id: string,
-    domain?: string,
-    authorization?: string,
-  ): Observable<any> {
+  public datasetsIdShapeGet(id: string, domain?: string, authorization?: string): Observable<any> {
     if (id === null || id === undefined) {
-      throw new Error(
-        'Required parameter id was null or undefined when calling datasetsIdShapeGet.',
-      );
+      throw new Error('Required parameter id was null or undefined when calling datasetsIdShapeGet.');
     }
 
     let queryParameters: any = {};
@@ -539,8 +474,7 @@ export class DatasetService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
@@ -579,15 +513,11 @@ export class DatasetService {
     authorization?: string,
   ): Observable<any> {
     if (id === null || id === undefined) {
-      throw new Error(
-        'Required parameter id was null or undefined when calling datasetsIdShapePut.',
-      );
+      throw new Error('Required parameter id was null or undefined when calling datasetsIdShapePut.');
     }
 
     if (inlineObject3 === null || inlineObject3 === undefined) {
-      throw new Error(
-        'Required parameter inlineObject3 was null or undefined when calling datasetsIdShapePut.',
-      );
+      throw new Error('Required parameter inlineObject3 was null or undefined when calling datasetsIdShapePut.');
     }
 
     let queryParameters: any = {};
@@ -602,16 +532,14 @@ export class DatasetService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected: string | undefined =
-      this.configuration.selectHeaderContentType(consumes);
+    const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
     if (httpContentTypeSelected != undefined) {
       headers['Content-Type'] = httpContentTypeSelected;
     }
@@ -639,15 +567,9 @@ export class DatasetService {
     domain?: string,
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse2009>>;
-  public datasetsIdTypeGet(
-    id: string,
-    domain?: string,
-    authorization?: string,
-  ): Observable<any> {
+  public datasetsIdTypeGet(id: string, domain?: string, authorization?: string): Observable<any> {
     if (id === null || id === undefined) {
-      throw new Error(
-        'Required parameter id was null or undefined when calling datasetsIdTypeGet.',
-      );
+      throw new Error('Required parameter id was null or undefined when calling datasetsIdTypeGet.');
     }
 
     let queryParameters: any = {};
@@ -662,22 +584,18 @@ export class DatasetService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
 
     // to determine the Content-Type header
     const consumes: string[] = [];
-    return this.httpClient.get<InlineResponse2009>(
-      `${this.basePath}/datasets/${encodeURIComponent(String(id))}/type`,
-      {
-        params: queryParameters,
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-      },
-    );
+    return this.httpClient.get<InlineResponse2009>(`${this.basePath}/datasets/${encodeURIComponent(String(id))}/type`, {
+      params: queryParameters,
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+    });
   }
   /**
    * Get values from Dataset.
@@ -708,9 +626,7 @@ export class DatasetService {
     authorization?: string,
   ): Observable<any> {
     if (id === null || id === undefined) {
-      throw new Error(
-        'Required parameter id was null or undefined when calling datasetsIdValueGet.',
-      );
+      throw new Error('Required parameter id was null or undefined when calling datasetsIdValueGet.');
     }
 
     let queryParameters: any = {};
@@ -733,12 +649,8 @@ export class DatasetService {
     }
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
-      'application/json',
-      'application/octet-stream',
-    ];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    let httpHeaderAccepts: string[] = ['application/json', 'application/octet-stream'];
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
@@ -777,15 +689,11 @@ export class DatasetService {
     authorization?: string,
   ): Observable<any> {
     if (id === null || id === undefined) {
-      throw new Error(
-        'Required parameter id was null or undefined when calling datasetsIdValuePost.',
-      );
+      throw new Error('Required parameter id was null or undefined when calling datasetsIdValuePost.');
     }
 
     if (inlineObject5 === null || inlineObject5 === undefined) {
-      throw new Error(
-        'Required parameter inlineObject5 was null or undefined when calling datasetsIdValuePost.',
-      );
+      throw new Error('Required parameter inlineObject5 was null or undefined when calling datasetsIdValuePost.');
     }
 
     let queryParameters: any = {};
@@ -800,16 +708,14 @@ export class DatasetService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected: string | undefined =
-      this.configuration.selectHeaderContentType(consumes);
+    const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
     if (httpContentTypeSelected != undefined) {
       headers['Content-Type'] = httpContentTypeSelected;
     }
@@ -846,15 +752,11 @@ export class DatasetService {
     authorization?: string,
   ): Observable<any> {
     if (id === null || id === undefined) {
-      throw new Error(
-        'Required parameter id was null or undefined when calling datasetsIdValuePut.',
-      );
+      throw new Error('Required parameter id was null or undefined when calling datasetsIdValuePut.');
     }
 
     if (inlineObject4 === null || inlineObject4 === undefined) {
-      throw new Error(
-        'Required parameter inlineObject4 was null or undefined when calling datasetsIdValuePut.',
-      );
+      throw new Error('Required parameter inlineObject4 was null or undefined when calling datasetsIdValuePut.');
     }
 
     let queryParameters: any = {};
@@ -869,16 +771,14 @@ export class DatasetService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = [];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected: string | undefined =
-      this.configuration.selectHeaderContentType(consumes);
+    const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
     if (httpContentTypeSelected != undefined) {
       headers['Content-Type'] = httpContentTypeSelected;
     }
@@ -906,15 +806,9 @@ export class DatasetService {
     domain?: string,
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse2012>>;
-  public datasetsPost(
-    inlineObject2: InlineObject2,
-    domain?: string,
-    authorization?: string,
-  ): Observable<any> {
+  public datasetsPost(inlineObject2: InlineObject2, domain?: string, authorization?: string): Observable<any> {
     if (inlineObject2 === null || inlineObject2 === undefined) {
-      throw new Error(
-        'Required parameter inlineObject2 was null or undefined when calling datasetsPost.',
-      );
+      throw new Error('Required parameter inlineObject2 was null or undefined when calling datasetsPost.');
     }
 
     let queryParameters: any = {};
@@ -929,27 +823,21 @@ export class DatasetService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected: string | undefined =
-      this.configuration.selectHeaderContentType(consumes);
+    const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
     if (httpContentTypeSelected != undefined) {
       headers['Content-Type'] = httpContentTypeSelected;
     }
-    return this.httpClient.post<InlineResponse2012>(
-      `${this.basePath}/datasets`,
-      inlineObject2,
-      {
-        params: queryParameters,
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-      },
-    );
+    return this.httpClient.post<InlineResponse2012>(`${this.basePath}/datasets`, inlineObject2, {
+      params: queryParameters,
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+    });
   }
 }

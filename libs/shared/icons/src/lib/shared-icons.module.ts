@@ -3,10 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IconComponent } from './icon/icon.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import {
-  FontAwesomeModule,
-  FaIconLibrary,
-} from '@fortawesome/angular-fontawesome';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { FaIconComponent } from './fa-icon/fa-icon.component';
 import {
   faHome,
@@ -132,21 +129,13 @@ import {
   faCss3,
   faHtml5,
 } from '@fortawesome/free-brands-svg-icons';
-import {
-  faFileAlt as farFileAlt,
-  faStar as farStar,
-} from '@fortawesome/free-regular-svg-icons';
+import { faFileAlt as farFileAlt, faStar as farStar } from '@fortawesome/free-regular-svg-icons';
 import { MatIconComponent } from './mat-icon/mat-icon.component';
 import { CCIconComponent } from './cc-icon/cc-icon.component';
 export { BiosimulationsIcon } from './icon/icon.component';
 @NgModule({
   imports: [CommonModule, MatIconModule, FontAwesomeModule, MatSnackBarModule],
-  declarations: [
-    IconComponent,
-    FaIconComponent,
-    MatIconComponent,
-    CCIconComponent,
-  ],
+  declarations: [IconComponent, FaIconComponent, MatIconComponent, CCIconComponent],
   exports: [IconComponent],
   schemas: [NO_ERRORS_SCHEMA],
 })

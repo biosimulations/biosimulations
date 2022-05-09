@@ -3,12 +3,9 @@
     <markdown [src]="agreementUrl"></markdown>
   </mat-card>
 
-  <mat-checkbox
-    [disabled]="isDisabled"
-    [checked]="agreed"
-    (change)="toggleAgreed($event)"
-    >{{ checkboxMessage }}</mat-checkbox
-  >
+  <mat-checkbox [disabled]="isDisabled" [checked]="agreed" (change)="toggleAgreed($event)">{{
+    checkboxMessage
+  }}</mat-checkbox>
   <biosimulations-debug-viewer fxFlex="auto">
     {{ this.agreed }}
   </biosimulations-debug-viewer>

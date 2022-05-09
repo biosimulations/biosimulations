@@ -1,11 +1,4 @@
-import {
-  Component,
-  ViewChild,
-  ElementRef,
-  Input,
-  AfterViewInit,
-  OnDestroy,
-} from '@angular/core';
+import { Component, ViewChild, ElementRef, Input, AfterViewInit, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Spec } from 'vega';
 import vegaEmbed from 'vega-embed';
@@ -84,9 +77,7 @@ export class VegaVisualizationComponent implements AfterViewInit, OnDestroy {
       return;
     }
 
-    const rect = this.getBoundingClientRect(
-      this.hostElement.nativeElement.parentElement,
-    );
+    const rect = this.getBoundingClientRect(this.hostElement.nativeElement.parentElement);
     if (!rect) {
       return;
     }
@@ -105,10 +96,7 @@ export class VegaVisualizationComponent implements AfterViewInit, OnDestroy {
       }
     });
 
-    console.warn = function (
-      this: VegaVisualizationComponent,
-      ...args: any[]
-    ): void {
+    console.warn = function (this: VegaVisualizationComponent, ...args: any[]): void {
       if (
         args.length === 4 &&
         args[0] == 'WARN' &&
@@ -133,12 +121,7 @@ export class VegaVisualizationComponent implements AfterViewInit, OnDestroy {
 
   private getBoundingClientRect(element: HTMLElement): ClientRect | null {
     const rect = element.getBoundingClientRect();
-    if (
-      rect?.width === null ||
-      rect?.width === 0 ||
-      rect?.height === null ||
-      rect?.height === 0
-    ) {
+    if (rect?.width === null || rect?.width === 0 || rect?.height === null || rect?.height === 0) {
       return null;
     } else {
       return rect;

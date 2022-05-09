@@ -2,12 +2,7 @@ import { Component, OnInit, OnChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { tap } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  FormControl,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { RegistrationService } from './registration.service';
 
@@ -28,12 +23,9 @@ export class RegistrationComponent implements OnInit, OnChanges {
   // TODO use a common config library for these
   // TODO: replace with biosimulations-terms-of-service, biosimulations-privacy-policy OR links to https://docs.biosimulations.org/about/terms/ and https://docs.biosimulations.org/about/privacy/
   // TODO: CODE_OF_CONDUCT.md is for developers, rather than for users. This should be removed or replaced with a code of conduct for users
-  ccUrl =
-    'https://raw.githubusercontent.com/biosimulations/biosimulations/dev/docs/developers/conduct.md';
-  tosUrl =
-    'https://raw.githubusercontent.com/biosimulations/biosimulations/dev/docs/about/terms.md';
-  ppoUrl =
-    'https://raw.githubusercontent.com/biosimulations/biosimulations/dev/docs/about/privacy.md';
+  ccUrl = 'https://raw.githubusercontent.com/biosimulations/biosimulations/dev/docs/developers/conduct.md';
+  tosUrl = 'https://raw.githubusercontent.com/biosimulations/biosimulations/dev/docs/about/terms.md';
+  ppoUrl = 'https://raw.githubusercontent.com/biosimulations/biosimulations/dev/docs/about/privacy.md';
 
   // TODO: get from app config
   aboutUrl = 'mailto:' + 'info@biosimulations.org';
@@ -49,11 +41,7 @@ export class RegistrationComponent implements OnInit, OnChanges {
     private formBuilder: FormBuilder,
     private registrationService: RegistrationService,
   ) {
-    this.userNameForm = new FormControl(
-      '',
-      Validators.required,
-      this.registrationService.uniqueUsernameAsyncValidator,
-    );
+    this.userNameForm = new FormControl('', Validators.required, this.registrationService.uniqueUsernameAsyncValidator);
 
     this.termsAndConditionsForm = this.formBuilder.group({
       tos: ['', Validators.requiredTrue],

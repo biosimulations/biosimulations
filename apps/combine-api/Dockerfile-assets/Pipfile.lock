@@ -17,15 +17,11 @@
   },
   "default": {
     "airspeed": {
-      "hashes": [
-        "sha256:c06015328b38766d2e85d97cfc351aaaf11aa7ba559e93e90b1ae38b04dafbf1"
-      ],
+      "hashes": ["sha256:c06015328b38766d2e85d97cfc351aaaf11aa7ba559e93e90b1ae38b04dafbf1"],
       "version": "==0.5.18"
     },
     "amici": {
-      "hashes": [
-        "sha256:a56f945ca6dc7179c326c95fbfcf43e2c3f3a72cfbf4db8eb4f2811aa8046f8b"
-      ],
+      "hashes": ["sha256:a56f945ca6dc7179c326c95fbfcf43e2c3f3a72cfbf4db8eb4f2811aa8046f8b"],
       "index": "pypi",
       "version": "==0.11.21"
     },
@@ -276,15 +272,7 @@
       "version": "==0.1.25"
     },
     "biosimulators-utils": {
-      "extras": [
-        "bngl",
-        "cellml",
-        "lems",
-        "logging",
-        "neuroml",
-        "sbml",
-        "smoldyn"
-      ],
+      "extras": ["bngl", "cellml", "lems", "logging", "neuroml", "sbml", "smoldyn"],
       "hashes": [
         "sha256:1eda4fa97fc8e5d1f2f19a05e63ba45cba07d1973112f39dcafe091feb1503a8",
         "sha256:646486a77cadb1d0a48be23aaea70d5d68e5d521300f23fe301245ad72dc347a"
@@ -656,9 +644,7 @@
       "version": "==1.1.0"
     },
     "evalidate": {
-      "hashes": [
-        "sha256:f2211a4a5e4451d49e47d1b78efe0b3a7d460f5bdaf081024fa10a9e51c1cefe"
-      ],
+      "hashes": ["sha256:f2211a4a5e4451d49e47d1b78efe0b3a7d460f5bdaf081024fa10a9e51c1cefe"],
       "version": "==0.7.8"
     },
     "executing": {
@@ -720,9 +706,7 @@
       "version": "==4.29.1"
     },
     "future": {
-      "hashes": [
-        "sha256:b1bead90b70cf6ec3f0710ae53a525360fa360d306a86583adc6bf83a4db537d"
-      ],
+      "hashes": ["sha256:b1bead90b70cf6ec3f0710ae53a525360fa360d306a86583adc6bf83a4db537d"],
       "markers": "python_version >= '2.6' and python_version not in '3.0, 3.1, 3.2, 3.3'",
       "version": "==0.18.2"
     },
@@ -741,9 +725,7 @@
       "version": "==0.4.4"
     },
     "glpk": {
-      "hashes": [
-        "sha256:8739fcf6513c2f225ac525c2a43c89f10de27b546983e7900235ea87c85a1b74"
-      ],
+      "hashes": ["sha256:8739fcf6513c2f225ac525c2a43c89f10de27b546983e7900235ea87c85a1b74"],
       "version": "==0.4.6"
     },
     "graphviz": {
@@ -1290,9 +1272,7 @@
       "version": "==1.5.4"
     },
     "netpyne": {
-      "hashes": [
-        "sha256:af5d993efa6167acad6fbad05f72e2a21e93141221e07ef3a62fb857f52b331d"
-      ],
+      "hashes": ["sha256:af5d993efa6167acad6fbad05f72e2a21e93141221e07ef3a62fb857f52b331d"],
       "version": "==1.0.0.2"
     },
     "networkx": {
@@ -1771,9 +1751,7 @@
       "version": "==0.5.9"
     },
     "pylru": {
-      "hashes": [
-        "sha256:492f934bb98dc6c8b2370c02c95c65516ddc08c8f64d27f70087eb038621d297"
-      ],
+      "hashes": ["sha256:492f934bb98dc6c8b2370c02c95c65516ddc08c8f64d27f70087eb038621d297"],
       "version": "==1.2.0"
     },
     "pyneuroml": {
@@ -2541,9 +2519,7 @@
       "version": "==0.2.0"
     },
     "stringcase": {
-      "hashes": [
-        "sha256:48a06980661908efe8d9d34eab2b6c13aefa2163b3ced26972902e3bdfd87008"
-      ],
+      "hashes": ["sha256:48a06980661908efe8d9d34eab2b6c13aefa2163b3ced26972902e3bdfd87008"],
       "index": "pypi",
       "version": "==1.2.0"
     },
@@ -2606,9 +2582,7 @@
       "version": "==0.8.9"
     },
     "tellurium": {
-      "hashes": [
-        "sha256:e629d7034fd94db9107503963eca15d3d5b42d784d041b8334fe8235bfc4e994"
-      ],
+      "hashes": ["sha256:e629d7034fd94db9107503963eca15d3d5b42d784d041b8334fe8235bfc4e994"],
       "version": "==2.2.2.1"
     },
     "tenacity": {
@@ -2620,9 +2594,7 @@
       "version": "==8.0.1"
     },
     "termcolor": {
-      "hashes": [
-        "sha256:1d6d69ce66211143803fbc56652b41d73b4a400a2891d7bf7a1cdf4c02de613b"
-      ],
+      "hashes": ["sha256:1d6d69ce66211143803fbc56652b41d73b4a400a2891d7bf7a1cdf4c02de613b"],
       "version": "==1.1.0"
     },
     "terminado": {
@@ -3033,9 +3005,7 @@
       "version": "==0.8.1"
     },
     "parse": {
-      "hashes": [
-        "sha256:9ff82852bcb65d139813e2a5197627a94966245c897796760a3a2a8eb66f020b"
-      ],
+      "hashes": ["sha256:9ff82852bcb65d139813e2a5197627a94966245c897796760a3a2a8eb66f020b"],
       "version": "==1.19.0"
     },
     "pluggy": {

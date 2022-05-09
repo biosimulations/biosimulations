@@ -26,10 +26,7 @@ export class ACLSService {
   public defaultHeaders: Record<string, string> = {};
   public configuration = new Configuration();
 
-  constructor(
-    protected httpClient: HttpService,
-    @Optional() configuration: Configuration,
-  ) {
+  constructor(protected httpClient: HttpService, @Optional() configuration: Configuration) {
     this.configuration = configuration || this.configuration;
     this.basePath = configuration?.basePath || this.basePath;
   }
@@ -51,10 +48,7 @@ export class ACLSService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public aclsGet(
-    domain?: string,
-    authorization?: string,
-  ): Observable<AxiosResponse<InlineResponse20016>>;
+  public aclsGet(domain?: string, authorization?: string): Observable<AxiosResponse<InlineResponse20016>>;
   public aclsGet(domain?: string, authorization?: string): Observable<any> {
     let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
@@ -68,8 +62,7 @@ export class ACLSService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
@@ -96,15 +89,9 @@ export class ACLSService {
     domain?: string,
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse20017>>;
-  public aclsUserGet(
-    user: string,
-    domain?: string,
-    authorization?: string,
-  ): Observable<any> {
+  public aclsUserGet(user: string, domain?: string, authorization?: string): Observable<any> {
     if (user === null || user === undefined) {
-      throw new Error(
-        'Required parameter user was null or undefined when calling aclsUserGet.',
-      );
+      throw new Error('Required parameter user was null or undefined when calling aclsUserGet.');
     }
 
     let queryParameters: any = {};
@@ -119,22 +106,18 @@ export class ACLSService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
 
     // to determine the Content-Type header
     const consumes: string[] = [];
-    return this.httpClient.get<InlineResponse20017>(
-      `${this.basePath}/acls/${encodeURIComponent(String(user))}`,
-      {
-        params: queryParameters,
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-      },
-    );
+    return this.httpClient.get<InlineResponse20017>(`${this.basePath}/acls/${encodeURIComponent(String(user))}`, {
+      params: queryParameters,
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+    });
   }
   /**
    * Set user\&#39;s access to the Domain.
@@ -159,15 +142,11 @@ export class ACLSService {
     authorization?: string,
   ): Observable<any> {
     if (user === null || user === undefined) {
-      throw new Error(
-        'Required parameter user was null or undefined when calling aclsUserPut.',
-      );
+      throw new Error('Required parameter user was null or undefined when calling aclsUserPut.');
     }
 
     if (inlineObject7 === null || inlineObject7 === undefined) {
-      throw new Error(
-        'Required parameter inlineObject7 was null or undefined when calling aclsUserPut.',
-      );
+      throw new Error('Required parameter inlineObject7 was null or undefined when calling aclsUserPut.');
     }
 
     let queryParameters: any = {};
@@ -182,16 +161,14 @@ export class ACLSService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
 
     // to determine the Content-Type header
     const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected: string | undefined =
-      this.configuration.selectHeaderContentType(consumes);
+    const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
     if (httpContentTypeSelected != undefined) {
       headers['Content-Type'] = httpContentTypeSelected;
     }
@@ -219,15 +196,9 @@ export class ACLSService {
     domain?: string,
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse20016>>;
-  public datasetsIdAclsGet(
-    id: string,
-    domain?: string,
-    authorization?: string,
-  ): Observable<any> {
+  public datasetsIdAclsGet(id: string, domain?: string, authorization?: string): Observable<any> {
     if (id === null || id === undefined) {
-      throw new Error(
-        'Required parameter id was null or undefined when calling datasetsIdAclsGet.',
-      );
+      throw new Error('Required parameter id was null or undefined when calling datasetsIdAclsGet.');
     }
 
     let queryParameters: any = {};
@@ -242,8 +213,7 @@ export class ACLSService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
@@ -273,15 +243,9 @@ export class ACLSService {
     domain?: string,
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse20018>>;
-  public datatypesIdAclsGet(
-    id: string,
-    domain?: string,
-    authorization?: string,
-  ): Observable<any> {
+  public datatypesIdAclsGet(id: string, domain?: string, authorization?: string): Observable<any> {
     if (id === null || id === undefined) {
-      throw new Error(
-        'Required parameter id was null or undefined when calling datatypesIdAclsGet.',
-      );
+      throw new Error('Required parameter id was null or undefined when calling datatypesIdAclsGet.');
     }
 
     let queryParameters: any = {};
@@ -296,8 +260,7 @@ export class ACLSService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
@@ -327,15 +290,9 @@ export class ACLSService {
     domain?: string,
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse20016>>;
-  public groupsIdAclsGet(
-    id: string,
-    domain?: string,
-    authorization?: string,
-  ): Observable<any> {
+  public groupsIdAclsGet(id: string, domain?: string, authorization?: string): Observable<any> {
     if (id === null || id === undefined) {
-      throw new Error(
-        'Required parameter id was null or undefined when calling groupsIdAclsGet.',
-      );
+      throw new Error('Required parameter id was null or undefined when calling groupsIdAclsGet.');
     }
 
     let queryParameters: any = {};
@@ -350,22 +307,18 @@ export class ACLSService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
 
     // to determine the Content-Type header
     const consumes: string[] = [];
-    return this.httpClient.get<InlineResponse20016>(
-      `${this.basePath}/groups/${encodeURIComponent(String(id))}/acls`,
-      {
-        params: queryParameters,
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-      },
-    );
+    return this.httpClient.get<InlineResponse20016>(`${this.basePath}/groups/${encodeURIComponent(String(id))}/acls`, {
+      params: queryParameters,
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+    });
   }
   /**
    * Get users\&#39;s access to a Group.
@@ -383,22 +336,13 @@ export class ACLSService {
     domain?: string,
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse20017>>;
-  public groupsIdAclsUserGet(
-    id: string,
-    user: string,
-    domain?: string,
-    authorization?: string,
-  ): Observable<any> {
+  public groupsIdAclsUserGet(id: string, user: string, domain?: string, authorization?: string): Observable<any> {
     if (id === null || id === undefined) {
-      throw new Error(
-        'Required parameter id was null or undefined when calling groupsIdAclsUserGet.',
-      );
+      throw new Error('Required parameter id was null or undefined when calling groupsIdAclsUserGet.');
     }
 
     if (user === null || user === undefined) {
-      throw new Error(
-        'Required parameter user was null or undefined when calling groupsIdAclsUserGet.',
-      );
+      throw new Error('Required parameter user was null or undefined when calling groupsIdAclsUserGet.');
     }
 
     let queryParameters: any = {};
@@ -413,8 +357,7 @@ export class ACLSService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
@@ -422,9 +365,7 @@ export class ACLSService {
     // to determine the Content-Type header
     const consumes: string[] = [];
     return this.httpClient.get<InlineResponse20017>(
-      `${this.basePath}/groups/${encodeURIComponent(
-        String(id),
-      )}/acls/${encodeURIComponent(String(user))}`,
+      `${this.basePath}/groups/${encodeURIComponent(String(id))}/acls/${encodeURIComponent(String(user))}`,
       {
         params: queryParameters,
         withCredentials: this.configuration.withCredentials,

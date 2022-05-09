@@ -45,54 +45,34 @@ describe('Endpoints', () => {
 
   it('Should return external endpoints when external flag is true', () => {
     expect(endpoints.getApiBaseUrl(true)).toBe('externalApi');
-    expect(endpoints.getSimulatorsApiBaseUrl(true)).toBe(
-      'externalSimulatorsApi',
-    );
+    expect(endpoints.getSimulatorsApiBaseUrl(true)).toBe('externalSimulatorsApi');
     expect(endpoints.getCombineApiBaseUrl(true)).toBe('externalCombineApi');
 
     expect(endpoints.getDataServiceBaseUrl(true)).toBe('externalDataService');
   });
 
   it('Should return correct ontology url based on app', () => {
-    expect(endpoints.getOntologyEndpoint('simulators', true)).toBe(
-      'externalSimulatorsApi/ontologies',
-    );
-    expect(endpoints.getOntologyEndpoint('simulations', true)).toBe(
-      'externalApi/ontologies',
-    );
+    expect(endpoints.getOntologyEndpoint('simulators', true)).toBe('externalSimulatorsApi/ontologies');
+    expect(endpoints.getOntologyEndpoint('simulations', true)).toBe('externalApi/ontologies');
   });
 
   it('Should return correct ontology url for ontology name', () => {
-    expect(endpoints.getOntologyEndpoint('simulators', true, 'KISAO')).toBe(
-      'externalSimulatorsApi/ontologies/KISAO',
-    );
+    expect(endpoints.getOntologyEndpoint('simulators', true, 'KISAO')).toBe('externalSimulatorsApi/ontologies/KISAO');
   });
 
   it('Should return correct ontology url for ontology term', () => {
-    expect(
-      endpoints.getOntologyEndpoint(
-        'simulators',
-        true,
-        'KISAO',
-        'KISAO_0000019',
-      ),
-    ).toBe('externalSimulatorsApi/ontologies/KISAO/KISAO_0000019');
+    expect(endpoints.getOntologyEndpoint('simulators', true, 'KISAO', 'KISAO_0000019')).toBe(
+      'externalSimulatorsApi/ontologies/KISAO/KISAO_0000019',
+    );
   });
 
   it('Should return throw error for ontology term without ontology name', () => {
     expect(() => {
-      endpoints.getOntologyEndpoint(
-        'simulators',
-        true,
-        undefined,
-        'KISAO_0000019',
-      );
+      endpoints.getOntologyEndpoint('simulators', true, undefined, 'KISAO_0000019');
     }).toThrow('Cannot get a term without an ontology id');
   });
 
   it('Should return correct ontology url for ontology terms', () => {
-    expect(endpoints.getOntologyTermsEndpoint('simulators', true)).toBe(
-      'externalSimulatorsApi/ontologies/terms',
-    );
+    expect(endpoints.getOntologyTermsEndpoint('simulators', true)).toBe('externalSimulatorsApi/ontologies/terms');
   });
 });

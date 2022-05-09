@@ -14,14 +14,8 @@
     [lazyLoad]="true"
     slideHeight="100%"
     [maintainAspectRatio]="false"
-    *ngIf="images.length > 1; else singleThumbnail"
-  >
-    <mat-carousel-slide
-      [hideOverlay]="true"
-      *ngFor="let thumbnail of images"
-      [image]="thumbnail"
-    >
-    </mat-carousel-slide>
+    *ngIf="images.length > 1; else singleThumbnail">
+    <mat-carousel-slide [hideOverlay]="true" *ngFor="let thumbnail of images" [image]="thumbnail"> </mat-carousel-slide>
   </mat-carousel>
   <ng-template #singleThumbnail>
     <img [src]="images[0]" />

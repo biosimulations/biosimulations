@@ -4,24 +4,21 @@
       mat-icon-button
       class="biosimulations-button primary"
       title="Export simulations"
-      (click)="exportSimulations()"
-    >
+      (click)="exportSimulations()">
       <biosimulations-icon icon="download"></biosimulations-icon>
     </button>
     <button
       mat-icon-button
       class="biosimulations-button primary"
       title="Import simulations"
-      (click)="importSimulations()"
-    >
+      (click)="importSimulations()">
       <biosimulations-icon icon="upload"></biosimulations-icon>
     </button>
     <button
       mat-icon-button
       class="biosimulations-button primary"
       title="Delete all simulations"
-      (click)="removeSimulations()"
-    >
+      (click)="removeSimulations()">
       <biosimulations-icon icon="trash"></biosimulations-icon>
     </button>
   </ng-container>
@@ -34,6 +31,5 @@
     [getStackedHeading]="getStackedHeading"
     [getStackedHeadingMoreInfoRouterLink]="getStackedHeadingMoreInfoRouterLink"
     searchPlaceHolder="Query (e.g., scan)"
-    searchToolTip="Enter a query such as 'queued'. By default, your query will be searched over all columns. To search over a specific column, prefix your query with the heading of the column (with spaces replaced by dashes) such as 'last-updated: 2020'. Please see the FAQs for more information."
-  ></biosimulations-responsive-table>
+    searchToolTip="Enter a query such as 'queued'. By default, your query will be searched over all columns. To search over a specific column, prefix your query with the heading of the column (with spaces replaced by dashes) such as 'last-updated: 2020'. Please see the FAQs for more information."></biosimulations-responsive-table>
 </biosimulations-page>

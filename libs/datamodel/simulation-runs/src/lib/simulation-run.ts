@@ -1,10 +1,5 @@
 import { LabeledIdentifier } from '@biosimulations/datamodel/api';
-import {
-  SedDataSet,
-  PlotlyDataLayout,
-  SimulationRunOutputDatum,
-  SedReport,
-} from '@biosimulations/datamodel/common';
+import { SedDataSet, PlotlyDataLayout, SimulationRunOutputDatum, SedReport } from '@biosimulations/datamodel/common';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Spec as VegaSpec } from 'vega';
@@ -121,15 +116,9 @@ export interface Line2DVisualization {
   enabled: boolean;
 }
 
-export type DesignVisualization =
-  | Histogram1DVisualization
-  | Heatmap2DVisualization
-  | Line2DVisualization;
+export type DesignVisualization = Histogram1DVisualization | Heatmap2DVisualization | Line2DVisualization;
 
-export type Visualization =
-  | VegaVisualization
-  | SedPlot2DVisualization
-  | DesignVisualization;
+export type Visualization = VegaVisualization | SedPlot2DVisualization | DesignVisualization;
 
 export interface VisualizationList {
   title: string;

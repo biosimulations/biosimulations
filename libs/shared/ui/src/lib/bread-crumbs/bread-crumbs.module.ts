@@ -16,17 +16,7 @@ import { SharedAngularModule } from '@biosimulations/shared/angular';
     BreadCrumbsButtonComponent,
     BreadCrumbsPositionComponent,
   ],
-  imports: [
-    CommonModule,
-    MaterialWrapperModule,
-    RouterModule,
-    BiosimulationsIconsModule,
-    SharedAngularModule,
-  ],
-  exports: [
-    BreadCrumbsComponent,
-    BreadCrumbsButtonComponent,
-    BreadCrumbsPositionComponent,
-  ],
+  imports: [CommonModule, MaterialWrapperModule, RouterModule, BiosimulationsIconsModule, SharedAngularModule],
+  exports: [BreadCrumbsComponent, BreadCrumbsButtonComponent, BreadCrumbsPositionComponent],
 })
 export class BreadCrumbsModule {}

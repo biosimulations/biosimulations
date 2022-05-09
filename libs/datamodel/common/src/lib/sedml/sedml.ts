@@ -113,8 +113,7 @@ export interface SedComputeModelChange {
   math: string;
 }
 
-export interface SerializedSedComputeModelChange
-  extends Omit<SedComputeModelChange, 'variables'> {
+export interface SerializedSedComputeModelChange extends Omit<SedComputeModelChange, 'variables'> {
   variables: SerializedSedVariable[];
 }
 
@@ -193,14 +192,8 @@ export interface SedOneStepSimulation {
   algorithm: SedAlgorithm;
 }
 
-export type SedSimulation =
-  | SedUniformTimeCourseSimulation
-  | SedSteadyStateSimulation
-  | SedOneStepSimulation;
-export type SerializedSedSimulation =
-  | SedUniformTimeCourseSimulation
-  | SedSteadyStateSimulation
-  | SedOneStepSimulation;
+export type SedSimulation = SedUniformTimeCourseSimulation | SedSteadyStateSimulation | SedOneStepSimulation;
+export type SerializedSedSimulation = SedUniformTimeCourseSimulation | SedSteadyStateSimulation | SedOneStepSimulation;
 
 export interface SedTask {
   _type: 'SedTask';
@@ -210,8 +203,7 @@ export interface SedTask {
   simulation: SedSimulation;
 }
 
-export interface SerializedSedTask
-  extends Omit<SedTask, 'model' | 'simulation'> {
+export interface SerializedSedTask extends Omit<SedTask, 'model' | 'simulation'> {
   model: string;
   simulation: string;
 }
@@ -232,8 +224,7 @@ export interface SedFunctionalRange {
   math: string;
 }
 
-export interface SerializedSedFunctionalRange
-  extends Omit<SedFunctionalRange, 'range' | 'variables'> {
+export interface SerializedSedFunctionalRange extends Omit<SedFunctionalRange, 'range' | 'variables'> {
   range: string;
   variables: SerializedSedVariable[];
 }
@@ -261,10 +252,7 @@ export interface SedVectorRange {
 }
 
 export type SedRange = SedFunctionalRange | SedUniformRange | SedVectorRange;
-export type SerializedSedRange =
-  | SerializedSedFunctionalRange
-  | SedUniformRange
-  | SedVectorRange;
+export type SerializedSedRange = SerializedSedFunctionalRange | SedUniformRange | SedVectorRange;
 
 export interface SedSetValueComputeModelChange {
   _type: 'SedSetValueComputeModelChange';
@@ -302,8 +290,7 @@ export interface SedRepeatedTask {
   subTasks: SedSubTask[];
 }
 
-export interface SerializedSedRepeatedTask
-  extends Omit<SedRepeatedTask, 'ranges' | 'range' | 'changes' | 'subTasks'> {
+export interface SerializedSedRepeatedTask extends Omit<SedRepeatedTask, 'ranges' | 'range' | 'changes' | 'subTasks'> {
   ranges: SerializedSedRange[];
   range: string;
   changes: SerializedSedSetValueComputeModelChange[];
@@ -311,9 +298,7 @@ export interface SerializedSedRepeatedTask
 }
 
 export type SedAbstractTask = SedTask | SedRepeatedTask;
-export type SerializedSedAbstractTask =
-  | SerializedSedTask
-  | SerializedSedRepeatedTask;
+export type SerializedSedAbstractTask = SerializedSedTask | SerializedSedRepeatedTask;
 
 export interface SedParameter {
   _type: 'SedParameter';
@@ -332,8 +317,7 @@ export interface SedVariable {
   model?: SedModel;
 }
 
-export interface SerializedSedVariable
-  extends Omit<SedVariable, 'task' | 'model'> {
+export interface SerializedSedVariable extends Omit<SedVariable, 'task' | 'model'> {
   task: string;
   model?: string;
 }
@@ -347,8 +331,7 @@ export interface SedDataGenerator {
   math: string;
 }
 
-export interface SerializedSedDataGenerator
-  extends Omit<SedDataGenerator, 'variables'> {
+export interface SerializedSedDataGenerator extends Omit<SedDataGenerator, 'variables'> {
   variables: SerializedSedVariable[];
 }
 
@@ -360,8 +343,7 @@ export interface SedDataSet {
   dataGenerator: SedDataGenerator;
 }
 
-export interface SerializedSedDataSet
-  extends Omit<SedDataSet, 'dataGenerator'> {
+export interface SerializedSedDataSet extends Omit<SedDataSet, 'dataGenerator'> {
   dataGenerator: string;
 }
 
@@ -390,8 +372,7 @@ export interface SedCurve {
   style?: SedStyle;
 }
 
-export interface SerializedSedCurve
-  extends Omit<SedCurve, 'xDataGenerator' | 'yDataGenerator' | 'style'> {
+export interface SerializedSedCurve extends Omit<SedCurve, 'xDataGenerator' | 'yDataGenerator' | 'style'> {
   xDataGenerator: string;
   yDataGenerator: string;
   style?: string;
@@ -421,10 +402,7 @@ export interface SedSurface {
 }
 
 export interface SerializedSedSurface
-  extends Omit<
-    SedSurface,
-    'xDataGenerator' | 'yDataGenerator' | 'zDataGenerator' | 'style'
-  > {
+  extends Omit<SedSurface, 'xDataGenerator' | 'yDataGenerator' | 'zDataGenerator' | 'style'> {
   xDataGenerator: string;
   yDataGenerator: string;
   zDataGenerator: string;
@@ -446,10 +424,7 @@ export interface SerializedSedPlot3D extends Omit<SedPlot3D, 'surfaces'> {
 }
 
 export type SedOutput = SedReport | SedPlot2D | SedPlot3D;
-export type SerializedSedOutput =
-  | SerializedSedReport
-  | SerializedSedPlot2D
-  | SerializedSedPlot3D;
+export type SerializedSedOutput = SerializedSedReport | SerializedSedPlot2D | SerializedSedPlot3D;
 
 export interface SedDocument {
   _type: 'SedDocument';
@@ -464,10 +439,7 @@ export interface SedDocument {
 }
 
 export interface SerializedSedDocument
-  extends Omit<
-    SedDocument,
-    'styles' | 'models' | 'simulations' | 'tasks' | 'dataGenerators' | 'outputs'
-  > {
+  extends Omit<SedDocument, 'styles' | 'models' | 'simulations' | 'tasks' | 'dataGenerators' | 'outputs'> {
   styles: SerializedSedStyle[];
   models: SerializedSedModel[];
   simulations: SerializedSedSimulation[];

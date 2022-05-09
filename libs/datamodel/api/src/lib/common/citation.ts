@@ -1,20 +1,14 @@
 import { Citation as IJournalReference } from '@biosimulations/datamodel/common';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import {
-  IsString,
-  IsOptional,
-  IsNumber,
-  ValidateNested,
-} from 'class-validator';
+import { IsString, IsOptional, IsNumber, ValidateNested } from 'class-validator';
 import { Identifier } from './ontology.dto';
 
 export class Citation implements IJournalReference {
   @IsString()
   @ApiProperty({
     type: String,
-    example:
-      'Bilal Shaikh, Gnaneswara Marupilla, Mike Wilson, Michael L Blinov, Ion I Moraru, Jonathan R Karr',
+    example: 'Bilal Shaikh, Gnaneswara Marupilla, Mike Wilson, Michael L Blinov, Ion I Moraru, Jonathan R Karr',
   })
   public authors!: string;
 

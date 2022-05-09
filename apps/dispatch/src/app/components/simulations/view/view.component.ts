@@ -16,11 +16,7 @@ import { SimulationService } from '../../../services/simulation/simulation.servi
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { ViewService as SharedViewService } from '@biosimulations/simulation-runs/service';
 import { ViewService } from './view.service';
-import {
-  Simulation,
-  UnknownSimulation,
-  isUnknownSimulation,
-} from '../../../datamodel';
+import { Simulation, UnknownSimulation, isUnknownSimulation } from '../../../datamodel';
 import { FormattedSimulation } from './view.model';
 import { SimulationLogs } from '../../../simulation-logs-datamodel';
 import { SimulationStatusService } from '../../../services/simulation/simulation-status.service';
@@ -47,17 +43,13 @@ export class ViewComponent implements OnInit {
 
   public formattedSimulation$!: Observable<FormattedSimulation>;
 
-  public projectMetadata$!: Observable<
-    ProjectMetadata | null | undefined | false
-  >;
+  public projectMetadata$!: Observable<ProjectMetadata | null | undefined | false>;
 
   public projectFiles$!: Observable<Path[] | null | undefined | false>;
   public files$!: Observable<Path[] | null | undefined | false>;
   public outputs$!: Observable<File[] | null | undefined | false>;
 
-  public visualizations$!: Observable<
-    VisualizationList[] | null | undefined | false
-  >;
+  public visualizations$!: Observable<VisualizationList[] | null | undefined | false>;
   public visualization: Visualization | null = null;
 
   public logs$!: Observable<SimulationLogs | null | undefined | false>;
@@ -83,10 +75,7 @@ export class ViewComponent implements OnInit {
 
   public ngOnInit(): void {
     const id = (this.id = this.route.snapshot.params['uuid']);
-    this.archiveUrl = this.endpoints.getSimulationRunDownloadEndpoint(
-      false,
-      id,
-    );
+    this.archiveUrl = this.endpoints.getSimulationRunDownloadEndpoint(false, id);
 
     this.initSimulationRun();
 
@@ -96,10 +85,7 @@ export class ViewComponent implements OnInit {
           () => completed,
           this.simulationRunService.getSimulationRunSummary(id).pipe(
             map((simulationRunSummary) =>
-              this.sharedViewService.getFormattedProjectMetadata(
-                simulationRunSummary.name,
-                simulationRunSummary,
-              ),
+              this.sharedViewService.getFormattedProjectMetadata(simulationRunSummary.name, simulationRunSummary),
             ),
             shareReplay(1),
           ),
@@ -120,11 +106,7 @@ export class ViewComponent implements OnInit {
         iif(
           () => completed,
           this.simulationRunService.getSimulationRunSummary(id).pipe(
-            map((simulationRunSummary) =>
-              this.sharedViewService.getFormattedProjectFiles(
-                simulationRunSummary,
-              ),
-            ),
+            map((simulationRunSummary) => this.sharedViewService.getFormattedProjectFiles(simulationRunSummary)),
             shareReplay(1),
           ),
           of(null),
@@ -144,11 +126,7 @@ export class ViewComponent implements OnInit {
         iif(
           () => completed,
           this.simulationRunService.getSimulationRunSummary(id).pipe(
-            map((simulationRunSummary) =>
-              this.sharedViewService.getFormattedProjectContentFiles(
-                simulationRunSummary,
-              ),
-            ),
+            map((simulationRunSummary) => this.sharedViewService.getFormattedProjectContentFiles(simulationRunSummary)),
             concatAll(),
             shareReplay(1),
           ),
@@ -169,11 +147,7 @@ export class ViewComponent implements OnInit {
         iif(
           () => completed,
           this.simulationRunService.getSimulationRunSummary(id).pipe(
-            map((simulationRunSummary) =>
-              this.sharedViewService.getFormattedOutputFiles(
-                simulationRunSummary,
-              ),
-            ),
+            map((simulationRunSummary) => this.sharedViewService.getFormattedOutputFiles(simulationRunSummary)),
             shareReplay(1),
           ),
           of(null),
@@ -189,13 +163,7 @@ export class ViewComponent implements OnInit {
     );
 
     this.visualizations$ = this.statusCompleted$.pipe(
-      mergeMap((completed) =>
-        iif(
-          () => completed,
-          this.sharedViewService.getVisualizations(id),
-          of(null),
-        ),
-      ),
+      mergeMap((completed) => iif(() => completed, this.sharedViewService.getVisualizations(id), of(null))),
       catchError((error: HttpErrorResponse): Observable<false> => {
         if (!environment.production) {
           console.error(error);
@@ -206,24 +174,14 @@ export class ViewComponent implements OnInit {
     );
 
     this.logs$ = this.statusCompleted$.pipe(
-      mergeMap((completed) =>
-        iif(
-          () => completed,
-          this.dispatchService.getSimulationLogs(id),
-          of(null),
-        ),
-      ),
+      mergeMap((completed) => iif(() => completed, this.dispatchService.getSimulationLogs(id), of(null))),
       shareReplay(1),
     );
 
-    this.jsonLdData$ = this.simulationRunService
-      .getSimulationRunSummary(id)
-      .pipe(
-        map((simulationRunSummary) =>
-          this.sharedViewService.getJsonLdData(simulationRunSummary),
-        ),
-        shareReplay(1),
-      );
+    this.jsonLdData$ = this.simulationRunService.getSimulationRunSummary(id).pipe(
+      map((simulationRunSummary) => this.sharedViewService.getJsonLdData(simulationRunSummary)),
+      shareReplay(1),
+    );
 
     this.resultsLoaded$ = combineLatest([
       this.statusCompleted$,
@@ -278,9 +236,7 @@ export class ViewComponent implements OnInit {
     );
 
     this.formattedSimulation$ = this.simulation$.pipe(
-      map<Simulation, FormattedSimulation>(
-        this.viewService.formatSimulation.bind(this.viewService),
-      ),
+      map<Simulation, FormattedSimulation>(this.viewService.formatSimulation.bind(this.viewService)),
       shareReplay(1),
     );
 

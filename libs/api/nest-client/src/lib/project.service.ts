@@ -12,11 +12,7 @@ export class ProjectService {
   private endpoints: Endpoints;
   private logger = new Logger(ProjectService.name);
 
-  public constructor(
-    private auth: AuthClientService,
-    private http: HttpService,
-    private configService: ConfigService,
-  ) {
+  public constructor(private auth: AuthClientService, private http: HttpService, private configService: ConfigService) {
     const env = this.configService.get('server.env');
     this.endpoints = new Endpoints(env);
   }

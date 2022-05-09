@@ -1,10 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  SedSimulation,
-  SedReport,
-  SimulationRunSedDocument,
-  SedDocument,
-} from '@biosimulations/datamodel/common';
+import { SedSimulation, SedReport, SimulationRunSedDocument, SedDocument } from '@biosimulations/datamodel/common';
 import { Spec as VegaSpec } from 'vega';
 import { Endpoints } from '@biosimulations/config/common';
 import { deserializeSedDocument } from '../sed-document/sed-document';
@@ -40,15 +35,8 @@ export class VegaVisualizationService {
           const bind = signal.bind as any;
           for (const [key, val] of Object.entries(bind)) {
             const anyVal = val as any;
-            if (
-              anyVal != null &&
-              typeof anyVal === 'object' &&
-              'sedmlUri' in anyVal
-            ) {
-              bind[key] = this.getValueOfSedmlObjectAttribute(
-                anyVal['sedmlUri'],
-                sedDocumentConfigurations,
-              );
+            if (anyVal != null && typeof anyVal === 'object' && 'sedmlUri' in anyVal) {
+              bind[key] = this.getValueOfSedmlObjectAttribute(anyVal['sedmlUri'], sedDocumentConfigurations);
               if (bind[key] === undefined) {
                 return false;
               }
@@ -67,9 +55,7 @@ export class VegaVisualizationService {
             anyData.sedmlUri?.length == 0 ||
             (anyData.sedmlUri?.length == 2 &&
               this.getSedReport(anyData.sedmlUri, sedDocumentConfigurations) &&
-              !Array.isArray(
-                this.getSedReport(anyData.sedmlUri, sedDocumentConfigurations),
-              ))
+              !Array.isArray(this.getSedReport(anyData.sedmlUri, sedDocumentConfigurations)))
           ) {
             anyData.url = this.endpoints.getRunResultsEndpoint(
               false,
@@ -108,18 +94,12 @@ export class VegaVisualizationService {
     }
 
     const contentTypeUriStr = path?.[0];
-    if (
-      !(
-        typeof contentTypeUriStr === 'string' ||
-        contentTypeUriStr instanceof String
-      )
-    ) {
+    if (!(typeof contentTypeUriStr === 'string' || contentTypeUriStr instanceof String)) {
       return undefined;
     }
 
     const contentTypeUriArr = contentTypeUriStr.split(':');
-    const contentType =
-      contentTypeUriArr.length === 1 ? '' : contentTypeUriArr[0];
+    const contentType = contentTypeUriArr.length === 1 ? '' : contentTypeUriArr[0];
     let contentUri = contentTypeUriArr[contentTypeUriArr.length - 1];
 
     if (contentUri.startsWith('./')) {
@@ -129,11 +109,7 @@ export class VegaVisualizationService {
     const contents: SimulationRunSedDocument[] = [];
     const multipleContents = contentUri === '*';
 
-    for (
-      let iContent = 0;
-      iContent < sedDocumentConfigurations.length;
-      iContent++
-    ) {
+    for (let iContent = 0; iContent < sedDocumentConfigurations.length; iContent++) {
       const content = sedDocumentConfigurations[iContent];
       let thisContentUri = content.id;
       if (thisContentUri.startsWith('./')) {
@@ -141,8 +117,7 @@ export class VegaVisualizationService {
       }
       if (
         ['', 'SedDocument'].includes(contentType) &&
-        (['*', thisContentUri].includes(contentUri) ||
-          contentUri === `[${iContent}]`)
+        (['*', thisContentUri].includes(contentUri) || contentUri === `[${iContent}]`)
       ) {
         contents.push(content);
       }
@@ -161,10 +136,8 @@ export class VegaVisualizationService {
     path: any,
     sedDocumentConfigurations: SimulationRunSedDocument[],
   ): SedReport | SedReport[] | undefined {
-    const serializedSedDocument:
-      | SimulationRunSedDocument
-      | SimulationRunSedDocument[]
-      | undefined = this.getSedDocument(path, sedDocumentConfigurations);
+    const serializedSedDocument: SimulationRunSedDocument | SimulationRunSedDocument[] | undefined =
+      this.getSedDocument(path, sedDocumentConfigurations);
     if (!serializedSedDocument || Array.isArray(serializedSedDocument)) {
       return undefined;
     }
@@ -181,11 +154,7 @@ export class VegaVisualizationService {
     });
 
     const reportTypeIdStr = path?.[1];
-    if (
-      !(
-        typeof reportTypeIdStr === 'string' || reportTypeIdStr instanceof String
-      )
-    ) {
+    if (!(typeof reportTypeIdStr === 'string' || reportTypeIdStr instanceof String)) {
       return undefined;
     }
 
@@ -220,24 +189,15 @@ export class VegaVisualizationService {
     return undefined;
   }
 
-  private getValueOfSedmlObjectAttribute(
-    path: any,
-    sedDocumentConfigurations: SimulationRunSedDocument[],
-  ): any {
-    const serializedSedDocument:
-      | SimulationRunSedDocument
-      | SimulationRunSedDocument[]
-      | undefined = this.getSedDocument(path, sedDocumentConfigurations);
+  private getValueOfSedmlObjectAttribute(path: any, sedDocumentConfigurations: SimulationRunSedDocument[]): any {
+    const serializedSedDocument: SimulationRunSedDocument | SimulationRunSedDocument[] | undefined =
+      this.getSedDocument(path, sedDocumentConfigurations);
     if (!serializedSedDocument) {
       return undefined;
     }
 
     const objectTypeIdStr = path?.[1];
-    if (
-      !(
-        typeof objectTypeIdStr === 'string' || objectTypeIdStr instanceof String
-      )
-    ) {
+    if (!(typeof objectTypeIdStr === 'string' || objectTypeIdStr instanceof String)) {
       return undefined;
     }
     const objectTypeIdArr = objectTypeIdStr.split(':');
@@ -245,35 +205,31 @@ export class VegaVisualizationService {
     const objectId = objectTypeIdArr[objectTypeIdArr.length - 1];
 
     const sedObjects: (SedSimulation | SedReport)[] = [];
-    const multipleSedObjects =
-      objectId === '*' || Array.isArray(serializedSedDocument);
+    const multipleSedObjects = objectId === '*' || Array.isArray(serializedSedDocument);
     const serializedSedDocuments = Array.isArray(serializedSedDocument)
       ? serializedSedDocument
       : [serializedSedDocument];
 
-    const sedDocuments = serializedSedDocuments.map(
-      (serializedSedDocument): SedDocument => {
-        return deserializeSedDocument({
-          _type: 'SedDocument',
-          version: serializedSedDocument.version,
-          level: serializedSedDocument.level,
-          styles: serializedSedDocument.styles,
-          models: serializedSedDocument.models,
-          simulations: serializedSedDocument.simulations,
-          tasks: serializedSedDocument.tasks,
-          dataGenerators: serializedSedDocument.dataGenerators,
-          outputs: serializedSedDocument.outputs,
-        });
-      },
-    );
+    const sedDocuments = serializedSedDocuments.map((serializedSedDocument): SedDocument => {
+      return deserializeSedDocument({
+        _type: 'SedDocument',
+        version: serializedSedDocument.version,
+        level: serializedSedDocument.level,
+        styles: serializedSedDocument.styles,
+        models: serializedSedDocument.models,
+        simulations: serializedSedDocument.simulations,
+        tasks: serializedSedDocument.tasks,
+        dataGenerators: serializedSedDocument.dataGenerators,
+        outputs: serializedSedDocument.outputs,
+      });
+    });
 
     for (const sedDocument of sedDocuments) {
       for (let iSim = 0; iSim < sedDocument.simulations.length; iSim++) {
         const thisSimulation = sedDocument.simulations[iSim];
         if (
           ['Simulation', ''].includes(objectType) &&
-          (['*', thisSimulation.id].includes(objectId) ||
-            objectId === `[${iSim}]`)
+          (['*', thisSimulation.id].includes(objectId) || objectId === `[${iSim}]`)
         ) {
           sedObjects.push(thisSimulation);
         }
@@ -285,8 +241,7 @@ export class VegaVisualizationService {
           iReport++;
           if (
             ['Report', ''].includes(objectType) &&
-            (['*', thisOutput.id].includes(objectId) ||
-              objectId === `[${iReport}]`)
+            (['*', thisOutput.id].includes(objectId) || objectId === `[${iReport}]`)
           ) {
             sedObjects.push(thisOutput as SedReport);
           }
@@ -303,9 +258,7 @@ export class VegaVisualizationService {
     }
 
     let attributeName = path?.[2];
-    if (
-      !(typeof attributeName === 'string' || attributeName instanceof String)
-    ) {
+    if (!(typeof attributeName === 'string' || attributeName instanceof String)) {
       return undefined;
     }
     if (attributeName === 'numberOfPoints') {

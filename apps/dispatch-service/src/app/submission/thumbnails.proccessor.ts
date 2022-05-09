@@ -35,10 +35,7 @@ export class ThumbnailsProcessor {
     }
 
     try {
-      const thumbnailUrls = await this.thumbnailsService.processThumbnails(
-        runId,
-        files,
-      );
+      const thumbnailUrls = await this.thumbnailsService.processThumbnails(runId, files);
       return {
         status: 'Succeeded',
         data: thumbnailUrls,

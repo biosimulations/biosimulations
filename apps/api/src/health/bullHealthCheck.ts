@@ -1,9 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import {
-  HealthIndicator,
-  HealthIndicatorResult,
-  HealthCheckError,
-} from '@nestjs/terminus';
+import { HealthIndicator, HealthIndicatorResult, HealthCheckError } from '@nestjs/terminus';
 import { InjectQueue, Process, Processor } from '@biosimulations/nestjs-bullmq';
 import { Job, Queue, QueueEvents } from 'bullmq';
 import { JobQueue } from '@biosimulations/messages/messages';

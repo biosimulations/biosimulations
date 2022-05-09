@@ -1,12 +1,7 @@
-<biosimulations-error
-  icon="bug"
-  [code]="code"
-  [pageHasBreadCrumbs]="pageHasBreadCrumbs"
->
+<biosimulations-error icon="bug" [code]="code" [pageHasBreadCrumbs]="pageHasBreadCrumbs">
   <ng-container id="message">{{ message }}</ng-container>
   <ng-container id="details">
-    We're sorry! {{ details }} Please try again later. If this error persists,
-    please submit an
+    We're sorry! {{ details }} Please try again later. If this error persists, please submit an
     <span class="no-wrap"
       >issue
       <a [href]="newIssueUrl" rel="noopener" target="githubissues"

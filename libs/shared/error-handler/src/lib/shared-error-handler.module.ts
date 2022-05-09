@@ -7,9 +7,6 @@ import { ErrorHandler as BiosimulationsErrorHandler } from './error-handler';
   declarations: [],
   imports: [CommonModule, MatDialogModule],
   exports: [],
-  providers: [
-    { provide: ErrorHandler, useClass: BiosimulationsErrorHandler },
-    MatDialog,
-  ],
+  providers: [{ provide: ErrorHandler, useClass: BiosimulationsErrorHandler }, MatDialog],
 })
 export class SharedErrorHandlerModule {}

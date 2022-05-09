@@ -1,20 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
-import {
-  ExternalReferences,
-  Person,
-  Url,
-  Cli,
-  PythonApi,
-  BiosimulatorsMeta,
-} from '@biosimulations/datamodel/api';
+import { ExternalReferences, Person, Url, Cli, PythonApi, BiosimulatorsMeta } from '@biosimulations/datamodel/api';
 import { Funding } from './funding';
 import { LinguistOntologyId, SpdxOntologyId } from '../common';
-import {
-  SoftwareInterfaceType,
-  OperatingSystemType,
-  ISimulator,
-  Ontologies,
-} from '@biosimulations/datamodel/common';
+import { SoftwareInterfaceType, OperatingSystemType, ISimulator, Ontologies } from '@biosimulations/datamodel/common';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
   IsArray,
@@ -134,8 +122,7 @@ export class Simulator implements ISimulator {
   license: SpdxOntologyId | null = null;
 
   @ArrayUnique((algorithm: Algorithm) => algorithm?.kisaoId?.id, {
-    message:
-      'Two or more algorithms have the same KiSAO id. Each algorithm must have a unique KiSAO id.',
+    message: 'Two or more algorithms have the same KiSAO id. Each algorithm must have a unique KiSAO id.',
   })
   @ValidateNested({ each: true })
   @Type(() => Algorithm)

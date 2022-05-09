@@ -8,10 +8,7 @@ import { Project } from '@biosimulations/datamodel/common';
   strict: 'throw',
   collection: 'Projects',
 })
-export class ProjectModel
-  extends Document
-  implements Omit<Project, 'created' | 'updated'>
-{
+export class ProjectModel extends Document implements Omit<Project, 'created' | 'updated'> {
   @Prop({
     required: true,
     type: String,
@@ -20,10 +17,7 @@ export class ProjectModel
     validate: [
       {
         validator: (value: any): boolean => {
-          return (
-            (typeof value === 'string' || value instanceof String) &&
-            value.match(projectIdRegExp) !== null
-          );
+          return (typeof value === 'string' || value instanceof String) && value.match(projectIdRegExp) !== null;
         },
         message: (props: any): string =>
           `'${props.value}' is not a valid project id. Project ids must be a combination of at least three letters, numbers, underscores, and dashes (^[a-zA-Z0-9_-]{3,}$).`,
@@ -53,8 +47,7 @@ export class ProjectModel
   public updated!: Date;
 }
 
-export const ProjectModelSchema: SchemaType<ProjectModel> =
-  SchemaFactory.createForClass(ProjectModel);
+export const ProjectModelSchema: SchemaType<ProjectModel> = SchemaFactory.createForClass(ProjectModel);
 ProjectModelSchema.set('timestamps', {
   createdAt: 'created',
   updatedAt: 'updated',
@@ -65,8 +58,5 @@ export const ProjectIdCollation = {
   strength: 1,
   numericOrdering: true,
 };
-ProjectModelSchema.index(
-  { id: 1 },
-  { collation: ProjectIdCollation, unique: true },
-);
+ProjectModelSchema.index({ id: 1 }, { collation: ProjectIdCollation, unique: true });
 ProjectModelSchema.index({ simulationRun: 1 }, { unique: true });

@@ -1,9 +1,4 @@
-import {
-  Ontologies,
-  SboTerm,
-  OntologyInfo,
-  OntologyTermMap,
-} from '@biosimulations/datamodel/common';
+import { Ontologies, SboTerm, OntologyInfo, OntologyTermMap } from '@biosimulations/datamodel/common';
 
 import sboJson from './sbo.json';
 
@@ -28,9 +23,7 @@ function getSboTerms(input: any): OntologyTermMap<SboTerm> {
       let parents!: string[];
       if ('rdfs:subClassOf' in jsonTerm) {
         parents = (
-          Array.isArray(jsonTerm['rdfs:subClassOf'])
-            ? jsonTerm['rdfs:subClassOf']
-            : [jsonTerm['rdfs:subClassOf']]
+          Array.isArray(jsonTerm['rdfs:subClassOf']) ? jsonTerm['rdfs:subClassOf'] : [jsonTerm['rdfs:subClassOf']]
         )
           .filter((term: string): boolean => {
             return term.startsWith('http://biomodels.net/SBO/');
@@ -73,8 +66,7 @@ export const sboInfo: OntologyInfo = {
   id: Ontologies.SBO,
   acronym: Ontologies.SBO,
   name: 'Systems Biology Ontology',
-  description:
-    'Terms commonly used in Systems Biology, and in particular in computational modeling.',
+  description: 'Terms commonly used in Systems Biology, and in particular in computational modeling.',
   bioportalId: 'SBO',
   olsId: 'sbo',
   version: sboVersion,

@@ -12,18 +12,11 @@ import {
   SimulationRunOutputDatum as ISimulationRunOutputDatum,
   SimulationRunOutputDatumElement,
 } from '@biosimulations/datamodel/common';
-import {
-  ApiProperty,
-  ApiResponseProperty,
-  ApiPropertyOptional,
-} from '@nestjs/swagger';
+import { ApiProperty, ApiResponseProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 import { SchemaObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 
-export const SimulationRunOutputDatumValuesSchema: Omit<
-  SchemaObject,
-  'required'
-> = {
+export const SimulationRunOutputDatumValuesSchema: Omit<SchemaObject, 'required'> = {
   title: 'SimulationRunOutputDatumValues',
   oneOf: [
     { type: 'array', items: { type: 'number', format: 'float' } },

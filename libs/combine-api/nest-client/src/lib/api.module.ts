@@ -1,10 +1,4 @@
-import {
-  DynamicModule,
-  HttpService,
-  HttpModule,
-  Module,
-  Global,
-} from '@nestjs/common';
+import { DynamicModule, HttpService, HttpModule, Module, Global } from '@nestjs/common';
 import { Configuration } from './configuration';
 
 import { HealthService } from './api/health.service';
@@ -41,9 +35,7 @@ import { ValidationService } from './api/validation.service';
   ],
 })
 export class ApiModule {
-  public static forRoot(
-    configurationFactory: () => Configuration,
-  ): DynamicModule {
+  public static forRoot(configurationFactory: () => Configuration): DynamicModule {
     return {
       module: ApiModule,
       providers: [{ provide: Configuration, useFactory: configurationFactory }],

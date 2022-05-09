@@ -15,18 +15,8 @@ describe('TabPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        TabPageComponent,
-        TabPageTabComponent,
-        FullPageSpinnerComponent,
-        SpinnerComponent,
-      ],
-      imports: [
-        MatTabsModule,
-        BiosimulationsIconsModule,
-        MatProgressSpinnerModule,
-        RouterTestingModule,
-      ],
+      declarations: [TabPageComponent, TabPageTabComponent, FullPageSpinnerComponent, SpinnerComponent],
+      imports: [MatTabsModule, BiosimulationsIconsModule, MatProgressSpinnerModule, RouterTestingModule],
     }).compileComponents();
   }));
 

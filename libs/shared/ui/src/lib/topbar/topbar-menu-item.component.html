@@ -1,11 +1,5 @@
 <div fxShow fxHide.lt-md>
-  <a
-    mat-flat-button
-    *ngIf="href && !disabled; else button"
-    [href]="href"
-    rel="noopener"
-    [target]="target"
-  >
+  <a mat-flat-button *ngIf="href && !disabled; else button" [href]="href" rel="noopener" [target]="target">
     <div class="button-content">
       <biosimulations-icon [icon]="icon"></biosimulations-icon>
       {{ heading }}
@@ -13,12 +7,7 @@
   </a>
 
   <ng-template #button>
-    <button
-      mat-flat-button
-      [routerLink]="route || null"
-      [queryParams]="queryParams"
-      [disabled]="disabled"
-    >
+    <button mat-flat-button [routerLink]="route || null" [queryParams]="queryParams" [disabled]="disabled">
       <div class="button-content">
         <biosimulations-icon [icon]="icon"></biosimulations-icon>
         {{ heading }}

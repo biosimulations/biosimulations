@@ -1,23 +1,11 @@
-import {
-  IImage,
-  OperatingSystemType,
-  Ontologies,
-} from '@biosimulations/datamodel/common';
-import {
-  EdamOntologyIdVersion,
-  EdamOntologyDockerImageIdVersion,
-} from '../common';
+import { IImage, OperatingSystemType, Ontologies } from '@biosimulations/datamodel/common';
+import { EdamOntologyIdVersion, EdamOntologyDockerImageIdVersion } from '../common';
 
 import { ApiProperty } from '@nestjs/swagger';
 
 import { IsImageUrl, IsImageDigest } from '@biosimulations/datamodel/utils';
 
-import {
-  IsEnum,
-  IsNotEmpty,
-  ValidateNested,
-  IsOptional,
-} from 'class-validator';
+import { IsEnum, IsNotEmpty, ValidateNested, IsOptional } from 'class-validator';
 
 import { Type } from 'class-transformer';
 
@@ -36,8 +24,7 @@ export class Image implements IImage {
   @ApiProperty({
     type: String,
     description: 'Repository digest for the image',
-    example:
-      'sha256:5d1595553608436a2a343f8ab7e650798ef5ba5dab007b9fe31cd342bf18ec81',
+    example: 'sha256:5d1595553608436a2a343f8ab7e650798ef5ba5dab007b9fe31cd342bf18ec81',
     pattern: '^sha256:[a-z0-9]{64,64}$',
   })
   public digest!: string;

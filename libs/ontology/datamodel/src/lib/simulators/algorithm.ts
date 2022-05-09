@@ -23,14 +23,7 @@ import {
 
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { AlgorithmParameter } from './algorithmParameter';
-import {
-  IsEnum,
-  IsNotEmpty,
-  IsOptional,
-  IsString,
-  ValidateNested,
-  ArrayUnique,
-} from 'class-validator';
+import { IsEnum, IsNotEmpty, IsOptional, IsString, ValidateNested, ArrayUnique } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class ModelTarget implements IModelTarget {
@@ -159,8 +152,7 @@ export class Algorithm implements IAlgorithm {
   public kisaoId!: KisaoOntologyId;
 
   @ArrayUnique((parameter: AlgorithmParameter) => parameter?.kisaoId?.id, {
-    message:
-      'Two or more parameters have the same KiSAO id. Each parameter must have a unique KiSAO id.',
+    message: 'Two or more parameters have the same KiSAO id. Each parameter must have a unique KiSAO id.',
   })
   @ValidateNested({ each: true })
   @Type(() => AlgorithmParameter)

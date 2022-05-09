@@ -1,7 +1,4 @@
-import {
-  Funding as IFunding,
-  Ontologies,
-} from '@biosimulations/datamodel/common';
+import { Funding as IFunding, Ontologies } from '@biosimulations/datamodel/common';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { IsOptional, IsString, IsUrl, ValidateNested } from 'class-validator';

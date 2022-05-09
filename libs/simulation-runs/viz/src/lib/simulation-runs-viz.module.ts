@@ -8,13 +8,7 @@ import { PlotlyVisualizationComponent } from './plotly-visualization/plotly-visu
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule,
-    SharedUiModule,
-    PlotlyViaWindowModule,
-    BiosimulationsIconsModule,
-  ],
+  imports: [CommonModule, RouterModule, SharedUiModule, PlotlyViaWindowModule, BiosimulationsIconsModule],
   exports: [VegaVisualizationComponent, PlotlyVisualizationComponent],
   declarations: [VegaVisualizationComponent, PlotlyVisualizationComponent],
 })

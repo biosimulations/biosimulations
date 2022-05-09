@@ -14,10 +14,7 @@ import { ScrollService } from '@biosimulations/shared/angular';
 import { ConfigService } from '@biosimulations/config/angular';
 import { HealthService } from '@biosimulations/angular-api-client';
 import { PwaModule } from '@biosimulations/shared/pwa';
-import {
-  SharedErrorComponentsModule,
-  SharedErrorHandlerModule,
-} from '@biosimulations/shared/error-handler';
+import { SharedErrorComponentsModule, SharedErrorHandlerModule } from '@biosimulations/shared/error-handler';
 import config from '../assets/config.json';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '@biosimulations/shared/environments';
@@ -33,10 +30,7 @@ const routes: Routes = [
   },
   {
     path: 'runs',
-    loadChildren: () =>
-      import('./components/simulations/simulations.module').then(
-        (m) => m.SimulationsModule,
-      ),
+    loadChildren: () => import('./components/simulations/simulations.module').then((m) => m.SimulationsModule),
     data: {
       breadcrumb: 'Your simulation runs',
     },
@@ -44,8 +38,7 @@ const routes: Routes = [
   { path: 'simulations/:id', redirectTo: 'runs/:id', pathMatch: 'prefix' },
   {
     path: 'utils',
-    loadChildren: () =>
-      import('./components/utils/utils.module').then((m) => m.UtilsModule),
+    loadChildren: () => import('./components/utils/utils.module').then((m) => m.UtilsModule),
     data: {
       breadcrumb: 'Utilities',
     },

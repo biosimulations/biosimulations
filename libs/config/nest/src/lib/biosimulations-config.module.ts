@@ -30,11 +30,7 @@ import singularityConfig from './singularity-config';
         cacheConfig,
         singularityConfig,
       ],
-      envFilePath: [
-        './shared/shared.env',
-        './config/config.env',
-        './secret/secret.env',
-      ],
+      envFilePath: ['./shared/shared.env', './config/config.env', './secret/secret.env'],
     }),
   ],
   providers: [ConfigService],

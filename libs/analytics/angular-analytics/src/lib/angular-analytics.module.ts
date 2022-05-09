@@ -10,13 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { APP_NAME_TOKEN, ANALYTICS_ID_TOKEN } from './datamodel';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    MatDialogModule,
-    MatSlideToggleModule,
-    MatExpansionModule,
-    MatButtonModule,
-  ],
+  imports: [CommonModule, MatDialogModule, MatSlideToggleModule, MatExpansionModule, MatButtonModule],
   providers: [AnalyticsService],
   declarations: [CookieConsentComponent],
 })
@@ -27,10 +21,7 @@ export class AngularAnalyticsModule {
     private analyticsService: AnalyticsService,
   ) {}
 
-  public static forRoot(
-    appName: string,
-    analyticsId: string,
-  ): ModuleWithProviders<AngularAnalyticsModule> {
+  public static forRoot(appName: string, analyticsId: string): ModuleWithProviders<AngularAnalyticsModule> {
     return {
       ngModule: AngularAnalyticsModule,
       providers: [

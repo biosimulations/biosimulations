@@ -20,11 +20,7 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 
 import { Model, mongo } from 'mongoose';
-import {
-  SimulationRunModel,
-  SimulationRunModelReturnType,
-  SimulationRunModelType,
-} from './simulation-run.model';
+import { SimulationRunModel, SimulationRunModelReturnType, SimulationRunModelType } from './simulation-run.model';
 import {
   UpdateSimulationRun,
   UploadSimulationRun,
@@ -44,11 +40,7 @@ import {
 } from '@biosimulations/datamodel/common';
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import { SimulationStorageService } from '@biosimulations/shared/storage';
-import {
-  DispatchFailedPayload,
-  DispatchMessage,
-  DispatchProcessedPayload,
-} from '@biosimulations/messages/messages';
+import { DispatchFailedPayload, DispatchMessage, DispatchProcessedPayload } from '@biosimulations/messages/messages';
 import { ClientProxy } from '@nestjs/microservices';
 import { Readable } from 'stream';
 import { firstValueFrom, Observable, of, map } from 'rxjs';
@@ -79,9 +71,7 @@ import { AxiosError } from 'axios';
 import { ProjectsService } from '../projects/projects.service';
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
 
-const toApi = <T extends SimulationRunModelType>(
-  obj: T,
-): SimulationRunModelReturnType => {
+const toApi = <T extends SimulationRunModelType>(obj: T): SimulationRunModelReturnType => {
   delete obj.__v;
   delete obj._id;
   return obj as unknown as SimulationRunModelReturnType;
@@ -118,15 +108,12 @@ export class SimulationRunService {
     private configService: ConfigService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {
-    const vegaFormatOmexManifestUris = BIOSIMULATIONS_FORMATS.filter(
-      (format) => format.id === 'format_3969',
-    )?.[0]?.biosimulationsMetadata?.omexManifestUris;
+    const vegaFormatOmexManifestUris = BIOSIMULATIONS_FORMATS.filter((format) => format.id === 'format_3969')?.[0]
+      ?.biosimulationsMetadata?.omexManifestUris;
     if (vegaFormatOmexManifestUris) {
       this.vegaFormatOmexManifestUris = vegaFormatOmexManifestUris;
     } else {
-      throw new Error(
-        'Vega format (EDAM:format_3969) must be annotated with one or more OMEX Manifest URIs',
-      );
+      throw new Error('Vega format (EDAM:format_3969) must be annotated with one or more OMEX Manifest URIs');
     }
 
     const env = this.configService.get('server.env');
@@ -134,10 +121,7 @@ export class SimulationRunService {
     this.appRoutes = new AppRoutes(env);
   }
 
-  public async setStatus(
-    id: string,
-    status: SimulationRunStatus,
-  ): Promise<SimulationRunModel | null> {
+  public async setStatus(id: string, status: SimulationRunStatus): Promise<SimulationRunModel | null> {
     const model = await this.getModel(id);
     return this.updateModelStatus(model, status);
   }
@@ -150,12 +134,7 @@ export class SimulationRunService {
     const id = String(new mongo.ObjectId());
 
     try {
-      const s3file =
-        await this.simulationStorageService.uploadSimulationArchive(
-          id,
-          file,
-          size,
-        );
+      const s3file = await this.simulationStorageService.uploadSimulationArchive(id, file, size);
       this.logger.debug(`Uploaded simulation archive to S3: ${s3file}`);
 
       // At this point, we have the URLs of all the files in the archive but we don't use them
@@ -166,9 +145,7 @@ export class SimulationRunService {
 
       return this.createRun(id, run, url, size);
     } catch (err: any) {
-      const details = `An error occurred in creating a run for the COMBINE/OMEX archive: ${this.getErrorMessage(
-        err,
-      )}.`;
+      const details = `An error occurred in creating a run for the COMBINE/OMEX archive: ${this.getErrorMessage(err)}.`;
       this.logger.error(details);
 
       const message = `An error occurred in creating a run for the COMBINE/OMEX archive${
@@ -187,9 +164,7 @@ export class SimulationRunService {
     }
   }
 
-  public async createRunWithURL(
-    body: UploadSimulationRunUrl,
-  ): Promise<SimulationRunModelReturnType> {
+  public async createRunWithURL(body: UploadSimulationRunUrl): Promise<SimulationRunModelReturnType> {
     const url = body.url;
     const id = String(new mongo.ObjectId());
     return this.createRun(id, body, url, undefined);
@@ -201,14 +176,10 @@ export class SimulationRunService {
    */
   public async getFileUrl(id: string): Promise<string> {
     // Find the simulation with the id
-    const run = await this.simulationRunModel
-      .findOne({ id }, { fileUrl: 1 })
-      .exec();
+    const run = await this.simulationRunModel.findOne({ id }, { fileUrl: 1 }).exec();
 
     if (!run) {
-      throw new NotFoundException(
-        `Simulation run with id '${id}' could not be found.`,
-      );
+      throw new NotFoundException(`Simulation run with id '${id}' could not be found.`);
     }
 
     if (!run.fileUrl) {
@@ -223,9 +194,7 @@ export class SimulationRunService {
   public async deleteAll(): Promise<void> {
     const count = await this.projectService.getCount();
     if (count > 0) {
-      throw new BadRequestException(
-        `${count} runs cannot be deleted because they have been published as projects.`,
-      );
+      throw new BadRequestException(`${count} runs cannot be deleted because they have been published as projects.`);
     }
 
     const runs = await this.simulationRunModel.find({}).select('id').exec();
@@ -234,9 +203,7 @@ export class SimulationRunService {
   }
 
   public async delete(id: string): Promise<void> {
-    const projectId = await this.projectService.getProjectIdBySimulationRunId(
-      id,
-    );
+    const projectId = await this.projectService.getProjectIdBySimulationRunId(id);
     if (projectId) {
       throw new BadRequestException(
         `Simulation run '${id}' cannot be deleted because it has been published as project '${projectId}'.`,
@@ -245,9 +212,7 @@ export class SimulationRunService {
 
     const run = await this.simulationRunModel.findOneAndDelete({ id });
     if (!run) {
-      throw new NotFoundException(
-        `Simulation run with id '${id}' could not be found.`,
-      );
+      throw new NotFoundException(`Simulation run with id '${id}' could not be found.`);
     }
 
     await this.simulationStorageService.deleteSimulationArchive(id);
@@ -274,16 +239,11 @@ export class SimulationRunService {
     await this.simulationStorageService.deleteSimulation(id);
   }
 
-  public async update(
-    id: string,
-    run: UpdateSimulationRun,
-  ): Promise<SimulationRunModelReturnType> {
+  public async update(id: string, run: UpdateSimulationRun): Promise<SimulationRunModelReturnType> {
     const model = await this.getModel(id);
 
     if (!model) {
-      throw new NotFoundException(
-        `Simulation run with id '${id}' could not be found.`,
-      );
+      throw new NotFoundException(`Simulation run with id '${id}' could not be found.`);
     }
 
     this.updateModelFileUrl(model, run.fileUrl);
@@ -309,13 +269,8 @@ export class SimulationRunService {
     return res;
   }
 
-  public async getRunSummaries(
-    raiseErrors = false,
-  ): Promise<SimulationRunSummary[]> {
-    const runs = await this.simulationRunModel
-      .find({})
-      .select('id status')
-      .exec();
+  public async getRunSummaries(raiseErrors = false): Promise<SimulationRunSummary[]> {
+    const runs = await this.simulationRunModel.find({}).select('id status').exec();
 
     const runSummaryResults = await Promise.all(
       runs.map((run): Promise<PromiseResult<SimulationRunSummary>> => {
@@ -337,42 +292,28 @@ export class SimulationRunService {
       }),
     );
 
-    const failures = runSummaryResults.filter(
-      (runSummaryResult: PromiseResult<SimulationRunSummary>): boolean => {
-        return !runSummaryResult.succeeded;
-      },
-    );
+    const failures = runSummaryResults.filter((runSummaryResult: PromiseResult<SimulationRunSummary>): boolean => {
+      return !runSummaryResult.succeeded;
+    });
     if (failures.length) {
       const details: string[] = [];
       const summaries: string[] = [];
-      failures.forEach(
-        (runSummaryResult: PromiseResult<SimulationRunSummary>) => {
-          const error = runSummaryResult?.error;
-          details.push(
-            `A summary of run '${
-              runSummaryResult.id
-            }' could not be retrieved: ${this.getErrorMessage(error)}.`,
-          );
-          summaries.push(runSummaryResult.id as string);
-        },
-      );
+      failures.forEach((runSummaryResult: PromiseResult<SimulationRunSummary>) => {
+        const error = runSummaryResult?.error;
+        details.push(
+          `A summary of run '${runSummaryResult.id}' could not be retrieved: ${this.getErrorMessage(error)}.`,
+        );
+        summaries.push(runSummaryResult.id as string);
+      });
 
-      this.logger.error(
-        `Summaries of ${
-          failures.length
-        } runs could not be obtained:\n  ${details.join('\n  ')}`,
-      );
+      this.logger.error(`Summaries of ${failures.length} runs could not be obtained:\n  ${details.join('\n  ')}`);
       throw new InternalServerErrorException(
-        `Summaries of ${
-          failures.length
-        } runs could not be obtained:\n  ${summaries.join('\n  ')}`,
+        `Summaries of ${failures.length} runs could not be obtained:\n  ${summaries.join('\n  ')}`,
       );
     }
 
     return runSummaryResults.flatMap(
-      (
-        runSummaryResult: PromiseResult<SimulationRunSummary>,
-      ): SimulationRunSummary[] => {
+      (runSummaryResult: PromiseResult<SimulationRunSummary>): SimulationRunSummary[] => {
         if (runSummaryResult.value) {
           return [runSummaryResult.value];
         } else {
@@ -384,22 +325,14 @@ export class SimulationRunService {
 
   public static summaryVersion = 1;
 
-  public async getRunSummary(
-    id: string,
-    raiseErrors = false,
-  ): Promise<SimulationRunSummary> {
+  public async getRunSummary(id: string, raiseErrors = false): Promise<SimulationRunSummary> {
     const cacheKey = `SimulationRun:summary:${raiseErrors}:${id}:${SimulationRunService.summaryVersion}`;
-    const cachedValue = (await this.cacheManager.get(
-      cacheKey,
-    )) as SimulationRunSummary | null;
+    const cachedValue = (await this.cacheManager.get(cacheKey)) as SimulationRunSummary | null;
     if (cachedValue) {
       return cachedValue;
     } else {
       const value = await this._getRunSummary(id);
-      if (
-        value.run.status === SimulationRunStatus.SUCCEEDED ||
-        value.run.status === SimulationRunStatus.FAILED
-      ) {
+      if (value.run.status === SimulationRunStatus.SUCCEEDED || value.run.status === SimulationRunStatus.FAILED) {
         await this.cacheManager.set(cacheKey, value, { ttl: 0 });
       }
       return value;
@@ -418,10 +351,7 @@ export class SimulationRunService {
     projectSize?: number,
   ): Promise<SimulationRunModelReturnType> {
     const newSimulationRun = new this.simulationRunModel(run);
-    const simulator = await this.getSimulator(
-      run.simulator,
-      run.simulatorVersion,
-    );
+    const simulator = await this.getSimulator(run.simulator, run.simulatorVersion);
     if (simulator && simulator.image) {
       newSimulationRun.simulatorVersion = simulator.version;
       newSimulationRun.simulatorDigest = simulator.image.digest;
@@ -445,15 +375,8 @@ export class SimulationRunService {
     return toApi(newSimulationRun);
   }
 
-  private getSimulator(
-    simulator: string,
-    simulatorVersion = 'latest',
-  ): Promise<ISimulator | null | false> {
-    const url = this.endpoints.getSimulatorsEndpoint(
-      false,
-      simulator,
-      simulatorVersion,
-    );
+  private getSimulator(simulator: string, simulatorVersion = 'latest'): Promise<ISimulator | null | false> {
+    const url = this.endpoints.getSimulatorsEndpoint(false, simulator, simulatorVersion);
 
     return firstValueFrom(
       this.httpService.get<ISimulator>(url).pipe(
@@ -506,28 +429,18 @@ export class SimulationRunService {
     return model;
   }
 
-  private updateModelFileUrl(
-    model: SimulationRunModel,
-    fileUrl: string | undefined,
-  ): SimulationRunModel {
+  private updateModelFileUrl(model: SimulationRunModel, fileUrl: string | undefined): SimulationRunModel {
     if (fileUrl !== undefined) {
       model.fileUrl = fileUrl;
-      this.logger.debug(
-        `Set fileUrl of simulation run '${model.id}' to '${fileUrl}'.`,
-      );
+      this.logger.debug(`Set fileUrl of simulation run '${model.id}' to '${fileUrl}'.`);
     }
     return model;
   }
 
-  private updateModelProjectSize(
-    model: SimulationRunModel,
-    projectSize: number | undefined,
-  ): SimulationRunModel {
+  private updateModelProjectSize(model: SimulationRunModel, projectSize: number | undefined): SimulationRunModel {
     if (projectSize !== undefined) {
       model.projectSize = projectSize;
-      this.logger.debug(
-        `Set projectSize of simulation run '${model.id}' to '${projectSize}'.`,
-      );
+      this.logger.debug(`Set projectSize of simulation run '${model.id}' to '${projectSize}'.`);
     }
     return model;
   }
@@ -540,26 +453,17 @@ export class SimulationRunService {
 
     if (!model) {
       allowUpdate = false;
-    } else if (
-      model.status == SimulationRunStatus.SUCCEEDED ||
-      model.status == SimulationRunStatus.FAILED ||
-      !status
-    ) {
+    } else if (model.status == SimulationRunStatus.SUCCEEDED || model.status == SimulationRunStatus.FAILED || !status) {
       // succeeded and failed should not be updated
       allowUpdate = false;
     } else if (model.status == SimulationRunStatus.PROCESSING) {
       // processing should not go back to created, queued or running
-      allowUpdate = ![
-        SimulationRunStatus.CREATED,
-        SimulationRunStatus.QUEUED,
-        SimulationRunStatus.RUNNING,
-      ].includes(status);
+      allowUpdate = ![SimulationRunStatus.CREATED, SimulationRunStatus.QUEUED, SimulationRunStatus.RUNNING].includes(
+        status,
+      );
     } else if (model.status == SimulationRunStatus.RUNNING) {
       // running should not go back to created or queued
-      allowUpdate = ![
-        SimulationRunStatus.CREATED,
-        SimulationRunStatus.QUEUED,
-      ].includes(status);
+      allowUpdate = ![SimulationRunStatus.CREATED, SimulationRunStatus.QUEUED].includes(status);
     }
 
     // Careful not to add else here
@@ -581,15 +485,10 @@ export class SimulationRunService {
     return model;
   }
 
-  private updateModelResultSize(
-    model: SimulationRunModel,
-    resultsSize: number | undefined,
-  ): SimulationRunModel {
+  private updateModelResultSize(model: SimulationRunModel, resultsSize: number | undefined): SimulationRunModel {
     if (resultsSize) {
       model.resultsSize = resultsSize;
-      this.logger.debug(
-        `Set resultsSize of simulation run '${model.id}' to '${resultsSize}'.`,
-      );
+      this.logger.debug(`Set resultsSize of simulation run '${model.id}' to '${resultsSize}'.`);
     }
     return model;
   }
@@ -598,10 +497,7 @@ export class SimulationRunService {
     return this.simulationRunModel.findById(id).catch((_) => null);
   }
 
-  private async _getRunSummary(
-    id: string,
-    raiseErrors = false,
-  ): Promise<SimulationRunSummary> {
+  private async _getRunSummary(id: string, raiseErrors = false): Promise<SimulationRunSummary> {
     /* get data */
     const settledResults = await Promise.all(
       [
@@ -627,25 +523,16 @@ export class SimulationRunService {
       }),
     );
 
-    const runSettledResult: PromiseResult<SimulationRunModelReturnType | null> =
-      settledResults[0];
+    const runSettledResult: PromiseResult<SimulationRunModelReturnType | null> = settledResults[0];
     const filesResult: PromiseResult<FileModel[]> = settledResults[1];
-    const simulationExptsResult: PromiseResult<SpecificationsModel[]> =
-      settledResults[2];
+    const simulationExptsResult: PromiseResult<SpecificationsModel[]> = settledResults[2];
     const logResult: PromiseResult<CombineArchiveLog> = settledResults[3];
-    const rawMetadataResult: PromiseResult<SimulationRunMetadataIdModel | null> =
-      settledResults[4];
+    const rawMetadataResult: PromiseResult<SimulationRunMetadataIdModel | null> = settledResults[4];
 
     if (!runSettledResult.succeeded) {
       const error = runSettledResult?.error;
-      this.logger.error(
-        `Simulation run with id '${id}' could not be found: ${this.getErrorMessage(
-          error,
-        )}.`,
-      );
-      throw new NotFoundException(
-        `Simulation run with id '${id}' could not be found.`,
-      );
+      this.logger.error(`Simulation run with id '${id}' could not be found: ${this.getErrorMessage(error)}.`);
+      throw new NotFoundException(`Simulation run with id '${id}' could not be found.`);
     }
 
     const errorDetails: string[] = [];
@@ -653,38 +540,22 @@ export class SimulationRunService {
 
     if (!filesResult.succeeded || !filesResult.value) {
       const error = filesResult?.error;
-      errorDetails.push(
-        `The files for simulation run '${id}' could not be retrieved: ${this.getErrorMessage(
-          error,
-        )}.`,
-      );
-      errorSummaries.push(
-        `The files for simulation run '${id}' could not be retrieved.`,
-      );
+      errorDetails.push(`The files for simulation run '${id}' could not be retrieved: ${this.getErrorMessage(error)}.`);
+      errorSummaries.push(`The files for simulation run '${id}' could not be retrieved.`);
     }
 
     if (!simulationExptsResult.succeeded || !simulationExptsResult.value) {
       const error = simulationExptsResult?.error;
       errorDetails.push(
-        `The simulation experiments for simulation run '${id}' could not be retrieved: ${this.getErrorMessage(
-          error,
-        )}.`,
+        `The simulation experiments for simulation run '${id}' could not be retrieved: ${this.getErrorMessage(error)}.`,
       );
-      errorSummaries.push(
-        `The simulation experiments for simulation run '${id}' could not be retrieved.`,
-      );
+      errorSummaries.push(`The simulation experiments for simulation run '${id}' could not be retrieved.`);
     }
 
     if (!logResult.succeeded || !logResult.value) {
       const error = logResult?.error;
-      errorDetails.push(
-        `The log for simulation run '${id}' could not be retrieved: ${this.getErrorMessage(
-          error,
-        )}.`,
-      );
-      errorSummaries.push(
-        `The log for simulation run '${id}' could not be retrieved.`,
-      );
+      errorDetails.push(`The log for simulation run '${id}' could not be retrieved: ${this.getErrorMessage(error)}.`);
+      errorSummaries.push(`The log for simulation run '${id}' could not be retrieved.`);
     }
 
     /* initialize summary with run information */
@@ -692,9 +563,7 @@ export class SimulationRunService {
 
     const simulator = await this.getSimulator(rawRun.simulator);
     if (!simulator) {
-      throw new NotFoundException(
-        `Simulator '${rawRun.simulator}' for run could be found.`,
-      );
+      throw new NotFoundException(`Simulator '${rawRun.simulator}' for run could be found.`);
     }
 
     const summary: SimulationRunSummary = {
@@ -725,12 +594,7 @@ export class SimulationRunService {
     };
 
     /* get summary of the simulation experiment */
-    if (
-      errorDetails.length === 0 &&
-      filesResult.value &&
-      simulationExptsResult.value &&
-      logResult.value
-    ) {
+    if (errorDetails.length === 0 && filesResult.value && simulationExptsResult.value && logResult.value) {
       try {
         const files = filesResult.value;
         const simulationExpts = simulationExptsResult.value;
@@ -758,20 +622,16 @@ export class SimulationRunService {
         });
 
         simulationExpts.forEach((simulationExpt: SpecificationsModel): void => {
-          const docLocation = simulationExpt.id.startsWith('./')
-            ? simulationExpt.id.substring(2)
-            : simulationExpt.id;
+          const docLocation = simulationExpt.id.startsWith('./') ? simulationExpt.id.substring(2) : simulationExpt.id;
 
           const modelMap: { [id: string]: SedModel } = {};
           const simulationMap: { [id: string]: SedSimulation } = {};
           simulationExpt.models.forEach((model: SedModel): void => {
             modelMap[model.id] = model;
           });
-          simulationExpt.simulations.forEach(
-            (simulation: SedSimulation): void => {
-              simulationMap[simulation.id] = simulation;
-            },
-          );
+          simulationExpt.simulations.forEach((simulation: SedSimulation): void => {
+            simulationMap[simulation.id] = simulation;
+          });
 
           simulationExpt.tasks
             .flatMap((task: SedAbstractTask): SedTask[] => {
@@ -791,21 +651,15 @@ export class SimulationRunService {
               for (const format of BIOSIMULATIONS_FORMATS) {
                 if (
                   format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn &&
-                  model.language.startsWith(
-                    format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn,
-                  )
+                  model.language.startsWith(format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn)
                 ) {
                   modelFormat = format;
                   break;
                 }
               }
 
-              const algorithmKisaoId =
-                taskAlgorithmMap[uri] || simulation.algorithm.kisaoId;
-              const algorithmKisaoTerm = this.ontologiesService.getOntologyTerm(
-                Ontologies.KISAO,
-                algorithmKisaoId,
-              );
+              const algorithmKisaoId = taskAlgorithmMap[uri] || simulation.algorithm.kisaoId;
+              const algorithmKisaoTerm = this.ontologiesService.getOntologyTerm(Ontologies.KISAO, algorithmKisaoId);
 
               summaryTasks.push({
                 uri: docLocation + '/' + task.id,
@@ -818,8 +672,7 @@ export class SimulationRunService {
                   source: model.source,
                   language: {
                     name: modelFormat?.name || undefined,
-                    acronym:
-                      modelFormat?.biosimulationsMetadata?.acronym || undefined,
+                    acronym: modelFormat?.biosimulationsMetadata?.acronym || undefined,
                     sedmlUrn: model.language,
                     edamId: modelFormat?.id || undefined,
                     url: modelFormat?.url || undefined,
@@ -828,9 +681,7 @@ export class SimulationRunService {
                 simulation: {
                   type: {
                     id: simulation._type,
-                    name: SimulationTypeName[
-                      simulation._type as keyof typeof SimulationTypeName
-                    ],
+                    name: SimulationTypeName[simulation._type as keyof typeof SimulationTypeName],
                     url: 'https://sed-ml.org/',
                   },
                   uri: uri,
@@ -838,30 +689,24 @@ export class SimulationRunService {
                   name: simulation?.name,
                   algorithm: {
                     kisaoId: algorithmKisaoId,
-                    name:
-                      algorithmKisaoTerm?.name ||
-                      `${algorithmKisaoId} (deprecated)`,
-                    url:
-                      algorithmKisaoTerm?.url ||
-                      'https://www.ebi.ac.uk/ols/ontologies/kisao',
+                    name: algorithmKisaoTerm?.name || `${algorithmKisaoId} (deprecated)`,
+                    url: algorithmKisaoTerm?.url || 'https://www.ebi.ac.uk/ols/ontologies/kisao',
                   },
                 },
               });
             });
 
-          simulationExpt.outputs.forEach(
-            (output: SedReport | SedPlot2D | SedPlot3D): void => {
-              summaryOutputs.push({
-                type: {
-                  id: output._type,
-                  name: SimulationRunOutputTypeName[output._type],
-                  url: 'https://sed-ml.org/',
-                },
-                uri: docLocation + '/' + output.id,
-                name: output?.name,
-              });
-            },
-          );
+          simulationExpt.outputs.forEach((output: SedReport | SedPlot2D | SedPlot3D): void => {
+            summaryOutputs.push({
+              type: {
+                id: output._type,
+                name: SimulationRunOutputTypeName[output._type],
+                url: 'https://sed-ml.org/',
+              },
+              uri: docLocation + '/' + output.id,
+              name: output?.name,
+            });
+          });
         });
 
         files.forEach((file: FileModel): void => {
@@ -872,9 +717,7 @@ export class SimulationRunService {
                 name: SimulationRunOutputTypeName.Vega,
                 url: 'https://vega.github.io/vega/',
               },
-              uri: file.location.startsWith('./')
-                ? file.location.substring(2)
-                : file.location,
+              uri: file.location.startsWith('./') ? file.location.substring(2) : file.location,
               name: undefined,
             });
           }
@@ -885,9 +728,7 @@ export class SimulationRunService {
             error,
           )}.`,
         );
-        errorSummaries.push(
-          `An unexpected error occurred in computing the summary for simulation run '${id}'.`,
-        );
+        errorSummaries.push(`An unexpected error occurred in computing the summary for simulation run '${id}'.`);
       }
     }
 
@@ -897,50 +738,41 @@ export class SimulationRunService {
     }
 
     if (rawMetadataResult.succeeded && rawMetadataResult.value) {
-      summary.metadata = rawMetadataResult.value.metadata.map(
-        (rawMetadatum: ArchiveMetadata) => {
-          const uriSlashPos = rawMetadatum.uri.search('/');
-          const uri =
-            uriSlashPos === -1
-              ? '.'
-              : rawMetadatum.uri.substring(uriSlashPos + 1);
+      summary.metadata = rawMetadataResult.value.metadata.map((rawMetadatum: ArchiveMetadata) => {
+        const uriSlashPos = rawMetadatum.uri.search('/');
+        const uri = uriSlashPos === -1 ? '.' : rawMetadatum.uri.substring(uriSlashPos + 1);
 
-          return {
-            uri: uri,
-            title: rawMetadatum?.title,
-            abstract: rawMetadatum?.abstract,
-            description: rawMetadatum?.description,
-            thumbnails: rawMetadatum.thumbnails,
-            keywords: rawMetadatum.keywords,
-            encodes: rawMetadatum.encodes,
-            taxa: rawMetadatum.taxa,
-            other: rawMetadatum.other,
-            seeAlso: rawMetadatum.seeAlso,
-            references: rawMetadatum.references,
-            sources: rawMetadatum.sources,
-            predecessors: rawMetadatum.predecessors,
-            successors: rawMetadatum.successors,
-            creators: rawMetadatum.creators,
-            contributors: rawMetadatum.contributors,
-            funders: rawMetadatum.funders,
-            identifiers: rawMetadatum.identifiers,
-            citations: rawMetadatum.citations,
-            license: rawMetadatum?.license,
-            created: rawMetadatum.created,
-            modified: rawMetadatum.modified,
-          };
-        },
-      );
+        return {
+          uri: uri,
+          title: rawMetadatum?.title,
+          abstract: rawMetadatum?.abstract,
+          description: rawMetadatum?.description,
+          thumbnails: rawMetadatum.thumbnails,
+          keywords: rawMetadatum.keywords,
+          encodes: rawMetadatum.encodes,
+          taxa: rawMetadatum.taxa,
+          other: rawMetadatum.other,
+          seeAlso: rawMetadatum.seeAlso,
+          references: rawMetadatum.references,
+          sources: rawMetadatum.sources,
+          predecessors: rawMetadatum.predecessors,
+          successors: rawMetadatum.successors,
+          creators: rawMetadatum.creators,
+          contributors: rawMetadatum.contributors,
+          funders: rawMetadatum.funders,
+          identifiers: rawMetadatum.identifiers,
+          citations: rawMetadatum.citations,
+          license: rawMetadatum?.license,
+          created: rawMetadatum.created,
+          modified: rawMetadatum.modified,
+        };
+      });
     } else if (raiseErrors) {
       const error = rawMetadataResult?.error;
       this.logger.error(
-        `The metadata for simulation run '${id}' could not be retrieved: ${this.getErrorMessage(
-          error,
-        )}.`,
+        `The metadata for simulation run '${id}' could not be retrieved: ${this.getErrorMessage(error)}.`,
       );
-      throw new InternalServerErrorException(
-        `The metadata for simulation run '${id}' could not be retrieved.`,
-      );
+      throw new InternalServerErrorException(`The metadata for simulation run '${id}' could not be retrieved.`);
     }
 
     /* return summary */
@@ -949,13 +781,9 @@ export class SimulationRunService {
 
   private getErrorMessage(error: any): string {
     if (error?.isAxiosError) {
-      return `${error?.response?.status}: ${
-        error?.response?.data?.detail || error?.response?.statusText
-      }`;
+      return `${error?.response?.status}: ${error?.response?.data?.detail || error?.response?.statusText}`;
     } else {
-      return `${
-        error?.status || error?.statusCode || error.constructor.name
-      }: ${error?.message}`;
+      return `${error?.status || error?.statusCode || error.constructor.name}: ${error?.message}`;
     }
   }
 }

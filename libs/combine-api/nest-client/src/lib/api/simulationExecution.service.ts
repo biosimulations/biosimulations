@@ -26,10 +26,7 @@ export class SimulationExecutionService {
   public defaultHeaders = new Map();
   public configuration = new Configuration();
 
-  constructor(
-    protected httpClient: HttpService,
-    @Optional() configuration: Configuration,
-  ) {
+  constructor(protected httpClient: HttpService, @Optional() configuration: Configuration) {
     this.configuration = configuration || this.configuration;
     this.basePath = configuration?.basePath || this.basePath;
   }
@@ -49,29 +46,23 @@ export class SimulationExecutionService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersRunGetSimulatorsHandler(): Observable<
-    AxiosResponse<Array<Simulator>>
-  >;
+  public srcHandlersRunGetSimulatorsHandler(): Observable<AxiosResponse<Array<Simulator>>>;
   public srcHandlersRunGetSimulatorsHandler(): Observable<any> {
     let headers: any = this.defaultHeaders;
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
 
     // to determine the Content-Type header
     const consumes: string[] = [];
-    return this.httpClient.get<Array<Simulator>>(
-      `${this.basePath}/run/simulators`,
-      {
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-      },
-    );
+    return this.httpClient.get<Array<Simulator>>(`${this.basePath}/run/simulators`, {
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+    });
   }
   /**
    * Execute a COMBINE/OMEX archive
@@ -99,27 +90,18 @@ export class SimulationExecutionService {
     environment?: Environment,
   ): Observable<any> {
     if (simulator === null || simulator === undefined) {
-      throw new Error(
-        'Required parameter simulator was null or undefined when calling srcHandlersRunRunHandler.',
-      );
+      throw new Error('Required parameter simulator was null or undefined when calling srcHandlersRunRunHandler.');
     }
 
     if (type === null || type === undefined) {
-      throw new Error(
-        'Required parameter type was null or undefined when calling srcHandlersRunRunHandler.',
-      );
+      throw new Error('Required parameter type was null or undefined when calling srcHandlersRunRunHandler.');
     }
 
     let headers: any = this.defaultHeaders;
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
-      'application/json',
-      'application/x-hdf',
-      'application/zip',
-    ];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    let httpHeaderAccepts: string[] = ['application/json', 'application/x-hdf', 'application/zip'];
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }

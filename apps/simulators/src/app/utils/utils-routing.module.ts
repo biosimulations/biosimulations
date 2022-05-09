@@ -52,10 +52,7 @@ const routes: Routes = [
   },
   {
     path: 'create-project',
-    loadChildren: () =>
-      import('@biosimulations/simulation-project-utils/ui').then(
-        (m) => m.CreateProjectModule,
-      ),
+    loadChildren: () => import('@biosimulations/simulation-project-utils/ui').then((m) => m.CreateProjectModule),
     data: {
       breadcrumb: 'Create a simulation project (COMBINE/OMEX archive)',
       contextButtons: [

@@ -103,9 +103,7 @@ export class SimulationRunController {
     return (<multipartSimulationRunBody>body).simulationRun != undefined;
   }
 
-  private isUrlBody(
-    body: multipartSimulationRunBody | UploadSimulationRunUrl,
-  ): body is UploadSimulationRunUrl {
+  private isUrlBody(body: multipartSimulationRunBody | UploadSimulationRunUrl): body is UploadSimulationRunUrl {
     return (<UploadSimulationRunUrl>body).url != undefined;
   }
 
@@ -170,20 +168,15 @@ export class SimulationRunController {
       'The submitted mediatype is unsupported. The mediatype must be `application/json` or `multipart/form-data`.',
   })
   // Set a file size limit of 1GB
-  @UseInterceptors(
-    FileInterceptor('file', { limits: { fileSize: 1.1 * FILE_UPLOAD_LIMIT } }),
-  )
+  @UseInterceptors(FileInterceptor('file', { limits: { fileSize: 1.1 * FILE_UPLOAD_LIMIT } }))
   @ApiPayloadTooLargeResponse({
     type: ErrorResponseDocument,
     description: `The submitted COMBINE/OMEX archive file is too large.\
-     Uploaded archives must be less than ${FormatService.formatDigitalSize(
-       FILE_UPLOAD_LIMIT,
-     )}.`,
+     Uploaded archives must be less than ${FormatService.formatDigitalSize(FILE_UPLOAD_LIMIT)}.`,
   })
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
-    description:
-      'No image for the simulator/version is registered with BioSimulators',
+    description: 'No image for the simulator/version is registered with BioSimulators',
   })
   @OptionalAuth()
   @ApiInternalServerErrorResponse({
@@ -202,18 +195,12 @@ export class SimulationRunController {
     let projectId: string | undefined;
 
     if (!contentType) {
-      throw new UnsupportedMediaTypeException(
-        "The content type must be 'application/json' or 'multipart/form-data'.",
-      );
+      throw new UnsupportedMediaTypeException("The content type must be 'application/json' or 'multipart/form-data'.");
     } else if (contentType?.startsWith('multipart/form-data')) {
       const parsedRun = this.getRunForFile(body);
       projectId = parsedRun?.projectId;
       this.checkPublishProjectPermission(user, projectId);
-      run = await this.service.createRunWithFile(
-        parsedRun,
-        file.buffer,
-        file.size,
-      );
+      run = await this.service.createRunWithFile(parsedRun, file.buffer, file.size);
       const message: SubmitFileSimulationRunJobData = {
         runId: run.id,
         fileName: file?.originalname || 'archive.omex',
@@ -229,10 +216,7 @@ export class SimulationRunController {
       };
 
       await this.sumbitSimulation(message);
-    } else if (
-      contentType?.startsWith('application/json') &&
-      this.isUrlBody(body)
-    ) {
+    } else if (contentType?.startsWith('application/json') && this.isUrlBody(body)) {
       projectId = body?.projectId;
       this.checkPublishProjectPermission(user, projectId);
       run = await this.service.createRunWithURL(body);
@@ -252,9 +236,7 @@ export class SimulationRunController {
       };
       await this.sumbitSimulation(message);
     } else {
-      throw new UnsupportedMediaTypeException(
-        "The content type must be 'application/json' or 'multipart/form-data'.",
-      );
+      throw new UnsupportedMediaTypeException("The content type must be 'application/json' or 'multipart/form-data'.");
     }
     const response = this.makeSimulationRun(run);
     return response;
@@ -275,14 +257,8 @@ export class SimulationRunController {
     });
   }
 
-  private checkPublishProjectPermission(
-    user: AuthToken,
-    projectId?: string,
-  ): void {
-    if (
-      projectId &&
-      !user?.permissions?.includes(scopes.simulationRuns.externallyValidate.id)
-    ) {
+  private checkPublishProjectPermission(user: AuthToken, projectId?: string): void {
+    if (projectId && !user?.permissions?.includes(scopes.simulationRuns.externallyValidate.id)) {
       throw new ForbiddenException(
         'This account does not have permission to submit publication requests with simulation run requests. \
         To publish a simulation run with this account, first request a run, \
@@ -291,9 +267,7 @@ export class SimulationRunController {
     }
   }
 
-  private getRunForFile(
-    body: multipartSimulationRunBody | UploadSimulationRunUrl,
-  ): UploadSimulationRun {
+  private getRunForFile(body: multipartSimulationRunBody | UploadSimulationRunUrl): UploadSimulationRun {
     if (this.isFileUploadBody(body)) {
       try {
         // We are making an unsafe assertion here, since the body could have any type.
@@ -302,14 +276,11 @@ export class SimulationRunController {
       } catch (e) {
         const message = e instanceof Error && e.message ? e.message : '';
         throw new BadRequestException(
-          "The 'simulationRun' field of the body of the request is not a valid JSON document: " +
-            message,
+          "The 'simulationRun' field of the body of the request is not a valid JSON document: " + message,
         );
       }
     } else {
-      throw new BadRequestException(
-        "The body of the simulation run request must include a 'simulationRun' field.",
-      );
+      throw new BadRequestException("The body of the simulation run request must include a 'simulationRun' field.");
     }
   }
 
@@ -377,8 +348,7 @@ export class SimulationRunController {
     },
   })
   @ApiOkResponse({
-    description:
-      'Information about the simulation run was successfully retrieved',
+    description: 'Information about the simulation run was successfully retrieved',
     type: SimulationRun,
   })
   @ApiNotFoundResponse({
@@ -387,10 +357,7 @@ export class SimulationRunController {
   })
   @Get(':runId')
   @OptionalAuth()
-  public async getRun(
-    @Param('runId') runId: string,
-    @Req() req: Request,
-  ): Promise<SimulationRun> {
+  public async getRun(@Param('runId') runId: string, @Req() req: Request): Promise<SimulationRun> {
     const user = req?.user as AuthToken;
     let permission = false;
     if (user) {
@@ -402,9 +369,7 @@ export class SimulationRunController {
       permission ? null : (run.email = null);
       return this.makeSimulationRun(run);
     } else {
-      throw new NotFoundException(
-        `A simulation run with id '${runId}' could not be found.`,
-      );
+      throw new NotFoundException(`A simulation run with id '${runId}' could not be found.`);
     }
   }
 
@@ -435,8 +400,7 @@ export class SimulationRunController {
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description:
-      'This account does not have permission to save simulation runs',
+    description: 'This account does not have permission to save simulation runs',
   })
   @permissions(scopes.simulationRuns.update.id)
   @Patch(':runId')
@@ -448,13 +412,8 @@ export class SimulationRunController {
     description: 'The simulation run was successfully updated',
     type: SimulationRun,
   })
-  public async modifyRun(
-    @Param('runId') runId: string,
-    @Body() body: UpdateSimulationRun,
-  ): Promise<SimulationRun> {
-    this.logger.log(
-      `Patch called for simulation run '${runId}' with ${JSON.stringify(body)}`,
-    );
+  public async modifyRun(@Param('runId') runId: string, @Body() body: UpdateSimulationRun): Promise<SimulationRun> {
+    this.logger.log(`Patch called for simulation run '${runId}' with ${JSON.stringify(body)}`);
     const run = await this.service.update(runId, body);
     return this.makeSimulationRun(run);
   }
@@ -478,8 +437,7 @@ export class SimulationRunController {
   })
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
-    description:
-      'Run cannot be deleted because it has been published as a project',
+    description: 'Run cannot be deleted because it has been published as a project',
   })
   @ApiUnauthorizedResponse({
     type: ErrorResponseDocument,
@@ -487,8 +445,7 @@ export class SimulationRunController {
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description:
-      'This account does not have permission to delete simulation runs',
+    description: 'This account does not have permission to delete simulation runs',
   })
   @permissions(scopes.simulationRuns.delete.id)
   @Delete(':runId')
@@ -506,8 +463,7 @@ export class SimulationRunController {
   })
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
-    description:
-      'Runs cannot be deleted because some have been published as projects',
+    description: 'Runs cannot be deleted because some have been published as projects',
   })
   @ApiUnauthorizedResponse({
     type: ErrorResponseDocument,
@@ -515,8 +471,7 @@ export class SimulationRunController {
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description:
-      'This account does not have permission to delete simulation runs',
+    description: 'This account does not have permission to delete simulation runs',
   })
   @permissions(scopes.simulationRuns.delete.id)
   // @Delete()
@@ -542,20 +497,17 @@ export class SimulationRunController {
     },
   })
   @ApiNotFoundResponse({
-    description:
-      'No COMBINE/OMEX archive is available for the requested simulation run id',
+    description: 'No COMBINE/OMEX archive is available for the requested simulation run id',
     type: ErrorResponseDocument,
   })
   @Get(':runId/download')
   @ApiResponse({
     status: HttpStatus.MOVED_PERMANENTLY,
-    description:
-      'The request was successfully redirected to download the COMBINE/OMEX archive for the run',
+    description: 'The request was successfully redirected to download the COMBINE/OMEX archive for the run',
   })
   @ApiResponse({
     status: HttpStatus.OK,
-    description:
-      'The request successfully  downloaded the COMBINE/OMEX archive for the run',
+    description: 'The request successfully  downloaded the COMBINE/OMEX archive for the run',
   })
   @ApiTags('Downloads')
   @Redirect()
@@ -594,9 +546,7 @@ export class SimulationRunController {
     type: ErrorResponseDocument,
   })
   @Get(':runId/summary')
-  public async getRunSummary(
-    @Param('runId') runId: string,
-  ): Promise<SimulationRunSummary> {
+  public async getRunSummary(@Param('runId') runId: string): Promise<SimulationRunSummary> {
     const summary = await this.service.getRunSummary(runId);
     return summary;
   }

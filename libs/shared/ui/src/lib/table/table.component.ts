@@ -1,21 +1,8 @@
-import {
-  Component,
-  OnInit,
-  AfterViewInit,
-  Input,
-  Injectable,
-  TemplateRef,
-} from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, Injectable, TemplateRef } from '@angular/core';
 import { MatTable } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import {
-  MatSort,
-  MatSortable,
-  MatSortHeader,
-  Sort,
-  SortDirection,
-} from '@angular/material/sort';
+import { MatSort, MatSortable, MatSortHeader, Sort, SortDirection } from '@angular/material/sort';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -75,19 +62,13 @@ function normalizeAccentsLunrPipelineFunction(token: any): any {
   }
 }
 
-lunr.Pipeline.registerFunction(
-  normalizeAccentsLunrPipelineFunction,
-  'normalizeAccents',
-);
+lunr.Pipeline.registerFunction(normalizeAccentsLunrPipelineFunction, 'normalizeAccents');
 
 function addAccentNormalizationToLunrBuilder(builder: any): void {
   // Add the pipeline function to both the indexing pipeline and the
   // searching pipeline
   builder.pipeline.before(lunr.stemmer, normalizeAccentsLunrPipelineFunction);
-  builder.searchPipeline.before(
-    lunr.stemmer,
-    normalizeAccentsLunrPipelineFunction,
-  );
+  builder.searchPipeline.before(lunr.stemmer, normalizeAccentsLunrPipelineFunction);
 }
 
 @Component({
@@ -138,13 +119,10 @@ export class TableComponent implements OnInit, AfterViewInit {
       column._index = iColumn;
     });
 
-    this.idToColumn = (columns || []).reduce(
-      (map: { [id: string]: Column }, col: Column) => {
-        map[col.id] = col;
-        return map;
-      },
-      {},
-    );
+    this.idToColumn = (columns || []).reduce((map: { [id: string]: Column }, col: Column) => {
+      map[col.id] = col;
+      return map;
+    }, {});
 
     if (this.dataSource.data) {
       this.setData(this.dataSource.data);
@@ -178,24 +156,20 @@ export class TableComponent implements OnInit, AfterViewInit {
   set data(data: any) {
     if (data instanceof Observable) {
       this.subscription = data.subscribe((unresolvedData: any[]): void => {
-        UtilsService.recursiveForkJoin(unresolvedData).subscribe(
-          (resolvedData: any[] | undefined) => {
-            if (resolvedData !== undefined) {
-              this.dataSet = true;
-              this.setData(resolvedData);
-            }
-          },
-        );
-      });
-    } else if (data) {
-      UtilsService.recursiveForkJoin(data).subscribe(
-        (resolvedData: any[] | undefined) => {
+        UtilsService.recursiveForkJoin(unresolvedData).subscribe((resolvedData: any[] | undefined) => {
           if (resolvedData !== undefined) {
             this.dataSet = true;
             this.setData(resolvedData);
           }
-        },
-      );
+        });
+      });
+    } else if (data) {
+      UtilsService.recursiveForkJoin(data).subscribe((resolvedData: any[] | undefined) => {
+        if (resolvedData !== undefined) {
+          this.dataSet = true;
+          this.setData(resolvedData);
+        }
+      });
     } else {
       this.setData([]);
     }
@@ -211,11 +185,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.dataSorted = false;
 
     this.dataSource.isLoading.next(true);
-    const sortedData = RowService.sortData(
-      this.idToColumn,
-      data,
-      this.defaultSort,
-    );
+    const sortedData = RowService.sortData(this.idToColumn, data, this.defaultSort);
     sortedData.forEach((datum: any, iDatum: number): void => {
       datum._index = iDatum;
     });
@@ -241,106 +211,49 @@ export class TableComponent implements OnInit, AfterViewInit {
           cache[column.id].left['routerLink'] = tmp.routerLink;
           cache[column.id].left['fragment'] = tmp.fragment;
         } else if (column.leftAction === ColumnActionType.href) {
-          cache[column.id].left['href'] = RowService.getElementHref(
-            datum,
-            column,
-            Side.left,
-          );
+          cache[column.id].left['href'] = RowService.getElementHref(datum, column, Side.left);
         } else if (column.leftAction === ColumnActionType.click) {
-          cache[column.id].left['click'] = RowService.getElementClick(
-            datum,
-            column,
-            Side.left,
-          );
+          cache[column.id].left['click'] = RowService.getElementClick(datum, column, Side.left);
         }
-        cache[column.id].left['icon'] = RowService.getIcon(
-          datum,
-          column,
-          Side.left,
-        );
-        cache[column.id].left['iconTitle'] = RowService.getIconTitle(
-          datum,
-          column,
-          Side.left,
-        );
+        cache[column.id].left['icon'] = RowService.getIcon(datum, column, Side.left);
+        cache[column.id].left['iconTitle'] = RowService.getIconTitle(datum, column, Side.left);
 
         if (column.centerAction === ColumnActionType.routerLink) {
-          const tmp = RowService.getElementRouterLink(
-            datum,
-            column,
-            Side.center,
-          );
+          const tmp = RowService.getElementRouterLink(datum, column, Side.center);
           cache[column.id].center['routerLink'] = tmp.routerLink;
           cache[column.id].center['fragment'] = tmp.fragment;
         } else if (column.centerAction === ColumnActionType.href) {
-          cache[column.id].center['href'] = RowService.getElementHref(
-            datum,
-            column,
-            Side.center,
-          );
+          cache[column.id].center['href'] = RowService.getElementHref(datum, column, Side.center);
         } else if (column.centerAction === ColumnActionType.click) {
-          cache[column.id].center['click'] = RowService.getElementClick(
-            datum,
-            column,
-            Side.center,
-          );
+          cache[column.id].center['click'] = RowService.getElementClick(datum, column, Side.center);
         }
         // cache[column.id].center['icon'] = RowService.getIcon(datum, column, Side.center);
         // cache[column.id].center['iconTitle'] = RowService.getIconTitle(datum, column, Side.center);
 
         if (column.rightAction === ColumnActionType.routerLink) {
-          const tmp = RowService.getElementRouterLink(
-            datum,
-            column,
-            Side.right,
-          );
+          const tmp = RowService.getElementRouterLink(datum, column, Side.right);
           cache[column.id].right['routerLink'] = tmp.routerLink;
           cache[column.id].right['fragment'] = tmp.fragment;
         } else if (column.rightAction === ColumnActionType.href) {
-          cache[column.id].right['href'] = RowService.getElementHref(
-            datum,
-            column,
-            Side.right,
-          );
+          cache[column.id].right['href'] = RowService.getElementHref(datum, column, Side.right);
         } else if (column.rightAction === ColumnActionType.click) {
-          cache[column.id].right['click'] = RowService.getElementClick(
-            datum,
-            column,
-            Side.right,
-          );
+          cache[column.id].right['click'] = RowService.getElementClick(datum, column, Side.right);
         }
-        cache[column.id].right['icon'] = RowService.getIcon(
-          datum,
-          column,
-          Side.right,
-        );
-        cache[column.id].right['iconTitle'] = RowService.getIconTitle(
-          datum,
-          column,
-          Side.right,
-        );
+        cache[column.id].right['icon'] = RowService.getIcon(datum, column, Side.right);
+        cache[column.id].right['iconTitle'] = RowService.getIconTitle(datum, column, Side.right);
       });
     });
 
     this.columns.forEach((column: Column): void => {
       switch (column.filterType) {
         case ColumnFilterType.number:
-          this.columnFilterData[column.id] = this.getNumericColumnRange(
-            sortedData,
-            column,
-          );
+          this.columnFilterData[column.id] = this.getNumericColumnRange(sortedData, column);
           break;
         case ColumnFilterType.date:
-          this.columnFilterData[column.id] = this.filter?.[column.id] || [
-            null,
-            null,
-          ];
+          this.columnFilterData[column.id] = this.filter?.[column.id] || [null, null];
           break;
         default:
-          this.columnFilterData[column.id] = this.getTextColumnValues(
-            sortedData,
-            column,
-          );
+          this.columnFilterData[column.id] = this.getTextColumnValues(sortedData, column);
           break;
       }
     });
@@ -361,8 +274,7 @@ export class TableComponent implements OnInit, AfterViewInit {
           index: iDatum.toString(),
         };
         columns.forEach((column: Column): void => {
-          fullTextDoc[column.heading.toLowerCase().replace(' ', '-')] =
-            RowService.getElementSearchValue(datum, column);
+          fullTextDoc[column.heading.toLowerCase().replace(' ', '-')] = RowService.getElementSearchValue(datum, column);
         });
         this.add(fullTextDoc);
       });
@@ -377,17 +289,11 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.setDataSourceFilter();
   }
 
-  constructor(
-    public dataSource: TableDataSource,
-    private route: ActivatedRoute,
-    private router: Router,
-  ) {}
+  constructor(public dataSource: TableDataSource, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
     this.isLoading = this.dataSource.isLoading$();
-    this.isLoaded = this.dataSource
-      .isLoading$()
-      .pipe(map((isloaded: boolean) => !isloaded));
+    this.isLoaded = this.dataSource.isLoading$().pipe(map((isloaded: boolean) => !isloaded));
   }
 
   ngOnDestroy(): void {
@@ -410,9 +316,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.dataSource.sortData = (data: any[], sort: Sort) => {
       const columnSort: ColumnSort = {
         active: sort.active,
-        direction: sort.direction
-          ? ColumnSortDirection[sort.direction]
-          : undefined,
+        direction: sort.direction ? ColumnSortDirection[sort.direction] : undefined,
       };
 
       const sortedData = RowService.sortData(this.idToColumn, data, columnSort);
@@ -438,13 +342,9 @@ export class TableComponent implements OnInit, AfterViewInit {
       }
     });
 
-    this.evalAutocompleteFilter = debounce(
-      50,
-      false,
-      (column: Column, filter: string) => {
-        this._evalAutocompleteFilter(column, filter);
-      },
-    );
+    this.evalAutocompleteFilter = debounce(50, false, (column: Column, filter: string) => {
+      this._evalAutocompleteFilter(column, filter);
+    });
   }
 
   setTableStateQueryFragment(): void {
@@ -470,10 +370,7 @@ export class TableComponent implements OnInit, AfterViewInit {
           opts.delete('filter.' + column.id);
         }
         if (column.id in this.filter) {
-          opts.set(
-            'filter.' + column.id,
-            JSON.stringify(this.filter[column.id]),
-          );
+          opts.set('filter.' + column.id, JSON.stringify(this.filter[column.id]));
         }
       });
 
@@ -612,19 +509,11 @@ export class TableComponent implements OnInit, AfterViewInit {
                 };
               }
 
-              if (
-                filter[column.id][0] !==
-                this.columnFilterData[column.id]?.minSelected
-              ) {
-                this.columnFilterData[column.id].minSelected =
-                  filter[column.id][0];
+              if (filter[column.id][0] !== this.columnFilterData[column.id]?.minSelected) {
+                this.columnFilterData[column.id].minSelected = filter[column.id][0];
               }
-              if (
-                filter[column.id][1] !==
-                this.columnFilterData[column.id]?.maxSelected
-              ) {
-                this.columnFilterData[column.id].maxSelected =
-                  filter[column.id][1];
+              if (filter[column.id][1] !== this.columnFilterData[column.id]?.maxSelected) {
+                this.columnFilterData[column.id].maxSelected = filter[column.id][1];
               }
             }
             break;
@@ -674,10 +563,7 @@ export class TableComponent implements OnInit, AfterViewInit {
 
     if (this.sortable && this.materialSort) {
       if (sort) {
-        if (
-          sort.active != this.materialSort.active ||
-          sort.direction != this.materialSort.direction
-        ) {
+        if (sort.active != this.materialSort.active || sort.direction != this.materialSort.direction) {
           const matSortable1 = {
             id: '',
             start: sort.direction,
@@ -692,9 +578,7 @@ export class TableComponent implements OnInit, AfterViewInit {
           } as MatSortable;
           this.materialSort.sort(matSortable2);
 
-          (
-            this.materialSort.sortables.get(sort.active) as MatSortHeader
-          )._setAnimationTransitionState({
+          (this.materialSort.sortables.get(sort.active) as MatSortHeader)._setAnimationTransitionState({
             fromState: sort.direction,
             toState: 'active',
           });
@@ -723,31 +607,21 @@ export class TableComponent implements OnInit, AfterViewInit {
   getTextColumnValues(data: any[], column: Column): any[] {
     const values: any[] = column.filterValues
       ? column.filterValues
-      : data.map((datum: any): any =>
-          RowService.getElementFilterValue(datum, column),
-        );
+      : data.map((datum: any): any => RowService.getElementFilterValue(datum, column));
 
     const formattedValuesMap: any = {};
     const allValues = new Set<any>();
     for (const value of values) {
       if (Array.isArray(value)) {
         for (const v of value) {
-          const formattedV = RowService.formatElementFilterValue(
-            value,
-            v,
-            column,
-          );
+          const formattedV = RowService.formatElementFilterValue(value, v, column);
           if (formattedV != null && formattedV !== '') {
             formattedValuesMap[v] = formattedV;
             allValues.add(v);
           }
         }
       } else {
-        const formattedValue = RowService.formatElementFilterValue(
-          value,
-          value,
-          column,
-        );
+        const formattedValue = RowService.formatElementFilterValue(value, value, column);
         if (formattedValue != null && formattedValue !== '') {
           formattedValuesMap[value] = formattedValue;
           allValues.add(value);
@@ -824,10 +698,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     } else if (range.max === range.min) {
       range.step = 0;
     } else {
-      range.step = Math.pow(
-        10,
-        Math.floor(Math.log10((range.max - range.min) / 1000)),
-      );
+      range.step = Math.pow(10, Math.floor(Math.log10((range.max - range.min) / 1000)));
     }
     range.step = Math.max(1, range.step);
 
@@ -842,9 +713,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     return range;
   }
 
-  public evalAutocompleteFilter!: debounce<
-    (column: Column, filter: string) => void
-  >;
+  public evalAutocompleteFilter!: debounce<(column: Column, filter: string) => void>;
 
   private _evalAutocompleteFilter(column: Column, filter: string): void {
     filter = filter
@@ -875,10 +744,7 @@ export class TableComponent implements OnInit, AfterViewInit {
       }
       this.filter[column.id].push(value.value);
     } else {
-      this.filter[column.id].splice(
-        this.filter[column.id].indexOf(value.value),
-        1,
-      );
+      this.filter[column.id].splice(this.filter[column.id].indexOf(value.value), 1);
       if (this.filter[column.id].length === 0) {
         delete this.filter[column.id];
       }
@@ -891,15 +757,8 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.setDataSourceFilter();
   }
 
-  filterNumberValue(
-    column: Column,
-    fullRange: any,
-    selectedRange: number[],
-  ): void {
-    if (
-      fullRange.min === selectedRange[0] &&
-      fullRange.max === selectedRange[1]
-    ) {
+  filterNumberValue(column: Column, fullRange: any, selectedRange: number[]): void {
+    if (fullRange.min === selectedRange[0] && fullRange.max === selectedRange[1]) {
       if (column.id in this.filter) {
         delete this.filter[column.id];
       }
@@ -914,10 +773,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.setDataSourceFilter();
   }
 
-  filterStartDateValue(
-    column: Column,
-    event: MatDatepickerInputEvent<Date>,
-  ): void {
+  filterStartDateValue(column: Column, event: MatDatepickerInputEvent<Date>): void {
     let min: any = null;
     let max: any = null;
     if (event.value == null) {
@@ -944,10 +800,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.setDataSourceFilter();
   }
 
-  filterEndDateValue(
-    column: Column,
-    event: MatDatepickerInputEvent<Date>,
-  ): void {
+  filterEndDateValue(column: Column, event: MatDatepickerInputEvent<Date>): void {
     let min: any = null;
     let max: any = null;
     if (event.value == null) {
@@ -979,11 +832,9 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.fullTextMatches = {};
     if (this.searchQuery && this.fullTextIndex) {
       try {
-        this.fullTextIndex
-          .search(this.searchQuery)
-          .forEach((match: any): void => {
-            this.fullTextMatches[parseInt(match.ref)] = true;
-          });
+        this.fullTextIndex.search(this.searchQuery).forEach((match: any): void => {
+          this.fullTextMatches[parseInt(match.ref)] = true;
+        });
       } finally {
         // eslint-disable-next-line no-empty
       }
@@ -1099,10 +950,8 @@ export class TableComponent implements OnInit, AfterViewInit {
         this.columnFilterData[column.id] = [null, null];
       }
     } else {
-      this.columnFilterData[column.id].minSelected =
-        this.columnFilterData[column.id].min;
-      this.columnFilterData[column.id].maxSelected =
-        this.columnFilterData[column.id].max;
+      this.columnFilterData[column.id].minSelected = this.columnFilterData[column.id].min;
+      this.columnFilterData[column.id].maxSelected = this.columnFilterData[column.id].max;
     }
     this.columnIsFiltered[column.id] = false;
     this.setTableStateQueryFragment();

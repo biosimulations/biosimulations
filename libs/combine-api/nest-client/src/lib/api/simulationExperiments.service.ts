@@ -26,10 +26,7 @@ export class SimulationExperimentsService {
   public defaultHeaders = new Map();
   public configuration = new Configuration();
 
-  constructor(
-    protected httpClient: HttpService,
-    @Optional() configuration: Configuration,
-  ) {
+  constructor(protected httpClient: HttpService, @Optional() configuration: Configuration) {
     this.configuration = configuration || this.configuration;
     this.basePath = configuration?.basePath || this.basePath;
   }
@@ -55,16 +52,12 @@ export class SimulationExperimentsService {
     file?: Blob,
     url?: string,
   ): Observable<AxiosResponse<CombineArchiveSedDocSpecs>>;
-  public srcHandlersCombineGetSedmlSpecsForCombineArchiveHandler(
-    file?: Blob,
-    url?: string,
-  ): Observable<any> {
+  public srcHandlersCombineGetSedmlSpecsForCombineArchiveHandler(file?: Blob, url?: string): Observable<any> {
     let headers: any = this.defaultHeaders;
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
@@ -161,8 +154,7 @@ export class SimulationExperimentsService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
@@ -227,20 +219,13 @@ export class SimulationExperimentsService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersSedMlValidateHandler(
-    file?: Blob,
-    url?: string,
-  ): Observable<AxiosResponse<ValidationReport>>;
-  public srcHandlersSedMlValidateHandler(
-    file?: Blob,
-    url?: string,
-  ): Observable<any> {
+  public srcHandlersSedMlValidateHandler(file?: Blob, url?: string): Observable<AxiosResponse<ValidationReport>>;
+  public srcHandlersSedMlValidateHandler(file?: Blob, url?: string): Observable<any> {
     let headers: any = this.defaultHeaders;
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected: string | undefined =
-      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }

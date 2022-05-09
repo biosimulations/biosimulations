@@ -39,8 +39,7 @@ export class TestCaseException implements ITestCaseException {
   message!: string;
 }
 
-export const TestCaseExceptionSchema =
-  SchemaFactory.createForClass(TestCaseException);
+export const TestCaseExceptionSchema = SchemaFactory.createForClass(TestCaseException);
 
 @Schema({
   _id: false,
@@ -54,9 +53,7 @@ export class TestCaseResult implements ITestCaseResult {
   @Prop({
     type: String,
     required: true,
-    enum: Object.keys(TestCaseResultType).map(
-      (k) => TestCaseResultType[k as TestCaseResultType],
-    ),
+    enum: Object.keys(TestCaseResultType).map((k) => TestCaseResultType[k as TestCaseResultType]),
     default: undefined,
   })
   resultType!: TestCaseResultType;
@@ -77,8 +74,7 @@ export class TestCaseResult implements ITestCaseResult {
   log!: string;
 }
 
-export const TestCaseResultSchema =
-  SchemaFactory.createForClass(TestCaseResult);
+export const TestCaseResultSchema = SchemaFactory.createForClass(TestCaseResult);
 
 @Schema({
   _id: false,
@@ -99,8 +95,7 @@ export class ValidationTests implements IValidationTests {
   ghActionRun!: number;
 }
 
-export const ValidationTestsSchema =
-  SchemaFactory.createForClass(ValidationTests);
+export const ValidationTestsSchema = SchemaFactory.createForClass(ValidationTests);
 
 @Schema({
   _id: false,
@@ -112,18 +107,14 @@ export class BiosimulatorsMeta implements IBiosimulatorsMeta {
     type: String,
     required: true,
     default: specificationVersions.latest,
-    enum: Object.keys(specificationVersions).map(
-      (k) => specificationVersions[k as specificationVersions],
-    ),
+    enum: Object.keys(specificationVersions).map((k) => specificationVersions[k as specificationVersions]),
   })
   specificationVersion!: specificationVersions;
 
   @Prop({
     type: String,
     required: true,
-    enum: Object.keys(imageVersions).map(
-      (k) => imageVersions[k as imageVersions],
-    ),
+    enum: Object.keys(imageVersions).map((k) => imageVersions[k as imageVersions]),
     default: imageVersions.latest,
   })
   imageVersion!: imageVersions;
@@ -139,8 +130,7 @@ export class BiosimulatorsMeta implements IBiosimulatorsMeta {
   updated!: Date;
 }
 
-export const BiosimulatorsMetaSchema =
-  SchemaFactory.createForClass(BiosimulatorsMeta);
+export const BiosimulatorsMetaSchema = SchemaFactory.createForClass(BiosimulatorsMeta);
 
 BiosimulatorsMetaSchema.set('timestamps', {
   createdAt: 'created',

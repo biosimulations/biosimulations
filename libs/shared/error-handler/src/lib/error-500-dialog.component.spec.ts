@@ -14,11 +14,7 @@ describe('Error500DialogComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ErrorComponent, Error500DialogComponent],
-      imports: [
-        RouterTestingModule,
-        BiosimulationsIconsModule,
-        MatDialogModule,
-      ],
+      imports: [RouterTestingModule, BiosimulationsIconsModule, MatDialogModule],
       providers: [
         ConfigService,
         {

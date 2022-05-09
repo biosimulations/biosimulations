@@ -91,7 +91,7 @@ describe('UploadModelComponent', () => {
   });
 
   it('should output FormStepData when valid format and url entered', async () => {
-    await clickOption('name: test format 2')
+    await clickOption('name: test format 2');
 
     await insertUrl(testUrl);
 
@@ -125,7 +125,7 @@ describe('UploadModelComponent', () => {
 
     expect(outputData).toBe(null);
 
-    let errorMessage = fixture.debugElement.query(el => el.name === 'mat-error');
+    let errorMessage = fixture.debugElement.query((el) => el.name === 'mat-error');
     expect(errorMessage).toBeTruthy();
 
     await insertUrl(testUrl);
@@ -133,7 +133,7 @@ describe('UploadModelComponent', () => {
     outputData = clickNext();
     expect(outputData).toBeTruthy();
 
-    errorMessage = fixture.debugElement.query(el => el.name === 'mat-error');
+    errorMessage = fixture.debugElement.query((el) => el.name === 'mat-error');
     expect(errorMessage).toBeFalsy();
   });
 

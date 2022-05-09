@@ -1,9 +1,5 @@
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
-import {
-  JobQueue,
-  MonitorJobData,
-  SubmitHPCSimulationRunJobData,
-} from '@biosimulations/messages/messages';
+import { JobQueue, MonitorJobData, SubmitHPCSimulationRunJobData } from '@biosimulations/messages/messages';
 
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
 import { InjectQueue, Process, Processor } from '@biosimulations/nestjs-bullmq';
@@ -23,17 +19,13 @@ export class DispatchProcessor {
   ) {}
 
   @Process({ concurrency: 10 })
-  private async handleSubmission(
-    job: Job<SubmitHPCSimulationRunJobData>,
-  ): Promise<void> {
+  private async handleSubmission(job: Job<SubmitHPCSimulationRunJobData>): Promise<void> {
     const data = job.data;
 
     this.logger.debug(`Starting job for simulation run '${data.runId}' ...`);
 
     // submit job to HPC
-    this.logger.debug(
-      `Submitting job for simulation run '${data.runId}' to HPC ...`,
-    );
+    this.logger.debug(`Submitting job for simulation run '${data.runId}' to HPC ...`);
     const response = await this.hpcService.submitJob(
       data.runId,
       data.simulator,
@@ -51,17 +43,10 @@ export class DispatchProcessor {
       this.logger.error(message);
       job.log(message);
       if (job.attemptsMade >= (job.opts.attempts || 0)) {
-        await this.simStatusService.updateStatus(
-          data.runId,
-          SimulationRunStatus.FAILED,
-        );
+        await this.simStatusService.updateStatus(data.runId, SimulationRunStatus.FAILED);
       }
 
-      throw new BiosimulationsException(
-        HttpStatus.INTERNAL_SERVER_ERROR,
-        'Error occurred in job submission',
-        message,
-      );
+      throw new BiosimulationsException(HttpStatus.INTERNAL_SERVER_ERROR, 'Error occurred in job submission', message);
     }
 
     // Get the Slurm id of the job
@@ -69,9 +54,7 @@ export class DispatchProcessor {
     const slurmjobId = response.stdout.trim().split(' ').slice(-1)[0];
 
     // Initiate monitoring of the job
-    this.logger.debug(
-      `Initiating monitoring for job '${slurmjobId}' for simulation run '${data.runId}' ...`,
-    );
+    this.logger.debug(`Initiating monitoring for job '${slurmjobId}' for simulation run '${data.runId}' ...`);
 
     const monitorData: MonitorJobData = {
       slurmJobId: slurmjobId.toString(),

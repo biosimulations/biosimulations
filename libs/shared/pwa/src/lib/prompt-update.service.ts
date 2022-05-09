@@ -7,23 +7,15 @@ import { environment } from '@biosimulations/shared/environments';
   providedIn: 'root',
 })
 export class UpdateService {
-  public constructor(
-    private updates: SwUpdate,
-    private appRef: ApplicationRef,
-  ) {
+  public constructor(private updates: SwUpdate, private appRef: ApplicationRef) {
     if (environment.production) {
       // Alert the user to reload if there is a major error
       updates.unrecoverable.subscribe((event) => {
-        alert(
-          `An error occurred that we cannot recover from:\n${event.reason}\n\n` +
-            'Please reload the page.',
-        );
+        alert(`An error occurred that we cannot recover from:\n${event.reason}\n\n` + 'Please reload the page.');
       });
 
       // Allow the app to stabilize first, before starting polling for updates with `interval()`.
-      const appIsStable$ = appRef.isStable.pipe(
-        first((isStable) => isStable === true),
-      );
+      const appIsStable$ = appRef.isStable.pipe(first((isStable) => isStable === true));
       const everyHour$ = interval(60 * 60 * 1000);
       const everyHourOnceAppIsStable$ = concat(appIsStable$, everyHour$);
       everyHourOnceAppIsStable$.subscribe(() => updates.checkForUpdate());

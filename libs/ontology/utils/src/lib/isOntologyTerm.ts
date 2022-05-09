@@ -8,11 +8,7 @@ import {
 import { Ontologies } from '@biosimulations/datamodel/common';
 import { OntologyApiService } from '@biosimulations/ontology/api';
 
-export function IsOntologyTerm(
-  ontology: Ontologies,
-  parentTermId?: string,
-  validationOptions?: ValidationOptions,
-) {
+export function IsOntologyTerm(ontology: Ontologies, parentTermId?: string, validationOptions?: ValidationOptions) {
   return function (object: object, propertyName: string) {
     registerDecorator({
       name: 'isOntologyTerm',
@@ -37,11 +33,7 @@ export class IsOntologyTermConstraint implements ValidatorConstraintInterface {
       return false;
     }
 
-    return OntologyApiService.isOntologyTermId(
-      ontology,
-      value,
-      args?.constraints[1],
-    );
+    return OntologyApiService.isOntologyTermId(ontology, value, args?.constraints[1]);
   }
 
   public defaultMessage(args?: ValidationArguments): string {

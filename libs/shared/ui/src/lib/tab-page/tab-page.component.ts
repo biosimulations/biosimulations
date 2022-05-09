@@ -82,8 +82,7 @@ export class TabPageComponent implements AfterViewInit, AfterViewChecked {
       params = new URLSearchParams(this.route.snapshot.fragment);
     }
     if (this.selectedTabIndex in this.iTabToUrlHashFragmentMap) {
-      const urlHashFragment: string =
-        this.iTabToUrlHashFragmentMap[this.selectedTabIndex];
+      const urlHashFragment: string = this.iTabToUrlHashFragmentMap[this.selectedTabIndex];
       params.set('tab', urlHashFragment);
     } else if (params.has('tab')) {
       params.delete('tab');
@@ -94,26 +93,25 @@ export class TabPageComponent implements AfterViewInit, AfterViewChecked {
     this.subscriptions.forEach((sub: Subscription): void => sub.unsubscribe());
   }
   private proccessURLHashFragment(): void {
-    const sub = combineLatest([
-      this.route.paramMap,
-      this.route.fragment,
-    ]).subscribe((params: [ParamMap, string | null]): void => {
-      let selectedTabIndex = 0;
-      const fragment = params[1];
-      if (fragment) {
-        const params = new URLSearchParams(fragment);
-        const tab = params.get('tab');
-        if (tab && this.urlHashFragmentToITabMap?.[tab]) {
-          selectedTabIndex = this.urlHashFragmentToITabMap[tab];
-          /*
+    const sub = combineLatest([this.route.paramMap, this.route.fragment]).subscribe(
+      (params: [ParamMap, string | null]): void => {
+        let selectedTabIndex = 0;
+        const fragment = params[1];
+        if (fragment) {
+          const params = new URLSearchParams(fragment);
+          const tab = params.get('tab');
+          if (tab && this.urlHashFragmentToITabMap?.[tab]) {
+            selectedTabIndex = this.urlHashFragmentToITabMap[tab];
+            /*
             if (baseTabs[selectedTabIndex].disabled) {
               selectedTabIndex = 0;
             }
             */
+          }
         }
-      }
-      setTimeout(() => (this.selectedTabIndex = selectedTabIndex), 0);
-    });
+        setTimeout(() => (this.selectedTabIndex = selectedTabIndex), 0);
+      },
+    );
     this.subscriptions.push(sub);
   }
   private processTabChanges(): void {
@@ -121,15 +119,13 @@ export class TabPageComponent implements AfterViewInit, AfterViewChecked {
     this.urlHashFragmentToITabMap = {};
     this.iTabToUrlHashFragmentMap = {};
     if (this.tabs) {
-      this.tabs
-        .toArray()
-        .forEach((tab: TabPageTabComponent, iTab: number): void => {
-          baseTabs.push(tab.tab);
-          if (tab.urlHashFragment) {
-            this.urlHashFragmentToITabMap[tab.urlHashFragment] = iTab;
-            this.iTabToUrlHashFragmentMap[iTab] = tab.urlHashFragment;
-          }
-        });
+      this.tabs.toArray().forEach((tab: TabPageTabComponent, iTab: number): void => {
+        baseTabs.push(tab.tab);
+        if (tab.urlHashFragment) {
+          this.urlHashFragmentToITabMap[tab.urlHashFragment] = iTab;
+          this.iTabToUrlHashFragmentMap[iTab] = tab.urlHashFragment;
+        }
+      });
     }
     if (this.matTabGroup) {
       this.matTabGroup._tabs.reset(baseTabs);

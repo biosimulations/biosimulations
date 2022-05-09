@@ -1,12 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  map,
-  Observable,
-  BehaviorSubject,
-  shareReplay,
-  of,
-  forkJoin,
-} from 'rxjs';
+import { map, Observable, BehaviorSubject, shareReplay, of, forkJoin } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import {
   LabeledIdentifier,
@@ -59,11 +52,7 @@ import {
   CreativeWork as CreativeWorkSchema,
   WithContext,
 } from 'schema-dts';
-import {
-  Endpoints,
-  AppRoutes,
-  ResourceIdentifiers,
-} from '@biosimulations/config/common';
+import { Endpoints, AppRoutes, ResourceIdentifiers } from '@biosimulations/config/common';
 import { Thumbnail } from '@biosimulations/datamodel/common';
 
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
@@ -92,42 +81,31 @@ export class ViewService {
   ) {
     this.omexManifestUriFormatMap = {};
     BIOSIMULATIONS_FORMATS.forEach((format: EdamTerm): void => {
-      format?.biosimulationsMetadata?.omexManifestUris?.forEach(
-        (uri: string): void => {
-          this.omexManifestUriFormatMap[uri] = format;
-        },
-      );
+      format?.biosimulationsMetadata?.omexManifestUris?.forEach((uri: string): void => {
+        this.omexManifestUriFormatMap[uri] = format;
+      });
     });
 
-    const sedmlFormat = BIOSIMULATIONS_FORMATS.filter(
-      (format) => format.id === 'format_3685',
-    )?.[0];
+    const sedmlFormat = BIOSIMULATIONS_FORMATS.filter((format) => format.id === 'format_3685')?.[0];
     if (sedmlFormat) {
       this.sedmlFormat = sedmlFormat;
     } else {
       throw new Error('SED-ML format (EDAM:format_3685) could not be found');
     }
 
-    const vegaFormatOmexManifestUris = BIOSIMULATIONS_FORMATS.filter(
-      (format) => format.id === 'format_3969',
-    )?.[0]?.biosimulationsMetadata?.omexManifestUris;
+    const vegaFormatOmexManifestUris = BIOSIMULATIONS_FORMATS.filter((format) => format.id === 'format_3969')?.[0]
+      ?.biosimulationsMetadata?.omexManifestUris;
     if (vegaFormatOmexManifestUris) {
       this.vegaFormatOmexManifestUris = vegaFormatOmexManifestUris;
     } else {
-      throw new Error(
-        'Vega format (EDAM:format_3969) must be annotated with one or more OMEX Manifest URIs',
-      );
+      throw new Error('Vega format (EDAM:format_3969) must be annotated with one or more OMEX Manifest URIs');
     }
 
-    const combineOmexFormat = BIOSIMULATIONS_FORMATS.filter(
-      (format) => format.id === 'format_3686',
-    )[0];
+    const combineOmexFormat = BIOSIMULATIONS_FORMATS.filter((format) => format.id === 'format_3686')[0];
     if (combineOmexFormat) {
       this.combineOmexFormat = combineOmexFormat;
     } else {
-      throw new Error(
-        'COMBINE/OMEX format (EDAM:format_3686) must be annotated with one or more OMEX Manifest URIs',
-      );
+      throw new Error('COMBINE/OMEX format (EDAM:format_3686) must be annotated with one or more OMEX Manifest URIs');
     }
   }
 
@@ -136,37 +114,22 @@ export class ViewService {
     simulationRunSummary: SimulationRunSummary,
     owner?: Account,
   ): ProjectMetadata | null {
-    const metadata = simulationRunSummary?.metadata?.filter(
-      (metadatum: SimulationRunMetadataSummary): boolean => {
-        return metadatum.uri === '.';
-      },
-    )?.[0];
+    const metadata = simulationRunSummary?.metadata?.filter((metadatum: SimulationRunMetadataSummary): boolean => {
+      return metadatum.uri === '.';
+    })?.[0];
     if (!metadata) {
       return null;
     }
 
-    return this.formatMetadata(
-      metadata,
-      simulationRunSummary.id,
-      defaultTitle,
-      owner,
-    );
+    return this.formatMetadata(metadata, simulationRunSummary.id, defaultTitle, owner);
   }
 
   private formatCreators(creator: LabeledIdentifier): Creator {
     let icon = 'link';
     if (creator.uri) {
-      if (
-        creator.uri.match(
-          /^https?:\/\/(wwww\.)?(identifiers\.org\/orcid[:/]|orcid\.org\/)/i,
-        )
-      ) {
+      if (creator.uri.match(/^https?:\/\/(wwww\.)?(identifiers\.org\/orcid[:/]|orcid\.org\/)/i)) {
         icon = 'orcid';
-      } else if (
-        creator.uri.match(
-          /^https?:\/\/(wwww\.)?(identifiers\.org\/github[:/]|github\.com\/)/i,
-        )
-      ) {
+      } else if (creator.uri.match(/^https?:\/\/(wwww\.)?(identifiers\.org\/github[:/]|github\.com\/)/i)) {
         icon = 'github';
       } else if (creator.uri.match(/^https?:\/\/(wwww\.)?(linkedin\.com\/)/i)) {
         icon = 'linkedin';
@@ -191,17 +154,11 @@ export class ViewService {
     defaultTitle: string,
     owner?: Account,
   ): ProjectMetadata {
-    const thumbnails = (metadata?.thumbnails || []).map(
-      (thumbnail: string): string =>
-        // handle cases where thumbnail is provided as url and relative path
-        thumbnail.startsWith('http')
-          ? thumbnail
-          : this.endpoints.getSimulationRunFilesDownloadEndpoint(
-              false,
-              runId,
-              thumbnail,
-              Thumbnail.view,
-            ),
+    const thumbnails = (metadata?.thumbnails || []).map((thumbnail: string): string =>
+      // handle cases where thumbnail is provided as url and relative path
+      thumbnail.startsWith('http')
+        ? thumbnail
+        : this.endpoints.getSimulationRunFilesDownloadEndpoint(false, runId, thumbnail, Thumbnail.view),
     );
 
     // Check for undefined metadata for all fields
@@ -218,17 +175,11 @@ export class ViewService {
 
     // biology
     const encodes: ListItem[] =
-      metadata?.encodes?.flatMap(
-        this.labeledIdentifierToListItem.bind(this, 'Biology', 'cell'),
-      ) || [];
+      metadata?.encodes?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Biology', 'cell')) || [];
     const taxa: ListItem[] =
-      metadata?.taxa?.flatMap(
-        this.labeledIdentifierToListItem.bind(this, 'Taxon', 'taxon'),
-      ) || [];
+      metadata?.taxa?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Taxon', 'taxon')) || [];
     const tags: ListItem[] =
-      metadata?.keywords?.flatMap(
-        this.labeledIdentifierToListItem.bind(this, 'Keyword', 'tag'),
-      ) || [];
+      metadata?.keywords?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Keyword', 'tag')) || [];
     const other: ListItem[] =
       metadata?.other?.flatMap((other: DescribedIdentifier): ListItem[] => {
         const title = other.attribute_label || other.attribute_uri;
@@ -242,9 +193,7 @@ export class ViewService {
         }
       }) || [];
     const seeAlso: ListItem[] =
-      metadata?.seeAlso?.flatMap(
-        this.labeledIdentifierToListItem.bind(this, 'More info', 'link'),
-      ) || [];
+      metadata?.seeAlso?.flatMap(this.labeledIdentifierToListItem.bind(this, 'More info', 'link')) || [];
 
     formattedMetadata.modelSimulation.push({
       title: 'Model/simulation',
@@ -253,26 +202,16 @@ export class ViewService {
 
     // Provenance
     const sources: ListItem[] =
-      metadata?.sources?.flatMap(
-        this.labeledIdentifierToListItem.bind(this, 'Source', 'code'),
-      ) || [];
+      metadata?.sources?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Source', 'code')) || [];
     const predecessors: ListItem[] =
-      metadata?.predecessors?.flatMap(
-        this.labeledIdentifierToListItem.bind(this, 'Predecessor', 'backward'),
-      ) || [];
+      metadata?.predecessors?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Predecessor', 'backward')) || [];
     const successors: ListItem[] =
-      metadata?.successors?.flatMap(
-        this.labeledIdentifierToListItem.bind(this, 'Successor', 'forward'),
-      ) || [];
+      metadata?.successors?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Successor', 'forward')) || [];
     const references: ListItem[] =
-      metadata?.references?.flatMap(
-        this.labeledIdentifierToListItem.bind(this, 'Reference', 'journal'),
-      ) || [];
+      metadata?.references?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Reference', 'journal')) || [];
 
     const citations: ListItem[] =
-      metadata?.citations?.flatMap(
-        this.labeledIdentifierToListItem.bind(this, 'Citation', 'file'),
-      ) || [];
+      metadata?.citations?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Citation', 'file')) || [];
 
     let contributors: ListItem[] = [];
     if (owner) {
@@ -284,13 +223,7 @@ export class ViewService {
               uri: organization?.url || null,
             };
           })
-          .flatMap(
-            this.labeledIdentifierToListItem.bind(
-              this,
-              'Organization',
-              'organization',
-            ),
-          ),
+          .flatMap(this.labeledIdentifierToListItem.bind(this, 'Organization', 'organization')),
       );
       contributors = contributors.concat(
         [
@@ -298,31 +231,19 @@ export class ViewService {
             label: owner.name,
             uri: owner?.url || null,
           },
-        ].flatMap(
-          this.labeledIdentifierToListItem.bind(this, 'Owner', 'author'),
-        ),
+        ].flatMap(this.labeledIdentifierToListItem.bind(this, 'Owner', 'author')),
       );
     }
     contributors = contributors.concat(
-      metadata?.contributors?.flatMap(
-        this.labeledIdentifierToListItem.bind(this, 'Curator', 'author'),
-      ) || [],
+      metadata?.contributors?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Curator', 'author')) || [],
     );
     contributors = contributors.concat(
-      metadata?.funders?.flatMap(
-        this.labeledIdentifierToListItem.bind(this, 'Funder', 'funding'),
-      ) || [],
+      metadata?.funders?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Funder', 'funding')) || [],
     );
 
-    const identifiers =
-      metadata?.identifiers?.flatMap(
-        this.labeledIdentifierToListItem.bind(this, 'Id', 'id'),
-      ) || [];
+    const identifiers = metadata?.identifiers?.flatMap(this.labeledIdentifierToListItem.bind(this, 'Id', 'id')) || [];
 
-    const license =
-      metadata?.license?.flatMap(
-        this.labeledIdentifierToListItem.bind(this, 'License', 'license'),
-      ) || [];
+    const license = metadata?.license?.flatMap(this.labeledIdentifierToListItem.bind(this, 'License', 'license')) || [];
 
     const dates: ListItem[] = [];
     if (metadata?.created) {
@@ -344,12 +265,7 @@ export class ViewService {
 
     formattedMetadata.provenance.push({
       title: 'Provenance',
-      items: sources
-        .concat(predecessors)
-        .concat(successors)
-        .concat(references)
-        .concat(contributors)
-        .concat(dates),
+      items: sources.concat(predecessors).concat(successors).concat(references).concat(contributors).concat(dates),
     });
 
     formattedMetadata.identifiers.push({
@@ -358,20 +274,15 @@ export class ViewService {
     });
 
     // filter out empty categories
-    formattedMetadata.modelSimulation =
-      formattedMetadata.modelSimulation.filter((attributes: List): boolean => {
-        return attributes.items.length > 0;
-      });
-    formattedMetadata.provenance = formattedMetadata.provenance.filter(
-      (attributes: List): boolean => {
-        return attributes.items.length > 0;
-      },
-    );
-    formattedMetadata.identifiers = formattedMetadata.identifiers.filter(
-      (attributes: List): boolean => {
-        return attributes.items.length > 0;
-      },
-    );
+    formattedMetadata.modelSimulation = formattedMetadata.modelSimulation.filter((attributes: List): boolean => {
+      return attributes.items.length > 0;
+    });
+    formattedMetadata.provenance = formattedMetadata.provenance.filter((attributes: List): boolean => {
+      return attributes.items.length > 0;
+    });
+    formattedMetadata.identifiers = formattedMetadata.identifiers.filter((attributes: List): boolean => {
+      return attributes.items.length > 0;
+    });
 
     // return metadata
     return formattedMetadata;
@@ -380,232 +291,196 @@ export class ViewService {
   public getFormattedSimulationRun(
     simulationRunSummary: SimulationRunSummary,
   ): Observable<FormattedSimulationRunMetadata> {
-    return this.simRunService
-      .getSimulationRunSimulationSpecifications(simulationRunSummary.id)
-      .pipe(
-        shareReplay(1),
-        map(
-          (
-            sedmlArchiveContents: SimulationRunSedDocument[],
-          ): FormattedSimulationRunMetadata => {
-            const modelLanguageSedUrns = new Set<string>();
-            const simulationTypes = new Set<string>();
-            sedmlArchiveContents.forEach(
-              (serializedSedDoc: SimulationRunSedDocument): void => {
-                const sedDoc = deserializeSedDocument({
-                  _type: 'SedDocument',
-                  version: serializedSedDoc.version,
-                  level: serializedSedDoc.level,
-                  styles: serializedSedDoc.styles,
-                  models: serializedSedDoc.models,
-                  simulations: serializedSedDoc.simulations,
-                  tasks: serializedSedDoc.tasks,
-                  dataGenerators: serializedSedDoc.dataGenerators,
-                  outputs: serializedSedDoc.outputs,
-                });
-                sedDoc.tasks.forEach((task: SedAbstractTask): void => {
-                  if (task._type === 'SedTask') {
-                    modelLanguageSedUrns.add(task.model.language);
-                    simulationTypes.add(task.simulation._type);
-                  }
-                });
-              },
-            );
+    return this.simRunService.getSimulationRunSimulationSpecifications(simulationRunSummary.id).pipe(
+      shareReplay(1),
+      map((sedmlArchiveContents: SimulationRunSedDocument[]): FormattedSimulationRunMetadata => {
+        const modelLanguageSedUrns = new Set<string>();
+        const simulationTypes = new Set<string>();
+        sedmlArchiveContents.forEach((serializedSedDoc: SimulationRunSedDocument): void => {
+          const sedDoc = deserializeSedDocument({
+            _type: 'SedDocument',
+            version: serializedSedDoc.version,
+            level: serializedSedDoc.level,
+            styles: serializedSedDoc.styles,
+            models: serializedSedDoc.models,
+            simulations: serializedSedDoc.simulations,
+            tasks: serializedSedDoc.tasks,
+            dataGenerators: serializedSedDoc.dataGenerators,
+            outputs: serializedSedDoc.outputs,
+          });
+          sedDoc.tasks.forEach((task: SedAbstractTask): void => {
+            if (task._type === 'SedTask') {
+              modelLanguageSedUrns.add(task.model.language);
+              simulationTypes.add(task.simulation._type);
+            }
+          });
+        });
 
-            let methodsTools: ListItem[] = [];
+        let methodsTools: ListItem[] = [];
 
-            const simulationTypeItems = Array.from(simulationTypes)
-              .map((simulationType: string): ListItem => {
-                return {
-                  title: 'Simulation type',
-                  value:
-                    SimulationTypeBriefName[
-                      simulationType as keyof typeof SimulationTypeBriefName
-                    ],
-                  icon: 'simulator' as BiosimulationsIcon,
-                  url: 'https://sed-ml.org/',
+        const simulationTypeItems = Array.from(simulationTypes)
+          .map((simulationType: string): ListItem => {
+            return {
+              title: 'Simulation type',
+              value: SimulationTypeBriefName[simulationType as keyof typeof SimulationTypeBriefName],
+              icon: 'simulator' as BiosimulationsIcon,
+              url: 'https://sed-ml.org/',
+            };
+          })
+          .sort((a, b): number => {
+            return a.value.localeCompare(b.value, undefined, {
+              numeric: true,
+            });
+          });
+        methodsTools = methodsTools.concat(simulationTypeItems);
+
+        const kisaoIdSimulationAlgorithmMap: {
+          [kisaoId: string]: SimulationRunAlgorithmSummary;
+        } = {};
+        simulationRunSummary?.tasks?.forEach((task) => {
+          kisaoIdSimulationAlgorithmMap[task.simulation.algorithm.kisaoId] = task.simulation.algorithm;
+        });
+
+        const algorithmItems = Object.values(kisaoIdSimulationAlgorithmMap)
+          .map((algorithm): ListItem => {
+            return {
+              title: 'Simulation algorithm',
+              value: algorithm.name,
+              icon: 'code' as BiosimulationsIcon,
+              url:
+                'https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23' +
+                algorithm.kisaoId,
+            };
+          })
+          .sort((a, b): number => {
+            return a.value.localeCompare(b.value, undefined, {
+              numeric: true,
+            });
+          });
+        methodsTools = methodsTools.concat(algorithmItems);
+
+        const modelFormatItems = Array.from(modelLanguageSedUrns)
+          .filter((modelLanguageSedUrn): boolean => {
+            for (const format of BIOSIMULATIONS_FORMATS) {
+              if (
+                format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn &&
+                modelLanguageSedUrn.startsWith(format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn)
+              ) {
+                return true;
+              }
+            }
+            return false;
+          })
+          .map((modelLanguageSedUrn): ListItem => {
+            let modelLanguage!: ListItem;
+            for (const format of BIOSIMULATIONS_FORMATS) {
+              if (
+                format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn &&
+                modelLanguageSedUrn.startsWith(format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn)
+              ) {
+                modelLanguage = {
+                  title: 'Model format',
+                  value: format?.biosimulationsMetadata?.acronym || format.name,
+                  icon: 'model',
+                  url: format.url,
                 };
-              })
-              .sort((a, b): number => {
-                return a.value.localeCompare(b.value, undefined, {
-                  numeric: true,
-                });
-              });
-            methodsTools = methodsTools.concat(simulationTypeItems);
-
-            const kisaoIdSimulationAlgorithmMap: {
-              [kisaoId: string]: SimulationRunAlgorithmSummary;
-            } = {};
-            simulationRunSummary?.tasks?.forEach((task) => {
-              kisaoIdSimulationAlgorithmMap[task.simulation.algorithm.kisaoId] =
-                task.simulation.algorithm;
+                break;
+              }
+            }
+            return modelLanguage;
+          })
+          .sort((a, b): number => {
+            return a.value.localeCompare(b.value, undefined, {
+              numeric: true,
             });
+          });
+        methodsTools = methodsTools.concat(modelFormatItems);
 
-            const algorithmItems = Object.values(kisaoIdSimulationAlgorithmMap)
-              .map((algorithm): ListItem => {
-                return {
-                  title: 'Simulation algorithm',
-                  value: algorithm.name,
-                  icon: 'code' as BiosimulationsIcon,
-                  url:
-                    'https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23' +
-                    algorithm.kisaoId,
-                };
-              })
-              .sort((a, b): number => {
-                return a.value.localeCompare(b.value, undefined, {
-                  numeric: true,
-                });
-              });
-            methodsTools = methodsTools.concat(algorithmItems);
+        methodsTools.push({
+          title: 'Simulation format',
+          value: this.sedmlFormat?.biosimulationsMetadata?.acronym || this.sedmlFormat.name,
+          icon: (this.sedmlFormat?.biosimulationsMetadata?.icon || 'simulation') as BiosimulationsIcon,
+          url: this.sedmlFormat.url,
+        });
 
-            const modelFormatItems = Array.from(modelLanguageSedUrns)
-              .filter((modelLanguageSedUrn): boolean => {
-                for (const format of BIOSIMULATIONS_FORMATS) {
-                  if (
-                    format?.biosimulationsMetadata?.modelFormatMetadata
-                      ?.sedUrn &&
-                    modelLanguageSedUrn.startsWith(
-                      format?.biosimulationsMetadata?.modelFormatMetadata
-                        ?.sedUrn,
-                    )
-                  ) {
-                    return true;
-                  }
-                }
-                return false;
-              })
-              .map((modelLanguageSedUrn): ListItem => {
-                let modelLanguage!: ListItem;
-                for (const format of BIOSIMULATIONS_FORMATS) {
-                  if (
-                    format?.biosimulationsMetadata?.modelFormatMetadata
-                      ?.sedUrn &&
-                    modelLanguageSedUrn.startsWith(
-                      format?.biosimulationsMetadata?.modelFormatMetadata
-                        ?.sedUrn,
-                    )
-                  ) {
-                    modelLanguage = {
-                      title: 'Model format',
-                      value:
-                        format?.biosimulationsMetadata?.acronym || format.name,
-                      icon: 'model',
-                      url: format.url,
-                    };
-                    break;
-                  }
-                }
-                return modelLanguage;
-              })
-              .sort((a, b): number => {
-                return a.value.localeCompare(b.value, undefined, {
-                  numeric: true,
-                });
-              });
-            methodsTools = methodsTools.concat(modelFormatItems);
+        methodsTools.push({
+          title: 'Project format',
+          value: 'COMBINE/OMEX',
+          icon: 'archive',
+          url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3686',
+        });
 
-            methodsTools.push({
-              title: 'Simulation format',
-              value:
-                this.sedmlFormat?.biosimulationsMetadata?.acronym ||
-                this.sedmlFormat.name,
-              icon: (this.sedmlFormat?.biosimulationsMetadata?.icon ||
-                'simulation') as BiosimulationsIcon,
-              url: this.sedmlFormat.url,
-            });
+        methodsTools.push({
+          title: 'Simulation tool',
+          value: `${simulationRunSummary.run.simulator.name} ${simulationRunSummary.run.simulator.version}`,
+          icon: 'simulator',
+          url: this.appRoutes.getSimulatorsView(
+            simulationRunSummary.run.simulator.id,
+            // simulationRunSummary.run.simulator.version,
+          ),
+        });
 
-            methodsTools.push({
-              title: 'Project format',
-              value: 'COMBINE/OMEX',
-              icon: 'archive',
-              url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3686',
-            });
+        const run: ListItem[] = [];
 
-            methodsTools.push({
-              title: 'Simulation tool',
-              value: `${simulationRunSummary.run.simulator.name} ${simulationRunSummary.run.simulator.version}`,
-              icon: 'simulator',
-              url: this.appRoutes.getSimulatorsView(
-                simulationRunSummary.run.simulator.id,
-                // simulationRunSummary.run.simulator.version,
-              ),
-            });
+        run.push({
+          title: 'Id',
+          value: simulationRunSummary.id,
+          icon: 'id',
+          url: this.appRoutes.getSimulationRunsView(simulationRunSummary.id),
+        });
 
-            const run: ListItem[] = [];
+        run.push({
+          title: 'Duration',
+          value:
+            simulationRunSummary.run.runtime !== undefined
+              ? FormatService.formatDuration(simulationRunSummary.run.runtime)
+              : 'N/A',
+          icon: 'duration',
+          url: null,
+        });
 
-            run.push({
-              title: 'Id',
-              value: simulationRunSummary.id,
-              icon: 'id',
-              url: this.appRoutes.getSimulationRunsView(
-                simulationRunSummary.id,
-              ),
-            });
+        run.push({
+          title: 'CPUs',
+          value: simulationRunSummary.run.cpus.toString(),
+          icon: 'processor',
+          url: null,
+        });
 
-            run.push({
-              title: 'Duration',
-              value:
-                simulationRunSummary.run.runtime !== undefined
-                  ? FormatService.formatDuration(
-                      simulationRunSummary.run.runtime,
-                    )
-                  : 'N/A',
-              icon: 'duration',
-              url: null,
-            });
+        run.push({
+          title: 'Memory',
+          value: FormatService.formatDigitalSize(simulationRunSummary.run.memory * 1e9),
+          icon: 'memory',
+          url: null,
+        });
 
-            run.push({
-              title: 'CPUs',
-              value: simulationRunSummary.run.cpus.toString(),
-              icon: 'processor',
-              url: null,
-            });
+        run.push({
+          title: 'Submitted',
+          value: FormatService.formatTime(new Date(simulationRunSummary.submitted)),
+          icon: 'date',
+          url: null,
+        });
 
-            run.push({
-              title: 'Memory',
-              value: FormatService.formatDigitalSize(
-                simulationRunSummary.run.memory * 1e9,
-              ),
-              icon: 'memory',
-              url: null,
-            });
+        run.push({
+          title: 'Completed',
+          value: FormatService.formatTime(new Date(simulationRunSummary.updated)),
+          icon: 'date',
+          url: null,
+        });
 
-            run.push({
-              title: 'Submitted',
-              value: FormatService.formatTime(
-                new Date(simulationRunSummary.submitted),
-              ),
-              icon: 'date',
-              url: null,
-            });
-
-            run.push({
-              title: 'Completed',
-              value: FormatService.formatTime(
-                new Date(simulationRunSummary.updated),
-              ),
-              icon: 'date',
-              url: null,
-            });
-
-            // return sections
-            const sections = [
-              { title: 'Methods & tools', items: methodsTools },
-              { title: 'Simulation run', items: run },
-            ];
-            return sections.filter((section: List): boolean => {
-              return section.items.length > 0;
-            });
-          },
-        ),
-        shareReplay(1),
-      );
+        // return sections
+        const sections = [
+          { title: 'Methods & tools', items: methodsTools },
+          { title: 'Simulation run', items: run },
+        ];
+        return sections.filter((section: List): boolean => {
+          return section.items.length > 0;
+        });
+      }),
+      shareReplay(1),
+    );
   }
 
-  public getFormattedProjectFiles(
-    simulationRunSummary: SimulationRunSummary,
-  ): File[] {
+  public getFormattedProjectFiles(simulationRunSummary: SimulationRunSummary): File[] {
     return [
       {
         _type: 'File',
@@ -622,153 +497,123 @@ export class ViewService {
         size:
           simulationRunSummary.run.projectSize === undefined
             ? 'N/A'
-            : FormatService.formatDigitalSize(
-                simulationRunSummary.run.projectSize,
-              ),
-        icon: (this.combineOmexFormat?.biosimulationsMetadata?.icon ||
-          'archive') as BiosimulationsIcon,
-        url: this.endpoints.getSimulationRunDownloadEndpoint(
-          false,
-          simulationRunSummary.id,
-        ),
+            : FormatService.formatDigitalSize(simulationRunSummary.run.projectSize),
+        icon: (this.combineOmexFormat?.biosimulationsMetadata?.icon || 'archive') as BiosimulationsIcon,
+        url: this.endpoints.getSimulationRunDownloadEndpoint(false, simulationRunSummary.id),
         basename: 'archive.omex',
       },
     ];
   }
 
-  public getFormattedProjectContentFiles(
-    simulationRunSummary: SimulationRunSummary,
-  ): Observable<Path[]> {
-    return this.simRunService
-      .getSimulationRunFiles(simulationRunSummary.id)
-      .pipe(
-        map((contents: CombineArchiveFile[]): Path[] => {
-          const metadataMap: { [location: string]: ProjectMetadata } = {};
+  public getFormattedProjectContentFiles(simulationRunSummary: SimulationRunSummary): Observable<Path[]> {
+    return this.simRunService.getSimulationRunFiles(simulationRunSummary.id).pipe(
+      map((contents: CombineArchiveFile[]): Path[] => {
+        const metadataMap: { [location: string]: ProjectMetadata } = {};
 
-          simulationRunSummary?.metadata?.forEach(
-            (metadatum: SimulationRunMetadataSummary): void => {
-              metadataMap[metadatum.uri] = this.formatMetadata(
-                metadatum,
-                simulationRunSummary.id,
-                metadatum.uri,
-              );
-            },
-          );
+        simulationRunSummary?.metadata?.forEach((metadatum: SimulationRunMetadataSummary): void => {
+          metadataMap[metadatum.uri] = this.formatMetadata(metadatum, simulationRunSummary.id, metadatum.uri);
+        });
 
-          const root: { [path: string]: Path } = {};
+        const root: { [path: string]: Path } = {};
 
-          contents
-            .filter((content: CombineArchiveFile): boolean => {
-              return content.location != '.';
-            })
-            .forEach((content: CombineArchiveFile): void => {
-              let location = content.location;
-              if (location.substring(0, 2) === './') {
-                location = location.substring(2);
+        contents
+          .filter((content: CombineArchiveFile): boolean => {
+            return content.location != '.';
+          })
+          .forEach((content: CombineArchiveFile): void => {
+            let location = content.location;
+            if (location.substring(0, 2) === './') {
+              location = location.substring(2);
+            }
+
+            const parentBasenames = location.split('/');
+            const basename = parentBasenames.pop() as string;
+
+            let parentPath = '';
+            let level = -1;
+            parentBasenames.forEach((parentBasename: string): void => {
+              level++;
+              parentPath += '/' + parentBasename;
+              if (!(parentPath.substring(1) in root)) {
+                const location = parentPath.substring(1);
+                root[parentPath.substring(1)] = {
+                  _type: 'Directory',
+                  level: level,
+                  location: location,
+                  title: parentBasename,
+                  metadata: metadataMap?.[location],
+                };
               }
-
-              const parentBasenames = location.split('/');
-              const basename = parentBasenames.pop() as string;
-
-              let parentPath = '';
-              let level = -1;
-              parentBasenames.forEach((parentBasename: string): void => {
-                level++;
-                parentPath += '/' + parentBasename;
-                if (!(parentPath.substring(1) in root)) {
-                  const location = parentPath.substring(1);
-                  root[parentPath.substring(1)] = {
-                    _type: 'Directory',
-                    level: level,
-                    location: location,
-                    title: parentBasename,
-                    metadata: metadataMap?.[location],
-                  };
-                }
-              });
-
-              let format = content.format;
-              if (!(format in this.omexManifestUriFormatMap)) {
-                for (const uri of Object.keys(this.omexManifestUriFormatMap)) {
-                  if (format.startsWith(uri)) {
-                    format = uri;
-                    break;
-                  }
-                }
-              }
-
-              let formatName!: string;
-              if (format in this.omexManifestUriFormatMap) {
-                const formatObj = this.omexManifestUriFormatMap[format];
-                formatName = formatObj.name;
-                if (formatObj?.biosimulationsMetadata?.acronym) {
-                  formatName +=
-                    ' (' + formatObj.biosimulationsMetadata?.acronym + ')';
-                }
-              } else if (format.startsWith('http://purl.org/NET/mediatypes/')) {
-                formatName = format.substring(
-                  'http://purl.org/NET/mediatypes/'.length,
-                );
-              } else {
-                formatName = format;
-              }
-
-              root[location] = {
-                _type: 'File',
-                level: parentBasenames.length,
-                location: location,
-                title: basename,
-                basename: basename,
-                format: formatName,
-                master: content?.master,
-                url: content.url,
-                size:
-                  content.size === undefined
-                    ? 'N/A'
-                    : FormatService.formatDigitalSize(
-                        typeof content.size === 'string'
-                          ? parseFloat(content.size)
-                          : content.size,
-                      ),
-                formatUrl: this.omexManifestUriFormatMap?.[format]?.url,
-                icon: (this.omexManifestUriFormatMap?.[format]
-                  ?.biosimulationsMetadata?.icon ||
-                  'file') as BiosimulationsIcon,
-                metadata: metadataMap?.[location],
-              };
             });
 
-          return Object.values(root).sort((a: Path, b: Path): number => {
-            return a.location.localeCompare(b.location, undefined, {
-              numeric: true,
-            });
+            let format = content.format;
+            if (!(format in this.omexManifestUriFormatMap)) {
+              for (const uri of Object.keys(this.omexManifestUriFormatMap)) {
+                if (format.startsWith(uri)) {
+                  format = uri;
+                  break;
+                }
+              }
+            }
+
+            let formatName!: string;
+            if (format in this.omexManifestUriFormatMap) {
+              const formatObj = this.omexManifestUriFormatMap[format];
+              formatName = formatObj.name;
+              if (formatObj?.biosimulationsMetadata?.acronym) {
+                formatName += ' (' + formatObj.biosimulationsMetadata?.acronym + ')';
+              }
+            } else if (format.startsWith('http://purl.org/NET/mediatypes/')) {
+              formatName = format.substring('http://purl.org/NET/mediatypes/'.length);
+            } else {
+              formatName = format;
+            }
+
+            root[location] = {
+              _type: 'File',
+              level: parentBasenames.length,
+              location: location,
+              title: basename,
+              basename: basename,
+              format: formatName,
+              master: content?.master,
+              url: content.url,
+              size:
+                content.size === undefined
+                  ? 'N/A'
+                  : FormatService.formatDigitalSize(
+                      typeof content.size === 'string' ? parseFloat(content.size) : content.size,
+                    ),
+              formatUrl: this.omexManifestUriFormatMap?.[format]?.url,
+              icon: (this.omexManifestUriFormatMap?.[format]?.biosimulationsMetadata?.icon ||
+                'file') as BiosimulationsIcon,
+              metadata: metadataMap?.[location],
+            };
           });
-        }),
-        shareReplay(1),
-      );
+
+        return Object.values(root).sort((a: Path, b: Path): number => {
+          return a.location.localeCompare(b.location, undefined, {
+            numeric: true,
+          });
+        });
+      }),
+      shareReplay(1),
+    );
   }
 
-  public getFormattedOutputFiles(
-    simulationRunSummary: SimulationRunSummary,
-  ): File[] {
+  public getFormattedOutputFiles(simulationRunSummary: SimulationRunSummary): File[] {
     return [
       {
         _type: 'File',
         level: 0,
         location: '',
         title: 'Outputs',
-        format:
-          'JavaScript Object Notation (JSON) in BioSimulators simulator schema',
+        format: 'JavaScript Object Notation (JSON) in BioSimulators simulator schema',
         formatUrl: this.endpoints.getApiBaseUrl(false),
         master: false,
         size: 'N/A',
         icon: 'report',
-        url: this.endpoints.getRunResultsEndpoint(
-          false,
-          simulationRunSummary.id,
-          undefined,
-          true,
-        ),
+        url: this.endpoints.getRunResultsEndpoint(false, simulationRunSummary.id, undefined, true),
         basename: 'outputs.json',
       },
       {
@@ -777,20 +622,14 @@ export class ViewService {
         location: '',
         title: 'Outputs',
         format: 'Zip of HDF5 and PDF files',
-        formatUrl:
-          'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3987',
+        formatUrl: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3987',
         master: false,
         size:
           simulationRunSummary.run.resultsSize === undefined
             ? 'N/A'
-            : FormatService.formatDigitalSize(
-                simulationRunSummary.run.resultsSize,
-              ),
+            : FormatService.formatDigitalSize(simulationRunSummary.run.resultsSize),
         icon: 'report',
-        url: this.endpoints.getRunResultsDownloadEndpoint(
-          false,
-          simulationRunSummary.id,
-        ),
+        url: this.endpoints.getRunResultsDownloadEndpoint(false, simulationRunSummary.id),
         basename: 'outputs.zip',
       },
       {
@@ -803,10 +642,7 @@ export class ViewService {
         master: false,
         size: 'N/A',
         icon: 'logs',
-        url: this.endpoints.getSimulationRunLogsEndpoint(
-          false,
-          simulationRunSummary.id,
-        ),
+        url: this.endpoints.getSimulationRunLogsEndpoint(false, simulationRunSummary.id),
         basename: 'log.json',
       },
     ];
@@ -818,227 +654,194 @@ export class ViewService {
       this.simRunService.getSimulationRunSimulationSpecifications(runId),
     ]).pipe(
       shareReplay(1),
-      map(
-        (
-          args: [CombineArchiveFile[], SimulationRunSedDocument[]],
-        ): VisualizationList[] => {
-          const contents = args[0];
-          const sedmlArchiveContents = args[1];
+      map((args: [CombineArchiveFile[], SimulationRunSedDocument[]]): VisualizationList[] => {
+        const contents = args[0];
+        const sedmlArchiveContents = args[1];
 
-          // Vega visualizations
-          const vegaVisualizations: VegaVisualization[] = contents
-            .filter((content: CombineArchiveFile): boolean => {
-              return this.vegaFormatOmexManifestUris.includes(content.format);
-            })
-            .map((content: CombineArchiveFile): VegaVisualization => {
-              return this.makeVegaVisualization(
-                runId,
-                content.location,
-                content.url,
-                sedmlArchiveContents,
-              );
-            })
-            .sort((a: VegaVisualization, b: VegaVisualization): number => {
-              return a.name.localeCompare(b.name, undefined, { numeric: true });
+        // Vega visualizations
+        const vegaVisualizations: VegaVisualization[] = contents
+          .filter((content: CombineArchiveFile): boolean => {
+            return this.vegaFormatOmexManifestUris.includes(content.format);
+          })
+          .map((content: CombineArchiveFile): VegaVisualization => {
+            return this.makeVegaVisualization(runId, content.location, content.url, sedmlArchiveContents);
+          })
+          .sort((a: VegaVisualization, b: VegaVisualization): number => {
+            return a.name.localeCompare(b.name, undefined, { numeric: true });
+          });
+
+        const vegaVisualizationsList: VisualizationList[] = vegaVisualizations.length
+          ? [
+              {
+                title: 'Vega charts',
+                visualizations: vegaVisualizations,
+              },
+            ]
+          : [];
+
+        // SED-ML visualizations
+        const sedmlVisualizationsList = sedmlArchiveContents
+          .map((sedDocLocation: SimulationRunSedDocument): VisualizationList => {
+            let location = sedDocLocation.id;
+            if (location.startsWith('./')) {
+              location = location.substring(2);
+            }
+
+            const sedDoc = deserializeSedDocument({
+              _type: 'SedDocument',
+              version: sedDocLocation.version,
+              level: sedDocLocation.level,
+              styles: sedDocLocation.styles,
+              models: sedDocLocation.models,
+              simulations: sedDocLocation.simulations,
+              tasks: sedDocLocation.tasks,
+              dataGenerators: sedDocLocation.dataGenerators,
+              outputs: sedDocLocation.outputs,
             });
 
-          const vegaVisualizationsList: VisualizationList[] =
-            vegaVisualizations.length
-              ? [
-                  {
-                    title: 'Vega charts',
-                    visualizations: vegaVisualizations,
-                  },
-                ]
-              : [];
+            return {
+              title: 'SED-ML charts for ' + location,
+              visualizations: sedDoc.outputs
+                .flatMap((output: SedOutput): SedPlot2D[] => {
+                  return output._type === 'SedPlot2D' ? [output] : [];
+                })
+                .map((output: SedPlot2D): SedPlot2DVisualization => {
+                  return this.makeSedPlot2DVisualization(runId, location, output);
+                })
+                .sort((a: Visualization, b: Visualization): number => {
+                  return a.name.localeCompare(b.name, undefined, {
+                    numeric: true,
+                  });
+                }),
+            };
+          })
+          .filter((a: VisualizationList): boolean => {
+            return a.visualizations.length > 0;
+          })
+          .sort((a: VisualizationList, b: VisualizationList): number => {
+            return a.title.localeCompare(b.title, undefined, {
+              numeric: true,
+            });
+          });
 
-          // SED-ML visualizations
-          const sedmlVisualizationsList = sedmlArchiveContents
-            .map(
-              (sedDocLocation: SimulationRunSedDocument): VisualizationList => {
+        // User-designed visualizations
+        const sedmlReportArchiveContents = sedmlArchiveContents.map(
+          (content: SimulationRunSedDocument): SedDocumentReports => {
+            const sedDoc = deserializeSedDocument({
+              _type: 'SedDocument',
+              version: content.version,
+              level: content.level,
+              styles: content.styles,
+              models: content.models,
+              simulations: content.simulations,
+              tasks: content.tasks,
+              dataGenerators: content.dataGenerators,
+              outputs: content.outputs,
+            });
+
+            return {
+              id: content.id,
+              outputs: sedDoc.outputs.flatMap((output: SedOutput): SedReport[] => {
+                return output._type === 'SedReport' ? [output] : [];
+              }),
+            };
+          },
+        );
+
+        const uriSedDataSetMap: UriSedDataSetMap = {};
+        let hasData2D = false;
+        sedmlArchiveContents.forEach((sedDocLocation: SimulationRunSedDocument): void => {
+          const sedDoc = deserializeSedDocument({
+            _type: 'SedDocument',
+            version: sedDocLocation.version,
+            level: sedDocLocation.level,
+            styles: sedDocLocation.styles,
+            models: sedDocLocation.models,
+            simulations: sedDocLocation.simulations,
+            tasks: sedDocLocation.tasks,
+            dataGenerators: sedDocLocation.dataGenerators,
+            outputs: sedDocLocation.outputs,
+          });
+
+          for (const simulation of sedDoc.simulations) {
+            if (simulation._type === 'SedUniformTimeCourseSimulation' && simulation.numberOfSteps >= 1) {
+              hasData2D = true;
+              break;
+            }
+          }
+
+          sedDoc.outputs.forEach((output: SedOutput): void => {
+            if (output._type === 'SedReport') {
+              output.dataSets.forEach((dataSet: SedDataSet): void => {
                 let location = sedDocLocation.id;
                 if (location.startsWith('./')) {
                   location = location.substring(2);
                 }
-
-                const sedDoc = deserializeSedDocument({
-                  _type: 'SedDocument',
-                  version: sedDocLocation.version,
-                  level: sedDocLocation.level,
-                  styles: sedDocLocation.styles,
-                  models: sedDocLocation.models,
-                  simulations: sedDocLocation.simulations,
-                  tasks: sedDocLocation.tasks,
-                  dataGenerators: sedDocLocation.dataGenerators,
-                  outputs: sedDocLocation.outputs,
-                });
-
-                return {
-                  title: 'SED-ML charts for ' + location,
-                  visualizations: sedDoc.outputs
-                    .flatMap((output: SedOutput): SedPlot2D[] => {
-                      return output._type === 'SedPlot2D' ? [output] : [];
-                    })
-                    .map((output: SedPlot2D): SedPlot2DVisualization => {
-                      return this.makeSedPlot2DVisualization(
-                        runId,
-                        location,
-                        output,
-                      );
-                    })
-                    .sort((a: Visualization, b: Visualization): number => {
-                      return a.name.localeCompare(b.name, undefined, {
-                        numeric: true,
-                      });
-                    }),
-                };
-              },
-            )
-            .filter((a: VisualizationList): boolean => {
-              return a.visualizations.length > 0;
-            })
-            .sort((a: VisualizationList, b: VisualizationList): number => {
-              return a.title.localeCompare(b.title, undefined, {
-                numeric: true,
+                const uri = location + '/' + output.id + '/' + dataSet.id;
+                uriSedDataSetMap[uri] = dataSet;
               });
-            });
-
-          // User-designed visualizations
-          const sedmlReportArchiveContents = sedmlArchiveContents.map(
-            (content: SimulationRunSedDocument): SedDocumentReports => {
-              const sedDoc = deserializeSedDocument({
-                _type: 'SedDocument',
-                version: content.version,
-                level: content.level,
-                styles: content.styles,
-                models: content.models,
-                simulations: content.simulations,
-                tasks: content.tasks,
-                dataGenerators: content.dataGenerators,
-                outputs: content.outputs,
-              });
-
-              return {
-                id: content.id,
-                outputs: sedDoc.outputs.flatMap(
-                  (output: SedOutput): SedReport[] => {
-                    return output._type === 'SedReport' ? [output] : [];
-                  },
-                ),
-              };
-            },
-          );
-
-          const uriSedDataSetMap: UriSedDataSetMap = {};
-          let hasData2D = false;
-          sedmlArchiveContents.forEach(
-            (sedDocLocation: SimulationRunSedDocument): void => {
-              const sedDoc = deserializeSedDocument({
-                _type: 'SedDocument',
-                version: sedDocLocation.version,
-                level: sedDocLocation.level,
-                styles: sedDocLocation.styles,
-                models: sedDocLocation.models,
-                simulations: sedDocLocation.simulations,
-                tasks: sedDocLocation.tasks,
-                dataGenerators: sedDocLocation.dataGenerators,
-                outputs: sedDocLocation.outputs,
-              });
-
-              for (const simulation of sedDoc.simulations) {
-                if (
-                  simulation._type === 'SedUniformTimeCourseSimulation' &&
-                  simulation.numberOfSteps >= 1
-                ) {
-                  hasData2D = true;
-                  break;
-                }
-              }
-
-              sedDoc.outputs.forEach((output: SedOutput): void => {
-                if (output._type === 'SedReport') {
-                  output.dataSets.forEach((dataSet: SedDataSet): void => {
-                    let location = sedDocLocation.id;
-                    if (location.startsWith('./')) {
-                      location = location.substring(2);
-                    }
-                    const uri = location + '/' + output.id + '/' + dataSet.id;
-                    uriSedDataSetMap[uri] = dataSet;
-                  });
-                }
-              });
-            },
-          );
-
-          const designVisualizations: Visualization[] = [];
-
-          let behaviorSubject: BehaviorSubject<
-            Observable<PlotlyDataLayout | null>
-          >;
-
-          behaviorSubject = new BehaviorSubject<
-            Observable<PlotlyDataLayout | null>
-          >(of(null));
-          designVisualizations.push({
-            _type: 'Histogram1DVisualization',
-            id: 'Histogram1DVisualization',
-            name: '1D histogram',
-            userDesigned: true,
-            simulationRunId: runId,
-            sedDocs: sedmlReportArchiveContents,
-            uriSedDataSetMap: uriSedDataSetMap,
-            renderer: 'Plotly',
-            plotlyDataLayoutSubject: behaviorSubject,
-            plotlyDataLayout: behaviorSubject.asObservable(),
-            enabled: true,
+            }
           });
+        });
 
-          behaviorSubject = new BehaviorSubject<
-            Observable<PlotlyDataLayout | null>
-          >(of(null));
-          designVisualizations.push({
-            _type: 'Heatmap2DVisualization',
-            id: 'Heatmap2DVisualization',
-            name: '2D heatmap',
-            userDesigned: true,
-            simulationRunId: runId,
-            sedDocs: sedmlReportArchiveContents,
-            uriSedDataSetMap: uriSedDataSetMap,
-            renderer: 'Plotly',
-            plotlyDataLayoutSubject: behaviorSubject,
-            plotlyDataLayout: behaviorSubject.asObservable(),
-            enabled: hasData2D,
-          });
+        const designVisualizations: Visualization[] = [];
 
-          behaviorSubject = new BehaviorSubject<
-            Observable<PlotlyDataLayout | null>
-          >(of(null));
-          designVisualizations.push({
-            _type: 'Line2DVisualization',
-            id: 'Line2DVisualization',
-            name: '2D line plot',
-            userDesigned: true,
-            simulationRunId: runId,
-            sedDocs: sedmlReportArchiveContents,
-            uriSedDataSetMap: uriSedDataSetMap,
-            renderer: 'Plotly',
-            plotlyDataLayoutSubject: behaviorSubject,
-            plotlyDataLayout: behaviorSubject.asObservable(),
-            enabled: hasData2D,
-          });
+        let behaviorSubject: BehaviorSubject<Observable<PlotlyDataLayout | null>>;
 
-          const designVisualizationsList: VisualizationList[] = [
-            {
-              title: 'Design a chart',
-              visualizations: designVisualizations,
-            },
-          ];
+        behaviorSubject = new BehaviorSubject<Observable<PlotlyDataLayout | null>>(of(null));
+        designVisualizations.push({
+          _type: 'Histogram1DVisualization',
+          id: 'Histogram1DVisualization',
+          name: '1D histogram',
+          userDesigned: true,
+          simulationRunId: runId,
+          sedDocs: sedmlReportArchiveContents,
+          uriSedDataSetMap: uriSedDataSetMap,
+          renderer: 'Plotly',
+          plotlyDataLayoutSubject: behaviorSubject,
+          plotlyDataLayout: behaviorSubject.asObservable(),
+          enabled: true,
+        });
 
-          return vegaVisualizationsList
-            .concat(sedmlVisualizationsList)
-            .concat(designVisualizationsList);
-        },
-      ),
+        behaviorSubject = new BehaviorSubject<Observable<PlotlyDataLayout | null>>(of(null));
+        designVisualizations.push({
+          _type: 'Heatmap2DVisualization',
+          id: 'Heatmap2DVisualization',
+          name: '2D heatmap',
+          userDesigned: true,
+          simulationRunId: runId,
+          sedDocs: sedmlReportArchiveContents,
+          uriSedDataSetMap: uriSedDataSetMap,
+          renderer: 'Plotly',
+          plotlyDataLayoutSubject: behaviorSubject,
+          plotlyDataLayout: behaviorSubject.asObservable(),
+          enabled: hasData2D,
+        });
+
+        behaviorSubject = new BehaviorSubject<Observable<PlotlyDataLayout | null>>(of(null));
+        designVisualizations.push({
+          _type: 'Line2DVisualization',
+          id: 'Line2DVisualization',
+          name: '2D line plot',
+          userDesigned: true,
+          simulationRunId: runId,
+          sedDocs: sedmlReportArchiveContents,
+          uriSedDataSetMap: uriSedDataSetMap,
+          renderer: 'Plotly',
+          plotlyDataLayoutSubject: behaviorSubject,
+          plotlyDataLayout: behaviorSubject.asObservable(),
+          enabled: hasData2D,
+        });
+
+        const designVisualizationsList: VisualizationList[] = [
+          {
+            title: 'Design a chart',
+            visualizations: designVisualizations,
+          },
+        ];
+
+        return vegaVisualizationsList.concat(sedmlVisualizationsList).concat(designVisualizationsList);
+      }),
       shareReplay(1),
     );
   }
@@ -1059,40 +862,33 @@ export class ViewService {
       name: fileLocation,
       userDesigned: false,
       renderer: 'Vega',
-      vegaSpec: this.simRunService
-        .getSimulationRunFileContent(runId, fileUrl)
-        .pipe(
-          shareReplay(1),
-          map((spec: VegaSpec): VegaSpec | false => {
-            return this.vegaVisualizationService.linkSignalsAndDataSetsToSimulationsAndResults(
-              runId,
-              sedmlArchiveContents,
-              spec,
-            );
-          }),
-          catchError((error: any): Observable<false> => {
-            if (!environment.production) {
-              console.error(error);
-            }
-            return of<false>(false);
-          }),
-          shareReplay(1),
-        ),
+      vegaSpec: this.simRunService.getSimulationRunFileContent(runId, fileUrl).pipe(
+        shareReplay(1),
+        map((spec: VegaSpec): VegaSpec | false => {
+          return this.vegaVisualizationService.linkSignalsAndDataSetsToSimulationsAndResults(
+            runId,
+            sedmlArchiveContents,
+            spec,
+          );
+        }),
+        catchError((error: any): Observable<false> => {
+          if (!environment.production) {
+            console.error(error);
+          }
+          return of<false>(false);
+        }),
+        shareReplay(1),
+      ),
       enabled: true,
     };
   }
 
-  private makeSedPlot2DVisualization(
-    runId: string,
-    sedDocLocation: string,
-    plot: SedPlot2D,
-  ): SedPlot2DVisualization {
-    const data: Observable<SimulationRunOutput> =
-      this.simRunService.getSimulationRunOutputResults(
-        runId,
-        `${sedDocLocation}/${plot.id}`,
-        true,
-      );
+  private makeSedPlot2DVisualization(runId: string, sedDocLocation: string, plot: SedPlot2D): SedPlot2DVisualization {
+    const data: Observable<SimulationRunOutput> = this.simRunService.getSimulationRunOutputResults(
+      runId,
+      `${sedDocLocation}/${plot.id}`,
+      true,
+    );
 
     return {
       _type: 'SedPlot2DVisualization',
@@ -1104,12 +900,7 @@ export class ViewService {
         data.pipe(
           shareReplay(1),
           map((result: SimulationRunOutput): PlotlyDataLayout => {
-            return this.sedPlot2DVisualizationService.getPlotlyDataLayout(
-              runId,
-              sedDocLocation,
-              plot,
-              result,
-            );
+            return this.sedPlot2DVisualizationService.getPlotlyDataLayout(runId, sedDocLocation, plot, result);
           }),
           catchError((error: any): Observable<PlotlyDataLayout> => {
             if (!environment.production) {
@@ -1126,10 +917,7 @@ export class ViewService {
     };
   }
 
-  public getReportResults(
-    simulationRunId: string,
-    selectedUris: string[],
-  ): Observable<UriSetDataSetResultsMap> {
+  public getReportResults(simulationRunId: string, selectedUris: string[]): Observable<UriSetDataSetResultsMap> {
     const reportUris = new Set<string>();
     const reportObs: Observable<SimulationRunOutput | false>[] = [];
     for (let selectedUri of selectedUris) {
@@ -1142,50 +930,38 @@ export class ViewService {
       if (!reportUris.has(reportUri)) {
         reportUris.add(reportUri);
         reportObs.push(
-          this.simRunService
-            .getSimulationRunOutputResults(simulationRunId, reportUri, true)
-            .pipe(
-              catchError((): Observable<false> => {
-                return of(false);
-              }),
-            ),
+          this.simRunService.getSimulationRunOutputResults(simulationRunId, reportUri, true).pipe(
+            catchError((): Observable<false> => {
+              return of(false);
+            }),
+          ),
         );
       }
     }
 
     return forkJoin(reportObs).pipe(
       shareReplay(1),
-      map(
-        (
-          reportResults: (SimulationRunOutput | false)[],
-        ): UriSetDataSetResultsMap => {
-          const uriResultsMap: UriSetDataSetResultsMap = {};
-          reportResults
-            .flatMap(
-              (
-                reportResult: SimulationRunOutput | false,
-              ): SimulationRunOutput[] => {
-                if (reportResult) {
-                  return [reportResult];
-                } else {
-                  return [];
-                }
-              },
-            )
-            .forEach((reportResult: SimulationRunOutput): void => {
-              reportResult.data.forEach(
-                (datum: SimulationRunOutputDatum): void => {
-                  let outputId = reportResult.outputId;
-                  if (outputId.startsWith('./')) {
-                    outputId = outputId.substring(2);
-                  }
-                  uriResultsMap[`${outputId}/${datum.id}`] = datum;
-                },
-              );
+      map((reportResults: (SimulationRunOutput | false)[]): UriSetDataSetResultsMap => {
+        const uriResultsMap: UriSetDataSetResultsMap = {};
+        reportResults
+          .flatMap((reportResult: SimulationRunOutput | false): SimulationRunOutput[] => {
+            if (reportResult) {
+              return [reportResult];
+            } else {
+              return [];
+            }
+          })
+          .forEach((reportResult: SimulationRunOutput): void => {
+            reportResult.data.forEach((datum: SimulationRunOutputDatum): void => {
+              let outputId = reportResult.outputId;
+              if (outputId.startsWith('./')) {
+                outputId = outputId.substring(2);
+              }
+              uriResultsMap[`${outputId}/${datum.id}`] = datum;
             });
-          return uriResultsMap;
-        },
-      ),
+          });
+        return uriResultsMap;
+      }),
       shareReplay(1),
     );
   }
@@ -1223,52 +999,35 @@ export class ViewService {
       name: simulationRunSummary.name,
       url: this.appRoutes.getSimulationRunsView(runId),
       identifier: [
-        this.appRoutes
-          .getSimulationRunsView(runId)
-          .replace('https://', 'http://'),
+        this.appRoutes.getSimulationRunsView(runId).replace('https://', 'http://'),
         `http://identifiers.org/runbiosimulations/${runId}`,
       ],
       distribution: [
         {
           '@type': 'DataDownload',
           description: 'Project',
-          contentUrl: this.endpoints.getSimulationRunDownloadEndpoint(
-            false,
-            runId,
-          ),
+          contentUrl: this.endpoints.getSimulationRunDownloadEndpoint(false, runId),
           encodingFormat: 'application/zip',
           contentSize:
             simulationRunSummary.run.projectSize === undefined
               ? 'N/A'
-              : FormatService.formatDigitalSize(
-                  simulationRunSummary.run.projectSize,
-                ),
+              : FormatService.formatDigitalSize(simulationRunSummary.run.projectSize),
         },
         {
           '@type': 'DataDownload',
           description: 'Simulation results',
-          contentUrl: this.endpoints.getRunResultsEndpoint(
-            false,
-            runId,
-            undefined,
-            true,
-          ),
+          contentUrl: this.endpoints.getRunResultsEndpoint(false, runId, undefined, true),
           encodingFormat: 'application/json',
         },
         {
           '@type': 'DataDownload',
           description: 'Simulation outputs',
-          contentUrl: this.endpoints.getRunResultsDownloadEndpoint(
-            false,
-            runId,
-          ),
+          contentUrl: this.endpoints.getRunResultsDownloadEndpoint(false, runId),
           encodingFormat: 'application/zip',
           contentSize:
             simulationRunSummary.run.resultsSize === undefined
               ? 'N/A'
-              : FormatService.formatDigitalSize(
-                  simulationRunSummary.run.resultsSize,
-                ),
+              : FormatService.formatDigitalSize(simulationRunSummary.run.resultsSize),
         },
         {
           '@type': 'DataDownload',
@@ -1277,12 +1036,8 @@ export class ViewService {
           encodingFormat: 'application/json',
         },
       ],
-      dateCreated: FormatService.formatDate(
-        new Date(simulationRunSummary.submitted),
-      ),
-      dateModified: FormatService.formatDate(
-        new Date(simulationRunSummary.updated),
-      ),
+      dateCreated: FormatService.formatDate(new Date(simulationRunSummary.submitted)),
+      dateModified: FormatService.formatDate(new Date(simulationRunSummary.updated)),
       keywords: [
         'mathematical model',
         'numerical simulation',
@@ -1295,11 +1050,9 @@ export class ViewService {
       educationalLevel: 'advanced',
     };
 
-    const projectMeta = simulationRunSummary?.metadata?.filter(
-      (metadatum: SimulationRunMetadataSummary): boolean => {
-        return metadatum.uri === '.';
-      },
-    )?.[0];
+    const projectMeta = simulationRunSummary?.metadata?.filter((metadatum: SimulationRunMetadataSummary): boolean => {
+      return metadatum.uri === '.';
+    })?.[0];
     if (projectMeta) {
       if (projectMeta.title) {
         runDataSet.headline = projectMeta.title;
@@ -1311,79 +1064,67 @@ export class ViewService {
         runDataSet.abstract = projectMeta.description;
       }
       runDataSet.thumbnailUrl = projectMeta.thumbnails;
-      runDataSet.keywords = projectMeta.keywords.map(
-        (keyword: LabeledIdentifier): string => {
-          return keyword.label as string;
-        },
-      );
-      runDataSet.creator = projectMeta.creators.map(
-        (creator: LabeledIdentifier) => {
-          const person: PersonSchema = {
-            '@type': 'Person',
-          };
-          if (creator.label) {
-            person.name = creator.label;
-          }
-          if (creator.uri) {
-            person.identifier = creator.uri;
-          }
-          return person;
-        },
-      );
-      runDataSet.contributor = projectMeta.contributors.map(
-        (contributor: LabeledIdentifier) => {
-          const person: PersonSchema = {
-            '@type': 'Person',
-          };
-          if (contributor.label) {
-            person.name = contributor.label;
-          }
-          if (contributor.uri) {
-            person.identifier = contributor.uri;
-          }
-          return person;
-        },
-      );
+      runDataSet.keywords = projectMeta.keywords.map((keyword: LabeledIdentifier): string => {
+        return keyword.label as string;
+      });
+      runDataSet.creator = projectMeta.creators.map((creator: LabeledIdentifier) => {
+        const person: PersonSchema = {
+          '@type': 'Person',
+        };
+        if (creator.label) {
+          person.name = creator.label;
+        }
+        if (creator.uri) {
+          person.identifier = creator.uri;
+        }
+        return person;
+      });
+      runDataSet.contributor = projectMeta.contributors.map((contributor: LabeledIdentifier) => {
+        const person: PersonSchema = {
+          '@type': 'Person',
+        };
+        if (contributor.label) {
+          person.name = contributor.label;
+        }
+        if (contributor.uri) {
+          person.identifier = contributor.uri;
+        }
+        return person;
+      });
       projectMeta.identifiers
-        .filter(
-          (identifier: LabeledIdentifier) => !!identifier && !!identifier?.uri,
-        )
+        .filter((identifier: LabeledIdentifier) => !!identifier && !!identifier?.uri)
         .forEach((identifier: LabeledIdentifier): void => {
           (runDataSet.identifier as string[]).push(identifier.uri as string);
         });
-      runDataSet.citation = projectMeta.citations.map(
-        (citation: LabeledIdentifier) => {
-          const article: CreativeWorkSchema = {
-            '@type': 'CreativeWork',
-          };
-          if (citation.label) {
-            article.description = citation.label.substring(0, 5000);
-          }
-          if (citation.uri) {
-            article.identifier = citation.uri;
-          }
-          return article;
-        },
-      );
+      runDataSet.citation = projectMeta.citations.map((citation: LabeledIdentifier) => {
+        const article: CreativeWorkSchema = {
+          '@type': 'CreativeWork',
+        };
+        if (citation.label) {
+          article.description = citation.label.substring(0, 5000);
+        }
+        if (citation.uri) {
+          article.identifier = citation.uri;
+        }
+        return article;
+      });
       if (projectMeta.license) {
         runDataSet.license = projectMeta.license
           ?.filter((license: LabeledIdentifier) => !!license.uri)
           ?.map((license: LabeledIdentifier) => license.uri) as string[];
       }
-      runDataSet.funder = projectMeta.funders.map(
-        (funder: LabeledIdentifier) => {
-          const organization: OrganizationSchema = {
-            '@type': 'Organization',
-          };
-          if (funder.label) {
-            organization.name = funder.label;
-          }
-          if (funder.uri) {
-            organization.identifier = funder.uri;
-          }
-          return organization;
-        },
-      );
+      runDataSet.funder = projectMeta.funders.map((funder: LabeledIdentifier) => {
+        const organization: OrganizationSchema = {
+          '@type': 'Organization',
+        };
+        if (funder.label) {
+          organization.name = funder.label;
+        }
+        if (funder.uri) {
+          organization.identifier = funder.uri;
+        }
+        return organization;
+      });
     }
 
     if (projectSummary) {
@@ -1405,27 +1146,19 @@ export class ViewService {
       (dataSet.identifier as string[])[0] = this.appRoutes
         .getProjectsView(projectSummary.id)
         .replace('https://', 'http://');
-      (dataSet.identifier as string[])[1] =
-        this.resourceIdentifiers.getProjectIdentifier(projectSummary.id);
+      (dataSet.identifier as string[])[1] = this.resourceIdentifiers.getProjectIdentifier(projectSummary.id);
       dataSet.creativeWorkStatus = 'Published';
       dataSet.hasPart = runDataSet;
       dataSet.distribution = [
         {
           '@type': 'DataDownload',
           description: 'Project',
-          contentUrl: this.endpoints.getProjectsEndpoint(
-            false,
-            projectSummary.id,
-          ),
+          contentUrl: this.endpoints.getProjectsEndpoint(false, projectSummary.id),
           encodingFormat: 'application/json',
         },
       ];
-      dataSet.datePublished = FormatService.formatDate(
-        new Date(projectSummary.created),
-      );
-      dataSet.dateModified = FormatService.formatDate(
-        new Date(projectSummary.updated),
-      );
+      dataSet.datePublished = FormatService.formatDate(new Date(projectSummary.created));
+      dataSet.dateModified = FormatService.formatDate(new Date(projectSummary.updated));
 
       return dataSet;
     } else {
@@ -1438,14 +1171,7 @@ export class ViewService {
     }
   }
 
-  private static OTHER_URI_PREFIXES = [
-    'mailto',
-    'tell',
-    'callto',
-    'wtai',
-    'sms',
-    'geo',
-  ];
+  private static OTHER_URI_PREFIXES = ['mailto', 'tell', 'callto', 'wtai', 'sms', 'geo'];
 
   private labeledIdentifierToListItem(
     title: string,
@@ -1460,22 +1186,15 @@ export class ViewService {
       value = labeledIdentifier?.label || labeledIdentifier?.uri;
 
       url = labeledIdentifier?.uri?.startsWith('http://identifiers.org/')
-        ? 'https://identifiers.org/' +
-          labeledIdentifier?.uri?.substring('http://identifiers.org/'.length)
+        ? 'https://identifiers.org/' + labeledIdentifier?.uri?.substring('http://identifiers.org/'.length)
         : labeledIdentifier?.uri;
     }
 
     let isOtherUri = false;
     for (const otherUriPrefix of ViewService.OTHER_URI_PREFIXES) {
-      if (
-        labeledIdentifier?.uri &&
-        labeledIdentifier?.uri?.toLowerCase()?.startsWith(otherUriPrefix + ':')
-      ) {
+      if (labeledIdentifier?.uri && labeledIdentifier?.uri?.toLowerCase()?.startsWith(otherUriPrefix + ':')) {
         isOtherUri = true;
-        value =
-          labeledIdentifier?.label ||
-          labeledIdentifier?.uri?.substring((otherUriPrefix + ':').length) ||
-          null;
+        value = labeledIdentifier?.label || labeledIdentifier?.uri?.substring((otherUriPrefix + ':').length) || null;
         url = labeledIdentifier?.uri || null;
         break;
       }

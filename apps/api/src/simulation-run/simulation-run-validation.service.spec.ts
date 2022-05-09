@@ -23,11 +23,7 @@ import { LogsService } from '../logs/logs.service';
 import { MetadataService } from '../metadata/metadata.service';
 
 import { OntologyApiService } from '@biosimulations/ontology/api';
-import {
-  BadRequestException,
-  CacheModule,
-  NotFoundException,
-} from '@nestjs/common';
+import { BadRequestException, CacheModule, NotFoundException } from '@nestjs/common';
 import { ProjectsService } from '../projects/projects.service';
 import { Model } from 'mongoose';
 
@@ -76,12 +72,7 @@ describe('SimulationRunValidationService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [
-        HttpModule,
-        SharedNatsClientModule,
-        BiosimulationsConfigModule,
-        CacheModule.register(),
-      ],
+      imports: [HttpModule, SharedNatsClientModule, BiosimulationsConfigModule, CacheModule.register()],
       providers: [
         SimulationRunValidationService,
         {
@@ -103,13 +94,9 @@ describe('SimulationRunValidationService', () => {
       ],
     }).compile();
 
-    service = module.get<SimulationRunValidationService>(
-      SimulationRunValidationService,
-    );
+    service = module.get<SimulationRunValidationService>(SimulationRunValidationService);
     projectsService = module.get<ProjectsService>(ProjectsService);
-    simulationRunModel = module.get<Model<SimulationRunModel>>(
-      getModelToken(SimulationRunModel.name),
-    );
+    simulationRunModel = module.get<Model<SimulationRunModel>>(getModelToken(SimulationRunModel.name));
   });
 
   it('should be defined', () => {

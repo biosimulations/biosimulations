@@ -1,14 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatTabChangeEvent } from '@angular/material/tabs';
-import {
-  Observable,
-  combineLatest,
-  map,
-  shareReplay,
-  mergeMap,
-  throwError,
-} from 'rxjs';
+import { Observable, combineLatest, map, shareReplay, mergeMap, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import {
@@ -88,49 +81,32 @@ export class ViewComponent implements OnInit {
     );
 
     this.simulationRun$ = projectSummary$.pipe(
-      mergeMap((projectSummary) =>
-        this.service.getFormattedSimulationRun(projectSummary.simulationRun),
-      ),
+      mergeMap((projectSummary) => this.service.getFormattedSimulationRun(projectSummary.simulationRun)),
       shareReplay(1),
     );
 
     this.projectFiles$ = projectSummary$.pipe(
-      map((projectSummary) =>
-        this.service.getFormattedProjectFiles(projectSummary.simulationRun),
-      ),
+      map((projectSummary) => this.service.getFormattedProjectFiles(projectSummary.simulationRun)),
       shareReplay(1),
     );
 
     this.files$ = projectSummary$.pipe(
-      mergeMap((projectSummary) =>
-        this.service.getFormattedProjectContentFiles(
-          projectSummary.simulationRun,
-        ),
-      ),
+      mergeMap((projectSummary) => this.service.getFormattedProjectContentFiles(projectSummary.simulationRun)),
       shareReplay(1),
     );
 
     this.outputs$ = projectSummary$.pipe(
-      map((projectSummary) =>
-        this.service.getFormattedOutputFiles(projectSummary.simulationRun),
-      ),
+      map((projectSummary) => this.service.getFormattedOutputFiles(projectSummary.simulationRun)),
       shareReplay(1),
     );
 
     this.visualizations$ = projectSummary$.pipe(
-      mergeMap((projectSummary) =>
-        this.service.getVisualizations(projectSummary.simulationRun.id),
-      ),
+      mergeMap((projectSummary) => this.service.getVisualizations(projectSummary.simulationRun.id)),
       shareReplay(1),
     );
 
     this.jsonLdData$ = projectSummary$.pipe(
-      map((projectSummary) =>
-        this.service.getJsonLdData(
-          projectSummary.simulationRun,
-          projectSummary,
-        ),
-      ),
+      map((projectSummary) => this.service.getJsonLdData(projectSummary.simulationRun, projectSummary)),
       shareReplay(1),
     );
 

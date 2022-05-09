@@ -23,11 +23,7 @@ import { LogsService } from '../logs/logs.service';
 import { MetadataService } from '../metadata/metadata.service';
 
 import { OntologyApiService } from '@biosimulations/ontology/api';
-import {
-  BadRequestException,
-  CacheModule,
-  NotFoundException,
-} from '@nestjs/common';
+import { BadRequestException, CacheModule, NotFoundException } from '@nestjs/common';
 import { ProjectsService } from '../projects/projects.service';
 import { Model } from 'mongoose';
 
@@ -76,12 +72,7 @@ describe('SimulationRunService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [
-        HttpModule,
-        SharedNatsClientModule,
-        BiosimulationsConfigModule,
-        CacheModule.register(),
-      ],
+      imports: [HttpModule, SharedNatsClientModule, BiosimulationsConfigModule, CacheModule.register()],
       providers: [
         SimulationRunService,
         {
@@ -105,9 +96,7 @@ describe('SimulationRunService', () => {
 
     service = module.get<SimulationRunService>(SimulationRunService);
     projectsService = module.get<ProjectsService>(ProjectsService);
-    simulationRunModel = module.get<Model<SimulationRunModel>>(
-      getModelToken(SimulationRunModel.name),
-    );
+    simulationRunModel = module.get<Model<SimulationRunModel>>(getModelToken(SimulationRunModel.name));
   });
 
   it('should be defined', () => {
@@ -115,13 +104,9 @@ describe('SimulationRunService', () => {
   });
 
   it('deleting simulation run should check for published projects', async () => {
-    let mock = jest
-      .spyOn(projectsService, 'getProjectIdBySimulationRunId')
-      .mockResolvedValue('projectId');
+    let mock = jest.spyOn(projectsService, 'getProjectIdBySimulationRunId').mockResolvedValue('projectId');
 
-    await expect(service.delete('simulationRunId')).rejects.toThrow(
-      BadRequestException,
-    );
+    await expect(service.delete('simulationRunId')).rejects.toThrow(BadRequestException);
     expect(mock).toHaveBeenCalled();
   });
 
@@ -138,16 +123,10 @@ describe('SimulationRunService', () => {
     expect(mock).toHaveBeenCalled();
   });
   it('deleting a non-existing simulation run should throw error', async () => {
-    const mock = jest
-      .spyOn(projectsService, 'getProjectIdBySimulationRunId')
-      .mockResolvedValue(undefined);
+    const mock = jest.spyOn(projectsService, 'getProjectIdBySimulationRunId').mockResolvedValue(undefined);
 
-    let dbMock = jest
-      .spyOn(simulationRunModel, 'findOneAndDelete')
-      .mockResolvedValue(null);
-    await expect(service.delete('simulationRunId')).rejects.toThrow(
-      NotFoundException,
-    );
+    let dbMock = jest.spyOn(simulationRunModel, 'findOneAndDelete').mockResolvedValue(null);
+    await expect(service.delete('simulationRunId')).rejects.toThrow(NotFoundException);
     expect(dbMock).toHaveBeenCalled();
   });
 });

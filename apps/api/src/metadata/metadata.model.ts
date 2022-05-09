@@ -1,11 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 import { Schema as SchemaType } from 'mongoose';
-import {
-  ArchiveMetadata,
-  DescribedIdentifier,
-  LabeledIdentifier,
-} from '@biosimulations/datamodel/common';
+import { ArchiveMetadata, DescribedIdentifier, LabeledIdentifier } from '@biosimulations/datamodel/common';
 import { SimulationRunModel } from '../simulation-run/simulation-run.model';
 import { ObjectIdValidator } from '@biosimulations/datamodel-database';
 @Schema({
@@ -20,19 +16,14 @@ export class LabeledIdentifierModel implements LabeledIdentifier {
   @Prop({ type: String, required: false, index: true })
   public uri!: string | null;
 }
-const LabeledIdentifierSchema = SchemaFactory.createForClass(
-  LabeledIdentifierModel,
-);
+const LabeledIdentifierSchema = SchemaFactory.createForClass(LabeledIdentifierModel);
 
 @Schema({
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
 })
-export class DescribedIdentifierModel
-  extends LabeledIdentifierModel
-  implements DescribedIdentifier
-{
+export class DescribedIdentifierModel extends LabeledIdentifierModel implements DescribedIdentifier {
   @Prop({ type: String, required: true, index: true })
   public label!: string;
 
@@ -45,9 +36,7 @@ export class DescribedIdentifierModel
   @Prop({ type: String, required: false, index: true })
   public attribute_label!: string | null;
 }
-const DescribedIdentifierSchema = SchemaFactory.createForClass(
-  DescribedIdentifierModel,
-);
+const DescribedIdentifierSchema = SchemaFactory.createForClass(DescribedIdentifierModel);
 
 @Schema({
   _id: false,

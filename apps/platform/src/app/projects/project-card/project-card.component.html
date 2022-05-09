@@ -1,17 +1,9 @@
-<mat-card
-  class="container"
-  routerLink="{{ route }}"
-  *ngIf="project.metadata as metadata"
->
+<mat-card class="container" routerLink="{{ route }}" *ngIf="project.metadata as metadata">
   <mat-card-title class="title-container">
     <div class="title">{{ project.title }}</div>
   </mat-card-title>
 
-  <img
-    class="thumbnail"
-    [lazyLoad]="metadata.thumbnail"
-    defaultImage="./assets/images/loading.svg"
-  />
+  <img class="thumbnail" [lazyLoad]="metadata.thumbnail" defaultImage="./assets/images/loading.svg" />
 
   <div class="details-overlay">
     <div class="details-overlay-inner">
@@ -21,18 +13,12 @@
             <ng-container *ngIf="project._cache[column.id].value as value">
               <ng-container *ngIf="isArray(value); else scalar">
                 <ng-container *ngFor="let v of value">
-                  <ng-container
-                    *ngTemplateOutlet="template; context: { value: v }"
-                  >
-                  </ng-container>
+                  <ng-container *ngTemplateOutlet="template; context: { value: v }"> </ng-container>
                 </ng-container>
               </ng-container>
 
               <ng-template #scalar>
-                <ng-container
-                  *ngTemplateOutlet="template; context: { value: value }"
-                >
-                </ng-container>
+                <ng-container *ngTemplateOutlet="template; context: { value: value }"> </ng-container>
               </ng-template>
 
               <ng-template #template let-value="value">
@@ -40,8 +26,7 @@
                   <td>
                     <biosimulations-icon
                       [icon]="project._cache[column.id].left.icon"
-                      [title]="column.heading"
-                    ></biosimulations-icon>
+                      [title]="column.heading"></biosimulations-icon>
                   </td>
                   <td>{{ value }}</td>
                 </tr>

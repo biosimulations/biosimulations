@@ -1,15 +1,5 @@
-import {
-  Module,
-  Global,
-  DynamicModule,
-  Provider,
-  Abstract,
-  Type,
-} from '@nestjs/common';
-import {
-  Configuration as CombineAPIConfiguration,
-  ApiModule,
-} from '@biosimulations/combine-api-nest-client';
+import { Module, Global, DynamicModule, Provider, Abstract, Type } from '@nestjs/common';
+import { Configuration as CombineAPIConfiguration, ApiModule } from '@biosimulations/combine-api-nest-client';
 
 export { CombineAPIConfiguration };
 export interface CombineAPIConnectionOptions {
@@ -18,9 +8,7 @@ export interface CombineAPIConnectionOptions {
   basePath: string;
   withCredentials?: boolean;
 }
-export type CombineAPIConnectionOptionsFactory = (
-  ...args: any[]
-) => CombineAPIConfiguration;
+export type CombineAPIConnectionOptionsFactory = (...args: any[]) => CombineAPIConfiguration;
 
 export interface CombineAPIConnectionAsyncOptions {
   imports: any[];
@@ -37,9 +25,7 @@ import { ConfigService } from '@nestjs/config';
   exports: [ApiModule],
 })
 export class CombineApiNestClientWrapperModule {
-  public static async forRootAsync(
-    options: CombineAPIConnectionAsyncOptions,
-  ): Promise<DynamicModule> {
+  public static async forRootAsync(options: CombineAPIConnectionAsyncOptions): Promise<DynamicModule> {
     const imports = options.imports || [];
     const dynamicImports = await this.getImports(options);
     const finalImports = imports.concat(dynamicImports);
@@ -51,9 +37,7 @@ export class CombineApiNestClientWrapperModule {
       imports: finalImports,
     };
   }
-  private static async getImports(
-    options: CombineAPIConnectionAsyncOptions,
-  ): Promise<DynamicModule[]> {
+  private static async getImports(options: CombineAPIConnectionAsyncOptions): Promise<DynamicModule[]> {
     return [
       ...options.imports,
       {

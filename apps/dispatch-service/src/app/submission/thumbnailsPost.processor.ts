@@ -1,8 +1,5 @@
 import { SimulationRunService } from '@biosimulations/api-nest-client';
-import {
-  LocationThumbnailUrls,
-  ThumbnailUrls,
-} from '@biosimulations/datamodel/common';
+import { LocationThumbnailUrls, ThumbnailUrls } from '@biosimulations/datamodel/common';
 import { JobQueue, JobReturn } from '@biosimulations/messages/messages';
 import { Processor, Process } from '@biosimulations/nestjs-bullmq';
 import { Logger } from '@nestjs/common';
@@ -16,9 +13,7 @@ export class ThumbnailsPostProcessor {
   public constructor(private submit: SimulationRunService) {}
 
   @Process({ name: 'thumbnails', concurrency: 10 })
-  private async process(
-    job: Job,
-  ): Promise<JobReturn<ThumbnailUrls[] | undefined>> {
+  private async process(job: Job): Promise<JobReturn<ThumbnailUrls[] | undefined>> {
     const data = job.data;
     const runId = data.runId;
 
@@ -41,17 +36,9 @@ export class ThumbnailsPostProcessor {
     }
 
     try {
-      const data = thumbnails.map(
-        async (thumbnail: LocationThumbnailUrls): Promise<ThumbnailUrls> => {
-          return await firstValueFrom(
-            this.submit.putFileThumbnailUrls(
-              runId,
-              thumbnail.location,
-              thumbnail.urls,
-            ),
-          );
-        },
-      );
+      const data = thumbnails.map(async (thumbnail: LocationThumbnailUrls): Promise<ThumbnailUrls> => {
+        return await firstValueFrom(this.submit.putFileThumbnailUrls(runId, thumbnail.location, thumbnail.urls));
+      });
       //!!Leaving out this await will cause the job to always succeed regardless of the result of the promise
       const resolvedData = await Promise.all(data);
       return {

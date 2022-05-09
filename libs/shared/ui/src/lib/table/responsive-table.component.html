@@ -7,22 +7,19 @@
     [defaultSort]="defaultSort"
     [controls]="controls"
     [data]="data"
-    [dataContainer]="dataContainer"
-  >
+    [dataContainer]="dataContainer">
     <div
       gdAuto="row"
       [gdColumns.gt-sm]="controls ? 'auto 1fr' : '1fr'"
       [gdGap]="table.controlsOpen ? '2rem' : 0"
       gdRows.lt-md="1fr"
-      gdGap.lt-md="1rem"
-    >
+      gdGap.lt-md="1rem">
       <biosimulations-table-controls
         *ngIf="controls"
         [table]="table"
         [searchPlaceHolder]="searchPlaceHolder"
         [searchToolTip]="searchToolTip"
-        [ngClass]="{ closed: !table.controlsOpen }"
-      ></biosimulations-table-controls>
+        [ngClass]="{ closed: !table.controlsOpen }"></biosimulations-table-controls>
 
       <biosimulations-table-tabular-data
         #dataContainer
@@ -30,8 +27,7 @@
         [singleLineHeadings]="singleLineHeadings"
         [sortable]="sortable"
         [linesPerRow]="linesPerRow"
-        [ngClass]="{ 'square-left-border': !table.controlsOpen }"
-      ></biosimulations-table-tabular-data>
+        [ngClass]="{ 'square-left-border': !table.controlsOpen }"></biosimulations-table-tabular-data>
     </div>
   </biosimulations-table>
 </ng-container>
@@ -45,7 +41,6 @@
     [getHeadingMoreInfoHref]="getStackedHeadingMoreInfoHref"
     [highlightRow]="highlightRow"
     [defaultSort]="defaultSort"
-    [data]="data"
-  >
+    [data]="data">
   </biosimulations-stacked-table>
 </ng-template>

@@ -1,16 +1,6 @@
-import {
-  Column,
-  ColumnActionType,
-  ColumnFilterType,
-  ColumnSortDirection,
-  RowService,
-} from '@biosimulations/shared/ui';
+import { Column, ColumnActionType, ColumnFilterType, ColumnSortDirection, RowService } from '@biosimulations/shared/ui';
 
-import {
-  TableSimulator,
-  TableAlgorithmParameter,
-  TableAuthor,
-} from './tableSimulator.interface';
+import { TableSimulator, TableAlgorithmParameter, TableAuthor } from './tableSimulator.interface';
 import { SimulatorCurationStatus } from '@biosimulations/datamodel/common';
 import { UtilsService } from '@biosimulations/shared/angular';
 import { FormatService } from '@biosimulations/shared/services';
@@ -111,10 +101,7 @@ export const columns: Column[] = [
     comparator: (aNames: string[], bNames: string[], sign = 1): number => {
       return RowService.comparator(aNames.join(', '), bNames.join(', '), sign);
     },
-    passesFilter: (
-      element: TableSimulator,
-      filterValues: string[],
-    ): boolean => {
+    passesFilter: (element: TableSimulator, filterValues: string[]): boolean => {
       const algorithms = element.algorithms;
       for (const v of filterValues) {
         if (algorithms.includes(v)) {
@@ -137,9 +124,7 @@ export const columns: Column[] = [
     heading: 'Algorithm parameters',
     key: 'algorithmParameters',
     getter: (simulator: TableSimulator): string[] => {
-      return simulator.algorithmParameters.map(
-        (parameter: TableAlgorithmParameter): string => parameter.name,
-      );
+      return simulator.algorithmParameters.map((parameter: TableAlgorithmParameter): string => parameter.name);
     },
     extraSearchGetter: (simulator: TableSimulator): string => {
       return simulator.algorithmParameters
@@ -263,20 +248,14 @@ export const columns: Column[] = [
     rightAction: ColumnActionType.href,
     centerHref: (element: TableSimulator): string | null => {
       if (element.image) {
-        return (
-          'https://github.com/orgs/biosimulators/packages/container/package/' +
-          element.id
-        );
+        return 'https://github.com/orgs/biosimulators/packages/container/package/' + element.id;
       } else {
         return null;
       }
     },
     rightHref: (element: TableSimulator): string | null => {
       if (element.image) {
-        return (
-          'https://github.com/orgs/biosimulators/packages/container/package/' +
-          element.id
-        );
+        return 'https://github.com/orgs/biosimulators/packages/container/package/' + element.id;
       } else {
         return null;
       }
@@ -317,10 +296,7 @@ export const columns: Column[] = [
     rightAction: ColumnActionType.href,
     centerHref: (element: TableSimulator): string | null => {
       if (element?.cli) {
-        if (
-          element?.cli.startsWith('http://') ||
-          element?.cli.startsWith('https://')
-        ) {
+        if (element?.cli.startsWith('http://') || element?.cli.startsWith('https://')) {
           return element?.cli;
         } else {
           return 'https://pypi.org/project/' + element?.cli;
@@ -331,10 +307,7 @@ export const columns: Column[] = [
     },
     rightHref: (element: TableSimulator): string | null => {
       if (element?.cli) {
-        if (
-          element?.cli.startsWith('http://') ||
-          element?.cli?.startsWith('https://')
-        ) {
+        if (element?.cli.startsWith('http://') || element?.cli?.startsWith('https://')) {
           return element?.cli;
         } else {
           return 'https://pypi.org/project/' + element?.cli;
@@ -379,10 +352,7 @@ export const columns: Column[] = [
     rightAction: ColumnActionType.href,
     centerHref: (element: TableSimulator): string | null => {
       if (element?.pythonApi) {
-        if (
-          element?.pythonApi.startsWith('http://') ||
-          element?.pythonApi.startsWith('https://')
-        ) {
+        if (element?.pythonApi.startsWith('http://') || element?.pythonApi.startsWith('https://')) {
           return element?.pythonApi;
         } else {
           return 'https://pypi.org/project/' + element?.pythonApi;
@@ -393,10 +363,7 @@ export const columns: Column[] = [
     },
     rightHref: (element: TableSimulator): string | null => {
       if (element?.pythonApi) {
-        if (
-          element?.pythonApi.startsWith('http://') ||
-          element?.pythonApi?.startsWith('https://')
-        ) {
+        if (element?.pythonApi.startsWith('http://') || element?.pythonApi?.startsWith('https://')) {
           return element?.pythonApi;
         } else {
           return 'https://pypi.org/project/' + element?.pythonApi;
@@ -487,14 +454,10 @@ export const columns: Column[] = [
     id: 'curationStatus',
     heading: 'Curation',
     key: 'curationStatus',
-    formatter: (value: SimulatorCurationStatus): string =>
-      UtilsService.getSimulatorCurationStatusMessage(value, false),
-    toolTipFormatter: (value: SimulatorCurationStatus): string =>
-      UtilsService.getSimulatorCurationStatusMessage(value),
-    stackedFormatter: (value: SimulatorCurationStatus): string =>
-      UtilsService.getSimulatorCurationStatusMessage(value),
-    filterFormatter: (value: SimulatorCurationStatus): string =>
-      UtilsService.getSimulatorCurationStatusMessage(value),
+    formatter: (value: SimulatorCurationStatus): string => UtilsService.getSimulatorCurationStatusMessage(value, false),
+    toolTipFormatter: (value: SimulatorCurationStatus): string => UtilsService.getSimulatorCurationStatusMessage(value),
+    stackedFormatter: (value: SimulatorCurationStatus): string => UtilsService.getSimulatorCurationStatusMessage(value),
+    filterFormatter: (value: SimulatorCurationStatus): string => UtilsService.getSimulatorCurationStatusMessage(value),
     filterable: true,
     filterValues: Object.values(SimulatorCurationStatus).filter(
       (value: number | string): boolean => typeof value === 'number',
@@ -511,14 +474,10 @@ export const columns: Column[] = [
     heading: 'Authors',
     key: 'authors',
     getter: (simulator: TableSimulator): string[] => {
-      return simulator.authors.map(
-        (author: TableAuthor): string => author.label,
-      );
+      return simulator.authors.map((author: TableAuthor): string => author.label);
     },
     extraSearchGetter: (simulator: TableSimulator): string => {
-      return simulator.authors
-        .map((author: TableAuthor): string => author.identifiers)
-        .join(' ');
+      return simulator.authors.map((author: TableAuthor): string => author.identifiers).join(' ');
     },
     filterable: true,
     filterType: ColumnFilterType.stringAutoComplete,
@@ -593,10 +552,7 @@ export const columns: Column[] = [
     heading: 'Run',
     key: 'id',
     getter: (element: TableSimulator): string | null => {
-      if (
-        element.image &&
-        element.curationStatus === SimulatorCurationStatus['Image validated']
-      ) {
+      if (element.image && element.curationStatus === SimulatorCurationStatus['Image validated']) {
         return element.id;
       } else {
         return null;
@@ -614,13 +570,8 @@ export const columns: Column[] = [
     },
     rightIcon: 'simulator',
     rightIconTitle: (element: TableSimulator): string | null => {
-      if (
-        element.image &&
-        element.curationStatus === SimulatorCurationStatus['Image validated']
-      ) {
-        return (
-          'Execute simulations with ' + element.name + ' @ runBioSimulations'
-        );
+      if (element.image && element.curationStatus === SimulatorCurationStatus['Image validated']) {
+        return 'Execute simulations with ' + element.name + ' @ runBioSimulations';
       } else {
         return null;
       }
@@ -628,25 +579,15 @@ export const columns: Column[] = [
     centerAction: ColumnActionType.href,
     rightAction: ColumnActionType.href,
     centerHref: (element: TableSimulator): string | null => {
-      if (
-        element.image &&
-        element.curationStatus === SimulatorCurationStatus['Image validated']
-      ) {
-        return (
-          'https://run.biosimulations.org/runs/new?simulator=' + element.id
-        );
+      if (element.image && element.curationStatus === SimulatorCurationStatus['Image validated']) {
+        return 'https://run.biosimulations.org/runs/new?simulator=' + element.id;
       } else {
         return null;
       }
     },
     rightHref: (element: TableSimulator): string | null => {
-      if (
-        element.image &&
-        element.curationStatus === SimulatorCurationStatus['Image validated']
-      ) {
-        return (
-          'https://run.biosimulations.org/runs/new?simulator=' + element.id
-        );
+      if (element.image && element.curationStatus === SimulatorCurationStatus['Image validated']) {
+        return 'https://run.biosimulations.org/runs/new?simulator=' + element.id;
       } else {
         return null;
       }

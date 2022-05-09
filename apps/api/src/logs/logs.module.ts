@@ -1,10 +1,7 @@
 import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import {
-  SimulationRunModel,
-  SimulationRunModelSchema,
-} from '../simulation-run/simulation-run.model';
+import { SimulationRunModel, SimulationRunModelSchema } from '../simulation-run/simulation-run.model';
 import { LogsController } from './logs.controller';
 import { SimulationRunLog, SimulationRunLogSchema } from './logs.model';
 

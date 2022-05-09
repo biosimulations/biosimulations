@@ -19,16 +19,10 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { SimulatorTableService } from './simulators/browse-simulators/simulator-table.service';
 
-import {
-  MARKED_PRELOADING_STRATEGY,
-  RoutesModule,
-} from '@biosimulations/shared/utils/routes';
+import { MARKED_PRELOADING_STRATEGY, RoutesModule } from '@biosimulations/shared/utils/routes';
 
 import config from '../assets/config.json';
-import {
-  SharedErrorComponentsModule,
-  SharedErrorHandlerModule,
-} from '@biosimulations/shared/error-handler';
+import { SharedErrorComponentsModule, SharedErrorHandlerModule } from '@biosimulations/shared/error-handler';
 import { AngularAnalyticsModule } from '@biosimulations/angular-analytics';
 
 const routes: Routes = [
@@ -38,8 +32,7 @@ const routes: Routes = [
   },
   {
     path: 'simulators',
-    loadChildren: () =>
-      import('./simulators/simulators.module').then((m) => m.SimulatorsModule),
+    loadChildren: () => import('./simulators/simulators.module').then((m) => m.SimulatorsModule),
     data: {
       breadcrumb: 'Simulators',
       preload: {
@@ -50,8 +43,7 @@ const routes: Routes = [
   },
   {
     path: 'utils',
-    loadChildren: () =>
-      import('./utils/utils.module').then((m) => m.UtilsModule),
+    loadChildren: () => import('./utils/utils.module').then((m) => m.UtilsModule),
     data: {
       breadcrumb: 'Utilities',
     },

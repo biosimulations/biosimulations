@@ -8,11 +8,7 @@ import { Injectable, Logger, HttpStatus } from '@nestjs/common';
 
 import { SimulationRunModelReturnType } from './simulation-run.model';
 
-import {
-  SimulationRunStatus,
-  SimulationRunLogStatus,
-  CombineArchiveLog,
-} from '@biosimulations/datamodel/common';
+import { SimulationRunStatus, SimulationRunLogStatus, CombineArchiveLog } from '@biosimulations/datamodel/common';
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
@@ -38,10 +34,7 @@ import { SimulationRunService } from './simulation-run.service';
 import { ModuleRef } from '@nestjs/core';
 
 import { AxiosError } from 'axios';
-import {
-  SimulationRunMetadataIdModel,
-  MetadataModel,
-} from '../metadata/metadata.model';
+import { SimulationRunMetadataIdModel, MetadataModel } from '../metadata/metadata.model';
 import { Output, OutputData, Results } from '../results/datamodel';
 
 // 1 GB in bytes to be used as file size limits
@@ -82,15 +75,12 @@ export class SimulationRunValidationService {
     private metadataService: MetadataService,
     private moduleRef: ModuleRef,
   ) {
-    const vegaFormatOmexManifestUris = BIOSIMULATIONS_FORMATS.filter(
-      (format) => format.id === 'format_3969',
-    )?.[0]?.biosimulationsMetadata?.omexManifestUris;
+    const vegaFormatOmexManifestUris = BIOSIMULATIONS_FORMATS.filter((format) => format.id === 'format_3969')?.[0]
+      ?.biosimulationsMetadata?.omexManifestUris;
     if (vegaFormatOmexManifestUris) {
       this.vegaFormatOmexManifestUris = vegaFormatOmexManifestUris;
     } else {
-      throw new Error(
-        'Vega format (EDAM:format_3969) must be annotated with one or more OMEX Manifest URIs',
-      );
+      throw new Error('Vega format (EDAM:format_3969) must be annotated with one or more OMEX Manifest URIs');
     }
   }
 
@@ -112,10 +102,7 @@ export class SimulationRunValidationService {
    * @param id id of the simulation run
    * @param validateSimulationResultsData whether to validate the data for each SED-ML report and plot of each SED-ML document
    */
-  public async validateRun(
-    id: string,
-    validateSimulationResultsData = false,
-  ): Promise<void> {
+  public async validateRun(id: string, validateSimulationResultsData = false): Promise<void> {
     let run!: SimulationRunModelReturnType | null;
     try {
       run = await this.simulationRunService.get(id);
@@ -204,14 +191,10 @@ export class SimulationRunValidationService {
         Please check that the SED-ML documents in the COMBINE/OMEX archive are valid. \
         More information is available at https://docs.biosimulations.org/concepts/conventions/simulation-experiments/ \
         and https://run.biosimulations.org/utils/validate-project.`,
-        isValid: (specifications: SpecificationsModel[]): boolean =>
-          specifications.length > 0,
+        isValid: (specifications: SpecificationsModel[]): boolean => specifications.length > 0,
       },
       {
-        check: this.resultsService.getResults(
-          id,
-          validateSimulationResultsData,
-        ),
+        check: this.resultsService.getResults(id, validateSimulationResultsData),
         errorMessage: `Simulation results could not be found for run '${id}'. \
         For publication, simulation runs produce at least one SED-ML report or plot.`,
         isValid: (results: Results): boolean => results?.outputs?.length > 0,
@@ -222,9 +205,7 @@ export class SimulationRunValidationService {
         For publication, simulation runs must have validate logs. \
         More information is available at https://docs.biosimulations.org/concepts/conventions/simulation-run-logs/.`,
         isValid: (log: CombineArchiveLog): boolean => {
-          return (
-            log.status === SimulationRunLogStatus.SUCCEEDED && !!log.output
-          );
+          return log.status === SimulationRunLogStatus.SUCCEEDED && !!log.output;
         },
       },
       {
@@ -237,11 +218,9 @@ export class SimulationRunValidationService {
           if (!metadata) {
             return false;
           }
-          const archiveMetadata = metadata.metadata.filter(
-            (metadata: MetadataModel): boolean => {
-              return metadata.uri.search('/') === -1;
-            },
-          );
+          const archiveMetadata = metadata.metadata.filter((metadata: MetadataModel): boolean => {
+            return metadata.uri.search('/') === -1;
+          });
           return archiveMetadata.length === 1;
         },
       },
@@ -273,9 +252,7 @@ export class SimulationRunValidationService {
 
       if (!result.succeeded) {
         const error = result?.error;
-        errorDetails.push(
-          `${check.errorMessage}: ${this.getErrorMessage(error)}`,
-        );
+        errorDetails.push(`${check.errorMessage}: ${this.getErrorMessage(error)}`);
         errorSummaries.push(check.errorMessage);
       } else if (result.value === undefined) {
         checkIsValid = false;
@@ -313,72 +290,30 @@ export class SimulationRunValidationService {
 
         spec.outputs.forEach((output): void => {
           if (output._type === 'SedReport') {
-            (output as SedReport).dataSets.forEach(
-              (dataSet: SedDataSet): void => {
-                expectedDataSetUris.add(
-                  'Report DataSet: `' +
-                    docLocation +
-                    '/' +
-                    output.id +
-                    '/' +
-                    dataSet.id +
-                    '`',
-                );
-              },
-            );
+            (output as SedReport).dataSets.forEach((dataSet: SedDataSet): void => {
+              expectedDataSetUris.add('Report DataSet: `' + docLocation + '/' + output.id + '/' + dataSet.id + '`');
+            });
           } else if (output._type === 'SedPlot2D') {
             (output as SedPlot2D).curves.forEach((curve: SedCurve): void => {
               expectedDataSetUris.add(
-                'Plot DataGenerator: `' +
-                  docLocation +
-                  '/' +
-                  output.id +
-                  '/' +
-                  curve.xDataGenerator +
-                  '`',
+                'Plot DataGenerator: `' + docLocation + '/' + output.id + '/' + curve.xDataGenerator + '`',
               );
               expectedDataSetUris.add(
-                'Plot DataGenerator: `' +
-                  docLocation +
-                  '/' +
-                  output.id +
-                  '/' +
-                  curve.yDataGenerator +
-                  '`',
+                'Plot DataGenerator: `' + docLocation + '/' + output.id + '/' + curve.yDataGenerator + '`',
               );
             });
           } else {
-            (output as SedPlot3D).surfaces.forEach(
-              (surface: SedSurface): void => {
-                expectedDataSetUris.add(
-                  'Plot DataGenerator: `' +
-                    docLocation +
-                    '/' +
-                    output.id +
-                    '/' +
-                    surface.xDataGenerator +
-                    '`',
-                );
-                expectedDataSetUris.add(
-                  'Plot DataGenerator: `' +
-                    docLocation +
-                    '/' +
-                    output.id +
-                    '/' +
-                    surface.yDataGenerator +
-                    '`',
-                );
-                expectedDataSetUris.add(
-                  'Plot DataGenerator: `' +
-                    docLocation +
-                    '/' +
-                    output.id +
-                    '/' +
-                    surface.zDataGenerator +
-                    '`',
-                );
-              },
-            );
+            (output as SedPlot3D).surfaces.forEach((surface: SedSurface): void => {
+              expectedDataSetUris.add(
+                'Plot DataGenerator: `' + docLocation + '/' + output.id + '/' + surface.xDataGenerator + '`',
+              );
+              expectedDataSetUris.add(
+                'Plot DataGenerator: `' + docLocation + '/' + output.id + '/' + surface.yDataGenerator + '`',
+              );
+              expectedDataSetUris.add(
+                'Plot DataGenerator: `' + docLocation + '/' + output.id + '/' + surface.zDataGenerator + '`',
+              );
+            });
           }
         });
       });
@@ -391,8 +326,7 @@ export class SimulationRunValidationService {
           docLocationOutputId = docLocationOutputId.substring(2);
         }
 
-        const type =
-          output.type === 'SedReport' ? 'Report DataSet' : 'Plot DataGenerator';
+        const type = output.type === 'SedReport' ? 'Report DataSet' : 'Plot DataGenerator';
 
         output.data.forEach((data: OutputData): void => {
           const uri = type + ': `' + docLocationOutputId + '/' + data.id + '`';
@@ -403,9 +337,7 @@ export class SimulationRunValidationService {
         });
       });
 
-      const unproducedDatSetUris = [...expectedDataSetUris].filter(
-        (uri) => !dataSetUris.has(uri),
-      );
+      const unproducedDatSetUris = [...expectedDataSetUris].filter((uri) => !dataSetUris.has(uri));
 
       if (expectedDataSetUris.size === 0) {
         errorDetails.push(
@@ -445,11 +377,7 @@ export class SimulationRunValidationService {
     }
 
     if (errorDetails.length) {
-      this.logger.error(
-        `Simulation run is not valid for publication:\n\n  ${errorDetails.join(
-          '\n\n  ',
-        )}`,
-      );
+      this.logger.error(`Simulation run is not valid for publication:\n\n  ${errorDetails.join('\n\n  ')}`);
       throw new BiosimulationsException(
         HttpStatus.BAD_REQUEST,
         'Simulation run is not valid for publication',
@@ -463,13 +391,9 @@ export class SimulationRunValidationService {
 
   private getErrorMessage(error: any): string {
     if (error?.isAxiosError) {
-      return `${error?.response?.status}: ${
-        error?.response?.data?.detail || error?.response?.statusText
-      }`;
+      return `${error?.response?.status}: ${error?.response?.data?.detail || error?.response?.statusText}`;
     } else {
-      return `${
-        error?.status || error?.statusCode || error.constructor.name
-      }: ${error?.message}`;
+      return `${error?.status || error?.statusCode || error.constructor.name}: ${error?.message}`;
     }
   }
 }

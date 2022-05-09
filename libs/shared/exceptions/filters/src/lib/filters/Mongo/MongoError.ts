@@ -1,14 +1,5 @@
-import {
-  ErrorObject,
-  ErrorResponseDocument,
-} from '@biosimulations/datamodel/api';
-import {
-  Catch,
-  ExceptionFilter,
-  ArgumentsHost,
-  HttpStatus,
-  Logger,
-} from '@nestjs/common';
+import { ErrorObject, ErrorResponseDocument } from '@biosimulations/datamodel/api';
+import { Catch, ExceptionFilter, ArgumentsHost, HttpStatus, Logger } from '@nestjs/common';
 import { Response } from 'express';
 import * as mongo from 'mongodb';
 import { makeErrorObject } from '../../utils';

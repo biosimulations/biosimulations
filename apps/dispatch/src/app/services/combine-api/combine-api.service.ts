@@ -12,8 +12,7 @@ import { Endpoints } from '@biosimulations/config/common';
 export class CombineApiService {
   private endpoints = new Endpoints();
 
-  private sedmlSpecsEndpoint =
-    this.endpoints.getSedmlSpecificationsEndpoint(false);
+  private sedmlSpecsEndpoint = this.endpoints.getSedmlSpecificationsEndpoint(false);
 
   public constructor(private http: HttpClient) {}
 
@@ -27,16 +26,14 @@ export class CombineApiService {
       formData.append('url', fileOrUrl);
     }
 
-    return this.http
-      .post<CombineArchiveSedDocSpecs>(this.sedmlSpecsEndpoint, formData)
-      .pipe(
-        catchError((error: HttpErrorResponse): Observable<undefined> => {
-          if (!environment.production) {
-            console.error(error);
-          }
-          return of<undefined>(undefined);
-        }),
-        shareReplay(1),
-      );
+    return this.http.post<CombineArchiveSedDocSpecs>(this.sedmlSpecsEndpoint, formData).pipe(
+      catchError((error: HttpErrorResponse): Observable<undefined> => {
+        if (!environment.production) {
+          console.error(error);
+        }
+        return of<undefined>(undefined);
+      }),
+      shareReplay(1),
+    );
   }
 }

@@ -14,13 +14,7 @@ describe('ProjectCardComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ProjectCardComponent],
-      imports: [
-        RouterTestingModule,
-        MatCardModule,
-        MatIconModule,
-        LazyLoadImageModule,
-        BiosimulationsIconsModule,
-      ],
+      imports: [RouterTestingModule, MatCardModule, MatIconModule, LazyLoadImageModule, BiosimulationsIconsModule],
     }).compileComponents();
   });
 

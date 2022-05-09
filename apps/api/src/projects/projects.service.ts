@@ -1,9 +1,4 @@
-import {
-  ProjectInput,
-  ProjectSummary,
-  Account,
-  Organization,
-} from '@biosimulations/datamodel/api';
+import { ProjectInput, ProjectSummary, Account, Organization } from '@biosimulations/datamodel/api';
 import { AccountType } from '@biosimulations/datamodel/common';
 import {
   Injectable,
@@ -76,9 +71,7 @@ export class ProjectsService implements OnModuleInit {
   public async getProject(id: string): Promise<ProjectModel | null> {
     this.logger.log(`Fetching project '${id}'.`);
 
-    const project = await this.model
-      .findOne({ id })
-      .collation(ProjectIdCollation);
+    const project = await this.model.findOne({ id }).collation(ProjectIdCollation);
 
     return project;
   }
@@ -87,13 +80,8 @@ export class ProjectsService implements OnModuleInit {
    * @Param simulationRunId id of the simulation run of the published project
    */
 
-  public async getProjectIdBySimulationRunId(
-    simulationRunId: string,
-  ): Promise<string | undefined> {
-    const project = await this.model
-      .findOne({ simulationRun: simulationRunId })
-      .select('id')
-      .exec();
+  public async getProjectIdBySimulationRunId(simulationRunId: string): Promise<string | undefined> {
+    const project = await this.model.findOne({ simulationRun: simulationRunId }).select('id').exec();
     return project?.id;
   }
 
@@ -105,14 +93,9 @@ export class ProjectsService implements OnModuleInit {
    * @param projectInput project to save to the database
    * @param user User who submitted the project
    */
-  public async createProject(
-    projectInput: ProjectInput,
-    user: AuthToken,
-  ): Promise<void> {
+  public async createProject(projectInput: ProjectInput, user: AuthToken): Promise<void> {
     // validate project
-    await this.simulationRunValidationService.validateRun(
-      projectInput.simulationRun,
-    );
+    await this.simulationRunValidationService.validateRun(projectInput.simulationRun);
 
     // create project
     projectInput.owner = this.getOwner(projectInput, user);
@@ -134,11 +117,7 @@ export class ProjectsService implements OnModuleInit {
    * @param projectInput new properties of the project
    * @param user User attempting to modify the project
    */
-  public async updateProject(
-    id: string,
-    projectInput: ProjectInput,
-    user: AuthToken,
-  ): Promise<void | null> {
+  public async updateProject(id: string, projectInput: ProjectInput, user: AuthToken): Promise<void | null> {
     if (projectInput.id !== id) {
       throw new BadRequestException(
         `The project id must be '${id}'. Project ids cannot be changed. Please contact the BioSimulations Team (info@biosimulations.org) for assistance.`,
@@ -146,9 +125,7 @@ export class ProjectsService implements OnModuleInit {
     }
 
     // get project
-    const project = await this.model
-      .findOne({ id: id })
-      .collation(ProjectIdCollation);
+    const project = await this.model.findOne({ id: id }).collation(ProjectIdCollation);
 
     if (!project) {
       throw new NotFoundException(`Project with id ${id} not found.`);
@@ -166,9 +143,7 @@ export class ProjectsService implements OnModuleInit {
     // validate and save project and update summary
     if (projectInput.simulationRun !== project.simulationRun) {
       // validate project
-      await this.simulationRunValidationService.validateRun(
-        projectInput.simulationRun,
-      );
+      await this.simulationRunValidationService.validateRun(projectInput.simulationRun);
 
       // save project
       project.set(projectInput);
@@ -188,9 +163,7 @@ export class ProjectsService implements OnModuleInit {
     const res: DeleteResult = await this.model.deleteMany({});
     const count = await this.model.count();
     if (count !== 0) {
-      throw new InternalServerErrorException(
-        'Some projects could not be deleted.',
-      );
+      throw new InternalServerErrorException('Some projects could not be deleted.');
     }
     return;
   }
@@ -200,22 +173,14 @@ export class ProjectsService implements OnModuleInit {
    * @param id id of the project
    */
   public async deleteProject(id: string): Promise<void> {
-    const project = await this.model
-      .findOne({ id })
-      .collation(ProjectIdCollation);
+    const project = await this.model.findOne({ id }).collation(ProjectIdCollation);
     if (!project) {
-      throw new NotFoundException(
-        `Project with id '${id}' could not be found.`,
-      );
+      throw new NotFoundException(`Project with id '${id}' could not be found.`);
     }
 
-    const res: DeleteResult = await this.model
-      .deleteOne({ id: id })
-      .collation(ProjectIdCollation);
+    const res: DeleteResult = await this.model.deleteOne({ id: id }).collation(ProjectIdCollation);
     if (res.deletedCount !== 1) {
-      throw new InternalServerErrorException(
-        'The project could not be deleted.',
-      );
+      throw new InternalServerErrorException('The project could not be deleted.');
     }
     return;
   }
@@ -232,16 +197,10 @@ export class ProjectsService implements OnModuleInit {
       .sort()
       .join(',');
     const cacheKey = `Project:Summaries:${projectIds}:${SimulationRunService.summaryVersion}`;
-    return this.getWithCache<ProjectSummary[]>(
-      cacheKey,
-      this._getProjectSummaries.bind(this, projects),
-      0,
-    );
+    return this.getWithCache<ProjectSummary[]>(cacheKey, this._getProjectSummaries.bind(this, projects), 0);
   }
 
-  private async _getProjectSummaries(
-    projects: ProjectModel[],
-  ): Promise<ProjectSummary[]> {
+  private async _getProjectSummaries(projects: ProjectModel[]): Promise<ProjectSummary[]> {
     const promises = projects.map((project): Promise<ProjectSummaryResult> => {
       return this.getProjectSummary(project.id)
         .then((value: ProjectSummary) => {
@@ -261,43 +220,27 @@ export class ProjectsService implements OnModuleInit {
     });
     const settledResults = await Promise.all(promises);
 
-    const failures = settledResults.filter(
-      (settledResult: ProjectSummaryResult): boolean => {
-        return !settledResult.succeeded;
-      },
-    );
+    const failures = settledResults.filter((settledResult: ProjectSummaryResult): boolean => {
+      return !settledResult.succeeded;
+    });
     if (failures.length) {
-      const msgs = failures.map(
-        (settledResult: ProjectSummaryResult): string => {
-          const error = settledResult?.error;
-          return `Project ${settledResult.id}: ${
-            error?.isAxiosError ? error?.response?.status : error?.status
-          }: ${
-            error?.isAxiosError
-              ? error?.response?.data?.detail || error?.response?.statusText
-              : error?.message
-          }`;
-        },
-      );
-      this.logger.error(
-        `Summaries could not be obtained for ${
-          failures.length
-        } projects:\n  ${msgs.join('\n  ')}`,
-      );
-      throw new InternalServerErrorException(
-        `Summaries could not be retrieved for ${failures.length} projects.`,
-      );
+      const msgs = failures.map((settledResult: ProjectSummaryResult): string => {
+        const error = settledResult?.error;
+        return `Project ${settledResult.id}: ${error?.isAxiosError ? error?.response?.status : error?.status}: ${
+          error?.isAxiosError ? error?.response?.data?.detail || error?.response?.statusText : error?.message
+        }`;
+      });
+      this.logger.error(`Summaries could not be obtained for ${failures.length} projects:\n  ${msgs.join('\n  ')}`);
+      throw new InternalServerErrorException(`Summaries could not be retrieved for ${failures.length} projects.`);
     }
 
-    return settledResults.flatMap(
-      (settledResult: ProjectSummaryResult): ProjectSummary[] => {
-        if (settledResult.value) {
-          return [settledResult.value];
-        } else {
-          return [];
-        }
-      },
-    );
+    return settledResults.flatMap((settledResult: ProjectSummaryResult): ProjectSummary[] => {
+      if (settledResult.value) {
+        return [settledResult.value];
+      } else {
+        return [];
+      }
+    });
   }
 
   /** Get a summary of a project
@@ -305,28 +248,18 @@ export class ProjectsService implements OnModuleInit {
    * @param id id of the project
    */
   public async getProjectSummary(id: string): Promise<ProjectSummary> {
-    const project = await this.model
-      .findOne({ id })
-      .collation(ProjectIdCollation);
+    const project = await this.model.findOne({ id }).collation(ProjectIdCollation);
 
     if (!project) {
-      throw new NotFoundException(
-        `Project with id '${id}' could not be found.`,
-      );
+      throw new NotFoundException(`Project with id '${id}' could not be found.`);
     }
 
     const updated = project.updated.toISOString();
     const cacheKey = `Project:Summary:${id}:${updated}:${SimulationRunService.summaryVersion}`;
-    return this.getWithCache<ProjectSummary>(
-      cacheKey,
-      this._getProjectSummary.bind(this, project),
-      0,
-    );
+    return this.getWithCache<ProjectSummary>(cacheKey, this._getProjectSummary.bind(this, project), 0);
   }
 
-  private async _getProjectSummary(
-    project: ProjectModel,
-  ): Promise<ProjectSummary> {
+  private async _getProjectSummary(project: ProjectModel): Promise<ProjectSummary> {
     const ownerAuth0Id = project?.owner;
     let owner: Account | undefined;
     if (ownerAuth0Id) {
@@ -335,10 +268,7 @@ export class ProjectsService implements OnModuleInit {
 
     return {
       id: project.id,
-      simulationRun: await this.simulationRunService.getRunSummary(
-        project.simulationRun,
-        true,
-      ),
+      simulationRun: await this.simulationRunService.getRunSummary(project.simulationRun, true),
       owner: owner,
       created: project.created.toISOString(),
       updated: project.updated.toISOString(),
@@ -359,10 +289,7 @@ export class ProjectsService implements OnModuleInit {
     const errors: string[] = [];
 
     if (validateIdAvailable) {
-      const numProjects = await this.model
-        .findOne({ id: projectInput.id })
-        .collation(ProjectIdCollation)
-        .count();
+      const numProjects = await this.model.findOne({ id: projectInput.id }).collation(ProjectIdCollation).count();
       if (numProjects >= 1) {
         errors.push(
           `The id '${projectInput.id}' is already taken by another project. Each project must have a unique id. Please choose another id.`,
@@ -383,15 +310,10 @@ export class ProjectsService implements OnModuleInit {
     }
 
     try {
-      await this.simulationRunValidationService.validateRun(
-        projectInput.simulationRun,
-        validateSimulationResultsData,
-      );
+      await this.simulationRunValidationService.validateRun(projectInput.simulationRun, validateSimulationResultsData);
     } catch (error) {
       const message =
-        error instanceof BiosimulationsException && error.message
-          ? error.message
-          : 'Error validating run';
+        error instanceof BiosimulationsException && error.message ? error.message : 'Error validating run';
       errors.push(message);
     }
 
@@ -399,32 +321,19 @@ export class ProjectsService implements OnModuleInit {
     try {
       await project.validate();
     } catch (error) {
-      errors.push(
-        error instanceof Error && error.message
-          ? error.message
-          : 'Validation of project failed',
-      );
+      errors.push(error instanceof Error && error.message ? error.message : 'Validation of project failed');
     }
 
     if (errors.length) {
-      throw new BiosimulationsException(
-        HttpStatus.BAD_REQUEST,
-        'Project is invalid',
-        errors.join('\n\n'),
-      );
+      throw new BiosimulationsException(HttpStatus.BAD_REQUEST, 'Project is invalid', errors.join('\n\n'));
     }
   }
-  private getOwner(
-    projectInput: ProjectInput,
-    user: AuthToken,
-  ): string | undefined {
+  private getOwner(projectInput: ProjectInput, user: AuthToken): string | undefined {
     if (projectInput?.owner) {
       if (user?.permissions?.includes(scopes.projects.proxyOwnership.id)) {
         return projectInput.owner;
       } else {
-        throw new ForbiddenException(
-          'Only administrators can submit projects on behalf of other accounts.',
-        );
+        throw new ForbiddenException('Only administrators can submit projects on behalf of other accounts.');
       }
     }
 
@@ -464,13 +373,9 @@ export class ProjectsService implements OnModuleInit {
 
       const organizationIds = JSON.parse(client.client_metadata.organizations);
       organizationsDetails = await Promise.all(
-        organizationIds.map(
-          (organizationId: string): Promise<Auth0Organization> => {
-            return this.accountManagementService.getOrganization(
-              organizationIds,
-            );
-          },
-        ),
+        organizationIds.map((organizationId: string): Promise<Auth0Organization> => {
+          return this.accountManagementService.getOrganization(organizationIds);
+        }),
       );
     } else {
       type = AccountType.user;
@@ -479,18 +384,15 @@ export class ProjectsService implements OnModuleInit {
       name = user?.name as string;
       url = user?.user_metadata?.url;
 
-      organizationsDetails =
-        await this.accountManagementService.getUserOrganizations(auth0Id);
+      organizationsDetails = await this.accountManagementService.getUserOrganizations(auth0Id);
     }
-    const organizations = organizationsDetails.map(
-      (organization: Auth0Organization): Organization => {
-        return {
-          id: organization.name,
-          name: organization?.display_name || organization.name,
-          url: organization?.metadata?.url,
-        };
-      },
-    );
+    const organizations = organizationsDetails.map((organization: Auth0Organization): Organization => {
+      return {
+        id: organization.name,
+        name: organization?.display_name || organization.name,
+        url: organization?.metadata?.url,
+      };
+    });
 
     return {
       type,
@@ -506,10 +408,7 @@ export class ProjectsService implements OnModuleInit {
    */
   private async getAccount(auth0Id: string): Promise<Account> {
     const cacheKey = `Account:info:${auth0Id}:${ProjectsService.accountVersion}`;
-    return this.getWithCache<Account>(
-      cacheKey,
-      this._getAccount.bind(this, auth0Id),
-    );
+    return this.getWithCache<Account>(cacheKey, this._getAccount.bind(this, auth0Id));
   }
 
   private async getWithCache<T>(
@@ -518,9 +417,7 @@ export class ProjectsService implements OnModuleInit {
     ttl = 60 * 24,
     overwrite = false,
   ): Promise<T> {
-    const cachedValue = overwrite
-      ? null
-      : ((await this.cacheManager.get(key)) as T | null);
+    const cachedValue = overwrite ? null : ((await this.cacheManager.get(key)) as T | null);
 
     if (cachedValue != null) {
       return cachedValue;

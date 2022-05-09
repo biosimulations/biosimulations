@@ -13,16 +13,12 @@ export class MetadataProcessor {
   public constructor(private metadataService: MetadataService) {}
 
   @Process({ name: 'metadata', concurrency: 10 })
-  private async process(
-    job: Job,
-  ): Promise<JobReturn<ArchiveMetadataContainer | undefined>> {
+  private async process(job: Job): Promise<JobReturn<ArchiveMetadataContainer | undefined>> {
     const data = job.data;
     const runId = data.runId;
 
     try {
-      const metadataProcessingResults = await firstValueFrom(
-        this.metadataService.createMetadata(runId),
-      );
+      const metadataProcessingResults = await firstValueFrom(this.metadataService.createMetadata(runId));
       job.updateProgress(100);
       return {
         status: 'Succeeded',

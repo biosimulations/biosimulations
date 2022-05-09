@@ -16,10 +16,7 @@ biosimulations-tab-page ::ng-deep {
   }
 }
 
-biosimulations-tab-page
-  ::ng-deep
-  biosimulations-text-page-side-bar-section
-  ::ng-deep {
+biosimulations-tab-page ::ng-deep biosimulations-text-page-side-bar-section ::ng-deep {
   .heading {
     max-width: 100%;
   }
@@ -122,9 +119,7 @@ biosimulations-tab-page
 }
 
 .json {
-  max-height: calc(
-    100vh - 64px - 28px - 0.25rem - 32px - 2 * 2rem - 2 * 0.5rem
-  );
+  max-height: calc(100vh - 64px - 28px - 0.25rem - 32px - 2 * 2rem - 2 * 0.5rem);
 }
 
 .half-vertically-spaced > li:not(:first-child) {

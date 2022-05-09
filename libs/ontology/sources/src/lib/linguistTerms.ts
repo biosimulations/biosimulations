@@ -1,9 +1,4 @@
-import {
-  Ontologies,
-  LinguistTerm,
-  OntologyInfo,
-  OntologyTermMap,
-} from '@biosimulations/datamodel/common';
+import { Ontologies, LinguistTerm, OntologyInfo, OntologyTermMap } from '@biosimulations/datamodel/common';
 import linguistJson from './linguist.json';
 
 function getLinguistTerms(input: any): OntologyTermMap<LinguistTerm> {
@@ -36,6 +31,5 @@ export const linguistInfo: OntologyInfo = {
   bioportalId: null,
   olsId: null,
   version: null,
-  source:
-    'https://raw.githubusercontent.com/jaebradley/github-languages-client/master/src/languages.json',
+  source: 'https://raw.githubusercontent.com/jaebradley/github-languages-client/master/src/languages.json',
 };

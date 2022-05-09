@@ -32,10 +32,8 @@ export class HealthController {
 
   @Get()
   @ApiOperation({
-    summary:
-      'Check whether the database and simulation run queue are operational',
-    description:
-      'Check whether the database and simulation run queue are operational',
+    summary: 'Check whether the database and simulation run queue are operational',
+    description: 'Check whether the database and simulation run queue are operational',
   })
   @HealthCheck()
   public check(): Promise<HealthCheckResult> {
@@ -73,10 +71,8 @@ export class HealthController {
 
   @Get('/messaging')
   @ApiOperation({
-    summary:
-      'Check whether the simulation run queue and messaging system are operational',
-    description:
-      'Check whether the simulation run queue and messaging system are operational',
+    summary: 'Check whether the simulation run queue and messaging system are operational',
+    description: 'Check whether the simulation run queue and messaging system are operational',
   })
   @HealthCheck()
   public messagingCheck(): Promise<HealthCheckResult> {
@@ -94,18 +90,11 @@ export class HealthController {
   }
 
   private simulatorsCheck: HealthIndicatorFunction = () =>
-    this.http.pingCheck(
-      'Simulators API',
-      this.endpoints.getSimulatorApiHealthEndpoint(),
-    );
+    this.http.pingCheck('Simulators API', this.endpoints.getSimulatorApiHealthEndpoint());
 
   private combineCheck: HealthIndicatorFunction = () =>
-    this.http.pingCheck(
-      'combine-api',
-      this.endpoints.getCombineHealthEndpoint(),
-    );
-  private mongoCheck: HealthIndicatorFunction = () =>
-    this.db.pingCheck('Database');
+    this.http.pingCheck('combine-api', this.endpoints.getCombineHealthEndpoint());
+  private mongoCheck: HealthIndicatorFunction = () => this.db.pingCheck('Database');
 
   private natsCheck: HealthIndicatorFunction = () =>
     this.microservice.pingCheck('Messaging', {
@@ -115,15 +104,11 @@ export class HealthController {
       },
     });
 
-  private bullCheck: HealthIndicatorFunction = () =>
-    this.queue.isHealthy('Queue');
+  private bullCheck: HealthIndicatorFunction = () => this.queue.isHealthy('Queue');
 
   private s3Check: HealthIndicatorFunction = () => {
     const storageEndpoint =
-      this.config.get('storage.endpoint') +
-      '/' +
-      this.config.get('storage.bucket') +
-      '/index.html';
+      this.config.get('storage.endpoint') + '/' + this.config.get('storage.bucket') + '/index.html';
     return this.http.pingCheck('Storage', storageEndpoint);
   };
 
@@ -137,8 +122,5 @@ export class HealthController {
     });
 
   private hsdsCheck: HealthIndicatorFunction = () =>
-    this.http.pingCheck(
-      'Data Service',
-      this.endpoints.getDataServiceHealthEndpoint(),
-    );
+    this.http.pingCheck('Data Service', this.endpoints.getDataServiceHealthEndpoint());
 }

@@ -26,10 +26,7 @@ export const makeErrorObject = (
 
     detail: detail,
 
-    source:
-      pointer || parameter
-        ? { pointer: pointer, parameter: parameter }
-        : undefined,
+    source: pointer || parameter ? { pointer: pointer, parameter: parameter } : undefined,
     meta: meta,
   };
   return errorObj;
@@ -46,10 +43,7 @@ export const makeErrorObjectFromHttp = (exception: HttpException) => {
 
   const status: number = exception.getStatus();
   const code = StatusCodes?.[status] as keyof typeof ReasonPhrases | undefined;
-  const title =
-    code === undefined
-      ? exception.message
-      : ReasonPhrases?.[code] || exception.message;
+  const title = code === undefined ? exception.message : ReasonPhrases?.[code] || exception.message;
 
   return makeErrorObject(status, title, resp);
 };

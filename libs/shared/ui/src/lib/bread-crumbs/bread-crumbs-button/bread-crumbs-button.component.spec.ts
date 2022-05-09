@@ -12,12 +12,7 @@ describe('BreadCrumbsButtonComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        BiosimulationsIconsModule,
-        MaterialWrapperModule,
-        SharedAngularModule,
-      ],
+      imports: [RouterTestingModule, BiosimulationsIconsModule, MaterialWrapperModule, SharedAngularModule],
       declarations: [BreadCrumbsButtonComponent],
     }).compileComponents();
   }));

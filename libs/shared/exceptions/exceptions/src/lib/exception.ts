@@ -1,8 +1,4 @@
-import {
-  AboutLinksObject,
-  ErrorObject,
-  ErrorSourceObject,
-} from '@biosimulations/datamodel/api';
+import { AboutLinksObject, ErrorObject, ErrorSourceObject } from '@biosimulations/datamodel/api';
 import { HttpException } from '@nestjs/common';
 import { StatusCodes, ReasonPhrases } from 'http-status-codes';
 
@@ -26,13 +22,8 @@ export class BiosimulationsException extends Error {
   }
 
   createError(): ErrorObject {
-    const statusCode = StatusCodes?.[this.status] as
-      | keyof typeof ReasonPhrases
-      | undefined;
-    const title =
-      statusCode === undefined
-        ? this.title
-        : ReasonPhrases?.[statusCode] || this.title;
+    const statusCode = StatusCodes?.[this.status] as keyof typeof ReasonPhrases | undefined;
+    const title = statusCode === undefined ? this.title : ReasonPhrases?.[statusCode] || this.title;
 
     const error: ErrorObject = {
       status: this.status.toString(),

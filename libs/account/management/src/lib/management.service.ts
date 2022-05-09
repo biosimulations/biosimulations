@@ -12,12 +12,9 @@ export class ManagementService {
       domain: configService.get('auth.management_domain') as string,
       clientId: configService.get('auth.management_id'),
       clientSecret: configService.get('auth.management_secret'),
-      scope: [
-        scopes.users.read.id,
-        scopes.users.update.id,
-        scopes.clients.read.id,
-        scopes.organizations.read.id,
-      ].join(' '),
+      scope: [scopes.users.read.id, scopes.users.update.id, scopes.clients.read.id, scopes.organizations.read.id].join(
+        ' ',
+      ),
     });
   }
 
@@ -89,32 +86,24 @@ export class ManagementService {
   }
 
   updateAppMetadata(id: string, metadata: any) {
-    this.authzClient.updateAppMetadata(
-      { id },
-      metadata,
-      (err: any, user: any) => {
-        if (err) {
-          console.error(err);
-        } else {
-          console.log('Updated User' + user.user_id);
-          console.log('Added App MetaData' + user.app_metadata);
-        }
-      },
-    );
+    this.authzClient.updateAppMetadata({ id }, metadata, (err: any, user: any) => {
+      if (err) {
+        console.error(err);
+      } else {
+        console.log('Updated User' + user.user_id);
+        console.log('Added App MetaData' + user.app_metadata);
+      }
+    });
   }
 
   updateUserMetadata(id: string, metadata: any) {
-    this.authzClient.updateUserMetadata(
-      { id },
-      metadata,
-      (err: any, user: any) => {
-        if (err) {
-          console.error(err);
-        } else {
-          console.log('Updated User' + user.user_id);
-          console.log('Added UserMetadata' + user.user_metadata);
-        }
-      },
-    );
+    this.authzClient.updateUserMetadata({ id }, metadata, (err: any, user: any) => {
+      if (err) {
+        console.error(err);
+      } else {
+        console.log('Updated User' + user.user_id);
+        console.log('Added UserMetadata' + user.user_metadata);
+      }
+    });
   }
 }

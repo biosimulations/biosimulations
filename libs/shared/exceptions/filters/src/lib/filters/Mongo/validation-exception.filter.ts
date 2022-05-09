@@ -1,11 +1,5 @@
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
-import {
-  Catch,
-  ExceptionFilter,
-  ArgumentsHost,
-  HttpStatus,
-  Logger,
-} from '@nestjs/common';
+import { Catch, ExceptionFilter, ArgumentsHost, HttpStatus, Logger } from '@nestjs/common';
 import { Response } from 'express';
 import * as mongoose from 'mongoose';
 
@@ -21,10 +15,8 @@ export class ValidationExceptionFilter implements ExceptionFilter {
     const errors = [];
     // Mongo can retun an array of errors, or a single error, so we want to include all the information for the user
     for (const key in err.errors) {
-      const validatorError:
-        | mongoose.Error.ValidatorError
-        | mongoose.Error.CastError
-        | mongoose.Error.ValidationError = err.errors[key];
+      const validatorError: mongoose.Error.ValidatorError | mongoose.Error.CastError | mongoose.Error.ValidationError =
+        err.errors[key];
 
       //Change the "." in the path to  "/" to make a valid JSON path as per RFC 6901
       const path = ('/' + key).replace(new RegExp('\\.', 'g'), '/');

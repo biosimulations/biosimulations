@@ -22,10 +22,7 @@ export function parseValue<T>(
   }
 }
 
-export function formatValue(
-  type: ValueType,
-  value: boolean | number | string | null,
-): string | null {
+export function formatValue(type: ValueType, value: boolean | number | string | null): string | null {
   if (value == null) {
     return value;
   } else if (type === ValueType.boolean) {
@@ -40,13 +37,9 @@ export function formatValue(
       let valStr: string;
       if (Math.abs((val * 1 - Math.round(val * 1)) / (val * 1)) < 1e-12) {
         valStr = val.toFixed(0);
-      } else if (
-        Math.abs((val * 1e1 - Math.round(val * 1e1)) / (val * 1e1)) < 1e-12
-      ) {
+      } else if (Math.abs((val * 1e1 - Math.round(val * 1e1)) / (val * 1e1)) < 1e-12) {
         valStr = val.toFixed(1);
-      } else if (
-        Math.abs((val * 1e2 - Math.round(val * 1e2)) / (val * 1e2)) < 1e-12
-      ) {
+      } else if (Math.abs((val * 1e2 - Math.round(val * 1e2)) / (val * 1e2)) < 1e-12) {
         valStr = val.toFixed(2);
       } else {
         valStr = val.toFixed(3);
@@ -60,11 +53,7 @@ export function formatValue(
   }
 }
 
-export function validateValue(
-  value: string,
-  type: ValueType,
-  isKisaoId: (id: string) => boolean,
-): boolean {
+export function validateValue(value: string, type: ValueType, isKisaoId: (id: string) => boolean): boolean {
   let parsedValue: any;
   switch (type) {
     case ValueType.boolean: {
@@ -118,7 +107,5 @@ export function validateValue(
 }
 
 export function getFileExtension(filename: string): string {
-  return filename.slice(
-    (Math.max(0, filename.lastIndexOf('.')) || Infinity) + 1,
-  );
+  return filename.slice((Math.max(0, filename.lastIndexOf('.')) || Infinity) + 1);
 }

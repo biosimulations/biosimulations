@@ -33,12 +33,10 @@ export class BiosimulationsNavigationComponent {
   @Input()
   darkMode = false;
 
-  isHandset$: Observable<boolean> = this.breakpointObserver
-    .observe(Breakpoints.Handset)
-    .pipe(
-      map((result) => result.matches),
-      shareReplay(),
-    );
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
+    map((result) => result.matches),
+    shareReplay(),
+  );
 
   constructor(private breakpointObserver: BreakpointObserver) {}
 }

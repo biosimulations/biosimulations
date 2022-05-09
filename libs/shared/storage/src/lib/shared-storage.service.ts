@@ -23,20 +23,14 @@ export class SharedStorageService {
 
   private calcS3UploadTimeOutMs(sizeBytes: number): number {
     return (
-      (sizeBytes / (this.MAX_EGRESS_BYTES_PER_SEC / this.UPLOAD_CONCURRENCY)) *
-      1e3 *
-      this.UPLOAD_TIMEOUT_SAFETY_FACTOR
+      (sizeBytes / (this.MAX_EGRESS_BYTES_PER_SEC / this.UPLOAD_CONCURRENCY)) * 1e3 * this.UPLOAD_TIMEOUT_SAFETY_FACTOR
     );
   }
 
   private logger = new Logger(SharedStorageService.name);
 
-  public constructor(
-    @InjectS3() private readonly s3Get: S3,
-    private configService: ConfigService,
-  ) {
-    this.BUCKET =
-      configService.get('storage.bucket') || 'files.biosimulations.dev';
+  public constructor(@InjectS3() private readonly s3Get: S3, private configService: ConfigService) {
+    this.BUCKET = configService.get('storage.bucket') || 'files.biosimulations.dev';
     s3Get.config.update({ region: configService.get('storage.region') }); // has to be set here because the NestJS wrapper doesn't appear to correctly set this
   }
 
@@ -49,9 +43,7 @@ export class SharedStorageService {
   }
 
   public async getObjectInfo(key: string): Promise<AWS.S3.HeadObjectOutput> {
-    const call = this.s3Get
-      .headObject({ Bucket: this.BUCKET, Key: key })
-      .promise();
+    const call = this.s3Get.headObject({ Bucket: this.BUCKET, Key: key }).promise();
 
     const res = await call;
 
@@ -63,9 +55,7 @@ export class SharedStorageService {
   }
 
   public async listObjects(key: string): Promise<AWS.S3.ListObjectsOutput> {
-    const call = this.s3Get
-      .listObjects({ Bucket: this.BUCKET, Prefix: key })
-      .promise();
+    const call = this.s3Get.listObjects({ Bucket: this.BUCKET, Prefix: key }).promise();
 
     const res = await call;
 
@@ -77,9 +67,7 @@ export class SharedStorageService {
   }
 
   public async isObject(key: string): Promise<boolean> {
-    const call = this.s3Get
-      .headObject({ Bucket: this.BUCKET, Key: key })
-      .promise();
+    const call = this.s3Get.headObject({ Bucket: this.BUCKET, Key: key }).promise();
 
     try {
       await call;
@@ -94,16 +82,12 @@ export class SharedStorageService {
   }
 
   public async getObject(key: string): Promise<AWS.S3.GetObjectOutput> {
-    const call = this.s3Get
-      .getObject({ Bucket: this.BUCKET, Key: key })
-      .promise();
+    const call = this.s3Get.getObject({ Bucket: this.BUCKET, Key: key }).promise();
 
     const res = await call;
 
     if (res.$response.error) {
-      this.logger.error(
-        `Object with key '${key}' could not be retrieved: ${res.$response.error.message}`,
-      );
+      this.logger.error(`Object with key '${key}' could not be retrieved: ${res.$response.error.message}`);
       throw res.$response.error.originalError;
     } else {
       return res;
@@ -124,10 +108,7 @@ export class SharedStorageService {
       ACL: acl,
     };
 
-    const timeoutMs = Math.max(
-      this.calcS3UploadTimeOutMs(Math.max(length, 8 * 1e6)),
-      10 * 1e3,
-    );
+    const timeoutMs = Math.max(this.calcS3UploadTimeOutMs(Math.max(length, 8 * 1e6)), 10 * 1e3);
 
     const s3Post = new AWS.S3({
       credentials: {
@@ -154,9 +135,7 @@ export class SharedStorageService {
   }
 
   public async deleteObject(key: string): Promise<AWS.S3.DeleteObjectOutput> {
-    const call = this.s3Get
-      .deleteObject({ Bucket: this.BUCKET, Key: key })
-      .promise();
+    const call = this.s3Get.deleteObject({ Bucket: this.BUCKET, Key: key }).promise();
 
     const res = await call;
 
@@ -169,11 +148,7 @@ export class SharedStorageService {
 }
 
 export function isStream(stream: any): boolean {
-  return (
-    stream !== null &&
-    typeof stream === 'object' &&
-    typeof stream.pipe === 'function'
-  );
+  return stream !== null && typeof stream === 'object' && typeof stream.pipe === 'function';
 }
 
 export function isReadableStream(stream: any): boolean {

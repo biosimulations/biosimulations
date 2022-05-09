@@ -6,12 +6,7 @@ import { MailServiceClientModule } from '@biosimulations/mail-service/client';
 import { DispatchNestClientModule } from '@biosimulations/api-nest-client';
 import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
 @Module({
-  imports: [
-    BiosimulationsConfigModule,
-    DispatchNestClientModule,
-    MailServiceClientModule,
-    SharedNatsClientModule,
-  ],
+  imports: [BiosimulationsConfigModule, DispatchNestClientModule, MailServiceClientModule, SharedNatsClientModule],
   controllers: [AppController],
   providers: [AppService],
 })

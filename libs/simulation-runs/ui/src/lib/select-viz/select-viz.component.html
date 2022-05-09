@@ -8,15 +8,13 @@
             formControlName="visualization"
             required
             (ngModelChange)="selectVisualization()"
-            disableOptionCentering
-          >
+            disableOptionCentering>
             <mat-optgroup *ngFor="let visualizationList of visualizations">
               {{ visualizationList.title }}
               <mat-option
                 *ngFor="let visualization of visualizationList.visualizations"
                 [value]="visualization"
-                [disabled]="!visualization.enabled"
-              >
+                [disabled]="!visualization.enabled">
                 {{ visualization.name }}
               </mat-option>
             </mat-optgroup>
@@ -26,33 +24,25 @@
         <mat-hint>
           <p>
             Select a plot defined in a SED-ML or Vega
-            <a
-              href="https://vega.github.io/vega/"
-              rel="noopener"
-              target="_blank"
+            <a href="https://vega.github.io/vega/" rel="noopener" target="_blank"
               ><biosimulations-icon icon="link"></biosimulations-icon
             ></a>
-            document in the simulation project, or design a custom grid of
-            plots.
+            document in the simulation project, or design a custom grid of plots.
           </p>
 
           <p *ngIf="!runSucceeded" class="warning">
-            One or more visualizations may not be available because the
-            simulation run failed.
+            One or more visualizations may not be available because the simulation run failed.
           </p>
 
           <p>
-            SED-ML L1V3 provides basic capabilities for 2D line plots. SED-ML
-            L1V4 will provide capabilities for several additional types of
-            plots. We aim to support L1V4 once it is approved.
+            SED-ML L1V3 provides basic capabilities for 2D line plots. SED-ML L1V4 will provide capabilities for several
+            additional types of plots. We aim to support L1V4 once it is approved.
           </p>
 
           <p>
-            Vega is a powerful format for describing data visualizations. By
-            capturing how data should be used to paint visual elements, Vega
-            enables reusable visualizations that can be re-painted with data
-            from multiple simulations. Vega can also capture interactive and
-            publication-quality graphics.
+            Vega is a powerful format for describing data visualizations. By capturing how data should be used to paint
+            visual elements, Vega enables reusable visualizations that can be re-painted with data from multiple
+            simulations. Vega can also capture interactive and publication-quality graphics.
           </p>
         </mat-hint>
       </div>
@@ -66,8 +56,7 @@
       [simulationRunId]="formGroup.value.visualization.simulationRunId"
       [sedDocs]="formGroup.value.visualization.sedDocs"
       [uriSedDataSetMap]="formGroup.value.visualization.uriSedDataSetMap"
-      [formGroup]="userHistogram1DFormGroup"
-    >
+      [formGroup]="userHistogram1DFormGroup">
     </biosimulations-project-design-histogram-1d-visualization>
 
     <biosimulations-project-design-heatmap-2d-visualization
@@ -76,8 +65,7 @@
       [simulationRunId]="formGroup.value.visualization.simulationRunId"
       [sedDocs]="formGroup.value.visualization.sedDocs"
       [uriSedDataSetMap]="formGroup.value.visualization.uriSedDataSetMap"
-      [formGroup]="userHeatmap2DFormGroup"
-    >
+      [formGroup]="userHeatmap2DFormGroup">
     </biosimulations-project-design-heatmap-2d-visualization>
 
     <biosimulations-project-design-line-2d-visualization
@@ -86,8 +74,7 @@
       [simulationRunId]="formGroup.value.visualization.simulationRunId"
       [sedDocs]="formGroup.value.visualization.sedDocs"
       [uriSedDataSetMap]="formGroup.value.visualization.uriSedDataSetMap"
-      [formGroup]="userLine2DFormGroup"
-    >
+      [formGroup]="userLine2DFormGroup">
     </biosimulations-project-design-line-2d-visualization>
   </ng-container>
 
@@ -97,8 +84,7 @@
       mat-flat-button
       class="biosimulations-button text"
       [disabled]="!formGroup.valid"
-      (click)="viewVisualization()"
-    >
+      (click)="viewVisualization()">
       View
     </button>
 
@@ -108,8 +94,7 @@
       mat-flat-button
       class="biosimulations-button text"
       [disabled]="!formGroup.valid"
-      (click)="exportVisualization('vega')"
-    >
+      (click)="exportVisualization('vega')">
       Export to Vega
     </button>
 
@@ -119,8 +104,7 @@
       mat-flat-button
       class="biosimulations-button text"
       [disabled]="!formGroup.valid"
-      (click)="exportVisualization('archive')"
-    >
+      (click)="exportVisualization('archive')">
       Export in archive
     </button>
   </div>

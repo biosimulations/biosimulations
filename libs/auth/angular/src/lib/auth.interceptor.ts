@@ -1,10 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor,
-} from '@angular/common/http';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
 import { mergeMap, catchError } from 'rxjs/operators';
@@ -17,10 +12,7 @@ import { AuthEnvironment } from './auth.environment';
 export class AuthInterceptor implements HttpInterceptor {
   constructor(private auth: AuthService, private env: AuthEnvironment) {}
 
-  intercept(
-    req: HttpRequest<any>,
-    next: HttpHandler,
-  ): Observable<HttpEvent<any>> {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (req.url.includes(this.env.apiDomain) && this.auth.isAuthenticated()) {
       return this.auth.getTokenSilently$().pipe(
         // If there are any errors with authentication, try to proceed unauthenticated

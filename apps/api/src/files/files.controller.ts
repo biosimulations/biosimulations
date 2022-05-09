@@ -1,9 +1,5 @@
 import { permissions } from '@biosimulations/auth/nest';
-import {
-  ProjectFile,
-  ProjectFileInputsContainer,
-  ProjectFileThumbnailInput,
-} from '@biosimulations/datamodel/api';
+import { ProjectFile, ProjectFileInputsContainer, ProjectFileThumbnailInput } from '@biosimulations/datamodel/api';
 
 import {
   Controller,
@@ -69,8 +65,7 @@ export class FilesController {
   @Get(':runId')
   @ApiOperation({
     summary: 'Get the files of a simulation run',
-    description:
-      'Get a list of metadata about each file (contents of the COMBINE/OMEX archive) of a simulation run',
+    description: 'Get a list of metadata about each file (contents of the COMBINE/OMEX archive) of a simulation run',
   })
   @ApiParam({
     name: 'runId',
@@ -85,9 +80,7 @@ export class FilesController {
     description: 'Metadata about the files was successfully retrieved',
     type: [ProjectFile],
   })
-  public async getSimulationRunFiles(
-    @Param('runId') runId: string,
-  ): Promise<ProjectFile[]> {
+  public async getSimulationRunFiles(@Param('runId') runId: string): Promise<ProjectFile[]> {
     const files = await this.service.getSimulationRunFiles(runId);
     return files.map((file) => this.createReturnFile(file));
   }
@@ -95,8 +88,7 @@ export class FilesController {
   @Get(':runId/:fileLocation')
   @ApiOperation({
     summary: 'Get metadata about a file',
-    description:
-      'Get metadata about a file (location in the COMBINE/OMEX archive) of a simulation run',
+    description: 'Get metadata about a file (location in the COMBINE/OMEX archive) of a simulation run',
   })
   @ApiParam({
     name: 'runId',
@@ -109,8 +101,7 @@ export class FilesController {
   })
   @ApiParam({
     name: 'fileLocation',
-    description:
-      'Location of the file within the COMBINE/OMEX archive for the simulation run',
+    description: 'Location of the file within the COMBINE/OMEX archive for the simulation run',
     required: true,
     type: String,
   })
@@ -138,8 +129,7 @@ export class FilesController {
   @Put(':runId/:fileLocation/thumbnail')
   @ApiOperation({
     summary: 'Set the thumbnail for a file',
-    description:
-      'Set resized thumbnails for a file location in the COMBINE/OMEX archive of a simulation run',
+    description: 'Set resized thumbnails for a file location in the COMBINE/OMEX archive of a simulation run',
   })
   @ApiBody({
     description: 'URLs of thumbnails of a file',
@@ -165,8 +155,7 @@ export class FilesController {
   @Get(':runId/:fileLocation/download')
   @ApiOperation({
     summary: 'Download a file',
-    description:
-      'Download a file (location in the COMBINE/OMEX archive) of a simulation run',
+    description: 'Download a file (location in the COMBINE/OMEX archive) of a simulation run',
   })
   @ApiResponse({
     status: HttpStatus.MOVED_PERMANENTLY,
@@ -178,8 +167,7 @@ export class FilesController {
   })
   @ApiResponse({
     status: HttpStatus.OK,
-    description:
-      'The request successfully  downloaded the file (location in the COMBINE/OMEX archive) for the run',
+    description: 'The request successfully  downloaded the file (location in the COMBINE/OMEX archive) for the run',
   })
   @ApiQuery({
     name: 'thumbnail',
@@ -206,9 +194,7 @@ export class FilesController {
     const url = file.url;
 
     //make sure to use optional chaining to prevent error if no thumbnails exist
-    const thumbnailUrl = thumbnail
-      ? file?.thumbnailUrls?.[thumbnail]
-      : undefined;
+    const thumbnailUrl = thumbnail ? file?.thumbnailUrls?.[thumbnail] : undefined;
 
     if (thumbnail && thumbnailUrl) {
       return {
@@ -244,8 +230,7 @@ export class FilesController {
   })
   @ApiPayloadTooLargeResponse({
     type: ErrorResponseDocument,
-    description:
-      'The payload is too large. The payload must be less than the server limit.',
+    description: 'The payload is too large. The payload must be less than the server limit.',
   })
   @ApiUnauthorizedResponse({
     type: ErrorResponseDocument,
@@ -253,13 +238,11 @@ export class FilesController {
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description:
-      'This account does not have permission to write metadata about all files',
+    description: 'This account does not have permission to write metadata about all files',
   })
   @permissions(scopes.files.create.id)
   @ApiCreatedResponse({
-    description:
-      'The metadata for the files for the simulation were successfully saved to the database',
+    description: 'The metadata for the files for the simulation were successfully saved to the database',
     type: [ProjectFile],
   })
   public async createFiles(
@@ -286,14 +269,10 @@ export class FilesController {
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description:
-      'This account does not have permission to write metadata about all files',
+    description: 'This account does not have permission to write metadata about all files',
   })
   @permissions(scopes.files.create.id)
-  public async createSimulationFiles(
-    @Param('runId') runId: string,
-    @Body() files: any[],
-  ): Promise<void> {}
+  public async createSimulationFiles(@Param('runId') runId: string, @Body() files: any[]): Promise<void> {}
 
   //@Post(':runId/:fileLocation')
   @ApiParam({
@@ -307,8 +286,7 @@ export class FilesController {
   })
   @ApiParam({
     name: 'fileLocation',
-    description:
-      'Location of the file within the COMBINE/OMEX archive for the simulation run',
+    description: 'Location of the file within the COMBINE/OMEX archive for the simulation run',
     required: true,
     type: String,
   })
@@ -318,15 +296,10 @@ export class FilesController {
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description:
-      'This account does not have permission to write metadata about all files',
+    description: 'This account does not have permission to write metadata about all files',
   })
   @permissions(scopes.files.create.id)
-  public async createFile(
-    @Param('runId') runId: string,
-    fileLocation: string,
-    file: any,
-  ): Promise<void> {}
+  public async createFile(@Param('runId') runId: string, fileLocation: string, file: any): Promise<void> {}
 
   @ApiOperation({
     summary: 'Delete all files for a simulation run',
@@ -355,9 +328,7 @@ export class FilesController {
     description: 'The files for the simulation run were successfully deleted',
   })
   @HttpCode(HttpStatus.NO_CONTENT)
-  public async deleteSimulationRunFiles(
-    @Param('runId') runId: string,
-  ): Promise<void> {
+  public async deleteSimulationRunFiles(@Param('runId') runId: string): Promise<void> {
     return this.service.deleteSimulationRunFiles(runId);
   }
 
@@ -377,8 +348,7 @@ export class FilesController {
   })
   @ApiParam({
     name: 'fileLocation',
-    description:
-      'Location of the file within the COMBINE/OMEX archive for the simulation run',
+    description: 'Location of the file within the COMBINE/OMEX archive for the simulation run',
     required: true,
     type: String,
   })
@@ -399,10 +369,7 @@ export class FilesController {
     description: 'The file was successfully deleted',
   })
   @HttpCode(HttpStatus.NO_CONTENT)
-  public async deleteFile(
-    @Param('runId') runId: string,
-    @Param('fileLocation') fileLocation: string,
-  ): Promise<void> {
+  public async deleteFile(@Param('runId') runId: string, @Param('fileLocation') fileLocation: string): Promise<void> {
     this.deleteFile(runId, fileLocation);
   }
 

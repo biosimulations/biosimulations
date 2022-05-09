@@ -1,9 +1,5 @@
 import { permissions, OptionalAuth } from '@biosimulations/auth/nest';
-import {
-  Project,
-  ProjectInput,
-  ProjectSummary,
-} from '@biosimulations/datamodel/api';
+import { Project, ProjectInput, ProjectSummary } from '@biosimulations/datamodel/api';
 import {
   Body,
   Controller,
@@ -86,9 +82,7 @@ export class ProjectsController {
     description: 'No project has the requested id',
   })
   @ProjectIdParam()
-  public async getProject(
-    @ProjectId('projectId') projectId: string,
-  ): Promise<Project> {
+  public async getProject(@ProjectId('projectId') projectId: string): Promise<Project> {
     const proj = await this.service.getProject(projectId);
 
     if (proj) {
@@ -111,9 +105,7 @@ export class ProjectsController {
     type: ErrorResponseDocument,
   })
   @Get(':projectId/summary')
-  public async getProjectSummary(
-    @ProjectId('projectId') projectId: string,
-  ): Promise<ProjectSummary> {
+  public async getProjectSummary(@ProjectId('projectId') projectId: string): Promise<ProjectSummary> {
     return this.service.getProjectSummary(projectId);
   }
 
@@ -132,15 +124,13 @@ export class ProjectsController {
   })
   @ApiQuery({
     name: 'validateIdAvailable',
-    description:
-      'Whether to validate that the id is available. Default: false.',
+    description: 'Whether to validate that the id is available. Default: false.',
     required: false,
     type: Boolean,
   })
   @ApiQuery({
     name: 'validateSimulationRunNotPublished',
-    description:
-      'Whether to validate that the simulation run has not yet been published. Default: false.',
+    description: 'Whether to validate that the simulation run has not yet been published. Default: false.',
     required: false,
     type: Boolean,
   })
@@ -150,8 +140,7 @@ export class ProjectsController {
   })
   @ApiPayloadTooLargeResponse({
     type: ErrorResponseDocument,
-    description:
-      'The payload is too large. The payload must be less than the server limit.',
+    description: 'The payload is too large. The payload must be less than the server limit.',
   })
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
@@ -191,8 +180,7 @@ export class ProjectsController {
   })
   @ApiPayloadTooLargeResponse({
     type: ErrorResponseDocument,
-    description:
-      'The payload is too large. The payload must be less than the server limit.',
+    description: 'The payload is too large. The payload must be less than the server limit.',
   })
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
@@ -228,14 +216,12 @@ export class ProjectsController {
     description: 'No project has the requested id',
   })
   @ApiBody({
-    description:
-      'Updated information about the publication of the simulation run',
+    description: 'Updated information about the publication of the simulation run',
     type: ProjectInput,
   })
   @ApiPayloadTooLargeResponse({
     type: ErrorResponseDocument,
-    description:
-      'The payload is too large. The payload must be less than the server limit.',
+    description: 'The payload is too large. The payload must be less than the server limit.',
   })
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
@@ -248,18 +234,15 @@ export class ProjectsController {
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description:
-      'The account does not have permission to modify the requested project',
+    description: 'The account does not have permission to modify the requested project',
   })
   @permissions()
   @ApiConflictResponse({
     type: ErrorResponseDocument,
-    description:
-      'The project could not be saved because another project already has the same id or simulation run.',
+    description: 'The project could not be saved because another project already has the same id or simulation run.',
   })
   @ApiOkResponse({
-    description:
-      'The information about the publication of the simulation run was successfully updated',
+    description: 'The information about the publication of the simulation run was successfully updated',
   })
   @ProjectIdParam()
   public async updateProject(
@@ -301,9 +284,7 @@ export class ProjectsController {
   @permissions(scopes.projects.delete.id)
   @ProjectIdParam()
   @HttpCode(HttpStatus.NO_CONTENT)
-  public async deleteProject(
-    @ProjectId('projectId') projectId: string,
-  ): Promise<void> {
+  public async deleteProject(@ProjectId('projectId') projectId: string): Promise<void> {
     const res = await this.service.deleteProject(projectId);
     return res;
   }

@@ -7,11 +7,7 @@
  */
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import {
-  SimulationRun,
-  SimulationRunStatus,
-  Purpose,
-} from '@biosimulations/datamodel/common';
+import { SimulationRun, SimulationRunStatus, Purpose } from '@biosimulations/datamodel/common';
 import { omitPrivate } from '@biosimulations/datamodel-database';
 import { isUrl } from '@biosimulations/datamodel-database';
 
@@ -27,8 +23,7 @@ export class EnvironmentVariable {
   @Prop({ type: String, required: true })
   value!: string;
 }
-export const EnvironmentVariableSchema =
-  SchemaFactory.createForClass(EnvironmentVariable);
+export const EnvironmentVariableSchema = SchemaFactory.createForClass(EnvironmentVariable);
 
 @Schema({ collection: 'Simulation Runs', id: false })
 export class SimulationRunModel extends Document implements SimulationRun {
@@ -54,9 +49,7 @@ export class SimulationRunModel extends Document implements SimulationRun {
 
   @Prop({
     type: String,
-    enum: Object.keys(SimulationRunStatus).map(
-      (key) => SimulationRunStatus[key as SimulationRunStatus],
-    ),
+    enum: Object.keys(SimulationRunStatus).map((key) => SimulationRunStatus[key as SimulationRunStatus]),
 
     default: SimulationRunStatus.CREATED,
   })
@@ -163,12 +156,11 @@ export type SimulationRunModelType = Pick<
   | '_id'
 >;
 export type TestType = Exclude<SimulationRunModel, Document>;
-export type SimulationRunModelReturnType = Omit<
-  SimulationRunModelType,
-  '__v' | '_id' | 'file'
-> & { _id: never; __v: never };
-export const SimulationRunModelSchema =
-  SchemaFactory.createForClass(SimulationRunModel);
+export type SimulationRunModelReturnType = Omit<SimulationRunModelType, '__v' | '_id' | 'file'> & {
+  _id: never;
+  __v: never;
+};
+export const SimulationRunModelSchema = SchemaFactory.createForClass(SimulationRunModel);
 SimulationRunModelSchema.set('timestamps', {
   createdAt: 'submitted',
   updatedAt: 'updated',

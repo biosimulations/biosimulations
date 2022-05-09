@@ -9,10 +9,7 @@ import { SharedUiModule } from '@biosimulations/shared/ui';
 import { MarkdownModule } from 'ngx-markdown';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
-import {
-  SharedErrorComponentsModule,
-  SharedErrorHandlerModule,
-} from '@biosimulations/shared/error-handler';
+import { SharedErrorComponentsModule, SharedErrorHandlerModule } from '@biosimulations/shared/error-handler';
 import { MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -36,8 +33,7 @@ const routes: Routes = [
   },
   {
     path: 'projects',
-    loadChildren: () =>
-      import('./projects/projects.module').then((m) => m.ProjectsModule),
+    loadChildren: () => import('./projects/projects.module').then((m) => m.ProjectsModule),
     data: { breadcrumb: 'Simulation projects' },
   },
   {

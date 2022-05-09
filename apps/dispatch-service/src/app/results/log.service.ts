@@ -1,15 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
 
 import YAML from 'yaml';
-import {
-  CombineArchiveLog,
-  SimulationRunLogStatus,
-} from '@biosimulations/datamodel/common';
+import { CombineArchiveLog, SimulationRunLogStatus } from '@biosimulations/datamodel/common';
 
-import {
-  OutputFileName,
-  SimulationStorageService,
-} from '@biosimulations/shared/storage';
+import { OutputFileName, SimulationStorageService } from '@biosimulations/shared/storage';
 import { catchError, combineLatest, map, mergeMap, Observable, of } from 'rxjs';
 
 @Injectable()
@@ -18,19 +12,10 @@ export class LogService {
 
   public constructor(private storage: SimulationStorageService) {}
 
-  public createLog(
-    id: string,
-    extraStdLog?: string,
-  ): Observable<CombineArchiveLog> {
+  public createLog(id: string, extraStdLog?: string): Observable<CombineArchiveLog> {
     const stdLog: Observable<string | undefined> = this.storage
       .getSimulationRunOutputFile(id, OutputFileName.RAW_LOG)
-      .pipe(
-        map((file) =>
-          extraStdLog
-            ? file?.toString('utf8') + extraStdLog
-            : file?.toString('utf8'),
-        ),
-      );
+      .pipe(map((file) => (extraStdLog ? file?.toString('utf8') + extraStdLog : file?.toString('utf8'))));
 
     const structuredLog = this.storage
       // Get the simulation run structured log file from s3
@@ -47,15 +32,12 @@ export class LogService {
           }
         }),
         catchError((err: any, caught) => {
-          this.logger.error(
-            `Failed to parse structured log for simulation run '${id}': ${err}`,
-          );
+          this.logger.error(`Failed to parse structured log for simulation run '${id}': ${err}`);
           // if there was an error, initialize a new structured log, and add an exception to it
           return of(this.initStructureLog()).pipe(
             map((log: CombineArchiveLog) => {
               log.exception = {
-                message:
-                  'The simulation tool did not produce a valid YAML-formatted log (`log.yml` file).',
+                message: 'The simulation tool did not produce a valid YAML-formatted log (`log.yml` file).',
                 type: 'Invalid log',
               };
               return log;

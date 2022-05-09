@@ -71,9 +71,7 @@ export class HpcService {
     const res = this.sshService.execStringCommand(command);
 
     return res.catch((err) => {
-      this.logger.error(
-        `The job for simulation run '${runId}' could not be submitted.`,
-      );
+      this.logger.error(`The job for simulation run '${runId}' could not be submitted.`);
       return {
         stdout: '',
         stderr: `The job for simulation run '${runId}' could not be submitted: ${err}`,
@@ -92,27 +90,23 @@ export class HpcService {
           `sacct --jobs ${jobId} --format jobid,jobname,state --noheader --parsable2 --delimiter "${delimiter}"`,
         )
         .catch((err) => {
-          this.logger.error(
-            'Failed to fetch status update, ' + JSON.stringify(err),
-          );
+          this.logger.error('Failed to fetch status update, ' + JSON.stringify(err));
           return { stdout: '' };
         })
     ).stdout.trim();
     let jobStatesArray!: JobState[];
     if (jobStatesStr) {
-      jobStatesArray = jobStatesStr
-        .split(/\n/)
-        .map((jobState: string): JobState => {
-          const parts = jobState.split(delimiter);
-          const iDot = parts[0].indexOf('.');
-          const step = iDot === -1 ? '' : parts[0].substring(iDot + 1);
-          return {
-            id: parts[0],
-            step: step,
-            name: parts[1],
-            state: parts[2],
-          };
-        });
+      jobStatesArray = jobStatesStr.split(/\n/).map((jobState: string): JobState => {
+        const parts = jobState.split(delimiter);
+        const iDot = parts[0].indexOf('.');
+        const step = iDot === -1 ? '' : parts[0].substring(iDot + 1);
+        return {
+          id: parts[0],
+          step: step,
+          name: parts[1],
+          state: parts[2],
+        };
+      });
     } else {
       jobStatesArray = [];
     }
@@ -155,16 +149,10 @@ export class HpcService {
       } else {
         simStatusReason = {
           status: SimulationRunStatus.FAILED,
-          reason: `${
-            failedSteps.length
-          } steps of the simulation run job failed:\n  * ${failedSteps.join(
-            '\n  * ',
-          )}`,
+          reason: `${failedSteps.length} steps of the simulation run job failed:\n  * ${failedSteps.join('\n  * ')}`,
         };
         this.logger.error(
-          `Job '${jobId}' completed, but ${
-            failedSteps.length
-          } steps failed:\n  * ${failedSteps.join('\n  * ')}`,
+          `Job '${jobId}' completed, but ${failedSteps.length} steps failed:\n  * ${failedSteps.join('\n  * ')}`,
         );
       }
     } else if (
@@ -175,9 +163,7 @@ export class HpcService {
       finalStatus == 'CANCELLED' ||
       finalStatus.startsWith('CANCELLED')
     ) {
-      this.logger.error(
-        `Job '${jobId}' failed with response of '${finalStatus}'.`,
-      );
+      this.logger.error(`Job '${jobId}' failed with response of '${finalStatus}'.`);
       simStatusReason = {
         status: SimulationRunStatus.FAILED,
         reason: `Simulation run job terminated with status '${finalStatus}'.`,

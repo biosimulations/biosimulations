@@ -3,12 +3,8 @@
 </div>
 
 <div class="info-message" *ngIf="loading === false && error">
-  Sorry! {{ error }} Please refresh to try again. If the error persists, please
-  submit an issue
-  <a
-    href="https://github.com/biosimulations/biosimulations/issues/new/choose"
-    rel="noopener"
-    target="githubissues"
+  Sorry! {{ error }} Please refresh to try again. If the error persists, please submit an issue
+  <a href="https://github.com/biosimulations/biosimulations/issues/new/choose" rel="noopener" target="githubissues"
     ><biosimulations-icon icon="link"></biosimulations-icon></a
   >.
 </div>
@@ -17,5 +13,4 @@
   #vegaContainer
   [ngStyle]="{
     display: loading || error ? 'none' : 'block'
-  }"
-></div>
+  }"></div>

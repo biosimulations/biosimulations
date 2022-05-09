@@ -1,9 +1,4 @@
-import {
-  Ontologies,
-  SpdxTerm,
-  OntologyInfo,
-  OntologyTermMap,
-} from '@biosimulations/datamodel/common';
+import { Ontologies, SpdxTerm, OntologyInfo, OntologyTermMap } from '@biosimulations/datamodel/common';
 import isUrl from 'is-url';
 import spdxJson from './spdx.json';
 
@@ -37,6 +32,5 @@ export const spdxInfo: OntologyInfo = {
   bioportalId: null,
   olsId: null,
   version: spdxJson.licenseListVersion,
-  source:
-    'https://github.com/spdx/license-list-data/blob/master/json/licenses.json',
+  source: 'https://github.com/spdx/license-list-data/blob/master/json/licenses.json',
 };

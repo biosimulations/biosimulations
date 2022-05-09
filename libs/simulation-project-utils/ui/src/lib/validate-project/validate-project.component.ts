@@ -1,11 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  FormControl,
-  Validators,
-  ValidationErrors,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators, ValidationErrors } from '@angular/forms';
 import { CombineApiService } from '@biosimulations/simulation-project-utils/service';
 import {
   ValidationReport,
@@ -77,10 +71,7 @@ export class ValidateProjectComponent implements OnInit, OnDestroy {
     this.formGroup = this.formBuilder.group(
       {
         submitMethod: [SubmitMethod.file],
-        projectFile: [
-          '',
-          [Validators.required, this.maxFileSizeValidator.bind(this)],
-        ],
+        projectFile: ['', [Validators.required, this.maxFileSizeValidator.bind(this)]],
         projectUrl: ['', [this.urlValidator]],
         omexMetadataFormat: [OmexMetadataInputFormat.rdfxml],
         omexMetadataSchema: [OmexMetadataSchema.BioSimulations],
@@ -95,10 +86,8 @@ export class ValidateProjectComponent implements OnInit, OnDestroy {
       //},
     );
 
-    this.submitMethodControl = this.formGroup.controls
-      .submitMethod as FormControl;
-    this.projectFileControl = this.formGroup.controls
-      .projectFile as FormControl;
+    this.submitMethodControl = this.formGroup.controls.submitMethod as FormControl;
+    this.projectFileControl = this.formGroup.controls.projectFile as FormControl;
     this.projectUrlControl = this.formGroup.controls.projectUrl as FormControl;
 
     this.projectUrlControl.disable();
@@ -126,10 +115,8 @@ export class ValidateProjectComponent implements OnInit, OnDestroy {
     this.activatedRoute.queryParams.subscribe((params: Params): void => {
       const archiveUrl = params?.archiveUrl;
       if (archiveUrl) {
-        const submitMethodControl = this.formGroup.controls
-          .submitMethod as FormControl;
-        const projectUrlControl = this.formGroup.controls
-          .projectUrl as FormControl;
+        const submitMethodControl = this.formGroup.controls.submitMethod as FormControl;
+        const projectUrlControl = this.formGroup.controls.projectUrl as FormControl;
         submitMethodControl.setValue(SubmitMethod.url);
         projectUrlControl.setValue(archiveUrl);
         this.changeSubmitMethod();
@@ -137,28 +124,16 @@ export class ValidateProjectComponent implements OnInit, OnDestroy {
 
       const omexMetadataFormat = params?.omexMetadataFormat;
       if (this.omexMetadataFormats.includes(omexMetadataFormat)) {
-        (this.formGroup.controls.omexMetadataFormat as FormControl).setValue(
-          omexMetadataFormat,
-        );
+        (this.formGroup.controls.omexMetadataFormat as FormControl).setValue(omexMetadataFormat);
       }
 
       const omexMetadataSchema = params?.omexMetadataSchema;
-      if (
-        this.omexMetadataSchemas
-          .map((format: LabelValue): string => format.value)
-          .includes(omexMetadataSchema)
-      ) {
-        (this.formGroup.controls.omexMetadataSchema as FormControl).setValue(
-          omexMetadataSchema,
-        );
+      if (this.omexMetadataSchemas.map((format: LabelValue): string => format.value).includes(omexMetadataSchema)) {
+        (this.formGroup.controls.omexMetadataSchema as FormControl).setValue(omexMetadataSchema);
       }
 
-      if (
-        ['0', 'false'].includes(params?.validateOmexManifest?.toLowerCase())
-      ) {
-        (this.formGroup.controls.validateOmexManifest as FormControl).setValue(
-          false,
-        );
+      if (['0', 'false'].includes(params?.validateOmexManifest?.toLowerCase())) {
+        (this.formGroup.controls.validateOmexManifest as FormControl).setValue(false);
       }
 
       if (['0', 'false'].includes(params?.validateSedml?.toLowerCase())) {
@@ -166,17 +141,11 @@ export class ValidateProjectComponent implements OnInit, OnDestroy {
       }
 
       if (['0', 'false'].includes(params?.validateSedmlModels?.toLowerCase())) {
-        (this.formGroup.controls.validateSedmlModels as FormControl).setValue(
-          false,
-        );
+        (this.formGroup.controls.validateSedmlModels as FormControl).setValue(false);
       }
 
-      if (
-        ['0', 'false'].includes(params?.validateOmexMetadata?.toLowerCase())
-      ) {
-        (this.formGroup.controls.validateOmexMetadata as FormControl).setValue(
-          false,
-        );
+      if (['0', 'false'].includes(params?.validateOmexMetadata?.toLowerCase())) {
+        (this.formGroup.controls.validateOmexMetadata as FormControl).setValue(false);
       }
 
       if (['0', 'false'].includes(params?.validateImages?.toLowerCase())) {
@@ -191,9 +160,7 @@ export class ValidateProjectComponent implements OnInit, OnDestroy {
 
   maxFileSizeValidator(control: FormControl): ValidationErrors | null {
     const fileInput: FileInput | null = control.value;
-    const file: File | undefined = fileInput?.files
-      ? fileInput.files[0]
-      : undefined;
+    const file: File | undefined = fileInput?.files ? fileInput.files[0] : undefined;
     const fileSize = file?.size;
     if (fileSize && fileSize > this.config.appConfig.maxUploadFileSize) {
       return {
@@ -240,8 +207,7 @@ export class ValidateProjectComponent implements OnInit, OnDestroy {
   }
 
   changeSubmitMethod(): void {
-    const submitMethodControl = this.formGroup.controls
-      .submitMethod as FormControl;
+    const submitMethodControl = this.formGroup.controls.submitMethod as FormControl;
     if (submitMethodControl.value === SubmitMethod.file) {
       this.formGroup.controls.projectFile.enable();
       this.formGroup.controls.projectUrl.disable();
@@ -264,8 +230,7 @@ export class ValidateProjectComponent implements OnInit, OnDestroy {
     this.warnings = undefined;
 
     // get data for API
-    const submitMethodControl = this.formGroup.controls
-      .submitMethod as FormControl;
+    const submitMethodControl = this.formGroup.controls.submitMethod as FormControl;
 
     let archive: File | string = '';
     if (submitMethodControl.value === SubmitMethod.file) {
@@ -292,25 +257,17 @@ export class ValidateProjectComponent implements OnInit, OnDestroy {
           this.status = report.status;
 
           if (report?.errors?.length) {
-            this.errors = this.convertValidationMessagesToList(
-              report?.errors as ValidationMessage[],
-            );
+            this.errors = this.convertValidationMessagesToList(report?.errors as ValidationMessage[]);
           }
           if (report?.warnings?.length) {
-            this.warnings = this.convertValidationMessagesToList(
-              report?.warnings as ValidationMessage[],
-            );
+            this.warnings = this.convertValidationMessagesToList(report?.warnings as ValidationMessage[]);
           }
 
-          this.snackBar.open(
-            'The validation of your project completed.',
-            'Ok',
-            {
-              duration: 5000,
-              horizontalPosition: 'center',
-              verticalPosition: 'bottom',
-            },
-          );
+          this.snackBar.open('The validation of your project completed.', 'Ok', {
+            duration: 5000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+          });
         } else {
           let msg = 'Sorry! We were unable to validate your archive.';
           if (submitMethodControl.value == SubmitMethod.url) {
@@ -339,19 +296,12 @@ export class ValidateProjectComponent implements OnInit, OnDestroy {
     });
   }
 
-  private convertValidationMessagesToList(
-    messages: ValidationMessage[],
-  ): string {
+  private convertValidationMessagesToList(messages: ValidationMessage[]): string {
     return messages
       .map((message: ValidationMessage): string => {
         let details = '';
         if (message?.details?.length) {
-          details =
-            '<ul>' +
-            this.convertValidationMessagesToList(
-              message?.details as ValidationMessage[],
-            ) +
-            '</ul>';
+          details = '<ul>' + this.convertValidationMessagesToList(message?.details as ValidationMessage[]) + '</ul>';
         }
 
         return '<li>' + message.summary + details + '</li>';

@@ -20,26 +20,18 @@ export class ThumbnailService {
 
   public constructor(private storage: SimulationStorageService) {}
 
-  public async processThumbnails(
-    runId: string,
-    files: ProjectFile[],
-  ): Promise<LocationThumbnailUrls[]> {
+  public async processThumbnails(runId: string, files: ProjectFile[]): Promise<LocationThumbnailUrls[]> {
     const manifestContent = this.filterImages(files);
     const thumbnailUrls = await Promise.all(
-      manifestContent.map(
-        async (content: ProjectFile): Promise<LocationThumbnailUrls> => {
-          return await this.processThumbnail(runId, content);
-        },
-      ),
+      manifestContent.map(async (content: ProjectFile): Promise<LocationThumbnailUrls> => {
+        return await this.processThumbnail(runId, content);
+      }),
     );
 
     return thumbnailUrls;
   }
 
-  private async processThumbnail(
-    runId: string,
-    content: ProjectFile,
-  ): Promise<LocationThumbnailUrls> {
+  private async processThumbnail(runId: string, content: ProjectFile): Promise<LocationThumbnailUrls> {
     const location = content.location;
 
     // download file
@@ -47,11 +39,7 @@ export class ThumbnailService {
       this.storage.getSimulationRunContentFile(runId, location).pipe(
         map(async (file) => {
           if (file) {
-            const body = await this.makeThumbnail(
-              runId,
-              location,
-              file as Buffer,
-            );
+            const body = await this.makeThumbnail(runId, location, file as Buffer);
             const locationThumbs: LocationThumbnailUrls = {
               urls: body,
               location,
@@ -66,34 +54,23 @@ export class ThumbnailService {
     return file;
   }
 
-  private async makeThumbnail(
-    runId: string,
-    location: string,
-    file: Buffer,
-  ): Promise<ThumbnailUrls> {
+  private async makeThumbnail(runId: string, location: string, file: Buffer): Promise<ThumbnailUrls> {
     // resize and upload file
 
     const thumbnailUrls: ThumbnailUrls[] = await Promise.all(
-      THUMBNAIL_TYPES.map(
-        async (thumbnailType: ThumbnailType): Promise<ThumbnailUrls> => {
-          const thumbnail = await sharp(file as Buffer)
-            .resize({
-              width: THUMBNAIL_WIDTH[thumbnailType],
-              withoutEnlargement: true,
-            })
-            .toBuffer();
+      THUMBNAIL_TYPES.map(async (thumbnailType: ThumbnailType): Promise<ThumbnailUrls> => {
+        const thumbnail = await sharp(file as Buffer)
+          .resize({
+            width: THUMBNAIL_WIDTH[thumbnailType],
+            withoutEnlargement: true,
+          })
+          .toBuffer();
 
-          // upload thumbnail
-          const thumbnailUrl = await this.storage.uploadSimulationRunThumbnail(
-            runId,
-            location,
-            thumbnailType,
-            thumbnail,
-          );
-          // enclosing var in [] uses the value of the var as key, not the name
-          return { [thumbnailType]: thumbnailUrl };
-        },
-      ),
+        // upload thumbnail
+        const thumbnailUrl = await this.storage.uploadSimulationRunThumbnail(runId, location, thumbnailType, thumbnail);
+        // enclosing var in [] uses the value of the var as key, not the name
+        return { [thumbnailType]: thumbnailUrl };
+      }),
     );
 
     const body: ThumbnailUrls = {};

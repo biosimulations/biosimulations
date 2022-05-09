@@ -57,10 +57,8 @@ export class AuthTestController {
   @UseGuards(JwtGuard, PermissionsGuard)
   @ApiOAuth2([])
   @ApiOperation({
-    summary:
-      'Check whether the user has privileges to use the secured parts of API',
-    description:
-      'Check whether the user has privileges to use the secured parts of API',
+    summary: 'Check whether the user has privileges to use the secured parts of API',
+    description: 'Check whether the user has privileges to use the secured parts of API',
   })
   @ApiOkResponse({
     description: 'The users privileges were successfully checked',

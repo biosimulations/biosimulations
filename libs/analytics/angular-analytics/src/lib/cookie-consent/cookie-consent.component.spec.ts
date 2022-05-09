@@ -1,11 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CookieConsentComponent } from './cookie-consent.component';
-import {
-  MatDialogModule,
-  MAT_DIALOG_DATA,
-  MatDialogRef,
-} from '@angular/material/dialog';
+import { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
@@ -18,12 +14,7 @@ describe('CookieConsentComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        MatDialogModule,
-        MatExpansionModule,
-        MatSlideToggleModule,
-        NoopAnimationsModule,
-      ],
+      imports: [MatDialogModule, MatExpansionModule, MatSlideToggleModule, NoopAnimationsModule],
       declarations: [CookieConsentComponent],
       providers: [
         { provide: MatDialogRef, useValue: {} },

@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpParams,
-} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, timeout, shareReplay, retryWhen } from 'rxjs/operators';
 import { environment } from '@biosimulations/shared/environments';
@@ -24,21 +20,14 @@ export class CombineApiService {
   private endpoints = new Endpoints();
 
   private validateModelEndpoint = this.endpoints.getValidateModelEndpoint(true);
-  private validateSimulationEndpoint =
-    this.endpoints.getValidateSedmlEndpoint(true);
-  private validateMetadataEndpoint =
-    this.endpoints.getValidateOmexMetadataEndpoint(true);
-  private validateProjectEndpoint =
-    this.endpoints.getValidateCombineArchiveEndpoint(true);
-  private similarAlgorithmsEndpoint =
-    this.endpoints.getSimilarAlgorithmsEndpoint(true);
+  private validateSimulationEndpoint = this.endpoints.getValidateSedmlEndpoint(true);
+  private validateMetadataEndpoint = this.endpoints.getValidateOmexMetadataEndpoint(true);
+  private validateProjectEndpoint = this.endpoints.getValidateCombineArchiveEndpoint(true);
+  private similarAlgorithmsEndpoint = this.endpoints.getSimilarAlgorithmsEndpoint(true);
 
   public constructor(private http: HttpClient) {}
 
-  public validateModel(
-    fileOrUrl: File | string,
-    language: ModelLanguage,
-  ): Observable<ValidationReport | undefined> {
+  public validateModel(fileOrUrl: File | string, language: ModelLanguage): Observable<ValidationReport | undefined> {
     const formData = new FormData();
     if (typeof fileOrUrl === 'object') {
       formData.append('file', fileOrUrl);
@@ -48,22 +37,18 @@ export class CombineApiService {
 
     formData.append('language', language);
 
-    return this.http
-      .post<ValidationReport>(this.validateModelEndpoint, formData)
-      .pipe(
-        catchError((error: HttpErrorResponse): Observable<undefined> => {
-          if (!environment.production) {
-            console.error(error);
-          }
-          return of<undefined>(undefined);
-        }),
-        shareReplay(1),
-      );
+    return this.http.post<ValidationReport>(this.validateModelEndpoint, formData).pipe(
+      catchError((error: HttpErrorResponse): Observable<undefined> => {
+        if (!environment.production) {
+          console.error(error);
+        }
+        return of<undefined>(undefined);
+      }),
+      shareReplay(1),
+    );
   }
 
-  public validateSimulation(
-    fileOrUrl: File | string,
-  ): Observable<ValidationReport | undefined> {
+  public validateSimulation(fileOrUrl: File | string): Observable<ValidationReport | undefined> {
     const formData = new FormData();
     if (typeof fileOrUrl === 'object') {
       formData.append('file', fileOrUrl);
@@ -71,17 +56,15 @@ export class CombineApiService {
       formData.append('url', fileOrUrl);
     }
 
-    return this.http
-      .post<ValidationReport>(this.validateSimulationEndpoint, formData)
-      .pipe(
-        catchError((error: HttpErrorResponse): Observable<undefined> => {
-          if (!environment.production) {
-            console.error(error);
-          }
-          return of<undefined>(undefined);
-        }),
-        shareReplay(1),
-      );
+    return this.http.post<ValidationReport>(this.validateSimulationEndpoint, formData).pipe(
+      catchError((error: HttpErrorResponse): Observable<undefined> => {
+        if (!environment.production) {
+          console.error(error);
+        }
+        return of<undefined>(undefined);
+      }),
+      shareReplay(1),
+    );
   }
 
   public validateMetadata(
@@ -99,17 +82,15 @@ export class CombineApiService {
     formData.append('format', format);
     formData.append('schema', schema);
 
-    return this.http
-      .post<ValidationReport>(this.validateMetadataEndpoint, formData)
-      .pipe(
-        catchError((error: HttpErrorResponse): Observable<undefined> => {
-          if (!environment.production) {
-            console.error(error);
-          }
-          return of<undefined>(undefined);
-        }),
-        shareReplay(1),
-      );
+    return this.http.post<ValidationReport>(this.validateMetadataEndpoint, formData).pipe(
+      catchError((error: HttpErrorResponse): Observable<undefined> => {
+        if (!environment.production) {
+          console.error(error);
+        }
+        return of<undefined>(undefined);
+      }),
+      shareReplay(1),
+    );
   }
 
   public validateProject(
@@ -131,44 +112,30 @@ export class CombineApiService {
 
     formData.append('omexMetadataFormat', omexMetadataFormat);
     formData.append('omexMetadataSchema', omexMetadataSchema);
-    formData.append(
-      'validateOmexManifest',
-      validateOmexManifest ? 'true' : 'false',
-    );
+    formData.append('validateOmexManifest', validateOmexManifest ? 'true' : 'false');
     formData.append('validateSedml', validateSedml ? 'true' : 'false');
-    formData.append(
-      'validateSedmlModels',
-      validateSedmlModels ? 'true' : 'false',
-    );
-    formData.append(
-      'validateOmexMetadata',
-      validateOmexMetadata ? 'true' : 'false',
-    );
+    formData.append('validateSedmlModels', validateSedmlModels ? 'true' : 'false');
+    formData.append('validateOmexMetadata', validateOmexMetadata ? 'true' : 'false');
     formData.append('validateImages', validateImages ? 'true' : 'false');
 
-    return this.http
-      .post<ValidationReport>(this.validateProjectEndpoint, formData)
-      .pipe(
-        catchError((error: HttpErrorResponse): Observable<undefined> => {
-          if (!environment.production) {
-            console.error(error);
-          }
-          return of<undefined>(undefined);
-        }),
-        shareReplay(1),
-      );
+    return this.http.post<ValidationReport>(this.validateProjectEndpoint, formData).pipe(
+      catchError((error: HttpErrorResponse): Observable<undefined> => {
+        if (!environment.production) {
+          console.error(error);
+        }
+        return of<undefined>(undefined);
+      }),
+      shareReplay(1),
+    );
   }
 
   private similarAlgorithmsCache: {
     [algorithms: string]: Observable<AlgorithmSubstitution[] | undefined>;
   } = {};
 
-  public getSimilarAlgorithms(
-    algorithms: string[],
-  ): Observable<AlgorithmSubstitution[] | undefined> {
+  public getSimilarAlgorithms(algorithms: string[]): Observable<AlgorithmSubstitution[] | undefined> {
     const algorithmsStrList = algorithms.join('&');
-    let observable: Observable<AlgorithmSubstitution[] | undefined> =
-      this.similarAlgorithmsCache[algorithmsStrList];
+    let observable: Observable<AlgorithmSubstitution[] | undefined> = this.similarAlgorithmsCache[algorithmsStrList];
 
     if (!observable) {
       const params = new HttpParams().appendAll({ algorithms: algorithms });

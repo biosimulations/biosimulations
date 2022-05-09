@@ -2412,8 +2412,8 @@
   }
 }
 .swagger-ui .sans-serif {
-  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica,
-    helvetica neue, ubuntu, roboto, noto, segoe ui, arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica, helvetica neue, ubuntu, roboto, noto,
+    segoe ui, arial, sans-serif;
 }
 .swagger-ui .serif {
   font-family: georgia, serif;
@@ -7427,12 +7427,7 @@
 .swagger-ui .opblock.opblock-options .opblock-summary {
   border-color: #0d5aa7;
 }
-.swagger-ui
-  .opblock.opblock-options
-  .tab-header
-  .tab-item.active
-  h4
-  span:after {
+.swagger-ui .opblock.opblock-options .tab-header .tab-item.active h4 span:after {
   background: #0d5aa7;
 }
 .swagger-ui .opblock.opblock-deprecated {
@@ -7446,12 +7441,7 @@
 .swagger-ui .opblock.opblock-deprecated .opblock-summary {
   border-color: #ebebeb;
 }
-.swagger-ui
-  .opblock.opblock-deprecated
-  .tab-header
-  .tab-item.active
-  h4
-  span:after {
+.swagger-ui .opblock.opblock-deprecated .tab-header .tab-item.active h4 span:after {
   background: #ebebeb;
 }
 .swagger-ui .opblock .opblock-schemes {

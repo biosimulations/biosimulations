@@ -5,11 +5,7 @@ import { Module } from '@nestjs/common';
 import { ImagesController } from './images.controller';
 
 @Module({
-  imports: [
-    BiosimulationsConfigModule,
-    BiosimulationsAuthModule,
-    SharedNatsClientModule,
-  ],
+  imports: [BiosimulationsConfigModule, BiosimulationsAuthModule, SharedNatsClientModule],
   controllers: [ImagesController],
 })
 export class ImagesModule {}

@@ -1,7 +1,4 @@
-import {
-  Funding as IFunding,
-  IFunderRegistryOntologyId,
-} from '@biosimulations/datamodel/common';
+import { Funding as IFunding, IFunderRegistryOntologyId } from '@biosimulations/datamodel/common';
 import { FunderRegistryOntologyIdSchema } from './ontologyId';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 

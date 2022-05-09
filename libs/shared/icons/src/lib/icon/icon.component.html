@@ -1,23 +1,13 @@
 <ng-container [ngSwitch]="iconInfo.type">
-  <mat-icon
-    class="icon"
-    *ngSwitchCase="'mat'"
-    aria-hidden="true"
-    [aria-label]="iconLabel"
-  >
+  <mat-icon class="icon" *ngSwitchCase="'mat'" aria-hidden="true" [aria-label]="iconLabel">
     {{ iconInfo.name }}</mat-icon
   >
-  <biosimulations-cc-icon
-    class="icon"
-    *ngSwitchCase="'cc'"
-    [icon]="iconInfo.name"
-  ></biosimulations-cc-icon>
+  <biosimulations-cc-icon class="icon" *ngSwitchCase="'cc'" [icon]="iconInfo.name"></biosimulations-cc-icon>
   <biosimulations-fa-icon
     class="icon"
     *ngSwitchDefault
     [icon]="[iconInfo.type, iconInfo.name]"
     [spin]="iconInfo?.spin === true"
     aria-hidden="true"
-    [aria-label]="iconLabel"
-  ></biosimulations-fa-icon>
+    [aria-label]="iconLabel"></biosimulations-fa-icon>
 </ng-container>

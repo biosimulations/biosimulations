@@ -9,10 +9,7 @@ import { SimulationHDFService } from '@biosimulations/hsds/client';
 import { FileModel } from '../files/files.model';
 import { SpecificationsModel } from '../specifications/specifications.model';
 import { SimulationRunLog } from '../logs/logs.model';
-import {
-  SimulationRunMetadataModel,
-  SimulationRunMetadataSchema,
-} from '../metadata/metadata.model';
+import { SimulationRunMetadataModel, SimulationRunMetadataSchema } from '../metadata/metadata.model';
 import { SimulationRunService } from '../simulation-run/simulation-run.service';
 import { SimulationRunValidationService } from '../simulation-run/simulation-run-validation.service';
 import { ResultsService } from '../results/results.service';
@@ -21,10 +18,7 @@ import { MetadataService } from '../metadata/metadata.service';
 import { HttpModule } from '@nestjs/axios';
 import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
-import {
-  SimulationStorageService,
-  FilePaths,
-} from '@biosimulations/shared/storage';
+import { SimulationStorageService, FilePaths } from '@biosimulations/shared/storage';
 
 import { OntologyApiService } from '@biosimulations/ontology/api';
 import { CacheModule } from '@nestjs/common';
@@ -68,12 +62,7 @@ describe('ProjectsService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [
-        HttpModule,
-        SharedNatsClientModule,
-        BiosimulationsConfigModule,
-        CacheModule.register(),
-      ],
+      imports: [HttpModule, SharedNatsClientModule, BiosimulationsConfigModule, CacheModule.register()],
       providers: [
         { provide: getModelToken(ProjectModel.name), useValue: {} },
         {

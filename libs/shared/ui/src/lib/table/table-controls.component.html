@@ -1,21 +1,13 @@
-<div
-  class="title"
-  (click)="table.toggleControls()"
-  [ngClass]="{ hidden: !closeable }"
->
+<div class="title" (click)="table.toggleControls()" [ngClass]="{ hidden: !closeable }">
   <div class="title-inner">Controls</div>
   <biosimulations-icon icon="controls"></biosimulations-icon>
 </div>
 
-<mat-accordion
-  class="controls"
-  [ngClass]="{ 'left-square-border': !closeable }"
->
+<mat-accordion class="controls" [ngClass]="{ 'left-square-border': !closeable }">
   <mat-expansion-panel
     [expanded]="table.openControlPanelId === 1"
     [disabled]="table.openControlPanelId === 1"
-    (opened)="table.openControlPanel(1)"
-  >
+    (opened)="table.openControlPanel(1)">
     <mat-expansion-panel-header collapsedHeight="32px" expandedHeight="32px">
       <mat-panel-title>
         <biosimulations-icon icon="columns"></biosimulations-icon>
@@ -26,10 +18,7 @@
       <mat-list>
         <ng-container *ngFor="let column of table.columns">
           <mat-list-item *ngIf="column?.hidden !== true">
-            <mat-checkbox
-              [checked]="table.showColumns[column.id]"
-              (change)="table.toggleColumn(column)"
-            >
+            <mat-checkbox [checked]="table.showColumns[column.id]" (change)="table.toggleColumn(column)">
               {{ column.heading }}
             </mat-checkbox>
           </mat-list-item>
@@ -41,8 +30,7 @@
   <mat-expansion-panel
     [expanded]="table.openControlPanelId === 2"
     [disabled]="table.openControlPanelId === 2"
-    (opened)="table.openControlPanel(2)"
-  >
+    (opened)="table.openControlPanel(2)">
     <mat-expansion-panel-header collapsedHeight="32px" expandedHeight="32px">
       <mat-panel-title>
         <biosimulations-icon icon="filter"></biosimulations-icon>
@@ -53,13 +41,9 @@
       <mat-accordion class="controls">
         <ng-template ngFor let-column [ngForOf]="table.columns">
           <mat-expansion-panel *ngIf="column.filterable !== false">
-            <mat-expansion-panel-header
-              collapsedHeight="32px"
-              expandedHeight="32px"
-            >
+            <mat-expansion-panel-header collapsedHeight="32px" expandedHeight="32px">
               <mat-panel-title>
-                {{ column.heading
-                }}{{ column?.units ? ' (' + column.units + ')' : '' }}
+                {{ column.heading }}{{ column?.units ? ' (' + column.units + ')' : '' }}
               </mat-panel-title>
             </mat-expansion-panel-header>
             <ng-template matExpansionPanelContent>
@@ -71,25 +55,20 @@
                       range: table.columnFilterData[column.id]
                     }"
                     [ngTemplateOutlet]="self"
-                    #self
-                  >
+                    #self>
                     <biosimulations-slider
                       [min]="range.min"
                       [max]="range.max"
                       [step]="range.step"
                       [minSelected]="range.minSelected"
                       [maxSelected]="range.maxSelected"
-                      (onChange)="
-                        table.filterNumberValue(column, range, $event)
-                      "
-                    >
+                      (onChange)="table.filterNumberValue(column, range, $event)">
                     </biosimulations-slider>
 
                     <button
                       mat-icon-button
                       class="biosimulations-button text filter-set-clear-all"
-                      (click)="table.clearFilter(column)"
-                    >
+                      (click)="table.clearFilter(column)">
                       Clear filter
                     </button>
                   </ng-template>
@@ -102,45 +81,34 @@
                       <input
                         matStartDate
                         placeholder="Start date"
-                        (dateChange)="
-                          table.filterStartDateValue(column, $event)
-                        "
-                        [value]="table.columnFilterData[column.id][0]"
-                      />
+                        (dateChange)="table.filterStartDateValue(column, $event)"
+                        [value]="table.columnFilterData[column.id][0]" />
                       <input
                         matEndDate
                         placeholder="End date"
                         (dateChange)="table.filterEndDateValue(column, $event)"
-                        [value]="table.columnFilterData[column.id][1]"
-                      />
+                        [value]="table.columnFilterData[column.id][1]" />
                     </mat-date-range-input>
-                    <mat-datepicker-toggle
-                      matSuffix
-                      [for]="picker"
-                    ></mat-datepicker-toggle>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-date-range-picker #picker></mat-date-range-picker>
                   </mat-form-field>
 
                   <button
                     mat-icon-button
                     class="biosimulations-button text filter-set-clear-all"
-                    (click)="table.clearFilter(column)"
-                  >
+                    (click)="table.clearFilter(column)">
                     Clear filter
                   </button>
                 </ng-container>
 
                 <ng-container *ngSwitchCase="'stringAutoComplete'">
                   <mat-chip-list #chipList>
-                    <ng-container
-                      *ngFor="let value of table.columnFilterData[column.id]"
-                    >
+                    <ng-container *ngFor="let value of table.columnFilterData[column.id]">
                       <ng-container *ngIf="value.checked">
                         <mat-chip
                           [selectable]="false"
                           [removable]="true"
-                          (removed)="table.filterSetValue(column, value, false)"
-                        >
+                          (removed)="table.filterSetValue(column, value, false)">
                           <div class="chip-content">
                             {{ value.formattedValue }}
                           </div>
@@ -158,29 +126,16 @@
                         placeholder="Enter {{ column.heading | lowercase }} ..."
                         [matAutocomplete]="auto"
                         [matChipInputFor]="chipList"
-                        (keyup)="
-                          table.evalAutocompleteFilter(
-                            column,
-                            autoCompleteInput.value
-                          )
-                        "
-                      />
+                        (keyup)="table.evalAutocompleteFilter(column, autoCompleteInput.value)" />
                     </mat-form-field>
                   </mat-chip-list>
                   <mat-autocomplete
                     #auto="matAutocomplete"
                     (optionSelected)="
-                      table.filterSetValue(column, $event.option.value, true);
-                      autoCompleteInput.value = ''
-                    "
-                  >
-                    <ng-container
-                      *ngFor="let value of table.columnFilterData[column.id]"
-                    >
-                      <mat-option
-                        *ngIf="value?.filtered !== false"
-                        [value]="value"
-                      >
+                      table.filterSetValue(column, $event.option.value, true); autoCompleteInput.value = ''
+                    ">
+                    <ng-container *ngFor="let value of table.columnFilterData[column.id]">
+                      <mat-option *ngIf="value?.filtered !== false" [value]="value">
                         {{ value.formattedValue }}
                       </mat-option>
                     </ng-container>
@@ -189,30 +144,20 @@
                   <button
                     mat-icon-button
                     class="biosimulations-button text filter-set-clear-all"
-                    (click)="table.clearFilter(column)"
-                  >
+                    (click)="table.clearFilter(column)">
                     Clear filter
                   </button>
                 </ng-container>
 
                 <ng-container *ngSwitchDefault>
                   <mat-list>
-                    <mat-list-item
-                      *ngFor="let value of table.columnFilterData[column.id]"
-                    >
+                    <mat-list-item *ngFor="let value of table.columnFilterData[column.id]">
                       <mat-checkbox
                         #checkbox
                         [checked]="value.checked"
-                        (change)="
-                          table.filterSetValue(column, value, checkbox.checked)
-                        "
+                        (change)="table.filterSetValue(column, value, checkbox.checked)"
                         ng-attr-title
-                        [attr.title]="
-                          column.showFilterItemToolTips === true
-                            ? value.formattedValue
-                            : null
-                        "
-                      >
+                        [attr.title]="column.showFilterItemToolTips === true ? value.formattedValue : null">
                         {{ value.formattedValue }}
                       </mat-checkbox>
                     </mat-list-item>
@@ -220,8 +165,7 @@
                   <button
                     mat-icon-button
                     class="biosimulations-button text filter-set-clear-all"
-                    (click)="table.clearFilter(column)"
-                  >
+                    (click)="table.clearFilter(column)">
                     Clear filter
                   </button>
                 </ng-container>
@@ -236,8 +180,7 @@
   <mat-expansion-panel
     [expanded]="table.openControlPanelId === 3"
     [disabled]="table.openControlPanelId === 3"
-    (opened)="table.openControlPanel(3)"
-  >
+    (opened)="table.openControlPanel(3)">
     <mat-expansion-panel-header collapsedHeight="32px" expandedHeight="32px">
       <mat-panel-title>
         <biosimulations-icon icon="search"></biosimulations-icon>
@@ -253,14 +196,12 @@
           [value]="table.searchQuery || null"
           (keydown.enter)="table.searchRows(searchInput.value)"
           [placeholder]="searchPlaceHolder"
-          [matTooltip]="searchToolTip"
-        />
+          [matTooltip]="searchToolTip" />
         <button
           matSuffix
           mat-icon-button
           class="biosimulations-button text"
-          (click)="table.searchRows(searchInput.value)"
-        >
+          (click)="table.searchRows(searchInput.value)">
           <biosimulations-icon icon="search"></biosimulations-icon>
         </button>
       </mat-form-field>

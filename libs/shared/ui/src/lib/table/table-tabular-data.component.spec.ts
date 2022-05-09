@@ -14,13 +14,7 @@ describe('TableTabularDataComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        NoopAnimationsModule,
-        MatTableModule,
-        MatSortModule,
-        BiosimulationsIconsModule,
-      ],
+      imports: [RouterTestingModule, NoopAnimationsModule, MatTableModule, MatSortModule, BiosimulationsIconsModule],
       declarations: [TableTabularDataComponent],
     }).compileComponents();
   }));
