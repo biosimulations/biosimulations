@@ -1,5 +1,18 @@
 # Changelog
 
+# [9.14.0](https://github.com/biosimulations/biosimulations/compare/v9.13.6...v9.14.0) (2022-05-09)
+
+
+### Bug Fixes
+
+* **dispatch:** fix type Chooose -> Choose ([226b5ff](https://github.com/biosimulations/biosimulations/commit/226b5ff59dbbeb017dbe83659ba7a1b6e7126560))
+
+
+### Features
+
+* **dispatch:** apply a new design to the dispatch component ([905e545](https://github.com/biosimulations/biosimulations/commit/905e545fb29d019a2acd14422dd669d3c20773b4))
+* **dispatch:** apply new style to the create project form ([b6ef601](https://github.com/biosimulations/biosimulations/commit/b6ef60112f203ff6a5af056dd00ba9f7443c9463))
+
 ## [9.13.6](https://github.com/biosimulations/biosimulations/compare/v9.13.5...v9.13.6) (2022-04-11)
 
 
