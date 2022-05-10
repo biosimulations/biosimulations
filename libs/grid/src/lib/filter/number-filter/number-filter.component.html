@@ -1,0 +1,12 @@
+<biosimulations-slider
+  [min]="range.min"
+  [max]="range.max"
+  [step]="range.step"
+  [minSelected]="range.minSelected"
+  [maxSelected]="range.maxSelected"
+  (onChange)="handleNumberFilterChange(range, $event)">
+</biosimulations-slider>
+
+<button mat-icon-button class="biosimulations-button text filter-set-clear-all" (click)="clearFilter()">
+  Clear filter
+</button>
