@@ -1,0 +1,19 @@
+<mat-expansion-panel [expanded]="expanded" [disabled]="disabled" (opened)="passOpen()">
+  <mat-expansion-panel-header collapsedHeight="32px" expandedHeight="32px">
+    <mat-panel-title>
+      <biosimulations-icon icon="columns"></biosimulations-icon>
+      {{ heading }}
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <ng-template matExpansionPanelContent>
+    <mat-list>
+      <ng-container *ngFor="let column of columns">
+        <mat-list-item *ngIf="column?.hidden !== true">
+          <mat-checkbox [checked]="column.show === true" (change)="toggleColumn($event, column)">
+            {{ column.heading }}
+          </mat-checkbox>
+        </mat-list-item>
+      </ng-container>
+    </mat-list>
+  </ng-template>
+</mat-expansion-panel>
