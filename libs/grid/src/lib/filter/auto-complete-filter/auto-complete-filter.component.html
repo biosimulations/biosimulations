@@ -1,0 +1,37 @@
+<mat-chip-list #chipList>
+  <ng-container *ngFor="let value of values">
+    <ng-container *ngIf="value.selected">
+      <mat-chip [selectable]="false" [removable]="true" (removed)="handleFilterSetValue(value, false)">
+        <div class="chip-content">
+          {{ value.label }}
+        </div>
+        <button matChipRemove>
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip>
+    </ng-container>
+  </ng-container>
+  <mat-form-field appearance="fill" class="input-field">
+    <input
+      matInput
+      [formControl]="autoCompleteForm"
+      type="text"
+      #autoCompleteInput
+      placeholder="Enter {{ heading | lowercase }} ..."
+      [matAutocomplete]="auto"
+      [matChipInputFor]="chipList" />
+  </mat-form-field>
+</mat-chip-list>
+<mat-autocomplete
+  #auto="matAutocomplete"
+  (optionSelected)="handleFilterSetValue($event.option.value, true); autoCompleteInput.value = ''">
+  <ng-container *ngFor="let value of filteredValues | async">
+    <mat-option *ngIf="value.selected !== true" [value]="value">
+      {{ value.label }}
+    </mat-option>
+  </ng-container>
+</mat-autocomplete>
+
+<button mat-icon-button class="biosimulations-button text filter-set-clear-all" (click)="clearFilter()">
+  Clear filter
+</button>
