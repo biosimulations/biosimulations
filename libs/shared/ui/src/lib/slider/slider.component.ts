@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
+/* eslint-disable @typescript-eslint/member-ordering */
 import {
   Component,
   Input,
@@ -49,36 +51,47 @@ export class SliderComponent extends Utilities implements OnInit, OnChanges {
   }
 
   @Input('min')
-  set setMinValues(value: number) {
-    if (!isNaN(value)) {
+  set setMinValues(value: number | undefined) {
+    if (!(value === undefined) && !isNaN(value)) {
       this.minValue = Number(value);
     }
   }
 
   @Input('max')
-  set setMaxValues(value: number) {
-    if (!isNaN(value)) {
+  set setMaxValues(value: number | undefined) {
+    if (!(value === undefined) && !isNaN(value)) {
       this.maxValue = Number(value);
     }
   }
 
   @Input('minSelected')
-  set setMinSelectedValues(value: number) {
-    if (!isNaN(value) && this.minSelected !== Number(value)) {
-      this.minSelected = Number(value);
+  set setMinSelectedValues(value: number | undefined) {
+    if (!(value === undefined) && !isNaN(value)) {
+      if (this.maxSelected !== Number(value)) {
+        this.minSelected = Number(value);
+      }
+    } else {
+      this.minSelected = this.minSelected || this.minValue;
     }
   }
 
   @Input('maxSelected')
-  set setMaxSelectedValues(value: number) {
-    if (!isNaN(value) && this.maxSelected !== Number(value)) {
-      this.maxSelected = Number(value);
+  set setMaxSelectedValues(value: number | undefined) {
+    if (!(value === undefined) && !isNaN(value)) {
+      if (this.minSelected !== Number(value)) {
+        this.maxSelected = Number(value);
+      }
+    } else {
+      this.maxSelected = this.maxValue;
     }
   }
   @Input('step')
-  set stepValue(value: number) {
-    if (!isNaN(value)) {
+  set stepValue(value: number | undefined) {
+    if (!(value === undefined) && !isNaN(value)) {
       this.step = Number(value);
+    }
+    if (value === undefined) {
+      this.step = 1;
     }
   }
 
