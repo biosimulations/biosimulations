@@ -1,0 +1,17 @@
+<mat-list>
+  <ng-container>
+    <mat-list-item *ngFor="let value of values">
+      <mat-checkbox
+        #checkbox
+        [checked]="value.selected"
+        (change)="handleStringFilterChange(value.id, checkbox.checked)"
+        ng-attr-title
+        [attr.title]="value.showTooltip === true ? value.label : null">
+        {{ value.label }}
+      </mat-checkbox>
+    </mat-list-item>
+  </ng-container>
+</mat-list>
+<button mat-icon-button class="biosimulations-button text filter-set-clear-all" (click)="clearFilter()">
+  Clear filter
+</button>
