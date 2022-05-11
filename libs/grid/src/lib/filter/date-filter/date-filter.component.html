@@ -1,0 +1,21 @@
+<mat-form-field appearance="fill">
+  <mat-label>Enter a range of dates</mat-label>
+  <mat-date-range-input [min]="startDate" [max]="endDate" #range [rangePicker]="picker">
+    <input
+      matStartDate
+      placeholder="Start date"
+      (dateChange)="handleDateFilterChange(range.value?.start, range.value?.end)"
+      [value]="selectedStartDate" />
+    <input
+      matEndDate
+      placeholder="End date"
+      [value]="selectedEndDate"
+      (dateChange)="handleDateFilterChange(range.value?.start, range.value?.end)" />
+  </mat-date-range-input>
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-date-range-picker #picker></mat-date-range-picker>
+</mat-form-field>
+
+<button mat-icon-button class="biosimulations-button text filter-set-clear-all" (click)="clearFilter()">
+  Clear filter
+</button>
