@@ -217,7 +217,7 @@ function CreateSedDataSetAndGenerators(
 
     const dataGen: SedDataGenerator = {
       _type: SedDataGeneratorTypeEnum.SedDataGenerator,
-      id: 'data_generator_' + variable.id,
+      id: 'data_generator_' + rawId,
       parameters: [],
       variables: [variable],
       math: variable.id,
