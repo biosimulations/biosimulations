@@ -236,6 +236,7 @@
     "prettier": "2.6.1",
     "schema-dts": "1.1.0",
     "semantic-release": "19.0.2",
+    "storybook-auto-events": "^0.1.1",
     "throttle-debounce": "3.0.1",
     "ts-jest": "27.1.4",
     "ts-node": "10.7.0",

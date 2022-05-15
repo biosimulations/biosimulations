@@ -14,6 +14,7 @@ module.exports = {
         'simulators',
         'simulators-api',
         'account',
+        'grid',
         'account-api',
         'mail-service',
         'combine-api',

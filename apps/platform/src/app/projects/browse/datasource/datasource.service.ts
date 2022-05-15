@@ -11,6 +11,7 @@ import {
   IdColumnMap,
   ColumnSortDirection,
   StringFilterDefinition,
+  StringAutoCompleteFilterDefinition,
   NumberFilterDefinition,
   DateFilterDefinition,
   ColumnSort,
@@ -937,8 +938,8 @@ export class BrowseDataSource extends DataSource<FormattedProjectSummary> {
               selected: false,
             });
           }
-          const def: StringFilterDefinition = {
-            type: ColumnFilterType.string,
+          const def: StringFilterDefinition | StringAutoCompleteFilterDefinition = {
+            type: values.length<11 ?  ColumnFilterType.string : ColumnFilterType.stringAutoComplete,
             value: values,
           };
 

@@ -719,7 +719,7 @@ export class BrowseComponent implements OnInit, AfterViewInit {
                   const cache = project?._cache;
 
                   if (columnId && cache) {
-                    console.error(columnId);
+                    
                     data.push({
                       heading: column.heading,
                       value: project._cache[columnId].value,
@@ -740,7 +740,7 @@ export class BrowseComponent implements OnInit, AfterViewInit {
         return combineLatest(projectArr);
       }),
     );
-
+      
     if (this.route.snapshot.fragment) {
       const opts = new URLSearchParams(this.route.snapshot.fragment) as any;
       for (const key of opts.keys()) {
@@ -773,7 +773,7 @@ export class BrowseComponent implements OnInit, AfterViewInit {
     this.table.openControlPanel(state.openControlPanelId);
     const showColumns: { [key: string]: boolean } = {};
     state.columns.forEach((v: ControlColumn) => {
-      showColumns[v.id] = v._visible === true;
+      showColumns[v.id] = v.show === true;
     });
     this.table.showColumns = showColumns;
     this.table.setColumnsToShow();

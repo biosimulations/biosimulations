@@ -37,9 +37,12 @@ export type NumberFilterDefinition = {
   value: NumberFilterRange;
 };
 
-type StringAutoCompleteFilterDefinition = {
+export type StringAutoCompleteFilterDefinition = {
   type: ColumnFilterType.stringAutoComplete;
-  value: string;
+  value: {
+    label: string;
+    selected: boolean;
+  }[];
 };
 
 export type FilterDefinition =
@@ -74,10 +77,7 @@ export type FilterNumberRangeQuery = {
   value: number;
   column: Column;
 };
-export type FilterQuery =
-  | FilterSetQuery
-  | FilterDateRangeQuery
-  | FilterNumberRangeQuery;
+export type FilterQuery = FilterSetQuery | FilterDateRangeQuery | FilterNumberRangeQuery;
 
 export const isStringFilterDefinition = (
   filterSetDefinition: FilterDefinition | undefined,
@@ -97,18 +97,12 @@ export const isNumberFilterDefinition = (
   return filterNumberRangeDefinition?.type === ColumnFilterType.number;
 };
 
-export const isFilterDateRangeQuery = (
-  filterQuery: FilterQuery,
-): filterQuery is FilterDateRangeQuery => {
+export const isFilterDateRangeQuery = (filterQuery: FilterQuery): filterQuery is FilterDateRangeQuery => {
   return isDateFilterDefinition(filterQuery.filter);
 };
-export const isFilterNumberRangeQuery = (
-  filterQuery: FilterQuery,
-): filterQuery is FilterNumberRangeQuery => {
+export const isFilterNumberRangeQuery = (filterQuery: FilterQuery): filterQuery is FilterNumberRangeQuery => {
   return isNumberFilterDefinition(filterQuery.filter);
 };
-export const isFilterSetQuery = (
-  filterQuery: FilterQuery,
-): filterQuery is FilterSetQuery => {
+export const isFilterSetQuery = (filterQuery: FilterQuery): filterQuery is FilterSetQuery => {
   return isStringFilterDefinition(filterQuery.filter);
 };
