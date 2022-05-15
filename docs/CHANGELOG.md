@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.14.1](https://github.com/biosimulations/biosimulations/compare/v9.14.0...v9.14.1) (2022-05-15)
+
+
+### Bug Fixes
+
+* **dispatch:** fix data generator id set during archive creation ([12c4526](https://github.com/biosimulations/biosimulations/commit/12c4526467766be700970537d4d73483de1fa076))
+
 ## [9.14.0](https://github.com/biosimulations/biosimulations/compare/v9.13.6...v9.14.0) (2022-05-09)
 
 
