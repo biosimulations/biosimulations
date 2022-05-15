@@ -1,0 +1,55 @@
+<mat-expansion-panel [expanded]="expanded" [disabled]="disabled" (opened)="passOpen()">
+  <mat-expansion-panel-header collapsedHeight="32px" expandedHeight="32px">
+    <mat-panel-title>
+      <biosimulations-icon icon="filter"></biosimulations-icon>
+      Filters
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <ng-template matExpansionPanelContent>
+    <mat-accordion class="controls">
+      <ng-template ngFor let-column [ngForOf]="columns">
+        <mat-expansion-panel *ngIf="column.filterDefinition">
+          <mat-expansion-panel-header collapsedHeight="32px" expandedHeight="32px">
+            <mat-panel-title>
+              {{ column.heading }}{{ column?.units ? ' (' + column.units + ')' : '' }}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <ng-template matExpansionPanelContent>
+            <ng-container [ngSwitch]="column.filterDefinition.type">
+              <ng-template [ngSwitchCase]="'number'">
+                <biosimulations-number-filter
+                  [range]="$any(column.filterDefinition.value)"
+                  (numberFilterChange)="handleNumberFilterChange(column.id, $event)">
+                </biosimulations-number-filter>
+              </ng-template>
+
+              <ng-container *ngSwitchCase="'date'">
+                <biosimulations-date-filter
+                  [startDate]="$any(column.filterDefinition.value).startDate"
+                  [endDate]="$any(column.filterDefinition.value).endDate"
+                  [selectedEndDate]="$any(column.filterDefinition.value).selectedEndDate"
+                  [selectedStartDate]="$any(column.filterDefinition.value).selectedStartDate"
+                  (dateFilterChange)="handleDateFilterChange(column.id, $event)">
+                  >
+                </biosimulations-date-filter>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'string'">
+                <biosimulations-string-filter
+                  [values]="$any(column.filterDefinition.value)"
+                  (stringFilterChange)="handleStringFilterChange(column.id, $event)"></biosimulations-string-filter>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'stringAutoComplete'">
+                <biosimulations-auto-complete-filter
+                  [values]="$any(column.filterDefinition.value)"
+                  (autoCompleteFilterChange)="handleAutoCompleteFilterChange(column.id, $event)">
+                </biosimulations-auto-complete-filter>
+              </ng-container>
+            </ng-container>
+          </ng-template>
+        </mat-expansion-panel>
+      </ng-template>
+    </mat-accordion>
+  </ng-template>
+</mat-expansion-panel>
