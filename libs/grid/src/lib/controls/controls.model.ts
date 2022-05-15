@@ -9,11 +9,8 @@ export class ControlColumn {
   // Whether the attribute is visible in the controls panel
   public hidden?: boolean;
 
-  // Whether the attribute should be shown by default
+  // Whether the attribute is selected
   public show?: boolean;
-
-  // Whether the attribute is currently selected
-  public _visible?: boolean;
 
   // The filter of the attribute. If undefined, no filter is created
   public filterDefinition?: FilterDefinition;

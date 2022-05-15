@@ -12,12 +12,7 @@ import {
   FilterDefinition,
 } from '../filters';
 
-import {
-  ControlColumn,
-  ControlsState,
-  NumberFilterStateChange,
-  ControlStateChange,
-} from './controls.model';
+import { ControlColumn, ControlsState, NumberFilterStateChange, ControlStateChange } from './controls.model';
 
 @Component({
   selector: 'biosimulations-grid-controls',
@@ -69,8 +64,7 @@ export class GridControlsComponent {
   public startDateState: { column: Column; date: Date | null } | null = null;
   public endDateState: { column: Column; date: Date | null } | null = null;
 
-  public autoCompleteFilterState: { column: Column; value: string } | null =
-    null;
+  public autoCompleteFilterState: { column: Column; value: string } | null = null;
 
   private static updateStartDateFilterDefinition(
     currentDefinition: DateFilterDefinition,
@@ -88,11 +82,7 @@ export class GridControlsComponent {
     };
   }
 
-  private static makeFilterState(
-    currentState: FilterState,
-    columnId: string,
-    update: FilterDefinition,
-  ): FilterState {
+  private static makeFilterState(currentState: FilterState, columnId: string, update: FilterDefinition): FilterState {
     const newState = { ...currentState };
     newState[columnId] = update;
     return newState;
@@ -120,11 +110,7 @@ export class GridControlsComponent {
   public clearFilter(column: Column): void {
     this.filterState[column.id] = undefined;
   }
-  public handleNumberFilterChange(
-    column: Column,
-    range: NumberFilterRange,
-    $event: number[],
-  ): void {
+  public handleNumberFilterChange(column: Column, range: NumberFilterRange, $event: number[]): void {
     const minSelected = $event[0];
     const maxSelected = $event[1];
     const newRange = {
@@ -143,25 +129,14 @@ export class GridControlsComponent {
     //this.updateFiltersState();
   }
 
-  public handleStartDateFilterChange(
-    column: Column,
-    event: MatDatepickerInputEvent<Date>,
-  ): void {
+  public handleStartDateFilterChange(column: Column, event: MatDatepickerInputEvent<Date>): void {
     const startDate: Date | null = event.value;
 
     const filterDef = this.getColumnFilterDefinition(column);
 
     if (isDateFilterDefinition(filterDef)) {
-      const newDefinition =
-        GridControlsComponent.updateStartDateFilterDefinition(
-          filterDef,
-          startDate,
-        );
-      const newState = GridControlsComponent.makeFilterState(
-        this.getCurrentFilterState(),
-        column.id,
-        newDefinition,
-      );
+      const newDefinition = GridControlsComponent.updateStartDateFilterDefinition(filterDef, startDate);
+      const newState = GridControlsComponent.makeFilterState(this.getCurrentFilterState(), column.id, newDefinition);
 
       this.filterState[column.id] = newDefinition;
 
@@ -172,30 +147,18 @@ export class GridControlsComponent {
   private getCurrentFilterState(): FilterState {
     return this.filterState;
   }
-  private getColumnFilterDefinition(
-    column: Column,
-  ): FilterDefinition | undefined {
+  private getColumnFilterDefinition(column: Column): FilterDefinition | undefined {
     return this.getCurrentFilterState()[column.id];
   }
 
-  public handleEndDateFilterChange(
-    column: Column,
-    event: MatDatepickerInputEvent<Date>,
-  ): void {
+  public handleEndDateFilterChange(column: Column, event: MatDatepickerInputEvent<Date>): void {
     const startDate: Date | null = event.value;
 
     const filterDef = this.getColumnFilterDefinition(column);
 
     if (isDateFilterDefinition(filterDef)) {
-      const newDefinition = this.updateEndDateFilterDefinition(
-        filterDef,
-        startDate,
-      );
-      const newState = GridControlsComponent.makeFilterState(
-        this.getCurrentFilterState(),
-        column.id,
-        newDefinition,
-      );
+      const newDefinition = this.updateEndDateFilterDefinition(filterDef, startDate);
+      const newState = GridControlsComponent.makeFilterState(this.getCurrentFilterState(), column.id, newDefinition);
 
       this.filterState[column.id] = newDefinition;
 
@@ -218,11 +181,7 @@ export class GridControlsComponent {
       },
     };
   }
-  public handleFilterSetValue(
-    column: Column,
-    value: { label: string; selected: boolean },
-    selected: boolean,
-  ): void {
+  public handleFilterSetValue(column: Column, value: { label: string; selected: boolean }, selected: boolean): void {
     let columnState = this.filterState[column.id];
 
     if (!columnState) {
@@ -261,7 +220,7 @@ export class GridControlsComponent {
   }
   public toggleColumn(event: MatCheckboxChange, column: ControlColumn): void {
     const checked = event.checked;
-    column._visible = checked;
+    column.show = checked;
 
     this.updateControlsState();
   }
