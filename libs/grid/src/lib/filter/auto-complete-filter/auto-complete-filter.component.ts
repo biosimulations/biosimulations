@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { map, Observable, of } from 'rxjs';
-type AutoCompleteFilterColumn = any;
-
-export type AutoCompleteValues = { id: string; selected: boolean; label: string }[];
+import { map, Observable, pluck } from 'rxjs';
+export type AutoCompleteValue = { selected: boolean; label: string };
+export type AutoCompleteValues = AutoCompleteValue[];
 @Component({
   selector: 'biosimulations-auto-complete-filter',
   templateUrl: './auto-complete-filter.component.html',
@@ -19,7 +18,7 @@ export class AutoCompleteFilterComponent {
 
   public filteredValues!: Observable<AutoCompleteValues>;
 
-  public autoCompleteForm = new FormControl();
+  public autoCompleteForm: FormControl = new FormControl();
 
   @Output()
   public autoCompleteFilterChange = new EventEmitter<AutoCompleteValues>();
@@ -37,9 +36,9 @@ export class AutoCompleteFilterComponent {
     this.autoCompleteFilterChange.emit(this.values);
   }
 
-  public handleFilterSetValue(value: any, selected: boolean) {
+  public handleFilterSetValue(value: AutoCompleteValue, selected: boolean) {
     const newValues = this.values.map((v) => {
-      if (v.id === value.id) {
+      if (v.label === value.label) {
         v.selected = selected;
       }
       return v;
@@ -48,10 +47,16 @@ export class AutoCompleteFilterComponent {
   }
 
   public ngOnInit() {
-    this.filteredValues = this.autoCompleteForm.valueChanges.pipe(map(this.evalAutoCompleteFilter.bind(this)));
+    this.filteredValues = this.autoCompleteForm.valueChanges.pipe(
+      pluck('label'),
+      map(this.evalAutoCompleteFilter.bind(this)),
+    );
   }
 
   public evalAutoCompleteFilter(value: string) {
+    if (!value) {
+      return this.values;
+    }
     return this.values.filter((v) => v?.label && v.label.toLowerCase().includes(value.toLowerCase()));
   }
 
