@@ -5,7 +5,7 @@ import { GridModule } from '../grid.module';
 import { FilterComponent } from './filter.component';
 import { columns } from './filter.component.fixtures';
 export default {
-  title: 'filterComponents',
+  title: 'FilterComponent',
   component: FilterComponent,
   decorators: [
     moduleMetadata({

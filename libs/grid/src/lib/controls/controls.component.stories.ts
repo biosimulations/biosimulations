@@ -2,6 +2,7 @@ import { moduleMetadata, Story, Meta } from '@storybook/angular';
 import { GridModule } from '../grid.module';
 import { GridControlsComponent } from './controls.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { columns } from './controls.component.fixtures';
 import { Column } from '../columns';
 export default {
   title: 'GridControlsComponent',
@@ -41,5 +42,5 @@ export const Primary = Template.bind({});
 export const WithColumns = Primary.bind({});
 WithColumns.args = {
   ...Primary.args,
-  columns: [{ id: 'test', heading: 'Test', hidden: false, show: true, _visible: true }] as Column[],
+  columns: columns as Column[],
 };

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, Output, Input, EventEmitter } from '@angular/core';
+import { Component, Output, Input, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { ControlColumn } from '../controls';
 
@@ -24,13 +24,13 @@ export class SelectComponent {
   public columns: ControlColumn[] = [];
 
   @Output()
-  public openend: EventEmitter<void> = new EventEmitter();
+  public opened: EventEmitter<void> = new EventEmitter();
 
   @Output()
   public columnsChange: EventEmitter<ControlColumn[]> = new EventEmitter();
 
   public passOpen(): void {
-    this.openend.emit();
+    this.opened.emit();
   }
 
   public toggleColumn(event: MatCheckboxChange, column: ControlColumn): void {

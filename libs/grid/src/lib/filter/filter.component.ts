@@ -3,14 +3,15 @@ import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { MatExpansionPanel } from '@angular/material/expansion';
 
 import { ControlColumn } from '../controls';
-import { DateFilterDefinition, FilterDefinition, NumberFilterRange, StringFilterDefinition } from '../filters';
+import { DateFilterDefinition, FilterDefinition, NumberFilterRange } from '../filters';
 import { DateRange } from './date-filter/date-filter.component';
 
 @Component({
   selector: 'biosimulations-filter',
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // The inner expansion panels are rendered lazily so cannot be OnPush
+  changeDetection: ChangeDetectionStrategy.Default,
   viewProviders: [MatExpansionPanel],
 })
 export class FilterComponent implements OnInit {

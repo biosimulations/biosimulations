@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 type StringFilterValues = { label: string; selected: boolean; showTooltip: boolean }[];
 @Component({
   selector: 'biosimulations-string-filter',
   templateUrl: './string-filter.component.html',
   styleUrls: ['./string-filter.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StringFilterComponent {
   @Input()

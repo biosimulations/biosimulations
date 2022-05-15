@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { map, Observable, pluck } from 'rxjs';
+import { map, Observable, pluck, tap } from 'rxjs';
 export type AutoCompleteValue = { selected: boolean; label: string };
 export type AutoCompleteValues = AutoCompleteValue[];
 @Component({
@@ -47,13 +47,10 @@ export class AutoCompleteFilterComponent {
   }
 
   public ngOnInit() {
-    this.filteredValues = this.autoCompleteForm.valueChanges.pipe(
-      pluck('label'),
-      map(this.evalAutoCompleteFilter.bind(this)),
-    );
+    this.filteredValues = this.autoCompleteForm.valueChanges.pipe(map(this.evalAutoCompleteFilter.bind(this)));
   }
 
-  public evalAutoCompleteFilter(value: string) {
+  public evalAutoCompleteFilter(value: string): AutoCompleteValues {
     if (!value) {
       return this.values;
     }

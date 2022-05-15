@@ -2,7 +2,7 @@
   <mat-expansion-panel-header collapsedHeight="32px" expandedHeight="32px">
     <mat-panel-title>
       <biosimulations-icon icon="filter"></biosimulations-icon>
-      Filters
+      {{ heading }}
     </mat-panel-title>
   </mat-expansion-panel-header>
   <ng-template matExpansionPanelContent>
@@ -30,7 +30,6 @@
                   [selectedEndDate]="$any(column.filterDefinition.value).selectedEndDate"
                   [selectedStartDate]="$any(column.filterDefinition.value).selectedStartDate"
                   (dateFilterChange)="handleDateFilterChange(column.id, $event)">
-                  >
                 </biosimulations-date-filter>
               </ng-container>
 

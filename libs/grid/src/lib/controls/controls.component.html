@@ -11,13 +11,13 @@
     heading="Columns"
     [columns]="columns">
   </biosimulations-select>
-  
 
   <biosimulations-filter
     [expanded]="openControlPanelId === 2"
     [disabled]="openControlPanelId === 2"
     (opened)="openControlPanel(2)"
     [columns]="columns">
+    
   </biosimulations-filter>
 
   <biosimulations-search
