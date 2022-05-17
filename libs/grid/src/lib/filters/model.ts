@@ -1,5 +1,3 @@
-import { Column } from '../columns';
-import { AutoCompleteFilterComponent } from '../filter/auto-complete-filter/auto-complete-filter.component';
 
 export enum ColumnFilterType {
   string = 'string',

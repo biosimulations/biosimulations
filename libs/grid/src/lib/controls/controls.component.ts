@@ -1,7 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { Column } from '../columns';
-import { FilterState } from '../filters';
 
 import { ControlColumn, ControlsState, NumberFilterStateChange } from './controls.model';
 

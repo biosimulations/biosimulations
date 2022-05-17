@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { map, Observable, pluck, tap } from 'rxjs';
+import { map, Observable } from 'rxjs';
 export type AutoCompleteValue = { selected: boolean; label: string };
 export type AutoCompleteValues = AutoCompleteValue[];
 @Component({

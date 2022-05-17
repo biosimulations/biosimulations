@@ -4,19 +4,12 @@ import {
   isNumberFilterDefinition,
   isStringFilterDefinition,
   isAutoCompleteFilterDefinition,
-  DateFilterDefinition,
-  NumberFilterDefinition,
-  StringFilterDefinition,
-  StringAutoCompleteFilterDefinition,
   Column,
   passesFilters,
-  FilterQuery,
   FilterDateRangeQuery,
   FilterNumberRangeQuery,
 } from '@biosimulations/grid';
-import { isDate, isNumber } from 'class-validator';
 
-import { FormattedProjectSummary } from '../browse.model';
 
 @Injectable({
   providedIn: 'root',
