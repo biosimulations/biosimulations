@@ -5,6 +5,7 @@ export interface ProjectCardColumnData {
   value: string | string[];
   icon: BiosimulationsIcon;
   heading: string;
+  show: boolean;
 }
 
 export interface ProjectCardInput {
@@ -12,6 +13,7 @@ export interface ProjectCardInput {
   title: string;
   thumbnail: string;
   data: ProjectCardColumnData[];
+  filtered: boolean;
 }
 @Component({
   selector: 'biosimulations-project-card',

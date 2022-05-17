@@ -9,25 +9,27 @@
     <div class="details-overlay-inner">
       <table class="icon-list">
         <ng-container *ngFor="let column of data">
-          <ng-container *ngIf="column.value as value">
-            <ng-container *ngIf="isArray(value); else scalar">
-              <ng-container *ngFor="let v of value">
-                <ng-container *ngTemplateOutlet="template; context: { value: v }"> </ng-container>
+          <ng-container *ngIf="column.show">
+            <ng-container *ngIf="column.value as value">
+              <ng-container *ngIf="isArray(value); else scalar">
+                <ng-container *ngFor="let v of value">
+                  <ng-container *ngTemplateOutlet="template; context: { value: v }"> </ng-container>
+                </ng-container>
               </ng-container>
+
+              <ng-template #scalar>
+                <ng-container *ngTemplateOutlet="template; context: { value: value }"> </ng-container>
+              </ng-template>
+
+              <ng-template #template let-value="value">
+                <tr>
+                  <td>
+                    <biosimulations-icon [icon]="column.icon" [title]="column.heading"></biosimulations-icon>
+                  </td>
+                  <td>{{ value }}</td>
+                </tr>
+              </ng-template>
             </ng-container>
-
-            <ng-template #scalar>
-              <ng-container *ngTemplateOutlet="template; context: { value: value }"> </ng-container>
-            </ng-template>
-
-            <ng-template #template let-value="value">
-              <tr>
-                <td>
-                  <biosimulations-icon [icon]="column.icon" [title]="column.heading"></biosimulations-icon>
-                </td>
-                <td>{{ value }}</td>
-              </tr>
-            </ng-template>
           </ng-container>
         </ng-container>
       </table>

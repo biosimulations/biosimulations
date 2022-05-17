@@ -70,9 +70,9 @@ export class EndpointLoader {
         break;
 
       case 'dev':
-        endpointsTemplate.api = dynamicEndpoints?.api || 'https://api.biosimulations.dev';
+        endpointsTemplate.api = dynamicEndpoints?.api || 'https://api.biosimulations.org';
 
-        endpointsTemplate.simulatorsApi = dynamicEndpoints?.simulatorsApi || 'https://api.biosimulators.dev';
+        endpointsTemplate.simulatorsApi = dynamicEndpoints?.simulatorsApi || 'https://api.biosimulators.org';
 
         endpointsTemplate.combineApi = dynamicEndpoints?.combineApi || 'https://combine.api.biosimulations.dev';
 

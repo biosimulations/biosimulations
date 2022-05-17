@@ -5,41 +5,34 @@
     [onClick]="openControls"></biosimulations-bread-crumbs-button>
 </biosimulations-bread-crumbs-position>
 
-<biosimulations-table
-  #table
-  [data]="projects$ | async"
-  [columns]="(columns$ | async) || []"
-  [defaultSort]="{ active: 'title', direction: 'asc' }">
-  <div gdAuto="row" gdColumns.gt-sm="1fr auto" gdGap="0" gdRows.lt-md="1fr" class="container">
-    <div
-      class="projects ragged-column"
-      [ngClass]="{ visible: !controlsOpen }"
-      gdGap="1rem"
-      gdColumns.xl="repeat(5, 1fr)"
-      gdColumns.lg="repeat(4, 1fr)"
-      gdColumns.md="repeat(3, 1fr)"
-      gdColumns.sm="repeat(2, 1fr)"
-      gdColumns.xs="repeat(1, 1fr)">
-      <ng-container *ngIf="projectCardInputs$ | async as projectInputs">
-        <biosimulations-project-card
-          *ngFor="let project of projectInputs"
-          [projectInput]="project"></biosimulations-project-card>
+<div gdAuto="row" gdColumns.gt-sm="1fr auto" gdGap="0" gdRows.lt-md="1fr" class="container">
+  <div
+    class="projects ragged-column"
+    [ngClass]="{ visible: !controlsOpen }"
+    gdGap="1rem"
+    gdColumns.xl="repeat(5, 1fr)"
+    gdColumns.lg="repeat(4, 1fr)"
+    gdColumns.md="repeat(3, 1fr)"
+    gdColumns.sm="repeat(2, 1fr)"
+    gdColumns.xs="repeat(1, 1fr)">
+    <ng-container *ngIf="projectCardInputs$ | async as projectInputs">
+      <ng-container *ngFor="let project of projectInputs">
+        <biosimulations-project-card *ngIf="!project.filtered" [projectInput]="project"></biosimulations-project-card>
       </ng-container>
-    </div>
-
-    <div class="controls-container enter-from-right" [ngClass]="{ visible: controlsOpen }">
-      <biosimulations-grid-controls
-        *ngIf="columns$ | async"
-        [columns]="(columns$ | async) || []"
-        [openControlPanelId]="table.openControlPanelId"
-        (controlsStateUpdated)="controlsStateUpdated($event)"
-        (filterStateUpdated)="filterStateUpdated($event)"
-        (filtersCleared)="columnFiltersCleared($event)"
-        attributesHeading="Attributes"
-        searchPlaceHolder="Query (e.g., metabolism)"
-        searchToolTip="Enter a query such as 'metabolism'. By default, your query will be searched over all attributes. To search over a specific attribute, prefix your query with the heading of the attribute (with spaces replaced by dashes) such as 'last-updated: 2020'."
-        [closeable]="false"
-        class="controls"></biosimulations-grid-controls>
-    </div>
+    </ng-container>
   </div>
-</biosimulations-table>
+
+  <div class="controls-container enter-from-right" [ngClass]="{ visible: controlsOpen }">
+    <biosimulations-grid-controls
+      *ngIf="columns$ | async as columns"
+      [columns]="columns || []"
+      [openControlPanelId]="openControlPanelId"
+      (controlsStateChanged)="controlsStateUpdated($event)"
+      (filtersCleared)="columnFiltersCleared($event)"
+      attributesHeading="Attributes"
+      searchPlaceHolder="Query (e.g., metabolism)"
+      searchToolTip="Enter a query such as 'metabolism'. By default, your query will be searched over all attributes. To search over a specific attribute, prefix your query with the heading of the attribute (with spaces replaced by dashes) such as 'last-updated: 2020'."
+      [closeable]="false"
+      class="controls"></biosimulations-grid-controls>
+  </div>
+</div>

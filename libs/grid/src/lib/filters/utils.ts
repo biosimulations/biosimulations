@@ -6,9 +6,13 @@ import {
   FilterDateRangeQuery,
   FilterNumberRangeQuery,
   FilterSetQuery,
-} from '.';
+} from './model';
 
-export const passesFilters = (filterQuery: FilterQuery): boolean => {
+export const passesFilters = (filterQuery: FilterQuery | undefined): boolean => {
+  if (!filterQuery) {
+    return true;
+  }
+
   if (isFilterNumberRangeQuery(filterQuery)) {
     return passesNumberRangeFilter(filterQuery);
   } else if (isFilterDateRangeQuery(filterQuery)) {
@@ -41,8 +45,10 @@ const passesNumberRangeFilter = (filterQuery: FilterNumberRangeQuery): boolean =
 const passesSetFilter = (filterQuery: FilterSetQuery): boolean => {
   const values = filterQuery.filter.value;
   const selectedValues = values.filter((value) => value.selected).map((value) => value.label);
-  const value = filterQuery.value;
+  const value = filterQuery.value[0];
   const filterVals: string[] = selectedValues || [];
 
-  return filterVals.includes(value);
+  const passes = filterVals.length == 0 || filterVals.includes(value);
+
+  return passes;
 };

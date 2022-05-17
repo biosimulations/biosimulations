@@ -30,11 +30,11 @@ export type DateFilterableColumn = ControlColumn & {
 };
 
 type FilterSearchState = {
-  searchQuery: searchState;
+  searchQuery: searchQuery;
   filterState: FilterState;
 };
 
-type searchState = string | null;
+type searchQuery = string | null;
 
 export class NumberFilterStateChange {
   public column!: ControlColumn;
@@ -46,6 +46,7 @@ export class ControlsState {
   public openControlPanelId: number = 1;
   public controlsOpen = true;
   public columns: ControlColumn[] = [];
+  public searchQuery: searchQuery = null;
 }
 
 export class ControlStateChange {

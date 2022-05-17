@@ -1,9 +1,6 @@
 import { DataSource } from '@angular/cdk/collections';
 import { Injectable } from '@angular/core';
-import {
-  LabeledIdentifier,
-  DescribedIdentifier,
-} from '@biosimulations/datamodel/common';
+import { LabeledIdentifier, DescribedIdentifier } from '@biosimulations/datamodel/common';
 import {
   Column,
   FilterState,
@@ -21,7 +18,9 @@ import {
 import { FormatService } from '@biosimulations/shared/services';
 import { RowService } from '@biosimulations/shared/ui';
 
-import { BehaviorSubject, Observable, shareReplay } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, Observable, of, shareReplay } from 'rxjs';
+
+import { FilterService } from '../filter/filter.service';
 import { FormattedProjectSummary, LocationPredecessor } from '../browse.model';
 import { BrowseService } from '../browse.service';
 
@@ -77,9 +76,7 @@ export class BrowseDataSource extends DataSource<FormattedProjectSummary> {
       hidden: false,
       show: true,
       getter: (project: FormattedProjectSummary): string[] => {
-        return project.metadata.encodes.map(
-          (v: LabeledIdentifier) => v.label || v.uri,
-        ) as string[];
+        return project.metadata.encodes.map((v: LabeledIdentifier) => v.label || v.uri) as string[];
       },
       extraSearchGetter: (project: FormattedProjectSummary): string => {
         return project.metadata.encodes
@@ -103,9 +100,7 @@ export class BrowseDataSource extends DataSource<FormattedProjectSummary> {
       hidden: false,
       show: true,
       getter: (project: FormattedProjectSummary): string[] => {
-        return project.metadata.taxa.map(
-          (v: LabeledIdentifier) => v.label || v.uri,
-        ) as string[];
+        return project.metadata.taxa.map((v: LabeledIdentifier) => v.label || v.uri) as string[];
       },
       extraSearchGetter: (project: FormattedProjectSummary): string => {
         return project.metadata.taxa
@@ -129,9 +124,7 @@ export class BrowseDataSource extends DataSource<FormattedProjectSummary> {
       hidden: false,
       show: false,
       getter: (project: FormattedProjectSummary): string[] => {
-        return project.metadata.keywords.map(
-          (v: LabeledIdentifier) => v.label,
-        ) as string[];
+        return project.metadata.keywords.map((v: LabeledIdentifier) => v.label) as string[];
       },
     },
     {
@@ -143,9 +136,7 @@ export class BrowseDataSource extends DataSource<FormattedProjectSummary> {
       hidden: false,
       show: false,
       getter: (project: FormattedProjectSummary): string[] => {
-        return project.metadata.citations.map(
-          (v: LabeledIdentifier) => v.label || v.uri,
-        ) as string[];
+        return project.metadata.citations.map((v: LabeledIdentifier) => v.label || v.uri) as string[];
       },
       filterGetter: (project: FormattedProjectSummary): string => {
         return project.metadata.citations.length > 0 ? 'Yes' : 'No';
@@ -171,9 +162,7 @@ export class BrowseDataSource extends DataSource<FormattedProjectSummary> {
       hidden: false,
       show: false,
       getter: (project: FormattedProjectSummary): string[] => {
-        return project.metadata.identifiers.map(
-          (v: LabeledIdentifier) => v.label || v.uri,
-        ) as string[];
+        return project.metadata.identifiers.map((v: LabeledIdentifier) => v.label || v.uri) as string[];
       },
       extraSearchGetter: (project: FormattedProjectSummary): string => {
         return project.metadata.identifiers
@@ -197,11 +186,7 @@ export class BrowseDataSource extends DataSource<FormattedProjectSummary> {
       show: false,
       getter: (project: FormattedProjectSummary): string[] => {
         return project.metadata.other.map((v: DescribedIdentifier) => {
-          return (
-            (v.attribute_label || v.attribute_uri || '') +
-            ': ' +
-            (v.label || v.uri || '')
-          );
+          return (v.attribute_label || v.attribute_uri || '') + ': ' + (v.label || v.uri || '');
         }) as string[];
       },
       extraSearchGetter: (project: FormattedProjectSummary): string => {
@@ -236,11 +221,7 @@ export class BrowseDataSource extends DataSource<FormattedProjectSummary> {
         return Array.from(
           new Set(
             project.tasks.map((task): string => {
-              return (
-                task.model.language.acronym ||
-                task.model.language.name ||
-                task.model.language.sedmlUrn
-              );
+              return task.model.language.acronym || task.model.language.name || task.model.language.sedmlUrn;
             }),
           ),
         ).sort();
@@ -273,9 +254,7 @@ export class BrowseDataSource extends DataSource<FormattedProjectSummary> {
             project.tasks.map((task): string => {
               const sedmlLength = 'SED-ML'.length;
               return (
-                task.simulation.type.name
-                  .substring(sedmlLength + 1, sedmlLength + 2)
-                  .toUpperCase() +
+                task.simulation.type.name.substring(sedmlLength + 1, sedmlLength + 2).toUpperCase() +
                 task.simulation.type.name.substring(
                   sedmlLength + 2,
                   task.simulation.type.name.length - ' simulation'.length,
@@ -298,10 +277,7 @@ export class BrowseDataSource extends DataSource<FormattedProjectSummary> {
         return Array.from(
           new Set(
             project.tasks.map((task): string => {
-              return (
-                task.simulation.algorithm.name ||
-                task.simulation.algorithm.kisaoId
-              );
+              return task.simulation.algorithm.name || task.simulation.algorithm.kisaoId;
             }),
           ),
         ).sort();
@@ -325,11 +301,7 @@ export class BrowseDataSource extends DataSource<FormattedProjectSummary> {
       show: false,
       filterable: true,
       getter: (project: FormattedProjectSummary): string => {
-        return (
-          project.simulationRun.simulatorName +
-          ' ' +
-          project.simulationRun.simulatorVersion
-        );
+        return project.simulationRun.simulatorName + ' ' + project.simulationRun.simulatorVersion;
       },
       extraSearchGetter: (project: FormattedProjectSummary): string => {
         return project.simulationRun.simulator;
@@ -464,9 +436,8 @@ export class BrowseDataSource extends DataSource<FormattedProjectSummary> {
               return locationPredecessor.location.endsWith('.sedml');
             })
             .map((predecessor: LocationPredecessor): string => {
-              return predecessor.predecessor.uri?.startsWith(
-                'http://omex-library.org/',
-              ) && predecessor.predecessor.uri.indexOf('.omex/') !== -1
+              return predecessor.predecessor.uri?.startsWith('http://omex-library.org/') &&
+                predecessor.predecessor.uri.indexOf('.omex/') !== -1
                 ? 'Simulation generated from model'
                 : 'Other';
             }),
@@ -501,18 +472,10 @@ export class BrowseDataSource extends DataSource<FormattedProjectSummary> {
       hidden: false,
       show: false,
       getter: (project: FormattedProjectSummary): string[] => {
-        return (
-          project?.owner?.organizations?.map(
-            (organization) => organization.name,
-          ) || ['None']
-        );
+        return project?.owner?.organizations?.map((organization) => organization.name) || ['None'];
       },
       extraSearchGetter: (project: FormattedProjectSummary): string | null => {
-        return (
-          project?.owner?.organizations?.map(
-            (organization) => organization.id,
-          ) || ['None']
-        ).join(' ');
+        return (project?.owner?.organizations?.map((organization) => organization.id) || ['None']).join(' ');
       },
       comparator: (value: string, other: string, sign = 1): number => {
         if (value === 'None') {
@@ -600,9 +563,7 @@ export class BrowseDataSource extends DataSource<FormattedProjectSummary> {
       hidden: false,
       show: false,
       getter: (project: FormattedProjectSummary): string[] => {
-        return project.metadata.creators.map(
-          (v: LabeledIdentifier) => v.label || v.uri,
-        ) as string[];
+        return project.metadata.creators.map((v: LabeledIdentifier) => v.label || v.uri) as string[];
       },
       extraSearchGetter: (project: FormattedProjectSummary): string => {
         return project.metadata.creators
@@ -626,9 +587,7 @@ export class BrowseDataSource extends DataSource<FormattedProjectSummary> {
       hidden: false,
       show: false,
       getter: (project: FormattedProjectSummary): string[] => {
-        return project.metadata.contributors.map(
-          (v: LabeledIdentifier) => v.label || v.uri,
-        ) as string[];
+        return project.metadata.contributors.map((v: LabeledIdentifier) => v.label || v.uri) as string[];
       },
       extraSearchGetter: (project: FormattedProjectSummary): string => {
         return project.metadata.contributors
@@ -652,9 +611,7 @@ export class BrowseDataSource extends DataSource<FormattedProjectSummary> {
       hidden: false,
       show: false,
       getter: (project: FormattedProjectSummary): string[] => {
-        return project.metadata.funders.map(
-          (v: LabeledIdentifier) => v.label || v.uri,
-        ) as string[];
+        return project.metadata.funders.map((v: LabeledIdentifier) => v.label || v.uri) as string[];
       },
       extraSearchGetter: (project: FormattedProjectSummary): string => {
         return project.metadata.funders
@@ -677,9 +634,7 @@ export class BrowseDataSource extends DataSource<FormattedProjectSummary> {
       hidden: false,
       show: false,
       getter: (project: FormattedProjectSummary): string[] => {
-        return (project.metadata.license || []).map(
-          (v: LabeledIdentifier) => v.label || v.uri,
-        ) as string[];
+        return (project.metadata.license || []).map((v: LabeledIdentifier) => v.label || v.uri) as string[];
       },
       extraSearchGetter: (project: FormattedProjectSummary): string => {
         return (project.metadata.license || [])
@@ -734,11 +689,14 @@ export class BrowseDataSource extends DataSource<FormattedProjectSummary> {
       filterType: ColumnFilterType.date,
     },
   ];
+
   // TODO make this an input observable
   private defaultSort: ColumnSort = {
     active: 'title',
     direction: 'asc',
   };
+  private sort$ = of(this.defaultSort);
+
   private _data = new BehaviorSubject<FormattedProjectSummary[]>([]);
   private _filter = new BehaviorSubject<FilterState>({});
   private _columns = new BehaviorSubject<Column[]>(this.initcolumns);
@@ -746,6 +704,7 @@ export class BrowseDataSource extends DataSource<FormattedProjectSummary> {
 
   private dataLoaded = false;
   private dataSorted = false;
+  private columnsProcessed = false;
 
   private isLoading = new BehaviorSubject<boolean>(!this.dataLoaded);
   private isSorting = new BehaviorSubject<boolean>(!this.dataSorted);
@@ -755,26 +714,60 @@ export class BrowseDataSource extends DataSource<FormattedProjectSummary> {
   }
 
   public set columns(input: Column[]) {
+    console.log('set columns');
     this._columns.next(input);
   }
 
   public get columns$(): Observable<Column[]> {
-    return this._columns.pipe(shareReplay(1));
+    return this._columns.asObservable().pipe(shareReplay(1));
   }
 
   public set filter(value: FilterState) {
+    console.log('Setting filter in datasource');
     this._filter.next(value);
   }
   public get filter(): FilterState {
     return this._filter.getValue();
   }
   public get filter$(): Observable<FilterState> {
-    return this._filter.asObservable();
+    return this._filter.asObservable().pipe();
   }
 
-  // TODO add type
-  public processData(sortedData: any) {
-    sortedData.forEach((datum: any): void => {
+  public constructor(private service: BrowseService, private filterService: FilterService) {
+    super();
+
+    const init_data = combineLatest([this.service.getProjects(), this.filter$, this.sort$]).pipe(
+      map(([data, filter, sort]) => {
+        console.error('HERE');
+        if (!this.columnsProcessed) {
+          this.columns = this.proccessColumns(this.columns, data);
+          this.idToColumn = (this.columns || []).reduce((map: { [id: string]: Column }, col: Column) => {
+            map[col.id] = col;
+            return map;
+          }, {});
+          this.columnsProcessed = true;
+        }
+
+        const sortedData = RowService.sortData(this.idToColumn, data, sort);
+
+        const processedData = this.processData(sortedData);
+
+        const filteredData = this.filterData(processedData, filter);
+
+        //const searchedData = this.searchData(filteredData, this.searchQuery);
+
+        return filteredData;
+      }),
+    );
+
+    init_data.subscribe((data) => {
+      this._data.next(data);
+    });
+  }
+
+  private processData(data: FormattedProjectSummary[]): FormattedProjectSummary[] {
+    console.error('processData');
+    data.forEach((datum: FormattedProjectSummary): void => {
       const cache: any = {};
       datum['_cache'] = cache;
 
@@ -793,170 +786,129 @@ export class BrowseDataSource extends DataSource<FormattedProjectSummary> {
           cache[column.id].left['routerLink'] = tmp.routerLink;
           cache[column.id].left['fragment'] = tmp.fragment;
         } else if (column.leftAction === ColumnActionType.href) {
-          cache[column.id].left['href'] = RowService.getElementHref(
-            datum,
-            column,
-            Side.left,
-          );
+          cache[column.id].left['href'] = RowService.getElementHref(datum, column, Side.left);
         } else if (column.leftAction === ColumnActionType.click) {
-          cache[column.id].left['click'] = RowService.getElementClick(
-            datum,
-            column,
-            Side.left,
-          );
+          cache[column.id].left['click'] = RowService.getElementClick(datum, column, Side.left);
         }
-        cache[column.id].left['icon'] = RowService.getIcon(
-          datum,
-          column,
-          Side.left,
-        );
-        cache[column.id].left['iconTitle'] = RowService.getIconTitle(
-          datum,
-          column,
-          Side.left,
-        );
+        cache[column.id].left['icon'] = RowService.getIcon(datum, column, Side.left);
+        cache[column.id].left['iconTitle'] = RowService.getIconTitle(datum, column, Side.left);
 
         if (column.centerAction === ColumnActionType.routerLink) {
-          const tmp = RowService.getElementRouterLink(
-            datum,
-            column,
-            Side.center,
-          );
+          const tmp = RowService.getElementRouterLink(datum, column, Side.center);
           cache[column.id].center['routerLink'] = tmp.routerLink;
           cache[column.id].center['fragment'] = tmp.fragment;
         } else if (column.centerAction === ColumnActionType.href) {
-          cache[column.id].center['href'] = RowService.getElementHref(
-            datum,
-            column,
-            Side.center,
-          );
+          cache[column.id].center['href'] = RowService.getElementHref(datum, column, Side.center);
         } else if (column.centerAction === ColumnActionType.click) {
-          cache[column.id].center['click'] = RowService.getElementClick(
-            datum,
-            column,
-            Side.center,
-          );
+          cache[column.id].center['click'] = RowService.getElementClick(datum, column, Side.center);
         }
         // cache[column.id].center['icon'] = RowService.getIcon(datum, column, Side.center);
         // cache[column.id].center['iconTitle'] = RowService.getIconTitle(datum, column, Side.center);
 
         if (column.rightAction === ColumnActionType.routerLink) {
-          const tmp = RowService.getElementRouterLink(
-            datum,
-            column,
-            Side.right,
-          );
+          const tmp = RowService.getElementRouterLink(datum, column, Side.right);
           cache[column.id].right['routerLink'] = tmp.routerLink;
           cache[column.id].right['fragment'] = tmp.fragment;
         } else if (column.rightAction === ColumnActionType.href) {
-          cache[column.id].right['href'] = RowService.getElementHref(
-            datum,
-            column,
-            Side.right,
-          );
+          cache[column.id].right['href'] = RowService.getElementHref(datum, column, Side.right);
         } else if (column.rightAction === ColumnActionType.click) {
-          cache[column.id].right['click'] = RowService.getElementClick(
-            datum,
-            column,
-            Side.right,
-          );
+          cache[column.id].right['click'] = RowService.getElementClick(datum, column, Side.right);
         }
-        cache[column.id].right['icon'] = RowService.getIcon(
-          datum,
-          column,
-          Side.right,
-        );
-        cache[column.id].right['iconTitle'] = RowService.getIconTitle(
-          datum,
-          column,
-          Side.right,
-        );
+        cache[column.id].right['icon'] = RowService.getIcon(datum, column, Side.right);
+        cache[column.id].right['iconTitle'] = RowService.getIconTitle(datum, column, Side.right);
       });
     });
-    return sortedData;
+    return data;
   }
-  public constructor(private service: BrowseService) {
-    super();
 
-    const init_data = this.service._getProjects();
+  private filterData(data: FormattedProjectSummary[], filter: FilterState): FormattedProjectSummary[] {
+    console.log('processing fitler');
+    const columns = this.columns;
+    const filter_columns = columns.filter((col: Column) => col.filterDefinition !== undefined);
+    if (filter_columns.length === 0) {
+      return data;
+    }
+    const filteredData = data.map((datum: FormattedProjectSummary) => {
+      
+      let passesFilter = true;
+      for (const column of filter_columns) {
+        const value = RowService.getElementFilterValue(datum, column);
 
-    init_data.subscribe((data) => {
-      this.idToColumn = (this.columns || []).reduce(
-        (map: { [id: string]: Column }, col: Column) => {
-          map[col.id] = col;
-          return map;
-        },
-        {},
-      );
-
-      const sortedData = RowService.sortData(
-        this.idToColumn,
-        data,
-        this.defaultSort,
-      );
-
-      this._data.next(sortedData);
-
-      const tempColumns = this._columns.getValue();
-
-      const processedData = this.processData(sortedData);
-      this._data.next(processedData);
-
-      tempColumns.forEach((column: Column): void => {
-        if (column.filterType == ColumnFilterType.number) {
-          const row = this.getNumericColumnRange(sortedData, column);
-          const def: NumberFilterDefinition = {
-            type: ColumnFilterType.number,
-            value: {
-              min: row.min,
-              max: row.max,
-              step: row.step,
-              minSelected: row.minSelected,
-              maxSelected: row.maxSelected,
-            },
-          };
-          if (column.filterable !== false) {
-            column.filterDefinition = def;
-          }
-        } else if (column.filterType === ColumnFilterType.date) {
-          const row = this.filter?.[column.id] || [null, null];
-
-          const def: DateFilterDefinition = {
-            type: ColumnFilterType.date,
-            value: {
-              start: null,
-              end: null,
-            },
-          };
-          column.filterDefinition = def;
+        if (this.filterService.passesColumnFilter(value, column)) {
+          // do nothing
+          //console.log(`${column.id} with value ${value} passes filter of type ${column.filterDefinition?.type}`);
         } else {
-          const row = this.getTextColumnValues(sortedData, column);
-          const values = [];
-          for (const v of row) {
-            values.push({
-              label: v.formattedValue,
-              selected: false,
-            });
-          }
-          const def: StringFilterDefinition | StringAutoCompleteFilterDefinition = {
-            type: values.length<11 ?  ColumnFilterType.string : ColumnFilterType.stringAutoComplete,
-            value: values,
-          };
-
-          if (column.filterable !== false) {
-            column.filterDefinition = def;
-          }
+          passesFilter = false;
+          //console.error(`${column.id} with value ${value} fails filter of type ${column.filterDefinition?.type}`);
+          // make sure to break since failing the filter for any colum should exclude the project
+          break;
         }
-      });
+      }
 
-      this._columns.next(tempColumns);
+      datum.filtered = !passesFilter;
+
+      //console.log(datum);
+      return datum;
     });
-    this._columns.subscribe((columns: Column[]) => {});
+
+    return filteredData;
+  }
+
+  private proccessColumns(columns: Column[], data: FormattedProjectSummary[]): Column[] {
+    columns.forEach((column: Column): Column => {
+      if (column.filterType == ColumnFilterType.number) {
+        const row = this.getNumericColumnRange(data, column);
+        const def: NumberFilterDefinition = {
+          type: ColumnFilterType.number,
+          value: {
+            min: row.min,
+            max: row.max,
+            step: row.step,
+            minSelected: row.minSelected,
+            maxSelected: row.maxSelected,
+          },
+        };
+        if (column.filterable !== false) {
+          column.filterDefinition = def;
+        }
+      } else if (column.filterType === ColumnFilterType.date) {
+        const row = this.filter?.[column.id] || { start: null, end: null };
+
+        const def: DateFilterDefinition = {
+          type: ColumnFilterType.date,
+          value: {
+            start: null,
+            end: null,
+          },
+        };
+        column.filterDefinition = def;
+      } else {
+        const row = this.getTextColumnValues(data, column);
+        const values = [];
+        for (const v of row) {
+          values.push({
+            label: v.formattedValue,
+            selected: false,
+          });
+        }
+        const def: StringFilterDefinition | StringAutoCompleteFilterDefinition = {
+          type: values.length < 11 ? ColumnFilterType.string : ColumnFilterType.stringAutoComplete,
+          value: values,
+        };
+
+        if (column.filterable !== false) {
+          column.filterDefinition = def;
+        }
+      }
+      return column;
+    });
+
+    return columns;
   }
 
   /** Connect function called by the table to retrieve one stream containing the data to render. */
   public connect(): Observable<FormattedProjectSummary[]> {
-    return this._data.asObservable();
+    return this._data.asObservable().pipe(shareReplay(1));
   }
 
   /** Disconnect function called by the table, right before it unbinds. */
@@ -1010,10 +962,7 @@ export class BrowseDataSource extends DataSource<FormattedProjectSummary> {
     } else if (range.max === range.min) {
       range.step = 0;
     } else {
-      range.step = Math.pow(
-        10,
-        Math.floor(Math.log10((range.max - range.min) / 1000)),
-      );
+      range.step = Math.pow(10, Math.floor(Math.log10((range.max - range.min) / 1000)));
     }
     range.step = Math.max(1, range.step);
 
@@ -1031,31 +980,21 @@ export class BrowseDataSource extends DataSource<FormattedProjectSummary> {
   private getTextColumnValues(data: any[], column: Column): any[] {
     const values: any[] = column.filterValues
       ? column.filterValues
-      : data.map((datum: any): any =>
-          RowService.getElementFilterValue(datum, column),
-        );
+      : data.map((datum: any): any => RowService.getElementFilterValue(datum, column));
 
     const formattedValuesMap: any = {};
     const allValues = new Set<any>();
     for (const value of values) {
       if (Array.isArray(value)) {
         for (const v of value) {
-          const formattedV = RowService.formatElementFilterValue(
-            value,
-            v,
-            column,
-          );
+          const formattedV = RowService.formatElementFilterValue(value, v, column);
           if (formattedV != null && formattedV !== '') {
             formattedValuesMap[v] = formattedV;
             allValues.add(v);
           }
         }
       } else {
-        const formattedValue = RowService.formatElementFilterValue(
-          value,
-          value,
-          column,
-        );
+        const formattedValue = RowService.formatElementFilterValue(value, value, column);
         if (formattedValue != null && formattedValue !== '') {
           formattedValuesMap[value] = formattedValue;
           allValues.add(value);

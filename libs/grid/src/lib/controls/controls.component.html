@@ -9,15 +9,17 @@
     [disabled]="openControlPanelId === 1"
     (opened)="openControlPanel(1)"
     heading="Columns"
-    [columns]="columns">
+    [columns]="columns"
+    (columnsChange)="handleColumnsChange($event)">
+    >
   </biosimulations-select>
 
   <biosimulations-filter
     [expanded]="openControlPanelId === 2"
     [disabled]="openControlPanelId === 2"
     (opened)="openControlPanel(2)"
-    [columns]="columns">
-    
+    [columns]="columns"
+    (columnsChanged)="handleColumnsChange($event)">
   </biosimulations-filter>
 
   <biosimulations-search

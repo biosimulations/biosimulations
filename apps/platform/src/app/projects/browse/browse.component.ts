@@ -1,22 +1,11 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { combineLatest, map, mergeMap, Observable, of } from 'rxjs';
 import { BrowseService } from './browse.service';
-import { FormattedProjectSummary, LocationPredecessor } from './browse.model';
-import { ColumnFilterType, TableComponent } from '@biosimulations/shared/ui';
-import { FormatService } from '@biosimulations/shared/services';
-import { LabeledIdentifier, DescribedIdentifier } from '@biosimulations/datamodel/common';
-import { RowService } from '@biosimulations/shared/ui';
+import { FormattedProjectSummary } from './browse.model';
+
 import { ScrollService } from '@biosimulations/shared/angular';
-import {
-  ControlsState,
-  ControlColumn,
-  ControlStateChange,
-  Column,
-  DateFilterDefinition,
-  NumberFilterDefinition,
-  StringFilterDefinition,
-} from '@biosimulations/grid';
+import { ControlsState, ControlColumn, Column, FilterState } from '@biosimulations/grid';
 import { BrowseDataSource } from './datasource/datasource.service';
 import { ProjectCardInput } from '../project-card/project-card.component';
 
@@ -30,7 +19,7 @@ export class BrowseComponent implements OnInit, AfterViewInit {
 
   public columns$!: Observable<Column[]>;
   public projectCardInputs$: Observable<ProjectCardInput[]> = of([]);
-
+  public openControlPanelId = 1;
   public columnFilterData: { [key: string]: any } = {};
   public data$: Observable<FormattedProjectSummary[]>;
   public constructor(
@@ -54,15 +43,16 @@ export class BrowseComponent implements OnInit, AfterViewInit {
             return this.columns$.pipe(
               map((columns: Column[]) => {
                 const data: any[] = [];
+                const cache = project?._cache;
                 columns.forEach((column: Column) => {
                   const columnId = column?.id;
-                  const cache = project?._cache;
 
                   if (columnId && cache) {
                     data.push({
                       heading: column.heading,
                       value: project._cache[columnId].value,
                       icon: project._cache[columnId].left.icon,
+                      show: column.show || false,
                     });
                   }
                 });
@@ -71,6 +61,7 @@ export class BrowseComponent implements OnInit, AfterViewInit {
                   title: project?.title,
                   thumbnail: project?.metadata?.thumbnail || './assets/images/loading.svg',
                   data,
+                  filtered: project.filtered || false,
                 };
               }),
             );
@@ -104,15 +95,23 @@ export class BrowseComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private processUriForSearch(uri: string): string {
-    return uri.replace(/[/#:.]/g, ' ');
-  }
+  public controlsStateUpdated(state: ControlsState): void {
+    const columns = state.columns;
+    const filterState: FilterState = {};
+    columns.forEach((column) => {
+      filterState[column.id] = column.filterDefinition;
+    });
 
-  public controlsStateUpdated(state: ControlsState): void {}
+    this.dataService.filter = filterState;
+    this.dataService.columns = columns;
+  }
 
   public columnFiltersCleared(column: ControlColumn) {}
 
   public setFilterValues(columns: Column[]) {}
 
-  public filterStateUpdated(state: ControlStateChange): void {}
+  public filterStateUpdated(filterState: FilterState): void {
+    console.log('filter State updated handler');
+    console.log(filterState);
+  }
 }

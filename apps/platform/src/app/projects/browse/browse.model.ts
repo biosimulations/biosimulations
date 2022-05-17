@@ -58,4 +58,5 @@ export interface FormattedProjectSummary {
   created: Date;
   updated: Date;
   _cache?: any;
+  filtered?: boolean;
 }

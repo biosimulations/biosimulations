@@ -106,7 +106,6 @@ export class FilterComponent implements OnInit {
     this.emitColumns();
   }
   public handleStringFilterChange(id: string, event: { label: string; selected: boolean }[]) {
-    console.error('handleStringFilterChange', id, event);
     this.columns.forEach((c) => {
       if (c.id === id && c.filterDefinition && c.filterDefinition.type === 'string') {
         c.filterDefinition.value = event;
