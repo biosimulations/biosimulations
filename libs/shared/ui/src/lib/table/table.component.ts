@@ -630,7 +630,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
 
     const comparator = RowService.getFilterComparator(column);
-    const formattedValuesArr = [];
+    const formattedValuesArr: { value: any; formattedValue: any; checked: boolean }[] = [];
     for (const value of allValues) {
       const formattedValue = {
         value: value,

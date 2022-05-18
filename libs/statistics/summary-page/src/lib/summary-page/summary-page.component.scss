@@ -1,0 +1,29 @@
+@use '@angular/material' as mat;
+@import 'biosimulations-colors';
+
+.heading {
+  text-align: center;
+  font-size: 28px;
+  line-height: normal;
+  font-weight: bold;
+}
+
+.heading-separator {
+  border-bottom: 2px solid mat.get-color-from-palette($theme-primary);
+  height: 0;
+  width: 4rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.stats {
+  margin: 1rem;
+  max-width: 1200px;
+  min-width: 300px;
+}
+
+.subsection {
+  padding: auto;
+}

@@ -1,0 +1,22 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/statistics/summary-page/src",
+  "prefix": "biosimulations",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/statistics/summary-page"],
+      "options": {
+        "jestConfig": "libs/statistics/summary-page/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/statistics/summary-page/**/*.ts", "libs/statistics/summary-page/**/*.html"]
+      }
+    }
+  },
+  "tags": ["platform:web"]
+}

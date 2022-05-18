@@ -29,6 +29,7 @@ module.exports = {
         'exceptions',
         'nats-client',
         'analytics',
+        'statistics',
         'deps',
         'ui',
       ],

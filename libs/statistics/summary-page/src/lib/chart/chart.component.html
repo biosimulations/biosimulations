@@ -1,0 +1,13 @@
+<div class="container">
+  <div [ngSwitch]="chartType">
+    <div *ngSwitchCase="'bar'">
+      <canvas #canvas baseChart [type]="chartType" [data]="barData" [options]="Options"> </canvas>
+    </div>
+    <div *ngSwitchCase="'pie'">
+      <canvas #canvas baseChart [type]="chartType" [data]="pieData" [options]="Options"> </canvas>
+    </div>
+    <div *ngSwitchCase="'line'">
+      <canvas #canvas baseChart [type]="chartType" [data]="lineData" [options]="Options"> </canvas>
+    </div>
+  </div>
+</div>

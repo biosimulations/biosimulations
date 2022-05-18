@@ -66,6 +66,7 @@
     "simulators": "apps/simulators",
     "simulators-api": "apps/simulators-api",
     "simulators-database-models": "libs/simulators/database-models",
-    "simulators-e2e": "apps/simulators-e2e"
+    "simulators-e2e": "apps/simulators-e2e",
+    "statistics-summary-page": "libs/statistics/summary-page"
   }
 }

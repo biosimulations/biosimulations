@@ -37,6 +37,10 @@ const routes: Routes = [
     data: { breadcrumb: 'Simulation projects' },
   },
   {
+    path: 'stats',
+    loadChildren: () => import('@biosimulations/statistics/summary-page').then((m) => m.StatisticsSummaryPageModule),
+  },
+  {
     path: '**',
     loadChildren: () => SharedErrorComponentsModule,
   },
