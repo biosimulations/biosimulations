@@ -3587,7 +3587,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Scott Puleo
 │  ├─ email: puleos@gmail.com
 │  └─ licenseFile: object-hash/LICENSE
-├─ object-inspect@1.11.0
+├─ object-inspect@1.12.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/inspect-js/object-inspect
 │  ├─ publisher: James Halliday
