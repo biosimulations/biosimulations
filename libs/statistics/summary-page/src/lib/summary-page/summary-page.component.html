@@ -1,0 +1,7 @@
+<ng-container *ngFor="let section of sections">
+  <biosimulations-summary-page-section
+    [statItems$]="section.statItems$"
+    [headingStart]="section.headingStart"
+    [headingEnd]="section.headingEnd">
+  </biosimulations-summary-page-section>
+</ng-container>
