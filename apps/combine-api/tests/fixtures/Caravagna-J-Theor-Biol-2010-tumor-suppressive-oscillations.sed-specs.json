@@ -1,259 +1,285 @@
 {
   "_type": "CombineArchiveSedDocSpecs",
-  "contents": [{
-    "_type": "CombineArchiveSedDocSpecsContent",
-    "location": {
-      "_type": "CombineArchiveSedDocSpecsLocation",
-      "path": "./BIOMD0000000912_sim.sedml",
-      "value": {
-        "_type": "SedDocument",
-        "level": 1,
-        "version": 4,
-        "styles": [
-          {
-            "_type": "SedStyle",
-            "id": "style1",
-            "name": "Style 1",
-            "line": {
-              "_type": "SedLineStyle",
-              "type": "dash",
-              "color": "00FF00",
-              "thickness": 2.0
+  "contents": [
+    {
+      "_type": "CombineArchiveSedDocSpecsContent",
+      "location": {
+        "_type": "CombineArchiveSedDocSpecsLocation",
+        "path": "./BIOMD0000000912_sim.sedml",
+        "value": {
+          "_type": "SedDocument",
+          "level": 1,
+          "version": 4,
+          "styles": [
+            {
+              "_type": "SedStyle",
+              "id": "style1",
+              "name": "Style 1",
+              "line": {
+                "_type": "SedLineStyle",
+                "type": "dash",
+                "color": "00FF00",
+                "thickness": 2.0
+              },
+              "marker": {
+                "_type": "SedMarkerStyle",
+                "type": "circle",
+                "size": 1.0,
+                "lineColor": "FF0000",
+                "lineThickness": 3.0,
+                "fillColor": "FFFF00"
+              },
+              "fill": {
+                "_type": "SedFillStyle",
+                "color": "0000FF"
+              }
             },
-            "marker": {
-              "_type": "SedMarkerStyle",
-              "type": "circle",
-              "size": 1.0,
-              "lineColor": "FF0000",
-              "lineThickness": 3.0,
-              "fillColor": "FFFF00"
-            },
-            "fill": {
-              "_type": "SedFillStyle",
-              "color": "0000FF"
+            {
+              "_type": "SedStyle",
+              "id": "style2",
+              "base": "style1",
+              "marker": {
+                "_type": "SedMarkerStyle",
+                "type": "square"
+              },
+              "fill": {
+                "_type": "SedFillStyle",
+                "color": "0000FF"
+              }
             }
-          },
-          {
-            "_type": "SedStyle",
-            "id": "style2",
-            "base": "style1",
-            "marker": {
-              "_type": "SedMarkerStyle",
-              "type": "square"
-            },
-            "fill": {
-              "_type": "SedFillStyle",
-              "color": "0000FF"
+          ],
+          "models": [
+            {
+              "_type": "SedModel",
+              "id": "BIOMD0000000912",
+              "name": "Caravagna2010 - Tumour suppression by immune system",
+              "source": "Caravagna2010.xml",
+              "language": "urn:sedml:language:sbml",
+              "changes": [
+                {
+                  "_type": "SedModelAttributeChange",
+                  "id": null,
+                  "target": {
+                    "_type": "SedTarget",
+                    "value": "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='r2']/@value",
+                    "namespaces": [
+                      {
+                        "_type": "Namespace",
+                        "uri": "http://sed-ml.org/sed-ml/level1/version4"
+                      },
+                      {
+                        "_type": "Namespace",
+                        "uri": "http://www.sbml.org/sbml/level2/version4",
+                        "prefix": "sbml"
+                      }
+                    ]
+                  },
+                  "newValue": "0.1799"
+                }
+              ]
             }
-          }
-        ],
-        "models": [{
-          "_type": "SedModel",
-          "id": "BIOMD0000000912",
-          "name": "Caravagna2010 - Tumour suppression by immune system",
-          "source": "Caravagna2010.xml",
-          "language": "urn:sedml:language:sbml",
-          "changes": [{
-            "_type": "SedModelAttributeChange",
-            "id": null,
-            "target": {
-              "_type": "SedTarget",
-              "value": "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='r2']/@value",
-              "namespaces": [{
-                  "_type": "Namespace",
-                  "uri": "http://sed-ml.org/sed-ml/level1/version4"
+          ],
+          "simulations": [
+            {
+              "_type": "SedUniformTimeCourseSimulation",
+              "id": "BIOMD0000000912_sim",
+              "name": "Caravagna2010",
+              "initialTime": 0,
+              "outputStartTime": 0,
+              "outputEndTime": 1000,
+              "numberOfSteps": 5000,
+              "algorithm": {
+                "_type": "SedAlgorithm",
+                "kisaoId": "KISAO_0000019",
+                "changes": []
+              }
+            }
+          ],
+          "tasks": [
+            {
+              "_type": "SedTask",
+              "id": "BIOMD0000000912_task",
+              "name": "Caravagna2010",
+              "model": "BIOMD0000000912",
+              "simulation": "BIOMD0000000912_sim"
+            }
+          ],
+          "dataGenerators": [
+            {
+              "_type": "SedDataGenerator",
+              "id": "data_generator_time",
+              "name": "time",
+              "parameters": [],
+              "variables": [
+                {
+                  "_type": "SedVariable",
+                  "id": "var_time",
+                  "name": "time",
+                  "symbol": "urn:sedml:symbol:time",
+                  "task": "BIOMD0000000912_task"
+                }
+              ],
+              "math": "var_time"
+            },
+            {
+              "_type": "SedDataGenerator",
+              "id": "data_generator_T",
+              "name": "T",
+              "parameters": [],
+              "variables": [
+                {
+                  "_type": "SedVariable",
+                  "id": "var_T",
+                  "name": "T",
+                  "target": {
+                    "_type": "SedTarget",
+                    "value": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='T']",
+                    "namespaces": [
+                      {
+                        "_type": "Namespace",
+                        "uri": "http://sed-ml.org/sed-ml/level1/version4"
+                      },
+                      {
+                        "_type": "Namespace",
+                        "prefix": "sbml",
+                        "uri": "http://www.sbml.org/sbml/level2/version4"
+                      }
+                    ]
+                  },
+                  "task": "BIOMD0000000912_task"
+                }
+              ],
+              "math": "var_T"
+            },
+            {
+              "_type": "SedDataGenerator",
+              "id": "data_generator_E",
+              "name": "E",
+              "parameters": [],
+              "variables": [
+                {
+                  "_type": "SedVariable",
+                  "id": "var_E",
+                  "name": "E",
+                  "target": {
+                    "_type": "SedTarget",
+                    "value": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='E']",
+                    "namespaces": [
+                      {
+                        "_type": "Namespace",
+                        "uri": "http://sed-ml.org/sed-ml/level1/version4"
+                      },
+                      {
+                        "_type": "Namespace",
+                        "prefix": "sbml",
+                        "uri": "http://www.sbml.org/sbml/level2/version4"
+                      }
+                    ]
+                  },
+                  "task": "BIOMD0000000912_task"
+                }
+              ],
+              "math": "var_E"
+            },
+            {
+              "_type": "SedDataGenerator",
+              "id": "data_generator_I",
+              "name": "I",
+              "parameters": [],
+              "variables": [
+                {
+                  "_type": "SedVariable",
+                  "id": "var_I",
+                  "name": "I",
+                  "target": {
+                    "_type": "SedTarget",
+                    "value": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='I']",
+                    "namespaces": [
+                      {
+                        "_type": "Namespace",
+                        "uri": "http://sed-ml.org/sed-ml/level1/version4"
+                      },
+                      {
+                        "_type": "Namespace",
+                        "prefix": "sbml",
+                        "uri": "http://www.sbml.org/sbml/level2/version4"
+                      }
+                    ]
+                  },
+                  "task": "BIOMD0000000912_task"
+                }
+              ],
+              "math": "var_I"
+            }
+          ],
+          "outputs": [
+            {
+              "_type": "SedReport",
+              "id": "BIOMD0000000912_report",
+              "name": "Caravagna2010",
+              "dataSets": [
+                {
+                  "_type": "SedDataSet",
+                  "id": "data_set_time",
+                  "label": "time",
+                  "dataGenerator": "data_generator_time"
                 },
                 {
-                  "_type": "Namespace",
-                  "uri": "http://www.sbml.org/sbml/level2/version4",
-                  "prefix": "sbml"
+                  "_type": "SedDataSet",
+                  "id": "data_set_T",
+                  "label": "T",
+                  "dataGenerator": "data_generator_T"
+                },
+                {
+                  "_type": "SedDataSet",
+                  "id": "data_set_E",
+                  "label": "E",
+                  "dataGenerator": "data_generator_E"
+                },
+                {
+                  "_type": "SedDataSet",
+                  "id": "data_set_I",
+                  "label": "I",
+                  "dataGenerator": "data_generator_I"
                 }
               ]
             },
-            "newValue": "0.1799"
-          }]
-        }],
-        "simulations": [{
-          "_type": "SedUniformTimeCourseSimulation",
-          "id": "BIOMD0000000912_sim",
-          "name": "Caravagna2010",
-          "initialTime": 0,
-          "outputStartTime": 0,
-          "outputEndTime": 1000,
-          "numberOfSteps": 5000,
-          "algorithm": {
-            "_type": "SedAlgorithm",
-            "kisaoId": "KISAO_0000019",
-            "changes": []
-          }
-        }],
-        "tasks": [{
-          "_type": "SedTask",
-          "id": "BIOMD0000000912_task",
-          "name": "Caravagna2010",
-          "model": "BIOMD0000000912",
-          "simulation": "BIOMD0000000912_sim"
-        }],
-        "dataGenerators": [{
-            "_type": "SedDataGenerator",
-            "id": "data_generator_time",
-            "name": "time",
-            "parameters": [],
-            "variables": [{
-              "_type": "SedVariable",
-              "id": "var_time",
-              "name": "time",
-              "symbol": "urn:sedml:symbol:time",
-              "task": "BIOMD0000000912_task"
-            }],
-            "math": "var_time"
-          },
-          {
-            "_type": "SedDataGenerator",
-            "id": "data_generator_T",
-            "name": "T",
-            "parameters": [],
-            "variables": [{
-              "_type": "SedVariable",
-              "id": "var_T",
-              "name": "T",
-              "target": {
-                "_type": "SedTarget",
-                "value": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='T']",
-                "namespaces": [{
-                    "_type": "Namespace",
-                    "uri": "http://sed-ml.org/sed-ml/level1/version4"
-                  },
-                  {
-                    "_type": "Namespace",
-                    "prefix": "sbml",
-                    "uri": "http://www.sbml.org/sbml/level2/version4"
-                  }
-                ]
-              },
-              "task": "BIOMD0000000912_task"
-            }],
-            "math": "var_T"
-          },
-          {
-            "_type": "SedDataGenerator",
-            "id": "data_generator_E",
-            "name": "E",
-            "parameters": [],
-            "variables": [{
-              "_type": "SedVariable",
-              "id": "var_E",
-              "name": "E",
-              "target": {
-                "_type": "SedTarget",
-                "value": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='E']",
-                "namespaces": [{
-                    "_type": "Namespace",
-                    "uri": "http://sed-ml.org/sed-ml/level1/version4"
-                  },
-                  {
-                    "_type": "Namespace",
-                    "prefix": "sbml",
-                    "uri": "http://www.sbml.org/sbml/level2/version4"
-                  }
-                ]
-              },
-              "task": "BIOMD0000000912_task"
-            }],
-            "math": "var_E"
-          },
-          {
-            "_type": "SedDataGenerator",
-            "id": "data_generator_I",
-            "name": "I",
-            "parameters": [],
-            "variables": [{
-              "_type": "SedVariable",
-              "id": "var_I",
-              "name": "I",
-              "target": {
-                "_type": "SedTarget",
-                "value": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='I']",
-                "namespaces": [{
-                    "_type": "Namespace",
-                    "uri": "http://sed-ml.org/sed-ml/level1/version4"
-                  },
-                  {
-                    "_type": "Namespace",
-                    "prefix": "sbml",
-                    "uri": "http://www.sbml.org/sbml/level2/version4"
-                  }
-                ]
-              },
-              "task": "BIOMD0000000912_task"
-            }],
-            "math": "var_I"
-          }
-        ],
-        "outputs": [{
-            "_type": "SedReport",
-            "id": "BIOMD0000000912_report",
-            "name": "Caravagna2010",
-            "dataSets": [{
-                "_type": "SedDataSet",
-                "id": "data_set_time",
-                "label": "time",
-                "dataGenerator": "data_generator_time"
-              },
-              {
-                "_type": "SedDataSet",
-                "id": "data_set_T",
-                "label": "T",
-                "dataGenerator": "data_generator_T"
-              },
-              {
-                "_type": "SedDataSet",
-                "id": "data_set_E",
-                "label": "E",
-                "dataGenerator": "data_generator_E"
-              },
-              {
-                "_type": "SedDataSet",
-                "id": "data_set_I",
-                "label": "I",
-                "dataGenerator": "data_generator_I"
-              }
-            ]
-          },
-          {
-            "_type": "SedPlot2D",
-            "id": "plot_1",
-            "name": " ",
-            "curves": [{
-                "_type": "SedCurve",
-                "id": "plot_1_T_time",
-                "name": "T",
-                "xDataGenerator": "data_generator_time",
-                "yDataGenerator": "data_generator_T",
-                "style": "style2"
-              },
-              {
-                "_type": "SedCurve",
-                "id": "plot_1_E_time",
-                "name": "E",
-                "xDataGenerator": "data_generator_time",
-                "yDataGenerator": "data_generator_E"
-              },
-              {
-                "_type": "SedCurve",
-                "id": "plot_1_I_time",
-                "name": "I",
-                "xDataGenerator": "data_generator_time",
-                "yDataGenerator": "data_generator_I"
-              }
-            ],
-            "xScale": "linear",
-            "yScale": "linear"
-          }
-        ]
-      }
-    },
-    "format": "http://identifiers.org/combine.specifications/sed-ml",
-    "master": true
-  }]
+            {
+              "_type": "SedPlot2D",
+              "id": "plot_1",
+              "name": " ",
+              "curves": [
+                {
+                  "_type": "SedCurve",
+                  "id": "plot_1_T_time",
+                  "name": "T",
+                  "xDataGenerator": "data_generator_time",
+                  "yDataGenerator": "data_generator_T",
+                  "style": "style2"
+                },
+                {
+                  "_type": "SedCurve",
+                  "id": "plot_1_E_time",
+                  "name": "E",
+                  "xDataGenerator": "data_generator_time",
+                  "yDataGenerator": "data_generator_E"
+                },
+                {
+                  "_type": "SedCurve",
+                  "id": "plot_1_I_time",
+                  "name": "I",
+                  "xDataGenerator": "data_generator_time",
+                  "yDataGenerator": "data_generator_I"
+                }
+              ],
+              "xScale": "linear",
+              "yScale": "linear"
+            }
+          ]
+        }
+      },
+      "format": "http://identifiers.org/combine.specifications/sed-ml",
+      "master": true
+    }
+  ]
 }

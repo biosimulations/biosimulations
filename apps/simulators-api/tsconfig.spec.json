@@ -6,10 +6,5 @@
     "types": ["jest", "node"],
     "resolveJsonModule": true
   },
-  "include": [
-    "**/*.spec.ts",
-    "**/*.d.ts",
-    "../../declarations.d.ts",
-    "jest.config.ts"
-  ]
+  "include": ["**/*.spec.ts", "**/*.d.ts", "../../declarations.d.ts", "jest.config.ts"]
 }

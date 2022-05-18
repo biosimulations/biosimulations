@@ -49,10 +49,7 @@
         "styles": ["libs/shared/styles/src/index.scss"],
         "scripts": ["node_modules/marked/marked.min.js"],
         "stylePreprocessorOptions": {
-          "includePaths": [
-            "libs/shared/styles/src/lib",
-            "libs/shared/styles/src/lib/biosimulators"
-          ]
+          "includePaths": ["libs/shared/styles/src/lib", "libs/shared/styles/src/lib/biosimulators"]
         },
         "vendorChunk": true,
         "extractLicenses": false,
@@ -110,10 +107,7 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": [
-          "apps/simulators/**/*.ts",
-          "apps/simulators/**/*.html"
-        ]
+        "lintFilePatterns": ["apps/simulators/**/*.ts", "apps/simulators/**/*.html"]
       }
     },
     "test": {

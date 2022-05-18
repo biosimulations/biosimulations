@@ -1,11 +1,7 @@
 {
   "appId": "dispatch",
   "appName": "runBioSimulations",
-  "appNameParts": [
-    "run",
-    "Bio",
-    "Simulations"
-  ],
+  "appNameParts": ["run", "Bio", "Simulations"],
   "logo": "assets/images/runbiosimulations-logo/logo.svg",
   "banner": "assets/images/runbiosimulations-logo/logo-white.svg",
   "appUrl": "https://run.biosimulations.org/",

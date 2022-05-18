@@ -1,4 +1,5 @@
-[{
+[
+  {
     "_type": "BioSimulationsCombineArchiveElementMetadata",
     "uri": ".",
     "combineArchiveUri": "http://omex-library.org/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex",
@@ -7,67 +8,84 @@
     "keywords": ["cell cycle", "cell division", "cyclin-dependent kinase", "morphogenesis", "signal transduction"],
     "description": "Set of ordinary differential equations that model the molecular network that controls Swe1 and the regulation of cyclin-dependent kinase. The model is based on published observations of budding yeast and analogous control signals in fission yeast. Simulations of the model accurately reproduce the phenotypes of a dozen checkpoint mutants. Among other predictions, the model attributes a new role to Hsl1, a kinase known to play a role in Swe1 degradation: Hsl1 must also be indirectly responsible for potent inhibition of Swe1 activity. The model supports the idea that the morphogenesis checkpoint, like other checkpoints, raises the cell size threshold for progression from one phase of the cell cycle to the next.",
     "thumbnails": ["./Figure1.jpg", "./Figure2.jpg"],
-    "taxa": [{
+    "taxa": [
+      {
         "_type": "BioSimulationsMetadataValue",
         "label": "Schizosaccharomyces pombe",
         "uri": "http://identifiers.org/taxonomy/4896"
-    }],
+      }
+    ],
     "encodes": [],
     "sources": [],
-    "predecessors": [{
+    "predecessors": [
+      {
         "_type": "BioSimulationsMetadataValue",
         "label": "John J. Tyson & Bela Novak. Regulation of the eukaryotic cell cycle: molecular antagonism, hysteresis, and irreversible transitions. Journal of Theoretical Biology 210 (2001): 249-263.",
         "uri": "http://identifiers.org/doi:10.1006/jtbi.2001.2293"
-    }, {
+      },
+      {
         "_type": "BioSimulationsMetadataValue",
         "label": "Katherine C. Chen, Attila Csikasz-Nagy, Bela Gyorffy, John Val, Bela Novak & John J. Tyson. Kinetic analysis of a molecular model of the budding yeast cell cycle. Mololecular Biology of the Cell 11 (2000): 369-391.",
         "uri": "http://identifiers.org/doi:10.1091/mbc.11.1.369"
-    }],
+      }
+    ],
     "successors": [],
     "seeAlso": [],
     "references": [],
     "other": [],
-    "creators": [{
+    "creators": [
+      {
         "_type": "BioSimulationsMetadataValue",
         "label": "Andrea Ciliberto",
         "uri": null
-    }, {
+      },
+      {
         "_type": "BioSimulationsMetadataValue",
         "label": "Bela Novak",
         "uri": "http://identifiers.org/orcid:0000-0002-6961-1366"
-    }, {
+      },
+      {
         "_type": "BioSimulationsMetadataValue",
         "label": "John J. Tyson",
         "uri": "http://identifiers.org/orcid:0000-0001-7560-6013"
-    }],
-    "contributors": [{
+      }
+    ],
+    "contributors": [
+      {
         "_type": "BioSimulationsMetadataValue",
         "label": "Harish Dharuri",
         "uri": null
-    }, {
+      },
+      {
         "_type": "BioSimulationsMetadataValue",
         "label": "Jonathan Karr",
         "uri": "http://identifiers.org/orcid:0000-0002-2605-5080"
-    }],
-    "identifiers": [{
+      }
+    ],
+    "identifiers": [
+      {
         "_type": "BioSimulationsMetadataValue",
         "label": "biomodels.db:BIOMD0000000297",
         "uri": "http://identifiers.org/biomodels.db:BIOMD0000000297"
-    }],
-    "citations": [{
+      }
+    ],
+    "citations": [
+      {
         "_type": "BioSimulationsMetadataValue",
         "label": "Andrea Ciliberto, Bela Novak & John J. Tyson. Cell Biology 163, 3 (2003): 1243-1254.",
         "uri": "http://identifiers.org/doi:10.1083/jcb.200306139"
-    }],
+      }
+    ],
     "license": {
-        "_type": "BioSimulationsMetadataValue",
-        "label": "CC0-1.0",
-        "uri": "http://identifiers.org/spdx:CC0-1.0"
+      "_type": "BioSimulationsMetadataValue",
+      "label": "CC0-1.0",
+      "uri": "http://identifiers.org/spdx:CC0-1.0"
     },
     "funders": [],
     "created": "2003-12-22",
     "modified": ["2021-06-26"]
-}, {
+  },
+  {
     "_type": "BioSimulationsCombineArchiveElementMetadata",
     "abstract": null,
     "citations": [],
@@ -77,11 +95,13 @@
     "description": null,
     "encodes": [],
     "funders": [],
-    "identifiers": [{
+    "identifiers": [
+      {
         "_type": "BioSimulationsMetadataValue",
         "label": "Figure 3",
         "uri": "http://identifiers.org/doi:10.1083/jcb.200306139"
-    }],
+      }
+    ],
     "keywords": [],
     "license": null,
     "modified": [],
@@ -96,4 +116,5 @@
     "title": null,
     "uri": "./simulation_1.sedml",
     "combineArchiveUri": "http://omex-library.org/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex"
-}]
+  }
+]

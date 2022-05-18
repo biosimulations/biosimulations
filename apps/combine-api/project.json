@@ -22,10 +22,7 @@
     "test": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "commands": [
-          "npx nx docker combine-api",
-          "apps/combine-api/run-tests-in-docker-container.sh"
-        ],
+        "commands": ["npx nx docker combine-api", "apps/combine-api/run-tests-in-docker-container.sh"],
         "parallel": false
       }
     },
@@ -44,12 +41,8 @@
         "context": "./apps/combine-api",
         "push": true,
         "build-args": ["app=combine-api"],
-        "cache-from": [
-          "type=registry,ref=ghcr.io/biosimulations/combine-api:buildcache"
-        ],
-        "cache-to": [
-          "type=registry,ref=ghcr.io/biosimulations/combine-api:buildcache,mode=max"
-        ],
+        "cache-from": ["type=registry,ref=ghcr.io/biosimulations/combine-api:buildcache"],
+        "cache-to": ["type=registry,ref=ghcr.io/biosimulations/combine-api:buildcache,mode=max"],
         "metadata": {
           "enabled": true,
           "images": ["ghcr.io/biosimulations/combine-api"],

@@ -1,10 +1,7 @@
 {
   "appId": "platform",
   "appName": "BioSimulations",
-  "appNameParts": [
-    "Bio",
-    "Simulations"
-  ],
+  "appNameParts": ["Bio", "Simulations"],
   "logo": "assets/images/biosimulations-logo/logo.svg",
   "banner": "assets/images/biosimulations-logo/logo-white.svg",
   "appUrl": "https://biosimulations.org/",
