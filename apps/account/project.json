@@ -46,10 +46,7 @@
         "styles": ["libs/shared/styles/src/index.scss"],
         "scripts": ["node_modules/marked/marked.min.js"],
         "stylePreprocessorOptions": {
-          "includePaths": [
-            "libs/shared/styles/src/lib",
-            "libs/shared/styles/src/lib/biosimulations"
-          ]
+          "includePaths": ["libs/shared/styles/src/lib", "libs/shared/styles/src/lib/biosimulations"]
         },
         "vendorChunk": true,
         "extractLicenses": false,

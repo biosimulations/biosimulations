@@ -53,12 +53,8 @@
         "file": "./Dockerfile",
         "push": true,
         "build-args": ["app=dispatch-service"],
-        "cache-from": [
-          "type=registry,ref=ghcr.io/biosimulations/simulation-service:buildcache"
-        ],
-        "cache-to": [
-          "type=registry,ref=ghcr.io/biosimulations/simulation-service:buildcache,mode=max"
-        ],
+        "cache-from": ["type=registry,ref=ghcr.io/biosimulations/simulation-service:buildcache"],
+        "cache-to": ["type=registry,ref=ghcr.io/biosimulations/simulation-service:buildcache,mode=max"],
         "metadata": {
           "enabled": true,
           "labels": [
@@ -71,10 +67,7 @@
             "org.opencontainers.image.vendor=BioSimulations",
             "org.opencontainers.image.licenses=MIT"
           ],
-          "images": [
-            "ghcr.io/biosimulations/simulation-service",
-            "ghcr.io/biosimulations/dispatch-service"
-          ],
+          "images": ["ghcr.io/biosimulations/simulation-service", "ghcr.io/biosimulations/dispatch-service"],
           "tags": [
             "type=schedule",
             "type=ref,event=branch",

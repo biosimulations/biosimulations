@@ -17,10 +17,5 @@
       }
     }
   },
-  "tags": [
-    "scope:ontology",
-    "type:datamodel",
-    "platform:server",
-    "shared:false"
-  ]
+  "tags": ["scope:ontology", "type:datamodel", "platform:server", "shared:false"]
 }

@@ -14,10 +14,7 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": [
-          "libs/api/angular-client/src/**/*.ts",
-          "libs/api/angular-client/src/**/*.html"
-        ]
+        "lintFilePatterns": ["libs/api/angular-client/src/**/*.ts", "libs/api/angular-client/src/**/*.html"]
       }
     }
   },

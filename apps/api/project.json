@@ -53,12 +53,8 @@
         "file": "./Dockerfile",
         "push": true,
         "build-args": ["app=api"],
-        "cache-from": [
-          "type=registry,ref=ghcr.io/biosimulations/api:buildcache"
-        ],
-        "cache-to": [
-          "type=registry,ref=ghcr.io/biosimulations/api:buildcache,mode=max"
-        ],
+        "cache-from": ["type=registry,ref=ghcr.io/biosimulations/api:buildcache"],
+        "cache-to": ["type=registry,ref=ghcr.io/biosimulations/api:buildcache,mode=max"],
         "metadata": {
           "enabled": true,
           "images": ["ghcr.io/biosimulations/api"],

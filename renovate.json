@@ -1,15 +1,8 @@
 {
-  "extends": [
-    "config:base",
-    ":semanticCommitTypeAll(chore)",
-    "group:nodeJs"
-  ],
+  "extends": ["config:base", ":semanticCommitTypeAll(chore)", "group:nodeJs"],
   "rebaseWhen": "auto",
   "pip_requirements": {
-    "fileMatch": [
-      "(^|/)Pipfile$",
-      "(^|/)Pipfile.lock$"
-    ]
+    "fileMatch": ["(^|/)Pipfile$", "(^|/)Pipfile.lock$"]
   },
   "patch": {
     "automerge": true
@@ -20,70 +13,46 @@
   "minor": {
     "automerge": true
   },
-  "labels": [
-    "dependencies"
-  ],
+  "labels": ["dependencies"],
   "packageRules": [
     {
       "matchLanguages": ["python"],
       "automerge": false
     },
     {
-      "matchUpdateTypes": [
-        "pin"
-      ],
+      "matchUpdateTypes": ["pin"],
       "automerge": true
     },
     {
-      "matchPackagePrefixes": [
-        "@types/"
-      ],
+      "matchPackagePrefixes": ["@types/"],
       "automerge": true,
       "groupName": "types"
     },
     {
-      "matchPackagePrefixes": [
-        "eslint"
-      ],
-      "matchUpdateTypes": [
-        "patch",
-        "minor"
-      ],
+      "matchPackagePrefixes": ["eslint"],
+      "matchUpdateTypes": ["patch", "minor"],
       "automerge": true,
       "groupName": "eslint"
     },
     {
-      "matchPackagePrefixes": [
-        "@nestjs/"
-      ],
+      "matchPackagePrefixes": ["@nestjs/"],
       "groupName": "nest"
     },
     {
-      "matchPackagePrefixes": [
-        "@nrwl"
-      ],
+      "matchPackagePrefixes": ["@nrwl"],
       "groupName": "nrwl",
       "enabled": false
     },
     {
-      "matchPackagePrefixes": [
-        "@angular"
-      ],
+      "matchPackagePrefixes": ["@angular"],
       "groupName": "angular",
-      "matchUpdateTypes": [
-        "major"
-      ],
+      "matchUpdateTypes": ["major"],
       "enabled": false
     },
     {
-      "matchPackagePrefixes": [
-        "aws-sdk"
-      ],
+      "matchPackagePrefixes": ["aws-sdk"],
       "automerge": true,
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
-      ]
+      "matchUpdateTypes": ["minor", "patch"]
     }
   ],
   "prConcurrentLimit": 5

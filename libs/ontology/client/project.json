@@ -14,10 +14,7 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": [
-          "libs/ontology/client/src/**/*.ts",
-          "libs/ontology/client/src/**/*.html"
-        ]
+        "lintFilePatterns": ["libs/ontology/client/src/**/*.ts", "libs/ontology/client/src/**/*.html"]
       }
     }
   },

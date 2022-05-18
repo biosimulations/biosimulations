@@ -47,15 +47,9 @@
           "apps/dispatch/src/sitemap.xml"
         ],
         "styles": ["libs/shared/styles/src/index.scss"],
-        "scripts": [
-          "node_modules/marked/marked.min.js",
-          "node_modules/plotly.js/dist/plotly.min.js"
-        ],
+        "scripts": ["node_modules/marked/marked.min.js", "node_modules/plotly.js/dist/plotly.min.js"],
         "stylePreprocessorOptions": {
-          "includePaths": [
-            "libs/shared/styles/src/lib",
-            "libs/shared/styles/src/lib/biosimulations"
-          ]
+          "includePaths": ["libs/shared/styles/src/lib", "libs/shared/styles/src/lib/biosimulations"]
         },
         "vendorChunk": true,
         "extractLicenses": false,

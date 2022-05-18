@@ -6,10 +6,7 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": [
-          "libs/shared/error-handler/src/**/*.ts",
-          "libs/shared/error-handler/src/**/*.html"
-        ]
+        "lintFilePatterns": ["libs/shared/error-handler/src/**/*.ts", "libs/shared/error-handler/src/**/*.html"]
       }
     },
     "test": {

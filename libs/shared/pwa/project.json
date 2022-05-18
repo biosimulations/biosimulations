@@ -6,10 +6,7 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": [
-          "libs/shared/pwa/src/**/*.ts",
-          "libs/shared/pwa/src/**/*.html"
-        ]
+        "lintFilePatterns": ["libs/shared/pwa/src/**/*.ts", "libs/shared/pwa/src/**/*.html"]
       }
     },
     "test": {
