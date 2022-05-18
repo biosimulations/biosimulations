@@ -1,9 +1,11 @@
 # Add files here to ignore them from prettier formatting
 /dist
 /coverage
+.angular/
 libs/ontology/sources/src/lib/*.json
 libs/ontology/extra-sources/src/lib/*.json
+apps/combine-api/tests/**/*/.json
 *.yml
 *.yaml
-*.json
 *.md
+tools/

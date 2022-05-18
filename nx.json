@@ -10,31 +10,20 @@
       "devDependencies": "*"
     },
     ".github/workflows/nxCi.yml": "*",
-    "apps/combine-api/Dockerfile-assets/Pipfile": [
-      "combine-api"
-    ],
-    "apps/combine-api/Dockerfile-assets/Pipfile.lock": [
-      "combine-api"
-    ],
+    "apps/combine-api/Dockerfile-assets/Pipfile": ["combine-api"],
+    "apps/combine-api/Dockerfile-assets/Pipfile.lock": ["combine-api"],
     "tsconfig.base.json": "*",
     ".eslintrc.json": "*",
     "nx.json": "*",
     "Dockerfile": "*",
-    "apps/combine-api/Dockerfile": [
-      "combine-api"
-    ]
+    "apps/combine-api/Dockerfile": ["combine-api"]
   },
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/nx-cloud",
       "options": {
         "accessToken": "NzI5NWRhNWYtZWM4OC00YjhjLWFmNzMtZTIyMTc3YjhkZmJkfHJlYWQtd3JpdGU=",
-        "cacheableOperations": [
-          "build",
-          "test",
-          "lint",
-          "e2e"
-        ],
+        "cacheableOperations": ["build", "test", "lint", "e2e"],
         "canTrackAnalytics": true,
         "showUsageWarnings": true,
         "parallel": 3
