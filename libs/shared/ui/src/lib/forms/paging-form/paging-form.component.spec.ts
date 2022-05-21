@@ -9,8 +9,8 @@ import {
   IMultiStepFormButton,
   IFormStepComponent,
   FormHostDirective,
-} from '.';
-import { MaterialWrapperModule } from '../material-wrapper.module';
+} from '..';
+import { MaterialWrapperModule } from '../../material-wrapper.module';
 
 enum MultiStepFormTestStep {
   TestStepOne = 'TestStepOne',
