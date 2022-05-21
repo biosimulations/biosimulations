@@ -1,29 +1,19 @@
 import { Subscription } from 'rxjs';
+import { Component, Input, ViewChildren, OnDestroy, AfterViewInit, QueryList } from '@angular/core';
 import {
-  Directive,
-  ViewContainerRef,
-  Component,
-  Input,
-  ViewChildren,
-  OnDestroy,
-  AfterViewInit,
-  QueryList,
-} from '@angular/core';
-import { IFormStepComponent, IMultiStepFormDataSource, IMultiStepFormDataTask, IMultiStepFormButton } from '.';
-
-@Directive({
-  selector: '[formHost]',
-})
-export class FormHostDirective {
-  public constructor(public viewContainerRef: ViewContainerRef) {}
-}
+  IFormStepComponent,
+  IMultiStepFormDataSource,
+  IMultiStepFormDataTask,
+  IMultiStepFormButton,
+  FormHostDirective,
+} from '..';
 
 @Component({
-  selector: 'multi-step-form',
-  templateUrl: './multi-step-form.component.html',
-  styleUrls: ['./multi-step-form.component.scss'],
+  selector: 'paging-form',
+  templateUrl: './paging-form.component.html',
+  styleUrls: ['./paging-form.component.scss'],
 })
-export class MultiStepFormComponent<TStepId extends string> implements OnDestroy, AfterViewInit {
+export class PagingFormComponent<TStepId extends string> implements OnDestroy, AfterViewInit {
   @ViewChildren(FormHostDirective) public formHostQuery!: QueryList<FormHostDirective>;
 
   @Input() public dataSource?: IMultiStepFormDataSource<TStepId>;

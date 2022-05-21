@@ -7,7 +7,6 @@ export * from './lib/toc/toc-section.directive';
 export * from './lib/toc/toc-sections-container.directive';
 export * from './lib/shared-ui.module';
 export * from './lib/q-a/q-a.component';
-export * from './lib/form-validators/form-validators';
-export * from './lib/multi-step-form';
+export * from './lib/forms';
 export { IconActionType } from './lib/text-page/text-page-content-section.component';
 export { HtmlSnackBarComponent } from './lib/html-snack-bar/html-snack-bar.component';
