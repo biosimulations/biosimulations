@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.15.1](https://github.com/biosimulations/biosimulations/compare/v9.15.0...v9.15.1) (2022-05-26)
+
+
+### Bug Fixes
+
+* **platform:** remove incorrect home section, add back about section ([3cc4758](https://github.com/biosimulations/biosimulations/commit/3cc47581654c2febef22260889a6a805304c7fe9))
+
 ## [9.15.0](https://github.com/biosimulations/biosimulations/compare/v9.14.1...v9.15.0) (2022-05-26)
 
 
