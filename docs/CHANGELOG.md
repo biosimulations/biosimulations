@@ -1,5 +1,12 @@
 # Changelog
 
+# [9.15.0](https://github.com/biosimulations/biosimulations/compare/v9.14.1...v9.15.0) (2022-05-26)
+
+
+### Features
+
+* **platform:** add a statistics view page ([e019b6c](https://github.com/biosimulations/biosimulations/commit/e019b6c82617216aa683f53092d75c3549ba1c38))
+
 ## [9.14.1](https://github.com/biosimulations/biosimulations/compare/v9.14.0...v9.14.1) (2022-05-15)
 
 
