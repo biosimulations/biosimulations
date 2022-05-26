@@ -65,6 +65,11 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/common/README.md
+├─ @angular/compiler@13.3.6
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/angular/angular
+│  ├─ publisher: angular
+│  └─ licenseFile: @angular/compiler/README.md
 ├─ @angular/core@13.3.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
@@ -79,11 +84,21 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/components
 │  └─ licenseFile: @angular/material/LICENSE
+├─ @angular/platform-browser-dynamic@13.3.6
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/angular/angular
+│  ├─ publisher: angular
+│  └─ licenseFile: @angular/platform-browser-dynamic/README.md
 ├─ @angular/platform-browser@13.3.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/platform-browser/README.md
+├─ @angular/router@13.3.6
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/angular/angular
+│  ├─ publisher: angular
+│  └─ licenseFile: @angular/router/README.md
 ├─ @babel/code-frame@7.16.7
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
@@ -1192,6 +1207,10 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: hello@blakeembrey.com
 │  ├─ url: http://blakeembrey.me
 │  └─ licenseFile: change-case/LICENSE
+├─ chart.js@3.7.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/chartjs/Chart.js
+│  └─ licenseFile: chart.js/LICENSE.md
 ├─ check-disk-space@3.3.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/Alex-D/check-disk-space
@@ -2171,6 +2190,11 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: https://sindresorhus.com
 │  └─ licenseFile: globby/license
+├─ google-palette@1.1.0
+│  ├─ licenses: Apache-2.0
+│  ├─ repository: https://github.com/google/palette.js
+│  ├─ publisher: Google Inc.
+│  └─ licenseFile: google-palette/LICENSE
 ├─ graceful-fs@4.2.9
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/isaacs/node-graceful-fs
@@ -2207,7 +2231,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
 │  └─ licenseFile: has-flag/license
-├─ has-symbols@1.0.2
+├─ has-symbols@1.0.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/inspect-js/has-symbols
 │  ├─ publisher: Jordan Harband
@@ -2893,6 +2917,12 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
 │  └─ licenseFile: locate-path/license
+├─ lodash-es@4.17.21
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/lodash/lodash
+│  ├─ publisher: John-David Dalton
+│  ├─ email: john.david.dalton@gmail.com
+│  └─ licenseFile: lodash-es/LICENSE
 ├─ lodash.capitalize@4.2.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/lodash/lodash
@@ -3398,6 +3428,11 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/svtslv/nestjs-s3
 │  ├─ publisher: Sviatoslav H
 │  └─ licenseFile: nestjs-s3/README.md
+├─ ng2-charts@3.0.0-rc.7
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/valor-software/ng2-charts
+│  ├─ publisher: Aviad Pineles
+│  └─ licenseFile: ng2-charts/README.md
 ├─ ngx-material-file-input@3.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/merlosy/ngx-material-file-input
