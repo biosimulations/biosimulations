@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -20,5 +20,5 @@ module.exports = {
   },
   transformIgnorePatterns: ['node_modules/(?!.*.mjs$)'],
   testTimeout: 10000,
-  preset: '../../../jest.preset.ts',
+  preset: '../../../jest.preset.js',
 };

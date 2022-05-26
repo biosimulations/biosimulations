@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   globals: {
     'ts-jest': { tsconfig: '<rootDir>/tsconfig.spec.json' },
   },
@@ -9,5 +9,5 @@ module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
   coverageDirectory: '../../../coverage/libs/config/nest',
   displayName: 'config-nest',
-  preset: '../../../jest.preset.ts',
+  preset: '../../../jest.preset.js',
 };

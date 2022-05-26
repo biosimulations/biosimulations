@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   displayName: 'hdf5-api-client',
 
   globals: {
@@ -12,5 +12,5 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../../coverage/libs/hdf5/api-client',
-  preset: '../../../jest.preset.ts',
+  preset: '../../../jest.preset.js',
 };
