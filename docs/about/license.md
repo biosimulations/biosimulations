@@ -315,17 +315,17 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: i@izs.me
 │  ├─ url: https://izs.me
 │  └─ licenseFile: npm/node_modules/@npmcli/run-script/LICENSE
-├─ @nrwl/cli@14.1.4
+├─ @nrwl/cli@14.1.9
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nrwl/nx
 │  ├─ publisher: Victor Savkin
 │  └─ licenseFile: @nrwl/cli/LICENSE
-├─ @nrwl/devkit@14.1.4
+├─ @nrwl/devkit@14.1.9
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nrwl/nx
 │  ├─ publisher: Victor Savkin
 │  └─ licenseFile: @nrwl/devkit/LICENSE
-├─ @nrwl/tao@14.1.4
+├─ @nrwl/tao@14.1.9
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nrwl/nx
 │  ├─ publisher: Victor Savkin
@@ -531,85 +531,85 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: LongYinan
 │  ├─ email: github@lyn.one
 │  └─ licenseFile: @swc-node/sourcemap-support/LICENSE
-├─ @swc/core-android-arm-eabi@1.2.177
+├─ @swc/core-android-arm-eabi@1.2.194
 │  ├─ licenses: Apache-2.0 AND MIT
 │  ├─ repository: https://github.com/swc-project/swc
 │  ├─ publisher: 강동윤
 │  ├─ email: kdy1997.dev@gmail.com
 │  └─ licenseFile: @swc/core-android-arm-eabi/README.md
-├─ @swc/core-android-arm64@1.2.177
+├─ @swc/core-android-arm64@1.2.194
 │  ├─ licenses: Apache-2.0 AND MIT
 │  ├─ repository: https://github.com/swc-project/swc
 │  ├─ publisher: 강동윤
 │  ├─ email: kdy1997.dev@gmail.com
 │  └─ licenseFile: @swc/core-android-arm64/README.md
-├─ @swc/core-darwin-arm64@1.2.177
+├─ @swc/core-darwin-arm64@1.2.194
 │  ├─ licenses: Apache-2.0 AND MIT
 │  ├─ repository: https://github.com/swc-project/swc
 │  ├─ publisher: 강동윤
 │  ├─ email: kdy1997.dev@gmail.com
 │  └─ licenseFile: @swc/core-darwin-arm64/README.md
-├─ @swc/core-darwin-x64@1.2.177
+├─ @swc/core-darwin-x64@1.2.194
 │  ├─ licenses: Apache-2.0 AND MIT
 │  ├─ repository: https://github.com/swc-project/swc
 │  ├─ publisher: 강동윤
 │  ├─ email: kdy1997.dev@gmail.com
 │  └─ licenseFile: @swc/core-darwin-x64/README.md
-├─ @swc/core-freebsd-x64@1.2.177
+├─ @swc/core-freebsd-x64@1.2.194
 │  ├─ licenses: Apache-2.0 AND MIT
 │  ├─ repository: https://github.com/swc-project/swc
 │  ├─ publisher: 강동윤
 │  ├─ email: kdy1997.dev@gmail.com
 │  └─ licenseFile: @swc/core-freebsd-x64/README.md
-├─ @swc/core-linux-arm-gnueabihf@1.2.177
+├─ @swc/core-linux-arm-gnueabihf@1.2.194
 │  ├─ licenses: Apache-2.0 AND MIT
 │  ├─ repository: https://github.com/swc-project/swc
 │  ├─ publisher: 강동윤
 │  ├─ email: kdy1997.dev@gmail.com
 │  └─ licenseFile: @swc/core-linux-arm-gnueabihf/README.md
-├─ @swc/core-linux-arm64-gnu@1.2.177
+├─ @swc/core-linux-arm64-gnu@1.2.194
 │  ├─ licenses: Apache-2.0 AND MIT
 │  ├─ repository: https://github.com/swc-project/swc
 │  ├─ publisher: 강동윤
 │  ├─ email: kdy1997.dev@gmail.com
 │  └─ licenseFile: @swc/core-linux-arm64-gnu/README.md
-├─ @swc/core-linux-arm64-musl@1.2.177
+├─ @swc/core-linux-arm64-musl@1.2.194
 │  ├─ licenses: Apache-2.0 AND MIT
 │  ├─ repository: https://github.com/swc-project/swc
 │  ├─ publisher: 강동윤
 │  ├─ email: kdy1997.dev@gmail.com
 │  └─ licenseFile: @swc/core-linux-arm64-musl/README.md
-├─ @swc/core-linux-x64-gnu@1.2.177
+├─ @swc/core-linux-x64-gnu@1.2.194
 │  ├─ licenses: Apache-2.0 AND MIT
 │  ├─ repository: https://github.com/swc-project/swc
 │  ├─ publisher: 강동윤
 │  ├─ email: kdy1997.dev@gmail.com
 │  └─ licenseFile: @swc/core-linux-x64-gnu/README.md
-├─ @swc/core-linux-x64-musl@1.2.177
+├─ @swc/core-linux-x64-musl@1.2.194
 │  ├─ licenses: Apache-2.0 AND MIT
 │  ├─ repository: https://github.com/swc-project/swc
 │  ├─ publisher: 강동윤
 │  ├─ email: kdy1997.dev@gmail.com
 │  └─ licenseFile: @swc/core-linux-x64-musl/README.md
-├─ @swc/core-win32-arm64-msvc@1.2.177
+├─ @swc/core-win32-arm64-msvc@1.2.194
 │  ├─ licenses: Apache-2.0 AND MIT
 │  ├─ repository: https://github.com/swc-project/swc
 │  ├─ publisher: 강동윤
 │  ├─ email: kdy1997.dev@gmail.com
 │  └─ licenseFile: @swc/core-win32-arm64-msvc/README.md
-├─ @swc/core-win32-ia32-msvc@1.2.177
+├─ @swc/core-win32-ia32-msvc@1.2.194
 │  ├─ licenses: Apache-2.0 AND MIT
 │  ├─ repository: https://github.com/swc-project/swc
 │  ├─ publisher: 강동윤
 │  ├─ email: kdy1997.dev@gmail.com
 │  └─ licenseFile: @swc/core-win32-ia32-msvc/README.md
-├─ @swc/core-win32-x64-msvc@1.2.177
+├─ @swc/core-win32-x64-msvc@1.2.194
 │  ├─ licenses: Apache-2.0 AND MIT
 │  ├─ repository: https://github.com/swc-project/swc
 │  ├─ publisher: 강동윤
 │  ├─ email: kdy1997.dev@gmail.com
 │  └─ licenseFile: @swc/core-win32-x64-msvc/README.md
-├─ @swc/core@1.2.177
+├─ @swc/core@1.2.194
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/swc-project/swc
 │  ├─ publisher: 강동윤
@@ -934,12 +934,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Alex Indigo
 │  ├─ email: iam@alexindigo.com
 │  └─ licenseFile: asynckit/LICENSE
-├─ at-least-node@1.0.0
-│  ├─ licenses: ISC
-│  ├─ repository: https://github.com/RyanZim/at-least-node
-│  ├─ publisher: Ryan Zimmerman
-│  ├─ email: opensrc@ryanzim.com
-│  └─ licenseFile: at-least-node/LICENSE
 ├─ auth0@2.40.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/auth0/node-auth0
@@ -1793,7 +1787,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: mde@fleegix.org
 │  ├─ url: http://fleegix.org
 │  └─ licenseFile: ejs/LICENSE
-├─ ejs@3.1.7
+├─ ejs@3.1.8
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/mde/ejs
 │  ├─ publisher: Matthew Eernisse
@@ -2078,7 +2072,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: JP Richardson
 │  ├─ email: jprichardson@gmail.com
 │  └─ licenseFile: fs-extra/LICENSE
-├─ fs-extra@9.1.0
+├─ fs-extra@10.1.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jprichardson/node-fs-extra
 │  ├─ publisher: JP Richardson
@@ -3604,7 +3598,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
 │  └─ licenseFile: number-is-nan/license
-├─ nx@14.1.4
+├─ nx@14.1.9
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nrwl/nx
 │  ├─ publisher: Victor Savkin
@@ -4283,18 +4277,12 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: feross@feross.org
 │  ├─ url: https://feross.org
 │  └─ licenseFile: run-parallel/LICENSE
-├─ rxjs-for-await@0.0.2
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/benlesh/rxjs-for-await
-│  ├─ publisher: Ben Lesh
-│  ├─ email: ben@benlesh.com
-│  └─ licenseFile: rxjs-for-await/LICENSE
 ├─ rxjs@6.6.7
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/reactivex/rxjs
 │  ├─ publisher: Ben Lesh
 │  ├─ email: ben@benlesh.com
-│  └─ licenseFile: nx/node_modules/rxjs/LICENSE.txt
+│  └─ licenseFile: @nrwl/devkit/node_modules/rxjs/LICENSE.txt
 ├─ rxjs@7.5.5
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/reactivex/rxjs
