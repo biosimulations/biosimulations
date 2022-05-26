@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   displayName: 'combine-nest-client',
 
   globals: {
@@ -12,5 +12,5 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../../coverage/libs/combine/nest-client',
-  preset: '../../../jest.preset.ts',
+  preset: '../../../jest.preset.js',
 };

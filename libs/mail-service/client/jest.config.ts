@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   displayName: 'mail-service-client',
 
   globals: {
@@ -10,5 +10,5 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../../coverage/libs/mail-service/client',
-  preset: '../../../jest.preset.ts',
+  preset: '../../../jest.preset.js',
 };

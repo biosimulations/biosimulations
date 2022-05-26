@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   displayName: 'combine-api-client',
 
   globals: {
@@ -12,5 +12,5 @@ module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../../coverage/libs/combine/api-client',
   testEnvironment: 'node',
-  preset: '../../../jest.preset.ts',
+  preset: '../../../jest.preset.js',
 };

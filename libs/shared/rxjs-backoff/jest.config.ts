@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   displayName: 'shared-rxjs-backoff',
 
   globals: {
@@ -11,5 +11,5 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../../coverage/libs/shared/rxjs-backoff',
-  preset: '../../../jest.preset.ts',
+  preset: '../../../jest.preset.js',
 };

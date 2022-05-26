@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   displayName: 'shared-exceptions--exceptions',
 
   globals: {
@@ -10,5 +10,5 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../../../coverage/libs/shared/exceptions//exceptions',
-  preset: '../../../../jest.preset.ts',
+  preset: '../../../../jest.preset.js',
 };
