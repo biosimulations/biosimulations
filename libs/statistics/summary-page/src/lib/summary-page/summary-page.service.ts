@@ -157,7 +157,7 @@ export class SummaryPageService {
         },
       },
       {
-        heading: 'Model sizes',
+        heading: 'Project sizes',
         subheading: 'The projects in BioSimulations span a broad range of sizes',
         icon: 'file',
         hidden: true,
