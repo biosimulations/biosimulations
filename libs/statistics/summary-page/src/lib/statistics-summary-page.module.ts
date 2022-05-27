@@ -4,19 +4,29 @@ import { RouterModule } from '@angular/router';
 import { SummaryPageComponent } from './summary-page/summary-page.component';
 import { SummaryPageSectionComponent } from './summary-page-section/summary-page-section.component';
 
-import { SharedUiModule } from '@biosimulations/shared/ui';
-
 import { StatisticViewerComponent } from './statistic-viewer/statistic-viewer.component';
 import { ChartComponent } from './chart/chart.component';
 import { NgChartsModule } from 'ng2-charts';
+import { MatCardModule } from '@angular/material/card';
+import { SummaryPageSubsectionComponent } from './summary-page-subsection/summary-page-subsection.component';
+import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
+import { FlexModule } from '@angular/flex-layout';
 
 @NgModule({
   imports: [
     CommonModule,
-    SharedUiModule,
+    MatCardModule,
+    FlexModule,
     NgChartsModule,
+    BiosimulationsIconsModule,
     RouterModule.forChild([{ path: '', pathMatch: 'full', component: SummaryPageComponent }]),
   ],
-  declarations: [SummaryPageComponent, SummaryPageSectionComponent, StatisticViewerComponent, ChartComponent],
+  declarations: [
+    SummaryPageComponent,
+    SummaryPageSectionComponent,
+    StatisticViewerComponent,
+    ChartComponent,
+    SummaryPageSubsectionComponent,
+  ],
 })
 export class StatisticsSummaryPageModule {}

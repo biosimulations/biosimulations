@@ -8,14 +8,14 @@
     <div fxLayout="row wrap" fxLayoutAlign="space-evenly start">
       <ng-container *ngFor="let item of statItems$ | async">
         <div fxFlex="0 1 25%" class="stats">
-          <biosimulations-home-subsection
+          <biosimulations-summary-page-subsection
             id="subsection"
             [heading]="item.heading"
             [subheading]="item.subheading"
             subheadingSize="small"
             [icon]="item.icon || undefined">
             <biosimulations-statistic-viewer [stat]="item.chart"></biosimulations-statistic-viewer>
-          </biosimulations-home-subsection>
+          </biosimulations-summary-page-subsection>
         </div>
       </ng-container>
     </div>

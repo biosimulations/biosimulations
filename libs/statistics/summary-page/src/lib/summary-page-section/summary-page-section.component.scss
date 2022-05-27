@@ -1,6 +1,5 @@
 @use '@angular/material' as mat;
-@import 'biosimulations-colors';
-
+@import 'biosimulations-theme';
 :host:nth-child(even) .container {
   background: $light-bg-darker-5;
 }
