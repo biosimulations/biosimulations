@@ -4,6 +4,6 @@
   "lib": {
     "entryFile": "src/index.ts",
 
-    "styleIncludePaths": ["../../shared/styles/src/lib"]
+    "styleIncludePaths": ["../../shared/styles/src/lib", "../../shared/styles/src/lib/biosimulations"]
   }
 }
