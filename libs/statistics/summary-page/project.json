@@ -16,6 +16,18 @@
       "options": {
         "lintFilePatterns": ["libs/statistics/summary-page/**/*.ts", "libs/statistics/summary-page/**/*.html"]
       }
+    },
+    "build": {
+      "executor": "@nrwl/angular:ng-packagr-lite",
+      "options": {
+        "tsConfig": "libs/statistics/summary-page/tsconfig.lib.json",
+        "project": "libs/statistics/summary-page/ng-package.json"
+      },
+      "configurations": {
+        "": {
+          "tsConfig": "libs/statistics/summary-page/tsconfig.lib.prod.json"
+        }
+      }
     }
   },
   "tags": ["platform:web"]
