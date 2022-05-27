@@ -15,6 +15,18 @@
         "jestConfig": "libs/shared/styles/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "build": {
+      "executor": "@nrwl/angular:ng-packagr-lite",
+      "options": {
+        "tsConfig": "libs/shared/styles/tsconfig.lib.json",
+        "project": "libs/shared/styles/ng-package.json"
+      },
+      "configurations": {
+        "": {
+          "tsConfig": "libs/shared/styles/tsconfig.lib.prod.json"
+        }
+      }
     }
   },
   "generators": {
