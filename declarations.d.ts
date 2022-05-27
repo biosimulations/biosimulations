@@ -17,4 +17,3 @@ declare module '@stdlib/ndarray-base-broadcast-array';
 declare module '@stdlib/ndarray-base-to-array';
 declare module '@stdlib/ndarray-ind2sub';
 declare module '@stdlib/stats-iter-prod';
-declare module 'google-palette';
