@@ -1,12 +1,5 @@
 <div *ngIf="stat">
   <mat-card>
-    <!--
-    <mat-card-header>
-      <div style="text-align: center">
-        <mat-card-title>{{ stat['title'] }}</mat-card-title>
-      </div>
-    </mat-card-header>
-    -->
     <mat-card-content>
       <div [ngSwitch]="stat.type">
         <div *ngSwitchCase="histogramChartType">
