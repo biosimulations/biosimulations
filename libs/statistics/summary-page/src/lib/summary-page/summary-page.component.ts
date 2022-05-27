@@ -11,7 +11,7 @@ import { SummaryPageService } from './summary-page.service';
 export class SummaryPageComponent implements OnInit {
   public sections: StatsChartSection[] = [];
 
-  constructor(private service: SummaryPageService) {}
+  public constructor(private service: SummaryPageService) {}
 
   public ngOnInit(): void {
     const biologyStats$: Observable<StatItem[]> = this.service.getBiologyStatItems();

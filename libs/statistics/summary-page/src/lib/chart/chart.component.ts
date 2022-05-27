@@ -37,7 +37,7 @@ export class ChartComponent {
   public lineData!: ChartData<'line'>;
   public colorPalette!: CanvasGradient;
 
-  constructor(private service: PaletteService) {}
+  public constructor(private service: PaletteService) {}
 
   public ngOnInit(): void {
     const colorScheme = this.service.getColorPalette(this.chartValues?.length);

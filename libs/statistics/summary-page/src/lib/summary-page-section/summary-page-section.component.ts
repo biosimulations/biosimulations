@@ -13,5 +13,4 @@ export class SummaryPageSectionComponent {
   public headingStart!: string;
   @Input()
   public statItems$!: Observable<any[]>;
-  constructor() {}
 }

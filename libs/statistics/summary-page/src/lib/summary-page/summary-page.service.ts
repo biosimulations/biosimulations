@@ -16,7 +16,7 @@ function randn_bm(): number {
   return num;
 }
 
-function getRandomDist(count = 10) {
+function getRandomDist(count = 10): number[] {
   const data: number[] = [];
   for (let i = 0; i < count; i++) {
     data.push(randn_bm());
@@ -28,8 +28,6 @@ function getRandomDist(count = 10) {
   providedIn: 'root',
 })
 export class SummaryPageService {
-  constructor() {}
-
   public getSourceStatItems(): Observable<StatItem[]> {
     return of([
       {

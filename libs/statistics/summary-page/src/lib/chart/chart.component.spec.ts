@@ -14,7 +14,7 @@ describe('ChartComponent', () => {
         {
           provide: PaletteService,
           useValue: {
-            getColorPalette: (count: number) => {
+            getColorPalette: (count: number): string[] => {
               return ['#ffffff'];
             },
           },
