@@ -1,10 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { SharedUiModule } from '@biosimulations/shared/ui';
+import { FlexModule } from '@angular/flex-layout';
+import { MatCardModule } from '@angular/material/card';
+import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
+import { NgChartsModule } from 'ng2-charts';
 import { ChartComponent } from '../chart/chart.component';
-import { PaletteService } from '../palette-service/palette.service';
+//import { PaletteService } from '../palette-service/palette.service';
 import { StatisticViewerComponent } from '../statistic-viewer/statistic-viewer.component';
 import { SummaryPageSectionComponent } from '../summary-page-section/summary-page-section.component';
+import { SummaryPageSubsectionComponent } from '../summary-page-subsection/summary-page-subsection.component';
 import { SummaryPageComponent } from './summary-page.component';
+window.ResizeObserver =
+  window.ResizeObserver ||
+  jest.fn().mockImplementation(() => ({
+    disconnect: jest.fn(),
+    observe: jest.fn(),
+    unobserve: jest.fn(),
+  }));
 
 describe('SummaryPageComponent', () => {
   let component: SummaryPageComponent;
@@ -12,16 +23,22 @@ describe('SummaryPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SharedUiModule],
+      imports: [MatCardModule, FlexModule, NgChartsModule, BiosimulationsIconsModule],
       providers: [
         {
-          provide: PaletteService,
+          provide: 'PaletteService',
           useValue: {
             getColorPalette: (count: number): string[] => ['#000000', '#ffffff'],
           },
         },
       ],
-      declarations: [SummaryPageComponent, SummaryPageSectionComponent, ChartComponent, StatisticViewerComponent],
+      declarations: [
+        SummaryPageComponent,
+        SummaryPageSectionComponent,
+        ChartComponent,
+        StatisticViewerComponent,
+        SummaryPageSubsectionComponent,
+      ],
     }).compileComponents();
   });
 

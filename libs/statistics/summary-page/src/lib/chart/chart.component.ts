@@ -1,6 +1,5 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+
 import { ChartType, ChartOptions, ChartData } from 'chart.js';
 import { PaletteService } from '../palette-service/palette.service';
 
@@ -9,7 +8,7 @@ import { PaletteService } from '../palette-service/palette.service';
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.scss'],
 })
-export class ChartComponent {
+export class ChartComponent implements OnInit {
   @Input()
   public chartType: ChartType = 'bar';
 
