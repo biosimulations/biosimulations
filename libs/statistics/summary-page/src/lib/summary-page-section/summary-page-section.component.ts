@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Observable } from 'rxjs';
+import { StatItem } from '../summary-page.model';
 
 @Component({
   selector: 'biosimulations-summary-page-section',
@@ -12,5 +13,5 @@ export class SummaryPageSectionComponent {
   @Input()
   public headingStart!: string;
   @Input()
-  public statItems$!: Observable<any[]>;
+  public statItems$!: Observable<StatItem[]>;
 }
