@@ -20,7 +20,6 @@ export class PaletteService {
     });
 
     const palette = gradient.map(css);
-    console.log(palette);
     return palette;
   }
 
