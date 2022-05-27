@@ -1,21 +1,23 @@
-<div class="container partial-width padded">
-  <div class="heading">
-    {{ headingStart }}
-    <span class="highlight-primary">{{ headingEnd }}</span>
-  </div>
-  <div class="heading-separator"></div>
-  <div fxLayout="row wrap" fxLayoutAlign="space-around start">
-    <ng-container *ngFor="let item of statItems$ | async">
-      <div fxFlex="0 1 25%" class="stats">
-        <biosimulations-home-subsection
-          id="subsection"
-          [heading]="item.heading"
-          [subheading]="item.subheading"
-          subheadingSize="small"
-          [icon]="item.icon || undefined">
-          <biosimulations-statistic-viewer [stat]="item.chart"></biosimulations-statistic-viewer>
-        </biosimulations-home-subsection>
-      </div>
-    </ng-container>
+<div class="container">
+  <div class="partial-width padded">
+    <div class="heading">
+      {{ headingStart }}
+      <span class="highlight-primary">{{ headingEnd }}</span>
+    </div>
+    <div class="heading-separator"></div>
+    <div fxLayout="row wrap" fxLayoutAlign="space-evenly start">
+      <ng-container *ngFor="let item of statItems$ | async">
+        <div fxFlex="0 1 25%" class="stats">
+          <biosimulations-home-subsection
+            id="subsection"
+            [heading]="item.heading"
+            [subheading]="item.subheading"
+            subheadingSize="small"
+            [icon]="item.icon || undefined">
+            <biosimulations-statistic-viewer [stat]="item.chart"></biosimulations-statistic-viewer>
+          </biosimulations-home-subsection>
+        </div>
+      </ng-container>
+    </div>
   </div>
 </div>

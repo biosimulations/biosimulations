@@ -1,6 +1,10 @@
 @use '@angular/material' as mat;
 @import 'biosimulations-colors';
 
+:host:nth-child(even) .container {
+  background: $light-bg-darker-5;
+}
+
 .heading {
   text-align: center;
   font-size: 28px;
@@ -20,7 +24,7 @@
 
 .stats {
   margin: 1rem;
-  max-width: 1200px;
+  max-width: calc(1400px - 2 * 1rem);
   min-width: 300px;
 }
 
