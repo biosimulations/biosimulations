@@ -15,6 +15,7 @@ export class ChartComponent {
 
   @Input()
   public chartValues: number[] = [];
+
   @Input()
   public chartLabels: string[] = [];
 
@@ -24,12 +25,13 @@ export class ChartComponent {
   @ViewChild('canvas')
   public canvas!: ElementRef<any>;
 
-  public Options: ChartOptions = {
+  public options: ChartOptions = {
     responsive: true,
     maintainAspectRatio: true,
 
     font: { family: 'Raleway' },
   };
+
   public barData!: ChartData<'bar'>;
   public pieData!: ChartData<'pie'>;
   public lineData!: ChartData<'line'>;
@@ -40,8 +42,8 @@ export class ChartComponent {
   public ngOnInit(): void {
     const colorScheme = this.service.getColorPalette(this.chartValues?.length);
     if (!this.dataLabel) {
-      this.Options = {
-        ...this.Options,
+      this.options = {
+        ...this.options,
         plugins: {
           legend: {
             display: false,
@@ -66,8 +68,8 @@ export class ChartComponent {
         ],
       };
     } else if (this.chartType === 'pie') {
-      this.Options = {
-        ...this.Options,
+      this.options = {
+        ...this.options,
 
         plugins: {
           legend: {
@@ -97,14 +99,15 @@ export class ChartComponent {
           {
             label: this.dataLabel,
             data: this.chartValues,
-            borderColor: '#266497',
-            pointBackgroundColor: '#ff9800',
-            backgroundColor: '#266497',
-            hoverBorderColor: '#266497',
-            pointBorderColor: '#000000',
-            hoverBackgroundColor: '#266497',
-            pointHoverBorderColor: '#000000',
-            pointHoverBackgroundColor: '#266497',
+            borderColor: '#2196f3',
+            backgroundColor: '#2196f3',
+            hoverBorderColor: '#2196f3',
+            hoverBackgroundColor: '#2196f3',
+            pointRadius: 0,
+            pointBackgroundColor: '#2196f3',
+            pointBorderColor: '#0a72c4',
+            pointHoverBackgroundColor: '#ff9800',
+            pointHoverBorderColor: '#bf7100',
           },
         ],
       };
