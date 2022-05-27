@@ -19,7 +19,6 @@ export class PaletteService {
       stops: stops,
     });
 
-    const palette = gradient.map(css);
-    return palette;
+    return gradient.map(css);
   }
 }
