@@ -1,5 +1,22 @@
 # Changelog
 
+# [9.16.0](https://github.com/biosimulations/biosimulations/compare/v9.15.1...v9.16.0) (2022-05-27)
+
+
+### Bug Fixes
+
+* **platform:** applied our color palette to summary charts ([ac226d9](https://github.com/biosimulations/biosimulations/commit/ac226d95935fc020ca19379f6e2a8b435fd690db))
+* **platform:** correct title of project size chart ([5d38879](https://github.com/biosimulations/biosimulations/commit/5d388799ec0a1f615b1515421c6780f7c2c7a2f3))
+* **platform:** corrected capitalization of options attribute, cleaned up colors of line charts ([52abebd](https://github.com/biosimulations/biosimulations/commit/52abebd92a506ab082ea25edd67684ae1c8fc869))
+
+
+### Features
+
+* **platform:** added alternatiing background to summary sections and fixed width ([53b1fe7](https://github.com/biosimulations/biosimulations/commit/53b1fe744011847514edc4eda5d649ff2960798e))
+* **platform:** cleaned up arrangement of summary plots and titles ([be6de1d](https://github.com/biosimulations/biosimulations/commit/be6de1da2ab64473bd373f491604a8c34a589ff1))
+* **platform:** hid chart titles which are redundant with section headings ([700a13b](https://github.com/biosimulations/biosimulations/commit/700a13bf09c310d4ff1537b663e146f301978947))
+* **platform:** reordered summary sections and cleaned up titles and variable names ([68c3c02](https://github.com/biosimulations/biosimulations/commit/68c3c0224a3fc9fbc4e109f24f2e268a44470458))
+
 ## [9.15.1](https://github.com/biosimulations/biosimulations/compare/v9.15.0...v9.15.1) (2022-05-26)
 
 
