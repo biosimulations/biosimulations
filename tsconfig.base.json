@@ -26,6 +26,7 @@
       "@biosimulations/account/management": ["libs/account/management/src/index.ts"],
       "@biosimulations/angular-analytics": ["libs/analytics/angular-analytics/src/index.ts"],
       "@biosimulations/angular-api-client": ["libs/api/angular-client/src/index.ts"],
+      "@biosimulations/angular-json-ld": ["libs/json-ld/ng-json-ld/src/index.ts"],
       "@biosimulations/api-nest-client": ["libs/api/nest-client/src/index.ts"],
       "@biosimulations/auth/angular": ["libs/auth/angular/src/index.ts"],
       "@biosimulations/auth/client": ["libs/auth/client/src/index.ts"],

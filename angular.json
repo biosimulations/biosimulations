@@ -5,6 +5,7 @@
     "account-e2e": "apps/account-e2e",
     "account-management": "libs/account/management",
     "analytics-angular-analytics": "libs/analytics/angular-analytics",
+    "angular-json-ld": "libs/json-ld/ng-json-ld",
     "api": "apps/api",
     "api-angular-client": "libs/api/angular-client",
     "api-nest-client": "libs/api/nest-client",
