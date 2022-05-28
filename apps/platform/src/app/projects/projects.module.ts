@@ -12,7 +12,8 @@ import { BrowseComponent } from './browse/browse.component';
 import { SharedErrorComponentsModule } from '@biosimulations/shared/error-handler';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { ApiClientModule } from '@biosimulations/angular-api-client';
-import { NgxJsonLdModule } from '@ngx-lite/json-ld';
+
+import { JsonLdModule } from '@biosimulations/angular-json-ld';
 
 @NgModule({
   declarations: [ViewComponent, ProjectCardComponent, BrowseComponent],
@@ -22,12 +23,12 @@ import { NgxJsonLdModule } from '@ngx-lite/json-ld';
     SharedUiModule,
     SimulationRunsVizModule,
     SimulationRunsUiModule,
+    JsonLdModule,
     BiosimulationsIconsModule,
     SharedDebugModule,
     SharedErrorComponentsModule,
     LazyLoadImageModule,
     ApiClientModule,
-    NgxJsonLdModule,
   ],
 })
 export class ProjectsModule {}
