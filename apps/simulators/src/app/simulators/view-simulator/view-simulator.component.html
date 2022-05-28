@@ -3,7 +3,7 @@
     <biosimulations-columns *ngIf="simulator | async as simulator">
       <biosimulations-text-page-content-section
         [heading]="simulator.name + ' (' + simulator.id + ' / ' + simulator.version + ')'">
-        <ngx-json-ld [json]="simulator.jsonLdData"></ngx-json-ld>
+        <biosimulations-json-ld [json]="simulator.jsonLdData"></biosimulations-json-ld>
 
         <p>
           {{ simulator.description }}
