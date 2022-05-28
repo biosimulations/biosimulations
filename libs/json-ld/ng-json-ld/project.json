@@ -1,0 +1,38 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/json-ld/ng-json-ld/src",
+  "prefix": "biosimulations",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["dist/libs/json-ld/ng-json-ld"],
+      "options": {
+        "project": "libs/json-ld/ng-json-ld/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/json-ld/ng-json-ld/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/json-ld/ng-json-ld/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/json-ld/ng-json-ld"],
+      "options": {
+        "jestConfig": "libs/json-ld/ng-json-ld/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/json-ld/ng-json-ld/**/*.ts", "libs/json-ld/ng-json-ld/**/*.html"]
+      }
+    }
+  },
+  "tags": ["plarform:web", "type:feature", ""]
+}
