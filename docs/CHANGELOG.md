@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.17.1](https://github.com/biosimulations/biosimulations/compare/v9.17.0...v9.17.1) (2022-05-29)
+
+
+### Bug Fixes
+
+* **platform:** add missing alt tag to image ([6f93600](https://github.com/biosimulations/biosimulations/commit/6f93600be9292ec790958d48f650736e67a850c4))
+
 ## [9.17.0](https://github.com/biosimulations/biosimulations/compare/v9.16.0...v9.17.0) (2022-05-29)
 
 
