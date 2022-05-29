@@ -1,5 +1,12 @@
 # Changelog
 
+# [9.17.0](https://github.com/biosimulations/biosimulations/compare/v9.16.0...v9.17.0) (2022-05-29)
+
+
+### Features
+
+* add jsonld library ([1307a29](https://github.com/biosimulations/biosimulations/commit/1307a29c22f7ccad50ad219a8fb06887e2c5eae2))
+
 ## [9.16.0](https://github.com/biosimulations/biosimulations/compare/v9.15.1...v9.16.0) (2022-05-27)
 
 
