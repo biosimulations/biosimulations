@@ -71,17 +71,17 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/biosimulations/nestjs-bullmq
 │  └─ licenseFile: @biosimulations/nestjs-bullmq/LICENSE
-├─ @bull-board/api@3.10.2
+├─ @bull-board/api@3.10.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/felixmosh/bull-board
 │  ├─ publisher: felixmosh
 │  └─ licenseFile: @bull-board/api/README.md
-├─ @bull-board/express@3.10.2
+├─ @bull-board/express@3.10.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/felixmosh/bull-board
 │  ├─ publisher: felixmosh
 │  └─ licenseFile: @bull-board/express/README.md
-├─ @bull-board/ui@3.10.2
+├─ @bull-board/ui@3.10.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/felixmosh/bull-board
 │  ├─ publisher: felixmosh
@@ -180,11 +180,11 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nuxt-contrib/opencollective
 │  └─ licenseFile: @nuxtjs/opencollective/LICENSE
-├─ @openapi-contrib/openapi-schema-to-json-schema@3.1.1
+├─ @openapi-contrib/openapi-schema-to-json-schema@3.1.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/openapi-contrib/openapi-schema-to-json-schema
 │  ├─ publisher: OpenAPI Contrib
-│  └─ licenseFile: @openapi-contrib/openapi-schema-to-json-schema/README.md
+│  └─ licenseFile: @openapi-contrib/openapi-schema-to-json-schema/LICENSE
 ├─ @panva/asn1.js@1.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/panva/asn1.js
@@ -380,16 +380,11 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Joyent
 │  ├─ url: joyent.com
 │  └─ licenseFile: asn1/LICENSE
-├─ async@3.2.0
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/caolan/async
-│  ├─ publisher: Caolan McMahon
-│  └─ licenseFile: async/LICENSE
 ├─ async@3.2.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/caolan/async
 │  ├─ publisher: Caolan McMahon
-│  └─ licenseFile: jake/node_modules/async/LICENSE
+│  └─ licenseFile: async/LICENSE
 ├─ asynckit@0.4.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/alexindigo/asynckit
@@ -562,7 +557,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Matthijs Dabroek
 │  ├─ email: dabroek@gmail.com
 │  └─ licenseFile: cache-manager-redis-store/LICENSE
-├─ cache-manager@3.6.0
+├─ cache-manager@3.6.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/BryanDonovan/node-cache-manager
 │  ├─ publisher: Bryan Donovan
@@ -913,7 +908,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: me@jongleberry.com
 │  ├─ url: http://jongleberry.com
 │  └─ licenseFile: ee-first/LICENSE
-├─ ejs@3.1.6
+├─ ejs@3.1.7
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/mde/ejs
 │  ├─ publisher: Matthew Eernisse
