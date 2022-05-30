@@ -217,7 +217,7 @@
     "jest-mock": "27.5.1",
     "jest-preset-angular": "11.1.2",
     "license-checker": "25.0.1",
-    "lint-staged": "^12.4.1",
+    "lint-staged": "12.4.3",
     "localforage": "1.10.0",
     "lunr": "2.3.9",
     "ng-lazyload-image": "9.1.2",
