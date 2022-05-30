@@ -1182,7 +1182,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: nathan@tootallnate.net
 │  ├─ url: http://n8.io/
 │  └─ licenseFile: https-proxy-agent/README.md
-├─ husky@7.0.4
+├─ husky@8.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typicode/husky
 │  ├─ publisher: Typicode
@@ -1691,7 +1691,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/inspiredware/napi-build-utils
 │  ├─ publisher: Jim Schlight
 │  └─ licenseFile: napi-build-utils/LICENSE
-├─ nats@2.6.1
+├─ nats@2.7.1
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/nats-io/nats.js
 │  ├─ publisher: The NATS Authors
