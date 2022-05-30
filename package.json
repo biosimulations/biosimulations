@@ -215,7 +215,7 @@
     "hex-to-rgba": "2.0.1",
     "jest": "27.5.1",
     "jest-mock": "27.5.1",
-    "jest-preset-angular": "11.1.1",
+    "jest-preset-angular": "11.1.2",
     "license-checker": "25.0.1",
     "lint-staged": "^12.4.1",
     "localforage": "1.10.0",
