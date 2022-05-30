@@ -79,7 +79,7 @@
     "json5": "2.2.1",
     "jwks-rsa": "2.0.5",
     "mongoose": "6.1.7",
-    "nats": "2.6.1",
+    "nats": "2.7.1",
     "nestjs-s3": "1.0.1",
     "ng2-charts": "^3.0.0-rc.7",
     "ngx-material-file-input": "3.0.0",
