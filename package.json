@@ -62,7 +62,7 @@
     "aws-sdk": "2.1105.0",
     "axios": "0.26.1",
     "bullmq": "1.78.2",
-    "cache-manager": "3.6.1",
+    "cache-manager": "3.6.3",
     "cache-manager-redis-store": "2.0.0",
     "chart.js": "^3.7.1",
     "class-transformer": "0.5.1",
