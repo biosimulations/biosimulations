@@ -204,7 +204,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: help@twilio.com
 │  ├─ url: sendgrid.com
 │  └─ licenseFile: @sendgrid/helpers/LICENSE
-├─ @sendgrid/mail@7.6.2
+├─ @sendgrid/mail@7.7.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sendgrid/sendgrid-nodejs
 │  ├─ publisher: Twilio SendGrid
