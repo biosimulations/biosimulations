@@ -61,7 +61,7 @@
     "auth0": "2.42.0",
     "aws-sdk": "2.1105.0",
     "axios": "0.26.1",
-    "bullmq": "1.78.2",
+    "bullmq": "1.85.1",
     "cache-manager": "3.6.3",
     "cache-manager-redis-store": "2.0.0",
     "chart.js": "^3.7.1",
