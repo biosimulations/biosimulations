@@ -43,7 +43,7 @@
   "private": true,
   "dependencies": {
     "@biosimulations/nestjs-bullmq": "1.1.0",
-    "@bull-board/express": "3.10.6",
+    "@bull-board/express": "3.11.0",
     "@nestjs/axios": "0.0.7",
     "@nestjs/common": "8.4.3",
     "@nestjs/config": "2.0.0",
