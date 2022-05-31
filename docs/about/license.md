@@ -391,7 +391,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Alex Indigo
 │  ├─ email: iam@alexindigo.com
 │  └─ licenseFile: asynckit/LICENSE
-├─ auth0@2.40.0
+├─ auth0@2.42.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/auth0/node-auth0
 │  ├─ publisher: Auth0
@@ -408,11 +408,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/axios/axios
 │  ├─ publisher: Matt Zabriskie
 │  └─ licenseFile: auth0/node_modules/jwks-rsa/node_modules/axios/LICENSE
-├─ axios@0.25.0
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/axios/axios
-│  ├─ publisher: Matt Zabriskie
-│  └─ licenseFile: auth0/node_modules/axios/LICENSE
 ├─ axios@0.26.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/axios/axios
