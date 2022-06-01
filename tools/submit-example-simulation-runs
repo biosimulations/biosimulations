@@ -82,6 +82,7 @@ def main(runbiosimulations_deployment='dev', biosimulators_deployment='prod',
         test_mode (:obj:`bool`, optional): whether to run this program in test mode
         browser (:obj:`bool`, optional): whether to open the simulations in a browser
         dry_run (:obj:`bool`, optional): If :obj:`True`, do not submit simulations to runBioSimulations
+        stress (:obj:`int`, optional): number of times to submit each simulation
     """
 
     # get latest version of each simulator
@@ -124,7 +125,7 @@ def main(runbiosimulations_deployment='dev', biosimulators_deployment='prod',
     new_simulation_runs = []
     example_simulations_filename = EXAMPLE_SIMULATIONS_RUNS_FILENAME.format(
         'dev' if runbiosimulations_deployment == 'local' else runbiosimulations_deployment)
-    if example_names:
+    if example_names and not test_mode:
         with open(example_simulations_filename, 'r') as file:
             simulation_runs = {run['name']: run for run in json.load(file)}
 
