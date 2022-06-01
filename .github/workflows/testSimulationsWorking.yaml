@@ -28,6 +28,10 @@ jobs:
             --biosimulators-deployment org \
             --test true \
             --stress 1
-      - name: Send success heartbeat
-        if: ${{ success() }}
-        run: curl ${{secrets.SIMULATION_HEARTBEAT}}
+  sendHeartbeat:
+    name: Send Success Hearbeat
+    needs: testSimulations 
+    runs-on: ubuntu-latest
+    steps:
+        - if: ${{ success() }}
+          run: curl ${{secrets.SIMULATIONS_HEARTBEAT}}
