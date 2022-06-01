@@ -396,7 +396,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/auth0/node-auth0
 │  ├─ publisher: Auth0
 │  └─ licenseFile: auth0/LICENSE
-├─ aws-sdk@2.1105.0
+├─ aws-sdk@2.1146.0
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/aws/aws-sdk-js
 │  ├─ publisher: Amazon Web Services
@@ -2442,9 +2442,9 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: jaredhanson@gmail.com
 │  ├─ url: http://www.jaredhanson.net/
 │  └─ licenseFile: utils-merge/LICENSE
-├─ uuid@3.3.2
+├─ uuid@8.0.0
 │  ├─ licenses: MIT
-│  ├─ repository: https://github.com/kelektiv/node-uuid
+│  ├─ repository: https://github.com/uuidjs/uuid
 │  └─ licenseFile: aws-sdk/node_modules/uuid/LICENSE.md
 ├─ uuid@8.3.2
 │  ├─ licenses: MIT
