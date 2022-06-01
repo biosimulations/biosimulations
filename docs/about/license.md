@@ -528,7 +528,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Brian White
 │  ├─ email: mscdex@mscdex.net
 │  └─ licenseFile: buildcheck/LICENSE
-├─ bullmq@1.78.2
+├─ bullmq@1.85.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/taskforcesh/bullmq
 │  ├─ publisher: Taskforce.sh Inc.
@@ -2077,10 +2077,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/node-semver
 │  └─ licenseFile: jsonwebtoken/node_modules/semver/LICENSE
-├─ semver@6.3.0
-│  ├─ licenses: ISC
-│  ├─ repository: https://github.com/npm/node-semver
-│  └─ licenseFile: bullmq/node_modules/semver/LICENSE
 ├─ semver@7.3.5
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/node-semver
@@ -2089,7 +2085,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/node-semver
 │  ├─ publisher: GitHub Inc.
-│  └─ licenseFile: sharp/node_modules/semver/LICENSE
+│  └─ licenseFile: bullmq/node_modules/semver/LICENSE
 ├─ send@0.17.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/pillarjs/send
