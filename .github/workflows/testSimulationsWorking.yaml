@@ -1,7 +1,7 @@
 name: Test simulation functionality
 on:
   schedule:
-    - cron: '0 * * * *' # hourly
+    - cron: '*/5 * * * *' 
   workflow_dispatch:
 
 jobs:
@@ -27,7 +27,7 @@ jobs:
             --runbiosimulations-deployment org \
             --biosimulators-deployment org \
             --test true \
-            --stress 1
+            --example "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; CVODE; tellurium)"
   sendHeartbeat:
     name: Send Success Hearbeat
     needs: testSimulations 
