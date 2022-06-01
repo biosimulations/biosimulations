@@ -1,7 +1,7 @@
 name: Check example simulation runs succeeded
 on:
   schedule:
-    - cron: '0 0 * * 0' # weekly
+    - cron: '0 * * * *' # hourly
   workflow_dispatch:
 
 jobs:
@@ -30,4 +30,4 @@ jobs:
             --stress 1
       - name: Send success heartbeat
         if: ${{ success() }}
-        run: | curl ${{secrets.SIMULATION_HEARTBEAT}}
+        run: curl ${{secrets.SIMULATION_HEARTBEAT}}
