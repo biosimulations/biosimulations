@@ -71,17 +71,17 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/biosimulations/nestjs-bullmq
 │  └─ licenseFile: @biosimulations/nestjs-bullmq/LICENSE
-├─ @bull-board/api@3.11.0
+├─ @bull-board/api@3.11.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/felixmosh/bull-board
 │  ├─ publisher: felixmosh
 │  └─ licenseFile: @bull-board/api/README.md
-├─ @bull-board/express@3.11.0
+├─ @bull-board/express@3.11.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/felixmosh/bull-board
 │  ├─ publisher: felixmosh
 │  └─ licenseFile: @bull-board/express/README.md
-├─ @bull-board/ui@3.11.0
+├─ @bull-board/ui@3.11.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/felixmosh/bull-board
 │  ├─ publisher: felixmosh
