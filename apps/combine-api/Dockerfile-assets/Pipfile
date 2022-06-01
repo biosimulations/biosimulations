@@ -53,7 +53,7 @@ biosimulators-rbapy = ">=0.0.4"
 # Smoldyn
 smoldyn = ">=2.67"
 # tellurium
-libroadrunner = "<2.2.0" # 2.2.0 requires numpy >= 1.22, which conflicts with Assimulo
+libroadrunner = "<2.2.2" # 2.2.0 requires numpy >= 1.22, which conflicts with Assimulo
 biosimulators-tellurium = ">=0.1.25"
 # XPP
 biosimulators-xpp = ">=0.0.12"
