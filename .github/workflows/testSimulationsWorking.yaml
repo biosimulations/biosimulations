@@ -1,4 +1,4 @@
-name: Check example simulation runs succeeded
+name: Test simulation functionality
 on:
   schedule:
     - cron: '0 * * * *' # hourly
@@ -24,8 +24,8 @@ jobs:
       - name: Run test against API
         run: |
           ./tools/submit-example-simulation-runs \
-            --runbiosimulations-deployment dev \
-            --biosimulators-deployment dev \
+            --runbiosimulations-deployment org \
+            --biosimulators-deployment org \
             --test true \
             --stress 1
       - name: Send success heartbeat
