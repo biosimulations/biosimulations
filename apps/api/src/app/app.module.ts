@@ -24,6 +24,8 @@ import { SpecificationsModule } from '../specifications/specifications.module';
 import { ProjectsModule } from '../projects/projects.module';
 import * as redisStore from 'cache-manager-redis-store';
 import { HealthModule } from '../health/health.module';
+import { StatisticsApiModule } from '@biosimulations/NestSatisticsAPI';
+import { RouterModule } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -66,6 +68,13 @@ import { HealthModule } from '../health/health.module';
     FilesModule,
     SpecificationsModule,
     ProjectsModule,
+    StatisticsApiModule,
+    RouterModule.register([
+      {
+        path: 'statistics',
+        module: StatisticsApiModule,
+      },
+    ]),
   ],
   controllers: [AppController],
   providers: [],

@@ -23,6 +23,7 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "paths": {
+      "@biosimulations/NestSatisticsAPI": ["libs/statistics/api/src/index.ts"],
       "@biosimulations/account/management": ["libs/account/management/src/index.ts"],
       "@biosimulations/angular-analytics": ["libs/analytics/angular-analytics/src/index.ts"],
       "@biosimulations/angular-api-client": ["libs/api/angular-client/src/index.ts"],
