@@ -778,6 +778,12 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Josh Junon
 │  ├─ email: josh.junon@protonmail.com
 │  └─ licenseFile: debug/LICENSE
+├─ debug@4.3.4
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/debug-js/debug
+│  ├─ publisher: Josh Junon
+│  ├─ email: josh.junon@protonmail.com
+│  └─ licenseFile: jwks-rsa/node_modules/debug/LICENSE
 ├─ decompress-response@6.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/decompress-response
@@ -1348,7 +1354,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/auth0/node-jwks-rsa
 │  ├─ publisher: Auth0
 │  └─ licenseFile: auth0/node_modules/jwks-rsa/LICENSE
-├─ jwks-rsa@2.0.5
+├─ jwks-rsa@2.1.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/auth0/node-jwks-rsa
 │  ├─ publisher: Auth0
