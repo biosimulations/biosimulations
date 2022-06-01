@@ -81,6 +81,7 @@
       "@biosimulations/simulation-runs/ui": ["libs/simulation-runs/ui/src/index.ts"],
       "@biosimulations/simulation-runs/viz": ["libs/simulation-runs/viz/src/index.ts"],
       "@biosimulations/simulators/database-models": ["libs/simulators/database-models/src/index.ts"],
+      "@biosimulations/statistics-datamodel": ["libs/statistics/datamodel/src/index.ts"],
       "@biosimulations/statistics/summary-page": ["libs/statistics/summary-page/src/index.ts"]
     }
   },
