@@ -34,7 +34,7 @@ SOFTWARE.
 Below are the licenses of the dependencies of the BioSimulations and BioSimulators platforms, including the location of each license file where available. This report was generated using [license-checker](https://github.com/davglass/license-checker). This report was last updated on the date at the bottom of this page.
 
 ```
-├─ @angular/animations@13.3.10
+├─ @angular/animations@13.3.11
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
@@ -43,17 +43,17 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/components
 │  └─ licenseFile: @angular/cdk/LICENSE
-├─ @angular/common@13.3.10
+├─ @angular/common@13.3.11
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/common/README.md
-├─ @angular/core@13.3.10
+├─ @angular/core@13.3.11
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/core/README.md
-├─ @angular/forms@13.3.10
+├─ @angular/forms@13.3.11
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
@@ -62,7 +62,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/components
 │  └─ licenseFile: @angular/material/LICENSE
-├─ @angular/platform-browser@13.3.10
+├─ @angular/platform-browser@13.3.11
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
