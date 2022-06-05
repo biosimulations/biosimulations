@@ -39,7 +39,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/animations/README.md
-├─ @angular/cdk@13.3.8
+├─ @angular/cdk@13.3.9
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/components
 │  └─ licenseFile: @angular/cdk/LICENSE
@@ -58,7 +58,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/forms/README.md
-├─ @angular/material@13.3.8
+├─ @angular/material@13.3.9
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/components
 │  └─ licenseFile: @angular/material/LICENSE
@@ -528,7 +528,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Brian White
 │  ├─ email: mscdex@mscdex.net
 │  └─ licenseFile: buildcheck/LICENSE
-├─ bullmq@1.85.1
+├─ bullmq@1.85.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/taskforcesh/bullmq
 │  ├─ publisher: Taskforce.sh Inc.
