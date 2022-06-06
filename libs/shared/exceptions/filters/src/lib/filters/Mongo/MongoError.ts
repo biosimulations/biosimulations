@@ -27,7 +27,7 @@ export class MongoErrorFilter implements ExceptionFilter {
           undefined,
           err.message.split('dup key: ')[1],
           undefined,
-          err,
+          undefined,
         );
         errors.push(error);
         break;
