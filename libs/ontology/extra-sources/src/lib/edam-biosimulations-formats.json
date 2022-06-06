@@ -31,6 +31,7 @@
     "fileExtensions": ["cellml", "xml"],
     "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3240",
     "biosimulationsMetadata": {
+      "acronym": "CellML",
       "omexManifestUris": ["http://identifiers.org/combine.specifications/cellml"],
       "icon": "model",
       "modelFormatMetadata": {
