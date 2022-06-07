@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.17.2](https://github.com/biosimulations/biosimulations/compare/v9.17.1...v9.17.2) (2022-06-07)
+
+
+### Bug Fixes
+
+* **api:** fix missing acroynm for cellml model language ([20ac4ec](https://github.com/biosimulations/biosimulations/commit/20ac4ec1cd343c8ae26d8b3eb3d646555402ee41)), closes [#4522](https://github.com/biosimulations/biosimulations/issues/4522)
+
 ## [9.17.1](https://github.com/biosimulations/biosimulations/compare/v9.17.0...v9.17.1) (2022-05-29)
 
 
