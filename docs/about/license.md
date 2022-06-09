@@ -528,7 +528,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Brian White
 │  ├─ email: mscdex@mscdex.net
 │  └─ licenseFile: buildcheck/LICENSE
-├─ bullmq@1.85.3
+├─ bullmq@1.85.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/taskforcesh/bullmq
 │  ├─ publisher: Taskforce.sh Inc.
