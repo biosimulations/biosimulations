@@ -211,7 +211,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: help@twilio.com
 │  ├─ url: sendgrid.com
 │  └─ licenseFile: @sendgrid/mail/LICENSE
-├─ @stoplight/json-ref-resolver@3.1.3
+├─ @stoplight/json-ref-resolver@3.1.4
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/stoplightio/json-ref-resolver
 │  ├─ publisher: Stoplight
@@ -1478,13 +1478,6 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: john.david.dalton@gmail.com
 │  ├─ url: http://allyoucanleet.com/
 │  └─ licenseFile: lodash.once/LICENSE
-├─ lodash.set@4.3.2
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/lodash/lodash
-│  ├─ publisher: John-David Dalton
-│  ├─ email: john.david.dalton@gmail.com
-│  ├─ url: http://allyoucanleet.com/
-│  └─ licenseFile: lodash.set/LICENSE
 ├─ lodash@4.17.21
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/lodash/lodash
