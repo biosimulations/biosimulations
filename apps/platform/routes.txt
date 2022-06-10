@@ -318,6 +318,9 @@
 /projects/Two-compartment-model-of-diazepam-biotransformation-in-an-organotypical-culture-of-primary-human-hepatocytes
 /projects/Tyson-1991
 /projects/VCDB_95675197-Yang-PLoSCompBio-2016
+/projects/VCDB_95675441-Yang-PLoSComputBiol-2016
+/projects/VCDB_95676312-Yang-PLoSComputBiol-2016
+/projects/VCDB_95682290-Yang-PLoSComputBiol-2016
 /projects/Van-der-Pol-Van-der-Mark-1928
 /projects/Varela---Canine-Atrial-Cell-Models
 /projects/Vasalou-Henson-2010
