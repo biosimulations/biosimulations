@@ -7,12 +7,19 @@ import {
   SimulationProjectUtilData,
 } from '@biosimulations/simulation-project-utils/service';
 import { Simulation } from '../../../datamodel';
-import { Purpose, SimulationRunStatus, EnvironmentVariable, SimulationRun } from '@biosimulations/datamodel/common';
+import {
+  Purpose,
+  SimulationRunStatus,
+  EnvironmentVariable,
+  SimulationRun,
+  CombineArchiveSedDocSpecs,
+} from '@biosimulations/datamodel/common';
 import { Observable, Subscription } from 'rxjs';
 import { ConfigService } from '@biosimulations/config/angular';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { DispatchDataSource, DispatchFormStep } from './dispatch-data-source';
+import isUrl from 'is-url';
 
 @Component({
   selector: 'biosimulations-dispatch',
@@ -48,11 +55,25 @@ export class DispatchComponent implements OnInit, OnDestroy {
   }
 
   private loadComplete(data: SimulationProjectUtilData): void {
+    const projectUrl = data.params.projectUrl;
+    if (projectUrl && isUrl(projectUrl)) {
+      const specsObservable = this.combineApiService.getSpecsOfSedDocsInCombineArchive(projectUrl);
+      const subscription = specsObservable.subscribe((sedDocSpecs?: CombineArchiveSedDocSpecs) => {
+        this.setupDataSource(data, sedDocSpecs);
+      });
+      this.subscriptions.push(subscription);
+    } else {
+      this.setupDataSource(data);
+    }
+  }
+
+  private setupDataSource(data: SimulationProjectUtilData, sedDoc?: CombineArchiveSedDocSpecs): void {
     this.formDataSource = new DispatchDataSource(
       data,
       this.config,
       this.combineApiService,
       this.onFormSubmit.bind(this),
+      sedDoc,
     );
   }
 

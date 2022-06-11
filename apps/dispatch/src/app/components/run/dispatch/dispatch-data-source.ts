@@ -67,12 +67,15 @@ export class DispatchDataSource implements IMultiStepFormDataSource<DispatchForm
   private loadedArchiveContainsUnsupportedModel = false;
   private loadedArchiveContainsUnsupportedAlgorithm = false;
   private simulatorSpecs: Record<string, SimulatorSpecs>;
+  private modifyingExistingArchive = false;
+  private preselectedValidSimulator = false;
 
   public constructor(
     data: SimulationProjectUtilData,
     config: ConfigService,
     private combineApiService: CombineApiService,
     private onSubmitHandler: () => void,
+    private sedDocSpecs?: CombineArchiveSedDocSpecs,
   ) {
     const algorithmSubstitutions: AlgorithmSubstitution[] = data.algorithmSubstitutions;
     const simulatorsData: SimulatorsData = data.simulators;
@@ -97,6 +100,13 @@ export class DispatchDataSource implements IMultiStepFormDataSource<DispatchForm
       config.appConfig.exampleCombineArchives.repoPath,
     ];
     this.exampleCombineArchivesUrl = exampleCombineArchivesUrlTokens.join('/');
+
+    if (sedDocSpecs) {
+      this.archiveSedDocSpecsLoaded(sedDocSpecs);
+      const modelsSupported = !this.loadedArchiveContainsUnsupportedModel;
+      const algorithmsSupported = !this.loadedArchiveContainsUnsupportedAlgorithm;
+      this.modifyingExistingArchive = modelsSupported && algorithmsSupported;
+    }
 
     this.preloadDataForParams(params, simulatorsData);
   }
@@ -127,15 +137,26 @@ export class DispatchDataSource implements IMultiStepFormDataSource<DispatchForm
   }
 
   public formStepIds(): DispatchFormStep[] {
-    return [
-      DispatchFormStep.UploadProject,
-      DispatchFormStep.ProjectCapabilities,
+    const steps = [];
+
+    const skipUploadProject = this.modifyingExistingArchive;
+    const skipCapabilities = skipUploadProject && this.preselectedValidSimulator;
+
+    if (!skipUploadProject) {
+      steps.push(DispatchFormStep.UploadProject);
+    }
+
+    if (!skipCapabilities) {
+      steps.push(DispatchFormStep.ProjectCapabilities);
+    }
+
+    return steps.concat([
       DispatchFormStep.SimulationTool,
       DispatchFormStep.CommercialSolvers,
       DispatchFormStep.ComputationalResources,
       DispatchFormStep.Metadata,
       DispatchFormStep.Notifications,
-    ];
+    ]);
   }
 
   public shouldShowFormStep(_stepId: DispatchFormStep): boolean {
@@ -286,6 +307,10 @@ export class DispatchDataSource implements IMultiStepFormDataSource<DispatchForm
     const selectedSimulationTool = formComponent.formGroup.controls.simulator.value;
     if (selectedSimulationTool) {
       return selectedSimulationTool;
+    }
+    const data = this.formData[DispatchFormStep.SimulationTool];
+    if (data?.simulator) {
+      return data.simulator as string;
     }
     const enabledSimulatorOptions = this.simulatorOptions.filter((option: DispatchFormOption) => {
       return !option.disabled;
@@ -592,6 +617,7 @@ export class DispatchDataSource implements IMultiStepFormDataSource<DispatchForm
       const data = <FormStepData>{ simulator: simulatorId };
       if (simulatorSpec.versions.includes(simulatorVersion)) {
         data.simulatorVersion = simulatorVersion;
+        this.preselectedValidSimulator = true;
       }
       this.formData[DispatchFormStep.SimulationTool] = data;
       break;
