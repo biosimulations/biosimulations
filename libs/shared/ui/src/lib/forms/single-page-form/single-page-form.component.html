@@ -1,0 +1,12 @@
+<div class="single-page-form-container">
+  <ng-template formHost></ng-template>
+  <div *ngIf="submitButton">
+    <button
+      mat-flat-button
+      type="submit"
+      class="biosimulations-button primary single-page-form-submit"
+      (click)="this.onSubmit()">
+      {{ submitButton!.label }}
+    </button>
+  </div>
+</div>

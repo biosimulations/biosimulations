@@ -1,0 +1,49 @@
+<form [formGroup]="formGroup">
+  <mat-card class="card-form-section mat-elevation-z3">
+    <mat-card-title>Capabilities required to execute your COMBINE/OMEX archive</mat-card-title>
+
+    <div class="input-group">
+      <mat-form-field class="card-form-field" appearance="fill">
+        <mat-label>Model formats involved in the archive</mat-label>
+        <mat-select formControlName="modelFormats" (ngModelChange)="selectionsUpdated()" multiple>
+          <mat-option *ngFor="let format of modelFormats" [value]="format.id" [disabled]="format.disabled">
+            {{ format.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="card-form-field" appearance="fill">
+        <mat-label>Algorithms involved in the archive</mat-label>
+        <mat-select formControlName="simulationAlgorithms" (ngModelChange)="selectionsUpdated()" multiple>
+          <mat-option *ngFor="let algorithm of algorithms" [value]="algorithm.id" [disabled]="algorithm.disabled">
+            {{ algorithm.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="card-form-field" appearance="fill">
+        <mat-label>Degree to which similar algorithms can be executed</mat-label>
+        <mat-select formControlName="simulationAlgorithmSubstitutionPolicy" (ngModelChange)="selectionsUpdated()">
+          <mat-option *ngFor="let policy of substitutionLevels" [value]="policy.id">
+            {{ policy.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <mat-hint>
+      Use the above menus to narrow the list of simulation tools below to those tools which have the capabilities to
+      execute your COMBINE/OMEX archive (tools which support the model formats and simulation algorithms of the models
+      and simulations described by your COMBINE/OMEX archive).
+    </mat-hint>
+
+    <mat-error *ngIf="showInvalidModelError">
+      Your COMBINE/OMEX archive involves model formats that are not supported by any simulation tool available through
+      runBioSimulations.
+    </mat-error>
+    <mat-error *ngIf="showInvalidAlgorithmError">
+      Your COMBINE/OMEX archive involves simulation algorithms that are not supported by any simulation tool available
+      through runBioSimulations.
+    </mat-error>
+  </mat-card>
+</form>

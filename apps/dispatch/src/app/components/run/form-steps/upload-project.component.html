@@ -1,0 +1,74 @@
+<form [formGroup]="formGroup">
+  <mat-card class="card-form-section mat-elevation-z3">
+    <mat-card-title>COMBINE/OMEX archive*</mat-card-title>
+
+    <div class="input-group">
+      <mat-form-field class="card-form-field" appearance="fill">
+        <mat-label>Choose COMBINE/OMEX archive file</mat-label>
+        <ngx-mat-file-input
+          formControlName="projectFile"
+          (ngModelChange)="fileUpdated()"
+          accept=".omex,.sedx,.zip,application/zip">
+        </ngx-mat-file-input>
+      </mat-form-field>
+
+      <mat-hint>Or</mat-hint>
+
+      <mat-form-field class="card-form-field" appearance="fill">
+        <mat-label>Enter URL for COMBINE/OMEX archive</mat-label>
+        <input matInput formControlName="projectUrl" (ngModelChange)="urlUpdated()" />
+      </mat-form-field>
+    </div>
+
+    <mat-hint>
+      <p>
+        Select a method for providing a COMBINE/OMEX archive which describes one or more simulations (in SED-ML format)
+        of one or more models (e.g., in BNGL, SBML formats). COMBINE/OMEX files can either be uploaded from your local
+        computer or loaded from a publicly-accessible URL.
+      </p>
+
+      <p class="alert">Uploaded archives are limited to 64 MB. Archives up to 1 GB can be submitted via URLs.</p>
+
+      <p>
+        A form for creating COMBINE/OMEX archives and SED-ML files from model files is available
+        <a [routerLink]="['/utils', 'create-project']">here</a>
+        . COMBINE/OMEX archives can also be created with simulation tools such as COPASI
+        <a href="http://copasi.org/" rel="noopener" target="_blank">
+          <biosimulations-icon icon="link"></biosimulations-icon>
+        </a>
+        and VCell
+        <a href="https://vcell.org/" rel="noopener" target="_blank">
+          <biosimulations-icon icon="link"></biosimulations-icon>
+        </a>
+        . Additional information about obtaining and creating COMBINE/OMEX archives is available in the
+        <a href="https://docs.biosimulations.org/users/creating-projects/" rel="noopener" target="biosimulations-docs">
+          help
+        </a>
+        and
+        <a href="https://docs.biosimulations.org/users/faqs/" rel="noopener" target="biosimulations-docs"> FAQ </a>
+        . The help includes recommendations for additional software tools for authoring COMBINE/OMEX archives and SED-ML
+        files. The FAQ includes information about known incompatibilities among COMBINE/OMEX archives and SED-ML files
+        created with different tools.
+      </p>
+
+      <p>
+        Click <a [routerLink]="['/runs']" [queryParams]="{ try: '1' }">here</a>
+        to load several example simulation projects from the BioSimulators test suite
+        <a [href]="exampleCombineArchivesUrl" rel="noopener" target="example-projects">
+          <biosimulations-icon icon="link"></biosimulations-icon>
+        </a>
+        .
+      </p>
+    </mat-hint>
+
+    <mat-error *ngIf="shouldShowNoProjectError()">
+      Please select a COMBINE/OMEX file or enter a URL for a COMBINE/OMEX file.
+    </mat-error>
+    <mat-error *ngIf="formGroup.hasError('maxSize', 'projectFile')">
+      Currently, COMBINE/OMEX archive uploads are limited to 1 GB.
+    </mat-error>
+    <mat-error *ngIf="formGroup.hasError('multipleProjects')">
+      Please select only one COMBINE/OMEX file or URL.
+    </mat-error>
+  </mat-card>
+</form>

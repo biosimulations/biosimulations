@@ -50,6 +50,18 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
 
   // MultiStepFormDataSource
 
+  public getDataForStep(stepId: CreateProjectFormStep): FormStepData {
+    return this.formData[stepId];
+  }
+
+  public setDataForStep(stepId: CreateProjectFormStep, data: FormStepData | null): void {
+    if (!data) {
+      delete this.formData[stepId];
+      return;
+    }
+    this.formData[stepId] = data;
+  }
+
   public formStepIds(): CreateProjectFormStep[] {
     return [
       CreateProjectFormStep.UploadModel,
@@ -89,6 +101,32 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
         return this.createModelChangesForm(hostView);
       case CreateProjectFormStep.Observables:
         return this.createObservablesForm(hostView);
+    }
+  }
+
+  public configureFormStepComponent(stepId: CreateProjectFormStep, stepComponent: IFormStepComponent): void {
+    switch (stepId) {
+      case CreateProjectFormStep.UploadModel:
+        this.configureUploadModelForm(stepComponent as UploadModelComponent);
+        break;
+      case CreateProjectFormStep.FrameworkSimTypeAndAlgorithm:
+        this.configureSimulatorTypeForm(stepComponent as SimulatorTypeComponent);
+        break;
+      case CreateProjectFormStep.UniformTimeCourseSimulationParameters:
+        this.configureUniformTimeCourseForm(stepComponent as UniformTimeCourseSimulationComponent);
+        break;
+      case CreateProjectFormStep.AlgorithmParameters:
+        this.configureAlgorithmParametersForm(stepComponent as AlgorithmParametersComponent);
+        break;
+      case CreateProjectFormStep.ModelNamespace:
+        this.configureNamespaceForm(stepComponent as NamespacesComponent);
+        break;
+      case CreateProjectFormStep.ModelChanges:
+        this.configureModelChangesForm(stepComponent as ModelChangesComponent);
+        break;
+      case CreateProjectFormStep.Observables:
+        this.configureObservablesForm(stepComponent as ModelVariablesComponent);
+        break;
     }
   }
 
@@ -193,65 +231,86 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
   // Form component creation
 
   private createUploadModelForm(formContainerRef: ViewContainerRef): IFormStepComponent {
+    const hostedComponent = formContainerRef.createComponent(UploadModelComponent);
+    return hostedComponent.instance;
+  }
+
+  private configureUploadModelForm(formComponent: UploadModelComponent): void {
     const compatibleFormats = GatherCompatibleFormats(
       this.simulatorsData.simulatorSpecs,
       this.simulatorsData.modelFormats,
     );
-    const hostedComponent = formContainerRef.createComponent(UploadModelComponent);
-    hostedComponent.instance.modelFormats = compatibleFormats;
-    return hostedComponent.instance;
+    formComponent.modelFormats = compatibleFormats;
   }
 
   private createSimulatorTypeForm(formContainerRef: ViewContainerRef): IFormStepComponent {
+    const hostedComponent = formContainerRef.createComponent(SimulatorTypeComponent);
+    return hostedComponent.instance;
+  }
+
+  private configureSimulatorTypeForm(formComponent: SimulatorTypeComponent): void {
     const uploadModelFormData = this.formData[CreateProjectFormStep.UploadModel];
     const modelFormat = uploadModelFormData?.modelFormat as string;
-    const hostedComponent = formContainerRef.createComponent(SimulatorTypeComponent);
-    hostedComponent.instance.setup(this.simulatorsData, modelFormat);
-    return hostedComponent.instance;
+    formComponent.setup(this.simulatorsData, modelFormat);
   }
 
   private createUniformTimeCourseForm(formContainerRef: ViewContainerRef): IFormStepComponent {
     const hostedComponent = formContainerRef.createComponent(UniformTimeCourseSimulationComponent);
+    return hostedComponent.instance;
+  }
+
+  private configureUniformTimeCourseForm(formComponent: UniformTimeCourseSimulationComponent): void {
     const introspectedTimeCourseData = this.introspectedData?.uniformTimeCourseSimulation;
     if (introspectedTimeCourseData) {
-      hostedComponent.instance.loadIntrospectedTimeCourseData(introspectedTimeCourseData);
+      formComponent.loadIntrospectedTimeCourseData(introspectedTimeCourseData);
     }
-    return hostedComponent.instance;
   }
 
   private createNamespaceForm(formContainerRef: ViewContainerRef): IFormStepComponent {
     const hostedComponent = formContainerRef.createComponent(NamespacesComponent);
+    return hostedComponent.instance;
+  }
+
+  private configureNamespaceForm(formComponent: NamespacesComponent): void {
     const introspectedNamespaces = this.introspectedData?.namespaces;
     if (introspectedNamespaces) {
-      hostedComponent.instance.loadIntrospectedNamespaces(introspectedNamespaces);
+      formComponent.loadIntrospectedNamespaces(introspectedNamespaces);
     }
-    return hostedComponent.instance;
   }
 
   private createModelChangesForm(formContainerRef: ViewContainerRef): IFormStepComponent {
     const hostedComponent = formContainerRef.createComponent(ModelChangesComponent);
+    return hostedComponent.instance;
+  }
+
+  private configureModelChangesForm(formComponent: ModelChangesComponent): void {
     const introspectedChanges = this.introspectedData?.modelChanges;
     if (introspectedChanges) {
-      hostedComponent.instance.loadIntrospectedModelChanges(introspectedChanges);
+      formComponent.loadIntrospectedModelChanges(introspectedChanges);
     }
-    return hostedComponent.instance;
   }
 
   private createObservablesForm(formContainerRef: ViewContainerRef): IFormStepComponent {
     const hostedComponent = formContainerRef.createComponent(ModelVariablesComponent);
-    const introspectedVariables = this.introspectedData?.modelVariables;
-    if (introspectedVariables) {
-      hostedComponent.instance.loadIntrospectedVariables(introspectedVariables);
-    }
     return hostedComponent.instance;
   }
 
+  private configureObservablesForm(formComponent: ModelVariablesComponent): void {
+    const introspectedVariables = this.introspectedData?.modelVariables;
+    if (introspectedVariables) {
+      formComponent.loadIntrospectedVariables(introspectedVariables);
+    }
+  }
+
   private createAlgorithmParametersForm(formContainerRef: ViewContainerRef): IFormStepComponent {
+    const hostedComponent = formContainerRef.createComponent(AlgorithmParametersComponent);
+    return hostedComponent.instance;
+  }
+
+  private configureAlgorithmParametersForm(formComponent: AlgorithmParametersComponent): void {
     const simMethodData = this.formData[CreateProjectFormStep.FrameworkSimTypeAndAlgorithm];
     const uploadModelData = this.formData[CreateProjectFormStep.UploadModel];
-    const hostedComponent = formContainerRef.createComponent(AlgorithmParametersComponent);
-    const component = hostedComponent.instance;
-    component.setup(
+    formComponent.setup(
       uploadModelData?.modelFormat as string,
       simMethodData?.framework as string,
       simMethodData?.algorithm as string,
@@ -259,6 +318,5 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
       this.simulatorsData.simulatorSpecs,
       this.algSubstitutions,
     );
-    return component;
   }
 }
