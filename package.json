@@ -148,7 +148,7 @@
     "@nx-python/nx-python": "0.1.7",
     "@nx-tools/docker-metadata": "2.2.1",
     "@nx-tools/nx-docker": "2.3.0",
-    "@scullyio/init": "2.1.32",
+    "@scullyio/init": "2.1.36",
     "@scullyio/ng-lib": "2.1.32",
     "@scullyio/scully": "2.1.32",
     "@semantic-release/changelog": "6.0.1",
