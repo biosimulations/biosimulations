@@ -127,3 +127,4 @@ _pystmptmp*_parsetab.py
 temp*.tmp
 
 .angular
+biosimulations_cache.sqlite
