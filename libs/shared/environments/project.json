@@ -15,6 +15,16 @@
         "jestConfig": "libs/shared/environments/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "options": {
+        "outputPath": "dist/libs/shared/environments",
+        "tsConfig": "libs/shared/environments/tsconfig.lib.json",
+        "packageJson": "libs/shared/environments/package.json",
+        "main": "libs/shared/environments/src/index.ts",
+        "assets": ["libs/shared/environments/*.md"]
+      }
     }
   },
   "generators": {
