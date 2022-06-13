@@ -15,6 +15,16 @@
         "jestConfig": "libs/config/nest/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "options": {
+        "outputPath": "dist/libs/config/nest",
+        "tsConfig": "libs/config/nest/tsconfig.lib.json",
+        "packageJson": "libs/config/nest/package.json",
+        "main": "libs/config/nest/src/index.ts",
+        "assets": ["libs/config/nest/*.md"]
+      }
     }
   },
   "tags": ["scope:config", "type:config", "platform:server", "shared:true"]
