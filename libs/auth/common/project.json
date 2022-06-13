@@ -15,6 +15,16 @@
         "jestConfig": "libs/auth/common/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "options": {
+        "outputPath": "dist/libs/auth/common",
+        "tsConfig": "libs/auth/common/tsconfig.lib.json",
+        "packageJson": "libs/auth/common/package.json",
+        "main": "libs/auth/common/src/index.ts",
+        "assets": ["libs/auth/common/*.md"]
+      }
     }
   },
   "tags": ["scope:auth", "platform:any", "type:datamodel", "shared:true"]
