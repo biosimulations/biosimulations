@@ -9,6 +9,7 @@ import { StatisticViewerComponent } from '../statistic-viewer/statistic-viewer.c
 import { SummaryPageSectionComponent } from '../summary-page-section/summary-page-section.component';
 import { SummaryPageSubsectionComponent } from '../summary-page-subsection/summary-page-subsection.component';
 import { SummaryPageComponent } from './summary-page.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 window.ResizeObserver =
   window.ResizeObserver ||
   jest.fn().mockImplementation(() => ({
@@ -23,7 +24,7 @@ describe('SummaryPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MatCardModule, FlexModule, NgChartsModule, BiosimulationsIconsModule],
+      imports: [MatCardModule, FlexModule, NgChartsModule, BiosimulationsIconsModule, HttpClientTestingModule],
       providers: [
         {
           provide: 'PaletteService',
