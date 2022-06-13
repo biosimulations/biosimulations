@@ -15,6 +15,16 @@
         "jestConfig": "libs/datamodel/api/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "options": {
+        "outputPath": "dist/libs/datamodel/api",
+        "tsConfig": "libs/datamodel/api/tsconfig.lib.json",
+        "packageJson": "libs/datamodel/api/package.json",
+        "main": "libs/datamodel/api/src/index.ts",
+        "assets": ["libs/datamodel/api/*.md"]
+      }
     }
   },
   "tags": ["scope:shared", "type:datamodel", "platform:any"]
