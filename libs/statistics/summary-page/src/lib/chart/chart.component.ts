@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 
-import { Chart, ChartType, ChartOptions, ChartData, LogarithmicScale, Ticks } from 'chart.js';
+import { Chart, ChartType, ChartOptions, ChartData, LogarithmicScale } from 'chart.js';
 import { PaletteService } from '../palette-service/palette.service';
 
 @Component({
