@@ -1,5 +1,14 @@
 # Changelog
 
+# [9.18.0](https://github.com/biosimulations/biosimulations/compare/v9.17.2...v9.18.0) (2022-06-13)
+
+
+### Features
+
+* add statistics api module ([8148a07](https://github.com/biosimulations/biosimulations/commit/8148a07ef21f0bd4c69626b2c5cb1876649d4303))
+* **api:** add ability to get and post statistics ([ef50146](https://github.com/biosimulations/biosimulations/commit/ef50146123e23c497fc331af29127fb29176970a))
+* **platform:** add page to view statistics about models ([bddd9fd](https://github.com/biosimulations/biosimulations/commit/bddd9fd6528d3ea8e2619e19fd5cfe5bfac5cf59)), closes [#4527](https://github.com/biosimulations/biosimulations/issues/4527)
+
 ## [9.17.2](https://github.com/biosimulations/biosimulations/compare/v9.17.1...v9.17.2) (2022-06-07)
 
 
