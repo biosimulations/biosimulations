@@ -16,6 +16,13 @@ export const ACCOUNT_AUDIENCE = 'account.biosimulations.org';
 export const USER_AUDIENCE = 'https://crbm.auth0.com/api/v2/';
 
 export const scopes: Scopes = {
+  statistics: {
+    write: {
+      audience: BIOSIMULATIONS_AUDIENCE,
+      id: 'statistics:write',
+      description: 'Write and modify statistics',
+    },
+  },
   simulators: {
     read: {
       audience: BIOSIMULATORS_AUDIENCE,
