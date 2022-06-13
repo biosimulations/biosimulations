@@ -6,7 +6,10 @@
           <biosimulations-chart
             [chartType]="'bar'"
             [chartLabels]="stat['labels']"
-            [chartValues]="stat['values']"></biosimulations-chart>
+            [chartValues]="stat['values']"
+            [yScale]="stat['yAxis'] || 'linear'"
+            [yRotation]="stat['yLabelRotation']">
+          </biosimulations-chart>
         </div>
         <div *ngSwitchCase="pieChartType">
           <biosimulations-chart

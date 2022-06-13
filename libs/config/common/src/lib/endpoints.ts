@@ -41,7 +41,10 @@ export class Endpoints {
     this.externalCombineApi = loadedEndpoints.externalCombineApi;
     this.externalDataService = loadedEndpoints.externalDataService;
   }
-
+  // Statistics
+  public getProjectStatisticsEndpoint(): string {
+    return `${this.getApiBaseUrl(true)}/statistics`;
+  }
   // HEALTH CHECKS
 
   public getApiHealthEndpoint(): string {

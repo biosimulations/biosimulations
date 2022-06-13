@@ -8,6 +8,8 @@ export type StatsChart = {
   label: string;
   labels: string[];
   values: number[];
+  yAxis?: 'linear' | 'logarithmic';
+  yLabelRotation?: number;
 };
 
 export type StatItem = {
