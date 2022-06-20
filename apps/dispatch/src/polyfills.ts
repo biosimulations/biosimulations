@@ -56,3 +56,6 @@ import 'hammerjs'; // for mat-carousel
  */
 // tslint:disable-next-line: align
 import 'zone.js/dist/task-tracking';
+
+// Add global to window, assigning the value of window itself.
+(window as any).global = window; // needed for thi.ng/color
