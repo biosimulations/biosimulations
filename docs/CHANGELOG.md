@@ -1,5 +1,12 @@
 # Changelog
 
+# [9.19.0](https://github.com/biosimulations/biosimulations/compare/v9.18.0...v9.19.0) (2022-06-27)
+
+
+### Features
+
+* **platform:** add a featured projects section to the homepage ([867222d](https://github.com/biosimulations/biosimulations/commit/867222dce183aff7a95e11fb7fb25e0499704025)), closes [#4526](https://github.com/biosimulations/biosimulations/issues/4526)
+
 ## [9.18.0](https://github.com/biosimulations/biosimulations/compare/v9.17.2...v9.18.0) (2022-06-13)
 
 
