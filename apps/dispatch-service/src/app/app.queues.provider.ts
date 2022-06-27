@@ -15,6 +15,7 @@ export class AppQueueManagerProvider {
     };
     const logger = new Logger(AppQueueManagerProvider.name);
     logger.log(`Connecting to ${configService.get('queue.host')}:${configService.get('queue.port')}`);
+    const refreshImagesScheduer = new QueueScheduler(JobQueue.refreshImages, { connection });
     const resolveCombineArchiveScheduler = new QueueScheduler(JobQueue.resolveCombineArchive, { connection });
     const scheduler = new QueueScheduler(JobQueue.dispatch, {
       connection,

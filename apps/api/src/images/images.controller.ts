@@ -2,14 +2,7 @@ import { permissions } from '@biosimulations/auth/nest';
 import { ImageMessage, ImageMessagePayload, ImageMessageResponse } from '@biosimulations/messages/messages';
 import { Body, Controller, HttpCode, Inject, InternalServerErrorException, Post, HttpStatus } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import {
-  ApiBody,
-  ApiOperation,
-  ApiTags,
-  ApiInternalServerErrorResponse,
-  ApiOkResponse,
-  ApiPayloadTooLargeResponse,
-} from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiTags, ApiInternalServerErrorResponse, ApiOkResponse } from '@nestjs/swagger';
 import { refreshImageBody } from './image.dto';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 import { scopes } from '@biosimulations/auth/common';
@@ -27,10 +20,6 @@ export class ImagesController {
   @ApiBody({
     description: 'Version of a simulation tool to build (or rebuild) a Singularity image for',
     type: refreshImageBody,
-  })
-  @ApiPayloadTooLargeResponse({
-    type: ErrorResponseDocument,
-    description: 'The payload is too large. The payload must be less than the server limit.',
   })
   @ApiOkResponse({
     description: 'The building/rebuilding of the Singularity image was successfully triggered',

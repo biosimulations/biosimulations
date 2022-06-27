@@ -40,6 +40,7 @@ export enum JobQueue {
   publish = 'publish', // publish the simulation run as a project
   clean = 'clean', // clean up the queues
   health = 'health', // health check
+  refreshImages = 'refreshImages', // refresh images on hpc
 }
 
 export enum JobStatus {
