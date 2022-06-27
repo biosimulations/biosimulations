@@ -6,8 +6,11 @@ import { HomeComponent } from './home.component';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 
+import { FeaturedComponent } from './featured/featured.component';
+
 @NgModule({
-  declarations: [HomeComponent],
+  declarations: [HomeComponent, FeaturedComponent],
+
   imports: [CommonModule, HomeRoutingModule, SharedUiModule, BiosimulationsIconsModule],
 })
 export class HomeModule {}

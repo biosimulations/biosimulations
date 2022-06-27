@@ -1,0 +1,51 @@
+@use '@angular/material' as mat;
+@import 'biosimulations-colors';
+
+.container {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+  padding: 2rem;
+}
+
+.heading {
+  text-align: center;
+  font-size: 28px;
+  line-height: normal;
+  font-weight: bold;
+}
+
+.heading-separator {
+  border-bottom: 2px solid mat.get-color-from-palette($theme-primary);
+  height: 0;
+  width: 4rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.nextButton {
+  box-shadow: none;
+  margin-right: 3rem;
+}
+.previousButton {
+  box-shadow: none;
+  //margin-left: 3rem;
+}
+
+.mat-card {
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.mat-card-image {
+  max-height: 300px;
+}
+.mat-card-content {
+}
+.mat-card-actions {
+  margin-top: auto;
+}
