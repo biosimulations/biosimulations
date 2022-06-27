@@ -1,3 +1,5 @@
+import { JobQueue, BullModuleOptions } from '@biosimulations/messages/messages';
+import { BullModule } from '@biosimulations/nestjs-bullmq';
 import { ConfigService } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 import { SbatchService } from '../app/services/sbatch/sbatch.service';
@@ -19,6 +21,12 @@ describe('ImagesController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ImagesController],
+      imports: [
+        BullModule.registerQueueAsync({
+          name: JobQueue.refreshImages,
+          ...BullModuleOptions,
+        }),
+      ],
       providers: [
         { provide: SbatchService, useClass: MockSbatchService },
         { provide: ConfigService, useClass: MockConfigService },

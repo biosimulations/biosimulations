@@ -1,7 +1,9 @@
-import { ImageMessage, ImageMessagePayload, ImageMessageResponse } from '@biosimulations/messages/messages';
+import { ImageMessage, ImageMessagePayload, ImageMessageResponse, JobQueue } from '@biosimulations/messages/messages';
+import { InjectQueue } from '@biosimulations/nestjs-bullmq';
 import { Controller, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { MessagePattern } from '@nestjs/microservices';
+import { Queue } from 'bullmq';
 import { SbatchService } from '../app/services/sbatch/sbatch.service';
 import { SshService } from '../app/services/ssh/ssh.service';
 
@@ -11,11 +13,12 @@ export class ImagesController {
     private sshSerivce: SshService,
     private configService: ConfigService,
     private sbatchService: SbatchService,
+    @InjectQueue(JobQueue.refreshImages) private refreshQueue: Queue,
   ) {}
   logger = new Logger(ImagesController.name);
 
   @MessagePattern(ImageMessage.refresh)
-  async refreshImage(data: ImageMessagePayload) {
+  public async refreshImage(data: ImageMessagePayload): Promise<ImageMessageResponse> {
     const url = data.url;
     const force = data.force;
     this.logger.log('Sending command to update ' + url);
@@ -28,12 +31,19 @@ export class ImagesController {
       `chmod +x "${sbatchFilename.replace('"', '\\"')}"`,
       `sbatch "${sbatchFilename.replace('"', '\\"')}"`,
     ].join(' && ');
-    const out = await this.sshSerivce.execStringCommand(command, 3);
 
-    if (out.stderr != '') {
-      return new ImageMessageResponse(false, out.stderr);
-    } else {
-      return new ImageMessageResponse(true, out.stdout);
-    }
+    const job = await this.refreshQueue.add(
+      'Refresh Image',
+      {
+        command,
+      },
+      {
+        attempts: 10,
+        removeOnComplete: false,
+        removeOnFail: false,
+      },
+    );
+
+    return new ImageMessageResponse(true, job.id);
   }
 }

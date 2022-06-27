@@ -82,6 +82,10 @@ import { SubmissionProcessor } from './submission/submit.processor';
     //See https://github.com/OptimalBits/bull/blob/develop/PATTERNS.md#redis-cluster
     BullModule.registerQueueAsync(
       {
+        name: JobQueue.refreshImages,
+        ...BullModuleOptions,
+      },
+      {
         name: JobQueue.submitSimulationRun,
         ...BullModuleOptions,
       },
