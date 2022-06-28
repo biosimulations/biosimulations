@@ -1,5 +1,17 @@
 # Changelog
 
+# [9.20.0](https://github.com/biosimulations/biosimulations/compare/v9.19.0...v9.20.0) (2022-06-28)
+
+
+### Bug Fixes
+
+* **platform:** fix behavior of back button on featured carousel ([4908867](https://github.com/biosimulations/biosimulations/commit/4908867b3bd22116fe069b07323a639507ff5759))
+
+
+### Features
+
+* **platform:** improve appearence of featured cards ([a70ca88](https://github.com/biosimulations/biosimulations/commit/a70ca88ed3249ad83de27267cc8856eed00cceda)), closes [#4559](https://github.com/biosimulations/biosimulations/issues/4559)
+
 ## [9.19.0](https://github.com/biosimulations/biosimulations/compare/v9.18.0...v9.19.0) (2022-06-27)
 
 
