@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.20.1](https://github.com/biosimulations/biosimulations/compare/v9.20.0...v9.20.1) (2022-06-28)
+
+
+### Bug Fixes
+
+* **dispatch-service:** add a queue to the image refresh to handle stale ssh ([4e0403d](https://github.com/biosimulations/biosimulations/commit/4e0403d6edc0b20f9a3613d3c6e8e0859a3bf353)), closes [#4304](https://github.com/biosimulations/biosimulations/issues/4304)
+
 ## [9.20.0](https://github.com/biosimulations/biosimulations/compare/v9.19.0...v9.20.0) (2022-06-28)
 
 
