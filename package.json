@@ -38,7 +38,11 @@
     "scully": "scully",
     "scully:serve": "scully serve",
     "semantic-release": "semantic-release",
-    "commit": "cz"
+    "commit": "cz",
+    "nats": "docker run -d -p 4222:4222 --name  nats --rm  nats",
+    "nats:stop": "docker stop nats",
+    "redis": "docker run -d -p 6379:6379 --name  redis --rm  redis",
+    "redis:stop": "docker stop redis"
   },
   "private": true,
   "dependencies": {
