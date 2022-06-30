@@ -33,6 +33,7 @@
     "hsds-client": "libs/hsds/client",
     "mail-service": "apps/mail-service",
     "mail-service-client": "libs/mail-service/client",
+    "material-file-input": "libs/material-file-input",
     "messages-messages": "libs/messages/messages",
     "ontology-api": "libs/ontology/api",
     "ontology-client": "libs/ontology/client",
