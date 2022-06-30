@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators, ValidationErrors } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, UntypedFormControl, Validators, ValidationErrors } from '@angular/forms';
 import { CombineApiService } from '@biosimulations/simulation-project-utils/service';
 import {
   ValidationReport,
@@ -29,10 +29,10 @@ enum SubmitMethod {
 })
 export class ValidateModelComponent implements OnInit, OnDestroy {
   submitMethod: SubmitMethod = SubmitMethod.file;
-  formGroup: FormGroup;
-  submitMethodControl: FormControl;
-  modelFileControl: FormControl;
-  modelUrlControl: FormControl;
+  formGroup: UntypedFormGroup;
+  submitMethodControl: UntypedFormControl;
+  modelFileControl: UntypedFormControl;
+  modelUrlControl: UntypedFormControl;
 
   modelLanguages = Object.keys(ModelLanguage).sort();
 
@@ -51,7 +51,7 @@ export class ValidateModelComponent implements OnInit, OnDestroy {
 
   constructor(
     private config: ConfigService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private combineApiService: CombineApiService,
     private activatedRoute: ActivatedRoute,
     private snackBar: MatSnackBar,
@@ -81,9 +81,9 @@ export class ValidateModelComponent implements OnInit, OnDestroy {
       //},
     );
 
-    this.submitMethodControl = this.formGroup.controls.submitMethod as FormControl;
-    this.modelFileControl = this.formGroup.controls.modelFile as FormControl;
-    this.modelUrlControl = this.formGroup.controls.modelUrl as FormControl;
+    this.submitMethodControl = this.formGroup.controls.submitMethod as UntypedFormControl;
+    this.modelFileControl = this.formGroup.controls.modelFile as UntypedFormControl;
+    this.modelUrlControl = this.formGroup.controls.modelUrl as UntypedFormControl;
 
     this.modelUrlControl.disable();
 
@@ -110,8 +110,8 @@ export class ValidateModelComponent implements OnInit, OnDestroy {
     this.activatedRoute.queryParams.subscribe((params: Params): void => {
       const modelUrl = params?.modelUrl;
       if (modelUrl) {
-        const submitMethodControl = this.formGroup.controls.submitMethod as FormControl;
-        const modelUrlControl = this.formGroup.controls.modelUrl as FormControl;
+        const submitMethodControl = this.formGroup.controls.submitMethod as UntypedFormControl;
+        const modelUrlControl = this.formGroup.controls.modelUrl as UntypedFormControl;
         submitMethodControl.setValue(SubmitMethod.url);
         modelUrlControl.setValue(modelUrl);
         this.changeSubmitMethod();
@@ -119,7 +119,7 @@ export class ValidateModelComponent implements OnInit, OnDestroy {
     });
   }
 
-  maxFileSizeValidator(control: FormControl): ValidationErrors | null {
+  maxFileSizeValidator(control: UntypedFormControl): ValidationErrors | null {
     const fileInput: FileInput | null = control.value;
     const file: File | undefined = fileInput?.files ? fileInput.files[0] : undefined;
     const fileSize = file?.size;
@@ -132,7 +132,7 @@ export class ValidateModelComponent implements OnInit, OnDestroy {
     }
   }
 
-  urlValidator(control: FormControl): ValidationErrors | null {
+  urlValidator(control: UntypedFormControl): ValidationErrors | null {
     const value = control.value;
     if (value && isUrl(control.value)) {
       return null;
@@ -143,7 +143,7 @@ export class ValidateModelComponent implements OnInit, OnDestroy {
     }
   }
 
-  formValidator(formGroup: FormGroup): ValidationErrors | null {
+  formValidator(formGroup: UntypedFormGroup): ValidationErrors | null {
     const errors: ValidationErrors = {};
 
     if (formGroup.value.submitMethod == SubmitMethod.file) {
@@ -168,7 +168,7 @@ export class ValidateModelComponent implements OnInit, OnDestroy {
   }
 
   changeSubmitMethod(): void {
-    const submitMethodControl = this.formGroup.controls.submitMethod as FormControl;
+    const submitMethodControl = this.formGroup.controls.submitMethod as UntypedFormControl;
     if (submitMethodControl.value === SubmitMethod.file) {
       this.formGroup.controls.modelFile.enable();
       this.formGroup.controls.modelUrl.disable();
@@ -191,7 +191,7 @@ export class ValidateModelComponent implements OnInit, OnDestroy {
     this.warnings = undefined;
 
     // get data for API
-    const submitMethodControl = this.formGroup.controls.submitMethod as FormControl;
+    const submitMethodControl = this.formGroup.controls.submitMethod as UntypedFormControl;
 
     let model: File | string = '';
     if (submitMethodControl.value === SubmitMethod.file) {

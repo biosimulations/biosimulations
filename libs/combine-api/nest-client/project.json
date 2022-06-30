@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/combine-api/nest-client/src",
   "projectType": "library",
   "targets": {

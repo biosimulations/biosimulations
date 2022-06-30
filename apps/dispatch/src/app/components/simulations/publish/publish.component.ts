@@ -9,8 +9,8 @@ import { ConfigService } from '@biosimulations/config/angular';
 import { Simulation, UnknownSimulation, isUnknownSimulation } from '../../../datamodel';
 import { ProjectInput } from '@biosimulations/datamodel/common';
 import {
-  FormBuilder,
-  FormGroup,
+  UntypedFormBuilder,
+  UntypedFormGroup,
   AbstractControl,
   Validators,
   ValidationErrors,
@@ -35,7 +35,7 @@ export class PublishComponent implements OnInit, OnDestroy {
   private simulation!: Simulation;
   public valid$!: Observable<true | string>;
 
-  public formGroup: FormGroup;
+  public formGroup: UntypedFormGroup;
   public submitPushed = false;
 
   private subscriptions: Subscription[] = [];
@@ -48,7 +48,7 @@ export class PublishComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private simulationService: SimulationService,
     private projectService: ProjectService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private router: Router,
     private snackBar: MatSnackBar,
     private config: ConfigService,

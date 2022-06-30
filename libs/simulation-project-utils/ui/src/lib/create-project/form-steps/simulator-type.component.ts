@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IFormStepComponent, FormStepData } from '@biosimulations/shared/ui';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import {
   OntologyTerm,
   SimulatorsData,
@@ -17,7 +17,7 @@ import { SimulationType, SimulationTypeBriefName } from '@biosimulations/datamod
 })
 export class SimulatorTypeComponent implements IFormStepComponent {
   public nextClicked = false;
-  public formGroup: FormGroup;
+  public formGroup: UntypedFormGroup;
   public compatibleFrameworks: OntologyTerm[] = [];
   public compatibleSimulationTypes: SimulationType[] = [];
   public compatibleAlgorithms: OntologyTerm[] = [];
@@ -25,7 +25,7 @@ export class SimulatorTypeComponent implements IFormStepComponent {
   private allAlgorithms: OntologyTermsMap = {};
   private compatibilityMap: FrameworkCompatibilityMap = {};
 
-  public constructor(private formBuilder: FormBuilder) {
+  public constructor(private formBuilder: UntypedFormBuilder) {
     this.formGroup = this.formBuilder.group({
       framework: [null, Validators.required],
       simulationType: [null, Validators.required],

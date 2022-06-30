@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { SedReport, SedDataSet, PlotlyDataLayout, PlotlyTraceType } from '@biosimulations/datamodel/common';
 import {
   UriSedDataSetMap,
@@ -33,19 +33,19 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
   uriSedDataSetMap!: UriSedDataSetMap;
 
   @Input()
-  formGroup!: FormGroup;
+  formGroup!: UntypedFormGroup;
 
-  yDataSetsFormControl!: FormControl;
+  yDataSetsFormControl!: UntypedFormControl;
 
   private endpoints = new Endpoints();
 
-  constructor(private formBuilder: FormBuilder, private viewService: ViewService) {}
+  constructor(private formBuilder: UntypedFormBuilder, private viewService: ViewService) {}
 
   ngOnInit(): void {
     this.formGroup.setControl('yDataSets', this.formBuilder.control([], [Validators.minLength(1)]));
     this.formGroup.setControl('xDataSet', this.formBuilder.control(null));
 
-    this.yDataSetsFormControl = this.formGroup.controls.yDataSets as FormControl;
+    this.yDataSetsFormControl = this.formGroup.controls.yDataSets as UntypedFormControl;
   }
 
   public setSelectedDataSets(
@@ -143,8 +143,8 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
 
   public getPlotlyDataLayout(): Observable<PlotlyDataLayout> {
     const formGroup = this.formGroup;
-    const yFormControl = formGroup.controls.yDataSets as FormControl;
-    const xFormControl = formGroup.controls.xDataSet as FormControl;
+    const yFormControl = formGroup.controls.yDataSets as UntypedFormControl;
+    const xFormControl = formGroup.controls.xDataSet as UntypedFormControl;
     const selectedYUris = this.getSelectedYDataSetUris();
     const selectedXUri = xFormControl.value;
 
@@ -247,8 +247,8 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
 
   public exportToVega(): Observable<VegaSpec> {
     const formGroup = this.formGroup;
-    const yFormControl = formGroup.controls.yDataSets as FormControl;
-    const xFormControl = formGroup.controls.xDataSet as FormControl;
+    const yFormControl = formGroup.controls.yDataSets as UntypedFormControl;
+    const xFormControl = formGroup.controls.xDataSet as UntypedFormControl;
     const selectedYUris = this.getSelectedYDataSetUris();
     let selectedXUri = xFormControl.value;
 

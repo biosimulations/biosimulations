@@ -2,7 +2,7 @@ import { Component, OnInit, OnChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { tap } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, UntypedFormControl } from '@angular/forms';
 
 import { RegistrationService } from './registration.service';
 
@@ -12,8 +12,8 @@ import { RegistrationService } from './registration.service';
   styleUrls: ['./registration.component.sass'],
 })
 export class RegistrationComponent implements OnInit, OnChanges {
-  userNameForm: FormControl;
-  termsAndConditionsForm: FormGroup;
+  userNameForm: UntypedFormControl;
+  termsAndConditionsForm: UntypedFormGroup;
   error?: string;
   state: string | null;
   token: string | null;
@@ -38,10 +38,14 @@ export class RegistrationComponent implements OnInit, OnChanges {
   user: any;
   constructor(
     private route: ActivatedRoute,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private registrationService: RegistrationService,
   ) {
-    this.userNameForm = new FormControl('', Validators.required, this.registrationService.uniqueUsernameAsyncValidator);
+    this.userNameForm = new UntypedFormControl(
+      '',
+      Validators.required,
+      this.registrationService.uniqueUsernameAsyncValidator,
+    );
 
     this.termsAndConditionsForm = this.formBuilder.group({
       tos: ['', Validators.requiredTrue],

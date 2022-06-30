@@ -1,5 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, FormControl, Validators, ValidationErrors } from '@angular/forms';
+import {
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  UntypedFormArray,
+  UntypedFormControl,
+  Validators,
+  ValidationErrors,
+} from '@angular/forms';
 import {
   PlotlyDataLayout,
   PlotlyTraceType,
@@ -71,16 +78,16 @@ export class DesignLine2DVisualizationComponent implements OnInit {
   uriSedDataSetMap!: UriSedDataSetMap;
 
   @Input()
-  formGroup!: FormGroup;
+  formGroup!: UntypedFormGroup;
 
-  curvesFormGroups!: FormGroup[];
+  curvesFormGroups!: UntypedFormGroup[];
 
   axisLabelTypes: AxisLabelType[] = AXIS_LABEL_TYPES;
   traceModeLabels: TraceModeLabel[] = TRACE_MODE_LABELS;
 
   private endpoints = new Endpoints();
 
-  constructor(private formBuilder: FormBuilder, private viewService: ViewService) {}
+  constructor(private formBuilder: UntypedFormBuilder, private viewService: ViewService) {}
 
   ngOnInit(): void {
     this.formGroup.setControl(
@@ -92,14 +99,14 @@ export class DesignLine2DVisualizationComponent implements OnInit {
     this.formGroup.setControl('yAxisType', this.formBuilder.control(PlotlyAxisType.linear, [Validators.required]));
     this.formGroup.setControl('traceMode', this.formBuilder.control(PlotlyTraceMode.lines, [Validators.required]));
 
-    this.curvesFormGroups = (this.formGroup.controls.curves as FormArray).controls as FormGroup[];
+    this.curvesFormGroups = (this.formGroup.controls.curves as UntypedFormArray).controls as UntypedFormGroup[];
 
     this.setNumCurves();
   }
 
   public setNumCurves(): void {
     const numCurves = Math.round(this.formGroup.value.numCurves);
-    const curvesFormArray = this.formGroup.controls.curves as FormArray;
+    const curvesFormArray = this.formGroup.controls.curves as UntypedFormArray;
 
     while (curvesFormArray.length > numCurves) {
       curvesFormArray.removeAt(curvesFormArray.length - 1);
@@ -115,7 +122,7 @@ export class DesignLine2DVisualizationComponent implements OnInit {
     }
   }
 
-  private integerValidator(control: FormControl): ValidationErrors | null {
+  private integerValidator(control: UntypedFormControl): ValidationErrors | null {
     if (control.value && control.value != Math.round(control.value)) {
       return {
         integer: true,
@@ -127,15 +134,15 @@ export class DesignLine2DVisualizationComponent implements OnInit {
 
   public getPlotlyDataLayout(): Observable<PlotlyDataLayout> {
     let dataSetUris: string[] = [];
-    this.curvesFormGroups.forEach((curve: FormGroup): void => {
-      dataSetUris = dataSetUris.concat((curve.controls.xData as FormControl).value);
-      dataSetUris = dataSetUris.concat((curve.controls.yData as FormControl).value);
+    this.curvesFormGroups.forEach((curve: UntypedFormGroup): void => {
+      dataSetUris = dataSetUris.concat((curve.controls.xData as UntypedFormControl).value);
+      dataSetUris = dataSetUris.concat((curve.controls.yData as UntypedFormControl).value);
     });
 
     return this.viewService.getReportResults(this.simulationRunId, dataSetUris).pipe(
       map((uriResultsMap: UriSetDataSetResultsMap): PlotlyDataLayout => {
         const formGroup = this.formGroup;
-        const traceMode = (formGroup.controls.traceMode as FormControl).value;
+        const traceMode = (formGroup.controls.traceMode as UntypedFormControl).value;
 
         const traces: PlotlyTrace[] = [];
         const xAxisTitlesSet = new Set<string>();
@@ -144,21 +151,21 @@ export class DesignLine2DVisualizationComponent implements OnInit {
 
         for (let iCurve = 0; iCurve < this.curvesFormGroups.length; iCurve++) {
           const curve = this.curvesFormGroups[iCurve];
-          for (const xDataUri of (curve.controls.xData as FormControl).value) {
-            for (const yDataUri of (curve.controls.yData as FormControl).value) {
+          for (const xDataUri of (curve.controls.xData as UntypedFormControl).value) {
+            for (const yDataUri of (curve.controls.yData as UntypedFormControl).value) {
               const xDataSet = this.uriSedDataSetMap[xDataUri];
               const yDataSet = this.uriSedDataSetMap[yDataUri];
               const xLabel = xDataSet.name || xDataSet.label || xDataSet.id;
               const yLabel = yDataSet.name || yDataSet.label || yDataSet.id;
               let name!: string;
-              if ((curve.controls.name as FormControl).value) {
-                name = (curve.controls.name as FormControl).value;
+              if ((curve.controls.name as UntypedFormControl).value) {
+                name = (curve.controls.name as UntypedFormControl).value;
 
                 const attributes = [];
-                if ((curve.controls.xData as FormControl).value.length > 1) {
+                if ((curve.controls.xData as UntypedFormControl).value.length > 1) {
                   attributes.push(`x: ${xLabel}`);
                 }
-                if ((curve.controls.yData as FormControl).value.length > 1) {
+                if ((curve.controls.yData as UntypedFormControl).value.length > 1) {
                   attributes.push(`y: ${yLabel}`);
                 }
 
@@ -222,12 +229,12 @@ export class DesignLine2DVisualizationComponent implements OnInit {
             xaxis1: {
               anchor: 'x1',
               title: xAxisTitle,
-              type: (formGroup.controls.xAxisType as FormControl).value,
+              type: (formGroup.controls.xAxisType as UntypedFormControl).value,
             },
             yaxis1: {
               anchor: 'y1',
               title: yAxisTitle,
-              type: (formGroup.controls.yAxisType as FormControl).value,
+              type: (formGroup.controls.yAxisType as UntypedFormControl).value,
             },
             grid: {
               rows: 1,
@@ -253,9 +260,9 @@ export class DesignLine2DVisualizationComponent implements OnInit {
 
   public exportToVega(): Observable<VegaSpec> {
     let dataSetUris: string[] = [];
-    this.curvesFormGroups.forEach((curve: FormGroup): void => {
-      dataSetUris = dataSetUris.concat((curve.controls.xData as FormControl).value);
-      dataSetUris = dataSetUris.concat((curve.controls.yData as FormControl).value);
+    this.curvesFormGroups.forEach((curve: UntypedFormGroup): void => {
+      dataSetUris = dataSetUris.concat((curve.controls.xData as UntypedFormControl).value);
+      dataSetUris = dataSetUris.concat((curve.controls.yData as UntypedFormControl).value);
     });
 
     return this.viewService.getReportResults(this.simulationRunId, dataSetUris).pipe(
@@ -285,8 +292,8 @@ export class DesignLine2DVisualizationComponent implements OnInit {
         let outerShapeSize = 0;
 
         for (const curve of this.curvesFormGroups) {
-          for (const xDataUri of (curve.controls.xData as FormControl).value) {
-            for (const yDataUri of (curve.controls.yData as FormControl).value) {
+          for (const xDataUri of (curve.controls.xData as UntypedFormControl).value) {
+            for (const yDataUri of (curve.controls.yData as UntypedFormControl).value) {
               if (uriResultsMap && xDataUri in uriResultsMap && yDataUri in uriResultsMap) {
                 const xDataSet = this.uriSedDataSetMap[xDataUri];
                 const yDataSet = this.uriSedDataSetMap[yDataUri];
@@ -368,7 +375,7 @@ export class DesignLine2DVisualizationComponent implements OnInit {
         ];
 
         //signals
-        const traceMode = (formGroup.controls.traceMode as FormControl).value;
+        const traceMode = (formGroup.controls.traceMode as UntypedFormControl).value;
         const vegaSignals: { [name: string]: any } = {
           singleXAxis: singleXAxis,
           singleYAxis: singleYAxis,
@@ -385,13 +392,13 @@ export class DesignLine2DVisualizationComponent implements OnInit {
           {
             name: 'xScale',
             attributes: {
-              type: (formGroup.controls.xAxisType as FormControl).value,
+              type: (formGroup.controls.xAxisType as UntypedFormControl).value,
             },
           },
           {
             name: 'yScale',
             attributes: {
-              type: (formGroup.controls.yAxisType as FormControl).value,
+              type: (formGroup.controls.yAxisType as UntypedFormControl).value,
             },
           },
         ];

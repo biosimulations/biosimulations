@@ -71,7 +71,7 @@ routes.forEach((route: Route): void => {
     HttpClientModule,
     PwaModule,
     RouterModule.forRoot(routes, {
-      initialNavigation: 'enabled',
+      initialNavigation: 'enabledBlocking',
       scrollPositionRestoration: 'disabled',
       relativeLinkResolution: 'legacy',
     }),

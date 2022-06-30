@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Params } from '@angular/router';
-import { FormBuilder, FormGroup, FormControl, Validators, ValidationErrors } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, UntypedFormControl, Validators, ValidationErrors } from '@angular/forms';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { CombineApiService } from '../../../services/combine-api/combine-api.service';
@@ -65,7 +65,7 @@ interface Algorithm {
   styleUrls: ['./dispatch.component.scss'],
 })
 export class DispatchComponent implements OnInit, OnDestroy {
-  public formGroup: FormGroup;
+  public formGroup: UntypedFormGroup;
 
   // Form control option lists
   public modelFormats: OntologyTerm[] = [];
@@ -90,7 +90,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
   public constructor(
     private config: ConfigService,
     private router: Router,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private dispatchService: DispatchService,
     private simulationService: SimulationService,
     private combineApiService: CombineApiService,
@@ -704,7 +704,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
 
   // Form Validators
 
-  private formValidator(formGroup: FormGroup): ValidationErrors | null {
+  private formValidator(formGroup: UntypedFormGroup): ValidationErrors | null {
     const errors: ValidationErrors = {};
 
     if (!formGroup.value.projectFile && !formGroup.value.projectUrl) {
@@ -715,8 +715,8 @@ export class DispatchComponent implements OnInit, OnDestroy {
       errors['multipleProjects'] = true;
     }
 
-    const email = formGroup.controls.email as FormControl;
-    const emailConsent = formGroup.controls.emailConsent as FormControl;
+    const email = formGroup.controls.email as UntypedFormControl;
+    const emailConsent = formGroup.controls.emailConsent as UntypedFormControl;
     if (email.value && !email.hasError('email') && !emailConsent.value) {
       errors['emailNotConsented'] = true;
     }

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { SedReport, SedDataSet, PlotlyDataLayout, PlotlyTraceType } from '@biosimulations/datamodel/common';
 import {
   UriSedDataSetMap,
@@ -33,17 +33,17 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
   uriSedDataSetMap!: UriSedDataSetMap;
 
   @Input()
-  formGroup!: FormGroup;
+  formGroup!: UntypedFormGroup;
 
-  private dataSetsFormControl!: FormControl;
+  private dataSetsFormControl!: UntypedFormControl;
 
   private endpoints = new Endpoints();
 
-  constructor(private formBuilder: FormBuilder, private viewService: ViewService) {}
+  constructor(private formBuilder: UntypedFormBuilder, private viewService: ViewService) {}
 
   ngOnInit(): void {
     this.formGroup.setControl('dataSets', this.formBuilder.control('', [Validators.minLength(1)]));
-    this.dataSetsFormControl = this.formGroup.controls.dataSets as FormControl;
+    this.dataSetsFormControl = this.formGroup.controls.dataSets as UntypedFormControl;
   }
 
   public setSelectedDataSets(

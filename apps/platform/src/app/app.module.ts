@@ -64,7 +64,7 @@ routes.forEach((route: Route): void => {
     MarkdownModule.forRoot({ loader: HttpClient }),
     SharedUiModule,
     RouterModule.forRoot(routes, {
-      initialNavigation: 'enabled',
+      initialNavigation: 'enabledBlocking',
       scrollPositionRestoration: 'disabled',
     }),
     ServiceWorkerModule.register('ngsw-worker.js', {
