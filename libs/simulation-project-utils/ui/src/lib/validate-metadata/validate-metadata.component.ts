@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators, ValidationErrors } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, UntypedFormControl, Validators, ValidationErrors } from '@angular/forms';
 import { CombineApiService } from '@biosimulations/simulation-project-utils/service';
 import {
   ValidationReport,
@@ -28,10 +28,10 @@ enum SubmitMethod {
 })
 export class ValidateMetadataComponent implements OnInit, OnDestroy {
   submitMethod: SubmitMethod = SubmitMethod.file;
-  formGroup: FormGroup;
-  submitMethodControl: FormControl;
-  metadataFileControl: FormControl;
-  metadataUrlControl: FormControl;
+  formGroup: UntypedFormGroup;
+  submitMethodControl: UntypedFormControl;
+  metadataFileControl: UntypedFormControl;
+  metadataUrlControl: UntypedFormControl;
 
   omexMetadataFormats = Object.keys(OmexMetadataInputFormat).sort();
   omexMetadataSchemas = [
@@ -58,7 +58,7 @@ export class ValidateMetadataComponent implements OnInit, OnDestroy {
 
   constructor(
     private config: ConfigService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private combineApiService: CombineApiService,
     private activatedRoute: ActivatedRoute,
     private snackBar: MatSnackBar,
@@ -76,9 +76,9 @@ export class ValidateMetadataComponent implements OnInit, OnDestroy {
       //},
     );
 
-    this.submitMethodControl = this.formGroup.controls.submitMethod as FormControl;
-    this.metadataFileControl = this.formGroup.controls.metadataFile as FormControl;
-    this.metadataUrlControl = this.formGroup.controls.metadataUrl as FormControl;
+    this.submitMethodControl = this.formGroup.controls.submitMethod as UntypedFormControl;
+    this.metadataFileControl = this.formGroup.controls.metadataFile as UntypedFormControl;
+    this.metadataUrlControl = this.formGroup.controls.metadataUrl as UntypedFormControl;
 
     this.metadataUrlControl.disable();
 
@@ -105,8 +105,8 @@ export class ValidateMetadataComponent implements OnInit, OnDestroy {
     this.activatedRoute.queryParams.subscribe((params: Params): void => {
       const metadataUrl = params?.metadataUrl;
       if (metadataUrl) {
-        const submitMethodControl = this.formGroup.controls.submitMethod as FormControl;
-        const metadataUrlControl = this.formGroup.controls.metadataUrl as FormControl;
+        const submitMethodControl = this.formGroup.controls.submitMethod as UntypedFormControl;
+        const metadataUrlControl = this.formGroup.controls.metadataUrl as UntypedFormControl;
         submitMethodControl.setValue(SubmitMethod.url);
         metadataUrlControl.setValue(metadataUrl);
         this.changeSubmitMethod();
@@ -114,7 +114,7 @@ export class ValidateMetadataComponent implements OnInit, OnDestroy {
     });
   }
 
-  maxFileSizeValidator(control: FormControl): ValidationErrors | null {
+  maxFileSizeValidator(control: UntypedFormControl): ValidationErrors | null {
     const fileInput: FileInput | null = control.value;
     const file: File | undefined = fileInput?.files ? fileInput.files[0] : undefined;
     const fileSize = file?.size;
@@ -127,7 +127,7 @@ export class ValidateMetadataComponent implements OnInit, OnDestroy {
     }
   }
 
-  urlValidator(control: FormControl): ValidationErrors | null {
+  urlValidator(control: UntypedFormControl): ValidationErrors | null {
     const value = control.value;
     if (value && isUrl(control.value)) {
       return null;
@@ -138,7 +138,7 @@ export class ValidateMetadataComponent implements OnInit, OnDestroy {
     }
   }
 
-  formValidator(formGroup: FormGroup): ValidationErrors | null {
+  formValidator(formGroup: UntypedFormGroup): ValidationErrors | null {
     const errors: ValidationErrors = {};
 
     if (formGroup.value.submitMethod == SubmitMethod.file) {
@@ -163,7 +163,7 @@ export class ValidateMetadataComponent implements OnInit, OnDestroy {
   }
 
   changeSubmitMethod(): void {
-    const submitMethodControl = this.formGroup.controls.submitMethod as FormControl;
+    const submitMethodControl = this.formGroup.controls.submitMethod as UntypedFormControl;
     if (submitMethodControl.value === SubmitMethod.file) {
       this.formGroup.controls.metadataFile.enable();
       this.formGroup.controls.metadataUrl.disable();
@@ -186,7 +186,7 @@ export class ValidateMetadataComponent implements OnInit, OnDestroy {
     this.warnings = undefined;
 
     // get data for API
-    const submitMethodControl = this.formGroup.controls.submitMethod as FormControl;
+    const submitMethodControl = this.formGroup.controls.submitMethod as UntypedFormControl;
 
     let metadata: File | string = '';
     if (submitMethodControl.value === SubmitMethod.file) {

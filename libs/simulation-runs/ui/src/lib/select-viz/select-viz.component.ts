@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter, ViewChild, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { Observable, of, Subscription, map } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -39,17 +39,17 @@ export class SelectVisualizationComponent implements OnDestroy {
   @Output()
   renderVisualization = new EventEmitter<Visualization>();
 
-  formGroup: FormGroup;
-  userHistogram1DFormGroup: FormGroup;
-  userHeatmap2DFormGroup: FormGroup;
-  userLine2DFormGroup: FormGroup;
+  formGroup: UntypedFormGroup;
+  userHistogram1DFormGroup: UntypedFormGroup;
+  userHeatmap2DFormGroup: UntypedFormGroup;
+  userLine2DFormGroup: UntypedFormGroup;
 
   private endpoints = new Endpoints();
 
   private subscriptions: Subscription[] = [];
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private combineApiService: CombineApiService,
     private simRunService: SimulationRunService,
     private snackBar: MatSnackBar,
@@ -69,9 +69,9 @@ export class SelectVisualizationComponent implements OnDestroy {
       userLine2DFormGroup: formBuilder.group({}),
     });
 
-    this.userHistogram1DFormGroup = this.formGroup.controls.userHistogram1DFormGroup as FormGroup;
-    this.userHeatmap2DFormGroup = this.formGroup.controls.userHeatmap2DFormGroup as FormGroup;
-    this.userLine2DFormGroup = this.formGroup.controls.userLine2DFormGroup as FormGroup;
+    this.userHistogram1DFormGroup = this.formGroup.controls.userHistogram1DFormGroup as UntypedFormGroup;
+    this.userHeatmap2DFormGroup = this.formGroup.controls.userHeatmap2DFormGroup as UntypedFormGroup;
+    this.userLine2DFormGroup = this.formGroup.controls.userLine2DFormGroup as UntypedFormGroup;
 
     this.userHistogram1DFormGroup.disable();
     this.userHeatmap2DFormGroup.disable();
@@ -83,7 +83,7 @@ export class SelectVisualizationComponent implements OnDestroy {
   }
 
   private getSelectedVisualization(): Visualization {
-    return (this.formGroup.controls.visualization as FormControl).value;
+    return (this.formGroup.controls.visualization as UntypedFormControl).value;
   }
 
   selectVisualization(): void {

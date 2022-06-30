@@ -26,7 +26,7 @@ import { CommonModule } from '@angular/common';
         { path: '', redirectTo: 'register', pathMatch: 'full' },
       ],
       {
-        initialNavigation: 'enabled',
+        initialNavigation: 'enabledBlocking',
         scrollPositionRestoration: 'disabled',
         relativeLinkResolution: 'legacy',
       },

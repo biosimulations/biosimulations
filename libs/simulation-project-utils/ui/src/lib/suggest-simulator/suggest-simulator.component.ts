@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { DispatchService, CombineApiService, SimulatorsData } from '@biosimulations/simulation-project-utils/service';
 import {
   AlgorithmSubstitution,
@@ -53,13 +53,13 @@ export class SuggestSimulatorComponent implements OnInit {
   algorithms!: Observable<AlgorithmData[]>;
   private algorithmsMap: { [id: string]: AlgorithmData } | undefined = undefined;
 
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
   selectedAlgorithm: Algorithm | undefined = undefined;
 
   suggestions: AlgorithmData | undefined = undefined;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private dispatchService: DispatchService,
     private combineApiService: CombineApiService,
     private activatedRoute: ActivatedRoute,

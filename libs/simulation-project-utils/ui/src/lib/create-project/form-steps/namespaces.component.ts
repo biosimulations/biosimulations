@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, AbstractControl, ValidationErrors } from '@angular/forms';
+import {
+  UntypedFormArray,
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  AbstractControl,
+  ValidationErrors,
+} from '@angular/forms';
 import { IFormStepComponent, FormStepData } from '@biosimulations/shared/ui';
 import {
   UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR,
@@ -16,9 +22,9 @@ import { Namespace, NamespaceTypeEnum } from '@biosimulations/combine-api-angula
 export class NamespacesComponent implements IFormStepComponent {
   public nextClicked = false;
 
-  public formArray: FormArray;
+  public formArray: UntypedFormArray;
 
-  public constructor(private formBuilder: FormBuilder) {
+  public constructor(private formBuilder: UntypedFormBuilder) {
     this.formArray = formBuilder.array([], {
       validators: [UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR('prefix')],
     });
@@ -56,7 +62,7 @@ export class NamespacesComponent implements IFormStepComponent {
     }
     const namespaces: Namespace[] = [];
     this.formArray.controls.forEach((control: AbstractControl): void => {
-      const formGroup = control as FormGroup;
+      const formGroup = control as UntypedFormGroup;
       const prefix: string = formGroup.controls.prefix.value;
       const uri: string = formGroup.controls.uri.value;
       namespaces.push({
@@ -88,16 +94,16 @@ export class NamespacesComponent implements IFormStepComponent {
     this.formArray.removeAt(index);
   }
 
-  public formGroups(): FormGroup[] {
-    return this.formArray.controls as FormGroup[];
+  public formGroups(): UntypedFormGroup[] {
+    return this.formArray.controls as UntypedFormGroup[];
   }
 
-  public showPrefixError(formGroup: FormGroup): boolean {
+  public showPrefixError(formGroup: UntypedFormGroup): boolean {
     const invalidPrefix = formGroup.hasError('validNamespacePrefix', 'prefix');
     return this.nextClicked && invalidPrefix;
   }
 
-  public showUriError(formGroup: FormGroup): boolean {
+  public showUriError(formGroup: UntypedFormGroup): boolean {
     const invalidUri = formGroup.hasError('url', 'uri');
     const incompleteUri = formGroup.hasError('complete');
     return this.nextClicked && (invalidUri || incompleteUri);
@@ -110,7 +116,7 @@ export class NamespacesComponent implements IFormStepComponent {
     });
   }
 
-  private hasUriOrNeither(formGroup: FormGroup): ValidationErrors | null {
+  private hasUriOrNeither(formGroup: UntypedFormGroup): ValidationErrors | null {
     const prefix = formGroup.controls.prefix.value;
     const uri = formGroup.controls.uri.value;
     if ((!prefix && !uri) || uri) {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { IFormStepComponent, FormStepData } from '@biosimulations/shared/ui';
 import {
   POSITIVE_INTEGER_VALIDATOR,
@@ -14,11 +14,11 @@ import { SedUniformTimeCourseSimulation } from '@biosimulations/combine-api-angu
   styleUrls: ['./form-steps.scss'],
 })
 export class UniformTimeCourseSimulationComponent implements IFormStepComponent {
-  public formGroup: FormGroup;
+  public formGroup: UntypedFormGroup;
   public nextClicked = false;
   public stepSize?: number;
 
-  public constructor(private formBuilder: FormBuilder) {
+  public constructor(private formBuilder: UntypedFormBuilder) {
     this.formGroup = this.formBuilder.group(
       {
         initialTime: [null, [Validators.required, NON_NEGATIVE_FLOAT_VALIDATOR]],

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormArray, FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { UntypedFormArray, UntypedFormGroup, UntypedFormBuilder, Validators, AbstractControl } from '@angular/forms';
 import {
   IFormStepComponent,
   FormStepData,
@@ -20,7 +20,7 @@ enum ModelVariableType {
 })
 export class ModelVariablesComponent implements IFormStepComponent {
   public nextClicked = false;
-  public formArray: FormArray;
+  public formArray: UntypedFormArray;
   public modelVariableTypes: Record<string, string>[] = [
     {
       id: ModelVariableType.symbol,
@@ -32,7 +32,7 @@ export class ModelVariablesComponent implements IFormStepComponent {
     },
   ];
 
-  public constructor(private formBuilder: FormBuilder) {
+  public constructor(private formBuilder: UntypedFormBuilder) {
     this.formArray = formBuilder.array([], {
       validators: [UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR('id')],
     });
@@ -96,7 +96,7 @@ export class ModelVariablesComponent implements IFormStepComponent {
     }
     const modelVariables: Record<string, string>[] = [];
     this.formArray.controls.forEach((control: AbstractControl): void => {
-      const formGroup = control as FormGroup;
+      const formGroup = control as UntypedFormGroup;
       modelVariables.push({
         id: formGroup.value.id,
         name: formGroup.value.name,
@@ -109,8 +109,8 @@ export class ModelVariablesComponent implements IFormStepComponent {
     };
   }
 
-  public formGroups(): FormGroup[] {
-    return this.formArray.controls as FormGroup[];
+  public formGroups(): UntypedFormGroup[] {
+    return this.formArray.controls as UntypedFormGroup[];
   }
 
   public addModelVariableField(modelVariable?: Record<string, string | null>): void {
@@ -128,7 +128,7 @@ export class ModelVariablesComponent implements IFormStepComponent {
     this.formArray.removeAt(index);
   }
 
-  public shouldShowIdError(formGroup: FormGroup): boolean {
+  public shouldShowIdError(formGroup: UntypedFormGroup): boolean {
     const invalidId = formGroup.hasError('validSedmlId', 'id');
     const missingId = formGroup.hasError('required', 'id');
     return this.nextClicked && (invalidId || missingId);

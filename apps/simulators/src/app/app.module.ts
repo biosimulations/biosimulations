@@ -76,7 +76,7 @@ routes.forEach((route: Route): void => {
     SharedUiModule,
     RoutesModule,
     RouterModule.forRoot(routes, {
-      initialNavigation: 'enabled',
+      initialNavigation: 'enabledBlocking',
       scrollPositionRestoration: 'disabled',
       preloadingStrategy: MARKED_PRELOADING_STRATEGY,
       relativeLinkResolution: 'legacy',

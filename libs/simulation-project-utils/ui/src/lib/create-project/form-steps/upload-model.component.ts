@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CreateMaxFileSizeValidator, URL_VALIDATOR } from '@biosimulations/shared/ui';
 import { OntologyTerm } from '@biosimulations/simulation-project-utils/service';
-import { FormGroup, FormBuilder, Validators, ValidationErrors } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, ValidationErrors } from '@angular/forms';
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import { EdamTerm } from '@biosimulations/datamodel/common';
 import { IFormStepComponent, FormStepData } from '@biosimulations/shared/ui';
@@ -13,11 +13,11 @@ import { ConfigService } from '@biosimulations/config/angular';
   styleUrls: ['./form-steps.scss'],
 })
 export class UploadModelComponent implements IFormStepComponent {
-  public formGroup: FormGroup;
+  public formGroup: UntypedFormGroup;
   public modelFormats?: OntologyTerm[];
   public nextClicked = false;
 
-  public constructor(private formBuilder: FormBuilder, private config: ConfigService) {
+  public constructor(private formBuilder: UntypedFormBuilder, private config: ConfigService) {
     this.formGroup = this.formBuilder.group(
       {
         modelFile: [null, [CreateMaxFileSizeValidator(this.config)]],
@@ -66,7 +66,7 @@ export class UploadModelComponent implements IFormStepComponent {
     return Array.from(specifierSet).join(',');
   }
 
-  private formValidator(formGroup: FormGroup): ValidationErrors | null {
+  private formValidator(formGroup: UntypedFormGroup): ValidationErrors | null {
     const errors: ValidationErrors = {};
     if (!formGroup.value.modelFile && !formGroup.value.modelUrl) {
       errors['noModel'] = true;

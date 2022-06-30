@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormArray, FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, Validators, UntypedFormGroup, AbstractControl } from '@angular/forms';
 import { IFormStepComponent, FormStepData } from '@biosimulations/shared/ui';
 import { UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR, SEDML_ID_VALIDATOR } from '@biosimulations/shared/ui';
 import { SedModelAttributeChangeTypeEnum, SedModelChange } from '@biosimulations/combine-api-angular-client';
@@ -11,9 +11,9 @@ import { SedModelAttributeChangeTypeEnum, SedModelChange } from '@biosimulations
 })
 export class ModelChangesComponent implements IFormStepComponent {
   public nextClicked = false;
-  public formArray: FormArray;
+  public formArray: UntypedFormArray;
 
-  public constructor(private formBuilder: FormBuilder) {
+  public constructor(private formBuilder: UntypedFormBuilder) {
     this.formArray = formBuilder.array([], {
       validators: [UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR('id')],
     });
@@ -60,7 +60,7 @@ export class ModelChangesComponent implements IFormStepComponent {
     }
     const modelChanges: Record<string, string>[] = [];
     this.formArray.controls.forEach((control: AbstractControl): void => {
-      const formGroup = control as FormGroup;
+      const formGroup = control as UntypedFormGroup;
       modelChanges.push({
         id: formGroup.value.id,
         name: formGroup.value.name,
@@ -78,15 +78,15 @@ export class ModelChangesComponent implements IFormStepComponent {
     this.formArray.removeAt(index);
   }
 
-  public formGroups(): FormGroup[] {
-    return this.formArray.controls as FormGroup[];
+  public formGroups(): UntypedFormGroup[] {
+    return this.formArray.controls as UntypedFormGroup[];
   }
 
-  public shouldShowIdError(formGroup: FormGroup): boolean {
+  public shouldShowIdError(formGroup: UntypedFormGroup): boolean {
     return this.nextClicked && formGroup.hasError('validSedmlId', 'id');
   }
 
-  public shouldShowTargetError(formGroup: FormGroup): boolean {
+  public shouldShowTargetError(formGroup: UntypedFormGroup): boolean {
     return this.nextClicked && formGroup.hasError('required', 'target');
   }
 

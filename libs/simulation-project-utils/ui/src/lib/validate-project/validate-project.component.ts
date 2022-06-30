@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators, ValidationErrors } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, UntypedFormControl, Validators, ValidationErrors } from '@angular/forms';
 import { CombineApiService } from '@biosimulations/simulation-project-utils/service';
 import {
   ValidationReport,
@@ -33,10 +33,10 @@ interface LabelValue {
 })
 export class ValidateProjectComponent implements OnInit, OnDestroy {
   submitMethod: SubmitMethod = SubmitMethod.file;
-  formGroup: FormGroup;
-  submitMethodControl: FormControl;
-  projectFileControl: FormControl;
-  projectUrlControl: FormControl;
+  formGroup: UntypedFormGroup;
+  submitMethodControl: UntypedFormControl;
+  projectFileControl: UntypedFormControl;
+  projectUrlControl: UntypedFormControl;
 
   omexMetadataFormats = Object.keys(OmexMetadataInputFormat).sort();
   omexMetadataSchemas: LabelValue[] = [
@@ -63,7 +63,7 @@ export class ValidateProjectComponent implements OnInit, OnDestroy {
 
   constructor(
     private config: ConfigService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private combineApiService: CombineApiService,
     private activatedRoute: ActivatedRoute,
     private snackBar: MatSnackBar,
@@ -86,9 +86,9 @@ export class ValidateProjectComponent implements OnInit, OnDestroy {
       //},
     );
 
-    this.submitMethodControl = this.formGroup.controls.submitMethod as FormControl;
-    this.projectFileControl = this.formGroup.controls.projectFile as FormControl;
-    this.projectUrlControl = this.formGroup.controls.projectUrl as FormControl;
+    this.submitMethodControl = this.formGroup.controls.submitMethod as UntypedFormControl;
+    this.projectFileControl = this.formGroup.controls.projectFile as UntypedFormControl;
+    this.projectUrlControl = this.formGroup.controls.projectUrl as UntypedFormControl;
 
     this.projectUrlControl.disable();
 
@@ -115,8 +115,8 @@ export class ValidateProjectComponent implements OnInit, OnDestroy {
     this.activatedRoute.queryParams.subscribe((params: Params): void => {
       const archiveUrl = params?.archiveUrl;
       if (archiveUrl) {
-        const submitMethodControl = this.formGroup.controls.submitMethod as FormControl;
-        const projectUrlControl = this.formGroup.controls.projectUrl as FormControl;
+        const submitMethodControl = this.formGroup.controls.submitMethod as UntypedFormControl;
+        const projectUrlControl = this.formGroup.controls.projectUrl as UntypedFormControl;
         submitMethodControl.setValue(SubmitMethod.url);
         projectUrlControl.setValue(archiveUrl);
         this.changeSubmitMethod();
@@ -124,32 +124,32 @@ export class ValidateProjectComponent implements OnInit, OnDestroy {
 
       const omexMetadataFormat = params?.omexMetadataFormat;
       if (this.omexMetadataFormats.includes(omexMetadataFormat)) {
-        (this.formGroup.controls.omexMetadataFormat as FormControl).setValue(omexMetadataFormat);
+        (this.formGroup.controls.omexMetadataFormat as UntypedFormControl).setValue(omexMetadataFormat);
       }
 
       const omexMetadataSchema = params?.omexMetadataSchema;
       if (this.omexMetadataSchemas.map((format: LabelValue): string => format.value).includes(omexMetadataSchema)) {
-        (this.formGroup.controls.omexMetadataSchema as FormControl).setValue(omexMetadataSchema);
+        (this.formGroup.controls.omexMetadataSchema as UntypedFormControl).setValue(omexMetadataSchema);
       }
 
       if (['0', 'false'].includes(params?.validateOmexManifest?.toLowerCase())) {
-        (this.formGroup.controls.validateOmexManifest as FormControl).setValue(false);
+        (this.formGroup.controls.validateOmexManifest as UntypedFormControl).setValue(false);
       }
 
       if (['0', 'false'].includes(params?.validateSedml?.toLowerCase())) {
-        (this.formGroup.controls.validateSedml as FormControl).setValue(false);
+        (this.formGroup.controls.validateSedml as UntypedFormControl).setValue(false);
       }
 
       if (['0', 'false'].includes(params?.validateSedmlModels?.toLowerCase())) {
-        (this.formGroup.controls.validateSedmlModels as FormControl).setValue(false);
+        (this.formGroup.controls.validateSedmlModels as UntypedFormControl).setValue(false);
       }
 
       if (['0', 'false'].includes(params?.validateOmexMetadata?.toLowerCase())) {
-        (this.formGroup.controls.validateOmexMetadata as FormControl).setValue(false);
+        (this.formGroup.controls.validateOmexMetadata as UntypedFormControl).setValue(false);
       }
 
       if (['0', 'false'].includes(params?.validateImages?.toLowerCase())) {
-        (this.formGroup.controls.validateImages as FormControl).setValue(false);
+        (this.formGroup.controls.validateImages as UntypedFormControl).setValue(false);
       }
 
       if (['1', 'true'].includes(params?.autoRun?.toLowerCase())) {
@@ -158,7 +158,7 @@ export class ValidateProjectComponent implements OnInit, OnDestroy {
     });
   }
 
-  maxFileSizeValidator(control: FormControl): ValidationErrors | null {
+  maxFileSizeValidator(control: UntypedFormControl): ValidationErrors | null {
     const fileInput: FileInput | null = control.value;
     const file: File | undefined = fileInput?.files ? fileInput.files[0] : undefined;
     const fileSize = file?.size;
@@ -171,7 +171,7 @@ export class ValidateProjectComponent implements OnInit, OnDestroy {
     }
   }
 
-  urlValidator(control: FormControl): ValidationErrors | null {
+  urlValidator(control: UntypedFormControl): ValidationErrors | null {
     const value = control.value;
     if (value && isUrl(control.value)) {
       return null;
@@ -182,7 +182,7 @@ export class ValidateProjectComponent implements OnInit, OnDestroy {
     }
   }
 
-  formValidator(formGroup: FormGroup): ValidationErrors | null {
+  formValidator(formGroup: UntypedFormGroup): ValidationErrors | null {
     const errors: ValidationErrors = {};
 
     if (formGroup.value.submitMethod == SubmitMethod.file) {
@@ -207,7 +207,7 @@ export class ValidateProjectComponent implements OnInit, OnDestroy {
   }
 
   changeSubmitMethod(): void {
-    const submitMethodControl = this.formGroup.controls.submitMethod as FormControl;
+    const submitMethodControl = this.formGroup.controls.submitMethod as UntypedFormControl;
     if (submitMethodControl.value === SubmitMethod.file) {
       this.formGroup.controls.projectFile.enable();
       this.formGroup.controls.projectUrl.disable();
@@ -230,7 +230,7 @@ export class ValidateProjectComponent implements OnInit, OnDestroy {
     this.warnings = undefined;
 
     // get data for API
-    const submitMethodControl = this.formGroup.controls.submitMethod as FormControl;
+    const submitMethodControl = this.formGroup.controls.submitMethod as UntypedFormControl;
 
     let archive: File | string = '';
     if (submitMethodControl.value === SubmitMethod.file) {
