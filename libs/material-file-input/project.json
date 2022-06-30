@@ -1,0 +1,38 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/material-file-input/src",
+  "prefix": "biosimulations",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["dist/libs/material-file-input"],
+      "options": {
+        "project": "libs/material-file-input/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/material-file-input/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/material-file-input/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/material-file-input"],
+      "options": {
+        "jestConfig": "libs/material-file-input/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/material-file-input/**/*.ts", "libs/material-file-input/**/*.html"]
+      }
+    }
+  },
+  "tags": ["platform:web", "type:ui"]
+}

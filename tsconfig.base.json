@@ -51,6 +51,7 @@
       "@biosimulations/hpc/singularityBuilder": ["libs/hpc/singularity-builder/src/index.ts"],
       "@biosimulations/hsds/client": ["libs/hsds/client/src/index.ts"],
       "@biosimulations/mail-service/client": ["libs/mail-service/client/src/index.ts"],
+      "@biosimulations/material-file-input": ["libs/material-file-input/src/index.ts"],
       "@biosimulations/messages/messages": ["libs/messages/messages/src/index.ts"],
       "@biosimulations/ontology/api": ["libs/ontology/api/src/index.ts"],
       "@biosimulations/ontology/client": ["libs/ontology/client/src/index.ts"],
