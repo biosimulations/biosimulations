@@ -29,6 +29,7 @@ import { MetadataModule } from '../metadata/metadata.module';
 import { ProjectsModule } from '../projects/projects.module';
 import { SimulationRunValidationService } from './simulation-run-validation.service';
 import { BullModuleOptions, JobQueue } from '@biosimulations/messages/messages';
+import { SimulationRunEventsController } from './events/simulation-run-events.controller';
 
 @Module({
   imports: [
@@ -43,13 +44,14 @@ import { BullModuleOptions, JobQueue } from '@biosimulations/messages/messages';
     MetadataModule,
     forwardRef(() => ProjectsModule),
     MongooseModule.forFeature([{ name: SimulationRunModel.name, schema: SimulationRunModelSchema }]),
+
     BullModule.registerQueue({
       name: JobQueue.submitSimulationRun,
       ...BullModuleOptions,
     }),
     HSDSClientModule,
   ],
-  controllers: [SimulationRunController],
+  controllers: [SimulationRunController, SimulationRunEventsController],
   providers: [SimulationRunService, SimulationRunValidationService],
   exports: [SimulationRunService, SimulationRunValidationService],
 })
