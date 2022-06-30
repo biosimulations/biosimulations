@@ -26,6 +26,12 @@
         "changelogTitle": "# Changelog"
       }
     ],
+    [
+      "@semantic-release/exec",
+      {
+        "prepareCmd": "tools/clean-up-changelog"
+      }
+    ],
     "@semantic-release/npm",
     [
       "@semantic-release/git",

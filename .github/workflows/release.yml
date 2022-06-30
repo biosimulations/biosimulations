@@ -53,32 +53,3 @@ jobs:
           GIT_COMMITTER_NAME: "BioSimulations-Daemon"
           GIT_COMMITTER_EMAIL: "biosimulationsdaemon@gmail.com"
         run: npx semantic-release
-
-      # Clean up changelog
-      - name: Pull changes
-        run: |
-          git fetch --all
-          git reset --hard origin/${{inputs.branch}}
-
-      - name: Clean up changelog
-        run: tools/clean-up-changelog
-
-      - name: Commit changelog
-        id: commit-changelog
-        run: |
-          set +e
-          git add docs/CHANGELOG.md
-          git commit -m "chore(release): cleaned up changelog [skip ci]"
-          if [[ $? = 0 ]]; then
-            changed=1
-          else
-            changed=0
-          fi
-          echo "::set-output name=changed::$changed"
-
-      - name: Push the updated changelog
-        if: steps.commit-changelog.outputs.changed == '1'
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{inputs.branch}}
