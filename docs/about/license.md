@@ -2381,7 +2381,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Eemeli Aro
 │  ├─ email: eemeli@gmail.com
 │  └─ licenseFile: yaml/LICENSE
-└─ zone.js@0.11.5
+└─ zone.js@0.11.6
    ├─ licenses: MIT
    ├─ repository: https://github.com/angular/angular
    ├─ publisher: Brian Ford
