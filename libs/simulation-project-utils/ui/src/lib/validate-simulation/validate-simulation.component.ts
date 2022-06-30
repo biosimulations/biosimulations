@@ -8,7 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Params } from '@angular/router';
 import isUrl from 'is-url';
 import { HtmlSnackBarComponent } from '@biosimulations/shared/ui';
-import { FileInput } from 'ngx-material-file-input';
+import { FileInput } from '@biosimulations/material-file-input';
 
 enum SubmitMethod {
   file = 'file',

@@ -4,7 +4,7 @@ import { UploadModelComponent } from './upload-model.component';
 import { OntologyTerm } from '@biosimulations/simulation-project-utils/service';
 import { ConfigService } from '@biosimulations/config/angular';
 import { MatCardModule } from '@angular/material/card';
-import { MaterialFileInputModule } from 'ngx-material-file-input';
+import { MaterialFileInputModule } from '@biosimulations/material-file-input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HarnessLoader } from '@angular/cdk/testing';
 import { MatSelectModule } from '@angular/material/select';
