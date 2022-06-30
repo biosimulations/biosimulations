@@ -2013,7 +2013,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/wesleytodd/setprototypeof
 │  ├─ publisher: Wes Todd
 │  └─ licenseFile: setprototypeof/LICENSE
-├─ sharp@0.30.6
+├─ sharp@0.30.7
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/lovell/sharp
 │  ├─ publisher: Lovell Fuller
