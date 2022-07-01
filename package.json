@@ -244,6 +244,9 @@
     "vega-lite": "5.2.0",
     "webpack": "^5.64.0"
   },
+  "overrides": {
+    "@nrwl/devkit@": "14.3.6"
+  },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
