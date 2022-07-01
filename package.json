@@ -246,7 +246,12 @@
   },
   "overrides": {
     "@nx-tools/docker-metadata": {
-      "@nrwl/devkit": "^14.0.0"
+      "@nrwl/devkit": "14.3.6"
+    },
+    "ngx-markdown": {
+      "@angular/common": "14.0.4",
+      "@angular/core": "14.0.4",
+      "@angular/platform-browser": "14.0.4"
     }
   },
   "config": {
