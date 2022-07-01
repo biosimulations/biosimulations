@@ -245,7 +245,9 @@
     "webpack": "^5.64.0"
   },
   "overrides": {
-    "@nrwl/devkit@": "14.3.6"
+    "@nx-tools/docker-metadata": {
+      "@nrwl/devkit": "^14.0.0"
+    }
   },
   "config": {
     "commitizen": {
