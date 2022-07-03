@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.21.0](https://github.com/biosimulations/biosimulations/compare/v9.20.1...v9.21.0) (2022-07-03)
+
+
+### Features
+
+* add material file input library ([f88aa6f](https://github.com/biosimulations/biosimulations/commit/f88aa6f560889b587e6723abc53127f9d91b2c41))
+
 ## [9.20.1](https://github.com/biosimulations/biosimulations/compare/v9.20.0...v9.20.1) (2022-06-28)
 
 
