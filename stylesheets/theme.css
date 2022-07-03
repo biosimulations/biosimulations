@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+
+:root {
+  --md-primary-fg-color: #2196f3;
+  --md-primary-fg-color--light: #9bcff9;
+  --md-primary-fg-color--dark: #1479ed;
+  --md-accent-fg-color: #ff9800;
+  --md-accent-fg-color--light: #ffe0b2;
+  --md-accent-fg-color--dark: #ff7b00;
+  --md-text-font-family: 'Raleway';
+}
+
+.logos {
+  margin-block-start: 0.5rem;
+}
+.logos .logos-row:not(:first-child) {
+  margin-block-start: 0.5rem;
+}
+
+.logos a:not(:first-child) {
+  margin-left: 0.25rem;
+}
+.logos a:not(:last-child) {
+  margin-right: 0.25rem;
+}
+
+.logos img {
+  height: 2.5rem;
+}
+
+.md-header__button.md-logo {
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+}
+
+.md-header__button.md-logo img {
+  height: 2rem;
+  width: auto;
+}
+
+.md-tabs {
+  background-color: #9bcff9;
+  color: var(--md-primary-fg-color);
+}
+
+.md-tabs__item {
+  height: 1.6rem;
+}
+
+.md-tabs__link {
+  margin-top: 0.3rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.md-tabs__link:hover {
+  text-decoration: underline;
+}
+
+.md-tabs__link:active {
+  color: #1479ed;
+}
+
+.md-grid {
+  max-width: 70rem;
+}
+
+code {
+  max-height: 600px;
+}

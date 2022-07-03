@@ -1,0 +1,1853 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://docs.biosimulations.org/users/creating-tools/">
+      
+      <link rel="icon" href="../../assets/icons/favicon.ico">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.8">
+    
+    
+      
+        <title>Creating simulation tools - BioSimulations and BioSimulators documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.1d29e8d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/theme.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+
+  <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-8LMPX6MEZ5"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&gtag("event","search",{search_term:this.value})}),"undefined"!=typeof location$&&location$.subscribe(function(e){gtag("config","G-8LMPX6MEZ5",{page_path:e.pathname})})})</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8LMPX6MEZ5"></script>
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#creating-standardized-interfaces-to-biosimulation-tools" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-component="outdated" hidden>
+        <aside class="md-banner md-banner--warning">
+          
+        </aside>
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="BioSimulations and BioSimulators documentation" class="md-header__button md-logo" aria-label="BioSimulations and BioSimulators documentation" data-md-component="logo">
+      
+  <img src="../../assets/logos/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BioSimulations and BioSimulators documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Creating simulation tools
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark theme"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark theme" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: biosimulations-dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to light theme"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light theme" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/biosimulations/biosimulations" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../" class="md-tabs__link md-tabs__link--active">
+        User guide
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../developers/" class="md-tabs__link">
+        Developer guide
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../concepts/conventions/" class="md-tabs__link">
+        Concepts
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../news/changelog/" class="md-tabs__link">
+        News
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../community/contributors/" class="md-tabs__link">
+        Community
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../about/team/" class="md-tabs__link">
+        About
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="BioSimulations and BioSimulators documentation" class="md-nav__button md-logo" aria-label="BioSimulations and BioSimulators documentation" data-md-component="logo">
+      
+  <img src="../../assets/logos/logo.svg" alt="logo">
+
+    </a>
+    BioSimulations and BioSimulators documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/biosimulations/biosimulations" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../">User guide</a>
+          
+            <label for="__nav_1">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="User guide" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          User guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../viewing-projects/" class="md-nav__link">
+        Exploring published projects
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../simulating-projects/" class="md-nav__link">
+        Simulating projects
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../creating-projects/" class="md-nav__link">
+        Creating projects
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../creating-vega-visualizations/" class="md-nav__link">
+        Creating Vega data visualizations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../validating-projects/" class="md-nav__link">
+        Validating projects
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../publishing-projects/" class="md-nav__link">
+        Publishing projects
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../source-model-repositories/" class="md-nav__link">
+        Source model repositories
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../finding-tools/" class="md-nav__link">
+        Finding simulation tools
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Creating simulation tools
+      </a>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../publishing-tools/" class="md-nav__link">
+        Publishing simulation tools
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        REST APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../biosimulators-packages/" class="md-nav__link">
+        BioSimulators tools and libraries
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../biosimulations-packages/" class="md-nav__link">
+        Libraries for publishing primary repositories to BioSimulations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../live-tutorials/" class="md-nav__link">
+        Live and recorded tutorials
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faqs/" class="md-nav__link">
+        FAQs
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../developers/">Developer guide</a>
+          
+            <label for="__nav_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Developer guide" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Developer guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developers/conduct/" class="md-nav__link">
+        Developer code of conduct
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developers/source-code/" class="md-nav__link">
+        Source code
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          Setting Up
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Setting Up" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Setting Up
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developers/setup/getting-started/" class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developers/setup/environment/" class="md-nav__link">
+        Local environment
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developers/setup/endpoints/" class="md-nav__link">
+        Configuring endpoints
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developers/setup/services/" class="md-nav__link">
+        Running required backend services for local development
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_5">
+          Architecture
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Architecture" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Architecture
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developers/architecture/overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developers/architecture/philosophy/" class="md-nav__link">
+        Decisions and philosophy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developers/architecture/tech-foundation/" class="md-nav__link">
+        Technological foundation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developers/architecture/deployment/" class="md-nav__link">
+        Deploying BioSimulations in alternative environments
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Concepts
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Concepts" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Concepts
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_1" type="checkbox" id="__nav_3_1" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../concepts/conventions/">Conventions</a>
+          
+            <label for="__nav_3_1">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Conventions" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          Conventions
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/conventions/simulation-experiments/" class="md-nav__link">
+        Conventions for describing reproducible and reusable simulation experiments with SED-ML
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/conventions/simulation-run-reports/" class="md-nav__link">
+        Format for reports of the results of simulation experiments described with SED-ML
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/conventions/simulation-run-visualizations/" class="md-nav__link">
+        Guidelines for using Vega to visualize simulation results
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/conventions/simulation-run-logs/" class="md-nav__link">
+        Format for logs of the execution of simulation experiments captured in COMBINE/OMEX archives
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/conventions/simulation-project-metadata/" class="md-nav__link">
+        Format for metadata about simulation projects
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/conventions/simulator-interfaces/" class="md-nav__link">
+        Standard command-line applications and Python APIs for biosimulation tools
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/conventions/simulator-images/" class="md-nav__link">
+        Guidelines for Docker images for biosimulation tools
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/conventions/simulator-capabilities/" class="md-nav__link">
+        Format for the specification of BioSimulation tools
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" >
+      
+      
+      
+        
+          
+            
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../concepts/glossary/">Glossary</a>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Glossary" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          Glossary
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          News
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="News" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          News
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../news/changelog/" class="md-nav__link">
+        Changelog
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Community
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Community" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Community
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/contributors/" class="md-nav__link">
+        Contributors
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/contributing/" class="md-nav__link">
+        Guide to contributing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/governance/" class="md-nav__link">
+        Governance
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          About
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="About" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          About
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/team/" class="md-nav__link">
+        Development team
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/funding/" class="md-nav__link">
+        Funding
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/citations/" class="md-nav__link">
+        Citing us
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/contact/" class="md-nav__link">
+        Contact us
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/privacy/" class="md-nav__link">
+        Privacy policy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/cookies/" class="md-nav__link">
+        Cookie policy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/terms/" class="md-nav__link">
+        Terms of service
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/security/" class="md-nav__link">
+        Security policy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/license/" class="md-nav__link">
+        License
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/biosimulations/biosimulations/blob/dev/docs/users/creating-tools.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+<h1 id="creating-standardized-interfaces-to-biosimulation-tools">Creating standardized interfaces to biosimulation tools</h1>
+<p>We welcome contributions of additional simulation tools!</p>
+<p>All simulation tools submitted for validation by BioSimulators should support at least one modeling language, <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr>, <abbr title="Kinetic Simulation and Algorithms Ontology: Ontology for describing simulation algorithms and their parameters.">KiSAO</abbr>, and the <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> format.</p>
+<ul>
+<li>
+<p>Modeling languages. Containers should support at least a subset of at least one modeling language such as <abbr title="BioNetGen Language: Language for describing models of biochemical networks as sets of rules.">BNGL</abbr>, <abbr title="Language for describing models of physiological systems.">CellML</abbr>, Kappa, NeuroML/<abbr title="Low Entropy Model Specification: Format for describing neurophysiological simulations.">LEMS</abbr>, pharmML, <abbr title="Systems Biology Markup Language: Format for capturing models of biochemical networks.">SBML</abbr>, or Smoldyn.</p>
+</li>
+<li>
+<p><abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr>. Currently, containers should support at least the following features of <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> L1V3:</p>
+<ul>
+<li>Model and model attribute changes: <code>sedml:model</code>, <code>sedml:changeAttribute</code>.</li>
+<li>At least one of steady-state, one step, or timecourse simulations: <code>sedml:steadyState</code>, <code>sedml:oneStep</code>, or <code>sedml:uniformTimeCourse</code>.</li>
+<li>Tasks for the execution of individual simulations of individual models: <code>sedml:task</code>.</li>
+<li>Algorithms and algorithm parameters: <code>sedml:algorithm</code>, <code>sedml:algorithmParameter</code>.</li>
+<li>Data generators for individual variables: <code>sedml:dataGenerator</code>, <code>sedml:variable</code></li>
+<li>Report outputs: <code>sedml:report</code>.</li>
+</ul>
+</li>
+<li>
+<p><abbr title="Kinetic Simulation and Algorithms Ontology: Ontology for describing simulation algorithms and their parameters.">KiSAO</abbr>. <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> documents interpreted by containers should use <abbr title="Kinetic Simulation and Algorithms Ontology: Ontology for describing simulation algorithms and their parameters.">KiSAO</abbr> terms to indicate algorithms and algorithm parameters. As necessary, create <a href="https://github.com/SED-ML/KiSAO/issues/new?assignees=&amp;labels=New+term&amp;template=request-a-term.md&amp;title=">issues</a> on the <abbr title="Kinetic Simulation and Algorithms Ontology: Ontology for describing simulation algorithms and their parameters.">KiSAO</abbr> repository to request terms for additional algorithms and algorithm parameters.</p>
+</li>
+<li>
+<p><abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr>. Containers should support the full <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> specification.</p>
+</li>
+</ul>
+<p>Please follow the steps below to create a containerized simulation tool that adheres to the BioSimulators conventions. Several examples are available from the <a href="https://github.com/biosimulations/">BioSimulators GitHub organization</a>. A template repository with template Python code for a command-line interface and a template for a Dockerfile is available <a href="https://github.com/biosimulators/Biosimulators_simulator_template">here</a>.</p>
+<ol>
+<li>Optionally, create a Git repository for your command-line interface and Dockerfile.</li>
+<li>
+<p>Implement a BioSimulators-compliant command-line interface to your simulation tool. The interface should accept two keyword arguments:</p>
+<ul>
+<li><code>-i, --archive</code>: A path to a <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archive that contains descriptions of one or more simulation tasks.</li>
+<li><code>-o, --out-dir</code>: A path to a directory where the outputs of the simulation tasks should be saved. Data for plots and reports should be saved in <abbr title="Hierarchical Data Format version 5: Format for capturing the results of simulations.">HDF5</abbr> format (see the <a href="../../concepts/conventions/simulation-run-reports/">specifications for data sets</a> for more information) and plots should be saved in Portable Document Format (<abbr title="Portable Document Format: Format for print documents.">PDF</abbr>) bundled into a single zip archive. Data for reports and plots should be saved to <code>{ out-dir }/reports.h5</code> and plots should be saved to <code>{ out-dir/plots.zip }</code>. Within the <abbr title="Hierarchical Data Format version 5: Format for capturing the results of simulations.">HDF5</abbr> file and the zip file, reports and plots should be saved to paths equal to the relative path of their parent <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> documents within the parent <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archive and the id of the report/plot.</li>
+</ul>
+<p>For reports, the rows of the data tables should correspond to the data sets (<code>sedml:dataSet</code>) specified in the <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> definition of the report (e.g., time, specific species). The heading of each row should be the label of the corresponding data set.</p>
+<p>For plots, the rows of the data tables should correspond to the data generators (<code>sedml:dataGenerator</code>) specified in the <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> definition of each curve and surface of the plot (e.g., time, specific species). The heading of each row should be the id of the corresponding data generator.</p>
+<p>Data tables of steady-state simulations should have a single column of the steady-state predictions of each data set. Data tables of one step simulations should have two columns that represent the predicted start and end states of each data set. Data tables of time course simulations should have multiple columns that represent the predicted time course of each data set. Data tables of non-spatial simulations should not have additional dimensions. Data tables of spatial simulations should have additional dimensions that represent the spatial axes of the simulation.</p>
+<p>See the <a href="../../concepts/conventions/simulator-interfaces/">specifications for interfaces</a> for more information.</p>
+<p>In addition, we recommend providing optional arguments for reporting help and version information about your simulator:</p>
+<ul>
+<li><code>-h, --help</code>: This argument should instruct the command-line program to print help information about itself.</li>
+<li><code>-v, --version</code>: This argument should instruct the command-line program to report version information about itself.</li>
+</ul>
+<p>The easiest way to create a BioSimulators-compliant command-line interface is to create a <a href="../../concepts/conventions/simulator-interfaces/#conventions-for-python-apis">BioSimulators-compliant Python API</a> and then use methods in <a href="https://github.com/biosimulators/Biosimulators_utils">BioSimulators-utils</a> to build a command-line interface from this API. Implementing a BioSimulators-compliant Python API primarily entails implementing a single method for executing a single simulation of a single model. Additional information about creating BioSimulators-compliant Python APIs, command-line interfaces, and <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> images, including templates, is available <a href="https://github.com/biosimulators/Biosimulators_simulator_template">here</a>.</p>
+<p>Simulation tools can also utilize two environment variables to obtain information about the environment that runBioSimulations uses to execute simulations.</p>
+<ul>
+<li><code>HPC</code>: runBioSimulations sets this variable to <code>1</code> to indicate that the simulation tool is being executed in an <abbr title="High-performance computing: Computational infrastructure for executing simulations.">HPC</abbr> environment.</li>
+<li><code>CPUS</code>: runBioSimulations sets this variable to the number of CPUs allocated to the job in which the simulation tool is being executed.</li>
+</ul>
+</li>
+<li>
+<p>Create a Dockerfile which describes how to build an image for your simulation tool.</p>
+<ol>
+<li>Use the <code>FROM</code> directive to choose a base operating system such as Ubuntu.</li>
+<li>Use the <code>RUN</code> directive to describe how to install your tool and any dependencies. Because <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> images are typically run as root, reserve <code>/root</code> for the home directory of the user which executes the image. Similarly, reserve <code>/tmp</code> for temporary files that must be created during the execution of the image. Install your simulation tool into a different directory than <code>/root</code> and <code>/tmp</code> such as <code>/usr/local/bin</code>.</li>
+<li>Ideally, the simulation tools inside images should be installed from internet sources so that the construction of an image is completely specified by its Dockerfile and, therefore, reproducible and portable. Additional files needed during the building of the image, such as licenses to commercial software, can be copied from a local directory such as <code>assets/</code>. These files can then be deleted and squashed out of the final image and injected again when the image is executed.</li>
+<li>Set the <code>ENTRYPOINT</code> directive to the path to your command-line interface.</li>
+<li>Set the <code>CMD</code> directive to <code>[]</code>.</li>
+<li>Use the <code>ENV</code> directive to declare all <a href="../../concepts/conventions/simulator-interfaces/#environment-variables">environment variables</a> that your simulation tool supports.</li>
+<li>Do not use the <code>USER</code> directive to set the user which will execute the image so that the user can be set at execution time.</li>
+<li>
+<p>Use the <code>LABEL</code> directive to provide the metadata about your simulation tool described below. This metadata is also necessary to submit your image to <a href="https://biocontainers.pro/">BioContainers</a>, a broad registry of images for biological research.</p>
+<p>Open Containers Initiative labels:    </p>
+<ul>
+<li>
+<p><code>org.opencontainers.image.title</code>: Human-readable title of the image.</p>
+</li>
+<li>
+<p><code>org.opencontainers.image.version</code>: Version of the software in the image.</p>
+</li>
+<li>
+<p><code>org.opencontainers.image.revision</code>: Source control revision identifier of the software in the image.</p>
+</li>
+<li>
+<p><code>org.opencontainers.image.description</code>: Human-readable description of the software in the image.</p>
+</li>
+<li>
+<p><code>org.opencontainers.image.url</code>: URL to find more information about the image.</p>
+</li>
+<li>
+<p><code>org.opencontainers.image.documentation</code>: URL to get documentation about the image.</p>
+</li>
+<li>
+<p><code>org.opencontainers.image.source</code>: URL to get the Dockerfile for building the image.</p>
+</li>
+<li>
+<p><code>org.opencontainers.image.authors</code>: Contact details of the people or organization responsible for the image.</p>
+</li>
+<li>
+<p><code>org.opencontainers.image.vendor</code>: Name of the entity, organization or individual which distributes the image.</p>
+</li>
+<li>
+<p><code>org.opencontainers.image.licenses</code>: <abbr title="Software Package Data Exchange: Ontology for describing licenses.">SPDX</abbr> expression that describes the license(s) under which the software in the image is distributed.</p>
+</li>
+<li>
+<p><code>org.opencontainers.image.created</code>: Date and time when the image was built (RFC 3339).        </p>
+</li>
+</ul>
+<p>BioContainers labels:</p>
+<ul>
+<li>
+<p><code>version</code>: Version of your image (e.g., <code>1.0.0</code>)</p>
+</li>
+<li>
+<p><code>software</code>: Simulation program wrapped into your image (e.g., <code>BioNetGen</code>).</p>
+</li>
+<li>
+<p><code>software.version</code>: Version of the simulation program wrapped into your image (e.g., <code>2.5.0</code>).</p>
+</li>
+<li>
+<p><code>about.summary</code>: Short description of the simulation program (e.g., <code>Package for rule-based modeling of complex biochemical systems</code>).</p>
+</li>
+<li>
+<p><code>about.home</code>: URL for the simulation program (e.g., <code>https://bionetgen.org/</code>).</p>
+</li>
+<li>
+<p><code>about.documentation</code>: URL for documentation for the simulation program (e.g., <code>https://bionetgen.org/</code>).</p>
+</li>
+<li>
+<p><code>about.license_file</code>: URL for the license for the simulation program (e.g., <code>https://github.com/RuleWorld/bionetgen/blob/master/LICENSE</code>).</p>
+</li>
+<li>
+<p><code>about.license</code>: <abbr title="Software Package Data Exchange: Ontology for describing licenses.">SPDX</abbr> license id for the license for the simulation program (e.g., <code>SPDX:MIT</code>). See <abbr title="Software Package Data Exchange: Ontology for describing licenses.">SPDX</abbr>  for a list of licenses and their ids.</p>
+</li>
+<li>
+<p><code>about.tags</code>: Comma-separated list of tags which describe the simulation program (e.g., <code>rule-based modeling,dynamical simulation,systems biology,BNGL,BioSimulators</code>). Please include the tag <code>BioSimulators</code>.</p>
+</li>
+<li>
+<p><code>extra.identifiers.biotools</code>: Optionally, the bio.tools identifier for the simulation program (e.g., <code>bionetgen</code>). Visit <a href="https://bio.tools">bio.tools</a> to request an identifier for your simulation program.</p>
+</li>
+<li>
+<p><code>maintainer</code>: Name and email of the person/team who developed the image (e.g., <code>Jonathan Karr &lt;karr@mssm.edu&gt;</code>).</p>
+</li>
+</ul>
+</li>
+</ol>
+<p>Below is an example of metadata for the BioNetGen image.
+<div class="highlight"><pre><span></span><code><span class="k">LABEL</span><span class="w"> </span><span class="se">\</span>
+org.opencontainers.image.title<span class="o">=</span><span class="s2">&quot;BioNetGen&quot;</span> <span class="se">\</span>
+org.opencontainers.image.version<span class="o">=</span><span class="s2">&quot;2.5.0&quot;</span> <span class="se">\</span>
+org.opencontainers.image.description<span class="o">=</span><span class="s2">&quot;Package for rule-based modeling of complex biochemical systems&quot;</span> <span class="se">\</span>
+org.opencontainers.image.url<span class="o">=</span><span class="s2">&quot;https://bionetgen.org/&quot;</span> <span class="se">\</span>
+org.opencontainers.image.documentation<span class="o">=</span><span class="s2">&quot;https://bionetgen.org/&quot;</span> <span class="se">\</span>
+org.opencontainers.image.source<span class="o">=</span><span class="s2">&quot;https://github.com/biosimulators/biosimulators_bionetgen&quot;</span> <span class="se">\</span>
+org.opencontainers.image.authors<span class="o">=</span><span class="s2">&quot;BioSimulators Team &lt;info@biosimulators.org&gt;&quot;</span> <span class="se">\</span>
+org.opencontainers.image.vendor<span class="o">=</span><span class="s2">&quot;BioSimulators Team&quot;</span> <span class="se">\</span>
+org.opencontainers.image.licenses<span class="o">=</span><span class="s2">&quot;MIT&quot;</span> <span class="se">\</span>
+<span class="se">\</span>
+<span class="nv">base_image</span><span class="o">=</span><span class="s2">&quot;ubuntu:18.04&quot;</span>
+<span class="nv">version</span><span class="o">=</span><span class="s2">&quot;1.0.0&quot;</span>
+<span class="nv">software</span><span class="o">=</span><span class="s2">&quot;BioNetGen&quot;</span>
+software.version<span class="o">=</span><span class="s2">&quot;2.5.0&quot;</span>
+about.summary<span class="o">=</span><span class="s2">&quot;Package for rule-based modeling of complex biochemical systems&quot;</span>
+about.home<span class="o">=</span><span class="s2">&quot;https://bionetgen.org/&quot;</span>
+about.documentation<span class="o">=</span><span class="s2">&quot;https://bionetgen.org/&quot;</span>
+about.license_file<span class="o">=</span><span class="s2">&quot;https://github.com/RuleWorld/bionetgen/blob/master/LICENSE&quot;</span>
+about.license<span class="o">=</span><span class="s2">&quot;SPDX:MIT&quot;</span>
+about.tags<span class="o">=</span><span class="s2">&quot;rule-based modeling,dynamical simulation,systems biology,biochemical networks,BNGL,SED-ML,COMBINE,OMEX,BioSimulators&quot;</span>
+extra.identifiers.biotools<span class="o">=</span><span class="s2">&quot;bionetgen&quot;</span>
+<span class="nv">maintainer</span><span class="o">=</span><span class="s2">&quot;Jonathan Karr &lt;karr@mssm.edu&gt;&quot;</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>Use <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> and the Dockerfile to build an image for your simulation tool by executing the following from your console:
+    <div class="highlight"><pre><span></span><code>docker build <span class="se">\</span>
+  --tag <span class="o">{</span> dockerhub-user-id <span class="o">}</span>/<span class="o">{</span> simulator-id <span class="o">}</span>:<span class="o">{</span> simulator-version <span class="o">}</span> <span class="se">\</span>
+  --tag <span class="o">{</span> dockerhub-user-id <span class="o">}</span>/<span class="o">{</span> simulator-id <span class="o">}</span>:latest <span class="se">\</span>
+  --file <span class="o">{</span> path-to-Dockerfile <span class="o">}</span> <span class="se">\</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>Create a <abbr title="JavaScript Object Notation: Format for inputs and outputs to the BioSimulations and BioSimulators APIs.">JSON</abbr>-encoded file that specifies the capabilities of your simulation tool. This file should adhere to the schema described <a href="../../concepts/conventions/simulator-capabilities/">here</a>.</p>
+<p>Use <abbr title="Systems Biology Ontology: Ontology for describing modeling frameworks.">SBO</abbr>, <abbr title="Kinetic Simulation and Algorithms Ontology: Ontology for describing simulation algorithms and their parameters.">KiSAO</abbr>, and <abbr title="EMBRACE Data and Methods: Ontology for describing model formats.">EDAM</abbr> to describe the modeling frameworks, simulation algorithms, and modeling formats that your simulation tool supports. As necessary, use their issue trackers to request additional <a href="https://sourceforge.net/p/sbo/term-request/"><abbr title="Systems Biology Ontology: Ontology for describing modeling frameworks.">SBO</abbr></a>, <a href="https://github.com/SED-ML/KiSAO/issues/new?assignees=&amp;labels=New+term&amp;template=request-a-term.md&amp;title="><abbr title="Kinetic Simulation and Algorithms Ontology: Ontology for describing simulation algorithms and their parameters.">KiSAO</abbr></a>, and <a href="https://github.com/edamontology/edamontology/issues/new?template=new-format.md"><abbr title="EMBRACE Data and Methods: Ontology for describing model formats.">EDAM</abbr></a> terms. As necessary, also use the <a href="https://github.com/SED-ML/sed-ml/issues/new"><abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> issue tracker</a> to request URNs for additional modeling languages.</p>
+</li>
+<li>
+<p>Use the BioSimulators test suite to validate your image and its specifications. This will check that the image provides a BioSimulators-compliant <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> structure and command-line interface, and that it provides all of the simulation algorithms described in its specifications.</p>
+<div class="highlight"><pre><span></span><code>pip install biosimulators-test-suite
+biosimulators-test-suite validate <span class="o">{</span> dockerhub-user-id <span class="o">}</span>/<span class="o">{</span> image-id <span class="o">}</span> <span class="o">{</span> path-to-specifications.json <span class="o">}</span>
+</code></pre></div>
+<p>The command-line program for the test suite provides several helpful options, such as for executing tasks directly through command-line interfaces and for executing individual test cases. More information is available <a href="https://github.com/biosimulators/Biosimulators_test_suite">here</a>.</p>
+</li>
+</ol>
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      Last update:
+      2022-07-03
+    
+  </small>
+</div>
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../finding-tools/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Finding simulation tools" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Finding simulation tools
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../publishing-tools/" class="md-footer__link md-footer__link--next" aria-label="Next: Publishing simulation tools" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Publishing simulation tools
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2019 - 2021 BioSimulations Team
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    <a href="https://twitter.com/bio_sims" target="_blank" rel="noopener" title="BioSimulations on Twitter" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+    
+    
+    <a href="https://github.com/biosimulations/biosimulations" target="_blank" rel="noopener" title="BioSimulations on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.indexes", "navigation.tabs", "navigation.tabs.sticky", "navigation.instant", "navigation.sections", "navigation.top", "search.suggest"], "search": "../../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.0238f547.min.js"></script>
+      
+    
+  </body>
+</html>

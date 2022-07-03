@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="0 0 231.45014 158.54"
+   version="1.1"
+   id="svg5401"
+   sodipodi:docname="nrwl.svg"
+   width="231.45013"
+   height="158.53999"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <metadata
+     id="metadata5405">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Nrwl_ColorVertical</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1112"
+     id="namedview5403"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="1.932731"
+     inkscape:cx="86.271257"
+     inkscape:cy="83.525872"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg5401" />
+  <defs
+     id="defs5365">
+    <style
+       id="style5363">.cls-1{fill:#333;}.cls-2{fill:#48c4e5;}.cls-3{fill:#96d8e9;}</style>
+  </defs>
+  <title
+     id="title5367">Nrwl_ColorVertical</title>
+  <g
+     id="whale"
+     transform="translate(-98.07987)">
+    <g
+       id="bdy">
+      <path
+         style="fill:#48c4e5"
+         inkscape:connector-curvature="0"
+         d="m 98.08,79 a 78.6,78.6 0 0 0 56.39,75.54 105.11,105.11 0 0 0 28.68,4 104.47,104.47 0 0 0 41.38,-8.54 c 5.29,-2.47 6.22,-6.38 6.22,-8.93 0,-2.55 -2.28,-4.23 -3.13,-5.36 a 3.33,3.33 0 0 1 -0.76,-1.61 v 0 c -1.38,-19.68 -18,-35.22 -38.39,-35.22 H 186 c -18.05,0 -32.68,-14.39 -32.68,-32.15 a 31.81,31.81 0 0 1 9.34,-22.5 43,43 0 0 1 72.16,18.26 21.4,21.4 0 0 1 -12.75,7.38 21.05,21.05 0 0 0 -17.27,17.32 c 8.23,0 13.7,11 29,11 a 13.91,13.91 0 0 0 12.85,-8.48 13.9,13.9 0 0 0 12.85,8.48 c 15.28,0 20.75,-11 29,-11 A 21.05,21.05 0 0 0 271.23,69.91 C 264.66,68.85 258,64.05 255.75,57.81 v 0 C 246.3,24.47 215.23,0 178.36,0 134,0 98.08,35.37 98.08,79 Z m 82.73,57.08 c 0.5,-2 2.13,-1.15 4.28,-0.63 2.15,0.52 4,0.5 3.51,2.5 a 3.92,3.92 0 0 1 -4.8,2.7 3.84,3.84 0 0 1 -2.99,-4.57 z"
+         class="cls-2"
+         data-name="bdy"
+         id="bdy-2" />
+      <path
+         style="fill:#48c4e5"
+         inkscape:connector-curvature="0"
+         d="m 225.49,144.91 a 4.16,4.16 0 0 1 4.19,-4.13 2.43,2.43 0 0 1 0.38,0 v 0 a 7.44,7.44 0 0 1 0.87,0.16 l 98.6,17.32 L 229.05,149 v 0 a 4.14,4.14 0 0 1 -3.56,-4.09 z"
+         class="cls-2"
+         id="tusk" />
+      <g
+         data-name="right fin"
+         id="right_fin">
+        <path
+           style="fill:#48c4e5"
+           inkscape:connector-curvature="0"
+           id="path5381"
+           d="m 171.51,95.6 a 13.08,13.08 0 0 1 11.66,-10.14 v 0.07 a 11.58,11.58 0 0 0 4.47,9.13 11.58,11.58 0 0 1 4.11,4.4 v 4.19 h -20.24 z"
+           class="cls-2" />
+      </g>
+    </g>
+    <g
+       id="highlights">
+      <path
+         style="fill:#96d8e9"
+         inkscape:connector-curvature="0"
+         id="path5385"
+         d="M 116.09,129.2 A 78.34,78.34 0 0 1 98.09,79 c 0,-37 25.8,-68 60.64,-76.62 C 132.65,9.64 103.5,33.06 103.5,74 c 0,51.85 43.84,61.89 64.23,71.21 12.39,5.66 16.85,10.41 18.45,13.27 -1,0 -2,0 -3,0 a 105.11,105.11 0 0 1 -28.68,-4 c -9.57,-2.85 -20.5,-9.15 -28.12,-15.06 1.07,0.16 -5.4,-3.57 -11.75,-12.14"
+         class="cls-3" />
+      <ellipse
+         style="fill:#96d8e9"
+         id="ellipse5387"
+         transform="rotate(-13.66,132.39806,84.243719)"
+         ry="3.8499999"
+         rx="2.73"
+         cy="84.279999"
+         cx="132.42999"
+         class="cls-3" />
+      <ellipse
+         style="fill:#96d8e9"
+         id="ellipse5389"
+         transform="rotate(-40.79,143.33723,99.795592)"
+         ry="5.0700002"
+         rx="3.55"
+         cy="99.800003"
+         cx="143.34"
+         class="cls-3" />
+      <ellipse
+         style="fill:#96d8e9"
+         id="ellipse5391"
+         transform="rotate(-85.69,142.12152,65.265261)"
+         ry="2.73"
+         rx="3.8499999"
+         cy="65.260002"
+         cx="142.13"
+         class="cls-3" />
+      <ellipse
+         style="fill:#96d8e9"
+         id="ellipse5393"
+         transform="rotate(-2.54,132.47897,70.180023)"
+         ry="1.92"
+         rx="1.37"
+         cy="70.260002"
+         cx="132.73"
+         class="cls-3" />
+      <path
+         style="fill:#96d8e9"
+         inkscape:connector-curvature="0"
+         d="m 151.5,145.48 a 40.6,40.6 0 0 1 -21.06,9.88 c -1.13,0.17 -2.27,0.29 -3.43,0.37 a 42.51,42.51 0 0 1 -6.59,-0.09 v 0 a 48.28,48.28 0 0 0 -8,-0.13 47.51,47.51 0 0 0 -13.26,2.79 v 0 a 15.92,15.92 0 0 1 -1,-4.71 16.34,16.34 0 0 1 24.34,-15 v 0 a 17.08,17.08 0 0 0 9.13,2 16.42,16.42 0 0 0 8.12,-2.76 c 0,0 1.86,-1.62 6.29,1.19 6.46,4.09 5.46,6.46 5.46,6.46 z"
+         class="cls-3"
+         data-name="left fin"
+         id="left_fin" />
+    </g>
+  </g>
+</svg>
