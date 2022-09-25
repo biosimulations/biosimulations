@@ -59,7 +59,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     if (projectUrl && isUrl(projectUrl)) {
       const specsObservable = this.combineApiService.getSpecsOfSedDocsInCombineArchive(projectUrl);
       const subscription = specsObservable.subscribe((sedDocSpecs?: CombineArchiveSedDocSpecs) => {
-        this.setupDataSource(data, sedDocSpecs);
+        this.setupDataSource(data, sedDocSpecs, projectUrl);
       });
       this.subscriptions.push(subscription);
     } else {
@@ -67,13 +67,18 @@ export class DispatchComponent implements OnInit, OnDestroy {
     }
   }
 
-  private setupDataSource(data: SimulationProjectUtilData, sedDoc?: CombineArchiveSedDocSpecs): void {
+  private setupDataSource(
+    data: SimulationProjectUtilData,
+    sedDoc?: CombineArchiveSedDocSpecs,
+    projectUrl?: string,
+  ): void {
     this.formDataSource = new DispatchDataSource(
       data,
       this.config,
       this.combineApiService,
       this.onFormSubmit.bind(this),
       sedDoc,
+      projectUrl,
     );
   }
 

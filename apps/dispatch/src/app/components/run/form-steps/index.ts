@@ -6,3 +6,4 @@ export * from './commercial-solvers.component';
 export * from './computational-resources.component';
 export * from './metadata.component';
 export * from './notifications.component';
+export * from './preselected-options.component';

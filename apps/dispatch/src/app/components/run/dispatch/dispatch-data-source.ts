@@ -37,9 +37,11 @@ import {
   ComputationalResourcesComponent,
   MetadataComponent,
   NotificationsComponent,
+  PreselectedOptionsComponent,
 } from '../form-steps';
 
 export enum DispatchFormStep {
+  PreselectedOptions = 'PreselectedOptions',
   UploadProject = 'UploadProject',
   ProjectCapabilities = 'ProjectCapabilities',
   SimulationTool = 'SimulationTool',
@@ -57,17 +59,19 @@ interface SimulationToolSupportData {
 
 export class DispatchDataSource implements IMultiStepFormDataSource<DispatchFormStep> {
   public formData: Record<DispatchFormStep, FormStepData> = <Record<DispatchFormStep, FormStepData>>{};
+  public eligibleToModifyArchive = false;
 
+  private simulatorSpecs: Record<string, SimulatorSpecs>;
   private exampleCombineArchivesUrl: string;
   private modelFormatOptions: DispatchFormOption[];
   private algorithmOptions: DispatchFormOption[];
   private substitutionPolicyOptions: DispatchFormOption[];
   private simulatorOptions: DispatchFormOption[];
   private simulationToolsSupportData: Record<string, SimulationToolSupportData>;
+  private preselectedProjectUrl?: string;
   private loadedArchiveContainsUnsupportedModel = false;
   private loadedArchiveContainsUnsupportedAlgorithm = false;
-  private simulatorSpecs: Record<string, SimulatorSpecs>;
-  private modifyingExistingArchive = false;
+  private preselectedValidArchive = false;
   private preselectedValidSimulator = false;
 
   public constructor(
@@ -76,6 +80,7 @@ export class DispatchDataSource implements IMultiStepFormDataSource<DispatchForm
     private combineApiService: CombineApiService,
     private onSubmitHandler: () => void,
     private sedDocSpecs?: CombineArchiveSedDocSpecs,
+    private projectUrl?: string,
   ) {
     const algorithmSubstitutions: AlgorithmSubstitution[] = data.algorithmSubstitutions;
     const simulatorsData: SimulatorsData = data.simulators;
@@ -102,10 +107,20 @@ export class DispatchDataSource implements IMultiStepFormDataSource<DispatchForm
     this.exampleCombineArchivesUrl = exampleCombineArchivesUrlTokens.join('/');
 
     if (sedDocSpecs) {
+      this.preselectedProjectUrl = projectUrl;
       this.archiveSedDocSpecsLoaded(sedDocSpecs);
       const modelsSupported = !this.loadedArchiveContainsUnsupportedModel;
       const algorithmsSupported = !this.loadedArchiveContainsUnsupportedAlgorithm;
-      this.modifyingExistingArchive = modelsSupported && algorithmsSupported;
+      this.preselectedValidArchive = modelsSupported && algorithmsSupported;
+
+      const singleSedDoc = sedDocSpecs.contents.length === 1;
+      if (this.preselectedValidArchive && singleSedDoc) {
+        const sedDocSpec = sedDocSpecs.contents[0];
+        const sedDoc: SedDocument = sedDocSpec.location.value;
+        const singleModel = sedDoc.models.length === 1;
+        const singleSimulation = sedDoc.simulations.length === 1;
+        this.eligibleToModifyArchive = singleModel && singleSimulation;
+      }
     }
 
     this.preloadDataForParams(params, simulatorsData);
@@ -139,19 +154,21 @@ export class DispatchDataSource implements IMultiStepFormDataSource<DispatchForm
   public formStepIds(): DispatchFormStep[] {
     const steps = [];
 
-    const skipUploadProject = this.modifyingExistingArchive;
-    const skipCapabilities = skipUploadProject && this.preselectedValidSimulator;
+    const skipUploadProject = this.preselectedValidArchive;
+    const skipSimulationTool = skipUploadProject && this.preselectedValidSimulator;
 
-    if (!skipUploadProject) {
+    if (skipUploadProject) {
+      steps.push(DispatchFormStep.PreselectedOptions);
+    } else {
       steps.push(DispatchFormStep.UploadProject);
     }
 
-    if (!skipCapabilities) {
+    if (!skipSimulationTool) {
       steps.push(DispatchFormStep.ProjectCapabilities);
+      steps.push(DispatchFormStep.SimulationTool);
     }
 
     return steps.concat([
-      DispatchFormStep.SimulationTool,
       DispatchFormStep.CommercialSolvers,
       DispatchFormStep.ComputationalResources,
       DispatchFormStep.Metadata,
@@ -165,25 +182,30 @@ export class DispatchDataSource implements IMultiStepFormDataSource<DispatchForm
 
   public createFormStepComponent(stepId: DispatchFormStep, hostView: ViewContainerRef): IFormStepComponent {
     switch (stepId) {
+      case DispatchFormStep.PreselectedOptions:
+        return hostView.createComponent(PreselectedOptionsComponent).instance;
       case DispatchFormStep.UploadProject:
-        return this.createUploadProjectForm(hostView);
+        return hostView.createComponent(UploadProjectComponent).instance;
       case DispatchFormStep.ProjectCapabilities:
-        return this.createProjectCapabilitiesForm(hostView);
+        return hostView.createComponent(ProjectCapabilitiesComponent).instance;
       case DispatchFormStep.SimulationTool:
-        return this.createSimulationToolForm(hostView);
+        return hostView.createComponent(SimulationToolComponent).instance;
       case DispatchFormStep.CommercialSolvers:
-        return this.createCommercialSolversForm(hostView);
+        return hostView.createComponent(CommercialSolversComponent).instance;
       case DispatchFormStep.ComputationalResources:
-        return this.createComputationalResourcesForm(hostView);
+        return hostView.createComponent(ComputationalResourcesComponent).instance;
       case DispatchFormStep.Metadata:
-        return this.createMetadataForm(hostView);
+        return hostView.createComponent(MetadataComponent).instance;
       case DispatchFormStep.Notifications:
-        return this.createNotificationsForm(hostView);
+        return hostView.createComponent(NotificationsComponent).instance;
     }
   }
 
   public configureFormStepComponent(stepId: DispatchFormStep, stepComponent: IFormStepComponent): void {
     switch (stepId) {
+      case DispatchFormStep.PreselectedOptions:
+        this.configurePreselectedOptionsForm(stepComponent as PreselectedOptionsComponent);
+        break;
       case DispatchFormStep.UploadProject:
         this.configureUploadProjectForm(stepComponent as UploadProjectComponent);
         break;
@@ -211,44 +233,12 @@ export class DispatchDataSource implements IMultiStepFormDataSource<DispatchForm
     }
   }
 
-  // Create form step components.
-
-  private createUploadProjectForm(hostView: ViewContainerRef): IFormStepComponent {
-    const hostedComponent = hostView.createComponent(UploadProjectComponent);
-    return hostedComponent.instance;
-  }
-
-  private createProjectCapabilitiesForm(hostView: ViewContainerRef): IFormStepComponent {
-    const hostedComponent = hostView.createComponent(ProjectCapabilitiesComponent);
-    return hostedComponent.instance;
-  }
-
-  private createSimulationToolForm(hostView: ViewContainerRef): IFormStepComponent {
-    const hostedComponent = hostView.createComponent(SimulationToolComponent);
-    return hostedComponent.instance;
-  }
-
-  private createCommercialSolversForm(hostView: ViewContainerRef): IFormStepComponent {
-    const hostedComponent = hostView.createComponent(CommercialSolversComponent);
-    return hostedComponent.instance;
-  }
-
-  private createComputationalResourcesForm(hostView: ViewContainerRef): IFormStepComponent {
-    const hostedComponent = hostView.createComponent(ComputationalResourcesComponent);
-    return hostedComponent.instance;
-  }
-
-  private createMetadataForm(hostView: ViewContainerRef): IFormStepComponent {
-    const hostedComponent = hostView.createComponent(MetadataComponent);
-    return hostedComponent.instance;
-  }
-
-  private createNotificationsForm(hostView: ViewContainerRef): IFormStepComponent {
-    const hostedComponent = hostView.createComponent(NotificationsComponent);
-    return hostedComponent.instance;
-  }
-
   // Configure form step components.
+
+  private configurePreselectedOptionsForm(formComponent: PreselectedOptionsComponent): void {
+    const simulationToolData = this.formData[DispatchFormStep.SimulationTool];
+    formComponent.setup(this.preselectedProjectUrl, simulationToolData);
+  }
 
   private configureUploadProjectForm(formComponent: UploadProjectComponent): void {
     formComponent.setup(this.exampleCombineArchivesUrl);

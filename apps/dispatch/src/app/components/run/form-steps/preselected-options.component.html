@@ -1,0 +1,23 @@
+<mat-card class="card-form-section mat-elevation-z3">
+  <mat-card-title>Re-running simulation</mat-card-title>
+
+  <p>
+    <mat-hint *ngIf="this.projectUrl">
+      Selected COMBINE/OMEX archive: <a href="{{ this.projectUrl }}">{{ this.projectUrl }}</a>
+    </mat-hint>
+  </p>
+
+  <p>
+    <mat-hint *ngIf="this.simulator">
+      Selected simulator: {{ this.simulator }} <span *ngIf="this.simulatorVersion">{{ this.simulatorVersion }}</span>
+    </mat-hint>
+  </p>
+
+  <button
+    mat-flat-button
+    class="biosimulations-button primary dispatch-form-button"
+    (click)="this.resetFormClicked()">
+    Reset Form
+  </button>
+
+</mat-card>

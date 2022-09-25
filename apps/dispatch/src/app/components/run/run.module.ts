@@ -17,6 +17,7 @@ import {
   ComputationalResourcesComponent,
   MetadataComponent,
   NotificationsComponent,
+  PreselectedOptionsComponent,
 } from './form-steps';
 
 @NgModule({
@@ -29,6 +30,7 @@ import {
     ComputationalResourcesComponent,
     MetadataComponent,
     NotificationsComponent,
+    PreselectedOptionsComponent,
   ],
   imports: [
     CommonModule,
