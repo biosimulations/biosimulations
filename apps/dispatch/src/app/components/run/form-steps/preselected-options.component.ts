@@ -9,13 +9,15 @@ import { Router } from '@angular/router';
 })
 export class PreselectedOptionsComponent implements IFormStepComponent {
   public nextClicked = false;
+  public modifyEnabled = false;
   public projectUrl?: string;
   public simulator?: string;
   public simulatorVersion?: string;
 
   public constructor(private router: Router) {}
 
-  public setup(projectUrl?: string, simulationToolData?: FormStepData): void {
+  public setup(modifyEnabled: boolean, projectUrl?: string, simulationToolData?: FormStepData): void {
+    this.modifyEnabled = modifyEnabled;
     this.projectUrl = projectUrl;
     this.simulator = simulationToolData?.simulator as string;
     this.simulatorVersion = simulationToolData?.simulatorVersion as string;
@@ -32,5 +34,10 @@ export class PreselectedOptionsComponent implements IFormStepComponent {
   public async resetFormClicked(): Promise<void> {
     await this.router.navigate(['/runs/new']);
     location.reload();
+  }
+
+  public modifyArchiveClicked(): void {
+    const queryParams = { projectUrl: this.projectUrl };
+    this.router.navigate(['/runs/modify'], { queryParams: queryParams });
   }
 }

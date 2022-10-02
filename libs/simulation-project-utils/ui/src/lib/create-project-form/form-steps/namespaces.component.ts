@@ -12,7 +12,8 @@ import {
   NAMESPACE_PREFIX_VALIDATOR,
   URL_VALIDATOR,
 } from '@biosimulations/shared/ui';
-import { Namespace, NamespaceTypeEnum } from '@biosimulations/combine-api-angular-client';
+import { NamespaceTypeEnum } from '@biosimulations/combine-api-angular-client';
+import { Namespace } from '@biosimulations/datamodel/common';
 
 @Component({
   selector: 'create-project-namespaces',

@@ -28,6 +28,7 @@ import {
 import { ConfigService } from '@biosimulations/config/angular';
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import { CombineApiService } from '../../../services/combine-api/combine-api.service';
+import { SedUniformTimeCourseSimulationTypeEnum } from '@biosimulations/combine-api-angular-client';
 import {
   DispatchFormOption,
   UploadProjectComponent,
@@ -112,15 +113,7 @@ export class DispatchDataSource implements IMultiStepFormDataSource<DispatchForm
       const modelsSupported = !this.loadedArchiveContainsUnsupportedModel;
       const algorithmsSupported = !this.loadedArchiveContainsUnsupportedAlgorithm;
       this.preselectedValidArchive = modelsSupported && algorithmsSupported;
-
-      const singleSedDoc = sedDocSpecs.contents.length === 1;
-      if (this.preselectedValidArchive && singleSedDoc) {
-        const sedDocSpec = sedDocSpecs.contents[0];
-        const sedDoc: SedDocument = sedDocSpec.location.value;
-        const singleModel = sedDoc.models.length === 1;
-        const singleSimulation = sedDoc.simulations.length === 1;
-        this.eligibleToModifyArchive = singleModel && singleSimulation;
-      }
+      this.eligibleToModifyArchive = this.preselectedValidArchive && this.isArchiveModificationEligible(sedDocSpecs);
     }
 
     this.preloadDataForParams(params, simulatorsData);
@@ -237,7 +230,7 @@ export class DispatchDataSource implements IMultiStepFormDataSource<DispatchForm
 
   private configurePreselectedOptionsForm(formComponent: PreselectedOptionsComponent): void {
     const simulationToolData = this.formData[DispatchFormStep.SimulationTool];
-    formComponent.setup(this.preselectedProjectUrl, simulationToolData);
+    formComponent.setup(this.eligibleToModifyArchive, this.preselectedProjectUrl, simulationToolData);
   }
 
   private configureUploadProjectForm(formComponent: UploadProjectComponent): void {
@@ -700,5 +693,20 @@ export class DispatchDataSource implements IMultiStepFormDataSource<DispatchForm
 
     this.loadedArchiveContainsUnsupportedAlgorithm = specsContainUnsupportedAlgorithm;
     this.loadedArchiveContainsUnsupportedModel = specsContainUnsupportedModel;
+  }
+
+  private isArchiveModificationEligible(sedDocSpecs?: CombineArchiveSedDocSpecs): boolean {
+    if (!sedDocSpecs || sedDocSpecs.contents.length !== 1) {
+      return false;
+    }
+    const sedDocSpec = sedDocSpecs.contents[0];
+    const sedDoc: SedDocument = sedDocSpec.location.value;
+    const singleModel = sedDoc.models.length === 1;
+    const singleSimulation = sedDoc.simulations.length === 1;
+    if (!singleModel || !singleSimulation) {
+      return false;
+    }
+    const simulation = sedDoc.simulations[0];
+    return simulation._type === SedUniformTimeCourseSimulationTypeEnum.SedUniformTimeCourseSimulation;
   }
 }

@@ -68,6 +68,14 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
+    path: 'modify',
+    loadChildren: () => import('../modify/modify.module').then((m) => m.ModifyModule),
+    data: {
+      breadcrumb: 'Modify',
+    },
+    pathMatch: 'full',
+  },
+  {
     path: ':uuid',
     children: [
       {

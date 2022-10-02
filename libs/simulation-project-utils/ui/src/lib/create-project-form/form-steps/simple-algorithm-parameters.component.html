@@ -1,0 +1,14 @@
+<mat-card-title>Configure algorithm parameters</mat-card-title>
+
+<div class="simple-algorithm-parameter-grid">
+  <div class="grid-label">Id</div>
+  <div class="grid-label">New value</div>
+  <ng-container *ngFor="let param of parameters">
+    <div class="grid-value">{{ param.kisaoId }}</div>
+    <input class="grid-input" />
+  </ng-container>
+</div>
+
+<mat-hint>
+  Enter new values to override the default values of one or more parameters. Leave blank to accept default values.
+</mat-hint>

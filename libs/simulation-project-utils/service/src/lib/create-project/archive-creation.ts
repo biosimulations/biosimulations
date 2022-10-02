@@ -31,10 +31,58 @@ import {
   SedReportTypeEnum,
   SedVariable,
   SedVariableTypeEnum,
+  SedParameter,
+  SedParameterTypeEnum,
+  NamespaceTypeEnum,
 } from '@biosimulations/combine-api-angular-client';
 import { BIOSIMULATIONS_FORMATS_BY_ID } from '@biosimulations/ontology/extra-sources';
-import { SimulationType, ValueType } from '@biosimulations/datamodel/common';
+import {
+  SimulationType,
+  ValueType,
+  CombineArchiveSedDocSpecs,
+  CombineArchiveSedDocSpecsContent,
+  SedDataGenerator as DataModelSedDataGenerator,
+  SedModel as DataModelSedModel,
+  SedDocument as DataModelSedDocument,
+  SedVariable as DataModelSedVariable,
+  SedParameter as DataModelSedParameter,
+  Namespace as DataModelNamespace,
+} from '@biosimulations/datamodel/common';
 import { MultipleSimulatorsAlgorithmParameter } from './compatibility';
+
+export function CopyArchive(
+  originalArchive: CombineArchiveSedDocSpecs,
+  namespaces: Namespace[],
+  initialTime: number,
+  outputStartTime: number,
+  outputEndTime: number,
+  numberOfSteps: number,
+  changesData: Record<string, string>[],
+  algorithmParameters: Record<string, MultipleSimulatorsAlgorithmParameter>,
+): CombineArchive {
+  const archiveContent = originalArchive.contents[0];
+  const originalSedDoc = archiveContent.location.value;
+  const originalModel = originalSedDoc.models[0];
+  const originalSimulation = originalSedDoc.simulations[0];
+  const originalAlgorithm = originalSimulation.algorithm;
+  const sedChanges = CreateSedModelChanges(changesData, namespaces);
+  const model = CopySedModel(originalModel, sedChanges);
+  const algorithm = CreateSedAlgorithm(originalAlgorithm.kisaoId, algorithmParameters);
+  const simulation = CreateSedSimulation(
+    SimulationType.SedUniformTimeCourseSimulation,
+    initialTime,
+    outputStartTime,
+    outputEndTime,
+    numberOfSteps,
+    algorithm,
+  );
+  const task = CreateSedTask(model, simulation);
+  const dataSetGenerators = CopySedDataSetAndGenerators(originalSedDoc, task);
+  const dataSets = dataSetGenerators[0];
+  const dataGenerators = dataSetGenerators[1];
+  const sedDoc = CreateSedDocument(model, simulation, task, dataGenerators, dataSets);
+  return CompleteCopyArchive(archiveContent, sedDoc);
+}
 
 /**
  * Builds a CombineArchive instance with the provided parameters.
@@ -72,10 +120,15 @@ export function CreateArchive(
   const dataGenerators = dataSetGenerators[1];
   const sedDoc = CreateSedDocument(model, simulation, task, dataGenerators, dataSets);
   const modelContent = CreateArchiveLocationValue(modelFile, modelUrl);
-  return CompleteArchive(modelFormat, sedDoc, modelContent, model.source);
+  const formatUri = BIOSIMULATIONS_FORMATS_BY_ID[modelFormat].biosimulationsMetadata?.omexManifestUris[0];
+  return CompleteArchive(formatUri as string, sedDoc, modelContent, model.source);
 }
 
 function CreateSedModelChanges(modelChanges: Record<string, string>[], namespaces: Namespace[]): SedModelChange[] {
+  if (!modelChanges) {
+    return [];
+  }
+
   const changes: SedModelChange[] = [];
   modelChanges.forEach((changeData: Record<string, string>): void => {
     if (!changeData.newValue || changeData.newValue.length === 0) {
@@ -129,6 +182,16 @@ function CreateSedModel(modelFormat: string, modelChanges: SedModelChange[]): Se
     id: 'model',
     language: language || '',
     source: 'model.' + fileExtensions,
+    changes: modelChanges,
+  };
+}
+
+function CopySedModel(model: DataModelSedModel, modelChanges: SedModelChange[]): SedModel {
+  return {
+    _type: SedModelTypeEnum.SedModel,
+    id: 'model',
+    language: model.language,
+    source: model.source,
     changes: modelChanges,
   };
 }
@@ -238,6 +301,74 @@ function CreateSedDataSetAndGenerators(
   return [dataSets, dataGenerators];
 }
 
+function CopySedDataSetAndGenerators(
+  originalSedDoc: DataModelSedDocument,
+  task: SedTask,
+): [SedDataSet[], SedDataGenerator[]] {
+  const dataGenerators: SedDataGenerator[] = [];
+  const dataSets: SedDataSet[] = [];
+
+  originalSedDoc.dataGenerators.forEach((dataGenerator: DataModelSedDataGenerator): void => {
+    const parameters: SedParameter[] = [];
+    dataGenerator.parameters.forEach((parameter: DataModelSedParameter): void => {
+      parameters.push({
+        _type: SedParameterTypeEnum.SedParameter,
+        id: parameter.id,
+        value: parameter.value,
+        name: parameter.name,
+      });
+    });
+    const variables: SedVariable[] = [];
+    dataGenerator.variables.forEach((variable: DataModelSedVariable): void => {
+      const copiedVariable: SedVariable = {
+        _type: SedVariableTypeEnum.SedVariable,
+        id: variable.id,
+        name: variable.name,
+        symbol: variable.symbol,
+        task: task.id,
+        model: variable.model?.id,
+      };
+      if (variable.target) {
+        const namespaces: Namespace[] = [];
+        variable.target.namespaces?.forEach((namespace: DataModelNamespace): void => {
+          namespaces.push({
+            _type: NamespaceTypeEnum.Namespace,
+            prefix: namespace.prefix,
+            uri: namespace.uri,
+          });
+        });
+        copiedVariable.target = {
+          _type: SedTargetTypeEnum.SedTarget,
+          value: variable.target.value,
+          namespaces: namespaces,
+        };
+      }
+      variables.push(copiedVariable);
+    });
+
+    dataGenerators.push({
+      _type: SedDataGeneratorTypeEnum.SedDataGenerator,
+      id: dataGenerator.id,
+      parameters: parameters,
+      variables: variables,
+      math: dataGenerator.math,
+      name: dataGenerator.name,
+    });
+
+    if (variables.length > 0) {
+      const firstVariable = variables[0];
+      dataSets.push({
+        _type: SedDataSetTypeEnum.SedDataSet,
+        id: firstVariable.id,
+        label: firstVariable.name || firstVariable.id,
+        dataGenerator: dataGenerator.id,
+        name: firstVariable.name,
+      });
+    }
+  });
+  return [dataSets, dataGenerators];
+}
+
 function CreateSedDocument(
   model: SedModel,
   simulation: SedSimulation,
@@ -264,7 +395,7 @@ function CreateSedDocument(
   };
 }
 
-function CreateArchiveLocationValue(modelFile: File, modelUrl: string): CombineArchiveLocationValue {
+function CreateArchiveLocationValue(modelFile: File | null, modelUrl: string): CombineArchiveLocationValue {
   if (modelFile) {
     return {
       _type: CombineArchiveContentFileTypeEnum.CombineArchiveContentFile,
@@ -278,18 +409,17 @@ function CreateArchiveLocationValue(modelFile: File, modelUrl: string): CombineA
 }
 
 function CompleteArchive(
-  modelFormat: string,
+  modelFormatUri: string,
   sedDoc: SedDocument,
   locationValue: CombineArchiveLocationValue,
   modelPath: string,
 ): CombineArchive {
-  const formatUri = BIOSIMULATIONS_FORMATS_BY_ID[modelFormat].biosimulationsMetadata?.omexManifestUris[0];
   return {
     _type: CombineArchiveTypeEnum.CombineArchive,
     contents: [
       {
         _type: CombineArchiveContentTypeEnum.CombineArchiveContent,
-        format: formatUri as string,
+        format: modelFormatUri,
         master: false,
         location: {
           _type: CombineArchiveLocationTypeEnum.CombineArchiveLocation,
@@ -304,6 +434,24 @@ function CompleteArchive(
         location: {
           _type: CombineArchiveLocationTypeEnum.CombineArchiveLocation,
           path: 'simulation.sedml',
+          value: sedDoc,
+        },
+      },
+    ],
+  };
+}
+
+function CompleteCopyArchive(archiveContent: CombineArchiveSedDocSpecsContent, sedDoc: SedDocument): CombineArchive {
+  return {
+    _type: CombineArchiveTypeEnum.CombineArchive,
+    contents: [
+      {
+        _type: CombineArchiveContentTypeEnum.CombineArchiveContent,
+        format: archiveContent.format,
+        master: archiveContent.master,
+        location: {
+          _type: CombineArchiveLocationTypeEnum.CombineArchiveLocation,
+          path: archiveContent.location.path,
           value: sedDoc,
         },
       },

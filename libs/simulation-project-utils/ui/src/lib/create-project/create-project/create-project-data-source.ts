@@ -14,7 +14,7 @@ import {
   GatherCompatibleFormats,
 } from '@biosimulations/simulation-project-utils/service';
 import { ViewContainerRef } from '@angular/core';
-import { SimulationType, AlgorithmSubstitution } from '@biosimulations/datamodel/common';
+import { SimulationType, AlgorithmSubstitution, SedModelChange } from '@biosimulations/datamodel/common';
 import { Params } from '@angular/router';
 import {
   UploadModelComponent,
@@ -24,7 +24,7 @@ import {
   NamespacesComponent,
   ModelChangesComponent,
   ModelVariablesComponent,
-} from '../form-steps';
+} from '../../create-project-form/form-steps';
 
 export enum CreateProjectFormStep {
   UploadModel = 'UploadModel',
@@ -286,7 +286,7 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
   private configureModelChangesForm(formComponent: ModelChangesComponent): void {
     const introspectedChanges = this.introspectedData?.modelChanges;
     if (introspectedChanges) {
-      formComponent.loadIntrospectedModelChanges(introspectedChanges);
+      formComponent.loadIntrospectedModelChanges(introspectedChanges as SedModelChange[]);
     }
   }
 

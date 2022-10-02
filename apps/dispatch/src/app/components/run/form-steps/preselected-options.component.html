@@ -13,6 +13,13 @@
     </mat-hint>
   </p>
 
+  <button *ngIf="this.modifyEnabled && this.projectUrl"
+    mat-flat-button
+    class="biosimulations-button primary dispatch-form-button"
+    (click)="this.modifyArchiveClicked()">
+    Modify Archive
+  </button>
+
   <button
     mat-flat-button
     class="biosimulations-button primary dispatch-form-button"
