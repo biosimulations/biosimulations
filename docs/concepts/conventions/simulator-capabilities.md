@@ -1562,7 +1562,7 @@ As an example, below is the specification for [tellurium](https://biosimulators.
             "id": "KISAO_0000679"
           },
           "id": "approx_time",
-          "name": "Maximum amount of time to spend finding finding an approximate solution",
+          "name": "Maximum amount of time to spend finding an approximate solution",
           "type": "float",
           "value": "10000",
           "recommendedRange": null,
