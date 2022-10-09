@@ -21,7 +21,7 @@ Clicking on the search icon in the top-right corner of the page opens a menu wit
 
 ### Searching for projects
 ![search-projects](./images/search.png){align=right}
-Clicking on the the search icon at the top right of the page opens a search box. A search term, such as 'metabolism' can be entered in the search box. By default, the search term is searched against each [attribute](#selecting-attributes) of each project. Optionally, you can restrict the search to specific attributes. For example, if you want to search for projects that have the taxa 'Escherichia coli', you can enter 'taxa:Escherichia coli' in the search box. For attributes with spaces in the name, replace these spaces with "-". For example, the term "last-updated:2020" can be used to search for projects that contain the value "2020" in the ;last updated' attribute. A list of the available search fields is available in the [FAQs](faqs.md).
+Clicking on the search icon at the top right of the page opens a search box. A search term, such as 'metabolism' can be entered in the search box. By default, the search term is searched against each [attribute](#selecting-attributes) of each project. Optionally, you can restrict the search to specific attributes. For example, if you want to search for projects that have the taxa 'Escherichia coli', you can enter 'taxa:Escherichia coli' in the search box. For attributes with spaces in the name, replace these spaces with "-". For example, the term "last-updated:2020" can be used to search for projects that contain the value "2020" in the ;last updated' attribute. A list of the available search fields is available in the [FAQs](faqs.md).
 
 ### Filtering projects
 
