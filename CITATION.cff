@@ -119,7 +119,7 @@ message: 'If you use this software, please cite it using these metadata.'
 repository-code: 'https://github.com/biosimulations/biosimulations'
 title: BioSimulations
 contact:
-  - email: "info@biosimulations.org"
+  - email: 'info@biosimulations.org'
     family-names: BioSimulations Team
 type: software
 url: https://biosimulations.org
