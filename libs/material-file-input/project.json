@@ -35,5 +35,5 @@
       }
     }
   },
-  "tags": ["platform:web", "type:ui"]
+  "tags": ["platform:web", "type:ui", "scope:shared"]
 }
