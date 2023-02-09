@@ -17,7 +17,7 @@ const data = {
   singularityModule: 'singularity',
   singularityCacheDir: '/tmp/singularitycachedir',
   forceOverwrite: false,
-  dockerImageUrl: 'gchr.io/biosimulations/tellurium:1.0.0',
+  dockerImageUrl: 'ghcr.io/biosimulations/tellurium:1.0.0',
 };
 describe('hpcSingularityBuilder', () => {
   const expected = `#!/bin/bash
@@ -49,7 +49,7 @@ export SINGULARITY_PULLFOLDER=/tmp/singularity-pull
 echo "Building image with Singularity '$(singularity --version)' on '$(hostname)' ... "
 
 # build image
-singularity -v pull --tmpdir /local  gchr.io/biosimulations/tellurium:1.0.0`;
+singularity -v pull --tmpdir /local  ghcr.io/biosimulations/tellurium:1.0.0`;
 
   const expectedOverwrite = `#!/bin/bash
 #SBATCH --job-name=Build-simulator-tellurium-1.0.0
@@ -80,7 +80,7 @@ export SINGULARITY_PULLFOLDER=/tmp/singularity-pull
 echo "Building image with Singularity '$(singularity --version)' on '$(hostname)' ... "
 
 # build image
-singularity -v pull --tmpdir /local --force gchr.io/biosimulations/tellurium:1.0.0`;
+singularity -v pull --tmpdir /local --force ghcr.io/biosimulations/tellurium:1.0.0`;
   it('should generate sbatch', () => {
     expect(generateImageUpdateSbatch(data)).toEqual(expected);
   });
