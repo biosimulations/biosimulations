@@ -203,7 +203,7 @@
     "anser": "2.1.1",
     "canvas": "2.9.3",
     "codelyzer": "6.0.2",
-    "commitizen": "4.2.4",
+    "commitizen": "4.2.5",
     "cypress": "9.7.0",
     "cz-conventional-changelog": "3.3.0",
     "dotenv": "10.0.0",
