@@ -18,7 +18,7 @@ kisao = ">=2.30"
 stringcase = "*"
 natsort = "*"
 rdflib = "*"
-numpy = "<1.22.0" # because Assiumulo requires numpy < 1.22
+numpy = "<1.24.3" # because Assiumulo requires numpy < 1.22
 # AMICI
 amici = "<=0.11.21" # avoid latest version because this requires SymPy >= 1.9 and CBMPy can't handle this because it (a) no version > 1.9 is available and (b) CBMpy can't handle versions of SymPy that don't have microversion numbers
 biosimulators-amici = ">=0.1.22"
