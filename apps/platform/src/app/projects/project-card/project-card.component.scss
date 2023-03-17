@@ -9,6 +9,7 @@ $title-box-height: calc(2 * #{$title-line-height} * #{$title-font-size} + 2 * #{
 $border-radius: 4px;
 
 .container {
+  height: fit-content;
   cursor: pointer;
   padding: 0;
 
@@ -25,10 +26,11 @@ $border-radius: 4px;
     filter: drop-shadow(2px 2px 2px rgb(0, 0, 0, 40%));
   }
 
-  aspect-ratio: 4 / 3;
+  //aspect-ratio: 4 / 3;
 }
 
 .title-container {
+  height: fit-content;
   font-size: $title-font-size;
   line-height: $title-line-height;
   background-color: mat.get-color-from-palette($theme-primary);
@@ -39,13 +41,14 @@ $border-radius: 4px;
   margin: 0;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: left;
   height: $title-box-height;
   border-top-left-radius: $border-radius;
   border-top-right-radius: $border-radius;
 }
 
 .title {
+  height: fit-content;
   color: $light-text;
   max-height: calc(#{$title-line-height} * 2.6rem);
   display: -webkit-box;
@@ -64,6 +67,7 @@ $border-radius: 4px;
 }
 
 .details-overlay {
+  height: fit-content;
   position: absolute;
   top: $title-box-height;
   bottom: 0;
@@ -117,12 +121,15 @@ $border-radius: 4px;
 }
 
 .container:hover {
+  height: fit-content;
+
   .details-overlay {
     display: flex;
   }
 }
 
 .active-overlay {
+  height: fit-content;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -134,7 +141,8 @@ $border-radius: 4px;
 }
 
 .container:active {
+  height: fit-content;
   .active-overlay {
-    display: block;
+    display: flex;
   }
 }
