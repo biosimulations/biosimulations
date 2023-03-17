@@ -25,12 +25,9 @@ $border-radius: 4px;
   &:active {
     filter: drop-shadow(2px 2px 2px rgb(0, 0, 0, 40%));
   }
-
-  //aspect-ratio: 4 / 3;
 }
 
 .title-container {
-  height: fit-content;
   font-size: $title-font-size;
   line-height: $title-line-height;
   background-color: mat.get-color-from-palette($theme-primary);
