@@ -1,10 +1,10 @@
 # Configuring endpoints for local environments
 ## Loading endpoints used by the applications
-The endpoints for the front end and backend applications are located in the shared configuration library, located at `libs/config/shared`. The endpoints are loaded dynamically depending on the value of the `env` parameter provided when initializing the `Endpoints` class. 
+The endpoints for the front end and backend applications are located in the shared configuration library, located at `libs/config/common`. The endpoints are loaded dynamically depending on the value of the `env` parameter provided when initializing the `Endpoints` class. 
 
 The loading of the endpoints differs slightly depending on whether the application is running a frontend (browser) or backend (server) application.
 ### Frontend Applications
-For front end applications, the default value of the `env` parameter is read from the `@biosimulations/config/shared` library, located at `libs/shared/environments`. This library contains several different environment definitions such as "development", "staging", "production", etc. The `environment.ts` file loads one of these definitions.  The `env` parameter that is loaded is then fed into the `Endpoints` class as described above.
+For front end applications, the default value of the `env` parameter is read from the `@biosimulations/shared/environments` library, located at `libs/shared/environments`. This library contains several different environment definitions such as "development", "staging", "production", etc. The `environment.ts` file loads one of these definitions.  The `env` parameter that is loaded is then fed into the `Endpoints` class as described above.
 
 To configure which endpoints are loaded, change the name of the file being loaded in the `environment.ts` file. For example, to load the endpoints for the "local" environment, change the name of the file to `environment.local`.
 
@@ -19,7 +19,7 @@ export const environment: environmentType = currentEnvironment;
 
 For back end applications, the developer must provide the value of the `env` parameter when initializing the `Endpoints` class. This value is then used to load the appropriate endpoints.
 
-In most cases, the value of the `env` parameter should be loaded from the the configuration service provided by the `@biosimulations/config/nest` library located at `libs/config/nest`. The following is an example of how to load the endpoints for the current environment.
+In most cases, the value of the `env` parameter should be loaded from the configuration service provided by the `@biosimulations/config/nest` library located at `libs/config/nest`. The following is an example of how to load the endpoints for the current environment.
 
 ```typescript
 import { Injectable } from '@nestjs/common';

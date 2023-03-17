@@ -5,6 +5,37 @@
 
 <mat-accordion class="controls" [ngClass]="{ 'left-square-border': !closeable }">
   <mat-expansion-panel
+    [expanded]="true"
+    [disabled]="table.openControlPanelId === 3"
+    (opened)="table.openControlPanel(3)">
+    <mat-expansion-panel-header collapsedHeight="32px" expandedHeight="32px">
+      <mat-panel-title>
+        <biosimulations-icon icon="search"></biosimulations-icon>
+        Search
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <ng-template matExpansionPanelContent>
+      <mat-form-field appearance="fill" class="input-field">
+        <input
+          #searchInput
+          matInput
+          type="text"
+          [value]="table.searchQuery || null"
+          (keydown.enter)="table.searchRows(searchInput.value)"
+          [placeholder]="searchPlaceHolder"
+          [matTooltip]="searchToolTip" />
+        <button
+          matSuffix
+          mat-icon-button
+          class="biosimulations-button text"
+          (click)="table.searchRows(searchInput.value)">
+          <biosimulations-icon icon="search"></biosimulations-icon>
+        </button>
+      </mat-form-field>
+    </ng-template>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel
     [expanded]="table.openControlPanelId === 1"
     [disabled]="table.openControlPanelId === 1"
     (opened)="table.openControlPanel(1)">
@@ -177,34 +208,4 @@
     </ng-template>
   </mat-expansion-panel>
 
-  <mat-expansion-panel
-    [expanded]="table.openControlPanelId === 3"
-    [disabled]="table.openControlPanelId === 3"
-    (opened)="table.openControlPanel(3)">
-    <mat-expansion-panel-header collapsedHeight="32px" expandedHeight="32px">
-      <mat-panel-title>
-        <biosimulations-icon icon="search"></biosimulations-icon>
-        Search
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <ng-template matExpansionPanelContent>
-      <mat-form-field appearance="fill" class="input-field">
-        <input
-          #searchInput
-          matInput
-          type="text"
-          [value]="table.searchQuery || null"
-          (keydown.enter)="table.searchRows(searchInput.value)"
-          [placeholder]="searchPlaceHolder"
-          [matTooltip]="searchToolTip" />
-        <button
-          matSuffix
-          mat-icon-button
-          class="biosimulations-button text"
-          (click)="table.searchRows(searchInput.value)">
-          <biosimulations-icon icon="search"></biosimulations-icon>
-        </button>
-      </mat-form-field>
-    </ng-template>
-  </mat-expansion-panel>
 </mat-accordion>
