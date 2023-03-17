@@ -40,20 +40,20 @@ export class BrowseService {
                 return metadatum.uri !== '.';
               }) || [];
             let thumbnail = this.DEFAULT_THUMBNAIL;
-            if (metadata?.thumbnails?.length) {
-              // handle cases where thumbnails are provided as urls
-              if (metadata.thumbnails[0].startsWith('http')) {
-                thumbnail = metadata.thumbnails[0];
-                // handle cases where thumbnails are provided as relative paths
-              } else {
-                thumbnail = this.endpoints.getSimulationRunFilesDownloadEndpoint(
-                  false,
-                  run.id,
-                  metadata.thumbnails[0],
-                  Thumbnail.browse,
-                );
-              }
-            }
+            // if (metadata?.thumbnails?.length) {
+            //   // handle cases where thumbnails are provided as urls
+            //   if (metadata.thumbnails[0].startsWith('http')) {
+            //     thumbnail = metadata.thumbnails[0];
+            //     // handle cases where thumbnails are provided as relative paths
+            //   } else {
+            //     thumbnail = this.endpoints.getSimulationRunFilesDownloadEndpoint(
+            //       false,
+            //       run.id,
+            //       metadata.thumbnails[0],
+            //       Thumbnail.browse,
+            //     );
+            //   }
+            // }
 
             return {
               id: project.id,
