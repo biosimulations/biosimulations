@@ -6,7 +6,7 @@ import { ProjectService } from '@biosimulations/angular-api-client';
 import { BiosimulationsError } from '@biosimulations/shared/error-handler';
 import { HttpStatusCode } from '@angular/common/http';
 import { Endpoints } from '@biosimulations/config/common';
-import { Thumbnail } from '@biosimulations/datamodel/common';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -39,7 +39,7 @@ export class BrowseService {
               run?.metadata?.filter((metadatum: SimulationRunMetadataSummary): boolean => {
                 return metadatum.uri !== '.';
               }) || [];
-            let thumbnail = this.DEFAULT_THUMBNAIL;
+            const thumbnail = this.DEFAULT_THUMBNAIL;
             // if (metadata?.thumbnails?.length) {
             //   // handle cases where thumbnails are provided as urls
             //   if (metadata.thumbnails[0].startsWith('http')) {

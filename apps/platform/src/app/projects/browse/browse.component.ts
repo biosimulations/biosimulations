@@ -2,11 +2,9 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { BrowseService } from './browse.service';
-import { FormattedProjectSummary, LocationPredecessor } from './browse.model';
-import { Column, ColumnFilterType } from '@biosimulations/shared/ui';
-import { FormatService } from '@biosimulations/shared/services';
+import { FormattedProjectSummary } from './browse.model';
+import { Column } from '@biosimulations/shared/ui';
 import { LabeledIdentifier, DescribedIdentifier } from '@biosimulations/datamodel/common';
-import { RowService } from '@biosimulations/shared/ui';
 import { ScrollService } from '@biosimulations/shared/angular';
 
 @Component({
@@ -16,6 +14,7 @@ import { ScrollService } from '@biosimulations/shared/angular';
 })
 export class BrowseComponent implements OnInit, AfterViewInit {
   public projects$!: Observable<FormattedProjectSummary[]>;
+  public controlsOpen = true;
 
   public columns: Column[] = [
     {
@@ -674,11 +673,15 @@ export class BrowseComponent implements OnInit, AfterViewInit {
     // },
   ];
 
-  constructor(private service: BrowseService, private route: ActivatedRoute, private scrollService: ScrollService) {
+  public constructor(
+    private service: BrowseService,
+    private route: ActivatedRoute,
+    private scrollService: ScrollService,
+  ) {
     this.openControls = this.openControls.bind(this);
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.projects$ = this.service.getProjects();
 
     if (this.route.snapshot.fragment) {
@@ -692,13 +695,11 @@ export class BrowseComponent implements OnInit, AfterViewInit {
     }
   }
 
-  ngAfterViewInit(): void {
+  public ngAfterViewInit(): void {
     this.scrollService.init();
   }
 
-  public controlsOpen = true;
-
-  public openControls(route: string, router: Router): void {
+  public openControls(_route: string, _router: Router): void {
     this.controlsOpen = !this.controlsOpen;
     if (this.controlsOpen) {
       this.scrollService.scrollToTop();
