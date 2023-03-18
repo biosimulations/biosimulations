@@ -253,7 +253,7 @@ RUN apt-get install -y --no-install-recommends \
         libc6 \
     \
     && cd /tmp \
-    && wget http://www.math.pitt.edu/~bard/bardware/xppaut_latest.tar.gz \
+    && wget https://web.archive.org/web/20210425172021/http://www.math.pitt.edu/~bard/bardware/xppaut_latest.tar.gz \
     && mkdir xpp \
     && tar zxvf xppaut_latest.tar.gz --directory xpp \
     && cd xpp \
