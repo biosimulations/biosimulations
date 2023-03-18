@@ -34,9 +34,9 @@ ENV PATH=${PATH}:/opt/BioNetGen-${BIONETGEN_VERSION}/
 
 ###################################
 # BoolNet
-ARG BOOLNET_VERSION=2.1.5
+#ARG BOOLNET_VERSION=2.1.8
 RUN apt-get install -y --no-install-recommends \
-        r-base \
+        r-base-dev \
         build-essential \
         gcc \
         gfortran \
@@ -49,10 +49,8 @@ RUN apt-get install -y --no-install-recommends \
         libxml2-dev \
     \
     && Rscript \
-        -e "install.packages('devtools')" \
-        -e "require(devtools)" \
-        -e "install_version('BoolNet', version='${BOOLNET_VERSION}')" \
-        -e "require('BoolNet')"
+    -e "install.packages('BoolNet')" \
+    -e "require('BoolNet')"
 
 ###################################
 # CBMPy
