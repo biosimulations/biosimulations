@@ -22,16 +22,8 @@ export class VegaVisualizationComponent implements AfterViewInit, OnDestroy {
 
   constructor(private hostElement: ElementRef) {}
 
-  ngAfterViewInit() {
+  public ngAfterViewInit(): void {
     this.resizeDebounce = debounce(200, false, this.doOnResize.bind(this));
-
-    (async () => {
-      if (!('ResizeObserver' in window)) {
-        // Loads polyfill asynchronously, only if required.
-        const module = await import('@juggle/resize-observer');
-        window.ResizeObserver = module.ResizeObserver;
-      }
-    })();
 
     this.resizeObserver = new ResizeObserver((entries, observer) => {
       this.resizeDebounce();
