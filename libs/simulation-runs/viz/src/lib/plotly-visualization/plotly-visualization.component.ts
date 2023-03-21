@@ -68,16 +68,8 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
 
   constructor(private hostElement: ElementRef, private snackBar: MatSnackBar) {}
 
-  ngAfterViewInit() {
+  public ngAfterViewInit(): void {
     this.resizeDebounce = debounce(50, false, this.setLayout.bind(this));
-
-    (async () => {
-      if (!('ResizeObserver' in window)) {
-        // Loads polyfill asynchronously, only if required.
-        const module = await import('@juggle/resize-observer');
-        window.ResizeObserver = module.ResizeObserver;
-      }
-    })();
 
     this.resizeObserver = new ResizeObserver((entries, observer) => {
       this.resizeDebounce();
