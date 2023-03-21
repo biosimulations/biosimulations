@@ -41,8 +41,8 @@ export interface Simulation {
   purpose: Purpose;
   status: SimulationRunStatus;
   runtime?: number;
-  submitted: Date;
-  updated: Date;
+  submitted: Date | string;
+  updated: Date | string;
   resultsSize?: number;
   projectSize?: number;
 }
