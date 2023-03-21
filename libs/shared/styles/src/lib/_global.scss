@@ -87,22 +87,22 @@ ul:last-child {
 
 h1,
 .h1 {
-  // @include mat-typography-level-to-styles($fontConfig, headline);
+  // @include mat.typography-level($fontConfig, headline);
   line-height: 1.6rem;
   margin-top: 0;
-  color: mat-color($theme-primary);
-  border-bottom: 1px solid mat-color($theme-primary);
+  color: mat.get-color-from-palette($theme-primary);
+  border-bottom: 1px solid mat.get-color-from-palette($theme-primary);
 
   a {
-    color: mat-color($theme-primary);
+    color: mat.get-color-from-palette($theme-primary);
     text-decoration: none;
   }
 }
 
 h2,
 .h2 {
-  //@include mat-typography-level-to-styles($fontConfig, title);
-  color: mat-color($theme-primary);
+  //@include mat.typography-level($fontConfig, title);
+  color: mat.get-color-from-palette($theme-primary);
 }
 
 .inline-list {
@@ -176,7 +176,7 @@ table.icon-list {
   }
 
   a:hover {
-    color: mat-color($theme-primary);
+    color: mat.get-color-from-palette($theme-primary);
   }
 }
 
@@ -194,30 +194,30 @@ ul.key-value li {
     color: $dark-primary-text;
 
     &:hover {
-      color: mat-color($theme-primary);
+      color: mat.get-color-from-palette($theme-primary);
     }
   }
 }
 
 a {
-  color: mat-color($theme-primary);
+  color: mat.get-color-from-palette($theme-primary);
   text-decoration: none;
   cursor: pointer;
 
   &.text {
     color: $dark-primary-text;
     &:hover {
-      color: mat-color($theme-primary);
+      color: mat.get-color-from-palette($theme-primary);
     }
   }
 }
 
 .highlight-primary {
-  color: mat-color($theme-primary);
+  color: mat.get-color-from-palette($theme-primary);
 }
 
 .highlight-accent {
-  color: mat-color($theme-accent);
+  color: mat.get-color-from-palette($theme-accent);
 }
 
 .zoom {
@@ -616,7 +616,7 @@ biosimulations-root {
   }
 
   &:focus mat-label {
-    color: mat-color($theme-primary);
+    color: mat.get-color-from-palette($theme-primary);
   }
 
   .input {
@@ -680,7 +680,7 @@ biosimulations-root {
 }
 
 .cdk-overlay-container {
-  @include mat-typography-level-to-styles($fontConfig, body-1);
+  @include mat.typography-level($fontConfig, body-1);
 }
 
 .mat-select-panel {
@@ -894,13 +894,13 @@ biosimulations-slider .slider {
   .bar {
     & > span.left-handle,
     & > span.right-handle {
-      border-color: mat-color($theme-primary) !important;
-      background: mat-color($theme-primary, lighter) !important;
+      border-color: mat.get-color-from-palette($theme-primary) !important;
+      background: mat.get-color-from-palette($theme-primary, lighter) !important;
 
       .handle-tooltip {
-        border-color: mat-color($theme-primary) !important;
-        background: mat-color($theme-primary, lighter) !important;
-        color: mat-color($theme-primary) !important;
+        border-color: mat.get-color-from-palette($theme-primary) !important;
+        background: mat.get-color-from-palette($theme-primary, lighter) !important;
+        color: mat.get-color-from-palette($theme-primary) !important;
         font-weight: bold;
       }
     }
@@ -909,7 +909,7 @@ biosimulations-slider .slider {
       border-color: $light-bg-darker-10 !important;
 
       & > span {
-        background: mat-color($theme-primary, lighter) !important;
+        background: mat.get-color-from-palette($theme-primary, lighter) !important;
       }
     }
   }
@@ -930,35 +930,35 @@ biosimulations-slider .slider {
     color: $dark-primary-text;
 
     &:hover {
-      color: mat-color($theme-primary);
+      color: mat.get-color-from-palette($theme-primary);
     }
 
     &:active {
-      color: mat-color($theme-primary, darker);
+      color: mat.get-color-from-palette($theme-primary, darker);
     }
   }
 
   &.primary {
-    color: mat-color($theme-primary);
+    color: mat.get-color-from-palette($theme-primary);
 
     &:hover {
-      color: darken(mat-color($theme-primary), 5%);
+      color: darken(mat.get-color-from-palette($theme-primary), 5%);
     }
 
     &:active {
-      color: darken(mat-color($theme-primary), 10%);
+      color: darken(mat.get-color-from-palette($theme-primary), 10%);
     }
   }
 
   &.accent {
-    color: mat-color($theme-accent);
+    color: mat.get-color-from-palette($theme-accent);
 
     &:hover {
-      color: darken(mat-color($theme-accent), 5%);
+      color: darken(mat.get-color-from-palette($theme-accent), 5%);
     }
 
     &:active {
-      color: darken(mat-color($theme-accent), 10%);
+      color: darken(mat.get-color-from-palette($theme-accent), 10%);
     }
   }
 
@@ -994,7 +994,7 @@ biosimulations-slider .slider {
   }
 
   &.primary {
-    color: mat-color($theme-primary);
+    color: mat.get-color-from-palette($theme-primary);
     background: $theme-primary-lightest;
 
     &:hover {
@@ -1007,7 +1007,7 @@ biosimulations-slider .slider {
   }
 
   &.accent {
-    color: mat-color($theme-accent);
+    color: mat.get-color-from-palette($theme-accent);
     background: $theme-accent-lightest;
 
     &:hover {
@@ -1113,7 +1113,7 @@ table {
   }
 
   .mat-sort-header-arrow {
-    color: mat-color($theme-primary);
+    color: mat.get-color-from-palette($theme-primary);
     transform: scale(1.35, 1.35) !important;
   }
 
@@ -1137,7 +1137,7 @@ table {
 
   .mat-cell,
   .mat-header-cell {
-    @include mat-typography-level-to-styles($fontConfig, body-1);
+    @include mat.typography-level($fontConfig, body-1);
 
     &:not(:first-of-type) {
       padding-left: 0.125rem;
@@ -1274,12 +1274,12 @@ table {
 .status-label {
   &.CREATED,
   &.QUEUED {
-    color: mat-color($theme-primary);
+    color: mat.get-color-from-palette($theme-primary);
   }
 
   &.RUNNING,
   &.PROCESSING {
-    color: mat-color($theme-tertiary);
+    color: mat.get-color-from-palette($theme-tertiary);
   }
 
   &.SUCCEEDED {
@@ -1287,11 +1287,11 @@ table {
   }
 
   &.SKIPPED {
-    color: mat-color($theme-accent);
+    color: mat.get-color-from-palette($theme-accent);
   }
 
   &.FAILED {
-    color: mat-color($theme-warn);
+    color: mat.get-color-from-palette($theme-warn);
   }
 }
 
@@ -1299,20 +1299,20 @@ a.status-label {
   &.CREATED,
   &.QUEUED {
     &:hover {
-      color: darken(mat-color($theme-primary), 10%);
+      color: darken(mat.get-color-from-palette($theme-primary), 10%);
     }
     &:active {
-      color: darken(mat-color($theme-primary), 20%);
+      color: darken(mat.get-color-from-palette($theme-primary), 20%);
     }
   }
 
   &.RUNNING,
   &.PROCESSING {
     &:hover {
-      color: darken(mat-color($theme-tertiary), 8%);
+      color: darken(mat.get-color-from-palette($theme-tertiary), 8%);
     }
     &:active {
-      color: darken(mat-color($theme-tertiary), 16%);
+      color: darken(mat.get-color-from-palette($theme-tertiary), 16%);
     }
   }
 
@@ -1327,19 +1327,19 @@ a.status-label {
 
   &.SKIPPED {
     &:hover {
-      color: darken(mat-color($theme-accent), 7%);
+      color: darken(mat.get-color-from-palette($theme-accent), 7%);
     }
     &:active {
-      color: darken(mat-color($theme-accent), 14%);
+      color: darken(mat.get-color-from-palette($theme-accent), 14%);
     }
   }
 
   &.FAILED {
     &:hover {
-      color: darken(mat-color($theme-warn), 15%);
+      color: darken(mat.get-color-from-palette($theme-warn), 15%);
     }
     &:active {
-      color: darken(mat-color($theme-warn), 30%);
+      color: darken(mat.get-color-from-palette($theme-warn), 30%);
     }
   }
 }
@@ -1349,15 +1349,15 @@ a.status-label {
   &.QUEUED,
   &.Warned {
     h3 {
-      color: mat-color($theme-primary);
+      color: mat.get-color-from-palette($theme-primary);
       background: $theme-primary-lightest;
 
       .mat-icon-button.biosimulations-button {
         &:hover {
-          color: darken(mat-color($theme-primary), 10%) !important;
+          color: darken(mat.get-color-from-palette($theme-primary), 10%) !important;
         }
         &:active {
-          color: darken(mat-color($theme-primary), 20%) !important;
+          color: darken(mat.get-color-from-palette($theme-primary), 20%) !important;
         }
       }
     }
@@ -1367,15 +1367,15 @@ a.status-label {
   &.PROCESSING,
   &.Passed {
     h3 {
-      color: mat-color($theme-tertiary);
+      color: mat.get-color-from-palette($theme-tertiary);
       background: $theme-tertiary-lightest;
 
       .mat-icon-button.biosimulations-button {
         &:hover {
-          color: darken(mat-color($theme-tertiary), 8%) !important;
+          color: darken(mat.get-color-from-palette($theme-tertiary), 8%) !important;
         }
         &:active {
-          color: darken(mat-color($theme-tertiary), 16%) !important;
+          color: darken(mat.get-color-from-palette($theme-tertiary), 16%) !important;
         }
       }
     }
@@ -1400,15 +1400,15 @@ a.status-label {
 
   &.SKIPPED {
     h3 {
-      color: mat-color($theme-accent);
+      color: mat.get-color-from-palette($theme-accent);
       background: $theme-accent-lightest;
 
       .mat-icon-button.biosimulations-button {
         &:hover {
-          color: darken(mat-color($theme-accent), 7%) !important;
+          color: darken(mat.get-color-from-palette($theme-accent), 7%) !important;
         }
         &:active {
-          color: darken(mat-color($theme-accent), 14%) !important;
+          color: darken(mat.get-color-from-palette($theme-accent), 14%) !important;
         }
       }
     }
@@ -1417,15 +1417,15 @@ a.status-label {
   &.FAILED,
   &.Failed {
     h3 {
-      color: mat-color($theme-warn);
+      color: mat.get-color-from-palette($theme-warn);
       background: $theme-warn-lightest;
 
       .mat-icon-button.biosimulations-button {
         &:hover {
-          color: darken(mat-color($theme-warn), 15%) !important;
+          color: darken(mat.get-color-from-palette($theme-warn), 15%) !important;
         }
         &:active {
-          color: darken(mat-color($theme-warn), 30%) !important;
+          color: darken(mat.get-color-from-palette($theme-warn), 30%) !important;
         }
       }
     }

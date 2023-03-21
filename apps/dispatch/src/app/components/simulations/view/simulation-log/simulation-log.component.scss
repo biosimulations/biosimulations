@@ -68,7 +68,7 @@ ul.icon-list {
   a {
     color: $dark-primary-text;
     &:hover {
-      color: mat-color($theme-primary);
+      color: mat.get-color-from-palette($theme-primary);
     }
   }
 }
