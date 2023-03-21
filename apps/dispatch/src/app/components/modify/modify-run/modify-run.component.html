@@ -1,0 +1,13 @@
+<biosimulations-page 
+  heading="Run a simulation with modifications"
+  *ngIf="!shouldShowSpinner; else loading">
+  <div class="form-header">
+    Use the form below to configure your simulation. You can then use runBioSimulations to execute your archive, or you can
+    download the archive.
+  </div>
+  <paging-form [dataSource]="dataSource"></paging-form>
+</biosimulations-page>
+
+<ng-template #loading>
+  <biosimulations-full-page-spinner></biosimulations-full-page-spinner>
+</ng-template>

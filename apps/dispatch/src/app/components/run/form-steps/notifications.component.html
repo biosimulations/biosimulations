@@ -1,0 +1,28 @@
+<form [formGroup]="formGroup">
+  <mat-card class="card-form-section mat-elevation-z3">
+    <mat-card-title>Notifications</mat-card-title>
+
+    <div class="input-group">
+      <mat-form-field class="card-form-field" appearance="fill">
+        <mat-label>Email address</mat-label>
+        <input matInput formControlName="email" placeholder="investigator@uni.edu" />
+      </mat-form-field>
+    </div>
+
+    <mat-hint>
+      Optionally, enter your email address to receive notification of the completion of your simulation. After
+      submitting your simulation, you will also receive a URL where you will be able to check the status of your
+      simulation and retrieve its results.
+    </mat-hint>
+
+    <mat-error *ngIf="formGroup.hasError('email', 'email')">Please enter a valid email address.</mat-error>
+
+    <mat-checkbox formControlName="emailConsent" color="primary">
+      I consent to receiving an email notification about the completion of my simulation.
+    </mat-checkbox>
+
+    <mat-error *ngIf="formGroup.hasError('emailNotConsented') && this.nextClicked">
+      You must consent in order to receiving email notifications.
+    </mat-error>
+  </mat-card>
+</form>

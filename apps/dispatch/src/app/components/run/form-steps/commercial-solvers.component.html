@@ -1,0 +1,34 @@
+<form [formGroup]="formGroup">
+  <mat-card class="card-form-section mat-elevation-z3">
+    <mat-card-title>Commercial solvers</mat-card-title>
+
+    <mat-checkbox formControlName="academicPurpose" color="primary">
+      The purpose of this simulation is academic research or education.
+    </mat-checkbox>
+
+    <mat-hint>
+      <p>
+        Some simulation tools, such as COBRApy and RBApy, can optionally execute simulations using commercial solvers
+        such as Gurobi
+        <a href="https://www.gurobi.com/products/gurobi-optimizer/" rel="noopener" target="_blank">
+          <biosimulations-icon icon="link"></biosimulations-icon>
+        </a>
+        . These commercial solvers are often more accurate and more performant. However, these commercial solvers are
+        not required to execute any of the available simulation tools. All of the available simulation tools can be run
+        with freely available solvers.
+      </p>
+
+      <p>
+        Optionally, users can use these commercial solvers for academic research and education. To use these commercial
+        solvers, check the box above to confirm that you are using runBioSimulations for academic research or education.
+      </p>
+
+      <p>
+        Non-academic users can execute simulations with commercial solvers by (a) running simulations through
+        runBioSimulations' API and providing license keys through environment variables or (b) using the Docker images,
+        command-line programs, or Python APIs for simulation tools on their own machines with their own license key
+        environment variables or license files.
+      </p>
+    </mat-hint>
+  </mat-card>
+</form>

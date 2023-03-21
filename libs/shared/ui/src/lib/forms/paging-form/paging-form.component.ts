@@ -68,7 +68,7 @@ export class PagingFormComponent<TStepId extends string> implements OnDestroy, A
     if (!currentStep || !this.dataSource) {
       return;
     }
-    delete this.dataSource.formData[currentStep];
+    this.dataSource.setDataForStep(currentStep, null);
     this.formPath.pop();
     this.loadCurrentFormStep();
   }
@@ -105,7 +105,7 @@ export class PagingFormComponent<TStepId extends string> implements OnDestroy, A
     if (!currentStepData || !currentStep) {
       return false;
     }
-    this.dataSource.formData[currentStep] = currentStepData;
+    this.dataSource.setDataForStep(currentStep, currentStepData);
     return true;
   }
 
@@ -133,8 +133,13 @@ export class PagingFormComponent<TStepId extends string> implements OnDestroy, A
     const formContainerRef = formHost.viewContainerRef;
     formContainerRef.clear();
     this.currentFormStepComponent = this.dataSource.createFormStepComponent(currentStep, formContainerRef);
-    this.currentExtraButtons = this.dataSource.extraButtonsForFormStep(currentStep);
-    const currentData = this.dataSource.formData[currentStep];
+    this.dataSource.configureFormStepComponent(currentStep, this.currentFormStepComponent);
+    if (this.dataSource.extraButtonsForFormStep) {
+      this.currentExtraButtons = this.dataSource.extraButtonsForFormStep(currentStep);
+    } else {
+      this.currentExtraButtons = null;
+    }
+    const currentData = this.dataSource.getDataForStep(currentStep);
     if (this.currentFormStepComponent && currentData) {
       this.currentFormStepComponent.populateFormFromFormStepData(currentData);
     }

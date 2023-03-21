@@ -49,7 +49,7 @@ import { MatCarouselComponent } from './mat-carousel/carousel.component';
 import { MatCarouselSlideComponent } from './mat-carousel/carousel-slide/carousel-slide.component';
 import { BlankTargetDirective } from './blank-target-link/blank-target-link.directive';
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG, HammerModule } from '@angular/platform-browser';
-import { FormHostDirective, PagingFormComponent } from './forms';
+import { FormHostDirective, PagingFormComponent, SinglePageFormComponent } from './forms';
 @Injectable()
 export class MatCarouselHammerConfig extends HammerGestureConfig {
   public overrides = {
@@ -112,6 +112,7 @@ export class MatCarouselHammerConfig extends HammerGestureConfig {
     BlankTargetDirective,
     FormHostDirective,
     PagingFormComponent,
+    SinglePageFormComponent,
   ],
   declarations: [
     TopbarComponent,
@@ -160,6 +161,7 @@ export class MatCarouselHammerConfig extends HammerGestureConfig {
     BlankTargetDirective,
     FormHostDirective,
     PagingFormComponent,
+    SinglePageFormComponent,
   ],
 })
 export class SharedUiModule {}

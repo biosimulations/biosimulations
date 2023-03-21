@@ -24,10 +24,20 @@ export interface IMultiStepFormButton {
  */
 export interface IMultiStepFormDataSource<TStepId extends string> {
   /**
-   * The MultiStepFormDataSource should maintain a reference to the data currently entered into the form.
-   * This data will be used by the MultiStepFormComponent to preload data into each new form step.
+   * The MultiStepFormDataSource should update the data for the requested step. When null data is provided
+   * the form step data should be cleared entirely.
+   *
+   * @param stepId The form step for which to update data.
+   * @param data The data that should be set for the form step.
    */
-  formData: Record<TStepId, FormStepData>;
+  setDataForStep(stepId: TStepId, data: FormStepData | null): void;
+
+  /**
+   * The MultiStepFormDataSource should provide the data for the requested step.
+   *
+   * @param stepId The form step for which to return data.
+   */
+  getDataForStep(stepId: TStepId): FormStepData | null;
 
   /**
    * The MultiStepFormDataSource should return a list of identifiers representing the steps of the form.
@@ -54,6 +64,15 @@ export interface IMultiStepFormDataSource<TStepId extends string> {
   createFormStepComponent(stepId: TStepId, hostView: ViewContainerRef): IFormStepComponent;
 
   /**
+   * The MultiStepFormDataSource should perform whatever configuration is necessary on the IFormStepComponent to make it
+   * compatible with the current state of the form data.
+   *
+   * @param stepId The id of the step to configure.
+   * @param stepComponent The component to configure.
+   */
+  configureFormStepComponent(stepId: TStepId, stepComponent: IFormStepComponent): void;
+
+  /**
    * The MultiStepFormDataSource should either return null or a MultiStepFormDataTask representing work to process
    * the specified step's inputed data.
    *
@@ -62,10 +81,18 @@ export interface IMultiStepFormDataSource<TStepId extends string> {
   startDataTask(stepId: TStepId): IMultiStepFormDataTask | null;
 
   /**
-   * The MultiStepformDataSource should return either null or a list of MultiStepFormButton instances. The provided
-   * buttons will be displayed in order on the bottom right side of the form step component.
+   * The MultiStepFormDataSource should return either null or a list of MultiStepFormButton instances. The provided
+   * buttons will be displayed in order on the bottom right side of the form step component. This value is only
+   * respected on multi page forms.
    *
    * @param formStepId The id of the step for which the buttons should be displayed.
    */
-  extraButtonsForFormStep(formStepId: TStepId): IMultiStepFormButton[] | null;
+  extraButtonsForFormStep?(formStepId: TStepId): IMultiStepFormButton[] | null;
+
+  /**
+   * The MultiStepFormDataSource should return either null or a MultiStepFormButton instance. The provided
+   * button will be displayed on the bottom right side of the form. This value is only respected for single
+   * page forms.
+   */
+  submitButtonForForm?(): IMultiStepFormButton;
 }

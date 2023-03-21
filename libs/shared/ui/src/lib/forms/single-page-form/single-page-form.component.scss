@@ -1,0 +1,11 @@
+.single-page-form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20pt;
+}
+
+.single-page-form-submit {
+  float: right;
+  font-size: 150%;
+  padding: 0.4rem 1.2rem;
+}

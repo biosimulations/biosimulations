@@ -1,0 +1,19 @@
+<form [formGroup]="formGroup">
+  <mat-card class="card-form-section mat-elevation-z3">
+    <mat-card-title>Metadata *</mat-card-title>
+
+    <div class="input-group">
+      <mat-form-field class="card-form-field" appearance="fill">
+        <mat-label>Descriptive name</mat-label>
+        <input matInput (ngModelChange)="onUpdate()" formControlName="name" placeholder="Knockout of gene A" required />
+      </mat-form-field>
+    </div>
+
+    <mat-hint>
+      Provide a name for your simulation run. If you execute multiple simulation runs, this name will help you identify
+      this run among all of your runs.
+    </mat-hint>
+
+    <mat-error *ngIf="shouldShowNameRequiredError()">Please enter a name for your simulation run.</mat-error>
+  </mat-card>
+</form>

@@ -5,3 +5,4 @@ export * from './model-variables.component';
 export * from './simulator-type.component';
 export * from './uniform-time-course-simulation.component';
 export * from './upload-model.component';
+export * from './simple-algorithm-parameters.component';

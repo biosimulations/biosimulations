@@ -1,8 +1,16 @@
 import { Component } from '@angular/core';
-import { UntypedFormArray, UntypedFormBuilder, Validators, UntypedFormGroup, AbstractControl } from '@angular/forms';
+import {
+  UntypedFormArray,
+  UntypedFormBuilder,
+  Validators,
+  UntypedFormGroup,
+  AbstractControl,
+  ValidatorFn,
+} from '@angular/forms';
 import { IFormStepComponent, FormStepData } from '@biosimulations/shared/ui';
 import { UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR, SEDML_ID_VALIDATOR } from '@biosimulations/shared/ui';
-import { SedModelAttributeChangeTypeEnum, SedModelChange } from '@biosimulations/combine-api-angular-client';
+import { SedModelAttributeChangeTypeEnum } from '@biosimulations/combine-api-angular-client';
+import { SedModelChange } from '@biosimulations/datamodel/common';
 
 @Component({
   selector: 'create-project-model-changes',
@@ -12,10 +20,13 @@ import { SedModelAttributeChangeTypeEnum, SedModelChange } from '@biosimulations
 export class ModelChangesComponent implements IFormStepComponent {
   public nextClicked = false;
   public formArray: UntypedFormArray;
+  public includeOptionalColumns = true;
+  private idValidator: ValidatorFn;
 
   public constructor(private formBuilder: UntypedFormBuilder) {
+    this.idValidator = UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR('id');
     this.formArray = formBuilder.array([], {
-      validators: [UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR('id')],
+      validators: [this.idValidator],
     });
     const defaultRowCount = 3;
     for (let i = 0; i < defaultRowCount; i++) {
@@ -27,9 +38,15 @@ export class ModelChangesComponent implements IFormStepComponent {
    * Preloads any model changes parsed out of the uploaded SedDocument into the form.
    * @param introspectedModelChanges SedModelChange instances parsed out of the uploaded SedDocument.
    */
-  public loadIntrospectedModelChanges(introspectedModelChanges: SedModelChange[]): void {
+  public loadIntrospectedModelChanges(introspectedModelChanges: SedModelChange[], includeOptionalColumns = true): void {
     if (introspectedModelChanges.length === 0) {
       return;
+    }
+    this.includeOptionalColumns = includeOptionalColumns;
+    if (includeOptionalColumns) {
+      this.formArray.addValidators(this.idValidator);
+    } else {
+      this.formArray.removeValidators(this.idValidator);
     }
     this.formArray.clear();
     introspectedModelChanges.forEach((change: SedModelChange) => {
@@ -83,7 +100,7 @@ export class ModelChangesComponent implements IFormStepComponent {
   }
 
   public shouldShowIdError(formGroup: UntypedFormGroup): boolean {
-    return this.nextClicked && formGroup.hasError('validSedmlId', 'id');
+    return this.nextClicked && formGroup.hasError('validSedmlId', 'id') && this.includeOptionalColumns;
   }
 
   public shouldShowTargetError(formGroup: UntypedFormGroup): boolean {
@@ -92,7 +109,7 @@ export class ModelChangesComponent implements IFormStepComponent {
 
   public addModelChangeField(modelChange?: Record<string, string | null>): void {
     const modelChangeForm = this.formBuilder.group({
-      id: [modelChange?.id, [SEDML_ID_VALIDATOR]],
+      id: [modelChange?.id, this.includeOptionalColumns ? [SEDML_ID_VALIDATOR] : null],
       name: [modelChange?.name, []],
       target: [modelChange?.target, [Validators.required]],
       default: [modelChange?.default, []],

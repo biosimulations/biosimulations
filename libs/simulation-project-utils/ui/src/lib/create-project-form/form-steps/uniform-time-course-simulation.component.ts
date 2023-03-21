@@ -6,7 +6,7 @@ import {
   NON_NEGATIVE_FLOAT_VALIDATOR,
   UNIFORM_TIME_SPAN_VALIDATOR,
 } from '@biosimulations/shared/ui';
-import { SedUniformTimeCourseSimulation } from '@biosimulations/combine-api-angular-client';
+import { SedUniformTimeCourseSimulation } from '@biosimulations/datamodel/common';
 
 @Component({
   selector: 'create-project-inform-time-course-simulation',
@@ -38,6 +38,7 @@ export class UniformTimeCourseSimulationComponent implements IFormStepComponent 
     this.formGroup.controls.outputStartTime.setValue(timeCourseData.outputStartTime);
     this.formGroup.controls.outputEndTime.setValue(timeCourseData.outputEndTime);
     this.formGroup.controls.numberOfSteps.setValue(timeCourseData.numberOfSteps);
+    this.changeUniformTimeCourseSimulationStep();
   }
 
   public populateFormFromFormStepData(formStepData: FormStepData): void {

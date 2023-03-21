@@ -9,9 +9,29 @@ import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 
 import { RunRoutingModule } from './run-routing.module';
 import { DispatchComponent } from './dispatch/dispatch.component';
+import {
+  UploadProjectComponent,
+  ProjectCapabilitiesComponent,
+  SimulationToolComponent,
+  CommercialSolversComponent,
+  ComputationalResourcesComponent,
+  MetadataComponent,
+  NotificationsComponent,
+  PreselectedOptionsComponent,
+} from './form-steps';
 
 @NgModule({
-  declarations: [DispatchComponent],
+  declarations: [
+    DispatchComponent,
+    UploadProjectComponent,
+    ProjectCapabilitiesComponent,
+    SimulationToolComponent,
+    CommercialSolversComponent,
+    ComputationalResourcesComponent,
+    MetadataComponent,
+    NotificationsComponent,
+    PreselectedOptionsComponent,
+  ],
   imports: [
     CommonModule,
     RunRoutingModule,

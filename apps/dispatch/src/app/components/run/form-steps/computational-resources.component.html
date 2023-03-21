@@ -1,0 +1,66 @@
+<form [formGroup]="formGroup">
+  <mat-card class="card-form-section mat-elevation-z3">
+    <mat-card-title>Computational resources *</mat-card-title>
+
+    <div class="input-group">
+      <mat-form-field class="card-form-field" appearance="fill">
+        <mat-label>CPUs</mat-label>
+        <input
+          matInput
+          (ngModelChange)="onUpdate()"
+          formControlName="cpus"
+          type="number"
+          min="1"
+          max="24"
+          step="1"
+          required />
+        <span matSuffix>cores</span>
+      </mat-form-field>
+
+      <mat-form-field class="card-form-field" appearance="fill">
+        <mat-label>Memory</mat-label>
+        <input
+          matInput
+          (ngModelChange)="onUpdate()"
+          formControlName="memory"
+          type="number"
+          min="1"
+          max="192"
+          step="0.01"
+          required />
+        <span matSuffix>GB</span>
+      </mat-form-field>
+
+      <mat-form-field class="card-form-field" appearance="fill">
+        <mat-label>Time</mat-label>
+        <input
+          matInput
+          (ngModelChange)="onUpdate()"
+          formControlName="maxTime"
+          type="number"
+          min="1"
+          max="28800"
+          step="1"
+          required />
+        <span matSuffix>min</span>
+      </mat-form-field>
+    </div>
+
+    <mat-hint>
+      Configure the amount of resources needed to execute your project. Currently, users can request up to 24 CPU cores,
+      192 GB RAM, and 20 days. if additional resources are needed, please contact the runBioSimulations Team
+      <a [href]="emailUrl"><biosimulations-icon icon="email"></biosimulations-icon></a>
+      to discuss additional options.
+    </mat-hint>
+
+    <mat-error *ngIf="formGroup.hasError('min', 'cpus')">Jobs must request at least 1 core.</mat-error>
+    <mat-error *ngIf="formGroup.hasError('max', 'cpus')">Jobs are limited to 24 CPU cores.</mat-error>
+    <mat-error *ngIf="formGroup.hasError('integer', 'cpus')">
+      Jobs must request an integer number of CPU cores.
+    </mat-error>
+    <mat-error *ngIf="formGroup.hasError('min', 'memory')">Jobs must request at least 1 GB RAM.</mat-error>
+    <mat-error *ngIf="formGroup.hasError('max', 'memory')">Jobs are limited to 192 GB RAM.</mat-error>
+    <mat-error *ngIf="formGroup.hasError('min', 'maxTime')">Jobs must request at least 1 minute.</mat-error>
+    <mat-error *ngIf="formGroup.hasError('max', 'maxTime')">Jobs are limited to 20 days.</mat-error>
+  </mat-card>
+</form>

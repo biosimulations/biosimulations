@@ -5,21 +5,31 @@ import { BIOSIMULATIONS_FORMATS_BY_ID } from '@biosimulations/ontology/extra-sou
 import { Endpoints } from '@biosimulations/config/common';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import {
-  SedModelChange,
+  Namespace as CombineNamespace,
+  SedDocument as CombineSedDocument,
+  SedModelChange as CombineSedModelChange,
   SedVariable,
   SedUniformTimeCourseSimulation,
-  Namespace,
-  SedDocument,
   SedReport,
-  SedReportTypeEnum,
   SedOutput,
   SedDataGenerator,
   SedDataSet,
+  SedReportTypeEnum,
   SedModelAttributeChangeTypeEnum,
   SedUniformTimeCourseSimulationTypeEnum,
+  NamespaceTypeEnum,
 } from '@biosimulations/combine-api-angular-client';
-import { SimulationType } from '@biosimulations/datamodel/common';
+import {
+  SimulationType,
+  SedDocument as DataModelSedDocument,
+  SedModelChange as DataModelSedModelChange,
+  Namespace as DataModelNamespace,
+} from '@biosimulations/datamodel/common';
 import { environment } from '@biosimulations/shared/environments';
+
+type SedDocument = DataModelSedDocument | CombineSedDocument;
+type SedModelChange = DataModelSedModelChange | CombineSedModelChange;
+type Namespace = DataModelNamespace | CombineNamespace;
 
 /**
  * An object encapsulating the data on a SedDocument that can be customized by the
@@ -30,7 +40,7 @@ export interface CustomizableSedDocumentData {
   modelChanges: SedModelChange[];
   modelVariables: SedVariable[];
   uniformTimeCourseSimulation?: SedUniformTimeCourseSimulation;
-  namespaces: Namespace[];
+  namespaces: CombineNamespace[];
 }
 
 export function IntrospectNewProject(
@@ -89,8 +99,8 @@ function PostNewProjectSedDocument(
   formData: FormData,
   modelUrl: string,
   errorHandler: (modelUrl: string) => void,
-): Observable<SedDocument | null> {
-  return http.post<SedDocument>(postEndpoint, formData).pipe(
+): Observable<CombineSedDocument | null> {
+  return http.post<CombineSedDocument>(postEndpoint, formData).pipe(
     catchError((error: HttpErrorResponse): Observable<null> => {
       if (!environment.production) {
         console.error(error);
@@ -103,18 +113,18 @@ function PostNewProjectSedDocument(
 
 function CreateNewProjectArchiveDataOperator(
   simMethodData: FormStepData,
-): (doc: SedDocument | null) => CustomizableSedDocumentData | null {
+): (doc: CombineSedDocument | null) => CustomizableSedDocumentData | null {
   const simulationType = simMethodData?.simulationType as SimulationType;
-  return (sedDoc: SedDocument | null) => {
+  return (sedDoc: CombineSedDocument | null) => {
     return sedDoc ? CreateCustomizableSedDocumentData(sedDoc, simulationType) : null;
   };
 }
 
 function CreateCustomizableSedDocumentData(
-  sedDoc: SedDocument,
+  sedDoc: CombineSedDocument,
   simulationType: SimulationType,
 ): CustomizableSedDocumentData {
-  const namespaces: Namespace[] = [];
+  const namespaces: CombineNamespace[] = [];
   const modelChanges = GatherModelChanges(sedDoc, namespaces);
   const modelVariables = GatherModelVariables(sedDoc, namespaces);
   const uniformTimeCourseSimulation = GatherTimeCourseData(sedDoc, simulationType);
@@ -131,7 +141,7 @@ function CreateCustomizableSedDocumentData(
   };
 }
 
-function GatherModelVariables(sedDoc: SedDocument, namespaces: Namespace[]): SedVariable[] {
+function GatherModelVariables(sedDoc: CombineSedDocument, namespaces: CombineNamespace[]): SedVariable[] {
   const sedReports = sedDoc.outputs?.filter((output: SedOutput): boolean => {
     return output._type === SedReportTypeEnum.SedReport;
   }) as SedReport[];
@@ -155,7 +165,7 @@ function GatherModelVariables(sedDoc: SedDocument, namespaces: Namespace[]): Sed
   return modelVariables;
 }
 
-function GatherModelChanges(sedDoc: SedDocument, namespaces: Namespace[]): SedModelChange[] {
+export function GatherModelChanges(sedDoc: SedDocument, namespaces: CombineNamespace[]): SedModelChange[] {
   const changes = sedDoc?.models?.[0]?.changes;
   if (!changes) {
     return [];
@@ -178,7 +188,7 @@ function GatherModelChanges(sedDoc: SedDocument, namespaces: Namespace[]): SedMo
 }
 
 function GatherTimeCourseData(
-  sedDoc: SedDocument,
+  sedDoc: CombineSedDocument,
   simType: SimulationType,
 ): SedUniformTimeCourseSimulation | undefined {
   const simulation = sedDoc?.simulations?.[0];
@@ -190,7 +200,7 @@ function GatherTimeCourseData(
   return simulation as SedUniformTimeCourseSimulation;
 }
 
-function AddUniqueNamespaces(newNamespaces: Namespace[] | undefined, existingNamespaces: Namespace[]): void {
+function AddUniqueNamespaces(newNamespaces: Namespace[] | undefined, existingNamespaces: CombineNamespace[]): void {
   if (!newNamespaces) {
     return;
   }
@@ -200,7 +210,11 @@ function AddUniqueNamespaces(newNamespaces: Namespace[] | undefined, existingNam
         return newNamespace.prefix === namespace.prefix;
       }) !== undefined;
     if (!alreadyAdded) {
-      existingNamespaces.push(newNamespace);
+      existingNamespaces.push({
+        prefix: newNamespace.prefix,
+        uri: newNamespace.uri,
+        _type: NamespaceTypeEnum.Namespace,
+      });
     }
   });
 }
