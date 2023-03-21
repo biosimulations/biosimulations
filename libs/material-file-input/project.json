@@ -1,4 +1,5 @@
 {
+  "name": "material-file-input",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/material-file-input/src",
@@ -6,7 +7,7 @@
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/material-file-input"],
+      "outputs": ["{workspaceRoot}/dist/libs/material-file-input"],
       "options": {
         "project": "libs/material-file-input/ng-package.json"
       },
@@ -22,7 +23,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/material-file-input"],
+      "outputs": ["{workspaceRoot}/coverage/libs/material-file-input"],
       "options": {
         "jestConfig": "libs/material-file-input/jest.config.ts",
         "passWithNoTests": true

@@ -1,4 +1,4 @@
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { SNACK_BAR_DURATION } from '@biosimulations/config/common';
 import { Injectable } from '@angular/core';
 

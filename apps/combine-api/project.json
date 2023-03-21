@@ -1,4 +1,5 @@
 {
+  "name": "combine-api",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "sourceRoot": "apps/combine-api/src",
@@ -21,14 +22,14 @@
       }
     },
     "test": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "nx:run-commands",
       "options": {
         "commands": ["npx nx docker combine-api", "apps/combine-api/run-tests-in-docker-container.sh"],
         "parallel": false
       }
     },
     "lint": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "nx:run-commands",
       "options": {
         "commands": ["flake8"],
         "cwd": "apps/combine-api",
@@ -69,5 +70,12 @@
       }
     }
   },
-  "tags": []
+  "tags": [],
+  "namedInputs": {
+    "projectSpecificFiles": [
+      "{workspaceRoot}/apps/combine-api/Dockerfile-assets/Pipfile",
+      "{workspaceRoot}/apps/combine-api/Dockerfile-assets/Pipfile.lock",
+      "{workspaceRoot}/apps/combine-api/Dockerfile"
+    ]
+  }
 }

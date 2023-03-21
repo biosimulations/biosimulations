@@ -3,21 +3,6 @@
   "affected": {
     "defaultBase": "dev"
   },
-  "implicitDependencies": {
-    "angular.json": "*",
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
-    },
-    ".github/workflows/nxCi.yml": "*",
-    "apps/combine-api/Dockerfile-assets/Pipfile": ["combine-api"],
-    "apps/combine-api/Dockerfile-assets/Pipfile.lock": ["combine-api"],
-    "tsconfig.base.json": "*",
-    ".eslintrc.json": "*",
-    "nx.json": "*",
-    "Dockerfile": "*",
-    "apps/combine-api/Dockerfile": ["combine-api"]
-  },
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/nx-cloud",
@@ -88,10 +73,34 @@
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "targetDefaults": {
     "build": {
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
     },
     "serve": {
       "dependsOn": ["^build"]
+    },
+    "e2e": {
+      "inputs": ["default", "^production"]
+    },
+    "test": {
+      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
     }
+  },
+  "namedInputs": {
+    "default": ["{projectRoot}/**/*", "sharedGlobals", "projectSpecificFiles"],
+    "sharedGlobals": [
+      "{workspaceRoot}/angular.json",
+      "{workspaceRoot}/.github/workflows/nxCi.yml",
+      "{workspaceRoot}/tsconfig.base.json",
+      "{workspaceRoot}/nx.json",
+      "{workspaceRoot}/Dockerfile"
+    ],
+    "production": [
+      "default",
+      "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+      "!{projectRoot}/tsconfig.spec.json",
+      "!{projectRoot}/jest.config.[jt]s"
+    ],
+    "projectSpecificFiles": []
   }
 }

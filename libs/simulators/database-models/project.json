@@ -1,4 +1,5 @@
 {
+  "name": "simulators-database-models",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/simulators/database-models/src",
   "projectType": "library",

@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { SimulationRunsVizModule } from '@biosimulations/simulation-runs/viz';
 import { SimulationRunsUiModule } from '@biosimulations/simulation-runs/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
 import { SharedAngularModule } from '@biosimulations/shared/angular';
 import { SimulationsRoutingModule } from './simulations-routing.module';
 import { BrowseComponent } from './browse/browse.component';

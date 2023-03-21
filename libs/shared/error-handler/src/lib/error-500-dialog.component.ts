@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { ConfigService } from '@biosimulations/config/angular';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
 
 interface ErrorState {
   code: number | string | undefined;

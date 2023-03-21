@@ -1,4 +1,5 @@
 {
+  "name": "mail-service-client",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/mail-service/client/src",
   "projectType": "library",

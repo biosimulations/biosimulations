@@ -1,4 +1,5 @@
 {
+  "name": "dispatch-e2e",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/dispatch-e2e/src",
   "projectType": "application",

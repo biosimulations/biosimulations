@@ -1,4 +1,5 @@
 {
+  "name": "shared-storage",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/storage/src",
   "projectType": "library",
@@ -11,7 +12,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/shared/storage"],
+      "outputs": ["{workspaceRoot}/coverage/libs/shared/storage"],
       "options": {
         "jestConfig": "libs/shared/storage/jest.config.ts",
         "passWithNoTests": true

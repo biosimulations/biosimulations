@@ -79,7 +79,6 @@ routes.forEach((route: Route): void => {
       initialNavigation: 'enabledBlocking',
       scrollPositionRestoration: 'disabled',
       preloadingStrategy: MARKED_PRELOADING_STRATEGY,
-      relativeLinkResolution: 'legacy',
     }),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,

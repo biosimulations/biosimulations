@@ -1,4 +1,5 @@
 {
+  "name": "simulators-api",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/simulators-api/src",
   "projectType": "application",
@@ -6,12 +7,14 @@
   "generators": {},
   "targets": {
     "build": {
-      "executor": "@nrwl/node:webpack",
+      "executor": "@nrwl/webpack:webpack",
       "options": {
         "outputPath": "dist/apps/simulators-api",
         "main": "apps/simulators-api/src/main.ts",
         "tsConfig": "apps/simulators-api/tsconfig.app.json",
-        "assets": ["apps/simulators-api/src/assets"]
+        "assets": ["apps/simulators-api/src/assets"],
+        "target": "node",
+        "compiler": "tsc"
       },
       "configurations": {
         "production": {

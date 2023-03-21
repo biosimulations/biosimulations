@@ -1,4 +1,5 @@
 {
+  "name": "combine-api-nest-client-wrapper",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/combine-api/nest-client-wrapper/src",
   "projectType": "library",
@@ -12,7 +13,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/combine-api/nest-client-wrapper"],
+      "outputs": ["{workspaceRoot}/coverage/libs/combine-api/nest-client-wrapper"],
       "options": {
         "jestConfig": "libs/combine-api/nest-client-wrapper/jest.config.ts",
         "passWithNoTests": true
