@@ -19,7 +19,7 @@ export const environment: environmentType = currentEnvironment;
 
 For back end applications, the developer must provide the value of the `env` parameter when initializing the `Endpoints` class. This value is then used to load the appropriate endpoints.
 
-In most cases, the value of the `env` parameter should be loaded from the the configuration service provided by the `@biosimulations/config/nest` library located at `libs/config/nest`. The following is an example of how to load the endpoints for the current environment.
+In most cases, the value of the `env` parameter should be loaded from the configuration service provided by the `@biosimulations/config/nest` library located at `libs/config/nest`. The following is an example of how to load the endpoints for the current environment.
 
 ```typescript
 import { Injectable } from '@nestjs/common';

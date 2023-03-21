@@ -539,7 +539,7 @@ docker run -it --rm \
 
 **Can I combine multiple BioSimulators tools together into hybrid or multi-algorithmic simulations?**
 
-Yes! Multiple BioSimulators tools could be used to co-simulate multiple models (potentially involving multiple model languages) using multiple simulation algorithms. We recommend using the Python APIs because they are more flexibile than the command-line interfaces. Specifically, we recommend using the [Vivarium framework](https://vivarium-collective.github.io/) to combine multiple simulation tools and/or models. Vivarium also provides tooling to use BioSimulators.
+Yes! Multiple BioSimulators tools could be used to co-simulate multiple models (potentially involving multiple model languages) using multiple simulation algorithms. We recommend using the Python APIs because they are more flexible than the command-line interfaces. Specifically, we recommend using the [Vivarium framework](https://vivarium-collective.github.io/) to combine multiple simulation tools and/or models. Vivarium also provides tooling to use BioSimulators.
 
 **Which fields are available for search over simulation tools?**
 
