@@ -1,7 +1,6 @@
+/* eslint-disable */
 export default {
-  globals: {
-    'ts-jest': { tsconfig: '<rootDir>/tsconfig.spec.json' },
-  },
+  globals: {},
   coverageDirectory: '../../coverage/apps/simulators-api',
   testEnvironment: 'node',
   displayName: 'simulators-api',

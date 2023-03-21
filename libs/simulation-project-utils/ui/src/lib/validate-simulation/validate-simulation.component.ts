@@ -4,7 +4,7 @@ import { CombineApiService } from '@biosimulations/simulation-project-utils/serv
 import { ValidationReport, ValidationMessage, ValidationStatus } from '@biosimulations/datamodel/common';
 import { Subscription } from 'rxjs';
 import { ConfigService } from '@biosimulations/config/angular';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { ActivatedRoute, Params } from '@angular/router';
 import isUrl from 'is-url';
 import { HtmlSnackBarComponent } from '@biosimulations/shared/ui';

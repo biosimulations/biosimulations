@@ -1,4 +1,5 @@
 {
+  "name": "ontology-extra-sources",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/ontology/extra-sources/src",
   "projectType": "library",

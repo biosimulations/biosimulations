@@ -1,4 +1,5 @@
 {
+  "name": "shared-exceptions-filters",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/exceptions/filters/src",
   "projectType": "library",

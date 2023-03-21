@@ -10,7 +10,7 @@ import { UnderMaintainenceComponent } from './under-maintainence.component';
 import { ErrorComponent } from './error.component';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedUiModule } from '@biosimulations/shared/ui';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
 
 export const errorRoutes: Routes = [
   {

@@ -1,4 +1,5 @@
 {
+  "name": "api-angular-client",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/api/angular-client/src",
@@ -6,7 +7,7 @@
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/api/angular-client"],
+      "outputs": ["{workspaceRoot}/coverage/libs/api/angular-client"],
       "options": {
         "jestConfig": "libs/api/angular-client/jest.config.ts",
         "passWithNoTests": true

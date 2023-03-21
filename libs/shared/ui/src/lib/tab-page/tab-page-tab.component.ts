@@ -1,5 +1,5 @@
 import { Component, Input, ViewChild } from '@angular/core';
-import { MatTab } from '@angular/material/tabs';
+import { MatLegacyTab as MatTab } from '@angular/material/legacy-tabs';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 
 @Component({

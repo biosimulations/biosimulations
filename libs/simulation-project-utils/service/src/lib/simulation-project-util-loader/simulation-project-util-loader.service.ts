@@ -4,7 +4,7 @@ import { AlgorithmSubstitution } from '@biosimulations/datamodel/common';
 import { concatMap, map } from 'rxjs/operators';
 import { Observable, zip } from 'rxjs';
 import { ActivatedRoute, Params } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 
 export interface SimulationProjectUtilData {
   algorithmSubstitutions: AlgorithmSubstitution[];

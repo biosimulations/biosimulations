@@ -1,4 +1,5 @@
 {
+  "name": "hdf5-api-client",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/hdf5/api-client/src",
   "projectType": "library",
@@ -22,7 +23,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/hdf5/api-client"],
+      "outputs": ["{workspaceRoot}/coverage/libs/hdf5/api-client"],
       "options": {
         "jestConfig": "libs/hdf5/api-client/jest.config.ts",
         "passWithNoTests": true

@@ -10,7 +10,7 @@ import {
 import { Observable } from 'rxjs';
 import { map, withLatestFrom, concatAll } from 'rxjs/operators';
 import { ActivatedRoute, Params } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 
 interface Algorithm {
   id: string;

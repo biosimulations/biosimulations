@@ -1,4 +1,5 @@
 {
+  "name": "auth-client",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/auth/client/src",
   "projectType": "library",
@@ -11,7 +12,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/auth/client"],
+      "outputs": ["{workspaceRoot}/coverage/libs/auth/client"],
       "options": {
         "jestConfig": "libs/auth/client/jest.config.ts",
         "passWithNoTests": true
