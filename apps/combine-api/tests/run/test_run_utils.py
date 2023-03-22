@@ -1,5 +1,5 @@
-from src.exceptions import RequestTimeoutException
-from src.handlers.run import utils
+from combine_api.exceptions import RequestTimeoutException
+from combine_api.handlers.run import utils
 import time
 import unittest
 

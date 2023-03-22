@@ -14,9 +14,9 @@ from biosimulators_utils.sedml.io import (
 import connexion
 import flask
 import os
+import combine_api
 import requests
 import requests.exceptions
-import src.s3
 import werkzeug.datastructures  # noqa: F401
 import werkzeug.wrappers.response  # noqa: F401
 
@@ -130,11 +130,11 @@ def handler(body, files=None):
         return flask.send_file(archive_filename,
                                mimetype='application/zip',
                                as_attachment=True,
-                               attachment_filename='archive.omex')
+                               download_name='archive.omex')
 
     else:
         # save COMBINE/OMEX archive to S3 bucket
-        archive_url = src.s3.save_temporary_combine_archive_to_s3_bucket(archive_filename, public=True)
+        archive_url = combine_api.s3.save_temporary_combine_archive_to_s3_bucket(archive_filename, public=True)
 
         # return URL for archive in S3 bucket
         return archive_url

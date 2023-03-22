@@ -1,4 +1,4 @@
-from src import s3
+from combine_api import s3
 from unittest import mock
 import unittest
 
