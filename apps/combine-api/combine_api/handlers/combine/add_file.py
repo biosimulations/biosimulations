@@ -1,13 +1,13 @@
-from ...exceptions import BadRequestException
-from ...utils import get_temp_dir
+from combine_api.exceptions import BadRequestException
+from combine_api.utils import get_temp_dir
 from biosimulators_utils.combine.data_model import CombineArchiveContent
 from biosimulators_utils.combine.io import CombineArchiveReader, CombineArchiveWriter
 import connexion
 import flask
 import os
+import combine_api
 import requests
 import requests.exceptions
-import src.s3
 
 
 def handler(body, files=None):
@@ -72,8 +72,8 @@ def handler(body, files=None):
             instance=exception,
         )
 
-    location_content_map = {os.path.relpath(content.location, '.'): content for content in archive.contents}
-    new_location = os.path.relpath(new_content['location'], '.')
+    location_content_map = {os.path.relpath(content.location, ''): content for content in archive.contents}
+    new_location = os.path.relpath(new_content['location'], '')
     content = location_content_map.get(new_location, None)
     if content is None:
         content = CombineArchiveContent(location=new_location)
@@ -113,11 +113,11 @@ def handler(body, files=None):
         return flask.send_file(archive_filename,
                                mimetype='application/zip',
                                as_attachment=True,
-                               attachment_filename='archive.omex')
+                               download_name='archive.omex')
 
     else:
         # save COMBINE/OMEX archive to S3 bucket
-        archive_url = src.s3.save_temporary_combine_archive_to_s3_bucket(archive_filename, public=True)
+        archive_url = combine_api.s3.save_temporary_combine_archive_to_s3_bucket(archive_filename, public=True)
 
         # return URL for archive in S3 bucket
         return archive_url

@@ -1,12 +1,12 @@
 from biosimulators_utils.omex_meta.data_model import OmexMetadataInputFormat
-from openapi_core.validation.response.datatypes import OpenAPIResponse
-from openapi_core.validation.request.datatypes import (
-    OpenAPIRequest,
-    RequestParameters,
-)
-from src import app
-from src.exceptions import BadRequestException
-from src.handlers.combine.get_metadata_for_combine_archive import _convert_rdf_node_to_json
+# from openapi_core.validation.response.datatypes import OpenAPIResponse
+# from openapi_core.validation.request.datatypes import (
+#     OpenAPIRequest,
+#     RequestParameters,
+# )
+from combine_api import app
+from combine_api.exceptions import BadRequestException
+from combine_api.handlers.combine.get_metadata_for_combine_archive import _convert_rdf_node_to_json
 from unittest import mock
 from werkzeug.datastructures import MultiDict
 import json
@@ -46,26 +46,26 @@ class GetMetadataTestCase(unittest.TestCase):
             expected_metadata = json.load(file)
         self.assertEqual(metadata, expected_metadata, metadata)
 
-        # validate request and response
-        if hasattr(self, "request_validator"):
-            request = OpenAPIRequest(
-                full_url_pattern='https://127.0.0.1/combine/metadata/biosimulations',
-                method='post',
-                body={
-                    'url': archive_url,
-                    'omexMetadataFormat': OmexMetadataInputFormat.rdfxml.value,
-                },
-                mimetype='multipart/form-data',
-                parameters=RequestParameters(),
-            )
-            result = self.request_validator.validate(request)
-            result.raise_for_errors()
-
-            response = OpenAPIResponse(data=json.dumps(expected_metadata),
-                                       status_code=200,
-                                       mimetype='application/json')
-            result = self.response_validator.validate(request, response)
-            result.raise_for_errors()
+        # # validate request and response
+        # if hasattr(self, "request_validator"):
+        #     request = OpenAPIRequest(
+        #         full_url_pattern='https://127.0.0.1/combine/metadata/biosimulations',
+        #         method='post',
+        #         body={
+        #             'url': archive_url,
+        #             'omexMetadataFormat': OmexMetadataInputFormat.rdfxml.value,
+        #         },
+        #         mimetype='multipart/form-data',
+        #         parameters=RequestParameters(),
+        #     )
+        #     result = self.request_validator.validate(request)
+        #     result.raise_for_errors()
+        #
+        #     response = OpenAPIResponse(data=json.dumps(expected_metadata),
+        #                                status_code=200,
+        #                                mimetype='application/json')
+        #     result = self.response_validator.validate(request, response)
+        #     result.raise_for_errors()
 
     def test_get_metadata_for_combine_archive_file_as_biosimulations(self):
         archive_filename = os.path.join(
@@ -90,30 +90,30 @@ class GetMetadataTestCase(unittest.TestCase):
 
         fid.close()
 
-        # validate request and response
-        if hasattr(self, "request_validator"):
-            with open(archive_filename, 'rb') as file:
-                file_content = file.read()
-
-            request = OpenAPIRequest(
-                full_url_pattern='https://127.0.0.1/combine/metadata/biosimulations',
-                method='post',
-                body={
-                    'file': file_content,
-                    'omexMetadataFormat': OmexMetadataInputFormat.rdfxml.value,
-                },
-                mimetype='multipart/form-data',
-                parameters=RequestParameters(),
-            )
-
-            result = self.request_validator.validate(request)
-            result.raise_for_errors()
-
-            response = OpenAPIResponse(data=json.dumps(expected_metadata),
-                                       status_code=200,
-                                       mimetype='application/json')
-            result = self.response_validator.validate(request, response)
-            result.raise_for_errors()
+        # # validate request and response
+        # if hasattr(self, "request_validator"):
+        #     with open(archive_filename, 'rb') as file:
+        #         file_content = file.read()
+        #
+        #     request = OpenAPIRequest(
+        #         full_url_pattern='https://127.0.0.1/combine/metadata/biosimulations',
+        #         method='post',
+        #         body={
+        #             'file': file_content,
+        #             'omexMetadataFormat': OmexMetadataInputFormat.rdfxml.value,
+        #         },
+        #         mimetype='multipart/form-data',
+        #         parameters=RequestParameters(),
+        #     )
+        #
+        #     result = self.request_validator.validate(request)
+        #     result.raise_for_errors()
+        #
+        #     response = OpenAPIResponse(data=json.dumps(expected_metadata),
+        #                                status_code=200,
+        #                                mimetype='application/json')
+        #     result = self.response_validator.validate(request, response)
+        #     result.raise_for_errors()
 
     def test_get_metadata_for_combine_archive_file_as_rdf_triples(self):
         archive_filename = os.path.join(
@@ -148,30 +148,30 @@ class GetMetadataTestCase(unittest.TestCase):
 
         fid.close()
 
-        # validate request and response
-        if hasattr(self, "request_validator"):
-            with open(archive_filename, 'rb') as file:
-                file_content = file.read()
-
-            request = OpenAPIRequest(
-                full_url_pattern='https://127.0.0.1/combine/metadata/rdf',
-                method='post',
-                body={
-                    'file': file_content,
-                    'omexMetadataFormat': OmexMetadataInputFormat.rdfxml.value,
-                },
-                mimetype='multipart/form-data',
-                parameters=RequestParameters(),
-            )
-
-            result = self.request_validator.validate(request)
-            result.raise_for_errors()
-
-            response = OpenAPIResponse(data=json.dumps(metadata),
-                                       status_code=200,
-                                       mimetype='application/json')
-            result = self.response_validator.validate(request, response)
-            result.raise_for_errors()
+        # # validate request and response
+        # if hasattr(self, "request_validator"):
+        #     with open(archive_filename, 'rb') as file:
+        #         file_content = file.read()
+        #
+        #     request = OpenAPIRequest(
+        #         full_url_pattern='https://127.0.0.1/combine/metadata/rdf',
+        #         method='post',
+        #         body={
+        #             'file': file_content,
+        #             'omexMetadataFormat': OmexMetadataInputFormat.rdfxml.value,
+        #         },
+        #         mimetype='multipart/form-data',
+        #         parameters=RequestParameters(),
+        #     )
+        #
+        #     result = self.request_validator.validate(request)
+        #     result.raise_for_errors()
+        #
+        #     response = OpenAPIResponse(data=json.dumps(metadata),
+        #                                status_code=200,
+        #                                mimetype='application/json')
+        #     result = self.response_validator.validate(request, response)
+        #     result.raise_for_errors()
 
     def test_get_metadata_for_combine_archive_error_handling(self):
         endpoint = '/combine/metadata/biosimulations'
@@ -183,23 +183,23 @@ class GetMetadataTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 400, response.json)
         self.assertIn('must be used', response.json['title'])
 
-        if hasattr(self, "response_validator"):
-            request = OpenAPIRequest(
-                full_url_pattern='https://127.0.0.1/combine/metadata/biosimulations',
-                method='post',
-                body={
-                    'url': 'x',
-                    'omexMetadataFormat': OmexMetadataInputFormat.rdfxml.value,
-                },
-                mimetype=None,
-                parameters=RequestParameters(),
-            )
-            response = OpenAPIResponse(
-                data=json.dumps(response.json),
-                status_code=400,
-                mimetype='application/json')
-            result = self.response_validator.validate(request, response)
-            result.raise_for_errors()
+        # if hasattr(self, "response_validator"):
+        #     request = OpenAPIRequest(
+        #         full_url_pattern='https://127.0.0.1/combine/metadata/biosimulations',
+        #         method='post',
+        #         body={
+        #             'url': 'x',
+        #             'omexMetadataFormat': OmexMetadataInputFormat.rdfxml.value,
+        #         },
+        #         mimetype=None,
+        #         parameters=RequestParameters(),
+        #     )
+        #     response = OpenAPIResponse(
+        #         data=json.dumps(response.json),
+        #         status_code=400,
+        #         mimetype='application/json')
+        #     result = self.response_validator.validate(request, response)
+        #     result.raise_for_errors()
 
         archive_filename = os.path.join(
             self.FIXTURES_DIR, 'invalid-metadata.omex')

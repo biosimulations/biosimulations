@@ -1,5 +1,5 @@
 from biosimulators_utils.combine.io import CombineArchiveReader
-from src import app
+from combine_api import app
 from unittest import mock
 from werkzeug.datastructures import MultiDict
 import json
@@ -53,7 +53,7 @@ class AddFileToCombineArchiveTestCase(unittest.TestCase):
             def save_temporary_combine_archive_to_s3_bucket(filename, public=True, archive_filename=modified_archive_filename):
                 shutil.copy(filename, archive_filename)
                 return archive_filename
-            with mock.patch('src.s3.save_temporary_combine_archive_to_s3_bucket', side_effect=save_temporary_combine_archive_to_s3_bucket):
+            with mock.patch('combine_api.s3.save_temporary_combine_archive_to_s3_bucket', side_effect=save_temporary_combine_archive_to_s3_bucket):
                 response = client.post(endpoint, data=data, content_type="multipart/form-data")
 
         archive_fid.close()
@@ -115,7 +115,7 @@ class AddFileToCombineArchiveTestCase(unittest.TestCase):
             def save_temporary_combine_archive_to_s3_bucket(filename, public=True, archive_filename=modified_archive_filename):
                 shutil.copy(filename, archive_filename)
                 return archive_filename
-            with mock.patch('src.s3.save_temporary_combine_archive_to_s3_bucket', side_effect=save_temporary_combine_archive_to_s3_bucket):
+            with mock.patch('combine_api.s3.save_temporary_combine_archive_to_s3_bucket', side_effect=save_temporary_combine_archive_to_s3_bucket):
                 with mock.patch('requests.get', return_value=get_response):
                     response = client.post(endpoint, data=data, content_type="multipart/form-data")
 
@@ -174,7 +174,7 @@ class AddFileToCombineArchiveTestCase(unittest.TestCase):
             def save_temporary_combine_archive_to_s3_bucket(filename, public=True, archive_filename=modified_archive_filename):
                 shutil.copy(filename, archive_filename)
                 return archive_filename
-            with mock.patch('src.s3.save_temporary_combine_archive_to_s3_bucket', side_effect=save_temporary_combine_archive_to_s3_bucket):
+            with mock.patch('combine_api.s3.save_temporary_combine_archive_to_s3_bucket', side_effect=save_temporary_combine_archive_to_s3_bucket):
                 response = client.post(endpoint, data=data, content_type="multipart/form-data")
 
         archive_fid.close()
@@ -233,7 +233,7 @@ class AddFileToCombineArchiveTestCase(unittest.TestCase):
             def save_temporary_combine_archive_to_s3_bucket(filename, public=True, archive_filename=modified_archive_filename):
                 shutil.copy(filename, archive_filename)
                 return archive_filename
-            with mock.patch('src.s3.save_temporary_combine_archive_to_s3_bucket', side_effect=save_temporary_combine_archive_to_s3_bucket):
+            with mock.patch('combine_api.s3.save_temporary_combine_archive_to_s3_bucket', side_effect=save_temporary_combine_archive_to_s3_bucket):
                 response = client.post(endpoint, data=data, content_type="multipart/form-data")
 
         archive_fid.close()

@@ -3,7 +3,7 @@ from biosimulators_utils.combine.io import CombineArchiveReader
 from biosimulators_utils.log.data_model import Status
 from biosimulators_utils.report.io import ReportReader
 from biosimulators_utils.sedml.io import SedmlSimulationReader
-from src import app
+from combine_api import app
 from unittest import mock
 from werkzeug.datastructures import FileStorage, MultiDict
 import json

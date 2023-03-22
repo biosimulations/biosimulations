@@ -6,7 +6,7 @@ set -e
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 # spec location
-spec_file=${script_dir}/../apps/combine-api/src/spec/spec.yml
+spec_file=${script_dir}/../apps/combine-api/combine_api/spec/spec.yml
 
 # output location
 lib_dir=${script_dir}/../libs/combine-api/angular-client
