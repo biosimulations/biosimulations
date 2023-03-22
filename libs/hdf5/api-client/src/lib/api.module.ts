@@ -1,6 +1,6 @@
-import { DynamicModule, HttpService, HttpModule, Module, Global } from '@nestjs/common';
+import { DynamicModule, Module, Global } from '@nestjs/common';
 import { Configuration } from './configuration';
-
+import { HttpService, HttpModule } from '@nestjs/axios';
 import { ACLSService } from './api/aCLS.service';
 import { AttributeService } from './api/attribute.service';
 import { DatasetService } from './api/dataset.service';

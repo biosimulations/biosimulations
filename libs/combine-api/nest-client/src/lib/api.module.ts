@@ -1,4 +1,5 @@
-import { DynamicModule, HttpService, HttpModule, Module, Global } from '@nestjs/common';
+import { DynamicModule, Module, Global } from '@nestjs/common';
+import { HttpModule, HttpService } from '@nestjs/axios';
 import { Configuration } from './configuration';
 
 import { HealthService } from './api/health.service';
