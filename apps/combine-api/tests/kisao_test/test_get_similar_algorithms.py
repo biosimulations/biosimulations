@@ -1,4 +1,4 @@
-from src import app
+from combine_api import app
 import unittest
 
 

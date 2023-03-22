@@ -1,9 +1,11 @@
-from openapi_core.validation.response.datatypes import OpenAPIResponse
+import requests
+from openapi_core.contrib.requests.responses import RequestsOpenAPIResponse
+from openapi_core.contrib.requests.requests import RequestsOpenAPIRequest
 from openapi_core.validation.request.datatypes import (
-    OpenAPIRequest,
+    # OpenAPIRequest,
     RequestParameters,
 )
-from src import app
+from combine_api import app
 from unittest import mock
 from werkzeug.datastructures import MultiDict
 import json
@@ -97,15 +99,15 @@ class GetCombineArchiveManifestTestCase(unittest.TestCase):
 
         # validate request and response
         if hasattr(self, "request_validator"):
-            request = OpenAPIRequest(
-                full_url_pattern='https://127.0.0.1/combine/manifest',
+            request = RequestsOpenAPIRequest(request=requests.Request(
+                url='https://127.0.0.1/combine/manifest',
                 method='post',
-                body={
+                data={
                     'url': archive_url,
                 },
                 mimetype='multipart/form-data',
                 parameters=RequestParameters(),
-            )
+            ))
             result = self.request_validator.validate(request)
             result.raise_for_errors()
 

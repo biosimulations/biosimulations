@@ -1,6 +1,6 @@
 from biosimulators_utils.config import get_config
-from src import app
-from src.handlers.run.utils import get_simulator_api, get_simulators, exec_in_subprocess
+from combine_api import app
+from combine_api.handlers.run.utils import get_simulator_api, get_simulators, exec_in_subprocess
 from unittest import mock
 import os
 import parameterized
@@ -33,7 +33,7 @@ class GetSimulatorsTestCase(unittest.TestCase):
                     },
                 },
             ]
-            with mock.patch('src.handlers.run.utils.get_simulators', return_value=simulators):
+            with mock.patch('combine_api.handlers.run.utils.get_simulators', return_value=simulators):
                 response = client.get(endpoint)
         self.assertEqual(response.status_code, 200, response.json)
 
@@ -56,18 +56,19 @@ class GetSimulatorsTestCase(unittest.TestCase):
             'specs': 'https://api.biosimulators.org/simulators/{}/{}'.format(id, sim['version'])
         })
 
-
-SIMULATORS = os.environ.get('SIMULATORS', None)
-if SIMULATORS is not None:
-    if SIMULATORS:
-        SIMULATORS = SIMULATORS.split(',')
+SIMULATORS = None
+SIMULATORS_STR = os.environ.get('SIMULATORS', None)
+if SIMULATORS_STR is not None:
+    if SIMULATORS_STR:
+        SIMULATORS = SIMULATORS_STR.split(',')
     else:
         SIMULATORS = []
 
-SKIPPED_SIMULATORS = os.environ.get('SKIPPED_SIMULATORS', None)
-if SKIPPED_SIMULATORS is not None:
-    if SKIPPED_SIMULATORS:
-        SKIPPED_SIMULATORS = SKIPPED_SIMULATORS.split(',')
+SKIPPED_SIMULATORS = None
+SKIPPED_SIMULATORS_STR = os.environ.get('SKIPPED_SIMULATORS', None)
+if SKIPPED_SIMULATORS_STR is not None:
+    if SKIPPED_SIMULATORS_STR:
+        SKIPPED_SIMULATORS = SKIPPED_SIMULATORS_STR.split(',')
     else:
         SKIPPED_SIMULATORS = []
 
@@ -75,7 +76,7 @@ EXAMPLES_BASE_URL = 'https://github.com/biosimulators/Biosimulators_test_suite/r
 
 TIMEOUT = 5 * 60  # maximum execution time per test in seconds
 
-
+@pytest.mark.skip("removing local invocations of simulators")
 class SimulatorsHaveValidApisTestCase(unittest.TestCase):
     def setUp(self):
         self.tmp_dirname = tempfile.mkdtemp()

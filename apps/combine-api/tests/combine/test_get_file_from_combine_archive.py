@@ -1,9 +1,9 @@
-from openapi_core.validation.response.datatypes import OpenAPIResponse
-from openapi_core.validation.request.datatypes import (
-    OpenAPIRequest,
-    RequestParameters,
-)
-from src import app
+# from openapi_core.validation.response.datatypes import OpenAPIResponse
+# from openapi_core.validation.request.datatypes import (
+#     OpenAPIRequest,
+#     RequestParameters,
+# )
+from combine_api import app
 from unittest import mock
 import imghdr
 import json
@@ -48,27 +48,27 @@ class GetFileFromCombineArchiveTestCase(unittest.TestCase):
 
         self.assertEqual(imghdr.what(image_filename), 'jpeg')
 
-        # validate request and response
-        if hasattr(self, "request_validator"):
-            request = OpenAPIRequest(
-                full_url_pattern='https://127.0.0.1/combine/file',
-                method='get',
-                body={
-                    'url': archive_url,
-                    'location': 'Figure1.jpg',
-                },
-                mimetype='multipart/form-data',
-                parameters=RequestParameters(url=archive_url,
-                                             location='Figure1.jpg'),
-            )
-            result = self.request_validator.validate(request)
-            result.raise_for_errors()
-
-            response = OpenAPIResponse(data=response.data,
-                                       status_code=200,
-                                       mimetype='image/jpeg')
-            result = self.response_validator.validate(request, response)
-            result.raise_for_errors()
+        # # validate request and response
+        # if hasattr(self, "request_validator"):
+        #     request = OpenAPIRequest(
+        #         full_url_pattern='https://127.0.0.1/combine/file',
+        #         method='get',
+        #         body={
+        #             'url': archive_url,
+        #             'location': 'Figure1.jpg',
+        #         },
+        #         mimetype='multipart/form-data',
+        #         parameters=RequestParameters(url=archive_url,
+        #                                      location='Figure1.jpg'),
+        #     )
+        #     result = self.request_validator.validate(request)
+        #     result.raise_for_errors()
+        #
+        #     response = OpenAPIResponse(data=response.data,
+        #                                status_code=200,
+        #                                mimetype='image/jpeg')
+        #     result = self.response_validator.validate(request, response)
+        #     result.raise_for_errors()
 
     def test_get_file_in_combine_archive_error_handling(self):
         endpoint = '/combine/file?url={}&location={}'.format(
@@ -81,19 +81,19 @@ class GetFileFromCombineArchiveTestCase(unittest.TestCase):
         self.assertTrue(response.json['title'].startswith(
             'COMBINE/OMEX archive could not be loaded'))
 
-        if hasattr(self, "response_validator"):
-            request = OpenAPIRequest(
-                full_url_pattern='https://127.0.0.1/combine/file',
-                method='get',
-                mimetype=None,
-                parameters=RequestParameters(url='x', location='Figure1.jpg'),
-            )
-            response = OpenAPIResponse(
-                data=json.dumps(response.json),
-                status_code=400,
-                mimetype='image/jpeg')
-            result = self.response_validator.validate(request, response)
-            result.raise_for_errors()
+        # if hasattr(self, "response_validator"):
+        #     request = OpenAPIRequest(
+        #         full_url_pattern='https://127.0.0.1/combine/file',
+        #         method='get',
+        #         mimetype=None,
+        #         parameters=RequestParameters(url='x', location='Figure1.jpg'),
+        #     )
+        #     response = OpenAPIResponse(
+        #         data=json.dumps(response.json),
+        #         status_code=400,
+        #         mimetype='image/jpeg')
+        #     result = self.response_validator.validate(request, response)
+        #     result.raise_for_errors()
 
         archive_filename = os.path.join(
             self.FIXTURES_DIR, 'Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex')

@@ -1,6 +1,6 @@
 from biosimulators_utils.combine.io import CombineArchiveReader
 from biosimulators_utils.sedml.io import SedmlSimulationReader
-from src import app
+from combine_api import app
 from unittest import mock
 from werkzeug.datastructures import MultiDict
 import json
@@ -46,7 +46,7 @@ class CreateCombineArchiveTestCase(unittest.TestCase):
             def save_temporary_combine_archive_to_s3_bucket(filename, public=True, archive_filename=archive_filename):
                 shutil.copy(filename, archive_filename)
                 return archive_filename
-            with mock.patch('src.s3.save_temporary_combine_archive_to_s3_bucket', side_effect=save_temporary_combine_archive_to_s3_bucket):
+            with mock.patch('combine_api.s3.save_temporary_combine_archive_to_s3_bucket', side_effect=save_temporary_combine_archive_to_s3_bucket):
                 response = client.post(endpoint, data=data, content_type="multipart/form-data")
 
         fid_0.close()
@@ -197,7 +197,7 @@ class CreateCombineArchiveTestCase(unittest.TestCase):
             def save_temporary_combine_archive_to_s3_bucket(filename, public=True, archive_filename=archive_filename):
                 shutil.copy(filename, archive_filename)
                 return archive_filename
-            with mock.patch('src.s3.save_temporary_combine_archive_to_s3_bucket', side_effect=save_temporary_combine_archive_to_s3_bucket):
+            with mock.patch('combine_api.s3.save_temporary_combine_archive_to_s3_bucket', side_effect=save_temporary_combine_archive_to_s3_bucket):
                 def requests_get(url):
                     assert url in [file_0_url, file_1_url]
                     if url == file_0_url:
