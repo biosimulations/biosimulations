@@ -1,4 +1,4 @@
-from ...exceptions import BadRequestException
+from combine_api.exceptions import BadRequestException
 from kisao import Kisao
 from kisao.data_model import ALGORITHM_SUBSTITUTION_POLICY_LEVELS
 from kisao.utils import get_substitutable_algorithms

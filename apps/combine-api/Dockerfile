@@ -1,7 +1,7 @@
 #############
 ### base ###
 #############
-FROM python:3.9-buster as base
+FROM python:3.10-buster as base
 
 WORKDIR /app
 
@@ -299,27 +299,48 @@ ENV ALGORITHM_SUBSTITUTION_POLICY=SIMILAR_VARIABLES \
 ###################################
 # setup python, ports
 
-# install pipenv
-RUN pip install pipenv
+# install poetry
+ENV PATH="/opt/poetry/bin:$PATH"
+ENV POETRY_HOME=/opt/poetry
+RUN curl -sSL https://install.python-poetry.org | python3 - \
+    && poetry config cache-dir "/poetry/.cache" --local \
+    && chmod 755 poetry.toml
 
 # Copy over dependency list
-COPY Dockerfile-assets/Pipfile /app/Pipfile
-COPY Dockerfile-assets/Pipfile.lock /app/Pipfile.lock
+COPY ./poetry.lock /app/poetry.lock
+COPY ./pyproject.toml /app/pyproject.toml
+COPY ./combine_api/ /app/combine_api/
+COPY ./vendor/ /app/vendor/
+COPY ./tests/ /app/tests/
+#COPY ./pytest.ini /app/pytest.ini
+COPY ./README.md /app/README.md
 
-# install environment
-RUN pipenv install --system --deploy
+RUN chmod 755 poetry.toml && \
+    poetry install
 
-# set up matplotlib font manager
-RUN python -c "import matplotlib.font_manager"
+#
+## set up matplotlib font manager
+RUN poetry run python -c "import matplotlib.font_manager"
 
-# install assimulo because pipenv fails to install it
-ARG ASSIMULO_VERSION=3.2.9
-RUN pip install git+https://github.com/modelon-community/Assimulo.git@Assimulo-${ASSIMULO_VERSION}
+## install assimulo because pipenv fails to install it
+#ARG ASSIMULO_VERSION=3.2.9
+#RUN pip install git+https://github.com/modelon-community/Assimulo.git@Assimulo-${ASSIMULO_VERSION}
+
+RUN poetry run python -m compileall /app/combine_api/ \
+    && PY_EXEC_PATH=$(which python) \
+    && PY_PREFIX=$(echo ${PY_EXEC_PATH} | rev | cut -d "/" -f 3- | rev) \
+    && PYTHON_MAJOR_MINOR_VERSION=$(echo $PYTHON_VERSION | cut -d . -f 1-2) \
+    && poetry run python -m compileall ${PY_PREFIX}/lib/python${PYTHON_MAJOR_MINOR_VERSION}/site-packages \
+#    && PYTHONPATH=/app python -c "from combine_api.handlers.run.utils import write_simulator_specs_cache; write_simulator_specs_cache();" \
+    || exit 0
+
+# in place testing - must provide env vars for S3 testing
+RUN poetry run python -m pytest tests
 
 EXPOSE 3333
 CMD /bin/bash /xvfb-startup.sh \
-    gunicorn \
-        --bind 0.0.0.0:3333 src.app:app \
+    poetry run gunicorn \
+        --bind 0.0.0.0:3333 combine_api.app:app \
         --workers 2 \
         --threads 4 \
         --worker-class gthread \
@@ -340,16 +361,6 @@ ENV APP=$app
 
 RUN echo building ${app}
 
-COPY src/ /app/src/
-COPY vendor/ /app/vendor/
-RUN python -m compileall /app/src/ \
-    && PY_EXEC_PATH=$(which python) \
-    && PY_PREFIX=$(echo ${PY_EXEC_PATH} | rev | cut -d "/" -f 3- | rev) \
-    && PYTHON_MAJOR_MINOR_VERSION=$(echo $PYTHON_VERSION | cut -d . -f 1-2) \
-    && python -m compileall ${PY_PREFIX}/lib/python${PYTHON_MAJOR_MINOR_VERSION}/site-packages \
-    && PYTHONPATH=/app python -c "from src.handlers.run.utils import write_simulator_specs_cache; write_simulator_specs_cache();" \
-    || exit 0
-
 LABEL \
     org.opencontainers.image.title="BioSimulations ${app}" \
     org.opencontainers.image.description="Docker image for BioSimulations ${app}" \
@@ -359,3 +370,4 @@ LABEL \
     org.opencontainers.image.authors="BioSimulations Team <info@biosimulations.org>" \
     org.opencontainers.image.vendor="BioSimulations Team" \
     org.opencontainers.image.licenses="MIT"
+

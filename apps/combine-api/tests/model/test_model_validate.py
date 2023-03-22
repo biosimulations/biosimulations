@@ -1,5 +1,5 @@
 from biosimulators_utils.sedml.data_model import ModelLanguage
-from src import app
+from combine_api import app
 from unittest import mock
 from werkzeug.datastructures import MultiDict
 import json
