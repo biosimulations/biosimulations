@@ -22,7 +22,7 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { Observable, Subject } from 'rxjs';
 
 @Component({
-  selector: 'ngx-mat-file-input',
+  selector: 'biosimulations-ngx-mat-file-input',
   templateUrl: './file-input.component.html',
   styleUrls: ['./file-input.component.css'],
   providers: [{ provide: MatFormFieldControl, useExisting: FileInputComponent }],
@@ -46,7 +46,7 @@ export class FileInputComponent
   @Input() accept: string | null = null;
   @Input() override errorStateMatcher!: ErrorStateMatcher;
 
-  @HostBinding() id = `ngx-mat-file-input-${FileInputComponent.nextId++}`;
+  @HostBinding() public id = `biosimulations-ngx-mat-file-input-${FileInputComponent.nextId++}`;
   @HostBinding('attr.aria-describedby') describedBy = '';
 
   setDescribedByIds(ids: string[]) {
