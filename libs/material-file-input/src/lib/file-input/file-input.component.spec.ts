@@ -1,12 +1,12 @@
-import { ComponentFixture, TestBed, tick, fakeAsync, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import {
+  FormControl,
+  FormGroupDirective,
   FormsModule,
   NG_VALUE_ACCESSOR,
   NgControl,
-  ReactiveFormsModule,
-  FormControl,
-  FormGroupDirective,
   NgForm,
+  ReactiveFormsModule,
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -57,7 +57,7 @@ class FileInputSpecErrorStateMatcher implements ErrorStateMatcher {
  */
 class OverrideErrorStateMatcher implements ErrorStateMatcher {
   public isErrorState(control: FormControl | null, _: FormGroupDirective | NgForm | null): boolean {
-    return !!(control && control.errors && control.errors.length === 2);
+    return !!(control && control.errors && control.errors['length'] === 2);
   }
 }
 
@@ -135,8 +135,7 @@ describe('FileInputComponent', () => {
   });
 
   xit('should refuse invalid format, based on `accept` attribute', () => {
-    const accept = '.png';
-    component.accept = accept;
+    component.accept = '.png';
     const file = new File(['test'], 'test.pdf', { type: 'application/pdf' });
     component.value = new FileInput([file]);
     expect(component.fileNames).toBe('');
@@ -187,14 +186,14 @@ describe('FileInputComponent', () => {
 
   it('should recognize all errorstate changes', () => {
     spyOn(component.stateChanges, 'next');
-    component.ngControl = <any>{ control: <any>{ errors: null, touched: false } };
+    component.ngControl = <never>{ control: <never>{ errors: null, touched: false } };
     expect(component.errorState).toBeFalsy();
     expect(component.stateChanges.next).not.toHaveBeenCalled();
 
     fixture.detectChanges();
     expect(component.errorState).toBeFalsy();
     expect(component.stateChanges.next).not.toHaveBeenCalled();
-    component.ngControl = <any>{ control: <any>{ errors: ['some error'], touched: true } };
+    component.ngControl = <never>{ control: <never>{ errors: ['some error'], touched: true } };
 
     expect(component.stateChanges.next).not.toHaveBeenCalled();
 
@@ -204,7 +203,7 @@ describe('FileInputComponent', () => {
   });
 
   it('should use input ErrorStateMatcher over provided', () => {
-    component.ngControl = <any>{ control: <any>{ errors: ['some error'], touched: true } };
+    component.ngControl = <never>{ control: <never>{ errors: ['some error'], touched: true } };
 
     fixture.detectChanges();
     expect(component.errorState).toBeTruthy();
@@ -214,7 +213,7 @@ describe('FileInputComponent', () => {
 
     fixture.detectChanges();
     expect(component.errorState).toBeFalsy();
-    component.ngControl = <any>{ control: <any>{ errors: ['some error', 'another error'] } };
+    component.ngControl = <never>{ control: <never>{ errors: ['some error', 'another error'] } };
     expect(component.errorState).toBeFalsy();
 
     fixture.detectChanges();

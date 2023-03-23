@@ -9,11 +9,13 @@ export class FileValidator {
    *
    * @returns
    */
-  static maxContentSize(bytes: number): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
+  public static maxContentSize(bytes: number): ValidatorFn {
+    return (
+      control: AbstractControl<FileInput>,
+    ): { maxContentSize: { actualSize: number; maxSize: number } } | null => {
       const size =
-        control && control.value
-          ? (control.value as FileInput).files.map((f) => f.size).reduce((acc, i) => acc + i, 0)
+        control && control.value && control.value.files
+          ? control.value.files.map((f) => f.size).reduce((acc, i) => acc + i, 0)
           : 0;
       const condition = bytes >= size;
       return condition

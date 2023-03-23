@@ -5,9 +5,9 @@ import { FileInputConfig, NGX_MAT_FILE_INPUT_CONFIG } from '../model/file-input-
   name: 'byteFormat',
 })
 export class ByteFormatPipe implements PipeTransform {
-  private unit: string;
+  private readonly unit: string;
 
-  constructor(
+  public constructor(
     @Optional()
     @Inject(NGX_MAT_FILE_INPUT_CONFIG)
     private config: FileInputConfig,
@@ -15,14 +15,14 @@ export class ByteFormatPipe implements PipeTransform {
     this.unit = config ? config.sizeUnit : 'Byte';
   }
 
-  transform(value: any, args?: any): any {
-    if (parseInt(value, 10) >= 0) {
+  public transform(value: string, args?: string | number): string {
+    if (parseInt(value, 10) >= 0 && args) {
       value = this.formatBytes(+value, +args);
     }
     return value;
   }
 
-  private formatBytes(bytes: number, decimals?: number) {
+  private formatBytes(bytes: number, decimals?: number): string {
     if (bytes === 0) {
       return '0 ' + this.unit;
     }

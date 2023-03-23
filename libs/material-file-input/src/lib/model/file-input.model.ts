@@ -2,17 +2,17 @@
  * The files to be uploaded
  */
 export class FileInput {
-  private _fileNames: string;
+  private readonly _fileNames: string;
 
-  constructor(private _files: File[] | null, private delimiter: string = ', ') {
+  public constructor(private _files: File[] | null, private delimiter: string = ', ') {
     this._fileNames = (this._files || []).map((f: File) => f.name).join(delimiter);
   }
 
-  get files() {
+  public get files(): File[] | null {
     return this._files || [];
   }
 
-  get fileNames(): string {
+  public get fileNames(): string {
     return this._fileNames;
   }
 }

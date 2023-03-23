@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 // Boilerplate for applying mixins to FileInput
 /** @docs-private */
 export class FileInputBase {
-  constructor(
+  public constructor(
     public _defaultErrorStateMatcher: ErrorStateMatcher,
     public _parentForm: NgForm,
     public _parentFormGroup: FormGroupDirective,

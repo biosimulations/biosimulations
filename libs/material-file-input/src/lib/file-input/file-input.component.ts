@@ -19,7 +19,7 @@ import { MatFormFieldControl } from '@angular/material/form-field';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'biosimulations-ngx-mat-file-input',
@@ -31,33 +31,33 @@ export class FileInputComponent
   extends FileInputMixinBase
   implements MatFormFieldControl<FileInput>, ControlValueAccessor, OnInit, OnDestroy, DoCheck
 {
-  static nextId = 0;
+  private static nextId = 0;
 
-  focused = false;
-  controlType = 'file-input';
+  public focused = false;
+  public controlType = 'file-input';
 
-  @Input() autofilled = false;
+  @Input() public autofilled = false;
 
   private _placeholder!: string;
   private _required = false;
   private _multiple!: boolean;
 
-  @Input() valuePlaceholder!: string;
-  @Input() accept: string | null = null;
-  @Input() override errorStateMatcher!: ErrorStateMatcher;
+  @Input() public valuePlaceholder!: string;
+  @Input() public accept: string | null = null;
+  @Input() public override errorStateMatcher!: ErrorStateMatcher;
 
   @HostBinding() public id = `biosimulations-ngx-mat-file-input-${FileInputComponent.nextId++}`;
-  @HostBinding('attr.aria-describedby') describedBy = '';
+  @HostBinding('attr.aria-describedby') public describedBy = '';
 
-  setDescribedByIds(ids: string[]) {
+  public setDescribedByIds(ids: string[]): void {
     this.describedBy = ids.join(' ');
   }
 
   @Input()
-  get value(): FileInput | null {
+  public get value(): FileInput | null {
     return this.empty ? null : new FileInput(this._elementRef.nativeElement.value || []);
   }
-  set value(fileInput: FileInput | null) {
+  public set value(fileInput: FileInput | null) {
     if (fileInput) {
       this.writeValue(fileInput);
       this.stateChanges.next();
@@ -65,19 +65,19 @@ export class FileInputComponent
   }
 
   @Input()
-  get multiple(): boolean {
+  public get multiple(): boolean {
     return this._multiple;
   }
-  set multiple(value: boolean | string) {
+  public set multiple(value: boolean | string) {
     this._multiple = coerceBooleanProperty(value);
     this.stateChanges.next();
   }
 
   @Input()
-  get placeholder() {
+  public get placeholder(): string {
     return this._placeholder;
   }
-  set placeholder(plh) {
+  public set placeholder(plh) {
     this._placeholder = plh;
     this.stateChanges.next();
   }
@@ -85,38 +85,38 @@ export class FileInputComponent
   /**
    * Whether the current input has files
    */
-  get empty() {
+  public get empty(): boolean {
     return !this._elementRef.nativeElement.value || this._elementRef.nativeElement.value.length === 0;
   }
 
   @HostBinding('class.mat-form-field-should-float')
-  get shouldLabelFloat() {
+  public get shouldLabelFloat(): boolean {
     return this.focused || !this.empty || this.valuePlaceholder !== undefined;
   }
 
   @Input()
-  get required(): boolean {
+  public get required(): boolean {
     return this._required;
   }
-  set required(req: boolean | string) {
+  public set required(req: boolean | string) {
     this._required = coerceBooleanProperty(req);
     this.stateChanges.next();
   }
 
   @HostBinding('class.file-input-disabled')
-  get isDisabled() {
+  public get isDisabled(): boolean {
     return this.disabled;
   }
   @Input()
-  get disabled(): boolean {
+  public get disabled(): boolean {
     return this._elementRef.nativeElement.disabled;
   }
-  set disabled(dis: boolean | string) {
+  public set disabled(dis: boolean | string) {
     this.setDisabledState(coerceBooleanProperty(dis));
     this.stateChanges.next();
   }
 
-  onContainerClick(event: MouseEvent) {
+  public onContainerClick(event: MouseEvent): void {
     if ((event.target as Element).tagName.toLowerCase() !== 'input' && !this.disabled) {
       this._elementRef.nativeElement.querySelector('input').focus();
       this.focused = true;
@@ -127,7 +127,7 @@ export class FileInputComponent
   /**
    * @see https://angular.io/api/forms/ControlValueAccessor
    */
-  constructor(
+  public constructor(
     private fm: FocusMonitor,
     private _elementRef: ElementRef,
     private _renderer: Renderer2,
@@ -149,22 +149,26 @@ export class FileInputComponent
     });
   }
 
-  private _onChange = (_: any) => {};
-  private _onTouched = () => {};
+  private _onChange: (_: unknown) => void = (_: unknown) => {
+    return undefined;
+  };
+  private _onTouched: () => void = () => {
+    return undefined;
+  };
 
-  get fileNames() {
+  public get fileNames(): string {
     return this.value ? this.value.fileNames : this.valuePlaceholder;
   }
 
-  writeValue(obj: FileInput | null): void {
+  public writeValue(obj: FileInput | null): void {
     this._renderer.setProperty(this._elementRef.nativeElement, 'value', obj instanceof FileInput ? obj.files : null);
   }
 
-  registerOnChange(fn: (_: any) => void): void {
+  public registerOnChange(fn: () => void): void {
     this._onChange = fn;
   }
 
-  registerOnTouched(fn: any): void {
+  public registerOnTouched(fn: () => void): void {
     this._onTouched = fn;
   }
 
@@ -172,7 +176,7 @@ export class FileInputComponent
    * Remove all files from the file input component
    * @param [event] optional event that may have triggered the clear action
    */
-  clear(event?: Event) {
+  public clear(event?: Event): void {
     if (event) {
       event.preventDefault();
       event.stopPropagation();
@@ -183,7 +187,7 @@ export class FileInputComponent
   }
 
   @HostListener('change', ['$event'])
-  change(event: Event) {
+  public change(event: Event): void {
     const fileList: FileList | null = (<HTMLInputElement>event.target).files;
     const fileArray: File[] = [];
     if (fileList) {
@@ -196,35 +200,35 @@ export class FileInputComponent
   }
 
   @HostListener('focusout')
-  blur() {
+  public blur(): void {
     this.focused = false;
     this._onTouched();
   }
 
-  setDisabledState(isDisabled: boolean): void {
+  public setDisabledState(isDisabled: boolean): void {
     this._renderer.setProperty(this._elementRef.nativeElement, 'disabled', isDisabled);
   }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.multiple = coerceBooleanProperty(this.multiple);
   }
 
-  open() {
+  public open(): void {
     if (!this.disabled) {
       this._elementRef.nativeElement.querySelector('input').click();
     }
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.stateChanges.complete();
     this.fm.stopMonitoring(this._elementRef.nativeElement);
   }
 
-  ngDoCheck(): void {
+  public ngDoCheck(): void {
     if (this.ngControl) {
       // We need to re-evaluate this on every change detection cycle, because there are some
       // error triggers that we can't subscribe to (e.g. parent form submissions). This means
-      // that whatever logic is in here has to be super lean or we risk destroying the performance.
+      // that whatever logic is in here has to be super lean, or we risk destroying the performance.
       this.updateErrorState();
     }
   }
