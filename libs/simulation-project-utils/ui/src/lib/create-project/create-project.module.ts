@@ -9,6 +9,8 @@ import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 
 import { CreateProjectRoutingModule } from './create-project-routing.module';
 import { CreateProjectComponent } from './create-project/create-project.component';
+import { PagingFormComponent } from './forms/paging-form/paging-form.component';
+import { FormHostDirective } from './forms/form-host.directive';
 import {
   UploadModelComponent,
   SimulatorTypeComponent,
@@ -30,6 +32,8 @@ import {
     NamespacesComponent,
     ModelChangesComponent,
     ModelVariablesComponent,
+    PagingFormComponent,
+    FormHostDirective,
   ],
   imports: [
     CommonModule,

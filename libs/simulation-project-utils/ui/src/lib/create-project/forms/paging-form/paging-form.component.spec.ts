@@ -2,15 +2,15 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { Component, DebugElement, ViewContainerRef } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import {
-  MultiStepFormComponent,
+  PagingFormComponent,
   IMultiStepFormDataSource,
   FormStepData,
   IMultiStepFormDataTask,
   IMultiStepFormButton,
   IFormStepComponent,
   FormHostDirective,
-} from '..';
-import { MaterialWrapperModule } from '../../material-wrapper.module';
+} from '../index';
+import { MaterialWrapperModule } from '../../../../../../../shared/ui/src/lib/material-wrapper.module';
 
 enum MultiStepFormTestStep {
   TestStepOne = 'TestStepOne',
@@ -67,20 +67,20 @@ class MultiStepFormTestDataSource implements IMultiStepFormDataSource<MultiStepF
 }
 
 describe('MultiStepFormComponent', () => {
-  let component: MultiStepFormComponent<MultiStepFormTestStep>;
-  let fixture: ComponentFixture<MultiStepFormComponent<MultiStepFormTestStep>>;
+  let component: PagingFormComponent<MultiStepFormTestStep>;
+  let fixture: ComponentFixture<PagingFormComponent<MultiStepFormTestStep>>;
   let dataSource: MultiStepFormTestDataSource;
 
   beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [MaterialWrapperModule],
-      declarations: [MultiStepFormComponent, FormHostDirective],
+      declarations: [PagingFormComponent, FormHostDirective],
     }).compileComponents();
   }));
 
   beforeEach(fakeAsync(() => {
-    fixture = TestBed.createComponent(MultiStepFormComponent) as ComponentFixture<
-      MultiStepFormComponent<MultiStepFormTestStep>
+    fixture = TestBed.createComponent(PagingFormComponent) as ComponentFixture<
+      PagingFormComponent<MultiStepFormTestStep>
     >;
     dataSource = new MultiStepFormTestDataSource();
     component = fixture.componentInstance;
