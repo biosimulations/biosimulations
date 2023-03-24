@@ -13,6 +13,6 @@ docker run \
     export PYTHONPATH=apps/combine-api
     /bin/bash /xvfb-startup.sh python -m pytest \
       --verbose \
-      --cov apps/combine-api/src/ --cov-report=xml \
+      --cov apps/combine-api/combine_api/ --cov-report=xml \
       apps/combine-api/tests/
   "
