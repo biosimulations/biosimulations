@@ -25,11 +25,11 @@
             <mat-form-field appearance="fill" *ngIf="formGroup.value.submitMethod === 'file'">
               <biosimulations-icon icon="file" matPrefix></biosimulations-icon>
               <mat-label>Select an OMEX Metadata file</mat-label>
-              <ngx-mat-file-input
+              <biosimulations-ngx-mat-file-input
                 formControlName="metadataFile"
                 accept=".rdf,.xhtml,.xht,.xml,.html,.htm.nq,.nt,.ttl,application/rdf+xml,application/xhtml+xml,application/n-quads,application/n-triples,text/turtle"
                 [multiple]="false"
-                [required]="true"></ngx-mat-file-input>
+                [required]="true"></biosimulations-ngx-mat-file-input>
             </mat-form-field>
 
             <mat-form-field appearance="fill" *ngIf="formGroup.value.submitMethod === 'url'">

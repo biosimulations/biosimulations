@@ -22,7 +22,7 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { Observable, Subject } from 'rxjs';
 
 @Component({
-  selector: 'ngx-mat-file-input',
+  selector: 'biosimulations-ngx-mat-file-input',
   templateUrl: './file-input.component.html',
   styleUrls: ['./file-input.component.css'],
   providers: [{ provide: MatFormFieldControl, useExisting: FileInputComponent }],
