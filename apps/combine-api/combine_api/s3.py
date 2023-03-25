@@ -66,9 +66,9 @@ class S3Bucket(object):
         else:
             extra_args = {}
 
-        assert(self.bucket is not None)
-        assert(self.endpoint is not None)
-        assert(self.bucket_name is not None)
+        assert self.bucket is not None
+        assert self.endpoint is not None
+        assert self.bucket_name is not None
         self.bucket.upload_file(filename, str(key), ExtraArgs=extra_args)
         return self.endpoint + '/' + self.bucket_name + '/' + str(key)
 
@@ -79,7 +79,7 @@ class S3Bucket(object):
             key (:obj:`str`): key to save the file at in the bucket
             filename (:obj:`str`): local path to the file to upload
         """
-        assert(self.bucket is not None)
+        assert self.bucket is not None
         self.bucket.download_file(Key=key, Filename=filename)
 
     def is_file(self, key: str) -> bool:
