@@ -1,6 +1,6 @@
-from biosimulators_utils.log.data_model import CombineArchiveLog  # noqa: F401
-from biosimulators_utils.report.data_model import SedDocumentResults  # noqa: F401
-from ...exceptions import RequestTimeoutException
+# from biosimulators_utils.log.data_model import CombineArchiveLog
+# from biosimulators_utils.report.data_model import SedDocumentResults
+from combine_api.exceptions import RequestTimeoutException
 import functools
 import importlib
 import multiprocessing

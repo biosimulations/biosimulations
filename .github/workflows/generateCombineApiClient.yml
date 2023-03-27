@@ -3,7 +3,7 @@ name: Update COMBINE API client
 on:
   push:
     paths:
-      - 'apps/combine-api/src/spec/spec.yml'
+      - 'apps/combine-api/combine_api/spec/spec.yml'
   workflow_dispatch:
 
 jobs:

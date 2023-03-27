@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from src.s3 import delete_temporary_files_in_s3_bucket, TEMP_STORAGE_MAX_AGE
+from combine_api.s3 import delete_temporary_files_in_s3_bucket, TEMP_STORAGE_MAX_AGE
 import argparse
 
 

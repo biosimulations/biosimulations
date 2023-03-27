@@ -3,6 +3,23 @@
   "affected": {
     "defaultBase": "dev"
   },
+
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    ".github/workflows/nxCi.yml": "*",
+    "apps/combine-api/pyproject.toml": ["combine-api"],
+    "apps/combine-api/poetry.lock": ["combine-api"],
+    "tsconfig.base.json": "*",
+    ".eslintrc.json": "*",
+    "nx.json": "*",
+    "Dockerfile": "*",
+    "apps/combine-api/Dockerfile": ["combine-api"]
+  },
+
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/nx-cloud",

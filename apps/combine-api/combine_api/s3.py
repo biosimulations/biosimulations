@@ -1,10 +1,19 @@
 from botocore.exceptions import ClientError
-from dotenv import dotenv_values
+from typing import Optional, Iterator
 import boto3
+from boto3_type_annotations.s3 import Client, ServiceResource
 import datetime
 import dateutil.tz
 import typing
 import uuid
+from os import environ
+from combine_api.app_config import (
+  ENVVAR_TEMP_STORAGE_MAX_AGE,
+  ENVVAR_STORAGE_ENDPOINT,
+  ENVVAR_STORAGE_ACCESS_KEY,
+  ENVVAR_STORAGE_SECRET,
+  ENVVAR_TEMP_STORAGE_BUCKET
+)
 
 __all__ = [
     'S3Bucket',
@@ -13,47 +22,33 @@ __all__ = [
     'delete_temporary_files_in_s3_bucket',
 ]
 
-DEFAULT_SECRET_FILENAME = "secret/secret.env"
-DEFAULT_CONFIG_FILENAME = "config/config.env"
-DEFAULT_SHARED_FILENAME = "shared/shared.env"
-
 s3_bucket = None
 
-config = {
-    **dotenv_values(DEFAULT_SECRET_FILENAME),
-    **dotenv_values(DEFAULT_CONFIG_FILENAME),
-    **dotenv_values(DEFAULT_SHARED_FILENAME),
-}
-TEMP_STORAGE_MAX_AGE = int(float(config.get('TEMP_STORAGE_MAX_AGE', '1')))
+TEMP_STORAGE_MAX_AGE = int(float(environ.get(ENVVAR_TEMP_STORAGE_MAX_AGE, '1')))
 
 
 class S3Bucket(object):
     bucket = None
     bucket_name = None
-    endpoint = ""
+    endpoint: Optional[str] = ""
 
-    def __init__(self,
-                 config_filename: str = DEFAULT_CONFIG_FILENAME,
-                 secret_filename: str = DEFAULT_SECRET_FILENAME,
-                 shared_filename: str = DEFAULT_SHARED_FILENAME,
-                 ) -> None:
-        config = self.get_configuration(config_filename=config_filename, secret_filename=secret_filename, shared_filename=shared_filename)
-        self.validate_configuration(config)
-        self.endpoint = config['endpoint']
-        self.bucket_name = config['bucket']
+    def __init__(self) -> None:
+        self.validate_configuration()
+        self.endpoint = environ.get(ENVVAR_STORAGE_ENDPOINT)
+        self.bucket_name = environ.get(ENVVAR_TEMP_STORAGE_BUCKET)
 
-        s3 = boto3.resource('s3',
-                            endpoint_url=config['endpoint'],
-                            aws_access_key_id=config['access_key_id'],
-                            aws_secret_access_key=config['secret_access_key'],
-                            verify=False)
-        self.client = boto3.client('s3',
-                                   endpoint_url=config['endpoint'],
-                                   aws_access_key_id=config['access_key_id'],
-                                   aws_secret_access_key=config['secret_access_key'],
-                                   verify=False,
-                                   )
-        self.bucket = s3.Bucket(config['bucket'])
+        s3: ServiceResource = boto3.resource('s3',
+                                             endpoint_url=environ.get(ENVVAR_STORAGE_ENDPOINT),
+                                             aws_access_key_id=environ.get(ENVVAR_STORAGE_ACCESS_KEY),
+                                             aws_secret_access_key=environ.get(ENVVAR_STORAGE_ACCESS_KEY),
+                                             verify=False)
+        self.client: Client = boto3.client('s3',
+                                           endpoint_url=environ.get(ENVVAR_STORAGE_ENDPOINT),
+                                           aws_access_key_id=environ.get(ENVVAR_STORAGE_ACCESS_KEY),
+                                           aws_secret_access_key=environ.get(ENVVAR_STORAGE_ACCESS_KEY),
+                                           verify=False,
+                                           )
+        self.bucket = s3.Bucket(environ.get(ENVVAR_TEMP_STORAGE_BUCKET))
 
     def upload_file(self, filename: str, key: str, public: bool) -> str:
         """ Upload a local file to a key in the bucket
@@ -71,6 +66,9 @@ class S3Bucket(object):
         else:
             extra_args = {}
 
+        assert self.bucket is not None
+        assert self.endpoint is not None
+        assert self.bucket_name is not None
         self.bucket.upload_file(filename, str(key), ExtraArgs=extra_args)
         return self.endpoint + '/' + self.bucket_name + '/' + str(key)
 
@@ -81,6 +79,7 @@ class S3Bucket(object):
             key (:obj:`str`): key to save the file at in the bucket
             filename (:obj:`str`): local path to the file to upload
         """
+        assert self.bucket is not None
         self.bucket.download_file(Key=key, Filename=filename)
 
     def is_file(self, key: str) -> bool:
@@ -111,7 +110,8 @@ class S3Bucket(object):
         """
         return self.client.get_object(Bucket=self.bucket_name, Key=key)
 
-    def list_files(self, prefix: str = None, max_last_modified: datetime.datetime = None, max_files: int = None) -> typing.List[str]:
+    def list_files(self, prefix: Optional[str] = None, max_last_modified: Optional[datetime.datetime] = None,
+                   max_files: Optional[int] = None) -> Iterator[str]:
         """ List the files in the bucket or beneath a prefix in the bucket
 
         Args:
@@ -144,7 +144,7 @@ class S3Bucket(object):
             Key=key,
         )
 
-    def delete_files_with_prefix(self, prefix: str, max_last_modified: datetime.datetime = None) -> None:
+    def delete_files_with_prefix(self, prefix: str, max_last_modified: Optional[datetime.datetime] = None) -> None:
         """ Delete files with a prefix in the bucket
 
         Args:
@@ -164,44 +164,17 @@ class S3Bucket(object):
                 break  # pragma: no cover
 
     @staticmethod
-    def get_configuration(config_filename: str = DEFAULT_CONFIG_FILENAME,
-                          secret_filename: str = DEFAULT_SECRET_FILENAME,
-                          shared_filename: str = DEFAULT_SHARED_FILENAME,
-                          ) -> typing.Dict:
-        config = {
-            **dotenv_values(secret_filename),
-            **dotenv_values(config_filename),
-            **dotenv_values(shared_filename),
-        }
-
-        endpoint = config.get("STORAGE_ENDPOINT")
-        bucket = config.get("TEMP_STORAGE_BUCKET")
-        access_key_id = config.get("STORAGE_ACCESS_KEY")
-        secret_access_key = config.get("STORAGE_SECRET")
-
-        return {
-            'endpoint': endpoint,
-            'bucket': bucket,
-            'access_key_id': access_key_id,
-            'secret_access_key': secret_access_key,
-        }
-
-    @staticmethod
-    def validate_configuration(config: typing.Dict):
+    def validate_configuration():
         errors = []
 
-        if not config.get('endpoint', None):
-            errors.append('Storage endpoint (`STORAGE_ENDPOINT`) must be set, not `{}`.'.format(
-                config.get('endpoint', None)))
-        if not config.get('bucket', None):
-            errors.append('Storage bucket (`TEMP_STORAGE_BUCKET`) key must be set, not `{}`.'.format(
-                config.get('bucket', None)))
-        if not config.get('access_key_id', None):
-            errors.append('Storage access key (`STORAGE_ACCESS_KEY`) must be set, not `{}`.'.format(
-                config.get('access_key_id', None)))
-        if not config.get('secret_access_key', None):
-            errors.append('Storage secret (`STORAGE_SECRET`) must be set, not `{}`.'.format(
-                config.get('secret_access_key', None)))
+        if not environ.get(ENVVAR_STORAGE_ENDPOINT, None):
+            errors.append(f"Storage endpoint (`{ENVVAR_STORAGE_ENDPOINT}`) must be set")
+        if not environ.get(ENVVAR_TEMP_STORAGE_BUCKET, None):
+            errors.append(f"Storage bucket (`{ENVVAR_TEMP_STORAGE_BUCKET}`) key must be set")
+        if not environ.get(ENVVAR_STORAGE_ACCESS_KEY, None):
+            errors.append(f"Storage access key (`{ENVVAR_STORAGE_ACCESS_KEY}`) must be set")
+        if not environ.get(ENVVAR_STORAGE_ACCESS_KEY, None):
+            errors.append(f"Storage secret (`{ENVVAR_STORAGE_SECRET}`) must be set")
 
         if errors:
             raise ValueError('The configuration for the S3 bucket is not valid:\n  {}'.format('\n  '.join(errors)))

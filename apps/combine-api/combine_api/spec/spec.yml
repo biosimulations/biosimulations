@@ -74,7 +74,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Server error.
-      operationId: src.handlers.kisao.get_similar_algorithms.handler
+      operationId: combine_api.handlers.kisao.get_similar_algorithms.handler
       summary: Get a list of algorithms similar to an algorithm
   /run/simulators:
     get:
@@ -127,7 +127,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Server error.
-      operationId: src.handlers.run.get_simulators.handler
+      operationId: combine_api.handlers.run.get_simulators.handler
       summary: Get the simulators available to execute COMBINE/OMEX archives
       description: "Get the ids, vesions, and properties of simulators available to\
         \ execute COMBINE/OMEX archives."
@@ -154,7 +154,7 @@ paths:
           description: Server error.
         "503":
           description: The service is unavailable.
-      operationId: src.handlers.health.handler
+      operationId: combine_api.handlers.health.handler
       summary: Get information about the status of the service.
       description: Get information about whether the service is up or down.
   /combine/create:
@@ -233,7 +233,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Server error.
-      operationId: src.handlers.combine.create.handler
+      operationId: combine_api.handlers.combine.create.handler
       summary: Create a COMBINE/OMEX archive from files and specifications of SED-ML
         documents.
       description: "Create a COMBINE/OMEX archive from files (e.g., BNGL, CellML,\
@@ -299,7 +299,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Server error.
-      operationId: src.handlers.combine.validate.handler
+      operationId: combine_api.handlers.combine.validate.handler
       summary: Validate a COMBINE/OMEX archive and the simulation experiments and
         models inside it.
       description: |-
@@ -376,7 +376,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Server error.
-      operationId: src.handlers.combine.get_sedml_specs_for_combine_archive.handler
+      operationId: combine_api.handlers.combine.get_sedml_specs_for_combine_archive.handler
       summary: Get the specifications of the SED-ML files in a COMBINE/OMEX archive
       description: Get the specifications of the SED-ML files in a COMBINE/OMEX archive
   /combine/metadata/rdf:
@@ -426,7 +426,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Server error.
-      operationId: src.handlers.combine.get_metadata_for_combine_archive.handler_rdf_triples
+      operationId: combine_api.handlers.combine.get_metadata_for_combine_archive.handler_rdf_triples
       summary: Get the metadata about a COMBINE/OMEX archive
       description: Get the metadata about a COMBINE/OMEX archive from the OMEX Metadata
         files as a list of RDF triples.
@@ -484,7 +484,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Server error.
-      operationId: src.handlers.sed_ml.validate.handler
+      operationId: combine_api.handlers.sed_ml.validate.handler
       summary: Validate a SED-ML file
       description: "Validate a [Simulation Experiment Description Markup Language\
         \ (SED-ML)](https://sed-ml.org/) file. Note, this method does not validate\
@@ -546,7 +546,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Server error.
-      operationId: src.handlers.omex_metadata.validate.handler
+      operationId: combine_api.handlers.omex_metadata.validate.handler
       summary: Validate metadata about a simulation project or a component of a simulation
         project
       description: |-
@@ -609,7 +609,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Server error.
-      operationId: src.handlers.model.validate.handler
+      operationId: combine_api.handlers.model.validate.handler
       summary: Validate a model
       description: |-
         Validate a model file such as a [CellML](https://cellml.org) or [Systems Biology Markup Language (SBML)](http://sbml.org) file.
@@ -655,7 +655,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Server error.
-      operationId: src.handlers.combine.get_file.handler
+      operationId: combine_api.handlers.combine.get_file.handler
       summary: Get a file in a COMBINE/OMEX archive
       description: Get a file at a location in a COMBINE/OMEX archive.
     post:
@@ -723,7 +723,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Server error.
-      operationId: src.handlers.combine.add_file.handler
+      operationId: combine_api.handlers.combine.add_file.handler
       summary: Add content items to a COMBINE/OMEX archive
       description: Add content items to a COMBINE/OMEX archive.
   /combine/manifest:
@@ -786,7 +786,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Server error.
-      operationId: src.handlers.combine.get_manifest.handler
+      operationId: combine_api.handlers.combine.get_manifest.handler
       summary: Get the specifications of an OMEX manifest or the OMEX manifest of
         a COMBINE archive
       description: Get the specifications of an OMEX manifest or the OMEX manifest
@@ -838,7 +838,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Server error.
-      operationId: src.handlers.combine.get_metadata_for_combine_archive.handler_biosimulations
+      operationId: combine_api.handlers.combine.get_metadata_for_combine_archive.handler_biosimulations
       summary: Get the metadata about a COMBINE/OMEX archive
       description: Get the metadata about a COMBINE/OMEX archive from the OMEX Metadata
         files in the archive encoded in BioSimulations' schema.
@@ -930,7 +930,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Server error.
-      operationId: src.handlers.run.run.handler
+      operationId: combine_api.handlers.run.run.handler
       summary: Execute a COMBINE/OMEX archive
       description: Execute the simulations defined in SED-ML format in a COMBINE/OMEX
         archive and return the result of each report and plot.
@@ -992,7 +992,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Server error.
-      operationId: src.handlers.sed_ml.get_parameters_variables_for_simulation.handler
+      operationId: combine_api.handlers.sed_ml.get_parameters_variables_for_simulation.handler
       summary: Get the possible observables of a simulation as a list of SED-ML variables.
   /combine/modify:
     post:
@@ -1072,7 +1072,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Server error.
-      operationId: src.handlers.combine.modify.handler
+      operationId: combine_api.handlers.combine.modify.handler
       summary: Modify the files and/or SED-ML documents in a COMBINE/OMEX archive
       description: Modify the files or SED-ML documents in a COMBINE/OMEX archive.
 components:

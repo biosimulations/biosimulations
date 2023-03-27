@@ -63,4 +63,4 @@ def handler(url, location):
                 mimetype = content.format[len('http://purl.org/NET/mediatypes/'):]
             break
 
-    return flask.send_file(filename, mimetype=mimetype, as_attachment=False, attachment_filename=os.path.basename(location))
+    return flask.send_file(filename, mimetype=mimetype, as_attachment=False, download_name=os.path.basename(location))

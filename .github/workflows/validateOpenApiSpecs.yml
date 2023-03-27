@@ -3,7 +3,7 @@ name: Validate OpenAPI specifications
 on:
   push:
     paths:
-      - "apps/combine-api/src/spec/spec.yml"
+      - "apps/combine-api/combine_api/spec/spec.yml"
       # - "apps/api/**"
       # - "apps/account-api/**"
       # - "apps/simulators-api/**"
@@ -26,7 +26,7 @@ jobs:
         apiSpecs:
           - https://api.biosimulations.dev/openapi.json
           - https://api.biosimulators.dev/openapi.json
-          - apps/combine-api/src/spec/spec.yml
+          - apps/combine-api/combine_api/spec/spec.yml
 
     steps:
       - name: Checkout repository

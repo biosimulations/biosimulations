@@ -57,7 +57,7 @@ class FileInputSpecErrorStateMatcher implements ErrorStateMatcher {
  */
 class OverrideErrorStateMatcher implements ErrorStateMatcher {
   public isErrorState(control: FormControl | null, _: FormGroupDirective | NgForm | null): boolean {
-    return !!(control && control.errors && control.errors.length === 2);
+    return !!(control && control.errors && Object.keys(control.errors).length === 2);
   }
 }
 

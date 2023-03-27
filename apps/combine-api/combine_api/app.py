@@ -1,6 +1,7 @@
-from . import exceptions
-from dotenv import dotenv_values
+from combine_api import exceptions
 from flask_cors import CORS
+from connexion.apps.flask_app import FlaskApp
+from swagger_ui_bundle import swagger_ui_3_path
 import connexion
 import flask.json
 import functools
@@ -8,20 +9,17 @@ import os
 import tempfile
 import orjson
 import uuid
-import yaml
+import yaml  # type: ignore
+from os import environ
+from combine_api import app_config
 
-config = {
-    **dotenv_values("secret/secret.env"),
-    **dotenv_values("config/config.env"),
-    **dotenv_values("shared/shared.env"),
-}
-env = config.get("ENV", 'dev') or 'dev'
+env = environ.get(app_config.ENVVAR_ENV, 'dev') or 'dev'
 
 spec_dirname = 'spec'
 spec_filename = 'spec.yml'
 
 # disable ``/run`` endpoints from production
-if env.lower() == 'prod':
+if str(env).lower() == 'prod':
     with open(os.path.join(os.path.dirname(__file__), spec_dirname, spec_filename), 'r') as file:
         specs = yaml.load(file, Loader=yaml.Loader)
 
@@ -38,13 +36,12 @@ if env.lower() == 'prod':
 
 # Instantiate app from OpenAPI specifications
 options = {
-    'swagger_url': '/',
-    'swagger_path': os.path.join(os.path.dirname(__file__), '..', 'vendor', 'swagger-ui-3.52.0'),
-    'swagger_ui_template_arguments': {
-        'title': 'BioSimulations COMBINE API',
-    },
+  'swagger_path': swagger_ui_3_path,
+  "swagger_ui": True,
+  "swagger_url": "/"
 }
-app = connexion.App(__name__, specification_dir=spec_dirname, options=options)
+
+app: FlaskApp = connexion.App(__name__, specification_dir=spec_dirname, options=options)
 
 # Set up handlers for APIs
 app.add_api(spec_filename,
@@ -52,11 +49,11 @@ app.add_api(spec_filename,
             validate_responses=False)
 
 # clean up temporary specifications file for production
-if env.lower() == 'prod':
+if str(env).lower() == 'prod':
     os.remove(temp_spec_filename)
 
 # set maximum file upload size
-app.app.config['MAX_CONTENT_LENGTH'] = float(config.get('MAX_CONTENT_LENGTH', 1.1 * 1e9))  # bytes
+app.app.config['MAX_CONTENT_LENGTH'] = float(environ.get('MAX_CONTENT_LENGTH', 1.1 * 1e9))  # bytes
 
 
 class FastJSONEncoder(flask.json.JSONEncoder):

@@ -1,13 +1,12 @@
-from ...exceptions import BadRequestException
-from ...utils import get_temp_file, get_temp_dir
-from .utils import get_simulators, use_simulator_api_to_exec_sedml_docs_in_combine_archive, exec_in_subprocess
+from combine_api.exceptions import BadRequestException
+from combine_api.utils import get_temp_file, get_temp_dir
+from combine_api.handlers.run.utils import get_simulators, use_simulator_api_to_exec_sedml_docs_in_combine_archive, exec_in_subprocess
 from biosimulators_utils.config import get_config
 from biosimulators_utils.report.data_model import ReportFormat
 from biosimulators_utils.sedml.data_model import Report, Plot2D, Plot3D
 from biosimulators_utils.sedml.exec import get_report_for_plot2d, get_report_for_plot3d
 from biosimulators_utils.sedml.io import SedmlSimulationReader
 from biosimulators_utils.viz.data_model import VizFormat
-from dotenv import dotenv_values
 from unittest import mock
 import connexion
 import flask
@@ -16,14 +15,12 @@ import requests
 import requests.exceptions
 import werkzeug.wrappers.response  # noqa: F401
 import zipfile
+from combine_api.app_config import (
+  ENVVAR_RUN_COMBINE_ARCHIVE_TIMEOUT
+)
+from os import environ
 
-config = {
-    **dotenv_values("secret/secret.env"),
-    **dotenv_values("config/config.env"),
-    **dotenv_values("shared/shared.env"),
-}
-
-TIMEOUT = float(config.get('RUN_COMBINE_ARCHIVE_TIMEOUT', 30.))
+TIMEOUT = float(environ.get(ENVVAR_RUN_COMBINE_ARCHIVE_TIMEOUT, 30.))
 
 IGNORED_ENV_VARS = [
     'H5_REPORTS_PATH',
@@ -221,7 +218,7 @@ def handler(body, archiveFile=None):
         return flask.send_file(h5_filename,
                                mimetype=accept,
                                as_attachment=True,
-                               attachment_filename='outputs.h5')
+                               download_name='outputs.h5')
 
     else:
         zip_filename = get_temp_file()
@@ -234,4 +231,4 @@ def handler(body, archiveFile=None):
         return flask.send_file(zip_filename,
                                mimetype=accept,
                                as_attachment=True,
-                               attachment_filename='outputs.zip')
+                               download_name='outputs.zip')

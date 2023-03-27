@@ -27,11 +27,11 @@
             <mat-form-field appearance="fill" *ngIf="formGroup.value.submitMethod === 'file'">
               <biosimulations-icon icon="file" matPrefix></biosimulations-icon>
               <mat-label>Select a simulation experiment (SED-ML file)</mat-label>
-              <ngx-mat-file-input
+              <biosimulations-ngx-mat-file-input
                 formControlName="simulationFile"
                 accept=".sedml,.xml,application/sedml+xml,application/xml"
                 [multiple]="false"
-                [required]="true"></ngx-mat-file-input>
+                [required]="true"></biosimulations-ngx-mat-file-input>
             </mat-form-field>
 
             <mat-form-field appearance="fill" *ngIf="formGroup.value.submitMethod === 'url'">
