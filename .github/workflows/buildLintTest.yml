@@ -68,6 +68,11 @@ jobs:
         with:
           command: npm ci
 
+      #only to reset once
+      - run: npx nx reset
+        name: Reset NX to clear cache - remove this step after running once
+        if: always()
+
       - run: npx nx-cloud start-ci-run
         name: Start CI Run
         if: always()
@@ -165,7 +170,7 @@ jobs:
         uses: bahmutov/npm-install@v1
         with:
           useRollingCache: true
-   
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
