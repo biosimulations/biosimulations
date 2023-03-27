@@ -3,7 +3,7 @@
 COMBINE-API is an HTTP API for working with COMBINE/OMEX archives and other COMBINE formats, such as the OMEX manifest, OMEX metadata, and SED-ML formats and several model formats such as BNGL, CellML, LEMS, NeuroML, RBA XML, SBML, Smoldyn, and XPP. This API is specified using OpenAPI and implemented in Python using [connexion](https://github.com/zalando/connexion). This API is currently deployed at https://combine.api.biosimulations.org and https://combine.api.biosimulations.dev.
 
 ## Editing the specifications of the API
-The [specifications](src/spec/spec.yml) of the API were developed using [Apicurio studio](https://www.apicur.io/studio/), a free web-based application for building [OpenAPI](https://swagger.io/specification/)-compliant specifications for HTTP APIs. The specifications of the API should be edited using Apicurio studio, exported from Apicurio in YAML format, and saved to [`src/spec/spec.yml`](src/spec/spec.yml) in this repository. The Apicurio project for the API is owned by Bilal Shaikh. Contact Bilal for priviledges to edit the project.
+The [specifications](combine_api/spec/spec.yml) of the API were developed using [Apicurio studio](https://www.apicur.io/studio/), a free web-based application for building [OpenAPI](https://swagger.io/specification/)-compliant specifications for HTTP APIs. The specifications of the API should be edited using Apicurio studio, exported from Apicurio in YAML format, and saved to [`combine_api/spec/spec.yml`](combine_api/spec/spec.yml) in this repository. The Apicurio project for the API is owned by Bilal Shaikh. Contact Bilal for priviledges to edit the project.
 
 Please follow these steps to edit the specifications of the API:
 1. Login to [Apicurio studio](https://www.apicur.io/studio/).
@@ -14,11 +14,11 @@ Please follow these steps to edit the specifications of the API:
 6. Select 'Format' 'YAML'.
 7. Select 'References' 'Deference All External $refs'.
 8. Click the 'Download' button.
-9. Save the exported YAML file to [`src/spec/spec.yml`](src/spec/spec.yml) in this repository.
+9. Save the exported YAML file to [`combine_api/spec/spec.yml`](combine_api/spec/spec.yml) in this repository.
 10. Commit the modified specifications file to this repository.
 
 ## Editing the implementation of the API
-The API is implemented in Python using [connexion](https://github.com/zalando/connexion). To edit the operation for a path, open the Python function for the path in your favorite Python editor and edit the function. The specifications of the API indicate the Python functions which handle each path (`operationId` of each HTTP method of each path). For example, the `operationId` for the `/health` path is `src.handlers.health.handler`, which corresponds to the `handler` function in the [`src.handlers.health`](src/handlers/health.py) Python module. connexion automatically maps each path to the functions indicated by the `operationId` attributes in the specifications of the API.
+The API is implemented in Python using [connexion](https://github.com/zalando/connexion). To edit the operation for a path, open the Python function for the path in your favorite Python editor and edit the function. The specifications of the API indicate the Python functions which handle each path (`operationId` of each HTTP method of each path). For example, the `operationId` for the `/health` path is `combine_api.handlers.health.handler`, which corresponds to the `handler` function in the [`combine_api.handlers.health`](combine_api/handlers/health.py) Python module. connexion automatically maps each path to the functions indicated by the `operationId` attributes in the specifications of the API.
 
 ## Installation and execution
 As described below, the COMBINE API is deployed as a Docker image. The [`Dockerfile`](Dockerfile) for this image is the authoritative description of how to install and execute the API. The `Dockerfile` uses [pipenv](https://pipenv.pypa.io/) to install the required Python packages outlined in the [`Pipfile`](Dockerfile-assets/Pipfile) and [`Pipfile.lock`](Dockerfile-assets/Pipfile.lock) files. Note, this `Pipfile` does not completely describe the requirements for the API. The `Dockerfile` includes additional operations which cannot be achieved using pipenv because some of the required Python packages for the API require additional OS packages and because bugs in pipenv currently prevent pipenv from installing one of the required Python packages for the API.
@@ -54,7 +54,7 @@ Below is an outline of how to install the API into a local Python environment ma
 2. Change to the directory for the Python environment for the API (`apps/combine-api/Dockerfile-assets` subdirectory of this repository).
 3. Activate this Python environment by running `pipenv shell`.
 4. Change to the root directory for this API by running (`cd ..`).
-5. Execute a server for the API by running `python -m src`.
+5. Execute a server for the API by running `python -m combine_api`.
 6. Navigate your browser to the URL printed to your console (the default is currently http://0.0.0.0:3333/).
 
 ### Building a Docker image for the API
@@ -91,7 +91,7 @@ The tests for the API are located in the [`tests`](tests) subdirectory of this d
 3. Activate this Python environment by running `pipenv shell`.
 4. Change to the root directory for this API by running (`cd ..`).
 5. Run `python -m pytest tests/`.
-   a. To measure the coverage of the tests, add the `--cov src` option.
+   a. To measure the coverage of the tests, add the `--cov combine_api` option.
    b. To compile the coverage report to HTML, run `coverage html`.
    c. To view the coverage report, navigate your browser to the `htmlcov/` subdirectory of the directory for the Python environment for the API (`apps/combine-api/Dockerfile-assets/htmlcov/index.html`).
 
