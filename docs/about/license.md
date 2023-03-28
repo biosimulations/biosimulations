@@ -1580,7 +1580,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/svtslv/nestjs-s3
 │  ├─ publisher: Sviatoslav H
 │  └─ licenseFile: nestjs-s3/README.md
-├─ ng2-charts@3.1.0
+├─ ng2-charts@3.0.11
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/valor-software/ng2-charts
 │  ├─ publisher: Aviad Pineles
