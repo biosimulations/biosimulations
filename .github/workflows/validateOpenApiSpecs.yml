@@ -40,13 +40,13 @@ jobs:
         run: curl ${{ matrix.apiSpecs }} -o openapi.json --retry 5 --retry-delay 30
 
       - name: Validate OpenAPI definition
-        uses: char0n/swagger-editor-validate@v1.3.1
+        uses: char0n/swagger-editor-validate@v1.3.2
         if: "!startsWith(matrix.apiSpecs, 'https://')"
         with:
           definition-file: ${{ matrix.apiSpecs }}
 
       - name: Validate OpenAPI definition
-        uses: char0n/swagger-editor-validate@v1.3.1
+        uses: char0n/swagger-editor-validate@v1.3.2
         if: "startsWith(matrix.apiSpecs, 'https://')"
         with:
           definition-file: openapi.json
