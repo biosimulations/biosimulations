@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Path, ProjectMetadata } from '@biosimulations/datamodel-simulation-runs';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { MetadataDialogComponent } from '../metadata-dialog/metadata-dialog.component';
 
 @Component({

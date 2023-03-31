@@ -6,3 +6,4 @@ export { ValidateProjectComponent } from './lib/validate-project/validate-projec
 export { SuggestSimulatorComponent } from './lib/suggest-simulator/suggest-simulator.component';
 export { ConvertFileComponent } from './lib/convert-file/convert-file.component';
 export { CreateProjectModule } from './lib/create-project/create-project.module';
+export { FormStepData } from './lib/create-project/create-project/forms';

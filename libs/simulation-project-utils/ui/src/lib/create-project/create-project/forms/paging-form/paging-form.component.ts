@@ -6,7 +6,7 @@ import {
   IMultiStepFormDataTask,
   IMultiStepFormButton,
   FormHostDirective,
-} from '..';
+} from '../index';
 
 @Component({
   selector: 'paging-form',

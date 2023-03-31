@@ -1,6 +1,6 @@
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { FormStepData } from '@biosimulations/shared/ui';
+import { FormStepData } from '@biosimulations/simulation-project-utils/ui';
 import { BIOSIMULATIONS_FORMATS_BY_ID } from '@biosimulations/ontology/extra-sources';
 import { Endpoints } from '@biosimulations/config/common';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';

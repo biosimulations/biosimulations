@@ -18,6 +18,7 @@ import {
   ModelChangesComponent,
   ModelVariablesComponent,
 } from './form-steps';
+import { FormHostDirective, PagingFormComponent } from './create-project/forms';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,8 @@ import {
     NamespacesComponent,
     ModelChangesComponent,
     ModelVariablesComponent,
+    FormHostDirective,
+    PagingFormComponent,
   ],
   imports: [
     CommonModule,
