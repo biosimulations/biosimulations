@@ -11,7 +11,7 @@ import { environment } from '@biosimulations/shared/environments';
 import exampleSimulationsDevJson from './example-simulations.dev.json';
 import exampleSimulationsProdJson from './example-simulations.prod.json';
 import { debounceTime, take } from 'rxjs/operators';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteSimulationsDialogComponent } from './delete-simulations-dialog.component';

@@ -1,7 +1,7 @@
 import { Component, Input, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { PlotlyTrace, PlotlyLayout, PlotlyDataLayout } from '@biosimulations/datamodel/common';
 import { debounce } from 'throttle-debounce';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { HtmlSnackBarComponent } from '@biosimulations/shared/ui';
 
 @Component({

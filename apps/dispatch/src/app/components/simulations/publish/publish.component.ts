@@ -18,7 +18,7 @@ import {
 } from '@angular/forms';
 import { environment } from '@biosimulations/shared/environments';
 import { Router } from '@angular/router';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { BiosimulationsError } from '@biosimulations/shared/error-handler';
 import { HtmlSnackBarComponent } from '@biosimulations/shared/ui';

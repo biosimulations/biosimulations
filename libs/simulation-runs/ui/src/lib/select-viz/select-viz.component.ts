@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter, ViewCh
 import { UntypedFormBuilder, UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { Observable, of, Subscription, map } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { HtmlSnackBarComponent } from '@biosimulations/shared/ui';
 import { Visualization, DesignVisualization, VisualizationList } from '@biosimulations/datamodel-simulation-runs';
 // import { urls } from '@biosimulations/config/common';

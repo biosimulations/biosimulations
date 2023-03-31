@@ -12,7 +12,7 @@ import {
   OntologyTerm,
   SimulationProjectUtilLoaderService,
   SimulationProjectUtilData,
-} from '@biosimulations/simulation-project-utils/service';
+} from '@biosimulations/simulation-project-utils';
 import { Simulation } from '../../../datamodel';
 import {
   CombineArchiveSedDocSpecs,
@@ -31,7 +31,7 @@ import { SimulationRunStatus, EnvironmentVariable, SimulationRun } from '@biosim
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import { Observable, Subscription } from 'rxjs';
 import { ConfigService } from '@biosimulations/config/angular';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { FileInput } from '@biosimulations/material-file-input';
 import { CreateMaxFileSizeValidator, INTEGER_VALIDATOR } from '@biosimulations/shared/ui';
