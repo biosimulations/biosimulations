@@ -1,5 +1,5 @@
 import { ImageMessage, ImageMessagePayload, ImageMessageResponse, JobQueue } from '@biosimulations/messages/messages';
-import { InjectQueue } from '@biosimulations/nestjs-bullmq';
+import { InjectQueue } from '@nestjs/bullmq';
 import { Controller, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { MessagePattern } from '@nestjs/microservices';

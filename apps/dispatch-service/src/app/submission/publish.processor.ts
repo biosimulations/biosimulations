@@ -1,7 +1,7 @@
 import { ProjectService } from '@biosimulations/api-nest-client';
 import { ProjectInput, SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { JobQueue, PublishJobData } from '@biosimulations/messages/messages';
-import { Processor, Process } from '@biosimulations/nestjs-bullmq';
+import { Processor, Process } from '@nestjs/bullmq';
 import { HttpStatus, Logger } from '@nestjs/common';
 import { AxiosError } from 'axios';
 import { retryBackoff } from '@biosimulations/rxjs-backoff';

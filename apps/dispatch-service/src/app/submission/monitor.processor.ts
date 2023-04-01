@@ -1,6 +1,6 @@
 import { SimulationRunStatus, SimulationRunStatusReason } from '@biosimulations/datamodel/common';
 import { CompleteJobData, JobQueue, MonitorJobData } from '@biosimulations/messages/messages';
-import { Processor, InjectQueue, Process } from '@biosimulations/nestjs-bullmq';
+import { Processor, InjectQueue, Process } from '@nestjs/bullmq';
 import { Logger } from '@nestjs/common';
 import { Job, Queue } from 'bullmq';
 import { HpcService } from '../services/hpc/hpc.service';

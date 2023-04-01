@@ -1,6 +1,6 @@
 import { JobQueue, JobReturn } from '@biosimulations/messages/messages';
 import { SimulationRunSedDocumentInput } from '@biosimulations/ontology/datamodel';
-import { Processor, Process } from '@biosimulations/nestjs-bullmq';
+import { Processor, Process } from '@nestjs/bullmq';
 import { Logger } from '@nestjs/common';
 import { Job } from 'bullmq';
 import { firstValueFrom } from 'rxjs';

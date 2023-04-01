@@ -2,7 +2,7 @@ import { SimulationRunService } from '@biosimulations/api-nest-client';
 import { ArchiveMetadataContainer } from '@biosimulations/datamodel/api';
 import { JobQueue, JobReturn } from '@biosimulations/messages/messages';
 
-import { Processor, Process } from '@biosimulations/nestjs-bullmq';
+import { Processor, Process } from '@nestjs/bullmq';
 import { Logger } from '@nestjs/common';
 import { Job } from 'bullmq';
 import { firstValueFrom } from 'rxjs';

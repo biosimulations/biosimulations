@@ -14,7 +14,7 @@ import { ImagesModule } from '../images/images.module';
 import { LogsModule } from '../logs/logs.module';
 import { SharedStorageModule } from '@biosimulations/shared/storage';
 
-import { BullModule } from '@biosimulations/nestjs-bullmq';
+import { BullModule } from '@nestjs/bullmq';
 import { BullModuleOptions } from '@biosimulations/messages/messages';
 
 import { MetadataModule } from '../metadata/metadata.module';

@@ -6,7 +6,7 @@ import {
   SubmitHPCSimulationRunJobData,
   SubmitURLSimulationRunJobData,
 } from '@biosimulations/messages/messages';
-import { InjectQueue, Process, Processor } from '@biosimulations/nestjs-bullmq';
+import { InjectQueue, Process, Processor } from '@nestjs/bullmq';
 import { Logger } from '@nestjs/common';
 import { Job, Queue } from 'bullmq';
 

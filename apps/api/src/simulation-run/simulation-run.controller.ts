@@ -65,7 +65,7 @@ import {
 import { SimulationRunService } from './simulation-run.service';
 import { SimulationRunModelReturnType } from './simulation-run.model';
 import { AuthToken } from '@biosimulations/auth/common';
-import { InjectQueue } from '@biosimulations/nestjs-bullmq';
+import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
 import { scopes } from '@biosimulations/auth/common';
 

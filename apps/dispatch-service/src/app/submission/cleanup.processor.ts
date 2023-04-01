@@ -1,6 +1,6 @@
 import { JobQueue } from '@biosimulations/messages/messages';
 
-import { Processor, Process, InjectQueue } from '@biosimulations/nestjs-bullmq';
+import { Processor, Process, InjectQueue } from '@nestjs/bullmq';
 import { Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { FlowProducer, Job, JobNode, Queue } from 'bullmq';
