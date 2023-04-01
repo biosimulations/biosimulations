@@ -32,7 +32,7 @@
   //margin-left: 3rem;
 }
 
-.mat-card {
+.mat-mdc-card {
   max-width: 400px;
   display: flex;
   flex-direction: column;
@@ -47,7 +47,7 @@ img {
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
-.mat-card-header {
+.mat-mdc-card-header {
   color: var(--text-primary-darker-color);
   background-color: var(--primary-color);
   width: 100%;
@@ -57,20 +57,20 @@ img {
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
 }
-.mat-card-subtitle {
+.mat-mdc-card-subtitle {
   color: var(--text-primary-darker-color);
 }
-.mat-card-actions {
+.mat-mdc-card-actions {
   margin: 0;
   margin-top: auto;
 }
-.mat-card-content {
+.mat-mdc-card-content {
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   height: 60px;
 }
-.mat-raised-button {
+.mat-mdc-raised-button {
   box-shadow: none;
 }

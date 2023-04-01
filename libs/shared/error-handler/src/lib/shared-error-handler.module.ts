@@ -1,9 +1,6 @@
 import { ErrorHandler, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  MatLegacyDialogModule as MatDialogModule,
-  MatLegacyDialog as MatDialog,
-} from '@angular/material/legacy-dialog';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { ErrorHandler as BiosimulationsErrorHandler } from './error-handler';
 
 @NgModule({

@@ -10,11 +10,7 @@ import {
   QueryList,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import {
-  MatLegacyTab as MatTab,
-  MatLegacyTabGroup as MatTabGroup,
-  MatLegacyTabChangeEvent as MatTabChangeEvent,
-} from '@angular/material/legacy-tabs';
+import { MatTab, MatTabGroup, MatTabChangeEvent } from '@angular/material/tabs';
 import { TabPageTabComponent } from './tab-page-tab.component';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { combineLatest, Subscription } from 'rxjs';

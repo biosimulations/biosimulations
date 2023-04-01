@@ -4,7 +4,7 @@ import { Consent, ConsentRecord, cookieConsentType } from './datamodel';
 import { Storage } from '@ionic/storage-angular';
 
 import { CookieConsentComponent } from './cookie-consent/cookie-consent.component';
-import { MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root',

@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '@biosimulations/shared/environments';
 import { BiosimulationsError } from './biosimulations-error';
 import StackdriverErrorReporter from 'stackdriver-errors-js';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { Error500DialogComponent } from './error-500-dialog.component';
 
 interface ErrorState {

@@ -7,7 +7,7 @@ import { SummaryPageSectionComponent } from './summary-page-section/summary-page
 import { StatisticViewerComponent } from './statistic-viewer/statistic-viewer.component';
 import { ChartComponent } from './chart/chart.component';
 import { NgChartsModule } from 'ng2-charts';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
+import { MatCardModule } from '@angular/material/card';
 import { SummaryPageSubsectionComponent } from './summary-page-subsection/summary-page-subsection.component';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { FlexModule } from '@angular/flex-layout';

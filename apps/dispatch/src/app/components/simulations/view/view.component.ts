@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatLegacyTabChangeEvent as MatTabChangeEvent } from '@angular/material/legacy-tabs';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Observable, of, combineLatest, map, pluck, mergeMap, iif } from 'rxjs';
 import { shareReplay, catchError, concatAll } from 'rxjs/operators';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexModule } from '@angular/flex-layout';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
+import { MatCardModule } from '@angular/material/card';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { NgChartsModule } from 'ng2-charts';
 import { ChartComponent } from '../chart/chart.component';

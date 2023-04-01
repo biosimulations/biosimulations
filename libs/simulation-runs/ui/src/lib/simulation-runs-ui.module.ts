@@ -4,9 +4,9 @@ import { RouterModule } from '@angular/router';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { SimulationRunsVizModule } from '@biosimulations/simulation-runs/viz';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
-import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { MetadataComponent } from './metadata/metadata.component';
 import { MetadataDialogComponent } from './metadata-dialog/metadata-dialog.component';
@@ -18,7 +18,7 @@ import { DesignLine2DVisualizationComponent } from './design-line-2d-viz/design-
 import { RenderVisualizationComponent } from './render-viz/render-viz.component';
 import { ApiClientModule } from '@biosimulations/angular-api-client';
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
-import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   imports: [

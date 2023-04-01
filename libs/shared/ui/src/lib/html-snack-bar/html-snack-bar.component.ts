@@ -1,8 +1,5 @@
 import { Component, Inject, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
-import {
-  MatLegacySnackBar as MatSnackBar,
-  MAT_LEGACY_SNACK_BAR_DATA as MAT_SNACK_BAR_DATA,
-} from '@angular/material/legacy-snack-bar';
+import { MatSnackBar, MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 
 @Component({
   templateUrl: './html-snack-bar.component.html',
