@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
   displayName: 'libs-material-file-input',
-  preset: '../../../jest.preset.js',
+  preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {},
   coverageDirectory: '../../../coverage/libs/material-file-input',

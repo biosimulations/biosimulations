@@ -11,6 +11,7 @@ import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ScrollService } from '@biosimulations/shared/angular';
+import { ProjectsModule } from '../projects.module';
 
 class mockBrowseService {
   getProjects() {
@@ -34,6 +35,7 @@ describe('BrowseComponent', () => {
         LazyLoadImageModule,
         SharedUiModule,
         NoopAnimationsModule,
+        ProjectsModule,
       ],
     }).compileComponents();
   });
