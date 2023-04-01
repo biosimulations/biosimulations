@@ -51,9 +51,9 @@ jobs:
           fetch-depth: 0
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v3.3.0
         with:
-          node-version: '14'
+          node-version: '18'
 
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
@@ -87,14 +87,14 @@ jobs:
           INPUT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           INPUT_PUSH: ${{ inputs.push }}
         run: npx nx docker ${{matrix.app}}
-        
+
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v3
         with:
           images: ${{format('ghcr.io/biosimulations/{0}', matrix.app)}}
           tags: type=sha
-         
+
       - name: Start Docker Image
         env:
           app: ${{matrix.app}}
