@@ -24,6 +24,6 @@
       "style": "scss"
     }
   },
-  "tags": ["scope:simulationProjects", "type:common", "platform:web"],
+  "tags": ["scope:platform", "type:frontend", "platform:web", "shared:true"],
   "implicitDependencies": ["shared-assets", "shared-styles"]
 }

@@ -12,7 +12,7 @@ import {
   MultipleSimulatorsAlgorithmParameter,
   SimulatorsData,
   GatherCompatibleFormats,
-} from '../../../index';
+} from '../../../../index';
 import { ViewContainerRef } from '@angular/core';
 import { SimulationType, AlgorithmSubstitution } from '@biosimulations/datamodel/common';
 import { Params } from '@angular/router';

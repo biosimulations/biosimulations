@@ -2,7 +2,7 @@ import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Endpoints } from '@biosimulations/config/common';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { CreateArchive, MultipleSimulatorsAlgorithmParameter } from '../../../index';
+import { CreateArchive, MultipleSimulatorsAlgorithmParameter } from '../../../../index';
 import { FormStepData } from './forms';
 import { SimulationType } from '@biosimulations/datamodel/common';
 import { CreateProjectDataSource, CreateProjectFormStep } from './create-project-data-source';

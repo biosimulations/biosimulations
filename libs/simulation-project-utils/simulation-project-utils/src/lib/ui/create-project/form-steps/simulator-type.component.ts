@@ -7,7 +7,7 @@ import {
   OntologyTermsMap,
   FrameworkCompatibilityMap,
   CreateCompatibilityMap,
-} from '../../../index';
+} from '../../../../index';
 import { SimulationType, SimulationTypeBriefName } from '@biosimulations/datamodel/common';
 
 @Component({

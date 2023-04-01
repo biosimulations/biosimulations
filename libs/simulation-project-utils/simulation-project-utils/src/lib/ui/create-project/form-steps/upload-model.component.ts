@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CreateMaxFileSizeValidator, URL_VALIDATOR } from '@biosimulations/shared/ui';
-import { OntologyTerm } from '../../../index';
+import { OntologyTerm } from '../../../../index';
 import { UntypedFormGroup, UntypedFormBuilder, Validators, ValidationErrors } from '@angular/forms';
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import { EdamTerm } from '@biosimulations/datamodel/common';

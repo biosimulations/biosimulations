@@ -77,8 +77,9 @@
       "@biosimulations/shared/styles": ["libs/shared/styles/src/index.ts"],
       "@biosimulations/shared/ui": ["libs/shared/ui/src/index.ts"],
       "@biosimulations/shared/utils/routes": ["libs/shared/utils/routes/src/index.ts"],
-      "@biosimulations/simulation-project-utils/service": ["libs/simulation-project-utils/service/src/index.ts"],
-      "@biosimulations/simulation-project-utils/ui": ["libs/simulation-project-utils/ui/src/index.ts"],
+      "@biosimulations/simulation-project-utils": [
+        "libs/simulation-project-utils/simulation-project-utils/src/index.ts"
+      ],
       "@biosimulations/simulation-runs/service": ["libs/simulation-runs/service/src/index.ts"],
       "@biosimulations/simulation-runs/ui": ["libs/simulation-runs/ui/src/index.ts"],
       "@biosimulations/simulation-runs/viz": ["libs/simulation-runs/viz/src/index.ts"],

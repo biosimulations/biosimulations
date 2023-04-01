@@ -9,6 +9,7 @@ import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 
 import { RunRoutingModule } from './run-routing.module';
 import { DispatchComponent } from './dispatch/dispatch.component';
+import { SimulationProjectUtilsModule } from '@biosimulations/simulation-project-utils';
 
 @NgModule({
   declarations: [DispatchComponent],
@@ -21,6 +22,7 @@ import { DispatchComponent } from './dispatch/dispatch.component';
     MatSelectModule,
     SharedUiModule,
     BiosimulationsIconsModule,
+    SimulationProjectUtilsModule,
   ],
 })
 export class RunModule {}

@@ -1,7 +1,7 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UploadModelComponent } from './upload-model.component';
-import { OntologyTerm } from '../../../index';
+import { OntologyTerm } from '../../../../index';
 import { ConfigService } from '@biosimulations/config/angular';
 import { MatCardModule } from '@angular/material/card';
 import { MaterialFileInputModule } from '@biosimulations/material-file-input';
@@ -52,7 +52,7 @@ describe('UploadModelComponent', () => {
     component.modelFormats = testFormats;
   });
 
-  it('should create', () => {
+  it('should create', async () => {
     expect(component).toBeTruthy();
   });
 

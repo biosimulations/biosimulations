@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DispatchService, CombineApiService, SimulatorsData } from '../../index';
+import { DispatchService, CombineApiService, SimulatorsData } from '../../../index';
 import { AlgorithmSubstitution } from '@biosimulations/datamodel/common';
 import { concatMap, map } from 'rxjs/operators';
 import { Observable, zip } from 'rxjs';

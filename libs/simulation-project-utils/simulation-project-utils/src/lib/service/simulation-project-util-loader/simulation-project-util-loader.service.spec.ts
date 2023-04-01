@@ -5,7 +5,7 @@ import {
   SimulationProjectUtilLoaderService,
   SimulatorsData,
   SimulationProjectUtilData,
-} from '../../index';
+} from '../../../index';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';

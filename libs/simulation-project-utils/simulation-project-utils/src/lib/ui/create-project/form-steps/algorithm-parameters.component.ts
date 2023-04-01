@@ -6,7 +6,7 @@ import {
   GatherCompatibleSimulators,
   UpdateParameterCompatibility,
   CompatibleSimulator,
-} from '../../../index';
+} from '../../../../index';
 import { AlgorithmSubstitution } from '@biosimulations/datamodel/common';
 
 @Component({

@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MaterialFileInputModule } from '@biosimulations/material-file-input';
 import { ValidateProjectComponent } from './validate-project.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -28,6 +29,7 @@ describe('ValidateProjectComponent', () => {
         BiosimulationsIconsModule,
         MatFormFieldModule,
         MatSelectModule,
+        MatSnackBarModule,
         MaterialFileInputModule,
         NoopAnimationsModule,
         IonicStorageModule.forRoot({

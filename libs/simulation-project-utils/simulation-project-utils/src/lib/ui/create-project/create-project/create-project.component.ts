@@ -4,7 +4,7 @@ import {
   SimulationProjectUtilData,
   IntrospectNewProject,
   CustomizableSedDocumentData,
-} from '../../../index';
+} from '../../../../index';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
