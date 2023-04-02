@@ -5,13 +5,13 @@ on:
       - dev
 jobs:
   CI:
-    uses: biosimulations/biosimulations/.github/workflows/buildLintTest.yml@dev
+    uses: ./.github/workflows/buildLintTest.yml
     secrets:
       GHCR_USERNAME: ${{secrets.GHCR_USERNAME}}
       GHCR_TOKEN: ${{secrets.GHCR_TOKEN}}
 
   Docker:
-    uses: biosimulations/biosimulations/.github/workflows/docker.yml@dev
+    uses: ./.github/workflows/docker.yml
     secrets:
       GHCR_USERNAME: ${{secrets.GHCR_USERNAME}}
       GHCR_TOKEN: ${{secrets.GHCR_TOKEN}}
