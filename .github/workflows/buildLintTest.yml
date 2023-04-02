@@ -175,11 +175,7 @@ jobs:
       - name: Install npm dependencies
         uses: bahmutov/npm-install@v1
         with:
-          useRollingCache: false
-          command: |
-            node --version
-            npm --version
-            npm ci
+          useRollingCache: true
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
