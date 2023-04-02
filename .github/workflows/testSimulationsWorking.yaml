@@ -1,7 +1,7 @@
 name: Test simulation functionality
 on:
   schedule:
-    - cron: '*/5 * * * *' 
+    - cron: '*/5 * * * *'
   workflow_dispatch:
 
 jobs:
@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v2.4.2
 
       - name: Install Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: "3.9"
           architecture: "x64"
@@ -30,7 +30,7 @@ jobs:
             --example "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; CVODE; tellurium)"
   sendHeartbeat:
     name: Send Success Hearbeat
-    needs: testSimulations 
+    needs: testSimulations
     runs-on: ubuntu-latest
     steps:
         - if: ${{ success() }}

@@ -8,7 +8,7 @@ jobs:
   check:
     strategy:
       fail-fast: false
-      matrix: 
+      matrix:
         deployment: ["dev", "prod"]
     name: Check example simulation runs succeeded
     runs-on: ubuntu-latest
@@ -20,7 +20,7 @@ jobs:
           token: ${{ secrets.GH_ACCESS_TOKEN}}
 
       - name: Install Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: '3.9'
 
@@ -41,13 +41,13 @@ jobs:
 
           exit $status
 
-      - id: create-issue 
+      - id: create-issue
         uses: JasonEtco/create-an-issue@v2
         if: failure()
         env:
           OUTPUT: ${{ env.deploymentOutput }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with: 
+        with:
           update_existing: true
           search_existing: "open"
           filename: ".github/actions/check-example-simulation-runs-succeeded/issue-template.md"
