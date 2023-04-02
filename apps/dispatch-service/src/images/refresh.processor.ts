@@ -1,24 +1,25 @@
 import { JobQueue } from '@biosimulations/messages/messages';
 
-import { Processor, Process, InjectQueue } from '@nestjs/bullmq';
+import { Processor, WorkerHost, InjectQueue } from '@nestjs/bullmq';
 import { Logger } from '@nestjs/common';
 
 import { Job, Queue } from 'bullmq';
 
 import { SshService } from '../app/services/ssh/ssh.service';
 
-@Processor(JobQueue.refreshImages)
-export class RefreshProcessor {
+@Processor(JobQueue.refreshImages, { concurrency: 10 })
+export class RefreshProcessor extends WorkerHost {
   private readonly logger = new Logger(RefreshProcessor.name);
 
   public constructor(
     private sshSerivce: SshService,
 
     @InjectQueue(JobQueue.refreshImages) private refreshQueue: Queue,
-  ) {}
+  ) {
+    super();
+  }
 
-  @Process({ name: 'Refresh Image', concurrency: 10 })
-  private async handleJobCleanup(job: Job): Promise<{ stderr: string; stdout: string }> {
+  async process(job: Job): Promise<{ stderr: string; stdout: string }> {
     const data = job.data;
     const command = data.command;
     const out = await this.sshSerivce.execStringCommand(command, 3);

@@ -1,19 +1,20 @@
 import { SimulationRunService } from '@biosimulations/api-nest-client';
 import { LocationThumbnailUrls, ThumbnailUrls } from '@biosimulations/datamodel/common';
 import { JobQueue, JobReturn } from '@biosimulations/messages/messages';
-import { Processor, Process } from '@nestjs/bullmq';
+import { Processor, WorkerHost } from '@nestjs/bullmq';
 import { Logger } from '@nestjs/common';
 import { Job } from 'bullmq';
 import { firstValueFrom } from 'rxjs';
 
-@Processor(JobQueue.thumbnailPost)
-export class ThumbnailsPostProcessor {
+@Processor(JobQueue.thumbnailPost, { concurrency: 10 })
+export class ThumbnailsPostProcessor extends WorkerHost {
   private readonly logger = new Logger(ThumbnailsPostProcessor.name);
 
-  public constructor(private submit: SimulationRunService) {}
+  public constructor(private submit: SimulationRunService) {
+    super();
+  }
 
-  @Process({ name: 'thumbnails', concurrency: 10 })
-  private async process(job: Job): Promise<JobReturn<ThumbnailUrls[] | undefined>> {
+  public async process(job: Job): Promise<JobReturn<ThumbnailUrls[] | undefined>> {
     const data = job.data;
     const runId = data.runId;
 

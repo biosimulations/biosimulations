@@ -1,19 +1,20 @@
 import { SimulationRunService } from '@biosimulations/api-nest-client';
 import { JobQueue, JobReturn } from '@biosimulations/messages/messages';
 import { SimulationRunSedDocumentInput } from '@biosimulations/ontology/datamodel';
-import { Processor, Process } from '@nestjs/bullmq';
+import { Processor, WorkerHost } from '@nestjs/bullmq';
 import { Logger } from '@nestjs/common';
 import { Job } from 'bullmq';
 import { firstValueFrom } from 'rxjs';
 
-@Processor(JobQueue.sedmlPost)
-export class SedMLPostProcessor {
+@Processor(JobQueue.sedmlPost, { concurrency: 10 })
+export class SedMLPostProcessor extends WorkerHost {
   private readonly logger = new Logger(SedMLPostProcessor.name);
 
-  public constructor(private submit: SimulationRunService) {}
+  public constructor(private submit: SimulationRunService) {
+    super();
+  }
 
-  @Process({ name: JobQueue.sedmlProcess, concurrency: 10 })
-  private async process(job: Job): Promise<JobReturn<undefined>> {
+  public async process(job: Job): Promise<JobReturn<undefined>> {
     const data = job.data;
     const runId = data.runId;
 

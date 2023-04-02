@@ -1,18 +1,19 @@
 import { JobQueue, JobReturn } from '@biosimulations/messages/messages';
-import { Processor, Process } from '@nestjs/bullmq';
+import { Processor, WorkerHost } from '@nestjs/bullmq';
 import { Logger } from '@nestjs/common';
 import { Job } from 'bullmq';
 import { firstValueFrom } from 'rxjs';
 import { ArchiverService } from '../results/archiver.service';
 
-@Processor(JobQueue.output)
-export class OutputProcessor {
+@Processor(JobQueue.output, { concurrency: 10 })
+export class OutputProcessor extends WorkerHost {
   private readonly logger = new Logger(OutputProcessor.name);
 
-  public constructor(private archiveService: ArchiverService) {}
+  public constructor(private archiveService: ArchiverService) {
+    super();
+  }
 
-  @Process({ name: 'output', concurrency: 10 })
-  private async process(job: Job): Promise<JobReturn<number>> {
+  public async process(job: Job): Promise<JobReturn<number>> {
     const data = job.data;
     const runId = data.runId;
     try {

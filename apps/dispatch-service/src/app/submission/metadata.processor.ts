@@ -1,19 +1,20 @@
 import { ArchiveMetadataContainer } from '@biosimulations/datamodel/api';
 import { JobQueue, JobReturn } from '@biosimulations/messages/messages';
-import { Processor, Process } from '@nestjs/bullmq';
+import { Processor, WorkerHost } from '@nestjs/bullmq';
 import { Logger } from '@nestjs/common';
 import { Job } from 'bullmq';
 import { firstValueFrom } from 'rxjs';
 import { MetadataService } from '../../metadata/metadata.service';
 
-@Processor(JobQueue.metadata)
-export class MetadataProcessor {
+@Processor(JobQueue.metadata, { concurrency: 10 })
+export class MetadataProcessor extends WorkerHost {
   private readonly logger = new Logger(MetadataProcessor.name);
 
-  public constructor(private metadataService: MetadataService) {}
+  public constructor(private metadataService: MetadataService) {
+    super();
+  }
 
-  @Process({ name: 'metadata', concurrency: 10 })
-  private async process(job: Job): Promise<JobReturn<ArchiveMetadataContainer | undefined>> {
+  public async process(job: Job): Promise<JobReturn<ArchiveMetadataContainer | undefined>> {
     const data = job.data;
     const runId = data.runId;
 

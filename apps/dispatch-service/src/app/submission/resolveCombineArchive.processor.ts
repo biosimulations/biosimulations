@@ -6,7 +6,7 @@ import {
 } from '@biosimulations/messages/messages';
 
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
-import { InjectQueue, Process, Processor } from '@nestjs/bullmq';
+import { InjectQueue, WorkerHost, Processor } from '@nestjs/bullmq';
 import { Logger, HttpStatus } from '@nestjs/common';
 import { Job, Queue } from 'bullmq';
 import { SimulationStatusService } from '../services/simulationStatus.service';
@@ -21,8 +21,8 @@ import { SimulationRunService } from '@biosimulations/api-nest-client';
 // 1 GB in bytes to be used as file size limits
 const MAX_ARCHIVE_SIZE = 1e9;
 
-@Processor(JobQueue.resolveCombineArchive)
-export class ResolveCombineArchiveProcessor {
+@Processor(JobQueue.resolveCombineArchive, { concurrency: 10 })
+export class ResolveCombineArchiveProcessor extends WorkerHost {
   private readonly logger = new Logger(ResolveCombineArchiveProcessor.name);
 
   public constructor(
@@ -32,10 +32,11 @@ export class ResolveCombineArchiveProcessor {
     private httpService: HttpService,
     private simulationStorageService: SimulationStorageService,
     private simulationRunService: SimulationRunService,
-  ) {}
+  ) {
+    super();
+  }
 
-  @Process({ concurrency: 10 })
-  private async handleSubmission(job: Job<SubmitURLSimulationRunJobData>): Promise<void> {
+  public async process(job: Job<SubmitURLSimulationRunJobData>): Promise<void> {
     const data = job.data;
 
     // resolve COMBINE/OMEX archive from URL

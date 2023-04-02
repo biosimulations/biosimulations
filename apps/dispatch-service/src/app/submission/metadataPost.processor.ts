@@ -2,19 +2,20 @@ import { SimulationRunService } from '@biosimulations/api-nest-client';
 import { ArchiveMetadataContainer } from '@biosimulations/datamodel/api';
 import { JobQueue, JobReturn } from '@biosimulations/messages/messages';
 
-import { Processor, Process } from '@nestjs/bullmq';
+import { Processor, WorkerHost } from '@nestjs/bullmq';
 import { Logger } from '@nestjs/common';
 import { Job } from 'bullmq';
 import { firstValueFrom } from 'rxjs';
 
-@Processor(JobQueue.metadataPost)
-export class MetadataPostProcessor {
+@Processor(JobQueue.metadataPost, { concurrency: 10 })
+export class MetadataPostProcessor extends WorkerHost {
   private readonly logger = new Logger(MetadataPostProcessor.name);
 
-  public constructor(private submit: SimulationRunService) {}
+  public constructor(private submit: SimulationRunService) {
+    super();
+  }
 
-  @Process({ name: JobQueue.metadataPost, concurrency: 10 })
-  private async process(job: Job): Promise<JobReturn<undefined>> {
+  public async process(job: Job): Promise<JobReturn<undefined>> {
     const data = job.data;
     const runId = data.runId;
 

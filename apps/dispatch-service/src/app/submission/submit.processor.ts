@@ -6,12 +6,12 @@ import {
   SubmitHPCSimulationRunJobData,
   SubmitURLSimulationRunJobData,
 } from '@biosimulations/messages/messages';
-import { InjectQueue, Process, Processor } from '@nestjs/bullmq';
+import { InjectQueue, WorkerHost, Processor } from '@nestjs/bullmq';
 import { Logger } from '@nestjs/common';
 import { Job, Queue } from 'bullmq';
 
-@Processor(JobQueue.submitSimulationRun)
-export class SubmissionProcessor {
+@Processor(JobQueue.submitSimulationRun, { concurrency: 10 })
+export class SubmissionProcessor extends WorkerHost {
   private readonly logger = new Logger(SubmissionProcessor.name);
 
   public constructor(
@@ -19,10 +19,11 @@ export class SubmissionProcessor {
     private dispatchQ: Queue<SubmitHPCSimulationRunJobData, void, JobQueue.dispatch>,
     @InjectQueue(JobQueue.resolveCombineArchive)
     private resolveQ: Queue<SubmitURLSimulationRunJobData, void, JobQueue.resolveCombineArchive>,
-  ) {}
+  ) {
+    super();
+  }
 
-  @Process({ concurrency: 10 })
-  public async handleSubmission(
+  public async process(
     job: Job<SubmitFileSimulationRunJobData | SubmitURLSimulationRunJobData>,
     _token: string,
   ): Promise<void> {
