@@ -261,7 +261,7 @@
     </ng-container>
 
     <ng-container *ngSwitchCase="StructuredLogLevel.CombineArchive">
-      <h3 id="section=raw" class="top-margin">Simulation project (COMBINE/OMEX archive)</h3>
+      <h3 id="section=omex-document" class="top-margin">Simulation project (COMBINE/OMEX archive)</h3>
       <biosimulations-structured-simulation-log-element
         *ngIf="structuredLog"
         [log]="structuredLog"
@@ -274,7 +274,7 @@
         [last]="true">
       </biosimulations-structured-simulation-log-element>
 
-      <h3 id="section=raw">Simulation run</h3>
+      <h3 id="section=omex-run">Simulation run</h3>
       <biosimulations-structured-simulation-log-element
         [isStructuredLog]="false"
         elementType="Raw output of the simulation run"
@@ -288,7 +288,7 @@
           tasks: null,
           outputs: null
         }"
-        id="log=raw"
+        id="log=omex-run"
         [compact]="true"
         iconActionType="toggle"
         [first]="true"
@@ -299,7 +299,7 @@
     <ng-container *ngSwitchCase="StructuredLogLevel.SedDocument">
       <h3 id="section=sed-documents">Simulation experiments (SED-ML documents)</h3>
       <biosimulations-structured-simulation-log-element
-        *ngFor="let docLog of _structuredLog.sedDocuments; let iDoc = index"
+        *ngFor="let docLog of _structuredLog?.sedDocuments; let iDoc = index"
         [elementId]="docLog.location"
         elementType="Simulation experiment"
         [log]="docLog"
@@ -310,7 +310,7 @@
         [last]="iDoc === (_structuredLog?.sedDocuments?.length || 0) - 1">
       </biosimulations-structured-simulation-log-element>
 
-      <h3 id="section=raw">Simulation run</h3>
+      <h3 id="section=sed-run">Simulation run</h3>
       <biosimulations-structured-simulation-log-element
         [isStructuredLog]="false"
         elementType="Raw output of the simulation run"
@@ -324,7 +324,7 @@
           tasks: null,
           outputs: null
         }"
-        id="log=raw"
+        id="log=sed-run"
         [compact]="true"
         iconActionType="toggle"
         [first]="true"
@@ -378,7 +378,7 @@
         </biosimulations-structured-simulation-log-element>
       </ng-container>
 
-      <h3 id="section=raw">Simulation run</h3>
+      <h3 id="section=run">Simulation run</h3>
       <biosimulations-structured-simulation-log-element
         [isStructuredLog]="false"
         elementType="Raw output of the simulation run"
@@ -392,7 +392,7 @@
           tasks: null,
           outputs: null
         }"
-        id="log=raw"
+        id="log=run"
         [compact]="true"
         iconActionType="toggle"
         [first]="true"

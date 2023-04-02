@@ -1,7 +1,14 @@
 {
   "root": true,
   "ignorePatterns": ["**/*"],
-  "plugins": ["@nrwl/nx", "unused-imports", "promise"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@nrwl/nx", "unused-imports", "promise", "@typescript-eslint"],
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    }
+  },
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
@@ -9,7 +16,7 @@
         "@nrwl/nx/enforce-module-boundaries": [
           "error",
           {
-            "enforceBuildableLibDependency": false,
+            "enforceBuildableLibDependency": true,
             "allow": [],
             "depConstraints": [
               {
@@ -36,7 +43,13 @@
     },
     {
       "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:@nrwl/nx/typescript", "prettier", "plugin:promise/recommended"],
+      "extends": [
+        "plugin:@nrwl/nx/typescript",
+        "prettier",
+        "plugin:promise/recommended",
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended"
+      ],
       "rules": {
         "@typescript-eslint/explicit-member-accessibility": "warn",
         "@typescript-eslint/explicit-function-return-type": "warn",
