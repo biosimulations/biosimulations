@@ -115,7 +115,7 @@
     "@angular/compiler": "14.0.4",
     "@angular/compiler-cli": "14.0.4",
     "@angular/core": "14.0.4",
-    "@angular/flex-layout": "14.0.0-beta.40",
+    "@angular/flex-layout": "14.0.0-beta.41",
     "@angular/forms": "14.0.4",
     "@angular/language-service": "14.0.4",
     "@angular/material": "14.0.4",
