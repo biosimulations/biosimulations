@@ -12,13 +12,13 @@ describe('VegaVisualizationComponent', () => {
       declarations: [VegaVisualizationComponent],
       imports: [SharedUiModule, BiosimulationsIconsModule],
     }).compileComponents();
-    (async () => {
-      if (!('ResizeObserver' in window)) {
-        // Loads polyfill asynchronously, only if required.
-        const module = await import('@juggle/resize-observer');
-        window.ResizeObserver = module.ResizeObserver;
-      }
-    })();
+    // (async () => {
+    //   if (!('ResizeObserver' in window)) {
+    //     // Loads polyfill asynchronously, only if required.
+    //     const module = await import('@juggle/resize-observer');
+    //     window.ResizeObserver = module.ResizeObserver;
+    //   }
+    // })();
   }));
 
   beforeEach(() => {
