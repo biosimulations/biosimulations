@@ -6,9 +6,17 @@ import { VegaVisualizationComponent } from './vega-visualization/vega-visualizat
 import { PlotlyViaWindowModule } from 'angular-plotly.js';
 import { PlotlyVisualizationComponent } from './plotly-visualization/plotly-visualization.component';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
+import { NgxResizeObserverModule } from 'ngx-resize-observer';
 
 @NgModule({
-  imports: [CommonModule, RouterModule, SharedUiModule, PlotlyViaWindowModule, BiosimulationsIconsModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    SharedUiModule,
+    PlotlyViaWindowModule,
+    BiosimulationsIconsModule,
+    NgxResizeObserverModule,
+  ],
   exports: [VegaVisualizationComponent, PlotlyVisualizationComponent],
   declarations: [VegaVisualizationComponent, PlotlyVisualizationComponent],
 })
