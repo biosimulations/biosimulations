@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { PlotlyVisualizationComponent } from './plotly-visualization.component';
 import { SharedUiModule } from '@biosimulations/shared/ui';
@@ -7,7 +7,7 @@ describe('PlotlyVisualizationComponent', () => {
   let component: PlotlyVisualizationComponent;
   let fixture: ComponentFixture<PlotlyVisualizationComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [PlotlyVisualizationComponent],
       imports: [SharedUiModule],
