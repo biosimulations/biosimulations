@@ -16,30 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 
 import { FileInput } from '../model/file-input.model';
 import { FileInputComponent } from './file-input.component';
-
-// function createComponent<T>(component: Type<T>,
-//   providers: Provider[] = [],
-//   imports: any[] = []): ComponentFixture<T> {
-// TestBed.configureTestingModule({
-// imports: [
-//   ReactiveFormsModule,
-//   NoopAnimationsModule,
-//   // Material modules
-//   MatButtonModule,
-//   MatFormFieldModule,
-//   MatIconModule,
-//   MatInputModule,
-//   MatToolbarModule,
-//   // Lib Module
-//   MaterialFileInputModule,
-// ...imports
-// ],
-// declarations: [AppComponent],
-// providers,
-// }).compileComponents();
-
-// return TestBed.createComponent<T>(component);
-// }
+import { spyOn } from 'jest-mock';
 
 /**
  * Shows error state on a control if it is touched and has any error.
@@ -143,24 +120,24 @@ describe('FileInputComponent', () => {
   });
 
   it('should propagate onContainerClick()', () => {
-    spyOn(component, 'open').and.stub();
+    const comp_open = spyOn(component, 'open');
     component.onContainerClick({
       target: {
         tagName: 'not-input',
       } as Partial<Element>,
     } as MouseEvent);
-    expect(component.open).toHaveBeenCalled();
+    expect(comp_open).toHaveBeenCalled();
   });
 
   it('should not propagate onContainerClick(), when disabled', () => {
-    spyOn(component, 'open').and.stub();
+    const comp_open = spyOn(component, 'open');
     component.disabled = true;
     component.onContainerClick({
       target: {
         tagName: 'not-input',
       } as Partial<Element>,
     } as MouseEvent);
-    expect(component.open).not.toHaveBeenCalled();
+    expect(comp_open).not.toHaveBeenCalled();
   });
 
   it('should remove file from Input', fakeAsync(() => {
@@ -180,27 +157,27 @@ describe('FileInputComponent', () => {
   }));
 
   xit('should propagate click', () => {
-    spyOn(component, 'open').and.stub();
+    const comp_open = spyOn(component, 'open');
     fixture.debugElement.nativeElement.click();
-    expect(component.open).toHaveBeenCalled();
+    expect(comp_open).toHaveBeenCalled();
   });
 
   it('should recognize all errorstate changes', () => {
-    spyOn(component.stateChanges, 'next');
+    const comp_statechanges_next = spyOn(component.stateChanges, 'next');
     component.ngControl = <any>{ control: <any>{ errors: null, touched: false } };
     expect(component.errorState).toBeFalsy();
-    expect(component.stateChanges.next).not.toHaveBeenCalled();
+    expect(comp_statechanges_next).not.toHaveBeenCalled();
 
     fixture.detectChanges();
     expect(component.errorState).toBeFalsy();
     expect(component.stateChanges.next).not.toHaveBeenCalled();
     component.ngControl = <any>{ control: <any>{ errors: ['some error'], touched: true } };
 
-    expect(component.stateChanges.next).not.toHaveBeenCalled();
+    expect(comp_statechanges_next).not.toHaveBeenCalled();
 
     fixture.detectChanges();
     expect(component.errorState).toBeTruthy();
-    expect(component.stateChanges.next).toHaveBeenCalledTimes(1);
+    expect(comp_statechanges_next).toHaveBeenCalledTimes(1);
   });
 
   it('should use input ErrorStateMatcher over provided', () => {

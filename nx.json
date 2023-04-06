@@ -104,7 +104,6 @@
   "namedInputs": {
     "default": ["{projectRoot}/**/*", "sharedGlobals", "projectSpecificFiles"],
     "sharedGlobals": [
-      "{workspaceRoot}/angular.json",
       "{workspaceRoot}/.github/workflows/nxCi.yml",
       "{workspaceRoot}/tsconfig.base.json",
       "{workspaceRoot}/nx.json",
