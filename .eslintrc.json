@@ -11,6 +11,16 @@
   },
   "overrides": [
     {
+      "files": ["*.component.html"],
+      "parser": "@angular-eslint/template-parser",
+      "parserOptions": {
+        "project": "./tsconfig.app.json",
+        "ecmaVersion": 2020,
+        "sourceType": "module"
+      },
+      "plugins": ["@angular-eslint/template"]
+    },
+    {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
         "@nrwl/nx/enforce-module-boundaries": [
