@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, UntypedFormControl, Validators, ValidationErrors } from '@angular/forms';
-import { CombineApiService } from '../../../index';
+import { CombineApiService } from '../../service/combine-api/combine-api.service';
 import {
   ValidationReport,
   ValidationMessage,

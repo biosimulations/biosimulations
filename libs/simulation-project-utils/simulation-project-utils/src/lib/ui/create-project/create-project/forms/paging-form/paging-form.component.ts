@@ -1,12 +1,10 @@
 import { Subscription } from 'rxjs';
 import { Component, Input, ViewChildren, OnDestroy, AfterViewInit, QueryList } from '@angular/core';
-import {
-  IFormStepComponent,
-  IMultiStepFormDataSource,
-  IMultiStepFormDataTask,
-  IMultiStepFormButton,
-  FormHostDirective,
-} from '../index';
+import { IFormStepComponent } from '../form-step-component';
+import { IMultiStepFormDataSource } from '../multi-step-form-datasource';
+import { IMultiStepFormDataTask } from '../multi-step-form-datasource';
+import { IMultiStepFormButton } from '../multi-step-form-datasource';
+import { FormHostDirective } from '../form-host.directive';
 
 @Component({
   selector: 'paging-form',

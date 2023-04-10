@@ -1,11 +1,11 @@
 import { TestBed, waitForAsync } from '@angular/core/testing';
+import { DispatchService } from '../dispatch/dispatch.service';
+import { CombineApiService } from '../combine-api/combine-api.service';
 import {
-  DispatchService,
-  CombineApiService,
   SimulationProjectUtilLoaderService,
-  SimulatorsData,
   SimulationProjectUtilData,
-} from '../../../index';
+} from '../simulation-project-util-loader/simulation-project-util-loader.service';
+import { SimulatorsData } from '../dispatch/dispatch.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';

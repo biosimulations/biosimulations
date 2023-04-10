@@ -8,11 +8,11 @@ import {
 } from './forms';
 import {
   SUPPORTED_SIMULATION_TYPES,
-  CustomizableSedDocumentData,
   MultipleSimulatorsAlgorithmParameter,
-  SimulatorsData,
   GatherCompatibleFormats,
-} from '../../../../index';
+} from '../../../service/create-project/compatibility';
+import { CustomizableSedDocumentData } from '../../../service/create-project/project-introspection';
+import { SimulatorsData } from '../../../service/dispatch/dispatch.service';
 import { ViewContainerRef } from '@angular/core';
 import { SimulationType, AlgorithmSubstitution } from '@biosimulations/datamodel/common';
 import { Params } from '@angular/router';

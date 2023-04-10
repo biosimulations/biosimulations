@@ -1,10 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {
-  SimulationProjectUtilLoaderService,
-  SimulationProjectUtilData,
-  IntrospectNewProject,
-  CustomizableSedDocumentData,
-} from '../../../../index';
+import { SimulationProjectUtilLoaderService } from '../../../service/simulation-project-util-loader/simulation-project-util-loader.service';
+import { SimulationProjectUtilData } from '../../../service/simulation-project-util-loader/simulation-project-util-loader.service';
+import { IntrospectNewProject } from '../../../service/create-project/project-introspection';
+import { CustomizableSedDocumentData } from '../../../service/create-project/project-introspection';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';

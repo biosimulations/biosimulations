@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { DispatchService, CombineApiService, SimulatorsData } from '../../../index';
+import { DispatchService } from '../../service/dispatch/dispatch.service';
+import { CombineApiService } from '../../service/combine-api/combine-api.service';
+import { SimulatorsData } from '../../service/dispatch/dispatch.service';
 import {
   AlgorithmSubstitution,
   AlgorithmSubstitutionPolicy,

@@ -10,7 +10,6 @@ export * from './lib/ui/create-project/create-project/forms/index';
 export * from './lib/ui/convert-file/convert-file.component';
 export * from './lib/ui/suggest-simulator/suggest-simulator.component';
 export * from './lib/ui/create-project/create-project/forms/index';
-export * from './lib/ui/create-project/create-project.module';
 export * from './lib/ui/validate-model/validate-model.component';
 export * from './lib/ui/validate-simulation/validate-simulation.component';
 export * from './lib/ui/validate-metadata/validate-metadata.component';
