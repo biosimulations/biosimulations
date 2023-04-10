@@ -1,6 +1,6 @@
 import { SimulationRunStatus, SimulationRunStatusReason } from '@biosimulations/datamodel/common';
 import { CompleteJobData, JobQueue, MonitorJobData } from '@biosimulations/messages/messages';
-import { Processor, InjectQueue, Process } from '@biosimulations/nestjs-bullmq';
+import { Processor, InjectQueue, WorkerHost } from '@nestjs/bullmq';
 import { Logger } from '@nestjs/common';
 import { Job, Queue } from 'bullmq';
 import { HpcService } from '../services/hpc/hpc.service';
@@ -8,8 +8,8 @@ import { SimulationStatusService } from '../services/simulationStatus.service';
 
 const MAX_MONITOR_RETRY = 20;
 
-@Processor(JobQueue.monitor)
-export class MonitorProcessor {
+@Processor(JobQueue.monitor, { concurrency: 10 })
+export class MonitorProcessor extends WorkerHost {
   private readonly logger = new Logger(MonitorProcessor.name);
   public constructor(
     private simStatusService: SimulationStatusService,
@@ -17,12 +17,11 @@ export class MonitorProcessor {
 
     @InjectQueue(JobQueue.monitor) private monitorQueue: Queue<MonitorJobData>,
     @InjectQueue(JobQueue.process) private processQueue: Queue<CompleteJobData>,
-  ) {}
+  ) {
+    super();
+  }
 
-  @Process({
-    concurrency: 10,
-  })
-  private async handleMonitoring(job: Job<MonitorJobData, void>): Promise<void> {
+  public async process(job: Job<MonitorJobData, void>): Promise<void> {
     const data = job.data;
     const slurmJobId = data.slurmJobId;
     const projectId = data.projectId;

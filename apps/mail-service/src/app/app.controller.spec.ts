@@ -4,6 +4,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { beforeAll, it, describe, expect } from '@jest/globals';
+
 class MockMailClient {
   sendEmail() {}
 }

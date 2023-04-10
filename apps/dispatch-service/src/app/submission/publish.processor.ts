@@ -1,7 +1,7 @@
 import { ProjectService } from '@biosimulations/api-nest-client';
 import { ProjectInput, SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { JobQueue, PublishJobData } from '@biosimulations/messages/messages';
-import { Processor, Process } from '@biosimulations/nestjs-bullmq';
+import { Processor, WorkerHost } from '@nestjs/bullmq';
 import { HttpStatus, Logger } from '@nestjs/common';
 import { AxiosError } from 'axios';
 import { retryBackoff } from '@biosimulations/rxjs-backoff';
@@ -17,13 +17,14 @@ type stepsInfo = {
   data: any;
   children: string[];
 };
-@Processor(JobQueue.publish)
-export class PublishProcessor {
+@Processor(JobQueue.publish, { concurrency: 10 })
+export class PublishProcessor extends WorkerHost {
   private readonly logger = new Logger(PublishProcessor.name);
-  public constructor(private readonly projectService: ProjectService) {}
+  public constructor(private readonly projectService: ProjectService) {
+    super();
+  }
 
-  @Process({ name: 'publish', concurrency: 10 })
-  public async processPublish(job: Job<PublishJobData, void, 'complete'>) {
+  public async process(job: Job<PublishJobData, void, 'complete'>) {
     const data = job.data;
     const projectId = data.projectId;
     const projectOwner = data.projectOwner;

@@ -24,7 +24,7 @@ export class CombineApiService {
 
     if (typeof archiveFileOrUrl === 'object') {
       formData.append('files', archiveFileOrUrl);
-      formData.append('archive', JSON.stringify({ filename: archiveFileOrUrl.name }));
+      formData.append('archive', JSON.stringify({ filename: archiveFileOrUrl['name'] }));
     } else {
       formData.append('archive', JSON.stringify({ url: archiveFileOrUrl }));
     }

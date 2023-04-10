@@ -3,7 +3,8 @@
   [data]="data"
   [layout]="layout"
   [config]="config"
-  [useResizeHandler]="visible"></plotly-plot>
+  [useResizeHandler]="visible"
+  (onResize)="handleResize($event)"></plotly-plot>
 
 <div *ngIf="loading" class="centered-full-width-height">
   <biosimulations-spinner></biosimulations-spinner>

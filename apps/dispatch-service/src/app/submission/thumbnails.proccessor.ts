@@ -1,18 +1,19 @@
 import { LocationThumbnailUrls } from '@biosimulations/datamodel/common';
 import { JobQueue, JobReturn } from '@biosimulations/messages/messages';
-import { Processor, Process } from '@biosimulations/nestjs-bullmq';
+import { Processor, WorkerHost } from '@nestjs/bullmq';
 import { Logger } from '@nestjs/common';
 import { Job } from 'bullmq';
 import { ThumbnailService } from '../../thumbnail/thumbnail.service';
 
-@Processor(JobQueue.thumbnailProcess)
-export class ThumbnailsProcessor {
+@Processor(JobQueue.thumbnailProcess, { concurrency: 1 })
+export class ThumbnailsProcessor extends WorkerHost {
   private readonly logger = new Logger(ThumbnailsProcessor.name);
 
-  public constructor(private thumbnailsService: ThumbnailService) {}
+  public constructor(private thumbnailsService: ThumbnailService) {
+    super();
+  }
 
-  @Process({ name: 'thumbnails', concurrency: 1 })
-  private async process(job: Job): Promise<JobReturn<LocationThumbnailUrls[]>> {
+  public async process(job: Job): Promise<JobReturn<LocationThumbnailUrls[]>> {
     const data = job.data;
     const runId = data.runId;
 

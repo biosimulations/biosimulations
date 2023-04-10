@@ -12,6 +12,7 @@ import { CacheModule } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ResultsController } from './results.controller';
 import { ResultsService } from './results.service';
+import { beforeEach, it, describe, expect } from '@jest/globals';
 
 describe('ResultsController', () => {
   let controller: ResultsController;

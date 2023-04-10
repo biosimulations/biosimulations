@@ -1,4 +1,5 @@
 {
+  "name": "analytics-angular-analytics",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/analytics/angular-analytics/src",
@@ -6,7 +7,7 @@
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/analytics/angular-analytics"],
+      "outputs": ["{workspaceRoot}/dist/libs/analytics/angular-analytics"],
       "options": {
         "project": "libs/analytics/angular-analytics/ng-package.json"
       },
@@ -22,7 +23,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/analytics/angular-analytics"],
+      "outputs": ["{workspaceRoot}/coverage/libs/analytics/angular-analytics"],
       "options": {
         "jestConfig": "libs/analytics/angular-analytics/jest.config.ts",
         "passWithNoTests": true

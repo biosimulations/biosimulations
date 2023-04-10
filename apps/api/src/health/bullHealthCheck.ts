@@ -1,15 +1,14 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { HealthIndicator, HealthIndicatorResult, HealthCheckError } from '@nestjs/terminus';
-import { InjectQueue, Process, Processor } from '@biosimulations/nestjs-bullmq';
+import { InjectQueue, Processor, WorkerHost } from '@nestjs/bullmq';
 import { Job, Queue, QueueEvents } from 'bullmq';
 import { JobQueue } from '@biosimulations/messages/messages';
 import { ConfigService } from '@nestjs/config';
 
 const JOB_NAME = 'healthCheck';
 @Processor(JobQueue.health)
-export class HealthCheckProcessor {
-  @Process(JOB_NAME)
-  private async healthCheck(job: Job<any>): Promise<boolean> {
+export class HealthCheckProcessor extends WorkerHost {
+  public async process(job: Job<any>): Promise<boolean> {
     return true;
   }
 }
@@ -41,8 +40,11 @@ export class BullHealthIndicator extends HealthIndicator {
           job: JOB_NAME,
         },
         {
-          timeout: 1000,
-          attempts: 1,
+          attempts: 2,
+          backoff: {
+            type: 'fixed',
+            delay: 1000,
+          },
           removeOnComplete: 100,
           removeOnFail: 100,
         },

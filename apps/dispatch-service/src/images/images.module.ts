@@ -1,5 +1,5 @@
 import { JobQueue, BullModuleOptions } from '@biosimulations/messages/messages';
-import { BullModule } from '@biosimulations/nestjs-bullmq';
+import { BullModule } from '@nestjs/bullmq';
 import { Module } from '@nestjs/common';
 import { SbatchService } from '../app/services/sbatch/sbatch.service';
 import { SshService } from '../app/services/ssh/ssh.service';

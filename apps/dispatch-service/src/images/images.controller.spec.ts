@@ -1,10 +1,11 @@
 import { JobQueue, BullModuleOptions } from '@biosimulations/messages/messages';
-import { BullModule } from '@biosimulations/nestjs-bullmq';
+import { BullModule } from '@nestjs/bullmq';
 import { ConfigService } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 import { SbatchService } from '../app/services/sbatch/sbatch.service';
 import { SshService } from '../app/services/ssh/ssh.service';
 import { ImagesController } from './images.controller';
+import { beforeEach, it, describe, expect } from '@jest/globals';
 
 class MockSbatchService {
   async method() {}

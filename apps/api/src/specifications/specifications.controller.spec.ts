@@ -4,6 +4,7 @@ import { SpecificationsService } from './specifications.service';
 import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
+import { beforeEach, it, describe, expect } from '@jest/globals';
 
 describe('SpecificationsController', () => {
   let controller: SpecificationsController;

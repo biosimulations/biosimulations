@@ -1,5 +1,5 @@
 import { Logger, Module } from '@nestjs/common';
-import { BullModule } from '@biosimulations/nestjs-bullmq';
+import { BullModule } from '@nestjs/bullmq';
 import { HttpModule } from '@nestjs/axios';
 import { HpcService } from './services/hpc/hpc.service';
 import { SbatchService } from './services/sbatch/sbatch.service';
@@ -48,7 +48,6 @@ import { SedMLPostProcessor } from './submission/sedmlPost.processor';
 import { MetadataPostProcessor } from './submission/metadataPost.processor';
 import { LogsPostProcessor } from './submission/logPost.processor';
 import { PublishProcessor } from './submission/publish.processor';
-import { AppQueueManagerProvider } from './app.queues.provider';
 import { CleanUpProcessor } from './submission/cleanup.processor';
 import { SubmissionProcessor } from './submission/submit.processor';
 
@@ -172,7 +171,6 @@ import { SubmissionProcessor } from './submission/submit.processor';
     SshService,
     ArchiverService,
     LogService,
-    AppQueueManagerProvider,
     // Processors
     ResolveCombineArchiveProcessor,
     DispatchProcessor,

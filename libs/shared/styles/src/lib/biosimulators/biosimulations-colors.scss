@@ -1,8 +1,21 @@
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
-@import '~@angular/material/theming';
-
+@use '@angular/material' as mat;
+@import '../biosimulations-typography';
+@include mat.core();
 // Foreground Elements
+
+// Copied over from @angular/material. These use to be exported by the library, but are no longer.
+$dark-primary-text: rgba(black, 0.87);
+$dark-secondary-text: rgba(black, 0.54);
+$dark-disabled-text: rgba(black, 0.38);
+$dark-dividers: rgba(black, 0.12);
+$dark-focused: rgba(black, 0.12);
+$light-primary-text: white;
+$light-secondary-text: rgba(white, 0.7);
+$light-disabled-text: rgba(white, 0.5);
+$light-dividers: rgba(white, 0.12);
+$light-focused: rgba(white, 0.12);
 // Light Theme Text
 $dark-text: #000000;
 $dark-primary-text: rgba($dark-primary-text, 0.8);
@@ -146,7 +159,7 @@ $mat-primary: (
       darker: $light-primary-text,
     ),
 );
-$theme-primary: mat-palette($mat-primary, main, lighter, darker);
+$theme-primary: mat.define-palette($mat-primary, main, lighter, darker);
 
 $theme-accent-main: #2196f3;
 $theme-accent-lighter: #9bcff9; // 55%
@@ -175,7 +188,7 @@ $mat-accent: (
       darker: $dark-primary-text,
     ),
 );
-$theme-accent: mat-palette($mat-accent, main, lighter, darker);
+$theme-accent: mat.define-palette($mat-accent, main, lighter, darker);
 
 $theme-tertiary-main: #38cc00;
 $theme-tertiary-lighter: #9bff75; // 55%
@@ -204,7 +217,7 @@ $mat-tertiary: (
       darker: $dark-primary-text,
     ),
 );
-$theme-tertiary: mat-palette($mat-tertiary, main, lighter, darker);
+$theme-tertiary: mat.define-palette($mat-tertiary, main, lighter, darker);
 
 $theme-quartenary-main: #951ed9;
 $theme-quartenary-lighter: #d097f0; // 55%
@@ -233,7 +246,7 @@ $mat-quartenary: (
       darker: $dark-primary-text,
     ),
 );
-$theme-quartenary: mat-palette($mat-quartenary, main, lighter, darker);
+$theme-quartenary: mat.define-palette($mat-quartenary, main, lighter, darker);
 
 $theme-warn-main: #f44336;
 $theme-warn-lighter: #fcc7c3; // 75%
@@ -276,6 +289,24 @@ $mat-warn: (
       darker: $light-primary-text,
     ),
 );
-$theme-warn: mat-palette($mat-warn, main, lighter, darker);
-$theme: mat-light-theme($theme-primary, $theme-accent, $theme-warn);
-$altTheme: mat-dark-theme($theme-primary, $theme-accent, $theme-warn);
+$theme-warn: mat.define-palette($mat-warn, main, lighter, darker);
+$theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $theme-primary,
+      accent: $theme-accent,
+      warn: $theme-warn,
+    ),
+    typography: $fontConfig,
+  )
+);
+$altTheme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $theme-primary,
+      accent: $theme-accent,
+      warn: $theme-warn,
+    ),
+    typography: $fontConfig,
+  )
+);

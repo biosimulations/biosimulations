@@ -73,7 +73,6 @@ routes.forEach((route: Route): void => {
     RouterModule.forRoot(routes, {
       initialNavigation: 'enabledBlocking',
       scrollPositionRestoration: 'disabled',
-      relativeLinkResolution: 'legacy',
     }),
     IonicStorageModule.forRoot({
       driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage],

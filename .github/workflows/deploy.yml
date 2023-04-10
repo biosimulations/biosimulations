@@ -1,7 +1,9 @@
 name: Continuous deployment
+
 on:
   release:
     types: [published, edited]
+
 jobs:
   buildDevFrontEnds:
     env:
@@ -38,7 +40,7 @@ jobs:
         with:
           useRollingCache: true
 
-      - name: Install nrwl cli 
+      - name: Install nrwl cli
         run: npm install -g @nrwl/cli && npm install -g nx@latest
 
 
@@ -89,8 +91,8 @@ jobs:
         uses: bahmutov/npm-install@v1
         with:
           useRollingCache: true
-          
-      - name: Install nrwl cli 
+
+      - name: Install nrwl cli
         run: npm install -g @nrwl/cli && npm install -g nx@latest
 
       - name: Build prod app
@@ -130,7 +132,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3.3.0
         with:
-          node-version: '16'
+          node-version: '18'
 
       - name: Install Netlify CLI
         run: npm install -g netlify-cli
@@ -184,7 +186,7 @@ jobs:
         uses: actions/checkout@v2.4.2
 
       - name: Install Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: "3.9"
           architecture: "x64"
@@ -233,7 +235,7 @@ jobs:
         - name: Install Node.js
           uses: actions/setup-node@v3.3.0
           with:
-            node-version: '16'
+            node-version: '18'
 
         - name: Download build for app
           uses: actions/download-artifact@v2

@@ -1,0 +1,29 @@
+{
+  "name": "simulation-project-utils",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/simulation-project-utils/simulation-project-utils/src",
+  "prefix": "biosimulations",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/simulation-project-utils/simulation-project-utils/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/simulation-project-utils/simulation-project-utils/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "generators": {
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "tags": ["scope:platform", "type:frontend", "platform:web", "shared:true"],
+  "implicitDependencies": ["shared-assets", "shared-styles"]
+}

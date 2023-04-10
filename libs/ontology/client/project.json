@@ -1,4 +1,5 @@
 {
+  "name": "ontology-client",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/ontology/client/src",
@@ -6,7 +7,7 @@
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/ontology/client"],
+      "outputs": ["{workspaceRoot}/coverage/libs/ontology/client"],
       "options": {
         "jestConfig": "libs/ontology/client/jest.config.ts",
         "passWithNoTests": true

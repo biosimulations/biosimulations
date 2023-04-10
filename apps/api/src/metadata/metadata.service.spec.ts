@@ -5,6 +5,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { SimulationRunModel } from '../simulation-run/simulation-run.model';
 import { SimulationRunMetadataModel } from './metadata.model';
 import { MetadataService } from './metadata.service';
+import { beforeEach, it, describe, expect } from '@jest/globals';
 
 class MockModel {}
 describe('MetadataService', () => {

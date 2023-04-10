@@ -1,4 +1,5 @@
 {
+  "name": "shared-pwa",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/shared/pwa/src",
@@ -12,7 +13,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/shared/pwa"],
+      "outputs": ["{workspaceRoot}/coverage/libs/shared/pwa"],
       "options": {
         "jestConfig": "libs/shared/pwa/jest.config.ts",
         "passWithNoTests": true

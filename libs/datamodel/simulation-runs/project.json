@@ -1,4 +1,5 @@
 {
+  "name": "datamodel-simulation-runs",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/datamodel/simulation-runs/src",
   "projectType": "library",

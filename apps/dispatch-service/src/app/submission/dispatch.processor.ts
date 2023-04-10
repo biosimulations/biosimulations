@@ -2,24 +2,25 @@ import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { JobQueue, MonitorJobData, SubmitHPCSimulationRunJobData } from '@biosimulations/messages/messages';
 
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
-import { InjectQueue, Process, Processor } from '@biosimulations/nestjs-bullmq';
+import { InjectQueue, WorkerHost, Processor } from '@nestjs/bullmq';
 import { Logger, HttpStatus } from '@nestjs/common';
 import { Job, Queue } from 'bullmq';
 import { HpcService } from '../services/hpc/hpc.service';
 import { SimulationStatusService } from '../services/simulationStatus.service';
 
-@Processor(JobQueue.dispatch)
-export class DispatchProcessor {
+@Processor(JobQueue.dispatch, { concurrency: 10 })
+export class DispatchProcessor extends WorkerHost {
   private readonly logger = new Logger(DispatchProcessor.name);
 
   public constructor(
     private hpcService: HpcService,
     private simStatusService: SimulationStatusService,
     @InjectQueue(JobQueue.monitor) private monitorQueue: Queue<MonitorJobData>,
-  ) {}
+  ) {
+    super();
+  }
 
-  @Process({ concurrency: 10 })
-  private async handleSubmission(job: Job<SubmitHPCSimulationRunJobData>): Promise<void> {
+  public async process(job: Job<SubmitHPCSimulationRunJobData>): Promise<void> {
     const data = job.data;
 
     this.logger.debug(`Starting job for simulation run '${data.runId}' ...`);

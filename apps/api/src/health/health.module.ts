@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { HealthController } from './health.controller';
 import { TerminusModule } from '@nestjs/terminus';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
-import { BullModule } from '@biosimulations/nestjs-bullmq';
+import { BullModule } from '@nestjs/bullmq';
 import { BullHealthIndicator, HealthCheckProcessor } from './bullHealthCheck';
 import { BullModuleOptions } from '@biosimulations/messages/messages';
 

@@ -11,6 +11,7 @@
 
 <div
   #vegaContainer
+  (onResize)="handleResize($event)"
   [ngStyle]="{
     display: loading || error ? 'none' : 'block'
   }"></div>

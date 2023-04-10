@@ -4,6 +4,8 @@ import { LogsService } from './logs.service';
 import { of } from 'rxjs';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
+import { beforeEach, it, describe, expect, jest } from '@jest/globals';
+
 describe('LogsController', () => {
   let controller: LogsController;
   let mockService: any;

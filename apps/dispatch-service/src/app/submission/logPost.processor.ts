@@ -3,19 +3,20 @@ import { CombineArchiveLog } from '@biosimulations/datamodel/common';
 
 import { JobQueue, JobReturn } from '@biosimulations/messages/messages';
 
-import { Processor, Process } from '@biosimulations/nestjs-bullmq';
+import { Processor, WorkerHost } from '@nestjs/bullmq';
 import { Logger } from '@nestjs/common';
 import { Job } from 'bullmq';
 import { firstValueFrom } from 'rxjs';
 
-@Processor(JobQueue.logsPost)
-export class LogsPostProcessor {
+@Processor(JobQueue.logsPost, { concurrency: 10 })
+export class LogsPostProcessor extends WorkerHost {
   private readonly logger = new Logger(LogsPostProcessor.name);
 
-  public constructor(private submit: SimulationRunService) {}
+  public constructor(private submit: SimulationRunService) {
+    super();
+  }
 
-  @Process({ name: JobQueue.logsPost, concurrency: 10 })
-  private async process(job: Job): Promise<JobReturn<undefined>> {
+  public async process(job: Job): Promise<JobReturn<undefined>> {
     const data = job.data;
     const runId = data.runId;
 

@@ -1,6 +1,6 @@
 import { ProjectFile } from '@biosimulations/datamodel/api';
 import { JobQueue, JobReturn } from '@biosimulations/messages/messages';
-import { Processor, Process } from '@biosimulations/nestjs-bullmq';
+import { Processor, WorkerHost } from '@nestjs/bullmq';
 import { Logger } from '@nestjs/common';
 
 import { Job } from 'bullmq';
@@ -8,14 +8,15 @@ import { CombineArchiveManifestContent } from 'dist/libs/combine-api/nest-client
 import { firstValueFrom } from 'rxjs';
 import { FileService } from '../../file/file.service';
 
-@Processor(JobQueue.files)
-export class FilesProcessor {
+@Processor(JobQueue.files, { concurrency: 10 })
+export class FilesProcessor extends WorkerHost {
   private readonly logger = new Logger(FilesProcessor.name);
 
-  public constructor(private fileService: FileService) {}
+  public constructor(private fileService: FileService) {
+    super();
+  }
 
-  @Process({ concurrency: 10 })
-  private async process(job: Job): Promise<JobReturn<ProjectFile[] | undefined>> {
+  public async process(job: Job): Promise<JobReturn<ProjectFile[] | undefined>> {
     const data = job.data;
     const runId = data.runId;
     const dependencies: Record<string, any> | undefined = (await job.getDependencies()).processed || {};

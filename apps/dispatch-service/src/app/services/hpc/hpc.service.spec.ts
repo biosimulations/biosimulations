@@ -5,6 +5,7 @@ import { ConfigService } from '@nestjs/config';
 import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
 import { SbatchService } from '../sbatch/sbatch.service';
 import { FilePaths } from '@biosimulations/shared/storage';
+import { beforeEach, it, describe, expect } from '@jest/globals';
 
 describe('HpcService', () => {
   let service: HpcService;

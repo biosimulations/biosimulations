@@ -1,4 +1,5 @@
 {
+  "name": "combine-api",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "sourceRoot": "apps/combine-api/combine_api",
@@ -21,21 +22,29 @@
       }
     },
     "test": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "nx:run-commands",
       "options": {
         "commands": ["npx nx docker combine-api", "apps/combine-api/run-tests-in-docker-container.sh"],
         "parallel": false
       }
     },
-    "lint": {
-      "executor": "@nrwl/workspace:run-commands",
+    "test_offline": {
+      "executor": "nx:run-commands",
       "options": {
-        "commands": ["flake8"],
+        "commands": ["npx nx docker_offline combine-api", "apps/combine-api/run-tests-in-docker-container.sh"],
+        "parallel": false
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["poetry run flake8"],
         "cwd": "apps/combine-api",
         "parallel": false
       }
     },
     "docker": {
+      "inputs": [],
       "executor": "@nx-tools/nx-docker:build",
       "options": {
         "file": "./apps/combine-api/Dockerfile",
@@ -67,7 +76,46 @@
           ]
         }
       }
+    },
+    "docker_offline": {
+      "executor": "@nx-tools/nx-docker:build",
+      "options": {
+        "file": "./apps/combine-api/Dockerfile",
+        "context": "./apps/combine-api",
+        "push": false,
+        "build-args": ["app=combine-api"],
+        "outputs": ["type=docker"],
+        "metadata": {
+          "enabled": true,
+          "images": ["ghcr.io/biosimulations/combine-api"],
+          "labels": [
+            "org.opencontainers.image.title=BioSimulations COMBINE API",
+            "org.opencontainers.image.description=Docker image for the BioSimulations COMBINE API",
+            "org.opencontainers.image.url=https://biosimulations.org/",
+            "org.opencontainers.image.documentation=https://docs.biosimulations.org/",
+            "org.opencontainers.image.source=https://github.com/biosimulations/biosimulations",
+            "org.opencontainers.image.authors=BioSimulations Team <info@biosimulations.org>",
+            "org.opencontainers.image.vendor=BioSimulations",
+            "org.opencontainers.image.licenses=MIT"
+          ],
+          "tags": [
+            "type=schedule",
+            "type=ref,event=branch",
+            "type=ref,event=tag",
+            "type=ref,event=pr",
+            "type=semver,pattern={{version}}",
+            "type=sha"
+          ]
+        }
+      }
     }
   },
-  "tags": []
+  "tags": [],
+  "namedInputs": {
+    "projectSpecificFiles": [
+      "{workspaceRoot}/apps/combine-api/Dockerfile-assets/Pipfile",
+      "{workspaceRoot}/apps/combine-api/Dockerfile-assets/Pipfile.lock",
+      "{workspaceRoot}/apps/combine-api/Dockerfile"
+    ]
+  }
 }

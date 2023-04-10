@@ -7,7 +7,7 @@ import {
   SimulationRunStatus,
 } from '@biosimulations/datamodel/common';
 import { CompleteJobData, JobQueue } from '@biosimulations/messages/messages';
-import { Processor, Process, InjectQueue } from '@biosimulations/nestjs-bullmq';
+import { Processor, WorkerHost, InjectQueue } from '@nestjs/bullmq';
 import { Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
@@ -26,8 +26,8 @@ type stepsInfo = {
   data: any;
   children: string[];
 };
-@Processor(JobQueue.complete)
-export class CompleteProcessor {
+@Processor(JobQueue.complete, { concurrency: 1 })
+export class CompleteProcessor extends WorkerHost {
   private readonly logger = new Logger(CompleteProcessor.name);
   private flowProducer: FlowProducer;
   public constructor(
@@ -37,6 +37,7 @@ export class CompleteProcessor {
     private submit: SimulationRunService,
     private configService: ConfigService,
   ) {
+    super();
     const queuehost = this.configService.get('queue.host');
     const queueport = this.configService.get('queue.port');
     this.flowProducer = new FlowProducer({
@@ -44,8 +45,7 @@ export class CompleteProcessor {
     });
   }
 
-  @Process({ name: 'complete', concurrency: 1 })
-  private async process(job: Job<CompleteJobData, void, 'complete'>): Promise<void> {
+  public async process(job: Job<CompleteJobData, void, 'complete'>): Promise<void> {
     const data = job.data;
     const runId = data.runId;
     const projectId = data.projectId;

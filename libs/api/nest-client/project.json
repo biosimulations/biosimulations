@@ -1,4 +1,5 @@
 {
+  "name": "api-nest-client",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/api/nest-client/src",
   "projectType": "library",

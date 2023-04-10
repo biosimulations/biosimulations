@@ -10,52 +10,21 @@ import { debounce } from 'throttle-debounce';
   styleUrls: ['./vega-visualization.component.scss'],
 })
 export class VegaVisualizationComponent implements AfterViewInit, OnDestroy {
-  @ViewChild('vegaContainer')
+  @ViewChild('vegaContainer', { static: false })
   private _vegaContainer!: ElementRef;
 
+  public error = '';
+  public loading = true;
+
   private subscriptions: Subscription[] = [];
-
-  private resizeDebounce!: debounce<() => void>;
-  private resizeObserver!: ResizeObserver;
-
   private builtInConsoleWarn!: any;
-
-  constructor(private hostElement: ElementRef) {}
-
-  ngAfterViewInit() {
-    this.resizeDebounce = debounce(200, false, this.doOnResize.bind(this));
-
-    (async () => {
-      if (!('ResizeObserver' in window)) {
-        // Loads polyfill asynchronously, only if required.
-        const module = await import('@juggle/resize-observer');
-        window.ResizeObserver = module.ResizeObserver;
-      }
-    })();
-
-    this.resizeObserver = new ResizeObserver((entries, observer) => {
-      this.resizeDebounce();
-    });
-    this.resizeObserver.observe(this.hostElement.nativeElement.parentElement);
-
-    this.builtInConsoleWarn = console.warn;
-  }
-
-  ngOnDestroy() {
-    console.warn = this.builtInConsoleWarn;
-    this.resizeDebounce.cancel();
-    this.resizeObserver.disconnect();
-    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
-  }
-
-  loading = true;
-
   private _spec: Spec | null | false = null;
+  private resizeDebounce!: debounce<() => void>;
 
-  error = '';
+  public constructor(private hostElement: ElementRef) {}
 
   @Input()
-  set spec(value: Observable<Spec | null | false>) {
+  public set spec(value: Observable<Spec | null | false>) {
     this.loading = true;
     this.error = '';
     this._spec = null;
@@ -64,6 +33,22 @@ export class VegaVisualizationComponent implements AfterViewInit, OnDestroy {
       this.render();
     });
     this.subscriptions.push(sub);
+  }
+
+  public ngAfterViewInit(): void {
+    this.resizeDebounce = debounce(200, false, this.doOnResize.bind(this));
+    this.builtInConsoleWarn = console.warn;
+  }
+
+  public handleResize(resize: ResizeObserverEntry): void {
+    console.log('onResize', resize);
+    this.resizeDebounce();
+  }
+
+  public ngOnDestroy(): void {
+    this.resizeDebounce.cancel();
+    console.warn = this.builtInConsoleWarn;
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
   private render(): void {

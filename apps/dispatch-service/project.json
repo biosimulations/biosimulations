@@ -1,4 +1,5 @@
 {
+  "name": "dispatch-service",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/dispatch-service/src",
   "projectType": "application",
@@ -6,12 +7,14 @@
   "generators": {},
   "targets": {
     "build": {
-      "executor": "@nrwl/node:webpack",
+      "executor": "@nrwl/webpack:webpack",
       "options": {
         "outputPath": "dist/apps/dispatch-service",
         "main": "apps/dispatch-service/src/main.ts",
         "tsConfig": "apps/dispatch-service/tsconfig.app.json",
-        "assets": ["apps/dispatch-service/src/assets"]
+        "assets": ["apps/dispatch-service/src/assets"],
+        "target": "node",
+        "compiler": "tsc"
       },
       "configurations": {
         "production": {

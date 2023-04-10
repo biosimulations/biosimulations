@@ -2,6 +2,7 @@ import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { SpecificationsModel } from './specifications.model';
 import { SpecificationsService } from './specifications.service';
+import { beforeEach, it, describe, expect } from '@jest/globals';
 
 describe('SpecificationsService', () => {
   let service: SpecificationsService;

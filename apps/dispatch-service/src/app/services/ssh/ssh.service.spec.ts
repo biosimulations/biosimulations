@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { SshService } from './ssh.service';
 import { ConfigService } from '@nestjs/config';
+import { beforeEach, it, describe, expect } from '@jest/globals';
 
 class mockConfigService {
   get(key: string, defaultValue = undefined) {

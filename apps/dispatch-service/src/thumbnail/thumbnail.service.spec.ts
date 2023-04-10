@@ -4,6 +4,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ManifestService } from '../manifest/manifest.service';
 
 import { ThumbnailService } from './thumbnail.service';
+import { beforeEach, it, describe, expect } from '@jest/globals';
 
 describe('ThumbnailService', () => {
   let service: ThumbnailService;

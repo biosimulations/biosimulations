@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SimulationProjectUtilsUiModule } from '@biosimulations/simulation-project-utils/ui';
+import { SimulationProjectUtilsModule } from '@biosimulations/simulation-project-utils';
 import { UtilsRoutingModule } from './utils-routing.module';
 
 @NgModule({
-  imports: [CommonModule, SimulationProjectUtilsUiModule, UtilsRoutingModule],
+  imports: [CommonModule, SimulationProjectUtilsModule, UtilsRoutingModule],
 })
 export class UtilsModule {}

@@ -28,7 +28,6 @@ import { CommonModule } from '@angular/common';
       {
         initialNavigation: 'enabledBlocking',
         scrollPositionRestoration: 'disabled',
-        relativeLinkResolution: 'legacy',
       },
     ),
     SharedUiModule,

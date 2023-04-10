@@ -1,4 +1,5 @@
 {
+  "name": "shared-rxjs-backoff",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/rxjs-backoff/src",
   "projectType": "library",
@@ -22,7 +23,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/shared/rxjs-backoff"],
+      "outputs": ["{workspaceRoot}/coverage/libs/shared/rxjs-backoff"],
       "options": {
         "jestConfig": "libs/shared/rxjs-backoff/jest.config.ts",
         "passWithNoTests": true

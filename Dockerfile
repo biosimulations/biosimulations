@@ -1,7 +1,7 @@
 #############
 ### base ###
 #############
-FROM node:16-alpine as base
+FROM node:18-alpine as base
 
 #The name of the app to build
 ARG app
@@ -46,8 +46,7 @@ COPY declarations.d.ts /app/declarations.d.ts
 # install the app, including the dev dependencies
 RUN npm ci
 
-COPY nx.json  /app/nx.json	
-COPY angular.json /app/angular.json
+COPY nx.json  /app/nx.json
 #copy source
 COPY libs /app/libs
 COPY apps /app/apps
@@ -85,7 +84,7 @@ RUN apk add --no-cache --virtual .gyp python3 make g++\
     # Removing it here causes a fresh install which works properly
     # This is problematic however, since there is no longer a version lock
     # TODO find a way to ensure version
-    && npm uninstall sharp \ 
+    && npm uninstall sharp \
     && npm install sharp  --ignore-scripts=false \
     && apk del .gyp
 

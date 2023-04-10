@@ -25,7 +25,7 @@ jobs:
         run: sudo apt-get install -y --no-install-recommends wget
 
       - name: Install Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: '3.9'
 
@@ -51,7 +51,7 @@ jobs:
           message: 'chore: Updated Ontologies [skip ci]'
           commit: --signoff
           pull: '--rebase --autostash'
-          
+
         env:
           # This is necessary in order to push a commit to the repo
           GITHUB_TOKEN: ${{ secrets.GH_ACCESS_TOKEN}} # Leave this line unchanged

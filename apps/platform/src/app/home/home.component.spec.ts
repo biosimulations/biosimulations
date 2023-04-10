@@ -6,6 +6,7 @@ import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ConfigService } from '@biosimulations/config/angular';
+import { HomeModule } from './home.module';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -13,7 +14,7 @@ describe('HomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, SharedUiModule, BiosimulationsIconsModule, RouterTestingModule],
+      imports: [HttpClientTestingModule, SharedUiModule, BiosimulationsIconsModule, RouterTestingModule, HomeModule],
       declarations: [HomeComponent],
       providers: [ConfigService],
     }).compileComponents();

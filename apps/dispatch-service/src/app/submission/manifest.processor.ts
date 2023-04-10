@@ -1,19 +1,20 @@
 import { JobQueue, JobReturn } from '@biosimulations/messages/messages';
-import { Processor, Process } from '@biosimulations/nestjs-bullmq';
+import { Processor, WorkerHost } from '@nestjs/bullmq';
 import { Logger } from '@nestjs/common';
 import { Job } from 'bullmq';
 import { CombineArchiveManifestContent } from 'dist/libs/combine-api/nest-client/src';
 import { firstValueFrom } from 'rxjs';
 import { ManifestService } from '../../manifest/manifest.service';
 
-@Processor(JobQueue.manifest)
-export class ManifestProcessor {
+@Processor(JobQueue.manifest, { concurrency: 10 })
+export class ManifestProcessor extends WorkerHost {
   private readonly logger = new Logger(ManifestProcessor.name);
 
-  public constructor(private manifestService: ManifestService) {}
+  public constructor(private manifestService: ManifestService) {
+    super();
+  }
 
-  @Process({ name: 'manifest', concurrency: 10 })
-  private async process(job: Job): Promise<JobReturn<CombineArchiveManifestContent[] | undefined>> {
+  public async process(job: Job): Promise<JobReturn<CombineArchiveManifestContent[] | undefined>> {
     const data = job.data;
     const runId = data.runId;
     try {

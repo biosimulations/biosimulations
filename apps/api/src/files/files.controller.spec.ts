@@ -7,6 +7,7 @@ import { FilesService } from './files.service';
 import { ModuleMocker } from 'jest-mock';
 import { ModuleRef } from '@nestjs/core';
 const moduleMocker = new ModuleMocker(global);
+import { beforeEach, it, describe, expect, jest } from '@jest/globals';
 
 describe('FilesController', () => {
   let controller: FilesController;

@@ -1,6 +1,8 @@
 const { getJestProjects } = require('@nrwl/jest');
 
 export default {
+  preset: 'ts-jest',
+  testEnvironment: 'node',
   projects: [
     ...getJestProjects(),
     '<rootDir>/libs/messages',

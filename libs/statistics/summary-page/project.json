@@ -1,4 +1,5 @@
 {
+  "name": "statistics-summary-page",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/statistics/summary-page/src",
@@ -6,7 +7,7 @@
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/statistics/summary-page"],
+      "outputs": ["{workspaceRoot}/coverage/libs/statistics/summary-page"],
       "options": {
         "jestConfig": "libs/statistics/summary-page/jest.config.ts",
         "passWithNoTests": true

@@ -12,7 +12,7 @@ import {
   OntologyTerm,
   SimulationProjectUtilLoaderService,
   SimulationProjectUtilData,
-} from '@biosimulations/simulation-project-utils/service';
+} from '@biosimulations/simulation-project-utils';
 import { Simulation } from '../../../datamodel';
 import {
   CombineArchiveSedDocSpecs,

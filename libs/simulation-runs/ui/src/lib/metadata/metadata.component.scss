@@ -50,7 +50,7 @@ biosimulations-carousel {
       }
 
       h1 {
-        @include mat-typography-level-to-styles($fontConfig, subheading-2);
+        @include mat.typography-level($fontConfig, subheading-2);
         font-weight: 500;
         border-bottom: 1px solid mat.get-color-from-palette($theme-primary);
         margin-block-start: 1rem;
@@ -58,7 +58,7 @@ biosimulations-carousel {
       }
 
       h2 {
-        @include mat-typography-level-to-styles($fontConfig, subheading-1);
+        @include mat.typography-level($fontConfig, subheading-1);
         font-weight: 500;
         border-bottom: 1px dashed mat.get-color-from-palette($theme-primary);
         margin-block-start: 1rem;
@@ -66,24 +66,24 @@ biosimulations-carousel {
       }
 
       h3 {
-        @include mat-typography-level-to-styles($fontConfig, body-2);
+        @include mat.typography-level($fontConfig, body-2);
         font-weight: 500;
         margin-block-start: 1rem;
       }
 
       h4 {
-        @include mat-typography-level-to-styles($fontConfig, body-2);
+        @include mat.typography-level($fontConfig, body-2);
         font-weight: 500;
         margin-block-start: 0.5rem;
       }
 
       h5 {
-        @include mat-typography-level-to-styles($fontConfig, body-1);
+        @include mat.typography-level($fontConfig, body-1);
         margin-block-start: 0.5rem;
       }
 
       h6 {
-        @include mat-typography-level-to-styles($fontConfig, body-1);
+        @include mat.typography-level($fontConfig, body-1);
         font-style: italic;
         margin-block-start: 0.5rem;
       }

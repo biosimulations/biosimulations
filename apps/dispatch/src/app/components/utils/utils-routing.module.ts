@@ -8,7 +8,8 @@ import {
   ValidateMetadataComponent,
   ValidateProjectComponent,
   SuggestSimulatorComponent,
-} from '@biosimulations/simulation-project-utils/ui';
+  CreateProjectComponent,
+} from '@biosimulations/simulation-project-utils';
 
 const routes: Routes = [
   {
@@ -52,7 +53,7 @@ const routes: Routes = [
   },
   {
     path: 'create-project',
-    loadChildren: () => import('@biosimulations/simulation-project-utils/ui').then((m) => m.CreateProjectModule),
+    component: CreateProjectComponent,
     data: {
       breadcrumb: 'Create a simulation project (COMBINE/OMEX archive)',
       contextButtons: [

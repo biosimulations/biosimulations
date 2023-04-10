@@ -5,7 +5,8 @@
     "module": "commonjs",
     "types": ["jest", "node"],
     "resolveJsonModule": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "target": "es2016"
   },
   "files": ["src/test-setup.ts"],
   "include": ["**/*.spec.ts", "**/*.d.ts", "jest.config.ts"]

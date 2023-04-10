@@ -102,11 +102,10 @@
                 </ng-container>
 
                 <ng-container *ngSwitchCase="'stringAutoComplete'">
-                  <mat-chip-list #chipList>
+                  <mat-chip-grid #chipList>
                     <ng-container *ngFor="let value of table.columnFilterData[column.id]">
                       <ng-container *ngIf="value.checked">
-                        <mat-chip
-                          [selectable]="false"
+                        <mat-chip-row
                           [removable]="true"
                           (removed)="table.filterSetValue(column, value, false)">
                           <div class="chip-content">
@@ -115,7 +114,7 @@
                           <button matChipRemove>
                             <mat-icon>cancel</mat-icon>
                           </button>
-                        </mat-chip>
+                        </mat-chip-row>
                       </ng-container>
                     </ng-container>
                     <mat-form-field appearance="fill" class="input-field">
@@ -128,7 +127,7 @@
                         [matChipInputFor]="chipList"
                         (keyup)="table.evalAutocompleteFilter(column, autoCompleteInput.value)" />
                     </mat-form-field>
-                  </mat-chip-list>
+                  </mat-chip-grid>
                   <mat-autocomplete
                     #auto="matAutocomplete"
                     (optionSelected)="

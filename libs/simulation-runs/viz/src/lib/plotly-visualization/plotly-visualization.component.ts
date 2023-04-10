@@ -10,10 +10,11 @@ import { HtmlSnackBarComponent } from '@biosimulations/shared/ui';
   styleUrls: ['./plotly-visualization.component.scss'],
 })
 export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
-  loading = false;
-  data: PlotlyTrace[] | undefined = undefined;
-  layout: PlotlyLayout | undefined = undefined;
-  config: any = {
+  public visible = false;
+  public loading = false;
+  public data: PlotlyTrace[] | undefined = undefined;
+  public layout: PlotlyLayout | undefined = undefined;
+  public config: any = {
     scrollZoom: true,
     editable: false,
     toImageButtonOptions: {
@@ -28,11 +29,14 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
     plotlyServerURL: 'https://chart-studio.plotly.com',
     // responsive: true,
   };
-  errors: string[] = [];
+  public errors: string[] = [];
+  private resizeDebounce!: debounce<() => void>;
+
+  public constructor(private hostElement: ElementRef, private snackBar: MatSnackBar) {}
 
   @Input()
-  set dataLayout(value: PlotlyDataLayout | null | undefined) {
-    if (value == null || value === undefined) {
+  public set dataLayout(value: PlotlyDataLayout | null | undefined) {
+    if (value == null) {
       this.loading = true;
       this.errors = [];
     } else if (value.data && value.layout) {
@@ -61,33 +65,17 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  visible = false;
-
-  private resizeDebounce!: debounce<() => void>;
-  private resizeObserver!: ResizeObserver;
-
-  constructor(private hostElement: ElementRef, private snackBar: MatSnackBar) {}
-
-  ngAfterViewInit() {
+  public ngAfterViewInit(): void {
     this.resizeDebounce = debounce(50, false, this.setLayout.bind(this));
-
-    (async () => {
-      if (!('ResizeObserver' in window)) {
-        // Loads polyfill asynchronously, only if required.
-        const module = await import('@juggle/resize-observer');
-        window.ResizeObserver = module.ResizeObserver;
-      }
-    })();
-
-    this.resizeObserver = new ResizeObserver((entries, observer) => {
-      this.resizeDebounce();
-    });
-    this.resizeObserver.observe(this.hostElement.nativeElement.parentElement);
   }
 
-  ngOnDestroy() {
+  public handleResize(resize: ResizeObserverEntry): void {
+    console.log('onResize', resize);
+    this.resizeDebounce();
+  }
+
+  public ngOnDestroy() {
     this.resizeDebounce?.cancel();
-    this.resizeObserver.disconnect();
   }
 
   private setLayout(): void {

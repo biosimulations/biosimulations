@@ -5,19 +5,20 @@ import { Server } from 'http';
 import { SimulationRunModel } from '../simulation-run/simulation-run.model';
 import { SimulationRunLog, CombineArchiveLog } from './logs.model';
 import { LogsService } from './logs.service';
+import { beforeEach, it, describe, expect, jest } from '@jest/globals';
 
 describe('LogsService', () => {
   let service: LogsService;
   class mockModel {
     constructor(private data: any) {}
-    static save = jest.fn().mockResolvedValue({
-      toObject: jest.fn().mockResolvedValue({}),
+    static save = jest.fn<() => Promise<object>>().mockResolvedValue({
+      toObject: jest.fn<() => Promise<object>>().mockResolvedValue({}),
     });
     save = mockModel.save;
-    static find = jest.fn().mockResolvedValue({});
-    static findOne = jest.fn().mockResolvedValue({});
-    static findOneAndUpdate = jest.fn().mockResolvedValue({});
-    static deleteOne = jest.fn().mockResolvedValue(true);
+    static find = jest.fn<() => Promise<object>>().mockResolvedValue({});
+    static findOne = jest.fn<() => Promise<object>>().mockResolvedValue({});
+    static findOneAndUpdate = jest.fn<() => Promise<object>>().mockResolvedValue({});
+    static deleteOne = jest.fn<() => Promise<boolean>>().mockResolvedValue(true);
   }
 
   beforeEach(async () => {
