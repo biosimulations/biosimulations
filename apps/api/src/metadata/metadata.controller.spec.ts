@@ -3,6 +3,7 @@ import { MetadataController } from './metadata.controller';
 import { MetadataService } from './metadata.service';
 import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
+import { beforeEach, it, describe, expect } from '@jest/globals';
 
 class MockMetadataService {}
 

@@ -5,6 +5,7 @@ import { Server } from 'http';
 import { SimulationRunModel } from '../simulation-run/simulation-run.model';
 import { SimulationRunLog, CombineArchiveLog } from './logs.model';
 import { LogsService } from './logs.service';
+import { beforeEach, it, describe, expect, jest } from '@jest/globals';
 
 describe('LogsService', () => {
   let service: LogsService;

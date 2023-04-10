@@ -4,6 +4,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { LeanDocument } from 'mongoose';
 import { SimulatorsController } from './simulators.controller';
 import { SimulatorsService } from './simulators.service';
+import { beforeEach, it, describe, expect } from '@jest/globals';
 
 class MockSimulatorService {
   findAll() {
