@@ -16,6 +16,7 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
+    "types": ["node"],
     "typeRoots": ["node_modules/@types", "node_modules/@stdlib/types/"],
     "lib": ["es2020", "dom"],
     "skipLibCheck": true,

@@ -30,12 +30,12 @@ describe('ProjectsService', () => {
 
   class mockModel {
     constructor(private data: any) {}
-    static save = jest.fn().mockResolvedValue('test');
+    static save = jest.fn<() => Promise<string>>().mockResolvedValue('test');
     save = mockModel.save;
-    static find = jest.fn().mockResolvedValue({});
-    static findOne = jest.fn().mockResolvedValue({});
-    static findOneAndUpdate = jest.fn().mockResolvedValue({});
-    static deleteOne = jest.fn().mockResolvedValue(true);
+    static find = jest.fn<() => Promise<object>>().mockResolvedValue({});
+    static findOne = jest.fn<() => Promise<object>>().mockResolvedValue({});
+    static findOneAndUpdate = jest.fn<() => Promise<object>>().mockResolvedValue({});
+    static deleteOne = jest.fn<() => Promise<boolean>>().mockResolvedValue(true);
   }
 
   class mockFile {

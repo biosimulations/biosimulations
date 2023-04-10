@@ -23,7 +23,7 @@ enum MultiStepFormTestStep {
   selector: 'multi-step-form-test-component',
   template: '<span>Step id: {{ stepId }}</span>',
 })
-class MultiStepFormTestComponent implements IFormStepComponent {
+export class MultiStepFormTestComponent implements IFormStepComponent {
   public nextClicked = false;
   public stepId?: string;
 
@@ -34,7 +34,7 @@ class MultiStepFormTestComponent implements IFormStepComponent {
   }
 }
 
-class MultiStepFormTestDataSource implements IMultiStepFormDataSource<MultiStepFormTestStep> {
+export class MultiStepFormTestDataSource implements IMultiStepFormDataSource<MultiStepFormTestStep> {
   public formData: Record<MultiStepFormTestStep, FormStepData> = <Record<MultiStepFormTestStep, FormStepData>>{};
   public stepsToSkip: MultiStepFormTestStep[] = [];
 

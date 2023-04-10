@@ -29,7 +29,7 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
     plotlyServerURL: 'https://chart-studio.plotly.com',
     // responsive: true,
   };
-  private errors: string[] = [];
+  public errors: string[] = [];
   private resizeDebounce!: debounce<() => void>;
 
   public constructor(private hostElement: ElementRef, private snackBar: MatSnackBar) {}
