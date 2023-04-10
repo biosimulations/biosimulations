@@ -299,7 +299,7 @@ function CompleteArchive(
       },
       {
         _type: CombineArchiveContentTypeEnum.CombineArchiveContent,
-        format: 'http://identifiers.org/combine.specifications/sed-ml',
+        format: 'https://identifiers.org/combine.specifications/sed-ml',
         master: true,
         location: {
           _type: CombineArchiveLocationTypeEnum.CombineArchiveLocation,
