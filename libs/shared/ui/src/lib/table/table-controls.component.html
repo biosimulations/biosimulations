@@ -105,9 +105,7 @@
                   <mat-chip-grid #chipList>
                     <ng-container *ngFor="let value of table.columnFilterData[column.id]">
                       <ng-container *ngIf="value.checked">
-                        <mat-chip-row
-                          [removable]="true"
-                          (removed)="table.filterSetValue(column, value, false)">
+                        <mat-chip-row [removable]="true" (removed)="table.filterSetValue(column, value, false)">
                           <div class="chip-content">
                             {{ value.formattedValue }}
                           </div>
