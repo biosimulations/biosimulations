@@ -20,6 +20,9 @@ export interface CombineArchiveSedDocSpecsContent {
    * URI for a format.
    */
   format: string;
+  /**
+   *
+   */
   master: boolean;
   /**
    * Type.

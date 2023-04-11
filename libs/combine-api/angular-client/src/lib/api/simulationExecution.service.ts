@@ -12,15 +12,25 @@
 /* tslint:disable:no-unused-variable member-ordering */
 
 import { Inject, Injectable, Optional } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams, HttpResponse, HttpEvent, HttpParameterCodec } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpParams,
+  HttpResponse,
+  HttpEvent,
+  HttpParameterCodec,
+  HttpContext,
+} from '@angular/common/http';
 import { CustomHttpParameterCodec } from '../encoder';
 import { Observable } from 'rxjs';
 
-import { Environment } from '../model/models';
-import { SimulationRunResults } from '../model/models';
-import { Simulator } from '../model/models';
+import { Environment } from '../model/environment';
 
-import { BASE_PATH } from '../variables';
+import { SimulationRunResults } from '../model/simulationRunResults';
+
+import { Simulator } from '../model/simulator';
+
+import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
 import { Configuration } from '../configuration';
 
 @Injectable({
@@ -34,13 +44,17 @@ export class SimulationExecutionService {
 
   constructor(
     protected httpClient: HttpClient,
-    @Optional() @Inject(BASE_PATH) basePath: string,
+    @Optional() @Inject(BASE_PATH) basePath: string | string[],
     @Optional() configuration: Configuration,
   ) {
     if (configuration) {
       this.configuration = configuration;
     }
     if (typeof this.configuration.basePath !== 'string') {
+      if (Array.isArray(basePath) && basePath.length > 0) {
+        basePath = basePath[0];
+      }
+
       if (typeof basePath !== 'string') {
         basePath = this.basePath;
       }
@@ -105,25 +119,25 @@ export class SimulationExecutionService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersRunGetSimulatorsHandler(
+  public combineApiHandlersRunGetSimulatorsHandler(
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Simulator>>;
-  public srcHandlersRunGetSimulatorsHandler(
+  public combineApiHandlersRunGetSimulatorsHandler(
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Simulator>>>;
-  public srcHandlersRunGetSimulatorsHandler(
+  public combineApiHandlersRunGetSimulatorsHandler(
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Simulator>>>;
-  public srcHandlersRunGetSimulatorsHandler(
+  public combineApiHandlersRunGetSimulatorsHandler(
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -137,12 +151,25 @@ export class SimulationExecutionService {
       localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
     }
 
-    let responseType_: 'text' | 'json' = 'json';
-    if (localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
-      responseType_ = 'text';
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
     }
 
-    return this.httpClient.get<Array<Simulator>>(`${this.configuration.basePath}/run/simulators`, {
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let localVarPath = `/run/simulators`;
+    return this.httpClient.request<Array<Simulator>>('get', `${this.configuration.basePath}${localVarPath}`, {
+      context: localVarHttpContext,
       responseType: <any>responseType_,
       withCredentials: this.configuration.withCredentials,
       headers: localVarHeaders,
@@ -162,7 +189,7 @@ export class SimulationExecutionService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersRunRunHandler(
+  public combineApiHandlersRunRunHandler(
     simulator: string,
     type: string,
     archiveUrl?: string,
@@ -172,9 +199,10 @@ export class SimulationExecutionService {
     reportProgress?: boolean,
     options?: {
       httpHeaderAccept?: 'application/json' | 'application/x-hdf' | 'application/zip';
+      context?: HttpContext;
     },
   ): Observable<SimulationRunResults>;
-  public srcHandlersRunRunHandler(
+  public combineApiHandlersRunRunHandler(
     simulator: string,
     type: string,
     archiveUrl?: string,
@@ -184,9 +212,10 @@ export class SimulationExecutionService {
     reportProgress?: boolean,
     options?: {
       httpHeaderAccept?: 'application/json' | 'application/x-hdf' | 'application/zip';
+      context?: HttpContext;
     },
   ): Observable<HttpResponse<SimulationRunResults>>;
-  public srcHandlersRunRunHandler(
+  public combineApiHandlersRunRunHandler(
     simulator: string,
     type: string,
     archiveUrl?: string,
@@ -196,9 +225,10 @@ export class SimulationExecutionService {
     reportProgress?: boolean,
     options?: {
       httpHeaderAccept?: 'application/json' | 'application/x-hdf' | 'application/zip';
+      context?: HttpContext;
     },
   ): Observable<HttpEvent<SimulationRunResults>>;
-  public srcHandlersRunRunHandler(
+  public combineApiHandlersRunRunHandler(
     simulator: string,
     type: string,
     archiveUrl?: string,
@@ -208,13 +238,16 @@ export class SimulationExecutionService {
     reportProgress: boolean = false,
     options?: {
       httpHeaderAccept?: 'application/json' | 'application/x-hdf' | 'application/zip';
+      context?: HttpContext;
     },
   ): Observable<any> {
     if (simulator === null || simulator === undefined) {
-      throw new Error('Required parameter simulator was null or undefined when calling srcHandlersRunRunHandler.');
+      throw new Error(
+        'Required parameter simulator was null or undefined when calling combineApiHandlersRunRunHandler.',
+      );
     }
     if (type === null || type === undefined) {
-      throw new Error('Required parameter type was null or undefined when calling srcHandlersRunRunHandler.');
+      throw new Error('Required parameter type was null or undefined when calling combineApiHandlersRunRunHandler.');
     }
 
     let localVarHeaders = this.defaultHeaders;
@@ -229,35 +262,68 @@ export class SimulationExecutionService {
       localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
     }
 
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
     // to determine the Content-Type header
     const consumes: string[] = ['multipart/form-data'];
 
     const canConsumeForm = this.canConsumeForm(consumes);
 
     let localVarFormParams: { append(param: string, value: any): any };
-    const localVarUseForm = false;
-    const localVarConvertFormParamsToString = false;
+    let localVarUseForm = false;
+    let localVarConvertFormParamsToString = false;
+    // use FormData to transmit files using content-type "multipart/form-data"
+    // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+    localVarUseForm = canConsumeForm;
     if (localVarUseForm) {
       localVarFormParams = new FormData();
     } else {
       localVarFormParams = new HttpParams({ encoder: this.encoder });
     }
 
-    let responseType_: 'text' | 'json' = 'json';
-    if (localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
-      responseType_ = 'text';
+    if (simulator !== undefined) {
+      localVarFormParams = (localVarFormParams.append('simulator', <any>simulator) as any) || localVarFormParams;
+    }
+    if (archiveUrl !== undefined) {
+      localVarFormParams = (localVarFormParams.append('archiveUrl', <any>archiveUrl) as any) || localVarFormParams;
+    }
+    if (archiveFile !== undefined) {
+      localVarFormParams = (localVarFormParams.append('archiveFile', <any>archiveFile) as any) || localVarFormParams;
+    }
+    if (type !== undefined) {
+      localVarFormParams = (localVarFormParams.append('_type', <any>type) as any) || localVarFormParams;
+    }
+    if (environment !== undefined) {
+      localVarFormParams =
+        (localVarFormParams.append(
+          'environment',
+          localVarUseForm ? new Blob([JSON.stringify(environment)], { type: 'application/json' }) : <any>environment,
+        ) as any) || localVarFormParams;
     }
 
-    return this.httpClient.post<SimulationRunResults>(
-      `${this.configuration.basePath}/run/run`,
-      localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
-      {
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      },
-    );
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let localVarPath = `/run/run`;
+    return this.httpClient.request<SimulationRunResults>('post', `${this.configuration.basePath}${localVarPath}`, {
+      context: localVarHttpContext,
+      body: localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 }

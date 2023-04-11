@@ -19,34 +19,41 @@ npx @openapitools/openapi-generator-cli generate \
     -i ${spec_file} \
     -o ${lib_dir}/src/lib/ \
     --global-property=skipFormModel=false \
-    --additional-properties=stringEnums=true,enumPropertyNaming=original,nestVersion=7.0.0,supportsES6=true \
+    --additional-properties=stringEnums=true,enumPropertyNaming=original,nestVersion=9.0.0,supportsES6=true \
     --reserved-words-mappings abstract=abstract
 
-# Import `FormData` from `form-data` to allow use on server side
-sed -i '13s/^/import  FormData from "form-data"\n/' ${lib_dir}/src/lib/api/*.service.ts
+for file in ${lib_dir}/src/lib/api/*.service.ts ; do
+   # Import `FormData` from `form-data` to allow use on server side
+   sed -i.bak -e '13s|^|import  FormData from \"form-data\"\n|' $file && rm ${file}.bak
 
-# Correct a definition in the generated code to play nicer with typescript compiler
-sed -i 's/        let formParams: { append(param: string, value: any): void; };/        let formParams: FormData = new FormData(); /g'  ${lib_dir}/src/lib/api/*.service.ts
+   # Correct a definition in the generated code to play nicer with typescript compiler
+   sed -i.bak -e 's|let formParams: { append(param: string, value: any): void; };|let formParams: FormData = new FormData(); |g' $file  && rm ${file}.bak
 
-# Use the correct headers from the formdata rather than the default headers
-sed -i 's/    let headers = this.defaultHeaders;/        let headers:any = this.defaultHeaders;/' ${lib_dir}/src/lib/api/*.service.ts
+   # Use the correct headers from the formdata rather than the default headers
+   sed -i.bak -e 's|let headers = this.defaultHeaders;|let headers:any = this.defaultHeaders;|' $file  && rm ${file}.bak
 
-# Correct type of `queryParameters`
-sed -i 's/let queryParameters = {};/let queryParameters: any = {};/' ${lib_dir}/src/lib/api/*.service.ts
+   # Correct type of `queryParameters`
+   sed -i.bak -e 's|let queryParameters = {};|let queryParameters: any = {};|' $file  && rm ${file}.bak
+done
 
-perl -0777 -i -p -e 's/if \(useForm\) \{\n\s*formParams = new FormData\(\);/ if \(useForm\) \{formParams = new FormData\(\); headers= formParams.getHeaders\(\);/g' ${lib_dir}/src/lib/api/*.service.ts
+sed -i.bak -e '14s|^|import { COLLECTION_FORMATS } from \"../variables\"\n|' ${lib_dir}/src/lib/api/simulationProjects.service.ts && rm  ${lib_dir}/src/lib/api/simulationProjects.service.ts.bak
+
+perl -0777 -i -p -e 's|if \(useForm\) \{\n\s*formParams = new FormData\(\);| if \(useForm\) \{formParams = new FormData\(\); headers= formParams.getHeaders\(\);|g' ${lib_dir}/src/lib/api/*.service.ts
 
 # Correct names of auto-generated type enumerations
-perl -0777 -i -p -e 's/_type: ([a-zA-Z0-9_]+Type);/_type: $1Enum;/' ${lib_dir}/src/lib/model/*.ts
-perl -0777 -i -p -e 's/export enum ([a-zA-Z0-9_]+Type) \{/export enum $1Enum {/' ${lib_dir}/src/lib/model/*.ts
-sed -i 's/ModelAndSimulationSimulationTypeEnum/ModelAndSimulationSimulationType/' ${lib_dir}/src/lib/model/modelAndSimulation.ts
-sed -i "s/Linear = 'linear'/linear = 'linear'/" ${lib_dir}/src/lib/model/sedAxisScale.ts
-sed -i "s/Log = 'log'/log = 'log'/" ${lib_dir}/src/lib/model/sedAxisScale.ts
-sed -i "s/Linear = 'linear'/linear = 'linear'/" ${lib_dir}/src/lib/model/sedUniformRange.ts
-sed -i "s/Log = 'log'/log = 'log'/" ${lib_dir}/src/lib/model/sedUniformRange.ts
+perl -0777 -i -p -e 's|_type: ([a-zA-Z0-9_]+Type);|_type: $1Enum;|' ${lib_dir}/src/lib/model/*.ts
+perl -0777 -i -p -e 's|export enum ([a-zA-Z0-9_]+Type) \{|export enum $1Enum {|' ${lib_dir}/src/lib/model/*.ts
+
+pushd ${lib_dir}/src/lib/model
+sed -i.bak -e 's|ModelAndSimulationSimulationTypeEnum|ModelAndSimulationSimulationType|' modelAndSimulation.ts && rm modelAndSimulation.ts.bak
+sed -i.bak -e 's|Linear = \"linear\"|linear = \"linear\"|' sedAxisScale.ts && rm sedAxisScale.ts.bak
+sed -i.bak -e 's|Log = \"log\"|log = \"log\"|' sedAxisScale.ts && rm sedAxisScale.ts.bak
+sed -i.bak -e 's|Linear = \"linear\"|linear = \"linear\"|' sedUniformRange.ts && rm sedUniformRange.ts.bak
+sed -i.bak -e 's|Log = \"log\"|log = \"log\"|' sedUniformRange.ts && rm sedUniformRange.ts.bak
+popd
 
 # Format the files
-nx format --projects combine-api-nest-client
+npx nx format --projects combine-api-nest-client
 
 # Build the library
-nx build combine-api-nest-client --skip-cache
+npx nx build combine-api-nest-client --skip-cache

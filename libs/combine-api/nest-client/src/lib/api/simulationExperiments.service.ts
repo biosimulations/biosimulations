@@ -11,8 +11,9 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 import FormData from 'form-data';
-import { HttpService } from '@nestjs/axios';
+
 import { Inject, Injectable, Optional } from '@nestjs/common';
+import { HttpService } from '@nestjs/axios';
 import { AxiosResponse } from 'axios';
 import { Observable } from 'rxjs';
 import { CombineArchiveSedDocSpecs } from '../model/combineArchiveSedDocSpecs';
@@ -23,7 +24,7 @@ import { Configuration } from '../configuration';
 @Injectable()
 export class SimulationExperimentsService {
   protected basePath = 'https://combine.api.biosimulations.dev';
-  public defaultHeaders = new Map();
+  public defaultHeaders: Record<string, string> = {};
   public configuration = new Configuration();
 
   constructor(protected httpClient: HttpService, @Optional() configuration: Configuration) {
@@ -48,12 +49,12 @@ export class SimulationExperimentsService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersCombineGetSedmlSpecsForCombineArchiveHandler(
+  public combineApiHandlersCombineGetSedmlSpecsForCombineArchiveHandler(
     file?: Blob,
     url?: string,
   ): Observable<AxiosResponse<CombineArchiveSedDocSpecs>>;
-  public srcHandlersCombineGetSedmlSpecsForCombineArchiveHandler(file?: Blob, url?: string): Observable<any> {
-    let headers: any = this.defaultHeaders;
+  public combineApiHandlersCombineGetSedmlSpecsForCombineArchiveHandler(file?: Blob, url?: string): Observable<any> {
+    let headers = { ...this.defaultHeaders };
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
@@ -110,7 +111,7 @@ export class SimulationExperimentsService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersSedMlGetParametersVariablesForSimulationHandler(
+  public combineApiHandlersSedMlGetParametersVariablesForSimulationHandler(
     modelLanguage: string,
     simulationType: string,
     modelingFramework: string,
@@ -118,7 +119,7 @@ export class SimulationExperimentsService {
     modelFile?: Blob,
     modelUrl?: string,
   ): Observable<AxiosResponse<SedDocument>>;
-  public srcHandlersSedMlGetParametersVariablesForSimulationHandler(
+  public combineApiHandlersSedMlGetParametersVariablesForSimulationHandler(
     modelLanguage: string,
     simulationType: string,
     modelingFramework: string,
@@ -128,29 +129,29 @@ export class SimulationExperimentsService {
   ): Observable<any> {
     if (modelLanguage === null || modelLanguage === undefined) {
       throw new Error(
-        'Required parameter modelLanguage was null or undefined when calling srcHandlersSedMlGetParametersVariablesForSimulationHandler.',
+        'Required parameter modelLanguage was null or undefined when calling combineApiHandlersSedMlGetParametersVariablesForSimulationHandler.',
       );
     }
 
     if (simulationType === null || simulationType === undefined) {
       throw new Error(
-        'Required parameter simulationType was null or undefined when calling srcHandlersSedMlGetParametersVariablesForSimulationHandler.',
+        'Required parameter simulationType was null or undefined when calling combineApiHandlersSedMlGetParametersVariablesForSimulationHandler.',
       );
     }
 
     if (modelingFramework === null || modelingFramework === undefined) {
       throw new Error(
-        'Required parameter modelingFramework was null or undefined when calling srcHandlersSedMlGetParametersVariablesForSimulationHandler.',
+        'Required parameter modelingFramework was null or undefined when calling combineApiHandlersSedMlGetParametersVariablesForSimulationHandler.',
       );
     }
 
     if (simulationAlgorithm === null || simulationAlgorithm === undefined) {
       throw new Error(
-        'Required parameter simulationAlgorithm was null or undefined when calling srcHandlersSedMlGetParametersVariablesForSimulationHandler.',
+        'Required parameter simulationAlgorithm was null or undefined when calling combineApiHandlersSedMlGetParametersVariablesForSimulationHandler.',
       );
     }
 
-    let headers: any = this.defaultHeaders;
+    let headers = { ...this.defaultHeaders };
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
@@ -219,9 +220,9 @@ export class SimulationExperimentsService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersSedMlValidateHandler(file?: Blob, url?: string): Observable<AxiosResponse<ValidationReport>>;
-  public srcHandlersSedMlValidateHandler(file?: Blob, url?: string): Observable<any> {
-    let headers: any = this.defaultHeaders;
+  public combineApiHandlersSedMlValidateHandler(file?: Blob, url?: string): Observable<AxiosResponse<ValidationReport>>;
+  public combineApiHandlersSedMlValidateHandler(file?: Blob, url?: string): Observable<any> {
+    let headers = { ...this.defaultHeaders };
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];

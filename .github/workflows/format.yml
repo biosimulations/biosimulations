@@ -28,13 +28,14 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3.3.0
         with:
+          node-version: '18'
           cache: npm
 
 
       - name: Install npm dependencies
         run: npm ci
-      
-      - name: Install nrwl cli 
+
+      - name: Install nrwl cli
         run: npm install -g @nrwl/cli && npm install -g nx@latest
 
       - name: Format files

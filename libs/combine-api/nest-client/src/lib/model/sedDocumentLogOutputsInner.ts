@@ -9,26 +9,14 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { CombineArchiveManifestLocation } from './combineArchiveManifestLocation';
+import { SedOutputElementLog } from './sedOutputElementLog';
+import { SedPlot2DLog } from './sedPlot2DLog';
+import { SedPlot3DLog } from './sedPlot3DLog';
+import { SedReportLog } from './sedReportLog';
+import { Exception } from './exception';
 
 /**
- * Content item of a COMBINE/OMEX archive.
+ * @type SedDocumentLogOutputsInner
+ * @export
  */
-export interface CombineArchiveManifestContent {
-  location: CombineArchiveManifestLocation;
-  /**
-   * URI for a format.
-   */
-  format: string;
-  /**
-   *
-   */
-  master: boolean;
-  /**
-   * Type.
-   */
-  _type: CombineArchiveManifestContentTypeEnum;
-}
-export enum CombineArchiveManifestContentTypeEnum {
-  CombineArchiveManifestContent = 'CombineArchiveManifestContent',
-}
+export type SedDocumentLogOutputsInner = SedPlot2DLog | SedPlot3DLog | SedReportLog;

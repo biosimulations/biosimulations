@@ -47,6 +47,7 @@ export * from './sedDataGenerator';
 export * from './sedDataSet';
 export * from './sedDocument';
 export * from './sedDocumentLog';
+export * from './sedDocumentLogOutputsInner';
 export * from './sedFillStyle';
 export * from './sedFunctionalRange';
 export * from './sedLineStyle';

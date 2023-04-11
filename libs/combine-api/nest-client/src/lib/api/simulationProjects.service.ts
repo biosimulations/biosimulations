@@ -11,8 +11,10 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 import FormData from 'form-data';
-import { HttpService } from '@nestjs/axios';
+import { COLLECTION_FORMATS } from '../variables';
+
 import { Inject, Injectable, Optional } from '@nestjs/common';
+import { HttpService } from '@nestjs/axios';
 import { AxiosResponse } from 'axios';
 import { Observable } from 'rxjs';
 import { BioSimulationsCombineArchiveElementMetadata } from '../model/bioSimulationsCombineArchiveElementMetadata';
@@ -30,7 +32,7 @@ import { Configuration } from '../configuration';
 @Injectable()
 export class SimulationProjectsService {
   protected basePath = 'https://combine.api.biosimulations.dev';
-  public defaultHeaders = new Map();
+  public defaultHeaders: Record<string, string> = {};
   public configuration = new Configuration();
 
   constructor(protected httpClient: HttpService, @Optional() configuration: Configuration) {
@@ -58,14 +60,14 @@ export class SimulationProjectsService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersCombineAddFileHandler(
+  public combineApiHandlersCombineAddFileHandler(
     archive: FilenameOrUrl,
     files: Array<Blob>,
     newContent: CombineArchiveFileContent,
     overwriteLocations?: boolean,
     download?: boolean,
   ): Observable<AxiosResponse<Blob>>;
-  public srcHandlersCombineAddFileHandler(
+  public combineApiHandlersCombineAddFileHandler(
     archive: FilenameOrUrl,
     files: Array<Blob>,
     newContent: CombineArchiveFileContent,
@@ -74,21 +76,23 @@ export class SimulationProjectsService {
   ): Observable<any> {
     if (archive === null || archive === undefined) {
       throw new Error(
-        'Required parameter archive was null or undefined when calling srcHandlersCombineAddFileHandler.',
+        'Required parameter archive was null or undefined when calling combineApiHandlersCombineAddFileHandler.',
       );
     }
 
     if (files === null || files === undefined) {
-      throw new Error('Required parameter files was null or undefined when calling srcHandlersCombineAddFileHandler.');
+      throw new Error(
+        'Required parameter files was null or undefined when calling combineApiHandlersCombineAddFileHandler.',
+      );
     }
 
     if (newContent === null || newContent === undefined) {
       throw new Error(
-        'Required parameter newContent was null or undefined when calling srcHandlersCombineAddFileHandler.',
+        'Required parameter newContent was null or undefined when calling combineApiHandlersCombineAddFileHandler.',
       );
     }
 
-    let headers: any = this.defaultHeaders;
+    let headers = { ...this.defaultHeaders };
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/zip', 'application/json'];
@@ -128,8 +132,8 @@ export class SimulationProjectsService {
       formParams.append('download', <any>download);
     }
 
-    if (files !== undefined) {
-      formParams.append('files', <any>files);
+    if (files) {
+      formParams.append('files', files.join(COLLECTION_FORMATS['csv']));
     }
 
     if (newContent !== undefined) {
@@ -155,21 +159,23 @@ export class SimulationProjectsService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersCombineCreateHandler(
+  public combineApiHandlersCombineCreateHandler(
     specs: CombineArchive,
     files?: Array<Blob>,
     download?: boolean,
   ): Observable<AxiosResponse<string>>;
-  public srcHandlersCombineCreateHandler(
+  public combineApiHandlersCombineCreateHandler(
     specs: CombineArchive,
     files?: Array<Blob>,
     download?: boolean,
   ): Observable<any> {
     if (specs === null || specs === undefined) {
-      throw new Error('Required parameter specs was null or undefined when calling srcHandlersCombineCreateHandler.');
+      throw new Error(
+        'Required parameter specs was null or undefined when calling combineApiHandlersCombineCreateHandler.',
+      );
     }
 
-    let headers: any = this.defaultHeaders;
+    let headers = { ...this.defaultHeaders };
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json', 'application/zip'];
@@ -201,8 +207,8 @@ export class SimulationProjectsService {
       formParams.append('specs', <any>specs);
     }
 
-    if (files !== undefined) {
-      formParams.append('files', <any>files);
+    if (files) {
+      formParams.append('files', files.join(COLLECTION_FORMATS['csv']));
     }
 
     if (download !== undefined) {
@@ -226,27 +232,29 @@ export class SimulationProjectsService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersCombineGetFileHandler(url: string, location: string): Observable<AxiosResponse<Blob>>;
-  public srcHandlersCombineGetFileHandler(url: string, location: string): Observable<any> {
+  public combineApiHandlersCombineGetFileHandler(url: string, location: string): Observable<AxiosResponse<Blob>>;
+  public combineApiHandlersCombineGetFileHandler(url: string, location: string): Observable<any> {
     if (url === null || url === undefined) {
-      throw new Error('Required parameter url was null or undefined when calling srcHandlersCombineGetFileHandler.');
+      throw new Error(
+        'Required parameter url was null or undefined when calling combineApiHandlersCombineGetFileHandler.',
+      );
     }
 
     if (location === null || location === undefined) {
       throw new Error(
-        'Required parameter location was null or undefined when calling srcHandlersCombineGetFileHandler.',
+        'Required parameter location was null or undefined when calling combineApiHandlersCombineGetFileHandler.',
       );
     }
 
-    let queryParameters: any = {};
+    let queryParameters = new URLSearchParams();
     if (url !== undefined && url !== null) {
-      queryParameters['url'] = <any>url;
+      queryParameters.append('url', <any>url);
     }
     if (location !== undefined && location !== null) {
-      queryParameters['location'] = <any>location;
+      queryParameters.append('location', <any>location);
     }
 
-    let headers: any = this.defaultHeaders;
+    let headers = { ...this.defaultHeaders };
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/octet-stream', 'application/json'];
@@ -272,12 +280,12 @@ export class SimulationProjectsService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersCombineGetManifestHandler(
+  public combineApiHandlersCombineGetManifestHandler(
     file?: Blob,
     url?: string,
   ): Observable<AxiosResponse<CombineArchiveManifest>>;
-  public srcHandlersCombineGetManifestHandler(file?: Blob, url?: string): Observable<any> {
-    let headers: any = this.defaultHeaders;
+  public combineApiHandlersCombineGetManifestHandler(file?: Blob, url?: string): Observable<any> {
+    let headers = { ...this.defaultHeaders };
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
@@ -331,23 +339,23 @@ export class SimulationProjectsService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
+  public combineApiHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
     omexMetadataFormat: string,
     file?: Blob,
     url?: string,
   ): Observable<AxiosResponse<Array<BioSimulationsCombineArchiveElementMetadata>>>;
-  public srcHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
+  public combineApiHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
     omexMetadataFormat: string,
     file?: Blob,
     url?: string,
   ): Observable<any> {
     if (omexMetadataFormat === null || omexMetadataFormat === undefined) {
       throw new Error(
-        'Required parameter omexMetadataFormat was null or undefined when calling srcHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations.',
+        'Required parameter omexMetadataFormat was null or undefined when calling combineApiHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations.',
       );
     }
 
-    let headers: any = this.defaultHeaders;
+    let headers = { ...this.defaultHeaders };
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
@@ -405,23 +413,23 @@ export class SimulationProjectsService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples(
+  public combineApiHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples(
     omexMetadataFormat: string,
     file?: Blob,
     url?: string,
   ): Observable<AxiosResponse<Array<RdfTriple>>>;
-  public srcHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples(
+  public combineApiHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples(
     omexMetadataFormat: string,
     file?: Blob,
     url?: string,
   ): Observable<any> {
     if (omexMetadataFormat === null || omexMetadataFormat === undefined) {
       throw new Error(
-        'Required parameter omexMetadataFormat was null or undefined when calling srcHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples.',
+        'Required parameter omexMetadataFormat was null or undefined when calling combineApiHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples.',
       );
     }
 
-    let headers: any = this.defaultHeaders;
+    let headers = { ...this.defaultHeaders };
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
@@ -478,12 +486,12 @@ export class SimulationProjectsService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersCombineGetSedmlSpecsForCombineArchiveHandler(
+  public combineApiHandlersCombineGetSedmlSpecsForCombineArchiveHandler(
     file?: Blob,
     url?: string,
   ): Observable<AxiosResponse<CombineArchiveSedDocSpecs>>;
-  public srcHandlersCombineGetSedmlSpecsForCombineArchiveHandler(file?: Blob, url?: string): Observable<any> {
-    let headers: any = this.defaultHeaders;
+  public combineApiHandlersCombineGetSedmlSpecsForCombineArchiveHandler(file?: Blob, url?: string): Observable<any> {
+    let headers = { ...this.defaultHeaders };
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
@@ -538,27 +546,31 @@ export class SimulationProjectsService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersCombineModifyHandler(
+  public combineApiHandlersCombineModifyHandler(
     specs: CombineArchive,
     archive: FilenameOrUrl,
     files?: Array<Blob>,
     download?: boolean,
   ): Observable<AxiosResponse<string>>;
-  public srcHandlersCombineModifyHandler(
+  public combineApiHandlersCombineModifyHandler(
     specs: CombineArchive,
     archive: FilenameOrUrl,
     files?: Array<Blob>,
     download?: boolean,
   ): Observable<any> {
     if (specs === null || specs === undefined) {
-      throw new Error('Required parameter specs was null or undefined when calling srcHandlersCombineModifyHandler.');
+      throw new Error(
+        'Required parameter specs was null or undefined when calling combineApiHandlersCombineModifyHandler.',
+      );
     }
 
     if (archive === null || archive === undefined) {
-      throw new Error('Required parameter archive was null or undefined when calling srcHandlersCombineModifyHandler.');
+      throw new Error(
+        'Required parameter archive was null or undefined when calling combineApiHandlersCombineModifyHandler.',
+      );
     }
 
-    let headers: any = this.defaultHeaders;
+    let headers = { ...this.defaultHeaders };
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json', 'application/zip'];
@@ -590,8 +602,8 @@ export class SimulationProjectsService {
       formParams.append('specs', <any>specs);
     }
 
-    if (files !== undefined) {
-      formParams.append('files', <any>files);
+    if (files) {
+      formParams.append('files', files.join(COLLECTION_FORMATS['csv']));
     }
 
     if (download !== undefined) {
@@ -626,7 +638,7 @@ export class SimulationProjectsService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersCombineValidateHandler(
+  public combineApiHandlersCombineValidateHandler(
     omexMetadataFormat: string,
     omexMetadataSchema: string,
     file?: Blob,
@@ -637,7 +649,7 @@ export class SimulationProjectsService {
     validateOmexMetadata?: boolean,
     validateImages?: boolean,
   ): Observable<AxiosResponse<ValidationReport>>;
-  public srcHandlersCombineValidateHandler(
+  public combineApiHandlersCombineValidateHandler(
     omexMetadataFormat: string,
     omexMetadataSchema: string,
     file?: Blob,
@@ -650,17 +662,17 @@ export class SimulationProjectsService {
   ): Observable<any> {
     if (omexMetadataFormat === null || omexMetadataFormat === undefined) {
       throw new Error(
-        'Required parameter omexMetadataFormat was null or undefined when calling srcHandlersCombineValidateHandler.',
+        'Required parameter omexMetadataFormat was null or undefined when calling combineApiHandlersCombineValidateHandler.',
       );
     }
 
     if (omexMetadataSchema === null || omexMetadataSchema === undefined) {
       throw new Error(
-        'Required parameter omexMetadataSchema was null or undefined when calling srcHandlersCombineValidateHandler.',
+        'Required parameter omexMetadataSchema was null or undefined when calling combineApiHandlersCombineValidateHandler.',
       );
     }
 
-    let headers: any = this.defaultHeaders;
+    let headers = { ...this.defaultHeaders };
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
@@ -744,14 +756,14 @@ export class SimulationProjectsService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersRunRunHandler(
+  public combineApiHandlersRunRunHandler(
     simulator: string,
     type: string,
     archiveUrl?: string,
     archiveFile?: Blob,
     environment?: Environment,
   ): Observable<AxiosResponse<SimulationRunResults>>;
-  public srcHandlersRunRunHandler(
+  public combineApiHandlersRunRunHandler(
     simulator: string,
     type: string,
     archiveUrl?: string,
@@ -759,14 +771,16 @@ export class SimulationProjectsService {
     environment?: Environment,
   ): Observable<any> {
     if (simulator === null || simulator === undefined) {
-      throw new Error('Required parameter simulator was null or undefined when calling srcHandlersRunRunHandler.');
+      throw new Error(
+        'Required parameter simulator was null or undefined when calling combineApiHandlersRunRunHandler.',
+      );
     }
 
     if (type === null || type === undefined) {
-      throw new Error('Required parameter type was null or undefined when calling srcHandlersRunRunHandler.');
+      throw new Error('Required parameter type was null or undefined when calling combineApiHandlersRunRunHandler.');
     }
 
-    let headers: any = this.defaultHeaders;
+    let headers = { ...this.defaultHeaders };
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json', 'application/x-hdf', 'application/zip'];

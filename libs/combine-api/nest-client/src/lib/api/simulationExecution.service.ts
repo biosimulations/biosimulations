@@ -12,8 +12,8 @@
 /* tslint:disable:no-unused-variable member-ordering */
 import FormData from 'form-data';
 
-import { HttpService } from '@nestjs/axios';
 import { Inject, Injectable, Optional } from '@nestjs/common';
+import { HttpService } from '@nestjs/axios';
 import { AxiosResponse } from 'axios';
 import { Observable } from 'rxjs';
 import { Environment } from '../model/environment';
@@ -24,7 +24,7 @@ import { Configuration } from '../configuration';
 @Injectable()
 export class SimulationExecutionService {
   protected basePath = 'https://combine.api.biosimulations.dev';
-  public defaultHeaders = new Map();
+  public defaultHeaders: Record<string, string> = {};
   public configuration = new Configuration();
 
   constructor(protected httpClient: HttpService, @Optional() configuration: Configuration) {
@@ -47,9 +47,9 @@ export class SimulationExecutionService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersRunGetSimulatorsHandler(): Observable<AxiosResponse<Array<Simulator>>>;
-  public srcHandlersRunGetSimulatorsHandler(): Observable<any> {
-    let headers: any = this.defaultHeaders;
+  public combineApiHandlersRunGetSimulatorsHandler(): Observable<AxiosResponse<Array<Simulator>>>;
+  public combineApiHandlersRunGetSimulatorsHandler(): Observable<any> {
+    let headers = { ...this.defaultHeaders };
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
@@ -76,14 +76,14 @@ export class SimulationExecutionService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersRunRunHandler(
+  public combineApiHandlersRunRunHandler(
     simulator: string,
     type: string,
     archiveUrl?: string,
     archiveFile?: Blob,
     environment?: Environment,
   ): Observable<AxiosResponse<SimulationRunResults>>;
-  public srcHandlersRunRunHandler(
+  public combineApiHandlersRunRunHandler(
     simulator: string,
     type: string,
     archiveUrl?: string,
@@ -91,14 +91,16 @@ export class SimulationExecutionService {
     environment?: Environment,
   ): Observable<any> {
     if (simulator === null || simulator === undefined) {
-      throw new Error('Required parameter simulator was null or undefined when calling srcHandlersRunRunHandler.');
+      throw new Error(
+        'Required parameter simulator was null or undefined when calling combineApiHandlersRunRunHandler.',
+      );
     }
 
     if (type === null || type === undefined) {
-      throw new Error('Required parameter type was null or undefined when calling srcHandlersRunRunHandler.');
+      throw new Error('Required parameter type was null or undefined when calling combineApiHandlersRunRunHandler.');
     }
 
-    let headers: any = this.defaultHeaders;
+    let headers = { ...this.defaultHeaders };
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json', 'application/x-hdf', 'application/zip'];

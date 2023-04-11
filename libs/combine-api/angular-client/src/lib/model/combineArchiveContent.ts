@@ -20,6 +20,9 @@ export interface CombineArchiveContent {
    * URI for a format.
    */
   format: string;
+  /**
+   *
+   */
   master: boolean;
   /**
    * Type.

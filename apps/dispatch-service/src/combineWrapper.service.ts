@@ -17,7 +17,7 @@ export class CombineWrapperService {
     file?: Blob,
     url?: string,
   ): Observable<AxiosResponse<BioSimulationsCombineArchiveElementMetadata[]>> {
-    return this.service.srcHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
+    return this.service.combineApiHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
       omexMetadataFormat,
       file,
       url,
@@ -25,11 +25,11 @@ export class CombineWrapperService {
   }
 
   public getManifest(file?: Blob, url?: string): Observable<AxiosResponse<CombineArchiveManifest>> {
-    return this.service.srcHandlersCombineGetManifestHandler(file, url);
+    return this.service.combineApiHandlersCombineGetManifestHandler(file, url);
   }
 
   public getSedMlSpecs(file?: Blob, url?: string): Observable<AxiosResponse<CombineArchiveSedDocSpecs>> {
-    return this.service.srcHandlersCombineGetSedmlSpecsForCombineArchiveHandler(file, url);
+    return this.service.combineApiHandlersCombineGetSedmlSpecsForCombineArchiveHandler(file, url);
   }
 }
 

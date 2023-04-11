@@ -13,12 +13,24 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
 
       - name: Install dependencies
         run: |
           sudo apt-get update
           sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
           sudo apt-get -y install perl
+
+      - uses: actions/setup-node@v3.3.0
+        with:
+          node-version: '18'
+
+      - name: Print node and npm versions
+        run: |
+          node --version
+          npm --version
 
       - name: Install NPM dependencies
         uses: bahmutov/npm-install@v1

@@ -10,8 +10,12 @@
  * Do not edit the class manually.
  */
 import { SedReport } from './sedReport';
+import { SedDataSet } from './sedDataSet';
 import { SedPlot2D } from './sedPlot2D';
+import { SedAxisScale } from './sedAxisScale';
 import { SedPlot3D } from './sedPlot3D';
+import { SedSurface } from './sedSurface';
+import { SedCurve } from './sedCurve';
 
 /**
  * An output of a SED-ML document.

@@ -12,13 +12,21 @@
 /* tslint:disable:no-unused-variable member-ordering */
 
 import { Inject, Injectable, Optional } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams, HttpResponse, HttpEvent, HttpParameterCodec } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpParams,
+  HttpResponse,
+  HttpEvent,
+  HttpParameterCodec,
+  HttpContext,
+} from '@angular/common/http';
 import { CustomHttpParameterCodec } from '../encoder';
 import { Observable } from 'rxjs';
 
-import { KisaoAlgorithmSubstitution } from '../model/models';
+import { KisaoAlgorithmSubstitution } from '../model/kisaoAlgorithmSubstitution';
 
-import { BASE_PATH } from '../variables';
+import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
 import { Configuration } from '../configuration';
 
 @Injectable({
@@ -32,13 +40,17 @@ export class SimulationAlgorithmsService {
 
   constructor(
     protected httpClient: HttpClient,
-    @Optional() @Inject(BASE_PATH) basePath: string,
+    @Optional() @Inject(BASE_PATH) basePath: string | string[],
     @Optional() configuration: Configuration,
   ) {
     if (configuration) {
       this.configuration = configuration;
     }
     if (typeof this.configuration.basePath !== 'string') {
+      if (Array.isArray(basePath) && basePath.length > 0) {
+        basePath = basePath[0];
+      }
+
       if (typeof basePath !== 'string') {
         basePath = this.basePath;
       }
@@ -89,33 +101,33 @@ export class SimulationAlgorithmsService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersKisaoGetSimilarAlgorithmsHandler(
+  public combineApiHandlersKisaoGetSimilarAlgorithmsHandler(
     algorithms: Array<string>,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<KisaoAlgorithmSubstitution>>;
-  public srcHandlersKisaoGetSimilarAlgorithmsHandler(
+  public combineApiHandlersKisaoGetSimilarAlgorithmsHandler(
     algorithms: Array<string>,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<KisaoAlgorithmSubstitution>>>;
-  public srcHandlersKisaoGetSimilarAlgorithmsHandler(
+  public combineApiHandlersKisaoGetSimilarAlgorithmsHandler(
     algorithms: Array<string>,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<KisaoAlgorithmSubstitution>>>;
-  public srcHandlersKisaoGetSimilarAlgorithmsHandler(
+  public combineApiHandlersKisaoGetSimilarAlgorithmsHandler(
     algorithms: Array<string>,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (algorithms === null || algorithms === undefined) {
       throw new Error(
-        'Required parameter algorithms was null or undefined when calling srcHandlersKisaoGetSimilarAlgorithmsHandler.',
+        'Required parameter algorithms was null or undefined when calling combineApiHandlersKisaoGetSimilarAlgorithmsHandler.',
       );
     }
 
@@ -138,14 +150,28 @@ export class SimulationAlgorithmsService {
       localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
     }
 
-    let responseType_: 'text' | 'json' = 'json';
-    if (localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
-      responseType_ = 'text';
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
     }
 
-    return this.httpClient.get<Array<KisaoAlgorithmSubstitution>>(
-      `${this.configuration.basePath}/kisao/get-similar-algorithms`,
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let localVarPath = `/kisao/get-similar-algorithms`;
+    return this.httpClient.request<Array<KisaoAlgorithmSubstitution>>(
+      'get',
+      `${this.configuration.basePath}${localVarPath}`,
       {
+        context: localVarHttpContext,
         params: localVarQueryParameters,
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,

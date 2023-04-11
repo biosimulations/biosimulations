@@ -10,6 +10,12 @@
         "@typescript-eslint/explicit-member-accessibility": "off",
         "@typescript-eslint/no-explicit-any": "off",
         "unused-imports/no-unused-vars-ts": "off",
+        "unused-imports/no-unused-imports-ts": "off",
+        "no-control-regex": "off",
+        "no-useless-escape": "off",
+        "prefer-const": "off",
+        "@typescript-eslint/no-inferrable-types": "off",
+        "@typescript-eslint/no-extra-semi": "off",
         "@angular-eslint/directive-selector": [
           "error",
           {

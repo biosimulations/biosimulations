@@ -11,8 +11,11 @@
  */
 import { SedAddElementModelChange } from './sedAddElementModelChange';
 import { SedReplaceElementModelChange } from './sedReplaceElementModelChange';
+import { SedParameter } from './sedParameter';
+import { SedVariable } from './sedVariable';
 import { SedComputeModelChange } from './sedComputeModelChange';
 import { SedRemoveElementModelChange } from './sedRemoveElementModelChange';
+import { SedTarget } from './sedTarget';
 import { SedModelAttributeChange } from './sedModelAttributeChange';
 
 /**

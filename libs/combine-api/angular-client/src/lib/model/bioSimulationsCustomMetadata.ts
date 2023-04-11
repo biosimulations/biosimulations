@@ -11,6 +11,9 @@
  */
 import { BioSimulationsMetadataValue } from './bioSimulationsMetadataValue';
 
+/**
+ *
+ */
 export interface BioSimulationsCustomMetadata {
   /**
    * Type

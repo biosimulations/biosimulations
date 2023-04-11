@@ -15,7 +15,9 @@
   <div class="input-group">
     <mat-form-field class="card-form-field" appearance="fill">
       <mat-label>Choose model file</mat-label>
-      <biosimulations-ngx-mat-file-input formControlName="modelFile" [accept]="supportedFileTypes()"></biosimulations-ngx-mat-file-input>
+      <biosimulations-ngx-mat-file-input
+        formControlName="modelFile"
+        [accept]="supportedFileTypes()"></biosimulations-ngx-mat-file-input>
     </mat-form-field>
 
     <mat-hint>Or</mat-hint>
