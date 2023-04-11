@@ -11,8 +11,9 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 import FormData from 'form-data';
-import { HttpService } from '@nestjs/axios';
+
 import { Inject, Injectable, Optional } from '@nestjs/common';
+import { HttpService } from '@nestjs/axios';
 import { AxiosResponse } from 'axios';
 import { Observable } from 'rxjs';
 import { Health } from '../model/health';
@@ -21,7 +22,7 @@ import { Configuration } from '../configuration';
 @Injectable()
 export class HealthService {
   protected basePath = 'https://combine.api.biosimulations.dev';
-  public defaultHeaders = new Map();
+  public defaultHeaders: Record<string, string> = {};
   public configuration = new Configuration();
 
   constructor(protected httpClient: HttpService, @Optional() configuration: Configuration) {
@@ -44,9 +45,9 @@ export class HealthService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersHealthHandler(): Observable<AxiosResponse<Health>>;
-  public srcHandlersHealthHandler(): Observable<any> {
-    let headers: any = this.defaultHeaders;
+  public combineApiHandlersHealthHandler(): Observable<AxiosResponse<Health>>;
+  public combineApiHandlersHealthHandler(): Observable<any> {
+    let headers = { ...this.defaultHeaders };
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];

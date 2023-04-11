@@ -11,8 +11,9 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 import FormData from 'form-data';
-import { HttpService } from '@nestjs/axios';
+
 import { Inject, Injectable, Optional } from '@nestjs/common';
+import { HttpService } from '@nestjs/axios';
 import { AxiosResponse } from 'axios';
 import { Observable } from 'rxjs';
 import { ValidationReport } from '../model/validationReport';
@@ -21,7 +22,7 @@ import { Configuration } from '../configuration';
 @Injectable()
 export class ModelsService {
   protected basePath = 'https://combine.api.biosimulations.dev';
-  public defaultHeaders = new Map();
+  public defaultHeaders: Record<string, string> = {};
   public configuration = new Configuration();
 
   constructor(protected httpClient: HttpService, @Optional() configuration: Configuration) {
@@ -47,19 +48,19 @@ export class ModelsService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersModelValidateHandler(
+  public combineApiHandlersModelValidateHandler(
     language: string,
     file?: Blob,
     url?: string,
   ): Observable<AxiosResponse<ValidationReport>>;
-  public srcHandlersModelValidateHandler(language: string, file?: Blob, url?: string): Observable<any> {
+  public combineApiHandlersModelValidateHandler(language: string, file?: Blob, url?: string): Observable<any> {
     if (language === null || language === undefined) {
       throw new Error(
-        'Required parameter language was null or undefined when calling srcHandlersModelValidateHandler.',
+        'Required parameter language was null or undefined when calling combineApiHandlersModelValidateHandler.',
       );
     }
 
-    let headers: any = this.defaultHeaders;
+    let headers = { ...this.defaultHeaders };
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];

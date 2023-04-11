@@ -12,8 +12,8 @@
 /* tslint:disable:no-unused-variable member-ordering */
 import FormData from 'form-data';
 
-import { HttpService } from '@nestjs/axios';
 import { Inject, Injectable, Optional } from '@nestjs/common';
+import { HttpService } from '@nestjs/axios';
 import { AxiosResponse } from 'axios';
 import { Observable } from 'rxjs';
 import { ValidationReport } from '../model/validationReport';
@@ -22,7 +22,7 @@ import { Configuration } from '../configuration';
 @Injectable()
 export class ValidationService {
   protected basePath = 'https://combine.api.biosimulations.dev';
-  public defaultHeaders = new Map();
+  public defaultHeaders: Record<string, string> = {};
   public configuration = new Configuration();
 
   constructor(protected httpClient: HttpService, @Optional() configuration: Configuration) {
@@ -54,7 +54,7 @@ export class ValidationService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersCombineValidateHandler(
+  public combineApiHandlersCombineValidateHandler(
     omexMetadataFormat: string,
     omexMetadataSchema: string,
     file?: Blob,
@@ -65,7 +65,7 @@ export class ValidationService {
     validateOmexMetadata?: boolean,
     validateImages?: boolean,
   ): Observable<AxiosResponse<ValidationReport>>;
-  public srcHandlersCombineValidateHandler(
+  public combineApiHandlersCombineValidateHandler(
     omexMetadataFormat: string,
     omexMetadataSchema: string,
     file?: Blob,
@@ -78,17 +78,17 @@ export class ValidationService {
   ): Observable<any> {
     if (omexMetadataFormat === null || omexMetadataFormat === undefined) {
       throw new Error(
-        'Required parameter omexMetadataFormat was null or undefined when calling srcHandlersCombineValidateHandler.',
+        'Required parameter omexMetadataFormat was null or undefined when calling combineApiHandlersCombineValidateHandler.',
       );
     }
 
     if (omexMetadataSchema === null || omexMetadataSchema === undefined) {
       throw new Error(
-        'Required parameter omexMetadataSchema was null or undefined when calling srcHandlersCombineValidateHandler.',
+        'Required parameter omexMetadataSchema was null or undefined when calling combineApiHandlersCombineValidateHandler.',
       );
     }
 
-    let headers: any = this.defaultHeaders;
+    let headers = { ...this.defaultHeaders };
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
@@ -170,19 +170,19 @@ export class ValidationService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersModelValidateHandler(
+  public combineApiHandlersModelValidateHandler(
     language: string,
     file?: Blob,
     url?: string,
   ): Observable<AxiosResponse<ValidationReport>>;
-  public srcHandlersModelValidateHandler(language: string, file?: Blob, url?: string): Observable<any> {
+  public combineApiHandlersModelValidateHandler(language: string, file?: Blob, url?: string): Observable<any> {
     if (language === null || language === undefined) {
       throw new Error(
-        'Required parameter language was null or undefined when calling srcHandlersModelValidateHandler.',
+        'Required parameter language was null or undefined when calling combineApiHandlersModelValidateHandler.',
       );
     }
 
-    let headers: any = this.defaultHeaders;
+    let headers = { ...this.defaultHeaders };
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
@@ -241,13 +241,13 @@ export class ValidationService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersOmexMetadataValidateHandler(
+  public combineApiHandlersOmexMetadataValidateHandler(
     format: string,
     schema: string,
     file?: Blob,
     url?: string,
   ): Observable<AxiosResponse<ValidationReport>>;
-  public srcHandlersOmexMetadataValidateHandler(
+  public combineApiHandlersOmexMetadataValidateHandler(
     format: string,
     schema: string,
     file?: Blob,
@@ -255,17 +255,17 @@ export class ValidationService {
   ): Observable<any> {
     if (format === null || format === undefined) {
       throw new Error(
-        'Required parameter format was null or undefined when calling srcHandlersOmexMetadataValidateHandler.',
+        'Required parameter format was null or undefined when calling combineApiHandlersOmexMetadataValidateHandler.',
       );
     }
 
     if (schema === null || schema === undefined) {
       throw new Error(
-        'Required parameter schema was null or undefined when calling srcHandlersOmexMetadataValidateHandler.',
+        'Required parameter schema was null or undefined when calling combineApiHandlersOmexMetadataValidateHandler.',
       );
     }
 
-    let headers: any = this.defaultHeaders;
+    let headers = { ...this.defaultHeaders };
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
@@ -326,9 +326,9 @@ export class ValidationService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersSedMlValidateHandler(file?: Blob, url?: string): Observable<AxiosResponse<ValidationReport>>;
-  public srcHandlersSedMlValidateHandler(file?: Blob, url?: string): Observable<any> {
-    let headers: any = this.defaultHeaders;
+  public combineApiHandlersSedMlValidateHandler(file?: Blob, url?: string): Observable<AxiosResponse<ValidationReport>>;
+  public combineApiHandlersSedMlValidateHandler(file?: Blob, url?: string): Observable<any> {
+    let headers = { ...this.defaultHeaders };
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];

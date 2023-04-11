@@ -63,6 +63,7 @@ model/sedDataGenerator.ts
 model/sedDataSet.ts
 model/sedDocument.ts
 model/sedDocumentLog.ts
+model/sedDocumentLogOutputsInner.ts
 model/sedFillStyle.ts
 model/sedFunctionalRange.ts
 model/sedLineStyle.ts

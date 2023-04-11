@@ -11,8 +11,9 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 import FormData from 'form-data';
-import { HttpService } from '@nestjs/axios';
+
 import { Inject, Injectable, Optional } from '@nestjs/common';
+import { HttpService } from '@nestjs/axios';
 import { AxiosResponse } from 'axios';
 import { Observable } from 'rxjs';
 import { BioSimulationsCombineArchiveElementMetadata } from '../model/bioSimulationsCombineArchiveElementMetadata';
@@ -23,7 +24,7 @@ import { Configuration } from '../configuration';
 @Injectable()
 export class MetadataService {
   protected basePath = 'https://combine.api.biosimulations.dev';
-  public defaultHeaders = new Map();
+  public defaultHeaders: Record<string, string> = {};
   public configuration = new Configuration();
 
   constructor(protected httpClient: HttpService, @Optional() configuration: Configuration) {
@@ -49,23 +50,23 @@ export class MetadataService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
+  public combineApiHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
     omexMetadataFormat: string,
     file?: Blob,
     url?: string,
   ): Observable<AxiosResponse<Array<BioSimulationsCombineArchiveElementMetadata>>>;
-  public srcHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
+  public combineApiHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
     omexMetadataFormat: string,
     file?: Blob,
     url?: string,
   ): Observable<any> {
     if (omexMetadataFormat === null || omexMetadataFormat === undefined) {
       throw new Error(
-        'Required parameter omexMetadataFormat was null or undefined when calling srcHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations.',
+        'Required parameter omexMetadataFormat was null or undefined when calling combineApiHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations.',
       );
     }
 
-    let headers: any = this.defaultHeaders;
+    let headers = { ...this.defaultHeaders };
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
@@ -123,23 +124,23 @@ export class MetadataService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples(
+  public combineApiHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples(
     omexMetadataFormat: string,
     file?: Blob,
     url?: string,
   ): Observable<AxiosResponse<Array<RdfTriple>>>;
-  public srcHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples(
+  public combineApiHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples(
     omexMetadataFormat: string,
     file?: Blob,
     url?: string,
   ): Observable<any> {
     if (omexMetadataFormat === null || omexMetadataFormat === undefined) {
       throw new Error(
-        'Required parameter omexMetadataFormat was null or undefined when calling srcHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples.',
+        'Required parameter omexMetadataFormat was null or undefined when calling combineApiHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples.',
       );
     }
 
-    let headers: any = this.defaultHeaders;
+    let headers = { ...this.defaultHeaders };
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
@@ -198,13 +199,13 @@ export class MetadataService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersOmexMetadataValidateHandler(
+  public combineApiHandlersOmexMetadataValidateHandler(
     format: string,
     schema: string,
     file?: Blob,
     url?: string,
   ): Observable<AxiosResponse<ValidationReport>>;
-  public srcHandlersOmexMetadataValidateHandler(
+  public combineApiHandlersOmexMetadataValidateHandler(
     format: string,
     schema: string,
     file?: Blob,
@@ -212,17 +213,17 @@ export class MetadataService {
   ): Observable<any> {
     if (format === null || format === undefined) {
       throw new Error(
-        'Required parameter format was null or undefined when calling srcHandlersOmexMetadataValidateHandler.',
+        'Required parameter format was null or undefined when calling combineApiHandlersOmexMetadataValidateHandler.',
       );
     }
 
     if (schema === null || schema === undefined) {
       throw new Error(
-        'Required parameter schema was null or undefined when calling srcHandlersOmexMetadataValidateHandler.',
+        'Required parameter schema was null or undefined when calling combineApiHandlersOmexMetadataValidateHandler.',
       );
     }
 
-    let headers: any = this.defaultHeaders;
+    let headers = { ...this.defaultHeaders };
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];

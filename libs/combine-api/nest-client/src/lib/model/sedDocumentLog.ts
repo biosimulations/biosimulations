@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 import { SedTaskLog } from './sedTaskLog';
-import { SedPlot2DLog } from './sedPlot2DLog';
-import { SedPlot3DLog } from './sedPlot3DLog';
-import { SedReportLog } from './sedReportLog';
+import { SedDocumentLogOutputsInner } from './sedDocumentLogOutputsInner';
 import { Exception } from './exception';
 
 export interface SedDocumentLog {
@@ -23,7 +21,7 @@ export interface SedDocumentLog {
   output: string | null;
   duration: number | null;
   tasks: Array<SedTaskLog> | null;
-  outputs: Array<SedReportLog | SedPlot2DLog | SedPlot3DLog> | null;
+  outputs: Array<SedDocumentLogOutputsInner> | null;
 }
 export enum SedDocumentLogStatus {
   QUEUED = 'QUEUED',
