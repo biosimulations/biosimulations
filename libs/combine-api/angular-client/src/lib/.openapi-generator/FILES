@@ -35,7 +35,6 @@ model/combineArchiveSedDocSpecsLocation.ts
 model/createCombineArchiveSpecsAndFiles.ts
 model/environment.ts
 model/environmentVariable.ts
-model/error.ts
 model/exception.ts
 model/fileOrUrl.ts
 model/filenameOrUrl.ts
@@ -45,6 +44,7 @@ model/kisaoAlgorithmSubstitution.ts
 model/kisaoAlgorithmSubstitutionPolicy.ts
 model/kisaoTerm.ts
 model/modelAndSimulation.ts
+model/modelError.ts
 model/models.ts
 model/modifyCombineArchiveSpecsAndFiles.ts
 model/namespace.ts
@@ -64,6 +64,7 @@ model/sedDataGenerator.ts
 model/sedDataSet.ts
 model/sedDocument.ts
 model/sedDocumentLog.ts
+model/sedDocumentLogOutputsInner.ts
 model/sedFillStyle.ts
 model/sedFunctionalRange.ts
 model/sedLineStyle.ts
@@ -110,4 +111,5 @@ model/validateModelFileOrUrl.ts
 model/validateOmexMetadataFileOrUrl.ts
 model/validationMessage.ts
 model/validationReport.ts
+param.ts
 variables.ts

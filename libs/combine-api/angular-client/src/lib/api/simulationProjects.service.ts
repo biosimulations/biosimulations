@@ -12,22 +12,39 @@
 /* tslint:disable:no-unused-variable member-ordering */
 
 import { Inject, Injectable, Optional } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams, HttpResponse, HttpEvent, HttpParameterCodec } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpParams,
+  HttpResponse,
+  HttpEvent,
+  HttpParameterCodec,
+  HttpContext,
+} from '@angular/common/http';
 import { CustomHttpParameterCodec } from '../encoder';
 import { Observable } from 'rxjs';
 
-import { BioSimulationsCombineArchiveElementMetadata } from '../model/models';
-import { CombineArchive } from '../model/models';
-import { CombineArchiveFileContent } from '../model/models';
-import { CombineArchiveManifest } from '../model/models';
-import { CombineArchiveSedDocSpecs } from '../model/models';
-import { Environment } from '../model/models';
-import { FilenameOrUrl } from '../model/models';
-import { RdfTriple } from '../model/models';
-import { SimulationRunResults } from '../model/models';
-import { ValidationReport } from '../model/models';
+import { BioSimulationsCombineArchiveElementMetadata } from '../model/bioSimulationsCombineArchiveElementMetadata';
 
-import { BASE_PATH } from '../variables';
+import { CombineArchive } from '../model/combineArchive';
+
+import { CombineArchiveFileContent } from '../model/combineArchiveFileContent';
+
+import { CombineArchiveManifest } from '../model/combineArchiveManifest';
+
+import { CombineArchiveSedDocSpecs } from '../model/combineArchiveSedDocSpecs';
+
+import { Environment } from '../model/environment';
+
+import { FilenameOrUrl } from '../model/filenameOrUrl';
+
+import { RdfTriple } from '../model/rdfTriple';
+
+import { SimulationRunResults } from '../model/simulationRunResults';
+
+import { ValidationReport } from '../model/validationReport';
+
+import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
 import { Configuration } from '../configuration';
 
 @Injectable({
@@ -41,13 +58,17 @@ export class SimulationProjectsService {
 
   constructor(
     protected httpClient: HttpClient,
-    @Optional() @Inject(BASE_PATH) basePath: string,
+    @Optional() @Inject(BASE_PATH) basePath: string | string[],
     @Optional() configuration: Configuration,
   ) {
     if (configuration) {
       this.configuration = configuration;
     }
     if (typeof this.configuration.basePath !== 'string') {
+      if (Array.isArray(basePath) && basePath.length > 0) {
+        basePath = basePath[0];
+      }
+
       if (typeof basePath !== 'string') {
         basePath = this.basePath;
       }
@@ -117,7 +138,7 @@ export class SimulationProjectsService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersCombineAddFileHandler(
+  public combineApiHandlersCombineAddFileHandler(
     archive: FilenameOrUrl,
     files: Array<Blob>,
     newContent: CombineArchiveFileContent,
@@ -125,9 +146,9 @@ export class SimulationProjectsService {
     download?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/zip' | 'application/json' },
+    options?: { httpHeaderAccept?: 'application/zip' | 'application/json'; context?: HttpContext },
   ): Observable<Blob>;
-  public srcHandlersCombineAddFileHandler(
+  public combineApiHandlersCombineAddFileHandler(
     archive: FilenameOrUrl,
     files: Array<Blob>,
     newContent: CombineArchiveFileContent,
@@ -135,9 +156,9 @@ export class SimulationProjectsService {
     download?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/zip' | 'application/json' },
+    options?: { httpHeaderAccept?: 'application/zip' | 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Blob>>;
-  public srcHandlersCombineAddFileHandler(
+  public combineApiHandlersCombineAddFileHandler(
     archive: FilenameOrUrl,
     files: Array<Blob>,
     newContent: CombineArchiveFileContent,
@@ -145,9 +166,9 @@ export class SimulationProjectsService {
     download?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/zip' | 'application/json' },
+    options?: { httpHeaderAccept?: 'application/zip' | 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Blob>>;
-  public srcHandlersCombineAddFileHandler(
+  public combineApiHandlersCombineAddFileHandler(
     archive: FilenameOrUrl,
     files: Array<Blob>,
     newContent: CombineArchiveFileContent,
@@ -155,19 +176,21 @@ export class SimulationProjectsService {
     download?: boolean,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/zip' | 'application/json' },
+    options?: { httpHeaderAccept?: 'application/zip' | 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (archive === null || archive === undefined) {
       throw new Error(
-        'Required parameter archive was null or undefined when calling srcHandlersCombineAddFileHandler.',
+        'Required parameter archive was null or undefined when calling combineApiHandlersCombineAddFileHandler.',
       );
     }
     if (files === null || files === undefined) {
-      throw new Error('Required parameter files was null or undefined when calling srcHandlersCombineAddFileHandler.');
+      throw new Error(
+        'Required parameter files was null or undefined when calling combineApiHandlersCombineAddFileHandler.',
+      );
     }
     if (newContent === null || newContent === undefined) {
       throw new Error(
-        'Required parameter newContent was null or undefined when calling srcHandlersCombineAddFileHandler.',
+        'Required parameter newContent was null or undefined when calling combineApiHandlersCombineAddFileHandler.',
       );
     }
 
@@ -183,31 +206,70 @@ export class SimulationProjectsService {
       localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
     }
 
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
     // to determine the Content-Type header
     const consumes: string[] = ['multipart/form-data'];
 
     const canConsumeForm = this.canConsumeForm(consumes);
 
     let localVarFormParams: { append(param: string, value: any): any };
-    const localVarUseForm = false;
-    const localVarConvertFormParamsToString = false;
+    let localVarUseForm = false;
+    let localVarConvertFormParamsToString = false;
+    // use FormData to transmit files using content-type "multipart/form-data"
+    // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+    localVarUseForm = canConsumeForm;
     if (localVarUseForm) {
       localVarFormParams = new FormData();
     } else {
       localVarFormParams = new HttpParams({ encoder: this.encoder });
     }
 
-    return this.httpClient.post(
-      `${this.configuration.basePath}/combine/file`,
-      localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
-      {
-        responseType: 'blob',
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      },
-    );
+    if (archive !== undefined) {
+      localVarFormParams =
+        (localVarFormParams.append(
+          'archive',
+          localVarUseForm ? new Blob([JSON.stringify(archive)], { type: 'application/json' }) : <any>archive,
+        ) as any) || localVarFormParams;
+    }
+    if (overwriteLocations !== undefined) {
+      localVarFormParams =
+        (localVarFormParams.append('overwriteLocations', <any>overwriteLocations) as any) || localVarFormParams;
+    }
+    if (download !== undefined) {
+      localVarFormParams = (localVarFormParams.append('download', <any>download) as any) || localVarFormParams;
+    }
+    if (files) {
+      if (localVarUseForm) {
+        files.forEach((element) => {
+          localVarFormParams = (localVarFormParams.append('files', <any>element) as any) || localVarFormParams;
+        });
+      } else {
+        localVarFormParams =
+          (localVarFormParams.append('files', [...files].join(COLLECTION_FORMATS['csv'])) as any) || localVarFormParams;
+      }
+    }
+    if (newContent !== undefined) {
+      localVarFormParams =
+        (localVarFormParams.append(
+          'newContent',
+          localVarUseForm ? new Blob([JSON.stringify(newContent)], { type: 'application/json' }) : <any>newContent,
+        ) as any) || localVarFormParams;
+    }
+
+    let localVarPath = `/combine/file`;
+    return this.httpClient.request('post', `${this.configuration.basePath}${localVarPath}`, {
+      context: localVarHttpContext,
+      body: localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
+      responseType: 'blob',
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -219,40 +281,42 @@ export class SimulationProjectsService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersCombineCreateHandler(
+  public combineApiHandlersCombineCreateHandler(
     specs: CombineArchive,
     files?: Array<Blob>,
     download?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json' | 'application/zip' },
+    options?: { httpHeaderAccept?: 'application/json' | 'application/zip'; context?: HttpContext },
   ): Observable<string>;
-  public srcHandlersCombineCreateHandler(
+  public combineApiHandlersCombineCreateHandler(
     specs: CombineArchive,
     files?: Array<Blob>,
     download?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json' | 'application/zip' },
+    options?: { httpHeaderAccept?: 'application/json' | 'application/zip'; context?: HttpContext },
   ): Observable<HttpResponse<string>>;
-  public srcHandlersCombineCreateHandler(
+  public combineApiHandlersCombineCreateHandler(
     specs: CombineArchive,
     files?: Array<Blob>,
     download?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json' | 'application/zip' },
+    options?: { httpHeaderAccept?: 'application/json' | 'application/zip'; context?: HttpContext },
   ): Observable<HttpEvent<string>>;
-  public srcHandlersCombineCreateHandler(
+  public combineApiHandlersCombineCreateHandler(
     specs: CombineArchive,
     files?: Array<Blob>,
     download?: boolean,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json' | 'application/zip' },
+    options?: { httpHeaderAccept?: 'application/json' | 'application/zip'; context?: HttpContext },
   ): Observable<any> {
     if (specs === null || specs === undefined) {
-      throw new Error('Required parameter specs was null or undefined when calling srcHandlersCombineCreateHandler.');
+      throw new Error(
+        'Required parameter specs was null or undefined when calling combineApiHandlersCombineCreateHandler.',
+      );
     }
 
     let localVarHeaders = this.defaultHeaders;
@@ -267,36 +331,70 @@ export class SimulationProjectsService {
       localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
     }
 
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
     // to determine the Content-Type header
     const consumes: string[] = ['multipart/form-data'];
 
     const canConsumeForm = this.canConsumeForm(consumes);
 
     let localVarFormParams: { append(param: string, value: any): any };
-    const localVarUseForm = false;
-    const localVarConvertFormParamsToString = false;
+    let localVarUseForm = false;
+    let localVarConvertFormParamsToString = false;
+    // use FormData to transmit files using content-type "multipart/form-data"
+    // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+    localVarUseForm = canConsumeForm;
     if (localVarUseForm) {
       localVarFormParams = new FormData();
     } else {
       localVarFormParams = new HttpParams({ encoder: this.encoder });
     }
 
-    let responseType_: 'text' | 'json' = 'json';
-    if (localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
-      responseType_ = 'text';
+    if (specs !== undefined) {
+      localVarFormParams =
+        (localVarFormParams.append(
+          'specs',
+          localVarUseForm ? new Blob([JSON.stringify(specs)], { type: 'application/json' }) : <any>specs,
+        ) as any) || localVarFormParams;
+    }
+    if (files) {
+      if (localVarUseForm) {
+        files.forEach((element) => {
+          localVarFormParams = (localVarFormParams.append('files', <any>element) as any) || localVarFormParams;
+        });
+      } else {
+        localVarFormParams =
+          (localVarFormParams.append('files', [...files].join(COLLECTION_FORMATS['csv'])) as any) || localVarFormParams;
+      }
+    }
+    if (download !== undefined) {
+      localVarFormParams = (localVarFormParams.append('download', <any>download) as any) || localVarFormParams;
     }
 
-    return this.httpClient.post<string>(
-      `${this.configuration.basePath}/combine/create`,
-      localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
-      {
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      },
-    );
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let localVarPath = `/combine/create`;
+    return this.httpClient.request<string>('post', `${this.configuration.basePath}${localVarPath}`, {
+      context: localVarHttpContext,
+      body: localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -307,48 +405,42 @@ export class SimulationProjectsService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersCombineGetFileHandler(
+  public combineApiHandlersCombineGetFileHandler(
     url: string,
     location: string,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: {
-      httpHeaderAccept?: 'application/octet-stream' | 'application/json';
-    },
+    options?: { httpHeaderAccept?: 'application/octet-stream' | 'application/json'; context?: HttpContext },
   ): Observable<Blob>;
-  public srcHandlersCombineGetFileHandler(
+  public combineApiHandlersCombineGetFileHandler(
     url: string,
     location: string,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: {
-      httpHeaderAccept?: 'application/octet-stream' | 'application/json';
-    },
+    options?: { httpHeaderAccept?: 'application/octet-stream' | 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Blob>>;
-  public srcHandlersCombineGetFileHandler(
+  public combineApiHandlersCombineGetFileHandler(
     url: string,
     location: string,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: {
-      httpHeaderAccept?: 'application/octet-stream' | 'application/json';
-    },
+    options?: { httpHeaderAccept?: 'application/octet-stream' | 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Blob>>;
-  public srcHandlersCombineGetFileHandler(
+  public combineApiHandlersCombineGetFileHandler(
     url: string,
     location: string,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: {
-      httpHeaderAccept?: 'application/octet-stream' | 'application/json';
-    },
+    options?: { httpHeaderAccept?: 'application/octet-stream' | 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (url === null || url === undefined) {
-      throw new Error('Required parameter url was null or undefined when calling srcHandlersCombineGetFileHandler.');
+      throw new Error(
+        'Required parameter url was null or undefined when calling combineApiHandlersCombineGetFileHandler.',
+      );
     }
     if (location === null || location === undefined) {
       throw new Error(
-        'Required parameter location was null or undefined when calling srcHandlersCombineGetFileHandler.',
+        'Required parameter location was null or undefined when calling combineApiHandlersCombineGetFileHandler.',
       );
     }
 
@@ -372,7 +464,14 @@ export class SimulationProjectsService {
       localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
     }
 
-    return this.httpClient.get(`${this.configuration.basePath}/combine/file`, {
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let localVarPath = `/combine/file`;
+    return this.httpClient.request('get', `${this.configuration.basePath}${localVarPath}`, {
+      context: localVarHttpContext,
       params: localVarQueryParameters,
       responseType: 'blob',
       withCredentials: this.configuration.withCredentials,
@@ -390,33 +489,33 @@ export class SimulationProjectsService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersCombineGetManifestHandler(
+  public combineApiHandlersCombineGetManifestHandler(
     file?: Blob,
     url?: string,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<CombineArchiveManifest>;
-  public srcHandlersCombineGetManifestHandler(
+  public combineApiHandlersCombineGetManifestHandler(
     file?: Blob,
     url?: string,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<CombineArchiveManifest>>;
-  public srcHandlersCombineGetManifestHandler(
+  public combineApiHandlersCombineGetManifestHandler(
     file?: Blob,
     url?: string,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<CombineArchiveManifest>>;
-  public srcHandlersCombineGetManifestHandler(
+  public combineApiHandlersCombineGetManifestHandler(
     file?: Blob,
     url?: string,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -430,36 +529,56 @@ export class SimulationProjectsService {
       localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
     }
 
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
     // to determine the Content-Type header
     const consumes: string[] = ['multipart/form-data'];
 
     const canConsumeForm = this.canConsumeForm(consumes);
 
     let localVarFormParams: { append(param: string, value: any): any };
-    const localVarUseForm = false;
-    const localVarConvertFormParamsToString = false;
+    let localVarUseForm = false;
+    let localVarConvertFormParamsToString = false;
+    // use FormData to transmit files using content-type "multipart/form-data"
+    // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+    localVarUseForm = canConsumeForm;
     if (localVarUseForm) {
       localVarFormParams = new FormData();
     } else {
       localVarFormParams = new HttpParams({ encoder: this.encoder });
     }
 
-    let responseType_: 'text' | 'json' = 'json';
-    if (localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
-      responseType_ = 'text';
+    if (file !== undefined) {
+      localVarFormParams = (localVarFormParams.append('file', <any>file) as any) || localVarFormParams;
+    }
+    if (url !== undefined) {
+      localVarFormParams = (localVarFormParams.append('url', <any>url) as any) || localVarFormParams;
     }
 
-    return this.httpClient.post<CombineArchiveManifest>(
-      `${this.configuration.basePath}/combine/manifest`,
-      localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
-      {
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      },
-    );
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let localVarPath = `/combine/manifest`;
+    return this.httpClient.request<CombineArchiveManifest>('post', `${this.configuration.basePath}${localVarPath}`, {
+      context: localVarHttpContext,
+      body: localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -471,41 +590,41 @@ export class SimulationProjectsService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
+  public combineApiHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
     omexMetadataFormat: string,
     file?: Blob,
     url?: string,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<BioSimulationsCombineArchiveElementMetadata>>;
-  public srcHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
+  public combineApiHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
     omexMetadataFormat: string,
     file?: Blob,
     url?: string,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<BioSimulationsCombineArchiveElementMetadata>>>;
-  public srcHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
+  public combineApiHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
     omexMetadataFormat: string,
     file?: Blob,
     url?: string,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<BioSimulationsCombineArchiveElementMetadata>>>;
-  public srcHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
+  public combineApiHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
     omexMetadataFormat: string,
     file?: Blob,
     url?: string,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (omexMetadataFormat === null || omexMetadataFormat === undefined) {
       throw new Error(
-        'Required parameter omexMetadataFormat was null or undefined when calling srcHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations.',
+        'Required parameter omexMetadataFormat was null or undefined when calling combineApiHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations.',
       );
     }
 
@@ -521,29 +640,57 @@ export class SimulationProjectsService {
       localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
     }
 
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
     // to determine the Content-Type header
     const consumes: string[] = ['multipart/form-data'];
 
     const canConsumeForm = this.canConsumeForm(consumes);
 
     let localVarFormParams: { append(param: string, value: any): any };
-    const localVarUseForm = false;
-    const localVarConvertFormParamsToString = false;
+    let localVarUseForm = false;
+    let localVarConvertFormParamsToString = false;
+    // use FormData to transmit files using content-type "multipart/form-data"
+    // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+    localVarUseForm = canConsumeForm;
     if (localVarUseForm) {
       localVarFormParams = new FormData();
     } else {
       localVarFormParams = new HttpParams({ encoder: this.encoder });
     }
 
-    let responseType_: 'text' | 'json' = 'json';
-    if (localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
-      responseType_ = 'text';
+    if (file !== undefined) {
+      localVarFormParams = (localVarFormParams.append('file', <any>file) as any) || localVarFormParams;
+    }
+    if (url !== undefined) {
+      localVarFormParams = (localVarFormParams.append('url', <any>url) as any) || localVarFormParams;
+    }
+    if (omexMetadataFormat !== undefined) {
+      localVarFormParams =
+        (localVarFormParams.append('omexMetadataFormat', <any>omexMetadataFormat) as any) || localVarFormParams;
     }
 
-    return this.httpClient.post<Array<BioSimulationsCombineArchiveElementMetadata>>(
-      `${this.configuration.basePath}/combine/metadata/biosimulations`,
-      localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let localVarPath = `/combine/metadata/biosimulations`;
+    return this.httpClient.request<Array<BioSimulationsCombineArchiveElementMetadata>>(
+      'post',
+      `${this.configuration.basePath}${localVarPath}`,
       {
+        context: localVarHttpContext,
+        body: localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
         headers: localVarHeaders,
@@ -562,41 +709,41 @@ export class SimulationProjectsService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples(
+  public combineApiHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples(
     omexMetadataFormat: string,
     file?: Blob,
     url?: string,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RdfTriple>>;
-  public srcHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples(
+  public combineApiHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples(
     omexMetadataFormat: string,
     file?: Blob,
     url?: string,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RdfTriple>>>;
-  public srcHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples(
+  public combineApiHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples(
     omexMetadataFormat: string,
     file?: Blob,
     url?: string,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RdfTriple>>>;
-  public srcHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples(
+  public combineApiHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples(
     omexMetadataFormat: string,
     file?: Blob,
     url?: string,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (omexMetadataFormat === null || omexMetadataFormat === undefined) {
       throw new Error(
-        'Required parameter omexMetadataFormat was null or undefined when calling srcHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples.',
+        'Required parameter omexMetadataFormat was null or undefined when calling combineApiHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples.',
       );
     }
 
@@ -612,36 +759,60 @@ export class SimulationProjectsService {
       localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
     }
 
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
     // to determine the Content-Type header
     const consumes: string[] = ['multipart/form-data'];
 
     const canConsumeForm = this.canConsumeForm(consumes);
 
     let localVarFormParams: { append(param: string, value: any): any };
-    const localVarUseForm = false;
-    const localVarConvertFormParamsToString = false;
+    let localVarUseForm = false;
+    let localVarConvertFormParamsToString = false;
+    // use FormData to transmit files using content-type "multipart/form-data"
+    // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+    localVarUseForm = canConsumeForm;
     if (localVarUseForm) {
       localVarFormParams = new FormData();
     } else {
       localVarFormParams = new HttpParams({ encoder: this.encoder });
     }
 
-    let responseType_: 'text' | 'json' = 'json';
-    if (localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
-      responseType_ = 'text';
+    if (file !== undefined) {
+      localVarFormParams = (localVarFormParams.append('file', <any>file) as any) || localVarFormParams;
+    }
+    if (url !== undefined) {
+      localVarFormParams = (localVarFormParams.append('url', <any>url) as any) || localVarFormParams;
+    }
+    if (omexMetadataFormat !== undefined) {
+      localVarFormParams =
+        (localVarFormParams.append('omexMetadataFormat', <any>omexMetadataFormat) as any) || localVarFormParams;
     }
 
-    return this.httpClient.post<Array<RdfTriple>>(
-      `${this.configuration.basePath}/combine/metadata/rdf`,
-      localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
-      {
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      },
-    );
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let localVarPath = `/combine/metadata/rdf`;
+    return this.httpClient.request<Array<RdfTriple>>('post', `${this.configuration.basePath}${localVarPath}`, {
+      context: localVarHttpContext,
+      body: localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -652,33 +823,33 @@ export class SimulationProjectsService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersCombineGetSedmlSpecsForCombineArchiveHandler(
+  public combineApiHandlersCombineGetSedmlSpecsForCombineArchiveHandler(
     file?: Blob,
     url?: string,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<CombineArchiveSedDocSpecs>;
-  public srcHandlersCombineGetSedmlSpecsForCombineArchiveHandler(
+  public combineApiHandlersCombineGetSedmlSpecsForCombineArchiveHandler(
     file?: Blob,
     url?: string,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<CombineArchiveSedDocSpecs>>;
-  public srcHandlersCombineGetSedmlSpecsForCombineArchiveHandler(
+  public combineApiHandlersCombineGetSedmlSpecsForCombineArchiveHandler(
     file?: Blob,
     url?: string,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<CombineArchiveSedDocSpecs>>;
-  public srcHandlersCombineGetSedmlSpecsForCombineArchiveHandler(
+  public combineApiHandlersCombineGetSedmlSpecsForCombineArchiveHandler(
     file?: Blob,
     url?: string,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -692,36 +863,56 @@ export class SimulationProjectsService {
       localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
     }
 
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
     // to determine the Content-Type header
     const consumes: string[] = ['multipart/form-data'];
 
     const canConsumeForm = this.canConsumeForm(consumes);
 
     let localVarFormParams: { append(param: string, value: any): any };
-    const localVarUseForm = false;
-    const localVarConvertFormParamsToString = false;
+    let localVarUseForm = false;
+    let localVarConvertFormParamsToString = false;
+    // use FormData to transmit files using content-type "multipart/form-data"
+    // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+    localVarUseForm = canConsumeForm;
     if (localVarUseForm) {
       localVarFormParams = new FormData();
     } else {
       localVarFormParams = new HttpParams({ encoder: this.encoder });
     }
 
-    let responseType_: 'text' | 'json' = 'json';
-    if (localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
-      responseType_ = 'text';
+    if (file !== undefined) {
+      localVarFormParams = (localVarFormParams.append('file', <any>file) as any) || localVarFormParams;
+    }
+    if (url !== undefined) {
+      localVarFormParams = (localVarFormParams.append('url', <any>url) as any) || localVarFormParams;
     }
 
-    return this.httpClient.post<CombineArchiveSedDocSpecs>(
-      `${this.configuration.basePath}/combine/sedml-specs`,
-      localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
-      {
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      },
-    );
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let localVarPath = `/combine/sedml-specs`;
+    return this.httpClient.request<CombineArchiveSedDocSpecs>('post', `${this.configuration.basePath}${localVarPath}`, {
+      context: localVarHttpContext,
+      body: localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -734,47 +925,51 @@ export class SimulationProjectsService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersCombineModifyHandler(
+  public combineApiHandlersCombineModifyHandler(
     specs: CombineArchive,
     archive: FilenameOrUrl,
     files?: Array<Blob>,
     download?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json' | 'application/zip' },
+    options?: { httpHeaderAccept?: 'application/json' | 'application/zip'; context?: HttpContext },
   ): Observable<string>;
-  public srcHandlersCombineModifyHandler(
+  public combineApiHandlersCombineModifyHandler(
     specs: CombineArchive,
     archive: FilenameOrUrl,
     files?: Array<Blob>,
     download?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json' | 'application/zip' },
+    options?: { httpHeaderAccept?: 'application/json' | 'application/zip'; context?: HttpContext },
   ): Observable<HttpResponse<string>>;
-  public srcHandlersCombineModifyHandler(
+  public combineApiHandlersCombineModifyHandler(
     specs: CombineArchive,
     archive: FilenameOrUrl,
     files?: Array<Blob>,
     download?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json' | 'application/zip' },
+    options?: { httpHeaderAccept?: 'application/json' | 'application/zip'; context?: HttpContext },
   ): Observable<HttpEvent<string>>;
-  public srcHandlersCombineModifyHandler(
+  public combineApiHandlersCombineModifyHandler(
     specs: CombineArchive,
     archive: FilenameOrUrl,
     files?: Array<Blob>,
     download?: boolean,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json' | 'application/zip' },
+    options?: { httpHeaderAccept?: 'application/json' | 'application/zip'; context?: HttpContext },
   ): Observable<any> {
     if (specs === null || specs === undefined) {
-      throw new Error('Required parameter specs was null or undefined when calling srcHandlersCombineModifyHandler.');
+      throw new Error(
+        'Required parameter specs was null or undefined when calling combineApiHandlersCombineModifyHandler.',
+      );
     }
     if (archive === null || archive === undefined) {
-      throw new Error('Required parameter archive was null or undefined when calling srcHandlersCombineModifyHandler.');
+      throw new Error(
+        'Required parameter archive was null or undefined when calling combineApiHandlersCombineModifyHandler.',
+      );
     }
 
     let localVarHeaders = this.defaultHeaders;
@@ -789,36 +984,77 @@ export class SimulationProjectsService {
       localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
     }
 
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
     // to determine the Content-Type header
     const consumes: string[] = ['multipart/form-data'];
 
     const canConsumeForm = this.canConsumeForm(consumes);
 
     let localVarFormParams: { append(param: string, value: any): any };
-    const localVarUseForm = false;
-    const localVarConvertFormParamsToString = false;
+    let localVarUseForm = false;
+    let localVarConvertFormParamsToString = false;
+    // use FormData to transmit files using content-type "multipart/form-data"
+    // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+    localVarUseForm = canConsumeForm;
     if (localVarUseForm) {
       localVarFormParams = new FormData();
     } else {
       localVarFormParams = new HttpParams({ encoder: this.encoder });
     }
 
-    let responseType_: 'text' | 'json' = 'json';
-    if (localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
-      responseType_ = 'text';
+    if (specs !== undefined) {
+      localVarFormParams =
+        (localVarFormParams.append(
+          'specs',
+          localVarUseForm ? new Blob([JSON.stringify(specs)], { type: 'application/json' }) : <any>specs,
+        ) as any) || localVarFormParams;
+    }
+    if (files) {
+      if (localVarUseForm) {
+        files.forEach((element) => {
+          localVarFormParams = (localVarFormParams.append('files', <any>element) as any) || localVarFormParams;
+        });
+      } else {
+        localVarFormParams =
+          (localVarFormParams.append('files', [...files].join(COLLECTION_FORMATS['csv'])) as any) || localVarFormParams;
+      }
+    }
+    if (download !== undefined) {
+      localVarFormParams = (localVarFormParams.append('download', <any>download) as any) || localVarFormParams;
+    }
+    if (archive !== undefined) {
+      localVarFormParams =
+        (localVarFormParams.append(
+          'archive',
+          localVarUseForm ? new Blob([JSON.stringify(archive)], { type: 'application/json' }) : <any>archive,
+        ) as any) || localVarFormParams;
     }
 
-    return this.httpClient.post<string>(
-      `${this.configuration.basePath}/combine/modify`,
-      localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
-      {
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      },
-    );
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let localVarPath = `/combine/modify`;
+    return this.httpClient.request<string>('post', `${this.configuration.basePath}${localVarPath}`, {
+      context: localVarHttpContext,
+      body: localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -836,7 +1072,7 @@ export class SimulationProjectsService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersCombineValidateHandler(
+  public combineApiHandlersCombineValidateHandler(
     omexMetadataFormat: string,
     omexMetadataSchema: string,
     file?: Blob,
@@ -848,9 +1084,9 @@ export class SimulationProjectsService {
     validateImages?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<ValidationReport>;
-  public srcHandlersCombineValidateHandler(
+  public combineApiHandlersCombineValidateHandler(
     omexMetadataFormat: string,
     omexMetadataSchema: string,
     file?: Blob,
@@ -862,9 +1098,9 @@ export class SimulationProjectsService {
     validateImages?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<ValidationReport>>;
-  public srcHandlersCombineValidateHandler(
+  public combineApiHandlersCombineValidateHandler(
     omexMetadataFormat: string,
     omexMetadataSchema: string,
     file?: Blob,
@@ -876,9 +1112,9 @@ export class SimulationProjectsService {
     validateImages?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<ValidationReport>>;
-  public srcHandlersCombineValidateHandler(
+  public combineApiHandlersCombineValidateHandler(
     omexMetadataFormat: string,
     omexMetadataSchema: string,
     file?: Blob,
@@ -890,16 +1126,16 @@ export class SimulationProjectsService {
     validateImages?: boolean,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (omexMetadataFormat === null || omexMetadataFormat === undefined) {
       throw new Error(
-        'Required parameter omexMetadataFormat was null or undefined when calling srcHandlersCombineValidateHandler.',
+        'Required parameter omexMetadataFormat was null or undefined when calling combineApiHandlersCombineValidateHandler.',
       );
     }
     if (omexMetadataSchema === null || omexMetadataSchema === undefined) {
       throw new Error(
-        'Required parameter omexMetadataSchema was null or undefined when calling srcHandlersCombineValidateHandler.',
+        'Required parameter omexMetadataSchema was null or undefined when calling combineApiHandlersCombineValidateHandler.',
       );
     }
 
@@ -915,36 +1151,84 @@ export class SimulationProjectsService {
       localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
     }
 
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
     // to determine the Content-Type header
     const consumes: string[] = ['multipart/form-data'];
 
     const canConsumeForm = this.canConsumeForm(consumes);
 
     let localVarFormParams: { append(param: string, value: any): any };
-    const localVarUseForm = false;
-    const localVarConvertFormParamsToString = false;
+    let localVarUseForm = false;
+    let localVarConvertFormParamsToString = false;
+    // use FormData to transmit files using content-type "multipart/form-data"
+    // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+    localVarUseForm = canConsumeForm;
     if (localVarUseForm) {
       localVarFormParams = new FormData();
     } else {
       localVarFormParams = new HttpParams({ encoder: this.encoder });
     }
 
-    let responseType_: 'text' | 'json' = 'json';
-    if (localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
-      responseType_ = 'text';
+    if (file !== undefined) {
+      localVarFormParams = (localVarFormParams.append('file', <any>file) as any) || localVarFormParams;
+    }
+    if (url !== undefined) {
+      localVarFormParams = (localVarFormParams.append('url', <any>url) as any) || localVarFormParams;
+    }
+    if (omexMetadataFormat !== undefined) {
+      localVarFormParams =
+        (localVarFormParams.append('omexMetadataFormat', <any>omexMetadataFormat) as any) || localVarFormParams;
+    }
+    if (validateOmexManifest !== undefined) {
+      localVarFormParams =
+        (localVarFormParams.append('validateOmexManifest', <any>validateOmexManifest) as any) || localVarFormParams;
+    }
+    if (omexMetadataSchema !== undefined) {
+      localVarFormParams =
+        (localVarFormParams.append('omexMetadataSchema', <any>omexMetadataSchema) as any) || localVarFormParams;
+    }
+    if (validateSedml !== undefined) {
+      localVarFormParams =
+        (localVarFormParams.append('validateSedml', <any>validateSedml) as any) || localVarFormParams;
+    }
+    if (validateSedmlModels !== undefined) {
+      localVarFormParams =
+        (localVarFormParams.append('validateSedmlModels', <any>validateSedmlModels) as any) || localVarFormParams;
+    }
+    if (validateOmexMetadata !== undefined) {
+      localVarFormParams =
+        (localVarFormParams.append('validateOmexMetadata', <any>validateOmexMetadata) as any) || localVarFormParams;
+    }
+    if (validateImages !== undefined) {
+      localVarFormParams =
+        (localVarFormParams.append('validateImages', <any>validateImages) as any) || localVarFormParams;
     }
 
-    return this.httpClient.post<ValidationReport>(
-      `${this.configuration.basePath}/combine/validate`,
-      localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
-      {
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      },
-    );
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let localVarPath = `/combine/validate`;
+    return this.httpClient.request<ValidationReport>('post', `${this.configuration.basePath}${localVarPath}`, {
+      context: localVarHttpContext,
+      body: localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -958,7 +1242,7 @@ export class SimulationProjectsService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersRunRunHandler(
+  public combineApiHandlersRunRunHandler(
     simulator: string,
     type: string,
     archiveUrl?: string,
@@ -968,9 +1252,10 @@ export class SimulationProjectsService {
     reportProgress?: boolean,
     options?: {
       httpHeaderAccept?: 'application/json' | 'application/x-hdf' | 'application/zip';
+      context?: HttpContext;
     },
   ): Observable<SimulationRunResults>;
-  public srcHandlersRunRunHandler(
+  public combineApiHandlersRunRunHandler(
     simulator: string,
     type: string,
     archiveUrl?: string,
@@ -980,9 +1265,10 @@ export class SimulationProjectsService {
     reportProgress?: boolean,
     options?: {
       httpHeaderAccept?: 'application/json' | 'application/x-hdf' | 'application/zip';
+      context?: HttpContext;
     },
   ): Observable<HttpResponse<SimulationRunResults>>;
-  public srcHandlersRunRunHandler(
+  public combineApiHandlersRunRunHandler(
     simulator: string,
     type: string,
     archiveUrl?: string,
@@ -992,9 +1278,10 @@ export class SimulationProjectsService {
     reportProgress?: boolean,
     options?: {
       httpHeaderAccept?: 'application/json' | 'application/x-hdf' | 'application/zip';
+      context?: HttpContext;
     },
   ): Observable<HttpEvent<SimulationRunResults>>;
-  public srcHandlersRunRunHandler(
+  public combineApiHandlersRunRunHandler(
     simulator: string,
     type: string,
     archiveUrl?: string,
@@ -1004,13 +1291,16 @@ export class SimulationProjectsService {
     reportProgress: boolean = false,
     options?: {
       httpHeaderAccept?: 'application/json' | 'application/x-hdf' | 'application/zip';
+      context?: HttpContext;
     },
   ): Observable<any> {
     if (simulator === null || simulator === undefined) {
-      throw new Error('Required parameter simulator was null or undefined when calling srcHandlersRunRunHandler.');
+      throw new Error(
+        'Required parameter simulator was null or undefined when calling combineApiHandlersRunRunHandler.',
+      );
     }
     if (type === null || type === undefined) {
-      throw new Error('Required parameter type was null or undefined when calling srcHandlersRunRunHandler.');
+      throw new Error('Required parameter type was null or undefined when calling combineApiHandlersRunRunHandler.');
     }
 
     let localVarHeaders = this.defaultHeaders;
@@ -1025,35 +1315,68 @@ export class SimulationProjectsService {
       localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
     }
 
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
     // to determine the Content-Type header
     const consumes: string[] = ['multipart/form-data'];
 
     const canConsumeForm = this.canConsumeForm(consumes);
 
     let localVarFormParams: { append(param: string, value: any): any };
-    const localVarUseForm = false;
-    const localVarConvertFormParamsToString = false;
+    let localVarUseForm = false;
+    let localVarConvertFormParamsToString = false;
+    // use FormData to transmit files using content-type "multipart/form-data"
+    // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+    localVarUseForm = canConsumeForm;
     if (localVarUseForm) {
       localVarFormParams = new FormData();
     } else {
       localVarFormParams = new HttpParams({ encoder: this.encoder });
     }
 
-    let responseType_: 'text' | 'json' = 'json';
-    if (localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
-      responseType_ = 'text';
+    if (simulator !== undefined) {
+      localVarFormParams = (localVarFormParams.append('simulator', <any>simulator) as any) || localVarFormParams;
+    }
+    if (archiveUrl !== undefined) {
+      localVarFormParams = (localVarFormParams.append('archiveUrl', <any>archiveUrl) as any) || localVarFormParams;
+    }
+    if (archiveFile !== undefined) {
+      localVarFormParams = (localVarFormParams.append('archiveFile', <any>archiveFile) as any) || localVarFormParams;
+    }
+    if (type !== undefined) {
+      localVarFormParams = (localVarFormParams.append('_type', <any>type) as any) || localVarFormParams;
+    }
+    if (environment !== undefined) {
+      localVarFormParams =
+        (localVarFormParams.append(
+          'environment',
+          localVarUseForm ? new Blob([JSON.stringify(environment)], { type: 'application/json' }) : <any>environment,
+        ) as any) || localVarFormParams;
     }
 
-    return this.httpClient.post<SimulationRunResults>(
-      `${this.configuration.basePath}/run/run`,
-      localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
-      {
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      },
-    );
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let localVarPath = `/run/run`;
+    return this.httpClient.request<SimulationRunResults>('post', `${this.configuration.basePath}${localVarPath}`, {
+      context: localVarHttpContext,
+      body: localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 }

@@ -12,6 +12,7 @@
 import { SedUniformTimeCourseSimulation } from './sedUniformTimeCourseSimulation';
 import { SedOneStepSimulation } from './sedOneStepSimulation';
 import { SedSteadyStateSimulation } from './sedSteadyStateSimulation';
+import { SedAlgorithm } from './sedAlgorithm';
 
 /**
  * A SED-ML simulation.

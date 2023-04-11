@@ -10,6 +10,8 @@
  * Do not edit the class manually.
  */
 import { SedVectorRange } from './sedVectorRange';
+import { SedParameter } from './sedParameter';
+import { SedVariable } from './sedVariable';
 import { SedFunctionalRange } from './sedFunctionalRange';
 import { SedUniformRange } from './sedUniformRange';
 

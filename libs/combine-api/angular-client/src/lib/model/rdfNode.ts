@@ -9,6 +9,9 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { RdfUriNode } from './rdfUriNode';
+import { RdfLiteralNode } from './rdfLiteralNode';
+import { RdfBlankNode } from './rdfBlankNode';
 
 /**
  * A node of an RDF triple.

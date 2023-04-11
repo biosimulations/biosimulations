@@ -12,15 +12,25 @@
 /* tslint:disable:no-unused-variable member-ordering */
 
 import { Inject, Injectable, Optional } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams, HttpResponse, HttpEvent, HttpParameterCodec } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpParams,
+  HttpResponse,
+  HttpEvent,
+  HttpParameterCodec,
+  HttpContext,
+} from '@angular/common/http';
 import { CustomHttpParameterCodec } from '../encoder';
 import { Observable } from 'rxjs';
 
-import { BioSimulationsCombineArchiveElementMetadata } from '../model/models';
-import { RdfTriple } from '../model/models';
-import { ValidationReport } from '../model/models';
+import { BioSimulationsCombineArchiveElementMetadata } from '../model/bioSimulationsCombineArchiveElementMetadata';
 
-import { BASE_PATH } from '../variables';
+import { RdfTriple } from '../model/rdfTriple';
+
+import { ValidationReport } from '../model/validationReport';
+
+import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
 import { Configuration } from '../configuration';
 
 @Injectable({
@@ -34,13 +44,17 @@ export class MetadataService {
 
   constructor(
     protected httpClient: HttpClient,
-    @Optional() @Inject(BASE_PATH) basePath: string,
+    @Optional() @Inject(BASE_PATH) basePath: string | string[],
     @Optional() configuration: Configuration,
   ) {
     if (configuration) {
       this.configuration = configuration;
     }
     if (typeof this.configuration.basePath !== 'string') {
+      if (Array.isArray(basePath) && basePath.length > 0) {
+        basePath = basePath[0];
+      }
+
       if (typeof basePath !== 'string') {
         basePath = this.basePath;
       }
@@ -108,41 +122,41 @@ export class MetadataService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
+  public combineApiHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
     omexMetadataFormat: string,
     file?: Blob,
     url?: string,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<BioSimulationsCombineArchiveElementMetadata>>;
-  public srcHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
+  public combineApiHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
     omexMetadataFormat: string,
     file?: Blob,
     url?: string,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<BioSimulationsCombineArchiveElementMetadata>>>;
-  public srcHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
+  public combineApiHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
     omexMetadataFormat: string,
     file?: Blob,
     url?: string,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<BioSimulationsCombineArchiveElementMetadata>>>;
-  public srcHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
+  public combineApiHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
     omexMetadataFormat: string,
     file?: Blob,
     url?: string,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (omexMetadataFormat === null || omexMetadataFormat === undefined) {
       throw new Error(
-        'Required parameter omexMetadataFormat was null or undefined when calling srcHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations.',
+        'Required parameter omexMetadataFormat was null or undefined when calling combineApiHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations.',
       );
     }
 
@@ -158,29 +172,57 @@ export class MetadataService {
       localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
     }
 
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
     // to determine the Content-Type header
     const consumes: string[] = ['multipart/form-data'];
 
     const canConsumeForm = this.canConsumeForm(consumes);
 
     let localVarFormParams: { append(param: string, value: any): any };
-    const localVarUseForm = false;
-    const localVarConvertFormParamsToString = false;
+    let localVarUseForm = false;
+    let localVarConvertFormParamsToString = false;
+    // use FormData to transmit files using content-type "multipart/form-data"
+    // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+    localVarUseForm = canConsumeForm;
     if (localVarUseForm) {
       localVarFormParams = new FormData();
     } else {
       localVarFormParams = new HttpParams({ encoder: this.encoder });
     }
 
-    let responseType_: 'text' | 'json' = 'json';
-    if (localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
-      responseType_ = 'text';
+    if (file !== undefined) {
+      localVarFormParams = (localVarFormParams.append('file', <any>file) as any) || localVarFormParams;
+    }
+    if (url !== undefined) {
+      localVarFormParams = (localVarFormParams.append('url', <any>url) as any) || localVarFormParams;
+    }
+    if (omexMetadataFormat !== undefined) {
+      localVarFormParams =
+        (localVarFormParams.append('omexMetadataFormat', <any>omexMetadataFormat) as any) || localVarFormParams;
     }
 
-    return this.httpClient.post<Array<BioSimulationsCombineArchiveElementMetadata>>(
-      `${this.configuration.basePath}/combine/metadata/biosimulations`,
-      localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let localVarPath = `/combine/metadata/biosimulations`;
+    return this.httpClient.request<Array<BioSimulationsCombineArchiveElementMetadata>>(
+      'post',
+      `${this.configuration.basePath}${localVarPath}`,
       {
+        context: localVarHttpContext,
+        body: localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
         headers: localVarHeaders,
@@ -199,41 +241,41 @@ export class MetadataService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples(
+  public combineApiHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples(
     omexMetadataFormat: string,
     file?: Blob,
     url?: string,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RdfTriple>>;
-  public srcHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples(
+  public combineApiHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples(
     omexMetadataFormat: string,
     file?: Blob,
     url?: string,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RdfTriple>>>;
-  public srcHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples(
+  public combineApiHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples(
     omexMetadataFormat: string,
     file?: Blob,
     url?: string,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RdfTriple>>>;
-  public srcHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples(
+  public combineApiHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples(
     omexMetadataFormat: string,
     file?: Blob,
     url?: string,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (omexMetadataFormat === null || omexMetadataFormat === undefined) {
       throw new Error(
-        'Required parameter omexMetadataFormat was null or undefined when calling srcHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples.',
+        'Required parameter omexMetadataFormat was null or undefined when calling combineApiHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples.',
       );
     }
 
@@ -249,36 +291,60 @@ export class MetadataService {
       localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
     }
 
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
     // to determine the Content-Type header
     const consumes: string[] = ['multipart/form-data'];
 
     const canConsumeForm = this.canConsumeForm(consumes);
 
     let localVarFormParams: { append(param: string, value: any): any };
-    const localVarUseForm = false;
-    const localVarConvertFormParamsToString = false;
+    let localVarUseForm = false;
+    let localVarConvertFormParamsToString = false;
+    // use FormData to transmit files using content-type "multipart/form-data"
+    // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+    localVarUseForm = canConsumeForm;
     if (localVarUseForm) {
       localVarFormParams = new FormData();
     } else {
       localVarFormParams = new HttpParams({ encoder: this.encoder });
     }
 
-    let responseType_: 'text' | 'json' = 'json';
-    if (localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
-      responseType_ = 'text';
+    if (file !== undefined) {
+      localVarFormParams = (localVarFormParams.append('file', <any>file) as any) || localVarFormParams;
+    }
+    if (url !== undefined) {
+      localVarFormParams = (localVarFormParams.append('url', <any>url) as any) || localVarFormParams;
+    }
+    if (omexMetadataFormat !== undefined) {
+      localVarFormParams =
+        (localVarFormParams.append('omexMetadataFormat', <any>omexMetadataFormat) as any) || localVarFormParams;
     }
 
-    return this.httpClient.post<Array<RdfTriple>>(
-      `${this.configuration.basePath}/combine/metadata/rdf`,
-      localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
-      {
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      },
-    );
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let localVarPath = `/combine/metadata/rdf`;
+    return this.httpClient.request<Array<RdfTriple>>('post', `${this.configuration.basePath}${localVarPath}`, {
+      context: localVarHttpContext,
+      body: localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 
   /**
@@ -291,50 +357,50 @@ export class MetadataService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersOmexMetadataValidateHandler(
+  public combineApiHandlersOmexMetadataValidateHandler(
     format: string,
     schema: string,
     file?: Blob,
     url?: string,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<ValidationReport>;
-  public srcHandlersOmexMetadataValidateHandler(
+  public combineApiHandlersOmexMetadataValidateHandler(
     format: string,
     schema: string,
     file?: Blob,
     url?: string,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<ValidationReport>>;
-  public srcHandlersOmexMetadataValidateHandler(
+  public combineApiHandlersOmexMetadataValidateHandler(
     format: string,
     schema: string,
     file?: Blob,
     url?: string,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<ValidationReport>>;
-  public srcHandlersOmexMetadataValidateHandler(
+  public combineApiHandlersOmexMetadataValidateHandler(
     format: string,
     schema: string,
     file?: Blob,
     url?: string,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json' },
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (format === null || format === undefined) {
       throw new Error(
-        'Required parameter format was null or undefined when calling srcHandlersOmexMetadataValidateHandler.',
+        'Required parameter format was null or undefined when calling combineApiHandlersOmexMetadataValidateHandler.',
       );
     }
     if (schema === null || schema === undefined) {
       throw new Error(
-        'Required parameter schema was null or undefined when calling srcHandlersOmexMetadataValidateHandler.',
+        'Required parameter schema was null or undefined when calling combineApiHandlersOmexMetadataValidateHandler.',
       );
     }
 
@@ -350,35 +416,61 @@ export class MetadataService {
       localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
     }
 
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
     // to determine the Content-Type header
     const consumes: string[] = ['multipart/form-data'];
 
     const canConsumeForm = this.canConsumeForm(consumes);
 
     let localVarFormParams: { append(param: string, value: any): any };
-    const localVarUseForm = false;
-    const localVarConvertFormParamsToString = false;
+    let localVarUseForm = false;
+    let localVarConvertFormParamsToString = false;
+    // use FormData to transmit files using content-type "multipart/form-data"
+    // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+    localVarUseForm = canConsumeForm;
     if (localVarUseForm) {
       localVarFormParams = new FormData();
     } else {
       localVarFormParams = new HttpParams({ encoder: this.encoder });
     }
 
-    let responseType_: 'text' | 'json' = 'json';
-    if (localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
-      responseType_ = 'text';
+    if (file !== undefined) {
+      localVarFormParams = (localVarFormParams.append('file', <any>file) as any) || localVarFormParams;
+    }
+    if (url !== undefined) {
+      localVarFormParams = (localVarFormParams.append('url', <any>url) as any) || localVarFormParams;
+    }
+    if (format !== undefined) {
+      localVarFormParams = (localVarFormParams.append('format', <any>format) as any) || localVarFormParams;
+    }
+    if (schema !== undefined) {
+      localVarFormParams = (localVarFormParams.append('schema', <any>schema) as any) || localVarFormParams;
     }
 
-    return this.httpClient.post<ValidationReport>(
-      `${this.configuration.basePath}/omex-metadata/validate`,
-      localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
-      {
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      },
-    );
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let localVarPath = `/omex-metadata/validate`;
+    return this.httpClient.request<ValidationReport>('post', `${this.configuration.basePath}${localVarPath}`, {
+      context: localVarHttpContext,
+      body: localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
   }
 }
