@@ -46,7 +46,7 @@ sed -i "s/Linear = 'linear'/linear = 'linear'/" ${lib_dir}/src/lib/model/sedUnif
 sed -i "s/Log = 'log'/log = 'log'/" ${lib_dir}/src/lib/model/sedUniformRange.ts
 
 # Format the files
-nx format --projects combine-api-nest-client
+npx nx format --projects combine-api-nest-client
 
 # Build the library
-nx build combine-api-nest-client --skip-cache
+npx nx build combine-api-nest-client --skip-cache

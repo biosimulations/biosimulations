@@ -34,10 +34,10 @@ perl -0777 -i -p -e 's/\\\//\//g' ${lib_dir}/src/lib/configuration.ts
 sed -i 's/localVarHeaders: localVarHeaders,/headers: localVarHeaders,/g' ${lib_dir}/src/lib/api/*.service.ts
 
 # Fix lint issues
-nx run combine-api-angular-client:lint --fix
+npx nx run combine-api-angular-client:lint --fix
 
 # Format the files
-nx format --projects combine-api-angular-client
+npx nx format --projects combine-api-angular-client
 
 # Build the library
 # nx build combine-api-angular-client
