@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.22.2](https://github.com/biosimulations/biosimulations/compare/v9.22.1...v9.22.2) (2023-04-12)
+
+
+### Bug Fixes
+
+* deploy action fails, nx build '--with-deps' flag was removed ([7da9f48](https://github.com/biosimulations/biosimulations/commit/7da9f48fd719c997e59b51f5c0175ba3ec11d3bc))
+
 ## [9.22.1](https://github.com/biosimulations/biosimulations/compare/v9.22.0...v9.22.1) (2023-04-12)
 
 
