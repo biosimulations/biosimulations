@@ -2,9 +2,9 @@
 
 set -e
 
-LICENSES_TEMPLATE_PATH=./docs/about/license.template.md
-SOFTWARE_LICENSE_PATH=./docs/License.md
-LICENSES_PATH=./docs/about/license.md
+LICENSES_TEMPLATE_PATH=./docs/src/about/license.template.md
+SOFTWARE_LICENSE_PATH=./License.md
+LICENSES_PATH=./docs/src/about/license.md
 VERSION=$(jq -r '.version' package.json)
 
 TEMP_LICENSES_PATH=$(mktemp)
