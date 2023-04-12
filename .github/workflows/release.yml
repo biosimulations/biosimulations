@@ -2,7 +2,7 @@ name: Release
 on:
   workflow_dispatch:
    inputs:
-    branch: 
+    branch:
       type: string
       required: true
   workflow_call:
@@ -14,7 +14,7 @@ on:
      GPG_PRIVATE_KEY:
         required: true
    inputs:
-    branch: 
+    branch:
       type: string
       required: true
 jobs:
@@ -30,6 +30,18 @@ jobs:
         run: |
           git config --global user.name 'BioSimulations-Daemon'
           git config --global user.email 'biosimulationsdaemon@gmail.com'
+
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+
+      - uses: actions/setup-node@v3.3.0
+        with:
+          node-version: '18'
+
+      - name: Print node and npm versions
+        run: |
+          node --version
+          npm --version
 
       - name: Install npm dependencies
         uses: bahmutov/npm-install@v1
