@@ -73,36 +73,11 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: luke.edwards05@gmail.com
 │  ├─ url: https://lukeed.com
 │  └─ licenseFile: @lukeed/csprng/license
-├─ @msgpackr-extract/msgpackr-extract-darwin-arm64@3.0.2
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/kriszyp/msgpackr-extract
-│  ├─ publisher: Kris Zyp
-│  └─ licenseFile: @msgpackr-extract/msgpackr-extract-darwin-arm64/README.md
-├─ @msgpackr-extract/msgpackr-extract-darwin-x64@3.0.2
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/kriszyp/msgpackr-extract
-│  ├─ publisher: Kris Zyp
-│  └─ licenseFile: @msgpackr-extract/msgpackr-extract-darwin-x64/README.md
-├─ @msgpackr-extract/msgpackr-extract-linux-arm64@3.0.2
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/kriszyp/msgpackr-extract
-│  ├─ publisher: Kris Zyp
-│  └─ licenseFile: @msgpackr-extract/msgpackr-extract-linux-arm64/README.md
-├─ @msgpackr-extract/msgpackr-extract-linux-arm@3.0.2
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/kriszyp/msgpackr-extract
-│  ├─ publisher: Kris Zyp
-│  └─ licenseFile: @msgpackr-extract/msgpackr-extract-linux-arm/README.md
 ├─ @msgpackr-extract/msgpackr-extract-linux-x64@3.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/kriszyp/msgpackr-extract
 │  ├─ publisher: Kris Zyp
 │  └─ licenseFile: @msgpackr-extract/msgpackr-extract-linux-x64/README.md
-├─ @msgpackr-extract/msgpackr-extract-win32-x64@3.0.2
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/kriszyp/msgpackr-extract
-│  ├─ publisher: Kris Zyp
-│  └─ licenseFile: @msgpackr-extract/msgpackr-extract-win32-x64/README.md
 ├─ @nestjs/axios@2.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/axios
@@ -208,7 +183,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: help@twilio.com
 │  ├─ url: sendgrid.com
 │  └─ licenseFile: @sendgrid/mail/LICENSE
-├─ @stoplight/json-ref-resolver@3.1.4
+├─ @stoplight/json-ref-resolver@3.1.5
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/stoplightio/json-ref-resolver
 │  ├─ publisher: Stoplight
