@@ -6,7 +6,7 @@ authors = ["Jim Schaff <schaff.jim@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.9"
 mkdocs-material = "^9.1.6"
 mkdocs-git-revision-date-plugin = "^0.3.2"
 mkdocs-awesome-pages-plugin = "^2.9.0"
