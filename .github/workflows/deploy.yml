@@ -47,7 +47,7 @@ jobs:
       - name: Build dev app
         run: |
           mv libs/shared/environments/src/lib/environment.stage.ts libs/shared/environments/src/lib/environment.prod.ts \
-          && nx build ${{matrix.app}} --prod --with-deps
+          && nx build ${{matrix.app}} --prod
 
       - name: Upload build
         uses: actions/upload-artifact@v2
@@ -96,7 +96,7 @@ jobs:
         run: npm install -g @nrwl/cli && npm install -g nx@latest
 
       - name: Build prod app
-        run:  nx build ${{matrix.app}} --prod --with-deps
+        run:  nx build ${{matrix.app}} --prod
 
       - name: Upload build
         uses: actions/upload-artifact@v2
