@@ -10,8 +10,14 @@
       
         <link rel="canonical" href="https://docs.biosimulations.org/users/faqs/">
       
+      
+        <link rel="prev" href="../live-tutorials/">
+      
+      
+        <link rel="next" href="../../developers/">
+      
       <link rel="icon" href="../../assets/icons/favicon.ico">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.8">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.6">
     
     
       
@@ -19,13 +25,13 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.1d29e8d0.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ded33207.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.cbb835fc.min.css">
-        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.a0c5b2b5.min.css">
       
       
+
     
     
     
@@ -40,7 +46,7 @@
     
       <link rel="stylesheet" href="../../stylesheets/theme.css">
     
-    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -50,10 +56,13 @@
   
 
 
-  <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-8LMPX6MEZ5"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&gtag("event","search",{search_term:this.value})}),"undefined"!=typeof location$&&location$.subscribe(function(e){gtag("config","G-8LMPX6MEZ5",{page_path:e.pathname})})})</script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8LMPX6MEZ5"></script>
+  <script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-8LMPX6MEZ5"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-8LMPX6MEZ5",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-8LMPX6MEZ5",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
 
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
 
+    
     
     
   </head>
@@ -87,10 +96,8 @@
       
     </div>
     
-      <div data-md-component="outdated" hidden>
-        <aside class="md-banner md-banner--warning">
-          
-        </aside>
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
       </div>
     
     
@@ -98,7 +105,7 @@
 
   
 
-<header class="md-header md-header--lifted" data-md-component="header">
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../.." title="BioSimulations and BioSimulators documentation" class="md-header__button md-logo" aria-label="BioSimulations and BioSimulators documentation" data-md-component="logo">
       
@@ -128,7 +135,6 @@
       <form class="md-header__option" data-md-component="palette">
         
           
-          
           <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark theme"  type="radio" name="__palette" id="__palette_1">
           
             <label class="md-header__button md-icon" title="Switch to dark theme" for="__palette_2" hidden>
@@ -136,7 +142,6 @@
             </label>
           
         
-          
           
           <input class="md-option" data-md-color-media="(prefers-color-scheme: biosimulations-dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to light theme"  type="radio" name="__palette" id="__palette_2">
           
@@ -163,7 +168,7 @@
       </label>
       <nav class="md-search__options" aria-label="Search">
         
-        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
         </button>
       </nav>
@@ -177,7 +182,7 @@
           <div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list"></ol>
+          <ol class="md-search-result__list" role="presentation"></ol>
         </div>
       </div>
     </div>
@@ -189,7 +194,7 @@
         <a href="https://github.com/biosimulations/biosimulations" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub
@@ -202,7 +207,7 @@
     
       
 <nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
-  <div class="md-tabs__inner md-grid">
+  <div class="md-grid">
     <ul class="md-tabs__list">
       
         
@@ -349,7 +354,7 @@
       <a href="https://github.com/biosimulations/biosimulations" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub
@@ -372,8 +377,9 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
       
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
       
       
         
@@ -424,7 +430,7 @@
           
         </div>
       
-      <nav class="md-nav" aria-label="User guide" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_1">
           <span class="md-nav__icon md-icon"></span>
           User guide
@@ -638,7 +644,7 @@
   
     <li class="md-nav__item md-nav__item--active">
       
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
         
@@ -771,8 +777,9 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
       
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
       
       
         
@@ -801,7 +808,7 @@
           
         </div>
       
-      <nav class="md-nav" aria-label="Developer guide" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
           Developer guide
@@ -849,8 +856,9 @@
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
       
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
       
       
         
@@ -864,12 +872,12 @@
         
       
       
-        <label class="md-nav__link" for="__nav_2_4">
+        <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
           Setting Up
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Setting Up" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_4">
           <span class="md-nav__icon md-icon"></span>
           Setting Up
@@ -950,8 +958,9 @@
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" >
       
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
       
       
         
@@ -965,12 +974,12 @@
         
       
       
-        <label class="md-nav__link" for="__nav_2_5">
+        <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
           Architecture
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Architecture" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_5">
           <span class="md-nav__icon md-icon"></span>
           Architecture
@@ -1057,8 +1066,9 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
       
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
       
       
         
@@ -1068,12 +1078,12 @@
         
       
       
-        <label class="md-nav__link" for="__nav_3">
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
           Concepts
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Concepts" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
           Concepts
@@ -1091,8 +1101,9 @@
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_1" type="checkbox" id="__nav_3_1" >
       
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
       
       
         
@@ -1129,7 +1140,7 @@
           
         </div>
       
-      <nav class="md-nav" aria-label="Conventions" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_3_1">
           <span class="md-nav__icon md-icon"></span>
           Conventions
@@ -1268,8 +1279,9 @@
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" >
       
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
       
       
         
@@ -1286,7 +1298,7 @@
           
         </div>
       
-      <nav class="md-nav" aria-label="Glossary" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_3_2">
           <span class="md-nav__icon md-icon"></span>
           Glossary
@@ -1319,8 +1331,9 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
       
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
       
       
         
@@ -1328,12 +1341,12 @@
         
       
       
-        <label class="md-nav__link" for="__nav_4">
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
           News
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="News" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           News
@@ -1371,8 +1384,9 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
       
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
       
       
         
@@ -1384,12 +1398,12 @@
         
       
       
-        <label class="md-nav__link" for="__nav_5">
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
           Community
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Community" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
           Community
@@ -1455,37 +1469,38 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
       
       
-      
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
       
       
-        <label class="md-nav__link" for="__nav_6">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
           About
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="About" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_6">
           <span class="md-nav__icon md-icon"></span>
           About
@@ -1735,18 +1750,18 @@
               </div>
             
           
-          <div class="md-content" data-md-component="content">
-            <article class="md-content__inner md-typeset">
-              
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
                 
-  <a href="https://github.com/biosimulations/biosimulations/blob/dev/docs/users/faqs.md" title="Edit this page" class="md-content__button md-icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
-  </a>
+                  
 
+  
+  
 
 
 <h1 id="frequently-asked-questions">Frequently asked questions</h1>
-<h2 id="simulation-projects-combineomex-archives">Simulation projects (<abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archives)</h2>
+<h2 id="simulation-projects-combineomex-archives">Simulation projects (COMBINE/OMEX archives)</h2>
 <p><strong>Can I search for projects by wild cards?</strong></p>
 <p>Yes. The <a href="https::/biosimulations.org/projects">search engine</a> supports wild cards such as <code>sys*</code>, <code>*tems</code>, and <code>sy*ems</code>.</p>
 <p><strong>Can I search for projects by specific attributes?</strong></p>
@@ -1816,7 +1831,7 @@
 <td></td>
 <td></td>
 <td><code>model-formats</code></td>
-<td><a href="https://edamontology.org/"><abbr title="EMBRACE Data and Methods: Ontology for describing model formats.">EDAM</abbr></a>, <a href="https://sed-ml.org/urns.html"><abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> URN</a></td>
+<td><a href="https://edamontology.org/">EDAM</a>, <a href="https://sed-ml.org/urns.html">SED-ML URN</a></td>
 </tr>
 <tr>
 <td>Simulation types</td>
@@ -1830,7 +1845,7 @@
 <td></td>
 <td></td>
 <td><code>simulation-algorithms</code></td>
-<td><a href="https://github.com/SED-ML/KiSAO"><abbr title="Kinetic Simulation and Algorithms Ontology: Ontology for describing simulation algorithms and their parameters.">KiSAO</abbr></a></td>
+<td><a href="https://github.com/SED-ML/KiSAO">KiSAO</a></td>
 </tr>
 <tr>
 <td>Simulation tools</td>
@@ -1855,7 +1870,7 @@
 </tr>
 <tr>
 <td>Project size</td>
-<td><abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archive size</td>
+<td>COMBINE/OMEX archive size</td>
 <td>MB</td>
 <td><code>project-size</code></td>
 <td></td>
@@ -1890,7 +1905,7 @@
 </tr>
 <tr>
 <td>Simulation provenance</td>
-<td>Whether the simulation experiment (<abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr>) was computationally generated from a model file</td>
+<td>Whether the simulation experiment (SED-ML) was computationally generated from a model file</td>
 <td></td>
 <td><code>simulation-provenance</code></td>
 <td></td>
@@ -1956,7 +1971,7 @@
 <td></td>
 <td></td>
 <td><code>license</code></td>
-<td><a href="https://spdx.org/"><abbr title="Software Package Data Exchange: Ontology for describing licenses.">SPDX</abbr></a></td>
+<td><a href="https://spdx.org/">SPDX</a></td>
 </tr>
 <tr>
 <td>created</td>
@@ -1982,28 +1997,28 @@
 </tbody>
 </table>
 <p><strong>Which formats for projects does BioSimulations support?</strong></p>
-<p>BioSimulations supports the <a href="https://combinearchive.org/"><abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archive</a> format. <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archives are zip files that contain an additional manifest file that indicates the format (e.g., <abbr title="Language for describing models of physiological systems.">CellML</abbr>, <abbr title="Comma-Separated Values: Format for tables of data.">CSV</abbr>, <abbr title="Systems Biology Markup Language: Format for capturing models of biochemical networks.">SBML</abbr>, <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr>, PNG, etc.) of each file in the archive. This simple format can capture a broad range of projects. The format also provides authors the flexibility to organize their projects as appropriate.</p>
-<p><strong>Are there any limitations to the <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archives and <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> files that runBioSimulations can execute?</strong></p>
-<p>runBioSimulations is designed to be able to execute any <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archive and the <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> files they contain. In practice, runBioSimulations cannot execute every possible <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archive and <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> file for three main reasons.</p>
-<p>First, currently runBioSimulations focuses on the latest version of <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> (L1V3) and has limited ability to execute simulation experiments encoded using older versions of <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr>. Going forward, runBioSimulations will support new versions of <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> through new versions of simulation tools submitted to BioSimulators that support these new versions of <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr>. Because BioSimulators stores old versions of simulation tools, runBioSimulations will also maintain the ability to execute simulations that involve the current version of <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr>.</p>
-<p>Second, runBioSimulations can only execute <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> files that involve model formats, modeling frameworks, and simulation algorithms that are supported by at least one of the standardized simulation tools in the BioSimulators registry. Presently, the standardized simulation tools support multiple formats, multiple frameworks, and over 40 algorithms. Going forward, we aim to expand this by working with the community to develop standardized interfaces for additional simulation tools and submitting them to BioSimulators.</p>
-<p>Third, runBioSimulations has limited ability to execute <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> documents that deviate from the specifications of the <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archive and <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> formats. In practice, this is the most significant limitation because some simulation tools produce <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> files which deviate from the specifications of <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> and because most of the existing <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> files in model repositories such as BioModels deviate from the specifications of <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> (note, we are worked with the BioModels and other teams to correct these issues). Below is a list of known issues which prevent runBioSimulations from executing many <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> files.</p>
+<p>BioSimulations supports the <a href="https://combinearchive.org/">COMBINE/OMEX archive</a> format. COMBINE/OMEX archives are zip files that contain an additional manifest file that indicates the format (e.g., CellML, CSV, SBML, SED-ML, PNG, etc.) of each file in the archive. This simple format can capture a broad range of projects. The format also provides authors the flexibility to organize their projects as appropriate.</p>
+<p><strong>Are there any limitations to the COMBINE/OMEX archives and SED-ML files that runBioSimulations can execute?</strong></p>
+<p>runBioSimulations is designed to be able to execute any COMBINE/OMEX archive and the SED-ML files they contain. In practice, runBioSimulations cannot execute every possible COMBINE/OMEX archive and SED-ML file for three main reasons.</p>
+<p>First, currently runBioSimulations focuses on the latest version of SED-ML (L1V3) and has limited ability to execute simulation experiments encoded using older versions of SED-ML. Going forward, runBioSimulations will support new versions of SED-ML through new versions of simulation tools submitted to BioSimulators that support these new versions of SED-ML. Because BioSimulators stores old versions of simulation tools, runBioSimulations will also maintain the ability to execute simulations that involve the current version of SED-ML.</p>
+<p>Second, runBioSimulations can only execute SED-ML files that involve model formats, modeling frameworks, and simulation algorithms that are supported by at least one of the standardized simulation tools in the BioSimulators registry. Presently, the standardized simulation tools support multiple formats, multiple frameworks, and over 40 algorithms. Going forward, we aim to expand this by working with the community to develop standardized interfaces for additional simulation tools and submitting them to BioSimulators.</p>
+<p>Third, runBioSimulations has limited ability to execute SED-ML documents that deviate from the specifications of the COMBINE/OMEX archive and SED-ML formats. In practice, this is the most significant limitation because some simulation tools produce SED-ML files which deviate from the specifications of SED-ML and because most of the existing SED-ML files in model repositories such as BioModels deviate from the specifications of SED-ML (note, we are worked with the BioModels and other teams to correct these issues). Below is a list of known issues which prevent runBioSimulations from executing many SED-ML files.</p>
 <ul>
-<li>Broken model references: The model sources in <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> files in some repositories such as BioModels are different from the actual locations of the model files.</li>
-<li>Missing namespace definitions: Most simulation tools do not define URIs for the namespace prefixes used in XPath targets for model variables. Most existing <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> files at <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr>.org and in model repositories also lack definitions of these namespace prefixes.</li>
-<li>Missing attributes: Some simulation tools produce <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> files that are missing required attributes.</li>
-<li>Invalid attribute values: Some simulation tools produce <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> files that have invalid values of some attributes.</li>
-<li>Non-unique identifiers: Some simulation tools produce <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> files that have multiple elements with the same identifier. In such cases, references to these elements cannot be resolved.</li>
-<li>Broken references: Some simulation tools produce <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> files that have broken references (e.g., no instance of <code>sedml:model</code> has an id attribute equal to the value of the modelReference attribute of a <code>sedml:task</code>).</li>
-<li>Invalid XPaths to model variables: Some simulation tools produce <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> files that do not have correct XPaths to variables in models. Most frequently, this is because some simulation tools confuse the ids and names of model elements.</li>
-<li>Incorrect <abbr title="Kinetic Simulation and Algorithms Ontology: Ontology for describing simulation algorithms and their parameters.">KiSAO</abbr> ids for algorithms: Some simulation tools produce <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> files that indicate different algorithms than what the simulation tool actually used to execute the simulation.</li>
-<li>Inconsistent plot axes: Some simulation tools produces <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> files where curves in the same plot have mixed (linear and log) x, y, and/or z axes.</li>
+<li>Broken model references: The model sources in SED-ML files in some repositories such as BioModels are different from the actual locations of the model files.</li>
+<li>Missing namespace definitions: Most simulation tools do not define URIs for the namespace prefixes used in XPath targets for model variables. Most existing SED-ML files at SED-ML.org and in model repositories also lack definitions of these namespace prefixes.</li>
+<li>Missing attributes: Some simulation tools produce SED-ML files that are missing required attributes.</li>
+<li>Invalid attribute values: Some simulation tools produce SED-ML files that have invalid values of some attributes.</li>
+<li>Non-unique identifiers: Some simulation tools produce SED-ML files that have multiple elements with the same identifier. In such cases, references to these elements cannot be resolved.</li>
+<li>Broken references: Some simulation tools produce SED-ML files that have broken references (e.g., no instance of <code>sedml:model</code> has an id attribute equal to the value of the modelReference attribute of a <code>sedml:task</code>).</li>
+<li>Invalid XPaths to model variables: Some simulation tools produce SED-ML files that do not have correct XPaths to variables in models. Most frequently, this is because some simulation tools confuse the ids and names of model elements.</li>
+<li>Incorrect KiSAO ids for algorithms: Some simulation tools produce SED-ML files that indicate different algorithms than what the simulation tool actually used to execute the simulation.</li>
+<li>Inconsistent plot axes: Some simulation tools produces SED-ML files where curves in the same plot have mixed (linear and log) x, y, and/or z axes.</li>
 </ul>
-<p>runBioSimulations provides two web applications for <a href="https://run.biosimulations.org/utils/validate-simulation">validating <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> files</a> and <a href="https://run.biosimulations.org/utils/validate-project"><abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archives</a>. <a href="https://github.com/biosimulators/biosimulators_utils">BioSimulators-utils</a> provides a command-line program and Python API for validating <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> files and <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archives.</p>
-<p>We are working with the <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> community to clarify the specifications of <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> and resolve these inconsistencies. To drive consistency, we also developed the <a href="https://github.com/biosimulators/Biosimulators_test_suite">BioSimulators test suite</a> for verifying whether simulation tools execute <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archives and <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> files consistently with the specifications of these formats. In addition, we developed <a href="https://github.com/biosimulators/Biosimulators_utils">BioSimulators utils</a>, a Python package which provides methods for more deeply validating <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archives and <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> files.</p>
-<p><strong>How can I create a <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archive?</strong></p>
-<p><a href="https://run.biosimulations.org">runBioSimulations</a> provides a simple web-based tool for creating <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archives from model files. <a href="https://github.com/Biosimulators/Biosimulators_utils">BioSimulators-utils</a> provides a command-line tool and a Python API for creating <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archives.</p>
-<p>Below are several additional tools for creating <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> files and <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archives. </p>
+<p>runBioSimulations provides two web applications for <a href="https://run.biosimulations.org/utils/validate-simulation">validating SED-ML files</a> and <a href="https://run.biosimulations.org/utils/validate-project">COMBINE/OMEX archives</a>. <a href="https://github.com/biosimulators/biosimulators_utils">BioSimulators-utils</a> provides a command-line program and Python API for validating SED-ML files and COMBINE/OMEX archives.</p>
+<p>We are working with the SED-ML community to clarify the specifications of SED-ML and resolve these inconsistencies. To drive consistency, we also developed the <a href="https://github.com/biosimulators/Biosimulators_test_suite">BioSimulators test suite</a> for verifying whether simulation tools execute COMBINE/OMEX archives and SED-ML files consistently with the specifications of these formats. In addition, we developed <a href="https://github.com/biosimulators/Biosimulators_utils">BioSimulators utils</a>, a Python package which provides methods for more deeply validating COMBINE/OMEX archives and SED-ML files.</p>
+<p><strong>How can I create a COMBINE/OMEX archive?</strong></p>
+<p><a href="https://run.biosimulations.org">runBioSimulations</a> provides a simple web-based tool for creating COMBINE/OMEX archives from model files. <a href="https://github.com/Biosimulators/Biosimulators_utils">BioSimulators-utils</a> provides a command-line tool and a Python API for creating COMBINE/OMEX archives.</p>
+<p>Below are several additional tools for creating SED-ML files and COMBINE/OMEX archives. </p>
 <ul>
 <li><a href="https://cat.bio.informatik.uni-rostock.de/">CombineArchiveWeb</a></li>
 <li><a href="http://copasi.org/">COPASI</a></li>
@@ -2014,45 +2029,45 @@
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Most of these tools are not fully compliant with the <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> and <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archive standards.</p>
+<p>Most of these tools are not fully compliant with the SED-ML and COMBINE/OMEX archive standards.</p>
 </div>
-<p><strong>Can projects (<abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archives) include multiple models, simulations, and/or visualizations?</strong></p>
-<p>Yes. <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archives can include one or more models, one or more simulations of those models, and zero or more visualizations of the results of those simulations.</p>
+<p><strong>Can projects (COMBINE/OMEX archives) include multiple models, simulations, and/or visualizations?</strong></p>
+<p>Yes. COMBINE/OMEX archives can include one or more models, one or more simulations of those models, and zero or more visualizations of the results of those simulations.</p>
 <p><strong>Can I use runBioSimulations to execute simulations involving confidential data (e.g., sensitive patient information)?</strong></p>
 <p>runBioSimulations should not be used for simulations involving confidential data such as information about individual patients. We recommend that investigators who wish to execute simulations involving confidential data use the simulation tools provided by <a href="https://biosimulators.org/">BioSimulators</a> to execute simulations using their own hardware or contact the <a href="mailto:info@biosimulators.org">BioSimulators Team</a> to discuss other options.</p>
-<p><strong>Where can I find example <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archives?</strong></p>
+<p><strong>Where can I find example COMBINE/OMEX archives?</strong></p>
 <p>BioSimulations provides many archives. In addition, several example archives are available <a href="https://github.com/biosimulators/Biosimulators_test_suite/tree/deploy/examples#compatibility-of-the-example-archives-with-simulation-tools">here</a>.</p>
 <p><strong>How can I quickly run a sample set of simulations?</strong></p>
 <p>Click <a href="https://run.biosimulations.org/runs?try=1">here</a> to load several example simulation projects from the <a href="https://github.com/biosimulators/Biosimulators_test_suite/tree/deploy/examples/">BioSimulators test suite</a>.</p>
-<p><strong>How can I validate a <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archive?</strong></p>
-<p><a href="https://run.biosimulations.org">runBioSimulations</a> provides a simple web-based tool for validating <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archives. <a href="https://github.com/Biosimulators/Biosimulators_utils">BioSimulators-utils</a> provides a command-line tool and a Python API for validating <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archives.</p>
+<p><strong>How can I validate a COMBINE/OMEX archive?</strong></p>
+<p><a href="https://run.biosimulations.org">runBioSimulations</a> provides a simple web-based tool for validating COMBINE/OMEX archives. <a href="https://github.com/Biosimulators/Biosimulators_utils">BioSimulators-utils</a> provides a command-line tool and a Python API for validating COMBINE/OMEX archives.</p>
 <p><strong>How can I find a simulation tool for executing similar simulations on my machine?</strong></p>
 <p><a href="https://run.biosimulations.org">runBioSimulations</a> provides a tool for recommending simulation tools for specific simulation projects. In addition, <a href="https://biosimulators.org">BioSimulators</a> provides tools for searching and filtering for simulation tools that support particular modeling frameworks, model formats, and simulation algorithms.</p>
 <p><strong>How can I execute similar simulations on my machine for further investigation?</strong></p>
-<p>BioSimulations executes projects using simulation tools validated by <a href="https://biosimulators.org">BioSimulators</a>. Each simulation tool is available as a <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> image that provides a consistent command-line interface. In addition, most simulation tools provide consistent Python APIs. More information and tutorials are available from BioSimulators.</p>
+<p>BioSimulations executes projects using simulation tools validated by <a href="https://biosimulators.org">BioSimulators</a>. Each simulation tool is available as a Docker image that provides a consistent command-line interface. In addition, most simulation tools provide consistent Python APIs. More information and tutorials are available from BioSimulators.</p>
 <p><strong>How can I execute a project before publication to BioSimulations?</strong></p>
-<p>BioSimulations executes projects using <a href="https://run.biosimulations.org">runBioSimulations</a>, which uses the simulation tools validated by <a href="https://biosimulators.org">BioSimulators</a>. Investigators can directly use runBioSimulations to execute projects. In addition, each simulation tool is available as a <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> image that provides a consistent command-line interface, and most simulation tools provide consistent Python APIs. These tools can be used to perform the same simulations as BioSimulations when it publishes your project. More information and tutorials are available from BioSimulators and runBioSimulations.</p>
+<p>BioSimulations executes projects using <a href="https://run.biosimulations.org">runBioSimulations</a>, which uses the simulation tools validated by <a href="https://biosimulators.org">BioSimulators</a>. Investigators can directly use runBioSimulations to execute projects. In addition, each simulation tool is available as a Docker image that provides a consistent command-line interface, and most simulation tools provide consistent Python APIs. These tools can be used to perform the same simulations as BioSimulations when it publishes your project. More information and tutorials are available from BioSimulators and runBioSimulations.</p>
 <p><strong>Where does runBioSimulations execute simulations and store their outputs?</strong></p>
-<p>runBioSimulations executes simulations using a high-performance computing cluster at UConn Health. The runBioSimulations user interface is deployed using Netlify. runBioSimulations' APIs are deployed using Google Cloud. runBioSimulations stores simulation projects (<abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archives) and their results in MongoDB Atlas.</p>
-<p><strong>Which other tools can I use to execute <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archives? Are there any limitations executing archives with other tools?</strong></p>
-<p>runBioSimulations is designed to be compatible with the <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archive and <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> formats. In principle, this means that other tools such as <a href="http://copasi.org/">COPASI</a> and <a href="https://vcell.org/">VCell</a> that support these same formats should be able to execute the same simulations that can be executed with runBioSimulations. In practice, there are two main factors which limit the ability of such tools to execute <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archives and <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> files.</p>
+<p>runBioSimulations executes simulations using a high-performance computing cluster at UConn Health. The runBioSimulations user interface is deployed using Netlify. runBioSimulations' APIs are deployed using Google Cloud. runBioSimulations stores simulation projects (COMBINE/OMEX archives) and their results in MongoDB Atlas.</p>
+<p><strong>Which other tools can I use to execute COMBINE/OMEX archives? Are there any limitations executing archives with other tools?</strong></p>
+<p>runBioSimulations is designed to be compatible with the COMBINE/OMEX archive and SED-ML formats. In principle, this means that other tools such as <a href="http://copasi.org/">COPASI</a> and <a href="https://vcell.org/">VCell</a> that support these same formats should be able to execute the same simulations that can be executed with runBioSimulations. In practice, there are two main factors which limit the ability of such tools to execute COMBINE/OMEX archives and SED-ML files.</p>
 <p>First, each tool can only execute simulations involving a limited number of model formats, modeling frameworks, and simulation algorithms.</p>
-<p>Second, some simulation tools only support a subset of <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr>. For example, some tools do not support model resolution via URI fragments, some do not support model changes, some do not support repeated tasks, and some do not support 3D plots. Going forward, we hope to use BioSimulators to keep finer-grained track of the capabilities of each tool.</p>
-<p>Third, some of the inconsistencies in the implementation of COMBINE and <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> described above prevent some simulation tools from consistently executing some <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archives and <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> files. In particular, some tools cannot execute <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archives that organize files into subdirectories.</p>
+<p>Second, some simulation tools only support a subset of SED-ML. For example, some tools do not support model resolution via URI fragments, some do not support model changes, some do not support repeated tasks, and some do not support 3D plots. Going forward, we hope to use BioSimulators to keep finer-grained track of the capabilities of each tool.</p>
+<p>Third, some of the inconsistencies in the implementation of COMBINE and SED-ML described above prevent some simulation tools from consistently executing some COMBINE/OMEX archives and SED-ML files. In particular, some tools cannot execute COMBINE/OMEX archives that organize files into subdirectories.</p>
 <p><strong>Is there a limit to the size of simulation projects that can be published through BioSimulations?</strong></p>
-<p>Simulation projects (<abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archives) are limited to 1 GB each. Furthermore, uploads are limited to 64 MB; larger archives must be submitted via URLs. In addition, simulation results are currently limited to 5 TB per project. Please contact <a href="mailto:info@biosimulations.org">runBioSimulations Team</a> to arrange larger projects.</p>
+<p>Simulation projects (COMBINE/OMEX archives) are limited to 1 GB each. Furthermore, uploads are limited to 64 MB; larger archives must be submitted via URLs. In addition, simulation results are currently limited to 5 TB per project. Please contact <a href="mailto:info@biosimulations.org">runBioSimulations Team</a> to arrange larger projects.</p>
 <p><strong>How much resources are available to each simulation?</strong></p>
 <p>runBioSimulations currently allows users to request up the following amounts of resources for each simulation project:</p>
 <ul>
-<li>Projects (<abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archives): 1 GB</li>
+<li>Projects (COMBINE/OMEX archives): 1 GB</li>
 <li>Cores: 24</li>
 <li>RAM: 192 GB</li>
 <li>Time: 20 days</li>
-<li>Results: 5 TB (The produced <abbr title="Hierarchical Data Format version 5: Format for capturing the results of simulations.">HDF5</abbr> file and zip archive with <abbr title="Hierarchical Data Format version 5: Format for capturing the results of simulations.">HDF5</abbr> and plots each must be less than 5 TB)</li>
+<li>Results: 5 TB (The produced HDF5 file and zip archive with HDF5 and plots each must be less than 5 TB)</li>
 </ul>
 <p>These limits are easily configurable. Please contact <a href="mailto:info@biosimulations.org">runBioSimulations Team</a> to arrange additional resources.</p>
 <p><strong>How much resources are available to runBioSimulations?</strong></p>
-<p>runBioSimulations has access to over 50 TFLOPs from 2,168 CPU cores, 11 TB RAM, and 8 PB of storage. Of this, 48 CPU cores and 384 GB RAM are dedicated to runBioSimulations. The remainder is shared with other users of the <abbr title="High-performance computing: Computational infrastructure for executing simulations.">HPC</abbr> system at UConn Health. More information about the infrastructure available to runBioSimulations is available from the <a href="https://health.uconn.edu/high-performance-computing/resources/">UConn Health <abbr title="High-performance computing: Computational infrastructure for executing simulations.">HPC</abbr> facility</a>.</p>
+<p>runBioSimulations has access to over 50 TFLOPs from 2,168 CPU cores, 11 TB RAM, and 8 PB of storage. Of this, 48 CPU cores and 384 GB RAM are dedicated to runBioSimulations. The remainder is shared with other users of the HPC system at UConn Health. More information about the infrastructure available to runBioSimulations is available from the <a href="https://health.uconn.edu/high-performance-computing/resources/">UConn Health HPC facility</a>.</p>
 <p><strong>How many users can use runBioSimulations simultaneously?</strong></p>
 <p>runBioSimulations is architected to accomodate many simultaneous users. There is no specific limit on the number of users that can use runBioSimulations simultaneously. If users submit many simulations simultaneously, their simulations will be queued and processed in the order in which they were submitted.</p>
 <p>The runBioSimulations Team strives to make runBioSimulations' resources are fairly available to all users. If necessary, the runBioSimulations will implement a job priority policy to ensure this.</p>
@@ -2068,7 +2083,7 @@
 <p><a href="https://run.biosimulations.org">runBioSimulations</a> provides a unique link for each project. These links can be shared with colleagues, peer reviewers, and editors. These links are not publicly advertised.</p>
 <p><strong>How can I use BioSimulations in conjunction with journal articles?</strong></p>
 <p>We recommend embedding hyperlinks to interactive versions of static figures in figure captions, availability sections, and/or supplementary materials. During peer review, private runBioSimulations hyperlinks can be used as described above. We recommend using Identifiers.org hyperlinks (<code>https://identifiers.org/biosimulations/{project-id}</code>, <code>https://identifiers.org/runbiosimulations/{run-id}</code>).</p>
-<p><strong>Do I need to create an account to publish a simulation project (run of a <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archive)?</strong></p>
+<p><strong>Do I need to create an account to publish a simulation project (run of a COMBINE/OMEX archive)?</strong></p>
 <p>No. Runs can be published anonymously without an account or registration. However, to be able to later edit a project, you must create an account and use that account to publish the project. Once the project is created, only that account will be able to edit the project.</p>
 <p><strong>How can I edit a project that I published?</strong></p>
 <p>The owner of a project can associate the project with new simulation runs. This can be used to correct mistakes and/or provide improved versions. First, use runBioSimulations to create a simulation run. Second, use BioSimulations' <a href="https://api.biosimulations.org">REST API</a> to modify the project by replacing the old simulation run associated with the project with the new run. The online documentation for the API includes a simple web interface for using the API.</p>
@@ -2084,56 +2099,56 @@
 <p>BioSimulations stores projects permanently, including their source files and simulation results.</p>
 <p><strong>How long does runBioSimulations store simulations?</strong></p>
 <p>runBioSimulations stores simulations and their results permanently. For special cases, contact the <a href="mailto:info@biosimulators.org">BioSimulators Team</a> to request deleting simulations and results.</p>
-<p><strong>How long does runBioSimulations store <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archives created via the online webform?</strong></p>
+<p><strong>How long does runBioSimulations store COMBINE/OMEX archives created via the online webform?</strong></p>
 <p>Archives created with the webform are temporarily stored for 1 day.</p>
 <p><strong>Why did my simulation fail? How can I get my simulation to succeed?</strong></p>
 <p>There are several reasons why simulations can fail including:</p>
 <ul>
-<li>The simulator that you selected is not capable of executing your archive. Because each simulator supports different modeling frameworks, simulation algorithms, and model formats, any given archive is only compatible with a subset of simulation tools. BioSimulators describes the modeling frameworks, simulation algorithms, and model formats that each simulation tool supports. We recommend using BioSimulators to determine which simulation tools are compatible with your archive. Note, BioSimulators does not capture every detail about the capabilities of each simulation tool, in part, because BioSimulators relies on the community to curate simulation tools. For example, BioSimulators has limited information about which <abbr title="Systems Biology Markup Language: Format for capturing models of biochemical networks.">SBML</abbr> elements (e.g., delays, events) most simulation tools support. As a result, to determine which tools are compatible with your archive, it may also be necessary to read the documentation for several potentially compatible simulation tools.</li>
-<li>Your archive or one of the models or simulations inside your archive is invalid. In particular, because many modeling tools are just beginning to support <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr>, and some tools do not yet produce valid <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> files. We recommend creating simulations with tools that faithfully support <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> such as tellurium and VCell.</li>
+<li>The simulator that you selected is not capable of executing your archive. Because each simulator supports different modeling frameworks, simulation algorithms, and model formats, any given archive is only compatible with a subset of simulation tools. BioSimulators describes the modeling frameworks, simulation algorithms, and model formats that each simulation tool supports. We recommend using BioSimulators to determine which simulation tools are compatible with your archive. Note, BioSimulators does not capture every detail about the capabilities of each simulation tool, in part, because BioSimulators relies on the community to curate simulation tools. For example, BioSimulators has limited information about which SBML elements (e.g., delays, events) most simulation tools support. As a result, to determine which tools are compatible with your archive, it may also be necessary to read the documentation for several potentially compatible simulation tools.</li>
+<li>Your archive or one of the models or simulations inside your archive is invalid. In particular, because many modeling tools are just beginning to support SED-ML, and some tools do not yet produce valid SED-ML files. We recommend creating simulations with tools that faithfully support SED-ML such as tellurium and VCell.</li>
 <li>Your archive describes one or more simulations that can't be solved. For example, many algorithms may not be able to solve a stiff model up to the desired tolerance in the specified number of execution steps. In this case, we recommend using an alternative algorithm such as CVODE or LSODA for continuous kinetic models or restructuring your model.</li>
 <li>Your archive generates very large outputs. runBioSimulations is architected to support arbitrarily large models and simulations. However, because runBioSimulations hasn't yet been hardened from years of use, users may still discover bugs in runBioSimulations. In this case, please help us improve runBioSimulations by using <a href="https://github.com/biosimulators/Biosimulators/issues/new/choose">GitHub issues</a> to report problems to the BioSimulators team.</li>
 </ul>
 <p><strong>How can I execute the same simulators as runBioSimulations on my own machine?</strong>
-runBioSimulations uses the BioSimulators collection of standardized simulation software tools. BioSimulators containers standardized <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> images for each simulation tool that make it easy to execute simulations. These <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> images are easy to install and run on your own machine. The images can be used on top of any operating system. Please see <a href="https://biosimulators.org">https://biosimulators.org</a> for more information about how to install and run these images.</p>
-<p>Most of the standardized simulation tools in BioSimulators also provide standardized Python APIs. These APIs provide additional flexibility such as combining simulation tools together. A single <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> image with most of the Python APIs is also available. Please see <a href="https://biosimulators.org">https://biosimulators.org</a> for more information.</p>
+runBioSimulations uses the BioSimulators collection of standardized simulation software tools. BioSimulators containers standardized Docker images for each simulation tool that make it easy to execute simulations. These Docker images are easy to install and run on your own machine. The images can be used on top of any operating system. Please see <a href="https://biosimulators.org">https://biosimulators.org</a> for more information about how to install and run these images.</p>
+<p>Most of the standardized simulation tools in BioSimulators also provide standardized Python APIs. These APIs provide additional flexibility such as combining simulation tools together. A single Docker image with most of the Python APIs is also available. Please see <a href="https://biosimulators.org">https://biosimulators.org</a> for more information.</p>
 <p><strong>How is each project licensed?</strong></p>
 <p>Each project is provided under the license chosen by its authors. These licenses are displayed on the landing pages for each project. We encourage authors to contribute projects under licenses that permit their reuse, such as the <a href="https://creativecommons.org/share-your-work/public-domain/cc0/">Creative Commons Universal License (CC0)</a>.</p>
 <p><strong>How can I create a badge to embed a project into my website?</strong></p>
 <p>We recommend using Shields.io to generate badges for projects. For example, <code>https://img.shields.io/badge/BioSimulations-published-green</code> can be used to generate the badge below.</p>
 <p><img alt="Badge" src="https://img.shields.io/badge/BioSimulations-published-green" /></p>
-<p><strong>How can I embed capabilities to create <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archives into my website?</strong></p>
+<p><strong>How can I embed capabilities to create COMBINE/OMEX archives into my website?</strong></p>
 <p>Developers can use runBioSimulations to provide their users capabilities to execute their simulations. Developers can achieve this simply by adding hyperlinks to the create simulation project page, <a href="https://run.biosimulations.org/utils/create-project">https://run.biosimulations.org/utils/create-project</a>.</p>
 <p>This page supports several query arguments:</p>
 <ul>
-<li><code>modelUrl</code>: URL for a model file that will be configured in a <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archive. This argument instructs the web form to prefill the model file input with this URL.</li>
-<li><code>modelFormat</code>: <abbr title="EMBRACE Data and Methods: Ontology for describing model formats.">EDAM</abbr> id of the format of the models to execute (e.g., <code>format_2585</code> for <abbr title="Systems Biology Markup Language: Format for capturing models of biochemical networks.">SBML</abbr>). This argument instructs the web form select this format.</li>
-<li><code>modelingFramework</code>: <abbr title="Systems Biology Ontology: Ontology for describing modeling frameworks.">SBO</abbr> id of the modeling framework of the simulations to execute (e.g., <code>SBO_0000293</code> for continuous kinetic framework). This argument instructs the web form to select this modeling framework.</li>
+<li><code>modelUrl</code>: URL for a model file that will be configured in a COMBINE/OMEX archive. This argument instructs the web form to prefill the model file input with this URL.</li>
+<li><code>modelFormat</code>: EDAM id of the format of the models to execute (e.g., <code>format_2585</code> for SBML). This argument instructs the web form select this format.</li>
+<li><code>modelingFramework</code>: SBO id of the modeling framework of the simulations to execute (e.g., <code>SBO_0000293</code> for continuous kinetic framework). This argument instructs the web form to select this modeling framework.</li>
 <li><code>simulationType</code>: Name of the type of simulation to create (<code>OneStep</code>, <code>SteadyState</code>, <code>UniformTimeCourse</code>). This argument instructs the web form to select this simulation type.</li>
-<li><code>simulationAlgorithm</code>: <abbr title="Kinetic Simulation and Algorithms Ontology: Ontology for describing simulation algorithms and their parameters.">KiSAO</abbr> id of the simulation algorithm to execute (e.g., KISAO_0000019 for CVODE). This argument instructs the web form to select this algorithm.</li>
+<li><code>simulationAlgorithm</code>: KiSAO id of the simulation algorithm to execute (e.g., KISAO_0000019 for CVODE). This argument instructs the web form to select this algorithm.</li>
 </ul>
-<p>For example, the URL <code>https://run.biosimulations.org/runs/new?modelUrl=https%3A%2F%2Fwww.ebi.ac.uk%2Fbiomodels%2Fmodel%2Fdownload%2FBIOMD0000000878.4%3Ffilename%3DLenbury2001.xml&amp;modelFormat=format_2585&amp;modelingFramework=SBO_0000293</code> can be used to link to the capability to create a <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archive for BioModels entry <code>BIOMD0000000878</code>.</p>
+<p>For example, the URL <code>https://run.biosimulations.org/runs/new?modelUrl=https%3A%2F%2Fwww.ebi.ac.uk%2Fbiomodels%2Fmodel%2Fdownload%2FBIOMD0000000878.4%3Ffilename%3DLenbury2001.xml&amp;modelFormat=format_2585&amp;modelingFramework=SBO_0000293</code> can be used to link to the capability to create a COMBINE/OMEX archive for BioModels entry <code>BIOMD0000000878</code>.</p>
 <p><strong>How can I embed execution capabilities for my simulations into my website?</strong></p>
 <p>Developers can use runBioSimulations to provide capabilities of execute simulations to their users, by simply adding a hyperlink to <a href="https://run.biosimulations.org/runs/new">https://run.biosimulations.org/runs/new</a>.</p>
 <p>The run simulations page supports several query arguments:</p>
 <ul>
-<li><code>projectUrl</code>: URL for a <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archive to simulate. This argument instructs the web form to prefill the <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archive input with this URL.</li>
-<li><code>simulator</code>: Id of the recommended simulator for executing the <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archive (e.g., <code>tellurium</code>). This argument instructs the web form to preselect this simulator.</li>
-<li><code>simulatorVersion</code>: Recommended version of the simulator for executing the <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archive (e.g., <code>2.2.1</code>). This argument instructs the web form to preselect this version.</li>
-<li><code>cpus</code>: Recommended number of CPU cores needed to execute the <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archive. This argument instructs the web form to preset the requested number of CPU cores.</li>
-<li><code>memory</code>: Recommended amount of RAM in GB needed to execute the <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archive. This argument instructs the web form to preset the requested amount of RAM.</li>
-<li><code>maxTime</code>: Recommended amount of time in minutes needed to execute the <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archive. This argument instructs the web form to preset the requested maximum execution time.</li>
+<li><code>projectUrl</code>: URL for a COMBINE/OMEX archive to simulate. This argument instructs the web form to prefill the COMBINE/OMEX archive input with this URL.</li>
+<li><code>simulator</code>: Id of the recommended simulator for executing the COMBINE/OMEX archive (e.g., <code>tellurium</code>). This argument instructs the web form to preselect this simulator.</li>
+<li><code>simulatorVersion</code>: Recommended version of the simulator for executing the COMBINE/OMEX archive (e.g., <code>2.2.1</code>). This argument instructs the web form to preselect this version.</li>
+<li><code>cpus</code>: Recommended number of CPU cores needed to execute the COMBINE/OMEX archive. This argument instructs the web form to preset the requested number of CPU cores.</li>
+<li><code>memory</code>: Recommended amount of RAM in GB needed to execute the COMBINE/OMEX archive. This argument instructs the web form to preset the requested amount of RAM.</li>
+<li><code>maxTime</code>: Recommended amount of time in minutes needed to execute the COMBINE/OMEX archive. This argument instructs the web form to preset the requested maximum execution time.</li>
 <li><code>runName</code>: Recommended name for the simulation run. This argument instructs the web form to preset the name of the simulation run.</li>
 </ul>
 <p>For example, the URL <code>https://run.biosimulations.org/runs/new?projectUrl=https%3A%2F%2Fwww.ebi.ac.uk%2Fbiomodels%2Fmodel%2Fdownload%2FBIOMD0000000878</code> can be used to link to the capability to simulate BioModels entry BIOMD0000000878.</p>
 <p><strong>Does runBioSimulations provide an additional service for lower-latent simulation?</strong></p>
 <p>Yes! An endpoint for lower-latent simulation is available <a href="https://combine.api.biosimulations.org/">here</a>. This endpoint is intended for interactive execution of computationally-cheap simulations.</p>
-<p>This endpoint runs simulations more quickly by executing simulations in an active Python environment rather than submitting jobs to an <abbr title="High-performance computing: Computational infrastructure for executing simulations.">HPC</abbr> queue that use <abbr title="Technology used to execute containerized simulation tools in HPC.">Singularity</abbr> images to execute simulations.</p>
+<p>This endpoint runs simulations more quickly by executing simulations in an active Python environment rather than submitting jobs to an HPC queue that use Singularity images to execute simulations.</p>
 <p>This endpoint returns simulation results rather than returning an id for later retrieving simulation results. This endpoint can return the outputs of projects in three ways:</p>
 <ul>
-<li><abbr title="JavaScript Object Notation: Format for inputs and outputs to the BioSimulations and BioSimulators APIs.">JSON</abbr> document: includes the results of each <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> report and plot</li>
-<li>HDF file: includes the results of each <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> report and plot</li>
-<li>Zip file: by default, includes an <abbr title="Hierarchical Data Format version 5: Format for capturing the results of simulations.">HDF5</abbr> file with the data for each <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> report and plot, a <abbr title="Portable Document Format: Format for print documents.">PDF</abbr> file for each plot, a YAML-formatted log of the simulation run, and any additional files produced by the simulation tool</li>
+<li>JSON document: includes the results of each SED-ML report and plot</li>
+<li>HDF file: includes the results of each SED-ML report and plot</li>
+<li>Zip file: by default, includes an HDF5 file with the data for each SED-ML report and plot, a PDF file for each plot, a YAML-formatted log of the simulation run, and any additional files produced by the simulation tool</li>
 </ul>
 <p>Note, this endpoint has several limitations:</p>
 <ul>
@@ -2147,23 +2162,23 @@ runBioSimulations uses the BioSimulators collection of standardized simulation s
 </ul>
 <p><strong>Can I use the runBioSimulations API to develop an interactive web application for running simulations?</strong></p>
 <p>Yes! The low-latent simulation endpoint described above is designed to support interactive web applications. Please contact the <a href="mailto:info@biosimulations.org">runBioSimulations Team</a> to enable CORS access for your application and discuss the computational resources needed for your application.</p>
-<h2 id="models-eg-cellml-sbml">Models (e.g., <abbr title="Language for describing models of physiological systems.">CellML</abbr>, <abbr title="Systems Biology Markup Language: Format for capturing models of biochemical networks.">SBML</abbr>)</h2>
+<h2 id="models-eg-cellml-sbml">Models (e.g., CellML, SBML)</h2>
 <p><strong>Which modeling frameworks does BioSimulations support?</strong></p>
-<p>Currently BioSimulations supports constraint-based (<a href="https://www.ebi.ac.uk/ols/ontologies/sbo/terms?iri=http%3A%2F%2Fbiomodels.net%2FSBO%2FSBO_0000004">Flux Balance Analysis (<abbr title="Flux Balance Analysis: Framework for modeling the optimal steady-state flux distribution of a system.">FBA</abbr>)</a> and <a href="https://www.ebi.ac.uk/ols/ontologies/sbo/terms?iri=http%3A%2F%2Fbiomodels.net%2FSBO%2FSBO_0000692">Resource Balance Analysis (<abbr title="Resource Balance Analysis: Framework for modeling the optimal steady-state allocation of resources.">RBA</abbr>)</a>), <a href="https://www.ebi.ac.uk/ols/ontologies/sbo/terms?iri=http%3A%2F%2Fbiomodels.net%2FSBO%2FSBO_0000293">continuous kinetic</a> (ordinary differential equations (<abbr title="Ordinary differential equations: Framework for modeling the rates of change of variables.">ODE</abbr>) and differential-algebraic equations (<abbr title="Differential algebraic equations: Framework for modeling a system as a set of differential and algebraic equations.">DAE</abbr>)), <a href="https://www.ebi.ac.uk/ols/ontologies/sbo/terms?iri=http%3A%2F%2Fbiomodels.net%2FSBO%2FSBO_0000295">discrete kinetic</a> (e.g., Stochastic Simulation Algorithms (<abbr title="Stochastic Simulation Algorithm: Algorithm for sampling trajectories of sets of stochastic equations.">SSA</abbr>)), <a href="https://www.ebi.ac.uk/ols/ontologies/sbo/terms?iri=http%3A%2F%2Fbiomodels.net%2FSBO%2FSBO_0000234">logical</a>, and various <a href="https://www.ebi.ac.uk/ols/ontologies/sbo/terms?iri=http%3A%2F%2Fbiomodels.net%2FSBO%2FSBO_0000681">hybrid</a> models, including non-spatial, spatial, population-based, and particle-based models. More information about the available simulation methods is available at <a href="https://biosimulators.org">BioSimulators</a>.</p>
+<p>Currently BioSimulations supports constraint-based (<a href="https://www.ebi.ac.uk/ols/ontologies/sbo/terms?iri=http%3A%2F%2Fbiomodels.net%2FSBO%2FSBO_0000004">Flux Balance Analysis (FBA)</a> and <a href="https://www.ebi.ac.uk/ols/ontologies/sbo/terms?iri=http%3A%2F%2Fbiomodels.net%2FSBO%2FSBO_0000692">Resource Balance Analysis (RBA)</a>), <a href="https://www.ebi.ac.uk/ols/ontologies/sbo/terms?iri=http%3A%2F%2Fbiomodels.net%2FSBO%2FSBO_0000293">continuous kinetic</a> (ordinary differential equations (ODE) and differential-algebraic equations (DAE)), <a href="https://www.ebi.ac.uk/ols/ontologies/sbo/terms?iri=http%3A%2F%2Fbiomodels.net%2FSBO%2FSBO_0000295">discrete kinetic</a> (e.g., Stochastic Simulation Algorithms (SSA)), <a href="https://www.ebi.ac.uk/ols/ontologies/sbo/terms?iri=http%3A%2F%2Fbiomodels.net%2FSBO%2FSBO_0000234">logical</a>, and various <a href="https://www.ebi.ac.uk/ols/ontologies/sbo/terms?iri=http%3A%2F%2Fbiomodels.net%2FSBO%2FSBO_0000681">hybrid</a> models, including non-spatial, spatial, population-based, and particle-based models. More information about the available simulation methods is available at <a href="https://biosimulators.org">BioSimulators</a>.</p>
 <p><strong>Which model formats does BioSimulations support?</strong></p>
-<p>Currently BioSimulations supports several languages including the <a href="https://bionetgen.org">BioNetGen Language (<abbr title="BioNetGen Language: Language for describing models of biochemical networks as sets of rules.">BNGL</abbr>)</a>, <a href="https://cellml.org"><abbr title="Language for describing models of physiological systems.">CellML</abbr></a>, the <a href="http://ginsim.org/">GINsim</a> Markup Language, <a href="https://neuroml.org/">NeuroML</a>/<a href="https://lems.github.io/LEMS/">Low Entropy Model Specification Langauge (<abbr title="Low Entropy Model Specification: Format for describing neurophysiological simulations.">LEMS</abbr>)</a>, the <a href="https://sysbioinra.github.io/RBApy/"><abbr title="Resource Balance Analysis: Framework for modeling the optimal steady-state allocation of resources.">RBA</abbr> XML format</a>, the <a href="https://sbml.org">Systems Biology Markup Language (<abbr title="Systems Biology Markup Language: Format for capturing models of biochemical networks.">SBML</abbr>)</a> including the Flux Balance Constraints and Qualitative Models Packages, the <a href="http://www.smoldyn.org/">Smoldyn</a> simulation configuration format, and the XPP <a href="http://www.math.pitt.edu/~bard/xpp/help/xppodes.html"><abbr title="Ordinary differential equations: Framework for modeling the rates of change of variables.">ODE</abbr></a> format. </p>
-<p><strong>Which <abbr title="Systems Biology Markup Language: Format for capturing models of biochemical networks.">SBML</abbr> packages does BioSimulations support?</strong></p>
+<p>Currently BioSimulations supports several languages including the <a href="https://bionetgen.org">BioNetGen Language (BNGL)</a>, <a href="https://cellml.org">CellML</a>, the <a href="http://ginsim.org/">GINsim</a> Markup Language, <a href="https://neuroml.org/">NeuroML</a>/<a href="https://lems.github.io/LEMS/">Low Entropy Model Specification Langauge (LEMS)</a>, the <a href="https://sysbioinra.github.io/RBApy/">RBA XML format</a>, the <a href="https://sbml.org">Systems Biology Markup Language (SBML)</a> including the Flux Balance Constraints and Qualitative Models Packages, the <a href="http://www.smoldyn.org/">Smoldyn</a> simulation configuration format, and the XPP <a href="http://www.math.pitt.edu/~bard/xpp/help/xppodes.html">ODE</a> format. </p>
+<p><strong>Which SBML packages does BioSimulations support?</strong></p>
 <p>Currently, BioSimulations supports the core, <a href="http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/fbc">Flux Balance Constraints (fbc)</a>, and <a href="http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/qual">Qualitative Models (qual)</a> packages.</p>
 <p><strong>How can I contribute an additional modeling framework or model format?</strong></p>
 <p>BioSimulations is extensible to additional modeling frameworks and formats. The community can extend BioSimulations' capabilities by contributing simulation tools to <a href="https://biosimulators.org">BioSimulators</a>. More information, tutorials, and examples are available from BioSimulators.</p>
 <p><strong>How can I request an additional modeling framework or model format?</strong></p>
 <p>Please <a href="https://github.com/biosimulators/Biosimulators/issues/new/choose">submit an issue</a> to request support for another modeling framework and/or model format.</p>
-<h2 id="simulation-experiments-sed-ml">Simulation experiments (<abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr>)</h2>
+<h2 id="simulation-experiments-sed-ml">Simulation experiments (SED-ML)</h2>
 <p><strong>Which simulation formats does BioSimulations support?</strong></p>
-<p>BioSimulations supports these <a href="../../concepts/conventions/simulation-experiments/">conventions</a> for the <a href="https://sed-ml.org">Simulation Experiment Description Markup Language (<abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr>)</a>. <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> can be used to describe a broad range of simulations involving a broad range of modeling frameworks, model formats, simulation algorithms, and simulation tools.</p>
-<p><strong>Which versions of <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> does BioSimulations support?</strong></p>
-<p>BioSimulations all versions of <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr>. However, BioSimulations does not yet support the new features added to the latest version (L1V4) released this summer. We aim to support these new features soon.</p>
-<p><strong>Which <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> features does BioSimulators support?</strong></p>
+<p>BioSimulations supports these <a href="../../concepts/conventions/simulation-experiments/">conventions</a> for the <a href="https://sed-ml.org">Simulation Experiment Description Markup Language (SED-ML)</a>. SED-ML can be used to describe a broad range of simulations involving a broad range of modeling frameworks, model formats, simulation algorithms, and simulation tools.</p>
+<p><strong>Which versions of SED-ML does BioSimulations support?</strong></p>
+<p>BioSimulations all versions of SED-ML. However, BioSimulations does not yet support the new features added to the latest version (L1V4) released this summer. We aim to support these new features soon.</p>
+<p><strong>Which SED-ML features does BioSimulators support?</strong></p>
 <p>All of the simulation tools support the following features:</p>
 <ul>
 <li>Models and model attribute changes: <code>sedml:model</code>, <code>sedml:changeAttribute</code>.</li>
@@ -2173,17 +2188,17 @@ runBioSimulations uses the BioSimulators collection of standardized simulation s
 <li>Data generators for individual variables: <code>sedml:dataGenerator</code></li>
 <li>Report outputs: <code>sedml:report</code>.</li>
 </ul>
-<p>Some of the simulation tools, such as tellurium, support the full <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> specification.</p>
-<p><strong>How can I create a <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> file?</strong></p>
-<p><a href="https://run.biosimulations.org">runBioSimulations</a> provides a simple web-based tool for creating <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> documents. <a href="https://github.com/Biosimulators/Biosimulators_utils">BioSimulators-utils</a> provides a command-line tool and a Python API for creating <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> documents.</p>
-<p><strong>How should <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> be used with specific model languages?</strong></p>
-<p>Information about how to use <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> with specific model languages is available <a href="../../concepts/conventions/simulation-experiments/">here</a>.</p>
-<p><strong>Where can I obtain example <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archives and <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> files?</strong></p>
+<p>Some of the simulation tools, such as tellurium, support the full SED-ML specification.</p>
+<p><strong>How can I create a SED-ML file?</strong></p>
+<p><a href="https://run.biosimulations.org">runBioSimulations</a> provides a simple web-based tool for creating SED-ML documents. <a href="https://github.com/Biosimulators/Biosimulators_utils">BioSimulators-utils</a> provides a command-line tool and a Python API for creating SED-ML documents.</p>
+<p><strong>How should SED-ML be used with specific model languages?</strong></p>
+<p>Information about how to use SED-ML with specific model languages is available <a href="../../concepts/conventions/simulation-experiments/">here</a>.</p>
+<p><strong>Where can I obtain example COMBINE/OMEX archives and SED-ML files?</strong></p>
 <p>Several examples files are available <a href="https://github.com/biosimulators/Biosimulators_test_suite/tree/deploy/examples">here</a>. These examples are verified to work with runBioSimulations. This page lists that simulation tools that are compatible with each example.</p>
-<p><strong>What tools can I use to create <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> files?</strong></p>
-<p>runBioSimulations provides an <a href="https://run.biosimulations.org/utils/create-project">online tool</a> for building <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> files. Similar functionality is available as a command-line program and Python API through the <a href="https://github.com/biosimulators/Biosimulators_utils">BioSimulators-utils Python package</a>.</p>
-<p><strong>How can I validate a <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> file?</strong></p>
-<p><a href="https://run.biosimulations.org">runBioSimulations</a> provides a simple web-based tool for validating <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> documents. <a href="https://github.com/Biosimulators/Biosimulators_utils">BioSimulators-utils</a> provides a command-line tool and a Python API for validating <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> documents.</p>
+<p><strong>What tools can I use to create SED-ML files?</strong></p>
+<p>runBioSimulations provides an <a href="https://run.biosimulations.org/utils/create-project">online tool</a> for building SED-ML files. Similar functionality is available as a command-line program and Python API through the <a href="https://github.com/biosimulators/Biosimulators_utils">BioSimulators-utils Python package</a>.</p>
+<p><strong>How can I validate a SED-ML file?</strong></p>
+<p><a href="https://run.biosimulations.org">runBioSimulations</a> provides a simple web-based tool for validating SED-ML documents. <a href="https://github.com/Biosimulators/Biosimulators_utils">BioSimulators-utils</a> provides a command-line tool and a Python API for validating SED-ML documents.</p>
 <p><strong>Which simulation algorithms does BioSimulations support?</strong></p>
 <p>BioSimulations supports all simulation algorithms that are validated by BioSimulators. Currently, this includes over 60 algorithms. See below for contributing an additional simulation algorithm.</p>
 <p><strong>How can I contribute an additional simulation algorithm?</strong></p>
@@ -2196,54 +2211,54 @@ runBioSimulations uses the BioSimulators collection of standardized simulation s
 <p>Yes. <a href="https://run.biosimulations.org/">runBioSimulations</a> provides a web application for executing simulations. runBioSimulations does not require an account or registration. Simulations executed with runBioSimulations are private until shared or published.</p>
 <h2 id="simulation-results">Simulation results</h2>
 <p><strong>Which formats does BioSimulators support?</strong></p>
-<p>Data for reports and plots are saved in <abbr title="Hierarchical Data Format version 5: Format for capturing the results of simulations.">HDF5</abbr> format. See the <a href="../../concepts/conventions/simulation-run-reports/">specifications for data sets</a> for more information.</p>
-<p><strong>How are results encoded into <abbr title="Hierarchical Data Format version 5: Format for capturing the results of simulations.">HDF5</abbr> files?</strong></p>
-<p>Within <abbr title="Hierarchical Data Format version 5: Format for capturing the results of simulations.">HDF5</abbr> files, the results of each report (<code>sedml:report</code>) and plot (<code>sedml:plot2D</code>, <code>sedml:plot3D</code>) are saved to paths that are a combination of the relative path of the parent <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> document within the parent <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archive and the id of the report or plot.</p>
-<p>For reports, the rows of these data tables correspond to the data sets (<code>sedml:dataSet</code>) specified in the <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> definition of the report. The heading of each row is the label of the corresponding data set. For plots, the rows of these data tables correspond to the data generators (<code>sedml:dataGenerator</code>) specified in the <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> definition of the curves and surfaces of the plot. The heading of each row is the id of the corresponding data generator.</p>
+<p>Data for reports and plots are saved in HDF5 format. See the <a href="../../concepts/conventions/simulation-run-reports/">specifications for data sets</a> for more information.</p>
+<p><strong>How are results encoded into HDF5 files?</strong></p>
+<p>Within HDF5 files, the results of each report (<code>sedml:report</code>) and plot (<code>sedml:plot2D</code>, <code>sedml:plot3D</code>) are saved to paths that are a combination of the relative path of the parent SED-ML document within the parent COMBINE/OMEX archive and the id of the report or plot.</p>
+<p>For reports, the rows of these data tables correspond to the data sets (<code>sedml:dataSet</code>) specified in the SED-ML definition of the report. The heading of each row is the label of the corresponding data set. For plots, the rows of these data tables correspond to the data generators (<code>sedml:dataGenerator</code>) specified in the SED-ML definition of the curves and surfaces of the plot. The heading of each row is the id of the corresponding data generator.</p>
 <p>For time course simulations, the columns of these data tables correspond to the predicted time points. Below is a sample data table for a report.</p>
 <p>See the <a href="../../concepts/conventions/simulation-run-reports/">specifications for data tables</a> for more information and examples.</p>
 <h2 id="data-visualizations-of-simulation-results">Data visualizations of simulation results</h2>
 <p><strong>Which data visualization formats does BioSimulations support?</strong></p>
-<p>Currently, BioSimulations supports the <a href="https://sed-ml.org">Simulation Experiment Description Markup Language (<abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr>)</a> and <a href="https://vega.github.io/vega/"><abbr title="Declarative grammar for describing interactive data visualizations of simulation results.">Vega</abbr></a> formats. The <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> format supports basic line charts. <abbr title="Declarative grammar for describing interactive data visualizations of simulation results.">Vega</abbr> is a powerful format that can be used to describe a broad range of data visualizations, including interactive visualizations that brush complex diagrams with results from multiple individual simulations.</p>
-<p>BioSimulations follows these <a href="../../concepts/conventions/simulation-run-visualizations/">conventions</a> for incorporating <abbr title="Declarative grammar for describing interactive data visualizations of simulation results.">Vega</abbr> visualizations into <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archives for simulation projects. These conventions enable authors to describe how the outputs of simulation experiments (simulation results) should be linked to the inputs (data sets) of <abbr title="Declarative grammar for describing interactive data visualizations of simulation results.">Vega</abbr> data visualizations. Importantly, these conventions enable <abbr title="Declarative grammar for describing interactive data visualizations of simulation results.">Vega</abbr> data visualizations to be reused across multiple simulations, such as with different initial conditions, simulation algorithms, simulation tools, models, or modeling frameworks.</p>
+<p>Currently, BioSimulations supports the <a href="https://sed-ml.org">Simulation Experiment Description Markup Language (SED-ML)</a> and <a href="https://vega.github.io/vega/">Vega</a> formats. The SED-ML format supports basic line charts. Vega is a powerful format that can be used to describe a broad range of data visualizations, including interactive visualizations that brush complex diagrams with results from multiple individual simulations.</p>
+<p>BioSimulations follows these <a href="../../concepts/conventions/simulation-run-visualizations/">conventions</a> for incorporating Vega visualizations into COMBINE/OMEX archives for simulation projects. These conventions enable authors to describe how the outputs of simulation experiments (simulation results) should be linked to the inputs (data sets) of Vega data visualizations. Importantly, these conventions enable Vega data visualizations to be reused across multiple simulations, such as with different initial conditions, simulation algorithms, simulation tools, models, or modeling frameworks.</p>
 <p><strong>What types of plots does BioSimulations support?</strong></p>
-<p>The <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> format supports basic statistical charts. The <abbr title="Declarative grammar for describing interactive data visualizations of simulation results.">Vega</abbr> format supports a broad range of charts, including all canonical statistical charts such as bar and line charts, as well as domain-specific diagrams such as activity flow diagrams, processing description maps, and reaction flux maps.</p>
-<p><strong>What tools are available for creating <abbr title="Declarative grammar for describing interactive data visualizations of simulation results.">Vega</abbr> data visualizations?</strong></p>
-<p>Several tools are available for creating <abbr title="Declarative grammar for describing interactive data visualizations of simulation results.">Vega</abbr> data visualizations, including the <a href="https://altair-viz.github.io/">Altair</a> Python package, the <a href="http://idl.cs.washington.edu/projects/lyra/app/">Lyra</a> visual editor, and the <abbr title="Declarative grammar for describing interactive data visualizations of simulation results.">Vega</abbr> <a href="https://vega.github.io/editor/">text editor</a>.</p>
-<p><strong>How can I convert existing diagrams into <abbr title="Declarative grammar for describing interactive data visualizations of simulation results.">Vega</abbr> data visualizations?</strong></p>
-<p>In addition, <a href="https://github.com/Biosimulators/Biosimulators_utils">BioSimulators-utils</a> provides tools for creating <abbr title="Declarative grammar for describing interactive data visualizations of simulation results.">Vega</abbr> data visualizations from several model visualization formats including <a href="https://escher.github.io/">Escher</a> metabolic flux maps, <a href="http://ginsim.org/">GINsim</a> activity flow diagrams, and <a href="https://sbgn.github.io/">Systems Biology Graphical Notation (SGBN)</a> process description maps.</p>
+<p>The SED-ML format supports basic statistical charts. The Vega format supports a broad range of charts, including all canonical statistical charts such as bar and line charts, as well as domain-specific diagrams such as activity flow diagrams, processing description maps, and reaction flux maps.</p>
+<p><strong>What tools are available for creating Vega data visualizations?</strong></p>
+<p>Several tools are available for creating Vega data visualizations, including the <a href="https://altair-viz.github.io/">Altair</a> Python package, the <a href="http://idl.cs.washington.edu/projects/lyra/app/">Lyra</a> visual editor, and the Vega <a href="https://vega.github.io/editor/">text editor</a>.</p>
+<p><strong>How can I convert existing diagrams into Vega data visualizations?</strong></p>
+<p>In addition, <a href="https://github.com/Biosimulators/Biosimulators_utils">BioSimulators-utils</a> provides tools for creating Vega data visualizations from several model visualization formats including <a href="https://escher.github.io/">Escher</a> metabolic flux maps, <a href="http://ginsim.org/">GINsim</a> activity flow diagrams, and <a href="https://sbgn.github.io/">Systems Biology Graphical Notation (SGBN)</a> process description maps.</p>
 <p><strong>How can BioSimulations render additional visualization formats?</strong></p>
-<p>One way to use BioSimulations with additional formats is to convert them to <abbr title="Declarative grammar for describing interactive data visualizations of simulation results.">Vega</abbr>. This can be achieved by writing scripts to convert alternative formats into <abbr title="Declarative grammar for describing interactive data visualizations of simulation results.">Vega</abbr>.</p>
-<p>Additional rendering tools could be incorporated into BioSimulations. Please contact the <a href="https://biosimulations.org">BioSimulations Team</a> to discuss how to integrate additional tools with <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> files, <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archives, and BioSimulations.</p>
+<p>One way to use BioSimulations with additional formats is to convert them to Vega. This can be achieved by writing scripts to convert alternative formats into Vega.</p>
+<p>Additional rendering tools could be incorporated into BioSimulations. Please contact the <a href="https://biosimulations.org">BioSimulations Team</a> to discuss how to integrate additional tools with SED-ML files, COMBINE/OMEX archives, and BioSimulations.</p>
 <h2 id="metadata-about-simulation-projects">Metadata about simulation projects</h2>
 <p><strong>What metadata is required to publish a project?</strong></p>
 <p>The minimum metadata required for publication is described <a href="../../concepts/conventions/simulation-project-metadata/">here</a>.</p>
 <p><strong>Which formats for metadata does BioSimulations support?</strong></p>
-<p>BioSimulations supports the <a href="https://www.w3.org/TR/rdf-syntax-grammar/"><abbr title="Resource Description Framework: Framework for describing metadata about simulation projects and components of simulation projects.">RDF</abbr>-XML format</a> and the predicates described <a href="../../concepts/conventions/simulation-project-metadata/">here</a>.</p>
-<p><strong>What tools can be used to create <abbr title="Resource Description Framework: Framework for describing metadata about simulation projects and components of simulation projects.">RDF</abbr>-XML files?</strong></p>
-<p>Several tools are available for creating <abbr title="Resource Description Framework: Framework for describing metadata about simulation projects and components of simulation projects.">RDF</abbr>-XML files:</p>
+<p>BioSimulations supports the <a href="https://www.w3.org/TR/rdf-syntax-grammar/">RDF-XML format</a> and the predicates described <a href="../../concepts/conventions/simulation-project-metadata/">here</a>.</p>
+<p><strong>What tools can be used to create RDF-XML files?</strong></p>
+<p>Several tools are available for creating RDF-XML files:</p>
 <ul>
-<li><a href="https://sys-bio.github.io/libOmexMeta/">libOmexMeta</a>: creates <abbr title="Resource Description Framework: Framework for describing metadata about simulation projects and components of simulation projects.">RDF</abbr>-XML from metadata in <abbr title="Systems Biology Markup Language: Format for capturing models of biochemical networks.">SBML</abbr> files</li>
+<li><a href="https://sys-bio.github.io/libOmexMeta/">libOmexMeta</a>: creates RDF-XML from metadata in SBML files</li>
 <li><a href="https://osde.openlinksw.com/">OpenLink Structured Data Editor</a></li>
-<li><a href="https://dotnetrdf.org/docs/stable/user_guide/Tools-rdfEditor.html"><abbr title="Resource Description Framework: Framework for describing metadata about simulation projects and components of simulation projects.">RDF</abbr> Editor</a></li>
-<li><a href="http://www.linkeddatatools.com/rdf-studio"><abbr title="Resource Description Framework: Framework for describing metadata about simulation projects and components of simulation projects.">RDF</abbr> Studio</a></li>
+<li><a href="https://dotnetrdf.org/docs/stable/user_guide/Tools-rdfEditor.html">RDF Editor</a></li>
+<li><a href="http://www.linkeddatatools.com/rdf-studio">RDF Studio</a></li>
 </ul>
 <h2 id="simulation-software-tools">Simulation software tools</h2>
 <p><strong>Which simulation tools does BioSimulations support?</strong></p>
 <p>BioSimulations supports all simulation tools validated by <a href="https://biosimulators.org">BioSimulators</a>. Currently, this includes over 20 simulation tools. BioSimulations is extensible to additional simulation tools. The community can extend BioSimulations' capabilities by contributing simulation tools to BioSimulators. More information, tutorials, and examples are available from BioSimulators.</p>
-<p><strong>Do all of the simulators provide consistent <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> images?</strong></p>
-<p>Only the simulators that have a curation status of 5 stars provide <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> images that support the BioSimulators conventions. Going forward, we aim to encourage the community to provide additional standardized <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> images.</p>
+<p><strong>Do all of the simulators provide consistent Docker images?</strong></p>
+<p>Only the simulators that have a curation status of 5 stars provide Docker images that support the BioSimulators conventions. Going forward, we aim to encourage the community to provide additional standardized Docker images.</p>
 <p><strong>Do all of the simulators provide consistent Python APIs?</strong></p>
-<p>Only the simulators that have a curation status of 5 stars provide Python APIs images that support the BioSimulators conventions. Going forward, we aim to encourage the community to provide additional standardized <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> images.</p>
+<p>Only the simulators that have a curation status of 5 stars provide Python APIs images that support the BioSimulators conventions. Going forward, we aim to encourage the community to provide additional standardized Docker images.</p>
 <p><strong>How frequently are these tools updated?</strong></p>
 <p>For most tools, BioSimulators immediately incorporates new versions upon their release. These new versions are then immediately available for running and publishing projects.</p>
 <p><strong>Does BioSimulations support old versions of tools?</strong></p>
 <p>Yes. BioSimulations uses BioSimulators to run simulations. BioSimulators stores each version of each tool so that in the future, if needed, old models can be rerun with old versions of tools.</p>
 <p><strong>How can I contribute an additional simulation tool?</strong></p>
 <p>BioSimulations is extensible to additional simulation tools. The community can extend BioSimulations' capabilities by contributing simulation tools to <a href="https://biosimulators.org">BioSimulators</a>. More information, tutorials, and examples are available from BioSimulators.</p>
-<p><strong>Can I submit a simulation tool to the BioSimulators registry for which there is no <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> image, or for which there is a <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> image that is not consistent with the BioSimulators conventions?</strong>
-Yes! We encourage the community to submit all simulation tools, even if they do not support the BioSimulators interface and <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> image structure conventions.</p>
-<p>Note, BioSimulators can only validate simulation tools that support these conventions. Consequently, when creating GitHub issues to submit simulation tools that do not support the BioSimulators conventions, set <code>validateImage</code> to <code>false</code> to decline validation of the <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> image (or lack thereof) for your simulation tool. The validation status of your simulation tool (passed or skipped) will be communicated to BioSimulators users.</p>
+<p><strong>Can I submit a simulation tool to the BioSimulators registry for which there is no Docker image, or for which there is a Docker image that is not consistent with the BioSimulators conventions?</strong>
+Yes! We encourage the community to submit all simulation tools, even if they do not support the BioSimulators interface and Docker image structure conventions.</p>
+<p>Note, BioSimulators can only validate simulation tools that support these conventions. Consequently, when creating GitHub issues to submit simulation tools that do not support the BioSimulators conventions, set <code>validateImage</code> to <code>false</code> to decline validation of the Docker image (or lack thereof) for your simulation tool. The validation status of your simulation tool (passed or skipped) will be communicated to BioSimulators users.</p>
 <p><strong>Can I submit a simulation tool to the BioSimulators registry for which there is no Python API, or for which there is a Python API image that is not consistent with the BioSimulators conventions?</strong>
 Yes! We encourage the community to submit all simulation tools, even if they do not support the BioSimulators conventions.</p>
 <p><strong>How does BioSimulators manage ownership of BioSimulators entries for simulation tools?</strong>
@@ -2254,27 +2269,27 @@ BioSimulators uses GitHub teams to manage ownership of simulation tools.</p>
 <p>Please <a href="https://github.com/biosimulators/Biosimulators/issues/new/choose">submit an issue</a> to request support for another simulation tool.</p>
 <p><strong>How is each simulation tool licensed?</strong></p>
 <p>The simulation tools available through BioSimulations are provided under the licenses documented for each tool. Please see <a href="https://biosimulators.org">BioSimulators</a> for more information.</p>
-<p><strong>How can I use a simulator <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> image to execute a simulation?</strong></p>
-<p>Instructions for using simulator <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> images to execute simulations are available <a href="../simulating-projects/">here</a>.</p>
+<p><strong>How can I use a simulator Docker image to execute a simulation?</strong></p>
+<p>Instructions for using simulator Docker images to execute simulations are available <a href="../simulating-projects/">here</a>.</p>
 <p><strong>How can I use a command-line interface image to execute a simulation?</strong>
 Instructions for using command-line interfaces to execute simulations are available <a href="../simulating-projects/">here</a>.</p>
 <p><strong>How can I use a Python API to execute a simulation?</strong>
 Instructions for using simulator Python APIs to execute simulations are available <a href="../simulating-projects/">here</a>.</p>
 <p>In addition, several interactive tutorials are available from <a href="https://tutorial.biosimulators.org/">Binder</a>.</p>
-<p><strong>Is a <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> image available with all of the Python APIs available?</strong>
+<p><strong>Is a Docker image available with all of the Python APIs available?</strong>
 Yes! <code>The ghcr.io/biosimulators/biosimulators</code> image contains most of the Python APIs (90% as of 2021-09-23). More information about the image is available <a href="https://github.com/biosimulators/Biosimulators/pkgs/container/biosimulators">here</a>.</p>
-<p>The Dockerfile for this image is available <a href="https://github.com/biosimulators/Biosimulators/blob/dev/Dockerfile">here</a>. To the extent possible, this <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> image uses Pipenv to manage the Python environment inside the image. The <code>Pipfile</code> and <code>Pipfile.lock</code> files for this environment are available <a href="https://github.com/biosimulators/Biosimulators/tree/dev/Dockerfile-assets">here</a>.</p>
+<p>The Dockerfile for this image is available <a href="https://github.com/biosimulators/Biosimulators/blob/dev/Dockerfile">here</a>. To the extent possible, this Docker image uses Pipenv to manage the Python environment inside the image. The <code>Pipfile</code> and <code>Pipfile.lock</code> files for this environment are available <a href="https://github.com/biosimulators/Biosimulators/tree/dev/Dockerfile-assets">here</a>.</p>
 <p>The goal of this image is to provide the latest mutually-compatible versions of the Python APIs for simulation tools. When simulation tools require conflicting versions of dependencies, this image may not have the latest version of each simulation tool. In such cases, individual simulation tools can be updated by running <code>pipenv install --system --selective-upgrade ...</code> or <code>pip install --upgrade ....</code>. Note, such upgrading may break the functionality of other tools.</p>
 <p>In addition, the <code>ghcr.io/biosimulators/biosimulators-base</code> image contains the non-Python dependencies for these the Python APIs. More information about the image is available <a href="https://github.com/biosimulators/Biosimulators/pkgs/container/biosimulators-base">here</a>.</p>
-<p><strong>Can the <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> images be run on high-performance computing systems without root access?</strong>
-Yes! The <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> images can be run on high-performance computing (<abbr title="High-performance computing: Computational infrastructure for executing simulations.">HPC</abbr>) systems where root access is not available by first converting the images to <a href="https://sylabs.io/"><abbr title="Technology used to execute containerized simulation tools in HPC.">Singularity</abbr></a> images. All of the validated images are compatible with <abbr title="Technology used to execute containerized simulation tools in HPC.">Singularity</abbr>.</p>
-<p><strong>Can the <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> images for simulators be converted to <abbr title="Technology used to execute containerized simulation tools in HPC.">Singularity</abbr> images for use for high-performance computing systems?</strong>
-Yes! All of the validated images are compatible with <abbr title="Technology used to execute containerized simulation tools in HPC.">Singularity</abbr>. As part of the validation process, we check that each <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> image can be converted into a <abbr title="Technology used to execute containerized simulation tools in HPC.">Singularity</abbr> image.</p>
+<p><strong>Can the Docker images be run on high-performance computing systems without root access?</strong>
+Yes! The Docker images can be run on high-performance computing (HPC) systems where root access is not available by first converting the images to <a href="https://sylabs.io/">Singularity</a> images. All of the validated images are compatible with Singularity.</p>
+<p><strong>Can the Docker images for simulators be converted to Singularity images for use for high-performance computing systems?</strong>
+Yes! All of the validated images are compatible with Singularity. As part of the validation process, we check that each Docker image can be converted into a Singularity image.</p>
 <p><strong>Do any of the simulation tools need commercial licenses?</strong>
 No! Currently, no validated simulation tool requires a commercial license. However, some tools can execute simulations more quickly with commercial libraries such as <a href="https://www.gurobi.com/products/gurobi-optimizer/">Gurobi</a> and <a href="https://www.ibm.com/analytics/cplex-optimizer">IBM CPLEX</a>. Gurobi and IBM both provide free licenses for academic research.</p>
 <p>Currently, runBioSimulations can execute COBRApy and RBApy with Gurobi.</p>
 <p><strong>How can I use a commercial license with a simulation tool on my own machine?</strong>
-Currently, COBRApy and RBApy can read license keys for Gurobi through environment variables which start with the prefix GRB_. For example, COBRApy and RBApy can use Gurobi (using keys for Gurobi's <a href="https://www.gurobi.com/web-license-service/">Web License Service for Container Environments Only</a>) inside <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> containers as illustrated below.</p>
+Currently, COBRApy and RBApy can read license keys for Gurobi through environment variables which start with the prefix GRB_. For example, COBRApy and RBApy can use Gurobi (using keys for Gurobi's <a href="https://www.gurobi.com/web-license-service/">Web License Service for Container Environments Only</a>) inside Docker containers as illustrated below.</p>
 <div class="highlight"><pre><span></span><code>docker run -it --rm \
   --env \
     GRB_WLSACCESSID=********-****-****-****-************ \
@@ -2327,11 +2342,11 @@ Use <code>https://img.shields.io/badge/BioSimulators-{ latest-version }-green</c
 <p>Currently, BioSimulations incorporates models from the <a href="http://bigg.ucsd.edu/">BiGG</a>, <a href="http://biomodels.net/">BioModels</a>, <a href="http://modeldb.science/">ModelDB</a>, and <a href="https://models.physiomeproject.org/">Physiome</a> model repositories. BioSimulations pulls updates each week.</p>
 <p><strong>How can I contribute models from a model repository?</strong></p>
 <p>The <a href="https://api.biosimulations.org">API</a> can be used to programmatically contribute projects. Please contact the BioSimulations Team via <a href="mailto:info@biosimulations.org">email</a> for additional assistance.</p>
-<h2 id="docker-imagescontainers"><abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> images/containers</h2>
-<p><strong>What is a <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> image?</strong></p>
-<p>A <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> image is a template for creating a <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">container</abbr>. Typically, <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> images are containers for an operating system and additional programs. <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> images enable developers to encapsulate programs and their dependencies into a format that can be shared through online repositories such as <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> Hub or the GitHub Container Registry and run on top of any operating system.</p>
-<p><strong>What is a <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">container</abbr>?</strong></p>
-<p>A <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">container</abbr> is a virtual machine. Typically <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> containers are created by instantiating <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> images.</p>
+<h2 id="docker-imagescontainers">Docker images/containers</h2>
+<p><strong>What is a Docker image?</strong></p>
+<p>A Docker image is a template for creating a Docker container. Typically, Docker images are containers for an operating system and additional programs. Docker images enable developers to encapsulate programs and their dependencies into a format that can be shared through online repositories such as Docker Hub or the GitHub Container Registry and run on top of any operating system.</p>
+<p><strong>What is a Docker container?</strong></p>
+<p>A Docker container is a virtual machine. Typically Docker containers are created by instantiating Docker images.</p>
 <h2 id="api">API</h2>
 <p><strong>How can I programmatically retrieve projects and their simulation results?</strong></p>
 <p>BioSimulations' <a href="https://api.biosimulations.org">REST API</a> can be used to programmatically retrieve projects and their simulation results. Extensive documentation is available online.</p>
@@ -2366,61 +2381,32 @@ Use <code>https://img.shields.io/badge/BioSimulators-{ latest-version }-green</c
   <small>
     
       Last update:
-      2022-07-03
+      2023-04-12
     
   </small>
 </div>
 
-              
-            </article>
-            
-          </div>
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
         </div>
         
-          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
             Back to top
-          </a>
+          </button>
         
       </main>
       
         <footer class="md-footer">
-  
-    
-    <nav class="md-footer__inner md-grid" aria-label="Footer" >
-      
-        
-        <a href="../live-tutorials/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Live and recorded tutorials" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              Live and recorded tutorials
-            </div>
-          </div>
-        </a>
-      
-      
-        
-        <a href="../../developers/" class="md-footer__link md-footer__link--next" aria-label="Next: Guide to contributing" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              Guide to contributing
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -2442,14 +2428,18 @@ Use <code>https://img.shields.io/badge/BioSimulators-{ latest-version }-green</c
   
     
     
+    
+    
     <a href="https://twitter.com/bio_sims" target="_blank" rel="noopener" title="BioSimulations on Twitter" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
     </a>
   
     
     
+    
+    
     <a href="https://github.com/biosimulations/biosimulations" target="_blank" rel="noopener" title="BioSimulations on GitHub" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
     </a>
   
 </div>
@@ -2462,10 +2452,11 @@ Use <code>https://img.shields.io/badge/BioSimulators-{ latest-version }-green</c
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.indexes", "navigation.tabs", "navigation.tabs.sticky", "navigation.instant", "navigation.sections", "navigation.top", "search.suggest"], "search": "../../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.indexes", "navigation.tabs", "navigation.tabs.sticky", "navigation.instant", "navigation.sections", "navigation.top", "search.suggest"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.0238f547.min.js"></script>
+      <script src="../../assets/javascripts/bundle.51198bba.min.js"></script>
       
     
   </body>

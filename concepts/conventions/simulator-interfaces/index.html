@@ -10,8 +10,14 @@
       
         <link rel="canonical" href="https://docs.biosimulations.org/concepts/conventions/simulator-interfaces/">
       
+      
+        <link rel="prev" href="../simulation-project-metadata/">
+      
+      
+        <link rel="next" href="../simulator-images/">
+      
       <link rel="icon" href="../../../assets/icons/favicon.ico">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.8">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.6">
     
     
       
@@ -19,13 +25,13 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.1d29e8d0.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ded33207.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.cbb835fc.min.css">
-        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.a0c5b2b5.min.css">
       
       
+
     
     
     
@@ -40,7 +46,7 @@
     
       <link rel="stylesheet" href="../../../stylesheets/theme.css">
     
-    <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -50,10 +56,13 @@
   
 
 
-  <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-8LMPX6MEZ5"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&gtag("event","search",{search_term:this.value})}),"undefined"!=typeof location$&&location$.subscribe(function(e){gtag("config","G-8LMPX6MEZ5",{page_path:e.pathname})})})</script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8LMPX6MEZ5"></script>
+  <script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-8LMPX6MEZ5"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-8LMPX6MEZ5",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-8LMPX6MEZ5",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
 
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
 
+    
     
     
   </head>
@@ -87,10 +96,8 @@
       
     </div>
     
-      <div data-md-component="outdated" hidden>
-        <aside class="md-banner md-banner--warning">
-          
-        </aside>
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
       </div>
     
     
@@ -98,7 +105,7 @@
 
   
 
-<header class="md-header md-header--lifted" data-md-component="header">
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../../.." title="BioSimulations and BioSimulators documentation" class="md-header__button md-logo" aria-label="BioSimulations and BioSimulators documentation" data-md-component="logo">
       
@@ -128,7 +135,6 @@
       <form class="md-header__option" data-md-component="palette">
         
           
-          
           <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark theme"  type="radio" name="__palette" id="__palette_1">
           
             <label class="md-header__button md-icon" title="Switch to dark theme" for="__palette_2" hidden>
@@ -136,7 +142,6 @@
             </label>
           
         
-          
           
           <input class="md-option" data-md-color-media="(prefers-color-scheme: biosimulations-dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to light theme"  type="radio" name="__palette" id="__palette_2">
           
@@ -163,7 +168,7 @@
       </label>
       <nav class="md-search__options" aria-label="Search">
         
-        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
         </button>
       </nav>
@@ -177,7 +182,7 @@
           <div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list"></ol>
+          <ol class="md-search-result__list" role="presentation"></ol>
         </div>
       </div>
     </div>
@@ -189,7 +194,7 @@
         <a href="https://github.com/biosimulations/biosimulations" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub
@@ -202,7 +207,7 @@
     
       
 <nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
-  <div class="md-tabs__inner md-grid">
+  <div class="md-grid">
     <ul class="md-tabs__list">
       
         
@@ -349,7 +354,7 @@
       <a href="https://github.com/biosimulations/biosimulations" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub
@@ -370,8 +375,9 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
       
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
       
       
         
@@ -422,7 +428,7 @@
           
         </div>
       
-      <nav class="md-nav" aria-label="User guide" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_1">
           <span class="md-nav__icon md-icon"></span>
           User guide
@@ -658,8 +664,9 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
       
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
       
       
         
@@ -688,7 +695,7 @@
           
         </div>
       
-      <nav class="md-nav" aria-label="Developer guide" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
           Developer guide
@@ -736,8 +743,9 @@
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
       
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
       
       
         
@@ -751,12 +759,12 @@
         
       
       
-        <label class="md-nav__link" for="__nav_2_4">
+        <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
           Setting Up
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Setting Up" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_4">
           <span class="md-nav__icon md-icon"></span>
           Setting Up
@@ -837,8 +845,9 @@
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" >
       
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
       
       
         
@@ -852,12 +861,12 @@
         
       
       
-        <label class="md-nav__link" for="__nav_2_5">
+        <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
           Architecture
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Architecture" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_5">
           <span class="md-nav__icon md-icon"></span>
           Architecture
@@ -946,8 +955,9 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
       
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
       
       
         
@@ -957,12 +967,12 @@
         
       
       
-        <label class="md-nav__link" for="__nav_3">
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
           Concepts
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Concepts" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
           Concepts
@@ -982,8 +992,9 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_1" type="checkbox" id="__nav_3_1" checked>
       
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" checked>
       
       
         
@@ -1020,7 +1031,7 @@
           
         </div>
       
-      <nav class="md-nav" aria-label="Conventions" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_3_1">
           <span class="md-nav__icon md-icon"></span>
           Conventions
@@ -1108,7 +1119,7 @@
   
     <li class="md-nav__item md-nav__item--active">
       
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
         
@@ -1249,8 +1260,9 @@
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" >
       
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
       
       
         
@@ -1267,7 +1279,7 @@
           
         </div>
       
-      <nav class="md-nav" aria-label="Glossary" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_3_2">
           <span class="md-nav__icon md-icon"></span>
           Glossary
@@ -1300,8 +1312,9 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
       
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
       
       
         
@@ -1309,12 +1322,12 @@
         
       
       
-        <label class="md-nav__link" for="__nav_4">
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
           News
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="News" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           News
@@ -1352,8 +1365,9 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
       
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
       
       
         
@@ -1365,12 +1379,12 @@
         
       
       
-        <label class="md-nav__link" for="__nav_5">
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
           Community
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Community" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
           Community
@@ -1436,37 +1450,38 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
       
       
-      
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
       
       
-        <label class="md-nav__link" for="__nav_6">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
           About
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="About" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_6">
           <span class="md-nav__icon md-icon"></span>
           About
@@ -1695,54 +1710,54 @@
               </div>
             
           
-          <div class="md-content" data-md-component="content">
-            <article class="md-content__inner md-typeset">
-              
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
                 
-  <a href="https://github.com/biosimulations/biosimulations/blob/dev/docs/concepts/conventions/simulator-interfaces.md" title="Edit this page" class="md-content__button md-icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
-  </a>
+                  
 
+  
+  
 
 
 <h1 id="standard-command-line-applications-and-python-apis-for-biosimulation-tools">Standard command-line applications and Python APIs for biosimulation tools</h1>
 <h2 id="overview">Overview</h2>
-<p>The BioSimulators conventions for command-line applications and Python APIs for biosimulation tools are sets of requirements for the syntax and semantics of the inputs and outputs of biosimulation software tools. The conventions ensure that simulation tools can be consistently executed with the same input arguments (a path to a <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archive that defines models and simulations, and a path to save the outputs of the simulation experiments defined in the archive), and that the simulation tools produce consistent outputs (reports and plots at consistent paths in consistent formats).</p>
+<p>The BioSimulators conventions for command-line applications and Python APIs for biosimulation tools are sets of requirements for the syntax and semantics of the inputs and outputs of biosimulation software tools. The conventions ensure that simulation tools can be consistently executed with the same input arguments (a path to a COMBINE/OMEX archive that defines models and simulations, and a path to save the outputs of the simulation experiments defined in the archive), and that the simulation tools produce consistent outputs (reports and plots at consistent paths in consistent formats).</p>
 <p>We encourage developers to provide two interfaces for two purposes:</p>
 <ul>
-<li>Command-line entrypoints to <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> images: These interfaces provide developers a wide degree of flexibility (e.g., to use different programming languages and dependencies), make it easy for BioSimulators to archive each version of each tool, and make it easy for investigators to use tools to execute <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archives. However, these entrypoints are not optimally efficient for all use cases, and they provide investigators limited flexibility.</li>
+<li>Command-line entrypoints to Docker images: These interfaces provide developers a wide degree of flexibility (e.g., to use different programming languages and dependencies), make it easy for BioSimulators to archive each version of each tool, and make it easy for investigators to use tools to execute COMBINE/OMEX archives. However, these entrypoints are not optimally efficient for all use cases, and they provide investigators limited flexibility.</li>
 <li>Python APIs: APIs provide investigators additional flexibility, such as to develop higher-performance simulation services or to co-simulate models using multiple tools. However, for optimal efficiency, these APIs require developers to use a specific programming language and to package their tools for easy installation or provide straightforward installation instructions. Furthermore, these APIs are typically more complex for investigators to install and use.</li>
 </ul>
 <p>In most cases, we recommend that developers create BioSimulators-compliant interfaces in three steps:</p>
 <ol>
 <li>Use <a href="https://github.com/biosimulators/Biosimulators_utils">BioSimulators-utils</a> to develop a compliant Python API.</li>
 <li>Use <code>biosimulators_utils.simulator.cli.build_cli</code> to construct a command-line application from their Python API.</li>
-<li>Construct a <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> image by attaching their command-line application to the entrypoint of an image.</li>
-<li>For validation, simulation tools MUST provide <abbr title="Technology used to encapsulate the computational environments required to simulation software tools.">Docker</abbr> images whose entrypoints are BioSimulators-compliant command-line applications. Simulation tools are also OPTIONALLY encouraged to provide BioSimulators-compliant APIs.</li>
+<li>Construct a Docker image by attaching their command-line application to the entrypoint of an image.</li>
+<li>For validation, simulation tools MUST provide Docker images whose entrypoints are BioSimulators-compliant command-line applications. Simulation tools are also OPTIONALLY encouraged to provide BioSimulators-compliant APIs.</li>
 </ol>
 <h2 id="convention-for-command-line-applications">Convention for command-line applications</h2>
 <p>Simulation tools should support the following command-line arguments:</p>
 <ul>
-<li><code>-i, --archive</code>: A path to a <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archive which contains descriptions of one or more simulation tasks.</li>
+<li><code>-i, --archive</code>: A path to a COMBINE/OMEX archive which contains descriptions of one or more simulation tasks.</li>
 <li><code>-o, --out-dir</code>: The path where the outputs (reports and plots) of the simulation tasks should be saved.</li>
 <li><code>-h, --help</code>: An optional argument that instructs the command-line application to print help information about itself.</li>
 <li><code>-v, --version</code>: An optional argument that instructs the command-line application to report its version and the versions of any critical dependencies.</li>
 </ul>
 <p>As an example, below is the documentation for the command-line application for the <a href="https://biosimulators.org/simulators/tellurium">tellurium</a>  biochemical simulation program.</p>
-<div class="highlight"><pre><span></span><code>usage: tellurium <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>-d<span class="o">]</span> <span class="o">[</span>-q<span class="o">]</span> -i ARCHIVE <span class="o">[</span>-o OUT_DIR<span class="o">]</span> <span class="o">[</span>-v<span class="o">]</span>
+<div class="highlight"><pre><span></span><code>usage:<span class="w"> </span>tellurium<span class="w"> </span><span class="o">[</span>-h<span class="o">]</span><span class="w"> </span><span class="o">[</span>-d<span class="o">]</span><span class="w"> </span><span class="o">[</span>-q<span class="o">]</span><span class="w"> </span>-i<span class="w"> </span>ARCHIVE<span class="w"> </span><span class="o">[</span>-o<span class="w"> </span>OUT_DIR<span class="o">]</span><span class="w"> </span><span class="o">[</span>-v<span class="o">]</span>
 
-BioSimulators-compliant command-line interface to the tellurium simulation program &lt;http://tellurium.analogmachine.org&gt;.
+BioSimulators-compliant<span class="w"> </span>command-line<span class="w"> </span>interface<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>tellurium<span class="w"> </span>simulation<span class="w"> </span>program<span class="w"> </span>&lt;http://tellurium.analogmachine.org&gt;.
 
-optional arguments:
-  -h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
-  -d, --debug           full application debug mode
-  -q, --quiet           suppress all console output
-  -i ARCHIVE, --archive ARCHIVE
-                        Path to a COMBINE/OMEX archive file which contains one or more SED-ML-
-                        encoded simulation experiments
-  -o OUT_DIR, --out-dir OUT_DIR
-                        Directory to save outputs
-  -v, --version         show program<span class="err">&#39;</span>s version number and <span class="nb">exit</span>
+optional<span class="w"> </span>arguments:
+<span class="w">  </span>-h,<span class="w"> </span>--help<span class="w">            </span>show<span class="w"> </span>this<span class="w"> </span><span class="nb">help</span><span class="w"> </span>message<span class="w"> </span>and<span class="w"> </span><span class="nb">exit</span>
+<span class="w">  </span>-d,<span class="w"> </span>--debug<span class="w">           </span>full<span class="w"> </span>application<span class="w"> </span>debug<span class="w"> </span>mode
+<span class="w">  </span>-q,<span class="w"> </span>--quiet<span class="w">           </span>suppress<span class="w"> </span>all<span class="w"> </span>console<span class="w"> </span>output
+<span class="w">  </span>-i<span class="w"> </span>ARCHIVE,<span class="w"> </span>--archive<span class="w"> </span>ARCHIVE
+<span class="w">                        </span>Path<span class="w"> </span>to<span class="w"> </span>a<span class="w"> </span>COMBINE/OMEX<span class="w"> </span>archive<span class="w"> </span>file<span class="w"> </span>which<span class="w"> </span>contains<span class="w"> </span>one<span class="w"> </span>or<span class="w"> </span>more<span class="w"> </span>SED-ML-
+<span class="w">                        </span>encoded<span class="w"> </span>simulation<span class="w"> </span>experiments
+<span class="w">  </span>-o<span class="w"> </span>OUT_DIR,<span class="w"> </span>--out-dir<span class="w"> </span>OUT_DIR
+<span class="w">                        </span>Directory<span class="w"> </span>to<span class="w"> </span>save<span class="w"> </span>outputs
+<span class="w">  </span>-v,<span class="w"> </span>--version<span class="w">         </span>show<span class="w"> </span>program<span class="err">&#39;</span>s<span class="w"> </span>version<span class="w"> </span>number<span class="w"> </span>and<span class="w"> </span><span class="nb">exit</span>
 </code></pre></div>
 <h2 id="conventions-for-python-apis">Conventions for Python APIs</h2>
 <p>Python APIs should be Python modules which provide the following attributes and methods:</p>
@@ -1750,24 +1765,24 @@ optional arguments:
 <li><code>__version__ (str)</code>: Version of the API (e.g., <code>0.1.0</code>).</li>
 <li><code>get_simulator_version (() -&gt; str)</code>: A function which get the versions of the underlying simulation tool (e.g., <code>1.0.0</code>).</li>
 <li>
-<p><code>preprocess_sed_task ((task: Task, variables: list[Variable]) -&gt; Any)</code>: A function which preprocesses the information required to execute a <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> task. This method enables users to efficiently execute multiple simulation steps (using <code>exec_sed_task</code>) without unnecessary duplicate computations, such as to import models from files, validate models, and identify suitable algorithms.</p>
+<p><code>preprocess_sed_task ((task: Task, variables: list[Variable]) -&gt; Any)</code>: A function which preprocesses the information required to execute a SED-ML task. This method enables users to efficiently execute multiple simulation steps (using <code>exec_sed_task</code>) without unnecessary duplicate computations, such as to import models from files, validate models, and identify suitable algorithms.</p>
 </li>
 <li>
-<p><code>exec_sed_task ((task: Task, variables: list[Variable], preprocessed_task:Any=None) -&gt; Tuple[VariableResults, TaskLog])</code>: A function which executes a single <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> task involving a single simulation of a single model and returns the predicted value of each requested output variable and a log of the execution of the simulation.</p>
+<p><code>exec_sed_task ((task: Task, variables: list[Variable], preprocessed_task:Any=None) -&gt; Tuple[VariableResults, TaskLog])</code>: A function which executes a single SED-ML task involving a single simulation of a single model and returns the predicted value of each requested output variable and a log of the execution of the simulation.</p>
 </li>
 <li>
-<p><code>exec_sed_doc ((doc: SedDocument, variables: list[Variable]) -&gt; Tuple[ReportResults, SedDocumentLog])</code>: A function which executes a single <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> document involving one or more simulations of one or more models, returns data for each <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> report and plot, and returns a log of the execution of the simulations, reports, and plots.</p>
+<p><code>exec_sed_doc ((doc: SedDocument, variables: list[Variable]) -&gt; Tuple[ReportResults, SedDocumentLog])</code>: A function which executes a single SED-ML document involving one or more simulations of one or more models, returns data for each SED-ML report and plot, and returns a log of the execution of the simulations, reports, and plots.</p>
 </li>
 <li>
-<p><code>exec_sedml_docs_in_combine_archive ((archive_filename: str, out_dir: str, return_results: bool = False) -&gt; Tuple[SedDocumentResults, CombineArchiveLog])</code>: A function which executes all of the tasks in all of the <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> files in a <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archive, exports all of the requested reports and plots, optionally returns the result of each output, and returns a log of the execution of the archive.</p>
+<p><code>exec_sedml_docs_in_combine_archive ((archive_filename: str, out_dir: str, return_results: bool = False) -&gt; Tuple[SedDocumentResults, CombineArchiveLog])</code>: A function which executes all of the tasks in all of the SED-ML files in a COMBINE/OMEX archive, exports all of the requested reports and plots, optionally returns the result of each output, and returns a log of the execution of the archive.</p>
 </li>
 </ul>
 <p>More information about the required method signatures is available in the <a href="https://github.com/biosimulators/Biosimulators_simulator_template/blob/dev/my_simulator/__init__.py">simulator template</a>.</p>
 <h2 id="execution-behavior">Execution behavior</h2>
 <p>Both command-line interfaces and Python APIs should also support the following conventions:</p>
 <ul>
-<li>Support at least one "standard" modeling language. Interfaces to simulation tools should support at least a subset of at least one community modeling language such as <abbr title="BioNetGen Language: Language for describing models of biochemical networks as sets of rules.">BNGL</abbr>, <abbr title="Language for describing models of physiological systems.">CellML</abbr>, Kappa, NeuroML/<abbr title="Low Entropy Model Specification: Format for describing neurophysiological simulations.">LEMS</abbr>, HOC, pharmML, <abbr title="Systems Biology Markup Language: Format for capturing models of biochemical networks.">SBML</abbr>, Smoldyn, VCML, or XPP.</li>
-<li>Support the <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> format for describing simulation experiments. Interfaces to simulation tools should support at least the following features of <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr>:<ul>
+<li>Support at least one "standard" modeling language. Interfaces to simulation tools should support at least a subset of at least one community modeling language such as BNGL, CellML, Kappa, NeuroML/LEMS, HOC, pharmML, SBML, Smoldyn, VCML, or XPP.</li>
+<li>Support the SED-ML format for describing simulation experiments. Interfaces to simulation tools should support at least the following features of SED-ML:<ul>
 <li>Models and model attribute changes: <code>sedml:model</code>, <code>sedml:changeAttribute</code></li>
 <li>At least one of steady-state, one step, or timecourse simulations: <code>sedml:steadyState</code>, <code>sedml:oneStep</code>, or <code>sedml:uniformTimeCourse</code>.</li>
 <li>Tasks to execute a single simulation of a single model: <code>sedml:task</code>.</li>
@@ -1776,11 +1791,11 @@ optional arguments:
 <li>Report outputs: <code>sedml:report</code>.</li>
 </ul>
 </li>
-<li>Use <abbr title="Kinetic Simulation and Algorithms Ontology: Ontology for describing simulation algorithms and their parameters.">KiSAO</abbr> to describe simulation algorithms and their parameters. Interfaces to simulation tools should use <abbr title="Kinetic Simulation and Algorithms Ontology: Ontology for describing simulation algorithms and their parameters.">KiSAO</abbr> terms to indicate specific algorithms and algorithm parameters.</li>
-<li>Support the <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> format for collections of models and simulations. Interfaces to simulation tools should support the full <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> specification.</li>
-<li>Execute all tasks described in the master file of the <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archive: When a <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archive file contains a master <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> document, simulation tools should execute all tasks defined inside the master file. When an archive doesn't contain a master <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> file, simulation tools should execute all of the tasks defined in each <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> file in the archive.</li>
-<li>Support the BioSimulators format for reports of simulation results: Interfaces to simulation tools should save reports in the <a href="../simulation-run-reports/">BioSimulators <abbr title="Hierarchical Data Format version 5: Format for capturing the results of simulations.">HDF5</abbr> format</a> for simulation data from reports and plots. Within the <abbr title="Hierarchical Data Format version 5: Format for capturing the results of simulations.">HDF5</abbr> file, each report and plot should be saved to a path equal to the combination of the relative path of its parent <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> file within the <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archive and the id of the report.</li>
-<li>Save plots in Portable Document Format (<abbr title="Portable Document Format: Format for print documents.">PDF</abbr>) bundled into a zip archive. Within the zip archive, each plot should be saved to a path equal to the combination of the relative path of its parent <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> file within the <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archive, the id of the plot, and the extension <code>.pdf</code>.</li>
+<li>Use KiSAO to describe simulation algorithms and their parameters. Interfaces to simulation tools should use KiSAO terms to indicate specific algorithms and algorithm parameters.</li>
+<li>Support the COMBINE/OMEX format for collections of models and simulations. Interfaces to simulation tools should support the full COMBINE/OMEX specification.</li>
+<li>Execute all tasks described in the master file of the COMBINE/OMEX archive: When a COMBINE/OMEX archive file contains a master SED-ML document, simulation tools should execute all tasks defined inside the master file. When an archive doesn't contain a master SED-ML file, simulation tools should execute all of the tasks defined in each SED-ML file in the archive.</li>
+<li>Support the BioSimulators format for reports of simulation results: Interfaces to simulation tools should save reports in the <a href="../simulation-run-reports/">BioSimulators HDF5 format</a> for simulation data from reports and plots. Within the HDF5 file, each report and plot should be saved to a path equal to the combination of the relative path of its parent SED-ML file within the COMBINE/OMEX archive and the id of the report.</li>
+<li>Save plots in Portable Document Format (PDF) bundled into a zip archive. Within the zip archive, each plot should be saved to a path equal to the combination of the relative path of its parent SED-ML file within the COMBINE/OMEX archive, the id of the plot, and the extension <code>.pdf</code>.</li>
 <li>Save simulation outputs to standard file paths: Data for reports and plots should be saved to <code>{ out-dir }/reports.h5</code>. Plots should be saved to <code>{ out-dir }/plots.zip</code>.</li>
 </ul>
 <h2 id="environment-variables">Environment variables</h2>
@@ -1789,39 +1804,39 @@ optional arguments:
 <li>
 <p><code>ALGORITHM_SUBSTITUTION_POLICY</code>: This environment variable enables users to control if and how the simulator substitutes algorithms with other mathematically-equivalent or similar algorithms.</p>
 <p>We recognize the increasing levels of substitution listed below. Simulation tools are encouraged to use <code>SIMILAR_VARIABLES</code> as the default value for <code>ALGORITHM_SUBSTITUTION_POLICY</code>.</p>
-<p>A recommended matrix of algorithm substitutions is available from the <a href="https://github.com/SED-ML/KiSAO/blob/dev/libkisao/python/docs/algorithm-substitutability.csv"><abbr title="Kinetic Simulation and Algorithms Ontology: Ontology for describing simulation algorithms and their parameters.">KiSAO</abbr></a> ontology. A <a href="https://github.com/SED-ML/KiSAO/blob/dev/libkisao/python/">Python package</a> is also available for implementing this matrix.</p>
-<p>When alternate algorithms are substituted, we recommend that simulation tools ignore <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> algorithm parameters as algorithm parameters can have different meanings in the context of different algorithms.</p>
+<p>A recommended matrix of algorithm substitutions is available from the <a href="https://github.com/SED-ML/KiSAO/blob/dev/libkisao/python/docs/algorithm-substitutability.csv">KiSAO</a> ontology. A <a href="https://github.com/SED-ML/KiSAO/blob/dev/libkisao/python/">Python package</a> is also available for implementing this matrix.</p>
+<p>When alternate algorithms are substituted, we recommend that simulation tools ignore SED-ML algorithm parameters as algorithm parameters can have different meanings in the context of different algorithms.</p>
 <p>For algorithm substitution level <code>NONE</code>, we recommend that simulation tools raise errors for unsupported algorithm parameters and unsupported values of algorithm parameters. For higher substitution levels, we recommend that simulation tools skip unsupported parameters and unsupported values and raise warnings when parameters are skipped.</p>
 <ol>
 <li>
-<p><code>NONE</code>: Tools should strictly interpret <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> simulations, and raise errors on the execution of <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> files that involve unsupported algorithms. For example, a simulation tool that only supports the Stochastic Simulation Algorithm (<abbr title="Stochastic Simulation Algorithm: Algorithm for sampling trajectories of sets of stochastic equations.">SSA</abbr>, KISAO_0000029) should raise errors on <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> files that request simulations with the Next Reaction Method (NRM, KISAO_0000027). In many cases, this level will effectively constrain the execution of a <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> document to a specific implementation of an algorithm by a specific simulation tool.</p>
+<p><code>NONE</code>: Tools should strictly interpret SED-ML simulations, and raise errors on the execution of SED-ML files that involve unsupported algorithms. For example, a simulation tool that only supports the Stochastic Simulation Algorithm (SSA, KISAO_0000029) should raise errors on SED-ML files that request simulations with the Next Reaction Method (NRM, KISAO_0000027). In many cases, this level will effectively constrain the execution of a SED-ML document to a specific implementation of an algorithm by a specific simulation tool.</p>
 </li>
 <li>
 <p><code>SAME_METHOD</code>: Algorithms can be substituted with different realizations of the same method. For example, GLPK's implementation of the Simplex method could be substituted with SciPy's implementation.</p>
 </li>
 <li>
-<p><code>SAME_MATH</code>: Tools should execute simulations with alternative mathematically-equivalent algorithms, and raise errors on the execution of <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> files which request algorithms that are mathematically distinct from those implemented by the tool. When tools execute alternative mathematically-equivalent algorithms, they should issue warnings to this effect. For example, a simulation tool that only supports <abbr title="Stochastic Simulation Algorithm: Algorithm for sampling trajectories of sets of stochastic equations.">SSA</abbr> should execute simulations that request NRM with a warning, and raise an error on <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> files that request the tau-leaping method (KISAO_0000039).</p>
+<p><code>SAME_MATH</code>: Tools should execute simulations with alternative mathematically-equivalent algorithms, and raise errors on the execution of SED-ML files which request algorithms that are mathematically distinct from those implemented by the tool. When tools execute alternative mathematically-equivalent algorithms, they should issue warnings to this effect. For example, a simulation tool that only supports SSA should execute simulations that request NRM with a warning, and raise an error on SED-ML files that request the tau-leaping method (KISAO_0000039).</p>
 </li>
 <li>
 <p><code>SIMILAR_APPROXIMATIONS</code>: Algorithms can be substituted with others that make similar approximations to the same mathematics. For example, CVODE could be substituted with LSODA or the Fehlberg method. Tau leaping could be substituted with partitioned tau leaping.</p>
 </li>
 <li>
-<p><code>DISTINCT_APPROXIMATIONS</code>: Algorithms can be substituted with others that make distinct approximations to the same math. For example, <abbr title="Stochastic Simulation Algorithm: Algorithm for sampling trajectories of sets of stochastic equations.">SSA</abbr> could be substituted with tau leaping or the Pahle hybrid method.</p>
+<p><code>DISTINCT_APPROXIMATIONS</code>: Algorithms can be substituted with others that make distinct approximations to the same math. For example, SSA could be substituted with tau leaping or the Pahle hybrid method.</p>
 </li>
 <li>
-<p><code>DISTINCT_SCALES</code>: Algorithms can be substituted with others that make distinct approximations to the same math that substantially differ in their scales. For example, <abbr title="Stochastic Simulation Algorithm: Algorithm for sampling trajectories of sets of stochastic equations.">SSA</abbr> could be substituted with CVODE.</p>
+<p><code>DISTINCT_SCALES</code>: Algorithms can be substituted with others that make distinct approximations to the same math that substantially differ in their scales. For example, SSA could be substituted with CVODE.</p>
 </li>
 <li>
-<p><code>SAME_VARIABLES</code>: Algorithms that predict the same output variables can be substituted. For example, <abbr title="Flux Balance Analysis: Framework for modeling the optimal steady-state flux distribution of a system.">FBA</abbr> could be substituted with parsimonious <abbr title="Flux Balance Analysis: Framework for modeling the optimal steady-state flux distribution of a system.">FBA</abbr>.</p>
+<p><code>SAME_VARIABLES</code>: Algorithms that predict the same output variables can be substituted. For example, FBA could be substituted with parsimonious FBA.</p>
 </li>
 <li>
-<p><code>SIMILAR_VARIABLES</code> (recommended default): Algorithms that predict similar output variables can be substituted. For example, <abbr title="Flux Balance Analysis: Framework for modeling the optimal steady-state flux distribution of a system.">FBA</abbr> could be substituted with geometric <abbr title="Flux Balance Analysis: Framework for modeling the optimal steady-state flux distribution of a system.">FBA</abbr>.</p>
+<p><code>SIMILAR_VARIABLES</code> (recommended default): Algorithms that predict similar output variables can be substituted. For example, FBA could be substituted with geometric FBA.</p>
 </li>
 <li>
 <p><code>SAME_FRAMEWORK</code>: Tools should execute simulations with alternative algorithms, including algorithms that are not mathematically equivalent, and issue warnings when alternative algorithms are executed.</p>
 </li>
 <li>
-<p><code>ANY</code>: Tools can execute simulations with any alternative algorithm. Note, switching to any other algorithm can substantially change the interpretation of a simulation (e.g., switching <abbr title="Stochastic Simulation Algorithm: Algorithm for sampling trajectories of sets of stochastic equations.">SSA</abbr> to CVODE loses all information about the variance of a simulation).</p>
+<p><code>ANY</code>: Tools can execute simulations with any alternative algorithm. Note, switching to any other algorithm can substantially change the interpretation of a simulation (e.g., switching SSA to CVODE loses all information about the variance of a simulation).</p>
 </li>
 </ol>
 </li>
@@ -1834,23 +1849,23 @@ optional arguments:
 </ul>
 </li>
 </ul>
-<h2 id="execution-of-modeling-projects-encoded-as-combineomex-archives">Execution of modeling projects encoded as <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archives</h2>
-<p>To ensure consistent execution of simulation experiments, command-line applications and Python APIs should adopt the conventions described below for the execution of <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archives.</p>
+<h2 id="execution-of-modeling-projects-encoded-as-combineomex-archives">Execution of modeling projects encoded as COMBINE/OMEX archives</h2>
+<p>To ensure consistent execution of simulation experiments, command-line applications and Python APIs should adopt the conventions described below for the execution of COMBINE/OMEX archives.</p>
 <ul>
 <li>
-<p>Identification of <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> files. <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> files should be identified as <code>omex:content</code> whose <code>format</code> attribute starts with <code>http://identifiers.org/combine.specifications/sed-ml</code>.</p>
+<p>Identification of SED-ML files. SED-ML files should be identified as <code>omex:content</code> whose <code>format</code> attribute starts with <code>http://identifiers.org/combine.specifications/sed-ml</code>.</p>
 </li>
 <li>
-<p>Preferential execution of "master" files. The OMEX format supports the declaration of a single "master" file (<code>omex:content[@master='true']</code>). When a <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archive contains a single master file, simulation tools should only execute this file. Note, if the master file is not a <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> document, then no simulations should be executed. When a <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archive doesn't have a master file, all <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> documents should be executed.</p>
+<p>Preferential execution of "master" files. The OMEX format supports the declaration of a single "master" file (<code>omex:content[@master='true']</code>). When a COMBINE/OMEX archive contains a single master file, simulation tools should only execute this file. Note, if the master file is not a SED-ML document, then no simulations should be executed. When a COMBINE/OMEX archive doesn't have a master file, all SED-ML documents should be executed.</p>
 </li>
 </ul>
-<h2 id="execution-of-simulation-experiments-encoded-in-sed-ml">Execution of simulation experiments encoded in <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr></h2>
-<p>To ensure consistent execution of simulation experiments, command-line applications and Python APIs should adopt the conventions described below for the execution of <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> files.</p>
+<h2 id="execution-of-simulation-experiments-encoded-in-sed-ml">Execution of simulation experiments encoded in SED-ML</h2>
+<p>To ensure consistent execution of simulation experiments, command-line applications and Python APIs should adopt the conventions described below for the execution of SED-ML files.</p>
 <ul>
 <li>
 <p>Substitution of alternative simulation algorithms.</p>
-<p>Because no simulation tool implements every simulation algorithm, simulation tools are encouraged to execute <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> simulations with alternative algorithms (close <abbr title="Kinetic Simulation and Algorithms Ontology: Ontology for describing simulation algorithms and their parameters.">KiSAO</abbr> terms) when the tool does not support the requested algorithm (<code>sedml:algorithm/@sedml:kisaoID</code>). For example, a tool which only implements the Stochastic Simulation Algorithm (<abbr title="Stochastic Simulation Algorithm: Algorithm for sampling trajectories of sets of stochastic equations.">SSA</abbr>, <code>KISAO_0000029</code>) could choose to execute simulations that request the Next Reaction Method (NRM, <code>KISAO_0000027</code>), a mathematically-equivalent method, with <abbr title="Stochastic Simulation Algorithm: Algorithm for sampling trajectories of sets of stochastic equations.">SSA</abbr>.</p>
-<p>Simulation tools are encouraged to use the <abbr title="Kinetic Simulation and Algorithms Ontology: Ontology for describing simulation algorithms and their parameters.">KiSAO</abbr> ontology to systematically identify related simulation algorithms.</p>
+<p>Because no simulation tool implements every simulation algorithm, simulation tools are encouraged to execute SED-ML simulations with alternative algorithms (close KiSAO terms) when the tool does not support the requested algorithm (<code>sedml:algorithm/@sedml:kisaoID</code>). For example, a tool which only implements the Stochastic Simulation Algorithm (SSA, <code>KISAO_0000029</code>) could choose to execute simulations that request the Next Reaction Method (NRM, <code>KISAO_0000027</code>), a mathematically-equivalent method, with SSA.</p>
+<p>Simulation tools are encouraged to use the KiSAO ontology to systematically identify related simulation algorithms.</p>
 <p>When a tool uses an alternative algorithm, the tool should issue a warning message to the user that indicates that an alternative algorithm was used.</p>
 <p>Tools which choose to execute alternative algorithms should support the <code>ALGORITHM_SUBSTITUTION_POLICY</code> environment variable (see <a href="#environment-variables">above</a>).</p>
 </li>
@@ -1858,9 +1873,9 @@ optional arguments:
 <h2 id="recommended-resources-for-implementing-command-line-applications-and-apis">Recommended resources for implementing command-line applications and APIs</h2>
 <p>Below are helpful tools for implementing command-line applications and Python APIs to the above specifications:</p>
 <ul>
-<li><a href="https://docs.biosimulators.org/Biosimulators_utils/">BioSimulators utils</a> is a Python library which provides functions implementing command-line applications to the above specifications, as well as functions for interpreting <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archives and <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> files, generating tables and plots of simulation plots, and logging the execution of <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archives. BioSimulators utils provides high-level access to some of the lower-level libraries listed below.</li>
-<li><a href="https://github.com/sbmlteam/libCombine">libCOMBINE</a> is a library for creating and unpacking <abbr title="Format for capturing simulation projects (collections of models, simulations, visualizations, metadata, and other information).">COMBINE/OMEX</abbr> archives. libCOMBINE provides bindings for several languages.</li>
-<li><a href="https://github.com/fbergmann/libSEDML">libSED-ML</a> is a library for serializing and deserializing <abbr title="Simulation Experiment Description Markup Language: Format for capturing simulation experiments.">SED-ML</abbr> documents to and from XML files. libSED-ML provides bindings for several languages.</li>
+<li><a href="https://docs.biosimulators.org/Biosimulators_utils/">BioSimulators utils</a> is a Python library which provides functions implementing command-line applications to the above specifications, as well as functions for interpreting COMBINE/OMEX archives and SED-ML files, generating tables and plots of simulation plots, and logging the execution of COMBINE/OMEX archives. BioSimulators utils provides high-level access to some of the lower-level libraries listed below.</li>
+<li><a href="https://github.com/sbmlteam/libCombine">libCOMBINE</a> is a library for creating and unpacking COMBINE/OMEX archives. libCOMBINE provides bindings for several languages.</li>
+<li><a href="https://github.com/fbergmann/libSEDML">libSED-ML</a> is a library for serializing and deserializing SED-ML documents to and from XML files. libSED-ML provides bindings for several languages.</li>
 <li><a href="https://github.com/sys-bio/libOmexMeta">libOmexMeta</a> is a library for reading and querying OMEX Metadata files. libOmexMeta provides bindings for several languages.</li>
 <li><a href="https://docs.python.org/3/library/argparse.html">argparse</a> is a Python module for implementing command-line applications.</li>
 <li><a href="https://builtoncement.com/">Cement</a> is a higher-level Python library for implementing more complex command-line applications.</li>
@@ -1871,61 +1886,32 @@ optional arguments:
   <small>
     
       Last update:
-      2022-07-03
+      2023-04-12
     
   </small>
 </div>
 
-              
-            </article>
-            
-          </div>
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
         </div>
         
-          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
             Back to top
-          </a>
+          </button>
         
       </main>
       
         <footer class="md-footer">
-  
-    
-    <nav class="md-footer__inner md-grid" aria-label="Footer" >
-      
-        
-        <a href="../simulation-project-metadata/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Format for metadata about simulation projects" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              Format for metadata about simulation projects
-            </div>
-          </div>
-        </a>
-      
-      
-        
-        <a href="../simulator-images/" class="md-footer__link md-footer__link--next" aria-label="Next: Guidelines for Docker images for biosimulation tools" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              Guidelines for Docker images for biosimulation tools
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -1947,14 +1933,18 @@ optional arguments:
   
     
     
+    
+    
     <a href="https://twitter.com/bio_sims" target="_blank" rel="noopener" title="BioSimulations on Twitter" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
     </a>
   
     
     
+    
+    
     <a href="https://github.com/biosimulations/biosimulations" target="_blank" rel="noopener" title="BioSimulations on GitHub" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
     </a>
   
 </div>
@@ -1967,10 +1957,11 @@ optional arguments:
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.indexes", "navigation.tabs", "navigation.tabs.sticky", "navigation.instant", "navigation.sections", "navigation.top", "search.suggest"], "search": "../../../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.indexes", "navigation.tabs", "navigation.tabs.sticky", "navigation.instant", "navigation.sections", "navigation.top", "search.suggest"], "search": "../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.0238f547.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.51198bba.min.js"></script>
       
     
   </body>
