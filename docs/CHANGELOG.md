@@ -1,5 +1,22 @@
 # Changelog
 
+## [9.22.1](https://github.com/biosimulations/biosimulations/compare/v9.22.0...v9.22.1) (2023-04-12)
+
+
+### Bug Fixes
+
+* add openapi-generator to dev deps to run generator locally ([6a07747](https://github.com/biosimulations/biosimulations/commit/6a07747fa8ea267b6a0c00846c3a10899eeeb4dc))
+* can't find nx in CI, use npx to invoke ([1cfcd10](https://github.com/biosimulations/biosimulations/commit/1cfcd108ab5295347a90cfd064babd02e89412c1))
+* doc generation to require only Python 3.9 ([b361471](https://github.com/biosimulations/biosimulations/commit/b36147123703e00af2901059531041a9335dce7c))
+* install github runner dependencies for format and dependencyLicense ([6e70494](https://github.com/biosimulations/biosimulations/commit/6e7049463170f6e72e79a6ed1cf54393b737c2bb))
+* install updated node for openapi client gen ([1dbcd60](https://github.com/biosimulations/biosimulations/commit/1dbcd60bb7431e2e22b1c586a7844c03ca65f99f))
+* mkdocs action, fix syntax ([ed9bb7f](https://github.com/biosimulations/biosimulations/commit/ed9bb7fa513e4800b2805f88a4206341d565c360))
+* silence some linting rules on generated combine-api angular client ([01817e5](https://github.com/biosimulations/biosimulations/commit/01817e5ef4760ac78b1e132d439cdde35b7d3144))
+* update docs path in gen-dependency-license-report ([2d8fcd9](https://github.com/biosimulations/biosimulations/commit/2d8fcd9ba79c913a28e283a536773fb79f6c5be0))
+* update format of some component templates ([2bfa620](https://github.com/biosimulations/biosimulations/commit/2bfa620e1bf795846997ad56dcdf1f30c49058a1))
+* update node and python in some CI actions ([84837f9](https://github.com/biosimulations/biosimulations/commit/84837f9530e5207672167b9f0c067d49c3eda543))
+* update release.yml github action dependencies ([d6ce840](https://github.com/biosimulations/biosimulations/commit/d6ce840d655770f5df9868838633a0337b161ff6))
+
 ## [9.21.0](https://github.com/biosimulations/biosimulations/compare/v9.20.1...v9.21.0) (2022-07-03)
 
 
