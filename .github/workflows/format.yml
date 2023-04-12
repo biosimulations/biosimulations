@@ -21,25 +21,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2.4.2
+        uses: actions/checkout@v2
         with:
           token: ${{ secrets.GH_ACCESS_TOKEN}}
           ref:  ${{inputs.branch}}
+
       - name: Install Node.js
         uses: actions/setup-node@v3.3.0
         with:
           node-version: '18'
           cache: npm
 
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
 
       - name: Install npm dependencies
         run: npm ci
 
-      - name: Install nrwl cli
-        run: npm install -g @nrwl/cli && npm install -g nx@latest
-
       - name: Format files
-        run: nx format --fix --all
+        run: npx nx format --fix --all
 
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v4
