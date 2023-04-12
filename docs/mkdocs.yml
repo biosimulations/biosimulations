@@ -1,6 +1,6 @@
 site_name: BioSimulations and BioSimulators documentation
 site_url: https://docs.biosimulations.org/
-docs_dir: .
+docs_dir: src
 repo_url: https://github.com/biosimulations/biosimulations
 edit_uri: blob/dev/docs/
 theme:
@@ -54,7 +54,7 @@ plugins:
         'privacy.md': 'about/privacy.md'
         'terms.md': 'about/terms.md'
   - git-revision-date
-  - same-dir  
+  - same-dir
   - awesome-pages
 
 extra_css:

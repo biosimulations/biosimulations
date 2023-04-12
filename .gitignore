@@ -119,6 +119,7 @@ __pycache__/
 
 #docs
 site/*
+docs/site/
 
 # temporary PySCeS files
 _pystmptmp*_parsetab.py
@@ -128,3 +129,5 @@ temp*.tmp
 
 .angular
 biosimulations_cache.sqlite
+
+
