@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
 import { AgreementComponent } from './agreement.component';
 import { ChangeDetectorRef, Component } from '@angular/core';
@@ -15,7 +15,7 @@ describe('AgreementComponent', () => {
   let testHostComponent: TestHostComponent;
   let testHostFixture: ComponentFixture<TestHostComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       declarations: [AgreementComponent, TestHostComponent],
       imports: [
@@ -48,10 +48,10 @@ describe('AgreementComponent', () => {
     });
     testHostFixture = TestBed.createComponent(TestHostComponent);
     testHostComponent = testHostFixture.componentInstance;
+    testHostFixture.detectChanges();
   });
 
-  it('should display markdown', async(() => {
-    testHostFixture.detectChanges();
+  it('should display markdown', fakeAsync(() => {
     testHostFixture.whenStable().then(() => {
       expect(
         testHostFixture.nativeElement
@@ -66,7 +66,7 @@ describe('AgreementComponent', () => {
     selector: `host-component`,
     template: `
       <biosimulations-login-agreement
-        agreementUrl="https://raw.githubusercontent.com/biosimulations/biosimulations/dev/docs/developers/conduct.md"></biosimulations-login-agreement>
+        agreementUrl="https://raw.githubusercontent.com/biosimulations/biosimulations/dev/docs/src/developers/conduct.md"></biosimulations-login-agreement>
     `,
   })
   class TestHostComponent {}
