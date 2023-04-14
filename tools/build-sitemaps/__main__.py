@@ -229,13 +229,6 @@ def build_biosimulators_sitemap():
     render_url_list('simulators', urls)
 
 
-def build_runbiosimulations_sitemap():
-    urls = get_runbiosimulations_static_urls()
-    urls.sort(key=lambda url: (url.loc))
-    render_sitemap('dispatch', 'https://run.biosimulators.org/', urls)
-    render_url_list('dispatch', urls)
-
-
 def build_biosimulations_sitemap():
     urls = get_biosimulations_static_urls()
 
@@ -265,7 +258,7 @@ def main(apps=None, verbose=False):
     apps = set(apps) or set([])
 
     undefined_apps = set(apps).difference(
-        set(['simulators', 'dispatch', 'platform']))
+        set(['simulators', 'platform']))
     if undefined_apps:
         raise ValueError('The following apps are not defined: {}'.format(
             ", ".join("'{}'".format(app) for app in sorted(undefined_apps))))
@@ -274,11 +267,6 @@ def main(apps=None, verbose=False):
         if verbose:
             print('Building sitemap for simulators app ...')
         build_biosimulators_sitemap()
-
-    if not apps or 'dispatch' in apps:
-        if verbose:
-            print('Building sitemap for dispatch app ...')
-        build_runbiosimulations_sitemap()
 
     if not apps or 'platform' in apps:
         if verbose:

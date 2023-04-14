@@ -9,7 +9,7 @@ import {
   ValidateProjectComponent,
   SuggestSimulatorComponent,
   CreateProjectComponent,
-} from '@biosimulations/simulation-project-utils';
+} from '../../../../../../libs/simulation-project-utils/simulation-project-utils/src';
 
 const routes: Routes = [
   {

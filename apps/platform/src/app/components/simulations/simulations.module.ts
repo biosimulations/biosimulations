@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { SharedUiModule } from '@biosimulations/shared/ui';
-import { SimulationRunsVizModule } from '@biosimulations/simulation-runs/viz';
-import { SimulationRunsUiModule } from '@biosimulations/simulation-runs/ui';
-import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
+import { SharedUiModule } from '../../../../../../libs/shared/ui/src';
+import { SimulationRunsVizModule } from '../../../../../../libs/simulation-runs/viz/src';
+import { SimulationRunsUiModule } from '../../../../../../libs/simulation-runs/ui/src';
+import { BiosimulationsIconsModule } from '../../../../../../libs/shared/icons/src';
 import { MatDialogModule } from '@angular/material/dialog';
-import { SharedAngularModule } from '@biosimulations/shared/angular';
+import { SharedAngularModule } from '../../../../../../libs/shared/angular/src';
 import { SimulationsRoutingModule } from './simulations-routing.module';
 import { BrowseComponent } from './browse/browse.component';
 import { DeleteSimulationsDialogComponent } from './browse/delete-simulations-dialog.component';

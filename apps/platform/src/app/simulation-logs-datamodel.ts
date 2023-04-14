@@ -1,4 +1,4 @@
-import { CombineArchiveLog } from '@biosimulations/datamodel/common';
+import { CombineArchiveLog } from '../../../../libs/datamodel/common/src';
 
 /* Raw log */
 export type RawSimulationLog = string;

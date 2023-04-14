@@ -21,7 +21,7 @@ EXAMPLE_COMBINE_ARCHIVES_BASE_URL = 'https://github.com/biosimulators/Biosimulat
 EXAMPLE_SIMULATIONS_FILENAME = os.path.join(os.path.dirname(__file__), 'example-projects.json')
 
 EXAMPLE_SIMULATIONS_RUNS_FILENAME = os.path.join(os.path.dirname(__file__),
-                                                 '..', 'apps', 'dispatch', 'src', 'app', 'components',
+                                                 '..', 'apps', 'platform', 'src', 'app', 'components',
                                                  'simulations', 'browse', 'example-simulations.{}.json')
 
 
@@ -72,7 +72,7 @@ def main(runbiosimulations_deployment='dev', biosimulators_deployment='prod',
          test_mode=False, browser=False, dry_run=False, timeout=999, stress=1):
     """ Submit example simulations from the BioSimulators test suite to the runBioSimulations API and
     record their runs to ``example-simulations.json`` within the browse simulations module of the
-    dispatch app so that users can load runs of these simulations as examples.
+    platform app so that users can load runs of these simulations as examples.
 
     Args:
         runbiosimulations_deployment (:obj:`str`): which deployment of the runBioSimulations deployment to use (``dev``, ``prod``, or ``local``)
@@ -376,7 +376,7 @@ def validate_runs(runs,  deployment):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
-        description='Submit the example simulations to the runBioSimulations API and save their runs to the dispatch app.')
+        description='Submit the example simulations to the runBioSimulations API and save their runs to the platform app.')
     parser.add_argument(
         '--runbiosimulations-deployment', type=str, default='dev',
         help='runBioSimulations deployment which simulations should be submitted to (`dev`, `prod`, `local`). Default: `dev`.')

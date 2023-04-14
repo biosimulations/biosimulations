@@ -10,7 +10,7 @@ import simplejson.errors
 import urllib3.util.retry
 
 EXAMPLE_SIMULATIONS_RUNS_FILENAME = os.path.join(os.path.dirname(__file__),
-                                                 '..', 'apps', 'dispatch', 'src', 'app', 'components',
+                                                 '..', 'apps', 'platform', 'src', 'app', 'components',
                                                  'simulations', 'browse', 'example-simulations.{}.json')
 
 

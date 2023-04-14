@@ -4,11 +4,11 @@ import { Routes, RouterModule, Router } from '@angular/router';
 import { BrowseComponent } from './browse/browse.component';
 import { ViewComponent } from './view/view.component';
 import { PublishComponent } from './publish/publish.component';
-import { Endpoints } from '@biosimulations/config/common';
+import { Endpoints } from '../../../../../../libs/config/common/src';
 
 import { HttpClient, HttpXhrBackend } from '@angular/common/http';
-import { SimulationRun } from '@biosimulations/datamodel/common';
-import { ClipboardService } from '@biosimulations/shared/angular';
+import { SimulationRun } from '../../../../../../libs/datamodel/common/src';
+import { ClipboardService } from '../../../../../../libs/shared/angular/src';
 
 function viewProject(url: string, router: Router): undefined {
   const parts = url.split('/');

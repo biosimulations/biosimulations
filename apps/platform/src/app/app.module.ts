@@ -21,11 +21,33 @@ import { PwaModule } from '@biosimulations/shared/pwa';
 
 import config from '../assets/config.json';
 import { AngularAnalyticsModule } from '@biosimulations/angular-analytics';
+import { ScullyLibModule } from '@scullyio/ng-lib';
+import { HIGHLIGHT_OPTIONS, HighlightModule } from 'ngx-highlightjs';
+import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 
 const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./components/home/home.module').then((m) => m.HomeModule),
+  },
+  {
+    path: 'runs',
+    loadChildren: () =>
+      import('../../../../apps/platform/src/app/components/simulations/simulations.module').then(
+        (m) => m.SimulationsModule,
+      ),
+    data: {
+      breadcrumb: 'Your simulation runs',
+    },
+  },
+  { path: 'simulations/:id', redirectTo: 'runs/:id', pathMatch: 'prefix' },
+  {
+    path: 'utils',
+    loadChildren: () =>
+      import('../../../../apps/platform/src/app/components/utils/utils.module').then((m) => m.UtilsModule),
+    data: {
+      breadcrumb: 'Utilities',
+    },
   },
   {
     path: 'error',
@@ -60,12 +82,16 @@ routes.forEach((route: Route): void => {
     HttpClientModule,
     BrowserAnimationsModule,
     SharedErrorHandlerModule,
+    BiosimulationsIconsModule,
 
     MarkdownModule.forRoot({ loader: HttpClient }),
     SharedUiModule,
     RouterModule.forRoot(routes, {
       initialNavigation: 'enabledBlocking',
       scrollPositionRestoration: 'disabled',
+    }),
+    IonicStorageModule.forRoot({
+      driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage],
     }),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
@@ -74,6 +100,8 @@ routes.forEach((route: Route): void => {
       driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage],
     }),
     PwaModule,
+    ScullyLibModule,
+    HighlightModule,
     AngularAnalyticsModule.forRoot(config.appName, config.analyticsId),
   ],
   providers: [
@@ -81,7 +109,18 @@ routes.forEach((route: Route): void => {
     { provide: ConfigService, useValue: config },
     ScrollService,
     HealthService,
+    {
+      // Requires type declarations provided in the highlight.d.ts file in src
+      provide: HIGHLIGHT_OPTIONS,
+      useValue: {
+        coreLibraryLoader: () => import('highlight.js/lib/core'),
+        languages: {
+          json: () => import('highlight.js/lib/languages/json'),
+        },
+      },
+    },
   ],
   bootstrap: [AppComponent],
+  schemas: [],
 })
 export class AppModule {}

@@ -18,7 +18,6 @@ export class ConfigService {
   platformApiUrl!: string;
   platformNewIssueUrl!: string;
   platformNewPullUrl!: string;
-  dispatchAppUrl!: string;
   dispatchApiUrl!: string;
   dispatchNewIssueUrl!: string;
   dispatchNewPullUrl!: string;

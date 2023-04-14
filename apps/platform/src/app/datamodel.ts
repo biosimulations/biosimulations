@@ -3,7 +3,7 @@ import {
   EnvironmentVariable,
   Purpose,
   SimulationRunOutputDatumElement,
-} from '@biosimulations/datamodel/common';
+} from '../../../../libs/datamodel/common/src';
 
 export interface UnknownSimulation {
   id: string;

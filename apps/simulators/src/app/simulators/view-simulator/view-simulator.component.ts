@@ -104,7 +104,7 @@ export class ViewSimulatorComponent implements OnInit {
       },
       stackedFormatter: (label: string, version: ViewVersion): string | null => {
         if (version.validated) {
-          return this.config.dispatchAppUrl + 'run?simulator=' + this.id + '&simulatorVersion=' + label;
+          return this.config.platformAppUrl + 'run?simulator=' + this.id + '&simulatorVersion=' + label;
         } else {
           return null;
         }
@@ -121,14 +121,14 @@ export class ViewSimulatorComponent implements OnInit {
       rightAction: ColumnActionType.href,
       centerHref: (version: ViewVersion): string | null => {
         if (version.validated) {
-          return this.config.dispatchAppUrl + 'run?simulator=' + this.id + '&simulatorVersion=' + version.label;
+          return this.config.platformAppUrl + 'run?simulator=' + this.id + '&simulatorVersion=' + version.label;
         } else {
           return null;
         }
       },
       rightHref: (version: ViewVersion): string | null => {
         if (version.validated) {
-          return this.config.dispatchAppUrl + 'run?simulator=' + this.id + '&simulatorVersion=' + version.label;
+          return this.config.platformAppUrl + 'run?simulator=' + this.id + '&simulatorVersion=' + version.label;
         } else {
           return null;
         }
@@ -179,9 +179,9 @@ export class ViewSimulatorComponent implements OnInit {
 
   public processSimulator(simulator: ViewSimulator): void {
     this.dispatchAppUrl =
-      this.config.dispatchAppUrl + 'runs/new' + '?simulator=' + simulator.id + '&simulatorVersion=' + simulator.version;
+      this.config.platformAppUrl + 'runs/new' + '?simulator=' + simulator.id + '&simulatorVersion=' + simulator.version;
     this.dispatchAppRunUrl =
-      this.config.dispatchAppUrl + 'runs/new' + '?simulator=' + simulator.id + '&simulatorVersion=' + simulator.version;
+      this.config.platformAppUrl + 'runs/new' + '?simulator=' + simulator.id + '&simulatorVersion=' + simulator.version;
     this.highlightVersion = (version: ViewVersion): boolean => {
       return version.label === simulator.version;
     };

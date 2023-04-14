@@ -11,7 +11,6 @@ export type Endpoint =
   | 'externalCombineApi'
   | 'externalDataService'
   | 'simulatorsApp'
-  | 'dispatchApp'
   | 'platformApp';
 
 export type DynamicEndpoints = { [key in Endpoint]: string | undefined };
@@ -37,7 +36,6 @@ export class EndpointLoader {
       externalCombineApi: 'externalCombineApi',
       externalDataService: 'externalDataService',
       simulatorsApp: 'simulatorsApp',
-      dispatchApp: 'dispatchApp',
       platformApp: 'platformApp',
     };
 
@@ -50,8 +48,6 @@ export class EndpointLoader {
         endpointsTemplate.combineApi = dynamicEndpoints?.combineApi || 'https://combine.api.biosimulations.dev';
 
         endpointsTemplate.simulatorsApp = dynamicEndpoints?.simulatorsApp || 'https://biosimulators.dev';
-
-        endpointsTemplate.dispatchApp = dynamicEndpoints?.dispatchApp || 'https://run.biosimulations.dev';
 
         endpointsTemplate.platformApp = dynamicEndpoints?.platformApp || 'https://biosimulations.dev';
 
@@ -77,8 +73,6 @@ export class EndpointLoader {
         endpointsTemplate.combineApi = dynamicEndpoints?.combineApi || 'https://combine.api.biosimulations.dev';
 
         endpointsTemplate.simulatorsApp = dynamicEndpoints?.simulatorsApp || 'https://biosimulators.dev';
-
-        endpointsTemplate.dispatchApp = dynamicEndpoints?.dispatchApp || 'https://run.biosimulations.dev';
 
         endpointsTemplate.platformApp = dynamicEndpoints?.platformApp || 'https://biosimulations.dev';
 
@@ -106,8 +100,6 @@ export class EndpointLoader {
 
         endpointsTemplate.simulatorsApp = dynamicEndpoints?.simulatorsApp || 'https://biosimulators.dev';
 
-        endpointsTemplate.dispatchApp = dynamicEndpoints?.dispatchApp || 'https://run.biosimulations.dev';
-
         endpointsTemplate.platformApp = dynamicEndpoints?.platformApp || 'https://biosimulations.dev';
 
         endpointsTemplate.dataService = dynamicEndpoints?.dataService || 'https://data.biosimulations.dev';
@@ -132,8 +124,6 @@ export class EndpointLoader {
         endpointsTemplate.combineApi = dynamicEndpoints?.combineApi || 'https://combine.api.biosimulations.org';
 
         endpointsTemplate.simulatorsApp = dynamicEndpoints?.simulatorsApp || 'https://biosimulators.org';
-
-        endpointsTemplate.dispatchApp = dynamicEndpoints?.dispatchApp || 'https://run.biosimulations.org';
 
         endpointsTemplate.platformApp = dynamicEndpoints?.platformApp || 'https://biosimulations.org';
 
@@ -172,7 +162,6 @@ export class EndpointLoader {
         externalDataService: process.env.EXTERNAL_DATA_SERVICE_URL,
 
         simulatorsApp: process.env.SIMULATORS_APP_URL,
-        dispatchApp: process.env.DISPATCH_APP_URL,
         platformApp: process.env.PLATFORM_APP_URL,
       };
     }

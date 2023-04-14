@@ -8,7 +8,7 @@
       "^/api": ""
     }
   },
-  "/-api": {
+  "/api": {
     "target": "https://api.biosimulations.dev/",
     "secure": true,
     "changeOrigin": true,

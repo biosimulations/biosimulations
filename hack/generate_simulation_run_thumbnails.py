@@ -8,7 +8,7 @@ deployment = 'prod'
 bucket = s3.S3Bucket()
 
 run_ids = set()
-with open('apps/dispatch/src/app/components/simulations/browse/example-simulations.{}.json'.format(deployment), 'r') as file:
+with open('apps/platform/src/app/components/simulations/browse/example-simulations.{}.json'.format(deployment), 'r') as file:
    for run in json.load(file):
       run_ids.add(run['id'])
 

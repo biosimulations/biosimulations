@@ -42,8 +42,7 @@ The `apps` directory contains code for the high level applications that are a pa
 
 The applications in the repository are:
 
-- platform: The web application for BioSimulations
-- dispatch: The web application for runBioSimulations
+- platform: The web application for BioSimulations (and runBioSimulations)
 - simulators: The web application for BioSimulators
 - account: The web application for BioSimulations account management (not currently functional)
 - account-api: The API for BioSimulations account management (not yet implemented)
