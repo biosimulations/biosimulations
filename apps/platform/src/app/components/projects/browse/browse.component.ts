@@ -698,7 +698,7 @@ export class BrowseComponent implements OnInit, AfterViewInit {
 
   public controlsOpen = false;
 
-  public openControls(route: string, router: Router): void {
+  public openControls(_route: string, _router: Router): void {
     this.controlsOpen = !this.controlsOpen;
     if (this.controlsOpen) {
       this.scrollService.scrollToTop();

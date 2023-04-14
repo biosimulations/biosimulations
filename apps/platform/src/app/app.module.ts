@@ -25,7 +25,7 @@ import { AngularAnalyticsModule } from '@biosimulations/angular-analytics';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
+    loadChildren: () => import('./components/home/home.module').then((m) => m.HomeModule),
   },
   {
     path: 'error',
@@ -33,7 +33,7 @@ const routes: Routes = [
   },
   {
     path: 'projects',
-    loadChildren: () => import('./projects/projects.module').then((m) => m.ProjectsModule),
+    loadChildren: () => import('./components/projects/projects.module').then((m) => m.ProjectsModule),
     data: { breadcrumb: 'Simulation projects' },
   },
   {
