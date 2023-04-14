@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SimulationProjectUtilsModule } from '../../../../../../libs/simulation-project-utils/simulation-project-utils/src';
+import { SimulationProjectUtilsModule } from '@biosimulations/simulation-project-utils';
 import { UtilsRoutingModule } from './utils-routing.module';
 
 @NgModule({
