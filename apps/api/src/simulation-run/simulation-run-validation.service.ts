@@ -190,7 +190,7 @@ export class SimulationRunValidationService {
         For publication, simulation experiments must be valid SED-ML documents. \
         Please check that the SED-ML documents in the COMBINE/OMEX archive are valid. \
         More information is available at https://docs.biosimulations.org/concepts/conventions/simulation-experiments/ \
-        and https://run.biosimulations.org/utils/validate-project.`,
+        and https://biosimulations.org/utils/validate-project.`,
         isValid: (specifications: SpecificationsModel[]): boolean => specifications.length > 0,
       },
       {
@@ -213,7 +213,7 @@ export class SimulationRunValidationService {
         errorMessage: `Metadata could not be found for simulation run '${id}'. \
         For publication, simulation runs must meet BioSimulations' minimum metadata requirements. \
         More information is available at https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/ \
-        and https://run.biosimulations.org/utils/validate-project.`,
+        and https://biosimulations.org/utils/validate-project.`,
         isValid: (metadata: SimulationRunMetadataIdModel | null): boolean => {
           if (!metadata) {
             return false;

@@ -60,9 +60,9 @@ More detailed information about the execution of the project and its results can
 
 ## Reusing projects
 
-### Creating and executing variants of simulations with runBioSimulations
+### Creating and executing variants of simulations with BioSimulations
 
-In addition to this full-featured web application, [runBioSimulations](https://run.biosimulations.org) provides a simpler web application and REST API for executing simulations. runBioSimulations simply enables users to execute COMBINE/OMEX archives using a variety of simulation tools and generate time series plots of their results. runBioSimulations does not require an account.
+[BioSimulations](https://biosimulations.org) also provides a web application and REST API for executing simulations. BioSimulations simply enables users to execute COMBINE/OMEX archives using a variety of simulation tools and generate time series plots of their results. BioSimulations does not require an account.
 
 ### Downloading projects and executing them with your own computers
 

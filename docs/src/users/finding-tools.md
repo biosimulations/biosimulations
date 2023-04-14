@@ -26,7 +26,7 @@
     {
       "@type": "HowToTool",
       "name": "BioSimulations",
-      "description": "Open registry of biological simulation projects.",
+      "description": "Open registry of biological simulation projects and web application for executing biological simulations.",
       "url": "https://biosimulations.org"
     },
     {
@@ -35,12 +35,6 @@
       "description": "Open registry of biological simulation software tools.",
       "url": "https://biosimulators.org"
     },
-    {
-      "@type": "HowToTool",
-      "name": "runBioSimulations",
-      "description": "Web application for executing biological simulations.",
-      "url": "https://run.biosimulations.org"
-    }
   ],
   "step": [
     {
@@ -101,7 +95,7 @@
     {
       "@type": "HowToTool",
       "name": "BioSimulations",
-      "description": "Open registry of biological simulation projects.",
+      "description": "Open registry of biological simulation projects and web application for executing biological simulations.",
       "url": "https://biosimulations.org"
     },
     {
@@ -109,12 +103,6 @@
       "name": "BioSimulators",
       "description": "Open registry of biological simulation software tools.",
       "url": "https://biosimulators.org"
-    },
-    {
-      "@type": "HowToTool",
-      "name": "runBioSimulations",
-      "description": "Web application for executing biological simulations.",
-      "url": "https://run.biosimulations.org"
     }
   ],
   "step": [
@@ -158,7 +146,7 @@ The simulation tools in the BioSimulators collection support different model for
 1. Determine the format and framework of your model, and identify the simulation type and algorithm that you would like to execute. 
 1. Browse the [simulators](https://biosimulators.org/simulators) to identify a tool which can execute your project. 
 
-Alternatively, runBioSimulations provides a [utility](https://run.biosimulations.org/utils/suggest-simulator) to recommend a simulation tool for specific combinations of model formats, modeling frameworks, simulation types, and simulation algorithms.
+BioSimulations provides a [utility](https://biosimulations.org/utils/suggest-simulator) to recommend a simulation tool for specific combinations of model formats, modeling frameworks, simulation types, and simulation algorithms.
 
 ## Programmatically retrieving information about simulation tools via the REST API
 

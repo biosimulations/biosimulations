@@ -62,9 +62,9 @@ def get_simulation_run_view_url(runbiosimulations_deployment, run_id):
     if runbiosimulations_deployment == 'local':
         return 'http://localhost:4200/runs/{}'.format(run_id)
     elif runbiosimulations_deployment == 'dev':
-        return 'https://run.biosimulations.dev/runs/{}'.format(run_id)
+        return 'https://biosimulations.dev/runs/{}'.format(run_id)
     else:
-        return 'https://run.biosimulations.org/runs/{}'.format(run_id)
+        return 'https://biosimulations.org/runs/{}'.format(run_id)
 
 
 def main(runbiosimulations_deployment='dev', biosimulators_deployment='prod',

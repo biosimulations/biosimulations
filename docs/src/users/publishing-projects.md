@@ -52,7 +52,7 @@ No login is required to access BioSimulations. However, users must have an accou
 
 ![share-button](./images/share.png){align=right}
 
-Before publishing a simulation run, you can share the run privately by providing colleagues the URL of the simulation run on [https://run.biosimulations.org](https://run.biosimulations.org). This link can be retrieved by clicking on the "Share" button in the simulation run view page.
+Before publishing a simulation run, you can share the run privately by providing colleagues the URL of the simulation run on [https://biosimulations.org](https://biosimulations.org). This link can be retrieved by clicking on the "Share" button in the simulation run view page.
 
 
 --8<-- "glossary.md"

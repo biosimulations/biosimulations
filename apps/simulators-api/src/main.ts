@@ -108,8 +108,6 @@ async function bootstrap() {
       'https://www.biosimulators.org',
       'https://biosimulators.dev',
       'https://www.biosimulators.dev',
-      'https://run.biosimulations.dev',
-      'https://run.biosimulations.org',
       'https://biosimulations.dev',
       'https://www.biosimulations.dev',
       'https://biosimulations.org',
