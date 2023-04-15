@@ -53,7 +53,7 @@ To make it easy for investigators to work with a broad range of model formats, m
 - How to plot the observables
 - How to export the observables to reports (e.g., CSV, HDF5)
 
-[BioSimulations](https://biosimulations.org/utils/create-project) provides a simple web form for building COMBINE/OMEX archives with SED-ML files from model files (e.g., CellML, SBML). This tool supports all of the model languages supported by BioSimulations. 
+[runBioSimulations](https://run.biosimulations.org/utils/create-project) provides a simple web form for building COMBINE/OMEX archives with SED-ML files from model files (e.g., CellML, SBML). This tool supports all of the model languages supported by BioSimulations. 
 
 The table below provides links to documentation about how to use SED-ML with specific model languages, and provides the URNs and URIs that should be used with SED-ML and OMEX manifests in COMBINE/OMEX archives.
 

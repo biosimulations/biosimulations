@@ -68,13 +68,13 @@ Third, runBioSimulations has limited ability to execute SED-ML documents that de
 - Incorrect KiSAO ids for algorithms: Some simulation tools produce SED-ML files that indicate different algorithms than what the simulation tool actually used to execute the simulation.
 - Inconsistent plot axes: Some simulation tools produces SED-ML files where curves in the same plot have mixed (linear and log) x, y, and/or z axes.
 
-Biosimulations provides two web applications for [validating SED-ML files](https://biosimulations.org/utils/validate-simulation) and [COMBINE/OMEX archives](https://biosimulations.org/utils/validate-project). [BioSimulators-utils](https://github.com/biosimulators/biosimulators_utils) provides a command-line program and Python API for validating SED-ML files and COMBINE/OMEX archives.
+runBioSimulations provides two web applications for [validating SED-ML files](https://run.biosimulations.org/utils/validate-simulation) and [COMBINE/OMEX archives](https://run.biosimulations.org/utils/validate-project). [BioSimulators-utils](https://github.com/biosimulators/biosimulators_utils) provides a command-line program and Python API for validating SED-ML files and COMBINE/OMEX archives.
 
 We are working with the SED-ML community to clarify the specifications of SED-ML and resolve these inconsistencies. To drive consistency, we also developed the [BioSimulators test suite](https://github.com/biosimulators/Biosimulators_test_suite) for verifying whether simulation tools execute COMBINE/OMEX archives and SED-ML files consistently with the specifications of these formats. In addition, we developed [BioSimulators utils](https://github.com/biosimulators/Biosimulators_utils), a Python package which provides methods for more deeply validating COMBINE/OMEX archives and SED-ML files.
 
 **How can I create a COMBINE/OMEX archive?**
 
-[Biosimulations](https://biosimulations.org) provides a simple web-based tool for creating COMBINE/OMEX archives from model files. [BioSimulators-utils](https://github.com/Biosimulators/Biosimulators_utils) provides a command-line tool and a Python API for creating COMBINE/OMEX archives.
+[runBioSimulations](https://run.biosimulations.org) provides a simple web-based tool for creating COMBINE/OMEX archives from model files. [BioSimulators-utils](https://github.com/Biosimulators/Biosimulators_utils) provides a command-line tool and a Python API for creating COMBINE/OMEX archives.
 
 Below are several additional tools for creating SED-ML files and COMBINE/OMEX archives. 
 
@@ -104,15 +104,15 @@ BioSimulations provides many archives. In addition, several example archives are
 
 **How can I quickly run a sample set of simulations?**
 
-Click [here](https://biosimulations.org/runs?try=1) to load several example simulation projects from the [BioSimulators test suite](https://github.com/biosimulators/Biosimulators_test_suite/tree/deploy/examples/).
+Click [here](https://run.biosimulations.org/runs?try=1) to load several example simulation projects from the [BioSimulators test suite](https://github.com/biosimulators/Biosimulators_test_suite/tree/deploy/examples/).
 
 **How can I validate a COMBINE/OMEX archive?**
 
-[Biosimulations](https://biosimulations.org) provides a simple web-based tool for validating COMBINE/OMEX archives. [BioSimulators-utils](https://github.com/Biosimulators/Biosimulators_utils) provides a command-line tool and a Python API for validating COMBINE/OMEX archives.
+[runBioSimulations](https://run.biosimulations.org) provides a simple web-based tool for validating COMBINE/OMEX archives. [BioSimulators-utils](https://github.com/Biosimulators/Biosimulators_utils) provides a command-line tool and a Python API for validating COMBINE/OMEX archives.
 
 **How can I find a simulation tool for executing similar simulations on my machine?**
 
-[Biosimulations](https://biosimulations.org) provides a tool for recommending simulation tools for specific simulation projects and provides tools for searching and filtering for simulation tools that support particular modeling frameworks, model formats, and simulation algorithms.
+[runBioSimulations](https://run.biosimulations.org) provides a tool for recommending simulation tools for specific simulation projects. In addition, [BioSimulators](https://biosimulators.org) provides tools for searching and filtering for simulation tools that support particular modeling frameworks, model formats, and simulation algorithms.
 
 **How can I execute similar simulations on my machine for further investigation?**
 
@@ -120,7 +120,7 @@ BioSimulations executes projects using simulation tools validated by [BioSimulat
 
 **How can I execute a project before publication to BioSimulations?**
 
-[Biosimulations](https://biosimulations.org) executes projects using validated simulation tools. Investigators can directly use Biosimulations to execute projects. In addition, each simulation tool is available as a Docker image that provides a consistent command-line interface, and most simulation tools provide consistent Python APIs. These tools can be used to perform the same simulations as BioSimulations when it publishes your project. More information and tutorials are available from BioSimulators and runBioSimulations.
+BioSimulations executes projects using [runBioSimulations](https://run.biosimulations.org), which uses the simulation tools validated by [BioSimulators](https://biosimulators.org). Investigators can directly use runBioSimulations to execute projects. In addition, each simulation tool is available as a Docker image that provides a consistent command-line interface, and most simulation tools provide consistent Python APIs. These tools can be used to perform the same simulations as BioSimulations when it publishes your project. More information and tutorials are available from BioSimulators and runBioSimulations.
 
 **Where does runBioSimulations execute simulations and store their outputs?**
 
@@ -180,7 +180,7 @@ runBioSimulations stores simulations and their results permanently. For special 
 
 **How can I share projects privately with colleagues and peer reviewers without publishing them?**
 
-[Biosimulations](https://biosimulations.org) provides a unique link for each project. These links can be shared with colleagues, peer reviewers, and editors. These links are not publicly advertised.
+[runBioSimulations](https://run.biosimulations.org) provides a unique link for each project. These links can be shared with colleagues, peer reviewers, and editors. These links are not publicly advertised.
 
 **How can I use BioSimulations in conjunction with journal articles?**
 
@@ -244,7 +244,7 @@ We recommend using Shields.io to generate badges for projects. For example, `htt
 
 **How can I embed capabilities to create COMBINE/OMEX archives into my website?**
 
-Developers can use Biosimulations to provide their users capabilities to execute their simulations. Developers can achieve this simply by adding hyperlinks to the create simulation project page, [https://biosimulations.org/utils/create-project](https://biosimulations.org/utils/create-project).
+Developers can use runBioSimulations to provide their users capabilities to execute their simulations. Developers can achieve this simply by adding hyperlinks to the create simulation project page, [https://run.biosimulations.org/utils/create-project](https://run.biosimulations.org/utils/create-project).
 
 This page supports several query arguments:
 
@@ -254,11 +254,11 @@ This page supports several query arguments:
 - `simulationType`: Name of the type of simulation to create (`OneStep`, `SteadyState`, `UniformTimeCourse`). This argument instructs the web form to select this simulation type.
 - `simulationAlgorithm`: KiSAO id of the simulation algorithm to execute (e.g., KISAO_0000019 for CVODE). This argument instructs the web form to select this algorithm.
 
-For example, the URL `https://biosimulations.org/runs/new?modelUrl=https%3A%2F%2Fwww.ebi.ac.uk%2Fbiomodels%2Fmodel%2Fdownload%2FBIOMD0000000878.4%3Ffilename%3DLenbury2001.xml&modelFormat=format_2585&modelingFramework=SBO_0000293` can be used to link to the capability to create a COMBINE/OMEX archive for BioModels entry `BIOMD0000000878`.
+For example, the URL `https://run.biosimulations.org/runs/new?modelUrl=https%3A%2F%2Fwww.ebi.ac.uk%2Fbiomodels%2Fmodel%2Fdownload%2FBIOMD0000000878.4%3Ffilename%3DLenbury2001.xml&modelFormat=format_2585&modelingFramework=SBO_0000293` can be used to link to the capability to create a COMBINE/OMEX archive for BioModels entry `BIOMD0000000878`.
 
 **How can I embed execution capabilities for my simulations into my website?**
 
-Developers can use Biosimulations to provide capabilities of execute simulations to their users, by simply adding a hyperlink to [https://biosimulations.org/runs/new](https://biosimulations.org/runs/new).
+Developers can use runBioSimulations to provide capabilities of execute simulations to their users, by simply adding a hyperlink to [https://run.biosimulations.org/runs/new](https://run.biosimulations.org/runs/new).
 
 The run simulations page supports several query arguments:
 
@@ -270,7 +270,7 @@ The run simulations page supports several query arguments:
 - `maxTime`: Recommended amount of time in minutes needed to execute the COMBINE/OMEX archive. This argument instructs the web form to preset the requested maximum execution time.
 - `runName`: Recommended name for the simulation run. This argument instructs the web form to preset the name of the simulation run.
 
-For example, the URL `https://biosimulations.org/runs/new?projectUrl=https%3A%2F%2Fwww.ebi.ac.uk%2Fbiomodels%2Fmodel%2Fdownload%2FBIOMD0000000878` can be used to link to the capability to simulate BioModels entry BIOMD0000000878.
+For example, the URL `https://run.biosimulations.org/runs/new?projectUrl=https%3A%2F%2Fwww.ebi.ac.uk%2Fbiomodels%2Fmodel%2Fdownload%2FBIOMD0000000878` can be used to link to the capability to simulate BioModels entry BIOMD0000000878.
 
 **Does runBioSimulations provide an additional service for lower-latent simulation?**
 
@@ -345,7 +345,7 @@ Some of the simulation tools, such as tellurium, support the full SED-ML specifi
 
 **How can I create a SED-ML file?**
 
-[Biosimulations](https://biosimulations.org) provides a simple web-based tool for creating SED-ML documents. [BioSimulators-utils](https://github.com/Biosimulators/Biosimulators_utils) provides a command-line tool and a Python API for creating SED-ML documents.
+[runBioSimulations](https://run.biosimulations.org) provides a simple web-based tool for creating SED-ML documents. [BioSimulators-utils](https://github.com/Biosimulators/Biosimulators_utils) provides a command-line tool and a Python API for creating SED-ML documents.
 
 **How should SED-ML be used with specific model languages?**
 
@@ -357,11 +357,11 @@ Several examples files are available [here](https://github.com/biosimulators/Bio
 
 **What tools can I use to create SED-ML files?**
 
-runBioSimulations provides an [online tool](https://biosimulations.org/utils/create-project) for building SED-ML files. Similar functionality is available as a command-line program and Python API through the [BioSimulators-utils Python package](https://github.com/biosimulators/Biosimulators_utils).
+runBioSimulations provides an [online tool](https://run.biosimulations.org/utils/create-project) for building SED-ML files. Similar functionality is available as a command-line program and Python API through the [BioSimulators-utils Python package](https://github.com/biosimulators/Biosimulators_utils).
 
 **How can I validate a SED-ML file?**
 
-[Biosimulations](https://biosimulations.org) provides a simple web-based tool for validating SED-ML documents. [BioSimulators-utils](https://github.com/Biosimulators/Biosimulators_utils) provides a command-line tool and a Python API for validating SED-ML documents.
+[runBioSimulations](https://run.biosimulations.org) provides a simple web-based tool for validating SED-ML documents. [BioSimulators-utils](https://github.com/Biosimulators/Biosimulators_utils) provides a command-line tool and a Python API for validating SED-ML documents.
 
 **Which simulation algorithms does BioSimulations support?**
 
@@ -381,7 +381,7 @@ To ensure the provenance of simulation results, simulation results can only be g
 
 **Can I execute simulations without publishing them?**
 
-Yes. [Biosimulations](https://biosimulations.org/) provides a web application for executing simulations. runBioSimulations does not require an account or registration. Simulations executed with runBioSimulations are private until shared or published.
+Yes. [runBioSimulations](https://run.biosimulations.org/) provides a web application for executing simulations. runBioSimulations does not require an account or registration. Simulations executed with runBioSimulations are private until shared or published.
 
 ## Simulation results
 

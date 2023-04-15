@@ -563,7 +563,7 @@ export const columns: Column[] = [
     },
     stackedFormatter: (id: string | undefined): string => {
       if (id) {
-        return 'https://biosimulations.org/runs/new?simulator=' + id;
+        return 'https://run.biosimulations.org/runs/new?simulator=' + id;
       } else {
         return 'Not available';
       }
@@ -580,14 +580,14 @@ export const columns: Column[] = [
     rightAction: ColumnActionType.href,
     centerHref: (element: TableSimulator): string | null => {
       if (element.image && element.curationStatus === SimulatorCurationStatus['Image validated']) {
-        return 'https://biosimulations.org/runs/new?simulator=' + element.id;
+        return 'https://run.biosimulations.org/runs/new?simulator=' + element.id;
       } else {
         return null;
       }
     },
     rightHref: (element: TableSimulator): string | null => {
       if (element.image && element.curationStatus === SimulatorCurationStatus['Image validated']) {
-        return 'https://biosimulations.org/runs/new?simulator=' + element.id;
+        return 'https://run.biosimulations.org/runs/new?simulator=' + element.id;
       } else {
         return null;
       }

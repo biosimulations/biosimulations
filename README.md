@@ -33,6 +33,7 @@ More comprehensive and more predictive models have the potential to advance biol
 This package provides three tools which address this challenge:
 
 - [BioSimulators](https://biosimulators.org) is a registry of containerized simulation tools that provide consistent interfaces. BioSimulators makes it easier to find and run simulations.
+- [runBioSimulations](https://run.biosimulations.org) is a simple web application for using the BioSimulators containers to run simulations. This tool makes it easy to run a broad range of simulations without having to install any software.
 - [BioSimulations](https://biosimulations.org) is a platform for sharing and running modeling studies. BioSimulations provides a central place for investigators to exchange studies. BioSimulations uses the BioSimulators simulation tools, and builds on the functionality of runBioSimulations.
 
 This package provides the code for the BioSimulations, runBioSimulations, and BioSimulations websites, as well as the code for the backend services for all three applications. The package is implemented in TypeScript using Angular, NestJS, MongoDB, and Mongoose.
@@ -41,7 +42,7 @@ This package provides the code for the BioSimulations, runBioSimulations, and Bi
 
 ### Users 💻
 
-Please use the hosted versions of BioSimulations, and BioSimulators at [https://biosimulations.org](https://biosimulations.org) and [https://biosimulators.org](https://biosimulators.org).
+Please use the hosted versions of BioSimulations, runBioSimulations, and BioSimulators at [https://biosimulations.org](https://biosimulations.org), [https://run.biosimulations.org](https://run.biosimulations.org), and [https://biosimulators.org](https://biosimulators.org).
 
 Tutorials, help and information can be found at [https://docs.biosimulations.org](https://docs.biosimulations.org)
 

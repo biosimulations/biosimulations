@@ -994,7 +994,7 @@ export class ViewService {
         name: 'runBioSimulations',
         description:
           'Database of runs of biosimulations, including models, simulation experiments, simulation results, and data visualizations of simulation results.',
-        url: this.appRoutes.getPlatformAppHome(),
+        url: this.appRoutes.getDispatchAppHome(),
       },
       name: simulationRunSummary.name,
       url: this.appRoutes.getSimulationRunsView(runId),

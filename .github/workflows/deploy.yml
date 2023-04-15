@@ -18,6 +18,7 @@ jobs:
           - account
           - platform
           - simulators
+          - dispatch
 
     steps:
       - name: Checkout repository
@@ -69,6 +70,7 @@ jobs:
           - account
           - platform
           - simulators
+          - dispatch
 
     steps:
       - name: Checkout repository
@@ -124,6 +126,7 @@ jobs:
           - account
           - platform
           - simulators
+          - dispatch
 
     steps:
       - name: Install Node.js
@@ -226,6 +229,7 @@ jobs:
             - account
             - platform
             - simulators
+            - dispatch
 
       steps:
         - name: Install Node.js

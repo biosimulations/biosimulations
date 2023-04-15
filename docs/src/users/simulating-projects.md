@@ -1,14 +1,14 @@
 # Executing simulation projects (COMBINE/OMEX archives)
 
-## Using Biosimulations tool to execute a simulation in the cloud
+## Using runBioSimulations tool to execute a simulation in the cloud
 
-[Biosimulations](https://biosimulations.org) application uses BioSimulators to execute modeling studies. BioSimulations also provides a REST API for programmatically executing simulations.
+[runBioSimulations](https://run.biosimulations.org) is a simple application that uses BioSimulators to execute modeling studies. runBioSimulations also provides a REST API for programmatically executing simulations.
 
 ### Submit a simulation run
 
 Please follow these steps to execute a simulation project:
 
-1. Open the [project submission form](https://biosimulations.org/runs/new).
+1. Open the [project submission form](https://run.biosimulations.org/runs/new).
 1. Select a COMBINE/OMEX file to execute.
 1. Select a simulation tool and a specific version of that tool.
 1. Enter a name for your project. We recommend choosing a descriptive name that will help you recall the purpose of your project. These names will be particularly helpful if you run multiple projects.
@@ -45,7 +45,7 @@ In addition to our web application, a REST API for executing projects is availab
 
 ### Running example simulation projects
 
-The BioSimulation app contains a variety of example simulation projects. Click [here](https://biosimulations.org/runs?try=1) to explore runs of these projects. More information about these examples is available [here](https://github.com/biosimulators/Biosimulators_test_suite/tree/deploy/examples/).
+The runBioSimulation app contains a variety of example simulation projects. Click [here](https://run.biosimulations.org/runs?try=1) to explore runs of these projects. More information about these examples is available [here](https://github.com/biosimulators/Biosimulators_test_suite/tree/deploy/examples/).
 
 ## Using containerized simulation tools 
 

@@ -16,7 +16,7 @@ config = {
 EXAMPLE_SIMULATIONS_FILENAME = os.path.join(os.path.dirname(__file__), 'example-projects.json')
 
 EXAMPLE_SIMULATIONS_RUNS_FILENAME = os.path.join(os.path.dirname(__file__),
-                                                 '..', 'apps', 'platform', 'src', 'app', 'components',
+                                                 '..', 'apps', 'dispatch', 'src', 'app', 'components',
                                                  'simulations', 'browse', 'example-simulations.{}.json')
 
 BIOSIMULATIONS_API_AUTH_ENDPOINT = config.get('AUTH0_DOMAIN') + 'oauth/token'

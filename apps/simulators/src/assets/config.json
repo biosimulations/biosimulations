@@ -15,6 +15,7 @@
   "platformApiUrl": "https://api.biosimulations.org/",
   "platformNewIssueUrl": "https://github.com/biosimulations/biosimulations/issues/new/choose",
   "platformNewPullUrl": "https://github.com/biosimulations/biosimulations/compare",
+  "dispatchAppUrl": "https://run.biosimulations.org/",
   "dispatchApiUrl": "https://api.biosimulations.org/",
   "dispatchNewIssueUrl": "https://github.com/biosimulations/biosimulations/issues/new/choose",
   "dispatchNewPullUrl": "https://github.com/biosimulations/biosimulations/compare",

@@ -40,6 +40,8 @@ async function bootstrap(): Promise<void> {
       'http://localhost:4202',
       'https://biosimulations.dev',
       'https://biosimulations.org',
+      'https://run.biosimulations.dev',
+      'https://run.biosimulations.org',
       'https://biosimulators.org',
       'https://biosimulators.dev',
       'https://bio.libretexts.org', // Libre text

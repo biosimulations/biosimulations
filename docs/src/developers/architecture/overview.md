@@ -5,7 +5,8 @@ The BioSimulations/BioSimulators platform is a distributed computing system that
 The components of the platform are organized as follows:
 
 - Front-end applications
-    - [BioSimulations/runBiosimulations](https://biosimulations.org) (`platform` app)
+    - [BioSimulations](https://biosimulations.org) (`platform` app)
+    - [runBiosimulations](https://run.biosimulations.org) (`dispatch` app)
     - [BioSimulators](https://simulators.org) (`simulators` app)
 - Public APIs
     - [BioSimulations API](https://api.biosimulations.org) (`api` app)

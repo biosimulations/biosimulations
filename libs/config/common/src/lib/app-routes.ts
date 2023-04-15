@@ -3,6 +3,7 @@ import { EndpointLoader, LoadedEndpoints } from './endpointLoader';
 
 export class AppRoutes {
   private simulatorsApp: string;
+  private dispatchApp: string;
   private platformApp: string;
 
   public constructor(env?: envs) {
@@ -15,11 +16,16 @@ export class AppRoutes {
     const loadedEndpoints: LoadedEndpoints = endpointLoader.loadEndpoints();
 
     this.simulatorsApp = loadedEndpoints.simulatorsApp;
+    this.dispatchApp = loadedEndpoints.dispatchApp;
     this.platformApp = loadedEndpoints.platformApp;
   }
 
   public getSimulatorsAppHome(): string {
     return this.simulatorsApp;
+  }
+
+  public getDispatchAppHome(): string {
+    return this.dispatchApp;
   }
 
   public getPlatformAppHome(): string {
@@ -37,7 +43,7 @@ export class AppRoutes {
 
   public getSimulationRunsView(id?: string): string {
     id ? (id = `/${id}`) : (id = '');
-    return `${this.platformApp}/runs${id}`;
+    return `${this.dispatchApp}/runs${id}`;
   }
 
   public getProjectsView(id?: string): string {

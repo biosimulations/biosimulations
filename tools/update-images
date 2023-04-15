@@ -45,7 +45,7 @@ def main(runbiosimulations_deployment='dev', biosimulators_deployment='dev', tok
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
-        description='Submit the example simulations to the runBioSimulations API and save their runs to the platform app.')
+        description='Submit the example simulations to the runBioSimulations API and save their runs to the dispatch app.')
     parser.add_argument(
         '--runbiosimulations-deployment', type=str, default='dev',
         help='runBioSimulations API which simulations should be submitted to (`dev`, `prod`, `local`). Default: `dev`.')

@@ -9,6 +9,7 @@ module.exports = {
       [
         'api',
         'platform',
+        'dispatch',
         'dispatch-service',
         'simulators',
         'simulators-api',

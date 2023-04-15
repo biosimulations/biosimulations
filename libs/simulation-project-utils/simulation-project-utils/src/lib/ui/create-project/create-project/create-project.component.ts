@@ -96,10 +96,12 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
     if (!queryParams) {
       return;
     }
-    if (this.config.appId === 'platform') {
+    if (this.config.appId === 'dispatch') {
+      this.router.navigate(['/runs/new'], { queryParams });
+    } else if (this.config.appId === 'platform') {
       this.router.navigate(['/runs/new'], { queryParams });
     } else {
-      const url = `https://biosimulations.${environment.production ? 'org' : 'dev'}/runs/new`;
+      const url = `https://run.biosimulations.${environment.production ? 'org' : 'dev'}/runs/new`;
       const queryParamsString = new URLSearchParams(queryParams).toString();
       window.open(`${url}?${queryParamsString}`, 'runbiosimulations');
     }

@@ -10,7 +10,7 @@ import simplejson.errors
 import urllib3.util.retry
 
 EXAMPLE_SIMULATIONS_RUNS_FILENAME = os.path.join(os.path.dirname(__file__),
-                                                 '..', 'apps', 'platform', 'src', 'app', 'components',
+                                                 '..', 'apps', 'dispatch', 'src', 'app', 'components',
                                                  'simulations', 'browse', 'example-simulations.{}.json')
 
 
@@ -55,9 +55,9 @@ def get_run_url(biosimulations_deployment, id):
     if biosimulations_deployment == 'local':
         return 'http://localhost:3333/runs/{}'.format(id)
     elif biosimulations_deployment == 'dev':
-        return 'https://biosimulations.dev/runs/{}'.format(id)
+        return 'https://run.biosimulations.dev/runs/{}'.format(id)
     else:
-        return 'https://biosimulations.org/runs/{}'.format(id)
+        return 'https://run.biosimulations.org/runs/{}'.format(id)
 
 
 def get_failed_runs(examples_deployment, biosimulations_deployment, validate_simulation_results_data=True, example_names=None):
