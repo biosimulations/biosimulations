@@ -103,10 +103,10 @@
     "zone.js": "0.13.0"
   },
   "devDependencies": {
-    "@angular-devkit/architect": "0.1502.4",
-    "@angular-devkit/build-angular": "15.2.4",
-    "@angular-devkit/core": "~15.1.0",
-    "@angular-devkit/schematics": "~15.1.0",
+    "@angular-devkit/architect": "0.1502.6",
+    "@angular-devkit/build-angular": "15.2.6",
+    "@angular-devkit/core": "~15.2.0",
+    "@angular-devkit/schematics": "~15.2.0",
     "@angular-eslint/eslint-plugin": "15.2.1",
     "@angular-eslint/eslint-plugin-template": "15.2.1",
     "@angular-eslint/template-parser": "15.2.1",
@@ -151,7 +151,7 @@
     "@nx-tools/docker-metadata": "3.0.8",
     "@nx-tools/nx-docker": "3.0.8",
     "@openapitools/openapi-generator-cli": "2.5.2",
-    "@schematics/angular": "~15.1.0",
+    "@schematics/angular": "~15.2.0",
     "@scullyio/ng-lib": "2.1.41",
     "@scullyio/scully": "2.1.41",
     "@semantic-release/changelog": "6.0.1",
