@@ -20,20 +20,14 @@
       </ng-container>
     </biosimulations-home-teaser-button>
 
-    <biosimulations-home-teaser-button
-      [route]="['/runs/new']"
-      width="180px"
-      color="accent">
+    <biosimulations-home-teaser-button [route]="['/runs/new']" width="180px" color="accent">
       <ng-container id="title">Run simulations</ng-container>
       <ng-container id="text">
         <p>@runBioSimulations</p>
       </ng-container>
     </biosimulations-home-teaser-button>
 
-    <biosimulations-home-teaser-button
-      [route]="['/runs']"
-      width="180px"
-      color="accent">
+    <biosimulations-home-teaser-button [route]="['/runs']" width="180px" color="accent">
       <ng-container id="title">Viz simulation results</ng-container>
       <ng-container id="text">
         <p>@runBioSimulations</p>
@@ -89,7 +83,6 @@
   </biosimulations-home-subsection>
 </biosimulations-home-section>
 
-
 <biosimulations-home-section [columns]="3">
   <ng-container id="heading">
     Helping authors, reviewers, and investigators
@@ -119,8 +112,6 @@
     reported results, evaluate alternative predictions, and test models under alternate conditions.
   </biosimulations-home-subsection>
 </biosimulations-home-section>
-
-
 
 <biosimulations-home-section [columns]="4">
   <ng-container id="heading"
@@ -328,8 +319,8 @@
           under the MIT license
           <a href="https://github.com/biosimulations/biosimulations/blob/dev/LICENSE" rel="noopener" target="license"
             ><biosimulations-icon icon="link"></biosimulations-icon></a
-          >. The simulation tools provided are available under the licenses specified for each
-          simulation tool at BioSimulators
+          >. The simulation tools provided are available under the licenses specified for each simulation tool at
+          BioSimulators
           <a [href]="config.simulatorsAppUrl" rel="noopener" target="biosimulators"
             ><biosimulations-icon icon="link"></biosimulations-icon></a
           >.
