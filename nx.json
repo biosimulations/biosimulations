@@ -33,7 +33,7 @@
   "cli": {
     "analytics": false
   },
-  "defaultProject": "dispatch",
+  "defaultProject": "platform",
   "generators": {
     "@nrwl/workspace": {
       "library": {

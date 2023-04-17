@@ -85,7 +85,8 @@
               "maximumWarning": "6kb",
               "maximumError": "10kb"
             }
-          ]
+          ],
+          "ngswConfigPath": "apps/platform/ngsw-config.json"
         }
       }
     },

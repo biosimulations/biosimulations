@@ -7,5 +7,5 @@ import { ConfigService } from '@biosimulations/config/angular';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  constructor(public config: ConfigService) {}
+  public constructor(public config: ConfigService) {}
 }

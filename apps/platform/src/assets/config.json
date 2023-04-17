@@ -15,7 +15,6 @@
   "platformApiUrl": "https://api.biosimulations.org/",
   "platformNewIssueUrl": "https://github.com/biosimulations/biosimulations/issues/new/choose",
   "platformNewPullUrl": "https://github.com/biosimulations/biosimulations/compare",
-  "dispatchAppUrl": "https://run.biosimulations.org/",
   "dispatchApiUrl": "https://api.biosimulations.org/",
   "dispatchNewIssueUrl": "https://github.com/biosimulations/biosimulations/issues/new/choose",
   "dispatchNewPullUrl": "https://github.com/biosimulations/biosimulations/compare",
@@ -23,5 +22,18 @@
   "simulatorsApiUrl": "https://api.biosimulators.org/",
   "simulatorsNewIssueUrl": "https://github.com/biosimulators/Biosimulators/issues/new/choose",
   "simulatorsNewPullUrl": "https://github.com/biosimulators/Biosimulators/compare",
+  "appConfig": {
+    "simulationStatusRefreshIntervalSec": 5,
+    "exampleCombineArchives": {
+      "repoOwnerName": "biosimulators/Biosimulators_test_suite",
+      "repoRef": "deploy",
+      "repoPath": "examples/",
+      "exampleModelPath": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous/BIOMD0000000297_url.xml",
+      "exampleSimulationPath": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous/simulation_1.sedml",
+      "exampleMetadataPath": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous/metadata.rdf",
+      "exampleProjectPath": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex"
+    },
+    "maxUploadFileSize": 64000000
+  },
   "analyticsId": "G-G3CVBC0V5N"
 }

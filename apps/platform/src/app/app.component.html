@@ -22,8 +22,7 @@
         <biosimulations-dropdown-menu-item
           heading="Submit"
           icon="upload"
-          href="https://run.biosimulations.org/runs/new"
-          target="runbiosimulations">
+          [routerLink]="['/runs', 'new']">
         </biosimulations-dropdown-menu-item>
       </ng-container>
     </biosimulations-hover-open-menu>
@@ -36,43 +35,37 @@
         <biosimulations-dropdown-menu-item
           heading="Convert a file"
           icon="convert"
-          href="https://run.biosimulations.org/utils/convert-file"
-          target="runbiosimulations">
+          [routerLink]="['/utils', 'convert-file']">
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
           heading="Create a project"
           icon="write"
-          href="https://run.biosimulations.org/utils/create-project"
-          target="runbiosimulations">
+          [routerLink]="['/utils', 'create-project']">
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
           heading="Validate a model"
           icon="review"
-          href="https://run.biosimulations.org/utils/validate-model"
-          target="runbiosimulations">
+          [routerLink]="['/utils', 'validate-model']">
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
           heading="Validate a simulation"
           icon="review"
-          href="https://run.biosimulations.org/utils/validate-simulation"
-          target="runbiosimulations">
+          [routerLink]="['/utils', 'validate-simulation']">
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
           heading="Validate metadata"
           icon="review"
-          href="https://run.biosimulations.org/utils/validate-metadata"
-          target="runbiosimulations">
+          [routerLink]="['/utils', 'validate-metadata']">
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
           heading="Validate a project"
           icon="review"
-          href="https://run.biosimulations.org/utils/validate-project"
-          target="runbiosimulations">
+          [routerLink]="['/utils', 'validate-project']">
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
@@ -85,15 +78,7 @@
         <biosimulations-dropdown-menu-item
           heading="Suggest a simulator"
           icon="idea"
-          href="https://run.biosimulations.org/utils/suggest-simulator"
-          target="runbiosimulations">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Execute a project"
-          icon="simulator"
-          href="https://run.biosimulations.org/runs/new"
-          target="runbiosimulations">
+          [routerLink]="['/utils', 'suggest-simulator']">
         </biosimulations-dropdown-menu-item>
       </ng-container>
     </biosimulations-hover-open-menu>
@@ -173,7 +158,7 @@
         <biosimulations-dropdown-menu-item
           heading="Tutorial"
           icon="tutorial"
-          href="https://docs.biosimulations.org/users/"
+          href="https://docs.biosimulations.org/users/simulating-projects/"
           target="biosimulations-docs">
         </biosimulations-dropdown-menu-item>
 
@@ -189,7 +174,6 @@
           icon="info"
           href="https://docs.biosimulations.org/"
           target="biosimulations-docs">
-          >
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
@@ -210,7 +194,7 @@
           heading="Status"
           icon="status"
           href="https://status.biosimulations.org/"
-          target="biosimulations-docs">
+          target="status">
         </biosimulations-dropdown-menu-item>
       </ng-container>
     </biosimulations-hover-open-menu>
@@ -223,8 +207,7 @@
       <biosimulations-navigation-subitem
         heading="Submit"
         icon="upload"
-        href="https://run.biosimulations.org/runs/new"
-        target="runbiosimulations">
+        [route]="['/runs/new']">
       </biosimulations-navigation-subitem>
     </biosimulations-navigation-item>
 
@@ -232,43 +215,37 @@
       <biosimulations-navigation-subitem
         heading="Convert a file"
         icon="convert"
-        href="https://run.biosimulations.org/utils/convert-file"
-        target="runbiosimulations">
+        [route]="['/utils', 'convert-file']">
       </biosimulations-navigation-subitem>
 
       <biosimulations-navigation-subitem
         heading="Create a project"
         icon="write"
-        href="https://run.biosimulations.org/utils/create-project"
-        target="runbiosimulations">
+        [route]="['/utils', 'create-project']">
       </biosimulations-navigation-subitem>
 
       <biosimulations-navigation-subitem
         heading="Validate a model"
         icon="review"
-        href="https://run.biosimulations.org/utils/validate-model"
-        target="runbiosimulations">
+        [route]="['/utils', 'validate-model']">
       </biosimulations-navigation-subitem>
 
       <biosimulations-navigation-subitem
         heading="Validate a simulation"
         icon="review"
-        href="https://run.biosimulations.org/utils/validate-simulation"
-        target="runbiosimulations">
+        [route]="['/utils', 'validate-simulation']">
       </biosimulations-navigation-subitem>
 
       <biosimulations-navigation-subitem
         heading="Validate metadata"
         icon="review"
-        href="https://run.biosimulations.org/utils/validate-metadata"
-        target="runbiosimulations">
+        [route]="['/utils', 'validate-metadata']">
       </biosimulations-navigation-subitem>
 
       <biosimulations-navigation-subitem
         heading="Validate a project"
         icon="review"
-        href="https://run.biosimulations.org/utils/validate-project"
-        target="runbiosimulations">
+        [route]="['/utils', 'validate-project']">
       </biosimulations-navigation-subitem>
 
       <biosimulations-navigation-subitem
@@ -281,15 +258,13 @@
       <biosimulations-navigation-subitem
         heading="Suggest a simulator"
         icon="idea"
-        href="https://run.biosimulations.org/utils/suggest-simulator"
-        target="runbiosimulations">
+        [route]="['/utils', 'suggest-simulator']">
       </biosimulations-navigation-subitem>
 
       <biosimulations-navigation-subitem
         heading="Execute a project"
         icon="simulator"
-        href="https://run.biosimulations.org/runs/new"
-        target="runbiosimulations">
+        [route]="['/runs/new']">
       </biosimulations-navigation-subitem>
     </biosimulations-navigation-item>
 

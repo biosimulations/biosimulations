@@ -21,8 +21,7 @@
     </biosimulations-home-teaser-button>
 
     <biosimulations-home-teaser-button
-      [href]="config.dispatchAppUrl"
-      target="runbiosimulations"
+      [route]="['/runs/new']"
       width="180px"
       color="accent">
       <ng-container id="title">Run simulations</ng-container>
@@ -32,8 +31,7 @@
     </biosimulations-home-teaser-button>
 
     <biosimulations-home-teaser-button
-      [href]="config.dispatchAppUrl"
-      target="runbiosimulations"
+      [route]="['/runs']"
       width="180px"
       color="accent">
       <ng-container id="title">Viz simulation results</ng-container>
@@ -58,6 +56,39 @@
 </biosimulations-home-teaser>
 
 <biosimulations-featured></biosimulations-featured>
+
+<biosimulations-home-section [columns]="3">
+  <ng-container id="heading">
+    Helping investigators
+    <span class="highlight-primary">run biosimulations</span>
+  </ng-container>
+
+  <biosimulations-home-subsection
+    id="subsection"
+    heading="Run simulations"
+    subheading="Execute many formalisms &amp; algorithms"
+    icon="simulator">
+    runBioSimulations is a central application for running simulations involving a broad range of frameworks,
+    algorithms, and formats.
+  </biosimulations-home-subsection>
+
+  <biosimulations-home-subsection
+    id="subsection"
+    heading="Vis simulation results"
+    subheading="Analyze predicted trajectories"
+    icon="chart">
+    runBioSimulations provides a simple web interface for interactively plotting the results of simulations.
+  </biosimulations-home-subsection>
+
+  <biosimulations-home-subsection
+    id="subsection"
+    heading="Share simulation runs"
+    subheading="Simulate biology collaboratively"
+    icon="reuse">
+    runBioSimulations also makes it easy to share simulation runs with collaborators, including peer reviewers.
+  </biosimulations-home-subsection>
+</biosimulations-home-section>
+
 
 <biosimulations-home-section [columns]="3">
   <ng-container id="heading">
@@ -88,6 +119,8 @@
     reported results, evaluate alternative predictions, and test models under alternate conditions.
   </biosimulations-home-subsection>
 </biosimulations-home-section>
+
+
 
 <biosimulations-home-section [columns]="4">
   <ng-container id="heading"
@@ -265,7 +298,7 @@
     <span class="highlight-primary">domains and methods</span></ng-container
   >
 
-  
+
   <ng-container id="subsection">
     <biosimulations-database-statistics></biosimulations-database-statistics>
   </ng-container>
@@ -283,8 +316,7 @@
           >, the Karr Lab at the Icahn School of Medicine at Mount Sinai
           <a href="https://www.karrlab.org" rel="noopener" target="_blank"
             ><biosimulations-icon icon="link"></biosimulations-icon></a
-          >, and the Center for Cell Analysis &amp; Modeling at the University of Connecticut Health Center at the
-          University of Connecticut Health Center
+          >, and the Center for Cell Analysis &amp; Modeling at the University of Connecticut Health Center
           <a href="https://health.uconn.edu/cell-analysis-modeling/" rel="noopener" target="_blank"
             ><biosimulations-icon icon="link"></biosimulations-icon
           ></a>
@@ -296,11 +328,15 @@
           under the MIT license
           <a href="https://github.com/biosimulations/biosimulations/blob/dev/LICENSE" rel="noopener" target="license"
             ><biosimulations-icon icon="link"></biosimulations-icon></a
+          >. The simulation tools provided are available under the licenses specified for each
+          simulation tool at BioSimulators
+          <a [href]="config.simulatorsAppUrl" rel="noopener" target="biosimulators"
+            ><biosimulations-icon icon="link"></biosimulations-icon></a
           >.
         </p>
         <p>
           Please see the
-          <a href="https://docs.biosimulations.org" target="biosimulations-docs">documentation</a>
+          <a href="https://docs.biosimulations.org/about/team" target="biosimulations-docs">documentation</a>
           for more information.
         </p>
       </div>
@@ -487,6 +523,12 @@
             title="OpenAPI"
             src="assets/images/about/tech/openapi.svg"
             href="https://www.openapis.org/">
+          </biosimulations-home-logo>
+
+          <biosimulations-home-logo
+            title="Plotly"
+            src="assets/images/about/tech/plotly.svg"
+            href="https://plotly.com/javascript/">
           </biosimulations-home-logo>
 
           <biosimulations-home-logo title="SPDX" src="assets/images/about/tech/spdx.svg" href="http://spdx.org/">

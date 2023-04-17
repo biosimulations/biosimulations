@@ -153,6 +153,7 @@
     "@openapitools/openapi-generator-cli": "2.5.2",
     "@schematics/angular": "~15.1.0",
     "@scullyio/ng-lib": "2.1.41",
+    "@scullyio/scully": "2.1.41",
     "@semantic-release/changelog": "6.0.1",
     "@semantic-release/exec": "6.0.3",
     "@semantic-release/git": "10.0.1",
