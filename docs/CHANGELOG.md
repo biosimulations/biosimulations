@@ -1,5 +1,20 @@
 # Changelog
 
+## [9.23.0](https://github.com/biosimulations/biosimulations/compare/v9.22.2...v9.23.0) (2023-04-17)
+
+
+### Bug Fixes
+
+* import paths on refactored files ([670b353](https://github.com/biosimulations/biosimulations/commit/670b35335218ee47ed395686ad2f2c145f62ff13))
+* restore dispatch app / runBioSimulations ([effedfe](https://github.com/biosimulations/biosimulations/commit/effedfe4c3f157144f618300b8ed49ade38f8ef6))
+* unit test for user agreement component ([f46628b](https://github.com/biosimulations/biosimulations/commit/f46628b5c19dab0bdbe64236322e880136622a03))
+
+
+### Features
+
+* complete transition of run.biosimulations to biosimulations ([c34a933](https://github.com/biosimulations/biosimulations/commit/c34a933ee174adba1c4df27ed7f683579af67449))
+* integrate runBiosimulations (dispatch) & biosimulations (platform) ([b500fbf](https://github.com/biosimulations/biosimulations/commit/b500fbfb155d83ec8cc193a9c68aa939f5aca11c))
+
 ## [9.22.2](https://github.com/biosimulations/biosimulations/compare/v9.22.1...v9.22.2) (2023-04-12)
 
 
