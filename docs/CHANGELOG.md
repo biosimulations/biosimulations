@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.23.1](https://github.com/biosimulations/biosimulations/compare/v9.23.0...v9.23.1) (2023-04-17)
+
+
+### Bug Fixes
+
+* combine-api CORS to allow biosimulations.org/dev ([1bd84ce](https://github.com/biosimulations/biosimulations/commit/1bd84cedbe34f9c8b4742f22977267fc1e7e1314))
+
 ## [9.23.0](https://github.com/biosimulations/biosimulations/compare/v9.22.2...v9.23.0) (2023-04-17)
 
 
