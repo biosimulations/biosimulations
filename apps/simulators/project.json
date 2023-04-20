@@ -58,8 +58,7 @@
         "buildOptimizer": false,
         "sourceMap": true,
         "optimization": false,
-        "namedChunks": true,
-        "allowedCommonJsDependencies": ["lodash"]
+        "namedChunks": true
       },
       "configurations": {
         "production": {
