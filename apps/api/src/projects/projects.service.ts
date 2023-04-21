@@ -28,6 +28,7 @@ import { ManagementService as AccountManagementService } from '@biosimulations/a
 import { Organization as Auth0Organization } from 'auth0';
 import { ModuleRef } from '@nestjs/core';
 import { SimulationRunValidationService } from '../simulation-run/simulation-run-validation.service';
+import { ProjectsSearch } from './projects.search';
 
 interface ProjectSummaryResult {
   id: string;
@@ -41,6 +42,7 @@ export class ProjectsService implements OnModuleInit {
   private logger = new Logger('ProjectsService');
 
   private simulationRunService!: SimulationRunService;
+  private projectSearch?: ProjectsSearch;
 
   public constructor(
     @InjectModel(ProjectModel.name)
@@ -187,8 +189,13 @@ export class ProjectsService implements OnModuleInit {
 
   /** Get a summary of each project
    */
-  public async getProjectSummaries(): Promise<ProjectSummary[]> {
-    const projects = await this.model.find({}).select('id updated').exec();
+  public async getProjectSummariesWithoutSearch(pageSize: number, pageIndex: number): Promise<ProjectSummary[]> {
+    const projects = await this.model
+      .find({})
+      .select('id updated')
+      .skip(pageSize * pageIndex)
+      .limit(pageSize)
+      .exec();
     const projectIds = projects
       .map((project: ProjectModel): string => {
         const updated = project.updated.toISOString();
@@ -198,6 +205,40 @@ export class ProjectsService implements OnModuleInit {
       .join(',');
     const cacheKey = `Project:Summaries:${projectIds}:${SimulationRunService.summaryVersion}`;
     return this.getWithCache<ProjectSummary[]>(cacheKey, this._getProjectSummaries.bind(this, projects), 0);
+  }
+
+  /** Get a summary of each project
+   */
+  public async searchProjectSummaries(
+    pageSize: number,
+    pageIndex: number,
+    searchText: string,
+  ): Promise<ProjectSummary[]> {
+    if (this.projectSearch) {
+      const results: ProjectSummary[] = this.projectSearch.search(searchText);
+      return results.slice(pageIndex * pageSize, pageIndex * pageSize + pageSize);
+    } else {
+      // need to initialize the search query first (eventually, we'll need it to update on the fly when new projects are added).
+      // 1. query first 2000 projects
+      // 2. add all projects to ProjectsSearch instance
+      // 3. perform the search
+      const maxNumRecordsToTextSearch = 2000;
+      const projectSummaries: Promise<ProjectSummary[]> = this.getProjectSummariesWithoutSearch(
+        maxNumRecordsToTextSearch,
+        0,
+      ).then((summaries: ProjectSummary[]) => {
+        // 2. add documents to be indexed
+        this.projectSearch = new ProjectsSearch();
+        for (const projectSummary of summaries) {
+          this.projectSearch.addDocument(projectSummary);
+        }
+
+        // 3. now do the search
+        const results: ProjectSummary[] = this.projectSearch.search(searchText);
+        return results.slice(pageIndex * pageSize, pageIndex * pageSize + pageSize);
+      });
+      return projectSummaries;
+    }
   }
 
   private async _getProjectSummaries(projects: ProjectModel[]): Promise<ProjectSummary[]> {

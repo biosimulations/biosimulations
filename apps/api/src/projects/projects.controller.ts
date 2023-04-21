@@ -60,12 +60,41 @@ export class ProjectsController {
     summary: 'Get a summary of each published project',
     description: 'Get a list of summaries of each published project',
   })
+  @ApiQuery({
+    name: 'pageSize',
+    description: 'maximum number of records to return.',
+    required: false,
+    type: Number,
+  })
+  @ApiQuery({
+    name: 'pageIndex',
+    description: 'page to return when using pagination (using zero index).',
+    required: false,
+    type: Number,
+  })
+  @ApiQuery({
+    name: 'searchText',
+    description: 'search text for query',
+    required: false,
+    type: String,
+  })
   @ApiOkResponse({
     description: 'List of information about each published project',
     type: [ProjectSummary],
   })
-  public async getProjectSummaries(): Promise<ProjectSummary[]> {
-    return this.service.getProjectSummaries();
+  public async getProjectSummaries(
+    @Query('pageSize')
+    pageSize = 20,
+    @Query('pageIndex')
+    pageIndex = 0,
+    @Query('searchText')
+    searchText = '',
+  ): Promise<ProjectSummary[]> {
+    if (searchText && searchText.length > 0) {
+      return this.service.getProjectSummariesWithoutSearch(pageSize, pageIndex);
+    } else {
+      return this.service.searchProjectSummaries(pageSize, pageIndex, searchText);
+    }
   }
 
   @Get(':projectId')
