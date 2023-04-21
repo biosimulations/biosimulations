@@ -25,6 +25,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatSortModule } from '@angular/material/sort';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 const materialImports = [
   FlexLayoutModule,
@@ -53,6 +54,7 @@ const materialImports = [
   MatChipsModule,
   MatAutocompleteModule,
   MatSnackBarModule,
+  MatPaginatorModule,
 ];
 
 @NgModule({

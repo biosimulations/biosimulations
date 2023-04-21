@@ -1,0 +1,31 @@
+<mat-form-field appearance="fill">
+  <input matInput type="text" [(ngModel)]="searchTerm" (keyup)="onKeyUpEvent($event)" placeholder="Search projects"/>
+  <mat-icon matPrefix>search</mat-icon>
+</mat-form-field>
+<div class="mat-elevation-z8">
+<!--  <table mat-table class="full-width-table" matSort aria-label="Elements">-->
+  <table mat-table class="full-width-table" matSort aria-label="Elements">
+    <!-- Id Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+      <td mat-cell *matCellDef="let row">{{row.id}}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+      <td mat-cell *matCellDef="let row">{{row.title}}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator #paginator
+                 [length]="dataSource.datalength"
+                 [pageIndex]="0"
+                 [pageSize]="10"
+                 [pageSizeOptions]="[10, 25, 50]"
+                 aria-label="Select page">
+  </mat-paginator>
+</div>

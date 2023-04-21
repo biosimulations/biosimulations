@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { ProjectSummary, SimulationRunMetadataSummary, LabeledIdentifier } from '@biosimulations/datamodel/common';
 import { FormattedProjectSummary, LocationPredecessor } from './browse.model';
-import { ProjectService } from '@biosimulations/angular-api-client';
+import { ProjectService, SearchCriteria } from '@biosimulations/angular-api-client';
 import { BiosimulationsError } from '@biosimulations/shared/error-handler';
 import { HttpStatusCode } from '@angular/common/http';
 import { Endpoints } from '@biosimulations/config/common';
 import { Thumbnail } from '@biosimulations/datamodel/common';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -17,8 +18,8 @@ export class BrowseService {
     this.endpoints = new Endpoints();
   }
 
-  public getProjects(): Observable<FormattedProjectSummary[]> {
-    const metadatas: Observable<FormattedProjectSummary[]> = this.projectService.getProjectSummaries().pipe(
+  public getProjects(criteria: SearchCriteria): Observable<FormattedProjectSummary[]> {
+    const metadatas: Observable<FormattedProjectSummary[]> = this.projectService.getProjectSummaries(criteria).pipe(
       map((projects: ProjectSummary[]) => {
         return projects
           .map((project: ProjectSummary): FormattedProjectSummary => {

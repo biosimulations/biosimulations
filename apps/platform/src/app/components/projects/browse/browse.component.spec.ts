@@ -4,7 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { ProjectCardComponent } from '../project-card/project-card.component';
-import { BrowseService } from './browse.service';
+import { BrowseService } from '../project-table/browse.service';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { BrowseComponent } from './browse.component';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';

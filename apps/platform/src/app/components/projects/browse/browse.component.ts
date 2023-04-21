@@ -1,13 +1,14 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { BrowseService } from './browse.service';
-import { FormattedProjectSummary, LocationPredecessor } from './browse.model';
+import { BrowseService } from '../project-table/browse.service';
+import { FormattedProjectSummary, LocationPredecessor } from '../project-table/browse.model';
 import { Column, ColumnFilterType } from '@biosimulations/shared/ui';
 import { FormatService } from '@biosimulations/shared/services';
 import { LabeledIdentifier, DescribedIdentifier } from '@biosimulations/datamodel/common';
 import { RowService } from '@biosimulations/shared/ui';
 import { ScrollService } from '@biosimulations/shared/angular';
+import { SearchCriteria } from '@biosimulations/angular-api-client';
 
 @Component({
   selector: 'biosimulations-projects-browse',
@@ -16,6 +17,7 @@ import { ScrollService } from '@biosimulations/shared/angular';
 })
 export class BrowseComponent implements OnInit, AfterViewInit {
   public projects$!: Observable<FormattedProjectSummary[]>;
+  public displayedColumns = ['id', 'name'];
 
   public columns: Column[] = [
     {
@@ -679,7 +681,7 @@ export class BrowseComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.projects$ = this.service.getProjects();
+    this.projects$ = this.service.getProjects(new SearchCriteria());
 
     if (this.route.snapshot.fragment) {
       const opts = new URLSearchParams(this.route.snapshot.fragment) as any;
