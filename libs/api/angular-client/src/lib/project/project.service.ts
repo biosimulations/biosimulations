@@ -1,9 +1,18 @@
 import { Injectable } from '@angular/core';
 import { map, Observable, shareReplay, throwError, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { HttpClient, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams, HttpStatusCode } from '@angular/common/http';
 import { Endpoints } from '@biosimulations/config/common';
 import { Project, ProjectInput, ProjectSummary } from '@biosimulations/datamodel/common';
+import { SortDirection } from '@angular/material/sort';
+
+export class SearchCriteria {
+  public pageSize = 10;
+  public pageIndex = 0;
+  public searchText?: string;
+  public sortActive?: string; // name if field to sort on
+  public sortDirection: SortDirection = '';
+}
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +22,7 @@ export class ProjectService {
 
   private cachedProjectId?: string;
   private cachedProjectObservables: { [endpoint: string]: Observable<any> } = {};
-  private cachedProjectSummaries!: Observable<ProjectSummary[]>;
+  // private cachedProjectSummaries!: Observable<ProjectSummary[]>;
 
   constructor(private http: HttpClient) {}
 
@@ -60,14 +69,19 @@ export class ProjectService {
     return this.getData<Project>(projectId, url);
   }
 
-  public getProjectSummaries(): Observable<ProjectSummary[]> {
-    const url = this.endpoints.getProjectSummariesEndpoint(false);
+  public getProjectSummaries(criteria: SearchCriteria): Observable<ProjectSummary[]> {
+    const url = this.endpoints.getProjectSummariesEndpoint(false, undefined);
 
-    if (!this.cachedProjectSummaries) {
-      this.cachedProjectSummaries = this.http.get<ProjectSummary[]>(url).pipe(shareReplay(1));
-    }
+    const projectSummaries = this.http
+      .get<ProjectSummary[]>(url, {
+        params: new HttpParams()
+          .set('pageSize', criteria.pageSize)
+          .set('pageIndex', criteria.pageIndex)
+          .set('searchText', criteria.searchText ? criteria.searchText : ''),
+      })
+      .pipe(shareReplay(1));
 
-    return this.cachedProjectSummaries;
+    return projectSummaries;
   }
 
   public getProjectSummary(projectId: string): Observable<ProjectSummary> {

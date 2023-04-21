@@ -90,7 +90,7 @@ export class ProjectsController {
     @Query('searchText')
     searchText = '',
   ): Promise<ProjectSummary[]> {
-    if (searchText && searchText.length > 0) {
+    if (!searchText || searchText.length < 1) {
       return this.service.getProjectSummariesWithoutSearch(pageSize, pageIndex);
     } else {
       return this.service.searchProjectSummaries(pageSize, pageIndex, searchText);
