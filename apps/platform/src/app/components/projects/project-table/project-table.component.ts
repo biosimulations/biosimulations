@@ -55,6 +55,7 @@ export class ProjectTableDataSource extends DataSource<FormattedProjectSummary> 
       this.searchTermChange.subscribe((stringEvent) => {
         this.searchCriteria = { ...this.searchCriteria, searchText: stringEvent };
         this.searchCriteria$.next(this.searchCriteria);
+        this.paginator?.firstPage();
       });
 
       // emit a new searchCriteria upon each Pagination event
@@ -96,7 +97,7 @@ export class ProjectTableDataSource extends DataSource<FormattedProjectSummary> 
 @Component({
   selector: 'biosimulations-project-table',
   templateUrl: './project-table.component.html',
-  styleUrls: ['./project-table.component.css'],
+  styleUrls: ['./project-table.component.scss'],
 })
 export class ProjectTableComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
