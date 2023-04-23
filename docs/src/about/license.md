@@ -892,6 +892,11 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: mde@fleegix.org
 │  ├─ url: http://fleegix.org
 │  └─ licenseFile: ejs/LICENSE
+├─ elasticlunr@0.9.5
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/weixsong/elasticlunr.js
+│  ├─ publisher: Wei Song
+│  └─ licenseFile: elasticlunr/LICENSE
 ├─ email-validator@2.0.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/manishsaraan/email-validator
