@@ -58,3 +58,8 @@ export interface FormattedProjectSummary {
   created: Date;
   updated: Date;
 }
+
+export interface FormattedProjectSummaryQueryResults {
+  formattedProjectSummaries: FormattedProjectSummary[];
+  numMatchingProjectSummaries: number;
+}

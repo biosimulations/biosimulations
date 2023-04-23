@@ -1,5 +1,5 @@
 import { permissions, OptionalAuth } from '@biosimulations/auth/nest';
-import { Project, ProjectInput, ProjectSummary } from '@biosimulations/datamodel/api';
+import { Project, ProjectInput, ProjectSummary, ProjectSummaryQueryResults } from '@biosimulations/datamodel/api';
 import {
   Body,
   Controller,
@@ -89,7 +89,7 @@ export class ProjectsController {
     pageIndex = 0,
     @Query('searchText')
     searchText = '',
-  ): Promise<ProjectSummary[]> {
+  ): Promise<ProjectSummaryQueryResults> {
     if (!searchText || searchText.length < 1) {
       return this.service.getProjectSummariesWithoutSearch(pageSize, pageIndex);
     } else {

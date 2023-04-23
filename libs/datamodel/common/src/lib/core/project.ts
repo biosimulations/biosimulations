@@ -37,3 +37,8 @@ export interface ProjectSummary {
   created: string;
   updated: string;
 }
+
+export interface ProjectSummaryQueryResults {
+  projectSummaries: ProjectSummary[];
+  totalMatchingProjectSummaries: number;
+}

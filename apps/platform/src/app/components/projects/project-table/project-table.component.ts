@@ -3,23 +3,45 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { BrowseService } from './browse.service';
-import { FormattedProjectSummary } from './browse.model';
+import { FormattedProjectSummary, FormattedProjectSummaryQueryResults } from './browse.model';
 import { DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { SearchCriteria } from '@biosimulations/angular-api-client';
 import { debounceTime, distinctUntilChanged, switchMap, takeUntil } from 'rxjs/operators';
 
 export class ProjectTableDataSource extends DataSource<FormattedProjectSummary> {
-  paginator: MatPaginator | undefined;
-  sort: MatSort | undefined;
+  public paginator: MatPaginator | undefined;
+  public sort: MatSort | undefined;
   private _destroying$: Subject<void> = new Subject<void>();
-  searchCriteriaSubject$: BehaviorSubject<SearchCriteria> = new BehaviorSubject(new SearchCriteria());
-  searchCriteriaSubject: SearchCriteria = new SearchCriteria();
-  public datalength = 400;
+
+  private searchCriteria$ = new BehaviorSubject(new SearchCriteria());
+  private searchCriteria = new SearchCriteria();
+
+  private formattedProjectSummaryQueryResults$: Observable<FormattedProjectSummaryQueryResults>;
+  private formattedProjectSummaries$ = new BehaviorSubject<FormattedProjectSummary[]>([]);
+
+  public datalength = 0;
   public searchTermChange?: EventEmitter<string>;
 
   constructor(private browseService: BrowseService) {
     super();
+
+    // on each
+    this.formattedProjectSummaryQueryResults$ = this.searchCriteria$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      takeUntil(this._destroying$),
+      switchMap((criteria) => {
+        return this.browseService.getProjects(criteria);
+      }),
+    );
+
+    // Combine everything that affects the rendered data into one update
+    // stream for the data-table to consume.
+    this.formattedProjectSummaryQueryResults$.subscribe((results) => {
+      this.datalength = results.numMatchingProjectSummaries;
+      this.formattedProjectSummaries$.next(results.formattedProjectSummaries);
+    });
   }
 
   /**
@@ -31,40 +53,31 @@ export class ProjectTableDataSource extends DataSource<FormattedProjectSummary> 
     if (this.paginator && this.sort && this.searchTermChange) {
       // emit a new searchCriteria upon each Pagination event
       this.searchTermChange.subscribe((stringEvent) => {
-        this.searchCriteriaSubject = { ...this.searchCriteriaSubject, searchText: stringEvent };
-        this.searchCriteriaSubject$.next(this.searchCriteriaSubject);
+        this.searchCriteria = { ...this.searchCriteria, searchText: stringEvent };
+        this.searchCriteria$.next(this.searchCriteria);
       });
 
       // emit a new searchCriteria upon each Pagination event
       this.paginator.page.subscribe((pageEvent) => {
-        this.searchCriteriaSubject = {
-          ...this.searchCriteriaSubject,
+        this.searchCriteria = {
+          ...this.searchCriteria,
           pageSize: pageEvent.pageSize,
           pageIndex: pageEvent.pageIndex,
         };
-        this.searchCriteriaSubject$.next(this.searchCriteriaSubject);
+        this.searchCriteria$.next(this.searchCriteria);
       });
 
       // emit a new searchCriteria upon each Sort event
       this.sort.sortChange.subscribe((sortEvent) => {
-        this.searchCriteriaSubject = {
-          ...this.searchCriteriaSubject,
+        this.searchCriteria = {
+          ...this.searchCriteria,
           sortActive: sortEvent.active,
           sortDirection: sortEvent.direction,
         };
-        this.searchCriteriaSubject$.next(this.searchCriteriaSubject);
+        this.searchCriteria$.next(this.searchCriteria);
       });
 
-      // Combine everything that affects the rendered data into one update
-      // stream for the data-table to consume.
-      return this.searchCriteriaSubject$.pipe(
-        debounceTime(400),
-        distinctUntilChanged(),
-        takeUntil(this._destroying$),
-        switchMap((criteria) => {
-          return this.browseService.getProjects(criteria);
-        }),
-      );
+      return this.formattedProjectSummaries$;
     } else {
       throw Error('Please set the paginator and sort on the data source before connecting.');
     }

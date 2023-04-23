@@ -3,7 +3,7 @@ import { map, Observable, shareReplay, throwError, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpStatusCode } from '@angular/common/http';
 import { Endpoints } from '@biosimulations/config/common';
-import { Project, ProjectInput, ProjectSummary } from '@biosimulations/datamodel/common';
+import { Project, ProjectInput, ProjectSummary, ProjectSummaryQueryResults } from '@biosimulations/datamodel/common';
 import { SortDirection } from '@angular/material/sort';
 
 export class SearchCriteria {
@@ -69,11 +69,11 @@ export class ProjectService {
     return this.getData<Project>(projectId, url);
   }
 
-  public getProjectSummaries(criteria: SearchCriteria): Observable<ProjectSummary[]> {
+  public getProjectSummaries(criteria: SearchCriteria): Observable<ProjectSummaryQueryResults> {
     const url = this.endpoints.getProjectSummariesEndpoint(false, undefined);
 
     const projectSummaries = this.http
-      .get<ProjectSummary[]>(url, {
+      .get<ProjectSummaryQueryResults>(url, {
         params: new HttpParams()
           .set('pageSize', criteria.pageSize)
           .set('pageIndex', criteria.pageIndex)
