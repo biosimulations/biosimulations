@@ -1,5 +1,25 @@
 # Changelog
 
+## [9.24.0](https://github.com/biosimulations/biosimulations/compare/v9.23.1...v9.24.0) (2023-04-23)
+
+
+### Bug Fixes
+
+* home teaser component CSS partial fix, renders but needs work ([63ddd53](https://github.com/biosimulations/biosimulations/commit/63ddd53a02895a36a58131428bf59c18ad419ffb))
+* nicer layout and styling for new project table ([c3572d8](https://github.com/biosimulations/biosimulations/commit/c3572d83a63180a7df0d584dadd1971eac206f12))
+* pagination correction in project table ([226265f](https://github.com/biosimulations/biosimulations/commit/226265f3531dcfea2b4af76b7df7c4b22d8c32e8))
+* pagination for project table includes correct number of records ([ca1e01b](https://github.com/biosimulations/biosimulations/commit/ca1e01b3cb422a3a63fa8f39893adda80753d746))
+* remove some warnings about CommonJS ([e031415](https://github.com/biosimulations/biosimulations/commit/e0314158318debd7197d9b7f8fcb9afa97e7b085))
+* revert prior change regarding CommonJS ([ca343f7](https://github.com/biosimulations/biosimulations/commit/ca343f7706d74f6c27149665ae0df82fc919529c))
+* template expression linting fix ([a365c8c](https://github.com/biosimulations/biosimulations/commit/a365c8c17fe06a8438693dc0c1cc2086e1daa30b))
+
+
+### Features
+
+* add server side project pagination and search to api service ([a8769ee](https://github.com/biosimulations/biosimulations/commit/a8769ee3f3ea5c74d7bee08e30dc8a4a21bfc884))
+* connect server side pagination and search to angular client ([8c33f6f](https://github.com/biosimulations/biosimulations/commit/8c33f6f672cca51952e759799e389029beea7c23))
+* responsive project table with search and pagination ([50745b7](https://github.com/biosimulations/biosimulations/commit/50745b7c97ad12f243b521e7f3d1570dfa0b6978))
+
 ## [9.23.1](https://github.com/biosimulations/biosimulations/compare/v9.23.0...v9.23.1) (2023-04-17)
 
 
