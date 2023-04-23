@@ -1,5 +1,5 @@
 import { permissions, OptionalAuth } from '@biosimulations/auth/nest';
-import { Project, ProjectInput, ProjectSummary } from '@biosimulations/datamodel/api';
+import { Project, ProjectInput, ProjectSummary, ProjectSummaryQueryResults } from '@biosimulations/datamodel/api';
 import {
   Body,
   Controller,
@@ -60,12 +60,41 @@ export class ProjectsController {
     summary: 'Get a summary of each published project',
     description: 'Get a list of summaries of each published project',
   })
+  @ApiQuery({
+    name: 'pageSize',
+    description: 'maximum number of records to return.',
+    required: false,
+    type: Number,
+  })
+  @ApiQuery({
+    name: 'pageIndex',
+    description: 'page to return when using pagination (using zero index).',
+    required: false,
+    type: Number,
+  })
+  @ApiQuery({
+    name: 'searchText',
+    description: 'search text for query',
+    required: false,
+    type: String,
+  })
   @ApiOkResponse({
     description: 'List of information about each published project',
     type: [ProjectSummary],
   })
-  public async getProjectSummaries(): Promise<ProjectSummary[]> {
-    return this.service.getProjectSummaries();
+  public async getProjectSummaries(
+    @Query('pageSize')
+    pageSize: number = 20,
+    @Query('pageIndex')
+    pageIndex: number = 0,
+    @Query('searchText')
+    searchText: string = '',
+  ): Promise<ProjectSummaryQueryResults> {
+    if (!searchText || searchText.length < 1) {
+      return this.service.getProjectSummariesWithoutSearch(pageSize, pageIndex);
+    } else {
+      return this.service.searchProjectSummaries(pageSize, pageIndex, searchText);
+    }
   }
 
   @Get(':projectId')

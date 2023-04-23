@@ -1,17 +1,23 @@
-import { ProjectInput, ProjectSummary, Account, Organization } from '@biosimulations/datamodel/api';
+import {
+  Account,
+  Organization,
+  ProjectInput,
+  ProjectSummary,
+  ProjectSummaryQueryResults,
+} from '@biosimulations/datamodel/api';
 import { AccountType } from '@biosimulations/datamodel/common';
 import {
-  Injectable,
+  BadRequestException,
+  CACHE_MANAGER,
+  ForbiddenException,
+  forwardRef,
+  HttpStatus,
   Inject,
+  Injectable,
+  InternalServerErrorException,
   Logger,
   NotFoundException,
-  InternalServerErrorException,
-  ForbiddenException,
-  BadRequestException,
-  HttpStatus,
-  CACHE_MANAGER,
   OnModuleInit,
-  forwardRef,
 } from '@nestjs/common';
 import { Cache } from 'cache-manager';
 import { InjectModel } from '@nestjs/mongoose';
@@ -20,14 +26,14 @@ import { SimulationRunService } from '../simulation-run/simulation-run.service';
 import { ProjectIdCollation, ProjectModel } from './project.model';
 import { DeleteResult } from 'mongodb';
 import { ConfigService } from '@nestjs/config';
-import { AuthToken } from '@biosimulations/auth/common';
+import { AuthToken, scopes } from '@biosimulations/auth/common';
 import { isAdmin } from '@biosimulations/auth/nest';
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
-import { scopes } from '@biosimulations/auth/common';
 import { ManagementService as AccountManagementService } from '@biosimulations/account/management';
 import { Organization as Auth0Organization } from 'auth0';
 import { ModuleRef } from '@nestjs/core';
 import { SimulationRunValidationService } from '../simulation-run/simulation-run-validation.service';
+import { ProjectsSearch } from './projects.search';
 
 interface ProjectSummaryResult {
   id: string;
@@ -41,6 +47,7 @@ export class ProjectsService implements OnModuleInit {
   private logger = new Logger('ProjectsService');
 
   private simulationRunService!: SimulationRunService;
+  private projectSearch?: ProjectsSearch;
 
   public constructor(
     @InjectModel(ProjectModel.name)
@@ -187,9 +194,18 @@ export class ProjectsService implements OnModuleInit {
 
   /** Get a summary of each project
    */
-  public async getProjectSummaries(): Promise<ProjectSummary[]> {
-    const projects = await this.model.find({}).select('id updated').exec();
-    const projectIds = projects
+  public async getProjectSummariesWithoutSearch(
+    pageSize: number,
+    pageIndex: number,
+  ): Promise<ProjectSummaryQueryResults> {
+    const projects: ProjectModel[] = await this.model
+      .find({})
+      .select('id updated')
+      .skip(pageSize * pageIndex)
+      .limit(pageSize)
+      .exec();
+    const totalNumProjects: number = await this.model.count();
+    const projectIds: string = projects
       .map((project: ProjectModel): string => {
         const updated = project.updated.toISOString();
         return `${project.id}-${updated}`;
@@ -197,7 +213,64 @@ export class ProjectsService implements OnModuleInit {
       .sort()
       .join(',');
     const cacheKey = `Project:Summaries:${projectIds}:${SimulationRunService.summaryVersion}`;
-    return this.getWithCache<ProjectSummary[]>(cacheKey, this._getProjectSummaries.bind(this, projects), 0);
+    const projectSummaries: ProjectSummary[] = await this.getWithCache<ProjectSummary[]>(
+      cacheKey,
+      this._getProjectSummaries.bind(this, projects),
+      0,
+    );
+    return {
+      projectSummaries: projectSummaries,
+      totalMatchingProjectSummaries: totalNumProjects,
+    } as ProjectSummaryQueryResults;
+  }
+
+  /** Get a summary of each project
+   */
+  public async searchProjectSummaries(
+    pageSize: number,
+    pageIndex: number,
+    searchText: string,
+  ): Promise<ProjectSummaryQueryResults> {
+    const startIndex: number = pageIndex * pageSize;
+    const endIndex: number = startIndex + pageSize;
+    if (this.projectSearch) {
+      const results: ProjectSummary[] = this.projectSearch.search(searchText);
+      const slicedResults: ProjectSummary[] = results.slice(startIndex, endIndex);
+      const resultsLength = results.length;
+      // this.logger.debug(`warm-engine: resultsLength=${resultsLength}, pageIndex=${pageIndex}, pageSize=${pageSize}, startIndex=${startIndex}, endIndex=${endIndex}`);
+      return {
+        projectSummaries: slicedResults,
+        totalMatchingProjectSummaries: resultsLength,
+      } as ProjectSummaryQueryResults;
+    } else {
+      // Initialize the search query first (eventually, we'll need it to update on the fly when new projects are added).
+      // 1. query first 2000 projects
+      // 2. add all projects to ProjectsSearch instance
+      // 3. perform the search
+      const maxNumRecordsToTextSearch = 2000;
+      const projectSummaries: Promise<ProjectSummaryQueryResults> = this.getProjectSummariesWithoutSearch(
+        maxNumRecordsToTextSearch,
+        0,
+      ).then((projectSummaryQueryResults: ProjectSummaryQueryResults) => {
+        // 2. add all documents to be indexed with search engine
+        const searchEngine = new ProjectsSearch();
+        for (const projectSummary of projectSummaryQueryResults.projectSummaries) {
+          searchEngine.addDocument(projectSummary);
+        }
+        this.projectSearch = searchEngine;
+
+        // 3. now do the search
+        const results: ProjectSummary[] = this.projectSearch.search(searchText);
+        const resultsLength: number = results.length;
+        // this.logger.debug(`cold-engine: resultsLength=${resultsLength}, pageIndex=${pageIndex}, pageSize=${pageSize}, startIndex=${startIndex}, endIndex=${endIndex}`);
+        const slicedResults: ProjectSummary[] = results.slice(startIndex, endIndex);
+        return {
+          projectSummaries: slicedResults,
+          totalMatchingProjectSummaries: results.length,
+        } as ProjectSummaryQueryResults;
+      });
+      return projectSummaries;
+    }
   }
 
   private async _getProjectSummaries(projects: ProjectModel[]): Promise<ProjectSummary[]> {

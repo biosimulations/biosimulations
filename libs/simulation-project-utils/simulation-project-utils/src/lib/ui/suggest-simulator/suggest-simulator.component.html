@@ -54,8 +54,8 @@
           <ng-container *ngIf="altAlgorithms.length; else noSimilarAlgs">
             <p>
               In descending order of similarity, the following available algorithms are similar to
-              {{ suggestions.algorithm?.name }} (<a [href]="suggestions.algorithm?.url" rel="noopener" target="kisao">{{
-                suggestions.algorithm?.id
+              {{ suggestions.algorithm.name }} (<a [href]="suggestions.algorithm.url" rel="noopener" target="kisao">{{
+                suggestions.algorithm.id
               }}</a
               >):
             </p>
@@ -81,11 +81,11 @@
           <ng-template #noSimilarAlgs>
             <p>
               No information is available about similar algorithms to
-              {{ suggestions?.algorithm?.name }} (<a
-                [href]="suggestions?.algorithm?.url"
+              {{ suggestions.algorithm.name }} (<a
+                [href]="suggestions.algorithm.url"
                 rel="noopener"
                 target="kisao"
-                >{{ suggestions?.algorithm?.id }}</a
+                >{{ suggestions.algorithm.id }}</a
               >).
             </p>
           </ng-template>
@@ -108,11 +108,11 @@
           <ng-container *ngIf="simulatorsByPolicies.length; else noImplementations">
             <p>
               In descending order of similarity, the following simulation tools can execute algorithms similar to
-              {{ suggestions?.algorithm?.name }} (<a
-                [href]="suggestions?.algorithm?.url"
+              {{ suggestions.algorithm.name }} (<a
+                [href]="suggestions.algorithm.url"
                 rel="noopener"
                 target="kisao"
-                >{{ suggestions?.algorithm?.id }}</a
+                >{{ suggestions.algorithm.id }}</a
               >):
             </p>
             <ul class="vertically-spaced">
@@ -149,11 +149,11 @@
           <ng-template #noImplementations>
             <p>
               No information is available about simulation tools that can execute algorithms similar to
-              {{ suggestions?.algorithm?.name }} (<a
-                [href]="suggestions?.algorithm?.url"
+              {{ suggestions.algorithm.name }} (<a
+                [href]="suggestions.algorithm.url"
                 rel="noopener"
                 target="kisao"
-                >{{ suggestions?.algorithm?.id }}</a
+                >{{ suggestions.algorithm.id }}</a
               >).
             </p>
           </ng-template>

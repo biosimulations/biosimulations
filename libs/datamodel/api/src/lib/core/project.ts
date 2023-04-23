@@ -3,6 +3,7 @@ import {
   Project as IProject,
   ProjectInput as IProjectInput,
   ProjectSummary as IProjectSummary,
+  ProjectSummaryQueryResults as IProjectSummaryQueryResults,
   Account as IAccount,
   AccountType,
   Organization as IOrganization,
@@ -155,4 +156,18 @@ export class ProjectSummary implements IProjectSummary {
     description: 'Timestamp when the project was last updated',
   })
   public updated!: string;
+}
+
+export class ProjectSummaryQueryResults implements IProjectSummaryQueryResults {
+  @ApiProperty({
+    type: [ProjectSummary],
+    description: 'ProjectsSummary list returned by query',
+  })
+  projectSummaries!: ProjectSummary[];
+
+  @ApiProperty({
+    type: Number,
+    description: 'total number of matching records, ignoring pagination',
+  })
+  totalMatchingProjectSummaries!: number;
 }
