@@ -84,11 +84,11 @@ export class ProjectsController {
   })
   public async getProjectSummaries(
     @Query('pageSize')
-    pageSize = 20,
+    pageSize: number = 20,
     @Query('pageIndex')
-    pageIndex = 0,
+    pageIndex: number = 0,
     @Query('searchText')
-    searchText = '',
+    searchText: string = '',
   ): Promise<ProjectSummaryQueryResults> {
     if (!searchText || searchText.length < 1) {
       return this.service.getProjectSummariesWithoutSearch(pageSize, pageIndex);

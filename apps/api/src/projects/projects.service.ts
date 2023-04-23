@@ -231,12 +231,16 @@ export class ProjectsService implements OnModuleInit {
     pageIndex: number,
     searchText: string,
   ): Promise<ProjectSummaryQueryResults> {
+    const startIndex: number = pageIndex * pageSize;
+    const endIndex: number = startIndex + pageSize;
     if (this.projectSearch) {
       const results: ProjectSummary[] = this.projectSearch.search(searchText);
-      const slicedResults: ProjectSummary[] = results.slice(pageIndex * pageSize, pageIndex * pageSize + pageSize);
+      const slicedResults: ProjectSummary[] = results.slice(startIndex, endIndex);
+      const resultsLength = results.length;
+      // this.logger.debug(`warm-engine: resultsLength=${resultsLength}, pageIndex=${pageIndex}, pageSize=${pageSize}, startIndex=${startIndex}, endIndex=${endIndex}`);
       return {
         projectSummaries: slicedResults,
-        totalMatchingProjectSummaries: results.length,
+        totalMatchingProjectSummaries: resultsLength,
       } as ProjectSummaryQueryResults;
     } else {
       // Initialize the search query first (eventually, we'll need it to update on the fly when new projects are added).
@@ -257,7 +261,9 @@ export class ProjectsService implements OnModuleInit {
 
         // 3. now do the search
         const results: ProjectSummary[] = this.projectSearch.search(searchText);
-        const slicedResults: ProjectSummary[] = results.slice(pageIndex * pageSize, pageIndex * pageSize + pageSize);
+        const resultsLength: number = results.length;
+        // this.logger.debug(`cold-engine: resultsLength=${resultsLength}, pageIndex=${pageIndex}, pageSize=${pageSize}, startIndex=${startIndex}, endIndex=${endIndex}`);
+        const slicedResults: ProjectSummary[] = results.slice(startIndex, endIndex);
         return {
           projectSummaries: slicedResults,
           totalMatchingProjectSummaries: results.length,
