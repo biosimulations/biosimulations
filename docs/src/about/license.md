@@ -34,12 +34,12 @@ SOFTWARE.
 Below are the licenses of the dependencies of the BioSimulations and BioSimulators platforms, including the location of each license file where available. This report was generated using [license-checker](https://github.com/davglass/license-checker). This report was last updated on the date at the bottom of this page.
 
 ```
-├─ @angular/common@15.2.3
+├─ @angular/common@15.2.8
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/common/README.md
-├─ @angular/core@15.2.3
+├─ @angular/core@15.2.8
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
