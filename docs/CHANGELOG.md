@@ -1,5 +1,17 @@
 # Changelog
 
+## [9.25.0](https://github.com/biosimulations/biosimulations/compare/v9.24.0...v9.25.0) (2023-04-24)
+
+
+### Bug Fixes
+
+* unit test for project-table depends on FormsModule ([de1a862](https://github.com/biosimulations/biosimulations/commit/de1a862424af5e44ea71796f40c3e5355e925945))
+
+
+### Features
+
+* added link from project table to project detail ([f8333e3](https://github.com/biosimulations/biosimulations/commit/f8333e3d62ebd3489e73d98475e93a022afa5fcd))
+
 ## [9.24.0](https://github.com/biosimulations/biosimulations/compare/v9.23.1...v9.24.0) (2023-04-23)
 
 
