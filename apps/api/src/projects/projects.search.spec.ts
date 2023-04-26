@@ -8,6 +8,7 @@ describe('ProjectsSearch', () => {
   let projectsSearch: ProjectsSearch;
 
   beforeAll(() => {
+    projectsSearch = new ProjectsSearch();
     projectsSearch.addDocument(projectSummary_mock1);
     projectsSearch.addDocument(projectSummary_mock2);
     projectsSearch.addDocument(projectSummary_mock3);

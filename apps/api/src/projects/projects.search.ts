@@ -47,7 +47,7 @@ export class ProjectsSearch {
     // get modelLanguageName from any simulation tasks
     if (projectSummary.simulationRun.tasks) {
       for (const task of projectSummary.simulationRun.tasks) {
-        modelLanguageName = task.model.language.name;
+        modelLanguageName = task.model.language.name + ' ' + task.model.language.acronym;
         break;
       }
     }
