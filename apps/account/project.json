@@ -106,7 +106,7 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["apps/account/**/*.ts", "apps/account/**/*.ts"]
+        "lintFilePatterns": ["apps/account/**/*.ts", "apps/account/**/*.html"]
       }
     },
     "test": {
