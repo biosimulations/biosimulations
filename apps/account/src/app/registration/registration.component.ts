@@ -57,7 +57,9 @@ export class RegistrationComponent implements OnInit, OnChanges {
     this.state = this.route.snapshot.queryParamMap.get('state');
     this.token = this.route.snapshot.queryParamMap.get('token');
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const _dummy = 'no-op'; // lint complains about empty methods.
+  }
   ngOnChanges(): void {
     this.error = this.getErrorMessage();
   }
