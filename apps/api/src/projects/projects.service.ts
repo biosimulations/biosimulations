@@ -1,6 +1,7 @@
 import {
   Account,
   Organization,
+  ProjectFilterQueryItem,
   ProjectInput,
   ProjectSummary,
   ProjectSummaryQueryResults,
@@ -34,6 +35,7 @@ import { Organization as Auth0Organization } from 'auth0';
 import { ModuleRef } from '@nestjs/core';
 import { SimulationRunValidationService } from '../simulation-run/simulation-run-validation.service';
 import { ProjectsSearch } from './projects.search';
+import { applyFilter } from './projects.filter';
 
 interface ProjectSummaryResult {
   id: string;
@@ -197,31 +199,56 @@ export class ProjectsService implements OnModuleInit {
   public async getProjectSummariesWithoutSearch(
     pageSize: number,
     pageIndex: number,
+    filters: ProjectFilterQueryItem[],
   ): Promise<ProjectSummaryQueryResults> {
-    const projects: ProjectModel[] = await this.model
-      .find({})
-      .select('id updated')
-      .skip(pageSize * pageIndex)
-      .limit(pageSize)
-      .exec();
-    const totalNumProjects: number = await this.model.count();
-    const projectIds: string = projects
-      .map((project: ProjectModel): string => {
-        const updated = project.updated.toISOString();
-        return `${project.id}-${updated}`;
-      })
-      .sort()
-      .join(',');
-    const cacheKey = `Project:Summaries:${projectIds}:${SimulationRunService.summaryVersion}`;
-    const projectSummaries: ProjectSummary[] = await this.getWithCache<ProjectSummary[]>(
-      cacheKey,
-      this._getProjectSummaries.bind(this, projects),
-      0,
-    );
-    return {
-      projectSummaries: projectSummaries,
-      totalMatchingProjectSummaries: totalNumProjects,
-    } as ProjectSummaryQueryResults;
+    if (!filters || filters.length == 0) {
+      const projects: ProjectModel[] = await this.model
+        .find({})
+        .select('id updated')
+        .skip(pageSize * pageIndex)
+        .limit(pageSize)
+        .exec();
+      const totalNumProjects: number = await this.model.count();
+      const projectIds: string = projects
+        .map((project: ProjectModel): string => {
+          const updated = project.updated.toISOString();
+          return `${project.id}-${updated}`;
+        })
+        .sort()
+        .join(',');
+      const cacheKey = `Project:Summaries:${projectIds}:${SimulationRunService.summaryVersion}`;
+      const projectSummaries: ProjectSummary[] = await this.getWithCache<ProjectSummary[]>(
+        cacheKey,
+        this._getProjectSummaries.bind(this, projects),
+        0,
+      );
+      return {
+        projectSummaries: projectSummaries,
+        totalMatchingProjectSummaries: totalNumProjects,
+      } as ProjectSummaryQueryResults;
+    } else {
+      const projects: ProjectModel[] = await this.model.find({}).select('id updated').exec();
+      const projectIds: string = projects
+        .map((project: ProjectModel): string => {
+          const updated = project.updated.toISOString();
+          return `${project.id}-${updated}`;
+        })
+        .sort()
+        .join(',');
+      const cacheKey = `Project:Summaries:${projectIds}:${SimulationRunService.summaryVersion}`;
+      const projectSummaries: ProjectSummary[] = applyFilter(
+        await this.getWithCache<ProjectSummary[]>(cacheKey, this._getProjectSummaries.bind(this, projects), 0),
+        filters,
+      );
+      const startIndex: number = pageIndex * pageSize;
+      const endIndex: number = startIndex + pageSize;
+      const slicedResults: ProjectSummary[] = projectSummaries.slice(startIndex, endIndex);
+      const resultsLength = projectSummaries.length;
+      return {
+        projectSummaries: slicedResults,
+        totalMatchingProjectSummaries: resultsLength,
+      } as ProjectSummaryQueryResults;
+    }
   }
 
   /** Get a summary of each project
@@ -230,14 +257,16 @@ export class ProjectsService implements OnModuleInit {
     pageSize: number,
     pageIndex: number,
     searchText: string,
+    filters: ProjectFilterQueryItem[],
   ): Promise<ProjectSummaryQueryResults> {
     const startIndex: number = pageIndex * pageSize;
     const endIndex: number = startIndex + pageSize;
     if (this.projectSearch) {
-      const results: ProjectSummary[] = this.projectSearch.search(searchText);
+      const results: ProjectSummary[] = applyFilter(this.projectSearch.search(searchText), filters);
       const slicedResults: ProjectSummary[] = results.slice(startIndex, endIndex);
       const resultsLength = results.length;
-      // this.logger.debug(`warm-engine: resultsLength=${resultsLength}, pageIndex=${pageIndex}, pageSize=${pageSize}, startIndex=${startIndex}, endIndex=${endIndex}`);
+      // this.logger.debug(`warm-engine: resultsLength=${resultsLength}, pageIndex=${pageIndex},
+      //      pageSize=${pageSize}, startIndex=${startIndex}, endIndex=${endIndex}`);
       return {
         projectSummaries: slicedResults,
         totalMatchingProjectSummaries: resultsLength,
@@ -251,6 +280,7 @@ export class ProjectsService implements OnModuleInit {
       const projectSummaries: Promise<ProjectSummaryQueryResults> = this.getProjectSummariesWithoutSearch(
         maxNumRecordsToTextSearch,
         0,
+        [],
       ).then((projectSummaryQueryResults: ProjectSummaryQueryResults) => {
         // 2. add all documents to be indexed with search engine
         const searchEngine = new ProjectsSearch();
@@ -260,13 +290,14 @@ export class ProjectsService implements OnModuleInit {
         this.projectSearch = searchEngine;
 
         // 3. now do the search
-        const results: ProjectSummary[] = this.projectSearch.search(searchText);
+        const results: ProjectSummary[] = applyFilter(this.projectSearch.search(searchText), filters);
         const resultsLength: number = results.length;
-        // this.logger.debug(`cold-engine: resultsLength=${resultsLength}, pageIndex=${pageIndex}, pageSize=${pageSize}, startIndex=${startIndex}, endIndex=${endIndex}`);
+        // this.logger.debug(`cold-engine: resultsLength=${resultsLength}, pageIndex=${pageIndex},
+        //      pageSize=${pageSize}, startIndex=${startIndex}, endIndex=${endIndex}`);
         const slicedResults: ProjectSummary[] = results.slice(startIndex, endIndex);
         return {
           projectSummaries: slicedResults,
-          totalMatchingProjectSummaries: results.length,
+          totalMatchingProjectSummaries: resultsLength,
         } as ProjectSummaryQueryResults;
       });
       return projectSummaries;
@@ -351,7 +382,8 @@ export class ProjectsService implements OnModuleInit {
   /** Check if a project is valid
    *
    * @param projectInput project
-   * @param validateSimulationResultsData whether to validate the data for each SED-ML report and plot of each SED-ML document
+   * @param validateSimulationResultsData whether to validate the data for each SED-ML report
+   *                                      and plot of each SED-ML document
    */
   public async validateProject(
     projectInput: ProjectInput,
@@ -377,7 +409,8 @@ export class ProjectsService implements OnModuleInit {
         .collation(ProjectIdCollation);
       if (project) {
         errors.push(
-          `Simulation run '${projectInput.simulationRun}' has already been published as project '${project.id}'. Each run can only be published once.`,
+          `Simulation run '${projectInput.simulationRun}' has already been published as project '${project.id}'.
+          Each run can only be published once.`,
         );
       }
     }

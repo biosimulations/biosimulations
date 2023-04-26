@@ -1,6 +1,9 @@
 import { ApiProperty, ApiResponseProperty, ApiPropertyOptional, OmitType } from '@nestjs/swagger';
 import {
   Project as IProject,
+  ProjectFilterTarget,
+  ProjectFilterStatsItem as IProjectFilterStatsItem,
+  ProjectFilterQueryItem as IProjectFilterQueryItem,
   ProjectInput as IProjectInput,
   ProjectSummary as IProjectSummary,
   ProjectSummaryQueryResults as IProjectSummaryQueryResults,
@@ -158,6 +161,21 @@ export class ProjectSummary implements IProjectSummary {
   public updated!: string;
 }
 
+export class ProjectFilterStatsItem implements IProjectFilterStatsItem {
+  @ApiProperty({
+    type: String,
+    description: 'total number of matching records, ignoring pagination',
+    enum: ProjectFilterTarget,
+  })
+  public target!: ProjectFilterTarget;
+
+  @ApiProperty({
+    type: String,
+    description: 'total number of matching records, ignoring pagination',
+  })
+  public valueHistogram!: { value: string; count: number }[];
+}
+
 export class ProjectSummaryQueryResults implements IProjectSummaryQueryResults {
   @ApiProperty({
     type: [ProjectSummary],
@@ -170,4 +188,24 @@ export class ProjectSummaryQueryResults implements IProjectSummaryQueryResults {
     description: 'total number of matching records, ignoring pagination',
   })
   totalMatchingProjectSummaries!: number;
+
+  @ApiProperty({
+    type: [ProjectFilterStatsItem],
+    description: 'total number of matching records, ignoring pagination',
+  })
+  queryStats!: ProjectFilterStatsItem[];
+}
+
+export class ProjectFilterQueryItem implements IProjectFilterQueryItem {
+  @ApiProperty({
+    type: [String],
+    description: 'ProjectsSummary list returned by query',
+  })
+  allowable_values!: string[];
+
+  @ApiProperty({
+    type: ProjectFilterTarget,
+    description: 'ProjectsSummary list returned by query',
+  })
+  target!: ProjectFilterTarget;
 }

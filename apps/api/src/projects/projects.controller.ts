@@ -1,5 +1,11 @@
 import { permissions, OptionalAuth } from '@biosimulations/auth/nest';
-import { Project, ProjectInput, ProjectSummary, ProjectSummaryQueryResults } from '@biosimulations/datamodel/api';
+import {
+  Project,
+  ProjectFilterQueryItem,
+  ProjectInput,
+  ProjectSummary,
+  ProjectSummaryQueryResults,
+} from '@biosimulations/datamodel/api';
 import {
   Body,
   Controller,
@@ -89,11 +95,13 @@ export class ProjectsController {
     pageIndex: number = 0,
     @Query('searchText')
     searchText: string = '',
+    @Query('filters')
+    filters: ProjectFilterQueryItem[],
   ): Promise<ProjectSummaryQueryResults> {
     if (!searchText || searchText.length < 1) {
-      return this.service.getProjectSummariesWithoutSearch(pageSize, pageIndex);
+      return this.service.getProjectSummariesWithoutSearch(pageSize, pageIndex, filters);
     } else {
-      return this.service.searchProjectSummaries(pageSize, pageIndex, searchText);
+      return this.service.searchProjectSummaries(pageSize, pageIndex, searchText, filters);
     }
   }
 
