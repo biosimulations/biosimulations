@@ -36,6 +36,7 @@ export class BrowseService {
           return {
             formattedProjectSummaries: formattedProjectSummaries,
             numMatchingProjectSummaries: results.totalMatchingProjectSummaries,
+            queryStats: results.queryStats,
           } as FormattedProjectSummaryQueryResults;
         }),
       );

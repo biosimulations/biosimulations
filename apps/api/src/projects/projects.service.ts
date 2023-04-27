@@ -2,6 +2,7 @@ import {
   Account,
   Organization,
   ProjectFilterQueryItem,
+  ProjectFilterStatsItem,
   ProjectInput,
   ProjectSummary,
   ProjectSummaryQueryResults,
@@ -35,7 +36,7 @@ import { Organization as Auth0Organization } from 'auth0';
 import { ModuleRef } from '@nestjs/core';
 import { SimulationRunValidationService } from '../simulation-run/simulation-run-validation.service';
 import { ProjectsSearch } from './projects.search';
-import { applyFilter } from './projects.filter';
+import { applyFilter, gatherFilterValueStatistics } from './projects.filter';
 
 interface ProjectSummaryResult {
   id: string;
@@ -50,6 +51,7 @@ export class ProjectsService implements OnModuleInit {
 
   private simulationRunService!: SimulationRunService;
   private projectSearch?: ProjectsSearch;
+  private fullFilterStats?: ProjectFilterStatsItem[];
 
   public constructor(
     @InjectModel(ProjectModel.name)
@@ -201,6 +203,23 @@ export class ProjectsService implements OnModuleInit {
     pageIndex: number,
     filters: ProjectFilterQueryItem[],
   ): Promise<ProjectSummaryQueryResults> {
+    if (!this.fullFilterStats) {
+      const allProjects: ProjectModel[] = await this.model.find({}).select('id updated').exec();
+      const projectIds: string = allProjects
+        .map((project: ProjectModel): string => {
+          const updated = project.updated.toISOString();
+          return `${project.id}-${updated}`;
+        })
+        .sort()
+        .join(',');
+      const cacheKey = `Project:Summaries:${projectIds}:${SimulationRunService.summaryVersion}`;
+      const allProjectSummaries: ProjectSummary[] = await this.getWithCache<ProjectSummary[]>(
+        cacheKey,
+        this._getProjectSummaries.bind(this, allProjects),
+        0,
+      );
+      this.fullFilterStats = gatherFilterValueStatistics(allProjectSummaries);
+    }
     if (!filters || filters.length == 0) {
       const projects: ProjectModel[] = await this.model
         .find({})
@@ -225,6 +244,7 @@ export class ProjectsService implements OnModuleInit {
       return {
         projectSummaries: projectSummaries,
         totalMatchingProjectSummaries: totalNumProjects,
+        queryStats: this.fullFilterStats,
       } as ProjectSummaryQueryResults;
     } else {
       const projects: ProjectModel[] = await this.model.find({}).select('id updated').exec();
@@ -247,6 +267,7 @@ export class ProjectsService implements OnModuleInit {
       return {
         projectSummaries: slicedResults,
         totalMatchingProjectSummaries: resultsLength,
+        queryStats: this.fullFilterStats,
       } as ProjectSummaryQueryResults;
     }
   }
@@ -263,6 +284,7 @@ export class ProjectsService implements OnModuleInit {
     const endIndex: number = startIndex + pageSize;
     if (this.projectSearch) {
       const results: ProjectSummary[] = applyFilter(this.projectSearch.search(searchText), filters);
+      const filterStats: ProjectFilterStatsItem[] = gatherFilterValueStatistics(results);
       const slicedResults: ProjectSummary[] = results.slice(startIndex, endIndex);
       const resultsLength = results.length;
       // this.logger.debug(`warm-engine: resultsLength=${resultsLength}, pageIndex=${pageIndex},
@@ -270,6 +292,7 @@ export class ProjectsService implements OnModuleInit {
       return {
         projectSummaries: slicedResults,
         totalMatchingProjectSummaries: resultsLength,
+        queryStats: filterStats,
       } as ProjectSummaryQueryResults;
     } else {
       // Initialize the search query first (eventually, we'll need it to update on the fly when new projects are added).
@@ -291,6 +314,7 @@ export class ProjectsService implements OnModuleInit {
 
         // 3. now do the search
         const results: ProjectSummary[] = applyFilter(this.projectSearch.search(searchText), filters);
+        const filterStats: ProjectFilterStatsItem[] = gatherFilterValueStatistics(results);
         const resultsLength: number = results.length;
         // this.logger.debug(`cold-engine: resultsLength=${resultsLength}, pageIndex=${pageIndex},
         //      pageSize=${pageSize}, startIndex=${startIndex}, endIndex=${endIndex}`);
@@ -298,6 +322,7 @@ export class ProjectsService implements OnModuleInit {
         return {
           projectSummaries: slicedResults,
           totalMatchingProjectSummaries: resultsLength,
+          queryStats: filterStats,
         } as ProjectSummaryQueryResults;
       });
       return projectSummaries;

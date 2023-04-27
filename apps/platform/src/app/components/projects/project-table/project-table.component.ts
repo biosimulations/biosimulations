@@ -1,13 +1,14 @@
 import { AfterViewInit, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatTable } from '@angular/material/table';
 import { BrowseService } from './browse.service';
 import { FormattedProjectSummary, FormattedProjectSummaryQueryResults } from './browse.model';
 import { DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { SearchCriteria } from '@biosimulations/angular-api-client';
 import { debounceTime, distinctUntilChanged, switchMap, takeUntil } from 'rxjs/operators';
+import { MatTable } from '@angular/material/table';
+import { ProjectFilterStatsItem } from '@biosimulations/datamodel/api';
 
 export class ProjectTableDataSource extends DataSource<FormattedProjectSummary> {
   public paginator: MatPaginator | undefined;
@@ -22,9 +23,12 @@ export class ProjectTableDataSource extends DataSource<FormattedProjectSummary> 
 
   public datalength = 0;
   public searchTermChange?: EventEmitter<string>;
+  private projectTableComponent!: ProjectTableComponent;
 
-  constructor(private browseService: BrowseService) {
+  constructor(private browseService: BrowseService, projectTableComponent: ProjectTableComponent) {
     super();
+
+    this.projectTableComponent = projectTableComponent;
 
     // on each
     this.formattedProjectSummaryQueryResults$ = this.searchCriteria$.pipe(
@@ -41,6 +45,7 @@ export class ProjectTableDataSource extends DataSource<FormattedProjectSummary> 
     this.formattedProjectSummaryQueryResults$.subscribe((results) => {
       this.datalength = results.numMatchingProjectSummaries;
       this.formattedProjectSummaries$.next(results.formattedProjectSummaries);
+      this.projectTableComponent.queryStats$.next(results.queryStats);
     });
   }
 
@@ -110,8 +115,10 @@ export class ProjectTableComponent implements AfterViewInit {
   @Input() searchTerm = '';
   @Output() searchTermChange: EventEmitter<string> = new EventEmitter<string>();
 
+  public queryStats$ = new BehaviorSubject([] as ProjectFilterStatsItem[]);
+
   constructor(browseService: BrowseService) {
-    this.dataSource = new ProjectTableDataSource(browseService);
+    this.dataSource = new ProjectTableDataSource(browseService, this);
   }
 
   public onKeyUpEvent(event: KeyboardEvent) {

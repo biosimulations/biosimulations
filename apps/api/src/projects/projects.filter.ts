@@ -1,4 +1,9 @@
-import { ProjectFilterQueryItem, ProjectSummary, SimulationRunOutputSummary } from '@biosimulations/datamodel/api';
+import {
+  ProjectFilterQueryItem,
+  ProjectFilterStatsItem,
+  ProjectSummary,
+  SimulationRunOutputSummary,
+} from '@biosimulations/datamodel/api';
 import { LabeledIdentifier, ProjectFilterTarget } from '@biosimulations/datamodel/common';
 import { logger } from 'nx/src/utils/logger';
 
@@ -66,7 +71,86 @@ export function getProjectSummary_Taxa(project: ProjectSummary): Set<string> {
   return taxa ? new Set<string>(taxa) : new Set<string>();
 }
 
+function getFrequencyMap(projectFilterTarget: ProjectFilterTarget, values: string[]): ProjectFilterStatsItem {
+  const frequencyMap = new Map<string, number>();
+  values.forEach((str: string): void => {
+    const currCount: number | undefined = frequencyMap.get(str);
+    if (currCount) {
+      frequencyMap.set(str, currCount + 1);
+    } else {
+      frequencyMap.set(str, 1);
+    }
+  });
+  const valueHistogram: { value: string; count: number }[] = [];
+  frequencyMap.forEach((count: number, key: string) => valueHistogram.push({ value: key, count: count }));
+  return { target: projectFilterTarget, valueHistogram: valueHistogram };
+}
+
+export function gatherFilterValueStatistics(projectSummaries: ProjectSummary[]): ProjectFilterStatsItem[] {
+  const projFilterStatsItems: ProjectFilterStatsItem[] = [];
+  projFilterStatsItems.push(
+    getFrequencyMap(
+      ProjectFilterTarget.biology,
+      projectSummaries.flatMap<string>((project) => Array.from(getProjectSummary_Biologies(project).values())),
+    ),
+  );
+  projFilterStatsItems.push(
+    getFrequencyMap(
+      ProjectFilterTarget.taxa,
+      projectSummaries.flatMap<string>((project) => Array.from(getProjectSummary_Taxa(project).values())),
+    ),
+  );
+  projFilterStatsItems.push(
+    getFrequencyMap(
+      ProjectFilterTarget.simulator,
+      projectSummaries.flatMap<string>((project) => Array.from(getProjectSummary_Simulators(project).values())),
+    ),
+  );
+  projFilterStatsItems.push(
+    getFrequencyMap(
+      ProjectFilterTarget.reports,
+      projectSummaries.flatMap<string>((project) => Array.from(getProjectSummary_Reports(project).values())),
+    ),
+  );
+  projFilterStatsItems.push(
+    getFrequencyMap(
+      ProjectFilterTarget.simulationAlgorithms,
+      projectSummaries.flatMap<string>((project) =>
+        Array.from(getProjectSummary_SimulationAlgorithms(project).values()),
+      ),
+    ),
+  );
+  projFilterStatsItems.push(
+    getFrequencyMap(
+      ProjectFilterTarget.simulationTypes,
+      projectSummaries.flatMap<string>((project) => Array.from(getProjectSummary_SimulationTypes(project).values())),
+    ),
+  );
+  projFilterStatsItems.push(
+    getFrequencyMap(
+      ProjectFilterTarget.keywords,
+      projectSummaries.flatMap<string>((project) => Array.from(getProjectSummary_Keywords(project).values())),
+    ),
+  );
+  projFilterStatsItems.push(
+    getFrequencyMap(
+      ProjectFilterTarget.modelFormats,
+      projectSummaries.flatMap<string>((project) => Array.from(getProjectSummary_ModelFormats(project).values())),
+    ),
+  );
+  projFilterStatsItems.push(
+    getFrequencyMap(
+      ProjectFilterTarget.citations,
+      projectSummaries.flatMap<string>((project) => Array.from(getProjectSummary_Citations(project).values())),
+    ),
+  );
+  return projFilterStatsItems;
+}
+
 export function applyFilter(projectSummaries: ProjectSummary[], filters: ProjectFilterQueryItem[]): ProjectSummary[] {
+  if (!filters) {
+    return projectSummaries;
+  }
   let filterdProjectSummaries: ProjectSummary[] = [...projectSummaries];
   for (const filter of filters) {
     if (filter.allowable_values.length < 1) {

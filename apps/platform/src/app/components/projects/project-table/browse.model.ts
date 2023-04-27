@@ -5,6 +5,7 @@ import {
   SimulationRunTaskSummary,
   SimulationRunOutputSummary,
   Account,
+  ProjectFilterStatsItem,
 } from '@biosimulations/datamodel/common';
 
 export interface FormattedSimulationRunSummary {
@@ -62,4 +63,5 @@ export interface FormattedProjectSummary {
 export interface FormattedProjectSummaryQueryResults {
   formattedProjectSummaries: FormattedProjectSummary[];
   numMatchingProjectSummaries: number;
+  queryStats: ProjectFilterStatsItem[];
 }
