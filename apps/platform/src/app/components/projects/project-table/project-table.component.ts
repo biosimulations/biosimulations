@@ -8,7 +8,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { SearchCriteria } from '@biosimulations/angular-api-client';
 import { debounceTime, distinctUntilChanged, switchMap, takeUntil } from 'rxjs/operators';
 import { MatTable } from '@angular/material/table';
-import { ProjectFilterStatsItem } from '@biosimulations/datamodel/api';
+import { ProjectFilterQueryItem, ProjectFilterStatsItem } from '@biosimulations/datamodel/common';
 
 export class ProjectTableDataSource extends DataSource<FormattedProjectSummary> {
   public paginator: MatPaginator | undefined;
@@ -45,7 +45,7 @@ export class ProjectTableDataSource extends DataSource<FormattedProjectSummary> 
     this.formattedProjectSummaryQueryResults$.subscribe((results) => {
       this.datalength = results.numMatchingProjectSummaries;
       this.formattedProjectSummaries$.next(results.formattedProjectSummaries);
-      this.projectTableComponent.queryStats$.next(results.queryStats);
+      this.projectTableComponent.filterStats$.next(results.queryStats);
     });
   }
 
@@ -115,7 +115,7 @@ export class ProjectTableComponent implements AfterViewInit {
   @Input() searchTerm = '';
   @Output() searchTermChange: EventEmitter<string> = new EventEmitter<string>();
 
-  public queryStats$ = new BehaviorSubject([] as ProjectFilterStatsItem[]);
+  @Output() filterStats$ = new BehaviorSubject([] as ProjectFilterStatsItem[]);
 
   constructor(browseService: BrowseService) {
     this.dataSource = new ProjectTableDataSource(browseService, this);
@@ -123,6 +123,14 @@ export class ProjectTableComponent implements AfterViewInit {
 
   public onKeyUpEvent(event: KeyboardEvent) {
     this.searchTermChange.next(this.searchTerm);
+  }
+
+  public onFilterQueryChanged(filterQueryItems: ProjectFilterQueryItem[]): void {
+    console.log(
+      `onFilterQueryChanged() called with ${filterQueryItems.map(
+        (item) => item.target.toString() + ' = [' + item.allowable_values.join(' ') + ']',
+      )}`,
+    );
   }
 
   ngAfterViewInit(): void {

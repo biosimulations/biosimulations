@@ -14,9 +14,10 @@ import { ApiClientModule } from '@biosimulations/angular-api-client';
 
 import { JsonLdModule } from '@biosimulations/angular-json-ld';
 import { FormsModule } from '@angular/forms';
+import { ProjectFilterComponent } from './project-filter/project-filter.component';
 
 @NgModule({
-  declarations: [ViewComponent, ProjectTableComponent],
+  declarations: [ViewComponent, ProjectTableComponent, ProjectFilterComponent],
   imports: [
     CommonModule,
     ProjectsRoutingModule,

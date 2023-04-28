@@ -11,6 +11,12 @@ table {
   height: 98%;
 }
 
+.parent {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
 .projects-table-container {
   min-height: 200px;
   //max-height: 800px;

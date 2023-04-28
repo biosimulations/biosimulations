@@ -1,0 +1,19 @@
+.project-filter-container {
+  min-height: 200px;
+  //max-height: 800px;
+  max-width: 500px;
+  margin-left: 20px;
+  margin-right: 20px;
+  overflow: auto;
+}
+
+.project-filter-category {
+  .project-filter-item {
+    height: 24px;
+    font: 400 14px/20px Raleway;
+    letter-spacing: 0.0179em;
+    padding: 0 0 0;
+    margin-top: -0.25rem;
+    margin-bottom: -0.25rem;
+  }
+}
