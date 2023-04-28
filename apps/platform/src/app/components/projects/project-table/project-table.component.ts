@@ -18,6 +18,9 @@ export class ProjectTableDataSource extends DataSource<FormattedProjectSummary> 
   private searchCriteria$ = new BehaviorSubject(new SearchCriteria());
   private searchCriteria = new SearchCriteria();
 
+  public filterQueryItems$ = new BehaviorSubject<ProjectFilterQueryItem[]>([]);
+  private filterQueryItems: ProjectFilterQueryItem[] = [];
+
   private formattedProjectSummaryQueryResults$: Observable<FormattedProjectSummaryQueryResults>;
   private formattedProjectSummaries$ = new BehaviorSubject<FormattedProjectSummary[]>([]);
 
@@ -36,6 +39,12 @@ export class ProjectTableDataSource extends DataSource<FormattedProjectSummary> 
       distinctUntilChanged(),
       takeUntil(this._destroying$),
       switchMap((criteria) => {
+        const filterDesc: string | undefined = criteria.filters
+          ?.map((item) => item.target.toString() + '=[' + item.allowable_values.join(',') + ']')
+          .join(', ');
+        console.log(
+          `fetching results with SearchCriteria: filter=${filterDesc}, search=${criteria.searchText}, pageIndex=${criteria.pageIndex}, pageSize=${criteria.pageSize}`,
+        );
         return this.browseService.getProjects(criteria);
       }),
     );
@@ -56,7 +65,7 @@ export class ProjectTableDataSource extends DataSource<FormattedProjectSummary> 
    */
   connect(): Observable<FormattedProjectSummary[]> {
     if (this.paginator && this.sort && this.searchTermChange) {
-      // emit a new searchCriteria upon each Pagination event
+      // emit a new searchCriteria upon each Search Term event
       this.searchTermChange.subscribe((stringEvent) => {
         this.searchCriteria = { ...this.searchCriteria, searchText: stringEvent };
         this.searchCriteria$.next(this.searchCriteria);
@@ -65,11 +74,7 @@ export class ProjectTableDataSource extends DataSource<FormattedProjectSummary> 
 
       // emit a new searchCriteria upon each Pagination event
       this.paginator.page.subscribe((pageEvent) => {
-        this.searchCriteria = {
-          ...this.searchCriteria,
-          pageSize: pageEvent.pageSize,
-          pageIndex: pageEvent.pageIndex,
-        };
+        this.searchCriteria = { ...this.searchCriteria, pageSize: pageEvent.pageSize, pageIndex: pageEvent.pageIndex };
         this.searchCriteria$.next(this.searchCriteria);
       });
 
@@ -81,6 +86,13 @@ export class ProjectTableDataSource extends DataSource<FormattedProjectSummary> 
           sortDirection: sortEvent.direction,
         };
         this.searchCriteria$.next(this.searchCriteria);
+      });
+
+      // emit a new searchCriteria upon each Filter change event
+      this.filterQueryItems$.subscribe((filterQueryItems) => {
+        this.searchCriteria = { ...this.searchCriteria, filters: filterQueryItems };
+        this.searchCriteria$.next(this.searchCriteria);
+        this.paginator?.firstPage();
       });
 
       return this.formattedProjectSummaries$;
@@ -126,11 +138,11 @@ export class ProjectTableComponent implements AfterViewInit {
   }
 
   public onFilterQueryChanged(filterQueryItems: ProjectFilterQueryItem[]): void {
-    console.log(
-      `onFilterQueryChanged() called with ${filterQueryItems.map(
-        (item) => item.target.toString() + ' = [' + item.allowable_values.join(' ') + ']',
-      )}`,
-    );
+    const filterDesc: string = filterQueryItems
+      .map((item) => item.target.toString() + '=[' + item.allowable_values.join(',') + ']')
+      .join(', ');
+    console.log(`onFilterQueryChanged() called with ${filterDesc}`);
+    this.dataSource.filterQueryItems$.next(filterQueryItems);
   }
 
   ngAfterViewInit(): void {

@@ -96,8 +96,14 @@ export class ProjectsController {
     @Query('searchText')
     searchText: string = '',
     @Query('filters')
-    filters: ProjectFilterQueryItem[],
+    filtersJSON: string = '',
   ): Promise<ProjectSummaryQueryResults> {
+    let filters: ProjectFilterQueryItem[] | undefined;
+    if (filtersJSON && filtersJSON.length > 0) {
+      filters = JSON.parse(filtersJSON) as ProjectFilterQueryItem[];
+    } else {
+      filters = [];
+    }
     if (!searchText || searchText.length < 1) {
       return this.service.getProjectSummariesWithoutSearch(pageSize, pageIndex, filters);
     } else {

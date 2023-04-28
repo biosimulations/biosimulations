@@ -9,8 +9,10 @@
               {{stat.target}}
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <mat-selection-list dense (selectionChange)="onSelectionChange($event, stat)">
+          <mat-selection-list dense>
             <mat-list-option
+              [selected]="isSelected(stat.target, valueFrequency.value)"
+              (selectedChange)="onSelectedChange($event, stat.target, valueFrequency.value)"
               togglePosition="before"
               class="project-filter-item"
               [value]="valueFrequency.value"

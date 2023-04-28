@@ -148,7 +148,7 @@ export function gatherFilterValueStatistics(projectSummaries: ProjectSummary[]):
 }
 
 export function applyFilter(projectSummaries: ProjectSummary[], filters: ProjectFilterQueryItem[]): ProjectSummary[] {
-  if (!filters) {
+  if (!filters || filters.length == 0) {
     return projectSummaries;
   }
   let filterdProjectSummaries: ProjectSummary[] = [...projectSummaries];

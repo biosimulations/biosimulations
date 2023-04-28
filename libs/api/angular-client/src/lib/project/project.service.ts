@@ -78,14 +78,15 @@ export class ProjectService {
 
   public getProjectSummaries(criteria: SearchCriteria): Observable<ProjectSummaryQueryResults> {
     const url = this.endpoints.getProjectSummariesEndpoint(false, undefined);
-
+    let httpParams = new HttpParams()
+      .set('pageSize', criteria.pageSize)
+      .set('pageIndex', criteria.pageIndex)
+      .set('searchText', criteria.searchText ? criteria.searchText : '');
+    if (criteria.filters && criteria.filters.length > 0) {
+      httpParams = httpParams.set('filters', JSON.stringify(criteria.filters));
+    }
     const projectSummaries = this.http
-      .get<ProjectSummaryQueryResults>(url, {
-        params: new HttpParams()
-          .set('pageSize', criteria.pageSize)
-          .set('pageIndex', criteria.pageIndex)
-          .set('searchText', criteria.searchText ? criteria.searchText : ''),
-      })
+      .get<ProjectSummaryQueryResults>(url, { params: httpParams })
       .pipe(shareReplay(1));
 
     return projectSummaries;
