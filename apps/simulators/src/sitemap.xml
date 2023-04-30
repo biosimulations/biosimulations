@@ -723,7 +723,7 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/tellurium</loc>
-    <lastmod>2021-12-22</lastmod>
+    <lastmod>2023-04-27</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -734,8 +734,14 @@
   </url>
    
   <url>
+    <loc>https://biosimulators.org/simulators/tellurium/2.2.8</loc>
+    <lastmod>2023-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
     <loc>https://biosimulators.org/simulators/vcell</loc>
-    <lastmod>2022-11-17</lastmod>
+    <lastmod>2023-04-27</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -778,6 +784,12 @@
   <url>
     <loc>https://biosimulators.org/simulators/vcell/7.4.0.68</loc>
     <lastmod>2022-11-17</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/vcell/7.5.0.28</loc>
+    <lastmod>2023-04-27</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
