@@ -18,17 +18,20 @@ export class ProjectFilterComponent implements AfterViewInit {
     console.log(`onSelectionChange() selected=${selected}, target=${target}, value=${value}`);
     const prev_allowable_set: Set<string> = new Set<string>();
     this.filterQueryItemMap.get(target)?.allowable_values.forEach((value) => prev_allowable_set.add(value));
+    const new_allowable_set: Set<string> = new Set<string>([...prev_allowable_set]);
     if (selected) {
-      prev_allowable_set.add(value);
+      new_allowable_set.add(value);
     } else {
-      prev_allowable_set.delete(value);
+      new_allowable_set.delete(value);
     }
-    if (prev_allowable_set.size == 0) {
+    if (new_allowable_set.size == 0) {
       this.filterQueryItemMap.delete(target);
     } else {
-      this.filterQueryItemMap.set(target, { target: target, allowable_values: [...prev_allowable_set] });
+      this.filterQueryItemMap.set(target, { target: target, allowable_values: [...new_allowable_set] });
     }
-    this.filterQueryChanged.emit(Array.from(this.filterQueryItemMap.values()));
+    if ([...prev_allowable_set].sort().toString() !== [...new_allowable_set].sort().toString()) {
+      this.filterQueryChanged.emit(Array.from(this.filterQueryItemMap.values()));
+    }
   }
 
   public isSelected(target: ProjectFilterTarget, value: string): boolean {
