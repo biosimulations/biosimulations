@@ -1,7 +1,6 @@
-import { AfterViewInit, Component, EventEmitter, Input, Output, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
 import { ProjectFilterQueryItem, ProjectFilterStatsItem, ProjectFilterTarget } from '@biosimulations/datamodel/common';
 import { Observable } from 'rxjs';
-import { MatListOption } from '@angular/material/list';
 
 @Component({
   selector: 'biosimulations-project-filter',
@@ -9,7 +8,6 @@ import { MatListOption } from '@angular/material/list';
   styleUrls: ['./project-filter.component.scss'],
 })
 export class ProjectFilterComponent implements AfterViewInit {
-  @ViewChildren(MatListOption) matListOptionChildren!: QueryList<MatListOption>;
   @Input() filterStats$!: Observable<ProjectFilterStatsItem[]>;
   @Output() filterQueryChanged = new EventEmitter<ProjectFilterQueryItem[]>();
   private filterQueryItemMap = new Map<ProjectFilterTarget, ProjectFilterQueryItem>();
