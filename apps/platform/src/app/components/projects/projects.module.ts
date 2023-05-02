@@ -13,11 +13,15 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { ApiClientModule } from '@biosimulations/angular-api-client';
 
 import { JsonLdModule } from '@biosimulations/angular-json-ld';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProjectFilterComponent } from './project-filter/project-filter.component';
+import { ProjectsChipsComponent } from './projects-chips/projects-chips.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
-  declarations: [ViewComponent, ProjectTableComponent, ProjectFilterComponent],
+  // declarations: [ViewComponent, ProjectTableComponent, ProjectFilterComponent],
+  declarations: [ViewComponent, ProjectTableComponent, ProjectFilterComponent, ProjectsChipsComponent],
   imports: [
     CommonModule,
     ProjectsRoutingModule,
@@ -31,6 +35,9 @@ import { ProjectFilterComponent } from './project-filter/project-filter.componen
     LazyLoadImageModule,
     ApiClientModule,
     FormsModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    MatInputModule,
   ],
 })
 export class ProjectsModule {}

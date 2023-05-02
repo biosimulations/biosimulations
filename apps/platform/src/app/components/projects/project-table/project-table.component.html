@@ -5,6 +5,7 @@
   <div class="projects-table-container full-width-table mat-elevation-z8">
     <biosimulations-project-filter [filterStats$]="filterStats$" (filterQueryChanged)="onFilterQueryChanged($event)">
     </biosimulations-project-filter>
+    <biosimulations-projects-chips [filterStats$]="filterStats$" (filterQueries$)="onFilterQueryChanged($event)"></biosimulations-projects-chips>
     <mat-form-field appearance="fill">
       <input
         (keyup)="onKeyUpEvent($event)"
