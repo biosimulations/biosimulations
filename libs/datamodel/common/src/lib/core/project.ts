@@ -47,7 +47,7 @@ export interface ProjectSummaryQueryResults {
 export enum ProjectFilterTarget {
   biology = 'biology',
   taxa = 'taxa',
-  citations = 'citations',
+  // citations = 'citations',
   keywords = 'keywords',
   modelFormats = 'modelFormats',
   simulationTypes = 'simulationTypes',

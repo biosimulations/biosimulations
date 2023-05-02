@@ -138,12 +138,12 @@ export function gatherFilterValueStatistics(projectSummaries: ProjectSummary[]):
       projectSummaries.flatMap<string>((project) => Array.from(getProjectSummary_ModelFormats(project).values())),
     ),
   );
-  projFilterStatsItems.push(
-    getFrequencyMap(
-      ProjectFilterTarget.citations,
-      projectSummaries.flatMap<string>((project) => Array.from(getProjectSummary_Citations(project).values())),
-    ),
-  );
+  // projFilterStatsItems.push(
+  //   getFrequencyMap(
+  //     ProjectFilterTarget.citations,
+  //     projectSummaries.flatMap<string>((project) => Array.from(getProjectSummary_Citations(project).values())),
+  //   ),
+  // );
   return projFilterStatsItems;
 }
 
@@ -163,12 +163,12 @@ export function applyFilter(projectSummaries: ProjectSummary[], filters: Project
           return biologySet.size > 0 && filter.allowable_values.some((value) => biologySet.has(value));
         });
         break;
-      case ProjectFilterTarget.citations:
-        filterdProjectSummaries = filterdProjectSummaries.filter((project) => {
-          const citationSet: Set<string> = getProjectSummary_Citations(project);
-          return citationSet.size > 0 && filter.allowable_values.some((value) => citationSet.has(value));
-        });
-        break;
+      // case ProjectFilterTarget.citations:
+      //   filterdProjectSummaries = filterdProjectSummaries.filter((project) => {
+      //     const citationSet: Set<string> = getProjectSummary_Citations(project);
+      //     return citationSet.size > 0 && filter.allowable_values.some((value) => citationSet.has(value));
+      //   });
+      //   break;
       case ProjectFilterTarget.keywords:
         filterdProjectSummaries = filterdProjectSummaries.filter((project) => {
           const keywordSet: Set<string> = getProjectSummary_Keywords(project);
