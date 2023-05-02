@@ -2,7 +2,7 @@
 <div class="project-filter-container">
   <mat-accordion>
     <div *ngFor="let stat of filterStats$ | async; index as i">
-      <div class="project-filter-category" *ngIf="stat.valueHistogram.length>0">
+      <div class="project-filter-category" *ngIf="stat.valueFrequencies.length>0">
         <mat-expansion-panel>
           <mat-expansion-panel-header collapsedHeight="32px" expandedHeight="32px">
             <mat-panel-title>
@@ -16,7 +16,7 @@
               togglePosition="before"
               class="project-filter-item"
               [value]="valueFrequency.value"
-              *ngFor="let valueFrequency of stat.valueHistogram">
+              *ngFor="let valueFrequency of stat.valueFrequencies">
               '{{valueFrequency.value}}' ({{valueFrequency.count}})
             </mat-list-option>
           </mat-selection-list>

@@ -63,7 +63,7 @@ export interface ProjectFilterQueryItem {
 
 export interface ProjectFilterStatsItem {
   target: ProjectFilterTarget;
-  valueHistogram: {
+  valueFrequencies: {
     value: string;
     count: number;
   }[];

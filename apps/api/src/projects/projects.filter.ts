@@ -81,9 +81,9 @@ function getFrequencyMap(projectFilterTarget: ProjectFilterTarget, values: strin
       frequencyMap.set(str, 1);
     }
   });
-  const valueHistogram: { value: string; count: number }[] = [];
-  frequencyMap.forEach((count: number, key: string) => valueHistogram.push({ value: key, count: count }));
-  return { target: projectFilterTarget, valueHistogram: valueHistogram };
+  const valueFrequencies: { value: string; count: number }[] = [];
+  frequencyMap.forEach((count: number, key: string) => valueFrequencies.push({ value: key, count: count }));
+  return { target: projectFilterTarget, valueFrequencies: valueFrequencies };
 }
 
 export function gatherFilterValueStatistics(projectSummaries: ProjectSummary[]): ProjectFilterStatsItem[] {

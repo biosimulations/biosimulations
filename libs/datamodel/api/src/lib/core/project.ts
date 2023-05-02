@@ -173,7 +173,7 @@ export class ProjectFilterStatsItem implements IProjectFilterStatsItem {
     type: String,
     description: 'total number of matching records, ignoring pagination',
   })
-  public valueHistogram!: { value: string; count: number }[];
+  public valueFrequencies!: { value: string; count: number }[];
 }
 
 export class ProjectSummaryQueryResults implements IProjectSummaryQueryResults {
