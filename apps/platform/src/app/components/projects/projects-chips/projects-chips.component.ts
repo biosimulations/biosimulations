@@ -2,7 +2,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { BehaviorSubject, filter, mergeMap, Observable, startWith } from 'rxjs';
+import { BehaviorSubject, mergeMap, Observable, startWith } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ProjectFilterQueryItem, ProjectFilterStatsItem, ProjectFilterTarget } from '@biosimulations/datamodel/common';
 import { MatChipInputEvent } from '@angular/material/chips';
