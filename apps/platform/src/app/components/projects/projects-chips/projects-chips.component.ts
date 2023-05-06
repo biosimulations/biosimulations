@@ -135,7 +135,8 @@ export class ProjectsChipsComponent implements AfterViewInit {
     } else {
       this.filterQueryItemMap.set(target, { target: target, allowable_values: [...new_allowable_set] });
     }
-    if ([...prev_allowable_set].sort().toString() !== [...new_allowable_set].sort().toString()) {
+    const compareFn = (a: string, b: string): number => a.localeCompare(b);
+    if ([...prev_allowable_set].sort(compareFn).toString() !== [...new_allowable_set].sort(compareFn).toString()) {
       this.filterQueries$.emit(Array.from(this.filterQueryItemMap.values()));
     }
   }

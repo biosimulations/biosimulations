@@ -210,7 +210,7 @@ export class ProjectsService implements OnModuleInit {
           const updated = project.updated.toISOString();
           return `${project.id}-${updated}`;
         })
-        .sort()
+        .sort((a: string, b: string): number => a.localeCompare(b))
         .join(',');
       const cacheKey = `Project:Summaries:${projectIds}:${SimulationRunService.summaryVersion}`;
       const allProjectSummaries: ProjectSummary[] = await this.getWithCache<ProjectSummary[]>(
@@ -233,7 +233,7 @@ export class ProjectsService implements OnModuleInit {
           const updated = project.updated.toISOString();
           return `${project.id}-${updated}`;
         })
-        .sort()
+        .sort((a: string, b: string): number => a.localeCompare(b))
         .join(',');
       const cacheKey = `Project:Summaries:${projectIds}:${SimulationRunService.summaryVersion}`;
       const projectSummaries: ProjectSummary[] = await this.getWithCache<ProjectSummary[]>(
@@ -253,7 +253,7 @@ export class ProjectsService implements OnModuleInit {
           const updated = project.updated.toISOString();
           return `${project.id}-${updated}`;
         })
-        .sort()
+        .sort((a: string, b: string): number => a.localeCompare(b))
         .join(',');
       const cacheKey = `Project:Summaries:${projectIds}:${SimulationRunService.summaryVersion}`;
       const projectSummaries: ProjectSummary[] = applyFilter(

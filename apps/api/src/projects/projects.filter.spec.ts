@@ -5,7 +5,6 @@ import { projectSummary_mock1, projectSummary_mock2, projectSummary_mock3 } from
 import {
   applyFilter,
   getProjectSummary_Biologies,
-  getProjectSummary_Citations,
   getProjectSummary_Keywords,
   getProjectSummary_ModelFormats,
   getProjectSummary_Reports,
@@ -42,20 +41,6 @@ describe('ProjectsFilter', () => {
     const filters5: ProjectFilterQueryItem[] = [];
     expect(applyFilter(projects, filters5)).toEqual([projectSummary_mock1, projectSummary_mock2, projectSummary_mock3]);
   });
-
-  // it('should extract citations project attribute', () => {
-  //   expect(getProjectSummary_Citations(projectSummary_mock1)).toEqual(new Set<string>());
-  //   expect(getProjectSummary_Citations(projectSummary_mock2)).toEqual(new Set<string>(['paper2 (2021)']));
-  //   expect(getProjectSummary_Citations(projectSummary_mock3)).toEqual(new Set<string>(['paper3 (2020)']));
-  //   const filters1: ProjectFilterQueryItem[] = [
-  //     { target: ProjectFilterTarget.citations, allowable_values: ['paper3 (2020)'] },
-  //   ];
-  //   expect(applyFilter(projects, filters1)).toEqual([projectSummary_mock3]);
-  //   const filters2: ProjectFilterQueryItem[] = [
-  //     { target: ProjectFilterTarget.citations, allowable_values: ['paper4 (1999)'] },
-  //   ];
-  //   expect(applyFilter(projects, filters2)).toEqual([]);
-  // });
 
   it('should extract keywords project attribute', () => {
     expect(getProjectSummary_Keywords(projectSummary_mock1)).toEqual(new Set<string>());

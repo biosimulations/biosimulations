@@ -1,6 +1,7 @@
 import {
   ProjectSummary,
   SimulationRunAlgorithmSummary,
+  SimulationRunMetadataSummary,
   SimulationRunModelLanguageSummary,
   SimulationRunModelSummary,
   SimulationRunRunSummary,
@@ -87,6 +88,25 @@ const _projectSummary_mock: ProjectSummary = {
   updated: '',
 };
 
+const _simulationRunMetadataSummary_mock: SimulationRunMetadataSummary = {
+  citations: [],
+  contributors: [],
+  creators: [],
+  encodes: [],
+  funders: [],
+  identifiers: [],
+  keywords: [],
+  other: [],
+  predecessors: [],
+  references: [],
+  seeAlso: [],
+  sources: [],
+  successors: [],
+  taxa: [],
+  thumbnails: [],
+  uri: '',
+};
+
 export const projectSummary_mock1: ProjectSummary = {
   ..._projectSummary_mock,
   id: 'Ca2i-oscillations-in-sympathetic-neurons--an-experimental-test-of-a-theoretical-model',
@@ -96,22 +116,8 @@ export const projectSummary_mock1: ProjectSummary = {
     id: 'id2',
     metadata: [
       {
-        citations: [],
-        contributors: [],
-        creators: [],
-        encodes: [],
-        funders: [],
-        identifiers: [],
-        keywords: [],
-        other: [],
-        predecessors: [],
-        references: [],
-        seeAlso: [],
-        sources: [],
-        successors: [],
+        ..._simulationRunMetadataSummary_mock,
         taxa: [{ label: 'defaultTaxa', uri: 'defaultTaxaURI' }],
-        thumbnails: [],
-        uri: '',
         title: '[Ca2+]i oscillations in sympathetic neurons: an experimental test of a theoretical model',
         description:
           'This CellML model runs in OpenCell and COR, and reproduces Figure 4 from the original paper. ' +
@@ -155,28 +161,17 @@ export const projectSummary_mock2: ProjectSummary = {
     ..._simRunSummary,
     run: {
       ..._simRunRunSummary,
-      simulator: { name: 'VCell', url: 'VCell_URL', id: 'VCell_id', version: '7.5.0.27', digest: 'abc' },
+      simulator: { name: 'VCell', url: 'VCell_URL', id: 'VCell_id', version: '7.5.0_27', digest: 'abc' },
     },
     outputs: [{ type: { id: 'SedReport', url: '', name: '' }, uri: '' }],
     id: 'id2',
     metadata: [
       {
+        ..._simulationRunMetadataSummary_mock,
         citations: [{ label: 'paper2 (2021)', uri: 'doi:paper2' }],
-        contributors: [],
-        creators: [],
         encodes: [{ label: 'signaling', uri: 'signaling_uri' }],
-        funders: [],
-        identifiers: [],
         keywords: [{ label: 'keyword2', uri: 'obo:keyword2' }],
-        other: [],
-        predecessors: [],
-        references: [],
-        seeAlso: [],
-        sources: [],
-        successors: [],
         taxa: [{ label: 'yeast', uri: 'yeastURI' }],
-        thumbnails: [],
-        uri: '',
         title: '3fd',
         description:
           'This CellML model runs in COR and OpenCell and the units are consistent throughout. It reproduces ' +
@@ -225,22 +220,11 @@ export const projectSummary_mock3: ProjectSummary = {
     id: 'model3',
     metadata: [
       {
+        ..._simulationRunMetadataSummary_mock,
         citations: [{ label: 'paper3 (2020)', uri: 'doi:paper3' }],
-        contributors: [],
-        creators: [],
         encodes: [{ label: 'metabolism', uri: 'metabolism_uri' }],
-        funders: [],
-        identifiers: [],
         keywords: [{ label: 'keyword3', uri: 'obo:keyword3' }],
-        other: [],
-        predecessors: [],
-        references: [],
-        seeAlso: [],
-        sources: [],
-        successors: [],
         taxa: [{ label: 'mouse', uri: 'mouseURI' }],
-        thumbnails: [],
-        uri: '',
         title: 'simple model',
         description: 'This is a simple model',
         abstract:
