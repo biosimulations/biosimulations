@@ -1,5 +1,5 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { BehaviorSubject, mergeMap, Observable, startWith } from 'rxjs';
@@ -17,24 +17,24 @@ export interface FilterChoiceOption {
   templateUrl: './projects-chips.component.html',
   styleUrls: ['./projects-chips.component.scss'],
 })
-export class ProjectsChipsComponent {
-  @ViewChild('filterInput') filterInput!: ElementRef<HTMLInputElement>;
-  @Input() filterStats$!: Observable<ProjectFilterStatsItem[]>;
-  @Output() filterQueries$ = new EventEmitter<ProjectFilterQueryItem[]>();
-  private filterQueryItemMap = new Map<ProjectFilterTarget, ProjectFilterQueryItem>();
-  public allFilterChoiceOptions$ = new BehaviorSubject<FilterChoiceOption[]>([]);
+export class ProjectsChipsComponent implements AfterViewInit {
+  @ViewChild('filterInput') private filterInput!: ElementRef<HTMLInputElement>;
+  @Input() public filterStats$!: Observable<ProjectFilterStatsItem[]>;
+  @Output() public filterQueries$ = new EventEmitter<ProjectFilterQueryItem[]>();
   public filteredChoiceOptions$!: Observable<FilterChoiceOption[]>;
+  public separatorKeysCodes: number[] = [ENTER, COMMA];
+  public filterCtrl = new FormControl('');
 
-  separatorKeysCodes: number[] = [ENTER, COMMA];
-  filterCtrl = new FormControl('');
+  private filterQueryItemMap = new Map<ProjectFilterTarget, ProjectFilterQueryItem>();
+  private allFilterChoiceOptions$ = new BehaviorSubject<FilterChoiceOption[]>([]);
 
-  public ngAfterViewInit() {
+  public ngAfterViewInit(): void {
     this.filterStats$.subscribe((filterStatItems: ProjectFilterStatsItem[]) => {
       this.allFilterChoiceOptions$.next(this.getFilterChoiceOptions(filterStatItems));
     });
   }
 
-  constructor() {
+  public constructor() {
     this.filteredChoiceOptions$ = this.filterCtrl.valueChanges.pipe(
       startWith(null),
       mergeMap((filterString) =>
@@ -65,7 +65,7 @@ export class ProjectsChipsComponent {
     return filterChoiceOptions;
   }
 
-  add(event: MatChipInputEvent): void {
+  public add(event: MatChipInputEvent): void {
     console.log('add(event=' + event + ') does nothing now');
     // const value = (event.value || "").trim();
     //
@@ -80,7 +80,7 @@ export class ProjectsChipsComponent {
     // this.filterCtrl.setValue(null);
   }
 
-  remove(filter: ProjectFilterQueryItem): void {
+  public remove(filter: ProjectFilterQueryItem): void {
     console.log('remove(filter=' + filter + ')');
     this.onRemoveTarget(filter.target);
   }
@@ -112,7 +112,7 @@ export class ProjectsChipsComponent {
     );
   }
 
-  public onRemoveTarget(target: ProjectFilterTarget) {
+  public onRemoveTarget(target: ProjectFilterTarget): void {
     console.log(`onRemoveTarget() target=${target}`);
     const deleted: boolean = this.filterQueryItemMap.delete(target);
     if (deleted) {
@@ -120,7 +120,7 @@ export class ProjectsChipsComponent {
     }
   }
 
-  public onSelectedChange(selected: boolean, target: ProjectFilterTarget, value: string) {
+  public onSelectedChange(selected: boolean, target: ProjectFilterTarget, value: string): void {
     console.log(`onSelectionChange() selected=${selected}, target=${target}, value=${value}`);
     const prev_allowable_set: Set<string> = new Set<string>();
     this.filterQueryItemMap.get(target)?.allowable_values.forEach((value) => prev_allowable_set.add(value));
@@ -137,15 +137,6 @@ export class ProjectsChipsComponent {
     }
     if ([...prev_allowable_set].sort().toString() !== [...new_allowable_set].sort().toString()) {
       this.filterQueries$.emit(Array.from(this.filterQueryItemMap.values()));
-    }
-  }
-
-  public isSelected(target: ProjectFilterTarget, value: string): boolean {
-    const projectFilterQueryItem: ProjectFilterQueryItem | undefined = this.filterQueryItemMap.get(target);
-    if (projectFilterQueryItem) {
-      return projectFilterQueryItem.allowable_values.some((str) => str == value);
-    } else {
-      return false;
     }
   }
 }
