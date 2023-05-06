@@ -12,6 +12,7 @@ import {
   TypeSummary,
 } from '@biosimulations/datamodel/api';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
+import { produce } from 'immer';
 
 const _simRunModelLanguageSummary_SBML: SimulationRunModelLanguageSummary = {
   acronym: 'SBML',
@@ -154,96 +155,80 @@ export const projectSummary_mock1: ProjectSummary = {
   },
 };
 
-export const projectSummary_mock2: ProjectSummary = {
-  ..._projectSummary_mock,
-  id: '3fd',
-  simulationRun: {
-    ..._simRunSummary,
-    run: {
-      ..._simRunRunSummary,
-      simulator: { name: 'VCell', url: 'VCell_URL', id: 'VCell_id', version: '7.5.0_27', digest: 'abc' },
-    },
-    outputs: [{ type: { id: 'SedReport', url: '', name: '' }, uri: '' }],
-    id: 'id2',
-    metadata: [
-      {
-        ..._simulationRunMetadataSummary_mock,
-        citations: [{ label: 'paper2 (2021)', uri: 'doi:paper2' }],
-        encodes: [{ label: 'signaling', uri: 'signaling_uri' }],
-        keywords: [{ label: 'keyword2', uri: 'obo:keyword2' }],
-        taxa: [{ label: 'yeast', uri: 'yeastURI' }],
-        title: '3fd',
-        description:
-          'This CellML model runs in COR and OpenCell and the units are consistent throughout. It reproduces ' +
-          'the published results and was converted from SBML with the help of Lukas Endler. Validation was done in both ' +
-          'CellML and Matlab, Matlab was used to simulate variations in GAP and R concentrations and to reproduce figures ' +
-          '3A and B.',
-        abstract:
-          'There is increasing evidence for a major and critical involvement of lipids in signal transduction ' +
-          'and cellular trafficking, and this has motivated large-scale studies on lipid pathways. The Lipid Metabolites ' +
-          'and Pathways Strategy consortium is actively investigating lipid metabolism in mammalian cells and has made ' +
-          'available time-course data on various lipids in response to treatment with KDO(2)-lipid A ' +
-          '(a lipopolysaccharide analog) of macrophage RAW 264.7 cells. The lipids known as eicosanoids play an important ' +
-          'role in inflammation. We have reconstructed an integrated network of eicosanoid metabolism and signaling ' +
-          'based on the KEGG pathway database and the literature and have developed a kinetic model. A matrix-based ' +
-          'approach was used to estimate the rate constants from experimental data and these were further refined using ' +
-          'generalized constrained nonlinear optimization. The resulting model fits the experimental data well for all ' +
-          'species, and simulated enzyme activities were similar to their literature values. The quantitative model for ' +
-          'eicosanoid metabolism that we have developed can be used to design experimental studies utilizing genetic and ' +
-          'pharmacological perturbations to probe fluxes in lipid pathways.',
-      },
-    ],
-    tasks: [
-      {
-        ..._simRunTaskSummary,
-        simulation: {
-          ..._simRunSimulationSummary,
-          algorithm: { name: 'algorithm2', url: 'algorithm2_URL', kisaoId: 'algorithm2_KISAOid' },
-          type: { id: '', url: '', name: 'SED-ML simType2 simulation' },
-        },
-        model: { ..._simRunModelSummary, language: _simRunModelLanguageSummary_CELLML },
-      },
-    ],
-  },
-};
+export const projectSummary_mock2 = produce(projectSummary_mock1, (draft) => {
+  draft.id = '3fd';
+  draft.simulationRun.run.simulator = {
+    name: 'VCell',
+    url: 'VCell_URL',
+    id: 'VCell_id',
+    version: '7.5.0_27',
+    digest: 'abc',
+  };
+  draft.simulationRun.outputs = [{ type: { id: 'SedReport', url: '', name: '' }, uri: '' }];
+  draft.simulationRun.id = 'id2';
+  if (draft.simulationRun.metadata && draft.simulationRun.metadata.length > 0) {
+    const metadata = draft.simulationRun.metadata[0];
+    metadata.citations = [{ label: 'paper2 (2021)', uri: 'doi:paper2' }];
+    metadata.encodes = [{ label: 'signaling', uri: 'signaling_uri' }];
+    metadata.keywords = [{ label: 'keyword2', uri: 'obo:keyword2' }];
+    metadata.taxa = [{ label: 'yeast', uri: 'yeastURI' }];
+    metadata.title = '3fd';
+    metadata.description =
+      'This CellML model runs in COR and OpenCell and the units are consistent throughout. It reproduces ' +
+      'the published results and was converted from SBML with the help of Lukas Endler. Validation was done in both ' +
+      'CellML and Matlab, Matlab was used to simulate variations in GAP and R concentrations and to reproduce figures ' +
+      '3A and B.';
+    metadata.abstract =
+      'There is increasing evidence for a major and critical involvement of lipids in signal transduction ' +
+      'and cellular trafficking, and this has motivated large-scale studies on lipid pathways. The Lipid Metabolites ' +
+      'and Pathways Strategy consortium is actively investigating lipid metabolism in mammalian cells and has made ' +
+      'available time-course data on various lipids in response to treatment with KDO(2)-lipid A ' +
+      '(a lipopolysaccharide analog) of macrophage RAW 264.7 cells. The lipids known as eicosanoids play an important ' +
+      'role in inflammation. We have reconstructed an integrated network of eicosanoid metabolism and signaling ' +
+      'based on the KEGG pathway database and the literature and have developed a kinetic model. A matrix-based ' +
+      'approach was used to estimate the rate constants from experimental data and these were further refined using ' +
+      'generalized constrained nonlinear optimization. The resulting model fits the experimental data well for all ' +
+      'species, and simulated enzyme activities were similar to their literature values. The quantitative model for ' +
+      'eicosanoid metabolism that we have developed can be used to design experimental studies utilizing genetic and ' +
+      'pharmacological perturbations to probe fluxes in lipid pathways.';
+  }
+  if (draft.simulationRun.tasks && draft.simulationRun.tasks.length > 0) {
+    const task = draft.simulationRun.tasks[0];
+    task.simulation.algorithm = { name: 'algorithm2', url: 'algorithm2_URL', kisaoId: 'algorithm2_KISAOid' };
+    task.simulation.type = { id: '', url: '', name: 'SED-ML simType2 simulation' };
+    task.model.language = _simRunModelLanguageSummary_CELLML;
+  }
+});
 
-export const projectSummary_mock3: ProjectSummary = {
-  ..._projectSummary_mock,
-  id: 'model3',
-  simulationRun: {
-    ..._simRunSummary,
-    run: {
-      ..._simRunRunSummary,
-      simulator: { name: 'COPASI', url: 'COPASI_URL', id: 'COPASI_id', version: '1.2.3', digest: 'def' },
-    },
-    outputs: [{ type: { id: 'SedReport', url: '', name: '' }, uri: '' }],
-    id: 'model3',
-    metadata: [
-      {
-        ..._simulationRunMetadataSummary_mock,
-        citations: [{ label: 'paper3 (2020)', uri: 'doi:paper3' }],
-        encodes: [{ label: 'metabolism', uri: 'metabolism_uri' }],
-        keywords: [{ label: 'keyword3', uri: 'obo:keyword3' }],
-        taxa: [{ label: 'mouse', uri: 'mouseURI' }],
-        title: 'simple model',
-        description: 'This is a simple model',
-        abstract:
-          'When in the Course of human events it becomes necessary for one people to dissolve the political ' +
-          'bands which have connected them with another, and to assume among the Powers of the earth, the separate ' +
-          "and equal station to which the Laws of Nature and of Nature's God entitle them, a decent respect to the " +
-          'opinions of',
-      },
-    ],
-    tasks: [
-      {
-        ..._simRunTaskSummary,
-        simulation: {
-          ..._simRunSimulationSummary,
-          algorithm: { name: 'algorithm3', url: 'algorithm3_URL', kisaoId: 'algorithm3_KISAOid' },
-          type: { id: '', url: '', name: 'SED-ML simType3 simulation' },
-        },
-        model: { ..._simRunModelSummary, language: _simRunModelLanguageSummary_VCML },
-      },
-    ],
-  },
-};
+export const projectSummary_mock3 = produce(projectSummary_mock1, (draft) => {
+  draft.id = 'model3';
+  draft.simulationRun.run.simulator = {
+    name: 'COPASI',
+    url: 'COPASI_URL',
+    id: 'COPASI_id',
+    version: '1.2.3',
+    digest: 'def',
+  };
+  draft.simulationRun.outputs = [{ type: { id: 'SedReport', url: '', name: '' }, uri: '' }];
+  draft.simulationRun.id = 'model3';
+  if (draft.simulationRun.metadata && draft.simulationRun.metadata.length > 0) {
+    const metadata = draft.simulationRun.metadata[0];
+    metadata.citations = [{ label: 'paper3 (2020)', uri: 'doi:paper3' }];
+    metadata.encodes = [{ label: 'metabolism', uri: 'metabolism_uri' }];
+    metadata.keywords = [{ label: 'keyword3', uri: 'obo:keyword3' }];
+    metadata.taxa = [{ label: 'mouse', uri: 'mouseURI' }];
+    metadata.title = 'simple model';
+    metadata.description = 'This is a simple model';
+    metadata.abstract =
+      'When in the Course of human events it becomes necessary for one people to dissolve the political ' +
+      'bands which have connected them with another, and to assume among the Powers of the earth, the separate ' +
+      "and equal station to which the Laws of Nature and of Nature's God entitle them, a decent respect to the " +
+      'opinions of';
+  }
+  if (draft.simulationRun.tasks && draft.simulationRun.tasks.length > 0) {
+    const task = draft.simulationRun.tasks[0];
+    task.simulation.algorithm = { name: 'algorithm3', url: 'algorithm3_URL', kisaoId: 'algorithm3_KISAOid' };
+    task.simulation.type = { id: '', url: '', name: 'SED-ML simType3 simulation' };
+    task.model.language = _simRunModelLanguageSummary_VCML;
+  }
+});
