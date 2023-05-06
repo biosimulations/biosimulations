@@ -112,14 +112,14 @@ describe('ProjectsFilter', () => {
 
   it('should extract simulator project attribute', () => {
     expect(getProjectSummary_Simulators(projectSummary_mock1)).toEqual(new Set<string>(['defaultSimulator1.0.0']));
-    expect(getProjectSummary_Simulators(projectSummary_mock2)).toEqual(new Set<string>(['VCell7.5.0.27']));
+    expect(getProjectSummary_Simulators(projectSummary_mock2)).toEqual(new Set<string>(['VCell7.5.0_27']));
     expect(getProjectSummary_Simulators(projectSummary_mock3)).toEqual(new Set<string>(['COPASI1.2.3']));
     const filters1: ProjectFilterQueryItem[] = [
-      { target: ProjectFilterTarget.simulator, allowable_values: ['VCell7.5.0.27'] },
+      { target: ProjectFilterTarget.simulator, allowable_values: ['VCell7.5.0_27'] },
     ];
     expect(applyFilter(projects, filters1)).toEqual([projectSummary_mock2]);
     const filters2: ProjectFilterQueryItem[] = [
-      { target: ProjectFilterTarget.simulator, allowable_values: ['VCell7.5.0.27', 'COPASI1.2.3'] },
+      { target: ProjectFilterTarget.simulator, allowable_values: ['VCell7.5.0_27', 'COPASI1.2.3'] },
     ];
     expect(applyFilter(projects, filters2)).toEqual([projectSummary_mock2, projectSummary_mock3]);
   });
