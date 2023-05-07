@@ -1177,11 +1177,17 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: feross@feross.org
 │  ├─ url: http://feross.org
 │  └─ licenseFile: ieee754/LICENSE
-├─ immer@9.0.15
+├─ immer@10.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/immerjs/immer
 │  ├─ publisher: Michel Weststrate
+│  ├─ email: info@michel.codes
 │  └─ licenseFile: immer/LICENSE
+├─ immer@9.0.21
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/immerjs/immer
+│  ├─ publisher: Michel Weststrate
+│  └─ licenseFile: @stoplight/json-ref-resolver/node_modules/immer/LICENSE
 ├─ inflight@1.0.6
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/inflight
