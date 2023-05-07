@@ -3,7 +3,13 @@ import { map, Observable, shareReplay, throwError, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpStatusCode } from '@angular/common/http';
 import { Endpoints } from '@biosimulations/config/common';
-import { Project, ProjectInput, ProjectSummary, ProjectSummaryQueryResults } from '@biosimulations/datamodel/common';
+import {
+  Project,
+  ProjectFilterQueryItem,
+  ProjectInput,
+  ProjectSummary,
+  ProjectSummaryQueryResults,
+} from '@biosimulations/datamodel/common';
 import { SortDirection } from '@angular/material/sort';
 
 export class SearchCriteria {
@@ -12,6 +18,7 @@ export class SearchCriteria {
   public searchText?: string;
   public sortActive?: string; // name if field to sort on
   public sortDirection: SortDirection = '';
+  public filters?: ProjectFilterQueryItem[];
 }
 
 @Injectable({
@@ -71,14 +78,15 @@ export class ProjectService {
 
   public getProjectSummaries(criteria: SearchCriteria): Observable<ProjectSummaryQueryResults> {
     const url = this.endpoints.getProjectSummariesEndpoint(false, undefined);
-
+    let httpParams = new HttpParams()
+      .set('pageSize', criteria.pageSize)
+      .set('pageIndex', criteria.pageIndex)
+      .set('searchText', criteria.searchText ? criteria.searchText : '');
+    if (criteria.filters && criteria.filters.length > 0) {
+      httpParams = httpParams.set('filters', JSON.stringify(criteria.filters));
+    }
     const projectSummaries = this.http
-      .get<ProjectSummaryQueryResults>(url, {
-        params: new HttpParams()
-          .set('pageSize', criteria.pageSize)
-          .set('pageIndex', criteria.pageIndex)
-          .set('searchText', criteria.searchText ? criteria.searchText : ''),
-      })
+      .get<ProjectSummaryQueryResults>(url, { params: httpParams })
       .pipe(shareReplay(1));
 
     return projectSummaries;

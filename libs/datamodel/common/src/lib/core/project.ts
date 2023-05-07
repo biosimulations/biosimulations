@@ -41,4 +41,30 @@ export interface ProjectSummary {
 export interface ProjectSummaryQueryResults {
   projectSummaries: ProjectSummary[];
   totalMatchingProjectSummaries: number;
+  queryStats: ProjectFilterStatsItem[];
+}
+
+export enum ProjectFilterTarget {
+  biology = 'biology',
+  taxa = 'taxa',
+  // citations = 'citations',
+  keywords = 'keywords',
+  modelFormats = 'modelFormats',
+  simulationTypes = 'simulationTypes',
+  simulationAlgorithms = 'simulationAlgorithms',
+  simulator = 'simulator',
+  reports = 'reports',
+}
+
+export interface ProjectFilterQueryItem {
+  target: ProjectFilterTarget;
+  allowable_values: string[]; // here 'true' and 'false' are used for booleans.
+}
+
+export interface ProjectFilterStatsItem {
+  target: ProjectFilterTarget;
+  valueFrequencies: {
+    value: string;
+    count: number;
+  }[];
 }

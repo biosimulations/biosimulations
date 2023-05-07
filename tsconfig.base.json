@@ -89,5 +89,5 @@
       "@biosimulations/statistics/summary-page": ["libs/statistics/summary-page/src/index.ts"]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": ["node_modules", "tmp", "apps/combine-api"]
 }

@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ProjectTableComponent } from './project-table.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { ProjectsModule } from '../projects.module';
 
 describe('ProjectTableComponent', () => {
   let component: ProjectTableComponent;
@@ -28,6 +29,7 @@ describe('ProjectTableComponent', () => {
         MatInputModule,
         HttpClientModule,
         FormsModule,
+        ProjectsModule,
       ],
     }).compileComponents();
   }));

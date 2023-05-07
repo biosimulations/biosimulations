@@ -26,6 +26,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const materialImports = [
   FlexLayoutModule,
@@ -55,6 +56,8 @@ const materialImports = [
   MatAutocompleteModule,
   MatSnackBarModule,
   MatPaginatorModule,
+  FormsModule,
+  ReactiveFormsModule,
 ];
 
 @NgModule({

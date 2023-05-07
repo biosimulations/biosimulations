@@ -13,10 +13,10 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { ApiClientModule } from '@biosimulations/angular-api-client';
 
 import { JsonLdModule } from '@biosimulations/angular-json-ld';
-import { FormsModule } from '@angular/forms';
+import { ProjectsChipsComponent } from './projects-chips/projects-chips.component';
 
 @NgModule({
-  declarations: [ViewComponent, ProjectTableComponent],
+  declarations: [ViewComponent, ProjectTableComponent, ProjectsChipsComponent],
   imports: [
     CommonModule,
     ProjectsRoutingModule,
@@ -29,7 +29,6 @@ import { FormsModule } from '@angular/forms';
     SharedErrorComponentsModule,
     LazyLoadImageModule,
     ApiClientModule,
-    FormsModule,
   ],
 })
 export class ProjectsModule {}
