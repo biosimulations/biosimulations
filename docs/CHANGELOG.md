@@ -1,5 +1,32 @@
 # Changelog
 
+## [9.26.0](https://github.com/biosimulations/biosimulations/compare/v9.25.0...v9.26.0) (2023-05-07)
+
+
+### Bug Fixes
+
+* clarify workspace paths for linting and typescript compiler ([b4de325](https://github.com/biosimulations/biosimulations/commit/b4de3259f833b0cf7c0711f09bc6be82dbef5364))
+* codefactor apply fixes to scss ([6a1db66](https://github.com/biosimulations/biosimulations/commit/6a1db66feb598bc7695aab63b3dd6d38c5083118))
+* filter selection compare to break update loop ([0cb6355](https://github.com/biosimulations/biosimulations/commit/0cb63558b7524d08bb3b53d545447c5dd6878356))
+* fix unit test broken by prior sonarcloud fix ([62b97d9](https://github.com/biosimulations/biosimulations/commit/62b97d998a769eb3ca340f1fb94fcd5150735b7c))
+* lint unused import ([68ac7e7](https://github.com/biosimulations/biosimulations/commit/68ac7e7883befe164d9c71659fe4340fd14ba50f))
+* linting errors in account app ([bcdd3f0](https://github.com/biosimulations/biosimulations/commit/bcdd3f037149d8a047079bd14b494df50f973d0a))
+* project table filter works, but component events cycle needs fixing ([d6302f5](https://github.com/biosimulations/biosimulations/commit/d6302f59ae6fbdf8a8586ca3eec4dbdd63363e9e))
+* project table resized to match pagination size without scrolling ([03483bf](https://github.com/biosimulations/biosimulations/commit/03483bf748c5fb3de52709c67db3d75c1c3ff17b))
+* projects chips and project table test and module imports ([9ec2dfa](https://github.com/biosimulations/biosimulations/commit/9ec2dfad696748f11499b4d2920c98ffacee0d88))
+* projects search unit test ([7fdfb1d](https://github.com/biosimulations/biosimulations/commit/7fdfb1d16e1fb73dd44a656c47774616fbe3d6de))
+* remove angular material legacy css ([abefbbb](https://github.com/biosimulations/biosimulations/commit/abefbbb4960b2464ee5bc76b29a48bb5527123cc))
+* remove citations from filter list ([30e5ca5](https://github.com/biosimulations/biosimulations/commit/30e5ca5c3e06874d74de676cfa3b0b366451bee8))
+* sonarcloud gates for code duplication, sort() and false ip addr ([dbf6415](https://github.com/biosimulations/biosimulations/commit/dbf6415767c8bb4094003a3e2a351fad9a89b48a))
+
+
+### Features
+
+* added project filter chips component ([f15d5a0](https://github.com/biosimulations/biosimulations/commit/f15d5a08cc39fb093aa88a76e7f20c602bd10763))
+* compute server side project filter stats and return to client ([c7b5a5e](https://github.com/biosimulations/biosimulations/commit/c7b5a5e1373d72fc340f99416b472e642574555b))
+* prototype angular component for project table filtering ([15254c6](https://github.com/biosimulations/biosimulations/commit/15254c668bfe97f4439d72acb8c4cdde1bfebe25))
+* server side filtering data structures and filter matching function ([43ad17f](https://github.com/biosimulations/biosimulations/commit/43ad17fe488c2c8f3f604b38e14157e499067c61))
+
 ## [9.25.0](https://github.com/biosimulations/biosimulations/compare/v9.24.0...v9.25.0) (2023-04-24)
 
 
