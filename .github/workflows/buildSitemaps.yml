@@ -23,6 +23,9 @@ on:
         required: false
         default: ''
 
+env:
+  NX_SKIP_NX_CACHE: ${{ vars.NX_SKIP_NX_CACHE_VALUE }}
+
 jobs:
   build:
     name: Build

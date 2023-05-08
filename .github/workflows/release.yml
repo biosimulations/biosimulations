@@ -17,6 +17,9 @@ on:
     branch:
       type: string
       required: true
+env:
+  NX_SKIP_NX_CACHE: ${{ vars.NX_SKIP_NX_CACHE_VALUE }}
+
 jobs:
   Release:
     runs-on: ubuntu-latest

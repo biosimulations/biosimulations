@@ -1,9 +1,11 @@
 name: Monitor todos
 
-on: 
+on:
   push:
     branches:
       - dev
+env:
+  NX_SKIP_NX_CACHE: ${{ vars.NX_SKIP_NX_CACHE_VALUE }}
 
 jobs:
   monitor:

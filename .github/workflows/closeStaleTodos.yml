@@ -3,6 +3,8 @@ on:
   schedule:
     - cron: '0 0 * * 0' # weekly
   workflow_dispatch:
+env:
+  NX_SKIP_NX_CACHE: ${{ vars.NX_SKIP_NX_CACHE_VALUE }}
 
 jobs:
   close-issues:

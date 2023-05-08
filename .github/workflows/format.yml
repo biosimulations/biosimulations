@@ -16,6 +16,9 @@ on:
         required: true
       GPG_PRIVATE_KEY:
         required: true
+env:
+  NX_SKIP_NX_CACHE: ${{ vars.NX_SKIP_NX_CACHE_VALUE }}
+
 jobs:
   format:
     runs-on: ubuntu-latest

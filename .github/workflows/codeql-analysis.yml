@@ -19,6 +19,8 @@ on:
     branches: [ dev ]
   schedule:
     - cron: '21 19 * * 0'
+env:
+  NX_SKIP_NX_CACHE: ${{ vars.NX_SKIP_NX_CACHE_VALUE }}
 
 jobs:
   analyze:

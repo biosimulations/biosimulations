@@ -15,6 +15,9 @@ on:
         required: false
         type: string
         default: "[\"api\",\"simulators-api\",\"dispatch-service\",\"mail-service\",\"combine-api\"]"
+env:
+  NX_SKIP_NX_CACHE: ${{ vars.NX_SKIP_NX_CACHE_VALUE }}
+
 jobs:
   build:
     services:

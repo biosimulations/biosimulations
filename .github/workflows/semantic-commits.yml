@@ -6,6 +6,8 @@ on:
       - opened
       - edited
       - synchronize
+env:
+  NX_SKIP_NX_CACHE: ${{ vars.NX_SKIP_NX_CACHE_VALUE }}
 
 jobs:
   lint-title:
@@ -19,7 +21,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   lint-commits:
-    name: Lint Commits    
+    name: Lint Commits
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
