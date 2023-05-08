@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.26.1](https://github.com/biosimulations/biosimulations/compare/v9.26.0...v9.26.1) (2023-05-08)
+
+
+### Bug Fixes
+
+* disable nx caching to fix nondeterminism in github actions ([a274fce](https://github.com/biosimulations/biosimulations/commit/a274fcec4bfd8c82a383b3810442850313edfbe7))
+
 ## [9.26.0](https://github.com/biosimulations/biosimulations/compare/v9.25.0...v9.26.0) (2023-05-07)
 
 
