@@ -3,20 +3,28 @@
     <mat-label>Project Filters</mat-label>
     <mat-chip-grid #chipGrid aria-label="Filters">
       <mat-chip-row *ngFor="let filterQuery of filterQueries$ | async" (removed)="remove(filterQuery)">
-        {{filterQuery.target+": "+filterQuery.allowable_values.join(" or ")}}
+        {{ filterQuery.target + ': ' + filterQuery.allowable_values.join(' or ') }}
         <button matChipRemove [attr.aria-label]="'remove ' + filterQuery">
           <mat-icon>cancel</mat-icon>
         </button>
       </mat-chip-row>
     </mat-chip-grid>
-    <input #filterInput placeholder="New Filter..." [formControl]="filterCtrl"
-           [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
-           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-           (matChipInputTokenEnd)="add($event)"/>
+    <input
+      #filterInput
+      placeholder="New Filter..."
+      [formControl]="filterCtrl"
+      [matChipInputFor]="chipGrid"
+      [matAutocomplete]="auto"
+      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+      (matChipInputTokenEnd)="add($event)" />
     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-    <!-- <mat-optgroup *ngFor="let filteredQueryStatItem of filteredQueryStats$ | async" [label]="filteredQueryStatItem.target"> -->
-     <mat-option style="height: 10px" appearance="hello" *ngFor="let filterChoiceOption of filteredChoiceOptions$ | async" [value]="filterChoiceOption">
-        {{filterChoiceOption.target+": "+filterChoiceOption.value}}
+      <!-- <mat-optgroup *ngFor="let filteredQueryStatItem of filteredQueryStats$ | async" [label]="filteredQueryStatItem.target"> -->
+      <mat-option
+        style="height: 10px"
+        appearance="hello"
+        *ngFor="let filterChoiceOption of filteredChoiceOptions$ | async"
+        [value]="filterChoiceOption">
+        {{ filterChoiceOption.target + ': ' + filterChoiceOption.value }}
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>

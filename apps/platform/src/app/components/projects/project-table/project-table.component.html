@@ -3,7 +3,9 @@
     <h1 class="mat-display-1" style="margin-bottom: 10px; margin-top: 20px">Projects Table</h1>
   </div>
   <div class="projects-table-container full-width-table mat-elevation-z8">
-    <biosimulations-projects-chips [filterStats$]="filterStats$" (filterQueries$)="onFilterQueryChanged($event)"></biosimulations-projects-chips>
+    <biosimulations-projects-chips
+      [filterStats$]="filterStats$"
+      (filterQueries$)="onFilterQueryChanged($event)"></biosimulations-projects-chips>
     <mat-form-field appearance="fill">
       <input
         (keyup)="onKeyUpEvent($event)"
@@ -41,6 +43,5 @@
       [pageSize]="10"
       aria-label="Select page">
     </mat-paginator>
-
   </div>
 </div>
