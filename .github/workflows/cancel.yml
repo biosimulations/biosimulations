@@ -1,5 +1,7 @@
 name: Cancel old workflow runs
 on: [push]
+env:
+  NX_SKIP_NX_CACHE: ${{ vars.NX_SKIP_NX_CACHE_VALUE }}
 jobs:
   cancel:
     name: 'Cancel Previous Runs'

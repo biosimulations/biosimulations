@@ -3,6 +3,9 @@ on:
   pull_request:
     branches:
       - dev
+env:
+  NX_SKIP_NX_CACHE: ${{ vars.NX_SKIP_NX_CACHE_VALUE }}
+
 jobs:
   CI:
     uses: ./.github/workflows/buildLintTest.yml

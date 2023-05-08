@@ -2,6 +2,8 @@ name: Cancel workflows after PRs closed
 on:
   pull_request:
     types: [closed]
+env:
+  NX_SKIP_NX_CACHE: ${{ vars.NX_SKIP_NX_CACHE_VALUE }}
 jobs:
   cleanup:
     name: 'Cancel workflows after PR closed'

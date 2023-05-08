@@ -5,6 +5,8 @@ on:
     paths:
       - 'apps/combine-api/combine_api/spec/spec.yml'
   workflow_dispatch:
+env:
+  NX_SKIP_NX_CACHE: ${{ vars.NX_SKIP_NX_CACHE_VALUE }}
 
 jobs:
   buildClient:

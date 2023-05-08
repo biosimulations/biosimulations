@@ -5,6 +5,7 @@ on:
     types: [opened, labeled]
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  NX_SKIP_NX_CACHE: ${{ vars.NX_SKIP_NX_CACHE_VALUE }}
 
 jobs:
   assign_bug_project:

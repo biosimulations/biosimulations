@@ -27,6 +27,7 @@ on:
 env:
   NX_CLOUD_DISTRIBUTED_EXECUTION: true
   INPUT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  NX_SKIP_NX_CACHE: ${{ vars.NX_SKIP_NX_CACHE_VALUE }}
 
 jobs:
   main:
