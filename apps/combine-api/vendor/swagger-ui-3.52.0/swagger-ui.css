@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500&family=Source+Code+Pro&display=swap');
+
 .swagger-ui {
   color: #3b4151;
   /*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */
@@ -2411,12 +2413,15 @@
     float: none;
   }
 }
-.swagger-ui .sans-serif {
+/*.swagger-ui .sans-serif {
   font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica, helvetica neue, ubuntu, roboto, noto,
     segoe ui, arial, sans-serif;
+}*/
+.swagger-ui .sans-serif {
+  font-family: 'Cormorant', sans-serif;
 }
 .swagger-ui .serif {
-  font-family: georgia, serif;
+  font-family: 'Cormorant', serif;
 }
 .swagger-ui .system-sans-serif {
   font-family: sans-serif;
