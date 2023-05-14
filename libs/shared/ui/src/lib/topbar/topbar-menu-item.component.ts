@@ -8,6 +8,9 @@ import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 })
 export class TopbarMenuItemComponent {
   @Input()
+  color = 'primary';
+
+  @Input()
   heading = '';
 
   @Input()

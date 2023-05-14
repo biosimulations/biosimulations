@@ -1,11 +1,13 @@
 @use '@angular/material' as mat;
 @import 'biosimulations-colors';
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Fira+Code&family=Cormorant&display=swap');
 
 .mat-flat-button {
   margin-top: 0.5rem;
   padding: 0;
   line-height: normal;
   background: none;
+  font-family: 'Cormorant';
 
   svg {
     width: 100%;
@@ -20,7 +22,16 @@
         stroke-dasharray: 2px 2px;
       }
     }
+    &.tertiary {
+      color: mat.get-color-from-palette($theme-tertiary);
 
+      path.foreground {
+        fill: #38cc00;
+        fill-opacity: 0.25;
+        stroke-opacity: 0.75;
+        stroke-dasharray: 2px 2px;
+      }
+    }
     path.foreground {
       fill: currentColor;
       fill-opacity: 0.7;
@@ -65,7 +76,6 @@
       }
     }
   }
-
   .content {
     padding: 1rem;
     white-space: normal;

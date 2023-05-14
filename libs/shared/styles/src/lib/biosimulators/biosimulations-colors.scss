@@ -43,9 +43,8 @@ $mat-light-theme-foreground: (
   slider-off-active: $dark-disabled-text,
 );
 
-// Dark Theme text
-$light-text: #ffffff;
-$light-primary-text: $light-text;
+// Dark Theme text #ffe2b1;
+$light-text: $light-primary-text;
 $light-accent-text: rgba($light-primary-text, 0.7);
 $light-disabled-text: rgba($light-primary-text, 0.5);
 $light-dividers: rgba($light-primary-text, 0.12);
@@ -103,7 +102,7 @@ $mat-light-theme-background: (
 );
 
 // Dark bg
-$dark-background: #2c2c2c;
+$dark-background: #100f0f;
 $dark-bg-lighter-5: lighten($dark-background, 5%);
 $dark-bg-lighter-10: lighten($dark-background, 10%);
 $dark-bg-lighter-20: lighten($dark-background, 20%);
@@ -295,6 +294,7 @@ $theme: mat.define-light-theme(
     color: (
       primary: $theme-primary,
       accent: $theme-accent,
+      tertiary: $theme-tertiary,
       warn: $theme-warn,
     ),
     typography: $fontConfig,
@@ -305,6 +305,8 @@ $altTheme: mat.define-dark-theme(
     color: (
       primary: $theme-primary,
       accent: $theme-accent,
+      tertiary: $theme-tertiary,
+      quartinary: $theme-quartinary,
       warn: $theme-warn,
     ),
     typography: $fontConfig,

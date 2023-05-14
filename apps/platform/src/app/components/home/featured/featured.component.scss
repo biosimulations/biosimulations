@@ -1,9 +1,13 @@
+@use '@angular/material' as mat;
+@import 'biosimulations-colors';
+
 .container {
   height: 100%;
   width: 100%;
   text-align: center;
   overflow: hidden;
   padding: 2rem;
+  position: relative;
 }
 
 .heading {
@@ -22,14 +26,63 @@
   margin-left: auto;
   margin-right: auto;
 }
-
 .nextButton {
   box-shadow: none;
   margin-right: 3rem;
+  background-color: mat.get-color-from-palette($theme-primary);
 }
 .previousButton {
   box-shadow: none;
+  background-color: mat.get-color-from-palette($theme-primary);
   //margin-left: 3rem;
+}
+//.pagination-dots {
+//  position: absolute; /* set the pagination dots position to absolute */
+//  bottom: 10px; /* position the dots 10px from the bottom */
+//  left: 50%; /* center the dots horizontally */
+//  transform: translateX(-50%); /* adjust the horizontal centering */
+//}
+//.pagination-dots-container {
+//  display: flex;
+//  justify-content: center;
+//  margin-top: 16px;
+//}
+//
+//.pagination-dots {
+//  cursor: pointer;
+//  margin: 0 8px;
+//}
+//
+//.pagination-dots .dot {
+//  height: 10px;
+//  width: 10px;
+//  border-radius: 50%;
+//  background-color: #ddd;
+//  transition: background-color 0.3s ease;
+//}
+//
+//.pagination-dots.active .dot {
+//  background-color: #0078d4;
+//}
+.pagination-dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.dot {
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: rgb(255, 255, 255);
+  margin: 0 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dot.active {
+  background-color: #0078d4;
 }
 
 .mat-mdc-card {

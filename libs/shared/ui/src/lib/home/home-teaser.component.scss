@@ -31,6 +31,10 @@ img {
   text-align: center;
 }
 
+//.main-logo {
+//animation: rotation 40s infinite linear;
+//}
+
 .buttons {
   margin-top: 0.5rem;
 }
@@ -48,4 +52,12 @@ img {
 .text {
   padding-left: 1rem;
   padding-right: 1rem;
+}
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
 }

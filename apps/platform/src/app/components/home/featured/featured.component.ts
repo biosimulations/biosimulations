@@ -12,10 +12,12 @@ export class FeaturedComponent {
   public startIndex = 0;
   public endIndex = 1;
   public numCards = 2;
+  private intervalId!: NodeJS.Timer | null;
   public constructor(private service: FeaturedService) {
     this.projects = this.service.getProjects();
     this.startIndex = 0;
     this.endIndex = this.numCards - 1;
+    this.startAutoScroll();
   }
 
   public previous(): void {
@@ -35,5 +37,24 @@ export class FeaturedComponent {
       this.startIndex = 0;
       this.endIndex = this.numCards - 1;
     }
+  }
+  private startAutoScroll(): void {
+    const intervalTime = 5000; // scroll every 5 seconds
+    this.intervalId = setInterval(() => {
+      this.next();
+    }, intervalTime);
+  }
+  private stopAutoScroll(): void {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+      this.intervalId = null;
+    }
+  }
+  public ngOnDestroy(): void {
+    this.stopAutoScroll();
+  }
+  public jumpTo(index: number): void {
+    this.startIndex = index;
+    this.endIndex = index + (this.numCards - 1);
   }
 }
