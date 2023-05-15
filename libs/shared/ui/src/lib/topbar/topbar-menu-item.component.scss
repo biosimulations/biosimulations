@@ -4,33 +4,42 @@
 
 :host {
   margin-left: 1rem;
+  color: mat.get-color-from-palette($theme-primary);
 }
 
 .mat-flat-button {
   font-size: 18px;
+  padding-bottom: 5rem;
   font-weight: 500;
-  font-family: 'Cormorant';
-  color: #fff;
+  font-family: 'Cormorant', 'serif';
+
   background: transparent;
+  border: none;
   padding: 0;
   min-width: auto;
   border-radius: 0;
   line-height: 30px;
   margin-bottom: 6px;
-  border-bottom: 1.5px solid #ffffff00;
+  //border-bottom: 1.5px solid #ffffff00;
 
   &:hover:not(.mat-button-disabled) {
-    border-bottom: 1.5px solid #fff;
+    border: none;
+    //border-bottom: 1.5px solid #fff;
+    color: mat.get-color-from-palette($theme-primary);
   }
 
   &:active:not(.mat-button-disabled) {
-    color: #e3e3e3;
-    border-bottom: 1.5px solid #e3e3e3;
+    color: mat.get-color-from-palette($theme-primary);
+    //color: #e3e3e3;
+    border: none;
+    //border-bottom: 1.5px solid #e3e3e3;
   }
 
   .button-content {
     display: flex;
     align-items: center;
+    font-family: 'Coromant', 'serif';
+    color: mat.get-color-from-palette($theme-primary);
   }
 
   biosimulations-icon {

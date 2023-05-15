@@ -2,27 +2,209 @@
   heading="Easily share and find models, simulations, and visualizations of simulation results"
   banner="assets/images/biosimulations-logo/logo-white.svg">
   <ng-container id="buttons">
-    <ng-container>
+
+    <!--<ng-container>
       <ng-container id="buttons">
-        <biosimulations-featured></biosimulations-featured>
+        <biosimulations-topbar-menu>
+          <biosimulations-hover-open-menu>
+            <biosimulations-topbar-menu-item
+              heading="Simulation projects"
+              icon="project"
+              id="trigger"
+              [routerLink]="['/projects']">
+            </biosimulations-topbar-menu-item>
+
+            <ng-container id="items">
+              <biosimulations-dropdown-menu-item heading="Browse" icon="browse" [routerLink]="['/projects']">
+              </biosimulations-dropdown-menu-item>
+
+              <biosimulations-dropdown-menu-item heading="Submit" icon="upload" [routerLink]="['/runs', 'new']">
+              </biosimulations-dropdown-menu-item>
+            </ng-container>
+          </biosimulations-hover-open-menu>
+
+          <biosimulations-hover-open-menu>
+            <biosimulations-topbar-menu-item heading="Utilities" icon="construction" id="trigger">
+            </biosimulations-topbar-menu-item>
+
+            <ng-container id="items">
+              <biosimulations-dropdown-menu-item
+                heading="Convert a file"
+                icon="convert"
+                [routerLink]="['/utils', 'convert-file']">
+              </biosimulations-dropdown-menu-item>
+
+              <biosimulations-dropdown-menu-item
+                heading="Create a project"
+                icon="write"
+                [routerLink]="['/utils', 'create-project']">
+              </biosimulations-dropdown-menu-item>
+
+              <biosimulations-dropdown-menu-item
+                heading="Validate a model"
+                icon="review"
+                [routerLink]="['/utils', 'validate-model']">
+              </biosimulations-dropdown-menu-item>
+
+              <biosimulations-dropdown-menu-item
+                heading="Validate a simulation"
+                icon="review"
+                [routerLink]="['/utils', 'validate-simulation']">
+              </biosimulations-dropdown-menu-item>
+
+              <biosimulations-dropdown-menu-item
+                heading="Validate metadata"
+                icon="review"
+                [routerLink]="['/utils', 'validate-metadata']">
+              </biosimulations-dropdown-menu-item>
+
+              <biosimulations-dropdown-menu-item
+                heading="Validate a project"
+                icon="review"
+                [routerLink]="['/utils', 'validate-project']">
+              </biosimulations-dropdown-menu-item>
+
+              <biosimulations-dropdown-menu-item
+                heading="Validate a simulator"
+                icon="review"
+                href="https://github.com/biosimulators/Biosimulators/issues/new?assignees=&labels=Validate%2Fsubmit+simulator&template=ValidateOrSubmitASimulator.yml&title=%5BSimulation+capabilities%5D%3A+"
+                target="githubissues">
+              </biosimulations-dropdown-menu-item>
+
+              <biosimulations-dropdown-menu-item
+                heading="Suggest a simulator"
+                icon="idea"
+                [routerLink]="['/utils', 'suggest-simulator']">
+              </biosimulations-dropdown-menu-item>
+            </ng-container>
+          </biosimulations-hover-open-menu>
+
+          <biosimulations-hover-open-menu>
+            <biosimulations-topbar-menu-item
+              heading="Conventions"
+              icon="standard"
+              id="trigger"
+              href="https://docs.biosimulations.org/concepts/conventions/"
+              target="biosimulations-docs">
+            </biosimulations-topbar-menu-item>
+
+            <ng-container id="items">
+              <biosimulations-dropdown-menu-item
+                heading="Simulator specs"
+                icon="browse"
+                href="https://docs.biosimulations.org/concepts/conventions/simulator-capabilities/"
+                target="biosimulations-docs">
+              </biosimulations-dropdown-menu-item>
+
+              <biosimulations-dropdown-menu-item
+                heading="Simulator interfaces"
+                icon="logs"
+                href="https://docs.biosimulations.org/concepts/conventions/simulator-interfaces/"
+                target="biosimulations-docs">
+              </biosimulations-dropdown-menu-item>
+
+              <biosimulations-dropdown-menu-item
+                heading="Simulator images"
+                icon="docker"
+                href="https://docs.biosimulations.org/concepts/conventions/simulator-images/"
+                target="biosimulations-docs">
+              </biosimulations-dropdown-menu-item>
+
+              <biosimulations-dropdown-menu-item
+                heading="Simulation experiments"
+                icon="experiment"
+                href="https://docs.biosimulations.org/concepts/conventions/simulation-experiments/"
+                target="biosimulations-docs">
+              </biosimulations-dropdown-menu-item>
+
+              <biosimulations-dropdown-menu-item
+                heading="Simulation reports"
+                icon="report"
+                href="https://docs.biosimulations.org/concepts/conventions/simulation-run-reports/"
+                target="biosimulations-docs">
+              </biosimulations-dropdown-menu-item>
+
+              <biosimulations-dropdown-menu-item
+                heading="Data visualizations"
+                icon="chart"
+                href="https://docs.biosimulations.org/concepts/conventions/simulation-run-visualizations/"
+                target="biosimulations-docs">
+              </biosimulations-dropdown-menu-item>
+
+              <biosimulations-dropdown-menu-item
+                heading="Metadata"
+                icon="tags"
+                href="https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/"
+                target="biosimulations-docs">
+              </biosimulations-dropdown-menu-item>
+
+              <biosimulations-dropdown-menu-item
+                heading="Simulation logs"
+                icon="progress"
+                href="https://docs.biosimulations.org/concepts/conventions/simulation-run-logs/"
+                target="biosimulations-docs">
+              </biosimulations-dropdown-menu-item>
+            </ng-container>
+          </biosimulations-hover-open-menu>
+
+          <biosimulations-hover-open-menu>
+            <biosimulations-topbar-menu-item heading="More" icon="info" id="trigger"> </biosimulations-topbar-menu-item>
+            <ng-container id="items">
+              <biosimulations-dropdown-menu-item
+                heading="About"
+                icon="info"
+                href="https://docs.biosimulations.org/"
+                target="biosimulations-docs">
+              </biosimulations-dropdown-menu-item>
+
+              <biosimulations-dropdown-menu-item
+                heading="Terms of service"
+                icon="legal"
+                href="https://docs.biosimulations.org/about/terms/"
+                target="biosimulations-docs">
+              </biosimulations-dropdown-menu-item>
+
+              <biosimulations-dropdown-menu-item
+                heading="Privacy policy"
+                icon="policy"
+                href="https://docs.biosimulations.org/about/privacy/"
+                target="biosimulations-docs">
+              </biosimulations-dropdown-menu-item>
+
+              <biosimulations-dropdown-menu-item
+                heading="Status"
+                icon="status"
+                href="https://status.biosimulations.org/"
+                target="status">
+              </biosimulations-dropdown-menu-item>
+            </ng-container>
+          </biosimulations-hover-open-menu>
+        </biosimulations-topbar-menu>
       </ng-container>
-      <biosimulations-home-teaser-button
-        [href]="config.simulatorsAppUrl"
-        target="biosimulators"
-        width="180px"
-        color="accent">
-        <ng-container id="title">Find simulation tools</ng-container>
-        <ng-container id="text">
-          <p>@BioSimulators</p>
-        </ng-container>
-      </biosimulations-home-teaser-button>
-    </ng-container>
-    <!--<biosimulations-home-teaser-button [route]="['/projects']" width="180px" color="primary">
+    </ng-container>-->
+
+
+    <biosimulations-home-teaser-button
+    [href]="config.simulatorsAppUrl"
+    target="biosimulators"
+    width="180px"
+    color="accent">
+      <ng-container id="title">Find simulation tools</ng-container>
+      <ng-container id="text">
+        <p>@BioSimulators</p>
+      </ng-container>
+    </biosimulations-home-teaser-button>
+
+    <biosimulations-home-teaser-button
+    [route]="['/projects']"
+    width="180px"
+    color="primary">
       <ng-container id="title">Find simulations</ng-container>
       <ng-container id="text">
         <p>@BioSimulations</p>
       </ng-container>
-    </biosimulations-home-teaser-button>-->
+    </biosimulations-home-teaser-button>
+
     <biosimulations-home-teaser-button
     [route]="['/runs/new']"
     width="180px"
@@ -34,208 +216,19 @@
     </biosimulations-home-teaser-button>
   </ng-container>
 
+
   <ng-container id="description">
     BioSimulations is a free platform for sharing and re-using biomodels, simulations, simulation results, and
     visualizations of simulation results. BioSimulations supports a wide range of frameworks (e.g., logical,
     Flux-Balance Analysis (FBA), continuous kinetic, discrete kinetic), simulation algorithms (e.g., FBA, SSA), model
     formats (e.g., SBML), and tools (e.g., COBRApy, COPASI, tellurium).
   </ng-container>
-  <ng-container id="buttons">
-    <biosimulations-topbar-menu>
-    <biosimulations-hover-open-menu>
-      <biosimulations-topbar-menu-item
-        heading="Simulation projects"
-        icon="project"
-        id="trigger"
-        color="primary"
-        [routerLink]="['/projects']">
-      </biosimulations-topbar-menu-item>
-
-      <ng-container id="items">
-        <biosimulations-dropdown-menu-item heading="Browse" icon="browse" [routerLink]="['/projects']">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item heading="Submit" icon="upload" [routerLink]="['/runs', 'new']">
-        </biosimulations-dropdown-menu-item>
-      </ng-container>
-    </biosimulations-hover-open-menu>
-
-    <biosimulations-hover-open-menu>
-      <biosimulations-topbar-menu-item heading="Utilities" icon="construction" id="trigger">
-      </biosimulations-topbar-menu-item>
-
-      <ng-container id="items">
-        <biosimulations-dropdown-menu-item
-          heading="Convert a file"
-          icon="convert"
-          [routerLink]="['/utils', 'convert-file']">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Create a project"
-          icon="write"
-          [routerLink]="['/utils', 'create-project']">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Validate a model"
-          icon="review"
-          [routerLink]="['/utils', 'validate-model']">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Validate a simulation"
-          icon="review"
-          [routerLink]="['/utils', 'validate-simulation']">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Validate metadata"
-          icon="review"
-          [routerLink]="['/utils', 'validate-metadata']">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Validate a project"
-          icon="review"
-          [routerLink]="['/utils', 'validate-project']">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Validate a simulator"
-          icon="review"
-          href="https://github.com/biosimulators/Biosimulators/issues/new?assignees=&labels=Validate%2Fsubmit+simulator&template=ValidateOrSubmitASimulator.yml&title=%5BSimulation+capabilities%5D%3A+"
-          target="githubissues">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Suggest a simulator"
-          icon="idea"
-          [routerLink]="['/utils', 'suggest-simulator']">
-        </biosimulations-dropdown-menu-item>
-      </ng-container>
-    </biosimulations-hover-open-menu>
-
-    <biosimulations-hover-open-menu>
-      <biosimulations-topbar-menu-item
-        heading="Conventions"
-        icon="standard"
-        id="trigger"
-        href="https://docs.biosimulations.org/concepts/conventions/"
-        target="biosimulations-docs">
-      </biosimulations-topbar-menu-item>
-
-      <ng-container id="items">
-        <biosimulations-dropdown-menu-item
-          heading="Simulator specs"
-          icon="browse"
-          href="https://docs.biosimulations.org/concepts/conventions/simulator-capabilities/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Simulator interfaces"
-          icon="logs"
-          href="https://docs.biosimulations.org/concepts/conventions/simulator-interfaces/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Simulator images"
-          icon="docker"
-          href="https://docs.biosimulations.org/concepts/conventions/simulator-images/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Simulation experiments"
-          icon="experiment"
-          href="https://docs.biosimulations.org/concepts/conventions/simulation-experiments/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Simulation reports"
-          icon="report"
-          href="https://docs.biosimulations.org/concepts/conventions/simulation-run-reports/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Data visualizations"
-          icon="chart"
-          href="https://docs.biosimulations.org/concepts/conventions/simulation-run-visualizations/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Metadata"
-          icon="tags"
-          href="https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Simulation logs"
-          icon="progress"
-          href="https://docs.biosimulations.org/concepts/conventions/simulation-run-logs/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-      </ng-container>
-    </biosimulations-hover-open-menu>
-
-    <biosimulations-hover-open-menu>
-      <biosimulations-topbar-menu-item heading="Help" icon="help" id="trigger"> </biosimulations-topbar-menu-item>
-
-      <ng-container id="items">
-        <biosimulations-dropdown-menu-item
-          heading="Tutorial"
-          icon="tutorial"
-          href="https://docs.biosimulations.org/users/simulating-projects/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="FAQ"
-          icon="help"
-          href="https://docs.biosimulations.org/users/faqs/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="About"
-          icon="info"
-          href="https://docs.biosimulations.org/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Terms of service"
-          icon="legal"
-          href="https://docs.biosimulations.org/about/terms/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Privacy policy"
-          icon="policy"
-          href="https://docs.biosimulations.org/about/privacy/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Status"
-          icon="status"
-          href="https://status.biosimulations.org/"
-          target="status">
-        </biosimulations-dropdown-menu-item>
-      </ng-container>
-    </biosimulations-hover-open-menu>
-  </biosimulations-topbar-menu>
-  </ng-container>
-
 </biosimulations-home-teaser>
 
+<biosimulations-featured></biosimulations-featured>
+
+
+<!---------------------------------------------------NEW SECTION-------------------------------------------------------------->
 
 
 <biosimulations-home-section [columns]="1">
@@ -486,6 +479,182 @@
   </ng-container>
 </biosimulations-home-section>
 
+
+<!---------------------------------------------------NEW SECTION-------------------------------------------------------------->
+
+
+<biosimulations-home-section
+  [columns]="3">
+  <biosimulations-home-subsection
+    id="subsection"
+    heading="Utilities"
+    subheading=""
+    subheadingSize="small"
+    icon="info"
+    style="justify-content: center;">
+    <biosimulations-hover-open-menu>
+      <biosimulations-topbar-menu-item heading="Utilities" icon="construction" id="trigger"></biosimulations-topbar-menu-item>
+      <ng-container id="items">
+        <biosimulations-dropdown-menu-item
+          heading="Convert a file"
+          icon="convert"
+          [routerLink]="['/utils', 'convert-file']">
+        </biosimulations-dropdown-menu-item>
+        <biosimulations-dropdown-menu-item
+          heading="Create a project"
+          icon="write"
+          [routerLink]="['/utils', 'create-project']">
+        </biosimulations-dropdown-menu-item>
+        <biosimulations-dropdown-menu-item
+          heading="Validate a model"
+          icon="review"
+          [routerLink]="['/utils', 'validate-model']">
+        </biosimulations-dropdown-menu-item>
+        <biosimulations-dropdown-menu-item
+          heading="Validate a simulation"
+          icon="review"
+          [routerLink]="['/utils', 'validate-simulation']">
+        </biosimulations-dropdown-menu-item>
+        <biosimulations-dropdown-menu-item
+          heading="Validate metadata"
+          icon="review"
+          [routerLink]="['/utils', 'validate-metadata']">
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Validate a project"
+          icon="review"
+          [routerLink]="['/utils', 'validate-project']">
+        </biosimulations-dropdown-menu-item>
+        <biosimulations-dropdown-menu-item
+          heading="Validate a simulator"
+          icon="review"
+          href="https://github.com/biosimulators/Biosimulators/issues/new?assignees=&labels=Validate%2Fsubmit+simulator&template=ValidateOrSubmitASimulator.yml&title=%5BSimulation+capabilities%5D%3A+"
+          target="githubissues">
+        </biosimulations-dropdown-menu-item>
+        <biosimulations-dropdown-menu-item
+          heading="Suggest a simulator"
+          icon="idea"
+          [routerLink]="['/utils', 'suggest-simulator']">
+        </biosimulations-dropdown-menu-item>
+      </ng-container>
+    </biosimulations-hover-open-menu>
+  </biosimulations-home-subsection>
+
+  <biosimulations-home-subsection
+    id="subsection"
+    heading="Conventions"
+    subheading=""
+    subheadingSize="small"
+    icon="info"
+    style="justify-content: center;">
+
+    <biosimulations-hover-open-menu>
+      <biosimulations-topbar-menu-item
+        heading="Conventions"
+        icon="standard"
+        id="trigger"
+        href="https://docs.biosimulations.org/concepts/conventions/"
+        target="biosimulations-docs">
+      </biosimulations-topbar-menu-item>
+      <ng-container id="items">
+        <biosimulations-dropdown-menu-item
+          heading="Simulator specs"
+          icon="browse"
+          href="https://docs.biosimulations.org/concepts/conventions/simulator-capabilities/"
+          target="biosimulations-docs">
+        </biosimulations-dropdown-menu-item>
+        <biosimulations-dropdown-menu-item
+          heading="Simulator interfaces"
+          icon="logs"
+          href="https://docs.biosimulations.org/concepts/conventions/simulator-interfaces/"
+          target="biosimulations-docs">
+        </biosimulations-dropdown-menu-item>
+        <biosimulations-dropdown-menu-item
+          heading="Simulator images"
+          icon="docker"
+          href="https://docs.biosimulations.org/concepts/conventions/simulator-images/"
+          target="biosimulations-docs">
+        </biosimulations-dropdown-menu-item>
+        <biosimulations-dropdown-menu-item
+          heading="Simulation experiments"
+          icon="experiment"
+          href="https://docs.biosimulations.org/concepts/conventions/simulation-experiments/"
+          target="biosimulations-docs">
+        </biosimulations-dropdown-menu-item>
+        <biosimulations-dropdown-menu-item
+          heading="Simulation reports"
+          icon="report"
+          href="https://docs.biosimulations.org/concepts/conventions/simulation-run-reports/"
+          target="biosimulations-docs">
+        </biosimulations-dropdown-menu-item>
+        <biosimulations-dropdown-menu-item
+          heading="Data visualizations"
+          icon="chart"
+          href="https://docs.biosimulations.org/concepts/conventions/simulation-run-visualizations/"
+          target="biosimulations-docs">
+        </biosimulations-dropdown-menu-item>
+        <biosimulations-dropdown-menu-item
+          heading="Metadata"
+          icon="tags"
+          href="https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/"
+          target="biosimulations-docs">
+        </biosimulations-dropdown-menu-item>
+        <biosimulations-dropdown-menu-item
+          heading="Simulation logs"
+          icon="progress"
+          href="https://docs.biosimulations.org/concepts/conventions/simulation-run-logs/"
+          target="biosimulations-docs">
+        </biosimulations-dropdown-menu-item>
+      </ng-container>
+    </biosimulations-hover-open-menu>
+  </biosimulations-home-subsection>
+
+  <biosimulations-home-subsection
+    id="subsection"
+    heading="Conventions"
+    subheading=""
+    subheadingSize="small"
+    icon="info"
+    style="justify-content: center;">
+    <biosimulations-hover-open-menu>
+      <biosimulations-topbar-menu-item heading="More" icon="info" id="trigger"> </biosimulations-topbar-menu-item>
+      <ng-container id="items">
+        <biosimulations-dropdown-menu-item
+          heading="About"
+          icon="info"
+          href="https://docs.biosimulations.org/"
+          target="biosimulations-docs">
+        </biosimulations-dropdown-menu-item>
+        <biosimulations-dropdown-menu-item
+          heading="Terms of service"
+          icon="legal"
+          href="https://docs.biosimulations.org/about/terms/"
+          target="biosimulations-docs">
+        </biosimulations-dropdown-menu-item>
+        <biosimulations-dropdown-menu-item
+          heading="Privacy policy"
+          icon="policy"
+          href="https://docs.biosimulations.org/about/privacy/"
+          target="biosimulations-docs">
+        </biosimulations-dropdown-menu-item>
+        <biosimulations-dropdown-menu-item
+          heading="Status"
+          icon="status"
+          href="https://status.biosimulations.org/"
+          target="status">
+        </biosimulations-dropdown-menu-item>
+        <biosimulations-dropdown-menu-item
+          heading="@Vivarium"
+          icon="info"
+          href="https://vivarium-collective.github.io/">
+        </biosimulations-dropdown-menu-item>
+      </ng-container>
+    </biosimulations-hover-open-menu>
+  </biosimulations-home-subsection>
+</biosimulations-home-section>
+
+
 <biosimulations-home-section [columns]="3">
   <ng-container id="heading">
     Helping authors, reviewers, and investigators
@@ -724,6 +893,9 @@
       </biosimulations-home-logo>
     </p>
   </biosimulations-home-subsection>
+
+
+
 </biosimulations-home-section>
 <!--
 <biosimulations-home-section [columns]="1">

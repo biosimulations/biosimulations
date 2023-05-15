@@ -7,7 +7,68 @@
   [showNews]="false"
   [healthy]="healthy$ | async">
 
-  <ng-container id="sidenav-menu">
+  <biosimulations-topbar-menu>
+    <biosimulations-hover-open-menu>
+      <biosimulations-topbar-menu-item
+          heading="Browse Simulators"
+          icon="simulators"
+          id="trigger"
+          href="https://biosimulators.org">
+      </biosimulations-topbar-menu-item>
+    </biosimulations-hover-open-menu>
+
+    <biosimulations-hover-open-menu>
+      <biosimulations-topbar-menu-item
+        heading="Browse Simulations"
+        icon="project"
+        id="trigger"
+        [routerLink]="['/projects']">
+      </biosimulations-topbar-menu-item>
+      <ng-container id="items">
+        <biosimulations-dropdown-menu-item heading="Browse" icon="browse" [routerLink]="['/projects']">
+        </biosimulations-dropdown-menu-item>
+        <biosimulations-dropdown-menu-item heading="Submit" icon="upload" [routerLink]="['/runs', 'new']">
+        </biosimulations-dropdown-menu-item>
+      </ng-container>
+    </biosimulations-hover-open-menu>
+
+    <biosimulations-hover-open-menu>
+      <biosimulations-topbar-menu-item
+          heading="Run Simulations"
+          icon="experiment"
+          id="trigger"
+          href="https://run.biosimulators.org">
+      </biosimulations-topbar-menu-item>
+    </biosimulations-hover-open-menu>
+
+    <biosimulations-hover-open-menu>
+      <biosimulations-topbar-menu-item heading="Help" icon="help" id="trigger"> </biosimulations-topbar-menu-item>
+      <ng-container id="items">
+        <biosimulations-dropdown-menu-item
+          heading="FAQ"
+          icon="help"
+          href="https://docs.biosimulations.org/users/faqs/"
+          target="biosimulations-docs">
+        </biosimulations-dropdown-menu-item>
+        <biosimulations-dropdown-menu-item
+          heading="Contact Us"
+          icon="contact"
+          href="https://docs.biosimulations.org/about/contact/"
+          target="biosimulations-docs">
+        </biosimulations-dropdown-menu-item>
+      </ng-container>
+    </biosimulations-hover-open-menu>
+  </biosimulations-topbar-menu>
+
+  <!--<ng-container>
+    <ng-container id="buttons">
+
+    </ng-container>
+  </ng-container>--> <!--dont use!!-->
+
+
+
+  <!--<ng-container id="sidenav-menu">
     <biosimulations-navigation-item heading="Simulation projects" icon="project">
       <biosimulations-navigation-subitem heading="Browse" icon="browse" [route]="['/projects', 'browse']">
       </biosimulations-navigation-subitem>
@@ -167,10 +228,11 @@
         target="status">
       </biosimulations-navigation-subitem>
     </biosimulations-navigation-item>
-  </ng-container>
+  </ng-container>-->
 
   <ng-container id="news"> Under Construction </ng-container>
 
   <router-outlet></router-outlet>
+
 </biosimulations-navigation>
 

@@ -22,7 +22,7 @@ export class HomeTeaserButtonComponent {
   height = '104px';
 
   @Input()
-  color = 'primary';
+  color!: any;
 
   @Input()
   disabled = false;

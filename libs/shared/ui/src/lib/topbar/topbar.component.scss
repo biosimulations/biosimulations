@@ -5,6 +5,11 @@
   height: 100%;
 }
 
+.logo-buttons {
+  height: 100%;
+  padding-left: 6rem;
+}
+
 .top-bar-color {
   color: mat.get-color-from-palette($theme-primary);
 }

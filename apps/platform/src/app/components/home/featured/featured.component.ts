@@ -11,7 +11,7 @@ export class FeaturedComponent {
   public projects: FeaturedProject[];
   public startIndex = 0;
   public endIndex = 1;
-  public numCards = 2;
+  public numCards = 1;
   private intervalId!: NodeJS.Timer | null;
   public constructor(private service: FeaturedService) {
     this.projects = this.service.getProjects();

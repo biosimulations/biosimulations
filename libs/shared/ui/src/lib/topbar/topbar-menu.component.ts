@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class TopbarMenuComponent {
   @Input()
-  color = 'primary';
+  color = 'accent';
 }
