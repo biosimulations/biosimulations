@@ -27,6 +27,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 const materialImports = [
   FlexLayoutModule,
@@ -56,6 +57,7 @@ const materialImports = [
   MatAutocompleteModule,
   MatSnackBarModule,
   MatPaginatorModule,
+  MatGridListModule,
   FormsModule,
   ReactiveFormsModule,
 ];

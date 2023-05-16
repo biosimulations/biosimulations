@@ -5,6 +5,10 @@
   align-items: center;
   justify-content: center;
 }
+.plotparent {
+  width: 600px;
+  height: 600px;
+}
 
 biosimulations-tab-page ::ng-deep .icon-list {
   & > li:not(:first-child) {

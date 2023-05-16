@@ -6,64 +6,60 @@
   <biosimulations-json-ld [json]="jsonLdData"></biosimulations-json-ld>
 </ng-container>
 
-<biosimulations-tab-page
-  *ngIf="(loaded$ | async) === true"
-  [selectedTabIndex]="selectedTabIndex"
-  (selectedTabChange)="selectedTabChange($event)">
-  <!-- The overview tab for the entire project-->
-  <biosimulations-tab-page-tab heading="Overview" icon="overview">
+  <div>
     <ng-container *ngIf="projectMetadata$ | async as projectMetadata">
       <ng-container *ngIf="simulationRun$ | async as simulationRun">
         <biosimulations-project-metadata [project]="projectMetadata" [simulationRun]="simulationRun">
         </biosimulations-project-metadata>
       </ng-container>
     </ng-container>
-  </biosimulations-tab-page-tab>
+  </div>
   <!-- End overview tab-->
 
   <!--Information about files in project and generated from the project-->
-  <biosimulations-tab-page-tab heading="Files" icon="project" urlHashFragment="files">
-    <div class="partial-width files">
-      <biosimulations-text-page-content-section
-        heading="Simulation specification (COMBINE/OMEX archive)"
-        *ngIf="projectFiles$ | async as files">
-        <biosimulations-project-files id="content" [files]="files" [usesMaster]="false" [usesMetadata]="false">
-        </biosimulations-project-files>
-      </biosimulations-text-page-content-section>
+<!--  <biosimulations-tab-page-tab heading="Files" icon="project" urlHashFragment="files">-->
+<!--    <div class="partial-width files">-->
+<!--      <biosimulations-text-page-content-section-->
+<!--        heading="Simulation specification (COMBINE/OMEX archive)"-->
+<!--        *ngIf="projectFiles$ | async as files">-->
+<!--        <biosimulations-project-files id="content" [files]="files" [usesMaster]="false" [usesMetadata]="false">-->
+<!--        </biosimulations-project-files>-->
+<!--      </biosimulations-text-page-content-section>-->
 
-      <biosimulations-text-page-content-section
-        heading="Contents of simulation specification"
-        *ngIf="files$ | async as files">
-        <biosimulations-project-files id="content" [files]="files" [usesMaster]="true" [usesMetadata]="true">
-        </biosimulations-project-files>
-      </biosimulations-text-page-content-section>
+<!--      <biosimulations-text-page-content-section-->
+<!--        heading="Contents of simulation specification"-->
+<!--        *ngIf="files$ | async as files">-->
+<!--        <biosimulations-project-files id="content" [files]="files" [usesMaster]="true" [usesMetadata]="true">-->
+<!--        </biosimulations-project-files>-->
+<!--      </biosimulations-text-page-content-section>-->
 
-      <biosimulations-text-page-content-section heading="Simulation outputs" *ngIf="outputs$ | async as files">
-        <biosimulations-project-files id="content" [files]="files" [usesMaster]="false" [usesMetadata]="false">
-        </biosimulations-project-files>
-      </biosimulations-text-page-content-section>
-    </div>
-  </biosimulations-tab-page-tab>
+<!--      <biosimulations-text-page-content-section heading="Simulation outputs" *ngIf="outputs$ | async as files">-->
+<!--        <biosimulations-project-files id="content" [files]="files" [usesMaster]="false" [usesMetadata]="false">-->
+<!--        </biosimulations-project-files>-->
+<!--      </biosimulations-text-page-content-section>-->
+<!--    </div>-->
+<!--  </biosimulations-tab-page-tab>-->
 
   <!-- Visualizations -->
-  <biosimulations-tab-page-tab urlHashFragment="select-viz" heading="Select chart" icon="write" [partialWidth]="true">
-    <ng-container *ngIf="visualizations$ | async as visualizations">
-      <biosimulations-project-select-visualization
-        [visualizations]="visualizations"
-        (renderVisualization)="renderVisualization($event)">
-      </biosimulations-project-select-visualization>
-    </ng-container>
-  </biosimulations-tab-page-tab>
+<!--  <div>-->
+<!--    <ng-container *ngIf="visualizations$ | async as visualizations">-->
+<!--      <biosimulations-project-select-visualization-->
+<!--        [visualizations]="visualizations"-->
+<!--        (renderVisualization)="renderVisualization($event)">-->
+<!--      </biosimulations-project-select-visualization>-->
+<!--    </ng-container>-->
+<!--  </div>-->
 
-  <biosimulations-tab-page-tab
-    urlHashFragment="viz"
-    heading="View chart"
-    icon="chart"
-    [disabled]="viewVisualizationTabDisabled"
-    [fullHeight]="true"
-    [fullWidth]="true">
-    <biosimulations-project-visualization *ngIf="visualization" [visualization]="visualization">
-    </biosimulations-project-visualization>
-  </biosimulations-tab-page-tab>
-  <!-- End visualizations -->
-</biosimulations-tab-page>
+<mat-grid-list cols="3" rowHeight="400px" gutterSize="20">
+  <mat-grid-tile *ngFor="let plotVisualization of plotVisualizations$ | async">
+<!--    <ng-template *ngIf="visualizationList.title !== 'Design a chart'">-->
+    <div class=".plotparent">
+      <biosimulations-project-visualization class="full-width full-height"
+        [visualization]=plotVisualization>
+      </biosimulations-project-visualization>
+    </div>
+    <mat-grid-tile-header>{{plotVisualization.name}}</mat-grid-tile-header>
+  </mat-grid-tile>
+</mat-grid-list>
+<!-- End visualizations -->
+
