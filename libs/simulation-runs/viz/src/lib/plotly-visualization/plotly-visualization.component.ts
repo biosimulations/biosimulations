@@ -86,7 +86,6 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
       const modifier = 3;
       this.layout.width = rect.width * modifier;
       this.layout.height = rect.height * (modifier - 1);
-      console.log(this.layout.width);
     }
   }
 }
