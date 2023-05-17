@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FeaturedService } from './featured.service';
 import { FeaturedProject } from './featured.model';
+
 @Component({
   selector: 'biosimulations-featured',
   templateUrl: './featured.component.html',
@@ -39,7 +40,7 @@ export class FeaturedComponent {
     }
   }
   private startAutoScroll(): void {
-    const intervalTime = 5000; // scroll every 5 seconds
+    const intervalTime = 7000;
     this.intervalId = setInterval(() => {
       this.next();
     }, intervalTime);

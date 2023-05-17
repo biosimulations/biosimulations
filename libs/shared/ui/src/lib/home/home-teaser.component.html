@@ -1,10 +1,9 @@
 <div class="container" style="display: flex">
   <div class="logo-inner">
     <div class="buttons partial-width" style="flex-flow: row wrap">
-      <ng-content select="#buttons" style="width: 5rem; height: 5rem; padding: 5px; margin: 10px"></ng-content>
-    </div>
-    <div class="main-logo" style="padding-top: 4rem;">
-      <img [src]="banner" />
+      <ng-content
+      select="#buttons"
+      style="width: 5rem; height: 5rem; padding: 5px; margin: 10px; justify-content: center;"></ng-content>
     </div>
     <div class="heading partial-width">{{ heading }}</div>
     <div class="text partial-width">

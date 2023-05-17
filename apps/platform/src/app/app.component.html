@@ -7,58 +7,56 @@
   [showNews]="false"
   [healthy]="healthy$ | async">
 
-  <biosimulations-topbar-menu>
-    <biosimulations-hover-open-menu>
-      <biosimulations-topbar-menu-item
-          heading="Browse Simulators"
-          icon="simulators"
+    <biosimulations-topbar-menu>
+      <biosimulations-hover-open-menu>
+        <biosimulations-topbar-menu-item
+            heading="BioSimulators"
+            icon="simulators"
+            id="trigger"
+            href="https://biosimulators.org">
+        </biosimulations-topbar-menu-item>
+      </biosimulations-hover-open-menu>
+      <biosimulations-hover-open-menu>
+        <biosimulations-topbar-menu-item
+          heading="BioSimulations"
+          icon="project"
           id="trigger"
-          href="https://biosimulators.org">
-      </biosimulations-topbar-menu-item>
-    </biosimulations-hover-open-menu>
+          [routerLink]="['/projects']">
+        </biosimulations-topbar-menu-item>
+      </biosimulations-hover-open-menu>
+      <biosimulations-hover-open-menu>
+        <biosimulations-topbar-menu-item
+            heading="Run Simulations"
+            icon="experiment"
+            id="trigger"
+            [route]="['/runs/new']">
+        </biosimulations-topbar-menu-item>
+      </biosimulations-hover-open-menu>
 
-    <biosimulations-hover-open-menu>
-      <biosimulations-topbar-menu-item
-        heading="Browse Simulations"
-        icon="project"
-        id="trigger"
-        [routerLink]="['/projects']">
-      </biosimulations-topbar-menu-item>
-      <ng-container id="items">
-        <biosimulations-dropdown-menu-item heading="Browse" icon="browse" [routerLink]="['/projects']">
-        </biosimulations-dropdown-menu-item>
-        <biosimulations-dropdown-menu-item heading="Submit" icon="upload" [routerLink]="['/runs', 'new']">
-        </biosimulations-dropdown-menu-item>
-      </ng-container>
-    </biosimulations-hover-open-menu>
+      <biosimulations-hover-open-menu>
+        <biosimulations-topbar-menu-item
+        heading="Help"
+        icon="help"
+        id="trigger">
+        </biosimulations-topbar-menu-item>
+        <ng-container id="items">
+          <biosimulations-dropdown-menu-item
+            heading="FAQ"
+            icon="help"
+            href="https://docs.biosimulations.org/users/faqs/"
+            target="biosimulations-docs">
+          </biosimulations-dropdown-menu-item>
+          <biosimulations-dropdown-menu-item
+            heading="Contact Us"
+            icon="contact"
+            href="https://docs.biosimulations.org/about/contact/"
+            target="biosimulations-docs">
+          </biosimulations-dropdown-menu-item>
+        </ng-container>
+      </biosimulations-hover-open-menu>
+    </biosimulations-topbar-menu>
 
-    <biosimulations-hover-open-menu>
-      <biosimulations-topbar-menu-item
-          heading="Run Simulations"
-          icon="experiment"
-          id="trigger"
-          href="https://run.biosimulators.org">
-      </biosimulations-topbar-menu-item>
-    </biosimulations-hover-open-menu>
 
-    <biosimulations-hover-open-menu>
-      <biosimulations-topbar-menu-item heading="Help" icon="help" id="trigger"> </biosimulations-topbar-menu-item>
-      <ng-container id="items">
-        <biosimulations-dropdown-menu-item
-          heading="FAQ"
-          icon="help"
-          href="https://docs.biosimulations.org/users/faqs/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-        <biosimulations-dropdown-menu-item
-          heading="Contact Us"
-          icon="contact"
-          href="https://docs.biosimulations.org/about/contact/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-      </ng-container>
-    </biosimulations-hover-open-menu>
-  </biosimulations-topbar-menu>
 
   <!--<ng-container>
     <ng-container id="buttons">

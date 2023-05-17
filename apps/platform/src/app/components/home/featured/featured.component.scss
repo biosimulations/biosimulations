@@ -1,7 +1,7 @@
 @use '@angular/material' as mat;
 @import 'apps/platform/src/styles.scss';
 @import 'biosimulations-colors';
-@import url('https://fonts.googleapis.com/css2?family=Cormorant:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;500;700:wght@700&display=swap');
 
 .container {
   height: 100%;
@@ -44,7 +44,9 @@
   background-color: rgb(255, 255, 255);
   margin: 0 5px;
   cursor: pointer;
-  transition: background-color 0.5s;
+  transition-property: all;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
 }
 
 .dot.active {
@@ -52,15 +54,19 @@
 }
 
 .mat-mdc-card {
-  max-width: 400px;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 0;
   padding-bottom: 1rem;
+  transition-property: all;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
 }
 img {
   height: 250px;
+  width: 100%;
   padding-left: 2rem;
   padding-right: 2rem;
   padding-top: 1rem;
@@ -68,7 +74,7 @@ img {
 }
 .mat-mdc-card-header {
   color: var(--text-primary-darker-color);
-  background-color: var(--primary-color);
+  background-color: var(--accent-color);
   width: 100%;
   padding: 1rem;
   justify-content: center;
@@ -77,7 +83,7 @@ img {
   border-top-right-radius: 4px;
 }
 .mat-mdc-card-subtitle {
-  color: var(--text-primary-darker-color);
+  color: var(--text-primary-color);
 }
 .mat-mdc-card-actions {
   margin: 0;
@@ -88,8 +94,10 @@ img {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  padding-bottom: 4rem;
   height: 60px;
 }
 .mat-mdc-raised-button {
   box-shadow: none;
+  background-color: var(--primary-color);
 }

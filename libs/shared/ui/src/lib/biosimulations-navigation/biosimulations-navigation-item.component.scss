@@ -1,3 +1,4 @@
+@use '@angular/material' as mat;
 @import 'biosimulations-colors';
 
 .mat-expansion-panel:not([class*='mat-elevation-z']) {
@@ -30,7 +31,7 @@
 }
 
 .mat-expansion-panel-header-title a {
-  color: $dark-primary-text;
+  color: $light-primary-text;
   biosimulations-icon {
     margin-left: 0.45rem;
     margin-right: 0.55rem;

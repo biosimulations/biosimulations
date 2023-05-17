@@ -1,5 +1,5 @@
 import { Endpoints } from '@biosimulations/config/common';
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, ElementRef } from '@angular/core';
 import { ISimulation, isUnknownSimulation } from '../../../datamodel';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { SimulationService } from '../../../services/simulation/simulation.service';
@@ -26,6 +26,9 @@ export class BrowseComponent implements OnInit {
   private endpoints = new Endpoints();
 
   @ViewChild(TableComponent) public table!: TableComponent;
+
+  @ViewChild('tableContainer', { static: false }) tableContainer: ElementRef | undefined;
+  collapsed = false;
 
   public columns: Column[] = [
     {
@@ -669,6 +672,7 @@ export class BrowseComponent implements OnInit {
     private dialog: MatDialog,
     private clipboardService: ClipboardService,
   ) {
+    this.tableContainer = undefined;
     activatedRoute.queryParams.subscribe((params: Params): void => {
       if (params?.try) {
         const numSimulations = this.loadExampleSimulations();
@@ -678,6 +682,10 @@ export class BrowseComponent implements OnInit {
         });
       }
     });
+  }
+
+  collapseTable(): void {
+    this.collapsed = !this.collapsed;
   }
 
   public ngOnInit(): void {

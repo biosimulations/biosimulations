@@ -1,10 +1,15 @@
+@use '@angular/material' as mat;
+@import 'apps/platform/src/styles.scss';
+@import 'biosimulations-colors';
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;500;700:wght@700&display=swap');
+
 .container {
   background-image: url('/assets/images/backgrounds/grey-3.png');
   background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 4rem;
+  padding-top: 0rem;
   padding-bottom: 4rem;
 }
 
@@ -37,6 +42,7 @@ img {
 
 .buttons {
   margin-top: 0.5rem;
+  padding-bottom: 4rem;
 }
 
 .text {
@@ -60,4 +66,82 @@ img {
   to {
     transform: rotate(359deg);
   }
+}
+
+.container {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+  padding: 2rem;
+  position: relative;
+}
+
+.heading {
+  padding-top: 10rem;
+  text-align: center;
+  font-size: 28px;
+  line-height: normal;
+}
+
+.heading-separator {
+  border-bottom: 2px solid var(--primary-color);
+  height: 0;
+  width: 6rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pagination-dots {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10rem;
+  margin-top: 20px;
+}
+
+.dot {
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: rgb(255, 255, 255);
+  margin: 0 5px;
+  cursor: pointer;
+  transition: background-color 0.5s;
+}
+
+.dot.active {
+  background-color: mat.get-color-from-palette($theme-primary);
+}
+
+.mat-mdc-card {
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 0;
+  padding-bottom: 1rem;
+}
+img {
+  height: 250px;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.mat-mdc-card-actions {
+  margin: 0;
+  margin-top: auto;
+}
+.mat-mdc-card-content {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height: 60px;
+}
+.mat-mdc-raised-button {
+  box-shadow: none;
 }

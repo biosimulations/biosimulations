@@ -5,6 +5,27 @@
   align-items: center;
   justify-content: center;
 }
+.display-data {
+  display: flex;
+  flex-direction: row;
+}
+.display-data > * {
+  flex: 1;
+  margin: 10px;
+}
+.plotparent {
+  width: 600px;
+  height: 600px;
+}
+.mat-grid-list {
+  padding-top: 0rem;
+}
+.mat-grid-tile {
+  padding-left: 15rem;
+  padding-top: 4rem;
+}
+.mat-grid-tile-header {
+}
 
 biosimulations-tab-page ::ng-deep .icon-list {
   & > li:not(:first-child) {

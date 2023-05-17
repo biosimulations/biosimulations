@@ -1,5 +1,4 @@
-<div class="heading">Featured projects</div>
-<div class="heading-separator"></div>
+<div class="heading"></div>
 <div class="subsection">
   <div fxLayout="row" fxLayoutAlign="space-around stretch">
     <ng-container *ngFor="let project of projects; let i = index">
@@ -13,11 +12,11 @@
           <mat-card-title>
             {{ project.title }}
           </mat-card-title>
-          <mat-card-subtitle>
+          <!--<mat-card-subtitle>
             {{ project.citation }}
-          </mat-card-subtitle>
+          </mat-card-subtitle>-->
         </mat-card-header>
-        <img src="{{ project.image }}" alt="{{ 'thumbnail for project with id: ' + project.id }}" />
+        <img src="{{ project.image }}" alt="IMAGE"/>
         <mat-card-content>
           {{ project.description }}
         </mat-card-content>

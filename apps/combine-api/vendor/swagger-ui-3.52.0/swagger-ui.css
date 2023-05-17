@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500&family=Source+Code+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;500;700:wght@300;400;500&family=Source+Code+Pro&display=swap');
 
 .swagger-ui {
   color: #3b4151;
@@ -2418,10 +2418,10 @@
     segoe ui, arial, sans-serif;
 }*/
 .swagger-ui .sans-serif {
-  font-family: 'Cormorant', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 .swagger-ui .serif {
-  font-family: 'Cormorant', serif;
+  font-family: 'Source Sans Pro', serif;
 }
 .swagger-ui .system-sans-serif {
   font-family: sans-serif;

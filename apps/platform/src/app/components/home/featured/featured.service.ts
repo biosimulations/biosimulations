@@ -3,7 +3,28 @@ import { FeaturedProject } from './featured.model';
 
 @Injectable()
 export class FeaturedService {
-  private ecoli = {
+  private simulators = {
+    title: 'Browse Simulators',
+    image: 'https://biosimulators.org/assets/images/biosimulators-logo/logo-white.svg',
+    id: 'simulators',
+    description:
+      'Browse a free registry of biosimulation tools. The registry includes tools for a broad range of frameworks (e.g., logical, kinetic), simulation algorithms (e.g., FBA, SSA), and model formats (e.g., BNGL, CellML, NeuroML/LEMS, SBML, Smoldyn). ',
+  };
+  private simulations = {
+    title: 'Browse Simulations',
+    image: 'https://biosimulations.org/assets/images/biosimulations-logo/logo-white.svg',
+    id: 'simulations',
+    description:
+      'Browse a free platform for sharing and re-using biomodels, simulations, simulation results, and visualizations of simulation results.',
+  };
+  private runSimulations = {
+    title: 'Run Simulations',
+    image: 'https://run.biosimulations.org/assets/images/runbiosimulations-logo/logo-white.svg',
+    id: 'runSimulations',
+    description:
+      'Interact with a free tool for running a wide range of biological simulations. Through the BioSimulators registry of biosimulation tools, runBioSimulations supports a broad range of modeling frameworks (e.g., logical, kinetic), simulation algorithms (e.g., FBA, SSA), modeling formats (e.g., SBML, SED-ML), and simulation tools (e.g., COBRApy, COPASI).',
+  };
+  /*  private ecoli = {
     title: 'Escherichia coli K-12 resource allocation',
     citation: '(Bulović et al., Metab Eng, 2019)',
     id: 'Escherichia-coli-resource-allocation-Bulovic-Metab-Eng-2019',
@@ -36,7 +57,9 @@ export class FeaturedService {
       'Model of the kinetics of dephosphorylation and translocation of NFAT. The model captures the rapid Ca(2+)-dependent dephosphorylation of NFAT and its slow rephosphorylation and nuclear transport which govern the lifetime of NFAT in the cytoplasm.',
   };
 
-  projects = [this.mouse, this.ecoli, this.yeast, this.calcium];
+  projects = [this.mouse, this.ecoli, this.yeast, this.calcium];*/
+
+  projects = [this.simulators, this.simulations, this.runSimulations];
 
   public getProjects(): FeaturedProject[] {
     return this.projects;

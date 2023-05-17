@@ -14,5 +14,8 @@ export class MetadataComponent {
   @Input()
   public simulationRun?: SimulationRunMetadata;
 
+  @Input()
+  public simulationViz!: any;
+
   constructor() {}
 }

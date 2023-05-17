@@ -1,6 +1,6 @@
 @use '@angular/material' as mat;
 @import 'biosimulations-colors';
-@import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Fira+Code&family=Cormorant&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500;700&family=Source+Sans+Pro:wght@300;400;700&display=swap');
 
 .container {
   background: transparent;
@@ -12,7 +12,7 @@
   padding-top: 10rem;
   line-height: normal;
   background-color: transparent;
-  font-family: 'Cormorant';
+  font-family: 'Source Sans Pro', 'sans-serif';
 
   svg {
     width: 100%;
@@ -38,9 +38,9 @@
     }
 
     &.tertiary {
-      color: #38cc00;
+      color: mat.get-color-from-palette($theme-tertiary);
       path.foreground {
-        fill: #38cc00;
+        fill: currentColor;
         fill-opacity: 0.25;
         stroke-opacity: 0.75;
         stroke-dasharray: 2px 2px;

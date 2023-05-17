@@ -1,11 +1,13 @@
 <biosimulations-home-teaser
-  heading="Easily share and find models, simulations, and visualizations of simulation results"
-  banner="assets/images/biosimulations-logo/logo-white.svg">
+  heading="Easily share and find models, simulations, and visualizations of simulation results">
   <ng-container id="buttons">
-    <biosimulations-home-teaser-button
+
+    <biosimulations-featured></biosimulations-featured>
+
+    <!--<biosimulations-home-teaser-button
     [href]="config.simulatorsAppUrl"
     target="biosimulators"
-    width="180px"
+    width="400px"
     color="accent">
       <ng-container id="title">Find simulation tools</ng-container>
       <ng-container id="text">
@@ -15,7 +17,7 @@
 
     <biosimulations-home-teaser-button
     [route]="['/projects']"
-    width="180px"
+    width="400px"
     color="primary">
       <ng-container id="title">Find simulations</ng-container>
       <ng-container id="text">
@@ -25,13 +27,13 @@
 
     <biosimulations-home-teaser-button
     [route]="['/runs/new']"
-    width="180px"
+    width="400px"
     color="tertiary">
       <ng-container id="title" >Run simulations</ng-container>
       <ng-container id="text">
         <p>@runBioSimulations</p>
       </ng-container>
-    </biosimulations-home-teaser-button>
+    </biosimulations-home-teaser-button>-->
   </ng-container>
 
   <ng-container id="description">
@@ -41,6 +43,11 @@
     formats (e.g., SBML), and tools (e.g., COBRApy, COPASI, tellurium).
   </ng-container>
 </biosimulations-home-teaser>
+
+
+<!---------------------------------------------------NEW SECTION-------------------------------------------------------------->
+
+
 
 
 <!---------------------------------------------------NEW SECTION-------------------------------------------------------------->
@@ -293,11 +300,6 @@
     </div>
   </ng-container>
 </biosimulations-home-section>
-
-
-<!---------------------------------------------------NEW SECTION-------------------------------------------------------------->
-
-<biosimulations-featured></biosimulations-featured>
 
 
 <!---------------------------------------------------NEW SECTION-------------------------------------------------------------->
@@ -696,7 +698,7 @@
       </biosimulations-home-logo>
     </p>
   </biosimulations-home-subsection>
-</biosimulations-home-section>-->
+</biosimulations-home-section>
 <!--
 <biosimulations-home-section [columns]="1">
   <ng-container id="heading"

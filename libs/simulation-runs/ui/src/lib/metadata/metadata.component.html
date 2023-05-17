@@ -21,7 +21,6 @@
       <div class="abstract" *ngIf="project.abstract">
         {{ project.abstract }}
       </div>
-
       <!-- Begin creators/contributers-->
       <!-- TODO create ORCID people list component -->
       <ul class="creators comma-separated ampersand-separator" *ngIf="project?.creators?.length">
@@ -77,6 +76,7 @@
               <ng-template #noHref>{{ item.value }}</ng-template>
             </td>
           </tr>
+          <p>
         </table>
       </biosimulations-text-page-side-bar-section>
     </ng-template>
