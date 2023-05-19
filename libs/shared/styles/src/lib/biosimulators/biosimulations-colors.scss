@@ -130,11 +130,11 @@ $mat-dark-theme-background: (
 );
 
 // Theme Config
-$theme-primary-main: #ff9800;
-$theme-primary-lighter: #ffdaa5; // 65%
-$theme-primary-lightest: #feeacc; // 80%
+$theme-primary-main: #ffa500;
+$theme-primary-lighter: #ffcc80; // 55%
+$theme-primary-lightest: #ffe0b2; // 80%
+$theme-primary-darker: #ff8f00;
 $theme-primary-lightestest: #fff4e5; // 90%
-$theme-primary-darker: #ff7b00;
 
 body {
   --primary-color: #{$theme-primary-main};
@@ -189,10 +189,10 @@ $mat-accent: (
 );
 $theme-accent: mat.define-palette($mat-accent, main, lighter, darker);
 
-$theme-tertiary-main: #38cc00;
-$theme-tertiary-lighter: #9bff75; // 55%
-$theme-tertiary-lightest: #ddffd1; // 80%
-$theme-tertiary-darker: #35c100; // 5%
+$theme-tertiary-main: #2aa72a;
+$theme-tertiary-lighter: #80ff80; // 55%
+$theme-tertiary-lightest: #b2ffb2; // 80%
+$theme-tertiary-darker: #087008;
 
 body {
   --tertiary-color: #{$theme-tertiary-main};

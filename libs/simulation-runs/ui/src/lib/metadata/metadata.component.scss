@@ -2,40 +2,49 @@
 @import 'biosimulations-colors';
 @import 'biosimulations-typography';
 
-.thumbnails-column {
-  display: flex;
-  justify-content: center;
-}
+.metadata {
+  .thumbnails-column {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    align-items: stretch;
+    margin-bottom: 2rem; /* Optional: Add margin bottom for spacing */
+    .image-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .attributes-column {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      flex-direction: row;
+      align-items: stretch;
+    }
+  }
 
-biosimulations-carousel {
-  width: calc(min(22rem, 100%));
-}
-
-.metadata-column {
-  margin-top: -2rem;
-}
-
-@media screen and (max-width: 959px) {
   .metadata-column {
-    margin-top: -1rem;
-  }
-}
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-.metadata-column {
-  .abstract {
-    margin-block-start: 0;
-    margin-block-end: 0;
-  }
+    .abstract {
+      margin-block-start: 0;
+      margin-block-end: 0;
+    }
 
-  .creators {
-    font-style: italic;
-    margin-block-start: 0;
-    margin-block-end: 0.5rem;
-  }
+    .creators {
+      font-style: italic;
+      margin-block-start: 0;
+      margin-block-end: 0.5rem;
+    }
 
-  .description {
-    margin-block-start: 0.5rem;
-    margin-block-end: 0.5rem;
+    .description {
+      margin-block-start: 0.5rem;
+      margin-block-end: 0.5rem;
+    }
 
     ::ng-deep {
       h1,
@@ -94,24 +103,6 @@ biosimulations-carousel {
     }
   }
 }
-
-.attributes-column {
-  margin-top: -1rem;
-
-  ::ng-deep biosimulations-text-page-section {
-    .container {
-      margin-top: 1rem;
-    }
-  }
-
-  table.icon-list {
-    max-width: 100%;
-    th {
-      width: 14px;
-    }
-    td {
-      max-width: calc(100% - 14px - 0.125rem - 1px);
-      word-break: break-all;
-    }
-  }
+.icon-list {
+  padding: 3%;
 }

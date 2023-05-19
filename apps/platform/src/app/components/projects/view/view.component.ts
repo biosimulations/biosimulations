@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, combineLatest, map, shareReplay, mergeMap, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -137,5 +137,12 @@ export class ViewComponent implements OnInit {
       }
     }
     return visualizations;
+  }
+}
+
+@Injectable()
+export class VizService extends ViewComponent {
+  public constructor(service: ViewService, projService: ProjectService, route: ActivatedRoute, router: Router) {
+    super(service, projService, route, router);
   }
 }

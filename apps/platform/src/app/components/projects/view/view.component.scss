@@ -11,7 +11,7 @@
 }
 .display-data > * {
   flex: 1;
-  margin: 10px;
+  margin: 40px;
 }
 .plotparent {
   width: 600px;
@@ -21,8 +21,9 @@
   padding-top: 0rem;
 }
 .mat-grid-tile {
-  padding-left: 15rem;
+  height: 100%;
   padding-top: 4rem;
+  justify-content: center;
 }
 .mat-grid-tile-header {
 }

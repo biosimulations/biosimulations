@@ -16,12 +16,14 @@
 
 <ng-container *ngIf="projectMetadata$ | async as projectMetadata">
   <ng-container *ngIf="simulationRun$ | async as simulationRun">
+
     <div class="display-data">
       <biosimulations-project-metadata
       [project]="projectMetadata"
       [simulationRun]="simulationRun">
       </biosimulations-project-metadata>
-      <mat-grid-list cols="1" rowHeight="500px" gutterSize="200">
+
+      <mat-grid-list cols="1" rowHeight="800px" gutterSize="20">
         <mat-grid-tile *ngFor="let plotVisualization of plotVisualizations$ | async">
           <div class=".plotparent">
             <biosimulations-project-visualization
@@ -29,10 +31,13 @@
               [visualization]="plotVisualization">
             </biosimulations-project-visualization>
           </div>
-          <mat-grid-tile-header>{{ plotVisualization.name }}</mat-grid-tile-header>
+          <mat-grid-tile-header>
+            {{ plotVisualization.name }}
+          </mat-grid-tile-header>
         </mat-grid-tile>
       </mat-grid-list>
       <!-- End visualizations -->
+
     </div>
   </ng-container>
 </ng-container>
