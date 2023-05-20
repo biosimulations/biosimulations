@@ -8,8 +8,7 @@ import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 })
 export class TopbarMenuItemComponent {
   @Input()
-  color = 'accent';
-
+  color!: any;
   @Input()
   heading = '';
 

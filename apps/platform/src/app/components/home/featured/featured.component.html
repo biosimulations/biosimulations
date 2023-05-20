@@ -2,7 +2,6 @@
   <div fxLayout="row" fxLayoutAlign="space-around stretch">
     <ng-container *ngFor="let project of projects; let i = index">
       <mat-card
-        appearance="outlined"
         class="project-card"
         [fxFlex] ="70 / numCards"
         *ngIf="i >= startIndex && i <= endIndex"

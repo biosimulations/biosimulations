@@ -18,9 +18,7 @@
     mat-flat-button
     [routerLink]="route || null"
     [queryParams]="queryParams"
-    [disabled]="disabled"
-    [ngClass]="{ primary: color === 'primary', accent: color === 'accent' }"
-    color="accent">
+    [disabled]="disabled">
       <div
       class="button-content">
         <biosimulations-icon [icon]="icon"></biosimulations-icon>
@@ -29,3 +27,5 @@
     </button>
   </ng-template>
 </div>
+
+<!--[ngClass]="{ primary: color === 'primary', accent: color === 'accent' }"-->

@@ -4,7 +4,6 @@
 
 :host {
   margin-left: 1rem;
-  color: mat.get-color-from-palette($theme-primary);
 }
 
 .mat-flat-button {
@@ -25,11 +24,9 @@
   &:hover:not(.mat-button-disabled) {
     border: none;
     //border-bottom: 1.5px solid #fff;
-    color: mat.get-color-from-palette($theme-primary);
   }
 
   &:active:not(.mat-button-disabled) {
-    color: mat.get-color-from-palette($theme-primary);
     //color: #e3e3e3;
     //border: none;
     border-bottom: 1.5px solid #e3e3e3;
