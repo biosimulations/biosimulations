@@ -28,7 +28,8 @@
   }
 
   &:active:not([disabled]) {
-    background: rgba(44, 44, 44, 0.08);
+    background: #0f200a;
+    //background: rgba(44, 44, 44, 0.08);
     color: rgba(#000000, 0.9);
   }
 }
