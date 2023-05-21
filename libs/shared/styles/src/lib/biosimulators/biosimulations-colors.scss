@@ -218,25 +218,25 @@ $mat-tertiary: (
 );
 $theme-tertiary: mat.define-palette($mat-tertiary, main, lighter, darker);
 
-$theme-quartenary-main: #951ed9;
-$theme-quartenary-lighter: #d097f0; // 55%
-$theme-quartenary-lightest: #efdcfa; // 85%
-$theme-quartenary-darker: #8d1cce; // 5%
+$theme-quaternary-main: #951ed9;
+$theme-quaternary-lighter: #d097f0; // 55%
+$theme-quaternary-lightest: #efdcfa; // 85%
+$theme-quaternary-darker: #8d1cce; // 5%
 
 body {
-  --quartenary-color: #{$theme-quartenary-main};
-  --quartenary-lighter-color: #{$theme-quartenary-lighter};
-  --quartenary-darker-color: #{$theme-quartenary-darker};
-  --text-quartenary-color: #{$dark-primary-text};
-  --text-quartenary-lighter-color: #{$dark-primary-text};
-  --text-quartenary-darker-color: #{$dark-primary-text};
+  --quaternary-color: #{$theme-quaternary-main};
+  --quaternary-lighter-color: #{$theme-quaternary-lighter};
+  --quaternary-darker-color: #{$theme-quaternary-darker};
+  --text-quaternary-color: #{$dark-primary-text};
+  --text-quaternary-lighter-color: #{$dark-primary-text};
+  --text-quaternary-darker-color: #{$dark-primary-text};
 }
 
-$mat-quartenary: (
-  main: $theme-quartenary-main,
-  lighter: $theme-quartenary-lighter,
-  darker: $theme-quartenary-darker,
-  200: $theme-quartenary-main,
+$mat-quaternary: (
+  main: $theme-quaternary-main,
+  lighter: $theme-quaternary-lighter,
+  darker: $theme-quaternary-darker,
+  200: $theme-quaternary-main,
   // For slide toggle,
   contrast:
     (
@@ -245,7 +245,7 @@ $mat-quartenary: (
       darker: $dark-primary-text,
     ),
 );
-$theme-quartenary: mat.define-palette($mat-quartenary, main, lighter, darker);
+$theme-quaternary: mat.define-palette($mat-quaternary, main, lighter, darker);
 
 $theme-warn-main: #f44336;
 $theme-warn-lighter: #fcc7c3; // 75%
@@ -306,7 +306,7 @@ $altTheme: mat.define-dark-theme(
       primary: $theme-primary,
       accent: $theme-accent,
       tertiary: $theme-tertiary,
-      quartinary: $theme-quartinary,
+      quaternary: $theme-quaternary,
       warn: $theme-warn,
     ),
     typography: $fontConfig,
