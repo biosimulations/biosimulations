@@ -4,8 +4,7 @@
       <mat-card
         class="project-card"
         [fxFlex] ="70 / numCards"
-        *ngIf="i >= startIndex && i <= endIndex"
-      >
+        *ngIf="i >= startIndex && i <= endIndex">
         <mat-card-header>
           <mat-card-title>
             {{ project.title }}
@@ -17,7 +16,9 @@
         </mat-card-content>
 
         <mat-card-actions class="actions">
-          <button mat-raised-button color="primary" routerLink="/projects/{{ project.id }}">View</button>
+          <button
+          mat-raised-button
+          routerLink="/projects/{{ project.id }}">Learn More</button>
         </mat-card-actions>
       </mat-card>
     </ng-container>
@@ -31,3 +32,5 @@
     ></span>
   </div>
 </div>
+
+<!--[color]="getButtonColor(i)"-->

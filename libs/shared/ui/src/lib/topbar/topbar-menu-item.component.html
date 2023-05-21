@@ -5,7 +5,7 @@
   [href]="href"
   rel="noopener"
   [target]="target"
-  color="primary">
+  style="background-color: rgba(187, 72, 187, 0.734); color: white;">
     <div
     class="button-content">
       <biosimulations-icon [icon]="icon"></biosimulations-icon>
@@ -18,7 +18,8 @@
     mat-flat-button
     [routerLink]="route || null"
     [queryParams]="queryParams"
-    [disabled]="disabled">
+    [disabled]="disabled"
+    style="background-color: #347121; color: white;">
       <div
       class="button-content">
         <biosimulations-icon [icon]="icon"></biosimulations-icon>
@@ -26,6 +27,22 @@
       </div>
     </button>
   </ng-template>
+
+  <!--<ng-template #altButton>
+    <button
+    mat-flat-button
+    *ngIf="buttonType else altButton"
+    [routerLink]="route || null"
+    [queryParams]="queryParams"
+    [disabled]="disabled"
+    style="background-color: #ffa500; color: white;>
+      <div
+      class="button-content">
+        <biosimulations-icon [icon]="icon"></biosimulations-icon>
+        {{ heading }}
+      </div>
+    </button>
+  </ng-template>-->
 </div>
 
 <!--[ngClass]="{ primary: color === 'primary', accent: color === 'accent' }"-->

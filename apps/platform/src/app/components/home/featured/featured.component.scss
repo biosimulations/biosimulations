@@ -69,6 +69,7 @@
   transition-property: all;
   transition-duration: 0.3s;
   transition-timing-function: ease;
+  border-radius: 4px;
 }
 img {
   height: 300px;
@@ -86,8 +87,9 @@ img {
   font-weight: bold;
   justify-content: center;
   margin-top: 0;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
+  border-radius: 4px;
+  //border-top-left-radius: 4px;
+  //border-top-right-radius: 4px;
 }
 .mat-mdc-card-subtitle {
   color: var(--text-primary-color);
@@ -107,4 +109,6 @@ img {
 .mat-mdc-raised-button {
   box-shadow: none;
   background-color: #347121;
+  color: white;
+  border-radius: 2px;
 }

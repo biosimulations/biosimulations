@@ -13,11 +13,13 @@ export class FeaturedComponent {
   public startIndex = 0;
   public endIndex = 1;
   public numCards = 1;
+  public currentServiceIndex: number;
   private intervalId!: NodeJS.Timer | null;
   public constructor(private service: FeaturedService) {
     this.projects = this.service.getProjects();
     this.startIndex = 0;
     this.endIndex = this.numCards - 1;
+    this.currentServiceIndex = 0;
     this.startAutoScroll();
   }
 
@@ -54,6 +56,10 @@ export class FeaturedComponent {
   public ngOnDestroy(): void {
     this.stopAutoScroll();
   }
+  /*public getButtonColor(index: number): string {
+    const colors = ['purple', 'accent', 'tertiary'];
+    return index === this.currentServiceIndex ? colors[index] : '';
+  }*/
   public jumpTo(index: number): void {
     this.startIndex = index;
     this.endIndex = index + (this.numCards - 1);
