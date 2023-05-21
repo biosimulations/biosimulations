@@ -1568,7 +1568,7 @@
   }, {
     "@id" : "http://biomodels.net/SBO/SBO_0000178",
     "@type" : "owl:Class",
-    "rdfs:comment" : "Rupture of a covalent bond resulting in the conversion of one physical entity into several physical entities.",
+    "rdfs:comment" : "Rupture of a covalent bond resulting in the conversion of one physical entity into several physical entities or into a physical entity of a different topological class.",
     "rdfs:label" : "cleavage",
     "rdfs:subClassOf" : "http://biomodels.net/SBO/SBO_0000182"
   }, {
@@ -4981,8 +4981,15 @@
   }, {
     "@id" : "http://biomodels.net/SBO/SBO_0000694",
     "@type" : "owl:Class",
-    "rdfs:label" : [ "Modelling approach for finding the optimal state of a system.", "optimization framework" ],
+    "rdfs:comment" : "Modelling approach for finding the optimal state of a system.",
+    "rdfs:label" : "optimization framework",
     "rdfs:subClassOf" : "http://biomodels.net/SBO/SBO_0000693"
+  }, {
+    "@id" : "http://biomodels.net/SBO/SBO_0000695",
+    "@type" : "owl:Class",
+    "rdfs:comment" : "Formation of a covalent bond resulting in the creation of a link between the ends of one or more linear polymer molecules.",
+    "rdfs:label" : "ligation",
+    "rdfs:subClassOf" : "http://biomodels.net/SBO/SBO_0000182"
   }, {
     "@id" : "http://biomodels.net/SBO/part_of",
     "@type" : [ "owl:ObjectProperty", "owl:TransitiveProperty" ],
