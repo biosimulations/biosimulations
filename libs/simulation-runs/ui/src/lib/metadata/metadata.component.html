@@ -8,8 +8,8 @@
 <div
   class="metadata"
   fxLayout="column"
-  fxLayoutAlign="start start"
-  fxLayoutGap="2rem"
+  fxLayoutAlign="space-between"
+  fxLayoutGap="1rem"
   fxLayoutGap.lt-lg="1rem">
   <!-- Begin thumbnails -->
   <div
@@ -20,6 +20,36 @@
       <biosimulations-carousel [images]="project.thumbnails"> </biosimulations-carousel>
     </div>
 
+    <!-- Begin summary/text data-->
+    <div *ngIf="project" fxFlex class="metadata-column ragged-column">
+      <biosimulations-text-page-content-section [heading]="project.title" [iconActionType]="null">
+        <div
+        class="abstract"
+        *ngIf="project.abstract">
+          {{ project.abstract }}
+        </div>
+        <!-- Begin creators/contributers-->
+        <!-- TODO create ORCID people list component -->
+        <ul class="creators comma-separated ampersand-separator" *ngIf="project?.creators?.length">
+          <li *ngFor="let creator of project.creators">
+            {{ creator.label }}{{ creator.uri ? ' ' : ''
+            }}<a [href]="creator.uri" rel="noopener" target="_blank" *ngIf="creator.uri">
+              <biosimulations-icon [icon]="creator.icon"></biosimulations-icon>
+            </a>
+          </li>
+        </ul>
+        <!-- description -->
+        <markdown
+        [data]="project.description"
+        class="description"
+        *ngIf="project.description">
+        </markdown>
+      </biosimulations-text-page-content-section>
+    </div>
+    <!-- End summary/text data-->
+
+
+
     <!-- Biology, simulation, provenance, & identifiers information -->
     <div
     *ngIf="
@@ -29,8 +59,8 @@
       project?.identifiers?.length
     "
     class="attributes-column ragged-column"
-    fxLayout="row"
-    fxFlex="22rem"
+    fxLayout="column"
+    fxFlex="100%"
     fxFlex.lt-lg="100%">
     <!-- project metadata -->
     <ng-container
@@ -74,31 +104,7 @@
 
 
 
-  <!-- Begin summary/text data-->
-  <div *ngIf="project" fxFlex class="metadata-column ragged-column">
-    <biosimulations-text-page-content-section [heading]="project.title" [iconActionType]="null">
-      <div class="abstract" *ngIf="project.abstract">
-        {{ project.abstract }}
-      </div>
-      <!-- Begin creators/contributers-->
-      <!-- TODO create ORCID people list component -->
-      <ul class="creators comma-separated ampersand-separator" *ngIf="project?.creators?.length">
-        <li *ngFor="let creator of project.creators">
-          {{ creator.label }}{{ creator.uri ? ' ' : ''
-          }}<a [href]="creator.uri" rel="noopener" target="_blank" *ngIf="creator.uri">
-            <biosimulations-icon [icon]="creator.icon"></biosimulations-icon>
-          </a>
-        </li>
-      </ul>
-      <!-- description -->
-      <markdown
-      [data]="project.description"
-      class="description"
-      *ngIf="project.description">
-      </markdown>
-    </biosimulations-text-page-content-section>
-  </div>
-  <!-- End summary/text data-->
+
 
 </div>
 

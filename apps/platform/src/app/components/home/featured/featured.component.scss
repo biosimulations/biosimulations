@@ -67,7 +67,7 @@
   padding-top: 0;
   padding-bottom: 1rem;
   color: white;
-  background-color: #347121;
+  background-color: var(--accent-color);
   transition-property: all;
   transition-duration: 0.3s;
   transition-timing-function: ease;
@@ -83,7 +83,7 @@ img {
 }
 .mat-mdc-card-header {
   color: var(--text-primary-darker-color);
-  background-color: var(--accent-color);
+  background-color: #347121;
   width: 99%;
   padding: 1rem;
   font-weight: bold;

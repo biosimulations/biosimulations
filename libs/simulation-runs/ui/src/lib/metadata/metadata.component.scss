@@ -9,26 +9,29 @@
     align-items: center;
     flex-direction: column;
     align-items: stretch;
-    margin-bottom: 2rem; /* Optional: Add margin bottom for spacing */
+    //margin-bottom: 2rem; /* Optional: Add margin bottom for spacing */
     .image-container {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       align-items: center;
     }
     .attributes-column {
       display: flex;
+      height: 100%;
       width: 100%;
       justify-content: center;
       flex-direction: row;
-      align-items: stretch;
+      align-items: normal;
     }
   }
 
   .metadata-column {
-    width: 75%;
+    height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 5rem;
 
     .abstract {
       margin-block-start: 0;
@@ -104,5 +107,8 @@
   }
 }
 .icon-list {
-  padding: 3%;
+  height: 100%;
+  width: 100%;
+  padding: 1%;
+  padding-bottom: 1%;
 }

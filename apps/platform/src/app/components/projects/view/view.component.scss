@@ -22,10 +22,11 @@
 }
 .mat-grid-tile {
   height: 100%;
-  padding-top: 4rem;
+  padding-top: 2rem;
   justify-content: center;
 }
 .mat-grid-tile-header {
+  justify-content: center;
 }
 
 biosimulations-tab-page ::ng-deep .icon-list {

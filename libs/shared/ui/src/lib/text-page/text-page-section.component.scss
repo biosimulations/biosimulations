@@ -3,7 +3,7 @@
 @import 'biosimulations-typography';
 
 .container {
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 @media screen and (max-width: 959px) {
@@ -29,8 +29,8 @@
 }
 
 h3 {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
   margin: 0;
   border-radius: 4px;
   font-weight: 500;
@@ -50,11 +50,12 @@ h3 {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   width: 100%;
+  height: 100%;
   //max-width: calc(100% - 0.5rem - 10px);
 }
 
 .content {
-  padding-top: 0.25rem;
+  padding-top: 1rem;
 }
 
 .container ::ng-deep .mat-table.biosimulations-table {
@@ -83,16 +84,19 @@ h3 {
 }
 
 .highlight-container {
-  border: 1px solid mat.get-color-from-palette($theme-primary);
+  border: 1px solid mat.get-color-from-palette($theme-accent);
   border-radius: 4px;
   width: 100%;
   height: 100%;
   display: flex;
+  padding-bottom: 0rem;
 
   h3 {
-    background: #087008;
+    background: purple; // #087008;
+    justify-content: center;
+    width: 100%;
     color: $light-text;
-    border-radius: 0;
+    border-radius: 1px;
 
     a {
       color: $light-text;
