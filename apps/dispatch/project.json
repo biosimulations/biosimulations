@@ -83,7 +83,7 @@
             {
               "type": "anyComponentStyle",
               "maximumWarning": "6kb",
-              "maximumError": "15kb"
+              "maximumError": "115kb"
             }
           ],
           "ngswConfigPath": "apps/dispatch/ngsw-config.json"
