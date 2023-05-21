@@ -310,66 +310,31 @@
 <biosimulations-home-section
   [columns]="3">
   <biosimulations-home-subsection
-    id="subsection"
-    heading="Utilities"
-    subheading=""
-    subheadingSize="small"
-    icon="info"
-    style="justify-content: center;">
-    <biosimulations-topbar-menu-item
-      heading="Convert a file"
-      id="trigger"
-      icon="convert"
-      [routerLink]="['/utils', 'convert-file']">
-    </biosimulations-topbar-menu-item>
-    <biosimulations-topbar-menu-item
-      heading="Create a project"
-      icon="write"
-      id="trigger"
-      [routerLink]="['/utils', 'create-project']">
-    </biosimulations-topbar-menu-item>
-    <biosimulations-topbar-menu-item
-      heading="Validate a model"
-      icon="review"
-      id="trigger"
-      [routerLink]="['/utils', 'validate-model']">
-    </biosimulations-topbar-menu-item>
-    <biosimulations-topbar-menu-item
-      heading="Validate a simulation"
-      icon="review"
-      id="trigger"
-      [routerLink]="['/utils', 'validate-simulation']">
-    </biosimulations-topbar-menu-item>
-    <biosimulations-topbar-menu-item
-      heading="Validate a project"
-      icon="review"
-      id="trigger"
-      [routerLink]="['/utils', 'validate-project']">
-    </biosimulations-topbar-menu-item>
-    <biosimulations-topbar-menu-item
-      heading="Validate metadata"
-      icon="review"
-      id="trigger"
-      [routerLink]="['/utils', 'validate-metadata']">
-    </biosimulations-topbar-menu-item>
-    <biosimulations-topbar-menu-item
-      heading="Validate metadata"
-      icon="review"
-      id="trigger"
-      [routerLink]="['/utils', 'validate-metadata']">
-    </biosimulations-topbar-menu-item>
-    <biosimulations-topbar-menu-item
-      heading="Validate a simulator"
-      icon="review"
-      href="https://github.com/biosimulators/Biosimulators/issues/new?assignees=&labels=Validate%2Fsubmit+simulator&template=ValidateOrSubmitASimulator.yml&title=%5BSimulation+capabilities%5D%3A+"
-      target="githubissues">
-    </biosimulations-topbar-menu-item>
-    <biosimulations-topbar-menu-item
-      heading="Suggest a simulator"
-      icon="idea"
-      id="trigger"
-      [routerLink]="['/utils', 'suggest-simulator']">
-    </biosimulations-topbar-menu-item>
+  heading="More"
+  icon="help"
+  subheading=""
+  style="justify-content: center;">
+    <biosimulations-hover-open-menu>
+      <biosimulations-topbar-menu-item
+      heading="Help"
+      icon="help"
+      id="trigger">
+      </biosimulations-topbar-menu-item>
+      <ng-container id="items">
+        <biosimulations-dropdown-menu-item
+          heading="FAQ"
+          icon="help"
+          href="https://docs.biosimulations.org/users/faqs/"
+          target="biosimulations-docs">
+        </biosimulations-dropdown-menu-item>
+        <biosimulations-dropdown-menu-item
+          heading="Contact Us"
+          icon="contact"
+          href="https://docs.biosimulations.org/about/contact/"
+          target="biosimulations-docs">
+        </biosimulations-dropdown-menu-item>
+      </ng-container>
+    </biosimulations-hover-open-menu>
   </biosimulations-home-subsection>
 
   <biosimulations-home-subsection
