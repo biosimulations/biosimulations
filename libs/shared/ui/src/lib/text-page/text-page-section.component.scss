@@ -5,6 +5,7 @@
 .container {
   margin-top: 2rem;
   justify-content: center;
+  display: flex;
 }
 
 @media screen and (max-width: 959px) {
@@ -87,13 +88,12 @@ h3 {
 
 .highlight-container {
   background: #d2eafc; //#9bcff9;
-  border: 3px solid mat.get-color-from-palette($theme-accent); //rgba(187, 72, 187, 0.734);
+  border: 3px solid #ffa500; //rgba(187, 72, 187, 0.734);
   border-radius: 4px;
-  width: 100%;
+  width: fit-content;
   height: 100%;
   display: flex;
   justify-content: center;
-  padding: 1.5rem;
 
   h3 {
     background-color: #087008; //purple; or #087008;
@@ -144,7 +144,7 @@ h3 {
   }
 
   .content {
-    padding: 0.5rem;
+    padding: 1rem;
 
     ::ng-deep {
       h4 {

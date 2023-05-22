@@ -8,35 +8,35 @@
 <div
   class="metadata"
   fxLayout="column"
+  fxGrid
   fxLayoutAlign="space-between"
   fxLayoutGap="1rem"
   fxLayoutGap.lt-lg="1rem">
+
   <!-- Begin thumbnails -->
   <div
   *ngIf="project && project?.thumbnails?.length"
   class="icon-list thumbnails-column"
   fxLayout="column">
 
+    <biosimulations-text-page-side-bar-section
+    [heading]="project.title"
+    class="icon-list">
+      <!-- Begin summary/text data -->
+      <div
+      *ngIf="project"
+      class="metadata-column ragged-column">
 
-    <!-- Begin summary/text data -->
-    <div
-    *ngIf="project"
-    class="attributes-column ragged-column">
-      <!--<biosimulations-text-page-content-section [heading]="project.title" [iconActionType]="null">-->
-      <biosimulations-text-page-side-bar-section
-      [heading]="project.title"
-      class="icon-list">
-        <div class="image-container">
-          <biosimulations-carousel
-          [images]="project.thumbnails"
-          style="padding-top: 3rem; padding-bottom: 4.5rem;">
-          </biosimulations-carousel>
-        </div>
+        <biosimulations-carousel
+        [images]="project.thumbnails"
+        style="padding-top: 0rem; padding-bottom: 2.5rem;">
+        </biosimulations-carousel>
         <div
         class="abstract"
         *ngIf="project.abstract">
           {{ project.abstract }}
         </div>
+
         <!-- Begin creators/contributers-->
         <!-- TODO create ORCID people list component -->
         <ul
@@ -56,78 +56,75 @@
             </a>
           </li>
         </ul>
+
         <!-- description -->
         <markdown
         [data]="project.description"
         class="description"
         *ngIf="project.description">
         </markdown>
-      <!--</biosimulations-text-page-content-section>-->
-      </biosimulations-text-page-side-bar-section>
-    </div>
-    <!-- End summary/text data -->
+      </div>
+      <!-- End summary/text data -->
 
+      <!-- Biology, simulation, provenance, & identifiers information -->
+      <div
+      *ngIf="
+        project?.modelSimulation?.length ||
+        simulationRun?.length ||
+        project?.provenance?.length ||
+        project?.identifiers?.length
+      "
+      class="attributes-column ragged-column"
+      fxLayout="column"
+      fxGrid
+      fxFlex.lt-lg="100%">
 
+      <!-- project metadata -->
+      <ng-container
+        *ngTemplateOutlet="sectionsTemplate; context: { sections: project?.modelSimulation || [] }"></ng-container>
 
-    <!-- Biology, simulation, provenance, & identifiers information -->
-    <div
-    *ngIf="
-      project?.modelSimulation?.length ||
-      simulationRun?.length ||
-      project?.provenance?.length ||
-      project?.identifiers?.length
-    "
-    class="attributes-column ragged-column"
-    fxLayout="column"
-    fxFlex="100%"
-    fxFlex.lt-lg="100%">
+      <!-- simulation run metadata -->
+      <ng-container *ngTemplateOutlet="sectionsTemplate; context: { sections: simulationRun || [] }"></ng-container>
 
-    <!-- project metadata -->
-    <ng-container
-      *ngTemplateOutlet="sectionsTemplate; context: { sections: project?.modelSimulation || [] }"></ng-container>
+      <!-- project metadata -->
+      <ng-container *ngTemplateOutlet="sectionsTemplate; context: { sections: project?.provenance || [] }"></ng-container>
 
-    <!-- simulation run metadata -->
-    <ng-container *ngTemplateOutlet="sectionsTemplate; context: { sections: simulationRun || [] }"></ng-container>
+      <ng-container *ngTemplateOutlet="sectionsTemplate; context: { sections: project?.identifiers || [] }"></ng-container>
 
-    <!-- project metadata -->
-    <ng-container *ngTemplateOutlet="sectionsTemplate; context: { sections: project?.provenance || [] }"></ng-container>
-
-    <ng-container *ngTemplateOutlet="sectionsTemplate; context: { sections: project?.identifiers || [] }"></ng-container>
-
-    <!-- template -->
-    <ng-template
-    #sectionsTemplate
-    let-sections="sections">
-        <biosimulations-text-page-side-bar-section
-        *ngFor="let section of sections"
-        [heading]="section.title">
-          <table
-          class="icon-list">
-            <tr
-            *ngFor="let item of section.items"
-            fxLayout="row">
-              <th>
-                <biosimulations-icon [icon]="item.icon"></biosimulations-icon>
-              </th>
-              <td>
-                <b>{{ item.title }}:</b>{{ ' ' }}
-                <a
-                [href]="item.url"
-                rel="noopener"
-                target="_blank"
-                *ngIf="item.url; else noHref">
-                  {{ item.value }}
-                </a>
-                <ng-template #noHref>{{ item.value }}</ng-template>
-              </td>
-            </tr>
-          </table>
-        </biosimulations-text-page-side-bar-section>
-      </ng-template>
-    </div>
+      <!-- template -->
+      <ng-template
+      #sectionsTemplate
+      let-sections="sections">
+          <biosimulations-text-page-side-bar-section
+          *ngFor="let section of sections"
+          [heading]="section.title">
+            <table
+            class="icon-list">
+              <tr
+              *ngFor="let item of section.items"
+              fxLayout="row">
+                <th>
+                  <biosimulations-icon [icon]="item.icon"></biosimulations-icon>
+                </th>
+                <td>
+                  <b>{{ item.title }}:</b>{{ ' ' }}
+                  <a
+                  [href]="item.url"
+                  rel="noopener"
+                  target="_blank"
+                  *ngIf="item.url; else noHref">
+                    {{ item.value }}
+                  </a>
+                  <ng-template #noHref>{{ item.value }}</ng-template>
+                </td>
+              </tr>
+            </table>
+          </biosimulations-text-page-side-bar-section>
+        </ng-template>
+      </div>
+    </biosimulations-text-page-side-bar-section>
   </div>
   <!-- End simulation information -->
   <!-- End thumbnails-->
-
 </div>
 

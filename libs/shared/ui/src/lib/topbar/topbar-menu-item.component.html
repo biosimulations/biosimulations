@@ -5,7 +5,7 @@
   [href]="href"
   rel="noopener"
   [target]="target"
-  style="background-color: #ff8f00; color: white;">
+  style="background-color: #ffa500; color: #1b5408; font-weight: 800">
     <div
     class="button-content">
       <biosimulations-icon [icon]="icon"></biosimulations-icon>
@@ -19,7 +19,7 @@
     [routerLink]="route || null"
     [queryParams]="queryParams"
     [disabled]="disabled"
-    style="background-color: #347121; color: white;">
+    style="background-color: #ffa500; color: #1b5408; font-weight: 800">
       <div
       class="button-content">
         <biosimulations-icon [icon]="icon"></biosimulations-icon>
@@ -27,23 +27,6 @@
       </div>
     </button>
   </ng-template>
-
-
-  <!--<ng-template #altButton>
-    <button
-    mat-flat-button
-    *ngIf="buttonType else altButton"
-    [routerLink]="route || null"
-    [queryParams]="queryParams"
-    [disabled]="disabled"
-    style="background-color: #ffa500; color: white;>
-      <div
-      class="button-content">
-        <biosimulations-icon [icon]="icon"></biosimulations-icon>
-        {{ heading }}
-      </div>
-    </button>
-  </ng-template>-->
 </div>
 
 <!--[ngClass]="{ primary: color === 'primary', accent: color === 'accent' }"-->
