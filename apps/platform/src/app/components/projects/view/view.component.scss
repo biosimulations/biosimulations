@@ -6,7 +6,7 @@
   justify-content: center;
 }
 .display-data {
-  display: flex;
+  display: inline-flex;
   flex-direction: row;
 }
 .display-data > * {
