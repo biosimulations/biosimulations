@@ -13,18 +13,25 @@
   fxLayoutGap.lt-lg="1rem">
   <!-- Begin thumbnails -->
   <div
-    *ngIf="project && project?.thumbnails?.length"
-    class="thumbnails-column"
-    fxLayout="column">
-    <div class="image-container">
-      <biosimulations-carousel [images]="project.thumbnails"> </biosimulations-carousel>
-    </div>
+  *ngIf="project && project?.thumbnails?.length"
+  class="icon-list thumbnails-column"
+  fxLayout="column">
+
 
     <!-- Begin summary/text data -->
-    <div *ngIf="project" class="icon-list ragged-column">
+    <div
+    *ngIf="project"
+    class="attributes-column ragged-column">
       <!--<biosimulations-text-page-content-section [heading]="project.title" [iconActionType]="null">-->
       <biosimulations-text-page-side-bar-section
-      [heading]="project.title">
+      [heading]="project.title"
+      class="icon-list">
+        <div class="image-container">
+          <biosimulations-carousel
+          [images]="project.thumbnails"
+          style="padding-top: 3rem; padding-bottom: 4.5rem;">
+          </biosimulations-carousel>
+        </div>
         <div
         class="abstract"
         *ngIf="project.abstract">
@@ -32,11 +39,20 @@
         </div>
         <!-- Begin creators/contributers-->
         <!-- TODO create ORCID people list component -->
-        <ul class="creators comma-separated ampersand-separator" *ngIf="project?.creators?.length">
-          <li *ngFor="let creator of project.creators">
-            {{ creator.label }}{{ creator.uri ? ' ' : ''
-            }}<a [href]="creator.uri" rel="noopener" target="_blank" *ngIf="creator.uri">
-              <biosimulations-icon [icon]="creator.icon"></biosimulations-icon>
+        <ul
+        class="creators comma-separated ampersand-separator" *
+        ngIf="project?.creators?.length">
+          <li
+          *ngFor="let creator of project.creators">
+            {{ creator.label }}{{ creator.uri ? ' ' : ''}}
+            <a
+            [href]="creator.uri"
+            rel="noopener"
+            target="_blank"
+            *ngIf="creator.uri">
+              <biosimulations-icon
+              [icon]="creator.icon">
+              </biosimulations-icon>
             </a>
           </li>
         </ul>
@@ -46,8 +62,8 @@
         class="description"
         *ngIf="project.description">
         </markdown>
-      </biosimulations-text-page-side-bar-section>
       <!--</biosimulations-text-page-content-section>-->
+      </biosimulations-text-page-side-bar-section>
     </div>
     <!-- End summary/text data -->
 
@@ -65,6 +81,7 @@
     fxLayout="column"
     fxFlex="100%"
     fxFlex.lt-lg="100%">
+
     <!-- project metadata -->
     <ng-container
       *ngTemplateOutlet="sectionsTemplate; context: { sections: project?.modelSimulation || [] }"></ng-container>
@@ -75,11 +92,12 @@
     <!-- project metadata -->
     <ng-container *ngTemplateOutlet="sectionsTemplate; context: { sections: project?.provenance || [] }"></ng-container>
 
-    <ng-container
-      *ngTemplateOutlet="sectionsTemplate; context: { sections: project?.identifiers || [] }"></ng-container>
+    <ng-container *ngTemplateOutlet="sectionsTemplate; context: { sections: project?.identifiers || [] }"></ng-container>
 
     <!-- template -->
-    <ng-template #sectionsTemplate let-sections="sections">
+    <ng-template
+    #sectionsTemplate
+    let-sections="sections">
         <biosimulations-text-page-side-bar-section
         *ngFor="let section of sections"
         [heading]="section.title">
@@ -93,7 +111,13 @@
               </th>
               <td>
                 <b>{{ item.title }}:</b>{{ ' ' }}
-                <a [href]="item.url" rel="noopener" target="_blank" *ngIf="item.url; else noHref">{{ item.value }}</a>
+                <a
+                [href]="item.url"
+                rel="noopener"
+                target="_blank"
+                *ngIf="item.url; else noHref">
+                  {{ item.value }}
+                </a>
                 <ng-template #noHref>{{ item.value }}</ng-template>
               </td>
             </tr>
@@ -104,10 +128,6 @@
   </div>
   <!-- End simulation information -->
   <!-- End thumbnails-->
-
-
-
-
 
 </div>
 
