@@ -4,6 +4,7 @@
 
 .container {
   margin-top: 2rem;
+  justify-content: center;
 }
 
 @media screen and (max-width: 959px) {
@@ -29,9 +30,8 @@
 }
 
 h3 {
-  padding-left: 1rem;
-  padding-right: 1rem;
   margin: 0;
+  border: 1px;
   border-radius: 4px;
   font-weight: 500;
 
@@ -49,9 +49,10 @@ h3 {
   -webkit-line-clamp: 1;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  width: 100%;
-  height: 100%;
-  justify-content: center;
+  width: fit-content;
+  height: fit-content;
+  padding: 0.5rem;
+
   //max-width: calc(100% - 0.5rem - 10px);
 }
 
@@ -65,7 +66,7 @@ h3 {
   }
 
   .mat-header-cell {
-    color: $dark-primary-text;
+    color: $light-primary-text;
   }
 }
 
@@ -85,17 +86,23 @@ h3 {
 }
 
 .highlight-container {
-  border: 1px solid mat.get-color-from-palette($theme-accent);
+  background: #d2eafc; //#9bcff9;
+  border: 3px solid mat.get-color-from-palette($theme-accent); //rgba(187, 72, 187, 0.734);
   border-radius: 4px;
-  width: 50%;
+  width: 100%;
   height: 100%;
   display: flex;
+  justify-content: center;
+  padding: 1.5rem;
 
   h3 {
-    background: purple; // #087008;
-    width: 100%;
+    background-color: #087008; //purple; or #087008;
+    //padding-left: 50%;
+    width: auto;
     color: $light-text;
-    border-radius: 1px;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
 
     a {
       color: $light-text;
@@ -128,7 +135,7 @@ h3 {
   }
 
   h3 {
-    border-radius: 0;
+    border-radius: 2px;
     @include mat.typography-level($fontConfig, body-2);
     font-weight: 500;
   }

@@ -20,9 +20,11 @@
       <biosimulations-carousel [images]="project.thumbnails"> </biosimulations-carousel>
     </div>
 
-    <!-- Begin summary/text data-->
-    <div *ngIf="project" fxFlex class="metadata-column ragged-column">
-      <biosimulations-text-page-content-section [heading]="project.title" [iconActionType]="null">
+    <!-- Begin summary/text data -->
+    <div *ngIf="project" class="icon-list ragged-column">
+      <!--<biosimulations-text-page-content-section [heading]="project.title" [iconActionType]="null">-->
+      <biosimulations-text-page-side-bar-section
+      [heading]="project.title">
         <div
         class="abstract"
         *ngIf="project.abstract">
@@ -44,9 +46,10 @@
         class="description"
         *ngIf="project.description">
         </markdown>
-      </biosimulations-text-page-content-section>
+      </biosimulations-text-page-side-bar-section>
+      <!--</biosimulations-text-page-content-section>-->
     </div>
-    <!-- End summary/text data-->
+    <!-- End summary/text data -->
 
 
 

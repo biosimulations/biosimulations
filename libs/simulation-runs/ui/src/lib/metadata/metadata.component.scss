@@ -10,11 +10,14 @@
     flex-direction: column;
     align-items: stretch;
     //margin-bottom: 2rem; /* Optional: Add margin bottom for spacing */
+
     .image-container {
       display: flex;
       flex-direction: row;
-      align-items: center;
+      justify-content: center;
+      //padding: 7rem;
     }
+
     .attributes-column {
       display: flex;
       height: 100%;
@@ -31,6 +34,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 2rem;
     padding-top: 5rem;
 
     .abstract {
