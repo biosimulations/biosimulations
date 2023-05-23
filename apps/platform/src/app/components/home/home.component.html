@@ -298,7 +298,12 @@
 <!---------------------------------------------------NEW SECTION-------------------------------------------------------------->
 
 <biosimulations-home-section [columns]="3">
-  <biosimulations-home-subsection heading="More" icon="help" subheading="" style="justify-content: center">
+  <biosimulations-home-subsection
+    id="subsection"
+    heading="More"
+    icon="help"
+    subheading=""
+    style="justify-content: center">
     <biosimulations-hover-open-menu>
       <biosimulations-topbar-menu-item heading="Help" icon="help" id="trigger"> </biosimulations-topbar-menu-item>
       <ng-container id="items">
@@ -379,8 +384,7 @@
       icon="progress"
       href="https://docs.biosimulations.org/concepts/conventions/simulation-run-logs/"
       target="biosimulations-docs">
-    </biosimulations-topbar-menu-item
-    >>
+    </biosimulations-topbar-menu-item>
   </biosimulations-home-subsection>
 
   <biosimulations-home-subsection

@@ -20,7 +20,7 @@
       <biosimulations-project-metadata [project]="projectMetadata" [simulationRun]="simulationRun">
       </biosimulations-project-metadata>
 
-      <mat-expansion-panel cols="2" *ngFor="let plotVisualization of plotVisualizations$ | async" style="width: 50%">
+      <!--<mat-expansion-panel cols="2" *ngFor="let plotVisualization of plotVisualizations$ | async" style="width: 50%">
         <mat-expansion-panel-header>
           <mat-panel-title>
             {{ plotVisualization.name }}
@@ -37,9 +37,9 @@
         <mat-action-row>
           <button>click</button>
         </mat-action-row>
-      </mat-expansion-panel>
+      </mat-expansion-panel>-->
 
-      <!--<mat-grid-list cols="2" rowHeight="510px" gutterSize="30">
+      <mat-grid-list cols="1" rowHeight="510px" gutterSize="30">
         <mat-grid-tile *ngFor="let plotVisualization of plotVisualizations$ | async">
           <div class=".plotparent">
             <mat-grid-tile-header>
@@ -53,7 +53,7 @@
             </div>
           </div>
         </mat-grid-tile>
-      </mat-grid-list>-->
+      </mat-grid-list>
       <!-- End visualizations -->
     </div>
   </ng-container>
