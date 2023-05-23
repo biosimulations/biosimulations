@@ -56,7 +56,7 @@
 }
 
 .dot.active {
-  background-color: #459b2c; //rgba(187, 72, 187, 0.734);
+  background-color: rgba(187, 72, 187, 0.734);
 }
 
 .mat-mdc-card {
@@ -111,7 +111,7 @@ img {
 .mat-mdc-raised-button {
   box-shadow: none;
   background-color: mat.get-color-from-palette($theme-accent); //#347121;
-  color: white;
+  color: #184709;
   border-radius: 2px;
   font-weight: 600;
 }
