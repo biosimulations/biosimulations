@@ -1,7 +1,6 @@
 <mat-sidenav-container
   class="sidenav-container mat-display-3 mat-app-background"
   [ngClass]="{ 'theme-alternate': darkMode }">
-
   <mat-sidenav
     #drawer
     class="sidenav"
@@ -27,11 +26,12 @@
     </div>
   </mat-sidenav>
 
-
-  <mat-sidenav-content class="sidenav-content"> <!--here is where the left menu and logo is: todo: ADD SITE BUTTONS-->
+  <mat-sidenav-content class="sidenav-content">
+    <!--here is where the left menu and logo is: todo: ADD SITE BUTTONS-->
     <div class="topbar">
       <biosimulations-topbar [showLogo]="!drawer.opened">
-        <biosimulations-logo-image class="logo-img" id="logo" [logo]="logo"></biosimulations-logo-image>  <!--logo on left -->
+        <biosimulations-logo-image class="logo-img" id="logo" [logo]="logo"></biosimulations-logo-image>
+        <!--logo on left -->
         <!--<button
           id="leftContent"
           class="biosimulations-button white topbar-left-button"
@@ -41,8 +41,10 @@
           (click)="drawer.toggle()"
           *ngIf="!drawer.opened">
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-        </button>--> <!--hamburger next to logo-->
-        <ng-content id="rightContent" select="biosimulations-topbar-menu"> </ng-content>  <!--help button on right-->
+        </button>-->
+        <!--hamburger next to logo-->
+        <ng-content id="rightContent" select="biosimulations-topbar-menu"> </ng-content>
+        <!--help button on right-->
       </biosimulations-topbar>
     </div>
     <div class="bread-crumbs" fxShow fxHide.lt-md>
@@ -62,10 +64,7 @@
   </mat-sidenav-content>
 </mat-sidenav-container>
 
-
 <mat-sidenav-container
   class="sidenav-container mat-display-3 mat-app-background"
   [ngClass]="{ 'theme-alternate': darkMode }">
-
 </mat-sidenav-container>
-

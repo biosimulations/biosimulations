@@ -1,13 +1,12 @@
 <div fxShow fxHide.lt-md>
   <a
-  mat-flat-button
-  *ngIf="href && !disabled; else button"
-  [href]="href"
-  rel="noopener"
-  [target]="target"
-  style="background-color: #ffa500; color: #1b5408; font-weight: 800">
-    <div
-    class="button-content">
+    mat-flat-button
+    *ngIf="href && !disabled; else button"
+    [href]="href"
+    rel="noopener"
+    [target]="target"
+    style="background-color: #ffa500; color: #1b5408; font-weight: 800">
+    <div class="button-content">
       <biosimulations-icon [icon]="icon"></biosimulations-icon>
       {{ heading }}
     </div>
@@ -15,13 +14,12 @@
 
   <ng-template #button>
     <button
-    mat-flat-button
-    [routerLink]="route || null"
-    [queryParams]="queryParams"
-    [disabled]="disabled"
-    style="background-color: #ffa500; color: #1b5408; font-weight: 800">
-      <div
-      class="button-content">
+      mat-flat-button
+      [routerLink]="route || null"
+      [queryParams]="queryParams"
+      [disabled]="disabled"
+      style="background-color: #ffa500; color: #1b5408; font-weight: 800">
+      <div class="button-content">
         <biosimulations-icon [icon]="icon"></biosimulations-icon>
         {{ heading }}
       </div>

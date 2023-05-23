@@ -6,104 +6,88 @@
   [newsVersion]="1"
   [showNews]="false"
   [healthy]="healthy$ | async">
+  <biosimulations-topbar-menu>
+    <biosimulations-hover-open-menu>
+      <biosimulations-topbar-menu-item heading="BioSimDB" icon="project" id="trigger" [routerLink]="['/projects']">
+      </biosimulations-topbar-menu-item>
+    </biosimulations-hover-open-menu>
 
-    <biosimulations-topbar-menu>
+    <biosimulations-hover-open-menu>
+      <biosimulations-topbar-menu-item heading="Run Simulations" icon="experiment" id="trigger" [route]="['/runs/new']">
+      </biosimulations-topbar-menu-item>
+    </biosimulations-hover-open-menu>
 
-      <biosimulations-hover-open-menu>
-        <biosimulations-topbar-menu-item
-        heading="BioSimDB"
-        icon="project"
-        id="trigger"
-        [routerLink]="['/projects']">
-        </biosimulations-topbar-menu-item>
-      </biosimulations-hover-open-menu>
-
-      <biosimulations-hover-open-menu>
-        <biosimulations-topbar-menu-item
-        heading="Run Simulations"
-        icon="experiment"
-        id="trigger"
-        [route]="['/runs/new']">
-        </biosimulations-topbar-menu-item>
-      </biosimulations-hover-open-menu>
-
-      <biosimulations-hover-open-menu>
-        <biosimulations-topbar-menu-item
+    <biosimulations-hover-open-menu>
+      <biosimulations-topbar-menu-item
         heading="BioSimulators"
         icon="simulators"
         id="trigger"
         href="https://biosimulators.org">
-        </biosimulations-topbar-menu-item>
-      </biosimulations-hover-open-menu>
+      </biosimulations-topbar-menu-item>
+    </biosimulations-hover-open-menu>
 
-      <biosimulations-hover-open-menu>
-        <biosimulations-topbar-menu-item
-        heading="Utilities"
-        icon="construction"
-        id="trigger">
-        </biosimulations-topbar-menu-item>
-        <ng-container id="items">
-          <biosimulations-dropdown-menu-item
-            heading="Convert a file"
-            icon="convert"
-            [routerLink]="['/utils', 'convert-file']">
-          </biosimulations-dropdown-menu-item>
+    <biosimulations-hover-open-menu>
+      <biosimulations-topbar-menu-item heading="Utilities" icon="construction" id="trigger">
+      </biosimulations-topbar-menu-item>
+      <ng-container id="items">
+        <biosimulations-dropdown-menu-item
+          heading="Convert a file"
+          icon="convert"
+          [routerLink]="['/utils', 'convert-file']">
+        </biosimulations-dropdown-menu-item>
 
-          <biosimulations-dropdown-menu-item
-            heading="Create a project"
-            icon="write"
-            [routerLink]="['/utils', 'create-project']">
-          </biosimulations-dropdown-menu-item>
+        <biosimulations-dropdown-menu-item
+          heading="Create a project"
+          icon="write"
+          [routerLink]="['/utils', 'create-project']">
+        </biosimulations-dropdown-menu-item>
 
-          <biosimulations-dropdown-menu-item
-            heading="Validate a model"
-            icon="review"
-            [routerLink]="['/utils', 'validate-model']">
-          </biosimulations-dropdown-menu-item>
+        <biosimulations-dropdown-menu-item
+          heading="Validate a model"
+          icon="review"
+          [routerLink]="['/utils', 'validate-model']">
+        </biosimulations-dropdown-menu-item>
 
-          <biosimulations-dropdown-menu-item
-            heading="Validate a simulation"
-            icon="review"
-            [routerLink]="['/utils', 'validate-simulation']">
-          </biosimulations-dropdown-menu-item>
+        <biosimulations-dropdown-menu-item
+          heading="Validate a simulation"
+          icon="review"
+          [routerLink]="['/utils', 'validate-simulation']">
+        </biosimulations-dropdown-menu-item>
 
-          <biosimulations-dropdown-menu-item
-            heading="Validate metadata"
-            icon="review"
-            [routerLink]="['/utils', 'validate-metadata']">
-          </biosimulations-dropdown-menu-item>
+        <biosimulations-dropdown-menu-item
+          heading="Validate metadata"
+          icon="review"
+          [routerLink]="['/utils', 'validate-metadata']">
+        </biosimulations-dropdown-menu-item>
 
-          <biosimulations-dropdown-menu-item
-            heading="Validate a project"
-            icon="review"
-            [routerLink]="['/utils', 'validate-project']">
-          </biosimulations-dropdown-menu-item>
+        <biosimulations-dropdown-menu-item
+          heading="Validate a project"
+          icon="review"
+          [routerLink]="['/utils', 'validate-project']">
+        </biosimulations-dropdown-menu-item>
 
-          <biosimulations-dropdown-menu-item
-            heading="Validate a simulator"
-            icon="review"
-            href="https://github.com/biosimulators/Biosimulators/issues/new?assignees=&labels=Validate%2Fsubmit+simulator&template=ValidateOrSubmitASimulator.yml&title=%5BSimulation+capabilities%5D%3A+"
-            target="githubissues">
-          </biosimulations-dropdown-menu-item>
+        <biosimulations-dropdown-menu-item
+          heading="Validate a simulator"
+          icon="review"
+          href="https://github.com/biosimulators/Biosimulators/issues/new?assignees=&labels=Validate%2Fsubmit+simulator&template=ValidateOrSubmitASimulator.yml&title=%5BSimulation+capabilities%5D%3A+"
+          target="githubissues">
+        </biosimulations-dropdown-menu-item>
 
-          <biosimulations-dropdown-menu-item
-            heading="Suggest a simulator"
-            icon="idea"
-            [routerLink]="['/utils', 'suggest-simulator']">
-          </biosimulations-dropdown-menu-item>
-        </ng-container>
-      </biosimulations-hover-open-menu>
-    </biosimulations-topbar-menu>
-
-
+        <biosimulations-dropdown-menu-item
+          heading="Suggest a simulator"
+          icon="idea"
+          [routerLink]="['/utils', 'suggest-simulator']">
+        </biosimulations-dropdown-menu-item>
+      </ng-container>
+    </biosimulations-hover-open-menu>
+  </biosimulations-topbar-menu>
 
   <!--<ng-container>
     <ng-container id="buttons">
 
     </ng-container>
-  </ng-container>--> <!--dont use!!-->
-
-
+  </ng-container>-->
+  <!--dont use!!-->
 
   <!--<ng-container id="sidenav-menu">
     <biosimulations-navigation-item heading="Simulation projects" icon="project">
@@ -270,6 +254,4 @@
   <ng-container id="news"> Under Construction </ng-container>
 
   <router-outlet></router-outlet>
-
 </biosimulations-navigation>
-

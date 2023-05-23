@@ -1,24 +1,19 @@
 <div class="subsection">
   <div fxLayout="row" fxLayoutAlign="space-around stretch">
     <ng-container *ngFor="let project of projects; let i = index">
-      <mat-card
-        class="project-card"
-        [fxFlex] ="70 / numCards"
-        *ngIf="i >= startIndex && i <= endIndex">
+      <mat-card class="project-card" [fxFlex]="70 / numCards" *ngIf="i >= startIndex && i <= endIndex">
         <mat-card-header>
           <mat-card-title>
             {{ project.title }}
           </mat-card-title>
         </mat-card-header>
-        <img src="{{ project.image }}" alt="IMAGE"/>
+        <img src="{{ project.image }}" alt="IMAGE" />
         <mat-card-content>
           {{ project.description }}
         </mat-card-content>
 
         <mat-card-actions class="actions">
-          <button
-          mat-raised-button
-          routerLink="/projects/{{ project.id }}">Learn More</button>
+          <button mat-raised-button routerLink="/projects/{{ project.id }}">Learn More</button>
         </mat-card-actions>
       </mat-card>
     </ng-container>
@@ -28,8 +23,7 @@
       class="dot"
       *ngFor="let project of projects; let i = index"
       [class.active]="i >= startIndex && i <= endIndex"
-      (click)="jumpTo(i)"
-    ></span>
+      (click)="jumpTo(i)"></span>
   </div>
 </div>
 
