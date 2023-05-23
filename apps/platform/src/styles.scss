@@ -13,7 +13,7 @@
   min-height: 100%;
   width: 100%;
   padding-top: 5px;
-  font-family: 'Source Sans Pro', 'serif';
+  font-family: 'Source Sans Pro', serif, sans-serif;
 }
 .mat-tab-label {
   min-width: 25px !important;
@@ -96,6 +96,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: 'Source Sans Pro', 'serif';
+  font-family: 'Source Sans Pro', serif, sans-serif;
   font-size: large;
 }

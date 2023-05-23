@@ -8,13 +8,12 @@
 
 .mat-flat-button {
   font-size: 18px;
-  padding-bottom: 5rem;
   font-weight: 500;
-  font-family: 'Source Sans Pro', 'sans serif';
+  font-family: 'Source Sans Pro', sans-serif;
 
   background: transparent;
   border: none;
-  padding: 0;
+  padding: 0 0 5rem;
   min-width: auto;
   border-radius: 0;
   line-height: 30px;
@@ -35,7 +34,7 @@
   .button-content {
     display: flex;
     align-items: center;
-    font-family: 'Source Sans Pro', 'sans serif';
+    font-family: 'Source Sans Pro', sans-serif;
     font-weight: 500;
   }
 

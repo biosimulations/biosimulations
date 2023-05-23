@@ -40,8 +40,7 @@
         <!-- Begin creators/contributers-->
         <!-- TODO create ORCID people list component -->
         <ul
-        class="creators comma-separated ampersand-separator" *
-        ngIf="project?.creators?.length">
+        class="creators comma-separated ampersand-separator" *ngIf="project?.creators?.length">
           <li
           *ngFor="let creator of project.creators">
             {{ creator.label }}{{ creator.uri ? ' ' : ''}}
@@ -98,8 +97,7 @@
           <biosimulations-text-page-side-bar-section
           *ngFor="let section of sections"
           [heading]="section.title">
-            <table
-            class="icon-list">
+            <table class="icon-list" aria-label="metadata table">
               <tr
               *ngFor="let item of section.items"
               fxLayout="row">
