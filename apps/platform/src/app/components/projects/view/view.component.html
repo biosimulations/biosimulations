@@ -16,52 +16,34 @@
 
 <ng-container *ngIf="projectMetadata$ | async as projectMetadata">
   <ng-container *ngIf="simulationRun$ | async as simulationRun">
-    <div class="display-data">
-      <biosimulations-project-metadata [project]="projectMetadata" [simulationRun]="simulationRun">
-      </biosimulations-project-metadata>
+    <div class="display-data-container">
+      <div class="display-data">
+        <biosimulations-project-metadata [project]="projectMetadata" [simulationRun]="simulationRun">
+        </biosimulations-project-metadata>
 
-      <mat-grid-list cols="1" rowHeight="510px" gutterSize="30">
-        <mat-grid-tile *ngFor="let plotVisualization of plotVisualizations$ | async">
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                {{ plotVisualization.name }}
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            <div class=".plotparent">
-              <mat-grid-tile-header>
-                {{ plotVisualization.name }}
-              </mat-grid-tile-header>
-              <div class="project-viz">
-                <biosimulations-project-visualization
-                  class="full-width full-height"
-                  [visualization]="plotVisualization"
-                ></biosimulations-project-visualization>
+        <mat-grid-list cols="2" rowHeight="100%" gutterSize="20">
+          <mat-grid-tile *ngFor="let plotVisualization of plotVisualizations$ | async">
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{ plotVisualization.name }}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class=".plotparent">
+                <mat-grid-tile-header>
+                  {{ plotVisualization.name }}
+                </mat-grid-tile-header>
+                <div class="project-viz">
+                  <biosimulations-project-visualization
+                    class="full-width full-height"
+                    [visualization]="plotVisualization"
+                  ></biosimulations-project-visualization>
+                </div>
               </div>
-            </div>
-          </mat-expansion-panel>
-        </mat-grid-tile>
-      </mat-grid-list>
-
-
-
-
-      <!--<mat-grid-list cols="1" rowHeight="510px" gutterSize="30">
-        <mat-grid-tile *ngFor="let plotVisualization of plotVisualizations$ | async">
-          <div class=".plotparent">
-            <mat-grid-tile-header>
-              {{ plotVisualization.name }}
-            </mat-grid-tile-header>
-            <div class="project-viz">
-              <biosimulations-project-visualization
-                class="full-width full-height"
-                [visualization]="plotVisualization">
-              </biosimulations-project-visualization>
-            </div>
-          </div>
-        </mat-grid-tile>
-      </mat-grid-list>-->
-      <!-- End visualizations -->
+            </mat-expansion-panel>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </div>
     </div>
   </ng-container>
 </ng-container>
