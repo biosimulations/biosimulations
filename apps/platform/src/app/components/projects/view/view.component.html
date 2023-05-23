@@ -20,26 +20,33 @@
       <biosimulations-project-metadata [project]="projectMetadata" [simulationRun]="simulationRun">
       </biosimulations-project-metadata>
 
-      <!--<mat-expansion-panel cols="2" *ngFor="let plotVisualization of plotVisualizations$ | async" style="width: 50%">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            {{ plotVisualization.name }}
-          </mat-panel-title>
-          <mat-panel-description> y variable name </mat-panel-description>
-        </mat-expansion-panel-header>
-
-        <mat-grid-list cols="1" rowHeight="400px" gutterSize="30">
-          <div class=".plotparent">
-            <biosimulations-project-visualization class="full-width full-height" [visualization]="plotVisualization">
-            </biosimulations-project-visualization>
-          </div>
-        </mat-grid-list>
-        <mat-action-row>
-          <button>click</button>
-        </mat-action-row>
-      </mat-expansion-panel>-->
-
       <mat-grid-list cols="1" rowHeight="510px" gutterSize="30">
+        <mat-grid-tile *ngFor="let plotVisualization of plotVisualizations$ | async">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ plotVisualization.name }}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class=".plotparent">
+              <mat-grid-tile-header>
+                {{ plotVisualization.name }}
+              </mat-grid-tile-header>
+              <div class="project-viz">
+                <biosimulations-project-visualization
+                  class="full-width full-height"
+                  [visualization]="plotVisualization"
+                ></biosimulations-project-visualization>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-grid-tile>
+      </mat-grid-list>
+
+
+
+
+      <!--<mat-grid-list cols="1" rowHeight="510px" gutterSize="30">
         <mat-grid-tile *ngFor="let plotVisualization of plotVisualizations$ | async">
           <div class=".plotparent">
             <mat-grid-tile-header>
@@ -53,7 +60,7 @@
             </div>
           </div>
         </mat-grid-tile>
-      </mat-grid-list>
+      </mat-grid-list>-->
       <!-- End visualizations -->
     </div>
   </ng-container>

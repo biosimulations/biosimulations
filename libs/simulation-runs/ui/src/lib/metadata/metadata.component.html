@@ -1,10 +1,4 @@
-<!--<div
-  class="metadata"
-  fxLayout="row"
-  fxLayout.lt-lg="column"
-  fxLayoutAlign="space-between"
-  fxLayoutGap="2rem"
-  fxLayoutGap.lt-lg="1rem">-->
+
 <div
   class="metadata"
   fxLayout="column"
@@ -13,7 +7,7 @@
   fxLayoutGap="1rem"
   fxLayoutGap.lt-lg="1rem">
   <!-- Begin thumbnails -->
-  <div *ngIf="project && project?.thumbnails?.length" class="thumbnails-column" fxLayout="column">
+  <div *ngIf="project && project?.thumbnails?.length" fxFlex class="thumbnails-column" fxLayout="column">
     <!-- Begin summary/text data -->
     <div class="image-container">
       <biosimulations-carousel [images]="project.thumbnails" style="padding-top: 0rem; padding-bottom: 1rem">
@@ -59,7 +53,7 @@
     "
     class="attributes-column ragged-column"
     fxLayout="column"
-    fxGrid
+    fxInlineBlock
     fxFlex.lt-lg="100%">
     <!-- project metadata -->
     <ng-container
