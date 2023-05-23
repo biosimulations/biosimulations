@@ -56,7 +56,7 @@
 }
 
 .dot.active {
-  background-color: mat.get-color-from-palette($theme-primary);
+  background-color: #459b2c; //rgba(187, 72, 187, 0.734);
 }
 
 .mat-mdc-card {
@@ -67,7 +67,7 @@
   padding-top: 0;
   padding-bottom: 1rem;
   color: white;
-  background-color: var(--accent-color);
+  background-color: mat.get-color-from-palette($theme-primary);
   transition-property: all;
   transition-duration: 0.3s;
   transition-timing-function: ease;
@@ -83,10 +83,10 @@ img {
 }
 .mat-mdc-card-header {
   color: var(--text-primary-darker-color);
-  background-color: #347121;
+  background-color: mat.get-color-from-palette($theme-primary);
   width: 99%;
   padding: 1rem;
-  font-weight: bold;
+  font-weight: 600;
   justify-content: center;
   margin-top: 0;
   border-radius: 4px;
@@ -110,7 +110,8 @@ img {
 }
 .mat-mdc-raised-button {
   box-shadow: none;
-  background-color: rgba(187, 72, 187, 0.734);
+  background-color: mat.get-color-from-palette($theme-accent); //#347121;
   color: white;
   border-radius: 2px;
+  font-weight: 600;
 }
