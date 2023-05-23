@@ -1,5 +1,18 @@
 # Changelog
 
+## [9.26.3](https://github.com/biosimulations/biosimulations/compare/v9.26.2...v9.26.3) (2023-05-23)
+
+
+### Bug Fixes
+
+* configure docker which is invoked indirectly in builLintTest action ([b096643](https://github.com/biosimulations/biosimulations/commit/b096643367a81f8948ef17621b4a3aaf3c855ddc))
+* disable combine-api Docker build cache for failing Github Action ([cc67ad8](https://github.com/biosimulations/biosimulations/commit/cc67ad88de2609365159e278d5767cdc08c94dc8))
+* increase max style size to 115kb on all apps ([12c99e0](https://github.com/biosimulations/biosimulations/commit/12c99e03ea7a31c37018e8d278236d008ff6f1b1))
+* sonarcloud linting bugs in style sheets ([e7c1548](https://github.com/biosimulations/biosimulations/commit/e7c15481a9fc5f9aa7684eaea0117f81eeac6374))
+* typos for quaternary color, increased style size budget to 115kb ([d05b5a2](https://github.com/biosimulations/biosimulations/commit/d05b5a29ebba792b31114f4b0f1bdbf28a9b874e))
+* update docker action versions to fix build error ([957c293](https://github.com/biosimulations/biosimulations/commit/957c2930c5a2328a4bbfbcb3463a47603838c622))
+* upgrade docker github actions and longer timeout on jest test ([ce15f6e](https://github.com/biosimulations/biosimulations/commit/ce15f6e8b5ea4a006f0f15ee6c5236e2ede47765))
+
 ## [9.26.2](https://github.com/biosimulations/biosimulations/compare/v9.26.1...v9.26.2) (2023-05-08)
 
 
