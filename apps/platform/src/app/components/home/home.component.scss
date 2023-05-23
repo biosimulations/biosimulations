@@ -5,6 +5,10 @@
   .logos {
     text-align: center;
   }
+  .rotate-biosimulations-arrow {
+    transform: rotate(180deg);
+    transform-origin: left top;
+  }
 }
 
 @media screen and (max-width: 959px) {

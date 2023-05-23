@@ -1,6 +1,20 @@
+@use '@angular/material' as mat;
+@import 'biosimulations-colors';
+
 :host {
   margin-left: auto;
   padding-left: 0;
+  padding-bottom: 8rem;
+  padding-top: 5.25rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-buttons {
+  margin-left: auto;
+  padding-left: 0;
+  padding-bottom: 4.5rem;
+  padding-top: 4.5rem;
   display: flex;
   justify-content: space-between;
 }

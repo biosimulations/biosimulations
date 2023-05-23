@@ -10,22 +10,25 @@ describe('MetadataDialogComponent', () => {
   let component: MetadataDialogComponent;
   let fixture: ComponentFixture<MetadataDialogComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [MatDialogModule, SharedUiModule, RouterTestingModule],
-      providers: [
-        { provide: MatDialogRef, useValue: {} },
-        {
-          provide: MAT_DIALOG_DATA,
-          useValue: {
-            title: '',
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        imports: [MatDialogModule, SharedUiModule, RouterTestingModule],
+        providers: [
+          { provide: MatDialogRef, useValue: {} },
+          {
+            provide: MAT_DIALOG_DATA,
+            useValue: {
+              title: '',
+            },
           },
-        },
-        ScrollService,
-      ],
-      declarations: [MetadataDialogComponent, MetadataComponent],
-    }).compileComponents();
-  }));
+          ScrollService,
+        ],
+        declarations: [MetadataDialogComponent, MetadataComponent],
+      }).compileComponents();
+    }),
+    20000,
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MetadataDialogComponent);

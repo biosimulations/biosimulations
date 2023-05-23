@@ -10,5 +10,5 @@ export class TextPageSideBarSectionComponent {
   heading = '';
 
   @Input()
-  highlight = false;
+  highlight = true;
 }

@@ -1,46 +1,41 @@
 <biosimulations-home-teaser
-  heading="Easily share and find models, simulations, and visualizations of simulation results"
-  banner="assets/images/biosimulations-logo/logo-white.svg">
+  heading="Easily share and find models, simulations, and visualizations of simulation results">
   <ng-container id="buttons">
-    <biosimulations-home-teaser-button
-      [href]="config.simulatorsAppUrl"
-      target="biosimulators"
-      width="180px"
-      color="accent">
+
+    <biosimulations-featured></biosimulations-featured>
+
+    <!--<biosimulations-home-teaser-button
+    [href]="config.simulatorsAppUrl"
+    target="biosimulators"
+    width="400px"
+    color="accent">
       <ng-container id="title">Find simulation tools</ng-container>
       <ng-container id="text">
         <p>@BioSimulators</p>
       </ng-container>
     </biosimulations-home-teaser-button>
 
-    <biosimulations-home-teaser-button [route]="['/projects']" width="180px" color="primary">
+    <biosimulations-home-teaser-button
+    [route]="['/projects']"
+    width="400px"
+    color="primary">
       <ng-container id="title">Find simulations</ng-container>
       <ng-container id="text">
         <p>@BioSimulations</p>
       </ng-container>
     </biosimulations-home-teaser-button>
 
-    <biosimulations-home-teaser-button [route]="['/runs/new']" width="180px" color="accent">
-      <ng-container id="title">Run simulations</ng-container>
+    <biosimulations-home-teaser-button
+    [route]="['/runs/new']"
+    width="400px"
+    color="tertiary">
+      <ng-container id="title" >Run simulations</ng-container>
       <ng-container id="text">
         <p>@runBioSimulations</p>
       </ng-container>
-    </biosimulations-home-teaser-button>
-
-    <biosimulations-home-teaser-button [route]="['/runs']" width="180px" color="accent">
-      <ng-container id="title">Viz simulation results</ng-container>
-      <ng-container id="text">
-        <p>@runBioSimulations</p>
-      </ng-container>
-    </biosimulations-home-teaser-button>
-
-    <biosimulations-home-teaser-button href="https://vivarium-collective.github.io/" width="180px" color="accent">
-      <ng-container id="title">Combine simulations</ng-container>
-      <ng-container id="text">
-        <p>@Vivarium</p>
-      </ng-container>
-    </biosimulations-home-teaser-button>
+    </biosimulations-home-teaser-button>-->
   </ng-container>
+
   <ng-container id="description">
     BioSimulations is a free platform for sharing and re-using biomodels, simulations, simulation results, and
     visualizations of simulation results. BioSimulations supports a wide range of frameworks (e.g., logical,
@@ -49,254 +44,25 @@
   </ng-container>
 </biosimulations-home-teaser>
 
-<biosimulations-featured></biosimulations-featured>
 
-<biosimulations-home-section [columns]="3">
-  <ng-container id="heading">
-    Helping investigators
-    <span class="highlight-primary">run biosimulations</span>
-  </ng-container>
+<!---------------------------------------------------NEW SECTION-------------------------------------------------------------->
 
-  <biosimulations-home-subsection
-    id="subsection"
-    heading="Run simulations"
-    subheading="Execute many formalisms &amp; algorithms"
-    icon="simulator">
-    runBioSimulations is a central application for running simulations involving a broad range of frameworks,
-    algorithms, and formats.
-  </biosimulations-home-subsection>
 
-  <biosimulations-home-subsection
-    id="subsection"
-    heading="Vis simulation results"
-    subheading="Analyze predicted trajectories"
-    icon="chart">
-    runBioSimulations provides a simple web interface for interactively plotting the results of simulations.
-  </biosimulations-home-subsection>
 
-  <biosimulations-home-subsection
-    id="subsection"
-    heading="Share simulation runs"
-    subheading="Simulate biology collaboratively"
-    icon="reuse">
-    runBioSimulations also makes it easy to share simulation runs with collaborators, including peer reviewers.
-  </biosimulations-home-subsection>
-</biosimulations-home-section>
 
-<biosimulations-home-section [columns]="3">
-  <ng-container id="heading">
-    Helping authors, reviewers, and investigators
-    <span class="highlight-primary">share and reuse biomodeling projects</span>
-  </ng-container>
+<!---------------------------------------------------NEW SECTION-------------------------------------------------------------->
 
-  <biosimulations-home-subsection
-    id="subsection"
-    heading="Users"
-    subheading="Find and reuse published projects"
-    icon="simulator">
-    BioSimulations provides investigators a central portal for finding models and simulations, interactively visualizing
-    their results, and modifying and re-running simulations.
-  </biosimulations-home-subsection>
 
-  <biosimulations-home-subsection id="subsection" heading="Authors" subheading="Publish projects" icon="write">
-    Authors can easily publish models, simulations, simulation results, and visualizations of simulation results to a
-    central repository where other investigators can easily find, export, and edit, and re-run them.
-  </biosimulations-home-subsection>
-
-  <biosimulations-home-subsection
-    id="subsection"
-    heading="Reviewers"
-    subheading="Evaluate modeling projects"
-    icon="review">
-    Reviewers can easily evaluate models and simulations. For example, reviewers can verify the reproducibility of
-    reported results, evaluate alternative predictions, and test models under alternate conditions.
-  </biosimulations-home-subsection>
-</biosimulations-home-section>
-
-<biosimulations-home-section [columns]="4">
-  <ng-container id="heading"
-    >Central access to
-    <span class="highlight-primary">multiple modeling frameworks, algorithms, formats &amp; tools</span></ng-container
-  >
-
-  <biosimulations-home-subsection
-    id="subsection"
-    heading="Model formats"
-    subheading="BioSimulations supports several model formats"
-    subheadingSize="small"
-    icon="model">
-    <biosimulations-home-logo
-      title="BNGL"
-      src="assets/images/about/partners/bionetgen.png"
-      href="https://www.bionetgen.org">
-    </biosimulations-home-logo>
-
-    <biosimulations-home-logo
-      title="CellML"
-      src="assets/images/about/partners/cellml.svg"
-      href="https://www.cellml.org/">
-    </biosimulations-home-logo>
-
-    <biosimulations-home-logo title="GINsim" src="assets/images/about/partners/ginsim.svg" href="http://ginsim.org/">
-    </biosimulations-home-logo>
-
-    <biosimulations-home-logo
-      title="NeuroML"
-      src="assets/images/about/partners/neuroml.svg"
-      href="https://neuroml.org/">
-    </biosimulations-home-logo>
-
-    <biosimulations-home-logo title="RBA" src="assets/images/about/partners/rba.png" href="https://rba.inrae.fr/">
-    </biosimulations-home-logo>
-
-    <biosimulations-home-logo title="SBML" src="assets/images/about/partners/sbml.svg" href="http://sbml.org">
-    </biosimulations-home-logo>
-  </biosimulations-home-subsection>
-
-  <biosimulations-home-subsection
-    id="subsection"
-    heading="Simulation formats"
-    subheading="BioSimulations supports the SED-ML simulation format"
-    subheadingSize="small"
-    icon="simulation">
-    <biosimulations-home-logo title="SED-ML" src="assets/images/about/partners/sed-ml.svg" href="https://sed-ml.org/">
-    </biosimulations-home-logo>
-  </biosimulations-home-subsection>
-
-  <biosimulations-home-subsection
-    id="subsection"
-    heading="Visualization formats"
-    subheading="BioSimulations supports the Vega visualization format"
-    subheadingSize="small"
-    icon="visualization">
-    <biosimulations-home-logo
-      title="Escher"
-      src="assets/images/about/partners/escher.svg"
-      href="https://escher.github.io/">
-    </biosimulations-home-logo>
-
-    <biosimulations-home-logo title="GINsim" src="assets/images/about/partners/ginsim.svg" href="http://ginsim.org">
-    </biosimulations-home-logo>
-
-    <biosimulations-home-logo title="SBGN" src="assets/images/about/partners/sbgn.png" href="https://sbgn.github.io/">
-    </biosimulations-home-logo>
-
-    <biosimulations-home-logo
-      title="Vega"
-      src="assets/images/about/partners/vega.svg"
-      href="https://vega.github.io/vega/">
-    </biosimulations-home-logo>
-  </biosimulations-home-subsection>
-
-  <biosimulations-home-subsection
-    id="subsection"
-    heading="Algorithms &amp; simulators"
-    subheading="BioSimulations supports numerous simulation algorithms and tools"
-    subheadingSize="small"
-    icon="simulator">
-    <p>
-      <biosimulations-home-logo
-        title="AMICI"
-        src="assets/images/about/partners/amici.svg"
-        href="http://amici-dev.github.io/AMICI/">
-      </biosimulations-home-logo>
-
-      <biosimulations-home-logo
-        title="BioNetGen"
-        src="assets/images/about/partners/bionetgen.png"
-        href="https://bionetgen.org">
-      </biosimulations-home-logo>
-
-      <!--
-      <biosimulations-home-logo
-        title="Cayenne"
-        src="assets/images/about/partners/cayenne.png"
-        href="https://cayenne.readthedocs.io/"
-      >
-      </biosimulations-home-logo>
-      -->
-
-      <biosimulations-home-logo title="COPASI" src="assets/images/about/partners/copasi.svg" href="http://copasi.org/">
-      </biosimulations-home-logo>
-
-      <biosimulations-home-logo
-        title="tellurium/libRoadRunner"
-        src="assets/images/about/partners/libroadrunner.svg"
-        href="http://tellurium.analogmachine.org/">
-      </biosimulations-home-logo>
-    </p>
-    <p>
-      <biosimulations-home-logo
-        title="GillesPy2"
-        src="assets/images/about/partners/gillespy2.svg"
-        href="https://gillespy2.github.io/GillesPy2/">
-      </biosimulations-home-logo>
-
-      <biosimulations-home-logo
-        title="COBRApy"
-        src="assets/images/about/partners/cobrapy.svg"
-        href="https://opencobra.github.io/cobrapy/">
-      </biosimulations-home-logo>
-
-      <biosimulations-home-logo
-        title="MASSpy"
-        src="assets/images/about/partners/masspy.svg"
-        href="https://masspy.readthedocs.io/">
-      </biosimulations-home-logo>
-
-      <biosimulations-home-logo title="VCell" src="assets/images/about/partners/vcell.svg" href="https://vcell.org/">
-      </biosimulations-home-logo>
-    </p>
-    <p>
-      <biosimulations-home-logo title="GINsim" src="assets/images/about/partners/ginsim.svg" href="http://ginsim.org">
-      </biosimulations-home-logo>
-
-      <!--
-      <biosimulations-home-logo
-        title="iBioSim"
-        src="assets/images/about/partners/ibiosim.svg"
-        href="https://github.com/MyersResearchGroup/iBioSim"
-      >
-      </biosimulations-home-logo>
-      -->
-
-      <biosimulations-home-logo
-        title="NetPyNe"
-        src="assets/images/about/partners/netpyne.png"
-        href="http://www.netpyne.org/">
-      </biosimulations-home-logo>
-    </p>
-
-    <p>
-      <biosimulations-home-logo
-        title="PySCeS"
-        src="assets/images/about/partners/pysces.svg"
-        href="http://pysces.sourceforge.net/">
-      </biosimulations-home-logo>
-
-      <biosimulations-home-logo
-        title="RBApy"
-        src="assets/images/about/partners/rbapy.svg"
-        href="https://sysbioinra.github.io/RBApy/">
-      </biosimulations-home-logo>
-    </p>
-  </biosimulations-home-subsection>
-</biosimulations-home-section>
-<!--
 <biosimulations-home-section [columns]="1">
-  <ng-container id="heading"
-    >BioSimulations contains projects from across
-    <span class="highlight-primary">domains and methods</span></ng-container
-  >
-
-
-  <ng-container id="subsection">
-    <biosimulations-database-statistics></biosimulations-database-statistics>
+  <ng-container id="heading">
+    <span class="highlight-accent">Biosimulators</span>
+    <span style="color: #800080"> | </span>
+    <span class="highlight-primary">BioSimulations</span>
+    <span style="color: #800080"> | </span>
+    <span
+    class="highlight-tertiary"
+    style="color: #347121;">runBioSimulations</span>
   </ng-container>
-</biosimulations-home-section>
--->
-<biosimulations-home-section [columns]="1">
-  <ng-container id="heading">About <span class="highlight-primary">BioSimulations</span></ng-container>
   <ng-container id="subsection">
     <div class="about-content">
       <div class="text">
@@ -331,6 +97,7 @@
           for more information.
         </p>
       </div>
+
       <div class="logos">
         <p>
           <biosimulations-home-logo
@@ -535,3 +302,381 @@
     </div>
   </ng-container>
 </biosimulations-home-section>
+
+
+<!---------------------------------------------------NEW SECTION-------------------------------------------------------------->
+
+
+<biosimulations-home-section
+  [columns]="3">
+  <biosimulations-home-subsection
+  heading="More"
+  icon="help"
+  subheading=""
+  style="justify-content: center;">
+    <biosimulations-hover-open-menu>
+      <biosimulations-topbar-menu-item
+      heading="Help"
+      icon="help"
+      id="trigger">
+      </biosimulations-topbar-menu-item>
+      <ng-container id="items">
+        <biosimulations-dropdown-menu-item
+          heading="FAQ"
+          icon="help"
+          href="https://docs.biosimulations.org/users/faqs/"
+          target="biosimulations-docs">
+        </biosimulations-dropdown-menu-item>
+        <biosimulations-dropdown-menu-item
+          heading="Contact Us"
+          icon="contact"
+          href="https://docs.biosimulations.org/about/contact/"
+          target="biosimulations-docs">
+        </biosimulations-dropdown-menu-item>
+      </ng-container>
+    </biosimulations-hover-open-menu>
+  </biosimulations-home-subsection>
+
+  <biosimulations-home-subsection
+    id="subsection"
+    heading="Conventions"
+    subheading=""
+    subheadingSize="small"
+    icon="info"
+    style="justify-content: center;">
+
+    <biosimulations-topbar-menu-item
+      heading="Standards"
+      icon="standard"
+      id="trigger"
+      href="https://docs.biosimulations.org/concepts/conventions/"
+      target="biosimulations-docs">
+    </biosimulations-topbar-menu-item>
+    <biosimulations-topbar-menu-item
+        heading="Simulator specs"
+        icon="browse"
+        href="https://docs.biosimulations.org/concepts/conventions/simulator-capabilities/"
+        target="biosimulations-docs">
+    </biosimulations-topbar-menu-item>
+    <biosimulations-topbar-menu-item
+      heading="Simulator interfaces"
+      icon="logs"
+      href="https://docs.biosimulations.org/concepts/conventions/simulator-interfaces/"
+      target="biosimulations-docs">
+    </biosimulations-topbar-menu-item>
+    <biosimulations-topbar-menu-item
+      heading="Simulator images"
+      icon="docker"
+      href="https://docs.biosimulations.org/concepts/conventions/simulator-images/"
+      target="biosimulations-docs">
+    </biosimulations-topbar-menu-item>
+    <biosimulations-topbar-menu-item
+      heading="Simulation experiments"
+      icon="experiment"
+      href="https://docs.biosimulations.org/concepts/conventions/simulation-experiments/"
+      target="biosimulations-docs">
+    </biosimulations-topbar-menu-item>
+    <biosimulations-topbar-menu-item
+      heading="Simulation reports"
+      icon="report"
+      href="https://docs.biosimulations.org/concepts/conventions/simulation-run-reports/"
+      target="biosimulations-docs">
+    </biosimulations-topbar-menu-item>
+    <biosimulations-topbar-menu-item
+      heading="Data visualizations"
+      icon="chart"
+      href="https://docs.biosimulations.org/concepts/conventions/simulation-run-visualizations/"
+      target="biosimulations-docs">
+    </biosimulations-topbar-menu-item>
+    <biosimulations-topbar-menu-item
+      heading="Metadata"
+      icon="tags"
+      href="https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/"
+      target="biosimulations-docs">
+    </biosimulations-topbar-menu-item>
+    <biosimulations-topbar-menu-item
+      heading="Simulation logs"
+      icon="progress"
+      href="https://docs.biosimulations.org/concepts/conventions/simulation-run-logs/"
+      target="biosimulations-docs">
+    </biosimulations-topbar-menu-item>>
+  </biosimulations-home-subsection>
+
+  <biosimulations-home-subsection
+    id="subsection"
+    heading="About"
+    subheading=""
+    subheadingSize="small"
+    icon="info"
+    style="justify-content: center;">
+    <biosimulations-topbar-menu-item
+      heading="About"
+      icon="info"
+      href="https://docs.biosimulations.org/"
+      target="biosimulations-docs">
+    </biosimulations-topbar-menu-item>
+    <biosimulations-topbar-menu-item
+      heading="Terms of service"
+      icon="legal"
+      href="https://docs.biosimulations.org/about/terms/"
+      target="biosimulations-docs">
+    </biosimulations-topbar-menu-item>
+    <biosimulations-topbar-menu-item
+      heading="Privacy policy"
+      icon="policy"
+      href="https://docs.biosimulations.org/about/privacy/"
+      target="biosimulations-docs">
+    </biosimulations-topbar-menu-item>
+    <biosimulations-topbar-menu-item
+      heading="Status"
+      icon="status"
+      href="https://status.biosimulations.org/"
+      target="status">
+    </biosimulations-topbar-menu-item>
+    <biosimulations-topbar-menu-item
+      heading="@Vivarium"
+      icon="info"
+      href="https://vivarium-collective.github.io/">
+    </biosimulations-topbar-menu-item>
+  </biosimulations-home-subsection>
+</biosimulations-home-section>
+
+
+<!---------------------------------------------------NEW SECTION-------------------------------------------------------------->
+
+
+<!--<biosimulations-home-section [columns]="3">
+  <ng-container id="heading">
+    Helping authors, reviewers, and investigators
+    <a
+      href="https://biosimulations.org/projects"
+      target="_blank">
+      share
+    </a>
+    <a
+      href="https://run.biosimulations.org/runs/new">
+      and reuse biomodeling projects
+    </a>
+  </ng-container>
+
+  <biosimulations-home-subsection
+    id="subsection"
+    heading="Run simulations"
+    subheading="Execute many formalisms &amp; algorithms"
+    icon="simulator">
+    runBioSimulations is a central application for running simulations involving a broad range of frameworks,
+    algorithms, and formats.
+  </biosimulations-home-subsection>
+
+  <biosimulations-home-subsection
+    id="subsection"
+    heading="Vis simulation results"
+    subheading="Analyze predicted trajectories"
+    icon="chart">
+    runBioSimulations provides a simple web interface for interactively plotting the results of simulations.
+  </biosimulations-home-subsection>
+
+  <biosimulations-home-subsection
+    id="subsection"
+    heading="Share simulation runs"
+    subheading="Simulate biology collaboratively"
+    icon="reuse">
+    runBioSimulations also makes it easy to share simulation runs with collaborators, including peer reviewers.
+  </biosimulations-home-subsection>
+</biosimulations-home-section>
+
+<biosimulations-home-section [columns]="3">
+  <ng-container id="heading">
+    Helping authors, reviewers, and investigators
+    <span class="highlight-primary">share and reuse biomodeling projects</span>
+  </ng-container>
+
+  <biosimulations-home-subsection
+    id="subsection"
+    heading="Users"
+    subheading="Find and reuse published projects"
+    icon="simulator">
+    BioSimulations provides investigators a central portal for finding models and simulations, interactively visualizing
+    their results, and modifying and re-running simulations.
+  </biosimulations-home-subsection>
+
+  <biosimulations-home-subsection id="subsection" heading="Authors" subheading="Publish projects" icon="write">
+    Authors can easily publish models, simulations, simulation results, and visualizations of simulation results to a
+    central repository where other investigators can easily find, export, and edit, and re-run them.
+  </biosimulations-home-subsection>
+
+  <biosimulations-home-subsection
+    id="subsection"
+    heading="Reviewers"
+    subheading="Evaluate modeling projects"
+    icon="review">
+    Reviewers can easily evaluate models and simulations. For example, reviewers can verify the reproducibility of
+    reported results, evaluate alternative predictions, and test models under alternate conditions.
+  </biosimulations-home-subsection>
+</biosimulations-home-section>
+
+<biosimulations-home-section [columns]="4">
+  <ng-container id="heading"
+    >Central access to
+    <span class="highlight-primary">multiple modeling frameworks, algorithms, formats &amp; tools</span></ng-container
+  >
+
+  <biosimulations-home-subsection
+    id="subsection"
+    heading="Model formats"
+    subheading="BioSimulations supports several model formats"
+    subheadingSize="small"
+    icon="model">
+    <biosimulations-home-logo
+      title="BNGL"
+      src="assets/images/about/partners/bionetgen.png"
+      href="https://www.bionetgen.org">
+    </biosimulations-home-logo>
+
+    <biosimulations-home-logo
+      title="CellML"
+      src="assets/images/about/partners/cellml.svg"
+      href="https://www.cellml.org/">
+    </biosimulations-home-logo>
+
+    <biosimulations-home-logo title="GINsim" src="assets/images/about/partners/ginsim.svg" href="http://ginsim.org/">
+    </biosimulations-home-logo>
+
+    <biosimulations-home-logo
+      title="NeuroML"
+      src="assets/images/about/partners/neuroml.svg"
+      href="https://neuroml.org/">
+    </biosimulations-home-logo>
+
+    <biosimulations-home-logo title="RBA" src="assets/images/about/partners/rba.png" href="https://rba.inrae.fr/">
+    </biosimulations-home-logo>
+
+    <biosimulations-home-logo title="SBML" src="assets/images/about/partners/sbml.svg" href="http://sbml.org">
+    </biosimulations-home-logo>
+  </biosimulations-home-subsection>
+
+  <biosimulations-home-subsection
+    id="subsection"
+    heading="Simulation formats"
+    subheading="BioSimulations supports the SED-ML simulation format"
+    subheadingSize="small"
+    icon="simulation">
+    <biosimulations-home-logo title="SED-ML" src="assets/images/about/partners/sed-ml.svg" href="https://sed-ml.org/">
+    </biosimulations-home-logo>
+  </biosimulations-home-subsection>
+
+  <biosimulations-home-subsection
+    id="subsection"
+    heading="Visualization formats"
+    subheading="BioSimulations supports the Vega visualization format"
+    subheadingSize="small"
+    icon="visualization">
+    <biosimulations-home-logo
+      title="Escher"
+      src="assets/images/about/partners/escher.svg"
+      href="https://escher.github.io/">
+    </biosimulations-home-logo>
+
+    <biosimulations-home-logo title="GINsim" src="assets/images/about/partners/ginsim.svg" href="http://ginsim.org">
+    </biosimulations-home-logo>
+
+    <biosimulations-home-logo title="SBGN" src="assets/images/about/partners/sbgn.png" href="https://sbgn.github.io/">
+    </biosimulations-home-logo>
+
+    <biosimulations-home-logo
+      title="Vega"
+      src="assets/images/about/partners/vega.svg"
+      href="https://vega.github.io/vega/">
+    </biosimulations-home-logo>
+  </biosimulations-home-subsection>
+
+  <biosimulations-home-subsection
+    id="subsection"
+    heading="Algorithms &amp; simulators"
+    subheading="BioSimulations supports numerous simulation algorithms and tools"
+    subheadingSize="small"
+    icon="simulator">
+    <p>
+      <biosimulations-home-logo
+        title="AMICI"
+        src="assets/images/about/partners/amici.svg"
+        href="http://amici-dev.github.io/AMICI/">
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo
+        title="BioNetGen"
+        src="assets/images/about/partners/bionetgen.png"
+        href="https://bionetgen.org">
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo title="COPASI" src="assets/images/about/partners/copasi.svg" href="http://copasi.org/">
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo
+        title="tellurium/libRoadRunner"
+        src="assets/images/about/partners/libroadrunner.svg"
+        href="http://tellurium.analogmachine.org/">
+      </biosimulations-home-logo>
+    </p>
+    <p>
+      <biosimulations-home-logo
+        title="GillesPy2"
+        src="assets/images/about/partners/gillespy2.svg"
+        href="https://gillespy2.github.io/GillesPy2/">
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo
+        title="COBRApy"
+        src="assets/images/about/partners/cobrapy.svg"
+        href="https://opencobra.github.io/cobrapy/">
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo
+        title="MASSpy"
+        src="assets/images/about/partners/masspy.svg"
+        href="https://masspy.readthedocs.io/">
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo title="VCell" src="assets/images/about/partners/vcell.svg" href="https://vcell.org/">
+      </biosimulations-home-logo>
+    </p>
+    <p>
+      <biosimulations-home-logo title="GINsim" src="assets/images/about/partners/ginsim.svg" href="http://ginsim.org">
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo
+        title="NetPyNe"
+        src="assets/images/about/partners/netpyne.png"
+        href="http://www.netpyne.org/">
+      </biosimulations-home-logo>
+    </p>
+
+    <p>
+      <biosimulations-home-logo
+        title="PySCeS"
+        src="assets/images/about/partners/pysces.svg"
+        href="http://pysces.sourceforge.net/">
+      </biosimulations-home-logo>
+
+      <biosimulations-home-logo
+        title="RBApy"
+        src="assets/images/about/partners/rbapy.svg"
+        href="https://sysbioinra.github.io/RBApy/">
+      </biosimulations-home-logo>
+    </p>
+  </biosimulations-home-subsection>
+</biosimulations-home-section>
+<!--
+<biosimulations-home-section [columns]="1">
+  <ng-container id="heading"
+    >BioSimulations contains projects from across
+    <span class="highlight-primary">domains and methods</span></ng-container
+  >
+
+
+  <ng-container id="subsection">
+    <biosimulations-database-statistics></biosimulations-database-statistics>
+  </ng-container>
+</biosimulations-home-section>
+-->
+

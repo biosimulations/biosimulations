@@ -20,6 +20,6 @@ biosimulations-text-page-section ::ng-deep a {
   color: $dark-primary-text;
 
   &:hover {
-    color: mat.get-color-from-palette($theme-primary);
+    color: mat.get-color-from-palette($theme-accent);
   }
 }

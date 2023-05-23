@@ -1,9 +1,9 @@
+@use '@angular/material' as mat;
 @import 'biosimulations-colors';
 
 .sidenav-container {
   height: 100%;
   width: 100%;
-  background-color: #fff;
 }
 
 .sidenav {
@@ -26,6 +26,10 @@
     .sidenav-menu-container {
       height: calc(100% - 56px);
     }
+  }
+
+  .sidenav-menu-topbar {
+    color: green; //mat.get-color-from-palatte($theme-primary);
   }
 
   .sidenav-menu ::ng-deep .mat-expansion-panel:first-of-type {
@@ -95,4 +99,27 @@
   height: calc(100% - 2 * 0.5rem);
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+}
+
+.site-buttons {
+  width: 240px;
+
+  ::ng-deep .mat-drawer-inner-container {
+    overflow: hidden;
+  }
+
+  ::ng-deep .mat-toolbar {
+    justify-content: center;
+  }
+
+  .sidenav-menu-container {
+    height: calc(100% - 64px);
+    overflow-y: auto;
+  }
+
+  @media screen and (max-width: 959px) {
+    .sidenav-menu-container {
+      height: calc(100% - 56px);
+    }
+  }
 }

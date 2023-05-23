@@ -38,4 +38,7 @@ export class BiosimulationsNavigationItemComponent {
 
   @Input()
   disabled = false;
+
+  @Input()
+  color!: any;
 }

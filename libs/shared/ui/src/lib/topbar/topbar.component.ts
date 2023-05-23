@@ -7,8 +7,8 @@ import { Component, Input } from '@angular/core';
 })
 export class TopbarComponent {
   @Input()
-  public showLogo = true;
+  color = '#2196f3';
 
   @Input()
-  color = 'primary';
+  public showLogo = true;
 }

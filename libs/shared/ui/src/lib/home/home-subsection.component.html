@@ -1,6 +1,8 @@
 <div class="container">
   <biosimulations-icon *ngIf="icon" [icon]="icon"></biosimulations-icon>
-  <div class="heading">{{ heading }}</div>
+  <div class="heading">
+    <a>{{ heading }}</a>
+  </div>
   <div
     [ngClass]="{
       'subheading-small': subheadingSize === 'small',

@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Observable, combineLatest, map, shareReplay, mergeMap, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
@@ -34,7 +33,7 @@ export class ViewComponent implements OnInit {
   public outputs$!: Observable<File[]>;
 
   public visualizations$!: Observable<VisualizationList[]>;
-  public visualization: Visualization | null = null;
+  public plotVisualizations$!: Observable<Visualization[]>;
 
   jsonLdData$!: Observable<WithContext<Dataset>>;
 
@@ -44,11 +43,6 @@ export class ViewComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
   ) {}
-
-  public selectedTabIndex = 0;
-  public viewVisualizationTabDisabled = true;
-  public selectVisualizationTabIndex = 2;
-  public visualizationTabIndex = 3;
 
   public ngOnInit(): void {
     const id = (this.id = this.route.snapshot.params['id']);
@@ -105,6 +99,11 @@ export class ViewComponent implements OnInit {
       shareReplay(1),
     );
 
+    this.plotVisualizations$ = this.visualizations$.pipe(
+      map((visList) => this.getPlotVisualizations(visList)),
+      shareReplay(1),
+    );
+
     this.jsonLdData$ = projectSummary$.pipe(
       map((projectSummary) => this.service.getJsonLdData(projectSummary.simulationRun, projectSummary)),
       shareReplay(1),
@@ -128,19 +127,22 @@ export class ViewComponent implements OnInit {
     );
   }
 
-  public renderVisualization(visualization: Visualization): void {
-    this.visualization = visualization;
-    this.viewVisualizationTabDisabled = false;
-    this.selectedTabIndex = this.visualizationTabIndex;
-  }
-
-  public selectedTabChange($event: MatTabChangeEvent): void {
-    if ($event.index == this.visualizationTabIndex) {
-      if (this.viewVisualizationTabDisabled) {
-        this.selectedTabIndex = this.selectVisualizationTabIndex;
-        return;
+  public getPlotVisualizations(visLists: VisualizationList[]): Visualization[] {
+    const visualizations: Visualization[] = [] as Visualization[];
+    for (const visList of visLists) {
+      for (const vis of visList.visualizations) {
+        if (vis._type === 'SedPlot2DVisualization') {
+          visualizations.push(vis);
+        }
       }
     }
-    this.selectedTabIndex = $event.index;
+    return visualizations;
+  }
+}
+
+@Injectable()
+export class VizService extends ViewComponent {
+  public constructor(service: ViewService, projService: ProjectService, route: ActivatedRoute, router: Router) {
+    super(service, projService, route, router);
   }
 }

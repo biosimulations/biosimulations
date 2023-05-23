@@ -4,6 +4,8 @@
 
 .container {
   margin-top: 2rem;
+  justify-content: center;
+  display: flex;
 }
 
 @media screen and (max-width: 959px) {
@@ -29,9 +31,8 @@
 }
 
 h3 {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
   margin: 0;
+  border: 1px;
   border-radius: 4px;
   font-weight: 500;
 
@@ -49,11 +50,15 @@ h3 {
   -webkit-line-clamp: 1;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  max-width: calc(100% - 0.5rem - 10px);
+  width: fit-content;
+  height: fit-content;
+  padding: 0.5rem;
+
+  //max-width: calc(100% - 0.5rem - 10px);
 }
 
 .content {
-  padding-top: 0.25rem;
+  padding-top: 1rem;
 }
 
 .container ::ng-deep .mat-table.biosimulations-table {
@@ -62,7 +67,7 @@ h3 {
   }
 
   .mat-header-cell {
-    color: $dark-primary-text;
+    color: $light-primary-text;
   }
 }
 
@@ -82,13 +87,22 @@ h3 {
 }
 
 .highlight-container {
-  border: 1px solid mat.get-color-from-palette($theme-primary);
+  background: #d2eafc; //#9bcff9;
+  border: 3px solid #ffa500; //rgba(187, 72, 187, 0.734);
   border-radius: 4px;
+  width: fit-content;
+  height: 100%;
+  display: flex;
+  justify-content: center;
 
   h3 {
-    background: mat.get-color-from-palette($theme-primary);
+    background-color: #087008; //purple; or #087008;
+    //padding-left: 50%;
+    width: auto;
     color: $light-text;
-    border-radius: 0;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
 
     a {
       color: $light-text;
@@ -97,6 +111,9 @@ h3 {
         color: $light-disabled-text;
       }
     }
+  }
+  .content {
+    justify-content: center;
   }
 }
 
@@ -121,13 +138,13 @@ h3 {
   }
 
   h3 {
-    border-radius: 0;
+    border-radius: 2px;
     @include mat.typography-level($fontConfig, body-2);
     font-weight: 500;
   }
 
   .content {
-    padding: 0.5rem;
+    padding: 1rem;
 
     ::ng-deep {
       h4 {

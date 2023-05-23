@@ -1,39 +1,36 @@
-<div class="container partial-width">
-  <div class="heading">Featured projects</div>
-  <div class="heading-separator"></div>
-  <div class="subection">
-    <div fxLayout="row" fxLayoutAlign="space-around stretch">
-      <button mat-fab color="primary" fxFlexAlign="center" class="previousButton" (click)="previous()">
-        <mat-icon>keyboard_arrow_left</mat-icon>
-      </button>
+<div class="subsection">
+  <div fxLayout="row" fxLayoutAlign="space-around stretch">
+    <ng-container *ngFor="let project of projects; let i = index">
+      <mat-card
+        class="project-card"
+        [fxFlex] ="70 / numCards"
+        *ngIf="i >= startIndex && i <= endIndex">
+        <mat-card-header>
+          <mat-card-title>
+            {{ project.title }}
+          </mat-card-title>
+        </mat-card-header>
+        <img src="{{ project.image }}" alt="IMAGE"/>
+        <mat-card-content>
+          {{ project.description }}
+        </mat-card-content>
 
-      <ng-container *ngFor="let project of projects; let i = index">
-        <mat-card
-          appearance="outlined"
-          class="project-card"
-          [fxFlex]="70 / numCards"
-          *ngIf="i >= startIndex && i <= endIndex">
-          <mat-card-header>
-            <mat-card-title>
-              {{ project.title }}
-            </mat-card-title>
-            <mat-card-subtitle>
-              {{ project.citation }}
-            </mat-card-subtitle>
-          </mat-card-header>
-          <img src="{{ project.image }}" alt="{{ 'thumbnail for project with id: ' + project.id }}" />
-          <mat-card-content>
-            {{ project.description }}
-          </mat-card-content>
-
-          <mat-card-actions class="actions">
-            <button mat-raised-button color="primary" routerLink="/projects/{{ project.id }}">View</button>
-          </mat-card-actions>
-        </mat-card>
-      </ng-container>
-      <button mat-fab color="primary" fxFlexAlign="center" class="nextButton" (click)="next()">
-        <mat-icon>keyboard_arrow_right</mat-icon>
-      </button>
-    </div>
+        <mat-card-actions class="actions">
+          <button
+          mat-raised-button
+          routerLink="/projects/{{ project.id }}">Learn More</button>
+        </mat-card-actions>
+      </mat-card>
+    </ng-container>
+  </div>
+  <div class="pagination-dots">
+    <span
+      class="dot"
+      *ngFor="let project of projects; let i = index"
+      [class.active]="i >= startIndex && i <= endIndex"
+      (click)="jumpTo(i)"
+    ></span>
   </div>
 </div>
+
+<!--[color]="getButtonColor(i)"-->

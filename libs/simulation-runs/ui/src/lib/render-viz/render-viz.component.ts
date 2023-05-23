@@ -10,5 +10,5 @@ export class RenderVisualizationComponent {
   @Input()
   visualization!: Visualization;
 
-  constructor() {}
+  public constructor() {}
 }

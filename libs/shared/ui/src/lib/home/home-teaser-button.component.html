@@ -3,12 +3,12 @@
 </ng-container>
 
 <ng-template #activeButton>
-  <a *ngIf="route; else hrefButton" [routerLink]="route">
+  <a *ngIf="route; else hrefButton" [routerLink]="route" [ngClass]="color">
     <ng-container *ngTemplateOutlet="buttonTemplate"></ng-container>
   </a>
 
   <ng-template #hrefButton>
-    <a [href]="href" rel="noopener" [target]="target">
+    <a [href]="href" rel="noopener" [target]="target" [ngClass]="color">
       <ng-container *ngTemplateOutlet="buttonTemplate"></ng-container>
     </a>
   </ng-template>
@@ -59,3 +59,6 @@
     </div>
   </button>
 </ng-template>
+
+
+

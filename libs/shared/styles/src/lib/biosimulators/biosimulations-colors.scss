@@ -43,9 +43,8 @@ $mat-light-theme-foreground: (
   slider-off-active: $dark-disabled-text,
 );
 
-// Dark Theme text
-$light-text: #ffffff;
-$light-primary-text: $light-text;
+// Dark Theme text #ffe2b1;
+$light-text: $light-primary-text;
 $light-accent-text: rgba($light-primary-text, 0.7);
 $light-disabled-text: rgba($light-primary-text, 0.5);
 $light-dividers: rgba($light-primary-text, 0.12);
@@ -103,7 +102,7 @@ $mat-light-theme-background: (
 );
 
 // Dark bg
-$dark-background: #2c2c2c;
+$dark-background: #100f0f;
 $dark-bg-lighter-5: lighten($dark-background, 5%);
 $dark-bg-lighter-10: lighten($dark-background, 10%);
 $dark-bg-lighter-20: lighten($dark-background, 20%);
@@ -131,11 +130,11 @@ $mat-dark-theme-background: (
 );
 
 // Theme Config
-$theme-primary-main: #ff9800;
-$theme-primary-lighter: #ffdaa5; // 65%
-$theme-primary-lightest: #feeacc; // 80%
+$theme-primary-main: #ffa500;
+$theme-primary-lighter: #ffcc80; // 55%
+$theme-primary-lightest: #ffe0b2; // 80%
+$theme-primary-darker: #ff8f00;
 $theme-primary-lightestest: #fff4e5; // 90%
-$theme-primary-darker: #ff7b00;
 
 body {
   --primary-color: #{$theme-primary-main};
@@ -190,10 +189,10 @@ $mat-accent: (
 );
 $theme-accent: mat.define-palette($mat-accent, main, lighter, darker);
 
-$theme-tertiary-main: #38cc00;
-$theme-tertiary-lighter: #9bff75; // 55%
-$theme-tertiary-lightest: #ddffd1; // 80%
-$theme-tertiary-darker: #35c100; // 5%
+$theme-tertiary-main: #2aa72a;
+$theme-tertiary-lighter: #80ff80; // 55%
+$theme-tertiary-lightest: #b2ffb2; // 80%
+$theme-tertiary-darker: #087008;
 
 body {
   --tertiary-color: #{$theme-tertiary-main};
@@ -219,25 +218,25 @@ $mat-tertiary: (
 );
 $theme-tertiary: mat.define-palette($mat-tertiary, main, lighter, darker);
 
-$theme-quartenary-main: #951ed9;
-$theme-quartenary-lighter: #d097f0; // 55%
-$theme-quartenary-lightest: #efdcfa; // 85%
-$theme-quartenary-darker: #8d1cce; // 5%
+$theme-quaternary-main: #951ed9;
+$theme-quaternary-lighter: #d097f0; // 55%
+$theme-quaternary-lightest: #efdcfa; // 85%
+$theme-quaternary-darker: #8d1cce; // 5%
 
 body {
-  --quartenary-color: #{$theme-quartenary-main};
-  --quartenary-lighter-color: #{$theme-quartenary-lighter};
-  --quartenary-darker-color: #{$theme-quartenary-darker};
-  --text-quartenary-color: #{$dark-primary-text};
-  --text-quartenary-lighter-color: #{$dark-primary-text};
-  --text-quartenary-darker-color: #{$dark-primary-text};
+  --quaternary-color: #{$theme-quaternary-main};
+  --quaternary-lighter-color: #{$theme-quaternary-lighter};
+  --quaternary-darker-color: #{$theme-quaternary-darker};
+  --text-quaternary-color: #{$dark-primary-text};
+  --text-quaternary-lighter-color: #{$dark-primary-text};
+  --text-quaternary-darker-color: #{$dark-primary-text};
 }
 
-$mat-quartenary: (
-  main: $theme-quartenary-main,
-  lighter: $theme-quartenary-lighter,
-  darker: $theme-quartenary-darker,
-  200: $theme-quartenary-main,
+$mat-quaternary: (
+  main: $theme-quaternary-main,
+  lighter: $theme-quaternary-lighter,
+  darker: $theme-quaternary-darker,
+  200: $theme-quaternary-main,
   // For slide toggle,
   contrast:
     (
@@ -246,7 +245,7 @@ $mat-quartenary: (
       darker: $dark-primary-text,
     ),
 );
-$theme-quartenary: mat.define-palette($mat-quartenary, main, lighter, darker);
+$theme-quaternary: mat.define-palette($mat-quaternary, main, lighter, darker);
 
 $theme-warn-main: #f44336;
 $theme-warn-lighter: #fcc7c3; // 75%
@@ -295,6 +294,7 @@ $theme: mat.define-light-theme(
     color: (
       primary: $theme-primary,
       accent: $theme-accent,
+      tertiary: $theme-tertiary,
       warn: $theme-warn,
     ),
     typography: $fontConfig,
@@ -305,6 +305,8 @@ $altTheme: mat.define-dark-theme(
     color: (
       primary: $theme-primary,
       accent: $theme-accent,
+      tertiary: $theme-tertiary,
+      quaternary: $theme-quaternary,
       warn: $theme-warn,
     ),
     typography: $fontConfig,

@@ -1,6 +1,7 @@
 <mat-sidenav-container
-  class="sidenav-container mat-typography mat-app-background"
+  class="sidenav-container mat-display-3 mat-app-background"
   [ngClass]="{ 'theme-alternate': darkMode }">
+
   <mat-sidenav
     #drawer
     class="sidenav"
@@ -8,7 +9,7 @@
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="false">
-    <biosimulations-topbar color="#666">
+    <biosimulations-topbar>
       <biosimulations-logo-text id="logo" [appNameParts]="appNameParts"></biosimulations-logo-text>
       <button
         id="rightContent"
@@ -25,10 +26,13 @@
       <ng-content select="#sidenav-menu"></ng-content>
     </div>
   </mat-sidenav>
-  <mat-sidenav-content class="sidenav-content">
+
+
+  <mat-sidenav-content class="sidenav-content"> <!--here is where the left menu and logo is: todo: ADD SITE BUTTONS-->
     <div class="topbar">
       <biosimulations-topbar [showLogo]="!drawer.opened">
-        <button
+        <biosimulations-logo-image class="logo-img" id="logo" [logo]="logo"></biosimulations-logo-image>  <!--logo on left -->
+        <!--<button
           id="leftContent"
           class="biosimulations-button white topbar-left-button"
           type="button"
@@ -37,9 +41,8 @@
           (click)="drawer.toggle()"
           *ngIf="!drawer.opened">
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-        </button>
-        <biosimulations-logo-image class="logo-img" id="logo" [logo]="logo"></biosimulations-logo-image>
-        <ng-content id="rightContent" select="biosimulations-topbar-menu"> </ng-content>
+        </button>--> <!--hamburger next to logo-->
+        <ng-content id="rightContent" select="biosimulations-topbar-menu"> </ng-content>  <!--help button on right-->
       </biosimulations-topbar>
     </div>
     <div class="bread-crumbs" fxShow fxHide.lt-md>
@@ -58,3 +61,11 @@
     </biosimulations-notice>
   </mat-sidenav-content>
 </mat-sidenav-container>
+
+
+<mat-sidenav-container
+  class="sidenav-container mat-display-3 mat-app-background"
+  [ngClass]="{ 'theme-alternate': darkMode }">
+
+</mat-sidenav-container>
+
