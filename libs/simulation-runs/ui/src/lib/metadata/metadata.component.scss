@@ -2,6 +2,9 @@
 @import 'biosimulations-colors';
 @import 'biosimulations-typography';
 
+.mat-card {
+  border-radius: 4px;
+}
 .metadata {
   .thumbnails-column {
     display: flex;

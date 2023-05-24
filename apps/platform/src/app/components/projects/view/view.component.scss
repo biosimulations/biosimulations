@@ -1,3 +1,4 @@
+@use '@angular/material' as mat;
 @import 'biosimulations-colors';
 
 .spinner-container {
@@ -62,4 +63,19 @@ biosimulations-tab-page ::ng-deep .icon-list {
   .files {
     margin-top: -1rem;
   }
+}
+
+.metadata-card {
+  background-color: none;
+}
+
+.viz-card {
+  background-color: none;
+}
+
+.viz-card-header {
+  background-color: #087008;
+  font-weight: 600;
+  color: white;
+  padding-bottom: 1rem;
 }
