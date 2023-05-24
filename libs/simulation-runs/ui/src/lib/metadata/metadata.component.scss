@@ -4,7 +4,7 @@
 
 .metadata {
   .thumbnails-column {
-    display: row;
+    display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -15,7 +15,6 @@
       display: flex;
       height: 100%;
       width: 100%;
-      justify-content: center;
       flex-direction: row;
       align-items: normal;
     }
@@ -36,12 +35,11 @@
     display: grid;
     align-items: center;
     margin-top: 2rem;
-    padding-top: 5rem;
 
     .abstract {
       margin-block-start: 0;
       margin-block-end: 0;
-      justify-content: center;
+      justify-content: left;
     }
 
     .creators {
@@ -116,4 +114,11 @@
 .icon-list {
   height: 100%;
   width: 100%;
+}
+
+.card-header {
+  background-color: #087008;
+  color: white;
+  padding-bottom: 1rem;
+  font-weight: 600;
 }

@@ -23,8 +23,12 @@
       class="dot"
       *ngFor="let project of projects; let i = index"
       [class.active]="i >= startIndex && i <= endIndex"
-      (click)="jumpTo(i)"></span>
+      (click)="jumpTo(i)">
+    </span>
   </div>
+  <button mat-fab color="primary" fxFlexAlign="center" class="nextButton" (click)="next()">
+    <mat-icon>keyboard_arrow_right</mat-icon>
+  </button>
 </div>
 
 <!--[color]="getButtonColor(i)"-->
