@@ -125,3 +125,8 @@
   padding-bottom: 1rem;
   font-weight: 600;
 }
+
+:host ::ng-deep .card-header:hover:not(.mat-expanded) {
+  background-color: inherit !important;
+  box-shadow: none !important;
+}

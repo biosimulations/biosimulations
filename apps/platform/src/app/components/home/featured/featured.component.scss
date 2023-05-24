@@ -67,8 +67,9 @@
   padding-top: 0;
   padding-bottom: 1rem;
   color: white;
-  background-color: rgba(20, 121, 237, 0.6);
+  background-color: rgba(20, 121, 237, 0.65);
   font-weight: 500;
+  font-size: large;
   transition: all 0.5s ease-out;
   transition-property: all;
   transition-duration: 0.2s;
@@ -130,6 +131,7 @@ img {
   box-shadow: none;
   background-color: mat.get-color-from-palette($theme-accent); //#347121;
   color: #1b4b0b;
+  font-size: large;
   border-radius: 2px;
   font-weight: 600;
 }
