@@ -28,10 +28,16 @@ export class FeaturedComponent {
       this.startIndex--;
       this.endIndex--;
     } else {
-      this.startIndex = this.projects.length - this.numCards;
-      this.endIndex = this.projects.length - (this.numCards - 1);
+      if (this.endIndex === this.projects.length - 1) {
+        this.startIndex = this.projects.length - this.numCards;
+        this.endIndex = this.projects.length - (this.numCards - 1);
+      } else {
+        this.startIndex = this.projects.length - this.numCards - 1;
+        this.endIndex = this.projects.length - 2;
+      }
     }
   }
+
   public next(): void {
     if (this.endIndex < this.projects.length - 1) {
       this.startIndex++;
@@ -41,25 +47,25 @@ export class FeaturedComponent {
       this.endIndex = this.numCards - 1;
     }
   }
+
   private startAutoScroll(): void {
-    const intervalTime = 7000;
+    const intervalTime = 9000;
     this.intervalId = setInterval(() => {
       this.next();
     }, intervalTime);
   }
+
   private stopAutoScroll(): void {
     if (this.intervalId) {
       clearInterval(this.intervalId);
       this.intervalId = null;
     }
   }
+
   public ngOnDestroy(): void {
     this.stopAutoScroll();
   }
-  /*public getButtonColor(index: number): string {
-    const colors = ['purple', 'accent', 'tertiary'];
-    return index === this.currentServiceIndex ? colors[index] : '';
-  }*/
+
   public jumpTo(index: number): void {
     this.startIndex = index;
     this.endIndex = index + (this.numCards - 1);

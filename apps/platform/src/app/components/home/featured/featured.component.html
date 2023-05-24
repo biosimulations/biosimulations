@@ -1,5 +1,13 @@
 <div class="subsection">
-  <div fxLayout="row" fxLayoutAlign="space-around stretch">
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <button
+      mat-fab
+      fxFlexAlign="center"
+      class="nav-button left"
+      style="background-color: rgba(20, 121, 237, 0.75);"
+      (click)="previous()">
+      <mat-icon>keyboard_arrow_left</mat-icon>
+    </button>
     <ng-container *ngFor="let project of projects; let i = index">
       <mat-card class="project-card" [fxFlex]="70 / numCards" *ngIf="i >= startIndex && i <= endIndex">
         <mat-card-header>
@@ -17,6 +25,14 @@
         </mat-card-actions>
       </mat-card>
     </ng-container>
+    <button
+      mat-fab
+      fxFlexAlign="center"
+      class="nav-button right"
+      style="background-color: rgba(20, 121, 237, 0.75);"
+      (click)="next()">
+      <mat-icon>keyboard_arrow_right</mat-icon>
+    </button>
   </div>
   <div class="pagination-dots">
     <span
@@ -26,9 +42,6 @@
       (click)="jumpTo(i)">
     </span>
   </div>
-  <button mat-fab color="primary" fxFlexAlign="center" class="nextButton" (click)="next()">
-    <mat-icon>keyboard_arrow_right</mat-icon>
-  </button>
 </div>
 
-<!--[color]="getButtonColor(i)"-->
+<!--[color]="getButtonColor(i)""space-around stretch"-->
