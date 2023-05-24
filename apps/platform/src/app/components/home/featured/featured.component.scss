@@ -67,7 +67,7 @@
   padding-top: 0;
   padding-bottom: 1rem;
   color: white;
-  background-color: rgba(20, 121, 237, 0.7);
+  background-color: rgba(20, 121, 237, 0.6);
   font-weight: 500;
   transition-property: all;
   transition-duration: 0.2s;
@@ -127,7 +127,7 @@ img {
 .mat-mdc-raised-button {
   box-shadow: none;
   background-color: mat.get-color-from-palette($theme-accent); //#347121;
-  color: #102e06;
+  color: #1b4b0b;
   border-radius: 2px;
   font-weight: 600;
 }
