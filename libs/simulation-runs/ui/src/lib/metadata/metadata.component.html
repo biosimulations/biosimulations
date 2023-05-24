@@ -56,11 +56,24 @@
         Simulation Summary
       </mat-card-header>
       <mat-card-content>
-        <biosimulations-text-page-side-bar-section [heading]="project.title">
-          <table class="summary-list">
-            {{ project.title }}
-          </table>
-        </biosimulations-text-page-side-bar-section>
+        <table>
+          <tr>
+            <th>Biology</th>
+            <td>{{ project.modelSimulation }}</td>
+          </tr>
+          <tr>
+            <th>Simulation</th>
+            <td>Some Other Highlight</td>
+          </tr>
+          <tr>
+            <th>Provenance</th>
+            <td>{{ project.provenance }}</td>
+          </tr>
+          <tr>
+            <th>Identifiers</th>
+            <td>{{ project.identifiers }}</td>
+          </tr>
+        </table>
       </mat-card-content>
     </mat-card>
   </div>
