@@ -1,5 +1,18 @@
 # Changelog
 
+## [9.26.4](https://github.com/biosimulations/biosimulations/compare/v9.26.3...v9.26.4) (2023-05-25)
+
+
+### Bug Fixes
+
+* add aria label to simulation summary table per sonar rule ([80cbef0](https://github.com/biosimulations/biosimulations/commit/80cbef09374cad4e70c53142ad1ca02993c11290))
+* add CNAME for docs.biosimulations.org for docs hosting ([863a3fe](https://github.com/biosimulations/biosimulations/commit/863a3fe069338a28fb1872147634a1947461dda9))
+* increase platform app size budget to 365k/style and 14mb/bundle ([3746977](https://github.com/biosimulations/biosimulations/commit/3746977bf4f221653642b369eef506e609ea7b5d))
+* remove unused import in platform app ([d234e17](https://github.com/biosimulations/biosimulations/commit/d234e175b2d85b649d316eeb89db069dfb6019a8))
+* removed biosimulators from featured carousel service ([59dc750](https://github.com/biosimulations/biosimulations/commit/59dc75030f84bb75e21cbdd5a22304d3e54d96b5))
+* simulation page layout and home page footer ([211d2e8](https://github.com/biosimulations/biosimulations/commit/211d2e8d8bdb288710a649d6283b178e19ef93da))
+* unit test needs fake animation ([ddf03ec](https://github.com/biosimulations/biosimulations/commit/ddf03ecce02eada053c9ad8afc3290355b3bf2a6))
+
 ## [9.26.3](https://github.com/biosimulations/biosimulations/compare/v9.26.2...v9.26.3) (2023-05-23)
 
 
