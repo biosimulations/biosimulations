@@ -23,12 +23,12 @@
           </biosimulations-project-metadata>
         </mat-card-content>
       </mat-card>
-      <mat-card class="viz-card" style="padding-top: 0rem">
+      <mat-card class="viz-card">
         <mat-card-header class="viz-card-header"> Simulation Viusalizations </mat-card-header>
         <mat-card-content>
-          <mat-grid-list cols="2" rowHeight="100%" gutterSize="20">
+          <mat-grid-list cols="2" rowHeight="300px" gutterSize="20">
             <mat-grid-tile *ngFor="let plotVisualization of plotVisualizations$ | async">
-              <mat-card class="figure-card">
+              <mat-card cdkDrag cdkDragHandle class="figure-card">
                 <mat-card-header class="figure-card-header">
                   {{ plotVisualization.name }}
                 </mat-card-header>
