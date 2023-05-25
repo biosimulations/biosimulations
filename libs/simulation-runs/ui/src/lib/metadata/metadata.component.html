@@ -11,18 +11,14 @@
     <!-- Begin summary/text data-->
     <div *ngIf="project" fxGrid class="metadata-column ragged-column">
       <mat-card>
-        <mat-card-header class="card-header">
-          Simulation Description
-        </mat-card-header>
+        <mat-card-header class="card-header"> Simulation Description </mat-card-header>
         <mat-card-content>
           <div class="image-container">
             <biosimulations-carousel [images]="project.thumbnails" style="padding-top: 1rem; padding-bottom: 1rem">
             </biosimulations-carousel>
           </div>
           <biosimulations-text-page-content-section [heading]="project.title" [iconActionType]="null">
-            <div
-            class="abstract"
-            *ngIf="project.abstract">
+            <div class="abstract" *ngIf="project.abstract">
               {{ project.abstract }}
             </div>
             <!-- Begin creators/contributers-->
@@ -36,11 +32,7 @@
               </li>
             </ul>
             <!-- description -->
-            <markdown
-            [data]="project.description"
-            class="description"
-            *ngIf="project.description">
-            </markdown>
+            <markdown [data]="project.description" class="description" *ngIf="project.description"> </markdown>
           </biosimulations-text-page-content-section>
         </mat-card-content>
       </mat-card>
@@ -52,9 +44,7 @@
   <!-- Start Summary Display -->
   <div *ngIf="project" fxGrid class="summary-display">
     <mat-card cdkDrag cdkDragHandle>
-      <mat-card-header class="card-header">
-        Simulation Summary
-      </mat-card-header>
+      <mat-card-header class="card-header"> Simulation Summary </mat-card-header>
       <mat-card-content>
         <table aria-label="simulation summary">
           <tr>
@@ -78,16 +68,12 @@
     </mat-card>
   </div>
 
-
-
   <!-- End Summary Display -->
 
   <mat-expansion-panel>
-    <mat-expansion-panel-header class="card-header">
-      Simulation Details
-    </mat-expansion-panel-header>
+    <mat-expansion-panel-header class="card-header"> Simulation Details </mat-expansion-panel-header>
     <!-- Biology, simulation, provenance, & identifiers information -->
-      <div
+    <div
       *ngIf="
         project?.modelSimulation?.length ||
         simulationRun?.length ||
@@ -110,9 +96,7 @@
         *ngTemplateOutlet="sectionsTemplate; context: { sections: project?.identifiers || [] }"></ng-container>
       <!-- template -->
       <ng-template #sectionsTemplate let-sections="sections">
-        <biosimulations-text-page-side-bar-section
-          *ngFor="let section of sections"
-          [heading]="section.title">
+        <biosimulations-text-page-side-bar-section *ngFor="let section of sections" [heading]="section.title">
           <table class="icon-list" aria-label="metadata table">
             <tr *ngFor="let item of section.items" fxLayout="row">
               <th>

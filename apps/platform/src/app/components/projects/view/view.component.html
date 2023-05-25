@@ -14,7 +14,6 @@
   <biosimulations-json-ld [json]="jsonLdData"></biosimulations-json-ld>
 </ng-container>
 
-
 <ng-container *ngIf="projectMetadata$ | async as projectMetadata">
   <ng-container *ngIf="simulationRun$ | async as simulationRun">
     <div class="display-data">
@@ -25,9 +24,7 @@
         </mat-card-content>
       </mat-card>
       <mat-card class="viz-card" style="padding-top: 0rem">
-        <mat-card-header class="viz-card-header">
-          Simulation Viusalizations
-        </mat-card-header>
+        <mat-card-header class="viz-card-header"> Simulation Viusalizations </mat-card-header>
         <mat-card-content>
           <mat-grid-list cols="2" rowHeight="100%" gutterSize="20">
             <mat-grid-tile *ngFor="let plotVisualization of plotVisualizations$ | async">
