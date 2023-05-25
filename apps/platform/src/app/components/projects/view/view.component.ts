@@ -1,7 +1,7 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { trigger, transition, style, animate } from '@angular/animations';
 
 import { Observable, combineLatest, map, shareReplay, mergeMap, throwError } from 'rxjs';
