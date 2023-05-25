@@ -298,26 +298,27 @@
 <!---------------------------------------------------NEW SECTION-------------------------------------------------------------->
 
 <biosimulations-home-section [columns]="3">
-  <biosimulations-home-subsection heading="More" icon="help" subheading="" style="justify-content: center">
-    <biosimulations-hover-open-menu>
-      <biosimulations-topbar-menu-item heading="Help" icon="help" id="trigger"> </biosimulations-topbar-menu-item>
-      <ng-container id="items">
-        <biosimulations-dropdown-menu-item
-          heading="FAQ"
-          icon="help"
-          href="https://docs.biosimulations.org/users/faqs/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-        <biosimulations-dropdown-menu-item
-          heading="Contact Us"
-          icon="contact"
-          href="https://docs.biosimulations.org/about/contact/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-      </ng-container>
-    </biosimulations-hover-open-menu>
+  <biosimulations-home-subsection
+    id="subsection"
+    heading="Help"
+    icon="help"
+    subheading=""
+    subheadingSize="small"
+    style="justify-content: center">
+    <biosimulations-topbar-menu-item
+      heading="FAQ"
+      icon="help"
+      id="trigger"
+      href="https://docs.biosimulations.org/users/faqs/"
+      target="biosimulations-docs">
+    </biosimulations-topbar-menu-item>
+    <biosimulations-topbar-menu-item
+      heading="Contact Us"
+      icon="contact"
+      href="https://docs.biosimulations.org/about/contact/"
+      target="biosimulations-docs">
+    </biosimulations-topbar-menu-item>
   </biosimulations-home-subsection>
-
   <biosimulations-home-subsection
     id="subsection"
     heading="Conventions"
@@ -379,8 +380,7 @@
       icon="progress"
       href="https://docs.biosimulations.org/concepts/conventions/simulation-run-logs/"
       target="biosimulations-docs">
-    </biosimulations-topbar-menu-item
-    >>
+    </biosimulations-topbar-menu-item>
   </biosimulations-home-subsection>
 
   <biosimulations-home-subsection

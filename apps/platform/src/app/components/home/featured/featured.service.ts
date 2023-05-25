@@ -3,16 +3,9 @@ import { FeaturedProject } from './featured.model';
 
 @Injectable()
 export class FeaturedService {
-  private simulators = {
-    title: 'Browse Simulators',
-    image: 'https://t4.ftcdn.net/jpg/05/06/41/89/360_F_506418953_5R5MQsN4UJ4hLgqnKlltS44wbQ33LhIU.jpg',
-    id: 'simulators',
-    description:
-      'Browse a free registry of biosimulation tools. The registry includes tools for a broad range of frameworks (e.g., logical, kinetic), simulation algorithms (e.g., FBA, SSA), and model formats (e.g., BNGL, CellML, NeuroML/LEMS, SBML, Smoldyn). ',
-  };
   private simulations = {
     title: 'Browse Simulations',
-    image: 'https://htmlcolors.com/gradients-images/408-sky-blue.jpg',
+    image: 'https://t4.ftcdn.net/jpg/05/06/41/89/360_F_506418953_5R5MQsN4UJ4hLgqnKlltS44wbQ33LhIU.jpg',
     id: 'simulations',
     description:
       'Browse a free platform for sharing and re-using biomodels, simulations, simulation results, and visualizations of simulation results.',
@@ -88,7 +81,6 @@ export class FeaturedService {
   projects = [this.mouse, this.ecoli, this.yeast, this.calcium];*/
 
   projects = [
-    this.simulators,
     this.simulations,
     this.runSimulations,
     this.publishSimulations,

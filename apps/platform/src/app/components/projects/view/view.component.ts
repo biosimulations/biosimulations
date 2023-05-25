@@ -1,5 +1,9 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { trigger, transition, style, animate } from '@angular/animations';
+
 import { Observable, combineLatest, map, shareReplay, mergeMap, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
@@ -20,6 +24,15 @@ import { BiosimulationsError } from '@biosimulations/shared/error-handler';
   selector: 'biosimulations-view',
   templateUrl: './view.component.html',
   styleUrls: ['./view.component.scss'],
+
+  animations: [
+    trigger('cardAnimation', [
+      transition('* <=> *', [
+        style({ transform: 'translateX(0)', opacity: 0 }),
+        animate('300ms ease-in-out', style({ transform: 'translateX(0)', opacity: 1 })),
+      ]),
+    ]),
+  ],
 })
 export class ViewComponent implements OnInit {
   public loaded$!: Observable<boolean>;
@@ -36,6 +49,9 @@ export class ViewComponent implements OnInit {
   public plotVisualizations$!: Observable<Visualization[]>;
 
   jsonLdData$!: Observable<WithContext<Dataset>>;
+
+  cards: any[] = [];
+  draggedIndex = -1;
 
   public constructor(
     private service: ViewService,
@@ -133,10 +149,23 @@ export class ViewComponent implements OnInit {
       for (const vis of visList.visualizations) {
         if (vis._type === 'SedPlot2DVisualization') {
           visualizations.push(vis);
+          this.cards.push(vis);
         }
       }
     }
     return visualizations;
+  }
+
+  onCardDropped(event: CdkDragDrop<any[]>): void {
+    if (event.previousContainer === event.container) {
+      // Card was dragged within the same container
+      if (event.previousIndex !== event.currentIndex) {
+        // Swap the positions of the cards
+        const draggedCard = this.cards[event.previousIndex];
+        this.cards[event.previousIndex] = this.cards[event.currentIndex];
+        this.cards[event.currentIndex] = draggedCard;
+      }
+    }
   }
 }
 

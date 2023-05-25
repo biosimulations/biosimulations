@@ -1,3 +1,4 @@
+/*@use '@angular/material' as mat;
 @import 'biosimulations-colors';
 
 .spinner-container {
@@ -16,15 +17,18 @@
   flex: 1;
   margin: 40px;
 }
+.mat-expansion-panel {
+  height: auto;
+}
 .plotparent {
-  width: 600px;
-  height: 600px;
+  width: auto;
+  height: auto;
 }
 .mat-grid-list {
   padding-top: 5rem;
 }
 .mat-grid-tile {
-  height: 100%;
+  height: auto;
   padding-top: 2rem;
   justify-content: center;
 }
@@ -59,4 +63,165 @@ biosimulations-tab-page ::ng-deep .icon-list {
   .files {
     margin-top: -1rem;
   }
+}
+
+.metadata-card {
+  background-color: none;
+}
+
+.viz-card {
+  background-color: none;
+}
+
+.viz-card-header {
+  background-color: #087008;
+  font-weight: 600;
+  color: white;
+  padding-bottom: 1rem;
+}
+
+.figure-card {
+  background-color: #9bcff9;
+  display: flex;
+}
+
+.figure-card-header {
+  background-color: #ffa500;
+  font-weight: 500;
+  color: white;
+  padding-bottom: 1rem;
+
+}
+
+
+
+.container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  align-content: flex-start;
+  height: 100%;
+  transition: height 0.3s ease;
+}
+
+.card {
+  flex: 0 0 calc(33.33% - 8px);
+  max-width: calc(33.33% - 8px);
+  height: 150px;
+  transition: transform 0.3s ease;
+}*/
+
+@use '@angular/material' as mat;
+@import 'biosimulations-colors';
+
+.spinner-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+}
+
+.display-data {
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  overflow-x: hidden;
+}
+
+.display-data > * {
+  flex: 1;
+  margin: 40px;
+}
+
+.mat-expansion-panel {
+  height: auto;
+}
+
+.plotparent {
+  width: auto;
+  height: auto;
+}
+
+.mat-grid-list {
+  padding-top: 5rem;
+  display: grid;
+}
+
+.mat-grid-tile {
+  height: auto;
+  padding-top: 1.3rem;
+  justify-content: center;
+  display: flex;
+}
+
+.mat-grid-tile-header {
+  justify-content: center;
+}
+
+biosimulations-tab-page ::ng-deep .icon-list {
+  & > li:not(:first-child) {
+    margin-top: 0.125rem;
+  }
+
+  a {
+    color: $dark-primary-text;
+    &:hover {
+      color: $dark-primary-text;
+      text-decoration: underline;
+    }
+  }
+}
+
+.files {
+  margin-top: -2rem;
+  ::ng-deep {
+    h3 .icon-container {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 959px) {
+  .files {
+    margin-top: -1rem;
+  }
+}
+
+.metadata-card {
+  background-color: none;
+}
+
+.viz-card {
+  background-color: none;
+  overflow: hidden;
+  display: flex;
+  height: inherit;
+}
+
+.viz-card-header {
+  background-color: #087008;
+  font-weight: 600;
+  color: white;
+  padding-bottom: 1rem;
+}
+
+.figure-card {
+  background-color: #9bcff9;
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+}
+
+.figure-card-header {
+  background-color: #ffa500;
+  font-weight: 500;
+  color: white;
+  padding-bottom: 1rem;
 }

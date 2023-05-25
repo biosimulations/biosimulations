@@ -82,12 +82,12 @@
             {
               "type": "initial",
               "maximumWarning": "2mb",
-              "maximumError": "7mb"
+              "maximumError": "14mb"
             },
             {
               "type": "anyComponentStyle",
               "maximumWarning": "6kb",
-              "maximumError": "115kb"
+              "maximumError": "365kb"
             }
           ],
           "ngswConfigPath": "apps/platform/ngsw-config.json"

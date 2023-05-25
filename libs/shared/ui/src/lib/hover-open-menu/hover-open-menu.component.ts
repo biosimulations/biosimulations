@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
@@ -9,16 +9,23 @@ import { MatMenuTrigger } from '@angular/material/menu';
 export class HoverOpenMenuComponent {
   timedOutCloser: any = null;
 
+  @Input()
+  disabled: any = false;
+
   openMenu(trigger: MatMenuTrigger): void {
-    if (this.timedOutCloser) {
-      clearTimeout(this.timedOutCloser);
+    if (!this.disabled) {
+      if (this.timedOutCloser) {
+        clearTimeout(this.timedOutCloser);
+      }
+      trigger.openMenu();
     }
-    trigger.openMenu();
   }
 
   closeMenu(trigger: MatMenuTrigger): void {
-    this.timedOutCloser = window.setTimeout(() => {
-      trigger.closeMenu();
-    }, 50);
+    if (!this.disabled) {
+      this.timedOutCloser = window.setTimeout(() => {
+        trigger.closeMenu();
+      }, 50);
+    }
   }
 }

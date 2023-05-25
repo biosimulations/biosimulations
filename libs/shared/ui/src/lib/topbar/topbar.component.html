@@ -2,7 +2,7 @@
   <a [routerLink]="['/']" class="logo" *ngIf="showLogo" fxLayout="row" fxLayoutAlign="center center">
     <ng-content select="#logo" fxFlex></ng-content>
   </a>
-  <div class="logo-buttons" *ngIf="showLogo" fxLayout="row" fxLayoutAlign="center center">
+  <div class="logo-buttons" *ngIf="showLogo" fxLayout="column" fxLayoutAlign="center center">
     <ng-content select="#rightContent"></ng-content>
     <ng-content select="#leftContent"></ng-content>
   </div>
