@@ -5,6 +5,7 @@ import { MetadataComponent } from '../metadata/metadata.component';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { ScrollService } from '@biosimulations/shared/angular';
 import { RouterTestingModule } from '@angular/router/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('MetadataDialogComponent', () => {
   let component: MetadataDialogComponent;
@@ -13,7 +14,7 @@ describe('MetadataDialogComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        imports: [MatDialogModule, SharedUiModule, RouterTestingModule],
+        imports: [MatDialogModule, SharedUiModule, RouterTestingModule, NoopAnimationsModule],
         providers: [
           { provide: MatDialogRef, useValue: {} },
           {

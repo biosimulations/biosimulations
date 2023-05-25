@@ -4,6 +4,7 @@ import { SharedUiModule } from '@biosimulations/shared/ui';
 import { MarkdownModule, MarkdownService } from 'ngx-markdown';
 
 import { MetadataComponent } from './metadata.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('MetadataComponent', () => {
   let component: MetadataComponent;
@@ -12,7 +13,7 @@ describe('MetadataComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [MetadataComponent],
-      imports: [BiosimulationsIconsModule, SharedUiModule, MarkdownModule.forRoot()],
+      imports: [BiosimulationsIconsModule, SharedUiModule, MarkdownModule.forRoot(), NoopAnimationsModule],
       providers: [MarkdownService],
     }).compileComponents();
   });
