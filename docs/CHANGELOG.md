@@ -1,5 +1,14 @@
 # Changelog
 
+## [9.26.5](https://github.com/biosimulations/biosimulations/compare/v9.26.4...v9.26.5) (2023-05-26)
+
+
+### Bug Fixes
+
+* create-project reactive form fix ([2041b04](https://github.com/biosimulations/biosimulations/commit/2041b04a927b54cb6c285a1354cc922c45d47b3c))
+* simulationType checks properly for undefined ([1f7ed74](https://github.com/biosimulations/biosimulations/commit/1f7ed74d6ce40fd91224727a7322064539df2fdc))
+* simulator routing fix and linting fix ([6e185b8](https://github.com/biosimulations/biosimulations/commit/6e185b80deb8343f87bf305edf323ebe35dcb3c1))
+
 ## [9.26.4](https://github.com/biosimulations/biosimulations/compare/v9.26.3...v9.26.4) (2023-05-25)
 
 
