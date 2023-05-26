@@ -714,7 +714,7 @@ simulator.exec_sedml_docs_in_combine_archive(
                           </li>
                           <ng-template #notEnum>
                             <li *ngIf="parameter.formattedRange !== null">
-                              Recommended range: [{{ parameter.formattedRange?.join(', ') }}]
+                              Recommended range: [{{ parameter.formattedRange.join(', ') }}]
                             </li>
                           </ng-template>
                         </ng-template>
@@ -961,7 +961,7 @@ simulator.exec_sedml_docs_in_combine_archive(
               [heading]="result.case.id"
               [class]="[
                 'status-section',
-                result.resultType === 'Passed' && result.warnings?.length ? 'Warned' : result.resultType
+                result.resultType === 'Passed' && result.warnings.length ? 'Warned' : result.resultType
               ]"
               [compact]="true"
               iconActionType="toggle"

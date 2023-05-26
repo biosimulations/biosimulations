@@ -15,6 +15,7 @@ const routes: Routes = [
       {
         path: '',
         redirectTo: 'latest',
+        pathMatch: 'full',
       },
       {
         path: 'latest',
