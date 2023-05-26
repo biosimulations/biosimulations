@@ -6,17 +6,19 @@
   fxLayoutGap="1rem"
   fxLayoutGap.lt-lg="1rem">
   <!-- Begin thumbnails -->
-  <div *ngIf="project && project?.thumbnails?.length" fxFlex class="thumbnails-column" fxLayout="column">
+  <div *ngIf="project" fxFlex class="thumbnails-column" fxLayout="column">
     <!-- Begin summary/text data -->
     <!-- Begin summary/text data-->
     <div *ngIf="project" fxGrid>
       <mat-card class="metadata-card">
         <mat-card-header class="card-header">Simulation Description</mat-card-header>
         <mat-card-content>
-          <div class="image-container">
-            <biosimulations-carousel [images]="project.thumbnails">
-            </biosimulations-carousel>
-          </div>
+          <ng-container *ngIf="project?.thumbnails?.length">
+            <div class="image-container">
+              <biosimulations-carousel [images]="project.thumbnails">
+              </biosimulations-carousel>
+            </div>
+          </ng-container>
           <biosimulations-text-page-content-section [heading]="project.title" [iconActionType]="null">
             <div class="abstract" *ngIf="project.abstract">
               {{ project.abstract }}
