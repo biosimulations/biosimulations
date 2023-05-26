@@ -17,34 +17,53 @@
 <ng-container *ngIf="projectMetadata$ | async as projectMetadata">
   <ng-container *ngIf="simulationRun$ | async as simulationRun">
     <div class="display-data">
+
+      <!-- Start Left Column-->
       <mat-card>
         <mat-card-content class="metadata-card">
           <biosimulations-project-metadata [project]="projectMetadata" [simulationRun]="simulationRun">
           </biosimulations-project-metadata>
         </mat-card-content>
       </mat-card>
-      <mat-card class="viz-card" style="padding-top: 0rem">
-        <mat-card-header class="viz-card-header"> Simulation Viusalizations </mat-card-header>
+      <!-- End Left Column -->
+
+
+
+
+      <mat-card>
+        <mat-card-header class="viz-card-header">
+          Simulation Visualizations
+        </mat-card-header>
         <mat-card-content>
-          <mat-grid-list cols="2" rowHeight="100%" gutterSize="20">
-            <mat-grid-tile *ngFor="let plotVisualization of plotVisualizations$ | async">
-              <mat-card class="figure-card">
-                <mat-card-header class="figure-card-header">
-                  {{ plotVisualization.name }}
-                </mat-card-header>
-                <mat-card-content>
-                  <div class=".plotparent">
-                    <div class="project-viz">
-                      <biosimulations-project-visualization
-                        class="full-width full-height"
-                        [visualization]="plotVisualization">
-                      </biosimulations-project-visualization>
-                    </div>
-                  </div>
-                </mat-card-content>
-              </mat-card>
+          <!-- Start Right Column -->
+          <mat-grid-list
+            cdkDropList
+            class="example-list"
+            (cdkDropListDropped)="drop($event)"
+            cols="1"
+            rowHeight="300px"
+            gutterSize="20">
+            <mat-grid-tile
+              class="example-box"
+              *ngFor="let plotVisualization of plotVisualizations$ | async"
+              cdkDrag>
+              <div class="figure-card-placeholder" *cdkDragPlaceholder></div>
+              <div class=".plot-parent">
+                <mat-card>
+                  <mat-card-header>
+                    {{ plotVisualization.name }}
+                  </mat-card-header>
+                  <mat-card-content>
+                    <biosimulations-project-visualization
+                      class="full-width full-height"
+                      [visualization]="plotVisualization">
+                    </biosimulations-project-visualization>
+                  </mat-card-content>
+                </mat-card>
+              </div>
             </mat-grid-tile>
           </mat-grid-list>
+          <!-- End Right Column -->
         </mat-card-content>
       </mat-card>
     </div>

@@ -3,8 +3,27 @@
 @import 'biosimulations-typography';
 
 .mat-card {
-  border-radius: 4px;
+  border-radius: 2px;
 }
+
+.mat-card-header {
+  border-radius: 1px;
+}
+
+.metadata-card {
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  overflow-x: hidden;
+}
+
+.metadata-card-header {
+  background-color: #087008;
+  font-weight: 600;
+  color: white;
+  padding-bottom: 1rem;
+}
+
 .metadata {
   .thumbnails-column {
     display: flex;
@@ -120,13 +139,22 @@
 }
 
 .card-header {
-  background-color: #087008;
-  color: white;
-  padding-bottom: 1rem;
+  background-color: rgba(145, 18, 191, 0.859);
   font-weight: 600;
+  color: white;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+
+  border-top: 2px;
+  border-radius: 1px;
+  height: 100%;
 }
 
 :host ::ng-deep .card-header:hover:not(.mat-expanded) {
   background-color: inherit !important;
   box-shadow: none !important;
+}
+
+.details-card {
+  height: 100%;
 }

@@ -1,8 +1,8 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { Observable, combineLatest, map, shareReplay, mergeMap, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -156,16 +156,8 @@ export class ViewComponent implements OnInit {
     return visualizations;
   }
 
-  onCardDropped(event: CdkDragDrop<any[]>): void {
-    if (event.previousContainer === event.container) {
-      // Card was dragged within the same container
-      if (event.previousIndex !== event.currentIndex) {
-        // Swap the positions of the cards
-        const draggedCard = this.cards[event.previousIndex];
-        this.cards[event.previousIndex] = this.cards[event.currentIndex];
-        this.cards[event.currentIndex] = draggedCard;
-      }
-    }
+  drop(event: CdkDragDrop<any[]>) {
+    moveItemInArray(this.cards, event.previousIndex, event.currentIndex);
   }
 }
 
