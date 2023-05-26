@@ -17,7 +17,6 @@
 <ng-container *ngIf="projectMetadata$ | async as projectMetadata">
   <ng-container *ngIf="simulationRun$ | async as simulationRun">
     <div class="display-data">
-
       <!-- Start Left Column-->
       <mat-card>
         <mat-card-content class="metadata-card">
@@ -27,13 +26,8 @@
       </mat-card>
       <!-- End Left Column -->
 
-
-
-
       <mat-card>
-        <mat-card-header class="viz-card-header">
-          Simulation Visualizations
-        </mat-card-header>
+        <mat-card-header class="viz-card-header"> Simulation Visualizations </mat-card-header>
         <mat-card-content>
           <!-- Start Right Column -->
           <mat-grid-list
@@ -43,10 +37,7 @@
             cols="1"
             rowHeight="300px"
             gutterSize="20">
-            <mat-grid-tile
-              class="example-box"
-              *ngFor="let plotVisualization of plotVisualizations$ | async"
-              cdkDrag>
+            <mat-grid-tile class="example-box" *ngFor="let plotVisualization of plotVisualizations$ | async" cdkDrag>
               <div class="figure-card-placeholder" *cdkDragPlaceholder></div>
               <div class=".plot-parent">
                 <mat-card>
