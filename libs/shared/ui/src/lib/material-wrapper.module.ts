@@ -28,6 +28,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatSelectModule } from '@angular/material/select';
 
 const materialImports = [
   FlexLayoutModule,
@@ -60,6 +61,7 @@ const materialImports = [
   FormsModule,
   ReactiveFormsModule,
   MatGridListModule,
+  MatSelectModule,
 ];
 
 @NgModule({

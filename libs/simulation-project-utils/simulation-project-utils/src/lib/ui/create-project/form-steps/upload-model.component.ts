@@ -1,7 +1,13 @@
 import { Component } from '@angular/core';
 import { CreateMaxFileSizeValidator, URL_VALIDATOR } from '@biosimulations/shared/ui';
 import { OntologyTerm } from '../../../../index';
-import { UntypedFormGroup, UntypedFormBuilder, Validators, ValidationErrors } from '@angular/forms';
+import {
+  UntypedFormGroup,
+  UntypedFormBuilder,
+  Validators,
+  ValidationErrors,
+  AbstractControlOptions,
+} from '@angular/forms';
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import { EdamTerm } from '@biosimulations/datamodel/common';
 import { IFormStepComponent, FormStepData } from '../create-project/forms';
@@ -22,11 +28,11 @@ export class UploadModelComponent implements IFormStepComponent {
       {
         modelFile: [null, [CreateMaxFileSizeValidator(this.config)]],
         modelUrl: [null, [URL_VALIDATOR]],
-        modelFormat: [null, Validators.required],
+        modelFormat: [null, [Validators.required]],
       },
       {
         validators: this.formValidator.bind(this),
-      },
+      } as AbstractControlOptions,
     );
   }
 
