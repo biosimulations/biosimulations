@@ -7,7 +7,7 @@
     (mouseleave)="closeMenu(trigger)">
     <ng-content select="#trigger"></ng-content>
   </div>
-  <mat-menu #menu="matMenu" yPosition="above" [hasBackdrop]="false">
+  <mat-menu #menu="matMenu" yPosition="below" [hasBackdrop]="false">
     <div (mouseenter)="openMenu(trigger)" (mouseleave)="closeMenu(trigger)">
       <ng-content select="#items"></ng-content>
     </div>
