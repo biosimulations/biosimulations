@@ -28,46 +28,44 @@
       <!-- End Left Column -->
 
 
-      <div class="example-container">
 
 
-        <!-- Start Right Column -->
-        <mat-card class="viz-card">
-          <mat-card-header class="viz-card-header"> Simulation Viusalizations </mat-card-header>
-          <mat-card-content>
-            <mat-grid-list
-              cdkDropList
-              (cdkDropListDropped)="drop($event)"
-              cols="1"
-              rowHeight="300px"
-              gutterSize="20">
-              <mat-grid-tile
-                *ngFor="let plotVisualization of plotVisualizations$ | async"
-                cdkDragBoundary=".viz-card"
-                cdkDrag>
-                <mat-card
-                  class="figure-card">
-                  <mat-card-header class="figure-card-header">
+      <mat-card>
+        <mat-card-header class="viz-card-header">
+          Simulation Visualizations
+        </mat-card-header>
+        <mat-card-content>
+          <!-- Start Right Column -->
+          <mat-grid-list
+            cdkDropList
+            class="example-list"
+            (cdkDropListDropped)="drop($event)"
+            cols="1"
+            rowHeight="300px"
+            gutterSize="20">
+            <mat-grid-tile
+              class="example-box"
+              *ngFor="let plotVisualization of plotVisualizations$ | async"
+              cdkDrag>
+              <div class="figure-card-placeholder" *cdkDragPlaceholder></div>
+              <div class=".plot-parent">
+                <mat-card>
+                  <mat-card-header>
                     {{ plotVisualization.name }}
                   </mat-card-header>
                   <mat-card-content>
-                    <div class=".plotparent">
-                      <div class="project-viz">
-                        <div class="figure-placeholder" *cdkDragPlaceholder></div>
-                        <biosimulations-project-visualization
-                          class="full-width full-height"
-                          [visualization]="plotVisualization">
-                        </biosimulations-project-visualization>
-                      </div>
-                    </div>
+                    <biosimulations-project-visualization
+                      class="full-width full-height"
+                      [visualization]="plotVisualization">
+                    </biosimulations-project-visualization>
                   </mat-card-content>
                 </mat-card>
-              </mat-grid-tile>
-            </mat-grid-list>
-          </mat-card-content>
-        </mat-card>
-        <!-- End Right Column -->
-      </div>
+              </div>
+            </mat-grid-tile>
+          </mat-grid-list>
+          <!-- End Right Column -->
+        </mat-card-content>
+      </mat-card>
     </div>
   </ng-container>
 </ng-container>
