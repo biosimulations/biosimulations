@@ -3,8 +3,6 @@
 
 biosimulations-text-page-section ::ng-deep h3 {
   color: mat.get-color-from-palette($theme-primary);
-  justify-content: left;
-  background: $theme-primary-lightest;
 
   .mat-icon-button.biosimulations-button {
     &:hover {

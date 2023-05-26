@@ -9,12 +9,12 @@
   <div *ngIf="project && project?.thumbnails?.length" fxFlex class="thumbnails-column" fxLayout="column">
     <!-- Begin summary/text data -->
     <!-- Begin summary/text data-->
-    <div *ngIf="project" fxGrid class="metadata-column ragged-column">
-      <mat-card>
-        <mat-card-header class="card-header"> Simulation Description </mat-card-header>
+    <div *ngIf="project" fxGrid>
+      <mat-card class="metadata-card">
+        <mat-card-header class="card-header">Simulation Description</mat-card-header>
         <mat-card-content>
           <div class="image-container">
-            <biosimulations-carousel [images]="project.thumbnails" style="padding-top: 0rem; padding-bottom: 1rem">
+            <biosimulations-carousel [images]="project.thumbnails">
             </biosimulations-carousel>
           </div>
           <biosimulations-text-page-content-section [heading]="project.title" [iconActionType]="null">
@@ -42,8 +42,8 @@
   <!-- End thumbnails-->
 
   <!-- Start Summary Display -->
-  <div *ngIf="project" fxGrid class="summary-display">
-    <mat-card>
+  <div *ngIf="project" fxGrid>
+    <mat-card class="summary-card">
       <mat-card-header class="card-header"> Simulation Summary </mat-card-header>
       <mat-card-content>
         <table aria-label="simulation summary">
@@ -71,7 +71,7 @@
   <!-- End Summary Display -->
 
   <mat-expansion-panel class="details-card">
-    <mat-expansion-panel-header class="card-header"> Simulation Details </mat-expansion-panel-header>
+    <mat-expansion-panel-header class="card-header disable-ripple"> Simulation Details </mat-expansion-panel-header>
     <!-- Biology, simulation, provenance, & identifiers information -->
     <div
       *ngIf="

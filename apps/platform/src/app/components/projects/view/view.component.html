@@ -28,7 +28,7 @@
 
 
       <!-- Start Right Column -->
-      <mat-card>
+      <mat-card class="viz-card">
         <mat-card-header class="viz-card-header"> Simulation Visualizations </mat-card-header>
         <mat-card-content>
           <mat-grid-list
@@ -38,11 +38,12 @@
             rowHeight="400px"
             gutterSize="20">
             <mat-grid-tile
+              class="figure-card"
               *ngFor="let plotVisualization of plotVisualizations$ | async"
               cdkDrag>
               <mat-grid-tile-header
                 class="figure-card-header"
-                style="background-color: #d097f0">
+                style="background-color: #ff9800">
                   {{ plotVisualization.name }}
               </mat-grid-tile-header>
               <div class="figure-card-placeholder" *cdkDragPlaceholder></div>
