@@ -27,29 +27,26 @@
       <!-- End Left Column -->
 
 
-
       <!-- Start Right Column -->
-      <mat-card
-        class="viz-card">
+      <mat-card>
         <mat-card-header class="viz-card-header"> Simulation Visualizations </mat-card-header>
         <mat-card-content>
-          <!-- Start Right Column -->
           <mat-grid-list
             cdkDropList
             (cdkDropListDropped)="drop($event)"
             cols="1"
-            rowHeight="300px"
+            rowHeight="400px"
             gutterSize="20">
             <mat-grid-tile
               *ngFor="let plotVisualization of plotVisualizations$ | async"
               cdkDrag>
+              <mat-grid-tile-header
+                class="figure-card-header"
+                style="background-color: #d097f0">
+                  {{ plotVisualization.name }}
+              </mat-grid-tile-header>
               <div class="figure-card-placeholder" *cdkDragPlaceholder></div>
               <div class=".plot-parent">
-                <mat-grid-tile-header
-                  class="figure-card-header"
-                  style="background-color: #d097f0">
-                  {{ plotVisualization.name }}
-                </mat-grid-tile-header>
                 <biosimulations-project-visualization
                   class="full-width full-height"
                   [visualization]="plotVisualization">
@@ -57,9 +54,11 @@
               </div>
             </mat-grid-tile>
           </mat-grid-list>
-          <!-- End Right Column -->
         </mat-card-content>
       </mat-card>
+      <!-- End Right Column -->
+
+
     </div>
   </ng-container>
 </ng-container>
