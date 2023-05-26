@@ -151,14 +151,14 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
       framework = 'SBO_' + '0'.repeat(7 - match[2].length) + match[2];
     }
 
-    if (!simulationType?.startsWith('Sed')) {
+    if (simulationType && !simulationType.startsWith('Sed')) {
       simulationType = 'Sed' + simulationType;
     }
-    if (!simulationType?.endsWith('Simulation')) {
+    if (simulationType && !simulationType.endsWith('Simulation')) {
       simulationType = simulationType + 'Simulation';
     }
     SUPPORTED_SIMULATION_TYPES.forEach((simType: SimulationType): void => {
-      if (simulationType.toLowerCase() == simType.toLowerCase()) {
+      if (simulationType && simulationType.toLowerCase() == simType.toLowerCase()) {
         simulationType = simType;
       }
     });
