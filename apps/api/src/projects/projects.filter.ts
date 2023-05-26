@@ -61,7 +61,9 @@ export function getProjectSummary_SimulationTypes(project: ProjectSummary): Set<
 }
 
 export function getProjectSummary_Simulators(project: ProjectSummary): Set<string> {
-  return new Set<string>([project.simulationRun.run.simulator.name + project.simulationRun.run.simulator.version]);
+  return new Set<string>([
+    project.simulationRun.run.simulator.name + ' ' + project.simulationRun.run.simulator.version,
+  ]);
 }
 
 export function getProjectSummary_Taxa(project: ProjectSummary): Set<string> {

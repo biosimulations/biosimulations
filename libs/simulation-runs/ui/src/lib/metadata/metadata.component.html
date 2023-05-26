@@ -42,26 +42,49 @@
   <!-- End thumbnails-->
 
   <!-- Start Summary Display -->
-  <div *ngIf="project" fxGrid>
+  <div *ngIf="projectSummary" fxGrid>
     <mat-card class="summary-card">
       <mat-card-header class="card-header"> Simulation Summary </mat-card-header>
       <mat-card-content>
         <table aria-label="simulation summary">
           <tr>
             <th>Biology</th>
-            <td>{{ project.modelSimulation }}</td>
+            <td>
+              <ng-container *ngIf="biologyList(projectSummary)">
+                <ng-container *ngFor="let biologyTerm of biologyList(projectSummary); first as isFirst">
+                  <ng-container *ngIf="!isFirst"> and </ng-container>
+                  <b>{{biologyTerm}}</b>
+                </ng-container>
+              </ng-container>
+              <ng-container *ngIf="taxaList(projectSummary)"> in
+                 <ng-container *ngFor="let taxaTerm of taxaList(projectSummary); first as isFirst">
+                  <ng-container *ngIf="!isFirst"> or </ng-container>
+                   <b>{{taxaTerm}}</b>
+                </ng-container>
+              </ng-container>
+            </td>
           </tr>
           <tr>
             <th>Simulation</th>
-            <td>Some Other Highlight</td>
+            <td>
+              <ng-container *ngIf="simulationType(projectSummary)">
+                <b>{{ simulationType(projectSummary) }}</b>,
+              </ng-container>
+              <ng-container *ngIf="simulator(projectSummary)">
+                simulated with <b>{{ simulator(projectSummary) }}</b>,
+              </ng-container>
+              <ng-container *ngIf="formats(projectSummary)">
+                model encoded in <b>{{ formats(projectSummary) }}</b>
+              </ng-container>
+            </td>
           </tr>
           <tr>
             <th>Provenance</th>
-            <td>{{ project.provenance }}</td>
+            <td>{{ provenanceText(projectSummary) }}</td>
           </tr>
           <tr>
             <th>Identifiers</th>
-            <td>{{ project.identifiers }}</td>
+            <td>{{ identifiersText(projectSummary) }}</td>
           </tr>
         </table>
       </mat-card-content>

@@ -20,7 +20,7 @@
       <!-- Start Left Column-->
       <mat-card>
         <mat-card-content class="metadata-card">
-          <biosimulations-project-metadata [project]="projectMetadata" [simulationRun]="simulationRun">
+          <biosimulations-project-metadata [project]="projectMetadata" [simulationRun]="simulationRun" [projectSummary]="projectSummary$ | async">
           </biosimulations-project-metadata>
         </mat-card-content>
       </mat-card>
