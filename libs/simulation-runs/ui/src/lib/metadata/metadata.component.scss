@@ -112,13 +112,13 @@
 .icon-list {
   height: 100%;
   width: 100%;
+  justify-content: center;
 }
 
 .metadata-card {
   display: flex;
   flex-direction: column;
   height: auto;
-  overflow-x: hidden;
 }
 
 .summary-card {
