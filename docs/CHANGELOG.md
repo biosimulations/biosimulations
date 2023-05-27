@@ -1,5 +1,15 @@
 # Changelog
 
+## [9.26.6](https://github.com/biosimulations/biosimulations/compare/v9.26.5...v9.26.6) (2023-05-27)
+
+
+### Bug Fixes
+
+* display abstract and title even if no thumbnail ([bc2b891](https://github.com/biosimulations/biosimulations/commit/bc2b891d483d4dd0e4008c79a94d0a02e7b964b4))
+* project summary partial implementation ([2ee990d](https://github.com/biosimulations/biosimulations/commit/2ee990d84f75309e7331cf7d087170d16abd83e9))
+* respect module boundary, move project-utils to datamodel/common ([ff0d73a](https://github.com/biosimulations/biosimulations/commit/ff0d73a1f3c8dd4f0a97632ce2eed36109cf18d0))
+* updated imports and test cases for project-filter tests ([878fe32](https://github.com/biosimulations/biosimulations/commit/878fe32e05c74cb9404a6252cceed800eb1cca31))
+
 ## [9.26.5](https://github.com/biosimulations/biosimulations/compare/v9.26.4...v9.26.5) (2023-05-26)
 
 
