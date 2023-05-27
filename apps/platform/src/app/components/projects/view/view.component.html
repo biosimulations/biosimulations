@@ -20,31 +20,23 @@
       <!-- Start Left Column-->
       <mat-card>
         <mat-card-content class="metadata-card">
-          <biosimulations-project-metadata [project]="projectMetadata" [simulationRun]="simulationRun" [projectSummary]="projectSummary$ | async">
+          <biosimulations-project-metadata
+            [project]="projectMetadata"
+            [simulationRun]="simulationRun"
+            [projectSummary]="projectSummary$ | async">
           </biosimulations-project-metadata>
         </mat-card-content>
       </mat-card>
       <!-- End Left Column -->
 
-
       <!-- Start Right Column -->
       <mat-card class="viz-card">
         <mat-card-header class="viz-card-header"> Simulation Visualizations </mat-card-header>
         <mat-card-content>
-          <mat-grid-list
-            cdkDropList
-            (cdkDropListDropped)="drop($event)"
-            cols="1"
-            rowHeight="400px"
-            gutterSize="20">
-            <mat-grid-tile
-              class="figure-card"
-              *ngFor="let plotVisualization of plotVisualizations$ | async"
-              cdkDrag>
-              <mat-grid-tile-header
-                class="figure-card-header"
-                style="background-color: #ff9800">
-                  {{ plotVisualization.name }}
+          <mat-grid-list cdkDropList (cdkDropListDropped)="drop($event)" cols="1" rowHeight="400px" gutterSize="20">
+            <mat-grid-tile class="figure-card" *ngFor="let plotVisualization of plotVisualizations$ | async" cdkDrag>
+              <mat-grid-tile-header class="figure-card-header" style="background-color: #ff9800">
+                {{ plotVisualization.name }}
               </mat-grid-tile-header>
               <div class="figure-card-placeholder" *cdkDragPlaceholder></div>
               <div class=".plot-parent">
@@ -58,8 +50,6 @@
         </mat-card-content>
       </mat-card>
       <!-- End Right Column -->
-
-
     </div>
   </ng-container>
 </ng-container>

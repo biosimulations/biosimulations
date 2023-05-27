@@ -7,8 +7,7 @@
   [showNews]="false"
   [healthy]="healthy$ | async">
   <biosimulations-topbar-menu>
-    <biosimulations-hover-open-menu
-      onclick="parent.location=['/projects']">
+    <biosimulations-hover-open-menu onclick="parent.location=['/projects']">
       <biosimulations-topbar-menu-item heading="BioSimDB" icon="browse" id="trigger"></biosimulations-topbar-menu-item>
       <ng-container id="items">
         <biosimulations-dropdown-menu-item
@@ -19,9 +18,11 @@
       </ng-container>
     </biosimulations-hover-open-menu>
 
-    <biosimulations-hover-open-menu
-      onclick="parent.location=['/runs/new']">
-      <biosimulations-topbar-menu-item heading="Run Simulations" icon="experiment" id="trigger"></biosimulations-topbar-menu-item>
+    <biosimulations-hover-open-menu onclick="parent.location=['/runs/new']">
+      <biosimulations-topbar-menu-item
+        heading="Run Simulations"
+        icon="experiment"
+        id="trigger"></biosimulations-topbar-menu-item>
       <ng-container id="items">
         <biosimulations-dropdown-menu-item
           heading="Run your own simulation"
@@ -88,7 +89,7 @@
 
     <biosimulations-hover-open-menu
       onclick="parent.location='https://biosimulators.dev/simulators'"
-      style="margin-left: 50%;">
+      style="margin-left: 50%">
       <biosimulations-topbar-menu-item heading="BioSimulators" icon="link" id="trigger">
       </biosimulations-topbar-menu-item>
       <ng-container id="items">

@@ -15,8 +15,7 @@
         <mat-card-content>
           <ng-container *ngIf="project?.thumbnails?.length">
             <div class="image-container">
-              <biosimulations-carousel [images]="project.thumbnails">
-              </biosimulations-carousel>
+              <biosimulations-carousel [images]="project.thumbnails"> </biosimulations-carousel>
             </div>
           </ng-container>
           <biosimulations-text-page-content-section [heading]="project.title" [iconActionType]="null">
@@ -55,13 +54,14 @@
               <ng-container *ngIf="biologyList(projectSummary)">
                 <ng-container *ngFor="let biologyTerm of biologyList(projectSummary); first as isFirst">
                   <ng-container *ngIf="!isFirst"> and </ng-container>
-                  <b>{{biologyTerm}}</b>
+                  <b>{{ biologyTerm }}</b>
                 </ng-container>
               </ng-container>
-              <ng-container *ngIf="taxaList(projectSummary)"> in
-                 <ng-container *ngFor="let taxaTerm of taxaList(projectSummary); first as isFirst">
+              <ng-container *ngIf="taxaList(projectSummary)">
+                in
+                <ng-container *ngFor="let taxaTerm of taxaList(projectSummary); first as isFirst">
                   <ng-container *ngIf="!isFirst"> or </ng-container>
-                   <b>{{taxaTerm}}</b>
+                  <b>{{ taxaTerm }}</b>
                 </ng-container>
               </ng-container>
             </td>
@@ -70,10 +70,12 @@
             <th>Simulation</th>
             <td>
               <ng-container *ngIf="simulationType(projectSummary)">
-                <b>{{ simulationType(projectSummary) }}</b>,
+                <b>{{ simulationType(projectSummary) }}</b
+                >,
               </ng-container>
               <ng-container *ngIf="simulator(projectSummary)">
-                simulated with <b>{{ simulator(projectSummary) }}</b>,
+                simulated with <b>{{ simulator(projectSummary) }}</b
+                >,
               </ng-container>
               <ng-container *ngIf="formats(projectSummary)">
                 model encoded in <b>{{ formats(projectSummary) }}</b>
