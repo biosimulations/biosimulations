@@ -1,8 +1,12 @@
 @use '@angular/material' as mat;
 @import 'biosimulations-colors';
 
+.topbar {
+  height: fit-content;
+}
+
 mat-toolbar {
-  height: auto;
+  height: fit-content;
   font-size: 16px;
   background-color: mat.get-color-from-palette($theme-primary, lighter);
 
