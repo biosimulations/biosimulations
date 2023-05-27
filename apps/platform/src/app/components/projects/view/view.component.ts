@@ -19,6 +19,7 @@ import { ViewService } from '@biosimulations/simulation-runs/service';
 import { ProjectService } from '@biosimulations/angular-api-client';
 import { Dataset, WithContext } from 'schema-dts';
 import { BiosimulationsError } from '@biosimulations/shared/error-handler';
+import { ProjectSummary } from '@biosimulations/datamodel/common';
 
 @Component({
   selector: 'biosimulations-view',
@@ -44,6 +45,7 @@ export class ViewComponent implements OnInit {
   public projectFiles$!: Observable<File[]>;
   public files$!: Observable<Path[]>;
   public outputs$!: Observable<File[]>;
+  public projectSummary$!: Observable<ProjectSummary>;
 
   public visualizations$!: Observable<VisualizationList[]>;
   public plotVisualizations$!: Observable<Visualization[]>;
@@ -62,7 +64,7 @@ export class ViewComponent implements OnInit {
 
   public ngOnInit(): void {
     const id = (this.id = this.route.snapshot.params['id']);
-    const projectSummary$ = this.projService.getProjectSummary(id).pipe(
+    this.projectSummary$ = this.projService.getProjectSummary(id).pipe(
       shareReplay(1),
       catchError((error: HttpErrorResponse) => {
         const appError =
@@ -79,7 +81,7 @@ export class ViewComponent implements OnInit {
       shareReplay(1),
     );
 
-    this.projectMetadata$ = projectSummary$.pipe(
+    this.projectMetadata$ = this.projectSummary$.pipe(
       map((projectSummary) =>
         this.service.getFormattedProjectMetadata(
           projectSummary.id,
@@ -90,27 +92,27 @@ export class ViewComponent implements OnInit {
       shareReplay(1),
     );
 
-    this.simulationRun$ = projectSummary$.pipe(
+    this.simulationRun$ = this.projectSummary$.pipe(
       mergeMap((projectSummary) => this.service.getFormattedSimulationRun(projectSummary.simulationRun)),
       shareReplay(1),
     );
 
-    this.projectFiles$ = projectSummary$.pipe(
+    this.projectFiles$ = this.projectSummary$.pipe(
       map((projectSummary) => this.service.getFormattedProjectFiles(projectSummary.simulationRun)),
       shareReplay(1),
     );
 
-    this.files$ = projectSummary$.pipe(
+    this.files$ = this.projectSummary$.pipe(
       mergeMap((projectSummary) => this.service.getFormattedProjectContentFiles(projectSummary.simulationRun)),
       shareReplay(1),
     );
 
-    this.outputs$ = projectSummary$.pipe(
+    this.outputs$ = this.projectSummary$.pipe(
       map((projectSummary) => this.service.getFormattedOutputFiles(projectSummary.simulationRun)),
       shareReplay(1),
     );
 
-    this.visualizations$ = projectSummary$.pipe(
+    this.visualizations$ = this.projectSummary$.pipe(
       mergeMap((projectSummary) => this.service.getVisualizations(projectSummary.simulationRun.id)),
       shareReplay(1),
     );
@@ -120,7 +122,7 @@ export class ViewComponent implements OnInit {
       shareReplay(1),
     );
 
-    this.jsonLdData$ = projectSummary$.pipe(
+    this.jsonLdData$ = this.projectSummary$.pipe(
       map((projectSummary) => this.service.getJsonLdData(projectSummary.simulationRun, projectSummary)),
       shareReplay(1),
     );

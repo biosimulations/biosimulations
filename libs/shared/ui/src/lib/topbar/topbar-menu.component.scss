@@ -8,13 +8,38 @@
   padding-top: 5.25rem;
   display: flex;
   justify-content: space-between;
+  position: relative;
 }
 
 .nav-buttons {
   margin-left: auto;
   padding-left: 0;
-  padding-bottom: 4.5rem;
-  padding-top: 4.5rem;
+  padding-bottom: 5rem;
+  padding-top: 0rem;
   display: flex;
   justify-content: space-between;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .nav-buttons {
+    padding-bottom: 3rem;
+    padding-top: 0rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+  /* Styles for screens between 769px and 1200px wide */
+  .nav-buttons {
+    padding-bottom: 4rem;
+    padding-top: 0rem;
+  }
+}
+
+@media (min-width: 1201px) {
+  /* Styles for screens larger than 1200px wide */
+  .nav-buttons {
+    padding-bottom: 5rem;
+    padding-top: 0rem;
+  }
 }
