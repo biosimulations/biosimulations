@@ -2,8 +2,8 @@ import { describe, expect, it } from '@jest/globals';
 import { ProjectFilterQueryItem, ProjectSummary } from '@biosimulations/datamodel/api';
 
 import { projectSummary_mock1, projectSummary_mock2, projectSummary_mock3 } from './projects.mock';
+import { applyFilter } from './projects.filter';
 import {
-  applyFilter,
   getProjectSummary_Biologies,
   getProjectSummary_Keywords,
   getProjectSummary_ModelFormats,
@@ -12,7 +12,7 @@ import {
   getProjectSummary_SimulationTypes,
   getProjectSummary_Simulators,
   getProjectSummary_Taxa,
-} from './projects.filter';
+} from '@biosimulations/datamodel/common';
 import { ProjectFilterTarget } from '@biosimulations/datamodel/common';
 
 describe('ProjectsFilter', () => {
@@ -111,15 +111,15 @@ describe('ProjectsFilter', () => {
   });
 
   it('should extract simulator project attribute', () => {
-    expect(getProjectSummary_Simulators(projectSummary_mock1)).toEqual(new Set<string>(['defaultSimulator1.0.0']));
-    expect(getProjectSummary_Simulators(projectSummary_mock2)).toEqual(new Set<string>(['VCell7.5.0_27']));
-    expect(getProjectSummary_Simulators(projectSummary_mock3)).toEqual(new Set<string>(['COPASI1.2.3']));
+    expect(getProjectSummary_Simulators(projectSummary_mock1)).toEqual(new Set<string>(['defaultSimulator 1.0.0']));
+    expect(getProjectSummary_Simulators(projectSummary_mock2)).toEqual(new Set<string>(['VCell 7.5.0_27']));
+    expect(getProjectSummary_Simulators(projectSummary_mock3)).toEqual(new Set<string>(['COPASI 1.2.3']));
     const filters1: ProjectFilterQueryItem[] = [
-      { target: ProjectFilterTarget.simulator, allowable_values: ['VCell7.5.0_27'] },
+      { target: ProjectFilterTarget.simulator, allowable_values: ['VCell 7.5.0_27'] },
     ];
     expect(applyFilter(projects, filters1)).toEqual([projectSummary_mock2]);
     const filters2: ProjectFilterQueryItem[] = [
-      { target: ProjectFilterTarget.simulator, allowable_values: ['VCell7.5.0_27', 'COPASI1.2.3'] },
+      { target: ProjectFilterTarget.simulator, allowable_values: ['VCell 7.5.0_27', 'COPASI 1.2.3'] },
     ];
     expect(applyFilter(projects, filters2)).toEqual([projectSummary_mock2, projectSummary_mock3]);
   });
