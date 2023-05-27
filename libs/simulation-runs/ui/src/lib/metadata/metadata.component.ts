@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
 import { Component, Input } from '@angular/core';
 import { ProjectMetadata, SimulationRunMetadata } from '@biosimulations/datamodel-simulation-runs';
-import { ProjectSummary } from '@biosimulations/datamodel/common';
 import {
+  ProjectSummary,
   getProjectSummary_Biologies,
   getProjectSummary_ModelFormats,
   getProjectSummary_SimulationTypes,
   getProjectSummary_Simulators,
   getProjectSummary_Taxa,
-} from '../../../../../../apps/api/src/projects/projects.filter';
+} from '@biosimulations/datamodel/common';
 
 @Component({
   selector: 'biosimulations-project-metadata',
@@ -28,17 +28,9 @@ export class MetadataComponent {
   @Input()
   public simulationViz!: any;
 
-  constructor() {}
-
-  // public biologyText(projectSummary: ProjectSummary): string[] {
-  //   const biologySet: Set<string> = getProjectSummary_Biologies(projectSummary);
-  //   const taxaSet: Set<string> = getProjectSummary_Taxa(projectSummary);
-  //   var text = Array.from(biologySet).join(",");
-  //   if (taxaSet.size > 0){
-  //     text = text + " (" + Array.from(taxaSet).join(",") + ")";
-  //   }
-  //   return text;
-  // }
+  constructor() {
+    /* constructor is empty */
+  }
 
   public biologyList(projectSummary: ProjectSummary): string[] | undefined {
     const biologySet: Set<string> = getProjectSummary_Biologies(projectSummary);
@@ -85,15 +77,11 @@ export class MetadataComponent {
     }
   }
 
-  public simulationText(projectSummary: ProjectSummary): string {
-    return 'simulation text';
-  }
-
-  public provenanceText(projectSummary: ProjectSummary): string {
+  public provenanceText(_projectSummary: ProjectSummary): string {
     return 'provenance text';
   }
 
-  public identifiersText(projectSummary: ProjectSummary): string {
+  public identifiersText(_projectSummary: ProjectSummary): string {
     return 'identifiers text';
   }
 }

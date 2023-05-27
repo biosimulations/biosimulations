@@ -8,3 +8,4 @@ export * from './archiveMetadata';
 export * from './purpose';
 export * from './file';
 export * from './project';
+export * from './project-utils';
