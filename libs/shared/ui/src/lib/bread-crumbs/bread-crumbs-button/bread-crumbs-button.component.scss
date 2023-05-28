@@ -3,6 +3,7 @@
 
 .biosimulations-button {
   color: mat.get-color-from-palette($theme-primary);
+  font-size: medium;
 
   &:hover {
     text-decoration: underline;

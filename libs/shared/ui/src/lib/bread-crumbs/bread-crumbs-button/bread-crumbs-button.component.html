@@ -1,4 +1,4 @@
-<a
+<!--<a
   *ngIf="route; else button"
   mat-icon-button
   class="biosimulations-button"
@@ -7,11 +7,22 @@
   matTooltipPosition="below">
   <biosimulations-icon class="icon" [icon]="icon"></biosimulations-icon>
   <span class="label">{{ label }}</span>
-</a>
+</a>-->
+
+<a
+  *ngIf="route; else button"
+
+  class="biosimulations-button"
+  [routerLink]="route"
+  [matTooltip]="hover || label"
+  matTooltipPosition="below">
+  <biosimulations-icon class="icon" [icon]="icon"></biosimulations-icon>
+  <span class="label">{{ label }}</span>
+</a>-
 
 <ng-template #button>
   <a
-    mat-icon-button
+
     class="biosimulations-button"
     (click)="clickHandler()"
     [matTooltip]="hover || label"
