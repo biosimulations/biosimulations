@@ -16,6 +16,13 @@ export function getProjectSummary_Citations(project: ProjectSummary): Set<string
   return citations ? new Set<string>(citations) : new Set<string>();
 }
 
+export function getProjectSummary_CitationLabeledIdentifiers(project: ProjectSummary): Set<LabeledIdentifier> {
+  const citations: LabeledIdentifier[] | undefined = project.simulationRun.metadata
+    ?.flatMap((metadata) => metadata.citations)
+    .map((v: LabeledIdentifier) => v);
+  return citations ? new Set<LabeledIdentifier>(citations) : new Set<LabeledIdentifier>();
+}
+
 export function getProjectSummary_Keywords(project: ProjectSummary): Set<string> {
   const keywords: string[] | undefined = project.simulationRun.metadata
     ?.flatMap((metadata) => metadata.keywords)

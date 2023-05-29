@@ -47,8 +47,8 @@
       <mat-card-header class="card-header"> Simulation Summary </mat-card-header>
       <mat-card-content>
         <table aria-label="simulation summary">
-          <tr>
-            <th>Biology</th>
+          <tr *ngIf="biologyList(projectSummary) || taxaList(projectSummary)">
+            <th>Biology:</th>
             <td>
               <ng-container *ngIf="biologyList(projectSummary)">
                 <ng-container *ngFor="let biologyTerm of biologyList(projectSummary); first as isFirst">
@@ -66,7 +66,7 @@
             </td>
           </tr>
           <tr>
-            <th>Simulation</th>
+            <th>Simulation:</th>
             <td>
               <ng-container *ngIf="simulationType(projectSummary)">
                 <b>{{ simulationType(projectSummary) }}</b
@@ -81,14 +81,14 @@
               </ng-container>
             </td>
           </tr>
-          <tr>
-            <th>Provenance</th>
-            <td>{{ provenanceText(projectSummary) }}</td>
+          <tr *ngIf="citation(projectSummary) as citation">
+            <th>Citation: </th>
+            <td><a href="{{ citation?.uri }}">{{ citation?.label }}</a></td>
           </tr>
-          <tr>
-            <th>Identifiers</th>
-            <td>{{ identifiersText(projectSummary) }}</td>
-          </tr>
+<!--          <tr>-->
+<!--            <th>Identifiers</th>-->
+<!--            <td>{{ identifiersText(projectSummary) }}</td>-->
+<!--          </tr>-->
         </table>
       </mat-card-content>
     </mat-card>
