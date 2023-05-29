@@ -9,6 +9,7 @@ export class FeaturedService {
     id: 'simulations',
     description:
       'Browse a free platform for sharing and re-using biomodels, simulations, simulation results, and visualizations of simulation results.',
+    link: 'https://biosimulations.dev/projects',
   };
   private runSimulations = {
     title: 'Run Simulations',
@@ -17,6 +18,7 @@ export class FeaturedService {
     id: 'runSimulations',
     description:
       'Interact with a free tool for running a wide range of biological simulations. Through the BioSimulators registry of biosimulation tools, runBioSimulations supports a broad range of modeling frameworks (e.g., logical, kinetic), simulation algorithms (e.g., FBA, SSA), modeling formats (e.g., SBML, SED-ML), and simulation tools (e.g., COBRApy, COPASI).',
+    link: 'https://biosimulations.dev/runs/new',
   };
   private publishSimulations = {
     title: 'Submit Your Simulation for publication',
@@ -24,6 +26,7 @@ export class FeaturedService {
       'https://media.istockphoto.com/id/1139402489/vector/abstract-modern-background.jpg?s=612x612&w=0&k=20&c=GAkYFnGct6FJJdPFF-EfP3KGkQ5p0g7tAA8gAUYuYwI=',
     id: 'publishSimulations',
     description: 'Validate and publish your very own simulation project.',
+    link: 'https://biosimulations.dev/utils/create-project',
   };
   private learnSimulations = {
     title: 'Learn',
@@ -31,12 +34,14 @@ export class FeaturedService {
       'https://images.unsplash.com/photo-1557682250-33bd709cbe85?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80',
     id: 'learnSimulations',
     description: 'Browse our tutorials and learn how to run your own simulation.',
+    link: 'https://docs.biosimulations.org/users/?_gl=1*1rq7593*biosim_analytics_ga*MTU4OTQxNjYzNC4xNjgzODQyMjY0*biosim_analytics_ga_G3CVBC0V5N*MTY4NTMwMTAzNy4yMy4xLjE2ODUzMDEwNjUuMC4wLjA.',
   };
   private convertFile = {
     title: 'Convert a file',
     image: 'https://img.freepik.com/free-photo/golden-yellow-seamless-venetian-plaster-background_24972-294.jpg?w=2000',
     id: 'convertFile',
     description: 'Connect the outputs of SED-ML reports to the inputs of Vega data sets.',
+    link: 'https://biosimulations.dev/utils/convert-file',
   };
   private community = {
     title: 'Community',
@@ -44,6 +49,7 @@ export class FeaturedService {
       'https://media.istockphoto.com/id/1185382671/vector/abstract-blurred-colorful-background.jpg?s=612x612&w=0&k=20&c=3YwJa7lCw-cQ-hviINULUokL9lYU4RuGjMP_E_0N8E4=',
     id: 'community',
     description: 'Learn more about the Biosimulations community and our partners.',
+    link: 'https://vivarium-collective.github.io',
   };
   /*  private ecoli = {
     title: 'Escherichia coli K-12 resource allocation',

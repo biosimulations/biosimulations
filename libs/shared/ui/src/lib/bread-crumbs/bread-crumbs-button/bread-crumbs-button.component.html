@@ -1,6 +1,5 @@
 <a
   *ngIf="route; else button"
-  mat-icon-button
   class="biosimulations-button"
   [routerLink]="route"
   [matTooltip]="hover || label"
@@ -11,7 +10,6 @@
 
 <ng-template #button>
   <a
-    mat-icon-button
     class="biosimulations-button"
     (click)="clickHandler()"
     [matTooltip]="hover || label"

@@ -222,6 +222,23 @@
         </biosimulations-dropdown-menu-item>
       </ng-container>
     </biosimulations-hover-open-menu>
+
+    <biosimulations-hover-open-menu
+      onclick="parent.location='https://biosimulations.dev'"
+      style="margin-left: 50%; align-items: end">
+      <biosimulations-topbar-menu-item
+        heading="BioSimulations"
+        icon="link"
+        id="trigger">
+      </biosimulations-topbar-menu-item>
+      <ng-container id="items">
+        <biosimulations-dropdown-menu-item
+          heading="Browse simulation projects"
+          icon="link"
+          href="https://biosimulations.dev">
+        </biosimulations-dropdown-menu-item>
+      </ng-container>
+    </biosimulations-hover-open-menu>
   </biosimulations-topbar-menu>
 
   <ng-container id="sidenav-menu">

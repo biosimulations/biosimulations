@@ -3,9 +3,9 @@
 @import 'biosimulations-typography';
 
 .container {
-  margin-top: 2rem;
+  margin-top: 1rem;
   justify-content: center;
-  display: flex;
+  display: grid;
 }
 
 @media screen and (max-width: 959px) {
@@ -87,16 +87,16 @@ h3 {
 }
 
 .highlight-container {
-  background: #d2eafc; //#9bcff9;
-  border: 3px solid #ffa500; //rgba(187, 72, 187, 0.734);
+  background: #ffe0b2;
+  border: 3px solid rgba(145, 18, 191, 0.859);
   border-radius: 4px;
-  width: fit-content;
+  width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
 
   h3 {
-    background-color: #ffa500; //purple; or #087008;
+    background-color: rgba(145, 18, 191, 0.859);
     //padding-left: 50%;
     width: auto;
     color: $light-text;
