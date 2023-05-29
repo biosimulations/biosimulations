@@ -8,7 +8,6 @@ import {
   getProjectSummary_SimulationTypes,
   getProjectSummary_Simulators,
   getProjectSummary_Taxa,
-  getProjectSummary_Citations,
   getProjectSummary_CitationLabeledIdentifiers,
   LabeledIdentifier,
 } from '@biosimulations/datamodel/common';
