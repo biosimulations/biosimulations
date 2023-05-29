@@ -1,5 +1,13 @@
 # Changelog
 
+## [9.26.7](https://github.com/biosimulations/biosimulations/compare/v9.26.6...v9.26.7) (2023-05-29)
+
+
+### Bug Fixes
+
+* added correct internal and external routings for features on splash page ([2855695](https://github.com/biosimulations/biosimulations/commit/2855695c1e3027ec9eaa80116d5aebf6277c53a0))
+* removed commented code for linting ([86c3a52](https://github.com/biosimulations/biosimulations/commit/86c3a522a5693466d7daf2dd43491629c6d1bf73))
+
 ## [9.26.6](https://github.com/biosimulations/biosimulations/compare/v9.26.5...v9.26.6) (2023-05-27)
 
 
