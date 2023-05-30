@@ -1,5 +1,14 @@
 # Changelog
 
+## [9.26.8](https://github.com/biosimulations/biosimulations/compare/v9.26.7...v9.26.8) (2023-05-30)
+
+
+### Bug Fixes
+
+* add citation to project detail summary section ([aec51ce](https://github.com/biosimulations/biosimulations/commit/aec51ce7d218dad5d3bab99ba669c64781a3dbb9))
+* hack to get plots to render on project detail ([e34acc8](https://github.com/biosimulations/biosimulations/commit/e34acc86d23a8e9cd2b0249bbd48a69bd1fe1a24))
+* removed extra import to fix lint error ([6ed4f34](https://github.com/biosimulations/biosimulations/commit/6ed4f3474b3a9bc8064e55757af233c73a0f961c))
+
 ## [9.26.7](https://github.com/biosimulations/biosimulations/compare/v9.26.6...v9.26.7) (2023-05-29)
 
 
