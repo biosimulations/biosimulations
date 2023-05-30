@@ -8,7 +8,7 @@
   [healthy]="healthy$ | async">
   <biosimulations-topbar-menu>
     <biosimulations-hover-open-menu>
-      <biosimulations-topbar-menu-item heading="Tools" icon="simulator" id="trigger" [route]="['/simulators']">
+      <biosimulations-topbar-menu-item heading="Tools" icon="simulator" id="trigger">
       </biosimulations-topbar-menu-item>
 
       <ng-container id="items">
@@ -86,8 +86,8 @@
 
         <biosimulations-dropdown-menu-item
           heading="Execute a project"
-          icon="simulator"
-          href="https://run.biosimulations.org/runs/new"
+          icon="simulation"
+          href="https://biosimulations.dev/runs/new"
           target="runbiosimulations">
         </biosimulations-dropdown-menu-item>
       </ng-container>
@@ -98,7 +98,6 @@
         heading="Conventions"
         icon="standard"
         id="trigger"
-        href="https://docs.biosimulations.org/concepts/conventions/"
         target="biosimulations-docs">
       </biosimulations-topbar-menu-item>
 
