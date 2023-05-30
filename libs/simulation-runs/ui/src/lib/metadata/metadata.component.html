@@ -82,13 +82,15 @@
             </td>
           </tr>
           <tr *ngIf="citation(projectSummary) as citation">
-            <th>Citation: </th>
-            <td><a href="{{ citation?.uri }}">{{ citation?.label }}</a></td>
+            <th>Citation:</th>
+            <td>
+              <a href="{{ citation?.uri }}">{{ citation?.label }}</a>
+            </td>
           </tr>
-<!--          <tr>-->
-<!--            <th>Identifiers</th>-->
-<!--            <td>{{ identifiersText(projectSummary) }}</td>-->
-<!--          </tr>-->
+          <!--          <tr>-->
+          <!--            <th>Identifiers</th>-->
+          <!--            <td>{{ identifiersText(projectSummary) }}</td>-->
+          <!--          </tr>-->
         </table>
       </mat-card-content>
     </mat-card>
