@@ -15,6 +15,7 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
   public data: PlotlyTrace[] | undefined = undefined;
   public layout: PlotlyLayout | undefined = undefined;
   public config: any = {
+    //    autosize: false,
     scrollZoom: true,
     editable: false,
     toImageButtonOptions: {
@@ -82,10 +83,11 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
     this.visible = this.hostElement.nativeElement.offsetParent != null;
     if (this.visible && this.layout) {
       const rect = this.hostElement.nativeElement.parentElement.getBoundingClientRect();
-      const heightModifier = 3;
+      const heightModifier = 2;
       const widthModifier = 2.5;
+      //this.layout.autosize = true;
       this.layout.width = rect.width * widthModifier;
-      this.layout.height = rect.height; //heightModifier;
+      this.layout.height = rect.height * heightModifier;
     }
   }
 }

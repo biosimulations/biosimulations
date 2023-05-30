@@ -8,6 +8,8 @@ import {
   getProjectSummary_SimulationTypes,
   getProjectSummary_Simulators,
   getProjectSummary_Taxa,
+  getProjectSummary_CitationLabeledIdentifiers,
+  LabeledIdentifier,
 } from '@biosimulations/datamodel/common';
 
 @Component({
@@ -77,8 +79,13 @@ export class MetadataComponent {
     }
   }
 
-  public provenanceText(_projectSummary: ProjectSummary): string {
-    return 'provenance text';
+  public citation(projectSummary: ProjectSummary): LabeledIdentifier | undefined {
+    const citations: Set<LabeledIdentifier> = getProjectSummary_CitationLabeledIdentifiers(projectSummary);
+    if (citations.size > 0) {
+      return Array.from(citations)[0];
+    } else {
+      return undefined;
+    }
   }
 
   public identifiersText(_projectSummary: ProjectSummary): string {
