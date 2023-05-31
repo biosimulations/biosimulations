@@ -15,6 +15,17 @@
         type="text" />
       <mat-icon matPrefix>search</mat-icon>
     </mat-form-field>
+
+    <!--Top Paginator-->
+    <mat-paginator
+      #paginator
+      [length]="dataSource.datalength"
+      [pageIndex]="0"
+      [pageSizeOptions]="[5, 10, 25, 50]"
+      [pageSize]="10"
+      aria-label="Select page">
+    </mat-paginator>
+
     <!--  <table mat-table class="full-width-table" matSort aria-label="Elements">-->
     <table aria-label="Elements" mat-table matSort>
       <!-- Id Column -->
@@ -35,6 +46,7 @@
       <tr *matRowDef="let row; let odd = odd; columns: displayedColumns" [class.striped-row]="odd" mat-row></tr>
     </table>
 
+    <!-- Bottom Paginator -->
     <mat-paginator
       #paginator
       [length]="dataSource.datalength"
