@@ -1,5 +1,15 @@
 # Changelog
 
+## [9.26.9](https://github.com/biosimulations/biosimulations/compare/v9.26.8...v9.26.9) (2023-05-31)
+
+
+### Bug Fixes
+
+* adjusted fixed position of biosimulators button in app ([08e1d1b](https://github.com/biosimulations/biosimulations/commit/08e1d1b20c09ed50f602a8ebc48904b9b69a728a))
+* point back to production site for all but projects ([0629ab3](https://github.com/biosimulations/biosimulations/commit/0629ab3920c230c0288e2936b1146f899a4190ca))
+* remove commented code ([ffab982](https://github.com/biosimulations/biosimulations/commit/ffab982c27bdfbb918b7a44e057a17437ae6e3d7))
+* removed second scroll and padding to table and button color ([0a41766](https://github.com/biosimulations/biosimulations/commit/0a41766fa8463d8355ff6d1c6c44d08b6b2707e1))
+
 ## [9.26.8](https://github.com/biosimulations/biosimulations/compare/v9.26.7...v9.26.8) (2023-05-30)
 
 
