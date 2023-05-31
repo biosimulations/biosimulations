@@ -1,5 +1,6 @@
 <div class="subsection">
   <div fxLayout="row" fxLayoutAlign="space-between center">
+    <!-- Left Button -->
     <button
       mat-fab
       fxFlexAlign="center"
@@ -8,6 +9,8 @@
       (click)="previous()">
       <mat-icon>keyboard_arrow_left</mat-icon>
     </button>
+
+    <!-- Feature Card -->
     <ng-container *ngFor="let project of projects; let i = index">
       <mat-card class="project-card" [fxFlex]="70 / numCards" *ngIf="i >= startIndex && i <= endIndex">
         <mat-card-header>
@@ -15,16 +18,15 @@
             {{ project.title }}
           </mat-card-title>
         </mat-card-header>
+        <a href="project.url" target="_blank" style="justify-content: center"></a>
         <img src="{{ project.image }}" alt="IMAGE" />
         <mat-card-content>
           {{ project.description }}
         </mat-card-content>
-
-        <mat-card-actions class="actions">
-          <button mat-raised-button href="project.link">Learn More</button>
-        </mat-card-actions>
       </mat-card>
     </ng-container>
+
+    <!-- Right Button -->
     <button
       mat-fab
       fxFlexAlign="center"
