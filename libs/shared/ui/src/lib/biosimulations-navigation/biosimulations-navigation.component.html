@@ -6,8 +6,7 @@
     class="sidenav"
     fixedInViewport
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="false">
+    [mode]="(isHandset$ | async) ? 'over' : 'side'">
     <biosimulations-topbar>
       <biosimulations-logo-text id="logo" [appNameParts]="appNameParts"></biosimulations-logo-text>
       <button
