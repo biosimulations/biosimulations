@@ -6,8 +6,7 @@
     class="sidenav"
     fixedInViewport
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="false">
+    [mode]="(isHandset$ | async) ? 'over' : 'side'">
     <biosimulations-topbar>
       <biosimulations-logo-text id="logo" [appNameParts]="appNameParts"></biosimulations-logo-text>
       <button
@@ -31,17 +30,6 @@
     <div class="topbar">
       <biosimulations-topbar [showLogo]="!drawer.opened">
         <biosimulations-logo-image class="logo-img" id="logo" [logo]="logo"></biosimulations-logo-image>
-        <!--logo on left -->
-        <!--<button
-          id="leftContent"
-          class="biosimulations-button white topbar-left-button"
-          type="button"
-          aria-label="Toggle sidenav"
-          mat-icon-button
-          (click)="drawer.toggle()"
-          *ngIf="!drawer.opened">
-          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-        </button>-->
         <!--hamburger next to logo-->
         <ng-content id="rightContent" select="biosimulations-topbar-menu"> </ng-content>
         <!--help button on right-->
@@ -64,7 +52,3 @@
   </mat-sidenav-content>
 </mat-sidenav-container>
 
-<mat-sidenav-container
-  class="sidenav-container mat-display-3 mat-app-background"
-  [ngClass]="{ 'theme-alternate': darkMode }">
-</mat-sidenav-container>

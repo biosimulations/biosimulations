@@ -72,10 +72,13 @@ biosimulations-tab-page ::ng-deep .icon-list {
 }
 
 .viz-card-header {
-  background-color: #ffa500; //rgba(145, 18, 191, 0.859); //#087008;
+  background-color: #1479ed;
   font-weight: 600;
   color: white;
-  padding-bottom: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-top: 2px;
+  border-radius: 1px;
 }
 
 .figure-card-placeholder {

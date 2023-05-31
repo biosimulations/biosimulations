@@ -1,6 +1,6 @@
 @use '@angular/material' as mat;
 @import 'biosimulations-colors';
-@import url('https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500;700&family=Source+Sans+Pro:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&display=swap');
 
 :host {
   margin-left: 1rem;
@@ -11,10 +11,8 @@
   font-weight: 500;
   font-family: 'Source Sans Pro', sans-serif;
 
-  background: transparent;
   border: none;
   padding: 0 0 5rem;
-  min-width: auto;
   border-radius: 0;
   line-height: 30px;
   margin-bottom: 6px;
@@ -27,8 +25,8 @@
 
   &:active:not(.mat-button-disabled) {
     //color: #e3e3e3;
-    //border: none;
-    border-bottom: 1.5px solid #e3e3e3;
+    border: none;
+    //border-bottom: 1.5px solid #e3e3e3;
   }
 
   .button-content {
@@ -47,4 +45,9 @@
       top: 0.25em;
     }
   }
+}
+
+.button-wrapper {
+  height: 200px;
+  padding: 10px;
 }

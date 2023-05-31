@@ -17,7 +17,7 @@
               <biosimulations-carousel [images]="project.thumbnails"> </biosimulations-carousel>
             </div>
           </ng-container>
-          <biosimulations-text-page-content-section [heading]="project.title" [iconActionType]="null">
+          <biosimulations-text-page-content-section class="metadata-column" [heading]="project.title" [iconActionType]="null">
             <div class="abstract" *ngIf="project.abstract">
               {{ project.abstract }}
             </div>
@@ -99,7 +99,7 @@
   <!-- End Summary Display -->
 
   <mat-expansion-panel class="details-card">
-    <mat-expansion-panel-header class="card-header disable-ripple"> Simulation Details </mat-expansion-panel-header>
+    <mat-expansion-panel-header class="card-header"> Simulation Details </mat-expansion-panel-header>
     <!-- Biology, simulation, provenance, & identifiers information -->
     <div
       *ngIf="

@@ -50,6 +50,9 @@
 .sidenav-content {
   overflow-x: hidden;
   overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .sidenav-topbar-right-button {
@@ -79,7 +82,6 @@
 
 .content {
   padding: 0;
-
   min-height: calc(
     100vh - 64px - 28px - 0.5rem
   ); // TODO: substract an additional 52px when the privacy notice is visible
