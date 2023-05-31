@@ -18,7 +18,7 @@
       </ng-container>
     </biosimulations-hover-open-menu>
 
-    <biosimulations-hover-open-menu onclick="parent.location=['/runs/new']">
+    <biosimulations-hover-open-menu onclick="config.dispatchAppRunsNewUrl">
       <biosimulations-topbar-menu-item
         heading="Run Simulations"
         icon="experiment"
@@ -27,49 +27,49 @@
         <biosimulations-dropdown-menu-item
           heading="Run your own simulation"
           icon="experiment"
-          [routerLink]="['/runs/new']">
+          [href]="config.dispatchAppRunsNewUrl">
         </biosimulations-dropdown-menu-item>
       </ng-container>
     </biosimulations-hover-open-menu>
 
-    <biosimulations-hover-open-menu>
+    <biosimulations-hover-open-menu onclick="config.platformAppUrl">
       <biosimulations-topbar-menu-item heading="Utilities" icon="construction" id="trigger">
       </biosimulations-topbar-menu-item>
       <ng-container id="items">
         <biosimulations-dropdown-menu-item
           heading="Convert a file"
           icon="convert"
-          [routerLink]="['/utils', 'convert-file']">
+          [href]="config.utilsConvertFileUrl">
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
           heading="Create a project"
           icon="write"
-          [routerLink]="['/utils', 'create-project']">
+          [href]="config.utilsCreateProjectUrl">
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
           heading="Validate a model"
           icon="review"
-          [routerLink]="['/utils', 'validate-model']">
+          [href]="config.utilsValidateModelUrl">
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
           heading="Validate a simulation"
           icon="review"
-          [routerLink]="['/utils', 'validate-simulation']">
+          [href]="config.utilsValidateSimulationUrl">
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
           heading="Validate metadata"
           icon="review"
-          [routerLink]="['/utils', 'validate-metadata']">
+          [href]="config.utilsValidateMetadataUrl">
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
           heading="Validate a project"
           icon="review"
-          [routerLink]="['/utils', 'validate-project']">
+          [href]="config.utilsValidateProjectUrl">
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
@@ -82,13 +82,13 @@
         <biosimulations-dropdown-menu-item
           heading="Suggest a simulator"
           icon="idea"
-          [routerLink]="['/utils', 'suggest-simulator']">
+          [href]="config.utilsSuggestSimulatorUrl">
         </biosimulations-dropdown-menu-item>
       </ng-container>
     </biosimulations-hover-open-menu>
 
     <biosimulations-hover-open-menu
-      onclick="parent.location='https://biosimulators.dev/simulators'"
+      onclick="config.simulatorsAppSuggestSimulatorsUrl"
       style="position: fixed; top: 1; right: 45px; padding-bottom: 2rem">
       <biosimulations-topbar-menu-item heading="BioSimulators" icon="link" id="trigger">
       </biosimulations-topbar-menu-item>
@@ -96,7 +96,7 @@
         <biosimulations-dropdown-menu-item
           heading="Browse simulator tools"
           icon="link"
-          href="https://biosimulators.dev/simulators">
+          href="config.simulatorsAppSuggestSimulatorsUrl">
         </biosimulations-dropdown-menu-item>
       </ng-container>
     </biosimulations-hover-open-menu>
