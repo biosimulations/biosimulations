@@ -15,6 +15,7 @@ export class ConfigService {
   newIssueUrl!: string;
   newPullUrl!: string;
   platformAppUrl!: string;
+  platformAppProjectsUrl!: string;
   platformApiUrl!: string;
   platformNewIssueUrl!: string;
   platformNewPullUrl!: string;

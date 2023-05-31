@@ -13,7 +13,7 @@
         heading="Simulation projects"
         icon="project"
         id="trigger"
-        [routerLink]="['/projects']"
+        [href]="config.platformAppProjectsUrl"
       >
       </biosimulations-topbar-menu-item>
 
@@ -21,7 +21,7 @@
         <biosimulations-dropdown-menu-item
           heading="Browse"
           icon="browse"
-          [routerLink]="['/projects']"
+          [href]="config.platformAppProjectsUrl"
         >
         </biosimulations-dropdown-menu-item>
 
@@ -260,7 +260,7 @@
       <biosimulations-navigation-subitem
         heading="Browse"
         icon="browse"
-        [route]="['/projects', 'browse']"
+        [href]="config.platformAppProjectsUrl"
       >
       </biosimulations-navigation-subitem>
       <biosimulations-navigation-subitem
