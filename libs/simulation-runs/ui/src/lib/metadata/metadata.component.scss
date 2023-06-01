@@ -5,8 +5,8 @@
 .metadata {
   .thumbnails-column {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    //justify-content: center;
+    //align-items: center;
     flex-direction: column;
     height: auto;
     //margin-bottom: 2rem; /* Optional: Add margin bottom for spacing */
@@ -135,6 +135,14 @@
   border-top: 2px;
   border-radius: 1px;
   height: 100%;
+
+  &:hover {
+    background-color: #1479ed !important;
+  }
+
+  &.mat-expansion-panel-header.mat-expanded {
+    background-color: #1479ed !important;
+  }
 }
 
 .details-card {
