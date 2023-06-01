@@ -90,7 +90,7 @@ export class ProjectsController {
   })
   public async getProjectSummaries(
     @Query('pageSize')
-    pageSize: number = 20,
+    pageSize: number = 25,
     @Query('pageIndex')
     pageIndex: number = 0,
     @Query('searchText')
