@@ -1,0 +1,17 @@
+@use '@angular/material' as mat;
+@import 'biosimulations-colors';
+
+button {
+  float: right;
+}
+
+.message {
+  margin-top: 1rem;
+
+  &.success {
+    color: mat.get-color-from-palette($theme-primary);
+    a {
+      text-decoration: underline;
+    }
+  }
+}

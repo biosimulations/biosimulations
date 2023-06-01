@@ -1,0 +1,49 @@
+<div class="subsection">
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <!-- Left Button -->
+    <button
+      mat-fab
+      fxFlexAlign="center"
+      class="nav-button left"
+      style="background-color: rgba(20, 121, 237, 0.75)"
+      (click)="previous()">
+      <mat-icon>keyboard_arrow_left</mat-icon>
+    </button>
+
+    <!-- Feature Card -->
+    <ng-container *ngFor="let project of projects; let i = index">
+      <mat-card class="project-card" [fxFlex]="70 / numCards" *ngIf="i >= startIndex && i <= endIndex">
+        <mat-card-header>
+          <mat-card-title>
+            {{ project.title }}
+          </mat-card-title>
+        </mat-card-header>
+        <a href="project.url" target="_blank" style="justify-content: center"></a>
+        <img src="{{ project.image }}" alt="IMAGE" />
+        <mat-card-content>
+          {{ project.description }}
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
+
+    <!-- Right Button -->
+    <button
+      mat-fab
+      fxFlexAlign="center"
+      class="nav-button right"
+      style="background-color: rgba(20, 121, 237, 0.75)"
+      (click)="next()">
+      <mat-icon>keyboard_arrow_right</mat-icon>
+    </button>
+  </div>
+  <div class="pagination-dots">
+    <span
+      class="dot"
+      *ngFor="let project of projects; let i = index"
+      [class.active]="i >= startIndex && i <= endIndex"
+      (click)="jumpTo(i)">
+    </span>
+  </div>
+</div>
+
+<!--[color]="getButtonColor(i)""space-around stretch"-->

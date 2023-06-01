@@ -1,0 +1,143 @@
+@use '@angular/material' as mat;
+@import 'apps/platform/src/styles.scss';
+@import 'biosimulations-colors';
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;500;700:wght@700&display=swap');
+
+.container {
+  height: auto;
+  width: 110%;
+  text-align: center;
+  overflow: hidden;
+  padding: 0rem;
+  padding-bottom: 0rem;
+  position: relative;
+}
+
+.subsection {
+  padding-top: 3rem;
+}
+
+.heading {
+  width: 100%;
+  padding-top: 10rem;
+  text-align: center;
+  font-size: 28px;
+  line-height: normal;
+}
+
+.heading-separator {
+  border-bottom: 2px solid var(--primary-color);
+  height: 0;
+  width: 6rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pagination-dots {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 0rem;
+  margin-top: 20px;
+}
+
+.dot {
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: rgb(255, 214, 132);
+  margin: 0 5px;
+  cursor: pointer;
+  transition-property: all;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+}
+
+.dot.active {
+  background-color: #087008//rgba(187, 72, 187, 0.734);
+}
+
+.mat-mdc-card {
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 0;
+  padding-bottom: 1rem;
+  color: white;
+  background-color: rgba(20, 121, 237, 0.65);
+  font-weight: 500;
+  font-size: large;
+  transition: all 0.5s ease-out;
+  transition-property: all;
+  transition-duration: 0.2s;
+  transition-timing-function: linear;
+  border-radius: 4px;
+}
+
+.mat-mdc-card:hover {
+  transform: scale(1.05);
+  transition: all 0.5s ease-out;
+  transition-property: all;
+  transition-duration: 0.2s;
+  transition-timing-function: linear;
+}
+
+img {
+  height: 300px;
+  width: 100%;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 0rem;
+  padding-bottom: 2rem;
+}
+
+.project-card {
+  transition: transform 0.3s ease;
+}
+
+.mat-mdc-card-header {
+  color: var(--text-primary-darker-color);
+  background-color: mat.get-color-from-palette($theme-primary);
+  width: 99%;
+  padding: 1rem;
+  font-weight: 600;
+  justify-content: center;
+  margin-top: 0;
+  border-radius: 4px;
+}
+
+.mat-mdc-card-subtitle {
+  color: var(--text-primary-color);
+}
+
+.mat-mdc-card-actions {
+  margin: 0;
+  margin-top: auto;
+}
+
+.mat-mdc-card-content {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  padding-bottom: 1rem;
+  height: 60px;
+}
+
+.mat-mdc-raised-button {
+  box-shadow: none;
+  background-color: mat.get-color-from-palette($theme-accent); //#347121;
+  color: #1b4b0b;
+  font-size: large;
+  border-radius: 2px;
+  font-weight: 600;
+}
+
+.nav-button {
+  display: flex;
+  align-items: center;
+  margin: 0 10px;
+}
