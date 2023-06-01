@@ -17,11 +17,11 @@
     <!-- Begin summary/text data-->
     <div *ngIf="project" fxGrid>
       <ng-container *ngIf="project?.thumbnails?.length">
-        <!--<mat-card class="image-container">
+        <mat-card class="image-container">
           <mat-card-content>
             <biosimulations-carousel [images]="project.thumbnails"> </biosimulations-carousel>
           </mat-card-content>
-        </mat-card>-->
+        </mat-card>
 
       </ng-container>
       <mat-card class="metadata-card">
@@ -133,7 +133,30 @@
         *ngTemplateOutlet="sectionsTemplate; context: { sections: project?.identifiers || [] }"></ng-container>
       <!-- template -->
       <ng-template #sectionsTemplate let-sections="sections">
-        <biosimulations-text-page-side-bar-section *ngFor="let section of sections" [heading]="section.title">
+
+        <!-- Start Individual Detail Item Expansion -->
+        <mat-expansion-panel *ngFor="let section of sections" expanded="true">
+          <mat-expansion-panel-header class="item-expansion-header">
+            {{ section.title }}
+          </mat-expansion-panel-header>
+            <table class="icon-list" aria-label="metadata table">
+              <tr *ngFor="let item of section.items" fxLayout="row">
+                <th>
+                  <biosimulations-icon [icon]="item.icon"></biosimulations-icon>
+                </th>
+                <td>
+                  <b>{{ item.title }}:</b>{{ ' ' }}
+                  <a [href]="item.url" rel="noopener" target="_blank" *ngIf="item.url; else noHref">
+                    {{ item.value }}
+                  </a>
+                  <ng-template #noHref>{{ item.value }}</ng-template>
+                </td>
+              </tr>
+            </table>
+        </mat-expansion-panel>
+        <!-- Stop Individual Detail Item Expansion -->
+
+        <!--<biosimulations-text-page-side-bar-section *ngFor="let section of sections" [heading]="section.title">
           <table class="icon-list" aria-label="metadata table">
             <tr *ngFor="let item of section.items" fxLayout="row">
               <th>
@@ -148,7 +171,7 @@
               </td>
             </tr>
           </table>
-        </biosimulations-text-page-side-bar-section>
+        </biosimulations-text-page-side-bar-section>-->
       </ng-template>
     </div>
   </mat-expansion-panel>

@@ -117,7 +117,7 @@
 
 .project-header {
   background-color: #1479ed;
-  font-weight: 600;
+  font-weight: 700;
   color: white;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
@@ -135,8 +135,8 @@
 }
 
 .card-header {
-  background-color: #2196f3;
-  font-weight: 500;
+  background-color: #ff9800;
+  font-weight: 600;
   color: white;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
@@ -145,11 +145,11 @@
   height: 100%;
 
   &:hover {
-    background-color: #2196f3 !important;
+    background-color: #ff9800 !important;
   }
 
   &.mat-expansion-panel-header.mat-expanded {
-    background-color: #2196f3 !important;
+    background-color: #ff9800 !important;
   }
 }
 
@@ -165,4 +165,28 @@
   object-fit: cover;
   flex-direction: row;
   justify-content: center;
+}
+
+.item-expansion-header {
+  background-color: #2196f3; //#087008;
+  font-weight: 300;
+  color: white;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-top: 4px solid white;
+  border-bottom: 4px solid white;
+  border-radius: 1px;
+  height: 100%;
+
+  &:first-child {
+    border-top: 8px solid white;
+  }
+
+  &:hover {
+    background-color: #2196f3 !important;
+  }
+
+  &.mat-expansion-panel-header.mat-expanded {
+    background-color: #2196f3 !important;
+  }
 }
