@@ -31,14 +31,19 @@
 
       <!-- Start Right Column -->
       <mat-card class="viz-card">
-        <mat-card-header class="viz-card-header"> Simulation Visualizations </mat-card-header>
-        <mat-card-content>
-          <mat-grid-list cdkDropList (cdkDropListDropped)="drop($event)" cols="1" rowHeight="400px" gutterSize="20">
-            <mat-grid-tile class="figure-card" *ngFor="let plotVisualization of plotVisualizations$ | async" cdkDrag>
-              <mat-grid-tile-header class="figure-card-header" style="background-color: rgba(145, 18, 191, 0.859)">
+        <mat-card-header class="viz-card-header"> Project Visualizations </mat-card-header>
+        <mat-card-content class="viz-card-content">
+          <!-- Component with directive for drag-and-drop implementation -->
+          <!--<mat-grid-list cdkDropList (cdkDropListDropped)="drop($event)" cols="1" rowHeight="400px" gutterSize="20">-->
+          <mat-grid-list cols="1" rowHeight="575px" gutterSize="20">
+            <!-- Component with directive for drag-and-drop implementation -->
+            <!--<mat-grid-tile class="figure-card" *ngFor="let plotVisualization of plotVisualizations$ | async" cdkDrag>-->
+            <mat-grid-tile class="figure-card" *ngFor="let plotVisualization of plotVisualizations$ | async">
+              <mat-grid-tile-header class="figure-card-header" style="background-color: #087008">
                 {{ plotVisualization.name }}
               </mat-grid-tile-header>
-              <div class="figure-card-placeholder" *cdkDragPlaceholder></div>
+              <!-- Placeholder for drag-and-drop implementation -->
+              <!-- <div class="figure-card-placeholder" *cdkDragPlaceholder></div> -->
               <div class=".plotparent">
                 <biosimulations-project-visualization
                   class="full-width full-height"

@@ -11,16 +11,6 @@
     height: auto;
     //margin-bottom: 2rem; /* Optional: Add margin bottom for spacing */
 
-    .image-container {
-      display: flex;
-      width: 100%;
-      height: auto;
-      padding-bottom: 1rem;
-      object-fit: cover;
-      flex-direction: row;
-      justify-content: center;
-    }
-
     .attributes-column {
       display: flex;
       height: 100%;
@@ -162,6 +152,17 @@
     background-color: #2196f3 !important;
   }
 }
+
 .details-card {
   height: 100%;
+}
+
+.image-container {
+  display: flex;
+  width: 100%;
+  height: fit-content;
+  padding-bottom: 1rem;
+  object-fit: cover;
+  flex-direction: row;
+  justify-content: center;
 }

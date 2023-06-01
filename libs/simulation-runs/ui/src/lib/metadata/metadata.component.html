@@ -17,14 +17,15 @@
     <!-- Begin summary/text data-->
     <div *ngIf="project" fxGrid>
       <ng-container *ngIf="project?.thumbnails?.length">
-        <mat-card class="image-container">
+        <!--<mat-card class="image-container">
           <mat-card-content>
-          <biosimulations-carousel [images]="project.thumbnails"> </biosimulations-carousel>
-        </mat-card-content>
-        </mat-card>
+            <biosimulations-carousel [images]="project.thumbnails"> </biosimulations-carousel>
+          </mat-card-content>
+        </mat-card>-->
+
       </ng-container>
       <mat-card class="metadata-card">
-        <mat-card-header class="card-header">Simulation Description</mat-card-header>
+        <mat-card-header class="card-header">Project Description</mat-card-header>
         <mat-card-content>
           <biosimulations-text-page-content-section [iconActionType]="null">
             <div class="abstract" *ngIf="project.abstract">
@@ -53,7 +54,7 @@
   <!-- Start Summary Display -->
   <div *ngIf="projectSummary" fxGrid>
     <mat-card class="summary-card">
-      <mat-card-header class="card-header"> Simulation Summary </mat-card-header>
+      <mat-card-header class="card-header"> Project Summary </mat-card-header>
       <mat-card-content>
         <table aria-label="simulation summary">
           <tr *ngIf="biologyList(projectSummary) || taxaList(projectSummary)">
@@ -107,7 +108,7 @@
   <!-- End Summary Display -->
   <!-- Start Details Expansion Panel -->
   <mat-expansion-panel class="details-card">
-    <mat-expansion-panel-header class="card-header"> Simulation Details </mat-expansion-panel-header>
+    <mat-expansion-panel-header class="card-header"> Project Details </mat-expansion-panel-header>
     <!-- Biology, simulation, provenance, & identifiers information -->
     <div
       *ngIf="
