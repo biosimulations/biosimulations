@@ -6,153 +6,151 @@
   fxLayoutAlign="space-between"
   fxLayoutGap="1rem"
   fxLayoutGap.lt-lg="1rem">
+  <!-- Simulation Project Header (Title) -->
   <mat-card>
     <mat-card-header class="project-header">
       {{ project.title }}
     </mat-card-header>
   </mat-card>
-
-
-    <!-- Begin thumbnails -->
-    <div *ngIf="project" fxFlex class="thumbnails-column" fxLayout="column">
-      <!-- Begin summary/text data-->
-      <div *ngIf="project" fxGrid>
-        <ng-container *ngIf="project?.thumbnails?.length">
-          <mat-card class="image-container">
-            <mat-card-content>
-            <biosimulations-carousel [images]="project.thumbnails"> </biosimulations-carousel>
-          </mat-card-content>
-          </mat-card>
-        </ng-container>
-        <mat-card class="metadata-card">
-          <mat-card-header class="card-header">Simulation Description</mat-card-header>
+  <!-- Begin thumbnails -->
+  <div *ngIf="project" fxFlex class="thumbnails-column" fxLayout="column">
+    <!-- Begin summary/text data-->
+    <div *ngIf="project" fxGrid>
+      <ng-container *ngIf="project?.thumbnails?.length">
+        <mat-card class="image-container">
           <mat-card-content>
-            <biosimulations-text-page-content-section class="metadata-column" [iconActionType]="null">
-              <div class="abstract" *ngIf="project.abstract">
-                {{ project.abstract }}
-              </div>
-              <!-- Begin creators/contributers-->
-              <!-- TODO create ORCID people list component -->
-              <ul class="creators comma-separated ampersand-separator" *ngIf="project?.creators?.length">
-                <li *ngFor="let creator of project.creators">
-                  {{ creator.label }}{{ creator.uri ? ' ' : ''
-                  }}<a [href]="creator.uri" rel="noopener" target="_blank" *ngIf="creator.uri">
-                    <biosimulations-icon [icon]="creator.icon"></biosimulations-icon>
-                  </a>
-                </li>
-              </ul>
-              <!-- description -->
-              <markdown [data]="project.description" class="description" *ngIf="project.description"> </markdown>
-            </biosimulations-text-page-content-section>
-          </mat-card-content>
+          <biosimulations-carousel [images]="project.thumbnails"> </biosimulations-carousel>
+        </mat-card-content>
         </mat-card>
-      </div>
-      <!-- End summary/text data -->
-    </div>
-    <!-- End thumbnails-->
-
-    <!-- Start Summary Display -->
-    <div *ngIf="projectSummary" fxGrid>
-      <mat-card class="summary-card">
-        <mat-card-header class="card-header"> Simulation Summary </mat-card-header>
+      </ng-container>
+      <mat-card class="metadata-card">
+        <mat-card-header class="card-header">Simulation Description</mat-card-header>
         <mat-card-content>
-          <table aria-label="simulation summary">
-            <tr *ngIf="biologyList(projectSummary) || taxaList(projectSummary)">
-              <th>Biology:</th>
-              <td>
-                <ng-container *ngIf="biologyList(projectSummary)">
-                  <ng-container *ngFor="let biologyTerm of biologyList(projectSummary); first as isFirst">
-                    <ng-container *ngIf="!isFirst"> and </ng-container>
-                    <b>{{ biologyTerm }}</b>
-                  </ng-container>
-                </ng-container>
-                <ng-container *ngIf="taxaList(projectSummary)">
-                  in
-                  <ng-container *ngFor="let taxaTerm of taxaList(projectSummary); first as isFirst">
-                    <ng-container *ngIf="!isFirst"> or </ng-container>
-                    <b>{{ taxaTerm }}</b>
-                  </ng-container>
-                </ng-container>
-              </td>
-            </tr>
-            <tr>
-              <th>Simulation:</th>
-              <td>
-                <ng-container *ngIf="simulationType(projectSummary)">
-                  <b>{{ simulationType(projectSummary) }}</b
-                  >,
-                </ng-container>
-                <ng-container *ngIf="simulator(projectSummary)">
-                  simulated with <b>{{ simulator(projectSummary) }}</b
-                  >,
-                </ng-container>
-                <ng-container *ngIf="formats(projectSummary)">
-                  model encoded in <b>{{ formats(projectSummary) }}</b>
-                </ng-container>
-              </td>
-            </tr>
-            <tr *ngIf="citation(projectSummary) as citation">
-              <th>Citation:</th>
-              <td>
-                <a href="{{ citation?.uri }}">{{ citation?.label }}</a>
-              </td>
-            </tr>
-            <!--          <tr>-->
-            <!--            <th>Identifiers</th>-->
-            <!--            <td>{{ identifiersText(projectSummary) }}</td>-->
-            <!--          </tr>-->
-          </table>
+          <biosimulations-text-page-content-section class="metadata-column" [iconActionType]="null">
+            <div class="abstract" *ngIf="project.abstract">
+              {{ project.abstract }}
+            </div>
+            <!-- Begin creators/contributers-->
+            <!-- TODO create ORCID people list component -->
+            <ul class="creators comma-separated ampersand-separator" *ngIf="project?.creators?.length">
+              <li *ngFor="let creator of project.creators">
+                {{ creator.label }}{{ creator.uri ? ' ' : ''
+                }}<a [href]="creator.uri" rel="noopener" target="_blank" *ngIf="creator.uri">
+                  <biosimulations-icon [icon]="creator.icon"></biosimulations-icon>
+                </a>
+              </li>
+            </ul>
+            <!-- End creators/contributers -->
+            <!-- description -->
+            <markdown [data]="project.description" class="description" *ngIf="project.description"> </markdown>
+          </biosimulations-text-page-content-section>
         </mat-card-content>
       </mat-card>
     </div>
-
-    <!-- End Summary Display -->
-
-    <mat-expansion-panel class="details-card">
-      <mat-expansion-panel-header class="card-header"> Simulation Details </mat-expansion-panel-header>
-      <!-- Biology, simulation, provenance, & identifiers information -->
-      <div
-        *ngIf="
-          project?.modelSimulation?.length ||
-          simulationRun?.length ||
-          project?.provenance?.length ||
-          project?.identifiers?.length
-        "
-        class="attributes-column ragged-column"
-        fxLayout="column"
-        fxInlineBlock
-        fxFlex.lt-lg="100%">
-        <!-- project metadata -->
-        <ng-container
-          *ngTemplateOutlet="sectionsTemplate; context: { sections: project?.modelSimulation || [] }"></ng-container>
-        <!-- simulation run metadata -->
-        <ng-container *ngTemplateOutlet="sectionsTemplate; context: { sections: simulationRun || [] }"></ng-container>
-        <!-- project metadata -->
-        <ng-container
-          *ngTemplateOutlet="sectionsTemplate; context: { sections: project?.provenance || [] }"></ng-container>
-        <ng-container
-          *ngTemplateOutlet="sectionsTemplate; context: { sections: project?.identifiers || [] }"></ng-container>
-        <!-- template -->
-        <ng-template #sectionsTemplate let-sections="sections">
-          <biosimulations-text-page-side-bar-section *ngFor="let section of sections" [heading]="section.title">
-            <table class="icon-list" aria-label="metadata table">
-              <tr *ngFor="let item of section.items" fxLayout="row">
-                <th>
-                  <biosimulations-icon [icon]="item.icon"></biosimulations-icon>
-                </th>
-                <td>
-                  <b>{{ item.title }}:</b>{{ ' ' }}
-                  <a [href]="item.url" rel="noopener" target="_blank" *ngIf="item.url; else noHref">
-                    {{ item.value }}
-                  </a>
-                  <ng-template #noHref>{{ item.value }}</ng-template>
-                </td>
-              </tr>
-            </table>
-          </biosimulations-text-page-side-bar-section>
-        </ng-template>
-      </div>
-      <!-- End simulation information -->
-    </mat-expansion-panel>
-
+    <!-- End summary/text data -->
+  </div>
+  <!-- End thumbnails-->
+  <!-- Start Summary Display -->
+  <div *ngIf="projectSummary" fxGrid>
+    <mat-card class="summary-card">
+      <mat-card-header class="card-header"> Simulation Summary </mat-card-header>
+      <mat-card-content>
+        <table aria-label="simulation summary">
+          <tr *ngIf="biologyList(projectSummary) || taxaList(projectSummary)">
+            <th>Biology:</th>
+            <td>
+              <ng-container *ngIf="biologyList(projectSummary)">
+                <ng-container *ngFor="let biologyTerm of biologyList(projectSummary); first as isFirst">
+                  <ng-container *ngIf="!isFirst"> and </ng-container>
+                  <b>{{ biologyTerm }}</b>
+                </ng-container>
+              </ng-container>
+              <ng-container *ngIf="taxaList(projectSummary)">
+                in
+                <ng-container *ngFor="let taxaTerm of taxaList(projectSummary); first as isFirst">
+                  <ng-container *ngIf="!isFirst"> or </ng-container>
+                  <b>{{ taxaTerm }}</b>
+                </ng-container>
+              </ng-container>
+            </td>
+          </tr>
+          <tr>
+            <th>Simulation:</th>
+            <td>
+              <ng-container *ngIf="simulationType(projectSummary)">
+                <b>{{ simulationType(projectSummary) }}</b
+                >,
+              </ng-container>
+              <ng-container *ngIf="simulator(projectSummary)">
+                simulated with <b>{{ simulator(projectSummary) }}</b
+                >,
+              </ng-container>
+              <ng-container *ngIf="formats(projectSummary)">
+                model encoded in <b>{{ formats(projectSummary) }}</b>
+              </ng-container>
+            </td>
+          </tr>
+          <tr *ngIf="citation(projectSummary) as citation">
+            <th>Citation:</th>
+            <td>
+              <a href="{{ citation?.uri }}">{{ citation?.label }}</a>
+            </td>
+          </tr>
+          <!--          <tr>-->
+          <!--            <th>Identifiers</th>-->
+          <!--            <td>{{ identifiersText(projectSummary) }}</td>-->
+          <!--          </tr>-->
+        </table>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <!-- End Summary Display -->
+  <!-- Start Details Expansion Panel -->
+  <mat-expansion-panel class="details-card">
+    <mat-expansion-panel-header class="card-header"> Simulation Details </mat-expansion-panel-header>
+    <!-- Biology, simulation, provenance, & identifiers information -->
+    <div
+      *ngIf="
+        project?.modelSimulation?.length ||
+        simulationRun?.length ||
+        project?.provenance?.length ||
+        project?.identifiers?.length
+      "
+      class="attributes-column ragged-column"
+      fxLayout="column"
+      fxInlineBlock
+      fxFlex.lt-lg="100%">
+      <!-- project metadata -->
+      <ng-container
+        *ngTemplateOutlet="sectionsTemplate; context: { sections: project?.modelSimulation || [] }"></ng-container>
+      <!-- simulation run metadata -->
+      <ng-container *ngTemplateOutlet="sectionsTemplate; context: { sections: simulationRun || [] }"></ng-container>
+      <!-- project metadata -->
+      <ng-container
+        *ngTemplateOutlet="sectionsTemplate; context: { sections: project?.provenance || [] }"></ng-container>
+      <ng-container
+        *ngTemplateOutlet="sectionsTemplate; context: { sections: project?.identifiers || [] }"></ng-container>
+      <!-- template -->
+      <ng-template #sectionsTemplate let-sections="sections">
+        <biosimulations-text-page-side-bar-section *ngFor="let section of sections" [heading]="section.title">
+          <table class="icon-list" aria-label="metadata table">
+            <tr *ngFor="let item of section.items" fxLayout="row">
+              <th>
+                <biosimulations-icon [icon]="item.icon"></biosimulations-icon>
+              </th>
+              <td>
+                <b>{{ item.title }}:</b>{{ ' ' }}
+                <a [href]="item.url" rel="noopener" target="_blank" *ngIf="item.url; else noHref">
+                  {{ item.value }}
+                </a>
+                <ng-template #noHref>{{ item.value }}</ng-template>
+              </td>
+            </tr>
+          </table>
+        </biosimulations-text-page-side-bar-section>
+      </ng-template>
+    </div>
+  </mat-expansion-panel>
+  <!-- End Details Expansion Panel -->
 </div>
+<!-- End simulation information -->
