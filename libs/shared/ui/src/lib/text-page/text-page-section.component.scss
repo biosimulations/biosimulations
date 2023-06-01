@@ -52,13 +52,12 @@ h3 {
   -webkit-box-orient: vertical;
   width: fit-content;
   height: fit-content;
-  padding: 0.5rem;
 
   //max-width: calc(100% - 0.5rem - 10px);
 }
 
 .content {
-  padding-top: 1rem;
+  padding-top: 0rem;
 }
 
 .container ::ng-deep .mat-table.biosimulations-table {
