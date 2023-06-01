@@ -90,13 +90,13 @@ export class ProjectsController {
   })
   public async getProjectSummaries(
     @Query('pageSize')
-    pageSize: number = 25,
+    pageSize = 25,
     @Query('pageIndex')
-    pageIndex: number = 0,
+    pageIndex = 0,
     @Query('searchText')
-    searchText: string = '',
+    searchText = '',
     @Query('filters')
-    filtersJSON: string = '',
+    filtersJSON = '',
   ): Promise<ProjectSummaryQueryResults> {
     let filters: ProjectFilterQueryItem[] | undefined;
     if (filtersJSON && filtersJSON.length > 0) {
