@@ -32,10 +32,7 @@ const routes: Routes = [
   },
   {
     path: 'runs',
-    loadChildren: () =>
-      import('../../../../apps/platform/src/app/components/simulations/simulations.module').then(
-        (m) => m.SimulationsModule,
-      ),
+    loadChildren: () => import('./components/simulations/simulations.module').then((m) => m.SimulationsModule),
     data: {
       breadcrumb: 'Your simulation runs',
     },
@@ -43,8 +40,7 @@ const routes: Routes = [
   { path: 'simulations/:id', redirectTo: 'runs/:id', pathMatch: 'prefix' },
   {
     path: 'utils',
-    loadChildren: () =>
-      import('../../../../apps/platform/src/app/components/utils/utils.module').then((m) => m.UtilsModule),
+    loadChildren: () => import('./components/utils/utils.module').then((m) => m.UtilsModule),
     data: {
       breadcrumb: 'Utilities',
     },
