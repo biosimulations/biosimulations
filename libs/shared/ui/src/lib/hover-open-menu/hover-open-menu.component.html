@@ -10,12 +10,13 @@
   <mat-menu
     #menu="matMenu"
     yPosition="below"
-    [hasBackdrop]="false"
-    class="overlap-menu">
+    [hasBackdrop]="false">
     <div
       (mouseenter)="openMenu(trigger)"
-      (mouseleave)="closeMenu(trigger)">
+      (mouseleave)="closeMenu(trigger)"
+      class="overlap-menu">
       <ng-content select="#items"></ng-content>
     </div>
   </mat-menu>
 </div>
+

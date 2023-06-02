@@ -18,7 +18,7 @@
       </ng-container>
     </biosimulations-hover-open-menu>
 
-    <biosimulations-hover-open-menu onclick="config.dispatchAppRunsNewUrl">
+    <biosimulations-hover-open-menu [link]="config.dispatchAppRunsNewUrl">
       <biosimulations-topbar-menu-item
         heading="Run Simulations"
         icon="experiment"
@@ -32,7 +32,7 @@
       </ng-container>
     </biosimulations-hover-open-menu>
 
-    <biosimulations-hover-open-menu onclick="config.platformAppUrl">
+    <biosimulations-hover-open-menu [link]="config.platformAppUrl">
       <biosimulations-topbar-menu-item heading="Utilities" icon="construction" id="trigger">
       </biosimulations-topbar-menu-item>
       <ng-container id="items">
@@ -85,7 +85,7 @@
     </biosimulations-hover-open-menu>
 
     <biosimulations-hover-open-menu
-      onclick="config.simulatorsAppSuggestSimulatorsUrl"
+      [link]="config.simulatorsAppSuggestSimulatorsUrl"
       style="position: fixed; top: 1; right: 45px; padding-bottom: 2rem">
       <biosimulations-topbar-menu-item heading="BioSimulators" icon="link" id="trigger">
       </biosimulations-topbar-menu-item>
