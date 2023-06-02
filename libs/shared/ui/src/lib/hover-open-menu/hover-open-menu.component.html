@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" (click)="navigate()">
   <div
     [matMenuTriggerFor]="menu"
     #trigger="matMenuTrigger"
@@ -7,8 +7,14 @@
     (mouseleave)="closeMenu(trigger)">
     <ng-content select="#trigger"></ng-content>
   </div>
-  <mat-menu #menu="matMenu" yPosition="below" [hasBackdrop]="false">
-    <div (mouseenter)="openMenu(trigger)" (mouseleave)="closeMenu(trigger)">
+  <mat-menu
+    #menu="matMenu"
+    yPosition="below"
+    [hasBackdrop]="false"
+    class="overlap-menu">
+    <div
+      (mouseenter)="openMenu(trigger)"
+      (mouseleave)="closeMenu(trigger)">
       <ng-content select="#items"></ng-content>
     </div>
   </mat-menu>

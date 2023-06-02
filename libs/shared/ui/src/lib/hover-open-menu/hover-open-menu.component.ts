@@ -7,6 +7,9 @@ import { MatMenuTrigger } from '@angular/material/menu';
   styleUrls: ['./hover-open-menu.component.scss'],
 })
 export class HoverOpenMenuComponent {
+  @Input()
+  link!: string;
+
   timedOutCloser: any = null;
 
   @Input()
@@ -25,7 +28,13 @@ export class HoverOpenMenuComponent {
     if (!this.disabled) {
       this.timedOutCloser = window.setTimeout(() => {
         trigger.closeMenu();
-      }, 50);
+      }, 500);
+    }
+  }
+
+  navigate() {
+    if (this.link) {
+      window.location.href = this.link;
     }
   }
 }
