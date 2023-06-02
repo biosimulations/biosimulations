@@ -1,0 +1,92 @@
+<div class="spinner-container full-height has-breadcrumbs" *ngIf="(loaded$ | async) !== true">
+  <biosimulations-spinner></biosimulations-spinner>
+</div>
+
+<ng-container *ngIf="jsonLdData$ | async as jsonLdData">
+  <biosimulations-json-ld [json]="jsonLdData"></biosimulations-json-ld>
+</ng-container>
+
+<div class="spinner-container full-height has-breadcrumbs" *ngIf="(loaded$ | async) !== true">
+  <biosimulations-spinner></biosimulations-spinner>
+</div>
+
+<ng-container *ngIf="jsonLdData$ | async as jsonLdData">
+  <biosimulations-json-ld [json]="jsonLdData"></biosimulations-json-ld>
+</ng-container>
+
+<ng-container *ngIf="projectMetadata$ | async as projectMetadata">
+  <ng-container *ngIf="simulationRun$ | async as simulationRun">
+    <div class="display-data">
+      <!-- Start Left Column-->
+      <mat-card>
+        <mat-card-content class="metadata-card">
+          <biosimulations-project-metadata
+            [project]="projectMetadata"
+            [simulationRun]="simulationRun"
+            [projectSummary]="projectSummary$ | async">
+          </biosimulations-project-metadata>
+        </mat-card-content>
+      </mat-card>
+      <!-- End Left Column -->
+
+      <!-- Start Right Column -->
+      <mat-card class="viz-card">
+        <mat-card-header class="viz-card-header"> Simulation Visualizations </mat-card-header>
+        <mat-card-content>
+          <mat-grid-list cdkDropList (cdkDropListDropped)="drop($event)" cols="1" rowHeight="400px" gutterSize="20">
+            <mat-grid-tile class="figure-card" *ngFor="let plotVisualization of plotVisualizations$ | async" cdkDrag>
+              <mat-grid-tile-header class="figure-card-header" style="background-color: rgba(145, 18, 191, 0.859)">
+                {{ plotVisualization.name }}
+              </mat-grid-tile-header>
+              <div class="figure-card-placeholder" *cdkDragPlaceholder></div>
+              <div class=".plotparent">
+                <biosimulations-project-visualization
+                  class="full-width full-height"
+                  [visualization]="plotVisualization">
+                </biosimulations-project-visualization>
+              </div>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </mat-card-content>
+      </mat-card>
+      <!-- End Right Column -->
+    </div>
+  </ng-container>
+</ng-container>
+<!-- End overview tab-->
+
+<!--DO NOT DELETE: Possible Header colors: //#ffa500; //rgba(145, 18, 191, 0.859);-->
+
+<!--Information about files in project and generated from the project-->
+<!--  <biosimulations-tab-page-tab heading="Files" icon="project" urlHashFragment="files">-->
+<!--    <div class="partial-width files">-->
+<!--      <biosimulations-text-page-content-section-->
+<!--        heading="Simulation specification (COMBINE/OMEX archive)"-->
+<!--        *ngIf="projectFiles$ | async as files">-->
+<!--        <biosimulations-project-files id="content" [files]="files" [usesMaster]="false" [usesMetadata]="false">-->
+<!--        </biosimulations-project-files>-->
+<!--      </biosimulations-text-page-content-section>-->
+
+<!--      <biosimulations-text-page-content-section-->
+<!--        heading="Contents of simulation specification"-->
+<!--        *ngIf="files$ | async as files">-->
+<!--        <biosimulations-project-files id="content" [files]="files" [usesMaster]="true" [usesMetadata]="true">-->
+<!--        </biosimulations-project-files>-->
+<!--      </biosimulations-text-page-content-section>-->
+
+<!--      <biosimulations-text-page-content-section heading="Simulation outputs" *ngIf="outputs$ | async as files">-->
+<!--        <biosimulations-project-files id="content" [files]="files" [usesMaster]="false" [usesMetadata]="false">-->
+<!--        </biosimulations-project-files>-->
+<!--      </biosimulations-text-page-content-section>-->
+<!--    </div>-->
+<!--  </biosimulations-tab-page-tab>-->
+
+<!-- Visualizations -->
+<!--  <div>-->
+<!--    <ng-container *ngIf="visualizations$ | async as visualizations">-->
+<!--      <biosimulations-project-select-visualization-->
+<!--        [visualizations]="visualizations"-->
+<!--        (renderVisualization)="renderVisualization($event)">-->
+<!--      </biosimulations-project-select-visualization>-->
+<!--    </ng-container>-->
+<!--  </div>-->

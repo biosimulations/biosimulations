@@ -1,0 +1,105 @@
+<biosimulations-navigation
+  [appName]="config.appName"
+  [appNameParts]="config.appNameParts"
+  [logo]="config.logo"
+  [privacyPolicyVersion]="config.privacyPolicyVersion"
+  [newsVersion]="1"
+  [showNews]="false"
+  [healthy]="healthy$ | async">
+  <biosimulations-topbar-menu>
+    <biosimulations-hover-open-menu onclick="parent.location=['/projects']">
+      <biosimulations-topbar-menu-item heading="BioSimDB" icon="browse" id="trigger"></biosimulations-topbar-menu-item>
+      <ng-container id="items">
+        <biosimulations-dropdown-menu-item
+          heading="Browse simulation projects"
+          icon="project"
+          [routerLink]="['/projects']">
+        </biosimulations-dropdown-menu-item>
+      </ng-container>
+    </biosimulations-hover-open-menu>
+
+    <biosimulations-hover-open-menu onclick="config.dispatchAppRunsNewUrl">
+      <biosimulations-topbar-menu-item
+        heading="Run Simulations"
+        icon="experiment"
+        id="trigger"></biosimulations-topbar-menu-item>
+      <ng-container id="items">
+        <biosimulations-dropdown-menu-item
+          heading="Run your own simulation"
+          icon="experiment"
+          [href]="config.dispatchAppRunsNewUrl">
+        </biosimulations-dropdown-menu-item>
+      </ng-container>
+    </biosimulations-hover-open-menu>
+
+    <biosimulations-hover-open-menu onclick="config.platformAppUrl">
+      <biosimulations-topbar-menu-item heading="Utilities" icon="construction" id="trigger">
+      </biosimulations-topbar-menu-item>
+      <ng-container id="items">
+        <biosimulations-dropdown-menu-item heading="Convert a file" icon="convert" [href]="config.utilsConvertFileUrl">
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Create a project"
+          icon="write"
+          [href]="config.utilsCreateProjectUrl">
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Validate a model"
+          icon="review"
+          [href]="config.utilsValidateModelUrl">
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Validate a simulation"
+          icon="review"
+          [href]="config.utilsValidateSimulationUrl">
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Validate metadata"
+          icon="review"
+          [href]="config.utilsValidateMetadataUrl">
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Validate a project"
+          icon="review"
+          [href]="config.utilsValidateProjectUrl">
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Validate a simulator"
+          icon="review"
+          href="https://github.com/biosimulators/Biosimulators/issues/new?assignees=&labels=Validate%2Fsubmit+simulator&template=ValidateOrSubmitASimulator.yml&title=%5BSimulation+capabilities%5D%3A+"
+          target="githubissues">
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Suggest a simulator"
+          icon="idea"
+          [href]="config.utilsSuggestSimulatorUrl">
+        </biosimulations-dropdown-menu-item>
+      </ng-container>
+    </biosimulations-hover-open-menu>
+
+    <biosimulations-hover-open-menu
+      onclick="config.simulatorsAppSuggestSimulatorsUrl"
+      style="position: fixed; top: 1; right: 45px; padding-bottom: 2rem">
+      <biosimulations-topbar-menu-item heading="BioSimulators" icon="link" id="trigger">
+      </biosimulations-topbar-menu-item>
+      <ng-container id="items">
+        <biosimulations-dropdown-menu-item
+          heading="Browse simulator tools"
+          icon="link"
+          href="config.simulatorsAppSuggestSimulatorsUrl">
+        </biosimulations-dropdown-menu-item>
+      </ng-container>
+    </biosimulations-hover-open-menu>
+  </biosimulations-topbar-menu>
+
+  <ng-container id="news"> Under Construction </ng-container>
+
+  <router-outlet></router-outlet>
+</biosimulations-navigation>
