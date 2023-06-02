@@ -21,6 +21,7 @@ jobs:
           - platform
           - simulators
           - dispatch
+          - projex
 
     steps:
       - name: Checkout repository
@@ -73,6 +74,7 @@ jobs:
           - platform
           - simulators
           - dispatch
+          - projex
 
     steps:
       - name: Checkout repository
@@ -129,6 +131,7 @@ jobs:
           - platform
           - simulators
           - dispatch
+          - projex
 
     steps:
       - name: Install Node.js
@@ -232,6 +235,7 @@ jobs:
             - platform
             - simulators
             - dispatch
+            - projex
 
       steps:
         - name: Install Node.js

@@ -1,5 +1,17 @@
 # Changelog
 
+## [9.27.0](https://github.com/biosimulations/biosimulations/compare/v9.26.9...v9.27.0) (2023-06-02)
+
+
+### Bug Fixes
+
+* module import path fix ([77fcf90](https://github.com/biosimulations/biosimulations/commit/77fcf90d3da9a675b1b8f2482407b86786e29f68))
+
+
+### Features
+
+* add projex app to patch project browsing ([eaef2e0](https://github.com/biosimulations/biosimulations/commit/eaef2e01470151a36cc38f34cae34aea68e366e3))
+
 ## [9.26.9](https://github.com/biosimulations/biosimulations/compare/v9.26.8...v9.26.9) (2023-05-31)
 
 

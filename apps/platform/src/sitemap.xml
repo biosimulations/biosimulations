@@ -152,6 +152,2916 @@
   </url>
    
   <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000001_amici_A_kinetic_mechanism_for_nicoti</loc>
+    <lastmod>2023-05-31</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000002_copasi_A_kinetic_mechanism_for_nicoti</loc>
+    <lastmod>2023-05-31</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000003_amici_A_minimal_cascade_model_for_th</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000003_tellurium_A_minimal_cascade_model_for_th</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000004_amici_A_minimal_cascade_model_for_th</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000004_copasi_A_minimal_cascade_model_for_th</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000005_amici_Modeling_the_cell_division_cyc</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000005_tellurium_Modeling_the_cell_division_cyc</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000006_amici_Modeling_the_cell_division_cyc</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000006_tellurium_Modeling_the_cell_division_cyc</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000008_copasi_A_theory_for_controlling_cell_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000008_tellurium_A_theory_for_controlling_cell_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000009_amici_Ultrasensitivity_in_the_mitoge</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000009_tellurium_Ultrasensitivity_in_the_mitoge</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000010_amici_Negative_feedback_and_ultrasen</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000010_tellurium_Negative_feedback_and_ultrasen</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000011_copasi_Scaffold_proteins_may_biphasic</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000012_amici_A_synthetic_oscillatory_networ</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000012_copasi_A_synthetic_oscillatory_networ</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000014_tellurium_Scaffold_proteins_may_biphasic</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000015_copasi_Mathematical_models_of_purine_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000017_copasi_Metabolic_engineering_of_lacti</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000017_tellurium_Metabolic_engineering_of_lacti</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000018_amici_Folate_cycle_kinetics_in_human</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000018_tellurium_Folate_cycle_kinetics_in_human</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000021_amici_Chaos_and_birhythmicity_in_a_m</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000021_tellurium_Chaos_and_birhythmicity_in_a_m</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000022_amici_Interlocked_feedback_loops_wit</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000022_copasi_Interlocked_feedback_loops_wit</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000023_copasi_Analysis_of_sucrose_accumulati</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000023_tellurium_Analysis_of_sucrose_accumulati</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000026_amici_Signaling_switches_and_bistabi</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000026_tellurium_Signaling_switches_and_bistabi</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000027_amici_Signaling_switches_and_bistabi</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000027_copasi_Signaling_switches_and_bistabi</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000028_copasi_Signaling_switches_and_bistabi</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000028_tellurium_Signaling_switches_and_bistabi</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000029_amici_Signaling_switches_and_bistabi</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000029_tellurium_Signaling_switches_and_bistabi</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000030_amici_Signaling_switches_and_bistabi</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000030_copasi_Signaling_switches_and_bistabi</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000031_copasi_Signaling_switches_and_bistabi</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000031_tellurium_Signaling_switches_and_bistabi</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000033_amici_The_statistical_mechanics_of_c</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000033_tellurium_The_statistical_mechanics_of_c</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000035_amici_Mechanisms_of_noise_resistance</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000035_copasi_Mechanisms_of_noise_resistance</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000036_tellurium_A_simple_model_of_circadian_rh</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000037_amici_Theory_of_time_resolved_somati</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000037_tellurium_Theory_of_time_resolved_somati</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000038_copasi_Understanding_glucose_transpor</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000038_tellurium_Understanding_glucose_transpor</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000039_amici_Mitochondria_as_an_important_f</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000039_tellurium_Mitochondria_as_an_important_f</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000040_copasi_Oscillations_in_chemical_syste</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000041_tellurium_Creatine_kinase_in_energy_meta</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000042_copasi_Oscillations_and_control_featu</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000045_amici_Complex_intracellular_calcium_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000045_tellurium_Complex_intracellular_calcium_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000046_amici_Mechanism_of_protection_of_per</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000046_copasi_Mechanism_of_protection_of_per</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000047_amici_A_minimal_generic_model_of_bac</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000048_copasi_Quantification_of_short_term_s</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000049_tellurium_Model_analysis_of_difference_b</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000050_tellurium_Kinetic_modelling_of_Amadori_N</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000051_amici_Dynamic_modeling_of_the_centra</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000052_amici_Reactions_of_monosaccharides_d</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000053_tellurium_A_quantitative_model_of_the_ge</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000054_tellurium_A_possible_role_of_adenylate_m</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000055_copasi_Extension_of_a_genetic_network</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000057_amici_A_dynamic_model_of_the_type_2_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000058_copasi_A_bifurcation_analysis_of_two_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000059_tellurium_Modeling_of_Ca2_flux_in_pancre</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000060_tellurium_Ryanodine_receptor_adaptation_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000061_amici_Full_scale_model_of_glycolysis</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000062_amici_Dynamic_regulation_of_the_tryp</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000063_tellurium_Fermentation_pathway_kinetics_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000064_amici_Can_yeast_glycolysis_be_unders</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000065_copasi_Mathematical_model_of_the_lac_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000066_tellurium_Control_of_the_threonine_synth</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000067_amici_A_synthetic_gene_metabolic_osc</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000068_copasi_A_kinetic_model_of_the_branch_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000069_tellurium_Bistable_switching_and_excitab</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000071_amici_Contribution_of_glucose_transp</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000072_copasi_A_quantitative_characterizatio</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000073_tellurium_Toward_a_detailed_computationa</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000074_copasi_Toward_a_detailed_computationa</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000076_tellurium_Metabolic_control_analysis_of_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000078_tellurium_Toward_a_detailed_computationa</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000079_amici_A_model_for_the_dynamics_of_hu</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000080_copasi_Rapid_kinetics_of_alpha_2_adre</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000081_amici_Regulation_of_KCNQ2_KCNQ3_curr</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000082_tellurium_A_ternary_complex_model_explai</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000083_copasi_Toward_a_detailed_computationa</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000084_amici_Principles_behind_the_multifar</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000087_tellurium_Modelling_the_checkpoint_respo</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000089_copasi_Experimental_validation_of_a_p</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000090_tellurium_Mathematical_analysis_of_a_mec</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000091_tellurium_Modelling_the_actions_of_chape</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000092_copasi_Activation_process_of_pepsinog</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000093_amici_Control_mechanism_of_JAK_STAT_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000094_copasi_Control_mechanism_of_JAK_STAT_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000095_tellurium_A_novel_computational_model_of</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000096_copasi_A_novel_computational_model_of</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000097_tellurium_A_novel_computational_model_of</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000098_copasi_Simulation_of_intracellular_Ca</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000099_tellurium_A_molecular_network_that_produ</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000100_copasi_A_theoretical_study_of_effects</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000101_tellurium_Signal_processing_in_the_TGF_b</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000102_tellurium_Mathematical_modeling_identifi</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000103_amici_Mathematical_modeling_identifi</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000105_amici_An_in_silico_model_of_the_ubiq</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000106_copasi_Dynamic_simulations_on_the_ara</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000107_tellurium_Numerical_analysis_of_a_compre</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000108_tellurium_Alternative_pathways_as_mechan</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000109_amici_A_systems_biology_dynamical_mo</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000111_copasi_Mathematical_model_of_the_cell</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000112_tellurium_Systems_theory_of_Smad_signall</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000113_tellurium_Protein_phosphorylation_driven</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000114_copasi_Hormone_induced_calcium_oscill</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000115_tellurium_Hormone_induced_calcium_oscill</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000116_copasi_Cross_talk_and_decision_making</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000119_amici_Contribution_of_persistent_Na_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000120_tellurium_Feedback_control_of_T_cell_rec</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000121_amici_Two_components_of_the_delayed_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000122_copasi_NFAT_and_NFkappaB_activation_i</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000123_tellurium_NFAT_and_NFkappaB_activation_i</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000124_copasi_Diethyl_pyrocarbonate_a_histid</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000125_tellurium_A_theoretical_framework_for_sp</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000126_tellurium_Two_components_of_the_delayed_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000128_copasi_Endothelin_action_on_pituitary</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000138_tellurium_Low_dose_of_dopamine_may_stimu</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000143_amici_Period_doubling_bifurcations_a</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000144_tellurium_Dynamical_modeling_of_syncytia</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000145_copasi_Modelling_receptor_controlled_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000146_amici_Temperature_dependence_of_the_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000147_tellurium_A_homeostatic_model_of_IkappaB</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000149_amici_Mathematical_Modeling_of_the_I</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000150_tellurium_Kinetic_mechanism_of_activatio</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000151_copasi_Principles_of_interleukin_IL_6</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000152_tellurium_DARPP_32_is_a_robust_integrato</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000153_amici_DARPP_32_is_a_robust_integrato</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000156_copasi_Oscillations_and_variability_i</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000157_tellurium_Time_delay_as_a_key_to_apoptos</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000158_copasi_Oscillations_and_variability_i</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000159_tellurium_POSSIBLE_OSCILLATORY_BEHAVIOR_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000160_copasi_Modelling_of_circadian_rhythms</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000163_amici_Constraint_based_modeling_and_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000164_tellurium_Systems_analysis_of_Ran_transp</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000165_amici_Systems_analysis_of_PKA_mediat</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000166_copasi_A_theoretical_study_on_activat</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000167_tellurium_Identification_of_nucleocytopl</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000168_tellurium_A_mathematical_model_of_the_re</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000169_amici_The_kinetic_origins_of_the_res</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000170_amici_Modeling_feedback_loops_of_the</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000172_copasi_Schemes_of_flux_control_in_a_m</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000173_tellurium_Mathematical_modeling_identifi</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000174_amici_Building_functional_modules_fr</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000176_copasi_Increased_glycolytic_flux_as_a</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000177_tellurium_Increased_glycolytic_flux_as_a</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000178_amici_Kinetic_studies_on_the_interac</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000179_copasi_Interlinked_mutual_inhibitory_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000180_tellurium_Interlinked_mutual_inhibitory_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000181_amici_A_minimal_mathematical_model_c</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000182_copasi_Cell_shape_and_negative_links_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000184_copasi_A_mathematical_model_of_sponta</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000185_tellurium_Global_parameter_search_reveal</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000186_amici_The_Mad1_Mad2_complex_as_a_tem</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000187_copasi_The_Mad1_Mad2_complex_as_a_tem</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000188_tellurium_Explaining_oscillations_and_va</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000189_amici_Explaining_oscillations_and_va</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000190_tellurium_Mathematical_modeling_of_polya</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000191_amici_In_silico_analysis_of_arginine</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000192_copasi_Characterization_of_Ran_driven</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000193_tellurium_In_silico_study_of_kinetochore</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000194_amici_Mad2_binding_is_not_sufficient</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000198_tellurium_Spectral_and_kinetic_studies_o</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000199_amici_A_kinetic_simulation_model_tha</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000200_tellurium_Computer_analysis_of_the_bindi</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000201_tellurium_Modeling_the_segmentation_cloc</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000202_copasi_Dynamic_simulation_of_the_effe</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000203_copasi_Transcriptional_dynamics_of_th</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000204_tellurium_Transcriptional_dynamics_of_th</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000205_tellurium_Model_analysis_of_difference_b</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000207_amici_Alternating_oscillations_and_c</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000208_copasi__Modeling_dynamics_of_gene_net</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000209_tellurium_A_computational_model_for_unde</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000210_amici_A_computational_model_for_unde</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000212_copasi_Understanding_the_regulation_o</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000213_tellurium_A_mathematical_model_of_the_fo</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000215_amici_Sequential_polarization_and_im</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000216_amici_Minimum_criteria_for_DNA_damag</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000217_tellurium_The_multifarious_short_term_re</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000218_copasi_Kinetic_modeling_of_tricarboxy</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000219_tellurium_Kinetic_modeling_of_tricarboxy</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000220_amici_Quantitative_analysis_of_pathw</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000221_copasi_Kinetic_modeling_of_tricarboxy</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000222_tellurium_Kinetic_modeling_of_tricarboxy</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000224_amici_Molecular_model_for_receptor_s</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000225_copasi_Regulation_of_glucose_metaboli</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000226_copasi_Mathematical_model_of_NF_kappa</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000227_tellurium_Mathematical_model_of_NF_kappa</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000228_tellurium_Bifurcation_analysis_of_the_re</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000229_amici_Quantifying_robustness_of_bioc</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000230_copasi_Sensitivity_analysis_of_parame</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000231_tellurium_A_kinetic_study_of_a_ternary_c</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000232_amici_Mitochondrial_energetic_metabo</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000233_amici_The_smallest_chemical_reaction</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000234_copasi_A_pharmacodynamic_model_for_th</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000235_tellurium_Monte_Carlo_analysis_of_an_ODE</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000236_tellurium_Regulation_of_glucose_metaboli</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000237_copasi_A_modelling_approach_to_quanti</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000239_copasi_A_kinetic_core_model_of_the_gl</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000240_tellurium_Transient_heterogeneity_in_ext</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000242_amici_Theoretical_and_experimental_e</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000243_tellurium_Dynamics_within_the_CD95_death</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000244_tellurium_Bacterial_adaptation_through_d</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000249_amici_Population_biology_of_infectio</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000250_tellurium_Untangling_the_wires_a_strateg</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000251_amici_Untangling_the_wires_a_strateg</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000252_copasi_Stress_specific_response_of_th</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000253_copasi_The_danger_of_metabolic_pathwa</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000254_amici_How_yeast_cells_synchronize_th</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000257_tellurium_A_simple_self_maintaining_meta</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000258_tellurium_Bistability_from_double_phosph</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000262_tellurium_Decoupling_of_receptor_and_dow</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000263_amici_Decoupling_of_receptor_and_dow</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000264_amici_Decoupling_of_receptor_and_dow</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000266_copasi_Biochemical_and_genomic_regula</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000267_tellurium_Kinetic_studies_on_the_interac</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000268_copasi_A_mathematical_model_of_glutat</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000269_tellurium_Modelling_and_experimental_ana</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000271_amici_Covering_a_broad_dynamic_range</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000272_tellurium_Covering_a_broad_dynamic_range</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000274_copasi_Modeling_of_bone_formation_and</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000276_tellurium_A_mathematical_model_of_parath</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000277_copasi_A_mathematical_model_of_parath</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000281_amici_Metabolic_control_mechanisms_5</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000283_tellurium_The_kinetics_of_the_enzyme_sub</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000284_copasi_METAMOD_software_for_steady_st</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000286_tellurium_GSK3_and_p53_is_there_a_link_i</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000287_amici_Feedback_between_p21_and_react</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000289_copasi_Self_tolerance_and_autoimmunit</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000290_copasi_Self_tolerance_and_autoimmunit</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000291_tellurium_Mathematical_model_of_binding_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000292_amici_Photosynthetic_oscillations_an</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000296_copasi_A_synthetic_Escherichia_coli_p</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000297_tellurium_Mathematical_model_of_the_morp</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000298_amici_Limit_cycle_models_for_circadi</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000301_tellurium_Synthetic_gene_networks_that_c</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000303_copasi_A_computational_and_experiment</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000304_tellurium_Bifurcation_and_resonance_in_a</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000306_tellurium_Sniffers_buzzers_toggles_and_b</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000308_copasi_Sniffers_buzzers_toggles_and_b</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000309_tellurium_Sniffers_buzzers_toggles_and_b</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000310_tellurium_Sniffers_buzzers_toggles_and_b</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000312_copasi_Sniffers_buzzers_toggles_and_b</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000313_copasi_Dynamic_mathematical_modeling_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000314_amici_Dynamic_mathematical_modeling_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000316_tellurium_Network_motifs_in_the_transcri</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000319_copasi_Birhythmicity_chaos_and_other_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000320_copasi_A_pharmacokinetic_model_to_pre</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000321_tellurium_A_pharmacokinetic_model_to_pre</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000323_copasi_Synthetic_in_vitro_transcripti</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000325_amici_Synthetic_conversion_of_a_grad</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000328_copasi_A_systems_biology_approach_to_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000330_amici_On_the_encoding_and_decoding_o</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000337_copasi_Cooperation_and_competition_in</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000346_copasi_Impulses_and_Physiological_Sta</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000347_amici_Division_of_labor_by_dual_feed</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000351_copasi_The_auxin_signalling_network_t</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000353_copasi_Kinetic_modeling_and_explorato</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000354_amici_Parallel_adaptive_feedback_enh</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000355_copasi_Parallel_adaptive_feedback_enh</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000357_tellurium_Further_evidence_for_two_funct</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000360_amici_Tissue_factor_pathway_inhibito</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000361_copasi_Tissue_factor_pathway_inhibito</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000362_tellurium_The_significance_of_circulatin</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000363_amici_Further_evidence_for_two_funct</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000366_amici_Qualitative_properties_and_sta</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000368_amici_Mathematical_analysis_of_activ</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000369_copasi_Mathematical_analysis_of_activ</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000371_tellurium_Channel_sharing_in_pancreatic_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000380_copasi_Building_a_kinetic_model_of_tr</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000383_tellurium_A_quantitative_comparison_of_C</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000392_tellurium_A_quantitative_comparison_of_C</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000393_amici_A_quantitative_comparison_of_C</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000395_copasi_A_systems_biology_approach_to_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000398_copasi_A_systems_biology_approach_to_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000401_tellurium_A_mathematical_model_of_bone_r</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000402_amici_A_mathematical_model_of_bone_r</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000403_tellurium_A_mathematical_model_of_bone_r</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000405_tellurium_Queueing_up_for_enzymatic_proc</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000406_copasi_Overexpression_limits_of_fissi</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000409_tellurium_Downregulation_of_PP2A_Cdc55_p</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000411_amici_Modeling_temperature_entrainme</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000413_copasi_Root_gravitropism_is_regulated</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000415_tellurium_Reduction_of_off_flavor_genera</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000418_tellurium_Asymmetric_positive_feedback_l</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000419_copasi_Asymmetric_positive_feedback_l</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000421_copasi_Asymmetric_positive_feedback_l</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000425_copasi_The_inoculum_effect_and_band_p</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000427_tellurium_Computational_model_of_EGFR_an</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000431_copasi_Integration_of_a_phosphatase_c</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000432_tellurium_Integration_of_a_phosphatase_c</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000440_copasi_Long_range_signaling_by_phosph</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000446_tellurium_A_mathematical_model_of_the_un</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000447_copasi_Plasmin_triggers_a_switch_like</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000449_amici_Insulin_signaling_in_type_2_di</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000452_copasi_Modeling_of_tumor_progression_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000454_tellurium_Metabolic_Control_Analysis_Rer</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000457_copasi_An_in_vivo_control_map_for_the</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000458_amici_Kinetic_modeling_of_metabolic_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000459_tellurium_Proteolysis_of_beta_galactosid</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000460_copasi_Proteolysis_of_beta_galactosid</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000462_copasi_Aggregation_impaired_degradati</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000473_tellurium_Large_Scale_Metabolic_Models_F</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000476_tellurium_The_Input_Signal_Step_Function</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000482_copasi_The_selective_control_of_glyco</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000485_amici_Chemical_reaction_models_for_n</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000487_copasi_Stochastic_amplification_and_s</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000488_tellurium_Investigating_interventions_in</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000495_copasi_Kinetic_modelling_of_phospholi</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000502_tellurium_Enzyme_characterisation_and_ki</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000503_amici_Enzyme_characterisation_and_ki</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000504_copasi_A_computer_simulation_approach</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000506_tellurium_Biochemical_competition_makes_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000508_copasi_Modelling_the_coupling_between</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000509_tellurium_Modelling_the_coupling_between</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000510_tellurium_Handling_uncertainty_in_dynami</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000511_amici_Handling_uncertainty_in_dynami</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000514_amici_Handling_uncertainty_in_dynami</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000517_copasi_A_mathematical_model_of_the_co</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000518_tellurium_A_mathematical_model_of_the_co</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000519_amici_A_mathematical_model_of_the_co</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000520_copasi_A_mathematical_model_of_the_co</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000521_tellurium_A_tumor_growth_inhibition_mode</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000522_amici_Integration_of_hormonal_signal</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000523_amici_Intra_and_interdimeric_caspase</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000524_tellurium_Intra_and_interdimeric_caspase</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000525_amici_Intra_and_interdimeric_caspase</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000526_tellurium_Intra_and_interdimeric_caspase</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000527_amici_Cecum_lymph_node_dendritic_cel</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000528_copasi_Model_of_influenza_A_virus_inf</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000529_tellurium_Model_of_influenza_A_virus_inf</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000530_copasi_Cooperative_gene_regulation_by</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000533_tellurium_Kinetics_of_peptide_secondary_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000539_tellurium_Core_genetic_module_the_mixed_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000542_copasi_Vulnerabilities_in_the_tau_net</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000543_tellurium_Elucidating_the_crosstalk_mech</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000544_copasi_Elucidating_the_crosstalk_mech</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000546_tellurium_Quantifying_the_early_immune_r</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000548_copasi_Modeling_proteasome_dynamics_i</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000549_tellurium_Mathematical_modelling_of_cyto</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000550_copasi_Mathematical_modelling_of_cyto</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000551_copasi_Modeling_effect_of_a_secretase</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000552_amici_The_choline_leakage_hypothesis</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000553_tellurium_The_choline_leakage_hypothesis</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000558_tellurium_Feedback_motif_for_the_pathoge</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000559_amici_In_silico_modeling_of_the_effe</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000560_tellurium_Oxidative_changes_and_signalli</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000563_copasi_The_zigzag_model_of_plant_micr</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000564_tellurium_Network_balance_via_CRY_signal</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000565_amici_A_kinetic_model_for_curcumin_p</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000568_tellurium_T160_phosphorylated_CDK2_defin</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000571_copasi_Computer_aided_rational_design</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000572_tellurium_High_yields_of_2_3_butanediol_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000575_amici_A_pragmatic_approach_to_bioche</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000576_tellurium_Optimization_of_stress_respons</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000577_copasi_Redox_rhythm_reinforces_the_ci</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000580_amici_A_modelling_experimental_appro</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000581_tellurium_A_dynamic_network_model_of_mTO</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000582_tellurium_Dynamic_modelling_of_pathways_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000583_amici_Systems_Modeling_of_Interactio</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000584_amici_Regulatory_dynamics_of_network</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000588_copasi_Systems_pharmacology_of_the_ne</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000590_copasi_Characterizing_selective_press</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000591_tellurium_Identification_of_isoform_spec</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000594_tellurium_Quantitative_analysis_reveals_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000596_tellurium_Modeling_the_Regulatory_Mechan</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000597_copasi_Defining_the_robust_behaviour_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000598_tellurium_Defining_the_robust_behaviour_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000600_copasi_Plasticity_of_TGF_signaling</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000601_tellurium_Kinetics_on_Demand_Is_a_Simple</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000602_copasi_Model_of_tryptophan_metabolism</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000603_amici_Can_yeast_glycolysis_be_unders</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000604_tellurium_Can_yeast_glycolysis_be_unders</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000605_amici_Can_yeast_glycolysis_be_unders</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000606_tellurium_Can_yeast_glycolysis_be_unders</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000607_amici_Can_yeast_glycolysis_be_unders</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000609_copasi_Timescale_analysis_of_a_mathem</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000610_tellurium_Can_yeast_glycolysis_be_unders</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000612_amici_Simulated_Interventions_to_Ame</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000613_tellurium_A_physiologically_based_mathem</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000614_tellurium_Conformational_transitions_and</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000615_amici_What_can_trigger_the_onset_of_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000616_copasi_The_resolution_of_inflammation</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000622_tellurium_Switches_excitable_responses_a</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000624_amici_A_Liver_Centric_Multiscale_Mod</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000625_copasi_Bistability_analyses_of_CD4_T_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000626_tellurium_Dynamic_modeling_of_yeast_meio</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000629_amici_The_molecular_basis_of_the_int</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000630_copasi_Steady_states_and_dynamics_of_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000631_tellurium_A_Compact_Model_for_the_Comple</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000634_copasi_Investigating_interventions_in</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000639_tellurium_Experimental_and_Metabolic_Mod</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000640_amici_A_systems_study_reveals_concur</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000641_amici_ATM_Wip1_activities_at_chromat</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000642_tellurium_Assessing_the_effects_of_estro</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000646_tellurium_A_Dynamical_Framework_for_the_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000647_copasi_Mathematical_Modeling_of_the_I</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000648_amici_Wnt_catenin_signaling_regulate</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000650_tellurium_Modelling_the_macrophage_invas</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000652_tellurium_Wnt_catenin_signaling_regulate</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000653_amici_Wnt_catenin_signaling_regulate</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000654_tellurium_Wnt_catenin_signaling_regulate</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000655_amici_Wnt_catenin_signaling_regulate</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000656_tellurium_Wnt_catenin_signaling_regulate</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000657_amici_Positive_Feedback_Keeps_Durati</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000659_copasi_Regulation_of_ERK_MAPK_signali</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000660_tellurium_DNA_damage_during_S_phase_medi</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000662_amici_A_mathematical_model_for_chron</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000663_tellurium_Infection_dynamics_in_HIV_spec</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000664_amici_Network_topology_determines_dy</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000666_tellurium_Computational_Modeling_of_PI3K</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000670_copasi_Modelling_the_macrophage_invas</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000671_tellurium_Differences_in_predictions_of_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000672_amici_A_mathematical_model_of_diurna</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000675_copasi_Model_scenarios_for_evolution_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000687_tellurium_Effect_of_the_CTL_proliferatio</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000688_copasi_Effect_of_the_CTL_proliferatio</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000689_copasi_Experimental_and_Metabolic_Mod</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000690_tellurium_Experimental_and_Metabolic_Mod</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000692_amici_The_mechanism_of_Ras_GTPase_ac</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000698_tellurium_A_mathematical_model_of_the_me</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000700_amici_A_comprehensive_model_for_the_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000704_tellurium_A_quantitative_analysis_of_the</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000707_copasi_Fighting_a_virus_with_a_virus_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000707_tellurium_Fighting_a_virus_with_a_virus_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000708_copasi_Nonlinear_dynamics_of_avian_in</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000708_tellurium_Nonlinear_dynamics_of_avian_in</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000714_tellurium_A_reduced_mathematical_model_o</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000715_tellurium_Stability_and_bifurcation_for_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000742_copasi_Cancer_Induced_Immunosuppressi</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000749_copasi_In_silico_tumor_control_induce</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000749_tellurium_In_silico_tumor_control_induce</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000756_copasi_Investigating_mathematical_mod</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000758_tellurium_Predicting_success_or_failure_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000761_copasi_Cancer_immunotherapy_by_interl</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000767_copasi_Memory_versus_effector_immune_</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000777_copasi_A_CONTROL_THEORY_APPROACH_TO_C</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000780_tellurium_A_mathematical_model_verifying</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000781_amici_A_mathematical_model_verifying</loc>
+    <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000782_copasi_A_mathematical_model_verifying</loc>
+    <lastmod>2023-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000789_copasi_Mathematical_Modelling_of_the_</loc>
+    <lastmod>2023-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000795_tellurium_Modeling_invasion_of_metastasi</loc>
+    <lastmod>2023-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000800_tellurium_MATHEMATICAL_MODELING_OF_CELL_</loc>
+    <lastmod>2023-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000801_copasi_A_mathematical_model_of_pre_di</loc>
+    <lastmod>2023-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000809_copasi_Mathematical_analysis_of_a_tum</loc>
+    <lastmod>2023-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000818_tellurium_Sensing_and_integration_of_Erk</loc>
+    <lastmod>2023-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000822_tellurium_Dynamic_modeling_of_signal_tra</loc>
+    <lastmod>2023-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000836_amici_Epidemics_of_panic_during_a_bi</loc>
+    <lastmod>2023-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000840_tellurium_The_Vicodin_abuse_problem_A_ma</loc>
+    <lastmod>2023-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000845_copasi_Heterogeneous_viral_strategies</loc>
+    <lastmod>2023-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000855_copasi_A_reduced_mathematical_model_o</loc>
+    <lastmod>2023-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000857_tellurium_Modeling_the_diversion_of_prim</loc>
+    <lastmod>2023-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000872_tellurium_Modeling_the_Mechanisms_by_Whi</loc>
+    <lastmod>2023-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000877_copasi_Dynamic_Analysis_of_a_Tumor_Tr</loc>
+    <lastmod>2023-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000878_copasi_Modeling_insulin_kinetics_resp</loc>
+    <lastmod>2023-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000885_amici_Mathematical_modeling_of_cance</loc>
+    <lastmod>2023-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000887_tellurium_Modelling_the_role_of_Tax_expr</loc>
+    <lastmod>2023-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000889_copasi_Model_of_influenza_A_virus_inf</loc>
+    <lastmod>2023-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000903_copasi_A_fractional_mathematical_mode</loc>
+    <lastmod>2023-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000935_copasi_Modeling_the_cell_cycle_why_do</loc>
+    <lastmod>2023-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000939_amici_Mathematical_modeling_of_cell_</loc>
+    <lastmod>2023-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000945_copasi_A_mathematical_model_for_the_i</loc>
+    <lastmod>2023-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000946_tellurium_Compartmental_modelling_of_the</loc>
+    <lastmod>2023-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000954_tellurium_Mathematical_modelling_of_reve</loc>
+    <lastmod>2023-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000964_amici_SEIR_model_for_COVID_19_dynami</loc>
+    <lastmod>2023-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000967_copasi_Population_dynamics_of_HIV_wit</loc>
+    <lastmod>2023-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000001030_tellurium_A_Dynamic_Model_of_Immune_Resp</loc>
+    <lastmod>2023-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000001042_copasi_Mathematical_Modelling_for_the</loc>
+    <lastmod>2023-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000001053_amici_Extending_the_minimal_model_of</loc>
+    <lastmod>2023-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000001057_copasi_The_role_of_cooperativity_in_a</loc>
+    <lastmod>2023-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000001060_tellurium_Bifurcation_and_sensitivity_an</loc>
+    <lastmod>2023-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
     <loc>https://biosimulations.org/projects/BPS2020-model</loc>
     <lastmod>2022-04-22</lastmod>
     <changefreq>monthly</changefreq>
