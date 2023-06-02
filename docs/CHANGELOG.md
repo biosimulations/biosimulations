@@ -1,5 +1,24 @@
 # Changelog
 
+## [9.28.0](https://github.com/biosimulations/biosimulations/compare/v9.27.0...v9.28.0) (2023-06-02)
+
+
+### Bug Fixes
+
+* adjusted comments in projects table ([4d37774](https://github.com/biosimulations/biosimulations/commit/4d37774aea116375dfbb5e6aca2b306911592c60))
+* adjusted justification of item alignment in simulation details dropdown ([6f2d0ca](https://github.com/biosimulations/biosimulations/commit/6f2d0ca5b3e9b69ad49f01060a53a9fdf0a889ff))
+* adjusted styles ([b2a6452](https://github.com/biosimulations/biosimulations/commit/b2a64520d68a751dcf689bf02c06fb61220eb146))
+* expand single css file budget to 8kb ([004570f](https://github.com/biosimulations/biosimulations/commit/004570f540d68fd8c74c9e9f3b64a8e2bea58e5a))
+* formatting fixes from CodeFactor ([65308c7](https://github.com/biosimulations/biosimulations/commit/65308c710b46c2058ef87df4b91719d4df6c3b9e))
+* nx build cache output config added to all projects ([199dfd3](https://github.com/biosimulations/biosimulations/commit/199dfd37cb87c5b079d8a66c108b970adc65f907))
+* pagination ([ff09ff6](https://github.com/biosimulations/biosimulations/commit/ff09ff67fb35b24fd434484663ef8b9eb7eb9a3a))
+* removed hover effect from mat-expansion-panel-header and other headers ([47d90fa](https://github.com/biosimulations/biosimulations/commit/47d90fa917ad6af98a0e62f25092f482054472fe))
+
+
+### Features
+
+* serve /projects/summary, /projects/summary_filtered api endpoints ([8fb9a4a](https://github.com/biosimulations/biosimulations/commit/8fb9a4aab3c1558bfd92b4da927992b26d8a5fd6))
+
 ## [9.27.0](https://github.com/biosimulations/biosimulations/compare/v9.26.9...v9.27.0) (2023-06-02)
 
 
