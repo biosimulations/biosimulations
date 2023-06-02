@@ -6,6 +6,7 @@
   "targets": {
     "build": {
       "executor": "@nx-python/nx-python:build",
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/combine-api",
         "main": "apps/combine-api/combine_api/app.py"
