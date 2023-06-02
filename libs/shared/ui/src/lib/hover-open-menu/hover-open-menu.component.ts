@@ -10,6 +10,9 @@ export class HoverOpenMenuComponent {
   @Input()
   link?: string;
 
+  @Input()
+  target: string | undefined;
+
   timedOutCloser: any = null;
 
   @Input()
@@ -34,7 +37,8 @@ export class HoverOpenMenuComponent {
 
   navigate() {
     if (this.link) {
-      window.location.href = this.link;
+      //window.location.href = this.link;
+      window.open(this.link, '_blank');
     }
   }
 }

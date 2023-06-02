@@ -7,7 +7,7 @@
   [showNews]="false"
   [healthy]="healthy$ | async">
   <biosimulations-topbar-menu>
-    <biosimulations-hover-open-menu onclick="parent.location=['/projects']">
+    <biosimulations-hover-open-menu onclick="parent.location=['/projects']" [link]="'/projects'">
       <biosimulations-topbar-menu-item heading="BioSimDB" icon="browse" id="trigger"></biosimulations-topbar-menu-item>
       <ng-container id="items">
         <biosimulations-dropdown-menu-item
