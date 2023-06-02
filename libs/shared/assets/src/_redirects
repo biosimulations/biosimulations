@@ -1,4 +1,5 @@
 /api/*  https://api.biosimulations.dev/:splat  200
-/projects    https://patch.biosimulations.dev/projects    200
-/projects/*    https://patch.biosimulations.dev/projects/:splat    200
+/projects    https://patch.biosimulations.dev/projects    302
+/projects/    https://patch.biosimulations.dev/projects/    302
+/projects/*    https://patch.biosimulations.dev/projects/:splat    302
 /*    /index.html    200
