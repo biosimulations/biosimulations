@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.28.1](https://github.com/biosimulations/biosimulations/compare/v9.28.0...v9.28.1) (2023-06-02)
+
+
+### Bug Fixes
+
+* path for new summary_filtered and old summary api endpoints ([83a6abe](https://github.com/biosimulations/biosimulations/commit/83a6abe42632f8433ea67d36254daec39f2ca425))
+
 ## [9.28.0](https://github.com/biosimulations/biosimulations/compare/v9.27.0...v9.28.0) (2023-06-02)
 
 
