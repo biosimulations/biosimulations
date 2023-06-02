@@ -20,6 +20,7 @@
     },
     "build": {
       "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/config/nest",
         "tsConfig": "libs/config/nest/tsconfig.lib.json",

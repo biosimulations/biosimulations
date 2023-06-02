@@ -1,26 +1,33 @@
 <div
+  *ngIf="project"
   class="metadata"
   fxLayout="column"
   fxGrid
   fxLayoutAlign="space-between"
   fxLayoutGap="1rem"
   fxLayoutGap.lt-lg="1rem">
+  <!-- Simulation Project Header (Title) -->
+  <mat-card>
+    <mat-card-header class="project-header">
+      {{ project.title }}
+    </mat-card-header>
+  </mat-card>
   <!-- Begin thumbnails -->
   <div *ngIf="project" fxFlex class="thumbnails-column" fxLayout="column">
     <!-- Begin summary/text data-->
     <div *ngIf="project" fxGrid>
+      <ng-container *ngIf="project?.thumbnails?.length">
+        <mat-card class="image-container">
+          <mat-card-content>
+            <biosimulations-carousel [images]="project.thumbnails"> </biosimulations-carousel>
+          </mat-card-content>
+        </mat-card>
+
+      </ng-container>
       <mat-card class="metadata-card">
-        <mat-card-header class="card-header">Simulation Description</mat-card-header>
+        <mat-card-header class="card-header">Project Description</mat-card-header>
         <mat-card-content>
-          <ng-container *ngIf="project?.thumbnails?.length">
-            <div class="image-container">
-              <biosimulations-carousel [images]="project.thumbnails"> </biosimulations-carousel>
-            </div>
-          </ng-container>
-          <biosimulations-text-page-content-section
-            class="metadata-column"
-            [heading]="project.title"
-            [iconActionType]="null">
+          <biosimulations-text-page-content-section [iconActionType]="null">
             <div class="abstract" *ngIf="project.abstract">
               {{ project.abstract }}
             </div>
@@ -34,6 +41,7 @@
                 </a>
               </li>
             </ul>
+            <!-- End creators/contributers -->
             <!-- description -->
             <markdown [data]="project.description" class="description" *ngIf="project.description"> </markdown>
           </biosimulations-text-page-content-section>
@@ -43,11 +51,10 @@
     <!-- End summary/text data -->
   </div>
   <!-- End thumbnails-->
-
   <!-- Start Summary Display -->
   <div *ngIf="projectSummary" fxGrid>
     <mat-card class="summary-card">
-      <mat-card-header class="card-header"> Simulation Summary </mat-card-header>
+      <mat-card-header class="card-header"> Project Summary </mat-card-header>
       <mat-card-content>
         <table aria-label="simulation summary">
           <tr *ngIf="biologyList(projectSummary) || taxaList(projectSummary)">
@@ -98,11 +105,10 @@
       </mat-card-content>
     </mat-card>
   </div>
-
   <!-- End Summary Display -->
-
+  <!-- Start Details Expansion Panel -->
   <mat-expansion-panel class="details-card">
-    <mat-expansion-panel-header class="card-header"> Simulation Details </mat-expansion-panel-header>
+    <mat-expansion-panel-header class="card-header"> Project Details </mat-expansion-panel-header>
     <!-- Biology, simulation, provenance, & identifiers information -->
     <div
       *ngIf="
@@ -127,7 +133,30 @@
         *ngTemplateOutlet="sectionsTemplate; context: { sections: project?.identifiers || [] }"></ng-container>
       <!-- template -->
       <ng-template #sectionsTemplate let-sections="sections">
-        <biosimulations-text-page-side-bar-section *ngFor="let section of sections" [heading]="section.title">
+
+        <!-- Start Individual Detail Item Expansion -->
+        <mat-expansion-panel *ngFor="let section of sections" expanded="true">
+          <mat-expansion-panel-header class="item-expansion-header">
+            {{ section.title }}
+          </mat-expansion-panel-header>
+            <table class="icon-list" aria-label="metadata table">
+              <tr *ngFor="let item of section.items" fxLayout="row">
+                <th>
+                  <biosimulations-icon [icon]="item.icon"></biosimulations-icon>
+                </th>
+                <td>
+                  <b>{{ item.title }}:</b>{{ ' ' }}
+                  <a [href]="item.url" rel="noopener" target="_blank" *ngIf="item.url; else noHref">
+                    {{ item.value }}
+                  </a>
+                  <ng-template #noHref>{{ item.value }}</ng-template>
+                </td>
+              </tr>
+            </table>
+        </mat-expansion-panel>
+        <!-- Stop Individual Detail Item Expansion -->
+
+        <!--<biosimulations-text-page-side-bar-section *ngFor="let section of sections" [heading]="section.title">
           <table class="icon-list" aria-label="metadata table">
             <tr *ngFor="let item of section.items" fxLayout="row">
               <th>
@@ -142,9 +171,10 @@
               </td>
             </tr>
           </table>
-        </biosimulations-text-page-side-bar-section>
+        </biosimulations-text-page-side-bar-section>-->
       </ng-template>
     </div>
-    <!-- End simulation information -->
   </mat-expansion-panel>
+  <!-- End Details Expansion Panel -->
 </div>
+<!-- End simulation information -->

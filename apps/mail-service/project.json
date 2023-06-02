@@ -8,6 +8,7 @@
   "targets": {
     "build": {
       "executor": "@nrwl/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/mail-service",
         "main": "apps/mail-service/src/main.ts",

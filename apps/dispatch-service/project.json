@@ -8,6 +8,7 @@
   "targets": {
     "build": {
       "executor": "@nrwl/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/dispatch-service",
         "main": "apps/dispatch-service/src/main.ts",

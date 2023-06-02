@@ -66,6 +66,19 @@ export class ProjectsController {
     summary: 'Get a summary of each published project',
     description: 'Get a list of summaries of each published project',
   })
+  @ApiOkResponse({
+    description: 'List of information about each published project',
+    type: [ProjectSummary],
+  })
+  public async getProjectSummaries(): Promise<ProjectSummary[]> {
+    return this.service.getProjectSummaries();
+  }
+
+  @Get('summary_filtered')
+  @ApiOperation({
+    summary: 'Get a summary of each published project according to filter criteria',
+    description: 'Get a list of summaries of each published project',
+  })
   @ApiQuery({
     name: 'pageSize',
     description: 'maximum number of records to return.',
@@ -85,18 +98,18 @@ export class ProjectsController {
     type: String,
   })
   @ApiOkResponse({
-    description: 'List of information about each published project',
-    type: [ProjectSummary],
+    description: 'Query results of each matched public project with summary statistics',
+    type: ProjectSummaryQueryResults,
   })
-  public async getProjectSummaries(
+  public async getProjectSummaries_filtered(
     @Query('pageSize')
-    pageSize: number = 20,
+    pageSize = 25,
     @Query('pageIndex')
-    pageIndex: number = 0,
+    pageIndex = 0,
     @Query('searchText')
-    searchText: string = '',
+    searchText = '',
     @Query('filters')
-    filtersJSON: string = '',
+    filtersJSON = '',
   ): Promise<ProjectSummaryQueryResults> {
     let filters: ProjectFilterQueryItem[] | undefined;
     if (filtersJSON && filtersJSON.length > 0) {

@@ -198,6 +198,21 @@ export class ProjectsService implements OnModuleInit {
 
   /** Get a summary of each project
    */
+  public async getProjectSummaries(): Promise<ProjectSummary[]> {
+    const projects = await this.model.find({}).select('id updated').exec();
+    const projectIds = projects
+      .map((project: ProjectModel): string => {
+        const updated = project.updated.toISOString();
+        return `${project.id}-${updated}`;
+      })
+      .sort()
+      .join(',');
+    const cacheKey = `Project:Summaries:${projectIds}:${SimulationRunService.summaryVersion}`;
+    return this.getWithCache<ProjectSummary[]>(cacheKey, this._getProjectSummaries.bind(this, projects), 0);
+  }
+
+  /** Get a summary of each project
+   */
   public async getProjectSummariesWithoutSearch(
     pageSize: number,
     pageIndex: number,

@@ -8,4 +8,10 @@ import { Component, Input } from '@angular/core';
 export class CarouselComponent {
   @Input()
   images: string[] = [];
+
+  public expandedImage?: string;
+
+  expandImage(image: string) {
+    this.expandedImage = image;
+  }
 }

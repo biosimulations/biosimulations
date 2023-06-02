@@ -12,6 +12,7 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/platform",
         "index": "apps/platform/src/index.html",
@@ -86,7 +87,7 @@
             },
             {
               "type": "anyComponentStyle",
-              "maximumWarning": "6kb",
+              "maximumWarning": "8kb",
               "maximumError": "365kb"
             }
           ],

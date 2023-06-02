@@ -20,6 +20,7 @@
     },
     "build": {
       "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/shared/environments",
         "tsConfig": "libs/shared/environments/tsconfig.lib.json",
