@@ -208,6 +208,15 @@ export class Endpoints {
     }
   }
 
+  /** Get the URL for a summary of a project or summaries of each project
+   * @param id The id of the project
+   * @returns URL for a summary of a project or summaries of each project
+   */
+  public getProjectSummariesFilteredEndpoint(external: boolean): string {
+    const projects = this.getProjectsEndpointBaseUrl(external);
+    return `${projects}/summary_filtered`;
+  }
+
   /** Get the URL for validating a project
    */
   public getValidateProjectEndpoint(external: boolean): string {

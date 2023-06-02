@@ -77,7 +77,7 @@ export class ProjectService {
   }
 
   public getProjectSummaries(criteria: SearchCriteria): Observable<ProjectSummaryQueryResults> {
-    const url = this.endpoints.getProjectSummariesEndpoint(false, undefined);
+    const url = this.endpoints.getProjectSummariesFilteredEndpoint(false);
     let httpParams = new HttpParams()
       .set('pageSize', criteria.pageSize)
       .set('pageIndex', criteria.pageIndex)
