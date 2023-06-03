@@ -151,14 +151,14 @@ export class ViewComponent implements OnInit {
       for (const vis of visList.visualizations) {
         if (vis._type === 'SedPlot2DVisualization') {
           visualizations.push(vis);
-          this.cards.push(vis);
         }
+        this.cards.push(vis);
       }
     }
     return visualizations;
   }
 
-  drop(event: CdkDragDrop<any[]>) {
+  drop(event: CdkDragDrop<any[]>): void {
     moveItemInArray(this.cards, event.previousIndex, event.currentIndex);
   }
 }
