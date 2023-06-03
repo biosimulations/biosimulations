@@ -1,8 +1,8 @@
 <button mat-menu-item [disabled]="disabled">
-  <a *ngIf="href; else noHref" [href]="href" rel="noopener" [target]="target">{{ heading }}</a>
   <div class="icon-container">
+    <a *ngIf="href; else noHref" [href]="href" rel="noopener" [target]="target">{{ heading }}</a>
     <biosimulations-icon [icon]="icon"></biosimulations-icon>
+    <ng-template #noHref>{{ heading }}</ng-template>
   </div>
-  <ng-template #noHref>{{ heading }}</ng-template>
 </button>
 

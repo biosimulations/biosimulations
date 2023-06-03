@@ -12,7 +12,7 @@
       <ng-container id="items">
         <biosimulations-dropdown-menu-item
           heading="Browse simulation projects"
-          icon="project"
+          icon="longRightArrow"
           [routerLink]="['/projects']">
         </biosimulations-dropdown-menu-item>
       </ng-container>
@@ -26,7 +26,7 @@
       <ng-container id="items">
         <biosimulations-dropdown-menu-item
           heading="Run your own simulation"
-          icon="experiment"
+          icon="longRightArrow"
           [href]="config.dispatchAppRunsNewUrl">
         </biosimulations-dropdown-menu-item>
       </ng-container>
@@ -87,7 +87,7 @@
     <biosimulations-hover-open-menu
       [link]="config.simulatorsAppSuggestSimulatorsUrl"
       style="position: fixed; top: 1; right: 45px; padding-bottom: 2rem">
-      <biosimulations-topbar-menu-item heading="BioSimulators" icon="link" id="trigger">
+      <biosimulations-topbar-menu-item heading="BioSimulators" icon="longRightArrow" id="trigger">
       </biosimulations-topbar-menu-item>
       <ng-container id="items">
         <biosimulations-dropdown-menu-item
