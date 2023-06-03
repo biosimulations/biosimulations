@@ -84,7 +84,7 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
     if (this.visible && this.layout) {
       const rect = this.hostElement.nativeElement.parentElement.getBoundingClientRect();
       const heightModifier = 2;
-      const widthModifier = 2.5;
+      const widthModifier = 2.4;
       //this.layout.autosize = true;
       this.layout.width = rect.width * widthModifier;
       this.layout.height = rect.height * heightModifier;
