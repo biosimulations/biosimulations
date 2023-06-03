@@ -151,8 +151,8 @@ export class ViewComponent implements OnInit {
       for (const vis of visList.visualizations) {
         if (vis._type === 'SedPlot2DVisualization') {
           visualizations.push(vis);
+          this.cards.push(vis);
         }
-        this.cards.push(vis);
       }
     }
     return visualizations;
