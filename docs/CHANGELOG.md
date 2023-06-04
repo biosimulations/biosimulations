@@ -1,5 +1,26 @@
 # Changelog
 
+## [9.29.0](https://github.com/biosimulations/biosimulations/compare/v9.28.1...v9.29.0) (2023-06-04)
+
+
+### Bug Fixes
+
+* adjusted button behavior ([8000f8c](https://github.com/biosimulations/biosimulations/commit/8000f8cc70b981f546c6dfc5ffa65a17935b16e9))
+* adjusted dropdown menu icon container size ([9ff01c9](https://github.com/biosimulations/biosimulations/commit/9ff01c9bc6b49a9cf0f9abc541fc39462dfb336c))
+* adjusted nav button behavior to include full-spectrum interactive field ([3908d81](https://github.com/biosimulations/biosimulations/commit/3908d815fea72097e04aa5bb0e94553d7e107c5e))
+* adjusted plot iteration rendering ([87df355](https://github.com/biosimulations/biosimulations/commit/87df3553cf5c467627e4308ecf84db644e1ddec1))
+* adjusted plot layout ([716b787](https://github.com/biosimulations/biosimulations/commit/716b7871b60d29e327c34ac1e7a1edff9d8eaa76))
+* adjusted plot rendering size to include axis label ([98ac082](https://github.com/biosimulations/biosimulations/commit/98ac08250f2a1e34a741e54aab89bb2f9576d720))
+* adjusted to correct biosimulators.org routing ([f20bfee](https://github.com/biosimulations/biosimulations/commit/f20bfeed9c3de46d17f5d4e8ef137c70249e4109))
+* fixed routing of biosimulators.org button ([3c5daba](https://github.com/biosimulations/biosimulations/commit/3c5daba24f3c8ca10efab7ff58ddab6f4315accb))
+* removed commented out splash page arrow button code in dispatch app ([c061d0f](https://github.com/biosimulations/biosimulations/commit/c061d0f338d4c4df8e3499363b8eeef85d516c9b))
+* removed link from utils hover-open-menu button ([e5cb27d](https://github.com/biosimulations/biosimulations/commit/e5cb27d5c7882260b054e51cdcb3f10c4417030a))
+
+
+### Features
+
+* added _blank target for nav button interaction to open in new tab ([9470126](https://github.com/biosimulations/biosimulations/commit/9470126ecd971c0bc4ed85970bd61e0bd11bc2f9))
+
 ## [9.28.1](https://github.com/biosimulations/biosimulations/compare/v9.28.0...v9.28.1) (2023-06-02)
 
 
