@@ -1,7 +1,7 @@
 <ng-container [ngSwitch]="iconInfo.type">
   <mat-icon class="icon" *ngSwitchCase="'mat'" aria-hidden="true" [attr.aria-label]="iconLabel">
-    {{ iconInfo.name }}</mat-icon
-  >
+    {{ iconInfo.name }}
+  </mat-icon>
   <biosimulations-cc-icon class="icon" *ngSwitchCase="'cc'" [icon]="iconInfo.name"></biosimulations-cc-icon>
   <biosimulations-fa-icon
     class="icon"

@@ -1,5 +1,6 @@
 <div fxShow fxHide.lt-md>
   <!-- Linking button -->
+  <div class="overlap">
   <a
     mat-flat-button
     *ngIf="href && !disabled; else button"
@@ -12,6 +13,7 @@
       {{ heading }}
     </div>
   </a>
+</div>
 
   <!-- Dropdown Button -->
   <ng-template #button>

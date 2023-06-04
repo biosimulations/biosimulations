@@ -158,7 +158,7 @@ export class ViewComponent implements OnInit {
     return visualizations;
   }
 
-  drop(event: CdkDragDrop<any[]>) {
+  drop(event: CdkDragDrop<any[]>): void {
     moveItemInArray(this.cards, event.previousIndex, event.currentIndex);
   }
 }
