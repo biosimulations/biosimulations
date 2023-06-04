@@ -7,16 +7,9 @@
     (mouseleave)="closeMenu(trigger)">
     <ng-content select="#trigger"></ng-content>
   </div>
-  <mat-menu
-    #menu="matMenu"
-    yPosition="below"
-    [hasBackdrop]="false">
-    <div
-      (mouseenter)="openMenu(trigger)"
-      (mouseleave)="closeMenu(trigger)"
-      class="overlap-menu">
+  <mat-menu #menu="matMenu" yPosition="below" [hasBackdrop]="false">
+    <div (mouseenter)="openMenu(trigger)" (mouseleave)="closeMenu(trigger)" class="overlap-menu">
       <ng-content select="#items"></ng-content>
     </div>
   </mat-menu>
 </div>
-

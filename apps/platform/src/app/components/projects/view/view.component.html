@@ -35,7 +35,10 @@
         <mat-card-content class="viz-card-content" *ngFor="let plotVisualization of plotVisualizations$ | async">
           <mat-grid-list cols="1" rowHeight="550px" gutterSize="20" cdkDropList (cdkDropListDropped)="drop($event)">
             <mat-grid-tile class="figure-card" cdkDrag>
-              <mat-grid-tile-header class="figure-card-header" style="background-color: #2196f3; height: 6%" cdkDragHandle>
+              <mat-grid-tile-header
+                class="figure-card-header"
+                style="background-color: #2196f3; height: 6%"
+                cdkDragHandle>
                 {{ plotVisualization.name }}
               </mat-grid-tile-header>
               <div class=".plotparent">
