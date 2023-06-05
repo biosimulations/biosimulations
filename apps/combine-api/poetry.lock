@@ -842,14 +842,14 @@ files = [
 
 [[package]]
 name = "botocore"
-version = "1.29.97"
+version = "1.29.147"
 description = "Low-level, data-driven core of boto 3."
 category = "main"
 optional = false
 python-versions = ">= 3.7"
 files = [
-    {file = "botocore-1.29.97-py3-none-any.whl", hash = "sha256:0df677eb2bef3ba18ac69e007633559b4426df310eee99df9882437b5faf498a"},
-    {file = "botocore-1.29.97.tar.gz", hash = "sha256:176740221714c0f031c2cd773879df096dbc0f977c63b3e2ed6a956205f02e82"},
+    {file = "botocore-1.29.147-py3-none-any.whl", hash = "sha256:67a7ce69fc6d44a881b01964a76edb00b4e87723a8cc596339d306d8eb321fec"},
+    {file = "botocore-1.29.147.tar.gz", hash = "sha256:f7433bcce5ef7baad2fdd29f97c9fdcf8de4ec1cf577ae308901caf778ed48c2"},
 ]
 
 [package.dependencies]
@@ -4382,7 +4382,6 @@ category = "main"
 optional = false
 python-versions = "*"
 files = [
-    {file = "python-libsedml-2.0.32.tar.gz", hash = "sha256:7ea5f3b9625ec1513ea119ad00bc9eda42d3ea6b8f78bf57dbd201c690d44727"},
     {file = "python_libsedml-2.0.32-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:7d3e0dd299eea0d2e6925a5e55354e0ff45890195925a7c0a1bcd65f2c93c722"},
     {file = "python_libsedml-2.0.32-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:47e7e76e836c6e4b55b080e0fa6f9df2645abfcf79fe089f9b4339f703501304"},
     {file = "python_libsedml-2.0.32-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:aead410b40c033c79df039317b8829bd2dc1c011c06fb94b0d990a87b0ba13e6"},
