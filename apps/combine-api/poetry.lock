@@ -327,14 +327,14 @@ tests = ["biosimulators-utils[containers]", "python-dateutil"]
 
 [[package]]
 name = "biosimulators-utils"
-version = "0.1.172"
+version = "0.1.179"
 description = "Command-line program and library for reading, writing, validating and executing modeling projects (COMBINE/OMEX archives with SED-ML files)."
 category = "main"
 optional = false
 python-versions = "*"
 files = [
-    {file = "biosimulators_utils-0.1.172-py2.py3-none-any.whl", hash = "sha256:7600c7afd025566304417f40cc7269dbe147d81ed8c56974796c116d369a678d"},
-    {file = "biosimulators_utils-0.1.172.tar.gz", hash = "sha256:a03bf1d9be3005a30bb76aa56cf400497357bb7a2f2e91d2f8a9ec36783ab333"},
+    {file = "biosimulators_utils-0.1.179-py2.py3-none-any.whl", hash = "sha256:09047c30e21e6aa8dec71aad5abd5be395ee9de47cd9a7c9ac5420d25db651ee"},
+    {file = "biosimulators_utils-0.1.179.tar.gz", hash = "sha256:7e6d1699f1af08590f73aaf02e6b779814dacee3e5b71ba5f5052c275c740a9f"},
 ]
 
 [package.dependencies]
