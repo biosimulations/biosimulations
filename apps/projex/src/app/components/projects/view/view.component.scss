@@ -21,9 +21,9 @@
 }
 
 .plotparent {
-  width: 800px;
-  height: 600px;
-  padding-top: 1rem;
+  width: fit-content;
+  height: auto;
+  margin-left: 3rem;
 }
 
 biosimulations-tab-page ::ng-deep .icon-list {
