@@ -9,6 +9,7 @@ import { SearchCriteria } from '@biosimulations/angular-api-client';
 import { debounceTime, distinctUntilChanged, switchMap, takeUntil } from 'rxjs/operators';
 import { MatTable } from '@angular/material/table';
 import { ProjectFilterQueryItem, ProjectFilterStatsItem } from '@biosimulations/datamodel/common';
+import { ThemePalette } from '@angular/material/core';
 
 export class ProjectTableDataSource extends DataSource<FormattedProjectSummary> {
   public paginator: MatPaginator | undefined;
@@ -125,6 +126,7 @@ export class ProjectTableComponent implements AfterViewInit {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   public displayedColumns = ['id', 'title'];
   @Input() searchTerm = '';
+  @Input() color?: ThemePalette = 'accent';
   @Output() searchTermChange: EventEmitter<string> = new EventEmitter<string>();
 
   @Output() filterStats$ = new BehaviorSubject([] as ProjectFilterStatsItem[]);

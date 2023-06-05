@@ -20,11 +20,13 @@
 
       <!--Top Paginator-->
       <mat-paginator
-        #paginator
+        #paginatorTop
         [length]="dataSource.datalength"
         [pageIndex]="0"
         [pageSizeOptions]="[25, 50, 100, 200]"
         [pageSize]="25"
+        [showFirstLastButtons]="true"
+        [color]="color"
         aria-label="Select page">
       </mat-paginator>
     </div>
@@ -48,15 +50,5 @@
       <tr *matHeaderRowDef="displayedColumns; sticky: true" mat-header-row></tr>
       <tr *matRowDef="let row; let odd = odd; columns: displayedColumns" [class.striped-row]="odd" mat-row></tr>
     </table>
-
-    <!-- Bottom Paginator -->
-    <!--<mat-paginator
-      #paginator
-      [length]="dataSource.datalength"
-      [pageIndex]="0"
-      [pageSizeOptions]="[25, 50, 100, 200]"
-      [pageSize]="25"
-      aria-label="Select page">
-      </mat-paginator>-->
   </div>
 </div>
