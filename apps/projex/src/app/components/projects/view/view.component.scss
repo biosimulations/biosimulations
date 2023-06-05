@@ -21,9 +21,9 @@
 }
 
 .plotparent {
-  width: 600px;
+  width: 800px;
   height: 600px;
-  padding-top: 2rem;
+  padding-top: 1rem;
 }
 
 biosimulations-tab-page ::ng-deep .icon-list {
@@ -56,7 +56,7 @@ biosimulations-tab-page ::ng-deep .icon-list {
 }
 
 .viz-card {
-  height: inherit;
+  height: 100%;
   width: 500px;
   max-width: 100%;
   border: solid 1px #ccc;
@@ -67,18 +67,19 @@ biosimulations-tab-page ::ng-deep .icon-list {
   overflow: hidden;
 }
 
-.viz-card.cdk-drop-list-dragging .figure-card:not(.cdk-drag-placeholder) {
-  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-}
-
 .viz-card-header {
-  background-color: #1479ed;
+  background-color: #ff9800; //#2196f3;
   font-weight: 600;
   color: white;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   border-top: 2px;
   border-radius: 1px;
+}
+
+.viz-card-content {
+  height: fit-content;
+  padding-top: 1rem;
 }
 
 .figure-card-placeholder {
@@ -103,7 +104,7 @@ biosimulations-tab-page ::ng-deep .icon-list {
   margin-right: 25px;
   position: relative;
   box-sizing: border-box;
-  padding: 1rem;
+  padding: 0.5rem;
   transition: box-shadow 200ms cubic-bezier(0, 0, 0.2, 1);
   box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
@@ -117,14 +118,20 @@ biosimulations-tab-page ::ng-deep .icon-list {
 }
 
 .figure-card-header {
-  font-weight: 300;
   color: white;
+  font-weight: 300;
   align-items: center;
   border: 2px solid inherit;
   border-radius: 3px;
   height: auto;
-  padding-bottom: 0.5rem;
   width: fit-content;
+}
+
+.figure-card-placeholder {
+  background: #ccc;
+  border: dotted 3px #999;
+  min-height: 60px;
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
 .cdk-drag-preview {
@@ -133,13 +140,18 @@ biosimulations-tab-page ::ng-deep .icon-list {
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
 .cdk-drag-animating {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.figure-placeholder {
-  background: #ccc;
-  border: dotted 3px #999;
-  min-height: 60px;
+.figure-card:last-child {
+  border: none;
+}
+
+.viz-card-content.cdk-drop-list-dragging .figure-card:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
