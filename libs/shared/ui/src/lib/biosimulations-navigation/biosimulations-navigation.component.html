@@ -24,24 +24,19 @@
       <ng-content select="#sidenav-menu"></ng-content>
     </div>
   </mat-sidenav>
-
   <mat-sidenav-content class="sidenav-content">
-    <!--here is where the left menu and logo is: todo: ADD SITE BUTTONS-->
     <div class="topbar">
       <biosimulations-topbar [showLogo]="!drawer.opened">
         <biosimulations-logo-image class="logo-img" id="logo" [logo]="logo"></biosimulations-logo-image>
         <ng-content id="rightContent" select="biosimulations-topbar-menu"> </ng-content>
       </biosimulations-topbar>
     </div>
-    <!--<div class="bread-crumbs" fxShow fxHide.lt-md>
-      <biosimulations-bread-crumbs [pad]="!drawer.opened"></biosimulations-bread-crumbs>
-    </div>-->
     <div class="content">
       <ng-content select="router-outlet"></ng-content>
       <!-- Sticky Footer Placeholder -->
-      <!--<div class="app-footer">
+      <!-- <div class="app-footer">
         Footer
-      </div>-->
+      </div> -->
     </div>
     <biosimulations-notice *ngIf="showNews" [appName]="appName" type="news" [version]="newsVersion" [isError]="false">
       <ng-content select="#news"></ng-content>
