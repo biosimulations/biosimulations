@@ -10,6 +10,12 @@ import { HtmlSnackBarComponent } from '@biosimulations/shared/ui';
   styleUrls: ['./plotly-visualization.component.scss'],
 })
 export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
+  @Input()
+  public saveTitle?: string = '';
+
+  @Input()
+  public plotNum?: number;
+
   public visible = false;
   public loading = false;
   public data: PlotlyTrace[] | undefined = undefined;
@@ -20,7 +26,7 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
     editable: false,
     toImageButtonOptions: {
       format: 'svg', // one of png, svg, jpeg, webp
-      filename: 'chart',
+      filename: 'biosim-db-' + this.saveTitle,
       height: 500,
       width: 700,
       scale: 1, // Multiply title/legend/axis/canvas sizes by this factor
@@ -28,7 +34,7 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
     modeBarButtonsToRemove: [],
     showEditInChartStudio: true,
     plotlyServerURL: 'https://chart-studio.plotly.com',
-    // responsive: true,
+    responsive: true,
   };
   public errors: string[] = [];
   private resizeDebounce!: debounce<() => void>;
@@ -83,11 +89,11 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
     this.visible = this.hostElement.nativeElement.offsetParent != null;
     if (this.visible && this.layout) {
       const rect = this.hostElement.nativeElement.parentElement.getBoundingClientRect();
-      const heightModifier = 2.0;
-      const widthModifier = 2.5;
+      const heightModifier = 1.005;
+      const widthModifier = 1.5;
       //this.layout.autosize = true;
-      this.layout.width = rect.width * widthModifier;
-      this.layout.height = rect.height * heightModifier;
+      //this.layout.width = rect.width * widthModifier;
+      //this.layout.height = rect.height * heightModifier;
     }
   }
 }

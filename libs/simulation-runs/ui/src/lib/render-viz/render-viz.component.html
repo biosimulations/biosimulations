@@ -4,6 +4,7 @@
 
   <biosimulations-plotly-visualization
     *ngIf="visualization.renderer === 'Plotly'"
-    [dataLayout]="visualization.plotlyDataLayout | async | async">
+    [dataLayout]="visualization.plotlyDataLayout | async | async"
+    [saveTitle]="visualization.name">
   </biosimulations-plotly-visualization>
 </div>
