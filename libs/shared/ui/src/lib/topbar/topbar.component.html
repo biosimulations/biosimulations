@@ -2,7 +2,13 @@
   <!--  <a [routerLink]="['/']" class="logo" *ngIf="showLogo" fxLayout="row" fxLayoutAlign="center center">-->
   <!--    <ng-content select="#logo" fxFlex></ng-content>-->
   <!--  </a>-->
-  <a href="https://biosimulations.org" class="logo" *ngIf="showLogo" fxLayout="row" fxLayoutAlign="center center">
+  <a
+    href="https://biosimulations.org"
+    class="logo"
+    *ngIf="showLogo"
+    fxLayout="row"
+    fxLayoutAlign="center center"
+    target="_blank">
     <ng-content select="#logo" fxFlex></ng-content>
   </a>
   <div class="logo-buttons" *ngIf="showLogo" fxLayout="column" fxLayoutAlign="center center">
