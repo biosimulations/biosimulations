@@ -327,14 +327,14 @@ tests = ["biosimulators-utils[containers]", "python-dateutil"]
 
 [[package]]
 name = "biosimulators-utils"
-version = "0.1.172"
+version = "0.1.179"
 description = "Command-line program and library for reading, writing, validating and executing modeling projects (COMBINE/OMEX archives with SED-ML files)."
 category = "main"
 optional = false
 python-versions = "*"
 files = [
-    {file = "biosimulators_utils-0.1.172-py2.py3-none-any.whl", hash = "sha256:7600c7afd025566304417f40cc7269dbe147d81ed8c56974796c116d369a678d"},
-    {file = "biosimulators_utils-0.1.172.tar.gz", hash = "sha256:a03bf1d9be3005a30bb76aa56cf400497357bb7a2f2e91d2f8a9ec36783ab333"},
+    {file = "biosimulators_utils-0.1.179-py2.py3-none-any.whl", hash = "sha256:09047c30e21e6aa8dec71aad5abd5be395ee9de47cd9a7c9ac5420d25db651ee"},
+    {file = "biosimulators_utils-0.1.179.tar.gz", hash = "sha256:7e6d1699f1af08590f73aaf02e6b779814dacee3e5b71ba5f5052c275c740a9f"},
 ]
 
 [package.dependencies]
@@ -4382,7 +4382,6 @@ category = "main"
 optional = false
 python-versions = "*"
 files = [
-    {file = "python-libsedml-2.0.32.tar.gz", hash = "sha256:7ea5f3b9625ec1513ea119ad00bc9eda42d3ea6b8f78bf57dbd201c690d44727"},
     {file = "python_libsedml-2.0.32-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:7d3e0dd299eea0d2e6925a5e55354e0ff45890195925a7c0a1bcd65f2c93c722"},
     {file = "python_libsedml-2.0.32-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:47e7e76e836c6e4b55b080e0fa6f9df2645abfcf79fe089f9b4339f703501304"},
     {file = "python_libsedml-2.0.32-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:aead410b40c033c79df039317b8829bd2dc1c011c06fb94b0d990a87b0ba13e6"},
