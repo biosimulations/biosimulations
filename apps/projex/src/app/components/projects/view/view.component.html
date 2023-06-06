@@ -18,15 +18,11 @@
   <ng-container *ngIf="simulationRun$ | async as simulationRun">
     <div class="display-data">
       <!-- Start Left Column-->
-      <mat-card class="metadata-card">
-        <mat-card-content>
-          <biosimulations-project-metadata
-            [project]="projectMetadata"
-            [simulationRun]="simulationRun"
-            [projectSummary]="projectSummary$ | async">
-          </biosimulations-project-metadata>
-        </mat-card-content>
-      </mat-card>
+      <biosimulations-project-metadata
+        [project]="projectMetadata"
+        [simulationRun]="simulationRun"
+        [projectSummary]="projectSummary$ | async">
+      </biosimulations-project-metadata>
       <!-- End Left Column -->
 
       <!-- Start Right Column -->
