@@ -1,5 +1,27 @@
 # Changelog
 
+## [9.30.0](https://github.com/biosimulations/biosimulations/compare/v9.29.0...v9.30.0) (2023-06-06)
+
+
+### Bug Fixes
+
+* added correct routing and behavior to nav buttons ([cf7b0a8](https://github.com/biosimulations/biosimulations/commit/cf7b0a892a71bcd2cd582efc3059d17adabf1e74))
+* added noopener rel in _blank target ([d0b00cf](https://github.com/biosimulations/biosimulations/commit/d0b00cf4db470560cdcf820067f30c5d6ed1b503))
+* adjusted plot rendering size in simulation profile page ([a54363d](https://github.com/biosimulations/biosimulations/commit/a54363de0c7bd723b098e2bd9052105df69f1bd2))
+* adjusted plotparent css class declaration in component html ([8a19595](https://github.com/biosimulations/biosimulations/commit/8a1959539694595e1a1fbe95bebcc5830555ef4d))
+* adjusted projects table header name in both platform and projex ([d3bbe2a](https://github.com/biosimulations/biosimulations/commit/d3bbe2a99f36936abac2e42d1e045d44d4221977))
+* corrected biosimulators.org routing and corresponding config key name ([f218278](https://github.com/biosimulations/biosimulations/commit/f2182781a56589ef0c64cfb80df95272d2c11cba))
+* removed breadcrumbs from shared navigation component with comment ([dcc085d](https://github.com/biosimulations/biosimulations/commit/dcc085d08ba07445fe3e55799c6e4671c005c560))
+* removed color implementation ([7f94a0f](https://github.com/biosimulations/biosimulations/commit/7f94a0fd6de497f34cf06a19e63e213d54725d8c))
+* removed commented-out breadcrumb code having it saved locally if we want to re-implement ([f0c8125](https://github.com/biosimulations/biosimulations/commit/f0c812508650254fd6838b14ab605d209ca608f0))
+* removed duplicate css class declarations ([0ba6e90](https://github.com/biosimulations/biosimulations/commit/0ba6e903593dbc95e844310663c0f5b007b9f186))
+
+
+### Features
+
+* added _blank target for biosimulations SOS button ([abd457d](https://github.com/biosimulations/biosimulations/commit/abd457d090a67a2f72910cb396946132d2c53e0d))
+* added first-page and last-page buttons to Simulation Projects table paginator ([a56767c](https://github.com/biosimulations/biosimulations/commit/a56767c72b624820adc6f1a3ad48167a7e4b5f48))
+
 ## [9.29.0](https://github.com/biosimulations/biosimulations/compare/v9.28.1...v9.29.0) (2023-06-04)
 
 
