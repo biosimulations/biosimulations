@@ -18,7 +18,7 @@ orjson = "^3.8.7"
 flask-cors = "^3.0.10"
 pyyaml = "^6.0"
 boto3 = "^1.26.89"
-biosimulators_utils = {extras = ["bngl", "cellml", "lems", "logging", "neuroml", "sbml", "smoldyn"], version = "^0.1.179"}
+biosimulators_utils = {extras = ["bngl", "cellml", "lems", "logging", "neuroml", "sbml", "smoldyn"], version = "^0.1.168"}
 parameterized = "^0.8.1"
 pytest = "^7.2.2"
 swagger-ui-bundle = "^0.0.9"
@@ -34,7 +34,6 @@ py-swagger-ui = "^1.1.0"
 gunicorn = "^20.1.0"
 biosimulators-copasi = "^0.1.35"
 biosimulators-gillespy2 = "^0.1.37"
-numpy = "^1.24.3"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.2.2"

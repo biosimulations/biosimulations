@@ -106,7 +106,7 @@ class RunSimulationTestCase(unittest.TestCase):
         datum = next(datum for datum in plot['data'] if datum['id'] == 'data_generator_T')
         self.assertEqual(set(datum.keys()), set(['_type', 'id', 'label', 'name', 'type', 'shape', 'values']))
         self.assertEqual(datum['_type'], 'SimulationRunOutputDatum')
-        self.assertEqual(datum['label'], 'T')
+        self.assertEqual(datum['label'], 'data_generator_T')
         self.assertEqual(datum['name'], 'T')
         self.assertEqual(datum['type'], 'float64')
         self.assertEqual(datum['shape'], '5001')
