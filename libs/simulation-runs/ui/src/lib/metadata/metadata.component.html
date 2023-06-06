@@ -106,8 +106,15 @@
   </div>
   <!-- End Summary Display -->
   <!-- Start Details Expansion Panel -->
-  <mat-expansion-panel class="details-card">
-    <mat-expansion-panel-header class="card-header"> Project Details </mat-expansion-panel-header>
+  <mat-expansion-panel
+    class="details-card"
+    (opened)="panelOpenState = true"
+    (closed)="panelOpenState = false"
+    (click)="$event.stopPropagation()"
+    [expanded]="panelOpenState">
+    <mat-expansion-panel-header
+      class="card-header"
+      (click)="togglePanel($event); $event.stopPropagation()">Project Details</mat-expansion-panel-header>
     <!-- Biology, simulation, provenance, & identifiers information -->
     <div
       *ngIf="

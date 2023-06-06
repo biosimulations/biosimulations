@@ -30,8 +30,15 @@ export class MetadataComponent {
   @Input()
   public simulationViz!: any;
 
+  public panelOpenState = false;
+
   constructor() {
     /* constructor is empty */
+  }
+
+  public togglePanel(event: Event): void {
+    event.stopPropagation();
+    this.panelOpenState = !this.panelOpenState;
   }
 
   public biologyList(projectSummary: ProjectSummary): string[] | undefined {
