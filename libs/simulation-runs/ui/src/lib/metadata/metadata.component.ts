@@ -32,6 +32,8 @@ export class MetadataComponent {
 
   public panelOpenState = false;
 
+  public noThumbnailImageUrl = 'https://biosimulations.org/assets/images/biosimulations-logo/logo-white.svg';
+
   constructor() {
     /* constructor is empty */
   }

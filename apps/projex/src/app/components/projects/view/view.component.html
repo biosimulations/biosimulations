@@ -31,7 +31,9 @@
 
       <!-- Start Right Column -->
       <mat-card class="viz-card">
-        <mat-card-header class="viz-card-header"> Project Visualizations </mat-card-header>
+        <mat-expansion-panel disabled="true" hideToggle="true">
+          <mat-expansion-panel-header class="viz-card-header"> Project Visualizations </mat-expansion-panel-header>
+        </mat-expansion-panel>
         <mat-card-content class="viz-card-content" *ngFor="let plotVisualization of plotVisualizations$ | async">
           <mat-grid-list cols="1" rowHeight="550px" gutterSize="20" cdkDropList (cdkDropListDropped)="drop($event)">
             <mat-grid-tile class="figure-card" cdkDrag>
