@@ -31,7 +31,7 @@ export class ConfigService {
   dispatchNewIssueUrl!: string;
   dispatchNewPullUrl!: string;
   simulatorsAppUrl!: string;
-  simulatorsAppSuggestSimulatorsUrl!: string;
+  simulatorsAppBrowseSimulatorsUrl!: string;
   simulatorsApiUrl!: string;
   simulatorsNewIssueUrl!: string;
   simulatorsNewPullUrl!: string;

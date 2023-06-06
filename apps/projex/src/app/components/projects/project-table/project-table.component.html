@@ -1,6 +1,6 @@
 <div class="mat-typography app-page-centered" style="padding-bottom: 4rem">
   <div class="page-title">
-    <h1 class="mat-display-1" style="margin-bottom: 10px; margin-top: 20px">Projects Table</h1>
+    <h1 class="mat-display-1" style="margin-bottom: 10px; margin-top: 20px">Simulation Projects</h1>
   </div>
   <div class="projects-table-container full-width-table mat-elevation-z8">
     <biosimulations-projects-chips
@@ -20,11 +20,12 @@
 
       <!--Top Paginator-->
       <mat-paginator
-        #paginator
+        #paginatorTop
         [length]="dataSource.datalength"
         [pageIndex]="0"
         [pageSizeOptions]="[25, 50, 100, 200]"
         [pageSize]="25"
+        [showFirstLastButtons]="true"
         aria-label="Select page">
       </mat-paginator>
     </div>
@@ -48,15 +49,5 @@
       <tr *matHeaderRowDef="displayedColumns; sticky: true" mat-header-row></tr>
       <tr *matRowDef="let row; let odd = odd; columns: displayedColumns" [class.striped-row]="odd" mat-row></tr>
     </table>
-
-    <!-- Bottom Paginator -->
-    <!--<mat-paginator
-      #paginator
-      [length]="dataSource.datalength"
-      [pageIndex]="0"
-      [pageSizeOptions]="[25, 50, 100, 200]"
-      [pageSize]="25"
-      aria-label="Select page">
-      </mat-paginator>-->
   </div>
 </div>
