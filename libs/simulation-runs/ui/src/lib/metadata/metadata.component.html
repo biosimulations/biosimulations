@@ -110,9 +110,9 @@
     (closed)="panelOpenState = false"
     (click)="$event.stopPropagation()"
     [expanded]="panelOpenState">
-    <mat-expansion-panel-header
-      class="card-header"
-      (click)="togglePanel($event); $event.stopPropagation()">Project Details</mat-expansion-panel-header>
+    <mat-expansion-panel-header class="card-header" (click)="togglePanel($event); $event.stopPropagation()"
+      >Project Details</mat-expansion-panel-header
+    >
     <!-- Biology, simulation, provenance, & identifiers information -->
     <div
       *ngIf="
