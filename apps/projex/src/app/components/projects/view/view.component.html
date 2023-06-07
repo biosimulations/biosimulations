@@ -29,7 +29,7 @@
       <mat-expansion-panel class="viz-card" disabled="true" hideToggle="true" expanded="true">
         <mat-expansion-panel-header class="viz-card-header"> Project Visualizations </mat-expansion-panel-header>
         <mat-card-content class="viz-card-content" *ngFor="let plotVisualization of plotVisualizations$ | async">
-          <mat-grid-list cols="1" rowHeight="550px" gutterSize="20" cdkDropList (cdkDropListDropped)="drop($event)">
+          <mat-grid-list cols="1" rowHeight="525px" gutterSize="20" cdkDropList (cdkDropListDropped)="drop($event)">
             <mat-grid-tile class="figure-card" cdkDrag>
               <mat-grid-tile-header
                 class="figure-card-header"

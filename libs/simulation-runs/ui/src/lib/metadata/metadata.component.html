@@ -23,6 +23,10 @@
         </ng-container>
       </mat-expansion-panel>
       <!-- End Image Container -->
+    </div>
+  </div>
+  <div *ngIf="project" fxflex class="description-column" fxLayout="column">
+    <div *ngIf="project" fxGrid>
       <!-- Begin Project Description Container -->
       <mat-expansion-panel class="metadata-card" expanded="true" hideToggle="true" disabled="true">
         <mat-expansion-panel-header class="card-header">Project Description</mat-expansion-panel-header>
