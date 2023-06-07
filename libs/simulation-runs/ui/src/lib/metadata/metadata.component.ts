@@ -30,8 +30,17 @@ export class MetadataComponent {
   @Input()
   public simulationViz!: any;
 
+  public panelOpenState = false;
+
+  public noThumbnailImageUrl = 'https://biosimulations.org/assets/images/biosimulations-logo/logo-white.svg';
+
   constructor() {
     /* constructor is empty */
+  }
+
+  public togglePanel(event: Event): void {
+    event.stopPropagation();
+    this.panelOpenState = !this.panelOpenState;
   }
 
   public biologyList(projectSummary: ProjectSummary): string[] | undefined {

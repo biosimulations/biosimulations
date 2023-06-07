@@ -86,14 +86,14 @@
 
     <biosimulations-hover-open-menu
       [link]="config.simulatorsAppBrowseSimulatorsUrl"
-      style="position: fixed; top: 1; right: 45px; padding-bottom: 2rem">
+      style="position: -webkit-sticky; top: 1; right: 45px; padding-bottom: 0rem; overflow-y: show; -webkit-overflow-scrolling: touch;">
       <biosimulations-topbar-menu-item heading="BioSimulators" icon="link" id="trigger">
       </biosimulations-topbar-menu-item>
       <ng-container id="items">
         <biosimulations-dropdown-menu-item
           heading="Browse simulator tools"
           icon="link"
-          href="config.simulatorsAppBrowseSimulatorsUrl">
+          href="http://biosimulators.org/simulators">
         </biosimulations-dropdown-menu-item>
       </ng-container>
     </biosimulations-hover-open-menu>
@@ -103,3 +103,5 @@
 
   <router-outlet></router-outlet>
 </biosimulations-navigation>
+
+<!--config.simulatorsAppBrowseSimulatorsUrl-->

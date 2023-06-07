@@ -18,20 +18,16 @@
   <ng-container *ngIf="simulationRun$ | async as simulationRun">
     <div class="display-data">
       <!-- Start Left Column-->
-      <mat-card>
-        <mat-card-content class="metadata-card">
-          <biosimulations-project-metadata
-            [project]="projectMetadata"
-            [simulationRun]="simulationRun"
-            [projectSummary]="projectSummary$ | async">
-          </biosimulations-project-metadata>
-        </mat-card-content>
-      </mat-card>
+      <biosimulations-project-metadata
+        [project]="projectMetadata"
+        [simulationRun]="simulationRun"
+        [projectSummary]="projectSummary$ | async">
+      </biosimulations-project-metadata>
       <!-- End Left Column -->
 
       <!-- Start Right Column -->
-      <mat-card class="viz-card">
-        <mat-card-header class="viz-card-header"> Project Visualizations </mat-card-header>
+      <mat-expansion-panel class="viz-card" disabled="true" hideToggle="true" expanded="true">
+        <mat-expansion-panel-header class="viz-card-header"> Project Visualizations </mat-expansion-panel-header>
         <mat-card-content class="viz-card-content" *ngFor="let plotVisualization of plotVisualizations$ | async">
           <mat-grid-list cols="1" rowHeight="550px" gutterSize="20" cdkDropList (cdkDropListDropped)="drop($event)">
             <mat-grid-tile class="figure-card" cdkDrag>
@@ -49,7 +45,7 @@
             </mat-grid-tile>
           </mat-grid-list>
         </mat-card-content>
-      </mat-card>
+      </mat-expansion-panel>
       <!-- End Right Column -->
     </div>
   </ng-container>
