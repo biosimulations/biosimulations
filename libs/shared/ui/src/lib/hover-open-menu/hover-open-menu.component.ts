@@ -31,7 +31,7 @@ export class HoverOpenMenuComponent {
     if (!this.disabled) {
       this.timedOutCloser = window.setTimeout(() => {
         trigger.closeMenu();
-      }, 50);
+      }, 30);
     }
   }
 
@@ -40,5 +40,9 @@ export class HoverOpenMenuComponent {
       //window.location.href = this.link;
       window.open(this.link, '_blank');
     }
+  }
+
+  stayStatic(trigger: MatMenuTrigger): void {
+    return trigger.closeMenu();
   }
 }

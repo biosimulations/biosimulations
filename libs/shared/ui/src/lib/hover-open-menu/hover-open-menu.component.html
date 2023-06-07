@@ -1,7 +1,8 @@
-<div class="container" (click)="navigate()">
+<div class="container">
   <div
     [matMenuTriggerFor]="menu"
     #trigger="matMenuTrigger"
+    (click)="navigate()"
     (mouseenter)="openMenu(trigger)"
     (mousemove)="openMenu(trigger)"
     (mouseleave)="closeMenu(trigger)">
