@@ -58,13 +58,14 @@
       <!-- End Left Column -->
 
       <!-- Start Right Column -->
+      <mat-tab-group>
       <!-- Start Visualizations Expansion-->
-      <mat-expansion-panel class="viz-card" expanded="true" disabled="true">
+      <mat-expansion-panel class="viz-card" expanded="true" disabled="true">-->
         <mat-card-content class="viz-card-content">
-          <mat-expansion-panel class="plots-card">
-            <mat-expansion-panel-header class="viz-card-header">
+          <mat-tab class="plots-card" label="Visualizations">
+            <!--<mat-expansion-panel-header class="viz-card-header">
               Project Visualizations
-            </mat-expansion-panel-header>
+            </mat-expansion-panel-header>-->
             <mat-grid-list
               *ngFor="let plotVisualization of plotVisualizations$ | async"
               cols="1"
@@ -86,14 +87,11 @@
                 </div>
               </mat-grid-tile>
             </mat-grid-list>
-          </mat-expansion-panel>
+          </mat-tab>
 
 
           <!-- Begin Project files Expansion -->
-          <mat-expansion-panel class="files-card">
-            <mat-expansion-panel-header class="viz-card-header" (click)="$event.stopPropagation()">
-              Project Files
-            </mat-expansion-panel-header>
+          <mat-tab class="files-card" label="Files">
             <div class="partial-width files">
               <biosimulations-text-page-content-section
                 heading="Simulation specification (COMBINE/OMEX archive)"
@@ -114,11 +112,12 @@
                 </biosimulations-project-files>
               </biosimulations-text-page-content-section>
             </div>
-          </mat-expansion-panel>
+          </mat-tab>
           <!-- End Project Files Expansion -->
         </mat-card-content>
       </mat-expansion-panel>
       <!-- End Visualizations Expansion -->
+      </mat-tab-group>
     </div>
     <!-- End Right Column -->
     <!-- End simulation information -->
