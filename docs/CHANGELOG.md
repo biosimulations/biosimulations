@@ -1,5 +1,13 @@
 # Changelog
 
+## [9.30.1](https://github.com/biosimulations/biosimulations/compare/v9.30.0...v9.30.1) (2023-06-07)
+
+
+### Bug Fixes
+
+* added -webkit css rules to handle biosimulators button safari glitch ([f77e9e9](https://github.com/biosimulations/biosimulations/commit/f77e9e9662ffeaf82edd820e44fdddb99c967f2d))
+* added event to mat-expansion-panel header for full interactive area ([d2a6596](https://github.com/biosimulations/biosimulations/commit/d2a659680bd58c199d443d0c70f56b0431e4e344))
+
 ## [9.30.0](https://github.com/biosimulations/biosimulations/compare/v9.29.0...v9.30.0) (2023-06-06)
 
 
