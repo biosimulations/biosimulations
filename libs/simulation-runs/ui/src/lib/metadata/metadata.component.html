@@ -107,6 +107,8 @@
     </mat-expansion-panel>
   </div>
   <!-- End Summary Display -->
+
+  <div *ngIf="project" fxGrid>
   <!-- Start Details Expansion Panel -->
   <mat-expansion-panel
     class="details-card"
@@ -166,5 +168,7 @@
     </div>
   </mat-expansion-panel>
   <!-- End Details Expansion Panel -->
-</div>
-<!-- End simulation information -->
+  </div>
+
+
+

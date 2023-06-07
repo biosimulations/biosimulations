@@ -1,6 +1,8 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { MatTabChangeEvent } from '@angular/material/tabs';
+
 import { trigger, transition, style, animate } from '@angular/animations';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
@@ -36,7 +38,14 @@ import { ProjectSummary } from '@biosimulations/datamodel/common';
   ],
 })
 export class ViewComponent implements OnInit {
+  //START OLD IMPLEMENTATION ATTRIBUTES
+  public selectedTabIndex = 0;
+  public viewVisualizationTabDisabled = true;
+  public selectVisualizationTabIndex = 2;
+  public visualizationTabIndex = 3;
   public loaded$!: Observable<boolean>;
+  public simVisualization: Visualization | null = null;
+  //END OLD IMPLEMENTATION ATTRIBUTES
 
   private id!: string;
   public projectMetadata$!: Observable<ProjectMetadata | null>;
@@ -160,6 +169,22 @@ export class ViewComponent implements OnInit {
 
   drop(event: CdkDragDrop<any[]>): void {
     moveItemInArray(this.cards, event.previousIndex, event.currentIndex);
+  }
+
+  //START METHODS FROM THE OLD IMPLEMENTATION:
+  public selectedTabChange($event: MatTabChangeEvent): void {
+    if ($event.index == this.visualizationTabIndex) {
+      if (this.viewVisualizationTabDisabled) {
+        this.selectedTabIndex = this.selectVisualizationTabIndex;
+        return;
+      }
+    }
+  }
+
+  public renderVisualization(visualization: Visualization): void {
+    this.simVisualization = visualization;
+    this.viewVisualizationTabDisabled = false;
+    this.selectedTabIndex = this.visualizationTabIndex;
   }
 }
 
