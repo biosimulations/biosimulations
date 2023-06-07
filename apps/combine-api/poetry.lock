@@ -820,13 +820,13 @@ files = [
 
 [[package]]
 name = "botocore"
-version = "1.29.147"
+version = "1.29.149"
 description = "Low-level, data-driven core of boto 3."
 optional = false
 python-versions = ">= 3.7"
 files = [
-    {file = "botocore-1.29.147-py3-none-any.whl", hash = "sha256:67a7ce69fc6d44a881b01964a76edb00b4e87723a8cc596339d306d8eb321fec"},
-    {file = "botocore-1.29.147.tar.gz", hash = "sha256:f7433bcce5ef7baad2fdd29f97c9fdcf8de4ec1cf577ae308901caf778ed48c2"},
+    {file = "botocore-1.29.149-py3-none-any.whl", hash = "sha256:b8ffb9ae92d2232dbf0c5e661328f3c174fd55dfd9505626a3606ffdc89268b2"},
+    {file = "botocore-1.29.149.tar.gz", hash = "sha256:2996117aac40e8c30a41e01b16f75f14f1a51fc2fa27ce9090eeece045f0ac35"},
 ]
 
 [package.dependencies]
@@ -5445,4 +5445,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "7cbf4a814a7c43007ae822e70737824118042498660a115f908f485a2879148c"
+content-hash = "6b4184209afb929a1275c07e4df18a7858f4f4f09989372468a9f987b32d6ceb"
