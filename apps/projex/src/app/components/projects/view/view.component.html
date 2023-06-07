@@ -6,13 +6,13 @@
   <biosimulations-json-ld [json]="jsonLdData"></biosimulations-json-ld>
 </ng-container>
 
-<div class="spinner-container full-height has-breadcrumbs" *ngIf="(loaded$ | async) !== true">
+<!--<div class="spinner-container full-height has-breadcrumbs" *ngIf="(loaded$ | async) !== true">
   <biosimulations-spinner></biosimulations-spinner>
 </div>
 
 <ng-container *ngIf="jsonLdData$ | async as jsonLdData">
   <biosimulations-json-ld [json]="jsonLdData"></biosimulations-json-ld>
-</ng-container>
+</ng-container>-->
 
 <ng-container *ngIf="projectMetadata$ | async as projectMetadata">
   <ng-container *ngIf="simulationRun$ | async as simulationRun">
