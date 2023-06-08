@@ -176,9 +176,37 @@ biosimulations-tab-page ::ng-deep .icon-list {
 
 .right-col-tab {
   border: 2px solid gray;
-  border-radius: 3px;
+  border-radius: 1px;
 
   &:hover {
     background-color: #ff9800;
   }
+}
+
+.item-expansion-header {
+  background-color: #2196f3;
+  font-weight: 500;
+  font-size: medium;
+  color: white;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-top: 2px;
+  border-radius: 1px;
+  height: 100%;
+  width: auto;
+
+  &:hover {
+    background-color: #ff9800 !important;
+  }
+
+  &.mat-expansion-panel-header.mat-expanded {
+    background-color: #ff9800 !important;
+  }
+}
+
+.icon-list {
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  padding: 1rem;
 }
