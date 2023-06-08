@@ -13,7 +13,7 @@
     </mat-expansion-panel-header>
   </mat-expansion-panel>
   <!-- Begin thumbnails -->
-  <div *ngIf="project" fxFlex class="thumbnails-column" fxLayout="column">
+  <div class="thumbnails-column" *ngIf="project" fxFlex fxLayout="column">
     <!-- Begin summary/text data-->
     <div *ngIf="project" fxGrid>
       <!-- Begin Image Container -->
@@ -25,7 +25,7 @@
       <!-- End Image Container -->
     </div>
   </div>
-  <div *ngIf="project" fxflex class="description-column" fxLayout="column">
+  <div class="description-column" *ngIf="project" fxflex fxLayout="column">
     <div *ngIf="project" fxGrid>
       <!-- Begin Project Description Container -->
       <mat-expansion-panel class="metadata-card" expanded="true" hideToggle="true" disabled="true">
@@ -103,6 +103,7 @@
     </mat-expansion-panel>
   </div>
   <!-- End Summary Display -->
+</div>
 
 
 
