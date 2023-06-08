@@ -47,8 +47,6 @@ export class ViewComponent implements OnInit {
   public simVisualization: Visualization | null = null;
   //END OLD IMPLEMENTATION ATTRIBUTES
 
-  public isPanelExpanded = true;
-
   private id!: string;
   public projectMetadata$!: Observable<ProjectMetadata | null>;
   public simulationRun$!: Observable<SimulationRunMetadata>;
@@ -65,6 +63,8 @@ export class ViewComponent implements OnInit {
 
   cards: any[] = [];
   draggedIndex = -1;
+  public isPanelExpanded = true;
+  public themeColor = 'accent';
 
   public constructor(
     private service: ViewService,
