@@ -114,7 +114,10 @@
                       <!-- template -->
                       <ng-template #sectionsTemplate let-sections="sections">
                         <!-- Start Individual Detail Item Expansion -->
-                        <mat-expansion-panel class="details-expansion-item" *ngFor="let section of sections" expanded="true">
+                        <div *ngFor="let section of sections; let i = index; panelExpanded(i)">
+                        <mat-expansion-panel
+                          class="details-expansion-item"
+                          expanded="isPanelExpanded">
                           <mat-expansion-panel-header class="item-expansion-header">
                             {{ section.title }}
                           </mat-expansion-panel-header>
@@ -134,6 +137,7 @@
                           </table>
                         </mat-expansion-panel>
                         <!-- Stop Individual Detail Item Expansion -->
+                      </div>
                       </ng-template>
                     </div>
                   </div>

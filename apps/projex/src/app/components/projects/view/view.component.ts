@@ -47,6 +47,8 @@ export class ViewComponent implements OnInit {
   public simVisualization: Visualization | null = null;
   //END OLD IMPLEMENTATION ATTRIBUTES
 
+  public isPanelExpanded = true;
+
   private id!: string;
   public projectMetadata$!: Observable<ProjectMetadata | null>;
   public simulationRun$!: Observable<SimulationRunMetadata>;
@@ -185,6 +187,13 @@ export class ViewComponent implements OnInit {
     this.simVisualization = visualization;
     this.viewVisualizationTabDisabled = false;
     this.selectedTabIndex = this.visualizationTabIndex;
+  }
+  //END METHODS FROM THE OLD IMPLEMENTATION
+
+  public panelExpanded(i: number) {
+    if (i > 0) {
+      this.isPanelExpanded = false;
+    }
   }
 }
 
