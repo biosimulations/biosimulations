@@ -99,78 +99,12 @@
             <a href="{{ citation?.uri }}">{{ citation?.label }}</a>
           </td>
         </tr>
-        <!--          <tr>-->
-        <!--            <th>Identifiers</th>-->
-        <!--            <td>{{ identifiersText(projectSummary) }}</td>-->
-        <!--          </tr>-->
       </table>
     </mat-expansion-panel>
   </div>
   <!-- End Summary Display -->
 
-  <!-- Start Details Display -->
-  <div *ngIf="project" fxGrid>
-  <!-- Start Details Expansion Panel -->
-  <mat-expansion-panel
-    class="details-card"
-    (opened)="panelOpenState = true"
-    (closed)="panelOpenState = false"
-    (click)="$event.stopPropagation()"
-    [expanded]="panelOpenState">
-    <mat-expansion-panel-header class="card-header" (click)="togglePanel($event); $event.stopPropagation()"
-      >Project Details</mat-expansion-panel-header
-    >
-    <!-- Biology, simulation, provenance, & identifiers information -->
-    <div
-      *ngIf="
-        project?.modelSimulation?.length ||
-        simulationRun?.length ||
-        project?.provenance?.length ||
-        project?.identifiers?.length
-      "
-      class="attributes-column ragged-column"
-      fxLayout="column"
-      fxInlineBlock
-      fxFlex.lt-lg="100%">
-      <!-- project metadata -->
-      <ng-container
-        *ngTemplateOutlet="sectionsTemplate; context: { sections: project?.modelSimulation || [] }"></ng-container>
-      <!-- simulation run metadata -->
-      <ng-container *ngTemplateOutlet="sectionsTemplate; context: { sections: simulationRun || [] }"></ng-container>
-      <!-- project metadata -->
-      <ng-container
-        *ngTemplateOutlet="sectionsTemplate; context: { sections: project?.provenance || [] }"></ng-container>
-      <ng-container
-        *ngTemplateOutlet="sectionsTemplate; context: { sections: project?.identifiers || [] }"></ng-container>
-      <!-- template -->
-      <ng-template #sectionsTemplate let-sections="sections">
-        <!-- Start Individual Detail Item Expansion -->
-        <mat-expansion-panel *ngFor="let section of sections" expanded="true">
-          <mat-expansion-panel-header class="item-expansion-header">
-            {{ section.title }}
-          </mat-expansion-panel-header>
-          <table class="icon-list" aria-label="metadata table">
-            <tr *ngFor="let item of section.items" fxLayout="row">
-              <th>
-                <biosimulations-icon [icon]="item.icon"></biosimulations-icon>
-              </th>
-              <td>
-                <b>{{ item.title }}:</b>{{ ' ' }}
-                <a [href]="item.url" rel="noopener" target="_blank" *ngIf="item.url; else noHref">
-                  {{ item.value }}
-                </a>
-                <ng-template #noHref>{{ item.value }}</ng-template>
-              </td>
-            </tr>
-          </table>
-        </mat-expansion-panel>
-        <!-- Stop Individual Detail Item Expansion -->
-      </ng-template>
-    </div>
-  </mat-expansion-panel>
-  <!-- End Details Expansion Panel -->
-  </div>
-  <!-- End Details Display -->
+
 
 
 
