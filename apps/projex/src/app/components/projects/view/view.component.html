@@ -29,6 +29,7 @@
       <mat-card class="viz-card">
         <mat-card-content class="viz-card-content">
           <mat-tab-group preserveContent="true">
+
             <!-- Start Visualizations Tab -->
             <mat-tab class="right-col-tab" label="Visualizations">
               <mat-card class="plots-card">
@@ -59,7 +60,8 @@
 
             <!-- Begin Project files Tab -->
             <mat-tab class="right-col-tab" label="Files">
-              <div class="files-card">
+              <mat-card class="files-card">
+                <mat-card-content>
                 <biosimulations-text-page-content-section
                   heading="Simulation specification (COMBINE/OMEX archive)"
                   *ngIf="projectFiles$ | async as files">
@@ -76,65 +78,68 @@
                   <biosimulations-project-files id="content" [files]="files" [usesMaster]="false" [usesMetadata]="false">
                   </biosimulations-project-files>
                 </biosimulations-text-page-content-section>
-              </div>
+                </mat-card-content>
+              </mat-card>
             </mat-tab>
             <!-- End Project Files Tab -->
 
             <!-- Begin Project Details Tab -->
             <mat-tab class="right-col-tab" label="Details">
-              <div class="details-card">
-                <!-- Start Details Display -->
-                <div *ngIf="projectSummary$" fxGrid>
-                  <!-- Biology, simulation, provenance, & identifiers information -->
-                  <div
-                    *ngIf="
-                      projectMetadata?.modelSimulation?.length ||
-                      simulationRun?.length ||
-                      projectMetadata?.provenance?.length ||
-                      projectMetadata?.identifiers?.length
-                    "
-                    class="attributes-column ragged-column"
-                    fxLayout="column"
-                    fxInlineBlock
-                    fxFlex.lt-lg="100%">
-                    <!-- project metadata -->
-                    <ng-container
-                      *ngTemplateOutlet="sectionsTemplate; context: { sections: projectMetadata?.modelSimulation || [] }"></ng-container>
-                    <!-- simulation run metadata -->
-                    <ng-container *ngTemplateOutlet="sectionsTemplate; context: { sections: simulationRun || [] }"></ng-container>
-                    <!-- project metadata -->
-                    <ng-container
-                      *ngTemplateOutlet="sectionsTemplate; context: { sections: projectMetadata?.provenance || [] }"></ng-container>
-                    <ng-container
-                      *ngTemplateOutlet="sectionsTemplate; context: { sections: projectMetadata?.identifiers || [] }"></ng-container>
-                    <!-- template -->
-                    <ng-template #sectionsTemplate let-sections="sections">
-                      <!-- Start Individual Detail Item Expansion -->
-                      <mat-expansion-panel *ngFor="let section of sections" expanded="true">
-                        <mat-expansion-panel-header class="item-expansion-header">
-                          {{ section.title }}
-                        </mat-expansion-panel-header>
-                        <table class="icon-list" aria-label="metadata table">
-                          <tr *ngFor="let item of section.items" fxLayout="row">
-                            <th>
-                              <biosimulations-icon [icon]="item.icon"></biosimulations-icon>
-                            </th>
-                            <td>
-                              <b>{{ item.title }}:</b>{{ ' ' }}
-                              <a [href]="item.url" rel="noopener" target="_blank" *ngIf="item.url; else noHref">
-                                {{ item.value }}
-                              </a>
-                              <ng-template #noHref>{{ item.value }}</ng-template>
-                            </td>
-                          </tr>
-                        </table>
-                      </mat-expansion-panel>
-                      <!-- Stop Individual Detail Item Expansion -->
-                    </ng-template>
+              <mat-card class="details-card">
+                <mat-card-content>
+                  <!-- Start Details Display -->
+                  <div *ngIf="projectSummary$" fxGrid>
+                    <!-- Biology, simulation, provenance, & identifiers information -->
+                    <div
+                      *ngIf="
+                        projectMetadata?.modelSimulation?.length ||
+                        simulationRun?.length ||
+                        projectMetadata?.provenance?.length ||
+                        projectMetadata?.identifiers?.length
+                      "
+                      class="attributes-column ragged-column"
+                      fxLayout="column"
+                      fxInlineBlock
+                      fxFlex.lt-lg="100%">
+                      <!-- project metadata -->
+                      <ng-container
+                        *ngTemplateOutlet="sectionsTemplate; context: { sections: projectMetadata?.modelSimulation || [] }"></ng-container>
+                      <!-- simulation run metadata -->
+                      <ng-container *ngTemplateOutlet="sectionsTemplate; context: { sections: simulationRun || [] }"></ng-container>
+                      <!-- project metadata -->
+                      <ng-container
+                        *ngTemplateOutlet="sectionsTemplate; context: { sections: projectMetadata?.provenance || [] }"></ng-container>
+                      <ng-container
+                        *ngTemplateOutlet="sectionsTemplate; context: { sections: projectMetadata?.identifiers || [] }"></ng-container>
+                      <!-- template -->
+                      <ng-template #sectionsTemplate let-sections="sections">
+                        <!-- Start Individual Detail Item Expansion -->
+                        <mat-expansion-panel *ngFor="let section of sections" expanded="true">
+                          <mat-expansion-panel-header class="item-expansion-header">
+                            {{ section.title }}
+                          </mat-expansion-panel-header>
+                          <table class="icon-list" aria-label="metadata table">
+                            <tr *ngFor="let item of section.items" fxLayout="row">
+                              <th>
+                                <biosimulations-icon [icon]="item.icon"></biosimulations-icon>
+                              </th>
+                              <td>
+                                <b>{{ item.title }}:</b>{{ ' ' }}
+                                <a [href]="item.url" rel="noopener" target="_blank" *ngIf="item.url; else noHref">
+                                  {{ item.value }}
+                                </a>
+                                <ng-template #noHref>{{ item.value }}</ng-template>
+                              </td>
+                            </tr>
+                          </table>
+                        </mat-expansion-panel>
+                        <!-- Stop Individual Detail Item Expansion -->
+                      </ng-template>
+                    </div>
                   </div>
-                </div>
-                <!-- End Details Display -->
-              </div>
+                  <!-- End Details Display -->
+                </mat-card-content>
+              </mat-card>
             </mat-tab>
           </mat-tab-group>
         </mat-card-content>

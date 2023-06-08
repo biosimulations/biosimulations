@@ -6,13 +6,15 @@
   fxLayoutAlign="space-between"
   fxLayoutGap="1rem"
   fxLayoutGap.lt-lg="1rem">
+
   <!-- Simulation Project Header (Title) -->
   <mat-expansion-panel expanded="false" disabled="true" hideToggle="true">
     <mat-expansion-panel-header class="project-header">
       {{ project.title }}
     </mat-expansion-panel-header>
   </mat-expansion-panel>
-  <!-- Begin thumbnails -->
+
+  <!-- Begin thumbnails Display-->
   <div class="thumbnails-column" *ngIf="project" fxFlex fxLayout="column">
     <!-- Begin summary/text data-->
     <div *ngIf="project" fxGrid>
@@ -53,7 +55,8 @@
     </div>
     <!-- End summary/text data -->
   </div>
-  <!-- End thumbnails-->
+  <!-- End thumbnails Display -->
+
   <!-- Start Summary Display -->
   <div *ngIf="projectSummary" fxGrid>
     <mat-expansion-panel class="summary-card" expanded="true" hideToggle="true" disabled="true">
