@@ -47,7 +47,6 @@ export class ViewComponent implements OnInit {
   public simVisualization: Visualization | null = null;
   //END OLD IMPLEMENTATION ATTRIBUTES
 
-  private id!: string;
   public projectMetadata$!: Observable<ProjectMetadata | null>;
   public simulationRun$!: Observable<SimulationRunMetadata>;
 
@@ -58,13 +57,15 @@ export class ViewComponent implements OnInit {
 
   public visualizations$!: Observable<VisualizationList[]>;
   public plotVisualizations$!: Observable<Visualization[]>;
+  public isPanelExpanded = true;
+  public themeColor = 'accent';
+
+  private id!: string;
 
   jsonLdData$!: Observable<WithContext<Dataset>>;
 
   cards: any[] = [];
   draggedIndex = -1;
-  public isPanelExpanded = true;
-  public themeColor = 'accent';
 
   public constructor(
     private service: ViewService,

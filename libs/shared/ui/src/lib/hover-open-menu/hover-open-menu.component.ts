@@ -8,17 +8,17 @@ import { MatMenuTrigger } from '@angular/material/menu';
 })
 export class HoverOpenMenuComponent {
   @Input()
-  link?: string;
+  public disabled = false;
 
   @Input()
-  target: string | undefined;
-
-  timedOutCloser: any = null;
+  public link?: string;
 
   @Input()
-  disabled: any = false;
+  public target: string | undefined;
 
-  openMenu(trigger: MatMenuTrigger): void {
+  public timedOutCloser: any = null;
+
+  public openMenu(trigger: MatMenuTrigger): void {
     if (!this.disabled) {
       if (this.timedOutCloser) {
         clearTimeout(this.timedOutCloser);
@@ -27,7 +27,7 @@ export class HoverOpenMenuComponent {
     }
   }
 
-  closeMenu(trigger: MatMenuTrigger): void {
+  public closeMenu(trigger: MatMenuTrigger): void {
     if (!this.disabled) {
       this.timedOutCloser = window.setTimeout(() => {
         trigger.closeMenu();
@@ -35,14 +35,14 @@ export class HoverOpenMenuComponent {
     }
   }
 
-  navigate() {
+  public navigate(): void {
     if (this.link) {
       //window.location.href = this.link;
       window.open(this.link, '_blank');
     }
   }
 
-  stayStatic(trigger: MatMenuTrigger): void {
+  public stayStatic(trigger: MatMenuTrigger): void {
     return trigger.closeMenu();
   }
 }
