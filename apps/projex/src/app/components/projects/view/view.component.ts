@@ -191,8 +191,10 @@ export class ViewComponent implements OnInit {
   //END METHODS FROM THE OLD IMPLEMENTATION
 
   public panelExpanded(i: number) {
-    if (i > 0) {
+    if (i !== 0) {
       this.isPanelExpanded = false;
+    } else {
+      this.isPanelExpanded = true;
     }
   }
 }
