@@ -173,3 +173,15 @@ biosimulations-tab-page ::ng-deep .icon-list {
   font-family: 'Roboto', sans-serif;
   font-weight: 600;
 }
+
+.right-col-tab-group {
+}
+
+.right-col-tab {
+  border: 2px solid aqua;
+  border-radius: 3px;
+
+  &:hover {
+    background-color: #ff9800;
+  }
+}

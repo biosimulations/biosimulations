@@ -14,38 +14,6 @@
   <biosimulations-json-ld [json]="jsonLdData"></biosimulations-json-ld>
 </ng-container>-->
 
-
-
-
-<!--------------------------------------- PART OF OLD IMPLEMENTATION    --------------------------------------------------->
-<!-- End overview tab-->
-  <!--Information about files in project and generated from the project-->
-<!--  <biosimulations-tab-page-tab heading="Files" icon="project" urlHashFragment="files">-->
-<!--    <div class="partial-width files">-->
-<!--      <biosimulations-text-page-content-section-->
-<!--        heading="Simulation specification (COMBINE/OMEX archive)"-->
-<!--        *ngIf="projectFiles$ | async as files">-->
-<!--        <biosimulations-project-files id="content" [files]="files" [usesMaster]="false" [usesMetadata]="false">-->
-<!--        </biosimulations-project-files>-->
-<!--      </biosimulations-text-page-content-section>-->
-
-<!--      <biosimulations-text-page-content-section-->
-<!--        heading="Contents of simulation specification"-->
-<!--        *ngIf="files$ | async as files">-->
-<!--        <biosimulations-project-files id="content" [files]="files" [usesMaster]="true" [usesMetadata]="true">-->
-<!--        </biosimulations-project-files>-->
-<!--      </biosimulations-text-page-content-section>-->
-
-<!--      <biosimulations-text-page-content-section heading="Simulation outputs" *ngIf="outputs$ | async as files">-->
-<!--        <biosimulations-project-files id="content" [files]="files" [usesMaster]="false" [usesMetadata]="false">-->
-<!--        </biosimulations-project-files>-->
-<!--      </biosimulations-text-page-content-section>-->
-<!--    </div>-->
-<!--  </biosimulations-tab-page-tab>-->
-
-
-
-
 <ng-container *ngIf="projectMetadata$ | async as projectMetadata">
   <ng-container *ngIf="simulationRun$ | async as simulationRun">
     <div class="display-data">
@@ -58,68 +26,64 @@
       <!-- End Left Column -->
 
       <!-- Start Right Column -->
-      <mat-tab-group>
-      <!-- Start Visualizations Expansion-->
-      <mat-expansion-panel class="viz-card" expanded="true" disabled="true">-->
+      <mat-card class="viz-card">
         <mat-card-content class="viz-card-content">
-          <mat-tab class="plots-card" label="Visualizations">
-            <!--<mat-expansion-panel-header class="viz-card-header">
-              Project Visualizations
-            </mat-expansion-panel-header>-->
-            <mat-grid-list
-              *ngFor="let plotVisualization of plotVisualizations$ | async"
-              cols="1"
-              rowHeight="525px"
-              gutterSize="20"
-              cdkDropList
-              (cdkDropListDropped)="drop($event)">
-              <mat-grid-tile class="figure-card" cdkDrag>
-                <mat-grid-tile-header
-                  class="figure-card-header"
-                  style="background-color: #2196f3; height: 6%"
-                  cdkDragHandle>
-                  {{ plotVisualization.name }}
-                </mat-grid-tile-header>
-                <div class="plotparent">
-                  <div class="figure-card-placeholder" *cdkDragPlaceholder></div>
-                  <biosimulations-project-visualization [visualization]="plotVisualization">
-                  </biosimulations-project-visualization>
-                </div>
-              </mat-grid-tile>
-            </mat-grid-list>
-          </mat-tab>
+          <mat-tab-group preserveContent="true">
+            <!-- Start Visualizations Tab -->
+            <mat-tab class="right-col-tab" label="Visualizations">
+              <mat-card class="plots-card">
+                <mat-grid-list
+                  *ngFor="let plotVisualization of plotVisualizations$ | async"
+                  cols="1"
+                  rowHeight="525px"
+                  gutterSize="20"
+                  cdkDropList
+                  (cdkDropListDropped)="drop($event)">
+                  <mat-grid-tile class="figure-card" cdkDrag>
+                    <mat-grid-tile-header
+                      class="figure-card-header"
+                      style="background-color: #2196f3; height: 6%"
+                      cdkDragHandle>
+                      {{ plotVisualization.name }}
+                    </mat-grid-tile-header>
+                    <div class="plotparent">
+                      <div class="figure-card-placeholder" *cdkDragPlaceholder></div>
+                      <biosimulations-project-visualization [visualization]="plotVisualization">
+                      </biosimulations-project-visualization>
+                    </div>
+                  </mat-grid-tile>
+                </mat-grid-list>
+              </mat-card>
+            </mat-tab>
+            <!-- End Visualizations Tab -->
 
-
-          <!-- Begin Project files Expansion -->
-          <mat-tab class="files-card" label="Files">
-            <div class="partial-width files">
-              <biosimulations-text-page-content-section
-                heading="Simulation specification (COMBINE/OMEX archive)"
-                *ngIf="projectFiles$ | async as files">
-                <biosimulations-project-files id="content" [files]="files" [usesMaster]="false" [usesMetadata]="false">
-                </biosimulations-project-files>
-              </biosimulations-text-page-content-section>
-
-              <biosimulations-text-page-content-section
-                heading="Contents of simulation specification"
-                *ngIf="files$ | async as files">
-                <biosimulations-project-files id="content" [files]="files" [usesMaster]="true" [usesMetadata]="true">
-                </biosimulations-project-files>
-              </biosimulations-text-page-content-section>
-
-              <biosimulations-text-page-content-section heading="Simulation outputs" *ngIf="outputs$ | async as files">
-                <biosimulations-project-files id="content" [files]="files" [usesMaster]="false" [usesMetadata]="false">
-                </biosimulations-project-files>
-              </biosimulations-text-page-content-section>
-            </div>
-          </mat-tab>
-          <!-- End Project Files Expansion -->
+            <!-- Begin Project files Tab -->
+            <mat-tab class="right-col-tab" label="Files">
+              <div class="files-card">
+                <biosimulations-text-page-content-section
+                  heading="Simulation specification (COMBINE/OMEX archive)"
+                  *ngIf="projectFiles$ | async as files">
+                  <biosimulations-project-files id="content" [files]="files" [usesMaster]="false" [usesMetadata]="false">
+                  </biosimulations-project-files>
+                </biosimulations-text-page-content-section>
+                <biosimulations-text-page-content-section
+                  heading="Contents of simulation specification"
+                  *ngIf="files$ | async as files">
+                  <biosimulations-project-files id="content" [files]="files" [usesMaster]="true" [usesMetadata]="true">
+                  </biosimulations-project-files>
+                </biosimulations-text-page-content-section>
+                <biosimulations-text-page-content-section heading="Simulation outputs" *ngIf="outputs$ | async as files">
+                  <biosimulations-project-files id="content" [files]="files" [usesMaster]="false" [usesMetadata]="false">
+                  </biosimulations-project-files>
+                </biosimulations-text-page-content-section>
+              </div>
+            </mat-tab>
+            <!-- End Project Files Tab -->
+          </mat-tab-group>
         </mat-card-content>
-      </mat-expansion-panel>
-      <!-- End Visualizations Expansion -->
-      </mat-tab-group>
+      </mat-card>
+      <!-- End Right Column -->
     </div>
-    <!-- End Right Column -->
     <!-- End simulation information -->
   </ng-container>
 </ng-container>
