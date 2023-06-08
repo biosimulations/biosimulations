@@ -12,7 +12,8 @@
         <div class="icon-container">
           <biosimulations-icon icon="project"></biosimulations-icon>
         </div>
-        {{ path.title }}
+        <span class="truncate-text" [ngClass]="{ 'full-text-tooltip': isTextOverflowed(path.title) }">{{ path.title }}</span>
+        <div class="full-text-tooltip" *ngIf="isTextOverflowed(path.title)">{{ path.title }}</div>
       </div>
       <div class="cell format">Directory</div>
       <div class="cell main"></div>
@@ -39,10 +40,13 @@
         <div class="icon-container">
           <biosimulations-icon [icon]="path.icon"></biosimulations-icon>
         </div>
-        {{ path.title }}
+        <span class="truncate-text" [ngClass]="{ 'full-text-tooltip': isTextOverflowed(path.title) }">{{ path.title }}</span>
+        <div class="full-text-tooltip" *ngIf="isTextOverflowed(path.title)">{{ path.title }}</div>
       </div>
       <div class="cell format" [class.main-file]="path.master">
-        <a [href]="path.formatUrl" rel="noopener" target="ontology" *ngIf="path.formatUrl">{{ path.format }}</a>
+        <div class="trucate-text">
+          <a [href]="path.formatUrl" rel="noopener" target="ontology" *ngIf="path.formatUrl">{{ path.format }}</a>
+        </div>
       </div>
       <div class="cell main" [class.main-file]="path.master">
         {{ path.master ? '&#10003;' : '' }}
@@ -66,7 +70,8 @@
           rel="noopener"
           target="_blank"
           *ngIf="path.url"
-          [download]="path.basename">
+          [download]="path.basename"
+          style="border: 2px solid; border-radius: 50%; background-color: #ff9800;">
           <biosimulations-icon icon="download"></biosimulations-icon>
         </a>
       </div>

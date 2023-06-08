@@ -26,4 +26,17 @@ export class FilesComponent {
       data: metadata,
     });
   }
+
+  isTextOverflowed(text: string): boolean {
+    const element = document.createElement('span');
+    element.style.visibility = 'hidden';
+    element.style.position = 'fixed';
+    element.style.whiteSpace = 'nowrap';
+    element.style.pointerEvents = 'none';
+    element.textContent = text;
+    document.body.appendChild(element);
+    const isOverflowed = element.offsetWidth < element.scrollWidth;
+    document.body.removeChild(element);
+    return isOverflowed;
+  }
 }

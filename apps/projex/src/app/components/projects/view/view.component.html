@@ -57,32 +57,32 @@
                   <mat-expansion-panel class="files-item" expanded="true">
                     <mat-expansion-panel-header class="item-expansion-header">Simulation specification (COMBINE/OMEX archive)</mat-expansion-panel-header>
                     <mat-card-content>
-                      <biosimulations-text-page-content-section
+                      <div
                         *ngIf="projectFiles$ | async as files">
                         <biosimulations-project-files id="content" [files]="files" [usesMaster]="false" [usesMetadata]="false">
                         </biosimulations-project-files>
-                      </biosimulations-text-page-content-section>
+                      </div>
                     </mat-card-content>
                   </mat-expansion-panel>
 
                   <mat-expansion-panel class="files-item">
                     <mat-expansion-panel-header class="item-expansion-header">Contents of simulation specification</mat-expansion-panel-header>
                     <mat-card-content>
-                      <biosimulations-text-page-content-section
+                      <div
                         *ngIf="files$ | async as files">
                         <biosimulations-project-files id="content" [files]="files" [usesMaster]="true" [usesMetadata]="true">
                         </biosimulations-project-files>
-                      </biosimulations-text-page-content-section>
+                      </div>
                     </mat-card-content>
                   </mat-expansion-panel>
 
                   <mat-expansion-panel class="files-item">
                     <mat-expansion-panel-header class="item-expansion-header">Simulation outputs</mat-expansion-panel-header>
                     <mat-card-content>
-                      <biosimulations-text-page-content-section *ngIf="outputs$ | async as files">
+                      <div *ngIf="outputs$ | async as files">
                         <biosimulations-project-files id="content" [files]="files" [usesMaster]="false" [usesMetadata]="false">
                         </biosimulations-project-files>
-                      </biosimulations-text-page-content-section>
+                      </div>
                     </mat-card-content>
                   </mat-expansion-panel>
                 </mat-card-content>
