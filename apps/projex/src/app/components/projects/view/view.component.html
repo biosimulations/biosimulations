@@ -31,7 +31,7 @@
           <mat-tab-group preserveContent="true">
 
             <!-- Start Visualizations Tab -->
-            <mat-tab class="right-col-tab" label="Visualizations Hub">
+            <mat-tab class="right-col-tab" label="Figures">
               <mat-card class="plots-card">
                 <mat-grid-list
                   *ngFor="let plotVisualization of plotVisualizations$ | async"
@@ -59,7 +59,7 @@
             <!-- End Visualizations Tab -->
 
             <!-- Begin Project files Tab -->
-            <mat-tab class="right-col-tab" label="Files Hub">
+            <mat-tab class="right-col-tab" label="Download">
               <mat-card class="files-card">
                 <mat-card-content>
                   <mat-expansion-panel class="files-item" expanded="true">
@@ -99,7 +99,7 @@
             <!-- End Project Files Tab -->
 
             <!-- Begin Project Details Tab -->
-            <mat-tab class="right-col-tab" label="Details Hub">
+            <mat-tab class="right-col-tab" label="Details">
               <mat-card class="details-card">
                 <mat-card-content>
                   <!-- Start Details Display -->
