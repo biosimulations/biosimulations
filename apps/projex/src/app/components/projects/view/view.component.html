@@ -6,14 +6,6 @@
   <biosimulations-json-ld [json]="jsonLdData"></biosimulations-json-ld>
 </ng-container>
 
-<!------------------------------------ DON'T YET DELETE: EXTRA SPINNER CONTAINERS THAT WE MAY NEED ------------------------------->
-<!--<div class="spinner-container full-height has-breadcrumbs" *ngIf="(loaded$ | async) !== true">
-  <biosimulations-spinner></biosimulations-spinner>
-</div>
-<ng-container *ngIf="jsonLdData$ | async as jsonLdData">
-  <biosimulations-json-ld [json]="jsonLdData"></biosimulations-json-ld>
-</ng-container>-->
-
 <ng-container *ngIf="projectMetadata$ | async as projectMetadata">
   <ng-container *ngIf="simulationRun$ | async as simulationRun">
     <div class="display-data">
