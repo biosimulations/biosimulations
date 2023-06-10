@@ -116,6 +116,14 @@ biosimulations-tab-page ::ng-deep .icon-list {
   }
 }
 
+.rerun-icon {
+  padding-left: 18px;
+
+  &:hover {
+    color: #ff9800;
+  }
+}
+
 .plots-card {
   padding: 2rem;
 }
