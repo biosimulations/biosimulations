@@ -884,6 +884,12 @@
   </url>
    
   <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000118_amici_Contribution_of_persistent_Na_</loc>
+    <lastmod>2023-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
     <loc>https://biosimulations.org/projects/BIOMD0000000119_amici_Contribution_of_persistent_Na_</loc>
     <lastmod>2023-06-01</lastmod>
     <changefreq>monthly</changefreq>
@@ -932,14 +938,80 @@
   </url>
    
   <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000127_copasi_Simple_model_of_spiking_neuron</loc>
+    <lastmod>2023-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
     <loc>https://biosimulations.org/projects/BIOMD0000000128_copasi_Endothelin_action_on_pituitary</loc>
     <lastmod>2023-06-01</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000129_copasi_Which_model_to_use_for_cortica</loc>
+    <lastmod>2023-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000130_tellurium_Which_model_to_use_for_cortica</loc>
+    <lastmod>2023-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000131_tellurium_Which_model_to_use_for_cortica</loc>
+    <lastmod>2023-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000132_amici_Which_model_to_use_for_cortica</loc>
+    <lastmod>2023-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000133_copasi_Which_model_to_use_for_cortica</loc>
+    <lastmod>2023-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000134_copasi_Which_model_to_use_for_cortica</loc>
+    <lastmod>2023-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000135_tellurium_Which_model_to_use_for_cortica</loc>
+    <lastmod>2023-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000136_tellurium_Which_model_to_use_for_cortica</loc>
+    <lastmod>2023-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
     <loc>https://biosimulations.org/projects/BIOMD0000000138_tellurium_Low_dose_of_dopamine_may_stimu</loc>
     <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000141_amici_Which_model_to_use_for_cortica</loc>
+    <lastmod>2023-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000142_copasi_Which_model_to_use_for_cortica</loc>
+    <lastmod>2023-06-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -1424,6 +1496,12 @@
   </url>
    
   <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000238_copasi_PKPD_model_of_interleukin_21_e</loc>
+    <lastmod>2023-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
     <loc>https://biosimulations.org/projects/BIOMD0000000239_copasi_A_kinetic_core_model_of_the_gl</loc>
     <lastmod>2023-06-01</lastmod>
     <changefreq>monthly</changefreq>
@@ -1586,6 +1664,12 @@
   </url>
    
   <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000280_tellurium_Voltage_oscillations_in_the_ba</loc>
+    <lastmod>2023-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
     <loc>https://biosimulations.org/projects/BIOMD0000000281_amici_Metabolic_control_mechanisms_5</loc>
     <lastmod>2023-06-01</lastmod>
     <changefreq>monthly</changefreq>
@@ -1666,6 +1750,12 @@
   <url>
     <loc>https://biosimulations.org/projects/BIOMD0000000301_tellurium_Synthetic_gene_networks_that_c</loc>
     <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000302_amici_Gamma_oscillation_by_synaptic_</loc>
+    <lastmod>2023-06-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -1786,6 +1876,12 @@
   <url>
     <loc>https://biosimulations.org/projects/BIOMD0000000323_copasi_Synthetic_in_vitro_transcripti</loc>
     <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000324_copasi_Voltage_oscillations_in_the_ba</loc>
+    <lastmod>2023-06-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -3220,6 +3316,12 @@
   <url>
     <loc>https://biosimulations.org/projects/BIOMD0000000675_copasi_Model_scenarios_for_evolution_</loc>
     <lastmod>2023-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/BIOMD0000000686_tellurium_Dynamics_of_killer_T_cell_infl</loc>
+    <lastmod>2023-06-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
