@@ -34,12 +34,12 @@ SOFTWARE.
 Below are the licenses of the dependencies of the BioSimulations and BioSimulators platforms, including the location of each license file where available. This report was generated using [license-checker](https://github.com/davglass/license-checker). This report was last updated on the date at the bottom of this page.
 
 ```
-├─ @angular/common@15.2.8
+├─ @angular/common@15.2.9
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/common/README.md
-├─ @angular/core@15.2.8
+├─ @angular/core@15.2.9
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
@@ -651,7 +651,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: felix@debuggable.com
 │  ├─ url: http://debuggable.com/
 │  └─ licenseFile: combined-stream/License
-├─ compare-versions@4.1.3
+├─ compare-versions@4.1.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/omichelsen/compare-versions
 │  ├─ publisher: Ole Michelsen
@@ -1152,7 +1152,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: nathan@tootallnate.net
 │  ├─ url: http://n8.io/
 │  └─ licenseFile: https-proxy-agent/README.md
-├─ husky@8.0.1
+├─ husky@8.0.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typicode/husky
 │  ├─ publisher: Typicode
@@ -1177,7 +1177,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: feross@feross.org
 │  ├─ url: http://feross.org
 │  └─ licenseFile: ieee754/LICENSE
-├─ immer@10.0.1
+├─ immer@10.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/immerjs/immer
 │  ├─ publisher: Michel Weststrate
