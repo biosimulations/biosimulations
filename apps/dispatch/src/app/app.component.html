@@ -7,12 +7,16 @@
   [showNews]="false"
   [healthy]="healthy$ | async">
   <biosimulations-topbar-menu>
-    <biosimulations-topbar-menu-item
-      heading="Try simulation runs"
-      icon="experiment"
-      [route]="['/runs']"
-      [queryParams]="{ try: '1' }">
-    </biosimulations-topbar-menu-item>
+    <biosimulations-hover-open-menu
+      [link]="'/runs'"
+      [disabled]="true">
+      <biosimulations-topbar-menu-item
+        heading="Browse Simulation Runs"
+        icon="browse"
+        id="trigger">
+      </biosimulations-topbar-menu-item>
+
+    </biosimulations-hover-open-menu>
 
     <biosimulations-topbar-menu-item heading="Run a simulation" icon="simulator" [route]="['/runs/new']">
     </biosimulations-topbar-menu-item>
