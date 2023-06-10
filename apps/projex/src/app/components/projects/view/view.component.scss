@@ -59,7 +59,7 @@ biosimulations-tab-page ::ng-deep .icon-list {
 }
 
 .viz-card {
-  height: 100%;
+  height: fit-content;
   width: 500px;
   max-width: 100%;
   border: solid 1px #ccc;
@@ -68,6 +68,9 @@ biosimulations-tab-page ::ng-deep .icon-list {
   background: white;
   border-radius: 4px;
   overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1rem;
 }
 
 .viz-card-header {
@@ -92,7 +95,11 @@ biosimulations-tab-page ::ng-deep .icon-list {
 
 .viz-card-content {
   height: fit-content;
-  padding-top: 1rem;
+  padding-top: 2rem;
+}
+
+.plots-card {
+  padding: 2rem;
 }
 
 .figure-card {
@@ -110,7 +117,6 @@ biosimulations-tab-page ::ng-deep .icon-list {
   margin-right: 25px;
   position: relative;
   box-sizing: border-box;
-
   transition: box-shadow 200ms cubic-bezier(0, 0, 0.2, 1);
   box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
@@ -125,7 +131,7 @@ biosimulations-tab-page ::ng-deep .icon-list {
 
 .figure-card-header {
   color: white;
-  font-weight: 300;
+  font-weight: 400;
   font-family: 'Roboto', sans-serif;
   align-items: center;
   border: 2px solid inherit;
@@ -157,4 +163,60 @@ biosimulations-tab-page ::ng-deep .icon-list {
 
 .viz-card-content.cdk-drop-list-dragging .figure-card:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.files-card {
+  display: grid;
+  flex-direction: column;
+  height: 100%;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;
+}
+
+.right-col-tab {
+  border: 2px solid gray;
+  border-radius: 1px;
+
+  &:hover {
+    background-color: #ff9800;
+  }
+}
+
+.item-expansion-header {
+  background-color: #2196f3;
+  font-weight: 400;
+  font-size: medium;
+  color: white;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-family: 'Roboto', sans-serif;
+  align-items: center;
+  border: 2px solid inherit;
+  border-radius: 3px;
+  height: auto;
+  width: auto;
+
+  &:hover {
+    background-color: #ff9800 !important;
+  }
+
+  &.mat-expansion-panel-header.mat-expanded {
+    background-color: #2196f3 !important;
+  }
+}
+
+.icon-list {
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+  padding: 0.75rem;
+}
+
+.details-expansion-item {
+  padding: 0.5rem;
+}
+
+.files-item {
+  height: auto;
 }

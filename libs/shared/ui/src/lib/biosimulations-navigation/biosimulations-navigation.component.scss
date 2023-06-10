@@ -9,6 +9,12 @@
 .sidenav {
   width: 240px;
 
+  @media screen and (max-width: 600px) {
+    .mat-toolbar {
+      font-size: 11px;
+    }
+  }
+
   ::ng-deep .mat-drawer-inner-container {
     overflow: hidden;
   }

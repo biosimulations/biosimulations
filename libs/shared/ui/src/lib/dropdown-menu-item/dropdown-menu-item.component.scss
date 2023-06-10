@@ -1,11 +1,10 @@
 .mat-menu-item {
   line-height: 32px;
-  height: 32px;
+  height: 10px;
   padding: 0 0.5rem;
 
   .icon-container {
-    width: 2px;
-    display: inline-flex;
+    display: flex;
     justify-content: center;
   }
 
@@ -28,12 +27,21 @@
   }
 
   &:active:not([disabled]) {
-    background: #0f200a;
+    background: #1d5d07;
     //background: rgba(44, 44, 44, 0.08);
     color: rgba(#000000, 0.9);
   }
 }
 
 a {
-  color: rgba(0, 0, 0, 0.87);
+  color: #0d2405;
+}
+
+.menu-item {
+  //background: #e8f4fd;//rgba(255, 152, 0, 0.5);
+  height: 100%;
+}
+
+.menu-icon {
+  padding-left: 1rem;
 }

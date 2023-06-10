@@ -1,6 +1,6 @@
 @use '@angular/material' as mat;
-@import 'biosimulations-colors';
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+@import 'biosimulations-colors';
 
 :host {
   margin-left: 1rem;
@@ -53,6 +53,6 @@
 }
 
 .overlap {
-  border-bottom: 14px solid #2196f3;
-  padding-top: 1rem;
+  border-bottom: 8px solid #2196f3;
+  padding-top: 0.25rem;
 }

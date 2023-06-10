@@ -1,7 +1,7 @@
 @use '@angular/material' as mat;
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;500;700:wght@700&display=swap');
 @import 'apps/platform/src/styles.scss';
 @import 'biosimulations-colors';
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;500;700:wght@700&display=swap');
 
 .container {
   background-image: url('/assets/images/backgrounds/grey-3.png');
@@ -35,10 +35,6 @@ img {
   font-weight: bold;
   text-align: center;
 }
-
-//.main-logo {
-//animation: rotation 40s infinite linear;
-//}
 
 .buttons {
   margin-top: 0.5rem;
