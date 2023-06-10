@@ -15,14 +15,21 @@
         icon="browse"
         id="trigger">
       </biosimulations-topbar-menu-item>
-
     </biosimulations-hover-open-menu>
 
-    <biosimulations-topbar-menu-item heading="Run a simulation" icon="simulator" [route]="['/runs/new']">
-    </biosimulations-topbar-menu-item>
+    <biosimulations-hover-open-menu
+      [link]="'/runs/new'"
+      [disabled]="true">
+      <biosimulations-topbar-menu-item heading="Run a simulation" icon="simulator" id="trigger">
+      </biosimulations-topbar-menu-item>
+    </biosimulations-hover-open-menu>
 
-    <biosimulations-topbar-menu-item heading="Your simulation runs" icon="simulation" [route]="['/runs']">
-    </biosimulations-topbar-menu-item>
+    <biosimulations-hover-open-menu
+      [link]="'/runs/new'"
+      [disabled]="true">
+      <biosimulations-topbar-menu-item heading="Your simulation runs" icon="simulation" id="trigger">
+      </biosimulations-topbar-menu-item>
+    </biosimulations-hover-open-menu>
 
     <biosimulations-hover-open-menu>
       <biosimulations-topbar-menu-item heading="Utilities" icon="construction" id="trigger">
@@ -365,3 +372,4 @@
 
   <router-outlet></router-outlet>
 </biosimulations-navigation>
+
