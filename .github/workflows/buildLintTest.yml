@@ -72,6 +72,9 @@ jobs:
           node --version
           npm --version
 
+      - name: remove ngcc_lock_file
+        run: rm node_modules/.ngcc_lock_file || true
+
       - name: Install npm dependencies
         uses: bahmutov/npm-install@v1
         with:
@@ -100,23 +103,23 @@ jobs:
 
       - name: Build Affected
         if:  ${{inputs.affectedOnly}}
-        run: npx nx affected --target build --prod
+        run: npx nx affected --target build --prod --parallel=false
 
       - name: Test Affected
         if:  ${{inputs.affectedOnly}}
-        run: npx nx affected --target test
+        run: npx nx affected --target test --parallel=false
 
       - name: Lint All
         if: ${{!inputs.affectedOnly}}
-        run: npx nx run-many --all --target lint
+        run: npx nx run-many --all --target lint --parallel=false
 
       - name: Build All
         if: ${{!inputs.affectedOnly}}
-        run: npx nx run-many --all --target build --prod
+        run: npx nx run-many --all --target build --prod --parallel=false
 
       - name: Test All
         if: ${{!inputs.affectedOnly}}
-        run: npx nx run-many --all --target test
+        run: npx nx run-many --all --target test --parallel=false
 
 #      - name: Lint Build Test Affected
 #        if:  ${{inputs.affectedOnly}}
