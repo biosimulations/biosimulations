@@ -1,5 +1,38 @@
 # Changelog
 
+## [9.31.0](https://github.com/biosimulations/biosimulations/compare/v9.30.1...v9.31.0) (2023-06-10)
+
+
+### Bug Fixes
+
+* added closing div tag to metadata ([491d54a](https://github.com/biosimulations/biosimulations/commit/491d54a6bf1250bdf9471b71095c881b47e70397))
+* adjusted height of simulation file item expansion panels ([386288e](https://github.com/biosimulations/biosimulations/commit/386288ef37b626280143b478e76e3dfde1d05275))
+* adjusted import ordering to ensure cascading styles ([c2de8af](https://github.com/biosimulations/biosimulations/commit/c2de8af6d1f7b65e4c188e760f4f48bf1a3855c3))
+* adjusted imports ([addc082](https://github.com/biosimulations/biosimulations/commit/addc0827dc18ce688d42916c14601b41f776170d))
+* adjusted nav button dropdown behavior ([9834560](https://github.com/biosimulations/biosimulations/commit/98345609d8dc6531f20e81067025aa78862350d6))
+* adjusted nav buttons border and css behavior for more reactive design ([92b730c](https://github.com/biosimulations/biosimulations/commit/92b730cc0241fcd0a4f7af96579ab94604219b5b))
+* adjustments to appease codefactor ([02e853f](https://github.com/biosimulations/biosimulations/commit/02e853f399d638efb126dd73b2589c24f21a4e9b))
+* disable nx parallel lint build test targets in CI ([4a08204](https://github.com/biosimulations/biosimulations/commit/4a08204b18e6f578119d08ffdbe86f7d2bb200d2))
+* expand single css file budget to 8kb ([804cb62](https://github.com/biosimulations/biosimulations/commit/804cb62e3bbff8586fa5c69754346fa5037297f0))
+* expanded css budgets in projex project.json ([b59b4e3](https://github.com/biosimulations/biosimulations/commit/b59b4e3b4b29479a7bff40df342adc0f54613b0b))
+* remove .ngcc_lock_file in node_modules and set nx parallel to false ([3d5dfdc](https://github.com/biosimulations/biosimulations/commit/3d5dfdc00a46944cc5cf218b4698151672e5680e))
+* removed commented out code and added modifiers ([dd0278e](https://github.com/biosimulations/biosimulations/commit/dd0278ed75f16a4e736a5b1b420d598c352cff90))
+* removed commented out code to appease sonarcloud ([34e0880](https://github.com/biosimulations/biosimulations/commit/34e08802161aa8a69292ad92a3928e16442ad3e9))
+* removed dropdown triggerfrom biosimdb and runsim nav buttons ([fc51dd5](https://github.com/biosimulations/biosimulations/commit/fc51dd5da28788ffad1bff178e8bc0b265a4770f))
+* removed duplicate project details expansion from metadata and migrated into view ([18de3e5](https://github.com/biosimulations/biosimulations/commit/18de3e5e4570cd32ad5aa92c0d12e839db2d7fe5))
+* removed duplicate spinner container and corresponding ng-container ([115aa8a](https://github.com/biosimulations/biosimulations/commit/115aa8af9d30c9e39355000de75fdf262abac825))
+* removed unused css declaration in view component ([a762191](https://github.com/biosimulations/biosimulations/commit/a76219176b66bba05faf2afaddfee167e50287e5))
+* synched paginator to data pull ([026ae34](https://github.com/biosimulations/biosimulations/commit/026ae34ffa908b0321992931214fc69650726061))
+
+
+### Features
+
+* added circular border and reactive color scheme to download button in sim profile files tab ([e9781a0](https://github.com/biosimulations/biosimulations/commit/e9781a01b2f72f0bcf92ef8b0f71070c7e9d0c98))
+* added project details to right-col mat-tab-group in simulation page ([3a38ec8](https://github.com/biosimulations/biosimulations/commit/3a38ec83cfdb0733b1478890d693e31f00d3324b))
+* added project files expansion ([7f13957](https://github.com/biosimulations/biosimulations/commit/7f13957030220110c2ff179ae77bb8a9a80e4875))
+* added selectable tabs for files and viz ([e24b35d](https://github.com/biosimulations/biosimulations/commit/e24b35d7cff2dbcb106291cff73bfce004c99756))
+* **ui:** added hovering link color ([12cbbb9](https://github.com/biosimulations/biosimulations/commit/12cbbb9fa34791ba2a995c5cbe06201fd87b5abc))
+
 ## [9.30.1](https://github.com/biosimulations/biosimulations/compare/v9.30.0...v9.30.1) (2023-06-07)
 
 
