@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Path, ProjectMetadata } from '@biosimulations/datamodel-simulation-runs';
 import { MatDialog } from '@angular/material/dialog';
 import { MetadataDialogComponent } from '../metadata-dialog/metadata-dialog.component';
@@ -7,6 +8,25 @@ import { MetadataDialogComponent } from '../metadata-dialog/metadata-dialog.comp
   selector: 'biosimulations-project-files',
   templateUrl: './files.component.html',
   styleUrls: ['./files.component.scss'],
+  animations: [
+    trigger('hover', [
+      state(
+        'default',
+        style({
+          transform: 'scale(1)',
+          'box-shadow': 'none',
+        }),
+      ),
+      state(
+        'hovered',
+        style({
+          transform: 'scale(1.1)',
+          'box-shadow': '3px 3px 5px rgba(0,0,0,0.3)',
+        }),
+      ),
+      transition('default <=> hovered', animate('200ms')),
+    ]),
+  ],
 })
 export class FilesComponent {
   @Input()
@@ -17,6 +37,8 @@ export class FilesComponent {
 
   @Input()
   usesMetadata = false;
+
+  cardState = 'default';
 
   constructor(private dialog: MatDialog) {}
 
@@ -31,7 +53,6 @@ export class FilesComponent {
     const element = document.createElement('span');
     element.style.visibility = 'hidden';
     element.style.position = 'fixed';
-    element.style.whiteSpace = 'nowrap';
     element.style.pointerEvents = 'none';
     element.textContent = text;
     document.body.appendChild(element);

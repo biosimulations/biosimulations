@@ -8,22 +8,35 @@
   fxLayoutGap.lt-lg="1rem">
 
   <!-- Simulation Project Header (Title) -->
-  <mat-expansion-panel expanded="false" disabled="true" hideToggle="true">
-    <mat-expansion-panel-header class="project-header">
-      {{ project.title }}
-    </mat-expansion-panel-header>
-  </mat-expansion-panel>
+  <div>
+    <mat-card expanded="false" disabled="true" hideToggle="true">
+      <mat-card-header class="project-header">
+        <span>
+          {{ project.title }}
+        </span>
+      </mat-card-header>
+    </mat-card>
+  </div>
 
   <!-- Begin thumbnails Display-->
   <div class="thumbnails-column" *ngIf="project" fxFlex fxLayout="column">
     <!-- Begin summary/text data-->
     <div *ngIf="project" fxGrid>
       <!-- Begin Image Container -->
-      <mat-expansion-panel class="image-container" expanded="true" disabled="true" hideToggle="true">
-        <ng-container *ngIf="project?.thumbnails?.length">
-          <biosimulations-carousel [images]="project.thumbnails"> </biosimulations-carousel>
-        </ng-container>
-      </mat-expansion-panel>
+      <mat-card class="hover-enlarge-img" expanded="true" disabled="true" hideToggle="true">
+        <mat-card-content>
+          <ng-container *ngIf="project?.thumbnails?.length; else noThumbnail">
+            <div class="image-container">
+              <biosimulations-carousel [images]="project.thumbnails"></biosimulations-carousel>
+            </div>
+          </ng-container>
+          <ng-template #noThumbnail>
+            <div class="default-image-container">
+              <img [src]="noThumbnailImageUrl">
+            </div>
+          </ng-template>
+        </mat-card-content>
+      </mat-card>
       <!-- End Image Container -->
     </div>
   </div>

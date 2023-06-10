@@ -23,7 +23,7 @@
           <mat-tab-group preserveContent="true">
 
             <!-- Start Visualizations Tab -->
-            <mat-tab class="right-col-tab" label="Figures">
+            <mat-tab class="right-col-tab figures" label="Figures">
               <mat-card class="plots-card">
                 <mat-grid-list
                   *ngFor="let plotVisualization of plotVisualizations$ | async"
@@ -51,10 +51,10 @@
             <!-- End Visualizations Tab -->
 
             <!-- Begin Project files Tab -->
-            <mat-tab class="right-col-tab" label="Download">
+            <mat-tab class="right-col-tab files" label="Download">
               <mat-card class="files-card">
                 <mat-card-content>
-                  <mat-expansion-panel class="files-item" expanded="true">
+                  <mat-expansion-panel class="files-item omex" expanded="true">
                     <mat-expansion-panel-header class="item-expansion-header">Simulation specification (COMBINE/OMEX archive)</mat-expansion-panel-header>
                     <mat-card-content>
                       <div
@@ -65,7 +65,7 @@
                     </mat-card-content>
                   </mat-expansion-panel>
 
-                  <mat-expansion-panel class="files-item">
+                  <mat-expansion-panel class="files-item specContent">
                     <mat-expansion-panel-header class="item-expansion-header">Contents of simulation specification</mat-expansion-panel-header>
                     <mat-card-content>
                       <div
@@ -76,7 +76,7 @@
                     </mat-card-content>
                   </mat-expansion-panel>
 
-                  <mat-expansion-panel class="files-item">
+                  <mat-expansion-panel class="files-item outputs">
                     <mat-expansion-panel-header class="item-expansion-header">Simulation outputs</mat-expansion-panel-header>
                     <mat-card-content>
                       <div *ngIf="outputs$ | async as files">
@@ -91,7 +91,7 @@
             <!-- End Project Files Tab -->
 
             <!-- Begin Project Details Tab -->
-            <mat-tab class="right-col-tab" label="Details">
+            <mat-tab class="right-col-tab details" label="Details">
               <mat-card class="details-card">
                 <mat-card-content>
                   <!-- Start Details Display -->

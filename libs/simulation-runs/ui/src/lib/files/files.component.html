@@ -19,13 +19,22 @@
       <div class="cell main"></div>
       <div class="cell metadata">
         <ng-container *ngIf="usesMetadata">
-          <button
-            mat-icon-button
-            *ngIf="path?.metadata as metadata"
-            (click)="openMetadata(metadata)"
-            class="biosimulations-button text">
-            <biosimulations-icon icon="info"></biosimulations-icon>
-          </button>
+          <mat-card
+            class="expanded metadata"
+            expanded="true"
+            disabled="true"
+            hideToggle="true"
+            [@hover]="cardState"
+            (mouseenter)="cardState='hovered'"
+            (mouseleave)="cardState='default'">
+            <button
+              mat-icon-button
+              *ngIf="path?.metadata as metadata"
+              (click)="openMetadata(metadata)"
+              class="biosimulations-button text">
+              <biosimulations-icon icon="info"></biosimulations-icon>
+            </button>
+          </mat-card>
         </ng-container>
       </div>
       <div class="cell download"></div>

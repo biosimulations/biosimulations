@@ -135,6 +135,23 @@
   }
 }
 
+.hover-enlarge-element {
+  transition: 0.25s ease-in-out;
+}
+
+.hover-enlarge-img {
+  transition: all 0.25s ease-in-out;
+  z-index: 1000;
+}
+
+.hover-enlarge-element:hover {
+  transform: scale(1.1);
+}
+
+.hover-enlarge-img:hover {
+  transform: scale(1.1) !important;
+}
+
 .summary-card {
   display: flex;
   flex-direction: column;
@@ -174,6 +191,15 @@
 }
 
 .image-container {
+  display: flex;
+  width: 100%;
+  height: fit-content;
+  object-fit: cover;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.default-image-container {
   display: flex;
   width: 100%;
   height: fit-content;
