@@ -179,6 +179,17 @@
             </mat-tab>
           </mat-tab-group>
         </mat-card-content>
+        <mat-card-actions class="rerun-sim-button-container" align="end">
+          <button
+            mat-raised-button
+            class="rerun-button"
+            (click)="promptReRun()">
+            <div style="display: inline-block;">
+              <span>Customize & ReRun Simulation</span>
+              <biosimulations-icon icon="redo" style="display: none; padding-left: 10px"></biosimulations-icon>
+            </div>
+          </button>
+        </mat-card-actions>
       </mat-card>
       <!-- End Right Column -->
     </div>

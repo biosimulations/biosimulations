@@ -98,6 +98,24 @@ biosimulations-tab-page ::ng-deep .icon-list {
   padding-top: 2rem;
 }
 
+.rerun-sim-button-container {
+  display: grid;
+  padding-top: 5rem;
+  padding-bottom: 0.5rem;
+}
+
+.rerun-button {
+  border: 0.5px solid green;
+  border-radius: 3px;
+  background-color: green;
+  color: white;
+
+  &:hover {
+    background-color: #1479ed;
+    border: 1px solid #1479ed;
+  }
+}
+
 .plots-card {
   padding: 2rem;
 }

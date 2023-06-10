@@ -1,4 +1,5 @@
 import { Component, Injectable, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { MatTabChangeEvent } from '@angular/material/tabs';
@@ -72,6 +73,7 @@ export class ViewComponent implements OnInit {
     private projService: ProjectService,
     private route: ActivatedRoute,
     private router: Router,
+    private snackBar: MatSnackBar,
   ) {}
 
   public ngOnInit(): void {
@@ -198,11 +200,25 @@ export class ViewComponent implements OnInit {
       this.isPanelExpanded = true;
     }
   }
+
+  public promptReRun(data = null): void {
+    this.snackBar.open('This Feature is Coming Soon!', 'Okay', {
+      duration: 6000,
+      verticalPosition: 'top',
+      data: data,
+    });
+  }
 }
 
 @Injectable()
 export class VizService extends ViewComponent {
-  public constructor(service: ViewService, projService: ProjectService, route: ActivatedRoute, router: Router) {
-    super(service, projService, route, router);
+  public constructor(
+    service: ViewService,
+    projService: ProjectService,
+    route: ActivatedRoute,
+    router: Router,
+    snack: MatSnackBar,
+  ) {
+    super(service, projService, route, router, snack);
   }
 }
