@@ -6,6 +6,7 @@
   [newsVersion]="1"
   [showNews]="false"
   [healthy]="healthy$ | async">
+  <!-- Start Hero Banner -->
   <biosimulations-topbar-menu>
     <biosimulations-hover-open-menu
       [link]="'/runs'"
@@ -21,13 +22,6 @@
       [link]="'/runs/new'"
       [disabled]="true">
       <biosimulations-topbar-menu-item heading="Run a simulation" icon="simulator" id="trigger">
-      </biosimulations-topbar-menu-item>
-    </biosimulations-hover-open-menu>
-
-    <biosimulations-hover-open-menu
-      [link]="'/runs/new'"
-      [disabled]="true">
-      <biosimulations-topbar-menu-item heading="Your simulation runs" icon="simulation" id="trigger">
       </biosimulations-topbar-menu-item>
     </biosimulations-hover-open-menu>
 
@@ -202,8 +196,26 @@
         </biosimulations-dropdown-menu-item>
       </ng-container>
     </biosimulations-hover-open-menu>
-  </biosimulations-topbar-menu>
 
+    <biosimulations-hover-open-menu
+      [link]="config.simulatorsAppBrowseSimulatorsUrl"
+      style="position: fixed; right: 45px; top: 1; overflow-y: show; -webkit-overflow-scrolling: touch; padding-top: 2.3px">
+      <biosimulations-topbar-menu-item heading="BioSimulators" icon="link" id="trigger">
+      </biosimulations-topbar-menu-item>
+      <ng-container id="items">
+        <biosimulations-dropdown-menu-item
+          heading="Browse simulator tools"
+          icon="simulators"
+          href="http://biosimulators.org/simulators">
+        </biosimulations-dropdown-menu-item>
+      </ng-container>
+    </biosimulations-hover-open-menu>
+  </biosimulations-topbar-menu>
+  <!-- End Hero Banner -->
+
+
+
+  <!-- Begin Sidenav Drawer Container -->
   <ng-container id="sidenav-menu">
     <biosimulations-navigation-item
       heading="Try simulation runs"
@@ -367,6 +379,7 @@
       </biosimulations-navigation-subitem>
     </biosimulations-navigation-item>
   </ng-container>
+  <!-- End Sidenav drawer container -->
 
   <ng-container id="news"></ng-container>
 
