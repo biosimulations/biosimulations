@@ -92,8 +92,8 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
       const widthModifier = 1.5; */
       this.layout.autosize = true;
       this.layout.legend = {
-        x: 0.06,
-        y: 1.2,
+        x: 0.0,
+        y: 1.25,
         orientation: 'h',
         traceorder: 'normal',
         font: {
@@ -101,7 +101,7 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
           size: 12,
           color: '#000',
         },
-        bgcolor: '#E2E2E2',
+        bgcolor: '#DCDCDC',
         bordercolor: '#FFFFFF',
         borderwidth: 2,
       };
