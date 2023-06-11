@@ -8,6 +8,12 @@ import { Visualization } from '@biosimulations/datamodel-simulation-runs';
 })
 export class RenderVisualizationComponent {
   @Input()
+  plotTitle!: any;
+
+  @Input()
+  projectTitle!: any;
+
+  @Input()
   visualization!: Visualization;
 
   public constructor() {}

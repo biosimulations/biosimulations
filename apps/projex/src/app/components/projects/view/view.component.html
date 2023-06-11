@@ -41,7 +41,10 @@
                     </mat-grid-tile-header>
                     <div class="plotparent">
                       <div class="figure-card-placeholder" *cdkDragPlaceholder></div>
-                      <biosimulations-project-visualization [visualization]="plotVisualization">
+                      <biosimulations-project-visualization
+                        [visualization]="plotVisualization"
+                        [plotTitle]="plotVisualization.name"
+                        [projectTitle]="projectMetadata.title">
                       </biosimulations-project-visualization>
                     </div>
                   </mat-grid-tile>

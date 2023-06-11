@@ -11,7 +11,10 @@ import { HtmlSnackBarComponent } from '@biosimulations/shared/ui';
 })
 export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
   @Input()
-  public saveTitle?: string = '';
+  public plotTitle: string = '';
+
+  @Input()
+  public projectTitle: string = '';
 
   @Input()
   public plotNum?: number;
@@ -25,15 +28,42 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
     editable: false,
     toImageButtonOptions: {
       format: 'svg', // one of png, svg, jpeg, webp
-      filename: 'biosim-db-' + this.saveTitle,
+      filename: this.projectTitle + '-' + this.plotTitle,
       height: 500,
       width: 700,
       scale: 1, // Multiply title/legend/axis/canvas sizes by this factor
     },
-    modeBarButtonsToRemove: [],
+    modeBarButtonsToRemove: [], //['zoomIn2d', 'zoomOut2d', 'zoom2d'],
+    displayLogo: false,
     showEditInChartStudio: true,
     plotlyServerURL: 'https://chart-studio.plotly.com',
     responsive: true,
+    titlefont: {
+      size: 24,
+      color: '#7f7f7f',
+    },
+    xaxis: {
+      title: 'X Axis',
+      titlefont: {
+        size: 18,
+        color: '#7f7f7f',
+      },
+      tickfont: {
+        size: 14,
+        color: 'black',
+      },
+    },
+    yaxis: {
+      title: 'Y Axis',
+      titlefont: {
+        size: 18,
+        color: '#7f7f7f',
+      },
+      tickfont: {
+        size: 14,
+        color: 'black',
+      },
+    },
   };
   public errors: string[] = [];
   private resizeDebounce!: debounce<() => void>;
@@ -49,6 +79,7 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
       this.loading = false;
       this.data = value.data;
       this.layout = value.layout;
+      this.layout.title = this.plotTitle;
       this.errors = [];
       this.setLayout();
 
@@ -92,18 +123,19 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
       const widthModifier = 1.5; */
       this.layout.autosize = true;
       this.layout.legend = {
-        x: 0.0,
-        y: 1.25,
-        orientation: 'h',
+        x: 0.7,
+        y: 1.5,
+        orientation: 'v',
         traceorder: 'normal',
         font: {
           family: 'sans-serif',
-          size: 12,
+          size: 9,
           color: '#000',
         },
+        display: 'grid',
         bgcolor: '#DCDCDC',
         bordercolor: '#FFFFFF',
-        borderwidth: 2,
+        borderwidth: 1,
       };
     }
   }
