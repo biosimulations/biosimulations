@@ -92,9 +92,10 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
       const widthModifier = 1.5;
       this.layout.autosize = true;
       this.layout.legend = {
-        x: 0.05,
-        y: 1.5,
+        x: 0.06,
+        y: 1.2,
         orientation: 'h',
+        title: 'Legend',
       };
     }
   }
