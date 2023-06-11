@@ -13,6 +13,9 @@
   display: flex;
   flex-direction: row;
   height: auto;
+}
+
+.display-data:not(.plotparent) {
   overflow-x: hidden;
 }
 
@@ -23,9 +26,9 @@
 
 .plotparent {
   width: auto;
-  height: 90%;
+  height: auto;
   align-items: stretch;
-  padding-left: calc(2rem + 34px);
+  //padding-left: calc(2rem + 20px);
   display: flex;
 }
 
@@ -129,7 +132,7 @@ biosimulations-tab-page ::ng-deep .icon-list {
 }
 
 .figure-card {
-  width: auto;
+  width: fit-content;
   height: auto;
   border-bottom: solid 1px #ccc;
   color: rgba(0, 0, 0, 0.87);
