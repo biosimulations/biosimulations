@@ -87,15 +87,23 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
   private setLayout(): void {
     this.visible = this.hostElement.nativeElement.offsetParent != null;
     if (this.visible && this.layout) {
-      const rect = this.hostElement.nativeElement.parentElement.getBoundingClientRect();
+      /* const rect = this.hostElement.nativeElement.parentElement.getBoundingClientRect();
       const heightModifier = 1.005;
-      const widthModifier = 1.5;
+      const widthModifier = 1.5; */
       this.layout.autosize = true;
       this.layout.legend = {
         x: 0.06,
         y: 1.2,
         orientation: 'h',
-        title: 'Legend',
+        traceorder: 'normal',
+        font: {
+          family: 'sans-serif',
+          size: 12,
+          color: '#000',
+        },
+        bgcolor: '#E2E2E2',
+        bordercolor: '#FFFFFF',
+        borderwidth: 2,
       };
     }
   }
