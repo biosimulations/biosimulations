@@ -38,10 +38,10 @@ type AxisLayout = {
 })
 export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
   @Input()
-  public plotTitle: string = '';
+  public plotTitle = '';
 
   @Input()
-  public projectTitle: string = '';
+  public projectTitle = '';
 
   @Input()
   public plotNum?: number;
