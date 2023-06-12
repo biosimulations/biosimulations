@@ -1,5 +1,5 @@
 import { Component, Injectable, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { MatTabChangeEvent } from '@angular/material/tabs';
@@ -61,12 +61,12 @@ export class ViewComponent implements OnInit {
   public isPanelExpanded = true;
   public themeColor = 'accent';
 
+  public jsonLdData$!: Observable<WithContext<Dataset>>;
+
+  public cards: any[] = [];
+  public draggedIndex = -1;
+
   private id!: string;
-
-  jsonLdData$!: Observable<WithContext<Dataset>>;
-
-  cards: any[] = [];
-  draggedIndex = -1;
 
   public constructor(
     private service: ViewService,
@@ -201,12 +201,24 @@ export class ViewComponent implements OnInit {
     }
   }
 
-  public promptReRun(data = null): void {
-    this.snackBar.open('This Feature is Coming Soon!', 'Okay', {
-      duration: 6000,
-      verticalPosition: 'top',
-      data: data,
-    });
+  private setupSnackbarConfig(cssClass: string[], data: any | null, dur: number): MatSnackBarConfig {
+    const config = new MatSnackBarConfig();
+    config.panelClass = cssClass;
+    config.duration = dur;
+    config.verticalPosition = 'top';
+    config.data = data;
+    return config;
+  }
+
+  public promptReRun(
+    data = null,
+    message = 'Stay tuned! This exciting new feature is currently under development and coming soon!',
+    confirmActionMessage = 'Close',
+  ): void {
+    const cssClassName = ['coming-soon-snackbar'];
+    const dur = 6000;
+    const snackbarConfig = this.setupSnackbarConfig(cssClassName, data, dur);
+    this.snackBar.open(message, confirmActionMessage, snackbarConfig);
   }
 }
 

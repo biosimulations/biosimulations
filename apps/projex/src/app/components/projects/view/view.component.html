@@ -20,10 +20,23 @@
       <!-- Start Right Column -->
       <mat-card class="viz-card">
         <mat-card-content class="viz-card-content">
-
+          <!-- Start ReRun Simulation Button -->
+          <mat-card-header class="viz-card-header">
+            <mat-card-actions class="rerun-sim-button-container">
+              <button
+                mat-raised-button
+                class="rerun-button"
+                (click)="promptReRun()">
+                <div style="display: inline-block;">
+                  <span>Customize & ReRun Simulation</span>
+                  <biosimulations-icon class="rerun-icon" icon="redo"></biosimulations-icon>
+                </div>
+              </button>
+            </mat-card-actions>
+          </mat-card-header>
+          <!-- End ReRun Simulation Button -->
 
           <mat-tab-group preserveContent="true">
-
             <!-- Start Visualizations Tab -->
             <mat-tab class="right-col-tab figures" label="Figures">
               <mat-card class="plots-card">

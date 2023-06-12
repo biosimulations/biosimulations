@@ -78,23 +78,7 @@ biosimulations-tab-page ::ng-deep .icon-list {
 }
 
 .viz-card-header {
-  background-color: #ff9800;
-  font-weight: 500;
-  color: white;
-  padding-top: 0.5rem;
-  font-size: medium;
-  padding-bottom: 0.5rem;
-  border-top: 2px;
-  border-radius: 1px;
-  height: 100%;
-
-  &:hover {
-    background-color: #ff9800 !important;
-  }
-
-  &.mat-expansion-panel-header.mat-expanded {
-    background-color: #ff9800 !important;
-  }
+  height: auto;
 }
 
 .viz-card-content {
@@ -104,19 +88,19 @@ biosimulations-tab-page ::ng-deep .icon-list {
 
 .rerun-sim-button-container {
   display: grid;
-  padding-top: 5rem;
-  padding-bottom: 0.5rem;
+  padding-bottom: 6rem;
 }
 
 .rerun-button {
   border: 0.5px solid green;
-  border-radius: 3px;
+  border-radius: 4px;
   background-color: green;
+  font-weight: normal;
   color: white;
 
   &:hover {
-    background-color: #1479ed;
-    border: 1px solid #1479ed;
+    background-color: #951ed9;
+    border: 1px solid #951ed9;
   }
 }
 
@@ -126,6 +110,11 @@ biosimulations-tab-page ::ng-deep .icon-list {
   &:hover {
     color: #ff9800;
   }
+}
+
+.coming-soon-snackbar {
+  background-color: #ff4081;
+  color: white;
 }
 
 .plots-card {
