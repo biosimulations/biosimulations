@@ -23,16 +23,20 @@
       <!-- Begin Image Container -->
       <mat-card class="hover-enlarge-img" expanded="true" disabled="true" hideToggle="true">
         <mat-card-content>
-          <ng-container *ngIf="project?.thumbnails?.length; else noThumbnail">
-            <div class="image-container">
-              <biosimulations-carousel [images]="project.thumbnails"></biosimulations-carousel>
+          <ng-container *ngIf="project?.thumbnails?.length">
+            <div *ngIf="project.thumbnails; else noThumbnail">
+              <div class="image-container">
+                <biosimulations-carousel [images]="project.thumbnails"></biosimulations-carousel>
+              </div>
             </div>
+            <!-- Case: No Thumbnail Image -->
+            <ng-template #noThumbnail>
+              <div class="default-image-container">
+                <img [src]="noThumbnailImageUrl">
+              </div>
+            </ng-template>
           </ng-container>
-          <ng-template #noThumbnail>
-            <div class="default-image-container">
-              <img [src]="noThumbnailImageUrl">
-            </div>
-          </ng-template>
+
         </mat-card-content>
       </mat-card>
       <!-- End Image Container -->

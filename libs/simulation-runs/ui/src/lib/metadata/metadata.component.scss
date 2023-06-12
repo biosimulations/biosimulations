@@ -117,20 +117,20 @@
 }
 
 .header-container {
-  display: flex;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .project-header {
-  background-color: #1479ed;
+  height: 100%;
+  width: 100;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   font-weight: 700;
   font-size: larger;
   color: white;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  border-top: 2px;
-  border-radius: 1px;
-  height: 100%;
-  width: 100%;
+  background-color: #1479ed;
 
   &:hover {
     background-color: #1479ed !important;

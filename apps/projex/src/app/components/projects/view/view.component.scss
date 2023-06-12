@@ -91,15 +91,17 @@ biosimulations-tab-page ::ng-deep .icon-list {
 }
 
 .rerun-button {
-  border: 0.5px solid green;
+  border: 0.5px solid #ff9800;
   border-radius: 4px;
-  background-color: green;
+  background-color: #2196f3;
   font-weight: normal;
   color: white;
+  transition: ease-in-out;
 
   &:hover {
-    background-color: #951ed9;
-    border: 1px solid #951ed9;
+    transition-duration: 0.2s;
+    background-color: green;
+    border: 3px solid #951ed9;
   }
 }
 
