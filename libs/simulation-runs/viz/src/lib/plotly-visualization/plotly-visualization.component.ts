@@ -4,6 +4,31 @@ import { debounce } from 'throttle-debounce';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HtmlSnackBarComponent } from '@biosimulations/shared/ui';
 
+type PlotLegendLayout = {
+  x: number;
+  y: number;
+  orientation: string;
+  traceorder: string;
+  font: {
+    family: string;
+    size: number;
+    color: string;
+  };
+  display: string;
+  bgcolor: string;
+  bordercolor: string;
+  borderwidth: number;
+};
+type TickfontLayout = {
+  size: number;
+  color: string;
+};
+type AxisLayout = {
+  size: number;
+  color: string;
+  tickfont: TickfontLayout;
+};
+
 @Component({
   selector: 'biosimulations-plotly-visualization',
   templateUrl: './plotly-visualization.component.html',
@@ -11,10 +36,10 @@ import { HtmlSnackBarComponent } from '@biosimulations/shared/ui';
 })
 export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
   @Input()
-  public plotTitle = '';
+  public plotTitle: string = '';
 
   @Input()
-  public projectTitle = '';
+  public projectTitle: string = '';
 
   @Input()
   public plotNum?: number;
@@ -38,32 +63,6 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
     showEditInChartStudio: true,
     plotlyServerURL: 'https://chart-studio.plotly.com',
     responsive: true,
-    titlefont: {
-      size: 24,
-      color: '#7f7f7f',
-    },
-    xaxis: {
-      title: 'X Axis',
-      titlefont: {
-        size: 18,
-        color: '#7f7f7f',
-      },
-      tickfont: {
-        size: 14,
-        color: 'black',
-      },
-    },
-    yaxis: {
-      title: 'Y Axis',
-      titlefont: {
-        size: 18,
-        color: '#7f7f7f',
-      },
-      tickfont: {
-        size: 14,
-        color: 'black',
-      },
-    },
   };
   public errors: string[] = [];
   private resizeDebounce!: debounce<() => void>;
@@ -79,7 +78,9 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
       this.loading = false;
       this.data = value.data;
       this.layout = value.layout;
-      this.layout.title = this.plotTitle;
+      //this.layout.title = this.plotTitle;
+      const plotSaveName = this.projectTitle + '_' + this.plotTitle;
+      this.config.toImageButtonOptions.filename = plotSaveName;
       this.errors = [];
       this.setLayout();
 
@@ -115,6 +116,49 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
     this.resizeDebounce?.cancel();
   }
 
+  private setLegendLayout(
+    x = 0.0,
+    y = 1.5,
+    orientation = 'v',
+    traceorder = 'normal',
+    fontFamily = 'sans-serif',
+    fontSize = 9,
+    fontColor = '#000',
+    display = 'grid',
+    bgcolor = '#DCDCDC',
+    bordercolor = '#FFFFFF',
+    borderwidth = 1,
+  ): PlotLegendLayout {
+    const layout: PlotLegendLayout = {
+      x: x,
+      y: y,
+      orientation: orientation,
+      traceorder: traceorder,
+      font: {
+        family: fontFamily,
+        size: fontSize,
+        color: fontColor,
+      },
+      display: display,
+      bgcolor: bgcolor,
+      bordercolor: bordercolor,
+      borderwidth: borderwidth,
+    };
+    return layout;
+  }
+
+  private setAxisLayout(fontSize = 18, fontColor = '#7f7f7f', tickFontSize = 14, tickFontColor = 'black'): AxisLayout {
+    const layout: AxisLayout = {
+      size: fontSize,
+      color: fontColor,
+      tickfont: {
+        size: tickFontSize,
+        color: tickFontColor,
+      },
+    };
+    return layout;
+  }
+
   private setLayout(): void {
     this.visible = this.hostElement.nativeElement.offsetParent != null;
     if (this.visible && this.layout) {
@@ -122,21 +166,9 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
       const heightModifier = 1.005;
       const widthModifier = 1.5; */
       this.layout.autosize = true;
-      this.layout.legend = {
-        x: 0.7,
-        y: 1.5,
-        orientation: 'v',
-        traceorder: 'normal',
-        font: {
-          family: 'sans-serif',
-          size: 9,
-          color: '#000',
-        },
-        display: 'grid',
-        bgcolor: '#DCDCDC',
-        bordercolor: '#FFFFFF',
-        borderwidth: 1,
-      };
+      this.layout.legend = this.setLegendLayout();
+      this.layout.xaxis = this.setAxisLayout();
+      this.layout.yaxis = this.setAxisLayout();
     }
   }
 }
