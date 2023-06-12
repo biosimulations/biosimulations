@@ -1,6 +1,6 @@
 .container {
-  display: flex; /* makes the container a flex container */
-  flex-direction: column; /* children are stacked vertically */
-  justify-content: space-between; /* space is distributed evenly between children */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: stretch;
 }

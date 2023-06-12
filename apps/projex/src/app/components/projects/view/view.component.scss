@@ -70,8 +70,7 @@ biosimulations-tab-page ::ng-deep .icon-list {
   display: block;
   background: white;
   border-radius: 4px;
-  overflow-y: hidden;
-  overflow-x: visible;
+  overflow: hidden;
   justify-content: center;
   align-items: center;
   padding-top: 1rem;

@@ -3,6 +3,7 @@
 @import 'biosimulations-typography';
 
 .metadata {
+  overflow: hidden;
   .thumbnails-column {
     display: flex;
     //justify-content: center;
@@ -199,7 +200,7 @@
   display: flex;
   width: 100%;
   height: fit-content;
-  object-fit: cover;
+  overflow: hidden;
   flex-direction: row;
   justify-content: center;
 }
@@ -208,7 +209,6 @@
   display: flex;
   width: 100%;
   height: fit-content;
-  object-fit: cover;
   flex-direction: row;
   justify-content: center;
 }
