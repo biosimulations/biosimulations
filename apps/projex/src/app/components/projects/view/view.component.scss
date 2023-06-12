@@ -28,7 +28,7 @@
   width: auto;
   height: auto;
   align-items: stretch;
-  padding-left: calc(5rem + 50px);
+  //padding-left: 2rem;
   display: flex;
 }
 
@@ -70,7 +70,8 @@ biosimulations-tab-page ::ng-deep .icon-list {
   display: block;
   background: white;
   border-radius: 4px;
-  overflow: hidden;
+  overflow-y: hidden;
+  overflow-x: visible;
   justify-content: center;
   align-items: center;
   padding-top: 1rem;

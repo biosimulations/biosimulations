@@ -19,10 +19,12 @@ type PlotLegendLayout = {
   bordercolor: string;
   borderwidth: number;
 };
+
 type TickfontLayout = {
   size: number;
   color: string;
 };
+
 type AxisLayout = {
   size: number;
   color: string;
@@ -53,12 +55,11 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
     editable: false,
     toImageButtonOptions: {
       format: 'svg', // one of png, svg, jpeg, webp
-      filename: this.projectTitle + '-' + this.plotTitle,
       height: 500,
       width: 700,
       scale: 1, // Multiply title/legend/axis/canvas sizes by this factor
     },
-    modeBarButtonsToRemove: [], //['zoomIn2d', 'zoomOut2d', 'zoom2d'],
+    modeBarButtonsToRemove: [],
     displayLogo: false,
     showEditInChartStudio: true,
     plotlyServerURL: 'https://chart-studio.plotly.com',
@@ -78,10 +79,13 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
       this.loading = false;
       this.data = value.data;
       this.layout = value.layout;
-      //this.layout.title = this.plotTitle;
       const plotSaveName = this.projectTitle + '_' + this.plotTitle;
       this.config.toImageButtonOptions.filename = plotSaveName;
       this.errors = [];
+      for (let i = 0; i <= value.data.length; i++) {
+        const d = this.getOutputArray(value, i);
+        console.log(i, d);
+      }
       this.setLayout();
 
       if (value?.dataErrors?.length) {
@@ -114,6 +118,10 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
 
   public ngOnDestroy() {
     this.resizeDebounce?.cancel();
+  }
+
+  public getOutputArray(value: PlotlyDataLayout | any, i = 0): number[] {
+    return value.data[i];
   }
 
   private setLegendLayout(
@@ -162,13 +170,10 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
   private setLayout(): void {
     this.visible = this.hostElement.nativeElement.offsetParent != null;
     if (this.visible && this.layout) {
-      /* const rect = this.hostElement.nativeElement.parentElement.getBoundingClientRect();
-      const heightModifier = 1.005;
-      const widthModifier = 1.5; */
-      this.layout.autosize = true;
+      //this.layout.autosize = true;
       this.layout.legend = this.setLegendLayout();
-      this.layout.xaxis = this.setAxisLayout();
-      this.layout.yaxis = this.setAxisLayout();
+      //this.layout.xaxis = this.setAxisLayout();
+      //this.layout.yaxis = this.setAxisLayout();
     }
   }
 }
