@@ -132,6 +132,7 @@
 /simulators/vcell/7.5.0.28
 /simulators/vcell/7.5.0.30
 /simulators/vcell/7.5.0.34
+/simulators/vcell/7.5.0.36
 /simulators/winbestkit
 /simulators/winbestkit/2.0.9
 /simulators/xpp
