@@ -13,6 +13,9 @@
   display: flex;
   flex-direction: row;
   height: auto;
+}
+
+.display-data:not(.plotparent) {
   overflow-x: hidden;
 }
 
@@ -23,9 +26,9 @@
 
 .plotparent {
   width: auto;
-  height: 90%;
+  height: auto;
   align-items: stretch;
-  padding-left: calc(2rem + 34px);
+  //padding-left: 2rem;
   display: flex;
 }
 
@@ -74,23 +77,7 @@ biosimulations-tab-page ::ng-deep .icon-list {
 }
 
 .viz-card-header {
-  background-color: #ff9800;
-  font-weight: 500;
-  color: white;
-  padding-top: 0.5rem;
-  font-size: medium;
-  padding-bottom: 0.5rem;
-  border-top: 2px;
-  border-radius: 1px;
-  height: 100%;
-
-  &:hover {
-    background-color: #ff9800 !important;
-  }
-
-  &.mat-expansion-panel-header.mat-expanded {
-    background-color: #ff9800 !important;
-  }
+  height: auto;
 }
 
 .viz-card-content {
@@ -98,12 +85,45 @@ biosimulations-tab-page ::ng-deep .icon-list {
   padding-top: 2rem;
 }
 
+.rerun-sim-button-container {
+  display: grid;
+  padding-bottom: 6rem;
+}
+
+.rerun-button {
+  border: 0.5px solid #ff9800;
+  border-radius: 4px;
+  background-color: #2196f3;
+  font-weight: normal;
+  color: white;
+  transition: ease-in-out;
+
+  &:hover {
+    transition-duration: 0.2s;
+    background-color: green;
+    border: 3px solid #951ed9;
+  }
+}
+
+.rerun-icon {
+  padding-left: 18px;
+
+  &:hover {
+    color: #ff9800;
+  }
+}
+
+.coming-soon-snackbar {
+  background-color: #ff4081;
+  color: white;
+}
+
 .plots-card {
   padding: 2rem;
 }
 
 .figure-card {
-  width: auto;
+  width: fit-content;
   height: auto;
   border-bottom: solid 1px #ccc;
   color: rgba(0, 0, 0, 0.87);

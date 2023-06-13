@@ -1,4 +1,5 @@
-import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ScrollService } from '@biosimulations/shared/angular';
 import { ConfigService } from '@biosimulations/config/angular';
 import { HealthService } from '@biosimulations/angular-api-client';
@@ -11,8 +12,6 @@ import { Observable } from 'rxjs';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, AfterViewInit {
-  @Input()
-  disableHover = true;
   public title = 'platform';
 
   public healthy$!: Observable<boolean>;
@@ -22,10 +21,26 @@ export class AppComponent implements OnInit, AfterViewInit {
     private scrollService: ScrollService,
     private updateService: UpdateService,
     private healthService: HealthService,
+    private snackBar: MatSnackBar,
   ) {}
+
+  /*public ngOnInit(): void {
+    this.healthy$ = this.healthService.isHealthy();
+  }*/
 
   public ngOnInit(): void {
     this.healthy$ = this.healthService.isHealthy();
+    this.healthy$.subscribe({
+      error: (err) => {
+        this.snackBar.open(
+          'Something went wrong. If this issue persists, please contact our development team at info@biosimulations.org',
+          'Close',
+          {
+            duration: 5000,
+          },
+        );
+      },
+    });
   }
 
   public ngAfterViewInit(): void {

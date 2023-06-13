@@ -6,19 +6,24 @@
   [newsVersion]="1"
   [showNews]="false"
   [healthy]="healthy$ | async">
-  <biosimulations-topbar-menu>
-    <biosimulations-topbar-menu-item
-      heading="Try simulation runs"
-      icon="experiment"
-      [route]="['/runs']"
-      [queryParams]="{ try: '1' }">
-    </biosimulations-topbar-menu-item>
+  <!-- Start Hero Banner -->
+  <!--<biosimulations-topbar-menu>
+    <biosimulations-hover-open-menu
+      [link]="'/runs'"
+      [disabled]="true">
+      <biosimulations-topbar-menu-item
+        heading="Browse Simulation Runs"
+        icon="browse"
+        id="trigger">
+      </biosimulations-topbar-menu-item>
+    </biosimulations-hover-open-menu>
 
-    <biosimulations-topbar-menu-item heading="Run a simulation" icon="simulator" [route]="['/runs/new']">
-    </biosimulations-topbar-menu-item>
-
-    <biosimulations-topbar-menu-item heading="Your simulation runs" icon="simulation" [route]="['/runs']">
-    </biosimulations-topbar-menu-item>
+    <biosimulations-hover-open-menu
+      [link]="'/runs/new'"
+      [disabled]="true">
+      <biosimulations-topbar-menu-item heading="Run a simulation" icon="simulator" id="trigger">
+      </biosimulations-topbar-menu-item>
+    </biosimulations-hover-open-menu>
 
     <biosimulations-hover-open-menu>
       <biosimulations-topbar-menu-item heading="Utilities" icon="construction" id="trigger">
@@ -191,9 +196,104 @@
         </biosimulations-dropdown-menu-item>
       </ng-container>
     </biosimulations-hover-open-menu>
-  </biosimulations-topbar-menu>
 
-  <ng-container id="sidenav-menu">
+    <biosimulations-hover-open-menu
+      [link]="config.simulatorsAppBrowseSimulatorsUrl"
+      style="position: fixed; right: 45px; top: 1; overflow-y: show; -webkit-overflow-scrolling: touch; padding-top: 2.3px">
+      <biosimulations-topbar-menu-item heading="BioSimulators" icon="link" id="trigger">
+      </biosimulations-topbar-menu-item>
+      <ng-container id="items">
+        <biosimulations-dropdown-menu-item
+          heading="Browse simulator tools"
+          icon="simulators"
+          href="http://biosimulators.org/simulators">
+        </biosimulations-dropdown-menu-item>
+      </ng-container>
+    </biosimulations-hover-open-menu>
+  </biosimulations-topbar-menu>-->
+  <biosimulations-topbar-menu>
+    <biosimulations-hover-open-menu
+      onclick="parent.location=['/projects']"
+      [link]="'/projects'"
+      [disabled]="true">
+      <biosimulations-topbar-menu-item heading="BioSimDB" icon="browse" id="trigger"></biosimulations-topbar-menu-item>
+    </biosimulations-hover-open-menu>
+
+    <biosimulations-hover-open-menu [link]="config.dispatchAppRunsNewUrl" [disabled]="true">
+      <biosimulations-topbar-menu-item
+        heading="Run Simulations"
+        icon="experiment"
+        id="trigger">
+      </biosimulations-topbar-menu-item>
+    </biosimulations-hover-open-menu>
+
+    <biosimulations-hover-open-menu>
+      <biosimulations-topbar-menu-item heading="Utilities" icon="construction" id="trigger">
+      </biosimulations-topbar-menu-item>
+      <ng-container id="items">
+        <biosimulations-dropdown-menu-item
+          heading="Convert a file"
+          [href]="config.utilsConvertFileUrl">
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Create a project"
+          [href]="config.utilsCreateProjectUrl">
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Validate a model"
+          [href]="config.utilsValidateModelUrl">
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Validate a simulation"
+          [href]="config.utilsValidateSimulationUrl">
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Validate metadata"
+          [href]="config.utilsValidateMetadataUrl">
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Validate a project"
+          [href]="config.utilsValidateProjectUrl">
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Validate a simulator"
+          href="https://github.com/biosimulators/Biosimulators/issues/new?assignees=&labels=Validate%2Fsubmit+simulator&template=ValidateOrSubmitASimulator.yml&title=%5BSimulation+capabilities%5D%3A+"
+          target="githubissues">
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Suggest a simulator"
+          [href]="config.utilsSuggestSimulatorUrl">
+        </biosimulations-dropdown-menu-item>
+      </ng-container>
+    </biosimulations-hover-open-menu>
+
+    <biosimulations-hover-open-menu
+      [link]="config.simulatorsAppBrowseSimulatorsUrl"
+      style="position: fixed; right: 45px; top: 1; overflow-y: show; -webkit-overflow-scrolling: touch; padding-top: 2.3px">
+      <biosimulations-topbar-menu-item heading="BioSimulators" icon="link" id="trigger">
+      </biosimulations-topbar-menu-item>
+      <ng-container id="items">
+        <biosimulations-dropdown-menu-item
+          heading="Browse simulator tools"
+          icon="simulators"
+          href="http://biosimulators.org/simulators">
+        </biosimulations-dropdown-menu-item>
+      </ng-container>
+    </biosimulations-hover-open-menu>
+  </biosimulations-topbar-menu>
+  <!-- End Hero Banner -->
+
+
+
+  <!-- Begin Sidenav Drawer Container -->
+  <!--<ng-container id="sidenav-menu">
     <biosimulations-navigation-item
       heading="Try simulation runs"
       icon="experiment"
@@ -355,9 +455,11 @@
         target="status">
       </biosimulations-navigation-subitem>
     </biosimulations-navigation-item>
-  </ng-container>
+  </ng-container>-->
+  <!-- End Sidenav drawer container -->
 
   <ng-container id="news"></ng-container>
 
   <router-outlet></router-outlet>
 </biosimulations-navigation>
+

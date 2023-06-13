@@ -2,9 +2,9 @@
   <div
     [matMenuTriggerFor]="menu"
     #trigger="matMenuTrigger"
-    (click)="navigate()"
     (mouseenter)="openMenu(trigger)"
     (mousemove)="openMenu(trigger)"
+    (click)="navigate(); linkClicked(trigger)"
     (mouseleave)="closeMenu(trigger)">
     <ng-content select="#trigger"></ng-content>
   </div>

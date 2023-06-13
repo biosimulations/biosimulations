@@ -45,4 +45,15 @@ export class HoverOpenMenuComponent {
   public stayStatic(trigger: MatMenuTrigger): void {
     return trigger.closeMenu();
   }
+
+  public linkClicked(trigger: MatMenuTrigger): void {
+    this.disabled = true;
+    this.disappearContainer(this.disabled, trigger);
+  }
+
+  private disappearContainer(disabled: boolean, trigger: MatMenuTrigger): void {
+    if (disabled) {
+      trigger.closeMenu();
+    }
+  }
 }

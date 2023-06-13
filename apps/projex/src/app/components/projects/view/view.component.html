@@ -20,8 +20,23 @@
       <!-- Start Right Column -->
       <mat-card class="viz-card">
         <mat-card-content class="viz-card-content">
-          <mat-tab-group preserveContent="true">
+          <!-- Start ReRun Simulation Button -->
+          <mat-card-header class="viz-card-header">
+            <mat-card-actions class="rerun-sim-button-container">
+              <button
+                mat-raised-button
+                class="rerun-button"
+                (click)="promptReRun()">
+                <div style="display: inline-block;">
+                  <span>Customize & ReRun Simulation</span>
+                  <biosimulations-icon class="rerun-icon" icon="redo"></biosimulations-icon>
+                </div>
+              </button>
+            </mat-card-actions>
+          </mat-card-header>
+          <!-- End ReRun Simulation Button -->
 
+          <mat-tab-group preserveContent="true">
             <!-- Start Visualizations Tab -->
             <mat-tab class="right-col-tab figures" label="Figures">
               <mat-card class="plots-card">
@@ -41,7 +56,10 @@
                     </mat-grid-tile-header>
                     <div class="plotparent">
                       <div class="figure-card-placeholder" *cdkDragPlaceholder></div>
-                      <biosimulations-project-visualization [visualization]="plotVisualization">
+                      <biosimulations-project-visualization
+                        [visualization]="plotVisualization"
+                        [plotTitle]="plotVisualization.name"
+                        [projectTitle]="projectMetadata.title">
                       </biosimulations-project-visualization>
                     </div>
                   </mat-grid-tile>
@@ -175,6 +193,13 @@
                   </div>
                   <!-- End Details Display -->
                 </mat-card-content>
+              </mat-card>
+            </mat-tab>
+            <mat-tab label="ReRun">
+              <mat-card>
+                <mat-card-header>
+                  This Feature Coming Soon! :)
+                </mat-card-header>
               </mat-card>
             </mat-tab>
           </mat-tab-group>
