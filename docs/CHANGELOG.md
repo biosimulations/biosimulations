@@ -1,5 +1,35 @@
 # Changelog
 
+## [9.32.0](https://github.com/biosimulations/biosimulations/compare/v9.31.0...v9.32.0) (2023-06-13)
+
+
+### Bug Fixes
+
+* adjusted legend ([bd34abe](https://github.com/biosimulations/biosimulations/commit/bd34abe34e5ee1a0d5c107bad1f50f0934ee3237))
+* adjusted noPlot template ([da31802](https://github.com/biosimulations/biosimulations/commit/da318028a5cb201ba1bee64d95d17962125f9ec7))
+* adjusted plot legend layout ([9e540a3](https://github.com/biosimulations/biosimulations/commit/9e540a3e8616fec4502dd44c740e415358d26257))
+* adjusted plot legend layout ([a275988](https://github.com/biosimulations/biosimulations/commit/a27598819ffc3aa616d28f01458bdec00cdf93f6))
+* adjusted plot legend layout and plotparent ([38c2ab3](https://github.com/biosimulations/biosimulations/commit/38c2ab318d4ee26b7acd1f81ab354759f9770ced))
+* adjusted plotly legend layout and legend ([7ba182d](https://github.com/biosimulations/biosimulations/commit/7ba182d9cebf42f4ef0fc9e6ba53326c1858b1c4))
+* adjustments to browse ([3f0f6e0](https://github.com/biosimulations/biosimulations/commit/3f0f6e0939fa2776c0361e15ddf7c150d7612bd7))
+* CodeFactor apply fixes to commit 823d88c ([70fe4a8](https://github.com/biosimulations/biosimulations/commit/70fe4a82760a7bbaa56b3fd97093a009b14fb002))
+* formatting from CodeFactor ([8312259](https://github.com/biosimulations/biosimulations/commit/831225983711f2b3b35536a4e539e26c98b871db))
+* implemented snack bar for errors ([54fd50c](https://github.com/biosimulations/biosimulations/commit/54fd50c1a0c08458c09c565571a59e10e99eff55))
+* legend adjust ([c1638e5](https://github.com/biosimulations/biosimulations/commit/c1638e52f15affd0de40c60ef7b6fdb740f91426))
+* minor adjust ([71840e7](https://github.com/biosimulations/biosimulations/commit/71840e70c700cfa75336b1ce76a233001fb394ad))
+* moved re-run sim button to top of biocard and implemented snackbar dataclass for customization ([3279a7f](https://github.com/biosimulations/biosimulations/commit/3279a7f59068f2b43b6fe37bc4e6503c684da173))
+* overflow adjustment to project scss ([11e5397](https://github.com/biosimulations/biosimulations/commit/11e5397776fc07fce5df294c364f0ea96c88e871))
+* plot axis names ([619d846](https://github.com/biosimulations/biosimulations/commit/619d846123fdc57fb14d6873039037260534573c))
+* standardized/normalized dispatch app nav buttons in hero banner ([19f9e1a](https://github.com/biosimulations/biosimulations/commit/19f9e1a78d69303befa796482c375befe137063f))
+
+
+### Features
+
+* added biosimulators button and removed redundant your simulation runs button from dispatch ([0664d06](https://github.com/biosimulations/biosimulations/commit/0664d06beb864e42d958bed74f704bb9e9198a69))
+* added hover effect to rerun placeholder button ([25e7e9f](https://github.com/biosimulations/biosimulations/commit/25e7e9f4a4770d10d890f05aa9abf68fbebcb60d))
+* added rerun simulation button placeholder and snack bar message ([c6a4787](https://github.com/biosimulations/biosimulations/commit/c6a4787e56edfbb86d59833037029fe56c16e957))
+* added reusable helper methods for axis and legend styling/layout ([eea2654](https://github.com/biosimulations/biosimulations/commit/eea2654282609027ca4cfba040daffdbbef11d3c))
+
 ## [9.31.0](https://github.com/biosimulations/biosimulations/compare/v9.30.1...v9.31.0) (2023-06-10)
 
 
