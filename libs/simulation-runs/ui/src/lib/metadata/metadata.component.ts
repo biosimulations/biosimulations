@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
-import { Component, Input, ElementRef, ViewChild, Renderer2, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, ElementRef, ViewChild, Renderer2 } from '@angular/core';
 import { ProjectMetadata, SimulationRunMetadata } from '@biosimulations/datamodel-simulation-runs';
 import {
   ProjectSummary,
