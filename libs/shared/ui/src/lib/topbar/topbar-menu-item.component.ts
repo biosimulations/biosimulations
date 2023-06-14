@@ -29,7 +29,7 @@ export class TopbarMenuItemComponent {
   href = '';
 
   @Input()
-  target = '_blank';
+  target?: string;
 
   @Input()
   disabled = false;

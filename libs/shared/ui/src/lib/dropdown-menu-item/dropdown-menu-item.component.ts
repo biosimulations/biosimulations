@@ -1,6 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 
+enum TargetValue {
+  Blank = '_blank',
+  Self = '_self',
+  Parent = '_parent',
+}
+
 @Component({
   selector: 'biosimulations-dropdown-menu-item',
   templateUrl: './dropdown-menu-item.component.html',
@@ -20,5 +26,5 @@ export class DropdownMenuItemComponent {
   href?: string;
 
   @Input()
-  target = '_blank';
+  target?: string;
 }
