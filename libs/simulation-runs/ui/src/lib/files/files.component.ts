@@ -38,6 +38,9 @@ export class FilesComponent {
   @Input()
   usesMetadata = false;
 
+  @Input()
+  useMetadata = false;
+
   cardState = 'default';
 
   constructor(private dialog: MatDialog) {}
