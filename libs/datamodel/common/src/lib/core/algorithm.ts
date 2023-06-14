@@ -1,5 +1,5 @@
 import { ValueType, SoftwareInterfaceType } from '../common/';
-import { Citation } from '../..';
+import { Citation } from '../common';
 
 import { ISboOntologyId, IKisaoOntologyId, IEdamOntologyIdVersion, ISioOntologyId } from '../common';
 
