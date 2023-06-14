@@ -145,17 +145,16 @@
   transition: 0.25s ease-in-out;
 }
 
-.hover-enlarge-img {
-  transition: all 0.25s ease-in-out;
-  z-index: 1000;
-}
+.enlarge {
+  transform: scale(1.8);
+  transition: transform 0.3s ease-in-out;
+  padding: 10rem;
+  position: relative;
 
-.hover-enlarge-element:hover {
-  transform: scale(1.1);
-}
-
-.hover-enlarge-img:hover {
-  transform: scale(1.1) !important;
+  &:not(:active) {
+    transform: scale(1);
+    transition: transform 0.3s ease-in-out;
+  }
 }
 
 .summary-card {
