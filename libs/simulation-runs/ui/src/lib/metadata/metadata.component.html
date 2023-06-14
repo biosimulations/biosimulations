@@ -48,7 +48,7 @@
         <!-- Case: No Thumbnail Image -->
         <ng-template #noThumbnail>
           <div class="default-image-container">
-            <img *ngIf="useDefaultImagePlaceholder" [src]="noThumbnailImageUrl">
+            <img *ngIf="useDefaultImagePlaceholder" [src]="noThumbnailImageUrl" alt="No Project Image Available">
           </div>
         </ng-template>
       </ng-container>
