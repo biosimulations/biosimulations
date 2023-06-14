@@ -34,7 +34,9 @@ import { AngularAnalyticsModule } from '@biosimulations/angular-analytics';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
+    redirectTo: 'simulators',
+    pathMatch: 'full',
+    // loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
   },
   {
     path: 'simulators',
