@@ -19,6 +19,9 @@ import {
 })
 export class MetadataComponent {
   //implements OnInit, OnDestroy {
+
+  @ViewChild('thumbnailCard', { static: false }) thumbnailCard!: ElementRef;
+
   @Input()
   public project?: ProjectMetadata;
 
@@ -31,13 +34,14 @@ export class MetadataComponent {
   @Input()
   public simulationViz!: any;
 
+  @Input()
+  public useDefaultImagePlaceholder = false;
+
   public panelOpenState = false;
 
   public noThumbnailImageUrl = 'https://biosimulations.org/assets/images/biosimulations-logo/logo-white.svg';
 
   public enlarge = false;
-
-  @ViewChild('thumbnailCard', { static: false }) thumbnailCard!: ElementRef;
 
   private listener!: () => void;
 
@@ -67,7 +71,7 @@ export class MetadataComponent {
     }
   }*/
 
-  public onDoubleClick(event: MouseEvent): void {
+  public onClick(event: MouseEvent): void {
     event.stopPropagation();
     this.enlarge = !this.enlarge;
   }

@@ -1,3 +1,4 @@
+// esline-disable-next-line
 .clean-table__ {
   //grid-template-columns: repeat(2, 1fr) repeat(3, 1fr);
   display: grid;
@@ -72,22 +73,29 @@
   text-align: center;
   align-items: center;
   .biosimulations-button {
-    border: 3px solid #ff9800;
+    border: 1px solid #ff9800;
     border-radius: 50%;
     position: relative;
     top: -2px;
     color: #2196f3;
     background-color: #ff9800;
+    transition: ease-in-out;
 
     &:hover {
+      transition-duration: 0.1s;
       margin-left: 2px;
       margin-right: 2px;
       border: 3px groove #ff9800;
       color: #ff9800;
       background-color: #2196f3;
     }
+
+    &:not(:active) {
+      transition-duration: 0.05s;
+    }
   }
 }
+
 .expanded {
   width: 100%;
 }

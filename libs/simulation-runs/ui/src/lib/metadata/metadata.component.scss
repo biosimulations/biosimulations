@@ -104,6 +104,40 @@
   }
 }
 
+.enlarge-image.image-card:active {
+  height: fit-content;
+  width: fit-content;
+}
+
+.image-container {
+  display: flex;
+  width: 100%;
+  height: fit-content;
+  overflow: hidden;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.default-image-container {
+  display: flex;
+  width: 100%;
+  height: fit-content;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.enlarge {
+  transform: scale(2.5);
+  transition: transform 2s ease-in-out;
+  padding: 10rem;
+  position: relative;
+
+  &:not(:active) {
+    transform: scale(1.1);
+    transition: transform 0.4s ease-in-out;
+  }
+}
+
 .icon-list {
   height: 100%;
   width: 100%;
@@ -145,18 +179,6 @@
   transition: 0.25s ease-in-out;
 }
 
-.enlarge {
-  transform: scale(1.8);
-  transition: transform 0.3s ease-in-out;
-  padding: 10rem;
-  position: relative;
-
-  &:not(:active) {
-    transform: scale(1);
-    transition: transform 0.3s ease-in-out;
-  }
-}
-
 .summary-card {
   display: flex;
   flex-direction: column;
@@ -193,21 +215,4 @@
   height: auto;
   font-family: 'Roboto', sans-serif;
   font-weight: 600;
-}
-
-.image-container {
-  display: flex;
-  width: 100%;
-  height: fit-content;
-  overflow: hidden;
-  flex-direction: row;
-  justify-content: center;
-}
-
-.default-image-container {
-  display: flex;
-  width: 100%;
-  height: fit-content;
-  flex-direction: row;
-  justify-content: center;
 }

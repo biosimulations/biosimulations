@@ -21,31 +21,37 @@
     <!-- Begin summary/text data-->
     <div *ngIf="project" fxGrid>
       <!-- Begin Image Container -->
-      <mat-card
-        #thumbnailCard
-        id="thumbnail"
-        (dblclick)="onDoubleClick($event)"
-        [ngClass]="{'enlarge': enlarge}"
-        expanded="true"
-        disabled="true"
-        hideToggle="true">
-        <mat-card-content>
-          <ng-container *ngIf="project?.thumbnails?.length">
-            <div *ngIf="project.thumbnails; else noThumbnail">
+      <ng-container *ngIf="project?.thumbnails?.length">
+        <!-- Case: Has Thumbnail Image -->
+        <mat-card
+          *ngIf="project.thumbnails; else noThumbnail"
+          class="image-card"
+          expanded="true"
+          disabled="true"
+          hideToggle="true">
+          <mat-card-content>
+            <div
+              *ngIf="project.thumbnails; else noThumbnail"
+              #thumbnailCard
+              id="thumbnail"
+              [ngClass]="{'enlarge': enlarge}">
               <div class="image-container">
                 <biosimulations-carousel [images]="project.thumbnails"></biosimulations-carousel>
               </div>
             </div>
-            <!-- Case: No Thumbnail Image -->
-            <ng-template #noThumbnail>
-              <div class="default-image-container">
-                <img [src]="noThumbnailImageUrl">
-              </div>
-            </ng-template>
-          </ng-container>
-
-        </mat-card-content>
-      </mat-card>
+            <mat-card-actions class="enlarge-icon" align="end" style="font-size: x-large">
+              <biosimulations-icon icon="visible" (click)="onClick($event)">
+              </biosimulations-icon>
+            </mat-card-actions>
+          </mat-card-content>
+        </mat-card>
+        <!-- Case: No Thumbnail Image -->
+        <ng-template #noThumbnail>
+          <div class="default-image-container">
+            <img *ngIf="useDefaultImagePlaceholder" [src]="noThumbnailImageUrl">
+          </div>
+        </ng-template>
+      </ng-container>
       <!-- End Image Container -->
     </div>
   </div>
