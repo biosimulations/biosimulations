@@ -21,7 +21,14 @@
     <!-- Begin summary/text data-->
     <div *ngIf="project" fxGrid>
       <!-- Begin Image Container -->
-      <mat-card class="hover-enlarge-img" expanded="true" disabled="true" hideToggle="true">
+      <mat-card
+        #thumbnailCard
+        id="thumbnail"
+        (dblclick)="onDoubleClick($event)"
+        [ngClass]="{'enlarge': enlarge}"
+        expanded="true"
+        disabled="true"
+        hideToggle="true">
         <mat-card-content>
           <ng-container *ngIf="project?.thumbnails?.length">
             <div *ngIf="project.thumbnails; else noThumbnail">
