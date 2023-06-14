@@ -56,8 +56,7 @@
     ]
   },
   "cli": {
-    "defaultCollection": "@nrwl/angular",
-    "analytics": false
+    "defaultCollection": "@nrwl/angular"
   },
   "defaultProject": "dispatch",
   "generators": {
