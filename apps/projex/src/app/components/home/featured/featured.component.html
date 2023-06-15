@@ -2,42 +2,51 @@
   <div fxLayout="row" fxLayoutAlign="space-between center">
     <!-- Left Button -->
     <button
-      mat-fab
-      fxFlexAlign="center"
       class="nav-button left"
-      (click)="previous()">
+      fxFlexAlign="center"
+      (click)="previous()"
+      mat-fab>
       <mat-icon>keyboard_arrow_left</mat-icon>
     </button>
 
 
     <ng-container *ngFor="let project of projects; let i = index">
       <!-- Start Parent of Feature Card -->
-      <mat-card class="feature-card" [fxFlex]="70 / numCards" *ngIf="i >= startIndex && i <= endIndex">
+      <mat-card
+        class="feature-card"
+        *ngIf="i >= startIndex && i <= endIndex"
+        [fxFlex]="70 / numCards"
+        [style.background-image]="getBackgroundUrl(project.image)">
         <!-- Start Feature Card Header -->
-        <mat-card-header>
+        <mat-card-header class="feature-card-header">
           <mat-card-title>
             {{ project.title }}
           </mat-card-title>
         </mat-card-header>
         <!-- End Feature Card Header -->
 
+        <!--<img src="{{ project.image }}" alt="{{ alternateImage }}" />-->
+        <!--<a class="click-image-eventspace" href="project.routingLink" target="_blank"></a>-->
+
         <!-- Start Feature Card Content -->
         <mat-card-content>
-          <mat-card class="feature-card-content"> <!-- Have THIS element's background as the respective image -->
+          <div class="description-container">
+            <p>{{ project.descriptionTeaser }}</p>
+          </div>
+          <!-- Have THIS element's background as the respective image -->
+          <!--<mat-card class="feature-card-content">
             <mat-card-content class="feature-card-content">
-              <!--<a class="click-image-eventspace" href="project.routingLink" target="_blank">
 
-              </a>-->
               <a class="click-image-eventspace" href="project.routingLink" target="_blank">
                 <div class="image-container">
-                  <!--<img src="{{ project.image }}" alt="{{ alternateImage }}" />-->
+
                 </div>
               </a>
               <div class="description-teaser">
                 {{ project.descriptionTeaser }}
               </div>
             </mat-card-content>
-          </mat-card>
+          <!--</mat-card>-->
         </mat-card-content>
         <!-- End Feature Card Content -->
       </mat-card>

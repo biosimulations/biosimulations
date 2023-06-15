@@ -93,4 +93,8 @@ export class FeaturedComponent {
     this.startIndex = index;
     this.endIndex = index + (this.numCards - 1);
   }
+
+  public getBackgroundUrl(image: string): string {
+    return `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${image})`;
+  }
 }
