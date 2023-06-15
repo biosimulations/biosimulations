@@ -91,7 +91,7 @@ export class FeaturedService {
     id: 'convertFile',
     descriptionTeaser: 'Bridging the Gap with "BioConvert" File Conversion.',
     descriptionVerbose: `Our File Conversion feature seamlessly connects the output of your SED-ML reports to the inputs of Vega datasets.
-      It’s your effortless solution to linking diverse platforms and ensuring a smooth workflow. This conversion tool puts
+      It is your effortless solution to linking diverse platforms and ensuring a smooth workflow. This conversion tool puts
       you in control, effortlessly transforming data outputs into compatible inputs for clear, efficient analysis.
       With this feature, the complex becomes simple. Streamline your research process and accelerate your journey to
       discovery with our BioConvert File Conversion tool.`,
@@ -138,9 +138,10 @@ export class FeaturedService {
     this.learnSimulations,
     this.convertFile,
     this.community,
+    this.runCustomizedSimulation,
   ];
 
-  private getProject(i: number): FeaturedProject {
+  private getFeature(i: number): FeaturedProject {
     return this.projects[i];
   }
 

@@ -14,6 +14,20 @@ export class FeaturedComponent {
   public endIndex = 1;
   public numCards = 1;
   public currentServiceIndex: number;
+  public alternateImage = `
+        _________________
+      | BIO SIMULATIONS |
+      |-----------------|
+      |..   __     __   |
+      |||__( o )__( o ) |
+      |||   (*)     (*)  |
+      |||     >     <   |
+      |||    (_____)   |
+      |||_______________|
+      |                 |
+      |    [RUNNING]    |
+      |_________________|
+  `;
   private intervalId!: NodeJS.Timer | null;
   public constructor(private service: FeaturedService) {
     this.projects = this.service.getProjects();
