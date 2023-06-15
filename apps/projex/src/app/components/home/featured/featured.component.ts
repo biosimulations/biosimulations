@@ -1,11 +1,19 @@
 import { Component } from '@angular/core';
 import { FeaturedService } from './featured.service';
 import { FeaturedProject } from './featured.model';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'biosimulations-featured',
   templateUrl: './featured.component.html',
   styleUrls: ['./featured.component.scss'],
+  animations: [
+    trigger('slideInOut', [
+      state('in', style({ transform: 'translateX(0)' })),
+      transition('void => *', [style({ transform: 'translateX(-100%)' }), animate(300)]),
+      transition('* => void', [animate(300, style({ transform: 'translateX(100%)' }))]),
+    ]),
+  ],
   providers: [FeaturedService],
 })
 export class FeaturedComponent {
@@ -14,7 +22,7 @@ export class FeaturedComponent {
   public endIndex = 1;
   public numCards = 1;
   public currentServiceIndex: number;
-  public alternateImage = `
+  public alternateImage = 'Explore Now'; /*`
         _________________
       | BIO SIMULATIONS |
       |-----------------|
@@ -27,8 +35,9 @@ export class FeaturedComponent {
       |                 |
       |    [RUNNING]    |
       |_________________|
-  `;
+  `;*/
   private intervalId!: NodeJS.Timer | null;
+  showCard = true;
   public constructor(private service: FeaturedService) {
     this.projects = this.service.getProjects();
     this.startIndex = 0;

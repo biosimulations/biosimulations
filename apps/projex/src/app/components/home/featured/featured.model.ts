@@ -6,4 +6,5 @@ export class FeaturedProject {
   public descriptionTeaser!: string;
   public descriptionVerbose!: string;
   public routingLink!: string;
+  public logo!: string;
 }

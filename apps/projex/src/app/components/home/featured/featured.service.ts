@@ -23,6 +23,7 @@ export class FeaturedService {
       prior knowledge or experience. With BioSimDB, every simulation becomes an opportunity to explore, learn, and \
       innovate.`,
     routingLink: 'https://biosimulations.dev/projects',
+    logo: 'simulators',
   };
   private runSimulations = {
     title: 'Run Simulations',
@@ -45,6 +46,7 @@ export class FeaturedService {
       flourishes, empowering you to bring your biological questions to the forefront, explore hypotheses, and discover \
       breakthrough insights. Your biological exploration is now at your command with Run Simulations.`,
     routingLink: 'https://biosimulations.dev/runs/new',
+    logo: 'experiment',
   };
   private publishSimulations = {
     title: 'Submit Your Simulation for publication',
@@ -63,6 +65,7 @@ export class FeaturedService {
       turn your insights into shared knowledge. The future of biosimulation research is collaborative - \
       play your part with Publish Simulations.`,
     routingLink: 'https://biosimulations.dev/utils/create-project',
+    logo: 'publish',
   };
   private learnSimulations = {
     title: 'Learn',
@@ -84,6 +87,7 @@ export class FeaturedService {
       https://docs.biosimulations.org/users/?_gl=1*1rq7593*biosim_analytics_ga* \
       MTU4OTQxNjYzNC4xNjgzODQyMjY0*biosim_analytics_ga_G3CVBC0V5N*MTY4NTMwMTAzNy4yMy4xLjE2ODUzMDEwNjUuMC4wLjA.
     `,
+    logo: 'idea',
   };
   private convertFile = {
     title: 'Convert a file',
@@ -96,6 +100,7 @@ export class FeaturedService {
       With this feature, the complex becomes simple. Streamline your research process and accelerate your journey to
       discovery with our BioConvert File Conversion tool.`,
     routingLink: 'https://biosimulations.dev/utils/convert-file',
+    logo: 'link',
   };
   private community = {
     title: 'Community',
@@ -111,6 +116,7 @@ export class FeaturedService {
       Community is a network of minds, constantly evolving, innovating, and pushing the boundaries of what's \
       possible in biological simulation.`,
     routingLink: 'https://vivarium-collective.github.io',
+    logo: 'idea',
   };
   private runCustomizedSimulation = {
     title: 'Run a customized simulation',
@@ -129,6 +135,7 @@ export class FeaturedService {
        &simulator=pysces&simulatorVersion=1.0.0\
        &runName=Iron%20distribution%20(Parmar%20et%20al.,%20BMC%20Syst%20Biol,%202017;%20SBML;%20CVODE;%20PySCeS)%20(rerun)
       `,
+    logo: 'experiment',
   };
 
   public projects = [

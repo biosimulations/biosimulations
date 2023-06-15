@@ -5,27 +5,43 @@
       mat-fab
       fxFlexAlign="center"
       class="nav-button left"
-      style="background-color: rgba(20, 121, 237, 0.75)"
       (click)="previous()">
       <mat-icon>keyboard_arrow_left</mat-icon>
     </button>
 
-    <!-- Feature Card -->
+
     <ng-container *ngFor="let project of projects; let i = index">
-      <mat-card class="project-card" [fxFlex]="70 / numCards" *ngIf="i >= startIndex && i <= endIndex">
+      <!-- Start Parent of Feature Card -->
+      <mat-card class="feature-card" [fxFlex]="70 / numCards" *ngIf="i >= startIndex && i <= endIndex">
+        <!-- Start Feature Card Header -->
         <mat-card-header>
           <mat-card-title>
             {{ project.title }}
           </mat-card-title>
         </mat-card-header>
-        <a href="project.url" target="_blank" style="justify-content: center"></a>
-        <ng-container *ngIf="project.image.length">
-          <img src="{{ project.image }}" alt="alternateImage" />
-        </ng-container>
+        <!-- End Feature Card Header -->
+
+        <!-- Start Feature Card Content -->
         <mat-card-content>
-          {{ project.descriptionTeaser }}
+          <mat-card class="feature-card-content"> <!-- Have THIS element's background as the respective image -->
+            <mat-card-content class="feature-card-content">
+              <!--<a class="click-image-eventspace" href="project.routingLink" target="_blank">
+
+              </a>-->
+              <a class="click-image-eventspace" href="project.routingLink" target="_blank">
+                <div class="image-container">
+                  <!--<img src="{{ project.image }}" alt="{{ alternateImage }}" />-->
+                </div>
+              </a>
+              <div class="description-teaser">
+                {{ project.descriptionTeaser }}
+              </div>
+            </mat-card-content>
+          </mat-card>
         </mat-card-content>
+        <!-- End Feature Card Content -->
       </mat-card>
+      <!-- End Parent of Feature Card -->
     </ng-container>
 
     <!-- Right Button -->
@@ -33,7 +49,6 @@
       mat-fab
       fxFlexAlign="center"
       class="nav-button right"
-      style="background-color: rgba(20, 121, 237, 0.75)"
       (click)="next()">
       <mat-icon>keyboard_arrow_right</mat-icon>
     </button>
