@@ -72,8 +72,12 @@ export class MetadataComponent {
   }*/
 
   public onClick(event: MouseEvent): void {
-    event.stopPropagation();
-    this.enlarge = !this.enlarge;
+    if (this.enlarge) {
+      event.stopPropagation();
+      this.enlarge = !this.enlarge;
+    } else {
+      this.enlarge = true;
+    }
   }
 
   public togglePanel(event: Event): void {

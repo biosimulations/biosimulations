@@ -126,16 +126,17 @@
   justify-content: center;
 }
 
-.enlarge {
-  transform: scale(2.5);
-  transition: transform 2s ease-in-out;
+.enlarge:not(.enlarge-icon) {
+  transform: scale(1.55);
+  transition: transform 0.3s ease-in;
   padding: 10rem;
   position: relative;
 
-  &:not(:active) {
+  //Case: The user presses and holds their mouse-click down as the image expands
+  /*&:not(:active) {
     transform: scale(1.1);
     transition: transform 0.4s ease-in-out;
-  }
+  }*/
 }
 
 .icon-list {
