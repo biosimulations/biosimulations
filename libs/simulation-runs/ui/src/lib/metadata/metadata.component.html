@@ -21,19 +21,12 @@
     <!-- Begin summary/text data-->
     <div *ngIf="project" fxGrid>
       <!-- Begin Image Container -->
-      <ng-container *ngIf="project?.thumbnails?.length">
+      <ng-container *ngIf="project?.thumbnails?.length; else noThumbnail">
         <!-- Case: Has Thumbnail Image -->
-        <mat-card
-          *ngIf="project.thumbnails; else noThumbnail"
-          class="image-card"
-          expanded="true"
-          disabled="true"
-          hideToggle="true">
+        <mat-card class="image-card">
           <mat-card-content>
             <div
-              *ngIf="project.thumbnails; else noThumbnail"
               #thumbnailCard
-              id="thumbnail"
               [ngClass]="{'enlarge': enlarge}">
               <div class="image-container">
                 <biosimulations-carousel [images]="project.thumbnails"></biosimulations-carousel>
@@ -45,13 +38,17 @@
             </mat-card-actions>
           </mat-card-content>
         </mat-card>
-        <!-- Case: No Thumbnail Image -->
-        <ng-template #noThumbnail>
-          <div class="default-image-container">
-            <img *ngIf="useDefaultImagePlaceholder" [src]="noThumbnailImageUrl" alt="No Project Image Available">
-          </div>
-        </ng-template>
       </ng-container>
+      <!-- Case: No Thumbnail Image -->
+      <ng-template #noThumbnail>
+        <div>
+          <mat-card class="no-im-msg-card">
+            <mat-card-header>
+              <h2>This simulation profile has no image</h2>
+            </mat-card-header>
+          </mat-card>
+        </div>
+      </ng-template>
       <!-- End Image Container -->
     </div>
   </div>
