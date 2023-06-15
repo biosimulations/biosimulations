@@ -12,12 +12,12 @@
 
     <ng-container *ngFor="let project of projects; let i = index">
       <!-- Start Parent of Feature Card -->
-
       <mat-card
+        @slideInOut
         class="feature-card"
         *ngIf="i >= startIndex && i <= endIndex"
         [fxFlex]="70 / numCards"
-        [style.background-image]="getBackgroundUrl(project.image)">
+        [style.background-image]="'url(' + project.image + ')'">
         <!-- Start Feature Card Header -->
         <mat-card-header class="feature-card-header">
           <mat-card-title>
@@ -25,7 +25,6 @@
           </mat-card-title>
         </mat-card-header>
         <!-- End Feature Card Header -->
-
         <!-- Start Feature Card Content -->
         <mat-card-content>
           <a class="click-image-eventspace" href="project.routingLink" target="_blank">

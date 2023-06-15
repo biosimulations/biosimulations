@@ -10,8 +10,10 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   animations: [
     trigger('slideInOut', [
       state('in', style({ transform: 'translateX(0)' })),
-      transition('void => *', [style({ transform: 'translateX(-100%)' }), animate(300)]),
-      transition('* => void', [animate(300, style({ transform: 'translateX(100%)' }))]),
+      transition('* => void', [
+        style({ transform: 'scale(1.0)', transition: 'opacity 1s ease-in-out', opacity: '1' }),
+        animate(500),
+      ]),
     ]),
   ],
   providers: [FeaturedService],

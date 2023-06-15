@@ -27,10 +27,7 @@ export class FeaturedService {
   };
   private runSimulations = {
     title: 'Run Simulations',
-    image: `
-        https://media.istockphoto.com/id/1044292966/vector/defocused-abstract-blue-and-green-background \
-        .jpg?s=612x612&w=0&k=20&c=uGYwjo_xxESBI1bsjpSi1RbT_1PYkaD74aodUJeYmVc=
-      `,
+    image: `https://t4.ftcdn.net/jpg/05/06/41/89/360_F_506418953_5R5MQsN4UJ4hLgqnKlltS44wbQ33LhIU.jpg`,
     id: 'runSimulations',
     descriptionTeaser: 'Unlock Biological Insights with Run Simulations.',
     descriptionVerbose: `Unleash the power of personalization with Run Simulations, our dedicated tool for running \
@@ -50,10 +47,7 @@ export class FeaturedService {
   };
   private publishSimulations = {
     title: 'Submit Your Simulation for publication',
-    image: `
-        https://media.istockphoto.com/id/1139402489/vector/abstract-modern-background \
-       .jpg?s=612x612&w=0&k=20&c=GAkYFnGct6FJJdPFF-EfP3KGkQ5p0g7tAA8gAUYuYwI=
-      `,
+    image: `https://t4.ftcdn.net/jpg/05/06/41/89/360_F_506418953_5R5MQsN4UJ4hLgqnKlltS44wbQ33LhIU.jpg`,
     id: 'publishSimulations',
     descriptionTeaser: 'Take the Stage with Publish Simulations.',
     descriptionVerbose: `Elevate your work from the lab to the limelight with our Publish Simulations feature. \
@@ -69,10 +63,7 @@ export class FeaturedService {
   };
   private learnSimulations = {
     title: 'Learn',
-    image: `
-        https://images.unsplash.com/photo-1557682250-33bd709cbe85?ixlib=rb-4.0.3&ixid \
-        =M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80
-      `,
+    image: `https://t4.ftcdn.net/jpg/05/06/41/89/360_F_506418953_5R5MQsN4UJ4hLgqnKlltS44wbQ33LhIU.jpg`,
     id: 'learnSimulations',
     descriptionTeaser: 'Unleash Your Potential with Learn',
     descriptionVerbose: `Feed your curiosity, hone your skills, and dive deeper into the world of bio-simulation \
@@ -84,14 +75,13 @@ export class FeaturedService {
       to support and challenge you. Take a leap into the future of bio-simulation with ‘Learn’. Your journey \
       towards mastery begins here.`,
     routingLink: `
-      https://docs.biosimulations.org/users/?_gl=1*1rq7593*biosim_analytics_ga* \
-      MTU4OTQxNjYzNC4xNjgzODQyMjY0*biosim_analytics_ga_G3CVBC0V5N*MTY4NTMwMTAzNy4yMy4xLjE2ODUzMDEwNjUuMC4wLjA.
+      https://t4.ftcdn.net/jpg/05/06/41/89/360_F_506418953_5R5MQsN4UJ4hLgqnKlltS44wbQ33LhIU.jpg
     `,
     logo: 'idea',
   };
   private convertFile = {
     title: 'Convert a file',
-    image: 'https://img.freepik.com/free-photo/golden-yellow-seamless-venetian-plaster-background_24972-294.jpg?w=2000',
+    image: 'https://t4.ftcdn.net/jpg/05/06/41/89/360_F_506418953_5R5MQsN4UJ4hLgqnKlltS44wbQ33LhIU.jpg',
     id: 'convertFile',
     descriptionTeaser: 'Bridging the Gap with "BioConvert" File Conversion.',
     descriptionVerbose: `Our File Conversion feature seamlessly connects the output of your SED-ML reports to the inputs of Vega datasets.
@@ -104,10 +94,7 @@ export class FeaturedService {
   };
   private community = {
     title: 'Community',
-    image: `
-        https://media.istockphoto.com/id/1185382671/vector/abstract-blurred-colorful-background \
-        .jpg?s=612x612&w=0&k=20&c=3YwJa7lCw-cQ-hviINULUokL9lYU4RuGjMP_E_0N8E4=
-      `,
+    image: `https://t4.ftcdn.net/jpg/05/06/41/89/360_F_506418953_5R5MQsN4UJ4hLgqnKlltS44wbQ33LhIU.jpg`,
     id: 'community',
     descriptionTeaser: 'BioBuilding Community',
     descriptionVerbose: `The strength of our \
@@ -120,7 +107,7 @@ export class FeaturedService {
   };
   private runCustomizedSimulation = {
     title: 'Run a customized simulation',
-    image: 'https://img.freepik.com/free-photo/golden-yellow-seamless-venetian-plaster-background_24972-294.jpg?w=2000',
+    image: 'https://t4.ftcdn.net/jpg/05/06/41/89/360_F_506418953_5R5MQsN4UJ4hLgqnKlltS44wbQ33LhIU.jpg',
     id: 'runCustomizedSimulation',
     descriptionTeaser: 'Tailor-Made Discoveries with Run a Customized Simulation',
     descriptionVerbose: `Venture into \
