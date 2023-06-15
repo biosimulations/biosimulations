@@ -63,7 +63,6 @@
   background-size: cover;
   background-position: center;
   color: white; /* To ensure the description text is visible against the dark background */
-  position: relative;
   width: 100%;
   height: 500px;
   padding-top: 0;
@@ -99,9 +98,6 @@
 }
 
 .feature-card-header {
-  color: var(--text-primary-darker-color);
-  background-color: mat.get-color-from-palette($theme-primary);
-  border-radius: 3.5px;
 }
 
 .feature-card-content {
