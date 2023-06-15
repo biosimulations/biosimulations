@@ -47,7 +47,7 @@
   width: 10px;
   border-radius: 50%;
   display: inline-block;
-  background-color: rgb(255, 214, 132);
+  background-color: mat.get-color-from-palette($theme-accent);
   margin: 0 5px;
   cursor: pointer;
   transition-property: all;
@@ -56,7 +56,7 @@
 }
 
 .dot.active {
-  background-color: #087008//rgba(187, 72, 187, 0.734);
+  background-color: #087008; //rgba(187, 72, 187, 0.734);
 }
 
 .mat-mdc-card {
@@ -67,7 +67,7 @@
   padding-top: 0;
   padding-bottom: 1rem;
   color: white;
-  background-color: rgba(20, 121, 237, 0.65);
+  background-color: mat.get-color-from-palette($theme-primary);
   font-weight: 500;
   font-size: large;
   transition: all 0.5s ease-out;

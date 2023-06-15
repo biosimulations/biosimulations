@@ -7,86 +7,131 @@ export class FeaturedService {
     title: 'Browse Simulations',
     image: 'https://t4.ftcdn.net/jpg/05/06/41/89/360_F_506418953_5R5MQsN4UJ4hLgqnKlltS44wbQ33LhIU.jpg',
     id: 'simulations',
-    description:
-      'Browse a free platform for sharing and re-using biomodels, simulations, simulation results, and visualizations of simulation results.',
-    url: 'https://biosimulations.dev/projects',
+    descriptionTeaser: 'Explore Biology Like Never Before with BioSimDB.',
+    descriptionVerbose: `Step into the fascinating world of BioSimDB, where biological simulations become a gateway \
+      to in-depth understanding and exploration. BioSimDB, our comprehensive simulations database, takes you beyond \
+      traditional static data, offering a dynamic, interactive journey through a wealth of biological processes. Each \
+      simulation in our database unfolds as a unique profile, carefully crafted to deliver a visually compelling \
+      narrative. This includes highly detailed visualizations and comprehensive data summaries. This rich profile \
+      helps you gain a holistic understanding of the simulation, emphasizing key outputs and making complex data \
+      more accessible and engaging. Our innovative BioCard encapsulates this ethos of clarity and interactivity. It \
+      seamlessly incorporates all the critical data about each simulation. The BioCard presents four pillars of \
+      output data - compelling visualizations, downloadable files for offline study, metadata for the inquisitive \
+      mind, and a bespoke rerun simulation function, an exciting feature currently under development. BioSimDB is \
+      more than just a database. It is a comprehensive tool designed for an immersive learning experience. Its \
+      intuitive design and user-friendly interface make exploring biology a rewarding journey, irrespective of your \
+      prior knowledge or experience. With BioSimDB, every simulation becomes an opportunity to explore, learn, and \
+      innovate.`,
+    routingLink: 'https://biosimulations.dev/projects',
   };
   private runSimulations = {
     title: 'Run Simulations',
-    image:
-      'https://media.istockphoto.com/id/1044292966/vector/defocused-abstract-blue-and-green-background.jpg?s=612x612&w=0&k=20&c=uGYwjo_xxESBI1bsjpSi1RbT_1PYkaD74aodUJeYmVc=',
+    image: `
+        https://media.istockphoto.com/id/1044292966/vector/defocused-abstract-blue-and-green-background \
+        .jpg?s=612x612&w=0&k=20&c=uGYwjo_xxESBI1bsjpSi1RbT_1PYkaD74aodUJeYmVc=
+      `,
     id: 'runSimulations',
-    description:
-      'Interact with a free tool for running a wide range of biological simulations. Through the BioSimulators registry of biosimulation tools, runBioSimulations supports a broad range of modeling frameworks (e.g., logical, kinetic), simulation algorithms (e.g., FBA, SSA), modeling formats (e.g., SBML, SED-ML), and simulation tools (e.g., COBRApy, COPASI).',
-    url: 'https://biosimulations.dev/runs/new',
+    descriptionTeaser: 'Unlock Biological Insights with Run Simulations.',
+    descriptionVerbose: `Unleash the power of personalization with Run Simulations, our dedicated tool for running \
+      your own biological simulations. The Run Simulations feature brings cutting-edge technology to your fingertips, \
+      enabling you to upload your own .omex files and seamlessly run simulations in real-time. The Run Simulations tool \
+      is built with an emphasis on usability and flexibility. Upload your own .omex files in just a few clicks, and our \
+      intuitive platform handles the rest. The tool swiftly processes your file and delivers accurate simulations, \
+      offering a unique blend of speed, accuracy, and reliability. But the journey doesn't end there. With each \
+      simulation you run, you gain access to comprehensive data outputs, all presented in an easily digestible format. \
+      Download your results, delve into the rich metadata, or explore visual representations of your simulation for \
+      deeper insights. Run Simulations is not merely a tool - it's a platform where users can experiment, test \
+      hypotheses, and push the boundaries of their understanding. It fosters an environment where innovation \
+      flourishes, empowering you to bring your biological questions to the forefront, explore hypotheses, and discover \
+      breakthrough insights. Your biological exploration is now at your command with Run Simulations.`,
+    routingLink: 'https://biosimulations.dev/runs/new',
   };
   private publishSimulations = {
     title: 'Submit Your Simulation for publication',
-    image:
-      'https://media.istockphoto.com/id/1139402489/vector/abstract-modern-background.jpg?s=612x612&w=0&k=20&c=GAkYFnGct6FJJdPFF-EfP3KGkQ5p0g7tAA8gAUYuYwI=',
+    image: `
+        https://media.istockphoto.com/id/1139402489/vector/abstract-modern-background \
+       .jpg?s=612x612&w=0&k=20&c=GAkYFnGct6FJJdPFF-EfP3KGkQ5p0g7tAA8gAUYuYwI=
+      `,
     id: 'publishSimulations',
-    description: 'Validate and publish your very own simulation project.',
-    url: 'https://biosimulations.dev/utils/create-project',
+    descriptionTeaser: 'Take the Stage with Publish Simulations.',
+    descriptionVerbose: `Elevate your work from the lab to the limelight with our Publish Simulations feature. \
+      Take your self-curated simulations and transform them into published studies, open for the world to \
+      see, learn from, and build upon. Publish Simulations is more than just a tool - it’s your doorway \
+      to sharing knowledge and contributing to the global bio-simulation community. With an intuitive \
+      submission process, it takes only a few steps to submit your simulation for review and potential \
+      publication. Your work deserves recognition. Let Publish Simulations spotlight your efforts and \
+      turn your insights into shared knowledge. The future of biosimulation research is collaborative - \
+      play your part with Publish Simulations.`,
+    routingLink: 'https://biosimulations.dev/utils/create-project',
   };
   private learnSimulations = {
     title: 'Learn',
-    image:
-      'https://images.unsplash.com/photo-1557682250-33bd709cbe85?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80',
+    image: `
+        https://images.unsplash.com/photo-1557682250-33bd709cbe85?ixlib=rb-4.0.3&ixid \
+        =M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80
+      `,
     id: 'learnSimulations',
-    description: 'Browse our tutorials and learn how to run your own simulation.',
-    url: 'https://docs.biosimulations.org/users/?_gl=1*1rq7593*biosim_analytics_ga*MTU4OTQxNjYzNC4xNjgzODQyMjY0*biosim_analytics_ga_G3CVBC0V5N*MTY4NTMwMTAzNy4yMy4xLjE2ODUzMDEwNjUuMC4wLjA.',
+    descriptionTeaser: 'Unleash Your Potential with Learn',
+    descriptionVerbose: `Feed your curiosity, hone your skills, and dive deeper into the world of bio-simulation \
+      with our ‘Learn’ platform. Here, knowledge and innovation unite to bring you the tools you need to \
+      thrive in this ever-evolving field. The ‘Learn’ section is a comprehensive guide that makes mastering \
+      bio-simulation both enjoyable and achievable. With a wealth of tutorials, you can easily navigate \
+      from the basics to the more advanced concepts at your own pace. Whether you’re a budding scientist \
+      or a seasoned researcher, 'Learn' provides a rich and interactive learning environment, designed \
+      to support and challenge you. Take a leap into the future of bio-simulation with ‘Learn’. Your journey \
+      towards mastery begins here.`,
+    routingLink: `
+      https://docs.biosimulations.org/users/?_gl=1*1rq7593*biosim_analytics_ga* \
+      MTU4OTQxNjYzNC4xNjgzODQyMjY0*biosim_analytics_ga_G3CVBC0V5N*MTY4NTMwMTAzNy4yMy4xLjE2ODUzMDEwNjUuMC4wLjA.
+    `,
   };
   private convertFile = {
     title: 'Convert a file',
     image: 'https://img.freepik.com/free-photo/golden-yellow-seamless-venetian-plaster-background_24972-294.jpg?w=2000',
     id: 'convertFile',
-    description: 'Connect the outputs of SED-ML reports to the inputs of Vega data sets.',
-    url: 'https://biosimulations.dev/utils/convert-file',
+    descriptionTeaser: 'Bridging the Gap with "BioConvert" File Conversion.',
+    descriptionVerbose: `Our File Conversion feature seamlessly connects the output of your SED-ML reports to the inputs of Vega datasets.
+      It’s your effortless solution to linking diverse platforms and ensuring a smooth workflow. This conversion tool puts
+      you in control, effortlessly transforming data outputs into compatible inputs for clear, efficient analysis.
+      With this feature, the complex becomes simple. Streamline your research process and accelerate your journey to
+      discovery with our BioConvert File Conversion tool.`,
+    routingLink: 'https://biosimulations.dev/utils/convert-file',
   };
   private community = {
     title: 'Community',
-    image:
-      'https://media.istockphoto.com/id/1185382671/vector/abstract-blurred-colorful-background.jpg?s=612x612&w=0&k=20&c=3YwJa7lCw-cQ-hviINULUokL9lYU4RuGjMP_E_0N8E4=',
+    image: `
+        https://media.istockphoto.com/id/1185382671/vector/abstract-blurred-colorful-background \
+        .jpg?s=612x612&w=0&k=20&c=3YwJa7lCw-cQ-hviINULUokL9lYU4RuGjMP_E_0N8E4=
+      `,
     id: 'community',
-    description: 'Learn more about the Biosimulations community and our partners.',
-    url: 'https://vivarium-collective.github.io',
+    descriptionTeaser: 'BioBuilding Community',
+    descriptionVerbose: `The strength of our \
+      community is integral to our mission. We're proud to partner with innovative platforms like vivarium.org, \
+      allowing users to chain together BioSimulations for a more comprehensive and connected experience. Our \
+      Community is a network of minds, constantly evolving, innovating, and pushing the boundaries of what's \
+      possible in biological simulation.`,
+    routingLink: 'https://vivarium-collective.github.io',
   };
-  /*  private ecoli = {
-    title: 'Escherichia coli K-12 resource allocation',
-    citation: '(Bulović et al., Metab Eng, 2019)',
-    id: 'Escherichia-coli-resource-allocation-Bulovic-Metab-Eng-2019',
-    image: 'https://api.biosimulations.dev/files/61fea45e323a8efc42010503/FigureS13.jpg/download/?thumbnail=browse',
-    description: 'A Resource Balance Analysis (RBA) model of wildtype Escherichia coli K-12.',
-  };
-  private yeast = {
-    title: 'Budding yeast cell cycle',
-    citation: '(Irons, J Theor Biol, 2009)',
-    description:
-      'Boolean model of the budding yeast cell cycle. The model is consistent with a wide range of wild type and mutant phenotypes and shows remarkable robustness against perturbations, both to reaction times and the states of component genes/proteins.',
-    image: 'https://api.biosimulations.dev/files/61fea45614ff5e356d426b71/Figure2.jpg/download/?thumbnail=browse',
-    id: 'Yeast-cell-cycle-Irons-J-Theor-Biol-2009',
-  };
-  private mouse = {
-    title: 'Mouse iron distribution',
-    citation: '(Parmar et al., BMC Syst Biol, 2017)',
-    id: 'Iron-distribution-Parmar-BMC-Syst-Biol-2017',
-    image: 'https://api.biosimulations.dev/files/61fea46614ff5e356d426b89/Figure1.jpg/download/?thumbnail=browse',
-    description:
-      'Dynamic model of iron distribution in mice. This model includes normal iron and radioactive labelled tracer iron species and was used for parameter estimation given the data from Lopes et al. 2010 for mice fed an adequate iron diet.',
-  };
-
-  private calcium = {
-    title: 'Calcium-induced NFAT translocation',
-    citation: '(Tomida et al., EMBO J, 2003)',
-    id: 'NFAT-translocation-Tomida-EMBO-J-2003',
-    image: 'https://api.biosimulations.dev/files/61fea46d323a8efc42010524/Figure3a.jpg/download/?thumbnail=view',
-    description:
-      'Model of the kinetics of dephosphorylation and translocation of NFAT. The model captures the rapid Ca(2+)-dependent dephosphorylation of NFAT and its slow rephosphorylation and nuclear transport which govern the lifetime of NFAT in the cytoplasm.',
+  private runCustomizedSimulation = {
+    title: 'Run a customized simulation',
+    image: 'https://img.freepik.com/free-photo/golden-yellow-seamless-venetian-plaster-background_24972-294.jpg?w=2000',
+    id: 'runCustomizedSimulation',
+    descriptionTeaser: 'Tailor-Made Discoveries with Run a Customized Simulation',
+    descriptionVerbose: `Venture into \
+      uncharted territories with our Run a Customized Simulation feature. This tool gives you the ability to \
+      tweak existing simulations, run them anew, and garner unique results based on your parameters. Let curiosity \
+      be your guide as you navigate through the rich tapestry of biological data and explore your custom scenarios \
+      with 'Run a Customized Simulation'. We will start you off with the project \
+      "Mouse Iron distribution(Parmar et al., BMC Syst Biol, 2017)".`,
+    routingLink: `
+       https://run.biosimulations.org/runs/new \
+       ?projectUrl=https:%2F%2Fapi.biosimulations.org%2Fruns%2F61fea49049420059835774e3%2Fdownload \
+       &simulator=pysces&simulatorVersion=1.0.0\
+       &runName=Iron%20distribution%20(Parmar%20et%20al.,%20BMC%20Syst%20Biol,%202017;%20SBML;%20CVODE;%20PySCeS)%20(rerun)
+      `,
   };
 
-  projects = [this.mouse, this.ecoli, this.yeast, this.calcium];*/
-
-  projects = [
+  public projects = [
     this.simulations,
     this.runSimulations,
     this.publishSimulations,
@@ -94,6 +139,10 @@ export class FeaturedService {
     this.convertFile,
     this.community,
   ];
+
+  private getProject(i: number): FeaturedProject {
+    return this.projects[i];
+  }
 
   public getProjects(): FeaturedProject[] {
     return this.projects;

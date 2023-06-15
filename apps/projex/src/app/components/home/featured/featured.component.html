@@ -5,7 +5,7 @@
       mat-fab
       fxFlexAlign="center"
       class="nav-button left"
-      style="background-color: rgba(20, 121, 237, 0.75)"
+      style="background-color: rgb(20, 121, 237)"
       (click)="previous()">
       <mat-icon>keyboard_arrow_left</mat-icon>
     </button>
@@ -21,7 +21,7 @@
         <a href="project.url" target="_blank" style="justify-content: center"></a>
         <img src="{{ project.image }}" alt="IMAGE" />
         <mat-card-content>
-          {{ project.description }}
+          {{ project.descriptionTeaser }}
         </mat-card-content>
       </mat-card>
     </ng-container>
@@ -31,7 +31,7 @@
       mat-fab
       fxFlexAlign="center"
       class="nav-button right"
-      style="background-color: rgba(20, 121, 237, 0.75)"
+      style="background-color: rgb(20, 121, 237)"
       (click)="next()">
       <mat-icon>keyboard_arrow_right</mat-icon>
     </button>

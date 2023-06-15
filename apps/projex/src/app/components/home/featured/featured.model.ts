@@ -3,5 +3,7 @@ export class FeaturedProject {
   //public citation!: string;
   public id!: string;
   public image!: string;
-  public description!: string;
+  public descriptionTeaser!: string;
+  public descriptionVerbose!: string;
+  public routingLink!: string;
 }
