@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FeaturedService } from './featured.service';
 import { FeaturedProject } from './featured.model';
 import { trigger, state, style, animate, transition } from '@angular/animations';
@@ -16,6 +16,9 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   providers: [FeaturedService],
 })
 export class FeaturedComponent {
+  @Input()
+  public autoScrollInterval = 10000;
+
   public projects: FeaturedProject[];
   public startIndex = 0;
   public endIndex = 1;
@@ -42,7 +45,7 @@ export class FeaturedComponent {
     this.startIndex = 0;
     this.endIndex = this.numCards - 1;
     this.currentServiceIndex = 0;
-    this.startAutoScroll();
+    this.startAutoScroll(this.autoScrollInterval);
   }
 
   public previous(): void {
@@ -70,8 +73,7 @@ export class FeaturedComponent {
     }
   }
 
-  private startAutoScroll(): void {
-    const intervalTime = 9000;
+  private startAutoScroll(intervalTime: number): void {
     this.intervalId = setInterval(() => {
       this.next();
     }, intervalTime);
