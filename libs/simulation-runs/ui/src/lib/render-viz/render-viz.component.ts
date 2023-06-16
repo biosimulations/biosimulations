@@ -16,5 +16,8 @@ export class RenderVisualizationComponent {
   @Input()
   visualization!: Visualization;
 
+  @Input()
+  name?: string;
+
   public constructor() {}
 }

@@ -13,7 +13,7 @@
     <ng-container *ngFor="let project of projects; let i = index">
       <!-- Start Parent of Feature Card -->
       <mat-card
-        @slideInOut
+        [@slideInOut]="'in'"
         class="feature-card"
         *ngIf="i >= startIndex && i <= endIndex"
         [fxFlex]="70 / numCards"

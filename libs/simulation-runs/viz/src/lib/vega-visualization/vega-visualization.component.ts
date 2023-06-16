@@ -22,7 +22,8 @@ export class VegaVisualizationComponent implements AfterViewInit, OnDestroy {
   private resizeDebounce!: debounce<() => void>;
 
   public constructor(private hostElement: ElementRef) {}
-
+  @Input()
+  public name?: string;
   @Input()
   public set spec(value: Observable<Spec | null | false>) {
     this.loading = true;

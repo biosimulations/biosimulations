@@ -9,11 +9,8 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   styleUrls: ['./featured.component.scss'],
   animations: [
     trigger('slideInOut', [
-      state('in', style({ transform: 'translateX(0)' })),
-      transition('* => void', [
-        style({ transform: 'scale(1.0)', transition: 'opacity 1s ease-in-out', opacity: '1' }),
-        animate(500),
-      ]),
+      state('in', style({ opacity: 1, transform: 'translateX(0)' })),
+      transition('void => in', [style({ opacity: 0 }), animate(600, style({ opacity: 1 }))]),
     ]),
   ],
   providers: [FeaturedService],
