@@ -5,7 +5,7 @@ import { FeaturedProject } from './featured.model';
 export class FeaturedService {
   private simulations = {
     title: 'Browse Simulations',
-    image: 'https://img.freepik.com/free-vector/vintage-science-education-background_23-2148483429.jpg?w=2000',
+    image: 'https://img.freepik.com/premium-vector/black-white-drawing-microscope-with-microscope-it_666729-1282.jpg',
     id: 'simulations',
     descriptionTeaser: 'Explore Biology Like Never Before with BioSimDB.',
     descriptionVerbose: `Step into the fascinating world of BioSimDB, where biological simulations become a gateway \
@@ -64,7 +64,7 @@ export class FeaturedService {
   };
   private learnSimulations = {
     title: 'Learn',
-    image: `https://img.freepik.com/free-vector/density-scientific-equipment_53876-91185.jpg?w=826&t=st=1686925355~exp=1686925955~hmac=7d7eee85f7a886683a7bb4f890adcc1aad8566a1bc4eecece5c99c9790bcd9d6`,
+    image: `https://neurosciencenews.com/files/2018/11/memory-learning-rna-neurosciencenews-public.jpg`,
     id: 'learnSimulations',
     descriptionTeaser: 'Unleash Your Potential with Learn',
     descriptionVerbose: `Feed your curiosity, hone your skills, and dive deeper into the world of bio-simulation \
