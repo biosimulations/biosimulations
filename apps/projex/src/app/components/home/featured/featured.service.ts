@@ -139,7 +139,7 @@ export class FeaturedService {
        &runName=Iron%20distribution%20(Parmar%20et%20al.,%20BMC%20Syst%20Biol,%202017;%20SBML;%20CVODE;%20PySCeS)%20(rerun)
       `,
     logo: 'experiment',
-    color: '#ffeb3b',
+    color: 'green',
   };
 
   public projects = [
