@@ -68,13 +68,11 @@
   flex-basis: auto;
   background-size: cover;
   background-position: center;
-  color: white; /* To ensure the description text is visible against the dark background */
+  color: rgb(0, 23, 0); /* To ensure the description text is visible against the dark background */
   width: auto;
   height: 500px;
   padding-top: 0;
   padding-bottom: 1rem;
-  color: white;
-  //background-color: rgba(20, 121, 237, 0.65);
   font-weight: 500;
   font-size: large;
   transition: transform 0.3s ease-in, opacity 0.3s ease-in;
@@ -93,24 +91,6 @@
   right: 0; /* Position at left of card */
   padding: 10px; /* Add some padding around the text */
 }
-.__feature-card {
-  width: 100%;
-  height: 500px;
-  align-items: center;
-  padding-top: 0;
-  padding-bottom: 1rem;
-  color: white;
-  //background-color: rgba(20, 121, 237, 0.65);
-  font-weight: 500;
-  font-size: large;
-  transition: opacity 0.3s ease-in-out;
-  transition-property: all;
-  border-radius: 4px;
-}
-
-.feature-card-header {
-  color: white; //mat.get-color-from-palette($theme-primary);
-}
 
 .feature-card-content {
   display: -webkit-box;
@@ -118,6 +98,7 @@
   -webkit-box-orient: vertical;
   padding-bottom: 1rem;
   height: 60px;
+  color: black;
 }
 
 img {
@@ -149,6 +130,9 @@ img {
   background-image: 'https://hotpot.ai/s/art-generator/8-CXcACUPHkehcx47';
 }
 
+.figure-card-header,
 .click-image-eventspace {
-  color: white;
+  color: rgb(4, 37, 2);
+  font-size: larger;
+  font-weight: 500;
 }

@@ -5,7 +5,8 @@ import { FeaturedProject } from './featured.model';
 export class FeaturedService {
   private simulations = {
     title: 'Browse Simulations',
-    image: 'https://t4.ftcdn.net/jpg/05/06/41/89/360_F_506418953_5R5MQsN4UJ4hLgqnKlltS44wbQ33LhIU.jpg',
+    image:
+      'https://images.nightcafe.studio/jobs/hd126wu28SWA5cn7FMtW/hd126wu28SWA5cn7FMtW--1--4i7c0.jpg?tr=w-1600,c-at_max',
     id: 'simulations',
     descriptionTeaser: 'Explore Biology Like Never Before with BioSimDB.',
     descriptionVerbose: `Step into the fascinating world of BioSimDB, where biological simulations become a gateway \
@@ -27,7 +28,7 @@ export class FeaturedService {
   };
   private runSimulations = {
     title: 'Run Simulations',
-    image: `https://t4.ftcdn.net/jpg/05/06/41/89/360_F_506418953_5R5MQsN4UJ4hLgqnKlltS44wbQ33LhIU.jpg`,
+    image: `https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcGQyMzUtcGRzdHViYnMwMDAzNy1pbWFnZV80LmpwZw.jpg`,
     id: 'runSimulations',
     descriptionTeaser: 'Unlock Biological Insights with Run Simulations.',
     descriptionVerbose: `Unleash the power of personalization with Run Simulations, our dedicated tool for running \
@@ -81,7 +82,8 @@ export class FeaturedService {
   };
   private convertFile = {
     title: 'Convert a file',
-    image: 'https://t4.ftcdn.net/jpg/05/06/41/89/360_F_506418953_5R5MQsN4UJ4hLgqnKlltS44wbQ33LhIU.jpg',
+    image:
+      'https://images.rawpixel.com/image_1300/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcGQxMDktcGRvYmowMDcyOC1pbWFnZS5qcGc.jpg',
     id: 'convertFile',
     descriptionTeaser: 'Bridging the Gap with "BioConvert" File Conversion.',
     descriptionVerbose: `Our File Conversion feature seamlessly connects the output of your SED-ML reports to the inputs of Vega datasets.
@@ -94,7 +96,7 @@ export class FeaturedService {
   };
   private community = {
     title: 'Community',
-    image: `https://t4.ftcdn.net/jpg/05/06/41/89/360_F_506418953_5R5MQsN4UJ4hLgqnKlltS44wbQ33LhIU.jpg`,
+    image: `https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcGQzNS0wMzA3Ny5qcGc.jpg`,
     id: 'community',
     descriptionTeaser: 'BioBuilding Community',
     descriptionVerbose: `The strength of our \
@@ -107,7 +109,8 @@ export class FeaturedService {
   };
   private runCustomizedSimulation = {
     title: 'Run a customized simulation',
-    image: 'https://t4.ftcdn.net/jpg/05/06/41/89/360_F_506418953_5R5MQsN4UJ4hLgqnKlltS44wbQ33LhIU.jpg',
+    image:
+      'https://images.rawpixel.com/image_1300/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvcGQ0My0wNjA0LTA2Ni1uYW1fMC5qcGc.jpg',
     id: 'runCustomizedSimulation',
     descriptionTeaser: 'Tailor-Made Discoveries with Run a Customized Simulation',
     descriptionVerbose: `Venture into \
