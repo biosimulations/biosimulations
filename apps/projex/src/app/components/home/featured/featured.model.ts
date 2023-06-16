@@ -7,4 +7,6 @@ export class FeaturedProject {
   public descriptionVerbose!: string;
   public routingLink!: string;
   public logo!: string;
+  public color?: string;
+  public textColor?: string;
 }

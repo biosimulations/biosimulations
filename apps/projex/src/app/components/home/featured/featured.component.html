@@ -14,25 +14,37 @@
       <!-- Start Parent of Feature Card -->
       <mat-card
         [@slideInOut]="'in'"
-        class="feature-card"
+        class="feature-card mat-elevation-z8"
         *ngIf="i >= startIndex && i <= endIndex"
         [fxFlex]="70 / numCards"
         [style.background-image]="'url(' + project.image + ')'">
         <!-- Start Feature Card Header -->
-        <mat-card-header class="feature-card-header">
+        <mat-card-header
+          class="text-header card"
+          [style.color]="project.textColor"
+          [style.background-color]="project.color">
           <mat-card-title>
             {{ project.title }}
           </mat-card-title>
         </mat-card-header>
         <!-- End Feature Card Header -->
         <!-- Start Feature Card Content -->
-        <mat-card-content>
+        <mat-card-footer>
           <a class="click-image-eventspace" href="project.routingLink" target="_blank">
-            <div class="description-container">
-              <p>{{ project.descriptionTeaser }}</p>
-            </div>
+            <mat-card-actions>
+              <div class="description-container">
+                <button
+                  class="description-content text-header"
+                  mat-button
+                  [style.color]="project.textColor"
+                  [style.background-color]="project.color">
+                  {{ project.descriptionTeaser }}
+                </button>
+              </div>
+            </mat-card-actions>
           </a>
-        </mat-card-content>
+        </mat-card-footer>
+
         <!-- End Feature Card Content -->
       </mat-card>
       <!-- End Parent of Feature Card -->

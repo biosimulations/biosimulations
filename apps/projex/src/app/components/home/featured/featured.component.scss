@@ -20,24 +20,6 @@
   padding-top: 3rem;
 }
 
-.heading {
-  width: 100%;
-
-  text-align: center;
-  font-size: 28px;
-  line-height: normal;
-}
-
-.heading-separator {
-  border-bottom: 2px solid var(--primary-color);
-  height: 0;
-  width: 6rem;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .pagination-dots {
   display: flex;
   justify-content: center;
@@ -56,33 +38,48 @@
   transition-property: all;
   transition-duration: 0.3s;
   transition-timing-function: ease-in;
+
+  &.active {
+    background-color: #087008;
+  }
 }
 
-.dot.active {
-  background-color: #087008//rgba(187, 72, 187, 0.734);
+.text-header {
+  border-top: 2px solid inherit;
+  border-radius: 3px;
+  width: auto;
 }
 
 .feature-card {
+  width: auto;
+  height: 600px;
+  position: relative;
   flex-grow: 1; /* allows the item to grow and take up any extra space */
   flex-shrink: 0; /* prevents the item from shrinking if space is tight */
   flex-basis: auto;
-  background-size: contain;
+  background-size: 50%;
   background-repeat: no-repeat;
   background-position: center;
   color: rgb(0, 23, 0); /* To ensure the description text is visible against the dark background */
-  width: auto;
-  height: 500px;
   padding-top: 0;
   padding-bottom: 1rem;
   font-weight: 500;
   font-size: large;
   transition: transform 0.3s ease-in, opacity 0.3s ease-in;
   transition-property: all;
+  border: 1px solid inherit;
   border-radius: 4px;
 
-  &.active {
-    opacity: 1;
-    background-color: none;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fffaf2; //rgba(134, 134, 134, 0.158);
+    mix-blend-mode: multiply;
+    z-index: 1;
   }
 }
 
@@ -90,7 +87,7 @@
   position: absolute;
   bottom: 0; /* Position at bottom of card */
   right: 0; /* Position at left of card */
-  padding: 10px; /* Add some padding around the text */
+  padding: 20px; /* Add some padding around the text */
 }
 
 .feature-card-content {
@@ -103,13 +100,18 @@
 }
 
 img {
-  height: 300px;
-  width: 100%;
+  height: auto;
+  width: auto;
   padding: auto;
 }
 
-.description-teaser {
-  background-color: orange;
+.description-content {
+  font-size: large;
+
+  &:hover {
+    background-color: blueviolet;
+    transition: 0.2s ease-in-out;
+  }
 }
 
 .nav-button {

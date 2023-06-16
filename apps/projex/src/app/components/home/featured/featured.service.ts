@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FeaturedProject } from './featured.model';
-
+('#2196f3');
+('#ff9800');
 @Injectable()
 export class FeaturedService {
   private simulations = {
@@ -24,6 +25,8 @@ export class FeaturedService {
       innovate.`,
     routingLink: 'https://biosimulations.dev/projects',
     logo: 'simulators',
+    color: '#2196f3',
+    textColor: 'white',
   };
   private runSimulations = {
     title: 'Run Simulations',
@@ -45,10 +48,12 @@ export class FeaturedService {
       breakthrough insights. Your biological exploration is now at your command with Run Simulations.`,
     routingLink: 'https://biosimulations.dev/runs/new',
     logo: 'experiment',
+    color: '#ff9800',
   };
   private publishSimulations = {
     title: 'Submit Your Simulation for publication',
-    image: `https://img.freepik.com/free-vector/hand-draw-gramophone-sketch-design_1035-20308.jpg?w=826&t=st=1686925731~exp=1686926331~hmac=a283f0c9d5b5cf5563fe5da80ed4f3a2c6b18db1498b8170b9e7ce65ec9e94ea`,
+    image: `https://img.freepik.com/free-vector/hand-draw-gramophone-sketch-design_1035-20308 \
+            .jpg?w=826&t=st=1686925731~exp=1686926331~hmac=a283f0c9d5b5cf5563fe5da80ed4f3a2c6b18db1498b8170b9e7ce65ec9e94ea`,
     id: 'publishSimulations',
     descriptionTeaser: 'Take the Stage with Publish Simulations.',
     descriptionVerbose: `Elevate your work from the lab to the limelight with our Publish Simulations feature. \
@@ -61,6 +66,8 @@ export class FeaturedService {
       play your part with Publish Simulations.`,
     routingLink: 'https://biosimulations.dev/utils/create-project',
     logo: 'publish',
+    color: 'green',
+    textColor: 'white',
   };
   private learnSimulations = {
     title: 'Learn',
@@ -74,11 +81,13 @@ export class FeaturedService {
       from the basics to the more advanced concepts at your own pace. Whether you’re a budding scientist \
       or a seasoned researcher, 'Learn' provides a rich and interactive learning environment, designed \
       to support and challenge you. Take a leap into the future of bio-simulation with ‘Learn’. Your journey \
-      towards mastery begins here. <a href="https://www.freepik.com/free-vector/density-scientific-equipment_4258263.htm#query=vintage%20science&position=27&from_view=keyword&track=ais">Image by rawpixel.com</a> on Freepik`,
+      towards mastery begins here. Image by rawpixel.com</a> on Freepik`,
     routingLink: `
     https://docs.biosimulations.org/developers/setup/getting-started/
     `,
     logo: 'idea',
+    color: '#951ed9',
+    textColor: 'white',
   };
   private convertFile = {
     title: 'Convert a file',
@@ -92,10 +101,13 @@ export class FeaturedService {
       discovery with our BioConvert File Conversion tool.`,
     routingLink: 'https://biosimulations.dev/utils/convert-file',
     logo: 'link',
+    color: '#f44336',
+    textColor: 'white',
   };
   private community = {
     title: 'Community',
-    image: `https://img.freepik.com/free-vector/vintage-globe-stand-illustration_53876-77367.jpg?w=740&t=st=1686925502~exp=1686926102~hmac=9c9ecff398fe44f605927346d865709f1196905be3ed0b4e7ccd3e963f187656`,
+    image: `https://img.freepik.com/free-vector/vintage-globe-stand-illustration_53876-77367 \
+       .jpg?w=740&t=st=1686925502~exp=1686926102~hmac=9c9ecff398fe44f605927346d865709f1196905be3ed0b4e7ccd3e963f187656`,
     id: 'community',
     descriptionTeaser: 'BioBuilding Community',
     descriptionVerbose: `The strength of our \
@@ -105,11 +117,13 @@ export class FeaturedService {
       possible in biological simulation.`,
     routingLink: 'https://vivarium-collective.github.io',
     logo: 'idea',
+    color: '#009688',
+    textColor: 'white',
   };
   private runCustomizedSimulation = {
     title: 'Run a customized simulation',
-    image:
-      'https://images.rawpixel.com/image_1300/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvcGQ0My0wNjA0LTA2Ni1uYW1fMC5qcGc.jpg',
+    image: `https://images.rawpixel.com/image_1300 \
+       /czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvcGQ0My0wNjA0LTA2Ni1uYW1fMC5qcGc.jpg`,
     id: 'runCustomizedSimulation',
     descriptionTeaser: 'Tailor-Made Discoveries with Run a Customized Simulation',
     descriptionVerbose: `Venture into \
@@ -125,6 +139,7 @@ export class FeaturedService {
        &runName=Iron%20distribution%20(Parmar%20et%20al.,%20BMC%20Syst%20Biol,%202017;%20SBML;%20CVODE;%20PySCeS)%20(rerun)
       `,
     logo: 'experiment',
+    color: '#ffeb3b',
   };
 
   public projects = [
@@ -134,7 +149,7 @@ export class FeaturedService {
     this.learnSimulations,
     this.convertFile,
     this.community,
-    //this.runCustomizedSimulation,
+    this.runCustomizedSimulation,
   ];
 
   private getFeature(i: number): FeaturedProject {

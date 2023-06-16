@@ -40,6 +40,8 @@ export class FeaturedComponent {
   `;*/
   private intervalId!: NodeJS.Timer | null;
   showCard = true;
+  cardIsActive = false;
+
   public constructor(private service: FeaturedService) {
     this.projects = this.service.getProjects();
     this.startIndex = 0;
@@ -64,6 +66,9 @@ export class FeaturedComponent {
   }
 
   public next(): void {
+    /*if (this.currentServiceIndex != this.currentServiceIndex + 1) {
+      //this.cardIsActive = true;
+    } else {*/
     if (this.endIndex < this.projects.length - 1) {
       this.startIndex++;
       this.endIndex++;
