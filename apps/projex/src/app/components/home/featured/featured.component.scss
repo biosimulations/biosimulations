@@ -7,9 +7,7 @@
   height: 100%;
   width: 100%;
   text-align: center;
-  overflow: hidden;
-  padding: 0rem;
-  padding-bottom: 0rem;
+  padding-bottom: 4rem;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -17,7 +15,6 @@
 }
 
 .subsection {
-  padding-top: 3rem;
 }
 
 .pagination-dots {
@@ -45,9 +42,12 @@
 }
 
 .text-header {
-  border-top: 2px solid inherit;
+  border-top: 0.5px solid inherit;
   border-radius: 3px;
+  padding-bottom: 8px;
   width: auto;
+  font-weight: 700;
+  font-size: x-large;
 }
 
 .feature-card {
@@ -62,7 +62,7 @@
   background-position: center;
   color: rgb(0, 23, 0); /* To ensure the description text is visible against the dark background */
   padding-top: 0;
-  padding-bottom: 1rem;
+  padding-bottom: 4rem;
   font-weight: 500;
   font-size: large;
   transition: transform 0.3s ease-in, opacity 0.3s ease-in;
@@ -88,6 +88,7 @@
   bottom: 0; /* Position at bottom of card */
   right: 0; /* Position at left of card */
   padding: 20px; /* Add some padding around the text */
+  padding-top: 5rem;
 }
 
 .feature-card-content {
@@ -109,8 +110,8 @@ img {
   font-size: large;
 
   &:hover {
-    background-color: blueviolet;
     transition: 0.2s ease-in-out;
+    background-color: rgba(20, 121, 237, 0.067);
   }
 }
 
