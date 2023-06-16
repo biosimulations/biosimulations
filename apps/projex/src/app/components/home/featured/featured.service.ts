@@ -5,8 +5,7 @@ import { FeaturedProject } from './featured.model';
 export class FeaturedService {
   private simulations = {
     title: 'Browse Simulations',
-    image:
-      'https://images.nightcafe.studio/jobs/hd126wu28SWA5cn7FMtW/hd126wu28SWA5cn7FMtW--1--4i7c0.jpg?tr=w-1600,c-at_max',
+    image: 'https://img.freepik.com/free-vector/vintage-science-education-background_23-2148483429.jpg?w=2000',
     id: 'simulations',
     descriptionTeaser: 'Explore Biology Like Never Before with BioSimDB.',
     descriptionVerbose: `Step into the fascinating world of BioSimDB, where biological simulations become a gateway \
@@ -28,7 +27,8 @@ export class FeaturedService {
   };
   private runSimulations = {
     title: 'Run Simulations',
-    image: `https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcGQyMzUtcGRzdHViYnMwMDAzNy1pbWFnZV80LmpwZw.jpg`,
+    image:
+      'https://images.rawpixel.com/image_1300/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvcGQ0My0wNjA0LTA2Ni1uYW1fMC5qcGc.jpg',
     id: 'runSimulations',
     descriptionTeaser: 'Unlock Biological Insights with Run Simulations.',
     descriptionVerbose: `Unleash the power of personalization with Run Simulations, our dedicated tool for running \
@@ -48,7 +48,7 @@ export class FeaturedService {
   };
   private publishSimulations = {
     title: 'Submit Your Simulation for publication',
-    image: `https://t4.ftcdn.net/jpg/05/06/41/89/360_F_506418953_5R5MQsN4UJ4hLgqnKlltS44wbQ33LhIU.jpg`,
+    image: `https://img.freepik.com/free-vector/hand-draw-gramophone-sketch-design_1035-20308.jpg?w=826&t=st=1686925731~exp=1686926331~hmac=a283f0c9d5b5cf5563fe5da80ed4f3a2c6b18db1498b8170b9e7ce65ec9e94ea`,
     id: 'publishSimulations',
     descriptionTeaser: 'Take the Stage with Publish Simulations.',
     descriptionVerbose: `Elevate your work from the lab to the limelight with our Publish Simulations feature. \
@@ -64,7 +64,7 @@ export class FeaturedService {
   };
   private learnSimulations = {
     title: 'Learn',
-    image: `https://t4.ftcdn.net/jpg/05/06/41/89/360_F_506418953_5R5MQsN4UJ4hLgqnKlltS44wbQ33LhIU.jpg`,
+    image: `https://img.freepik.com/free-vector/density-scientific-equipment_53876-91185.jpg?w=826&t=st=1686925355~exp=1686925955~hmac=7d7eee85f7a886683a7bb4f890adcc1aad8566a1bc4eecece5c99c9790bcd9d6`,
     id: 'learnSimulations',
     descriptionTeaser: 'Unleash Your Potential with Learn',
     descriptionVerbose: `Feed your curiosity, hone your skills, and dive deeper into the world of bio-simulation \
@@ -74,16 +74,15 @@ export class FeaturedService {
       from the basics to the more advanced concepts at your own pace. Whether you’re a budding scientist \
       or a seasoned researcher, 'Learn' provides a rich and interactive learning environment, designed \
       to support and challenge you. Take a leap into the future of bio-simulation with ‘Learn’. Your journey \
-      towards mastery begins here.`,
+      towards mastery begins here. <a href="https://www.freepik.com/free-vector/density-scientific-equipment_4258263.htm#query=vintage%20science&position=27&from_view=keyword&track=ais">Image by rawpixel.com</a> on Freepik`,
     routingLink: `
-      https://t4.ftcdn.net/jpg/05/06/41/89/360_F_506418953_5R5MQsN4UJ4hLgqnKlltS44wbQ33LhIU.jpg
+    https://docs.biosimulations.org/developers/setup/getting-started/
     `,
     logo: 'idea',
   };
   private convertFile = {
     title: 'Convert a file',
-    image:
-      'https://images.rawpixel.com/image_1300/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcGQxMDktcGRvYmowMDcyOC1pbWFnZS5qcGc.jpg',
+    image: 'https://www.oldbookillustrations.com/site/assets/high-res/n-d-1884/edisons-electric-pen-1200.jpg',
     id: 'convertFile',
     descriptionTeaser: 'Bridging the Gap with "BioConvert" File Conversion.',
     descriptionVerbose: `Our File Conversion feature seamlessly connects the output of your SED-ML reports to the inputs of Vega datasets.
@@ -96,7 +95,7 @@ export class FeaturedService {
   };
   private community = {
     title: 'Community',
-    image: `https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcGQzNS0wMzA3Ny5qcGc.jpg`,
+    image: `https://img.freepik.com/free-vector/vintage-globe-stand-illustration_53876-77367.jpg?w=740&t=st=1686925502~exp=1686926102~hmac=9c9ecff398fe44f605927346d865709f1196905be3ed0b4e7ccd3e963f187656`,
     id: 'community',
     descriptionTeaser: 'BioBuilding Community',
     descriptionVerbose: `The strength of our \
@@ -135,7 +134,7 @@ export class FeaturedService {
     this.learnSimulations,
     this.convertFile,
     this.community,
-    this.runCustomizedSimulation,
+    //this.runCustomizedSimulation,
   ];
 
   private getFeature(i: number): FeaturedProject {
