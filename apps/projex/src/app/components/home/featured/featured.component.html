@@ -22,25 +22,21 @@
         <mat-card-header
           [style.color]="project.textColor"
           [style.background-color]="project.color">
-          <mat-card-title class="text-header card">
+          <mat-card-title>
             {{ project.title }}
           </mat-card-title>
         </mat-card-header>
         <!-- End Feature Card Header -->
         <!-- Start Feature Card Content -->
-        <mat-card-footer>
-          <mat-card-actions>
-            <div class="description-container">
-              <a class="click-image-eventspace" target="_blank" href="project.routingLink">
-                <button
-                  class="description-content text-header"
-                  mat-button>
-                  {{ project.descriptionTeaser }}
-                </button>
-              </a>
-            </div>
-          </mat-card-actions>
-        </mat-card-footer>
+          <div class="description-container">
+            <a class="click-image-eventspace" target="_blank" href="project.routingLink">
+              <button
+                class="description-content text-header"
+                mat-button>
+                {{ project.descriptionTeaser }}
+              </button>
+            </a>
+          </div>
         <!-- End Feature Card Content -->
       </mat-card>
       <!-- End Parent of Feature Card -->

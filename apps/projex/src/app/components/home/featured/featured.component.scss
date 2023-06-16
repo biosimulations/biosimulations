@@ -57,7 +57,7 @@
   flex-grow: 1; /* allows the item to grow and take up any extra space */
   flex-shrink: 0; /* prevents the item from shrinking if space is tight */
   flex-basis: auto;
-  background-size: 50%;
+  background-size: 500px;
   background-repeat: no-repeat;
   background-position: center;
   color: rgb(0, 23, 0); /* To ensure the description text is visible against the dark background */
@@ -85,9 +85,9 @@
 
 .description-container {
   position: absolute;
-  bottom: 0; /* Position at bottom of card */
-  right: 0; /* Position at left of card */
-  padding: 20px; /* Add some padding around the text */
+  bottom: 0;
+  right: 0;
+  padding: 20px;
   padding-top: 5rem;
 }
 
