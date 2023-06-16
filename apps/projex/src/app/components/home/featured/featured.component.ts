@@ -18,7 +18,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 export class FeaturedComponent {
   @Input()
   public autoScrollInterval = 10000;
-
+  public showNew = false;
   public projects: FeaturedProject[];
   public startIndex = 0;
   public endIndex = 1;
@@ -102,5 +102,13 @@ export class FeaturedComponent {
 
   public getBackgroundUrl(image: string): string {
     return `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${image})`;
+  }
+
+  showNewElement() {
+    this.showNew = true;
+  }
+
+  hideNewElement() {
+    this.showNew = false;
   }
 }
