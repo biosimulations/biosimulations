@@ -1,5 +1,38 @@
 # Changelog
 
+## [9.33.0](https://github.com/biosimulations/biosimulations/compare/v9.32.0...v9.33.0) (2023-06-17)
+
+
+### Bug Fixes
+
+* add test dependency for animation ([c77619a](https://github.com/biosimulations/biosimulations/commit/c77619ad6b886b91305fcc616813107701b9f1af))
+* added alt attribute to image tag ([33d8fbb](https://github.com/biosimulations/biosimulations/commit/33d8fbb4264626d1df3849301f581861e42ec04e))
+* adjusted autoscroll time ([f58943e](https://github.com/biosimulations/biosimulations/commit/f58943e391021f5e8fba0659a3e0059472b3ad8a))
+* adjusted colors ([979dcde](https://github.com/biosimulations/biosimulations/commit/979dcdeb77535c1167ccc2e87445e0cfa76f5752))
+* adjusted header style ([2b74b16](https://github.com/biosimulations/biosimulations/commit/2b74b16e7b5a78be253552f26403b70a68718d9b))
+* adjusted image defaults ([5100826](https://github.com/biosimulations/biosimulations/commit/5100826bae1719b38c012d3816f15c0d41a5cada))
+* codefactor apply fixes to commit b1d50e9 ([32ef241](https://github.com/biosimulations/biosimulations/commit/32ef24198262a61d6626b1113e6a902c236e0d1d))
+* eslint error about datamodel-database library rootDir ([a5c6c4b](https://github.com/biosimulations/biosimulations/commit/a5c6c4bc55f0f9aaabaa6ab48313af9f374416e9))
+* linting adjust ([8af8e55](https://github.com/biosimulations/biosimulations/commit/8af8e55ff65ce251557efd3110d9b5b76fd61038))
+* minor profile adjustments ([eda0a6e](https://github.com/biosimulations/biosimulations/commit/eda0a6ed06ee36c8ff7e53e13c1698a5153c9572))
+* remove default dependency of test phase on build, only combine-api ([7fb24c3](https://github.com/biosimulations/biosimulations/commit/7fb24c32136c6c9d967abdd69c6fa87577404c22))
+* removed _blank target from nav button behavior in app hero banner ([9a35b52](https://github.com/biosimulations/biosimulations/commit/9a35b52aa1cd16043927f72b4befc6451da9234b))
+* removed unused undeclared hex colors ([57bcb57](https://github.com/biosimulations/biosimulations/commit/57bcb5701a50717d0164950e6e7b90549c7dee8b))
+
+
+### Features
+
+* added _blank target to project-table selection component ([37d167d](https://github.com/biosimulations/biosimulations/commit/37d167d58861ae2060c8b899992e9814fad18eb4))
+* added description teaser and verbose description for each featured service in home carousel ([0de3775](https://github.com/biosimulations/biosimulations/commit/0de3775a6ba0b14d787c49ee60328cae1ea60077))
+* added image zoom event behavior ([8d41722](https://github.com/biosimulations/biosimulations/commit/8d4172295bca194faa0ef64ae6282fae9410dd59))
+* added images to showcase card ([fe2aec1](https://github.com/biosimulations/biosimulations/commit/fe2aec1bb064f4d98c9f4c467f66d67c462ae1db))
+* added learn nav button and tutorials url to config ([d708178](https://github.com/biosimulations/biosimulations/commit/d708178adc60caf47c645aec22a839cb4ff71087))
+* added link to rest api in utilities nav button on app banner ([4c3db73](https://github.com/biosimulations/biosimulations/commit/4c3db735fc9898536b09ea53a04398f5ef864e28))
+* added textual heading as placeholder for no profile image ([b5ed643](https://github.com/biosimulations/biosimulations/commit/b5ed6430fb28d62d069da743888839900be1c874))
+* added verbose description on hover for each item in feature showcase ([3a24bb3](https://github.com/biosimulations/biosimulations/commit/3a24bb3cc12fc751795fc97b2cdab8f2f9c688b1))
+* changes to features hookup ([1a13759](https://github.com/biosimulations/biosimulations/commit/1a1375901377fe3971d61d35f351987648ec083b))
+* implemented href in image placeholder in showcase carousel ([115f924](https://github.com/biosimulations/biosimulations/commit/115f92417074c2d13770af258db11d4983cb4dc8))
+
 ## [9.32.0](https://github.com/biosimulations/biosimulations/compare/v9.31.0...v9.32.0) (2023-06-13)
 
 
