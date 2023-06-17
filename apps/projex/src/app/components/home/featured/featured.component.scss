@@ -44,7 +44,6 @@
 .text-header {
   border-top: 0.5px solid inherit;
   border-radius: 3px;
-  padding-bottom: 8px;
   width: auto;
   font-weight: 700;
   font-size: x-large;
@@ -106,7 +105,7 @@ img {
 }
 
 .card-parent {
-  height: 100%;
+  height: 75%;
   opacity: 1;
   transition: opacity 0.5s ease;
   &.fade-in {
@@ -117,16 +116,15 @@ img {
 .description-card {
   height: 100%;
   width: 100%;
+  padding-top: 6rem;
   transition: 0.2s ease-in-out;
   justify-content: center;
-  background: rgba(173, 216, 230, 0.285);
 }
 
 .description-content {
   font-size: large;
   align-items: center;
   justify-content: center;
-  padding-top: 5rem;
 }
 
 .nav-button {
