@@ -7,6 +7,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ConfigService } from '@biosimulations/config/angular';
 import { HomeModule } from './home.module';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -14,7 +15,14 @@ describe('HomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, SharedUiModule, BiosimulationsIconsModule, RouterTestingModule, HomeModule],
+      imports: [
+        HttpClientTestingModule,
+        SharedUiModule,
+        BiosimulationsIconsModule,
+        RouterTestingModule,
+        HomeModule,
+        NoopAnimationsModule,
+      ],
       declarations: [HomeComponent],
       providers: [ConfigService],
     }).compileComponents();
