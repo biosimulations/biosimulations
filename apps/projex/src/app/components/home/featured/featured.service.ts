@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FeaturedProject } from './featured.model';
-('#2196f3');
-('#ff9800');
+
 @Injectable()
 export class FeaturedService {
   private simulations = {
