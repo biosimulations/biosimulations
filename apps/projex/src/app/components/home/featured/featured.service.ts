@@ -25,7 +25,7 @@ export class FeaturedService {
       innovate.`,
     routingLink: 'https://biosimulations.dev/projects',
     logo: 'simulators',
-    color: '#2196f3',
+    color: 'rgba(33, 150, 243, 0.85)',
     textColor: 'white',
   };
   private runSimulations = {
@@ -48,7 +48,8 @@ export class FeaturedService {
       breakthrough insights. Your biological exploration is now at your command with Run Simulations.`,
     routingLink: 'https://biosimulations.dev/runs/new',
     logo: 'experiment',
-    color: '#ff9800',
+    color: 'rgba(255, 152, 0, 0.85)',
+    textColor: 'white',
   };
   private publishSimulations = {
     title: 'Submit Your Simulation for publication',
@@ -66,7 +67,7 @@ export class FeaturedService {
       play your part with Publish Simulations.`,
     routingLink: 'https://biosimulations.dev/utils/create-project',
     logo: 'publish',
-    color: 'green',
+    color: 'rgba(0, 128, 0, 0.85)',
     textColor: 'white',
   };
   private learnSimulations = {
@@ -86,7 +87,7 @@ export class FeaturedService {
     https://docs.biosimulations.org/developers/setup/getting-started/
     `,
     logo: 'idea',
-    color: '#951ed9',
+    color: 'rgba(149, 30, 217, 0.85)',
     textColor: 'white',
   };
   private convertFile = {
@@ -101,7 +102,7 @@ export class FeaturedService {
       discovery with our BioConvert File Conversion tool.`,
     routingLink: 'https://biosimulations.dev/utils/convert-file',
     logo: 'link',
-    color: '#f44336',
+    color: 'rgba(244, 67, 54, 0.85)',
     textColor: 'white',
   };
   private community = {
@@ -117,7 +118,7 @@ export class FeaturedService {
       possible in biological simulation.`,
     routingLink: 'https://vivarium-collective.github.io',
     logo: 'idea',
-    color: '#009688',
+    color: 'rgba(0, 150, 136, 0.85)',
     textColor: 'white',
   };
   private runCustomizedSimulation = {
@@ -140,6 +141,7 @@ export class FeaturedService {
       `,
     logo: 'experiment',
     color: 'green',
+    textColor: 'white',
   };
 
   public projects = [
@@ -152,7 +154,7 @@ export class FeaturedService {
     this.runCustomizedSimulation,
   ];
 
-  private getFeature(i: number): FeaturedProject {
+  private getSingleProject(i: number): FeaturedProject {
     return this.projects[i];
   }
 
