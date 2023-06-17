@@ -27,14 +27,16 @@
       "options": {
         "commands": ["npx nx docker combine-api", "apps/combine-api/run-tests-in-docker-container.sh"],
         "parallel": false
-      }
+      },
+      "dependsOn": ["build"]
     },
     "test_offline": {
       "executor": "nx:run-commands",
       "options": {
         "commands": ["npx nx docker_offline combine-api", "apps/combine-api/run-tests-in-docker-container.sh"],
         "parallel": false
-      }
+      },
+      "dependsOn": ["build"]
     },
     "lint": {
       "executor": "nx:run-commands",
