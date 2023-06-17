@@ -244,6 +244,7 @@
 
 <!--Start Home Footer Section with Buttons -->
 <biosimulations-home-section [columns]="3">
+  <!-- Help Footer Section -->
   <biosimulations-home-subsection
     id="subsection"
     heading="Help"
@@ -251,21 +252,25 @@
     subheading=""
     subheadingSize="small"
     style="justify-content: center">
-    <biosimulations-topbar-menu-item
-      heading="FAQ"
-      icon="help"
-      id="trigger"
-      href="https://docs.biosimulations.org/users/faqs/"
-      target="biosimulations-docs">
-    </biosimulations-topbar-menu-item>
-    <biosimulations-topbar-menu-item
-      heading="Contact Us"
-      icon="contact"
-      href="https://docs.biosimulations.org/about/contact/"
-      target="biosimulations-docs">
-    </biosimulations-topbar-menu-item>
+    <mat-list>
+      <mat-list-item>
+        <button mat-button class="footer-item faq">
+          <a href="https://docs.biosimulations.org/users/faqs/" target="biosimulations-docs">
+          Frequently Asked Qustions
+          </a>
+        </button>
+      </mat-list-item>
+      <mat-list-item>
+        <button mat-button class="footer-item contact">
+          <a href="https://docs.biosimulations.org/about/contact/" target="biosimulations-docs">
+            Contact Us
+          </a>
+        </button>
+      </mat-list-item>
+    </mat-list>
   </biosimulations-home-subsection>
 
+  <!-- Conventions Footer Section -->
   <biosimulations-home-subsection
     id="subsection"
     heading="Conventions"
@@ -273,61 +278,83 @@
     subheadingSize="small"
     icon="info"
     style="justify-content: center">
-    <biosimulations-topbar-menu-item
-      heading="Standards"
-      icon="standard"
-      id="trigger"
-      href="https://docs.biosimulations.org/concepts/conventions/"
-      target="biosimulations-docs">
-    </biosimulations-topbar-menu-item>
-    <biosimulations-topbar-menu-item
-      heading="Simulator specs"
-      icon="browse"
-      href="https://docs.biosimulations.org/concepts/conventions/simulator-capabilities/"
-      target="biosimulations-docs">
-    </biosimulations-topbar-menu-item>
-    <biosimulations-topbar-menu-item
-      heading="Simulator interfaces"
-      icon="logs"
-      href="https://docs.biosimulations.org/concepts/conventions/simulator-interfaces/"
-      target="biosimulations-docs">
-    </biosimulations-topbar-menu-item>
-    <biosimulations-topbar-menu-item
-      heading="Simulator images"
-      icon="docker"
-      href="https://docs.biosimulations.org/concepts/conventions/simulator-images/"
-      target="biosimulations-docs">
-    </biosimulations-topbar-menu-item>
-    <biosimulations-topbar-menu-item
-      heading="Simulation experiments"
-      icon="experiment"
-      href="https://docs.biosimulations.org/concepts/conventions/simulation-experiments/"
-      target="biosimulations-docs">
-    </biosimulations-topbar-menu-item>
-    <biosimulations-topbar-menu-item
-      heading="Simulation reports"
-      icon="report"
-      href="https://docs.biosimulations.org/concepts/conventions/simulation-run-reports/"
-      target="biosimulations-docs">
-    </biosimulations-topbar-menu-item>
-    <biosimulations-topbar-menu-item
-      heading="Data visualizations"
-      icon="chart"
-      href="https://docs.biosimulations.org/concepts/conventions/simulation-run-visualizations/"
-      target="biosimulations-docs">
-    </biosimulations-topbar-menu-item>
-    <biosimulations-topbar-menu-item
-      heading="Metadata"
-      icon="tags"
-      href="https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/"
-      target="biosimulations-docs">
-    </biosimulations-topbar-menu-item>
-    <biosimulations-topbar-menu-item
-      heading="Simulation logs"
-      icon="progress"
-      href="https://docs.biosimulations.org/concepts/conventions/simulation-run-logs/"
-      target="biosimulations-docs">
-    </biosimulations-topbar-menu-item>
+    <mat-list class="footer-section conventions">
+      <mat-list-item>
+        <button mat-button class="footer-item standards">
+          <a href="https://docs.biosimulations.org/concepts/conventions/" target="biosimulations-docs">
+            Standards
+          </a>
+        </button>
+      </mat-list-item>
+
+      <mat-list-item>
+        <button mat-button class="footer-item specs">
+          <a href="https://docs.biosimulations.org/concepts/conventions/simulator-capabilities/" target="biosimulations-docs">
+            Simulator Specs
+          </a>
+        </button>
+      </mat-list-item>
+
+      <mat-list-item>
+        <button mat-button class="footer-item interfaces">
+          <a href="https://docs.biosimulations.org/concepts/conventions/simulator-interfaces/" target="biosimulations-docs">
+            Simulator Interfaces
+          </a>
+        </button>
+      </mat-list-item>
+
+      <mat-list-item>
+        <button mat-button class="footer-item images">
+          <a href="https://docs.biosimulations.org/concepts/conventions/simulator-images/" target="biosimulations-docs">
+            Simulator Images
+          </a>
+        </button>
+      </mat-list-item>
+
+
+      <mat-list-item>
+        <button mat-button class="footer-item experiments">
+          <a href="https://docs.biosimulations.org/concepts/conventions/simulation-experiments/" target="biosimulations-docs">
+            Simulation Experiments
+          </a>
+        </button>
+      </mat-list-item>
+
+
+      <mat-list-item>
+        <button mat-button class="footer-item reports">
+          <a href="https://docs.biosimulations.org/concepts/conventions/simulation-run-reports/" target="biosimulations-docs">
+            Simulation Reports
+          </a>
+        </button>
+      </mat-list-item>
+
+
+      <mat-list-item>
+        <button mat-button class="footer-item viz">
+          <a href="https://docs.biosimulations.org/concepts/conventions/simulation-run-visualizations/" target="biosimulations-docs">
+            Data Visualizations
+          </a>
+        </button>
+      </mat-list-item>
+
+
+      <mat-list-item>
+        <button mat-button class="footer-item metadata">
+          <a href="https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/" target="biosimulations-docs">
+            Simulation Metadata
+          </a>
+        </button>
+      </mat-list-item>
+
+      <mat-list-item>
+        <button mat-button class="footer-item logs">
+          <a href="https://docs.biosimulations.org/concepts/conventions/simulation-run-logs/" target="biosimulations-docs">
+            Simulation Logs
+          </a>
+        </button>
+      </mat-list-item>
+    </mat-list>
   </biosimulations-home-subsection>
 
   <biosimulations-home-subsection
@@ -337,32 +364,44 @@
     subheadingSize="small"
     icon="info"
     style="justify-content: center">
-    <biosimulations-topbar-menu-item
-      heading="About"
-      icon="info"
-      href="https://docs.biosimulations.org/"
-      target="biosimulations-docs">
-    </biosimulations-topbar-menu-item>
-    <biosimulations-topbar-menu-item
-      heading="Terms of service"
-      icon="legal"
-      href="https://docs.biosimulations.org/about/terms/"
-      target="biosimulations-docs">
-    </biosimulations-topbar-menu-item>
-    <biosimulations-topbar-menu-item
-      heading="Privacy policy"
-      icon="policy"
-      href="https://docs.biosimulations.org/about/privacy/"
-      target="biosimulations-docs">
-    </biosimulations-topbar-menu-item>
-    <biosimulations-topbar-menu-item
-      heading="Status"
-      icon="status"
-      href="https://status.biosimulations.org/"
-      target="status">
-    </biosimulations-topbar-menu-item>
-    <biosimulations-topbar-menu-item heading="@Vivarium" icon="info" href="https://vivarium-collective.github.io/">
-    </biosimulations-topbar-menu-item>
+
+    <mat-list>
+      <mat-list-item>
+        <button mat-button class="footer-item about">
+          <a href="https://docs.biosimulations.org/" target="biosimulations-docs">
+            About
+          </a>
+        </button>
+      </mat-list-item>
+      <mat-list-item>
+        <button mat-button class="footer-item terms">
+          <a href="https://docs.biosimulations.org/about/terms/" target="biosimulations-docs">
+            Terms of Service
+          </a>
+        </button>
+      </mat-list-item>
+      <mat-list-item>
+        <button mat-button class="footer-item privacy">
+          <a href="https://docs.biosimulations.org/about/privacy/" target="biosimulations-docs">
+            Privacy Policy
+          </a>
+        </button>
+      </mat-list-item>
+      <mat-list-item>
+        <button mat-button class="footer-item status">
+          <a href="https://status.biosimulations.org/" target="biosimulations-docs">
+            Status
+          </a>
+        </button>
+      </mat-list-item>
+      <mat-list-item>
+        <button mat-button class="footer-item vivarium">
+          <a href="https://vivarium-collective.github.io/">
+            @Vivarium
+          </a>
+        </button>
+      </mat-list-item>
+    </mat-list>
   </biosimulations-home-subsection>
 </biosimulations-home-section>
 <!-- End Home Footer Section with Buttons -->
