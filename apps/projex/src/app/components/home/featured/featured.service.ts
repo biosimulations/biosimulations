@@ -24,6 +24,7 @@ export class FeaturedService {
       innovate.`,
     routingLink: 'https://biosimulations.dev/projects',
     logo: 'simulators',
+    headerColor: 'rgb(33, 150, 243)',
     color: 'rgba(33, 150, 243, 0.85)',
     textColor: 'white',
   };
@@ -48,6 +49,7 @@ export class FeaturedService {
       breakthrough insights. Your biological exploration is now at your command with Run Simulations.`,
     routingLink: 'https://biosimulations.dev/runs/new',
     logo: 'experiment',
+    headerColor: 'rgb(255, 152, 0)',
     color: 'rgba(255, 152, 0, 0.85)',
     textColor: 'white',
   };
@@ -67,6 +69,7 @@ export class FeaturedService {
       play your part with Publish Simulations.`,
     routingLink: 'https://biosimulations.dev/utils/create-project',
     logo: 'publish',
+    headerColor: 'rgb(0, 128, 0)',
     color: 'rgba(0, 128, 0, 0.85)',
     textColor: 'white',
   };
@@ -88,6 +91,7 @@ export class FeaturedService {
     `,
     logo: 'idea',
     color: 'rgba(149, 30, 217, 0.85)',
+    headerColor: 'rgb(149, 30, 217)',
     textColor: 'white',
   };
   private convertFile = {
@@ -102,6 +106,7 @@ export class FeaturedService {
       discovery with our BioConvert File Conversion tool.`,
     routingLink: 'https://biosimulations.dev/utils/convert-file',
     logo: 'link',
+    headerColor: 'rgb(144, 67, 54)',
     color: 'rgba(244, 67, 54, 0.85)',
     textColor: 'white',
   };
@@ -118,6 +123,7 @@ export class FeaturedService {
       possible in biological simulation.`,
     routingLink: 'https://vivarium-collective.github.io',
     logo: 'idea',
+    headerColor: 'rgb(0, 150, 136)',
     color: 'rgba(0, 150, 136, 0.85)',
     textColor: 'white',
   };
@@ -140,6 +146,7 @@ export class FeaturedService {
        &runName=Iron%20distribution%20(Parmar%20et%20al.,%20BMC%20Syst%20Biol,%202017;%20SBML;%20CVODE;%20PySCeS)%20(rerun)
       `,
     logo: 'experiment',
+    headerColor: 'green',
     color: 'green',
     textColor: 'white',
   };

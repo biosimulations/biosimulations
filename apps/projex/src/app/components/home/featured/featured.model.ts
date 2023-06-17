@@ -9,4 +9,5 @@ export class FeaturedProject {
   public logo!: string;
   public color?: string;
   public textColor?: string;
+  public headerColor?: string;
 }
