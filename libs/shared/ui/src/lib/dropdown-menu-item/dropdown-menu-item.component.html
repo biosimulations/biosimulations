@@ -1,7 +1,7 @@
 <div class="menu-item">
   <button mat-menu-item [disabled]="disabled">
     <div class="icon-container">
-      <a *ngIf="href; else noHref" [href]="href" rel="noopener" [target]="target">
+      <a *ngIf="href; else noHref" [href]="href" rel="noopener">
         {{ heading }}
         <biosimulations-icon class="menu-icon" *ngIf="icon" [icon]="icon"></biosimulations-icon>
       </a>

@@ -66,7 +66,21 @@
           heading="Suggest a simulator"
           [href]="config.utilsSuggestSimulatorUrl">
         </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="BioSimulations REST API"
+          [href]="config.apiUrl">
+        </biosimulations-dropdown-menu-item>
       </ng-container>
+    </biosimulations-hover-open-menu>
+
+    <!-- Keeping target="_blank" as Docs is a sep app, and clicking icon in docs header takes you to home page -->
+    <biosimulations-hover-open-menu [link]="'https://docs.biosimulations.org/users/'" [disabled]="true" target="_blank">
+      <biosimulations-topbar-menu-item
+        heading="Learn"
+        icon="idea"
+        id="trigger">
+      </biosimulations-topbar-menu-item>
     </biosimulations-hover-open-menu>
 
     <biosimulations-hover-open-menu
@@ -82,6 +96,7 @@
         </biosimulations-dropdown-menu-item>
       </ng-container>
     </biosimulations-hover-open-menu>
+
   </biosimulations-topbar-menu>
   <ng-container id="news"> Under Construction </ng-container>
   <router-outlet></router-outlet>

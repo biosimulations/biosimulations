@@ -14,7 +14,7 @@ export class HoverOpenMenuComponent {
   public link?: string;
 
   @Input()
-  public target: string | undefined;
+  public target = '_self';
 
   public timedOutCloser?: number;
 
@@ -35,10 +35,13 @@ export class HoverOpenMenuComponent {
     }
   }
 
-  public navigate(): void {
+  public navigate(targetValue?: string): void {
+    if (!targetValue) {
+      targetValue = this.target;
+    }
     if (this.link) {
       //window.location.href = this.link;
-      window.open(this.link, '_blank');
+      window.open(this.link, targetValue);
     }
   }
 

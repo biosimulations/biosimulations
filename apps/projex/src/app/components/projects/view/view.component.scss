@@ -91,17 +91,17 @@ biosimulations-tab-page ::ng-deep .icon-list {
 }
 
 .rerun-button {
-  border: 0.5px solid #ff9800;
+  border: 0.5px groove #ff9800;
   border-radius: 4px;
   background-color: #2196f3;
   font-weight: normal;
   color: white;
-  transition: ease-in-out;
+  transition: 0.2s ease-in-out;
 
   &:hover {
     transition-duration: 0.2s;
     background-color: green;
-    border: 3px solid #951ed9;
+    border: 1px solid #951ed9;
   }
 }
 
@@ -151,7 +151,7 @@ biosimulations-tab-page ::ng-deep .icon-list {
 
 .figure-card-header {
   color: white;
-  font-weight: 400;
+  font-weight: normal;
   font-family: 'Roboto', sans-serif;
   align-items: center;
   border: 2px solid inherit;
@@ -204,7 +204,7 @@ biosimulations-tab-page ::ng-deep .icon-list {
 
 .item-expansion-header {
   background-color: #2196f3;
-  font-weight: 400;
+  font-weight: normal;
   font-size: medium;
   color: white;
   padding-top: 0.5rem;

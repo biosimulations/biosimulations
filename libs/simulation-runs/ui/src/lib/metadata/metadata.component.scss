@@ -104,6 +104,41 @@
   }
 }
 
+.enlarge-image.image-card:active {
+  height: fit-content;
+  width: fit-content;
+}
+
+.image-container {
+  display: flex;
+  width: 100%;
+  height: fit-content;
+  overflow: hidden;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.default-image-container {
+  display: flex;
+  width: 100%;
+  height: fit-content;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.enlarge:not(.enlarge-icon) {
+  transform: scale(1.55);
+  transition: transform 0.3s ease-in;
+  padding: 10rem;
+  position: relative;
+
+  //Case: The user presses and holds their mouse-click down as the image expands
+  /*&:not(:active) {
+    transform: scale(1.1);
+    transition: transform 0.4s ease-in-out;
+  }*/
+}
+
 .icon-list {
   height: 100%;
   width: 100%;
@@ -145,19 +180,6 @@
   transition: 0.25s ease-in-out;
 }
 
-.hover-enlarge-img {
-  transition: all 0.25s ease-in-out;
-  z-index: 1000;
-}
-
-.hover-enlarge-element:hover {
-  transform: scale(1.1);
-}
-
-.hover-enlarge-img:hover {
-  transform: scale(1.1) !important;
-}
-
 .summary-card {
   display: flex;
   flex-direction: column;
@@ -194,21 +216,4 @@
   height: auto;
   font-family: 'Roboto', sans-serif;
   font-weight: 600;
-}
-
-.image-container {
-  display: flex;
-  width: 100%;
-  height: fit-content;
-  overflow: hidden;
-  flex-direction: row;
-  justify-content: center;
-}
-
-.default-image-container {
-  display: flex;
-  width: 100%;
-  height: fit-content;
-  flex-direction: row;
-  justify-content: center;
 }

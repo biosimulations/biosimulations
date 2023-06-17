@@ -1,4 +1,4 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit, Input } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -65,6 +65,9 @@ export class ViewComponent implements OnInit {
 
   public cards: any[] = [];
   public draggedIndex = -1;
+
+  @Input()
+  public featureComingSoonMessage = 'Stay tuned! This exciting new feature is currently under development :)';
 
   private id!: string;
 
@@ -210,11 +213,10 @@ export class ViewComponent implements OnInit {
     return config;
   }
 
-  public promptReRun(
-    data = null,
-    message = 'Stay tuned! This exciting new feature is currently under development and coming soon!',
-    confirmActionMessage = 'Close',
-  ): void {
+  public promptReRun(data = null, message: string | null = null, confirmActionMessage = 'Close'): void {
+    if (!message) {
+      message = this.featureComingSoonMessage;
+    }
     const cssClassName = ['coming-soon-snackbar'];
     const dur = 6000;
     const snackbarConfig = this.setupSnackbarConfig(cssClassName, data, dur);

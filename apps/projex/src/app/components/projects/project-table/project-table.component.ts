@@ -150,6 +150,7 @@ export class ProjectTableComponent implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
     this.dataSource.searchTermChange = this.searchTermChange;
-    console.log(this.dataSource);
+    console.log('here is the search term change: ');
+    console.log(this.searchTermChange);
   }
 }

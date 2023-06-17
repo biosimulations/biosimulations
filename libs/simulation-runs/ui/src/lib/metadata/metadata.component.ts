@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
-import { Component, Input } from '@angular/core';
+import { Component, Input, ElementRef, ViewChild, Renderer2 } from '@angular/core';
 import { ProjectMetadata, SimulationRunMetadata } from '@biosimulations/datamodel-simulation-runs';
 import {
   ProjectSummary,
@@ -18,6 +18,10 @@ import {
   styleUrls: ['./metadata.component.scss'],
 })
 export class MetadataComponent {
+  //implements OnInit, OnDestroy {
+
+  @ViewChild('thumbnailCard', { static: false }) thumbnailCard!: ElementRef;
+
   @Input()
   public project?: ProjectMetadata;
 
@@ -30,12 +34,50 @@ export class MetadataComponent {
   @Input()
   public simulationViz!: any;
 
+  @Input()
+  public useDefaultImagePlaceholder = false;
+
   public panelOpenState = false;
 
   public noThumbnailImageUrl = 'https://biosimulations.org/assets/images/biosimulations-logo/logo-white.svg';
 
-  constructor() {
+  public enlarge = false;
+
+  private listener!: () => void;
+
+  constructor(private renderer: Renderer2) {
     /* constructor is empty */
+  }
+
+  /*public ngOnInit(): void {
+    this.listener = this.renderer.listen('document', 'click', (event: MouseEvent) => {
+      if (!this.thumbnailCard.nativeElement.contains(event.target)) {
+        console.log('Image Clicked outside!');
+        this.closeImage();
+      }
+    });
+  }
+
+  public ngOnDestroy(): void {
+    if (this.listener) {
+      this.listener();
+    }
+  }
+
+  public closeImage(id='thumbnail'): void {
+    const element = document.getElementById(id);
+    if (element){
+      element.style.transform = 'none';
+    }
+  }*/
+
+  public onClick(event: MouseEvent): void {
+    if (this.enlarge) {
+      event.stopPropagation();
+      this.enlarge = !this.enlarge;
+    } else {
+      this.enlarge = true;
+    }
   }
 
   public togglePanel(event: Event): void {

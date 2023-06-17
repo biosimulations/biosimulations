@@ -5,7 +5,8 @@
         <!-- Case: Vega -->
         <biosimulations-vega-visualization
           *ngIf="visualization.renderer === 'Vega'"
-          [spec]="visualization.vegaSpec">
+          [spec]="visualization.vegaSpec"
+          [name]="visualization.name + '_vega'">
         </biosimulations-vega-visualization>
         <!-- Case: Plotly -->
         <biosimulations-plotly-visualization

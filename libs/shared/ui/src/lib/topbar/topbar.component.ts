@@ -11,4 +11,7 @@ export class TopbarComponent {
 
   @Input()
   public showLogo = true;
+
+  @Input()
+  public target = '_self';
 }

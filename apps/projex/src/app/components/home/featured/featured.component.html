@@ -2,28 +2,54 @@
   <div fxLayout="row" fxLayoutAlign="space-between center">
     <!-- Left Button -->
     <button
-      mat-fab
-      fxFlexAlign="center"
       class="nav-button left"
-      style="background-color: rgba(20, 121, 237, 0.75)"
-      (click)="previous()">
+      fxFlexAlign="center"
+      (click)="previous()"
+      mat-fab>
       <mat-icon>keyboard_arrow_left</mat-icon>
     </button>
 
-    <!-- Feature Card -->
+
     <ng-container *ngFor="let project of projects; let i = index">
-      <mat-card class="project-card" [fxFlex]="70 / numCards" *ngIf="i >= startIndex && i <= endIndex">
-        <mat-card-header>
+      <!-- Start Parent of Feature Card -->
+      <mat-card
+        [@slideInOut]="'in'"
+        class="feature-card"
+        *ngIf="i >= startIndex && i <= endIndex"
+        [fxFlex]="70 / numCards"
+        [style.background-image]="'url(' + project.image + ')'"
+        (mouseenter)="showNewElement()"
+        (mouseleave)="hideNewElement()">
+        <!-- Start Feature Card Header -->
+        <mat-card-header
+          [style.background-color]="project.headerColor"
+          style="color: white">
           <mat-card-title>
             {{ project.title }}
           </mat-card-title>
         </mat-card-header>
-        <a href="project.url" target="_blank" style="justify-content: center"></a>
-        <img src="{{ project.image }}" alt="IMAGE" />
-        <mat-card-content>
-          {{ project.description }}
-        </mat-card-content>
+        <!-- End Feature Card Header -->
+        <!-- Start Feature Card Content -->
+          <div class="description-container">
+            <a class="click-image-eventspace" target="_blank" href="project.routingLink">
+              <button
+                class="description-content text-header"
+                mat-button>
+                {{ project.descriptionTeaser }}
+              </button>
+            </a>
+          </div>
+          <div id="new-element" class="card-parent" [hidden]="!showNew">
+            <div class="description-card" [style.background-color]="project.color" [style.color]="project.textColor">
+              <mat-card-content>
+                {{ project.descriptionVerbose }}
+              </mat-card-content>
+            </div>
+
+          </div>
+        <!-- End Feature Card Content -->
       </mat-card>
+      <!-- End Parent of Feature Card -->
     </ng-container>
 
     <!-- Right Button -->
@@ -31,7 +57,6 @@
       mat-fab
       fxFlexAlign="center"
       class="nav-button right"
-      style="background-color: rgba(20, 121, 237, 0.75)"
       (click)="next()">
       <mat-icon>keyboard_arrow_right</mat-icon>
     </button>
