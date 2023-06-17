@@ -31,7 +31,8 @@ export class FeaturedService {
   private runSimulations = {
     title: 'Run Simulations',
     image:
-      'https://images.rawpixel.com/image_1300/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvcGQ0My0wNjA0LTA2Ni1uYW1fMC5qcGc.jpg',
+      'https://images.rawpixel.com/image_1300/ \
+       czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvcGQ0My0wNjA0LTA2Ni1uYW1fMC5qcGc.jpg',
     id: 'runSimulations',
     descriptionTeaser: 'Unlock Biological Insights with Run Simulations.',
     descriptionVerbose: `Unleash the power of personalization with Run Simulations, our dedicated tool for running \
@@ -59,7 +60,7 @@ export class FeaturedService {
     descriptionTeaser: 'Take the Stage with Publish Simulations.',
     descriptionVerbose: `Elevate your work from the lab to the limelight with our Publish Simulations feature. \
       Take your self-curated simulations and transform them into published studies, open for the world to \
-      see, learn from, and build upon. Publish Simulations is more than just a tool - it’s your doorway \
+      see, learn from, and build upon. Publish Simulations is more than just a tool - it's your doorway \
       to sharing knowledge and contributing to the global bio-simulation community. With an intuitive \
       submission process, it takes only a few steps to submit your simulation for review and potential \
       publication. Your work deserves recognition. Let Publish Simulations spotlight your efforts and \
@@ -76,12 +77,12 @@ export class FeaturedService {
     id: 'learnSimulations',
     descriptionTeaser: 'Unleash Your Potential with Learn',
     descriptionVerbose: `Feed your curiosity, hone your skills, and dive deeper into the world of bio-simulation \
-      with our ‘Learn’ platform. Here, knowledge and innovation unite to bring you the tools you need to \
-      thrive in this ever-evolving field. The ‘Learn’ section is a comprehensive guide that makes mastering \
+      with our Learn platform. Here, knowledge and innovation unite to bring you the tools you need to \
+      thrive in this ever-evolving field. The Learn section is a comprehensive guide that makes mastering \
       bio-simulation both enjoyable and achievable. With a wealth of tutorials, you can easily navigate \
-      from the basics to the more advanced concepts at your own pace. Whether you’re a budding scientist \
+      from the basics to the more advanced concepts at your own pace. Whether you're a budding scientist \
       or a seasoned researcher, 'Learn' provides a rich and interactive learning environment, designed \
-      to support and challenge you. Take a leap into the future of bio-simulation with ‘Learn’. Your journey \
+      to support and challenge you. Take a leap into the future of bio-simulation with Learn. Your journey \
       towards mastery begins here. Image by rawpixel.com</a> on Freepik`,
     routingLink: `
     https://docs.biosimulations.org/developers/setup/getting-started/
