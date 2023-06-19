@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { MatTabChangeEvent } from '@angular/material/tabs';
 
+import { DomSanitizer } from '@angular/platform-browser';
+
 import { trigger, transition, style, animate } from '@angular/animations';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
@@ -65,9 +67,15 @@ export class ViewComponent implements OnInit {
 
   public cards: any[] = [];
   public draggedIndex = -1;
+  public sandboxSourceUrl =
+    'https://deepnote.com/@biosimulators-playground/Untitled-project-717d0b91-cf50-4435-a706-ae083705b28e';
 
   @Input()
   public featureComingSoonMessage = 'Stay tuned! This exciting new feature is currently under development :)';
+
+  public safeUrl: any;
+  public url?: string;
+  public isReRunTabExpanded = false;
 
   private id!: string;
 
@@ -77,7 +85,12 @@ export class ViewComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private snackBar: MatSnackBar,
-  ) {}
+    private sanitizer: DomSanitizer,
+  ) {
+    const sandboxUrl = this.getSandboxUrl('deepnote');
+    this.url = this.getDeepnoteUrl();
+    this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
+  }
 
   public ngOnInit(): void {
     const id = (this.id = this.route.snapshot.params['id']);
@@ -222,6 +235,30 @@ export class ViewComponent implements OnInit {
     const snackbarConfig = this.setupSnackbarConfig(cssClassName, data, dur);
     this.snackBar.open(message, confirmActionMessage, snackbarConfig);
   }
+
+  private getColabUrl(
+    url = 'https://colab.research.google.com/drive/1zWa_crEKXhqzPK4Wn5RJoKhuD4O4dVDs#scrollTo=urCTa8eaSleM',
+  ) {
+    return url;
+  }
+
+  private getDeepnoteUrl(
+    url = 'https://embed.deepnote.com/717d0b91-cf50-4435-a706-ae083705b28e/0cdec188065948bd8f5e5411ab8a821c/d2a0c22bf8904116b4c2aba4b27a6100?height=7751',
+  ) {
+    return url;
+  }
+
+  private getSandboxUrl(source: string | any) {
+    let sandboxUrl;
+    if (source == 'colab') {
+      sandboxUrl = this.getColabUrl();
+    } else {
+      if (source == 'deepnote') {
+        sandboxUrl = this.getDeepnoteUrl();
+      }
+    }
+    return sandboxUrl;
+  }
 }
 
 @Injectable()
@@ -232,7 +269,8 @@ export class VizService extends ViewComponent {
     route: ActivatedRoute,
     router: Router,
     snack: MatSnackBar,
+    sani: DomSanitizer,
   ) {
-    super(service, projService, route, router, snack);
+    super(service, projService, route, router, snack, sani);
   }
 }
