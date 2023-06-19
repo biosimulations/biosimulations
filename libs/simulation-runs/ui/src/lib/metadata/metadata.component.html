@@ -31,12 +31,13 @@
               <div class="image-container">
                 <biosimulations-carousel [images]="project.thumbnails"></biosimulations-carousel>
               </div>
-              <mat-card-actions class="enlarge-icon" align="end" style="font-size: x-large">
-                <biosimulations-icon icon="visible" (click)="onClick($event)">
-                </biosimulations-icon>
-              </mat-card-actions>
+
             </div>
           </mat-card-content>
+          <mat-card-actions class="enlarge-icon" align="end">
+            <biosimulations-icon icon="visible" (click)="onClick($event)">
+            </biosimulations-icon>
+          </mat-card-actions>
         </mat-card>
       </ng-container>
       <!-- Case: No Thumbnail Image -->
