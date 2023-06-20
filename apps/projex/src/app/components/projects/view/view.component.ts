@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { MatTabChangeEvent } from '@angular/material/tabs';
 
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 import { trigger, transition, style, animate } from '@angular/animations';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -75,7 +75,11 @@ export class ViewComponent implements OnInit {
 
   public safeUrl: any;
   public url?: string;
+  public sandboxUrl?: string;
+  public jupyterliteSandboxUrl = 'https://alexpatrie.github.io/biosimulators-sandbox-test-repo-2/repl/index.html';
+  public safeSandboxUrl: SafeResourceUrl;
   public isReRunTabExpanded = false;
+  public useSanitizedUrl = false;
 
   private id!: string;
 
@@ -87,12 +91,15 @@ export class ViewComponent implements OnInit {
     private snackBar: MatSnackBar,
     private sanitizer: DomSanitizer,
   ) {
-    const sandboxUrl = this.getSandboxUrl('deepnote');
-    this.url = this.getDeepnoteUrl();
-    this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
+    const rawUrl = 'https://alexpatrie.github.io/biosimulators-sandbox-test-repo-2/repl/index.html';
+    this.safeSandboxUrl = this.sanitizer.bypassSecurityTrustResourceUrl(rawUrl);
+    //const sandboxUrl = this.getSandboxUrl('deepnote');
+    //this.url = this.getDeepnoteUrl();
+    //this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
   }
 
   public ngOnInit(): void {
+    this.sandboxUrl = this.getJupyterliteUrl();
     const id = (this.id = this.route.snapshot.params['id']);
     this.projectSummary$ = this.projService.getProjectSummary(id).pipe(
       shareReplay(1),
@@ -234,6 +241,10 @@ export class ViewComponent implements OnInit {
     const dur = 6000;
     const snackbarConfig = this.setupSnackbarConfig(cssClassName, data, dur);
     this.snackBar.open(message, confirmActionMessage, snackbarConfig);
+  }
+
+  private getJupyterliteUrl(url = 'https://alexpatrie.github.io/biosimulators-sandbox-test-repo-2/repl/index.html') {
+    return url;
   }
 
   private getColabUrl(
