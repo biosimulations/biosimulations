@@ -244,13 +244,13 @@ biosimulations-tab-page ::ng-deep .icon-list {
   width: 100%;
 }
 
-.binder-notebook-container {
+.notebook-container {
   width: 100%;
-  height: 100vh;
-  overflow: hidden;
+  height: 600px;
+  //overflow: hidden;
 }
 
-/*.binder-notebook-container iframe {
+/*.notebook-container iframe {
   position: absolute;
   top: 0;
   left: 0;
