@@ -209,7 +209,8 @@
                   This Feature Coming Soon! :)
                 </mat-card-header>-->
                 <mat-card-content>
-                  <!--<div class="deepnote-notebook-container">
+                  <!-- Case: Using Deepnote -->
+                  <!--<div class="notebook-container deepnote">
                     <iframe
                       class="notebook-intro"
                       title="Embedded cell output"
@@ -227,7 +228,8 @@
                     </iframe>
                   </div>-->
 
-                  <div class="binder-notebook-container">
+                  <!-- Case: Using Binder -->
+                  <!--<div class="notebook-container binder">
                     <iframe
                       class="binder-notebook-content"
                       width="100%"
@@ -236,7 +238,20 @@
                       frameborder="0"
                       allowfullscreen>
                     </iframe>
+                  </div>-->
+
+                  <!-- Case: Using Jupyterlite/Github Pages-->
+                  <div class="notebook-container jupyterlite">
+                    <iframe
+                      class="jupyterlite-notebook-content"
+                      width="100%"
+                      height="100%"
+                      src="https://alexpatrie.github.io/biosimulators-sandbox-test-repo-2/repl/index.html"
+                      frameborder="0"
+                      allowfullscreen="true">
+                    </iframe>
                   </div>
+
                 </mat-card-content>
               </mat-card>
             </mat-tab>
