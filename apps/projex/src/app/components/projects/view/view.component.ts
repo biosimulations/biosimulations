@@ -1,4 +1,4 @@
-import { Component, Injectable, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -91,11 +91,8 @@ export class ViewComponent implements OnInit {
     private snackBar: MatSnackBar,
     private sanitizer: DomSanitizer,
   ) {
-    const rawUrl = 'https://alexpatrie.github.io/biosimulators-sandbox-test-repo-2/repl/index.html';
+    const rawUrl = 'https://alexpatrie.github.io/biosimulators-sandbox-test-repo-2/lab/index.html';
     this.safeSandboxUrl = this.sanitizer.bypassSecurityTrustResourceUrl(rawUrl);
-    //const sandboxUrl = this.getSandboxUrl('deepnote');
-    //this.url = this.getDeepnoteUrl();
-    //this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
   }
 
   public ngOnInit(): void {
@@ -233,13 +230,17 @@ export class ViewComponent implements OnInit {
     return config;
   }
 
-  public promptReRun(data = null, message: string | null = null, confirmActionMessage = 'Close'): void {
+  public promptReRun(
+    data = null,
+    message: string | null = null,
+    confirmActionMessage = 'Close',
+    duration = 6000,
+  ): void {
     if (!message) {
       message = this.featureComingSoonMessage;
     }
     const cssClassName = ['coming-soon-snackbar'];
-    const dur = 6000;
-    const snackbarConfig = this.setupSnackbarConfig(cssClassName, data, dur);
+    const snackbarConfig = this.setupSnackbarConfig(cssClassName, data, duration);
     this.snackBar.open(message, confirmActionMessage, snackbarConfig);
   }
 
@@ -269,19 +270,5 @@ export class ViewComponent implements OnInit {
       }
     }
     return sandboxUrl;
-  }
-}
-
-@Injectable()
-export class VizService extends ViewComponent {
-  public constructor(
-    service: ViewService,
-    projService: ProjectService,
-    route: ActivatedRoute,
-    router: Router,
-    snack: MatSnackBar,
-    sani: DomSanitizer,
-  ) {
-    super(service, projService, route, router, snack, sani);
   }
 }

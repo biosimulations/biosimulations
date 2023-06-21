@@ -20,6 +20,7 @@
       <!-- Start Right Column -->
       <mat-card class="viz-card">
         <mat-card-content class="viz-card-content">
+
           <!-- Start ReRun Simulation Button -->
           <mat-card-header class="viz-card-header">
             <mat-card-actions class="rerun-sim-button-container">
@@ -36,7 +37,11 @@
           </mat-card-header>
           <!-- End ReRun Simulation Button -->
 
-          <mat-tab-group preserveContent="true" [dynamicHeight]="true" [selectedIndex]="selectedTabIndex">
+          <mat-tab-group
+          #tabGroup
+            preserveContent="true"
+            [dynamicHeight]="true"
+            [selectedIndex]="selectedTabIndex">
             <!-- Start Visualizations Tab -->
             <mat-tab class="right-col-tab figures" label="Figures">
               <mat-card class="plots-card">
@@ -201,6 +206,7 @@
 
             <!-- Begin ReRun Notebook Tab -->
             <mat-tab
+
               label="ReRun"
               (click)="isReRunTabExpanded = !isReRunTabExpanded"
               [ngClass]="{ 'full-width-tab-content': isReRunTabExpanded }">
@@ -209,6 +215,11 @@
                   This Feature Coming Soon! :)
                 </mat-card-header>-->
                 <mat-card-content>
+                  <mat-expansion-panel expanded="true" disabled="true">
+                    <mat-expansion-panel-header class="item-expansion-header">
+                      Customize and ReRun a Simulation
+                    </mat-expansion-panel-header>
+
                   <!-- Case: Using Deepnote -->
                   <!--<div class="notebook-container deepnote">
                     <iframe
@@ -252,7 +263,7 @@
                       allowfullscreen="true">
                     </iframe>
                   </div>
-
+                </mat-expansion-panel>
                 </mat-card-content>
               </mat-card>
             </mat-tab>

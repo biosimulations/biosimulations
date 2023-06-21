@@ -67,17 +67,17 @@ export class ProjectsChipsComponent implements AfterViewInit {
 
   public add(event: MatChipInputEvent): void {
     console.log('add(event=' + event + ') does nothing now');
-    // const value = (event.value || "").trim();
-    //
+    /*const value = (event.value || "").trim();
+
     // // Add our fruit
-    // if (value) {
-    //   this.filters.push(value);
-    // }
+    if (value) {
+       this.filteredChoiceOptions$.push(value);
+     }
     //
     // // Clear the input value
-    // event.chipInput.clear();
+     event.chipInput.clear();
     //
-    // this.filterCtrl.setValue(null);
+     this.filterCtrl.setValue(null);*/
   }
 
   public remove(filter: ProjectFilterQueryItem): void {
