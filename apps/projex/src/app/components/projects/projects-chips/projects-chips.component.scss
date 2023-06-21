@@ -4,9 +4,10 @@
 }
 
 .chip-row-container {
-  padding-top: 0.6rem;
-  padding-bottom: 0.6rem;
-  padding-left: 0.5rem;
+  height: 100%;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+  padding-left: 0.4rem;
   padding-right: 1rem;
   border: 2px solid green;
   border-radius: 16px;
@@ -45,4 +46,10 @@
       background-color: inherit;
     }
   }
+}
+
+.separator {
+  height: 30px;
+  margin-top: 10px;
+  width: auto;
 }
