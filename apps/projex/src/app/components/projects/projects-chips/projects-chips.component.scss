@@ -28,13 +28,7 @@
   color: white;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.4s ease;
   border-radius: 16px;
-
-  &:hover {
-    background-color: transparent;
-    cursor: default;
-  }
 
   button {
     padding: 0;
