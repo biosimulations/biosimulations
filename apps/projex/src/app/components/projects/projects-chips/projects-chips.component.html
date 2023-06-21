@@ -6,7 +6,7 @@
         class="chip-row-container"
         *ngFor="let filterQuery of filterQueries$ | async"
         (removed)="remove(filterQuery)"
-        style="background-color: green" >
+        style="background-color: green">
         <div class="chip-content">
           {{ filterQuery.target + ': ' + filterQuery.allowable_values.join(' or ') }}
           <button matChipRemove [attr.aria-label]="'remove ' + filterQuery">

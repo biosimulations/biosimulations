@@ -4,8 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { MatTabChangeEvent } from '@angular/material/tabs';
 
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-
 import { trigger, transition, style, animate } from '@angular/animations';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
@@ -74,8 +72,8 @@ export class ViewComponent implements OnInit {
   public safeUrl: any;
   public url?: string;
   public sandboxUrl?: string;
-  public jupyterliteSandboxUrl = 'https://alexpatrie.github.io/biosimulators-sandbox-test-repo-2/repl/index.html';
-  public safeSandboxUrl: SafeResourceUrl;
+  public jupyterliteSandboxReplUrl = 'https://alexpatrie.github.io/biosimulators-sandbox-test-repo-2/repl/index.html';
+  public jupyterliteSandboxLabUrl = 'https://alexpatrie.github.io/biosimulators-sandbox-test-repo-2/lab/index.html';
   public isReRunTabExpanded = false;
   public useSanitizedUrl = false;
 
@@ -87,12 +85,7 @@ export class ViewComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private snackBar: MatSnackBar,
-    private sanitizer: DomSanitizer,
-  ) {
-    const rawUrl = 'https://alexpatrie.github.io/biosimulators-sandbox-test-repo-2/lab/index.html';
-    // tslint:disable-next-line:angular-no-bypass-security-entrustment
-    this.safeSandboxUrl = this.sanitizer.bypassSecurityTrustResourceUrl(rawUrl);
-  }
+  ) {}
 
   public ngOnInit(): void {
     this.sandboxUrl = this.getJupyterliteUrl();

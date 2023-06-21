@@ -5,9 +5,9 @@
 
 .chip-row-container {
   height: 100%;
-  padding-top: 0.4rem;
-  padding-bottom: 0.4rem;
-  padding-left: 0.4rem;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  padding-left: 0.3rem;
   padding-right: 1rem;
   border: 2px solid green;
   border-radius: 16px;
@@ -15,7 +15,7 @@
   transition: background-color 0.4s ease, transform 0.4s ease;
 
   &:hover {
-    transform: scale(1.025);
+    transform: scale(1.0075);
   }
 }
 
@@ -42,7 +42,6 @@
 
     &:hover {
       color: #ff9800;
-      background-color: inherit;
     }
   }
 }
