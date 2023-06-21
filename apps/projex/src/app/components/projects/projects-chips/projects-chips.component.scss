@@ -1,6 +1,10 @@
+.form-container {
+  overflow: hidden;
+}
+
 .filter-chip-list {
   width: 100%;
-  height: 100%;
+  height: fit-content;
 }
 
 .chip-row-container {

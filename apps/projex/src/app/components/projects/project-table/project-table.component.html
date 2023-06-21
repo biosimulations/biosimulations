@@ -14,12 +14,13 @@
     <div class="below-filters">
       <!-- Search projects Input -->
       <mat-form-field appearance="fill">
+        <mat-label>Search Projects</mat-label>
         <input
           (keyup)="onKeyUpEvent($event)"
           [(ngModel)]="searchTerm"
           matInput
-          placeholder="Search projects"
-          type="text" />
+
+          type="text"/>
         <mat-icon matPrefix>search</mat-icon>
       </mat-form-field>
 
