@@ -23,11 +23,8 @@
           <!-- Start ReRun Simulation Button -->
           <mat-card-header class="viz-card-header">
             <mat-card-actions class="rerun-sim-button-container">
-              <button
-                mat-raised-button
-                class="rerun-button"
-                (click)="promptReRun()">
-                <div style="display: inline-block;">
+              <button mat-raised-button class="rerun-button" (click)="promptReRun()">
+                <div style="display: inline-block">
                   <span>Customize & ReRun Simulation</span>
                   <biosimulations-icon class="rerun-icon" icon="redo"></biosimulations-icon>
                 </div>
@@ -74,11 +71,16 @@
                 <mat-card-content>
                   <!-- OMEX File -->
                   <mat-expansion-panel class="files-item omex" expanded="true">
-                    <mat-expansion-panel-header class="item-expansion-header">Simulation specification (COMBINE/OMEX archive)</mat-expansion-panel-header>
+                    <mat-expansion-panel-header class="item-expansion-header"
+                      >Simulation specification (COMBINE/OMEX archive)</mat-expansion-panel-header
+                    >
                     <mat-card-content>
-                      <div
-                        *ngIf="projectFiles$ | async as files">
-                        <biosimulations-project-files id="content" [files]="files" [usesMaster]="false" [usesMetadata]="false">
+                      <div *ngIf="projectFiles$ | async as files">
+                        <biosimulations-project-files
+                          id="content"
+                          [files]="files"
+                          [usesMaster]="false"
+                          [usesMetadata]="false">
                         </biosimulations-project-files>
                       </div>
                     </mat-card-content>
@@ -86,11 +88,16 @@
 
                   <!-- Spec Files (sbml, manifest, etc) -->
                   <mat-expansion-panel class="files-item specContent">
-                    <mat-expansion-panel-header class="item-expansion-header">Contents of simulation specification</mat-expansion-panel-header>
+                    <mat-expansion-panel-header class="item-expansion-header"
+                      >Contents of simulation specification</mat-expansion-panel-header
+                    >
                     <mat-card-content>
-                      <div
-                        *ngIf="files$ | async as files">
-                        <biosimulations-project-files id="content" [files]="files" [usesMaster]="true" [usesMetadata]="true">
+                      <div *ngIf="files$ | async as files">
+                        <biosimulations-project-files
+                          id="content"
+                          [files]="files"
+                          [usesMaster]="true"
+                          [usesMetadata]="true">
                         </biosimulations-project-files>
                       </div>
                     </mat-card-content>
@@ -98,10 +105,16 @@
 
                   <!-- Output Data Files -->
                   <mat-expansion-panel class="files-item outputs">
-                    <mat-expansion-panel-header class="item-expansion-header">Simulation outputs</mat-expansion-panel-header>
+                    <mat-expansion-panel-header class="item-expansion-header"
+                      >Simulation outputs</mat-expansion-panel-header
+                    >
                     <mat-card-content>
                       <div *ngIf="outputs$ | async as files">
-                        <biosimulations-project-files id="content" [files]="files" [usesMaster]="false" [usesMetadata]="false">
+                        <biosimulations-project-files
+                          id="content"
+                          [files]="files"
+                          [usesMaster]="false"
+                          [usesMetadata]="false">
                         </biosimulations-project-files>
                       </div>
                     </mat-card-content>
@@ -131,18 +144,30 @@
                       fxFlex.lt-lg="100%">
                       <!-- project metadata -->
                       <ng-container
-                        *ngTemplateOutlet="sectionsTemplate; context: { sections: projectMetadata?.modelSimulation || [] }"></ng-container>
+                        *ngTemplateOutlet="
+                          sectionsTemplate;
+                          context: { sections: projectMetadata?.modelSimulation || [] }
+                        "></ng-container>
                       <!-- simulation run metadata -->
-                      <ng-container *ngTemplateOutlet="sectionsTemplate; context: { sections: simulationRun || [] }"></ng-container>
+                      <ng-container
+                        *ngTemplateOutlet="sectionsTemplate; context: { sections: simulationRun || [] }"></ng-container>
                       <!-- project metadata -->
                       <ng-container
-                        *ngTemplateOutlet="sectionsTemplate; context: { sections: projectMetadata?.provenance || [] }"></ng-container>
+                        *ngTemplateOutlet="
+                          sectionsTemplate;
+                          context: { sections: projectMetadata?.provenance || [] }
+                        "></ng-container>
                       <ng-container
-                        *ngTemplateOutlet="sectionsTemplate; context: { sections: projectMetadata?.identifiers || [] }"></ng-container>
+                        *ngTemplateOutlet="
+                          sectionsTemplate;
+                          context: { sections: projectMetadata?.identifiers || [] }
+                        "></ng-container>
                       <!-- template -->
                       <ng-template #sectionsTemplate let-sections="sections">
                         <!-- Start Individual Detail Item Expansion -->
-                        <div class="details-expansion-item" *ngFor="let section of sections; let i = index; panelExpanded(i) && i === 0">
+                        <div
+                          class="details-expansion-item"
+                          *ngFor="let section of sections; let i = index; panelExpanded: i && i === 0">
                           <div *ngIf="isPanelExpanded; else notExpanded">
                             <mat-expansion-panel expanded="isPanelExpanded">
                               <mat-expansion-panel-header class="item-expansion-header">
@@ -167,9 +192,7 @@
                           </div>
 
                           <ng-template #notExpanded>
-                            <mat-expansion-panel
-                              class="details-expansion-item"
-                              expanded="false">
+                            <mat-expansion-panel class="details-expansion-item" expanded="false">
                               <mat-expansion-panel-header class="item-expansion-header">
                                 {{ section.title }}
                               </mat-expansion-panel-header>
@@ -190,7 +213,7 @@
                             </mat-expansion-panel>
                             <!-- Stop Individual Detail Item Expansion -->
                           </ng-template>
-                      </div>
+                        </div>
                       </ng-template>
                     </div>
                   </div>
@@ -200,9 +223,7 @@
             </mat-tab>
             <mat-tab label="ReRun" (click)="promptReRun()">
               <mat-card>
-                <mat-card-header>
-                  This Feature Coming Soon! :)
-                </mat-card-header>
+                <mat-card-header> This Feature Coming Soon! :) </mat-card-header>
               </mat-card>
             </mat-tab>
           </mat-tab-group>
@@ -213,10 +234,3 @@
     <!-- End simulation information -->
   </ng-container>
 </ng-container>
-
-
-
-
-
-
-

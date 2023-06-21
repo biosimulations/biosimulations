@@ -17,7 +17,9 @@
         <div class="icon-container">
           <biosimulations-icon icon="project"></biosimulations-icon>
         </div>
-        <span class="truncate-text" [ngClass]="{ 'full-text-tooltip': isTextOverflowed(path.title) }">{{ path.title }}</span>
+        <span class="truncate-text" [ngClass]="{ 'full-text-tooltip': isTextOverflowed(path.title) }">{{
+          path.title
+        }}</span>
         <div class="full-text-tooltip" *ngIf="isTextOverflowed(path.title)">{{ path.title }}</div>
       </div>
       <!-- Format Data(string(with <a>)) -->
@@ -25,7 +27,7 @@
       <!-- Is Main File(bool)-->
       <!--<div class="cell main"></div>-->
       <!-- Project Metadata Icon(with <a>)-->
-     <!--<div *ngIf="useMetadata" class="cell metadata">
+      <!--<div *ngIf="useMetadata" class="cell metadata">
         <ng-container *ngIf="usesMetadata">
           <mat-card
             class="expanded metadata"
@@ -62,7 +64,9 @@
         <div class="icon-container">
           <biosimulations-icon [icon]="path.icon"></biosimulations-icon>
         </div>
-        <span class="truncate-text" [ngClass]="{ 'full-text-tooltip': isTextOverflowed(path.title) }">{{ path.title }}</span>
+        <span class="truncate-text" [ngClass]="{ 'full-text-tooltip': isTextOverflowed(path.title) }">{{
+          path.title
+        }}</span>
         <div class="full-text-tooltip" *ngIf="isTextOverflowed(path.title)">{{ path.title }}</div>
       </div>
       <!-- Row format with href -->
