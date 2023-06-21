@@ -2,7 +2,7 @@
   <mat-form-field class="filter-chip-list">
     <mat-label>Project Filters</mat-label>
     <mat-chip-grid #chipGrid aria-label="Filters">
-      <mat-chip-row class="chip-row-container" *ngFor="let filterQuery of filterQueries$ | async" (removed)="remove(filterQuery)" >
+      <mat-chip-row class="chip-row-container" *ngFor="let filterQuery of filterQueries$ | async" (removed)="remove(filterQuery)" style="background-color: green" >
         <div class="chip-content">
           {{ filterQuery.target + ': ' + filterQuery.allowable_values.join(' or ') }}
           <button matChipRemove [attr.aria-label]="'remove ' + filterQuery">

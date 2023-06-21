@@ -3,18 +3,18 @@
   height: 100%;
 }
 
-.chip-grid-container {
-  background-color: transparent;
-}
 .chip-row-container {
   padding-top: 0.6rem;
   padding-bottom: 0.6rem;
-  padding-left: 0rem;
-  padding-right: 3rem;
-  background-color: inherit;
+  padding-left: 0.5rem;
+  padding-right: 1rem;
+  border: 2px solid green;
+  border-radius: 16px;
+  transform-origin: left center;
+  transition: background-color 0.4s ease, transform 0.4s ease;
 
   &:hover {
-    transition: none;
+    transform: scale(1.025);
   }
 }
 
@@ -22,21 +22,18 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 8px 10px; /* Increased padding to accommodate the icon */
   height: 100%;
   width: 100%;
-  background-color: #ff9800;
+  background-color: green;
   color: white;
+  font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.4s ease;
   border-radius: 16px;
 
   &:hover {
-    background-color: #2196f3;
-  }
-
-  .mat-mdc-chip {
-    margin-left: 0;
+    background-color: transparent;
+    cursor: default;
   }
 
   button {
@@ -46,12 +43,12 @@
     margin-left: 8px;
     padding: 0;
     cursor: pointer;
-    transition: color 0.2s ease;
+    transition: color 0.4s ease;
     color: white;
 
     &:hover {
-      color: #ffaa2a;
-      background: inherit;
+      color: #ff9800;
+      background-color: inherit;
     }
   }
 }
