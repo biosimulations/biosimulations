@@ -1,3 +1,57 @@
-.example-chip-list {
+.filter-chip-list {
   width: 100%;
+  height: 100%;
+}
+
+.chip-grid-container {
+  background-color: transparent;
+}
+.chip-row-container {
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+  padding-left: 0rem;
+  padding-right: 3rem;
+  background-color: inherit;
+
+  &:hover {
+    transition: none;
+  }
+}
+
+.chip-content {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 10px; /* Increased padding to accommodate the icon */
+  height: 100%;
+  width: 100%;
+  background-color: #ff9800;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-radius: 16px;
+
+  &:hover {
+    background-color: #2196f3;
+  }
+
+  .mat-mdc-chip {
+    margin-left: 0;
+  }
+
+  button {
+    padding: 0;
+    align-items: center;
+    border: none;
+    margin-left: 8px;
+    padding: 0;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    color: white;
+
+    &:hover {
+      color: #ffaa2a;
+      background: inherit;
+    }
+  }
 }

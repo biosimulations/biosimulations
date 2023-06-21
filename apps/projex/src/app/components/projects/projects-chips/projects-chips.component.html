@@ -1,17 +1,14 @@
-<form>
-  <mat-form-field class="example-chip-list" appearance="fill">
+<form class="form-container">
+  <mat-form-field class="filter-chip-list">
     <mat-label>Project Filters</mat-label>
     <mat-chip-grid #chipGrid aria-label="Filters">
-      <mat-chip-row
-        *ngFor="let filterQuery of filterQueries$ | async"
-        [removable]="true"
-        (removed)="remove(filterQuery)"
-        [editable]="true"
-        (edited)="edit(filterQuery, $event)">
-        {{ filterQuery.target + ': ' + filterQuery.allowable_values.join(' or ') }}
-        <button matChipRemove [attr.aria-label]="'remove ' + filterQuery">
-          <mat-icon>cancel</mat-icon>
-        </button>
+      <mat-chip-row class="chip-row-container" *ngFor="let filterQuery of filterQueries$ | async" (removed)="remove(filterQuery)" >
+        <div class="chip-content">
+          {{ filterQuery.target + ': ' + filterQuery.allowable_values.join(' or ') }}
+          <button matChipRemove [attr.aria-label]="'remove ' + filterQuery">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </div>
       </mat-chip-row>
     </mat-chip-grid>
     <input
@@ -20,7 +17,6 @@
       [formControl]="filterCtrl"
       [matChipInputFor]="chipGrid"
       [matAutocomplete]="auto"
-      [matChipInputAddOnBlur]="addOnBlur"
       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
       (matChipInputTokenEnd)="add($event)" />
     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
