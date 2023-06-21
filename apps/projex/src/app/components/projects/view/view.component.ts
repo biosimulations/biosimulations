@@ -90,6 +90,7 @@ export class ViewComponent implements OnInit {
     private sanitizer: DomSanitizer,
   ) {
     const rawUrl = 'https://alexpatrie.github.io/biosimulators-sandbox-test-repo-2/lab/index.html';
+    // tslint:disable-next-line:angular-no-bypass-security-entrustment
     this.safeSandboxUrl = this.sanitizer.bypassSecurityTrustResourceUrl(rawUrl);
   }
 
