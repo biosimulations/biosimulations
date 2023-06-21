@@ -5,13 +5,16 @@
   position: sticky;
   bottom: 0;
   width: 100%;
+  display: none;
 
   &:not(.error) {
-    background: mat.get-color-from-palette($theme-accent, lighter);
+    //background: mat.get-color-from-palette($theme-accent, lighter);
+    display: none;
   }
 
   &.error {
-    background: $theme-warn-lightest;
+    //background: $theme-warn-lightest;
+    display: none;
   }
 }
 
