@@ -311,13 +311,13 @@ tests = ["biosimulators-utils[containers]", "python-dateutil"]
 
 [[package]]
 name = "biosimulators-utils"
-version = "0.1.179"
+version = "0.1.180"
 description = "Command-line program and library for reading, writing, validating and executing modeling projects (COMBINE/OMEX archives with SED-ML files)."
 optional = false
 python-versions = "*"
 files = [
-    {file = "biosimulators_utils-0.1.179-py2.py3-none-any.whl", hash = "sha256:09047c30e21e6aa8dec71aad5abd5be395ee9de47cd9a7c9ac5420d25db651ee"},
-    {file = "biosimulators_utils-0.1.179.tar.gz", hash = "sha256:7e6d1699f1af08590f73aaf02e6b779814dacee3e5b71ba5f5052c275c740a9f"},
+    {file = "biosimulators_utils-0.1.180-py2.py3-none-any.whl", hash = "sha256:0950e6fca1174e8448a2007630e1caba11971a7bda0ba63ad73f9d611a74c92b"},
+    {file = "biosimulators_utils-0.1.180.tar.gz", hash = "sha256:231ac45877262cefde29ad46e71242635b35fc0c44084ef002086149e5687cf0"},
 ]
 
 [package.dependencies]
@@ -328,7 +328,7 @@ capturer = {version = "*", optional = true, markers = "extra == \"logging\""}
 cement = "*"
 evalidate = "*"
 h5py = "*"
-kisao = ">=2.29"
+kisao = ">=2.32"
 libcellml = {version = "*", optional = true, markers = "extra == \"cellml\""}
 libneuroml = {version = "*", optional = true, markers = "extra == \"neuroml\""}
 lxml = "*"
@@ -2144,13 +2144,13 @@ files = [
 
 [[package]]
 name = "kisao"
-version = "2.30"
+version = "2.32"
 description = "Utilities for working with the Kinetic Simulation Algorithm Ontology (KiSAO)"
 optional = false
 python-versions = "*"
 files = [
-    {file = "kisao-2.30-py2.py3-none-any.whl", hash = "sha256:62bd00e37113c2fd4128f0503f41d8315e92c5c65183b420cb687fd7e19506a2"},
-    {file = "kisao-2.30.tar.gz", hash = "sha256:e94e1aef646c5db476a4d49559458f2e336ff02afdb04f1ede96959fadf838fb"},
+    {file = "kisao-2.32-py2.py3-none-any.whl", hash = "sha256:c08e095bc3631d0a3a55a6edf07c50b29c1387659ce0029bed6fcb9fa205dd58"},
+    {file = "kisao-2.32.tar.gz", hash = "sha256:1e8d82a268e319cf73b753b98d29b2ac17a8463cd26f268aa9d47557c880383f"},
 ]
 
 [package.dependencies]
@@ -4217,6 +4217,7 @@ description = "LibSedML Python API"
 optional = false
 python-versions = "*"
 files = [
+    {file = "python-libsedml-2.0.32.tar.gz", hash = "sha256:7ea5f3b9625ec1513ea119ad00bc9eda42d3ea6b8f78bf57dbd201c690d44727"},
     {file = "python_libsedml-2.0.32-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:7d3e0dd299eea0d2e6925a5e55354e0ff45890195925a7c0a1bcd65f2c93c722"},
     {file = "python_libsedml-2.0.32-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:47e7e76e836c6e4b55b080e0fa6f9df2645abfcf79fe089f9b4339f703501304"},
     {file = "python_libsedml-2.0.32-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:aead410b40c033c79df039317b8829bd2dc1c011c06fb94b0d990a87b0ba13e6"},
@@ -5445,4 +5446,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "6b4184209afb929a1275c07e4df18a7858f4f4f09989372468a9f987b32d6ceb"
+content-hash = "780d07c90bbdadc81097b5db80fcbf87014e5f15bfb950daacc7122aff4df01c"
