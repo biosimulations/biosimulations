@@ -5,7 +5,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { BehaviorSubject, mergeMap, Observable, startWith } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ProjectFilterQueryItem, ProjectFilterStatsItem, ProjectFilterTarget } from '@biosimulations/datamodel/common';
-import { MatChipInputEvent } from '@angular/material/chips';
+import { MatChipInputEvent, MatChipEditedEvent } from '@angular/material/chips';
 
 export interface FilterChoiceOption {
   target: ProjectFilterTarget;
@@ -24,6 +24,7 @@ export class ProjectsChipsComponent implements AfterViewInit {
   public filteredChoiceOptions$!: Observable<FilterChoiceOption[]>;
   public separatorKeysCodes: number[] = [ENTER, COMMA];
   public filterCtrl = new FormControl('');
+  public addOnBlur = true;
 
   private filterQueryItemMap = new Map<ProjectFilterTarget, ProjectFilterQueryItem>();
   private allFilterChoiceOptions$ = new BehaviorSubject<FilterChoiceOption[]>([]);
@@ -117,6 +118,14 @@ export class ProjectsChipsComponent implements AfterViewInit {
     const deleted: boolean = this.filterQueryItemMap.delete(target);
     if (deleted) {
       this.filterQueries$.emit(Array.from(this.filterQueryItemMap.values()));
+    }
+  }
+
+  public edit(filter: ProjectFilterQueryItem, event: MatChipEditedEvent) {
+    const value = event.value.trim();
+    if (!value) {
+      this.remove(filter);
+      return;
     }
   }
 

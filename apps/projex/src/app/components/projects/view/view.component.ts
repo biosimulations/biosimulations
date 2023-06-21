@@ -67,8 +67,6 @@ export class ViewComponent implements OnInit {
 
   public cards: any[] = [];
   public draggedIndex = -1;
-  public sandboxSourceUrl =
-    'https://deepnote.com/@biosimulators-playground/Untitled-project-717d0b91-cf50-4435-a706-ae083705b28e';
 
   @Input()
   public featureComingSoonMessage = 'Stay tuned! This exciting new feature is currently under development :)';
