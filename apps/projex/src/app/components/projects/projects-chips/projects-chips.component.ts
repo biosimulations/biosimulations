@@ -68,17 +68,6 @@ export class ProjectsChipsComponent implements AfterViewInit {
 
   public add(event: MatChipInputEvent): void {
     console.log('add(event=' + event + ') does nothing now');
-    /*const value = (event.value || "").trim();
-
-    // // Add our fruit
-    if (value) {
-       this.filteredChoiceOptions$.push(value);
-     }
-    //
-    // // Clear the input value
-     event.chipInput.clear();
-    //
-     this.filterCtrl.setValue(null);*/
   }
 
   public remove(filter: ProjectFilterQueryItem): void {
@@ -86,7 +75,7 @@ export class ProjectsChipsComponent implements AfterViewInit {
     this.onRemoveTarget(filter.target);
   }
 
-  selected(event: MatAutocompleteSelectedEvent): void {
+  public selected(event: MatAutocompleteSelectedEvent): void {
     console.log('selected(event=' + event + ')');
     this.filterInput.nativeElement.value = '';
     this.filterCtrl.setValue(null);
