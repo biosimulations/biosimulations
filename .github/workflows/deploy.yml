@@ -43,14 +43,10 @@ jobs:
         with:
           useRollingCache: true
 
-      - name: Install nrwl cli
-        run: npm install -g @nrwl/cli && npm install -g nx@latest
-
-
       - name: Build dev app
         run: |
           mv libs/shared/environments/src/lib/environment.stage.ts libs/shared/environments/src/lib/environment.prod.ts \
-          && nx build ${{matrix.app}} --prod
+          && npx nx build ${{matrix.app}} --prod
 
       - name: Upload build
         uses: actions/upload-artifact@v2
@@ -96,11 +92,8 @@ jobs:
         with:
           useRollingCache: true
 
-      - name: Install nrwl cli
-        run: npm install -g @nrwl/cli && npm install -g nx@latest
-
       - name: Build prod app
-        run:  nx build ${{matrix.app}} --prod
+        run:  npx nx build ${{matrix.app}} --prod
 
       - name: Upload build
         uses: actions/upload-artifact@v2
