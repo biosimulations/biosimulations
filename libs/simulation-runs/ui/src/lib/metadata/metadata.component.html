@@ -6,7 +6,6 @@
   fxLayoutAlign="space-between"
   fxLayoutGap="1rem"
   fxLayoutGap.lt-lg="1rem">
-
   <!-- Simulation Project Header (Title) -->
   <div class="header-container">
     <mat-card expanded="false" hideToggle="true">
@@ -25,9 +24,7 @@
         <!-- Case: Has Thumbnail Image -->
         <mat-card class="image-card">
           <mat-card-content>
-            <div
-              #thumbnailCard
-              [ngClass]="{'enlarge': enlarge}">
+            <div #thumbnailCard [ngClass]="{ enlarge: enlarge }">
               <div class="image-container">
                 <biosimulations-carousel [images]="project.thumbnails"></biosimulations-carousel>
               </div>
@@ -56,9 +53,7 @@
     <div *ngIf="project" fxGrid>
       <!-- Begin Project Description Container -->
       <mat-expansion-panel class="metadata-card" expanded="true" hideToggle="true" disabled="true">
-        <mat-expansion-panel-header class="card-header">
-          Project Description
-        </mat-expansion-panel-header>
+        <mat-expansion-panel-header class="card-header"> Project Description </mat-expansion-panel-header>
         <biosimulations-text-page-content-section [iconActionType]="null">
           <div class="abstract" *ngIf="project.abstract">
             {{ project.abstract }}
@@ -134,8 +129,3 @@
   </div>
   <!-- End Summary Display -->
 </div>
-
-
-
-
-

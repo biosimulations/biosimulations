@@ -212,18 +212,12 @@
     </biosimulations-hover-open-menu>
   </biosimulations-topbar-menu>-->
   <biosimulations-topbar-menu>
-    <biosimulations-hover-open-menu
-      onclick="parent.location=['/projects']"
-      [link]="'/projects'"
-      [disabled]="true">
+    <biosimulations-hover-open-menu onclick="parent.location=['/projects']" [link]="'/projects'" [disabled]="true">
       <biosimulations-topbar-menu-item heading="BioSimDB" icon="browse" id="trigger"></biosimulations-topbar-menu-item>
     </biosimulations-hover-open-menu>
 
     <biosimulations-hover-open-menu [link]="config.dispatchAppRunsNewUrl" [disabled]="true">
-      <biosimulations-topbar-menu-item
-        heading="Run Simulations"
-        icon="experiment"
-        id="trigger">
+      <biosimulations-topbar-menu-item heading="Run Simulations" icon="experiment" id="trigger">
       </biosimulations-topbar-menu-item>
     </biosimulations-hover-open-menu>
 
@@ -231,34 +225,22 @@
       <biosimulations-topbar-menu-item heading="Utilities" icon="construction" id="trigger">
       </biosimulations-topbar-menu-item>
       <ng-container id="items">
-        <biosimulations-dropdown-menu-item
-          heading="Convert a file"
-          [href]="config.utilsConvertFileUrl">
+        <biosimulations-dropdown-menu-item heading="Convert a file" [href]="config.utilsConvertFileUrl">
         </biosimulations-dropdown-menu-item>
 
-        <biosimulations-dropdown-menu-item
-          heading="Create a project"
-          [href]="config.utilsCreateProjectUrl">
+        <biosimulations-dropdown-menu-item heading="Create a project" [href]="config.utilsCreateProjectUrl">
         </biosimulations-dropdown-menu-item>
 
-        <biosimulations-dropdown-menu-item
-          heading="Validate a model"
-          [href]="config.utilsValidateModelUrl">
+        <biosimulations-dropdown-menu-item heading="Validate a model" [href]="config.utilsValidateModelUrl">
         </biosimulations-dropdown-menu-item>
 
-        <biosimulations-dropdown-menu-item
-          heading="Validate a simulation"
-          [href]="config.utilsValidateSimulationUrl">
+        <biosimulations-dropdown-menu-item heading="Validate a simulation" [href]="config.utilsValidateSimulationUrl">
         </biosimulations-dropdown-menu-item>
 
-        <biosimulations-dropdown-menu-item
-          heading="Validate metadata"
-          [href]="config.utilsValidateMetadataUrl">
+        <biosimulations-dropdown-menu-item heading="Validate metadata" [href]="config.utilsValidateMetadataUrl">
         </biosimulations-dropdown-menu-item>
 
-        <biosimulations-dropdown-menu-item
-          heading="Validate a project"
-          [href]="config.utilsValidateProjectUrl">
+        <biosimulations-dropdown-menu-item heading="Validate a project" [href]="config.utilsValidateProjectUrl">
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
@@ -267,16 +249,21 @@
           target="githubissues">
         </biosimulations-dropdown-menu-item>
 
-        <biosimulations-dropdown-menu-item
-          heading="Suggest a simulator"
-          [href]="config.utilsSuggestSimulatorUrl">
+        <biosimulations-dropdown-menu-item heading="Suggest a simulator" [href]="config.utilsSuggestSimulatorUrl">
         </biosimulations-dropdown-menu-item>
       </ng-container>
     </biosimulations-hover-open-menu>
 
     <biosimulations-hover-open-menu
       [link]="config.simulatorsAppBrowseSimulatorsUrl"
-      style="position: fixed; right: 45px; top: 1; overflow-y: show; -webkit-overflow-scrolling: touch; padding-top: 2.3px">
+      style="
+        position: fixed;
+        right: 45px;
+        top: 1;
+        overflow-y: show;
+        -webkit-overflow-scrolling: touch;
+        padding-top: 2.3px;
+      ">
       <biosimulations-topbar-menu-item heading="BioSimulators" icon="link" id="trigger">
       </biosimulations-topbar-menu-item>
       <ng-container id="items">
@@ -289,8 +276,6 @@
     </biosimulations-hover-open-menu>
   </biosimulations-topbar-menu>
   <!-- End Hero Banner -->
-
-
 
   <!-- Begin Sidenav Drawer Container -->
   <!--<ng-container id="sidenav-menu">
@@ -462,4 +447,3 @@
 
   <router-outlet></router-outlet>
 </biosimulations-navigation>
-

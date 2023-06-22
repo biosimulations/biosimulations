@@ -231,7 +231,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/express-jwt/LICENSE
-├─ @types/express-serve-static-core@4.17.29
+├─ @types/express-serve-static-core@4.17.35
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/express-serve-static-core/LICENSE
@@ -239,7 +239,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/express-unless/LICENSE
-├─ @types/express@4.17.13
+├─ @types/express@4.17.17
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/express/LICENSE
@@ -247,7 +247,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/json-schema/LICENSE
-├─ @types/jsonwebtoken@8.5.8
+├─ @types/jsonwebtoken@8.5.9
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/jsonwebtoken/LICENSE
@@ -275,6 +275,10 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/range-parser/LICENSE
+├─ @types/send@0.17.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+│  └─ licenseFile: @types/send/LICENSE
 ├─ @types/serve-static@1.13.10
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1277,7 +1281,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: js@jamesls.com
 │  ├─ url: http://jamesls.com/
 │  └─ licenseFile: jmespath/LICENSE
-├─ jose@2.0.5
+├─ jose@2.0.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/panva/jose
 │  ├─ publisher: Filip Skokan
@@ -1289,7 +1293,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Vladimir Zapparov
 │  ├─ email: dervus.grim@gmail.com
 │  └─ licenseFile: @nestjs/swagger/node_modules/js-yaml/LICENSE
-├─ json5@2.2.2
+├─ json5@2.2.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/json5/json5
 │  ├─ publisher: Aseem Kishore
@@ -1316,7 +1320,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/auth0/node-jwks-rsa
 │  ├─ publisher: Auth0
 │  └─ licenseFile: auth0/node_modules/jwks-rsa/LICENSE
-├─ jwks-rsa@2.1.4
+├─ jwks-rsa@2.1.5
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/auth0/node-jwks-rsa
 │  ├─ publisher: Auth0
@@ -2443,7 +2447,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Eemeli Aro
 │  ├─ email: eemeli@gmail.com
 │  └─ licenseFile: yaml/LICENSE
-└─ zone.js@0.13.0
+└─ zone.js@0.13.1
    ├─ licenses: MIT
    ├─ repository: https://github.com/angular/angular
    ├─ publisher: Brian Ford

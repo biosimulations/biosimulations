@@ -1,5 +1,18 @@
 # Changelog
 
+## [9.34.0](https://github.com/biosimulations/biosimulations/compare/v9.33.0...v9.34.0) (2023-06-22)
+
+
+### Bug Fixes
+
+* docs for local docker commands for development ([e148835](https://github.com/biosimulations/biosimulations/commit/e14883521552180a94e3baf4d1232b8f7c132d68))
+* use nx from repo in CD ([9d1adcf](https://github.com/biosimulations/biosimulations/commit/9d1adcf3287ff0e9b8d59c4b6f9595b3248eedb3))
+
+
+### Features
+
+* order projects to feature projects which are more highly curated ([e85e5b0](https://github.com/biosimulations/biosimulations/commit/e85e5b08127cf9d2611606b5c683556707936b4b))
+
 ## [9.33.0](https://github.com/biosimulations/biosimulations/compare/v9.32.0...v9.33.0) (2023-06-17)
 
 
