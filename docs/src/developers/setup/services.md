@@ -12,7 +12,7 @@ The BioSimulations apps requires connecting to several infrastructure services f
     We recommend running a local redis container with the following command:
 
     ```bash
-    docker run -d -p 6379:6379 --network host --name redis redis
+    docker run -d -p 6379:6379 --name redis redis
     ```
 
 - NATS messaging queue
@@ -22,7 +22,7 @@ The BioSimulations apps requires connecting to several infrastructure services f
     We recommend running a local NATS container with the following command:
 
     ```bash
-    docker run -d -p 4222:4222 --network host --name nats nats
+    docker run -d -p 4222:4222 --name nats nats
     ```
 
 - MongoDB
@@ -31,7 +31,7 @@ The BioSimulations apps requires connecting to several infrastructure services f
 
     We recommend running a local MongoDB container with the following command:
     ```bash
-    docker run -d -p 27017:27017 --network host --name mongodb mongo
+    docker run -d -p 27017:27017 --name mongodb mongo
     ```
 
     Alternatively, you can use a free MongoDB cluster from [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/).

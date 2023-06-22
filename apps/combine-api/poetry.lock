@@ -311,13 +311,13 @@ tests = ["biosimulators-utils[containers]", "python-dateutil"]
 
 [[package]]
 name = "biosimulators-utils"
-version = "0.1.180"
+version = "0.1.181"
 description = "Command-line program and library for reading, writing, validating and executing modeling projects (COMBINE/OMEX archives with SED-ML files)."
 optional = false
 python-versions = "*"
 files = [
-    {file = "biosimulators_utils-0.1.180-py2.py3-none-any.whl", hash = "sha256:0950e6fca1174e8448a2007630e1caba11971a7bda0ba63ad73f9d611a74c92b"},
-    {file = "biosimulators_utils-0.1.180.tar.gz", hash = "sha256:231ac45877262cefde29ad46e71242635b35fc0c44084ef002086149e5687cf0"},
+    {file = "biosimulators_utils-0.1.181-py2.py3-none-any.whl", hash = "sha256:9f7be8d4c21c9ea8fae2aa1272fea830b9e2610fe717c252bd51eb85fd6f7d7f"},
+    {file = "biosimulators_utils-0.1.181.tar.gz", hash = "sha256:3bfd72fad63d768a9f682e2aa668deca8d141a75e178c426579757be91d7f756"},
 ]
 
 [package.dependencies]
@@ -326,7 +326,7 @@ bionetgen = {version = ">=0.7.2", optional = true, markers = "extra == \"bngl\""
 biopython = "*"
 capturer = {version = "*", optional = true, markers = "extra == \"logging\""}
 cement = "*"
-evalidate = "*"
+evalidate = ">=2.0.0"
 h5py = "*"
 kisao = ">=2.32"
 libcellml = {version = "*", optional = true, markers = "extra == \"cellml\""}
@@ -1427,13 +1427,13 @@ files = [
 
 [[package]]
 name = "evalidate"
-version = "1.0.2"
+version = "2.0.0"
 description = "Validation and secure evaluation of untrusted python expressions"
 optional = false
 python-versions = "*"
 files = [
-    {file = "evalidate-1.0.2-py3-none-any.whl", hash = "sha256:85adf36872e431c96433930b69ab6b510014737fa6a32316b9e37cebb926e850"},
-    {file = "evalidate-1.0.2.tar.gz", hash = "sha256:7830c91fc828a27bb4e9f01db2da6fabbddafda3d067af642758b2ce33521484"},
+    {file = "evalidate-2.0.0-py3-none-any.whl", hash = "sha256:0caf82a9abb2c38ded7683789b6fc052b626998a5118466e999ca24ede2c715c"},
+    {file = "evalidate-2.0.0.tar.gz", hash = "sha256:c74ff15ccaa3fe8e6a384d4978d41ba53f31b84f4a49bffdf5c99a086b5a815f"},
 ]
 
 [[package]]
@@ -5446,4 +5446,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "780d07c90bbdadc81097b5db80fcbf87014e5f15bfb950daacc7122aff4df01c"
+content-hash = "be5f963eab334eec5f4419ca22178bfd66256aa260a45565fe15ec8cff8f1a0a"
