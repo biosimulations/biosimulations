@@ -224,6 +224,29 @@ biosimulations-tab-page ::ng-deep .icon-list {
   }
 }
 
+.item-expansion-header-under-dev {
+  background-color: #2196f3;
+  font-weight: normal;
+  font-size: medium;
+  color: white;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-family: 'Roboto', sans-serif;
+  align-items: center;
+  border: 2px solid inherit;
+  border-radius: 3px;
+  height: auto;
+  width: auto;
+  transition: background-color 0.5s ease, transform 0.5s ease;
+
+  &:hover {
+    color: #2196f3 !important;
+    background-color: #ff9800 !important;
+    transform: scale(1.0075);
+    font-weight: bold;
+  }
+}
+
 .icon-list {
   height: 100%;
   width: 100%;
