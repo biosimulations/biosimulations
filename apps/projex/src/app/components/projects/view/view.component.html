@@ -91,6 +91,8 @@
                     </mat-card-content>
                   </mat-expansion-panel>
 
+                  <div class="files-separator 1"></div>
+
                   <!-- Spec Files (sbml, manifest, etc) -->
                   <mat-expansion-panel class="files-item specContent">
                     <mat-expansion-panel-header class="item-expansion-header"
@@ -107,6 +109,8 @@
                       </div>
                     </mat-card-content>
                   </mat-expansion-panel>
+
+                  <div class="files-separator 2"></div>
 
                   <!-- Output Data Files -->
                   <mat-expansion-panel class="files-item outputs">
@@ -228,14 +232,11 @@
             </mat-tab>
 
             <!-- Begin ReRun Notebook Tab -->
-            <mat-tab
+            <!--<mat-tab
               label="ReRun"
               (click)="isReRunTabExpanded = !isReRunTabExpanded"
               [ngClass]="{ 'full-width-tab-content': isReRunTabExpanded }">
               <mat-card>
-                <!--<mat-card-header>
-                  This Feature Coming Soon! :)
-                </mat-card-header>-->
                 <mat-card-content>
                   <mat-expansion-panel expanded="true" disabled="true">
                     <mat-expansion-panel-header
@@ -261,7 +262,7 @@
                       frameborder="0"
                       allowfullscreen>
                     </iframe>
-                  </div>-->
+                  </div>
 
                   <!-- Case: Using Binder -->
                   <!--<div class="notebook-container binder">
@@ -269,13 +270,13 @@
                       class="binder-notebook-content"
                       width="100%"
                       height="100%"
-                      src="https://mybinder.org/v2/gh/AlexPatrie/biosimulators-sandbox-test-repo-2/HEAD"
+                      src="https://github.com/AlexPatrie/biosimulators-sandbox-test-repo-3.git"
                       frameborder="0"
                       allowfullscreen>
                     </iframe>
-                  </div>-->
+                  </div>
                   <!-- Case: Using Jupyterlite/Github Pages-->
-                  <div class="notebook-container jupyterlite">
+                  <!--<div class="notebook-container jupyterlite">
                     <iframe
                       class="jupyterlite-notebook-content"
                       title="Simulation Sandbox"
@@ -286,10 +287,10 @@
                       allowfullscreen="true">
                     </iframe>
                   </div>
-                </mat-expansion-panel>
+                <!--</mat-expansion-panel>
                 </mat-card-content>
               </mat-card>
-            </mat-tab>
+            </mat-tab>-->
             <!-- End ReRun Notebook Tab -->
           </mat-tab-group>
         </mat-card-content>
