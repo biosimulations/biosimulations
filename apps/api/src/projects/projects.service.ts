@@ -7,7 +7,7 @@ import {
   ProjectSummary,
   ProjectSummaryQueryResults,
 } from '@biosimulations/datamodel/api';
-import { AccountType } from '@biosimulations/datamodel/common';
+import { AccountType, getProjectSummaryScore } from '@biosimulations/datamodel/common';
 import {
   BadRequestException,
   CACHE_MANAGER,
@@ -44,6 +44,8 @@ interface ProjectSummaryResult {
   value?: ProjectSummary;
   error?: any;
 }
+
+const maxNumRecordsToTextSearch = 3000;
 
 @Injectable()
 export class ProjectsService implements OnModuleInit {
@@ -218,6 +220,23 @@ export class ProjectsService implements OnModuleInit {
     pageIndex: number,
     filters: ProjectFilterQueryItem[],
   ): Promise<ProjectSummaryQueryResults> {
+    return this.getProjectSummariesWithoutSearch_withoutSort(0, maxNumRecordsToTextSearch, filters).then(
+      (results: ProjectSummaryQueryResults) => {
+        return {
+          ...results,
+          projectSummaries: results.projectSummaries
+            .sort((p1: ProjectSummary, p2: ProjectSummary) => getProjectSummaryScore(p2) - getProjectSummaryScore(p1))
+            .slice(pageIndex * pageSize, (pageIndex + 1) * pageSize),
+        } as ProjectSummaryQueryResults;
+      },
+    );
+  }
+
+  public async getProjectSummariesWithoutSearch_withoutSort(
+    pageSize: number,
+    pageIndex: number,
+    filters: ProjectFilterQueryItem[],
+  ): Promise<ProjectSummaryQueryResults> {
     if (!this.fullFilterStats) {
       const allProjects: ProjectModel[] = await this.model.find({}).select('id updated').exec();
       const projectIds: string = allProjects
@@ -314,8 +333,7 @@ export class ProjectsService implements OnModuleInit {
       // 1. query first 2000 projects
       // 2. add all projects to ProjectsSearch instance
       // 3. perform the search
-      const maxNumRecordsToTextSearch = 2000;
-      const projectSummaries: Promise<ProjectSummaryQueryResults> = this.getProjectSummariesWithoutSearch(
+      const projectSummaries: Promise<ProjectSummaryQueryResults> = this.getProjectSummariesWithoutSearch_withoutSort(
         maxNumRecordsToTextSearch,
         0,
         [],

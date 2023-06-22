@@ -74,3 +74,72 @@ export function getProjectSummary_Taxa(project: ProjectSummary): Set<string> {
     .map((v: LabeledIdentifier) => v.label || v.uri || '');
   return taxa ? new Set<string>(taxa) : new Set<string>();
 }
+
+export function getProjectSummary_Thumbnails(project: ProjectSummary): Set<string> {
+  const thumbnails: string[] | undefined = project.simulationRun.metadata?.flatMap((metadata) => metadata.thumbnails);
+  return thumbnails ? new Set<string>(thumbnails) : new Set<string>();
+}
+
+export function getProjectSummary_Abstract(project: ProjectSummary): Set<string> {
+  if (project.simulationRun.metadata === undefined) return new Set<string>();
+  const abstract = project.simulationRun.metadata
+    ?.flatMap((metadata) => metadata.abstract)
+    .filter((v) => v !== undefined) as string[];
+  return abstract ? new Set<string>(abstract) : new Set<string>();
+}
+
+export function getProjectSummary_SimulationRunOutputSummaries(
+  project: ProjectSummary,
+): SimulationRunOutputSummary[] | undefined {
+  return project.simulationRun.outputs;
+}
+
+export function getProjectSummaryScore(project: ProjectSummary): number {
+  const biologySet: Set<string> = getProjectSummary_Biologies(project);
+  const keywordSet: Set<string> = getProjectSummary_Keywords(project);
+  const reportsSet: Set<string> = getProjectSummary_Reports(project);
+  const taxa: Set<string> = getProjectSummary_Taxa(project);
+  const thumbnails: Set<string> = getProjectSummary_Thumbnails(project);
+  const citations: Set<LabeledIdentifier> = getProjectSummary_CitationLabeledIdentifiers(project);
+  const abstract: Set<string> = getProjectSummary_Abstract(project);
+  const outputSummaries: SimulationRunOutputSummary[] | undefined =
+    getProjectSummary_SimulationRunOutputSummaries(project);
+  //const modelFormats: Set<string> = getProjectSummary_ModelFormats(project);
+  //const simulationAlgorithms: Set<string> = getProjectSummary_SimulationAlgorithms(project);
+  //const simulationTypes: Set<string> = getProjectSummary_SimulationTypes(project);
+  //const simulators: Set<string> = getProjectSummary_Simulators(project);
+
+  let score = 0.0;
+  score += biologySet.size > 0 ? 0.1 : 0.0;
+  score += keywordSet.size > 0 ? 0.1 : 0.0;
+  score += reportsSet.size > 0 ? 0.1 : 0.0;
+  score += abstract.size > 0 ? 1.0 : 0.0;
+  score += thumbnails.size > 0 ? 0.5 : 0.0;
+  score += thumbnails.size > 1 ? -0.5 : 0.0; // TODO: penalize >1 thumbnails for now, doesn't display correctly.
+  score += taxa.size > 0 ? 0.1 : 0.0;
+  score += citations.size > 0 ? 0.1 : 0.0;
+
+  // give a boost to more recently updated projects
+  const ms_per_month = 1000 * 60 * 60 * 24 * 30;
+  const ageInMonths = (Date.now() - Date.parse(project.updated)) / ms_per_month;
+  score += 0.1 * Math.exp(-ageInMonths / 12.0);
+
+  const plots = outputSummaries?.filter((output) => output.type.id == 'SedPlot2D');
+  const numPlots = plots?.length || 0;
+  switch (numPlots) {
+    case 0:
+      break;
+    case 1:
+      score += 0.1;
+      break;
+    case 2:
+      score += 0.2;
+      break;
+    case 3:
+      score += 0.15;
+      break;
+    default:
+      score -= 0.1;
+  }
+  return score;
+}
