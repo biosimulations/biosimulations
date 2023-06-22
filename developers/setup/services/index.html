@@ -1587,21 +1587,21 @@
 <p>Redis</p>
 <p><a href="https://redis.io/">Redis</a> is used for caching the results of the API and for managing queues for submitting, monitoring, and processing simulation runs.</p>
 <p>We recommend running a local redis container with the following command:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">6379</span>:6379<span class="w"> </span>--network<span class="w"> </span>host<span class="w"> </span>--name<span class="w"> </span>redis<span class="w"> </span>redis
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">6379</span>:6379<span class="w"> </span>--name<span class="w"> </span>redis<span class="w"> </span>redis
 </code></pre></div>
 </li>
 <li>
 <p>NATS messaging queue</p>
 <p><a href="https://docs.nats.io/">NATS</a> is used for messaging between the API and the backend services. Currently, the NATS connection does not support guaranteed message delivery semantics. The latest <a href="https://docs.nats.io/nats-concepts/jetstream">NATS Jetstream</a> adds support for exactly-once delivery semantics, which will be can be for submission jobs in the future.</p>
 <p>We recommend running a local NATS container with the following command:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">4222</span>:4222<span class="w"> </span>--network<span class="w"> </span>host<span class="w"> </span>--name<span class="w"> </span>nats<span class="w"> </span>nats
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">4222</span>:4222<span class="w"> </span>--name<span class="w"> </span>nats<span class="w"> </span>nats
 </code></pre></div>
 </li>
 <li>
 <p>MongoDB</p>
 <p><a href="https://docs.mongodb.com/">MongoDB</a> is used as our primary database and contains information about the simulation runs, their logs, specifications, metadata, etc. It is accessed through the API.</p>
 <p>We recommend running a local MongoDB container with the following command:
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">27017</span>:27017<span class="w"> </span>--network<span class="w"> </span>host<span class="w"> </span>--name<span class="w"> </span>mongodb<span class="w"> </span>mongo
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">27017</span>:27017<span class="w"> </span>--name<span class="w"> </span>mongodb<span class="w"> </span>mongo
 </code></pre></div></p>
 <p>Alternatively, you can use a free MongoDB cluster from <a href="https://www.mongodb.com/cloud/atlas/">MongoDB Atlas</a>.</p>
 <p>These methods will allow you to develop BioSimulations locally, but will not have access to simulation stored on the development server. If you would like to develop against the dev biosimulations database, please <a href="/about/contact/">contact us</a> for access.</p>
@@ -1623,7 +1623,7 @@
   <small>
     
       Last update:
-      2023-04-12
+      2023-06-21
     
   </small>
 </div>
