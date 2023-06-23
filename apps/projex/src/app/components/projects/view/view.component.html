@@ -20,7 +20,6 @@
       <!-- Start Right Column -->
       <mat-card class="viz-card">
         <mat-card-content class="viz-card-content">
-
           <!-- Start ReRun Simulation Button -->
           <mat-card-header class="viz-card-header">
             <mat-card-actions class="rerun-sim-button-container">
@@ -34,11 +33,7 @@
           </mat-card-header>
           <!-- End ReRun Simulation Button -->
 
-          <mat-tab-group
-          #tabGroup
-            preserveContent="true"
-            [dynamicHeight]="true"
-            [selectedIndex]="selectedTabIndex">
+          <mat-tab-group #tabGroup preserveContent="true" [dynamicHeight]="true" [selectedIndex]="selectedTabIndex">
             <!-- Start Visualizations Tab -->
             <mat-tab class="right-col-tab figures" label="Figures">
               <mat-card class="plots-card">
@@ -246,7 +241,7 @@
                     </mat-expansion-panel-header>
 
                   <!-- Case: Using Deepnote -->
-                  <!--<div class="notebook-container deepnote">
+            <!--<div class="notebook-container deepnote">
                     <iframe
                       class="notebook-intro"
                       title="Embedded cell output"
@@ -265,7 +260,7 @@
                   </div>
 
                   <!-- Case: Using Binder -->
-                  <!--<div class="notebook-container binder">
+            <!--<div class="notebook-container binder">
                     <iframe
                       class="binder-notebook-content"
                       width="100%"
@@ -276,7 +271,7 @@
                     </iframe>
                   </div>
                   <!-- Case: Using Jupyterlite/Github Pages-->
-                  <!--<div class="notebook-container jupyterlite">
+            <!--<div class="notebook-container jupyterlite">
                     <iframe
                       class="jupyterlite-notebook-content"
                       title="Simulation Sandbox"

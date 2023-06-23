@@ -15,7 +15,7 @@
         <div class="icon-container">
           <biosimulations-icon icon="project"></biosimulations-icon>
         </div>
-        <span class="dir-title">{{path.title}}</span>
+        <span class="dir-title">{{ path.title }}</span>
       </div>
       <!-- Format Data(string(with <a>)) -->
       <div class="dir-format">Directory</div>
@@ -36,7 +36,7 @@
         <div class="icon-container">
           <biosimulations-icon [icon]="path.icon"></biosimulations-icon>
         </div>
-        <span class="file-title" [matTooltip]="path.title">{{path.title}}</span>
+        <span class="file-title" [matTooltip]="path.title">{{ path.title }}</span>
       </div>
       <!-- Row format with href -->
       <div class="cell format" [class.main-file]="path.master">
@@ -47,10 +47,7 @@
       <!-- Row download button -->
       <div class="cell download">
         <div class="file-download">
-          <button
-            mat-icon-button
-            class="biosimulations-button"
-            *ngIf="path.url">
+          <button mat-icon-button class="biosimulations-button" *ngIf="path.url">
             <a [download]="path.basename" [href]="path.url" rel="noopener"></a>
             <biosimulations-icon icon="download"></biosimulations-icon>
           </button>

@@ -5,9 +5,7 @@
   <div class="projects-table-container full-width-table mat-elevation-z8">
     <div class="projects-chip-container">
       <!-- Search Chips (includes chip input) -->
-      <biosimulations-projects-chips
-        [filterStats$]="filterStats$"
-        (filterQueries$)="onFilterQueryChanged($event)">
+      <biosimulations-projects-chips [filterStats$]="filterStats$" (filterQueries$)="onFilterQueryChanged($event)">
       </biosimulations-projects-chips>
     </div>
 
@@ -15,12 +13,7 @@
       <!-- Search projects Input -->
       <mat-form-field appearance="fill">
         <mat-label>Search Projects</mat-label>
-        <input
-          (keyup)="onKeyUpEvent($event)"
-          [(ngModel)]="searchTerm"
-          matInput
-
-          type="text"/>
+        <input (keyup)="onKeyUpEvent($event)" [(ngModel)]="searchTerm" matInput type="text" />
         <mat-icon matPrefix>search</mat-icon>
       </mat-form-field>
 
