@@ -10,12 +10,19 @@
   grid-gap: 0.5em;
 }
 
+.head {
+  border-bottom: 1px dotted #1479ed64;
+  padding-bottom: 1rem;
+}
+
 .cell {
   overflow: hidden;
   text-overflow: ellipsis;
   height: 50px;
-  width: 50%;
+  font-size: 13;
+  display: flex;
   transition: 0.3s ease-in-out;
+  border-bottom: 1px dotted #1479ed64;
 }
 
 .main {
@@ -32,21 +39,19 @@
 }
 
 .biosimulations-button {
-  border: 1px solid #ff9800;
-  border-radius: 100%;
+  border: 3px solid #ff9800;
+  border-radius: 5px;
+  background-color: #ff9800;
+  transition: background-color ease-in 0.15s;
+  font-size: 1rem;
+  margin-left: 1rem;
   color: #2196f3;
   background-color: #ff9800;
-  transition: ease-in-out;
 
   &:hover {
-    transition-duration: 0.1s;
     border: 3px groove #ff9800;
     color: #ff9800;
     background-color: #2196f3;
-  }
-
-  &:not(:active) {
-    transition-duration: 0.05s;
   }
 }
 

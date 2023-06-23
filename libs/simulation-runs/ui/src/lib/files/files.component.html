@@ -1,9 +1,9 @@
 <div class="clean-table">
   <!-- Start Column Schema -->
-  <div class="head cell title">Name</div>
-  <div class="head cell format">Format</div>
-  <div class="head cell download">Download</div>
-  <div class="head cell size">Size</div>
+  <div class="head title">Name</div>
+  <div class="head format">Format</div>
+  <div class="head download">Download</div>
+  <div class="head size">Size</div>
   <!-- End Column Schema -->
 
   <!-- Start Row DataContainer -->
@@ -47,9 +47,10 @@
       <!-- Row download button -->
       <div class="cell download">
         <div class="file-download">
-          <button mat-icon-button class="biosimulations-button" *ngIf="path.url">
-            <a [download]="path.basename" [href]="path.url" rel="noopener"></a>
-            <biosimulations-icon icon="download"></biosimulations-icon>
+          <button class="biosimulations-button" *ngIf="path.url" mat-button>
+            <a [download]="path.basename" [href]="path.url" rel="noopener">
+              <biosimulations-icon icon="download"></biosimulations-icon>
+            </a>
           </button>
         </div>
       </div>
