@@ -23,7 +23,7 @@
           <!-- Start ReRun Simulation Button -->
           <mat-card-header class="viz-card-header">
             <mat-card-actions class="rerun-sim-button-container">
-              <button mat-raised-button class="rerun-button" (click)="promptReRun()">
+              <button mat-raised-button class="rerun-button" (click)="promptReRun()" matTooltip="This feature is currently being developed!">
                 <div style="display: inline-block">
                   <span>Customize & ReRun Simulation</span>
                   <biosimulations-icon class="rerun-icon" icon="redo"></biosimulations-icon>
@@ -237,11 +237,11 @@
                     <mat-expansion-panel-header
                       class="item-expansion-header-under-dev"
                       matTooltip="Customize and ReRun a Simulation. This feature will be available soon!">
-                      This feature is currently under development
-                    </mat-expansion-panel-header>
+                      This feature is currently under development.
+                    </mat-expansion-panel-header>-->
 
                   <!-- Case: Using Deepnote -->
-            <!--<div class="notebook-container deepnote">
+                  <!--<div class="notebook-container deepnote">
                     <iframe
                       class="notebook-intro"
                       title="Embedded cell output"
@@ -259,30 +259,31 @@
                     </iframe>
                   </div>
 
-                  <!-- Case: Using Binder -->
-            <!--<div class="notebook-container binder">
-                    <iframe
-                      class="binder-notebook-content"
-                      width="100%"
-                      height="100%"
-                      src="https://github.com/AlexPatrie/biosimulators-sandbox-test-repo-3.git"
-                      frameborder="0"
-                      allowfullscreen>
-                    </iframe>
-                  </div>
-                  <!-- Case: Using Jupyterlite/Github Pages-->
-            <!--<div class="notebook-container jupyterlite">
-                    <iframe
-                      class="jupyterlite-notebook-content"
-                      title="Simulation Sandbox"
-                      width="100%"
-                      height="100%"
-                      src="https://alexpatrie.github.io/biosimulators-sandbox-test-repo-2/repl/index.html"
-                      frameborder="0"
-                      allowfullscreen="true">
-                    </iframe>
-                  </div>
-                <!--</mat-expansion-panel>
+                    <!-- Case: Using Binder -->
+                    <!--<div class="notebook-container binder">
+                      <iframe
+                        class="binder-notebook-content"
+                        width="100%"
+                        height="100%"
+                        src="https://mybinder.org/v2/gh/AlexPatrie/biosimulators-sandbox-test-repo-4.git/HEAD"
+                        target="_parent"
+                        frameborder="0"
+                        allowfullscreen>
+                      </iframe>
+                    </div>-->
+                    <!-- Case: Using Jupyterlite/Github Pages-->
+                    <!--<div class="notebook-container jupyterlite">
+                      <iframe
+                        class="jupyterlite-notebook-content"
+                        title="Simulation Sandbox"
+                        width="100%"
+                        height="100%"
+                        src="https://alexpatrie.github.io/biosimulators-sandbox-test-repo-2/repl/index.html"
+                        frameborder="0"
+                        allowfullscreen="true">
+                      </iframe>
+                    </div>-->
+                  <!--</mat-expansion-panel>
                 </mat-card-content>
               </mat-card>
             </mat-tab>-->
