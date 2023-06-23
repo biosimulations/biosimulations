@@ -1,6 +1,5 @@
 // esline-disable-next-line
 .clean-table__ {
-  //grid-template-columns: repeat(2, 1fr) repeat(3, 1fr);
   display: grid;
 }
 
@@ -36,9 +35,10 @@
   background: #ff9800;
 }
 
-.file-size {
-  //text-align: center;
+.download {
+  text-align: center;
 }
+
 .biosimulations-button {
   border: 3px solid #ff9800;
   border-radius: 5px;
@@ -46,7 +46,6 @@
   height: 25px;
   transition: background-color ease-in 0.15s;
   font-size: 1rem;
-  //margin-left: 3.55rem;
   background-color: #ff9800;
 
   &:hover {

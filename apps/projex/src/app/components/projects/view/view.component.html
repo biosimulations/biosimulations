@@ -190,7 +190,7 @@
                                   </th>
                                   <td>
                                     <b>{{ item.title }}:</b>{{ ' ' }}
-                                    <a [href]="item.url" rel="noopener" target="_blank" *ngIf="item.url; else noHref">
+                                    <a [matTooltip]="item.value" [href]="item.url" rel="noopener" target="_blank" *ngIf="item.url; else noHref">
                                       {{ item.value }}
                                     </a>
                                     <ng-template #noHref>{{ item.value }}</ng-template>
@@ -198,6 +198,7 @@
                                 </tr>
                               </table>
                             </mat-expansion-panel>
+                            <div class="divider"></div>
                             <!-- Stop Individual Detail Item Expansion -->
                           </div>
 
