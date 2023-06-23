@@ -115,7 +115,7 @@ export function getProjectSummaryScore(project: ProjectSummary): number {
   score += reportsSet.size > 0 ? 0.1 : 0.0;
   score += abstract.size > 0 ? 1.0 : 0.0;
   score += thumbnails.size > 0 ? 0.5 : 0.0;
-  score += thumbnails.size > 1 ? -0.5 : 0.0; // TODO: penalize >1 thumbnails for now, doesn't display correctly.
+  score += thumbnails.size > 1 ? (thumbnails.size - 1) * 0.002 : 0.0;
   score += taxa.size > 0 ? 0.1 : 0.0;
   score += citations.size > 0 ? 0.1 : 0.0;
 

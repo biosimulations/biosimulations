@@ -20,7 +20,7 @@
     <!-- Begin summary/text data-->
     <div *ngIf="project" fxGrid>
       <!-- Begin Image Container -->
-      <ng-container *ngIf="project?.thumbnails?.length; else noThumbnail">
+      <ng-container *ngIf="project?.thumbnails?.length == 1; else noThumbnail">
         <!-- Case: Has Thumbnail Image -->
         <mat-card class="image-card">
           <mat-card-content>
@@ -28,11 +28,12 @@
               <div class="image-container">
                 <biosimulations-carousel [images]="project.thumbnails"></biosimulations-carousel>
               </div>
-              <mat-card-actions class="enlarge-icon" align="end" style="font-size: x-large">
-                <biosimulations-icon icon="visible" (click)="onClick($event)"> </biosimulations-icon>
-              </mat-card-actions>
             </div>
           </mat-card-content>
+          <mat-card-actions class="enlarge-icon" align="end">
+            <biosimulations-icon icon="visible" (click)="onClick($event)">
+            </biosimulations-icon>
+          </mat-card-actions>
         </mat-card>
       </ng-container>
       <!-- Case: No Thumbnail Image -->

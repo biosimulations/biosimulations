@@ -1,4 +1,4 @@
-import { Component, Injectable, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -69,6 +69,14 @@ export class ViewComponent implements OnInit {
   @Input()
   public featureComingSoonMessage = 'Stay tuned! This exciting new feature is currently under development :)';
 
+  public safeUrl: any;
+  public url?: string;
+  public sandboxUrl?: string;
+  public jupyterliteSandboxReplUrl = 'https://alexpatrie.github.io/biosimulators-sandbox-test-repo-2/repl/index.html';
+  public jupyterliteSandboxLabUrl = 'https://alexpatrie.github.io/biosimulators-sandbox-test-repo-2/lab/index.html';
+  public isReRunTabExpanded = false;
+  public useSanitizedUrl = false;
+
   private id!: string;
 
   public constructor(
@@ -80,6 +88,7 @@ export class ViewComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
+    this.sandboxUrl = this.getJupyterliteUrl();
     const id = (this.id = this.route.snapshot.params['id']);
     this.projectSummary$ = this.projService.getProjectSummary(id).pipe(
       shareReplay(1),
@@ -213,26 +222,45 @@ export class ViewComponent implements OnInit {
     return config;
   }
 
-  public promptReRun(data = null, message: string | null = null, confirmActionMessage = 'Close'): void {
+  public promptReRun(
+    data = null,
+    message: string | null = null,
+    confirmActionMessage = 'Close',
+    duration = 6000,
+  ): void {
     if (!message) {
       message = this.featureComingSoonMessage;
     }
     const cssClassName = ['coming-soon-snackbar'];
-    const dur = 6000;
-    const snackbarConfig = this.setupSnackbarConfig(cssClassName, data, dur);
+    const snackbarConfig = this.setupSnackbarConfig(cssClassName, data, duration);
     this.snackBar.open(message, confirmActionMessage, snackbarConfig);
   }
-}
 
-@Injectable()
-export class VizService extends ViewComponent {
-  public constructor(
-    service: ViewService,
-    projService: ProjectService,
-    route: ActivatedRoute,
-    router: Router,
-    snack: MatSnackBar,
+  private getJupyterliteUrl(url = 'https://alexpatrie.github.io/biosimulators-sandbox-test-repo-2/repl/index.html') {
+    return url;
+  }
+
+  private getColabUrl(
+    url = 'https://colab.research.google.com/drive/1zWa_crEKXhqzPK4Wn5RJoKhuD4O4dVDs#scrollTo=urCTa8eaSleM',
   ) {
-    super(service, projService, route, router, snack);
+    return url;
+  }
+
+  private getDeepnoteUrl(
+    url = 'https://embed.deepnote.com/717d0b91-cf50-4435-a706-ae083705b28e/0cdec188065948bd8f5e5411ab8a821c/d2a0c22bf8904116b4c2aba4b27a6100?height=7751',
+  ) {
+    return url;
+  }
+
+  private getSandboxUrl(source: string | any) {
+    let sandboxUrl;
+    if (source == 'colab') {
+      sandboxUrl = this.getColabUrl();
+    } else {
+      if (source == 'deepnote') {
+        sandboxUrl = this.getDeepnoteUrl();
+      }
+    }
+    return sandboxUrl;
   }
 }

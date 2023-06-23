@@ -1,14 +1,21 @@
-<form>
-  <mat-form-field class="example-chip-list" appearance="fill">
+<form class="form-container">
+  <mat-form-field class="filter-chip-list" appearance="fill">
     <mat-label>Project Filters</mat-label>
     <mat-chip-grid #chipGrid aria-label="Filters">
-      <mat-chip-row *ngFor="let filterQuery of filterQueries$ | async" (removed)="remove(filterQuery)">
-        {{ filterQuery.target + ': ' + filterQuery.allowable_values.join(' or ') }}
-        <button matChipRemove [attr.aria-label]="'remove ' + filterQuery">
-          <mat-icon>cancel</mat-icon>
-        </button>
+      <mat-chip-row
+        class="chip-row-container"
+        *ngFor="let filterQuery of filterQueries$ | async"
+        (removed)="remove(filterQuery)"
+        style="background-color: green">
+        <div class="chip-content">
+          {{ filterQuery.target + ': ' + filterQuery.allowable_values.join(' or ') }}
+          <button matChipRemove [attr.aria-label]="'remove ' + filterQuery">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </div>
       </mat-chip-row>
     </mat-chip-grid>
+    <div class="separator"></div>
     <input
       #filterInput
       placeholder="New Filter..."
@@ -29,3 +36,4 @@
     </mat-autocomplete>
   </mat-form-field>
 </form>
+

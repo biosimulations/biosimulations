@@ -3,18 +3,24 @@
     <h1 class="mat-display-1" style="margin-bottom: 10px; margin-top: 20px">Simulation Projects</h1>
   </div>
   <div class="projects-table-container full-width-table mat-elevation-z8">
-    <biosimulations-projects-chips
-      [filterStats$]="filterStats$"
-      (filterQueries$)="onFilterQueryChanged($event)"></biosimulations-projects-chips>
+    <div class="projects-chip-container">
+      <!-- Search Chips (includes chip input) -->
+      <biosimulations-projects-chips
+        [filterStats$]="filterStats$"
+        (filterQueries$)="onFilterQueryChanged($event)">
+      </biosimulations-projects-chips>
+    </div>
 
     <div class="below-filters">
+      <!-- Search projects Input -->
       <mat-form-field appearance="fill">
+        <mat-label>Search Projects</mat-label>
         <input
           (keyup)="onKeyUpEvent($event)"
           [(ngModel)]="searchTerm"
           matInput
-          placeholder="Search projects"
-          type="text" />
+
+          type="text"/>
         <mat-icon matPrefix>search</mat-icon>
       </mat-form-field>
 

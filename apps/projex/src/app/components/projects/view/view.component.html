@@ -20,6 +20,7 @@
       <!-- Start Right Column -->
       <mat-card class="viz-card">
         <mat-card-content class="viz-card-content">
+
           <!-- Start ReRun Simulation Button -->
           <mat-card-header class="viz-card-header">
             <mat-card-actions class="rerun-sim-button-container">
@@ -33,7 +34,11 @@
           </mat-card-header>
           <!-- End ReRun Simulation Button -->
 
-          <mat-tab-group preserveContent="true">
+          <mat-tab-group
+          #tabGroup
+            preserveContent="true"
+            [dynamicHeight]="true"
+            [selectedIndex]="selectedTabIndex">
             <!-- Start Visualizations Tab -->
             <mat-tab class="right-col-tab figures" label="Figures">
               <mat-card class="plots-card">
@@ -86,6 +91,8 @@
                     </mat-card-content>
                   </mat-expansion-panel>
 
+                  <div class="files-separator 1"></div>
+
                   <!-- Spec Files (sbml, manifest, etc) -->
                   <mat-expansion-panel class="files-item specContent">
                     <mat-expansion-panel-header class="item-expansion-header"
@@ -102,6 +109,8 @@
                       </div>
                     </mat-card-content>
                   </mat-expansion-panel>
+
+                  <div class="files-separator 2"></div>
 
                   <!-- Output Data Files -->
                   <mat-expansion-panel class="files-item outputs">
@@ -221,11 +230,68 @@
                 </mat-card-content>
               </mat-card>
             </mat-tab>
-            <mat-tab label="ReRun" (click)="promptReRun()">
+
+            <!-- Begin ReRun Notebook Tab -->
+            <!--<mat-tab
+              label="ReRun"
+              (click)="isReRunTabExpanded = !isReRunTabExpanded"
+              [ngClass]="{ 'full-width-tab-content': isReRunTabExpanded }">
               <mat-card>
-                <mat-card-header> This Feature Coming Soon! :) </mat-card-header>
+                <mat-card-content>
+                  <mat-expansion-panel expanded="true" disabled="true">
+                    <mat-expansion-panel-header
+                      class="item-expansion-header-under-dev"
+                      matTooltip="Customize and ReRun a Simulation. This feature will be available soon!">
+                      This feature is currently under development
+                    </mat-expansion-panel-header>
+
+                  <!-- Case: Using Deepnote -->
+                  <!--<div class="notebook-container deepnote">
+                    <iframe
+                      class="notebook-intro"
+                      title="Embedded cell output"
+                      src="https://embed.deepnote.com/717d0b91-cf50-4435-a706-ae083705b28e/0cdec188065948bd8f5e5411ab8a821c/8d7ad546db4947aa948470e10b51ad3f?height=1091"
+                      width="100%"
+                      height="800px">
+                    </iframe>
+                    <iframe
+                      class="notebook-main"
+                      width="100%"
+                      height="800px"
+                      src="https://embed.deepnote.com/717d0b91-cf50-4435-a706-ae083705b28e/0cdec188065948bd8f5e5411ab8a821c/d2a0c22bf8904116b4c2aba4b27a6100?height=7751"
+                      frameborder="0"
+                      allowfullscreen>
+                    </iframe>
+                  </div>
+
+                  <!-- Case: Using Binder -->
+                  <!--<div class="notebook-container binder">
+                    <iframe
+                      class="binder-notebook-content"
+                      width="100%"
+                      height="100%"
+                      src="https://github.com/AlexPatrie/biosimulators-sandbox-test-repo-3.git"
+                      frameborder="0"
+                      allowfullscreen>
+                    </iframe>
+                  </div>
+                  <!-- Case: Using Jupyterlite/Github Pages-->
+                  <!--<div class="notebook-container jupyterlite">
+                    <iframe
+                      class="jupyterlite-notebook-content"
+                      title="Simulation Sandbox"
+                      width="100%"
+                      height="100%"
+                      src="https://alexpatrie.github.io/biosimulators-sandbox-test-repo-2/repl/index.html"
+                      frameborder="0"
+                      allowfullscreen="true">
+                    </iframe>
+                  </div>
+                <!--</mat-expansion-panel>
+                </mat-card-content>
               </mat-card>
-            </mat-tab>
+            </mat-tab>-->
+            <!-- End ReRun Notebook Tab -->
           </mat-tab-group>
         </mat-card-content>
       </mat-card>

@@ -2,8 +2,6 @@
   <!-- Start Column Schema -->
   <div class="head cell title">Name</div>
   <div class="head cell format">Format</div>
-  <!--<div class="head cell main">{{ usesMaster ? 'Main' : '' }}</div>-->
-  <!--<div *ngIf="useMetadata" class="head cell metadata">{{ usesMetadata ? 'Metadata' : '' }}</div>-->
   <div class="head cell download">Download</div>
   <div class="head cell size">Size</div>
   <!-- End Column Schema -->
@@ -13,44 +11,18 @@
     <!-- Start Zipped File format handling -->
     <ng-container *ngIf="path._type === 'Directory'">
       <!-- Title Data(string && icon(with <a>)) -->
-      <div class="cell title" [ngStyle]="{ 'padding-left.rem': 0.25 * path.level }">
+      <div class="cell dir" [ngStyle]="{ 'padding-left.rem': 0.25 * path.level }">
         <div class="icon-container">
           <biosimulations-icon icon="project"></biosimulations-icon>
         </div>
-        <span class="truncate-text" [ngClass]="{ 'full-text-tooltip': isTextOverflowed(path.title) }">{{
-          path.title
-        }}</span>
-        <div class="full-text-tooltip" *ngIf="isTextOverflowed(path.title)">{{ path.title }}</div>
+        <span class="dir-title">{{path.title}}</span>
       </div>
       <!-- Format Data(string(with <a>)) -->
-      <div class="cell format">Directory</div>
-      <!-- Is Main File(bool)-->
-      <!--<div class="cell main"></div>-->
-      <!-- Project Metadata Icon(with <a>)-->
-      <!--<div *ngIf="useMetadata" class="cell metadata">
-        <ng-container *ngIf="usesMetadata">
-          <mat-card
-            class="expanded metadata"
-            expanded="true"
-            disabled="true"
-            hideToggle="true"
-            [@hover]="cardState"
-            (mouseenter)="cardState='hovered'"
-            (mouseleave)="cardState='default'">
-            <button
-              mat-icon-button
-              *ngIf="path?.metadata as metadata"
-              (click)="openMetadata(metadata)"
-              class="biosimulations-button text">
-              <biosimulations-icon icon="info"></biosimulations-icon>
-            </button>
-          </mat-card>
-        </ng-container>
-      </div>-->
+      <div class="dir-format">Directory</div>
       <!-- Download Button(with <a>) -->
-      <div class="cell download"></div>
+      <div class="dir-download"></div>
       <!-- Download Size(string) -->
-      <div class="cell size"></div>
+      <div class="dir-size"></div>
     </ng-container>
     <!-- End Zipped file format handling -->
 
@@ -58,52 +30,35 @@
     <ng-container *ngIf="path._type === 'File'">
       <!-- Row Name and Icon -->
       <div
-        class="cell title"
+        class="cell files"
         [class.main-file]="path.master"
         [ngStyle]="{ 'padding-left.rem': 0.25 + 1.3 * path.level }">
         <div class="icon-container">
           <biosimulations-icon [icon]="path.icon"></biosimulations-icon>
         </div>
-        <span class="truncate-text" [ngClass]="{ 'full-text-tooltip': isTextOverflowed(path.title) }">{{
-          path.title
-        }}</span>
-        <div class="full-text-tooltip" *ngIf="isTextOverflowed(path.title)">{{ path.title }}</div>
+        <span class="file-title" [matTooltip]="path.title">{{path.title}}</span>
       </div>
       <!-- Row format with href -->
       <div class="cell format" [class.main-file]="path.master">
-        <div class="trucate-text">
+        <div class="file-format" [matTooltip]="path.format">
           <a [href]="path.formatUrl" rel="noopener" target="ontology" *ngIf="path.formatUrl">{{ path.format }}</a>
         </div>
       </div>
-      <!--<div class="cell main" [class.main-file]="path.master">
-        {{ path.master ? '&#10003;' : '' }}
-      </div>-->
-      <!-- Row Metadata -->
-      <!--<div class="cell metadata">
-        <ng-container *ngIf="usesMetadata">
-          <button
-            mat-icon-button
-            *ngIf="path?.metadata as metadata"
-            class="biosimulations-button text">
-            <biosimulations-icon icon="info"></biosimulations-icon>
-          </button>
-        </ng-container>
-      </div>-->
       <!-- Row download button -->
       <div class="cell download">
-        <a
-          mat-icon-button
-          class="biosimulations-button text"
-          [href]="path.url"
-          rel="noopener"
-          *ngIf="path.url"
-          [download]="path.basename">
-          <biosimulations-icon icon="download"></biosimulations-icon>
-        </a>
+        <div class="file-download">
+          <button
+            mat-icon-button
+            class="biosimulations-button"
+            *ngIf="path.url">
+            <a [download]="path.basename" [href]="path.url" rel="noopener"></a>
+            <biosimulations-icon icon="download"></biosimulations-icon>
+          </button>
+        </div>
       </div>
       <!-- Row Download Size -->
       <div class="cell size" [class.main-file]="path.master">
-        <div *ngIf="path.size">{{ path.size }}</div>
+        <div class="file-size" *ngIf="path.size">{{ path.size }}</div>
       </div>
     </ng-container>
     <!-- End Single File Format Handling -->

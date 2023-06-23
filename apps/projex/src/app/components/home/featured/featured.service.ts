@@ -31,8 +31,7 @@ export class FeaturedService {
   private runSimulations = {
     title: 'Run Simulations',
     image:
-      'https://images.rawpixel.com/image_1300/ \
-       czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvcGQ0My0wNjA0LTA2Ni1uYW1fMC5qcGc.jpg',
+      'https://static.vecteezy.com/system/resources/thumbnails/008/017/927/small/illustration-of-people-running-icon-flat-design-free-vector.jpg',
     id: 'runSimulations',
     descriptionTeaser: 'Unlock Biological Insights with Run Simulations.',
     descriptionVerbose: `Unleash the power of personalization with Run Simulations, our dedicated tool for running \
@@ -55,8 +54,7 @@ export class FeaturedService {
   };
   private publishSimulations = {
     title: 'Submit Your Simulation for publication',
-    image: `https://img.freepik.com/free-vector/hand-draw-gramophone-sketch-design_1035-20308 \
-            .jpg?w=826&t=st=1686925731~exp=1686926331~hmac=a283f0c9d5b5cf5563fe5da80ed4f3a2c6b18db1498b8170b9e7ce65ec9e94ea`,
+    image: `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpy6yf5KdrcU3NpXPlno0_CUnI34BpdWKEjA&usqp=CAU`,
     id: 'publishSimulations',
     descriptionTeaser: 'Take the Stage with Publish Simulations.',
     descriptionVerbose: `Elevate your work from the lab to the limelight with our Publish Simulations feature. \
@@ -112,8 +110,7 @@ export class FeaturedService {
   };
   private community = {
     title: 'Community',
-    image: `https://img.freepik.com/free-vector/vintage-globe-stand-illustration_53876-77367 \
-       .jpg?w=740&t=st=1686925502~exp=1686926102~hmac=9c9ecff398fe44f605927346d865709f1196905be3ed0b4e7ccd3e963f187656`,
+    image: `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQthe1o3bPoss3pTceoFt_fjrwBRKtp9dEnOw&usqp=CAU`,
     id: 'community',
     descriptionTeaser: 'BioBuilding Community',
     descriptionVerbose: `The strength of our \
