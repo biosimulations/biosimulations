@@ -1,5 +1,31 @@
 # Changelog
 
+## [9.35.0](https://github.com/biosimulations/biosimulations/compare/v9.34.0...v9.35.0) (2023-06-23)
+
+
+### Bug Fixes
+
+* added attributes to project-chip component ([ddb271d](https://github.com/biosimulations/biosimulations/commit/ddb271d435caea65d89fd362ed20ee50dca10904))
+* added lintignore as a test ([ff08536](https://github.com/biosimulations/biosimulations/commit/ff085368b8cc6ecb51a9100f49a8b1e56ab73307))
+* added return type on method to appease bots ([07a03cb](https://github.com/biosimulations/biosimulations/commit/07a03cb635e2578e0e97ebad070514b013a71df0))
+* adjusted files layout ([09563a2](https://github.com/biosimulations/biosimulations/commit/09563a23c5cfa46d59419febb3efc1a9ebcbe37a))
+* adjusted image urls ([31093fc](https://github.com/biosimulations/biosimulations/commit/31093fcbe6ebedf1dd83dd95a033cbd6faae67db))
+* adjusted line height of project files and removed rerun tab ([01bd1b0](https://github.com/biosimulations/biosimulations/commit/01bd1b02ac59e889f33aeccc498ab0b1f98aafe7))
+* adjusted profile picture placeholder ([47b18dd](https://github.com/biosimulations/biosimulations/commit/47b18dd742f06a564172f2eb2a217211ec669b61))
+* adjustments ([251f289](https://github.com/biosimulations/biosimulations/commit/251f28977193068d1b4ba4a5329ee1dce972f769))
+* increased interactive footprint of project table search chip parent container ([9a56611](https://github.com/biosimulations/biosimulations/commit/9a56611050790791c33e02b90c149a6edd59274d))
+* minor adjustments ([4ec806d](https://github.com/biosimulations/biosimulations/commit/4ec806dbac9e1316c073b035df7b27b71d203df8))
+* removed commented ts code to appease sonarcloud ([df9a6b1](https://github.com/biosimulations/biosimulations/commit/df9a6b17134e2c8b970cf88fbad1d62f7a5012ca))
+* removed display from biosimulations notice ([7f1dcd0](https://github.com/biosimulations/biosimulations/commit/7f1dcd007f908921c44043407652ee684bf721d3))
+* removed duplicate css code ([ab6a18f](https://github.com/biosimulations/biosimulations/commit/ab6a18f9eb83b734202f2161253cbc5bdb8a10e8))
+* removed unsafe sanitizing techniques ([74fd796](https://github.com/biosimulations/biosimulations/commit/74fd796ea05431afa3fe406cacc9ca199911f92b))
+* removed venv dir ([ba645b1](https://github.com/biosimulations/biosimulations/commit/ba645b124c9e27430556c0551b7f12615bbdd9f2))
+
+
+### Features
+
+* added binder notebook linked to interactive notebook test repo ([9f51263](https://github.com/biosimulations/biosimulations/commit/9f51263dc61101f362de7aedd74408872a8d35c3))
+
 ## [9.34.0](https://github.com/biosimulations/biosimulations/compare/v9.33.0...v9.34.0) (2023-06-22)
 
 
