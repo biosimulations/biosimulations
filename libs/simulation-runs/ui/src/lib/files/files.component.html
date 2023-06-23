@@ -40,14 +40,17 @@
       </div>
       <!-- Row format with href -->
       <div class="cell format" [class.main-file]="path.master">
-        <div class="file-format" [matTooltip]="path.format">
-          <a [href]="path.formatUrl" rel="noopener" target="ontology" *ngIf="path.formatUrl">{{ path.format }}</a>
-        </div>
+        <a
+          [href]="path.formatUrl"
+          rel="noopener"
+          target="ontology"
+          *ngIf="path.formatUrl"
+          [matTooltip]="path.format">{{ path.format }}</a>
       </div>
       <!-- Row download button -->
       <div class="cell download">
         <div class="file-download">
-          <button class="biosimulations-button" *ngIf="path.url" mat-button>
+          <button class="biosimulations-button" *ngIf="path.url" mat-flat-button>
             <a [download]="path.basename" [href]="path.url" rel="noopener">
               <biosimulations-icon icon="download"></biosimulations-icon>
             </a>
@@ -55,8 +58,8 @@
         </div>
       </div>
       <!-- Row Download Size -->
-      <div class="cell size" [class.main-file]="path.master">
-        <div class="file-size" *ngIf="path.size">{{ path.size }}</div>
+      <div class="cell file-size" [class.main-file]="path.master">
+        <div *ngIf="path.size">{{ path.size }}</div>
       </div>
     </ng-container>
     <!-- End Single File Format Handling -->

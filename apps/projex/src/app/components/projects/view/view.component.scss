@@ -13,11 +13,12 @@
   display: flex;
   flex-direction: row;
   height: auto;
+  width: auto;
 }
 
-.display-data:not(.plotparent) {
+/*.display-data:not(.plotparent) {
   overflow-x: hidden;
-}
+}*/
 
 .display-data > * {
   flex: 1;

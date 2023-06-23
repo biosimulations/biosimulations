@@ -13,14 +13,17 @@
 .head {
   border-bottom: 1px dotted #1479ed64;
   padding-bottom: 1rem;
+  width: auto;
+  text-align: left;
 }
 
 .cell {
   overflow: hidden;
   text-overflow: ellipsis;
-  height: 50px;
+  white-space: nowrap;
+  height: 30px;
+  width: auto;
   font-size: 13;
-  display: flex;
   transition: 0.3s ease-in-out;
   border-bottom: 1px dotted #1479ed64;
 }
@@ -33,19 +36,17 @@
   background: #ff9800;
 }
 
-.metadata,
-.file-download {
-  padding-bottom: 15px;
+.file-size {
+  //text-align: center;
 }
-
 .biosimulations-button {
   border: 3px solid #ff9800;
   border-radius: 5px;
   background-color: #ff9800;
+  height: 25px;
   transition: background-color ease-in 0.15s;
   font-size: 1rem;
-  margin-left: 1rem;
-  color: #2196f3;
+  //margin-left: 3.55rem;
   background-color: #ff9800;
 
   &:hover {
@@ -53,8 +54,4 @@
     color: #ff9800;
     background-color: #2196f3;
   }
-}
-
-.file-title {
-  overflow: hidden;
 }
