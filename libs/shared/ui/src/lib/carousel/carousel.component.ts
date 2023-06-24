@@ -7,28 +7,22 @@ import { Component, Input } from '@angular/core';
 })
 export class CarouselComponent {
   @Input()
-  images: string[] = [];
+  public images: string[] = [];
 
   @Input()
-  downloadFileName = "simulation_profile_image.jpg";
+  public downloadFileName = "simulation_profile_image.jpg";
 
   public expandedImage?: string;
 
-  constructor() {
-    for (let i = 0; i < this.images.length; i++) {
-      console.log(`Here is image number ${i}: ${this.images[i]}`);
-    }
-  }
-
-  expandImage(image: string) {
+  public expandImage(image: string): void {
     this.expandedImage = image;
   }
 
-  downloadImage(downloadName: string | null = null) {
-    const imageUrl = this.images[0]; // Or get this from the <biosimulations-carousel> component
+  public downloadImage(imageIndex=0): void {
+    const imageUrl = this.images[imageIndex];
     const downloadLink = document.createElement('a');
     downloadLink.href = imageUrl;
-    downloadLink.download = this.getImageDownloadName(); // Provide the name for downloaded image
+    downloadLink.download = this.getImageDownloadName();
     document.body.appendChild(downloadLink);
     downloadLink.click();
     document.body.removeChild(downloadLink);
