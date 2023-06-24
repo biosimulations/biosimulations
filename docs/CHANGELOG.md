@@ -1,5 +1,22 @@
 # Changelog
 
+## [9.36.0](https://github.com/biosimulations/biosimulations/compare/v9.35.0...v9.36.0) (2023-06-24)
+
+
+### Bug Fixes
+
+* adjusted button behavior ([b31f53d](https://github.com/biosimulations/biosimulations/commit/b31f53da71d75fc869b7840fad93f8dcea51b86c))
+* adjusted stylings and add tooltip: ([d72a6d4](https://github.com/biosimulations/biosimulations/commit/d72a6d46acf9e0eef99b06bc1546f33d5b7dc0fc))
+* created download button with anchor-tooltip and removed button el ([0fb7dbf](https://github.com/biosimulations/biosimulations/commit/0fb7dbfaece15fb77fe7cc066eb640bba9526131))
+* hardcoded theme color values in place of using material getter ([e35447e](https://github.com/biosimulations/biosimulations/commit/e35447eb90eaf5ccfcd96668c923a6a983317556))
+* removed duplicate code in files download button ([2a7b73b](https://github.com/biosimulations/biosimulations/commit/2a7b73bd269db247dacb825e16ce562d6468307e))
+* removed f-string and console log from carousel constructor ([bca4df5](https://github.com/biosimulations/biosimulations/commit/bca4df53e6e8722838968e4f5985d396102cc930))
+
+
+### Features
+
+* added matToolTip to rerun simulation button ([7114b18](https://github.com/biosimulations/biosimulations/commit/7114b183752a7fb25726b066d9654a10b7bb6d0a))
+
 ## [9.35.0](https://github.com/biosimulations/biosimulations/compare/v9.34.0...v9.35.0) (2023-06-23)
 
 
