@@ -7,11 +7,31 @@ import { Component, Input } from '@angular/core';
 })
 export class CarouselComponent {
   @Input()
-  images: string[] = [];
+  public images: string[] = [];
+
+  @Input()
+  public downloadFileName = "simulation_profile_image.jpg";
 
   public expandedImage?: string;
 
-  expandImage(image: string) {
+  public expandImage(image: string): void {
     this.expandedImage = image;
+  }
+
+  public downloadImage(imageIndex=0): void {
+    const imageUrl = this.images[imageIndex];
+    const downloadLink = document.createElement('a');
+    downloadLink.href = imageUrl;
+    downloadLink.download = this.getImageDownloadName();
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+  }
+
+  private getImageDownloadName(downloadName: string | null = null): string {
+    if (!downloadName) {
+      downloadName = this.downloadFileName;
+    }
+    return downloadName;
   }
 }

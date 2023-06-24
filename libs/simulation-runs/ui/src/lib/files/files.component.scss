@@ -1,6 +1,5 @@
 // esline-disable-next-line
 .clean-table__ {
-  //grid-template-columns: repeat(2, 1fr) repeat(3, 1fr);
   display: grid;
 }
 
@@ -10,46 +9,39 @@
   grid-gap: 0.5em;
 }
 
+.head {
+  border-bottom: 1px dotted #1479ed;
+  padding-bottom: 1rem;
+  width: auto;
+  text-align: left;
+}
+
 .cell {
   overflow: hidden;
   text-overflow: ellipsis;
-  height: 50px;
-  width: 50%;
+  white-space: nowrap;
+  height: 30px;
+  width: auto;
+  font-size: 13;
   transition: 0.3s ease-in-out;
+  border-bottom: 1px dotted #1479ed;
 }
 
-.main {
+.download {
   text-align: center;
 }
 
-.master-file {
-  background: #ff9800;
-}
-
-.metadata,
-.file-download {
-  padding-bottom: 15px;
-}
-
 .biosimulations-button {
-  border: 1px solid #ff9800;
-  border-radius: 100%;
-  color: #2196f3;
+  border: 3px solid #ff9800;
+  border-radius: 5px;
   background-color: #ff9800;
-  transition: ease-in-out;
+  height: 25px;
+  transition: background-color ease-in 0.15s;
+  font-size: 1rem;
 
   &:hover {
-    transition-duration: 0.1s;
     border: 3px groove #ff9800;
     color: #ff9800;
     background-color: #2196f3;
   }
-
-  &:not(:active) {
-    transition-duration: 0.05s;
-  }
-}
-
-.file-title {
-  overflow: hidden;
 }
