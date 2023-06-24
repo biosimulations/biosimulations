@@ -24,26 +24,29 @@
         <!-- Case: Has Thumbnail Image -->
         <mat-card class="image-card">
           <mat-card-content>
-            <div #thumbnailCard [ngClass]="{ enlarge: enlarge }">
-              <div class="image-container">
-                <biosimulations-carousel [images]="project.thumbnails"></biosimulations-carousel>
+            <ng-container #thumbnailCard>
+              <div [class.enlarged]="isEnlarged">
+                <div class="image-container">
+                  <biosimulations-carousel class="img-carousel" [images]="project.thumbnails">
+                  </biosimulations-carousel>
+                </div>
               </div>
-            </div>
+            </ng-container>
           </mat-card-content>
-          <mat-card-actions class="enlarge-icon" align="end">
-            <biosimulations-icon icon="visible" (click)="onClick($event)"> </biosimulations-icon>
-          </mat-card-actions>
+          <!--<mat-card-actions class="enlarge-icon" align="end">
+            <a mat-button (click)="toggleImageSize()">
+              <biosimulations-icon icon="visible"></biosimulations-icon>
+            </a>
+          </mat-card-actions>-->
         </mat-card>
       </ng-container>
       <!-- Case: No Thumbnail Image -->
       <ng-template #noThumbnail>
-        <div>
-          <mat-card class="no-im-msg-card">
-            <mat-card-header>
-              <h2>This simulation profile has no image</h2>
-            </mat-card-header>
-          </mat-card>
-        </div>
+        <mat-card class="no-im-msg-card">
+          <mat-card-header>
+            <h2>This simulation profile has no image</h2>
+          </mat-card-header>
+        </mat-card>
       </ng-template>
       <!-- End Image Container -->
     </div>

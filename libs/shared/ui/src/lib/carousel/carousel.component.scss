@@ -1,9 +1,7 @@
 @import 'biosimulations-colors';
 
 .container {
-  //border: 4px solid rgba(187, 72, 187, 0.734);//$light-bg-darker-20;
-  //border-radius: 4px;
-  overflow: hidden;
+  height: 100%;
   width: 100%;
 
   &:not(.single-thumbnail) {
@@ -44,7 +42,7 @@
 
   &.single-thumbnail img {
     width: 100%;
-    height: auto;
+    height: fit-content;
   }
 }
 
@@ -55,3 +53,28 @@
     }
   }
 }
+
+.footer-container {
+  width: 100%;
+  height: auto;
+}
+
+.download-button {
+  border: 2px solid green;
+  border-radius: 5px;
+  height: 25px;
+  width: 40px;
+  margin-top: 4rem;
+  margin-left: 50%;
+  margin-right: 50%;
+  background-color: green;//#2196f3;
+  color: #ff9800;
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover {
+    border: 2px groove green;
+    background-color: #ff9800;
+    color: green;
+  }
+}
+

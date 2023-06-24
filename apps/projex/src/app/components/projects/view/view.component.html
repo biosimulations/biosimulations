@@ -77,7 +77,7 @@
                 <mat-card-content>
                   <!-- OMEX File -->
                   <mat-expansion-panel class="files-item omex" expanded="true">
-                    <mat-expansion-panel-header class="item-expansion-header"
+                    <mat-expansion-panel-header class="item-expansion-header files-omex"
                       >Simulation specification (COMBINE/OMEX archive)</mat-expansion-panel-header
                     >
                     <mat-card-content>
@@ -96,7 +96,7 @@
 
                   <!-- Spec Files (sbml, manifest, etc) -->
                   <mat-expansion-panel class="files-item specContent">
-                    <mat-expansion-panel-header class="item-expansion-header"
+                    <mat-expansion-panel-header class="item-expansion-header files-sim-spec"
                       >Contents of simulation specification</mat-expansion-panel-header
                     >
                     <mat-card-content>
@@ -115,7 +115,7 @@
 
                   <!-- Output Data Files -->
                   <mat-expansion-panel class="files-item outputs">
-                    <mat-expansion-panel-header class="item-expansion-header"
+                    <mat-expansion-panel-header class="item-expansion-header files-sim-outputs"
                       >Simulation outputs</mat-expansion-panel-header
                     >
                     <mat-card-content>
@@ -180,7 +180,7 @@
                           *ngFor="let section of sections; let i = index; panelExpanded(i)">
                           <div *ngIf="isPanelExpanded; else notExpanded">
                             <mat-expansion-panel expanded="verifyPanelExpand(i)">
-                              <mat-expansion-panel-header class="item-expansion-header">
+                              <mat-expansion-panel-header class="item-expansion-header details-title-expand">
                                 {{ section.title }}
                               </mat-expansion-panel-header>
                               <table class="icon-list" aria-label="metadata table">
@@ -204,7 +204,7 @@
 
                           <ng-template #notExpanded>
                             <mat-expansion-panel class="details-expansion-item" expanded="false">
-                              <mat-expansion-panel-header class="item-expansion-header">
+                              <mat-expansion-panel-header class="item-expansion-header details-title-notexpand">
                                 {{ section.title }}
                               </mat-expansion-panel-header>
                               <table class="icon-list" aria-label="metadata table">

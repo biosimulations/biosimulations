@@ -68,9 +68,8 @@ biosimulations-tab-page ::ng-deep .icon-list {
   max-width: 100%;
   border: solid 1px #ccc;
   display: block;
-  background: white;
+  //background: #e8f4fd;
   border-radius: 4px;
-  //overflow: hidden;
   justify-content: center;
   align-items: center;
   padding-top: 1rem;
@@ -217,6 +216,7 @@ biosimulations-tab-page ::ng-deep .icon-list {
   font-family: 'Roboto', sans-serif;
   align-items: center;
   border: 2px solid inherit;
+  transition: background-color 0.1s ease-in-out;
   border-radius: 3px;
   height: auto;
   width: auto;

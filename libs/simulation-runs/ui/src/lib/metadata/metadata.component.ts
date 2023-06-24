@@ -43,38 +43,22 @@ export class MetadataComponent {
 
   public enlarge = false;
 
+  public isEnlarged = false;
+
   private listener!: () => void;
 
   constructor(private renderer: Renderer2) {
     /* constructor is empty */
   }
 
-  /*public ngOnInit(): void {
-    this.listener = this.renderer.listen('document', 'click', (event: MouseEvent) => {
-      if (!this.thumbnailCard.nativeElement.contains(event.target)) {
-        console.log('Image Clicked outside!');
-        this.closeImage();
-      }
-    });
+  public toggleImageSize() {
+    this.isEnlarged = !this.isEnlarged;
   }
-
-  public ngOnDestroy(): void {
-    if (this.listener) {
-      this.listener();
-    }
-  }
-
-  public closeImage(id='thumbnail'): void {
-    const element = document.getElementById(id);
-    if (element){
-      element.style.transform = 'none';
-    }
-  }*/
 
   public onClick(event: MouseEvent): void {
     if (this.enlarge) {
       event.stopPropagation();
-      this.enlarge = !this.enlarge;
+      this.enlarge = false;
     } else {
       this.enlarge = true;
     }
