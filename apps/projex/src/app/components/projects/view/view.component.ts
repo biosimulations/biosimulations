@@ -205,6 +205,14 @@ export class ViewComponent implements OnInit {
   }
   //END METHODS FROM THE OLD IMPLEMENTATION
 
+  public verifyPanelExpand(i: number): boolean {
+    if (i === 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   public panelExpanded(i: number): boolean {
     if (i != 0) {
       this.isPanelExpanded = false;
