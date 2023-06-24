@@ -1,5 +1,5 @@
-@use '@angular/material' as mat;
-@import 'biosimulations-colors';
+@use "@angular/material" as mat;
+@import "biosimulations-colors";
 
 biosimulations-text-page-side-bar-section ::ng-deep {
   .mat-icon-button {
@@ -15,11 +15,11 @@ biosimulations-text-page-side-bar-section ::ng-deep {
     }
 
     &:hover {
-      color: mat.get-color-from-palette($theme-primary);
+      color: #2196f3;
     }
 
     &:active {
-      color: mat.get-color-from-palette($theme-primary, darker);
+      color: #1479ed;
     }
 
     &.mat-button-disabled {
@@ -66,9 +66,9 @@ biosimulations-structured-simulation-log-element {
 
 ul.icon-list {
   a {
-    color: $dark-primary-text;
+    color: rgba(black, 0.87);
     &:hover {
-      color: mat.get-color-from-palette($theme-primary);
+      color: #2196f3;
     }
   }
 }
