@@ -177,7 +177,7 @@
                         <!-- Start Individual Detail Item Expansion -->
                         <div
                           class="details-expansion-item"
-                          *ngFor="let section of sections; let i = index; panelExpanded(i)">
+                          *ngFor="let section of sections; let i = index; panelExpanded: i">
                           <div *ngIf="isPanelExpanded; else notExpanded">
                             <mat-expansion-panel expanded="verifyPanelExpand(i)">
                               <mat-expansion-panel-header class="item-expansion-header details-title-expand">
@@ -190,7 +190,12 @@
                                   </th>
                                   <td>
                                     <b>{{ item.title }}:</b>{{ ' ' }}
-                                    <a [matTooltip]="item.value" [href]="item.url" rel="noopener" target="_blank" *ngIf="item.url; else noHref">
+                                    <a
+                                      [matTooltip]="item.value"
+                                      [href]="item.url"
+                                      rel="noopener"
+                                      target="_blank"
+                                      *ngIf="item.url; else noHref">
                                       {{ item.value }}
                                     </a>
                                     <ng-template #noHref>{{ item.value }}</ng-template>
@@ -247,8 +252,8 @@
                       This feature is currently under development.
                     </mat-expansion-panel-header>-->
 
-                  <!-- Case: Using Deepnote -->
-                  <!--<div class="notebook-container deepnote">
+            <!-- Case: Using Deepnote -->
+            <!--<div class="notebook-container deepnote">
                     <iframe
                       class="notebook-intro"
                       title="Embedded cell output"
@@ -267,7 +272,7 @@
                   </div>
 
                     <!-- Case: Using Binder -->
-                    <!--<div class="notebook-container binder">
+            <!--<div class="notebook-container binder">
                       <iframe
                         class="binder-notebook-content"
                         width="100%"
@@ -278,8 +283,8 @@
                         allowfullscreen>
                       </iframe>
                     </div>-->
-                    <!-- Case: Using Jupyterlite/Github Pages-->
-                    <!--<div class="notebook-container jupyterlite">
+            <!-- Case: Using Jupyterlite/Github Pages-->
+            <!--<div class="notebook-container jupyterlite">
                       <iframe
                         class="jupyterlite-notebook-content"
                         title="Simulation Sandbox"
@@ -290,7 +295,7 @@
                         allowfullscreen="true">
                       </iframe>
                     </div>-->
-                  <!--</mat-expansion-panel>
+            <!--</mat-expansion-panel>
                 </mat-card-content>
               </mat-card>
             </mat-tab>-->

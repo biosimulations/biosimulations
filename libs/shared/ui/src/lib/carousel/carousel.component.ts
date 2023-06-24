@@ -10,7 +10,7 @@ export class CarouselComponent {
   public images: string[] = [];
 
   @Input()
-  public downloadFileName = "simulation_profile_image.jpg";
+  public downloadFileName = 'simulation_profile_image.jpg';
 
   public expandedImage?: string;
 
@@ -18,7 +18,7 @@ export class CarouselComponent {
     this.expandedImage = image;
   }
 
-  public downloadImage(imageIndex=0): void {
+  public downloadImage(imageIndex = 0): void {
     const imageUrl = this.images[imageIndex];
     const downloadLink = document.createElement('a');
     downloadLink.href = imageUrl;

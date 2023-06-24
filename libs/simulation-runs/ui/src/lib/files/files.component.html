@@ -40,12 +40,9 @@
       </div>
       <!-- Row format with href -->
       <div class="cell format" [class.main-file]="path.master">
-        <a
-          [href]="path.formatUrl"
-          rel="noopener"
-          target="ontology"
-          *ngIf="path.formatUrl"
-          [matTooltip]="path.format">{{ path.format }}</a>
+        <a [href]="path.formatUrl" rel="noopener" target="ontology" *ngIf="path.formatUrl" [matTooltip]="path.format">{{
+          path.format
+        }}</a>
       </div>
       <!-- Row download button -->
       <div class="cell download">
