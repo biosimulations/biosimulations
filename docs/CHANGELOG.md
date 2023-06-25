@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.36.1](https://github.com/biosimulations/biosimulations/compare/v9.36.0...v9.36.1) (2023-06-25)
+
+
+### Bug Fixes
+
+* project pagination with filtering ([9d168d5](https://github.com/biosimulations/biosimulations/commit/9d168d52f40e1cd49daff5e05515d3512dba428c))
+
 ## [9.36.0](https://github.com/biosimulations/biosimulations/compare/v9.35.0...v9.36.0) (2023-06-24)
 
 
