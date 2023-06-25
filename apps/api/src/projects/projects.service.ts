@@ -220,7 +220,7 @@ export class ProjectsService implements OnModuleInit {
     pageIndex: number,
     filters: ProjectFilterQueryItem[],
   ): Promise<ProjectSummaryQueryResults> {
-    return this.getProjectSummariesWithoutSearch_withoutSort(0, maxNumRecordsToTextSearch, filters).then(
+    return this.getProjectSummariesWithoutSearch_withoutSort(maxNumRecordsToTextSearch, 0, filters).then(
       (results: ProjectSummaryQueryResults) => {
         return {
           ...results,
