@@ -2,6 +2,7 @@
 @import 'biosimulations-colors';
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Source+Sans+Pro:wght@300;400;700&display=swap');
 
+//OUTER ELEMENT STYLINGS
 .spinner-container {
   display: flex;
   align-items: center;
@@ -16,10 +17,6 @@
   width: auto;
 }
 
-/*.display-data:not(.plotparent) {
-  overflow-x: hidden;
-}*/
-
 .display-data > * {
   flex: 1;
   margin: 40px;
@@ -29,7 +26,6 @@
   width: auto;
   height: auto;
   align-items: stretch;
-  //padding-left: 2rem;
   display: flex;
 }
 
@@ -62,28 +58,81 @@ biosimulations-tab-page ::ng-deep .icon-list {
   }
 }
 
-.viz-card {
-  height: 100%;
-  width: 500px;
-  max-width: 100%;
-  border: solid 1px #ccc;
-  display: block;
-  //background: #e8f4fd;
-  border-radius: 4px;
-  justify-content: center;
+//GENERAL PURPOSE ELEMENT STYLINGS
+.item-expansion-header {
+  background-color: #2196f3;
+  font-weight: normal;
+  font-size: medium;
+  color: white;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-family: 'Roboto', sans-serif;
   align-items: center;
-  padding-top: 1rem;
-}
-
-.viz-card-header {
+  border: 2px solid inherit;
+  transition: background-color 0.1s ease-in-out;
+  border-radius: 3px;
   height: auto;
+  width: auto;
+
+  &:hover {
+    background-color: #ff9800 !important;
+  }
+
+  &.mat-expansion-panel-header.mat-expanded {
+    background-color: #2196f3 !important;
+  }
 }
 
-.viz-card-content {
-  height: fit-content;
-  padding-top: 2rem;
+.item-expansion-header-under-dev {
+  background-color: #2196f3;
+  font-weight: normal;
+  font-size: medium;
+  color: white;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-family: 'Roboto', sans-serif;
+  align-items: center;
+  border: 2px solid inherit;
+  border-radius: 3px;
+  height: auto;
+  width: auto;
+  transition: background-color 0.5s ease, transform 0.5s ease;
+
+  &:hover {
+    color: #2196f3 !important;
+    background-color: #ff9800 !important;
+    transform: scale(1.0075);
+    font-weight: bold;
+  }
 }
 
+.icon-list {
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+  padding: 0.75rem;
+}
+
+.divider {
+  width: 100%;
+  height: 30px;
+}
+
+.right-col-tab {
+  border: 2px solid gray;
+  border-radius: 1px;
+
+  &:hover {
+    background-color: #ff9800;
+  }
+}
+
+.full-width-tab-content {
+  width: 100%;
+}
+
+//INNER ELEMENT STYLINGS
 .rerun-sim-button-container {
   display: grid;
   padding-bottom: 6rem;
@@ -115,6 +164,27 @@ biosimulations-tab-page ::ng-deep .icon-list {
 .coming-soon-snackbar {
   background-color: #ff4081;
   color: white;
+}
+
+.viz-card {
+  height: 100%;
+  width: 500px;
+  max-width: 100%;
+  border: solid 1px #ccc;
+  display: block;
+  border-radius: 4px;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1rem;
+}
+
+.viz-card-header {
+  height: auto;
+}
+
+.viz-card-content {
+  height: fit-content;
+  padding-top: 2rem;
 }
 
 .plots-card {
@@ -192,104 +262,12 @@ biosimulations-tab-page ::ng-deep .icon-list {
   font-weight: 600;
 }
 
-.files-separator {
-  height: 30px;
-  width: 100%;
-}
-
-.right-col-tab {
-  border: 2px solid gray;
-  border-radius: 1px;
-
-  &:hover {
-    background-color: #ff9800;
-  }
-}
-
-.item-expansion-header {
-  background-color: #2196f3;
-  font-weight: normal;
-  font-size: medium;
-  color: white;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  font-family: 'Roboto', sans-serif;
-  align-items: center;
-  border: 2px solid inherit;
-  transition: background-color 0.1s ease-in-out;
-  border-radius: 3px;
-  height: auto;
-  width: auto;
-
-  &:hover {
-    background-color: #ff9800 !important;
-  }
-
-  &.mat-expansion-panel-header.mat-expanded {
-    background-color: #2196f3 !important;
-  }
-}
-
-.item-expansion-header-under-dev {
-  background-color: #2196f3;
-  font-weight: normal;
-  font-size: medium;
-  color: white;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  font-family: 'Roboto', sans-serif;
-  align-items: center;
-  border: 2px solid inherit;
-  border-radius: 3px;
-  height: auto;
-  width: auto;
-  transition: background-color 0.5s ease, transform 0.5s ease;
-
-  &:hover {
-    color: #2196f3 !important;
-    background-color: #ff9800 !important;
-    transform: scale(1.0075);
-    font-weight: bold;
-  }
-}
-
-.icon-list {
-  height: 100%;
-  width: 100%;
-  justify-content: center;
-  text-align: center;
-  padding: 0.75rem;
-}
-
-.divider {
-  width: 100%;
-  height: 40px;
-}
-
-.details-expansion-item {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
 .files-item {
   height: auto;
 }
 
-.full-width-tab-content {
-  width: 100%;
+.details-expansion-item-container {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-
-.notebook-container {
-  width: 100%;
-  height: 600px;
-  //overflow: hidden;
-}
-
-/*.notebook-container iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-}*/

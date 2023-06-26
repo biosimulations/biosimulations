@@ -2,8 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { MatTabChangeEvent } from '@angular/material/tabs';
-
 import { trigger, transition, style, animate } from '@angular/animations';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
@@ -76,8 +74,9 @@ export class ViewComponent implements OnInit {
   public jupyterliteSandboxLabUrl = 'https://alexpatrie.github.io/biosimulators-sandbox-test-repo-2/lab/index.html';
   public isReRunTabExpanded = false;
   public useSanitizedUrl = false;
-
+  public panelExpandedStatus: { [key: string]: boolean } = {};
   private id!: string;
+  private allExpansionHeaderHandles = ['modelSimulation', 'simulationRun', 'provenance', 'identifiers'];
 
   public constructor(
     private service: ViewService,
@@ -88,7 +87,6 @@ export class ViewComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    this.sandboxUrl = this.getJupyterliteUrl();
     const id = (this.id = this.route.snapshot.params['id']);
     this.projectSummary$ = this.projService.getProjectSummary(id).pipe(
       shareReplay(1),
@@ -169,6 +167,7 @@ export class ViewComponent implements OnInit {
         );
       }),
     );
+    this.handleExpansionPanels();
   }
 
   public getPlotVisualizations(visLists: VisualizationList[]): Visualization[] {
@@ -184,26 +183,9 @@ export class ViewComponent implements OnInit {
     return visualizations;
   }
 
-  drop(event: CdkDragDrop<any[]>): void {
+  public drop(event: CdkDragDrop<any[]>): void {
     moveItemInArray(this.cards, event.previousIndex, event.currentIndex);
   }
-
-  //START METHODS FROM THE OLD IMPLEMENTATION:
-  public selectedTabChange($event: MatTabChangeEvent): void {
-    if ($event.index == this.visualizationTabIndex) {
-      if (this.viewVisualizationTabDisabled) {
-        this.selectedTabIndex = this.selectVisualizationTabIndex;
-        return;
-      }
-    }
-  }
-
-  public renderVisualization(visualization: Visualization): void {
-    this.simVisualization = visualization;
-    this.viewVisualizationTabDisabled = false;
-    this.selectedTabIndex = this.visualizationTabIndex;
-  }
-  //END METHODS FROM THE OLD IMPLEMENTATION
 
   public verifyPanelExpand(i: number): boolean {
     if (i === 0) {
@@ -246,31 +228,14 @@ export class ViewComponent implements OnInit {
     this.snackBar.open(message, confirmActionMessage, snackbarConfig);
   }
 
-  private getJupyterliteUrl(url = 'https://alexpatrie.github.io/biosimulators-sandbox-test-repo-2/repl/index.html') {
-    return url;
-  }
-
-  private getColabUrl(
-    url = 'https://colab.research.google.com/drive/1zWa_crEKXhqzPK4Wn5RJoKhuD4O4dVDs#scrollTo=urCTa8eaSleM',
-  ) {
-    return url;
-  }
-
-  private getDeepnoteUrl(
-    url = 'https://embed.deepnote.com/717d0b91-cf50-4435-a706-ae083705b28e/0cdec188065948bd8f5e5411ab8a821c/d2a0c22bf8904116b4c2aba4b27a6100?height=7751',
-  ) {
-    return url;
-  }
-
-  private getSandboxUrl(source: string | any) {
-    let sandboxUrl;
-    if (source == 'colab') {
-      sandboxUrl = this.getColabUrl();
-    } else {
-      if (source == 'deepnote') {
-        sandboxUrl = this.getDeepnoteUrl();
+  private handleExpansionPanels(): void {
+    this.projectMetadata$.subscribe((metadata) => {
+      if (metadata) {
+        const headingsToExpand = ['modelSimulation', 'provenance']; //panels 0 & 2, respectively
+        for (let heading = 0; heading < headingsToExpand.length; heading++) {
+          this.panelExpandedStatus[headingsToExpand[heading]] = true;
+        }
       }
-    }
-    return sandboxUrl;
+    });
   }
 }
