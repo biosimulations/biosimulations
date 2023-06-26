@@ -154,15 +154,30 @@
                       fxFlex.lt-lg="100%">
                       <!-- Start NG Containers -->
                       <ng-container
-                        *ngTemplateOutlet="sectionsTemplate; context: { sections: projectMetadata?.modelSimulation || [], expanded: panelExpandedStatus['modelSimulation'] }">
+                        *ngTemplateOutlet="
+                          sectionsTemplate;
+                          context: {
+                            sections: projectMetadata?.modelSimulation || [],
+                            expanded: panelExpandedStatus['modelSimulation']
+                          }
+                        ">
                       </ng-container>
                       <ng-container
                         *ngTemplateOutlet="sectionsTemplate; context: { sections: simulationRun || [] }"></ng-container>
                       <ng-container
-                        *ngTemplateOutlet="sectionsTemplate; context: { sections: projectMetadata?.provenance || [], expanded: panelExpandedStatus['provenance'] }">
+                        *ngTemplateOutlet="
+                          sectionsTemplate;
+                          context: {
+                            sections: projectMetadata?.provenance || [],
+                            expanded: panelExpandedStatus['provenance']
+                          }
+                        ">
                       </ng-container>
                       <ng-container
-                        *ngTemplateOutlet="sectionsTemplate; context: { sections: projectMetadata?.identifiers || [] }"></ng-container>
+                        *ngTemplateOutlet="
+                          sectionsTemplate;
+                          context: { sections: projectMetadata?.identifiers || [] }
+                        "></ng-container>
                       <!-- End NG Containers -->
                       <!-- Start template for containers -->
                       <ng-template #sectionsTemplate let-sections="sections" let-expanded="expanded">
