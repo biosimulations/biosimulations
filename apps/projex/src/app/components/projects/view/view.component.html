@@ -97,7 +97,7 @@
                   <!-- Spec Files (sbml, manifest, etc) -->
                   <mat-expansion-panel class="files-item specContent">
                     <mat-expansion-panel-header class="item-expansion-header files-sim-spec"
-                      >Contents of simulation specification</mat-expansion-panel-header
+                      >Contents of simulation specification (Model and Metadata files)</mat-expansion-panel-header
                     >
                     <mat-card-content>
                       <div *ngIf="files$ | async as files">
@@ -116,7 +116,7 @@
                   <!-- Output Data Files -->
                   <mat-expansion-panel class="files-item outputs">
                     <mat-expansion-panel-header class="item-expansion-header files-sim-outputs"
-                      >Simulation outputs</mat-expansion-panel-header
+                      >Simulation outputs (Results, Plots, Logs)</mat-expansion-panel-header
                     >
                     <mat-card-content>
                       <div *ngIf="outputs$ | async as files">
