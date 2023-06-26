@@ -24,12 +24,24 @@
         <!-- End Feature Card Header -->
         <!-- Start Feature Card Content -->
         <div class="description-container">
-          <a class="click-image-eventspace" target="_blank" href="project.routingLink">
-            <button class="description-content text-header" mat-button>
-              {{ project.descriptionTeaser }}
-            </button>
-          </a>
+          <!-- Case: Using internal routing -->
+          <div *ngIf="project.useInternalRouting; else useExternalRouting">
+            <a class="click-image-eventspace internal" target="_blank" [routerLink]="project.routingLink">
+              <button class="description-content text-header" mat-button>
+                {{ project.descriptionTeaser }}
+              </button>
+            </a>
+          </div>
+          <!-- Case: Using external routing -->
+          <ng-template #useExternalRouting>
+            <a class="click-image-eventspace external" target="_blank" [href]="project.routingLink">
+              <button class="description-content text-header" mat-button>
+                {{ project.descriptionTeaser }}
+              </button>
+            </a>
+          </ng-template>
         </div>
+        <!-- Case: User Hovers over the featured card and a verbose description is displayed -->
         <div id="new-element" class="card-parent" [hidden]="!showNew">
           <div class="description-card" [style.background-color]="project.color" [style.color]="project.textColor">
             <mat-card-content>
@@ -56,5 +68,3 @@
     </span>
   </div>
 </div>
-
-<!--[color]="getButtonColor(i)""space-around stretch"-->

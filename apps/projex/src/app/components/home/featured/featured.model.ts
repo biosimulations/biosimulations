@@ -5,9 +5,10 @@ export class FeaturedProject {
   public image!: string;
   public descriptionTeaser!: string;
   public descriptionVerbose!: string;
-  public routingLink!: string;
+  public routingLink!: string[] | string;
   public logo!: string;
   public color?: string;
   public textColor?: string;
   public headerColor?: string;
+  public useInternalRouting?: boolean;
 }

@@ -24,7 +24,8 @@ export class FeaturedComponent {
   public endIndex = 1;
   public numCards = 1;
   public currentServiceIndex: number;
-  public alternateImage = 'Explore Now'; /*`
+  public alternateImage = 'Explore Now';
+  /*`
         _________________
       | BIO SIMULATIONS |
       |-----------------|
@@ -66,9 +67,6 @@ export class FeaturedComponent {
   }
 
   public next(): void {
-    /*if (this.currentServiceIndex != this.currentServiceIndex + 1) {
-      //this.cardIsActive = true;
-    } else {*/
     if (this.endIndex < this.projects.length - 1) {
       this.startIndex++;
       this.endIndex++;
