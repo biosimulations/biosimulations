@@ -92,12 +92,12 @@
                     </mat-card-content>
                   </mat-expansion-panel>
 
-                  <div class="files-separator 1"></div>
+                  <div class="divider files-item-0"></div>
 
                   <!-- Spec Files (sbml, manifest, etc) -->
                   <mat-expansion-panel class="files-item specContent">
                     <mat-expansion-panel-header class="item-expansion-header files-sim-spec"
-                      >Contents of simulation specification</mat-expansion-panel-header
+                      >Contents of simulation specification (Model and Metadata files)</mat-expansion-panel-header
                     >
                     <mat-card-content>
                       <div *ngIf="files$ | async as files">
@@ -111,12 +111,12 @@
                     </mat-card-content>
                   </mat-expansion-panel>
 
-                  <div class="files-separator 2"></div>
+                  <div class="divider files-item-1"></div>
 
                   <!-- Output Data Files -->
                   <mat-expansion-panel class="files-item outputs">
                     <mat-expansion-panel-header class="item-expansion-header files-sim-outputs"
-                      >Simulation outputs</mat-expansion-panel-header
+                      >Simulation outputs (Results, Plots, Logs)</mat-expansion-panel-header
                     >
                     <mat-card-content>
                       <div *ngIf="outputs$ | async as files">
@@ -152,154 +152,60 @@
                       fxLayout="column"
                       fxInlineBlock
                       fxFlex.lt-lg="100%">
-                      <!-- project metadata -->
+                      <!-- Start NG Containers -->
                       <ng-container
-                        *ngTemplateOutlet="
-                          sectionsTemplate;
-                          context: { sections: projectMetadata?.modelSimulation || [] }
-                        "></ng-container>
-                      <!-- simulation run metadata -->
+                        *ngTemplateOutlet="sectionsTemplate; context: { sections: projectMetadata?.modelSimulation || [], expanded: panelExpandedStatus['modelSimulation'] }">
+                      </ng-container>
                       <ng-container
                         *ngTemplateOutlet="sectionsTemplate; context: { sections: simulationRun || [] }"></ng-container>
-                      <!-- project metadata -->
                       <ng-container
-                        *ngTemplateOutlet="
-                          sectionsTemplate;
-                          context: { sections: projectMetadata?.provenance || [] }
-                        "></ng-container>
+                        *ngTemplateOutlet="sectionsTemplate; context: { sections: projectMetadata?.provenance || [], expanded: panelExpandedStatus['provenance'] }">
+                      </ng-container>
                       <ng-container
-                        *ngTemplateOutlet="
-                          sectionsTemplate;
-                          context: { sections: projectMetadata?.identifiers || [] }
-                        "></ng-container>
-                      <!-- template -->
-                      <ng-template #sectionsTemplate let-sections="sections">
-                        <!-- Start Individual Detail Item Expansion -->
-                        <div
-                          class="details-expansion-item"
-                          *ngFor="let section of sections; let i = index; panelExpanded: i">
-                          <div *ngIf="isPanelExpanded; else notExpanded">
-                            <mat-expansion-panel expanded="verifyPanelExpand(i)">
-                              <mat-expansion-panel-header class="item-expansion-header details-title-expand">
-                                {{ section.title }}
-                              </mat-expansion-panel-header>
-                              <table class="icon-list" aria-label="metadata table">
-                                <tr *ngFor="let item of section.items" fxLayout="row">
-                                  <th>
-                                    <biosimulations-icon [icon]="item.icon"></biosimulations-icon>
-                                  </th>
-                                  <td>
-                                    <b>{{ item.title }}:</b>{{ ' ' }}
-                                    <a
-                                      [matTooltip]="item.value"
-                                      [href]="item.url"
-                                      rel="noopener"
-                                      target="_blank"
-                                      *ngIf="item.url; else noHref">
-                                      {{ item.value }}
-                                    </a>
-                                    <ng-template #noHref>{{ item.value }}</ng-template>
-                                  </td>
-                                </tr>
-                              </table>
-                            </mat-expansion-panel>
-                            <div class="divider"></div>
-                            <!-- Stop Individual Detail Item Expansion -->
-                          </div>
-
-                          <ng-template #notExpanded>
-                            <mat-expansion-panel class="details-expansion-item" expanded="false">
-                              <mat-expansion-panel-header class="item-expansion-header details-title-notexpand">
-                                {{ section.title }}
-                              </mat-expansion-panel-header>
-                              <table class="icon-list" aria-label="metadata table">
-                                <tr *ngFor="let item of section.items" fxLayout="row">
-                                  <th>
-                                    <biosimulations-icon [icon]="item.icon"></biosimulations-icon>
-                                  </th>
-                                  <td>
-                                    <b>{{ item.title }}:</b>{{ ' ' }}
-                                    <a [href]="item.url" rel="noopener" target="_blank" *ngIf="item.url; else noHref">
-                                      {{ item.value }}
-                                    </a>
-                                    <ng-template #noHref>{{ item.value }}</ng-template>
-                                  </td>
-                                </tr>
-                              </table>
-                            </mat-expansion-panel>
-                            <!-- Stop Individual Detail Item Expansion -->
-                          </ng-template>
+                        *ngTemplateOutlet="sectionsTemplate; context: { sections: projectMetadata?.identifiers || [] }"></ng-container>
+                      <!-- End NG Containers -->
+                      <!-- Start template for containers -->
+                      <ng-template #sectionsTemplate let-sections="sections" let-expanded="expanded">
+                        <!-- Start Individual Detail Container -->
+                        <div class="details-expansion-item-container" *ngFor="let section of sections">
+                          <mat-expansion-panel [expanded]="expanded">
+                            <mat-expansion-panel-header class="item-expansion-header details-title-expand">
+                              {{ section.title }}
+                            </mat-expansion-panel-header>
+                            <!-- Start Detail with Table Layout -->
+                            <table class="icon-list" aria-label="metadata table">
+                              <tr *ngFor="let item of section.items" fxLayout="row">
+                                <th>
+                                  <biosimulations-icon [icon]="item.icon"></biosimulations-icon>
+                                </th>
+                                <td>
+                                  <b>{{ item.title }}:</b>{{ ' ' }}
+                                  <a
+                                    [matTooltip]="item.value"
+                                    [href]="item.url"
+                                    rel="noopener"
+                                    target="_blank"
+                                    *ngIf="item.url; else noHref">
+                                    {{ item.value }}
+                                  </a>
+                                  <ng-template #noHref>{{ item.value }}</ng-template>
+                                </td>
+                              </tr>
+                            </table>
+                            <!-- End Detail with table layout -->
+                          </mat-expansion-panel>
+                          <!-- Divider -->
+                          <div class="divider details-item"></div>
                         </div>
+                        <!-- End Individual Detail Container -->
                       </ng-template>
+                      <!-- End Template -->
                     </div>
                   </div>
                   <!-- End Details Display -->
                 </mat-card-content>
               </mat-card>
             </mat-tab>
-
-            <!-- Begin ReRun Notebook Tab -->
-            <!--<mat-tab
-              label="ReRun"
-              (click)="isReRunTabExpanded = !isReRunTabExpanded"
-              [ngClass]="{ 'full-width-tab-content': isReRunTabExpanded }">
-              <mat-card>
-                <mat-card-content>
-                  <mat-expansion-panel expanded="true" disabled="true">
-                    <mat-expansion-panel-header
-                      class="item-expansion-header-under-dev"
-                      matTooltip="Customize and ReRun a Simulation. This feature will be available soon!">
-                      This feature is currently under development.
-                    </mat-expansion-panel-header>-->
-
-            <!-- Case: Using Deepnote -->
-            <!--<div class="notebook-container deepnote">
-                    <iframe
-                      class="notebook-intro"
-                      title="Embedded cell output"
-                      src="https://embed.deepnote.com/717d0b91-cf50-4435-a706-ae083705b28e/0cdec188065948bd8f5e5411ab8a821c/8d7ad546db4947aa948470e10b51ad3f?height=1091"
-                      width="100%"
-                      height="800px">
-                    </iframe>
-                    <iframe
-                      class="notebook-main"
-                      width="100%"
-                      height="800px"
-                      src="https://embed.deepnote.com/717d0b91-cf50-4435-a706-ae083705b28e/0cdec188065948bd8f5e5411ab8a821c/d2a0c22bf8904116b4c2aba4b27a6100?height=7751"
-                      frameborder="0"
-                      allowfullscreen>
-                    </iframe>
-                  </div>
-
-                    <!-- Case: Using Binder -->
-            <!--<div class="notebook-container binder">
-                      <iframe
-                        class="binder-notebook-content"
-                        width="100%"
-                        height="100%"
-                        src="https://mybinder.org/v2/gh/AlexPatrie/biosimulators-sandbox-test-repo-4.git/HEAD"
-                        target="_parent"
-                        frameborder="0"
-                        allowfullscreen>
-                      </iframe>
-                    </div>-->
-            <!-- Case: Using Jupyterlite/Github Pages-->
-            <!--<div class="notebook-container jupyterlite">
-                      <iframe
-                        class="jupyterlite-notebook-content"
-                        title="Simulation Sandbox"
-                        width="100%"
-                        height="100%"
-                        src="https://alexpatrie.github.io/biosimulators-sandbox-test-repo-2/repl/index.html"
-                        frameborder="0"
-                        allowfullscreen="true">
-                      </iframe>
-                    </div>-->
-            <!--</mat-expansion-panel>
-                </mat-card-content>
-              </mat-card>
-            </mat-tab>-->
-            <!-- End ReRun Notebook Tab -->
           </mat-tab-group>
         </mat-card-content>
       </mat-card>
