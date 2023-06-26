@@ -126,7 +126,7 @@ export class FeaturedService {
     color: 'rgba(0, 150, 136, 0.85)',
     textColor: 'white',
   };
-  private runCustomizedSimulation = {
+  /*private runCustomizedSimulation = {
     title: 'Run a customized simulation',
     image: `https://images.rawpixel.com/image_1300 \
        /czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvcGQ0My0wNjA0LTA2Ni1uYW1fMC5qcGc.jpg`,
@@ -148,7 +148,7 @@ export class FeaturedService {
     headerColor: 'green',
     color: 'green',
     textColor: 'white',
-  };
+  };*/
 
   public projects = [
     this.simulations,
@@ -157,7 +157,7 @@ export class FeaturedService {
     this.learnSimulations,
     this.convertFile,
     this.community,
-    this.runCustomizedSimulation,
+    //this.runCustomizedSimulation,
   ];
 
   private getSingleProject(i: number): FeaturedProject {
