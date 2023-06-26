@@ -52,12 +52,13 @@ export class FeaturedService {
     headerColor: 'rgb(255, 152, 0)',
     color: 'rgba(255, 152, 0, 0.85)',
     textColor: 'white',
+    useInternalRouting: true,
   };
   private publishSimulations = {
     title: 'Submit Your Simulation for publication',
     image: `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpy6yf5KdrcU3NpXPlno0_CUnI34BpdWKEjA&usqp=CAU`,
     id: 'publishSimulations',
-    descriptionTeaser: 'Take the Stage with Publish Simulations.',
+    descriptionTeaser: 'Take the Stage and Publish a Simulation.',
     descriptionVerbose: `Elevate your work from the lab to the limelight with our Publish Simulations feature. \
       Take your self-curated simulations and transform them into published studies, open for the world to \
       see, learn from, and build upon. Publish Simulations is more than just a tool - it's your doorway \
@@ -71,12 +72,13 @@ export class FeaturedService {
     headerColor: 'rgb(0, 128, 0)',
     color: 'rgba(0, 128, 0, 0.85)',
     textColor: 'white',
+    useInternalRouting: true,
   };
   private learnSimulations = {
     title: 'Learn',
     image: `https://neurosciencenews.com/files/2018/11/memory-learning-rna-neurosciencenews-public.jpg`,
     id: 'learnSimulations',
-    descriptionTeaser: 'Unleash Your Potential with Learn',
+    descriptionTeaser: 'Step Into the Docs.',
     descriptionVerbose: `Feed your curiosity, hone your skills, and dive deeper into the world of bio-simulation \
       with our Learn platform. Here, knowledge and innovation unite to bring you the tools you need to \
       thrive in this ever-evolving field. The Learn section is a comprehensive guide that makes mastering \
@@ -85,7 +87,7 @@ export class FeaturedService {
       or a seasoned researcher, 'Learn' provides a rich and interactive learning environment, designed \
       to support and challenge you. Take a leap into the future of bio-simulation with Learn. Your journey \
       towards mastery begins here. Image by rawpixel.com</a> on Freepik`,
-    routingLink: 'http://docs.biosimulations.org/developers/setup/getting-started/',
+    routingLink: 'https://docs.biosimulations.org/developers/setup/getting-started/',
     logo: 'idea',
     color: 'rgba(149, 30, 217, 0.85)',
     headerColor: 'rgb(149, 30, 217)',
@@ -106,6 +108,7 @@ export class FeaturedService {
     headerColor: 'rgb(144, 67, 54)',
     color: 'rgba(244, 67, 54, 0.85)',
     textColor: 'white',
+    useInternalRouting: true,
   };
   private community = {
     title: 'Community',
