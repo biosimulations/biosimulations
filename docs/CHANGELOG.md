@@ -1,5 +1,20 @@
 # Changelog
 
+## [9.37.0](https://github.com/biosimulations/biosimulations/compare/v9.36.1...v9.37.0) (2023-06-27)
+
+
+### Bug Fixes
+
+* added NoopAnimationsModule to home and featured component spec file ([4e88579](https://github.com/biosimulations/biosimulations/commit/4e8857960c74257697d7b8815562956b98682b85))
+* removed rerun custom sim from featured carousel on home teaser ([ad897a1](https://github.com/biosimulations/biosimulations/commit/ad897a1022d4dae82aea30f94cc99ddab03159ea))
+
+
+### Features
+
+* added routing logic to featured component on home teaser ([fa413fb](https://github.com/biosimulations/biosimulations/commit/fa413fb69d34e5054006be76075bb0eb741bef95))
+* adjusted descriptive teaser text and completed link logic impl ([b2a7243](https://github.com/biosimulations/biosimulations/commit/b2a724363636d569fa85a1342ad4db36fc950c6c))
+* implemented hero banner, home & teaser from projex within platform ([41f60b1](https://github.com/biosimulations/biosimulations/commit/41f60b13a6ebd04ad02b26cb831764f63db84da3))
+
 ## [9.36.1](https://github.com/biosimulations/biosimulations/compare/v9.36.0...v9.36.1) (2023-06-25)
 
 
