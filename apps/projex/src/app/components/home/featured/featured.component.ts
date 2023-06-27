@@ -17,7 +17,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 })
 export class FeaturedComponent {
   @Input()
-  public autoScrollInterval = 10000;
+  public autoScrollInterval = 9000;
   public showNew = false;
   public projects: FeaturedProject[];
   public startIndex = 0;
@@ -52,6 +52,7 @@ export class FeaturedComponent {
   }
 
   public previous(): void {
+    this.stopAutoScroll();
     if (this.startIndex > 0) {
       this.startIndex--;
       this.endIndex--;
@@ -67,6 +68,7 @@ export class FeaturedComponent {
   }
 
   public next(): void {
+    this.stopAutoScroll();
     if (this.endIndex < this.projects.length - 1) {
       this.startIndex++;
       this.endIndex++;
@@ -102,11 +104,13 @@ export class FeaturedComponent {
     return `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${image})`;
   }
 
-  showNewElement() {
+  public showNewElement(): void {
     this.showNew = true;
+    this.stopAutoScroll();
   }
 
-  hideNewElement() {
+  public hideNewElement(): void {
     this.showNew = false;
+    this.startAutoScroll(this.autoScrollInterval);
   }
 }

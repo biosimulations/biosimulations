@@ -114,7 +114,7 @@ export class FeaturedService {
     title: 'Community',
     image: `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQthe1o3bPoss3pTceoFt_fjrwBRKtp9dEnOw&usqp=CAU`,
     id: 'community',
-    descriptionTeaser: 'BioBuilding Community',
+    descriptionTeaser: 'Our Community',
     descriptionVerbose: `The strength of our \
       community is integral to our mission. We're proud to partner with innovative platforms like vivarium.org, \
       allowing users to chain together BioSimulations for a more comprehensive and connected experience. Our \
