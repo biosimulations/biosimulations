@@ -1,4 +1,4 @@
-<div class="subsection">
+<div class="container">
   <div fxLayout="row" fxLayoutAlign="space-between center">
     <!-- Left Button -->
     <button class="nav-button left" fxFlexAlign="center" (click)="previous()" mat-fab>
@@ -12,8 +12,8 @@
         class="feature-card"
         *ngIf="i >= startIndex && i <= endIndex"
         [fxFlex]="70 / numCards"
-        [style.background-image]="'url(' + project.image + ')'"
         [style.background-color]="project.headerColor"
+        [style.background-image]="'url(' + project.image + ')'"
         (mouseenter)="showNewElement()"
         (mouseleave)="hideNewElement()">
         <!-- Start Feature Card Header -->
@@ -23,39 +23,38 @@
           </mat-card-title>
         </mat-card-header>
         <!-- End Feature Card Header -->
+
         <!-- Start Feature Card Content -->
-
-          <div class="description-container">
-            <!-- Start Teaser Description Button -->
-            <div class="description-teaser-container" [style.background-color]="project.headerColor">
-              <!-- Case: Using internal routing -->
-              <div *ngIf="project.useInternalRouting; else useExternalRouting">
-                <a class="click-image-eventspace internal" target="_blank" [routerLink]="project.routingLink" style="margin-left: 28rem; font-family: Roboto, sans-serif">
-                  <button class="description-content text-header" mat-button style="color: white">
-                    {{ project.descriptionTeaser }}
-                  </button>
-                </a>
-              </div>
-              <!-- Case: Using external routing -->
-              <ng-template #useExternalRouting>
-                <a class="click-image-eventspace external" target="_blank" [href]="project.routingLink" style="margin-left: 28rem">
-                  <button class="description-content text-header" mat-button style="color: white">
-                    {{ project.descriptionTeaser }}
-                  </button>
-                </a>
-              </ng-template>
+        <div class="description-container">
+          <!-- Start Teaser Description Button -->
+          <mat-card-footer class="description-teaser-container" [style.background-color]="project.headerColor" align="end">
+            <!-- Case: Using internal routing -->
+            <div *ngIf="project.useInternalRouting; else useExternalRouting">
+              <a class="click-image-eventspace internal" target="_blank" [routerLink]="project.routingLink" style="font-family: Roboto, sans-serif">
+                <button class="description-content text-header" mat-button style="color: white">
+                  {{ project.descriptionTeaser }}
+                </button>
+              </a>
             </div>
-            <!-- End Teaser Description Button -->
+            <!-- Case: Using external routing -->
+            <ng-template #useExternalRouting>
+              <a class="click-image-eventspace external" target="_blank" [href]="project.routingLink" style="font-family: Roboto, sans-serif">
+                <button class="description-content text-header" mat-button style="color: white">
+                  {{ project.descriptionTeaser }}
+                </button>
+              </a>
+            </ng-template>
+          </mat-card-footer>
+          <!-- End Teaser Description Button -->
+        </div>
+        <!-- Case: User Hovers over the featured card and a verbose description is displayed -->
+        <div id="new-element" class="verbose-description-card-container" [hidden]="!showNew">
+          <div class="description-card" [style.background-color]="project.color" [style.color]="project.textColor">
+            <mat-card-content>
+              {{ project.descriptionVerbose }}
+            </mat-card-content>
           </div>
-          <!-- Case: User Hovers over the featured card and a verbose description is displayed -->
-          <div id="new-element" class="verbose-description-card-container" [hidden]="!showNew">
-            <div class="description-card" [style.background-color]="project.color" [style.color]="project.textColor">
-              <mat-card-content>
-                {{ project.descriptionVerbose }}
-              </mat-card-content>
-            </div>
-          </div>
-
+        </div>
         <!-- End Feature Card Content -->
       </mat-card>
       <!-- End Parent of Feature Card -->
