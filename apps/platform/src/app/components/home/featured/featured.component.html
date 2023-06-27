@@ -13,6 +13,7 @@
         *ngIf="i >= startIndex && i <= endIndex"
         [fxFlex]="70 / numCards"
         [style.background-image]="'url(' + project.image + ')'"
+        [style.background-color]="project.headerColor"
         (mouseenter)="showNewElement()"
         (mouseleave)="hideNewElement()">
         <!-- Start Feature Card Header -->
@@ -25,6 +26,7 @@
         <!-- Start Feature Card Content -->
 
           <div class="description-container">
+            <!-- Start Teaser Description Button -->
             <div class="description-teaser-container" [style.background-color]="project.headerColor">
               <!-- Case: Using internal routing -->
               <div *ngIf="project.useInternalRouting; else useExternalRouting">
@@ -43,9 +45,10 @@
                 </a>
               </ng-template>
             </div>
+            <!-- End Teaser Description Button -->
           </div>
           <!-- Case: User Hovers over the featured card and a verbose description is displayed -->
-          <div id="new-element" class="card-parent" [hidden]="!showNew">
+          <div id="new-element" class="verbose-description-card-container" [hidden]="!showNew">
             <div class="description-card" [style.background-color]="project.color" [style.color]="project.textColor">
               <mat-card-content>
                 {{ project.descriptionVerbose }}

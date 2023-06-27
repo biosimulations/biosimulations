@@ -90,7 +90,7 @@ export class FeaturedService {
     routingLink: 'https://docs.biosimulations.org/developers/setup/getting-started/',
     logo: 'idea',
     color: 'rgba(149, 30, 217, 0.85)',
-    headerColor: 'rgb(149, 30, 217)',
+    headerColor: 'rgb(0, 150, 136)',
     textColor: 'white',
   };
   private convertFile = {
@@ -112,7 +112,8 @@ export class FeaturedService {
   };
   private community = {
     title: 'Community',
-    image: `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQthe1o3bPoss3pTceoFt_fjrwBRKtp9dEnOw&usqp=CAU`,
+    image:
+      'https://images.unsplash.com/photo-1500042600524-37ecb686c775?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
     id: 'community',
     descriptionTeaser: 'Our Community',
     descriptionVerbose: `The strength of our \
@@ -122,7 +123,7 @@ export class FeaturedService {
       possible in biological simulation.`,
     routingLink: 'https://vivarium-collective.github.io',
     logo: 'idea',
-    headerColor: 'rgb(0, 150, 136)',
+    headerColor: 'rgb(149, 30, 217)',
     color: 'rgba(0, 150, 136, 0.85)',
     textColor: 'white',
   };

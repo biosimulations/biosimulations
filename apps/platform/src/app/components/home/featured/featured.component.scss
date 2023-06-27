@@ -76,7 +76,6 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #fffaf2; //rgba(134, 134, 134, 0.158);
     mix-blend-mode: multiply;
     z-index: 1;
   }
@@ -109,7 +108,7 @@ img {
   padding: auto;
 }
 
-.card-parent {
+.verbose-description-card-container {
   height: 75%;
   opacity: 1;
   transition: opacity 0.5s ease;

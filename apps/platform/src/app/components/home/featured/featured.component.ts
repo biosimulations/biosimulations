@@ -16,8 +16,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   providers: [FeaturedService],
 })
 export class FeaturedComponent {
-  @Input()
-  public autoScrollInterval = 9000;
+  @Input() public autoScrollInterval = 9000;
   public showNew = false;
   public projects: FeaturedProject[];
   public startIndex = 0;
@@ -25,23 +24,9 @@ export class FeaturedComponent {
   public numCards = 1;
   public currentServiceIndex: number;
   public alternateImage = 'Explore Now';
-  /*`
-        _________________
-      | BIO SIMULATIONS |
-      |-----------------|
-      |..   __     __   |
-      |||__( o )__( o ) |
-      |||   (*)     (*)  |
-      |||     >     <   |
-      |||    (_____)   |
-      |||_______________|
-      |                 |
-      |    [RUNNING]    |
-      |_________________|
-  `;*/
+  public showCard = true;
+  public cardIsActive = false;
   private intervalId!: NodeJS.Timer | null;
-  showCard = true;
-  cardIsActive = false;
 
   public constructor(private service: FeaturedService) {
     this.projects = this.service.getProjects();
@@ -91,7 +76,7 @@ export class FeaturedComponent {
     }
   }
 
-  public ngOnDestroy(): void {
+  public OnDestroy(): void {
     this.stopAutoScroll();
   }
 
