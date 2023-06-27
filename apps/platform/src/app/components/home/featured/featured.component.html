@@ -23,15 +23,14 @@
           </mat-card-title>
         </mat-card-header>
         <!-- End Feature Card Header -->
-
         <!-- Start Feature Card Content -->
-        <div class="description-container">
+        <div class="description-teaser-container-parent">
           <!-- Start Teaser Description Button -->
           <mat-card-footer class="description-teaser-container" [style.background-color]="project.headerColor" align="end">
             <!-- Case: Using internal routing -->
             <div *ngIf="project.useInternalRouting; else useExternalRouting">
               <a class="click-image-eventspace internal" target="_blank" [routerLink]="project.routingLink" style="font-family: Roboto, sans-serif">
-                <button class="description-content text-header" mat-button style="color: white">
+                <button class="description-teaser-content text-header" mat-button style="color: white">
                   {{ project.descriptionTeaser }}
                 </button>
               </a>
@@ -39,7 +38,7 @@
             <!-- Case: Using external routing -->
             <ng-template #useExternalRouting>
               <a class="click-image-eventspace external" target="_blank" [href]="project.routingLink" style="font-family: Roboto, sans-serif">
-                <button class="description-content text-header" mat-button style="color: white">
+                <button class="description-teaser-content text-header" mat-button style="color: white">
                   {{ project.descriptionTeaser }}
                 </button>
               </a>
@@ -49,7 +48,7 @@
         </div>
         <!-- Case: User Hovers over the featured card and a verbose description is displayed -->
         <div id="new-element" class="verbose-description-card-container" [hidden]="!showNew">
-          <div class="description-card" [style.background-color]="project.headerColor" [style.color]="project.textColor">
+          <div class="verbose-description-card-content" [style.background-color]="project.headerColor" [style.color]="project.textColor">
             <mat-card-content>
               {{ project.descriptionVerbose }}
             </mat-card-content>

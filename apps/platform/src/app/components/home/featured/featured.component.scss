@@ -47,7 +47,7 @@
 }
 
 .feature-card {
-  width: auto;
+  width: 100%;
   height: 620px;
   position: relative;
   flex-grow: 1;
@@ -78,7 +78,7 @@
   }
 }
 
-.description-container {
+.description-teaser-container-parent {
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -90,6 +90,12 @@
   color: white;
 }
 
+.description-teaser-content {
+  font-size: large;
+  align-items: center;
+  justify-content: center;
+}
+
 img {
   height: auto;
   width: auto;
@@ -98,25 +104,14 @@ img {
 
 .verbose-description-card-container {
   height: 75%;
-  opacity: 1;
-  transition: opacity 0.5s ease;
-  &.fade-in {
-    opacity: 0;
-  }
+  overflow: visible;
 }
 
-.description-card {
+.verbose-description-card-content {
   height: 100%;
   width: 100%;
   padding-top: 6rem;
-  transition: 0.2s ease-in-out;
-  justify-content: center;
-}
-
-.description-content {
-  font-size: large;
-  align-items: center;
-  justify-content: center;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .nav-button {
@@ -134,7 +129,6 @@ img {
   }
 }
 
-.figure-card-header,
 .click-image-eventspace {
   color: rgb(4, 37, 2);
   font-size: larger;
