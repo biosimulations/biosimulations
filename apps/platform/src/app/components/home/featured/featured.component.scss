@@ -1,38 +1,17 @@
 @use '@angular/material' as mat;
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;500;700:wght@700&display=swap');
 @import 'apps/platform/src/styles.scss';
 @import 'biosimulations-colors';
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;500;700:wght@700&display=swap');
 
 .container {
-  height: auto;
-  width: 110%;
-  text-align: center;
-  overflow: hidden;
-  padding: 0rem;
-  padding-bottom: 0rem;
-  position: relative;
-}
-
-.subsection {
-  padding-top: 3rem;
-}
-
-.heading {
+  height: 100%;
   width: 100%;
-  padding-top: 10rem;
   text-align: center;
-  font-size: 28px;
-  line-height: normal;
-}
-
-.heading-separator {
-  border-bottom: 2px solid var(--primary-color);
-  height: 0;
-  width: 6rem;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-  margin-left: auto;
-  margin-right: auto;
+  padding-top: 3rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }
 
 .pagination-dots {
@@ -52,92 +31,106 @@
   cursor: pointer;
   transition-property: all;
   transition-duration: 0.3s;
-  transition-timing-function: ease;
+  transition-timing-function: ease-in;
+
+  &.active {
+    background-color: #087008;
+  }
 }
 
-.dot.active {
-  background-color: #087008//rgba(187, 72, 187, 0.734);
+.text-header {
+  border-top: 0.5px solid inherit;
+  border-radius: 3px;
+  width: auto;
+  font-weight: 700;
+  font-size: x-large;
 }
 
-.mat-mdc-card {
-  max-width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.feature-card {
+  width: 100%;
+  height: 620px;
+  position: relative;
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: auto;
+  background-size: 500px;
+  background-repeat: no-repeat;
+  background-position: center;
   padding-top: 0;
-  padding-bottom: 1rem;
-  color: white;
-  background-color: rgba(20, 121, 237, 0.65);
-  font-weight: 500;
+  padding-bottom: 4rem;
+  font-weight: bold;
   font-size: large;
-  transition: all 0.5s ease-out;
+  transition: transform 0.3s ease-in, opacity 0.3s ease-in;
   transition-property: all;
-  transition-duration: 0.2s;
-  transition-timing-function: linear;
-  border-radius: 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    mix-blend-mode: multiply;
+    z-index: 1;
+  }
 }
 
-.mat-mdc-card:hover {
-  transform: scale(1.05);
-  transition: all 0.5s ease-out;
-  transition-property: all;
-  transition-duration: 0.2s;
-  transition-timing-function: linear;
+.description-teaser-container-parent {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.description-teaser-container {
+  height: 100%;
+  padding-top: 2rem;
+  color: white;
+}
+
+.description-teaser-content {
+  font-size: large;
+  align-items: center;
+  justify-content: center;
 }
 
 img {
-  height: 300px;
+  height: auto;
+  width: auto;
+  padding: auto;
+}
+
+.verbose-description-card-container {
+  height: 75%;
+  overflow: visible;
+}
+
+.verbose-description-card-content {
+  height: 100%;
   width: 100%;
-  padding-left: 2rem;
-  padding-right: 2rem;
-  padding-top: 0rem;
-  padding-bottom: 2rem;
-}
-
-.project-card {
-  transition: transform 0.3s ease;
-}
-
-.mat-mdc-card-header {
-  color: var(--text-primary-darker-color);
-  background-color: mat.get-color-from-palette($theme-primary);
-  width: 99%;
-  padding: 1rem;
-  font-weight: 600;
-  justify-content: center;
-  margin-top: 0;
-  border-radius: 4px;
-}
-
-.mat-mdc-card-subtitle {
-  color: var(--text-primary-color);
-}
-
-.mat-mdc-card-actions {
-  margin: 0;
-  margin-top: auto;
-}
-
-.mat-mdc-card-content {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  padding-bottom: 1rem;
-  height: 60px;
-}
-
-.mat-mdc-raised-button {
-  box-shadow: none;
-  background-color: mat.get-color-from-palette($theme-accent); //#347121;
-  color: #1b4b0b;
-  font-size: large;
-  border-radius: 2px;
-  font-weight: 600;
+  padding-top: 6rem;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .nav-button {
   display: flex;
   align-items: center;
-  margin: 0 10px;
+  box-shadow: none;
+  background-color: rgba(20, 121, 237, 0.75);
+  color: white;
+  font-size: large;
+  border-radius: 2px;
+  font-weight: 500;
+
+  &:hover {
+    color: mat.get-color-from-palette($theme-accent);
+  }
+}
+
+.click-image-eventspace {
+  color: rgb(4, 37, 2);
+  font-size: larger;
+  font-weight: 500;
 }
