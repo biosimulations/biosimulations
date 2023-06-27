@@ -243,7 +243,7 @@
    
   <url>
     <loc>https://biosimulations.org/projects/BIOMD0000000010_tellurium_Negative_feedback_and_ultrasen</loc>
-    <lastmod>2023-06-01</lastmod>
+    <lastmod>2023-06-27</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -7028,8 +7028,20 @@
   </url>
    
   <url>
+    <loc>https://biosimulations.org/projects/VCDB_116898345_Jung_ProcNatlAcadSciUSA_2017</loc>
+    <lastmod>2023-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
     <loc>https://biosimulations.org/projects/VCDB_176334674-Zhang-PLoSBiol-2020</loc>
     <lastmod>2022-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/VCDB_27087758_Duman_JGenPhysiol_2008</loc>
+    <lastmod>2023-06-27</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
