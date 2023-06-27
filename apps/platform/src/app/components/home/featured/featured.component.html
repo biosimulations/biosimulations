@@ -49,7 +49,7 @@
         </div>
         <!-- Case: User Hovers over the featured card and a verbose description is displayed -->
         <div id="new-element" class="verbose-description-card-container" [hidden]="!showNew">
-          <div class="description-card" [style.background-color]="project.color" [style.color]="project.textColor">
+          <div class="description-card" [style.background-color]="project.headerColor" [style.color]="project.textColor">
             <mat-card-content>
               {{ project.descriptionVerbose }}
             </mat-card-content>
