@@ -17,15 +17,14 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 })
 export class FeaturedComponent {
   @Input()
-  public autoScrollInterval = 9000;
+  public autoScrollInterval = 10000;
   public showNew = false;
   public projects: FeaturedProject[];
   public startIndex = 0;
   public endIndex = 1;
   public numCards = 1;
   public currentServiceIndex: number;
-  public alternateImage = 'Explore Now';
-  /*`
+  public alternateImage = 'Explore Now'; /*`
         _________________
       | BIO SIMULATIONS |
       |-----------------|
@@ -52,7 +51,6 @@ export class FeaturedComponent {
   }
 
   public previous(): void {
-    this.stopAutoScroll();
     if (this.startIndex > 0) {
       this.startIndex--;
       this.endIndex--;
@@ -68,7 +66,9 @@ export class FeaturedComponent {
   }
 
   public next(): void {
-    this.stopAutoScroll();
+    /*if (this.currentServiceIndex != this.currentServiceIndex + 1) {
+      //this.cardIsActive = true;
+    } else {*/
     if (this.endIndex < this.projects.length - 1) {
       this.startIndex++;
       this.endIndex++;
@@ -104,13 +104,11 @@ export class FeaturedComponent {
     return `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${image})`;
   }
 
-  public showNewElement(): void {
+  showNewElement() {
     this.showNew = true;
-    this.stopAutoScroll();
   }
 
-  public hideNewElement(): void {
+  hideNewElement() {
     this.showNew = false;
-    this.startAutoScroll(this.autoScrollInterval);
   }
 }

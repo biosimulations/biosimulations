@@ -22,12 +22,11 @@ export class FeaturedService {
       intuitive design and user-friendly interface make exploring biology a rewarding journey, irrespective of your \
       prior knowledge or experience. With BioSimDB, every simulation becomes an opportunity to explore, learn, and \
       innovate.`,
-    routingLink: ['/projects'],
+    routingLink: 'https://biosimulations.dev/projects',
     logo: 'simulators',
     headerColor: 'rgb(33, 150, 243)',
     color: 'rgba(33, 150, 243, 0.85)',
     textColor: 'white',
-    useInternalRouting: true,
   };
   private runSimulations = {
     title: 'Run Simulations',
@@ -47,18 +46,17 @@ export class FeaturedService {
       hypotheses, and push the boundaries of their understanding. It fosters an environment where innovation \
       flourishes, empowering you to bring your biological questions to the forefront, explore hypotheses, and discover \
       breakthrough insights. Your biological exploration is now at your command with Run Simulations.`,
-    routingLink: ['/runs/new'],
+    routingLink: 'https://biosimulations.dev/runs/new',
     logo: 'experiment',
     headerColor: 'rgb(255, 152, 0)',
     color: 'rgba(255, 152, 0, 0.85)',
     textColor: 'white',
-    useInternalRouting: true,
   };
   private publishSimulations = {
     title: 'Submit Your Simulation for publication',
     image: `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpy6yf5KdrcU3NpXPlno0_CUnI34BpdWKEjA&usqp=CAU`,
     id: 'publishSimulations',
-    descriptionTeaser: 'Take the Stage and Publish a Simulation.',
+    descriptionTeaser: 'Take the Stage with Publish Simulations.',
     descriptionVerbose: `Elevate your work from the lab to the limelight with our Publish Simulations feature. \
       Take your self-curated simulations and transform them into published studies, open for the world to \
       see, learn from, and build upon. Publish Simulations is more than just a tool - it's your doorway \
@@ -67,18 +65,17 @@ export class FeaturedService {
       publication. Your work deserves recognition. Let Publish Simulations spotlight your efforts and \
       turn your insights into shared knowledge. The future of biosimulation research is collaborative - \
       play your part with Publish Simulations.`,
-    routingLink: ['/utils/create-project'],
+    routingLink: 'https://biosimulations.dev/utils/create-project',
     logo: 'publish',
     headerColor: 'rgb(0, 128, 0)',
     color: 'rgba(0, 128, 0, 0.85)',
     textColor: 'white',
-    useInternalRouting: true,
   };
   private learnSimulations = {
     title: 'Learn',
     image: `https://neurosciencenews.com/files/2018/11/memory-learning-rna-neurosciencenews-public.jpg`,
     id: 'learnSimulations',
-    descriptionTeaser: 'Step Into the Docs.',
+    descriptionTeaser: 'Unleash Your Potential with Learn',
     descriptionVerbose: `Feed your curiosity, hone your skills, and dive deeper into the world of bio-simulation \
       with our Learn platform. Here, knowledge and innovation unite to bring you the tools you need to \
       thrive in this ever-evolving field. The Learn section is a comprehensive guide that makes mastering \
@@ -87,7 +84,9 @@ export class FeaturedService {
       or a seasoned researcher, 'Learn' provides a rich and interactive learning environment, designed \
       to support and challenge you. Take a leap into the future of bio-simulation with Learn. Your journey \
       towards mastery begins here. Image by rawpixel.com</a> on Freepik`,
-    routingLink: 'https://docs.biosimulations.org/developers/setup/getting-started/',
+    routingLink: `
+    https://docs.biosimulations.org/developers/setup/getting-started/
+    `,
     logo: 'idea',
     color: 'rgba(149, 30, 217, 0.85)',
     headerColor: 'rgb(149, 30, 217)',
@@ -103,18 +102,17 @@ export class FeaturedService {
       you in control, effortlessly transforming data outputs into compatible inputs for clear, efficient analysis.
       With this feature, the complex becomes simple. Streamline your research process and accelerate your journey to
       discovery with our BioConvert File Conversion tool.`,
-    routingLink: ['/utils/convert-file'],
+    routingLink: 'https://biosimulations.dev/utils/convert-file',
     logo: 'link',
     headerColor: 'rgb(144, 67, 54)',
     color: 'rgba(244, 67, 54, 0.85)',
     textColor: 'white',
-    useInternalRouting: true,
   };
   private community = {
     title: 'Community',
     image: `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQthe1o3bPoss3pTceoFt_fjrwBRKtp9dEnOw&usqp=CAU`,
     id: 'community',
-    descriptionTeaser: 'Our Community',
+    descriptionTeaser: 'BioBuilding Community',
     descriptionVerbose: `The strength of our \
       community is integral to our mission. We're proud to partner with innovative platforms like vivarium.org, \
       allowing users to chain together BioSimulations for a more comprehensive and connected experience. Our \
@@ -126,7 +124,7 @@ export class FeaturedService {
     color: 'rgba(0, 150, 136, 0.85)',
     textColor: 'white',
   };
-  /*private runCustomizedSimulation = {
+  private runCustomizedSimulation = {
     title: 'Run a customized simulation',
     image: `https://images.rawpixel.com/image_1300 \
        /czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvcGQ0My0wNjA0LTA2Ni1uYW1fMC5qcGc.jpg`,
@@ -148,7 +146,7 @@ export class FeaturedService {
     headerColor: 'green',
     color: 'green',
     textColor: 'white',
-  };*/
+  };
 
   public projects = [
     this.simulations,
@@ -157,7 +155,7 @@ export class FeaturedService {
     this.learnSimulations,
     this.convertFile,
     this.community,
-    //this.runCustomizedSimulation,
+    this.runCustomizedSimulation,
   ];
 
   private getSingleProject(i: number): FeaturedProject {

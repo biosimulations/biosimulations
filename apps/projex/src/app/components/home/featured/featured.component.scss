@@ -51,7 +51,7 @@
 
 .feature-card {
   width: auto;
-  height: 620px;
+  height: 600px;
   position: relative;
   flex-grow: 1; /* allows the item to grow and take up any extra space */
   flex-shrink: 0; /* prevents the item from shrinking if space is tight */
@@ -62,7 +62,7 @@
   color: rgb(0, 23, 0); /* To ensure the description text is visible against the dark background */
   padding-top: 0;
   padding-bottom: 4rem;
-  font-weight: bold;
+  font-weight: 500;
   font-size: large;
   transition: transform 0.3s ease-in, opacity 0.3s ease-in;
   transition-property: all;
@@ -85,14 +85,9 @@
 .description-container {
   position: absolute;
   bottom: 0;
-  //padding-top: 5rem;
-  width: 100%;
-}
-
-.description-teaser-container {
-  height: 100%;
-  padding-top: 2rem;
-  color: white;
+  right: 0;
+  padding: 20px;
+  padding-top: 5rem;
 }
 
 .feature-card-content {
@@ -156,8 +151,4 @@ img {
   color: rgb(4, 37, 2);
   font-size: larger;
   font-weight: 500;
-}
-
-.mat-button {
-  color: white;
 }
