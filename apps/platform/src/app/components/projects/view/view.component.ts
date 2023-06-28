@@ -1,4 +1,5 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { trigger, transition, style, animate } from '@angular/animations';
@@ -36,9 +37,15 @@ import { ProjectSummary } from '@biosimulations/datamodel/common';
   ],
 })
 export class ViewComponent implements OnInit {
+  //START OLD IMPLEMENTATION ATTRIBUTES
+  public selectedTabIndex = 0;
+  public viewVisualizationTabDisabled = true;
+  public selectVisualizationTabIndex = 2;
+  public visualizationTabIndex = 3;
   public loaded$!: Observable<boolean>;
+  public simVisualization: Visualization | null = null;
+  //END OLD IMPLEMENTATION ATTRIBUTES
 
-  private id!: string;
   public projectMetadata$!: Observable<ProjectMetadata | null>;
   public simulationRun$!: Observable<SimulationRunMetadata>;
 
@@ -49,17 +56,34 @@ export class ViewComponent implements OnInit {
 
   public visualizations$!: Observable<VisualizationList[]>;
   public plotVisualizations$!: Observable<Visualization[]>;
+  public isPanelExpanded = true;
+  public themeColor = 'accent';
 
-  jsonLdData$!: Observable<WithContext<Dataset>>;
+  public jsonLdData$!: Observable<WithContext<Dataset>>;
 
-  cards: any[] = [];
-  draggedIndex = -1;
+  public cards: any[] = [];
+  public draggedIndex = -1;
+
+  @Input()
+  public featureComingSoonMessage = 'Stay tuned! This exciting new feature is currently under development :)';
+
+  public safeUrl: any;
+  public url?: string;
+  public sandboxUrl?: string;
+  public jupyterliteSandboxReplUrl = 'https://alexpatrie.github.io/biosimulators-sandbox-test-repo-2/repl/index.html';
+  public jupyterliteSandboxLabUrl = 'https://alexpatrie.github.io/biosimulators-sandbox-test-repo-2/lab/index.html';
+  public isReRunTabExpanded = false;
+  public useSanitizedUrl = false;
+  public panelExpandedStatus: { [key: string]: boolean } = {};
+  private id!: string;
+  private allExpansionHeaderHandles = ['modelSimulation', 'simulationRun', 'provenance', 'identifiers'];
 
   public constructor(
     private service: ViewService,
     private projService: ProjectService,
     private route: ActivatedRoute,
     private router: Router,
+    private snackBar: MatSnackBar,
   ) {}
 
   public ngOnInit(): void {
@@ -143,6 +167,7 @@ export class ViewComponent implements OnInit {
         );
       }),
     );
+    this.handleExpansionPanels();
   }
 
   public getPlotVisualizations(visLists: VisualizationList[]): Visualization[] {
@@ -158,14 +183,59 @@ export class ViewComponent implements OnInit {
     return visualizations;
   }
 
-  drop(event: CdkDragDrop<any[]>): void {
+  public drop(event: CdkDragDrop<any[]>): void {
     moveItemInArray(this.cards, event.previousIndex, event.currentIndex);
   }
-}
 
-@Injectable()
-export class VizService extends ViewComponent {
-  public constructor(service: ViewService, projService: ProjectService, route: ActivatedRoute, router: Router) {
-    super(service, projService, route, router);
+  public verifyPanelExpand(i: number): boolean {
+    if (i === 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public panelExpanded(i: number): boolean {
+    if (i != 0) {
+      this.isPanelExpanded = false;
+      return false;
+    } else {
+      this.isPanelExpanded = true;
+      return true;
+    }
+  }
+
+  private setupSnackbarConfig(cssClass: string[], data: any | null, dur: number): MatSnackBarConfig {
+    const config = new MatSnackBarConfig();
+    config.panelClass = cssClass;
+    config.duration = dur;
+    config.verticalPosition = 'top';
+    config.data = data;
+    return config;
+  }
+
+  public promptReRun(
+    data = null,
+    message: string | null = null,
+    confirmActionMessage = 'Close',
+    duration = 6000,
+  ): void {
+    if (!message) {
+      message = this.featureComingSoonMessage;
+    }
+    const cssClassName = ['coming-soon-snackbar'];
+    const snackbarConfig = this.setupSnackbarConfig(cssClassName, data, duration);
+    this.snackBar.open(message, confirmActionMessage, snackbarConfig);
+  }
+
+  private handleExpansionPanels(): void {
+    this.projectMetadata$.subscribe((metadata) => {
+      if (metadata) {
+        const headingsToExpand = ['modelSimulation', 'provenance']; //panels 0 & 2, respectively
+        for (let heading = 0; heading < headingsToExpand.length; heading++) {
+          this.panelExpandedStatus[headingsToExpand[heading]] = true;
+        }
+      }
+    });
   }
 }

@@ -1,6 +1,8 @@
 @use '@angular/material' as mat;
 @import 'biosimulations-colors';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Source+Sans+Pro:wght@300;400;700&display=swap');
 
+//OUTER ELEMENT STYLINGS
 .spinner-container {
   display: flex;
   align-items: center;
@@ -12,7 +14,7 @@
   display: flex;
   flex-direction: row;
   height: auto;
-  overflow-x: hidden;
+  width: auto;
 }
 
 .display-data > * {
@@ -21,9 +23,10 @@
 }
 
 .plotparent {
-  width: 800px;
-  height: 600px;
-  padding-top: 1rem;
+  width: auto;
+  height: auto;
+  align-items: stretch;
+  display: flex;
 }
 
 biosimulations-tab-page ::ng-deep .icon-list {
@@ -55,38 +58,137 @@ biosimulations-tab-page ::ng-deep .icon-list {
   }
 }
 
+//GENERAL PURPOSE ELEMENT STYLINGS
+.item-expansion-header {
+  background-color: #2196f3;
+  font-weight: normal;
+  font-size: medium;
+  color: white;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-family: 'Roboto', sans-serif;
+  align-items: center;
+  border: 2px solid inherit;
+  transition: background-color 0.1s ease-in-out;
+  border-radius: 3px;
+  height: auto;
+  width: auto;
+
+  &:hover {
+    background-color: #ff9800 !important;
+  }
+
+  &.mat-expansion-panel-header.mat-expanded {
+    background-color: #2196f3 !important;
+  }
+}
+
+.item-expansion-header-under-dev {
+  background-color: #2196f3;
+  font-weight: normal;
+  font-size: medium;
+  color: white;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-family: 'Roboto', sans-serif;
+  align-items: center;
+  border: 2px solid inherit;
+  border-radius: 3px;
+  height: auto;
+  width: auto;
+  transition: background-color 0.5s ease, transform 0.5s ease;
+
+  &:hover {
+    color: #2196f3 !important;
+    background-color: #ff9800 !important;
+    transform: scale(1.0075);
+    font-weight: bold;
+  }
+}
+
+.icon-list {
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+  padding: 0.75rem;
+}
+
+.divider {
+  width: 100%;
+  height: 30px;
+}
+
+.right-col-tab {
+  border: 2px solid gray;
+  border-radius: 1px;
+
+  &:hover {
+    background-color: #ff9800;
+  }
+}
+
+.full-width-tab-content {
+  width: 100%;
+}
+
+//INNER ELEMENT STYLINGS
+.rerun-sim-button-container {
+  display: grid;
+  padding-bottom: 6rem;
+}
+
+.rerun-button {
+  border: 0.5px groove #ff9800;
+  border-radius: 4px;
+  background-color: #2196f3;
+  font-weight: normal;
+  color: white;
+  transition: 0.2s ease-in-out;
+
+  &:hover {
+    transition-duration: 0.2s;
+    background-color: green;
+    border: 1px solid #951ed9;
+  }
+}
+
+.rerun-icon {
+  padding-left: 18px;
+
+  &:hover {
+    color: #ff9800;
+  }
+}
+
+.coming-soon-snackbar {
+  background-color: #ff4081;
+  color: white;
+}
+
 .viz-card {
   height: 100%;
   width: 500px;
   max-width: 100%;
   border: solid 1px #ccc;
-  min-height: 60px;
   display: block;
-  background: white;
   border-radius: 4px;
-  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1rem;
 }
 
 .viz-card-header {
-  background-color: #ff9800; //#2196f3;
-  font-weight: 600;
-  color: white;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  border-top: 2px;
-  border-radius: 1px;
+  height: auto;
 }
 
 .viz-card-content {
   height: fit-content;
-  padding-top: 1rem;
+  padding-top: 2rem;
 }
 
-.figure-card-placeholder {
-  background: #ccc;
-  border: dotted 3px #999;
-  min-height: 60px;
-  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+.plots-card {
+  padding: 2rem;
 }
 
 .figure-card {
@@ -104,7 +206,6 @@ biosimulations-tab-page ::ng-deep .icon-list {
   margin-right: 25px;
   position: relative;
   box-sizing: border-box;
-  padding: 0.5rem;
   transition: box-shadow 200ms cubic-bezier(0, 0, 0.2, 1);
   box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
@@ -119,7 +220,8 @@ biosimulations-tab-page ::ng-deep .icon-list {
 
 .figure-card-header {
   color: white;
-  font-weight: 300;
+  font-weight: normal;
+  font-family: 'Roboto', sans-serif;
   align-items: center;
   border: 2px solid inherit;
   border-radius: 3px;
@@ -148,10 +250,24 @@ biosimulations-tab-page ::ng-deep .icon-list {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.figure-card:last-child {
-  border: none;
-}
-
 .viz-card-content.cdk-drop-list-dragging .figure-card:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.files-card {
+  display: grid;
+  flex-direction: column;
+  height: 100%;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;
+}
+
+.files-item {
+  height: auto;
+}
+
+.details-expansion-item-container {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
