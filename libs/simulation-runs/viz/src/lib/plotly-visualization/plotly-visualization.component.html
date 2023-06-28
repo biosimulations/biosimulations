@@ -1,3 +1,10 @@
+<!--<div>
+  <input type="radio" id="sliderEnabled" name="sliderToggle" [(ngModel)]="sliderEnabled" (change)="toggleRangeSlider()">
+  <label for="sliderEnabled">Slider Enabled</label>
+  <input type="radio" id="sliderDisabled" name="sliderToggle" [(ngModel)]="!sliderEnabled" (change)="toggleRangeSlider()">
+  <label for="sliderDisabled">Slider Disabled</label>
+</div>-->
+
 <plotly-plot
   *ngIf="!loading && errors.length === 0"
   fxFlex
