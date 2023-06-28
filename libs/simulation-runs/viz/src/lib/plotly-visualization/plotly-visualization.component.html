@@ -4,8 +4,15 @@
   <input type="radio" id="sliderDisabled" name="sliderToggle" [(ngModel)]="!sliderEnabled" (change)="toggleRangeSlider()">
   <label for="sliderDisabled">Slider Disabled</label>
 </div>-->
-
-<plotly-plot
+<div class="plot-container">
+  <ng-container *ngIf="sliderEnabled">
+    <mat-radio-group aria-label="Select an option" [(ngModel)]="sliderEnabled">
+      <mat-radio-button (click)="toggleRangeSlider()" value="true">Enable Slider</mat-radio-button>
+      <mat-radio-button (click)="toggleRangeSlider()" value="false">Disable Slider</mat-radio-button>
+    </mat-radio-group>
+  </ng-container>
+  <plotly-plot
+  #plotly
   *ngIf="!loading && errors.length === 0"
   fxFlex
   class="plotly-visualization"
@@ -13,7 +20,10 @@
   [layout]="layout"
   [config]="config"
   [useResizeHandler]="visible"
-  (onResize)="handleResize($event)"></plotly-plot>
+  (onResize)="handleResize($event)"
+  (sliderEnabled)="true"></plotly-plot>
+</div>
+
 
 <div *ngIf="loading" class="centered-full-width-height">
   <biosimulations-spinner></biosimulations-spinner>

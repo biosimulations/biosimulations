@@ -1,4 +1,13 @@
-import { Component, Input, ElementRef, AfterViewInit, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  ElementRef,
+  AfterViewInit,
+  OnDestroy,
+  OnChanges,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { PlotlyTrace, PlotlyLayout, PlotlyDataLayout } from '@biosimulations/datamodel/common';
 import { debounce } from 'throttle-debounce';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -37,6 +46,7 @@ type AxisLayout = {
   font: {
     family: string;
     size: number;
+    color: string;
   };
   rangeslider?: RangeSliderLayout | null;
 };
@@ -47,10 +57,12 @@ type AxisLayout = {
   styleUrls: ['./plotly-visualization.component.scss'],
 })
 export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy, OnChanges {
+  @ViewChild('plotly') plotlyComponent!: this;
   @Input() public plotTitle = '';
   @Input() public projectTitle = '';
   @Input() public plotNum?: number;
-  public sliderEnabled = true;
+
+  @Input() public sliderEnabled = false;
   public visible = false;
   public loading = false;
   public data: PlotlyTrace[] | undefined = undefined;
@@ -125,7 +137,7 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy, O
     this.resizeDebounce();
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.resizeDebounce?.cancel();
   }
 
@@ -140,7 +152,7 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy, O
   }
 
   private setLegendLayout(
-    x = 4.2,
+    x = 4.5,
     y = 1.5,
     orientation = 'v',
     traceorder = 'normal',
@@ -171,10 +183,10 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy, O
   }
 
   private setRangeSliderLayout(
-    autoRange: boolean,
-    borderColor: string,
-    borderWidth: number,
-    height: number,
+    autoRange = true,
+    borderColor = '#ff7b00',
+    borderWidth = 1,
+    height = 0.15,
   ): RangeSliderLayout {
     const layout: RangeSliderLayout = {
       autorange: autoRange,
@@ -185,14 +197,6 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy, O
     return layout;
   }
 
-  private usesRangeSlider(): boolean {
-    if (!this.sliderEnabled) {
-      return false;
-    } else {
-      return true;
-    }
-  }
-
   private setAxisLayout(
     fontSize = 18,
     fontColor = '#7f7f7f',
@@ -200,8 +204,7 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy, O
     tickFontColor = 'black',
     fontFamily = 'Roboto, sans-serif',
   ): AxisLayout {
-    const rangeSliderLayout = this.setRangeSliderLayout(true, '#ff7b00', 1, 0.15);
-    const layout: AxisLayout = {
+    const axisLayout: AxisLayout = {
       tickfont: {
         size: tickFontSize,
         color: tickFontColor,
@@ -209,16 +212,19 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy, O
       font: {
         family: fontFamily,
         size: fontSize,
+        color: fontColor,
       },
-      rangeslider: rangeSliderLayout,
     };
-    return layout;
+    if (this.sliderEnabled) {
+      axisLayout.rangeslider = this.setRangeSliderLayout();
+    }
+    return axisLayout;
   }
 
   private setLayout(): void {
     this.visible = this.hostElement.nativeElement.offsetParent != null;
     if (this.visible && this.layout) {
-      //this.layout.autosize = true;
+      this.layout.autosize = true;
       this.layout.legend = this.setLegendLayout();
       this.layout.xaxis = this.setAxisLayout();
     }
