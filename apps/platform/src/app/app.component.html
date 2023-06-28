@@ -52,13 +52,16 @@
       </ng-container>
     </biosimulations-hover-open-menu>
 
-    <!-- Keeping target="_blank" as Docs is a sep app, and clicking icon in docs header takes you to home page -->
+    <!-- Keeping target="_blank" for now as Docs is a sep app, and clicking icon in docs header takes you to home page -->
     <biosimulations-hover-open-menu [link]="'https://docs.biosimulations.org/users/'" [disabled]="true" target="_blank">
       <biosimulations-topbar-menu-item heading="Learn" icon="idea" id="trigger"> </biosimulations-topbar-menu-item>
     </biosimulations-hover-open-menu>
 
     <biosimulations-hover-open-menu
       [link]="config.simulatorsAppBrowseSimulatorsUrl"
+      [disabled]="true"
+      target="_blank"
+      matTooltip="Browse simulator tools"
       style="
         position: fixed;
         right: 45px;
@@ -67,15 +70,7 @@
         -webkit-overflow-scrolling: touch;
         padding-top: 2.3px;
       ">
-      <biosimulations-topbar-menu-item heading="BioSimulators" icon="link" id="trigger">
-      </biosimulations-topbar-menu-item>
-      <ng-container id="items">
-        <biosimulations-dropdown-menu-item
-          heading="Browse simulator tools"
-          icon="simulators"
-          href="http://biosimulators.org/simulators">
-        </biosimulations-dropdown-menu-item>
-      </ng-container>
+      <biosimulations-topbar-menu-item heading="BioSimulators" icon="link" id="trigger"></biosimulations-topbar-menu-item>
     </biosimulations-hover-open-menu>
   </biosimulations-topbar-menu>
   <ng-container id="news"> Under Construction </ng-container>

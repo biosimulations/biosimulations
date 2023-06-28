@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ScrollService } from '@biosimulations/shared/angular';
 import { ConfigService } from '@biosimulations/config/angular';
 import { HealthService } from '@biosimulations/angular-api-client';
@@ -11,11 +11,9 @@ import { Observable } from 'rxjs';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, AfterViewInit {
-  @Input()
-  disableHover = true;
   public title = 'platform';
-
   public healthy$!: Observable<boolean>;
+  private checkForHealth = true;
 
   public constructor(
     public config: ConfigService,
@@ -25,7 +23,10 @@ export class AppComponent implements OnInit, AfterViewInit {
   ) {}
 
   public ngOnInit(): void {
-    this.healthy$ = this.healthService.isHealthy();
+    if (this.checkForHealth) {
+      this.healthy$ = this.healthService.isHealthy();
+      console.log(this.healthy$);
+    }
   }
 
   public ngAfterViewInit(): void {
