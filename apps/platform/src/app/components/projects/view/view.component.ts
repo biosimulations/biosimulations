@@ -187,25 +187,7 @@ export class ViewComponent implements OnInit {
     moveItemInArray(this.cards, event.previousIndex, event.currentIndex);
   }
 
-  public verifyPanelExpand(i: number): boolean {
-    if (i === 0) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  public panelExpanded(i: number): boolean {
-    if (i != 0) {
-      this.isPanelExpanded = false;
-      return false;
-    } else {
-      this.isPanelExpanded = true;
-      return true;
-    }
-  }
-
-  private setupSnackbarConfig(cssClass: string[], data: any | null, dur: number): MatSnackBarConfig {
+  private setupSnackbarConfig(cssClass: string[], data: null, dur: number): MatSnackBarConfig {
     const config = new MatSnackBarConfig();
     config.panelClass = cssClass;
     config.duration = dur;
