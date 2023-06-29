@@ -57,11 +57,11 @@ type AxisLayout = {
   styleUrls: ['./plotly-visualization.component.scss'],
 })
 export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy, OnChanges {
-  @ViewChild('plotly') plotlyComponent!: this;
+  @ViewChild('plotly') public plotlyComponent!: this;
   @Input() public plotTitle = '';
   @Input() public projectTitle = '';
   @Input() public plotNum?: number;
-
+  @Input() public customizedAxis = false;
   @Input() public sliderEnabled = false;
   public visible = false;
   public loading = false;
@@ -226,7 +226,9 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy, O
     if (this.visible && this.layout) {
       this.layout.autosize = true;
       this.layout.legend = this.setLegendLayout();
-      this.layout.xaxis = this.setAxisLayout();
+      if (this.customizedAxis) {
+        this.layout.xaxis = this.setAxisLayout();
+      }
     }
   }
 }
