@@ -110,14 +110,6 @@ export class ProjectsChipsComponent implements AfterViewInit {
     }
   }
 
-  public edit(filter: ProjectFilterQueryItem, event: MatChipEditedEvent): string {
-    const value = event.value.trim();
-    if (!value) {
-      this.remove(filter);
-    }
-    return value;
-  }
-
   public onSelectedChange(selected: boolean, target: ProjectFilterTarget, value: string): void {
     console.log(`onSelectionChange() selected=${selected}, target=${target}, value=${value}`);
     const prev_allowable_set: Set<string> = new Set<string>();
