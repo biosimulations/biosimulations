@@ -110,12 +110,12 @@ export class ProjectsChipsComponent implements AfterViewInit {
     }
   }
 
-  public edit(filter: ProjectFilterQueryItem, event: MatChipEditedEvent): void {
+  public edit(filter: ProjectFilterQueryItem, event: MatChipEditedEvent): string {
     const value = event.value.trim();
     if (!value) {
       this.remove(filter);
-      return;
     }
+    return value;
   }
 
   public onSelectedChange(selected: boolean, target: ProjectFilterTarget, value: string): void {
