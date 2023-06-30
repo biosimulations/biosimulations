@@ -28,6 +28,7 @@ export class FeaturedComponent implements AfterViewInit {
   public alternateImage = 'Explore Now';
   public showCard = true;
   public cardIsActive = false;
+  public isMobile = false;
   private intervalId!: NodeJS.Timer | null;
 
   private touchStartX = 0;
@@ -46,6 +47,7 @@ export class FeaturedComponent implements AfterViewInit {
     this.breakpointObserver.observe(Breakpoints.Handset).subscribe((result) => {
       if (result.matches) {
         // Enable swipe functionality
+        this.isMobile = true;
         carouselElement.addEventListener('touchstart', this.onTouchStart.bind(this));
         carouselElement.addEventListener('touchend', this.onTouchEnd.bind(this));
       } else {
@@ -141,7 +143,8 @@ export class FeaturedComponent implements AfterViewInit {
     }
   }
 
-  private sleep(): Promise<void> {
-    return new Promise((resolve) => setTimeout(resolve, this.autoScrollInterval));
+  private sleep(ms: number | null = null): Promise<void> {
+    const interval = ms || this.autoScrollInterval;
+    return new Promise((resolve) => setTimeout(resolve, interval));
   }
 }
