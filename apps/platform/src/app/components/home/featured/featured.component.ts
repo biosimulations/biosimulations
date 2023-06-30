@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, AfterViewInit, HostListener } from '@angular/core';
 import { FeaturedService } from './featured.service';
 import { FeaturedProject } from './featured.model';
 import { trigger, state, style, animate, transition } from '@angular/animations';
@@ -15,7 +15,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   ],
   providers: [FeaturedService],
 })
-export class FeaturedComponent {
+export class FeaturedComponent implements AfterViewInit {
   @Input() public autoScrollInterval = 9000;
   public showNew = false;
   public projects: FeaturedProject[];
@@ -28,15 +28,21 @@ export class FeaturedComponent {
   public cardIsActive = false;
   private intervalId!: NodeJS.Timer | null;
 
+  private touchStartX = 0;
+  private touchEndX = 0;
+
   public constructor(private service: FeaturedService) {
     this.projects = this.service.getProjects();
     this.startIndex = 0;
     this.endIndex = this.numCards - 1;
     this.currentServiceIndex = 0;
-    this.startAutoScroll(this.autoScrollInterval);
   }
 
-  public previous(): void {
+  public ngAfterViewInit(): void {
+    this.startAutoScroll();
+  }
+
+  public async previous(): Promise<void> {
     this.stopAutoScroll();
     if (this.startIndex > 0) {
       this.startIndex--;
@@ -50,9 +56,11 @@ export class FeaturedComponent {
         this.endIndex = this.projects.length - 2;
       }
     }
+    await this.sleep();
+    this.startAutoScroll();
   }
 
-  public next(): void {
+  public async next(): Promise<void> {
     this.stopAutoScroll();
     if (this.endIndex < this.projects.length - 1) {
       this.startIndex++;
@@ -61,15 +69,17 @@ export class FeaturedComponent {
       this.startIndex = 0;
       this.endIndex = this.numCards - 1;
     }
+    await this.sleep();
+    this.startAutoScroll();
   }
 
-  private startAutoScroll(intervalTime: number): void {
+  public startAutoScroll(): void {
     this.intervalId = setInterval(() => {
       this.next();
-    }, intervalTime);
+    }, this.autoScrollInterval);
   }
 
-  private stopAutoScroll(): void {
+  public stopAutoScroll(): void {
     if (this.intervalId) {
       clearInterval(this.intervalId);
       this.intervalId = null;
@@ -96,6 +106,30 @@ export class FeaturedComponent {
 
   public hideNewElement(): void {
     this.showNew = false;
-    this.startAutoScroll(this.autoScrollInterval);
+    this.startAutoScroll();
+  }
+
+  @HostListener('touchstart', ['$event'])
+  public nTouchStart(event: TouchEvent): void {
+    this.touchStartX = event.changedTouches[0].clientX;
+  }
+
+  @HostListener('touchend', ['$event'])
+  public onTouchEnd(event: TouchEvent): void {
+    this.touchEndX = event.changedTouches[0].clientX;
+    this.handleSwipeGesture();
+  }
+
+  public handleSwipeGesture(): void {
+    const swipeThreshold = 100;
+    if (this.touchEndX - this.touchStartX > swipeThreshold) {
+      this.previous();
+    } else if (this.touchStartX - this.touchEndX > swipeThreshold) {
+      this.next();
+    }
+  }
+
+  private sleep(): Promise<void> {
+    return new Promise((resolve) => setTimeout(resolve, this.autoScrollInterval));
   }
 }
