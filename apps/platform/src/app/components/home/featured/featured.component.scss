@@ -93,6 +93,8 @@
   position: absolute;
   bottom: 0;
   width: 100%;
+  height: fit-content;
+
   @media (max-width: 768px) {
     font-size: 12;
   }
@@ -112,6 +114,10 @@
   font-size: large;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 480px), (max-width: 768px) {
+    font-size: small;
+  }
 }
 
 img {
