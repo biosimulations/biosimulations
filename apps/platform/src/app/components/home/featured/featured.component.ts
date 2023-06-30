@@ -1,4 +1,5 @@
-import { Component, Input, AfterViewInit, HostListener } from '@angular/core';
+import { Component, Input, AfterViewInit, HostListener, ElementRef, ViewChild } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { FeaturedService } from './featured.service';
 import { FeaturedProject } from './featured.model';
 import { trigger, state, style, animate, transition } from '@angular/animations';
@@ -16,6 +17,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   providers: [FeaturedService],
 })
 export class FeaturedComponent implements AfterViewInit {
+  @ViewChild('carousel') public carouselRef!: ElementRef;
   @Input() public autoScrollInterval = 9000;
   public showNew = false;
   public projects: FeaturedProject[];
@@ -31,7 +33,7 @@ export class FeaturedComponent implements AfterViewInit {
   private touchStartX = 0;
   private touchEndX = 0;
 
-  public constructor(private service: FeaturedService) {
+  public constructor(private service: FeaturedService, private breakpointObserver: BreakpointObserver) {
     this.projects = this.service.getProjects();
     this.startIndex = 0;
     this.endIndex = this.numCards - 1;
@@ -40,6 +42,18 @@ export class FeaturedComponent implements AfterViewInit {
 
   public ngAfterViewInit(): void {
     this.startAutoScroll();
+    const carouselElement = this.carouselRef.nativeElement;
+    this.breakpointObserver.observe(Breakpoints.Handset).subscribe((result) => {
+      if (result.matches) {
+        // Enable swipe functionality
+        carouselElement.addEventListener('touchstart', this.onTouchStart.bind(this));
+        carouselElement.addEventListener('touchend', this.onTouchEnd.bind(this));
+      } else {
+        // Disable swipe functionality
+        carouselElement.removeEventListener('touchstart', this.onTouchStart.bind(this));
+        carouselElement.removeEventListener('touchend', this.onTouchEnd.bind(this));
+      }
+    });
   }
 
   public async previous(): Promise<void> {
@@ -57,7 +71,6 @@ export class FeaturedComponent implements AfterViewInit {
       }
     }
     await this.sleep();
-    this.startAutoScroll();
   }
 
   public async next(): Promise<void> {
@@ -70,7 +83,6 @@ export class FeaturedComponent implements AfterViewInit {
       this.endIndex = this.numCards - 1;
     }
     await this.sleep();
-    this.startAutoScroll();
   }
 
   public startAutoScroll(): void {
@@ -110,7 +122,7 @@ export class FeaturedComponent implements AfterViewInit {
   }
 
   @HostListener('touchstart', ['$event'])
-  public nTouchStart(event: TouchEvent): void {
+  public onTouchStart(event: TouchEvent): void {
     this.touchStartX = event.changedTouches[0].clientX;
   }
 
