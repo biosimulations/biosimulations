@@ -14,8 +14,9 @@
   align-items: stretch;
 
   @media (max-width: 768px) {
-    display: inline;
-    flex-direction: row;
+    width: fit-content;
+    margin-right: auto;
+    margin-left: auto;
   }
 }
 
@@ -83,8 +84,8 @@
   }
 
   @media (max-width: 768px) {
-    flex-direction: column;
-    height: 300px;
+    height: fit-content;
+    width: fit-content;
     background-size: 250px;
   }
 }
@@ -162,4 +163,9 @@ img {
   color: rgb(4, 37, 2);
   font-size: larger;
   font-weight: 500;
+}
+
+.mobile {
+  height: 100%;
+  width: 100%;
 }

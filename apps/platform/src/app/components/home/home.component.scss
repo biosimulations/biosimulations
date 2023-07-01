@@ -1,3 +1,12 @@
+.home-container {
+  height: fit-content;
+  width: auto;
+
+  @media (max-width: 768px) {
+    width: fit-content;
+  }
+}
+
 .about-content {
   .text {
     margin-bottom: 0.75rem;
@@ -20,4 +29,14 @@
       display: inline;
     }
   }
+}
+
+.featured-card-mobile-container {
+  width: 100%;
+  margin-right: 2rem;
+}
+
+.featured-card-mobile {
+  margin-right: 2rem;
+  margin-left: 2rem;
 }

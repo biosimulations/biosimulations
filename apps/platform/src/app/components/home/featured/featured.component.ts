@@ -46,15 +46,15 @@ export class FeaturedComponent implements AfterViewInit {
     const carouselElement = this.carouselRef.nativeElement;
     this.breakpointObserver.observe(Breakpoints.Handset).subscribe((result) => {
       if (result.matches) {
-        // Enable swipe functionality
         this.isMobile = true;
+        this.stopAutoScroll();
         carouselElement.addEventListener('touchstart', this.onTouchStart.bind(this));
         carouselElement.addEventListener('touchend', this.onTouchEnd.bind(this));
-      } else {
+      } /*else {
         // Disable swipe functionality
         carouselElement.removeEventListener('touchstart', this.onTouchStart.bind(this));
         carouselElement.removeEventListener('touchend', this.onTouchEnd.bind(this));
-      }
+      }*/
     });
   }
 

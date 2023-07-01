@@ -1,5 +1,6 @@
 <div class="container" #carousel>
   <div fxLayout="row" fxLayoutAlign="space-between center">
+
     <!-- Left Button -->
     <button class="nav-button left" fxFlexAlign="center" (click)="previous()" mat-fab>
       <mat-icon>keyboard_arrow_left</mat-icon>
@@ -57,46 +58,15 @@
         </div>
         <!-- End Feature Card Content -->
       </mat-card>
-      <!-- End Parent of Feature Card Regular Viewport Size -->
-
-
-      <!-- Start Case: User is on a mobile-sized device -->
-      <ng-container *ngIf="isMobile">
-
-        <div id="mobile-card" class="mobile-feature-card">
-          <div
-            [@slideInOut]="'in'"
-            class="feature-card mobile"
-            *ngIf="i >= startIndex && i <= endIndex"
-            [fxFlex]="70 / numCards"
-            [style.background-color]="project.headerColor"
-            [style.background-image]="'url(' + project.image + ')'">
-
-            <div class="featured-card-header mobile" [style.background-color]="project.headerColor" style="color: white">
-              <h3>{{ project.title }}</h3>
-            </div>
-
-            <div class="description-teaser-container-parent mobile">
-              <span class="description-teaser-container mobile" [style.background-color]="project.headerColor" align="end">
-                <a class="click-image-eventspace internal mobile" target="_blank" [routerLink]="project.routingLink" style="font-family: Roboto, sans-serif">
-                  <button class="description-teaser-content text-header mobile" mat-button style="color: white">
-                    {{ project.descriptionTeaser }}
-                  </button>
-                </a>
-              </span>
-            </div>
-          </div>
-        </div>
-      </ng-container>
-      <!-- End Case: User is on a mobile-sized device -->
     </ng-container>
-    <!-- End Feature Card Handling -->
 
     <!-- Right Button -->
     <button mat-fab fxFlexAlign="center" class="nav-button right" (click)="next()">
       <mat-icon>keyboard_arrow_right</mat-icon>
     </button>
   </div>
+
+  <!-- Pagination Dots -->
   <div class="pagination-dots">
     <span
       class="dot"
