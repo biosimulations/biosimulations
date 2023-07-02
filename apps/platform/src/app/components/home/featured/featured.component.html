@@ -80,16 +80,14 @@
     <!-- Start feature card handling -->
     <ng-container *ngFor="let project of projects; let i = index">
       <!-- Start Parent of Feature Card Regular Viewport Size -->
-
         <a [href]="project.routingLink" target="_blank" class="description-teaser-container mobile">
           <button mat-flat-button class="description-teaser-content mobile">
-            <biosimulations-icon icon="open"></biosimulations-icon>
             <span class="mobile-button-content">
-              {{ project.title }}
+              {{ project.mobileTitle || project.title }}
             </span>
+            <biosimulations-icon icon="open"></biosimulations-icon>
           </button>
         </a>
-
     </ng-container>
   </ng-template>
   <!-- End Mobile -->

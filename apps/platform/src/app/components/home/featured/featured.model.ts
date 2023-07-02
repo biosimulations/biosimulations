@@ -11,4 +11,5 @@ export class FeaturedProject {
   public textColor?: string;
   public headerColor?: string;
   public useInternalRouting?: boolean;
+  public mobileTitle?: string;
 }

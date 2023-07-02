@@ -73,6 +73,7 @@ export class FeaturedService {
     color: 'rgba(0, 128, 0, 0.85)',
     textColor: 'white',
     useInternalRouting: true,
+    mobileTitle: 'Submit for Publication',
   };
   private learnSimulations = {
     title: 'Learn',
