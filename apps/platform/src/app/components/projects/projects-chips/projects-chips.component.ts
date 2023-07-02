@@ -24,7 +24,6 @@ export class ProjectsChipsComponent implements AfterViewInit {
   public filteredChoiceOptions$!: Observable<FilterChoiceOption[]>;
   public separatorKeysCodes: number[] = [ENTER, COMMA];
   public filterCtrl = new FormControl('');
-  public addOnBlur = true;
 
   private filterQueryItemMap = new Map<ProjectFilterTarget, ProjectFilterQueryItem>();
   private allFilterChoiceOptions$ = new BehaviorSubject<FilterChoiceOption[]>([]);

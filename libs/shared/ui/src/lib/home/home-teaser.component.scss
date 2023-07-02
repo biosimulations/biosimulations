@@ -6,7 +6,7 @@
 .container {
   background-image: url('/assets/images/backgrounds/grey-3.png');
   background-size: cover;
-  display: flex;
+  display: grid;
   align-items: center;
   justify-content: center;
   padding-top: 0rem;
@@ -123,6 +123,7 @@ img {
   padding-top: 0;
   padding-bottom: 1rem;
 }
+
 img {
   height: 250px;
   padding-left: 2rem;
@@ -134,21 +135,15 @@ img {
   margin: 0;
   margin-top: auto;
 }
-.mat-mdc-card-content {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  height: 60px;
-}
+
 .mat-mdc-raised-button {
   box-shadow: none;
 }
 
-.inner-content {
-  width: 10rem;
+.container-content {
+  //width: 10rem;
   height: 5rem;
-  padding: 6px;
-  margin: 10px;
-  justify-content: center;
+  //padding: 6px;
+  //margin: 10px;
+  //justify-content: center;
 }

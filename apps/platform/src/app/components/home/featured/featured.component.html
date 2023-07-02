@@ -1,14 +1,13 @@
-<div class="container" #carousel>
-  <div fxLayout="row" fxLayoutAlign="space-between center">
+<div class="container">
 
+  <!-- Case: Start Not Mobile -->
+  <div *ngIf="!isMobile; else mobileView" fxLayout="row" fxLayoutAlign="space-between center">
     <!-- Left Button -->
     <button class="nav-button left" fxFlexAlign="center" (click)="previous()" mat-fab>
       <mat-icon>keyboard_arrow_left</mat-icon>
     </button>
 
-    <!-- Start feature card handling -->
     <ng-container *ngFor="let project of projects; let i = index">
-      <!-- Start Parent of Feature Card Regular Viewport Size -->
       <mat-card
         [@slideInOut]="'in'"
         class="feature-card"
@@ -18,16 +17,14 @@
         [style.background-image]="'url(' + project.image + ')'"
         (mouseenter)="showNewElement()"
         (mouseleave)="hideNewElement()">
-        <!-- Start Feature Card Header -->
+
         <mat-card-header [style.background-color]="project.headerColor" style="color: white">
           <mat-card-title>
             {{ project.title }}
           </mat-card-title>
         </mat-card-header>
-        <!-- End Feature Card Header -->
-        <!-- Start Feature Card Content -->
+
         <div class="description-teaser-container-parent">
-          <!-- Start Teaser Description Button -->
           <mat-card-footer class="description-teaser-container" [style.background-color]="project.headerColor" align="end">
             <!-- Case: Using internal routing -->
             <div *ngIf="project.useInternalRouting; else useExternalRouting">
@@ -46,7 +43,6 @@
               </a>
             </ng-template>
           </mat-card-footer>
-          <!-- End Teaser Description Button -->
         </div>
         <!-- Case: User Hovers over the featured card and a verbose description is displayed -->
         <div id="new-element" class="verbose-description-card-container" [hidden]="!showNew">
@@ -65,6 +61,9 @@
       <mat-icon>keyboard_arrow_right</mat-icon>
     </button>
   </div>
+  <!-- End Not Mobile -->
+
+
 
   <!-- Pagination Dots -->
   <div class="pagination-dots">
@@ -75,4 +74,26 @@
       (click)="jumpTo(i)">
     </span>
   </div>
+
+  <!-- Case: Start Mobile -->
+  <ng-template #mobileView>
+    <!-- Start feature card handling -->
+    <ng-container *ngFor="let project of projects; let i = index">
+      <!-- Start Parent of Feature Card Regular Viewport Size -->
+
+        <a [href]="project.routingLink" target="_blank" class="description-teaser-container mobile">
+          <button mat-flat-button class="description-teaser-content mobile">
+            <biosimulations-icon icon="open"></biosimulations-icon>
+            <span class="mobile-button-content">
+              {{ project.title }}
+            </span>
+          </button>
+        </a>
+
+    </ng-container>
+  </ng-template>
+  <!-- End Mobile -->
+
+
+
 </div>

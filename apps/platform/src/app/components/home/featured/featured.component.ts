@@ -1,4 +1,4 @@
-import { Component, Input, AfterViewInit, HostListener, ElementRef, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, HostListener, ElementRef, ViewChild } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { FeaturedService } from './featured.service';
 import { FeaturedProject } from './featured.model';
@@ -16,8 +16,8 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   ],
   providers: [FeaturedService],
 })
-export class FeaturedComponent implements AfterViewInit {
-  @ViewChild('carousel') public carouselRef!: ElementRef;
+export class FeaturedComponent implements OnInit {
+  @ViewChild('mobileCarousel') public carouselRef!: ElementRef;
   @Input() public autoScrollInterval = 9000;
   public showNew = false;
   public projects: FeaturedProject[];
@@ -41,21 +41,9 @@ export class FeaturedComponent implements AfterViewInit {
     this.currentServiceIndex = 0;
   }
 
-  public ngAfterViewInit(): void {
+  public ngOnInit(): void {
     this.startAutoScroll();
-    const carouselElement = this.carouselRef.nativeElement;
-    this.breakpointObserver.observe(Breakpoints.Handset).subscribe((result) => {
-      if (result.matches) {
-        this.isMobile = true;
-        this.stopAutoScroll();
-        carouselElement.addEventListener('touchstart', this.onTouchStart.bind(this));
-        carouselElement.addEventListener('touchend', this.onTouchEnd.bind(this));
-      } /*else {
-        // Disable swipe functionality
-        carouselElement.removeEventListener('touchstart', this.onTouchStart.bind(this));
-        carouselElement.removeEventListener('touchend', this.onTouchEnd.bind(this));
-      }*/
-    });
+    this.checkClientScreen();
   }
 
   public async previous(): Promise<void> {
@@ -146,5 +134,23 @@ export class FeaturedComponent implements AfterViewInit {
   private sleep(ms: number | null = null): Promise<void> {
     const interval = ms || this.autoScrollInterval;
     return new Promise((resolve) => setTimeout(resolve, interval));
+  }
+
+  private checkClientScreen(): void {
+    this.breakpointObserver.observe(Breakpoints.Handset || Breakpoints.TabletLandscape).subscribe((result) => {
+      if (result.matches) {
+        this.stopAutoScroll();
+        this.toggleMobileOn();
+        console.log(this.isMobile);
+      }
+    });
+  }
+
+  private toggleMobileOn(): void {
+    this.isMobile = true;
+  }
+
+  private toggleMobileOff(): void {
+    this.isMobile = false;
   }
 }

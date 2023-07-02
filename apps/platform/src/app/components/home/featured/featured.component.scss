@@ -85,8 +85,7 @@
 
   @media (max-width: 768px) {
     height: fit-content;
-    width: fit-content;
-    background-size: 250px;
+    width: 100%;
   }
 }
 
@@ -107,7 +106,7 @@
   color: white;
 
   @media (max-width: 768px) {
-    font-size: 9;
+    font-size: 9px;
   }
 }
 
@@ -118,6 +117,13 @@
 
   @media (max-width: 768px) {
     font-size: small;
+    border: 2px solid #ff9800;
+    background-color: #2196f3;
+    color: white;
+
+    &:hover(.mobile) {
+      transition: background-color 0.3s ease;
+    }
   }
 }
 
@@ -155,7 +161,7 @@ img {
   }
 
   @media (max-width: 768px) {
-    flex-direction: row;
+    font: x-small;
   }
 }
 
@@ -166,6 +172,4 @@ img {
 }
 
 .mobile {
-  height: 100%;
-  width: 100%;
 }
