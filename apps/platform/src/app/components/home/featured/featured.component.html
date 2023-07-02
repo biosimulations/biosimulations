@@ -63,8 +63,6 @@
   </div>
   <!-- End Not Mobile -->
 
-
-
   <!-- Pagination Dots -->
   <div class="pagination-dots">
     <span
@@ -75,7 +73,7 @@
     </span>
   </div>
 
-  <!-- Case: Start Mobile -->
+  <!-- Case: Start Mobile View -->
   <ng-template #mobileView>
     <!-- Start feature card handling -->
     <ng-container *ngFor="let project of projects; let i = index">
@@ -85,13 +83,10 @@
             <span class="mobile-button-content">
               {{ project.mobileTitle || project.title }}
             </span>
-            <biosimulations-icon icon="open"></biosimulations-icon>
+            <!--<biosimulations-icon icon="link" style="padding-left: 1rem"></biosimulations-icon>-->
           </button>
         </a>
     </ng-container>
   </ng-template>
-  <!-- End Mobile -->
-
-
-
+  <!-- End Mobile View -->
 </div>
