@@ -1171,6 +1171,7 @@
 /projects/VCDB_102802266-Song-JBiolChem-2016
 /projects/VCDB_116898345_Jung_ProcNatlAcadSciUSA_2017
 /projects/VCDB_176334674-Zhang-PLoSBiol-2020
+/projects/VCDB_217669650_Rosenbloom_BiophysJ_2021
 /projects/VCDB_27087758_Duman_JGenPhysiol_2008
 /projects/VCDB_95675197-Yang-PLoSCompBio-2016
 /projects/VCDB_95675441-Yang-PLoSComputBiol-2016

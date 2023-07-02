@@ -9,7 +9,7 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/amici</loc>
-    <lastmod>2023-06-26</lastmod>
+    <lastmod>2023-06-28</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -39,7 +39,7 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/amici/0.18.1</loc>
-    <lastmod>2023-06-26</lastmod>
+    <lastmod>2023-06-28</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -729,7 +729,7 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/tellurium</loc>
-    <lastmod>2023-06-20</lastmod>
+    <lastmod>2023-06-28</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -741,13 +741,13 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/tellurium/2.2.8</loc>
-    <lastmod>2023-06-20</lastmod>
+    <lastmod>2023-06-28</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/vcell</loc>
-    <lastmod>2023-06-14</lastmod>
+    <lastmod>2023-06-28</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -820,6 +820,12 @@
   <url>
     <loc>https://biosimulators.org/simulators/vcell/7.5.0.37</loc>
     <lastmod>2023-06-14</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/vcell/7.5.0.45</loc>
+    <lastmod>2023-06-28</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
