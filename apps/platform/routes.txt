@@ -1169,10 +1169,16 @@
 /projects/Two-compartment-model-of-diazepam-biotransformation-in-an-organotypical-culture-of-primary-human-hepatocytes
 /projects/Tyson-1991
 /projects/VCDB_102802266-Song-JBiolChem-2016
+/projects/VCDB_102802266_Song_JBiolChem_2016
 /projects/VCDB_116898345_Jung_ProcNatlAcadSciUSA_2017
+/projects/VCDB_174341395_Zhang_PLoSBiol_2020
 /projects/VCDB_176334674-Zhang-PLoSBiol-2020
+/projects/VCDB_176334674_Zhang_PLoSBiol_2020
 /projects/VCDB_217669650_Rosenbloom_BiophysJ_2021
 /projects/VCDB_27087758_Duman_JGenPhysiol_2008
+/projects/VCDB_32288619_Paul_JBiolChem_2009
+/projects/VCDB_74924130_Greenwald_MethodsMolBiol_2014
+/projects/VCDB_82799266_McLean_Science_2013
 /projects/VCDB_95675197-Yang-PLoSCompBio-2016
 /projects/VCDB_95675441-Yang-PLoSComputBiol-2016
 /projects/VCDB_95676312-Yang-PLoSComputBiol-2016

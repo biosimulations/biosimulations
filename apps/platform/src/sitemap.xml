@@ -7028,14 +7028,32 @@
   </url>
    
   <url>
+    <loc>https://biosimulations.org/projects/VCDB_102802266_Song_JBiolChem_2016</loc>
+    <lastmod>2023-07-03</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
     <loc>https://biosimulations.org/projects/VCDB_116898345_Jung_ProcNatlAcadSciUSA_2017</loc>
     <lastmod>2023-06-27</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
+    <loc>https://biosimulations.org/projects/VCDB_174341395_Zhang_PLoSBiol_2020</loc>
+    <lastmod>2023-07-03</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
     <loc>https://biosimulations.org/projects/VCDB_176334674-Zhang-PLoSBiol-2020</loc>
     <lastmod>2022-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/VCDB_176334674_Zhang_PLoSBiol_2020</loc>
+    <lastmod>2023-07-03</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -7048,6 +7066,24 @@
   <url>
     <loc>https://biosimulations.org/projects/VCDB_27087758_Duman_JGenPhysiol_2008</loc>
     <lastmod>2023-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/VCDB_32288619_Paul_JBiolChem_2009</loc>
+    <lastmod>2023-07-03</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/VCDB_74924130_Greenwald_MethodsMolBiol_2014</loc>
+    <lastmod>2023-07-03</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/VCDB_82799266_McLean_Science_2013</loc>
+    <lastmod>2023-07-03</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
