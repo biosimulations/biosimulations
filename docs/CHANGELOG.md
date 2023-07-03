@@ -1,5 +1,45 @@
 # Changelog
 
+## [9.38.0](https://github.com/biosimulations/biosimulations/compare/v9.37.0...v9.38.0) (2023-07-03)
+
+
+### Bug Fixes
+
+* added temporary nosonar comment to affected code ([01d5d92](https://github.com/biosimulations/biosimulations/commit/01d5d9203c71a2d29778ffd547339ccb41c16d6a))
+* codefactor apply fixes to commit 1950086 ([026b6b3](https://github.com/biosimulations/biosimulations/commit/026b6b3126121338e414b5da6af207d588072505))
+* created and implemented combined observables datatype to avoid any ([7e82bd6](https://github.com/biosimulations/biosimulations/commit/7e82bd6e795df9e498027d875e5c3c58700c28c7))
+* finished handling logic to include default axis layout ([21e8329](https://github.com/biosimulations/biosimulations/commit/21e83295ee232640a0bd1e9bceb1cacb464297c1))
+* removed comment in home and reformatted comments in projects chips ([803e735](https://github.com/biosimulations/biosimulations/commit/803e73592b92cc9056efb45986d084b8a4d09166))
+* removed comments from view component to appease CI ([0245689](https://github.com/biosimulations/biosimulations/commit/0245689cf44e01c25fdec3e89758426358c938c7))
+* removed nosonar and commented out template literal log messages ([a82ed70](https://github.com/biosimulations/biosimulations/commit/a82ed702b6bfa0f3874bc0d784ed135adc16b48c))
+* removed return duplicate and added explicit return type ([d2b049a](https://github.com/biosimulations/biosimulations/commit/d2b049a1f14124b153ecf23ee75afce01d842286))
+* removed unused edit method that was causing sonarcloud errors ([1950086](https://github.com/biosimulations/biosimulations/commit/1950086dbe66a23953756468e5389eb46e46a15e))
+* removed unused method for sonarcloud code duplication ([94bbf56](https://github.com/biosimulations/biosimulations/commit/94bbf561f97eadab32adb7ee52069fef5eb64080))
+* removed unused methods and added explicit typing ([f305663](https://github.com/biosimulations/biosimulations/commit/f305663224693307d0697c8140f24baef4fecba3))
+* removed unused props and some any ([16c6651](https://github.com/biosimulations/biosimulations/commit/16c6651a16411a66209436bb8de9be2810e49a97))
+* used forEach implementation in place of traditional for loop ([68bd734](https://github.com/biosimulations/biosimulations/commit/68bd7342ab7739cb9363ae14de2fbf977684b5f0))
+
+
+### Features
+
+* added customized container for mobile screen viewport change ([147ca2a](https://github.com/biosimulations/biosimulations/commit/147ca2aa9bb4bd6d226960e8a725dc6739b2007a))
+* added handset and tablet responsive design to view component ([e4dffbb](https://github.com/biosimulations/biosimulations/commit/e4dffbbefe568c6fb0e0ae53b08df0edb563e087))
+* added logic for handling for swipe as click listeners in featured ([0205a8e](https://github.com/biosimulations/biosimulations/commit/0205a8ee262af6a827e3236c068773f698d826ae))
+* added mobile design to home teaser ([2a0750e](https://github.com/biosimulations/biosimulations/commit/2a0750ea72bfd319da7bba575e75f229f0f714bb))
+* added mobile handling logic to home teaser component ([bec5c9a](https://github.com/biosimulations/biosimulations/commit/bec5c9a3c8fc6e7e4035d0be70c283dc58a7c2a1))
+* added mobile teaser title handling for verbose titles and styling ([50b00de](https://github.com/biosimulations/biosimulations/commit/50b00de0089c76b21a57fc996a86ac482329631f))
+* added mobile-responsive design to home teaser carousel component ([7269475](https://github.com/biosimulations/biosimulations/commit/726947557fd00a81b1408084fc8c56d50695f641))
+* added more mobile styling handling logic and removed used prop ([4704e6d](https://github.com/biosimulations/biosimulations/commit/4704e6dc3d13853c3f88bdd912ff0127bdd4a7db))
+* added optional range slider and toggling mat-radio buttons ([672a37e](https://github.com/biosimulations/biosimulations/commit/672a37ea42c898914747995ad3cdfe3fdbbe5fcc))
+* adjusted async autoscroll logic with custom sleep method and swipe ([42eac61](https://github.com/biosimulations/biosimulations/commit/42eac61e019671c7218540dc85dc09a673a6b2db))
+* adjusted plot legend position and added range slider ([875435a](https://github.com/biosimulations/biosimulations/commit/875435ade470531cfe2173c99ab6e196978b2426))
+* complete implementation of projects-chips from projex in platform ([8b24de8](https://github.com/biosimulations/biosimulations/commit/8b24de840c5a46301726be4493867579d1952591))
+* implemented mobile styling for home teaser featured component ([377acdd](https://github.com/biosimulations/biosimulations/commit/377acddc872dff2f3f922501172d0557bbcec50e))
+* implemented project view simulation profile page from -jex in plat ([fc645e4](https://github.com/biosimulations/biosimulations/commit/fc645e4652c8304fb271ae837021639f20bf72e5))
+* implemented project-table files from projex in platform ([e8300c6](https://github.com/biosimulations/biosimulations/commit/e8300c612b1c4a71000ccf490328959a0b0ee093))
+* merge pull request [#4722](https://github.com/biosimulations/biosimulations/issues/4722) from biosimulations/view-and-projects-to-platform ([8565537](https://github.com/biosimulations/biosimulations/commit/8565537d24d178f0bd3178c2c1da07fb83cc23ba))
+* remove dropdown in place of matToolTip for tors nav button w blank ([a8a95ce](https://github.com/biosimulations/biosimulations/commit/a8a95ce9b13c8025858777aa1f54a76285458e3a))
+
 ## [9.37.0](https://github.com/biosimulations/biosimulations/compare/v9.36.1...v9.37.0) (2023-06-27)
 
 
