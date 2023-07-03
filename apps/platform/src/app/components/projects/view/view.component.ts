@@ -22,6 +22,8 @@ import { Dataset, WithContext } from 'schema-dts';
 import { BiosimulationsError } from '@biosimulations/shared/error-handler';
 import { ProjectSummary } from '@biosimulations/datamodel/common';
 
+type CombinedObservables = [ProjectMetadata | null, SimulationRunMetadata, File[], Path[], File[], VisualizationList[]];
+
 @Component({
   selector: 'biosimulations-view',
   templateUrl: './view.component.html',
@@ -138,9 +140,9 @@ export class ViewComponent implements OnInit {
       this.outputs$,
       this.visualizations$,
     ]).pipe(
-      map((observables: (any | undefined)[]): boolean => {
+      map((observables: CombinedObservables): boolean => {
         return (
-          observables.filter((observable: any | undefined): boolean => {
+          observables.filter((observable: CombinedObservables[number] | undefined): boolean => {
             return observable === undefined;
           }).length === 0
         );
