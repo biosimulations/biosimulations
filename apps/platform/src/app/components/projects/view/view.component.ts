@@ -66,14 +66,7 @@ export class ViewComponent implements OnInit {
 
   @Input()
   public featureComingSoonMessage = 'Stay tuned! This exciting new feature is currently under development :)';
-
-  public safeUrl: any;
   public url?: string;
-  public sandboxUrl?: string;
-  public jupyterliteSandboxReplUrl = 'https://alexpatrie.github.io/biosimulators-sandbox-test-repo-2/repl/index.html';
-  public jupyterliteSandboxLabUrl = 'https://alexpatrie.github.io/biosimulators-sandbox-test-repo-2/lab/index.html';
-  public isReRunTabExpanded = false;
-  public useSanitizedUrl = false;
   public panelExpandedStatus: { [key: string]: boolean } = {};
   private id!: string;
   private allExpansionHeaderHandles = ['modelSimulation', 'simulationRun', 'provenance', 'identifiers'];
