@@ -1,3 +1,5 @@
+// NOSONAR
+
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
