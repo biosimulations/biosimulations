@@ -37,39 +37,25 @@ import { ProjectSummary } from '@biosimulations/datamodel/common';
   ],
 })
 export class ViewComponent implements OnInit {
-  //START OLD IMPLEMENTATION ATTRIBUTES
+  @Input() public featureComingSoonMessage = 'Stay tuned! This exciting new feature is currently under development :)';
   public selectedTabIndex = 0;
-  public viewVisualizationTabDisabled = true;
-  public selectVisualizationTabIndex = 2;
-  public visualizationTabIndex = 3;
-  public loaded$!: Observable<boolean>;
-  public simVisualization: Visualization | null = null;
-  //END OLD IMPLEMENTATION ATTRIBUTES
 
+  public loaded$!: Observable<boolean>;
   public projectMetadata$!: Observable<ProjectMetadata | null>;
   public simulationRun$!: Observable<SimulationRunMetadata>;
-
   public projectFiles$!: Observable<File[]>;
   public files$!: Observable<Path[]>;
   public outputs$!: Observable<File[]>;
   public projectSummary$!: Observable<ProjectSummary>;
-
   public visualizations$!: Observable<VisualizationList[]>;
   public plotVisualizations$!: Observable<Visualization[]>;
-  public isPanelExpanded = true;
+
   public themeColor = 'accent';
-
   public jsonLdData$!: Observable<WithContext<Dataset>>;
-
   public cards: any[] = [];
   public draggedIndex = -1;
-
-  @Input()
-  public featureComingSoonMessage = 'Stay tuned! This exciting new feature is currently under development :)';
-  public url?: string;
   public panelExpandedStatus: { [key: string]: boolean } = {};
   private id!: string;
-  private allExpansionHeaderHandles = ['modelSimulation', 'simulationRun', 'provenance', 'identifiers'];
 
   public constructor(
     private service: ViewService,
@@ -176,7 +162,7 @@ export class ViewComponent implements OnInit {
     return visualizations;
   }
 
-  public drop(event: CdkDragDrop<any[]>): void {
+  public drop(event: CdkDragDrop<number[]>): void {
     moveItemInArray(this.cards, event.previousIndex, event.currentIndex);
   }
 
@@ -189,24 +175,15 @@ export class ViewComponent implements OnInit {
     return config;
   }
 
-  public promptReRun(
-    data = null,
-    message: string | null = null,
-    confirmActionMessage = 'Close',
-    duration = 6000,
-  ): void {
-    if (!message) {
-      message = this.featureComingSoonMessage;
-    }
-    const cssClassName = ['coming-soon-snackbar'];
-    const snackbarConfig = this.setupSnackbarConfig(cssClassName, data, duration);
-    this.snackBar.open(message, confirmActionMessage, snackbarConfig);
+  public promptReRun(data = null, confirmActionMessage = 'Close', duration = 6000): void {
+    const snackbarConfig = this.setupSnackbarConfig(['coming-soon-snackbar'], data, duration);
+    this.snackBar.open(this.featureComingSoonMessage, confirmActionMessage, snackbarConfig);
   }
 
   private handleExpansionPanels(): void {
     this.projectMetadata$.subscribe((metadata) => {
       if (metadata) {
-        const headingsToExpand = ['modelSimulation', 'provenance']; //panels 0 & 2, respectively
+        const headingsToExpand = ['modelSimulation', 'provenance'];
         headingsToExpand.forEach((heading) => {
           this.panelExpandedStatus[heading] = true;
         });
