@@ -43,7 +43,6 @@ export class HomeComponent implements OnInit {
   }
 
   public navigateToMobileLink(mobileLink: string): void {
-    //window.location.href = mobileLink;
     window.open(mobileLink, this.mobileLinkTarget);
   }
 }
