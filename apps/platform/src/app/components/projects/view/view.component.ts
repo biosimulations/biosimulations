@@ -207,9 +207,9 @@ export class ViewComponent implements OnInit {
     this.projectMetadata$.subscribe((metadata) => {
       if (metadata) {
         const headingsToExpand = ['modelSimulation', 'provenance']; //panels 0 & 2, respectively
-        for (let heading = 0; heading < headingsToExpand.length; heading++) {
-          this.panelExpandedStatus[headingsToExpand[heading]] = true;
-        }
+        headingsToExpand.forEach((heading) => {
+          this.panelExpandedStatus[heading] = true;
+        });
       }
     });
   }
