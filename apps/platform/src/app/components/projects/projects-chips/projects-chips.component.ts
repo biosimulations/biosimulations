@@ -1,5 +1,3 @@
-// NOSONAR
-
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
@@ -58,7 +56,6 @@ export class ProjectsChipsComponent implements AfterViewInit {
     return filterChoiceOptions;
   }
 
-  /* unused method
   private getFilterChoiceOption(filterStatItem: ProjectFilterStatsItem): FilterChoiceOption[] {
     const filterChoiceOptions: FilterChoiceOption[] = [];
     const target = filterStatItem.target;
@@ -67,7 +64,6 @@ export class ProjectsChipsComponent implements AfterViewInit {
     }
     return filterChoiceOptions;
   }
-  */
 
   public add(event: MatChipInputEvent): void {
     console.log('add(event=' + event + ') does nothing now');
@@ -79,7 +75,7 @@ export class ProjectsChipsComponent implements AfterViewInit {
   }
 
   public selected(event: MatAutocompleteSelectedEvent): void {
-    console.log('selected(event=' + event + ')');
+    //console.log('selected(event=' + event + ')');
     this.filterInput.nativeElement.value = '';
     this.filterCtrl.setValue(null);
     const tokens: string[] = event.option.viewValue.split(':');
@@ -106,7 +102,7 @@ export class ProjectsChipsComponent implements AfterViewInit {
   }
 
   public onRemoveTarget(target: ProjectFilterTarget): void {
-    console.log(`onRemoveTarget() target=${target}`);
+    //console.log(`onRemoveTarget() target=${target}`);
     const deleted: boolean = this.filterQueryItemMap.delete(target);
     if (deleted) {
       this.filterQueries$.emit(Array.from(this.filterQueryItemMap.values()));
@@ -114,7 +110,7 @@ export class ProjectsChipsComponent implements AfterViewInit {
   }
 
   public onSelectedChange(selected: boolean, target: ProjectFilterTarget, value: string): void {
-    console.log(`onSelectionChange() selected=${selected}, target=${target}, value=${value}`);
+    //console.log(`onSelectionChange() selected=${selected}, target=${target}, value=${value}`);
     const prev_allowable_set: Set<string> = new Set<string>();
     this.filterQueryItemMap.get(target)?.allowable_values.forEach((value) => prev_allowable_set.add(value));
     const new_allowable_set: Set<string> = new Set<string>([...prev_allowable_set]);
