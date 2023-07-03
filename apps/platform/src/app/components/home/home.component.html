@@ -422,23 +422,122 @@
 
   <!-- Case: Client screen is mobile -->
   <ng-template #mobileView>
-    <div class="featured-card-mobile-container">
-      <mat-card class="featured-card-mobile">
-        <mat-card-content>
-          <biosimulations-home-teaser
-            heading="Easily share and find models, simulations, and visualizations of simulation results" style="width: fit-content">
-            <ng-container id="buttons">
-              <biosimulations-featured [autoScrollInterval]="9000"></biosimulations-featured>
-            </ng-container>
+    <div class="mobile-parent-container">
+      <mat-card class="mobile-parent-card">
 
-            <ng-container id="description">
-              BioSimulations is a free platform for sharing and re-using biomodels, simulations, simulation results, and
-              visualizations of simulation results. BioSimulations supports a wide range of frameworks (e.g., logical,
-              Flux-Balance Analysis (FBA), continuous kinetic, discrete kinetic), simulation algorithms (e.g., FBA, SSA), model
-              formats (e.g., SBML), and tools (e.g., COBRApy, COPASI, tellurium).
-            </ng-container>
-          </biosimulations-home-teaser>
-        </mat-card-content>
+          <div class="mobile-content-card-container">
+            <mat-card class="mobile-content-card">
+              <mat-card-content>
+                <!-- Mobile Teaser -->
+                <biosimulations-home-teaser
+                  heading="Easily share and find models, simulations, and visualizations of simulation results" style="width: fit-content">
+                  <ng-container id="buttons">
+                    <biosimulations-featured [autoScrollInterval]="9000"></biosimulations-featured>
+                  </ng-container>
+                  <ng-container id="description">
+                    Introducing BioSimulations, a versatile and comprehensive platform, designed to enable the exchange,
+                    utilization, and visualization of biomodels, simulations and their results. Our platform accommodates
+                    a broad spectrum of frameworks, including but not limited to logical, Flux-Balance Analysis (FBA),
+                    continuous kinetic and discrete kinetic. We are adept at handling a multitude of simulation algorithms
+                    such as FBA and SSA, along with a variety of model formats including SBML. Additionally, BioSimulations
+                    is fully compatible with eminent tools like COBRApy, COPASI, and Tellurium, reinforcing our commitment
+                    to offer a holistic, free platform for your needs.
+                  </ng-container>
+                </biosimulations-home-teaser>
+              </mat-card-content>
+            </mat-card>
+          </div>
+
+          <!-- Start Mobile Footer Card -->
+          <div class="mobile-footer-container">
+            <mat-card class="footer-items-card about">
+              <mat-card-content>
+                <mat-list>
+                  <biosimulations-home-section>
+                    <biosimulations-home-subsection id="subsection" heading="Our Site">
+                      <mat-list-item>
+                        <button mat-button class="footer-item-button biosimdb" onclick="parent.location=['/projects']">
+                          <span class="footer-item-button-text biosimdb our-site" target="_blank">
+                            <biosimulations-icon icon="browse"></biosimulations-icon>
+                            BioSimDB
+                          </span>
+                        </button>
+                      </mat-list-item>
+                      <mat-list-item>
+                        <button mat-button class="footer-item-button runsim" (click)="navigateToMobileLink(config.dispatchAppRunsNewUrl)">
+                          <span class="footer-item-button-text runsim our-site" target="_blank">
+                            <biosimulations-icon icon="experiment"></biosimulations-icon>
+                            Run a Simulation
+                          </span>
+                        </button>
+                      </mat-list-item>
+                      <mat-list-item>
+                        <button mat-button class="footer-item-button learn" (click)="navigateToMobileLink('https://docs.biosimulations.org/users/')">
+                          <span class="footer-item-button-text learn our-site" target="_blank">
+                            <biosimulations-icon icon="idea"></biosimulations-icon>
+                            Learn
+                          </span>
+                        </button>
+                      </mat-list-item>
+                      <mat-list-item>
+                        <button mat-button class="footer-item-button biosimulators" (click)="navigateToMobileLink(config.simulatorsAppBrowseSimulatorsUrl)">
+                          <span class="footer-item-button-text biosimulators our-site" target="_blank">
+                            <biosimulations-icon icon="simulators"></biosimulations-icon>
+                            BioSimulators
+                          </span>
+                        </button>
+                      </mat-list-item>
+                    </biosimulations-home-subsection>
+                    <biosimulations-home-subsection
+                      id="subsection"
+                      heading="More Information">
+                      <mat-list-item>
+                        <button mat-button class="footer-item-button about" (click)="navigateToMobileLink('https://docs.biosimulations.org/')">
+                          <span class="footer-item-button-text about more-information" target="_blank">
+                            <biosimulations-icon icon="help"></biosimulations-icon>
+                            About
+                          </span>
+                        </button>
+                      </mat-list-item>
+                      <mat-list-item>
+                        <button mat-button class="footer-item-button terms" (click)="navigateToMobileLink('https://docs.biosimulations.org/about/terms/')">
+                          <span class="footer-item-button-text terms more-information" target="_blank">
+                            <biosimulations-icon icon="license"></biosimulations-icon>
+                            Terms of Service
+                          </span>
+                        </button>
+                      </mat-list-item>
+                      <mat-list-item>
+                        <button mat-button class="footer-item-button privacy" (click)="navigateToMobileLink('https://docs.biosimulations.org/about/privacy/')">
+                          <span class="footer-item-button-text privacy more-information" target="_blank">
+                            <biosimulations-icon icon="policy"></biosimulations-icon>
+                            Privacy Policy
+                          </span>
+                        </button>
+                      </mat-list-item>
+                      <mat-list-item>
+                        <button mat-button class="footer-item-button status" (click)="navigateToMobileLink('https://status.biosimulations.org/')">
+                          <span class="footer-item-button-text status more-information" target="_blank">
+                            <biosimulations-icon icon="bug"></biosimulations-icon>
+                            Status
+                          </span>
+                        </button>
+                      </mat-list-item>
+                      <mat-list-item>
+                        <button mat-button class="footer-item-button vivarium" (click)="navigateToMobileLink('https://vivarium-collective.github.io/')">
+                          <span class="footer-item-button-text vivarium more-information" target="_blank">
+                            @Vivarium
+                          </span>
+                        </button>
+                      </mat-list-item>
+                    </biosimulations-home-subsection>
+                  </biosimulations-home-section>
+                </mat-list>
+              </mat-card-content>
+            </mat-card>
+          </div>
+          <!-- End Mobile Footer Card -->
+
       </mat-card>
     </div>
   </ng-template>

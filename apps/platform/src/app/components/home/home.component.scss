@@ -3,7 +3,8 @@
   width: auto;
 
   @media (max-width: 768px) {
-    width: fit-content;
+    height: 100%;
+    width: 100%;
   }
 }
 
@@ -31,10 +32,26 @@
   }
 }
 
-.featured-card-mobile-container {
+.mobile-parent-container {
   width: 100%;
-  //margin-right: 2rem;
+  height: 100%;
 }
 
-.featured-card-mobile {
+.subsection-mobile {
+  justify-content: center;
+}
+
+.footer-item-button {
+  border: 1px solid #2196f3;
+  background-color: #ff9800;
+}
+
+.footer-item-button-text {
+  .our-site {
+    color: rgb(0, 81, 0);
+  }
+
+  .more-information {
+    color: #186fb7;
+  }
 }

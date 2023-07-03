@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, HostListener, ElementRef, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, HostListener } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { FeaturedService } from './featured.service';
 import { FeaturedProject } from './featured.model';
@@ -17,7 +17,6 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   providers: [FeaturedService],
 })
 export class FeaturedComponent implements OnInit {
-  @ViewChild('mobileCarousel') public carouselRef!: ElementRef;
   @Input() public autoScrollInterval = 9000;
   public showNew = false;
   public projects: FeaturedProject[];
@@ -42,8 +41,8 @@ export class FeaturedComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.startAutoScroll();
     this.checkClientScreen();
+    this.startAutoScroll();
   }
 
   public async previous(): Promise<void> {
@@ -139,18 +138,12 @@ export class FeaturedComponent implements OnInit {
   private checkClientScreen(): void {
     this.breakpointObserver.observe(Breakpoints.Handset || Breakpoints.TabletLandscape).subscribe((result) => {
       if (result.matches) {
-        this.stopAutoScroll();
-        this.toggleMobileOn();
-        console.log(this.isMobile);
+        this.toggleMobile();
       }
     });
   }
 
-  private toggleMobileOn(): void {
-    this.isMobile = true;
-  }
-
-  private toggleMobileOff(): void {
-    this.isMobile = false;
+  private toggleMobile(): void {
+    this.isMobile = !this.isMobile;
   }
 }

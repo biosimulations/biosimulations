@@ -15,6 +15,8 @@ type MobileView = {
 })
 export class HomeComponent implements OnInit {
   public isMobile = false;
+  public mobileLinkTarget = '_blank';
+  public mobileLink?: string;
 
   public constructor(public config: ConfigService, private observer: BreakpointObserver) {
     /* Constructor is empty */
@@ -38,5 +40,10 @@ export class HomeComponent implements OnInit {
       display: d,
     };
     return view;
+  }
+
+  public navigateToMobileLink(mobileLink: string): void {
+    //window.location.href = mobileLink;
+    window.open(mobileLink, this.mobileLinkTarget);
   }
 }

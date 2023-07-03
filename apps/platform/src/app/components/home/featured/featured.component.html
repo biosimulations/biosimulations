@@ -1,12 +1,10 @@
 <div class="container">
-
   <!-- Case: Start Not Mobile -->
   <div *ngIf="!isMobile; else mobileView" fxLayout="row" fxLayoutAlign="space-between center">
     <!-- Left Button -->
     <button class="nav-button left" fxFlexAlign="center" (click)="previous()" mat-fab>
       <mat-icon>keyboard_arrow_left</mat-icon>
     </button>
-
     <ng-container *ngFor="let project of projects; let i = index">
       <mat-card
         [@slideInOut]="'in'"
@@ -75,17 +73,28 @@
 
   <!-- Case: Start Mobile View -->
   <ng-template #mobileView>
-    <!-- Start feature card handling -->
     <ng-container *ngFor="let project of projects; let i = index">
-      <!-- Start Parent of Feature Card Regular Viewport Size -->
+      <mat-card
+        [@slideInOut]="'in'"
+        class="feature-card mobile"
+        *ngIf="i >= startIndex && i <= endIndex"
+        [fxFlex]="70 / numCards"
+        style="background-color: #ff9800">
         <a [href]="project.routingLink" target="_blank" class="description-teaser-container mobile">
-          <button mat-flat-button class="description-teaser-content mobile">
-            <span class="mobile-button-content">
-              {{ project.mobileTitle || project.title }}
+          <mat-card-header class="mobile-heading-container">
+            <button mat-flat-button class="description-teaser-content mobile">
+              <span class="mobile-button-content">
+                {{ project.mobileTitle || project.title }}
+              </span>
+            </button>
+          </mat-card-header>
+          <mat-card-content class="mobile-description-container">
+            <span class="mobile-description">
+              {{ project.descriptionTeaser }}
             </span>
-            <!--<biosimulations-icon icon="link" style="padding-left: 1rem"></biosimulations-icon>-->
-          </button>
+          </mat-card-content>
         </a>
+      </mat-card>
     </ng-container>
   </ng-template>
   <!-- End Mobile View -->
