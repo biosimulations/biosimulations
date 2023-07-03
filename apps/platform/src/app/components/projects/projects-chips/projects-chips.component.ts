@@ -56,6 +56,7 @@ export class ProjectsChipsComponent implements AfterViewInit {
     return filterChoiceOptions;
   }
 
+  /* unused method
   private getFilterChoiceOption(filterStatItem: ProjectFilterStatsItem): FilterChoiceOption[] {
     const filterChoiceOptions: FilterChoiceOption[] = [];
     const target = filterStatItem.target;
@@ -64,6 +65,7 @@ export class ProjectsChipsComponent implements AfterViewInit {
     }
     return filterChoiceOptions;
   }
+  */
 
   public add(event: MatChipInputEvent): void {
     console.log('add(event=' + event + ') does nothing now');
