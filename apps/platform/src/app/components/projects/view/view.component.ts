@@ -1,4 +1,5 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { trigger, transition, style, animate } from '@angular/animations';
@@ -21,6 +22,8 @@ import { Dataset, WithContext } from 'schema-dts';
 import { BiosimulationsError } from '@biosimulations/shared/error-handler';
 import { ProjectSummary } from '@biosimulations/datamodel/common';
 
+type CombinedObservables = [ProjectMetadata | null, SimulationRunMetadata, File[], Path[], File[], VisualizationList[]];
+
 @Component({
   selector: 'biosimulations-view',
   templateUrl: './view.component.html',
@@ -36,30 +39,32 @@ import { ProjectSummary } from '@biosimulations/datamodel/common';
   ],
 })
 export class ViewComponent implements OnInit {
-  public loaded$!: Observable<boolean>;
+  @Input() public featureComingSoonMessage = 'Stay tuned! This exciting new feature is currently under development :)';
+  public selectedTabIndex = 0;
 
-  private id!: string;
+  public loaded$!: Observable<boolean>;
   public projectMetadata$!: Observable<ProjectMetadata | null>;
   public simulationRun$!: Observable<SimulationRunMetadata>;
-
   public projectFiles$!: Observable<File[]>;
   public files$!: Observable<Path[]>;
   public outputs$!: Observable<File[]>;
   public projectSummary$!: Observable<ProjectSummary>;
-
   public visualizations$!: Observable<VisualizationList[]>;
   public plotVisualizations$!: Observable<Visualization[]>;
 
-  jsonLdData$!: Observable<WithContext<Dataset>>;
-
-  cards: any[] = [];
-  draggedIndex = -1;
+  public themeColor = 'accent';
+  public jsonLdData$!: Observable<WithContext<Dataset>>;
+  public cards: any[] = [];
+  public draggedIndex = -1;
+  public panelExpandedStatus: { [key: string]: boolean } = {};
+  private id!: string;
 
   public constructor(
     private service: ViewService,
     private projService: ProjectService,
     private route: ActivatedRoute,
     private router: Router,
+    private snackBar: MatSnackBar,
   ) {}
 
   public ngOnInit(): void {
@@ -135,14 +140,15 @@ export class ViewComponent implements OnInit {
       this.outputs$,
       this.visualizations$,
     ]).pipe(
-      map((observables: (any | undefined)[]): boolean => {
+      map((observables: CombinedObservables): boolean => {
         return (
-          observables.filter((observable: any | undefined): boolean => {
+          observables.filter((observable: CombinedObservables[number] | undefined): boolean => {
             return observable === undefined;
           }).length === 0
         );
       }),
     );
+    this.handleExpansionPanels();
   }
 
   public getPlotVisualizations(visLists: VisualizationList[]): Visualization[] {
@@ -158,14 +164,32 @@ export class ViewComponent implements OnInit {
     return visualizations;
   }
 
-  drop(event: CdkDragDrop<any[]>): void {
+  public drop(event: CdkDragDrop<number[]>): void {
     moveItemInArray(this.cards, event.previousIndex, event.currentIndex);
   }
-}
 
-@Injectable()
-export class VizService extends ViewComponent {
-  public constructor(service: ViewService, projService: ProjectService, route: ActivatedRoute, router: Router) {
-    super(service, projService, route, router);
+  private setupSnackbarConfig(cssClass: string[], data: null, dur: number): MatSnackBarConfig {
+    const config = new MatSnackBarConfig();
+    config.panelClass = cssClass;
+    config.duration = dur;
+    config.verticalPosition = 'top';
+    config.data = data;
+    return config;
+  }
+
+  public promptReRun(data = null, confirmActionMessage = 'Close', duration = 6000): void {
+    const snackbarConfig = this.setupSnackbarConfig(['coming-soon-snackbar'], data, duration);
+    this.snackBar.open(this.featureComingSoonMessage, confirmActionMessage, snackbarConfig);
+  }
+
+  private handleExpansionPanels(): void {
+    this.projectMetadata$.subscribe((metadata) => {
+      if (metadata) {
+        const headingsToExpand = ['modelSimulation', 'provenance'];
+        headingsToExpand.forEach((heading) => {
+          this.panelExpandedStatus[heading] = true;
+        });
+      }
+    });
   }
 }

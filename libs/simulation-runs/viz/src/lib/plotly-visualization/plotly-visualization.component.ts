@@ -1,4 +1,13 @@
-import { Component, Input, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  Input,
+  ElementRef,
+  AfterViewInit,
+  OnDestroy,
+  OnChanges,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { PlotlyTrace, PlotlyLayout, PlotlyDataLayout } from '@biosimulations/datamodel/common';
 import { debounce } from 'throttle-debounce';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -25,10 +34,21 @@ type TickfontLayout = {
   color: string;
 };
 
+type RangeSliderLayout = {
+  autorange: boolean;
+  bordercolor: string;
+  borderwidth: number;
+  thickness: number;
+};
+
 type AxisLayout = {
-  size: number;
-  color: string;
   tickfont: TickfontLayout;
+  font: {
+    family: string;
+    size: number;
+    color: string;
+  };
+  rangeslider?: RangeSliderLayout | null;
 };
 
 @Component({
@@ -36,16 +56,13 @@ type AxisLayout = {
   templateUrl: './plotly-visualization.component.html',
   styleUrls: ['./plotly-visualization.component.scss'],
 })
-export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
-  @Input()
-  public plotTitle = '';
-
-  @Input()
-  public projectTitle = '';
-
-  @Input()
-  public plotNum?: number;
-
+export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy, OnChanges {
+  @ViewChild('plotly') public plotlyComponent!: this;
+  @Input() public plotTitle = '';
+  @Input() public projectTitle = '';
+  @Input() public plotNum?: number;
+  @Input() public customizedAxis = false;
+  @Input() public sliderEnabled = false;
   public visible = false;
   public loading = false;
   public data: PlotlyTrace[] | undefined = undefined;
@@ -82,10 +99,6 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
       const plotSaveName = this.projectTitle + '_' + this.plotTitle;
       this.config.toImageButtonOptions.filename = plotSaveName;
       this.errors = [];
-      for (let i = 0; i <= value.data.length; i++) {
-        const d = this.getOutputArray(value, i);
-        console.log(i, d);
-      }
       this.setLayout();
 
       if (value?.dataErrors?.length) {
@@ -111,12 +124,20 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
     this.resizeDebounce = debounce(50, false, this.setLayout.bind(this));
   }
 
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (changes.sliderEnabled) {
+      if (this.layout && this.layout.xaxis && this.layout.xaxis.rangeslider) {
+        this.layout.xaxis.rangeslider.autorange = this.sliderEnabled;
+      }
+    }
+  }
+
   public handleResize(resize: ResizeObserverEntry): void {
     console.log('onResize', resize);
     this.resizeDebounce();
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.resizeDebounce?.cancel();
   }
 
@@ -124,8 +145,14 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
     return value.data[i];
   }
 
+  public toggleRangeSlider(): void {
+    if (this.layout && this.layout.xaxis && this.layout.xaxis.rangeslider) {
+      this.layout.xaxis.rangeslider.autorange = !this.layout.xaxis.rangeslider.autorange;
+    }
+  }
+
   private setLegendLayout(
-    x = 0.0,
+    x = 4.5,
     y = 1.5,
     orientation = 'v',
     traceorder = 'normal',
@@ -155,25 +182,53 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
     return layout;
   }
 
-  private setAxisLayout(fontSize = 18, fontColor = '#7f7f7f', tickFontSize = 14, tickFontColor = 'black'): AxisLayout {
-    const layout: AxisLayout = {
-      size: fontSize,
-      color: fontColor,
+  private setRangeSliderLayout(
+    autoRange = true,
+    borderColor = '#ff7b00',
+    borderWidth = 1,
+    height = 0.15,
+  ): RangeSliderLayout {
+    const layout: RangeSliderLayout = {
+      autorange: autoRange,
+      bordercolor: borderColor,
+      borderwidth: borderWidth,
+      thickness: height,
+    };
+    return layout;
+  }
+
+  private setAxisLayout(
+    fontSize = 18,
+    fontColor = '#7f7f7f',
+    tickFontSize = 14,
+    tickFontColor = 'black',
+    fontFamily = 'Roboto, sans-serif',
+  ): AxisLayout {
+    const axisLayout: AxisLayout = {
       tickfont: {
         size: tickFontSize,
         color: tickFontColor,
       },
+      font: {
+        family: fontFamily,
+        size: fontSize,
+        color: fontColor,
+      },
     };
-    return layout;
+    if (this.sliderEnabled) {
+      axisLayout.rangeslider = this.setRangeSliderLayout();
+    }
+    return axisLayout;
   }
 
   private setLayout(): void {
     this.visible = this.hostElement.nativeElement.offsetParent != null;
     if (this.visible && this.layout) {
-      //this.layout.autosize = true;
+      this.layout.autosize = true;
       this.layout.legend = this.setLegendLayout();
-      //this.layout.xaxis = this.setAxisLayout();
-      //this.layout.yaxis = this.setAxisLayout();
+      if (this.customizedAxis) {
+        this.layout.xaxis = this.setAxisLayout();
+      }
     }
   }
 }

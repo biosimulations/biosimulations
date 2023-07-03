@@ -7,6 +7,7 @@ import { PlotlyViaCDNModule } from 'angular-plotly.js';
 import { PlotlyVisualizationComponent } from './plotly-visualization/plotly-visualization.component';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { NgxResizeObserverModule } from 'ngx-resize-observer';
+import { MatRadioModule } from '@angular/material/radio';
 
 PlotlyViaCDNModule.setPlotlyVersion('2.11.1'); // can be `latest` or any version number (i.e.: '1.40.0')
 PlotlyViaCDNModule.setPlotlyBundle('basic'); // optional: can be null (for full) or
@@ -14,6 +15,7 @@ PlotlyViaCDNModule.setPlotlyBundle('basic'); // optional: can be null (for full)
 
 @NgModule({
   imports: [
+    MatRadioModule,
     CommonModule,
     RouterModule,
     SharedUiModule,

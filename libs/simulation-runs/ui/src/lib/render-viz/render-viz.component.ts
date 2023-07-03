@@ -7,17 +7,13 @@ import { Visualization } from '@biosimulations/datamodel-simulation-runs';
   styleUrls: ['./render-viz.component.scss'],
 })
 export class RenderVisualizationComponent {
-  @Input()
-  plotTitle!: any;
+  @Input() public plotTitle!: string;
+  @Input() public projectTitle!: string;
+  @Input() public visualization!: Visualization;
+  @Input() public name?: string;
+  @Input() public customAxis?: boolean | any;
 
-  @Input()
-  projectTitle!: any;
-
-  @Input()
-  visualization!: Visualization;
-
-  @Input()
-  name?: string;
-
-  public constructor() {}
+  public constructor() {
+    /* constructor is empty */
+  }
 }

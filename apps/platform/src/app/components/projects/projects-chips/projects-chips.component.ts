@@ -67,17 +67,6 @@ export class ProjectsChipsComponent implements AfterViewInit {
 
   public add(event: MatChipInputEvent): void {
     console.log('add(event=' + event + ') does nothing now');
-    // const value = (event.value || "").trim();
-    //
-    // // Add our fruit
-    // if (value) {
-    //   this.filters.push(value);
-    // }
-    //
-    // // Clear the input value
-    // event.chipInput.clear();
-    //
-    // this.filterCtrl.setValue(null);
   }
 
   public remove(filter: ProjectFilterQueryItem): void {
@@ -85,8 +74,7 @@ export class ProjectsChipsComponent implements AfterViewInit {
     this.onRemoveTarget(filter.target);
   }
 
-  selected(event: MatAutocompleteSelectedEvent): void {
-    console.log('selected(event=' + event + ')');
+  public selected(event: MatAutocompleteSelectedEvent): void {
     this.filterInput.nativeElement.value = '';
     this.filterCtrl.setValue(null);
     const tokens: string[] = event.option.viewValue.split(':');
@@ -113,7 +101,6 @@ export class ProjectsChipsComponent implements AfterViewInit {
   }
 
   public onRemoveTarget(target: ProjectFilterTarget): void {
-    console.log(`onRemoveTarget() target=${target}`);
     const deleted: boolean = this.filterQueryItemMap.delete(target);
     if (deleted) {
       this.filterQueries$.emit(Array.from(this.filterQueryItemMap.values()));
@@ -121,7 +108,6 @@ export class ProjectsChipsComponent implements AfterViewInit {
   }
 
   public onSelectedChange(selected: boolean, target: ProjectFilterTarget, value: string): void {
-    console.log(`onSelectionChange() selected=${selected}, target=${target}, value=${value}`);
     const prev_allowable_set: Set<string> = new Set<string>();
     this.filterQueryItemMap.get(target)?.allowable_values.forEach((value) => prev_allowable_set.add(value));
     const new_allowable_set: Set<string> = new Set<string>([...prev_allowable_set]);

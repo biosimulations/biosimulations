@@ -10,6 +10,12 @@
 .container {
   padding-top: 4rem;
   padding-bottom: 4rem;
+
+  @media (max-width: 768px) {
+    padding-top: 0rem;
+    padding-bottom: 0rem;
+    overflow: hidden;
+  }
 }
 
 .heading {
@@ -20,13 +26,19 @@
 }
 
 .heading-separator {
-  border-bottom: 2px solid mat.get-color-from-palette($theme-primary);
+  border-bottom: 2px solid rgb(0, 81, 0); //mat.get-color-from-palette($theme-primary);
   height: 0;
   width: 4rem;
   margin-top: 2rem;
   margin-bottom: 2rem;
   margin-left: auto;
   margin-right: auto;
+
+  @media (max-width: 768px) {
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+    width: 50%;
+  }
 }
 
 .subsections {
