@@ -160,3 +160,22 @@ img {
   //margin: 10px;
   //justify-content: center;
 }
+
+#portal-teaser {
+  color: var(--tertiary-darker-color);
+  font-weight: bold;
+  font-size: larger;
+
+  strong {
+    color: var(--quaternary-darker-color);
+  }
+
+  &:hover {
+    transition: color 0.5s ease-in-out;
+    color: var(--accent-darker-color);
+
+    strong {
+      color: var(--primary-darker-color);
+    }
+  }
+}
