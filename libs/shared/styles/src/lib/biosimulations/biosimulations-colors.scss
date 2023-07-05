@@ -192,10 +192,10 @@ $mat-accent: (
 );
 $theme-accent: mat.define-palette($mat-accent, main, lighter, darker);
 
-$theme-tertiary-main: #38cc00;
-$theme-tertiary-lighter: #9bff75; // 55%
-$theme-tertiary-lightest: #ddffd1; // 80%
-$theme-tertiary-darker: #35c100; // 5%
+$theme-tertiary-main: #4caf50;
+$theme-tertiary-lighter: #80e27e; // 30% lighter
+$theme-tertiary-lightest: #c8e6c9; // 60% lighter
+$theme-tertiary-darker: #388e3c; // 15% darker
 
 body {
   --tertiary-color: #{$theme-tertiary-main};
