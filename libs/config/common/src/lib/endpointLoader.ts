@@ -84,7 +84,7 @@ export class EndpointLoader {
 
         endpointsTemplate.simulatorsApp = dynamicEndpoints?.simulatorsApp || 'https://biosimulators.dev';
 
-        endpointsTemplate.dispatchApp = dynamicEndpoints?.dispatchApp || 'https://run.biosimulations.dev';
+        endpointsTemplate.dispatchApp = dynamicEndpoints?.dispatchApp || this.handleRunEndpoint();
 
         endpointsTemplate.platformApp = dynamicEndpoints?.platformApp || 'https://biosimulations.dev';
 
@@ -183,5 +183,9 @@ export class EndpointLoader {
       };
     }
     return dynamicEndpoints;
+  }
+
+  private handleRunEndpoint(endpointRoot = 'https://run.biosimulations'): string {
+    return endpointRoot + (this.useDevRuns ? this.endpointPointers.dev : this.endpointPointers.prod);
   }
 }
