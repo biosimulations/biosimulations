@@ -1,5 +1,22 @@
 # Changelog
 
+## [9.39.0](https://github.com/biosimulations/biosimulations/compare/v9.38.0...v9.39.0) (2023-07-06)
+
+
+### Bug Fixes
+
+* added const for toggling prod and dev in routing spec ([59568af](https://github.com/biosimulations/biosimulations/commit/59568af81e82a66ef3decdd12d3a2e83efe3fa24))
+* added endpoint handler method for toggling the use of prod dispatch ([541d69d](https://github.com/biosimulations/biosimulations/commit/541d69df38a163900d58de17c43afc9a88a6acf2))
+* added flag to dropdown menu item background in css declaration ([6878f74](https://github.com/biosimulations/biosimulations/commit/6878f7433f1c9d6084f8ed7ca5c37703f9514261))
+* implemented variable to app routes spec to point correctly ([2aacddb](https://github.com/biosimulations/biosimulations/commit/2aacddb1428c108917f539a129a4db27d235ea5d))
+* merge pull request [#4723](https://github.com/biosimulations/biosimulations/issues/4723) from biosimulations/dispatch-fix-layouts ([1789039](https://github.com/biosimulations/biosimulations/commit/178903976142c4c8e3ea5f10e696608ff54656d7))
+
+
+### Features
+
+* added generic handling methods for iterating over services ([490ee99](https://github.com/biosimulations/biosimulations/commit/490ee9979ffa57a5b6860f9e06091a50f90e942e))
+* added reprod portal endpoint teaser text to featured component ([8dcb247](https://github.com/biosimulations/biosimulations/commit/8dcb2470c12fa63e9f4a3d64bc82127723f7ee29))
+
 ## [9.38.0](https://github.com/biosimulations/biosimulations/compare/v9.37.0...v9.38.0) (2023-07-03)
 
 
