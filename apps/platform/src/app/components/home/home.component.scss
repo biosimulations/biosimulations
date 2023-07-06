@@ -55,3 +55,19 @@
     color: #186fb7;
   }
 }
+
+.about-biosimulations:hover {
+  transition: color 0.5s ease;
+}
+
+#about {
+  color: #951ed9;
+}
+
+#bio {
+  color: var(--primary-color);
+}
+
+#simulations {
+  color: var(--accent-color);
+}
