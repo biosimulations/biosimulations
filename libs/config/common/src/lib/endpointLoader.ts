@@ -18,6 +18,12 @@ export type DynamicEndpoints = { [key in Endpoint]: string | undefined };
 export type LoadedEndpoints = { [key in Endpoint]: string };
 
 export class EndpointLoader {
+  public useDevRuns = false;
+  private endpointPointers = {
+    prod: '.org',
+    dev: '.dev',
+    localHostPort: '3333',
+  };
   private env: envs;
 
   public constructor(env: envs) {
