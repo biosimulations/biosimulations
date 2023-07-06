@@ -185,7 +185,11 @@ export class EndpointLoader {
     return dynamicEndpoints;
   }
 
+  private handleEndpoint(root: string, condition: boolean): string {
+    return root + (condition ? this.endpointPointers.dev : this.endpointPointers.prod);
+  }
+
   private handleRunEndpoint(endpointRoot = 'https://run.biosimulations'): string {
-    return endpointRoot + (this.useDevRuns ? this.endpointPointers.dev : this.endpointPointers.prod);
+    return this.handleEndpoint(endpointRoot, this.useDevRuns);
   }
 }
