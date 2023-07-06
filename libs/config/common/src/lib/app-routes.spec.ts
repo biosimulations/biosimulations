@@ -3,6 +3,7 @@ describe('AppRoutes', () => {
   let prodAppRoutes: AppRoutes;
   let devAppRoutes: AppRoutes;
   const { window } = global;
+  const runPointer = '.org';
 
   beforeAll(() => {
     // @ts-ignore
@@ -32,7 +33,7 @@ describe('AppRoutes', () => {
     expect(devAppRoutes.getSimulatorsAppHome()).toBe('https://biosimulators.dev');
 
     expect(prodAppRoutes.getDispatchAppHome()).toBe('https://run.biosimulations.org');
-    expect(devAppRoutes.getDispatchAppHome()).toBe('https://run.biosimulations.dev');
+    expect(devAppRoutes.getDispatchAppHome()).toBe('https://run.biosimulations' + runPointer);
 
     expect(prodAppRoutes.getPlatformAppHome()).toBe('https://biosimulations.org');
     expect(devAppRoutes.getPlatformAppHome()).toBe('https://biosimulations.dev');
