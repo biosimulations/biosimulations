@@ -15,7 +15,6 @@
         [style.background-image]="'url(' + project.image + ')'"
         (mouseenter)="showNewElement()"
         (mouseleave)="hideNewElement()">
-
         <mat-card-header [style.background-color]="project.headerColor" style="color: white">
           <mat-card-title>
             {{ project.title }}
@@ -23,10 +22,17 @@
         </mat-card-header>
 
         <div class="description-teaser-container-parent">
-          <mat-card-footer class="description-teaser-container" [style.background-color]="project.headerColor" align="end">
+          <mat-card-footer
+            class="description-teaser-container"
+            [style.background-color]="project.headerColor"
+            align="end">
             <!-- Case: Using internal routing -->
             <div *ngIf="project.useInternalRouting; else useExternalRouting">
-              <a class="click-image-eventspace internal" target="_blank" [routerLink]="project.routingLink" style="font-family: Roboto, sans-serif">
+              <a
+                class="click-image-eventspace internal"
+                target="_blank"
+                [routerLink]="project.routingLink"
+                style="font-family: Roboto, sans-serif">
                 <button class="description-teaser-content text-header" mat-button style="color: white">
                   {{ project.descriptionTeaser }}
                 </button>
@@ -34,7 +40,11 @@
             </div>
             <!-- Case: Using external routing -->
             <ng-template #useExternalRouting>
-              <a class="click-image-eventspace external" target="_blank" [href]="project.routingLink" style="font-family: Roboto, sans-serif">
+              <a
+                class="click-image-eventspace external"
+                target="_blank"
+                [href]="project.routingLink"
+                style="font-family: Roboto, sans-serif">
                 <button class="description-teaser-content text-header" mat-button style="color: white">
                   {{ project.descriptionTeaser }}
                 </button>
@@ -44,7 +54,10 @@
         </div>
         <!-- Case: User Hovers over the featured card and a verbose description is displayed -->
         <div id="new-element" class="verbose-description-card-container" [hidden]="!showNew">
-          <div class="verbose-description-card-content" [style.background-color]="project.headerColor" [style.color]="project.textColor">
+          <div
+            class="verbose-description-card-content"
+            [style.background-color]="project.headerColor"
+            [style.color]="project.textColor">
             <mat-card-content>
               {{ project.descriptionVerbose }}
             </mat-card-content>

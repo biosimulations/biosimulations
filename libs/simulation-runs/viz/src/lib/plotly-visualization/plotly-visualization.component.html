@@ -12,18 +12,17 @@
     </mat-radio-group>
   </ng-container>
   <plotly-plot
-  #plotly
-  *ngIf="!loading && errors.length === 0"
-  fxFlex
-  class="plotly-visualization"
-  [data]="data"
-  [layout]="layout"
-  [config]="config"
-  [useResizeHandler]="visible"
-  (onResize)="handleResize($event)"
-  (sliderEnabled)="true"></plotly-plot>
+    #plotly
+    *ngIf="!loading && errors.length === 0"
+    fxFlex
+    class="plotly-visualization"
+    [data]="data"
+    [layout]="layout"
+    [config]="config"
+    [useResizeHandler]="visible"
+    (onResize)="handleResize($event)"
+    (sliderEnabled)="(true)"></plotly-plot>
 </div>
-
 
 <div *ngIf="loading" class="centered-full-width-height">
   <biosimulations-spinner></biosimulations-spinner>
