@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 
 @Component({
   selector: 'biosimulations-home-teaser',
@@ -6,6 +7,7 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./home-teaser.component.scss'],
 })
 export class HomeTeaserComponent {
-  @Input()
-  heading = '';
+  @Input() public heading = '';
+  public portalUrl = 'https://reproducibilityportal.org';
+  public tipIcon?: BiosimulationsIcon;
 }

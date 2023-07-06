@@ -18,6 +18,12 @@ export type DynamicEndpoints = { [key in Endpoint]: string | undefined };
 export type LoadedEndpoints = { [key in Endpoint]: string };
 
 export class EndpointLoader {
+  public useDevRuns = false;
+  private endpointPointers = {
+    prod: '.org',
+    dev: '.dev',
+    localHostPort: '3333',
+  };
   private env: envs;
 
   public constructor(env: envs) {
@@ -78,7 +84,7 @@ export class EndpointLoader {
 
         endpointsTemplate.simulatorsApp = dynamicEndpoints?.simulatorsApp || 'https://biosimulators.dev';
 
-        endpointsTemplate.dispatchApp = dynamicEndpoints?.dispatchApp || 'https://run.biosimulations.dev';
+        endpointsTemplate.dispatchApp = dynamicEndpoints?.dispatchApp || this.handleRunEndpoint();
 
         endpointsTemplate.platformApp = dynamicEndpoints?.platformApp || 'https://biosimulations.dev';
 
@@ -177,5 +183,13 @@ export class EndpointLoader {
       };
     }
     return dynamicEndpoints;
+  }
+
+  private handleEndpoint(root: string, condition: boolean): string {
+    return root + (condition ? this.endpointPointers.dev : this.endpointPointers.prod);
+  }
+
+  private handleRunEndpoint(endpointRoot = 'https://run.biosimulations'): string {
+    return this.handleEndpoint(endpointRoot, this.useDevRuns);
   }
 }

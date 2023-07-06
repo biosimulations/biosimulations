@@ -139,7 +139,7 @@
               <mat-card class="details-card">
                 <mat-card-content>
                   <!-- Start Details Display -->
-                  <div *ngIf="projectSummary$" fxGrid>
+                  <div *ngIf="projectMetadata$" fxGrid>
                     <!-- Biology, simulation, provenance, & identifiers information -->
                     <div
                       *ngIf="
@@ -203,7 +203,7 @@
                                     *ngIf="item.url; else noHref">
                                     {{ item.value }}
                                   </a>
-                                  <ng-template #noHref>{{ item.value }}</ng-template>
+                                  <ng-template #noHref>{{ item.value }} </ng-template>
                                 </td>
                               </tr>
                             </table>

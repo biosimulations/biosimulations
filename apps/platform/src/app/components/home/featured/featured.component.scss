@@ -30,7 +30,7 @@
   width: 10px;
   border-radius: 50%;
   display: inline-block;
-  background-color: rgb(255, 214, 132);
+  background-color: var(--accent-lighter-color);
   margin: 0 5px;
   cursor: pointer;
   transition-property: all;
@@ -38,7 +38,7 @@
   transition-timing-function: ease-in;
 
   &.active {
-    background-color: #087008;
+    background-color: var(--tertiary-color);
   }
 }
 
