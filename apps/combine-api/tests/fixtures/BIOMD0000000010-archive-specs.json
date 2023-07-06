@@ -1,0 +1,362 @@
+{
+  "_type": "CombineArchive",
+  "contents": [
+    {
+      "_type": "CombineArchiveContent",
+      "format": "http://identifiers.org/combine.specifications/sbml",
+      "master": false,
+      "location": {
+        "_type": "CombineArchiveLocation",
+        "path": "model.xml",
+        "value": {
+          "_type": "CombineArchiveContentFile",
+          "filename": "BIOMD0000000010_url.xml"
+        }
+      }
+    },
+    {
+      "_type": "CombineArchiveContent",
+      "format": "http://identifiers.org/combine.specifications/sed-ml",
+      "master": true,
+      "location": {
+        "_type": "CombineArchiveLocation",
+        "path": "simulation.sedml",
+        "value": {
+          "_type": "SedDocument",
+          "level": 1,
+          "version": 3,
+          "styles": [],
+          "models": [
+            {
+              "_type": "SedModel",
+              "id": "model",
+              "language": "urn:sedml:language:sbml",
+              "source": "model.xml",
+              "changes": []
+            }
+          ],
+          "simulations": [
+            {
+              "_type": "SedUniformTimeCourseSimulation",
+              "id": "simulation",
+              "initialTime": 0,
+              "outputStartTime": 0,
+              "outputEndTime": 1,
+              "numberOfSteps": 10,
+              "algorithm": {
+                "_type": "SedAlgorithm",
+                "kisaoId": "KISAO_0000019",
+                "changes": []
+              }
+            }
+          ],
+          "tasks": [
+            {
+              "_type": "SedTask",
+              "id": "task",
+              "model": "model",
+              "simulation": "simulation"
+            }
+          ],
+          "dataGenerators": [
+            {
+              "_type": "SedDataGenerator",
+              "id": "data_generator_time",
+              "parameters": [],
+              "variables": [
+                {
+                  "_type": "SedVariable",
+                  "id": "variable_time",
+                  "task": "task",
+                  "name": "Time",
+                  "symbol": "urn:sedml:symbol:time"
+                }
+              ],
+              "math": "variable_time",
+              "name": "Time"
+            },
+            {
+              "_type": "SedDataGenerator",
+              "id": "data_generator_dynamics_species_MAPK",
+              "parameters": [],
+              "variables": [
+                {
+                  "_type": "SedVariable",
+                  "id": "variable_dynamics_species_MAPK",
+                  "task": "task",
+                  "name": "Dynamics of species \"Erk2\"",
+                  "target": {
+                    "_type": "SedTarget",
+                    "value": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='MAPK']",
+                    "namespaces": [
+                      {
+                        "_type": "Namespace",
+                        "uri": "http://www.sbml.org/sbml/level2/version4",
+                        "prefix": "sbml"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "math": "variable_dynamics_species_MAPK",
+              "name": "Dynamics of species \"Erk2\""
+            },
+            {
+              "_type": "SedDataGenerator",
+              "id": "data_generator_dynamics_species_MAPK_P",
+              "parameters": [],
+              "variables": [
+                {
+                  "_type": "SedVariable",
+                  "id": "variable_dynamics_species_MAPK_P",
+                  "task": "task",
+                  "name": "Dynamics of species \"Erk2-P\"",
+                  "target": {
+                    "_type": "SedTarget",
+                    "value": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='MAPK_P']",
+                    "namespaces": [
+                      {
+                        "_type": "Namespace",
+                        "uri": "http://www.sbml.org/sbml/level2/version4",
+                        "prefix": "sbml"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "math": "variable_dynamics_species_MAPK_P",
+              "name": "Dynamics of species \"Erk2-P\""
+            },
+            {
+              "_type": "SedDataGenerator",
+              "id": "data_generator_dynamics_species_MAPK_PP",
+              "parameters": [],
+              "variables": [
+                {
+                  "_type": "SedVariable",
+                  "id": "variable_dynamics_species_MAPK_PP",
+                  "task": "task",
+                  "name": "Dynamics of species \"Erk2-PP\"",
+                  "target": {
+                    "_type": "SedTarget",
+                    "value": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='MAPK_PP']",
+                    "namespaces": [
+                      {
+                        "_type": "Namespace",
+                        "uri": "http://www.sbml.org/sbml/level2/version4",
+                        "prefix": "sbml"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "math": "variable_dynamics_species_MAPK_PP",
+              "name": "Dynamics of species \"Erk2-PP\""
+            },
+            {
+              "_type": "SedDataGenerator",
+              "id": "data_generator_dynamics_species_MKK",
+              "parameters": [],
+              "variables": [
+                {
+                  "_type": "SedVariable",
+                  "id": "variable_dynamics_species_MKK",
+                  "task": "task",
+                  "name": "Dynamics of species \"Mek1\"",
+                  "target": {
+                    "_type": "SedTarget",
+                    "value": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='MKK']",
+                    "namespaces": [
+                      {
+                        "_type": "Namespace",
+                        "uri": "http://www.sbml.org/sbml/level2/version4",
+                        "prefix": "sbml"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "math": "variable_dynamics_species_MKK",
+              "name": "Dynamics of species \"Mek1\""
+            },
+            {
+              "_type": "SedDataGenerator",
+              "id": "data_generator_dynamics_species_MKK_P",
+              "parameters": [],
+              "variables": [
+                {
+                  "_type": "SedVariable",
+                  "id": "variable_dynamics_species_MKK_P",
+                  "task": "task",
+                  "name": "Dynamics of species \"Mek1-P\"",
+                  "target": {
+                    "_type": "SedTarget",
+                    "value": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='MKK_P']",
+                    "namespaces": [
+                      {
+                        "_type": "Namespace",
+                        "uri": "http://www.sbml.org/sbml/level2/version4",
+                        "prefix": "sbml"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "math": "variable_dynamics_species_MKK_P",
+              "name": "Dynamics of species \"Mek1-P\""
+            },
+            {
+              "_type": "SedDataGenerator",
+              "id": "data_generator_dynamics_species_MKK_PP",
+              "parameters": [],
+              "variables": [
+                {
+                  "_type": "SedVariable",
+                  "id": "variable_dynamics_species_MKK_PP",
+                  "task": "task",
+                  "name": "Dynamics of species \"Mek1-PP\"",
+                  "target": {
+                    "_type": "SedTarget",
+                    "value": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='MKK_PP']",
+                    "namespaces": [
+                      {
+                        "_type": "Namespace",
+                        "uri": "http://www.sbml.org/sbml/level2/version4",
+                        "prefix": "sbml"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "math": "variable_dynamics_species_MKK_PP",
+              "name": "Dynamics of species \"Mek1-PP\""
+            },
+            {
+              "_type": "SedDataGenerator",
+              "id": "data_generator_dynamics_species_MKKK",
+              "parameters": [],
+              "variables": [
+                {
+                  "_type": "SedVariable",
+                  "id": "variable_dynamics_species_MKKK",
+                  "task": "task",
+                  "name": "Dynamics of species \"Mos\"",
+                  "target": {
+                    "_type": "SedTarget",
+                    "value": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='MKKK']",
+                    "namespaces": [
+                      {
+                        "_type": "Namespace",
+                        "uri": "http://www.sbml.org/sbml/level2/version4",
+                        "prefix": "sbml"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "math": "variable_dynamics_species_MKKK",
+              "name": "Dynamics of species \"Mos\""
+            },
+            {
+              "_type": "SedDataGenerator",
+              "id": "data_generator_dynamics_species_MKKK_P",
+              "parameters": [],
+              "variables": [
+                {
+                  "_type": "SedVariable",
+                  "id": "variable_dynamics_species_MKKK_P",
+                  "task": "task",
+                  "name": "Dynamics of species \"Mos-P\"",
+                  "target": {
+                    "_type": "SedTarget",
+                    "value": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='MKKK_P']",
+                    "namespaces": [
+                      {
+                        "_type": "Namespace",
+                        "uri": "http://www.sbml.org/sbml/level2/version4",
+                        "prefix": "sbml"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "math": "variable_dynamics_species_MKKK_P",
+              "name": "Dynamics of species \"Mos-P\""
+            }
+          ],
+          "outputs": [
+            {
+              "_type": "SedReport",
+              "id": "report",
+              "dataSets": [
+                {
+                  "_type": "SedDataSet",
+                  "id": "time",
+                  "label": "Time",
+                  "dataGenerator": "data_generator_time",
+                  "name": "Time"
+                },
+                {
+                  "_type": "SedDataSet",
+                  "id": "dynamics_species_MAPK",
+                  "label": "Dynamics of species \"Erk2\"",
+                  "dataGenerator": "data_generator_dynamics_species_MAPK",
+                  "name": "Dynamics of species \"Erk2\""
+                },
+                {
+                  "_type": "SedDataSet",
+                  "id": "dynamics_species_MAPK_P",
+                  "label": "Dynamics of species \"Erk2-P\"",
+                  "dataGenerator": "data_generator_dynamics_species_MAPK_P",
+                  "name": "Dynamics of species \"Erk2-P\""
+                },
+                {
+                  "_type": "SedDataSet",
+                  "id": "dynamics_species_MAPK_PP",
+                  "label": "Dynamics of species \"Erk2-PP\"",
+                  "dataGenerator": "data_generator_dynamics_species_MAPK_PP",
+                  "name": "Dynamics of species \"Erk2-PP\""
+                },
+                {
+                  "_type": "SedDataSet",
+                  "id": "dynamics_species_MKK",
+                  "label": "Dynamics of species \"Mek1\"",
+                  "dataGenerator": "data_generator_dynamics_species_MKK",
+                  "name": "Dynamics of species \"Mek1\""
+                },
+                {
+                  "_type": "SedDataSet",
+                  "id": "dynamics_species_MKK_P",
+                  "label": "Dynamics of species \"Mek1-P\"",
+                  "dataGenerator": "data_generator_dynamics_species_MKK_P",
+                  "name": "Dynamics of species \"Mek1-P\""
+                },
+                {
+                  "_type": "SedDataSet",
+                  "id": "dynamics_species_MKK_PP",
+                  "label": "Dynamics of species \"Mek1-PP\"",
+                  "dataGenerator": "data_generator_dynamics_species_MKK_PP",
+                  "name": "Dynamics of species \"Mek1-PP\""
+                },
+                {
+                  "_type": "SedDataSet",
+                  "id": "dynamics_species_MKKK",
+                  "label": "Dynamics of species \"Mos\"",
+                  "dataGenerator": "data_generator_dynamics_species_MKKK",
+                  "name": "Dynamics of species \"Mos\""
+                },
+                {
+                  "_type": "SedDataSet",
+                  "id": "dynamics_species_MKKK_P",
+                  "label": "Dynamics of species \"Mos-P\"",
+                  "dataGenerator": "data_generator_dynamics_species_MKKK_P",
+                  "name": "Dynamics of species \"Mos-P\""
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

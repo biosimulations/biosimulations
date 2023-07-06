@@ -14,7 +14,7 @@ from biosimulators_utils.sedml.io import (
 import connexion
 import flask
 import os
-import combine_api
+import combine_api.s3
 import requests
 import requests.exceptions
 import werkzeug.datastructures  # noqa: F401
