@@ -49,7 +49,7 @@ export class EndpointLoader {
 
     switch (this.env) {
       case 'local':
-        endpointsTemplate.api = dynamicEndpoints?.api || 'http://localhost:3333';
+        endpointsTemplate.api = dynamicEndpoints?.api || 'http://localhost:' + this.endpointPointers.localHostPort;
 
         endpointsTemplate.simulatorsApi = dynamicEndpoints?.simulatorsApi || 'https://api.biosimulators.dev';
 
@@ -84,7 +84,7 @@ export class EndpointLoader {
 
         endpointsTemplate.simulatorsApp = dynamicEndpoints?.simulatorsApp || 'https://biosimulators.dev';
 
-        endpointsTemplate.dispatchApp = dynamicEndpoints?.dispatchApp || this.handleRunEndpoint();
+        endpointsTemplate.dispatchApp = this.handleRunEndpoint();
 
         endpointsTemplate.platformApp = dynamicEndpoints?.platformApp || 'https://biosimulations.dev';
 
@@ -112,7 +112,7 @@ export class EndpointLoader {
 
         endpointsTemplate.simulatorsApp = dynamicEndpoints?.simulatorsApp || 'https://biosimulators.dev';
 
-        endpointsTemplate.dispatchApp = dynamicEndpoints?.dispatchApp || 'https://run.biosimulations.dev';
+        endpointsTemplate.dispatchApp = this.handleRunEndpoint();
 
         endpointsTemplate.platformApp = dynamicEndpoints?.platformApp || 'https://biosimulations.dev';
 
