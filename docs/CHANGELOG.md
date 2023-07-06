@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.39.1](https://github.com/biosimulations/biosimulations/compare/v9.39.0...v9.39.1) (2023-07-06)
+
+
+### Bug Fixes
+
+* s3 import in combine-api and updated create-project unit tests ([d4cd303](https://github.com/biosimulations/biosimulations/commit/d4cd303c1dbdc67a4ed6c803ff12adcf54b09a2e))
+
 ## [9.39.0](https://github.com/biosimulations/biosimulations/compare/v9.38.0...v9.39.0) (2023-07-06)
 
 
