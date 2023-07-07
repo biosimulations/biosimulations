@@ -1,5 +1,21 @@
 # Changelog
 
+## [9.40.0](https://github.com/biosimulations/biosimulations/compare/v9.39.1...v9.40.0) (2023-07-07)
+
+
+### Bug Fixes
+
+* added link to reprod center ([261e50e](https://github.com/biosimulations/biosimulations/commit/261e50ea2658b6d15cd941f957a8efe29b90865f))
+* hardcoded prod endpoint for dispatch app in dev stage and prod ([f7facb1](https://github.com/biosimulations/biosimulations/commit/f7facb1c938f2256bdba5e43407baf8c5077f118))
+* implemented explicit declaration of prod site pointer for dev runs ([265cff3](https://github.com/biosimulations/biosimulations/commit/265cff3fd73f2964a558f6f32230b4f3e030ba55))
+* implemented more explicit logic for endpoint loader run handling ([e8a366e](https://github.com/biosimulations/biosimulations/commit/e8a366e49c1806e58a5bdf40078e9f4779dd5695))
+* removed unused color prop and removed comments from project colors ([c7886b1](https://github.com/biosimulations/biosimulations/commit/c7886b1dad0d1d9e87f56a18f24ba11cff875669))
+
+
+### Features
+
+* added teaser links to home-teaser component ([2161deb](https://github.com/biosimulations/biosimulations/commit/2161deb4db3ce8b671d729d7f3f45e5c88f5ac11))
+
 ## [9.39.1](https://github.com/biosimulations/biosimulations/compare/v9.39.0...v9.39.1) (2023-07-06)
 
 
