@@ -45,7 +45,7 @@ export class EndpointLoader {
 
   public loadEndpoints(): LoadedEndpoints {
     const dynamicEndpoints = this.getDynamicEndpoints();
-    this.setRunEndpoint();
+    this.setDispatchAppEndpoints();
     switch (this.env) {
       case 'local':
         this.endpointsTemplate.api = dynamicEndpoints?.api || 'http://localhost:' + this.endpointPointers.localHostPort;
@@ -83,6 +83,8 @@ export class EndpointLoader {
 
         this.endpointsTemplate.platformApp = dynamicEndpoints?.platformApp || 'https://biosimulations.dev';
 
+        this.endpointsTemplate.dispatchApp = 'https://run.biosimulations.org';
+
         this.endpointsTemplate.dataService = dynamicEndpoints?.dataService || 'https://data.biosimulations.dev';
 
         this.endpointsTemplate.externalApi = dynamicEndpoints?.externalApi || 'https://api.biosimulations.dev';
@@ -109,6 +111,8 @@ export class EndpointLoader {
 
         this.endpointsTemplate.platformApp = dynamicEndpoints?.platformApp || 'https://biosimulations.dev';
 
+        this.endpointsTemplate.dispatchApp = 'https://run.biosimulations.org';
+
         this.endpointsTemplate.dataService = dynamicEndpoints?.dataService || 'https://data.biosimulations.dev';
 
         this.endpointsTemplate.externalApi = dynamicEndpoints?.externalApi || 'https://api.biosimulations.dev';
@@ -133,6 +137,8 @@ export class EndpointLoader {
         this.endpointsTemplate.simulatorsApp = dynamicEndpoints?.simulatorsApp || 'https://biosimulators.org';
 
         this.endpointsTemplate.platformApp = dynamicEndpoints?.platformApp || 'https://biosimulations.org';
+
+        this.endpointsTemplate.dispatchApp = 'https://run.biosimulations.org';
 
         this.endpointsTemplate.dataService = dynamicEndpoints?.dataService || 'https://data.biosimulations.org';
 
@@ -182,11 +188,11 @@ export class EndpointLoader {
     return root + (condition ? this.endpointPointers.dev : this.endpointPointers.prod);
   }
 
-  private handleRunEndpoint(endpointRoot = 'https://run.biosimulations'): string {
+  private handleDispatchAppEndpoint(endpointRoot = 'https://run.biosimulations'): string {
     return this._handleEndpoint(endpointRoot, this.useDevRuns);
   }
 
-  private setRunEndpoint(): void {
-    this.endpointsTemplate.dispatchApp = this.handleRunEndpoint();
+  private setDispatchAppEndpoints(): void {
+    this.endpointsTemplate.dispatchApp = this.handleDispatchAppEndpoint();
   }
 }
