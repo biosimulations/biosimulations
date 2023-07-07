@@ -1,13 +1,12 @@
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
 @use '@angular/material' as mat;
 @import '../biosimulations-typography';
 
 @include mat.core();
-// Foreground Elements
-// Light Theme Text
-
-// Copied over from @angular/material. These use to be exported by the library, but are no longer.
+/*
+  Foreground Elements
+  Light Theme Text
+  Copied over from @angular/material. These use to be exported by the library, but are no longer.
+*/
 $dark-primary-text: rgba(black, 0.87);
 $dark-secondary-text: rgba(black, 0.54);
 $dark-disabled-text: rgba(black, 0.38);
@@ -45,7 +44,7 @@ $mat-light-theme-foreground: (
   slider-off-active: $dark-disabled-text,
 );
 
-// Dark Theme text
+/* Dark Theme text */
 $light-text: #ffffff;
 $light-primary-text: $light-text;
 $light-accent-text: rgba($light-primary-text, 0.7);
@@ -72,8 +71,10 @@ $mat-dark-theme-foreground: (
   slider-off-active: rgba($light-text, 0.3),
 );
 
-// Background config
-// Light bg
+/*
+  Background config
+  Light bg
+*/
 $light-background: #fff;
 $light-bg-darker-1: darken($light-background, 1%);
 $light-bg-darker-3: darken($light-background, 3%);
@@ -104,7 +105,6 @@ $mat-light-theme-background: (
   tooltip: $dark-bg-alpha-12,
 );
 
-// Dark bg
 $dark-background: #2c2c2c;
 $dark-bg-lighter-5: lighten($dark-background, 5%);
 $dark-bg-lighter-10: lighten($dark-background, 10%);
@@ -113,7 +113,6 @@ $dark-bg-lighter-30: lighten($dark-background, 30%);
 $light-bg-alpha-4: rgba(#fafafa, 0.04);
 $light-bg-alpha-12: rgba(#fafafa, 0.12);
 
-// Background palette for dark themes.
 $mat-dark-theme-background: (
   background: $dark-background,
   status-bar: $dark-bg-lighter-20,
@@ -134,10 +133,10 @@ $mat-dark-theme-background: (
 
 // Theme Config
 $theme-primary-main: #2196f3;
-$theme-primary-lighter: #9bcff9; // 55%
-$theme-primary-lightest: #d2eafc; // 80%
-$theme-primary-lightestest: #e8f4fd; // 90%
-$theme-primary-darker: #1479ed; // 5%
+$theme-primary-lighter: #9bcff9;
+$theme-primary-lightest: #d2eafc;
+$theme-primary-lightestest: #e8f4fd;
+$theme-primary-darker: #1479ed;
 
 body {
   --primary-color: #{$theme-primary-main};
@@ -164,8 +163,8 @@ $mat-primary: (
 $theme-primary: mat.define-palette($mat-primary, main, lighter, darker);
 
 $theme-accent-main: #ff9800;
-$theme-accent-lighter: #ffe0b2; // 70%
-$theme-accent-lightest: #fff4e5; // 90%
+$theme-accent-lighter: #ffe0b2;
+$theme-accent-lightest: #fff4e5;
 $theme-accent-darker: #ff7b00;
 
 body {
@@ -182,20 +181,18 @@ $mat-accent: (
   lighter: $theme-accent-lighter,
   darker: $theme-accent-darker,
   200: $theme-accent-main,
-  // For slide toggle,
-  contrast:
-    (
-      main: $dark-primary-text,
-      lighter: $dark-primary-text,
-      darker: $dark-primary-text,
-    ),
+  contrast: (
+    main: $dark-primary-text,
+    lighter: $dark-primary-text,
+    darker: $dark-primary-text,
+  ),
 );
 $theme-accent: mat.define-palette($mat-accent, main, lighter, darker);
 
 $theme-tertiary-main: #4caf50;
-$theme-tertiary-lighter: #80e27e; // 30% lighter
-$theme-tertiary-lightest: #c8e6c9; // 60% lighter
-$theme-tertiary-darker: #388e3c; // 15% darker
+$theme-tertiary-lighter: #80e27e;
+$theme-tertiary-lightest: #c8e6c9;
+$theme-tertiary-darker: #388e3c;
 
 body {
   --tertiary-color: #{$theme-tertiary-main};
@@ -211,20 +208,18 @@ $mat-tertiary: (
   lighter: $theme-tertiary-lighter,
   darker: $theme-tertiary-darker,
   200: $theme-tertiary-main,
-  // For slide toggle,
-  contrast:
-    (
-      main: $dark-primary-text,
-      lighter: $dark-primary-text,
-      darker: $dark-primary-text,
-    ),
+  contrast: (
+    main: $dark-primary-text,
+    lighter: $dark-primary-text,
+    darker: $dark-primary-text,
+  ),
 );
 $theme-tertiary: mat.define-palette($mat-tertiary, main, lighter, darker);
 
 $theme-quaternary-main: #951ed9;
-$theme-quaternary-lighter: #d097f0; // 55%
-$theme-quaternary-lightest: #efdcfa; // 85%
-$theme-quaternary-darker: #8d1cce; // 5%
+$theme-quaternary-lighter: #d097f0;
+$theme-quaternary-lightest: #efdcfa;
+$theme-quaternary-darker: #8d1cce;
 
 body {
   --quaternary-color: #{$theme-quaternary-main};
@@ -240,19 +235,17 @@ $mat-quaternary: (
   lighter: $theme-quaternary-lighter,
   darker: $theme-quaternary-darker,
   200: $theme-quaternary-main,
-  // For slide toggle,
-  contrast:
-    (
-      main: $dark-primary-text,
-      lighter: $dark-primary-text,
-      darker: $dark-primary-text,
-    ),
+  contrast: (
+    main: $dark-primary-text,
+    lighter: $dark-primary-text,
+    darker: $dark-primary-text,
+  ),
 );
 $theme-quaternary: mat.define-palette($mat-quaternary, main, lighter, darker);
 
 $theme-warn-main: #f44336;
-$theme-warn-lighter: #fcc7c3; // 75%
-$theme-warn-lightest: #fde2e0; // 85%
+$theme-warn-lighter: #fcc7c3;
+$theme-warn-lightest: #fde2e0;
 $theme-warn-darker: #ef2c22;
 
 body {
@@ -269,13 +262,11 @@ $mat-warn: (
   lighter: $theme-warn-lighter,
   darker: $theme-warn-darker,
   200: $theme-warn-main,
-  // For slide toggle,
-  contrast:
-    (
-      main: $light-primary-text,
-      lighter: $dark-primary-text,
-      darker: $light-primary-text,
-    ),
+  contrast: (
+    main: $light-primary-text,
+    lighter: $dark-primary-text,
+    darker: $light-primary-text,
+  ),
 );
 $theme-warn: mat.define-palette($mat-warn, main, lighter, darker);
 $theme: mat.define-light-theme(
