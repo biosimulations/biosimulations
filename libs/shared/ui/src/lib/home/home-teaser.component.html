@@ -10,10 +10,16 @@
     <div class="text partial-width">
       <ng-content select="#description"></ng-content>
     </div>
-    <a [href]="portalUrl" target="_blank" id="portal-teaser" matTooltip="Discover the Portal!">
-      <span id="portal-teaser-text">
+    <a [href]="portalUrl" target="_blank" matTooltip="Discover the Portal!">
+      <span>
         <strong>NEW: </strong>Unlock the power of biosimulations with the Reproducibility Portal — a user-friendly front
         end to Biosimulations DB.
+      </span>
+    </a>
+    <div style="height: 10px"></div>
+    <a [href]="centerUrl" target="_blank" matTooltip="Discover the Center!">
+      <span>
+       Discover the Center for Reproducible Biomedical Modeling
       </span>
     </a>
   </div>
