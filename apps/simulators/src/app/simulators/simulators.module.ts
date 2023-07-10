@@ -26,5 +26,6 @@ import { JsonLdModule } from '@biosimulations/angular-json-ld';
     JsonLdModule,
   ],
   providers: [],
+  exports: [BrowseSimulatorsComponent],
 })
 export class SimulatorsModule {}

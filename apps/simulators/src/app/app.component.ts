@@ -11,22 +11,30 @@ import { Observable } from 'rxjs';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, AfterViewInit {
-  title = 'simulators';
+  public title = 'simulators';
+  public platformPointer = 'https://biosimulations.dev';
+  public dispatchPointer = 'https://run.biosimulations.dev';
 
-  healthy$!: Observable<boolean>;
+  public healthy$!: Observable<boolean>;
 
-  constructor(
+  public constructor(
     public config: ConfigService,
     private scrollService: ScrollService,
     private updateService: UpdateService,
     private healthService: HealthService,
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.healthy$ = this.healthService.isHealthy();
+    this.handleUrlPointers();
   }
 
-  ngAfterViewInit(): void {
+  public ngAfterViewInit(): void {
     this.scrollService.init();
+  }
+
+  private handleUrlPointers(): void {
+    this.config.platformAppUrl = this.platformPointer;
+    this.config.dispatchAppUrl = this.dispatchPointer;
   }
 }

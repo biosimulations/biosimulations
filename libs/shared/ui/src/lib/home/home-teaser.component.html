@@ -1,24 +1,35 @@
 <div class="container" style="display: flex">
   <div class="logo-inner">
-    <!-- Content: Teaser Carousel -->
-    <div class="buttons partial-width" style="flex-flow: row wrap">
-      <ng-content select="#buttons" class="container-content"></ng-content>
-    </div>
     <!-- Description Header -->
     <div class="heading partial-width">{{ heading }}</div>
     <!-- Description Body -->
     <div class="text partial-width">
       <ng-content select="#description"></ng-content>
     </div>
-    <a [href]="portalUrl" target="_blank" matTooltip="Discover the Portal!">
-      <span>
-        <strong>NEW: </strong>Unlock the power of biosimulations with the Reproducibility Portal — a user-friendly front
-        end to Biosimulations DB.
-      </span>
-    </a>
-    <div style="height: 10px"></div>
-    <a [href]="centerUrl" target="_blank" matTooltip="Discover the Center!">
-      <span> Discover the Center for Reproducible Biomedical Modeling </span>
-    </a>
+    <!-- Content: Teaser Carousel -->
+    <div class="buttons partial-width" style="flex-flow: row wrap">
+      <mat-card *ngIf="!forSimulations; else simulationsButtonContent" class="buttons-card">
+        <mat-card-content>
+          <ng-content select="#buttons" class="container-content"></ng-content>
+        </mat-card-content>
+      </mat-card>
+      <ng-template #simulationsButtonContent>
+        <ng-content select="#buttons" class="container-content"></ng-content>
+      </ng-template>
+    </div>
+    <ng-container *ngIf="forSimulations">
+      <a [href]="portalUrl" target="_blank" matTooltip="Discover the Portal!">
+        <span>
+          <strong>NEW: </strong>Unlock the power of biosimulations with the Reproducibility Portal — a user-friendly front
+          end to Biosimulations DB.
+        </span>
+      </a>
+      <div style="height: 10px"></div>
+      <a [href]="centerUrl" target="_blank" matTooltip="Discover the Center!">
+        <span> Discover the Center for Reproducible Biomedical Modeling </span>
+      </a>
+    </ng-container>
   </div>
 </div>
+
+

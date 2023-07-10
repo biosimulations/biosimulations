@@ -1,6 +1,10 @@
 <biosimulations-home-teaser
   heading="Easily find and obtain biosimulation tools"
-  banner="assets/images/biosimulators-logo/logo-white.svg">
+  banner="assets/images/biosimulators-logo/logo-white.svg"
+  [forSimulations]="false">
+  <ng-container id="buttons">
+    <biosimulations-browse-simulators></biosimulations-browse-simulators>
+  </ng-container>
   <ng-container id="description">
     BioSimulators is a free
     <a [routerLink]="['/simulators']">registry of biosimulation tools</a>. The registry includes tools for a broad range
