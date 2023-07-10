@@ -14,6 +14,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   public title = 'simulators';
   public platformPointer = 'https://biosimulations.dev';
   public dispatchPointer = 'https://run.biosimulations.dev';
+  public devPointer = '.dev';
 
   public healthy$!: Observable<boolean>;
 
@@ -34,7 +35,12 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   private handleUrlPointers(): void {
-    this.config.platformAppUrl = this.platformPointer;
-    this.config.dispatchAppUrl = this.dispatchPointer;
+    this.config.platformAppUrl = this.getUrlPointer('biosimulations');
+    //this.config.dispatchAppUrl = this.getUrlPointer('run.biosimulations');
+  }
+
+  private getUrlPointer(site: string, pointer: string = ''): string {
+    pointer.length ? null : (pointer = this.platformPointer);
+    return 'https://' + site + '.' + pointer;
   }
 }
