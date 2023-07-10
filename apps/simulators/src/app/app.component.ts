@@ -39,7 +39,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     //this.config.dispatchAppUrl = this.getUrlPointer('run.biosimulations');
   }
 
-  private getUrlPointer(site: string, pointer: string = ''): string {
+  private getUrlPointer(site: string, pointer = ''): string {
     pointer.length ? null : (pointer = this.platformPointer);
     return 'https://' + site + '.' + pointer;
   }
