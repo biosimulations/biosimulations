@@ -40,7 +40,9 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   private getUrlPointer(site: string, pointer = ''): string {
-    pointer.length ? null : (pointer = this.platformPointer);
+    if (!pointer.length) {
+      pointer = this.platformPointer;
+    }
     return 'https://' + site + '.' + pointer;
   }
 }
