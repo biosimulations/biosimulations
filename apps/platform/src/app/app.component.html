@@ -52,8 +52,20 @@
       </ng-container>
     </biosimulations-hover-open-menu>
 
-    <biosimulations-hover-open-menu [link]="'https://docs.biosimulations.org/users/'" [disabled]="true" target="_blank">
+    <biosimulations-hover-open-menu id="trigger">
       <biosimulations-topbar-menu-item heading="Learn" icon="idea" id="trigger"> </biosimulations-topbar-menu-item>
+      <ng-container id="items">
+        <biosimulations-dropdown-menu-item
+          heading="Documentation"
+          href="https://docs.biosimulations.org/users/"
+          target="_blank">
+        </biosimulations-dropdown-menu-item>
+        <biosimulations-dropdown-menu-item
+          heading="Conventions"
+          href="https://docs.biosimulations.org/concepts/conventions/"
+          target="_blank">
+        </biosimulations-dropdown-menu-item>
+      </ng-container>
     </biosimulations-hover-open-menu>
 
     <biosimulations-hover-open-menu

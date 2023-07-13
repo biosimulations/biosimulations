@@ -21,11 +21,11 @@ import { environment } from '@biosimulations/shared/environments';
 import { ScullyLibModule } from '@scullyio/ng-lib';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { AngularAnalyticsModule } from '@biosimulations/angular-analytics';
+import { RunModule } from './components/run/run.module';
 
 const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full',
     component: HomeComponent,
   },
   {
@@ -83,6 +83,7 @@ routes.forEach((route: Route): void => {
     ScullyLibModule,
     HighlightModule,
     AngularAnalyticsModule.forRoot(config.appName, config.analyticsId),
+    RunModule,
   ],
   providers: [
     { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },

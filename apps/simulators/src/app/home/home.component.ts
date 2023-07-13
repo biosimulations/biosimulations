@@ -8,4 +8,8 @@ import { ConfigService } from '@biosimulations/config/angular';
 })
 export class HomeComponent {
   constructor(public config: ConfigService) {}
+
+  copyToClipBoard(): void {
+    console.log('Copied!');
+  }
 }
