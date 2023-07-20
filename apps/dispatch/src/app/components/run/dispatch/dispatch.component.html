@@ -2,7 +2,7 @@
 <biosimulations-page heading="Run a simulation" *ngIf="simulators.length; else loading">
   <form [formGroup]="formGroup" (ngSubmit)="onFormSubmit()">
     <mat-card class="card-form-section mat-elevation-z3">
-      <mat-card-header class="card-form-section-title">COMBINE/OMEX archive*</mat-card-header>
+      <mat-card-header class="card-form-section-title omex">COMBINE/OMEX archive*</mat-card-header>
 
       <div class="input-group">
         <mat-form-field class="card-form-field" appearance="fill">
@@ -78,7 +78,7 @@
     </mat-card>
 
     <mat-card class="card-form-section mat-elevation-z3">
-      <mat-card-title>Capabilities required to execute your COMBINE/OMEX archive</mat-card-title>
+      <mat-card-header class="card-form-section-title cap">Capabilities required to execute your COMBINE/OMEX archive</mat-card-header>
 
       <div class="input-group">
         <mat-form-field class="card-form-field" appearance="fill">
@@ -137,7 +137,7 @@
     </mat-card>
 
     <mat-card class="card-form-section mat-elevation-z3">
-      <mat-card-title>Simulation tool *</mat-card-title>
+      <mat-card-header class="card-form-section-title tool">Simulation tool *</mat-card-header>
 
       <div class="input-group">
         <mat-form-field class="card-form-field" appearance="fill">
@@ -200,7 +200,7 @@
     </mat-card>
 
     <mat-card class="card-form-section mat-elevation-z3">
-      <mat-card-title>Commercial solvers</mat-card-title>
+      <mat-card-header class="card-form-section-title solvers">Commercial solvers</mat-card-header>
 
       <mat-checkbox formControlName="academicPurpose" color="primary">
         The purpose of this simulation is academic research or education.
@@ -234,7 +234,7 @@
     </mat-card>
 
     <mat-card class="card-form-section mat-elevation-z3">
-      <mat-card-title>Computational resources *</mat-card-title>
+       <mat-card-header class="card-form-section-title resources">Computational resources *</mat-card-header>
 
       <div class="input-group">
         <mat-form-field class="card-form-field" appearance="fill">
@@ -275,7 +275,7 @@
     </mat-card>
 
     <mat-card class="card-form-section mat-elevation-z3">
-      <mat-card-title>Metadata *</mat-card-title>
+       <mat-card-header class="card-form-section-title solvers">Metadata *</mat-card-header>
 
       <div class="input-group">
         <mat-form-field class="card-form-field" appearance="fill">
@@ -293,7 +293,7 @@
     </mat-card>
 
     <mat-card class="card-form-section mat-elevation-z3">
-      <mat-card-title>Notifications</mat-card-title>
+       <mat-card-header class="card-form-section-title noti">Notifications</mat-card-header>
 
       <div class="input-group">
         <mat-form-field class="card-form-field" appearance="fill">
