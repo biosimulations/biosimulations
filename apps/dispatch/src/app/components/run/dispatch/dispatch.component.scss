@@ -17,8 +17,12 @@ button {
   height: 100%;
   width: 100%;
   padding: 0.5rem;
-  color: white;
   font-weight: bold;
+
+  &:hover {
+    color: #e8f4fd;
+    transition: color 0.3s ease;
+  }
 }
 
 .input-group {
