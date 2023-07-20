@@ -2,7 +2,7 @@
 <biosimulations-page heading="Run a simulation" *ngIf="simulators.length; else loading">
   <form [formGroup]="formGroup" (ngSubmit)="onFormSubmit()">
     <mat-card class="card-form-section mat-elevation-z3">
-      <mat-card-title>COMBINE/OMEX archive*</mat-card-title>
+      <mat-card-header class="card-form-section-title">COMBINE/OMEX archive*</mat-card-header>
 
       <div class="input-group">
         <mat-form-field class="card-form-field" appearance="fill">
