@@ -5,6 +5,27 @@ button {
   float: right;
 }
 
+.card-form-section {
+  height: 100%;
+  padding-bottom: 1rem;
+  padding-right: 1rem;
+  background-color: white;
+}
+
+.card-form-section-title {
+  background-color: #ff9800;
+  height: 100%;
+  width: 100%;
+  padding: 0.5rem;
+  color: white;
+  font-weight: bold;
+}
+
+.input-group {
+  height: 100%;
+  padding-top: 3rem;
+}
+
 .message {
   margin-top: 1rem;
 
