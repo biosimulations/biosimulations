@@ -7,6 +7,10 @@ $line-height: 20px !default;
 // space falls below 36px.
 $button-vertical-margin: -(math.div($button-height - $line-height, 2));
 
+.container {
+  background-color: white !important;
+}
+
 .mat-simple-snackbar {
   display: flex;
   justify-content: space-between;
