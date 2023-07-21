@@ -1,5 +1,5 @@
 <biosimulations-page heading="Validate a simulation project">
-  <form [formGroup]="formGroup" (ngSubmit)="submitForm()">
+  <form [formGroup]="formGroup" (ngSubmit)="submitForm()" style="height: fit-content">
     <div class="form-section">
       <div class="form-section-head">
         <div class="mat-form-field-prefix">
@@ -22,7 +22,7 @@
                 >Select a method for providing a simulation project (COMBINE/OMEX or zip archive file)</mat-label
               >
               <mat-select required formControlName="submitMethod" (ngModelChange)="changeSubmitMethod()">
-                <mat-option value="file">Upload a local file</mat-option>
+                <mat-option value="file" style="height: 20px">Upload a local file</mat-option>
                 <mat-option value="url">Enter a URL for a file</mat-option>
               </mat-select>
             </mat-form-field>
@@ -122,15 +122,13 @@
                   ></a>
                   files in the archive.
                 </p>
-
-                <p class="alert">The RDF-XML format is currently required to publish archives to BioSimulations.</p>
               </mat-hint>
             </mat-form-field>
 
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="fill" class="display: grid">
               <biosimulations-icon icon="review" matPrefix></biosimulations-icon>
               <mat-label
-                >Select a minimum information convention to use to validate the metadata in the archive</mat-label
+                class="white-space: nowrap">Select a minimum information convention to use to validate the metadata in the archive</mat-label
               >
               <mat-select required formControlName="omexMetadataSchema">
                 <mat-option *ngFor="let omexMetadataSchema of omexMetadataSchemas" [value]="omexMetadataSchema.value">{{
@@ -138,13 +136,6 @@
                 }}</mat-option>
               </mat-select>
               <mat-hint>
-                <p>
-                  Select a minimum information convention to use to validate the OMEX Metadata
-                  <a href="https://sys-bio.github.io/libOmexMeta/"
-                    ><biosimulations-icon icon="link"></biosimulations-icon
-                  ></a>
-                  files in the archive.
-                </p>
 
                 <p>
                   The BioSimulations convention

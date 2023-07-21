@@ -51,7 +51,7 @@ export class BrowseComponent implements OnInit {
       key: 'name',
       minWidth: 34,
       getter: (simulation: ISimulation): string => {
-        return simulation.name || 'N/A';
+        return simulation.name || this.padString('N/A', 5);
       },
     },
     {
@@ -763,5 +763,12 @@ export class BrowseComponent implements OnInit {
     const exampleSimulations = exampleSimulationsJson as unknown[] as ISimulation[];
     this.simulationService.storeExistingExternalSimulations(exampleSimulations);
     return exampleSimulations.length;
+  }
+
+  private padString(str: string, desiredLength: number): string {
+    const totalSpaces = desiredLength - str.length;
+    const endSpaces = Math.floor(totalSpaces / 2);
+    const paddedString = ' '.repeat(endSpaces) + str + ' '.repeat(endSpaces);
+    return paddedString;
   }
 }

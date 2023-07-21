@@ -1,62 +1,62 @@
 <form [formGroup]="formGroup">
-  <mat-card-title>Specify time course parameters</mat-card-title>
+  <mat-card-header class="card-form-title utc">Specify time course parameters</mat-card-header>
+  <mat-card-content class="utc-card-content">
+    <div class="input-group">
+      <mat-form-field class="card-form-field" appearance="fill">
+        <mat-label>Enter the initial time of the simulation</mat-label>
+        <input
+          matInput
+          formControlName="initialTime"
+          type="number"
+          min="0"
+          required
+          (ngModelChange)="changeUniformTimeCourseSimulationStep()" />
+      </mat-form-field>
+    </div>
 
-  <div class="input-group">
-    <mat-form-field class="card-form-field" appearance="fill">
-      <mat-label>Enter the initial time of the simulation</mat-label>
-      <input
-        matInput
-        formControlName="initialTime"
-        type="number"
-        min="0"
-        required
-        (ngModelChange)="changeUniformTimeCourseSimulationStep()" />
-    </mat-form-field>
-  </div>
+    <div class="input-group">
+      <mat-form-field class="card-form-field" appearance="fill">
+        <mat-label>Enter the time to start recording the results</mat-label>
+        <input
+          matInput
+          formControlName="outputStartTime"
+          type="number"
+          min="0"
+          required
+          (ngModelChange)="changeUniformTimeCourseSimulationStep()" />
+      </mat-form-field>
+    </div>
 
-  <div class="input-group">
-    <mat-form-field class="card-form-field" appearance="fill">
-      <mat-label>Enter the time to start recording the results</mat-label>
-      <input
-        matInput
-        formControlName="outputStartTime"
-        type="number"
-        min="0"
-        required
-        (ngModelChange)="changeUniformTimeCourseSimulationStep()" />
-    </mat-form-field>
-  </div>
+    <div class="input-group">
+      <mat-form-field class="card-form-field" appearance="fill">
+        <mat-label>Enter the time when the simulation should terminate</mat-label>
+        <input
+          matInput
+          formControlName="outputEndTime"
+          type="number"
+          min="0"
+          required
+          (ngModelChange)="changeUniformTimeCourseSimulationStep()" />
+      </mat-form-field>
+    </div>
 
-  <div class="input-group">
-    <mat-form-field class="card-form-field" appearance="fill">
-      <mat-label>Enter the time when the simulation should terminate</mat-label>
-      <input
-        matInput
-        formControlName="outputEndTime"
-        type="number"
-        min="0"
-        required
-        (ngModelChange)="changeUniformTimeCourseSimulationStep()" />
-    </mat-form-field>
-  </div>
+    <div class="input-group">
+      <mat-form-field class="card-form-field" appearance="fill">
+        <mat-label>Enter the number of steps to record</mat-label>
+        <input
+          matInput
+          formControlName="numberOfSteps"
+          type="number"
+          min="1"
+          step="1"
+          required
+          (ngModelChange)="changeUniformTimeCourseSimulationStep()" />
+      </mat-form-field>
+    </div>
 
-  <div class="input-group">
-    <mat-form-field class="card-form-field" appearance="fill">
-      <mat-label>Enter the number of steps to record</mat-label>
-      <input
-        matInput
-        formControlName="numberOfSteps"
-        type="number"
-        min="1"
-        step="1"
-        required
-        (ngModelChange)="changeUniformTimeCourseSimulationStep()" />
-    </mat-form-field>
-  </div>
-
-  <mat-hint>Step size: </mat-hint>
-  <mat-hint *ngIf="shouldShowStepSize()">{{ stepSize }}</mat-hint>
-
+    <mat-hint>Step size: </mat-hint>
+    <mat-hint *ngIf="shouldShowStepSize()">{{ stepSize }}</mat-hint>
+  </mat-card-content>
   <mat-error *ngIf="shouldShowRequiredFieldError()"> Please enter a non-negative number for each parameter. </mat-error>
 
   <mat-error *ngIf="nextClicked && formGroup.hasError('positiveInteger', 'numberOfSteps')">

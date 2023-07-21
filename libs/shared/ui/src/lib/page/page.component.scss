@@ -1,5 +1,14 @@
 @import 'biosimulations-colors';
 
+.parent-container {
+  background-image: url('/assets/images/backgrounds/grey-3.png');
+  width: fit-content;
+  height: 100%;
+}
+
+.biosimulations-page-container {
+  border: 3px solid inherit;
+}
 .heading {
   margin-bottom: 2rem;
 }
@@ -24,4 +33,16 @@ h1 {
 .subheading {
   font-style: italic;
   margin-top: 0.25rem;
+}
+
+.buttons {
+  padding-top: 3rem;
+}
+
+.btn-card {
+  height: fit-content;
+  width: fit-content;
+  background-color: var(--accent-color);
+  border: 2px solid var(--accent-color);
+  border-radius: 4px;
 }

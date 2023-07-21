@@ -97,6 +97,48 @@ mat-card-title {
   margin-bottom: 1.5rem;
 }
 
+mat-option {
+  background-color: white;
+
+  mat-selected {
+    background-color: #ffe0b2 !important;
+  }
+}
+
+mat-option:hover {
+  background-color: #ffe0b2 !important;
+}
+
 .secondary-title {
   margin-top: 1.2rem;
+}
+
+.input-group {
+  padding-top: 2rem;
+}
+
+.card-form-title {
+  background-color: #ff9800;
+  color: #1b4b0b;
+  height: 100%;
+  width: 100%;
+  padding: 0.5rem;
+  font-weight: bold;
+
+  &:hover {
+    color: var(--quaternary-darker-color);
+    transition: color 0.3s ease;
+  }
+}
+
+.alert {
+  width: fit-content;
+  background-color: var(--warn-lighter-color);
+  color: var(--warn-color);
+  padding: 6px;
+
+  &:hover {
+    color: var(--primary-darker-color);
+    transition: color 0.5s ease;
+  }
 }
