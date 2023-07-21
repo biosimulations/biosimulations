@@ -1,6 +1,7 @@
-<mat-card-header class="card-form-title model">Describe the changes to apply to your model's attributes</mat-card-header>
+<mat-card-header class="card-form-title model"
+  >Describe the changes to apply to your model's attributes</mat-card-header
+>
 <mat-card-content class="changes-card-content">
-
   <div class="model-changes-grid">
     <div class="grid-label">Id *</div>
     <div class="grid-label">Name</div>
@@ -20,7 +21,11 @@
       </button>
     </ng-container>
 
-    <button mat-flat-button class="biosimulations-button text" style="grid-column: 1 / 6" (click)="addModelChangeField()">
+    <button
+      mat-flat-button
+      class="biosimulations-button text"
+      style="grid-column: 1 / 6"
+      (click)="addModelChangeField()">
       Additional change
     </button>
   </div>
@@ -41,7 +46,6 @@
       generated SED-ML document.
     </p>
   </mat-hint>
-
 </mat-card-content>
 <mat-error *ngIf="nextClicked && formArray.invalid">One or more properties of one or more changes invalid.</mat-error>
 <mat-error *ngIf="nextClicked && formArray.hasError('idUnique')">The ids of the changes must be unique.</mat-error>

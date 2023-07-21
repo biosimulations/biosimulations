@@ -80,7 +80,9 @@
     </mat-card>
 
     <mat-card class="card-form-section mat-elevation-z3">
-      <mat-card-header class="card-form-section-title cap">Capabilities required to execute your COMBINE/OMEX archive</mat-card-header>
+      <mat-card-header class="card-form-section-title cap"
+        >Capabilities required to execute your COMBINE/OMEX archive</mat-card-header
+      >
 
       <div class="input-group">
         <mat-form-field class="card-form-field" appearance="fill">
@@ -124,17 +126,17 @@
       <mat-card-content class="card-hints 1">
         <mat-hint>
           Use the above menus to narrow the list of simulation tools below to those tools which have the capabilities to
-          execute your COMBINE/OMEX archive (tools which support the model formats and simulation algorithms of the models
-          and simulations described by your COMBINE/OMEX archive).
+          execute your COMBINE/OMEX archive (tools which support the model formats and simulation algorithms of the
+          models and simulations described by your COMBINE/OMEX archive).
         </mat-hint>
 
         <mat-error *ngIf="shouldShowUnsupportedModelError()">
-          Your COMBINE/OMEX archive involves model formats that are not supported by any simulation tool available through
-          runBioSimulations.
+          Your COMBINE/OMEX archive involves model formats that are not supported by any simulation tool available
+          through runBioSimulations.
         </mat-error>
         <mat-error *ngIf="shouldShowUnsupportedAlgorithmError()">
-          Your COMBINE/OMEX archive involves simulation algorithms that are not supported by any simulation tool available
-          through runBioSimulations.
+          Your COMBINE/OMEX archive involves simulation algorithms that are not supported by any simulation tool
+          available through runBioSimulations.
         </mat-error>
       </mat-card-content>
     </mat-card>
@@ -170,9 +172,9 @@
       <mat-card-content class="card-hints 2">
         <mat-hint>
           <p>
-            Select a simulation tool which is capable of executing your archive and a version of that tool. This tool must
-            support all of the model formats (e.g., BNGL, SED-ML) and simulation algorithms (e.g., ODE, SSA) involved in
-            your archive.
+            Select a simulation tool which is capable of executing your archive and a version of that tool. This tool
+            must support all of the model formats (e.g., BNGL, SED-ML) and simulation algorithms (e.g., ODE, SSA)
+            involved in your archive.
           </p>
 
           <p class="alert">
@@ -213,20 +215,20 @@
       <mat-card-content class="card-hints 3">
         <mat-hint>
           <p>
-            Some simulation tools, such as COBRApy and RBApy, can optionally execute simulations using commercial solvers
-            such as Gurobi
+            Some simulation tools, such as COBRApy and RBApy, can optionally execute simulations using commercial
+            solvers such as Gurobi
             <a href="https://www.gurobi.com/products/gurobi-optimizer/" rel="noopener" target="_blank">
               <biosimulations-icon icon="link"></biosimulations-icon>
             </a>
-            . These commercial solvers are often more accurate and more performant. However, these commercial solvers are
-            not required to execute any of the available simulation tools. All of the available simulation tools can be
-            run with freely available solvers.
+            . These commercial solvers are often more accurate and more performant. However, these commercial solvers
+            are not required to execute any of the available simulation tools. All of the available simulation tools can
+            be run with freely available solvers.
           </p>
 
           <p>
             Optionally, users can use these commercial solvers for academic research and education. To use these
-            commercial solvers, check the box above to confirm that you are using runBioSimulations for academic research
-            or education.
+            commercial solvers, check the box above to confirm that you are using runBioSimulations for academic
+            research or education.
           </p>
 
           <p>
@@ -240,7 +242,7 @@
     </mat-card>
 
     <mat-card class="card-form-section mat-elevation-z3">
-       <mat-card-header class="card-form-section-title resources">Computational resources *</mat-card-header>
+      <mat-card-header class="card-form-section-title resources">Computational resources *</mat-card-header>
 
       <div class="input-group resources">
         <mat-form-field class="card-form-field" appearance="fill">
@@ -281,7 +283,7 @@
     </mat-card>
 
     <mat-card class="card-form-section mat-elevation-z3">
-       <mat-card-header class="card-form-section-title solvers">Metadata *</mat-card-header>
+      <mat-card-header class="card-form-section-title solvers">Metadata *</mat-card-header>
 
       <div class="input-group">
         <mat-form-field class="card-form-field" appearance="fill">
@@ -299,7 +301,7 @@
     </mat-card>
 
     <mat-card class="card-form-section mat-elevation-z3">
-       <mat-card-header class="card-form-section-title noti">Notifications</mat-card-header>
+      <mat-card-header class="card-form-section-title noti">Notifications</mat-card-header>
 
       <div class="input-group">
         <mat-form-field class="card-form-field" appearance="fill">

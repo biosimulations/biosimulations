@@ -127,8 +127,8 @@
 
             <mat-form-field appearance="fill" class="display: grid">
               <biosimulations-icon icon="review" matPrefix></biosimulations-icon>
-              <mat-label
-                class="white-space: nowrap">Select a minimum information convention to use to validate the metadata in the archive</mat-label
+              <mat-label class="white-space: nowrap"
+                >Select a minimum information convention to use to validate the metadata in the archive</mat-label
               >
               <mat-select required formControlName="omexMetadataSchema">
                 <mat-option *ngFor="let omexMetadataSchema of omexMetadataSchemas" [value]="omexMetadataSchema.value">{{
@@ -136,7 +136,6 @@
                 }}</mat-option>
               </mat-select>
               <mat-hint>
-
                 <p>
                   The BioSimulations convention
                   <a
