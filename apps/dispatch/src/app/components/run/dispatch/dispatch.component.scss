@@ -41,6 +41,23 @@ button {
 .card-form-field {
   justify-content: center;
   display: flex;
+
+  &:active {
+    height: fit-content;
+  }
+}
+
+mat-select {
+  background-color: white !important;
+}
+
+mat-option {
+  background-color: white !important;
+
+  &:hover {
+    background-color: var(--accent-lighter-color) !important;
+    color: var(--primary-color);
+  }
 }
 
 .alert {
