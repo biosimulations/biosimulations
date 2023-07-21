@@ -7,11 +7,26 @@ import { Component, Input } from '@angular/core';
 })
 export class TopbarComponent {
   @Input()
-  color = '#2196f3';
+  public biosimulators = false;
+
+  @Input()
+  public color?: string;
 
   @Input()
   public showLogo = true;
 
   @Input()
   public target = '_self';
+
+  public constructor() {
+    this.handleColor();
+  }
+
+  public handleColor(): void {
+    if (this.biosimulators) {
+      this.color = '#ff9800';
+    } else {
+      this.color = '#2196f3';
+    }
+  }
 }

@@ -2,7 +2,7 @@
   class="sidenav-container mat-display-3 mat-app-background"
   [ngClass]="{ 'theme-alternate': darkMode }">
   <!-- Hero Banner for Normal Size -->
-  <biosimulations-topbar>
+  <biosimulations-topbar [biosimulators]="biosimulators">
     <biosimulations-logo-text id="logo" [appNameParts]="appNameParts"></biosimulations-logo-text>
     <button
       id="rightContent"

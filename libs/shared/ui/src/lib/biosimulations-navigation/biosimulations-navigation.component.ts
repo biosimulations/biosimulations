@@ -10,6 +10,9 @@ import { map, shareReplay } from 'rxjs/operators';
 })
 export class BiosimulationsNavigationComponent {
   @Input()
+  public biosimulators = false;
+
+  @Input()
   appName!: string;
 
   @Input()
