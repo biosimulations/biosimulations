@@ -28,6 +28,12 @@ button {
 .input-group {
   height: 100%;
   padding-top: 3rem;
+  text-overflow: ellipsis;
+}
+
+.card-form-field {
+  height: 100%;
+  justify-content: center;
 }
 
 .message {
