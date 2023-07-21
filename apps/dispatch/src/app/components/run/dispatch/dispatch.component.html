@@ -22,59 +22,61 @@
         </mat-form-field>
       </div>
 
-      <mat-hint>
-        <p>
-          Select a method for providing a COMBINE/OMEX archive which describes one or more simulations (in SED-ML
-          format) of one or more models (e.g., in BNGL, SBML formats). COMBINE/OMEX files can either be uploaded from
-          your local computer or loaded from a publicly-accessible URL.
-        </p>
+      <mat-card-content class="card-hints 0">
+        <mat-hint>
+          <p>
+            Select a method for providing a COMBINE/OMEX archive which describes one or more simulations (in SED-ML
+            format) of one or more models (e.g., in BNGL, SBML formats). COMBINE/OMEX files can either be uploaded from
+            your local computer or loaded from a publicly-accessible URL.
+          </p>
 
-        <p class="alert">Uploaded archives are limited to 64 MB. Archives up to 1 GB can be submitted via URLs.</p>
+          <p class="alert">Uploaded archives are limited to 64 MB. Archives up to 1 GB can be submitted via URLs.</p>
 
-        <p>
-          A form for creating COMBINE/OMEX archives and SED-ML files from model files is available
-          <a [routerLink]="['/utils', 'create-project']">here</a>
-          . COMBINE/OMEX archives can also be created with simulation tools such as COPASI
-          <a href="http://copasi.org/" rel="noopener" target="_blank">
-            <biosimulations-icon icon="link"></biosimulations-icon>
-          </a>
-          and VCell
-          <a href="https://vcell.org/" rel="noopener" target="_blank">
-            <biosimulations-icon icon="link"></biosimulations-icon>
-          </a>
-          . Additional information about obtaining and creating COMBINE/OMEX archives is available in the
-          <a
-            href="https://docs.biosimulations.org/users/creating-projects/"
-            rel="noopener"
-            target="biosimulations-docs">
-            help
-          </a>
-          and
-          <a href="https://docs.biosimulations.org/users/faqs/" rel="noopener" target="biosimulations-docs"> FAQ </a>
-          . The help includes recommendations for additional software tools for authoring COMBINE/OMEX archives and
-          SED-ML files. The FAQ includes information about known incompatibilities among COMBINE/OMEX archives and
-          SED-ML files created with different tools.
-        </p>
+          <p>
+            A form for creating COMBINE/OMEX archives and SED-ML files from model files is available
+            <a [routerLink]="['/utils', 'create-project']">here</a>
+            . COMBINE/OMEX archives can also be created with simulation tools such as COPASI
+            <a href="http://copasi.org/" rel="noopener" target="_blank">
+              <biosimulations-icon icon="link"></biosimulations-icon>
+            </a>
+            and VCell
+            <a href="https://vcell.org/" rel="noopener" target="_blank">
+              <biosimulations-icon icon="link"></biosimulations-icon>
+            </a>
+            . Additional information about obtaining and creating COMBINE/OMEX archives is available in the
+            <a
+              href="https://docs.biosimulations.org/users/creating-projects/"
+              rel="noopener"
+              target="biosimulations-docs">
+              help
+            </a>
+            and
+            <a href="https://docs.biosimulations.org/users/faqs/" rel="noopener" target="biosimulations-docs"> FAQ </a>
+            . The help includes recommendations for additional software tools for authoring COMBINE/OMEX archives and
+            SED-ML files. The FAQ includes information about known incompatibilities among COMBINE/OMEX archives and
+            SED-ML files created with different tools.
+          </p>
 
-        <p>
-          Click <a [routerLink]="['/runs']" [queryParams]="{ try: '1' }">here</a>
-          to load several example simulation projects from the BioSimulators test suite
-          <a [href]="exampleCombineArchivesUrl" rel="noopener" target="example-projects">
-            <biosimulations-icon icon="link"></biosimulations-icon>
-          </a>
-          .
-        </p>
-      </mat-hint>
+          <p>
+            Click <a [routerLink]="['/runs']" [queryParams]="{ try: '1' }">here</a>
+            to load several example simulation projects from the BioSimulators test suite
+            <a [href]="exampleCombineArchivesUrl" rel="noopener" target="example-projects">
+              <biosimulations-icon icon="link"></biosimulations-icon>
+            </a>
+            .
+          </p>
+        </mat-hint>
 
-      <mat-error *ngIf="shouldShowNoProjectError()">
-        Please select a COMBINE/OMEX file or enter a URL for a COMBINE/OMEX file.
-      </mat-error>
-      <mat-error *ngIf="formGroup.hasError('maxSize', 'projectFile')">
-        Currently, COMBINE/OMEX archive uploads are limited to 1 GB.
-      </mat-error>
-      <mat-error *ngIf="formGroup.hasError('multipleProjects')">
-        Please select only one COMBINE/OMEX file or URL.
-      </mat-error>
+        <mat-error *ngIf="shouldShowNoProjectError()">
+          Please select a COMBINE/OMEX file or enter a URL for a COMBINE/OMEX file.
+        </mat-error>
+        <mat-error *ngIf="formGroup.hasError('maxSize', 'projectFile')">
+          Currently, COMBINE/OMEX archive uploads are limited to 1 GB.
+        </mat-error>
+        <mat-error *ngIf="formGroup.hasError('multipleProjects')">
+          Please select only one COMBINE/OMEX file or URL.
+        </mat-error>
+      </mat-card-content>
     </mat-card>
 
     <mat-card class="card-form-section mat-elevation-z3">
@@ -109,7 +111,6 @@
         </mat-form-field>
 
         <mat-form-field class="card-form-field" appearance="fill">
-          <mat-label>Degree to which similar algorithms can be executed</mat-label>
           <mat-select
             formControlName="simulationAlgorithmSubstitutionPolicy"
             (ngModelChange)="controlImpactingEligibleSimulatorsUpdated()">
@@ -120,20 +121,22 @@
         </mat-form-field>
       </div>
 
-      <mat-hint>
-        Use the above menus to narrow the list of simulation tools below to those tools which have the capabilities to
-        execute your COMBINE/OMEX archive (tools which support the model formats and simulation algorithms of the models
-        and simulations described by your COMBINE/OMEX archive).
-      </mat-hint>
+      <mat-card-content class="card-hints 1">
+        <mat-hint>
+          Use the above menus to narrow the list of simulation tools below to those tools which have the capabilities to
+          execute your COMBINE/OMEX archive (tools which support the model formats and simulation algorithms of the models
+          and simulations described by your COMBINE/OMEX archive).
+        </mat-hint>
 
-      <mat-error *ngIf="shouldShowUnsupportedModelError()">
-        Your COMBINE/OMEX archive involves model formats that are not supported by any simulation tool available through
-        runBioSimulations.
-      </mat-error>
-      <mat-error *ngIf="shouldShowUnsupportedAlgorithmError()">
-        Your COMBINE/OMEX archive involves simulation algorithms that are not supported by any simulation tool available
-        through runBioSimulations.
-      </mat-error>
+        <mat-error *ngIf="shouldShowUnsupportedModelError()">
+          Your COMBINE/OMEX archive involves model formats that are not supported by any simulation tool available through
+          runBioSimulations.
+        </mat-error>
+        <mat-error *ngIf="shouldShowUnsupportedAlgorithmError()">
+          Your COMBINE/OMEX archive involves simulation algorithms that are not supported by any simulation tool available
+          through runBioSimulations.
+        </mat-error>
+      </mat-card-content>
     </mat-card>
 
     <mat-card class="card-form-section mat-elevation-z3">
@@ -164,37 +167,38 @@
         </mat-form-field>
       </div>
 
-      <mat-hint>
-        <p>
-          Select a simulation tool which is capable of executing your archive and a version of that tool. This tool must
-          support all of the model formats (e.g., BNGL, SED-ML) and simulation algorithms (e.g., ODE, SSA) involved in
-          your archive.
-        </p>
+      <mat-card-content class="card-hints 2">
+        <mat-hint>
+          <p>
+            Select a simulation tool which is capable of executing your archive and a version of that tool. This tool must
+            support all of the model formats (e.g., BNGL, SED-ML) and simulation algorithms (e.g., ODE, SSA) involved in
+            your archive.
+          </p>
 
-        <p class="alert">
-          Because each tool supports a different set of formats and algorithms, your archive is likely only compatible
-          with a subset of the available simulation tools.
-        </p>
+          <p class="alert">
+            Because each tool supports a different set of formats and algorithms, your archive is likely only compatible
+            with a subset of the available simulation tools.
+          </p>
 
-        <p>
-          The README for the BioSimulators test suite
-          <a [href]="exampleCombineArchivesUrl" rel="noopener" target="example-projects">
-            <biosimulations-icon icon="link"></biosimulations-icon>
-          </a>
-          outlines the simulator compatibility of several of the example archives in the test suite.
-        </p>
+          <p>
+            The README for the BioSimulators test suite
+            <a [href]="exampleCombineArchivesUrl" rel="noopener" target="example-projects">
+              <biosimulations-icon icon="link"></biosimulations-icon>
+            </a>
+            outlines the simulator compatibility of several of the example archives in the test suite.
+          </p>
 
-        <p>
-          BioSimulators
-          <a href="https://biosimulators.org" rel="noopener" target="biosimulators">
-            <biosimulations-icon icon="link"></biosimulations-icon>
-          </a>
-          describes the modeling formats (e.g., COMBINE/OMEX, SBML, SED-ML), modeling frameworks (e.g., logical, FBA,
-          kinetic), and simulation algorithms (e.g., ODE, SSA) that each simulation tool supports. We recommend using
-          BioSimulators to determine which tools are capable of executing your archive.
-        </p>
-      </mat-hint>
-
+          <p>
+            BioSimulators
+            <a href="https://biosimulators.org" rel="noopener" target="biosimulators">
+              <biosimulations-icon icon="link"></biosimulations-icon>
+            </a>
+            describes the modeling formats (e.g., COMBINE/OMEX, SBML, SED-ML), modeling frameworks (e.g., logical, FBA,
+            kinetic), and simulation algorithms (e.g., ODE, SSA) that each simulation tool supports. We recommend using
+            BioSimulators to determine which tools are capable of executing your archive.
+          </p>
+        </mat-hint>
+      </mat-card-content>
       <mat-error *ngIf="shouldShowSimulatorRequiredError()">Please select a simulator.</mat-error>
       <mat-error *ngIf="shouldShowSimulatorVersionRequiredError()">Please select a version of the simulator.</mat-error>
     </mat-card>
@@ -206,37 +210,39 @@
         The purpose of this simulation is academic research or education.
       </mat-checkbox>
 
-      <mat-hint>
-        <p>
-          Some simulation tools, such as COBRApy and RBApy, can optionally execute simulations using commercial solvers
-          such as Gurobi
-          <a href="https://www.gurobi.com/products/gurobi-optimizer/" rel="noopener" target="_blank">
-            <biosimulations-icon icon="link"></biosimulations-icon>
-          </a>
-          . These commercial solvers are often more accurate and more performant. However, these commercial solvers are
-          not required to execute any of the available simulation tools. All of the available simulation tools can be
-          run with freely available solvers.
-        </p>
+      <mat-card-content class="card-hints 3">
+        <mat-hint>
+          <p>
+            Some simulation tools, such as COBRApy and RBApy, can optionally execute simulations using commercial solvers
+            such as Gurobi
+            <a href="https://www.gurobi.com/products/gurobi-optimizer/" rel="noopener" target="_blank">
+              <biosimulations-icon icon="link"></biosimulations-icon>
+            </a>
+            . These commercial solvers are often more accurate and more performant. However, these commercial solvers are
+            not required to execute any of the available simulation tools. All of the available simulation tools can be
+            run with freely available solvers.
+          </p>
 
-        <p>
-          Optionally, users can use these commercial solvers for academic research and education. To use these
-          commercial solvers, check the box above to confirm that you are using runBioSimulations for academic research
-          or education.
-        </p>
+          <p>
+            Optionally, users can use these commercial solvers for academic research and education. To use these
+            commercial solvers, check the box above to confirm that you are using runBioSimulations for academic research
+            or education.
+          </p>
 
-        <p>
-          Non-academic users can execute simulations with commercial solvers by (a) running simulations through
-          runBioSimulations' API and providing license keys through environment variables or (b) using the Docker
-          images, command-line programs, or Python APIs for simulation tools on their own machines with their own
-          license key environment variables or license files.
-        </p>
-      </mat-hint>
+          <p>
+            Non-academic users can execute simulations with commercial solvers by (a) running simulations through
+            runBioSimulations' API and providing license keys through environment variables or (b) using the Docker
+            images, command-line programs, or Python APIs for simulation tools on their own machines with their own
+            license key environment variables or license files.
+          </p>
+        </mat-hint>
+      </mat-card-content>
     </mat-card>
 
     <mat-card class="card-form-section mat-elevation-z3">
        <mat-card-header class="card-form-section-title resources">Computational resources *</mat-card-header>
 
-      <div class="input-group">
+      <div class="input-group resources">
         <mat-form-field class="card-form-field" appearance="fill">
           <mat-label>CPUs</mat-label>
           <input matInput formControlName="cpus" type="number" min="1" max="24" step="1" required />
@@ -255,14 +261,14 @@
           <span matSuffix>min</span>
         </mat-form-field>
       </div>
-
-      <mat-hint>
-        Configure the amount of resources needed to execute your project. Currently, users can request up to 24 CPU
-        cores, 192 GB RAM, and 20 days. if additional resources are needed, please contact the runBioSimulations Team
-        <a [href]="emailUrl"><biosimulations-icon icon="email"></biosimulations-icon></a>
-        to discuss additional options.
-      </mat-hint>
-
+      <mat-card-content class="card-hints 4">
+        <mat-hint>
+          Configure the amount of resources needed to execute your project. Currently, users can request up to 24 CPU
+          cores, 192 GB RAM, and 20 days. if additional resources are needed, please contact the runBioSimulations Team
+          <a [href]="emailUrl"><biosimulations-icon icon="email"></biosimulations-icon></a>
+          to discuss additional options.
+        </mat-hint>
+      </mat-card-content>
       <mat-error *ngIf="formGroup.hasError('min', 'cpus')">Jobs must request at least 1 core.</mat-error>
       <mat-error *ngIf="formGroup.hasError('max', 'cpus')">Jobs are limited to 24 CPU cores.</mat-error>
       <mat-error *ngIf="formGroup.hasError('integer', 'cpus')">
@@ -283,12 +289,12 @@
           <input matInput formControlName="name" placeholder="Knockout of gene A" required />
         </mat-form-field>
       </div>
-
-      <mat-hint>
-        Provide a name for your modeling project. If you execute multiple projects, this name will help you identify
-        this project among all of your projects.
-      </mat-hint>
-
+      <mat-card-content class="card-hints 5">
+        <mat-hint>
+          Provide a name for your modeling project. If you execute multiple projects, this name will help you identify
+          this project among all of your projects.
+        </mat-hint>
+      </mat-card-content>
       <mat-error *ngIf="shouldShowNameRequiredError()">Please enter a name for your project.</mat-error>
     </mat-card>
 
@@ -301,13 +307,13 @@
           <input matInput formControlName="email" placeholder="investigator@uni.edu" />
         </mat-form-field>
       </div>
-
-      <mat-hint>
-        Optionally, enter your email address to receive notification of the completion of your simulation. After
-        submitting your simulation, you will also receive a URL where you will be able to check the status of your
-        simulation and retrieve its results.
-      </mat-hint>
-
+      <mat-card-content class="card-hints 6">
+        <mat-hint>
+          Optionally, enter your email address to receive notification of the completion of your simulation. After
+          submitting your simulation, you will also receive a URL where you will be able to check the status of your
+          simulation and retrieve its results.
+        </mat-hint>
+      </mat-card-content>
       <mat-error *ngIf="formGroup.hasError('email', 'email')">Please enter a valid email address.</mat-error>
 
       <mat-checkbox formControlName="emailConsent" color="primary">

@@ -10,17 +10,19 @@ button {
   padding-bottom: 1rem;
   padding-right: 1rem;
   background-color: white;
+  overflow-x: hidden;
 }
 
 .card-form-section-title {
   background-color: #ff9800;
+  color: #1b4b0b;
   height: 100%;
   width: 100%;
   padding: 0.5rem;
   font-weight: bold;
 
   &:hover {
-    color: #e8f4fd;
+    color: var(--quaternary-darker-color);
     transition: color 0.3s ease;
   }
 }
@@ -28,12 +30,29 @@ button {
 .input-group {
   height: 100%;
   padding-top: 3rem;
-  text-overflow: ellipsis;
+}
+
+.resources {
+  input {
+    padding-top: 3rem;
+  }
 }
 
 .card-form-field {
-  height: 100%;
   justify-content: center;
+  display: flex;
+}
+
+.alert {
+  width: fit-content;
+  background-color: var(--warn-lighter-color);
+  color: var(--warn-color);
+  padding: 6px;
+
+  &:hover {
+    color: var(--primary-darker-color);
+    transition: color 0.5s ease;
+  }
 }
 
 .message {
