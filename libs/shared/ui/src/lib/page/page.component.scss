@@ -34,3 +34,15 @@ h1 {
   font-style: italic;
   margin-top: 0.25rem;
 }
+
+.buttons {
+  padding-top: 3rem;
+}
+
+.btn-card {
+  height: fit-content;
+  width: fit-content;
+  background-color: var(--accent-color);
+  border: 2px solid var(--accent-color);
+  border-radius: 4px;
+}
