@@ -1,5 +1,13 @@
 # Changelog
 
+## [9.41.0](https://github.com/biosimulations/biosimulations/compare/v9.40.0...v9.41.0) (2023-07-21)
+
+
+### Features
+
+* implemented fully functional hero banner for dispatch app ([4251747](https://github.com/biosimulations/biosimulations/commit/4251747ea5b2679b3eb746d448d705e3a70c10ce))
+* **ui:** adjusted browse runs header text ([1a5ea08](https://github.com/biosimulations/biosimulations/commit/1a5ea08437ae1d84f9e931c24fda9ca63b3f7920))
+
 ## [9.40.0](https://github.com/biosimulations/biosimulations/compare/v9.39.1...v9.40.0) (2023-07-07)
 
 
