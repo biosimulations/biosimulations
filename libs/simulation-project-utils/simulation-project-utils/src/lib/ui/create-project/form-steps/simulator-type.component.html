@@ -1,6 +1,6 @@
 <form [formGroup]="formGroup">
-  <mat-card-title>Select a modeling framework and simulation method</mat-card-title>
-
+  <mat-card-header class="card-form-title framework">Select a modeling framework and simulation method</mat-card-header>
+  <mat-card-content class="select-framework-content">
   <div class="input-group">
     <span class="input-prefix">1. </span>
 
@@ -39,6 +39,7 @@
       </mat-select>
     </mat-form-field>
   </div>
+</mat-card-content>
 
   <mat-error *ngIf="nextClicked && formGroup.hasError('required', 'framework')">
     Please select a modeling framework.

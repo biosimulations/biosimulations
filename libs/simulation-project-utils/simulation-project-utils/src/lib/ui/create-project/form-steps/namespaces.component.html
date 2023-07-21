@@ -1,27 +1,28 @@
-<mat-card-title>Add the namespaces used within your model</mat-card-title>
+<mat-card-header class="card-form-title namespace">Add the namespaces used within your model</mat-card-header>
+<mat-card-content class="namespace-card-content">
+  <div class="model-namespace-grid">
+    <div class="grid-label">Prefix</div>
+    <div class="grid-label">URI *</div>
+    <div></div>
 
-<div class="model-namespace-grid">
-  <div class="grid-label">Prefix</div>
-  <div class="grid-label">URI *</div>
-  <div></div>
+    <ng-container *ngFor="let formGroup of formGroups(); index as iModelNamespace" [formGroup]="formGroup">
+      <input class="grid-input" formControlName="prefix" [class.error-border]="showPrefixError(formGroup)" />
+      <input class="grid-input" formControlName="uri" [class.error-border]="showUriError(formGroup)" />
+      <button mat-icon-button title="Delete namespace" (click)="removeNamespaceField(iModelNamespace)">
+        <biosimulations-icon icon="trash"></biosimulations-icon>
+      </button>
+    </ng-container>
 
-  <ng-container *ngFor="let formGroup of formGroups(); index as iModelNamespace" [formGroup]="formGroup">
-    <input class="grid-input" formControlName="prefix" [class.error-border]="showPrefixError(formGroup)" />
-    <input class="grid-input" formControlName="uri" [class.error-border]="showUriError(formGroup)" />
-    <button mat-icon-button title="Delete namespace" (click)="removeNamespaceField(iModelNamespace)">
-      <biosimulations-icon icon="trash"></biosimulations-icon>
+    <button mat-flat-button class="biosimulations-button text" style="grid-column: 1 / 3" (click)="addNamespaceField()">
+      Additional namespace
     </button>
-  </ng-container>
+  </div>
 
-  <button mat-flat-button class="biosimulations-button text" style="grid-column: 1 / 3" (click)="addNamespaceField()">
-    Additional namespace
-  </button>
-</div>
-
-<mat-hint>
-  Describe the namespaces needed to reference the parameters and variables of your model (e.g.,
-  <code>sbml</code>: <code>http://www.sbml.org/sbml/level2/version4</code> for SBML L2V4).
-</mat-hint>
+  <mat-hint>
+    Describe the namespaces needed to reference the parameters and variables of your model (e.g.,
+    <code>sbml</code>: <code>http://www.sbml.org/sbml/level2/version4</code> for SBML L2V4).
+  </mat-hint>
+</mat-card-content>
 
 <mat-error *ngIf="nextClicked && formArray.invalid && !formArray.hasError('prefixUnique')">
   One or more properties of one or more namespaces is invalid.
