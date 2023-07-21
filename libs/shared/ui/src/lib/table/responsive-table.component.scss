@@ -1,5 +1,10 @@
 biosimulations-table-controls {
   //width: calc(16rem - 22px);
-  width: fit-content;
-  height: auto;
+  width: 100%;
+  height: 100%;
+}
+
+.row {
+  width: 100%;
+  height: 20px;
 }
