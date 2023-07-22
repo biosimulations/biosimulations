@@ -1,12 +1,38 @@
-<biosimulations-page heading="Simulators">
-  <biosimulations-responsive-table
-    [columns]="columns"
-    stackedContentsHeading="Simulators"
-    [getStackedHeading]="getStackedHeading"
-    [getStackedHeadingMoreInfoRouterLink]="getStackedHeadingMoreInfoRouterLink"
-    searchPlaceHolder="Query (e.g., COPASI)"
-    searchToolTip="Enter a query such as 'CVODE'. By default, your query will be searched over all columns. To search over a specific column, prefix your query with the heading of the column (with spaces replaced by dashes) such as 'model-formats: SBML'. Please see the FAQs for more information."
-    [linesPerRow]="3"
-    [defaultSort]="{ active: 'name', direction: 'asc' }"
-    [data]="data"></biosimulations-responsive-table>
-</biosimulations-page>
+<div class="home-container">
+  <div class="home-teaser-container">
+    <biosimulations-home-teaser
+      heading="Easily find and obtain biosimulation tools"
+      banner="assets/images/biosimulators-logo/logo-white.svg">
+      <ng-container id="description">
+        BioSimulators is a free
+        <a [routerLink]="['/simulators']">registry of biosimulation tools</a>. The registry includes tools for a broad range
+        of frameworks (e.g., logical, kinetic), simulation algorithms (e.g., FBA, SSA), and model formats (e.g., BNGL,
+        CellML, NeuroML/LEMS, SBML, Smoldyn). Many of the simulation tools provide Python packages, command-line programs,
+        and Docker images with consistent interfaces. Together, BioSimulators makes it easier to run simulations.
+        BioSimulators is powered by several
+        <a href="https://docs.biosimulations.org/concepts/conventions/" rel="noopener" target="biosimulations-docs"
+          >conventions</a
+        >
+        including SED-ML, KiSAO, COMBINE, and other standards.
+      </ng-container>
+    </biosimulations-home-teaser>
+  </div>
+
+  <biosimulations-page heading="Simulators">
+    <div class="container">
+      <biosimulations-responsive-table
+      [columns]="columns"
+      stackedContentsHeading="Simulators"
+      [getStackedHeading]="getStackedHeading"
+      [getStackedHeadingMoreInfoRouterLink]="getStackedHeadingMoreInfoRouterLink"
+      searchPlaceHolder="Query (e.g., COPASI)"
+      searchToolTip="Enter a query such as 'CVODE'. By default, your query will be searched over all columns. To search over a specific column, prefix your query with the heading of the column (with spaces replaced by dashes) such as 'model-formats: SBML'. Please see the FAQs for more information."
+      [linesPerRow]="3"
+      [defaultSort]="{ active: 'name', direction: 'asc' }"
+      [data]="data"></biosimulations-responsive-table>
+    </div>
+  </biosimulations-page>
+</div>
+
+
+
