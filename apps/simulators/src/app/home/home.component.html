@@ -1,8 +1,7 @@
-<biosimulations-home-teaser
-  heading="Easily find and obtain biosimulation tools"
-  banner="assets/images/biosimulators-logo/logo-white.svg">
-  <ng-container id="description">
-    BioSimulators is a free
+<biosimulations-home-section [columns]="3">
+  <ng-container id="heading">
+    <span>
+      BioSimulators is a free
     <a [routerLink]="['/simulators']">registry of biosimulation tools</a>. The registry includes tools for a broad range
     of frameworks (e.g., logical, kinetic), simulation algorithms (e.g., FBA, SSA), and model formats (e.g., BNGL,
     CellML, NeuroML/LEMS, SBML, Smoldyn). Many of the simulation tools provide Python packages, command-line programs,
@@ -12,14 +11,9 @@
       >conventions</a
     >
     including SED-ML, KiSAO, COMBINE, and other standards.
+    </span>
   </ng-container>
-</biosimulations-home-teaser>
 
-<biosimulations-home-section [columns]="3">
-  <ng-container id="heading">
-    Helping investigators
-    <span class="highlight-primary">run biosimulations</span>
-  </ng-container>
 
   <biosimulations-home-subsection
     id="subsection"
