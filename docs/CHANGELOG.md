@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.41.1](https://github.com/biosimulations/biosimulations/compare/v9.41.0...v9.41.1) (2023-07-26)
+
+
+### Bug Fixes
+
+* removed linkClicked method from click event in hover open menu comp ([7cca3c8](https://github.com/biosimulations/biosimulations/commit/7cca3c896aa3933b779e7c7ba6fa9ff037695aba))
+
 ## [9.41.0](https://github.com/biosimulations/biosimulations/compare/v9.40.0...v9.41.0) (2023-07-21)
 
 
