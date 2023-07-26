@@ -18,23 +18,14 @@
       </biosimulations-topbar-menu-item>
     </biosimulations-hover-open-menu>
 
-    <biosimulations-hover-open-menu>
-      <biosimulations-topbar-menu-item heading="Run Simulations" icon="experiment" id="trigger">
+    <biosimulations-hover-open-menu [disabled]="true">
+      <biosimulations-topbar-menu-item
+        heading="Run Simulations"
+        icon="experiment"
+        id="trigger"
+        [href]="config.dispatchAppUrl"
+        target="_self">
       </biosimulations-topbar-menu-item>
-      <ng-container id="items">
-        <biosimulations-dropdown-menu-item
-          heading="Browse Simulation Runs"
-          icon="browse"
-          id="trigger"
-          [routerLink]="['/runs']">
-        </biosimulations-dropdown-menu-item>
-        <biosimulations-dropdown-menu-item
-          heading="Run a Simulation"
-          icon="simulation"
-          id="trigger"
-          [routerLink]="['/runs', 'new']">
-        </biosimulations-dropdown-menu-item>
-      </ng-container>
     </biosimulations-hover-open-menu>
 
     <biosimulations-hover-open-menu>
