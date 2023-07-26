@@ -40,23 +40,11 @@ export class HoverOpenMenuComponent {
       targetValue = this.target;
     }
     if (this.link) {
-      //window.location.href = this.link;
       window.open(this.link, targetValue);
     }
   }
 
   public stayStatic(trigger: MatMenuTrigger): void {
     return trigger.closeMenu();
-  }
-
-  public linkClicked(trigger: MatMenuTrigger): void {
-    this.disabled = true;
-    this.disappearContainer(this.disabled, trigger);
-  }
-
-  private disappearContainer(disabled: boolean, trigger: MatMenuTrigger): void {
-    if (disabled) {
-      trigger.closeMenu();
-    }
   }
 }
