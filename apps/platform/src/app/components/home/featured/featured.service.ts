@@ -85,7 +85,7 @@ export class FeaturedService {
     descriptionVerbose: `Swagger page provides developers with a detailed and interactive documentation of \
       our API endpoints, simplifying the integration process and offering an intuitive interface for \
       executing services, which facilitates efficient interaction with our platform's functionalities and resources.`,
-    routingLink: 'https://api.biosimulations.dev',
+    routingLink: 'https://api.biosimulations.org',
     logo: 'idea',
     headerColor: '#951ed9',
     color: 'rgba(0, 150, 136, 0.85)',
