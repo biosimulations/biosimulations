@@ -140,7 +140,7 @@
     </ng-container>
 
     <ng-template #selectVisualizationContent>
-      <div *ngIf="visualizations$ | async as visualizations; else visualizationErrors" class="partial-width">
+      <div *ngIf="visualizations$ | async as visualizations; else visualizationErrors" class="partial-width" style="padding-top: 5rem">
         <biosimulations-project-select-visualization
           [visualizations]="visualizations"
           (renderVisualization)="renderVisualization($event)"
