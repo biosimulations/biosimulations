@@ -2,11 +2,7 @@
 @import '../biosimulations-typography';
 
 @include mat.core();
-/*
-  Foreground Elements
-  Light Theme Text
-  Copied over from @angular/material. These use to be exported by the library, but are no longer.
-*/
+/* Foreground Elements Light Theme Text Copied over from @angular/material. These use to be exported by the library, but are no longer. */
 $dark-primary-text: rgba(black, 0.87);
 $dark-secondary-text: rgba(black, 0.54);
 $dark-disabled-text: rgba(black, 0.38);
@@ -71,10 +67,7 @@ $mat-dark-theme-foreground: (
   slider-off-active: rgba($light-text, 0.3),
 );
 
-/*
-  Background config
-  Light bg
-*/
+/* Background config Light bg */
 $light-background: #fff;
 $light-bg-darker-1: darken($light-background, 1%);
 $light-bg-darker-3: darken($light-background, 3%);
@@ -131,7 +124,6 @@ $mat-dark-theme-background: (
   tooltip: $light-bg-alpha-12,
 );
 
-// Theme Config
 $theme-primary-main: #2196f3;
 $theme-primary-lighter: #9bcff9;
 $theme-primary-lightest: #d2eafc;
@@ -152,13 +144,11 @@ $mat-primary: (
   lighter: $theme-primary-lighter,
   darker: $theme-primary-darker,
   200: $theme-primary-main,
-  // For slide toggle,
-  contrast:
-    (
-      main: $light-primary-text,
-      lighter: $dark-primary-text,
-      darker: $light-primary-text,
-    ),
+  contrast: (
+    main: $light-primary-text,
+    lighter: $dark-primary-text,
+    darker: $light-primary-text,
+  ),
 );
 $theme-primary: mat.define-palette($mat-primary, main, lighter, darker);
 
