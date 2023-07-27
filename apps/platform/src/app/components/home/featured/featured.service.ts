@@ -7,21 +7,10 @@ export class FeaturedService {
     title: 'Browse Simulations',
     image: 'https://img.freepik.com/premium-vector/black-white-drawing-microscope-with-microscope-it_666729-1282.jpg',
     id: 'simulations',
-    descriptionTeaser: 'Explore Biology Like Never Before with BioSimDB.',
-    descriptionVerbose: `Step into the fascinating world of BioSimDB, where biological simulations become a gateway \
-      to in-depth understanding and exploration. BioSimDB, our comprehensive simulations database, takes you beyond \
-      traditional static data, offering a dynamic, interactive journey through a wealth of biological processes. Each \
-      simulation in our database unfolds as a unique profile, carefully crafted to deliver a visually compelling \
-      narrative. This includes highly detailed visualizations and comprehensive data summaries. This rich profile \
-      helps you gain a holistic understanding of the simulation, emphasizing key outputs and making complex data \
-      more accessible and engaging. Our innovative BioCard encapsulates this ethos of clarity and interactivity. It \
-      seamlessly incorporates all the critical data about each simulation. The BioCard presents four pillars of \
-      output data - compelling visualizations, downloadable files for offline study, metadata for the inquisitive \
-      mind, and a bespoke rerun simulation function, an exciting feature currently under development. BioSimDB is \
-      more than just a database. It is a comprehensive tool designed for an immersive learning experience. Its \
-      intuitive design and user-friendly interface make exploring biology a rewarding journey, irrespective of your \
-      prior knowledge or experience. With BioSimDB, every simulation becomes an opportunity to explore, learn, and \
-      innovate.`,
+    descriptionTeaser: 'BioSimulation Projects: a database of published simulation runs',
+    descriptionVerbose: `BioSimulation Projects is a searchable database of rigorously curated simulation projects \
+      from published works. Each project has been meticulously resimulated to accurately reproduce and validate the \
+      originally published outcomes, contributing to the advancement of reproducible research in the field.`,
     routingLink: ['/projects'],
     logo: 'simulators',
     headerColor: 'rgb(33, 150, 243)',
@@ -30,23 +19,13 @@ export class FeaturedService {
     useInternalRouting: true,
   };
   private runSimulations = {
-    title: 'Run Simulations',
+    title: 'RunBioSimulations',
     image:
       'https://static.vecteezy.com/system/resources/thumbnails/008/017/927/small/illustration-of-people-running-icon-flat-design-free-vector.jpg',
     id: 'runSimulations',
-    descriptionTeaser: 'Unlock Biological Insights with Run Simulations.',
-    descriptionVerbose: `Unleash the power of personalization with Run Simulations, our dedicated tool for running \
-      your own biological simulations. The Run Simulations feature brings cutting-edge technology to your fingertips, \
-      enabling you to upload your own .omex files and seamlessly run simulations in real-time. The Run Simulations tool \
-      is built with an emphasis on usability and flexibility. Upload your own .omex files in just a few clicks, and our \
-      intuitive platform handles the rest. The tool swiftly processes your file and delivers accurate simulations, \
-      offering a unique blend of speed, accuracy, and reliability. But the journey doesn't end there. With each \
-      simulation you run, you gain access to comprehensive data outputs, all presented in an easily digestible format. \
-      Download your results, delve into the rich metadata, or explore visual representations of your simulation for \
-      deeper insights. Run Simulations is not merely a tool - it's a platform where users can experiment, test \
-      hypotheses, and push the boundaries of their understanding. It fosters an environment where innovation \
-      flourishes, empowering you to bring your biological questions to the forefront, explore hypotheses, and discover \
-      breakthrough insights. Your biological exploration is now at your command with Run Simulations.`,
+    descriptionTeaser: 'Execute custom simulations online',
+    descriptionVerbose:
+      'RunBioSimulations is a web application for running biosimulations on our shared computational resources.',
     routingLink: ['/runs/new'],
     logo: 'experiment',
     headerColor: 'rgb(255, 152, 0)',
@@ -58,15 +37,10 @@ export class FeaturedService {
     title: 'Submit Your Simulation for publication',
     image: `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpy6yf5KdrcU3NpXPlno0_CUnI34BpdWKEjA&usqp=CAU`,
     id: 'publishSimulations',
-    descriptionTeaser: 'Take the Stage and Publish a Simulation.',
-    descriptionVerbose: `Elevate your work from the lab to the limelight with our Publish Simulations feature. \
-      Take your self-curated simulations and transform them into published studies, open for the world to \
-      see, learn from, and build upon. Publish Simulations is more than just a tool - it's your doorway \
-      to sharing knowledge and contributing to the global bio-simulation community. With an intuitive \
-      submission process, it takes only a few steps to submit your simulation for review and potential \
-      publication. Your work deserves recognition. Let Publish Simulations spotlight your efforts and \
-      turn your insights into shared knowledge. The future of biosimulation research is collaborative - \
-      play your part with Publish Simulations.`,
+    descriptionTeaser: 'Submit a simulation for publication on BioSimulation Projects',
+    descriptionVerbose: `Simulations that have been published in papers are invited to be submitted to the \
+      BioSimulation Project Database. This makes the full simulation run available to the public, verifying \
+      its reproducibility and allowing anyone to download and rerun the simulation.`,
     routingLink: ['/utils/create-project'],
     logo: 'publish',
     headerColor: '#388E3C',
@@ -80,14 +54,8 @@ export class FeaturedService {
     image: `https://neurosciencenews.com/files/2018/11/memory-learning-rna-neurosciencenews-public.jpg`,
     id: 'learnSimulations',
     descriptionTeaser: 'Step Into the Docs.',
-    descriptionVerbose: `Feed your curiosity, hone your skills, and dive deeper into the world of bio-simulation \
-      with our Learn platform. Here, knowledge and innovation unite to bring you the tools you need to \
-      thrive in this ever-evolving field. The Learn section is a comprehensive guide that makes mastering \
-      bio-simulation both enjoyable and achievable. With a wealth of tutorials, you can easily navigate \
-      from the basics to the more advanced concepts at your own pace. Whether you're a budding scientist \
-      or a seasoned researcher, 'Learn' provides a rich and interactive learning environment, designed \
-      to support and challenge you. Take a leap into the future of bio-simulation with Learn. Your journey \
-      towards mastery begins here. Image by rawpixel.com</a> on Freepik`,
+    descriptionVerbose: `A guide for using BioSimulations and BioSimulators to create, publish, and \
+      find simulation projects and simulation tools. Image by rawpixel.com</a> on Freepik`,
     routingLink: 'https://docs.biosimulations.org/developers/setup/getting-started/',
     logo: 'idea',
     color: 'rgba(149, 30, 217, 0.85)',
@@ -98,12 +66,9 @@ export class FeaturedService {
     title: 'Convert a file',
     image: 'https://www.oldbookillustrations.com/site/assets/high-res/n-d-1884/edisons-electric-pen-1200.jpg',
     id: 'convertFile',
-    descriptionTeaser: 'Bridging the Gap with "BioConvert" File Conversion.',
-    descriptionVerbose: `Our File Conversion feature seamlessly connects the output of your SED-ML reports to the inputs of Vega datasets.
-      It is your effortless solution to linking diverse platforms and ensuring a smooth workflow. This conversion tool puts
-      you in control, effortlessly transforming data outputs into compatible inputs for clear, efficient analysis.
-      With this feature, the complex becomes simple. Streamline your research process and accelerate your journey to
-      discovery with our BioConvert File Conversion tool.`,
+    descriptionTeaser: 'Utilities for converting diagrams into visualizations of simulation results',
+    descriptionVerbose: `BioSimulators-utils provides a command-line program and Python API for \
+      converting diagrams in multiple formats into Vega data visualizations.`,
     routingLink: ['/utils/convert-file'],
     logo: 'link',
     headerColor: '#ef2c22',
@@ -111,18 +76,16 @@ export class FeaturedService {
     textColor: 'white',
     useInternalRouting: true,
   };
-  private community = {
-    title: 'Community',
+  private restAPI = {
+    title: 'REST API',
     image:
       'https://images.unsplash.com/photo-1500042600524-37ecb686c775?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
     id: 'community',
-    descriptionTeaser: 'Our Community',
-    descriptionVerbose: `The strength of our \
-      community is integral to our mission. We're proud to partner with innovative platforms like vivarium.org, \
-      allowing users to chain together BioSimulations for a more comprehensive and connected experience. Our \
-      Community is a network of minds, constantly evolving, innovating, and pushing the boundaries of what's \
-      possible in biological simulation.`,
-    routingLink: 'https://vivarium-collective.github.io',
+    descriptionTeaser: 'Documentation of our API endpoints',
+    descriptionVerbose: `Swagger page provides developers with a detailed and interactive documentation of \
+      our API endpoints, simplifying the integration process and offering an intuitive interface for \
+      executing services, which facilitates efficient interaction with our platform's functionalities and resources.`,
+    routingLink: 'https://api.biosimulations.dev',
     logo: 'idea',
     headerColor: '#951ed9',
     color: 'rgba(0, 150, 136, 0.85)',
@@ -158,7 +121,7 @@ export class FeaturedService {
     this.publishSimulations,
     this.learnSimulations,
     this.convertFile,
-    this.community,
+    this.restAPI,
     //this.runCustomizedSimulation,
   ];
 
