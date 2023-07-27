@@ -1,3 +1,5 @@
+
+
 <!-- INDIVIDUAL SIMULATION RUN VIEW -->
 <biosimulations-tab-page
   *ngIf="(loaded$ | async) === true; else runLoading"
@@ -72,25 +74,31 @@
     <ng-template #filesContent>
       <div
         *ngIf="(projectFiles$ | async) && (files$ | async) && (outputs$ | async); else filesError"
-        class="partial-width files">
-        <biosimulations-text-page-content-section
+        class="files">
+        <mat-expansion-panel expanded="true" disabled="true">
+          <biosimulations-text-page-content-section
           heading="Simulation specification (COMBINE/OMEX archive)"
           *ngIf="projectFiles$ | async as files">
-          <biosimulations-project-files [files]="files" [usesMaster]="false" [usesMetadata]="false">
-          </biosimulations-project-files>
-        </biosimulations-text-page-content-section>
+            <biosimulations-project-files [files]="files" [usesMaster]="false" [usesMetadata]="false">
+            </biosimulations-project-files>
+          </biosimulations-text-page-content-section>
+        </mat-expansion-panel>
 
-        <biosimulations-text-page-content-section
-          heading="Contents of simulation specification"
-          *ngIf="files$ | async as files">
-          <biosimulations-project-files [files]="files" [usesMaster]="true" [usesMetadata]="true">
-          </biosimulations-project-files>
-        </biosimulations-text-page-content-section>
+        <mat-expansion-panel expanded="true" disabled="true">
+          <biosimulations-text-page-content-section
+            heading="Contents of simulation specification"
+            *ngIf="files$ | async as files">
+            <biosimulations-project-files [files]="files" [usesMaster]="true" [usesMetadata]="true">
+            </biosimulations-project-files>
+          </biosimulations-text-page-content-section>
+        </mat-expansion-panel>
 
-        <biosimulations-text-page-content-section heading="Simulation outputs" *ngIf="outputs$ | async as files">
-          <biosimulations-project-files [files]="files" [usesMaster]="false" [usesMetadata]="false">
-          </biosimulations-project-files>
-        </biosimulations-text-page-content-section>
+        <mat-expansion-panel expanded="true" disabled="true">
+          <biosimulations-text-page-content-section heading="Simulation outputs" *ngIf="outputs$ | async as files">
+            <biosimulations-project-files [files]="files" [usesMaster]="false" [usesMetadata]="false">
+            </biosimulations-project-files>
+          </biosimulations-text-page-content-section>
+        </mat-expansion-panel>
       </div>
 
       <ng-template #filesError>

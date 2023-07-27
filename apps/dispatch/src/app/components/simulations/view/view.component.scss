@@ -21,7 +21,8 @@ biosimulations-tab-page ::ng-deep .icon-list {
 }
 
 .files {
-  margin-top: -2rem;
+  margin-top: 2rem;
+  display: flex;
   ::ng-deep {
     h3 .icon-container {
       display: none;
