@@ -33,7 +33,7 @@
         }"
         [ngStyle]="{
           '-webkit-line-clamp': linesPerRow,
-          'height.px': 25 * linesPerRow - 2
+          'height.px': 26 * linesPerRow - 2
         }">
         <span [ngSwitch]="column.leftAction" *ngIf="element._cache[column.id].left.icon">
           <ng-template [ngSwitchCase]="'routerLink'">
