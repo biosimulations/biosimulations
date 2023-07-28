@@ -1,3 +1,5 @@
+@import 'biosimulations-colors';
+
 :host {
   width: 100%;
   height: max-content;
@@ -34,4 +36,24 @@ mat-cell {
 
 .biosimulations-table {
   width: 100%;
+}
+
+$biosim-border: solid var(--accent-color);
+$biosim-background: var(--primary-color) !important;
+
+.cell-header-container {
+  border: 3px $biosim-border;
+  background-color: $biosim-background;
+  color: white;
+  font-weight: 700;
+  height: fit-content;
+  width: fit-content;
+
+  &:first-child {
+    border-left: 6px $biosim-border;
+  }
+
+  &:last-child {
+    border-right: 6px $biosim-border;
+  }
 }
