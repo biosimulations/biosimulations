@@ -36,7 +36,7 @@ describe('AppRoutes', () => {
     expect(devAppRoutes.getSimulatorsAppHome()).toBe('https://biosimulators.dev');
 
     expect(prodAppRoutes.getDispatchAppHome()).toBe('https://run.biosimulations.org');
-    expect(devAppRoutes.getDispatchAppHome()).toBe('https://run.biosimulations' + pointers.prod);
+    expect(devAppRoutes.getDispatchAppHome()).toBe('https://run.biosimulations' + pointers.dev);
 
     expect(prodAppRoutes.getPlatformAppHome()).toBe('https://biosimulations.org');
     expect(devAppRoutes.getPlatformAppHome()).toBe('https://biosimulations.dev');
