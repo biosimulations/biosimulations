@@ -1,5 +1,29 @@
 # Changelog
 
+## [9.42.0](https://github.com/biosimulations/biosimulations/compare/v9.41.1...v9.42.0) (2023-07-28)
+
+
+### Bug Fixes
+
+* added correct local pointer routerlink to biosimulators button ([dab2a19](https://github.com/biosimulations/biosimulations/commit/dab2a19daa5a37643e7a56218c64758fbfb3cedc))
+* adjusted padding ([152c6fe](https://github.com/biosimulations/biosimulations/commit/152c6fe4963195153344a549c0c4f514a2c7814a))
+* adjusted pointer for app routes test ([c52f2a9](https://github.com/biosimulations/biosimulations/commit/c52f2a9ac0aeeaa47d0a1085567f763ef44c90ac))
+* adjusted pointer value for concat in setter for test ([a23100c](https://github.com/biosimulations/biosimulations/commit/a23100c06dcb1b92932c5c3dfbe61641267ac6ad))
+* adjusted pointers in config ([5915267](https://github.com/biosimulations/biosimulations/commit/5915267773367d2a9438fcc17bf63d059bd602f0))
+* changed external pointer of featured service ([e28d547](https://github.com/biosimulations/biosimulations/commit/e28d547ad793d6b1983d996be2316ccdf854c9a9))
+* combined material icons import statement with fonts and removed un ([ff106b6](https://github.com/biosimulations/biosimulations/commit/ff106b67aaa0904fe3094c40577fd825b1d743fc))
+* mult-line comments to single line to appease ci ([6f613bc](https://github.com/biosimulations/biosimulations/commit/6f613bcb7b3dd7bc461797b75cfb950d08a01ecc))
+* production site pointer in place of dev in dispatch config file ([f53c9f8](https://github.com/biosimulations/biosimulations/commit/f53c9f8d38d7ed8620224ebb72f2374d047b4b71))
+* removed template literal from simulator component method ([b92b885](https://github.com/biosimulations/biosimulations/commit/b92b885abfbc1975b16e941bdbbad32d84a35146))
+* removed trigger id from hover open menu item in platform ([8e7fd79](https://github.com/biosimulations/biosimulations/commit/8e7fd79996fe28170c7eca32002dd90d52d83c2b))
+* toggled value in endpoint loader to use prod ([3f899af](https://github.com/biosimulations/biosimulations/commit/3f899afa516032f5990f146889c6fdbbd1d948b1))
+
+
+### Features
+
+* added rest api service and update text to home carousel ([de6c2a7](https://github.com/biosimulations/biosimulations/commit/de6c2a7418fd6e9d23983e9ea7b91790b668185f))
+* **ui:** combined simulation run with run metadata for clarity ([6ddc2b2](https://github.com/biosimulations/biosimulations/commit/6ddc2b2a7ba811ec6de190bff69ec560c5de32e0))
+
 ## [9.41.1](https://github.com/biosimulations/biosimulations/compare/v9.41.0...v9.41.1) (2023-07-26)
 
 
