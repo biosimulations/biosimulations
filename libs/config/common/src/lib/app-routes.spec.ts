@@ -68,10 +68,10 @@ describe('AppRoutes', () => {
 
   it('Should calculate correct simulation run views', () => {
     expect(prodAppRoutes.getSimulationRunsView()).toBe('https://run.biosimulations.org/runs');
-    expect(devAppRoutes.getSimulationRunsView()).toBe('https://run.biosimulations' + pointers.prod + '/runs');
+    expect(devAppRoutes.getSimulationRunsView()).toBe('https://run.biosimulations' + pointers.dev + '/runs');
 
     expect(prodAppRoutes.getSimulationRunsView('xyz')).toBe('https://run.biosimulations.org/runs/xyz');
-    expect(devAppRoutes.getSimulationRunsView('xyz')).toBe('https://run.biosimulations' + pointers.prod + '/runs/xyz');
+    expect(devAppRoutes.getSimulationRunsView('xyz')).toBe('https://run.biosimulations' + pointers.dev + '/runs/xyz');
   });
 
   it('Should calculate correct projects views', () => {
