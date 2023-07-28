@@ -7,8 +7,8 @@
       mat-sort-header
       [disabled]="!sortable || column.sortable === false"
       [ngStyle]="{
-        'min-width.em': column.minWidth !== undefined ? column.minWidth / 12 : null,
-        'max-width.em': column.maxWidth !== undefined ? column.maxWidth / 12 : null,
+        'min-width.em': column.minWidth !== undefined ? column.minWidth / 10 : null,
+        'max-width.em': column.maxWidth !== undefined ? column.maxWidth / 10 : null,
         'justify-content': column.center !== undefined ? 'center' : null
       }">
         {{ column.heading }}
