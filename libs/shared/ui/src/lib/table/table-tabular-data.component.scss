@@ -34,27 +34,28 @@ mat-cell {
   }
 }
 
-.biosimulations-table {
-  width: 100%;
-}
-
 $biosim-border: solid var(--accent-color);
 $biosim-background: var(--primary-color) !important;
 
+.biosimulations-table {
+  width: 100%;
+  padding-right: 4rem;
+  white-space: nowrap;
+}
+
 .cell-header-container {
-  border: 3px $biosim-border;
+  border: 2px $biosim-border;
   background-color: $biosim-background;
   color: white;
   font-weight: 700;
   height: fit-content;
-  width: fit-content;
 
   &:first-child {
-    border-left: 6px $biosim-border;
+    border-left: 4px $biosim-border;
   }
 
   &:last-child {
-    border-right: 6px $biosim-border;
+    border-right: 4px $biosim-border;
   }
 }
 
