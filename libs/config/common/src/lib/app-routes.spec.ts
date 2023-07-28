@@ -36,7 +36,7 @@ describe('AppRoutes', () => {
     expect(devAppRoutes.getSimulatorsAppHome()).toBe('https://biosimulators.dev');
 
     expect(prodAppRoutes.getDispatchAppHome()).toBe('https://run.biosimulations.org');
-    expect(devAppRoutes.getDispatchAppHome()).toBe('https://run.biosimulations' + pointers.prod);
+    expect(devAppRoutes.getDispatchAppHome()).toBe('https://run.biosimulations' + pointers.dev);
 
     expect(prodAppRoutes.getPlatformAppHome()).toBe('https://biosimulations.org');
     expect(devAppRoutes.getPlatformAppHome()).toBe('https://biosimulations.dev');
@@ -68,10 +68,10 @@ describe('AppRoutes', () => {
 
   it('Should calculate correct simulation run views', () => {
     expect(prodAppRoutes.getSimulationRunsView()).toBe('https://run.biosimulations.org/runs');
-    expect(devAppRoutes.getSimulationRunsView()).toBe('https://run.biosimulations' + pointers.prod + '/runs');
+    expect(devAppRoutes.getSimulationRunsView()).toBe('https://run.biosimulations' + pointers.dev + '/runs');
 
     expect(prodAppRoutes.getSimulationRunsView('xyz')).toBe('https://run.biosimulations.org/runs/xyz');
-    expect(devAppRoutes.getSimulationRunsView('xyz')).toBe('https://run.biosimulations' + pointers.prod + '/runs/xyz');
+    expect(devAppRoutes.getSimulationRunsView('xyz')).toBe('https://run.biosimulations' + pointers.dev + '/runs/xyz');
   });
 
   it('Should calculate correct projects views', () => {

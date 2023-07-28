@@ -278,7 +278,8 @@ export class ViewSimulatorComponent implements OnInit {
   }
 
   public copyRunPythonCmd(module = '{ module }'): void {
-    const cmd = `import ${module} as simulator\nsimulator.exec_sedml_docs_in_combine_archive(\n    '/path/to/archive.omex', '/path/to/outputs')`;
+    //const cmd = `import ${module} as simulator\nsimulator.exec_sedml_docs_in_combine_archive(\n    '/path/to/archive.omex', '/path/to/outputs')`;
+    const cmd = 'command';
     this.clipboardService.copyToClipboard(cmd, 'The command to import the Python module was copied to your clipboard.');
   }
 }

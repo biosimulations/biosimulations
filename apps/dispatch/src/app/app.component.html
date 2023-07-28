@@ -18,7 +18,7 @@
     </biosimulations-hover-open-menu>
 
     <biosimulations-hover-open-menu>
-      <biosimulations-topbar-menu-item heading="runBioSimulations" icon="simulation" id="trigger">
+      <biosimulations-topbar-menu-item heading="Run Simulations" icon="experiment" id="trigger">
       </biosimulations-topbar-menu-item>
       <ng-container id="items">
         <biosimulations-dropdown-menu-item
@@ -143,55 +143,14 @@
       </ng-container>
     </biosimulations-hover-open-menu>
 
-    <biosimulations-hover-open-menu>
-      <biosimulations-topbar-menu-item
-        heading="Help"
-        icon="help"
-        id="trigger">
-      </biosimulations-topbar-menu-item>
-      <ng-container id="items">
-        <biosimulations-dropdown-menu-item
-          heading="Tutorial"
-          href="https://docs.biosimulations.org/users/simulating-projects/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="FAQ"
-          href="https://docs.biosimulations.org/users/faqs/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="About"
-          href="https://docs.biosimulations.org/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Terms of service"
-          href="https://docs.biosimulations.org/about/terms/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Privacy policy"
-          href="https://docs.biosimulations.org/about/privacy/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Status"
-          href="https://status.biosimulations.org/"
-          target="status">
-        </biosimulations-dropdown-menu-item>
-      </ng-container>
+    <biosimulations-hover-open-menu [link]="'https://docs.biosimulations.org/users/'" [disabled]="true" target="_blank">
+      <biosimulations-topbar-menu-item heading="Learn" icon="idea" id="trigger"> </biosimulations-topbar-menu-item>
     </biosimulations-hover-open-menu>
 
     <biosimulations-hover-open-menu
       [disabled]="true"
       matToolTip="Brose simulator tools"
-      style="position: sticky; right: 45px; top: 1; overflow-y: show; -webkit-overflow-scrolling: touch; padding-top: 0px">
+      style="padding-left: 800px; -webkit-overflow-scrolling: touch; padding-top: 0px">
       <biosimulations-topbar-menu-item
         heading="BioSimulators"
         id="trigger"
