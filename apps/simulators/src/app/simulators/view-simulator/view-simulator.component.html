@@ -1,3 +1,4 @@
+<div class="parent-container">
 <biosimulations-tab-page [loading]="(loading$ | async) || false">
   <biosimulations-tab-page-tab heading="Overview" icon="overview" [partialWidth]="true">
     <biosimulations-columns *ngIf="simulator | async as simulator">
@@ -1052,3 +1053,4 @@ simulator.exec_sedml_docs_in_combine_archive(
       class="json"><code [languages]="['json']" [highlight]="simulator._json"></code></pre>
   </biosimulations-tab-page-tab>
 </biosimulations-tab-page>
+</div>
