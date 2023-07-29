@@ -40,6 +40,7 @@ $biosim-background: var(--primary-color) !important;
 .biosimulations-table {
   width: 100%;
   white-space: nowrap;
+  background-color: white;
 }
 
 .cell-header-container {
@@ -58,6 +59,17 @@ $biosim-background: var(--primary-color) !important;
   }
 }
 
-.primary {
+.cell-content-container {
+  width: fit-content;
+}
+
+.biosimulations-button {
   display: flex;
+  width: 100%;
+  color: var(--primary-darker-color);
+
+  &:hover {
+    color: var(--accent-darker-color);
+    transition: color 0.2s ease-in-out;
+  }
 }

@@ -39,7 +39,7 @@
           <ng-template [ngSwitchCase]="'routerLink'">
             <a
               mat-icon-button
-              class="biosimulations-button primary"
+              class="biosimulations-button primary routerlink"
               *ngIf="element._cache[column.id].left.routerLink as routerLink; else noRouterLink"
               [routerLink]="routerLink"
               [fragment]="element._cache[column.id].left.fragment">
