@@ -10,12 +10,16 @@
   padding-left: 6rem;
 }
 
-.top-bar-color {
-  color: mat.get-color-from-palette($theme-primary);
-}
-
 @media screen and (max-width: 959px) {
   mat-toolbar {
     height: 56px;
   }
+}
+
+.simulations {
+  background-color: var(--primary-color);
+}
+
+.simulators {
+  background-color: var(--accent-color);
 }
