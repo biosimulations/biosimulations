@@ -1,141 +1,153 @@
 <div class="parent-container">
   <biosimulations-tab-page [loading]="(loading$ | async) || false">
-    <biosimulations-tab-page-tab heading="Overview" icon="overview" [partialWidth]="true">
+    <biosimulations-tab-page-tab heading="Overview" icon="overview">
       <biosimulations-columns *ngIf="simulator | async as simulator">
         <div class="content-section-container overview">
-          <biosimulations-text-page-content-section
-            [heading]="simulator.name + ' (' + simulator.id + ' / ' + simulator.version + ')'">
-            <biosimulations-json-ld [json]="simulator.jsonLdData"></biosimulations-json-ld>
+          <mat-card class="mat-elevation-z3">
+            <mat-card-header>
+              {{ simulator.name + ' (' + simulator.id + ' / ' + simulator.version + ')' }}
+            </mat-card-header>
+            <mat-card-content>
+              <biosimulations-json-ld [json]="simulator.jsonLdData"></biosimulations-json-ld>
 
-            <p>
-              {{ simulator.description }}
-            </p>
+              <p class="simulator-description">
+                {{ simulator.description }}
+              </p>
 
-            <table class="icon-list">
-              <tbody>
-                <tr *ngIf="simulator.authors?.length">
-                  <th><biosimulations-icon icon="user"></biosimulations-icon></th>
-                  <td>
-                    <ul class="comma-separated ampersand-separator">
-                      <li *ngFor="let author of simulator.authors">
-                        {{ author.name
-                        }}<span *ngIf="author.orcidUrl"
-                          >{{ ' '
-                          }}<a [href]="author.orcidUrl" rel="noopener" target="orcid" title="ORCID profile">
-                            <biosimulations-icon icon="orcid"></biosimulations-icon></a
-                        ></span>
-                      </li>
-                    </ul>
-                  </td>
-                </tr>
-              </tbody>
+              <table class="icon-list">
+                <tbody>
+                  <tr *ngIf="simulator.authors?.length">
+                    <th><biosimulations-icon icon="user"></biosimulations-icon></th>
+                    <td>
+                      <ul class="comma-separated ampersand-separator">
+                        <li *ngFor="let author of simulator.authors">
+                          {{ author.name
+                          }}<span *ngIf="author.orcidUrl"
+                            >{{ ' '
+                            }}<a [href]="author.orcidUrl" rel="noopener" target="orcid" title="ORCID profile">
+                              <biosimulations-icon icon="orcid"></biosimulations-icon></a
+                          ></span>
+                        </li>
+                      </ul>
+                    </td>
+                  </tr>
+                </tbody>
 
-              <tbody class="citations" *ngIf="simulator.citations?.length">
-                <tr *ngFor="let citation of simulator.citations">
-                  <th>
-                    <biosimulations-icon icon="tutorial"></biosimulations-icon>
-                  </th>
-                  <td>
-                    <span [innerHTML]="citation.text"></span
-                    ><span *ngIf="citation.url"
-                      >{{ ' '
-                      }}<a [href]="citation.url" rel="noopener" target="_blank"
-                        ><biosimulations-icon icon="link"></biosimulations-icon></a
-                    ></span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </biosimulations-text-page-content-section>
+                <tbody class="citations" *ngIf="simulator.citations?.length">
+                  <tr *ngFor="let citation of simulator.citations">
+                    <th>
+                      <biosimulations-icon icon="tutorial"></biosimulations-icon>
+                    </th>
+                    <td>
+                      <span [innerHTML]="citation.text"></span
+                      ><span *ngIf="citation.url"
+                        >{{ ' '
+                        }}<a [href]="citation.url" rel="noopener" target="_blank"
+                          ><biosimulations-icon icon="link"></biosimulations-icon></a
+                      ></span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </mat-card-content>
+          </mat-card>
         </div>
 
-        <div class="wide-side-bar compact-sections">
-          <biosimulations-text-page-side-bar-section
-            *ngIf="simulator.image && simulator.validated"
-            heading="Run simulations online with runBioSimulations">
-            <ul class="icon-list">
-              <li>
-                <biosimulations-icon icon="simulator"></biosimulations-icon>
-                <a [href]="dispatchAppRunUrl" rel="noopener" target="runbiosimulations" class="text">
-                  {{ dispatchAppUrl }}
-                </a>
-              </li>
-            </ul>
-          </biosimulations-text-page-side-bar-section>
+        <div class="content-section-container run">
+          <div class="inner-card run">
+            <mat-card *ngIf="simulator.image && simulator.validated" class="mat-elevation-z3">
+              <mat-card-header>
+                Run simulations online with runBioSimulations
+              </mat-card-header>
+              <ul class="icon-list">
+                <li>
+                  <biosimulations-icon icon="simulator"></biosimulations-icon>
+                  <a [href]="dispatchAppRunUrl" rel="noopener" target="runbiosimulations" class="text">
+                    {{ dispatchAppUrl }}
+                  </a>
+                </li>
+              </ul>
+            </mat-card>
+          </div>
 
-          <biosimulations-text-page-side-bar-section
-            *ngIf="simulator.image && simulator.validated"
-            heading="Run simulations with standardized Docker image">
-            <ul class="icon-list copy-image">
-              <li>
-                <biosimulations-icon icon="info"></biosimulations-icon>
-                <a
-                  [href]="'https://github.com/orgs/biosimulators/packages/container/package/' + simulator.id"
-                  rel="noopener"
-                  target="images"
-                  class="text">
-                  GHCR:biosimulators/{{ simulator.id }}
-                </a>
-              </li>
-              <li *ngIf="simulator.image.operatingSystemType">
-                <biosimulations-icon icon="info"></biosimulations-icon>
-                OS: {{ simulator.image.operatingSystemType }}
-              </li>
-              <li>
-                <biosimulations-icon icon="download"></biosimulations-icon>
-                <pre><code>docker pull \
-  {{ simulator.image.url }}</code></pre>
-                <button
-                  mat-icon-button
-                  class="biosimulations-button"
-                  title="Copy to clipboard"
-                  (click)="copyDockerPullCmd(simulator.image.url)">
-                  <biosimulations-icon icon="copy"></biosimulations-icon>
-                </button>
-                <div class="clear-float"></div>
-              </li>
-              <li>
-                <biosimulations-icon icon="logs"></biosimulations-icon>
-                <pre><code>docker run \
-  {{ simulator.image.url }} \
-  -i /path/to/archive.omex \
-  -o /path/to/outputs</code></pre>
-                <button
-                  mat-icon-button
-                  class="biosimulations-button"
-                  title="Copy to clipboard"
-                  (click)="copyDockerRunCmd(simulator.image.url)">
-                  <biosimulations-icon icon="copy"></biosimulations-icon>
-                </button>
-                <div class="clear-float"></div>
-              </li>
-              <li>
-                <biosimulations-icon icon="help"></biosimulations-icon>
-                <pre><code>docker run \
-  {{ simulator.image.url }} \
-  --help</code></pre>
-                <button
-                  mat-icon-button
-                  class="biosimulations-button"
-                  title="Copy to clipboard"
-                  (click)="copyDockerHelpCmd(simulator.image.url)">
-                  <biosimulations-icon icon="copy"></biosimulations-icon>
-                </button>
-                <div class="clear-float"></div>
-              </li>
-              <li>
-                <biosimulations-icon icon="help"></biosimulations-icon>
-                <div>
-                  <a
-                    href="https://docs.biosimulations.org/users/simulating-projects/"
-                    rel="noopener"
-                    target="biosimulations-docs"
-                    >Instructions</a
-                  >
-                </div>
-              </li>
-            </ul>
-          </biosimulations-text-page-side-bar-section>
+          <div class="inner-card docker">
+            <mat-card *ngIf="simulator.image && simulator.validated" class="mat-elevation-z3">
+              <mat-card-header>
+                Run simulations with standardized Docker image
+              </mat-card-header>
+              <mat-card-content>
+                <ul class="icon-list copy-image">
+                  <li>
+                    <biosimulations-icon icon="info"></biosimulations-icon>
+                    <a
+                      [href]="'https://github.com/orgs/biosimulators/packages/container/package/' + simulator.id"
+                      rel="noopener"
+                      target="images"
+                      class="text">
+                      GHCR:biosimulators/{{ simulator.id }}
+                    </a>
+                  </li>
+                  <li *ngIf="simulator.image.operatingSystemType">
+                    <biosimulations-icon icon="info"></biosimulations-icon>
+                    OS: {{ simulator.image.operatingSystemType }}
+                  </li>
+                  <li>
+                    <biosimulations-icon icon="download"></biosimulations-icon>
+                    <pre><code>docker pull \
+      {{ simulator.image.url }}</code></pre>
+                    <button
+                      mat-icon-button
+                      class="biosimulations-button"
+                      title="Copy to clipboard"
+                      (click)="copyDockerPullCmd(simulator.image.url)">
+                      <biosimulations-icon icon="copy"></biosimulations-icon>
+                    </button>
+                    <div class="clear-float"></div>
+                  </li>
+                  <li>
+                    <biosimulations-icon icon="logs"></biosimulations-icon>
+                    <pre><code>docker run \
+      {{ simulator.image.url }} \
+      -i /path/to/archive.omex \
+      -o /path/to/outputs</code></pre>
+                    <button
+                      mat-icon-button
+                      class="biosimulations-button"
+                      title="Copy to clipboard"
+                      (click)="copyDockerRunCmd(simulator.image.url)">
+                      <biosimulations-icon icon="copy"></biosimulations-icon>
+                    </button>
+                    <div class="clear-float"></div>
+                  </li>
+                  <li>
+                    <biosimulations-icon icon="help"></biosimulations-icon>
+                    <pre><code>docker run \
+      {{ simulator.image.url }} \
+      --help</code></pre>
+                    <button
+                      mat-icon-button
+                      class="biosimulations-button"
+                      title="Copy to clipboard"
+                      (click)="copyDockerHelpCmd(simulator.image.url)">
+                      <biosimulations-icon icon="copy"></biosimulations-icon>
+                    </button>
+                    <div class="clear-float"></div>
+                  </li>
+                  <li>
+                    <biosimulations-icon icon="help"></biosimulations-icon>
+                    <div>
+                      <a
+                        href="https://docs.biosimulations.org/users/simulating-projects/"
+                        rel="noopener"
+                        target="biosimulations-docs"
+                        >Instructions</a
+                      >
+                    </div>
+                  </li>
+                </ul>
+              </mat-card-content>
+            </mat-card>
+          </div>
 
           <biosimulations-text-page-side-bar-section
             *ngIf="simulator.image && simulator.validated"
