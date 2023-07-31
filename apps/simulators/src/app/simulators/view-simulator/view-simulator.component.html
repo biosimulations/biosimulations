@@ -1,11 +1,12 @@
-<div class="parent-container">
+<div class="parent-container" fxGrid fxFlexAlign="column">
   <biosimulations-tab-page [loading]="(loading$ | async) || false">
     <!-- Begin Overview Tab -->
     <biosimulations-tab-page-tab heading="Overview" icon="overview">
       <biosimulations-columns *ngIf="simulator | async as simulator">
         <div class="content-section-container overview">
-          <mat-card class="content-card">
-            <mat-card-header class="content-card-header overview">
+          <!-- Main Content Card-->
+          <mat-card class="content-card overview">
+            <mat-card-header class="content-subcard-header overview">
               {{ simulator.name + ' (' + simulator.id + ' / ' + simulator.version + ')' }}
             </mat-card-header>
             <mat-card-content class="content-card-content overview">
@@ -56,382 +57,418 @@
 
         <div class="content-section-container run">
           <!-- Start Run Card -->
-            <mat-card *ngIf="simulator.image && simulator.validated" class="mat-elevation-z3">
-              <mat-card-header>
-                Run simulations online with runBioSimulations
-              </mat-card-header>
-              <ul class="icon-list">
-                <li>
-                  <biosimulations-icon icon="simulator"></biosimulations-icon>
-                  <a [href]="dispatchAppRunUrl" rel="noopener" target="runbiosimulations" class="text">
-                    {{ dispatchAppUrl }}
-                  </a>
-                </li>
-              </ul>
-            </mat-card>
+          <mat-card *ngIf="simulator.image && simulator.validated" class="content-card run">
+            <mat-card-header class="content-subcard-header run">
+              Run simulations online with runBioSimulations
+            </mat-card-header>
+            <ul class="icon-list">
+              <li>
+                <biosimulations-icon icon="simulator"></biosimulations-icon>
+                <a [href]="dispatchAppRunUrl" rel="noopener" target="runbiosimulations" class="text">
+                  {{ dispatchAppUrl }}
+                </a>
+              </li>
+            </ul>
+          </mat-card>
           <!-- End Run Card -->
 
           <!-- Start Docker Card -->
-            <mat-card *ngIf="simulator.image && simulator.validated" class="mat-elevation-z3">
-              <mat-card-header>
-                Run simulations with standardized Docker image
-              </mat-card-header>
-              <mat-card-content>
-                <ul class="icon-list copy-image">
-                  <li>
-                    <biosimulations-icon icon="info"></biosimulations-icon>
+          <mat-card *ngIf="simulator.image && simulator.validated" class="content-card docker">
+            <mat-card-header>
+              Run simulations with standardized Docker image
+            </mat-card-header>
+            <mat-card-content>
+              <ul class="icon-list copy-image">
+                <li>
+                  <biosimulations-icon icon="info"></biosimulations-icon>
+                  <a
+                    [href]="'https://github.com/orgs/biosimulators/packages/container/package/' + simulator.id"
+                    rel="noopener"
+                    target="images"
+                    class="text">
+                    GHCR:biosimulators/{{ simulator.id }}
+                  </a>
+                </li>
+                <li *ngIf="simulator.image.operatingSystemType">
+                  <biosimulations-icon icon="info"></biosimulations-icon>
+                  OS: {{ simulator.image.operatingSystemType }}
+                </li>
+                <li>
+                  <biosimulations-icon icon="download"></biosimulations-icon>
+                  <pre><code>docker pull \
+    {{ simulator.image.url }}</code></pre>
+                  <button
+                    mat-icon-button
+                    class="biosimulations-button"
+                    title="Copy to clipboard"
+                    (click)="copyDockerPullCmd(simulator.image.url)">
+                    <biosimulations-icon icon="copy"></biosimulations-icon>
+                  </button>
+                  <div class="clear-float"></div>
+                </li>
+                <li>
+                  <biosimulations-icon icon="logs"></biosimulations-icon>
+                  <pre><code>docker run \
+    {{ simulator.image.url }} \
+    -i /path/to/archive.omex \
+    -o /path/to/outputs</code></pre>
+                  <button
+                    mat-icon-button
+                    class="biosimulations-button"
+                    title="Copy to clipboard"
+                    (click)="copyDockerRunCmd(simulator.image.url)">
+                    <biosimulations-icon icon="copy"></biosimulations-icon>
+                  </button>
+                  <div class="clear-float"></div>
+                </li>
+                <li>
+                  <biosimulations-icon icon="help"></biosimulations-icon>
+                  <pre><code>docker run \
+    {{ simulator.image.url }} \
+    --help</code></pre>
+                  <button
+                    mat-icon-button
+                    class="biosimulations-button"
+                    title="Copy to clipboard"
+                    (click)="copyDockerHelpCmd(simulator.image.url)">
+                    <biosimulations-icon icon="copy"></biosimulations-icon>
+                  </button>
+                  <div class="clear-float"></div>
+                </li>
+                <li>
+                  <biosimulations-icon icon="help"></biosimulations-icon>
+                  <div>
                     <a
-                      [href]="'https://github.com/orgs/biosimulators/packages/container/package/' + simulator.id"
+                      href="https://docs.biosimulations.org/users/simulating-projects/"
                       rel="noopener"
-                      target="images"
-                      class="text">
-                      GHCR:biosimulators/{{ simulator.id }}
-                    </a>
-                  </li>
-                  <li *ngIf="simulator.image.operatingSystemType">
-                    <biosimulations-icon icon="info"></biosimulations-icon>
-                    OS: {{ simulator.image.operatingSystemType }}
-                  </li>
-                  <li>
-                    <biosimulations-icon icon="download"></biosimulations-icon>
-                    <pre><code>docker pull \
-      {{ simulator.image.url }}</code></pre>
-                    <button
-                      mat-icon-button
-                      class="biosimulations-button"
-                      title="Copy to clipboard"
-                      (click)="copyDockerPullCmd(simulator.image.url)">
-                      <biosimulations-icon icon="copy"></biosimulations-icon>
-                    </button>
-                    <div class="clear-float"></div>
-                  </li>
-                  <li>
-                    <biosimulations-icon icon="logs"></biosimulations-icon>
-                    <pre><code>docker run \
-      {{ simulator.image.url }} \
-      -i /path/to/archive.omex \
-      -o /path/to/outputs</code></pre>
-                    <button
-                      mat-icon-button
-                      class="biosimulations-button"
-                      title="Copy to clipboard"
-                      (click)="copyDockerRunCmd(simulator.image.url)">
-                      <biosimulations-icon icon="copy"></biosimulations-icon>
-                    </button>
-                    <div class="clear-float"></div>
-                  </li>
-                  <li>
-                    <biosimulations-icon icon="help"></biosimulations-icon>
-                    <pre><code>docker run \
-      {{ simulator.image.url }} \
-      --help</code></pre>
-                    <button
-                      mat-icon-button
-                      class="biosimulations-button"
-                      title="Copy to clipboard"
-                      (click)="copyDockerHelpCmd(simulator.image.url)">
-                      <biosimulations-icon icon="copy"></biosimulations-icon>
-                    </button>
-                    <div class="clear-float"></div>
-                  </li>
-                  <li>
-                    <biosimulations-icon icon="help"></biosimulations-icon>
-                    <div>
-                      <a
-                        href="https://docs.biosimulations.org/users/simulating-projects/"
-                        rel="noopener"
-                        target="biosimulations-docs"
-                        >Instructions</a
-                      >
-                    </div>
-                  </li>
-                </ul>
-              </mat-card-content>
-            </mat-card>
+                      target="biosimulations-docs"
+                      >Instructions</a
+                    >
+                  </div>
+                </li>
+              </ul>
+            </mat-card-content>
+          </mat-card>
           <!-- End Docker Card -->
 
           <!-- Start Singularity Card -->
-            *ngIf="simulator.image && simulator.validated"
-            heading="Run simulations with standardized Singularity image">
-            <ul class="icon-list copy-image">
-              <li>
-                <biosimulations-icon icon="info"></biosimulations-icon>
-                <a
-                  [href]="'https://github.com/orgs/biosimulators/packages/container/package/' + simulator.id"
-                  rel="noopener"
-                  target="images"
-                  class="text">
-                  GHCR:biosimulators/{{ simulator.id }}
-                </a>
-              </li>
-              <li *ngIf="simulator.image.operatingSystemType">
-                <biosimulations-icon icon="info"></biosimulations-icon>
-                OS: {{ simulator.image.operatingSystemType }}
-              </li>
-              <li>
-                <biosimulations-icon icon="download"></biosimulations-icon>
-                <pre><code>singularity pull \
-  docker://{{ simulator.image.url }}</code></pre>
-                <button
-                  mat-icon-button
-                  class="biosimulations-button"
-                  title="Copy to clipboard"
-                  (click)="copySingularityPullCmd(simulator.image.url)">
-                  <biosimulations-icon icon="copy"></biosimulations-icon>
-                </button>
-                <div class="clear-float"></div>
-              </li>
-              <li>
-                <biosimulations-icon icon="logs"></biosimulations-icon>
-                <pre><code>singularity run \
-  docker://{{ simulator.image.url }} \
-  -i /path/to/archive.omex \
-  -o /path/to/outputs</code></pre>
-                <button
-                  mat-icon-button
-                  class="biosimulations-button"
-                  title="Copy to clipboard"
-                  (click)="copySingularityRunCmd(simulator.image.url)">
-                  <biosimulations-icon icon="copy"></biosimulations-icon>
-                </button>
-                <div class="clear-float"></div>
-              </li>
-              <li>
-                <biosimulations-icon icon="help"></biosimulations-icon>
-                <pre><code>singularity run \
-  docker://{{ simulator.image.url }} \
-  --help</code></pre>
-                <button
-                  mat-icon-button
-                  class="biosimulations-button"
-                  title="Copy to clipboard"
-                  (click)="copySingularityHelpCmd(simulator.image.url)">
-                  <biosimulations-icon icon="copy"></biosimulations-icon>
-                </button>
-                <div class="clear-float"></div>
-              </li>
-              <li>
-                <biosimulations-icon icon="help"></biosimulations-icon>
-                <div>
+          <mat-card *ngIf="simulator.image && simulator.validated" class="content-card singularity">
+            <mat-card-header class="content-subcard-header singularity">
+              Run simulations with standardized Singularity image
+            </mat-card-header>
+            <mat-card-content class="content-card-content">
+              <ul class="icon-list copy-image">
+                <li>
+                  <biosimulations-icon icon="info"></biosimulations-icon>
                   <a
-                    href="https://docs.biosimulations.org/users/simulating-projects/"
+                    [href]="'https://github.com/orgs/biosimulators/packages/container/package/' + simulator.id"
                     rel="noopener"
-                    target="biosimulations-docs"
-                    >Instructions</a
-                  >
-                </div>
-              </li>
-            </ul>
-          </biosimulations-text-page-side-bar-section>
+                    target="images"
+                    class="text">
+                    GHCR:biosimulators/{{ simulator.id }}
+                  </a>
+                </li>
+                <li *ngIf="simulator.image.operatingSystemType">
+                  <biosimulations-icon icon="info"></biosimulations-icon>
+                  OS: {{ simulator.image.operatingSystemType }}
+                </li>
+                <li>
+                  <biosimulations-icon icon="download"></biosimulations-icon>
+                  <pre><code>singularity pull \
+    docker://{{ simulator.image.url }}</code></pre>
+                  <button
+                    mat-icon-button
+                    class="biosimulations-button"
+                    title="Copy to clipboard"
+                    (click)="copySingularityPullCmd(simulator.image.url)">
+                    <biosimulations-icon icon="copy"></biosimulations-icon>
+                  </button>
+                  <div class="clear-float"></div>
+                </li>
+                <li>
+                  <biosimulations-icon icon="logs"></biosimulations-icon>
+                  <pre><code>singularity run \
+    docker://{{ simulator.image.url }} \
+    -i /path/to/archive.omex \
+    -o /path/to/outputs</code></pre>
+                  <button
+                    mat-icon-button
+                    class="biosimulations-button"
+                    title="Copy to clipboard"
+                    (click)="copySingularityRunCmd(simulator.image.url)">
+                    <biosimulations-icon icon="copy"></biosimulations-icon>
+                  </button>
+                  <div class="clear-float"></div>
+                </li>
+                <li>
+                  <biosimulations-icon icon="help"></biosimulations-icon>
+                  <pre><code>singularity run \
+    docker://{{ simulator.image.url }} \
+    --help</code></pre>
+                  <button
+                    mat-icon-button
+                    class="biosimulations-button"
+                    title="Copy to clipboard"
+                    (click)="copySingularityHelpCmd(simulator.image.url)">
+                    <biosimulations-icon icon="copy"></biosimulations-icon>
+                  </button>
+                  <div class="clear-float"></div>
+                </li>
+                <li>
+                  <biosimulations-icon icon="help"></biosimulations-icon>
+                  <div>
+                    <a
+                      href="https://docs.biosimulations.org/users/simulating-projects/"
+                      rel="noopener"
+                      target="biosimulations-docs"
+                      >Instructions</a
+                    >
+                  </div>
+                </li>
+              </ul>
+            </mat-card-content>
+          </mat-card>
           <!-- End Singularity Card -->
 
           <!-- Start cli card -->
-            *ngIf="simulator.image && simulator?.cli && simulator.validated"
-            heading="Run simulations with standardized CLI">
-            <ul class="icon-list copy-image">
-              <li>
-                <biosimulations-icon icon="info"></biosimulations-icon>
-                <a
-                  [href]="
-                    simulator?.cli?.package?.startsWith('http://') || simulator?.cli?.package?.startsWith('https://')
-                      ? simulator?.cli?.package
-                      : 'https://pypi.org/project/' + simulator?.cli?.package + '/'
-                  "
-                  rel="noopener"
-                  target="_blank"
-                  class="text">
-                  <span
-                    *ngIf="
-                      !(simulator?.cli?.package?.startsWith('http://') || simulator?.cli?.package?.startsWith('https://'))
-                    "
-                    >{{ simulator?.cli?.packageRepository }}:</span
-                  >{{ simulator?.cli?.package }}
-                </a>
-              </li>
-              <li>
-                <biosimulations-icon icon="download"></biosimulations-icon>
-                <pre><code>pip install {{ simulator?.cli?.package }}</code></pre>
-                <button
-                  mat-icon-button
-                  class="biosimulations-button"
-                  title="Copy to clipboard"
-                  (click)="copyCliInstallCmd('pip install ' + simulator?.cli?.package)">
-                  <biosimulations-icon icon="copy"></biosimulations-icon>
-                </button>
-                <div class="clear-float"></div>
-              </li>
-              <li>
-                <biosimulations-icon icon="logs"></biosimulations-icon>
-                <pre><code>{{ simulator?.cli?.command }} \
-  -i /path/to/archive.omex \
-  -o /path/to/outputs</code></pre>
-                <button
-                  mat-icon-button
-                  class="biosimulations-button"
-                  title="Copy to clipboard"
-                  (click)="copyRunCliCmd(simulator?.cli?.command)">
-                  <biosimulations-icon icon="copy"></biosimulations-icon>
-                </button>
-                <div class="clear-float"></div>
-              </li>
-              <li>
-                <biosimulations-icon icon="help"></biosimulations-icon>
-                <pre><code>{{ simulator?.cli?.command }} --help</code></pre>
-                <button
-                  mat-icon-button
-                  class="biosimulations-button"
-                  title="Copy to clipboard"
-                  (click)="copyCliHelpCmd(simulator?.cli?.command)">
-                  <biosimulations-icon icon="copy"></biosimulations-icon>
-                </button>
-                <div class="clear-float"></div>
-              </li>
-              <li *ngIf="simulator?.cli?.installationInstructions">
-                <biosimulations-icon icon="help"></biosimulations-icon>
-                <div>
-                  <a [href]="simulator?.cli?.installationInstructions" rel="noopener" target="_blank"
-                    >Installation instructions</a
-                  >
-                </div>
-              </li>
-              <li>
-                <biosimulations-icon icon="help"></biosimulations-icon>
-                <div>
+          <mat-card *ngIf="simulator.image && simulator?.cli && simulator.validated" class="content-card cli">
+            <mat-card-header class="content-subcard-header cli">
+              Run simulations with standardized CLI
+            </mat-card-header>
+            <mat-card-content class="content-card-content cli">
+              <ul class="icon-list copy-image">
+                <li>
+                  <biosimulations-icon icon="info"></biosimulations-icon>
                   <a
-                    href="https://docs.biosimulations.org/users/simulating-projects/"
+                    [href]="
+                      simulator?.cli?.package?.startsWith('http://') || simulator?.cli?.package?.startsWith('https://')
+                        ? simulator?.cli?.package
+                        : 'https://pypi.org/project/' + simulator?.cli?.package + '/'
+                    "
                     rel="noopener"
-                    target="biosimulations-docs"
-                    >Getting started guide</a
-                  >
-                </div>
-              </li>
-            </ul>
-          </biosimulations-text-page-side-bar-section>
+                    target="_blank"
+                    class="text">
+                    <span
+                      *ngIf="
+                        !(simulator?.cli?.package?.startsWith('http://') || simulator?.cli?.package?.startsWith('https://'))
+                      "
+                      >{{ simulator?.cli?.packageRepository }}:</span
+                    >{{ simulator?.cli?.package }}
+                  </a>
+                </li>
+                <li>
+                  <biosimulations-icon icon="download"></biosimulations-icon>
+                  <pre><code>pip install {{ simulator?.cli?.package }}</code></pre>
+                  <button
+                    mat-icon-button
+                    class="biosimulations-button"
+                    title="Copy to clipboard"
+                    (click)="copyCliInstallCmd('pip install ' + simulator?.cli?.package)">
+                    <biosimulations-icon icon="copy"></biosimulations-icon>
+                  </button>
+                  <div class="clear-float"></div>
+                </li>
+                <li>
+                  <biosimulations-icon icon="logs"></biosimulations-icon>
+                  <pre><code>{{ simulator?.cli?.command }} \
+    -i /path/to/archive.omex \
+    -o /path/to/outputs</code></pre>
+                  <button
+                    mat-icon-button
+                    class="biosimulations-button"
+                    title="Copy to clipboard"
+                    (click)="copyRunCliCmd(simulator?.cli?.command)">
+                    <biosimulations-icon icon="copy"></biosimulations-icon>
+                  </button>
+                  <div class="clear-float"></div>
+                </li>
+                <li>
+                  <biosimulations-icon icon="help"></biosimulations-icon>
+                  <pre><code>{{ simulator?.cli?.command }} --help</code></pre>
+                  <button
+                    mat-icon-button
+                    class="biosimulations-button"
+                    title="Copy to clipboard"
+                    (click)="copyCliHelpCmd(simulator?.cli?.command)">
+                    <biosimulations-icon icon="copy"></biosimulations-icon>
+                  </button>
+                  <div class="clear-float"></div>
+                </li>
+                <li *ngIf="simulator?.cli?.installationInstructions">
+                  <biosimulations-icon icon="help"></biosimulations-icon>
+                  <div>
+                    <a [href]="simulator?.cli?.installationInstructions" rel="noopener" target="_blank"
+                      >Installation instructions</a
+                    >
+                  </div>
+                </li>
+                <li>
+                  <biosimulations-icon icon="help"></biosimulations-icon>
+                  <div>
+                    <a
+                      href="https://docs.biosimulations.org/users/simulating-projects/"
+                      rel="noopener"
+                      target="biosimulations-docs"
+                      >Getting started guide</a
+                    >
+                  </div>
+                </li>
+              </ul>
+            </mat-card-content>
+          </mat-card>
           <!-- End cli card -->
 
           <!-- Start python card -->
-            *ngIf="simulator?.pythonApi && simulator.validated"
-            heading="Run simulations with standardized Python API">
-            <ul class="icon-list copy-image">
-              <li>
-                <biosimulations-icon icon="info"></biosimulations-icon>
-                <a
-                  [href]="
-                    simulator?.pythonApi?.package?.startsWith('http://') ||
-                    simulator?.pythonApi?.package?.startsWith('https://')
-                      ? simulator?.pythonApi?.package
-                      : 'https://pypi.org/project/' + simulator?.pythonApi?.package + '/'
-                  "
-                  rel="noopener"
-                  target="_blank"
-                  class="text">
-                  <span
-                    *ngIf="
-                      !(
-                        simulator?.pythonApi?.package?.startsWith('http://') ||
-                        simulator?.pythonApi?.package?.startsWith('https://')
-                      )
-                    "
-                    >PyPI:</span
-                  >{{ simulator?.pythonApi?.package }}
-                </a>
-              </li>
-              <li>
-                <biosimulations-icon icon="download"></biosimulations-icon>
-                <pre><code>pip install {{ simulator?.pythonApi?.package }}</code></pre>
-                <button
-                  mat-icon-button
-                  class="biosimulations-button"
-                  title="Copy to clipboard"
-                  (click)="copyPythonApiInstallCmd(simulator?.pythonApi?.package)">
-                  <biosimulations-icon icon="copy"></biosimulations-icon>
-                </button>
-                <div class="clear-float"></div>
-              </li>
-              <li>
-                <biosimulations-icon icon="logs"></biosimulations-icon>
-                <pre><code>import {{ simulator?.pythonApi?.module }} as simulator
-  simulator.exec_sedml_docs_in_combine_archive(
-  '/path/to/archive.omex', '/path/to/outputs')</code></pre>
-                <button
-                  mat-icon-button
-                  class="biosimulations-button"
-                  title="Copy to clipboard"
-                  (click)="copyRunPythonCmd(simulator?.pythonApi?.module)">
-                  <biosimulations-icon icon="copy"></biosimulations-icon>
-                </button>
-                <div class="clear-float"></div>
-              </li>
-              <li *ngIf="simulator?.pythonApi?.installationInstructions">
-                <biosimulations-icon icon="help"></biosimulations-icon>
-                <div>
-                  <a [href]="simulator?.pythonApi?.installationInstructions" rel="noopener" target="_blank"
-                    >Installation instructions</a
-                  >
-                </div>
-              </li>
-              <li>
-                <biosimulations-icon icon="help"></biosimulations-icon>
-                <div>
+          <mat-card *ngIf="simulator?.pythonApi && simulator.validated" class="content-card python">
+            <mat-card-header class="content-card-header python">
+              Run simulations with standardized Python API
+            </mat-card-header>
+            <mat-card-content class="content-subcard-content python">
+              <ul class="icon-list copy-image">
+                <li>
+                  <biosimulations-icon icon="info"></biosimulations-icon>
                   <a
-                    href="https://docs.biosimulations.org/users/simulating-projects/"
+                    [href]="
+                      simulator?.pythonApi?.package?.startsWith('http://') ||
+                      simulator?.pythonApi?.package?.startsWith('https://')
+                        ? simulator?.pythonApi?.package
+                        : 'https://pypi.org/project/' + simulator?.pythonApi?.package + '/'
+                    "
                     rel="noopener"
-                    target="biosimulations-docs"
-                    >Getting started guide</a
-                  >
-                </div>
-              </li>
-              <li>
-                <biosimulations-icon icon="tutorial"></biosimulations-icon>
-                <div>
-                  <a href="https://tutorial.biosimulators.org/" rel="noopener" target="biosimulators-tutorial"
-                    >Tutorials</a
-                  >
-                </div>
-              </li>
-            </ul>
-          </biosimulations-text-page-side-bar-section>
+                    target="_blank"
+                    class="text">
+                    <span
+                      *ngIf="
+                        !(
+                          simulator?.pythonApi?.package?.startsWith('http://') ||
+                          simulator?.pythonApi?.package?.startsWith('https://')
+                        )
+                      "
+                      >PyPI:</span
+                    >{{ simulator?.pythonApi?.package }}
+                  </a>
+                </li>
+                <li>
+                  <biosimulations-icon icon="download"></biosimulations-icon>
+                  <pre><code>pip install {{ simulator?.pythonApi?.package }}</code></pre>
+                  <button
+                    mat-icon-button
+                    class="biosimulations-button"
+                    title="Copy to clipboard"
+                    (click)="copyPythonApiInstallCmd(simulator?.pythonApi?.package)">
+                    <biosimulations-icon icon="copy"></biosimulations-icon>
+                  </button>
+                  <div class="clear-float"></div>
+                </li>
+                <li>
+                  <biosimulations-icon icon="logs"></biosimulations-icon>
+                  <pre><code>import {{ simulator?.pythonApi?.module }} as simulator
+    simulator.exec_sedml_docs_in_combine_archive(
+    '/path/to/archive.omex', '/path/to/outputs')</code></pre>
+                  <button
+                    mat-icon-button
+                    class="biosimulations-button"
+                    title="Copy to clipboard"
+                    (click)="copyRunPythonCmd(simulator?.pythonApi?.module)">
+                    <biosimulations-icon icon="copy"></biosimulations-icon>
+                  </button>
+                  <div class="clear-float"></div>
+                </li>
+                <li *ngIf="simulator?.pythonApi?.installationInstructions">
+                  <biosimulations-icon icon="help"></biosimulations-icon>
+                  <div>
+                    <a [href]="simulator?.pythonApi?.installationInstructions" rel="noopener" target="_blank"
+                      >Installation instructions</a
+                    >
+                  </div>
+                </li>
+                <li>
+                  <biosimulations-icon icon="help"></biosimulations-icon>
+                  <div>
+                    <a
+                      href="https://docs.biosimulations.org/users/simulating-projects/"
+                      rel="noopener"
+                      target="biosimulations-docs"
+                      >Getting started guide</a
+                    >
+                  </div>
+                </li>
+                <li>
+                  <biosimulations-icon icon="tutorial"></biosimulations-icon>
+                  <div>
+                    <a href="https://tutorial.biosimulators.org/" rel="noopener" target="biosimulators-tutorial"
+                      >Tutorials</a
+                    >
+                  </div>
+                </li>
+              </ul>
+            </mat-card-content>
+          </mat-card>
           <!-- End python Card -->
 
           <!-- Start other interfaces card -->
+          <mat-card
             *ngIf="simulator.otherInterfaceTypes?.length"
-            heading="Other interfaces">
-            <ul class="icon-list">
-              <li *ngFor="let interfaceType of simulator.otherInterfaceTypes">
-                <biosimulations-icon icon="softwareInterface"></biosimulations-icon>
-                {{ interfaceType }}
-              </li>
-            </ul>
-          </biosimulations-text-page-side-bar-section>
+            class="content-card other">
+            <mat-card-header class="content-subcard-header other">
+              Other interfaces
+            </mat-card-header>
+            <mat-card-content class="content-card-content other">
+              <ul class="icon-list">
+                <li *ngFor="let interfaceType of simulator.otherInterfaceTypes">
+                  <biosimulations-icon icon="softwareInterface"></biosimulations-icon>
+                  {{ interfaceType }}
+                </li>
+              </ul>
+            </mat-card-content>
+          </mat-card>
           <!-- End other interfaces card -->
 
           <!-- Start supported os card -->
+          <mat-card
             *ngIf="simulator.supportedOperatingSystemTypes?.length"
-            heading="Supported operating systems">
-            <ul class="icon-list">
-              <li *ngFor="let supportedOperatingSystemType of simulator.supportedOperatingSystemTypes">
-                <biosimulations-icon icon="operatingSystem"></biosimulations-icon>
-                {{ supportedOperatingSystemType }}
-              </li>
-            </ul>
-          </biosimulations-text-page-side-bar-section>
+            class="content-card os">
+            <mat-card-header class="content-subcard-header os">
+              Supported operating systems
+            </mat-card-header>
+            <mat-card-content class="content-card-content os">
+              <ul class="icon-list">
+                <li *ngFor="let supportedOperatingSystemType of simulator.supportedOperatingSystemTypes">
+                  <biosimulations-icon icon="operatingSystem"></biosimulations-icon>
+                  {{ supportedOperatingSystemType }}
+                </li>
+              </ul>
+            </mat-card-content>
+          </mat-card>
           <!-- End supported os card -->
 
           <!-- Start supported lang card -->
+          <mat-card
             *ngIf="simulator.supportedProgrammingLanguages?.length"
-            heading="Supported programming languages">
-            <ul class="icon-list">
-              <li *ngFor="let supportedProgrammingLanguage of simulator.supportedProgrammingLanguages">
-                <biosimulations-icon icon="code"></biosimulations-icon>
-                {{ supportedProgrammingLanguage.id }}
-              </li>
-            </ul>
-          </biosimulations-text-page-side-bar-section>
+            class="content-card lang">
+            <mat-card-header class="content-card-header lang">
+              Supported programming languages
+            </mat-card-header>
+            <mat-card-content class="content-card-content lang">
+              <ul class="icon-list">
+                <li *ngFor="let supportedProgrammingLanguage of simulator.supportedProgrammingLanguages">
+                  <biosimulations-icon icon="code"></biosimulations-icon>
+                  {{ supportedProgrammingLanguage.id }}
+                </li>
+              </ul>
+            </mat-card-content>
+          </mat-card>
           <!-- End supported lang card -->
 
           <!-- Start curation card -->
-            {{ simulator.curationStatus }}
-          </biosimulations-text-page-side-bar-section>
+          <mat-card class="content-card curation">
+            <mat-card-header class="content-subcard-header curation">
+              Curation status
+            </mat-card-header>
+            <mat-card-content class="content-card-content curation">
+              {{ simulator.curationStatus }}
+            </mat-card-content>
+          </mat-card>
           <!-- End curation card -->
 
           <!-- Start license card -->
@@ -926,7 +963,9 @@
         </ng-container>
       </ng-container>
     </biosimulations-tab-page-tab>
+    <!-- End Versions Tab -->
 
+    <!-- Start validation Tab -->
     <biosimulations-tab-page-tab
       urlHashFragment="validation"
       heading="Validation test results"
