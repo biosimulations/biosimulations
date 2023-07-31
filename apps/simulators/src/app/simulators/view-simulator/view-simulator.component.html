@@ -472,71 +472,96 @@
           <!-- End curation card -->
 
           <!-- Start license card -->
-          <biosimulations-text-page-side-bar-section *ngIf="simulator.licenseName" heading="License">
-            <ul class="icon-list">
-              <li>
-                <biosimulations-icon icon="license"></biosimulations-icon>
-                <a [href]="simulator.licenseUrl | async" rel="noopener" target="_blank" class="text">
-                  {{ simulator.licenseName | async }}
-                </a>
-              </li>
-            </ul>
-          </biosimulations-text-page-side-bar-section>
+          <mat-card *ngIf="simulator.licenseName" class="content-card lic">
+            <mat-card-header class="content-subcard-header lic">
+              License
+            </mat-card-header>
+            <mat-card-content class="content-card-content lic">
+              <ul class="icon-list">
+                <li>
+                  <biosimulations-icon icon="license"></biosimulations-icon>
+                  <a [href]="simulator.licenseUrl | async" rel="noopener" target="_blank" class="text">
+                    {{ simulator.licenseName | async }}
+                  </a>
+                </li>
+              </ul>
+            </mat-card-content>
+          </mat-card>
           <!-- End license card -->
 
           <!-- Start more info card -->
-          <biosimulations-text-page-side-bar-section *ngIf="simulator?.urls?.length" heading="More info">
-            <ul class="icon-list">
-              <li *ngFor="let url of simulator.urls">
-                <biosimulations-icon icon="link"></biosimulations-icon>
-                <a [href]="url.url" rel="noopener" target="_blank" class="text">{{ url.title || url.type }}</a>
-              </li>
-            </ul>
-          </biosimulations-text-page-side-bar-section>
+          <mat-card *ngIf="simulator?.urls?.length" class="content-card info">
+            <mat-card-header class="content-subcard-header info">
+              More info
+            </mat-card-header>
+            <mat-card-content class="content-card-content info">
+              <ul class="icon-list">
+                <li *ngFor="let url of simulator.urls">
+                  <biosimulations-icon icon="link"></biosimulations-icon>
+                  <a [href]="url.url" rel="noopener" target="_blank" class="text">{{ url.title || url.type }}</a>
+                </li>
+              </ul>
+            </mat-card-content>
+          </mat-card>
           <!-- End more info card -->
 
           <!-- Start cross ref card -->
-          <biosimulations-text-page-side-bar-section *ngIf="simulator.identifiers?.length" heading="Cross references">
-            <ul class="identifiers icon-list">
-              <li *ngFor="let identifier of simulator.identifiers">
-                <biosimulations-icon icon="id"></biosimulations-icon>
-                <a [href]="identifier.url" rel="noopener" target="_blank">{{ identifier.text }}</a>
-              </li>
-            </ul>
-          </biosimulations-text-page-side-bar-section>
+          <mat-card *ngIf="simulator.identifiers?.length" class="content-card references">
+            <mat-card-header class="content-subcard-header references">
+              Cross references
+            </mat-card-header>
+            <mat-card-content class="content-subcard-header references">
+              <ul class="identifiers icon-list">
+                <li *ngFor="let identifier of simulator.identifiers">
+                  <biosimulations-icon icon="id"></biosimulations-icon>
+                  <a [href]="identifier.url" rel="noopener" target="_blank">{{ identifier.text }}</a>
+                </li>
+              </ul>
+            </mat-card-content>
+          </mat-card>
           <!-- End cross ref card -->
 
           <!-- Start funding card -->
-          <biosimulations-text-page-side-bar-section *ngIf="simulator.funding?.length" heading="Funding">
-            <ul class="funding icon-list">
-              <li *ngFor="let funding of simulator.funding">
-                <biosimulations-icon icon="funding"></biosimulations-icon>
-                <a [href]="funding.funderUrl | async" rel="noopener" target="_blank">{{ funding.funderName | async }}</a
-                ><span *ngIf="funding.grant"
-                  >:
-                  <a [href]="funding.url" rel="noopener" target="_blank" *ngIf="funding.url; else noGrantUrl">{{
-                    funding.grant
-                  }}</a>
-                  <ng-template #noGrantUrl>{{ funding.grant }}</ng-template>
-                </span>
-              </li>
-            </ul>
-          </biosimulations-text-page-side-bar-section>
+          <mat-card *ngIf="simulator.funding?.length" class="content-card funding">
+            <mat-card-header class="content-subcard-header funding">
+              Funding
+            </mat-card-header>
+            <mat-card-content class="content-subcard-header funding">
+              <ul class="funding icon-list">
+                <li *ngFor="let funding of simulator.funding">
+                  <biosimulations-icon icon="funding"></biosimulations-icon>
+                  <a [href]="funding.funderUrl | async" rel="noopener" target="_blank">{{ funding.funderName | async }}</a
+                  ><span *ngIf="funding.grant"
+                    >:
+                    <a [href]="funding.url" rel="noopener" target="_blank" *ngIf="funding.url; else noGrantUrl">{{
+                      funding.grant
+                    }}</a>
+                    <ng-template #noGrantUrl>{{ funding.grant }}</ng-template>
+                  </span>
+                </li>
+              </ul>
+            </mat-card-content>
+          </mat-card>
           <!-- End funding card -->
 
           <!-- Start reg card -->
-          <biosimulations-text-page-side-bar-section heading="Registration">
-            <ul class="icon-list">
-              <li>
-                <biosimulations-icon icon="date"></biosimulations-icon>
-                Registration: {{ simulator.created }}
-              </li>
-              <li>
-                <biosimulations-icon icon="date"></biosimulations-icon>
-                Last updated: {{ simulator.updated }}
-              </li>
-            </ul>
-          </biosimulations-text-page-side-bar-section>
+          <mat-card class="content-card reg" heading="Registration">
+            <mat-card-header class="content-subcard-header reg">
+              Registration
+            </mat-card-header>
+            <mat-card-content class="content-card-content registration">
+              <ul class="icon-list">
+                <li>
+                  <biosimulations-icon icon="date"></biosimulations-icon>
+                  Registration: {{ simulator.created }}
+                </li>
+                <li>
+                  <biosimulations-icon icon="date"></biosimulations-icon>
+                  Last updated: {{ simulator.updated }}
+                </li>
+              </ul>
+            </mat-card-content>
+          </mat-card>
           <!-- End Reg Card -->
         </div>
       </biosimulations-columns>
