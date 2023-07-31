@@ -1,3 +1,5 @@
+@import 'biosimulations-colors';
+
 :host {
   width: 100%;
   height: max-content;
@@ -32,6 +34,42 @@ mat-cell {
   }
 }
 
+$biosim-border: solid var(--accent-color);
+$biosim-background: var(--primary-color) !important;
+
 .biosimulations-table {
   width: 100%;
+  white-space: nowrap;
+  background-color: white;
+}
+
+.cell-header-container {
+  border: 2px $biosim-border;
+  background-color: $biosim-background;
+  color: white;
+  font-weight: 700;
+  height: fit-content;
+
+  &:first-child {
+    border-left: 4px $biosim-border;
+  }
+
+  &:last-child {
+    border-right: 4px $biosim-border;
+  }
+}
+
+.cell-content-container {
+  width: fit-content;
+}
+
+.biosimulations-button {
+  display: flex;
+  width: 100%;
+  color: var(--primary-darker-color);
+
+  &:hover {
+    color: var(--accent-darker-color);
+    transition: color 0.2s ease-in-out;
+  }
 }

@@ -1,26 +1,29 @@
 <mat-table matSort class="biosimulations-table" [ngClass]="{ 'single-line-headings': singleLineHeadings }">
   <ng-container [matColumnDef]="column.id" *ngFor="let column of table.columns">
+    <!-- Responsive Table Column Headers -->
     <mat-header-cell
+      class="cell-header-container"
       *matHeaderCellDef
       mat-sort-header
       [disabled]="!sortable || column.sortable === false"
       [ngStyle]="{
-        'min-width.em': column.minWidth !== undefined ? column.minWidth / 12 : null,
-        'max-width.em': column.maxWidth !== undefined ? column.maxWidth / 12 : null,
+        'min-width.em': column.minWidth !== undefined ? column.minWidth / 10 : null,
+        'max-width.em': column.maxWidth !== undefined ? column.maxWidth / 10 : null,
         'justify-content': column.center !== undefined ? 'center' : null
       }">
-      {{ column.heading }}
-      <biosimulations-icon
-        icon="filter"
-        class="column-filter-icon"
-        *ngIf="table.columnIsFiltered[column.id] === true"></biosimulations-icon>
+        {{ column.heading }}
+        <biosimulations-icon
+          icon="filter"
+          class="column-filter-icon"
+          *ngIf="table.columnIsFiltered[column.id] === true"></biosimulations-icon>
     </mat-header-cell>
 
+    <!-- Responsive Table Row Contents -->
     <mat-cell
       *matCellDef="let element"
       [ngStyle]="{
-        'min-width.em': column.minWidth !== undefined ? column.minWidth / 14 : null,
-        'max-width.em': column.maxWidth !== undefined ? column.maxWidth / 14 : null
+        'min-width.em': column.minWidth !== undefined ? column.minWidth / 10 : null,
+        'max-width.em': column.maxWidth !== undefined ? column.maxWidth / 10 : null
       }"
       [ngClass]="{ 'highlight-row': element?._highlight }">
       <div
@@ -30,13 +33,13 @@
         }"
         [ngStyle]="{
           '-webkit-line-clamp': linesPerRow,
-          'height.px': 22 * linesPerRow - 2
+          'height.px': 24 * linesPerRow - 2
         }">
         <span [ngSwitch]="column.leftAction" *ngIf="element._cache[column.id].left.icon">
           <ng-template [ngSwitchCase]="'routerLink'">
             <a
               mat-icon-button
-              class="biosimulations-button primary"
+              class="biosimulations-button primary routerlink"
               *ngIf="element._cache[column.id].left.routerLink as routerLink; else noRouterLink"
               [routerLink]="routerLink"
               [fragment]="element._cache[column.id].left.fragment">

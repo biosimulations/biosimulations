@@ -1,7 +1,7 @@
-<mat-toolbar [ngStyle]="{ background: color }" [color]="color" class="topbar">
-  <!--  <a [routerLink]="['/']" class="logo" *ngIf="showLogo" fxLayout="row" fxLayoutAlign="center center">-->
-  <!--    <ng-content select="#logo" fxFlex></ng-content>-->
-  <!--  </a>-->
+<mat-toolbar [ngStyle]="{ background: color }" class="topbar">
+  <a [routerLink]="['/']" class="logo" *ngIf="showLogo" fxLayout="row" fxLayoutAlign="center center">
+    <ng-content select="#logo" fxFlex></ng-content>
+  </a>
   <a
     href="https://biosimulations.org"
     class="logo"

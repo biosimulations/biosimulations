@@ -2,6 +2,20 @@
 @import 'biosimulations-colors';
 @import 'biosimulations-typography';
 
+.parent-container {
+  display: grid;
+  border: 3px solid black;
+  height: 100%;
+  width: 100%;
+}
+
+.content-section-container {
+  border: 3px solid blue;
+  height: 100%;
+  width: 100%;
+  display: grid;
+}
+
 biosimulations-tab-page ::ng-deep {
   h2,
   h3 {
