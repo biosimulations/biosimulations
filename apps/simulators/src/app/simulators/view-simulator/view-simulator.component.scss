@@ -2,18 +2,47 @@
 @import 'biosimulations-colors';
 @import 'biosimulations-typography';
 
-.parent-container {
-  display: grid;
-  border: 3px solid black;
-  height: 100%;
-  width: 100%;
-}
+$bio-border: solid var(--primary-darker-color);
+$bio-border-radius: 4px;
+$bio-background: var(--primary-darker-color);
+$card-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14),
+  0px 1px 5px 0px rgba(0, 0, 0, 0.12);
 
 .content-section-container {
-  border: 3px solid blue;
-  height: 100%;
-  width: 100%;
-  display: grid;
+  border: 3px solid cyan; // FOR DEBUGGING: EVENTUALLY REMOVE
+  height: fit-content;
+  width: fit-content;
+}
+
+.content-card {
+  display: flex;
+  box-shadow: $card-shadow;
+  align-items: center;
+  justify-content: center;
+  padding-top: 3rem;
+}
+
+.content-card-header {
+  background-color: $bio-background;
+  border: 4px $bio-border;
+  border-radius: $bio-border-radius;
+  height: fit-content;
+  width: auto;
+  font-weight: 700;
+  color: white;
+  font-size: x-large;
+}
+
+.content-card-content {
+  padding-top: 3rem;
+}
+
+.icon-list {
+  padding-top: 1rem;
+  border: 3px solid indigo; // FOR DEBUGGING: EVENTUALLY REMOVE
+  font-weight: 400;
+  align-items: center;
+  justify-content: center;
 }
 
 biosimulations-tab-page ::ng-deep {
