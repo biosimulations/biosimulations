@@ -1,5 +1,6 @@
 <div class="parent-container">
   <biosimulations-tab-page [loading]="(loading$ | async) || false">
+    <!-- Begin Overview Tab -->
     <biosimulations-tab-page-tab heading="Overview" icon="overview">
       <biosimulations-columns *ngIf="simulator | async as simulator">
         <div class="content-section-container overview">
@@ -54,7 +55,7 @@
         </div>
 
         <div class="content-section-container run">
-          <div class="inner-card run">
+          <!-- Start Run Card -->
             <mat-card *ngIf="simulator.image && simulator.validated" class="mat-elevation-z3">
               <mat-card-header>
                 Run simulations online with runBioSimulations
@@ -68,9 +69,9 @@
                 </li>
               </ul>
             </mat-card>
-          </div>
+          <!-- End Run Card -->
 
-          <div class="inner-card docker">
+          <!-- Start Docker Card -->
             <mat-card *ngIf="simulator.image && simulator.validated" class="mat-elevation-z3">
               <mat-card-header>
                 Run simulations with standardized Docker image
@@ -147,9 +148,9 @@
                 </ul>
               </mat-card-content>
             </mat-card>
-          </div>
+          <!-- End Docker Card -->
 
-          <biosimulations-text-page-side-bar-section
+          <!-- Start Singularity Card -->
             *ngIf="simulator.image && simulator.validated"
             heading="Run simulations with standardized Singularity image">
             <ul class="icon-list copy-image">
@@ -222,8 +223,9 @@
               </li>
             </ul>
           </biosimulations-text-page-side-bar-section>
+          <!-- End Singularity Card -->
 
-          <biosimulations-text-page-side-bar-section
+          <!-- Start cli card -->
             *ngIf="simulator.image && simulator?.cli && simulator.validated"
             heading="Run simulations with standardized CLI">
             <ul class="icon-list copy-image">
@@ -305,8 +307,9 @@
               </li>
             </ul>
           </biosimulations-text-page-side-bar-section>
+          <!-- End cli card -->
 
-          <biosimulations-text-page-side-bar-section
+          <!-- Start python card -->
             *ngIf="simulator?.pythonApi && simulator.validated"
             heading="Run simulations with standardized Python API">
             <ul class="icon-list copy-image">
@@ -388,8 +391,9 @@
               </li>
             </ul>
           </biosimulations-text-page-side-bar-section>
+          <!-- End python Card -->
 
-          <biosimulations-text-page-side-bar-section
+          <!-- Start other interfaces card -->
             *ngIf="simulator.otherInterfaceTypes?.length"
             heading="Other interfaces">
             <ul class="icon-list">
@@ -399,8 +403,9 @@
               </li>
             </ul>
           </biosimulations-text-page-side-bar-section>
+          <!-- End other interfaces card -->
 
-          <biosimulations-text-page-side-bar-section
+          <!-- Start supported os card -->
             *ngIf="simulator.supportedOperatingSystemTypes?.length"
             heading="Supported operating systems">
             <ul class="icon-list">
@@ -410,8 +415,9 @@
               </li>
             </ul>
           </biosimulations-text-page-side-bar-section>
+          <!-- End supported os card -->
 
-          <biosimulations-text-page-side-bar-section
+          <!-- Start supported lang card -->
             *ngIf="simulator.supportedProgrammingLanguages?.length"
             heading="Supported programming languages">
             <ul class="icon-list">
@@ -421,11 +427,14 @@
               </li>
             </ul>
           </biosimulations-text-page-side-bar-section>
+          <!-- End supported lang card -->
 
-          <biosimulations-text-page-side-bar-section heading="Curation status">
+          <!-- Start curation card -->
             {{ simulator.curationStatus }}
           </biosimulations-text-page-side-bar-section>
+          <!-- End curation card -->
 
+          <!-- Start license card -->
           <biosimulations-text-page-side-bar-section *ngIf="simulator.licenseName" heading="License">
             <ul class="icon-list">
               <li>
@@ -436,7 +445,9 @@
               </li>
             </ul>
           </biosimulations-text-page-side-bar-section>
+          <!-- End license card -->
 
+          <!-- Start more info card -->
           <biosimulations-text-page-side-bar-section *ngIf="simulator?.urls?.length" heading="More info">
             <ul class="icon-list">
               <li *ngFor="let url of simulator.urls">
@@ -445,7 +456,9 @@
               </li>
             </ul>
           </biosimulations-text-page-side-bar-section>
+          <!-- End more info card -->
 
+          <!-- Start cross ref card -->
           <biosimulations-text-page-side-bar-section *ngIf="simulator.identifiers?.length" heading="Cross references">
             <ul class="identifiers icon-list">
               <li *ngFor="let identifier of simulator.identifiers">
@@ -454,7 +467,9 @@
               </li>
             </ul>
           </biosimulations-text-page-side-bar-section>
+          <!-- End cross ref card -->
 
+          <!-- Start funding card -->
           <biosimulations-text-page-side-bar-section *ngIf="simulator.funding?.length" heading="Funding">
             <ul class="funding icon-list">
               <li *ngFor="let funding of simulator.funding">
@@ -470,7 +485,9 @@
               </li>
             </ul>
           </biosimulations-text-page-side-bar-section>
+          <!-- End funding card -->
 
+          <!-- Start reg card -->
           <biosimulations-text-page-side-bar-section heading="Registration">
             <ul class="icon-list">
               <li>
@@ -483,10 +500,13 @@
               </li>
             </ul>
           </biosimulations-text-page-side-bar-section>
+          <!-- End Reg Card -->
         </div>
       </biosimulations-columns>
     </biosimulations-tab-page-tab>
+    <!-- End Overview Tab -->
 
+    <!-- Start Alogrithms Tab -->
     <biosimulations-tab-page-tab urlHashFragment="algorithms" heading="Algorithms" icon="simulator" class="algorithms">
       <ng-container *ngIf="simulator | async as simulator">
         <ng-container *ngIf="simulator.algorithms | async as algorithms">
@@ -883,7 +903,9 @@
         </ng-container>
       </ng-container>
     </biosimulations-tab-page-tab>
+    <!-- End Alg Tab -->
 
+    <!-- Start Versions tab -->
     <biosimulations-tab-page-tab urlHashFragment="versions" heading="Versions" icon="version" [partialWidth]="true">
       <ng-container *ngIf="simulator | async as simulator">
         <ng-container *ngIf="simulator.versions as versions">
@@ -1056,7 +1078,9 @@
         </ng-template>
       </ng-container>
     </biosimulations-tab-page-tab>
+    <!-- End validation Tab -->
 
+    <!-- Start JSON tab -->
     <biosimulations-tab-page-tab
       urlHashFragment="specifications"
       heading="Specifications (JSON)"
@@ -1066,5 +1090,6 @@
         *ngIf="simulator | async as simulator"
         class="json"><code [languages]="['json']" [highlight]="simulator._json"></code></pre>
     </biosimulations-tab-page-tab>
+    <!-- End JSON tab -->
   </biosimulations-tab-page>
 </div>
