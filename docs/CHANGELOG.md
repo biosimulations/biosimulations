@@ -1,5 +1,19 @@
 # Changelog
 
+## [9.43.0](https://github.com/biosimulations/biosimulations/compare/v9.42.0...v9.43.0) (2023-07-31)
+
+
+### Bug Fixes
+
+* added nowrap declaration to table container ([c26ffd8](https://github.com/biosimulations/biosimulations/commit/c26ffd8b047ce89c8bc62c2984402fb1478cc502))
+* removed commented-out css declarations to appease CI ([f601e10](https://github.com/biosimulations/biosimulations/commit/f601e1073ce4bd50de9fd2c9a724e30553b49105))
+
+
+### Features
+
+* **ui:** added color selecting behavior to navigation component ([cb2a93b](https://github.com/biosimulations/biosimulations/commit/cb2a93bc1d071a3687cb85479808d9c30f52a9f4))
+* **ui:** added color selection logic for apps ([9d9e5a5](https://github.com/biosimulations/biosimulations/commit/9d9e5a5feb460e4175d004d0d255ff04854ad5fc))
+
 ## [9.42.0](https://github.com/biosimulations/biosimulations/compare/v9.41.1...v9.42.0) (2023-07-28)
 
 
