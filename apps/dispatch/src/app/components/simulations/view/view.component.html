@@ -68,13 +68,11 @@
     <ng-container *ngTemplateOutlet="resultsTabContent; context: { $implicit: filesContent }"> </ng-container>
 
     <ng-template #filesContent>
-      <div
-        *ngIf="(projectFiles$ | async) && (files$ | async) && (outputs$ | async); else filesError"
-        class="files">
+      <div *ngIf="(projectFiles$ | async) && (files$ | async) && (outputs$ | async); else filesError" class="files">
         <mat-expansion-panel expanded="true" disabled="true">
           <biosimulations-text-page-content-section
-          heading="Simulation specification (COMBINE/OMEX archive)"
-          *ngIf="projectFiles$ | async as files">
+            heading="Simulation specification (COMBINE/OMEX archive)"
+            *ngIf="projectFiles$ | async as files">
             <biosimulations-project-files [files]="files" [usesMaster]="false" [usesMetadata]="false">
             </biosimulations-project-files>
           </biosimulations-text-page-content-section>
@@ -140,7 +138,10 @@
     </ng-container>
 
     <ng-template #selectVisualizationContent>
-      <div *ngIf="visualizations$ | async as visualizations; else visualizationErrors" class="partial-width" style="padding-top: 5rem">
+      <div
+        *ngIf="visualizations$ | async as visualizations; else visualizationErrors"
+        class="partial-width"
+        style="padding-top: 5rem">
         <biosimulations-project-select-visualization
           [visualizations]="visualizations"
           (renderVisualization)="renderVisualization($event)"

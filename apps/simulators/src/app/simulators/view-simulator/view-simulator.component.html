@@ -56,9 +56,7 @@
         <div class="content-section-container run">
           <div class="inner-card run">
             <mat-card *ngIf="simulator.image && simulator.validated" class="mat-elevation-z3">
-              <mat-card-header>
-                Run simulations online with runBioSimulations
-              </mat-card-header>
+              <mat-card-header> Run simulations online with runBioSimulations </mat-card-header>
               <ul class="icon-list">
                 <li>
                   <biosimulations-icon icon="simulator"></biosimulations-icon>
@@ -72,9 +70,7 @@
 
           <div class="inner-card docker">
             <mat-card *ngIf="simulator.image && simulator.validated" class="mat-elevation-z3">
-              <mat-card-header>
-                Run simulations with standardized Docker image
-              </mat-card-header>
+              <mat-card-header> Run simulations with standardized Docker image </mat-card-header>
               <mat-card-content>
                 <ul class="icon-list copy-image">
                   <li>
@@ -240,7 +236,10 @@
                   class="text">
                   <span
                     *ngIf="
-                      !(simulator?.cli?.package?.startsWith('http://') || simulator?.cli?.package?.startsWith('https://'))
+                      !(
+                        simulator?.cli?.package?.startsWith('http://') ||
+                        simulator?.cli?.package?.startsWith('https://')
+                      )
                     "
                     >{{ simulator?.cli?.packageRepository }}:</span
                   >{{ simulator?.cli?.package }}
@@ -844,7 +843,9 @@
                     </li>
                   </ul>
                   <ng-template #noSupportedInterfaces>
-                    <p class="info-message">Information about which interfaces support the algorithm is not available.</p>
+                    <p class="info-message">
+                      Information about which interfaces support the algorithm is not available.
+                    </p>
                   </ng-template>
 
                   <p class="subsection-heading no-bottom-margin">Dependencies</p>

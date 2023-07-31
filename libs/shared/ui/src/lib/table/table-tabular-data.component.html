@@ -11,11 +11,11 @@
         'max-width.em': column.maxWidth !== undefined ? column.maxWidth / 10 : null,
         'justify-content': column.center !== undefined ? 'center' : null
       }">
-        {{ column.heading }}
-        <biosimulations-icon
-          icon="filter"
-          class="column-filter-icon"
-          *ngIf="table.columnIsFiltered[column.id] === true"></biosimulations-icon>
+      {{ column.heading }}
+      <biosimulations-icon
+        icon="filter"
+        class="column-filter-icon"
+        *ngIf="table.columnIsFiltered[column.id] === true"></biosimulations-icon>
     </mat-header-cell>
 
     <!-- Responsive Table Row Contents -->
