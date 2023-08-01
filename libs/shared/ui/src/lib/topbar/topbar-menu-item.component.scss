@@ -6,11 +6,11 @@
   margin-left: 1rem;
 }
 
-.mat-flat-button {
-  font-size: 18px;
-  font-weight: 500;
+.container {
   font-family: 'Roboto', sans-serif;
+}
 
+.mat-flat-button {
   border: none;
   padding: 0 0 5rem;
   border-radius: 0;
@@ -28,8 +28,6 @@
   .button-content {
     display: flex;
     align-items: center;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 500;
   }
 
   biosimulations-icon {
