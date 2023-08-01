@@ -10,6 +10,7 @@ $card-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0,
 
 .parent-container {
   font-family: 'Roboto', sans-serif;
+  padding: 2rem;
 }
 
 .run {
@@ -26,21 +27,25 @@ $card-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0,
 }
 
 .content-card-header {
-  background-color: $bio-background;
-  border: 4px $bio-border;
-  border-radius: $bio-border-radius;
-  height: fit-content;
-  width: auto;
-  font-weight: 700;
-  color: white;
-  font-size: x-large;
+  font-size: 2em;
+  font-weight: 900;
+  color: var(--primary-darker-color);
+  margin: 10px 0;
+  text-transform: uppercase;
 }
 
 .content-subcard-header {
   border: none;
   font-weight: 600;
   background-color: white;
-  color: var(--primary-darker-color);
+  color: var(--accent-darker-color);
+  text-decoration: underline;
+}
+
+.content-secard-header {
+  font-size: x-large;
+  font-weight: 600;
+  padding-bottom: 2rem;
 }
 
 .content-card-content {
@@ -52,11 +57,6 @@ $card-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0,
   font-weight: 400;
   align-items: center;
   justify-content: center;
-}
-
-.hanging-indent {
-  border: 2px solid black;
-  display: grid;
 }
 
 .versions-table-container {
