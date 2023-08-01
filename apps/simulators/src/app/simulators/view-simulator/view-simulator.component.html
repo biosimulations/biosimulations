@@ -6,7 +6,7 @@
         <div class="content-section-container overview">
           <!-- Main Content Card-->
           <mat-card class="content-card overview">
-            <mat-card-header class="content-subcard-header overview">
+            <mat-card-header class="content-card-header overview">
               {{ simulator.name + ' (' + simulator.id + ' / ' + simulator.version + ')' }}
             </mat-card-header>
             <mat-card-content class="content-card-content overview">
@@ -74,7 +74,7 @@
 
           <!-- Start Docker Card -->
           <mat-card *ngIf="simulator.image && simulator.validated" class="content-card docker">
-            <mat-card-header>
+            <mat-card-header class="content-subcard-header docker">
               Run simulations with standardized Docker image
             </mat-card-header>
             <mat-card-content>
@@ -320,10 +320,10 @@
 
           <!-- Start python card -->
           <mat-card *ngIf="simulator?.pythonApi && simulator.validated" class="content-card python">
-            <mat-card-header class="content-card-header python">
+            <mat-card-header class="content-subcard-header python">
               Run simulations with standardized Python API
             </mat-card-header>
-            <mat-card-content class="content-subcard-content python">
+            <mat-card-content class="content-content python">
               <ul class="icon-list copy-image">
                 <li>
                   <biosimulations-icon icon="info"></biosimulations-icon>
@@ -446,7 +446,7 @@
           <mat-card
             *ngIf="simulator.supportedProgrammingLanguages?.length"
             class="content-card lang">
-            <mat-card-header class="content-card-header lang">
+            <mat-card-header class="content-subcard-header lang">
               Supported programming languages
             </mat-card-header>
             <mat-card-content class="content-card-content lang">
