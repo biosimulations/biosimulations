@@ -569,7 +569,7 @@
     <!-- End Overview Tab -->
 
     <!-- Start Alogrithms Tab -->
-    <biosimulations-tab-page-tab urlHashFragment="algorithms" heading="Algorithms" icon="simulator" class="algorithms">
+    <biosimulations-tab-page-tab urlHashFragment="algorithms" heading="Algorithms" icon="simulator">
       <ng-container *ngIf="simulator | async as simulator">
         <ng-container *ngIf="simulator.algorithms | async as algorithms">
           <ng-container *ngIf="algorithms.length > 0; else noAlgorithms">
@@ -971,20 +971,22 @@
     <biosimulations-tab-page-tab urlHashFragment="versions" heading="Versions" icon="version" [partialWidth]="true">
       <ng-container *ngIf="simulator | async as simulator">
         <ng-container *ngIf="simulator.versions as versions">
-          <biosimulations-responsive-table
-            [columns]="versionsColumns"
-            [singleLineHeadings]="true"
-            [data]="simulator.versions"
-            [sortable]="true"
-            [controls]="false"
-            searchPlaceHolder="Query (e.g., 1.0)"
-            searchToolTip="Enter a query such as '2020'. By default, your query will be searched over all columns. To search over a specific column, prefix your query with the heading of the column (with spaces replaced by dashes) such as 'date: 2020'. Please see the FAQs for more information."
-            stackedContentsHeading="Contents"
-            [getStackedHeading]="getVersionStackedHeading"
-            [getStackedHeadingMoreInfoRouterLink]="getVersionLinkBound"
-            [defaultSort]="{ active: 'label', direction: 'desc' }"
-            [highlightRow]="highlightVersion">
-          </biosimulations-responsive-table>
+          <div class="versions-table-container">
+            <biosimulations-responsive-table
+              [columns]="versionsColumns"
+              [singleLineHeadings]="true"
+              [data]="simulator.versions"
+              [sortable]="true"
+              [controls]="false"
+              searchPlaceHolder="Query (e.g., 1.0)"
+              searchToolTip="Enter a query such as '2020'. By default, your query will be searched over all columns. To search over a specific column, prefix your query with the heading of the column (with spaces replaced by dashes) such as 'date: 2020'. Please see the FAQs for more information."
+              stackedContentsHeading="Contents"
+              [getStackedHeading]="getVersionStackedHeading"
+              [getStackedHeadingMoreInfoRouterLink]="getVersionLinkBound"
+              [defaultSort]="{ active: 'label', direction: 'desc' }"
+              [highlightRow]="highlightVersion">
+            </biosimulations-responsive-table>
+          </div>
         </ng-container>
       </ng-container>
     </biosimulations-tab-page-tab>
