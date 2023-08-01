@@ -1013,15 +1013,12 @@
       [partialWidth]="false">
       <ng-container *ngIf="simulator | async as simulator">
         <ng-container *ngIf="simulator?.validationTests | async as validationTests; else noValidationTestResults">
-          <biosimulations-text-page
-            contentsHeading=""
-            [padded]="false"
-            alwaysFixed="calc(64px + 32px + 32px + 2rem)"
-            [tocSections]="testResultsTocSections"
-            [tocScrollSectionScrollOffset]="128"
-            [compact]="true">
+          <div contentsHeading="" alwaysFixed="calc(64px + 32px + 32px + 2rem)">
             <ng-container id="sideBar">
-              <biosimulations-text-page-side-bar-section heading="Summary" fxShow fxHide.lt-md>
+              <mat-card heading="Summary" fxShow fxHide.lt-md>
+                <mat-card-header>
+                  Summary
+                </mat-card-header>
                 <ul>
                   <li>
                     Test suite version:
@@ -1044,7 +1041,7 @@
                     <li>Failed: {{ validationTests.numTestsFailed }}</li>
                   </ul>
                 </ul>
-              </biosimulations-text-page-side-bar-section>
+              </mat-card>
 
               <biosimulations-text-page-side-bar-section heading="More info" fxShow fxHide.lt-md>
                 <div class="hanging-indent">
@@ -1145,7 +1142,7 @@
                 <ng-template #noLog><p class="info-message">The test did not produce any output.</p></ng-template>
               </biosimulations-text-page-content-section>
             </ng-container>
-          </biosimulations-text-page>
+          </div>
         </ng-container>
         <ng-template #noValidationTestResults>
           <p class="info-message" *ngIf="!simulator.validated; else testResultsNotAvailable">
