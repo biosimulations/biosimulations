@@ -65,8 +65,7 @@ function normalizeAccentsLunrPipelineFunction(token: any): any {
 lunr.Pipeline.registerFunction(normalizeAccentsLunrPipelineFunction, 'normalizeAccents');
 
 function addAccentNormalizationToLunrBuilder(builder: any): void {
-  // Add the pipeline function to both the indexing pipeline and the
-  // searching pipeline
+  /* Add the pipeline function to both the indexing pipeline and the searching pipeline */
   builder.pipeline.before(lunr.stemmer, normalizeAccentsLunrPipelineFunction);
   builder.searchPipeline.before(lunr.stemmer, normalizeAccentsLunrPipelineFunction);
 }
@@ -227,8 +226,8 @@ export class TableComponent implements OnInit, AfterViewInit {
         } else if (column.centerAction === ColumnActionType.click) {
           cache[column.id].center['click'] = RowService.getElementClick(datum, column, Side.center);
         }
-        // cache[column.id].center['icon'] = RowService.getIcon(datum, column, Side.center);
-        // cache[column.id].center['iconTitle'] = RowService.getIconTitle(datum, column, Side.center);
+        /* cache[column.id].center['icon'] = RowService.getIcon(datum, column, Side.center); */
+        /* cache[column.id].center['iconTitle'] = RowService.getIconTitle(datum, column, Side.center); */
 
         if (column.rightAction === ColumnActionType.routerLink) {
           const tmp = RowService.getElementRouterLink(datum, column, Side.right);
@@ -258,7 +257,7 @@ export class TableComponent implements OnInit, AfterViewInit {
       }
     });
 
-    // set up full text index
+    /* set up full text index */
     const columns = this.columns;
 
     this.fullTextIndex = lunr(function (this: any) {
@@ -280,12 +279,12 @@ export class TableComponent implements OnInit, AfterViewInit {
       });
     });
 
-    // set data for table
+    /* set data for table */
     this.dataSource.data = sortedData;
     this.dataSource.isLoading.next(!this.dataSet);
     this.dataLoaded = sortedData.length > 0;
 
-    // set filtering
+    /* set filtering */
     this.setDataSourceFilter();
   }
 
@@ -828,7 +827,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   setDataSourceFilter(): void {
-    // conduct full text search
+    /* conduct full text search */
     this.fullTextMatches = {};
     if (this.searchQuery && this.fullTextIndex) {
       try {
@@ -840,9 +839,9 @@ export class TableComponent implements OnInit, AfterViewInit {
       }
     }
 
-    // trigger table to filter data via calling the filterData method for each entry
+    /* trigger table to filter data via calling the filterData method for each entry */
     if (Object.keys(this.filter).length || this.searchQuery) {
-      // Hack: alternate between value of 'a' and 'b' to force data source to filter the data
+      /* Hack: alternate between value of 'a' and 'b' to force data source to filter the data */
       if (this.dataSource.filter === 'a') {
         this.dataSource.filter = 'b';
       } else {
@@ -872,7 +871,7 @@ export class TableComponent implements OnInit, AfterViewInit {
       }
     }
 
-    // full text search
+    /* full text search */
     if (this.searchQuery) {
       if (!(datum._index in this.fullTextMatches)) {
         return false;
