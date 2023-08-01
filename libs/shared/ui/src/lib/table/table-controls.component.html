@@ -5,9 +5,10 @@
   </div>
 
   <mat-accordion class="controls" [ngClass]="{ 'left-square-border': !closeable }">
+    <!-- Columns panel -->
     <mat-expansion-panel
-      [expanded]="table.openControlPanelId === 1"
-      [disabled]="table.openControlPanelId === 1"
+      [expanded]="table.openControlPanelId === 0"
+      [disabled]="table.openControlPanelId === 0"
       (opened)="table.openControlPanel(1)">
       <mat-expansion-panel-header collapsedHeight="32px" expandedHeight="32px">
         <mat-panel-title>
@@ -28,9 +29,10 @@
       </ng-template>
     </mat-expansion-panel>
 
+    <!-- Filters panel -->
     <mat-expansion-panel
       [expanded]="table.openControlPanelId === 2"
-      [disabled]="table.openControlPanelId === 2"
+      [disabled]="table.openControlPanelId === 0"
       (opened)="table.openControlPanel(2)">
       <mat-expansion-panel-header collapsedHeight="32px" expandedHeight="32px">
         <mat-panel-title>
@@ -175,9 +177,10 @@
       </ng-template>
     </mat-expansion-panel>
 
+    <!-- Search panel -->
     <mat-expansion-panel
       [expanded]="table.openControlPanelId === 3"
-      [disabled]="table.openControlPanelId === 3"
+      [disabled]="table.openControlPanelId === 0"
       (opened)="table.openControlPanel(3)">
       <mat-expansion-panel-header collapsedHeight="32px" expandedHeight="32px">
         <mat-panel-title>
@@ -206,4 +209,4 @@
       </ng-template>
     </mat-expansion-panel>
   </mat-accordion>
-</div> 
+</div>
