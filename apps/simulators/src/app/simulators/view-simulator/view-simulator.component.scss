@@ -24,11 +24,14 @@ $card-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0,
   padding-bottom: 2rem;
 }
 
+mat-card {
+  margin-top: 1rem;
+}
+
 .content-card-header {
   font-size: 2em;
   font-weight: 900;
   background-color: var(--primary-darker-color);
-  margin: 10px 0;
   text-transform: uppercase;
 }
 
