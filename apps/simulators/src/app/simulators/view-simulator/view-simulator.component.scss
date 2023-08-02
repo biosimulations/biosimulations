@@ -20,26 +20,29 @@ $card-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0,
 .content-card {
   display: flex;
   box-shadow: $card-shadow;
-  align-items: center;
-  justify-content: center;
-  padding-top: 3rem;
   width: 100%;
+  padding-bottom: 2rem;
 }
 
 .content-card-header {
   font-size: 2em;
   font-weight: 900;
-  color: var(--primary-darker-color);
+  background-color: var(--primary-darker-color);
   margin: 10px 0;
   text-transform: uppercase;
 }
 
 .content-subcard-header {
-  border: none;
   font-weight: 600;
-  background-color: white;
-  color: var(--accent-darker-color);
-  text-decoration: underline;
+  background-color: var(--accent-color);
+  padding: 4px;
+}
+
+.content-card-header,
+.content-subcard-header {
+  border-bottom: none;
+  border-radius: inherit;
+  color: white;
 }
 
 .content-secard-header {
@@ -49,7 +52,7 @@ $card-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0,
 }
 
 .content-card-content {
-  padding-top: 3rem;
+  padding-top: 2rem;
 }
 
 .icon-list {
@@ -57,6 +60,10 @@ $card-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0,
   font-weight: 400;
   align-items: center;
   justify-content: center;
+}
+
+biosimulations-icon {
+  color: var(--primary-color);
 }
 
 .versions-table-container {

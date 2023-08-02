@@ -2,15 +2,20 @@
 @import 'biosimulations-colors';
 
 biosimulations-text-page-section ::ng-deep h3 {
-  color: mat.get-color-from-palette($theme-primary);
+  color: mat.get-color-from-palette($theme-primary, darker);
+
+  &:hover {
+    color: mat.get-color-from-palette($theme-accent, darker);
+    transition: color 0.3s ease;
+  }
 
   .mat-icon-button.biosimulations-button {
     &:hover {
-      color: mat.get-color-from-palette($theme-accent);
+      color: mat.get-color-from-palette($theme-primary, darker);
     }
 
     &:active {
-      color: mat.get-color-from-palette($theme-accent, darker);
+      color: mat.get-color-from-palette($theme-primary, darker);
     }
   }
 }
