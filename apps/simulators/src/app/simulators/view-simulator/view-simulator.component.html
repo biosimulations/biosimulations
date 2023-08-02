@@ -573,12 +573,9 @@
       <ng-container *ngIf="simulator | async as simulator">
         <ng-container *ngIf="simulator.algorithms | async as algorithms">
           <ng-container *ngIf="algorithms.length > 0; else noAlgorithms">
-            
+
             <!-- Simulator Documentation -->
             <mat-card class="content-card alg-card docs">
-              <mat-card-header class="content-secard-header docs">
-                Algorithms Used in this Simulator
-              </mat-card-header>
               <mat-card-content>
                 <ng-container id="sideBar" *ngIf="simulatorDocumentationUrl">
                   <h3>
