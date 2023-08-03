@@ -1,5 +1,13 @@
 # Changelog
 
+## [9.43.1](https://github.com/biosimulations/biosimulations/compare/v9.43.0...v9.43.1) (2023-08-03)
+
+
+### Bug Fixes
+
+* linting errors in combine-api handler ([df00adf](https://github.com/biosimulations/biosimulations/commit/df00adf931267def17c0fa96b644ea64a6153a78))
+* used correct env variable for S3 secret key ([4df9cf9](https://github.com/biosimulations/biosimulations/commit/4df9cf988d75ca3020ee02d412d859ba21ad1c99))
+
 ## [9.43.0](https://github.com/biosimulations/biosimulations/compare/v9.42.0...v9.43.0) (2023-07-31)
 
 
