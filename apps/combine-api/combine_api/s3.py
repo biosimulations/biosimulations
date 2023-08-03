@@ -40,12 +40,12 @@ class S3Bucket(object):
         s3: ServiceResource = boto3.resource('s3',
                                              endpoint_url=environ.get(ENVVAR_STORAGE_ENDPOINT),
                                              aws_access_key_id=environ.get(ENVVAR_STORAGE_ACCESS_KEY),
-                                             aws_secret_access_key=environ.get(ENVVAR_STORAGE_ACCESS_KEY),
+                                             aws_secret_access_key=environ.get(ENVVAR_STORAGE_SECRET),
                                              verify=False)
         self.client: Client = boto3.client('s3',
                                            endpoint_url=environ.get(ENVVAR_STORAGE_ENDPOINT),
                                            aws_access_key_id=environ.get(ENVVAR_STORAGE_ACCESS_KEY),
-                                           aws_secret_access_key=environ.get(ENVVAR_STORAGE_ACCESS_KEY),
+                                           aws_secret_access_key=environ.get(ENVVAR_STORAGE_SECRET),
                                            verify=False,
                                            )
         self.bucket = s3.Bucket(environ.get(ENVVAR_TEMP_STORAGE_BUCKET))

@@ -20,6 +20,9 @@ import requests.exceptions
 import werkzeug.datastructures  # noqa: F401
 import werkzeug.wrappers.response  # noqa: F401
 
+import logging
+
+logger = logging.getLogger(__name__)
 
 def handler(body, files=None):
     ''' Create a COMBINE/OMEX archive.
@@ -133,8 +136,13 @@ def handler(body, files=None):
                                download_name='archive.omex')
 
     else:
-        # save COMBINE/OMEX archive to S3 bucket
-        archive_url = combine_api.s3.save_temporary_combine_archive_to_s3_bucket(archive_filename, public=True)
+        try:
+          # save COMBINE/OMEX archive to S3 bucket
+          archive_url = combine_api.s3.save_temporary_combine_archive_to_s3_bucket(archive_filename, public=True)
 
-        # return URL for archive in S3 bucket
-        return archive_url
+          # return URL for archive in S3 bucket
+          return archive_url
+        except Exception as exception:
+          logging.exception('Failed to save COMBINE/OMEX archive to S3 bucket', exception)
+          raise exception
+
