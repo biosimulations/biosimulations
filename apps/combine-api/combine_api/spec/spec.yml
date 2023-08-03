@@ -160,7 +160,7 @@ paths:
   /combine/create:
     post:
       requestBody:
-        description: Specifiations for the COMBINE/OMEX archive and its contents (specifications
+        description: Specifications for the COMBINE/OMEX archive and its contents (specifications
           of the SED-ML documents and file(s)).
         content:
           multipart/form-data:
