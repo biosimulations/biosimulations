@@ -7,7 +7,7 @@
   [showNews]="false"
   [healthy]="healthy$ | async">
   <biosimulations-topbar-menu>
-    <biosimulations-hover-open-menu onclick="parent.location=['/projects']" [link]="'/projects'" [disabled]="true">
+    <biosimulations-hover-open-menu [link]="'/projects'" [disabled]="true">
       <biosimulations-topbar-menu-item heading="BioSimDB" icon="browse" id="trigger"></biosimulations-topbar-menu-item>
     </biosimulations-hover-open-menu>
 
