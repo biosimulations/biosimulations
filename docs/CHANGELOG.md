@@ -1,5 +1,24 @@
 # Changelog
 
+## [9.44.0](https://github.com/biosimulations/biosimulations/compare/v9.43.1...v9.44.0) (2023-08-04)
+
+
+### Bug Fixes
+
+* added eslint comment for empty constructor and changed comment form ([51f41f3](https://github.com/biosimulations/biosimulations/commit/51f41f3b133b59212016941537ffe0f6ef2a4364))
+* changed appropriate namespace of image file for simulators ([c60091a](https://github.com/biosimulations/biosimulations/commit/c60091aeafc980c3ccbcd2fab29e723a198092f6))
+* **ui:** added trigger logic to close menu on click directive ([fffc135](https://github.com/biosimulations/biosimulations/commit/fffc13553786c6cdb9087c34dc55c03638a59f90))
+* **ui:** removed shared component container for div ([07f56a5](https://github.com/biosimulations/biosimulations/commit/07f56a5e7798254972aae790a4820f4e11774531))
+
+
+### Features
+
+* added updated png image to assets subdir ([a06e258](https://github.com/biosimulations/biosimulations/commit/a06e258ccf3564a441302803a3da6ce32b82aef1))
+* **ui:** added path of updated logo image to config.json in simulators ([eed361d](https://github.com/biosimulations/biosimulations/commit/eed361dca9fdfdafe050055909cbdf3ba3b7dbe9))
+* **ui:** added roboto font family to home section for continuity ([58c422f](https://github.com/biosimulations/biosimulations/commit/58c422f12ae4808b6ff2cad2de7aab5b0806770b))
+* **ui:** implemented mat cards for algorithms tab in view simulator ([32ea82b](https://github.com/biosimulations/biosimulations/commit/32ea82b75b6559bd61df31c9a7b636b8b85d18b2))
+* **ui:** replaced shared components with mat card for continuity ([eb7c48c](https://github.com/biosimulations/biosimulations/commit/eb7c48c5e86785b7cbe65c255eea3b62750f1572))
+
 ## [9.43.1](https://github.com/biosimulations/biosimulations/compare/v9.43.0...v9.43.1) (2023-08-03)
 
 
