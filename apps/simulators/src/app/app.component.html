@@ -8,22 +8,20 @@
   [healthy]="healthy$ | async">
   <!-- Start Hero Banner -->
   <biosimulations-topbar-menu>
-    <biosimulations-hover-open-menu [disabled]="true">
+    <biosimulations-hover-open-menu [disabled]="true" [routerLink]="['/simulators']">
       <biosimulations-topbar-menu-item
         heading="BioSimulators"
         icon="simulator"
         id="trigger"
-        [routerLink]="['/simulators']"
         target="_self">
       </biosimulations-topbar-menu-item>
     </biosimulations-hover-open-menu>
 
-    <biosimulations-hover-open-menu [disabled]="true">
+    <biosimulations-hover-open-menu [disabled]="true" [link]="config.dispatchAppUrl">
       <biosimulations-topbar-menu-item
         heading="Run Simulations"
         icon="experiment"
         id="trigger"
-        [href]="config.dispatchAppUrl"
         target="_self">
       </biosimulations-topbar-menu-item>
     </biosimulations-hover-open-menu>
@@ -31,26 +29,23 @@
     <biosimulations-hover-open-menu>
       <biosimulations-topbar-menu-item heading="Utilities" icon="construction" id="trigger">
       </biosimulations-topbar-menu-item>
-
       <ng-container id="items">
-        <biosimulations-dropdown-menu-item heading="Convert a file" [routerLink]="['/utils', 'convert-file']">
+        <biosimulations-dropdown-menu-item heading="Convert a file" [href]="config.utilsConvertFileUrl">
         </biosimulations-dropdown-menu-item>
 
-        <biosimulations-dropdown-menu-item heading="Create a project" [routerLink]="['/utils', 'create-project']">
+        <biosimulations-dropdown-menu-item heading="Create a project" [href]="config.utilsCreateProjectUrl">
         </biosimulations-dropdown-menu-item>
 
-        <biosimulations-dropdown-menu-item heading="Validate a model" [routerLink]="['/utils', 'validate-model']">
+        <biosimulations-dropdown-menu-item heading="Validate a model" [href]="config.utilsValidateModelUrl">
         </biosimulations-dropdown-menu-item>
 
-        <biosimulations-dropdown-menu-item
-          heading="Validate a simulation"
-          [routerLink]="['/utils', 'validate-simulation']">
+        <biosimulations-dropdown-menu-item heading="Validate a simulation" [href]="config.utilsValidateSimulationUrl">
         </biosimulations-dropdown-menu-item>
 
-        <biosimulations-dropdown-menu-item heading="Validate metadata" [routerLink]="['/utils', 'validate-metadata']">
+        <biosimulations-dropdown-menu-item heading="Validate metadata" [href]="config.utilsValidateMetadataUrl">
         </biosimulations-dropdown-menu-item>
 
-        <biosimulations-dropdown-menu-item heading="Validate a project" [routerLink]="['/utils', 'validate-project']">
+        <biosimulations-dropdown-menu-item heading="Validate a project" [href]="config.utilsValidateProjectUrl">
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
@@ -59,128 +54,24 @@
           target="githubissues">
         </biosimulations-dropdown-menu-item>
 
-        <biosimulations-dropdown-menu-item heading="Suggest a simulator" [routerLink]="['/utils', 'suggest-simulator']">
+        <biosimulations-dropdown-menu-item heading="Suggest a simulator" [href]="config.utilsSuggestSimulatorUrl">
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item heading="BioSimulations REST API" [href]="config.apiUrl">
         </biosimulations-dropdown-menu-item>
       </ng-container>
     </biosimulations-hover-open-menu>
 
-    <biosimulations-hover-open-menu>
-      <biosimulations-topbar-menu-item heading="Conventions" icon="standard" id="trigger" target="biosimulations-docs">
-      </biosimulations-topbar-menu-item>
-
-      <ng-container id="items">
-        <biosimulations-dropdown-menu-item
-          heading="Simulator specs"
-          href="https://docs.biosimulations.org/concepts/conventions/simulator-capabilities/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Simulator interfaces"
-          href="https://docs.biosimulations.org/concepts/conventions/simulator-interfaces/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Simulator images"
-          href="https://docs.biosimulations.org/concepts/conventions/simulator-images/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Simulation experiments"
-          href="https://docs.biosimulations.org/concepts/conventions/simulation-experiments/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Simulation reports"
-          href="https://docs.biosimulations.org/concepts/conventions/simulation-run-reports/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Data visualizations"
-          href="https://docs.biosimulations.org/concepts/conventions/simulation-run-visualizations/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Metadata"
-          href="https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Simulation logs"
-          href="https://docs.biosimulations.org/concepts/conventions/simulation-run-logs/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-      </ng-container>
+    <biosimulations-hover-open-menu [link]="'https://docs.biosimulations.org/users/'" [disabled]="true" target="_blank">
+      <biosimulations-topbar-menu-item heading="Learn" icon="idea" id="trigger"> </biosimulations-topbar-menu-item>
     </biosimulations-hover-open-menu>
 
-    <biosimulations-hover-open-menu>
-      <biosimulations-topbar-menu-item heading="Help" icon="help" id="trigger"> </biosimulations-topbar-menu-item>
-
-      <ng-container id="items">
-        <biosimulations-dropdown-menu-item
-          heading="Tutorial"
-          href="https://docs.biosimulations.org/users/finding-tools/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="FAQ"
-          href="https://docs.biosimulations.org/users/faqs/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Tech tutorial"
-          href="https://tutorial.biosimulators.org"
-          target="biosimulators-tutorial">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Tech docs"
-          href="https://docs.biosimulations.org/users/biosimulators-packages/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="About"
-          href="https://docs.biosimulations.org/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Terms of service"
-          href="https://docs.biosimulations.org/about/terms/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Privacy policy"
-          href="https://docs.biosimulations.org/about/privacy/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item heading="Status" href="https://status.biosimulations.org/" target="status">
-        </biosimulations-dropdown-menu-item>
-      </ng-container>
-    </biosimulations-hover-open-menu>
-
-    <biosimulations-hover-open-menu
-      onclick="parent.location='https://biosimulations.org'">
+    <biosimulations-hover-open-menu 
+      [disabled]="true"
+      [link]="config.platformAppUrl" 
+      matTooltip="Browse simulation projects">
       <biosimulations-topbar-menu-item heading="BioSimDB" icon="link" id="trigger">
       </biosimulations-topbar-menu-item>
-      <ng-container id="items">
-        <biosimulations-dropdown-menu-item
-          heading="Browse simulation projects"
-          icon="browse"
-          href="https://biosimulations.org">
-        </biosimulations-dropdown-menu-item>
-      </ng-container>
     </biosimulations-hover-open-menu>
   </biosimulations-topbar-menu>
 
