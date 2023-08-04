@@ -1,15 +1,19 @@
-from biosimulators_utils.combine.io import CombineArchiveReader
-from biosimulators_utils.sedml.io import SedmlSimulationReader
-from combine_api import app
-from combine_api.app_config import ENVVAR_STORAGE_SECRET
-from unittest import mock
-from werkzeug.datastructures import MultiDict
 import json
 import os
-import pytest
 import shutil
 import tempfile
 import unittest
+from pathlib import Path
+from unittest import mock
+
+import pytest
+import requests
+from biosimulators_utils.combine.io import CombineArchiveReader
+from biosimulators_utils.sedml.io import SedmlSimulationReader
+from werkzeug.datastructures import MultiDict
+
+from combine_api import app
+from combine_api.app_config import ENVVAR_STORAGE_SECRET
 
 
 class CreateCombineArchiveTestCase(unittest.TestCase):
@@ -20,6 +24,25 @@ class CreateCombineArchiveTestCase(unittest.TestCase):
 
     def tearDown(self):
         shutil.rmtree(self.temp_dirname)
+
+    @staticmethod
+    def download_file(url: str, out_file: Path) -> None:
+      """
+      download file using streaming to support large files
+
+      :param str url: the url to download from
+      :param Path out_file: the file to write the downloaded contents to
+      :raises requests.exceptions.HTTPError: if the download fails
+      """
+      with requests.Session() as session:
+        response = session.get(url, verify=False, stream=True)
+        response.raise_for_status()
+        assert response.status_code == 200  # raise_for_status should throw if not 200
+        with open(out_file, "wb") as f:
+          for chunk in response.iter_content(chunk_size=10000):
+            if chunk:  # filter out keep-alive new chunks
+              f.write(chunk)
+
 
     def test_create_combine_archive_with_uploaded_model_file(self):
         endpoint = '/combine/create'
@@ -240,16 +263,15 @@ class CreateCombineArchiveTestCase(unittest.TestCase):
         fid_0.close()
 
         self.assertEqual(response.status_code, 200, response.json)
-        self.assertEqual(response.content_type, 'application/zip')
-        downloaded_archive_filename = os.path.join(self.temp_dirname, 'archive-downloaded.omex')
-        with open(downloaded_archive_filename, 'wb') as file:
-            file.write(response.data)
+        self.assertEqual(response.content_type, 'application/json')
+        url = response.json
+        downloaded_archive_filename = Path(self.temp_dirname) / 'archive-downloaded.omex'
+        CreateCombineArchiveTestCase.download_file(url, downloaded_archive_filename)
 
         contents_dirname = os.path.join(self.temp_dirname, 'archive')
-        archive = CombineArchiveReader().run(downloaded_archive_filename, contents_dirname)
+        archive = CombineArchiveReader().run(str(downloaded_archive_filename), contents_dirname)
 
         self.assertEqual(len(archive.contents), 2)
-
 
     def test_create_combine_archive_with_model_at_url(self):
         endpoint = '/combine/create'
