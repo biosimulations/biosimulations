@@ -20,8 +20,7 @@ export class FeaturedService {
   };
   private runSimulations = {
     title: 'RunBioSimulations',
-    image:
-      'https://static.vecteezy.com/system/resources/thumbnails/008/017/927/small/illustration-of-people-running-icon-flat-design-free-vector.jpg',
+    image: 'assets/images/default-resource-images/marine_illustration.png',
     id: 'runSimulations',
     descriptionTeaser: 'Execute custom simulations online',
     descriptionVerbose:
