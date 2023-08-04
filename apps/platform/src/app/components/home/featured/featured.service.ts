@@ -122,7 +122,7 @@ export class FeaturedService {
     this.learnSimulations,
     this.convertFile,
     this.restAPI,
-    //this.runCustomizedSimulation,
+    /* this.runCustomizedSimulation */
   ];
 
   private getSingleProject(i: number): FeaturedProject {
