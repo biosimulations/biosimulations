@@ -1,3 +1,15 @@
+@import 'biosimulations-colors';
+
+.container {
+  height: fit-content;
+  width: auto;
+
+  @media (max-width: 768px) {
+    height: 100%;
+    width: 100%;
+  }
+}
+
 .about-content {
   .text {
     margin-bottom: 0.75rem;
@@ -15,5 +27,20 @@
     .logos p {
       display: inline;
     }
+  }
+}
+
+.footer-item-button {
+  border: 1px solid #2196f3;
+  background-color: #ff9800;
+}
+
+.footer-item-button-text {
+  .our-site {
+    color: rgb(0, 81, 0);
+  }
+
+  .more-information {
+    color: #186fb7;
   }
 }
