@@ -8,8 +8,8 @@
   [healthy]="healthy$ | async">
   <!-- Start Hero Banner -->
   <biosimulations-topbar-menu>
-    <biosimulations-hover-open-menu [disabled]="true">
-      <biosimulations-topbar-menu-item heading="BioSimDB" icon="browse" id="trigger" [href]="config.platformAppUrl">
+    <biosimulations-hover-open-menu [disabled]="true" [link]="config.platformAppUrl">
+      <biosimulations-topbar-menu-item heading="BioSimDB" icon="browse" id="trigger">
       </biosimulations-topbar-menu-item>
     </biosimulations-hover-open-menu>
 
@@ -68,78 +68,15 @@
       </ng-container>
     </biosimulations-hover-open-menu>
 
-    <biosimulations-hover-open-menu>
-      <biosimulations-topbar-menu-item
-        heading="Conventions"
-        icon="standard"
-        href="https://docs.biosimulations.org/concepts/conventions/"
-        target="biosimulations-docs">
-      </biosimulations-topbar-menu-item>
-
-      <ng-container id="items">
-        <biosimulations-dropdown-menu-item
-          heading="Simulator specs"
-          href="https://docs.biosimulations.org/concepts/conventions/simulator-capabilities/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Simulator interfaces"
-          href="https://docs.biosimulations.org/concepts/conventions/simulator-interfaces/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Simulator images"
-          href="https://docs.biosimulations.org/concepts/conventions/simulator-images/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Simulation experiments"
-          href="https://docs.biosimulations.org/concepts/conventions/simulation-experiments/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Simulation reports"
-          href="https://docs.biosimulations.org/concepts/conventions/simulation-run-reports/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Data visualizations"
-          href="https://docs.biosimulations.org/concepts/conventions/simulation-run-visualizations/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Metadata"
-          href="https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Simulation logs"
-          href="https://docs.biosimulations.org/concepts/conventions/simulation-run-logs/"
-          target="biosimulations-docs">
-        </biosimulations-dropdown-menu-item>
-      </ng-container>
-    </biosimulations-hover-open-menu>
-
     <biosimulations-hover-open-menu [link]="'https://docs.biosimulations.org/users/'" [disabled]="true" target="_blank">
       <biosimulations-topbar-menu-item heading="Learn" icon="idea" id="trigger"> </biosimulations-topbar-menu-item>
     </biosimulations-hover-open-menu>
 
-    <biosimulations-hover-open-menu
-      [disabled]="true"
-      matToolTip="Brose simulator tools"
-      style="padding-left: 800px; -webkit-overflow-scrolling: touch; padding-top: 0px">
-      <biosimulations-topbar-menu-item
-        heading="BioSimulators"
-        id="trigger"
-        icon="simulators"
-        [href]="config.simulatorsAppBrowseSimulatorsUrl">
+    <biosimulations-hover-open-menu 
+      [link]="config.simulatorsAppBrowseSimulatorsUrl" 
+      [disabled]="true" 
+      matTooltip="Browse simulator tools">
+      <biosimulations-topbar-menu-item heading="BioSimulators" icon="link" id="trigger">
       </biosimulations-topbar-menu-item>
     </biosimulations-hover-open-menu>
   </biosimulations-topbar-menu>
