@@ -5,7 +5,7 @@ import { FeaturedProject } from './featured.model';
 export class FeaturedService {
   private simulations = {
     title: 'Browse Simulations',
-    image: 'https://img.freepik.com/premium-vector/black-white-drawing-microscope-with-microscope-it_666729-1282.jpg',
+    image: 'assets/images/default-resource-images/browse.jpg',
     id: 'simulations',
     descriptionTeaser: 'BioSimulation Projects: a database of published simulation runs',
     descriptionVerbose: `BioSimulation Projects is a searchable database of rigorously curated simulation projects \
@@ -20,7 +20,7 @@ export class FeaturedService {
   };
   private runSimulations = {
     title: 'RunBioSimulations',
-    image: 'assets/images/default-resource-images/marine_illustration.png',
+    image: 'assets/images/default-resource-images/run.jpg',
     id: 'runSimulations',
     descriptionTeaser: 'Execute custom simulations online',
     descriptionVerbose:
@@ -34,12 +34,12 @@ export class FeaturedService {
   };
   private publishSimulations = {
     title: 'Submit Your Simulation for publication',
-    image: `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpy6yf5KdrcU3NpXPlno0_CUnI34BpdWKEjA&usqp=CAU`,
+    image: 'assets/images/default-resource-images/publish.jpg',
     id: 'publishSimulations',
     descriptionTeaser: 'Submit a simulation for publication on BioSimulation Projects',
     descriptionVerbose: `Simulations that have been published in papers are invited to be submitted to the \
       BioSimulation Project Database. This makes the full simulation run available to the public, verifying \
-      its reproducibility and allowing anyone to download and rerun the simulation.`,
+      its reproducibility and allowing anyone to download and rerun the simulation. Image by Freepik.`,
     routingLink: ['/utils/create-project'],
     logo: 'publish',
     headerColor: '#388E3C',
@@ -54,7 +54,7 @@ export class FeaturedService {
     id: 'learnSimulations',
     descriptionTeaser: 'Step Into the Docs.',
     descriptionVerbose: `A guide for using BioSimulations and BioSimulators to create, publish, and \
-      find simulation projects and simulation tools. Image by rawpixel.com</a> on Freepik`,
+      find simulation projects and simulation tools.`,
     routingLink: 'https://docs.biosimulations.org/developers/setup/getting-started/',
     logo: 'idea',
     color: 'rgba(149, 30, 217, 0.85)',
