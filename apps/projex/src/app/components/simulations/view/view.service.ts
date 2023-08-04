@@ -33,15 +33,15 @@ export class ViewService {
       statusSucceeded: statusSucceeded,
       statusFailed: SimulationStatusService.isSimulationStatusFailed(simulation.status),
       statusLabel: SimulationStatusService.getSimulationStatusMessage(simulation.status, true, false),
-      // runtime:
-      //   simulation.runtime !== undefined
-      //     ? Math.round(simulation.runtime / 1000).toString() + ' s'
-      //     : 'N/A',
+      /* runtime: */
+      /*   simulation.runtime !== undefined */
+      /*     ? Math.round(simulation.runtime / 1000).toString() + ' s' */
+      /*     : 'N/A', */
       submitted: FormatService.formatTime(new Date(simulation.submitted)),
       updated: FormatService.formatTime(new Date(simulation.updated)),
       simulatorUrl: this.appRoutes.getSimulatorsView(
         simulation.simulator,
-        // simulation.simulatorVersion,
+        /* simulation.simulatorVersion, */
       ),
     };
   }

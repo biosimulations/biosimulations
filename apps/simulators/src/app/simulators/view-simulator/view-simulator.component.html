@@ -1,13 +1,15 @@
-<div class="parent-container">
+<div class="parent-container" fxGrid fxFlexAlign="column">
   <biosimulations-tab-page [loading]="(loading$ | async) || false">
+    <!-- Begin Overview Tab -->
     <biosimulations-tab-page-tab heading="Overview" icon="overview">
       <biosimulations-columns *ngIf="simulator | async as simulator">
         <div class="content-section-container overview">
-          <mat-card class="mat-elevation-z3">
-            <mat-card-header>
+          <!-- Main Content Card-->
+          <mat-card class="content-card overview">
+            <mat-card-header class="content-card-header overview">
               {{ simulator.name + ' (' + simulator.id + ' / ' + simulator.version + ')' }}
             </mat-card-header>
-            <mat-card-content>
+            <mat-card-content class="content-card-content overview">
               <biosimulations-json-ld [json]="simulator.jsonLdData"></biosimulations-json-ld>
 
               <p class="simulator-description">
@@ -54,828 +56,917 @@
         </div>
 
         <div class="content-section-container run">
-          <div class="inner-card run">
-            <mat-card *ngIf="simulator.image && simulator.validated" class="mat-elevation-z3">
-              <mat-card-header> Run simulations online with runBioSimulations </mat-card-header>
+          <!-- Start Run Card -->
+          <mat-card *ngIf="simulator.image && simulator.validated" class="content-card run">
+            <mat-card-header class="content-subcard-header run">
+              Run simulations online with runBioSimulations
+            </mat-card-header>
+            <ul class="icon-list">
+              <li>
+                <biosimulations-icon icon="simulator"></biosimulations-icon>
+                <a [href]="dispatchAppRunUrl" rel="noopener" target="runbiosimulations" class="text">
+                  {{ dispatchAppUrl }}
+                </a>
+              </li>
+            </ul>
+          </mat-card>
+          <!-- End Run Card -->
+
+          <!-- Start Docker Card -->
+          <mat-card *ngIf="simulator.image && simulator.validated" class="content-card docker">
+            <mat-card-header class="content-subcard-header docker">
+              Run simulations with standardized Docker image
+            </mat-card-header>
+            <mat-card-content>
+              <ul class="icon-list copy-image">
+                <li>
+                  <biosimulations-icon icon="info"></biosimulations-icon>
+                  <a
+                    [href]="'https://github.com/orgs/biosimulators/packages/container/package/' + simulator.id"
+                    rel="noopener"
+                    target="images"
+                    class="text">
+                    GHCR:biosimulators/{{ simulator.id }}
+                  </a>
+                </li>
+                <li *ngIf="simulator.image.operatingSystemType">
+                  <biosimulations-icon icon="info"></biosimulations-icon>
+                  OS: {{ simulator.image.operatingSystemType }}
+                </li>
+                <li>
+                  <biosimulations-icon icon="download"></biosimulations-icon>
+                  <pre><code>docker pull \
+    {{ simulator.image.url }}</code></pre>
+                  <button
+                    mat-icon-button
+                    class="biosimulations-button"
+                    title="Copy to clipboard"
+                    (click)="copyDockerPullCmd(simulator.image.url)">
+                    <biosimulations-icon icon="copy"></biosimulations-icon>
+                  </button>
+                  <div class="clear-float"></div>
+                </li>
+                <li>
+                  <biosimulations-icon icon="logs"></biosimulations-icon>
+                  <pre><code>docker run \
+    {{ simulator.image.url }} \
+    -i /path/to/archive.omex \
+    -o /path/to/outputs</code></pre>
+                  <button
+                    mat-icon-button
+                    class="biosimulations-button"
+                    title="Copy to clipboard"
+                    (click)="copyDockerRunCmd(simulator.image.url)">
+                    <biosimulations-icon icon="copy"></biosimulations-icon>
+                  </button>
+                  <div class="clear-float"></div>
+                </li>
+                <li>
+                  <biosimulations-icon icon="help"></biosimulations-icon>
+                  <pre><code>docker run \
+    {{ simulator.image.url }} \
+    --help</code></pre>
+                  <button
+                    mat-icon-button
+                    class="biosimulations-button"
+                    title="Copy to clipboard"
+                    (click)="copyDockerHelpCmd(simulator.image.url)">
+                    <biosimulations-icon icon="copy"></biosimulations-icon>
+                  </button>
+                  <div class="clear-float"></div>
+                </li>
+                <li>
+                  <biosimulations-icon icon="help"></biosimulations-icon>
+                  <div>
+                    <a
+                      href="https://docs.biosimulations.org/users/simulating-projects/"
+                      rel="noopener"
+                      target="biosimulations-docs"
+                      >Instructions</a
+                    >
+                  </div>
+                </li>
+              </ul>
+            </mat-card-content>
+          </mat-card>
+          <!-- End Docker Card -->
+
+          <!-- Start Singularity Card -->
+          <mat-card *ngIf="simulator.image && simulator.validated" class="content-card singularity">
+            <mat-card-header class="content-subcard-header singularity">
+              Run simulations with standardized Singularity image
+            </mat-card-header>
+            <mat-card-content class="content-card-content">
+              <ul class="icon-list copy-image">
+                <li>
+                  <biosimulations-icon icon="info"></biosimulations-icon>
+                  <a
+                    [href]="'https://github.com/orgs/biosimulators/packages/container/package/' + simulator.id"
+                    rel="noopener"
+                    target="images"
+                    class="text">
+                    GHCR:biosimulators/{{ simulator.id }}
+                  </a>
+                </li>
+                <li *ngIf="simulator.image.operatingSystemType">
+                  <biosimulations-icon icon="info"></biosimulations-icon>
+                  OS: {{ simulator.image.operatingSystemType }}
+                </li>
+                <li>
+                  <biosimulations-icon icon="download"></biosimulations-icon>
+                  <pre><code>singularity pull \
+    docker://{{ simulator.image.url }}</code></pre>
+                  <button
+                    mat-icon-button
+                    class="biosimulations-button"
+                    title="Copy to clipboard"
+                    (click)="copySingularityPullCmd(simulator.image.url)">
+                    <biosimulations-icon icon="copy"></biosimulations-icon>
+                  </button>
+                  <div class="clear-float"></div>
+                </li>
+                <li>
+                  <biosimulations-icon icon="logs"></biosimulations-icon>
+                  <pre><code>singularity run \
+    docker://{{ simulator.image.url }} \
+    -i /path/to/archive.omex \
+    -o /path/to/outputs</code></pre>
+                  <button
+                    mat-icon-button
+                    class="biosimulations-button"
+                    title="Copy to clipboard"
+                    (click)="copySingularityRunCmd(simulator.image.url)">
+                    <biosimulations-icon icon="copy"></biosimulations-icon>
+                  </button>
+                  <div class="clear-float"></div>
+                </li>
+                <li>
+                  <biosimulations-icon icon="help"></biosimulations-icon>
+                  <pre><code>singularity run \
+    docker://{{ simulator.image.url }} \
+    --help</code></pre>
+                  <button
+                    mat-icon-button
+                    class="biosimulations-button"
+                    title="Copy to clipboard"
+                    (click)="copySingularityHelpCmd(simulator.image.url)">
+                    <biosimulations-icon icon="copy"></biosimulations-icon>
+                  </button>
+                  <div class="clear-float"></div>
+                </li>
+                <li>
+                  <biosimulations-icon icon="help"></biosimulations-icon>
+                  <div>
+                    <a
+                      href="https://docs.biosimulations.org/users/simulating-projects/"
+                      rel="noopener"
+                      target="biosimulations-docs"
+                      >Instructions</a
+                    >
+                  </div>
+                </li>
+              </ul>
+            </mat-card-content>
+          </mat-card>
+          <!-- End Singularity Card -->
+
+          <!-- Start cli card -->
+          <mat-card *ngIf="simulator.image && simulator?.cli && simulator.validated" class="content-card cli">
+            <mat-card-header class="content-subcard-header cli">
+              Run simulations with standardized CLI
+            </mat-card-header>
+            <mat-card-content class="content-card-content cli">
+              <ul class="icon-list copy-image">
+                <li>
+                  <biosimulations-icon icon="info"></biosimulations-icon>
+                  <a
+                    [href]="
+                      simulator?.cli?.package?.startsWith('http://') || simulator?.cli?.package?.startsWith('https://')
+                        ? simulator?.cli?.package
+                        : 'https://pypi.org/project/' + simulator?.cli?.package + '/'
+                    "
+                    rel="noopener"
+                    target="_blank"
+                    class="text">
+                    <span
+                      *ngIf="
+                        !(simulator?.cli?.package?.startsWith('http://') || simulator?.cli?.package?.startsWith('https://'))
+                      "
+                      >{{ simulator?.cli?.packageRepository }}:</span
+                    >{{ simulator?.cli?.package }}
+                  </a>
+                </li>
+                <li>
+                  <biosimulations-icon icon="download"></biosimulations-icon>
+                  <pre><code>pip install {{ simulator?.cli?.package }}</code></pre>
+                  <button
+                    mat-icon-button
+                    class="biosimulations-button"
+                    title="Copy to clipboard"
+                    (click)="copyCliInstallCmd('pip install ' + simulator?.cli?.package)">
+                    <biosimulations-icon icon="copy"></biosimulations-icon>
+                  </button>
+                  <div class="clear-float"></div>
+                </li>
+                <li>
+                  <biosimulations-icon icon="logs"></biosimulations-icon>
+                  <pre><code>{{ simulator?.cli?.command }} \
+    -i /path/to/archive.omex \
+    -o /path/to/outputs</code></pre>
+                  <button
+                    mat-icon-button
+                    class="biosimulations-button"
+                    title="Copy to clipboard"
+                    (click)="copyRunCliCmd(simulator?.cli?.command)">
+                    <biosimulations-icon icon="copy"></biosimulations-icon>
+                  </button>
+                  <div class="clear-float"></div>
+                </li>
+                <li>
+                  <biosimulations-icon icon="help"></biosimulations-icon>
+                  <pre><code>{{ simulator?.cli?.command }} --help</code></pre>
+                  <button
+                    mat-icon-button
+                    class="biosimulations-button"
+                    title="Copy to clipboard"
+                    (click)="copyCliHelpCmd(simulator?.cli?.command)">
+                    <biosimulations-icon icon="copy"></biosimulations-icon>
+                  </button>
+                  <div class="clear-float"></div>
+                </li>
+                <li *ngIf="simulator?.cli?.installationInstructions">
+                  <biosimulations-icon icon="help"></biosimulations-icon>
+                  <div>
+                    <a [href]="simulator?.cli?.installationInstructions" rel="noopener" target="_blank"
+                      >Installation instructions</a
+                    >
+                  </div>
+                </li>
+                <li>
+                  <biosimulations-icon icon="help"></biosimulations-icon>
+                  <div>
+                    <a
+                      href="https://docs.biosimulations.org/users/simulating-projects/"
+                      rel="noopener"
+                      target="biosimulations-docs"
+                      >Getting started guide</a
+                    >
+                  </div>
+                </li>
+              </ul>
+            </mat-card-content>
+          </mat-card>
+          <!-- End cli card -->
+
+          <!-- Start python card -->
+          <mat-card *ngIf="simulator?.pythonApi && simulator.validated" class="content-card python">
+            <mat-card-header class="content-subcard-header python">
+              Run simulations with standardized Python API
+            </mat-card-header>
+            <mat-card-content class="content-content python">
+              <ul class="icon-list copy-image">
+                <li>
+                  <biosimulations-icon icon="info"></biosimulations-icon>
+                  <a
+                    [href]="
+                      simulator?.pythonApi?.package?.startsWith('http://') ||
+                      simulator?.pythonApi?.package?.startsWith('https://')
+                        ? simulator?.pythonApi?.package
+                        : 'https://pypi.org/project/' + simulator?.pythonApi?.package + '/'
+                    "
+                    rel="noopener"
+                    target="_blank"
+                    class="text">
+                    <span
+                      *ngIf="
+                        !(
+                          simulator?.pythonApi?.package?.startsWith('http://') ||
+                          simulator?.pythonApi?.package?.startsWith('https://')
+                        )
+                      "
+                      >PyPI:</span
+                    >{{ simulator?.pythonApi?.package }}
+                  </a>
+                </li>
+                <li>
+                  <biosimulations-icon icon="download"></biosimulations-icon>
+                  <pre><code>pip install {{ simulator?.pythonApi?.package }}</code></pre>
+                  <button
+                    mat-icon-button
+                    class="biosimulations-button"
+                    title="Copy to clipboard"
+                    (click)="copyPythonApiInstallCmd(simulator?.pythonApi?.package)">
+                    <biosimulations-icon icon="copy"></biosimulations-icon>
+                  </button>
+                  <div class="clear-float"></div>
+                </li>
+                <li>
+                  <biosimulations-icon icon="logs"></biosimulations-icon>
+                  <pre><code>import {{ simulator?.pythonApi?.module }} as simulator
+    simulator.exec_sedml_docs_in_combine_archive(
+    '/path/to/archive.omex', '/path/to/outputs')</code></pre>
+                  <button
+                    mat-icon-button
+                    class="biosimulations-button"
+                    title="Copy to clipboard"
+                    (click)="copyRunPythonCmd(simulator?.pythonApi?.module)">
+                    <biosimulations-icon icon="copy"></biosimulations-icon>
+                  </button>
+                  <div class="clear-float"></div>
+                </li>
+                <li *ngIf="simulator?.pythonApi?.installationInstructions">
+                  <biosimulations-icon icon="help"></biosimulations-icon>
+                  <div>
+                    <a [href]="simulator?.pythonApi?.installationInstructions" rel="noopener" target="_blank"
+                      >Installation instructions</a
+                    >
+                  </div>
+                </li>
+                <li>
+                  <biosimulations-icon icon="help"></biosimulations-icon>
+                  <div>
+                    <a
+                      href="https://docs.biosimulations.org/users/simulating-projects/"
+                      rel="noopener"
+                      target="biosimulations-docs"
+                      >Getting started guide</a
+                    >
+                  </div>
+                </li>
+                <li>
+                  <biosimulations-icon icon="tutorial"></biosimulations-icon>
+                  <div>
+                    <a href="https://tutorial.biosimulators.org/" rel="noopener" target="biosimulators-tutorial"
+                      >Tutorials</a
+                    >
+                  </div>
+                </li>
+              </ul>
+            </mat-card-content>
+          </mat-card>
+          <!-- End python Card -->
+
+          <!-- Start other interfaces card -->
+          <mat-card
+            *ngIf="simulator.otherInterfaceTypes?.length"
+            class="content-card other">
+            <mat-card-header class="content-subcard-header other">
+              Other interfaces
+            </mat-card-header>
+            <mat-card-content class="content-card-content other">
+              <ul class="icon-list">
+                <li *ngFor="let interfaceType of simulator.otherInterfaceTypes">
+                  <biosimulations-icon icon="softwareInterface"></biosimulations-icon>
+                  {{ interfaceType }}
+                </li>
+              </ul>
+            </mat-card-content>
+          </mat-card>
+          <!-- End other interfaces card -->
+
+          <!-- Start supported os card -->
+          <mat-card
+            *ngIf="simulator.supportedOperatingSystemTypes?.length"
+            class="content-card os">
+            <mat-card-header class="content-subcard-header os">
+              Supported operating systems
+            </mat-card-header>
+            <mat-card-content class="content-card-content os">
+              <ul class="icon-list">
+                <li *ngFor="let supportedOperatingSystemType of simulator.supportedOperatingSystemTypes">
+                  <biosimulations-icon icon="operatingSystem"></biosimulations-icon>
+                  {{ supportedOperatingSystemType }}
+                </li>
+              </ul>
+            </mat-card-content>
+          </mat-card>
+          <!-- End supported os card -->
+
+          <!-- Start supported lang card -->
+          <mat-card
+            *ngIf="simulator.supportedProgrammingLanguages?.length"
+            class="content-card lang">
+            <mat-card-header class="content-subcard-header lang">
+              Supported programming languages
+            </mat-card-header>
+            <mat-card-content class="content-card-content lang">
+              <ul class="icon-list">
+                <li *ngFor="let supportedProgrammingLanguage of simulator.supportedProgrammingLanguages">
+                  <biosimulations-icon icon="code"></biosimulations-icon>
+                  {{ supportedProgrammingLanguage.id }}
+                </li>
+              </ul>
+            </mat-card-content>
+          </mat-card>
+          <!-- End supported lang card -->
+
+          <!-- Start curation card -->
+          <mat-card class="content-card curation">
+            <mat-card-header class="content-subcard-header curation">
+              Curation status
+            </mat-card-header>
+            <mat-card-content class="content-card-content curation">
+              {{ simulator.curationStatus }}
+            </mat-card-content>
+          </mat-card>
+          <!-- End curation card -->
+
+          <!-- Start license card -->
+          <mat-card *ngIf="simulator.licenseName" class="content-card lic">
+            <mat-card-header class="content-subcard-header lic">
+              License
+            </mat-card-header>
+            <mat-card-content class="content-card-content lic">
               <ul class="icon-list">
                 <li>
-                  <biosimulations-icon icon="simulator"></biosimulations-icon>
-                  <a [href]="dispatchAppRunUrl" rel="noopener" target="runbiosimulations" class="text">
-                    {{ dispatchAppUrl }}
+                  <biosimulations-icon icon="license"></biosimulations-icon>
+                  <a [href]="simulator.licenseUrl | async" rel="noopener" target="_blank" class="text">
+                    {{ simulator.licenseName | async }}
                   </a>
                 </li>
               </ul>
-            </mat-card>
-          </div>
+            </mat-card-content>
+          </mat-card>
+          <!-- End license card -->
 
-          <div class="inner-card docker">
-            <mat-card *ngIf="simulator.image && simulator.validated" class="mat-elevation-z3">
-              <mat-card-header> Run simulations with standardized Docker image </mat-card-header>
-              <mat-card-content>
-                <ul class="icon-list copy-image">
-                  <li>
-                    <biosimulations-icon icon="info"></biosimulations-icon>
-                    <a
-                      [href]="'https://github.com/orgs/biosimulators/packages/container/package/' + simulator.id"
-                      rel="noopener"
-                      target="images"
-                      class="text">
-                      GHCR:biosimulators/{{ simulator.id }}
-                    </a>
-                  </li>
-                  <li *ngIf="simulator.image.operatingSystemType">
-                    <biosimulations-icon icon="info"></biosimulations-icon>
-                    OS: {{ simulator.image.operatingSystemType }}
-                  </li>
-                  <li>
-                    <biosimulations-icon icon="download"></biosimulations-icon>
-                    <pre><code>docker pull \
-      {{ simulator.image.url }}</code></pre>
-                    <button
-                      mat-icon-button
-                      class="biosimulations-button"
-                      title="Copy to clipboard"
-                      (click)="copyDockerPullCmd(simulator.image.url)">
-                      <biosimulations-icon icon="copy"></biosimulations-icon>
-                    </button>
-                    <div class="clear-float"></div>
-                  </li>
-                  <li>
-                    <biosimulations-icon icon="logs"></biosimulations-icon>
-                    <pre><code>docker run \
-      {{ simulator.image.url }} \
-      -i /path/to/archive.omex \
-      -o /path/to/outputs</code></pre>
-                    <button
-                      mat-icon-button
-                      class="biosimulations-button"
-                      title="Copy to clipboard"
-                      (click)="copyDockerRunCmd(simulator.image.url)">
-                      <biosimulations-icon icon="copy"></biosimulations-icon>
-                    </button>
-                    <div class="clear-float"></div>
-                  </li>
-                  <li>
-                    <biosimulations-icon icon="help"></biosimulations-icon>
-                    <pre><code>docker run \
-      {{ simulator.image.url }} \
-      --help</code></pre>
-                    <button
-                      mat-icon-button
-                      class="biosimulations-button"
-                      title="Copy to clipboard"
-                      (click)="copyDockerHelpCmd(simulator.image.url)">
-                      <biosimulations-icon icon="copy"></biosimulations-icon>
-                    </button>
-                    <div class="clear-float"></div>
-                  </li>
-                  <li>
-                    <biosimulations-icon icon="help"></biosimulations-icon>
-                    <div>
-                      <a
-                        href="https://docs.biosimulations.org/users/simulating-projects/"
-                        rel="noopener"
-                        target="biosimulations-docs"
-                        >Instructions</a
-                      >
-                    </div>
-                  </li>
-                </ul>
-              </mat-card-content>
-            </mat-card>
-          </div>
+          <!-- Start more info card -->
+          <mat-card *ngIf="simulator?.urls?.length" class="content-card info">
+            <mat-card-header class="content-subcard-header info">
+              More info
+            </mat-card-header>
+            <mat-card-content class="content-card-content info">
+              <ul class="icon-list">
+                <li *ngFor="let url of simulator.urls">
+                  <biosimulations-icon icon="link"></biosimulations-icon>
+                  <a [href]="url.url" rel="noopener" target="_blank" class="text">{{ url.title || url.type }}</a>
+                </li>
+              </ul>
+            </mat-card-content>
+          </mat-card>
+          <!-- End more info card -->
 
-          <biosimulations-text-page-side-bar-section
-            *ngIf="simulator.image && simulator.validated"
-            heading="Run simulations with standardized Singularity image">
-            <ul class="icon-list copy-image">
-              <li>
-                <biosimulations-icon icon="info"></biosimulations-icon>
-                <a
-                  [href]="'https://github.com/orgs/biosimulators/packages/container/package/' + simulator.id"
-                  rel="noopener"
-                  target="images"
-                  class="text">
-                  GHCR:biosimulators/{{ simulator.id }}
-                </a>
-              </li>
-              <li *ngIf="simulator.image.operatingSystemType">
-                <biosimulations-icon icon="info"></biosimulations-icon>
-                OS: {{ simulator.image.operatingSystemType }}
-              </li>
-              <li>
-                <biosimulations-icon icon="download"></biosimulations-icon>
-                <pre><code>singularity pull \
-  docker://{{ simulator.image.url }}</code></pre>
-                <button
-                  mat-icon-button
-                  class="biosimulations-button"
-                  title="Copy to clipboard"
-                  (click)="copySingularityPullCmd(simulator.image.url)">
-                  <biosimulations-icon icon="copy"></biosimulations-icon>
-                </button>
-                <div class="clear-float"></div>
-              </li>
-              <li>
-                <biosimulations-icon icon="logs"></biosimulations-icon>
-                <pre><code>singularity run \
-  docker://{{ simulator.image.url }} \
-  -i /path/to/archive.omex \
-  -o /path/to/outputs</code></pre>
-                <button
-                  mat-icon-button
-                  class="biosimulations-button"
-                  title="Copy to clipboard"
-                  (click)="copySingularityRunCmd(simulator.image.url)">
-                  <biosimulations-icon icon="copy"></biosimulations-icon>
-                </button>
-                <div class="clear-float"></div>
-              </li>
-              <li>
-                <biosimulations-icon icon="help"></biosimulations-icon>
-                <pre><code>singularity run \
-  docker://{{ simulator.image.url }} \
-  --help</code></pre>
-                <button
-                  mat-icon-button
-                  class="biosimulations-button"
-                  title="Copy to clipboard"
-                  (click)="copySingularityHelpCmd(simulator.image.url)">
-                  <biosimulations-icon icon="copy"></biosimulations-icon>
-                </button>
-                <div class="clear-float"></div>
-              </li>
-              <li>
-                <biosimulations-icon icon="help"></biosimulations-icon>
-                <div>
-                  <a
-                    href="https://docs.biosimulations.org/users/simulating-projects/"
-                    rel="noopener"
-                    target="biosimulations-docs"
-                    >Instructions</a
-                  >
-                </div>
-              </li>
-            </ul>
-          </biosimulations-text-page-side-bar-section>
+          <!-- Start cross ref card -->
+          <mat-card *ngIf="simulator.identifiers?.length" class="content-card references">
+            <mat-card-header class="content-subcard-header references">
+              Cross references
+            </mat-card-header>
+            <mat-card-content class="content-card-content references">
+              <ul class="identifiers icon-list">
+                <li *ngFor="let identifier of simulator.identifiers">
+                  <biosimulations-icon icon="id"></biosimulations-icon>
+                  <a [href]="identifier.url" rel="noopener" target="_blank">{{ identifier.text }}</a>
+                </li>
+              </ul>
+            </mat-card-content>
+          </mat-card>
+          <!-- End cross ref card -->
 
-          <biosimulations-text-page-side-bar-section
-            *ngIf="simulator.image && simulator?.cli && simulator.validated"
-            heading="Run simulations with standardized CLI">
-            <ul class="icon-list copy-image">
-              <li>
-                <biosimulations-icon icon="info"></biosimulations-icon>
-                <a
-                  [href]="
-                    simulator?.cli?.package?.startsWith('http://') || simulator?.cli?.package?.startsWith('https://')
-                      ? simulator?.cli?.package
-                      : 'https://pypi.org/project/' + simulator?.cli?.package + '/'
-                  "
-                  rel="noopener"
-                  target="_blank"
-                  class="text">
-                  <span
-                    *ngIf="
-                      !(
-                        simulator?.cli?.package?.startsWith('http://') ||
-                        simulator?.cli?.package?.startsWith('https://')
-                      )
-                    "
-                    >{{ simulator?.cli?.packageRepository }}:</span
-                  >{{ simulator?.cli?.package }}
-                </a>
-              </li>
-              <li>
-                <biosimulations-icon icon="download"></biosimulations-icon>
-                <pre><code>pip install {{ simulator?.cli?.package }}</code></pre>
-                <button
-                  mat-icon-button
-                  class="biosimulations-button"
-                  title="Copy to clipboard"
-                  (click)="copyCliInstallCmd('pip install ' + simulator?.cli?.package)">
-                  <biosimulations-icon icon="copy"></biosimulations-icon>
-                </button>
-                <div class="clear-float"></div>
-              </li>
-              <li>
-                <biosimulations-icon icon="logs"></biosimulations-icon>
-                <pre><code>{{ simulator?.cli?.command }} \
-  -i /path/to/archive.omex \
-  -o /path/to/outputs</code></pre>
-                <button
-                  mat-icon-button
-                  class="biosimulations-button"
-                  title="Copy to clipboard"
-                  (click)="copyRunCliCmd(simulator?.cli?.command)">
-                  <biosimulations-icon icon="copy"></biosimulations-icon>
-                </button>
-                <div class="clear-float"></div>
-              </li>
-              <li>
-                <biosimulations-icon icon="help"></biosimulations-icon>
-                <pre><code>{{ simulator?.cli?.command }} --help</code></pre>
-                <button
-                  mat-icon-button
-                  class="biosimulations-button"
-                  title="Copy to clipboard"
-                  (click)="copyCliHelpCmd(simulator?.cli?.command)">
-                  <biosimulations-icon icon="copy"></biosimulations-icon>
-                </button>
-                <div class="clear-float"></div>
-              </li>
-              <li *ngIf="simulator?.cli?.installationInstructions">
-                <biosimulations-icon icon="help"></biosimulations-icon>
-                <div>
-                  <a [href]="simulator?.cli?.installationInstructions" rel="noopener" target="_blank"
-                    >Installation instructions</a
-                  >
-                </div>
-              </li>
-              <li>
-                <biosimulations-icon icon="help"></biosimulations-icon>
-                <div>
-                  <a
-                    href="https://docs.biosimulations.org/users/simulating-projects/"
-                    rel="noopener"
-                    target="biosimulations-docs"
-                    >Getting started guide</a
-                  >
-                </div>
-              </li>
-            </ul>
-          </biosimulations-text-page-side-bar-section>
+          <!-- Start funding card -->
+          <mat-card *ngIf="simulator.funding?.length" class="content-card funding">
+            <mat-card-header class="content-subcard-header funding">
+              Funding
+            </mat-card-header>
+            <mat-card-content class="content-subcard-header funding">
+              <ul class="funding icon-list">
+                <li *ngFor="let funding of simulator.funding">
+                  <biosimulations-icon icon="funding"></biosimulations-icon>
+                  <a [href]="funding.funderUrl | async" rel="noopener" target="_blank">{{ funding.funderName | async }}</a
+                  ><span *ngIf="funding.grant"
+                    >:
+                    <a [href]="funding.url" rel="noopener" target="_blank" *ngIf="funding.url; else noGrantUrl">{{
+                      funding.grant
+                    }}</a>
+                    <ng-template #noGrantUrl>{{ funding.grant }}</ng-template>
+                  </span>
+                </li>
+              </ul>
+            </mat-card-content>
+          </mat-card>
+          <!-- End funding card -->
 
-          <biosimulations-text-page-side-bar-section
-            *ngIf="simulator?.pythonApi && simulator.validated"
-            heading="Run simulations with standardized Python API">
-            <ul class="icon-list copy-image">
-              <li>
-                <biosimulations-icon icon="info"></biosimulations-icon>
-                <a
-                  [href]="
-                    simulator?.pythonApi?.package?.startsWith('http://') ||
-                    simulator?.pythonApi?.package?.startsWith('https://')
-                      ? simulator?.pythonApi?.package
-                      : 'https://pypi.org/project/' + simulator?.pythonApi?.package + '/'
-                  "
-                  rel="noopener"
-                  target="_blank"
-                  class="text">
-                  <span
-                    *ngIf="
-                      !(
-                        simulator?.pythonApi?.package?.startsWith('http://') ||
-                        simulator?.pythonApi?.package?.startsWith('https://')
-                      )
-                    "
-                    >PyPI:</span
-                  >{{ simulator?.pythonApi?.package }}
-                </a>
-              </li>
-              <li>
-                <biosimulations-icon icon="download"></biosimulations-icon>
-                <pre><code>pip install {{ simulator?.pythonApi?.package }}</code></pre>
-                <button
-                  mat-icon-button
-                  class="biosimulations-button"
-                  title="Copy to clipboard"
-                  (click)="copyPythonApiInstallCmd(simulator?.pythonApi?.package)">
-                  <biosimulations-icon icon="copy"></biosimulations-icon>
-                </button>
-                <div class="clear-float"></div>
-              </li>
-              <li>
-                <biosimulations-icon icon="logs"></biosimulations-icon>
-                <pre><code>import {{ simulator?.pythonApi?.module }} as simulator
-  simulator.exec_sedml_docs_in_combine_archive(
-  '/path/to/archive.omex', '/path/to/outputs')</code></pre>
-                <button
-                  mat-icon-button
-                  class="biosimulations-button"
-                  title="Copy to clipboard"
-                  (click)="copyRunPythonCmd(simulator?.pythonApi?.module)">
-                  <biosimulations-icon icon="copy"></biosimulations-icon>
-                </button>
-                <div class="clear-float"></div>
-              </li>
-              <li *ngIf="simulator?.pythonApi?.installationInstructions">
-                <biosimulations-icon icon="help"></biosimulations-icon>
-                <div>
-                  <a [href]="simulator?.pythonApi?.installationInstructions" rel="noopener" target="_blank"
-                    >Installation instructions</a
-                  >
-                </div>
-              </li>
-              <li>
-                <biosimulations-icon icon="help"></biosimulations-icon>
-                <div>
-                  <a
-                    href="https://docs.biosimulations.org/users/simulating-projects/"
-                    rel="noopener"
-                    target="biosimulations-docs"
-                    >Getting started guide</a
-                  >
-                </div>
-              </li>
-              <li>
-                <biosimulations-icon icon="tutorial"></biosimulations-icon>
-                <div>
-                  <a href="https://tutorial.biosimulators.org/" rel="noopener" target="biosimulators-tutorial"
-                    >Tutorials</a
-                  >
-                </div>
-              </li>
-            </ul>
-          </biosimulations-text-page-side-bar-section>
-
-          <biosimulations-text-page-side-bar-section
-            *ngIf="simulator.otherInterfaceTypes?.length"
-            heading="Other interfaces">
-            <ul class="icon-list">
-              <li *ngFor="let interfaceType of simulator.otherInterfaceTypes">
-                <biosimulations-icon icon="softwareInterface"></biosimulations-icon>
-                {{ interfaceType }}
-              </li>
-            </ul>
-          </biosimulations-text-page-side-bar-section>
-
-          <biosimulations-text-page-side-bar-section
-            *ngIf="simulator.supportedOperatingSystemTypes?.length"
-            heading="Supported operating systems">
-            <ul class="icon-list">
-              <li *ngFor="let supportedOperatingSystemType of simulator.supportedOperatingSystemTypes">
-                <biosimulations-icon icon="operatingSystem"></biosimulations-icon>
-                {{ supportedOperatingSystemType }}
-              </li>
-            </ul>
-          </biosimulations-text-page-side-bar-section>
-
-          <biosimulations-text-page-side-bar-section
-            *ngIf="simulator.supportedProgrammingLanguages?.length"
-            heading="Supported programming languages">
-            <ul class="icon-list">
-              <li *ngFor="let supportedProgrammingLanguage of simulator.supportedProgrammingLanguages">
-                <biosimulations-icon icon="code"></biosimulations-icon>
-                {{ supportedProgrammingLanguage.id }}
-              </li>
-            </ul>
-          </biosimulations-text-page-side-bar-section>
-
-          <biosimulations-text-page-side-bar-section heading="Curation status">
-            {{ simulator.curationStatus }}
-          </biosimulations-text-page-side-bar-section>
-
-          <biosimulations-text-page-side-bar-section *ngIf="simulator.licenseName" heading="License">
-            <ul class="icon-list">
-              <li>
-                <biosimulations-icon icon="license"></biosimulations-icon>
-                <a [href]="simulator.licenseUrl | async" rel="noopener" target="_blank" class="text">
-                  {{ simulator.licenseName | async }}
-                </a>
-              </li>
-            </ul>
-          </biosimulations-text-page-side-bar-section>
-
-          <biosimulations-text-page-side-bar-section *ngIf="simulator?.urls?.length" heading="More info">
-            <ul class="icon-list">
-              <li *ngFor="let url of simulator.urls">
-                <biosimulations-icon icon="link"></biosimulations-icon>
-                <a [href]="url.url" rel="noopener" target="_blank" class="text">{{ url.title || url.type }}</a>
-              </li>
-            </ul>
-          </biosimulations-text-page-side-bar-section>
-
-          <biosimulations-text-page-side-bar-section *ngIf="simulator.identifiers?.length" heading="Cross references">
-            <ul class="identifiers icon-list">
-              <li *ngFor="let identifier of simulator.identifiers">
-                <biosimulations-icon icon="id"></biosimulations-icon>
-                <a [href]="identifier.url" rel="noopener" target="_blank">{{ identifier.text }}</a>
-              </li>
-            </ul>
-          </biosimulations-text-page-side-bar-section>
-
-          <biosimulations-text-page-side-bar-section *ngIf="simulator.funding?.length" heading="Funding">
-            <ul class="funding icon-list">
-              <li *ngFor="let funding of simulator.funding">
-                <biosimulations-icon icon="funding"></biosimulations-icon>
-                <a [href]="funding.funderUrl | async" rel="noopener" target="_blank">{{ funding.funderName | async }}</a
-                ><span *ngIf="funding.grant"
-                  >:
-                  <a [href]="funding.url" rel="noopener" target="_blank" *ngIf="funding.url; else noGrantUrl">{{
-                    funding.grant
-                  }}</a>
-                  <ng-template #noGrantUrl>{{ funding.grant }}</ng-template>
-                </span>
-              </li>
-            </ul>
-          </biosimulations-text-page-side-bar-section>
-
-          <biosimulations-text-page-side-bar-section heading="Registration">
-            <ul class="icon-list">
-              <li>
-                <biosimulations-icon icon="date"></biosimulations-icon>
-                Registration: {{ simulator.created }}
-              </li>
-              <li>
-                <biosimulations-icon icon="date"></biosimulations-icon>
-                Last updated: {{ simulator.updated }}
-              </li>
-            </ul>
-          </biosimulations-text-page-side-bar-section>
+          <!-- Start reg card -->
+          <mat-card class="content-card reg" heading="Registration">
+            <mat-card-header class="content-subcard-header reg">
+              Registration
+            </mat-card-header>
+            <mat-card-content class="content-card-content registration">
+              <ul class="icon-list">
+                <li>
+                  <biosimulations-icon icon="date"></biosimulations-icon>
+                  Registration: {{ simulator.created }}
+                </li>
+                <li>
+                  <biosimulations-icon icon="date"></biosimulations-icon>
+                  Last updated: {{ simulator.updated }}
+                </li>
+              </ul>
+            </mat-card-content>
+          </mat-card>
+          <!-- End Reg Card -->
         </div>
       </biosimulations-columns>
     </biosimulations-tab-page-tab>
+    <!-- End Overview Tab -->
 
-    <biosimulations-tab-page-tab urlHashFragment="algorithms" heading="Algorithms" icon="simulator" class="algorithms">
+    <!-- Start Alogrithms Tab -->
+    <biosimulations-tab-page-tab urlHashFragment="algorithms" heading="Algorithms" icon="simulator">
       <ng-container *ngIf="simulator | async as simulator">
         <ng-container *ngIf="simulator.algorithms | async as algorithms">
           <ng-container *ngIf="algorithms.length > 0; else noAlgorithms">
-            <biosimulations-text-page
-              contentsHeading="Algorithms"
-              [padded]="false"
-              alwaysFixed="calc(64px + 32px + 32px + 2rem)"
-              [tocSections]="algorithmsTocSections"
-              [tocScrollSectionScrollOffset]="64 + 32 + 32">
-              <ng-container id="sideBar" *ngIf="simulatorDocumentationUrl">
-                <biosimulations-text-page-side-bar-section heading="More info" fxShow fxHide.lt-md>
+
+            <!-- Simulator Documentation -->
+            <mat-card class="content-card alg-card docs">
+              <mat-card-content>
+                <ng-container id="sideBar" *ngIf="simulatorDocumentationUrl">
+                  <h3>
+                    More Info
+                  </h3>
                   <div class="hanging-indent">
                     <a [href]="simulatorDocumentationUrl" rel="noopener" target="_blank">
                       <biosimulations-icon icon="link"></biosimulations-icon>
                       Documentation
                     </a>
                   </div>
-                </biosimulations-text-page-side-bar-section>
-              </ng-container>
+                </ng-container>
+              </mat-card-content>
+            </mat-card>
 
-              <ng-container id="content" tocSectionsContainer>
-                <biosimulations-text-page-content-section
-                  *ngFor="let algorithm of algorithms"
-                  [heading]="algorithm.heading"
-                  [tocSection]="algorithm.name"
-                  [scrollToTopOffset]="0">
-                  <ng-container *ngIf="algorithm.description as description">
-                    <p>
-                      <ng-template ngFor let-fragment [ngForOf]="description">
-                        <span *ngIf="fragment.type === 'text'; else descriptionLink">
-                          {{ fragment.value }}
-                        </span>
-                        <ng-template #descriptionLink>
-                          <a [href]="fragment.value" rel="noopener" target="ontology"
-                            ><biosimulations-icon icon="link"></biosimulations-icon
-                          ></a>
+            <!-- Simulator Documentation -->
+            <mat-card class="content-card alg-card desc">
+              <mat-card-content>
+                <!-- Simulator Description -->
+                <ng-container id="content" tocSectionsContainer>
+                  <biosimulations-text-page-content-section
+                    *ngFor="let algorithm of algorithms"
+                    [heading]="algorithm.heading"
+                    [tocSection]="algorithm.name"
+                    [scrollToTopOffset]="0">
+                    <ng-container *ngIf="algorithm.description as description">
+                      <p>
+                        <ng-template ngFor let-fragment [ngForOf]="description">
+                          <span *ngIf="fragment.type === 'text'; else descriptionLink">
+                            {{ fragment.value }}
+                          </span>
+                          <ng-template #descriptionLink>
+                            <a [href]="fragment.value" rel="noopener" target="ontology"
+                              ><biosimulations-icon icon="link"></biosimulations-icon
+                            ></a>
+                          </ng-template>
                         </ng-template>
-                      </ng-template>
-                    </p>
-                  </ng-container>
+                      </p>
+                    </ng-container>
 
-                  <ng-container *ngIf="algorithm?.citations?.length">
-                    <p class="subsection-heading no-bottom-margin">Citations</p>
-                    <ul class="icon-list">
-                      <li *ngFor="let citation of algorithm.citations">
-                        <biosimulations-icon icon="tutorial"></biosimulations-icon>
-                        <span [innerHTML]="citation.text"></span
-                        ><span *ngIf="citation.url"
-                          >{{ ' '
-                          }}<a [href]="citation.url" rel="noopener" target="_blank"
-                            ><biosimulations-icon icon="link"></biosimulations-icon></a
-                        ></span>
-                      </li>
-                    </ul>
-                  </ng-container>
-
-                  <p class="subsection-heading no-bottom-margin">More info</p>
-                  <ul class="icon-list">
-                    <li>
-                      <biosimulations-icon icon="link"></biosimulations-icon>
-                      <a [href]="algorithm?.kisaoUrl" rel="noopener" target="ontology">{{ algorithm?.kisaoId }}</a>
-                    </li>
-                  </ul>
-
-                  <p class="subsection-heading no-bottom-margin">Modeling frameworks</p>
-                  <ul class="icon-list" *ngIf="algorithm?.modelingFrameworks?.length; else noFrameworksMessage">
-                    <li *ngFor="let framework of algorithm.modelingFrameworks">
-                      <ng-container *ngIf="framework as framework">
-                        <biosimulations-icon icon="simulator"></biosimulations-icon>
-                        <a [href]="framework.url" rel="noopener" target="ontology">{{ framework.name }}</a>
-                      </ng-container>
-                    </li>
-                  </ul>
-                  <ng-template #noFrameworksMessage>
-                    <p class="info-message">
-                      This implementation of this algorithm does not support any canonical modeling frameworks.
-                    </p>
-                  </ng-template>
-
-                  <p class="subsection-heading no-bottom-margin">Model formats</p>
-                  <ul
-                    class="icon-list icon-list-format"
-                    *ngIf="algorithm?.modelFormats?.length; else noModelFormatsMessage">
-                    <li *ngFor="let format of algorithm.modelFormats">
-                      <ng-container *ngIf="format as format">
-                        <biosimulations-icon icon="format"></biosimulations-icon>
-                        <a [href]="format.term.url" rel="noopener" target="ontology"
-                          >{{ format.term.name }}{{ format.version ? ' ' + format.version : '' }}</a
-                        >:
-                        <ul
-                          *ngIf="format.supportedFeatures?.length; else noSuportedModelFormatFeatures"
-                          class="comma-separated and-separator">
-                          <li *ngFor="let feature of format.supportedFeatures">
-                            {{ feature }}
-                          </li>
-                        </ul>
-                        <ng-template #noSuportedModelFormatFeatures>
-                          <span class="info-message"
-                            >Information about which features this algorithm supports is not available.</span
-                          >
-                        </ng-template>
-                      </ng-container>
-                    </li>
-                  </ul>
-                  <ng-template #noModelFormatsMessage>
-                    <p class="info-message">
-                      This implementation of this algorithm does not support any standard model formats.
-                    </p>
-                  </ng-template>
-
-                  <p class="subsection-heading no-bottom-margin">Model changes</p>
-                  <ul
-                    class="icon-list icon-list-format half-vertically-spaced"
-                    *ngIf="algorithm?.modelChangePatterns?.length; else noCuratedModelChangePatternsMessage">
-                    <li *ngFor="let modelChangePattern of algorithm.modelChangePatterns">
-                      <biosimulations-icon icon="parameter"></biosimulations-icon>
-                      {{ modelChangePattern.name }}:
-                      <ul>
-                        <li *ngFor="let type of modelChangePattern.types">
-                          type: {{ type.name }} (<code>{{ type.value }}</code
-                          >)
-                        </li>
-                        <li *ngIf="modelChangePattern.target">
-                          target:
-                          <code>{{ modelChangePattern.target.grammar }}</code
-                          >:
-                          <code>{{ modelChangePattern.target.value }}</code>
-                        </li>
-                        <li *ngIf="modelChangePattern.symbol">
-                          symbol:
-                          <code>{{ modelChangePattern.symbol.namespace }}</code
-                          >:
-                          <code>{{ modelChangePattern.symbol.value }}</code>
+                    <!-- Simulator Citations -->
+                    <ng-container *ngIf="algorithm?.citations?.length">
+                      <p class="subsection-heading no-bottom-margin">Citations</p>
+                      <ul class="icon-list">
+                        <li *ngFor="let citation of algorithm.citations">
+                          <biosimulations-icon icon="tutorial"></biosimulations-icon>
+                          <span [innerHTML]="citation.text"></span
+                          ><span *ngIf="citation.url"
+                            >{{ ' '
+                            }}<a [href]="citation.url" rel="noopener" target="_blank"
+                              ><biosimulations-icon icon="link"></biosimulations-icon></a
+                          ></span>
                         </li>
                       </ul>
-                    </li>
-                  </ul>
-                  <ng-template #noCuratedModelChangePatternsMessage>
-                    <p class="info-message">
-                      The implementation of this algorithm does not support any standard model changes.
-                    </p>
-                  </ng-template>
+                    </ng-container>
 
-                  <p class="subsection-heading no-bottom-margin">Simulation formats</p>
-                  <ul
-                    class="icon-list icon-list-format"
-                    *ngIf="algorithm?.simulationFormats?.length; else noSimulationFormatsMessage">
-                    <li *ngFor="let format of algorithm.simulationFormats">
-                      <ng-container *ngIf="format as format">
-                        <biosimulations-icon icon="format"></biosimulations-icon>
-                        <a [href]="format.term.url" rel="noopener" target="ontology"
-                          >{{ format.term.name }}{{ format.version ? ' ' + format.version : '' }}</a
-                        >:
-                        <ul
-                          *ngIf="format.supportedFeatures?.length; else noSuportedSimulationFormatFeatures"
-                          class="comma-separated and-separator">
-                          <li *ngFor="let feature of format.supportedFeatures">
-                            {{ feature }}
+                    <!-- Sim More Info -->
+                    <p class="subsection-heading no-bottom-margin">More info</p>
+                    <ul class="icon-list">
+                      <li>
+                        <biosimulations-icon icon="link"></biosimulations-icon>
+                        <a [href]="algorithm?.kisaoUrl" rel="noopener" target="ontology">{{ algorithm?.kisaoId }}</a>
+                      </li>
+                    </ul>
+
+                    <!-- Sim Framework -->
+                    <p class="subsection-heading no-bottom-margin">Modeling frameworks</p>
+                    <ul class="icon-list" *ngIf="algorithm?.modelingFrameworks?.length; else noFrameworksMessage">
+                      <li *ngFor="let framework of algorithm.modelingFrameworks">
+                        <ng-container *ngIf="framework as framework">
+                          <biosimulations-icon icon="simulator"></biosimulations-icon>
+                          <a [href]="framework.url" rel="noopener" target="ontology">{{ framework.name }}</a>
+                        </ng-container>
+                      </li>
+                    </ul>
+                    <ng-template #noFrameworksMessage>
+                      <p class="info-message">
+                        This implementation of this algorithm does not support any canonical modeling frameworks.
+                      </p>
+                    </ng-template>
+
+                    <!-- Formats -->
+                    <p class="subsection-heading no-bottom-margin">Model formats</p>
+                    <ul
+                      class="icon-list icon-list-format"
+                      *ngIf="algorithm?.modelFormats?.length; else noModelFormatsMessage">
+                      <li *ngFor="let format of algorithm.modelFormats">
+                        <ng-container *ngIf="format as format">
+                          <biosimulations-icon icon="format"></biosimulations-icon>
+                          <a [href]="format.term.url" rel="noopener" target="ontology"
+                            >{{ format.term.name }}{{ format.version ? ' ' + format.version : '' }}</a
+                          >:
+                          <ul
+                            *ngIf="format.supportedFeatures?.length; else noSuportedModelFormatFeatures"
+                            class="comma-separated and-separator">
+                            <li *ngFor="let feature of format.supportedFeatures">
+                              {{ feature }}
+                            </li>
+                          </ul>
+                          <ng-template #noSuportedModelFormatFeatures>
+                            <span class="info-message"
+                              >Information about which features this algorithm supports is not available.</span
+                            >
+                          </ng-template>
+                        </ng-container>
+                      </li>
+                    </ul>
+                    <ng-template #noModelFormatsMessage>
+                      <p class="info-message">
+                        This implementation of this algorithm does not support any standard model formats.
+                      </p>
+                    </ng-template>
+
+                    <p class="subsection-heading no-bottom-margin">Model changes</p>
+                    <ul
+                      class="icon-list icon-list-format half-vertically-spaced"
+                      *ngIf="algorithm?.modelChangePatterns?.length; else noCuratedModelChangePatternsMessage">
+                      <li *ngFor="let modelChangePattern of algorithm.modelChangePatterns">
+                        <biosimulations-icon icon="parameter"></biosimulations-icon>
+                        {{ modelChangePattern.name }}:
+                        <ul>
+                          <li *ngFor="let type of modelChangePattern.types">
+                            type: {{ type.name }} (<code>{{ type.value }}</code
+                            >)
+                          </li>
+                          <li *ngIf="modelChangePattern.target">
+                            target:
+                            <code>{{ modelChangePattern.target.grammar }}</code
+                            >:
+                            <code>{{ modelChangePattern.target.value }}</code>
+                          </li>
+                          <li *ngIf="modelChangePattern.symbol">
+                            symbol:
+                            <code>{{ modelChangePattern.symbol.namespace }}</code
+                            >:
+                            <code>{{ modelChangePattern.symbol.value }}</code>
                           </li>
                         </ul>
-                        <ng-template #noSuportedSimulationFormatFeatures>
-                          <span class="info-message"
-                            >Information about which features this algorithm supports is not available.</span
-                          >
-                        </ng-template>
-                      </ng-container>
-                    </li>
-                  </ul>
-                  <ng-template #noSimulationFormatsMessage>
-                    <p class="info-message">
-                      This implementation of this algorithm does not support any standard simulation formats.
-                    </p>
-                  </ng-template>
+                      </li>
+                    </ul>
+                    <ng-template #noCuratedModelChangePatternsMessage>
+                      <p class="info-message">
+                        The implementation of this algorithm does not support any standard model changes.
+                      </p>
+                    </ng-template>
 
-                  <p class="subsection-heading no-bottom-margin">Simulation types</p>
-                  <ul
-                    class="icon-list icon-list-format"
-                    *ngIf="algorithm?.simulationTypes?.length; else noSimulationTypesMessage">
-                    <li *ngFor="let simulationType of algorithm.simulationTypes">
-                      <biosimulations-icon icon="format"></biosimulations-icon>
-                      {{ simulationType.name }} (<code>{{ simulationType.value }}</code
-                      >)
-                    </li>
-                  </ul>
-                  <ng-template #noSimulationTypesMessage>
-                    <p class="info-message">
-                      This implementation of this algorithm does not support any standard simulation types.
-                    </p>
-                  </ng-template>
+                    <p class="subsection-heading no-bottom-margin">Simulation formats</p>
+                    <ul
+                      class="icon-list icon-list-format"
+                      *ngIf="algorithm?.simulationFormats?.length; else noSimulationFormatsMessage">
+                      <li *ngFor="let format of algorithm.simulationFormats">
+                        <ng-container *ngIf="format as format">
+                          <biosimulations-icon icon="format"></biosimulations-icon>
+                          <a [href]="format.term.url" rel="noopener" target="ontology"
+                            >{{ format.term.name }}{{ format.version ? ' ' + format.version : '' }}</a
+                          >:
+                          <ul
+                            *ngIf="format.supportedFeatures?.length; else noSuportedSimulationFormatFeatures"
+                            class="comma-separated and-separator">
+                            <li *ngFor="let feature of format.supportedFeatures">
+                              {{ feature }}
+                            </li>
+                          </ul>
+                          <ng-template #noSuportedSimulationFormatFeatures>
+                            <span class="info-message"
+                              >Information about which features this algorithm supports is not available.</span
+                            >
+                          </ng-template>
+                        </ng-container>
+                      </li>
+                    </ul>
+                    <ng-template #noSimulationFormatsMessage>
+                      <p class="info-message">
+                        This implementation of this algorithm does not support any standard simulation formats.
+                      </p>
+                    </ng-template>
 
-                  <p class="subsection-heading no-bottom-margin">Parameters</p>
-                  <ul
-                    *ngIf="algorithm?.parameters?.length; else noCuratedParametersMessage"
-                    class="icon-list half-vertically-spaced">
-                    <li *ngFor="let parameter of algorithm?.parameters">
-                      <div>
-                        <biosimulations-icon icon="parameter"></biosimulations-icon>
-                        {{ parameter.name }} (<a [href]="parameter.kisaoUrl" rel="noopener" target="ontology">{{
-                          parameter.kisaoId
-                        }}</a
+                    <p class="subsection-heading no-bottom-margin">Simulation types</p>
+                    <ul
+                      class="icon-list icon-list-format"
+                      *ngIf="algorithm?.simulationTypes?.length; else noSimulationTypesMessage">
+                      <li *ngFor="let simulationType of algorithm.simulationTypes">
+                        <biosimulations-icon icon="format"></biosimulations-icon>
+                        {{ simulationType.name }} (<code>{{ simulationType.value }}</code
                         >)
-                        <ul>
-                          <li>Type: {{ parameter.type }}</li>
-                          <li>
-                            Default:
-                            <span *ngIf="parameter.formattedValue !== null; else nullDefaultValue">
-                              {{ parameter.formattedValue }}
-                              <span *ngIf="parameter.type === 'kisaoId'"
-                                >(<a [href]="parameter.valueUrl" rel="noopener" target="ontology">{{
-                                  parameter.rawValue
-                                }}</a
-                                >)</span
-                              >
-                            </span>
-                            <ng-template #nullDefaultValue>null</ng-template>
-                          </li>
-                          <li
-                            *ngIf="
-                              parameter.formattedKisaoRange !== null && parameter.type === 'kisaoId';
-                              else notKisaoEnum
-                            ">
-                            Supported values:
-                            <ul>
-                              <li *ngFor="let rangeEl of parameter.formattedKisaoRange">
-                                {{ rangeEl?.name }}
-                                (<a [href]="rangeEl?.url" rel="noopener" target="ontology">{{ rangeEl?.id }}</a
-                                >)
-                              </li>
-                            </ul>
-                          </li>
-                          <ng-template #notKisaoEnum>
-                            <li *ngIf="parameter.formattedRange !== null && parameter.type === 'string'; else notEnum">
+                      </li>
+                    </ul>
+                    <ng-template #noSimulationTypesMessage>
+                      <p class="info-message">
+                        This implementation of this algorithm does not support any standard simulation types.
+                      </p>
+                    </ng-template>
+
+                    <p class="subsection-heading no-bottom-margin">Parameters</p>
+                    <ul
+                      *ngIf="algorithm?.parameters?.length; else noCuratedParametersMessage"
+                      class="icon-list half-vertically-spaced">
+                      <li *ngFor="let parameter of algorithm?.parameters">
+                        <div>
+                          <biosimulations-icon icon="parameter"></biosimulations-icon>
+                          {{ parameter.name }} (<a [href]="parameter.kisaoUrl" rel="noopener" target="ontology">{{
+                            parameter.kisaoId
+                          }}</a
+                          >)
+                          <ul>
+                            <li>Type: {{ parameter.type }}</li>
+                            <li>
+                              Default:
+                              <span *ngIf="parameter.formattedValue !== null; else nullDefaultValue">
+                                {{ parameter.formattedValue }}
+                                <span *ngIf="parameter.type === 'kisaoId'"
+                                  >(<a [href]="parameter.valueUrl" rel="noopener" target="ontology">{{
+                                    parameter.rawValue
+                                  }}</a
+                                  >)</span
+                                >
+                              </span>
+                              <ng-template #nullDefaultValue>null</ng-template>
+                            </li>
+                            <li
+                              *ngIf="
+                                parameter.formattedKisaoRange !== null && parameter.type === 'kisaoId';
+                                else notKisaoEnum
+                              ">
                               Supported values:
                               <ul>
-                                <li *ngFor="let rangeEl of parameter.formattedRange">
-                                  {{ rangeEl }}
+                                <li *ngFor="let rangeEl of parameter.formattedKisaoRange">
+                                  {{ rangeEl?.name }}
+                                  (<a [href]="rangeEl?.url" rel="noopener" target="ontology">{{ rangeEl?.id }}</a
+                                  >)
                                 </li>
                               </ul>
                             </li>
-                            <ng-template #notEnum>
-                              <li *ngIf="parameter.formattedRange !== null">
-                                Recommended range: [{{ parameter.formattedRange.join(', ') }}]
+                            <ng-template #notKisaoEnum>
+                              <li *ngIf="parameter.formattedRange !== null && parameter.type === 'string'; else notEnum">
+                                Supported values:
+                                <ul>
+                                  <li *ngFor="let rangeEl of parameter.formattedRange">
+                                    {{ rangeEl }}
+                                  </li>
+                                </ul>
                               </li>
+                              <ng-template #notEnum>
+                                <li *ngIf="parameter.formattedRange !== null">
+                                  Recommended range: [{{ parameter.formattedRange.join(', ') }}]
+                                </li>
+                              </ng-template>
                             </ng-template>
-                          </ng-template>
-                        </ul>
-                      </div>
-                    </li>
-                  </ul>
-                  <ng-template #noCuratedParametersMessage>
-                    <p class="info-message" *ngIf="algorithm.parameters === null; else zeroParametersMessage">
-                      The parameters for this implementation of
-                      {{ algorithm.name }} have not been curated.
-                    </p>
-                    <ng-template #zeroParametersMessage>
-                      <p class="info-message">
-                        This implementation of {{ algorithm.name }} does not have any parameters.
+                          </ul>
+                        </div>
+                      </li>
+                    </ul>
+                    <ng-template #noCuratedParametersMessage>
+                      <p class="info-message" *ngIf="algorithm.parameters === null; else zeroParametersMessage">
+                        The parameters for this implementation of
+                        {{ algorithm.name }} have not been curated.
                       </p>
+                      <ng-template #zeroParametersMessage>
+                        <p class="info-message">
+                          This implementation of {{ algorithm.name }} does not have any parameters.
+                        </p>
+                      </ng-template>
                     </ng-template>
-                  </ng-template>
 
-                  <p class="subsection-heading no-bottom-margin">Output dimensions</p>
-                  <ul class="icon-list" *ngIf="algorithm?.outputDimensions?.length; else noOutputDimensionsMessage">
-                    <li *ngFor="let outputDimension of algorithm.outputDimensions">
-                      <biosimulations-icon icon="axes"></biosimulations-icon>
-                      {{ outputDimension.name }} (<a [href]="outputDimension.url" rel="noopener" target="ontology">{{
-                        outputDimension.id
-                      }}</a
-                      >)
-                    </li>
-                  </ul>
-                  <ng-template #noOutputDimensionsMessage>
-                    <p
-                      class="info-message"
-                      *ngIf="algorithm?.outputDimensions?.length === 0; else outputDimensionsNotCurated">
-                      The outputs of {{ algorithm.name }} have no dimensionality.
-                    </p>
-                    <ng-template #outputDimensionsNotCurated>
+                    <p class="subsection-heading no-bottom-margin">Output dimensions</p>
+                    <ul class="icon-list" *ngIf="algorithm?.outputDimensions?.length; else noOutputDimensionsMessage">
+                      <li *ngFor="let outputDimension of algorithm.outputDimensions">
+                        <biosimulations-icon icon="axes"></biosimulations-icon>
+                        {{ outputDimension.name }} (<a [href]="outputDimension.url" rel="noopener" target="ontology">{{
+                          outputDimension.id
+                        }}</a
+                        >)
+                      </li>
+                    </ul>
+                    <ng-template #noOutputDimensionsMessage>
+                      <p
+                        class="info-message"
+                        *ngIf="algorithm?.outputDimensions?.length === 0; else outputDimensionsNotCurated">
+                        The outputs of {{ algorithm.name }} have no dimensionality.
+                      </p>
+                      <ng-template #outputDimensionsNotCurated>
+                        <p class="info-message">
+                          The dimensions of this implementation of
+                          {{ algorithm.name }} have not been curated.
+                        </p>
+                      </ng-template>
+                    </ng-template>
+
+                    <p class="subsection-heading no-bottom-margin">Output variables</p>
+                    <ul
+                      class="icon-list half-vertically-spaced"
+                      *ngIf="algorithm?.outputVariablePatterns?.length; else noCuratedOutputVariablesMessage">
+                      <li *ngFor="let varPattern of algorithm.outputVariablePatterns">
+                        <biosimulations-icon icon="chart"></biosimulations-icon>
+                        {{ varPattern.name }}:
+                        <ul>
+                          <li *ngIf="varPattern.target">
+                            target:
+                            <code>{{ varPattern.target.grammar }}</code
+                            >:
+                            <code>{{ varPattern.target.value }}</code>
+                          </li>
+                          <li *ngIf="varPattern.symbol">
+                            symbol:
+                            <code>{{ varPattern.symbol.namespace }}</code
+                            >:
+                            <code>{{ varPattern.symbol.value }}</code>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                    <ng-template #noCuratedOutputVariablesMessage>
                       <p class="info-message">
-                        The dimensions of this implementation of
+                        The output variables for this implementation of
                         {{ algorithm.name }} have not been curated.
                       </p>
                     </ng-template>
-                  </ng-template>
 
-                  <p class="subsection-heading no-bottom-margin">Output variables</p>
-                  <ul
-                    class="icon-list half-vertically-spaced"
-                    *ngIf="algorithm?.outputVariablePatterns?.length; else noCuratedOutputVariablesMessage">
-                    <li *ngFor="let varPattern of algorithm.outputVariablePatterns">
-                      <biosimulations-icon icon="chart"></biosimulations-icon>
-                      {{ varPattern.name }}:
-                      <ul>
-                        <li *ngIf="varPattern.target">
-                          target:
-                          <code>{{ varPattern.target.grammar }}</code
+                    <p class="subsection-heading no-bottom-margin">Archive formats</p>
+                    <ul
+                      class="icon-list icon-list-format"
+                      *ngIf="algorithm?.archiveFormats?.length; else noArchiveFormatsMessage">
+                      <li *ngFor="let format of algorithm.archiveFormats">
+                        <ng-container *ngIf="format as format">
+                          <biosimulations-icon icon="format"></biosimulations-icon>
+                          <a [href]="format.term.url" rel="noopener" target="ontology"
+                            >{{ format.term.name }}{{ format.version ? ' ' + format.version : '' }}</a
                           >:
-                          <code>{{ varPattern.target.value }}</code>
-                        </li>
-                        <li *ngIf="varPattern.symbol">
-                          symbol:
-                          <code>{{ varPattern.symbol.namespace }}</code
-                          >:
-                          <code>{{ varPattern.symbol.value }}</code>
-                        </li>
-                      </ul>
-                    </li>
-                  </ul>
-                  <ng-template #noCuratedOutputVariablesMessage>
-                    <p class="info-message">
-                      The output variables for this implementation of
-                      {{ algorithm.name }} have not been curated.
-                    </p>
-                  </ng-template>
-
-                  <p class="subsection-heading no-bottom-margin">Archive formats</p>
-                  <ul
-                    class="icon-list icon-list-format"
-                    *ngIf="algorithm?.archiveFormats?.length; else noArchiveFormatsMessage">
-                    <li *ngFor="let format of algorithm.archiveFormats">
-                      <ng-container *ngIf="format as format">
-                        <biosimulations-icon icon="format"></biosimulations-icon>
-                        <a [href]="format.term.url" rel="noopener" target="ontology"
-                          >{{ format.term.name }}{{ format.version ? ' ' + format.version : '' }}</a
-                        >:
-                        <ul
-                          *ngIf="format.supportedFeatures?.length; else noSuportedArchiveFormatFeatures"
-                          class="comma-separated and-separator">
-                          <li *ngFor="let feature of format.supportedFeatures">
-                            {{ feature }}
-                          </li>
-                        </ul>
-                        <ng-template #noSuportedArchiveFormatFeatures>
-                          <span class="info-message"
-                            >Information about which features this algorithm supports is not available.</span
-                          >
-                        </ng-template>
-                      </ng-container>
-                    </li>
-                  </ul>
-                  <ng-template #noArchiveFormatsMessage>
-                    <p class="info-message">
-                      This implementation of this algorithm does not support any standard archive formats.
-                    </p>
-                  </ng-template>
-
-                  <p class="subsection-heading no-bottom-margin">Availability</p>
-                  <ul
-                    *ngIf="algorithm?.availableSoftwareInterfaceTypes?.length; else noSupportedInterfaces"
-                    class="icon-list">
-                    <li *ngFor="let interfaceType of algorithm.availableSoftwareInterfaceTypes">
-                      <biosimulations-icon icon="softwareInterface"></biosimulations-icon>
-                      {{ interfaceType }}
-                    </li>
-                  </ul>
-                  <ng-template #noSupportedInterfaces>
-                    <p class="info-message">
-                      Information about which interfaces support the algorithm is not available.
-                    </p>
-                  </ng-template>
-
-                  <p class="subsection-heading no-bottom-margin">Dependencies</p>
-                  <ng-container *ngIf="algorithm.dependencies; else unknownDependencies">
-                    <ul *ngIf="algorithm.dependencies.length > 0; else noDependencies" class="icon-list">
-                      <li *ngFor="let dependency of algorithm.dependencies">
-                        <biosimulations-icon
-                          [icon]="dependency.freeNonCommercialLicense ? 'free' : 'paid'"></biosimulations-icon>
-                        <a
-                          [href]="dependency.url"
-                          rel="noopener"
-                          target="_blank"
-                          *ngIf="dependency.url; else noDependencyUrl"
-                          >{{ dependency.name }}</a
-                        ><ng-template #noDependencyUrl>{{ dependency.name }}</ng-template
-                        >{{ dependency.required ? '*' : '' }}{{ dependency.version ? ' ' + dependency.version : '' }}
+                          <ul
+                            *ngIf="format.supportedFeatures?.length; else noSuportedArchiveFormatFeatures"
+                            class="comma-separated and-separator">
+                            <li *ngFor="let feature of format.supportedFeatures">
+                              {{ feature }}
+                            </li>
+                          </ul>
+                          <ng-template #noSuportedArchiveFormatFeatures>
+                            <span class="info-message"
+                              >Information about which features this algorithm supports is not available.</span
+                            >
+                          </ng-template>
+                        </ng-container>
                       </li>
                     </ul>
-                    <ng-template #noDependencies>
-                      <p class="info-message">The implementation of this algorithm does not have any dependencies.</p>
+                    <ng-template #noArchiveFormatsMessage>
+                      <p class="info-message">
+                        This implementation of this algorithm does not support any standard archive formats.
+                      </p>
                     </ng-template>
-                  </ng-container>
-                  <ng-template #unknownDependencies>
-                    <p class="info-message">
-                      Information about the dependencies of the implementation of this algorithm is not available.
-                    </p>
-                  </ng-template>
-                </biosimulations-text-page-content-section>
-              </ng-container>
-            </biosimulations-text-page>
+
+                    <p class="subsection-heading no-bottom-margin">Availability</p>
+                    <ul
+                      *ngIf="algorithm?.availableSoftwareInterfaceTypes?.length; else noSupportedInterfaces"
+                      class="icon-list">
+                      <li *ngFor="let interfaceType of algorithm.availableSoftwareInterfaceTypes">
+                        <biosimulations-icon icon="softwareInterface"></biosimulations-icon>
+                        {{ interfaceType }}
+                      </li>
+                    </ul>
+                    <ng-template #noSupportedInterfaces>
+                      <p class="info-message">Information about which interfaces support the algorithm is not available.</p>
+                    </ng-template>
+
+                    <p class="subsection-heading no-bottom-margin">Dependencies</p>
+                    <ng-container *ngIf="algorithm.dependencies; else unknownDependencies">
+                      <ul *ngIf="algorithm.dependencies.length > 0; else noDependencies" class="icon-list">
+                        <li *ngFor="let dependency of algorithm.dependencies">
+                          <biosimulations-icon
+                            [icon]="dependency.freeNonCommercialLicense ? 'free' : 'paid'"></biosimulations-icon>
+                          <a
+                            [href]="dependency.url"
+                            rel="noopener"
+                            target="_blank"
+                            *ngIf="dependency.url; else noDependencyUrl"
+                            >{{ dependency.name }}</a
+                          ><ng-template #noDependencyUrl>{{ dependency.name }}</ng-template
+                          >{{ dependency.required ? '*' : '' }}{{ dependency.version ? ' ' + dependency.version : '' }}
+                        </li>
+                      </ul>
+                      <ng-template #noDependencies>
+                        <p class="info-message">The implementation of this algorithm does not have any dependencies.</p>
+                      </ng-template>
+                    </ng-container>
+                    <ng-template #unknownDependencies>
+                      <p class="info-message">
+                        Information about the dependencies of the implementation of this algorithm is not available.
+                      </p>
+                    </ng-template>
+                  </biosimulations-text-page-content-section>
+                </ng-container>
+              </mat-card-content>
+            </mat-card>
           </ng-container>
 
           <ng-template #noAlgorithms>
@@ -884,28 +975,34 @@
         </ng-container>
       </ng-container>
     </biosimulations-tab-page-tab>
+    <!-- End Alg Tab -->
 
+    <!-- Start Versions tab -->
     <biosimulations-tab-page-tab urlHashFragment="versions" heading="Versions" icon="version" [partialWidth]="true">
       <ng-container *ngIf="simulator | async as simulator">
         <ng-container *ngIf="simulator.versions as versions">
-          <biosimulations-responsive-table
-            [columns]="versionsColumns"
-            [singleLineHeadings]="true"
-            [data]="simulator.versions"
-            [sortable]="true"
-            [controls]="false"
-            searchPlaceHolder="Query (e.g., 1.0)"
-            searchToolTip="Enter a query such as '2020'. By default, your query will be searched over all columns. To search over a specific column, prefix your query with the heading of the column (with spaces replaced by dashes) such as 'date: 2020'. Please see the FAQs for more information."
-            stackedContentsHeading="Contents"
-            [getStackedHeading]="getVersionStackedHeading"
-            [getStackedHeadingMoreInfoRouterLink]="getVersionLinkBound"
-            [defaultSort]="{ active: 'label', direction: 'desc' }"
-            [highlightRow]="highlightVersion">
-          </biosimulations-responsive-table>
+          <div class="versions-table-container">
+            <biosimulations-responsive-table
+              [columns]="versionsColumns"
+              [singleLineHeadings]="true"
+              [data]="simulator.versions"
+              [sortable]="true"
+              [controls]="false"
+              searchPlaceHolder="Query (e.g., 1.0)"
+              searchToolTip="Enter a query such as '2020'. By default, your query will be searched over all columns. To search over a specific column, prefix your query with the heading of the column (with spaces replaced by dashes) such as 'date: 2020'. Please see the FAQs for more information."
+              stackedContentsHeading="Contents"
+              [getStackedHeading]="getVersionStackedHeading"
+              [getStackedHeadingMoreInfoRouterLink]="getVersionLinkBound"
+              [defaultSort]="{ active: 'label', direction: 'desc' }"
+              [highlightRow]="highlightVersion">
+            </biosimulations-responsive-table>
+          </div>
         </ng-container>
       </ng-container>
     </biosimulations-tab-page-tab>
+    <!-- End Versions Tab -->
 
+    <!-- Start validation Tab -->
     <biosimulations-tab-page-tab
       urlHashFragment="validation"
       heading="Validation test results"
@@ -913,15 +1010,12 @@
       [partialWidth]="false">
       <ng-container *ngIf="simulator | async as simulator">
         <ng-container *ngIf="simulator?.validationTests | async as validationTests; else noValidationTestResults">
-          <biosimulations-text-page
-            contentsHeading=""
-            [padded]="false"
-            alwaysFixed="calc(64px + 32px + 32px + 2rem)"
-            [tocSections]="testResultsTocSections"
-            [tocScrollSectionScrollOffset]="128"
-            [compact]="true">
+          <div contentsHeading="" alwaysFixed="calc(64px + 32px + 32px + 2rem)">
             <ng-container id="sideBar">
-              <biosimulations-text-page-side-bar-section heading="Summary" fxShow fxHide.lt-md>
+              <mat-card heading="Summary" fxShow fxHide.lt-md>
+                <mat-card-header>
+                  Summary
+                </mat-card-header>
                 <ul>
                   <li>
                     Test suite version:
@@ -944,7 +1038,7 @@
                     <li>Failed: {{ validationTests.numTestsFailed }}</li>
                   </ul>
                 </ul>
-              </biosimulations-text-page-side-bar-section>
+              </mat-card>
 
               <biosimulations-text-page-side-bar-section heading="More info" fxShow fxHide.lt-md>
                 <div class="hanging-indent">
@@ -1045,7 +1139,7 @@
                 <ng-template #noLog><p class="info-message">The test did not produce any output.</p></ng-template>
               </biosimulations-text-page-content-section>
             </ng-container>
-          </biosimulations-text-page>
+          </div>
         </ng-container>
         <ng-template #noValidationTestResults>
           <p class="info-message" *ngIf="!simulator.validated; else testResultsNotAvailable">
@@ -1057,7 +1151,9 @@
         </ng-template>
       </ng-container>
     </biosimulations-tab-page-tab>
+    <!-- End validation Tab -->
 
+    <!-- Start JSON tab -->
     <biosimulations-tab-page-tab
       urlHashFragment="specifications"
       heading="Specifications (JSON)"
@@ -1067,5 +1163,6 @@
         *ngIf="simulator | async as simulator"
         class="json"><code [languages]="['json']" [highlight]="simulator._json"></code></pre>
     </biosimulations-tab-page-tab>
+    <!-- End JSON tab -->
   </biosimulations-tab-page>
 </div>

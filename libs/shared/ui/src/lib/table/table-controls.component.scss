@@ -46,6 +46,22 @@
 
 .controls {
   width: 100%;
+  font-family: 'Roboto', sans-serif;
+}
+
+button {
+  color: var(--primary-darker-color);
+  font-size: 14px;
+
+  &:hover {
+    color: var(--tertiary-darker-color);
+    transition: color 0.3s ease;
+  }
+}
+
+mat-checkbox:hover {
+  color: var(--accent-darker-color);
+  transition: color 0.3s ease;
 }
 
 .filter-set-clear-all {
@@ -145,11 +161,18 @@ mat-chip-list ::ng-deep {
   }
 
   .mat-expansion-panel {
+    font-family: 'Roboto', sans-serif;
+
     .mat-expansion-panel-header {
       background: $light-bg-darker-5;
     }
-    .mat-expansion-panel-header:hover {
-      background: $light-bg-darker-10;
+
+    .mat-expansion-panel-header {
+      font-family: 'Roboto', sans-serif;
+
+      &:hover {
+        background: $light-bg-darker-10;
+      }
     }
 
     .mat-expansion-panel-header:active:not([aria-disabled='true']) {

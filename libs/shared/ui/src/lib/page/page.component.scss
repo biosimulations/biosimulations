@@ -1,14 +1,14 @@
 @import 'biosimulations-colors';
+@import 'biosimulations-typography';
 
 .parent-container {
-  background-image: url('/assets/images/backgrounds/grey-3.png');
+  /*background-image: url('/assets/images/backgrounds/grey-3.png');*/
   width: fit-content;
   height: 100%;
+  font-family: 'Roboto', sans-serif;
+  font-size: small;
 }
 
-.biosimulations-page-container {
-  border: 3px solid inherit;
-}
 .heading {
   margin-bottom: 2rem;
 }

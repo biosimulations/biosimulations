@@ -1,5 +1,6 @@
 @use '@angular/material' as mat;
 @import 'biosimulations-colors';
+@import 'biosimulations-typography';
 
 :host:not(:last-child) {
   .container {
@@ -10,6 +11,7 @@
 .container {
   padding-top: 4rem;
   padding-bottom: 4rem;
+  font-family: 'Roboto', sans-serif;
 
   @media (max-width: 768px) {
     padding-top: 0rem;

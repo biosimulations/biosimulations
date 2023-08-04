@@ -171,9 +171,9 @@
     </biosimulations-hover-open-menu>
 
     <biosimulations-hover-open-menu
-      onclick="parent.location='https://biosimulations.org'"
-      style="margin-left: 50%; align-items: end; padding-left: 200px">
-      <biosimulations-topbar-menu-item heading="BioSimDB" icon="link" id="trigger"> </biosimulations-topbar-menu-item>
+      onclick="parent.location='https://biosimulations.org'">
+      <biosimulations-topbar-menu-item heading="BioSimDB" icon="link" id="trigger">
+      </biosimulations-topbar-menu-item>
       <ng-container id="items">
         <biosimulations-dropdown-menu-item
           heading="Browse simulation projects"
@@ -208,7 +208,7 @@
       <biosimulations-navigation-subitem heading="Convert a file" icon="convert" [route]="['/utils', 'convert-file']">
       </biosimulations-navigation-subitem>
 
-      <biosimulations-navigation-subitem heading="Create a project" icon="write" [route]="['/utils', 'create-project']">
+      <biosimulations-navigation-subitem heading="Create project" icon="write" [route]="['/utils', 'create-project']">
       </biosimulations-navigation-subitem>
 
       <biosimulations-navigation-subitem

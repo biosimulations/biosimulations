@@ -35,13 +35,14 @@ export class HoverOpenMenuComponent {
     }
   }
 
-  public navigate(targetValue?: string): void {
+  public navigate(trigger: MatMenuTrigger, targetValue?: string): void {
     if (!targetValue) {
       targetValue = this.target;
     }
     if (this.link) {
       window.open(this.link, targetValue);
     }
+    trigger.closeMenu();
   }
 
   public stayStatic(trigger: MatMenuTrigger): void {
