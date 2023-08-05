@@ -20,12 +20,12 @@ import { ClipboardService } from '@biosimulations/shared/angular';
   styleUrls: ['./view-simulator.component.scss'],
 })
 export class ViewSimulatorComponent implements OnInit {
-  getVersionLinkBound!: (version: ViewVersion) => string[];
-  dispatchAppUrl!: string;
-  dispatchAppRunUrl!: string;
-  simulatorDocumentationUrl!: string | undefined;
+  public getVersionLinkBound!: (version: ViewVersion) => string[];
+  public dispatchAppUrl!: string;
+  public dispatchAppRunUrl!: string;
+  public simulatorDocumentationUrl!: string | undefined;
 
-  constructor(
+  public constructor(
     public route: ActivatedRoute,
     private simService: ViewSimulatorService,
     private changeDetectorRef: ChangeDetectorRef,
@@ -35,7 +35,7 @@ export class ViewSimulatorComponent implements OnInit {
 
   public loadingSubject = new BehaviorSubject(true);
   public loading$ = this.loadingSubject.asObservable();
-  // TODO handler errors from simulator service
+  /* TODO handler errors from simulator service */
   public error = false;
 
   public simulator!: Observable<ViewSimulator>;
@@ -186,7 +186,7 @@ export class ViewSimulatorComponent implements OnInit {
       return version.label === simulator.version;
     };
 
-    // find documentation URL
+    /* find documentation URL */
     this.simulatorDocumentationUrl = undefined;
     for (const url of simulator.urls) {
       if (url.type === 'Documentation') {
@@ -278,7 +278,7 @@ export class ViewSimulatorComponent implements OnInit {
   }
 
   public copyRunPythonCmd(module = '{ module }'): void {
-    //const cmd = `import ${module} as simulator\nsimulator.exec_sedml_docs_in_combine_archive(\n    '/path/to/archive.omex', '/path/to/outputs')`;
+    /* const cmd = `import ${module} as simulator\nsimulator.exec_sedml_docs_in_combine_archive(\n    '/path/to/archive.omex', '/path/to/outputs')`; */
     const cmd = 'command';
     this.clipboardService.copyToClipboard(cmd, 'The command to import the Python module was copied to your clipboard.');
   }
