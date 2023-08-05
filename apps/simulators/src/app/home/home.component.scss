@@ -1,6 +1,6 @@
 @import 'biosimulations-colors';
 
-.container {
+.home-container {
   height: fit-content;
   width: auto;
 
@@ -43,4 +43,8 @@
   .more-information {
     color: #186fb7;
   }
+}
+
+.home-footer-container biosimulations-logo {
+  background-color: var(--accent-color);
 }
