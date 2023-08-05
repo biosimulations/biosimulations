@@ -1,7 +1,7 @@
 @use '@angular/material' as mat;
 @import 'apps/platform/src/styles.scss';
 @import 'biosimulations-colors';
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;500;700:wght@700&display=swap');
+@import 'biosimulations-typography';
 
 .container {
   height: 100%;
@@ -57,7 +57,6 @@
   flex-grow: 1;
   flex-shrink: 0;
   flex-basis: auto;
-  opacity: 1;
   background-size: cover; //500px;
   background-repeat: no-repeat;
   background-position: center;
@@ -71,7 +70,7 @@
   -webkit-box-orient: vertical;
 
   &:hover {
-    opacity: 0;
+    opacity: 0.33;
     transition: opacity 0.3s ease-in;
   }
 
@@ -119,15 +118,23 @@
 }
 
 .verbose-description-card-container {
-  height: 77%;
+  height: 300px;
   overflow: visible;
+
+  &:hover {
+    transition: background-color 0.3s ease-in-out;
+  }
 }
 
 .verbose-description-card-content {
   height: 100%;
   width: 100%;
   padding-top: 6rem;
-  transition: background-color 0.2s ease-in-out;
+  background-color: inherit;
+
+  &:hover {
+    transition: background-color 0.2s ease-in-out;
+  }
 }
 
 .nav-button {
@@ -179,6 +186,17 @@ mat-card-header {
   }
 }
 
-button {
+button:not(.nav-button) {
+  width: 100%;
+  height: fit-content;
+  border: 3px solid inherit;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 18px;
   color: white !important;
+
+  &:hover {
+    color: var(--accent-darker-color);
+    transition: color 0.3s ease-in-out;
+  }
 }
