@@ -14,4 +14,16 @@ biosimulations-responsive-table {
   margin-top: 7rem;
   border: 3px solid inherit;
   background-color: white;
+  font-family: 'Roboto' !important;
+  padding: 3rem;
+}
+
+.description {
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  font-weight: bold;
+  font-size: 32px;
+  background-image: url('/assets/images/backgrounds/grey-3.png');
+  padding: 3rem;
 }

@@ -1,4 +1,20 @@
 <div class="parent-container">
+  <mat-card class="description">
+    <mat-card-content>
+      <span>
+        BioSimulators is a free
+      <a [routerLink]="['/simulators']">registry of biosimulation tools</a>. The registry includes tools for a broad range
+      of frameworks (e.g., logical, kinetic), simulation algorithms (e.g., FBA, SSA), and model formats (e.g., BNGL,
+      CellML, NeuroML/LEMS, SBML, Smoldyn). Many of the simulation tools provide Python packages, command-line programs,
+      and Docker images with consistent interfaces. Together, BioSimulators makes it easier to run simulations.
+      BioSimulators is powered by several
+      <a href="https://docs.biosimulations.org/concepts/conventions/" rel="noopener" target="biosimulations-docs"
+        >conventions</a
+      >
+      including SED-ML
+      </span>
+    </mat-card-content>
+  </mat-card>
   <biosimulations-page heading="Browse Simulators">
     <biosimulations-responsive-table
       [columns]="columns"
@@ -12,3 +28,5 @@
       [data]="data"></biosimulations-responsive-table>
   </biosimulations-page>
 </div>
+
+
