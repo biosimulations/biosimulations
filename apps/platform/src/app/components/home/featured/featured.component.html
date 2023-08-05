@@ -15,7 +15,7 @@
         [style.background-image]="'url(' + project.image + ')'"
         (mouseenter)="showNewElement()"
         (mouseleave)="hideNewElement()">
-        <mat-card-header [style.background-color]="project.headerColor">
+        <mat-card-header [style.background-color]="project.headerColor" class="feature-card-header">
           <mat-card-title>
             <strong>
               {{ project.title }}
@@ -46,7 +46,7 @@
                 target="_blank"
                 [href]="project.routingLink"
                 style="font-family: Roboto, sans-serif">
-                <button class="description-teaser-content text-header" mat-button>
+                <button class="description-teaser-content text-header" mat-button [style.background-color]="project.headerColor">
                   {{ project.descriptionTeaser }}
                 </button>
               </a>
