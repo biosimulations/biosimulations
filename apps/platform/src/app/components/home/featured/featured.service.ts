@@ -50,7 +50,7 @@ export class FeaturedService {
   };
   private learnSimulations = {
     title: 'Learn',
-    image: `https://neurosciencenews.com/files/2018/11/memory-learning-rna-neurosciencenews-public.jpg`,
+    image: 'assets/images/default-resource-images/learn.png',
     id: 'learnSimulations',
     descriptionTeaser: 'Step Into the Docs.',
     descriptionVerbose: `A guide for using BioSimulations and BioSimulators to create, publish, and \
@@ -63,7 +63,7 @@ export class FeaturedService {
   };
   private convertFile = {
     title: 'Convert a file',
-    image: 'https://www.oldbookillustrations.com/site/assets/high-res/n-d-1884/edisons-electric-pen-1200.jpg',
+    image: 'assets/images/default-resource-images/convert.jpg',
     id: 'convertFile',
     descriptionTeaser: 'Utilities for converting diagrams into visualizations of simulation results',
     descriptionVerbose: `BioSimulators-utils provides a command-line program and Python API for \
@@ -77,8 +77,7 @@ export class FeaturedService {
   };
   private restAPI = {
     title: 'REST API',
-    image:
-      'https://images.unsplash.com/photo-1500042600524-37ecb686c775?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+    image: 'assets/images/default-resource-images/api.png',
     id: 'community',
     descriptionTeaser: 'Documentation of our API endpoints',
     descriptionVerbose: `Swagger page provides developers with a detailed and interactive documentation of \
