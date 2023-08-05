@@ -6,20 +6,22 @@
   padding-left: 0;
   padding-bottom: 3rem;
   padding-top: 5.25rem;
+  height: fit-content;
   display: flex;
   justify-content: space-between;
   position: relative;
   height: auto;
+  overflow: hidden;
 }
 
 .nav-buttons {
   margin-left: auto;
   padding-left: 0;
-  padding-bottom: 5rem;
   padding-top: 0rem;
   display: flex;
   justify-content: space-between;
   position: relative;
+  overflow: hidden;
 }
 
 @media (max-width: 768px) {
