@@ -30,22 +30,22 @@
       <biosimulations-topbar-menu-item heading="Utilities" icon="construction" id="trigger">
       </biosimulations-topbar-menu-item>
       <ng-container id="items">
-        <biosimulations-dropdown-menu-item heading="Convert a file" [href]="config.utilsConvertFileUrl">
+        <biosimulations-dropdown-menu-item heading="Convert a file" [routerLink]="['/utils', 'convert-file']">
         </biosimulations-dropdown-menu-item>
 
-        <biosimulations-dropdown-menu-item heading="Create a project" [href]="config.utilsCreateProjectUrl">
+        <biosimulations-dropdown-menu-item heading="Create a project" [routerLink]="['/utils', 'create-project']">
         </biosimulations-dropdown-menu-item>
 
-        <biosimulations-dropdown-menu-item heading="Validate a model" [href]="config.utilsValidateModelUrl">
+        <biosimulations-dropdown-menu-item heading="Validate a model" [routerLink]="['/utils', 'validate-model']">
         </biosimulations-dropdown-menu-item>
 
-        <biosimulations-dropdown-menu-item heading="Validate a simulation" [href]="config.utilsValidateSimulationUrl">
+        <biosimulations-dropdown-menu-item heading="Validate a simulation" [routerLink]="['/utils', 'validate-simulation']">
         </biosimulations-dropdown-menu-item>
 
-        <biosimulations-dropdown-menu-item heading="Validate metadata" [href]="config.utilsValidateMetadataUrl">
+        <biosimulations-dropdown-menu-item heading="Validate metadata" [routerLink]="['/utils', 'validate-metadata']">
         </biosimulations-dropdown-menu-item>
 
-        <biosimulations-dropdown-menu-item heading="Validate a project" [href]="config.utilsValidateProjectUrl">
+        <biosimulations-dropdown-menu-item heading="Validate a project" [routerLink]="['/utils', 'validate-project']">
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
@@ -54,10 +54,10 @@
           target="githubissues">
         </biosimulations-dropdown-menu-item>
 
-        <biosimulations-dropdown-menu-item heading="Suggest a simulator" [href]="config.utilsSuggestSimulatorUrl">
+        <biosimulations-dropdown-menu-item heading="Suggest a simulator" [routerLink]="['/utils', 'suggest-simulator']">
         </biosimulations-dropdown-menu-item>
 
-        <biosimulations-dropdown-menu-item heading="BioSimulations REST API" [href]="config.apiUrl">
+        <biosimulations-dropdown-menu-item heading="BioSimulators REST API" [href]="config.apiUrl">
         </biosimulations-dropdown-menu-item>
       </ng-container>
     </biosimulations-hover-open-menu>
