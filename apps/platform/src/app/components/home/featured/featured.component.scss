@@ -1,7 +1,7 @@
 @use '@angular/material' as mat;
 @import 'apps/platform/src/styles.scss';
 @import 'biosimulations-colors';
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;500;700:wght@700&display=swap');
+@import 'biosimulations-typography';
 
 .container {
   height: 100%;
@@ -52,39 +52,37 @@
 
 .feature-card {
   width: 100%;
-  height: 620px;
+  height: 615px;
   position: relative;
   flex-grow: 1;
   flex-shrink: 0;
   flex-basis: auto;
-  background-size: 500px;
+  background-size: cover; /*500px;*/
   background-repeat: no-repeat;
   background-position: center;
   padding-top: 0;
   padding-bottom: 4rem;
   font-weight: bold;
   font-size: large;
-  transition: transform 0.3s ease-in, opacity 0.3s ease-in;
   transition-property: all;
   display: flex, -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    mix-blend-mode: multiply;
-    z-index: 1;
+  &:hover {
+    opacity: 0.33;
+    transition: opacity 0.3s ease-in;
   }
 
   @media (max-width: 768px) {
     height: fit-content;
     width: 300px;
   }
+}
+
+.feature-card-header {
+  border-radius: 4px 4px 0.5px 0.5px;
+  padding-bottom: 10px;
 }
 
 .description-teaser-container-parent {
@@ -113,6 +111,7 @@
   font-size: large;
   align-items: center;
   justify-content: center;
+  padding: 30px;
 
   @media (max-width: 768px) {
     border: 4px solid #2196f3;
@@ -124,22 +123,24 @@
   }
 }
 
-img {
-  height: auto;
-  width: auto;
-  padding: auto;
-}
-
 .verbose-description-card-container {
-  height: 75%;
+  height: 300px;
   overflow: visible;
+
+  &:hover {
+    transition: background-color 0.3s ease-in-out;
+  }
 }
 
 .verbose-description-card-content {
   height: 100%;
   width: 100%;
   padding-top: 6rem;
-  transition: background-color 0.2s ease-in-out;
+  background-color: inherit;
+
+  &:hover {
+    transition: background-color 0.2s ease-in-out;
+  }
 }
 
 .nav-button {
@@ -162,12 +163,6 @@ img {
   }
 }
 
-.click-image-eventspace {
-  color: rgb(4, 37, 2);
-  font-size: larger;
-  font-weight: 500;
-}
-
 .mobile {
   height: 100%;
   width: 100%;
@@ -181,4 +176,27 @@ img {
 
 .mobile-description-container {
   margin-top: 40px;
+}
+
+mat-card-header {
+  color: white !important;
+
+  strong {
+    font-size: 30px;
+  }
+}
+
+button:not(.nav-button) {
+  width: 100%;
+  height: fit-content;
+  border: 3px solid inherit;
+  border-radius: 0.5px 0.5px 4px 4px;
+  font-weight: 700;
+  font-size: 18px;
+  color: white !important;
+
+  &:hover {
+    background-color: var(--accent-darker-color) !important;
+    transition: background-color 0.4s ease-out;
+  }
 }

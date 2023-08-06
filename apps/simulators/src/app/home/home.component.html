@@ -1,47 +1,53 @@
-<div class="container"> 
-  <biosimulations-home-section [columns]="3">
-    <ng-container id="heading">
-      <span>
-        BioSimulators is a free
-      <a [routerLink]="['/simulators']">registry of biosimulation tools</a>. The registry includes tools for a broad range
-      of frameworks (e.g., logical, kinetic), simulation algorithms (e.g., FBA, SSA), and model formats (e.g., BNGL,
-      CellML, NeuroML/LEMS, SBML, Smoldyn). Many of the simulation tools provide Python packages, command-line programs,
-      and Docker images with consistent interfaces. Together, BioSimulators makes it easier to run simulations.
-      BioSimulators is powered by several
-      <a href="https://docs.biosimulations.org/concepts/conventions/" rel="noopener" target="biosimulations-docs"
-        >conventions</a
-      >
-      including SED-ML, KiSAO, COMBINE, and other standards.
-      </span>
-    </ng-container>
+<div class="home-container-simulators">
+  <mat-card class="description-simulators">
+    <mat-card-content>
+      <biosimulations-home-section [columns]="3">
+        <ng-container id="heading">
+          <span>
+            BioSimulators is a free
+          <a [routerLink]="['/simulators']">registry of biosimulation tools</a>. The registry includes tools for a broad range
+          of frameworks (e.g., logical, kinetic), simulation algorithms (e.g., FBA, SSA), and model formats (e.g., BNGL,
+          CellML, NeuroML/LEMS, SBML, Smoldyn). Many of the simulation tools provide Python packages, command-line programs,
+          and Docker images with consistent interfaces. Together, BioSimulators makes it easier to run simulations.
+          BioSimulators is powered by several
+          <a href="https://docs.biosimulations.org/concepts/conventions/" rel="noopener" target="biosimulations-docs"
+            >conventions</a
+          >
+          including SED-ML
+          </span>
+        </ng-container>
 
+        <biosimulations-home-subsection
+          id="subsection"
+          heading="Find simulation tools"
+          subheading="Download consistent interfaces to tools"
+          icon="reuse"
+          [link]="'/simulators'">
+          BioSimulators makes it easy to find tools that can run specific simulations and download and run them.
+        </biosimulations-home-subsection>
 
-    <biosimulations-home-subsection
-      id="subsection"
-      heading="Find simulation tools"
-      subheading="Download consistent interfaces to tools"
-      icon="reuse">
-      BioSimulators makes it easy to find tools that can run specific simulations and download and run them.
-    </biosimulations-home-subsection>
+        <biosimulations-home-subsection
+          id="subsection"
+          heading="Run simulations"
+          subheading="Execute many algorithms"
+          icon="simulator"
+          [link]="config.dispatchAppUrl">
+          The tools in the BioSimulators registry can run a broad range of modeling frameworks, simulation algorithms, and
+          model formats.
+        </biosimulations-home-subsection>
 
-    <biosimulations-home-subsection
-      id="subsection"
-      heading="Run simulations"
-      subheading="Execute many algorithms"
-      icon="simulator">
-      The tools in the BioSimulators registry can run a broad range of modeling frameworks, simulation algorithms, and
-      model formats.
-    </biosimulations-home-subsection>
-
-    <biosimulations-home-subsection
-      id="subsection"
-      heading="Compare simulation tools"
-      subheading="Identify strengths and weaknesses"
-      icon="compare">
-      BioSimulators makes it easier for developers to compare simulation tools. This can be used to identify the strengths
-      of different approaches, find bugs, and drive standardization.
-    </biosimulations-home-subsection>
-  </biosimulations-home-section>
+        <biosimulations-home-subsection
+          id="subsection"
+          heading="Compare simulation tools"
+          subheading="Identify strengths and weaknesses"
+          icon="compare"
+          [link]="'https://github.com/biosimulators'">
+          BioSimulators makes it easier for developers to compare simulation tools. This can be used to identify the strengths
+          of different approaches, find bugs, and drive standardization.
+        </biosimulations-home-subsection>
+      </biosimulations-home-section>
+    </mat-card-content>
+  </mat-card>
 
   <biosimulations-home-section [columns]="3">
     <ng-container id="heading"
@@ -135,7 +141,7 @@
   </biosimulations-home-section>
 
   <biosimulations-home-section [columns]="1">
-    <ng-container id="heading">About <span class="highlight-primary">BioSimulators</span></ng-container>
+    <ng-container id="heading">About <span class="highlight-primary"><strong>BioSimulators</strong></span></ng-container>
     <ng-container id="subsection">
       <div class="about-content">
         <div class="text">
@@ -301,4 +307,4 @@
       </div>
     </ng-container>
   </biosimulations-home-section>
-</div> 
+</div>

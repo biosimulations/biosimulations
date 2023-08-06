@@ -1,3 +1,16 @@
+@import 'biosimulations-colors';
+
+.home-container-simulators {
+  height: fit-content;
+  width: auto;
+  padding-top: 3rem;
+
+  @media (max-width: 768px) {
+    height: 100%;
+    width: 100%;
+  }
+}
+
 .about-content {
   .text {
     margin-bottom: 0.75rem;
@@ -16,4 +29,33 @@
       display: inline;
     }
   }
+}
+
+.footer-item-button {
+  border: 1px solid var(--primary-color);
+  background-color: var(--accent-color);
+}
+
+.footer-item-button-text {
+  .our-site {
+    color: rgb(0, 81, 0);
+  }
+
+  .more-information {
+    color: #186fb7;
+  }
+}
+
+.description-simulators {
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  font-weight: bold;
+  font-size: 32px;
+  padding: 3rem;
+  background-image: url('/assets/images/backgrounds/grey-3.png');
+}
+
+strong {
+  color: var(--accent-color);
 }

@@ -15,9 +15,11 @@
         [style.background-image]="'url(' + project.image + ')'"
         (mouseenter)="showNewElement()"
         (mouseleave)="hideNewElement()">
-        <mat-card-header [style.background-color]="project.headerColor" style="color: white">
+        <mat-card-header [style.background-color]="project.headerColor" class="feature-card-header">
           <mat-card-title>
-            {{ project.title }}
+            <strong>
+              {{ project.title }}
+            </strong>
           </mat-card-title>
         </mat-card-header>
 
@@ -31,9 +33,8 @@
               <a
                 class="click-image-eventspace internal"
                 target="_blank"
-                [routerLink]="project.routingLink"
-                style="font-family: Roboto, sans-serif">
-                <button class="description-teaser-content text-header" mat-button style="color: white">
+                [routerLink]="project.routingLink">
+                <button mat-button [style.background-color]="project.headerColor" class="description-teaser-content">
                   {{ project.descriptionTeaser }}
                 </button>
               </a>
@@ -45,7 +46,7 @@
                 target="_blank"
                 [href]="project.routingLink"
                 style="font-family: Roboto, sans-serif">
-                <button class="description-teaser-content text-header" mat-button style="color: white">
+                <button class="description-teaser-content text-header" mat-button [style.background-color]="project.headerColor">
                   {{ project.descriptionTeaser }}
                 </button>
               </a>

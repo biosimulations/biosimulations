@@ -5,7 +5,7 @@ import { FeaturedProject } from './featured.model';
 export class FeaturedService {
   private simulations = {
     title: 'Browse Simulations',
-    image: 'https://img.freepik.com/premium-vector/black-white-drawing-microscope-with-microscope-it_666729-1282.jpg',
+    image: 'assets/images/default-resource-images/browse.jpg',
     id: 'simulations',
     descriptionTeaser: 'BioSimulation Projects: a database of published simulation runs',
     descriptionVerbose: `BioSimulation Projects is a searchable database of rigorously curated simulation projects \
@@ -20,8 +20,7 @@ export class FeaturedService {
   };
   private runSimulations = {
     title: 'RunBioSimulations',
-    image:
-      'https://static.vecteezy.com/system/resources/thumbnails/008/017/927/small/illustration-of-people-running-icon-flat-design-free-vector.jpg',
+    image: 'assets/images/default-resource-images/run.jpg',
     id: 'runSimulations',
     descriptionTeaser: 'Execute custom simulations online',
     descriptionVerbose:
@@ -35,12 +34,12 @@ export class FeaturedService {
   };
   private publishSimulations = {
     title: 'Submit Your Simulation for publication',
-    image: `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpy6yf5KdrcU3NpXPlno0_CUnI34BpdWKEjA&usqp=CAU`,
+    image: 'assets/images/default-resource-images/publish.jpg',
     id: 'publishSimulations',
     descriptionTeaser: 'Submit a simulation for publication on BioSimulation Projects',
     descriptionVerbose: `Simulations that have been published in papers are invited to be submitted to the \
       BioSimulation Project Database. This makes the full simulation run available to the public, verifying \
-      its reproducibility and allowing anyone to download and rerun the simulation.`,
+      its reproducibility and allowing anyone to download and rerun the simulation. Image by Freepik.`,
     routingLink: ['/utils/create-project'],
     logo: 'publish',
     headerColor: '#388E3C',
@@ -51,11 +50,11 @@ export class FeaturedService {
   };
   private learnSimulations = {
     title: 'Learn',
-    image: `https://neurosciencenews.com/files/2018/11/memory-learning-rna-neurosciencenews-public.jpg`,
+    image: 'assets/images/default-resource-images/learn.png',
     id: 'learnSimulations',
     descriptionTeaser: 'Step Into the Docs.',
     descriptionVerbose: `A guide for using BioSimulations and BioSimulators to create, publish, and \
-      find simulation projects and simulation tools. Image by rawpixel.com</a> on Freepik`,
+      find simulation projects and simulation tools.`,
     routingLink: 'https://docs.biosimulations.org/developers/setup/getting-started/',
     logo: 'idea',
     color: 'rgba(149, 30, 217, 0.85)',
@@ -64,7 +63,7 @@ export class FeaturedService {
   };
   private convertFile = {
     title: 'Convert a file',
-    image: 'https://www.oldbookillustrations.com/site/assets/high-res/n-d-1884/edisons-electric-pen-1200.jpg',
+    image: 'assets/images/default-resource-images/convert.jpg',
     id: 'convertFile',
     descriptionTeaser: 'Utilities for converting diagrams into visualizations of simulation results',
     descriptionVerbose: `BioSimulators-utils provides a command-line program and Python API for \
@@ -78,8 +77,7 @@ export class FeaturedService {
   };
   private restAPI = {
     title: 'REST API',
-    image:
-      'https://images.unsplash.com/photo-1500042600524-37ecb686c775?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+    image: 'assets/images/default-resource-images/api.png',
     id: 'community',
     descriptionTeaser: 'Documentation of our API endpoints',
     descriptionVerbose: `Swagger page provides developers with a detailed and interactive documentation of \
@@ -122,7 +120,7 @@ export class FeaturedService {
     this.learnSimulations,
     this.convertFile,
     this.restAPI,
-    //this.runCustomizedSimulation,
+    /* this.runCustomizedSimulation */
   ];
 
   private getSingleProject(i: number): FeaturedProject {

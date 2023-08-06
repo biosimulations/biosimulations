@@ -23,9 +23,9 @@ export class MetadataService {
   }
 
   public createMetadata(id: string): Observable<ArchiveMetadataContainer> {
-    // This must be external so that COMBINE archive can be downloaded by COMBINE API
+    /* This must be external so that COMBINE archive can be downloaded by COMBINE API */
     const url = this.endpoints.getSimulationRunDownloadEndpoint(true, id);
-    this.logger.debug(`Fetching metadata for archive for simulation run '${id}' at URL: ${url}`);
+    /* this.logger.debug(`Fetching metadata for archive for simulation run '${id}' at URL: ${url}`); */
 
     const postMetadata = this.service.getArchiveMetadata(OmexMetadataInputFormat.rdfxml, undefined, url).pipe(
       pluck('data'),

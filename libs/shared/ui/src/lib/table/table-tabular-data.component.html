@@ -100,7 +100,7 @@
         <span [ngSwitch]="column.centerAction" *ngIf="element._cache[column.id].value">
           <ng-template [ngSwitchCase]="'routerLink'">
             <a
-              mat-icon-button
+              mat-flat-button
               class="biosimulations-button primary"
               *ngIf="element._cache[column.id].center.routerLink as routerLink; else noRouterLink"
               [routerLink]="routerLink"

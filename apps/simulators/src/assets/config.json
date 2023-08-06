@@ -19,7 +19,7 @@
   "dispatchApiUrl": "https://api.biosimulations.org/",
   "dispatchNewIssueUrl": "https://github.com/biosimulations/biosimulations/issues/new/choose",
   "dispatchNewPullUrl": "https://github.com/biosimulations/biosimulations/compare",
-  "simulatorsAppUrl": "https://biosimulators.dev/simulators",
+  "simulatorsAppUrl": "https://biosimulators.org/simulators",
   "simulatorsApiUrl": "https://api.biosimulators.org/",
   "simulatorsNewIssueUrl": "https://github.com/biosimulators/Biosimulators/issues/new/choose",
   "simulatorsNewPullUrl": "https://github.com/biosimulators/Biosimulators/compare",

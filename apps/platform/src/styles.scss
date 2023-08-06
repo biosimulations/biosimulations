@@ -1,7 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
-@import url('https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500;700&family=Source+Sans+Pro:wght@300;400;700&display=swap');
+@import 'biosimulations-typography';
 
+.container {
+  min-height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  padding-top: 5px;
+}
 .mat-select-panel {
   min-height: 200px;
   max-height: 400px !important;
@@ -9,17 +19,10 @@
 .mat-tooltip {
   font-size: 18px;
 }
-.container {
-  min-height: 100%;
-  width: 100%;
-  padding-top: 5px;
-  font-family: 'Source Sans Pro', serif, sans-serif;
-}
 .mat-tab-label {
   min-width: 25px !important;
   padding: 5px;
   background-color: transparent;
-
   font-weight: bold;
   font-size: 16px;
 }
@@ -90,12 +93,4 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-}
-.container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-family: 'Source Sans Pro', serif, sans-serif;
-  font-size: large;
 }

@@ -18,4 +18,10 @@ export class HomeSubsectionComponent {
 
   @Input()
   icon!: BiosimulationsIcon;
+
+  @Input()
+  link?: string;
+
+  @Input()
+  iconColor? = '#ffa500';
 }

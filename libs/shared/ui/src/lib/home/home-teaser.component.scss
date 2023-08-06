@@ -1,6 +1,4 @@
 @use '@angular/material' as mat;
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;500;700:wght@700&display=swap');
-@import 'apps/platform/src/styles.scss';
 @import 'biosimulations-colors';
 
 .container {
@@ -154,11 +152,7 @@ img {
 }
 
 .container-content {
-  //width: 10rem;
   height: 5rem;
-  //padding: 6px;
-  //margin: 10px;
-  //justify-content: center;
 }
 
 #portal-teaser {

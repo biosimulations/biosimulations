@@ -86,5 +86,14 @@
 }
 
 .container {
-  background-color: white;
+  margin-top: 7rem;
+  border: 3px solid inherit;
+  background: white;
+  border-radius: 4px;
+}
+
+.page-header {
+  color: var(--primary-color);
+  padding-top: 1.2rem;
+  padding-left: 3px;
 }

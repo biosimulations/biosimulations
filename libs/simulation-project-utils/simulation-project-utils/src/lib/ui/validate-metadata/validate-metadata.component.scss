@@ -1,3 +1,5 @@
+@import 'biosimulations-colors';
+
 .form-section .form-field-group mat-form-field mat-hint {
   font-size: 125%;
   padding-top: 0.4em;
@@ -15,4 +17,42 @@
     margin-block-end: 0;
     padding-inline-start: 30px;
   }
+}
+
+.alert {
+  background-color: var(--quaternary-color);
+  color: white;
+  width: fit-content;
+
+  &:hover {
+    font-weight: 600;
+    transition: font-weight 0.1s ease-in-out;
+  }
+}
+
+p:not(.alert) {
+  padding-top: 16px;
+}
+
+form:not(.alert) {
+  font-size: 125%;
+}
+
+.biosimulations-button {
+  background-color: var(--primary-color) !important;
+  color: white;
+  font-size: large;
+}
+
+.form-button-container {
+  padding-top: 5.5rem;
+}
+
+strong {
+  color: var(--tertiary-lighter-color);
+  font-size: 18px;
+}
+
+a {
+  color: var(--tertiary-lighter-color);
 }

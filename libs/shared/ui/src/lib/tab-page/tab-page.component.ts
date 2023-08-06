@@ -32,6 +32,9 @@ import { combineLatest, Subscription } from 'rxjs';
 })
 export class TabPageComponent implements AfterViewInit, AfterViewChecked {
   @Input()
+  public heading?: string;
+
+  @Input()
   public loading = false;
 
   @Output()

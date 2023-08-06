@@ -14,8 +14,8 @@ export interface UnknownSimulation {
   simulatorVersion?: null;
   simulatorDigest?: null;
   cpus?: null;
-  memory?: null; // GB
-  maxTime?: null; // min
+  memory?: null /* GB */;
+  maxTime?: null /* min */;
   envVars?: null;
   purpose?: null;
   status?: null;
@@ -35,8 +35,8 @@ export interface Simulation {
   simulatorVersion: string;
   simulatorDigest: string;
   cpus: number;
-  memory: number; // GB
-  maxTime: number; // min
+  memory: number /* GB */;
+  maxTime: number /* min */;
   envVars: EnvironmentVariable[];
   purpose: Purpose;
   status: SimulationRunStatus;
