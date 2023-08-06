@@ -1,8 +1,9 @@
 @import 'biosimulations-colors';
 
-.home-container {
+.home-container-simulators {
   height: fit-content;
   width: auto;
+  padding-top: 3rem;
 
   @media (max-width: 768px) {
     height: 100%;
@@ -45,16 +46,12 @@
   }
 }
 
-.home-footer-container biosimulations-logo {
-  background-color: var(--accent-color);
-}
-
-.description {
+.description-simulators {
   margin-left: auto;
   margin-right: auto;
   width: 50%;
   font-weight: bold;
   font-size: 32px;
-  background-image: url('/assets/images/backgrounds/grey-3.png');
   padding: 3rem;
+  background-image: url('/assets/images/backgrounds/grey-3.png');
 }

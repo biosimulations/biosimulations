@@ -1,8 +1,9 @@
 @import 'biosimulations-colors';
 
-.home-container {
+.home-container-run {
   height: fit-content;
   width: auto;
+  padding-top: 3rem;
 
   @media (max-width: 768px) {
     height: 100%;
@@ -43,4 +44,14 @@
   .more-information {
     color: #186fb7;
   }
+}
+
+.description-run {
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  font-weight: bold;
+  font-size: 32px;
+  padding: 3rem;
+  background-image: url('/assets/images/backgrounds/grey-3.png');
 }
