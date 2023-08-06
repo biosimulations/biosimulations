@@ -36,10 +36,6 @@
     </div>
     <div class="content">
       <ng-content select="router-outlet"></ng-content>
-      <!-- Sticky Footer Placeholder -->
-      <!-- <div class="app-footer">
-        Footer
-      </div> -->
     </div>
     <biosimulations-notice *ngIf="showNews" [appName]="appName" type="news" [version]="newsVersion" [isError]="false">
       <ng-content select="#news"></ng-content>

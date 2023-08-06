@@ -35,7 +35,7 @@
   }
 
   .sidenav-menu-topbar {
-    color: green; //mat.get-color-from-palatte($theme-primary);
+    color: green;
   }
 
   .sidenav-menu ::ng-deep .mat-expansion-panel:first-of-type {
@@ -90,7 +90,7 @@
   padding: 0;
   min-height: calc(
     100vh - 64px - 28px - 0.5rem
-  ); // TODO: substract an additional 52px when the privacy notice is visible
+  ); /* TODO: substract an additional 52px when the privacy notice is visible */
 }
 
 @media screen and (max-width: 959px) {
@@ -99,7 +99,7 @@
   }
 
   .content {
-    min-height: calc(100vh - 56px); // TODO: substract an additional 52px when the privacy notice is visible
+    min-height: calc(100vh - 56px); /* TODO: substract an additional 52px when the privacy notice is visible */
   }
 }
 

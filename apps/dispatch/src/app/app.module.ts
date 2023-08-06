@@ -90,7 +90,7 @@ routes.forEach((route: Route): void => {
     ScrollService,
     HealthService,
     {
-      // Requires type declarations provided in the highlight.d.ts file in src
+      /* Requires type declarations provided in the highlight.d.ts file in src */
       provide: HIGHLIGHT_OPTIONS,
       useValue: {
         coreLibraryLoader: () => import('highlight.js/lib/core'),
