@@ -1,7 +1,7 @@
 <div class="container">
-  <biosimulations-icon *ngIf="icon" [icon]="icon"></biosimulations-icon>
+  <biosimulations-icon *ngIf="icon" [icon]="icon" [style.color]="iconColor"></biosimulations-icon>
   <div class="heading">
-    <a>{{ heading }}</a>
+    <a [href]="link">{{ heading }}</a>
   </div>
   <div
     [ngClass]="{
