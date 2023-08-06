@@ -1,5 +1,35 @@
 # Changelog
 
+## [9.45.0](https://github.com/biosimulations/biosimulations/compare/v9.44.0...v9.45.0) (2023-08-06)
+
+
+### Bug Fixes
+
+* added block comment and removed console log with template literal ([a1dc8f4](https://github.com/biosimulations/biosimulations/commit/a1dc8f4c66305ac77f35db5eea66cbc1e4fce91c))
+* added correct internal routing to component ([29e59b9](https://github.com/biosimulations/biosimulations/commit/29e59b9b7758d287c3de72e49e171c8b115031d9))
+* added generic font family to appease CI ([ca5544f](https://github.com/biosimulations/biosimulations/commit/ca5544f64fbd4d3fed42231213f7f4c04810cceb))
+* added home container declarations and styles for CI ([3692f4a](https://github.com/biosimulations/biosimulations/commit/3692f4ac4177f83ea7609afef4a83eafb832a422))
+* adjusted link directives and removed unused components ([03addba](https://github.com/biosimulations/biosimulations/commit/03addba4f551f0062141a8f59dbaf84da810c3d1))
+* implemented mat card teaser sections and cleanup to appease CI ([ae83650](https://github.com/biosimulations/biosimulations/commit/ae83650bd9bdc09ac3dfcf6ae0942104e0d1286d))
+* removed duplicate css declaration ([e23da9f](https://github.com/biosimulations/biosimulations/commit/e23da9f070cb320b18679523cdc47ef3657e5155))
+* removed duplicate declaration and added standardized font size ([8f8dabb](https://github.com/biosimulations/biosimulations/commit/8f8dabb3812ccd92708f6a0bb3757f3d0e656f42))
+* removed duplicate topbar declaration ([28ea40f](https://github.com/biosimulations/biosimulations/commit/28ea40f869e7311ebbeb8f876040495d1a0122eb))
+* removed single line comments and replaced non repo imports ([ed4b257](https://github.com/biosimulations/biosimulations/commit/ed4b257df62a8d54505d9cf2aa2845ea7fba9b45))
+* replaced single line comments with block comments and removed some ([0a84683](https://github.com/biosimulations/biosimulations/commit/0a846830261f76de2062076db7728062071615fb))
+* **ui:** added container for CI and adjusted tabular data button ([339e890](https://github.com/biosimulations/biosimulations/commit/339e890ddb0bccb669fb3c672005d462439d138b))
+* **ui:** implemented builtin default theme with css declarations in dis ([3026e59](https://github.com/biosimulations/biosimulations/commit/3026e5947d0ff9b253c754b52da15acc9f83e394))
+* **ui:** implemented default angular themes in simulators app ([f58e711](https://github.com/biosimulations/biosimulations/commit/f58e71138b8b3997e28b63cd5b816491ec70a13a))
+* **ui:** implemented explicit setter for biosimulations icon component ([c82b802](https://github.com/biosimulations/biosimulations/commit/c82b80224c35f61aeed09f0612e2e691de07437c))
+
+
+### Features
+
+* **ui:** added different home teaser images and correct paths ([9f7bd67](https://github.com/biosimulations/biosimulations/commit/9f7bd678689250b9a4f30e105f7badf3546cd850))
+* **ui:** added footer section and parent container to dispatch home ([a71c91c](https://github.com/biosimulations/biosimulations/commit/a71c91c1ac7e337fe53d7bc99b6703b58d6ae45f))
+* **ui:** added tab page header and container with logic and styles ([1718953](https://github.com/biosimulations/biosimulations/commit/1718953ad02a4d106c1b5470ce61c273b0501493))
+* **ui:** added updated home carousel images to local assets dir ([f2bc8f4](https://github.com/biosimulations/biosimulations/commit/f2bc8f4f24f978c2bfd1fc185b6aa11ffa213e13))
+* **ui:** implemented footer section in simulators home component ([3ca11cf](https://github.com/biosimulations/biosimulations/commit/3ca11cfab557b98442ff635b32b94e7167dda361))
+
 ## [9.44.0](https://github.com/biosimulations/biosimulations/compare/v9.43.1...v9.44.0) (2023-08-04)
 
 
