@@ -58,20 +58,21 @@
                 </p>
 
                 <p class="alert">
-                  Although metadata can be described across multiple OMEX Metadata files, this form is limited to validating
-                  a single OMEX Metadata file. As a result, individual files which only contain part of the metadata about a
-                  COMBINE/OMEX archive may fail this validation when not validated together with additional metadata files
-                  that together meet BioSimulations' minimal metadata conventions. In contrast, the validation of simulation
-                  projects, evaluates BioSimulations' minimal metadata conventions considering metadata in all OMEX Metadata
-                  files in the COMBINE/OMEX archive for the project. Click
+                  Although metadata can be described across multiple OMEX Metadata files, this form is limited to
+                  validating a single OMEX Metadata file. As a result, individual files which only contain part of the
+                  metadata about a COMBINE/OMEX archive may fail this validation when not validated together with
+                  additional metadata files that together meet BioSimulations' minimal metadata conventions. In
+                  contrast, the validation of simulation projects, evaluates BioSimulations' minimal metadata
+                  conventions considering metadata in all OMEX Metadata files in the COMBINE/OMEX archive for the
+                  project. Click
                   <a [routerLink]="['..', 'validate-project']">here</a> to holistically validate mutliple OMEX Metadata
                   files in a COMBINE/OMEX archive.
                 </p>
 
                 <p class="alert">
                   This form cannot validate thumbnail images described in OMEX Metadata files. More comprehensive
-                  validation, including of linked image files, is available through the validation of simulation projects.
-                  Click
+                  validation, including of linked image files, is available through the validation of simulation
+                  projects. Click
                   <a [routerLink]="['..', 'validate-project']">here</a> to more comprehensively validate OMEX Metadata
                   files.
                 </p>
@@ -87,7 +88,8 @@
                 >Currently, OMEX Metadata file uploads are limited to 256 MB. Larger files must be validated via
                 URLs.</mat-error
               >
-              <mat-error *ngIf="(submitPushed || metadataUrlControl.touched) && formGroup.hasError('url', 'metadataUrl')"
+              <mat-error
+                *ngIf="(submitPushed || metadataUrlControl.touched) && formGroup.hasError('url', 'metadataUrl')"
                 >Please enter a URL for a OMEX Metadata files.</mat-error
               >
             </div>
@@ -103,7 +105,9 @@
               <div class="form-section-title">Format and minimum information convention</div>
               <div class="form-section-subtitle">
                 Indicate the format of the OMEX Metadata
-                <a href="https://sys-bio.github.io/libOmexMeta/"><biosimulations-icon icon="link"></biosimulations-icon></a>
+                <a href="https://sys-bio.github.io/libOmexMeta/"
+                  ><biosimulations-icon icon="link"></biosimulations-icon
+                ></a>
                 file and the information convention that should be used to validate it.
               </div>
             </div>
@@ -135,9 +139,11 @@
                     >Select a minimum information convention to use to validate the metadata in the archive</mat-label
                   >
                   <mat-select required formControlName="omexMetadataSchema">
-                    <mat-option *ngFor="let omexMetadataSchema of omexMetadataSchemas" [value]="omexMetadataSchema.value">{{
-                      omexMetadataSchema.label
-                    }}</mat-option>
+                    <mat-option
+                      *ngFor="let omexMetadataSchema of omexMetadataSchemas"
+                      [value]="omexMetadataSchema.value"
+                      >{{ omexMetadataSchema.label }}</mat-option
+                    >
                   </mat-select>
                   <mat-hint>
                     <p>Select a minimum information convention to use to validate the OMEX Metadata file.</p>
@@ -181,5 +187,5 @@
         </div>
       </form>
     </mat-card-content>
-</mat-card>
+  </mat-card>
 </biosimulations-page>

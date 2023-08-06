@@ -242,7 +242,8 @@
                     <biosimulations-icon icon="info"></biosimulations-icon>
                     <a
                       [href]="
-                        simulator?.cli?.package?.startsWith('http://') || simulator?.cli?.package?.startsWith('https://')
+                        simulator?.cli?.package?.startsWith('http://') ||
+                        simulator?.cli?.package?.startsWith('https://')
                           ? simulator?.cli?.package
                           : 'https://pypi.org/project/' + simulator?.cli?.package + '/'
                       "
@@ -251,7 +252,10 @@
                       class="text">
                       <span
                         *ngIf="
-                          !(simulator?.cli?.package?.startsWith('http://') || simulator?.cli?.package?.startsWith('https://'))
+                          !(
+                            simulator?.cli?.package?.startsWith('http://') ||
+                            simulator?.cli?.package?.startsWith('https://')
+                          )
                         "
                         >{{ simulator?.cli?.packageRepository }}:</span
                       >{{ simulator?.cli?.package }}
@@ -408,12 +412,8 @@
             <!-- End python Card -->
 
             <!-- Start other interfaces card -->
-            <mat-card
-              *ngIf="simulator.otherInterfaceTypes?.length"
-              class="content-card other">
-              <mat-card-header class="content-subcard-header other">
-                Other interfaces
-              </mat-card-header>
+            <mat-card *ngIf="simulator.otherInterfaceTypes?.length" class="content-card other">
+              <mat-card-header class="content-subcard-header other"> Other interfaces </mat-card-header>
               <mat-card-content class="content-card-content other">
                 <ul class="icon-list">
                   <li *ngFor="let interfaceType of simulator.otherInterfaceTypes">
@@ -426,12 +426,8 @@
             <!-- End other interfaces card -->
 
             <!-- Start supported os card -->
-            <mat-card
-              *ngIf="simulator.supportedOperatingSystemTypes?.length"
-              class="content-card os">
-              <mat-card-header class="content-subcard-header os">
-                Supported operating systems
-              </mat-card-header>
+            <mat-card *ngIf="simulator.supportedOperatingSystemTypes?.length" class="content-card os">
+              <mat-card-header class="content-subcard-header os"> Supported operating systems </mat-card-header>
               <mat-card-content class="content-card-content os">
                 <ul class="icon-list">
                   <li *ngFor="let supportedOperatingSystemType of simulator.supportedOperatingSystemTypes">
@@ -444,12 +440,8 @@
             <!-- End supported os card -->
 
             <!-- Start supported lang card -->
-            <mat-card
-              *ngIf="simulator.supportedProgrammingLanguages?.length"
-              class="content-card lang">
-              <mat-card-header class="content-subcard-header lang">
-                Supported programming languages
-              </mat-card-header>
+            <mat-card *ngIf="simulator.supportedProgrammingLanguages?.length" class="content-card lang">
+              <mat-card-header class="content-subcard-header lang"> Supported programming languages </mat-card-header>
               <mat-card-content class="content-card-content lang">
                 <ul class="icon-list">
                   <li *ngFor="let supportedProgrammingLanguage of simulator.supportedProgrammingLanguages">
@@ -463,9 +455,7 @@
 
             <!-- Start curation card -->
             <mat-card class="content-card curation">
-              <mat-card-header class="content-subcard-header curation">
-                Curation status
-              </mat-card-header>
+              <mat-card-header class="content-subcard-header curation"> Curation status </mat-card-header>
               <mat-card-content class="content-card-content curation">
                 {{ simulator.curationStatus }}
               </mat-card-content>
@@ -474,9 +464,7 @@
 
             <!-- Start license card -->
             <mat-card *ngIf="simulator.licenseName" class="content-card lic">
-              <mat-card-header class="content-subcard-header lic">
-                License
-              </mat-card-header>
+              <mat-card-header class="content-subcard-header lic"> License </mat-card-header>
               <mat-card-content class="content-card-content lic">
                 <ul class="icon-list">
                   <li>
@@ -492,9 +480,7 @@
 
             <!-- Start more info card -->
             <mat-card *ngIf="simulator?.urls?.length" class="content-card info">
-              <mat-card-header class="content-subcard-header info">
-                More info
-              </mat-card-header>
+              <mat-card-header class="content-subcard-header info"> More info </mat-card-header>
               <mat-card-content class="content-card-content info">
                 <ul class="icon-list">
                   <li *ngFor="let url of simulator.urls">
@@ -508,9 +494,7 @@
 
             <!-- Start cross ref card -->
             <mat-card *ngIf="simulator.identifiers?.length" class="content-card references">
-              <mat-card-header class="content-subcard-header references">
-                Cross references
-              </mat-card-header>
+              <mat-card-header class="content-subcard-header references"> Cross references </mat-card-header>
               <mat-card-content class="content-card-content references">
                 <ul class="identifiers icon-list">
                   <li *ngFor="let identifier of simulator.identifiers">
@@ -524,14 +508,14 @@
 
             <!-- Start funding card -->
             <mat-card *ngIf="simulator.funding?.length" class="content-card funding">
-              <mat-card-header class="content-subcard-header funding">
-                Funding
-              </mat-card-header>
+              <mat-card-header class="content-subcard-header funding"> Funding </mat-card-header>
               <mat-card-content class="content-subcard-header funding">
                 <ul class="funding icon-list">
                   <li *ngFor="let funding of simulator.funding">
                     <biosimulations-icon icon="funding"></biosimulations-icon>
-                    <a [href]="funding.funderUrl | async" rel="noopener" target="_blank">{{ funding.funderName | async }}</a
+                    <a [href]="funding.funderUrl | async" rel="noopener" target="_blank">{{
+                      funding.funderName | async
+                    }}</a
                     ><span *ngIf="funding.grant"
                       >:
                       <a [href]="funding.url" rel="noopener" target="_blank" *ngIf="funding.url; else noGrantUrl">{{
@@ -547,9 +531,7 @@
 
             <!-- Start reg card -->
             <mat-card class="content-card reg" heading="Registration">
-              <mat-card-header class="content-subcard-header reg">
-                Registration
-              </mat-card-header>
+              <mat-card-header class="content-subcard-header reg"> Registration </mat-card-header>
               <mat-card-content class="content-card-content registration">
                 <ul class="icon-list">
                   <li>
@@ -571,18 +553,19 @@
     </div>
 
     <!-- Start Alogrithms Tab -->
-    <biosimulations-tab-page-tab urlHashFragment="algorithms" heading="Algorithms" icon="simulator" [partialWidth]="false">
+    <biosimulations-tab-page-tab
+      urlHashFragment="algorithms"
+      heading="Algorithms"
+      icon="simulator"
+      [partialWidth]="false">
       <ng-container *ngIf="simulator | async as simulator">
         <ng-container *ngIf="simulator.algorithms | async as algorithms">
           <ng-container *ngIf="algorithms.length > 0; else noAlgorithms">
-
             <!-- Simulator Documentation -->
             <mat-card class="content-card alg-card docs">
               <mat-card-content>
                 <ng-container id="sideBar" *ngIf="simulatorDocumentationUrl">
-                  <h3>
-                    More Info
-                  </h3>
+                  <h3>More Info</h3>
                   <div class="hanging-indent">
                     <a [href]="simulatorDocumentationUrl" rel="noopener" target="_blank">
                       <biosimulations-icon icon="link"></biosimulations-icon>
@@ -812,7 +795,8 @@
                               </ul>
                             </li>
                             <ng-template #notKisaoEnum>
-                              <li *ngIf="parameter.formattedRange !== null && parameter.type === 'string'; else notEnum">
+                              <li
+                                *ngIf="parameter.formattedRange !== null && parameter.type === 'string'; else notEnum">
                                 Supported values:
                                 <ul>
                                   <li *ngFor="let rangeEl of parameter.formattedRange">
@@ -937,7 +921,9 @@
                       </li>
                     </ul>
                     <ng-template #noSupportedInterfaces>
-                      <p class="info-message">Information about which interfaces support the algorithm is not available.</p>
+                      <p class="info-message">
+                        Information about which interfaces support the algorithm is not available.
+                      </p>
                     </ng-template>
 
                     <p class="subsection-heading no-bottom-margin">Dependencies</p>
@@ -984,9 +970,7 @@
       <ng-container *ngIf="simulator | async as simulator">
         <ng-container *ngIf="simulator.versions as versions">
           <mat-card class="versions-table-container">
-            <mat-card-header class="content-subcard-header">
-              Versions
-            </mat-card-header>
+            <mat-card-header class="content-subcard-header"> Versions </mat-card-header>
             <mat-card-content class="content-card-content">
               <biosimulations-responsive-table
                 [columns]="versionsColumns"
@@ -1020,9 +1004,7 @@
           <div contentsHeading="" alwaysFixed="calc(64px + 32px + 32px + 2rem)">
             <ng-container id="sideBar">
               <mat-card>
-                <mat-card-header class="content-subcard-header">
-                  Summary
-                </mat-card-header>
+                <mat-card-header class="content-subcard-header"> Summary </mat-card-header>
                 <ul>
                   <li>
                     Test suite version:

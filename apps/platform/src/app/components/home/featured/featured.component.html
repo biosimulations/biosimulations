@@ -30,10 +30,7 @@
             align="end">
             <!-- Case: Using internal routing -->
             <div *ngIf="project.useInternalRouting; else useExternalRouting">
-              <a
-                class="click-image-eventspace internal"
-                target="_blank"
-                [routerLink]="project.routingLink">
+              <a class="click-image-eventspace internal" target="_blank" [routerLink]="project.routingLink">
                 <button mat-button [style.background-color]="project.headerColor" class="description-teaser-content">
                   {{ project.descriptionTeaser }}
                 </button>
@@ -46,7 +43,10 @@
                 target="_blank"
                 [href]="project.routingLink"
                 style="font-family: Roboto, sans-serif">
-                <button class="description-teaser-content text-header" mat-button [style.background-color]="project.headerColor">
+                <button
+                  class="description-teaser-content text-header"
+                  mat-button
+                  [style.background-color]="project.headerColor">
                   {{ project.descriptionTeaser }}
                 </button>
               </a>
