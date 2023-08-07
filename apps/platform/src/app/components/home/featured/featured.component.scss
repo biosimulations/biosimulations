@@ -175,10 +175,6 @@ $transition: 0.3s ease-in-out;
   display: inline;
 }
 
-.mobile-description-container {
-  margin-top: 40px;
-}
-
 mat-card-header {
   color: $text;
 
@@ -195,4 +191,31 @@ button:not(.nav-button) {
   font-weight: 700;
   font-size: 18px;
   color: $text;
+}
+
+.feature-card-header-mobile {
+  border-radius: 4px 4px 0.5px 0.5px;
+  padding-bottom: 5px;
+  border: 0.5px solid inherit;
+  border-radius: 3px;
+  border-bottom: none;
+  width: auto;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.inner {
+  height: fit-content;
+  width: fit-content;
+  border: 3px solid inherit;
+  border-radius: 4px;
+}
+
+.checkit {
+  color: $text;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

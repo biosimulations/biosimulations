@@ -93,20 +93,19 @@
         class="feature-card mobile"
         *ngIf="i >= startIndex && i <= endIndex"
         [fxFlex]="70 / numCards"
-        style="background-color: #ff9800">
-        <a [href]="project.routingLink" target="_blank" class="description-teaser-container mobile">
-          <mat-card-header class="mobile-heading-container">
-            <button mat-flat-button class="description-teaser-content mobile">
-              <span class="mobile-button-content">
-                {{ project.mobileTitle || project.title }}
-              </span>
-            </button>
+        [style.background-color]="project.headerColor"
+        [style.background-image]="'url(' + project.image + ')'">
+        <a [href]="project.routingLink" target="_blank">
+          <mat-card-header class="feature-card-header-mobile" [style.background-color]="project.headerColor">
+            <div class="inner">
+            {{ project.mobileTitle || project.title }}
+          </div>
           </mat-card-header>
-          <mat-card-content class="mobile-description-container">
-            <span class="mobile-description">
+          <mat-card-footer class="mobile-card-footer">
+            <button mat-flat-button class="checkit" [style.background-color]="project.headerColor">
               {{ project.descriptionTeaser }}
-            </span>
-          </mat-card-content>
+            </button>
+          </mat-card-footer>
         </a>
       </mat-card>
     </ng-container>
