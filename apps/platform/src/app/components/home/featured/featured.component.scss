@@ -34,7 +34,6 @@ $trans: 0.3s ease-in-out;
   background-color: var(--accent-lighter-color);
   margin: 0 5px;
   cursor: pointer;
-  transition-property: all;
   transition: background-color $trans;
 
   &.active {
