@@ -49,11 +49,12 @@ strong {
 
 .code-window {
   margin-top: 3rem;
-  width: 100%;
+  width: 1500px;
+  height: 100%;
 }
 
 .code-window span {
-  font-weight: 500;
+  font-weight: 600;
   font-size: 30px;
   padding-bottom: 2rem;
 }
@@ -62,8 +63,15 @@ strong {
   margin-top: 1rem;
 }
 
+pre,
+code {
+  background-color: black;
+}
+
 .code-window code {
   font-size: larger;
+  font-weight: 500;
+  color: white;
 }
 
 .example-header {

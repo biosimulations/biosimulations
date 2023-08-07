@@ -10,6 +10,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 export class HomeComponent implements OnInit {
   public isMobileSimulators = false;
   public mobileLink?: string;
+  public darkMode = false;
 
   public constructor(public config: ConfigService, private observer: BreakpointObserver) {
     /* Constructor is empty */
@@ -29,5 +30,9 @@ export class HomeComponent implements OnInit {
 
   public navigateToMobileLink(mobileLink: string): void {
     window.open(mobileLink, '_blank');
+  }
+
+  public toggleDarkMode(): void {
+    this.darkMode = !this.darkMode;
   }
 }

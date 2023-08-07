@@ -55,55 +55,89 @@
         Quick Start
       </mat-card-header>
       <mat-card-content>
-        <div class="code-window cli">
-          <span>You can easily run a BioSimulator from the command-line in as little as 3 easy steps:</span>
-          <p>
-            1. Install the BioSimulator you want with pip. A full list of BioSimulators packages can be found <a [routerLink]="'/simulators'">here.</a>
-          </p>
-          <pre><code>
-            pip install biosimulators-tellurium
-          </code></pre>
-          <p>
-            2. Run the following from the command line, passing an OMEX filepath as -i and the output dir as -o
-          </p>
-          <pre><code>
-            biosimulators-tellurium \
-              -i ~/experiments/my-file.omex \
-              -o ~/Desktop/results
-          </code></pre>
-          <p>
-            3. That is it! Go to the directory and view your results.
-          <pre><code>
-            cd ~/Desktop/results
-          </code></pre>
-        </div>
+        <mat-tab-group preserveContent="true">
+          <mat-tab label="Run from CLI with Python">
+            <div class="code-window cli">
+              <span>You can easily run a BioSimulator from the command-line in as little as 3 easy steps:</span>
+              <p>
+                1. Install the BioSimulator you want with pip. A full list of BioSimulators packages can be found <a [routerLink]="'/simulators'">here.</a>
+              </p>
+              <pre><code>
+                % pip install biosimulators-tellurium
+              </code></pre>
+              <p>
+                2. Run the following from the command line, passing an OMEX filepath as -i and the output dir as -o
+              </p>
+              <pre><code>
+                % biosimulators-tellurium \
+                  -i ~/experiments/my-file.omex \
+                  -o ~/Desktop/results
+              </code></pre>
+              <p>
+                3. That is it! Go to the directory and view your results.
+              <pre><code>
+                % cd ~/Desktop/results
+              </code></pre>
+            </div>
+          </mat-tab>
 
-        <div class="code-window api">
-          <span>You can also easily run a simulation programmatically with Python:</span>
-          <p>
-            1. Import the desired BioSimulator <a [routerLink]="'/simulators'">here.</a>
-          </p>
-          <pre><code>
-            import biosimulators_tellurium as bt
-          </code></pre>
-          <p>
-            2. Define the paths to both your OMEX file and desired output destination:
-          </p>
-          <pre><code>
-            omex = '/content/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex'
-          </code></pre>
-          <pre><code>
-            results_dir = '/content/my_results'
-          </code></pre>
-          <p>
-            3. Run the simulation and get the results and log. Print the results:
-          <pre><code>
-            results, log = bt.exec_sedml_docs_in_combine_archive(omex, results_dir, config)
-            print(results)
-            print(log)
-          </code></pre>
-        </div>
-       
+          <mat-tab label="Run from CLI with Docker">
+            <div class="code-window docker">
+              <span>You can easily run the same BioSimulator simulation with Docker:</span>
+              <pre><code>
+                docker pull \
+                    ghcr.io/biosimulators/tellurium:2.2.8
+              </code></pre>
+              <pre><code>
+                docker run \
+                    ghcr.io/biosimulators/tellurium:2.2.8 \
+                    -i /path/to/archive.omex \
+                    -o /path/to/outputs
+              </code></pre>
+            </div>
+          </mat-tab>
+        
+        
+          <mat-tab label="Run Programmatically">
+            <div class="code-window api">
+              <span>You can also easily run a simulation programmatically with Python:</span>
+              <p>
+                1. Import the desired BioSimulator <a [routerLink]="'/simulators'">here.</a>
+              </p>
+              <pre><code>
+                import biosimulators_tellurium as bt
+              </code></pre>
+              <p>
+                2. Define the paths to both your OMEX file and desired output destination:
+              </p>
+              <pre><code>
+                omex = '/content/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex'
+              </code></pre>
+              <pre><code>
+                results_dir = '/content/my_results'
+              </code></pre>
+              <p>
+                3. Run the simulation and get the results and log. Print the results:
+              <pre><code>
+                results, log = bt.exec_sedml_docs_in_combine_archive(omex, results_dir, config)
+                print(results)
+                print(log)
+              </code></pre>
+              <p>
+                This is the full implementation:
+              </p>
+              <pre><code>
+                import biosimulators_tellurium as bt
+
+                omex = '/content/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex'
+                results_dir = '/content/my_results'
+                results, log = bt.exec_sedml_docs_in_combine_archive(omex, results_dir, config)
+                print(results)
+                print(log)
+              </code></pre>
+            </div>
+          </mat-tab>
+        </mat-tab-group>  
       </mat-card-content>
     </mat-card>
   </div>
