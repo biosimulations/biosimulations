@@ -83,4 +83,9 @@ code {
   font-weight: 700;
   font-size: 30px;
   background-color: var(--accent-color);
+  overflow: hidden;
+}
+
+#amp {
+  color: var(--tertiary-color);
 }

@@ -58,38 +58,38 @@
         <mat-tab-group preserveContent="true">
           <mat-tab label="Run from CLI with Python">
             <div class="code-window cli">
-              <span>You can easily run a BioSimulator from the command-line in as little as 3 easy steps:</span>
+              <span class="code-head cli">You can easily run a BioSimulator from the command-line in as little as 3 easy steps:</span>
               <p>
                 1. Install the BioSimulator you want with pip. A full list of BioSimulators packages can be found <a [routerLink]="'/simulators'">here.</a>
               </p>
               <pre><code>
-                % pip install biosimulators-tellurium
+                <strong id="amp">%</strong> pip install biosimulators-tellurium
               </code></pre>
               <p>
                 2. Run the following from the command line, passing an OMEX filepath as -i and the output dir as -o
               </p>
               <pre><code>
-                % biosimulators-tellurium \
+                <strong id="amp">%</strong> biosimulators-tellurium \
                   -i ~/experiments/my-file.omex \
                   -o ~/Desktop/results
               </code></pre>
               <p>
                 3. That is it! Go to the directory and view your results.
               <pre><code>
-                % cd ~/Desktop/results
+                <strong id="amp">%</strong> cd ~/Desktop/results
               </code></pre>
             </div>
           </mat-tab>
 
           <mat-tab label="Run from CLI with Docker">
             <div class="code-window docker">
-              <span>You can easily run the same BioSimulator simulation with Docker:</span>
+              <span class="code-head docker">You can easily run the same BioSimulator simulation with Docker:</span>
               <pre><code>
-                docker pull \
+                <strong id="amp">%</strong> docker pull \
                     ghcr.io/biosimulators/tellurium:2.2.8
               </code></pre>
               <pre><code>
-                docker run \
+                <strong id="amp">%</strong> docker run \
                     ghcr.io/biosimulators/tellurium:2.2.8 \
                     -i /path/to/archive.omex \
                     -o /path/to/outputs
@@ -100,7 +100,7 @@
         
           <mat-tab label="Run Programmatically">
             <div class="code-window api">
-              <span>You can also easily run a simulation programmatically with Python:</span>
+              <span class="code-head api">You can also easily run a simulation programmatically with Python:</span>
               <p>
                 1. Import the desired BioSimulator <a [routerLink]="'/simulators'">here.</a>
               </p>
