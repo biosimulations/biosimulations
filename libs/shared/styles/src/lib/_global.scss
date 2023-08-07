@@ -1518,18 +1518,15 @@ sub {
   }
 }
 
-.mobile-parent-container {
-  height: 100%;
+/* App Homepage Stylings */
+.home-container {
+  height: fit-content;
   width: 100%;
-  text-align: center;
   padding-top: 3rem;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
 
   @media (max-width: 768px) {
-    height: 280px;
+    height: 100%;
+    width: 100%;
   }
 }
 
@@ -1555,6 +1552,7 @@ sub {
   margin-right: auto;
 }
 
+/* Mobile Stylings */
 .subsection-mobile {
   justify-content: center;
 }
@@ -1571,16 +1569,5 @@ sub {
 
   @media (max-width: 768px) {
     height: 280px;
-  }
-}
-
-.home-container {
-  height: fit-content;
-  width: 100%;
-  padding-top: 3rem;
-
-  @media (max-width: 768px) {
-    height: 100%;
-    width: 100%;
   }
 }
