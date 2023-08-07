@@ -2,7 +2,7 @@
 
 $primary: var(--primary-color);
 $text: white !important;
-$transition: 0.3s ease-in-out;
+$trans: 0.3s ease-in-out;
 
 .container {
   height: 100%;
@@ -35,7 +35,7 @@ $transition: 0.3s ease-in-out;
   margin: 0 5px;
   cursor: pointer;
   transition-property: all;
-  transition: $transition;
+  transition: $trans;
 
   &.active {
     background-color: var(--tertiary-color);
@@ -71,7 +71,7 @@ $transition: 0.3s ease-in-out;
 
   &:hover {
     opacity: 0.33;
-    transition: opacity $transition;
+    transition: opacity $trans;
   }
 
   @media (max-width: 768px) {
@@ -118,14 +118,14 @@ $transition: 0.3s ease-in-out;
     border-radius: 4px;
     background-color: $primary;
     color: $text;
-    transition: background-color $transition;
+    transition: background-color $trans;
     justify-content: space-around center;
   }
 }
 
 .feature-card:hover button {
   background-color: var(--accent-darker-color) !important;
-  transition: background-color $transition;
+  transition: background-color $trans;
 }
 
 .verbose-description-card-container {
@@ -140,7 +140,7 @@ $transition: 0.3s ease-in-out;
   background-color: inherit;
 
   &:hover {
-    transition: background-color $transition;
+    transition: background-color $trans;
   }
 }
 
@@ -197,7 +197,6 @@ button:not(.nav-button) {
   border-radius: 4px 4px 0.5px 0.5px;
   padding-bottom: 5px;
   border: 0.5px solid inherit;
-  border-radius: 3px;
   border-bottom: none;
   width: auto;
   font-weight: 700;
