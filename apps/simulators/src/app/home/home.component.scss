@@ -50,7 +50,7 @@ strong {
 .code-window {
   margin-top: 3rem;
   width: 1500px;
-  height: 100%;
+  height: fit-content;
 }
 
 .code-window span {
@@ -98,7 +98,7 @@ biosimulations-icon {
   width: fit-content;
   background-color: var(--accent-color);
   border-radius: 4px;
-  padding: 1rem;
+  padding: 2rem;
   display: flex;
   margin-right: auto;
   margin-left: auto;

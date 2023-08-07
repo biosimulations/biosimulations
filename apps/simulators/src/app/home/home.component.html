@@ -56,7 +56,7 @@
         Quick Start
       </mat-card-header>
       <mat-card-content>
-        <mat-tab-group preserveContent="true">
+        <mat-tab-group>
           <mat-tab>
             <ng-template mat-tab-label>
               Run from CLI with Python
@@ -148,6 +148,16 @@
                 print(results)
                 print(log)
               </code></pre>
+            </div>
+          </mat-tab>
+
+          <mat-tab>
+            <ng-template mat-tab-label>
+              Run in your browser with Binder
+              <biosimulations-icon icon="python"></biosimulations-icon>
+            </ng-template>
+            <div class="code-window binder">
+              A fully interactive Binder tutorial is available <a href="https://mybinder.org/v2/gh/biosimulators/Biosimulators_tutorials/HEAD">here.</a>
             </div>
           </mat-tab>
         </mat-tab-group>  
