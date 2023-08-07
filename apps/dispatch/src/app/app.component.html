@@ -1,4 +1,5 @@
 <biosimulations-navigation
+  *ngIf="!isMobileDispatch; else mobileDispatch"
   [appName]="config.appName"
   [appNameParts]="config.appNameParts"
   [logo]="config.logo"
@@ -84,3 +85,18 @@
 
   <router-outlet></router-outlet>
 </biosimulations-navigation>
+
+<ng-template #mobileDispatch>
+  <biosimulations-navigation
+    [appName]="config.appName"
+    [appNameParts]="config.appNameParts"
+    [logo]="config.logo"
+    [privacyPolicyVersion]="config.privacyPolicyVersion"
+    [newsVersion]="1"
+    [showNews]="false"
+    [healthy]="healthy$ | async">
+    <biosimulations-topbar-menu></biosimulations-topbar-menu>
+    <ng-container id="news"> Under Construction </ng-container>
+    <router-outlet></router-outlet>
+  </biosimulations-navigation>
+</ng-template>
