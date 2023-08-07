@@ -1534,7 +1534,8 @@ sub {
 }
 
 .home-description {
-  width: 50%;
+  width: 94%;
+  height: 100%;
   font-weight: bold;
   font-size: 32px;
 }
@@ -1575,7 +1576,7 @@ sub {
 
 .home-container {
   height: fit-content;
-  width: auto;
+  width: 100%;
   padding-top: 3rem;
 
   @media (max-width: 768px) {

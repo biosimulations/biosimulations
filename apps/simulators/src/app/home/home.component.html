@@ -1,6 +1,7 @@
 <div *ngIf="!isMobileSimulators; else mobileViewSimulatorsHome" class="home-container simulators">
   <mat-card class="home-description simulators">
     <mat-card-content>
+      <biosimulations-logo-image [useSimulatorsLogo]="true" class="logo"></biosimulations-logo-image>
       <biosimulations-home-section [columns]="3">
         <ng-container id="heading">
           <span>
@@ -56,11 +57,15 @@
       </mat-card-header>
       <mat-card-content>
         <mat-tab-group preserveContent="true">
-          <mat-tab label="Run from CLI with Python">
+          <mat-tab>
+            <ng-template mat-tab-label>
+              Run from CLI with Python
+              <biosimulations-icon icon="python"></biosimulations-icon>
+            </ng-template>
             <div class="code-window cli">
               <span class="code-head cli">You can easily run a BioSimulator from the command-line in as little as 3 easy steps:</span>
               <p class="step1 cli">
-                1. Install the BioSimulator you want with pip. A full list of BioSimulators packages can be found <a [routerLink]="'/simulators'">here.</a>
+                1. Install the BioSimulator you want with pip. Here we will use <code style="background-color: inherit; color: black">biosimulators-tellurium</code>. A full list of BioSimulators packages can be found <a [routerLink]="'/simulators'">here.</a>
               </p>
               <pre class="code-a"><code>
                 <strong id="amp">%</strong> pip install biosimulators-tellurium
@@ -81,7 +86,11 @@
             </div>
           </mat-tab>
 
-          <mat-tab label="Run from CLI with Docker">
+          <mat-tab>
+            <ng-template mat-tab-label>
+              Run from CLI with Docker
+              <biosimulations-icon icon="docker"></biosimulations-icon>
+            </ng-template>
             <div class="code-window docker">
               <span class="code-head docker">You can easily run the same BioSimulator simulation with Docker:</span>
               <pre><code>
@@ -98,11 +107,15 @@
           </mat-tab>
         
         
-          <mat-tab label="Run Programmatically">
+          <mat-tab>
+            <ng-template mat-tab-label>
+              Run programmatically with Python
+              <biosimulations-icon icon="python"></biosimulations-icon>
+            </ng-template>
             <div class="code-window api">
-              <span class="code-head api">You can also easily run a simulation programmatically with Python:</span>
+              <span class="code-head api">You can also easily run a BioSimulator programmatically with Python:</span>
               <p class="step1 api">
-                1. Import the desired BioSimulator <a [routerLink]="'/simulators'">here.</a>
+                1. Import the desired BioSimulator.
               </p>
               <pre><code>
                 import biosimulators_tellurium as bt
