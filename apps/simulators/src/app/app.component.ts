@@ -3,6 +3,7 @@ import { ScrollService } from '@biosimulations/shared/angular';
 import { ConfigService } from '@biosimulations/config/angular';
 import { HealthService } from './services/health/health.service';
 import { UpdateService } from '@biosimulations/shared/pwa';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -11,22 +12,32 @@ import { Observable } from 'rxjs';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, AfterViewInit {
-  title = 'simulators';
+  public title = 'simulators';
+  public healthy$!: Observable<boolean>;
+  public isMobileSimulators = false;
 
-  healthy$!: Observable<boolean>;
-
-  constructor(
+  public constructor(
     public config: ConfigService,
     private scrollService: ScrollService,
     private updateService: UpdateService,
     private healthService: HealthService,
+    private observer: BreakpointObserver,
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.healthy$ = this.healthService.isHealthy();
+    this.checkClientScreenSimulators();
   }
 
-  ngAfterViewInit(): void {
+  public ngAfterViewInit(): void {
     this.scrollService.init();
+  }
+
+  private checkClientScreenSimulators(): void {
+    this.observer.observe(Breakpoints.Handset || Breakpoints.TabletLandscape).subscribe((result) => {
+      if (result.matches) {
+        this.isMobileSimulators = !this.isMobileSimulators;
+      }
+    });
   }
 }
