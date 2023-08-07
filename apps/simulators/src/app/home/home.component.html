@@ -1,4 +1,4 @@
-<div *ngIf="!isMobileSimulators; else mobileViewSimulatorsHome" class="home-container simulators">
+<div class="home-container simulators">
   <mat-card class="home-description simulators">
     <mat-card-content>
       <div class="logo-container">
@@ -18,7 +18,6 @@
             >
             including SED-ML
           </span>
-          
         </ng-container>
 
         <biosimulations-home-subsection
@@ -438,138 +437,3 @@
   </biosimulations-home-section>
 </div>
 
-<ng-template #mobileViewSimulatorsHome>
-  <div class="mobile-parent-container simulators">
-    <mat-card class="mobile-parent-card simulators">
-      <!-- Mobile Teaser -->
-      <div class="home-description-mobile simulators">
-        <h3>Easily share and find models, simulations, and visualizations of simulation results</h3>
-        <span>
-          BioSimulators is a free
-          <a [routerLink]="['/simulators']">registry of biosimulation tools</a>. The registry includes tools for a
-          broad range of frameworks (e.g., logical, kinetic), simulation algorithms (e.g., FBA, SSA), and model
-          formats (e.g., BNGL, CellML, NeuroML/LEMS, SBML, Smoldyn). Many of the simulation tools provide Python
-          packages, command-line programs, and Docker images with consistent interfaces. Together, BioSimulators makes
-          it easier to run simulations. BioSimulators is powered by several
-          <a href="https://docs.biosimulations.org/concepts/conventions/" rel="noopener" target="biosimulations-docs"
-            >conventions</a
-          >
-          including SED-ML
-        </span>
-      </div>
-
-      <!-- Start Mobile Footer Card -->
-      <div class="mobile-footer-container simulators">
-        <mat-card class="footer-items-card about">
-          <mat-card-content>
-            <mat-list class="footer-list simulators">
-              <biosimulations-home-section>
-                <biosimulations-home-subsection id="subsection" heading="Our Site">
-                  <mat-list-item>
-                    <button
-                      mat-button
-                      class="footer-item-button biosimulators"
-                      (click)="navigateToMobileLink('/simulators')">
-                      <span class="footer-item-button-text biosimulators our-site" target="_blank">
-                        <biosimulations-icon icon="simulators"></biosimulations-icon>
-                        Browse Simulator Tools
-                      </span>
-                    </button>
-                  </mat-list-item>
-                  <mat-list-item>
-                    <button
-                      mat-button
-                      class="footer-item-button runsim"
-                      (click)="navigateToMobileLink(config.dispatchAppRunsNewUrl)">
-                      <span class="footer-item-button-text runsim our-site" target="_blank">
-                        <biosimulations-icon icon="experiment"></biosimulations-icon>
-                        Run a Simulation
-                      </span>
-                    </button>
-                  </mat-list-item>
-                  <mat-list-item>
-                    <button mat-button class="footer-item-button biosimdb" onclick="parent.location=['/projects']">
-                      <span class="footer-item-button-text biosimdb our-site" target="_blank">
-                        <biosimulations-icon icon="browse"></biosimulations-icon>
-                        Browse Simulation Projects
-                      </span>
-                    </button>
-                  </mat-list-item>
-                  <mat-list-item>
-                    <button
-                      mat-button
-                      class="footer-item-button learn"
-                      (click)="navigateToMobileLink('https://docs.biosimulations.org/users/')">
-                      <span class="footer-item-button-text learn our-site" target="_blank">
-                        <biosimulations-icon icon="idea"></biosimulations-icon>
-                        Learn
-                      </span>
-                    </button>
-                  </mat-list-item>
-                  
-                </biosimulations-home-subsection>
-                <biosimulations-home-subsection id="subsection" heading="More Information">
-                  <mat-list-item>
-                    <button
-                      mat-button
-                      class="footer-item-button about"
-                      (click)="navigateToMobileLink('https://docs.biosimulations.org/')">
-                      <span class="footer-item-button-text about more-information" target="_blank">
-                        <biosimulations-icon icon="help"></biosimulations-icon>
-                        About
-                      </span>
-                    </button>
-                  </mat-list-item>
-                  <mat-list-item>
-                    <button
-                      mat-button
-                      class="footer-item-button terms"
-                      (click)="navigateToMobileLink('https://docs.biosimulations.org/about/terms/')">
-                      <span class="footer-item-button-text terms more-information" target="_blank">
-                        <biosimulations-icon icon="license"></biosimulations-icon>
-                        Terms of Service
-                      </span>
-                    </button>
-                  </mat-list-item>
-                  <mat-list-item>
-                    <button
-                      mat-button
-                      class="footer-item-button privacy"
-                      (click)="navigateToMobileLink('https://docs.biosimulations.org/about/privacy/')">
-                      <span class="footer-item-button-text privacy more-information" target="_blank">
-                        <biosimulations-icon icon="policy"></biosimulations-icon>
-                        Privacy Policy
-                      </span>
-                    </button>
-                  </mat-list-item>
-                  <mat-list-item>
-                    <button
-                      mat-button
-                      class="footer-item-button status"
-                      (click)="navigateToMobileLink('https://status.biosimulations.org/')">
-                      <span class="footer-item-button-text status more-information" target="_blank">
-                        <biosimulations-icon icon="bug"></biosimulations-icon>
-                        Status
-                      </span>
-                    </button>
-                  </mat-list-item>
-                  <mat-list-item>
-                    <button
-                      mat-button
-                      class="footer-item-button vivarium"
-                      (click)="navigateToMobileLink('https://vivarium-collective.github.io/')">
-                      <span class="footer-item-button-text vivarium more-information" target="_blank">
-                        @Vivarium
-                      </span>
-                    </button>
-                  </mat-list-item>
-                </biosimulations-home-subsection>
-              </biosimulations-home-section>
-            </mat-list>
-          </mat-card-content>
-        </mat-card>
-      </div>
-      <!-- End Mobile Footer Card -->
-    </mat-card>
-  </div>
-</ng-template>
