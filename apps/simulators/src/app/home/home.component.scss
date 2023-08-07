@@ -1,16 +1,3 @@
-@import 'biosimulations-colors';
-
-.home-container-simulators {
-  height: fit-content;
-  width: auto;
-  padding-top: 3rem;
-
-  @media (max-width: 768px) {
-    height: 100%;
-    width: 100%;
-  }
-}
-
 .about-content {
   .text {
     margin-bottom: 0.75rem;
@@ -46,46 +33,6 @@
   }
 }
 
-.description-simulators {
-  width: 50%;
-  font-weight: bold;
-  font-size: 32px;
-}
-
-.description-simulators-mobile {
-  font-size: 22px;
-  border: 3px solid inherit;
-  border-radius: 4px;
-}
-
-.description-simulators,
-.description-simulators-mobile {
-  font-family: 'Roboto', sans-serif;
-  background-image: url('/assets/images/backgrounds/grey-3.png');
-  padding: 3rem;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 strong {
   color: var(--accent-color);
-}
-
-.subsection-mobile {
-  justify-content: center;
-}
-
-.mobile-parent-container {
-  height: 100%;
-  width: 100%;
-  text-align: center;
-  padding-top: 3rem;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-
-  @media (max-width: 768px) {
-    height: 280px;
-  }
 }

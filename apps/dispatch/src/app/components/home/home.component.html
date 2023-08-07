@@ -1,5 +1,5 @@
-<div *ngIf="!isMobileHomeDispatch; else mobileViewDispatchHome" class="home-container-run">
-  <mat-card class="description-dispatch">
+<div *ngIf="!isMobileHomeDispatch; else mobileViewDispatchHome" class="home-container run">
+  <mat-card class="home-description dispatch">
     <mat-card-content>
       <biosimulations-home-section [columns]="3">
         <ng-container id="heading">
@@ -382,7 +382,7 @@
   <div class="mobile-parent-container dispatch">
     <mat-card class="mobile-parent-card dispatch">
       <!-- Mobile Teaser -->
-      <div class="description-dispatch-mobile">
+      <div class="home-description-mobile dispatch">
         <h3>Easily share and find models, simulations, and visualizations of simulation results</h3>
         <span>
           runBioSimulations is a free tool for running a wide range of biological simulations. 
@@ -400,7 +400,7 @@
       <div class="mobile-footer-container dispatch">
         <mat-card class="footer-items-card about">
           <mat-card-content>
-            <mat-list>
+            <mat-list class="footer-list dispatch">
               <biosimulations-home-section>
                 <biosimulations-home-subsection id="subsection" heading="Our Site">
                   <mat-list-item>

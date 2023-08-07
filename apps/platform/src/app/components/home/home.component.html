@@ -1,4 +1,4 @@
-<div class="home-container-simulations">
+<div class="home-container simulations">
   <ng-container *ngIf="!isMobileSimulations; else mobileViewSimulationsHome">
     <!-- Start Home Teaser Section with Features Carousel -->
     <biosimulations-home-teaser
@@ -263,7 +263,7 @@
         <!-- End Home Section with Text -->
 
         <!--Start Home Footer Section with Buttons -->
-        <biosimulations-home-section [columns]="3">
+        <biosimulations-home-section [columns]="3" class="home-footer simulations">
           <!-- Help Footer Section -->
           <biosimulations-home-subsection
             id="subsection"
@@ -460,12 +460,11 @@
             </mat-card-content>
           </mat-card>
         </div>
-
         <!-- Start Mobile Footer Card -->
         <div class="mobile-footer-container simulations">
           <mat-card class="footer-items-card about">
             <mat-card-content>
-              <mat-list>
+              <mat-list class="footer-list simulations">
                 <biosimulations-home-section>
                   <biosimulations-home-subsection id="subsection" heading="Our Site">
                     <mat-list-item>

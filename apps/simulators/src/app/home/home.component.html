@@ -1,5 +1,5 @@
-<div *ngIf="!isMobileSimulators; else mobileViewSimulatorsHome" class="home-container-simulators">
-  <mat-card class="description-simulators">
+<div *ngIf="!isMobileSimulators; else mobileViewSimulatorsHome" class="home-container simulators">
+  <mat-card class="home-description simulators">
     <mat-card-content>
       <biosimulations-home-section [columns]="3">
         <ng-container id="heading">
@@ -318,7 +318,7 @@
   <div class="mobile-parent-container simulators">
     <mat-card class="mobile-parent-card simulators">
       <!-- Mobile Teaser -->
-      <div class="description-simulators-mobile">
+      <div class="home-description-mobile simulators">
         <h3>Easily share and find models, simulations, and visualizations of simulation results</h3>
         <span>
           BioSimulators is a free
@@ -338,7 +338,7 @@
       <div class="mobile-footer-container simulators">
         <mat-card class="footer-items-card about">
           <mat-card-content>
-            <mat-list>
+            <mat-list class="footer-list simulators">
               <biosimulations-home-section>
                 <biosimulations-home-subsection id="subsection" heading="Our Site">
                   <mat-list-item>
