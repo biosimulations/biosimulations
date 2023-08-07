@@ -1,5 +1,5 @@
 <biosimulations-navigation
-  *ngIf="!isMobile; else mobileView"
+  *ngIf="!isMobileSimulations; else mobileSimulations"
   [appName]="config.appName"
   [appNameParts]="config.appNameParts"
   [logo]="config.logo"
@@ -72,7 +72,7 @@
   <router-outlet></router-outlet>
 </biosimulations-navigation>
 
-<ng-template #mobileView>
+<ng-template #mobileSimulations>
   <biosimulations-navigation
     [appName]="config.appName"
     [appNameParts]="config.appNameParts"

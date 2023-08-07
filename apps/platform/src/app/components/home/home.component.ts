@@ -14,7 +14,7 @@ type MobileView = {
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  public isMobile = false;
+  public isMobileSimulations = false;
   public mobileLinkTarget = '_blank';
   public mobileLink?: string;
 
@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
   public ngOnInit(): void {
     this.observer.observe(Breakpoints.Handset).subscribe((result) => {
       if (result.matches) {
-        this.isMobile = true;
+        this.isMobileSimulations = true;
         console.log(this.handleMobileView(10, 20, 'flex'));
       } else {
         console.log('It is not there');

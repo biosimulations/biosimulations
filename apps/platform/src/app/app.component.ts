@@ -14,7 +14,7 @@ import { Observable } from 'rxjs';
 export class AppComponent implements OnInit, AfterViewInit {
   public title = 'platform';
   public healthy$!: Observable<boolean>;
-  public isMobile = false;
+  public isMobileSimulations = false;
   private checkForHealth = true;
 
   public constructor(
@@ -30,14 +30,14 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.healthy$ = this.healthService.isHealthy();
       console.log(this.healthy$);
     }
-    this.checkClientScreen();
+    this.checkClientScreenSimulations();
   }
 
   public ngAfterViewInit(): void {
     this.scrollService.init();
   }
 
-  private checkClientScreen(): void {
+  private checkClientScreenSimulations(): void {
     this.breakpointObserver.observe(Breakpoints.Handset || Breakpoints.TabletLandscape).subscribe((result) => {
       if (result.matches) {
         this.toggleMobile();
@@ -46,6 +46,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   private toggleMobile(): void {
-    this.isMobile = !this.isMobile;
+    this.isMobileSimulations = !this.isMobileSimulations;
   }
 }
