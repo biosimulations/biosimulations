@@ -88,7 +88,7 @@ ul:last-child {
 
 h1,
 .h1 {
-  // @include mat.typography-level($fontConfig, headline);
+  /*  @include mat.typography-level($fontConfig, headline); */
   line-height: 1.6rem;
   margin-top: 0;
   color: mat.get-color-from-palette($theme-primary);
@@ -102,7 +102,7 @@ h1,
 
 h2,
 .h2 {
-  //@include mat.typography-level($fontConfig, title);
+  /* @include mat.typography-level($fontConfig, title); */
   color: mat.get-color-from-palette($theme-primary);
 }
 
@@ -725,10 +725,10 @@ pre {
 pre.dark {
   &,
   code {
-    // `{prefix of prefixes}-{color of colors}-{ground of grounds}`;
-    // color=[black, red,  green, green, yellow, blue, magenta, cyan, white]
-    // ground=[fg, bg]
-    // prefix=[ansi-light, ansi
+    /* `{prefix of prefixes}-{color of colors}-{ground of grounds}`; */
+    /* color=[black, red,  green, green, yellow, blue, magenta, cyan, white] */
+    /* ground=[fg, bg] */
+    /* prefix=[ansi-light, ansi */
     .ansi-black-fg {
       color: #000000;
     }
@@ -1486,16 +1486,16 @@ sub {
 }
 
 .warning {
-  color: #ff9800; // mat.get-color-from-palette($theme-accent);
+  color: #ff9800; /* mat.get-color-from-palette($theme-accent); */
 
   a {
-    color: #ff9800; // mat.get-color-from-palette($theme-accent);
+    color: #ff9800; /* mat.get-color-from-palette($theme-accent); */
     text-decoration: underline;
   }
 }
 
 .alert {
-  background: #fff4e5; // $theme-accent-lightest;
+  background: #fff4e5; /* $theme-accent-lightest; */
   padding: 0.25rem;
   border-radius: 4px;
 }
