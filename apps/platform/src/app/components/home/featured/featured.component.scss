@@ -1,7 +1,8 @@
-@use '@angular/material' as mat;
-@import 'apps/platform/src/styles.scss';
 @import 'biosimulations-colors';
-@import 'biosimulations-typography';
+
+$primary: var(--primary-color);
+$text: white !important;
+$transition: 0.3s ease-in-out;
 
 .container {
   height: 100%;
@@ -34,8 +35,7 @@
   margin: 0 5px;
   cursor: pointer;
   transition-property: all;
-  transition-duration: 0.3s;
-  transition-timing-function: ease-in;
+  transition: $transition;
 
   &.active {
     background-color: var(--tertiary-color);
@@ -57,7 +57,7 @@
   flex-grow: 1;
   flex-shrink: 0;
   flex-basis: auto;
-  background-size: cover; /*500px;*/
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   padding-top: 0;
@@ -71,7 +71,7 @@
 
   &:hover {
     opacity: 0.33;
-    transition: opacity 0.3s ease-in;
+    transition: opacity $transition;
   }
 
   @media (max-width: 768px) {
@@ -99,7 +99,7 @@
 .description-teaser-container {
   height: 100%;
   padding-top: 2rem;
-  color: white;
+  color: $text;
 
   @media (max-width: 768px) {
     font-size: 9px;
@@ -114,22 +114,23 @@
   padding: 30px;
 
   @media (max-width: 768px) {
-    border: 4px solid #2196f3;
+    border: 4px solid $primary;
     border-radius: 4px;
-    background-color: #2196f3;
-    color: white;
-    transition: background-color 0.3s ease;
+    background-color: $primary;
+    color: $text;
+    transition: background-color $transition;
     justify-content: space-around center;
   }
+}
+
+.feature-card:hover button {
+  background-color: var(--accent-darker-color) !important;
+  transition: background-color $transition;
 }
 
 .verbose-description-card-container {
   height: 300px;
   overflow: visible;
-
-  &:hover {
-    transition: background-color 0.3s ease-in-out;
-  }
 }
 
 .verbose-description-card-content {
@@ -139,7 +140,7 @@
   background-color: inherit;
 
   &:hover {
-    transition: background-color 0.2s ease-in-out;
+    transition: background-color $transition;
   }
 }
 
@@ -148,14 +149,14 @@
   flex-direction: column;
   align-items: center;
   box-shadow: none;
-  background-color: rgba(20, 121, 237, 0.75);
-  color: white;
+  background-color: $primary;
+  color: $text;
   font-size: large;
   border-radius: 2px;
   font-weight: 500;
 
   &:hover {
-    color: mat.get-color-from-palette($theme-accent);
+    color: var(--accent-color);
   }
 
   @media (max-width: 768px) {
@@ -179,7 +180,7 @@
 }
 
 mat-card-header {
-  color: white !important;
+  color: $text;
 
   strong {
     font-size: 30px;
@@ -193,10 +194,5 @@ button:not(.nav-button) {
   border-radius: 0.5px 0.5px 4px 4px;
   font-weight: 700;
   font-size: 18px;
-  color: white !important;
-
-  &:hover {
-    background-color: var(--accent-darker-color) !important;
-    transition: background-color 0.4s ease-out;
-  }
+  color: $text;
 }
