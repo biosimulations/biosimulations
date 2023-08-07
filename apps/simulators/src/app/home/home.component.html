@@ -59,23 +59,23 @@
           <mat-tab label="Run from CLI with Python">
             <div class="code-window cli">
               <span class="code-head cli">You can easily run a BioSimulator from the command-line in as little as 3 easy steps:</span>
-              <p>
+              <p class="step1 cli">
                 1. Install the BioSimulator you want with pip. A full list of BioSimulators packages can be found <a [routerLink]="'/simulators'">here.</a>
               </p>
-              <pre><code>
+              <pre class="code-a"><code>
                 <strong id="amp">%</strong> pip install biosimulators-tellurium
               </code></pre>
-              <p>
+              <p class="step2 cli">
                 2. Run the following from the command line, passing an OMEX filepath as -i and the output dir as -o
               </p>
-              <pre><code>
+              <pre class="code-b"><code>
                 <strong id="amp">%</strong> biosimulators-tellurium \
                   -i ~/experiments/my-file.omex \
                   -o ~/Desktop/results
               </code></pre>
-              <p>
+              <p class="step3 cli">
                 3. That is it! Go to the directory and view your results.
-              <pre><code>
+              <pre class="code-c"><code>
                 <strong id="amp">%</strong> cd ~/Desktop/results
               </code></pre>
             </div>
@@ -101,13 +101,13 @@
           <mat-tab label="Run Programmatically">
             <div class="code-window api">
               <span class="code-head api">You can also easily run a simulation programmatically with Python:</span>
-              <p>
+              <p class="step1 api">
                 1. Import the desired BioSimulator <a [routerLink]="'/simulators'">here.</a>
               </p>
               <pre><code>
                 import biosimulators_tellurium as bt
               </code></pre>
-              <p>
+              <p class="step2 api">
                 2. Define the paths to both your OMEX file and desired output destination:
               </p>
               <pre><code>
@@ -116,14 +116,14 @@
               <pre><code>
                 results_dir = '/content/my_results'
               </code></pre>
-              <p>
+              <p class="step3 api">
                 3. Run the simulation and get the results and log. Print the results:
               <pre><code>
                 results, log = bt.exec_sedml_docs_in_combine_archive(omex, results_dir, config)
                 print(results)
                 print(log)
               </code></pre>
-              <p>
+              <p class="example-implementation">
                 This is the full implementation:
               </p>
               <pre><code>
