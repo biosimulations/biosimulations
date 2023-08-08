@@ -1,3 +1,20 @@
+biosimulations-home-subsection {
+  padding-bottom: 6rem;
+}
+
+biosimulations-icon {
+  padding-left: 0.5rem;
+}
+
+pre,
+code {
+  background: black;
+}
+
+#amp {
+  color: var(--tertiary-color);
+}
+
 .about-content {
   .text {
     margin-bottom: 0.75rem;
@@ -20,7 +37,6 @@
 
 .footer-item-button {
   border: 1px solid var(--primary-color);
-  background-color: var(--accent-color);
 }
 
 .footer-item-button-text {
@@ -36,15 +52,10 @@
 .example-container {
   margin-top: 6rem;
   font-size: 20px;
-  border: 3px solid black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .example-card {
   border: 6px solid inherit;
-  border-radius: 4px;
 }
 
 .example-container,
@@ -56,10 +67,8 @@
 .example-header {
   border-radius: 4px 4px 0 0;
   border-bottom: none !important;
-  color: rgb(255, 255, 255);
   font-weight: 700;
   font-size: 30px;
-  background-color: var(--accent-color);
 }
 
 .code-window {
@@ -78,30 +87,14 @@
   margin-top: 1rem;
 }
 
-/*pre,
-code {
-  background-color: black;
-}*/
-
 .code-window code {
-  font-size: larger;
+  font-size: 18px;
   font-weight: 500;
-  color: white;
-}
-
-#amp {
-  color: var(--tertiary-color);
-}
-
-biosimulations-icon {
-  padding-left: 0.5rem;
 }
 
 .logo {
   height: 200px;
   width: fit-content;
-  background-color: var(--accent-color);
-  border-radius: 4px;
   padding: 2rem;
   margin-bottom: 2rem;
 }
@@ -109,9 +102,6 @@ biosimulations-icon {
 .logo-container {
   height: 100%;
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   margin-right: auto;
   margin-left: auto;
 }
@@ -120,6 +110,25 @@ biosimulations-icon {
   margin-top: 5rem;
 }
 
-biosimulations-home-subsection {
-  padding-bottom: 6rem;
+.example-card,
+.logo {
+  border-radius: 4px;
+}
+
+.example-container,
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.code-window code,
+.example-header {
+  color: white;
+}
+
+.footer-item-button,
+.example-header,
+.logo {
+  background-color: var(--accent-color);
 }
