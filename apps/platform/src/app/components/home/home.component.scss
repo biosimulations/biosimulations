@@ -1,13 +1,3 @@
-.home-container-simulations {
-  height: fit-content;
-  width: auto;
-
-  @media (max-width: 768px) {
-    height: 100%;
-    width: 100%;
-  }
-}
-
 .about-content {
   .text {
     margin-bottom: 0.75rem;
@@ -32,15 +22,6 @@
   }
 }
 
-.mobile-parent-container {
-  width: 100%;
-  height: 100%;
-}
-
-.subsection-mobile {
-  justify-content: center;
-}
-
 .footer-item-button {
   border: 1px solid #2196f3;
   background-color: #ff9800;
@@ -58,10 +39,6 @@
 
 .about-biosimulations:hover {
   transition: color 0.5s ease;
-}
-
-#about {
-  color: #951ed9;
 }
 
 #bio {

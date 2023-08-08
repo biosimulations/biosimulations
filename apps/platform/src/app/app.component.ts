@@ -3,6 +3,7 @@ import { ScrollService } from '@biosimulations/shared/angular';
 import { ConfigService } from '@biosimulations/config/angular';
 import { HealthService } from '@biosimulations/angular-api-client';
 import { UpdateService } from '@biosimulations/shared/pwa';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -13,6 +14,7 @@ import { Observable } from 'rxjs';
 export class AppComponent implements OnInit, AfterViewInit {
   public title = 'platform';
   public healthy$!: Observable<boolean>;
+  public isMobileSimulations = false;
   private checkForHealth = true;
 
   public constructor(
@@ -20,6 +22,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private scrollService: ScrollService,
     private updateService: UpdateService,
     private healthService: HealthService,
+    private breakpointObserver: BreakpointObserver,
   ) {}
 
   public ngOnInit(): void {
@@ -27,9 +30,22 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.healthy$ = this.healthService.isHealthy();
       console.log(this.healthy$);
     }
+    this.checkClientScreenSimulations();
   }
 
   public ngAfterViewInit(): void {
     this.scrollService.init();
+  }
+
+  private checkClientScreenSimulations(): void {
+    this.breakpointObserver.observe(Breakpoints.Handset || Breakpoints.TabletLandscape).subscribe((result) => {
+      if (result.matches) {
+        this.toggleMobile();
+      }
+    });
+  }
+
+  private toggleMobile(): void {
+    this.isMobileSimulations = !this.isMobileSimulations;
   }
 }

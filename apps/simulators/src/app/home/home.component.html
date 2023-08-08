@@ -1,10 +1,13 @@
-<div class="home-container-simulators">
-  <mat-card class="description-simulators">
+<div class="home-container simulators">
+  <mat-card class="home-description simulators">
     <mat-card-content>
+      <div class="logo-container">
+        <biosimulations-logo-image [useSimulatorsLogo]="true" class="logo"></biosimulations-logo-image>
+      </div>
       <biosimulations-home-section [columns]="3">
         <ng-container id="heading">
           <span>
-            BioSimulators is a free
+            <strong>BioSimulators</strong> is a free
             <a [routerLink]="['/simulators']">registry of biosimulation tools</a>. The registry includes tools for a
             broad range of frameworks (e.g., logical, kinetic), simulation algorithms (e.g., FBA, SSA), and model
             formats (e.g., BNGL, CellML, NeuroML/LEMS, SBML, Smoldyn). Many of the simulation tools provide Python
@@ -46,103 +49,223 @@
           strengths of different approaches, find bugs, and drive standardization.
         </biosimulations-home-subsection>
       </biosimulations-home-section>
+
+      <!-- Example Container -->
+      <div class="example-container">
+        <mat-card class="example-card">
+          <mat-card-header class="example-header">
+            Quick Start
+          </mat-card-header>
+          <mat-card-content>
+            <mat-tab-group>
+              <mat-tab>
+                <ng-template mat-tab-label>
+                  Run from CLI with Python
+                  <biosimulations-icon icon="python"></biosimulations-icon>
+                </ng-template>
+                <div class="code-window cli">
+                  <span class="code-head cli">You can easily run a BioSimulator from the command-line in as little as 3 easy steps:</span>
+                  <p class="step1 cli">
+                    1. Install the BioSimulator you want with pip. Here we will use <code style="background-color: inherit; color: black">biosimulators-tellurium</code>. A full list of BioSimulators packages can be found <a [routerLink]="'/simulators'">here.</a>
+                  </p>
+                  <pre class="code-a"><code>
+                    <strong id="amp">%</strong> pip install biosimulators-tellurium
+                  </code></pre>
+                  <p class="step2 cli">
+                    2. Run the following from the command line, passing an OMEX filepath as -i and the output dir as -o
+                  </p>
+                  <pre class="code-b"><code>
+                    <strong id="amp">%</strong> biosimulators-tellurium \
+                      -i ~/experiments/my-file.omex \
+                      -o ~/Desktop/results
+                  </code></pre>
+                  <p class="step3 cli">
+                    3. Go to the directory and view your results.
+                  <pre class="code-c"><code>
+                    <strong id="amp">%</strong> cd ~/Desktop/results
+                  </code></pre>
+                </div>
+              </mat-tab>
+    
+              <mat-tab>
+                <ng-template mat-tab-label>
+                  Run from CLI with Docker
+                  <biosimulations-icon icon="docker"></biosimulations-icon>
+                </ng-template>
+                <div class="code-window docker">
+                  <span class="code-head docker">You can easily run the same BioSimulator simulation with Docker:</span>
+                  <pre><code>
+                    <strong id="amp">%</strong> docker pull \
+                        ghcr.io/biosimulators/tellurium:2.2.8
+                  </code></pre>
+                  <pre><code>
+                    <strong id="amp">%</strong> docker run \
+                        ghcr.io/biosimulators/tellurium:2.2.8 \
+                        -i /path/to/archive.omex \
+                        -o /path/to/outputs
+                  </code></pre>
+                </div>
+              </mat-tab>
+            
+              <mat-tab>
+                <ng-template mat-tab-label>
+                  Run programmatically with Python
+                  <biosimulations-icon icon="python"></biosimulations-icon>
+                </ng-template>
+                <div class="code-window api">
+                  <span class="code-head api">You can also easily run a BioSimulator programmatically with Python:</span>
+                  <p class="step1 api">
+                    1. Import the desired BioSimulator.
+                  </p>
+                  <pre><code>
+                    import biosimulators_tellurium as bt
+                  </code></pre>
+                  <p class="step2 api">
+                    2. Define the paths to both your OMEX file and desired output destination:
+                  </p>
+                  <pre><code>
+                    omex = '/content/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex'
+                  </code></pre>
+                  <pre><code>
+                    results_dir = '/content/my_results'
+                  </code></pre>
+                  <p class="step3 api">
+                    3. Run the simulation and get the results and log. Print the results:
+                  <pre><code>
+                    results, log = bt.exec_sedml_docs_in_combine_archive(omex, results_dir, config)
+                    print(results)
+                    print(log)
+                  </code></pre>
+                  <p class="example-implementation">
+                    This is the full implementation:
+                  </p>
+                  <pre><code>
+                    import biosimulators_tellurium as bt
+    
+                    omex = '/content/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex'
+                    results_dir = '/content/my_results'
+                    results, log = bt.exec_sedml_docs_in_combine_archive(omex, results_dir, config)
+                    print(results)
+                    print(log)
+                  </code></pre>
+                </div>
+              </mat-tab>
+    
+              <mat-tab>
+                <ng-template mat-tab-label>
+                  Run in your browser with Binder
+                  <biosimulations-icon icon="python"></biosimulations-icon>
+                </ng-template>
+                <div class="code-window binder">
+                  A fully interactive Binder tutorial is available 
+                  <a href="https://mybinder.org/v2/gh/biosimulators/Biosimulators_tutorials/HEAD">
+                    here.
+                  </a>
+                </div>
+              </mat-tab>
+            </mat-tab-group>  
+          </mat-card-content>
+        </mat-card>
+      </div>
     </mat-card-content>
   </mat-card>
 
-  <biosimulations-home-section [columns]="3">
-    <ng-container id="heading"
-      >Consistent access to
-      <span class="highlight-primary">multiple modeling frameworks, algorithms, formats &amp; tools</span></ng-container
-    >
-
-    <biosimulations-home-subsection
-      id="subsection"
-      heading="Model formats"
-      subheading="BioSimulators supports several model formats"
-      subheadingSize="small"
-      icon="model">
-      <biosimulations-home-logo
-        title="BNGL"
-        src="assets/images/about/partners/bionetgen.png"
-        href="https://www.bionetgen.org">
-      </biosimulations-home-logo>
-
-      <biosimulations-home-logo
-        title="CellML"
-        src="assets/images/about/partners/cellml.svg"
-        href="https://www.cellml.org/">
-      </biosimulations-home-logo>
-
-      <biosimulations-home-logo title="RBA" src="assets/images/about/partners/rba.png" href="https://rba.inrae.fr/">
-      </biosimulations-home-logo>
-
-      <biosimulations-home-logo title="GINsim" src="assets/images/about/partners/ginsim.svg" href="http://ginsim.org/">
-      </biosimulations-home-logo>
-
-      <biosimulations-home-logo
-        title="Kappa"
-        src="assets/images/about/partners/kappa.svg"
-        href="https://kappalanguage.org/">
-      </biosimulations-home-logo>
-
-      <biosimulations-home-logo
-        title="NeuroML"
-        src="assets/images/about/partners/neuroml.svg"
-        href="https://neuroml.org/">
-      </biosimulations-home-logo>
-
-      <biosimulations-home-logo
-        title="pharmML"
-        src="assets/images/about/partners/pharmml.svg"
-        href="http://www.pharmml.org/">
-      </biosimulations-home-logo>
-
-      <biosimulations-home-logo title="SBML" src="assets/images/about/partners/sbml.svg" href="http://sbml.org">
-      </biosimulations-home-logo>
-
-      <!--
-      <biosimulations-home-logo
-        title="Smoldyn"
-        src="assets/images/about/partners/smoldyn.png"
-        href="http://www.smoldyn.org/"
+  <div class="about-section">
+    <biosimulations-home-section [columns]="3">
+      <ng-container id="heading"
+        >Consistent access to
+        <span class="highlight-primary">multiple modeling frameworks, algorithms, formats &amp; tools</span></ng-container
       >
-      </biosimulations-home-logo>
-      -->
-    </biosimulations-home-subsection>
 
-    <biosimulations-home-subsection
-      id="subsection"
-      heading="Simulation formats"
-      subheading="BioSimulators supports the SED-ML simulation format"
-      subheadingSize="small"
-      icon="simulation">
-      <biosimulations-home-logo title="SED-ML" src="assets/images/about/partners/sed-ml.svg" href="https://sed-ml.org/">
-      </biosimulations-home-logo>
-    </biosimulations-home-subsection>
+      <biosimulations-home-subsection
+        id="subsection"
+        heading="Model formats"
+        subheading="BioSimulators supports several model formats"
+        subheadingSize="small"
+        icon="model">
+        <biosimulations-home-logo
+          title="BNGL"
+          src="assets/images/about/partners/bionetgen.png"
+          href="https://www.bionetgen.org">
+        </biosimulations-home-logo>
 
-    <biosimulations-home-subsection
-      id="subsection"
-      heading="Algorithms &amp; simulators"
-      subheading="BioSimulators supports many simulation algorithms and tools"
-      subheadingSize="small"
-      icon="simulator">
-      <biosimulations-home-logo title="SBO" src="assets/images/about/partners/sbo.png" href="http://www.ebi.ac.uk/sbo/">
-      </biosimulations-home-logo>
+        <biosimulations-home-logo
+          title="CellML"
+          src="assets/images/about/partners/cellml.svg"
+          href="https://www.cellml.org/">
+        </biosimulations-home-logo>
 
-      <biosimulations-home-logo
-        title="KiSAO"
-        src="assets/images/about/partners/kisao.svg"
-        href="http://co.mbine.org/standards/kisao">
-      </biosimulations-home-logo>
+        <biosimulations-home-logo title="RBA" src="assets/images/about/partners/rba.png" href="https://rba.inrae.fr/">
+        </biosimulations-home-logo>
 
-      <biosimulations-home-logo title="Docker" src="assets/images/about/tech/docker.svg" href="https://www.docker.com/">
-      </biosimulations-home-logo>
-    </biosimulations-home-subsection>
-  </biosimulations-home-section>
+        <biosimulations-home-logo title="GINsim" src="assets/images/about/partners/ginsim.svg" href="http://ginsim.org/">
+        </biosimulations-home-logo>
+
+        <biosimulations-home-logo
+          title="Kappa"
+          src="assets/images/about/partners/kappa.svg"
+          href="https://kappalanguage.org/">
+        </biosimulations-home-logo>
+
+        <biosimulations-home-logo
+          title="NeuroML"
+          src="assets/images/about/partners/neuroml.svg"
+          href="https://neuroml.org/">
+        </biosimulations-home-logo>
+
+        <biosimulations-home-logo
+          title="pharmML"
+          src="assets/images/about/partners/pharmml.svg"
+          href="http://www.pharmml.org/">
+        </biosimulations-home-logo>
+
+        <biosimulations-home-logo title="SBML" src="assets/images/about/partners/sbml.svg" href="http://sbml.org">
+        </biosimulations-home-logo>
+
+        <!--
+        <biosimulations-home-logo
+          title="Smoldyn"
+          src="assets/images/about/partners/smoldyn.png"
+          href="http://www.smoldyn.org/"
+        >
+        </biosimulations-home-logo>
+        -->
+      </biosimulations-home-subsection>
+
+      <biosimulations-home-subsection
+        id="subsection"
+        heading="Simulation formats"
+        subheading="BioSimulators supports the SED-ML simulation format"
+        subheadingSize="small"
+        icon="simulation">
+        <biosimulations-home-logo title="SED-ML" src="assets/images/about/partners/sed-ml.svg" href="https://sed-ml.org/">
+        </biosimulations-home-logo>
+      </biosimulations-home-subsection>
+
+      <biosimulations-home-subsection
+        id="subsection"
+        heading="Algorithms &amp; simulators"
+        subheading="BioSimulators supports many simulation algorithms and tools"
+        subheadingSize="small"
+        icon="simulator">
+        <biosimulations-home-logo title="SBO" src="assets/images/about/partners/sbo.png" href="http://www.ebi.ac.uk/sbo/">
+        </biosimulations-home-logo>
+
+        <biosimulations-home-logo
+          title="KiSAO"
+          src="assets/images/about/partners/kisao.svg"
+          href="http://co.mbine.org/standards/kisao">
+        </biosimulations-home-logo>
+
+        <biosimulations-home-logo title="Docker" src="assets/images/about/tech/docker.svg" href="https://www.docker.com/">
+        </biosimulations-home-logo>
+      </biosimulations-home-subsection>
+    </biosimulations-home-section>
+  </div>
 
   <biosimulations-home-section [columns]="1">
     <ng-container id="heading"
-      >About <span class="highlight-primary"><strong>BioSimulators</strong></span></ng-container
+      >About <strong>BioSimulators</strong></ng-container
     >
     <ng-container id="subsection">
       <div class="about-content">
@@ -313,3 +436,4 @@
     </ng-container>
   </biosimulations-home-section>
 </div>
+

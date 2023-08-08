@@ -6,6 +6,7 @@ html {
   height: 100%;
   scroll-behavior: smooth;
   font-size: 16px;
+  font-family: 'Roboto', sans-serif;
 }
 
 body {
@@ -87,7 +88,7 @@ ul:last-child {
 
 h1,
 .h1 {
-  // @include mat.typography-level($fontConfig, headline);
+  /*  @include mat.typography-level($fontConfig, headline); */
   line-height: 1.6rem;
   margin-top: 0;
   color: mat.get-color-from-palette($theme-primary);
@@ -101,7 +102,7 @@ h1,
 
 h2,
 .h2 {
-  //@include mat.typography-level($fontConfig, title);
+  /* @include mat.typography-level($fontConfig, title); */
   color: mat.get-color-from-palette($theme-primary);
 }
 
@@ -724,10 +725,10 @@ pre {
 pre.dark {
   &,
   code {
-    // `{prefix of prefixes}-{color of colors}-{ground of grounds}`;
-    // color=[black, red,  green, green, yellow, blue, magenta, cyan, white]
-    // ground=[fg, bg]
-    // prefix=[ansi-light, ansi
+    /* `{prefix of prefixes}-{color of colors}-{ground of grounds}`; */
+    /* color=[black, red,  green, green, yellow, blue, magenta, cyan, white] */
+    /* ground=[fg, bg] */
+    /* prefix=[ansi-light, ansi */
     .ansi-black-fg {
       color: #000000;
     }
@@ -1485,16 +1486,16 @@ sub {
 }
 
 .warning {
-  color: #ff9800; // mat.get-color-from-palette($theme-accent);
+  color: #ff9800; /* mat.get-color-from-palette($theme-accent); */
 
   a {
-    color: #ff9800; // mat.get-color-from-palette($theme-accent);
+    color: #ff9800; /* mat.get-color-from-palette($theme-accent); */
     text-decoration: underline;
   }
 }
 
 .alert {
-  background: #fff4e5; // $theme-accent-lightest;
+  background: #fff4e5; /* $theme-accent-lightest; */
   padding: 0.25rem;
   border-radius: 4px;
 }
@@ -1515,4 +1516,66 @@ sub {
   .mat-dialog-container {
     padding: 1rem;
   }
+}
+
+/* App Homepage Stylings */
+.home-container {
+  height: fit-content;
+  width: 100%;
+  padding-top: 3rem;
+
+  @media (max-width: 768px) {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.home-description {
+  width: 94%;
+  height: 100%;
+  font-weight: bold;
+  font-size: 32px;
+}
+
+.home-description-mobile {
+  font-size: 22px;
+  border: 3px solid inherit;
+  border-radius: 4px;
+}
+
+.home-description,
+.home-description-mobile {
+  font-family: 'Roboto', sans-serif;
+  background-image: url('/assets/images/backgrounds/grey-3.png') !important;
+  padding: 3rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Mobile Stylings */
+.subsection-mobile {
+  justify-content: center;
+}
+
+.mobile-parent-container {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  padding-top: 3rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  @media (max-width: 768px) {
+    height: 280px;
+  }
+}
+
+code {
+  font-family: 'Monaco', sans-serif;
+}
+
+biosimulations-home-section span {
+  font-weight: 400;
 }

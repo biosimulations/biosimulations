@@ -10,21 +10,21 @@ import { EndpointLoader, LoadedEndpoints } from './endpointLoader';
  */
 
 export class Endpoints {
-  // Back end services
+  /* Back end services */
   private api: string;
   private simulatorsApi: string;
   private combineApi: string;
   private dataService: string;
 
-  // Backend public/external services (i.e. Use endpoints that can be accessed via public URL.
-  // For example, https://api will work to access the API within kubernetes, but not for the end-user
+  /* Backend public/external services (i.e. Use endpoints that can be accessed via public URL. */
+  /* For example, https://api will work to access the API within kubernetes, but not for the end-user */
   private externalApi: string;
   private externalSimulatorsApi: string;
   private externalCombineApi: string;
   private externalDataService: string;
 
   public constructor(env?: envs) {
-    // We can read the env that is provided in the shared environment file as the default
+    /* We can read the env that is provided in the shared environment file as the default */
     if (env == undefined) {
       env = environment.env;
     }
@@ -41,11 +41,11 @@ export class Endpoints {
     this.externalCombineApi = loadedEndpoints.externalCombineApi;
     this.externalDataService = loadedEndpoints.externalDataService;
   }
-  // Statistics
+  /* Statistics */
   public getProjectStatisticsEndpoint(): string {
     return `${this.getApiBaseUrl(true)}/statistics`;
   }
-  // HEALTH CHECKS
+  /* HEALTH CHECKS */
 
   public getApiHealthEndpoint(): string {
     return `${this.getApiBaseUrl(true)}/health/status`;
@@ -92,7 +92,7 @@ export class Endpoints {
     return `${api}/terms`;
   }
 
-  // FILES and FILE CONTENTS
+  /* FILES and FILE CONTENTS */
 
   /** Get the URL for a file object, for all files for a simulation run, or to post files for a simulation run.
    * @param external Whether the URL should be accessible from outside the local evironment
@@ -429,8 +429,8 @@ export class Endpoints {
     return `${this.getSimulatorsApiBaseUrl(external)}/simulators/latest${tests}`;
   }
 
-  // BASE URLS
-  // base URLs for the backend services depending on the "external" parameter
+  /* BASE URLS
+     base URLs for the backend services depending on the "external" parameter */
 
   public getApiBaseUrl(external: boolean): string {
     return external ? this.externalApi : this.api;
