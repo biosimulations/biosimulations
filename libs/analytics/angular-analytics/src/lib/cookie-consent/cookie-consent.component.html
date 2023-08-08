@@ -1,52 +1,54 @@
-<h3>Privacy settings</h3>
-<p class="notice">
-  To improve your experience with {{ appName }}, we use cookies to store information about your preferences and to track
-  your use of the site. This information does not identify you personally or preserve personal information about you.
-  This allows us to improve the site and gather usage information for funding and development. Because we respect your
-  right to privacy, you can opt-out of this data.
-</p>
-<mat-accordion>
-  <mat-expansion-panel *ngFor="let cookie of cookies">
-    <mat-expansion-panel-header class="cookie-header">
-      <mat-panel-title>{{ cookie.displayName }}</mat-panel-title>
-      <mat-panel-description>
-        <mat-slide-toggle
-          class="cookie-toggle"
-          disabled="{{ cookie.toggleDisabled }}"
-          checked="{{ cookie.toggleAllowed }}"
-          (click)="handleToggleClick($event)"
-          (change)="handleToggleChange(cookie.type, $event.checked)"
-          labelPosition="before"
-          #toggle>
-          <span class="toggle-label">
-            {{
-              cookie.toggleDisabled
-                ? toggle.checked
-                  ? 'Required'
-                  : 'Never used'
-                : toggle.checked
-                ? 'Enabled'
-                : 'Disabled'
-            }}
-          </span>
-        </mat-slide-toggle>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
+<div class="cookies-container"> 
+  <h3>Privacy settings</h3>
+  <p class="notice">
+    To improve your experience with {{ appName }}, we use cookies to store information about your preferences and to track
+    your use of the site. This information does not identify you personally or preserve personal information about you.
+    This allows us to improve the site and gather usage information for funding and development. Because we respect your
+    right to privacy, you can opt-out of this data.
+  </p>
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let cookie of cookies">
+      <mat-expansion-panel-header class="cookie-header">
+        <mat-panel-title>{{ cookie.displayName }}</mat-panel-title>
+        <mat-panel-description>
+          <mat-slide-toggle
+            class="cookie-toggle"
+            disabled="{{ cookie.toggleDisabled }}"
+            checked="{{ cookie.toggleAllowed }}"
+            (click)="handleToggleClick($event)"
+            (change)="handleToggleChange(cookie.type, $event.checked)"
+            labelPosition="before"
+            #toggle>
+            <span class="toggle-label">
+              {{
+                cookie.toggleDisabled
+                  ? toggle.checked
+                    ? 'Required'
+                    : 'Never used'
+                  : toggle.checked
+                  ? 'Enabled'
+                  : 'Disabled'
+              }}
+            </span>
+          </mat-slide-toggle>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
 
-    <p>
-      {{ cookie.description }}
-    </p>
+      <p>
+        {{ cookie.description }}
+      </p>
 
-    <p>
-      <a href="{{ cookie.externalLink }}"> Learn more</a>
-    </p>
-  </mat-expansion-panel>
-</mat-accordion>
+      <p>
+        <a href="{{ cookie.externalLink }}"> Learn more</a>
+      </p>
+    </mat-expansion-panel>
+  </mat-accordion>
 
-<p class="terms-agreement">
-  {{ appName }} collects limited personal data to credit authors and improve the platform. By using this site, you agree
-  to our <a href="https://docs.biosimulations.org/about/terms/" target="biosimulations-docs">terms of service</a>,
-  <a href="https://docs.biosimulations.org/about/privacy/" target="biosimulations-docs">privacy policy</a>, and
-  <a href="https://docs.biosimulations.org/about/cookies/" target="biosimulations-docs">use of cookies</a>.
-</p>
-<button mat-raised-button color="primary" class="submit-button" (click)="submitConsent()">Save</button>
+  <p class="terms-agreement">
+    {{ appName }} collects limited personal data to credit authors and improve the platform. By using this site, you agree
+    to our <a href="https://docs.biosimulations.org/about/terms/" target="biosimulations-docs">terms of service</a>,
+    <a href="https://docs.biosimulations.org/about/privacy/" target="biosimulations-docs">privacy policy</a>, and
+    <a href="https://docs.biosimulations.org/about/cookies/" target="biosimulations-docs">use of cookies</a>.
+  </p>
+  <button mat-raised-button color="primary" class="submit-button" (click)="submitConsent()">Save</button>
+</div> 

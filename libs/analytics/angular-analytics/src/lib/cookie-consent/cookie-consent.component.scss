@@ -16,6 +16,17 @@
   }
 }
 
+::ng-deep .mat-content > mat-panel-title {
+  justify-content: flex-start;
+}
+::ng-deep .mat-content > mat-panel-description {
+  justify-content: flex-end;
+}
+
+.cookies-container {
+  font-family: 'Roboto', sans-serif;
+}
+
 .submit-button {
   float: right;
 }
@@ -25,11 +36,4 @@
 .terms-agreement {
   margin-top: 1rem;
   margin-bottom: 1rem;
-}
-
-::ng-deep .mat-content > mat-panel-title {
-  justify-content: flex-start;
-}
-::ng-deep .mat-content > mat-panel-description {
-  justify-content: flex-end;
 }
