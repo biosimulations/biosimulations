@@ -1,5 +1,32 @@
 # Changelog
 
+## [9.46.0](https://github.com/biosimulations/biosimulations/compare/v9.45.0...v9.46.0) (2023-08-08)
+
+
+### Bug Fixes
+
+* added noop to simulators home spec due to encapsulation error ([d10ea86](https://github.com/biosimulations/biosimulations/commit/d10ea86cadd88d5545d284f10a569ad2b08bc671))
+* added target to transition declaration ([bc8fc63](https://github.com/biosimulations/biosimulations/commit/bc8fc63070c9eb8ddc7cda022d38b51061cb08c7))
+* adjusted single line comments to appease CI ([6f07744](https://github.com/biosimulations/biosimulations/commit/6f07744ee472c8359b92ed33671b2ff247883569))
+* re-implemented Nooper to fix mistake ([6668666](https://github.com/biosimulations/biosimulations/commit/66686667f9e622400c8825926df0b9bafc89e0e5))
+* removed duplicate display ([e45968f](https://github.com/biosimulations/biosimulations/commit/e45968ff6606ac13ece8f556cf1a3d634e3542c2))
+* removed duplicate transition property ([4c83bd3](https://github.com/biosimulations/biosimulations/commit/4c83bd3d62643f32a53307843d2f8601f71682ff))
+* removed mobile content for sep of concerns ([668a036](https://github.com/biosimulations/biosimulations/commit/668a036f7f216b4ecd3885fd3f8e4efdc1946e74))
+* removed noop from test to appease ci ([cdbb8e1](https://github.com/biosimulations/biosimulations/commit/cdbb8e197d022bb9df22cc0e12793a90eea95db3))
+* removed target from binder href ([b4b82d4](https://github.com/biosimulations/biosimulations/commit/b4b82d44e89dd6cde31803edfb6aeeffbc0906be))
+* renamed shorthand and removed duplicate declaration ([32f5d61](https://github.com/biosimulations/biosimulations/commit/32f5d61936891beaaee112a08d84166d6f5103a6))
+
+
+### Features
+
+* **ui:** added binder ref to card and cleaned styles removing direct ([baa288f](https://github.com/biosimulations/biosimulations/commit/baa288f8a8ad849a5bb8df0d8d1040319d728fa8))
+* **ui:** added getting started quick start guide to simulators landing ([d7e7acc](https://github.com/biosimulations/biosimulations/commit/d7e7acc33418103a0a0cb1c180009451309f1cfc))
+* **ui:** added updated stylings and screen checking logic for mobile ([58f468c](https://github.com/biosimulations/biosimulations/commit/58f468cee6ab088cb957539585390e0d2fea4fc2))
+* **ui:** implemented docs card in simulators ([51ba718](https://github.com/biosimulations/biosimulations/commit/51ba71812d4db31a5ab525f276a32c400ded4aef))
+* **ui:** implemented updated mobile stylings and logic for dispatch ([de58118](https://github.com/biosimulations/biosimulations/commit/de5811811d06abb5a08df8eab44a968579665f4f))
+* **ui:** implemented updated mobile stylings and logic for platform ([cef98bd](https://github.com/biosimulations/biosimulations/commit/cef98bde6fef5effe3cda3f994da0bb47aca618e))
+* **ui:** implemented updated mobile stylings and logic for simulators ([2a5d075](https://github.com/biosimulations/biosimulations/commit/2a5d07501cab8e065ff4f462de105d9e82bbd065))
+
 ## [9.45.0](https://github.com/biosimulations/biosimulations/compare/v9.44.0...v9.45.0) (2023-08-06)
 
 
