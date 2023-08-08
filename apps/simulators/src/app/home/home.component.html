@@ -53,9 +53,7 @@
       <!-- Example Container -->
       <div class="example-container">
         <mat-card class="example-card">
-          <mat-card-header class="example-header">
-            Quick Start
-          </mat-card-header>
+          <mat-card-header class="example-header"> Quick Start </mat-card-header>
           <mat-card-content>
             <mat-tab-group>
               <mat-tab>
@@ -64,9 +62,13 @@
                   <biosimulations-icon icon="python"></biosimulations-icon>
                 </ng-template>
                 <div class="code-window cli">
-                  <span class="code-head cli">You can easily run a BioSimulator from the command-line in as little as 3 easy steps:</span>
+                  <span class="code-head cli"
+                    >You can easily run a BioSimulator from the command-line in as little as 3 easy steps:</span
+                  >
                   <p class="step1 cli">
-                    1. Install the BioSimulator you want with pip. Here we will use <code style="background-color: inherit; color: black">biosimulators-tellurium</code>. A full list of BioSimulators packages can be found <a [routerLink]="'/simulators'">here.</a>
+                    1. Install the BioSimulator you want with pip. Here we will use
+                    <code style="background-color: inherit; color: black">biosimulators-tellurium</code>. A full list of
+                    BioSimulators packages can be found <a [routerLink]="'/simulators'">here.</a>
                   </p>
                   <pre class="code-a"><code>
                     <strong id="amp">%</strong> pip install biosimulators-tellurium
@@ -79,14 +81,14 @@
                       -i ~/experiments/my-file.omex \
                       -o ~/Desktop/results
                   </code></pre>
-                  <p class="step3 cli">
-                    3. Go to the directory and view your results.
+                  <p class="step3 cli">3. Go to the directory and view your results.</p>
+
                   <pre class="code-c"><code>
                     <strong id="amp">%</strong> cd ~/Desktop/results
                   </code></pre>
                 </div>
               </mat-tab>
-    
+
               <mat-tab>
                 <ng-template mat-tab-label>
                   Run from CLI with Docker
@@ -106,39 +108,35 @@
                   </code></pre>
                 </div>
               </mat-tab>
-            
+
               <mat-tab>
                 <ng-template mat-tab-label>
                   Run programmatically with Python
                   <biosimulations-icon icon="python"></biosimulations-icon>
                 </ng-template>
                 <div class="code-window api">
-                  <span class="code-head api">You can also easily run a BioSimulator programmatically with Python:</span>
-                  <p class="step1 api">
-                    1. Import the desired BioSimulator.
-                  </p>
+                  <span class="code-head api"
+                    >You can also easily run a BioSimulator programmatically with Python:</span
+                  >
+                  <p class="step1 api">1. Import the desired BioSimulator.</p>
                   <pre><code>
                     import biosimulators_tellurium as bt
                   </code></pre>
-                  <p class="step2 api">
-                    2. Define the paths to both your OMEX file and desired output destination:
-                  </p>
+                  <p class="step2 api">2. Define the paths to both your OMEX file and desired output destination:</p>
                   <pre><code>
                     omex = '/content/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex'
                   </code></pre>
                   <pre><code>
                     results_dir = '/content/my_results'
                   </code></pre>
-                  <p class="step3 api">
-                    3. Run the simulation and get the results and log. Print the results:
+                  <p class="step3 api">3. Run the simulation and get the results and log. Print the results:</p>
+
                   <pre><code>
                     results, log = bt.exec_sedml_docs_in_combine_archive(omex, results_dir, config)
                     print(results)
                     print(log)
                   </code></pre>
-                  <p class="example-implementation">
-                    This is the full implementation:
-                  </p>
+                  <p class="example-implementation">This is the full implementation:</p>
                   <pre><code>
                     import biosimulators_tellurium as bt
     
@@ -150,20 +148,18 @@
                   </code></pre>
                 </div>
               </mat-tab>
-    
+
               <mat-tab>
                 <ng-template mat-tab-label>
                   Run in your browser with Binder
                   <biosimulations-icon icon="python"></biosimulations-icon>
                 </ng-template>
                 <div class="code-window binder">
-                  A fully interactive Binder tutorial is available 
-                  <a href="https://mybinder.org/v2/gh/biosimulators/Biosimulators_tutorials/HEAD">
-                    here.
-                  </a>
+                  A fully interactive Binder tutorial is available
+                  <a href="https://mybinder.org/v2/gh/biosimulators/Biosimulators_tutorials/HEAD"> here. </a>
                 </div>
               </mat-tab>
-            </mat-tab-group>  
+            </mat-tab-group>
           </mat-card-content>
         </mat-card>
       </div>
@@ -174,7 +170,9 @@
     <biosimulations-home-section [columns]="3">
       <ng-container id="heading"
         >Consistent access to
-        <span class="highlight-primary">multiple modeling frameworks, algorithms, formats &amp; tools</span></ng-container
+        <span class="highlight-primary"
+          >multiple modeling frameworks, algorithms, formats &amp; tools</span
+        ></ng-container
       >
 
       <biosimulations-home-subsection
@@ -198,7 +196,10 @@
         <biosimulations-home-logo title="RBA" src="assets/images/about/partners/rba.png" href="https://rba.inrae.fr/">
         </biosimulations-home-logo>
 
-        <biosimulations-home-logo title="GINsim" src="assets/images/about/partners/ginsim.svg" href="http://ginsim.org/">
+        <biosimulations-home-logo
+          title="GINsim"
+          src="assets/images/about/partners/ginsim.svg"
+          href="http://ginsim.org/">
         </biosimulations-home-logo>
 
         <biosimulations-home-logo
@@ -238,7 +239,10 @@
         subheading="BioSimulators supports the SED-ML simulation format"
         subheadingSize="small"
         icon="simulation">
-        <biosimulations-home-logo title="SED-ML" src="assets/images/about/partners/sed-ml.svg" href="https://sed-ml.org/">
+        <biosimulations-home-logo
+          title="SED-ML"
+          src="assets/images/about/partners/sed-ml.svg"
+          href="https://sed-ml.org/">
         </biosimulations-home-logo>
       </biosimulations-home-subsection>
 
@@ -248,7 +252,10 @@
         subheading="BioSimulators supports many simulation algorithms and tools"
         subheadingSize="small"
         icon="simulator">
-        <biosimulations-home-logo title="SBO" src="assets/images/about/partners/sbo.png" href="http://www.ebi.ac.uk/sbo/">
+        <biosimulations-home-logo
+          title="SBO"
+          src="assets/images/about/partners/sbo.png"
+          href="http://www.ebi.ac.uk/sbo/">
         </biosimulations-home-logo>
 
         <biosimulations-home-logo
@@ -257,16 +264,17 @@
           href="http://co.mbine.org/standards/kisao">
         </biosimulations-home-logo>
 
-        <biosimulations-home-logo title="Docker" src="assets/images/about/tech/docker.svg" href="https://www.docker.com/">
+        <biosimulations-home-logo
+          title="Docker"
+          src="assets/images/about/tech/docker.svg"
+          href="https://www.docker.com/">
         </biosimulations-home-logo>
       </biosimulations-home-subsection>
     </biosimulations-home-section>
   </div>
 
   <biosimulations-home-section [columns]="1">
-    <ng-container id="heading"
-      >About <strong>BioSimulators</strong></ng-container
-    >
+    <ng-container id="heading">About <strong>BioSimulators</strong></ng-container>
     <ng-container id="subsection">
       <div class="about-content">
         <div class="text">
@@ -436,4 +444,3 @@
     </ng-container>
   </biosimulations-home-section>
 </div>
-
