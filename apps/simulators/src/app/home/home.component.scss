@@ -6,11 +6,6 @@ biosimulations-icon {
   padding-left: 0.5rem;
 }
 
-pre,
-code {
-  background: black;
-}
-
 #amp {
   color: var(--tertiary-color);
 }
@@ -87,9 +82,11 @@ code {
   margin-top: 1rem;
 }
 
-.code-window code {
+.code-window code,
+.code-window pre {
   font-size: 18px;
   font-weight: 500;
+  background-color: black;
 }
 
 .logo {
