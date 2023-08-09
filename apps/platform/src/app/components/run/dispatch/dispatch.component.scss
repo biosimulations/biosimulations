@@ -61,8 +61,11 @@ button {
 }
 
 .card-form-field {
-  justify-content: center;
-  display: flex;
+  padding-left: 1rem;
+
+  span {
+    padding-right: 1rem;
+  }
 }
 
 .alert {
