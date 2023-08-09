@@ -25,7 +25,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     private updateService: UpdateService,
     private healthService: HealthService,
     private breakpointObserver: BreakpointObserver,
-  ) {}
+  ) {
+    /* Constructor is empty */
+  }
 
   public ngOnInit(): void {
     if (this.checkForHealth) {
