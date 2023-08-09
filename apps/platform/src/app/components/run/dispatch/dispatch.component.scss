@@ -7,7 +7,6 @@ button {
 }
 
 .card-form-section {
-  height: 100%;
   padding-bottom: 1rem;
   padding-right: 1rem;
   background-color: white;
@@ -16,8 +15,7 @@ button {
 
 .card-form-section-title {
   background-color: #ff9800;
-  color: #ffffff;
-  height: 100%;
+  color: white;
   width: 100%;
   padding: 0.5rem;
   font-weight: 700;
@@ -29,37 +27,28 @@ button {
   }
 }
 
-.input-group {
+.card-form-section,
+.card-form-section-title {
   height: 100%;
-  padding-top: 3rem;
 }
 
-.resources {
-  input {
-    padding-top: 3rem;
-  }
+.input-group {
+  margin-left: 1rem;
+}
+
+.input-group,
+.resources input {
+  padding-top: 2rem;
+}
+
+.input-group,
+.card-form-field:active {
+  height: fit-content;
 }
 
 .card-form-field {
   justify-content: center;
   display: flex;
-
-  &:active {
-    height: fit-content;
-  }
-}
-
-mat-select {
-  background-color: white !important;
-}
-
-mat-option {
-  background-color: white !important;
-
-  &:hover {
-    background-color: var(--accent-lighter-color) !important;
-    color: var(--primary-color);
-  }
 }
 
 .alert {

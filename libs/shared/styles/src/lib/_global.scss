@@ -1584,3 +1584,13 @@ code {
 biosimulations-home-section span {
   font-weight: 400;
 }
+
+/* Assorted Global Element Declarations */
+mat-option {
+  background-color: white !important;
+
+  &:hover {
+    background-color: var(--accent-lighter-color) !important;
+    color: var(--primary-color);
+  }
+}
