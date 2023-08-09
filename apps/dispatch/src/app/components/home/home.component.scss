@@ -1,14 +1,9 @@
-@import 'biosimulations-colors';
+biosimulations-home-subsection {
+  padding-bottom: 6rem;
+}
 
-.home-container-run {
-  height: fit-content;
-  width: auto;
-  padding-top: 3rem;
-
-  @media (max-width: 768px) {
-    height: 100%;
-    width: 100%;
-  }
+biosimulations-icon {
+  padding-left: 0.5rem;
 }
 
 .about-content {
@@ -46,6 +41,15 @@
   }
 }
 
-strong {
-  color: var(--accent-color);
+#biosimulations {
+  color: var(--tertiary-darker-color);
+}
+
+#run {
+  color: purple;
+}
+
+.about-section {
+  margin-top: 3rem;
+  padding: 2rem;
 }
