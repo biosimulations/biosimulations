@@ -16,6 +16,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   public healthy$!: Observable<boolean>;
   public isMobileSimulations = false;
   private checkForHealth = true;
+  public mobileLinkTarget = '_blank';
+  public mobileLink?: string;
 
   public constructor(
     public config: ConfigService,
@@ -47,5 +49,9 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   private toggleMobile(): void {
     this.isMobileSimulations = !this.isMobileSimulations;
+  }
+
+  public navigateToMobileLink(mobileLink: string): void {
+    window.open(mobileLink, this.mobileLinkTarget);
   }
 }
