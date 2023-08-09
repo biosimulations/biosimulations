@@ -1,6 +1,19 @@
 .parent-container {
   background: url('/assets/images/backgrounds/grey-3.png');
   padding: 2rem;
+  width: fit-content;
+}
+
+@media screen and (max-width: 959px) {
+  .parent-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-form-section {
+    overflow-x: visible;
+  }
 }
 
 button {
