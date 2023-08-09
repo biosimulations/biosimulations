@@ -12,9 +12,16 @@
       <biosimulations-topbar-menu-item heading="BioSimDB" icon="browse" id="trigger"></biosimulations-topbar-menu-item>
     </biosimulations-hover-open-menu>
 
-    <biosimulations-hover-open-menu [routerLink]="['/runs', 'new']" [disabled]="true">
+    <biosimulations-hover-open-menu>
       <biosimulations-topbar-menu-item heading="Run Simulations" icon="experiment" id="trigger">
       </biosimulations-topbar-menu-item>
+      <ng-container id="items">
+        <biosimulations-dropdown-menu-item heading="Browse Simulation Runs" [routerLink]="['/runs']">
+        </biosimulations-dropdown-menu-item>
+        
+        <biosimulations-dropdown-menu-item heading="Run A Simulation" [routerLink]="['/runs', 'new']">
+        </biosimulations-dropdown-menu-item>
+      </ng-container>
     </biosimulations-hover-open-menu>
 
     <biosimulations-hover-open-menu>
