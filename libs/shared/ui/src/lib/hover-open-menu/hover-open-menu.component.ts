@@ -11,7 +11,7 @@ export class HoverOpenMenuComponent {
   public disabled = false;
 
   @Input()
-  public link?: string;
+  public href?: string;
 
   @Input()
   public target = '_self';
@@ -39,8 +39,8 @@ export class HoverOpenMenuComponent {
     if (!targetValue) {
       targetValue = this.target;
     }
-    if (this.link) {
-      window.open(this.link, targetValue);
+    if (this.href) {
+      window.open(this.href, targetValue);
     }
     trigger.closeMenu();
   }
