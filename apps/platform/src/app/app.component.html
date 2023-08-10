@@ -18,7 +18,7 @@
       <ng-container id="items">
         <biosimulations-dropdown-menu-item heading="Browse Simulation Runs" [routerLink]="['/runs']">
         </biosimulations-dropdown-menu-item>
-        
+
         <biosimulations-dropdown-menu-item heading="Run A Simulation" [routerLink]="['/runs', 'new']">
         </biosimulations-dropdown-menu-item>
       </ng-container>
@@ -37,7 +37,9 @@
         <biosimulations-dropdown-menu-item heading="Validate a model" [routerLink]="['/utils', 'validate-model']">
         </biosimulations-dropdown-menu-item>
 
-        <biosimulations-dropdown-menu-item heading="Validate a simulation" [routerLink]="['/utils', 'validate-simulation']">
+        <biosimulations-dropdown-menu-item
+          heading="Validate a simulation"
+          [routerLink]="['/utils', 'validate-simulation']">
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item heading="Validate metadata" [routerLink]="['/utils', 'validate-metadata']">
@@ -108,10 +110,7 @@
                 </button>
               </mat-list-item>
               <mat-list-item>
-                <button
-                  mat-button
-                  class="footer-item-button runsim"
-                  (click)="navigateToMobileLink('/runs/new')">
+                <button mat-button class="footer-item-button runsim" (click)="navigateToMobileLink('/runs/new')">
                   <span class="footer-item-button-text runsim our-site" target="_blank">
                     <biosimulations-icon icon="experiment"></biosimulations-icon>
                     Run a Simulation
@@ -191,9 +190,7 @@
                   mat-button
                   class="footer-item-button vivarium"
                   (click)="navigateToMobileLink('https://vivarium-collective.github.io/')">
-                  <span class="footer-item-button-text vivarium more-information" target="_blank">
-                    @Vivarium
-                  </span>
+                  <span class="footer-item-button-text vivarium more-information" target="_blank"> @Vivarium </span>
                 </button>
               </mat-list-item>
             </biosimulations-home-subsection>
