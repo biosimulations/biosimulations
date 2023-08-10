@@ -3,9 +3,11 @@ import { ScrollService } from '@biosimulations/shared/angular';
 import { ConfigService } from '@biosimulations/config/angular';
 import { HealthService } from '@biosimulations/angular-api-client';
 import { UpdateService } from '@biosimulations/shared/pwa';
+import { AppRoutes } from '@biosimulations/config/common';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 
+export const APP_ROUTES = new AppRoutes();
 @Component({
   selector: 'biosimulations-root',
   templateUrl: './app.component.html',
@@ -18,6 +20,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   private checkForHealth = true;
   public mobileLinkTarget = '_blank';
   public mobileLink?: string;
+  private _appRoutes: AppRoutes;
 
   public constructor(
     public config: ConfigService,
@@ -26,7 +29,15 @@ export class AppComponent implements OnInit, AfterViewInit {
     private healthService: HealthService,
     private breakpointObserver: BreakpointObserver,
   ) {
-    /* Constructor is empty */
+    this._appRoutes = APP_ROUTES;
+  }
+
+  public get appRoutes(): AppRoutes {
+    return this._appRoutes;
+  }
+
+  public set appRoutes(value: AppRoutes) {
+    this._appRoutes = value;
   }
 
   public ngOnInit(): void {
@@ -35,6 +46,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       console.log(this.healthy$);
     }
     this.checkClientScreenSimulations();
+    console.log('BioSimDB App routes: ' + this.appRoutes.platformApp);
   }
 
   public ngAfterViewInit(): void {

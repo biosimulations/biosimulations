@@ -1,11 +1,12 @@
 import { Endpoints } from '@biosimulations/config/common';
+import { APP_ROUTES } from '../../../app.component';
+//import { ConfigService } from '@biosimulations/config/angular';
 import { Component, ViewChild, OnInit, ElementRef } from '@angular/core';
 import { ISimulation, isUnknownSimulation } from '../../../datamodel';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { SimulationStatusService } from '../../../services/simulation/simulation-status.service';
 import { TableComponent, Column, ColumnActionType, ColumnFilterType } from '@biosimulations/shared/ui';
-import { ConfigService } from '@biosimulations/config/angular';
 import { Observable } from 'rxjs';
 import { environment } from '@biosimulations/shared/environments';
 import exampleSimulationsDevJson from './example-simulations.dev.json';
@@ -70,7 +71,7 @@ export class BrowseComponent implements OnInit {
       centerAction: ColumnActionType.href,
       centerHref: (simulation: ISimulation): string | null => {
         if (simulation.simulator) {
-          return `${this.config.simulatorsAppUrl}simulators/${simulation.simulator}/${simulation.simulatorVersion}`;
+          return `${APP_ROUTES.platformApp}simulators/${simulation.simulator}/${simulation.simulatorVersion}`;
         } else {
           return null;
         }
@@ -664,7 +665,7 @@ export class BrowseComponent implements OnInit {
   public simulations!: Observable<ISimulation[]>;
 
   public constructor(
-    private config: ConfigService,
+    //private config: ConfigService,
     private simulationService: SimulationService,
     private snackBar: MatSnackBar,
     private activatedRoute: ActivatedRoute,
