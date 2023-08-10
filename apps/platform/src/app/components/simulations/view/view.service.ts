@@ -10,8 +10,8 @@ import { Endpoints, AppRoutes } from '@biosimulations/config/common';
   providedIn: 'root',
 })
 export class ViewService {
-  private endpoints = new Endpoints();
-  private appRoutes = new AppRoutes();
+  public endpoints = new Endpoints();
+  public appRoutes = new AppRoutes();
 
   public formatSimulation(simulation: Simulation): FormattedSimulation {
     simulation = simulation as Simulation;
