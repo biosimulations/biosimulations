@@ -49,6 +49,7 @@ export class ConfigService {
   appUrl!: string;
   apiUrl!: string;
   email!: string;
+  docsUrl!: string;
   tutorialsUrl!: string | null;
   privacyPolicyVersion = 1;
   newIssueUrl!: string;
@@ -59,6 +60,7 @@ export class ConfigService {
   dispatchNewPullUrl!: string;
   simulatorsNewIssueUrl!: string;
   simulatorsNewPullUrl!: string;
+  validateSimulatorUrl!: string;
   appConfig!: any;
   analyticsId!: string;
 }

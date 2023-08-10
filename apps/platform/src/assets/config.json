@@ -8,6 +8,8 @@
   "apiUrl": "https://api.biosimulations.org/",
   "email": "info@biosimulations.org",
   "tutorialsUrl": null,
+  "docsUrl": "https://docs.biosimulations.org/users/",
+  "validateSimulatorUrl": "https://github.com/biosimulators/Biosimulators/issues/new?assignees=&labels=Validate%2Fsubmit+simulator&template=ValidateOrSubmitASimulator.yml&title=%5BSimulation+capabilities%5D%3A+",
   "privacyPolicyVersion": 1,
   "newIssueUrl": "https://github.com/biosimulations/biosimulations/issues/new/choose",
   "newPullUrl": "https://github.com/biosimulations/biosimulations/compare",
