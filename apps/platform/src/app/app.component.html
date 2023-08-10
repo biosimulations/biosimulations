@@ -65,7 +65,7 @@
     </biosimulations-hover-open-menu>
 
     <biosimulations-hover-open-menu
-      [href]="config.simulatorsAppBrowseSimulatorsUrl"
+      [href]="appRoutes.simulatorsApp"
       [disabled]="true"
       target="_blank"
       matTooltip="Browse simulator tools">
@@ -92,15 +92,15 @@
     <ng-container id="news"> Under Construction </ng-container>
     <router-outlet></router-outlet>
   </biosimulations-navigation>
-  <!-- Start Mobile Footer Card -->
-  <div class="mobile-footer-container simulations">
+  
+  <!--<div class="mobile-footer-container simulations">
     <mat-card class="footer-items-card about">
       <mat-card-content>
         <mat-list class="footer-list simulations">
           <biosimulations-home-section>
             <biosimulations-home-subsection id="subsection" heading="Our Site">
               <mat-list-item>
-                <button mat-button class="footer-item-button biosimdb" onclick="parent.location=['/projects']">
+                <button mat-button class="footer-item-button biosimdb" [routerLink]="['/projects']">
                   <span class="footer-item-button-text biosimdb our-site" target="_blank">
                     <biosimulations-icon icon="browse"></biosimulations-icon>
                     BioSimDB
@@ -201,6 +201,5 @@
         </mat-list>
       </mat-card-content>
     </mat-card>
-  </div>
-  <!-- End Mobile Footer Card -->
+  </div>-->
 </ng-template>
