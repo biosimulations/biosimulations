@@ -13,6 +13,7 @@ import { ViewSimulatorService } from './view-simulator.service';
 import { ConfigService } from '@biosimulations/config/angular';
 import { ViewSimulator, ViewVersion } from './view-simulator.interface';
 import { ClipboardService } from '@biosimulations/shared/angular';
+import { SIMULATORS_APP_ROUTES } from '../../app.component';
 
 @Component({
   selector: 'biosimulations-view-simulator',
@@ -24,6 +25,7 @@ export class ViewSimulatorComponent implements OnInit {
   public dispatchAppUrl!: string;
   public dispatchAppRunUrl!: string;
   public simulatorDocumentationUrl!: string | undefined;
+  public appRoutes = SIMULATORS_APP_ROUTES;
 
   public constructor(
     public route: ActivatedRoute,
@@ -104,7 +106,7 @@ export class ViewSimulatorComponent implements OnInit {
       },
       stackedFormatter: (label: string, version: ViewVersion): string | null => {
         if (version.validated) {
-          return this.config.dispatchAppUrl + 'run?simulator=' + this.id + '&simulatorVersion=' + label;
+          return this.appRoutes.dispatchApp + 'run?simulator=' + this.id + '&simulatorVersion=' + label;
         } else {
           return null;
         }
@@ -121,14 +123,14 @@ export class ViewSimulatorComponent implements OnInit {
       rightAction: ColumnActionType.href,
       centerHref: (version: ViewVersion): string | null => {
         if (version.validated) {
-          return this.config.dispatchAppUrl + 'run?simulator=' + this.id + '&simulatorVersion=' + version.label;
+          return this.appRoutes.dispatchApp + 'run?simulator=' + this.id + '&simulatorVersion=' + version.label;
         } else {
           return null;
         }
       },
       rightHref: (version: ViewVersion): string | null => {
         if (version.validated) {
-          return this.config.dispatchAppUrl + 'run?simulator=' + this.id + '&simulatorVersion=' + version.label;
+          return this.appRoutes.dispatchApp + 'run?simulator=' + this.id + '&simulatorVersion=' + version.label;
         } else {
           return null;
         }
@@ -179,9 +181,9 @@ export class ViewSimulatorComponent implements OnInit {
 
   public processSimulator(simulator: ViewSimulator): void {
     this.dispatchAppUrl =
-      this.config.dispatchAppUrl + 'runs/new' + '?simulator=' + simulator.id + '&simulatorVersion=' + simulator.version;
+      this.appRoutes.dispatchApp + 'runs/new' + '?simulator=' + simulator.id + '&simulatorVersion=' + simulator.version;
     this.dispatchAppRunUrl =
-      this.config.dispatchAppUrl + 'runs/new' + '?simulator=' + simulator.id + '&simulatorVersion=' + simulator.version;
+      this.appRoutes.dispatchApp + 'runs/new' + '?simulator=' + simulator.id + '&simulatorVersion=' + simulator.version;
     this.highlightVersion = (version: ViewVersion): boolean => {
       return version.label === simulator.version;
     };
