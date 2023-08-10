@@ -9,7 +9,7 @@
   [healthy]="healthy$ | async">
   <!-- Start Hero Banner -->
   <biosimulations-topbar-menu>
-    <biosimulations-hover-open-menu [disabled]="true" [href]="config.platformAppUrl">
+    <biosimulations-hover-open-menu [disabled]="true" [href]="appRoutes.platformApp">
       <biosimulations-topbar-menu-item heading="BioSimDB" icon="browse" id="trigger"> </biosimulations-topbar-menu-item>
     </biosimulations-hover-open-menu>
 
@@ -59,7 +59,7 @@
 
         <biosimulations-dropdown-menu-item
           heading="Validate a simulator"
-          href="https://github.com/biosimulators/Biosimulators/issues/new?assignees=&labels=Validate%2Fsubmit+simulator&template=ValidateOrSubmitASimulator.yml&title=%5BSimulation+capabilities%5D%3A+"
+          [href]="config.validateSimulatorUrl"
           target="githubissues">
         </biosimulations-dropdown-menu-item>
 
@@ -68,12 +68,12 @@
       </ng-container>
     </biosimulations-hover-open-menu>
 
-    <biosimulations-hover-open-menu [href]="'https://docs.biosimulations.org/users/'" [disabled]="true" target="_blank">
+    <biosimulations-hover-open-menu [href]="config.docsUrl" [disabled]="true">
       <biosimulations-topbar-menu-item heading="Learn" icon="idea" id="trigger"> </biosimulations-topbar-menu-item>
     </biosimulations-hover-open-menu>
 
     <biosimulations-hover-open-menu
-      [href]="config.simulatorsAppBrowseSimulatorsUrl"
+      [href]="appRoutes.simulatorsApp"
       [disabled]="true"
       matTooltip="Browse simulator tools">
       <biosimulations-topbar-menu-item heading="BioSimulators" icon="link" id="trigger">
