@@ -7,8 +7,6 @@
   "appUrl": "https://biosimulators.org/",
   "apiUrl": "https://api.biosimulators.org/",
   "email": "info@biosimulators.org",
-  "docsUrl": "https://docs.biosimulations.org/users/",
-  "validateSimulatorsUrl": "https://github.com/biosimulators/Biosimulators/issues/new?assignees=&labels=Validate%2Fsubmit+simulator&template=ValidateOrSubmitASimulator.yml&title=%5BSimulation+capabilities%5D%3A+",
   "tutorialsUrl": "https://mybinder.org/v2/gh/biosimulators/Biosimulators_tutorials/HEAD",
   "privacyPolicyVersion": 1,
   "newIssueUrl": "https://github.com/biosimulators/Biosimulators/issues/new/choose",

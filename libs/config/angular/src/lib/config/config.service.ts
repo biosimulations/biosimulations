@@ -49,7 +49,7 @@ export class ConfigService {
   appUrl!: string;
   apiUrl!: string;
   email!: string;
-  docsUrl!: string;
+  docsUrl? = 'https://docs.biosimulations.org/users/';
   tutorialsUrl!: string | null;
   privacyPolicyVersion = 1;
   newIssueUrl!: string;
@@ -60,7 +60,8 @@ export class ConfigService {
   dispatchNewPullUrl!: string;
   simulatorsNewIssueUrl!: string;
   simulatorsNewPullUrl!: string;
-  validateSimulatorUrl!: string;
+  validateSimulatorUrl? =
+    'https://github.com/biosimulators/Biosimulators/issues/new?assignees=&labels=Validate%2Fsubmit+simulator&template=ValidateOrSubmitASimulator.yml&title=%5BSimulation+capabilities%5D%3A+';
   appConfig!: any;
   analyticsId!: string;
 }
