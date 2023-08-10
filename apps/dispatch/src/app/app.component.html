@@ -9,7 +9,7 @@
   [healthy]="healthy$ | async">
   <!-- Start Hero Banner -->
   <biosimulations-topbar-menu>
-    <biosimulations-hover-open-menu [disabled]="true" [link]="config.platformAppUrl">
+    <biosimulations-hover-open-menu [disabled]="true" [href]="config.platformAppUrl">
       <biosimulations-topbar-menu-item heading="BioSimDB" icon="browse" id="trigger"> </biosimulations-topbar-menu-item>
     </biosimulations-hover-open-menu>
 
@@ -68,12 +68,12 @@
       </ng-container>
     </biosimulations-hover-open-menu>
 
-    <biosimulations-hover-open-menu [link]="'https://docs.biosimulations.org/users/'" [disabled]="true" target="_blank">
+    <biosimulations-hover-open-menu [href]="'https://docs.biosimulations.org/users/'" [disabled]="true" target="_blank">
       <biosimulations-topbar-menu-item heading="Learn" icon="idea" id="trigger"> </biosimulations-topbar-menu-item>
     </biosimulations-hover-open-menu>
 
     <biosimulations-hover-open-menu
-      [link]="config.simulatorsAppBrowseSimulatorsUrl"
+      [href]="config.simulatorsAppBrowseSimulatorsUrl"
       [disabled]="true"
       matTooltip="Browse simulator tools">
       <biosimulations-topbar-menu-item heading="BioSimulators" icon="link" id="trigger">

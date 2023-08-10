@@ -35,6 +35,11 @@ ul:last-child {
   margin-block-end: 0;
 }
 
+a:hover {
+  color: var(--accent-darker-color);
+  transition: color 0.25s ease;
+}
+
 /* Page content */
 .partial-width {
   max-width: 1400px;
@@ -1578,4 +1583,25 @@ code {
 
 biosimulations-home-section span {
   font-weight: 400;
+}
+
+/* Assorted Global Element Declarations */
+mat-option {
+  background-color: white !important;
+
+  &:hover {
+    background-color: var(--accent-lighter-color) !important;
+    color: var(--primary-color);
+  }
+}
+
+.biosimulations-button {
+  background-color: var(--primary-color) !important;
+  color: white !important;
+  font-size: 20px !important;
+
+  &.run:hover {
+    background-color: var(--tertiary-darker-color) !important;
+    transition: background-color 0.4s ease-in-out !important;
+  }
 }

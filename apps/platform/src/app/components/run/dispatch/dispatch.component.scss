@@ -1,15 +1,90 @@
-@use '@angular/material' as mat;
-@import 'biosimulations-colors';
+.parent-container {
+  background: url('/assets/images/backgrounds/grey-3.png');
+  padding: 2rem;
+  width: fit-content;
+}
+
+@media screen and (max-width: 959px) {
+  .parent-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-form-section {
+    overflow-x: visible;
+  }
+}
 
 button {
   float: right;
+}
+
+.card-form-section {
+  padding-bottom: 1rem;
+  padding-right: 1rem;
+  background-color: white;
+  overflow-x: hidden;
+}
+
+.card-form-section-title {
+  background-color: var(--accent-color);
+  color: white;
+  width: 100%;
+  padding: 0.5rem;
+  font-weight: 700;
+
+  &:hover {
+    color: var(--quaternary-darker-color);
+    transition: color 0.2s ease;
+    transition-delay: 0.8s;
+  }
+}
+
+.card-form-section,
+.card-form-section-title {
+  height: 100%;
+}
+
+.input-group {
+  margin-left: 1rem;
+}
+
+.input-group,
+.resources input {
+  padding-top: 2rem;
+}
+
+.input-group,
+.card-form-field:active {
+  height: fit-content;
+}
+
+.card-form-field {
+  padding-left: 1rem;
+
+  span {
+    padding-right: 1rem;
+  }
+}
+
+.alert {
+  width: fit-content;
+  background-color: var(--warn-lighter-color);
+  color: var(--warn-color);
+  padding: 6px;
+
+  &:hover {
+    transform: scale(1.025);
+    transition: transform 0.1s ease-in-out;
+  }
 }
 
 .message {
   margin-top: 1rem;
 
   &.success {
-    color: mat.get-color-from-palette($theme-primary);
+    color: var(--primary-color);
     a {
       text-decoration: underline;
     }

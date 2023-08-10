@@ -14,7 +14,7 @@
       </biosimulations-topbar-menu-item>
     </biosimulations-hover-open-menu>
 
-    <biosimulations-hover-open-menu [disabled]="true" [link]="config.dispatchAppUrl">
+    <biosimulations-hover-open-menu [disabled]="true" [href]="config.dispatchAppUrl">
       <biosimulations-topbar-menu-item heading="Run Simulations" icon="experiment" id="trigger" target="_self">
       </biosimulations-topbar-menu-item>
     </biosimulations-hover-open-menu>
@@ -57,13 +57,13 @@
       </ng-container>
     </biosimulations-hover-open-menu>
 
-    <biosimulations-hover-open-menu [link]="'https://docs.biosimulations.org/users/'" [disabled]="true" target="_blank">
+    <biosimulations-hover-open-menu [href]="'https://docs.biosimulations.org/users/'" [disabled]="true" target="_blank">
       <biosimulations-topbar-menu-item heading="Learn" icon="idea" id="trigger"> </biosimulations-topbar-menu-item>
     </biosimulations-hover-open-menu>
 
     <biosimulations-hover-open-menu
       [disabled]="true"
-      [link]="config.platformAppUrl"
+      [href]="config.platformAppUrl"
       matTooltip="Browse simulation projects">
       <biosimulations-topbar-menu-item heading="BioSimDB" icon="link" id="trigger"> </biosimulations-topbar-menu-item>
     </biosimulations-hover-open-menu>

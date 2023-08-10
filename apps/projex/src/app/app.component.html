@@ -7,11 +7,11 @@
   [showNews]="false"
   [healthy]="healthy$ | async">
   <biosimulations-topbar-menu>
-    <biosimulations-hover-open-menu onclick="parent.location=['/projects']" [link]="'/projects'" [disabled]="true">
+    <biosimulations-hover-open-menu [href]="config.platformAppUrl" [disabled]="true">
       <biosimulations-topbar-menu-item heading="BioSimDB" icon="browse" id="trigger"></biosimulations-topbar-menu-item>
     </biosimulations-hover-open-menu>
 
-    <biosimulations-hover-open-menu [link]="config.dispatchAppRunsNewUrl" [disabled]="true">
+    <biosimulations-hover-open-menu [href]="config.dispatchAppRunsNewUrl" [disabled]="true">
       <biosimulations-topbar-menu-item heading="Run Simulations" icon="experiment" id="trigger">
       </biosimulations-topbar-menu-item>
     </biosimulations-hover-open-menu>
@@ -52,30 +52,13 @@
       </ng-container>
     </biosimulations-hover-open-menu>
 
-    <!-- Keeping target="_blank" as Docs is a sep app, and clicking icon in docs header takes you to home page -->
-    <biosimulations-hover-open-menu [link]="'https://docs.biosimulations.org/users/'" [disabled]="true" target="_blank">
+    <biosimulations-hover-open-menu [href]="'https://docs.biosimulations.org/users/'" [disabled]="true" target="_blank">
       <biosimulations-topbar-menu-item heading="Learn" icon="idea" id="trigger"> </biosimulations-topbar-menu-item>
     </biosimulations-hover-open-menu>
 
-    <biosimulations-hover-open-menu
-      [link]="config.simulatorsAppBrowseSimulatorsUrl"
-      style="
-        position: fixed;
-        right: 45px;
-        top: 1;
-        overflow-y: show;
-        -webkit-overflow-scrolling: touch;
-        padding-top: 2.3px;
-      ">
+    <biosimulations-hover-open-menu [href]="config.simulatorsAppBrowseSimulatorsUrl">
       <biosimulations-topbar-menu-item heading="BioSimulators" icon="link" id="trigger">
       </biosimulations-topbar-menu-item>
-      <ng-container id="items">
-        <biosimulations-dropdown-menu-item
-          heading="Browse simulator tools"
-          icon="simulators"
-          href="http://biosimulators.org/simulators">
-        </biosimulations-dropdown-menu-item>
-      </ng-container>
     </biosimulations-hover-open-menu>
   </biosimulations-topbar-menu>
   <ng-container id="news"> Under Construction </ng-container>
