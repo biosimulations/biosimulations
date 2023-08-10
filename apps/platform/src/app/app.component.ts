@@ -7,7 +7,7 @@ import { AppRoutes } from '@biosimulations/config/common';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 
-export const APP_ROUTES = new AppRoutes();
+export const PLATFORM_APP_ROUTES = new AppRoutes();
 @Component({
   selector: 'biosimulations-root',
   templateUrl: './app.component.html',
@@ -29,7 +29,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private healthService: HealthService,
     private breakpointObserver: BreakpointObserver,
   ) {
-    this._appRoutes = APP_ROUTES;
+    this._appRoutes = PLATFORM_APP_ROUTES;
   }
 
   public get appRoutes(): AppRoutes {

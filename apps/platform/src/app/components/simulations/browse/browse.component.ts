@@ -1,5 +1,5 @@
 import { Endpoints } from '@biosimulations/config/common';
-import { APP_ROUTES } from '../../../app.component';
+import { PLATFORM_APP_ROUTES } from '../../../app.component';
 //import { ConfigService } from '@biosimulations/config/angular';
 import { Component, ViewChild, OnInit, ElementRef } from '@angular/core';
 import { ISimulation, isUnknownSimulation } from '../../../datamodel';
@@ -71,7 +71,7 @@ export class BrowseComponent implements OnInit {
       centerAction: ColumnActionType.href,
       centerHref: (simulation: ISimulation): string | null => {
         if (simulation.simulator) {
-          return `${APP_ROUTES.platformApp}simulators/${simulation.simulator}/${simulation.simulatorVersion}`;
+          return `${PLATFORM_APP_ROUTES.platformApp}simulators/${simulation.simulator}/${simulation.simulatorVersion}`;
         } else {
           return null;
         }
