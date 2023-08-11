@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'biosimulations-hero-banner-util-button',
@@ -6,8 +6,9 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./hero-banner-util-button.component.scss'],
 })
 export class HeroBannerUtilButtonComponent {
-  @Input() public validateSimulatorUrl?: string;
-  @Input() public apiUrl?: string;
+  public validateSimulatorUrl = 'https://docs.biosimulations.org';
+  public apiUrl = 'https://api.biosimulations.org';
+  public simulatorsApiUrl? = 'https://api.biosimulators.org';
   public routerLinkMenuConfig = [
     { heading: 'Convert a file', routerLink: ['/utils', 'convert-file'] },
     { heading: 'Create a project', routerLink: ['/utils', 'create-project'] },
