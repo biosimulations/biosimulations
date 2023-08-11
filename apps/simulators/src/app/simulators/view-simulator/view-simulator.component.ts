@@ -25,7 +25,6 @@ export class ViewSimulatorComponent implements OnInit {
   public dispatchAppUrl!: string;
   public dispatchAppRunUrl!: string;
   public simulatorDocumentationUrl!: string | undefined;
-  public appRoutes = SIMULATORS_APP_ROUTES;
 
   public constructor(
     public route: ActivatedRoute,
@@ -106,7 +105,7 @@ export class ViewSimulatorComponent implements OnInit {
       },
       stackedFormatter: (label: string, version: ViewVersion): string | null => {
         if (version.validated) {
-          return this.appRoutes.dispatchApp + 'run?simulator=' + this.id + '&simulatorVersion=' + label;
+          return SIMULATORS_APP_ROUTES.dispatchApp + 'run?simulator=' + this.id + '&simulatorVersion=' + label;
         } else {
           return null;
         }
@@ -123,14 +122,14 @@ export class ViewSimulatorComponent implements OnInit {
       rightAction: ColumnActionType.href,
       centerHref: (version: ViewVersion): string | null => {
         if (version.validated) {
-          return this.appRoutes.dispatchApp + 'run?simulator=' + this.id + '&simulatorVersion=' + version.label;
+          return SIMULATORS_APP_ROUTES.dispatchApp + 'run?simulator=' + this.id + '&simulatorVersion=' + version.label;
         } else {
           return null;
         }
       },
       rightHref: (version: ViewVersion): string | null => {
         if (version.validated) {
-          return this.appRoutes.dispatchApp + 'run?simulator=' + this.id + '&simulatorVersion=' + version.label;
+          return SIMULATORS_APP_ROUTES.dispatchApp + 'run?simulator=' + this.id + '&simulatorVersion=' + version.label;
         } else {
           return null;
         }
@@ -181,9 +180,19 @@ export class ViewSimulatorComponent implements OnInit {
 
   public processSimulator(simulator: ViewSimulator): void {
     this.dispatchAppUrl =
-      this.appRoutes.dispatchApp + 'runs/new' + '?simulator=' + simulator.id + '&simulatorVersion=' + simulator.version;
+      SIMULATORS_APP_ROUTES.dispatchApp +
+      'runs/new' +
+      '?simulator=' +
+      simulator.id +
+      '&simulatorVersion=' +
+      simulator.version;
     this.dispatchAppRunUrl =
-      this.appRoutes.dispatchApp + 'runs/new' + '?simulator=' + simulator.id + '&simulatorVersion=' + simulator.version;
+      SIMULATORS_APP_ROUTES.dispatchApp +
+      'runs/new' +
+      '?simulator=' +
+      simulator.id +
+      '&simulatorVersion=' +
+      simulator.version;
     this.highlightVersion = (version: ViewVersion): boolean => {
       return version.label === simulator.version;
     };
