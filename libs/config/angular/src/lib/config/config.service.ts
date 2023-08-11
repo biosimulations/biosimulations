@@ -49,7 +49,7 @@ export class ConfigService {
   appUrl!: string;
   apiUrl!: string;
   email!: string;
-  docsUrl? = 'https://docs.biosimulations.org/';
+  docsUrl?: string;
   tutorialsUrl!: string | null;
   privacyPolicyVersion = 1;
   newIssueUrl!: string;

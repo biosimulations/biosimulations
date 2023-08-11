@@ -9,6 +9,7 @@ export class HeroBannerUtilButtonComponent {
   public validateSimulatorUrl = 'https://docs.biosimulations.org';
   public apiUrl = 'https://api.biosimulations.org';
   public simulatorsApiUrl? = 'https://api.biosimulators.org';
+  public docsUrl = 'https://docs.biosimulations.org';
   public routerLinkMenuConfig = [
     { heading: 'Convert a file', routerLink: ['/utils', 'convert-file'] },
     { heading: 'Create a project', routerLink: ['/utils', 'create-project'] },
