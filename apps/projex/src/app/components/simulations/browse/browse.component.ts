@@ -17,6 +17,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteSimulationsDialogComponent } from './delete-simulations-dialog.component';
 import { FormatService } from '@biosimulations/shared/services';
 import { ClipboardService } from '@biosimulations/shared/angular';
+import { PROJEX_APP_ROUTES } from '../../../app.component';
 
 @Component({
   templateUrl: './browse.component.html',
@@ -70,7 +71,7 @@ export class BrowseComponent implements OnInit {
       centerAction: ColumnActionType.href,
       centerHref: (simulation: ISimulation): string | null => {
         if (simulation.simulator) {
-          return `${this.config.simulatorsAppUrl}simulators/${simulation.simulator}/${simulation.simulatorVersion}`;
+          return `${PROJEX_APP_ROUTES.simulatorsApp}simulators/${simulation.simulator}/${simulation.simulatorVersion}`;
         } else {
           return null;
         }
