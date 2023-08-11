@@ -1,12 +1,17 @@
 <biosimulations-hover-open-menu>
-    <biosimulations-topbar-menu-item heading="Utilities" icon="construction" id="trigger">
-    </biosimulations-topbar-menu-item>
-    <ng-container id="items">
-        <biosimulations-dropdown-menu-item
-            *ngFor="let item of menuConfig"
+      <biosimulations-topbar-menu-item heading="Utilities" icon="construction" id="trigger">
+      </biosimulations-topbar-menu-item>
+      <ng-container id="items">
+         <biosimulations-dropdown-menu-item
+            *ngFor="let item of routerLinkMenuConfig"
             [heading]="item.heading"
-            [routerLink]="item.routerLink"
-            [href]="item.href">
-        </biosimulations-dropdown-menu-item>
-    </ng-container>
+            [routerLink]="item.routerLink">
+         </biosimulations-dropdown-menu-item>
+         
+         <biosimulations-dropdown-menu-item heading="Validate a simulator" [href]="validateSimulatorUrl">
+         </biosimulations-dropdown-menu-item>
+
+         <biosimulations-dropdown-menu-item heading="REST API" [href]="apiUrl">
+         </biosimulations-dropdown-menu-item>
+      </ng-container>
 </biosimulations-hover-open-menu>
