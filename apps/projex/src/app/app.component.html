@@ -1,66 +1,35 @@
 <biosimulations-navigation
-  [appName]="config.appName"
-  [appNameParts]="config.appNameParts"
-  [logo]="config.logo"
-  [privacyPolicyVersion]="config.privacyPolicyVersion"
-  [newsVersion]="1"
-  [showNews]="false"
-  [healthy]="healthy$ | async">
-  <biosimulations-topbar-menu>
-    <biosimulations-hover-open-menu [href]="appRoutes.platformApp" [disabled]="true">
-      <biosimulations-topbar-menu-item heading="BioSimDB" icon="browse" id="trigger"></biosimulations-topbar-menu-item>
-    </biosimulations-hover-open-menu>
+   [appName]="config.appName"
+   [appNameParts]="config.appNameParts"
+   [logo]="config.logo"
+   [privacyPolicyVersion]="config.privacyPolicyVersion"
+   [newsVersion]="1"
+   [showNews]="false"
+   [healthy]="healthy$ | async">
+   <biosimulations-topbar-menu>
+      <biosimulations-hover-open-menu [href]="appRoutes.platformApp" [disabled]="true">
+         <biosimulations-topbar-menu-item heading="BioSimDB" icon="browse" id="trigger"></biosimulations-topbar-menu-item>
+      </biosimulations-hover-open-menu>
 
-    <biosimulations-hover-open-menu [href]="appRoutes.dispatchApp" [disabled]="true">
-      <biosimulations-topbar-menu-item heading="Run Simulations" icon="experiment" id="trigger">
-      </biosimulations-topbar-menu-item>
-    </biosimulations-hover-open-menu>
+      <biosimulations-hover-open-menu [href]="appRoutes.dispatchApp" [disabled]="true">
+         <biosimulations-topbar-menu-item heading="Run Simulations" icon="experiment" id="trigger">
+         </biosimulations-topbar-menu-item>
+      </biosimulations-hover-open-menu>
 
-    <biosimulations-hover-open-menu>
-      <biosimulations-topbar-menu-item heading="Utilities" icon="construction" id="trigger">
-      </biosimulations-topbar-menu-item>
-      <ng-container id="items">
-        <biosimulations-dropdown-menu-item heading="Convert a file" [routerLink]="['/utils', 'convert-file']">
-        </biosimulations-dropdown-menu-item>
+      <biosimulations-hero-banner-util-button 
+         [validateSimulatorUrl]="config.validateSimulatorUrl"
+         [apiUrl]="config.apiUrl">
+      </biosimulations-hero-banner-util-button>
 
-        <biosimulations-dropdown-menu-item heading="Create a project" [routerLink]="['/utils', 'create-project']">
-        </biosimulations-dropdown-menu-item>
+      <biosimulations-hover-open-menu [href]="config.docsUrl" [disabled]="true" target="_blank">
+         <biosimulations-topbar-menu-item heading="Learn" icon="idea" id="trigger"></biosimulations-topbar-menu-item>
+      </biosimulations-hover-open-menu>
 
-        <biosimulations-dropdown-menu-item heading="Validate a model" [routerLink]="['/utils', 'validate-model']">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item heading="Validate a simulation" [routerLink]="['/utils', 'validate-simulation']">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item heading="Validate metadata" [routerLink]="['/utils', 'validate-metadata']">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item heading="Validate a project" [routerLink]="['/utils', 'validate-project']">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Validate a simulator"
-          href="https://github.com/biosimulators/Biosimulators/issues/new?assignees=&labels=Validate%2Fsubmit+simulator&template=ValidateOrSubmitASimulator.yml&title=%5BSimulation+capabilities%5D%3A+"
-          target="githubissues">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item heading="Suggest a simulator" [routerLink]="['/utils', 'suggest-simulator']">
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item heading="BioSimulations REST API" [href]="config.apiUrl">
-        </biosimulations-dropdown-menu-item>
-      </ng-container>
-    </biosimulations-hover-open-menu>
-
-    <biosimulations-hover-open-menu [href]="config.docsUrl" [disabled]="true" target="_blank">
-      <biosimulations-topbar-menu-item heading="Learn" icon="idea" id="trigger"> </biosimulations-topbar-menu-item>
-    </biosimulations-hover-open-menu>
-
-    <biosimulations-hover-open-menu [href]="appRoutes.simulatorsApp">
-      <biosimulations-topbar-menu-item heading="BioSimulators" icon="link" id="trigger">
-      </biosimulations-topbar-menu-item>
-    </biosimulations-hover-open-menu>
-  </biosimulations-topbar-menu>
-  <ng-container id="news"> Under Construction </ng-container>
-  <router-outlet></router-outlet>
+      <biosimulations-hover-open-menu [href]="appRoutes.simulatorsApp">
+         <biosimulations-topbar-menu-item heading="BioSimulators" icon="link" id="trigger">
+         </biosimulations-topbar-menu-item>
+      </biosimulations-hover-open-menu>
+   </biosimulations-topbar-menu>
+   <ng-container id="news"> Under Construction </ng-container>
+   <router-outlet></router-outlet>
 </biosimulations-navigation>
