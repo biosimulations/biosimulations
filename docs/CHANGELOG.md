@@ -1,5 +1,22 @@
 # Changelog
 
+## [9.47.0](https://github.com/biosimulations/biosimulations/compare/v9.46.0...v9.47.0) (2023-08-10)
+
+
+### Bug Fixes
+
+* added appropriate routerLinks and renamed link to more explicit href ([074cb7e](https://github.com/biosimulations/biosimulations/commit/074cb7ee39c75ee0048dd4311d181543864e0975))
+* adjusted routing in projex ([2918c2d](https://github.com/biosimulations/biosimulations/commit/2918c2d9ecd374c223c8a7f0ea06e122a64d1a53))
+* changed mobile link pointer to local route ([6e84362](https://github.com/biosimulations/biosimulations/commit/6e843626cfb3a672bb1120227f1142625eca5020))
+* proper implementation of routing in projex to appease ci ([9be2732](https://github.com/biosimulations/biosimulations/commit/9be273290aa7c5cc99e88b25c5f1703b6b102a9a))
+* renamed attribute implementation in app.components ([8c828c2](https://github.com/biosimulations/biosimulations/commit/8c828c2c7aaaa65dd59478dae322170c97775d0f))
+
+
+### Features
+
+* implemented dropdown menu with local routes for platform hero ([54e1b0a](https://github.com/biosimulations/biosimulations/commit/54e1b0ad831dad4d46f726507d854bcad230622e))
+* **ui:** implemented mobile footer in app component ([e1bf0fd](https://github.com/biosimulations/biosimulations/commit/e1bf0fdd60638dc0c45d570275fda22324f737f3))
+
 ## [9.46.0](https://github.com/biosimulations/biosimulations/compare/v9.45.0...v9.46.0) (2023-08-08)
 
 
