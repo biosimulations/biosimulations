@@ -1,0 +1,12 @@
+<biosimulations-hover-open-menu>
+    <biosimulations-topbar-menu-item heading="Utilities" icon="construction" id="trigger">
+    </biosimulations-topbar-menu-item>
+    <ng-container id="items">
+        <biosimulations-dropdown-menu-item
+            *ngFor="let item of menuConfig"
+            [heading]="item.heading"
+            [routerLink]="item.routerLink"
+            [href]="item.href">
+        </biosimulations-dropdown-menu-item>
+    </ng-container>
+</biosimulations-hover-open-menu>
