@@ -1,67 +1,62 @@
 <biosimulations-navigation
-   *ngIf="!isMobileSimulations; else mobileSimulations"
-   [appName]="config.appName"
-   [appNameParts]="config.appNameParts"
-   [logo]="config.logo"
-   [privacyPolicyVersion]="config.privacyPolicyVersion"
-   [newsVersion]="1"
-   [showNews]="false"
-   [healthy]="healthy$ | async">
-   <biosimulations-topbar-menu>
-      <biosimulations-hover-open-menu [routerLink]="['/projects']" [disabled]="true">
-         <biosimulations-topbar-menu-item heading="BioSimDB" icon="browse" id="trigger">
-         </biosimulations-topbar-menu-item>
-      </biosimulations-hover-open-menu>
+  *ngIf="!isMobileSimulations; else mobileSimulations"
+  [appName]="config.appName"
+  [appNameParts]="config.appNameParts"
+  [logo]="config.logo"
+  [privacyPolicyVersion]="config.privacyPolicyVersion"
+  [newsVersion]="1"
+  [showNews]="false"
+  [healthy]="healthy$ | async">
+  <biosimulations-topbar-menu>
+    <biosimulations-hover-open-menu [routerLink]="['/projects']" [disabled]="true">
+      <biosimulations-topbar-menu-item heading="BioSimDB" icon="browse" id="trigger"> </biosimulations-topbar-menu-item>
+    </biosimulations-hover-open-menu>
 
-      <biosimulations-hover-open-menu>
-         <biosimulations-topbar-menu-item heading="Run Simulations" icon="experiment" id="trigger">
-         </biosimulations-topbar-menu-item>
-         <ng-container id="items">
-            <biosimulations-dropdown-menu-item heading="Browse Simulation Runs" [routerLink]="['/runs']">
-            </biosimulations-dropdown-menu-item>
-            
-            <biosimulations-dropdown-menu-item heading="Run A Simulation" [routerLink]="['/runs', 'new']">
-            </biosimulations-dropdown-menu-item>
-         </ng-container>
-      </biosimulations-hover-open-menu>
+    <biosimulations-hover-open-menu>
+      <biosimulations-topbar-menu-item heading="Run Simulations" icon="experiment" id="trigger">
+      </biosimulations-topbar-menu-item>
+      <ng-container id="items">
+        <biosimulations-dropdown-menu-item heading="Browse Simulation Runs" [routerLink]="['/runs']">
+        </biosimulations-dropdown-menu-item>
 
-      <biosimulations-hero-banner-util-button></biosimulations-hero-banner-util-button>
+        <biosimulations-dropdown-menu-item heading="Run A Simulation" [routerLink]="['/runs', 'new']">
+        </biosimulations-dropdown-menu-item>
+      </ng-container>
+    </biosimulations-hover-open-menu>
 
-      <biosimulations-hover-open-menu [href]="config.docsUrl" [disabled]="true" target="docs">
-         <biosimulations-topbar-menu-item heading="Learn" icon="idea" id="trigger"> 
-         </biosimulations-topbar-menu-item>
-      </biosimulations-hover-open-menu>
+    <biosimulations-hero-banner-util-button></biosimulations-hero-banner-util-button>
 
-      <biosimulations-hover-open-menu
-         [href]="appRoutes.simulatorsApp"
-         [disabled]="true"
-         target="_blank"
-         matTooltip="Browse simulator tools">
-         <biosimulations-topbar-menu-item
-            heading="BioSimulators"
-            icon="link"
-            id="trigger">
-         </biosimulations-topbar-menu-item>
-      </biosimulations-hover-open-menu>
-   </biosimulations-topbar-menu>
-   <ng-container id="news"> Under Construction </ng-container>
-   <router-outlet></router-outlet>
+    <biosimulations-hover-open-menu [href]="config.docsUrl" [disabled]="true" target="docs">
+      <biosimulations-topbar-menu-item heading="Learn" icon="idea" id="trigger"> </biosimulations-topbar-menu-item>
+    </biosimulations-hover-open-menu>
+
+    <biosimulations-hover-open-menu
+      [href]="appRoutes.simulatorsApp"
+      [disabled]="true"
+      target="_blank"
+      matTooltip="Browse simulator tools">
+      <biosimulations-topbar-menu-item heading="BioSimulators" icon="link" id="trigger">
+      </biosimulations-topbar-menu-item>
+    </biosimulations-hover-open-menu>
+  </biosimulations-topbar-menu>
+  <ng-container id="news"> Under Construction </ng-container>
+  <router-outlet></router-outlet>
 </biosimulations-navigation>
 
 <ng-template #mobileSimulations>
-   <biosimulations-navigation
-      [appName]="config.appName"
-      [appNameParts]="config.appNameParts"
-      [logo]="config.logo"
-      [privacyPolicyVersion]="config.privacyPolicyVersion"
-      [newsVersion]="1"
-      [showNews]="false"
-      [healthy]="healthy$ | async">
-      <biosimulations-topbar-menu></biosimulations-topbar-menu>
-      <ng-container id="news"> Under Construction </ng-container>
-      <router-outlet></router-outlet>
-   </biosimulations-navigation>
-  
+  <biosimulations-navigation
+    [appName]="config.appName"
+    [appNameParts]="config.appNameParts"
+    [logo]="config.logo"
+    [privacyPolicyVersion]="config.privacyPolicyVersion"
+    [newsVersion]="1"
+    [showNews]="false"
+    [healthy]="healthy$ | async">
+    <biosimulations-topbar-menu></biosimulations-topbar-menu>
+    <ng-container id="news"> Under Construction </ng-container>
+    <router-outlet></router-outlet>
+  </biosimulations-navigation>
+
   <!--<div class="mobile-footer-container simulations">
     <mat-card class="footer-items-card about">
       <mat-card-content>
