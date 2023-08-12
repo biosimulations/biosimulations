@@ -1,5 +1,39 @@
 # Changelog
 
+## [9.48.0](https://github.com/biosimulations/biosimulations/compare/v9.47.0...v9.48.0) (2023-08-12)
+
+
+### Bug Fixes
+
+* added default values and adjusted attribute declaration ([592a236](https://github.com/biosimulations/biosimulations/commit/592a236e57d8149321737457b441f1bcc9c5ae71))
+* added docs and validation fields to simulators config json ([035606f](https://github.com/biosimulations/biosimulations/commit/035606f99eaa1789bbb07a7cc65bb8f792ff7b5f))
+* adjusted accessibility of attributes and implemented app routes ([cad32fa](https://github.com/biosimulations/biosimulations/commit/cad32fa37fb11aa17cdfab703531ad8363301656))
+* adjusted shared utils component and config implementation ([7ef5784](https://github.com/biosimulations/biosimulations/commit/7ef57842610f5e46d1dce266e006fe8f9e3faf55))
+* correct declaration of href in simulators app html ([45a7d89](https://github.com/biosimulations/biosimulations/commit/45a7d89657ca0b215d2b719a3b2f88a96ea7f108))
+* implementation of routes and config in projex ([54f928c](https://github.com/biosimulations/biosimulations/commit/54f928c9e4fd02324d3e67cbc8846289ebc5edb8))
+* implemented app routes instances for projex app in home component ([c69f058](https://github.com/biosimulations/biosimulations/commit/c69f0584c7e05c9a123cc6feb90d346ae97dce9a))
+* implemented app routes object in app.component for parsing urls ([b72310e](https://github.com/biosimulations/biosimulations/commit/b72310e2ee7df1d59ab67b67c964599d307fee7c))
+* implemented projex app routes instance in place of config in browse ([3eb559c](https://github.com/biosimulations/biosimulations/commit/3eb559c6489b0064df32e9dc82d4cef8e01c243d))
+* removed builtin attributes from component declaration ([e9c3c6d](https://github.com/biosimulations/biosimulations/commit/e9c3c6db92ef625dfd133cccf85596840b7c1a7c))
+* resolved merge conflict using cli ([51b11de](https://github.com/biosimulations/biosimulations/commit/51b11de3c99c693c106968412de60e54d6f8fb3a))
+
+
+### Features
+
+* adjusted utils button class and altered implementations ([5a48e87](https://github.com/biosimulations/biosimulations/commit/5a48e87ed9e5375cebb20913a8958f2ec3312b8d))
+* implementation of routerLink and appRoutes setters in simulators ([e776d70](https://github.com/biosimulations/biosimulations/commit/e776d70de80364615c846dc990f79441336c97cd))
+* implemented and adjusted shared utils button component ([772ff26](https://github.com/biosimulations/biosimulations/commit/772ff26504fb7912c248c4411e1fe411eb847cf4))
+* implemented approutes and new config values in dispatch components ([158befb](https://github.com/biosimulations/biosimulations/commit/158befb93f7ad0b494f44db41fa3cb3931a01ff7))
+* implemented new app routes instance globally for dispatch app ([5adb8c2](https://github.com/biosimulations/biosimulations/commit/5adb8c2901294c628b89b886d71619b109abfc60))
+* implemented new config values in platform app component ([39ba353](https://github.com/biosimulations/biosimulations/commit/39ba3538b4d7e4de3ea0bb69f1a6d82cbacc0969))
+* implemented new instance of app routes object globally in platform ([9ebb4c0](https://github.com/biosimulations/biosimulations/commit/9ebb4c022803d5cef0048d35a5f1bb44adbe218a))
+* implemented new properties in config for dispatch and platform ([2120dd8](https://github.com/biosimulations/biosimulations/commit/2120dd8bb6531e5413fd2b05c2db6712d787e840))
+* implemented shared utils button for projex and simulators apps ([bfe5d20](https://github.com/biosimulations/biosimulations/commit/bfe5d200034bf17ef21fd4b76f84526fa35088d9))
+* implemented shared utils button in dispatch ([74e7ff0](https://github.com/biosimulations/biosimulations/commit/74e7ff02018279d93ba538354f3e1b01896dd829))
+* implemented specific declarations for routing ([c691ea9](https://github.com/biosimulations/biosimulations/commit/c691ea9f0e01a9df1dfaffb6ddd87d2083a6c391))
+* imported and implemented app configured routes object in submods ([78f9190](https://github.com/biosimulations/biosimulations/commit/78f9190ba96436819c78344776b2eff4c7687ade))
+* **ui:** created and implemented shared utils to prevent duplication ([44be764](https://github.com/biosimulations/biosimulations/commit/44be764dd83e01be55203bfb17fd2dad49d9730c))
+
 ## [9.47.0](https://github.com/biosimulations/biosimulations/compare/v9.46.0...v9.47.0) (2023-08-10)
 
 
