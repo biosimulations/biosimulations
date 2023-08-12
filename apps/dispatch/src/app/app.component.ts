@@ -5,6 +5,9 @@ import { HealthService } from '@biosimulations/angular-api-client';
 import { UpdateService } from '@biosimulations/shared/pwa';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
+import { AppRoutes } from '@biosimulations/config/common';
+
+export const DISPATCH_APP_ROUTES = new AppRoutes();
 
 @Component({
   selector: 'biosimulations-root',
@@ -15,6 +18,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   public title = 'dispatch';
   public isMobileDispatch = false;
   public healthy$!: Observable<boolean>;
+  public appRoutes = DISPATCH_APP_ROUTES;
 
   public constructor(
     public config: ConfigService,

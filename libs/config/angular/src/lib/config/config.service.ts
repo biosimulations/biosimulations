@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-@Injectable()
+/*@Injectable()
 export class ConfigService {
   appId!: string;
   appName!: string;
@@ -35,6 +35,33 @@ export class ConfigService {
   simulatorsApiUrl!: string;
   simulatorsNewIssueUrl!: string;
   simulatorsNewPullUrl!: string;
+  appConfig!: any;
+  analyticsId!: string;
+}*/
+
+@Injectable()
+export class ConfigService {
+  appId!: string;
+  appName!: string;
+  appNameParts!: string[];
+  logo!: string;
+  banner!: string;
+  appUrl!: string;
+  apiUrl!: string;
+  email!: string;
+  docsUrl?: string;
+  tutorialsUrl!: string | null;
+  privacyPolicyVersion = 1;
+  newIssueUrl!: string;
+  newPullUrl!: string;
+  platformNewIssueUrl!: string;
+  platformNewPullUrl!: string;
+  dispatchNewIssueUrl!: string;
+  dispatchNewPullUrl!: string;
+  simulatorsNewIssueUrl!: string;
+  simulatorsNewPullUrl!: string;
+  validateSimulatorUrl? =
+    'https://github.com/biosimulators/Biosimulators/issues/new?assignees=&labels=Validate%2Fsubmit+simulator&template=ValidateOrSubmitASimulator.yml&title=%5BSimulation+capabilities%5D%3A+';
   appConfig!: any;
   analyticsId!: string;
 }

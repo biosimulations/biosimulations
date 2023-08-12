@@ -6,6 +6,7 @@ import { SimulationService } from '../../../services/simulation/simulation.servi
 import { SimulationStatusService } from '../../../services/simulation/simulation-status.service';
 import { TableComponent, Column, ColumnActionType, ColumnFilterType } from '@biosimulations/shared/ui';
 import { ConfigService } from '@biosimulations/config/angular';
+import { DISPATCH_APP_ROUTES } from '../../../app.component';
 import { Observable } from 'rxjs';
 import { environment } from '@biosimulations/shared/environments';
 import exampleSimulationsDevJson from './example-simulations.dev.json';
@@ -67,7 +68,7 @@ export class BrowseComponent implements OnInit {
       centerAction: ColumnActionType.href,
       centerHref: (simulation: ISimulation): string | null => {
         if (simulation.simulator) {
-          return `${this.config.simulatorsAppUrl}simulators/${simulation.simulator}/${simulation.simulatorVersion}`;
+          return `${DISPATCH_APP_ROUTES.simulatorsApp}simulators/${simulation.simulator}/${simulation.simulatorVersion}`;
         } else {
           return null;
         }

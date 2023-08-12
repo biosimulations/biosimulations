@@ -49,6 +49,7 @@ import { MatCarouselComponent } from './mat-carousel/carousel.component';
 import { MatCarouselSlideComponent } from './mat-carousel/carousel-slide/carousel-slide.component';
 import { BlankTargetDirective } from './blank-target-link/blank-target-link.directive';
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG, HammerModule } from '@angular/platform-browser';
+import { HeroBannerUtilButtonComponent } from './hero-banner-util-button/hero-banner-util-button.component';
 
 @Injectable()
 export class MatCarouselHammerConfig extends HammerGestureConfig {
@@ -110,6 +111,7 @@ export class MatCarouselHammerConfig extends HammerGestureConfig {
     CarouselComponent,
     BreadCrumbsModule,
     BlankTargetDirective,
+    HeroBannerUtilButtonComponent,
   ],
   declarations: [
     TopbarComponent,
@@ -156,6 +158,7 @@ export class MatCarouselHammerConfig extends HammerGestureConfig {
     MatCarouselComponent,
     MatCarouselSlideComponent,
     BlankTargetDirective,
+    HeroBannerUtilButtonComponent,
   ],
 })
 export class SharedUiModule {}

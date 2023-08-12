@@ -2,9 +2,9 @@ import { environment, envs } from '@biosimulations/shared/environments';
 import { EndpointLoader, LoadedEndpoints } from './endpointLoader';
 
 export class AppRoutes {
-  private simulatorsApp: string;
-  private dispatchApp: string;
-  private platformApp: string;
+  public simulatorsApp: string;
+  public dispatchApp: string;
+  public platformApp: string;
 
   public constructor(env?: envs) {
     // We can read the env that is provided in the shared environment file as the default

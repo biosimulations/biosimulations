@@ -1,11 +1,13 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ScrollService } from '@biosimulations/shared/angular';
 import { ConfigService } from '@biosimulations/config/angular';
+import { AppRoutes } from '@biosimulations/config/common';
 import { HealthService } from './services/health/health.service';
 import { UpdateService } from '@biosimulations/shared/pwa';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 
+export const SIMULATORS_APP_ROUTES = new AppRoutes();
 @Component({
   selector: 'biosimulations-root',
   templateUrl: './app.component.html',
@@ -15,6 +17,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   public title = 'simulators';
   public healthy$!: Observable<boolean>;
   public isMobileSimulators = false;
+  public appRoutes = SIMULATORS_APP_ROUTES;
 
   public constructor(
     public config: ConfigService,

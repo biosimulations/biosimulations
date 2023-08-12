@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfigService } from '@biosimulations/config/angular';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { DISPATCH_APP_ROUTES } from '../../app.component';
 
 @Component({
   selector: 'biosimulations-home',
@@ -9,6 +10,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 })
 export class HomeComponent implements OnInit {
   public isMobileHomeDispatch = false;
+  public appRoutes = DISPATCH_APP_ROUTES;
 
   public constructor(public config: ConfigService, private observer: BreakpointObserver) {
     /* Constructor is empty */
