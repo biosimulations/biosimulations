@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.48.1](https://github.com/biosimulations/biosimulations/compare/v9.48.0...v9.48.1) (2023-08-13)
+
+
+### Bug Fixes
+
+* removed unused code in notice css file ([7b4cc8a](https://github.com/biosimulations/biosimulations/commit/7b4cc8aeb6bed82213100c4cace2434d35b0adf8))
+
 ## [9.48.0](https://github.com/biosimulations/biosimulations/compare/v9.47.0...v9.48.0) (2023-08-12)
 
 
