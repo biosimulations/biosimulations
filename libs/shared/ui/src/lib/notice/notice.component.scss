@@ -1,6 +1,3 @@
-@use '@angular/material' as mat;
-@import 'biosimulations-colors';
-
 .container {
   position: sticky;
   bottom: 0;
@@ -8,12 +5,10 @@
   display: none;
 
   &:not(.error) {
-    //background: mat.get-color-from-palette($theme-accent, lighter);
     display: none;
   }
 
   &.error {
-    //background: $theme-warn-lightest;
     display: none;
   }
 }
