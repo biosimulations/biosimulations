@@ -6,7 +6,9 @@ import {
 
 @Injectable({ providedIn: 'root' })
 export class StructuredSimulationLogElementService {
-  public constructor() {}
+  public constructor() {
+    /* Constructor is empty */
+  }
   public formatKisaoDescription(value: string | null): AlgorithmKisaoDescriptionFragment[] | undefined {
     if (!value) {
       return undefined;

@@ -1,8 +1,4 @@
-@use '@angular/material' as mat;
-@import 'biosimulations-colors';
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Source+Sans+Pro:wght@300;400;700&display=swap');
-
-//OUTER ELEMENT STYLINGS
+/* OUTER ELEMENT STYLINGS */
 .spinner-container {
   display: flex;
   align-items: center;
@@ -58,7 +54,7 @@ biosimulations-tab-page ::ng-deep .icon-list {
   }
 }
 
-//GENERAL PURPOSE ELEMENT STYLINGS
+/* GENERAL PURPOSE ELEMENT STYLINGS */
 .item-expansion-header {
   background-color: #2196f3;
   font-weight: normal;
@@ -132,7 +128,7 @@ biosimulations-tab-page ::ng-deep .icon-list {
   width: 100%;
 }
 
-//INNER ELEMENT STYLINGS
+/* INNER ELEMENT STYLINGS */
 .rerun-sim-button-container {
   display: grid;
   padding-bottom: 6rem;

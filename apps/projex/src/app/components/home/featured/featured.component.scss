@@ -45,13 +45,13 @@
   width: auto;
   height: 600px;
   position: relative;
-  flex-grow: 1; /* allows the item to grow and take up any extra space */
-  flex-shrink: 0; /* prevents the item from shrinking if space is tight */
+  flex-grow: 1;
+  flex-shrink: 0;
   flex-basis: auto;
   background-size: 500px;
   background-repeat: no-repeat;
   background-position: center;
-  color: rgb(0, 23, 0); /* To ensure the description text is visible against the dark background */
+  color: rgb(0, 23, 0);
   padding-top: 0;
   padding-bottom: 4rem;
   font-weight: 500;
@@ -132,10 +132,6 @@ img {
   &:hover {
     color: var(--accent-color);
   }
-}
-
-.image-container {
-  background-image: 'https://hotpot.ai/s/art-generator/8-CXcACUPHkehcx47';
 }
 
 .figure-card-header,
