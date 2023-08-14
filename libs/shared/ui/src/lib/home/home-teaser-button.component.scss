@@ -1,6 +1,5 @@
 @use '@angular/material' as mat;
 @import 'biosimulations-colors';
-@import 'biosimulations-typography';
 
 .container {
   background: transparent;
@@ -12,7 +11,7 @@
   padding-top: 5rem;
   line-height: normal;
   background-color: transparent;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'Roboto', sans-serif;
 
   svg {
     width: 100%;
