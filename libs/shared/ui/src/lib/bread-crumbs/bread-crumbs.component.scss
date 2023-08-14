@@ -1,17 +1,11 @@
 @use '@angular/material' as mat;
 @import 'biosimulations-colors';
 
-.topbar {
-  height: fit-content;
-}
-
 mat-toolbar {
-  height: fit-content;
   font-size: 16px;
   background-color: mat.get-color-from-palette($theme-primary, lighter);
 
   a {
-    color: mat.get-color-from-palette($theme-primary);
     &:hover {
       text-decoration: underline;
     }
@@ -24,7 +18,6 @@ mat-toolbar {
 .breadcrumb {
   margin: 0;
   margin-right: 4rem;
-  padding-left: 0;
 
   li {
     list-style: none;
@@ -34,10 +27,20 @@ mat-toolbar {
     content: '»';
     margin-left: 0.25rem;
     margin-right: 0.25rem;
-    color: mat.get-color-from-palette($theme-primary);
   }
 }
 
+mat-toolbar,
+.topbar {
+  height: fit-content;
+}
+
+mat-toolbar a,
+.breadcrumb li:not(:last-child)::after {
+  color: mat.get-color-from-palette($theme-primary);
+}
+
+.breadcrumb,
 .noPad {
   padding-left: 0;
 }

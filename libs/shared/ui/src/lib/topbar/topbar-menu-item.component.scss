@@ -1,29 +1,12 @@
-@use '@angular/material' as mat;
-@import 'biosimulations-typography';
-@import 'biosimulations-colors';
-
 :host {
   margin-left: 1rem;
-}
-
-.container {
-  font-family: 'Roboto', sans-serif;
 }
 
 .mat-flat-button {
   border: none;
   padding: 0 0 5rem;
-  border-radius: 0;
   line-height: 30px;
   margin-bottom: 6px;
-
-  &:hover:not(.mat-button-disabled) {
-    border: none;
-  }
-
-  &:active:not(.mat-button-disabled) {
-    border: none;
-  }
 
   .button-content {
     display: flex;
@@ -46,6 +29,6 @@
 }
 
 .overlap {
-  border-bottom: 8px solid #2196f3;
+  border-bottom: 8px solid var(--primary-color);
   padding-top: 0.25rem;
 }

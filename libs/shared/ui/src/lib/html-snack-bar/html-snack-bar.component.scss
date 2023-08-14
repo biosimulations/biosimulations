@@ -3,8 +3,8 @@
 $button-horizontal-margin: 8px !default;
 $button-height: 36px !default;
 $line-height: 20px !default;
-// Button vertical margin is used to ensure that a button height of 36px, when the containing
-// space falls below 36px.
+/* Button vertical margin is used to ensure that a button height of 36px, when the containing
+   space falls below 36px. */
 $button-vertical-margin: -(math.div($button-height - $line-height, 2));
 
 .container {
@@ -21,10 +21,6 @@ $button-vertical-margin: -(math.div($button-height - $line-height, 2));
 
 .inner-message {
   display: inline;
-}
-
-biosimulations-icon::before {
-  content: ' ';
 }
 
 .mat-simple-snackbar-action {

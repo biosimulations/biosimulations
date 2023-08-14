@@ -1,26 +1,10 @@
-@use '@angular/material' as mat;
-@import 'biosimulations-colors';
-
 :host {
-  margin-left: auto;
-  padding-left: 0;
   padding-bottom: 3rem;
   padding-top: 5.25rem;
-  display: flex;
-  justify-content: space-between;
-  position: relative;
-  height: auto;
-  overflow: hidden;
 }
 
 .nav-buttons {
-  margin-left: auto;
-  padding-left: 0;
   padding-top: 0rem;
-  display: flex;
-  justify-content: space-between;
-  position: relative;
-  overflow: hidden;
 }
 
 @media (max-width: 768px) {
@@ -42,4 +26,14 @@
     padding-bottom: 5rem;
     padding-top: 0rem;
   }
+}
+
+:host,
+.nav-buttons {
+  margin-left: auto;
+  padding-left: 0;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
 }
