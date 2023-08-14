@@ -1,15 +1,17 @@
-@use '@angular/material' as mat;
-@import 'biosimulations-colors';
+$primaryColor: var(--primary-color);
+
+.container,
+.mat-mdc-card {
+  display: flex;
+  align-items: center;
+}
 
 .container {
   background-image: url('/assets/images/backgrounds/grey-3.png');
   background-size: cover;
-  display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  padding-top: 0rem;
   padding-bottom: 4rem;
+  justify-content: center;
 
   @media (max-width: 768px) {
     padding-bottom: 0rem;
@@ -18,57 +20,38 @@
   }
 }
 
-.logo-inner {
-  text-align: center;
-}
-
-img {
+.img {
   height: 12vh;
-}
+  padding: 1rem 2rem;
 
-@media screen and (max-width: 959px) {
-  img {
+  @media screen and (max-width: 959px) {
     height: auto;
     width: calc(100% - 2rem);
   }
 }
 
+.buttons,
+.text,
 .heading {
-  margin-top: 1rem;
-  font-size: 28px;
-  line-height: normal;
-  font-weight: bold;
-  text-align: center;
+  padding: 0 1rem;
+  padding-bottom: 4rem;
 }
 
 .buttons {
   margin-top: 0.5rem;
-  padding-bottom: 4rem;
 
   @media (max-width: 768px) {
     margin-top: 0rem;
-    padding-bottom: 0rem;
   }
 }
 
 .text {
   margin-top: 1rem;
-  padding: 0 2rem;
   font-size: 18px;
   line-height: 150%;
   text-align: center;
 }
 
-.text {
-  padding-bottom: 4rem;
-}
-
-.heading,
-.buttons,
-.text {
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
 @keyframes rotation {
   from {
     transform: rotate(0deg);
@@ -78,37 +61,25 @@ img {
   }
 }
 
-.___container {
-  height: 100%;
-  width: 100%;
-  text-align: center;
-  overflow: hidden;
-  padding: 2rem;
-  position: relative;
-}
-
 .heading {
-  padding-top: 0rem;
-  text-align: center;
   font-size: 28px;
   line-height: normal;
+  margin-top: 1rem;
+  font-weight: 700;
 }
 
 .heading-separator {
-  border-bottom: 2px solid var(--primary-color);
+  border-bottom: 2px solid $primaryColor;
   height: 0;
   width: 6rem;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 2rem auto;
 }
 
 .pagination-dots {
   display: flex;
-  justify-content: center;
   padding-bottom: 10rem;
   margin-top: 20px;
+  justify-content: center;
 }
 
 .dot {
@@ -120,31 +91,24 @@ img {
   margin: 0 5px;
   cursor: pointer;
   transition: background-color 0.5s;
-}
 
-.dot.active {
-  background-color: mat.get-color-from-palette($theme-primary);
+  &.active {
+    background-color: $primaryColor;
+  }
 }
 
 .mat-mdc-card {
   max-width: 400px;
-  display: flex;
   flex-direction: column;
-  align-items: center;
-  padding-top: 0;
-  padding-bottom: 1rem;
-}
+  padding: 0 1rem 1rem;
+  img {
+    height: 250px;
+  }
 
-img {
-  height: 250px;
-  padding-left: 2rem;
-  padding-right: 2rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
-.mat-mdc-card-actions {
-  margin: 0;
-  margin-top: auto;
+  .mat-mdc-card-actions {
+    margin: 0;
+    margin-top: auto;
+  }
 }
 
 .mat-mdc-raised-button {
@@ -172,4 +136,9 @@ img {
       color: var(--primary-darker-color);
     }
   }
+}
+
+.heading,
+.logo-inner {
+  text-align: center;
 }
