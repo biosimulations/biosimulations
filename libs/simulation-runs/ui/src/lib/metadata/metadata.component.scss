@@ -1,6 +1,8 @@
 @use '@angular/material' as mat;
-@import 'biosimulations-colors';
 @import 'biosimulations-typography';
+
+$PRIMARY: var(--primary-color) !important;
+$ACCENT: var(--accent-color) !important;
 
 .metadata {
   overflow: hidden;
@@ -57,7 +59,7 @@
       h1 {
         @include mat.typography-level($fontConfig, subheading-2);
         font-weight: 500;
-        border-bottom: 1px solid mat.get-color-from-palette($theme-primary);
+        border-bottom: 1px solid $PRIMARY;
         margin-block-start: 1rem;
         margin-block-end: 0.25rem;
       }
@@ -65,7 +67,7 @@
       h2 {
         @include mat.typography-level($fontConfig, subheading-1);
         font-weight: 500;
-        border-bottom: 1px dashed mat.get-color-from-palette($theme-primary);
+        border-bottom: 1px dashed $PRIMARY;
         margin-block-start: 1rem;
         margin-block-end: 0.25rem;
       }
@@ -176,15 +178,7 @@
   font-weight: 700;
   font-size: larger;
   color: white;
-  background-color: #1479ed;
-
-  &:hover {
-    background-color: #1479ed !important;
-  }
-
-  &.mat-expansion-panel-header.mat-expanded {
-    background-color: #1479ed !important;
-  }
+  background-color: var(--primary-darker-color);
 }
 
 .hover-enlarge-element {
@@ -195,14 +189,13 @@
   display: flex;
   flex-direction: column;
   height: auto;
-  font-family: 'Roboto', sans-serif;
   font-weight: 500;
   border: 2px transparent;
   border-radius: 4px;
 }
 
 .card-header {
-  background-color: #ff9800;
+  background-color: $ACCENT;
   font-weight: 500;
   font-size: medium;
   color: white;
@@ -212,12 +205,9 @@
   border-radius: 1px;
   height: 100%;
 
+  &.mat-expansion-panel-header.mat-expanded,
   &:hover {
-    background-color: #ff9800 !important;
-  }
-
-  &.mat-expansion-panel-header.mat-expanded {
-    background-color: #ff9800 !important;
+    background-color: $ACCENT;
   }
 }
 
@@ -225,6 +215,10 @@
   display: flex;
   flex-direction: column;
   height: auto;
-  font-family: 'Roboto', sans-serif;
   font-weight: 600;
+}
+
+.summary-card,
+.details-card {
+  font-family: 'Roboto', sans-serif;
 }

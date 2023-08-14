@@ -1,8 +1,5 @@
-@use '@angular/material' as mat;
 @import 'biosimulations-colors';
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Source+Sans+Pro:wght@300;400;700&display=swap');
 
-//OUTER ELEMENT STYLINGS
 .spinner-container {
   display: flex;
   align-items: center;
@@ -58,49 +55,35 @@ biosimulations-tab-page ::ng-deep .icon-list {
   }
 }
 
-//GENERAL PURPOSE ELEMENT STYLINGS
 .item-expansion-header {
-  background-color: #2196f3;
   font-weight: normal;
   font-size: medium;
   color: white;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  font-family: 'Roboto', sans-serif;
   align-items: center;
   border: 2px solid inherit;
   transition: background-color 0.1s ease-in-out;
   border-radius: 3px;
   height: auto;
   width: auto;
-
-  &:hover {
-    background-color: #ff9800 !important;
-  }
-
-  &.mat-expansion-panel-header.mat-expanded {
-    background-color: #2196f3 !important;
-  }
 }
 
 .item-expansion-header-under-dev {
-  background-color: #2196f3;
   font-weight: normal;
   font-size: medium;
   color: white;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  font-family: 'Roboto', sans-serif;
   align-items: center;
   border: 2px solid inherit;
   border-radius: 3px;
   height: auto;
   width: auto;
-  transition: background-color 0.5s ease, transform 0.5s ease;
+  transition: background-color 0.5s ease;
 
   &:hover {
     color: #2196f3 !important;
-    background-color: #ff9800 !important;
     transform: scale(1.0075);
     font-weight: bold;
   }
@@ -122,17 +105,12 @@ biosimulations-tab-page ::ng-deep .icon-list {
 .right-col-tab {
   border: 2px solid gray;
   border-radius: 1px;
-
-  &:hover {
-    background-color: #ff9800;
-  }
 }
 
 .full-width-tab-content {
   width: 100%;
 }
 
-//INNER ELEMENT STYLINGS
 .rerun-sim-button-container {
   display: grid;
   padding-bottom: 6rem;
@@ -141,7 +119,6 @@ biosimulations-tab-page ::ng-deep .icon-list {
 .rerun-button {
   border: 0.5px groove #ff9800;
   border-radius: 4px;
-  background-color: #2196f3;
   font-weight: normal;
   color: white;
   transition: 0.2s ease-in-out;
@@ -221,7 +198,6 @@ biosimulations-tab-page ::ng-deep .icon-list {
 .figure-card-header {
   color: white;
   font-weight: normal;
-  font-family: 'Roboto', sans-serif;
   align-items: center;
   border: 2px solid inherit;
   border-radius: 3px;
@@ -258,7 +234,6 @@ biosimulations-tab-page ::ng-deep .icon-list {
   display: grid;
   flex-direction: column;
   height: 100%;
-  font-family: 'Roboto', sans-serif;
   font-weight: 600;
 }
 
@@ -270,4 +245,24 @@ biosimulations-tab-page ::ng-deep .icon-list {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.item-expansion-header,
+.item-expansion-header.mat-expansion-panel-header.mat-expanded,
+.item-expansion-header-under-dev,
+.rerun-button {
+  background-color: var(--primary-color) !important;
+}
+
+.item-expansion-header:hover,
+.item-expansion-header-under-dev:hover,
+.right-col-tab:hover {
+  background-color: var(--accent-color) !important;
+}
+
+.item-expansion-header,
+.item-expansion-header-under-dev,
+.figure-card-header,
+.files-card {
+  font-family: 'Roboto', sans-serif;
 }

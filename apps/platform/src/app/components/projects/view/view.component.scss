@@ -1,19 +1,51 @@
-@use '@angular/material' as mat;
 @import 'biosimulations-colors';
-@import 'biosimulations-typography';
 
-.spinner-container {
-  display: flex;
+@mixin auto-area {
+  height: auto;
+  width: auto;
+}
+
+@mixin center-display {
   align-items: center;
   justify-content: center;
+}
+
+.display-data,
+.plotparent,
+.item-expansion-header,
+.item-expansion-header-under-dev {
+  @include auto-area();
+}
+
+.spinner-container,
+.icon-list,
+.viz-card,
+.figure-card {
+  @include center-display();
+}
+
+.spinner-container,
+.display-data,
+.plotparent,
+.figure-card {
+  display: flex;
+}
+
+.spinner-container,
+.viz-card-header,
+.figure-card,
+.figure-card-header,
+.files-item {
   height: auto;
 }
 
+.figure-card,
+.figure-card-header {
+  width: fit-content;
+}
+
 .display-data {
-  display: flex;
   flex-direction: row;
-  height: auto;
-  width: auto;
   font-family: 'Roboto', sans-serif;
 
   @media (max-width: 768px) {
@@ -27,10 +59,7 @@
 }
 
 .plotparent {
-  width: auto;
-  height: auto;
   align-items: stretch;
-  display: flex;
   flex-direction: row;
 }
 
@@ -63,7 +92,6 @@ biosimulations-tab-page ::ng-deep .icon-list {
   }
 }
 
-//GENERAL PURPOSE ELEMENT STYLINGS
 .item-expansion-header {
   background-color: #2196f3;
   font-weight: normal;
@@ -71,13 +99,10 @@ biosimulations-tab-page ::ng-deep .icon-list {
   color: white;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  font-family: 'Roboto', sans-serif;
   align-items: center;
   border: 2px solid inherit;
   transition: background-color 0.1s ease-in-out;
   border-radius: 3px;
-  height: auto;
-  width: auto;
 
   &:hover {
     background-color: #ff9800 !important;
@@ -95,12 +120,9 @@ biosimulations-tab-page ::ng-deep .icon-list {
   color: white;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  font-family: 'Roboto', sans-serif;
   align-items: center;
   border: 2px solid inherit;
   border-radius: 3px;
-  height: auto;
-  width: auto;
   transition: background-color 0.5s ease, transform 0.5s ease;
 
   &:hover {
@@ -114,8 +136,6 @@ biosimulations-tab-page ::ng-deep .icon-list {
 .icon-list {
   height: 100%;
   width: 100%;
-  justify-content: center;
-  text-align: center;
   padding: 0.75rem;
 }
 
@@ -137,7 +157,6 @@ biosimulations-tab-page ::ng-deep .icon-list {
   width: 100%;
 }
 
-//INNER ELEMENT STYLINGS
 .rerun-sim-button-container {
   display: grid;
   padding-bottom: 6rem;
@@ -178,17 +197,11 @@ biosimulations-tab-page ::ng-deep .icon-list {
   border: solid 1px #ccc;
   display: block;
   border-radius: 4px;
-  justify-content: center;
-  align-items: center;
   padding-top: 1rem;
 
   @media (max-width: 768px) {
     width: auto;
   }
-}
-
-.viz-card-header {
-  height: auto;
 }
 
 .viz-card-content {
@@ -201,15 +214,10 @@ biosimulations-tab-page ::ng-deep .icon-list {
 }
 
 .figure-card {
-  width: fit-content;
-  height: auto;
   border-bottom: solid 1px #ccc;
   color: rgba(0, 0, 0, 0.87);
   cursor: move;
-  display: flex;
   flex-direction: row;
-  align-items: center;
-  text-align: center;
   background: #fff;
   border-radius: 4px;
   margin-right: 15px;
@@ -230,12 +238,9 @@ biosimulations-tab-page ::ng-deep .icon-list {
 .figure-card-header {
   color: white;
   font-weight: normal;
-  font-family: 'Roboto', sans-serif;
   align-items: center;
   border: 2px solid inherit;
   border-radius: 3px;
-  height: auto;
-  width: fit-content;
 }
 
 .figure-card-placeholder {
@@ -267,12 +272,7 @@ biosimulations-tab-page ::ng-deep .icon-list {
   display: grid;
   flex-direction: column;
   height: 100%;
-  font-family: 'Roboto', sans-serif;
   font-weight: 600;
-}
-
-.files-item {
-  height: auto;
 }
 
 .details-expansion-item-container {

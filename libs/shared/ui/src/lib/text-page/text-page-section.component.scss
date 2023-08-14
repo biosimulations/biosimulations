@@ -53,8 +53,6 @@ h3 {
   -webkit-box-orient: vertical;
   width: auto;
   height: auto;
-
-  //max-width: calc(100% - 0.5rem - 10px);
 }
 
 .content {
@@ -87,7 +85,6 @@ h3 {
 }
 
 .highlight-container {
-  //background: #ffe0b2;
   border: 0px solid #087008;
   border-radius: 2px;
   width: fit-content;
@@ -96,10 +93,9 @@ h3 {
   padding-bottom: 20px;
 
   h3 {
-    background-color: #2196f3; //#087008;
+    background-color: var(--primary-color);
     padding: 5px;
     height: fit-content;
-    //padding-left: 50%;
     border: 2px solid;
     border-radius: 4px;
     width: auto;

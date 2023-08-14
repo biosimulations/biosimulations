@@ -1,9 +1,4 @@
-@import 'biosimulations-colors';
-@import 'biosimulations-typography';
-
 .parent-container {
-  /*background-image: url('/assets/images/backgrounds/grey-3.png');*/
-  width: fit-content;
   height: 100%;
   font-family: 'Roboto', sans-serif;
   font-size: small;
@@ -41,8 +36,12 @@ h1 {
 
 .btn-card {
   height: fit-content;
-  width: fit-content;
   background-color: var(--accent-color);
   border: 2px solid var(--accent-color);
   border-radius: 4px;
+}
+
+.parent-container,
+.btn-card {
+  width: fit-content;
 }

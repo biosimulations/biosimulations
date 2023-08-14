@@ -9,6 +9,6 @@ import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 export class HomeTeaserComponent {
   @Input() public heading = '';
   public portalUrl = 'https://reproducibilityportal.org';
-  public centerUrl = 'https://reproduciblebiomodels.org/';
+  public centerUrl = 'https://reproduciblebiomodels.org';
   public tipIcon?: BiosimulationsIcon;
 }

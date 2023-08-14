@@ -1,13 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
-@import 'biosimulations-typography';
 
 .container {
   min-height: 100%;
-  width: 100%;
-  display: flex;
   flex-direction: column;
-  align-items: center;
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   padding-top: 5px;
@@ -55,7 +51,6 @@
   vertical-align: middle;
 }
 .mwe-math-fallback-image-display {
-  display: block;
   margin-left: auto !important;
   margin-right: auto !important;
 }
@@ -64,11 +59,13 @@
   vertical-align: middle;
 }
 .mwe-math-fallback-source-display {
-  display: block;
   margin-left: auto;
   margin-right: auto;
 }
-/*  Adding some common styles */
+.mwe-math-fallback-image-display,
+.mwe-math-fallback-source-display {
+  display: block;
+}
 .example-spacer {
   flex: 1 1 auto;
 }
@@ -82,15 +79,19 @@
 .mat-toolbar-row {
   font-size: 1.25em !important;
 }
-
 .app-page-centered {
-  width: 100%;
-  display: flex;
   flex-direction: column;
-  align-items: center;
 }
 .page-title {
-  display: flex;
   flex-direction: row;
+}
+.container,
+.app-page-centered {
+  width: 100%;
+}
+.container,
+.app-page-centered,
+.page-title {
+  display: flex;
   align-items: center;
 }

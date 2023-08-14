@@ -28,7 +28,6 @@
 
   &:active:not([disabled]) {
     background: #1d5d07;
-    //background: rgba(44, 44, 44, 0.08);
     color: rgba(#000000, 0.9);
   }
 }
@@ -38,7 +37,6 @@ a {
 }
 
 .menu-item {
-  //background: #e8f4fd;//rgba(255, 152, 0, 0.5);
   background: white !important;
   height: auto;
   width: auto;

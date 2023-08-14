@@ -10,5 +10,7 @@ export class OverviewComponent {
   @Input()
   public simulation!: FormattedSimulation;
 
-  public constructor() {}
+  public constructor() {
+    /* Constructor is empty */
+  }
 }
