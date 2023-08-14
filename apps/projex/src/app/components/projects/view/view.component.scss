@@ -67,10 +67,6 @@ biosimulations-tab-page ::ng-deep .icon-list {
   border-radius: 3px;
   height: auto;
   width: auto;
-
-  &:hover {
-    background-color: #ff9800 !important;
-  }
 }
 
 .item-expansion-header-under-dev {
@@ -88,7 +84,6 @@ biosimulations-tab-page ::ng-deep .icon-list {
 
   &:hover {
     color: #2196f3 !important;
-    background-color: #ff9800 !important;
     transform: scale(1.0075);
     font-weight: bold;
   }
@@ -110,10 +105,6 @@ biosimulations-tab-page ::ng-deep .icon-list {
 .right-col-tab {
   border: 2px solid gray;
   border-radius: 1px;
-
-  &:hover {
-    background-color: #ff9800;
-  }
 }
 
 .full-width-tab-content {
@@ -261,6 +252,12 @@ biosimulations-tab-page ::ng-deep .icon-list {
 .item-expansion-header-under-dev,
 .rerun-button {
   background-color: var(--primary-color) !important;
+}
+
+.item-expansion-header:hover,
+.item-expansion-header-under-dev:hover,
+.right-col-tab:hover {
+  background-color: var(--accent-color) !important;
 }
 
 .item-expansion-header,
