@@ -30,10 +30,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     /* Constructor is empty */
   }
 
-  /*public ngOnInit(): void {
-    this.healthy$ = this.healthService.isHealthy();
-  }*/
-
   public ngOnInit(): void {
     this.healthy$ = this.healthService.isHealthy();
     this.healthy$.subscribe({

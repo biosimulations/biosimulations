@@ -1,6 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
-@import 'biosimulations-typography';
 
 .container {
   min-height: 100%;
@@ -68,7 +67,6 @@
   margin-left: auto;
   margin-right: auto;
 }
-/*  Adding some common styles */
 .example-spacer {
   flex: 1 1 auto;
 }
@@ -82,7 +80,6 @@
 .mat-toolbar-row {
   font-size: 1.25em !important;
 }
-
 .app-page-centered {
   width: 100%;
   display: flex;
