@@ -1,4 +1,5 @@
-/* OUTER ELEMENT STYLINGS */
+@import 'biosimulations-colors';
+
 .spinner-container {
   display: flex;
   align-items: center;
@@ -54,7 +55,6 @@ biosimulations-tab-page ::ng-deep .icon-list {
   }
 }
 
-/* GENERAL PURPOSE ELEMENT STYLINGS */
 .item-expansion-header {
   font-weight: normal;
   font-size: medium;
@@ -120,7 +120,6 @@ biosimulations-tab-page ::ng-deep .icon-list {
   width: 100%;
 }
 
-/* INNER ELEMENT STYLINGS */
 .rerun-sim-button-container {
   display: grid;
   padding-bottom: 6rem;
