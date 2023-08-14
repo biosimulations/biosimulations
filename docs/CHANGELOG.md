@@ -1,5 +1,20 @@
 # Changelog
 
+## [9.48.2](https://github.com/biosimulations/biosimulations/compare/v9.48.1...v9.48.2) (2023-08-14)
+
+
+### Bug Fixes
+
+* refactored and cleaned all shared component scss files ([80759fe](https://github.com/biosimulations/biosimulations/commit/80759fea441965d3b91c59583eb0987c184a1f8d))
+* refactored component scss code to appease ci/cd ([16f94c2](https://github.com/biosimulations/biosimulations/commit/16f94c21f495f1b395ca5e5a9884c4002e730839))
+* refactored declarations and removed unused to prevent duplication ([00bcbb3](https://github.com/biosimulations/biosimulations/commit/00bcbb3e9f8683d8250a60980848e148b70baa0d))
+* refactored for unused code and single line comments to appease ci ([3c4861b](https://github.com/biosimulations/biosimulations/commit/3c4861b0a68a3f0e9118f88d9334355b20bae1c7))
+* refactored offending scss file in home teaser to appease ci ([f8dd803](https://github.com/biosimulations/biosimulations/commit/f8dd803ea42a73b446de09646441b00abad55f59))
+* removed comments and unused code to appease CI/CD ([0dde49b](https://github.com/biosimulations/biosimulations/commit/0dde49b2e12d8469a72a9da2d7c196d92141976d))
+* removed unused and added correct import ([f5995dd](https://github.com/biosimulations/biosimulations/commit/f5995dd4eaa77b7fef522fab0d152f817098847b))
+* removed unused font type and comment in constructor ([b0f3c80](https://github.com/biosimulations/biosimulations/commit/b0f3c809a18abe4ec0cd1cfb1f84e3a01673ed11))
+* replaced material design getters with css var declarations ([bbb947b](https://github.com/biosimulations/biosimulations/commit/bbb947b814cfcccdbc4a1f798f4eb00ac0f121a3))
+
 ## [9.48.1](https://github.com/biosimulations/biosimulations/compare/v9.48.0...v9.48.1) (2023-08-13)
 
 
