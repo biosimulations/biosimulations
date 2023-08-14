@@ -10,34 +10,33 @@ import { MetadataDialogComponent } from '../metadata-dialog/metadata-dialog.comp
 })
 export class FilesComponent {
   @Input()
-  files!: Path[];
+  public files!: Path[];
 
   @Input()
-  usesMaster = false;
+  public usesMaster = false;
 
   @Input()
-  usesMetadata = false;
+  public usesMetadata = false;
 
   @Input()
-  useMetadata = false;
+  public useMetadata = false;
 
-  cardState = 'default';
+  public cardState = 'default';
 
-  constructor(private dialog: MatDialog) {}
+  public constructor(private dialog: MatDialog) {}
 
   public getFile(path: Path): Path {
-    console.log(`HERE IS THE FILE: ${path}`);
     return path;
   }
 
-  openMetadata(metadata: ProjectMetadata): void {
+  public openMetadata(metadata: ProjectMetadata): void {
     this.dialog.open(MetadataDialogComponent, {
       width: 'min(calc(1400px - 4rem), calc(100vw - 1.5rem))',
       data: metadata,
     });
   }
 
-  isTextOverflowed(text: string): boolean {
+  public isTextOverflowed(text: string): boolean {
     const element = document.createElement('span');
     element.style.visibility = 'hidden';
     element.style.position = 'fixed';
@@ -46,7 +45,6 @@ export class FilesComponent {
     document.body.appendChild(element);
     const isOverflowed = element.offsetWidth < element.scrollWidth;
     document.body.removeChild(element);
-    console.log(`Biosimulations-files text: ${text}; isOverflowed?: ${isOverflowed}.`);
     return isOverflowed;
   }
 }
