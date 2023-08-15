@@ -41,6 +41,15 @@ a:hover {
 }
 
 /* Page content */
+.container {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  padding-top: 5px;
+}
+
 .partial-width {
   max-width: 1400px;
   margin-left: auto;
@@ -1596,8 +1605,7 @@ mat-option {
 }
 
 .biosimulations-button {
-  background-color: var(--primary-color) !important;
-  color: white !important;
+  background-color: var(--primary-color);
   font-size: 20px !important;
 
   &.run:hover {
