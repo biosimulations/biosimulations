@@ -1596,10 +1596,10 @@ biosimulations-home-section span {
 
 /* Assorted Global Element Declarations */
 mat-option {
-  background-color: white !important;
+  background-color: white;
 
   &:hover {
-    background-color: var(--accent-lighter-color) !important;
+    background-color: var(--accent-lighter-color);
     color: var(--primary-color);
   }
 }

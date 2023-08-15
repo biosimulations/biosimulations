@@ -11,11 +11,12 @@ biosimulations-responsive-table {
 }
 
 .parent-container {
-  margin-top: 7rem;
-  border: 3px solid inherit;
-  background-color: white;
-  font-family: 'Roboto', sans-serif !important;
-  padding: 3rem;
+  height: fit-content;
+  width: 100%;
+  padding-top: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .description {
@@ -24,6 +25,5 @@ biosimulations-responsive-table {
   width: 50%;
   font-weight: bold;
   font-size: 32px;
-  background-image: url('/assets/images/backgrounds/grey-3.png');
   padding: 3rem;
 }
