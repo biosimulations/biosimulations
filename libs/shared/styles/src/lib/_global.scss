@@ -1599,12 +1599,18 @@ biosimulations-home biosimulations-home-subsection {
   }
 }
 
-.data-table-heading {
+mat-card-header.data-table-heading {
   background-color: var(--accent-color);
   border-radius: 4px 4px 0 0;
   color: white;
   font-weight: 700;
   font-size: 22px;
+}
+
+.data-table-card {
+  &.platform {
+    width: 1657.7px;
+  }
 }
 
 /* Mobile Stylings */
