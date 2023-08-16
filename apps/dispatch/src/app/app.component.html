@@ -35,16 +35,14 @@
     <biosimulations-hero-banner-util-button></biosimulations-hero-banner-util-button>
 
     <biosimulations-hover-open-menu
-      [href]="appRoutes.simulatorsApp"
       [disabled]="true"
-      matTooltip="Browse simulator tools">
-      <biosimulations-topbar-menu-item heading="BioSimulators" icon="link" id="trigger">
-      </biosimulations-topbar-menu-item>
+      [href]="appRoutes.simulatorsApp"
+      matTooltip="Browse simulation projects">
+      <biosimulations-topbar-menu-item heading="BioSimulators" icon="link" id="trigger"> </biosimulations-topbar-menu-item>
     </biosimulations-hover-open-menu>
   </biosimulations-topbar-menu>
 
   <ng-container id="news"></ng-container>
-
   <router-outlet></router-outlet>
 </biosimulations-navigation>
 

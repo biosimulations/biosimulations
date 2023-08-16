@@ -11,6 +11,7 @@ import { DISPATCH_APP_ROUTES } from '../../app.component';
 export class HomeComponent implements OnInit {
   public isMobileHomeDispatch = false;
   public appRoutes = DISPATCH_APP_ROUTES;
+  public logoPath = 'assets/images/runbiosimulations-logo/logo.svg';
 
   public constructor(public config: ConfigService, private observer: BreakpointObserver) {
     /* Constructor is empty */
