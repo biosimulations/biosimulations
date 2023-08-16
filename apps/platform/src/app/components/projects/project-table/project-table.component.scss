@@ -7,24 +7,8 @@
   justify-content: space-around;
 }
 
-.projects-table-container {
-  padding-top: 3rem;
-  /*max-height: 800px; */
-  overflow-x: hidden;
-  min-height: 1575px;
-  height: fit-content;
-}
-
 .projects-chip-container {
   border: 2px transparent;
-}
-
-.table-heading {
-  background-color: var(--accent-color);
-  border-radius: 4px 4px 0 0;
-  color: white;
-  font-weight: 700;
-  font-size: 22px;
 }
 
 .parent,

@@ -1583,14 +1583,28 @@ biosimulations-home biosimulations-home-subsection {
   padding-bottom: 6rem;
 }
 
-.table-parent-container {
+.data-table-parent-container {
   display: flex;
   justify-content: center;
+  align-items: center;
   padding: 3rem;
+}
 
-  .table-heading {
-    align-items: center;
+.data-table-container {
+  padding-top: 3rem;
+  overflow-x: hidden;
+
+  &.platform {
+    min-height: 1560px;
   }
+}
+
+.data-table-heading {
+  background-color: var(--accent-color);
+  border-radius: 4px 4px 0 0;
+  color: white;
+  font-weight: 700;
+  font-size: 22px;
 }
 
 /* Mobile Stylings */
