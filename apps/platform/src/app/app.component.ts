@@ -46,7 +46,6 @@ export class AppComponent implements OnInit, AfterViewInit {
       console.log(this.healthy$);
     }
     this.checkClientScreenSimulations();
-    console.log('BioSimDB App routes: ' + this.appRoutes.platformApp);
   }
 
   public ngAfterViewInit(): void {
