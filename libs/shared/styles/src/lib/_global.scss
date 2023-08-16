@@ -1547,7 +1547,6 @@ sub {
 .home-description {
   width: 94%;
   height: 100%;
-  font-weight: bold;
   font-size: 32px;
 }
 
@@ -1564,6 +1563,19 @@ sub {
   padding: 3rem;
   margin-left: auto;
   margin-right: auto;
+}
+
+.about-section {
+  margin-top: 3rem;
+  padding: 3rem;
+}
+
+.home-bottom {
+  padding: 5rem;
+}
+
+biosimulations-home biosimulations-home-subsection {
+  padding-bottom: 6rem;
 }
 
 /* Mobile Stylings */
