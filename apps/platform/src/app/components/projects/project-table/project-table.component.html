@@ -1,54 +1,51 @@
-<div class="parent-container">
-  <div class="mat-typography">
-   <div class="page-title">
-      <h1 class="mat-display-1">Simulation Projects</h1>
-   </div>
-   <div class="projects-table-container mat-elevation-z8">
-      <div class="projects-chip-container">
-         <!-- Search Chips (includes chip input) -->
-         <biosimulations-projects-chips [filterStats$]="filterStats$" (filterQueries$)="onFilterQueryChanged($event)">
-         </biosimulations-projects-chips>
+<div class="table-parent-container">
+  <mat-card class="table-card">
+   <mat-card-header class="table-heading">
+      Simulation Projects
+   </mat-card-header>
+   <mat-card-content>
+      <div class="projects-table-container">
+         <div class="projects-chip-container">
+            <biosimulations-projects-chips [filterStats$]="filterStats$" (filterQueries$)="onFilterQueryChanged($event)">
+            </biosimulations-projects-chips>
+         </div>
+
+         <div class="below-filters">
+            <mat-form-field appearance="fill">
+            <mat-label>Search Projects</mat-label>
+            <input (keyup)="onKeyUpEvent($event)" [(ngModel)]="searchTerm" matInput type="text" />
+            <mat-icon matPrefix>search</mat-icon>
+            </mat-form-field>
+
+            <mat-paginator
+            #paginatorTop
+            [length]="dataSource.datalength"
+            [pageIndex]="1"
+            [pageSizeOptions]="[25, 50, 100, 200]"
+            [pageSize]="25"
+            [showFirstLastButtons]="true"
+            aria-label="Select page">
+            </mat-paginator>
+         </div>
+
+         <table aria-label="Elements" mat-table matSort>
+            <ng-container matColumnDef="id">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header>Id</th>
+            <td *matCellDef="let row" mat-cell>
+               <a [routerLink]="['/projects', row.id]" target="_blank">{{ row.id }}</a>
+            </td>
+            </ng-container>
+
+            <ng-container matColumnDef="title">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header>Title</th>
+            <td *matCellDef="let row" mat-cell>{{ row.title }}</td>
+            </ng-container>
+
+            <tr *matHeaderRowDef="displayedColumns; sticky: true" mat-header-row></tr>
+            <tr *matRowDef="let row; let odd = odd; columns: displayedColumns" [class.striped-row]="odd" mat-row></tr>
+         </table>
       </div>
+   </mat-card-content>
+  </mat-card>
 
-      <div class="below-filters">
-         <!-- Search projects Input -->
-         <mat-form-field appearance="fill">
-         <mat-label>Search Projects</mat-label>
-         <input (keyup)="onKeyUpEvent($event)" [(ngModel)]="searchTerm" matInput type="text" />
-         <mat-icon matPrefix>search</mat-icon>
-         </mat-form-field>
-
-         <!--Top Paginator-->
-         <mat-paginator
-         #paginatorTop
-         [length]="dataSource.datalength"
-         [pageIndex]="1"
-         [pageSizeOptions]="[25, 50, 100, 200]"
-         [pageSize]="25"
-         [showFirstLastButtons]="true"
-         aria-label="Select page">
-         </mat-paginator>
-      </div>
-
-      <!--  <table mat-table class="full-width-table" matSort aria-label="Elements">-->
-      <table aria-label="Elements" mat-table matSort>
-         <!-- Id Column -->
-         <ng-container matColumnDef="id">
-         <th *matHeaderCellDef mat-header-cell mat-sort-header>Id</th>
-         <td *matCellDef="let row" mat-cell>
-            <a [routerLink]="['/projects', row.id]" target="_blank">{{ row.id }}</a>
-         </td>
-         </ng-container>
-
-         <!-- Name Column -->
-         <ng-container matColumnDef="title">
-         <th *matHeaderCellDef mat-header-cell mat-sort-header>Title</th>
-         <td *matCellDef="let row" mat-cell>{{ row.title }}</td>
-         </ng-container>
-
-         <tr *matHeaderRowDef="displayedColumns; sticky: true" mat-header-row></tr>
-         <tr *matRowDef="let row; let odd = odd; columns: displayedColumns" [class.striped-row]="odd" mat-row></tr>
-      </table>
-   </div>
-  </div>
 </div>

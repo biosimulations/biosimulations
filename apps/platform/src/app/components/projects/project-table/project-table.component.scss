@@ -1,31 +1,37 @@
-.parent-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-}
-
 .striped-row {
   background-color: #ececec;
 }
 
 .parent {
-  display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
 }
 
 .projects-table-container {
-  min-height: 200px;
+  padding-top: 3rem;
   /*max-height: 800px; */
-  overflow: auto;
-}
-
-.below-filters {
-  display: flex;
+  overflow-x: hidden;
+  min-height: 1575px;
+  height: fit-content;
 }
 
 .projects-chip-container {
   border: 2px transparent;
+}
+
+.table-heading {
+  background-color: var(--accent-color);
+  border-radius: 4px 4px 0 0;
+  color: white;
+  font-weight: 700;
+  font-size: 22px;
+}
+
+.parent,
+.below-filters {
+  display: flex;
+}
+
+.table-card {
+  width: 1658.7px;
 }
