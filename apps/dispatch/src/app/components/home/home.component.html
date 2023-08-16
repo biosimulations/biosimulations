@@ -10,14 +10,14 @@
             <strong>RunBioSimulations </strong>
             is a web application for <a [href]="['/runs']"> running biosimulations </a> on our shared computational resources.
           </span>
-          
         </ng-container>
 
         <biosimulations-home-subsection
           id="subsection"
           heading="Run simulations"
           subheading="Execute many formalisms &amp; algorithms"
-          icon="simulator">
+          icon="simulator"
+          [link]="'/runs/new'">
           runBioSimulations is a central application for running simulations involving a broad range of frameworks,
           algorithms, and formats.
         </biosimulations-home-subsection>
@@ -34,7 +34,8 @@
           id="subsection"
           heading="Share simulation runs"
           subheading="Simulate biology collaboratively"
-          icon="reuse">
+          icon="reuse"
+          [link]="'/runs'">
           runBioSimulations also makes it easy to share simulation runs with collaborators, including peer reviewers.
         </biosimulations-home-subsection>
       </biosimulations-home-section>
