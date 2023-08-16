@@ -1559,10 +1559,15 @@ sub {
 .home-description,
 .home-description-mobile {
   font-family: 'Roboto', sans-serif;
-  background-image: url('/assets/images/backgrounds/grey-3.png') !important;
   padding: 3rem;
   margin-left: auto;
   margin-right: auto;
+}
+
+.home-description,
+.home-description-mobile,
+.table-parent-container {
+  background-image: url('/assets/images/backgrounds/grey-3.png') !important;
 }
 
 .about-section {
@@ -1576,6 +1581,16 @@ sub {
 
 biosimulations-home biosimulations-home-subsection {
   padding-bottom: 6rem;
+}
+
+.table-parent-container {
+  display: flex;
+  justify-content: center;
+  padding: 3rem;
+
+  .table-heading {
+    align-items: center;
+  }
 }
 
 /* Mobile Stylings */
