@@ -1,14 +1,13 @@
-.full-width-table {
-  width: 95%;
+.parent-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 
 .striped-row {
   background-color: #ececec;
-}
-
-table {
-  width: 98%;
-  height: 98%;
 }
 
 .parent {
@@ -19,9 +18,7 @@ table {
 
 .projects-table-container {
   min-height: 200px;
-  //max-height: 800px;
-  margin-left: 20px;
-  margin-right: 20px;
+  /*max-height: 800px; */
   overflow: auto;
 }
 
