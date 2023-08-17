@@ -1,5 +1,30 @@
 # Changelog
 
+## [9.49.0](https://github.com/biosimulations/biosimulations/compare/v9.48.2...v9.49.0) (2023-08-17)
+
+
+### Bug Fixes
+
+* added correct config pointer to home anchor href ([aee5005](https://github.com/biosimulations/biosimulations/commit/aee500557ba416a9c9df9a19634e48b78447babb))
+* adjusted tooltip description for tors button in dispatch ([98ee754](https://github.com/biosimulations/biosimulations/commit/98ee754324b74ae41e462cf51659f450ead86dd2))
+* adjustments to various css files ([469f9a9](https://github.com/biosimulations/biosimulations/commit/469f9a917cc8ff2f5af94c5b292ea977a19b60e4))
+* appended correct pointing to app route platform url value in tors ([e72e3f1](https://github.com/biosimulations/biosimulations/commit/e72e3f1fb57e7bfde88877cf518be0f09105c33f))
+* container declaration to global and global text color adjustment ([e47550c](https://github.com/biosimulations/biosimulations/commit/e47550c40abbf29de8878686873bed4412254ec4))
+* removed unused docs button in place of utils component ([05bc54d](https://github.com/biosimulations/biosimulations/commit/05bc54dc27c41ff5745e4aac338ca326fdf45ad1))
+* used link for browse reference in simulators home ([afb9d57](https://github.com/biosimulations/biosimulations/commit/afb9d5781eb8689b583e4807f3aab5fedecefd62))
+
+
+### Features
+
+* **ui:** added docs button to shared utils btn component with styles ([b036e84](https://github.com/biosimulations/biosimulations/commit/b036e84b5c4ba2565c8fae6b8d48d5730e344f93))
+* **ui:** added tool tip descriptor for non dropdown menu buttons ([e419963](https://github.com/biosimulations/biosimulations/commit/e419963b372910beccd6c7e4afb22727ed14fcf5))
+* **ui:** added tooltip delay to shared scope for reactive display ([13555a1](https://github.com/biosimulations/biosimulations/commit/13555a1c2c66081dd7855f976b0f8c30cb546c3c))
+* **ui:** added tooltip descriptor to dispatch biosimdb nav button ([2fb6e26](https://github.com/biosimulations/biosimulations/commit/2fb6e26402583575ecf03a95868ef3f7182e468d))
+* **ui:** added tooltip descriptor to platform biosim db button ([8f31342](https://github.com/biosimulations/biosimulations/commit/8f313429ca9707797846d0c4745a115ac3f375fb))
+* **ui:** adjusted nomenclature of global stylings ([b83ef2f](https://github.com/biosimulations/biosimulations/commit/b83ef2ffc3adb724ea542f7af24e4077d8aa48d8))
+* **ui:** adjusted styles of dispatch app home page and hero ([de09816](https://github.com/biosimulations/biosimulations/commit/de09816f30da001f1a9cb234ac949e5299ba78be))
+* **ui:** adjustments to contents and styles in dispatch and tors home ([567e2e7](https://github.com/biosimulations/biosimulations/commit/567e2e790fedada21bba0cc14f31b2d74e26060d))
+
 ## [9.48.2](https://github.com/biosimulations/biosimulations/compare/v9.48.1...v9.48.2) (2023-08-14)
 
 
