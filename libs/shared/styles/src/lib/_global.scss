@@ -1591,7 +1591,7 @@ biosimulations-home biosimulations-home-subsection {
 }
 
 .data-table-container {
-  padding-top: 3rem;
+  margin-top: 3rem;
   overflow: hidden;
 
   &.platform {
@@ -1600,9 +1600,9 @@ biosimulations-home biosimulations-home-subsection {
 
   &.simulators,
   &.dispatch {
-    padding-bottom: 1rem;
+    padding-bottom: 0.5rem;
     height: fit-content;
-    display: flex;
+    width: 100%;
   }
 }
 
