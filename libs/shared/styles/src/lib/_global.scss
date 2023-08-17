@@ -41,6 +41,15 @@ a:hover {
 }
 
 /* Page content */
+.container {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  padding-top: 5px;
+}
+
 .partial-width {
   max-width: 1400px;
   margin-left: auto;
@@ -1538,7 +1547,6 @@ sub {
 .home-description {
   width: 94%;
   height: 100%;
-  font-weight: bold;
   font-size: 32px;
 }
 
@@ -1551,10 +1559,88 @@ sub {
 .home-description,
 .home-description-mobile {
   font-family: 'Roboto', sans-serif;
-  background-image: url('/assets/images/backgrounds/grey-3.png') !important;
   padding: 3rem;
   margin-left: auto;
   margin-right: auto;
+}
+
+.home-description,
+.home-description-mobile,
+.table-parent-container {
+  background-image: url('/assets/images/backgrounds/grey-3.png') !important;
+}
+
+.about-section {
+  margin-top: 3rem;
+  padding: 3rem;
+}
+
+.home-bottom {
+  padding: 5rem;
+}
+
+biosimulations-home biosimulations-home-subsection {
+  padding-bottom: 6rem;
+}
+
+.data-table-parent-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+}
+
+.data-table-container {
+  margin-top: 3rem;
+  overflow: hidden;
+
+  &.platform {
+    min-height: 1560px;
+  }
+
+  &.simulators,
+  &.dispatch {
+    padding-bottom: 0.5rem;
+    height: fit-content;
+    width: 100%;
+  }
+}
+
+mat-card-header.data-table-heading {
+  background-color: var(--accent-color);
+  border-radius: 4px 4px 0 0;
+  color: white;
+  font-weight: 700;
+  font-size: 22px;
+}
+
+.data-table-card {
+  &.platform {
+    width: 1657.7px;
+  }
+
+  &.simulators {
+    width: 1660px;
+  }
+}
+
+.table-buttons {
+  display: flex;
+  align-items: center;
+  height: 15px;
+  margin-left: auto;
+}
+
+.delete-simulations-dialog-container {
+  p {
+    text-align: center;
+  }
+
+  h1 {
+    background-color: var(--warn-color);
+    color: white !important;
+    font-weight: 700;
+  }
 }
 
 /* Mobile Stylings */
@@ -1587,17 +1673,16 @@ biosimulations-home-section span {
 
 /* Assorted Global Element Declarations */
 mat-option {
-  background-color: white !important;
+  background-color: white;
 
   &:hover {
-    background-color: var(--accent-lighter-color) !important;
+    background-color: var(--accent-lighter-color);
     color: var(--primary-color);
   }
 }
 
 .biosimulations-button {
-  background-color: var(--primary-color) !important;
-  color: white !important;
+  background-color: var(--primary-color);
   font-size: 20px !important;
 
   &.run:hover {

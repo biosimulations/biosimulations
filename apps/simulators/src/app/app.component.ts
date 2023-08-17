@@ -17,7 +17,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   public title = 'simulators';
   public healthy$!: Observable<boolean>;
   public isMobileSimulators = false;
-  public appRoutes = SIMULATORS_APP_ROUTES;
+  private _appRoutes: AppRoutes;
 
   public constructor(
     public config: ConfigService,
@@ -25,11 +25,22 @@ export class AppComponent implements OnInit, AfterViewInit {
     private updateService: UpdateService,
     private healthService: HealthService,
     private observer: BreakpointObserver,
-  ) {}
+  ) {
+    this._appRoutes = SIMULATORS_APP_ROUTES;
+  }
+
+  public get appRoutes(): AppRoutes {
+    return this._appRoutes;
+  }
+
+  public set appRoutes(value: AppRoutes) {
+    this._appRoutes = value;
+  }
 
   public ngOnInit(): void {
     this.healthy$ = this.healthService.isHealthy();
     this.checkClientScreenSimulators();
+    this.appRoutes.platformApp += '/projects';
   }
 
   public ngAfterViewInit(): void {

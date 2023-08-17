@@ -1,7 +1,7 @@
 .parent-container {
-  height: 100%;
   font-family: 'Roboto', sans-serif;
   font-size: small;
+  height: auto;
 }
 
 .heading {
@@ -41,7 +41,6 @@ h1 {
   border-radius: 4px;
 }
 
-.parent-container,
 .btn-card {
   width: fit-content;
 }

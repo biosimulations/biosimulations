@@ -50,6 +50,9 @@ import { MatCarouselSlideComponent } from './mat-carousel/carousel-slide/carouse
 import { BlankTargetDirective } from './blank-target-link/blank-target-link.directive';
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG, HammerModule } from '@angular/platform-browser';
 import { HeroBannerUtilButtonComponent } from './hero-banner-util-button/hero-banner-util-button.component';
+import { MatTooltipModule, MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
+
+const TOOLTIP_DELAY = 500;
 
 @Injectable()
 export class MatCarouselHammerConfig extends HammerGestureConfig {
@@ -59,7 +62,10 @@ export class MatCarouselHammerConfig extends HammerGestureConfig {
   };
 }
 @NgModule({
-  providers: [{ provide: HAMMER_GESTURE_CONFIG, useClass: MatCarouselHammerConfig }],
+  providers: [
+    { provide: HAMMER_GESTURE_CONFIG, useClass: MatCarouselHammerConfig },
+    { provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: { showDelay: TOOLTIP_DELAY } },
+  ],
   imports: [
     CommonModule,
     MaterialWrapperModule,
@@ -67,6 +73,7 @@ export class MatCarouselHammerConfig extends HammerGestureConfig {
     BiosimulationsIconsModule,
     BreadCrumbsModule,
     HammerModule,
+    MatTooltipModule,
   ],
   exports: [
     MaterialWrapperModule,

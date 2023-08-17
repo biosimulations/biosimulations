@@ -1,11 +1,3 @@
-biosimulations-home-subsection {
-  padding-bottom: 6rem;
-}
-
-biosimulations-icon {
-  padding-left: 0.5rem;
-}
-
 .about-content {
   .text {
     margin-bottom: 0.75rem;
@@ -49,7 +41,21 @@ biosimulations-icon {
   color: purple;
 }
 
-.about-section {
-  margin-top: 3rem;
+.logo {
+  height: 200px;
+  width: fit-content;
   padding: 2rem;
+  margin-bottom: 2rem;
+  border-radius: 4px;
+  background-color: var(--tertiary-darker-color);
+}
+
+.logo-container {
+  height: 100%;
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
