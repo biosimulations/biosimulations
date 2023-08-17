@@ -1598,14 +1598,11 @@ biosimulations-home biosimulations-home-subsection {
     min-height: 1560px;
   }
 
-  &.simulators {
-    padding-bottom: 1rem;
-    height: fit-content;
-  }
-
+  &.simulators,
   &.dispatch {
     padding-bottom: 1rem;
     height: fit-content;
+    display: flex;
   }
 }
 
@@ -1625,6 +1622,13 @@ mat-card-header.data-table-heading {
   &.simulators {
     width: 1660px;
   }
+}
+
+.table-buttons {
+  display: flex;
+  align-items: center;
+  height: 15px;
+  margin-left: auto;
 }
 
 .delete-simulations-dialog-container {
