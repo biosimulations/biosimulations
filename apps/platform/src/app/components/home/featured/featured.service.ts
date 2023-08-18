@@ -39,7 +39,7 @@ export class FeaturedService {
     descriptionTeaser: 'Submit a simulation for publication on BioSimulation Projects',
     descriptionVerbose: `Simulations that have been published in papers are invited to be submitted to the \
       BioSimulation Project Database. This makes the full simulation run available to the public, verifying \
-      its reproducibility and allowing anyone to download and rerun the simulation. Image by Freepik.`,
+      its reproducibility and allowing anyone to download and rerun the simulation.`,
     routingLink: ['/utils/create-project'],
     logo: 'publish',
     headerColor: '#388E3C',
