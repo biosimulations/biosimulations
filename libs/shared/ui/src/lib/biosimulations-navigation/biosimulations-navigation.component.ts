@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -8,9 +8,12 @@ import { map, shareReplay } from 'rxjs/operators';
   templateUrl: './biosimulations-navigation.component.html',
   styleUrls: ['./biosimulations-navigation.component.scss'],
 })
-export class BiosimulationsNavigationComponent {
-  @Input()
-  public useSimulations?: boolean;
+export class BiosimulationsNavigationComponent implements OnInit {
+  public useSimulations = true;
+
+  public simulationsColor = '#2196f3';
+
+  public simulatorsColor = '#ff9800';
 
   @Input()
   appName!: string;
@@ -42,4 +45,10 @@ export class BiosimulationsNavigationComponent {
   );
 
   constructor(private breakpointObserver: BreakpointObserver) {}
+
+  ngOnInit(): void {
+    if (this.appName === 'BioSimulators') {
+      this.useSimulations = !this.useSimulations;
+    }
+  }
 }
