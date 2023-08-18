@@ -1,5 +1,19 @@
 # Changelog
 
+## [9.50.0](https://github.com/biosimulations/biosimulations/compare/v9.49.0...v9.50.0) (2023-08-18)
+
+
+### Bug Fixes
+
+* adjusted verbose feature dropdown on platform home ([d9ccee6](https://github.com/biosimulations/biosimulations/commit/d9ccee6d01e2d0701b604df215d0815ec7f48071))
+* removed unused import ([49aabde](https://github.com/biosimulations/biosimulations/commit/49aabdeb54343ecdeb91ad6a5a1f64e200e8e408))
+
+
+### Features
+
+* **ui:** implemented color changing logic for simulators app hero ([eb9c2c0](https://github.com/biosimulations/biosimulations/commit/eb9c2c0d56830bafa77502078afe10e19d2cf1b3))
+* **ui:** implemented logic to change nav button color based on app name ([b1f0c96](https://github.com/biosimulations/biosimulations/commit/b1f0c96d180b7398b31859573458ec35f4680ff7))
+
 ## [9.49.0](https://github.com/biosimulations/biosimulations/compare/v9.48.2...v9.49.0) (2023-08-17)
 
 
