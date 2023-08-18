@@ -1533,7 +1533,6 @@ sub {
 }
 
 /* App Homepage Stylings */
-/* App Homepage Stylings */
 .home-container {
   height: 100%;
   width: 100%;
@@ -1549,8 +1548,13 @@ sub {
 .home-description {
   padding: 4rem;
   font-size: 32px;
+  display: flex;
 
-  &.simulators,
+  &.simulators {
+    margin-right: 10rem;
+    margin-left: 10rem;
+  }
+
   &.dispatch,
   &.platform {
     width: fit-content;
