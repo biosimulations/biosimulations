@@ -1534,8 +1534,8 @@ sub {
 
 /* App Homepage Stylings */
 .home-container {
-  height: fit-content;
-  width: fit-content;
+  height: 100%;
+  width: 100%;
   padding-top: 3rem;
 
   @media (max-width: 768px) {
@@ -1547,8 +1547,18 @@ sub {
 
 .home-description {
   padding: 4rem;
-  width: 50%;
   font-size: 32px;
+  display: flex;
+
+  &.simulators {
+    margin-right: 10rem;
+    margin-left: 10rem;
+  }
+
+  &.dispatch,
+  &.platform {
+    width: fit-content;
+  }
 
   @media (max-width: 768px) {
     width: 300px;

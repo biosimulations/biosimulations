@@ -7,11 +7,7 @@ $trans: 0.3s ease-in-out;
 .container {
   height: 100%;
   width: 100%;
-  text-align: center;
-  padding-top: 3rem;
-  position: relative;
   display: flex;
-  flex-direction: column;
   align-items: stretch;
 
   @media (max-width: 768px) {
@@ -64,7 +60,7 @@ $trans: 0.3s ease-in-out;
   font-weight: bold;
   font-size: large;
   transition-property: all;
-  display: flex, -webkit-box;
+  display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 

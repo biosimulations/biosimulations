@@ -92,14 +92,16 @@
 }
 
 .logo {
-  height: 200px;
-  width: 100%;
-  padding: 2rem;
-  margin-bottom: 2rem;
-
   @media (max-width: 768px) {
     display: none;
   }
+}
+
+.logo {
+  height: 200px;
+  width: fit-content;
+  padding: 2rem;
+  margin-bottom: 2rem;
 }
 
 .logo-container {
@@ -107,6 +109,9 @@
   width: 100%;
   margin-right: auto;
   margin-left: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .example-card,
@@ -114,8 +119,7 @@
   border-radius: 4px;
 }
 
-.example-container,
-.logo-container {
+.example-container {
   display: flex;
   justify-content: center;
   align-items: center;
