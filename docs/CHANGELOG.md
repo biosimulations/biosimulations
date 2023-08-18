@@ -1,5 +1,14 @@
 # Changelog
 
+## [9.50.1](https://github.com/biosimulations/biosimulations/compare/v9.50.0...v9.50.1) (2023-08-18)
+
+
+### Bug Fixes
+
+* adjustment to component styles ([16e9eb2](https://github.com/biosimulations/biosimulations/commit/16e9eb275a5a5dd30d52156f0941796a7d5fd5c3))
+* adjustment to platform specific home page styling ([13d1e5a](https://github.com/biosimulations/biosimulations/commit/13d1e5a74514b52a8280a035dd2ad4afe08fee15))
+* adjustments to global simulators and dispatch styles ([f267748](https://github.com/biosimulations/biosimulations/commit/f267748fc296fcb83abaac77e21be6ec5145bcb8))
+
 ## [9.50.0](https://github.com/biosimulations/biosimulations/compare/v9.49.0...v9.50.0) (2023-08-18)
 
 
