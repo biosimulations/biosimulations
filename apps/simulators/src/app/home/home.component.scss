@@ -48,6 +48,9 @@
   margin-top: 6rem;
   font-size: 20px;
   width: 100%;
+  @media (max-width: 768px) {
+    width: 200px;
+  }
 }
 
 .example-card {
@@ -90,9 +93,13 @@
 
 .logo {
   height: 200px;
-  width: fit-content;
+  width: 100%;
   padding: 2rem;
   margin-bottom: 2rem;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
 
 .logo-container {
@@ -132,5 +139,10 @@
   & h2 {
     color: black;
     font-size: 25px;
+
+    @media (max-width: 768px) {
+      font-size: 18px;
+      display: block;
+    }
   }
 }
