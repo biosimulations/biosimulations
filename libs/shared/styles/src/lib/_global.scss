@@ -1550,9 +1550,8 @@ sub {
   padding: 4rem;
   font-size: 32px;
 
-  &.simulators {
-    width: 50%;
-  }
+  &.simulators,
+  &.dispatch,
   &.platform {
     width: fit-content;
   }
