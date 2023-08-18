@@ -11,6 +11,9 @@ export class TopbarMenuItemComponent {
   color!: any;
 
   @Input()
+  appName!: string;
+
+  @Input()
   buttonType!: any;
 
   @Input()

@@ -8,26 +8,26 @@
   [showNews]="false"
   [healthy]="healthy$ | async">
   <biosimulations-topbar-menu>
-    <biosimulations-hover-open-menu 
-      [disabled]="true" 
-      [routerLink]="['/simulators']" 
+    <biosimulations-hover-open-menu
+      [disabled]="true"
+      [routerLink]="['/simulators']"
       matTooltip="Browse simulator tools">
-      <biosimulations-topbar-menu-item heading="BioSimulators" icon="simulator" id="trigger" target="_self">
+      <biosimulations-topbar-menu-item [appName]="config.appName" heading="BioSimulators" icon="simulator" id="trigger" target="_self">
       </biosimulations-topbar-menu-item>
     </biosimulations-hover-open-menu>
 
     <biosimulations-hover-open-menu [disabled]="true" [href]="appRoutes.dispatchApp" matTooltip="Run a simulation">
-      <biosimulations-topbar-menu-item heading="Run Simulations" icon="experiment" id="trigger" target="_self">
+      <biosimulations-topbar-menu-item [appName]="config.appName" heading="Run Simulations" icon="experiment" id="trigger" target="_self">
       </biosimulations-topbar-menu-item>
     </biosimulations-hover-open-menu>
 
-    <biosimulations-hero-banner-util-button></biosimulations-hero-banner-util-button>
-    
+    <biosimulations-hero-banner-util-button [appName]="config.appName"></biosimulations-hero-banner-util-button>
+
     <biosimulations-hover-open-menu
       [disabled]="true"
       [href]="appRoutes.platformApp"
       matTooltip="Browse simulation projects">
-      <biosimulations-topbar-menu-item heading="BioSimDB" icon="link" id="trigger"> </biosimulations-topbar-menu-item>
+      <biosimulations-topbar-menu-item [appName]="config.appName" heading="BioSimDB" icon="link" id="trigger"> </biosimulations-topbar-menu-item>
     </biosimulations-hover-open-menu>
   </biosimulations-topbar-menu>
 

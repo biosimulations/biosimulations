@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { ConfigService } from '@biosimulations/config/angular';
 
 @Component({
   selector: 'biosimulations-hero-banner-util-button',
@@ -6,6 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./hero-banner-util-button.component.scss'],
 })
 export class HeroBannerUtilButtonComponent {
+  @Input()
+  appName!: string;
   public validateSimulatorUrl = 'https://docs.biosimulations.org';
   public apiUrl = 'https://api.biosimulations.org';
   public simulatorsApiUrl? = 'https://api.biosimulators.org';
