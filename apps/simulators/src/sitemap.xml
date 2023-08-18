@@ -687,7 +687,7 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/smoldyn</loc>
-    <lastmod>2022-10-25</lastmod>
+    <lastmod>2023-08-17</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -724,6 +724,12 @@
   <url>
     <loc>https://biosimulators.org/simulators/smoldyn/2.70</loc>
     <lastmod>2022-10-25</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/smoldyn/2.72</loc>
+    <lastmod>2023-08-17</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
