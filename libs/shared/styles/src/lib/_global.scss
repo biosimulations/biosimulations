@@ -1535,19 +1535,25 @@ sub {
 /* App Homepage Stylings */
 .home-container {
   height: fit-content;
-  width: 100%;
+  width: fit-content;
   padding-top: 3rem;
 
   @media (max-width: 768px) {
-    height: 100%;
-    width: 100%;
+    font-size: small !important;
+    width: 300px;
+    padding: 3rem;
   }
 }
 
 .home-description {
-  width: 94%;
-  height: 100%;
+  padding: 4rem;
+  width: 50%;
   font-size: 32px;
+
+  @media (max-width: 768px) {
+    width: 300px;
+    height: fit-content;
+  }
 }
 
 .home-description-mobile {
@@ -1566,7 +1572,7 @@ sub {
 
 .home-description,
 .home-description-mobile,
-.table-parent-container {
+.data-table-parent-container {
   background-image: url('/assets/images/backgrounds/grey-3.png') !important;
 }
 
@@ -1587,7 +1593,7 @@ biosimulations-home biosimulations-home-subsection {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 3rem;
+  padding: 6rem;
 }
 
 .data-table-container {

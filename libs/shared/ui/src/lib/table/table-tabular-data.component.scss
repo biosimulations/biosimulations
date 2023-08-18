@@ -1,9 +1,6 @@
 @import 'biosimulations-colors';
 @import 'biosimulations-typography';
 
-$biosim-border: solid var(--accent-color);
-$biosim-background: var(--primary-color) !important;
-
 :host {
   width: 100%;
   height: max-content;
@@ -45,17 +42,15 @@ mat-cell {
 }
 
 .cell-header-container {
-  font-weight: 700;
   height: fit-content;
-  background-color: $biosim-background;
+  background-color: #848489 !important;
   color: white;
 
   &:first-child {
-    border-left: 4px $biosim-border;
+    border-radius: 4px 0 0;
   }
-
   &:last-child {
-    border-right: 4px $biosim-border;
+    border-radius: 0 0 4px;
   }
 }
 

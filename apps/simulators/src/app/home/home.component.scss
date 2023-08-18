@@ -47,16 +47,19 @@
 .example-container {
   margin-top: 6rem;
   font-size: 20px;
-}
-
-.example-card {
-  border: 6px solid inherit;
-}
-
-.example-container,
-.example-card {
-  height: 100%;
   width: 100%;
+  @media (max-width: 768px) {
+    width: 200px;
+  }
+}
+
+.example-card {
+  display: flex;
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+  height: fit-content;
+  max-width: 1090px;
 }
 
 .example-header {
@@ -68,7 +71,6 @@
 
 .code-window {
   margin-top: 3rem;
-  width: auto;
   height: fit-content;
 }
 
@@ -91,9 +93,13 @@
 
 .logo {
   height: 200px;
-  width: fit-content;
+  width: 100%;
   padding: 2rem;
   margin-bottom: 2rem;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
 
 .logo-container {
@@ -124,4 +130,19 @@
 .example-header,
 .logo {
   background-color: var(--accent-color);
+}
+
+.card-intro {
+  width: 100%;
+  height: fit-content;
+  padding-left: 1rem;
+  & h2 {
+    color: black;
+    font-size: 25px;
+
+    @media (max-width: 768px) {
+      font-size: 18px;
+      display: block;
+    }
+  }
 }

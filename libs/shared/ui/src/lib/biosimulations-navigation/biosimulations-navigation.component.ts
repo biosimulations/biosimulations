@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -8,38 +8,47 @@ import { map, shareReplay } from 'rxjs/operators';
   templateUrl: './biosimulations-navigation.component.html',
   styleUrls: ['./biosimulations-navigation.component.scss'],
 })
-export class BiosimulationsNavigationComponent {
+export class BiosimulationsNavigationComponent implements OnInit {
   @Input()
-  public useSimulations?: boolean;
+  public appName!: string;
 
   @Input()
-  appName!: string;
+  public appNameParts!: string[];
 
   @Input()
-  appNameParts!: string[];
+  public logo!: string;
 
   @Input()
-  logo!: string;
+  public privacyPolicyVersion!: number;
 
   @Input()
-  privacyPolicyVersion!: number;
+  public newsVersion!: number;
 
   @Input()
-  newsVersion!: number;
+  public showNews!: boolean;
 
   @Input()
-  showNews!: boolean;
+  public healthy!: boolean | null;
 
   @Input()
-  healthy!: boolean | null;
+  public darkMode = false;
 
-  @Input()
-  darkMode = false;
+  public useSimulations = true;
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
+  public simulationsColor = '#2196f3';
+
+  public simulatorsColor = '#ff9800';
+
+  public isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map((result) => result.matches),
     shareReplay(),
   );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  public constructor(private breakpointObserver: BreakpointObserver) {}
+
+  public ngOnInit(): void {
+    if (this.appName === 'BioSimulators') {
+      this.useSimulations = !this.useSimulations;
+    }
+  }
 }

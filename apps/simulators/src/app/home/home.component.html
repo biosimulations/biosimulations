@@ -54,11 +54,14 @@
       <div class="example-container">
         <mat-card class="example-card">
           <mat-card-header class="example-header"> Quick Start </mat-card-header>
+          <div class="card-intro">
+            <h2>There are several ways to interact with BioSimulators:</h2>
+          </div>
           <mat-card-content>
             <mat-tab-group>
               <mat-tab>
                 <ng-template mat-tab-label>
-                  Run from CLI with Python
+                  CLI with Python
                   <biosimulations-icon icon="python"></biosimulations-icon>
                 </ng-template>
                 <div class="code-window cli">
@@ -91,7 +94,7 @@
 
               <mat-tab>
                 <ng-template mat-tab-label>
-                  Run from CLI with Docker
+                  CLI with Docker
                   <biosimulations-icon icon="docker"></biosimulations-icon>
                 </ng-template>
                 <div class="code-window docker">
@@ -111,7 +114,7 @@
 
               <mat-tab>
                 <ng-template mat-tab-label>
-                  Run programmatically with Python
+                  Programmatically with Python
                   <biosimulations-icon icon="python"></biosimulations-icon>
                 </ng-template>
                 <div class="code-window api">
@@ -124,7 +127,7 @@
                   </code></pre>
                   <p class="step2 api">2. Define the paths to both your OMEX file and desired output destination:</p>
                   <pre><code>
-                    omex = '/content/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex'
+                    omex = 'Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex'
                   </code></pre>
                   <pre><code>
                     results_dir = '/content/my_results'
@@ -132,7 +135,12 @@
                   <p class="step3 api">3. Run the simulation and get the results and log. Print the results:</p>
 
                   <pre><code>
-                    results, log = bt.exec_sedml_docs_in_combine_archive(omex, results_dir, config)
+                    results, log = bt.exec_sedml_docs_in_combine_archive(
+                          omex,
+                          results_dir,
+                          config
+                    )
+
                     print(results)
                     print(log)
                   </code></pre>
@@ -140,9 +148,14 @@
                   <pre><code>
                     import biosimulators_tellurium as bt
 
-                    omex = '/content/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex'
+                    omex = 'Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex'
                     results_dir = '/content/my_results'
-                    results, log = bt.exec_sedml_docs_in_combine_archive(omex, results_dir, config)
+                    results, log = bt.exec_sedml_docs_in_combine_archive(
+                          omex,
+                          results_dir,
+                          config
+                    )
+
                     print(results)
                     print(log)
                   </code></pre>
@@ -151,7 +164,7 @@
 
               <mat-tab>
                 <ng-template mat-tab-label>
-                  Run in your browser with Binder
+                  In your browser with Binder
                   <biosimulations-icon icon="python"></biosimulations-icon>
                 </ng-template>
                 <div class="code-window binder">
