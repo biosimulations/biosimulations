@@ -29,12 +29,10 @@
   </mat-sidenav>
   <mat-sidenav-content class="sidenav-content">
     <div class="topbar">
-      <biosimulations-topbar [showLogo]="!drawer.opened" [color]="appName === 'BioSimulators' ? simulatorsColor : simulationsColor">
-        <biosimulations-logo-image
-          class="logo-img"
-          id="logo"
-          [logo]="logo">
-        </biosimulations-logo-image>
+      <biosimulations-topbar
+        [showLogo]="!drawer.opened"
+        [color]="appName === 'BioSimulators' ? simulatorsColor : simulationsColor">
+        <biosimulations-logo-image class="logo-img" id="logo" [logo]="logo"> </biosimulations-logo-image>
         <ng-content id="rightContent" select="biosimulations-topbar-menu"> </ng-content>
       </biosimulations-topbar>
     </div>

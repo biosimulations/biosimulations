@@ -9,7 +9,10 @@
   [healthy]="healthy$ | async">
   <!-- Start Hero Banner -->
   <biosimulations-topbar-menu>
-    <biosimulations-hover-open-menu [disabled]="true" [href]="appRoutes.platformApp" matTooltip="Browse simulation projects">
+    <biosimulations-hover-open-menu
+      [disabled]="true"
+      [href]="appRoutes.platformApp"
+      matTooltip="Browse simulation projects">
       <biosimulations-topbar-menu-item heading="BioSimDB" icon="browse" id="trigger"> </biosimulations-topbar-menu-item>
     </biosimulations-hover-open-menu>
 
@@ -38,7 +41,8 @@
       [disabled]="true"
       [href]="appRoutes.simulatorsApp"
       matTooltip="Browse simulator tools">
-      <biosimulations-topbar-menu-item heading="BioSimulators" icon="link" id="trigger"> </biosimulations-topbar-menu-item>
+      <biosimulations-topbar-menu-item heading="BioSimulators" icon="link" id="trigger">
+      </biosimulations-topbar-menu-item>
     </biosimulations-hover-open-menu>
   </biosimulations-topbar-menu>
 

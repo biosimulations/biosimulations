@@ -1,21 +1,21 @@
 <div class="delete-simulations-dialog-container dispatch">
-   <ng-container *ngIf="simulation; else allSimulations">
-   <h1 mat-dialog-title>Delete simulation?</h1>
-   <p>
+  <ng-container *ngIf="simulation; else allSimulations">
+    <h1 mat-dialog-title>Delete simulation?</h1>
+    <p>
       Please confirm that you'd like to delete simulation
       {{ simulation.name }} ({{ simulation.id }}). This process cannot be undone.
-   </p>
-   </ng-container>
+    </p>
+  </ng-container>
 
-   <ng-template #allSimulations>
-   <h1 mat-dialog-title>Delete simulations?</h1>
-   <p>Please confirm that you'd like to delete your simulations. This process cannot be undone.</p>
-   </ng-template>
+  <ng-template #allSimulations>
+    <h1 mat-dialog-title>Delete simulations?</h1>
+    <p>Please confirm that you'd like to delete your simulations. This process cannot be undone.</p>
+  </ng-template>
 
-   <div mat-dialog-actions>
-   <button mat-flat-button class="biosimulations-button text" [mat-dialog-close]="false">Cancel</button>
-   <button mat-flat-button class="biosimulations-button primary" [mat-dialog-close]="true" cdkFocusInitial>
+  <div mat-dialog-actions>
+    <button mat-flat-button class="biosimulations-button text" [mat-dialog-close]="false">Cancel</button>
+    <button mat-flat-button class="biosimulations-button primary" [mat-dialog-close]="true" cdkFocusInitial>
       Delete
-   </button>
-   </div>
+    </button>
+  </div>
 </div>

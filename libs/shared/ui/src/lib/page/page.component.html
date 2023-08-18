@@ -1,21 +1,21 @@
 <div class="parent-container" [ngClass]="{ padded: padded }" [ngStyle]="{ 'max-width': maxWidth }">
-   <div class="heading" fxShow *ngIf="heading">
-     <h1>
-       {{ heading }}
-       <div class="buttons">
-         <div class="btn-card 1">
-           <ng-content select="#buttons"></ng-content>
-         </div>
-       </div>
-       <div class="btn-card 2">
-         <div class="buttons">
-           <ng-content select="#buttons"></ng-content>
-         </div>
-       </div>
-     </h1>
-     <div class="subheading">
-       <ng-content select="#subheading"></ng-content>
-     </div>
-   </div>
-   <ng-content></ng-content>
+  <div class="heading" fxShow *ngIf="heading">
+    <h1>
+      {{ heading }}
+      <div class="buttons">
+        <div class="btn-card 1">
+          <ng-content select="#buttons"></ng-content>
+        </div>
+      </div>
+      <div class="btn-card 2">
+        <div class="buttons">
+          <ng-content select="#buttons"></ng-content>
+        </div>
+      </div>
+    </h1>
+    <div class="subheading">
+      <ng-content select="#subheading"></ng-content>
+    </div>
+  </div>
+  <ng-content></ng-content>
 </div>

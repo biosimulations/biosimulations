@@ -1,22 +1,19 @@
 <div class="data-table-parent-container simulators">
-   <mat-card class="data-table-card simulators">
-    <mat-card-header class="data-table-heading">
-      Browse Simulators
-    </mat-card-header>
+  <mat-card class="data-table-card simulators">
+    <mat-card-header class="data-table-heading"> Browse Simulators </mat-card-header>
     <mat-card-content>
       <div class="data-table-container simulators">
-      <biosimulations-responsive-table
-      [columns]="columns"
-      stackedContentsHeading="Simulators"
-      [getStackedHeading]="getStackedHeading"
-      [getStackedHeadingMoreInfoRouterLink]="getStackedHeadingMoreInfoRouterLink"
-      searchPlaceHolder="Query (e.g., COPASI)"
-      searchToolTip="Enter a query such as 'CVODE'. By default, your query will be searched over all columns. To search over a specific column, prefix your query with the heading of the column (with spaces replaced by dashes) such as 'model-formats: SBML'. Please see the FAQs for more information."
-      [linesPerRow]="2"
-      [defaultSort]="{ active: 'name', direction: 'asc' }"
-      [data]="data"></biosimulations-responsive-table>
-   </div>
+        <biosimulations-responsive-table
+          [columns]="columns"
+          stackedContentsHeading="Simulators"
+          [getStackedHeading]="getStackedHeading"
+          [getStackedHeadingMoreInfoRouterLink]="getStackedHeadingMoreInfoRouterLink"
+          searchPlaceHolder="Query (e.g., COPASI)"
+          searchToolTip="Enter a query such as 'CVODE'. By default, your query will be searched over all columns. To search over a specific column, prefix your query with the heading of the column (with spaces replaced by dashes) such as 'model-formats: SBML'. Please see the FAQs for more information."
+          [linesPerRow]="2"
+          [defaultSort]="{ active: 'name', direction: 'asc' }"
+          [data]="data"></biosimulations-responsive-table>
+      </div>
     </mat-card-content>
-    
-   </mat-card>
+  </mat-card>
 </div>

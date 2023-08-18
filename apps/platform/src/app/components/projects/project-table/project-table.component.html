@@ -1,23 +1,21 @@
 <div class="data-table-parent-container">
   <mat-card class="data-table-card platform">
-   <mat-card-header class="data-table-heading">
-      Simulation Projects
-   </mat-card-header>
-   <mat-card-content>
+    <mat-card-header class="data-table-heading"> Simulation Projects </mat-card-header>
+    <mat-card-content>
       <div class="data-table-container platform">
-         <div class="projects-chip-container">
-            <biosimulations-projects-chips [filterStats$]="filterStats$" (filterQueries$)="onFilterQueryChanged($event)">
-            </biosimulations-projects-chips>
-         </div>
+        <div class="projects-chip-container">
+          <biosimulations-projects-chips [filterStats$]="filterStats$" (filterQueries$)="onFilterQueryChanged($event)">
+          </biosimulations-projects-chips>
+        </div>
 
-         <div class="below-filters">
-            <mat-form-field appearance="fill">
+        <div class="below-filters">
+          <mat-form-field appearance="fill">
             <mat-label>Search Projects</mat-label>
             <input (keyup)="onKeyUpEvent($event)" [(ngModel)]="searchTerm" matInput type="text" />
             <mat-icon matPrefix>search</mat-icon>
-            </mat-form-field>
+          </mat-form-field>
 
-            <mat-paginator
+          <mat-paginator
             #paginatorTop
             [length]="dataSource.datalength"
             [pageIndex]="1"
@@ -25,27 +23,26 @@
             [pageSize]="25"
             [showFirstLastButtons]="true"
             aria-label="Select page">
-            </mat-paginator>
-         </div>
+          </mat-paginator>
+        </div>
 
-         <table aria-label="Elements" mat-table matSort>
-            <ng-container matColumnDef="id">
+        <table aria-label="Elements" mat-table matSort>
+          <ng-container matColumnDef="id">
             <th *matHeaderCellDef mat-header-cell mat-sort-header>Id</th>
             <td *matCellDef="let row" mat-cell>
-               <a [routerLink]="['/projects', row.id]" target="_blank">{{ row.id }}</a>
+              <a [routerLink]="['/projects', row.id]" target="_blank">{{ row.id }}</a>
             </td>
-            </ng-container>
+          </ng-container>
 
-            <ng-container matColumnDef="title">
+          <ng-container matColumnDef="title">
             <th *matHeaderCellDef mat-header-cell mat-sort-header>Title</th>
             <td *matCellDef="let row" mat-cell>{{ row.title }}</td>
-            </ng-container>
+          </ng-container>
 
-            <tr *matHeaderRowDef="displayedColumns; sticky: true" mat-header-row></tr>
-            <tr *matRowDef="let row; let odd = odd; columns: displayedColumns" [class.striped-row]="odd" mat-row></tr>
-         </table>
+          <tr *matHeaderRowDef="displayedColumns; sticky: true" mat-header-row></tr>
+          <tr *matRowDef="let row; let odd = odd; columns: displayedColumns" [class.striped-row]="odd" mat-row></tr>
+        </table>
       </div>
-   </mat-card-content>
+    </mat-card-content>
   </mat-card>
-
 </div>

@@ -1,12 +1,12 @@
 <div class="utils-btn-container">
-   <biosimulations-hover-open-menu>
-   <biosimulations-topbar-menu-item [appName]="appName" heading="Utilities" icon="construction" id="trigger">
-   </biosimulations-topbar-menu-item>
-   <ng-container id="items">
+  <biosimulations-hover-open-menu>
+    <biosimulations-topbar-menu-item [appName]="appName" heading="Utilities" icon="construction" id="trigger">
+    </biosimulations-topbar-menu-item>
+    <ng-container id="items">
       <biosimulations-dropdown-menu-item
-         *ngFor="let item of routerLinkMenuConfig"
-         [heading]="item.heading"
-         [routerLink]="item.routerLink">
+        *ngFor="let item of routerLinkMenuConfig"
+        [heading]="item.heading"
+        [routerLink]="item.routerLink">
       </biosimulations-dropdown-menu-item>
 
       <biosimulations-dropdown-menu-item heading="Validate a simulator" [href]="validateSimulatorUrl">
@@ -17,14 +17,11 @@
 
       <biosimulations-dropdown-menu-item heading="BioSimulators REST API" [href]="simulatorsApiUrl">
       </biosimulations-dropdown-menu-item>
-   </ng-container>
-   </biosimulations-hover-open-menu>
+    </ng-container>
+  </biosimulations-hover-open-menu>
 
-   <biosimulations-hover-open-menu
-      [href]="docsUrl"
-      [disabled]="true"
-      target="_blank"
-      matTooltip="Browse the docs">
-   <biosimulations-topbar-menu-item [appName]="appName" heading="Learn" icon="idea" id="trigger"> </biosimulations-topbar-menu-item>
-   </biosimulations-hover-open-menu>
+  <biosimulations-hover-open-menu [href]="docsUrl" [disabled]="true" target="_blank" matTooltip="Browse the docs">
+    <biosimulations-topbar-menu-item [appName]="appName" heading="Learn" icon="idea" id="trigger">
+    </biosimulations-topbar-menu-item>
+  </biosimulations-hover-open-menu>
 </div>

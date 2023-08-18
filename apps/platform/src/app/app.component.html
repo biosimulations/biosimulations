@@ -8,7 +8,10 @@
   [showNews]="false"
   [healthy]="healthy$ | async">
   <biosimulations-topbar-menu>
-    <biosimulations-hover-open-menu [routerLink]="['/projects']" [disabled]="true" matTooltip="Browse simulation projects">
+    <biosimulations-hover-open-menu
+      [routerLink]="['/projects']"
+      [disabled]="true"
+      matTooltip="Browse simulation projects">
       <biosimulations-topbar-menu-item heading="BioSimDB" icon="browse" id="trigger"> </biosimulations-topbar-menu-item>
     </biosimulations-hover-open-menu>
 
