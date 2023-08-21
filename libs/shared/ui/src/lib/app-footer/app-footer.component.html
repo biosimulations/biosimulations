@@ -1,169 +1,19 @@
 <div class="app-footer-container">
     <biosimulations-home-section [columns]="3" class="home-footer">
-        <!-- Help Footer Section -->
         <biosimulations-home-subsection
-                id="subsection"
-                heading="Help"
-                icon="help"
-                subheading=""
-                subheadingSize="small"
-                style="justify-content: center">
-            <mat-list>
-                <mat-list-item *ngFor="let item of helpFooterItems">
-                    <button mat-button [class]="item.cssClass">
-                        <a [href]="item.href" [target]="item.target">
-                            {{ item.title }}
-                        </a>
-                    </button>
-                </mat-list-item>
-            </mat-list>
-        </biosimulations-home-subsection>
-
-        <!-- Conventions Footer Section -->
-        <biosimulations-home-subsection
-                id="subsection"
-                heading="Conventions"
-                subheading=""
-                subheadingSize="small"
-                icon="info"
-                style="justify-content: center">
-
-            <mat-list class="footer-section conventions">
-                <mat-list-item>
-                    <button mat-button class="footer-item standards">
-                        <a href="https://docs.biosimulations.org/concepts/conventions/" target="biosimulations-docs">
-                            Standards
-                        </a>
-                    </button>
-                </mat-list-item>
-
-                <mat-list-item>
-                    <button mat-button class="footer-item specs">
-                        <a
-                                href="https://docs.biosimulations.org/concepts/conventions/simulator-capabilities/"
-                                target="biosimulations-docs">
-                            Simulator Specs
-                        </a>
-                    </button>
-                </mat-list-item>
-
-                <mat-list-item>
-                    <button mat-button class="footer-item interfaces">
-                        <a
-                                href="https://docs.biosimulations.org/concepts/conventions/simulator-interfaces/"
-                                target="biosimulations-docs">
-                            Simulator Interfaces
-                        </a>
-                    </button>
-                </mat-list-item>
-
-                <mat-list-item>
-                    <button mat-button class="footer-item images">
-                        <a
-                                href="https://docs.biosimulations.org/concepts/conventions/simulator-images/"
-                                target="biosimulations-docs">
-                            Simulator Images
-                        </a>
-                    </button>
-                </mat-list-item>
-
-                <mat-list-item>
-                    <button mat-button class="footer-item experiments">
-                        <a
-                                href="https://docs.biosimulations.org/concepts/conventions/simulation-experiments/"
-                                target="biosimulations-docs">
-                            Simulation Experiments
-                        </a>
-                    </button>
-                </mat-list-item>
-
-                <mat-list-item>
-                    <button mat-button class="footer-item reports">
-                        <a
-                                href="https://docs.biosimulations.org/concepts/conventions/simulation-run-reports/"
-                                target="biosimulations-docs">
-                            Simulation Reports
-                        </a>
-                    </button>
-                </mat-list-item>
-
-                <mat-list-item>
-                    <button mat-button class="footer-item viz">
-                        <a
-                                href="https://docs.biosimulations.org/concepts/conventions/simulation-run-visualizations/"
-                                target="biosimulations-docs">
-                            Data Visualizations
-                        </a>
-                    </button>
-                </mat-list-item>
-
-                <mat-list-item>
-                    <button mat-button class="footer-item metadata">
-                        <a
-                                href="https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/"
-                                target="biosimulations-docs">
-                            Simulation Metadata
-                        </a>
-                    </button>
-                </mat-list-item>
-
-                <mat-list-item>
-                    <button mat-button class="footer-item logs">
-                        <a
-                                href="https://docs.biosimulations.org/concepts/conventions/simulation-run-logs/"
-                                target="biosimulations-docs">
-                            Simulation Logs
-                        </a>
-                    </button>
-                </mat-list-item>
-            </mat-list>
-        </biosimulations-home-subsection>
-
-        <!-- About Footer Section -->
-        <biosimulations-home-subsection
-                id="subsection"
-                heading="About"
-                subheading=""
-                subheadingSize="small"
-                icon="info"
-                style="justify-content: center">
-            <mat-list>
-                <mat-list-item *ngFor="let item of aboutFooterItems">
-                    <button mat-button [class]="item.cssClass">
-                        <a [href]="item.href" [target]="item.target">
-                            {{ item.title }}
-                        </a>
-                    </button>
-                </mat-list-item>
-                <!--<mat-list-item>
-                    <button mat-button class="footer-item about">
-                        <a href="https://docs.biosimulations.org/" target="biosimulations-docs"> About </a>
-                    </button>
-                </mat-list-item>
-                <mat-list-item>
-                    <button mat-button class="footer-item terms">
-                        <a href="https://docs.biosimulations.org/about/terms/" target="biosimulations-docs">
-                            Terms of Service
-                        </a>
-                    </button>
-                </mat-list-item>
-                <mat-list-item>
-                    <button mat-button class="footer-item privacy">
-                        <a href="https://docs.biosimulations.org/about/privacy/" target="biosimulations-docs">
-                            Privacy Policy
-                        </a>
-                    </button>
-                </mat-list-item>
-                <mat-list-item>
-                    <button mat-button class="footer-item status">
-                        <a href="https://status.biosimulations.org/" target="biosimulations-docs"> Status </a>
-                    </button>
-                </mat-list-item>
-                <mat-list-item>
-                    <button mat-button class="footer-item vivarium">
-                        <a href="https://vivarium-collective.github.io/"> @Vivarium </a>
-                    </button>
-                </mat-list-item>-->
+            *ngFor="let footer of homeSubsectionItems"
+            id="subsection"
+            [heading]="footer.heading"
+            [icon]="footer.icon"
+            subheading=""
+            subheadingSize="small"
+            style="justify-content: center">
+            <mat-list *ngFor="let item of footer.contentItems">
+                <button mat-button [class]="item.cssClass">
+                    <a [href]="item.href" target="biosimulations-docs">
+                        {{ item.title }}
+                    </a>
+                </button>
             </mat-list>
         </biosimulations-home-subsection>
     </biosimulations-home-section>
