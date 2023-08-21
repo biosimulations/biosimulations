@@ -50,7 +50,7 @@ const helpFooterItems = [
 const conventionsFooterItems = [
   new FooterItem('standards', 'concepts/conventions/', 'Standards'),
   new FooterItem('specs', 'concepts/conventions/simulator-capabilities/', 'Simulator Specs'),
-  new FooterItem('interfaces', 'concepts/conventions/simulator-interface/', 'Simulator Interfaces'),
+  new FooterItem('interfaces', 'concepts/conventions/simulator-interfaces/', 'Simulator Interfaces'),
   new FooterItem('images', 'concepts/conventions/simulator-images/', 'Simulator Images'),
   new FooterItem('reports', 'concepts/conventions/simulations-run-reports/', 'Simulation Reports'),
   new FooterItem('viz', 'concepts/conventions/simulation-run-visualizations/', 'Data Visualizations'),
