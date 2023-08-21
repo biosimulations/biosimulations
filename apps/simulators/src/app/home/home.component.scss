@@ -48,9 +48,6 @@
   margin-top: 6rem;
   font-size: 20px;
   width: 100%;
-  @media (max-width: 768px) {
-    width: 200px;
-  }
 }
 
 .example-card {
@@ -60,6 +57,15 @@
   width: 100%;
   height: fit-content;
   max-width: 1090px;
+}
+
+@media (max-width: 768px) {
+  .example-container,
+  .example-card,
+  .example-header,
+  .logo {
+    display: none;
+  }
 }
 
 .example-header {
@@ -89,12 +95,6 @@
   font-size: 18px;
   font-weight: 500;
   background-color: black;
-}
-
-.logo {
-  @media (max-width: 768px) {
-    display: none;
-  }
 }
 
 .logo {
