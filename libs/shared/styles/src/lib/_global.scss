@@ -1205,14 +1205,11 @@ table {
   }
 
   .cell {
+    border-bottom: 1px dotted $light-bg-darker-20;
     padding-top: 3px;
     padding-bottom: 3px;
     height: 18px;
     vertical-align: middle;
-  }
-
-  .cell {
-    border-bottom: 1px dotted $light-bg-darker-20;
 
     &:not(:first-child) {
       padding-left: 0.25rem;
