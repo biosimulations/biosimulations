@@ -44,12 +44,6 @@
   }
 }
 
-.example-container {
-  margin-top: 6rem;
-  font-size: 20px;
-  width: 100%;
-}
-
 .example-card {
   display: flex;
   margin-right: auto;
@@ -123,6 +117,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 6rem;
+  font-size: 20px;
+  width: 100%;
 }
 
 .code-window code,
