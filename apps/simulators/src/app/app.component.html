@@ -21,7 +21,7 @@
       </biosimulations-topbar-menu-item>
     </biosimulations-hover-open-menu>
 
-    <biosimulations-hover-open-menu [disabled]="true" [href]="appRoutes.dispatchApp" matTooltip="Run a simulation">
+    <biosimulations-hover-open-menu [href]="appRoutes.dispatchApp" matTooltip="Run a simulation">
       <biosimulations-topbar-menu-item
         [appName]="config.appName"
         heading="Run Simulations"
@@ -29,6 +29,12 @@
         id="trigger"
         target="_self">
       </biosimulations-topbar-menu-item>
+      <ng-container id="items">
+        <biosimulations-dropdown-menu-item [href]="browseRunsUrl" heading="Browse Simulation Runs">
+        </biosimulations-dropdown-menu-item>
+        <biosimulations-dropdown-menu-item [href]="runUrl" heading="Run A Simulation">
+        </biosimulations-dropdown-menu-item>
+      </ng-container>
     </biosimulations-hover-open-menu>
 
     <biosimulations-hero-banner-util-button [appName]="config.appName"></biosimulations-hero-banner-util-button>
@@ -37,7 +43,11 @@
       [disabled]="true"
       [href]="appRoutes.platformApp"
       matTooltip="Browse simulation projects">
-      <biosimulations-topbar-menu-item [appName]="config.appName" heading="BioSimDB" icon="link" id="trigger">
+      <biosimulations-topbar-menu-item
+        [appName]="config.appName"
+        heading="BioSimulations"
+        icon="link"
+        id="trigger">
       </biosimulations-topbar-menu-item>
     </biosimulations-hover-open-menu>
   </biosimulations-topbar-menu>
