@@ -1,20 +1,20 @@
 <div class="app-footer-container">
-    <biosimulations-home-section [columns]="3" class="home-footer">
-        <biosimulations-home-subsection
-            *ngFor="let footer of homeSubsectionItems"
-            id="subsection"
-            [heading]="footer.heading"
-            [icon]="footer.icon"
-            subheading=""
-            subheadingSize="small"
-            style="justify-content: center">
-            <mat-list *ngFor="let item of footer.contentItems">
-                <button mat-button [class]="item.cssClass">
-                    <a [href]="item.href" target="biosimulations-docs">
-                        {{ item.title }}
-                    </a>
-                </button>
-            </mat-list>
-        </biosimulations-home-subsection>
-    </biosimulations-home-section>
+  <biosimulations-home-section [columns]="3" class="home-footer">
+    <biosimulations-home-subsection
+      *ngFor="let footer of homeSubsectionItems"
+      id="subsection"
+      [heading]="footer.heading"
+      [icon]="footer.icon"
+      subheading=""
+      subheadingSize="small"
+      style="justify-content: center">
+      <mat-list *ngFor="let item of footer.contentItems">
+        <button mat-button [class]="item.cssClass">
+          <a [href]="item.href" target="biosimulations-docs">
+            {{ item.title }}
+          </a>
+        </button>
+      </mat-list>
+    </biosimulations-home-subsection>
+  </biosimulations-home-section>
 </div>
