@@ -23,3 +23,26 @@
   display: flex;
   gap: 16px;
 }
+
+.biosimulations-button {
+  &.primary {
+    margin-right: 1rem !important;
+  }
+
+  &.text {
+    margin-left: 1rem !important;
+  }
+
+  &.primary,
+  &.text {
+    margin-bottom: 1rem !important;
+    background-color: var(--primary-color) !important;
+    font-size: 20px !important;
+    font-weight: 700 !important;
+  }
+
+  &:hover {
+    background-color: var(--tertiary-darker-color) !important;
+    transition: background-color 0.4s ease-in-out !important;
+  }
+}
