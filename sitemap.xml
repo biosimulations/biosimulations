@@ -2,302 +2,302 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://docs.biosimulations.org/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/License/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/about/citations/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/about/contact/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/about/cookies/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/about/funding/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/about/license/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/about/license.template/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/about/privacy/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/about/security/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/about/team/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/about/terms/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/about/test/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/community/contributing/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/community/contributors/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/community/governance/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/concepts/conventions/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/concepts/conventions/simulation-experiments/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/concepts/conventions/simulation-run-logs/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/concepts/conventions/simulation-run-reports/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/concepts/conventions/simulation-run-visualizations/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/concepts/conventions/simulator-capabilities/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/concepts/conventions/simulator-images/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/concepts/conventions/simulator-interfaces/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/concepts/glossary/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/developers/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/developers/conduct/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/developers/source-code/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/developers/architecture/deployment/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/developers/architecture/overview/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/developers/architecture/philosophy/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/developers/architecture/tech-foundation/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/developers/setup/endpoints/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/developers/setup/environment/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/developers/setup/getting-started/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/developers/setup/services/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/news/changelog/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/snippets/glossary/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/snippets/supportedLanguages/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/snippets/supportedSedml/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/snippets/vega-converters/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/snippets/vega-examples/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/snippets/vega-resources/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/users/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/users/api/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/users/biosimulations-packages/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/users/biosimulators-packages/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/users/creating-projects/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/users/creating-tools/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/users/creating-vega-visualizations/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/users/faqs/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/users/finding-tools/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/users/live-tutorials/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/users/publishing-projects/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/users/publishing-tools/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/users/simulating-projects/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/users/source-model-repositories/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/users/validating-projects/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.biosimulations.org/users/viewing-projects/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
