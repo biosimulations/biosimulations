@@ -51,6 +51,7 @@ import { BlankTargetDirective } from './blank-target-link/blank-target-link.dire
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG, HammerModule } from '@angular/platform-browser';
 import { HeroBannerUtilButtonComponent } from './hero-banner-util-button/hero-banner-util-button.component';
 import { MatTooltipModule, MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
+import { AppFooterComponent } from './app-footer/app-footer.component';
 
 const TOOLTIP_DELAY = 500;
 
@@ -119,6 +120,7 @@ export class MatCarouselHammerConfig extends HammerGestureConfig {
     BreadCrumbsModule,
     BlankTargetDirective,
     HeroBannerUtilButtonComponent,
+    AppFooterComponent,
   ],
   declarations: [
     TopbarComponent,
@@ -166,6 +168,7 @@ export class MatCarouselHammerConfig extends HammerGestureConfig {
     MatCarouselSlideComponent,
     BlankTargetDirective,
     HeroBannerUtilButtonComponent,
+    AppFooterComponent,
   ],
 })
 export class SharedUiModule {}

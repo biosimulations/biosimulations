@@ -41,6 +41,7 @@
   <ng-container id="news"> Under Construction </ng-container>
   <router-outlet></router-outlet>
 </biosimulations-navigation>
+<biosimulations-app-footer></biosimulations-app-footer>
 
 <ng-template #mobileSimulations>
   <biosimulations-navigation
@@ -55,109 +56,4 @@
     <ng-container id="news"> Under Construction </ng-container>
     <router-outlet></router-outlet>
   </biosimulations-navigation>
-
-  <!--<div class="mobile-footer-container simulations">
-    <mat-card class="footer-items-card about">
-      <mat-card-content>
-        <mat-list class="footer-list simulations">
-          <biosimulations-home-section>
-            <biosimulations-home-subsection id="subsection" heading="Our Site">
-              <mat-list-item>
-                <button mat-button class="footer-item-button biosimdb" [routerLink]="['/projects']">
-                  <span class="footer-item-button-text biosimdb our-site" target="_blank">
-                    <biosimulations-icon icon="browse"></biosimulations-icon>
-                    BioSimDB
-                  </span>
-                </button>
-              </mat-list-item>
-              <mat-list-item>
-                <button mat-button class="footer-item-button runsim" (click)="navigateToMobileLink('/runs/new')">
-                  <span class="footer-item-button-text runsim our-site" target="_blank">
-                    <biosimulations-icon icon="experiment"></biosimulations-icon>
-                    Run a Simulation
-                  </span>
-                </button>
-              </mat-list-item>
-              <mat-list-item>
-                <button
-                  mat-button
-                  class="footer-item-button learn"
-                  (click)="navigateToMobileLink('https://docs.biosimulations.org/users/')">
-                  <span class="footer-item-button-text learn our-site" target="_blank">
-                    <biosimulations-icon icon="idea"></biosimulations-icon>
-                    Learn
-                  </span>
-                </button>
-              </mat-list-item>
-              <mat-list-item>
-                <button
-                  mat-button
-                  class="footer-item-button biosimulators"
-                  (click)="navigateToMobileLink(config.simulatorsAppBrowseSimulatorsUrl)">
-                  <span class="footer-item-button-text biosimulators our-site" target="_blank">
-                    <biosimulations-icon icon="simulators"></biosimulations-icon>
-                    BioSimulators
-                  </span>
-                </button>
-              </mat-list-item>
-            </biosimulations-home-subsection>
-            <biosimulations-home-subsection id="subsection" heading="More Information">
-              <mat-list-item>
-                <button
-                  mat-button
-                  class="footer-item-button about"
-                  (click)="navigateToMobileLink('https://docs.biosimulations.org/')">
-                  <span class="footer-item-button-text about more-information" target="_blank">
-                    <biosimulations-icon icon="help"></biosimulations-icon>
-                    About
-                  </span>
-                </button>
-              </mat-list-item>
-              <mat-list-item>
-                <button
-                  mat-button
-                  class="footer-item-button terms"
-                  (click)="navigateToMobileLink('https://docs.biosimulations.org/about/terms/')">
-                  <span class="footer-item-button-text terms more-information" target="_blank">
-                    <biosimulations-icon icon="license"></biosimulations-icon>
-                    Terms of Service
-                  </span>
-                </button>
-              </mat-list-item>
-              <mat-list-item>
-                <button
-                  mat-button
-                  class="footer-item-button privacy"
-                  (click)="navigateToMobileLink('https://docs.biosimulations.org/about/privacy/')">
-                  <span class="footer-item-button-text privacy more-information" target="_blank">
-                    <biosimulations-icon icon="policy"></biosimulations-icon>
-                    Privacy Policy
-                  </span>
-                </button>
-              </mat-list-item>
-              <mat-list-item>
-                <button
-                  mat-button
-                  class="footer-item-button status"
-                  (click)="navigateToMobileLink('https://status.biosimulations.org/')">
-                  <span class="footer-item-button-text status more-information" target="_blank">
-                    <biosimulations-icon icon="bug"></biosimulations-icon>
-                    Status
-                  </span>
-                </button>
-              </mat-list-item>
-              <mat-list-item>
-                <button
-                  mat-button
-                  class="footer-item-button vivarium"
-                  (click)="navigateToMobileLink('https://vivarium-collective.github.io/')">
-                  <span class="footer-item-button-text vivarium more-information" target="_blank"> @Vivarium </span>
-                </button>
-              </mat-list-item>
-            </biosimulations-home-subsection>
-          </biosimulations-home-section>
-        </mat-list>
-      </mat-card-content>
-    </mat-card>
-  </div>-->
 </ng-template>
