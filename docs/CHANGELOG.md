@@ -1,5 +1,21 @@
 # Changelog
 
+## [9.51.0](https://github.com/biosimulations/biosimulations/compare/v9.50.1...v9.51.0) (2023-08-22)
+
+
+### Bug Fixes
+
+* adjusted endpoint of docs item ([b305b8a](https://github.com/biosimulations/biosimulations/commit/b305b8afe90fdd949d9a69ce70ef798a0f11fa56))
+
+
+### Features
+
+* **ui:** adjusted home page wording in simulators app ([403e4f5](https://github.com/biosimulations/biosimulations/commit/403e4f57ea9bf3101f91fdc47b909ea5633d1729))
+* **ui:** implemented footer in platform mobile ([d7724d2](https://github.com/biosimulations/biosimulations/commit/d7724d2a5d5fb192c4744e00809dbab443d93ab9))
+* **ui:** implemented shared app footer component in dispatch app ([7263c2d](https://github.com/biosimulations/biosimulations/commit/7263c2d30d8ef9c58d5f3163d0a8a37668b940c7))
+* **ui:** implemented shared ui footer component and implemented cols ([62bda34](https://github.com/biosimulations/biosimulations/commit/62bda34d03fc0588887b83631de2f8181ad31141))
+* **ui:** moved shared footer from home to app comps in repo ui apps ([f40437b](https://github.com/biosimulations/biosimulations/commit/f40437bb21967b10ed5e3c668c8078264405110b))
+
 ## [9.50.1](https://github.com/biosimulations/biosimulations/compare/v9.50.0...v9.50.1) (2023-08-18)
 
 
