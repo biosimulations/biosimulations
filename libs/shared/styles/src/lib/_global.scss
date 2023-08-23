@@ -1677,3 +1677,11 @@ mat-option {
     color: var(--primary-color);
   }
 }
+
+.biosimulations-button {
+  &.run {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+    font-weight: 700 !important;
+  }
+}
