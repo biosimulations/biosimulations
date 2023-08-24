@@ -8,23 +8,23 @@ import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 })
 export class HomeSubsectionComponent {
   @Input()
-  heading = '';
+  public heading = '';
 
   @Input()
-  subheading = '';
+  public subheading = '';
 
   @Input()
-  subheadingSize = 'large';
+  public subheadingSize = 'large';
 
   @Input()
-  icon!: BiosimulationsIcon;
+  public icon!: BiosimulationsIcon;
 
   @Input()
-  link?: string;
+  public link?: string;
 
   @Input()
-  iconColor? = '#ffa500';
+  public iconColor? = '#ffa500';
 
   @Input()
-  hrefHeader = false;
+  public hrefHeader = false;
 }
