@@ -19,6 +19,6 @@ export class HeroBannerUtilButtonComponent {
     { heading: 'Validate metadata', routerLink: ['/utils', 'validate-metadata'] },
     { heading: 'Validate a project', routerLink: ['/utils', 'validate-project'] },
     { heading: 'Suggest a simulator', routerLink: ['/utils', 'suggest-simulator'] },
-    { heading: 'Convert a file', routerLink: ['/utils', 'convert-file'] },
+    { heading: 'Describe visualizations', routerLink: ['/utils', 'convert-file'] },
   ];
 }
