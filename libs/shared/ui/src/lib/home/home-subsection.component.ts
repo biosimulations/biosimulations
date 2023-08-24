@@ -24,4 +24,7 @@ export class HomeSubsectionComponent {
 
   @Input()
   iconColor? = '#ffa500';
+
+  @Input()
+  hrefHeader = false;
 }
