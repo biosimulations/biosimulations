@@ -1,5 +1,19 @@
 # Changelog
 
+## [9.51.1](https://github.com/biosimulations/biosimulations/compare/v9.51.0...v9.51.1) (2023-08-24)
+
+
+### Bug Fixes
+
+* adjusted added app global style and removed ([43e5395](https://github.com/biosimulations/biosimulations/commit/43e53950c80e81d7521b1e1d8369391e055ec5f0))
+* adjusted and added run simulations pointers and changed btn txt ([c78829b](https://github.com/biosimulations/biosimulations/commit/c78829b931a4b0a9fe4da7cfef6e7a5c0586ad7f))
+* adjusted button styles and color ([c3443dc](https://github.com/biosimulations/biosimulations/commit/c3443dc9c186a289475eebac74880d8bf35f932a))
+* adjusted shadow dom class style height and removed unused container ([fef3d99](https://github.com/biosimulations/biosimulations/commit/fef3d99628f55eeb4847e63f85cae44da31bde60))
+* adjusted styles of nav buttons ([4276ade](https://github.com/biosimulations/biosimulations/commit/4276adeddeff627a6e3e09cf4d5d3240dc31219f))
+* adjusted styles of topbar items and removed unused ([9dda677](https://github.com/biosimulations/biosimulations/commit/9dda6773aef8d98604136739981cfb3318e21258))
+* removed heading separator and home description container type ([b329724](https://github.com/biosimulations/biosimulations/commit/b32972484e44ff0c3ed57c90e26982c6a2e8716f))
+* removed text color styling and footer heading anchor ([169e13c](https://github.com/biosimulations/biosimulations/commit/169e13c75b66d78c8b963f140b897b33ba1c7312))
+
 ## [9.51.0](https://github.com/biosimulations/biosimulations/compare/v9.50.1...v9.51.0) (2023-08-22)
 
 
