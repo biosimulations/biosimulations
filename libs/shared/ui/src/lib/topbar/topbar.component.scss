@@ -5,6 +5,10 @@
 .logo-buttons {
   height: fit-content;
   padding-left: 6rem;
+
+  &.ng-star-inserted {
+    height: 100%;
+  }
 }
 
 @media screen and (max-width: 959px) {
