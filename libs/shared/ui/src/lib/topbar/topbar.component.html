@@ -1,18 +1,18 @@
-<mat-toolbar [style.background]="color">
-  <a [routerLink]="['/']" class="logo" *ngIf="showLogo">
-    <ng-content select="#logo"></ng-content>
-  </a>
-  <a
-    href="https://biosimulations.org"
-    class="logo"
-    *ngIf="showLogo"
-    fxLayout="row"
-    fxLayoutAlign="center center"
-    rel="noopener">
-    <ng-content select="#logo" fxFlex></ng-content>
-  </a>
-  <div class="logo-buttons" *ngIf="showLogo" fxLayout="column" fxLayoutAlign="center center">
-    <ng-content select="#rightContent"></ng-content>
-    <ng-content select="#leftContent"></ng-content>
-  </div>
-</mat-toolbar>
+<div class="topbar-parent-container">
+  <mat-toolbar [style.background]="color">
+    <a [routerLink]="['/']" class="logo" *ngIf="showLogo">
+      <ng-content select="#logo"></ng-content>
+    </a>
+    <a
+      href="https://biosimulations.org"
+      class="logo"
+      *ngIf="showLogo"
+      rel="noopener">
+      <ng-content select="#logo" fxFlex></ng-content>
+    </a>
+    <div class="logo-buttons" *ngIf="showLogo">
+      <ng-content select="#rightContent"></ng-content>
+      <ng-content select="#leftContent"></ng-content>
+    </div>
+  </mat-toolbar>
+</div>

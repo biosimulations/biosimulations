@@ -1,12 +1,3 @@
-:host {
-  padding-bottom: 3rem;
-  padding-top: 5.25rem;
-}
-
-.nav-buttons {
-  padding-top: 0rem;
-}
-
 @media (max-width: 768px) {
   .nav-buttons {
     padding-bottom: 3rem;
@@ -29,10 +20,10 @@
 }
 
 :host,
-.nav-buttons {
-  margin-left: auto;
-  padding-left: 0;
+.topbar-menu-nav-buttons {
   display: flex;
-  justify-content: space-between;
-  position: relative;
+}
+
+:host {
+  height: 100%;
 }

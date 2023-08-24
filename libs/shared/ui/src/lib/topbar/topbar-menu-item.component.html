@@ -1,6 +1,6 @@
-<div class="container" *ngIf="appName === 'BioSimulators'; else simulationsBtns">
+<ng-container *ngIf="appName === 'BioSimulators'; else simulationsBtns">
   <!-- Linking button -->
-  <div class="overlap">
+  <div class="overlap simulators">
     <a
       mat-flat-button
       *ngIf="href && !disabled; else button"
@@ -29,11 +29,10 @@
       </div>
     </button>
   </ng-template>
-</div>
+</ng-container>
 
 <ng-template #simulationsBtns>
-  <div class="container">
-    <div class="overlap">
+    <div class="overlap simulations">
       <a
         mat-flat-button
         *ngIf="href && !disabled; else button"
@@ -60,5 +59,4 @@
         </div>
       </button>
     </ng-template>
-  </div>
 </ng-template>

@@ -1,34 +1,9 @@
 :host {
-  margin-left: 1rem;
-}
-
-.mat-flat-button {
-  border: none;
-  padding: 0 0 5rem;
-  line-height: 30px;
-  margin-bottom: 6px;
-
-  .button-content {
-    display: flex;
-    align-items: center;
-  }
-
-  biosimulations-icon {
-    margin-right: 0.25rem;
-
-    ::ng-deep mat-icon {
-      line-height: 0;
-      position: relative;
-      top: 0.25em;
-    }
-  }
-}
-
-.button-wrapper {
-  padding: 10px;
+  display: flex;
+  margin-top: 0.75rem;
+  margin-right: 1rem;
 }
 
 .overlap {
   border-bottom: 9px solid transparent;
-  margin-top: 0.25rem;
 }
