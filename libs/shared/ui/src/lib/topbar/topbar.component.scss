@@ -4,16 +4,15 @@
 
 .logo-buttons {
   height: fit-content;
-  padding-left: 6rem;
+  margin-left: 2rem;
+
+  &.ng-star-inserted {
+    height: 100%;
+  }
 }
 
 @media screen and (max-width: 959px) {
   mat-toolbar {
     height: 56px;
   }
-}
-
-.simulations,
-.simulators {
-  background-color: var(--primary-color);
 }

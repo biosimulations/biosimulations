@@ -1,7 +1,10 @@
 <div class="container">
   <biosimulations-icon *ngIf="icon" [icon]="icon" [style.color]="iconColor"></biosimulations-icon>
   <div class="heading">
-    <a [href]="link">{{ heading }}</a>
+    <a *ngIf="hrefHeader; else normalHeader" [href]="link">{{ heading }}</a>
+    <ng-template #normalHeader>
+      {{ heading }}
+    </ng-template>
   </div>
   <div
     [ngClass]="{

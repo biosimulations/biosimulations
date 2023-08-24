@@ -1,13 +1,15 @@
-<biosimulations-page
-  heading="Create a simulation project (COMBINE/OMEX archive with a SED-ML file) for a model"
-  *ngIf="!shouldShowSpinner; else loading">
-  <div class="form-header">
-    Use the form below to create a COMBINE/OMEX archive for simulating a model. This archive will contain your model and
-    a SED-ML file generated from the form below. You can then use runBioSimulations to execute your archive, or you can
-    download the archive.
-  </div>
-  <paging-form [dataSource]="formDataSource"></paging-form>
-</biosimulations-page>
+<div class="form-parent-container create-project">
+  <biosimulations-page
+    heading="Create a simulation project (COMBINE/OMEX archive with a SED-ML file) for a model"
+    *ngIf="!shouldShowSpinner; else loading">
+    <div class="form-header">
+      Use the form below to create a COMBINE/OMEX archive for simulating a model. This archive will contain your model and
+      a SED-ML file generated from the form below. You can then use runBioSimulations to execute your archive, or you can
+      download the archive.
+    </div>
+    <paging-form [dataSource]="formDataSource"></paging-form>
+  </biosimulations-page>
+</div>
 
 <ng-template #loading>
   <biosimulations-full-page-spinner></biosimulations-full-page-spinner>

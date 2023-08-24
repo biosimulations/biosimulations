@@ -1,2 +1,94 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+.container {
+  min-height: 100%;
+  flex-direction: column;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  padding-top: 5px;
+}
+.mat-select-panel {
+  min-height: 200px;
+  max-height: 400px !important;
+}
+.mat-tooltip {
+  font-size: 18px;
+}
+.mat-tab-label {
+  min-width: 25px !important;
+  padding: 5px;
+  background-color: transparent;
+  font-weight: bold;
+  font-size: 16px;
+}
+.mat-tab-label-active {
+  color: white;
+  background-color: black;
+  font-size: 20px;
+}
+.mat-tab-body-wrapper {
+  min-height: 580px;
+}
+.mwe-math-mathml-inline {
+  display: inline !important;
+}
+.mwe-math-mathml-display {
+  display: block !important;
+  margin-left: auto;
+  margin-right: auto;
+}
+.mwe-math-mathml-a11y {
+  clip: rect(1px, 1px, 1px, 1px);
+  overflow: hidden;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+.mwe-math-fallback-image-inline {
+  display: inline-block;
+  vertical-align: middle;
+}
+.mwe-math-fallback-image-display {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.mwe-math-fallback-source-inline {
+  display: inline;
+  vertical-align: middle;
+}
+.mwe-math-fallback-source-display {
+  margin-left: auto;
+  margin-right: auto;
+}
+.mwe-math-fallback-image-display,
+.mwe-math-fallback-source-display {
+  display: block;
+}
+.example-spacer {
+  flex: 1 1 auto;
+}
+.app-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.mat-toolbar-row {
+  font-size: 1.25em !important;
+}
+.app-page-centered {
+  flex-direction: column;
+}
+.container,
+.app-page-centered {
+  width: 100%;
+}
+.container,
+.app-page-centered,
+.page-title {
+  display: flex;
+  align-items: center;
+}
