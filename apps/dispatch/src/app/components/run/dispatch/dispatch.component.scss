@@ -12,10 +12,11 @@ button {
 
 .card-form-section-title {
   background-color: #ff9800;
+  color: white;
   height: 100%;
   width: 100%;
   padding: 0.5rem;
-  font-weight: bold;
+  font-weight: 700;
 
   &:hover {
     color: var(--quaternary-darker-color);
