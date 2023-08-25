@@ -1,7 +1,7 @@
 @use '@angular/material' as mat;
 @import 'biosimulations-typography';
 
-$PRIMARY: var(--primary-color) !important;
+$PRIMARY: var(--primary-darker-color) !important;
 $ACCENT: var(--accent-darker-color) !important;
 
 .metadata {
@@ -170,9 +170,7 @@ $ACCENT: var(--accent-darker-color) !important;
   margin-left: auto;
   margin-right: auto;
   font-weight: 700;
-  font-size: 25px;
   color: black;
-  text-decoration: underline;
 }
 
 .hover-enlarge-element {
@@ -189,7 +187,7 @@ $ACCENT: var(--accent-darker-color) !important;
 }
 
 .card-header {
-  background-color: $ACCENT;
+  background-color: $PRIMARY;
   font-weight: 500;
   font-size: medium;
   color: white;
@@ -201,7 +199,7 @@ $ACCENT: var(--accent-darker-color) !important;
 
   &.mat-expansion-panel-header.mat-expanded,
   &:hover {
-    background-color: $ACCENT;
+    background-color: $PRIMARY;
   }
 }
 
