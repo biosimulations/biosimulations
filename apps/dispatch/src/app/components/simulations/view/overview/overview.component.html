@@ -1,9 +1,17 @@
-<div class="parent-container">
-  <mat-card class="mat-elevation-z1 simulation-run-card">
+<div class="run-overview-parent-container">
+  <mat-card class="simulation-run-card">
+    <mat-card-header class="simulation-run-card-header">
+      <mat-card-title>
+        Run #{{ simulation.id }}
+      </mat-card-title>
+      <mat-card-subtitle>
+        {{ simulation.name }}
+      </mat-card-subtitle>
+    </mat-card-header>
     <mat-card-content>
       <ng-container *ngIf="simulation">
-        <h3>Run #{{ simulation.id }}</h3>
-        <div class="name">{{ simulation.name }}</div>
+        <!--<h3>Run #{{ simulation.id }}</h3>
+        <div class="name">{{ simulation.name }}</div>-->
 
         <table class="icon-list" aria-label="Simulation run settings">
           <tr>
@@ -38,19 +46,6 @@
         </table>
 
         <table class="icon-list" aria-label="Simulation run status and timing">
-          <tr>
-            <th>
-              <biosimulations-icon icon="status"></biosimulations-icon>
-            </th>
-            <td>
-              <span class="heading">Status:</span>{{ ' '
-              }}<span [ngClass]="{ error: simulation.statusFailed }">{{ simulation.statusLabel }}</span>
-              <span *ngIf="simulation.statusRunning"
-                >{{ ' ' }}
-                <biosimulations-icon icon="spinner"></biosimulations-icon>
-              </span>
-            </td>
-          </tr>
           <!--
           <tr>
             <th>
@@ -70,6 +65,21 @@
               <biosimulations-icon icon="date"></biosimulations-icon>
             </th>
             <td><span class="heading">Updated:</span> {{ simulation.updated }}</td>
+          </tr>
+          <tr>
+            <th>
+              <biosimulations-icon icon="status"></biosimulations-icon>
+            </th>
+            <td>
+              <div class="status-container">
+                <span class="heading">Status:</span>{{ ' '
+                }}<span [ngClass]="{ error: simulation.statusFailed }">{{ simulation.statusLabel }}</span>
+                <span *ngIf="simulation.statusRunning"
+                >{{ ' ' }}
+                  <biosimulations-icon icon="spinner"></biosimulations-icon>
+                </span>
+              </div>
+            </td>
           </tr>
         </table>
       </ng-container>
