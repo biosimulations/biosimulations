@@ -1,5 +1,73 @@
+<!--<div class="simulation-run-view-parent-container">
+<ng-container *ngIf="(loaded$ | async) === true; else runLoading">
+  <mat-expansion-panel expanded="true">
+    <mat-expansion-panel-header>
+      Simulation specification
+      <biosimulations-icon icon="model"></biosimulations-icon>
+    </mat-expansion-panel-header>
+    <div class="spec-container">
+
+      <ng-container *ngTemplateOutlet="resultsTabContent; context: { $implicit: metadataContent }"> </ng-container>
+      <ng-template #metadataContent>
+        <biosimulations-project-metadata
+          *ngIf="projectMetadata$ | async as projectMetadata; else metadataError"
+          [project]="projectMetadata">
+        </biosimulations-project-metadata>
+        <ng-template #metadataError>
+          <div class="info-message">
+            <p>
+              Sorry! No metadata could be loaded either because the project did not contain metadata in RDF-XML format,
+              the metadata was invalid, or an error occurred. Metadata is not required for simulation. However, metadata
+              is required for publication to BioSimulations. Information about BioSimulations metadata requirements is
+              available
+              <a
+                href="https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/"
+                rel="noopener"
+                target="biosimulations-docs"
+              >here</a
+              >.
+            </p>
+            <p>
+              Click
+              <a
+                [routerLink]="['/utils', 'validate-project']"
+                [queryParams]="{
+                archiveUrl: archiveUrl,
+                validateSedml: '0',
+                validateSedmlModels: '0',
+                autoRun: '1'
+              }"
+              >here</a
+              >
+              to obtain information about errors in the metadata for this project.
+            </p>
+            <p>
+              If the metadata is valid, please refresh to try again. If the error persists, please submit an issue
+              <a
+                href="https://github.com/biosimulations/biosimulations/issues/new/choose"
+                rel="noopener"
+                target="githubissues"
+              ><biosimulations-icon icon="link"></biosimulations-icon></a
+              >.
+            </p>
+          </div>
+        </ng-template>
+      </ng-template>
+      <ng-container *ngIf="formattedSimulation$ | async as formattedSimulation">
+        <div class="overview-container">
+          <biosimulations-simulation-run-overview [simulation]="formattedSimulation">
+          </biosimulations-simulation-run-overview>
+        </div>
+      </ng-container>
+    </div>
+  </mat-expansion-panel>
+</ng-container>
+</div-->
+
+
+
+
 <div class="simulation-run-view-parent-container">
-<!-- INDIVIDUAL SIMULATION RUN VIEW -->
 <biosimulations-tab-page
   *ngIf="(loaded$ | async) === true; else runLoading"
   [selectedTabIndex]="selectedTabIndex"

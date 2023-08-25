@@ -6,10 +6,6 @@
   fxLayoutAlign="space-between"
   fxLayoutGap="1rem"
   fxLayoutGap.lt-lg="1rem">
-  <!-- Simulation Project Header (Title) -->
-  <div class="header-container">
-    <h2>{{ project.title }}</h2>
-  </div>
   <!-- Begin thumbnails Display-->
   <div class="thumbnails-column" *ngIf="project" fxFlex fxLayout="column">
     <!-- Begin summary/text data-->
@@ -18,6 +14,9 @@
       <ng-container *ngIf="project?.thumbnails?.length == 1; else noThumbnail">
         <!-- Case: Has Thumbnail Image -->
         <mat-card class="image-card">
+          <mat-card-header class="card-header project">
+            {{ project.title }}
+          </mat-card-header>
           <mat-card-content>
             <ng-container #thumbnailCard>
               <div [class.enlarged]="isEnlarged">

@@ -108,6 +108,7 @@ $ACCENT: var(--accent-darker-color) !important;
   width: 100%;
   height: auto;
   transition: background-color 0.5s ease;
+  margin-top: 3rem;
 }
 
 .image-container.enlarged {
@@ -196,6 +197,10 @@ $ACCENT: var(--accent-darker-color) !important;
   border-top: 2px;
   border-radius: 1px;
   height: 100%;
+
+  &.project {
+    font-size: 24px;
+  }
 
   &.mat-expansion-panel-header.mat-expanded,
   &:hover {
