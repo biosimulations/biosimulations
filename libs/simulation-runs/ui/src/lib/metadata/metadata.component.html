@@ -8,13 +8,8 @@
   fxLayoutGap.lt-lg="1rem">
   <!-- Simulation Project Header (Title) -->
   <div class="header-container">
-    <mat-card expanded="false" hideToggle="true">
-      <mat-card-header class="project-header">
-        {{ project.title }}
-      </mat-card-header>
-    </mat-card>
+    <h2>{{ project.title }}</h2>
   </div>
-
   <!-- Begin thumbnails Display-->
   <div class="thumbnails-column" *ngIf="project" fxFlex fxLayout="column">
     <!-- Begin summary/text data-->

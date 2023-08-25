@@ -162,23 +162,17 @@ $ACCENT: var(--accent-darker-color) !important;
   display: flex;
   flex-direction: column;
   height: auto;
+  margin-top: 3rem;
 }
 
-.header-container {
+.header-container h2 {
   width: fit-content;
   margin-left: auto;
   margin-right: auto;
-}
-
-.project-header {
-  height: 100%;
-  width: 100;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
   font-weight: 700;
-  font-size: larger;
-  color: white;
-  background-color: var(--primary-darker-color);
+  font-size: 25px;
+  color: black;
+  text-decoration: underline;
 }
 
 .hover-enlarge-element {
