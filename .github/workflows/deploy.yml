@@ -209,7 +209,7 @@ jobs:
       - deployDevFrontend
       - testDevDeployment
     if: ${{ always() }}
-    # environment: review_dev_deployment_tests_environment
+    environment: review_dev_deployment_tests_environment
     steps:
       - name: Print status message
         run: |

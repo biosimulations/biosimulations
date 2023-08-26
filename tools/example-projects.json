@@ -51,7 +51,7 @@
     "name": "Escherichia coli core metabolism (COBRApy Team; SBML-fbc; FBA; COBRApy)",
     "simulator": "cobrapy",
     "filename": "sbml-fbc/Escherichia-coli-core-metabolism.omex",
-    "disabled": false,
+    "disabled": true,
     "publishToBioSimulations": true,
     "bioSimulationsId": "Escherichia-coli-core-metabolism-textbook"
   },
@@ -59,7 +59,7 @@
     "name": "Escherichia coli resource allocation (Bulović et al., Metab Eng, 2019; RBA TSV/XML; RBA; RBApy)",
     "simulator": "rbapy",
     "filename": "rba/Escherichia-coli-K12-WT.omex",
-    "disabled": false,
+    "disabled": true,
     "publishToBioSimulations": true,
     "bioSimulationsId": "Escherichia-coli-resource-allocation-Bulovic-Metab-Eng-2019"
   },
