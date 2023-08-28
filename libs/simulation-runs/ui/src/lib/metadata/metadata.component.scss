@@ -195,7 +195,7 @@ $ACCENT: var(--accent-darker-color) !important;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   border-top: 2px;
-  border-radius: 1px;
+  border-radius: 4px 4px 0 0;
   height: 100%;
 
   &.project {
