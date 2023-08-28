@@ -1506,9 +1506,16 @@ sub {
 }
 
 .alert {
-  background: #fff4e5; /* $theme-accent-lightest; */
-  padding: 0.25rem;
+  width: fit-content;
+  background-color: var(--warn-lighter-color);
+  color: var(--warn-color);
+  padding: 6px;
   border-radius: 4px;
+
+  &:hover {
+    color: var(--primary-darker-color);
+    transition: color 0.5s ease;
+  }
 }
 
 /* transitions */
@@ -1705,16 +1712,4 @@ mat-option {
 .form-section-head,
 .form-section-subtitle {
   color: white !important;
-}
-
-.alert {
-  width: fit-content;
-  background-color: var(--warn-lighter-color);
-  color: var(--warn-color);
-  padding: 6px;
-
-  &:hover {
-    color: var(--primary-darker-color);
-    transition: color 0.5s ease;
-  }
 }
