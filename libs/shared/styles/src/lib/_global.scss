@@ -1700,3 +1700,25 @@ mat-option {
   margin-right: auto;
   margin-left: auto;
 }
+
+.form-section-head {
+  background-color: var(--primary-color) !important;
+  font-weight: 700;
+}
+
+.form-section-head,
+.form-section-subtitle {
+  color: white !important;
+}
+
+.alert {
+  width: fit-content;
+  background-color: var(--warn-lighter-color);
+  color: var(--warn-color);
+  padding: 6px;
+
+  &:hover {
+    color: var(--primary-darker-color);
+    transition: color 0.5s ease;
+  }
+}

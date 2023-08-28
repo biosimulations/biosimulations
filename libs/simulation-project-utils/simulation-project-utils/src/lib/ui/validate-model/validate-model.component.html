@@ -1,12 +1,8 @@
 <div class="form-parent-container validate-model">
 <biosimulations-page heading="Validate a model (e.g., CellML, SBML file)">
   <form [formGroup]="formGroup" (ngSubmit)="onFormSubmit()">
-    <mat-card class="form-section">
-      <mat-card-header class="card-form-title">
-        <biosimulations-icon icon="model"></biosimulations-icon>
-        File*
-      </mat-card-header>
-      <!--<div class="form-section-head">
+    <div class="form-section">
+      <div class="form-section-head">
         <div class="mat-form-field-prefix">
           <biosimulations-icon icon="model"></biosimulations-icon>
         </div>
@@ -16,7 +12,7 @@
             Select a local file or enter a URL for a model (e.g., CellML, SBML file).
           </div>
         </div>
-      </div>-->
+      </div>
       <div class="form-section-body">
         <div class="form-field-group">
           <div class="columns two-columns">
@@ -72,7 +68,7 @@
           >
         </div>
       </div>
-    </mat-card>
+    </div>
 
     <div class="form-section">
       <div class="form-section-head">
@@ -94,26 +90,26 @@
                 modelLanguage
               }}</mat-option>
             </mat-select>
-            <mat-hint>
-              <p>
-                BioSimulations validates models using community-contributed validation tools for each model language.
-                The thoroughness of these tools varies. In addition, some tools currently provide limited diagnostic
-                information. We welcome contributions of improved validation tools.
-              </p>
-              <p class="alert">
-                This form is limited to validating individual files. Thus, this form does not validate imported files.
-                Click
-                <a [routerLink]="['..', 'validate-project']">here</a> to more comprehensively validate trees of model
-                files packages as COMBINE/OMEX archives.
-              </p>
-            </mat-hint>
           </mat-form-field>
+          <mat-hint>
+            <p>
+              BioSimulations validates models using community-contributed validation tools for each model language.
+              The thoroughness of these tools varies. In addition, some tools currently provide limited diagnostic
+              information. We welcome contributions of improved validation tools.
+            </p>
+            <p class="alert">
+              This form is limited to validating individual files. Thus, this form does not validate imported files.
+              Click
+              <a [routerLink]="['..', 'validate-project']">here</a> to more comprehensively validate trees of model
+              files packages as COMBINE/OMEX archives.
+            </p>
+          </mat-hint>
         </div>
       </div>
     </div>
 
     <div class="form-button-container">
-      <button mat-flat-button type="submit" class="biosimulations-button text">Validate</button>
+      <button mat-flat-button type="submit" class="biosimulations-button run">Validate</button>
     </div>
 
     <div class="status-summary" *ngIf="status !== undefined">
