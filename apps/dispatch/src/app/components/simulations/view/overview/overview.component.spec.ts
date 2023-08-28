@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatCardModule } from '@angular/material/card';
 import { OverviewComponent } from './overview.component';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 describe('OverviewComponent', () => {
@@ -8,7 +9,7 @@ describe('OverviewComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [OverviewComponent],
-      imports: [BiosimulationsIconsModule],
+      imports: [BiosimulationsIconsModule, MatCardModule],
     }).compileComponents();
   }));
 
