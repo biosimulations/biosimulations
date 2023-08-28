@@ -1,5 +1,18 @@
 # Changelog
 
+## [9.51.2](https://github.com/biosimulations/biosimulations/compare/v9.51.1...v9.51.2) (2023-08-28)
+
+
+### Bug Fixes
+
+* added matcard import to dispatch app ([0c7850d](https://github.com/biosimulations/biosimulations/commit/0c7850d3b74acc2bc26afff69c07ffbe5b199ca3))
+* added safe operator to handle undefined in tests during ci ([76de168](https://github.com/biosimulations/biosimulations/commit/76de1684cf1bc2e6af2ecb7646a8de62ba3d303f))
+* biosimulations opens to blank target for repo continuity ([8795914](https://github.com/biosimulations/biosimulations/commit/879591447077ce435902b23b9ae96adb532c3d91))
+* imported card module ([2234028](https://github.com/biosimulations/biosimulations/commit/22340280188c4214bf48499057927d31da37a705))
+* imported mat card module in overview component file ([f1b0848](https://github.com/biosimulations/biosimulations/commit/f1b08484b5b1a9bf4492e4354e4fdda3e734741d))
+* removed duplicated css declaration to appease ci ([c3abb75](https://github.com/biosimulations/biosimulations/commit/c3abb752b3d4dded9367e4c6d478abe991dcd162))
+* removed overflow from y axis in dispatch form ([19d02db](https://github.com/biosimulations/biosimulations/commit/19d02dbc1b23899bd5e1de93e9092c2e3f523eb0))
+
 ## [9.51.1](https://github.com/biosimulations/biosimulations/compare/v9.51.0...v9.51.1) (2023-08-24)
 
 
