@@ -20,12 +20,14 @@
 }
 
 .alert {
-  background-color: var(--quaternary-color);
+  background-color: var(--warn-color);
   color: white;
-  width: fit-content;
+  width: 100%;
+  display: flex;
+  font-size: 12px;
+  overflow: hidden;
 
   &:hover {
-    font-weight: 600;
     transition: font-weight 0.1s ease-in-out;
   }
 }

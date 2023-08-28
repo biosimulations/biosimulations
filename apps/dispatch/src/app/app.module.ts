@@ -21,6 +21,7 @@ import { environment } from '@biosimulations/shared/environments';
 import { ScullyLibModule } from '@scullyio/ng-lib';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { AngularAnalyticsModule } from '@biosimulations/angular-analytics';
+import { MatCardModule } from '@angular/material/card';
 
 const routes: Routes = [
   {
@@ -63,6 +64,7 @@ routes.forEach((route: Route): void => {
 @NgModule({
   declarations: [AppComponent, HomeComponent],
   imports: [
+    MatCardModule,
     BrowserModule,
     SharedUiModule,
     SharedErrorHandlerModule,

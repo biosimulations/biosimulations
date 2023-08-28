@@ -7,20 +7,16 @@ button {
   padding-bottom: 1rem;
   padding-right: 1rem;
   background-color: white;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .card-form-section-title {
-  background-color: #ff9800;
+  background-color: var(--primary-color);
+  color: white;
   height: 100%;
   width: 100%;
   padding: 0.5rem;
-  font-weight: bold;
-
-  &:hover {
-    color: var(--quaternary-darker-color);
-    transition: color 0.3s ease;
-  }
+  font-weight: 700;
 }
 
 .input-group {
@@ -37,23 +33,25 @@ button {
 .card-form-field {
   justify-content: center;
   display: flex;
+  align-items: center;
+
+  &:first-child {
+    margin-left: 1rem;
+  }
 
   &:active {
     height: fit-content;
   }
 }
 
-mat-select {
+.card-form-section,
+mat-option {
   background-color: white !important;
 }
 
-mat-option {
-  background-color: white !important;
-
-  &:hover {
-    background-color: var(--accent-lighter-color) !important;
-    color: var(--primary-color);
-  }
+mat-option:hover {
+  background-color: var(--accent-darker-color) !important;
+  color: white;
 }
 
 .alert {

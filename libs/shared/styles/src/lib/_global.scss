@@ -1506,9 +1506,16 @@ sub {
 }
 
 .alert {
-  background: #fff4e5; /* $theme-accent-lightest; */
-  padding: 0.25rem;
+  width: fit-content;
+  background-color: var(--warn-lighter-color);
+  color: var(--warn-color);
+  padding: 6px;
   border-radius: 4px;
+
+  &:hover {
+    color: var(--primary-darker-color);
+    transition: color 0.5s ease;
+  }
 }
 
 /* transitions */
@@ -1570,16 +1577,11 @@ sub {
 
 .home-description,
 .home-description-mobile {
+  background-image: url('/assets/images/backgrounds/grey-3.png') !important;
   font-family: 'Roboto', sans-serif;
   padding: 3rem;
   margin-left: auto;
   margin-right: auto;
-}
-
-.home-description,
-.home-description-mobile,
-.data-table-parent-container {
-  background-image: url('/assets/images/backgrounds/grey-3.png') !important;
 }
 
 .about-section {
@@ -1619,7 +1621,7 @@ biosimulations-home biosimulations-home-subsection {
 }
 
 mat-card-header.data-table-heading {
-  background-color: var(--accent-color);
+  background-color: var(--primary-color);
   border-radius: 4px 4px 0 0;
   color: white;
   font-weight: 700;
@@ -1683,6 +1685,11 @@ mat-option {
     background-color: var(--primary-color) !important;
     color: white !important;
     font-weight: 700 !important;
+
+    &:hover {
+      background-color: var(--tertiary-darker-color) !important;
+      transition: background-color 0.5s;
+    }
   }
 }
 
@@ -1695,4 +1702,14 @@ mat-option {
   width: fit-content;
   margin-right: auto;
   margin-left: auto;
+}
+
+.form-section-head {
+  background-color: var(--primary-color) !important;
+  font-weight: 700;
+}
+
+.form-section-head,
+.form-section-subtitle {
+  color: white !important;
 }

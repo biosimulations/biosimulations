@@ -6,15 +6,6 @@
   fxLayoutAlign="space-between"
   fxLayoutGap="1rem"
   fxLayoutGap.lt-lg="1rem">
-  <!-- Simulation Project Header (Title) -->
-  <div class="header-container">
-    <mat-card expanded="false" hideToggle="true">
-      <mat-card-header class="project-header">
-        {{ project.title }}
-      </mat-card-header>
-    </mat-card>
-  </div>
-
   <!-- Begin thumbnails Display-->
   <div class="thumbnails-column" *ngIf="project" fxFlex fxLayout="column">
     <!-- Begin summary/text data-->
@@ -23,6 +14,9 @@
       <ng-container *ngIf="project?.thumbnails?.length == 1; else noThumbnail">
         <!-- Case: Has Thumbnail Image -->
         <mat-card class="image-card">
+          <mat-card-header class="card-header project">
+            {{ project.title }}
+          </mat-card-header>
           <mat-card-content>
             <ng-container #thumbnailCard>
               <div [class.enlarged]="isEnlarged">
@@ -54,27 +48,29 @@
   <div class="description-column" *ngIf="project" fxflex fxLayout="column">
     <div *ngIf="project" fxGrid>
       <!-- Begin Project Description Container -->
-      <mat-expansion-panel class="metadata-card" expanded="true" hideToggle="true" disabled="true">
-        <mat-expansion-panel-header class="card-header"> Project Description </mat-expansion-panel-header>
-        <biosimulations-text-page-content-section [iconActionType]="null">
-          <div class="abstract" *ngIf="project.abstract">
-            {{ project.abstract }}
-          </div>
-          <!-- Begin creators/contributers-->
-          <!-- TODO create ORCID people list component -->
-          <ul class="creators comma-separated ampersand-separator" *ngIf="project?.creators?.length">
-            <li *ngFor="let creator of project.creators">
-              {{ creator.label }}{{ creator.uri ? ' ' : ''
-              }}<a [href]="creator.uri" rel="noopener" target="_blank" *ngIf="creator.uri">
-                <biosimulations-icon [icon]="creator.icon"></biosimulations-icon>
-              </a>
-            </li>
-          </ul>
-          <!-- End creators/contributers -->
-          <!-- description -->
-          <markdown [data]="project.description" class="description" *ngIf="project.description"> </markdown>
-        </biosimulations-text-page-content-section>
-      </mat-expansion-panel>
+      <mat-card class="mat-elevation-z1 metadata-card">
+        <mat-card-header class="card-header"> Project Description </mat-card-header>
+        <mat-card-content>
+          <biosimulations-text-page-content-section [iconActionType]="null">
+            <div class="abstract" *ngIf="project.abstract">
+              {{ project.abstract }}
+            </div>
+            <!-- Begin creators/contributers-->
+            <!-- TODO create ORCID people list component -->
+            <ul class="creators comma-separated ampersand-separator" *ngIf="project?.creators?.length">
+              <li *ngFor="let creator of project.creators">
+                {{ creator.label }}{{ creator.uri ? ' ' : ''
+                }}<a [href]="creator.uri" rel="noopener" target="_blank" *ngIf="creator.uri">
+                  <biosimulations-icon [icon]="creator.icon"></biosimulations-icon>
+                </a>
+              </li>
+            </ul>
+            <!-- End creators/contributers -->
+            <!-- description -->
+            <markdown [data]="project.description" class="description" *ngIf="project.description"> </markdown>
+          </biosimulations-text-page-content-section>
+        </mat-card-content>
+      </mat-card>
       <!-- End Project Description Container -->
     </div>
     <!-- End summary/text data -->

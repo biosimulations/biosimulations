@@ -9,13 +9,34 @@ h3 {
   margin-bottom: 0.5rem;
 }
 
-.parent-container {
+.run-overview-parent-container {
   justify-content: center;
   align-items: center;
-  margin-left: 33.5%;
-  padding-top: 3rem;
+  margin-top: 3rem;
 }
 
 .simulation-run-card {
-  width: 50%;
+  margin-right: auto;
+  margin-left: auto;
+  width: 600px;
+}
+
+.simulation-run-card-header {
+  background-color: var(--accent-darker-color);
+  border-radius: 4px 4px 0 0;
+}
+
+mat-card-content {
+  margin-top: 2rem;
+}
+
+mat-card-title,
+mat-card-subtitle {
+  color: white;
+  font-weight: 700;
+}
+
+.status-container {
+  font-size: 18px;
+  color: var(--quaternary-darker-color);
 }

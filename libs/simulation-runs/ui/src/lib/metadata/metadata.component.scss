@@ -1,8 +1,8 @@
 @use '@angular/material' as mat;
 @import 'biosimulations-typography';
 
-$PRIMARY: var(--primary-color) !important;
-$ACCENT: var(--accent-color) !important;
+$PRIMARY: var(--primary-darker-color) !important;
+$ACCENT: var(--accent-darker-color) !important;
 
 .metadata {
   overflow: hidden;
@@ -108,6 +108,7 @@ $ACCENT: var(--accent-color) !important;
   width: 100%;
   height: auto;
   transition: background-color 0.5s ease;
+  margin-top: 3rem;
 }
 
 .image-container.enlarged {
@@ -162,23 +163,15 @@ $ACCENT: var(--accent-color) !important;
   display: flex;
   flex-direction: column;
   height: auto;
+  margin-top: 3rem;
 }
 
-.header-container {
+.header-container h2 {
   width: fit-content;
   margin-left: auto;
   margin-right: auto;
-}
-
-.project-header {
-  height: 100%;
-  width: 100;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
   font-weight: 700;
-  font-size: larger;
-  color: white;
-  background-color: var(--primary-darker-color);
+  color: black;
 }
 
 .hover-enlarge-element {
@@ -195,19 +188,23 @@ $ACCENT: var(--accent-color) !important;
 }
 
 .card-header {
-  background-color: $ACCENT;
+  background-color: $PRIMARY;
   font-weight: 500;
   font-size: medium;
   color: white;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   border-top: 2px;
-  border-radius: 1px;
+  border-radius: 4px 4px 0 0;
   height: 100%;
+
+  &.project {
+    font-size: 24px;
+  }
 
   &.mat-expansion-panel-header.mat-expanded,
   &:hover {
-    background-color: $ACCENT;
+    background-color: $PRIMARY;
   }
 }
 

@@ -118,17 +118,13 @@ mat-option:hover {
 }
 
 .card-form-title {
-  background-color: #ff9800;
-  color: #1b4b0b;
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 16px;
   height: 100%;
   width: 100%;
   padding: 0.5rem;
-  font-weight: bold;
-
-  &:hover {
-    color: var(--quaternary-darker-color);
-    transition: color 0.3s ease;
-  }
+  font-weight: 700;
 }
 
 .alert {
