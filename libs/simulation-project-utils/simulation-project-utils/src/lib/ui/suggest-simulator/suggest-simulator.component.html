@@ -1,3 +1,4 @@
+<div class="form-parent-container suggest-simulator">
 <biosimulations-page
   heading="Find simulation tools that implement similar algorithms"
   *ngIf="algorithms | async as algorithms; else loading">
@@ -156,7 +157,7 @@
     </div>
   </form>
 </biosimulations-page>
-
+</div>
 <ng-template #loading>
   <biosimulations-full-page-spinner></biosimulations-full-page-spinner>
 </ng-template>
