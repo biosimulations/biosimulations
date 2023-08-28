@@ -38,6 +38,11 @@ button {
 .card-form-field {
   justify-content: center;
   display: flex;
+  align-items: center;
+
+  &:first-child {
+    margin-left: 1rem;
+  }
 
   &:active {
     height: fit-content;
