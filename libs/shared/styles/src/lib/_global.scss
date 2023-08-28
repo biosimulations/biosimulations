@@ -1570,15 +1570,11 @@ sub {
 
 .home-description,
 .home-description-mobile {
+  background-image: url('/assets/images/backgrounds/grey-3.png') !important;
   font-family: 'Roboto', sans-serif;
   padding: 3rem;
   margin-left: auto;
   margin-right: auto;
-}
-
-.home-description,
-.home-description-mobile {
-  background-image: url('/assets/images/backgrounds/grey-3.png') !important;
 }
 
 .about-section {
