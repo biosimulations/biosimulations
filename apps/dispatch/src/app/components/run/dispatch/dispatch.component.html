@@ -27,8 +27,8 @@
           <mat-hint>
             <p>
               Select a method for providing a COMBINE/OMEX archive which describes one or more simulations (in SED-ML
-              format) of one or more models (e.g., in BNGL, SBML formats). COMBINE/OMEX files can either be uploaded from
-              your local computer or loaded from a publicly-accessible URL.
+              format) of one or more models (e.g., in BNGL, SBML formats). COMBINE/OMEX files can either be uploaded
+              from your local computer or loaded from a publicly-accessible URL.
             </p>
 
             <p class="alert">Uploaded archives are limited to 64 MB. Archives up to 1 GB can be submitted via URLs.</p>
@@ -52,7 +52,9 @@
                 help
               </a>
               and
-              <a href="https://docs.biosimulations.org/users/faqs/" rel="noopener" target="biosimulations-docs"> FAQ </a>
+              <a href="https://docs.biosimulations.org/users/faqs/" rel="noopener" target="biosimulations-docs">
+                FAQ
+              </a>
               . The help includes recommendations for additional software tools for authoring COMBINE/OMEX archives and
               SED-ML files. The FAQ includes information about known incompatibilities among COMBINE/OMEX archives and
               SED-ML files created with different tools.
@@ -126,8 +128,8 @@
 
         <mat-card-content class="card-hints 1">
           <mat-hint>
-            Use the above menus to narrow the list of simulation tools below to those tools which have the capabilities to
-            execute your COMBINE/OMEX archive (tools which support the model formats and simulation algorithms of the
+            Use the above menus to narrow the list of simulation tools below to those tools which have the capabilities
+            to execute your COMBINE/OMEX archive (tools which support the model formats and simulation algorithms of the
             models and simulations described by your COMBINE/OMEX archive).
           </mat-hint>
 
@@ -178,8 +180,8 @@
             </p>
 
             <p class="alert">
-              Because each tool supports a different set of formats and algorithms, your archive is likely only compatible
-              with a subset of the available simulation tools.
+              Because each tool supports a different set of formats and algorithms, your archive is likely only
+              compatible with a subset of the available simulation tools.
             </p>
 
             <p>
@@ -195,14 +197,16 @@
               <a href="https://biosimulators.org" rel="noopener" target="biosimulators">
                 <biosimulations-icon icon="link"></biosimulations-icon>
               </a>
-              describes the modeling formats (e.g., COMBINE/OMEX, SBML, SED-ML), modeling frameworks (e.g., logical, FBA,
-              kinetic), and simulation algorithms (e.g., ODE, SSA) that each simulation tool supports. We recommend using
-              BioSimulators to determine which tools are capable of executing your archive.
+              describes the modeling formats (e.g., COMBINE/OMEX, SBML, SED-ML), modeling frameworks (e.g., logical,
+              FBA, kinetic), and simulation algorithms (e.g., ODE, SSA) that each simulation tool supports. We recommend
+              using BioSimulators to determine which tools are capable of executing your archive.
             </p>
           </mat-hint>
         </mat-card-content>
         <mat-error *ngIf="shouldShowSimulatorRequiredError()">Please select a simulator.</mat-error>
-        <mat-error *ngIf="shouldShowSimulatorVersionRequiredError()">Please select a version of the simulator.</mat-error>
+        <mat-error *ngIf="shouldShowSimulatorVersionRequiredError()"
+          >Please select a version of the simulator.</mat-error
+        >
       </mat-card>
 
       <mat-card class="card-form-section mat-elevation-z3">
@@ -221,8 +225,8 @@
                 <biosimulations-icon icon="link"></biosimulations-icon>
               </a>
               . These commercial solvers are often more accurate and more performant. However, these commercial solvers
-              are not required to execute any of the available simulation tools. All of the available simulation tools can
-              be run with freely available solvers.
+              are not required to execute any of the available simulation tools. All of the available simulation tools
+              can be run with freely available solvers.
             </p>
 
             <p>
@@ -266,7 +270,8 @@
         <mat-card-content class="card-hints 4">
           <mat-hint>
             Configure the amount of resources needed to execute your project. Currently, users can request up to 24 CPU
-            cores, 192 GB RAM, and 20 days. if additional resources are needed, please contact the runBioSimulations Team
+            cores, 192 GB RAM, and 20 days. if additional resources are needed, please contact the runBioSimulations
+            Team
             <a [href]="emailUrl"><biosimulations-icon icon="email"></biosimulations-icon></a>
             to discuss additional options.
           </mat-hint>

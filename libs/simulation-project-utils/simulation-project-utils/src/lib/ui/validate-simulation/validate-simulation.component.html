@@ -38,7 +38,11 @@
               <mat-form-field appearance="fill" *ngIf="formGroup.value.submitMethod === 'url'">
                 <biosimulations-icon icon="url" matPrefix></biosimulations-icon>
                 <mat-label>Enter a URL for a simulation experiment (SED-ML file)</mat-label>
-                <input [required]="true" matInput formControlName="simulationUrl" [placeholder]="exampleSimulationUrl" />
+                <input
+                  [required]="true"
+                  matInput
+                  formControlName="simulationUrl"
+                  [placeholder]="exampleSimulationUrl" />
               </mat-form-field>
             </div>
 
@@ -61,8 +65,8 @@
               <p class="alert">
                 This form only validates the content directly in SED-ML files. This form cannot validate the sources of
                 models used by SED-ML file or targets to those models for model changes and observables of simulation
-                results. More comprehensive validation, which encompasses validation of model sources and targets to model
-                sources for simulation observables, is available through the validation of simulation projects
+                results. More comprehensive validation, which encompasses validation of model sources and targets to
+                model sources for simulation observables, is available through the validation of simulation projects
                 (COMBINE/OMEX archives or zip files which contain model and simulation files). Click
                 <a [routerLink]="['..', 'validate-project']">here</a> to more comprehensively validate SED-ML files.
               </p>
@@ -70,7 +74,9 @@
               <p class="alert">Uploaded files are limited to 64 MB. Files up to 1 GB can be submitted via URLs.</p>
             </mat-hint>
             <mat-error
-              *ngIf="(submitPushed || simulationFileControl.touched) && formGroup.hasError('required', 'simulationFile')"
+              *ngIf="
+                (submitPushed || simulationFileControl.touched) && formGroup.hasError('required', 'simulationFile')
+              "
               >Please select a simulation experiment.</mat-error
             >
             <mat-error

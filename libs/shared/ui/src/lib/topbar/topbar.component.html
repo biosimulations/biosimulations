@@ -3,11 +3,7 @@
     <a [routerLink]="['/']" class="logo" *ngIf="showLogo">
       <ng-content select="#logo"></ng-content>
     </a>
-    <a
-      href="https://biosimulations.org"
-      class="logo"
-      *ngIf="showLogo"
-      rel="noopener">
+    <a href="https://biosimulations.org" class="logo" *ngIf="showLogo" rel="noopener">
       <ng-content select="#logo" fxFlex></ng-content>
     </a>
     <div class="logo-buttons" *ngIf="showLogo">

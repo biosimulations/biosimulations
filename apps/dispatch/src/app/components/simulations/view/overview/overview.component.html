@@ -1,9 +1,7 @@
 <div class="run-overview-parent-container">
   <mat-card class="simulation-run-card">
     <mat-card-header class="simulation-run-card-header">
-      <mat-card-title>
-        Run #{{ simulation?.id }}
-      </mat-card-title>
+      <mat-card-title> Run #{{ simulation?.id }} </mat-card-title>
       <mat-card-subtitle>
         {{ simulation?.name }}
       </mat-card-subtitle>
@@ -72,7 +70,7 @@
                 <span class="heading">Status:</span>{{ ' '
                 }}<span [ngClass]="{ error: simulation.statusFailed }">{{ simulation.statusLabel }}</span>
                 <span *ngIf="simulation.statusRunning"
-                >{{ ' ' }}
+                  >{{ ' ' }}
                   <biosimulations-icon icon="spinner"></biosimulations-icon>
                 </span>
               </div>

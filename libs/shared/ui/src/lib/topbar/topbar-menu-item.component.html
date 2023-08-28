@@ -32,31 +32,31 @@
 </ng-container>
 
 <ng-template #simulationsBtns>
-    <div class="overlap simulations">
-      <a
-        mat-flat-button
-        *ngIf="href && !disabled; else button"
-        [href]="href"
-        rel="noopener"
-        [target]="target"
-        style="background-color: #ffa600; color: #1b4b0b; font-weight: 700">
-        <div class="button-content">
-          <biosimulations-icon [icon]="icon"></biosimulations-icon>
-          {{ heading }}
-        </div>
-      </a>
-    </div>
-    <ng-template #button>
-      <button
-        mat-flat-button
-        [routerLink]="route || null"
-        [queryParams]="queryParams"
-        [disabled]="disabled"
-        style="background-color: #ffa600; color: #1b4b0b; font-weight: 700">
-        <div class="button-content">
-          <biosimulations-icon [icon]="icon"></biosimulations-icon>
-          {{ heading }}
-        </div>
-      </button>
-    </ng-template>
+  <div class="overlap simulations">
+    <a
+      mat-flat-button
+      *ngIf="href && !disabled; else button"
+      [href]="href"
+      rel="noopener"
+      [target]="target"
+      style="background-color: #ffa600; color: #1b4b0b; font-weight: 700">
+      <div class="button-content">
+        <biosimulations-icon [icon]="icon"></biosimulations-icon>
+        {{ heading }}
+      </div>
+    </a>
+  </div>
+  <ng-template #button>
+    <button
+      mat-flat-button
+      [routerLink]="route || null"
+      [queryParams]="queryParams"
+      [disabled]="disabled"
+      style="background-color: #ffa600; color: #1b4b0b; font-weight: 700">
+      <div class="button-content">
+        <biosimulations-icon [icon]="icon"></biosimulations-icon>
+        {{ heading }}
+      </div>
+    </button>
+  </ng-template>
 </ng-template>
