@@ -1,5 +1,15 @@
 # Changelog
 
+## [9.51.3](https://github.com/biosimulations/biosimulations/compare/v9.51.2...v9.51.3) (2023-08-28)
+
+
+### Bug Fixes
+
+* add comment to use when bypass test failure with approval ([11ae9cb](https://github.com/biosimulations/biosimulations/commit/11ae9cbbe6ec778e9ff6b153bb3587ae78ba3bf7))
+* disable COBRApy and RBApy deploy tests until new Gurobi license ([f87c3e2](https://github.com/biosimulations/biosimulations/commit/f87c3e2c262e0105671f232ef3f3272596bde7f2))
+* revert use of redundant review_dev_deployment_tests_environment ([467ba14](https://github.com/biosimulations/biosimulations/commit/467ba1434697e98feda3c66eeaffcd5235711d00))
+* small text fix to force build and deploy ([884561d](https://github.com/biosimulations/biosimulations/commit/884561d859359189d6356d4cfb698ab2c5323add))
+
 ## [9.51.2](https://github.com/biosimulations/biosimulations/compare/v9.51.1...v9.51.2) (2023-08-28)
 
 
