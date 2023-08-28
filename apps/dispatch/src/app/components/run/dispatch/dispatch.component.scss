@@ -11,17 +11,12 @@ button {
 }
 
 .card-form-section-title {
-  background-color: #ff9800;
+  background-color: var(--primary-color);
   color: white;
   height: 100%;
   width: 100%;
   padding: 0.5rem;
   font-weight: 700;
-
-  &:hover {
-    color: var(--quaternary-darker-color);
-    transition: color 0.3s ease;
-  }
 }
 
 .input-group {
@@ -49,13 +44,14 @@ button {
   }
 }
 
+.card-form-section,
 mat-option {
   background-color: white !important;
+}
 
-  &:hover {
-    background-color: var(--accent-lighter-color) !important;
-    color: var(--primary-color);
-  }
+mat-option:hover {
+  background-color: var(--accent-darker-color) !important;
+  color: white;
 }
 
 .alert {

@@ -1577,8 +1577,7 @@ sub {
 }
 
 .home-description,
-.home-description-mobile,
-.data-table-parent-container {
+.home-description-mobile {
   background-image: url('/assets/images/backgrounds/grey-3.png') !important;
 }
 
@@ -1619,7 +1618,7 @@ biosimulations-home biosimulations-home-subsection {
 }
 
 mat-card-header.data-table-heading {
-  background-color: var(--accent-color);
+  background-color: var(--primary-color);
   border-radius: 4px 4px 0 0;
   color: white;
   font-weight: 700;
@@ -1686,7 +1685,7 @@ mat-option {
 
     &:hover {
       background-color: var(--tertiary-darker-color) !important;
-      transition: background-color 0.3s ease-in-out !important;
+      transition: background-color 0.5s;
     }
   }
 }
