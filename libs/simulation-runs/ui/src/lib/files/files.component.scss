@@ -30,15 +30,14 @@
 }
 
 .biosimulations-button {
-  background-color: var(--primary-lighter-color) !important;
-  color: var(--primary-darker-color) !important;
+  background-color: var(--accent-darker-color) !important;
+  color: white !important;
   font-weight: 700 !important;
   transform: scale(0.7);
 
   &:hover {
-    background-color: var(--accent-darker-color) !important;
-    color: var(--quaternary-color) !important;
     transition: background-color 0.3s ease !important;
+    background-color: var(--tertiary-darker-color) !important;
   }
 }
 

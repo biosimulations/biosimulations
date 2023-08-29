@@ -1717,7 +1717,7 @@ mat-option {
 .multipurpose-flat-button {
   border-radius: 5px;
   margin-left: auto;
-  background-color: var(--tertiary-darker-color) !important; //var(--primary-lighter-color) !important;
+  background-color: var(--accent-darker-color) !important;
   color: white !important;
   font-weight: 700 !important;
 
@@ -1726,7 +1726,7 @@ mat-option {
   }
 
   &:hover {
-    background-color: var(--accent-darker-color) !important;
     transition: background-color 0.3s ease !important;
+    background-color: var(--tertiary-darker-color) !important;
   }
 }
