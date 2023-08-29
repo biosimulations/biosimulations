@@ -7,6 +7,7 @@ interface FooterItemInterface {
   title: string;
   target: string;
 }
+
 class FooterItem implements FooterItemInterface {
   public cssClass: string;
   public href: string;
@@ -15,13 +16,11 @@ class FooterItem implements FooterItemInterface {
 
   public constructor(cssClass: string, href: string, title: string) {
     this.cssClass = 'footer-item ' + ' ' + cssClass;
-    if (cssClass == 'status') {
-      this.href = 'https://status.biosimulations.org/';
-    } else if (cssClass == 'vivarium') {
-      this.href = 'https://vivarium-collective.github.io/';
-    } else {
-      this.href = 'https://docs.biosimulations.org/' + href;
-    }
+    const defaultHrefs: { [key: string]: string } = {
+      status: 'https://status.biosimulations.org/',
+      vivarium: 'https://vivarium-collective.github.io/',
+    };
+    this.href = defaultHrefs[cssClass] || 'https://docs.biosimulations.org/' + href;
     this.title = title;
   }
 }
@@ -42,29 +41,37 @@ class HomeSubsectionItem {
   }
 }
 
-const helpFooterItems = [
-  new FooterItem('faq', 'users/faqs/', 'Frequently Asked Questions'),
-  new FooterItem('contact', 'about/contact/', 'Contact Us'),
-];
+const footerItemDataMap = {
+  help: [
+    ['faq', 'users/faqs/', 'Frequently Asked Questions'],
+    ['contact', 'about/contact/', 'Contact Us'],
+  ],
+  conventions: [
+    ['standards', 'concepts/conventions/', 'Standards'],
+    ['specs', 'concepts/conventions/simulator-capabilities/', 'Simulator Specs'],
+    ['interfaces', 'concepts/conventions/simulator-interfaces/', 'Simulator Interfaces'],
+    ['images', 'concepts/conventions/simulator-images/', 'Simulator Images'],
+    ['reports', 'concepts/conventions/simulations-run-reports/', 'Simulation Reports'],
+    ['viz', 'concepts/conventions/simulation-run-visualizations/', 'Data Visualizations'],
+    ['metadata', 'concepts/conventions/simulation-project-metadata/', 'Simulation Metadata'],
+    ['logs', 'concepts/conventions/simulation-run-logs/', 'Simulation Logs'],
+  ],
+  about: [
+    ['about', '', 'About'],
+    ['terms', 'about/terms/', 'Terms of Service'],
+    ['privacy', 'about/privacy', 'Privacy Policy'],
+    ['status', '', 'Status'],
+    ['vivarium', '', '@Vivarium'],
+  ],
+};
 
-const conventionsFooterItems = [
-  new FooterItem('standards', 'concepts/conventions/', 'Standards'),
-  new FooterItem('specs', 'concepts/conventions/simulator-capabilities/', 'Simulator Specs'),
-  new FooterItem('interfaces', 'concepts/conventions/simulator-interfaces/', 'Simulator Interfaces'),
-  new FooterItem('images', 'concepts/conventions/simulator-images/', 'Simulator Images'),
-  new FooterItem('reports', 'concepts/conventions/simulations-run-reports/', 'Simulation Reports'),
-  new FooterItem('viz', 'concepts/conventions/simulation-run-visualizations/', 'Data Visualizations'),
-  new FooterItem('metadata', 'concepts/conventions/simulation-project-metadata/', 'Simulation Metadata'),
-  new FooterItem('logs', 'concepts/conventions/simulation-run-logs/', 'Simulation Logs'),
-];
+const createFooterItems = (footerItemsArray: string[][]) => {
+  return footerItemsArray.map((item) => new FooterItem(item[0], item[1], item[2]));
+};
 
-const aboutFooterItems = [
-  new FooterItem('about', '', 'About'),
-  new FooterItem('terms', 'about/terms/', 'Terms of Service'),
-  new FooterItem('privacy', 'about/privacy', 'Privacy Policy'),
-  new FooterItem('status', '', 'Status'),
-  new FooterItem('vivarium', '', '@Vivarium'),
-];
+const helpFooterItems: FooterItem[] = createFooterItems(footerItemDataMap.help);
+const conventionsFooterItems: FooterItem[] = createFooterItems(footerItemDataMap.conventions);
+const aboutFooterItems: FooterItem[] = createFooterItems(footerItemDataMap.about);
 
 @Component({
   selector: 'biosimulations-app-footer',
@@ -72,7 +79,7 @@ const aboutFooterItems = [
   styleUrls: ['./app-footer.component.scss'],
 })
 export class AppFooterComponent {
-  public homeSubsectionItems = [
+  public homeSubsectionItems: HomeSubsectionItem[] = [
     new HomeSubsectionItem('Help', 'help', helpFooterItems),
     new HomeSubsectionItem('Conventions', 'info', conventionsFooterItems),
     new HomeSubsectionItem('About', 'info', aboutFooterItems),
