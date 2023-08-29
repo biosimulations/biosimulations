@@ -305,7 +305,6 @@ srun --job-name="Save-results-to-HSDS" \
     --endpoint ${hsdsBasePath} \
     --user ${hsdsUsername} \
     --password ${hsdsPassword} \
-    --retries ${hsdsRetries} \
     --verbose \
     ${outputsReportsFileSubPath} \
     '${simulationRunResultsHsdsPath}'
