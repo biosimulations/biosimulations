@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.51.5](https://github.com/biosimulations/biosimulations/compare/v9.51.4...v9.51.5) (2023-08-29)
+
+
+### Bug Fixes
+
+* removed other switch ([90fdc80](https://github.com/biosimulations/biosimulations/commit/90fdc8012a6f0e7348607c668f441359dee66749))
+
 ## [9.51.4](https://github.com/biosimulations/biosimulations/compare/v9.51.3...v9.51.4) (2023-08-29)
 
 
