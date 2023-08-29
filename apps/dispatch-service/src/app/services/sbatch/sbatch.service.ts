@@ -299,7 +299,11 @@ srun --job-name="Save-raw-log-to-S3-2" \
       --acl public-read
 
 echo -e ''
-echo -e '${cyan}=================================================== Saving results ==================================================${nc}'
+echo -e '${cyan}=================================================== Saving results ===============================${nc}'
+hsds_counter=0
+max_num_tries=20
+max_sleep_time=20
+
 srun --job-name="Save-results-to-HSDS" \
   hsload \
     --endpoint ${hsdsBasePath} \
@@ -308,6 +312,30 @@ srun --job-name="Save-results-to-HSDS" \
     --verbose \
     ${outputsReportsFileSubPath} \
     '${simulationRunResultsHsdsPath}'
+retcode=$?
+
+while [ $retcode -ne 0 ]; do
+  echo "Failed to save results to HSDS"
+  hsds_counter=$((hsds_counter+1))
+  if [ $hsds_counter -eq $max_num_tries ]; then
+    echo "Failed to save results to HSDS after $max_num_tries attempts, exiting"
+    exit 1
+  fi
+  sleep_time=$((RANDOM % $max_sleep_time))
+  echo "Waiting $sleep_time seconds"
+  sleep $sleep_time
+
+  srun --job-name="Save-results-to-HSDS" \
+    hsload \
+      --endpoint ${hsdsBasePath} \
+      --user ${hsdsUsername} \
+      --password ${hsdsPassword} \
+      --verbose \
+      ${outputsReportsFileSubPath} \
+      '${simulationRunResultsHsdsPath}'
+  retcode=$?
+
+done
 
 echo -e ''
 echo -e '${cyan}================================================== Saving final log =================================================${nc}'
