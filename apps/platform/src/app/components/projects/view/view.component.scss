@@ -44,6 +44,21 @@
   width: fit-content;
 }
 
+.item-expansion-header,
+.item-expansion-header.mat-expansion-panel-header.mat-expanded,
+.item-expansion-header-under-dev,
+.rerun-button {
+  background-color: var(--primary-color) !important;
+}
+
+.item-expansion-header,
+.item-expansion-header-under-dev,
+.right-col-tab {
+  &:hover {
+    background-color: var(--accent-darker-color) !important;
+  }
+}
+
 .display-data {
   flex-direction: row;
   font-family: 'Roboto', sans-serif;
@@ -93,7 +108,6 @@ biosimulations-tab-page ::ng-deep .icon-list {
 }
 
 .item-expansion-header {
-  background-color: #2196f3;
   font-weight: normal;
   font-size: medium;
   color: white;
@@ -103,18 +117,9 @@ biosimulations-tab-page ::ng-deep .icon-list {
   border: 2px solid inherit;
   transition: background-color 0.1s ease-in-out;
   border-radius: 3px;
-
-  &:hover {
-    background-color: #ff9800 !important;
-  }
-
-  &.mat-expansion-panel-header.mat-expanded {
-    background-color: #2196f3 !important;
-  }
 }
 
 .item-expansion-header-under-dev {
-  background-color: #2196f3;
   font-weight: normal;
   font-size: medium;
   color: white;
@@ -127,7 +132,6 @@ biosimulations-tab-page ::ng-deep .icon-list {
 
   &:hover {
     color: #2196f3 !important;
-    background-color: #ff9800 !important;
     transform: scale(1.0075);
     font-weight: bold;
   }
@@ -147,10 +151,6 @@ biosimulations-tab-page ::ng-deep .icon-list {
 .right-col-tab {
   border: 2px solid gray;
   border-radius: 1px;
-
-  &:hover {
-    background-color: #ff9800;
-  }
 }
 
 .full-width-tab-content {
@@ -165,15 +165,14 @@ biosimulations-tab-page ::ng-deep .icon-list {
 .rerun-button {
   border: 0.5px groove #ff9800;
   border-radius: 4px;
-  background-color: #2196f3;
   font-weight: normal;
   color: white;
   transition: 0.2s ease-in-out;
 
   &:hover {
     transition-duration: 0.2s;
-    background-color: green;
-    border: 1px solid #951ed9;
+    background-color: var(--tertiary-darker-color) !important;
+    border: 3px dotted var(--quaternary-darker-color);
   }
 }
 
