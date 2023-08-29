@@ -56,21 +56,3 @@
   width: 100%;
   height: auto;
 }
-
-.download-button {
-  border: 2px solid green;
-  border-radius: 5px;
-  height: 25px;
-  width: 40px;
-  margin-top: 4rem;
-  margin-left: 50%;
-  margin-right: 50%;
-  background-color: green;
-  color: var(--accent-color);
-
-  &:hover {
-    transition: background-color 0.2s ease-in-out;
-    background-color: var(--accent-color);
-    color: green;
-  }
-}
