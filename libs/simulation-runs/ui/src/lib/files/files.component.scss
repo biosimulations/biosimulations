@@ -30,8 +30,10 @@
 }
 
 .biosimulations-button {
-  border: 3px solid var(--accent-color);
-  border-radius: 5px;
-  height: 25px;
-  font-size: 1rem;
+  background-color: var(--accent-darker-color) !important;
+  color: white !important;
+  font-weight: 700;
+  transform: scale(0.7);
+  align-items: center;
+  justify-content: center;
 }
