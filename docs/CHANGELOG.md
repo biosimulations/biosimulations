@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.51.4](https://github.com/biosimulations/biosimulations/compare/v9.51.3...v9.51.4) (2023-08-29)
+
+
+### Bug Fixes
+
+* update hsload args for h5pyd 0.14.1 to upload to HSDS from Slurm ([6b08d5d](https://github.com/biosimulations/biosimulations/commit/6b08d5d13ac72869a4cf64391bce387f278460e8))
+
 ## [9.51.3](https://github.com/biosimulations/biosimulations/compare/v9.51.2...v9.51.3) (2023-08-28)
 
 
