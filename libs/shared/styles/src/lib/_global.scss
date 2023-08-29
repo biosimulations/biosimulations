@@ -1716,15 +1716,17 @@ mat-option {
 
 .multipurpose-flat-button {
   border-radius: 5px;
-  margin-top: 5rem;
   margin-left: auto;
-  background-color: var(--primary-lighter-color) !important;
-  color: var(--primary-darker-color) !important;
+  background-color: var(--tertiary-darker-color) !important; //var(--primary-lighter-color) !important;
+  color: white !important;
   font-weight: 700 !important;
+
+  &:not(.rerun) {
+    margin-top: 5rem;
+  }
 
   &:hover {
     background-color: var(--accent-darker-color) !important;
-    color: var(--quaternary-color) !important;
-    transition: background-color 0.3s ease !important;
+    transition: background-color 0.4s ease !important;
   }
 }

@@ -46,7 +46,8 @@
 
 .item-expansion-header,
 .item-expansion-header.mat-expansion-panel-header.mat-expanded,
-.item-expansion-header-under-dev {
+.item-expansion-header-under-dev,
+.figure-card-header {
   background-color: var(--primary-darker-color) !important;
 }
 
@@ -234,9 +235,7 @@ biosimulations-tab-page ::ng-deep .icon-list {
   color: white;
   font-size: calc(1rem);
   align-items: center;
-  border: 2px solid inherit;
   border-radius: 3px;
-  background-color: var(--tertiary-darker-color) !important;
 
   &:hover {
     transition: background-color 0.7s ease-in-out;
