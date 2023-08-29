@@ -46,15 +46,15 @@
 
 .item-expansion-header,
 .item-expansion-header.mat-expansion-panel-header.mat-expanded,
-.item-expansion-header-under-dev,
-.rerun-button,
-.figure-card-header {
+.item-expansion-header-under-dev {
   background-color: var(--primary-darker-color) !important;
 }
 
 .item-expansion-header,
 .item-expansion-header-under-dev,
-.right-col-tab {
+.right-col-tab,
+.rerun-button,
+.figure-card-header {
   &:hover {
     background-color: var(--accent-darker-color) !important;
   }
@@ -164,25 +164,20 @@ biosimulations-tab-page ::ng-deep .icon-list {
 }
 
 .rerun-button {
-  border: 0.5px groove #ff9800;
   border-radius: 4px;
-  font-weight: normal;
-  color: white;
-  transition: 0.2s ease-in-out;
+  color: var(--primary-darker-color) !important;
+  background-color: var(--primary-lighter-color) !important;
+  font-size: calc(1rem);
+  font-weight: 700 !important;
 
   &:hover {
-    transition-duration: 0.2s;
-    background-color: var(--tertiary-darker-color) !important;
-    border: 3px dotted var(--quaternary-darker-color);
+    transition: background-color 0.7s ease-in-out;
+    color: var(--primary-darker-color) !important;
   }
 }
 
 .rerun-icon {
   padding-left: 18px;
-
-  &:hover {
-    color: #ff9800;
-  }
 }
 
 .coming-soon-snackbar {
@@ -237,10 +232,15 @@ biosimulations-tab-page ::ng-deep .icon-list {
 
 .figure-card-header {
   color: white;
-  font-weight: normal;
+  font-size: calc(1rem);
   align-items: center;
   border: 2px solid inherit;
   border-radius: 3px;
+  background-color: var(--tertiary-darker-color) !important;
+
+  &:hover {
+    transition: background-color 0.7s ease-in-out;
+  }
 }
 
 .figure-card-placeholder {
