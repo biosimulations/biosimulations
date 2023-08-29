@@ -300,9 +300,11 @@ srun --job-name="Save-raw-log-to-S3-2" \
 
 echo -e ''
 echo -e '${cyan}=================================================== Saving results ===============================${nc}'
+
 hsds_counter=0
-max_num_tries=20
-max_sleep_time=20
+max_num_tries=40
+min_sleep_time=5
+max_sleep_time=15
 
 srun --job-name="Save-results-to-HSDS" \
   hsload \
@@ -321,7 +323,8 @@ while [ $retcode -ne 0 ]; do
     echo "Failed to save results to HSDS after $max_num_tries attempts, exiting"
     exit 1
   fi
-  sleep_time=$((RANDOM % $max_sleep_time))
+
+  sleep_time=$(($min_sleep_time + (RANDOM % ($max_sleep_time - $min_sleep_time + 1))))
   echo "Waiting $sleep_time seconds"
   sleep $sleep_time
 
@@ -333,7 +336,7 @@ while [ $retcode -ne 0 ]; do
       --verbose \
       ${outputsReportsFileSubPath} \
       '${simulationRunResultsHsdsPath}'
-  retcode=$?
+    retcode=$?
 
 done
 
