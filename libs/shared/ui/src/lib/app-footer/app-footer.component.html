@@ -2,18 +2,18 @@
   <biosimulations-home-section [columns]="3" class="home-footer">
     <biosimulations-home-subsection
       *ngFor="let footer of homeSubsectionItems"
-      id="subsection"
       [heading]="footer.heading"
       [icon]="footer.icon"
+      [style]="footer.style"
+      id="subsection"
       subheading=""
-      subheadingSize="small"
-      style="justify-content: center">
+      subheadingSize="small">
       <mat-list *ngFor="let item of footer.contentItems">
-        <button mat-button [class]="item.cssClass">
-          <a [href]="item.href" target="biosimulations-docs">
+        <a [href]="item.href" target="biosimulations-docs">
+          <button mat-button [class]="item.cssClass">
             {{ item.title }}
-          </a>
-        </button>
+          </button>
+        </a>
       </mat-list>
     </biosimulations-home-subsection>
   </biosimulations-home-section>

@@ -29,7 +29,6 @@ class HomeSubsectionItem {
   public heading: string;
   public icon: BiosimulationsIcon;
   public contentItems: FooterItem[];
-  public subheadingSize = 'small';
   public subheading = '';
   public _id = 'subsection';
   public style = 'justify-content: center';
