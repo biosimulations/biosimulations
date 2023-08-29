@@ -47,8 +47,9 @@
 .item-expansion-header,
 .item-expansion-header.mat-expansion-panel-header.mat-expanded,
 .item-expansion-header-under-dev,
-.rerun-button {
-  background-color: var(--primary-color) !important;
+.rerun-button,
+.figure-card-header {
+  background-color: var(--primary-darker-color) !important;
 }
 
 .item-expansion-header,
