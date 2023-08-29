@@ -303,7 +303,7 @@ echo -e '${cyan}=================================================== Saving resul
 srun --job-name="Save-results-to-HSDS" \
   hsload \
     --endpoint ${hsdsBasePath} \
-    --username ${hsdsUsername} \
+    --user ${hsdsUsername} \
     --password ${hsdsPassword} \
     --retries ${hsdsRetries} \
     --verbose \
