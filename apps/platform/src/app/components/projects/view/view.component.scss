@@ -58,6 +58,7 @@
 .figure-card-header {
   &:hover {
     background-color: var(--accent-darker-color) !important;
+    transition: background-color 0.3s ease-in-out !important;
   }
 }
 
@@ -172,7 +173,7 @@ biosimulations-tab-page ::ng-deep .icon-list {
   font-weight: 700 !important;
 
   &:hover {
-    transition: background-color 0.7s ease-in-out;
+    transition: background-color 0.7s ease-in-out !important;
     color: var(--primary-darker-color) !important;
   }
 }
