@@ -19,19 +19,6 @@
   }
 }
 
-.alert {
-  background-color: var(--warn-color);
-  color: white;
-  width: 100%;
-  display: flex;
-  font-size: 12px;
-  overflow: hidden;
-
-  &:hover {
-    transition: font-weight 0.1s ease-in-out;
-  }
-}
-
 p:not(.alert) {
   padding-top: 16px;
 }
@@ -43,7 +30,6 @@ form:not(.alert) {
 .biosimulations-button {
   background-color: var(--primary-color) !important;
   color: white;
-  font-size: large;
 }
 
 .form-button-container {
