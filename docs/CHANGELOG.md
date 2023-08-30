@@ -1,5 +1,13 @@
 # Changelog
 
+## [9.51.6](https://github.com/biosimulations/biosimulations/compare/v9.51.5...v9.51.6) (2023-08-30)
+
+
+### Bug Fixes
+
+* try HSDS up to 40 times, sleep 5s to 15s between each ([3b4bb2c](https://github.com/biosimulations/biosimulations/commit/3b4bb2c1b91bf808d92445dba0ebf85ec69e660a))
+* try to upload to HSDS up to 20 times, 0-19 seconds between tries ([fa1bd76](https://github.com/biosimulations/biosimulations/commit/fa1bd76059fee63d57ab33bb0fd1892bba98f3fa))
+
 ## [9.51.5](https://github.com/biosimulations/biosimulations/compare/v9.51.4...v9.51.5) (2023-08-29)
 
 
