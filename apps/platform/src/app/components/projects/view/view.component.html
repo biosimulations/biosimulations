@@ -41,7 +41,13 @@
 
           <mat-tab-group #tabGroup preserveContent="true" [dynamicHeight]="true" [selectedIndex]="selectedTabIndex">
             <!-- Start Visualizations Tab -->
-            <mat-tab class="right-col-tab figures" label="Figures">
+
+            <mat-tab class="right-col-tab figures">
+              <ng-template mat-tab-label>
+                <biosimulations-icon icon="write"></biosimulations-icon>
+                <div style="width: 5px"></div>
+                Figures
+              </ng-template>
               <mat-card class="plots-card">
                 <mat-grid-list
                   *ngFor="let plotVisualization of plotVisualizations$ | async"
@@ -72,7 +78,12 @@
             <!-- End Visualizations Tab -->
 
             <!-- Begin Project files Tab -->
-            <mat-tab class="right-col-tab files" label="Download">
+            <mat-tab class="right-col-tab files">
+              <ng-template mat-tab-label>
+                <biosimulations-icon icon="project"></biosimulations-icon>
+                <div style="width: 5px"></div>
+                Download
+              </ng-template>
               <mat-card class="files-card">
                 <mat-card-content>
                   <!-- OMEX File -->
@@ -135,7 +146,12 @@
             <!-- End Project Files Tab -->
 
             <!-- Begin Project Details Tab -->
-            <mat-tab class="right-col-tab details" label="Details">
+            <mat-tab class="right-col-tab details">
+              <ng-template mat-tab-label>
+                <biosimulations-icon icon="simulation"></biosimulations-icon>
+                <div style="width: 5px"></div>
+                Details
+              </ng-template>
               <mat-card class="details-card">
                 <mat-card-content>
                   <!-- Start Details Display -->
