@@ -1,5 +1,18 @@
 # Changelog
 
+## [9.52.0](https://github.com/biosimulations/biosimulations/compare/v9.51.6...v9.52.0) (2023-08-30)
+
+
+### Bug Fixes
+
+* final adjustment to button color for continuity ([b00f15b](https://github.com/biosimulations/biosimulations/commit/b00f15b72088d9b5673a160dd5c857e7ad9cdb84))
+* refactored footer button to be wrapped in relative anchor for click ([3446436](https://github.com/biosimulations/biosimulations/commit/344643644dfddca7be1125e8121127fdb7c24998))
+
+
+### Features
+
+* **ui:** created + implemented global multipurpose flat button instance ([fa4db17](https://github.com/biosimulations/biosimulations/commit/fa4db17044f7b92a9a1c28a0f0ad216699e8c1da))
+
 ## [9.51.6](https://github.com/biosimulations/biosimulations/compare/v9.51.5...v9.51.6) (2023-08-30)
 
 
