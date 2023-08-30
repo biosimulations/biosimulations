@@ -1714,6 +1714,7 @@ mat-option {
   color: white !important;
 }
 
+/* MULTIPURPOSE REUSABLE STYLES */
 .multipurpose-flat-button {
   border-radius: 5px;
   margin-left: auto;
@@ -1729,4 +1730,36 @@ mat-option {
     transition: background-color 0.3s ease !important;
     background-color: var(--tertiary-darker-color) !important;
   }
+}
+
+.multipurpose-card-header {
+  background-color: var(--primary-darker-color) !important;
+  font-weight: 500;
+  font-size: medium;
+  color: white;
+  height: fit-content;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+
+  &:not(.panel-header) {
+    border-radius: 4px 4px 0 0 !important;
+  }
+
+  &.panel-header {
+    border-radius: 4px;
+  }
+
+  &.project {
+    font-size: 24px;
+  }
+
+  &:hover {
+    background-color: var(--accent-darker-color) !important;
+    transition: background-color 0.3s ease-in-out;
+  }
+}
+
+.multipurpose-divider {
+  width: 100% !important;
+  height: 30px !important;
 }
