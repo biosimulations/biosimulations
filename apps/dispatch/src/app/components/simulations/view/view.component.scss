@@ -49,3 +49,10 @@ biosimulations-tab-page ::ng-deep .icon-list {
   margin-left: 7rem;
   margin-right: 7rem;
 }
+
+.files {
+  display: grid;
+  flex-direction: column;
+  height: 100%;
+  font-weight: 600;
+}
