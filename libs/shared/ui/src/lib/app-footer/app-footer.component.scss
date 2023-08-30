@@ -4,3 +4,15 @@
     flex-direction: column;
   }
 }
+
+a {
+  & button.footer-item {
+    font-weight: 700;
+    color: var(--primary-darker-color);
+
+    &:hover {
+      color: var(--accent-darker-color);
+      transition: color 0.4s ease-in-out;
+    }
+  }
+}

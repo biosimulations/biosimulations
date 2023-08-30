@@ -15,3 +15,12 @@
 .below-filters {
   display: flex;
 }
+
+a {
+  color: var(--primary-darker-color);
+
+  &:hover {
+    color: var(--accent-darker-color);
+    transition: color 0.3s ease;
+  }
+}

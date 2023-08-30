@@ -16,8 +16,6 @@
   white-space: nowrap;
   height: 30px;
   width: auto;
-  font-size: 13;
-  transition: 0.3s ease-in-out;
 }
 
 .head,
@@ -26,12 +24,25 @@
 }
 
 .download {
-  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+  display: flex;
 }
 
 .biosimulations-button {
-  border: 3px solid var(--accent-color);
-  border-radius: 5px;
-  height: 25px;
-  font-size: 1rem;
+  background-color: var(--accent-darker-color) !important;
+  color: white !important;
+  font-weight: 700 !important;
+  transform: scale(0.7);
+
+  &:hover {
+    transition: background-color 0.3s ease !important;
+    background-color: var(--tertiary-darker-color) !important;
+  }
+}
+
+.download,
+.biosimulations-button {
+  align-items: center;
+  justify-content: center;
 }

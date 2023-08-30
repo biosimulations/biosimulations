@@ -46,17 +46,15 @@
       </div>
       <!-- Row download button -->
       <div class="cell download">
-        <div class="file-download">
-          <a
-            class="biosimulations-button"
-            *ngIf="path.url"
-            [download]="path.basename"
-            [href]="path.url"
-            rel="noopener"
-            mat-flat-button>
-            <biosimulations-icon icon="download" matTooltip="Download File"></biosimulations-icon>
-          </a>
-        </div>
+        <a
+          class="biosimulations-button"
+          *ngIf="path.url"
+          [download]="path.basename"
+          [href]="path.url"
+          rel="noopener"
+          mat-flat-button>
+          <biosimulations-icon icon="download" matTooltip="Download File"></biosimulations-icon>
+        </a>
       </div>
       <!-- Row Download Size -->
       <div class="cell file-size" [class.main-file]="path.master">
