@@ -1734,19 +1734,18 @@ mat-option {
 
 .multipurpose-card-header {
   background-color: var(--primary-darker-color) !important;
-  font-weight: 500;
-  font-size: medium;
   color: white;
-  height: fit-content;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  height: fit-content !important;
+  width: auto !important;
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
+  font-size: medium;
+  border: 2px solid inherit;
+  transition: background-color 0.1s ease-in-out;
+  border-radius: 3px;
 
   &:not(.panel-header) {
     border-radius: 4px 4px 0 0 !important;
-  }
-
-  &.panel-header {
-    border-radius: 4px;
   }
 
   &.project {
