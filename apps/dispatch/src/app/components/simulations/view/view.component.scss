@@ -26,16 +26,13 @@ biosimulations-tab-page ::ng-deep .icon-list {
   }
 }
 
-.overview-container {
-  padding-bottom: 5rem;
-}
-
 .spec-container {
   margin-top: 3rem;
 }
 
 .simulation-run-view-parent-container {
   min-height: 1550px;
+  height: fit-content !important;
   margin-left: 6rem;
   margin-right: 6rem;
   padding-bottom: 3rem;
