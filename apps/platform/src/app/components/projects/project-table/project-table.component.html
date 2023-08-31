@@ -30,7 +30,7 @@
           <ng-container matColumnDef="id">
             <th *matHeaderCellDef mat-header-cell mat-sort-header>Id</th>
             <td *matCellDef="let row" mat-cell>
-              <a [routerLink]="['/projects', row.id]" target="_blank">{{ row.id }}</a>
+              <a [routerLink]="['/projects', row.id]">{{ row.id }}</a>
             </td>
           </ng-container>
 
