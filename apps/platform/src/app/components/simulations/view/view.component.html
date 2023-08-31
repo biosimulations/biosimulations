@@ -8,6 +8,7 @@
       <div class="spec-container">
         <ng-container *ngTemplateOutlet="resultsTabContent; context: { $implicit: metadataContent }"> </ng-container>
         <ng-template #metadataContent>
+          <div class="metadata-container">
           <biosimulations-project-metadata
             *ngIf="projectMetadata$ | async as projectMetadata; else metadataError"
             [project]="projectMetadata">
@@ -51,6 +52,7 @@
               </p>
             </div>
           </ng-template>
+          </div>
         </ng-template>
         <!-- Simulation Run Overview -->
         <ng-container *ngIf="formattedSimulation$ | async as formattedSimulation">

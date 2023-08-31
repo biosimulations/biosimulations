@@ -1735,6 +1735,10 @@ mat-option {
   transition: background-color 0.1s ease-in-out;
   border-radius: 3px;
 
+  &.sim-run {
+    background-color: var(--tertiary-darker-color) !important;
+  }
+
   &:not(.panel-header) {
     border-radius: 4px 4px 0 0 !important;
   }

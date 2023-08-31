@@ -46,3 +46,14 @@ biosimulations-tab-page ::ng-deep .icon-list {
   width: 1000px;
   margin-top: 3rem;
 }
+
+.overview-container,
+.metadata-container {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.overview-container {
+  margin-bottom: 3rem;
+}
