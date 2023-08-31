@@ -10,7 +10,7 @@
   }
 }
 
-button {
+/*button {
   float: right;
   background-color: var(--primary-color);
   color: white;
@@ -74,6 +74,84 @@ button {
   &:hover {
     transform: scale(1.025);
     transition: transform 0.1s ease-in-out;
+  }
+}
+
+.message {
+  margin-top: 1rem;
+
+  &.success {
+    color: var(--primary-color);
+    a {
+      text-decoration: underline;
+    }
+  }
+}*/
+button {
+  float: right;
+}
+
+.card-form-section {
+  height: 100%;
+  padding-bottom: 1rem;
+  padding-right: 1rem;
+  background-color: white;
+  overflow: hidden;
+}
+
+.card-form-section-title {
+  background-color: var(--primary-color);
+  color: white;
+  height: 100%;
+  width: 100%;
+  padding: 0.5rem;
+  font-weight: 700;
+}
+
+.input-group {
+  height: 100%;
+  padding-top: 3rem;
+}
+
+.resources {
+  input {
+    padding-top: 3rem;
+  }
+}
+
+.card-form-field {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+
+  &:first-child {
+    margin-left: 1rem;
+  }
+
+  &:active {
+    height: fit-content;
+  }
+}
+
+.card-form-section,
+mat-option {
+  background-color: white !important;
+}
+
+mat-option:hover {
+  background-color: var(--accent-darker-color) !important;
+  color: white;
+}
+
+.alert {
+  width: fit-content;
+  background-color: var(--warn-lighter-color);
+  color: var(--warn-color);
+  padding: 6px;
+
+  &:hover {
+    color: var(--primary-darker-color);
+    transition: color 0.5s ease;
   }
 }
 
