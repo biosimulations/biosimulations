@@ -1,3 +1,10 @@
-<biosimulations-text-page-section [heading]="heading" [highlight]="highlight">
-  <ng-content id="content"></ng-content>
-</biosimulations-text-page-section>
+<div class="text-page-sidebar-parent-container">
+  <mat-card>
+    <mat-card-header class="multipurpose-card-header">
+      {{ heading }}
+    </mat-card-header>
+    <mat-card-content>
+      <ng-content id="content"></ng-content>
+    </mat-card-content>
+  </mat-card>
+</div>
