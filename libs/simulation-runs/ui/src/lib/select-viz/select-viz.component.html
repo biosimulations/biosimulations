@@ -82,7 +82,7 @@
     <button
       type="button"
       mat-flat-button
-      class="biosimulations-button text"
+      class="multipurpose-flat-button view"
       [disabled]="!formGroup.valid"
       (click)="viewVisualization()">
       View
@@ -92,7 +92,7 @@
       *ngIf="formGroup.value.visualization?.userDesigned"
       type="button"
       mat-flat-button
-      class="biosimulations-button text"
+      class="multipurpose-flat-button vega"
       [disabled]="!formGroup.valid"
       (click)="exportVisualization('vega')">
       Export to Vega
@@ -102,7 +102,7 @@
       *ngIf="formGroup.value.visualization?.userDesigned"
       type="button"
       mat-flat-button
-      class="biosimulations-button text"
+      class="multipurpose-flat-button export"
       [disabled]="!formGroup.valid"
       (click)="exportVisualization('archive')">
       Export in archive
