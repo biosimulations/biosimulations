@@ -1682,12 +1682,12 @@ mat-option {
 
 .biosimulations-button {
   &.run {
-    background-color: var(--primary-color) !important;
+    background-color: var(--tertiary-darker-color) !important;
     color: white !important;
     font-weight: 700 !important;
 
     &:hover {
-      background-color: var(--tertiary-darker-color) !important;
+      background-color: var(--accent-darker-color) !important;
       transition: background-color 0.5s;
     }
   }
