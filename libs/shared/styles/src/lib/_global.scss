@@ -1761,7 +1761,7 @@ mat-option {
   width: fit-content;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  font-size: 15px;
+  font-size: 14.5px;
 
   &::before {
     content: 'PLEASE NOTE: ';
@@ -1772,7 +1772,6 @@ mat-option {
 
   &:hover {
     transition: font-weight 0.2s ease, color 0.2s;
-    color: var(--warn-darker-color);
   }
 
   &:hover,
