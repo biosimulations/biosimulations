@@ -1,5 +1,4 @@
 <div class="form-parent-container dispatch-main">
-  <!-- RUN A SIMULATION FORM -->
   <biosimulations-page heading="Run a simulation" *ngIf="simulators.length; else loading">
     <form [formGroup]="formGroup" (ngSubmit)="onFormSubmit()">
       <mat-card class="card-form-section mat-elevation-z3">
