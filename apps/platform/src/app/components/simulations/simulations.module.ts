@@ -32,6 +32,7 @@ import { PublishComponent } from './publish/publish.component';
     MatDialogModule,
     SimulationLogModule,
     SharedAngularModule,
+    SimulationLogModule,
   ],
 })
 export class SimulationsModule {}

@@ -1,247 +1,252 @@
-<biosimulations-tab-page
-  *ngIf="(loaded$ | async) === true; else runLoading"
-  [selectedTabIndex]="selectedTabIndex"
-  (selectedTabChange)="selectedTabChange($event)">
-  <!-- Begin summary of the run -->
-  <biosimulations-tab-page-tab heading="Run" icon="overview">
-    <ng-container *ngIf="formattedSimulation$ | async as formattedSimulation">
-      <biosimulations-simulation-run-overview [simulation]="formattedSimulation">
-      </biosimulations-simulation-run-overview>
-    </ng-container>
-  </biosimulations-tab-page-tab>
-  <!-- End summary of the run -->
-
-  <!-- Metadata about the entire project (COMBINE/OMEX archive) -->
-  <biosimulations-tab-page-tab heading="Simulation specification" icon="model" urlHashFragment="metadata">
-    <ng-container *ngTemplateOutlet="resultsTabContent; context: { $implicit: metadataContent }"> </ng-container>
-
-    <ng-template #metadataContent>
-      <biosimulations-project-metadata
-        *ngIf="projectMetadata$ | async as projectMetadata; else metadataError"
-        [project]="projectMetadata">
-      </biosimulations-project-metadata>
-
-      <ng-template #metadataError>
-        <div class="info-message">
-          <p>
-            Sorry! No metadata could be loaded either because the project did not contain metadata in RDF-XML format,
-            the metadata was invalid, or an error occurred. Metadata is not required for simulation. However, metadata
-            is required for publication to BioSimulations. Information about BioSimulations metadata requirements is
-            available
-            <a
-              href="https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/"
-              rel="noopener"
-              target="biosimulations-docs"
-              >here</a
-            >.
-          </p>
-          <p>
-            Click
-            <a
-              [routerLink]="['/utils', 'validate-project']"
-              [queryParams]="{
-                archiveUrl: archiveUrl,
-                validateSedml: '0',
-                validateSedmlModels: '0',
-                autoRun: '1'
-              }"
-              >here</a
-            >
-            to obtain information about errors in the metadata for this project.
-          </p>
-          <p>
-            If the metadata is valid, please refresh to try again. If the error persists, please submit an issue
-            <a
-              href="https://github.com/biosimulations/biosimulations/issues/new/choose"
-              rel="noopener"
-              target="githubissues"
-              ><biosimulations-icon icon="link"></biosimulations-icon></a
-            >.
-          </p>
-        </div>
-      </ng-template>
-    </ng-template>
-  </biosimulations-tab-page-tab>
-  <!-- End project metadata tab-->
-
-  <!--Information about files in project and generated from the project-->
-  <biosimulations-tab-page-tab heading="Files" icon="project" urlHashFragment="files">
-    <ng-container *ngTemplateOutlet="resultsTabContent; context: { $implicit: filesContent }"> </ng-container>
-
-    <ng-template #filesContent>
-      <div
-        *ngIf="(projectFiles$ | async) && (files$ | async) && (outputs$ | async); else filesError"
-        class="partial-width files">
-        <biosimulations-text-page-content-section
-          heading="Simulation specification (COMBINE/OMEX archive)"
-          *ngIf="projectFiles$ | async as files">
-          <biosimulations-project-files [files]="files" [usesMaster]="false" [usesMetadata]="false">
-          </biosimulations-project-files>
-        </biosimulations-text-page-content-section>
-
-        <biosimulations-text-page-content-section
-          heading="Contents of simulation specification"
-          *ngIf="files$ | async as files">
-          <biosimulations-project-files [files]="files" [usesMaster]="true" [usesMetadata]="true">
-          </biosimulations-project-files>
-        </biosimulations-text-page-content-section>
-
-        <biosimulations-text-page-content-section heading="Simulation outputs" *ngIf="outputs$ | async as files">
-          <biosimulations-project-files [files]="files" [usesMaster]="false" [usesMetadata]="false">
-          </biosimulations-project-files>
-        </biosimulations-text-page-content-section>
-      </div>
-
-      <ng-template #filesError>
-        <div class="info-message">
-          <p>
-            Sorry! The files for the simulation run could not be load either because the manifest for the project is
-            invalid or an error occurred. Information about the OMEX manifest format is available
-            <a href="https://combinearchive.org/" target="_blank" rel="noopener">here</a>.
-          </p>
-          <p>
-            Click
-            <a
-              [routerLink]="['/utils', 'validate-project']"
-              [queryParams]="{
-                archiveUrl: archiveUrl,
-                validateSedml: '0',
-                validateSedmlModels: '0',
-                validateOmexMetadata: '0',
-                validateImages: '0',
-                autoRun: '1'
-              }"
-              >here</a
-            >
-            to obtain information about errors in the manifest for this project.
-          </p>
-          <p>
-            If the manifest is valid, please refresh to try again. If the error persists, please submit an issue
-            <a
-              href="https://github.com/biosimulations/biosimulations/issues/new/choose"
-              rel="noopener"
-              target="githubissues"
-              ><biosimulations-icon icon="link"></biosimulations-icon></a
-            >.
-          </p>
-        </div>
-      </ng-template>
-    </ng-template>
-  </biosimulations-tab-page-tab>
-
-  <!-- Visualizations -->
-  <biosimulations-tab-page-tab urlHashFragment="select-viz" heading="Select chart" icon="write">
-    <ng-container *ngTemplateOutlet="resultsTabContent; context: { $implicit: selectVisualizationContent }">
-    </ng-container>
-
-    <ng-template #selectVisualizationContent>
-      <div *ngIf="visualizations$ | async as visualizations; else visualizationErrors" class="partial-width">
-        <biosimulations-project-select-visualization
-          [visualizations]="visualizations"
-          (renderVisualization)="renderVisualization($event)"
-          [runSucceeded]="(statusSucceeded$ | async) === true">
-        </biosimulations-project-select-visualization>
-      </div>
-      <ng-template #visualizationErrors>
-        <div class="info-message">
-          <p>
-            Sorry! The visualizations for the simulation run could not be loaded because the simulation experiments
-            (SED-ML files) for the run are invalid or an error occurred. Information about SED-ML is available
-            <a href="http://sed-ml.org/" target="_blank" rel="noopener">here</a>
-            and
-            <a
-              href="https://docs.biosimulations.org/concepts/conventions/simulation-experiments/"
-              target="biosimulations-docs"
-              >here</a
-            >.
-          </p>
-          <p>
-            Click
-            <a
-              [routerLink]="['/utils', 'validate-project']"
-              [queryParams]="{
-                archiveUrl: archiveUrl,
-                validateSedmlModels: '0',
-                validateOmexMetadata: '0',
-                validateImages: '0',
-                autoRun: '1'
-              }"
-              >here</a
-            >
-            to obtain information about errors in the simulation experiments for this project.
-          </p>
-          <p>
-            If the manifest is valid, please refresh to try again. If the error persists, please submit an issue
-            <a
-              href="https://github.com/biosimulations/biosimulations/issues/new/choose"
-              rel="noopener"
-              target="githubissues"
-              ><biosimulations-icon icon="link"></biosimulations-icon></a
-            >.
-          </p>
-        </div>
-      </ng-template>
-    </ng-template>
-  </biosimulations-tab-page-tab>
-
-  <biosimulations-tab-page-tab
-    urlHashFragment="viz"
-    heading="View chart"
-    icon="chart"
-    [disabled]="viewVisualizationTabDisabled"
-    [fullHeight]="true"
-    [fullWidth]="true">
-    <biosimulations-project-visualization *ngIf="visualization" [visualization]="visualization">
-    </biosimulations-project-visualization>
-  </biosimulations-tab-page-tab>
-  <!-- End visualizations -->
-
-  <!-- Begin logs -->
-  <biosimulations-tab-page-tab heading="Log" icon="logs" urlHashFragment="log">
-    <ng-container *ngTemplateOutlet="resultsTabContent; context: { $implicit: logsContent }"> </ng-container>
-
-    <ng-template #logsContent>
-      <ng-container *ngIf="logs$ | async as logs; else noLogs">
-        <ng-container *ngIf="formattedSimulation$ | async as sim">
-          <biosimulations-simulation-log [status]="sim.status" [rawLog]="logs.raw" [structuredLog]="logs.structured">
-          </biosimulations-simulation-log>
+<div class="simulation-run-view-parent-container platform">
+  <biosimulations-tab-page
+    *ngIf="(loaded$ | async) === true; else runLoading"
+    [selectedTabIndex]="selectedTabIndex"
+    (selectedTabChange)="selectedTabChange($event)">
+    <!-- Metadata about the entire project (COMBINE/OMEX archive) -->
+    <biosimulations-tab-page-tab heading="Simulation specification" icon="model" urlHashFragment="metadata">
+      <div class="spec-container">
+        <ng-container *ngTemplateOutlet="resultsTabContent; context: { $implicit: metadataContent }"> </ng-container>
+        <ng-template #metadataContent>
+          <biosimulations-project-metadata
+            *ngIf="projectMetadata$ | async as projectMetadata; else metadataError"
+            [project]="projectMetadata">
+          </biosimulations-project-metadata>
+          <ng-template #metadataError>
+            <div class="info-message">
+              <p>
+                Sorry! No metadata could be loaded either because the project did not contain metadata in RDF-XML
+                format, the metadata was invalid, or an error occurred. Metadata is not required for simulation.
+                However, metadata is required for publication to BioSimulations. Information about BioSimulations
+                metadata requirements is available
+                <a
+                  href="https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/"
+                  rel="noopener"
+                  target="biosimulations-docs"
+                >here</a
+                >.
+              </p>
+              <p>
+                Click
+                <a
+                  [routerLink]="['/utils', 'validate-project']"
+                  [queryParams]="{
+                    archiveUrl: archiveUrl,
+                    validateSedml: '0',
+                    validateSedmlModels: '0',
+                    autoRun: '1'
+                  }"
+                >here</a
+                >
+                to obtain information about errors in the metadata for this project.
+              </p>
+              <p>
+                If the metadata is valid, please refresh to try again. If the error persists, please submit an issue
+                <a
+                  href="https://github.com/biosimulations/biosimulations/issues/new/choose"
+                  rel="noopener"
+                  target="githubissues"
+                ><biosimulations-icon icon="link"></biosimulations-icon></a
+                >.
+              </p>
+            </div>
+          </ng-template>
+        </ng-template>
+        <!-- Simulation Run Overview -->
+        <ng-container *ngIf="formattedSimulation$ | async as formattedSimulation">
+          <div class="overview-container">
+            <biosimulations-simulation-run-overview [simulation]="formattedSimulation">
+            </biosimulations-simulation-run-overview>
+          </div>
         </ng-container>
+      </div>
+    </biosimulations-tab-page-tab>
+    <!-- End project metadata tab-->
+
+    <!--Information about files in project and generated from the project-->
+    <biosimulations-tab-page-tab heading="Download" icon="project" urlHashFragment="files">
+      <ng-container *ngTemplateOutlet="resultsTabContent; context: { $implicit: filesContent }"> </ng-container>
+
+      <ng-template #filesContent>
+        <div *ngIf="(projectFiles$ | async) && (files$ | async) && (outputs$ | async); else filesError" class="files">
+          <mat-expansion-panel expanded="true" *ngIf="projectFiles$ | async as files">
+            <mat-expansion-panel-header class="multipurpose-card-header panel-header omex">
+              Simulation Specification (COMBINE/OMEX archive)
+            </mat-expansion-panel-header>
+            <biosimulations-project-files [files]="files" [usesMaster]="false" [usesMetadata]="false">
+            </biosimulations-project-files>
+          </mat-expansion-panel>
+          <div class="multipurpose-divider 0"></div>
+          <mat-expansion-panel expanded="true" *ngIf="projectFiles$ | async as files">
+            <mat-expansion-panel-header class="multipurpose-card-header panel-header spec">
+              Contents of Simulation Specification
+            </mat-expansion-panel-header>
+            <biosimulations-project-files [files]="files" [usesMaster]="true" [usesMetadata]="true">
+            </biosimulations-project-files>
+          </mat-expansion-panel>
+          <div class="multipurpose-divider 1"></div>
+          <mat-expansion-panel expanded="true" *ngIf="projectFiles$ | async as files">
+            <mat-expansion-panel-header class="multipurpose-card-header panel-header outputs">
+              Simulation Outputs
+            </mat-expansion-panel-header>
+            <biosimulations-project-files [files]="files" [usesMaster]="false" [usesMetadata]="false">
+            </biosimulations-project-files>
+          </mat-expansion-panel>
+        </div>
+
+        <ng-template #filesError>
+          <div class="info-message">
+            <p>
+              Sorry! The files for the simulation run could not be load either because the manifest for the project is
+              invalid or an error occurred. Information about the OMEX manifest format is available
+              <a href="https://combinearchive.org/" target="_blank" rel="noopener">here</a>.
+            </p>
+            <p>
+              Click
+              <a
+                [routerLink]="['/utils', 'validate-project']"
+                [queryParams]="{
+                  archiveUrl: archiveUrl,
+                  validateSedml: '0',
+                  validateSedmlModels: '0',
+                  validateOmexMetadata: '0',
+                  validateImages: '0',
+                  autoRun: '1'
+                }"
+              >here</a
+              >
+              to obtain information about errors in the manifest for this project.
+            </p>
+            <p>
+              If the manifest is valid, please refresh to try again. If the error persists, please submit an issue
+              <a
+                href="https://github.com/biosimulations/biosimulations/issues/new/choose"
+                rel="noopener"
+                target="githubissues"
+              ><biosimulations-icon icon="link"></biosimulations-icon></a
+              >.
+            </p>
+          </div>
+        </ng-template>
+      </ng-template>
+    </biosimulations-tab-page-tab>
+
+    <!-- Visualizations -->
+    <biosimulations-tab-page-tab urlHashFragment="select-viz" heading="Select chart" icon="write">
+      <ng-container *ngTemplateOutlet="resultsTabContent; context: { $implicit: selectVisualizationContent }">
       </ng-container>
 
-      <ng-template #noLogs>
-        <div class="info-message">
-          <p>
-            Sorry! The log for the simulation run could not be loaded because the simulation tool did not produce a
-            valid log or an error occurred.
-          </p>
-          <p>
-            Please refresh to try again. If the error persists, please submit an issue
-            <a
-              href="https://github.com/biosimulations/biosimulations/issues/new/choose"
-              rel="noopener"
-              target="githubissues"
-              ><biosimulations-icon icon="link"></biosimulations-icon></a
-            >.
-          </p>
+      <ng-template #selectVisualizationContent>
+        <div
+          *ngIf="visualizations$ | async as visualizations; else visualizationErrors"
+          class="partial-width"
+          style="padding-top: 5rem">
+          <biosimulations-project-select-visualization
+            [visualizations]="visualizations"
+            (renderVisualization)="renderVisualization($event)"
+            [runSucceeded]="(statusSucceeded$ | async) === true">
+          </biosimulations-project-select-visualization>
         </div>
+        <ng-template #visualizationErrors>
+          <div class="info-message">
+            <p>
+              Sorry! The visualizations for the simulation run could not be loaded because the simulation experiments
+              (SED-ML files) for the run are invalid or an error occurred. Information about SED-ML is available
+              <a href="http://sed-ml.org/" target="_blank" rel="noopener">here</a>
+              and
+              <a
+                href="https://docs.biosimulations.org/concepts/conventions/simulation-experiments/"
+                target="biosimulations-docs"
+              >here</a
+              >.
+            </p>
+            <p>
+              Click
+              <a
+                [routerLink]="['/utils', 'validate-project']"
+                [queryParams]="{
+                  archiveUrl: archiveUrl,
+                  validateSedmlModels: '0',
+                  validateOmexMetadata: '0',
+                  validateImages: '0',
+                  autoRun: '1'
+                }"
+              >here</a
+              >
+              to obtain information about errors in the simulation experiments for this project.
+            </p>
+            <p>
+              If the manifest is valid, please refresh to try again. If the error persists, please submit an issue
+              <a
+                href="https://github.com/biosimulations/biosimulations/issues/new/choose"
+                rel="noopener"
+                target="githubissues"
+              ><biosimulations-icon icon="link"></biosimulations-icon></a
+              >.
+            </p>
+          </div>
+        </ng-template>
+      </ng-template>
+    </biosimulations-tab-page-tab>
+
+    <biosimulations-tab-page-tab
+      urlHashFragment="viz"
+      heading="View chart"
+      icon="chart"
+      [disabled]="viewVisualizationTabDisabled"
+      [fullHeight]="true"
+      [fullWidth]="true">
+      <biosimulations-project-visualization *ngIf="visualization" [visualization]="visualization">
+      </biosimulations-project-visualization>
+    </biosimulations-tab-page-tab>
+    <!-- End visualizations -->
+
+    <!-- Begin logs -->
+    <biosimulations-tab-page-tab heading="Log" icon="logs" urlHashFragment="log">
+      <ng-container *ngTemplateOutlet="resultsTabContent; context: { $implicit: logsContent }"> </ng-container>
+
+      <ng-template #logsContent>
+        <ng-container *ngIf="logs$ | async as logs; else noLogs">
+          <ng-container *ngIf="formattedSimulation$ | async as sim">
+            <biosimulations-simulation-log [status]="sim.status" [rawLog]="logs.raw" [structuredLog]="logs.structured">
+            </biosimulations-simulation-log>
+          </ng-container>
+        </ng-container>
+
+        <ng-template #noLogs>
+          <div class="info-message">
+            <p>
+              Sorry! The log for the simulation run could not be loaded because the simulation tool did not produce a
+              valid log or an error occurred.
+            </p>
+            <p>
+              Please refresh to try again. If the error persists, please submit an issue
+              <a
+                href="https://github.com/biosimulations/biosimulations/issues/new/choose"
+                rel="noopener"
+                target="githubissues"
+              ><biosimulations-icon icon="link"></biosimulations-icon></a
+              >.
+            </p>
+          </div>
+        </ng-template>
+      </ng-template>
+    </biosimulations-tab-page-tab>
+    <!-- End logs -->
+
+    <ng-template #resultsTabContent let-content>
+      <ng-container *ngIf="(resultsLoaded$ | async) === true; else resultsLoading">
+        <ng-container *ngTemplateOutlet="content"></ng-container>
+      </ng-container>
+
+      <ng-template #resultsLoading>
+        <biosimulations-full-page-spinner
+          [containerHasTabs]="true"
+          [containerHasPadding]="true"></biosimulations-full-page-spinner>
       </ng-template>
     </ng-template>
-  </biosimulations-tab-page-tab>
-  <!-- End logs -->
-
-  <ng-template #resultsTabContent let-content>
-    <ng-container *ngIf="(resultsLoaded$ | async) === true; else resultsLoading">
-      <ng-container *ngTemplateOutlet="content"></ng-container>
-    </ng-container>
-
-    <ng-template #resultsLoading>
-      <biosimulations-full-page-spinner
-        [containerHasTabs]="true"
-        [containerHasPadding]="true"></biosimulations-full-page-spinner>
-    </ng-template>
-  </ng-template>
-</biosimulations-tab-page>
-
+  </biosimulations-tab-page>
+</div>
 <ng-template #runLoading>
   <biosimulations-full-page-spinner></biosimulations-full-page-spinner>
 </ng-template>
