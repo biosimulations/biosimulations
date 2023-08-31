@@ -126,15 +126,3 @@ mat-option:hover {
   padding: 0.5rem;
   font-weight: 700;
 }
-
-.alert {
-  width: fit-content;
-  background-color: var(--warn-lighter-color);
-  color: var(--warn-color);
-  padding: 6px;
-
-  &:hover {
-    color: var(--primary-darker-color);
-    transition: color 0.5s ease;
-  }
-}
