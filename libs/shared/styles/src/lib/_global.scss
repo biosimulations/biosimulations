@@ -1717,13 +1717,17 @@ mat-option {
 /* MULTIPURPOSE REUSABLE STYLES */
 .multipurpose-flat-button {
   border-radius: 5px;
-  margin-left: auto;
   background-color: var(--accent-darker-color) !important;
   color: white !important;
   font-weight: 700 !important;
 
-  &:not(.rerun) {
-    margin-top: 5rem;
+  &:not(.rerun),
+  &:not(.download) {
+    margin-top: 5rem !important;
+  }
+
+  &:not(.download) {
+    margin-left: auto !important;
   }
 
   &:hover {
@@ -1752,7 +1756,7 @@ mat-option {
     font-size: 24px;
   }
 
-  &:hover {
+  &:hover:not(.sidebar) {
     background-color: var(--accent-darker-color) !important;
     transition: background-color 0.3s ease-in-out;
   }
