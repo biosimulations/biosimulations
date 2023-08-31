@@ -55,14 +55,6 @@ h3 {
   }
 }
 
-biosimulations-structured-simulation-log-element {
-  ::ng-deep {
-    pre.stdout {
-      max-height: 600px;
-    }
-  }
-}
-
 ul.icon-list {
   a {
     color: $dark-primary-text;
@@ -75,4 +67,6 @@ ul.icon-list {
 .simulation-log-parent-container {
   height: 100%;
   width: 100%;
+  margin-top: 3rem;
+  overflow-y: hidden;
 }
