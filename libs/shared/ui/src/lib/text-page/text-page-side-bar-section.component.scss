@@ -22,3 +22,8 @@ biosimulations-text-page-section ::ng-deep a {
     color: var(--accent-color);
   }
 }
+
+.sidebar-card {
+  max-width: 100%;
+  margin-left: -2rem;
+}
