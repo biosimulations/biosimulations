@@ -1,5 +1,44 @@
 # Changelog
 
+## [9.52.1](https://github.com/biosimulations/biosimulations/compare/v9.52.0...v9.52.1) (2023-09-01)
+
+
+### Bug Fixes
+
+* added blank target to dispatch simulators nav button ([4c29e9e](https://github.com/biosimulations/biosimulations/commit/4c29e9ea61e966421142c70bb33b447e730596a5))
+* added top scroll to dispatch submit in platform and dispatch ([c302429](https://github.com/biosimulations/biosimulations/commit/c3024296065d1337a98b8b86545f4d716a0454e4))
+* adjusted class for duplication ([26d1921](https://github.com/biosimulations/biosimulations/commit/26d1921803af8d79a4e5fb5c5ff234d38a30704f))
+* adjusted combinator to prevent duplication ([f34799e](https://github.com/biosimulations/biosimulations/commit/f34799ebdec35ed17e391716de6b776e771952dc))
+* adjusted dispatch simulation view styles ([f068d3f](https://github.com/biosimulations/biosimulations/commit/f068d3fbeabcb32701d633d6cff1cfb44318345f))
+* adjusted layout of view and tab page styles ([0efef0f](https://github.com/biosimulations/biosimulations/commit/0efef0f44acdecaf8bd55a73c74a9268e61c0f7e))
+* adjusted simulation plot select view ui ([9a7873d](https://github.com/biosimulations/biosimulations/commit/9a7873dc4a20c9950a0715ee6a1ddc85ccc05d18))
+* adjusted styles in overview and sim view ([e4eb3bb](https://github.com/biosimulations/biosimulations/commit/e4eb3bba8d15969a2969938cbad1a36d4c4466b7))
+* adjusted tab page margins ([9b65101](https://github.com/biosimulations/biosimulations/commit/9b65101881221179c119b5ed0647f2235e14b001))
+* adjustment to paging form component styles ([b28ecb3](https://github.com/biosimulations/biosimulations/commit/b28ecb34bd72904317702212aaec19b7a45caa32))
+* adjustment to run view styles ([d0bc5e2](https://github.com/biosimulations/biosimulations/commit/d0bc5e286107d2e816fe21f51b373be0514bce3e))
+* adjustment to tab page view and global styles ([cf9bc6e](https://github.com/biosimulations/biosimulations/commit/cf9bc6e3a49b21505d8f4010d65aeb6a7aa7c19b))
+* adjustment to utils styles ([de13b55](https://github.com/biosimulations/biosimulations/commit/de13b5545e15d59299792d77ef284904d7182cb1))
+* adjustment to view files component ([8042175](https://github.com/biosimulations/biosimulations/commit/8042175b95004360f7dbde9e2535842ebf9496e7))
+* adjustments to global and shared component styles ([f011d1e](https://github.com/biosimulations/biosimulations/commit/f011d1ef9541e2fb0cc4914fced438615c8b7038))
+* adjustments to shared page component ([b51d9f1](https://github.com/biosimulations/biosimulations/commit/b51d9f133903d10190f2c0e13c55f54a0879042b))
+* adjustments to simulation log component ([b64607b](https://github.com/biosimulations/biosimulations/commit/b64607b11eaf147d0f8f681e64d5353b231e7e91))
+* adjustments to simulation log layout ([9996f9b](https://github.com/biosimulations/biosimulations/commit/9996f9b76c9b142ad300642801be7ac09e84de9f))
+* adjustments to text page sidebar sections and children ([959f994](https://github.com/biosimulations/biosimulations/commit/959f994a3546d7257ce9519b612fb34850d77c3b))
+* continuity styling for platform dispatch ([5279fcb](https://github.com/biosimulations/biosimulations/commit/5279fcb6eb2d3eade173508ffdbbb72b0989c4b8))
+* continuity styling for platform dispatch component ([bb5f252](https://github.com/biosimulations/biosimulations/commit/bb5f25241b8d1c6369d34c9bc0bed872b4d1d5a3))
+* continuity styling in platform simulation log component ([8569f85](https://github.com/biosimulations/biosimulations/commit/8569f856927b9c11a0f02671a4fb6df00d06eaaa))
+* created global multipurpose card header for cross repo continuity ([ed353b1](https://github.com/biosimulations/biosimulations/commit/ed353b1d65de7c8f2501a0ad09e5dc30204c06fd))
+* implemented mat-tab heading icons in platform ([93c8679](https://github.com/biosimulations/biosimulations/commit/93c86796d266a046bee46b6b3ea0feecdf277e84))
+* implemented updated dispatch global styles ([11e4a43](https://github.com/biosimulations/biosimulations/commit/11e4a43e03becfe21825d63007df9ef7095d745a))
+* refactored class encapsulation and deleted unused heading ([4c1630d](https://github.com/biosimulations/biosimulations/commit/4c1630d0d207b0271bfbcfd4b2dbe20da26b34ba))
+* refactored project metadata container width and styles ([9f7e5b5](https://github.com/biosimulations/biosimulations/commit/9f7e5b516eb2dfac3a9e5037181cfbb6a9331f55))
+* removed blank target in platform browse ([a96851e](https://github.com/biosimulations/biosimulations/commit/a96851e5e8edc655e154c1f157105c0f39685fb8))
+* removed comment for code duplication ([a13c727](https://github.com/biosimulations/biosimulations/commit/a13c7276820222391925933948112746759dd47a))
+* removed fit content height in sidebar ([d667ac7](https://github.com/biosimulations/biosimulations/commit/d667ac7e25629becd504dbaaccdfc635a598772a))
+* removed re-run button temporarily ([011c90f](https://github.com/biosimulations/biosimulations/commit/011c90f031714c239ef960f42144920e8bca5396))
+* static positioning of eventual implementation called sidebar ([a9a529d](https://github.com/biosimulations/biosimulations/commit/a9a529d0ff25ed042203084b4133ce4ca0dc681d))
+* substantial simulation run page ui overhaul ([fef30da](https://github.com/biosimulations/biosimulations/commit/fef30da91ae1edafb7af86a09bf4c6be915f9963))
+
 ## [9.52.0](https://github.com/biosimulations/biosimulations/compare/v9.51.6...v9.52.0) (2023-08-30)
 
 
