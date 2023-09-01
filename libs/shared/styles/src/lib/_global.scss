@@ -1789,3 +1789,10 @@ mat-option {
   font-weight: 700 !important;
   background-color: var(--primary-darker-color) !important;
 }
+
+biosimulations-hover-open-menu button:hover {
+  background-color: var(--accent-darker-color) !important;
+  transition: background-color 0.3s ease !important;
+  color: white !important;
+  font-weight: 700;
+}
