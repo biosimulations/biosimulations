@@ -20,24 +20,10 @@ biosimulations-tab-page ::ng-deep .icon-list {
   }
 }
 
-.files {
-  margin-top: 2rem;
-  display: flex;
-  ::ng-deep {
-    h3 .icon-container {
-      display: none;
-    }
-  }
-}
-
 @media screen and (max-width: 959px) {
   .files {
     margin-top: -1rem;
   }
-}
-
-.overview-container {
-  padding-bottom: 5rem;
 }
 
 .spec-container {
@@ -45,5 +31,18 @@ biosimulations-tab-page ::ng-deep .icon-list {
 }
 
 .simulation-run-view-parent-container {
-  min-height: 1800px;
+  min-height: 1550px;
+  height: fit-content !important;
+  margin-left: 6rem;
+  margin-right: 6rem;
+  padding-bottom: 3rem;
+}
+
+.files {
+  display: grid;
+  margin-right: auto;
+  margin-left: auto;
+  font-weight: 600;
+  width: 1000px;
+  margin-top: 3rem;
 }

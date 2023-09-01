@@ -1,4 +1,4 @@
-<div class="simulation-run-view-parent-container">
+<div class="simulation-run-view-parent-container dispatch">
   <biosimulations-tab-page
     *ngIf="(loaded$ | async) === true; else runLoading"
     [selectedTabIndex]="selectedTabIndex"
@@ -64,34 +64,33 @@
     <!-- End project metadata tab-->
 
     <!--Information about files in project and generated from the project-->
-    <biosimulations-tab-page-tab heading="Files" icon="project" urlHashFragment="files">
+    <biosimulations-tab-page-tab heading="Download" icon="project" urlHashFragment="files">
       <ng-container *ngTemplateOutlet="resultsTabContent; context: { $implicit: filesContent }"> </ng-container>
 
       <ng-template #filesContent>
         <div *ngIf="(projectFiles$ | async) && (files$ | async) && (outputs$ | async); else filesError" class="files">
-          <mat-expansion-panel expanded="true" disabled="true">
-            <biosimulations-text-page-content-section
-              heading="Simulation specification (COMBINE/OMEX archive)"
-              *ngIf="projectFiles$ | async as files">
-              <biosimulations-project-files [files]="files" [usesMaster]="false" [usesMetadata]="false">
-              </biosimulations-project-files>
-            </biosimulations-text-page-content-section>
+          <mat-expansion-panel expanded="true" *ngIf="projectFiles$ | async as files">
+            <mat-expansion-panel-header class="multipurpose-card-header panel-header omex">
+              Simulation Specification (COMBINE/OMEX archive)
+            </mat-expansion-panel-header>
+            <biosimulations-project-files [files]="files" [usesMaster]="false" [usesMetadata]="false">
+            </biosimulations-project-files>
           </mat-expansion-panel>
-
-          <mat-expansion-panel expanded="true" disabled="true">
-            <biosimulations-text-page-content-section
-              heading="Contents of simulation specification"
-              *ngIf="files$ | async as files">
-              <biosimulations-project-files [files]="files" [usesMaster]="true" [usesMetadata]="true">
-              </biosimulations-project-files>
-            </biosimulations-text-page-content-section>
+          <div class="multipurpose-divider 0"></div>
+          <mat-expansion-panel expanded="true" *ngIf="projectFiles$ | async as files">
+            <mat-expansion-panel-header class="multipurpose-card-header panel-header spec">
+              Contents of Simulation Specification
+            </mat-expansion-panel-header>
+            <biosimulations-project-files [files]="files" [usesMaster]="true" [usesMetadata]="true">
+            </biosimulations-project-files>
           </mat-expansion-panel>
-
-          <mat-expansion-panel expanded="true" disabled="true">
-            <biosimulations-text-page-content-section heading="Simulation outputs" *ngIf="outputs$ | async as files">
-              <biosimulations-project-files [files]="files" [usesMaster]="false" [usesMetadata]="false">
-              </biosimulations-project-files>
-            </biosimulations-text-page-content-section>
+          <div class="multipurpose-divider 1"></div>
+          <mat-expansion-panel expanded="true" *ngIf="projectFiles$ | async as files">
+            <mat-expansion-panel-header class="multipurpose-card-header panel-header outputs">
+              Simulation Outputs
+            </mat-expansion-panel-header>
+            <biosimulations-project-files [files]="files" [usesMaster]="false" [usesMetadata]="false">
+            </biosimulations-project-files>
           </mat-expansion-panel>
         </div>
 

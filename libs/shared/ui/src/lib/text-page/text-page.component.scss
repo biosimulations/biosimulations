@@ -1,6 +1,10 @@
 .sections-container {
-  margin-top: -2rem;
-  overflow: auto;
+  position: static !important;
+}
+
+.content-container {
+  width: 100%;
+  margin-left: -0.5rem;
 }
 
 @media screen and (max-width: 959px) {
@@ -23,8 +27,4 @@
   .side-bar .sections-container {
     margin-top: 0;
   }
-}
-
-.page-container {
-  padding-top: 3rem;
 }

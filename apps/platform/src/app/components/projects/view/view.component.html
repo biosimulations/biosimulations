@@ -24,24 +24,19 @@
         <mat-card-content class="viz-card-content">
           <!-- Start ReRun Simulation Button -->
           <mat-card-header class="viz-card-header">
-            <mat-card-actions class="rerun-sim-button-container">
-              <button
-                mat-raised-button
-                class="multipurpose-flat-button rerun"
-                (click)="promptReRun()"
-                matTooltip="This feature is currently being developed!">
-                <div style="display: inline-block">
-                  <span>Customize & ReRun Simulation</span>
-                  <biosimulations-icon class="rerun-icon" icon="redo"></biosimulations-icon>
-                </div>
-              </button>
-            </mat-card-actions>
+
           </mat-card-header>
           <!-- End ReRun Simulation Button -->
 
           <mat-tab-group #tabGroup preserveContent="true" [dynamicHeight]="true" [selectedIndex]="selectedTabIndex">
             <!-- Start Visualizations Tab -->
-            <mat-tab class="right-col-tab figures" label="Figures">
+
+            <mat-tab class="right-col-tab figures">
+              <ng-template mat-tab-label>
+                <biosimulations-icon icon="write"></biosimulations-icon>
+                <div style="width: 5px"></div>
+                Figures
+              </ng-template>
               <mat-card class="plots-card">
                 <mat-grid-list
                   *ngFor="let plotVisualization of plotVisualizations$ | async"
@@ -72,7 +67,12 @@
             <!-- End Visualizations Tab -->
 
             <!-- Begin Project files Tab -->
-            <mat-tab class="right-col-tab files" label="Download">
+            <mat-tab class="right-col-tab files">
+              <ng-template mat-tab-label>
+                <biosimulations-icon icon="project"></biosimulations-icon>
+                <div style="width: 5px"></div>
+                Download
+              </ng-template>
               <mat-card class="files-card">
                 <mat-card-content>
                   <!-- OMEX File -->
@@ -135,7 +135,12 @@
             <!-- End Project Files Tab -->
 
             <!-- Begin Project Details Tab -->
-            <mat-tab class="right-col-tab details" label="Details">
+            <mat-tab class="right-col-tab details">
+              <ng-template mat-tab-label>
+                <biosimulations-icon icon="simulation"></biosimulations-icon>
+                <div style="width: 5px"></div>
+                Details
+              </ng-template>
               <mat-card class="details-card">
                 <mat-card-content>
                   <!-- Start Details Display -->
@@ -222,6 +227,18 @@
               </mat-card>
             </mat-tab>
           </mat-tab-group>
+          <!--<div class="rerun-sim-button-container">
+            <button
+              mat-raised-button
+              class="multipurpose-flat-button rerun"
+              (click)="promptReRun()"
+              matTooltip="This feature is currently being developed!">
+              <div style="display: inline-block">
+                <span>Customize & ReRun Simulation</span>
+                <biosimulations-icon class="rerun-icon" icon="redo"></biosimulations-icon>
+              </div>
+            </button>
+          </div>-->
         </mat-card-content>
       </mat-card>
       <!-- End Right Column -->

@@ -160,11 +160,6 @@ biosimulations-tab-page ::ng-deep .icon-list {
   width: 100%;
 }
 
-.rerun-sim-button-container {
-  display: grid;
-  padding-bottom: 6rem;
-}
-
 .rerun-button {
   border-radius: 4px;
   color: var(--primary-darker-color) !important;
@@ -279,4 +274,8 @@ biosimulations-tab-page ::ng-deep .icon-list {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.rerun {
+  margin-top: 0 !important;
 }

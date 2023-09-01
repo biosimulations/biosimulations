@@ -1,8 +1,3 @@
-.button-container {
-  display: flex;
-  justify-content: space-between;
-}
-
 .card-form-section {
   overflow: hidden;
   background-color: white;
@@ -25,27 +20,25 @@
 }
 
 .biosimulations-button {
-  &.submit {
+  &.run,
+  &.back,
+  &.extra {
+    margin-bottom: 1rem !important;
     margin-right: 1rem !important;
     display: flex;
     margin-left: auto;
   }
 
-  &.text {
-    margin-left: 1rem !important;
-  }
-
-  &.submit,
-  &.text {
-    margin-bottom: 1rem !important;
-    background-color: var(--primary-color) !important;
-    font-size: 20px !important;
-    font-weight: 700 !important;
-    color: white !important;
+  &.back {
+    margin-top: 2rem;
   }
 
   &:hover {
-    background-color: var(--tertiary-darker-color) !important;
+    background-color: var(--accent-darker-color) !important;
     transition: background-color 0.5s;
   }
+}
+
+mat-flat-button {
+  font-size: 14px !important;
 }

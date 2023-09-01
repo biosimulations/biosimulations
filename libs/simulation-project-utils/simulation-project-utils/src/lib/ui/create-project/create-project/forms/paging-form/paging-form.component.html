@@ -5,7 +5,7 @@
       <button
         *ngIf="shouldShowBackButton()"
         mat-flat-button
-        class="biosimulations-button text"
+        class="biosimulations-button run back"
         id="multi-step-form-back"
         type="reset"
         (click)="onBackClicked()">
@@ -14,7 +14,7 @@
       <button
         *ngIf="shouldShowNextButton()"
         mat-flat-button
-        class="biosimulations-button submit"
+        class="biosimulations-button run next"
         id="multi-step-form-next"
         type="submit"
         (click)="onNextClicked()">
@@ -24,7 +24,7 @@
         <ng-container *ngFor="let extraButton of currentExtraButtons">
           <button
             mat-flat-button
-            class="biosimulations-button submit"
+            class="biosimulations-button run extra"
             type="submit"
             (click)="onExtraButtonClicked(extraButton)">
             {{ extraButton.label }}

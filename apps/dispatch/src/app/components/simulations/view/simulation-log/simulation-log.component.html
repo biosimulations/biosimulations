@@ -2,8 +2,6 @@
   <biosimulations-text-page
     contentsHeading=""
     [padded]="false"
-    alwaysFixed="calc(64px + 32px + 32px + 2rem)"
-    [tocScrollSectionScrollOffset]="128"
     *ngIf="structuredLogLevel !== undefined"
     [compact]="structuredLogLevel >= StructuredLogLevel.SedDocument">
     <ng-container id="sideBar" [ngSwitch]="structuredLogLevel">
@@ -218,9 +216,9 @@
         <ul class="icon-list">
           <li>
             <button
-              mat-icon-button
-              class="biosimulations-button"
-              title="Download log"
+              mat-flat-button
+              class="multipurpose-flat-button download"
+              matTooltip="Download Structured Log"
               (click)="downloadStructuredLog()"
               [disabled]="structuredLog === undefined">
               <biosimulations-icon icon="download"></biosimulations-icon>
@@ -228,7 +226,7 @@
             </button>
           </li>
           <li>
-            <button mat-icon-button class="biosimulations-button" title="Download log" (click)="downloadRawLog()">
+            <button mat-flat-button class="multipurpose-flat-button download" matTooltip="Download Combined Stdout/Stderr" (click)="downloadRawLog()">
               <biosimulations-icon icon="download"></biosimulations-icon>
               Combined standard output and error
             </button>
@@ -237,6 +235,7 @@
       </biosimulations-text-page-side-bar-section>
     </ng-container>
 
+    <!-- Begin Main Content Structured Logs -->
     <ng-container id="content" [ngSwitch]="structuredLogLevel">
       <ng-container *ngSwitchCase="StructuredLogLevel.None">
         <h3 id="section=raw" class="top-margin">Simulation run</h3>

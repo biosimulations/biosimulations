@@ -1,4 +1,3 @@
-@use '@angular/material' as mat;
 @import 'biosimulations-colors';
 
 biosimulations-text-page-side-bar-section ::ng-deep {
@@ -15,11 +14,11 @@ biosimulations-text-page-side-bar-section ::ng-deep {
     }
 
     &:hover {
-      color: mat.get-color-from-palette($theme-primary);
+      color: var(--primary-color);
     }
 
     &:active {
-      color: mat.get-color-from-palette($theme-primary, darker);
+      color: var(--primary-darker-color);
     }
 
     &.mat-button-disabled {
@@ -29,14 +28,15 @@ biosimulations-text-page-side-bar-section ::ng-deep {
 }
 
 h3 {
-  color: $dark-primary-text;
-  background: $light-bg-darker-10;
+  color: white;
+  background: var(--quaternary-darker-color);
+  width: fit-content;
+  padding: 0.25rem;
+  font-size: 16px;
 
   margin-block-start: 0;
   margin-block-end: 0;
   margin-bottom: 0.5rem;
-
-  padding: 0 0.5rem;
   border-radius: 4px;
 
   &:not(:first-child),
@@ -56,19 +56,30 @@ h3 {
   }
 }
 
-biosimulations-structured-simulation-log-element {
-  ::ng-deep {
-    pre.stdout {
-      max-height: 600px;
-    }
-  }
-}
-
 ul.icon-list {
   a {
     color: $dark-primary-text;
     &:hover {
-      color: mat.get-color-from-palette($theme-primary);
+      color: var(--primary-color);
     }
   }
+}
+
+.icon-list li {
+  align-items: center;
+}
+
+.simulation-log-parent-container {
+  height: 100%;
+  width: 100%;
+  overflow-y: hidden;
+  margin-top: 1rem;
+}
+
+.biosimulations-button {
+  font-size: 14px !important;
+}
+
+li button {
+  margin-top: 1rem !important;
 }

@@ -5,19 +5,19 @@ $PRIMARY: var(--primary-darker-color) !important;
 $ACCENT: var(--accent-darker-color) !important;
 
 .metadata {
-  overflow: hidden;
-  .thumbnails-column {
-    display: flex;
-    flex-direction: column;
-    height: auto;
+  overflow: auto;
+  max-width: 1000px;
 
-    .attributes-column {
-      display: flex;
-      height: 100%;
-      width: 100%;
-      flex-direction: row;
-      align-items: normal;
-    }
+  .thumbnails-column {
+    height: auto;
+  }
+
+  .attributes-column {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: row;
+    align-items: normal;
   }
 
   .metadata-column {

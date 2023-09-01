@@ -12,69 +12,53 @@
 
 button {
   float: right;
-  background-color: var(--primary-color);
-  color: white;
-  font-weight: 700;
 }
 
 .card-form-section {
+  height: 100%;
   padding-bottom: 1rem;
   padding-right: 1rem;
   background-color: white;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
-.card-form-section-title {
-  background-color: var(--accent-color);
-  color: white;
-  width: 100%;
-  padding: 0.5rem;
-  font-weight: 700;
+/*.card-form-section-title {
+  background-color: var(--primary-color);
+}*/
 
-  &:hover {
-    color: var(--quaternary-darker-color);
-    transition: color 0.2s ease;
-    transition-delay: 0.8s;
+.input-group {
+  height: 100%;
+  padding-top: 3rem;
+}
+
+.resources {
+  input {
+    padding-top: 3rem;
+  }
+}
+
+.card-form-field {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+
+  &:first-child {
+    margin-left: 1rem;
+  }
+
+  &:active {
+    height: fit-content;
   }
 }
 
 .card-form-section,
-.card-form-section-title {
-  height: 100%;
+mat-option {
+  background-color: white !important;
 }
 
-.input-group {
-  margin-left: 1rem;
-}
-
-.input-group,
-.resources input {
-  padding-top: 2rem;
-}
-
-.input-group,
-.card-form-field:active {
-  height: fit-content;
-}
-
-.card-form-field {
-  padding-left: 1rem;
-
-  span {
-    padding-right: 1rem;
-  }
-}
-
-.alert {
-  width: fit-content;
-  background-color: var(--warn-lighter-color);
-  color: var(--warn-color);
-  padding: 6px;
-
-  &:hover {
-    transform: scale(1.025);
-    transition: transform 0.1s ease-in-out;
-  }
+mat-option:hover {
+  background-color: var(--accent-darker-color) !important;
+  color: white;
 }
 
 .message {

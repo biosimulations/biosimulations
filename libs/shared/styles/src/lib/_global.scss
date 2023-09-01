@@ -359,7 +359,7 @@ biosimulations-root {
     biosimulations-icon {
       font-size: 24px;
       margin-right: 0.5rem;
-      color: rgba(0, 0, 0, 0.7);
+      color: white;
       line-height: 0;
     }
   }
@@ -475,7 +475,8 @@ biosimulations-root {
 
 .form-section {
   border-radius: 4px;
-  border: 1px solid rgb(0, 0, 0, 0.42);
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
 
   &:not(:last-child) {
     margin-bottom: 2rem;
@@ -483,9 +484,8 @@ biosimulations-root {
 
   .form-section-head {
     padding: 0.4em;
-    background-color: $light-bg-darker-10;
+    background-color: var(--primary-darker-color) !important;
     height: calc(41.5px - 2 * 0.4rem);
-    border-bottom: 1px solid rgb(0, 0, 0, 0.42);
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
     display: flex;
@@ -1505,19 +1505,6 @@ sub {
   }
 }
 
-.alert {
-  width: fit-content;
-  background-color: var(--warn-lighter-color);
-  color: var(--warn-color);
-  padding: 6px;
-  border-radius: 4px;
-
-  &:hover {
-    color: var(--primary-darker-color);
-    transition: color 0.5s ease;
-  }
-}
-
 /* transitions */
 .enter-from-right {
   transition: width ease-in-out 1s;
@@ -1682,12 +1669,12 @@ mat-option {
 
 .biosimulations-button {
   &.run {
-    background-color: var(--primary-color) !important;
+    background-color: var(--tertiary-darker-color) !important;
     color: white !important;
     font-weight: 700 !important;
 
     &:hover {
-      background-color: var(--tertiary-darker-color) !important;
+      background-color: var(--accent-darker-color) !important;
       transition: background-color 0.5s;
     }
   }
@@ -1714,19 +1701,91 @@ mat-option {
   color: white !important;
 }
 
+/* MULTIPURPOSE REUSABLE STYLES */
 .multipurpose-flat-button {
   border-radius: 5px;
-  margin-left: auto;
   background-color: var(--accent-darker-color) !important;
   color: white !important;
   font-weight: 700 !important;
 
-  &:not(.rerun) {
-    margin-top: 5rem;
+  &:not(.rerun),
+  &:not(.download) {
+    margin-top: 5rem !important;
+  }
+
+  &:not(.download) {
+    margin-left: auto !important;
   }
 
   &:hover {
     transition: background-color 0.3s ease !important;
     background-color: var(--tertiary-darker-color) !important;
   }
+}
+
+.multipurpose-card-header {
+  background-color: var(--primary-darker-color) !important;
+  color: white;
+  height: fit-content !important;
+  width: auto !important;
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
+  font-size: medium;
+  border: 2px solid inherit;
+  transition: background-color 0.1s ease-in-out;
+  border-radius: 3px;
+
+  &.sim-run {
+    background-color: var(--tertiary-darker-color) !important;
+  }
+
+  &:not(.panel-header) {
+    border-radius: 4px 4px 0 0 !important;
+  }
+
+  &.project {
+    font-size: 24px;
+  }
+
+  &:hover:not(.sidebar):not(.sim-run) {
+    background-color: var(--accent-darker-color) !important;
+    transition: background-color 0.3s ease-in-out;
+  }
+}
+
+.multipurpose-divider {
+  width: 100% !important;
+  height: 30px !important;
+}
+
+.alert {
+  width: fit-content;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: 14.5px;
+
+  &::before {
+    content: 'PLEASE NOTE: ';
+    font-style: italic;
+    color: var(--warn-color);
+    padding-right: 3px;
+  }
+
+  &:hover {
+    transition: font-weight 0.2s ease, color 0.2s;
+  }
+
+  &:hover,
+  &::before {
+    font-weight: 700;
+  }
+}
+
+.card-form-section-title {
+  color: white !important;
+  height: 100% !important;
+  width: 100% !important;
+  padding: 0.5rem !important;
+  font-weight: 700 !important;
+  background-color: var(--primary-darker-color) !important;
 }

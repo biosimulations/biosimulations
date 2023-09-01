@@ -217,8 +217,8 @@
       <ul class="icon-list">
         <li>
           <button
-            mat-icon-button
-            class="biosimulations-button"
+            mat-flat-button
+            class="multipurpose-flat-button"
             title="Download log"
             (click)="downloadStructuredLog()"
             [disabled]="structuredLog === undefined">
@@ -227,7 +227,7 @@
           </button>
         </li>
         <li>
-          <button mat-icon-button class="biosimulations-button" title="Download log" (click)="downloadRawLog()">
+          <button mat-flat-button class="multipurpose-flat-button" title="Download log" (click)="downloadRawLog()">
             <biosimulations-icon icon="download"></biosimulations-icon>
             Combined standard output and error
           </button>

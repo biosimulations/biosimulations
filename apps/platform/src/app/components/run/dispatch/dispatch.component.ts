@@ -275,6 +275,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
       ),
     );
     this.subscriptions.push(sub);
+    window.scrollTo(0, 0);
   }
 
   // Algorithms getters
