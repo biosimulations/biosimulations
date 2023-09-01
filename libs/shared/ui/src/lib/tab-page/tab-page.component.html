@@ -1,7 +1,12 @@
 <biosimulations-full-page-spinner *ngIf="loading"> </biosimulations-full-page-spinner>
 
 <div [ngClass]="{ hidden: loading }" class="tab-page-container">
-  <mat-tab-group #tabGroup preserveContent="true" [dynamicHeight]="true" [selectedIndex]="selectedTabIndex">
+  <mat-tab-group
+    #tabGroup
+    preserveContent="true"
+    [dynamicHeight]="true"
+    [(selectedIndex)]="selectedTabIndex"
+    (selectedTabChange)="tabChanged($event)">
     <ng-content></ng-content>
   </mat-tab-group>
 </div>
