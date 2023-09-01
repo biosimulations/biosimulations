@@ -5,7 +5,7 @@
     (selectedTabChange)="selectedTabChange($event)">
     <!-- Metadata about the entire project (COMBINE/OMEX archive) -->
     <biosimulations-tab-page-tab heading="Simulation specification" icon="model" urlHashFragment="metadata">
-      <div class="spec-container">
+      <div class="spec-container-platform">
         <ng-container *ngTemplateOutlet="resultsTabContent; context: { $implicit: metadataContent }"> </ng-container>
         <ng-template #metadataContent>
           <div class="metadata-container">
