@@ -28,7 +28,7 @@
 
           <mat-tab-group #tabGroup preserveContent="true" [dynamicHeight]="true" [selectedIndex]="selectedTabIndex">
             <!-- Start Visualizations Tab -->
-
+            <!-- FOR FUTURE IMPLEMENTATIONS: cdkdrag of plot position
             <mat-tab class="right-col-tab figures">
               <ng-template mat-tab-label>
                 <biosimulations-icon icon="write"></biosimulations-icon>
@@ -52,6 +52,35 @@
                     </mat-grid-tile-header>
                     <div class="plotparent">
                       <div class="figure-card-placeholder" *cdkDragPlaceholder></div>
+                      <biosimulations-project-visualization
+                        [visualization]="plotVisualization"
+                        [plotTitle]="plotVisualization.name"
+                        [projectTitle]="projectMetadata.title">
+                      </biosimulations-project-visualization>
+                    </div>
+                  </mat-grid-tile>
+                </mat-grid-list>
+              </mat-card>
+            </mat-tab> -->
+            <mat-tab class="right-col-tab figures">
+              <ng-template mat-tab-label>
+                <biosimulations-icon icon="write"></biosimulations-icon>
+                <div style="width: 5px"></div>
+                Figures
+              </ng-template>
+              <mat-card class="plots-card">
+                <mat-grid-list
+                  *ngFor="let plotVisualization of plotVisualizations$ | async"
+                  cols="1"
+                  rowHeight="525px"
+                  gutterSize="20">
+                  <mat-grid-tile class="figure-card">
+                    <mat-grid-tile-header
+                      class="figure-card-header"
+                      style="background-color: #2196f3; height: 6%">
+                      {{ plotVisualization.name }}
+                    </mat-grid-tile-header>
+                    <div class="plotparent">
                       <biosimulations-project-visualization
                         [visualization]="plotVisualization"
                         [plotTitle]="plotVisualization.name"
