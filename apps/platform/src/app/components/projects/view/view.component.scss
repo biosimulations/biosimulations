@@ -65,6 +65,7 @@
 .display-data {
   flex-direction: row;
   font-family: 'Roboto', sans-serif;
+  margin-top: 3rem;
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -278,4 +279,10 @@ biosimulations-tab-page ::ng-deep .icon-list {
 
 .rerun {
   margin-top: 0 !important;
+}
+
+.figure-card,
+.files-card,
+.details-card {
+  margin-top: 2rem;
 }
