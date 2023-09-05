@@ -152,7 +152,7 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy, O
   }
 
   private setLegendLayout(
-    x = 0.5,
+    x = 4.5,
     y = 1.5,
     orientation = 'v',
     traceorder = 'normal',
