@@ -1,5 +1,21 @@
 # Changelog
 
+## [9.52.2](https://github.com/biosimulations/biosimulations/compare/v9.52.1...v9.52.2) (2023-09-05)
+
+
+### Bug Fixes
+
+* adjusted browse simulations table styles ([04e42bb](https://github.com/biosimulations/biosimulations/commit/04e42bb5514b3673bbe6791824e21950587f2a27))
+* adjusted details expansion panel order and pre opened rendering ([192373d](https://github.com/biosimulations/biosimulations/commit/192373d5b16729ba6958c1c091e514992fb7399f))
+* adjusted legend location ([4e32ea1](https://github.com/biosimulations/biosimulations/commit/4e32ea128f9fb931d6a5152e26b77001f78bab27))
+* adjusted top margin of right col card in platform view ([a4d86f5](https://github.com/biosimulations/biosimulations/commit/a4d86f55637c6e42a19680bab75be4b5269dcd5e))
+* adjusted view plot legend and plot layout ([002e89a](https://github.com/biosimulations/biosimulations/commit/002e89a758f8e93a4bd32b2a134bdb2ca08b6068))
+* continuity styling ([fa02f0c](https://github.com/biosimulations/biosimulations/commit/fa02f0c6e881212fa0c6c71acacf5a0494ecc739))
+* implementation of two-way event and property binding for fragments ([ecd2a6b](https://github.com/biosimulations/biosimulations/commit/ecd2a6b7af8fcdcef0ba2e63bcdf1625929350eb))
+* removed fully unused drag implementation ([5b00e89](https://github.com/biosimulations/biosimulations/commit/5b00e89a6928933012b09a2d0e05e3f5652d9276))
+* updated app footer heading color ([31dcf16](https://github.com/biosimulations/biosimulations/commit/31dcf16716a09412db729cdc044abb4f81cbc6ec))
+* updated color of form steps card header ([4f1d756](https://github.com/biosimulations/biosimulations/commit/4f1d756172643b35ac37fe6e4583dfffd6a85641))
+
 ## [9.52.1](https://github.com/biosimulations/biosimulations/compare/v9.52.0...v9.52.1) (2023-09-01)
 
 
