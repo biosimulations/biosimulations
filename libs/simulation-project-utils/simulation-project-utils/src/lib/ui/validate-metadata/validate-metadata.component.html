@@ -1,197 +1,187 @@
 <div class="form-parent-container validate-metadata">
   <biosimulations-page heading="Validate metadata (OMEX Metadata files)">
+    <form [formGroup]="formGroup" (ngSubmit)="onFormSubmit()">
+      <div class="form-section">
+        <div class="form-section-head">
+          <div class="mat-form-field-prefix">
+            <biosimulations-icon icon="browse"></biosimulations-icon>
+          </div>
+          <div class="form-section-head-title-subtitle">
+            <div class="form-section-title">Metadata (OMEX Metadata file)*</div>
+            <div class="form-section-subtitle">Select a local file or enter a URL for an OMEX Metadata file</div>
+          </div>
+        </div>
+        <div class="form-section-body">
+          <div class="form-field-group">
+            <div class="columns two-columns">
+              <mat-form-field appearance="fill">
+                <biosimulations-icon icon="location" matPrefix></biosimulations-icon>
+                <mat-label>Select a method for providing metadata (OMEX Metadata file)</mat-label>
+                <mat-select required formControlName="submitMethod" (ngModelChange)="changeSubmitMethod()">
+                  <mat-option value="file">Upload a local file</mat-option>
+                  <mat-option value="url">Enter a URL for a file</mat-option>
+                </mat-select>
+              </mat-form-field>
 
-        <form [formGroup]="formGroup" (ngSubmit)="onFormSubmit()">
-          <div class="form-section">
-            <div class="form-section-head">
-              <div class="mat-form-field-prefix">
-                <biosimulations-icon icon="browse"></biosimulations-icon>
-              </div>
-              <div class="form-section-head-title-subtitle">
-                <div class="form-section-title">Metadata (OMEX Metadata file)*</div>
-                <div class="form-section-subtitle">Select a local file or enter a URL for an OMEX Metadata file</div>
-              </div>
+              <mat-form-field appearance="fill" *ngIf="formGroup.value.submitMethod === 'file'">
+                <biosimulations-icon icon="file" matPrefix></biosimulations-icon>
+                <mat-label>Select an OMEX Metadata file</mat-label>
+                <biosimulations-ngx-mat-file-input
+                  formControlName="metadataFile"
+                  accept=".rdf,.xhtml,.xht,.xml,.html,.htm.nq,.nt,.ttl,application/rdf+xml,application/xhtml+xml,application/n-quads,application/n-triples,text/turtle"
+                  [multiple]="false"
+                  [required]="true"></biosimulations-ngx-mat-file-input>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" *ngIf="formGroup.value.submitMethod === 'url'">
+                <biosimulations-icon icon="url" matPrefix></biosimulations-icon>
+                <mat-label>Enter a URL for an OMEX Metadata file</mat-label>
+                <input [required]="true" matInput formControlName="metadataUrl" [placeholder]="exampleMetadataUrl" />
+              </mat-form-field>
             </div>
-            <div class="form-section-body">
-              <div class="form-field-group">
-                <div class="columns two-columns">
-                  <mat-form-field appearance="fill">
-                    <biosimulations-icon icon="location" matPrefix></biosimulations-icon>
-                    <mat-label>Select a method for providing metadata (OMEX Metadata file)</mat-label>
-                    <mat-select required formControlName="submitMethod" (ngModelChange)="changeSubmitMethod()">
-                      <mat-option value="file">Upload a local file</mat-option>
-                      <mat-option value="url">Enter a URL for a file</mat-option>
-                    </mat-select>
-                  </mat-form-field>
 
-                  <mat-form-field appearance="fill" *ngIf="formGroup.value.submitMethod === 'file'">
-                    <biosimulations-icon icon="file" matPrefix></biosimulations-icon>
-                    <mat-label>Select an OMEX Metadata file</mat-label>
-                    <biosimulations-ngx-mat-file-input
-                      formControlName="metadataFile"
-                      accept=".rdf,.xhtml,.xht,.xml,.html,.htm.nq,.nt,.ttl,application/rdf+xml,application/xhtml+xml,application/n-quads,application/n-triples,text/turtle"
-                      [multiple]="false"
-                      [required]="true"></biosimulations-ngx-mat-file-input>
-                  </mat-form-field>
+            <mat-hint>
+              <p>
+                Select a method for providing an OMEX Metadata
+                <a href="https://sys-bio.github.io/libOmexMeta/" rel="noopener" target="_blank"
+                  ><biosimulations-icon icon="link"></biosimulations-icon
+                ></a>
+                file. Files can either be uploaded from your local computer or loaded from a publicly-accessible URL.
+              </p>
 
-                  <mat-form-field appearance="fill" *ngIf="formGroup.value.submitMethod === 'url'">
-                    <biosimulations-icon icon="url" matPrefix></biosimulations-icon>
-                    <mat-label>Enter a URL for an OMEX Metadata file</mat-label>
-                    <input
-                      [required]="true"
-                      matInput
-                      formControlName="metadataUrl"
-                      [placeholder]="exampleMetadataUrl" />
-                  </mat-form-field>
-                </div>
+              <p>
+                Several example OMEX Metadata files are available from the BioSimulators test suite
+                <a [href]="exampleMetadatasUrl" rel="noopener" target="example-projects"
+                  ><biosimulations-icon icon="link"></biosimulations-icon></a
+                >.
+              </p>
 
+              <p class="alert">
+                Although metadata can be described across multiple OMEX Metadata files, this form is limited to
+                validating a single OMEX Metadata file. As a result, individual files which only contain part of the
+                metadata about a COMBINE/OMEX archive may fail this validation when not validated together with
+                additional metadata files that together meet BioSimulations' minimal metadata conventions. In contrast,
+                the validation of simulation projects, evaluates BioSimulations' minimal metadata conventions
+                considering metadata in all OMEX Metadata files in the COMBINE/OMEX archive for the project. Click
+                <a [routerLink]="['..', 'validate-project']">here</a> to holistically validate mutliple OMEX Metadata
+                files in a COMBINE/OMEX archive.
+              </p>
+
+              <p class="alert">
+                This form cannot validate thumbnail images described in OMEX Metadata files. More comprehensive
+                validation, including of linked image files, is available through the validation of simulation projects.
+                Click
+                <a [routerLink]="['..', 'validate-project']">here</a> to more comprehensively validate OMEX Metadata
+                files.
+              </p>
+
+              <p class="alert">Uploaded files are limited to 64 MB. Files up to 1 GB can be submitted via URLs.</p>
+            </mat-hint>
+            <mat-error
+              *ngIf="(submitPushed || metadataFileControl.touched) && formGroup.hasError('required', 'metadataFile')"
+              >Please select an OMEX Metadata file.</mat-error
+            >
+            <mat-error
+              *ngIf="(submitPushed || metadataFileControl.touched) && formGroup.hasError('maxSize', 'metadataFile')"
+              >Currently, OMEX Metadata file uploads are limited to 256 MB. Larger files must be validated via
+              URLs.</mat-error
+            >
+            <mat-error *ngIf="(submitPushed || metadataUrlControl.touched) && formGroup.hasError('url', 'metadataUrl')"
+              >Please enter a URL for a OMEX Metadata files.</mat-error
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-head">
+          <div class="mat-form-field-prefix">
+            <biosimulations-icon icon="format"></biosimulations-icon>
+          </div>
+          <div class="form-section-head-title-subtitle">
+            <div class="form-section-title">Format and minimum information convention</div>
+            <div class="form-section-subtitle">
+              Indicate the format of the OMEX Metadata
+              <a href="https://sys-bio.github.io/libOmexMeta/"
+                ><biosimulations-icon icon="link"></biosimulations-icon
+              ></a>
+              file and the information convention that should be used to validate it.
+            </div>
+          </div>
+        </div>
+        <div class="form-section-body">
+          <div class="form-field-group">
+            <div class="columns two-columns">
+              <mat-form-field appearance="fill">
+                <biosimulations-icon icon="format" matPrefix></biosimulations-icon>
+                <mat-label>Select the format of the OMEX Metadata file</mat-label>
+                <mat-select required formControlName="omexMetadataFormat">
+                  <mat-option *ngFor="let omexMetadataFormat of omexMetadataFormats" [value]="omexMetadataFormat">{{
+                    omexMetadataFormat
+                  }}</mat-option>
+                </mat-select>
                 <mat-hint>
-                  <p>
-                    Select a method for providing an OMEX Metadata
-                    <a href="https://sys-bio.github.io/libOmexMeta/" rel="noopener" target="_blank"
+                  <p>Select the format of the OMEX Metadata file.</p>
+
+                  <p class="alert">
+                    <strong>NOTE:</strong>
+                    The RDF-XML format is currently required to publish projects to BioSimulations.
+                  </p>
+                </mat-hint>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill">
+                <biosimulations-icon icon="review" matPrefix></biosimulations-icon>
+                <mat-label
+                  >Select a minimum information convention to use to validate the metadata in the archive</mat-label
+                >
+                <mat-select required formControlName="omexMetadataSchema">
+                  <mat-option
+                    *ngFor="let omexMetadataSchema of omexMetadataSchemas"
+                    [value]="omexMetadataSchema.value"
+                    >{{ omexMetadataSchema.label }}</mat-option
+                  >
+                </mat-select>
+                <mat-hint>
+                  <p>Select a minimum information convention to use to validate the OMEX Metadata file.</p>
+
+                  <p class="alert">
+                    <strong>NOTE: </strong>The BioSimulations convention
+                    <a
+                      href="https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/"
+                      target="biosimulations-docs"
                       ><biosimulations-icon icon="link"></biosimulations-icon
                     ></a>
-                    file. Files can either be uploaded from your local computer or loaded from a publicly-accessible
-                    URL.
+                    is required to publish projects to BioSimulations.
                   </p>
-
-                  <p>
-                    Several example OMEX Metadata files are available from the BioSimulators test suite
-                    <a [href]="exampleMetadatasUrl" rel="noopener" target="example-projects"
-                      ><biosimulations-icon icon="link"></biosimulations-icon></a
-                    >.
-                  </p>
-
-                  <p class="alert">
-                    Although metadata can be described across multiple OMEX Metadata files, this form is limited to
-                    validating a single OMEX Metadata file. As a result, individual files which only contain part of the
-                    metadata about a COMBINE/OMEX archive may fail this validation when not validated together with
-                    additional metadata files that together meet BioSimulations' minimal metadata conventions. In
-                    contrast, the validation of simulation projects, evaluates BioSimulations' minimal metadata
-                    conventions considering metadata in all OMEX Metadata files in the COMBINE/OMEX archive for the
-                    project. Click
-                    <a [routerLink]="['..', 'validate-project']">here</a> to holistically validate mutliple OMEX
-                    Metadata files in a COMBINE/OMEX archive.
-                  </p>
-
-                  <p class="alert">
-                    This form cannot validate thumbnail images described in OMEX Metadata files. More comprehensive
-                    validation, including of linked image files, is available through the validation of simulation
-                    projects. Click
-                    <a [routerLink]="['..', 'validate-project']">here</a> to more comprehensively validate OMEX Metadata
-                    files.
-                  </p>
-
-                  <p class="alert">Uploaded files are limited to 64 MB. Files up to 1 GB can be submitted via URLs.</p>
                 </mat-hint>
-                <mat-error
-                  *ngIf="
-                    (submitPushed || metadataFileControl.touched) && formGroup.hasError('required', 'metadataFile')
-                  "
-                  >Please select an OMEX Metadata file.</mat-error
-                >
-                <mat-error
-                  *ngIf="(submitPushed || metadataFileControl.touched) && formGroup.hasError('maxSize', 'metadataFile')"
-                  >Currently, OMEX Metadata file uploads are limited to 256 MB. Larger files must be validated via
-                  URLs.</mat-error
-                >
-                <mat-error
-                  *ngIf="(submitPushed || metadataUrlControl.touched) && formGroup.hasError('url', 'metadataUrl')"
-                  >Please enter a URL for a OMEX Metadata files.</mat-error
-                >
-              </div>
+              </mat-form-field>
             </div>
           </div>
+        </div>
+      </div>
 
-          <div class="form-section">
-            <div class="form-section-head">
-              <div class="mat-form-field-prefix">
-                <biosimulations-icon icon="format"></biosimulations-icon>
-              </div>
-              <div class="form-section-head-title-subtitle">
-                <div class="form-section-title">Format and minimum information convention</div>
-                <div class="form-section-subtitle">
-                  Indicate the format of the OMEX Metadata
-                  <a href="https://sys-bio.github.io/libOmexMeta/"
-                    ><biosimulations-icon icon="link"></biosimulations-icon
-                  ></a>
-                  file and the information convention that should be used to validate it.
-                </div>
-              </div>
-            </div>
-            <div class="form-section-body">
-              <div class="form-field-group">
-                <div class="columns two-columns">
-                  <mat-form-field appearance="fill">
-                    <biosimulations-icon icon="format" matPrefix></biosimulations-icon>
-                    <mat-label>Select the format of the OMEX Metadata file</mat-label>
-                    <mat-select required formControlName="omexMetadataFormat">
-                      <mat-option *ngFor="let omexMetadataFormat of omexMetadataFormats" [value]="omexMetadataFormat">{{
-                        omexMetadataFormat
-                      }}</mat-option>
-                    </mat-select>
-                    <mat-hint>
-                      <p>Select the format of the OMEX Metadata file.</p>
+      <div class="form-button-container">
+        <button mat-flat-button type="submit" class="biosimulations-button text">Validate</button>
+      </div>
 
-                      <p class="alert">
-                        <strong>NOTE:</strong>
-                        The RDF-XML format is currently required to publish projects to BioSimulations.
-                      </p>
-                    </mat-hint>
-                  </mat-form-field>
+      <div class="status-summary" *ngIf="status !== undefined">
+        <div class="valid" *ngIf="status === 'valid'">Your metadata is likely valid!</div>
+        <div class="error" *ngIf="status === 'invalid'">Your metadata is invalid.</div>
+        <div class="warning" *ngIf="status === 'warnings'">Your metadata has warnings.</div>
+      </div>
 
-                  <mat-form-field appearance="fill">
-                    <biosimulations-icon icon="review" matPrefix></biosimulations-icon>
-                    <mat-label
-                      >Select a minimum information convention to use to validate the metadata in the archive</mat-label
-                    >
-                    <mat-select required formControlName="omexMetadataSchema">
-                      <mat-option
-                        *ngFor="let omexMetadataSchema of omexMetadataSchemas"
-                        [value]="omexMetadataSchema.value"
-                        >{{ omexMetadataSchema.label }}</mat-option
-                      >
-                    </mat-select>
-                    <mat-hint>
-                      <p>Select a minimum information convention to use to validate the OMEX Metadata file.</p>
+      <div class="validation-report" *ngIf="status === 'invalid' || status === 'warnings'">
+        <div class="validation-report-section error" *ngIf="errors">
+          Errors:
+          <ul [innerHTML]="errors"></ul>
+        </div>
 
-                      <p class="alert">
-                        <strong>NOTE: </strong>The BioSimulations convention
-                        <a
-                          href="https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/"
-                          target="biosimulations-docs"
-                          ><biosimulations-icon icon="link"></biosimulations-icon
-                        ></a>
-                        is required to publish projects to BioSimulations.
-                      </p>
-                    </mat-hint>
-                  </mat-form-field>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-button-container">
-            <button mat-flat-button type="submit" class="biosimulations-button text">Validate</button>
-          </div>
-
-          <div class="status-summary" *ngIf="status !== undefined">
-            <div class="valid" *ngIf="status === 'valid'">Your metadata is likely valid!</div>
-            <div class="error" *ngIf="status === 'invalid'">Your metadata is invalid.</div>
-            <div class="warning" *ngIf="status === 'warnings'">Your metadata has warnings.</div>
-          </div>
-
-          <div class="validation-report" *ngIf="status === 'invalid' || status === 'warnings'">
-            <div class="validation-report-section error" *ngIf="errors">
-              Errors:
-              <ul [innerHTML]="errors"></ul>
-            </div>
-
-            <div class="validation-report-section warning" *ngIf="warnings">
-              Warnings:
-              <ul [innerHTML]="warnings"></ul>
-            </div>
-          </div>
-        </form>
+        <div class="validation-report-section warning" *ngIf="warnings">
+          Warnings:
+          <ul [innerHTML]="warnings"></ul>
+        </div>
+      </div>
+    </form>
   </biosimulations-page>
 </div>
