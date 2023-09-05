@@ -38,7 +38,7 @@
         <span [ngSwitch]="column.leftAction" *ngIf="element._cache[column.id].left.icon">
           <ng-template [ngSwitchCase]="'routerLink'">
             <a
-              mat-icon-button
+              mat-flat-button
               class="biosimulations-button primary routerlink"
               *ngIf="element._cache[column.id].left.routerLink as routerLink; else noRouterLink"
               [routerLink]="routerLink"
@@ -54,7 +54,7 @@
 
           <ng-template [ngSwitchCase]="'href'">
             <a
-              mat-icon-button
+              mat-flat-button
               class="biosimulations-button primary"
               *ngIf="element._cache[column.id].left.href as href; noHref"
               [href]="href"
@@ -71,7 +71,7 @@
 
           <ng-template [ngSwitchCase]="'click'">
             <button
-              mat-icon-button
+              mat-flat-button
               class="biosimulations-button primary"
               *ngIf="element._cache[column.id].left.click as click; else noClick"
               (click)="click(element)">
@@ -154,7 +154,7 @@
         <span [ngSwitch]="column.rightAction" *ngIf="element._cache[column.id].right.icon">
           <ng-template [ngSwitchCase]="'routerLink'">
             <a
-              mat-icon-button
+              mat-flat-button
               class="biosimulations-button primary"
               *ngIf="element._cache[column.id].right.routerLink as routerLink; else noRouterLink"
               [routerLink]="routerLink"
@@ -176,7 +176,7 @@
 
           <ng-template [ngSwitchCase]="'href'">
             <a
-              mat-icon-button
+              mat-flat-button
               class="biosimulations-button primary"
               *ngIf="element._cache[column.id].right.href as href; else noHref"
               [href]="href"
@@ -199,7 +199,7 @@
 
           <ng-template [ngSwitchCase]="'click'">
             <button
-              mat-icon-button
+              mat-flat-button
               class="biosimulations-button primary"
               *ngIf="element._cache[column.id].right.click as click; else noClick"
               (click)="click(element)">
