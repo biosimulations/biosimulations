@@ -189,27 +189,38 @@
                         *ngTemplateOutlet="
                           sectionsTemplate;
                           context: {
-                            sections: projectMetadata?.modelSimulation || [],
-                            expanded: panelExpandedStatus['modelSimulation']
+                            sections: projectMetadata?.identifiers || [],
+                            expanded: true
                           }
-                        ">
-                      </ng-container>
-                      <ng-container
-                        *ngTemplateOutlet="sectionsTemplate; context: { sections: simulationRun || [] }"></ng-container>
+                        "></ng-container>
                       <ng-container
                         *ngTemplateOutlet="
                           sectionsTemplate;
                           context: {
-                            sections: projectMetadata?.provenance || [],
-                            expanded: panelExpandedStatus['provenance']
+                            sections: simulationRun || [],
+                            expanded: true
                           }
                         ">
                       </ng-container>
+
                       <ng-container
                         *ngTemplateOutlet="
                           sectionsTemplate;
-                          context: { sections: projectMetadata?.identifiers || [] }
-                        "></ng-container>
+                          context: {
+                            sections: projectMetadata?.modelSimulation || []
+                          }
+                        ">
+                      </ng-container>
+
+                      <ng-container
+                        *ngTemplateOutlet="
+                          sectionsTemplate;
+                          context: {
+                            sections: projectMetadata?.provenance || []
+                          }
+                        ">
+                      </ng-container>
+
                       <!-- End NG Containers -->
                       <!-- Start template for containers -->
                       <ng-template #sectionsTemplate let-sections="sections" let-expanded="expanded">
