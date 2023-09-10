@@ -958,15 +958,15 @@
     "owl:withRestrictions" : [ "_:b237", "_:b238" ]
   }, {
     "@id" : "_:b237",
-    "xsd:minInclusive" : {
-      "@type" : "xsd:double",
-      "@value" : "0.0"
-    }
-  }, {
-    "@id" : "_:b238",
     "xsd:maxInclusive" : {
       "@type" : "xsd:double",
       "@value" : "1.0"
+    }
+  }, {
+    "@id" : "_:b238",
+    "xsd:minInclusive" : {
+      "@type" : "xsd:double",
+      "@value" : "0.0"
     }
   }, {
     "@id" : "_:b239",
