@@ -127,7 +127,7 @@ _pystmptmp*_parsetab.py
 # temporary subprocess files
 temp*.tmp
 
+# misc
 .angular
 biosimulations_cache.sqlite
-
-
+.local-docker/

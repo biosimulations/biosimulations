@@ -11,3 +11,4 @@ makefile
 config/
 secrets/
 dist/
+.local-docker/
