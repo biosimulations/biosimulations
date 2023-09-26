@@ -214,3 +214,12 @@ biosimulations-tab-page ::ng-deep biosimulations-text-page-side-bar-section ::ng
     max-height: calc(100vh - 56px - 32px - 2 * 1rem - 2 * 0.5rem);
   }
 }
+
+.content-section-container {
+  &.run {
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    width: 550px;
+  }
+}
