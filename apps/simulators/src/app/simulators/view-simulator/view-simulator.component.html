@@ -19,37 +19,37 @@
 
                 <table class="icon-list">
                   <tbody>
-                  <tr *ngIf="simulator.authors?.length">
-                    <th><biosimulations-icon icon="user"></biosimulations-icon></th>
-                    <td>
-                      <ul class="comma-separated ampersand-separator">
-                        <li *ngFor="let author of simulator.authors">
-                          {{ author.name
-                          }}<span *ngIf="author.orcidUrl"
-                        >{{ ' '
-                          }}<a [href]="author.orcidUrl" rel="noopener" target="orcid" title="ORCID profile">
+                    <tr *ngIf="simulator.authors?.length">
+                      <th><biosimulations-icon icon="user"></biosimulations-icon></th>
+                      <td>
+                        <ul class="comma-separated ampersand-separator">
+                          <li *ngFor="let author of simulator.authors">
+                            {{ author.name
+                            }}<span *ngIf="author.orcidUrl"
+                              >{{ ' '
+                              }}<a [href]="author.orcidUrl" rel="noopener" target="orcid" title="ORCID profile">
                                 <biosimulations-icon icon="orcid"></biosimulations-icon></a
-                          ></span>
-                        </li>
-                      </ul>
-                    </td>
-                  </tr>
+                            ></span>
+                          </li>
+                        </ul>
+                      </td>
+                    </tr>
                   </tbody>
 
                   <tbody class="citations" *ngIf="simulator.citations?.length">
-                  <tr *ngFor="let citation of simulator.citations">
-                    <th>
-                      <biosimulations-icon icon="tutorial"></biosimulations-icon>
-                    </th>
-                    <td>
+                    <tr *ngFor="let citation of simulator.citations">
+                      <th>
+                        <biosimulations-icon icon="tutorial"></biosimulations-icon>
+                      </th>
+                      <td>
                         <span [innerHTML]="citation.text"></span
                         ><span *ngIf="citation.url"
-                    >{{ ' '
-                      }}<a [href]="citation.url" rel="noopener" target="_blank"
-                      ><biosimulations-icon icon="link"></biosimulations-icon></a
-                      ></span>
-                    </td>
-                  </tr>
+                          >{{ ' '
+                          }}<a [href]="citation.url" rel="noopener" target="_blank"
+                            ><biosimulations-icon icon="link"></biosimulations-icon></a
+                        ></span>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
               </mat-card-content>
