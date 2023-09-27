@@ -13,6 +13,7 @@ $card-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0,
   padding-left: 2rem;
   border: 3px solid inherit;
   border-radius: 4px;
+  display: grid;
 }
 
 .content-container {
@@ -213,4 +214,21 @@ biosimulations-tab-page ::ng-deep biosimulations-text-page-side-bar-section ::ng
   .json {
     max-height: calc(100vh - 56px - 32px - 2 * 1rem - 2 * 0.5rem);
   }
+}
+
+.content-section-container {
+  &.run {
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    width: 550px;
+  }
+}
+
+.validation-test-results {
+  display: grid;
+  max-width: 1000px;
+  padding: 1rem;
+  margin-right: auto;
+  margin-left: auto;
 }

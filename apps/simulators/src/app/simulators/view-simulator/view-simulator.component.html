@@ -1,10 +1,10 @@
-<div class="parent-container" fxGrid fxFlexAlign="column">
+<div class="parent-container">
   <biosimulations-tab-page [loading]="(loading$ | async) || false" [heading]="'About this Simulator'">
     <div class="content-container">
       <!-- Begin Overview Tab -->
       <biosimulations-tab-page-tab heading="Overview" icon="overview">
         <biosimulations-columns *ngIf="simulator | async as simulator">
-          <div class="content-section-container overview">
+          <div class="content-section-container run">
             <!-- Main Content Card-->
             <mat-card class="content-card overview">
               <mat-card-header class="content-card-header overview">
@@ -19,44 +19,41 @@
 
                 <table class="icon-list">
                   <tbody>
-                    <tr *ngIf="simulator.authors?.length">
-                      <th><biosimulations-icon icon="user"></biosimulations-icon></th>
-                      <td>
-                        <ul class="comma-separated ampersand-separator">
-                          <li *ngFor="let author of simulator.authors">
-                            {{ author.name
-                            }}<span *ngIf="author.orcidUrl"
-                              >{{ ' '
-                              }}<a [href]="author.orcidUrl" rel="noopener" target="orcid" title="ORCID profile">
+                  <tr *ngIf="simulator.authors?.length">
+                    <th><biosimulations-icon icon="user"></biosimulations-icon></th>
+                    <td>
+                      <ul class="comma-separated ampersand-separator">
+                        <li *ngFor="let author of simulator.authors">
+                          {{ author.name
+                          }}<span *ngIf="author.orcidUrl"
+                        >{{ ' '
+                          }}<a [href]="author.orcidUrl" rel="noopener" target="orcid" title="ORCID profile">
                                 <biosimulations-icon icon="orcid"></biosimulations-icon></a
-                            ></span>
-                          </li>
-                        </ul>
-                      </td>
-                    </tr>
+                          ></span>
+                        </li>
+                      </ul>
+                    </td>
+                  </tr>
                   </tbody>
 
                   <tbody class="citations" *ngIf="simulator.citations?.length">
-                    <tr *ngFor="let citation of simulator.citations">
-                      <th>
-                        <biosimulations-icon icon="tutorial"></biosimulations-icon>
-                      </th>
-                      <td>
+                  <tr *ngFor="let citation of simulator.citations">
+                    <th>
+                      <biosimulations-icon icon="tutorial"></biosimulations-icon>
+                    </th>
+                    <td>
                         <span [innerHTML]="citation.text"></span
                         ><span *ngIf="citation.url"
-                          >{{ ' '
-                          }}<a [href]="citation.url" rel="noopener" target="_blank"
-                            ><biosimulations-icon icon="link"></biosimulations-icon></a
-                        ></span>
-                      </td>
-                    </tr>
+                    >{{ ' '
+                      }}<a [href]="citation.url" rel="noopener" target="_blank"
+                      ><biosimulations-icon icon="link"></biosimulations-icon></a
+                      ></span>
+                    </td>
+                  </tr>
                   </tbody>
                 </table>
               </mat-card-content>
             </mat-card>
-          </div>
-
-          <div class="content-section-container run">
             <!-- Start Run Card -->
             <mat-card *ngIf="simulator.image && simulator.validated" class="content-card run">
               <mat-card-header class="content-subcard-header run">
@@ -557,7 +554,7 @@
       urlHashFragment="algorithms"
       heading="Algorithms"
       icon="simulator"
-      [partialWidth]="false">
+      [partialWidth]="true">
       <ng-container *ngIf="simulator | async as simulator">
         <ng-container *ngIf="simulator.algorithms | async as algorithms">
           <ng-container *ngIf="algorithms.length > 0; else noAlgorithms">
@@ -966,7 +963,7 @@
     <!-- End Alg Tab -->
 
     <!-- Start Versions tab -->
-    <biosimulations-tab-page-tab urlHashFragment="versions" heading="Versions" icon="version" [partialWidth]="false">
+    <biosimulations-tab-page-tab urlHashFragment="versions" heading="Versions" icon="version" [partialWidth]="true">
       <ng-container *ngIf="simulator | async as simulator">
         <ng-container *ngIf="simulator.versions as versions">
           <mat-card class="versions-table-container">
@@ -998,13 +995,13 @@
       urlHashFragment="validation"
       heading="Validation test results"
       icon="task"
-      [partialWidth]="false">
+      [partialWidth]="true">
       <ng-container *ngIf="simulator | async as simulator">
         <ng-container *ngIf="simulator?.validationTests | async as validationTests; else noValidationTestResults">
-          <div contentsHeading="" alwaysFixed="calc(64px + 32px + 32px + 2rem)">
+          <div contentsHeading="" alwaysFixed="calc(64px + 32px + 32px + 2rem)" class="validation-test-results">
             <ng-container id="sideBar">
               <mat-card>
-                <mat-card-header class="content-subcard-header"> Summary </mat-card-header>
+                <mat-card-header class="content-subcard-header summary"> Summary </mat-card-header>
                 <ul>
                   <li>
                     Test suite version:
@@ -1029,7 +1026,8 @@
                 </ul>
               </mat-card>
 
-              <biosimulations-text-page-side-bar-section heading="More info" fxShow fxHide.lt-md>
+              <mat-card>
+                <mat-card-header class="content-subcard-header more-info"> More info </mat-card-header>
                 <div class="hanging-indent">
                   <a [href]="validationTests.ghIssueUrl" rel="noopener" target="biosimulators-test-suite">
                     <biosimulations-icon icon="link"></biosimulations-icon>
@@ -1051,7 +1049,7 @@
                     Test suite
                   </a>
                 </div>
-              </biosimulations-text-page-side-bar-section>
+              </mat-card>
             </ng-container>
 
             <ng-container id="content">

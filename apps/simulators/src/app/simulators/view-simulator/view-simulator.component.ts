@@ -181,14 +181,14 @@ export class ViewSimulatorComponent implements OnInit {
   public processSimulator(simulator: ViewSimulator): void {
     this.dispatchAppUrl =
       SIMULATORS_APP_ROUTES.dispatchApp +
-      'runs/new' +
+      '/runs/new' +
       '?simulator=' +
       simulator.id +
       '&simulatorVersion=' +
       simulator.version;
     this.dispatchAppRunUrl =
       SIMULATORS_APP_ROUTES.dispatchApp +
-      'runs/new' +
+      '/runs/new' +
       '?simulator=' +
       simulator.id +
       '&simulatorVersion=' +
