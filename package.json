@@ -1,6 +1,6 @@
 {
   "name": "biosimulations",
-  "version": "9.52.2",
+  "version": "9.52.3",
   "license": "MIT",
   "scripts": {
     "ng": "nx",

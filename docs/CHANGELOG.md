@@ -1,5 +1,14 @@
 # Changelog
 
+## [9.52.3](https://github.com/biosimulations/biosimulations/compare/v9.52.2...v9.52.3) (2023-09-27)
+
+
+### Bug Fixes
+
+* adjusted file getter logic in simulators view component ([f75505d](https://github.com/biosimulations/biosimulations/commit/f75505d9f86f74332142fb83c2b952cfad31a98f))
+* adjusted simulator view layout ([ad6dea2](https://github.com/biosimulations/biosimulations/commit/ad6dea21c4c0b77351381a846eada3f827f24579))
+* adjusted validation results tab in simulators view component ([893f83d](https://github.com/biosimulations/biosimulations/commit/893f83df1495df15941dbdfc2ce1cdefd5cdce8b))
+
 ## [9.52.2](https://github.com/biosimulations/biosimulations/compare/v9.52.1...v9.52.2) (2023-09-05)
 
 
