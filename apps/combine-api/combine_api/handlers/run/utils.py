@@ -1,7 +1,5 @@
 # from biosimulators_utils.log.data_model import CombineArchiveLog
 # from biosimulators_utils.report.data_model import SedDocumentResults
-from biosimulators_simularium.converters.data_model import SmoldynDataConverter
-from biosimulators_simularium.archives.data_model import SmoldynCombineArchive
 from combine_api.exceptions import RequestTimeoutException
 import functools
 import importlib
@@ -166,13 +164,7 @@ def use_simulator_api_to_exec_sedml_docs_in_combine_archive(api_name, *args, **k
             *: obj:`dict` in the ``SimulationRunResults`` schema: log
     """
     api = get_simulator_api(api_name)
-    if verify_spatial_simulator(api):
-        archive = SmoldynCombineArchive(rootpath=args[0])
-        converter = SmoldynDataConverter(archive)
-        converter.generate_simularium_file()
-        results, log = api.combine.exec_sedml_docs_in_combine_archive(*args, **kwargs)
-    else:
-        results, log = api.exec_sedml_docs_in_combine_archive(*args, **kwargs)
+    results, log = api.exec_sedml_docs_in_combine_archive(*args, **kwargs)
     if log:
         log = log.to_json()
     return results, log

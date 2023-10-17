@@ -1,6 +1,12 @@
 from combine_api.exceptions import BadRequestException
-from combine_api.utils import get_temp_file, get_temp_dir
-from combine_api.handlers.run.utils import get_simulators, use_simulator_api_to_exec_sedml_docs_in_combine_archive, exec_in_subprocess
+from combine_api.utils import get_temp_file, get_temp_dir, is_spatial_simulator
+from combine_api.handlers.run.utils import (
+    get_simulators,
+    use_simulator_api_to_exec_sedml_docs_in_combine_archive,
+    exec_in_subprocess
+)
+from biosimulators_simularium.converters.data_model import SmoldynDataConverter
+from biosimulators_simularium.archives.data_model import SmoldynCombineArchive
 from biosimulators_utils.config import get_config
 from biosimulators_utils.report.data_model import ReportFormat
 from biosimulators_utils.sedml.data_model import Report, Plot2D, Plot3D
@@ -154,6 +160,12 @@ def handler(body, archiveFile=None):
                                           archive_filename, out_dir,
                                           timeout=TIMEOUT,
                                           config=config)
+
+    # convert to simularium if smoldyn
+    if is_spatial_simulator(simulator['api']):
+        archive = SmoldynCombineArchive(rootpath=out_dir)
+        converter = SmoldynDataConverter(archive)
+        converter.generate_simularium_file()
 
     # transform the results
     if return_type == 'json':
