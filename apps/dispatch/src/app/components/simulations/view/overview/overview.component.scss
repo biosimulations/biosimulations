@@ -49,12 +49,12 @@ mat-card-subtitle {
 
 .rerun-project-button {
   margin-top: 2rem;
-  background-color: var(--tertiary-darker-color);
+  background-color: var(--accent-darker-color);
   color: white;
   font-weight: 700;
 
   &:hover {
-    background-color: var(--accent-darker-color);
+    background-color: var(--tertiary-darker-color);
     transition: background-color 0.3s ease-in-out;
   }
 }
