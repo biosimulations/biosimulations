@@ -3,15 +3,6 @@
     *ngIf="(loaded$ | async) === true; else runLoading"
     [selectedTabIndex]="selectedTabIndex"
     (selectedTabChange)="selectedTabChange($event)">
-    <biosimulations-tab-page-tab heading="Rerun Project" icon="simulation" urlHashFragment="rerun-simulation">
-      <ng-container *ngIf="formattedSimulation$ | async as formattedSimulation">
-        <div class="rerun-button-container">
-          <button (click)="rerunProject(formattedSimulation.id)" mat-flat-button class="rerun-project-button">
-            Re-run Project
-          </button>
-        </div>
-      </ng-container>
-    </biosimulations-tab-page-tab>
     <!-- Metadata about the entire project (COMBINE/OMEX archive) -->
     <biosimulations-tab-page-tab heading="Simulation specification" icon="model" urlHashFragment="metadata">
       <div class="spec-container">
