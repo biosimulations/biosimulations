@@ -38,3 +38,20 @@ mat-card-subtitle {
   font-size: 18px;
   color: var(--quaternary-darker-color);
 }
+
+.rerun-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rerun-project-button {
+  background-color: var(--tertiary-darker-color);
+  color: white;
+  font-weight: 700;
+
+  &:hover {
+    background-color: var(--accent-darker-color);
+    transition: background-color;
+  }
+}

@@ -204,6 +204,10 @@ export class ViewComponent implements OnInit {
     );
   }
 
+  public rerunProject(id: string): void {
+    this.simulationService.rerunProject(id);
+  }
+
   private initSimulationRun(): void {
     this.simulation$ = this.simulationService.getSimulation(this.id).pipe(
       map((simulation: Simulation | UnknownSimulation): Simulation => {
