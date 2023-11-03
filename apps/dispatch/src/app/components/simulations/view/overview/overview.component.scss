@@ -12,11 +12,13 @@ h3 {
 .run-overview-parent-container {
   justify-content: center;
   align-items: center;
-  margin-top: 3rem;
+  margin-top: 50%;
 }
 
 .simulation-run-card {
-  width: 600px;
+  width: 100%;
+  height: fit-content;
+  margin-right: 3rem !important;
 }
 
 .simulation-run-card-header {
@@ -46,12 +48,13 @@ mat-card-subtitle {
 }
 
 .rerun-project-button {
+  margin-top: 2rem;
   background-color: var(--tertiary-darker-color);
   color: white;
   font-weight: 700;
 
   &:hover {
     background-color: var(--accent-darker-color);
-    transition: background-color;
+    transition: background-color 0.3s ease-in-out;
   }
 }

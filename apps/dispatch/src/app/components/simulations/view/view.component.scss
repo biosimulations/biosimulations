@@ -28,6 +28,12 @@ biosimulations-tab-page ::ng-deep .icon-list {
 
 .spec-container {
   margin-top: 3rem;
+  display: flex;
+  justify-content: space-around;
+}
+
+.project-metadata-container {
+  width: 50%;
 }
 
 .simulation-run-view-parent-container {
