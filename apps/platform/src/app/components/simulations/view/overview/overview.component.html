@@ -1,9 +1,12 @@
 <div class="run-overview-parent-container">
   <mat-card class="simulation-run-card">
     <mat-card-header class="multipurpose-card-header sim-run">
-      <mat-card-title> Run #{{ simulation?.id }} </mat-card-title>
+      <mat-card-title> Simulation Run Details </mat-card-title>
       <mat-card-subtitle>
-        {{ simulation?.name }}
+        Name: {{ simulation?.name }}
+      </mat-card-subtitle>
+      <mat-card-subtitle>
+        Id: #{{ simulation?.id }}
       </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
