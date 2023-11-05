@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Simulation, ISimulation, isUnknownSimulation } from '../../datamodel';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { SimulationStatusService } from './simulation-status.service';
@@ -36,6 +37,7 @@ export class SimulationService {
     private storage: Storage,
     private httpClient: HttpClient,
     private simRunHttpService: SimulationRunService,
+    private router: Router,
   ) {
     this.initStorage();
   }
@@ -52,6 +54,23 @@ export class SimulationService {
     }
 
     this.createSimulationsArray();
+  }
+
+  // Add the new rerunProject method
+  public rerunProject(id: string): void {
+    const endpoints = new Endpoints();
+
+    this.httpClient
+      .get<SimulationRun>(endpoints.getSimulationRunEndpoint(true, id))
+      .subscribe((simulationRun: SimulationRun): void => {
+        const queryParams = {
+          projectUrl: endpoints.getSimulationRunDownloadEndpoint(true, id),
+          simulator: simulationRun.simulator,
+          simulatorVersion: simulationRun.simulatorVersion,
+          runName: simulationRun.name + ' (rerun)',
+        };
+        this.router.navigate(['/runs/new'], { queryParams: queryParams });
+      });
   }
 
   private parseDates(simulations: ISimulation[]) {
