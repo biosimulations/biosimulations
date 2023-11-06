@@ -8,63 +8,47 @@
   fxLayoutGap.lt-lg="1rem">
   <!-- Begin thumbnails Display-->
   <div class="thumbnails-column" *ngIf="project" fxFlex fxLayout="column">
-    <!-- Begin summary/text data-->
-    <div *ngIf="project" fxGrid>
-      <!-- Begin Image Container -->
-      <ng-container *ngIf="project?.thumbnails?.length == 1; else noThumbnail">
-        <!-- Case: Has Thumbnail Image -->
-        <mat-card class="image-card">
-          <mat-card-header class="card-header project">
-            {{ project.title }}
-          </mat-card-header>
-          <mat-card-content>
-            <ng-container #thumbnailCard>
-              <div class="image-container">
-                <biosimulations-carousel class="img-carousel" [images]="project.thumbnails"> </biosimulations-carousel>
-              </div>
-            </ng-container>
-          </mat-card-content>
-        </mat-card>
-      </ng-container>
-      <!-- Case: No Thumbnail Image -->
-      <ng-template #noThumbnail>
-        <mat-card class="no-im-msg-card">
-          <mat-card-header>
-            <h2>This simulation profile has no image</h2>
-          </mat-card-header>
-        </mat-card>
-      </ng-template>
-      <!-- End Image Container -->
+    <div *ngIf="project?.thumbnails?.length == 1" fxGrid>
+      <mat-card class="image-card">
+        <mat-card-header class="card-header project">
+          {{ project.title }}
+        </mat-card-header>
+        <mat-card-content>
+          <ng-container #thumbnailCard>
+            <div class="image-container">
+              <biosimulations-carousel class="img-carousel" [images]="project.thumbnails"> </biosimulations-carousel>
+            </div>
+          </ng-container>
+        </mat-card-content>
+      </mat-card>
     </div>
   </div>
   <div class="description-column" *ngIf="project" fxflex fxLayout="column">
-    <div *ngIf="project" fxGrid>
-      <!-- Begin Project Description Container -->
-      <mat-card class="mat-elevation-z1 metadata-card">
-        <mat-card-header class="card-header"> Project Description </mat-card-header>
-        <mat-card-content>
-          <biosimulations-text-page-content-section [iconActionType]="null">
-            <div class="abstract" *ngIf="project.abstract">
-              {{ project.abstract }}
-            </div>
-            <!-- Begin creators/contributers-->
-            <!-- TODO create ORCID people list component -->
-            <ul class="creators comma-separated ampersand-separator" *ngIf="project?.creators?.length">
-              <li *ngFor="let creator of project.creators">
-                {{ creator.label }}{{ creator.uri ? ' ' : ''
-                }}<a [href]="creator.uri" rel="noopener" target="_blank" *ngIf="creator.uri">
-                  <biosimulations-icon [icon]="creator.icon"></biosimulations-icon>
-                </a>
-              </li>
-            </ul>
-            <!-- End creators/contributers -->
-            <!-- description -->
-            <markdown [data]="project.description" class="description" *ngIf="project.description"> </markdown>
-          </biosimulations-text-page-content-section>
-        </mat-card-content>
-      </mat-card>
-      <!-- End Project Description Container -->
-    </div>
+     <!-- Begin Project Description Container -->
+     <mat-card class="mat-elevation-z1 metadata-card">
+       <mat-card-header class="card-header"> Project Description </mat-card-header>
+       <mat-card-content>
+         <biosimulations-text-page-content-section [iconActionType]="null">
+           <div class="abstract" *ngIf="project.abstract">
+             {{ project.abstract }}
+           </div>
+           <!-- Begin creators/contributers-->
+           <!-- TODO create ORCID people list component -->
+           <ul class="creators comma-separated ampersand-separator" *ngIf="project?.creators?.length">
+             <li *ngFor="let creator of project.creators">
+               {{ creator.label }}{{ creator.uri ? ' ' : ''
+               }}<a [href]="creator.uri" rel="noopener" target="_blank" *ngIf="creator.uri">
+                 <biosimulations-icon [icon]="creator.icon"></biosimulations-icon>
+               </a>
+             </li>
+           </ul>
+           <!-- End creators/contributers -->
+           <!-- description -->
+           <markdown [data]="project.description" class="description" *ngIf="project.description"> </markdown>
+         </biosimulations-text-page-content-section>
+       </mat-card-content>
+     </mat-card>
+     <!-- End Project Description Container -->
     <!-- End summary/text data -->
   </div>
   <!-- End thumbnails Display -->
