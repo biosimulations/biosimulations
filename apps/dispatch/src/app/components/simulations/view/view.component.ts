@@ -60,8 +60,8 @@ export class ViewComponent implements OnInit {
 
   public selectedTabIndex = 0;
   public viewVisualizationTabDisabled = true;
-  public selectVisualizationTabIndex = 3;
-  public visualizationTabIndex = 4;
+  public selectVisualizationTabIndex = 2;
+  public visualizationTabIndex = 3;
 
   public constructor(
     private simulationService: SimulationService,

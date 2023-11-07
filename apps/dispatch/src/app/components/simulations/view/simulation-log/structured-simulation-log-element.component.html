@@ -1,64 +1,66 @@
-<biosimulations-text-page-content-section
-  *ngIf="log"
-  [heading]="heading"
-  [class]="['status-section', log.status]"
-  [compact]="compact"
-  [iconActionType]="iconActionType"
-  [first]="first"
-  [last]="last"
-  [scrollToTopOffset]="0">
-  <ng-container *ngIf="algorithmKisaoTerm | async as algorithm">
-    <h4>
-      Executed algorithm: {{ algorithm.name }} (<a [href]="algorithm.url" rel="noopener" target="ontology">{{
-        algorithm.id
-      }}</a
-      >)
-    </h4>
-    <p *ngIf="algorithmKisaoTermDescription && (algorithmKisaoTermDescription | async)">
-      <ng-template ngFor let-fragment [ngForOf]="algorithmKisaoTermDescription | async">
-        <span *ngIf="fragment.type === 'text'; else descriptionLink">
-          {{ fragment.value }}
-        </span>
-        <ng-template #descriptionLink>
-          <a [href]="fragment.value" rel="noopener" target="ontology"
-            ><biosimulations-icon icon="link"></biosimulations-icon
-          ></a>
+<div class="structured-log-parent-container-dispatch">
+  <biosimulations-text-page-content-section
+    *ngIf="log"
+    [heading]="heading"
+    [class]="['status-section', log.status]"
+    [compact]="compact"
+    [iconActionType]="iconActionType"
+    [first]="first"
+    [last]="last"
+    [scrollToTopOffset]="0">
+    <ng-container *ngIf="algorithmKisaoTerm | async as algorithm">
+      <h4>
+        Executed algorithm: {{ algorithm.name }} (<a [href]="algorithm.url" rel="noopener" target="ontology">{{
+          algorithm.id
+        }}</a
+        >)
+      </h4>
+      <p *ngIf="algorithmKisaoTermDescription && (algorithmKisaoTermDescription | async)">
+        <ng-template ngFor let-fragment [ngForOf]="algorithmKisaoTermDescription | async">
+          <span *ngIf="fragment.type === 'text'; else descriptionLink">
+            {{ fragment.value }}
+          </span>
+          <ng-template #descriptionLink>
+            <a [href]="fragment.value" rel="noopener" target="ontology"
+              ><biosimulations-icon icon="link"></biosimulations-icon
+            ></a>
+          </ng-template>
         </ng-template>
+      </p>
+    </ng-container>
+
+    <ng-container *ngIf="formattedSimulatorDetails">
+      <h4>Simulator details</h4>
+      <ul class="vertically-spaced key-value">
+        <li *ngFor="let detail of formattedSimulatorDetails">
+          <p class="key">{{ detail.key }}</p>
+          <pre><code [languages]="['json']" [highlight]="detail.value"></code></pre>
+        </li>
+      </ul>
+    </ng-container>
+
+    <ng-container *ngIf="log?.skipReason as skipReason">
+      <h4>Reason why it was skipped: {{ skipReason.type }}</h4>
+      <pre *ngIf="skipReason.message; else noSkipMessage"><code>{{ skipReason.message }}</code></pre>
+      <ng-template #noSkipMessage>
+        <p class="info-message">No details were provided.</p>
       </ng-template>
-    </p>
-  </ng-container>
+    </ng-container>
 
-  <ng-container *ngIf="formattedSimulatorDetails">
-    <h4>Simulator details</h4>
-    <ul class="vertically-spaced key-value">
-      <li *ngFor="let detail of formattedSimulatorDetails">
-        <p class="key">{{ detail.key }}</p>
-        <pre><code [languages]="['json']" [highlight]="detail.value"></code></pre>
-      </li>
-    </ul>
-  </ng-container>
+    <ng-container *ngIf="log?.exception as exception">
+      <h4>Exception: {{ exception.type }}</h4>
+      <pre *ngIf="exception.message; else noExceptionMessage"><code>{{ exception.message }}</code></pre>
+      <ng-template #noExceptionMessage>
+        <p class="info-message">No details were provided.</p>
+      </ng-template>
+    </ng-container>
 
-  <ng-container *ngIf="log?.skipReason as skipReason">
-    <h4>Reason why it was skipped: {{ skipReason.type }}</h4>
-    <pre *ngIf="skipReason.message; else noSkipMessage"><code>{{ skipReason.message }}</code></pre>
-    <ng-template #noSkipMessage>
-      <p class="info-message">No details were provided.</p>
-    </ng-template>
-  </ng-container>
-
-  <ng-container *ngIf="log?.exception as exception">
-    <h4>Exception: {{ exception.type }}</h4>
-    <pre *ngIf="exception.message; else noExceptionMessage"><code>{{ exception.message }}</code></pre>
-    <ng-template #noExceptionMessage>
-      <p class="info-message">No details were provided.</p>
-    </ng-template>
-  </ng-container>
-
-  <ng-container *ngIf="formattedOutput || noOutputMessage">
-    <h4 *ngIf="isStructuredLog">Standard output and standard error</h4>
-    <pre *ngIf="formattedOutput; else noOutput" class="stdout dark"><code [innerHTML]="formattedOutput"></code></pre>
-    <ng-template #noOutput>
-      <p class="info-message">{{ noOutputMessage }}</p>
-    </ng-template>
-  </ng-container>
-</biosimulations-text-page-content-section>
+    <ng-container *ngIf="formattedOutput || noOutputMessage">
+      <h4 *ngIf="isStructuredLog">Standard output and standard error</h4>
+      <pre *ngIf="formattedOutput; else noOutput" class="stdout dark"><code [innerHTML]="formattedOutput"></code></pre>
+      <ng-template #noOutput>
+        <p class="info-message">{{ noOutputMessage }}</p>
+      </ng-template>
+    </ng-container>
+  </biosimulations-text-page-content-section>
+</div>
