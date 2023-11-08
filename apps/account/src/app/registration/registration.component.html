@@ -60,16 +60,16 @@
               can also view your profile, if you choose to make it public.
             </p>
             <div class="username-content-container">
-              <mat-form-field [class.error]="userNameForm.invalid && userNameForm.touched">
-                <mat-label id="usernameLabel">Username</mat-label>
+              <mat-form-field class="form-field">
                 <input
+                  class="user-input"
                   aria-labelledby="usernameLabel"
                   matInput
                   placeholder="Choose a username..."
                   [formControl]="userNameForm"
                   required />
                 <mat-error *ngIf="userNameForm.invalid">
-                  {{ this.error }}
+                  {{ error }}
                 </mat-error>
               </mat-form-field>
               <biosimulations-stepper-buttons
@@ -82,8 +82,6 @@
       </mat-horizontal-stepper>
     </mat-card-content>
   </mat-card>
-
-
 </div>
 
 <div [hidden]="(submitted | async) === false || (accepted | async)">

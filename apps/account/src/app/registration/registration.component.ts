@@ -59,9 +59,12 @@ export class RegistrationComponent implements OnInit, OnChanges {
   }
   ngOnInit(): void {
     const _dummy = 'no-op'; // lint complains about empty methods.
+    if (this.userNameForm.invalid) {
+      this.setErrorMessage();
+    }
   }
   ngOnChanges(): void {
-    this.error = this.getErrorMessage();
+    this.setErrorMessage();
   }
   getErrorMessage() {
     if (this.userNameForm.hasError('required')) {
@@ -74,7 +77,10 @@ export class RegistrationComponent implements OnInit, OnChanges {
       return 'This username is not valid';
     }
   }
-  register() {
+  register(): void {
+    /*if (!this.userNameForm.valid) {
+      return;
+    }*/
     const username = this.userNameForm.value;
     this.submitted.next(true);
     this.user = this.registrationService
@@ -83,10 +89,14 @@ export class RegistrationComponent implements OnInit, OnChanges {
       .subscribe((_) => this.redirect(this.state));
   }
 
-  redirect(state: string | null) {
+  redirect(state: string | null): void {
     if (!state) {
       state = '';
     }
     window.location.href = this.loginUrl + state;
+  }
+
+  private setErrorMessage(): void {
+    this.error = this.getErrorMessage();
   }
 }
