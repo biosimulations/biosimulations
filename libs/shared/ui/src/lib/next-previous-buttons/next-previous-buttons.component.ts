@@ -31,7 +31,11 @@ export class StepperButtonsComponent {
   @Output()
   previous = new EventEmitter();
 
-  public emit(event: Event): void {
+  public emitNext(event: Event): void {
     return this.next.emit(event);
+  }
+
+  public emitPrevious(event: Event): void {
+    return this.previous.emit(event);
   }
 }

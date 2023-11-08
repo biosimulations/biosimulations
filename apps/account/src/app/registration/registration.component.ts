@@ -23,9 +23,9 @@ export class RegistrationComponent implements OnInit, OnChanges {
   // TODO use a common config library for these
   // TODO: replace with biosimulations-terms-of-service, biosimulations-privacy-policy OR links to https://docs.biosimulations.org/about/terms/ and https://docs.biosimulations.org/about/privacy/
   // TODO: CODE_OF_CONDUCT.md is for developers, rather than for users. This should be removed or replaced with a code of conduct for users
-  ccUrl = 'https://raw.githubusercontent.com/biosimulations/biosimulations/dev/docs/developers/conduct.md';
-  tosUrl = 'https://raw.githubusercontent.com/biosimulations/biosimulations/dev/docs/about/terms.md';
-  ppoUrl = 'https://raw.githubusercontent.com/biosimulations/biosimulations/dev/docs/about/privacy.md';
+  ccUrl = 'https://docs.biosimulations.org/developers/#code-of-conduct';
+  tosUrl = 'https://docs.biosimulations.org/about/terms/';
+  ppoUrl = 'https://docs.biosimulations.org/about/privacy/';
 
   // TODO: get from app config
   aboutUrl = 'mailto:' + 'info@biosimulations.org';

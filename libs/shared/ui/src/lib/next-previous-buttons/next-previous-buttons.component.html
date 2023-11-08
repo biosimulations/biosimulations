@@ -3,19 +3,19 @@
     // todo: style consistently with other buttons (mat-icon-button directive, biosimulations-button class)
     <button
       mat-flat-button
-      color="primary"
+      class="multipurpose-flat-button"
       [disabled]="!this.enablePrevious"
-      (click)="this.previous.emit($event)">
+      (click)="emitPrevious($event)">
       {{ this.previousLabel }}
     </button>
   </div>
   <ng-template #blankButton> <div></div> </ng-template>
   <button
-    mat-raised-button
-    color="primary"
+    mat-flat-button
+    class="multipurpose-flat-button"
     [disabled]="!enableNext"
     [fxHide]="!showNext"
-    (click)="emit($event)">
+    (click)="emitNext($event)">
     {{ this.nextLabel }}
   </button>
 </div>
