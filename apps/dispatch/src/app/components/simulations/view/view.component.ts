@@ -60,8 +60,8 @@ export class ViewComponent implements OnInit {
 
   public selectedTabIndex = 0;
   public viewVisualizationTabDisabled = true;
-  public selectVisualizationTabIndex = 2;
-  public visualizationTabIndex = 3;
+  public selectVizTabIndex = 2;
+  public vizTabIndex = 3;
 
   public constructor(
     private simulationService: SimulationService,
@@ -253,13 +253,13 @@ export class ViewComponent implements OnInit {
   public renderVisualization(visualization: Visualization): void {
     this.visualization = visualization;
     this.viewVisualizationTabDisabled = false;
-    this.selectedTabIndex = this.visualizationTabIndex;
+    this.selectedTabIndex = this.vizTabIndex;
   }
 
   public selectedTabChange($event: MatTabChangeEvent): void {
-    if ($event.index == this.visualizationTabIndex) {
+    if ($event.index == this.vizTabIndex) {
       if (this.viewVisualizationTabDisabled) {
-        this.selectedTabIndex = this.selectVisualizationTabIndex;
+        this.selectedTabIndex = this.selectVizTabIndex;
         return;
       }
     }
