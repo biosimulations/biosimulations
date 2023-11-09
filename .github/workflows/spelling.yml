@@ -23,7 +23,7 @@ jobs:
           contains(github.event.comment.body, '@check-spelling-bot apply')
         ) }}
       uses: actions/checkout@v2
-    - uses: check-spelling/check-spelling@0.0.22
+    - uses: check-spelling/check-spelling@main
       id: spelling
       if: ${{ github.event_name != 'issue_comment' ||
         (
