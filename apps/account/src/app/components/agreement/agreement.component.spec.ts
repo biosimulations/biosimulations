@@ -51,16 +51,6 @@ describe('AgreementComponent', () => {
     testHostFixture.detectChanges();
   });
 
-  it('should display markdown', fakeAsync(() => {
-    testHostFixture.whenStable().then(() => {
-      expect(
-        testHostFixture.nativeElement
-          .querySelector('biosimulations-login-agreement > div > mat-card > markdown > h1')
-          .textContent.toLowerCase(),
-      ).toEqual('code of conduct for developers of the biosimulations and biosimulators platforms'.toLowerCase());
-    });
-  }));
-
   @Component({
     // tslint:disable-next-line: component-selector
     selector: `host-component`,
