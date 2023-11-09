@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { OverviewComponent } from './overview.component';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
+import { ConfigService } from '@biosimulations/config/angular';
+import { SimulationService } from '../../../../services/simulation/simulation.service';
+
 describe('OverviewComponent', () => {
   let component: OverviewComponent;
   let fixture: ComponentFixture<OverviewComponent>;
@@ -9,6 +12,7 @@ describe('OverviewComponent', () => {
     TestBed.configureTestingModule({
       declarations: [OverviewComponent],
       imports: [BiosimulationsIconsModule],
+      providers: [ConfigService, SimulationService],
     }).compileComponents();
   }));
 
