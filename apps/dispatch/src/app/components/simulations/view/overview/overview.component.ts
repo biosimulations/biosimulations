@@ -16,6 +16,6 @@ export class OverviewComponent {
   }
 
   public rerunProject(id: string): void {
-    this.simulationService.rerunProject(id);
+    this.simulationService.rerunSimulationProject(id);
   }
 }

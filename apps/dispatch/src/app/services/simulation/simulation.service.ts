@@ -57,7 +57,7 @@ export class SimulationService {
   }
 
   // Add the new rerunProject method
-  public rerunProject(id: string): void {
+  public rerunSimulationProject(id: string): void {
     const endpoints = new Endpoints();
 
     this.httpClient
