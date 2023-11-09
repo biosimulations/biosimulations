@@ -36,7 +36,7 @@ jobs:
         ps aux # Check running processes
         df -i # Check inode exhaustion
         pwd && ls -alh
-    - uses: check-spelling/check-spelling@v0.0.22
+    - uses: check-spelling/check-spelling@v0.0.21
       id: spelling
       if: ${{ github.event_name != 'issue_comment' ||
         (
