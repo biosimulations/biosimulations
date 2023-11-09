@@ -1,11 +1,11 @@
-<div class="run-overview-parent-container">
+<div class="run-overview-parent-container-platform">
   <mat-card class="simulation-run-card">
     <mat-card-header class="multipurpose-card-header sim-run">
-      <mat-card-title> Simulation Run Details </mat-card-title>
+      <mat-card-title class="sim-run-title-platform-name"> Simulation Run Details </mat-card-title>
       <mat-card-subtitle>
         Name: {{ simulation?.name }}
       </mat-card-subtitle>
-      <mat-card-subtitle>
+      <mat-card-subtitle class="sim-run-title-platform-id">
         Id: #{{ simulation?.id }}
       </mat-card-subtitle>
     </mat-card-header>
@@ -80,7 +80,7 @@
             </td>
           </tr>
         </table>
-        <div class="rerun-button-container">
+        <div class="rerun-button-container-platform">
           <button (click)="rerunProject(simulation.id)" mat-flat-button class="rerun-project-button">
             Re-run Project
             <biosimulations-icon icon="reuse" style="margin-left: 1rem"></biosimulations-icon>
