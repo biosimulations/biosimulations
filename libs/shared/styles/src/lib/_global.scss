@@ -1749,9 +1749,13 @@ mat-option {
     font-size: 24px;
   }
 
+  &.table-name {
+    font-size: large;
+  }
+
   &:hover:not(.sidebar):not(.sim-run) {
     background-color: var(--accent-darker-color) !important;
-    transition: background-color 0.3s ease-in-out;
+    transition: background-color 2s ease-in-out;
   }
 }
 
