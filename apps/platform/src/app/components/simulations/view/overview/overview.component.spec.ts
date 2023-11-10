@@ -4,6 +4,7 @@ import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { ConfigService } from '@biosimulations/config/angular';
 import { SimulationService } from '../../../../services/simulation/simulation.service';
 import { Storage } from '@ionic/storage-angular';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('OverviewComponent', () => {
   let component: OverviewComponent;
@@ -13,7 +14,7 @@ describe('OverviewComponent', () => {
     TestBed.configureTestingModule({
       declarations: [OverviewComponent],
       imports: [BiosimulationsIconsModule],
-      providers: [ConfigService, SimulationService, Storage],
+      providers: [ConfigService, SimulationService, Storage, HttpClientTestingModule],
     }).compileComponents();
   }));
 
