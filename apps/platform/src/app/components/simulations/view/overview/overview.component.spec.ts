@@ -3,6 +3,7 @@ import { OverviewComponent } from './overview.component';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { ConfigService } from '@biosimulations/config/angular';
 import { SimulationService } from '../../../../services/simulation/simulation.service';
+import { Storage } from '@ionic/storage-angular';
 
 describe('OverviewComponent', () => {
   let component: OverviewComponent;
@@ -12,7 +13,7 @@ describe('OverviewComponent', () => {
     TestBed.configureTestingModule({
       declarations: [OverviewComponent],
       imports: [BiosimulationsIconsModule],
-      providers: [ConfigService, SimulationService],
+      providers: [ConfigService, SimulationService, Storage],
     }).compileComponents();
   }));
 
