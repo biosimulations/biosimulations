@@ -9,7 +9,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SharedDebugModule } from '@biosimulations/shared/debug';
-import { BrowserModule } from '@angular/platform-browser';
 
 describe('AgreementComponent', () => {
   let testHostComponent: TestHostComponent;
@@ -51,6 +50,9 @@ describe('AgreementComponent', () => {
     testHostFixture.detectChanges();
   });
 
+  it('should be created', () => {
+    expect(testHostComponent).toBeTruthy();
+  });
   @Component({
     // tslint:disable-next-line: component-selector
     selector: `host-component`,

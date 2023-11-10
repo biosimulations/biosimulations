@@ -13,8 +13,8 @@ describe('OverviewComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [OverviewComponent],
-      imports: [BiosimulationsIconsModule],
-      providers: [ConfigService, SimulationService, Storage, HttpClientTestingModule],
+      imports: [BiosimulationsIconsModule, HttpClientTestingModule],
+      providers: [ConfigService, SimulationService, Storage],
     }).compileComponents();
   }));
 
