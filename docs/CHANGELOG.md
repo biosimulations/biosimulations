@@ -1,5 +1,33 @@
 # Changelog
 
+## [9.53.0](https://github.com/biosimulations/biosimulations/compare/v9.52.3...v9.53.0) (2023-11-10)
+
+
+### Bug Fixes
+
+* added adjustments to agreement spec ([6c4326d](https://github.com/biosimulations/biosimulations/commit/6c4326de505aefa409df596d5475156d0568ed87))
+* added imports and providers ([3b3a543](https://github.com/biosimulations/biosimulations/commit/3b3a5431bfdb9d5ae600dd6edc75c5db5b5e37dc))
+* added storage to spec ([c517ea4](https://github.com/biosimulations/biosimulations/commit/c517ea451444299a1ed74e408beaa212a2eb38e2))
+* changed implementation class attribute name to appease ci ([319a093](https://github.com/biosimulations/biosimulations/commit/319a0938a45a2aa28cc0e640978ee8e3cb9c3b4a))
+* declared correct tab index values for select and view viz tabs ([7cd4bc4](https://github.com/biosimulations/biosimulations/commit/7cd4bc4da5f04c2ab74aa4fe487adcd742311df4))
+* downgraded fix spelling version ([21886f8](https://github.com/biosimulations/biosimulations/commit/21886f8a1ae26ca39e1d6dabfa83a55f3a062e81))
+* re-used main in workflow spelling file ([708d710](https://github.com/biosimulations/biosimulations/commit/708d710b8184479be2ec613bc7574ff4e360622d))
+* reimplemented check spelling version change ([e1f0150](https://github.com/biosimulations/biosimulations/commit/e1f0150bc2ac9a58457e2c2afe1cf2dc622e1727))
+* renamed unique method to appease CI duplication in dispatch ([f7569cf](https://github.com/biosimulations/biosimulations/commit/f7569cfc53a90ca85ccf253110c4c8553ad2fd77))
+* specified stable version for check-spelling workflow ([a63e70c](https://github.com/biosimulations/biosimulations/commit/a63e70cced3f06aa0f68ef1d7da32acdb5a9a804))
+* updated agreement spec file to reflect markdown removal ([ce6f5a2](https://github.com/biosimulations/biosimulations/commit/ce6f5a23e23ec5a0e89120de5c22c581fcd239b9))
+* updated commits ([db0b69c](https://github.com/biosimulations/biosimulations/commit/db0b69cd2b4d517fa7f9e54df70204eabe8980ff))
+* updated spec files for platform and dispatch overview ([cc7b46c](https://github.com/biosimulations/biosimulations/commit/cc7b46c98720d0d1f1f27c73b0e84d242a6a431e))
+* updated unique class names on components ([26028d5](https://github.com/biosimulations/biosimulations/commit/26028d5b91067c3e72f4fbe02b48b222c9a904be))
+* updated viz display component declaration ([1c20aa3](https://github.com/biosimulations/biosimulations/commit/1c20aa3a2e398c434dcaafcbbee94928ef4fe476))
+
+
+### Features
+
+* implementation of rerun button in dispatch overview for projects ([6383769](https://github.com/biosimulations/biosimulations/commit/6383769e62e3b8532f234c7c6dcfccb9abccb11b))
+* implemented run overview with rerun button in platform simulations ([b9a155b](https://github.com/biosimulations/biosimulations/commit/b9a155b3c57801efa8e843b97a1346efdadecc62))
+* implemented styles for overview spec containers ([436ac77](https://github.com/biosimulations/biosimulations/commit/436ac777f8a5b1bc332c869685cb8c05bb071c8a))
+
 ## [9.52.3](https://github.com/biosimulations/biosimulations/compare/v9.52.2...v9.52.3) (2023-09-27)
 
 
