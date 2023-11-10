@@ -5,6 +5,7 @@
   [tocScrollSectionScrollOffset]="128"
   *ngIf="structuredLogLevel !== undefined"
   [compact]="structuredLogLevel >= StructuredLogLevel.SedDocument">
+  <!-- Begin sidebar section -->
   <ng-container id="sideBar" [ngSwitch]="structuredLogLevel">
     <ng-container *ngSwitchCase="StructuredLogLevel.None">
       <biosimulations-text-page-side-bar-section heading="Summary" fxShow fxHide.lt-md>
@@ -235,7 +236,9 @@
       </ul>
     </biosimulations-text-page-side-bar-section>
   </ng-container>
+  <!-- End sidebar section -->
 
+  <!-- Begin centered log elements -->
   <ng-container id="content" [ngSwitch]="structuredLogLevel">
     <ng-container *ngSwitchCase="StructuredLogLevel.None">
       <h3 id="section=raw" class="top-margin">Simulation run</h3>
@@ -400,4 +403,5 @@
       </biosimulations-structured-simulation-log-element>
     </ng-container>
   </ng-container>
+  <!-- End centered log elements -->
 </biosimulations-text-page>

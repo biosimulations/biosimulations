@@ -20,7 +20,12 @@ export class AgreementComponent implements OnInit, ControlValueAccessor {
   agreementUrl = '';
 
   @Input()
-  checkboxMessage = 'I agree';
+  checkboxMessageType = '';
+
+  @Input()
+  checkboxMessageContent = '';
+
+  checkboxMessage = '';
   agreed = false;
   isDisabled = false;
   private onChange: (_: any) => void = (_) => {};
@@ -30,6 +35,11 @@ export class AgreementComponent implements OnInit, ControlValueAccessor {
   ngOnInit(): void {
     if (this.agreementUrl === '') {
       throw TypeError('Need to provide a URL');
+    }
+    if (this.checkboxMessageType === 'policy') {
+      this.checkboxMessage = 'I accept the ';
+    } else {
+      this.checkboxMessage = 'I agree to ';
     }
   }
 

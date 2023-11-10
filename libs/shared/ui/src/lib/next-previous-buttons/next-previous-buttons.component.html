@@ -1,17 +1,20 @@
-<!--<div fxLayout="row" fxLayoutAlign="space-between">
+<div fxLayout="row" fxLayoutAlign="space-between">
   <div *ngIf="showPrevious; else blankButton">
-    // todo: style consistently with other buttons (mat-icon-button directive, biosimulations-button class)
-    <button mat-raised-button color="primary" [disabled]="!this.enablePrevious" (click)="this.previous.emit($event)">
-      {{ this.previousLabel }}
+    <button
+      mat-flat-button
+      class="multipurpose-flat-button"
+      [disabled]="!enablePrevious"
+      (click)="emitPrevious($event)">
+      {{ previousLabel }}
     </button>
   </div>
   <ng-template #blankButton> <div></div> </ng-template>
   <button
-    mat-raised-button
-    color="primary"
-    [disabled]="!this.enableNext"
-    [fxHide]="!this.showNext"
-    (click)="this.next.emit($event)">
-    {{ this.nextLabel }}
+    mat-flat-button
+    class="multipurpose-flat-button"
+    [disabled]="!enableNext"
+    [fxHide]="!showNext"
+    (click)="emitNext($event)">
+    {{ nextLabel }}
   </button>
-</div>-->
+</div>

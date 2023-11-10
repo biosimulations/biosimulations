@@ -9,14 +9,15 @@ h3 {
   margin-bottom: 0.5rem;
 }
 
-.run-overview-parent-container {
+.run-overview-parent-container-platform {
   justify-content: center;
   align-items: center;
   margin-top: 3rem;
 }
 
 .simulation-run-card {
-  width: 600px;
+  width: fit-content;
+  margin-top: -3rem;
 }
 
 .simulation-run-card-header {
@@ -37,4 +38,22 @@ mat-card-subtitle {
 .status-container {
   font-size: 18px;
   color: var(--quaternary-darker-color);
+}
+
+.rerun-button-container-platform {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rerun-project-button {
+  margin-top: 2rem;
+  background-color: var(--accent-darker-color);
+  color: white;
+  font-weight: 700;
+
+  &:hover {
+    background-color: var(--tertiary-darker-color);
+    transition: background-color 0.3s ease-in-out;
+  }
 }

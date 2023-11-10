@@ -1,3 +1,8 @@
+.structured-log-parent-container {
+  max-width: 500px;
+  display: flex;
+}
+
 .key-value ::ng-deep {
   list-style-type: none;
   padding-inline-start: 0;

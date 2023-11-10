@@ -6,6 +6,13 @@
     <!-- Metadata about the entire project (COMBINE/OMEX archive) -->
     <biosimulations-tab-page-tab heading="Simulation specification" icon="model" urlHashFragment="metadata">
       <div class="spec-container-platform">
+        <!-- Simulation Run Overview -->
+        <ng-container *ngIf="formattedSimulation$ | async as formattedSimulation">
+          <div class="overview-container">
+            <biosimulations-simulation-run-overview [simulation]="formattedSimulation">
+            </biosimulations-simulation-run-overview>
+          </div>
+        </ng-container>
         <ng-container *ngTemplateOutlet="resultsTabContent; context: { $implicit: metadataContent }"> </ng-container>
         <ng-template #metadataContent>
           <div class="metadata-container">
@@ -54,13 +61,6 @@
             </ng-template>
           </div>
         </ng-template>
-        <!-- Simulation Run Overview -->
-        <ng-container *ngIf="formattedSimulation$ | async as formattedSimulation">
-          <div class="overview-container">
-            <biosimulations-simulation-run-overview [simulation]="formattedSimulation">
-            </biosimulations-simulation-run-overview>
-          </div>
-        </ng-container>
       </div>
     </biosimulations-tab-page-tab>
     <!-- End project metadata tab-->
@@ -198,8 +198,16 @@
       [disabled]="viewVisualizationTabDisabled"
       [fullHeight]="true"
       [fullWidth]="true">
-      <biosimulations-project-visualization *ngIf="visualization" [visualization]="visualization">
-      </biosimulations-project-visualization>
+      <ng-container *ngIf="visualizations$ | async as visualizations">
+        <ng-container *ngFor="let visualizationList of visualizations">
+          <ng-container *ngFor="let visualization of visualizationList.visualizations">
+            <biosimulations-project-visualization [visualization]="visualization">
+            </biosimulations-project-visualization>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+      <!--<biosimulations-project-visualization *ngIf="visualization" [visualization]="visualization">
+      </biosimulations-project-visualization>-->
     </biosimulations-tab-page-tab>
     <!-- End visualizations -->
 

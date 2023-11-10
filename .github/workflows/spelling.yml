@@ -23,7 +23,20 @@ jobs:
           contains(github.event.comment.body, '@check-spelling-bot apply')
         ) }}
       uses: actions/checkout@v2
-    - uses: check-spelling/check-spelling@main
+    # Debugging before check-spelling action
+    - name: Debug before check-spelling
+      if: ${{ github.event_name != 'issue_comment' ||
+        (
+        contains(github.event.comment.body, '@check-spelling-bot apply')
+        ) }}
+      run: |
+        echo "Debugging information before check-spelling action"
+        df -h # Check disk space
+        free -m # Check memory usage
+        ps aux # Check running processes
+        df -i # Check inode exhaustion
+        pwd && ls -alh
+    - uses: check-spelling/check-spelling@v0.0.21
       id: spelling
       if: ${{ github.event_name != 'issue_comment' ||
         (

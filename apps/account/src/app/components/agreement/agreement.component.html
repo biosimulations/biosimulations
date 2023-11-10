@@ -1,11 +1,11 @@
 <div fxLayout="column" fxLayoutAlign="space-between" class="wrapper">
-  <mat-card class="agreement-card" fxFlex="95">
+  <!--<mat-card class="agreement-card" fxFlex="95">
     <markdown [src]="agreementUrl"></markdown>
-  </mat-card>
+  </mat-card>-->
 
-  <mat-checkbox [disabled]="isDisabled" [checked]="agreed" (change)="toggleAgreed($event)">{{
-    checkboxMessage
-  }}</mat-checkbox>
+  <mat-checkbox [disabled]="isDisabled" [checked]="false" (change)="toggleAgreed($event)">
+    {{ checkboxMessage }}<a [href]="agreementUrl" target="_blank">{{ checkboxMessageContent }}</a>
+  </mat-checkbox>
   <biosimulations-debug-viewer fxFlex="auto">
     {{ this.agreed }}
   </biosimulations-debug-viewer>
