@@ -87,11 +87,11 @@
             </biosimulations-project-files>
           </mat-expansion-panel>
           <div class="multipurpose-divider 1"></div>
-          <mat-expansion-panel expanded="true" *ngIf="projectFiles$ | async as files">
+          <mat-expansion-panel expanded="true" *ngIf="outputs$ | async as outputs">
             <mat-expansion-panel-header class="multipurpose-card-header panel-header outputs">
               Simulation Outputs
             </mat-expansion-panel-header>
-            <biosimulations-project-files [files]="files" [usesMaster]="false" [usesMetadata]="false">
+            <biosimulations-project-files [files]="outputs" [usesMaster]="false" [usesMetadata]="false">
             </biosimulations-project-files>
           </mat-expansion-panel>
         </div>
