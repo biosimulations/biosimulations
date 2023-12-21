@@ -17,7 +17,7 @@
 
               <ng-template #filesContent>
                 <div *ngIf="(projectFiles$ | async) && (files$ | async) && (outputs$ | async); else filesError" class="files">
-                  <mat-expansion-panel expanded="true" *ngIf="projectFiles$ | async as files">
+                  <mat-expansion-panel expanded="false" *ngIf="projectFiles$ | async as files">
                     <mat-expansion-panel-header class="multipurpose-card-header panel-header omex">
                       Simulation Specification (COMBINE/OMEX archive)
                     </mat-expansion-panel-header>
@@ -25,7 +25,7 @@
                     </biosimulations-project-files>
                   </mat-expansion-panel>
                   <div class="multipurpose-divider 0"></div>
-                  <mat-expansion-panel expanded="true" *ngIf="files$ | async as archiveFiles">
+                  <mat-expansion-panel expanded="false" *ngIf="files$ | async as archiveFiles">
                     <mat-expansion-panel-header class="multipurpose-card-header panel-header spec">
                       Contents of Simulation Specification
                     </mat-expansion-panel-header>
