@@ -1737,7 +1737,7 @@ mat-option {
   font-size: medium;
   border: 2px solid inherit;
   transition: background-color 0.1s ease-in-out;
-  border-radius: 3px;
+  border-radius: 3px 3px 0 0 !important;
 
   &.sim-run {
     background-color: var(--tertiary-darker-color) !important;
