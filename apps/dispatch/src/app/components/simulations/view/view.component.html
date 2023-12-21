@@ -11,6 +11,73 @@
           <div class="overview-container">
             <biosimulations-simulation-run-overview [simulation]="formattedSimulation">
             </biosimulations-simulation-run-overview>
+
+            <div class="run-files">
+              <ng-container *ngTemplateOutlet="resultsTabContent; context: { $implicit: filesContent }"> </ng-container>
+
+              <ng-template #filesContent>
+                <div *ngIf="(projectFiles$ | async) && (files$ | async) && (outputs$ | async); else filesError" class="files">
+                  <mat-expansion-panel expanded="true" *ngIf="projectFiles$ | async as files">
+                    <mat-expansion-panel-header class="multipurpose-card-header panel-header omex">
+                      Simulation Specification (COMBINE/OMEX archive)
+                    </mat-expansion-panel-header>
+                    <biosimulations-project-files [files]="files" [usesMaster]="false" [usesMetadata]="false">
+                    </biosimulations-project-files>
+                  </mat-expansion-panel>
+                  <div class="multipurpose-divider 0"></div>
+                  <mat-expansion-panel expanded="true" *ngIf="files$ | async as archiveFiles">
+                    <mat-expansion-panel-header class="multipurpose-card-header panel-header spec">
+                      Contents of Simulation Specification
+                    </mat-expansion-panel-header>
+                    <biosimulations-project-files [files]="archiveFiles" [usesMaster]="true" [usesMetadata]="true">
+                    </biosimulations-project-files>
+                  </mat-expansion-panel>
+                  <div class="multipurpose-divider 1"></div>
+                  <mat-expansion-panel expanded="true" *ngIf="outputs$ | async as outputs">
+                    <mat-expansion-panel-header class="multipurpose-card-header panel-header outputs">
+                      Simulation Outputs
+                    </mat-expansion-panel-header>
+                    <biosimulations-project-files [files]="outputs" [usesMaster]="false" [usesMetadata]="false">
+                    </biosimulations-project-files>
+                  </mat-expansion-panel>
+                </div>
+
+                <ng-template #filesError>
+                  <div class="info-message">
+                    <p>
+                      Sorry! The files for the simulation run could not be load either because the manifest for the project is
+                      invalid or an error occurred. Information about the OMEX manifest format is available
+                      <a href="https://combinearchive.org/" target="_blank" rel="noopener">here</a>.
+                    </p>
+                    <p>
+                      Click
+                      <a
+                        [routerLink]="['/utils', 'validate-project']"
+                        [queryParams]="{
+                  archiveUrl: archiveUrl,
+                  validateSedml: '0',
+                  validateSedmlModels: '0',
+                  validateOmexMetadata: '0',
+                  validateImages: '0',
+                  autoRun: '1'
+                }"
+                      >here</a
+                      >
+                      to obtain information about errors in the manifest for this project.
+                    </p>
+                    <p>
+                      If the manifest is valid, please refresh to try again. If the error persists, please submit an issue
+                      <a
+                        href="https://github.com/biosimulations/biosimulations/issues/new/choose"
+                        rel="noopener"
+                        target="githubissues"
+                      ><biosimulations-icon icon="link"></biosimulations-icon></a
+                      >.
+                    </p>
+                  </div>
+                </ng-template>
+              </ng-template>
+            </div>
           </div>
         </ng-container>
         <ng-container *ngTemplateOutlet="resultsTabContent; context: { $implicit: metadataContent }"> </ng-container>
@@ -64,74 +131,6 @@
       </div>
     </biosimulations-tab-page-tab>
     <!-- End project metadata tab-->
-
-    <!--Information about files in project and generated from the project-->
-    <biosimulations-tab-page-tab heading="Download" icon="project" urlHashFragment="files">
-      <ng-container *ngTemplateOutlet="resultsTabContent; context: { $implicit: filesContent }"> </ng-container>
-
-      <ng-template #filesContent>
-        <div *ngIf="(projectFiles$ | async) && (files$ | async) && (outputs$ | async); else filesError" class="files">
-          <mat-expansion-panel expanded="true" *ngIf="projectFiles$ | async as files">
-            <mat-expansion-panel-header class="multipurpose-card-header panel-header omex">
-              Simulation Specification (COMBINE/OMEX archive)
-            </mat-expansion-panel-header>
-            <biosimulations-project-files [files]="files" [usesMaster]="false" [usesMetadata]="false">
-            </biosimulations-project-files>
-          </mat-expansion-panel>
-          <div class="multipurpose-divider 0"></div>
-          <mat-expansion-panel expanded="true" *ngIf="files$ | async as archiveFiles">
-            <mat-expansion-panel-header class="multipurpose-card-header panel-header spec">
-              Contents of Simulation Specification
-            </mat-expansion-panel-header>
-            <biosimulations-project-files [files]="archiveFiles" [usesMaster]="true" [usesMetadata]="true">
-            </biosimulations-project-files>
-          </mat-expansion-panel>
-          <div class="multipurpose-divider 1"></div>
-          <mat-expansion-panel expanded="true" *ngIf="outputs$ | async as outputs">
-            <mat-expansion-panel-header class="multipurpose-card-header panel-header outputs">
-              Simulation Outputs
-            </mat-expansion-panel-header>
-            <biosimulations-project-files [files]="outputs" [usesMaster]="false" [usesMetadata]="false">
-            </biosimulations-project-files>
-          </mat-expansion-panel>
-        </div>
-
-        <ng-template #filesError>
-          <div class="info-message">
-            <p>
-              Sorry! The files for the simulation run could not be load either because the manifest for the project is
-              invalid or an error occurred. Information about the OMEX manifest format is available
-              <a href="https://combinearchive.org/" target="_blank" rel="noopener">here</a>.
-            </p>
-            <p>
-              Click
-              <a
-                [routerLink]="['/utils', 'validate-project']"
-                [queryParams]="{
-                  archiveUrl: archiveUrl,
-                  validateSedml: '0',
-                  validateSedmlModels: '0',
-                  validateOmexMetadata: '0',
-                  validateImages: '0',
-                  autoRun: '1'
-                }"
-                >here</a
-              >
-              to obtain information about errors in the manifest for this project.
-            </p>
-            <p>
-              If the manifest is valid, please refresh to try again. If the error persists, please submit an issue
-              <a
-                href="https://github.com/biosimulations/biosimulations/issues/new/choose"
-                rel="noopener"
-                target="githubissues"
-                ><biosimulations-icon icon="link"></biosimulations-icon></a
-              >.
-            </p>
-          </div>
-        </ng-template>
-      </ng-template>
-    </biosimulations-tab-page-tab>
 
     <!-- Visualizations -->
     <biosimulations-tab-page-tab urlHashFragment="select-viz" heading="Select chart" icon="write">
