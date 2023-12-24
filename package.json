@@ -93,7 +93,7 @@
     "reflect-metadata": "0.1.13",
     "retry": "0.13.1",
     "rxjs": "~7.5.0",
-    "sharp": "0.30.7",
+    "sharp": "0.32.6",
     "ssh2": "1.8.0",
     "swagger-ui-express": "4.3.0",
     "tiny-version-compare": "3.0.2",
