@@ -10,7 +10,7 @@
   <div class="thumbnails-column" *ngIf="project" fxFlex fxLayout="column">
     <div *ngIf="project?.thumbnails?.length == 1" fxGrid>
       <mat-card class="image-card">
-        <mat-card-header class="card-header project">
+        <mat-card-header class="multipurpose-card-header project">
           {{ project.title }}
         </mat-card-header>
         <mat-card-content>
@@ -25,8 +25,8 @@
   </div>
   <div class="description-column" *ngIf="project" fxflex fxLayout="column">
     <!-- Begin Project Description Container -->
-    <mat-card class="mat-elevation-z1 metadata-card">
-      <mat-card-header class="card-header"> Project Description </mat-card-header>
+    <mat-card class="metadata-card">
+      <mat-card-header class="multipurpose-card-header meta"> Project Description </mat-card-header>
       <mat-card-content>
         <biosimulations-text-page-content-section [iconActionType]="null">
           <div class="abstract" *ngIf="project.abstract">

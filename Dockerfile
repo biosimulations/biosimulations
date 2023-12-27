@@ -1,7 +1,7 @@
 #############
 ### base ###
 #############
-FROM node:18-alpine as base
+FROM node:18-alpine AS base
 
 #The name of the app to build
 ARG app
@@ -11,7 +11,7 @@ RUN echo building ${APP}
 #############
 ### build ###
 #############
-FROM base as build
+FROM base AS build
 
 WORKDIR /app
 # add `/app/node_modules/.bin` to $PATH
@@ -30,9 +30,11 @@ RUN apk add --update --no-cache \
     pango-dev \
     alpine-sdk \
     cmake
-RUN ln -sf python3 /usr/bin/python
-RUN python3 -m ensurepip
-RUN pip3 install --no-cache --no-cache-dir  --upgrade pip setuptools
+RUN python3 -m venv /opt/venv && \
+    source /opt/venv/bin/activate && \
+    python3 -m ensurepip && \
+    ln -sf python3 /usr/bin/python && \
+    pip3 install --no-cache --no-cache-dir  --upgrade pip setuptools
 
 # copy dependencies
 # Copy over dependency list
@@ -44,7 +46,7 @@ COPY declarations.d.ts /app/declarations.d.ts
 
 
 # install the app, including the dev dependencies
-RUN npm ci
+RUN source /opt/venv/bin/activate && npm ci
 
 COPY nx.json  /app/nx.json
 #copy source
@@ -54,15 +56,15 @@ COPY apps /app/apps
 # generate build
 # Redifining the env *might* correct cache invalidation issue
 ENV APP=${APP}
-ENV node_options=--max_old_space_size=6144
-RUN nx build ${APP} --prod --with-deps
+ENV node_options="--max_old_space_size=6144"
+RUN source /opt/venv/bin/activate && nx build ${APP} --prod --with-deps
 
 ############
 ### prod ###
 ############
 
 # base image
-FROM base as prod
+FROM base AS prod
 
 WORKDIR /app
 
