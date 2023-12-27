@@ -16,7 +16,9 @@
               <ng-container *ngTemplateOutlet="resultsTabContent; context: { $implicit: filesContent }"> </ng-container>
 
               <ng-template #filesContent>
-                <div *ngIf="(projectFiles$ | async) && (files$ | async) && (outputs$ | async); else filesError" class="files">
+                <div
+                  *ngIf="(projectFiles$ | async) && (files$ | async) && (outputs$ | async); else filesError"
+                  class="files">
                   <mat-expansion-panel expanded="false" *ngIf="projectFiles$ | async as files">
                     <mat-expansion-panel-header class="multipurpose-card-header panel-header omex">
                       Simulation Specification (COMBINE/OMEX archive)
@@ -45,8 +47,8 @@
                 <ng-template #filesError>
                   <div class="info-message">
                     <p>
-                      Sorry! The files for the simulation run could not be load either because the manifest for the project is
-                      invalid or an error occurred. Information about the OMEX manifest format is available
+                      Sorry! The files for the simulation run could not be load either because the manifest for the
+                      project is invalid or an error occurred. Information about the OMEX manifest format is available
                       <a href="https://combinearchive.org/" target="_blank" rel="noopener">here</a>.
                     </p>
                     <p>
@@ -54,24 +56,25 @@
                       <a
                         [routerLink]="['/utils', 'validate-project']"
                         [queryParams]="{
-                  archiveUrl: archiveUrl,
-                  validateSedml: '0',
-                  validateSedmlModels: '0',
-                  validateOmexMetadata: '0',
-                  validateImages: '0',
-                  autoRun: '1'
-                }"
-                      >here</a
+                          archiveUrl: archiveUrl,
+                          validateSedml: '0',
+                          validateSedmlModels: '0',
+                          validateOmexMetadata: '0',
+                          validateImages: '0',
+                          autoRun: '1'
+                        }"
+                        >here</a
                       >
                       to obtain information about errors in the manifest for this project.
                     </p>
                     <p>
-                      If the manifest is valid, please refresh to try again. If the error persists, please submit an issue
+                      If the manifest is valid, please refresh to try again. If the error persists, please submit an
+                      issue
                       <a
                         href="https://github.com/biosimulations/biosimulations/issues/new/choose"
                         rel="noopener"
                         target="githubissues"
-                      ><biosimulations-icon icon="link"></biosimulations-icon></a
+                        ><biosimulations-icon icon="link"></biosimulations-icon></a
                       >.
                     </p>
                   </div>
