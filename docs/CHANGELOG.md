@@ -1,5 +1,23 @@
 # Changelog
 
+## [9.54.0](https://github.com/biosimulations/biosimulations/compare/v9.53.0...v9.54.0) (2023-12-27)
+
+
+### Bug Fixes
+
+* added archive files pipe to correct project files component attrib ([9609cad](https://github.com/biosimulations/biosimulations/commit/9609cad3cb4c4e0fa736ca143dea6087d31c3ee5))
+* connected simulation run output pipe with dropdown ([f04dc83](https://github.com/biosimulations/biosimulations/commit/f04dc8376c7de6831f96d013736d344036ababb0))
+* externally-managed-environment error fixed with venv in Dockerfile ([256cb13](https://github.com/biosimulations/biosimulations/commit/256cb130e6cf244c3ff79128560db009ccc5961c))
+* removed duplicate selector declaration ([fc44fb3](https://github.com/biosimulations/biosimulations/commit/fc44fb39b3c168e77b20f96705fa6261a61ea41a))
+* update ([a3a505a](https://github.com/biosimulations/biosimulations/commit/a3a505abd878d45099948b5bd6faa3cba742b8f3))
+* updated package-lock ([c038418](https://github.com/biosimulations/biosimulations/commit/c038418a993efe11e9519f2c641ae296d2df1112))
+* upgraded sharp package to fix install error ([b1d3a19](https://github.com/biosimulations/biosimulations/commit/b1d3a19d346c9fa0c64aa1c393e11785a72bc44f))
+
+
+### Features
+
+* **ui:** moved simulation files dropdowns to spec tab and removed dwnld ([e2f695f](https://github.com/biosimulations/biosimulations/commit/e2f695f08a1fc2ace25af60448f0808532bfae4d))
+
 ## [9.53.0](https://github.com/biosimulations/biosimulations/compare/v9.52.3...v9.53.0) (2023-11-10)
 
 
