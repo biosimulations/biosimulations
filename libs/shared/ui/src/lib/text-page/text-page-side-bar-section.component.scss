@@ -25,5 +25,10 @@ biosimulations-text-page-section ::ng-deep a {
 
 .sidebar-card {
   max-width: 100%;
-  margin-left: -2rem;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.text-page-sidebar-parent-container {
+  margin-left: -1rem;
 }
