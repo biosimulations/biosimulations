@@ -390,6 +390,12 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/axios/axios
 │  ├─ publisher: Matt Zabriskie
 │  └─ licenseFile: axios/LICENSE
+├─ b4a@1.6.4
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/holepunchto/b4a
+│  ├─ publisher: Kasper Isager Dalsgarð
+│  ├─ email: kasper@funktionel.co
+│  └─ licenseFile: b4a/LICENSE
 ├─ balanced-match@1.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/juliangruber/balanced-match
@@ -848,7 +854,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: me@jongleberry.com
 │  ├─ url: http://jongleberry.com
 │  └─ licenseFile: destroy/LICENSE
-├─ detect-libc@2.0.1
+├─ detect-libc@2.0.2
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/lovell/detect-libc
 │  ├─ publisher: Lovell Fuller
@@ -973,6 +979,12 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/epoberezkin/fast-deep-equal
 │  ├─ publisher: Evgeny Poberezkin
 │  └─ licenseFile: fast-deep-equal/LICENSE
+├─ fast-fifo@1.3.2
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/mafintosh/fast-fifo
+│  ├─ publisher: Mathias Buus
+│  ├─ url: @mafintosh
+│  └─ licenseFile: fast-fifo/LICENSE
 ├─ fast-memoize@2.5.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/caiogondim/fast-memoize
@@ -1673,7 +1685,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/lgeiger/node-abi
 │  ├─ publisher: Lukas Geiger
 │  └─ licenseFile: node-abi/LICENSE
-├─ node-addon-api@5.0.0
+├─ node-addon-api@6.1.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nodejs/node-addon-api
 │  └─ licenseFile: sharp/node_modules/node-addon-api/LICENSE.md
@@ -1843,6 +1855,12 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Irakli Gozalishvili
 │  ├─ email: rfobic@gmail.com
 │  └─ licenseFile: querystring/License.md
+├─ queue-tick@1.0.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/mafintosh/queue-tick
+│  ├─ publisher: Mathias Buus
+│  ├─ url: @mafintosh
+│  └─ licenseFile: queue-tick/LICENSE
 ├─ range-parser@1.2.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jshttp/range-parser
@@ -2001,6 +2019,11 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/npm/node-semver
 │  ├─ publisher: GitHub Inc.
 │  └─ licenseFile: semver/LICENSE
+├─ semver@7.5.4
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/npm/node-semver
+│  ├─ publisher: GitHub Inc.
+│  └─ licenseFile: sharp/node_modules/semver/LICENSE
 ├─ send@0.17.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/pillarjs/send
@@ -2042,7 +2065,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/wesleytodd/setprototypeof
 │  ├─ publisher: Wes Todd
 │  └─ licenseFile: setprototypeof/LICENSE
-├─ sharp@0.30.7
+├─ sharp@0.32.6
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/lovell/sharp
 │  ├─ publisher: Lovell Fuller
@@ -2125,6 +2148,12 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Brian White
 │  ├─ email: mscdex@mscdex.net
 │  └─ licenseFile: streamsearch/LICENSE
+├─ streamx@2.15.6
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/mafintosh/streamx
+│  ├─ publisher: Mathias Buus
+│  ├─ url: @mafintosh
+│  └─ licenseFile: streamx/LICENSE
 ├─ string-width@4.2.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/string-width
@@ -2186,12 +2215,23 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/mafintosh/tar-fs
 │  ├─ publisher: Mathias Buus
 │  └─ licenseFile: tar-fs/LICENSE
+├─ tar-fs@3.0.4
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/mafintosh/tar-fs
+│  ├─ publisher: Mathias Buus
+│  └─ licenseFile: sharp/node_modules/tar-fs/LICENSE
 ├─ tar-stream@2.2.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/mafintosh/tar-stream
 │  ├─ publisher: Mathias Buus
 │  ├─ email: mathiasbuus@gmail.com
 │  └─ licenseFile: tar-stream/LICENSE
+├─ tar-stream@3.1.6
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/mafintosh/tar-stream
+│  ├─ publisher: Mathias Buus
+│  ├─ email: mathiasbuus@gmail.com
+│  └─ licenseFile: sharp/node_modules/tar-stream/LICENSE
 ├─ tiny-version-compare@3.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/fregante/tiny-version-compare
