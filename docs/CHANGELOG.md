@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.54.1](https://github.com/biosimulations/biosimulations/compare/v9.54.0...v9.54.1) (2023-12-31)
+
+
+### Bug Fixes
+
+* adjusted overflow for side bar content ([68fb89b](https://github.com/biosimulations/biosimulations/commit/68fb89b7cf8d7fb513249d7e664d0be91faebb17))
+
 ## [9.54.0](https://github.com/biosimulations/biosimulations/compare/v9.53.0...v9.54.0) (2023-12-27)
 
 
