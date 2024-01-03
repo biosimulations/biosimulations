@@ -172,7 +172,11 @@ export class CompleteProcessor extends WorkerHost {
   }
 
   private getFailedStepErrorMessage(step: stepsInfo, failedSteps: stepsInfo[]): string {
-    let message = step.description + ' ... failed due to ' + step.reason;
+    let suffix = ' ... failed';
+    if (step.reason) {
+      suffix += ' due to: ' + step.reason;
+    }
+    let message = step.description + suffix;
     let failedDueToChild = false;
     const children = step.children;
     children.forEach((child) => {
