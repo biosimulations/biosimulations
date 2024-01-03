@@ -257,7 +257,7 @@ export class CompleteProcessor extends WorkerHost {
         returnValue: flow.job.returnvalue.data,
         required: flow.job.data.required,
         description: flow.job.data.description,
-        errorMessage,
+        errorMessage: flow.job.data.errorMessage,
         data: flow.job.data,
         children: children,
       });
