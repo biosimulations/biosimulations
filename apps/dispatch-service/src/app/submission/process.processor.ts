@@ -27,7 +27,6 @@ export class ProcessProcessor extends WorkerHost {
   public async process(job: Job): Promise<void> {
     // Called as soon as simulation is complete.
     this.logger.log(`Processing job ${job.id}`);
-
     const runId = job.data.runId;
     // Each job defined below should be as close to atomic as possible to enable retries.
 
@@ -145,7 +144,8 @@ export class ProcessProcessor extends WorkerHost {
       data: {
         runId: job.data.runId,
         description: 'Post the SED-ML file to the API',
-        moreInfo: undefined,
+        moreInfo: job.data.moreInfo,
+        reason: job.failedReason,
         validator: undefined,
         errorMessage: `There was an error uploading the SED-ML specifications to the API.`,
         required: true,
