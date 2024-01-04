@@ -8,7 +8,7 @@ $ACCENT: var(--accent-darker-color) !important;
   overflow: auto;
   max-width: 1000px;
 
-  .description-column {
+  /*.description-column {
     display: none;
     opacity: 0;
     transition: opacity 0.5s ease, max-height 0.5s ease;
@@ -18,7 +18,7 @@ $ACCENT: var(--accent-darker-color) !important;
     display: block;
     opacity: 1;
     max-height: 1000px;
-  }
+  }*/
 
   .thumbnails-column {
     height: auto;
