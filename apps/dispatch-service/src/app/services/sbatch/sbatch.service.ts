@@ -80,6 +80,7 @@ export class SbatchService {
 
     const nc = ConsoleFormatting.noColor;
     const cyan = ConsoleFormatting.cyan;
+    const red = ConsoleFormatting.red;
 
     let allEnvVars = [...envVars];
 
@@ -159,8 +160,9 @@ export class SbatchService {
 #SBATCH --partition=${slurmPartition}
 #SBATCH --qos=${slurmQos}
 
-# configure error handling
-set -e
+# the return code of any failing command will be stored in err, so that the script will exit with that code if it fails
+err=0
+failed_step=""
 
 # print thank you message
 echo -e '${cyan}Thank you for using runBioSimulations!${nc}'
@@ -180,153 +182,237 @@ export PYTHONWARNINGS="ignore"
 export AWS_ACCESS_KEY_ID=${storageKey}
 export AWS_SECRET_ACCESS_KEY=${storageSecret}
 
-echo -e ''
-echo -e '${cyan}========================================== Downloading COMBINE/OMEX archive =========================================${nc}'
-(ulimit -f 1048576; srun --job-name="Download-project" curl -L -o '${combineArchiveFilename}' ${runCombineArchiveUrl})
 
-echo -e ''
-echo -e '${cyan}=========================================== Executing COMBINE/OMEX archive ==========================================${nc}'
-TEMP_DIRNAME=$(mktemp --directory --tmpdir=/local)
-set +e
 
-srun --job-name="Execute-project" \
-  singularity run \
-    --bind ${workDirname}:/root \
-    --bind \${TEMP_DIRNAME}:/tmp \
-    ${allEnvVarsString} \
-    ${simulatorImage} \
-      -i '/root/${combineArchiveFilename}' \
-      -o '/root/${outputsS3Subpath}'
+if [[ $err -eq 0 ]]; then
+  echo -e ''
+  echo -e '${cyan}========================================== Downloading COMBINE/OMEX archive =========================================${nc}'
+  (ulimit -f 1048576; srun --job-name="Download-project" curl -L -o '${combineArchiveFilename}' ${runCombineArchiveUrl})
+  retcode=$?
+  if [[ $retcode -ne 0 ]]; then
+    err=$?
+    failed_step="Download-project"
+  fi
+else
+  echo -e ''
+  echo -e '${red}========================================== [SKIP] Downloading COMBINE/OMEX archive =========================================${nc}'
+fi
 
-rm -rf \${TEMP_DIRNAME}
 
-echo -e ''
-echo -e '${cyan}===================================================== Saving log ====================================================${nc}'
+if [[$err -eq 0 ]]; then
+  echo -e ''
+  echo -e '${cyan}=========================================== Executing COMBINE/OMEX archive ==========================================${nc}'
+  TEMP_DIRNAME=$(mktemp --directory --tmpdir=/local)
+  srun --job-name="Execute-project" \
+    singularity run \
+      --bind ${workDirname}:/root \
+      --bind \${TEMP_DIRNAME}:/tmp \
+      ${allEnvVarsString} \
+      ${simulatorImage} \
+        -i '/root/${combineArchiveFilename}' \
+        -o '/root/${outputsS3Subpath}'
+  retcode=$?
+  if [[ $retcode -ne 0 ]]; then
+    err=$?
+    failed_step="Execute-project"
+  fi
+  rm -rf \${TEMP_DIRNAME}
+else
+  echo -e ''
+  echo -e '${red}========================================== [SKIP] Executing COMBINE/OMEX archive =========================================${nc}'
+fi
 
-srun --job-name="Save-raw-log-to-S3-1" \
-  aws \
-    --endpoint-url ${storageEndpoint} \
-    s3 sync \
-      . \
-      's3://${storageBucket}/${simulationRunS3Path}' \
-      --exclude '*' \
-      --include '${OutputFileName.RAW_LOG}' \
-      --acl public-read
 
-srun --job-name="Save-structured-log-to-S3" \
-  aws \
-    --endpoint-url ${storageEndpoint} \
-    s3 sync \
-      . \
-      's3://${storageBucket}/${simulationRunS3Path}' \
-      --exclude '*' \
-      --include '*.yml' \
-      --include '*.yaml' \
-      --content-type 'application/yaml'\
-      --acl public-read
 
-echo -e ''
-echo -e '${cyan}================================================== Zipping outputs ==================================================${nc}'
-srun --job-name="Zip-outputs" \
-  zip \
-    -x '${outputsPlotsFileSubPath}' \
-    -r \
-    '${OutputFileName.OUTPUT_ARCHIVE}' \
-    ${outputsS3Subpath} \
-    ${outputRawLogSubPath}
+if [[ $err -eq 0 ]]; then
+  echo -e ''
+  echo -e '${cyan}===================================================== Saving log ====================================================${nc}'
+  srun --job-name="Save-raw-log-to-S3-1" \
+    aws \
+      --endpoint-url ${storageEndpoint} \
+      s3 sync \
+        . \
+        's3://${storageBucket}/${simulationRunS3Path}' \
+        --exclude '*' \
+        --include '${OutputFileName.RAW_LOG}' \
+        --acl public-read
+  retcode=$?
+  if [[ $retcode -ne 0 ]]; then
+    err=$?
+    failed_step="Save-raw-log-to-S3-1"
+  fi
+else
+  echo -e ''
+  echo -e '${red}========================================== [SKIP] Saving log =========================================${nc}'
+fi
 
-echo -e ''
-echo -e '${cyan}=================================================== Saving outputs ==================================================${nc}'
+if [[ $err -eq 0 ]]; then
+  echo -e ''
+  echo -e '${cyan}===================================================== Saving Structured log ==========================================${nc}'
+  srun --job-name="Save-structured-log-to-S3" \
+    aws \
+      --endpoint-url ${storageEndpoint} \
+      s3 sync \
+        . \
+        's3://${storageBucket}/${simulationRunS3Path}' \
+        --exclude '*' \
+        --include '*.yml' \
+        --include '*.yaml' \
+        --content-type 'application/yaml'\
+        --acl public-read
+  retcode=$?
+  if [[ $retcode -ne 0 ]]; then
+    err=$?
+    failed_step="Save-structured-log-to-S3"
+  fi
+else
+  echo -e ''
+  echo -e '${red}========================================== [SKIP] Saving Structured log =========================================${nc}'
+fi
+
+if [[ $err -eq 0 ]]; then
+  echo -e ''
+  echo -e '${cyan}================================================== Zipping outputs ==================================================${nc}'
+  srun --job-name="Zip-outputs" \
+    zip \
+      -x '${outputsPlotsFileSubPath}' \
+      -r \
+      '${OutputFileName.OUTPUT_ARCHIVE}' \
+      ${outputsS3Subpath} \
+      ${outputRawLogSubPath}
+  retcode=$?
+  if [[ $retcode -ne 0 ]]; then
+    err=$?
+    failed_step="Zip-outputs"
+  fi
+else
+  echo -e ''
+  echo -e '${red}========================================== [SKIP] Zipping outputs =========================================${nc}'
+fi
 
 # We run the upload in steps to 1) get the content types right, and 2) make sure the final log has the upload operation included
-
-srun --job-name="Save-numerical-outputs-to-S3" \
-  aws \
-    --endpoint-url ${storageEndpoint} \
-    s3 sync \
-      . \
-      's3://${storageBucket}/${simulationRunS3Path}' \
-      --exclude '*' \
-      --include '*.h5' \
-      --include '*.hdf' \
-      --include '*.hdf5' \
-      --content-type 'application/hdf5'\
-      --acl public-read
-
-srun --job-name="Save-other-outputs-to-S3" \
-  aws \
-    --endpoint-url ${storageEndpoint} \
-    s3 sync \
-      . \
-      's3://${storageBucket}/${simulationRunS3Path}' \
-      --exclude "job.sbatch" \
-      --exclude "*.h5" \
-      --exclude "*.hdf" \
-      --exclude "*.hdf5" \
-      --exclude "*.yml" \
-      --exclude "*.yaml" \
-      --exclude "${combineArchiveFilename}" \
-      --acl public-read
-
-echo -e ''
-echo -e '${cyan}====================================== Saving contents of COMBINE/OMEX archive ======================================${nc}'
-
-srun --job-name="Unzip-COMBINE-archive" \
-  unzip ${combineArchiveFilename} -d ${combineArchiveContentsDirname}
-
-srun --job-name="Save-COMBINE-archive-contents-to-S3" \
-  aws \
-    --endpoint-url ${storageEndpoint} \
-    s3 sync \
-      ${combineArchiveContentsDirname} \
-      's3://${storageBucket}/${simulationRunS3Path}/${combineArchiveContentsDirname}' \
-      --include "*" \
-      --acl public-read
-
-rm -r ${combineArchiveContentsDirname}
-
-echo -e ''
-echo -e '${cyan}==================================================== Updating log ===================================================${nc}'
-
-srun --job-name="Save-raw-log-to-S3-2" \
-  aws \
-    --endpoint-url ${storageEndpoint} \
-    s3 sync \
-      . \
-      's3://${storageBucket}/${simulationRunS3Path}' \
-      --exclude '*' \
-      --include '${OutputFileName.RAW_LOG}' \
-      --acl public-read
-
-echo -e ''
-echo -e '${cyan}=================================================== Saving results ===============================${nc}'
-
-hsds_counter=0
-max_num_tries=40
-min_sleep_time=5
-max_sleep_time=15
-
-srun --job-name="Save-results-to-HSDS" \
-  hsload \
-    --endpoint ${hsdsBasePath} \
-    --user ${hsdsUsername} \
-    --password ${hsdsPassword} \
-    --verbose \
-    ${outputsReportsFileSubPath} \
-    '${simulationRunResultsHsdsPath}'
-retcode=$?
-
-while [ $retcode -ne 0 ]; do
-  echo "Failed to save results to HSDS"
-  hsds_counter=$((hsds_counter+1))
-  if [ $hsds_counter -eq $max_num_tries ]; then
-    echo "Failed to save results to HSDS after $max_num_tries attempts, exiting"
-    exit 1
+if [[ $err -eq 0 ]]; then
+  echo -e ''
+  echo -e '${cyan}=================================================== Saving HDF5 outputs ==================================================${nc}'
+  srun --job-name="Save-numerical-outputs-to-S3" \
+    aws \
+      --endpoint-url ${storageEndpoint} \
+      s3 sync \
+        . \
+        's3://${storageBucket}/${simulationRunS3Path}' \
+        --exclude '*' \
+        --include '*.h5' \
+        --include '*.hdf' \
+        --include '*.hdf5' \
+        --content-type 'application/hdf5'\
+        --acl public-read
+  retcode=$?
+  if [[ $retcode -ne 0 ]]; then
+    err=$?
+    failed_step="Save-numerical-outputs-to-S3"
   fi
+else
+  echo -e ''
+  echo -e '${red}========================================== [SKIP] Saving HDF5 outputs =========================================${nc}'
+fi
 
-  sleep_time=$(($min_sleep_time + (RANDOM % ($max_sleep_time - $min_sleep_time + 1))))
-  echo "Waiting $sleep_time seconds"
-  sleep $sleep_time
+if [[ $err -eq 0 ]]; then
+  echo -e ''
+  echo -e '${cyan}=================================================== Saving non-HDF5 outputs ==================================================${nc}'
+  srun --job-name="Save-other-outputs-to-S3" \
+    aws \
+      --endpoint-url ${storageEndpoint} \
+      s3 sync \
+        . \
+        's3://${storageBucket}/${simulationRunS3Path}' \
+        --exclude "job.sbatch" \
+        --exclude "*.h5" \
+        --exclude "*.hdf" \
+        --exclude "*.hdf5" \
+        --exclude "*.yml" \
+        --exclude "*.yaml" \
+        --exclude "${combineArchiveFilename}" \
+        --acl public-read
+  retcode=$?
+  if [[ $retcode -ne 0 ]]; then
+    err=$?
+    failed_step="Save-other-outputs-to-S3"
+  fi
+else
+  echo -e ''
+  echo -e '${red}========================================== [SKIP] Saving non-HDF5 outputs =========================================${nc}'
+fi
+
+
+if [[ $err -eq 0 ]]; then
+  echo -e ''
+  echo -e '${cyan}====================================== Unzip contents of COMBINE/OMEX archive ======================================${nc}'
+  srun --job-name="Unzip-COMBINE-archive" \
+    unzip ${combineArchiveFilename} -d ${combineArchiveContentsDirname}
+  retcode=$?
+  if [[ $retcode -ne 0 ]]; then
+    err=$?
+    failed_step="Unzip-COMBINE-archive"
+  fi
+else
+  echo -e ''
+  echo -e '${red}========================================== [SKIP] Unzip contents of COMBINE/OMEX archive =========================================${nc}'
+fi
+
+if [[ $err -eq 0 ]]; then
+  echo -e ''
+  echo -e '${cyan}====================================== Save contents of COMBINE/OMEX archive ======================================${nc}'
+  srun --job-name="Save-COMBINE-archive-contents-to-S3" \
+    aws \
+      --endpoint-url ${storageEndpoint} \
+      s3 sync \
+        ${combineArchiveContentsDirname} \
+        's3://${storageBucket}/${simulationRunS3Path}/${combineArchiveContentsDirname}' \
+        --include "*" \
+        --acl public-read
+  retcode=$?
+  if [[ $retcode -ne 0 ]]; then
+    err=$?
+    failed_step="Save-COMBINE-archive-contents-to-S3"
+  fi
+  rm -r ${combineArchiveContentsDirname}
+else
+  echo -e ''
+  echo -e '${red}========================================== [SKIP] Save contents of COMBINE/OMEX archive =========================================${nc}'
+fi
+
+
+
+if [[ $err -eq 0 ]]; then
+  echo -e ''
+  echo -e '${cyan}==================================================== Updating log (2) ===============================================${nc}'
+  srun --job-name="Save-raw-log-to-S3-2" \
+    aws \
+      --endpoint-url ${storageEndpoint} \
+      s3 sync \
+        . \
+        's3://${storageBucket}/${simulationRunS3Path}' \
+        --exclude '*' \
+        --include '${OutputFileName.RAW_LOG}' \
+        --acl public-read
+  retcode=$?
+  if [[ $retcode -ne 0 ]]; then
+    err=$?
+    failed_step="Save-raw-log-to-S3-2"
+  fi
+else
+  echo -e ''
+  echo -e '${red}========================================== [SKIP] Updating log (2) =========================================${nc}'
+fi
+
+if [[ $err -eq 0 ]]; then
+  echo -e ''
+  echo -e '${cyan}=================================================== Saving results to HSDS ========================${nc}'
+
+  hsds_counter=0
+  max_num_tries=40
+  min_sleep_time=5
+  max_sleep_time=15
 
   srun --job-name="Save-results-to-HSDS" \
     hsload \
@@ -336,9 +422,40 @@ while [ $retcode -ne 0 ]; do
       --verbose \
       ${outputsReportsFileSubPath} \
       '${simulationRunResultsHsdsPath}'
-    retcode=$?
+  hsds_retcode=$?
 
-done
+  while [ $hsds_retcode -ne 0 ]; do
+    echo "Failed to save results to HSDS"
+    hsds_counter=$((hsds_counter+1))
+    if [ $hsds_counter -eq $max_num_tries ]; then
+      echo "Failed to save results to HSDS after $max_num_tries attempts, exiting"
+      exit 1
+    fi
+
+    sleep_time=$(($min_sleep_time + (RANDOM % ($max_sleep_time - $min_sleep_time + 1))))
+    echo "Waiting $sleep_time seconds"
+    sleep $sleep_time
+
+    srun --job-name="Save-results-to-HSDS" \
+      hsload \
+        --endpoint ${hsdsBasePath} \
+        --user ${hsdsUsername} \
+        --password ${hsdsPassword} \
+        --verbose \
+        ${outputsReportsFileSubPath} \
+        '${simulationRunResultsHsdsPath}'
+      hsds_retcode=$?
+  done
+
+  if [[ $hsds_retcode -ne 0 ]]; then
+    err=$hsds_retcode
+    failed_step="Save-results-to-HSDS"
+  fi
+
+else
+  echo -e ''
+  echo -e '${red}========================================== [SKIP] Saving results to HSDS =========================================${nc}'
+fi
 
 echo -e ''
 echo -e '${cyan}================================================== Saving final log =================================================${nc}'
@@ -351,6 +468,17 @@ srun --job-name="Save-raw-log-to-S3-3" \
       --exclude '*' \
       --include '${OutputFileName.RAW_LOG}' \
       --acl public-read
+retcode=$?
+if [[ $retcode -ne 0 ]]; then
+  err=$?
+  failed_step="Save-raw-log-to-S3-3"
+fi
+
+# If there was an error, exit the script with that error code and echo the step which failed
+if [[ $err -ne 0 ]]; then
+  echo "Error: $failed_step failed with exit code $err"
+  exit $err
+fi
 `;
 
     return template;
