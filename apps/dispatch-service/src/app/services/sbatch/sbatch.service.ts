@@ -182,7 +182,27 @@ export PYTHONWARNINGS="ignore"
 export AWS_ACCESS_KEY_ID=${storageKey}
 export AWS_SECRET_ACCESS_KEY=${storageSecret}
 
+cleanup() {
+  echo -e ''
+  echo -e '${cyan}================================================== Saving final log =================================================${nc}'
+  srun --job-name="Save-raw-log-to-S3-3" \
+    aws \
+      --endpoint-url ${storageEndpoint} \
+      s3 sync \
+        . \
+        's3://${storageBucket}/${simulationRunS3Path}' \
+        --exclude '*' \
+        --include '${OutputFileName.RAW_LOG}' \
+        --acl public-read
+  retcode=$?
+  if [[ $retcode -ne 0 ]]; then
+    err=$?
+    failed_step="Save-raw-log-to-S3-3"
+  fi
+}
 
+# execute cleanup function on jobs which are cancelled
+trap cleanup SIGTERM
 
 if [[ $err -eq 0 ]]; then
   echo -e ''
@@ -457,22 +477,7 @@ else
   echo -e '${red}========================================== [SKIP] Saving results to HSDS =========================================${nc}'
 fi
 
-echo -e ''
-echo -e '${cyan}================================================== Saving final log =================================================${nc}'
-srun --job-name="Save-raw-log-to-S3-3" \
-  aws \
-    --endpoint-url ${storageEndpoint} \
-    s3 sync \
-      . \
-      's3://${storageBucket}/${simulationRunS3Path}' \
-      --exclude '*' \
-      --include '${OutputFileName.RAW_LOG}' \
-      --acl public-read
-retcode=$?
-if [[ $retcode -ne 0 ]]; then
-  err=$?
-  failed_step="Save-raw-log-to-S3-3"
-fi
+cleanup
 
 # If there was an error, exit the script with that error code and echo the step which failed
 if [[ $err -ne 0 ]]; then
