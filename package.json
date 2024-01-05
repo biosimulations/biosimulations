@@ -226,7 +226,7 @@
     "ngx-resize-observer": "^2.4.1",
     "nx": "15.9.4",
     "openapi-examples-validator": "4.6.0",
-    "plotly.js": "2.11.1",
+    "plotly.js": "2.25.2",
     "postcss": "8.4.31",
     "postcss-import": "14.1.0",
     "postcss-preset-env": "~7.5.0",
