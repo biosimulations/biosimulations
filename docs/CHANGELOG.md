@@ -1,5 +1,14 @@
 # Changelog
 
+## [9.54.2](https://github.com/biosimulations/biosimulations/compare/v9.54.1...v9.54.2) (2024-01-05)
+
+
+### Bug Fixes
+
+* add jest test for sbatch template generation to verify syntax ([3a97587](https://github.com/biosimulations/biosimulations/commit/3a975879a8b53a3ce78d6b386d9b00c2303ce3be))
+* more informative slurm script and always upload final rawLog.txt ([1903607](https://github.com/biosimulations/biosimulations/commit/1903607e0582ed4b28f78fe53378c8ddf16face7))
+* send final log file to server upon SIGTERM when job timeout happens ([1f6fbf2](https://github.com/biosimulations/biosimulations/commit/1f6fbf26c4301d74f6cf9b23f9436eb13f22784d))
+
 ## [9.54.1](https://github.com/biosimulations/biosimulations/compare/v9.54.0...v9.54.1) (2023-12-31)
 
 
