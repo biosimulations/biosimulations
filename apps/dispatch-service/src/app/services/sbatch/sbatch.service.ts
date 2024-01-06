@@ -219,7 +219,7 @@ else
 fi
 
 
-if [[$err -eq 0 ]]; then
+if [[ $err -eq 0 ]]; then
   echo -e ''
   echo -e '${cyan}=========================================== Executing COMBINE/OMEX archive ==========================================${nc}'
   TEMP_DIRNAME=$(mktemp --directory --tmpdir=/local)

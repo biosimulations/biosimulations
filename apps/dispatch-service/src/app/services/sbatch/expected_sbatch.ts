@@ -62,7 +62,7 @@ else
 fi
 
 
-if [[$err -eq 0 ]]; then
+if [[ $err -eq 0 ]]; then
   echo -e ''
   echo -e '\\033[0;36m=========================================== Executing COMBINE/OMEX archive ==========================================\\033[0m'
   TEMP_DIRNAME=$(mktemp --directory --tmpdir=/local)
