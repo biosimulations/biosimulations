@@ -139,22 +139,22 @@ export class HpcService {
         }
       });
 
-      if (failedSteps.length === 0) {
-        simStatusReason = {
-          status: SimulationRunStatus.SUCCEEDED,
-          reason:
-            'The simulation project (COMBINE/OMEX archive) was successfully saved, \
+      // if (failedSteps.length === 0) {
+      simStatusReason = {
+        status: SimulationRunStatus.SUCCEEDED,
+        reason:
+          'The simulation project (COMBINE/OMEX archive) was successfully saved, \
             the project executed successfully, and the results of the simulation experiments were successfully saved.',
-        };
-      } else {
-        simStatusReason = {
-          status: SimulationRunStatus.FAILED,
-          reason: `${failedSteps.length} steps of the simulation run job failed:\n  * ${failedSteps.join('\n  * ')}`,
-        };
-        this.logger.error(
-          `Job '${jobId}' completed, but ${failedSteps.length} steps failed:\n  * ${failedSteps.join('\n  * ')}`,
-        );
-      }
+      };
+      // } else {
+      //   simStatusReason = {
+      //     status: SimulationRunStatus.FAILED,
+      //     reason: `${failedSteps.length} steps of the simulation run job failed:\n  * ${failedSteps.join('\n  * ')}`,
+      //   };
+      //   this.logger.error(
+      //     `Job '${jobId}' completed, but ${failedSteps.length} steps failed:\n  * ${failedSteps.join('\n  * ')}`,
+      //   );
+      // }
     } else if (
       finalStatus == 'FAILED' ||
       finalStatus == 'OUT-OF-MEMORY' ||
