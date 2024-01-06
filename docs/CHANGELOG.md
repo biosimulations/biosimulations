@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.54.4](https://github.com/biosimulations/biosimulations/compare/v9.54.3...v9.54.4) (2024-01-06)
+
+
+### Bug Fixes
+
+* job status is now tolerant of Slurm Job HSDS upload retries ([8d4fb56](https://github.com/biosimulations/biosimulations/commit/8d4fb560589dfc8dfbb2f5da605778e91d232f53))
+
 ## [9.54.3](https://github.com/biosimulations/biosimulations/compare/v9.54.2...v9.54.3) (2024-01-06)
 
 
