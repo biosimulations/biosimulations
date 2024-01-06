@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.54.3](https://github.com/biosimulations/biosimulations/compare/v9.54.2...v9.54.3) (2024-01-06)
+
+
+### Bug Fixes
+
+* missing space in bash script ([1edf106](https://github.com/biosimulations/biosimulations/commit/1edf10650a8c1a881ef1bd7a517e500f67330057))
+
 ## [9.54.2](https://github.com/biosimulations/biosimulations/compare/v9.54.1...v9.54.2) (2024-01-05)
 
 
