@@ -14,7 +14,7 @@ on:
       apps:
         required: false
         type: string
-        default: "[\"api\",\"simulators-api\",\"dispatch-service\",\"mail-service\",\"combine-api\"]"
+        default: "[\"api\",\"simulators-api\",\"dispatch-service\",\"mail-service\",\"combine-api\",\"simdata-api\"]"
 env:
   NX_SKIP_NX_CACHE: ${{ vars.NX_SKIP_NX_CACHE_VALUE }}
 

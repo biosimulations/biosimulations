@@ -1,0 +1,122 @@
+{
+  "name": "simdata-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/simdata-api/simdata_api",
+  "targets": {
+    "build": {
+      "executor": "@nx-python/nx-python:build",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/simdata-api",
+        "main": "apps/simdata-api/simdata_api/app.py"
+      },
+      "configurations": {
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx-python/nx-python:serve",
+      "options": {
+        "main": "-m simdata_api",
+        "cwd": "apps/simdata-api"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["npx nx docker simdata-api", "apps/simdata-api/run-tests-in-docker-container.sh"],
+        "parallel": false
+      },
+      "dependsOn": ["build"]
+    },
+    "test_offline": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["npx nx docker_offline simdata-api", "apps/simdata-api/run-tests-in-docker-container.sh"],
+        "parallel": false
+      },
+      "dependsOn": ["build"]
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["poetry run flake8"],
+        "cwd": "apps/simdata-api",
+        "parallel": false
+      }
+    },
+    "docker": {
+      "inputs": [],
+      "executor": "@nx-tools/nx-docker:build",
+      "options": {
+        "file": "./apps/simdata-api/Dockerfile",
+        "context": "./apps/simdata-api",
+        "push": true,
+        "build-args": ["app=simdata-api"],
+        "metadata": {
+          "enabled": true,
+          "images": ["ghcr.io/biosimulations/simdata-api"],
+          "labels": [
+            "org.opencontainers.image.title=BioSimulations SIMDATA API",
+            "org.opencontainers.image.description=Docker image for the BioSimulations SIMDATA API",
+            "org.opencontainers.image.url=https://biosimulations.org/",
+            "org.opencontainers.image.documentation=https://docs.biosimulations.org/",
+            "org.opencontainers.image.source=https://github.com/biosimulations/biosimulations",
+            "org.opencontainers.image.authors=BioSimulations Team <info@biosimulations.org>",
+            "org.opencontainers.image.vendor=BioSimulations",
+            "org.opencontainers.image.licenses=MIT"
+          ],
+          "tags": [
+            "type=schedule",
+            "type=ref,event=branch",
+            "type=ref,event=tag",
+            "type=ref,event=pr",
+            "type=semver,pattern={{version}}",
+            "type=sha"
+          ]
+        }
+      }
+    },
+    "docker_offline": {
+      "executor": "@nx-tools/nx-docker:build",
+      "options": {
+        "file": "./apps/simdata-api/Dockerfile",
+        "context": "./apps/simdata-api",
+        "push": false,
+        "build-args": ["app=simdata-api"],
+        "outputs": ["type=docker"],
+        "metadata": {
+          "enabled": true,
+          "images": ["ghcr.io/biosimulations/simdata-api"],
+          "labels": [
+            "org.opencontainers.image.title=BioSimulations SIMDATA API",
+            "org.opencontainers.image.description=Docker image for the BioSimulations SIMDATA API",
+            "org.opencontainers.image.url=https://biosimulations.org/",
+            "org.opencontainers.image.documentation=https://docs.biosimulations.org/",
+            "org.opencontainers.image.source=https://github.com/biosimulations/biosimulations",
+            "org.opencontainers.image.authors=BioSimulations Team <info@biosimulations.org>",
+            "org.opencontainers.image.vendor=BioSimulations",
+            "org.opencontainers.image.licenses=MIT"
+          ],
+          "tags": [
+            "type=schedule",
+            "type=ref,event=branch",
+            "type=ref,event=tag",
+            "type=ref,event=pr",
+            "type=semver,pattern={{version}}",
+            "type=sha"
+          ]
+        }
+      }
+    }
+  },
+  "tags": [],
+  "namedInputs": {
+    "projectSpecificFiles": [
+      "{workspaceRoot}/apps/simdata-api/Dockerfile-assets/Pipfile",
+      "{workspaceRoot}/apps/simdata-api/Dockerfile-assets/Pipfile.lock",
+      "{workspaceRoot}/apps/simdata-api/Dockerfile"
+    ]
+  }
+}
