@@ -14,6 +14,7 @@ export class Endpoints {
   private api: string;
   private simulatorsApi: string;
   private combineApi: string;
+  private simdataApi: string;
   private dataService: string;
 
   /* Backend public/external services (i.e. Use endpoints that can be accessed via public URL. */
@@ -21,6 +22,7 @@ export class Endpoints {
   private externalApi: string;
   private externalSimulatorsApi: string;
   private externalCombineApi: string;
+  private externalSimdataApi: string;
   private externalDataService: string;
 
   public constructor(env?: envs) {
@@ -35,10 +37,12 @@ export class Endpoints {
     this.api = loadedEndpoints.api;
     this.simulatorsApi = loadedEndpoints.simulatorsApi;
     this.combineApi = loadedEndpoints.combineApi;
+    this.simdataApi = loadedEndpoints.simdataApi;
     this.dataService = loadedEndpoints.dataService;
     this.externalApi = loadedEndpoints.externalApi;
     this.externalSimulatorsApi = loadedEndpoints.externalSimulatorsApi;
     this.externalCombineApi = loadedEndpoints.externalCombineApi;
+    this.externalSimdataApi = loadedEndpoints.externalSimdataApi;
     this.externalDataService = loadedEndpoints.externalDataService;
   }
   /* Statistics */
@@ -57,6 +61,10 @@ export class Endpoints {
 
   public getCombineHealthEndpoint(): string {
     return `${this.getCombineApiBaseUrl(true)}/health`;
+  }
+
+  public getSimdataHealthEndpoint(): string {
+    return `${this.getSimdataApiBaseUrl(true)}/health`;
   }
 
   /**
@@ -445,6 +453,10 @@ export class Endpoints {
 
   public getCombineApiBaseUrl(external: boolean): string {
     return external ? this.externalCombineApi : this.combineApi;
+  }
+
+  public getSimdataApiBaseUrl(external: boolean): string {
+    return external ? this.externalSimdataApi : this.simdataApi;
   }
 
   private getOntologiesEndpointBaseUrl(app: string, external: boolean): string {

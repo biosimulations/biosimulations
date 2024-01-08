@@ -49,6 +49,7 @@ export class HealthController {
   public checkStatus(): Promise<HealthCheckResult> {
     return this.health.check([
       this.combineCheck,
+      this.simdataCheck,
       this.mongoCheck,
       this.natsCheck,
       this.bullCheck,
@@ -94,6 +95,8 @@ export class HealthController {
 
   private combineCheck: HealthIndicatorFunction = () =>
     this.http.pingCheck('combine-api', this.endpoints.getCombineHealthEndpoint());
+  private simdataCheck: HealthIndicatorFunction = () =>
+    this.http.pingCheck('simdata-api', this.endpoints.getSimdataHealthEndpoint());
   private mongoCheck: HealthIndicatorFunction = () => this.db.pingCheck('Database');
 
   private natsCheck: HealthIndicatorFunction = () =>

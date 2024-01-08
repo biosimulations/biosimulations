@@ -18,9 +18,9 @@ async def root():
   return {"message": "Hello World"}
 
 
-@app.get("/items/{item_id}")
-async def read_item(item_id: int):
-  return {"item_id": item_id}
+@app.get("/health")
+async def health():
+  return {'status': 'ok'}
 
 
 @app.get("/datasets/{run_id}/{dataset_name}")
