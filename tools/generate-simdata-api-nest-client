@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+set -e
+
+# location of this script
+script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+sim_data_dir="$(dirname "$script_dir")/apps/simdata-api"
+
+# spec location
+spec_file=${sim_data_dir}/simdata_api/spec/openapi.yaml
+
+echo "generating openapi spec: ${spec_file}"
+poetry run -C ${sim_data_dir} python ${sim_data_dir}/simdata_api/gen_openapi_spec.py
+
+# output location
+lib_dir=${script_dir}/../libs/simdata-api/nest-client
+
+rm -rf ${lib_dir}/src/lib/api/
+rm -rf ${lib_dir}/src/lib/model/
+
+echo "generating nestjs client"
+npx @openapitools/openapi-generator-cli generate \
+    -g typescript-nestjs \
+    -i ${spec_file} \
+    -o ${lib_dir}/src/lib/ \
+    --global-property=skipFormModel=false \
+    --additional-properties=stringEnums=true,enumPropertyNaming=original,nestVersion=9.0.0,supportsES6=true \
+    --reserved-words-mappings abstract=abstract

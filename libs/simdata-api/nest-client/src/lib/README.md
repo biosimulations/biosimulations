@@ -16,7 +16,7 @@ In your Nestjs project:
 ```
 // without configuring providers
 import { ApiModule } from '';
-import { HttpModule } from '@nestjs/common';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
     imports: [
@@ -66,7 +66,7 @@ in order to avoid naming conflicts:
 ```
 import { ApiModule } from 'my-api-path';
 import { ApiModule as OtherApiModule } from 'my-other-api-path';
-import { HttpModule } from '@nestjs/common';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
@@ -82,7 +82,7 @@ export class AppModule {
 
 
 ### Set service base path
-If different than the generated base path, during app bootstrap, you can provide the base path to your service. 
+If different than the generated base path, during app bootstrap, you can provide the base path to your service.
 
 ```
 import { BASE_PATH } from '';
@@ -127,9 +127,9 @@ import { environment } from '../environments/environment';
   ],
   imports: [ ],
   providers: [
-    { 
-      provide: 'BASE_PATH', 
-      useValue: environment.API_BASE_PATH 
+    {
+      provide: 'BASE_PATH',
+      useValue: environment.API_BASE_PATH
     }
   ]
 })

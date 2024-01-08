@@ -1,0 +1,12 @@
+.gitignore
+README.md
+api.module.ts
+api/api.ts
+api/default.service.ts
+configuration.ts
+git_push.sh
+index.ts
+model/hTTPValidationError.ts
+model/models.ts
+model/validationError.ts
+variables.ts
