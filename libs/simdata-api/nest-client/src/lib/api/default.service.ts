@@ -15,6 +15,7 @@ import { Inject, Injectable, Optional } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { AxiosResponse } from 'axios';
 import { Observable } from 'rxjs';
+import { DatasetData } from '../model/datasetData';
 import { HTTPValidationError } from '../model/hTTPValidationError';
 import { Configuration } from '../configuration';
 
@@ -39,16 +40,50 @@ export class DefaultService {
   }
 
   /**
-   * Read Item
+   * Health
    *
-   * @param itemId
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public readItemItemsItemIdGet(itemId: any): Observable<AxiosResponse<any>>;
-  public readItemItemsItemIdGet(itemId: any): Observable<any> {
-    if (itemId === null || itemId === undefined) {
-      throw new Error('Required parameter itemId was null or undefined when calling readItemItemsItemIdGet.');
+  public healthHealthGet(): Observable<AxiosResponse<any>>;
+  public healthHealthGet(): Observable<any> {
+    let headers = { ...this.defaultHeaders };
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers['Accept'] = httpHeaderAcceptSelected;
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = [];
+    return this.httpClient.get<any>(`${this.basePath}/health`, {
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+    });
+  }
+  /**
+   * Read Dataset
+   *
+   * @param runId
+   * @param datasetName
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public readDatasetDatasetsRunIdGet(runId: any, datasetName: any): Observable<AxiosResponse<DatasetData>>;
+  public readDatasetDatasetsRunIdGet(runId: any, datasetName: any): Observable<any> {
+    if (runId === null || runId === undefined) {
+      throw new Error('Required parameter runId was null or undefined when calling readDatasetDatasetsRunIdGet.');
+    }
+
+    if (datasetName === null || datasetName === undefined) {
+      throw new Error('Required parameter datasetName was null or undefined when calling readDatasetDatasetsRunIdGet.');
+    }
+
+    let queryParameters = new URLSearchParams();
+    if (datasetName !== undefined && datasetName !== null) {
+      queryParameters.append('dataset_name', <any>datasetName);
     }
 
     let headers = { ...this.defaultHeaders };
@@ -62,7 +97,8 @@ export class DefaultService {
 
     // to determine the Content-Type header
     const consumes: string[] = [];
-    return this.httpClient.get<any>(`${this.basePath}/items/${encodeURIComponent(String(item_id))}`, {
+    return this.httpClient.get<DatasetData>(`${this.basePath}/datasets/${encodeURIComponent(String(run_id))}`, {
+      params: queryParameters,
       withCredentials: this.configuration.withCredentials,
       headers: headers,
     });

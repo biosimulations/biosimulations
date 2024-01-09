@@ -10,7 +10,7 @@ sim_data_dir="$(dirname "$script_dir")/apps/simdata-api"
 spec_file=${sim_data_dir}/simdata_api/spec/openapi.yaml
 
 echo "generating openapi spec: ${spec_file}"
-poetry run -C ${sim_data_dir} python ${sim_data_dir}/simdata_api/gen_openapi_spec.py
+poetry run -C ${sim_data_dir} python ${sim_data_dir}/simdata_api/internal/gen_openapi_spec.py
 
 # output location
 lib_dir=${script_dir}/../libs/simdata-api/nest-client

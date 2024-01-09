@@ -13,23 +13,40 @@ paths:
           content:
             application/json:
               schema: {}
-  /items/{item_id}:
+  /health:
     get:
-      summary: Read Item
-      operationId: read_item_items__item_id__get
-      parameters:
-      - name: item_id
-        in: path
-        required: true
-        schema:
-          type: integer
-          title: Item Id
+      summary: Health
+      operationId: health_health_get
       responses:
         '200':
           description: Successful Response
           content:
             application/json:
               schema: {}
+  /datasets/{run_id}:
+    get:
+      summary: Read Dataset
+      operationId: read_dataset_datasets__run_id__get
+      parameters:
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Run Id
+      - name: dataset_name
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Dataset Name
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatasetData'
         '422':
           description: Validation Error
           content:
@@ -38,6 +55,23 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    DatasetData:
+      properties:
+        shape:
+          items:
+            type: integer
+          type: array
+          title: Shape
+        values:
+          items:
+            type: number
+          type: array
+          title: Values
+      type: object
+      required:
+      - shape
+      - values
+      title: DatasetData
     HTTPValidationError:
       properties:
         detail:

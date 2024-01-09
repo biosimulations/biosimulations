@@ -134,3 +134,5 @@ biosimulations_cache.sqlite
 
 apps/simdata-api/.idea/
 /apps/simdata-api/.venv/
+
+apps/combine-api/.idea/
