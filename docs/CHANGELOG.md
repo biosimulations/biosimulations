@@ -1,5 +1,17 @@
 # Changelog
 
+## [9.54.5](https://github.com/biosimulations/biosimulations/compare/v9.54.4...v9.54.5) (2024-01-10)
+
+
+### Bug Fixes
+
+* added data to logging statements ([f9cd643](https://github.com/biosimulations/biosimulations/commit/f9cd643e4f63ca1dac6bbdb15089963bb5c66de4))
+* commented out hover description ([0ce9089](https://github.com/biosimulations/biosimulations/commit/0ce9089346a23aa36391d6297a53added41f9d7f))
+* updated job error messages ([8452f14](https://github.com/biosimulations/biosimulations/commit/8452f14b801abe4d47d4983d09422f172d3adc27))
+* updated process log message to include reason if fail ([efd364e](https://github.com/biosimulations/biosimulations/commit/efd364e72939894a83d614f41bcb6223746bd5a4))
+* updated processor and complete to reflect logic ([c8d961c](https://github.com/biosimulations/biosimulations/commit/c8d961cc1deb0b01657b4675ffa3a3be69a7be4d))
+* updated structured log to include more extensive message ([3ac6fc5](https://github.com/biosimulations/biosimulations/commit/3ac6fc54d8c73533fca7d1b77ae8eee3666d2a0d))
+
 ## [9.54.4](https://github.com/biosimulations/biosimulations/compare/v9.54.3...v9.54.4) (2024-01-06)
 
 
