@@ -144,7 +144,7 @@ export class ProcessProcessor extends WorkerHost {
       data: {
         runId: job.data.runId,
         description: 'Post the SED-ML file to the API',
-        moreInfo: job.data.moreInfo,
+        moreInfo: undefined,
         reason: job.failedReason,
         validator: undefined,
         errorMessage: `There was an error uploading the SED-ML specifications to the API.`,
