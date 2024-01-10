@@ -44,6 +44,7 @@ export class SshService {
       let stdout = '';
       let stderr = '';
 
+      const start = new Date().getTime();
       this.connection.exec(cmd, async (err, stream) => {
         if (err) {
           this.logger.error(err);
@@ -63,7 +64,8 @@ export class SshService {
               stderr += data.toString('utf8');
             });
         } else {
-          this.logger.error('Stream is null');
+          const elapsed = (new Date().getTime() - start) / 1000.0;
+          this.logger.error(`Stream is null in SSH service execStringCommand: ${cmd}. Elapsed time: ${elapsed}`);
 
           if (retryCount < retries) {
             this.logger.debug(`Retrying SSH connection ${retryCount + 1} of ${retries} ...`);

@@ -71,10 +71,10 @@ export class HpcService {
     const res = this.sshService.execStringCommand(command);
 
     return res.catch((err) => {
-      this.logger.error(`The job for simulation run '${runId}' could not be submitted.`);
+      this.logger.error(`The job for simulation run '${runId}' could not be submitted: ${err}, command: ${command}`);
       return {
         stdout: '',
-        stderr: `The job for simulation run '${runId}' could not be submitted: ${err}`,
+        stderr: `The job for simulation run '${runId}' could not be submitted: ${err}, command: ${command}`,
       };
     });
   }
