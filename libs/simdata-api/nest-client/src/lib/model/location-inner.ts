@@ -10,7 +10,4 @@
  * Do not edit the class manually.
  */
 
-export interface DatasetData {
-  shape: any | null;
-  values: any | null;
-}
+export interface LocationInner {}

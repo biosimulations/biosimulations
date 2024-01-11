@@ -1,3 +1,4 @@
-export * from './datasetData';
-export * from './hTTPValidationError';
-export * from './validationError';
+export * from './dataset-data';
+export * from './http-validation-error';
+export * from './location-inner';
+export * from './validation-error';

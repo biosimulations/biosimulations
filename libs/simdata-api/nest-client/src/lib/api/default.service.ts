@@ -15,12 +15,13 @@ import { Inject, Injectable, Optional } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { AxiosResponse } from 'axios';
 import { Observable } from 'rxjs';
-import { DatasetData } from '../model/datasetData';
-import { HTTPValidationError } from '../model/hTTPValidationError';
+import { DatasetData } from '../model/dataset-data';
+import { HTTPValidationError } from '../model/http-validation-error';
 import { Configuration } from '../configuration';
+import { DefaultServiceInterface } from './default.serviceInterface';
 
 @Injectable()
-export class DefaultService {
+export class DefaultService implements DefaultServiceInterface {
   protected basePath = 'http://localhost';
   public defaultHeaders: Record<string, string> = {};
   public configuration = new Configuration();
@@ -71,8 +72,8 @@ export class DefaultService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public readDatasetDatasetsRunIdGet(runId: any, datasetName: any): Observable<AxiosResponse<DatasetData>>;
-  public readDatasetDatasetsRunIdGet(runId: any, datasetName: any): Observable<any> {
+  public readDatasetDatasetsRunIdGet(runId: string, datasetName: string): Observable<AxiosResponse<DatasetData>>;
+  public readDatasetDatasetsRunIdGet(runId: string, datasetName: string): Observable<any> {
     if (runId === null || runId === undefined) {
       throw new Error('Required parameter runId was null or undefined when calling readDatasetDatasetsRunIdGet.');
     }
