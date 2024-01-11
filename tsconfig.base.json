@@ -78,6 +78,11 @@
       "@biosimulations/shared/styles": ["libs/shared/styles/src/index.ts"],
       "@biosimulations/shared/ui": ["libs/shared/ui/src/index.ts"],
       "@biosimulations/shared/utils/routes": ["libs/shared/utils/routes/src/index.ts"],
+      "@biosimulations/simdata-api-nest-client": [
+        "dist/libs/simdata-api/nest-client",
+        "libs/simdata-api/nest-client/src/lib/index.ts"
+      ],
+      "@biosimulations/simdata-api-nest-client-wrapper": ["libs/simdata-api/nest-client-wrapper/src/index.ts"],
       "@biosimulations/simulation-project-utils": [
         "libs/simulation-project-utils/simulation-project-utils/src/index.ts"
       ],

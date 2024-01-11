@@ -1,6 +1,7 @@
+
 export const COLLECTION_FORMATS = {
-  csv: ',',
-  tsv: '   ',
-  ssv: ' ',
-  pipes: '|',
-};
+    'csv': ',',
+    'tsv': '   ',
+    'ssv': ' ',
+    'pipes': '|'
+}

@@ -13,16 +13,16 @@ echo "parentDir: ${parentDir}"
 sim_data_dir="${parentDir}/apps/simdata-api"
 echo "sim_data_dir: ${sim_data_dir}"
 # spec location
-spec_file=${sim_data_dir}/simdata_api/spec/openapi.yaml
+spec_file_3_1_0_generated=${sim_data_dir}/simdata_api/spec/openapi_3_1_0_generated.yaml
+spec_file_3_0_3_converted=${sim_data_dir}/simdata_api/spec/openapi_3_0_3_converted.yaml
 
-echo "generating openapi spec: ${spec_file}"
+echo "generating openapi spec: ${spec_file_3_1_0_generated}"
 poetry run -C ${sim_data_dir} python ${sim_data_dir}/simdata_api/internal/gen_openapi_spec.py
 
 
-# FastAPI generates a 3.1.0 spec, but the openapi generator only supports 3.0.3.
-# here, we manually change the spec version from 3.1.0 to 3.0.3 and turn off validation
-# https://stackoverflow.com/questions/4247068/sed-command-with-i-option-failing-on-mac-but-works-on-linux
-sed -i '' 's/3.1.0/3.0.3/'  "${spec_file}"
+# FastAPI generates a 3.1.0 spec, but the openapi generator only supports 3.0.X.
+echo "downconverting openapi spec: ${spec_file_3_1_0_generated} to ${spec_file_3_0_3_converted}"
+openapi-down-convert --input "${spec_file_3_1_0_generated}" --output "${spec_file_3_0_3_converted}"
 
 # output location
 lib_dir=${script_dir}/../libs/simdata-api/nest-client
@@ -30,20 +30,19 @@ lib_dir=${script_dir}/../libs/simdata-api/nest-client
 rm -rf ${lib_dir}/src/lib/api/
 rm -rf ${lib_dir}/src/lib/model/
 
-echo "validating openapi.yaml"
+echo "validating ${spec_file_3_0_3_converted}"
 docker run --rm -v ${parentDir}:/repo_root ${generatorCliImage} validate \
-    -i /repo_root/apps/simdata-api/simdata_api/spec/openapi.yaml --recommend
+    -i /repo_root/apps/simdata-api/simdata_api/spec/openapi_3_0_3_converted.yaml --recommend
 if [ $? -ne 0 ]; then
-    echo "openapi.yaml is not valid"
+    echo "${spec_file_3_0_3_converted} is not valid"
     exit 1
 fi
 
-echo "generating nestjs client"
+echo "generating nestjs client from ${spec_file_3_0_3_converted}"
 docker run --rm -v ${parentDir}:/repo_root ${generatorCliImage} generate \
     -g typescript-nestjs \
-    -i /repo_root/apps/simdata-api/simdata_api/spec/openapi.yaml \
+    -i /repo_root/apps/simdata-api/simdata_api/spec/openapi_3_0_3_converted.yaml \
     -o /repo_root/libs/simdata-api/nest-client/src/lib/ \
     -c /repo_root/tools/simdata-api-nestjs-config.yaml
-    --skip-validate-spec
 
 echo "done"

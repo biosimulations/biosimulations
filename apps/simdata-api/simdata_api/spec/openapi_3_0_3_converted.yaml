@@ -1,0 +1,104 @@
+openapi: 3.0.3
+info:
+  title: simdata-api
+  version: 1.0.0
+paths:
+  /:
+    get:
+      summary: Root
+      operationId: root__get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /health:
+    get:
+      summary: Health
+      operationId: health_health_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /datasets/{run_id}:
+    get:
+      summary: Read Dataset
+      operationId: read_dataset_datasets__run_id__get
+      parameters:
+        - name: run_id
+          in: path
+          required: true
+          schema:
+            type: string
+            title: Run Id
+        - name: dataset_name
+          in: query
+          required: true
+          schema:
+            type: string
+            title: Dataset Name
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatasetData'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    DatasetData:
+      properties:
+        shape:
+          items:
+            type: integer
+          type: array
+          title: Shape
+        values:
+          items:
+            type: number
+          type: array
+          title: Values
+      type: object
+      required:
+        - shape
+        - values
+      title: DatasetData
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+              - type: string
+              - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+        - loc
+        - msg
+        - type
+      title: ValidationError
