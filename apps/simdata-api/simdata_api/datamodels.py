@@ -1,6 +1,5 @@
-from datetime import datetime
 from enum import Enum
-from typing import List, Literal, Optional
+from typing import List, Union
 
 from pydantic import BaseModel
 
@@ -17,3 +16,25 @@ class Status(str, Enum):
 
 class StatusResponse(BaseModel):
     status: Status
+
+
+class HDF5Attribute(BaseModel):
+    key: str
+    value: Union[int, float, str, bool, List[str], List[int], List[float], List[bool], None]
+
+
+class HDF5Dataset(BaseModel):
+    name: str
+    shape: List[int]
+    attributes: List[HDF5Attribute]
+
+
+class HDF5Group(BaseModel):
+    name: str
+    attributes: List[HDF5Attribute]
+    datasets: List[HDF5Dataset]
+
+
+class HDF5File(BaseModel):
+    filename: str
+    groups: List[HDF5Group]

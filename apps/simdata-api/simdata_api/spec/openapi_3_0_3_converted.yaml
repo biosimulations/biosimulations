@@ -80,6 +80,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
+  /datasets/{run_id}/metadata:
+    get:
+      summary: Hdf5 File Metadata
+      operationId: get-metadata
+      parameters:
+        - name: run_id
+          in: path
+          required: true
+          schema:
+            type: string
+            title: Run Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HDF5File'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
     DatasetData:
@@ -99,6 +123,93 @@ components:
         - shape
         - values
       title: DatasetData
+    HDF5Attribute:
+      properties:
+        key:
+          type: string
+          title: Key
+        value:
+          anyOf:
+            - type: integer
+            - type: number
+            - type: string
+            - type: boolean
+            - items:
+                type: string
+              type: array
+            - items:
+                type: integer
+              type: array
+            - items:
+                type: number
+              type: array
+            - items:
+                type: boolean
+              type: array
+            - type: 'null'
+          title: Value
+      type: object
+      required:
+        - key
+        - value
+      title: HDF5Attribute
+    HDF5Dataset:
+      properties:
+        name:
+          type: string
+          title: Name
+        shape:
+          items:
+            type: integer
+          type: array
+          title: Shape
+        attributes:
+          items:
+            $ref: '#/components/schemas/HDF5Attribute'
+          type: array
+          title: Attributes
+      type: object
+      required:
+        - name
+        - shape
+        - attributes
+      title: HDF5Dataset
+    HDF5File:
+      properties:
+        filename:
+          type: string
+          title: Filename
+        groups:
+          items:
+            $ref: '#/components/schemas/HDF5Group'
+          type: array
+          title: Groups
+      type: object
+      required:
+        - filename
+        - groups
+      title: HDF5File
+    HDF5Group:
+      properties:
+        name:
+          type: string
+          title: Name
+        attributes:
+          items:
+            $ref: '#/components/schemas/HDF5Attribute'
+          type: array
+          title: Attributes
+        datasets:
+          items:
+            $ref: '#/components/schemas/HDF5Dataset'
+          type: array
+          title: Datasets
+      type: object
+      required:
+        - name
+        - attributes
+        - datasets
+      title: HDF5Group
     HTTPValidationError:
       properties:
         detail:
