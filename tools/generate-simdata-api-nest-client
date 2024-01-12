@@ -49,4 +49,9 @@ docker run --rm -v ${parentDir}:/repo_root ${generatorCliImage} generate \
 echo "repairing default.service.ts"
 sed -i '' 's/run_id/runId/g' "${lib_dir}/src/lib/api/default.service.ts"
 
+# add 'export * from "./simdata-utils';" to index.ts
+echo "adding export for simdata-utils to index.ts"
+echo " " >> "${lib_dir}/src/lib/index.ts"
+echo "export * from './simdata-utils';" >> "${lib_dir}/src/lib/index.ts"
+
 echo "done"

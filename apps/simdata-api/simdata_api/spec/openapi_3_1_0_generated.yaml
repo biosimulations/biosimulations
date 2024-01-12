@@ -179,6 +179,16 @@ components:
         filename:
           type: string
           title: Filename
+        id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Id
+        uri:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Uri
         groups:
           items:
             $ref: '#/components/schemas/HDF5Group'

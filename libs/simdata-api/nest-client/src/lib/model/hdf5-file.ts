@@ -14,6 +14,8 @@ import { HDF5Group } from './hdf5-group';
 
 export interface HDF5File { 
     filename: string;
+    id?: string | null;
+    uri?: string | null;
     groups: Array<HDF5Group>;
 }
 
