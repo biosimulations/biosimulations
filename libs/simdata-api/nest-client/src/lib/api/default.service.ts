@@ -101,7 +101,7 @@ export class DefaultService {
         // to determine the Content-Type header
         const consumes: string[] = [
         ];
-        return this.httpClient.get<HDF5File>(`${this.basePath}/datasets/${encodeURIComponent(String(run_id))}/metadata`,
+        return this.httpClient.get<HDF5File>(`${this.basePath}/datasets/${encodeURIComponent(String(runId))}/metadata`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers
@@ -136,7 +136,7 @@ export class DefaultService {
         // to determine the Content-Type header
         const consumes: string[] = [
         ];
-        return this.httpClient.get<string>(`${this.basePath}/datasets/${encodeURIComponent(String(run_id))}/modified`,
+        return this.httpClient.get<string>(`${this.basePath}/datasets/${encodeURIComponent(String(runId))}/modified`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers
@@ -181,7 +181,7 @@ export class DefaultService {
         // to determine the Content-Type header
         const consumes: string[] = [
         ];
-        return this.httpClient.get<DatasetData>(`${this.basePath}/datasets/${encodeURIComponent(String(run_id))}`,
+        return this.httpClient.get<DatasetData>(`${this.basePath}/datasets/${encodeURIComponent(String(runId))}`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,

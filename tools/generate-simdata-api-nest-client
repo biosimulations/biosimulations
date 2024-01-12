@@ -45,4 +45,8 @@ docker run --rm -v ${parentDir}:/repo_root ${generatorCliImage} generate \
     -o /repo_root/libs/simdata-api/nest-client/src/lib/ \
     -c /repo_root/tools/simdata-api-nestjs-config.yaml
 
+# repair the default.service.ts which uses run_id instead of runId in a few places
+echo "repairing default.service.ts"
+sed -i '' 's/run_id/runId/g' "${lib_dir}/src/lib/api/default.service.ts"
+
 echo "done"
