@@ -16,17 +16,18 @@ paths:
   /health:
     get:
       summary: Health
-      operationId: health_health_get
+      operationId: get-health
       responses:
         '200':
           description: Successful Response
           content:
             application/json:
-              schema: {}
+              schema:
+                $ref: '#/components/schemas/StatusResponse'
   /datasets/{run_id}:
     get:
       summary: Read Dataset
-      operationId: read_dataset_datasets__run_id__get
+      operationId: read-dataset
       parameters:
       - name: run_id
         in: path
@@ -47,6 +48,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DatasetData'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /datasets/{run_id}/modified:
+    get:
+      summary: Modified Datetime
+      operationId: get-modified
+      parameters:
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Run Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: string
+                format: date-time
+                title: Response Get-Modified
         '422':
           description: Validation Error
           content:
@@ -81,6 +108,20 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    Status:
+      type: string
+      enum:
+      - ok
+      - error
+      title: Status
+    StatusResponse:
+      properties:
+        status:
+          $ref: '#/components/schemas/Status'
+      type: object
+      required:
+      - status
+      title: StatusResponse
     ValidationError:
       properties:
         loc:

@@ -1,3 +1,4 @@
+from datetime import datetime
 from functools import lru_cache
 from pathlib import Path
 
@@ -19,5 +20,10 @@ def get_s3_dataset_as_ndarray(run_id: str, dataset_name: str) -> ndarray:
         dataset: Dataset = f[dataset_name]
         data: ndarray = dataset[:]
         return data
+
+
+def get_results_timestamps(run_id: str) -> datetime:
+    s3 = S3()
+    return s3.get_s3_modified_date(s3_path=f"simulations/{run_id}/contents/reports.h5")
 
 

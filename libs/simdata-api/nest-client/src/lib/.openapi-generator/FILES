@@ -3,7 +3,6 @@ README.md
 api.module.ts
 api/api.ts
 api/default.service.ts
-api/default.serviceInterface.ts
 configuration.ts
 git_push.sh
 index.ts
@@ -11,5 +10,7 @@ model/dataset-data.ts
 model/http-validation-error.ts
 model/location-inner.ts
 model/models.ts
+model/status-response.ts
+model/status.ts
 model/validation-error.ts
 variables.ts

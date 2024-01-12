@@ -1,10 +1,12 @@
 import os
+from datetime import datetime
 from pathlib import Path
 from urllib.parse import quote
 
 import pytest
 from fastapi.testclient import TestClient
 
+from simdata_api.datamodels import StatusResponse, Status
 from simdata_api.main import app
 
 client = TestClient(app)
@@ -29,7 +31,7 @@ async def test_root():
 async def test_health():
     response = client.get("/health")
     data = response.json()
-    assert data == {'status': 'ok'}
+    assert StatusResponse.model_validate_strings(data) == StatusResponse(status=Status.ok)
 
 
 @pytest.mark.asyncio
@@ -46,3 +48,14 @@ async def test_read_dataset():
     LOCAL_PATH = Path(f"{LOCAL_STORAGE_PATH}/{RUN_ID}.h5")
     if LOCAL_PATH.exists():
         os.remove(LOCAL_PATH)
+
+@pytest.mark.asyncio
+async def test_get_modified():
+    RUN_ID = "61fd573874bc0ce059643515"
+    url = f"/datasets/{RUN_ID}/modified"
+    response = client.get(url)
+    data = response.json()
+    assert response.status_code == 200
+    assert type(data) == str
+    assert datetime.fromisoformat(data) is not None
+

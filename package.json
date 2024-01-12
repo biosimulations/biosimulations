@@ -88,6 +88,7 @@
     "nats": "2.7.1",
     "nestjs-s3": "1.0.1",
     "ng2-charts": "3.0.11",
+    "@d4c/numjs": "0.17.34",
     "passport": "0.6.0",
     "passport-jwt": "4.0.0",
     "reflect-metadata": "0.1.13",
