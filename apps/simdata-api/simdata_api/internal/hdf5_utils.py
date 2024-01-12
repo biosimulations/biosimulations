@@ -1,3 +1,4 @@
+import logging
 from datetime import datetime
 from functools import lru_cache, partial
 from pathlib import Path
@@ -7,6 +8,8 @@ from numpy import ndarray
 
 from simdata_api.datamodels import HDF5Attribute, HDF5Dataset, HDF5Group, HDF5File
 from .s3_utils import S3
+
+logger = logging.getLogger(__name__)
 
 
 @lru_cache()
@@ -37,8 +40,6 @@ def visitor_func(groups, name, obj):
         group = HDF5Group(name=name, attributes=attributes, datasets=[])
         groups.append(group)
     elif isinstance(obj, h5py.Dataset):
-        temp_attr_dict = {k: v for k, v in obj.attrs.items()}
-        print(temp_attr_dict)
         attributes = []
         for k, v in obj.attrs.items():
             if isinstance(v, ndarray) and v.dtype.kind in 'OSU':

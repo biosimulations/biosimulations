@@ -1,3 +1,4 @@
+import logging
 from datetime import datetime
 from pathlib import Path
 
@@ -6,6 +7,8 @@ from mypy_boto3_s3 import S3Client
 from mypy_boto3_s3.type_defs import HeadObjectOutputTypeDef
 
 from simdata_api.config import get_settings
+
+logger = logging.getLogger(__name__)
 
 
 class S3:
