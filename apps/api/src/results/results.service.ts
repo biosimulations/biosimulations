@@ -142,7 +142,7 @@ export class ResultsService {
   }
 
   public async getOutput(runId: string, reportId: string, includeData = false): Promise<Output> {
-    const dataset = await this.results.getDatasetbyId(runId, reportId);
+    const dataset = await this.results.getDatasetbyId_simdata(runId, reportId);
     if (dataset) {
       const parsedDataset = await this.parseDataset(runId, includeData, dataset);
       if (!isOutputParsingError(parsedDataset)) {
