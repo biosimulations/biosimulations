@@ -10,10 +10,10 @@ import { HttpStatus, Inject, Injectable, Logger } from '@nestjs/common';
 // } from '@biosimulations/hdf5/api-client';
 import {
   DatasetData,
-  datasetDataToNjArray,
-  DefaultService as SimdataApiService,
+  datasetDataToNjArray, BaseHDF5Visitor, HDF5Visitor, visitHDF5File,
+  DefaultService as SimdataApiService, HDF5Dataset, HDF5File,
 } from '@biosimulations/simdata-api-nest-client';
-import { BiosimulationsDataAtributes, Dataset, isArrayAttribute, isStringAttribute } from './datamodel';
+import { BiosimulationsDataAtributes, Dataset } from './datamodel';
 import { ConfigService } from '@nestjs/config';
 import { retryBackoff } from '@biosimulations/rxjs-backoff';
 import { firstValueFrom, map, Observable } from 'rxjs';
@@ -129,60 +129,104 @@ export class SimulationHDFService {
     return filtered[0];
   }
 
-  public async getDatasets(runId: string): Promise<Dataset[]> {
-    const domain = this.dataPaths.getSimulationRunResultsDomain(runId);
+  // public async getDatasets(runId: string): Promise<Dataset[]> {
+  //   const domain = this.dataPaths.getSimulationRunResultsDomain(runId);
+  //
+  //   const response = await this.domainService.datasetsGet(domain, this.auth).toPromise();
+  //
+  //   const datasetIds = response?.data.datasets || [];
+  //
+  //   // List of attribute ids for each dataset
+  //   const datasetAttributeIds: (keyof BiosimulationsDataAtributes)[][] = await Promise.all(
+  //     datasetIds.map((datasetId: string) => this.getDatasetAttributeIds(domain, datasetId)),
+  //   );
+  //   const datasetAttributes = await Promise.all(
+  //     (
+  //       await datasetAttributeIds
+  //     ).map(async (attributeIds, index) => {
+  //       const attributes: BiosimulationsDataAtributes = {
+  //         _type: '',
+  //         uri: '',
+  //         sedmlId: '',
+  //         sedmlName: '',
+  //         sedmlDataSetDataTypes: [],
+  //         sedmlDataSetIds: [],
+  //         sedmlDataSetNames: [],
+  //         sedmlDataSetShapes: [],
+  //         sedmlDataSetLabels: [],
+  //       };
+  //       for (const attribute of attributeIds) {
+  //         const value = await this.getDatasetAttributeValue(domain, datasetIds[index], attribute);
+  //         if (isStringAttribute(attribute)) {
+  //           attributes[attribute] = value as string;
+  //         } else if (isArrayAttribute(attribute)) {
+  //           attributes[attribute] = value as string[];
+  //         }
+  //       }
+  //       return attributes;
+  //     }),
+  //   );
+  //
+  //   const datasets = Promise.all(
+  //     datasetAttributes.map(async (value, index) => {
+  //       const dataset = await this.getDataset(domain, datasetIds[index]);
+  //       const datasetReturn: Dataset = {
+  //         uri: value.uri,
+  //         id: datasetIds[index],
+  //         created: this.createDate(dataset?.created),
+  //         updated: this.createDate(dataset?.lastModified),
+  //         attributes: value,
+  //       };
+  //       return datasetReturn;
+  //     }),
+  //   );
+  //
+  //   return datasets;
+  // }
 
-    const response = await this.domainService.datasetsGet(domain, this.auth).toPromise();
-
-    const datasetIds = response?.data.datasets || [];
-
-    // List of attribute ids for each dataset
-    const datasetAttributeIds: (keyof BiosimulationsDataAtributes)[][] = await Promise.all(
-      datasetIds.map((datasetId: string) => this.getDatasetAttributeIds(domain, datasetId)),
-    );
-    const datasetAttributes = await Promise.all(
-      (
-        await datasetAttributeIds
-      ).map(async (attributeIds, index) => {
-        const attributes: BiosimulationsDataAtributes = {
-          _type: '',
-          uri: '',
-          sedmlId: '',
-          sedmlName: '',
-          sedmlDataSetDataTypes: [],
-          sedmlDataSetIds: [],
-          sedmlDataSetNames: [],
-          sedmlDataSetShapes: [],
-          sedmlDataSetLabels: [],
-        };
-        for (const attribute of attributeIds) {
-          const value = await this.getDatasetAttributeValue(domain, datasetIds[index], attribute);
-          if (isStringAttribute(attribute)) {
-            attributes[attribute] = value as string;
-          } else if (isArrayAttribute(attribute)) {
-            attributes[attribute] = value as string[];
-          }
-        }
-        return attributes;
+  public async getDatasets_simdata(runId: string): Promise<Dataset[]> {
+    const hdf5FileObservable: Observable<HDF5File> = this.simdataApiService.getMetadata(runId).pipe(
+      this.getRetryBackoff(),
+      map((response: AxiosResponse<HDF5File>): HDF5File => {
+        return response.data;
       }),
     );
+    const hdf5File: HDF5File = await firstValueFrom(hdf5FileObservable);
 
-    const datasets = Promise.all(
-      datasetAttributes.map(async (value, index) => {
-        const dataset = await this.getDataset(domain, datasetIds[index]);
-        const datasetReturn = {
-          uri: value.uri,
-          id: datasetIds[index],
-          created: this.createDate(dataset?.created),
-          updated: this.createDate(dataset?.lastModified),
-          attributes: value,
-        };
-        return datasetReturn;
-      }),
-    );
+    // visit the hdf5 file and extract all HDF5Datasets
+    const hdf5Datasets: HDF5Dataset[] = [];
+    const datasetVisitor: HDF5Visitor = new (class extends BaseHDF5Visitor {
+      visitDataset(dataset: HDF5Dataset): void {
+        hdf5Datasets.push(dataset);
+      }
+    })();
+    visitHDF5File(hdf5File, datasetVisitor);
+    const modified_timestamp: Date = await this.getResultsTimestamps_simdata(runId);
+    const datasets: Dataset[] = [];
+    for (const hdf5Dataset of hdf5Datasets) {
+      const dataset: Dataset = {
+        uri: hdf5Dataset.attributes['uri'],
+        id: hdf5Dataset.name,
+        created: modified_timestamp,
+        updated: modified_timestamp,
+        attributes: {
+          _type: hdf5Dataset.attributes['_type'],
+          uri: hdf5Dataset.attributes['uri'],
+          sedmlId: hdf5Dataset.attributes['sedmlId'],
+          sedmlName: hdf5Dataset.attributes['sedmlName'],
+          sedmlDataSetDataTypes: hdf5Dataset.attributes['sedmlDataSetDataTypes'],
+          sedmlDataSetIds: hdf5Dataset.attributes['sedmlDataSetIds'],
+          sedmlDataSetLabels: hdf5Dataset.attributes['sedmlDataSetLabels'],
+          sedmlDataSetNames: hdf5Dataset.attributes['sedmlDataSetNames'],
+          sedmlDataSetShapes: hdf5Dataset.attributes['sedmlDataSetShapes'],
+        },
+      };
+      datasets.push(dataset);
+    }
 
     return datasets;
   }
+
 
   public async deleteDatasets(runId: string): Promise<void> {
     const domain = this.dataPaths.getSimulationRunResultsDomain(runId);

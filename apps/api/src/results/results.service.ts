@@ -41,7 +41,7 @@ export class ResultsService {
   public async getResults(runId: string, includeValues = true): Promise<Results> {
     const timestamp = this.results.getResultsTimestamps_simdata(runId);
 
-    const datasets = await this.results.getDatasets(runId).catch((error) => {
+    const datasets = await this.results.getDatasets_simdata(runId).catch((error) => {
       this.logger.error('Error retrieving datasets');
       if (axios.isAxiosError(error)) {
         this.logger.error(error.message);
