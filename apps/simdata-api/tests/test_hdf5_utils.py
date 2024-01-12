@@ -27,14 +27,19 @@ def test_extract_hdf5_metadata():
     hdf5_file: HDF5File = extract_hdf5_metadata(test_file_path)
 
     assert hdf5_file.filename == test_file_path
-    # Add more assertions here to check the groups, datasets, and attributes of the HDF5 file
+    assert hdf5_file.uri is None
+    assert hdf5_file.id is None
 
 
 def test_get_s3_hdf5_metadata():
     test_file_path = f"../local_data/{RUN_ID}.h5"
     hdf5_file: HDF5File = get_s3_hdf5_metadata(RUN_ID)
-    json: str = hdf5_file.model_dump_json()
-    hdf5_file2 = HDF5File.model_validate_json(json)
+
+    # round trip test of serialization
+    assert HDF5File.model_validate_json(hdf5_file.model_dump_json()) == hdf5_file
+
     assert hdf5_file.filename == test_file_path
+    assert hdf5_file.uri is not None
+    assert hdf5_file.id == RUN_ID
     # Add more assertions here to check the groups, datasets, and attributes of the HDF5 file
     os.remove(test_file_path)

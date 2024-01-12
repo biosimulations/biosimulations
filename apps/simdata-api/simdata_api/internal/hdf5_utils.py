@@ -62,8 +62,13 @@ def extract_hdf5_metadata(file_path: Path) -> HDF5File:
 @lru_cache()
 def get_s3_hdf5_metadata(run_id: str) -> HDF5File:
     local_path = Path(f"../local_data/{run_id}.h5")
+    uri: str | None = None
     if not local_path.exists():
         s3 = S3()
-        s3.download_s3_file(s3_path=f"simulations/{run_id}/contents/reports.h5", file_path=local_path)
+        uri = s3.download_s3_file(s3_path=f"simulations/{run_id}/contents/reports.h5", file_path=local_path)
 
-    return extract_hdf5_metadata(local_path)
+    hdf5_file: HDF5File = extract_hdf5_metadata(local_path)
+    hdf5_file.id = run_id
+    hdf5_file.uri = uri
+    return hdf5_file
+

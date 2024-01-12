@@ -66,5 +66,7 @@ async def test_get_metadata():
     hdf5_file = HDF5File.model_validate_json(json_dumps(data))
     hdf5_file = HDF5File.model_validate_json(response.content.decode('utf-8'))
     assert hdf5_file.filename == f"../local_data/{RUN_ID}.h5"
+    assert hdf5_file.uri is not None
+    assert hdf5_file.id == RUN_ID
     if Path(data['filename']).exists():
         os.remove(data['filename'])

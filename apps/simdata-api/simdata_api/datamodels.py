@@ -37,4 +37,6 @@ class HDF5Group(BaseModel):
 
 class HDF5File(BaseModel):
     filename: str
+    id: str | None = None
+    uri: str | None = None
     groups: List[HDF5Group]
