@@ -14,6 +14,7 @@ import { AWSError, S3 } from 'aws-sdk';
 import { Endpoints } from '@biosimulations/config/common';
 import { ConfigService } from '@nestjs/config';
 import axios from 'axios';
+import { NdArray } from '@d4c/numjs';
 
 interface OutputResult {
   dataset: Dataset;
@@ -38,7 +39,7 @@ export class ResultsService {
   private logger = new Logger(ResultsService.name);
 
   public async getResults(runId: string, includeValues = true): Promise<Results> {
-    const timestamps = this.results.getResultsTimestamps(runId);
+    const timestamp = this.results.getResultsTimestamps_simdata(runId);
 
     const datasets = await this.results.getDatasets(runId).catch((error) => {
       this.logger.error('Error retrieving datasets');
@@ -111,12 +112,12 @@ export class ResultsService {
       );
     }
 
-    const dates = await timestamps;
+    const date = await timestamp;
     const results: Results = {
       simId: runId,
       outputs: outputs,
-      created: dates.created ? dates.created.toTimeString() : '',
-      updated: dates.updated ? dates.updated.toTimeString() : '',
+      created: date ? date.toTimeString() : '',
+      updated: date ? date.toTimeString() : '',
     };
 
     return results;
@@ -176,9 +177,25 @@ export class ResultsService {
   ): Promise<SimulationRunOutputDatumElement[][] | OutputParsingError> {
     // The index field will be needed when we are doing slicing of the data so this will need to change
     try {
-      const response = await this.results.getDatasetValues(runId, datasetId);
-      if (response && 'value' in response) {
-        return response.value as SimulationRunOutputDatumElement[][];
+      const response: NdArray = await this.results.getDatasetValues_simdata(runId, datasetId);
+      if (response && 'values' in response) {
+        if (response.shape.length != 2) {
+          throw Error(`The shape of the dataset '${outputUri}' is not 2d`);
+        }else {
+          // rewrite the following using numjs
+          const shape = response.shape;
+          const array: SimulationRunOutputDatumElement[][] = [];
+          let index = 0;
+          for (let i = 0; i < shape[0]; i++) {
+            const row: SimulationRunOutputDatumElement[] = [];
+            for (let j = 0; j < shape[1]; j++) {
+              row.push(response.tolist()[index]);
+              index++;
+            }
+            array.push(row);
+          }
+          return array;
+        }
       } else {
         throw Error(`No values found for ${outputUri}`);
       }

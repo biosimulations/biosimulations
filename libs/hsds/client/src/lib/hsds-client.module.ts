@@ -6,11 +6,13 @@ import { Configuration } from '@biosimulations/hdf5/api-client';
 import { ConfigService } from '@nestjs/config';
 import { APIClientWrapperModule } from './api-client-wrapper.module';
 import { SimulationHDFService } from './dataset.service';
+import { ApiModule } from '@biosimulations/simdata-api-nest-client';
 
 @Module({
   imports: [
     HttpModule,
     BiosimulationsConfigModule,
+    ApiModule,
     APIClientWrapperModule.registerAsync({
       imports: [BiosimulationsConfigModule],
       useFactory: {

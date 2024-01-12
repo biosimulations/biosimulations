@@ -1,42 +1,46 @@
-import { Inject, Injectable, Logger, HttpStatus } from '@nestjs/common';
+import { HttpStatus, Inject, Injectable, Logger } from '@nestjs/common';
+// import {
+//   AttributeService,
+//   DomainService,
+//   GroupService,
+//   InlineResponse2003 as HDF5Group,
+//   InlineResponse2004Links as HDF5Links,
+//   InlineResponse2007 as HDF5Dataset,
+//   LinkService,
+// } from '@biosimulations/hdf5/api-client';
 import {
-  AttributeService,
-  DatasetService,
-  DomainService,
-  GroupService,
-  InlineResponse2007 as HDF5Dataset,
-  InlineResponse2003 as HDF5Group,
-  InlineResponse2004Links as HDF5Links,
-  LinkService,
-  InlineResponse20010,
-} from '@biosimulations/hdf5/api-client';
+  DatasetData,
+  datasetDataToNjArray,
+  DefaultService as SimdataApiService,
+} from '@biosimulations/simdata-api-nest-client';
 import { BiosimulationsDataAtributes, Dataset, isArrayAttribute, isStringAttribute } from './datamodel';
-import { DataPaths } from './data-paths/data-paths';
 import { ConfigService } from '@nestjs/config';
 import { retryBackoff } from '@biosimulations/rxjs-backoff';
-import { firstValueFrom, Observable, map } from 'rxjs';
-import axios, { AxiosResponse, AxiosError } from 'axios';
-import * as JSON5 from 'json5';
+import { firstValueFrom, map, Observable } from 'rxjs';
+import { AxiosError, AxiosResponse } from 'axios';
+
+import * as nj from '@d4c/numjs';
 
 const DATASET = 'datasets';
 const GROUP = 'groups';
 
 Injectable();
 export class SimulationHDFService {
-  private dataPaths: DataPaths;
+  //private dataPaths: DataPaths;
   private auth: string;
   private logger = new Logger(SimulationHDFService.name);
 
   public constructor(
-    @Inject(DatasetService) private datasetService: DatasetService,
-    @Inject(DomainService) private domainService: DomainService,
-    @Inject(GroupService) private groupService: GroupService,
-    @Inject(AttributeService) private attributeService: AttributeService,
-    @Inject(LinkService) private linkService: LinkService,
+    @Inject(SimdataApiService) private simdataApiService: SimdataApiService,
+    //@Inject(DatasetService) private datasetService: DatasetService,
+    // @Inject(DomainService) private domainService: DomainService,
+    // @Inject(GroupService) private groupService: GroupService,
+    // @Inject(AttributeService) private attributeService: AttributeService,
+    // @Inject(LinkService) private linkService: LinkService,
     private configService: ConfigService,
   ) {
     const env = this.configService.get('server.env');
-    this.dataPaths = new DataPaths();
+    // this.dataPaths = new DataPaths();
 
     const username = this.configService.get('data.username');
     const password = this.configService.get('data.password');
@@ -45,55 +49,78 @@ export class SimulationHDFService {
     this.auth = 'Basic ' + authString;
   }
 
-  public async getDatasetValues(runId: string, datasetId: string): Promise<InlineResponse20010 | undefined> {
-    const domain = this.dataPaths.getSimulationRunResultsDomain(runId);
-    const dataResponse = await this.datasetService
-      .datasetsIdValueGet(datasetId, domain, undefined, undefined, undefined, this.auth)
+  // public async getDatasetValues(runId: string, datasetId: string): Promise<InlineResponse20010 | undefined> {
+  //   const domain = this.dataPaths.getSimulationRunResultsDomain(runId);
+  //   const dataResponse = await this.datasetService
+  //     .datasetsIdValueGet(datasetId, domain, undefined, undefined, undefined, this.auth)
+  //     .pipe(
+  //       this.getRetryBackoff(),
+  //       map((response: AxiosResponse<InlineResponse20010>): AxiosResponse<InlineResponse20010> => {
+  //         if (typeof response.data === 'string' || response.data instanceof String) {
+  //           response.data = JSON5.parse(response.data as string);
+  //         }
+  //         return response;
+  //       }),
+  //     );
+  //
+  //   const dataResponsePromise = await firstValueFrom(dataResponse);
+  //
+  //   const data: InlineResponse20010 | undefined = dataResponsePromise.data;
+  //   return data;
+  // }
+
+  public async getDatasetValues_simdata(runId: string, datasetId: string): Promise<nj.NdArray> {
+    this.logger.log(`getDatasetValues_simdata(${runId},${datasetId}):
+          calling simdataApiService.readDatasetDatasetsRunIdGet(${runId},${datasetId})`);
+    const dataResponse: Observable<nj.NdArray> = this.simdataApiService.readDataset(runId, datasetId)
       .pipe(
         this.getRetryBackoff(),
-        map((response: AxiosResponse<InlineResponse20010>): AxiosResponse<InlineResponse20010> => {
-          if (typeof response.data === 'string' || response.data instanceof String) {
-            response.data = JSON5.parse(response.data as string);
-          }
-          return response;
+        map((response: AxiosResponse<DatasetData>): nj.NdArray => {
+          return datasetDataToNjArray(response.data);
         }),
       );
-
-    const dataResponsePromise = await firstValueFrom(dataResponse);
-
-    const data: InlineResponse20010 | undefined = dataResponsePromise.data;
-    return data;
+    return await firstValueFrom(dataResponse);
   }
 
-  public async getResultsTimestamps(runId: string): Promise<{ created?: Date; updated?: Date }> {
-    const domain = this.dataPaths.getSimulationRunResultsDomain(runId);
-    let root_id = undefined;
-    try {
-      root_id = await this.getRootGroupId(domain);
-    } catch (error) {
-      this.logger.error(`Could not get timestamps for simulation run '${runId}'`);
-      if (axios.isAxiosError(error)) {
-        this.logger.error(error.message);
-      } else {
-        this.logger.error(error);
-      }
+  // public async getResultsTimestamps(runId: string): Promise<{ created?: Date; updated?: Date }> {
+  //   const domain = this.dataPaths.getSimulationRunResultsDomain(runId);
+  //   let root_id = undefined;
+  //   try {
+  //     root_id = await this.getRootGroupId(domain);
+  //   } catch (error) {
+  //     this.logger.error(`Could not get timestamps for simulation run '${runId}'`);
+  //     if (axios.isAxiosError(error)) {
+  //       this.logger.error(error.message);
+  //     } else {
+  //       this.logger.error(error);
+  //     }
+  //
+  //     return {
+  //       created: undefined,
+  //       updated: undefined,
+  //     };
+  //   }
+  //
+  //   if (root_id) {
+  //     const metadata = await this.getGroup(domain, root_id);
+  //     if (metadata?.created && metadata?.lastModified) {
+  //       return {
+  //         created: this.createDate(metadata?.created),
+  //         updated: this.createDate(metadata?.lastModified),
+  //       };
+  //     }
+  //   }
+  //   return { created: undefined, updated: undefined };
+  // }
 
-      return {
-        created: undefined,
-        updated: undefined,
-      };
-    }
-
-    if (root_id) {
-      const metadata = await this.getGroup(domain, root_id);
-      if (metadata?.created && metadata?.lastModified) {
-        return {
-          created: this.createDate(metadata?.created),
-          updated: this.createDate(metadata?.lastModified),
-        };
-      }
-    }
-    return { created: undefined, updated: undefined };
+  public async getResultsTimestamps_simdata(runId: string): Promise<Date> {
+    const dateResponse: Observable<Date> = this.simdataApiService.getModified(runId).pipe(
+      this.getRetryBackoff(),
+      map((response: AxiosResponse<string, any>): Date => {
+        return new Date(Date.parse(response.data));
+      }),
+    );
+    return await firstValueFrom(dateResponse);
   }
 
   public async getDatasetbyId(runId: string, reportId: string): Promise<Dataset | undefined> {
@@ -195,13 +222,13 @@ export class SimulationHDFService {
       },
     });
   }
-  private async getGroup(domain: string, id: string): Promise<HDF5Group | undefined> {
-    const responseObs = await this.groupService.groupsIdGet(id, domain, this.auth).pipe(this.getRetryBackoff());
-
-    const response = await firstValueFrom(responseObs);
-    const data = response?.data;
-    return data;
-  }
+  // private async getGroup(domain: string, id: string): Promise<HDF5Group | undefined> {
+  //   const responseObs = await this.groupService.groupsIdGet(id, domain, this.auth).pipe(this.getRetryBackoff());
+  //
+  //   const response = await firstValueFrom(responseObs);
+  //   const data = response?.data;
+  //   return data;
+  // }
 
   private async getDataset(domain: string, id: string): Promise<HDF5Dataset | undefined> {
     const responseObs = await this.datasetService.datasetsIdGet(id, domain, this.auth).pipe(this.getRetryBackoff());
@@ -210,14 +237,14 @@ export class SimulationHDFService {
     return response?.data;
   }
 
-  private async getLinks(groupId: string, domain: string): Promise<HDF5Links[]> {
-    const linksResponseObs = await this.linkService
-      .groupsIdLinksGet(groupId, domain, undefined, undefined, this.auth)
-      .pipe(this.getRetryBackoff());
-
-    const linksResponse = await firstValueFrom(linksResponseObs);
-    return linksResponse?.data.links || [];
-  }
+  // private async getLinks(groupId: string, domain: string): Promise<HDF5Links[]> {
+  //   const linksResponseObs = await this.linkService
+  //     .groupsIdLinksGet(groupId, domain, undefined, undefined, this.auth)
+  //     .pipe(this.getRetryBackoff());
+  //
+  //   const linksResponse = await firstValueFrom(linksResponseObs);
+  //   return linksResponse?.data.links || [];
+  // }
 
   private async getDatasetAttributeIds(
     domain: string,
@@ -251,13 +278,13 @@ export class SimulationHDFService {
     }
   }
 
-  private async getRootGroupId(domain: string): Promise<string | undefined> {
-    const domainResponse = await this.domainService.rootGet(domain, this.auth).pipe(this.getRetryBackoff());
-
-    const domainResponsePromise = await firstValueFrom(domainResponse);
-    const domainInfo = domainResponsePromise?.data;
-
-    const rootGroup = domainInfo?.root;
-    return rootGroup;
-  }
+  // private async getRootGroupId(domain: string): Promise<string | undefined> {
+  //   const domainResponse = await this.domainService.rootGet(domain, this.auth).pipe(this.getRetryBackoff());
+  //
+  //   const domainResponsePromise = await firstValueFrom(domainResponse);
+  //   const domainInfo = domainResponsePromise?.data;
+  //
+  //   const rootGroup = domainInfo?.root;
+  //   return rootGroup;
+  // }
 }
