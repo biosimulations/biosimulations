@@ -59,7 +59,7 @@ def extract_hdf5_metadata(file_path: Path) -> HDF5File:
 
     with h5py.File(file_path, "r") as f:
         f.visititems(bound_visitor_func)
-        hdf5_file = HDF5File(filename=str(file_path), groups=groups)
+        hdf5_file = HDF5File(filename=str(file_path), groups=groups, uri="", id="")
 
     return hdf5_file
 

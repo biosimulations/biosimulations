@@ -14,6 +14,6 @@ import { Value } from './value';
 
 export interface HDF5Attribute { 
     key: string;
-    value: Value | null;
+    value: Value;
 }
 

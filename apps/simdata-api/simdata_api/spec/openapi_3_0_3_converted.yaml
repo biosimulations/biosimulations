@@ -146,7 +146,6 @@ components:
             - items:
                 type: boolean
               type: array
-            - type: 'null'
           title: Value
       type: object
       required:
@@ -180,14 +179,10 @@ components:
           type: string
           title: Filename
         id:
-          anyOf:
-            - type: string
-            - type: 'null'
+          type: string
           title: Id
         uri:
-          anyOf:
-            - type: string
-            - type: 'null'
+          type: string
           title: Uri
         groups:
           items:
@@ -197,6 +192,8 @@ components:
       type: object
       required:
         - filename
+        - id
+        - uri
         - groups
       title: HDF5File
     HDF5Group:

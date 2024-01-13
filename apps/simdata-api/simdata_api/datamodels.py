@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import List, Union
+from typing import List, Optional, Union
 
 from pydantic import BaseModel
 
@@ -21,7 +21,7 @@ class StatusResponse(BaseModel):
 class HDF5Attribute(BaseModel):
     key: str
     value: Union[
-        int, float, str, bool, List[str], List[int], List[float], List[bool], None
+        int, float, str, bool, List[str], List[int], List[float], List[bool]
     ]
 
 
@@ -39,6 +39,6 @@ class HDF5Group(BaseModel):
 
 class HDF5File(BaseModel):
     filename: str
-    id: str | None = None
-    uri: str | None = None
+    id: str
+    uri: str
     groups: List[HDF5Group]

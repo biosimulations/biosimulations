@@ -31,8 +31,8 @@ def test_extract_hdf5_metadata():
     hdf5_file: HDF5File = extract_hdf5_metadata(test_file_path)
 
     assert hdf5_file.filename == test_file_path
-    assert hdf5_file.uri is None
-    assert hdf5_file.id is None
+    assert hdf5_file.uri is ""
+    assert hdf5_file.id is ""
 
 
 def test_get_s3_hdf5_metadata():
