@@ -88,21 +88,22 @@ export class SimulationHDFService {
     const modified_timestamp: Date = await this.getResultsTimestamps_simdata(runId);
     const datasets: Dataset[] = [];
     for (const hdf5Dataset of hdf5Datasets) {
+      const attributes = hdf5Dataset.attributes;
       const dataset: Dataset = {
-        uri: hdf5Dataset.attributes['uri'],
+        uri: attributes.find(attr => (attr.key == 'uri'))?.value as string,
         id: hdf5Dataset.name,
         created: modified_timestamp,
         updated: modified_timestamp,
         attributes: {
-          _type: hdf5Dataset.attributes['_type'],
-          uri: hdf5Dataset.attributes['uri'],
-          sedmlId: hdf5Dataset.attributes['sedmlId'],
-          sedmlName: hdf5Dataset.attributes['sedmlName'],
-          sedmlDataSetDataTypes: hdf5Dataset.attributes['sedmlDataSetDataTypes'],
-          sedmlDataSetIds: hdf5Dataset.attributes['sedmlDataSetIds'],
-          sedmlDataSetLabels: hdf5Dataset.attributes['sedmlDataSetLabels'],
-          sedmlDataSetNames: hdf5Dataset.attributes['sedmlDataSetNames'],
-          sedmlDataSetShapes: hdf5Dataset.attributes['sedmlDataSetShapes'],
+          _type: attributes.find(attr => (attr.key == '_type'))?.value as string,
+          uri: attributes.find(attr => (attr.key == 'uri'))?.value as string,
+          sedmlId: attributes.find(attr => (attr.key == 'sedmlId'))?.value as string,
+          sedmlName: attributes.find(attr => (attr.key == 'sedmlName'))?.value as string,
+          sedmlDataSetDataTypes: attributes.find(attr => (attr.key == 'sedmlDataSetDataTypes'))?.value as string[],
+          sedmlDataSetIds: attributes.find(attr => (attr.key == 'sedmlDataSetIds'))?.value as string[],
+          sedmlDataSetLabels: attributes.find(attr => (attr.key == 'sedmlDataSetLabels'))?.value as string[],
+          sedmlDataSetNames: attributes.find(attr => (attr.key == 'sedmlDataSetNames'))?.value as string[],
+          sedmlDataSetShapes: attributes.find(attr => (attr.key == 'sedmlDataSetShapes'))?.value as string[]
         },
       };
       datasets.push(dataset);
