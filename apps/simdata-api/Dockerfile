@@ -6,10 +6,15 @@ RUN poetry config virtualenvs.in-project true
 
 # copy project files
 WORKDIR /app
-COPY . /app
+COPY pyproject.toml poetry.lock README.md .env pytest.ini /app/
+COPY simdata_api /app/simdata_api
+COPY tests /app/tests
+COPY local_data /app/local_data
 
-# install dependencies
-RUN poetry install --no-dev
+# install dependencies (with dev dependencies for in-place testing)
+RUN poetry install
+
+#RUN poetry run python -m pytest
 
 EXPOSE 8000
 

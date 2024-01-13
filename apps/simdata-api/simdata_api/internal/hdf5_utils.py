@@ -10,11 +10,11 @@ from simdata_api.datamodels import HDF5Attribute, HDF5Dataset, HDF5Group, HDF5Fi
 from .s3_utils import S3
 
 logger = logging.getLogger(__name__)
-
+ROOT_DIR = Path(__file__).parent.parent.parent
 
 @lru_cache()
 def get_s3_dataset_as_ndarray(run_id: str, dataset_name: str) -> ndarray:
-    local_path = Path(f"../local_data/{run_id}.h5")
+    local_path = ROOT_DIR / "local_data" / f"{run_id}.h5"
     if not local_path.exists():
         s3 = S3()
         s3.download_s3_file(
@@ -66,7 +66,7 @@ def extract_hdf5_metadata(file_path: Path) -> HDF5File:
 
 @lru_cache()
 def get_s3_hdf5_metadata(run_id: str) -> HDF5File:
-    local_path = Path(f"../local_data/{run_id}.h5")
+    local_path = ROOT_DIR / "local_data" / f"{run_id}.h5"
     uri: str | None = None
     if not local_path.exists():
         s3 = S3()

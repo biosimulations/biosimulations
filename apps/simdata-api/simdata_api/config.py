@@ -12,7 +12,6 @@ class Settings(BaseSettings):
         "GOOG1EONFYVUYORAUYCZF6U4DOJ662KRZBGFFROVRDJRDIZRCP3R4ZP4UWZEI"
     )
     storage_secret: str = "0WWTDgbnVovzNpBOHnBl9e0iULEJbyddZSIbAkcL"
-    local_file_path: Path = "../local_data"
 
 
 @lru_cache

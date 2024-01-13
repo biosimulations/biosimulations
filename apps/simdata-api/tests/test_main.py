@@ -11,7 +11,7 @@ from simdata_api.datamodels import HDF5File, StatusResponse, Status
 from simdata_api.main import app
 
 client = TestClient(app)
-
+ROOT_DIR = Path(__file__).parent.parent
 
 @pytest.mark.asyncio
 async def test_root():
@@ -42,8 +42,7 @@ async def test_read_dataset():
     assert response.status_code == 200
     assert data["shape"] == [21, 201]
 
-    LOCAL_STORAGE_PATH = "../local_data"
-    LOCAL_PATH = Path(f"{LOCAL_STORAGE_PATH}/{RUN_ID}.h5")
+    LOCAL_PATH = ROOT_DIR / "local_data" / f"{RUN_ID}.h5"
     if LOCAL_PATH.exists():
         os.remove(LOCAL_PATH)
 
@@ -69,7 +68,7 @@ async def test_get_metadata():
     assert type(data) is dict
     _ = HDF5File.model_validate_json(json_dumps(data))
     hdf5_file = HDF5File.model_validate_json(response.content.decode("utf-8"))
-    assert hdf5_file.filename == f"../local_data/{RUN_ID}.h5"
+    assert hdf5_file.filename == str(ROOT_DIR / "local_data" / f"{RUN_ID}.h5")
     assert hdf5_file.uri is not None
     assert hdf5_file.id == RUN_ID
     if Path(data["filename"]).exists():

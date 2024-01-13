@@ -1,16 +1,11 @@
 #!/bin/bash
-set -x
+set -e
 
-# installs and tests local simdata-api inside of docker container
-# need to re-install because local poetry virtual environment is not mounted.
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 docker run \
   --rm \
   --entrypoint bash \
-  --mount type=bind,source=$(pwd)/apps/simdata-api,target=/app/simdata-api \
+  --mount "type=bind,source=${SCRIPT_DIR}/local_data,target=/app/simdata-api/local_data" \
   ghcr.io/biosimulations/simdata-api:sha-$(git rev-parse HEAD | cut -c 1-7) \
-  -c "
-    cd /app/simdata-api
-    poetry install
-    poetry run python -m pytest --verbose /app/tests/
-    "
+  -c "poetry run python -m pytest --verbose"
