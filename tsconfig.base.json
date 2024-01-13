@@ -49,7 +49,6 @@
       "@biosimulations/datamodel/api": ["libs/datamodel/api/src/index.ts"],
       "@biosimulations/datamodel/common": ["libs/datamodel/common/src/index.ts"],
       "@biosimulations/datamodel/utils": ["libs/datamodel/utils/src/index.ts"],
-      "@biosimulations/hdf5/api-client": ["dist/libs/hdf5/api-client/src/", "libs/hdf5/api-client/src/index.ts"],
       "@biosimulations/hpc/singularityBuilder": ["libs/hpc/singularity-builder/src/index.ts"],
       "@biosimulations/hsds/client": ["libs/hsds/client/src/index.ts"],
       "@biosimulations/mail-service/client": ["libs/mail-service/client/src/index.ts"],

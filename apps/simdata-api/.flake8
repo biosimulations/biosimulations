@@ -1,0 +1,10 @@
+[flake8]
+exclude =
+    migrations
+    __pycache__
+    manage.py
+    settings.py
+    env
+    .env
+    .venv
+max-line-length = 120

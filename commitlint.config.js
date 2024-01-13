@@ -21,7 +21,7 @@ module.exports = {
         'auth',
         'config',
         'datamodel',
-        'hdf5',
+        'simdata-api',
         'hsds',
         'messages',
         'ontology',

@@ -20,9 +20,9 @@ def main():
     current_directory = os.path.dirname(os.path.realpath(__file__))
 
     # Write the YAML OpenAPI spec to a file in subdirectory spec
-    with open(f"{current_directory}/../spec/openapi_3_1_0_generated.yaml", 'w') as f:
+    with open(f"{current_directory}/../spec/openapi_3_1_0_generated.yaml", "w") as f:
         f.write(openapi_spec_yaml)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

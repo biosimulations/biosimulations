@@ -24,8 +24,12 @@ async def test_root():
 async def test_health():
     response = client.get("/health")
     data = response.json()
-    assert StatusResponse.model_validate_json(response.content.decode('utf-8')) == StatusResponse(status=Status.ok)
-    assert StatusResponse.model_validate_strings(data) == StatusResponse(status=Status.ok)
+    assert StatusResponse.model_validate_json(
+        response.content.decode("utf-8")
+    ) == StatusResponse(status=Status.ok)
+    assert StatusResponse.model_validate_strings(data) == StatusResponse(
+        status=Status.ok
+    )
 
 
 @pytest.mark.asyncio
@@ -36,7 +40,7 @@ async def test_read_dataset():
     response = client.get(url)
     data = response.json()
     assert response.status_code == 200
-    assert data['shape'] == [21, 201]
+    assert data["shape"] == [21, 201]
 
     LOCAL_STORAGE_PATH = "../local_data"
     LOCAL_PATH = Path(f"{LOCAL_STORAGE_PATH}/{RUN_ID}.h5")
@@ -51,7 +55,7 @@ async def test_get_modified():
     response = client.get(url)
     data = response.json()
     assert response.status_code == 200
-    assert type(data) == str
+    assert type(data) is str
     assert datetime.fromisoformat(data) is not None
 
 
@@ -62,11 +66,11 @@ async def test_get_metadata():
     response = client.get(url)
     data = response.json()
     assert response.status_code == 200
-    assert type(data) == dict
-    hdf5_file = HDF5File.model_validate_json(json_dumps(data))
-    hdf5_file = HDF5File.model_validate_json(response.content.decode('utf-8'))
+    assert type(data) is dict
+    _ = HDF5File.model_validate_json(json_dumps(data))
+    hdf5_file = HDF5File.model_validate_json(response.content.decode("utf-8"))
     assert hdf5_file.filename == f"../local_data/{RUN_ID}.h5"
     assert hdf5_file.uri is not None
     assert hdf5_file.id == RUN_ID
-    if Path(data['filename']).exists():
-        os.remove(data['filename'])
+    if Path(data["filename"]).exists():
+        os.remove(data["filename"])

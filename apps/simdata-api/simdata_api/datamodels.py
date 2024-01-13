@@ -20,7 +20,9 @@ class StatusResponse(BaseModel):
 
 class HDF5Attribute(BaseModel):
     key: str
-    value: Union[int, float, str, bool, List[str], List[int], List[float], List[bool], None]
+    value: Union[
+        int, float, str, bool, List[str], List[int], List[float], List[bool], None
+    ]
 
 
 class HDF5Dataset(BaseModel):

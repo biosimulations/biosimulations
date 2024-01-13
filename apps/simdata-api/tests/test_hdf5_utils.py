@@ -4,10 +4,14 @@ from pathlib import Path
 import pytest
 
 from simdata_api.datamodels import HDF5File
-from simdata_api.internal.hdf5_utils import extract_hdf5_metadata, get_s3_dataset_as_ndarray, get_s3_hdf5_metadata
+from simdata_api.internal.hdf5_utils import (
+    extract_hdf5_metadata,
+    get_s3_dataset_as_ndarray,
+    get_s3_hdf5_metadata,
+)
 
-RUN_ID="61fd573874bc0ce059643515"
-DATASET_NAME="/simulation_1.sedml/report"
+RUN_ID = "61fd573874bc0ce059643515"
+DATASET_NAME = "/simulation_1.sedml/report"
 S3_PATH = f"simulations/{RUN_ID}/contents/reports.h5"
 
 

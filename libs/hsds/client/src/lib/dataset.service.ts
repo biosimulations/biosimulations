@@ -1,5 +1,4 @@
 import { HttpStatus, Inject, Injectable, Logger } from '@nestjs/common';
-import { DomainService } from '@biosimulations/hdf5/api-client';
 import {
   BaseHDF5Visitor,
   DatasetData,
@@ -27,8 +26,7 @@ export class SimulationHDFService {
   private logger = new Logger(SimulationHDFService.name);
 
   public constructor(
-    @Inject(SimdataApiService) private simdataApiService: SimdataApiService,
-     @Inject(DomainService) private domainService: DomainService,
+     @Inject(SimdataApiService) private simdataApiService: SimdataApiService,
      private configService: ConfigService,
   ) {
     const env = this.configService.get('server.env');
@@ -111,12 +109,6 @@ export class SimulationHDFService {
     }
 
     return datasets;
-  }
-
-
-  public async deleteDatasets(runId: string): Promise<void> {
-    const domain = this.dataPaths.getSimulationRunResultsDomain(runId);
-    await this.domainService.rootDelete(domain, this.auth);
   }
 
   private getRetryBackoff(): <T>(source: Observable<T>) => Observable<T> {

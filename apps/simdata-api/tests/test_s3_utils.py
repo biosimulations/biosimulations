@@ -18,11 +18,9 @@ def test_download_s3_file():
 
 
 def test_get_s3_modified_date():
-  RUN_ID = "61fd573874bc0ce059643515"
-  S3_PATH = f"simulations/{RUN_ID}/contents/reports.h5"
-  LOCAL_STORAGE_PATH = "../local_data"
-  LOCAL_PATH = Path(f"{LOCAL_STORAGE_PATH}/{RUN_ID}.h5")
+    RUN_ID = "61fd573874bc0ce059643515"
+    S3_PATH = f"simulations/{RUN_ID}/contents/reports.h5"
 
-  s3 = S3()
-  td: datetime = s3.get_s3_modified_date(s3_path=S3_PATH)
-  assert td is not None
+    s3 = S3()
+    td: datetime = s3.get_s3_modified_date(s3_path=S3_PATH)
+    assert td is not None
