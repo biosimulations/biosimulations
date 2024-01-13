@@ -12,6 +12,7 @@ from .s3_utils import S3
 logger = logging.getLogger(__name__)
 ROOT_DIR = Path(__file__).parent.parent.parent
 
+
 @lru_cache()
 def get_s3_dataset_as_ndarray(run_id: str, dataset_name: str) -> ndarray:
     local_path = ROOT_DIR / "local_data" / f"{run_id}.h5"

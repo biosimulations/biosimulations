@@ -13,6 +13,7 @@ from simdata_api.internal.hdf5_utils import (
 )
 from .log_config import setup_logging
 
+
 # Set up logging at the start of your application
 setup_logging()
 

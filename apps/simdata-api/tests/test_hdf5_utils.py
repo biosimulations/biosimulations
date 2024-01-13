@@ -15,6 +15,7 @@ DATASET_NAME = "/simulation_1.sedml/report"
 S3_PATH = f"simulations/{RUN_ID}/contents/reports.h5"
 ROOT_DIR = Path(__file__).parent.parent
 
+
 @pytest.mark.asyncio
 async def test_get_s3_dataset_as_ndarray():
     ndarray = get_s3_dataset_as_ndarray(run_id=RUN_ID, dataset_name=DATASET_NAME)
@@ -30,8 +31,8 @@ def test_extract_hdf5_metadata():
     hdf5_file: HDF5File = extract_hdf5_metadata(test_file_path)
 
     assert hdf5_file.filename == str(test_file_path)
-    assert hdf5_file.uri is ""
-    assert hdf5_file.id is ""
+    assert hdf5_file.uri == ""
+    assert hdf5_file.id == ""
 
 
 def test_get_s3_hdf5_metadata():
