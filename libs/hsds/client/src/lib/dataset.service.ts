@@ -18,7 +18,6 @@ import { DataPaths } from './data-paths/data-paths';
 
 import * as nj from '@d4c/numjs';
 
-
 Injectable();
 export class SimulationHDFService {
   private dataPaths: DataPaths;
@@ -26,8 +25,8 @@ export class SimulationHDFService {
   private logger = new Logger(SimulationHDFService.name);
 
   public constructor(
-     @Inject(SimdataApiService) private simdataApiService: SimdataApiService,
-     private configService: ConfigService,
+    @Inject(SimdataApiService) private simdataApiService: SimdataApiService,
+    private configService: ConfigService,
   ) {
     const env = this.configService.get('server.env');
     this.dataPaths = new DataPaths();
@@ -42,13 +41,12 @@ export class SimulationHDFService {
   public async getDatasetValues_simdata(runId: string, datasetId: string): Promise<nj.NdArray> {
     this.logger.log(`getDatasetValues_simdata(${runId},${datasetId}):
           calling simdataApiService.readDatasetDatasetsRunIdGet(${runId},${datasetId})`);
-    const dataResponse: Observable<nj.NdArray> = this.simdataApiService.readDataset(runId, datasetId)
-      .pipe(
-        this.getRetryBackoff(),
-        map((response: AxiosResponse<DatasetData>): nj.NdArray => {
-          return datasetDataToNjArray(response.data);
-        }),
-      );
+    const dataResponse: Observable<nj.NdArray> = this.simdataApiService.readDataset(runId, datasetId).pipe(
+      this.getRetryBackoff(),
+      map((response: AxiosResponse<DatasetData>): nj.NdArray => {
+        return datasetDataToNjArray(response.data);
+      }),
+    );
     return await firstValueFrom(dataResponse);
   }
 
@@ -89,21 +87,32 @@ export class SimulationHDFService {
     const datasets: Dataset[] = [];
     for (const hdf5Dataset of hdf5Datasets) {
       const attributes = hdf5Dataset.attributes;
+
+      const _type = attributes.find((attr) => attr.key == '_type')?.value as string;
+      const uri = attributes.find((attr) => attr.key == 'uri')?.value as string;
+      const sedmlId = attributes.find((attr) => attr.key == 'sedmlId')?.value as string;
+      const sedmlName = attributes.find((attr) => attr.key == 'sedmlName')?.value as string;
+      const sedmlDataSetDataTypes = attributes.find((attr) => attr.key == 'sedmlDataSetDataTypes')?.value as string[];
+      const sedmlDataSetIds = attributes.find((attr) => attr.key == 'sedmlDataSetIds')?.value as string[];
+      const sedmlDataSetNames = attributes.find((attr) => attr.key == 'sedmlDataSetNames')?.value as string[];
+      const sedmlDataSetShapes = attributes.find((attr) => attr.key == 'sedmlDataSetShapes')?.value as string[];
+      const sedmlDataSetLabels = attributes.find((attr) => attr.key == 'sedmlDataSetLabels')?.value as string[];
+
       const dataset: Dataset = {
-        uri: attributes.find(attr => (attr.key == 'uri'))?.value as string,
+        uri: uri || '',
         id: hdf5Dataset.name,
         created: modified_timestamp,
         updated: modified_timestamp,
         attributes: {
-          _type: attributes.find(attr => (attr.key == '_type'))?.value as string,
-          uri: attributes.find(attr => (attr.key == 'uri'))?.value as string,
-          sedmlId: attributes.find(attr => (attr.key == 'sedmlId'))?.value as string,
-          sedmlName: attributes.find(attr => (attr.key == 'sedmlName'))?.value as string,
-          sedmlDataSetDataTypes: attributes.find(attr => (attr.key == 'sedmlDataSetDataTypes'))?.value as string[],
-          sedmlDataSetIds: attributes.find(attr => (attr.key == 'sedmlDataSetIds'))?.value as string[],
-          sedmlDataSetLabels: attributes.find(attr => (attr.key == 'sedmlDataSetLabels'))?.value as string[],
-          sedmlDataSetNames: attributes.find(attr => (attr.key == 'sedmlDataSetNames'))?.value as string[],
-          sedmlDataSetShapes: attributes.find(attr => (attr.key == 'sedmlDataSetShapes'))?.value as string[]
+          _type: _type || '',
+          uri: uri || '',
+          sedmlId: sedmlId || '',
+          sedmlName: sedmlName || '',
+          sedmlDataSetDataTypes: sedmlDataSetDataTypes || [],
+          sedmlDataSetIds: sedmlDataSetIds || [],
+          sedmlDataSetLabels: sedmlDataSetLabels || [],
+          sedmlDataSetNames: sedmlDataSetNames || [],
+          sedmlDataSetShapes: sedmlDataSetShapes || [],
         },
       };
       datasets.push(dataset);
