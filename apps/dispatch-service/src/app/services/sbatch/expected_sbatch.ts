@@ -195,7 +195,6 @@ else
   echo -e '\\033[0;31m========================================== [SKIP] Updating log (2) =========================================\\033[0m'
 fi
 
-
 cleanup
 
 # If there was an error, exit the script with that error code and echo the step which failed
