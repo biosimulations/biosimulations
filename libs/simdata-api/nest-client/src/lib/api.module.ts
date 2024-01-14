@@ -39,6 +39,11 @@ export class ApiModule {
         if (options.useExisting || options.useFactory) {
             return [this.createAsyncConfigurationProvider(options)];
         }
+        if (!options.useClass) {
+            throw new Error(
+                'Invalid configuration. Must provide useClass, useExisting or useFactory',
+            );
+        }
         return [
             this.createAsyncConfigurationProvider(options),
             {
@@ -58,11 +63,17 @@ export class ApiModule {
                 inject: options.inject || [],
             };
         }
+        const existing_or_class = options.useExisting || options.useClass;
+        if (!existing_or_class) {
+            throw new Error(
+                'Invalid configuration. Must provide useClass, useExisting or useFactory',
+            );
+        }
         return {
             provide: Configuration,
             useFactory: async (optionsFactory: ConfigurationFactory) =>
                 await optionsFactory.createConfiguration(),
-            inject: [options.useExisting || options.useClass],
+            inject: [existing_or_class],
         };
     }
 

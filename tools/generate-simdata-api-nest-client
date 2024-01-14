@@ -49,6 +49,34 @@ docker run --rm -v ${parentDir}:/repo_root ${generatorCliImage} generate \
 echo "repairing default.service.ts"
 sed -i '' 's/run_id/runId/g' "${lib_dir}/src/lib/api/default.service.ts"
 
+# inject the following text into the api.module.ts file at lines 61 and 42
+#         if (!options.useClass) {
+#            throw new Error(
+#                'Invalid configuration. Must provide useClass, useExisting or useFactory',
+#            );
+#        }
+echo "injecting text into api.module.ts"
+
+sed -i '' 's/inject: \[options.useExisting || options.useClass\]/inject: \[existing_or_class\]/g'\
+ "${lib_dir}/src/lib/api.module.ts"
+
+sed -i '' '61i\
+        const existing_or_class = options.useExisting || options.useClass;\
+        if (!existing_or_class) {\
+            throw new Error(\
+                '"'"'Invalid configuration. Must provide useClass, useExisting or useFactory'"'"',\
+            );\
+        }\
+' "${lib_dir}/src/lib/api.module.ts"
+
+sed -i '' '42i\
+        if (!options.useClass) {\
+            throw new Error(\
+                '"'"'Invalid configuration. Must provide useClass, useExisting or useFactory'"'"',\
+            );\
+        }\
+' "${lib_dir}/src/lib/api.module.ts"
+
 # add 'export * from "./simdata-utils';" to index.ts
 echo "adding export for simdata-utils to index.ts"
 echo " " >> "${lib_dir}/src/lib/index.ts"
