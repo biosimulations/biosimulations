@@ -9,7 +9,7 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/simdata-api",
-        "main": "apps/simdata-api/simdata_api/app.py"
+        "main": "apps/simdata-api/simdata_api/main.py"
       },
       "configurations": {
         "production": {}
