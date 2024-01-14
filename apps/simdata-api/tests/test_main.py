@@ -13,6 +13,7 @@ from simdata_api.main import app
 client = TestClient(app)
 ROOT_DIR = Path(__file__).parent.parent
 
+
 @pytest.mark.asyncio
 async def test_root():
     response = client.get("/")

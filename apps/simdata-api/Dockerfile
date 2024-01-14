@@ -6,7 +6,7 @@ RUN poetry config virtualenvs.in-project true
 
 # copy project files
 WORKDIR /app
-COPY pyproject.toml poetry.lock README.md .env pytest.ini /app/
+COPY pyproject.toml poetry.lock README.md pytest.ini /app/
 COPY simdata_api /app/simdata_api
 COPY tests /app/tests
 COPY local_data /app/local_data
