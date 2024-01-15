@@ -6,11 +6,7 @@ import { SimulationHDFService } from './dataset.service';
 import { ApiModule } from '@biosimulations/simdata-api-nest-client';
 
 @Module({
-  imports: [
-    HttpModule,
-    BiosimulationsConfigModule,
-    ApiModule,
-   ],
+  imports: [HttpModule, BiosimulationsConfigModule, ApiModule],
   providers: [SimulationHDFService],
   exports: [SimulationHDFService],
 })

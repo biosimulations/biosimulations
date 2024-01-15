@@ -1,4 +1,4 @@
-import { Dataset, SimulationHDFService } from '@biosimulations/hsds/client';
+import { Dataset, SimulationHDFService } from '@biosimulations/simdata-api/nest-client-wrapper';
 import { SimulationStorageService } from '@biosimulations/shared/storage';
 import {
   Injectable,
@@ -172,7 +172,7 @@ export class ResultsService {
       if (response && 'values' in response) {
         if (response.shape.length != 2) {
           throw Error(`The shape of the dataset '${outputUri}' is not 2d`);
-        }else {
+        } else {
           // rewrite the following using numjs
           const shape = response.shape;
           const array: SimulationRunOutputDatumElement[][] = [];

@@ -1,20 +1,20 @@
 {
-  "name": "hsds-client",
+  "name": "simdata-api-nest-client-wrapper",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/hsds/client/src",
+  "sourceRoot": "libs/simdata-api/nest-client-wrapper/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["libs/hsds/client/**/*.ts"]
+        "lintFilePatterns": ["libs/simdata-api/nest-client-wrapper/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/hsds/client"],
+      "outputs": ["{workspaceRoot}/coverage/libs/simdata-api/nest-client-wrapper"],
       "options": {
-        "jestConfig": "libs/hsds/client/jest.config.ts",
+        "jestConfig": "libs/simdata-api/nest-client-wrapper/jest.config.ts",
         "passWithNoTests": true
       }
     }

@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'hsds-client',
+  displayName: 'simdata-api-nest-client-wrapper',
 
   globals: {},
   testEnvironment: 'node',
@@ -13,6 +13,6 @@ export default {
     ],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../../coverage/libs/hsds/client',
+  coverageDirectory: '../../../coverage/libs/simdata-api/nest-client-wrapper',
   preset: '../../../jest.preset.js',
 };

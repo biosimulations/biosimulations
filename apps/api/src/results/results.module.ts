@@ -11,7 +11,7 @@ import { ResultsController } from './results.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { SimulationRunModel, SimulationRunModelSchema } from '../simulation-run/simulation-run.model';
 import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
-import { HSDSClientModule } from '@biosimulations/hsds/client';
+import { HSDSClientModule } from '@biosimulations/simdata-api/nest-client-wrapper';
 
 @Module({
   imports: [

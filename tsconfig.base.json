@@ -50,7 +50,6 @@
       "@biosimulations/datamodel/common": ["libs/datamodel/common/src/index.ts"],
       "@biosimulations/datamodel/utils": ["libs/datamodel/utils/src/index.ts"],
       "@biosimulations/hpc/singularityBuilder": ["libs/hpc/singularity-builder/src/index.ts"],
-      "@biosimulations/hsds/client": ["libs/hsds/client/src/index.ts"],
       "@biosimulations/mail-service/client": ["libs/mail-service/client/src/index.ts"],
       "@biosimulations/material-file-input": ["libs/material-file-input/src/index.ts"],
       "@biosimulations/messages/messages": ["libs/messages/messages/src/index.ts"],
@@ -81,6 +80,7 @@
         "dist/libs/simdata-api/nest-client",
         "libs/simdata-api/nest-client/src/lib/index.ts"
       ],
+      "@biosimulations/simdata-api/nest-client-wrapper": ["libs/simdata-api/nest-client-wrapper/src/index.ts"],
       "@biosimulations/simulation-project-utils": [
         "libs/simulation-project-utils/simulation-project-utils/src/index.ts"
       ],

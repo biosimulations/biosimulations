@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Endpoints } from '@biosimulations/config/common';
 import { FilePaths, OutputFileName } from '@biosimulations/shared/storage';
-import { DataPaths } from '@biosimulations/hsds/client';
+import { DataPaths } from '@biosimulations/simdata-api/nest-client-wrapper';
 import { ConfigService } from '@nestjs/config';
 import { generateImageUpdateSbatch } from '@biosimulations/hpc/singularityBuilder';
 import { EnvironmentVariable, Purpose, ConsoleFormatting } from '@biosimulations/datamodel/common';
