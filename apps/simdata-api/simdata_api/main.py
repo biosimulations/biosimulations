@@ -40,7 +40,7 @@ async def health() -> StatusResponse:
 
 
 @app.get(
-    "/datasets/{run_id}",
+    "/datasets/{run_id}/data",
     response_model=DatasetData,
     name="Read Dataset",
     operation_id="read-dataset",

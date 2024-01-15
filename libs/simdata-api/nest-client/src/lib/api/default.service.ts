@@ -181,7 +181,7 @@ export class DefaultService {
         // to determine the Content-Type header
         const consumes: string[] = [
         ];
-        return this.httpClient.get<DatasetData>(`${this.basePath}/datasets/${encodeURIComponent(String(runId))}`,
+        return this.httpClient.get<DatasetData>(`${this.basePath}/datasets/${encodeURIComponent(String(runId))}/data`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,

@@ -37,7 +37,7 @@ async def test_health():
 async def test_read_dataset():
     RUN_ID = "61fd573874bc0ce059643515"
     DATASET_NAME = quote("/simulation_1.sedml/report", safe="")
-    url = f"/datasets/{RUN_ID}?dataset_name={DATASET_NAME}"
+    url = f"/datasets/{RUN_ID}/data?dataset_name={DATASET_NAME}"
     response = client.get(url)
     data = response.json()
     assert response.status_code == 200

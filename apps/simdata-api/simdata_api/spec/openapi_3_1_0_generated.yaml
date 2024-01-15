@@ -24,7 +24,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/StatusResponse'
-  /datasets/{run_id}:
+  /datasets/{run_id}/data:
     get:
       summary: Read Dataset
       operationId: read-dataset
