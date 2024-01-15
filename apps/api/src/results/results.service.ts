@@ -39,9 +39,9 @@ export class ResultsService {
   private logger = new Logger(ResultsService.name);
 
   public async getResults(runId: string, includeValues = true): Promise<Results> {
-    const timestamp = this.results.getResultsTimestamps_simdata(runId);
+    const timestamp = this.results.getResultsTimestamps(runId);
 
-    const datasets = await this.results.getDatasets_simdata(runId).catch((error) => {
+    const datasets = await this.results.getDatasets(runId).catch((error) => {
       this.logger.error('Error retrieving datasets');
       if (axios.isAxiosError(error)) {
         this.logger.error(error.message);
@@ -142,7 +142,7 @@ export class ResultsService {
   }
 
   public async getOutput(runId: string, reportId: string, includeData = false): Promise<Output> {
-    const dataset = await this.results.getDatasetbyId_simdata(runId, reportId);
+    const dataset = await this.results.getDatasetbyId(runId, reportId);
     if (dataset) {
       const parsedDataset = await this.parseDataset(runId, includeData, dataset);
       if (!isOutputParsingError(parsedDataset)) {
@@ -168,7 +168,7 @@ export class ResultsService {
   ): Promise<SimulationRunOutputDatumElement[][] | OutputParsingError> {
     // The index field will be needed when we are doing slicing of the data so this will need to change
     try {
-      const response: NdArray = await this.results.getDatasetValues_simdata(runId, datasetId);
+      const response: NdArray = await this.results.getDatasetValues(runId, datasetId);
       if (response && 'values' in response) {
         if (response.shape.length != 2) {
           throw Error(`The shape of the dataset '${outputUri}' is not 2d`);
@@ -203,7 +203,7 @@ export class ResultsService {
   }
 
   /**
-   * Parse the raw dataset from HSDS and return an Output object. Checks for consistency of the hdf5 attributes
+   * Parse the raw dataset from simdata-api and return an Output object. Checks for consistency of the hdf5 attributes
    *
    * @param runId
    * @param includeValues

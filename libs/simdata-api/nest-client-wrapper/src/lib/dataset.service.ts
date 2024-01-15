@@ -14,32 +14,21 @@ import { ConfigService } from '@nestjs/config';
 import { retryBackoff } from '@biosimulations/rxjs-backoff';
 import { firstValueFrom, map, Observable } from 'rxjs';
 import { AxiosError, AxiosResponse } from 'axios';
-import { DataPaths } from './data-paths/data-paths';
 
 import * as nj from '@d4c/numjs';
 
 Injectable();
 export class SimulationHDFService {
-  private dataPaths: DataPaths;
-  private auth: string;
   private logger = new Logger(SimulationHDFService.name);
 
   public constructor(
     @Inject(SimdataApiService) private simdataApiService: SimdataApiService,
     private configService: ConfigService,
   ) {
-    const env = this.configService.get('server.env');
-    this.dataPaths = new DataPaths();
-
-    const username = this.configService.get('data.username');
-    const password = this.configService.get('data.password');
-    const authString = Buffer.from(`${username}:${password}`).toString('base64');
-
-    this.auth = 'Basic ' + authString;
   }
 
-  public async getDatasetValues_simdata(runId: string, datasetId: string): Promise<nj.NdArray> {
-    this.logger.log(`getDatasetValues_simdata(${runId},${datasetId}):
+  public async getDatasetValues(runId: string, datasetId: string): Promise<nj.NdArray> {
+    this.logger.log(`getDatasetValues(${runId},${datasetId}):
           calling simdataApiService.readDatasetDatasetsRunIdGet(${runId},${datasetId})`);
     const dataResponse: Observable<nj.NdArray> = this.simdataApiService.readDataset(runId, datasetId).pipe(
       this.getRetryBackoff(),
@@ -50,7 +39,7 @@ export class SimulationHDFService {
     return await firstValueFrom(dataResponse);
   }
 
-  public async getResultsTimestamps_simdata(runId: string): Promise<Date> {
+  public async getResultsTimestamps(runId: string): Promise<Date> {
     const dateResponse: Observable<Date> = this.simdataApiService.getModified(runId).pipe(
       this.getRetryBackoff(),
       map((response: AxiosResponse<string, any>): Date => {
@@ -60,13 +49,13 @@ export class SimulationHDFService {
     return await firstValueFrom(dateResponse);
   }
 
-  public async getDatasetbyId_simdata(runId: string, reportId: string): Promise<Dataset | undefined> {
-    const datasets = await this.getDatasets_simdata(runId);
+  public async getDatasetbyId(runId: string, reportId: string): Promise<Dataset | undefined> {
+    const datasets = await this.getDatasets(runId);
     const filtered = datasets.filter((value) => value.uri == reportId);
     return filtered[0];
   }
 
-  public async getDatasets_simdata(runId: string): Promise<Dataset[]> {
+  public async getDatasets(runId: string): Promise<Dataset[]> {
     const hdf5FileObservable: Observable<HDF5File> = this.simdataApiService.getMetadata(runId).pipe(
       this.getRetryBackoff(),
       map((response: AxiosResponse<HDF5File>): HDF5File => {
@@ -83,7 +72,7 @@ export class SimulationHDFService {
       }
     })();
     visitHDF5File(hdf5File, datasetVisitor);
-    const modified_timestamp: Date = await this.getResultsTimestamps_simdata(runId);
+    const modified_timestamp: Date = await this.getResultsTimestamps(runId);
     const datasets: Dataset[] = [];
     for (const hdf5Dataset of hdf5Datasets) {
       const attributes = hdf5Dataset.attributes;

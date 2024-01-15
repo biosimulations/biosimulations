@@ -10,8 +10,7 @@ import { ApiModule } from '@biosimulations/simdata-api-nest-client';
   providers: [SimulationHDFService],
   exports: [SimulationHDFService],
 })
-export class HSDSClientModule {
+export class SimdataApiNestClientWrapperModule {
   constructor() {}
 }
 
-export * from './data-paths/data-paths';

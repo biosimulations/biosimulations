@@ -1,7 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Endpoints } from '@biosimulations/config/common';
 import { FilePaths, OutputFileName } from '@biosimulations/shared/storage';
-import { DataPaths } from '@biosimulations/simdata-api/nest-client-wrapper';
 import { ConfigService } from '@nestjs/config';
 import { generateImageUpdateSbatch } from '@biosimulations/hpc/singularityBuilder';
 import { EnvironmentVariable, Purpose, ConsoleFormatting } from '@biosimulations/datamodel/common';
@@ -10,12 +9,10 @@ import { EnvironmentVariable, Purpose, ConsoleFormatting } from '@biosimulations
 export class SbatchService {
   private endpoints: Endpoints;
 
-  private dataPaths: DataPaths;
   private logger = new Logger(SbatchService.name);
   public constructor(private configService: ConfigService, private filePaths: FilePaths) {
     const env = this.configService.get('server.env');
     this.endpoints = new Endpoints(env);
-    this.dataPaths = new DataPaths();
   }
 
   /** Generate a Slurm script to execute a COMBINE/OMEX archive

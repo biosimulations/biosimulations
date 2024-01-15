@@ -18,7 +18,7 @@ import { SimulationRunModel, SimulationRunModelSchema } from './simulation-run.m
 import { SimulationRunService } from './simulation-run.service';
 import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
 
-import { HSDSClientModule } from '@biosimulations/simdata-api/nest-client-wrapper';
+import { SimdataApiNestClientWrapperModule } from '@biosimulations/simdata-api/nest-client-wrapper';
 
 import { OntologyApiModule } from '@biosimulations/ontology/api';
 import { ResultsModule } from '../results/results.module';
@@ -47,7 +47,7 @@ import { BullModuleOptions, JobQueue } from '@biosimulations/messages/messages';
       name: JobQueue.submitSimulationRun,
       ...BullModuleOptions,
     }),
-    HSDSClientModule,
+    SimdataApiNestClientWrapperModule,
   ],
   controllers: [SimulationRunController],
   providers: [SimulationRunService, SimulationRunValidationService],

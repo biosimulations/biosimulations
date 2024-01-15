@@ -7,7 +7,7 @@ import { ProjectModel, ProjectModelSchema } from './project.model';
 
 import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
 
-import { HSDSClientModule } from '@biosimulations/simdata-api/nest-client-wrapper';
+import { SimdataApiNestClientWrapperModule } from '@biosimulations/simdata-api/nest-client-wrapper';
 
 import { AccountManagementModule } from '@biosimulations/account/management';
 import { SimulationRunModule } from '../simulation-run/simulation-run.module';
@@ -27,7 +27,7 @@ import { SpecificationsModule } from '../specifications/specifications.module';
     SpecificationsModule,
     AccountManagementModule,
     MongooseModule.forFeature([{ name: ProjectModel.name, schema: ProjectModelSchema }]),
-    HSDSClientModule,
+    SimdataApiNestClientWrapperModule,
   ],
   providers: [ProjectsService],
   controllers: [ProjectsController],
