@@ -51,13 +51,6 @@ These variables configure the Singularity application on the HPC
 - `HPC_SINGULARITY_CACHE_DIR`: Provide the path to the Singularity cache directory
 - `HPC_SINGULARITY_PULL_FOLDER`: Provide the path to the Singularity pull folder
 
-## Highly Scalable Data Service
-The HSDS is used to store the simulation results. Please see the [HSDS repository](https://github.com/HDFGroup/hsds) for more information on setting up a HSDS instance.
-
-- `HSDS_BASEPATH`: Provide the URL for your HSDS instance.
-- `HSDS_USERNAME`: Provide the username for your HSDS instance.
-- `HSDS_PASSWORD`: Provide the password for your HSDS instance.
-
 ## Authentication Service
 BioSimulations uses [Auth0](https://auth0.com/) for authentication. Please see the [Auth0 documentation](https://auth0.com/docs/quickstart/backend/nodejs) for more information on setting up an Auth0 instance.
 

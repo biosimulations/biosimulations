@@ -6,12 +6,10 @@ export type Endpoint =
   | 'simulatorsApi'
   | 'combineApi'
   | 'simdataApi'
-  | 'dataService'
   | 'externalApi'
   | 'externalSimulatorsApi'
   | 'externalCombineApi'
   | 'externalSimdataApi'
-  | 'externalDataService'
   | 'simulatorsApp'
   | 'dispatchApp'
   | 'platformApp';
@@ -31,12 +29,10 @@ export class EndpointLoader {
     simulatorsApi: 'simulatorsApi',
     combineApi: 'combineApi',
     simdataApi: 'simdataApi',
-    dataService: 'dataService',
     externalApi: 'externalApi',
     externalSimulatorsApi: 'externalSimulatorsApi',
     externalCombineApi: 'externalCombineApi',
     externalSimdataApi: 'externalSimdataApi',
-    externalDataService: 'externalDataService',
     simulatorsApp: 'simulatorsApp',
     dispatchApp: 'dispatchApp',
     platformApp: 'platformApp',
@@ -64,8 +60,6 @@ export class EndpointLoader {
 
         this.endpointsTemplate.platformApp = dynamicEndpoints?.platformApp || 'https://biosimulations.dev';
 
-        this.endpointsTemplate.dataService = dynamicEndpoints?.dataService || 'https://data.biosimulations.dev';
-
         this.endpointsTemplate.externalApi = dynamicEndpoints?.externalApi || 'https://api.biosimulations.dev';
 
         this.endpointsTemplate.externalSimulatorsApi =
@@ -76,9 +70,6 @@ export class EndpointLoader {
 
         this.endpointsTemplate.externalSimdataApi =
           dynamicEndpoints?.externalSimdataApi || 'https://simdata.api.biosimulations.dev';
-
-        this.endpointsTemplate.externalDataService =
-          dynamicEndpoints?.externalDataService || 'https://data.biosimulations.dev';
         break;
 
       case 'dev':
@@ -94,8 +85,6 @@ export class EndpointLoader {
 
         this.endpointsTemplate.platformApp = dynamicEndpoints?.platformApp || 'https://biosimulations.dev';
 
-        this.endpointsTemplate.dataService = dynamicEndpoints?.dataService || 'https://data.biosimulations.dev';
-
         this.endpointsTemplate.externalApi = dynamicEndpoints?.externalApi || 'https://api.biosimulations.dev';
 
         this.endpointsTemplate.externalSimulatorsApi =
@@ -106,9 +95,6 @@ export class EndpointLoader {
 
         this.endpointsTemplate.externalSimdataApi =
           dynamicEndpoints?.externalSimdataApi || 'https://simdata.api.biosimulations.dev';
-
-        this.endpointsTemplate.externalDataService =
-          dynamicEndpoints?.externalDataService || 'https://data.biosimulations.dev';
 
         break;
 
@@ -125,8 +111,6 @@ export class EndpointLoader {
 
         this.endpointsTemplate.platformApp = dynamicEndpoints?.platformApp || 'https://biosimulations.dev';
 
-        this.endpointsTemplate.dataService = dynamicEndpoints?.dataService || 'https://data.biosimulations.dev';
-
         this.endpointsTemplate.externalApi = dynamicEndpoints?.externalApi || 'https://api.biosimulations.dev';
 
         this.endpointsTemplate.externalSimulatorsApi =
@@ -138,8 +122,6 @@ export class EndpointLoader {
         this.endpointsTemplate.externalSimdataApi =
           dynamicEndpoints?.externalSimdataApi || 'https://simdata.api.biosimulations.dev';
 
-        this.endpointsTemplate.externalDataService =
-          dynamicEndpoints?.externalDataService || 'https://data.biosimulations.dev';
         break;
 
       case 'prod':
@@ -157,8 +139,6 @@ export class EndpointLoader {
 
         this.endpointsTemplate.dispatchApp = 'https://run.biosimulations.org';
 
-        this.endpointsTemplate.dataService = dynamicEndpoints?.dataService || 'https://data.biosimulations.org';
-
         this.endpointsTemplate.externalApi = dynamicEndpoints?.externalApi || 'https://api.biosimulations.org';
 
         this.endpointsTemplate.externalSimulatorsApi =
@@ -170,8 +150,6 @@ export class EndpointLoader {
         this.endpointsTemplate.externalSimdataApi =
           dynamicEndpoints?.externalSimdataApi || 'https://simdata.api.biosimulations.org';
 
-        this.endpointsTemplate.externalDataService =
-          dynamicEndpoints?.externalDataService || 'https://data.biosimulations.org';
         break;
     }
     console.log(this.endpointsTemplate.dispatchApp);
@@ -189,13 +167,11 @@ export class EndpointLoader {
         simulatorsApi: process.env.SIMULATORS_API_URL,
         combineApi: process.env.COMBINE_API_URL,
         simdataApi: process.env.SIMDATA_API_URL,
-        dataService: process.env.DATA_SERVICE_URL,
 
         externalApi: process.env.EXTERNAL_API_URL,
         externalSimulatorsApi: process.env.EXTERNAL_SIMULATORS_API_URL,
         externalCombineApi: process.env.EXTERNAL_COMBINE_API_URL,
         externalSimdataApi: process.env.EXTERNAL_SIMDATA_API_URL,
-        externalDataService: process.env.EXTERNAL_DATA_SERVICE_URL,
 
         simulatorsApp: process.env.SIMULATORS_APP_URL,
         dispatchApp: process.env.DISPATCH_APP_URL,

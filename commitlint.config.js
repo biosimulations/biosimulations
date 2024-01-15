@@ -22,7 +22,6 @@ module.exports = {
         'config',
         'datamodel',
         'simdata-api',
-        'hsds',
         'messages',
         'ontology',
         'storage',

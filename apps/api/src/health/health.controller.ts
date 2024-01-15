@@ -56,7 +56,6 @@ export class HealthController {
       this.s3Check,
       this.simulatorsCheck,
       this.hpcCheck,
-      this.hsdsCheck,
     ]);
   }
 
@@ -78,16 +77,6 @@ export class HealthController {
   @HealthCheck()
   public messagingCheck(): Promise<HealthCheckResult> {
     return this.health.check([this.natsCheck, this.bullCheck]);
-  }
-
-  @Get('/dataService')
-  @ApiOperation({
-    summary: 'Check whether the data service is operational',
-    description: 'Check whether the data service is operational',
-  })
-  @HealthCheck()
-  public dataServiceCheck(): Promise<HealthCheckResult> {
-    return this.health.check([this.hsdsCheck]);
   }
 
   private simulatorsCheck: HealthIndicatorFunction = () =>
@@ -123,7 +112,4 @@ export class HealthController {
         port: this.config.get('hpc.ssh.port'),
       },
     });
-
-  private hsdsCheck: HealthIndicatorFunction = () =>
-    this.http.pingCheck('Data Service', this.endpoints.getDataServiceHealthEndpoint());
 }

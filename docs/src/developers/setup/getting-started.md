@@ -28,7 +28,6 @@ The applications need to connect to the following services:
 - Redis
 - NATS
 - HPC
-- HSDS
 
 Information on setting up these services can be found in the [services documentation](./services.md).
 

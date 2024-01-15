@@ -9,7 +9,6 @@ import natsConfig from './biosimulations-nats-config';
 import emailConfig from './biosimulations-email.config';
 import storageConfig from './biosimulations-storage-config';
 import queueConfig from './biosimulations-queue-config';
-import dataConfig from './biosimulations-data-config';
 import cacheConfig from './biosimulations-cache-config';
 import singularityConfig from './singularity-config';
 
@@ -26,7 +25,6 @@ import singularityConfig from './singularity-config';
         emailConfig,
         storageConfig,
         queueConfig,
-        dataConfig,
         cacheConfig,
         singularityConfig,
       ],

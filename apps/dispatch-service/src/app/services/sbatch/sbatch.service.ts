@@ -61,11 +61,6 @@ export class SbatchService {
     const storageKey = this.configService.get('storage.accessKey');
     const storageSecret = this.configService.get('storage.secret');
 
-    const hsdsBasePath = this.configService.get('data.externalBasePath');
-    const hsdsUsername = this.configService.get('data.username');
-    const hsdsPassword = this.configService.get('data.password');
-    const hsdsRetries = 10;
-
     const simulatorImage = `docker://ghcr.io/biosimulators/${simulator}:${simulatorVersion}`;
 
     const memoryFormatted = Math.ceil(memory * 1000);
@@ -128,7 +123,6 @@ export class SbatchService {
     // Need to get external endpoint so that HPC can download the archive
     const runCombineArchiveUrl = this.endpoints.getSimulationRunDownloadEndpoint(true, runId);
     const simulationRunS3Path = this.filePaths.getSimulationRunPath(runId);
-    const simulationRunResultsHsdsPath = this.dataPaths.getSimulationRunResultsPath(runId);
 
     const outputsS3Subpath = this.filePaths.getSimulationRunOutputsPath(runId, false);
 

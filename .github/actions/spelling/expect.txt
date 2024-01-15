@@ -145,7 +145,6 @@ homepage
 hostname
 hpc
 href
-hsds
 Hsl
 html
 http
