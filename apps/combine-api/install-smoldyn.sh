@@ -26,6 +26,7 @@ cd $dist_dir
 sudo -H ./install.sh
 
 # remove the smoldyn dist
+cd ../
 rm -r $dist_dir
 
 
