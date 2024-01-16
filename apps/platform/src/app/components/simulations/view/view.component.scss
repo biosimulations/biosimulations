@@ -26,7 +26,7 @@ biosimulations-tab-page ::ng-deep .icon-list {
   }
 }
 
-.spec-container-platform {
+.spec-container {
   margin-top: 3rem;
   display: flex;
   justify-content: space-around;
@@ -49,6 +49,15 @@ biosimulations-tab-page ::ng-deep .icon-list {
   margin-right: auto;
   margin-left: auto;
   font-weight: 600;
-  width: 1000px;
+  width: fit-content;
+  margin-top: 3rem;
+}
+
+.overview-container {
+  margin-right: 3rem;
+  max-width: 700px;
+}
+
+.info-message {
   margin-top: 3rem;
 }
