@@ -7,7 +7,6 @@ readme = "README.md"
 packages = [{include = "combine_api"}]
 
 [tool.poetry.dependencies]
-# python = "^3.9"
 python = "^3.10"
 flask = ">=2"
 connexion = {extras = ["swagger-ui"], version = "^2.14.2"}
@@ -35,8 +34,8 @@ py-swagger-ui = "^1.1.0"
 gunicorn = "^20.1.0"
 biosimulators-copasi = "^0.1.35"
 biosimulators-gillespy2 = "^0.1.37"
-biosimulator-processes = {extras = ["smoldyn"], version = "0.0.14"}
-biosimulators-simularium = "0.5.2"
+biosimulator-processes = "0.0.14"
+#biosimulators-simularium = "0.5.3"
 #python-libnuml = "1.1.6"
 
 [tool.poetry.group.dev.dependencies]
