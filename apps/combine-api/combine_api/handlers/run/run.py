@@ -7,6 +7,7 @@ from biosimulators_utils.sedml.data_model import Report, Plot2D, Plot3D
 from biosimulators_utils.sedml.exec import get_report_for_plot2d, get_report_for_plot3d
 from biosimulators_utils.sedml.io import SedmlSimulationReader
 from biosimulators_utils.viz.data_model import VizFormat
+from biosimulators_simularium.exec import generate_simularium_file
 from unittest import mock
 import connexion
 import flask
@@ -154,6 +155,15 @@ def handler(body, archiveFile=None):
                                           archive_filename, out_dir,
                                           timeout=TIMEOUT,
                                           config=config)
+
+        # check for Smoldyn and generate simularium file
+        if 'smoldyn' in simulator_id.lower():
+            generate_simularium_file(
+              working_dir=out_dir,
+              simularium_filename="simulation",
+
+            )
+
 
     # transform the results
     if return_type == 'json':
