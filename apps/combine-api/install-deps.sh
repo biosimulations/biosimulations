@@ -9,7 +9,11 @@
 
 set -e 
 
-poetry env use python3.9
+# TODO: read this from pyproject.toml
+echo "What python version would you like to use for this environment?: "
+read -r python_version
+
+poetry env use python${python_version}
 poetry run pip install --upgrade pip 
 poetry lock --no-update
 
