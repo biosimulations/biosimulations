@@ -30,18 +30,3 @@ else
    echo "Poetry failed to successfully install all packages"
    exit 1
 fi 
-
-# if poetry install; then 
-#    echo "Poetry successfully installed all packages."
-# else
-#    echo "Poetry failed to install all packages. Attempting to install Smoldyn manually..."
-#    poetry run pip install --upgrade pip
-#    if poetry run ./install-smoldyn.sh; then
-#        echo "Smoldyn manually installed successfully."
-#        poetry install
-#        echo "Poetry successfully install all packages"
-#    else
-#        echo "Failed to manually install Smoldyn."
-#        exit 1
-#    fi
-# fi 
