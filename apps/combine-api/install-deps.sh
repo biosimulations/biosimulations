@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# Alex here: I will remove the comments below very soon. I wrote this as helper content for myself.
 # poetry run python --version && poetry run python <-- verify python version for env and open the shell
 # poetry add <PACKAGE> || pip install <PACKAGE>  <-- installs package
 # sudo poetry env remove python3.10 <-- removes the envs that have 3.10 completely
@@ -8,7 +9,7 @@
 
 set -e 
 
-poetry env use python3.10
+poetry env use python3.9
 poetry run pip install --upgrade pip 
 poetry lock --no-update
 
