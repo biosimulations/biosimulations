@@ -1,7 +1,13 @@
 #!/bin/zsh
 
-if sudo poetry env remove combine2-api-dM9t1Ilw-py3.10; then
-   echo "Python 3.10 env successfully removed."
+echo "Enter the Python version of the poetry environment you wish to remove: "
+read -r version
+
+if sudo poetry env remove python${version}; then
+   echo "Python ${version} env successfully removed."
+   ./clear-cache.sh
+   echo "Poetry env and caches removed successfully removed. Done."
 else
-   sudo poetry env remove combine2-api-dM9t1Ilw-py3.9
+   echo "Something went wrong. Exiting."
+   exit 1
 fi
