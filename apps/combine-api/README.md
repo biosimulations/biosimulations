@@ -23,6 +23,7 @@ The API is implemented in Python using [connexion](https://github.com/zalando/co
 ## Installation and execution
 As described below, the COMBINE API is deployed as a Docker image. The [`Dockerfile`](Dockerfile) for this image is the authoritative description of how to install and execute the API. The `Dockerfile` uses [pipenv](https://pipenv.pypa.io/) to install the required Python packages outlined in the [`Pipfile`](Dockerfile-assets/Pipfile) and [`Pipfile.lock`](Dockerfile-assets/Pipfile.lock) files. Note, this `Pipfile` does not completely describe the requirements for the API. The `Dockerfile` includes additional operations which cannot be achieved using pipenv because some of the required Python packages for the API require additional OS packages and because bugs in pipenv currently prevent pipenv from installing one of the required Python packages for the API.
 
+#### TODO: Update this information.
 ### Recommended local installation
 Below is an outline of how to install the API into a local Python environment managed with pipenv in a Linux machine.
 
@@ -68,6 +69,10 @@ As described below, Docker images for the API are available from the GitHub Cont
 Follow these steps to run an image for the API:
 1. Execute the image on local port `3333` by running `docker run -it --rm -p 127.0.0.1:3333:3333 ghcr.io/biosimulations/combine-api`. The second `3333` must match the port which the API is running at in the image (the default is currently `3333`).
 2. Navigate your browser to `http://127.0.0.1:3333`.
+
+### Using Poetry 
+The `combine-api` in `biosimulations` uses a `pyproject.toml` file with [Poetry](https://python-poetry.org/docs/#installation) as the primary 
+setup method. Please remember to clear your local poetry cache prior to installing the environment on your machine.
 
 ## Linting the API
 The API can be linted using [flake8](https://flake8.pycqa.org/en/latest/). 
