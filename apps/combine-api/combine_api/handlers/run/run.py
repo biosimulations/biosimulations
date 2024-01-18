@@ -160,9 +160,10 @@ def handler(body, archiveFile=None):
         if 'smoldyn' in simulator_id.lower():
             generate_simularium_file(
               working_dir=out_dir,
-              simularium_filename="simulation",
-
+              simularium_filename="simulation"
             )
+
+        # TODO: remove the modelout file in place of .vtk/p in biosimulators-simularium
 
 
     # transform the results
