@@ -10,8 +10,9 @@
 set -e
 
 # TODO: read this from pyproject.toml
-echo "What python version would you like to use for this environment?: "
-read -r python_version
+# echo "What python version would you like to use for this environment?: "
+# read -r python_version
+python_version="$1"
 
 poetry env use python"${python_version}"
 poetry run pip install --upgrade pip
@@ -24,12 +25,12 @@ if poetry install -v; then
       echo "Smoldyn could not be installed"
       exit 1
    fi
-   if poetry run pip install biosimulators-simularium==0.5.5; then
-      echo "Poetry successfully installed all packages."
-   else
-      echo "Poetry could not install biosimulators-simularium."
-      exit 1
-   fi
+   # if poetry run pip install biosimulators-simularium; then
+   #    echo "Poetry successfully installed all packages."
+   # else
+   #    echo "Poetry could not install biosimulators-simularium."
+   #    exit 1
+   # fi
 else
    echo "Poetry failed to successfully install all packages"
    exit 1
