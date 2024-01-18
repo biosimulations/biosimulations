@@ -418,3 +418,33 @@ class RunSimulationTestCase(unittest.TestCase):
         self.assertEqual(response['_type'], 'SimulationRunResults')
         self.assertEqual(response['log']['status'], Status.FAILED.value)
         self.assertEqual(response['outputs'], [])
+
+
+def test_url_smoldyn():
+    FIXTURES_DIRNAME = 'tests/fixtures'
+    endpoint = '/run/run'
+    archive_filename = os.path.join(FIXTURES_DIRNAME, 'Min1.omex')
+    data = MultiDict([
+        ('_type', 'SimulationRun'),
+        ('archiveUrl', 'https://web.site/archive.omex'),
+        ('simulator', 'smoldyn'),
+        ('environment', json.dumps({
+            "_type": "Environment",
+            "variables": [
+                {
+                    '_type': 'EnvironmentVariable',
+                    'key': 'VERBOSE',
+                    'value': '1',
+                },
+            ]
+        })),
+    ])
+    with app.app.app.test_client() as client:
+        with open(archive_filename, 'rb') as archive_file:
+            with mock.patch('requests.get', return_value=mock.Mock(raise_for_status=lambda: None, content=archive_file.read())):
+                response = client.post(endpoint, data=data, content_type="multipart/form-data")
+    response = response.json
+    return response
+
+
+print(test_url_smoldyn())
