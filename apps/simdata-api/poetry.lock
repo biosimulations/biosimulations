@@ -77,17 +77,17 @@ uvloop = ["uvloop (>=0.15.2)"]
 
 [[package]]
 name = "boto3"
-version = "1.34.15"
+version = "1.34.21"
 description = "The AWS SDK for Python"
 optional = false
 python-versions = ">= 3.8"
 files = [
-    {file = "boto3-1.34.15-py3-none-any.whl", hash = "sha256:f8f16c2d0ec1dca291857f1c138d5c30e01e40f653443cc2679e2f6ae71b05a6"},
-    {file = "boto3-1.34.15.tar.gz", hash = "sha256:2b74c58f475ff0dcf2f3637da9367a9465d29fad971ff5d8dc54ac39554e9022"},
+    {file = "boto3-1.34.21-py3-none-any.whl", hash = "sha256:88e3baeb53ae421aabd44bb49ebdd7122b74b53b0f437b0f3e17141f6744574a"},
+    {file = "boto3-1.34.21.tar.gz", hash = "sha256:206e61ba1f8c830e5df0355606d178ad5bc970df12c4c318b021c71da410eb0c"},
 ]
 
 [package.dependencies]
-botocore = ">=1.34.15,<1.35.0"
+botocore = ">=1.34.21,<1.35.0"
 jmespath = ">=0.7.1,<2.0.0"
 s3transfer = ">=0.10.0,<0.11.0"
 
@@ -96,13 +96,13 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "botocore"
-version = "1.34.15"
+version = "1.34.21"
 description = "Low-level, data-driven core of boto 3."
 optional = false
 python-versions = ">= 3.8"
 files = [
-    {file = "botocore-1.34.15-py3-none-any.whl", hash = "sha256:16bcf871e67ef0177593f06e9e5bae4db51c9a9a2e953cb14feeb42d53441a85"},
-    {file = "botocore-1.34.15.tar.gz", hash = "sha256:c3c3404962a6d9d5e1634bd70ed53b8eff1ff17ee9d7a6240e9e8c94db48ad6f"},
+    {file = "botocore-1.34.21-py3-none-any.whl", hash = "sha256:43274fd3f8e02573790ee76313607c60e3c15a7a0d89d24dfe4042f882f1f8c9"},
+    {file = "botocore-1.34.21.tar.gz", hash = "sha256:21983bb0473a19130192c50ec6974d55f0c4aa48a7094bcf40f7882c8b69b8f1"},
 ]
 
 [package.dependencies]
@@ -151,18 +151,18 @@ files = [
 
 [[package]]
 name = "fastapi"
-version = "0.108.0"
+version = "0.109.0"
 description = "FastAPI framework, high performance, easy to learn, fast to code, ready for production"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "fastapi-0.108.0-py3-none-any.whl", hash = "sha256:8c7bc6d315da963ee4cdb605557827071a9a7f95aeb8fcdd3bde48cdc8764dd7"},
-    {file = "fastapi-0.108.0.tar.gz", hash = "sha256:5056e504ac6395bf68493d71fcfc5352fdbd5fda6f88c21f6420d80d81163296"},
+    {file = "fastapi-0.109.0-py3-none-any.whl", hash = "sha256:8c77515984cd8e8cfeb58364f8cc7a28f0692088475e2614f7bf03275eba9093"},
+    {file = "fastapi-0.109.0.tar.gz", hash = "sha256:b978095b9ee01a5cf49b19f4bc1ac9b8ca83aa076e770ef8fd9af09a2b88d191"},
 ]
 
 [package.dependencies]
 pydantic = ">=1.7.4,<1.8 || >1.8,<1.8.1 || >1.8.1,<2.0.0 || >2.0.0,<2.0.1 || >2.0.1,<2.1.0 || >2.1.0,<3.0.0"
-starlette = ">=0.29.0,<0.33.0"
+starlette = ">=0.35.0,<0.36.0"
 typing-extensions = ">=4.8.0"
 
 [package.extras]
@@ -320,6 +320,41 @@ files = [
     {file = "mccabe-0.7.0-py2.py3-none-any.whl", hash = "sha256:6c2d30ab6be0e4a46919781807b4f0d834ebdd6c6e3dca0bda5a15f863427b6e"},
     {file = "mccabe-0.7.0.tar.gz", hash = "sha256:348e0240c33b60bbdf4e523192ef919f28cb2c3d7d5c7794f74009290f236325"},
 ]
+
+[[package]]
+name = "ml-dtypes"
+version = "0.3.2"
+description = ""
+optional = false
+python-versions = ">=3.9"
+files = [
+    {file = "ml_dtypes-0.3.2-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:7afde548890a92b41c0fed3a6c525f1200a5727205f73dc21181a2726571bb53"},
+    {file = "ml_dtypes-0.3.2-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:d1a746fe5fb9cd974a91070174258f0be129c592b93f9ce7df6cc336416c3fbd"},
+    {file = "ml_dtypes-0.3.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:961134ea44c7b8ca63eda902a44b58cd8bd670e21d62e255c81fba0a8e70d9b7"},
+    {file = "ml_dtypes-0.3.2-cp310-cp310-win_amd64.whl", hash = "sha256:6b35c4e8ca957c877ac35c79ffa77724ecc3702a1e4b18b08306c03feae597bb"},
+    {file = "ml_dtypes-0.3.2-cp311-cp311-macosx_10_9_universal2.whl", hash = "sha256:763697ab8a88d47443997a7cdf3aac7340049aed45f7521f6b0ec8a0594821fe"},
+    {file = "ml_dtypes-0.3.2-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:b89b194e9501a92d289c1ffd411380baf5daafb9818109a4f49b0a1b6dce4462"},
+    {file = "ml_dtypes-0.3.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:2c34f2ba9660b21fe1034b608308a01be82bbef2a92fb8199f24dc6bad0d5226"},
+    {file = "ml_dtypes-0.3.2-cp311-cp311-win_amd64.whl", hash = "sha256:6604877d567a29bfe7cc02969ae0f2425260e5335505cf5e7fefc3e5465f5655"},
+    {file = "ml_dtypes-0.3.2-cp312-cp312-macosx_10_9_universal2.whl", hash = "sha256:93b78f53431c93953f7850bb1b925a17f0ab5d97527e38a7e865b5b4bc5cfc18"},
+    {file = "ml_dtypes-0.3.2-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:3a17ef2322e60858d93584e9c52a5be7dd6236b056b7fa1ec57f1bb6ba043e33"},
+    {file = "ml_dtypes-0.3.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e8505946df1665db01332d885c2020b4cb9e84a8b1241eb4ba69d59591f65855"},
+    {file = "ml_dtypes-0.3.2-cp312-cp312-win_amd64.whl", hash = "sha256:f47619d978ab1ae7dfdc4052ea97c636c6263e1f19bd1be0e42c346b98d15ff4"},
+    {file = "ml_dtypes-0.3.2-cp39-cp39-macosx_10_9_universal2.whl", hash = "sha256:c7b3fb3d4f6b39bcd4f6c4b98f406291f0d681a895490ee29a0f95bab850d53c"},
+    {file = "ml_dtypes-0.3.2-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:7a4c3fcbf86fa52d0204f07cfd23947ef05b4ad743a1a988e163caa34a201e5e"},
+    {file = "ml_dtypes-0.3.2-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:91f8783fd1f2c23fd3b9ee5ad66b785dafa58ba3cdb050c4458021fa4d1eb226"},
+    {file = "ml_dtypes-0.3.2-cp39-cp39-win_amd64.whl", hash = "sha256:7ba8e1fafc7fff3e643f453bffa7d082df1678a73286ce8187d3e825e776eb94"},
+    {file = "ml_dtypes-0.3.2.tar.gz", hash = "sha256:533059bc5f1764fac071ef54598db358c167c51a718f68f5bb55e3dee79d2967"},
+]
+
+[package.dependencies]
+numpy = [
+    {version = ">=1.26.0", markers = "python_version >= \"3.12\""},
+    {version = ">=1.23.3", markers = "python_version >= \"3.11\" and python_version < \"3.12\""},
+]
+
+[package.extras]
+dev = ["absl-py", "pyink", "pylint (>=2.6.0)", "pytest", "pytest-xdist"]
 
 [[package]]
 name = "mypy-boto3-s3"
@@ -782,13 +817,13 @@ files = [
 
 [[package]]
 name = "starlette"
-version = "0.32.0.post1"
+version = "0.35.1"
 description = "The little ASGI library that shines."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "starlette-0.32.0.post1-py3-none-any.whl", hash = "sha256:cd0cb10ddb49313f609cedfac62c8c12e56c7314b66d89bb077ba228bada1b09"},
-    {file = "starlette-0.32.0.post1.tar.gz", hash = "sha256:e54e2b7e2fb06dff9eac40133583f10dfa05913f5a85bf26f427c7a40a9a3d02"},
+    {file = "starlette-0.35.1-py3-none-any.whl", hash = "sha256:50bbbda9baa098e361f398fda0928062abbaf1f54f4fadcbe17c092a01eb9a25"},
+    {file = "starlette-0.35.1.tar.gz", hash = "sha256:3e2639dac3520e4f58734ed22553f950d3f3cb1001cd2eaac4d57e8cdc5f66bc"},
 ]
 
 [package.dependencies]
@@ -796,6 +831,36 @@ anyio = ">=3.4.0,<5"
 
 [package.extras]
 full = ["httpx (>=0.22.0)", "itsdangerous", "jinja2", "python-multipart", "pyyaml"]
+
+[[package]]
+name = "tensorstore"
+version = "0.1.52"
+description = "Read and write large, multi-dimensional arrays"
+optional = false
+python-versions = ">=3.9"
+files = [
+    {file = "tensorstore-0.1.52-cp310-cp310-macosx_10_14_x86_64.whl", hash = "sha256:ca40ca0d4518ce37de5196799f699a929fd6686e1edee6b6352f045293de044f"},
+    {file = "tensorstore-0.1.52-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:88eb840032ca8771de2b0eebaff9d952d32f840a254caff8fc4834441e064400"},
+    {file = "tensorstore-0.1.52-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:5797416717f3c537bc02f08adbd46e5342eae0ed06b5a636b0eba0a56a8b9982"},
+    {file = "tensorstore-0.1.52-cp310-cp310-win_amd64.whl", hash = "sha256:08770d82d64d79e5f60d68c14f3046a6a84bc0475080b089861eb5db414afc98"},
+    {file = "tensorstore-0.1.52-cp311-cp311-macosx_10_14_x86_64.whl", hash = "sha256:6ec54185eb8f6dc9df4c9ea51ab911c4987e5eef3d23f0fb3e68f06cd9787d2c"},
+    {file = "tensorstore-0.1.52-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:cc06bd2b11359299ffaf819300e03a6bd780146c29a5aea8b0b52c92692af90e"},
+    {file = "tensorstore-0.1.52-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:d09195df9f9803382517a6a4151a80072c972318f597e11bd4e2f60566432f5e"},
+    {file = "tensorstore-0.1.52-cp311-cp311-win_amd64.whl", hash = "sha256:fa9fb2442bfbb403ef4321e3a46759790b6c3bad5b04f0f0172d05238928246a"},
+    {file = "tensorstore-0.1.52-cp312-cp312-macosx_10_14_x86_64.whl", hash = "sha256:8e58e16802a0a370ebcf5dcf05cdd9875f6d854e405913f15b59a691262fc417"},
+    {file = "tensorstore-0.1.52-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:c622ae55458122c37431515c023f508630a8894ee002862af139dadd5b27f053"},
+    {file = "tensorstore-0.1.52-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:01f9812157cb77ce12dfdbb1e5d8e56566b905643418ccf8cd0ac422291a0f0a"},
+    {file = "tensorstore-0.1.52-cp312-cp312-win_amd64.whl", hash = "sha256:c194df86b5f765be44dad9f65b0d0babb558deb72df544e8448622df7946894e"},
+    {file = "tensorstore-0.1.52-cp39-cp39-macosx_10_14_x86_64.whl", hash = "sha256:44b01753cbe30f8562c1b0e435daa4ed4dcdd2b3453a4e4e6f6d063bb00739fb"},
+    {file = "tensorstore-0.1.52-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:6be8ffcbea58e0062c86e27d11c06cf35d5aaa5eb94293808f80539cd176e763"},
+    {file = "tensorstore-0.1.52-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:3a218fc4f2701f58eb3703c3f3f8f62a5bd6bb591cddea2a6cec513be3bf0329"},
+    {file = "tensorstore-0.1.52-cp39-cp39-win_amd64.whl", hash = "sha256:c3dc74ff23666e108fb9f0ba605b0caefc542826d66612bfff7a721a7d9e7934"},
+    {file = "tensorstore-0.1.52.tar.gz", hash = "sha256:db2130a8b792ee2f1fb74a4e89ea049ecbb0070370d365d91870822cbf6cfca7"},
+]
+
+[package.dependencies]
+ml-dtypes = ">=0.3.1"
+numpy = ">=1.16.0"
 
 [[package]]
 name = "typing-extensions"
@@ -827,13 +892,13 @@ zstd = ["zstandard (>=0.18.0)"]
 
 [[package]]
 name = "uvicorn"
-version = "0.25.0"
+version = "0.26.0"
 description = "The lightning-fast ASGI server."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "uvicorn-0.25.0-py3-none-any.whl", hash = "sha256:ce107f5d9bd02b4636001a77a4e74aab5e1e2b146868ebbad565237145af444c"},
-    {file = "uvicorn-0.25.0.tar.gz", hash = "sha256:6dddbad1d7ee0f5140aba5ec138ddc9612c5109399903828b4874c9937f009c2"},
+    {file = "uvicorn-0.26.0-py3-none-any.whl", hash = "sha256:cdb58ef6b8188c6c174994b2b1ba2150a9a8ae7ea5fb2f1b856b94a815d6071d"},
+    {file = "uvicorn-0.26.0.tar.gz", hash = "sha256:48bfd350fce3c5c57af5fb4995fded8fb50da3b4feb543eb18ad7e0d54589602"},
 ]
 
 [package.dependencies]
@@ -846,4 +911,4 @@ standard = ["colorama (>=0.4)", "httptools (>=0.5.0)", "python-dotenv (>=0.13)",
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "c0a8bf914f7464a03c7e4132e4b30a766c6ebb92c11d1121207df9dfc54063dc"
+content-hash = "4dcdef09b309deb242cb9cf20d607aa667f994d89f7c91feeb84654b61e07100"

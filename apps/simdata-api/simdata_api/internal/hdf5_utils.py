@@ -36,8 +36,9 @@ def get_results_timestamps(run_id: str) -> datetime:
 def visitor_func(groups, name, obj):
     if isinstance(obj, h5py.Group):
         attributes = []
-        for k, v in obj.attrs.items():
-            if isinstance(v, ndarray) and v.dtype.kind in "SU":
+        h5py_group: h5py.Group = obj
+        for k, v in h5py_group.attrs.items():
+            if isinstance(v, ndarray) and v.dtype.kind in "S":
                 v = v.tolist()
             attributes.append(HDF5Attribute(key=k, value=v))
         group = HDF5Group(name=name, attributes=attributes, datasets=[])
@@ -45,12 +46,13 @@ def visitor_func(groups, name, obj):
     elif isinstance(obj, h5py.Dataset):
         # temp_attr_dict = {k: v for k, v in obj.attrs.items()}
         # print(temp_attr_dict)
+        h5py_dataset: h5py.Dataset = obj
         attributes = []
-        for k, v in obj.attrs.items():
-            if isinstance(v, ndarray) and v.dtype.kind in "OSU":
+        for k, v in h5py_dataset.attrs.items():
+            if isinstance(v, ndarray) and v.dtype.kind in "OS":
                 v = v.tolist()
             attributes.append(HDF5Attribute(key=k, value=v))
-        dataset = HDF5Dataset(name=name, shape=obj.shape, attributes=attributes)
+        dataset = HDF5Dataset(name=name, shape=h5py_dataset.shape, attributes=attributes)
         groups[-1].datasets.append(dataset)
 
 
