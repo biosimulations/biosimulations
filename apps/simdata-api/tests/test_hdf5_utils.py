@@ -18,7 +18,7 @@ ROOT_DIR = Path(__file__).parent.parent
 
 @pytest.mark.asyncio
 async def test_get_s3_dataset_as_ndarray():
-    ndarray = get_s3_dataset_as_ndarray(run_id=RUN_ID, dataset_name=DATASET_NAME)
+    ndarray = await get_s3_dataset_as_ndarray(run_id=RUN_ID, dataset_name=DATASET_NAME)
     assert ndarray.shape == (21, 201)
 
     LOCAL_PATH = ROOT_DIR / "local_data" / f"{RUN_ID}.h5"
@@ -35,9 +35,10 @@ def test_extract_hdf5_metadata():
     assert hdf5_file.id == ""
 
 
-def test_get_s3_hdf5_metadata():
+@pytest.mark.asyncio
+async def test_get_s3_hdf5_metadata():
     test_file_path = ROOT_DIR / "local_data" / f"{RUN_ID}.h5"
-    hdf5_file: HDF5File = get_s3_hdf5_metadata(RUN_ID)
+    hdf5_file: HDF5File = await get_s3_hdf5_metadata(RUN_ID)
 
     # round trip test of serialization
     assert HDF5File.model_validate_json(hdf5_file.model_dump_json()) == hdf5_file

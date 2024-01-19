@@ -13,15 +13,15 @@ uvicorn = "^0.26.0"
 pyyaml = "^6.0.1"
 pydantic = "^2.5.3"
 h5py = "^3.10.0"
-boto3 = "^1.34.21"
 pydantic-settings = "^2.1.0"
 httpx = "^0.26.0"
 tensorstore = "^0.1.52"
+aiofiles = "^23.2.1"
+aiobotocore = "^2.9.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.4"
 pytest-asyncio = "^0.23.3"
-mypy-boto3-s3 = "^1.34.14"
 flake8 = "^7.0.0"
 black = "^23.12.1"
 
