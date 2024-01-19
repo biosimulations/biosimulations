@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Alex here: I will remove the comments below very soon. I wrote this as helper content for myself.
 # poetry run python --version && poetry run python <-- verify python version for env and open the shell
@@ -7,11 +7,8 @@
 # poetry cache list <-- view all the caches by name
 # poetry cache clear <CACHE NAME> --all <-- removes all the files from the relative cache.
 
-set -e
-
 # TODO: read this from pyproject.toml
-# echo "What python version would you like to use for this environment?: "
-# read -r python_version
+
 python_version="$1"
 
 poetry env use python"${python_version}"
@@ -20,18 +17,12 @@ poetry lock --no-update
 
 if poetry install -v; then
    if poetry run ./install-smoldyn.sh; then
-      echo "Poetry installed Smoldyn"
+      echo "Poetry installed Smoldyn and Biosimulators_simularium. Done."
    else
-      echo "Smoldyn could not be installed"
+      echo "Smoldyn could not be installed. Exiting."
       exit 1
    fi
-   # if poetry run pip install biosimulators-simularium; then
-   #    echo "Poetry successfully installed all packages."
-   # else
-   #    echo "Poetry could not install biosimulators-simularium."
-   #    exit 1
-   # fi
 else
-   echo "Poetry failed to successfully install all packages"
-   exit 1
+  echo "Could not install the deps. Exiting."
+  exit 1
 fi
