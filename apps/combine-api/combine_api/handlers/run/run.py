@@ -163,9 +163,11 @@ def handler(body, archiveFile=None):
             with zipfile.ZipFile(archive_filename, 'r') as zip_file:
                 zip_file.extractall(working_dir)
 
+            # TODO: REMOVE THIS
             for r, _, files in os.walk(working_dir):
                 for f in files:
                     print(f'THE FILES: {os.path.join(r, f)}\n\n\n')
+
             # generate a simularium file from this saved into out_dir
             generate_simularium_file(
                 working_dir=working_dir,
