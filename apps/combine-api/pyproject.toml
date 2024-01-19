@@ -36,7 +36,7 @@ gunicorn = "^20.1.0"
 biosimulators-copasi = "^0.1.35"
 biosimulators-gillespy2 = "^0.1.37"
 biosimulator-processes = "0.0.14"
-biosimulators-simularium = ">=0.5.13"
+biosimulators-simularium = ">=0.5.15"
 # python-libnuml = "1.1.6"
 
 [tool.poetry.group.dev.dependencies]
