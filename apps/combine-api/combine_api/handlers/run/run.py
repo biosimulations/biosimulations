@@ -161,7 +161,7 @@ def handler(body, archiveFile=None):
             # create temp working dir for simularium and unpack archive
             working_dir = get_temp_dir()
             with zipfile.ZipFile(archive_filename, 'r') as zip_file:
-                zip_file.extractall(working_dir)
+                zip_file.extractall(path=working_dir)
 
             # generate a simularium file from this saved into out_dir
             generate_simularium_file(
