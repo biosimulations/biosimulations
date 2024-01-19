@@ -235,19 +235,22 @@ dev = ["freezegun (>=1.0,<2.0)", "pytest (>=6.0)", "pytest-cov"]
 
 [[package]]
 name = "beautifulsoup4"
-version = "4.12.2"
+version = "4.12.3"
 description = "Screen-scraping library"
 optional = false
 python-versions = ">=3.6.0"
 files = [
-    {file = "beautifulsoup4-4.12.2-py3-none-any.whl", hash = "sha256:bd2520ca0d9d7d12694a53d44ac482d181b4ec1888909b035a3dbf40d0f57d4a"},
-    {file = "beautifulsoup4-4.12.2.tar.gz", hash = "sha256:492bbc69dca35d12daac71c4db1bfff0c876c00ef4a2ffacce226d4638eb72da"},
+    {file = "beautifulsoup4-4.12.3-py3-none-any.whl", hash = "sha256:b80878c9f40111313e55da8ba20bdba06d8fa3969fc68304167741bbf9e082ed"},
+    {file = "beautifulsoup4-4.12.3.tar.gz", hash = "sha256:74e3d1928edc070d21748185c46e3fb33490f22f52a3addee9aee0f4f7781051"},
 ]
 
 [package.dependencies]
 soupsieve = ">1.2"
 
 [package.extras]
+cchardet = ["cchardet"]
+chardet = ["chardet"]
+charset-normalizer = ["charset-normalizer"]
 html5lib = ["html5lib"]
 lxml = ["lxml"]
 
@@ -346,8 +349,6 @@ copasi-basico = "*"
 numpy = "*"
 process-bigraph = "*"
 pytest = ">=6.2.5"
-simulariumio = {version = "*", optional = true, markers = "extra == \"smoldyn\""}
-smoldyn = {version = "*", optional = true, markers = "extra == \"smoldyn\""}
 tellurium = "*"
 
 [package.extras]
@@ -400,21 +401,21 @@ tests = ["biosimulators-utils[containers]", "python-dateutil"]
 
 [[package]]
 name = "biosimulators-simularium"
-version = "0.5.2"
+version = "0.5.13"
 description = "A Python tool for converting Biosimulators spatial simulation outputs into a Simularium-compliant format."
 optional = false
 python-versions = "*"
 files = [
-    {file = "biosimulators-simularium-0.5.2.tar.gz", hash = "sha256:f9214c8de1b06b3122f6be4eab96ea594a1de7167130fde66355d5a3616ab570"},
-    {file = "biosimulators_simularium-0.5.2-py3-none-any.whl", hash = "sha256:da0690173bdd17f0ea63df009ccb33eaa83a9b41e40915a3b8c922207319f248"},
+    {file = "biosimulators-simularium-0.5.13.tar.gz", hash = "sha256:07ab53b92ac8b00e0f7138cbdb0a3cc359b79555e986316d4cf9b3040d2a2aa7"},
 ]
 
 [package.dependencies]
+biosimulators-utils = "*"
+ipython = "*"
 kisao = "*"
 pytest = "*"
 python-libcombine = "*"
 simulariumio = "*"
-smoldyn = "*"
 termcolor = "*"
 zarr = "*"
 
@@ -463,7 +464,6 @@ regex = "*"
 requests = "*"
 setuptools = "*"
 simplejson = "*"
-smoldyn = {version = ">=2.66", optional = true, markers = "extra == \"smoldyn\""}
 termcolor = "*"
 uritools = "*"
 yamldown = "*"
@@ -545,17 +545,17 @@ py-cpuinfo = "*"
 
 [[package]]
 name = "boto3"
-version = "1.34.19"
+version = "1.34.20"
 description = "The AWS SDK for Python"
 optional = false
 python-versions = ">= 3.8"
 files = [
-    {file = "boto3-1.34.19-py3-none-any.whl", hash = "sha256:4c76ef92af7dbdcea21b196a2699671e82e8814d4cfe570c48eda477dd1aeb19"},
-    {file = "boto3-1.34.19.tar.gz", hash = "sha256:95d2c2bde86a0934d4c461020c50fc1344b444f167654e215f1de549bc77fc0f"},
+    {file = "boto3-1.34.20-py3-none-any.whl", hash = "sha256:a21da54634bd09dcad9e80d106512b6aabe493b1d4260688180156ef27afedc9"},
+    {file = "boto3-1.34.20.tar.gz", hash = "sha256:7f662b0c833e7a4d1272b7ec60ded3f14affd54d08620b708ba3abeb0e49d15e"},
 ]
 
 [package.dependencies]
-botocore = ">=1.34.19,<1.35.0"
+botocore = ">=1.34.20,<1.35.0"
 jmespath = ">=0.7.1,<2.0.0"
 s3transfer = ">=0.10.0,<0.11.0"
 
@@ -564,13 +564,13 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "boto3-stubs"
-version = "1.34.19"
-description = "Type annotations for boto3 1.34.19 generated with mypy-boto3-builder 7.23.1"
+version = "1.34.20"
+description = "Type annotations for boto3 1.34.20 generated with mypy-boto3-builder 7.23.1"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "boto3-stubs-1.34.19.tar.gz", hash = "sha256:67fe5a2fb1d1b2c534fa31c543b773edbc01ce9528010d9cc0ef9c5044aa218a"},
-    {file = "boto3_stubs-1.34.19-py3-none-any.whl", hash = "sha256:6651e6ddd0c5cdd77393432e517301096b646aeeea3ade5c305960817dc46aa1"},
+    {file = "boto3-stubs-1.34.20.tar.gz", hash = "sha256:431851ea82b8596f8fa49de7014554ae0f2fa2cc6a0954459787a3b938796c68"},
+    {file = "boto3_stubs-1.34.20-py3-none-any.whl", hash = "sha256:718b4503625fc5c2cada3b8e78fa10273dfb07359261be6fc07b89e2b6e03cb0"},
 ]
 
 [package.dependencies]
@@ -620,7 +620,7 @@ bedrock-agent = ["mypy-boto3-bedrock-agent (>=1.34.0,<1.35.0)"]
 bedrock-agent-runtime = ["mypy-boto3-bedrock-agent-runtime (>=1.34.0,<1.35.0)"]
 bedrock-runtime = ["mypy-boto3-bedrock-runtime (>=1.34.0,<1.35.0)"]
 billingconductor = ["mypy-boto3-billingconductor (>=1.34.0,<1.35.0)"]
-boto3 = ["boto3 (==1.34.19)", "botocore (==1.34.19)"]
+boto3 = ["boto3 (==1.34.20)", "botocore (==1.34.20)"]
 braket = ["mypy-boto3-braket (>=1.34.0,<1.35.0)"]
 budgets = ["mypy-boto3-budgets (>=1.34.0,<1.35.0)"]
 ce = ["mypy-boto3-ce (>=1.34.0,<1.35.0)"]
@@ -973,13 +973,13 @@ files = [
 
 [[package]]
 name = "botocore"
-version = "1.34.19"
+version = "1.34.20"
 description = "Low-level, data-driven core of boto 3."
 optional = false
 python-versions = ">= 3.8"
 files = [
-    {file = "botocore-1.34.19-py3-none-any.whl", hash = "sha256:a4a39c7092960f5da2439efc5f6220730dab634aaff4c1444bbd1dfa43bc28cc"},
-    {file = "botocore-1.34.19.tar.gz", hash = "sha256:64352b2f05de5c6ab025c1d5232880c22775356dcc5a53d798a6f65db847e826"},
+    {file = "botocore-1.34.20-py3-none-any.whl", hash = "sha256:f931f13d03e94b3350ad898b21ae2d40240f6571e8a8cdaa487951b51fe3a1fd"},
+    {file = "botocore-1.34.20.tar.gz", hash = "sha256:e944bc085222a13359933f4c0a1cce228bdd8aa90e1f2274e94bd55f561db307"},
 ]
 
 [package.dependencies]
@@ -992,13 +992,13 @@ crt = ["awscrt (==0.19.19)"]
 
 [[package]]
 name = "botocore-stubs"
-version = "1.34.19"
+version = "1.34.20"
 description = "Type annotations and code completion for botocore"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "botocore_stubs-1.34.19-py3-none-any.whl", hash = "sha256:141b6727a7258fc16826f21c7369ca7d38a83848a03ae13fe50c4d1e677a7545"},
-    {file = "botocore_stubs-1.34.19.tar.gz", hash = "sha256:dd1bff75bfe0a64e6704a8d74e80f94a1978d58cb2810f7549fa1c83ac8e458c"},
+    {file = "botocore_stubs-1.34.20-py3-none-any.whl", hash = "sha256:45296ac7942578eb6baca49589115e9bfe3a803bfd3160fa42426381084f41cb"},
+    {file = "botocore_stubs-1.34.20.tar.gz", hash = "sha256:e85c2716858cbed5b935133fd681537b64bb991ad4fb43d55295edfffaf494e9"},
 ]
 
 [package.dependencies]
@@ -2098,13 +2098,13 @@ files = [
 
 [[package]]
 name = "ipykernel"
-version = "6.28.0"
+version = "6.29.0"
 description = "IPython Kernel for Jupyter"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "ipykernel-6.28.0-py3-none-any.whl", hash = "sha256:c6e9a9c63a7f4095c0a22a79f765f079f9ec7be4f2430a898ddea889e8665661"},
-    {file = "ipykernel-6.28.0.tar.gz", hash = "sha256:69c11403d26de69df02225916f916b37ea4b9af417da0a8c827f84328d88e5f3"},
+    {file = "ipykernel-6.29.0-py3-none-any.whl", hash = "sha256:076663ca68492576f051e4af7720d33f34383e655f2be0d544c8b1c9de915b2f"},
+    {file = "ipykernel-6.29.0.tar.gz", hash = "sha256:b5dd3013cab7b330df712891c96cd1ab868c27a7159e606f762015e9bf8ceb3f"},
 ]
 
 [package.dependencies]
@@ -2127,17 +2127,17 @@ cov = ["coverage[toml]", "curio", "matplotlib", "pytest-cov", "trio"]
 docs = ["myst-parser", "pydata-sphinx-theme", "sphinx", "sphinx-autodoc-typehints", "sphinxcontrib-github-alt", "sphinxcontrib-spelling", "trio"]
 pyqt5 = ["pyqt5"]
 pyside6 = ["pyside6"]
-test = ["flaky", "ipyparallel", "pre-commit", "pytest (>=7.0)", "pytest-asyncio", "pytest-cov", "pytest-timeout"]
+test = ["flaky", "ipyparallel", "pre-commit", "pytest (>=7.0)", "pytest-asyncio (==0.23.2)", "pytest-cov", "pytest-timeout"]
 
 [[package]]
 name = "ipython"
-version = "8.20.0"
+version = "8.18.1"
 description = "IPython: Productive Interactive Computing"
 optional = false
-python-versions = ">=3.10"
+python-versions = ">=3.9"
 files = [
-    {file = "ipython-8.20.0-py3-none-any.whl", hash = "sha256:bc9716aad6f29f36c449e30821c9dd0c1c1a7b59ddcc26931685b87b4c569619"},
-    {file = "ipython-8.20.0.tar.gz", hash = "sha256:2f21bd3fc1d51550c89ee3944ae04bbc7bc79e129ea0937da6e6c68bfdbf117a"},
+    {file = "ipython-8.18.1-py3-none-any.whl", hash = "sha256:e8267419d72d81955ec1177f8a29aaa90ac80ad647499201119e2f05e99aa397"},
+    {file = "ipython-8.18.1.tar.gz", hash = "sha256:ca6f079bb33457c66e233e4580ebfc4128855b4cf6370dddd73842a9563e8a27"},
 ]
 
 [package.dependencies]
@@ -2153,17 +2153,17 @@ stack-data = "*"
 traitlets = ">=5"
 
 [package.extras]
-all = ["black", "curio", "docrepr", "exceptiongroup", "ipykernel", "ipyparallel", "ipywidgets", "matplotlib", "matplotlib (!=3.2.0)", "nbconvert", "nbformat", "notebook", "numpy (>=1.23)", "pandas", "pickleshare", "pytest", "pytest-asyncio (<0.22)", "qtconsole", "setuptools (>=18.5)", "sphinx (>=1.3)", "sphinx-rtd-theme", "stack-data", "testpath", "trio", "typing-extensions"]
+all = ["black", "curio", "docrepr", "exceptiongroup", "ipykernel", "ipyparallel", "ipywidgets", "matplotlib", "matplotlib (!=3.2.0)", "nbconvert", "nbformat", "notebook", "numpy (>=1.22)", "pandas", "pickleshare", "pytest (<7)", "pytest (<7.1)", "pytest-asyncio (<0.22)", "qtconsole", "setuptools (>=18.5)", "sphinx (>=1.3)", "sphinx-rtd-theme", "stack-data", "testpath", "trio", "typing-extensions"]
 black = ["black"]
-doc = ["docrepr", "exceptiongroup", "ipykernel", "matplotlib", "pickleshare", "pytest", "pytest-asyncio (<0.22)", "setuptools (>=18.5)", "sphinx (>=1.3)", "sphinx-rtd-theme", "stack-data", "testpath", "typing-extensions"]
+doc = ["docrepr", "exceptiongroup", "ipykernel", "matplotlib", "pickleshare", "pytest (<7)", "pytest (<7.1)", "pytest-asyncio (<0.22)", "setuptools (>=18.5)", "sphinx (>=1.3)", "sphinx-rtd-theme", "stack-data", "testpath", "typing-extensions"]
 kernel = ["ipykernel"]
 nbconvert = ["nbconvert"]
 nbformat = ["nbformat"]
 notebook = ["ipywidgets", "notebook"]
 parallel = ["ipyparallel"]
 qtconsole = ["qtconsole"]
-test = ["pickleshare", "pytest", "pytest-asyncio (<0.22)", "testpath"]
-test-extra = ["curio", "matplotlib (!=3.2.0)", "nbformat", "numpy (>=1.23)", "pandas", "pickleshare", "pytest", "pytest-asyncio (<0.22)", "testpath", "trio"]
+test = ["pickleshare", "pytest (<7.1)", "pytest-asyncio (<0.22)", "testpath"]
+test-extra = ["curio", "matplotlib (!=3.2.0)", "nbformat", "numpy (>=1.22)", "pandas", "pickleshare", "pytest (<7.1)", "pytest-asyncio (<0.22)", "testpath", "trio"]
 
 [[package]]
 name = "isodate"
@@ -2278,13 +2278,13 @@ files = [
 
 [[package]]
 name = "jsonschema"
-version = "4.20.0"
+version = "4.21.0"
 description = "An implementation of JSON Schema validation for Python"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "jsonschema-4.20.0-py3-none-any.whl", hash = "sha256:ed6231f0429ecf966f5bc8dfef245998220549cbbcf140f913b7464c52c3b6b3"},
-    {file = "jsonschema-4.20.0.tar.gz", hash = "sha256:4f614fd46d8d61258610998997743ec5492a648b33cf478c1ddc23ed4598a5fa"},
+    {file = "jsonschema-4.21.0-py3-none-any.whl", hash = "sha256:70a09719d375c0a2874571b363c8a24be7df8071b80c9aa76bc4551e7297c63c"},
+    {file = "jsonschema-4.21.0.tar.gz", hash = "sha256:3ba18e27f7491ea4a1b22edce00fb820eec968d397feb3f9cb61d5894bb38167"},
 ]
 
 [package.dependencies]
@@ -2419,13 +2419,13 @@ jupyter-server = ">=1.1.2"
 
 [[package]]
 name = "jupyter-server"
-version = "2.12.4"
+version = "2.12.5"
 description = "The backend—i.e. core services, APIs, and REST endpoints—to Jupyter web applications."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "jupyter_server-2.12.4-py3-none-any.whl", hash = "sha256:a125ae18a60de568f78f55c84dd58759901a18ef279abf0418ac220653ca1320"},
-    {file = "jupyter_server-2.12.4.tar.gz", hash = "sha256:41f4a1e6b912cc24a7c6c694851b37d3d8412b180f43d72315fe422cb2b85cc2"},
+    {file = "jupyter_server-2.12.5-py3-none-any.whl", hash = "sha256:184a0f82809a8522777cfb6b760ab6f4b1bb398664c5860a27cec696cb884923"},
+    {file = "jupyter_server-2.12.5.tar.gz", hash = "sha256:0edb626c94baa22809be1323f9770cf1c00a952b17097592e40d03e6a3951689"},
 ]
 
 [package.dependencies]
@@ -3314,13 +3314,13 @@ test = ["flaky", "ipykernel (>=6.19.3)", "ipython", "ipywidgets", "nbconvert (>=
 
 [[package]]
 name = "nbconvert"
-version = "7.14.1"
+version = "7.14.2"
 description = "Converting Jupyter Notebooks"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "nbconvert-7.14.1-py3-none-any.whl", hash = "sha256:aa83e3dd27ea38d0c1d908e3ce9518d15fa908dd30521b6d5040bd23f33fffb0"},
-    {file = "nbconvert-7.14.1.tar.gz", hash = "sha256:20cba10e0448dc76b3bebfe1adf923663e3b98338daf77b97b42511ef5a88618"},
+    {file = "nbconvert-7.14.2-py3-none-any.whl", hash = "sha256:db28590cef90f7faf2ebbc71acd402cbecf13d29176df728c0a9025a49345ea1"},
+    {file = "nbconvert-7.14.2.tar.gz", hash = "sha256:a7f8808fd4e082431673ac538400218dd45efd076fbeb07cc6e5aa5a3a4e949e"},
 ]
 
 [package.dependencies]
@@ -5103,6 +5103,7 @@ files = [
     {file = "PyYAML-6.0.1-cp311-cp311-win_amd64.whl", hash = "sha256:bf07ee2fef7014951eeb99f56f39c9bb4af143d8aa3c21b1677805985307da34"},
     {file = "PyYAML-6.0.1-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:855fb52b0dc35af121542a76b9a84f8d1cd886ea97c84703eaa6d88e37a2ad28"},
     {file = "PyYAML-6.0.1-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:40df9b996c2b73138957fe23a16a4f0ba614f4c0efce1e9406a184b6d07fa3a9"},
+    {file = "PyYAML-6.0.1-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:a08c6f0fe150303c1c6b71ebcd7213c2858041a7e01975da3a99aed1e7a378ef"},
     {file = "PyYAML-6.0.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:6c22bec3fbe2524cde73d7ada88f6566758a8f7227bfbf93a408a9d86bcc12a0"},
     {file = "PyYAML-6.0.1-cp312-cp312-musllinux_1_1_x86_64.whl", hash = "sha256:8d4e9c88387b0f5c7d5f281e55304de64cf7f9c0021a3525bd3b1c542da3b0e4"},
     {file = "PyYAML-6.0.1-cp312-cp312-win32.whl", hash = "sha256:d483d2cdf104e7c9fa60c544d92981f12ad66a457afae824d146093b8c294c54"},
@@ -5905,36 +5906,6 @@ files = [
 ]
 
 [[package]]
-name = "smoldyn"
-version = "2.72"
-description = "Python package for the Smoldyn simulator"
-optional = false
-python-versions = ">=3.6"
-files = [
-    {file = "smoldyn-2.72-cp310-cp310-macosx_11_0_x86_64.whl", hash = "sha256:bdbcede86832b8dd583e7f413b32b0b3e8242b959d8d688b143549a7cb3b151e"},
-    {file = "smoldyn-2.72-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:413affe17e3fb55426ddf68be8e4e415500d751af9a4eab236c61fa01c8378e8"},
-    {file = "smoldyn-2.72-cp310-cp310-win_amd64.whl", hash = "sha256:1b614a3bdb6cbe398074704fc104a1e565402fd04b9cf5a1cb5855ded3564396"},
-    {file = "smoldyn-2.72-cp311-cp311-macosx_10_9_universal2.whl", hash = "sha256:1a45fbf5e428a6e9e04dd4aa40474aca70203042957c2703cb7d284665285f3b"},
-    {file = "smoldyn-2.72-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:d0d0020c6262f80201a76ea28a5f108974de6d9079d96fd59e77cba08d726ce5"},
-    {file = "smoldyn-2.72-cp311-cp311-win_amd64.whl", hash = "sha256:680065f2ffe0f6d844bce9deacbf9932f09cd625986863bf22a1a9dac5d411b9"},
-    {file = "smoldyn-2.72-cp37-cp37m-macosx_11_0_x86_64.whl", hash = "sha256:71ded9847ba6fd938f91f8c9045fd870417c9d10e143a0eddf8904c4663c2248"},
-    {file = "smoldyn-2.72-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:5b33f6c74c2230a86e1be8ad2c0a1ddde9ee9cced168151b7e29d380eb0c9e68"},
-    {file = "smoldyn-2.72-cp37-cp37m-win_amd64.whl", hash = "sha256:883fa49928e9fa91754ae8c6433a57a5f09f8bae2c59c2af17af147bf81425f8"},
-    {file = "smoldyn-2.72-cp38-cp38-macosx_11_0_x86_64.whl", hash = "sha256:a510fd915d8b0933eba1658db86c68594cc972edcbe7400537e0a3f072a47e79"},
-    {file = "smoldyn-2.72-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:c91194441765cbb6a0c7f03ca59007f6b23604f25e631af937fb4194998ea84c"},
-    {file = "smoldyn-2.72-cp38-cp38-win_amd64.whl", hash = "sha256:01c82dda3a71bec7553618fe530e13ee7e7bd48c248a4d11c7dc33b76e4650dc"},
-    {file = "smoldyn-2.72-cp39-cp39-macosx_11_0_x86_64.whl", hash = "sha256:a877e484002c575c97dde7483d6785308a7819d5a3170bc75ff1b470598ad2a0"},
-    {file = "smoldyn-2.72-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:5ee082991b4fe1947e0743906a3b8d3dc5fd81a779fd0b7962eccdb780b922d7"},
-    {file = "smoldyn-2.72-cp39-cp39-win_amd64.whl", hash = "sha256:e00e644610c9795bea62e661ab5bed3bdce3e71f48520b1a9426add8878cb2cd"},
-]
-
-[package.extras]
-biosimulators = ["biosimulators-utils[logging] (>=0.1.124)", "numpy", "pandas"]
-biosimulators-dev = ["flake8"]
-biosimulators-tests = ["python-dateutil"]
-dev = ["black", "flaky", "matplotlib", "mypy", "numpy", "pyflakes"]
-
-[[package]]
 name = "sniffio"
 version = "1.3.0"
 description = "Sniff out which async library your code is running under"
@@ -6654,4 +6625,4 @@ jupyter = ["ipytree (>=0.2.2)", "ipywidgets (>=8.0.0)", "notebook"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "c2a3f485234f8f8a3f9698f4299a53ec2d3fe2ac22b6ee341c477a01dd3a820f"
+content-hash = "a600f7e13c6944a28387e6dbbe21af7c3477c4a055014af734b68129c86be2a8"
