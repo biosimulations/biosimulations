@@ -1,8 +1,8 @@
 import os
 from datetime import datetime
+from json import dumps as json_dumps
 from pathlib import Path
 from urllib.parse import quote
-from json import dumps as json_dumps
 
 import pytest
 from fastapi.testclient import TestClient

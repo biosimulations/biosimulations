@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 from typing import Dict, List, Literal
 
@@ -5,6 +6,7 @@ import numpy as np
 import tensorstore as ts
 from tensorstore import TensorStore, Spec as TensorStoreSpec
 
+from simdata_api.config import get_settings
 from simdata_api.datamodels import HDF5File, HDF5Group, HDF5Dataset
 
 DATA_TYPE = 'float64'
@@ -50,10 +52,33 @@ async def read_from_local_ts(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvsto
 
 
 def _get_basic_spec(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_path: Path):
+    settings = get_settings()
+
     spec = {}
     spec['driver'] = driver
     spec['kvstore'] = {}
     spec['kvstore']['driver'] = kvstore_driver
+    spec['kvstore']['driver'] = kvstore_driver
+    if kvstore_driver == 'file':
+        spec['kvstore']['path'] = str(kvstore_path)
+    elif kvstore_driver == 's3':
+        spec['kvstore']['bucket'] = settings.storage_bucket
+        spec['kvstore']['endpoint'] = settings.storage_endpoint_url
+        spec['kvstore']['path'] = str(kvstore_path)
+        spec['kvstore']['aws_region'] = settings.storage_region
+        os.environ['AWS_ACCESS_KEY_ID'] = settings.storage_access_key_id
+        os.environ['AWS_SECRET_ACCESS_KEY'] = settings.storage_secret
+        # spec['kvstore']['aws_credentials'] = settings.storage_access_key_id
+        # spec['kvstore']['aws_secret_access_key'] = settings.storage_secret
+    elif kvstore_driver == 'gcs':
+        spec['kvstore']['bucket'] = settings.storage_bucket
+        os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = settings.storage_credentials_file
+        # spec['kvstore']['endpointurl'] = settings.storage_endpoint_url
+        # spec['kvstore']['aws_access_key_id'] = settings.storage_access_key_id
+        # spec['kvstore']['aws_secret_access_key'] = settings.storage_secret
+    else:
+        raise ValueError(f'Unknown kvstore_driver: {kvstore_driver}')
+
     spec['kvstore']['path'] = str(kvstore_path)
     return spec
 
@@ -81,8 +106,6 @@ def _get_ts_spec(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_path: Pat
         raise ValueError(f'Unknown driver: {driver}')
 
     spec['driver'] = driver
-    spec['kvstore']['driver'] = kvstore_driver
-    spec['kvstore']['path'] = str(kvstore_path)
     spec['metadata'] = metadata
     spec['create'] = True
     spec['delete_existing'] = True

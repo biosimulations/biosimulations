@@ -1,7 +1,9 @@
 import json
-import yaml
 import os
+
+import yaml
 from fastapi.openapi.utils import get_openapi
+
 from simdata_api.main import app
 
 
