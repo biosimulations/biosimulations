@@ -7,6 +7,7 @@ from urllib.parse import quote
 import pytest
 from fastapi.testclient import TestClient
 
+from simdata_api.config import get_settings
 from simdata_api.datamodels import HDF5File, StatusResponse, Status
 from simdata_api.main import app
 
@@ -36,14 +37,15 @@ async def test_health():
 @pytest.mark.asyncio
 async def test_read_dataset():
     RUN_ID = "61fd573874bc0ce059643515"
-    DATASET_NAME = quote("/simulation_1.sedml/report", safe="")
+    DATASET_NAME = quote("simulation_1.sedml/report", safe="")
     url = f"/datasets/{RUN_ID}/data?dataset_name={DATASET_NAME}"
     response = client.get(url)
     data = response.json()
     assert response.status_code == 200
     assert data["shape"] == [21, 201]
 
-    LOCAL_PATH = ROOT_DIR / "local_data" / f"{RUN_ID}.h5"
+    settings = get_settings()
+    LOCAL_PATH = Path(settings.storage_local_cache_dir) / "local_data" / f"{RUN_ID}.h5"
     if LOCAL_PATH.exists():
         os.remove(LOCAL_PATH)
 
@@ -63,13 +65,14 @@ async def test_get_modified():
 async def test_get_metadata():
     RUN_ID = "61fd573874bc0ce059643515"
     url = f"/datasets/{RUN_ID}/metadata"
+    settings = get_settings()
     response = client.get(url)
     data = response.json()
     assert response.status_code == 200
     assert type(data) is dict
     _ = HDF5File.model_validate_json(json_dumps(data))
     hdf5_file = HDF5File.model_validate_json(response.content.decode("utf-8"))
-    assert hdf5_file.filename == str(ROOT_DIR / "local_data" / f"{RUN_ID}.h5")
+    assert hdf5_file.filename == str(Path(settings.storage_local_cache_dir) / f"{RUN_ID}.h5")
     assert hdf5_file.uri is not None
     assert hdf5_file.id == RUN_ID
     if Path(data["filename"]).exists():

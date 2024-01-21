@@ -2,11 +2,10 @@ import logging
 from datetime import datetime
 from urllib.parse import unquote
 
-import numpy as np
 from fastapi import FastAPI
 
 from simdata_api.datamodels import DatasetData, HDF5File, StatusResponse, Status
-from simdata_api.datastore import get_dataset_data, get_results_timestamp, get_s3_hdf5_metadata
+from simdata_api.datastore import get_dataset_data, get_results_timestamp, get_hdf5_metadata as get_metadata
 from .log_config import setup_logging
 
 # Set up logging at the start of your application
@@ -44,8 +43,8 @@ async def read_dataset(run_id: str, dataset_name: str) -> DatasetData:
         "invoked read_dataset(run_id=%s, dataset_name=%s)", run_id, dataset_name
     )
     dataset_name = unquote(dataset_name)
-    data: np.ndarray = await get_dataset_data(run_id=run_id, dataset_name=dataset_name)
-    return DatasetData(shape=list(data.shape), values=data.flatten())
+    array, attrs = await get_dataset_data(run_id=run_id, dataset_name=dataset_name)
+    return DatasetData(shape=list(array.shape), values=array.flatten().tolist())
 
 
 @app.get(
@@ -67,4 +66,5 @@ async def get_modified_datetime(run_id: str) -> datetime:
 )
 async def get_hdf5_metadata(run_id: str) -> HDF5File:
     logger.info("invoked get_hdf5_metadata(run_id=%s)", run_id)
-    return await get_s3_hdf5_metadata(run_id=run_id)
+    hdf5_file = await get_metadata(run_id=run_id)
+    return hdf5_file

@@ -1,8 +1,11 @@
+from datetime import datetime
 from enum import Enum
 from typing import List, Union
 
 from pydantic import BaseModel
 
+
+ATTRIBUTE_VALUE_TYPE = int | float | str | bool | list[str] | list[int] | list[float] | list[bool]
 
 class DatasetData(BaseModel):
     shape: List[int]
@@ -20,9 +23,7 @@ class StatusResponse(BaseModel):
 
 class HDF5Attribute(BaseModel):
     key: str
-    value: Union[
-        int, float, str, bool, List[str], List[int], List[float], List[bool]
-    ]
+    value: ATTRIBUTE_VALUE_TYPE
 
 
 class HDF5Dataset(BaseModel):
