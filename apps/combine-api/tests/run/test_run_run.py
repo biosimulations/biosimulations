@@ -444,7 +444,5 @@ def test_url_smoldyn():
             with mock.patch('requests.get', return_value=mock.Mock(raise_for_status=lambda: None, content=archive_file.read())):
                 response = client.post(endpoint, data=data, content_type="multipart/form-data")
     response = response.json
-    return response
+    print(f'The resulting response: {response}')
 
-
-print(test_url_smoldyn())

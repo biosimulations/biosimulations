@@ -401,13 +401,12 @@ tests = ["biosimulators-utils[containers]", "python-dateutil"]
 
 [[package]]
 name = "biosimulators-simularium"
-version = "0.5.17"
+version = "0.5.19"
 description = "A Python tool for converting Biosimulators spatial simulation outputs into a Simularium-compliant format."
 optional = false
 python-versions = "*"
 files = [
-    {file = "biosimulators-simularium-0.5.17.tar.gz", hash = "sha256:f9e3ee448e0e99b17463f52c0a87d9107c8cb8cb155fe7b9bec4586467c15a6f"},
-    {file = "biosimulators_simularium-0.5.17-py3-none-any.whl", hash = "sha256:342e7fa32757e7a18c0155d7a79e7f17f2fccce6e6f9a83bd4227460f00b356e"},
+    {file = "biosimulators-simularium-0.5.19.tar.gz", hash = "sha256:50836d089be198b9e31043ee3302a9769764708623f4eb32f4d11c10a3eaf354"},
 ]
 
 [package.dependencies]
@@ -416,6 +415,7 @@ ipython = "*"
 kisao = "*"
 pytest = "*"
 python-libcombine = "*"
+pyvista = "*"
 simulariumio = "*"
 termcolor = "*"
 zarr = "*"
@@ -4120,6 +4120,27 @@ dev = ["pre-commit", "tox"]
 testing = ["pytest", "pytest-benchmark"]
 
 [[package]]
+name = "pooch"
+version = "1.8.0"
+description = "\"Pooch manages your Python library's sample data files: it automatically downloads and stores them in a local directory, with support for versioning and corruption checks.\""
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "pooch-1.8.0-py3-none-any.whl", hash = "sha256:1bfba436d9e2ad5199ccad3583cca8c241b8736b5bb23fe67c213d52650dbb66"},
+    {file = "pooch-1.8.0.tar.gz", hash = "sha256:f59981fd5b9b5d032dcde8f4a11eaa492c2ac6343fae3596a2fdae35fc54b0a0"},
+]
+
+[package.dependencies]
+packaging = ">=20.0"
+platformdirs = ">=2.5.0"
+requests = ">=2.19.0"
+
+[package.extras]
+progress = ["tqdm (>=4.41.0,<5.0.0)"]
+sftp = ["paramiko (>=2.7.0)"]
+xxhash = ["xxhash (>=1.4.3)"]
+
+[[package]]
 name = "process-bigraph"
 version = "0.0.10"
 description = ""
@@ -5042,6 +5063,31 @@ files = [
 ]
 
 [[package]]
+name = "pyvista"
+version = "0.43.2"
+description = "Easier Pythonic interface to VTK"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "pyvista-0.43.2-py3-none-any.whl", hash = "sha256:798a62eddb307e09d18e86ee75141fd8bc90d497bb5da9695fdc52f69ebac204"},
+    {file = "pyvista-0.43.2.tar.gz", hash = "sha256:8e39040c356669fcd814ca10df775d0dbf17910c116cc6ec5f43431274201f77"},
+]
+
+[package.dependencies]
+matplotlib = ">=3.0.1"
+numpy = ">=1.21.0"
+pillow = "*"
+pooch = "*"
+scooby = ">=0.5.1"
+vtk = "*"
+
+[package.extras]
+all = ["pyvista[colormaps,io,jupyter]"]
+colormaps = ["cmocean", "colorcet"]
+io = ["imageio", "meshio (>=5.2)"]
+jupyter = ["ipywidgets", "jupyter-server-proxy", "nest-asyncio", "trame (>=2.5.2)", "trame-client (>=2.12.7)", "trame-server (>=2.11.7)", "trame-vtk (>=2.5.8)", "trame-vuetify (>=2.3.1)"]
+
+[[package]]
 name = "pywin32"
 version = "306"
 description = "Python for Window Extensions"
@@ -5706,6 +5752,20 @@ numpy = ">=1.21.6,<1.28.0"
 dev = ["click", "cython-lint (>=0.12.2)", "doit (>=0.36.0)", "mypy", "pycodestyle", "pydevtool", "rich-click", "ruff", "types-psutil", "typing_extensions"]
 doc = ["jupytext", "matplotlib (>2)", "myst-nb", "numpydoc", "pooch", "pydata-sphinx-theme (==0.9.0)", "sphinx (!=4.1.0)", "sphinx-design (>=0.2.0)"]
 test = ["asv", "gmpy2", "mpmath", "pooch", "pytest", "pytest-cov", "pytest-timeout", "pytest-xdist", "scikit-umfpack", "threadpoolctl"]
+
+[[package]]
+name = "scooby"
+version = "0.9.2"
+description = "A Great Dane turned Python environment detective"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "scooby-0.9.2-py3-none-any.whl", hash = "sha256:3cbc59de9febf8c8ba1e01bc7d08b4eca18ece3212d38b08a6f45188f88c8ea9"},
+    {file = "scooby-0.9.2.tar.gz", hash = "sha256:28df643bb7c2087547b2e2220070e2f89e815ddbc515fbc28dd5df2b0a14293e"},
+]
+
+[package.extras]
+cpu = ["mkl", "psutil"]
 
 [[package]]
 name = "seaborn"
@@ -6508,6 +6568,47 @@ socks = ["pysocks (>=1.5.6,!=1.5.7,<2.0)"]
 zstd = ["zstandard (>=0.18.0)"]
 
 [[package]]
+name = "vtk"
+version = "9.3.0"
+description = "VTK is an open-source toolkit for 3D computer graphics, image processing, and visualization"
+optional = false
+python-versions = "*"
+files = [
+    {file = "vtk-9.3.0-cp310-cp310-macosx_10_10_x86_64.whl", hash = "sha256:7d3492cb6c52b23dc0c6e664938b8119254a77b5e3099106e2567ed0b6473162"},
+    {file = "vtk-9.3.0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:e3f4e86bff7a4cd71bd6205bd18cf4b6ab70956ecf9cbd73e77a95b2210d98ef"},
+    {file = "vtk-9.3.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:a827fb5f05ab78b2cbad81f5d3a3d7065fa995cc907cecdfa7a7b76374130ef3"},
+    {file = "vtk-9.3.0-cp310-cp310-win_amd64.whl", hash = "sha256:2aae778297817335ddd6698b4c124c109d8ac476512691fe19446614ae43ba56"},
+    {file = "vtk-9.3.0-cp311-cp311-macosx_10_10_x86_64.whl", hash = "sha256:a3cd59108b21f55b873a63878a0decec0a707bd960b59d5e15b37d1ad873590f"},
+    {file = "vtk-9.3.0-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:6d2bdd2c60f0fa5d1926c11b72d96dc23caf9ff41781bae76e48edd09fb8aa03"},
+    {file = "vtk-9.3.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:3a02bf6067cae7abfd7f6b1330c69555b715be8ec71a3c8d6471af45a96e8e56"},
+    {file = "vtk-9.3.0-cp311-cp311-win_amd64.whl", hash = "sha256:ff0eedcde5821c023623f70951f2499e9d59e709e288b67a2e2334abafacc322"},
+    {file = "vtk-9.3.0-cp312-cp312-macosx_10_10_x86_64.whl", hash = "sha256:94678fa0476e113500f3b99e9692b92b83a5b058caace7bac3b5f780b12b36ed"},
+    {file = "vtk-9.3.0-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:371b96afca3ed41a0bf1cd80a42f4b906ca2f470a13df32f39b22a9169d996d7"},
+    {file = "vtk-9.3.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:5cfa8d73acbab386b9d6ef8a1a01149fd096a21a23547f10bf0cf98d88300724"},
+    {file = "vtk-9.3.0-cp312-cp312-win_amd64.whl", hash = "sha256:75d27b73270a42923ebefd87a8522f7717618c36825b8058c4d3aa8e64d6145d"},
+    {file = "vtk-9.3.0-cp36-cp36m-macosx_10_10_x86_64.whl", hash = "sha256:6b4a6f9d4ae16a417edf3cd750da5cb87e9676d1db1da6a6772a9e492567a452"},
+    {file = "vtk-9.3.0-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:fbd3536979c177dd12f9365a1072e217d64503596add6986318d466aab565d51"},
+    {file = "vtk-9.3.0-cp36-cp36m-win_amd64.whl", hash = "sha256:296f185482df591d7b2c2a734f3a68884352efd89cade37f3345ddc4dcb6e019"},
+    {file = "vtk-9.3.0-cp37-cp37m-macosx_10_10_x86_64.whl", hash = "sha256:9d5c837a4d865ec80752d8ca8ee719be8341af66601df0da94ee78ae0806bb4b"},
+    {file = "vtk-9.3.0-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:5cdfb7e51a63ee2f06b1aa84e643f046b746116397a89cb50d20956731e88209"},
+    {file = "vtk-9.3.0-cp37-cp37m-win_amd64.whl", hash = "sha256:2902c8601ada0e653a4d34ebca0f17768fb559f05fe9f4502dcdda136d847a1e"},
+    {file = "vtk-9.3.0-cp38-cp38-macosx_10_10_x86_64.whl", hash = "sha256:f0798c2ae607be930656347491c520945984ab657ab00804d159323962e97102"},
+    {file = "vtk-9.3.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e4d92c9a70902da512dfbcd3f064f825b7b5b6d62edd197d3754549f7c0ff516"},
+    {file = "vtk-9.3.0-cp38-cp38-win_amd64.whl", hash = "sha256:17810f82aeee7143057fcb2d963245f57450800a7b913c5d66ed915f09740d3d"},
+    {file = "vtk-9.3.0-cp39-cp39-macosx_10_10_x86_64.whl", hash = "sha256:7a564f31dbe514276abffb1d3204120ead15506a24ecaa2560009ba304896dae"},
+    {file = "vtk-9.3.0-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:3b22a0d03305160d6612da0a378759083ef7691d0f83f1b1496418777ee3a2a3"},
+    {file = "vtk-9.3.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:cdd81c9904647ace8d13ad255d8e5293fb81be8125e1a139a707aaf9e6f0e9e2"},
+    {file = "vtk-9.3.0-cp39-cp39-win_amd64.whl", hash = "sha256:f0a44c926ba18fd9e2ad7c07ae0adabb4ca62af28c69c96bcbaa884e0b240249"},
+]
+
+[package.dependencies]
+matplotlib = ">=2.0.0"
+
+[package.extras]
+numpy = ["numpy (>=1.9)"]
+web = ["wslink (>=1.0.4)"]
+
+[[package]]
 name = "wcwidth"
 version = "0.2.13"
 description = "Measures the displayed width of unicode strings in a terminal"
@@ -6626,4 +6727,4 @@ jupyter = ["ipytree (>=0.2.2)", "ipywidgets (>=8.0.0)", "notebook"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "970cdb2a3fc8c6a00cae01c01700314f03edaa6d16b5fbd0dbb6652d57cef6b2"
+content-hash = "cc23196b246a6dafc94df6e637d16112a167ae44e06995b023d608e50561f62f"
