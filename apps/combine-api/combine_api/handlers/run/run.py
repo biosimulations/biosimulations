@@ -7,7 +7,7 @@ from biosimulators_utils.sedml.data_model import Report, Plot2D, Plot3D
 from biosimulators_utils.sedml.exec import get_report_for_plot2d, get_report_for_plot3d
 from biosimulators_utils.sedml.io import SedmlSimulationReader
 from biosimulators_utils.viz.data_model import VizFormat
-from biosimulators_simularium.exec import generate_simularium_file
+from biosimulators_simularium import execute as exec_biosimularium
 from unittest import mock
 import connexion
 import flask
@@ -169,10 +169,10 @@ def handler(body, archiveFile=None):
                     print(f'THE FILES: {os.path.join(r, f)}\n\n\n')
 
             # generate a simularium file from this saved into out_dir
-            generate_simularium_file(
+            exec_biosimularium(
                 working_dir=working_dir,
-                simularium_filename="simulation",
-                output_dir=out_dir
+                output_dir=out_dir,
+                use_json=True
             )
 
     # transform the results
