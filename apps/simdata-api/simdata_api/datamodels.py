@@ -42,3 +42,10 @@ class HDF5File(BaseModel):
     id: str
     uri: str
     groups: List[HDF5Group]
+
+
+class ListingItem(BaseModel):
+    Key: str
+    LastModified: datetime
+    ETag: str
+    Size: int
