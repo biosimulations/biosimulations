@@ -163,17 +163,17 @@ def handler(body, archiveFile=None):
             with zipfile.ZipFile(archive_filename, 'r') as zip_file:
                 zip_file.extractall(working_dir)
 
-            # TODO: REMOVE THIS
-            for r, _, files in os.walk(working_dir):
-                for f in files:
-                    print(f'THE FILES: {os.path.join(r, f)}\n\n\n')
-
             # generate a simularium file from this saved into out_dir
             exec_biosimularium(
                 working_dir=working_dir,
                 output_dir=out_dir,
                 use_json=True
             )
+
+            # TODO: REMOVE THIS
+            # for r, _, files in os.walk(out_dir):
+            #     for f in files:
+            #         print(f'THE FILES GOING OUT: {os.path.join(r, f)}\n\n\n')
 
     # transform the results
     if return_type == 'json':
