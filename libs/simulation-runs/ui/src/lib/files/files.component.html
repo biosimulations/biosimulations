@@ -4,6 +4,11 @@
   <div class="head format">Format</div>
   <div class="head download">Download</div>
   <div class="head size">Size</div>
+  <ng-container *ngFor="let path of files">
+    <ng-container *ngIf="path.title.includes('simularium')">
+      <div class="head open-simularium">Open in Simularium</div>
+    </ng-container>
+  </ng-container>
   <!-- End Column Schema -->
 
   <!-- Start Row DataContainer -->
