@@ -5,6 +5,7 @@ from pathlib import Path
 import aiofiles
 from aiobotocore.config import AioConfig
 from aiobotocore.session import AioSession
+from botocore.exceptions import ClientError
 
 from simdata_api.config import get_settings
 from simdata_api.datamodels import ListingItem
@@ -13,6 +14,7 @@ logger = logging.getLogger(__name__)
 
 
 async def download_s3_file(s3_path: str, file_path: Path) -> str:
+    logger.info(f"Downloading {s3_path} to {file_path}")
     session = AioSession()
 
     settings = get_settings()
@@ -34,6 +36,7 @@ async def download_s3_file(s3_path: str, file_path: Path) -> str:
 
 
 async def upload_file_to_s3(file_path: Path, s3_path: str) -> str:
+    logger.info(f"Uploading {file_path} to {s3_path}")
     session = AioSession()
 
     settings = get_settings()
@@ -52,6 +55,7 @@ async def upload_file_to_s3(file_path: Path, s3_path: str) -> str:
 
 
 async def upload_bytes_to_s3(file_contents: bytes, s3_path: str) -> str:
+    logger.info(f"Uploading {len(file_contents)} bytes to {s3_path}")
     session = AioSession()
 
     settings = get_settings()
@@ -70,6 +74,7 @@ async def upload_bytes_to_s3(file_contents: bytes, s3_path: str) -> str:
 
 # download file contents from s3 as bytes
 async def get_s3_file_contents(s3_path: str) -> bytes:
+    logger.info(f"Downloading {s3_path} as bytes")
     session = AioSession()
     settings = get_settings()
     config = AioConfig(connect_timeout=1, read_timeout=1)
@@ -80,12 +85,21 @@ async def get_s3_file_contents(s3_path: str) -> bytes:
             endpoint_url=settings.storage_endpoint_url,
             aws_access_key_id=settings.storage_access_key_id,
             aws_secret_access_key=settings.storage_secret) as s3_client:
-        obj = await s3_client.get_object(Bucket=settings.storage_bucket, Key=s3_path)
-        contents: bytes = await obj['Body'].read()
-        return contents
+        try:
+            obj = await s3_client.get_object(Bucket=settings.storage_bucket, Key=s3_path)
+            contents: bytes = await obj['Body'].read()
+            return contents
+        except ClientError as e:
+            if e.response['Error']['Code'] == "NoSuchKey":
+                logger.info(f"failed to retrieve file content: {str(e)}")
+                raise FileNotFoundError(f"File {s3_path} not found in S3")
+            else:
+                logger.exception(e)
+                raise e
 
 
 async def get_s3_modified_date(s3_path: str) -> datetime:
+    logger.info(f"Retrieving LastModified from {s3_path}")
     session = AioSession()
     settings = get_settings()
     config = AioConfig(connect_timeout=1, read_timeout=1)
@@ -96,12 +110,21 @@ async def get_s3_modified_date(s3_path: str) -> datetime:
             endpoint_url=settings.storage_endpoint_url,
             aws_access_key_id=settings.storage_access_key_id,
             aws_secret_access_key=settings.storage_secret) as s3_client:
-        response = await s3_client.get_object(Bucket=settings.storage_bucket, Key=s3_path)
-        last_modified: datetime = response['LastModified']
-        return last_modified
+        try:
+            response = await s3_client.get_object(Bucket=settings.storage_bucket, Key=s3_path)
+            last_modified: datetime = response['LastModified']
+            return last_modified
+        except ClientError as e:
+            if e.response['Error']['Code'] == "NoSuchKey":
+                logger.info(f"failed to retrieve modified date: {str(e)}")
+                raise FileNotFoundError(f"File {s3_path} not found in S3")
+            else:
+                logger.exception(e)
+                raise e
 
 
 async def get_listing_of_s3_path(s3_path: str) -> list[ListingItem]:
+    logger.info(f"Retrieving file list from {s3_path}")
     session = AioSession()
     settings = get_settings()
     config = AioConfig(connect_timeout=1, read_timeout=1)

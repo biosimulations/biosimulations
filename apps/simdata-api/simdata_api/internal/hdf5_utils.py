@@ -12,6 +12,7 @@ ROOT_DIR = Path(__file__).parent.parent.parent
 
 
 def extract_hdf5_dataset_array(local_file_path: Path, dataset_name: str) -> ndarray:
+    logger.info(f"extract hdf5 dataset array {dataset_name} from {local_file_path}")
     with h5py.File(name=str(local_file_path), mode="r") as f:
         dataset: h5py.Dataset = f[dataset_name]
         data: ndarray = dataset[:]
@@ -42,6 +43,7 @@ def _visitor_func(groups, name, obj):
 
 
 def extract_hdf5_metadata(local_file_path: Path) -> HDF5File:
+    logger.info(f"extract all hdf5 metadata from {local_file_path}")
     groups: list[HDF5Group] = []
     bound_visitor_func = partial(_visitor_func, groups)
 

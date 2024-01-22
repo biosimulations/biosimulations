@@ -1,6 +1,6 @@
+import logging
 import os
 from pathlib import Path
-from typing import Dict, List
 
 import numpy as np
 import tensorstore as ts
@@ -11,6 +11,8 @@ from simdata_api.datamodels import ATTRIBUTE_VALUE_TYPE, HDF5File, HDF5Group, HD
 
 DATA_TYPE = 'float64'
 COMPRESSION = 'gzip'
+
+logger = logging.getLogger(__name__)
 
 
 async def write_ts_metadata_root(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_root_path: Path, hdf5_file: HDF5File) -> None:
@@ -29,6 +31,7 @@ async def _write_ts_metadata_group(driver: TS_DRIVER, kvstore_driver: KV_DRIVER,
 
 
 async def _write_ts_metadata_dataset(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_root_path: Path, hdf5_dataset: HDF5Dataset) -> None:
+    logger.info(f"write metadata and fake zeros array to {driver} store {str(kvstore_root_path / hdf5_dataset.name)}")
     shape = tuple(hdf5_dataset.shape)
     attrs = {attr.key: attr.value for attr in hdf5_dataset.attributes}
     ts_spec: TensorStoreSpec = _get_ts_spec(driver, kvstore_driver, kvstore_root_path / hdf5_dataset.name, shape, attrs)
@@ -37,18 +40,26 @@ async def _write_ts_metadata_dataset(driver: TS_DRIVER, kvstore_driver: KV_DRIVE
     await dataset.write(data)
 
 
-async def read_ts_dataset(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_path: Path) -> tuple[np.ndarray, Dict[str, str | list[str]]]:
+async def read_ts_dataset(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_path: Path) -> tuple[np.ndarray, dict[str, str | list[str]]]:
+    logger.info(f"read array and metadata from {driver} store {kvstore_path}")
     spec = _get_basic_spec(driver, kvstore_driver, kvstore_path)
-    dataset: TensorStore = await ts.open(spec)
-    array: np.ndarray = await dataset.read(order='C')
-    spec: dict = dataset.spec().to_json()
-    # test if dictionary spec['metadata']['attributes'] exists checking also for missing 'metadata' key:
-    if 'metadata' in spec and 'attributes' in spec['metadata']:
-        # return array and the value of the key 'attributes':
-        return array, spec['metadata']['attributes']
-    else:
-        # return array and an empty dictionary:
-        return array, {}
+    try:
+        dataset: TensorStore = await ts.open(spec)
+        array: np.ndarray = await dataset.read(order='C')
+        spec: dict = dataset.spec().to_json()
+        # test if dictionary spec['metadata']['attributes'] exists checking also for missing 'metadata' key:
+        if 'metadata' in spec and 'attributes' in spec['metadata']:
+            # return array and the value of the key 'attributes':
+            return array, spec['metadata']['attributes']
+        else:
+            # return array and an empty dictionary:
+            return array, {}
+    except ValueError as e:
+        if str(e).find("NOT_FOUND") >= 0:
+            raise FileNotFoundError(f"File {kvstore_path} not found in {kvstore_driver} store")
+        else:
+            logger.exception(e)
+            raise e
 
 
 def _get_basic_spec(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_path: Path):
@@ -83,7 +94,7 @@ def _get_basic_spec(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_path: 
     return spec
 
 
-def _get_ts_spec(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_path: Path, shape: tuple, attrs: Dict[str, ATTRIBUTE_VALUE_TYPE] = None) -> TensorStoreSpec:
+def _get_ts_spec(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_path: Path, shape: tuple, attrs: dict[str, ATTRIBUTE_VALUE_TYPE] = None) -> TensorStoreSpec:
     spec = _get_basic_spec(driver, kvstore_driver, kvstore_path)
     metadata = {}
 
@@ -115,6 +126,7 @@ def _get_ts_spec(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_path: Pat
 
 async def write_ts_dataset(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_path: Path, data: np.ndarray,
                            attributes: ATTRIBUTE_VALUE_TYPE) -> None:
+    logger.info(f"write array and metadata to {driver} store {kvstore_path}")
     shape = data.shape
     ts_spec: TensorStoreSpec = _get_ts_spec(driver, kvstore_driver, kvstore_path, shape, attributes)
     dataset: TensorStore = await ts.open(ts_spec)

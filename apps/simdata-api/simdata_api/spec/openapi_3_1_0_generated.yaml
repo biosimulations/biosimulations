@@ -48,6 +48,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DatasetData'
+        '404':
+          description: Dataset not found
         '422':
           description: Validation Error
           content:
@@ -74,6 +76,8 @@ paths:
                 type: string
                 format: date-time
                 title: Response Get-Modified
+        '404':
+          description: Dataset not found
         '422':
           description: Validation Error
           content:
@@ -98,6 +102,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HDF5File'
+        '404':
+          description: Dataset not found
         '422':
           description: Validation Error
           content:

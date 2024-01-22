@@ -43,11 +43,19 @@ async def test_read_dataset():
     data = response.json()
     assert response.status_code == 200
     assert data["shape"] == [21, 201]
-
     settings = get_settings()
-    LOCAL_PATH = Path(settings.storage_local_cache_dir) / "local_data" / f"{RUN_ID}.h5"
-    if LOCAL_PATH.exists():
-        os.remove(LOCAL_PATH)
+    LOCAL_PATH = Path(settings.storage_local_cache_dir) / f"{RUN_ID}.h5"
+    assert LOCAL_PATH.exists() is False
+
+
+@pytest.mark.asyncio
+async def test_read_dataset_not_found():
+    RUN_ID = "1234567"
+    DATASET_NAME = quote("simulation_1.sedml/report", safe="")
+    url = f"/datasets/{RUN_ID}/data?dataset_name={DATASET_NAME}"
+    response = client.get(url)
+    assert response.status_code == 404
+    assert response.json()['detail'] == "Dataset not found"
 
 
 @pytest.mark.asyncio
@@ -59,6 +67,17 @@ async def test_get_modified():
     assert response.status_code == 200
     assert type(data) is str
     assert datetime.fromisoformat(data) is not None
+    settings = get_settings()
+    LOCAL_PATH = Path(settings.storage_local_cache_dir) / f"{RUN_ID}.h5"
+    assert LOCAL_PATH.exists() is False
+
+@pytest.mark.asyncio
+async def test_get_modified_not_found():
+    RUN_ID = "1234567"
+    url = f"/datasets/{RUN_ID}/modified"
+    response = client.get(url)
+    assert response.status_code == 404
+    assert response.json()['detail'] == "Dataset not found"
 
 
 @pytest.mark.asyncio
@@ -72,8 +91,18 @@ async def test_get_metadata():
     assert type(data) is dict
     _ = HDF5File.model_validate_json(json_dumps(data))
     hdf5_file = HDF5File.model_validate_json(response.content.decode("utf-8"))
-    assert hdf5_file.filename == str(Path(settings.storage_local_cache_dir) / f"{RUN_ID}.h5")
+    assert hdf5_file.filename == "reports.h5"
     assert hdf5_file.uri is not None
     assert hdf5_file.id == RUN_ID
-    if Path(data["filename"]).exists():
-        os.remove(data["filename"])
+    settings = get_settings()
+    LOCAL_PATH = Path(settings.storage_local_cache_dir) / f"{RUN_ID}.h5"
+    assert LOCAL_PATH.exists() is False
+
+
+@pytest.mark.asyncio
+async def test_get_metadata_not_found():
+    RUN_ID = "1234567"
+    url = f"/datasets/{RUN_ID}/metadata"
+    response = client.get(url)
+    assert response.status_code == 404
+    assert response.json()['detail'] == "Dataset not found"

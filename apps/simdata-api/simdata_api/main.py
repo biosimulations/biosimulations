@@ -2,7 +2,7 @@ import logging
 from datetime import datetime
 from urllib.parse import unquote
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 
 from simdata_api.datamodels import DatasetData, HDF5File, StatusResponse, Status
 from simdata_api.datastore import get_dataset_data, get_results_timestamp, get_hdf5_metadata as get_metadata
@@ -20,7 +20,6 @@ app.dependency_overrides = {}
 
 @app.get("/")
 async def root():
-    logger.info("invoked root()")
     return {"message": "Hello from simdata-api"}
 
 
@@ -28,7 +27,6 @@ async def root():
     "/health", response_model=StatusResponse, name="Health", operation_id="get-health"
 )
 async def health() -> StatusResponse:
-    logger.info("invoked health()")
     return StatusResponse(status=Status.ok)
 
 
@@ -37,14 +35,18 @@ async def health() -> StatusResponse:
     response_model=DatasetData,
     name="Read Dataset",
     operation_id="read-dataset",
+    responses={
+        404: {"description": "Dataset not found"},
+    }
 )
 async def read_dataset(run_id: str, dataset_name: str) -> DatasetData:
-    logger.info(
-        "invoked read_dataset(run_id=%s, dataset_name=%s)", run_id, dataset_name
-    )
-    dataset_name = unquote(dataset_name)
-    array, attrs = await get_dataset_data(run_id=run_id, dataset_name=dataset_name)
-    return DatasetData(shape=list(array.shape), values=array.flatten().tolist())
+    try:
+        dataset_name = unquote(dataset_name)
+        array, attrs = await get_dataset_data(run_id=run_id, dataset_name=dataset_name)
+        return DatasetData(shape=list(array.shape), values=array.flatten().tolist())
+    except FileNotFoundError as e:
+        logger.warning(f"failed to retrieve dataset: {str(e)}")
+        raise HTTPException(status_code=404, detail="Dataset not found")
 
 
 @app.get(
@@ -52,10 +54,16 @@ async def read_dataset(run_id: str, dataset_name: str) -> DatasetData:
     response_model=datetime,
     name="Modified datetime",
     operation_id="get-modified",
+    responses={
+        404: {"description": "Dataset not found"},
+    }
 )
 async def get_modified_datetime(run_id: str) -> datetime:
-    logger.info("invoked get_modified_datetime(run_id=%s)", run_id)
-    return await get_results_timestamp(run_id=run_id)
+    try:
+        return await get_results_timestamp(run_id=run_id)
+    except FileNotFoundError as e:
+        logger.warning(f"failed to retrieve modified date: {str(e)}")
+        raise HTTPException(status_code=404, detail="Dataset not found")
 
 
 @app.get(
@@ -63,8 +71,14 @@ async def get_modified_datetime(run_id: str) -> datetime:
     response_model=HDF5File,
     name="HDF5 file metadata",
     operation_id="get-metadata",
+    responses={
+        404: {"description": "Dataset not found"},
+    }
 )
 async def get_hdf5_metadata(run_id: str) -> HDF5File:
-    logger.info("invoked get_hdf5_metadata(run_id=%s)", run_id)
-    hdf5_file = await get_metadata(run_id=run_id)
-    return hdf5_file
+    try:
+        hdf5_file = await get_metadata(run_id=run_id)
+        return hdf5_file
+    except FileNotFoundError as e:
+        logger.warning(msg=f"failed to retrieve metadata: {str(e)}")
+        raise HTTPException(status_code=404, detail="Dataset not found")
