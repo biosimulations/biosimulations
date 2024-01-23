@@ -12,9 +12,9 @@ class Settings(BaseSettings):
     storage_endpoint_url: str = "https://storage.googleapis.com"
     storage_region: str = "us-east4"
     storage_access_key_id: str = "GOOG..."
-    storage_secret: str = "0W...kcL"
+    storage_secret: str = "secret"
     storage_local_cache_dir: str = "/tmp/simdata_api"
-    storage_gcs_credentials_file: str = "~/.config/gcloud/application_default_credentials.json"
+    storage_gcs_credentials_file: str = "/secrets/biosimulations-google-storage-dev.json"
     storage_tensorstore_driver: TS_DRIVER = "zarr3"
     storage_tensorstore_kvstore_driver: KV_DRIVER = "gcs"
 

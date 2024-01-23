@@ -14,9 +14,9 @@ DATASET_NAME = "/simulation_1.sedml/report"
 S3_PATH = f"simulations/{RUN_ID}/contents/reports.h5"
 ROOT_DIR = Path(__file__).parent.parent.parent
 TEST_MATRIX = [
-    ('n5', 'file'),    ('n5', 'gcs'),    # ('n5', 's3'),
-    ('zarr', 'file'),  ('zarr', 'gcs'),  # ('zarr', 's3'),
-    ('zarr3', 'file'), ('zarr3', 'gcs')  # ('zarr3', 's3')
+    ('n5', 'file'),    ('n5', 'gcs'),   #  ('n5', 's3'),
+    ('zarr', 'file'),  ('zarr', 'gcs'), #  ('zarr', 's3'),
+    ('zarr3', 'file'), ('zarr3', 'gcs') #  ('zarr3', 's3')
 ]
 
 

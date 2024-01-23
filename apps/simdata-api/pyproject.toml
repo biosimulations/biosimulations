@@ -17,7 +17,7 @@ pydantic-settings = "^2.1.0"
 httpx = "^0.26.0"
 tensorstore = "^0.1.52"
 aiofiles = "^23.2.1"
-aiobotocore = "^2.9.1"
+aiobotocore = "^2.11.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.4"

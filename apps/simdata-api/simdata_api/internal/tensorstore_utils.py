@@ -69,28 +69,24 @@ def _get_basic_spec(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_path: 
     spec['driver'] = driver
     spec['kvstore'] = {}
     spec['kvstore']['driver'] = kvstore_driver
-    spec['kvstore']['driver'] = kvstore_driver
+    spec['kvstore']['path'] = str(kvstore_path)
     if kvstore_driver == 'file':
-        spec['kvstore']['path'] = str(kvstore_path)
+        pass
     elif kvstore_driver == 's3':
         spec['kvstore']['bucket'] = settings.storage_bucket
-        spec['kvstore']['endpoint'] = settings.storage_endpoint_url
-        spec['kvstore']['path'] = str(kvstore_path)
+        spec['kvstore']['endpoint'] = settings.storage_endpoint_url #+"/storage/v1/b"
+        spec['kvstore']['host_header'] = "storage.googleapi.com"
         spec['kvstore']['aws_region'] = settings.storage_region
         os.environ['AWS_ACCESS_KEY_ID'] = settings.storage_access_key_id
         os.environ['AWS_SECRET_ACCESS_KEY'] = settings.storage_secret
-        # spec['kvstore']['aws_credentials'] = settings.storage_access_key_id
-        # spec['kvstore']['aws_secret_access_key'] = settings.storage_secret
+        os.environ['TENSORSTORE_VERBOSE_LOGGING'] = 'curl,s3'
+        os.environ['TENSORSTORE_CURL_VERBOSE'] = '1'
     elif kvstore_driver == 'gcs':
         spec['kvstore']['bucket'] = settings.storage_bucket
         os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = settings.storage_gcs_credentials_file
-        # spec['kvstore']['endpointurl'] = settings.storage_endpoint_url
-        # spec['kvstore']['aws_access_key_id'] = settings.storage_access_key_id
-        # spec['kvstore']['aws_secret_access_key'] = settings.storage_secret
     else:
         raise ValueError(f'Unknown kvstore_driver: {kvstore_driver}')
 
-    spec['kvstore']['path'] = str(kvstore_path)
     return spec
 
 
@@ -131,5 +127,3 @@ async def write_ts_dataset(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore
     ts_spec: TensorStoreSpec = _get_ts_spec(driver, kvstore_driver, kvstore_path, shape, attributes)
     dataset: TensorStore = await ts.open(ts_spec)
     await dataset.write(data)
-
-
