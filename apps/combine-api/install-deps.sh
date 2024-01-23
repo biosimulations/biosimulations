@@ -9,9 +9,10 @@
 
 # TODO: read this from pyproject.toml
 
-python_version="$1"
+# python_version="$1"
 
-poetry env use python"${python_version}"
+
+poetry env use python3.10  # "${python_version}"
 poetry run pip install --upgrade pip
 poetry lock --no-update
 
