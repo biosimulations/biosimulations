@@ -401,12 +401,12 @@ tests = ["biosimulators-utils[containers]", "python-dateutil"]
 
 [[package]]
 name = "biosimulators-simularium"
-version = "0.5.20"
+version = "0.5.21"
 description = "A Python tool for converting Biosimulators spatial simulation outputs into a Simularium-compliant format."
 optional = false
 python-versions = "*"
 files = [
-    {file = "biosimulators-simularium-0.5.20.tar.gz", hash = "sha256:e4a4104a8fd9fddecf4411eff0377304126359f12451dd89b9c15da69b186cfd"},
+    {file = "biosimulators-simularium-0.5.21.tar.gz", hash = "sha256:43b8f87698e2c4e9bda597181bb7f7a247c2148b9687532c1d029de221f87fc6"},
 ]
 
 [package.dependencies]
@@ -6727,4 +6727,4 @@ jupyter = ["ipytree (>=0.2.2)", "ipywidgets (>=8.0.0)", "notebook"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "819192e195248aa63cd3ed0fea87779b8d5b4931b99276b9bdb4f455192296d0"
+content-hash = "4c3ffd3c6c14401294aa6f45c2a49df792f47b4a3699c0099153df6a84adc5c0"
