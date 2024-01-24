@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Path, ProjectMetadata } from '@biosimulations/datamodel-simulation-runs';
 import { MatDialog } from '@angular/material/dialog';
 import { MetadataDialogComponent } from '../metadata-dialog/metadata-dialog.component';
@@ -8,7 +8,7 @@ import { MetadataDialogComponent } from '../metadata-dialog/metadata-dialog.comp
   templateUrl: './files.component.html',
   styleUrls: ['./files.component.scss'],
 })
-export class FilesComponent {
+export class FilesComponent implements OnInit {
   @Input()
   public files!: Path[];
 
@@ -23,10 +23,45 @@ export class FilesComponent {
 
   public cardState = 'default';
 
+  public hasSimularium?: boolean;
+
+  public simulariumUrl = 'https://simularium.allencell.org/viewer';
+
   public constructor(private dialog: MatDialog) {}
+
+  ngOnInit() {
+      const dummyFile: Path = {
+        title: 'sim.simularium',
+        format: 'Simularium spec',
+        size: '1KB',
+        level: 0,
+        _type: 'File',
+        location: '',
+        basename: 'sim',
+        formatUrl: 'https://github.com/simularium/simulariumio',
+        icon: "file",
+        master: false,
+        url: this.simulariumUrl
+
+      };
+      this.files.push(dummyFile);
+      for (let i = 0; i < this.files.length; i++) {
+          const fp = this.files[i];
+          console.log(`The file: ${fp.title}`);
+          if (fp.title.includes('simularium')) {
+              console.log(`Has simularium!`)
+              this.hasSimularium = true;
+          }
+      }
+  }
 
   public getFile(path: Path): Path {
     return path;
+  }
+
+  public getGridTemplateColumns(): string {
+      return this.hasSimularium ? 'repeat(5, 1fr)': 'repeat(4, 1fr)';
+      //return 'repeat(4, 1fr)';
   }
 
   public openMetadata(metadata: ProjectMetadata): void {
