@@ -29,30 +29,28 @@ export class FilesComponent implements OnInit {
 
   public constructor(private dialog: MatDialog) {}
 
-  ngOnInit() {
-      const dummyFile: Path = {
-        title: 'sim.simularium',
-        format: 'Simularium spec',
-        size: '1KB',
-        level: 0,
-        _type: 'File',
-        location: '',
-        basename: 'sim',
-        formatUrl: 'https://github.com/simularium/simulariumio',
-        icon: "file",
-        master: false,
-        url: this.simulariumUrl
+  // TODO: Remove this OnInit as it is a test
+  public ngOnInit() {
+    const dummyFile: Path = {
+      title: 'sim.simularium',
+      format: 'Simularium spec',
+      size: '1KB',
+      level: 0,
+      _type: 'File',
+      location: 'simulation.simularium',
+      basename: 'Min1.txt',
+      formatUrl: 'https://github.com/simularium/simulariumio',
+      icon: "file",
+      master: false,
+      url: 'https://github.com/ssandrews/Smoldyn/blob/master/examples/S99_more/Min/Min1.txt'
+    };
 
-      };
-      this.files.push(dummyFile);
-      for (let i = 0; i < this.files.length; i++) {
-          const fp = this.files[i];
-          console.log(`The file: ${fp.title}`);
-          if (fp.title.includes('simularium')) {
-              console.log(`Has simularium!`)
-              this.hasSimularium = true;
-          }
-      }
+    this.files.push(dummyFile);
+    for (let i = 0; i < this.files.length; i++) {
+      const fp = this.files[i];
+      console.log(`The file: ${fp.title}, ${fp.location}`);
+      this.hasSimularium = fp.title.includes('simularium');
+    }
   }
 
   public getFile(path: Path): Path {
