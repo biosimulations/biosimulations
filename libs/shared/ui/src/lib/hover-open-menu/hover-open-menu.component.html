@@ -3,7 +3,6 @@
     [matMenuTriggerFor]="menu"
     #trigger="matMenuTrigger"
     (mouseenter)="openMenu(trigger)"
-    (mousemove)="openMenu(trigger)"
     (click)="navigate(trigger)"
     (mouseleave)="closeMenu(trigger)">
     <ng-content select="#trigger" [target]="target"></ng-content>

@@ -5,5 +5,9 @@
 }
 
 .overlap {
-  border-bottom: 9px solid transparent;
+  border-bottom: 2px solid inherit;
+
+  &:hover {
+    transition: none !important;
+  }
 }
