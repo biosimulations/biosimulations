@@ -441,12 +441,11 @@ class RunSimulationTestCase(unittest.TestCase):
         with app.app.app.test_client() as client:
             with open(archive_filename, 'rb') as archive_file:
                 with mock.patch('requests.get', return_value=mock.Mock(raise_for_status=lambda: None, content=archive_file.read())):
-                    response = client.post(endpoint, data=data, content_type="multipart/form-data")
+                    headers = {'Accept': 'application/zip'}
+                    response = client.post(endpoint, data=data, content_type="multipart/form-data", headers=headers)
         response = response.json
         print(f'The resulting response: {response}')
 
         self.assertEqual(set(response.keys()), set(['_type', 'outputs', 'log']))
         self.assertEqual(response['_type'], 'SimulationRunResults')
         self.assertEqual(response['log']['status'], Status.SUCCEEDED.value)
-
-
