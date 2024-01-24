@@ -9,10 +9,16 @@
 
 # TODO: read this from pyproject.toml
 
-# python_version="$1"
+python_version="$1"
 
+if [ "${python_version}" == "" ]; then
+    echo "You must enter a python version to use with poetry."
+    exit 1
+else
+    echo "Using python: " "${python_version}"
+fi
 
-poetry env use python3.10  # "${python_version}"
+poetry env use python"${python_version}"
 poetry run pip install --upgrade pip
 poetry lock --no-update
 
