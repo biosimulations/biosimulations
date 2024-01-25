@@ -106,7 +106,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
         simulationAlgorithmSubstitutionPolicy: [AlgorithmSubstitutionPolicyLevels.SAME_FRAMEWORK, []],
         simulator: ['', [Validators.required]],
         simulatorVersion: ['', [Validators.required]],
-        academicPurpose: [false],
+        academicPurpose: [true],
         cpus: [1, [Validators.required, Validators.min(1), Validators.max(24), INTEGER_VALIDATOR]],
         memory: [8, [Validators.required, Validators.min(0), Validators.max(192)]], // in GB
         maxTime: [20, [Validators.required, Validators.min(0), Validators.max(20 * 24 * 60)]], // in min
@@ -282,6 +282,8 @@ export class DispatchComponent implements OnInit, OnDestroy {
         email,
       ),
     );
+
+    console.log(`The run to be submitted has envVars: ${envVars}.`)
     this.subscriptions.push(sub);
     window.scrollTo(0, 0);
   }
