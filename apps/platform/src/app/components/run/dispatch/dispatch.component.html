@@ -323,7 +323,7 @@
         </mat-card-content>
         <mat-error *ngIf="formGroup.hasError('email', 'email')">Please enter a valid email address.</mat-error>
 
-        <mat-checkbox formControlName="emailConsent" color="primary">
+        <mat-checkbox formControlName="emailConsent" color="primary" [checked]="formGroup.value.email !== ''">
           I consent to receiving an email notification about the completion of my simulation.
         </mat-checkbox>
 
