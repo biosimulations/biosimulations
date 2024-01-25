@@ -15,13 +15,15 @@ COMPRESSION = 'gzip'
 logger = logging.getLogger(__name__)
 
 
-async def write_ts_metadata_root(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_root_path: Path, hdf5_file: HDF5File) -> None:
+async def write_ts_metadata_root(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_root_path: Path,
+                                 hdf5_file: HDF5File) -> None:
     # for each group in the HDF5File object, create a group in the tensorstore
     for group in hdf5_file.groups:
         await _write_ts_metadata_group(driver, kvstore_driver, kvstore_root_path, group)
 
 
-async def _write_ts_metadata_group(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_root_path: Path, hdf5_group: HDF5Group) -> None:
+async def _write_ts_metadata_group(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_root_path: Path,
+                                   hdf5_group: HDF5Group) -> None:
     # for each dataset in the HDF5Group object, create a dataset in the tensorstore
     if hdf5_group.attributes:
         # TODO: write attributes to group without dataset array
@@ -30,17 +32,19 @@ async def _write_ts_metadata_group(driver: TS_DRIVER, kvstore_driver: KV_DRIVER,
         await _write_ts_metadata_dataset(driver, kvstore_driver, kvstore_root_path, dataset)
 
 
-async def _write_ts_metadata_dataset(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_root_path: Path, hdf5_dataset: HDF5Dataset) -> None:
+async def _write_ts_metadata_dataset(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_root_path: Path,
+                                     hdf5_dataset: HDF5Dataset) -> None:
     logger.info(f"write metadata and fake zeros array to {driver} store {str(kvstore_root_path / hdf5_dataset.name)}")
     shape = tuple(hdf5_dataset.shape)
     attrs = {attr.key: attr.value for attr in hdf5_dataset.attributes}
     ts_spec: TensorStoreSpec = _get_ts_spec(driver, kvstore_driver, kvstore_root_path / hdf5_dataset.name, shape, attrs)
     dataset: TensorStore = await ts.open(ts_spec)
-    data = np.zeros(shape=shape, dtype=float) # should be a no-op because fill is zero
+    data = np.zeros(shape=shape, dtype=float)  # should be a no-op because fill is zero
     await dataset.write(data)
 
 
-async def read_ts_dataset(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_path: Path) -> tuple[np.ndarray, dict[str, str | list[str]]]:
+async def read_ts_dataset(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_path: Path) -> tuple[
+    np.ndarray, dict[str, str | list[str]]]:
     logger.info(f"read array and metadata from {driver} store {kvstore_path}")
     spec = _get_basic_spec(driver, kvstore_driver, kvstore_path)
     try:
@@ -74,7 +78,7 @@ def _get_basic_spec(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_path: 
         pass
     elif kvstore_driver == 's3':
         spec['kvstore']['bucket'] = settings.storage_bucket
-        spec['kvstore']['endpoint'] = settings.storage_endpoint_url #+"/storage/v1/b"
+        spec['kvstore']['endpoint'] = settings.storage_endpoint_url  # +"/storage/v1/b"
         spec['kvstore']['host_header'] = "storage.googleapi.com"
         spec['kvstore']['aws_region'] = settings.storage_region
         os.environ['AWS_ACCESS_KEY_ID'] = settings.storage_access_key_id
@@ -90,7 +94,8 @@ def _get_basic_spec(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_path: 
     return spec
 
 
-def _get_ts_spec(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_path: Path, shape: tuple, attrs: dict[str, ATTRIBUTE_VALUE_TYPE] = None) -> TensorStoreSpec:
+def _get_ts_spec(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_path: Path, shape: tuple,
+                 attrs: dict[str, ATTRIBUTE_VALUE_TYPE] = None) -> TensorStoreSpec:
     spec = _get_basic_spec(driver, kvstore_driver, kvstore_path)
     metadata = {}
 

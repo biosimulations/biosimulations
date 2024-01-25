@@ -1,7 +1,5 @@
 from pathlib import Path
 
-import pytest
-
 from simdata_api.config import get_settings
 from simdata_api.datamodels import HDF5File
 from simdata_api.internal.hdf5_utils import extract_hdf5_metadata, extract_hdf5_dataset_array
@@ -27,7 +25,8 @@ def test_extract_hdf5_metadata():
     assert hdf5_file.id == ""
 
     hdf5_file.id = RUN_ID
-    hdf5_file.uri = f"{settings.storage_endpoint_url}/{settings.storage_bucket}/simulations/{RUN_ID}/contents/reports.h5"
+    base_url = f"{settings.storage_endpoint_url}/{settings.storage_bucket}"
+    hdf5_file.uri = f"{base_url}/simulations/{RUN_ID}/contents/reports.h5"
 
     # round trip test of serialization
     assert HDF5File.model_validate_json(hdf5_file.model_dump_json()) == hdf5_file

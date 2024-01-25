@@ -1,4 +1,3 @@
-import os
 from datetime import datetime
 from json import dumps as json_dumps
 from pathlib import Path
@@ -70,6 +69,7 @@ async def test_get_modified():
     settings = get_settings()
     LOCAL_PATH = Path(settings.storage_local_cache_dir) / f"{RUN_ID}.h5"
     assert LOCAL_PATH.exists() is False
+
 
 @pytest.mark.asyncio
 async def test_get_modified_not_found():

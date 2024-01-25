@@ -40,5 +40,3 @@ async def test_get_listing_of_s3_path():
     files: list[ListingItem] = await get_listing_of_s3_path(s3_path=S3_PATH)
     assert len(files) > 0
     assert type(files[0]) is ListingItem
-
-
