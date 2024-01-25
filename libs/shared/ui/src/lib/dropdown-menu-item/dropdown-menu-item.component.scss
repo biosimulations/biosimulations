@@ -1,7 +1,7 @@
 .mat-menu-item {
-  line-height: 32px;
-  height: 10px;
-  padding: 0 0.5rem;
+  //line-height: 32px;
+  //height: 10px;
+  //padding: 0 0.5rem;
 
   .icon-container {
     display: flex;
@@ -38,8 +38,9 @@ a {
 
 .menu-item {
   background: white !important;
-  height: auto;
+  margin-top: -0.5rem !important;
   width: auto;
+  //border: 3px solid red !important;
 }
 
 .menu-icon {
