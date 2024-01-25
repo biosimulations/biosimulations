@@ -12,8 +12,8 @@
 python_version="$1"
 
 if [ "${python_version}" == "" ]; then
-    echo "You must enter a python version to use with poetry."
-    exit 1
+    echo "No python version specified. Using python${python_version}"
+    python_version="3.9"
 else
     echo "Using python: " "${python_version}"
 fi
