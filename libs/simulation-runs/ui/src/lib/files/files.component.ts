@@ -27,11 +27,13 @@ export class FilesComponent implements OnInit {
 
   public simulariumUrl = 'https://simularium.allencell.org/viewer';
 
-  public constructor(private dialog: MatDialog) {}
+  public constructor(private dialog: MatDialog) {
+    /* Constructor is empty */
+  }
 
   // TODO: Remove this OnInit as it is a test
   public ngOnInit() {
-    const dummyFile: Path = {
+    const dummySimulariumFile: Path = {
       title: 'sim.simularium',
       format: 'Simularium spec',
       size: '1KB',
@@ -43,9 +45,8 @@ export class FilesComponent implements OnInit {
       icon: "file",
       master: false,
       url: 'https://github.com/ssandrews/Smoldyn/blob/master/examples/S99_more/Min/Min1.txt'
-    };
-
-    this.files.push(dummyFile);
+    }
+    this.files.push(dummySimulariumFile);
     for (let i = 0; i < this.files.length; i++) {
       const fp = this.files[i];
       console.log(`The file: ${fp.title}, ${fp.location}`);
@@ -59,7 +60,6 @@ export class FilesComponent implements OnInit {
 
   public getGridTemplateColumns(): string {
       return this.hasSimularium ? 'repeat(5, 1fr)': 'repeat(4, 1fr)';
-      //return 'repeat(4, 1fr)';
   }
 
   public openMetadata(metadata: ProjectMetadata): void {
