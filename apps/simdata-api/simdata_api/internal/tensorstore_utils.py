@@ -43,8 +43,8 @@ async def _write_ts_metadata_dataset(driver: TS_DRIVER, kvstore_driver: KV_DRIVE
     await dataset.write(data)
 
 
-async def read_ts_dataset(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_path: Path) -> tuple[
-    np.ndarray, dict[str, str | list[str]]]:
+async def read_ts_dataset(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_path: Path) \
+        -> tuple[np.ndarray, dict[str, str | list[str]]]:
     logger.info(f"read array and metadata from {driver} store {kvstore_path}")
     spec = _get_basic_spec(driver, kvstore_driver, kvstore_path)
     try:

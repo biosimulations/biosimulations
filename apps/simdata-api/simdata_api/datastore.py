@@ -28,7 +28,7 @@ async def get_dataset_data(run_id: str, dataset_name: str) -> tuple[np.ndarray, 
         data, attrs = await read_ts_dataset(driver=DRIVER, kvstore_driver=KVSTORE_DRIVER,
                                             kvstore_path=S3_DIR_PATH / S3_STORE_NAME / dataset_name)
         return data, attrs
-    except FileNotFoundError as e1:
+    except FileNotFoundError:
         logger.info(f"dataset not found {str(S3_DIR_PATH / S3_STORE_NAME / dataset_name)}, attempt upload")
         try:
             await _upload_to_store_if_needed(run_id=run_id)
@@ -54,7 +54,7 @@ async def get_hdf5_metadata(run_id: str) -> HDF5File:
         metadata_json = (await get_s3_file_contents(s3_path=str(S3_DIR_PATH / S3_METADATA_FILENAME))).decode('utf-8')
         hdf5_file: HDF5File = HDF5File.model_validate_json(metadata_json)
         return hdf5_file
-    except FileNotFoundError as e1:
+    except FileNotFoundError:
         logger.info(f"metadata file not found {str(S3_DIR_PATH / S3_METADATA_FILENAME)}, attempt upload")
         try:
             await _upload_to_store_if_needed(run_id=run_id)
@@ -67,13 +67,11 @@ async def get_hdf5_metadata(run_id: str) -> HDF5File:
             raise FileNotFoundError(f"File {S3_DIR_PATH / S3_METADATA_FILENAME} not found in S3")
 
 
-
-
 async def _upload_to_store_if_needed(run_id: str) -> None:
     settings = get_settings()
 
     S3_HDF5_FILENAME = 'reports.h5'
-    S3_METADATA_FILENAME = f"reports.h5.json"
+    S3_METADATA_FILENAME = "reports.h5.json"
     S3_STORE_NAME = f"reports.h5.{settings.storage_tensorstore_driver}"
     S3_DIR_PATH = Path("simulations") / run_id / "contents"
     LOCAL_HDF5_PATH = Path(settings.storage_local_cache_dir) / f"{run_id}_{uuid4().hex[:6]}.h5"
@@ -98,7 +96,8 @@ async def _upload_to_store_if_needed(run_id: str) -> None:
         hdf5_file: HDF5File = extract_hdf5_metadata(local_file_path=LOCAL_HDF5_PATH)
         hdf5_file.filename = S3_HDF5_FILENAME
         hdf5_file.id = run_id
-        hdf5_file.uri = f"{settings.storage_endpoint_url}/{settings.storage_bucket}/simulations/{run_id}/contents/reports.h5"
+        hdf5_file.uri = (f"{settings.storage_endpoint_url}/{settings.storage_bucket}/simulations/"
+                         f"{run_id}/contents/reports.h5")
 
         # upload reports.h5 to store in S3 using tensorstore
         await write_ts_metadata_root(driver=DRIVER, kvstore_driver=KVSTORE_DRIVER,

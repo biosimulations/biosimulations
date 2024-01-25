@@ -1,11 +1,11 @@
 from datetime import datetime
 from enum import Enum
-from typing import List, Union
+from typing import List
 
 from pydantic import BaseModel
 
-
 ATTRIBUTE_VALUE_TYPE = int | float | str | bool | list[str] | list[int] | list[float] | list[bool]
+
 
 class DatasetData(BaseModel):
     shape: List[int]
