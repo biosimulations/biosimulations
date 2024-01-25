@@ -9,7 +9,6 @@ packages = [{ include = "simdata_api" }]
 [tool.poetry.dependencies]
 python = "^3.11"
 fastapi = "^0.109.0"
-uvicorn = "^0.26.0"
 pyyaml = "^6.0.1"
 pydantic = "^2.5.3"
 h5py = "^3.10.0"
@@ -18,6 +17,7 @@ httpx = "^0.26.0"
 tensorstore = "^0.1.52"
 aiofiles = "^23.2.1"
 aiobotocore = "^2.11.0"
+uvicorn = {extras = ["standard"], version = "^0.27.0"}
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.4"

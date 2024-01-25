@@ -16,8 +16,6 @@ RUN poetry install
 
 #RUN poetry run python -m pytest
 
-EXPOSE 8000
-
 # activate poetry virtualenv
 ENV PATH="/app/.venv/bin:$PATH"
 
@@ -25,4 +23,4 @@ ENV PATH="/app/.venv/bin:$PATH"
 RUN echo "source /app/.venv/bin/activate" >> /etc/bash.bashrc
 
 # run the app
-CMD ["uvicorn", "simdata_api.main:app"]
+CMD ["uvicorn", "simdata_api.main:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "3333" ]
