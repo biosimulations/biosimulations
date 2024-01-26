@@ -1,9 +1,11 @@
+import os
 import shutil
 from pathlib import Path
 
 import numpy as np
 import pytest
 
+from simdata_api.config import get_settings
 from simdata_api.datamodels import ATTRIBUTE_VALUE_TYPE
 from simdata_api.datamodels import HDF5File
 from simdata_api.internal.hdf5_utils import extract_hdf5_metadata, extract_hdf5_dataset_array
@@ -24,6 +26,9 @@ TEST_MATRIX = [
 @pytest.mark.asyncio
 @pytest.mark.parametrize("driver,kvstore_driver", TEST_MATRIX)
 async def test_extract_hdf5_metadata(driver: TS_DRIVER, kvstore_driver: KV_DRIVER):
+    if kvstore_driver == 'gcs' and os.path.exists(get_settings().storage_gcs_credentials_file) is False:
+        pytest.skip("STORAGE_GCS_CREDENTIALS_FILE not found")
+
     store_path = Path("local_data") / f"hdf5_to_{driver}"
     hdf5_file_path = ROOT_DIR / "local_data" / "repressilator_copasi.h5"
 
@@ -67,6 +72,9 @@ async def test_extract_hdf5_metadata(driver: TS_DRIVER, kvstore_driver: KV_DRIVE
 @pytest.mark.asyncio
 @pytest.mark.parametrize("driver,kvstore_driver", TEST_MATRIX)
 async def test_simple_dataset(driver: TS_DRIVER, kvstore_driver: KV_DRIVER):
+    if kvstore_driver == 'gcs' and os.path.exists(get_settings().storage_gcs_credentials_file) is False:
+        pytest.skip("STORAGE_GCS_CREDENTIALS_FILE not found")
+
     test_file_path = Path("local_data") / f"toy_{driver}"
     if kvstore_driver == 'file':
         test_file_path = ROOT_DIR / test_file_path
