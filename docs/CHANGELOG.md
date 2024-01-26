@@ -1,5 +1,16 @@
 # Changelog
 
+## [9.55.1](https://github.com/biosimulations/biosimulations/compare/v9.55.0...v9.55.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* disable broken UpdateSitemaps step of Continuous integration ([2599e84](https://github.com/biosimulations/biosimulations/commit/2599e847380be8acca3197f1c0bef257142dba08))
+* disable updatesitemaps again ([88e305d](https://github.com/biosimulations/biosimulations/commit/88e305dfbae3eaa7f5a7142112e081cda583c05c))
+* rename simdata.api.biosim to data.biosim to reuse tls cert and path ([4afcd0e](https://github.com/biosimulations/biosimulations/commit/4afcd0e4a927db38d7ec0a0b8489170879ee5fbf))
+* restore api.biosimulations.dev/health/dataService endpoint ([7af2be4](https://github.com/biosimulations/biosimulations/commit/7af2be408e8aa509bbe705cedfc628067280a379))
+* roll back unneeded upgrade of openapi-generator npm package ([a692aeb](https://github.com/biosimulations/biosimulations/commit/a692aeba41f60c50615b24ef6e50fc960a4eff7d))
+
 ## [9.55.0](https://github.com/biosimulations/biosimulations/compare/v9.54.5...v9.55.0) (2024-01-26)
 
 
