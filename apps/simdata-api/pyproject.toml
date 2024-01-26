@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "simdata-api"
+version = "0.1.0"
+description = ""
+authors = ["Jim Schaff <schaff.jim@gmail.com>"]
+readme = "README.md"
+packages = [{ include = "simdata_api" }]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.109.0"
+pyyaml = "^6.0.1"
+pydantic = "^2.5.3"
+h5py = "^3.10.0"
+pydantic-settings = "^2.1.0"
+httpx = "^0.26.0"
+tensorstore = "^0.1.52"
+aiofiles = "^23.2.1"
+aiobotocore = "^2.11.0"
+uvicorn = {extras = ["standard"], version = "^0.27.0"}
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.4"
+pytest-asyncio = "^0.23.3"
+flake8 = "^7.0.0"
+black = "^23.12.1"
+coverage = "^7.4.0"
+mypy = "^1.8.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

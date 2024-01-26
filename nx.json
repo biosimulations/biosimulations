@@ -12,11 +12,14 @@
     ".github/workflows/nxCi.yml": "*",
     "apps/combine-api/pyproject.toml": ["combine-api"],
     "apps/combine-api/poetry.lock": ["combine-api"],
+    "apps/simdata-api/pyproject.toml": ["simdata-api"],
+    "apps/simdata-api/poetry.lock": ["simdata-api"],
     "tsconfig.base.json": "*",
     ".eslintrc.json": "*",
     "nx.json": "*",
     "Dockerfile": "*",
-    "apps/combine-api/Dockerfile": ["combine-api"]
+    "apps/combine-api/Dockerfile": ["combine-api"],
+    "apps/simdata-api/Dockerfile": ["simdata-api"]
   },
   "tasksRunnerOptions": {
     "default": {

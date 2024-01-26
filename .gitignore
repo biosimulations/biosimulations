@@ -131,3 +131,8 @@ temp*.tmp
 .angular
 biosimulations_cache.sqlite
 .local-docker/
+
+apps/simdata-api/.idea/
+/apps/simdata-api/.venv/
+
+apps/combine-api/.idea/

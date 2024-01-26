@@ -11,12 +11,12 @@ import { ResultsController } from './results.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { SimulationRunModel, SimulationRunModelSchema } from '../simulation-run/simulation-run.model';
 import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
-import { HSDSClientModule } from '@biosimulations/hsds/client';
+import { SimdataApiNestClientWrapperModule } from '@biosimulations/simdata-api/nest-client-wrapper';
 
 @Module({
   imports: [
     BiosimulationsAuthModule,
-    HSDSClientModule,
+    SimdataApiNestClientWrapperModule,
     MongooseModule.forFeature([{ name: SimulationRunModel.name, schema: SimulationRunModelSchema }]),
   ],
   providers: [ResultsService],

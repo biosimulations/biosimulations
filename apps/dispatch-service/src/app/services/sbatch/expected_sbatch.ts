@@ -181,8 +181,6 @@ else
   echo -e '\\033[0;31m========================================== [SKIP] Save contents of COMBINE/OMEX archive =========================================\\033[0m'
 fi
 
-
-
 if [[ $err -eq 0 ]]; then
   echo -e ''
   echo -e '\\033[0;36m==================================================== Updating log (2) ===============================================\\033[0m'
@@ -195,44 +193,6 @@ if [[ $err -eq 0 ]]; then
 else
   echo -e ''
   echo -e '\\033[0;31m========================================== [SKIP] Updating log (2) =========================================\\033[0m'
-fi
-
-if [[ $err -eq 0 ]]; then
-  echo -e ''
-  echo -e '\\033[0;36m=================================================== Saving results to HSDS ========================\\033[0m'
-
-  hsds_counter=0
-  max_num_tries=40
-  min_sleep_time=5
-  max_sleep_time=15
-
-  srun --job-name="Save-results-to-HSDS"     hsload       --endpoint undefined       --user undefined       --password undefined       --verbose       mockpath       '/results/239298383'
-  hsds_retcode=$?
-
-  while [ $hsds_retcode -ne 0 ]; do
-    echo "Failed to save results to HSDS"
-    hsds_counter=$((hsds_counter+1))
-    if [ $hsds_counter -eq $max_num_tries ]; then
-      echo "Failed to save results to HSDS after $max_num_tries attempts, exiting"
-      exit 1
-    fi
-
-    sleep_time=$(($min_sleep_time + (RANDOM % ($max_sleep_time - $min_sleep_time + 1))))
-    echo "Waiting $sleep_time seconds"
-    sleep $sleep_time
-
-    srun --job-name="Save-results-to-HSDS"       hsload         --endpoint undefined         --user undefined         --password undefined         --verbose         mockpath         '/results/239298383'
-      hsds_retcode=$?
-  done
-
-  if [[ $hsds_retcode -ne 0 ]]; then
-    err=$hsds_retcode
-    failed_step="Save-results-to-HSDS"
-  fi
-
-else
-  echo -e ''
-  echo -e '\\033[0;31m========================================== [SKIP] Saving results to HSDS =========================================\\033[0m'
 fi
 
 cleanup

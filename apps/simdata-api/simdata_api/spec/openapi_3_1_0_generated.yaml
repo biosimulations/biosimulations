@@ -1,0 +1,269 @@
+openapi: 3.1.0
+info:
+  title: simdata-api
+  version: 1.0.0
+paths:
+  /:
+    get:
+      summary: Root
+      operationId: root__get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /health:
+    get:
+      summary: Health
+      operationId: get-health
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusResponse'
+  /datasets/{run_id}/data:
+    get:
+      summary: Read Dataset
+      operationId: read-dataset
+      parameters:
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Run Id
+      - name: dataset_name
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Dataset Name
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatasetData'
+        '404':
+          description: Dataset not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /datasets/{run_id}/modified:
+    get:
+      summary: Modified Datetime
+      operationId: get-modified
+      parameters:
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Run Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: string
+                format: date-time
+                title: Response Get-Modified
+        '404':
+          description: Dataset not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /datasets/{run_id}/metadata:
+    get:
+      summary: Hdf5 File Metadata
+      operationId: get-metadata
+      parameters:
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Run Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HDF5File'
+        '404':
+          description: Dataset not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    DatasetData:
+      properties:
+        shape:
+          items:
+            type: integer
+          type: array
+          title: Shape
+        values:
+          items:
+            type: number
+          type: array
+          title: Values
+      type: object
+      required:
+      - shape
+      - values
+      title: DatasetData
+    HDF5Attribute:
+      properties:
+        key:
+          type: string
+          title: Key
+        value:
+          anyOf:
+          - type: integer
+          - type: number
+          - type: string
+          - type: boolean
+          - items:
+              type: string
+            type: array
+          - items:
+              type: integer
+            type: array
+          - items:
+              type: number
+            type: array
+          - items:
+              type: boolean
+            type: array
+          title: Value
+      type: object
+      required:
+      - key
+      - value
+      title: HDF5Attribute
+    HDF5Dataset:
+      properties:
+        name:
+          type: string
+          title: Name
+        shape:
+          items:
+            type: integer
+          type: array
+          title: Shape
+        attributes:
+          items:
+            $ref: '#/components/schemas/HDF5Attribute'
+          type: array
+          title: Attributes
+      type: object
+      required:
+      - name
+      - shape
+      - attributes
+      title: HDF5Dataset
+    HDF5File:
+      properties:
+        filename:
+          type: string
+          title: Filename
+        id:
+          type: string
+          title: Id
+        uri:
+          type: string
+          title: Uri
+        groups:
+          items:
+            $ref: '#/components/schemas/HDF5Group'
+          type: array
+          title: Groups
+      type: object
+      required:
+      - filename
+      - id
+      - uri
+      - groups
+      title: HDF5File
+    HDF5Group:
+      properties:
+        name:
+          type: string
+          title: Name
+        attributes:
+          items:
+            $ref: '#/components/schemas/HDF5Attribute'
+          type: array
+          title: Attributes
+        datasets:
+          items:
+            $ref: '#/components/schemas/HDF5Dataset'
+          type: array
+          title: Datasets
+      type: object
+      required:
+      - name
+      - attributes
+      - datasets
+      title: HDF5Group
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    Status:
+      type: string
+      enum:
+      - ok
+      - error
+      title: Status
+    StatusResponse:
+      properties:
+        status:
+          $ref: '#/components/schemas/Status'
+      type: object
+      required:
+      - status
+      title: StatusResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

@@ -5,7 +5,7 @@
  * @license MIT
  */
 import { SimulationStorageService } from '@biosimulations/shared/storage';
-import { SimulationHDFService } from '@biosimulations/hsds/client';
+import { SimulationHDFService } from '@biosimulations/simdata-api/nest-client-wrapper';
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ResultsService } from './results.service';

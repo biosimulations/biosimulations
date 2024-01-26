@@ -24,7 +24,7 @@ jobs:
       - name: Install Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9'
+          python-version: '3.11'
 
       - name: Install required Python packages
         run: python -m pip install -r ${GITHUB_WORKSPACE}/tools/check-example-simulation-runs-succeeded.requirements.txt

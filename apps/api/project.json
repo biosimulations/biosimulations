@@ -86,5 +86,5 @@
     }
   },
   "tags": ["scope:dispatch", "type:api", "platform:server"],
-  "implicitDependencies": ["hdf5-api-client"]
+  "implicitDependencies": ["simdata-api-nest-client"]
 }

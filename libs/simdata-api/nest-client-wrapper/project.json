@@ -1,0 +1,23 @@
+{
+  "name": "simdata-api-nest-client-wrapper",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/simdata-api/nest-client-wrapper/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/simdata-api/nest-client-wrapper/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/simdata-api/nest-client-wrapper"],
+      "options": {
+        "jestConfig": "libs/simdata-api/nest-client-wrapper/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:data", "shared:true", "platform:server", "type:client"]
+}

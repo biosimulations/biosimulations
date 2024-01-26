@@ -218,7 +218,6 @@ export class SimulationRunService {
     await this.simulationStorageService.deleteSimulationArchive(id);
     await this.filesService.deleteSimulationRunFiles(id);
     await this.specificationsService.deleteSimulationRunSpecifications(id);
-    await this.resultsService.deleteSimulationRunResults(id);
 
     try {
       await this.logsService.deleteLog(id);

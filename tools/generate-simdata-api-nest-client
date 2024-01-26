@@ -1,0 +1,85 @@
+#!/usr/bin/env bash
+
+set -e
+
+generatorCliImage=openapitools/openapi-generator-cli:v7.2.0
+
+# location of this script
+script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+parentDir="$( cd "$( dirname "${script_dir}" )" >/dev/null 2>&1 && pwd )"
+echo "script_dir: ${script_dir}"
+echo "parentDir: ${parentDir}"
+
+sim_data_dir="${parentDir}/apps/simdata-api"
+echo "sim_data_dir: ${sim_data_dir}"
+# spec location
+spec_file_3_1_0_generated=${sim_data_dir}/simdata_api/spec/openapi_3_1_0_generated.yaml
+spec_file_3_0_3_converted=${sim_data_dir}/simdata_api/spec/openapi_3_0_3_converted.yaml
+
+echo "generating openapi spec: ${spec_file_3_1_0_generated}"
+poetry run -C ${sim_data_dir} python ${sim_data_dir}/simdata_api/internal/gen_openapi_spec.py
+
+
+# FastAPI generates a 3.1.0 spec, but the openapi generator only supports 3.0.X.
+echo "downconverting openapi spec: ${spec_file_3_1_0_generated} to ${spec_file_3_0_3_converted}"
+openapi-down-convert --input "${spec_file_3_1_0_generated}" --output "${spec_file_3_0_3_converted}"
+
+# output location
+lib_dir=${script_dir}/../libs/simdata-api/nest-client
+
+rm -rf ${lib_dir}/src/lib/api/
+rm -rf ${lib_dir}/src/lib/model/
+
+echo "validating ${spec_file_3_0_3_converted}"
+docker run --rm -v ${parentDir}:/repo_root ${generatorCliImage} validate \
+    -i /repo_root/apps/simdata-api/simdata_api/spec/openapi_3_0_3_converted.yaml --recommend
+if [ $? -ne 0 ]; then
+    echo "${spec_file_3_0_3_converted} is not valid"
+    exit 1
+fi
+
+echo "generating nestjs client from ${spec_file_3_0_3_converted}"
+docker run --rm -v ${parentDir}:/repo_root ${generatorCliImage} generate \
+    -g typescript-nestjs \
+    -i /repo_root/apps/simdata-api/simdata_api/spec/openapi_3_0_3_converted.yaml \
+    -o /repo_root/libs/simdata-api/nest-client/src/lib/ \
+    -c /repo_root/tools/simdata-api-nestjs-config.yaml
+
+# repair the default.service.ts which uses run_id instead of runId in a few places
+echo "repairing default.service.ts"
+sed -i '' 's/run_id/runId/g' "${lib_dir}/src/lib/api/default.service.ts"
+
+# inject the following text into the api.module.ts file at lines 61 and 42
+#         if (!options.useClass) {
+#            throw new Error(
+#                'Invalid configuration. Must provide useClass, useExisting or useFactory',
+#            );
+#        }
+echo "injecting text into api.module.ts"
+
+sed -i '' 's/inject: \[options.useExisting || options.useClass\]/inject: \[existing_or_class\]/g'\
+ "${lib_dir}/src/lib/api.module.ts"
+
+sed -i '' '61i\
+        const existing_or_class = options.useExisting || options.useClass;\
+        if (!existing_or_class) {\
+            throw new Error(\
+                '"'"'Invalid configuration. Must provide useClass, useExisting or useFactory'"'"',\
+            );\
+        }\
+' "${lib_dir}/src/lib/api.module.ts"
+
+sed -i '' '42i\
+        if (!options.useClass) {\
+            throw new Error(\
+                '"'"'Invalid configuration. Must provide useClass, useExisting or useFactory'"'"',\
+            );\
+        }\
+' "${lib_dir}/src/lib/api.module.ts"
+
+# add 'export * from "./simdata-utils';" to index.ts
+echo "adding export for simdata-utils to index.ts"
+echo " " >> "${lib_dir}/src/lib/index.ts"
+echo "export * from './simdata-utils';" >> "${lib_dir}/src/lib/index.ts"
+
+echo "done"

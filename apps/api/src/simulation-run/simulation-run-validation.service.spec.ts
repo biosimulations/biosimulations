@@ -17,7 +17,7 @@ import { SimulationRunValidationService } from './simulation-run-validation.serv
 import { FilesService } from '../files/files.service';
 import { SpecificationsService } from '../specifications/specifications.service';
 import { ResultsService } from '../results/results.service';
-import { SimulationHDFService } from '@biosimulations/hsds/client';
+import { SimulationHDFService } from '@biosimulations/simdata-api/nest-client-wrapper';
 import { LogsService } from '../logs/logs.service';
 
 import { MetadataService } from '../metadata/metadata.service';
