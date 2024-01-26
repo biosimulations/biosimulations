@@ -401,12 +401,12 @@ tests = ["biosimulators-utils[containers]", "python-dateutil"]
 
 [[package]]
 name = "biosimulators-simularium"
-version = "0.5.21"
+version = "0.5.22"
 description = "A Python tool for converting Biosimulators spatial simulation outputs into a Simularium-compliant format."
 optional = false
 python-versions = "*"
 files = [
-    {file = "biosimulators-simularium-0.5.21.tar.gz", hash = "sha256:43b8f87698e2c4e9bda597181bb7f7a247c2148b9687532c1d029de221f87fc6"},
+    {file = "biosimulators-simularium-0.5.22.tar.gz", hash = "sha256:453f2fc712cb9066dd3c85a4a5a1df2342e15572a77d2b268fc9f90f59e83045"},
 ]
 
 [package.dependencies]
@@ -2782,20 +2782,20 @@ optional = false
 python-versions = "*"
 files = [
     {file = "libroadrunner-2.5.0-cp310-cp310-macosx_11_0_x86_64.whl", hash = "sha256:620dd118a302355d18514469e8b5e42e12453720d377b4e32915a0d6bc99e865"},
-    {file = "libroadrunner-2.5.0-cp310-cp310-macosx_12_0_universal2.whl", hash = "sha256:f444a1103deeb5c1a951449fcef7afe730467002455749d93a8c0c1657972918"},
-    {file = "libroadrunner-2.5.0-cp310-cp310-macosx_13_0_universal2.whl", hash = "sha256:41d7eed3a6ab6c791745b33410bee52d5ef869bc9aa694f7a5263dde145a8b87"},
+    {file = "libroadrunner-2.5.0-cp310-cp310-macosx_12_0_arm64.whl", hash = "sha256:f444a1103deeb5c1a951449fcef7afe730467002455749d93a8c0c1657972918"},
+    {file = "libroadrunner-2.5.0-cp310-cp310-macosx_13_0_arm64.whl", hash = "sha256:41d7eed3a6ab6c791745b33410bee52d5ef869bc9aa694f7a5263dde145a8b87"},
     {file = "libroadrunner-2.5.0-cp310-cp310-manylinux2014_x86_64.whl", hash = "sha256:a3a2dc605a328bcca26efe0ef9271bbc38801981c71dfaa1adbfa1171f98c176"},
     {file = "libroadrunner-2.5.0-cp310-cp310-win_amd64.whl", hash = "sha256:2aaf93a47c859c5bc1260bb08bf2dd7bf887da0664515145202cdff7f575bcb1"},
     {file = "libroadrunner-2.5.0-cp311-cp311-macosx_11_0_x86_64.whl", hash = "sha256:ba2f33b4dbf189821b00a20126bdd7669c2cb68b6deb1d4f06944e071653aae3"},
-    {file = "libroadrunner-2.5.0-cp311-cp311-macosx_12_0_universal2.whl", hash = "sha256:c743dca8abc728a1021e51ae40a6dd4b6cc8351d2b1be4d6439671c095d01e5d"},
-    {file = "libroadrunner-2.5.0-cp311-cp311-macosx_13_0_universal2.whl", hash = "sha256:614712a0025265b6f21518cacdea7248a199a5d3b8d45520aae21a1a108ed5ab"},
+    {file = "libroadrunner-2.5.0-cp311-cp311-macosx_12_0_arm64.whl", hash = "sha256:c743dca8abc728a1021e51ae40a6dd4b6cc8351d2b1be4d6439671c095d01e5d"},
+    {file = "libroadrunner-2.5.0-cp311-cp311-macosx_13_0_arm64.whl", hash = "sha256:614712a0025265b6f21518cacdea7248a199a5d3b8d45520aae21a1a108ed5ab"},
     {file = "libroadrunner-2.5.0-cp311-cp311-manylinux2014_x86_64.whl", hash = "sha256:0040ca84e208088686395eeb3721bcdab45bf54f355d6dd62e1f70b5fba70be9"},
     {file = "libroadrunner-2.5.0-cp311-cp311-win_amd64.whl", hash = "sha256:934f59aa6e28d61e4524b29734b5533982ec6a68b78d05d4c73bdf918a89c247"},
     {file = "libroadrunner-2.5.0-cp38-cp38-macosx_11_0_x86_64.whl", hash = "sha256:b99254c71a514504a9111a121ffbea07aa0f1b73826e29d6b6db952140b90e49"},
     {file = "libroadrunner-2.5.0-cp38-cp38-manylinux2014_x86_64.whl", hash = "sha256:a9b9ed27a4ad6d69d20d471fa83cb3af29bbd9a904fd8a980cccb31bc337b23e"},
     {file = "libroadrunner-2.5.0-cp38-cp38-win_amd64.whl", hash = "sha256:14f33df6b151288d5186265b6f6c99e1a0c9e8efb34bab10a3f734a4e218aa77"},
     {file = "libroadrunner-2.5.0-cp39-cp39-macosx_11_0_x86_64.whl", hash = "sha256:4e7495a59c7398d52f9ee6f2a2a1a701c7276b87cc273e1cc5158018bf4b064f"},
-    {file = "libroadrunner-2.5.0-cp39-cp39-macosx_12_0_universal2.whl", hash = "sha256:1ee31f897c6e6b5d5f741183e65ea6a82ce91b9b9f828b22b01e217de63f70af"},
+    {file = "libroadrunner-2.5.0-cp39-cp39-macosx_12_0_arm64.whl", hash = "sha256:1ee31f897c6e6b5d5f741183e65ea6a82ce91b9b9f828b22b01e217de63f70af"},
     {file = "libroadrunner-2.5.0-cp39-cp39-macosx_13_0_arm64.whl", hash = "sha256:fa33cd82367fdbf844c9f606547956c8c1f3243a353dd6f94f23134bd1117efa"},
     {file = "libroadrunner-2.5.0-cp39-cp39-manylinux2014_x86_64.whl", hash = "sha256:9e5eab8628d8e942010b84eb58abb7a4945a6707be7f23750476f2f81a895c27"},
     {file = "libroadrunner-2.5.0-cp39-cp39-win_amd64.whl", hash = "sha256:5196fc0b0648a1105ce6dccc44351a36d0bc51449207d0102cb6c0582b6fe9e2"},
@@ -4893,6 +4893,14 @@ files = [
     {file = "python_libnuml-1.1.6-cp311-cp311-musllinux_1_1_x86_64.whl", hash = "sha256:39de00a07596d77ef245e7735491693ed1385ec8d6fe1b9eff8cceb41c37a581"},
     {file = "python_libnuml-1.1.6-cp311-cp311-win32.whl", hash = "sha256:cf791764a89da6a178e97561a1f32112db18807077544ae9644e4ac68ca17a3f"},
     {file = "python_libnuml-1.1.6-cp311-cp311-win_amd64.whl", hash = "sha256:f74ca70a75148cc193329f8e0e68e212874aad97e58806e0fc4826009eb50e2e"},
+    {file = "python_libnuml-1.1.6-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:3586b2b30a6783e9e2c175633b4e9f8d7daff4a1e1c6193e6a6965dd2fccf4c5"},
+    {file = "python_libnuml-1.1.6-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:818dad5bb664415b1c40aa58620b66867b4f34b33077c7e926479da0ade740f3"},
+    {file = "python_libnuml-1.1.6-cp312-cp312-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:24ef9ad28f69a9570266c46dc6b472a5937d22d471404711c8b7b5d970dff749"},
+    {file = "python_libnuml-1.1.6-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:ae94e2deb1f475cb1ba05681ad60fb5811b9d082dd8f2540f01a8afa0e0c48ef"},
+    {file = "python_libnuml-1.1.6-cp312-cp312-musllinux_1_1_i686.whl", hash = "sha256:68caaf3855f045b47cb11ca63b73fae7a0445dd3257c9ba91890b10324352f1a"},
+    {file = "python_libnuml-1.1.6-cp312-cp312-musllinux_1_1_x86_64.whl", hash = "sha256:3aa8d775a9e515c4524cae7e4dd03e360a5eba25cc02f4ea43d4bb8704042ad4"},
+    {file = "python_libnuml-1.1.6-cp312-cp312-win32.whl", hash = "sha256:fb04e108b2f923f801a8bc4a2f1bda285d64e02e0cb6b35e0670c6517c621719"},
+    {file = "python_libnuml-1.1.6-cp312-cp312-win_amd64.whl", hash = "sha256:21932a6fc8d911469b4bdfc2ac8eec7779461242dc5cb3498960f3b9eac60f32"},
     {file = "python_libnuml-1.1.6-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:9c6f2b464923fb3dfe08308006cd8ade1161950df9a6bb85777ff748492f8a93"},
     {file = "python_libnuml-1.1.6-cp37-cp37m-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:eb7a38c42bc50ea05fae69fe1b20944916465cd0d9d247cc49b0729fb0d42b19"},
     {file = "python_libnuml-1.1.6-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:74d2d46229fceb7b652cc12a3ffcd9e57421464ca9f62d09b5851bb4d3e54ca9"},
@@ -6727,4 +6735,4 @@ jupyter = ["ipytree (>=0.2.2)", "ipywidgets (>=8.0.0)", "notebook"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "4c3ffd3c6c14401294aa6f45c2a49df792f47b4a3699c0099153df6a84adc5c0"
+content-hash = "38ba88e6c44da4a2544c4edd0a1bea3dd0fda4b0f7c2c73d465cb7b73cb6bb02"
