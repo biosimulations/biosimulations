@@ -154,7 +154,7 @@
     "@nx-python/nx-python": "0.1.7",
     "@nx-tools/docker-metadata": "3.0.8",
     "@nx-tools/nx-docker": "3.0.8",
-    "@openapitools/openapi-generator-cli": "2.7.0",
+    "@openapitools/openapi-generator-cli": "2.5.2",
     "@schematics/angular": "~15.2.0",
     "@scullyio/ng-lib": "2.1.41",
     "@scullyio/scully": "2.1.41",
