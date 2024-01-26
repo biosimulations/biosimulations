@@ -12,7 +12,7 @@
 python_version="$1"
 
 if [ "${python_version}" == "" ]; then
-    echo "No python version specified. Using python${python_version}"
+    echo "No python version specified."
     python_version="3.9"
 else
     echo "Using python: " "${python_version}"

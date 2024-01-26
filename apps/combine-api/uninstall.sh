@@ -3,7 +3,7 @@
 version="$1"
 
 if [ "${version}" == "" ]; then
-   echo "No python version specified. Using python ${version}"
+   echo "No python version specified."
    version="3.9"
 else
   echo "Using: ""${version}"
