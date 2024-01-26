@@ -33,7 +33,7 @@ export class FilesComponent implements OnInit {
 
   // TODO: Remove this OnInit as it is a test
   public ngOnInit() {
-    const dummySimulariumFile: Path = {
+    /* const dummySimulariumFile: Path = {
       title: 'sim.simularium',
       format: 'Simularium spec',
       size: '1KB',
@@ -51,7 +51,7 @@ export class FilesComponent implements OnInit {
       const fp = this.files[i];
       console.log(`The file: ${fp.title}, ${fp.location}`);
       this.hasSimularium = fp.title.includes('simularium');
-    }
+    } */
   }
 
   public getFile(path: Path): Path {
