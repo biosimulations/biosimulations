@@ -79,6 +79,16 @@ export class HealthController {
     return this.health.check([this.natsCheck, this.bullCheck]);
   }
 
+  @Get('/dataService')
+  @ApiOperation({
+    summary: 'Check whether the data service is operational',
+    description: 'Check whether the data service is operational',
+  })
+  @HealthCheck()
+  public dataServiceCheck(): Promise<HealthCheckResult> {
+    return this.health.check([this.simdataCheck]);
+  }
+
   private simulatorsCheck: HealthIndicatorFunction = () =>
     this.http.pingCheck('Simulators API', this.endpoints.getSimulatorApiHealthEndpoint());
 
