@@ -17,7 +17,7 @@ def test_extract_hdf5_dataset_array():
 
 def test_extract_hdf5_metadata():
     test_file_path = ROOT_DIR / "local_data" / "repressilator_copasi.h5"
-    hdf5_file: HDF5File = extract_hdf5_metadata(test_file_path)
+    hdf5_file = extract_hdf5_metadata(test_file_path)
     settings = get_settings()
 
     assert hdf5_file.filename == str(test_file_path)

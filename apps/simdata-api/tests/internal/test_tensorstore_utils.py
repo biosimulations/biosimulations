@@ -4,6 +4,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 
+from simdata_api.datamodels import ATTRIBUTE_VALUE_TYPE
 from simdata_api.datamodels import HDF5File
 from simdata_api.internal.hdf5_utils import extract_hdf5_metadata, extract_hdf5_dataset_array
 from simdata_api.internal.tensorstore_utils import write_ts_dataset, write_ts_metadata_root, TS_DRIVER, KV_DRIVER, \
@@ -71,7 +72,7 @@ async def test_simple_dataset(driver: TS_DRIVER, kvstore_driver: KV_DRIVER):
         test_file_path = ROOT_DIR / test_file_path
 
     test_array = np.random.rand(100, 200)
-    test_attributes = {"key": "value"}
+    test_attributes: dict[str, ATTRIBUTE_VALUE_TYPE] = {"key": "value"}
 
     # write test data to the local tensorstore:
     await write_ts_dataset(driver=driver, kvstore_driver=kvstore_driver, kvstore_path=test_file_path,

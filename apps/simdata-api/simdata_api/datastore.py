@@ -52,16 +52,14 @@ async def get_hdf5_metadata(run_id: str) -> HDF5File:
 
     try:
         metadata_json = (await get_s3_file_contents(s3_path=str(S3_DIR_PATH / S3_METADATA_FILENAME))).decode('utf-8')
-        hdf5_file: HDF5File = HDF5File.model_validate_json(metadata_json)
-        return hdf5_file
+        return HDF5File.model_validate_json(metadata_json)
     except FileNotFoundError:
         logger.info(f"metadata file not found {str(S3_DIR_PATH / S3_METADATA_FILENAME)}, attempt upload")
         try:
             await _upload_to_store_if_needed(run_id=run_id)
             metadata_json = (await get_s3_file_contents(s3_path=str(S3_DIR_PATH / S3_METADATA_FILENAME))).decode(
                 'utf-8')
-            hdf5_file: HDF5File = HDF5File.model_validate_json(metadata_json)
-            return hdf5_file
+            return HDF5File.model_validate_json(metadata_json)
         except FileNotFoundError as e2:
             logger.info(f"failed to retrieve metadata: {str(e2)}")
             raise FileNotFoundError(f"File {S3_DIR_PATH / S3_METADATA_FILENAME} not found in S3")

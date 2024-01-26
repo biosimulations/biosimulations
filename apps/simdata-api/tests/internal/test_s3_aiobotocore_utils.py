@@ -28,7 +28,7 @@ async def test_get_s3_modified_date():
     RUN_ID = "61fd573874bc0ce059643515"
     S3_PATH = f"simulations/{RUN_ID}/contents/reports.h5"
 
-    td: datetime = await get_s3_modified_date(s3_path=S3_PATH)
+    td = await get_s3_modified_date(s3_path=S3_PATH)
     assert type(td) is datetime
 
 
@@ -37,6 +37,6 @@ async def test_get_listing_of_s3_path():
     RUN_ID = "61fd573874bc0ce059643515"
     S3_PATH = f"simulations/{RUN_ID}/contents"
 
-    files: list[ListingItem] = await get_listing_of_s3_path(s3_path=S3_PATH)
+    files = await get_listing_of_s3_path(s3_path=S3_PATH)
     assert len(files) > 0
     assert type(files[0]) is ListingItem

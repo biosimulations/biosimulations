@@ -1,6 +1,7 @@
 import logging
 import os
 from pathlib import Path
+from typing import Any
 
 import numpy as np
 import tensorstore as ts
@@ -35,11 +36,11 @@ async def _write_ts_metadata_group(driver: TS_DRIVER, kvstore_driver: KV_DRIVER,
 async def _write_ts_metadata_dataset(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_root_path: Path,
                                      hdf5_dataset: HDF5Dataset) -> None:
     logger.info(f"write metadata and fake zeros array to {driver} store {str(kvstore_root_path / hdf5_dataset.name)}")
-    shape = tuple(hdf5_dataset.shape)
+    shape = hdf5_dataset.shape
     attrs = {attr.key: attr.value for attr in hdf5_dataset.attributes}
     ts_spec: TensorStoreSpec = _get_ts_spec(driver, kvstore_driver, kvstore_root_path / hdf5_dataset.name, shape, attrs)
     dataset: TensorStore = await ts.open(ts_spec)
-    data = np.zeros(shape=shape, dtype=float)  # should be a no-op because fill is zero
+    data = np.zeros(shape=tuple(shape), dtype=float)  # should be a no-op because fill is zero
     await dataset.write(data)
 
 
@@ -50,7 +51,7 @@ async def read_ts_dataset(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_
     try:
         dataset: TensorStore = await ts.open(spec)
         array: np.ndarray = await dataset.read(order='C')
-        spec: dict = dataset.spec().to_json()
+        spec = dataset.spec().to_json()
         # test if dictionary spec['metadata']['attributes'] exists checking also for missing 'metadata' key:
         if 'metadata' in spec and 'attributes' in spec['metadata']:
             # return array and the value of the key 'attributes':
@@ -69,7 +70,7 @@ async def read_ts_dataset(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_
 def _get_basic_spec(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_path: Path):
     settings = get_settings()
 
-    spec = {}
+    spec: dict[str, Any] = {}
     spec['driver'] = driver
     spec['kvstore'] = {}
     spec['kvstore']['driver'] = kvstore_driver
@@ -94,10 +95,10 @@ def _get_basic_spec(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_path: 
     return spec
 
 
-def _get_ts_spec(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_path: Path, shape: tuple,
-                 attrs: dict[str, ATTRIBUTE_VALUE_TYPE] = None) -> TensorStoreSpec:
+def _get_ts_spec(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_path: Path, shape: list[int],
+                 attrs: dict[str, ATTRIBUTE_VALUE_TYPE]) -> TensorStoreSpec:
     spec = _get_basic_spec(driver, kvstore_driver, kvstore_path)
-    metadata = {}
+    metadata: dict[str, ATTRIBUTE_VALUE_TYPE | dict[str, ATTRIBUTE_VALUE_TYPE]] = {}
 
     if driver == 'zarr':
         metadata['shape'] = shape
@@ -105,15 +106,13 @@ def _get_ts_spec(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_path: Pat
     elif driver == 'zarr3':
         metadata['shape'] = shape
         spec['dtype'] = 'float64'
-        if attrs:
-            metadata['attributes'] = attrs
+        metadata['attributes'] = attrs
     elif driver == 'n5':
         metadata['compression'] = {'type': 'gzip'}
         metadata['dataType'] = 'float64'
         metadata['dimensions'] = shape
         metadata['blockSize'] = shape
-        if attrs:
-            metadata['attributes'] = attrs
+        metadata['attributes'] = attrs
     else:
         raise ValueError(f'Unknown driver: {driver}')
 
@@ -126,9 +125,9 @@ def _get_ts_spec(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_path: Pat
 
 
 async def write_ts_dataset(driver: TS_DRIVER, kvstore_driver: KV_DRIVER, kvstore_path: Path, data: np.ndarray,
-                           attributes: ATTRIBUTE_VALUE_TYPE) -> None:
+                           attributes: dict[str, ATTRIBUTE_VALUE_TYPE]) -> None:
     logger.info(f"write array and metadata to {driver} store {kvstore_path}")
-    shape = data.shape
+    shape = list(data.shape)
     ts_spec: TensorStoreSpec = _get_ts_spec(driver, kvstore_driver, kvstore_path, shape, attributes)
     dataset: TensorStore = await ts.open(ts_spec)
     await dataset.write(data)
