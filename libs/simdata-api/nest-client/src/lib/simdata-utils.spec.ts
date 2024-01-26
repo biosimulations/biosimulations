@@ -3,9 +3,7 @@ import { DatasetData } from './model/dataset-data';
 import { datasetDataToNjArray, njArrayToDatasetData } from './simdata-utils';
 
 describe('test conversion between DatasetData and nj.array', () => {
-
   // add a before clause to initialize the njArray and datasetData variables and import simdata-api/nest-client nestjs module
-
 
   const njArray = nj.array([1, 2, 3, 4, 5, 6]).reshape(2, 3);
 
@@ -26,7 +24,7 @@ describe('test conversion between DatasetData and nj.array', () => {
   });
 
   it('nj.array.tolist[index] should work as expected', () => {
-    expect(njArray.tolist()[0]).toEqual([1,2,3]);
-    expect(njArray.tolist()[1]).toEqual([4,5,6]);
+    expect(njArray.tolist()[0]).toEqual([1, 2, 3]);
+    expect(njArray.tolist()[1]).toEqual([4, 5, 6]);
   });
 });

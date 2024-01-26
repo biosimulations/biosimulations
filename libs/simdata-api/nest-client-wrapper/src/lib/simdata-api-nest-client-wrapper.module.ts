@@ -13,4 +13,3 @@ import { ApiModule } from '@biosimulations/simdata-api-nest-client';
 export class SimdataApiNestClientWrapperModule {
   constructor() {}
 }
-

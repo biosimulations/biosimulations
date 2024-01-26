@@ -24,8 +24,7 @@ export class SimulationHDFService {
   public constructor(
     @Inject(SimdataApiService) private simdataApiService: SimdataApiService,
     private configService: ConfigService,
-  ) {
-  }
+  ) {}
 
   public async getDatasetValues(runId: string, datasetId: string): Promise<nj.NdArray> {
     this.logger.log(`getDatasetValues(${runId},${datasetId}):

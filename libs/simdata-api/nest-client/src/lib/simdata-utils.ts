@@ -12,7 +12,7 @@ export function datasetDataToNjArray(datasetData: DatasetData): nj.NdArray {
 export function njArrayToDatasetData(njArray: nj.NdArray): DatasetData {
   return {
     shape: njArray.shape,
-    values: njArray.flatten().tolist() as Array<number>
+    values: njArray.flatten().tolist() as Array<number>,
   };
 }
 
