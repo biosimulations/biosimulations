@@ -54,7 +54,7 @@ export class EndpointLoader {
 
         this.endpointsTemplate.combineApi = dynamicEndpoints?.combineApi || 'https://combine.api.biosimulations.dev';
 
-        this.endpointsTemplate.simdataApi = dynamicEndpoints?.simdataApi || 'https://simdata.api.biosimulations.dev';
+        this.endpointsTemplate.simdataApi = dynamicEndpoints?.simdataApi || 'https://data.biosimulations.dev';
 
         this.endpointsTemplate.simulatorsApp = dynamicEndpoints?.simulatorsApp || 'https://biosimulators.dev';
 
@@ -69,7 +69,7 @@ export class EndpointLoader {
           dynamicEndpoints?.externalCombineApi || 'https://combine.api.biosimulations.dev';
 
         this.endpointsTemplate.externalSimdataApi =
-          dynamicEndpoints?.externalSimdataApi || 'https://simdata.api.biosimulations.dev';
+          dynamicEndpoints?.externalSimdataApi || 'https://data.biosimulations.dev';
         break;
 
       case 'dev':
@@ -79,7 +79,7 @@ export class EndpointLoader {
 
         this.endpointsTemplate.combineApi = dynamicEndpoints?.combineApi || 'https://combine.api.biosimulations.dev';
 
-        this.endpointsTemplate.simdataApi = dynamicEndpoints?.simdataApi || 'https://simdata.api.biosimulations.dev';
+        this.endpointsTemplate.simdataApi = dynamicEndpoints?.simdataApi || 'https://data.biosimulations.dev';
 
         this.endpointsTemplate.simulatorsApp = dynamicEndpoints?.simulatorsApp || 'https://biosimulators.dev';
 
@@ -94,7 +94,7 @@ export class EndpointLoader {
           dynamicEndpoints?.externalCombineApi || 'https://combine.api.biosimulations.dev';
 
         this.endpointsTemplate.externalSimdataApi =
-          dynamicEndpoints?.externalSimdataApi || 'https://simdata.api.biosimulations.dev';
+          dynamicEndpoints?.externalSimdataApi || 'https://data.biosimulations.dev';
 
         break;
 
@@ -105,7 +105,7 @@ export class EndpointLoader {
 
         this.endpointsTemplate.combineApi = dynamicEndpoints?.combineApi || 'https://combine.api.biosimulations.dev';
 
-        this.endpointsTemplate.simdataApi = dynamicEndpoints?.simdataApi || 'https://simdata.api.biosimulations.dev';
+        this.endpointsTemplate.simdataApi = dynamicEndpoints?.simdataApi || 'https://data.biosimulations.dev';
 
         this.endpointsTemplate.simulatorsApp = dynamicEndpoints?.simulatorsApp || 'https://biosimulators.dev';
 
@@ -120,7 +120,7 @@ export class EndpointLoader {
           dynamicEndpoints?.externalCombineApi || 'https://combine.api.biosimulations.dev';
 
         this.endpointsTemplate.externalSimdataApi =
-          dynamicEndpoints?.externalSimdataApi || 'https://simdata.api.biosimulations.dev';
+          dynamicEndpoints?.externalSimdataApi || 'https://data.biosimulations.dev';
 
         break;
 
@@ -131,7 +131,7 @@ export class EndpointLoader {
 
         this.endpointsTemplate.combineApi = dynamicEndpoints?.combineApi || 'https://combine.api.biosimulations.org';
 
-        this.endpointsTemplate.simdataApi = dynamicEndpoints?.simdataApi || 'https://simdata.api.biosimulations.org';
+        this.endpointsTemplate.simdataApi = dynamicEndpoints?.simdataApi || 'https://data.biosimulations.org';
 
         this.endpointsTemplate.simulatorsApp = dynamicEndpoints?.simulatorsApp || 'https://biosimulators.org';
 
@@ -148,7 +148,7 @@ export class EndpointLoader {
           dynamicEndpoints?.externalCombineApi || 'https://combine.api.biosimulations.org';
 
         this.endpointsTemplate.externalSimdataApi =
-          dynamicEndpoints?.externalSimdataApi || 'https://simdata.api.biosimulations.org';
+          dynamicEndpoints?.externalSimdataApi || 'https://data.biosimulations.org';
 
         break;
     }

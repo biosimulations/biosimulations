@@ -39,12 +39,14 @@ describe('Endpoints', () => {
     expect(endpoints.getApiBaseUrl(false)).toBe('api');
     expect(endpoints.getSimulatorsApiBaseUrl(false)).toBe('simulatorsApi');
     expect(endpoints.getCombineApiBaseUrl(false)).toBe('combineApi');
+    expect(endpoints.getSimdataApiBaseUrl(false)).toBe('simdataApi');
   });
 
   it('Should return external endpoints when external flag is true', () => {
     expect(endpoints.getApiBaseUrl(true)).toBe('externalApi');
     expect(endpoints.getSimulatorsApiBaseUrl(true)).toBe('externalSimulatorsApi');
     expect(endpoints.getCombineApiBaseUrl(true)).toBe('externalCombineApi');
+    expect(endpoints.getSimdataApiBaseUrl(true)).toBe('externalSimdataApi');
   });
 
   it('Should return correct ontology url based on app', () => {
