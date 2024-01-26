@@ -1,3 +1,4 @@
+import os
 from datetime import datetime
 from json import dumps as json_dumps
 from pathlib import Path
@@ -33,6 +34,8 @@ async def test_health():
     )
 
 
+@pytest.mark.skipif(os.path.exists(get_settings().storage_gcs_credentials_file) is False,
+                    reason="STORAGE_GCS_CREDENTIALS_FILE not found")
 @pytest.mark.asyncio
 async def test_read_dataset():
     RUN_ID = "61fd573874bc0ce059643515"
@@ -47,6 +50,8 @@ async def test_read_dataset():
     assert LOCAL_PATH.exists() is False
 
 
+@pytest.mark.skipif(os.path.exists(get_settings().storage_gcs_credentials_file) is False,
+                    reason="STORAGE_GCS_CREDENTIALS_FILE not found")
 @pytest.mark.asyncio
 async def test_read_dataset_not_found():
     RUN_ID = "1234567"
@@ -57,6 +62,8 @@ async def test_read_dataset_not_found():
     assert response.json()['detail'] == "Dataset not found"
 
 
+@pytest.mark.skipif(os.path.exists(get_settings().storage_gcs_credentials_file) is False,
+                    reason="STORAGE_GCS_CREDENTIALS_FILE not found")
 @pytest.mark.asyncio
 async def test_get_modified():
     RUN_ID = "61fd573874bc0ce059643515"
@@ -71,6 +78,8 @@ async def test_get_modified():
     assert LOCAL_PATH.exists() is False
 
 
+@pytest.mark.skipif(os.path.exists(get_settings().storage_gcs_credentials_file) is False,
+                    reason="STORAGE_GCS_CREDENTIALS_FILE not found")
 @pytest.mark.asyncio
 async def test_get_modified_not_found():
     RUN_ID = "1234567"
@@ -80,6 +89,8 @@ async def test_get_modified_not_found():
     assert response.json()['detail'] == "Dataset not found"
 
 
+@pytest.mark.skipif(os.path.exists(get_settings().storage_gcs_credentials_file) is False,
+                    reason="STORAGE_GCS_CREDENTIALS_FILE not found")
 @pytest.mark.asyncio
 async def test_get_metadata():
     RUN_ID = "61fd573874bc0ce059643515"
@@ -99,6 +110,8 @@ async def test_get_metadata():
     assert LOCAL_PATH.exists() is False
 
 
+@pytest.mark.skipif(os.path.exists(get_settings().storage_gcs_credentials_file) is False,
+                    reason="STORAGE_GCS_CREDENTIALS_FILE not found")
 @pytest.mark.asyncio
 async def test_get_metadata_not_found():
     RUN_ID = "1234567"

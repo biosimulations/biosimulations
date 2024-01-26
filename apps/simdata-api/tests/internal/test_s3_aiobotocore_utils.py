@@ -4,12 +4,15 @@ from pathlib import Path
 
 import pytest
 
+from simdata_api.config import get_settings
 from simdata_api.datamodels import ListingItem
 from simdata_api.internal.s3_aiobotocore import get_s3_modified_date, download_s3_file, get_listing_of_s3_path
 
 ROOT_DIR = Path(__file__).parent.parent.parent
 
 
+@pytest.mark.skipif(len(get_settings().storage_secret) == 0,
+                    reason="S3 config STORAGE_SECRET not supplied")
 @pytest.mark.asyncio
 async def test_download_s3_file():
     RUN_ID = "61fd573874bc0ce059643515"
@@ -23,6 +26,8 @@ async def test_download_s3_file():
     os.remove(LOCAL_PATH)
 
 
+@pytest.mark.skipif(len(get_settings().storage_secret) == 0,
+                    reason="S3 config STORAGE_SECRET not supplied")
 @pytest.mark.asyncio
 async def test_get_s3_modified_date():
     RUN_ID = "61fd573874bc0ce059643515"
@@ -32,6 +37,8 @@ async def test_get_s3_modified_date():
     assert type(td) is datetime
 
 
+@pytest.mark.skipif(len(get_settings().storage_secret) == 0,
+                    reason="S3 config STORAGE_SECRET not supplied")
 @pytest.mark.asyncio
 async def test_get_listing_of_s3_path():
     RUN_ID = "61fd573874bc0ce059643515"

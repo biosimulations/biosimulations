@@ -18,6 +18,14 @@ RUN poetry install
 
 # activate poetry virtualenv
 ENV PATH="/app/.venv/bin:$PATH"
+ENV CONFIG_ENV_FILE="/app/config/config.env"
+ENV SECRET_ENV_FILE="/app/secret/secret.env"
+ENV STORAGE_GCS_CREDENTIALS_FILE="/app/secret/gcs_credentials.json"
+ENV STORAGE_LOCAL_CACHE_DIR="/app/scratch"
+
+VOLUME /app/secret
+VOLUME /app/config
+VOLUME /app/scratch
 
 # activate the poetry virtualenv each new non-interative shell
 RUN echo "source /app/.venv/bin/activate" >> /etc/bash.bashrc
