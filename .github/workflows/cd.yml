@@ -24,11 +24,11 @@ jobs:
     with:
       branch: dev
 
-  UpdateSitemaps:
-    uses: ./.github/workflows/buildSitemaps.yml
-    secrets:
-       GPG_PRIVATE_KEY: ${{secrets.GPG_PRIVATE_KEY}}
-       GH_ACCESS_TOKEN: ${{secrets.GH_ACCESS_TOKEN}}
+#  UpdateSitemaps:
+#    uses: ./.github/workflows/buildSitemaps.yml
+#    secrets:
+#       GPG_PRIVATE_KEY: ${{secrets.GPG_PRIVATE_KEY}}
+#       GH_ACCESS_TOKEN: ${{secrets.GH_ACCESS_TOKEN}}
 
   Release:
     needs: [DependencyLicense, Format, UpdateSitemaps]
