@@ -17,8 +17,8 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI(title="simdata-api", version="1.0.0")
 app.dependency_overrides = {}
-# enable cross-origin resource sharing
-origins=[
+# enable cross-origin resource sharing (CORS)
+origins = [
     'http://127.0.0.1:4200',
     'http://127.0.0.1:4201',
     'http://127.0.0.1:4202',
@@ -34,7 +34,7 @@ origins=[
     'https://biosimulations.dev',
     'https://biosimulations.org',
     'https://bio.libretexts.org',
- ]
+]
 app.add_middleware(
     middleware_class=CORSMiddleware,
     allow_origins=origins,
