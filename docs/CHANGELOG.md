@@ -1,5 +1,14 @@
 # Changelog
 
+## [9.55.2](https://github.com/biosimulations/biosimulations/compare/v9.55.1...v9.55.2) (2024-01-27)
+
+
+### Bug Fixes
+
+* add CORS support for simdata-api ([49cf965](https://github.com/biosimulations/biosimulations/commit/49cf965aba7a3677e7408b25685116881fbcf011))
+* lint error fixed ([c9926b2](https://github.com/biosimulations/biosimulations/commit/c9926b28fc607a1ca4c3027d962d01f4f9157baa))
+* use FastAPI import for CORS to guard against future FastAPI changes ([06f5de6](https://github.com/biosimulations/biosimulations/commit/06f5de682182cec26225ed300def2fc1e6f7d8f2))
+
 ## [9.55.1](https://github.com/biosimulations/biosimulations/compare/v9.55.0...v9.55.1) (2024-01-26)
 
 
