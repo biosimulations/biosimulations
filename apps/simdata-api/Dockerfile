@@ -31,4 +31,4 @@ VOLUME /app/scratch
 RUN echo "source /app/.venv/bin/activate" >> /etc/bash.bashrc
 
 # run the app
-CMD ["uvicorn", "simdata_api.main:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "3333" ]
+CMD ["uvicorn", "simdata_api.main:app", "--host", "0.0.0.0", "--port", "3333" ]
