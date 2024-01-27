@@ -3,7 +3,7 @@ from datetime import datetime
 from urllib.parse import unquote
 
 from fastapi import FastAPI, HTTPException
-from starlette.middleware.cors import CORSMiddleware
+from fastapi.middleware.cors import CORSMiddleware
 
 from simdata_api.datamodels import DatasetData, HDF5File, StatusResponse, Status
 from simdata_api.datastore import get_dataset_data, get_results_timestamp, get_hdf5_metadata as get_metadata
