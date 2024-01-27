@@ -3,6 +3,7 @@ from datetime import datetime
 from urllib.parse import unquote
 
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 
 from simdata_api.datamodels import DatasetData, HDF5File, StatusResponse, Status
 from simdata_api.datastore import get_dataset_data, get_results_timestamp, get_hdf5_metadata as get_metadata
@@ -16,6 +17,31 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI(title="simdata-api", version="1.0.0")
 app.dependency_overrides = {}
+# enable cross-origin resource sharing (CORS)
+origins = [
+    'http://127.0.0.1:4200',
+    'http://127.0.0.1:4201',
+    'http://127.0.0.1:4202',
+    'http://localhost:4200',
+    'http://localhost:4201',
+    'http://localhost:4202',
+    'https://biosimulators.org',
+    'https://www.biosimulators.org',
+    'https://biosimulators.dev',
+    'https://www.biosimulators.dev',
+    'https://run.biosimulations.dev',
+    'https://run.biosimulations.org',
+    'https://biosimulations.dev',
+    'https://biosimulations.org',
+    'https://bio.libretexts.org',
+]
+app.add_middleware(
+    middleware_class=CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.get("/")
