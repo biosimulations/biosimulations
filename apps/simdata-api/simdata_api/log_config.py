@@ -3,8 +3,11 @@ import logging
 
 def setup_logging():
     # Create a root logger
-    logger = logging.getLogger("uvicorn.access")
-    logger.setLevel(logging.INFO)
+    root_logger = logging.getLogger()
+    root_logger.setLevel(logging.INFO)
+
+    # Create a uvicorn access logger
+    uvicorn_logger = logging.getLogger("uvicorn.access")
 
     # Create a console handler
     console_handler = logging.StreamHandler()
@@ -18,5 +21,6 @@ def setup_logging():
     # Add the formatter to the console handler
     console_handler.setFormatter(formatter)
 
-    # Add the console handler to the root logger
-    logger.addHandler(console_handler)
+    # Add the console handler to the root logger and uvicorn logger
+    root_logger.addHandler(console_handler)
+    uvicorn_logger.addHandler(console_handler)
