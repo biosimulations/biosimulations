@@ -37,8 +37,24 @@ async def test_health():
 @pytest.mark.skipif(os.path.exists(get_settings().storage_gcs_credentials_file) is False,
                     reason="STORAGE_GCS_CREDENTIALS_FILE not found")
 @pytest.mark.asyncio
-async def test_read_dataset():
-    RUN_ID = "61fd573874bc0ce059643515"
+async def test_read_dataset_from_outputs_dir():
+    RUN_ID = "64863d6fb933577dfcdf172c"  # reports.h5 only in outputs dir
+    DATASET_NAME = quote("BIOMD0000000001_url.sedml/autogen_report_for_task1", safe="")
+    url = f"/datasets/{RUN_ID}/data?dataset_name={DATASET_NAME}"
+    response = client.get(url)
+    data = response.json()
+    assert response.status_code == 200
+    assert data["shape"] == [66, 1001]
+    settings = get_settings()
+    LOCAL_PATH = Path(settings.storage_local_cache_dir) / f"{RUN_ID}.h5"
+    assert LOCAL_PATH.exists() is False
+
+
+@pytest.mark.skipif(os.path.exists(get_settings().storage_gcs_credentials_file) is False,
+                    reason="STORAGE_GCS_CREDENTIALS_FILE not found")
+@pytest.mark.asyncio
+async def test_read_dataset_from_contents_dir():
+    RUN_ID = "61fd573874bc0ce059643515"  # reports.h5 only in contents dir
     DATASET_NAME = quote("simulation_1.sedml/report", safe="")
     url = f"/datasets/{RUN_ID}/data?dataset_name={DATASET_NAME}"
     response = client.get(url)
