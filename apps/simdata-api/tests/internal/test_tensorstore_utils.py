@@ -12,9 +12,7 @@ from simdata_api.internal.hdf5_utils import extract_hdf5_metadata, extract_hdf5_
 from simdata_api.internal.tensorstore_utils import write_ts_dataset, write_ts_metadata_root, TS_DRIVER, KV_DRIVER, \
     read_ts_dataset
 
-RUN_ID = "61fd573874bc0ce059643515"
 DATASET_NAME = "/simulation_1.sedml/report"
-S3_PATH = f"simulations/{RUN_ID}/contents/reports.h5"
 ROOT_DIR = Path(__file__).parent.parent.parent
 TEST_MATRIX = [
     ('n5', 'file'), ('n5', 'gcs'),  # ('n5', 's3'),
