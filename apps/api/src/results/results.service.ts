@@ -179,7 +179,7 @@ export class ResultsService {
           for (let i = 0; i < shape[0]; i++) {
             const row: SimulationRunOutputDatumElement[] = [];
             for (let j = 0; j < shape[1]; j++) {
-              row.push(response.get(i,j));
+              row.push(response.get(i, j));
             }
             array.push(row);
           }
