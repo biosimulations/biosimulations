@@ -169,19 +169,17 @@ export class ResultsService {
     // The index field will be needed when we are doing slicing of the data so this will need to change
     try {
       const response: NdArray = await this.results.getDatasetValues(runId, datasetId);
-      if (response && 'values' in response) {
+      if (response) {
         if (response.shape.length != 2) {
           throw Error(`The shape of the dataset '${outputUri}' is not 2d`);
         } else {
           // rewrite the following using numjs
           const shape = response.shape;
           const array: SimulationRunOutputDatumElement[][] = [];
-          let index = 0;
           for (let i = 0; i < shape[0]; i++) {
             const row: SimulationRunOutputDatumElement[] = [];
             for (let j = 0; j < shape[1]; j++) {
-              row.push(response.tolist()[index]);
-              index++;
+              row.push(response.get(i,j));
             }
             array.push(row);
           }
