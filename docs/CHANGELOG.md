@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.55.4](https://github.com/biosimulations/biosimulations/compare/v9.55.3...v9.55.4) (2024-01-29)
+
+
+### Bug Fixes
+
+* correct usage of NdArray in results.service ([f2e8b22](https://github.com/biosimulations/biosimulations/commit/f2e8b2285442daa066ef1c2ef1400bbf35527f56))
+
 ## [9.55.3](https://github.com/biosimulations/biosimulations/compare/v9.55.2...v9.55.3) (2024-01-29)
 
 
