@@ -1,5 +1,14 @@
 # Changelog
 
+## [9.55.3](https://github.com/biosimulations/biosimulations/compare/v9.55.2...v9.55.3) (2024-01-29)
+
+
+### Bug Fixes
+
+* restore path simdata.api.biosimulations.dev ([77eb69f](https://github.com/biosimulations/biosimulations/commit/77eb69f4dcf83738b76c984c27c9fcffacd3a107))
+* root logger configuration fixed ([c3decc1](https://github.com/biosimulations/biosimulations/commit/c3decc164574509c10adc6e93e61a6d123b46de1))
+* support both outputs and contents dirs for reports.h5 ([b61b308](https://github.com/biosimulations/biosimulations/commit/b61b308c4d03b6e2b6b67d223e95ba1f2429ee82))
+
 ## [9.55.2](https://github.com/biosimulations/biosimulations/compare/v9.55.1...v9.55.2) (2024-01-27)
 
 
