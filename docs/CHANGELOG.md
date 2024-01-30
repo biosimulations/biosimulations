@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.55.5](https://github.com/biosimulations/biosimulations/compare/v9.55.4...v9.55.5) (2024-01-30)
+
+
+### Bug Fixes
+
+* use async DynamicModule with config to initialize simdata-api path ([2631de5](https://github.com/biosimulations/biosimulations/commit/2631de5b4eed5b4a1a7c5bf2d20912849671cf1d))
+
 ## [9.55.4](https://github.com/biosimulations/biosimulations/compare/v9.55.3...v9.55.4) (2024-01-29)
 
 
