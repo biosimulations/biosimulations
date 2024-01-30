@@ -35,7 +35,7 @@ export interface SimdataAPIConnectionAsyncOptions {
           basePath: simdataBaseUrl,
         });
       },
-    })
+    }),
   ],
   controllers: [],
   providers: [SimulationHDFService],
