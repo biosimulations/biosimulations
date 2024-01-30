@@ -5,7 +5,7 @@ import { ProjectModel } from './project.model';
 import { ProjectsService } from './projects.service';
 import { FilesService } from '../files/files.service';
 import { SpecificationsService } from '../specifications/specifications.service';
-import { SimulationHDFService } from '@biosimulations/hsds/client';
+import { SimulationHDFService } from '@biosimulations/simdata-api/nest-client-wrapper';
 import { FileModel } from '../files/files.model';
 import { SpecificationsModel } from '../specifications/specifications.model';
 import { SimulationRunLog } from '../logs/logs.model';

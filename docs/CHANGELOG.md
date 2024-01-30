@@ -1,5 +1,103 @@
 # Changelog
 
+## [9.55.5](https://github.com/biosimulations/biosimulations/compare/v9.55.4...v9.55.5) (2024-01-30)
+
+
+### Bug Fixes
+
+* use async DynamicModule with config to initialize simdata-api path ([2631de5](https://github.com/biosimulations/biosimulations/commit/2631de5b4eed5b4a1a7c5bf2d20912849671cf1d))
+
+## [9.55.4](https://github.com/biosimulations/biosimulations/compare/v9.55.3...v9.55.4) (2024-01-29)
+
+
+### Bug Fixes
+
+* correct usage of NdArray in results.service ([f2e8b22](https://github.com/biosimulations/biosimulations/commit/f2e8b2285442daa066ef1c2ef1400bbf35527f56))
+
+## [9.55.3](https://github.com/biosimulations/biosimulations/compare/v9.55.2...v9.55.3) (2024-01-29)
+
+
+### Bug Fixes
+
+* restore path simdata.api.biosimulations.dev ([77eb69f](https://github.com/biosimulations/biosimulations/commit/77eb69f4dcf83738b76c984c27c9fcffacd3a107))
+* root logger configuration fixed ([c3decc1](https://github.com/biosimulations/biosimulations/commit/c3decc164574509c10adc6e93e61a6d123b46de1))
+* support both outputs and contents dirs for reports.h5 ([b61b308](https://github.com/biosimulations/biosimulations/commit/b61b308c4d03b6e2b6b67d223e95ba1f2429ee82))
+
+## [9.55.2](https://github.com/biosimulations/biosimulations/compare/v9.55.1...v9.55.2) (2024-01-27)
+
+
+### Bug Fixes
+
+* add CORS support for simdata-api ([49cf965](https://github.com/biosimulations/biosimulations/commit/49cf965aba7a3677e7408b25685116881fbcf011))
+* lint error fixed ([c9926b2](https://github.com/biosimulations/biosimulations/commit/c9926b28fc607a1ca4c3027d962d01f4f9157baa))
+* use FastAPI import for CORS to guard against future FastAPI changes ([06f5de6](https://github.com/biosimulations/biosimulations/commit/06f5de682182cec26225ed300def2fc1e6f7d8f2))
+
+## [9.55.1](https://github.com/biosimulations/biosimulations/compare/v9.55.0...v9.55.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* disable broken UpdateSitemaps step of Continuous integration ([2599e84](https://github.com/biosimulations/biosimulations/commit/2599e847380be8acca3197f1c0bef257142dba08))
+* disable updatesitemaps again ([88e305d](https://github.com/biosimulations/biosimulations/commit/88e305dfbae3eaa7f5a7142112e081cda583c05c))
+* rename simdata.api.biosim to data.biosim to reuse tls cert and path ([4afcd0e](https://github.com/biosimulations/biosimulations/commit/4afcd0e4a927db38d7ec0a0b8489170879ee5fbf))
+* restore api.biosimulations.dev/health/dataService endpoint ([7af2be4](https://github.com/biosimulations/biosimulations/commit/7af2be408e8aa509bbe705cedfc628067280a379))
+* roll back unneeded upgrade of openapi-generator npm package ([a692aeb](https://github.com/biosimulations/biosimulations/commit/a692aeba41f60c50615b24ef6e50fc960a4eff7d))
+
+## [9.55.0](https://github.com/biosimulations/biosimulations/compare/v9.54.5...v9.55.0) (2024-01-26)
+
+
+### Bug Fixes
+
+* accommodate missing attributes in hdf5 ([7036859](https://github.com/biosimulations/biosimulations/commit/70368596613f6c778c44e944c0c8e03cfdd24bc4))
+* add hdf5 file metadata endpoint to simdata-api ([f37d8ed](https://github.com/biosimulations/biosimulations/commit/f37d8ed5c3fd4fa477a38ae0a2ed527dff05529a))
+* add health endpoint to simdata-api ([e53ad36](https://github.com/biosimulations/biosimulations/commit/e53ad368d8b62545f4b88e5f1cfa70fec4f9c5a3))
+* added HDF5 visitor to extract metadata and added uri and id ([477710e](https://github.com/biosimulations/biosimulations/commit/477710e2d7f87474398b5cc7bac5027d63d9c278))
+* added helpful S3 functions to upload/download/list files ([2fd4afd](https://github.com/biosimulations/biosimulations/commit/2fd4afd433f8855e0269ab89c2513573dbf56d86))
+* added mypy and coverage dependencies for dev tooling ([414aa87](https://github.com/biosimulations/biosimulations/commit/414aa875ec2d454dd676f2fda713372ad030a0e3))
+* added uri and id to HDF5File dataclass ([d937ef9](https://github.com/biosimulations/biosimulations/commit/d937ef90acd56e6fed976c38ab839cfcf8b2f2e2))
+* allow in-place testing of simdata-api Docker container ([f0df1d1](https://github.com/biosimulations/biosimulations/commit/f0df1d1a4d3db873246275cf5cffff9b97e90c10))
+* async simdata-api endpoints via aiofiles and aiobotocore ([07a2e15](https://github.com/biosimulations/biosimulations/commit/07a2e15df89b1f97bb7a5ffc42c0ce66cf859cd2))
+* build option for simdata-api ([a055a97](https://github.com/biosimulations/biosimulations/commit/a055a9733230fcf4a7d4dd6d3c95d77d6ef2271e))
+* cleaned up hdf5_utils to only work with local files ([0a86f20](https://github.com/biosimulations/biosimulations/commit/0a86f201dbec6c3cd6c1b468e22102573f7153e2))
+* decouple HSDS/HDF5 lib, remove HSDS upload, format simdata-api ([435953d](https://github.com/biosimulations/biosimulations/commit/435953d2147cef4981d79edfde81bf8dfef29179))
+* Docker env vars and skip tests if no credentials ([68c6408](https://github.com/biosimulations/biosimulations/commit/68c64080448ffec01ab8805008a90e0d7f957f46))
+* done with first pass at results.service migration ([21ea164](https://github.com/biosimulations/biosimulations/commit/21ea16421959ec1bc1a7559f8980268135373aeb))
+* fixed hdf5 attribute lookup logic ([7b95e07](https://github.com/biosimulations/biosimulations/commit/7b95e079cb50fbf52b1684674fb5be2b57cc2d9d))
+* fixed mypy typing errors ([26819bd](https://github.com/biosimulations/biosimulations/commit/26819bd1e87025b78952f5211dc7b0bb61a38cc0))
+* fixed naming in /libs/simdata-api/nest-client-wrapper ([30c1817](https://github.com/biosimulations/biosimulations/commit/30c18170739981517c3dd212af4bb794719fe81b))
+* generated client has a mispelled variable ([d3f31b1](https://github.com/biosimulations/biosimulations/commit/d3f31b175fe5a93bf56b73e851b8db8c5f256e8a))
+* handle NotFound as 404, fast optimistic retrieval, better logging ([c274966](https://github.com/biosimulations/biosimulations/commit/c27496644e625e259e24ffcde3800364ae4b2ed7))
+* improve uvicorn invocation in Docker ([e0ab507](https://github.com/biosimulations/biosimulations/commit/e0ab50780d5f018f237f042abf4e067ddb0ff922))
+* integrate dataset and modified-date simdata-api endpoints ([de5c8fe](https://github.com/biosimulations/biosimulations/commit/de5c8fe333e9cecdea3f477b2a70bcd612bc67e1))
+* introduce logging into simdata-api ([4d8f404](https://github.com/biosimulations/biosimulations/commit/4d8f404e04a266b9d3a4a5b0b0b73f7dfa634a2b))
+* lazy ETL from S3 hdf5 to S3 zarr/n5 for array or metadata requests ([1807354](https://github.com/biosimulations/biosimulations/commit/18073543c9d0f736d31576e4658c8236320c7734))
+* more minor linting errors ([62f421b](https://github.com/biosimulations/biosimulations/commit/62f421bfcfa238619e9f3e2bd614a1d4dd6e7853))
+* move /libs/hsds/client to /libs/simdata-api/nest-client-wrapper ([e7a01dc](https://github.com/biosimulations/biosimulations/commit/e7a01dc5296daa531322de4146c8f23ac142c932))
+* read/write zarr2/zarr3/n5 to gcs (Google S3) and local files ([380647a](https://github.com/biosimulations/biosimulations/commit/380647ae208b6b9e5ece8ed1a77233af7222e1ff))
+* read/write/test in N5, Zarr2, Zarr3 using TensorStore locally ([8c22e26](https://github.com/biosimulations/biosimulations/commit/8c22e26553bc16ce60a9bdf4958e83b598dd922c))
+* remove all remaining references to HSDS in repo ([ab7a0b4](https://github.com/biosimulations/biosimulations/commit/ab7a0b41e4174a5e1178c88761925e9c09c93b3e))
+* removed optional null values from hdf5 metadata dataclasses ([ba364a0](https://github.com/biosimulations/biosimulations/commit/ba364a053e5e3bedc8d08326a18c45c878598699))
+* removed unused /libs/simdata-api/nest-client-wrapper (will replace) ([2190085](https://github.com/biosimulations/biosimulations/commit/21900854eabe92cf1c5b28e652dcaecab9c9f790))
+* rename dataset api endpoint to /dataset/{run_id}/data ([322ac1e](https://github.com/biosimulations/biosimulations/commit/322ac1eb11373a5afd6c5147b6c8257d12f45b18))
+* replaced HSDS getDatasets() ([5b68363](https://github.com/biosimulations/biosimulations/commit/5b68363f512ea1e4466b31c7ff02f73988908997))
+* return dataset as numjs ndarray, add get_modified endpoint ([8c5a078](https://github.com/biosimulations/biosimulations/commit/8c5a078c4648e722617c4a7faad2db6229195696))
+* simdata-api docker build and lint errors ([bc5eb7e](https://github.com/biosimulations/biosimulations/commit/bc5eb7e3cd0def951c73b0ff8460f24e02a9541c))
+* simdata-api downloads h5 files from s3 and extracts datasets ([674e021](https://github.com/biosimulations/biosimulations/commit/674e0217aafeeaae42d132c1bc52e38472ac9732))
+* simdata-api generated api client syntax error ([2212e93](https://github.com/biosimulations/biosimulations/commit/2212e939bf090e2f1e0cb12bda21d803edba7b0a))
+* style lint errors and formatting in simdata-api ([5001f89](https://github.com/biosimulations/biosimulations/commit/5001f89a0924a56d9290a5ee21b624fee54da9bb))
+* TensorStore s3 KvStore, use gcs which needs Google credentials ([3126cfa](https://github.com/biosimulations/biosimulations/commit/3126cfacd2d84b8ecbde45c395b4fdd3f7d6731c))
+* update the actual slurm script to not upload to HSDS ([7ce4aa1](https://github.com/biosimulations/biosimulations/commit/7ce4aa12797f337018ec8f86cae49a8add459dec))
+* upgrade python to 3.11 ([7ce43fe](https://github.com/biosimulations/biosimulations/commit/7ce43fed92473dbf0fe4ac642b741074c4dff997))
+* upgraded openapi-generator and forced spec to 3.0.3 to get types ([2c42ac0](https://github.com/biosimulations/biosimulations/commit/2c42ac03c17c04d03f869d834a98a6df60944161))
+* use openapi-down-convert to properly produce OAS v3.0.3 spec ([4f01f42](https://github.com/biosimulations/biosimulations/commit/4f01f4284a74f9a5da825c3c4cd21fb791f1873f))
+* validation of openapi specs failed with wrong filename ([9ced0d3](https://github.com/biosimulations/biosimulations/commit/9ced0d32c1d43f2ccf279299366a4f42d29a885d))
+
+
+### Features
+
+* add SimDataService as Typescript/NestJS API client for simdata-api ([c081d30](https://github.com/biosimulations/biosimulations/commit/c081d3072695b11c68296385f501471e922068ee))
+* introduce simdata-api service to replace HSDS ([7488f9c](https://github.com/biosimulations/biosimulations/commit/7488f9c87a34e36e5de5ecc59b65f052f1607cdb))
+
 ## [9.54.5](https://github.com/biosimulations/biosimulations/compare/v9.54.4...v9.54.5) (2024-01-10)
 
 

@@ -49,13 +49,13 @@ export class HealthController {
   public checkStatus(): Promise<HealthCheckResult> {
     return this.health.check([
       this.combineCheck,
+      this.simdataCheck,
       this.mongoCheck,
       this.natsCheck,
       this.bullCheck,
       this.s3Check,
       this.simulatorsCheck,
       this.hpcCheck,
-      this.hsdsCheck,
     ]);
   }
 
@@ -86,7 +86,7 @@ export class HealthController {
   })
   @HealthCheck()
   public dataServiceCheck(): Promise<HealthCheckResult> {
-    return this.health.check([this.hsdsCheck]);
+    return this.health.check([this.simdataCheck]);
   }
 
   private simulatorsCheck: HealthIndicatorFunction = () =>
@@ -94,6 +94,8 @@ export class HealthController {
 
   private combineCheck: HealthIndicatorFunction = () =>
     this.http.pingCheck('combine-api', this.endpoints.getCombineHealthEndpoint());
+  private simdataCheck: HealthIndicatorFunction = () =>
+    this.http.pingCheck('simdata-api', this.endpoints.getSimdataHealthEndpoint());
   private mongoCheck: HealthIndicatorFunction = () => this.db.pingCheck('Database');
 
   private natsCheck: HealthIndicatorFunction = () =>
@@ -120,7 +122,4 @@ export class HealthController {
         port: this.config.get('hpc.ssh.port'),
       },
     });
-
-  private hsdsCheck: HealthIndicatorFunction = () =>
-    this.http.pingCheck('Data Service', this.endpoints.getDataServiceHealthEndpoint());
 }

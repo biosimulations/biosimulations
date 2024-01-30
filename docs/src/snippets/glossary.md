@@ -10,7 +10,6 @@
 *[FBA]: Flux Balance Analysis: Framework for modeling the optimal steady-state flux distribution of a system.
 *[HDF5]: Hierarchical Data Format version 5: Format for capturing the results of simulations.
 *[HPC]: High-performance computing: Computational infrastructure for executing simulations.
-*[HSDS]: Highly Scalable Data Service: Database for storing the results of simulations.
 *[GINML]: GINsim Markup Language: Format used by the GINsim simulation tool to describe logical models.
 *[iPython]: Interactive shell for Python.
 *[JSON]: JavaScript Object Notation: Format for inputs and outputs to the BioSimulations and BioSimulators APIs.

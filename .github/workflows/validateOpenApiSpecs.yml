@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - "apps/combine-api/combine_api/spec/spec.yml"
+      - "apps/simdata-api/simdata_api/spec/openapi_3_0_3_converted.yaml"
       # - "apps/api/**"
       # - "apps/account-api/**"
       # - "apps/simulators-api/**"
@@ -31,6 +32,7 @@ jobs:
           - https://api.biosimulations.dev/openapi.json
           - https://api.biosimulators.dev/openapi.json
           - apps/combine-api/combine_api/spec/spec.yml
+          - apps/simdata-api/simdata_api/spec/openapi_3_0_3_converted.yaml
 
     steps:
       - name: Checkout repository

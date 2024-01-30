@@ -1,7 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Endpoints } from '@biosimulations/config/common';
 import { FilePaths, OutputFileName } from '@biosimulations/shared/storage';
-import { DataPaths } from '@biosimulations/hsds/client';
 import { ConfigService } from '@nestjs/config';
 import { generateImageUpdateSbatch } from '@biosimulations/hpc/singularityBuilder';
 import { EnvironmentVariable, Purpose, ConsoleFormatting } from '@biosimulations/datamodel/common';
@@ -10,12 +9,10 @@ import { EnvironmentVariable, Purpose, ConsoleFormatting } from '@biosimulations
 export class SbatchService {
   private endpoints: Endpoints;
 
-  private dataPaths: DataPaths;
   private logger = new Logger(SbatchService.name);
   public constructor(private configService: ConfigService, private filePaths: FilePaths) {
     const env = this.configService.get('server.env');
     this.endpoints = new Endpoints(env);
-    this.dataPaths = new DataPaths();
   }
 
   /** Generate a Slurm script to execute a COMBINE/OMEX archive
@@ -60,11 +57,6 @@ export class SbatchService {
     const storageEndpoint = this.configService.get('storage.endpoint');
     const storageKey = this.configService.get('storage.accessKey');
     const storageSecret = this.configService.get('storage.secret');
-
-    const hsdsBasePath = this.configService.get('data.externalBasePath');
-    const hsdsUsername = this.configService.get('data.username');
-    const hsdsPassword = this.configService.get('data.password');
-    const hsdsRetries = 10;
 
     const simulatorImage = `docker://ghcr.io/biosimulators/${simulator}:${simulatorVersion}`;
 
@@ -128,7 +120,6 @@ export class SbatchService {
     // Need to get external endpoint so that HPC can download the archive
     const runCombineArchiveUrl = this.endpoints.getSimulationRunDownloadEndpoint(true, runId);
     const simulationRunS3Path = this.filePaths.getSimulationRunPath(runId);
-    const simulationRunResultsHsdsPath = this.dataPaths.getSimulationRunResultsPath(runId);
 
     const outputsS3Subpath = this.filePaths.getSimulationRunOutputsPath(runId, false);
 
@@ -401,8 +392,6 @@ else
   echo -e '${red}========================================== [SKIP] Save contents of COMBINE/OMEX archive =========================================${nc}'
 fi
 
-
-
 if [[ $err -eq 0 ]]; then
   echo -e ''
   echo -e '${cyan}==================================================== Updating log (2) ===============================================${nc}'
@@ -423,58 +412,6 @@ if [[ $err -eq 0 ]]; then
 else
   echo -e ''
   echo -e '${red}========================================== [SKIP] Updating log (2) =========================================${nc}'
-fi
-
-if [[ $err -eq 0 ]]; then
-  echo -e ''
-  echo -e '${cyan}=================================================== Saving results to HSDS ========================${nc}'
-
-  hsds_counter=0
-  max_num_tries=40
-  min_sleep_time=5
-  max_sleep_time=15
-
-  srun --job-name="Save-results-to-HSDS" \
-    hsload \
-      --endpoint ${hsdsBasePath} \
-      --user ${hsdsUsername} \
-      --password ${hsdsPassword} \
-      --verbose \
-      ${outputsReportsFileSubPath} \
-      '${simulationRunResultsHsdsPath}'
-  hsds_retcode=$?
-
-  while [ $hsds_retcode -ne 0 ]; do
-    echo "Failed to save results to HSDS"
-    hsds_counter=$((hsds_counter+1))
-    if [ $hsds_counter -eq $max_num_tries ]; then
-      echo "Failed to save results to HSDS after $max_num_tries attempts, exiting"
-      exit 1
-    fi
-
-    sleep_time=$(($min_sleep_time + (RANDOM % ($max_sleep_time - $min_sleep_time + 1))))
-    echo "Waiting $sleep_time seconds"
-    sleep $sleep_time
-
-    srun --job-name="Save-results-to-HSDS" \
-      hsload \
-        --endpoint ${hsdsBasePath} \
-        --user ${hsdsUsername} \
-        --password ${hsdsPassword} \
-        --verbose \
-        ${outputsReportsFileSubPath} \
-        '${simulationRunResultsHsdsPath}'
-      hsds_retcode=$?
-  done
-
-  if [[ $hsds_retcode -ne 0 ]]; then
-    err=$hsds_retcode
-    failed_step="Save-results-to-HSDS"
-  fi
-
-else
-  echo -e ''
-  echo -e '${red}========================================== [SKIP] Saving results to HSDS =========================================${nc}'
 fi
 
 cleanup

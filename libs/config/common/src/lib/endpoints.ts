@@ -14,14 +14,14 @@ export class Endpoints {
   private api: string;
   private simulatorsApi: string;
   private combineApi: string;
-  private dataService: string;
+  private simdataApi: string;
 
   /* Backend public/external services (i.e. Use endpoints that can be accessed via public URL. */
   /* For example, https://api will work to access the API within kubernetes, but not for the end-user */
   private externalApi: string;
   private externalSimulatorsApi: string;
   private externalCombineApi: string;
-  private externalDataService: string;
+  private externalSimdataApi: string;
 
   public constructor(env?: envs) {
     /* We can read the env that is provided in the shared environment file as the default */
@@ -35,11 +35,11 @@ export class Endpoints {
     this.api = loadedEndpoints.api;
     this.simulatorsApi = loadedEndpoints.simulatorsApi;
     this.combineApi = loadedEndpoints.combineApi;
-    this.dataService = loadedEndpoints.dataService;
+    this.simdataApi = loadedEndpoints.simdataApi;
     this.externalApi = loadedEndpoints.externalApi;
     this.externalSimulatorsApi = loadedEndpoints.externalSimulatorsApi;
     this.externalCombineApi = loadedEndpoints.externalCombineApi;
-    this.externalDataService = loadedEndpoints.externalDataService;
+    this.externalSimdataApi = loadedEndpoints.externalSimdataApi;
   }
   /* Statistics */
   public getProjectStatisticsEndpoint(): string {
@@ -59,12 +59,8 @@ export class Endpoints {
     return `${this.getCombineApiBaseUrl(true)}/health`;
   }
 
-  /**
-   * Get URL for health check for data service
-   * @returns The URL of the health check
-   **/
-  public getDataServiceHealthEndpoint(): string {
-    return `${this.getDataServiceBaseUrl(true)}/info`;
+  public getSimdataHealthEndpoint(): string {
+    return `${this.getSimdataApiBaseUrl(true)}/health`;
   }
 
   // ONTOLOGIES
@@ -439,12 +435,13 @@ export class Endpoints {
   public getSimulatorsApiBaseUrl(external: boolean): string {
     return external ? this.externalSimulatorsApi : this.simulatorsApi;
   }
-  public getDataServiceBaseUrl(external: boolean): string {
-    return external ? this.externalDataService : this.dataService;
-  }
 
   public getCombineApiBaseUrl(external: boolean): string {
     return external ? this.externalCombineApi : this.combineApi;
+  }
+
+  public getSimdataApiBaseUrl(external: boolean): string {
+    return external ? this.externalSimdataApi : this.simdataApi;
   }
 
   private getOntologiesEndpointBaseUrl(app: string, external: boolean): string {
