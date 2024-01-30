@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Path, ProjectMetadata } from '@biosimulations/datamodel-simulation-runs';
 import { MatDialog } from '@angular/material/dialog';
 import { MetadataDialogComponent } from '../metadata-dialog/metadata-dialog.component';
@@ -8,7 +8,7 @@ import { MetadataDialogComponent } from '../metadata-dialog/metadata-dialog.comp
   templateUrl: './files.component.html',
   styleUrls: ['./files.component.scss'],
 })
-export class FilesComponent implements OnInit {
+export class FilesComponent {
   @Input()
   public files!: Path[];
 
@@ -29,29 +29,6 @@ export class FilesComponent implements OnInit {
 
   public constructor(private dialog: MatDialog) {
     /* Constructor is empty */
-  }
-
-  // TODO: Remove this OnInit as it is a test
-  public ngOnInit() {
-    /* const dummySimulariumFile: Path = {
-      title: 'sim.simularium',
-      format: 'Simularium spec',
-      size: '1KB',
-      level: 0,
-      _type: 'File',
-      location: 'simulation.simularium',
-      basename: 'Min1.txt',
-      formatUrl: 'https://github.com/simularium/simulariumio',
-      icon: "file",
-      master: false,
-      url: 'https://github.com/ssandrews/Smoldyn/blob/master/examples/S99_more/Min/Min1.txt'
-    }
-    this.files.push(dummySimulariumFile);
-    for (let i = 0; i < this.files.length; i++) {
-      const fp = this.files[i];
-      console.log(`The file: ${fp.title}, ${fp.location}`);
-      this.hasSimularium = fp.title.includes('simularium');
-    } */
   }
 
   public getFile(path: Path): Path {
