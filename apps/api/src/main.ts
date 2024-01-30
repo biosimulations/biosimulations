@@ -52,6 +52,9 @@ async function bootstrap(): Promise<void> {
       'http://idl.cs.washington.edu', // Lyra Vega visual editor
     ];
     const allow = allowedOrigins.includes(requestOrigin);
+    if (!allow) {
+      logger.error('Origin not allowed: ' + requestOrigin);
+    }
     const error = null;
     callback(error, allow);
   };
