@@ -335,7 +335,7 @@ RUN poetry run python -m compileall /app/combine_api/ \
     || exit 0
 
 # in place testing - must provide env vars for S3 testing
-RUN poetry run python -m pytest tests
+RUN poetry run python3 -m pytest tests
 
 EXPOSE 3333
 CMD /bin/bash /xvfb-startup.sh \
