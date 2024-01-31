@@ -7,8 +7,6 @@ from biosimulators_utils.sedml.data_model import Report, Plot2D, Plot3D
 from biosimulators_utils.sedml.exec import get_report_for_plot2d, get_report_for_plot3d
 from biosimulators_utils.sedml.io import SedmlSimulationReader
 from biosimulators_utils.viz.data_model import VizFormat
-from biosimulators_simularium import execute as exec_biosimularium
-import json
 from unittest import mock
 import connexion
 import flask
@@ -157,22 +155,6 @@ def handler(body, archiveFile=None):
                                           timeout=TIMEOUT,
                                           config=config)
 
-        archive_has_smoldyn = 'smoldyn' in simulator_id.lower()
-
-        # check for Smoldyn and generate simularium file
-        if archive_has_smoldyn:
-            # create temp working dir for simularium and unpack archive
-            working_dir = get_temp_dir()
-            with zipfile.ZipFile(archive_filename, 'r') as zip_file:
-                zip_file.extractall(working_dir)
-
-            # generate a simularium file from this saved into out_dir
-            exec_biosimularium(
-                working_dir=working_dir,
-                output_dir=out_dir,
-                use_json=True
-            )
-
     # transform the results
     if return_type == 'json':
         archive_dirname = get_temp_dir()
@@ -222,22 +204,6 @@ def handler(body, archiveFile=None):
                     'name': output.name,
                     'type': type,
                     'data': data,
-                })
-
-        # read in the simularium file if smoldyn and save as an output:
-        if archive_has_smoldyn:
-            with open(os.path.join(out_dir, 'simulation.simularium'), 'r') as fp:
-                data = json.load(fp)
-                type = 'Simularium'
-                name = 'simulation.simularium'
-                outputId = fp
-
-                outputs.append({
-                    '_type': 'SimulariumOutput',
-                    'outputId': outputId,
-                    'name': name,
-                    'type': type,
-                    'data': data
                 })
 
         # return
