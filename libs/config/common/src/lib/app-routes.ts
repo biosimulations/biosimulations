@@ -43,7 +43,8 @@ export class AppRoutes {
 
   public getSimulationRunsView(id?: string): string {
     id ? (id = `/${id}`) : (id = '');
-    return `${this.platformApp}/runs${id}`;
+    //return `${this.platformApp}/runs${id}`;
+    return `${this.dispatchApp}/runs${id}`;
   }
 
   public getProjectsView(id?: string): string {
