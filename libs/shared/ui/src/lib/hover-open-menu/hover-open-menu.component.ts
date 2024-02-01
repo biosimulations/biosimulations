@@ -16,7 +16,7 @@ export class HoverOpenMenuComponent {
   @Input()
   public target = '_self';
 
-  public timedOutCloser?: number;
+  public timedOutCloser = 300;
 
   public openMenu(trigger: MatMenuTrigger): void {
     if (!this.disabled) {

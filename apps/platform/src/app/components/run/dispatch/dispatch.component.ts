@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Params } from '@angular/router';
-import { UntypedFormBuilder, UntypedFormGroup, UntypedFormControl, Validators, ValidationErrors } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, ValidationErrors } from '@angular/forms';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { CombineApiService } from '../../../services/combine-api/combine-api.service';
@@ -106,7 +106,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
         simulationAlgorithmSubstitutionPolicy: [AlgorithmSubstitutionPolicyLevels.SAME_FRAMEWORK, []],
         simulator: ['', [Validators.required]],
         simulatorVersion: ['', [Validators.required]],
-        academicPurpose: [false],
+        academicPurpose: [true],
         cpus: [1, [Validators.required, Validators.min(1), Validators.max(24), INTEGER_VALIDATOR]],
         memory: [8, [Validators.required, Validators.min(0), Validators.max(192)]], // in GB
         maxTime: [20, [Validators.required, Validators.min(0), Validators.max(20 * 24 * 60)]], // in min
@@ -148,6 +148,14 @@ export class DispatchComponent implements OnInit, OnDestroy {
     const loadObs = this.loader.loadSimulationUtilData();
     const loadSub = loadObs.subscribe(this.loadComplete.bind(this));
     this.subscriptions.push(loadSub);
+
+    const userEmailAddress = this.formGroup.value.email;
+    this.formGroup.valueChanges.subscribe(values => {
+      const currentEmailAddress = values.email;
+      if (currentEmailAddress != userEmailAddress) {
+        this.formGroup.value.emailConsent = true;
+      }
+    })
   }
 
   public ngOnDestroy(): void {
@@ -274,6 +282,8 @@ export class DispatchComponent implements OnInit, OnDestroy {
         email,
       ),
     );
+
+    console.log(`The run to be submitted has envVars: ${envVars}.`)
     this.subscriptions.push(sub);
     window.scrollTo(0, 0);
   }
@@ -716,12 +726,11 @@ export class DispatchComponent implements OnInit, OnDestroy {
       errors['multipleProjects'] = true;
     }
 
-    const email = formGroup.controls.email as UntypedFormControl;
+    /*  const email = formGroup.controls.email as UntypedFormControl;
     const emailConsent = formGroup.controls.emailConsent as UntypedFormControl;
-    if (email.value && !email.hasError('email') && !emailConsent.value) {
+    if (email.value && !email.hasError('email')) { //&& !emailConsent.value) {
       errors['emailNotConsented'] = true;
-    }
-
+    }  */
     return Object.keys(errors).length ? errors : null;
   }
 }

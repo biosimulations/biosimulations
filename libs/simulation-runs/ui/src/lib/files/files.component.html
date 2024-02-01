@@ -1,11 +1,11 @@
-<div class="clean-table">
+<div class="clean-table" [ngStyle]="{'grid-template-columns': getGridTemplateColumns()}">
   <!-- Start Column Schema -->
   <div class="head title">Name</div>
   <div class="head format">Format</div>
   <div class="head download">Download</div>
   <div class="head size">Size</div>
+  <div class="head open-simularium" *ngIf="hasSimularium">Open in Simularium</div>
   <!-- End Column Schema -->
-
   <!-- Start Row DataContainer -->
   <ng-container *ngFor="let path of files">
     <!-- Start Zipped File format handling -->
@@ -60,6 +60,20 @@
       <div class="cell file-size" [class.main-file]="path.master">
         <div *ngIf="path.size">{{ path.size }}</div>
       </div>
+      <!-- Row View in Simularium -->
+      <div *ngIf="hasSimularium" class="cell open-simularium">
+        <a
+          *ngIf="path.title.includes('simularium'); else noSimularium"
+          [href]="simulariumUrl"
+          target="_blank"
+          rel="noopener"
+          class="biosimulations-button"
+          style="font-size: 20px !important;"
+          mat-flat-button>
+          <biosimulations-icon icon="image" matTooltip="Open in Simularium"></biosimulations-icon>
+        </a>
+      </div>
+      <ng-template #noSimularium></ng-template>
     </ng-container>
     <!-- End Single File Format Handling -->
   </ng-container>

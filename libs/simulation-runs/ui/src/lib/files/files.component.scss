@@ -1,6 +1,7 @@
 .clean-table {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  //TODO: Remove this eventually
+  //grid-template-columns: repeat(4, 1fr);
   grid-gap: 0.5em;
 }
 

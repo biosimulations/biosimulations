@@ -5,5 +5,9 @@
 }
 
 .overlap {
-  border-bottom: 9px solid transparent;
+  border-bottom: 12px solid transparent;
+
+  &:hover {
+    transition: none !important;
+  }
 }

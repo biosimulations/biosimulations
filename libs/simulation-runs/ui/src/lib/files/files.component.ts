@@ -23,10 +23,20 @@ export class FilesComponent {
 
   public cardState = 'default';
 
-  public constructor(private dialog: MatDialog) {}
+  public hasSimularium?: boolean;
+
+  public simulariumUrl = 'https://simularium.allencell.org/viewer';
+
+  public constructor(private dialog: MatDialog) {
+    /* Constructor is empty */
+  }
 
   public getFile(path: Path): Path {
     return path;
+  }
+
+  public getGridTemplateColumns(): string {
+      return this.hasSimularium ? 'repeat(5, 1fr)': 'repeat(4, 1fr)';
   }
 
   public openMetadata(metadata: ProjectMetadata): void {
