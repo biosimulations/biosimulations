@@ -1,5 +1,44 @@
 # Changelog
 
+## [9.56.0](https://github.com/biosimulations/biosimulations/compare/v9.55.5...v9.56.0) (2024-02-01)
+
+
+### Bug Fixes
+
+* added header to smoldyn test ([a707889](https://github.com/biosimulations/biosimulations/commit/a707889f853f59ced06e50e3402aa866a34e61cf))
+* added smoldyn testing method ([0052fa6](https://github.com/biosimulations/biosimulations/commit/0052fa6fc774d18935de6208d67fe5d2af53895f))
+* adjusted transparent border for hover topbar ([a381e3c](https://github.com/biosimulations/biosimulations/commit/a381e3cb4df0091a147cfc168f8164c3dd92a55b))
+* commented-out unused future dep ([aa77170](https://github.com/biosimulations/biosimulations/commit/aa771700a92e82876fda9575ab3dcb0b51d390c8))
+* reimplemented breaking changes ([20eb70c](https://github.com/biosimulations/biosimulations/commit/20eb70ca833fa87a61edbfeff8129c28384623da))
+* reimplemented python version from before ([d2f9128](https://github.com/biosimulations/biosimulations/commit/d2f91283a3be8eb8779016426f99aff6560926be))
+* removed processes and simularium content from pyproject.toml ([c71727d](https://github.com/biosimulations/biosimulations/commit/c71727d09975da5d496bf1d5bd67199f50ae9032))
+* removed smoldyn test to appease ci ([f9b1ee0](https://github.com/biosimulations/biosimulations/commit/f9b1ee00c19643aba93593d64da83a063405d4bf))
+* reverted simulation runs view endpoint until consolidation ([8dfbe18](https://github.com/biosimulations/biosimulations/commit/8dfbe184df80269cfd57a025290c681234e3adfa))
+* **ui:** adjusted hover menu style params ([1829758](https://github.com/biosimulations/biosimulations/commit/182975880339b27453c4891602fb45352646e932))
+* updated biosimularium version and lock file in pyproject ([319f505](https://github.com/biosimulations/biosimulations/commit/319f505e4e5026fafefd3c3afec8af1129a2216b))
+* updated poetry lock ([8bc4b8e](https://github.com/biosimulations/biosimulations/commit/8bc4b8e1c50ed5f46b61347b3f8f15446dc91a08))
+* updated poetry lock in combine ([6f351de](https://github.com/biosimulations/biosimulations/commit/6f351de133550e85ae02f2bff3d13889f29a91c8))
+* updated pyproject ([1c64e99](https://github.com/biosimulations/biosimulations/commit/1c64e9914098c70424b897272c32b76566207b34))
+* updated pyproject and lock ([7c1b939](https://github.com/biosimulations/biosimulations/commit/7c1b939b5a05e0680434970b3330aad91b698c74))
+* updated pyproject for bumped python version ([1e210a3](https://github.com/biosimulations/biosimulations/commit/1e210a3d9e689a54b37f615bdcd23106a1ede0cc))
+* updated run handler simularium dec ([1d962c2](https://github.com/biosimulations/biosimulations/commit/1d962c224721880657c4e302f86c6691054f4359))
+* updated run handler to properly bundle simularium output ([2215b5f](https://github.com/biosimulations/biosimulations/commit/2215b5f4acd0c116e3bd435c88e447306f5249b6))
+* updated smoldyn installer for ARM ([3487f2d](https://github.com/biosimulations/biosimulations/commit/3487f2d75e8085eb680adeeeb69d4b506dc1f16d))
+
+
+### Features
+
+* added auto checkbox functionality to email field in dispatch form ([e8d0c79](https://github.com/biosimulations/biosimulations/commit/e8d0c792e316fab0e433c6b938cfcc34396c5db2))
+* added helper scripts ([c67350f](https://github.com/biosimulations/biosimulations/commit/c67350f944a07c6a145e22f9a3b4b5d6be219289))
+* added simularium generator to run handler ([d606faa](https://github.com/biosimulations/biosimulations/commit/d606faabddded75ca291720e296e7552ce2980b9))
+* added smoldyn model file to test fixtures ([cd67f28](https://github.com/biosimulations/biosimulations/commit/cd67f28a6057bd021565916b9f282d696a07f3fd))
+* adjusted simularium implementation ([7ccd7b7](https://github.com/biosimulations/biosimulations/commit/7ccd7b7123ed544183eabc06eceb463ffb020d04))
+* autocheck for academic use in dispatch form ([68f28a2](https://github.com/biosimulations/biosimulations/commit/68f28a2881e4e2b620d531c2d95c8e8870ba8a1a))
+* implemented component rendering for simularium files ([e595bca](https://github.com/biosimulations/biosimulations/commit/e595bca35b49cc30b4eaa6abd5cdaeecc26de904))
+* updated config for new sim ([3524913](https://github.com/biosimulations/biosimulations/commit/35249132207d0eeff2c6c6c768fccc2abc8fec16))
+* updated python version and lock in combine ([b5bc316](https://github.com/biosimulations/biosimulations/commit/b5bc316e5e462421bbbda2b9f6b2c806bee960f5))
+* updated run implementation ([177f7c1](https://github.com/biosimulations/biosimulations/commit/177f7c19dd743f754d8b047752471b74daf947eb))
+
 ## [9.55.5](https://github.com/biosimulations/biosimulations/compare/v9.55.4...v9.55.5) (2024-01-30)
 
 
