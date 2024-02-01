@@ -150,12 +150,12 @@ export class DispatchComponent implements OnInit, OnDestroy {
     this.subscriptions.push(loadSub);
 
     const userEmailAddress = this.formGroup.value.email;
-    this.formGroup.valueChanges.subscribe(values => {
+    this.formGroup.valueChanges.subscribe((values) => {
       const currentEmailAddress = values.email;
       if (currentEmailAddress != userEmailAddress) {
         this.formGroup.value.emailConsent = true;
       }
-    })
+    });
   }
 
   public ngOnDestroy(): void {
@@ -283,7 +283,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
       ),
     );
 
-    console.log(`The run to be submitted has envVars: ${envVars}.`)
+    console.log(`The run to be submitted has envVars: ${envVars}.`);
     this.subscriptions.push(sub);
     window.scrollTo(0, 0);
   }

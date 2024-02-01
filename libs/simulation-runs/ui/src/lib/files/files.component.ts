@@ -36,7 +36,7 @@ export class FilesComponent {
   }
 
   public getGridTemplateColumns(): string {
-      return this.hasSimularium ? 'repeat(5, 1fr)': 'repeat(4, 1fr)';
+    return this.hasSimularium ? 'repeat(5, 1fr)' : 'repeat(4, 1fr)';
   }
 
   public openMetadata(metadata: ProjectMetadata): void {
