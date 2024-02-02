@@ -12,12 +12,18 @@ h3 {
 .run-overview-parent-container-platform {
   justify-content: center;
   align-items: center;
-  margin-top: 3rem;
 }
 
 .simulation-run-card {
-  width: fit-content;
   margin-top: -3rem;
+}
+
+.overview-content {
+  display: flex;
+}
+
+.icon-list {
+  padding-right: 2rem;
 }
 
 .simulation-run-card-header {
@@ -40,14 +46,9 @@ mat-card-subtitle {
   color: var(--quaternary-darker-color);
 }
 
-.rerun-button-container-platform {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .rerun-project-button {
-  margin-top: 2rem;
+  margin-top: 1rem;
+  margin-left: 2rem;
   background-color: var(--accent-darker-color);
   color: white;
   font-weight: 700;
