@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.57.0](https://github.com/biosimulations/biosimulations/compare/v9.56.1...v9.57.0) (2024-02-02)
+
+
+### Features
+
+* updated style layout ([0a5f890](https://github.com/biosimulations/biosimulations/commit/0a5f890fce31f79276a62d9ca4f7ae0c4e1be466))
+
 ## [9.56.1](https://github.com/biosimulations/biosimulations/compare/v9.56.0...v9.56.1) (2024-02-02)
 
 
