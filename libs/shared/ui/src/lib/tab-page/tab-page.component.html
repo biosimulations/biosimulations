@@ -7,6 +7,8 @@
     [dynamicHeight]="true"
     [(selectedIndex)]="selectedTabIndex"
     (selectedTabChange)="tabChanged($event)">
-    <ng-content></ng-content>
+    <div class="tab-content-container">
+      <ng-content></ng-content>
+    </div>
   </mat-tab-group>
 </div>
