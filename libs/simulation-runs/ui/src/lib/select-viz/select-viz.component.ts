@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter, ViewChild, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { Observable, of, Subscription, map } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -27,7 +27,7 @@ type DesignVisualizationComponent =
   styleUrls: ['./select-viz.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SelectVisualizationComponent implements OnDestroy {
+export class SelectVisualizationComponent implements OnInit, OnDestroy {
   private vegaFormatCombineUri: string;
 
   @Input()
@@ -78,6 +78,14 @@ export class SelectVisualizationComponent implements OnDestroy {
     this.userLine2DFormGroup.disable();
   }
 
+  public ngOnInit() {
+    this.formGroup.get('visualization')?.valueChanges.subscribe(selectedVisualization => {
+      console.log('Visualization selected:', selectedVisualization);
+      console.log(`The form group control for viz: `)
+      this.selectVisualization();
+    });
+  }
+
   public ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
@@ -87,16 +95,22 @@ export class SelectVisualizationComponent implements OnDestroy {
   }
 
   selectVisualization(): void {
+    console.log('Disabling all form groups...');
     this.userHistogram1DFormGroup.disable();
     this.userHeatmap2DFormGroup.disable();
     this.userLine2DFormGroup.disable();
 
     const visualization = this.getSelectedVisualization();
+    console.log(`THE VISUALIZATION SELECTED: ${visualization._type}`);
     if (visualization._type === 'Histogram1DVisualization') {
       this.userHistogram1DFormGroup.enable();
     } else if (visualization._type === 'Heatmap2DVisualization') {
       this.userHeatmap2DFormGroup.enable();
     } else if (visualization._type === 'Line2DVisualization') {
+      this.userLine2DFormGroup.enable();
+    } else if (visualization._type === 'SedPlot2DVisualization') {
+      console.log('Its sed plot');
+      this.userLine2DFormGroup.enable();
       this.userHeatmap2DFormGroup.enable();
     }
   }
@@ -118,6 +132,7 @@ export class SelectVisualizationComponent implements OnDestroy {
         designVisualizationComponent.getPlotlyDataLayout(),
       );
     }
+    console.log(`Emitting vis: ${visualization}`);
     this.renderVisualization.emit(visualization);
   }
 
