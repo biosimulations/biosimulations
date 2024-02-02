@@ -197,16 +197,8 @@
       [disabled]="viewVisualizationTabDisabled"
       [fullHeight]="true"
       [fullWidth]="true">
-      <ng-container *ngIf="visualizations$ | async as visualizations">
-        <ng-container *ngFor="let visualizationList of visualizations">
-          <ng-container *ngFor="let visualization of visualizationList.visualizations">
-            <biosimulations-project-visualization [visualization]="visualization" class="view-viz">
-            </biosimulations-project-visualization>
-          </ng-container>
-        </ng-container>
-      </ng-container>
-      <!--<biosimulations-project-visualization *ngIf="visualization" [visualization]="visualization">
-      </biosimulations-project-visualization>-->
+      <biosimulations-project-visualization *ngIf="visualization" [visualization]="visualization">
+      </biosimulations-project-visualization>
     </biosimulations-tab-page-tab>
     <!-- End visualizations -->
 
