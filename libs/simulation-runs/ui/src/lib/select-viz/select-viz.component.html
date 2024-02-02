@@ -4,9 +4,7 @@
       <div class="form-field-group">
         <mat-form-field appearance="fill">
           <mat-label>Select a chart</mat-label>
-          <mat-select
-            formControlName="visualization"
-            [required]="true">
+          <mat-select formControlName="visualization" [required]="true">
             <mat-optgroup *ngFor="let visualizationList of visualizations">
               {{ visualizationList.title }}
               <mat-option

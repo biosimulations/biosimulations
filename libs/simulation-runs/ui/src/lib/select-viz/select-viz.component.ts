@@ -1,4 +1,13 @@
-import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter, ViewChild, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild,
+  OnInit,
+  OnDestroy,
+} from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { Observable, of, Subscription, map } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -79,9 +88,9 @@ export class SelectVisualizationComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit() {
-    this.formGroup.get('visualization')?.valueChanges.subscribe(selectedVisualization => {
+    this.formGroup.get('visualization')?.valueChanges.subscribe((selectedVisualization) => {
       console.log('Visualization selected:', selectedVisualization);
-      console.log(`The form group control for viz: `)
+      console.log(`The form group control for viz: `);
       this.selectVisualization();
     });
   }
