@@ -1,7 +1,6 @@
 @media (max-width: 768px) {
   .app-footer-container {
-    display: flex;
-    flex-direction: column;
+    display: none !important;
   }
 }
 
