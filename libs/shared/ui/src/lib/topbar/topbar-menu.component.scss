@@ -2,20 +2,7 @@
   .nav-buttons {
     padding-bottom: 3rem;
     padding-top: 0rem;
-  }
-}
-
-@media (min-width: 769px) and (max-width: 1200px) {
-  .nav-buttons {
-    padding-bottom: 4rem;
-    padding-top: 0rem;
-  }
-}
-
-@media (min-width: 1201px) {
-  .nav-buttons {
-    padding-bottom: 5rem;
-    padding-top: 0rem;
+    font-size: 9px;
   }
 }
 

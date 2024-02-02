@@ -1593,6 +1593,14 @@ biosimulations-home biosimulations-home-subsection {
   padding-left: 3rem;
 }
 
+@media (max-width: 768px) {
+  .data-table-card,
+  .data-table-parent-container {
+    transform: scale(0.75) !important;
+    margin-top: -10rem !important;
+  }
+}
+
 .data-table-container {
   margin-top: 3rem;
   overflow: hidden;
