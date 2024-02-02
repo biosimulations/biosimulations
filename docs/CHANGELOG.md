@@ -1,5 +1,13 @@
 # Changelog
 
+## [9.56.1](https://github.com/biosimulations/biosimulations/compare/v9.56.0...v9.56.1) (2024-02-02)
+
+
+### Bug Fixes
+
+* removed conditionals to allow for all plots to render ([eacb23c](https://github.com/biosimulations/biosimulations/commit/eacb23c92ed78941f361693879c95da290192613))
+* updated visualization dec in platform runs view ([fb3f5cb](https://github.com/biosimulations/biosimulations/commit/fb3f5cbe4780f0f8e6a84a1abdbb6a01e8a9c036))
+
 ## [9.56.0](https://github.com/biosimulations/biosimulations/compare/v9.55.5...v9.56.0) (2024-02-01)
 
 
