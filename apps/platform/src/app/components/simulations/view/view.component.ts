@@ -50,7 +50,8 @@ export class ViewComponent implements OnInit {
   public outputs$!: Observable<File[] | null | undefined | false>;
 
   public visualizations$!: Observable<VisualizationList[] | null | undefined | false>;
-  public visualization: Visualization | null = null;
+  public visualization?: Visualization | null;
+  // public visualization: Visualization | null = null;
 
   public logs$!: Observable<SimulationLogs | null | undefined | false>;
 
@@ -248,6 +249,7 @@ export class ViewComponent implements OnInit {
 
   public renderVisualization(visualization: Visualization): void {
     this.visualization = visualization;
+    console.log('Received visualization for rendering:', visualization);
     this.viewVisualizationTabDisabled = false;
     this.selectedTabIndex = this.visualizationTabIndex;
   }

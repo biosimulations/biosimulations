@@ -6,6 +6,10 @@
   justify-content: center;
 }
 
+.view-viz {
+  margin-top: 5rem !important;
+}
+
 biosimulations-tab-page ::ng-deep .icon-list {
   & > li:not(:first-child) {
     margin-top: 0.125rem;

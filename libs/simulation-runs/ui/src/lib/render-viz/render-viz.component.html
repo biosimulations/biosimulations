@@ -1,24 +1,21 @@
 <div class="container">
-  <div *ngIf="visualization; else noPlot">
-    <div *ngIf="projectTitle">
-      <div *ngIf="plotTitle">
-        <!-- Case: Vega -->
-        <biosimulations-vega-visualization
-          *ngIf="visualization.renderer === 'Vega'"
-          [spec]="visualization.vegaSpec"
-          [name]="visualization.name + '_vega'">
-        </biosimulations-vega-visualization>
-        <!-- Case: Plotly -->
+  <ng-container *ngIf="visualization; else noPlot">
+    <!-- Case: Vega -->
+    <biosimulations-vega-visualization
+      *ngIf="visualization.renderer === 'Vega'"
+      [spec]="visualization.vegaSpec"
+      [name]="visualization.name + '_vega'">
+    </biosimulations-vega-visualization>
 
-        <biosimulations-plotly-visualization
-          *ngIf="visualization.renderer === 'Plotly'"
-          [dataLayout]="visualization.plotlyDataLayout | async | async"
-          [plotTitle]="plotTitle"
-          [customizedAxis]="customAxis">
-        </biosimulations-plotly-visualization>
-      </div>
-    </div>
-  </div>
+    <!-- Case: Plotly -->
+    <biosimulations-plotly-visualization
+      *ngIf="visualization.renderer === 'Plotly'"
+      [dataLayout]="visualization.plotlyDataLayout | async | async"
+      [plotTitle]="plotTitle"
+      [customizedAxis]="customAxis">
+    </biosimulations-plotly-visualization>
+  </ng-container>
+
 
   <ng-template #noPlot>
     <div class="no-plot">

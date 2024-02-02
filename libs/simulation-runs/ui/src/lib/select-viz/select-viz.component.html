@@ -6,9 +6,7 @@
           <mat-label>Select a chart</mat-label>
           <mat-select
             formControlName="visualization"
-            required
-            (ngModelChange)="selectVisualization()"
-            disableOptionCentering>
+            [required]="true">
             <mat-optgroup *ngFor="let visualizationList of visualizations">
               {{ visualizationList.title }}
               <mat-option
