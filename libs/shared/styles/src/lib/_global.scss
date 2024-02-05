@@ -1595,10 +1595,15 @@ biosimulations-home biosimulations-home-subsection {
 
 @media (max-width: 768px) {
   .data-table-card,
-  .data-table-parent-container {
+  .data-table-parent-container,
+  .form-parent-container {
     transform: scale(0.75) !important;
     margin-top: -20rem !important;
     height: fit-content;
+  }
+
+  .form-parent-container {
+
   }
 }
 
