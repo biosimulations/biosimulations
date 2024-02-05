@@ -1597,7 +1597,8 @@ biosimulations-home biosimulations-home-subsection {
   .data-table-card,
   .data-table-parent-container {
     transform: scale(0.75) !important;
-    margin-top: -10rem !important;
+    margin-top: -20rem !important;
+    height: fit-content;
   }
 }
 
