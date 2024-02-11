@@ -942,6 +942,9 @@
 /projects/Dokos-Celler-Lovell-1996
 /projects/Dougherty-Wright-Yew-2005
 /projects/Dupont-Berridge-Goldbetter-1991
+/projects/E-coli-Min
+/projects/E-coli-Min-plots
+/projects/E-coli-Min-plots-ADJUSTED
 /projects/EGF-TNFa-signaling-Chaouiya-BMC-Syst-Biol-2013
 /projects/Edwards-2010
 /projects/Egli-Bertram-Sellix-Freeman-2004

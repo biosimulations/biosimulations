@@ -5666,6 +5666,24 @@
   </url>
    
   <url>
+    <loc>https://biosimulations.org/projects/E-coli-Min</loc>
+    <lastmod>2024-02-09</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/E-coli-Min-plots</loc>
+    <lastmod>2024-02-09</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/E-coli-Min-plots-ADJUSTED</loc>
+    <lastmod>2024-02-10</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
     <loc>https://biosimulations.org/projects/EGF-TNFa-signaling-Chaouiya-BMC-Syst-Biol-2013</loc>
     <lastmod>2022-02-05</lastmod>
     <changefreq>monthly</changefreq>
