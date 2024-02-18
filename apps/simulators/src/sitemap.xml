@@ -693,7 +693,7 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/smoldyn</loc>
-    <lastmod>2023-08-17</lastmod>
+    <lastmod>2024-02-17</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -735,7 +735,7 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/smoldyn/2.72</loc>
-    <lastmod>2023-08-17</lastmod>
+    <lastmod>2024-02-17</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -759,7 +759,7 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/vcell</loc>
-    <lastmod>2024-02-02</lastmod>
+    <lastmod>2024-02-14</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -856,6 +856,12 @@
   <url>
     <loc>https://biosimulators.org/simulators/vcell/7.5.0.89</loc>
     <lastmod>2024-02-02</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/vcell/7.5.0.99</loc>
+    <lastmod>2024-02-14</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
