@@ -806,6 +806,12 @@
   </url>
    
   <url>
+    <loc>https://biosimulators.org/simulators/vcell/7.5.0.108</loc>
+    <lastmod>2024-03-08</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
     <loc>https://biosimulators.org/simulators/vcell/7.5.0.28</loc>
     <lastmod>2023-04-27</lastmod>
     <changefreq>monthly</changefreq>
