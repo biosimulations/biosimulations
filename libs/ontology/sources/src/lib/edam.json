@@ -283,10 +283,10 @@
   }, {
     "@id" : "_:b111",
     "@type" : "owl:Axiom",
-    "rdfs:comment" : "'OBO_REL:has_participant' is narrower in the sense that it only relates ontological categories (concepts) that are a 'process' (span:Process) with ontological categories that are a 'continuant' (snap:Continuant), and broader in the sense that it relates with any participating objects not just inputs or input arguments of the subject.",
-    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym",
+    "rdfs:comment" : "In very unusual cases.",
+    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#isCyclic",
     "owl:annotatedSource" : "http://edamontology.org/has_input",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : "OBO_REL:has_participant"
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : "true"
   }, {
     "@id" : "_:b112",
     "@type" : "owl:Restriction",
@@ -358,12 +358,12 @@
     "@id" : "_:b124",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_3108"
+    "owl:someValuesFrom" : "http://edamontology.org/data_1255"
   }, {
     "@id" : "_:b125",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1772"
+    "owl:someValuesFrom" : "http://edamontology.org/data_0863"
   }, {
     "@id" : "_:b126",
     "@type" : "owl:Restriction",
@@ -373,12 +373,12 @@
     "@id" : "_:b127",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0863"
+    "owl:someValuesFrom" : "http://edamontology.org/data_1772"
   }, {
     "@id" : "_:b128",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1255"
+    "owl:someValuesFrom" : "http://edamontology.org/data_3108"
   }, {
     "@id" : "_:b129",
     "@type" : "owl:Restriction",
@@ -387,10 +387,10 @@
   }, {
     "@id" : "_:b13",
     "@type" : "owl:Axiom",
-    "rdfs:comment" : "In very unusual cases.",
-    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#isCyclic",
+    "rdfs:comment" : "Is defined anywhere? Not in the 'unknown' version of RO. 'OBO_REL:inheres_in' is narrower in the sense that it only relates ontological categories (concepts) that are a 'specifically_dependent_continuant' (snap:SpecificallyDependentContinuant) with ontological categories that are an 'independent_continuant' (snap:IndependentContinuant), and broader in the sense that it relates any borne subjects not just functions.",
+    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym",
     "owl:annotatedSource" : "http://edamontology.org/is_function_of",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : "true"
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : "OBO_REL:inheres_in"
   }, {
     "@id" : "_:b130",
     "@type" : "owl:Restriction",
@@ -400,12 +400,12 @@
     "@id" : "_:b131",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0970"
+    "owl:someValuesFrom" : "http://edamontology.org/data_2849"
   }, {
     "@id" : "_:b132",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2849"
+    "owl:someValuesFrom" : "http://edamontology.org/data_0970"
   }, {
     "@id" : "_:b133",
     "@type" : "owl:Axiom",
@@ -536,7 +536,7 @@
     "rdfs:comment" : "EDAM does not distinguish the multiplicity of data, such as one data item (datum) versus a collection of data (data set).",
     "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#hasNarrowSynonym",
     "owl:annotatedSource" : "http://edamontology.org/data_0006",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : "Data set"
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : "Datum"
   }, {
     "@id" : "_:b156",
     "@type" : "owl:Restriction",
@@ -551,12 +551,12 @@
     "@id" : "_:b158",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0863"
+    "owl:someValuesFrom" : "http://edamontology.org/data_2044"
   }, {
     "@id" : "_:b159",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2044"
+    "owl:someValuesFrom" : "http://edamontology.org/data_1772"
   }, {
     "@id" : "_:b16",
     "@type" : "owl:Restriction",
@@ -566,12 +566,12 @@
     "@id" : "_:b160",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_3108"
+    "owl:someValuesFrom" : "http://edamontology.org/data_0863"
   }, {
     "@id" : "_:b161",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1772"
+    "owl:someValuesFrom" : "http://edamontology.org/data_3108"
   }, {
     "@id" : "_:b162",
     "@type" : "owl:Restriction",
@@ -581,39 +581,39 @@
     "@id" : "_:b163",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2044"
+    "owl:someValuesFrom" : "http://edamontology.org/data_1772"
   }, {
     "@id" : "_:b164",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_3108"
+    "owl:someValuesFrom" : "http://edamontology.org/data_0863"
   }, {
     "@id" : "_:b165",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1255"
+    "owl:someValuesFrom" : "http://edamontology.org/data_2044"
   }, {
     "@id" : "_:b166",
     "@type" : "owl:Axiom",
     "rdfs:comment" : "EDAM does not distinguish the multiplicity of data, such as one data item (datum) versus a collection of data (data set).",
     "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#hasNarrowSynonym",
     "owl:annotatedSource" : "http://edamontology.org/data_0006",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : "Datum"
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : "Data set"
   }, {
     "@id" : "_:b167",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1772"
+    "owl:someValuesFrom" : "http://edamontology.org/data_3108"
   }, {
     "@id" : "_:b168",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0863"
+    "owl:someValuesFrom" : "http://edamontology.org/data_1255"
   }, {
     "@id" : "_:b169",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0863"
+    "owl:someValuesFrom" : "http://edamontology.org/data_1255"
   }, {
     "@id" : "_:b17",
     "@type" : "owl:Restriction",
@@ -623,22 +623,22 @@
     "@id" : "_:b170",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1255"
+    "owl:someValuesFrom" : "http://edamontology.org/data_0863"
   }, {
     "@id" : "_:b171",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_3567"
+    "owl:someValuesFrom" : "http://edamontology.org/data_2530"
   }, {
     "@id" : "_:b172",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_3113"
+    "owl:someValuesFrom" : "http://edamontology.org/data_3567"
   }, {
     "@id" : "_:b173",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2530"
+    "owl:someValuesFrom" : "http://edamontology.org/data_3113"
   }, {
     "@id" : "_:b174",
     "@type" : "owl:Restriction",
@@ -710,12 +710,12 @@
     "@id" : "_:b186",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2535"
+    "owl:someValuesFrom" : "http://edamontology.org/data_3112"
   }, {
     "@id" : "_:b187",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_3112"
+    "owl:someValuesFrom" : "http://edamontology.org/data_2535"
   }, {
     "@id" : "_:b188",
     "@type" : "owl:Restriction",
@@ -725,7 +725,7 @@
     "@id" : "_:b189",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_3112"
+    "owl:someValuesFrom" : "http://edamontology.org/data_2535"
   }, {
     "@id" : "_:b19",
     "@type" : "owl:Restriction",
@@ -735,7 +735,7 @@
     "@id" : "_:b190",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2535"
+    "owl:someValuesFrom" : "http://edamontology.org/data_3112"
   }, {
     "@id" : "_:b191",
     "@type" : "owl:Restriction",
@@ -813,17 +813,17 @@
   }, {
     "@id" : "_:b203",
     "@type" : "owl:Axiom",
-    "rdfs:comment" : "Operation is a function that is computational. It typically has input(s) and output(s), which are always data.",
-    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#hasBroadSynonym",
-    "owl:annotatedSource" : "http://edamontology.org/operation_0004",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : "Function"
-  }, {
-    "@id" : "_:b204",
-    "@type" : "owl:Axiom",
     "rdfs:comment" : "Computational tool provides one or more operations.",
     "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym",
     "owl:annotatedSource" : "http://edamontology.org/operation_0004",
     "http://www.w3.org/2002/07/owl#annotatedTarget" : "Computational tool"
+  }, {
+    "@id" : "_:b204",
+    "@type" : "owl:Axiom",
+    "rdfs:comment" : "Operation is a function that is computational. It typically has input(s) and output(s), which are always data.",
+    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#hasBroadSynonym",
+    "owl:annotatedSource" : "http://edamontology.org/operation_0004",
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : "Function"
   }, {
     "@id" : "_:b205",
     "@type" : "owl:Axiom",
@@ -855,7 +855,7 @@
     "@id" : "_:b21",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1597"
+    "owl:someValuesFrom" : "http://edamontology.org/data_1598"
   }, {
     "@id" : "_:b210",
     "@type" : "owl:Restriction",
@@ -869,13 +869,13 @@
   }, {
     "@id" : "_:b212",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1259"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0157"
   }, {
     "@id" : "_:b213",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0157"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_1259"
   }, {
     "@id" : "_:b214",
     "@type" : "owl:Restriction",
@@ -910,7 +910,7 @@
     "@id" : "_:b22",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1598"
+    "owl:someValuesFrom" : "http://edamontology.org/data_1597"
   }, {
     "@id" : "_:b220",
     "@type" : "owl:Restriction",
@@ -919,10 +919,10 @@
   }, {
     "@id" : "_:b221",
     "@type" : "owl:Axiom",
-    "rdfs:comment" : "In very unusual cases.",
-    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#isCyclic",
+    "rdfs:comment" : "'OBO_REL:has_participant' is narrower in the sense that it only relates ontological categories (concepts) that are a 'process' (span:Process) with ontological categories that are a 'continuant' (snap:Continuant), and broader in the sense that it relates with any participating objects not just inputs or input arguments of the subject.",
+    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym",
     "owl:annotatedSource" : "http://edamontology.org/has_input",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : "true"
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : "OBO_REL:has_participant"
   }, {
     "@id" : "_:b222",
     "@type" : "owl:Restriction",
@@ -941,13 +941,13 @@
   }, {
     "@id" : "_:b225",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0160"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_0858"
   }, {
     "@id" : "_:b226",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0858"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0160"
   }, {
     "@id" : "_:b227",
     "@type" : "owl:Restriction",
@@ -991,23 +991,23 @@
   }, {
     "@id" : "_:b234",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1255"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0160"
   }, {
     "@id" : "_:b235",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0160"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_1255"
   }, {
     "@id" : "_:b236",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_input",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1270"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0160"
   }, {
     "@id" : "_:b237",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0160"
+    "owl:onProperty" : "http://edamontology.org/has_input",
+    "owl:someValuesFrom" : "http://edamontology.org/data_1270"
   }, {
     "@id" : "_:b238",
     "@type" : "owl:Restriction",
@@ -1063,13 +1063,13 @@
   }, {
     "@id" : "_:b247",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2984"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0128"
   }, {
     "@id" : "_:b248",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0128"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_2984"
   }, {
     "@id" : "_:b249",
     "@type" : "owl:Restriction",
@@ -1093,13 +1093,13 @@
   }, {
     "@id" : "_:b252",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0102"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_0927"
   }, {
     "@id" : "_:b253",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0927"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0102"
   }, {
     "@id" : "_:b254",
     "@type" : "owl:Restriction",
@@ -1118,18 +1118,18 @@
   }, {
     "@id" : "_:b257",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0203"
+    "owl:onProperty" : "http://edamontology.org/has_input",
+    "owl:someValuesFrom" : "http://edamontology.org/data_1597"
   }, {
     "@id" : "_:b258",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0914"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0203"
   }, {
     "@id" : "_:b259",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_input",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1597"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_0914"
   }, {
     "@id" : "_:b26",
     "@type" : "owl:Restriction",
@@ -1143,23 +1143,23 @@
   }, {
     "@id" : "_:b261",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0114"
-  }, {
-    "@id" : "_:b262",
-    "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_output",
     "owl:someValuesFrom" : "http://edamontology.org/data_1263"
   }, {
-    "@id" : "_:b263",
+    "@id" : "_:b262",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0870"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0114"
   }, {
-    "@id" : "_:b264",
+    "@id" : "_:b263",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
     "owl:someValuesFrom" : "http://edamontology.org/topic_0084"
+  }, {
+    "@id" : "_:b264",
+    "@type" : "owl:Restriction",
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_0870"
   }, {
     "@id" : "_:b265",
     "@type" : "owl:Restriction",
@@ -1193,28 +1193,28 @@
   }, {
     "@id" : "_:b270",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1354"
-  }, {
-    "@id" : "_:b271",
-    "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
     "owl:someValuesFrom" : "http://edamontology.org/topic_0160"
   }, {
-    "@id" : "_:b272",
+    "@id" : "_:b271",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_input",
     "owl:someValuesFrom" : "http://edamontology.org/data_0863"
   }, {
-    "@id" : "_:b273",
+    "@id" : "_:b272",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_input",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0883"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_1354"
   }, {
-    "@id" : "_:b274",
+    "@id" : "_:b273",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_output",
     "owl:someValuesFrom" : "http://edamontology.org/data_0889"
+  }, {
+    "@id" : "_:b274",
+    "@type" : "owl:Restriction",
+    "owl:onProperty" : "http://edamontology.org/has_input",
+    "owl:someValuesFrom" : "http://edamontology.org/data_0883"
   }, {
     "@id" : "_:b275",
     "@type" : "owl:Restriction",
@@ -1273,18 +1273,18 @@
   }, {
     "@id" : "_:b285",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1240"
+    "owl:onProperty" : "http://edamontology.org/has_input",
+    "owl:someValuesFrom" : "http://edamontology.org/data_2977"
   }, {
     "@id" : "_:b286",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0632"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_1240"
   }, {
     "@id" : "_:b287",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_input",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2977"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0632"
   }, {
     "@id" : "_:b288",
     "@type" : "owl:Restriction",
@@ -1293,8 +1293,8 @@
   }, {
     "@id" : "_:b289",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_input",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2977"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_2717"
   }, {
     "@id" : "_:b29",
     "@type" : "owl:Restriction",
@@ -1303,18 +1303,18 @@
   }, {
     "@id" : "_:b290",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2717"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0203"
   }, {
     "@id" : "_:b291",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0632"
+    "owl:onProperty" : "http://edamontology.org/has_input",
+    "owl:someValuesFrom" : "http://edamontology.org/data_2977"
   }, {
     "@id" : "_:b292",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0203"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0632"
   }, {
     "@id" : "_:b293",
     "@type" : "owl:Restriction",
@@ -1378,13 +1378,13 @@
   }, {
     "@id" : "_:b303",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0872"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0080"
   }, {
     "@id" : "_:b304",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0080"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_0872"
   }, {
     "@id" : "_:b305",
     "@type" : "owl:Restriction",
@@ -1428,28 +1428,28 @@
   }, {
     "@id" : "_:b312",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2024"
-  }, {
-    "@id" : "_:b313",
-    "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
     "owl:someValuesFrom" : "http://edamontology.org/topic_0821"
   }, {
-    "@id" : "_:b314",
+    "@id" : "_:b313",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_2024"
+  }, {
+    "@id" : "_:b314",
+    "@type" : "owl:Restriction",
+    "owl:onProperty" : "http://edamontology.org/has_input",
     "owl:someValuesFrom" : "http://edamontology.org/data_2968"
   }, {
     "@id" : "_:b315",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0092"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_2968"
   }, {
     "@id" : "_:b316",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_input",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2968"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0092"
   }, {
     "@id" : "_:b317",
     "@type" : "owl:Restriction",
@@ -1567,13 +1567,13 @@
   }, {
     "@id" : "_:b337",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1519"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0121"
   }, {
     "@id" : "_:b338",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0121"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_1519"
   }, {
     "@id" : "_:b339",
     "@type" : "owl:Restriction",
@@ -1637,10 +1637,10 @@
   }, {
     "@id" : "_:b35",
     "@type" : "owl:Axiom",
-    "rdfs:comment" : "Is defined anywhere? Not in the 'unknown' version of RO. 'OBO_REL:inheres_in' is narrower in the sense that it only relates ontological categories (concepts) that are a 'specifically_dependent_continuant' (snap:SpecificallyDependentContinuant) with ontological categories that are an 'independent_continuant' (snap:IndependentContinuant), and broader in the sense that it relates any borne subjects not just functions.",
-    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym",
+    "rdfs:comment" : "In very unusual cases.",
+    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#isCyclic",
     "owl:annotatedSource" : "http://edamontology.org/is_function_of",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : "OBO_REL:inheres_in"
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : "true"
   }, {
     "@id" : "_:b350",
     "@type" : "owl:Restriction",
@@ -1649,13 +1649,13 @@
   }, {
     "@id" : "_:b351",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1276"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0160"
   }, {
     "@id" : "_:b352",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0160"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_1276"
   }, {
     "@id" : "_:b353",
     "@type" : "owl:Restriction",
@@ -1785,7 +1785,7 @@
     "@id" : "_:b376",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1461"
+    "owl:someValuesFrom" : "http://edamontology.org/data_2877"
   }, {
     "@id" : "_:b377",
     "@type" : "owl:Restriction",
@@ -1795,7 +1795,7 @@
     "@id" : "_:b378",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2877"
+    "owl:someValuesFrom" : "http://edamontology.org/data_1461"
   }, {
     "@id" : "_:b379",
     "@type" : "owl:Restriction",
@@ -1915,12 +1915,12 @@
     "@id" : "_:b4",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0153"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0152"
   }, {
     "@id" : "_:b40",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2313"
+    "owl:someValuesFrom" : "http://edamontology.org/data_1462"
   }, {
     "@id" : "_:b400",
     "@type" : "owl:Restriction",
@@ -1969,13 +1969,13 @@
   }, {
     "@id" : "_:b409",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_input",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0883"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_1710"
   }, {
     "@id" : "_:b41",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1462"
+    "owl:someValuesFrom" : "http://edamontology.org/data_2313"
   }, {
     "@id" : "_:b410",
     "@type" : "owl:Restriction",
@@ -1984,8 +1984,8 @@
   }, {
     "@id" : "_:b411",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1710"
+    "owl:onProperty" : "http://edamontology.org/has_input",
+    "owl:someValuesFrom" : "http://edamontology.org/data_0883"
   }, {
     "@id" : "_:b412",
     "@type" : "owl:Restriction",
@@ -2049,13 +2049,13 @@
   }, {
     "@id" : "_:b423",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0081"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_1499"
   }, {
     "@id" : "_:b424",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1499"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0081"
   }, {
     "@id" : "_:b425",
     "@type" : "owl:Restriction",
@@ -2069,13 +2069,13 @@
   }, {
     "@id" : "_:b427",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_2814"
+    "owl:onProperty" : "http://edamontology.org/has_input",
+    "owl:someValuesFrom" : "http://edamontology.org/data_1460"
   }, {
     "@id" : "_:b428",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_input",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1460"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_2814"
   }, {
     "@id" : "_:b429",
     "@type" : "owl:Restriction",
@@ -2134,8 +2134,8 @@
   }, {
     "@id" : "_:b439",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_1775"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_3754"
   }, {
     "@id" : "_:b44",
     "@type" : "owl:Restriction",
@@ -2144,8 +2144,8 @@
   }, {
     "@id" : "_:b440",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_3754"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_1775"
   }, {
     "@id" : "_:b441",
     "@type" : "owl:Restriction",
@@ -2201,28 +2201,28 @@
   }, {
     "@id" : "_:b450",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0906"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0128"
   }, {
     "@id" : "_:b451",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0128"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_0906"
   }, {
     "@id" : "_:b452",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0082"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0176"
   }, {
     "@id" : "_:b453",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0176"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_0883"
   }, {
     "@id" : "_:b454",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0883"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0082"
   }, {
     "@id" : "_:b455",
     "@type" : "owl:Restriction",
@@ -2241,20 +2241,20 @@
   }, {
     "@id" : "_:b458",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_input",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2976"
-  }, {
-    "@id" : "_:b459",
-    "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
     "owl:someValuesFrom" : "http://edamontology.org/topic_0078"
   }, {
+    "@id" : "_:b459",
+    "@type" : "owl:Restriction",
+    "owl:onProperty" : "http://edamontology.org/has_input",
+    "owl:someValuesFrom" : "http://edamontology.org/data_2976"
+  }, {
     "@id" : "_:b46",
     "@type" : "owl:Axiom",
-    "rdfs:comment" : "'OBO_REL:participates_in' is narrower in the sense that it only relates ontological categories (concepts) that are a 'continuant' (snap:Continuant) with ontological categories that are a 'process' (span:Process), and broader in the sense that it relates any participating subjects not just inputs or input arguments.",
-    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym",
+    "rdfs:comment" : "In very unusual cases.",
+    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#isCyclic",
     "owl:annotatedSource" : "http://edamontology.org/is_input_of",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : "OBO_REL:participates_in"
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : "true"
   }, {
     "@id" : "_:b460",
     "@type" : "owl:Restriction",
@@ -2309,7 +2309,7 @@
     "@id" : "_:b47",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2850"
+    "owl:someValuesFrom" : "http://edamontology.org/data_2879"
   }, {
     "@id" : "_:b470",
     "@type" : "owl:Restriction",
@@ -2338,13 +2338,13 @@
   }, {
     "@id" : "_:b475",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0102"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_1274"
   }, {
     "@id" : "_:b476",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1274"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0102"
   }, {
     "@id" : "_:b477",
     "@type" : "owl:Restriction",
@@ -2353,18 +2353,18 @@
   }, {
     "@id" : "_:b478",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0123"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_2970"
   }, {
     "@id" : "_:b479",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2970"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0123"
   }, {
     "@id" : "_:b48",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2879"
+    "owl:someValuesFrom" : "http://edamontology.org/data_2850"
   }, {
     "@id" : "_:b480",
     "@type" : "owl:Restriction",
@@ -2443,8 +2443,8 @@
   }, {
     "@id" : "_:b494",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_input",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0925"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0196"
   }, {
     "@id" : "_:b495",
     "@type" : "owl:Restriction",
@@ -2453,8 +2453,8 @@
   }, {
     "@id" : "_:b496",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0196"
+    "owl:onProperty" : "http://edamontology.org/has_input",
+    "owl:someValuesFrom" : "http://edamontology.org/data_0925"
   }, {
     "@id" : "_:b497",
     "@type" : "owl:Restriction",
@@ -2474,7 +2474,7 @@
     "@id" : "_:b5",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0152"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0153"
   }, {
     "@id" : "_:b50",
     "@type" : "owl:Restriction",
@@ -2554,12 +2554,12 @@
     "@id" : "_:b513",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0123"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0166"
   }, {
     "@id" : "_:b514",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0166"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0123"
   }, {
     "@id" : "_:b515",
     "@type" : "owl:Restriction",
@@ -2730,13 +2730,13 @@
   }, {
     "@id" : "_:b545",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_3068"
+    "owl:onProperty" : "http://edamontology.org/has_input",
+    "owl:someValuesFrom" : "http://edamontology.org/data_3671"
   }, {
     "@id" : "_:b546",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_input",
-    "owl:someValuesFrom" : "http://edamontology.org/data_3671"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_3068"
   }, {
     "@id" : "_:b547",
     "@type" : "owl:Restriction",
@@ -2775,8 +2775,8 @@
   }, {
     "@id" : "_:b553",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1461"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0128"
   }, {
     "@id" : "_:b554",
     "@type" : "owl:Class",
@@ -2789,8 +2789,8 @@
   }, {
     "@id" : "_:b556",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0128"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_1461"
   }, {
     "@id" : "_:b557",
     "@type" : "owl:Restriction",
@@ -2850,59 +2850,59 @@
     "@id" : "_:b567",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_2259"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0602"
   }, {
     "@id" : "_:b568",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0602"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_2259"
   }, {
     "@id" : "_:b569",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0602"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_2259"
   }, {
     "@id" : "_:b57",
     "@type" : "owl:Axiom",
-    "rdfs:comment" : "In very unusual cases.",
-    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#isCyclic",
+    "rdfs:comment" : "'OBO_REL:participates_in' is narrower in the sense that it only relates ontological categories (concepts) that are a 'continuant' (snap:Continuant) with ontological categories that are a 'process' (span:Process), and broader in the sense that it relates any participating subjects not just inputs or input arguments.",
+    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym",
     "owl:annotatedSource" : "http://edamontology.org/is_input_of",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : "true"
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : "OBO_REL:participates_in"
   }, {
     "@id" : "_:b570",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_2259"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0602"
   }, {
     "@id" : "_:b571",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0121"
+    "owl:onProperty" : "http://edamontology.org/has_input",
+    "owl:someValuesFrom" : "http://edamontology.org/data_0943"
   }, {
     "@id" : "_:b572",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_input",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0943"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0121"
   }, {
     "@id" : "_:b573",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0121"
+    "owl:onProperty" : "http://edamontology.org/has_input",
+    "owl:someValuesFrom" : "http://edamontology.org/data_0943"
   }, {
     "@id" : "_:b574",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_input",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0943"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0121"
   }, {
     "@id" : "_:b575",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_input",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0943"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0121"
   }, {
     "@id" : "_:b576",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0121"
+    "owl:onProperty" : "http://edamontology.org/has_input",
+    "owl:someValuesFrom" : "http://edamontology.org/data_0943"
   }, {
     "@id" : "_:b577",
     "@type" : "owl:Restriction",
@@ -2911,13 +2911,13 @@
   }, {
     "@id" : "_:b578",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1461"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0128"
   }, {
     "@id" : "_:b579",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0128"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_1461"
   }, {
     "@id" : "_:b58",
     "@type" : "owl:Restriction",
@@ -2926,13 +2926,13 @@
   }, {
     "@id" : "_:b580",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1439"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0084"
   }, {
     "@id" : "_:b581",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0084"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_1439"
   }, {
     "@id" : "_:b582",
     "@type" : "owl:Restriction",
@@ -2972,7 +2972,7 @@
     "@id" : "_:b589",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1597"
+    "owl:someValuesFrom" : "http://edamontology.org/data_1598"
   }, {
     "@id" : "_:b59",
     "@type" : "owl:Restriction",
@@ -2982,7 +2982,7 @@
     "@id" : "_:b590",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1598"
+    "owl:someValuesFrom" : "http://edamontology.org/data_1597"
   }, {
     "@id" : "_:b591",
     "@type" : "owl:Restriction",
@@ -3237,17 +3237,17 @@
   }, {
     "@id" : "_:b77",
     "@type" : "owl:Axiom",
-    "rdfs:comment" : "A defined data format has its implicit or explicit data model, and EDAM does not distinguish the two. Some data models however do not have any standard way of serialisation into an exchange format, and those are thus not considered formats in EDAM. (Remark: even broader - or closely related - term to 'Data model' would be an 'Information model'.)",
-    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#hasBroadSynonym",
-    "owl:annotatedSource" : "http://edamontology.org/format_1915",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : "Data model"
-  }, {
-    "@id" : "_:b78",
-    "@type" : "owl:Axiom",
     "rdfs:comment" : "File format denotes only formats of a computer file, but the same formats apply also to data blobs or exchanged messages.",
     "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#hasNarrowSynonym",
     "owl:annotatedSource" : "http://edamontology.org/format_1915",
     "http://www.w3.org/2002/07/owl#annotatedTarget" : "File format"
+  }, {
+    "@id" : "_:b78",
+    "@type" : "owl:Axiom",
+    "rdfs:comment" : "A defined data format has its implicit or explicit data model, and EDAM does not distinguish the two. Some data models however do not have any standard way of serialisation into an exchange format, and those are thus not considered formats in EDAM. (Remark: even broader - or closely related - term to 'Data model' would be an 'Information model'.)",
+    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#hasBroadSynonym",
+    "owl:annotatedSource" : "http://edamontology.org/format_1915",
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : "Data model"
   }, {
     "@id" : "_:b79",
     "@type" : "owl:Axiom",
