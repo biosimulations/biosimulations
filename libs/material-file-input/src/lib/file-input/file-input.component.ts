@@ -62,6 +62,7 @@ export class FileInputComponent
       this.writeValue(fileInput);
       this.stateChanges.next();
     }
+    console.log(`${fileInput}`);
   }
 
   @Input()

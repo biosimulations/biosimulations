@@ -74,6 +74,7 @@ export class PagingFormComponent<TStepId extends string> implements OnDestroy, A
   public onNextClicked(): void {
     const stepValidated = this.validateAndSaveStepData();
     const currentStep = this.currentFormStep();
+    console.log(`HERE IS THE CURRENT STEP: ${currentStep}`);
     if (!stepValidated || !this.dataSource || !currentStep) {
       return;
     }

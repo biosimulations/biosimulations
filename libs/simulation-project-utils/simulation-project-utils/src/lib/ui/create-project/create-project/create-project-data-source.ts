@@ -133,6 +133,7 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
   }
 
   private preloadUploadModelData(modelUrl: string, modelFormat: string): void {
+    console.log(`The model url: ${modelUrl}`);
     modelFormat = modelFormat?.toLowerCase();
     const match = modelFormat?.match(/^(format[:_])?(\d{1,4})$/);
     if (match) {
@@ -141,6 +142,7 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     const uploadModelData = this.formData[CreateProjectFormStep.UploadModel] || {};
     uploadModelData.modelUrl = modelUrl;
     uploadModelData.modelFormat = modelFormat;
+    console.log(`the url: ${uploadModelData.modelUrl}`);
     this.formData[CreateProjectFormStep.UploadModel] = uploadModelData;
   }
 
