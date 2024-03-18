@@ -403,9 +403,21 @@ export class DispatchComponent implements OnInit, OnDestroy {
 
     const archive = urlValue ? urlValue : fileValue;
     const loadedSpecs = this.archiveSedDocSpecsLoaded;
-    const sub = this.combineApiService
+
+    /* const sub = this.combineApiService
       .getSpecsOfSedDocsInCombineArchive(archive)
-      .subscribe(this.archiveSedDocSpecsLoaded.bind(this));
+      .subscribe(this.archiveSedDocSpecsLoaded.bind(this)); */
+
+    const sub = this.combineApiService.getSpecsOfSedDocsInCombineArchive(archive).subscribe(
+      (sedDocSpecs) => {
+        this.archiveSedDocSpecsLoaded(sedDocSpecs);
+        // Log or handle the loaded specs if needed
+        console.log('SED-ML Specs Loaded:', sedDocSpecs);
+      },
+      (error) => console.error(error),
+    );
+
+    this.subscriptions.push(sub);
     console.log(`HERE ARE THE ARCHIVE SPECS: ${loadedSpecs}`);
     this.subscriptions.push(sub);
   }
