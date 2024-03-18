@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 
@@ -24,6 +24,13 @@ import {
 } from './ui/create-project/form-steps';
 import { FormHostDirective, PagingFormComponent } from './ui/create-project/create-project/forms';
 
+// Define the routes for the form steps
+const createProjectRoutes: Routes = [
+  { path: 'create-project/upload-model', component: UploadModelComponent },
+  { path: 'create-project/model-changes', component: ModelChangesComponent },
+  { path: 'create-project/model-variables', component: ModelVariablesComponent },
+];
+
 @NgModule({
   declarations: [
     ConvertFileComponent,
@@ -43,7 +50,15 @@ import { FormHostDirective, PagingFormComponent } from './ui/create-project/crea
     FormHostDirective,
     PagingFormComponent,
   ],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule, SharedUiModule, BiosimulationsIconsModule],
-  exports: [ModelChangesComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    SharedUiModule,
+    BiosimulationsIconsModule,
+    RouterModule.forChild(createProjectRoutes),
+  ],
+  exports: [ModelChangesComponent, CreateProjectComponent],
 })
 export class SimulationProjectUtilsModule {}
