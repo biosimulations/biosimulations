@@ -9,27 +9,6 @@
             <mat-label>Choose COMBINE/OMEX archive file</mat-label>
             <biosimulations-ngx-mat-file-input
               formControlName="projectFile"
-              accept=".omex,.sedml,.sedx,.zip,application/zip"
-              (ngModelChange)="projectControlUpdated()">
-            </biosimulations-ngx-mat-file-input>
-          </mat-form-field>
-
-          <mat-hint>Or</mat-hint>
-
-          <mat-form-field class="card-form-field" appearance="fill">
-            <mat-label>Enter URL for COMBINE/OMEX archive</mat-label>
-            <input matInput formControlName="projectUrl" (ngModelChange)="projectControlUpdated()" />
-          </mat-form-field>
-        </div>
-      </mat-card>
-      <mat-card class="card-form-section mat-elevation-z3">
-        <mat-card-header class="card-form-section-title omex">COMBINE/OMEX archive*</mat-card-header>
-
-        <div class="input-group">
-          <mat-form-field class="card-form-field" appearance="fill">
-            <mat-label>Choose COMBINE/OMEX archive file</mat-label>
-            <biosimulations-ngx-mat-file-input
-              formControlName="projectFile"
               accept=".omex,.sedx,.zip,application/zip"
               (ngModelChange)="projectControlUpdated()">
             </biosimulations-ngx-mat-file-input>
@@ -101,6 +80,16 @@
             Please select only one COMBINE/OMEX file or URL.
           </mat-error>
         </mat-card-content>
+      </mat-card>
+
+      <mat-card class="card-form-section mat-elevation-z3">
+        <mat-card-header class="card-form-section-title cap"
+        >Simulation Changes</mat-card-header
+        >
+
+        <div class="input-group">
+          <create-project-model-changes></create-project-model-changes>
+        </div>
       </mat-card>
 
       <mat-card class="card-form-section mat-elevation-z3">

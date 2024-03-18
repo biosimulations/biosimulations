@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { UntypedFormArray, UntypedFormBuilder, Validators, UntypedFormGroup, AbstractControl } from '@angular/forms';
 import { IFormStepComponent, FormStepData } from '../create-project/forms';
 import { UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR, SEDML_ID_VALIDATOR } from '@biosimulations/shared/ui';
@@ -9,9 +9,10 @@ import { SedModelAttributeChangeTypeEnum, SedModelChange } from '@biosimulations
   templateUrl: './model-changes.component.html',
   styleUrls: ['./form-steps.scss'],
 })
-export class ModelChangesComponent implements IFormStepComponent {
+export class ModelChangesComponent implements IFormStepComponent, OnChanges {
   public nextClicked = false;
-  public formArray: UntypedFormArray;
+  // ORIGINAL: public formArray: UntypedFormArray;
+  @Input() formArray: UntypedFormArray;
 
   public constructor(private formBuilder: UntypedFormBuilder) {
     this.formArray = formBuilder.array([], {
@@ -21,6 +22,19 @@ export class ModelChangesComponent implements IFormStepComponent {
     for (let i = 0; i < defaultRowCount; i++) {
       this.addModelChangeField();
     }
+  }
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    // added for dispatch
+    if (changes.formArray) {
+      this.setupFormArray(changes.formArray.currentValue);
+    }
+  }
+
+  private setupFormArray(formArray: UntypedFormArray): void {
+    // add for dispatch
+    this.formArray = formArray;
+    // any additional setup like adding default model change fields
   }
 
   /**

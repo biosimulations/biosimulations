@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { FormattedSimulation } from '../view.model';
 import { SimulationService } from '../../../../services/simulation/simulation.service';
+import { CombineApiService } from '@biosimulations/simulation-project-utils';
+// import { IntrospectNewProject } from "@biosimulations/simulation-project-utils";
 
 @Component({
   selector: 'biosimulations-simulation-run-overview',
@@ -11,11 +13,15 @@ export class OverviewComponent {
   @Input()
   public simulation!: FormattedSimulation;
 
-  public constructor(private simulationService: SimulationService) {
+  public constructor(private simulationService: SimulationService, private combineApiService: CombineApiService) {
     /* Constructor is empty */
   }
 
   public rerunProject(id: string): void {
     this.simulationService.rerunProject(id);
+  }
+
+  public changeModel(url: string): void {
+    this.combineApiService.validateSimulation(url);
   }
 }

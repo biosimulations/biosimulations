@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Params } from '@angular/router';
-import { UntypedFormBuilder, UntypedFormGroup, Validators, ValidationErrors } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, UntypedFormArray, Validators, ValidationErrors } from '@angular/forms';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { CombineApiService } from '../../../services/combine-api/combine-api.service';
@@ -35,6 +35,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { FileInput } from '@biosimulations/material-file-input';
 import { CreateMaxFileSizeValidator, INTEGER_VALIDATOR } from '@biosimulations/shared/ui';
+import { Directive, ViewContainerRef } from '@angular/core';
+import { ModelChangesComponent } from '../../../../../../../libs/simulation-project-utils/simulation-project-utils/src/lib/ui/create-project/form-steps';
 
 interface SimulatorIdNameDisabled {
   id: string;
@@ -51,6 +53,13 @@ interface SimulatorPolicy {
   minPolicy: AlgorithmSubstitutionPolicy;
   simulator: Simulator;
 }
+
+/* @Directive({
+  selector: '[appModelChangesHost]',
+})
+export class ModelChangesHostDirective {
+  constructor(public viewContainerRef: ViewContainerRef) {}
+} */
 
 interface Algorithm {
   id: string;
@@ -113,6 +122,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
         name: ['', [Validators.required]],
         email: ['', [Validators.email]],
         emailConsent: [false],
+        modelChanges: this.formBuilder.array([]),
       },
       {
         validators: this.formValidator.bind(this),
