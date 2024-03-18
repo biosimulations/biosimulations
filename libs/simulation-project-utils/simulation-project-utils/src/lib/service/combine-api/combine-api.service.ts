@@ -17,6 +17,7 @@ import { RetryStrategy } from '@biosimulations/shared/angular';
   providedIn: 'root',
 })
 export class CombineApiService {
+  // This service retrieves data from the REST API for the client
   private endpoints = new Endpoints();
 
   private validateModelEndpoint = this.endpoints.getValidateModelEndpoint(true);
@@ -24,6 +25,7 @@ export class CombineApiService {
   private validateMetadataEndpoint = this.endpoints.getValidateOmexMetadataEndpoint(true);
   private validateProjectEndpoint = this.endpoints.getValidateCombineArchiveEndpoint(true);
   private similarAlgorithmsEndpoint = this.endpoints.getSimilarAlgorithmsEndpoint(true);
+  private modifyArchiveFilesEndpoint = this.endpoints.getModifyArchiveFileEndpoint(true);
 
   public constructor(private http: HttpClient) {}
 
@@ -160,5 +162,22 @@ export class CombineApiService {
     }
 
     return observable;
+  }
+
+  public modifyCombineArchive(modifySpecs: any, fileOrUrl: File | string): Observable<any> {
+    const formData = new FormData();
+    if (typeof fileOrUrl === 'object') {
+      formData.append('file', fileOrUrl);
+    } else {
+      formData.append('url', fileOrUrl);
+    }
+
+    return this.http.post<any>(this.modifyArchiveFilesEndpoint, formData).pipe(
+      catchError((error: HttpErrorResponse): Observable<undefined> => {
+        console.error('Error modifying COMBINE/OMEX archive', error);
+        return of(undefined);
+      }),
+      shareReplay(1),
+    );
   }
 }

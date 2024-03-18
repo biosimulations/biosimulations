@@ -274,6 +274,10 @@ export class Endpoints {
     return `${this.getCombineApiBaseUrl(external)}/kisao/get-similar-algorithms`;
   }
 
+  public getModifyArchiveFileEndpoint(external: boolean): string {
+    return `${this.getCombineApiBaseUrl(external)}/combine/modify`;
+  }
+
   /**
    *
    * @param id The id of the simulation run
