@@ -131,6 +131,10 @@ function CreateCustomizableSedDocumentData(
   };
 }
 
+export function GetModelVariables(sedDoc: SedDocument, namespaces: Namespace[]): SedVariable[] {
+  return GatherModelVariables(sedDoc, namespaces);
+}
+
 function GatherModelVariables(sedDoc: SedDocument, namespaces: Namespace[]): SedVariable[] {
   const sedReports = sedDoc.outputs?.filter((output: SedOutput): boolean => {
     return output._type === SedReportTypeEnum.SedReport;
@@ -152,6 +156,7 @@ function GatherModelVariables(sedDoc: SedDocument, namespaces: Namespace[]): Sed
     modelVariables.push(modelVar);
     AddUniqueNamespaces(modelVar.target?.namespaces, namespaces);
   });
+  console.log(`Here are model variable: ${modelVariables}`);
   return modelVariables;
 }
 

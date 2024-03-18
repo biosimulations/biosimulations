@@ -20,6 +20,8 @@ import {
   CombineArchiveSedDocSpecsContent,
   SedDocument,
   SedModel,
+  SedVariable,
+  Namespace,
   SedSimulation,
   SedModelChange,
   SedModelAttributeChange,
@@ -37,7 +39,12 @@ import { ConfigService } from '@biosimulations/config/angular';
 import { FileInput } from '@biosimulations/material-file-input';
 import { CreateMaxFileSizeValidator, INTEGER_VALIDATOR } from '@biosimulations/shared/ui';
 import { HttpClient } from '@angular/common/http';
-import { CustomizableSedDocumentData, IntrospectNewProject } from '@biosimulations/simulation-project-utils';
+import { FormStepData } from '@biosimulations/simulation-project-utils';
+import {
+  CustomizableSedDocumentData,
+  IntrospectNewProject,
+  GetModelVariables,
+} from '@biosimulations/simulation-project-utils';
 
 interface SimulatorIdNameDisabled {
   id: string;
@@ -418,7 +425,13 @@ export class DispatchComponent implements OnInit, OnDestroy {
 
     this.subscriptions.push(sub);
     console.log(`HERE ARE THE ARCHIVE SPECS: ${loadedSpecs}`);
+    //this.introspectAndPopulateModelChanges()
     this.subscriptions.push(sub);
+  }
+
+  private handleError(modelUrl: string): void {
+    console.error(`Error while introspecting model at ${modelUrl}`);
+    // Handle error appropriately
   }
 
   public simulatorControlUpdated(): void {
@@ -549,9 +562,9 @@ export class DispatchComponent implements OnInit, OnDestroy {
 
     this.controlImpactingEligibleSimulatorsUpdated();
 
-    if (sedDocSpecs) {
+    /*if (sedDocSpecs) {
       this.populateModelChangesForm(sedDocSpecs);
-    }
+    }*/
   }
 
   private processSimulationResponse(
@@ -786,20 +799,31 @@ export class DispatchComponent implements OnInit, OnDestroy {
     });
   } */
 
-  private populateModelChangesForm(sedDocSpecs: CombineArchiveSedDocSpecs): void {
+  public introspectAndPopulateModelChanges(modelData: FormStepData, simMethodData: FormStepData): void {
+    const introspectionObservable = IntrospectNewProject(this.client, modelData, simMethodData, this.handleError);
+
+    introspectionObservable?.subscribe((customizedSedDocData: CustomizableSedDocumentData | null) => {
+      if (customizedSedDocData) {
+        // Pass the array of SedModelChange directly
+        this.populateModelChangesForm(customizedSedDocData.modelChanges as any);
+      }
+    });
+  }
+
+  private populateModelChangesForm(modelChanges: SedModelChange[]): void {
     const modelChangesFormArray = this.formGroup.get('modelChanges') as UntypedFormArray;
     modelChangesFormArray.clear(); // Clear existing form groups
 
-    sedDocSpecs.contents.forEach((content) => {
-      const sedDoc: SedDocument = content.location.value;
-      sedDoc.models.forEach((model) => {
-        model.changes.forEach((change) => {
-          const modelChangeFormGroup = this.createModelChangeFormGroupForType(change);
-          if (modelChangeFormGroup) {
-            modelChangesFormArray.push(modelChangeFormGroup);
-          }
-        });
-      });
+    // Directly iterate over modelChanges since that's what we're now receiving
+    modelChanges.forEach((change) => {
+      // Check for the correct type of change if needed
+      if (change._type === 'SedModelAttributeChange') {
+        const modelChangeFormGroup = this.createModelChangeFormGroupForType(change);
+        if (modelChangeFormGroup) {
+          modelChangesFormArray.push(modelChangeFormGroup);
+        }
+      }
+      // Handle other types of changes similarly
     });
   }
 
