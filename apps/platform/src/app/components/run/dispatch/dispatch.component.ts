@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Params } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Params, Router } from '@angular/router';
 import { UntypedFormBuilder, UntypedFormGroup, UntypedFormArray, Validators, ValidationErrors } from '@angular/forms';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { SimulationService } from '../../../services/simulation/simulation.service';
@@ -33,13 +34,10 @@ import { SimulationRunStatus, EnvironmentVariable, SimulationRun } from '@biosim
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import { Observable, Subscription } from 'rxjs';
 import { ConfigService } from '@biosimulations/config/angular';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
 import { FileInput } from '@biosimulations/material-file-input';
 import { CreateMaxFileSizeValidator, INTEGER_VALIDATOR } from '@biosimulations/shared/ui';
-import { PagingFormComponent } from '@biosimulations/simulation-project-utils';
-import { Directive, ViewContainerRef } from '@angular/core';
-import { ModelChangesComponent } from '../../../../../../../libs/simulation-project-utils/simulation-project-utils/src/lib/ui/create-project/form-steps';
+import { HttpClient } from '@angular/common/http';
+import { CustomizableSedDocumentData, IntrospectNewProject } from '@biosimulations/simulation-project-utils';
 
 interface SimulatorIdNameDisabled {
   id: string;
@@ -108,6 +106,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     private combineApiService: CombineApiService,
     private snackBar: MatSnackBar,
     private loader: SimulationProjectUtilLoaderService,
+    private client: HttpClient,
   ) {
     this.formGroup = this.formBuilder.group(
       {
@@ -769,7 +768,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     return Object.keys(errors).length ? errors : null;
   }
 
-  private populateModelChangesForm(sedDocSpecs: CombineArchiveSedDocSpecs): void {
+  /* private populateModelChangesForm(sedDocSpecs: CombineArchiveSedDocSpecs): void {
     const modelChangesFormArray = this.formGroup.get('modelChanges') as UntypedFormArray;
     modelChangesFormArray.clear(); // Clear existing form groups
 
@@ -785,6 +784,45 @@ export class DispatchComponent implements OnInit, OnDestroy {
         });
       });
     });
+  } */
+
+  private populateModelChangesForm(sedDocSpecs: CombineArchiveSedDocSpecs): void {
+    const modelChangesFormArray = this.formGroup.get('modelChanges') as UntypedFormArray;
+    modelChangesFormArray.clear(); // Clear existing form groups
+
+    sedDocSpecs.contents.forEach((content) => {
+      const sedDoc: SedDocument = content.location.value;
+      sedDoc.models.forEach((model) => {
+        model.changes.forEach((change) => {
+          const modelChangeFormGroup = this.createModelChangeFormGroupForType(change);
+          if (modelChangeFormGroup) {
+            modelChangesFormArray.push(modelChangeFormGroup);
+          }
+        });
+      });
+    });
+  }
+
+  private createModelChangeFormGroupForType(change: SedModelChange): UntypedFormGroup | null {
+    switch (change._type) {
+      case 'SedModelAttributeChange':
+        // Existing implementation for attribute changes
+        return this.createModelChangeFormGroup(change);
+      case 'SedAddElementModelChange':
+      case 'SedReplaceElementModelChange':
+        // Handle other types of changes similarly
+        // You might need different form fields based on the change type
+        return this.formBuilder.group({
+          // Example for different change types
+          id: [change.id || '', Validators.required],
+          name: [change.name || ''],
+          target: [change.target.value, Validators.required],
+          // Adjust fields as necessary
+        });
+      default:
+        console.warn(`Unsupported change type: ${change._type}`);
+        return null; // Return null for unsupported change types
+    }
   }
 
   private createModelChangeFormGroup(change: SedModelAttributeChange): UntypedFormGroup {
@@ -792,7 +830,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
       id: [change.id || '', Validators.required], // Adjust these fields as needed
       name: [change.name || ''],
       target: [change.target.value, Validators.required],
-      default: [''], // You might not have a default value
+      default: [change.newValue], // You might not have a default value
       newValue: [change.newValue, Validators.required],
     });
   }
