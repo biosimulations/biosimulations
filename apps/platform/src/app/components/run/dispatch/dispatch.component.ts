@@ -562,9 +562,9 @@ export class DispatchComponent implements OnInit, OnDestroy {
 
     this.controlImpactingEligibleSimulatorsUpdated();
 
-    /*if (sedDocSpecs) {
+    if (sedDocSpecs) {
       this.populateModelChangesForm(sedDocSpecs);
-    }*/
+    }
   }
 
   private processSimulationResponse(
@@ -781,7 +781,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     return Object.keys(errors).length ? errors : null;
   }
 
-  /* private populateModelChangesForm(sedDocSpecs: CombineArchiveSedDocSpecs): void {
+  private populateModelChangesForm(sedDocSpecs: CombineArchiveSedDocSpecs): void {
     const modelChangesFormArray = this.formGroup.get('modelChanges') as UntypedFormArray;
     modelChangesFormArray.clear(); // Clear existing form groups
 
@@ -797,7 +797,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
         });
       });
     });
-  } */
+  }
 
   public introspectAndPopulateModelChanges(modelData: FormStepData, simMethodData: FormStepData): void {
     const introspectionObservable = IntrospectNewProject(this.client, modelData, simMethodData, this.handleError);
@@ -805,12 +805,12 @@ export class DispatchComponent implements OnInit, OnDestroy {
     introspectionObservable?.subscribe((customizedSedDocData: CustomizableSedDocumentData | null) => {
       if (customizedSedDocData) {
         // Pass the array of SedModelChange directly
-        this.populateModelChangesForm(customizedSedDocData.modelChanges as any);
+        this.__populateModelChangesForm(customizedSedDocData.modelChanges as any);
       }
     });
   }
 
-  private populateModelChangesForm(modelChanges: SedModelChange[]): void {
+  private __populateModelChangesForm(modelChanges: SedModelChange[]): void {
     const modelChangesFormArray = this.formGroup.get('modelChanges') as UntypedFormArray;
     modelChangesFormArray.clear(); // Clear existing form groups
 
