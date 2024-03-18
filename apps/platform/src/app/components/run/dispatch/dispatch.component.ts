@@ -18,9 +18,9 @@ import { Simulation } from '../../../datamodel';
 import {
   CombineArchiveSedDocSpecs,
   CombineArchiveSedDocSpecsContent,
-  SedDocument,
   SedModel,
   SedVariable,
+  SedDocument,
   Namespace,
   SedSimulation,
   SedModelChange,
@@ -786,12 +786,12 @@ export class DispatchComponent implements OnInit, OnDestroy {
     modelChangesFormArray.clear(); // Clear existing form groups
 
     sedDocSpecs.contents.forEach((content) => {
-      const sedDoc: SedDocument = content.location.value;
+      const sedDoc = content.location.value;
       sedDoc.models.forEach((model) => {
         model.changes.forEach((change) => {
           // Assuming you're interested in attribute changes for this example
           if (change._type === 'SedModelAttributeChange') {
-            const modelChangeFormGroup = this.createModelChangeFormGroup(change);
+            const modelChangeFormGroup = this.createModelChangeFormGroupForType(change);
             modelChangesFormArray.push(modelChangeFormGroup);
           }
         });
@@ -799,7 +799,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     });
   }
 
-  public introspectAndPopulateModelChanges(modelData: FormStepData, simMethodData: FormStepData): void {
+  /* public introspectAndPopulateModelChanges(modelData: FormStepData, simMethodData: FormStepData): void {
     const introspectionObservable = IntrospectNewProject(this.client, modelData, simMethodData, this.handleError);
 
     introspectionObservable?.subscribe((customizedSedDocData: CustomizableSedDocumentData | null) => {
@@ -825,7 +825,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
       }
       // Handle other types of changes similarly
     });
-  }
+  } */
 
   private createModelChangeFormGroupForType(change: SedModelChange): UntypedFormGroup | null {
     switch (change._type) {

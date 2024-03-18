@@ -86,7 +86,8 @@
       <mat-card class="card-form-section mat-elevation-z3">
         <div class="input-group model-changes">
           <create-project-model-changes
-            [formArray]="modelChangesArray">
+            [formArray]="modelChangesArray"
+            (change)="$event">
           </create-project-model-changes>
         </div>
       </mat-card>
