@@ -20,6 +20,8 @@ import {
   SedDocument,
   SedModel,
   SedSimulation,
+  SedModelChange,
+  SedModelAttributeChange,
   Purpose,
   AlgorithmSubstitutionPolicyLevels,
   ALGORITHM_SUBSTITUTION_POLICIES,
@@ -400,9 +402,11 @@ export class DispatchComponent implements OnInit, OnDestroy {
     }
 
     const archive = urlValue ? urlValue : fileValue;
+    const loadedSpecs = this.archiveSedDocSpecsLoaded;
     const sub = this.combineApiService
       .getSpecsOfSedDocsInCombineArchive(archive)
       .subscribe(this.archiveSedDocSpecsLoaded.bind(this));
+    console.log(`HERE ARE THE ARCHIVE SPECS: ${loadedSpecs}`);
     this.subscriptions.push(sub);
   }
 
@@ -533,6 +537,10 @@ export class DispatchComponent implements OnInit, OnDestroy {
     this.formGroup.controls.simulationAlgorithms.setValue(Array.from(simulationAlgorithms));
 
     this.controlImpactingEligibleSimulatorsUpdated();
+
+    if (sedDocSpecs) {
+      this.populateModelChangesForm(sedDocSpecs);
+    }
   }
 
   private processSimulationResponse(
@@ -747,5 +755,33 @@ export class DispatchComponent implements OnInit, OnDestroy {
       errors['emailNotConsented'] = true;
     }  */
     return Object.keys(errors).length ? errors : null;
+  }
+
+  private populateModelChangesForm(sedDocSpecs: CombineArchiveSedDocSpecs): void {
+    const modelChangesFormArray = this.formGroup.get('modelChanges') as UntypedFormArray;
+    modelChangesFormArray.clear(); // Clear existing form groups
+
+    sedDocSpecs.contents.forEach((content) => {
+      const sedDoc: SedDocument = content.location.value;
+      sedDoc.models.forEach((model) => {
+        model.changes.forEach((change) => {
+          // Assuming you're interested in attribute changes for this example
+          if (change._type === 'SedModelAttributeChange') {
+            const modelChangeFormGroup = this.createModelChangeFormGroup(change);
+            modelChangesFormArray.push(modelChangeFormGroup);
+          }
+        });
+      });
+    });
+  }
+
+  private createModelChangeFormGroup(change: SedModelAttributeChange): UntypedFormGroup {
+    return this.formBuilder.group({
+      id: [change.id || '', Validators.required], // Adjust these fields as needed
+      name: [change.name || ''],
+      target: [change.target.value, Validators.required],
+      default: [''], // You might not have a default value
+      newValue: [change.newValue, Validators.required],
+    });
   }
 }

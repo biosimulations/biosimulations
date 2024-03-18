@@ -164,7 +164,7 @@ export class CombineApiService {
     return observable;
   }
 
-  public modifyCombineArchive(modifySpecs: any, fileOrUrl: File | string): Observable<any> {
+  public changeUploadedArchiveSimulation(modifySpecs: any, fileOrUrl: File | string): Observable<any> {
     const formData = new FormData();
     if (typeof fileOrUrl === 'object') {
       formData.append('file', fileOrUrl);
@@ -172,6 +172,7 @@ export class CombineApiService {
       formData.append('url', fileOrUrl);
     }
 
+    // TODO: Implement the full workflow, starting with spec fetch
     return this.http.post<any>(this.modifyArchiveFilesEndpoint, formData).pipe(
       catchError((error: HttpErrorResponse): Observable<undefined> => {
         console.error('Error modifying COMBINE/OMEX archive', error);
