@@ -172,6 +172,10 @@ export class DispatchComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
+  public get modelChangesArray(): UntypedFormArray {
+    return this.formGroup.get('modelChanges') as UntypedFormArray;
+  }
+
   private loadComplete(data: SimulationProjectUtilData): void {
     const curatedAlgSubs: AlgorithmSubstitution[] = data.algorithmSubstitutions;
     const simulatorsData: SimulatorsData = data.simulators;

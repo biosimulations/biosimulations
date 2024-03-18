@@ -83,12 +83,10 @@
       </mat-card>
 
       <mat-card class="card-form-section mat-elevation-z3">
-        <mat-card-header class="card-form-section-title cap"
-        >Simulation Changes</mat-card-header
-        >
-
-        <div class="input-group">
-          <create-project-model-changes></create-project-model-changes>
+        <div class="input-group model-changes">
+          <create-project-model-changes
+            [formArray]="modelChangesArray">
+          </create-project-model-changes>
         </div>
       </mat-card>
 
