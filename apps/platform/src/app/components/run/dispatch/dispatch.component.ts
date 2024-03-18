@@ -35,6 +35,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { FileInput } from '@biosimulations/material-file-input';
 import { CreateMaxFileSizeValidator, INTEGER_VALIDATOR } from '@biosimulations/shared/ui';
+import { PagingFormComponent } from '@biosimulations/simulation-project-utils';
 import { Directive, ViewContainerRef } from '@angular/core';
 import { ModelChangesComponent } from '../../../../../../../libs/simulation-project-utils/simulation-project-utils/src/lib/ui/create-project/form-steps';
 
