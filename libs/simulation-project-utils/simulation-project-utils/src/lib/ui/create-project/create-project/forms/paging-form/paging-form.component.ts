@@ -22,7 +22,8 @@ export class PagingFormComponent<TStepId extends string> implements OnDestroy, A
 
   private currentFormStepComponent: IFormStepComponent | null = null;
   private formPath: TStepId[] = [];
-  private subscriptions: Subscription[] = [];
+  public subscriptions: Subscription[] = [];
+  @Input() public sharedSubscriptions?: Subscription[];
 
   // Lifecycle
 
@@ -34,6 +35,9 @@ export class PagingFormComponent<TStepId extends string> implements OnDestroy, A
     // ngAfterViewInit occurs during the change detection pass, so to make further changes to view it's
     // necessary to push off to the next turn of the run loop via setTimeout.
     // See https://angular.io/errors/NG0100
+    if (this.sharedSubscriptions) {
+      this.subscriptions = this.sharedSubscriptions;
+    }
     const loadContent = (): void => {
       setTimeout(() => {
         this.loadCurrentFormStep();
