@@ -81,6 +81,24 @@
         </mat-card-content>
       </mat-card>
 
+      <mat-card *ngIf="fileUploaded" class="card-form-section mat-elevation-z3">
+        <mat-card-header class="card-form-section-title cap">Simulation Parameters</mat-card-header>
+        <mat-card-content style="margin-top: 3rem">
+          <form (ngSubmit)="onParameterChangeSubmit()">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" [(ngModel)]="parametersFormData.param1" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" [(ngModel)]="parametersFormData.param2" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="param3" name="email" [(ngModel)]="parametersFormData.param3" required>
+
+            <button type="submit">Submit</button>
+          </form>
+        </mat-card-content>
+      </mat-card>
+
       <mat-card class="card-form-section mat-elevation-z3">
         <mat-card-header class="card-form-section-title cap"
           >Capabilities required to execute your COMBINE/OMEX archive</mat-card-header

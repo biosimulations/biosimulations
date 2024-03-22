@@ -59,6 +59,12 @@ interface Algorithm {
   disabled: boolean;
 }
 
+interface EditParametersForm {
+  param1: string;
+  param2: string;
+  param3: string;
+}
+
 @Component({
   selector: 'biosimulations-dispatch',
   templateUrl: './dispatch.component.html',
@@ -77,6 +83,12 @@ export class DispatchComponent implements OnInit, OnDestroy {
   // Data loaded from configs
   public exampleCombineArchivesUrl: string;
   public emailUrl!: string;
+  public fileUploaded!: boolean;
+  public parametersFormData: EditParametersForm = {
+    param1: '',
+    param2: '',
+    param3: '',
+  };
 
   // Lifecycle state
   public submitPushed = false;
@@ -145,6 +157,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
   // Life cycle
 
   public ngOnInit(): void {
+    this.fileUploaded = false;
     const loadObs = this.loader.loadSimulationUtilData();
     const loadSub = loadObs.subscribe(this.loadComplete.bind(this));
     this.subscriptions.push(loadSub);
@@ -163,9 +176,11 @@ export class DispatchComponent implements OnInit, OnDestroy {
   }
 
   private loadComplete(data: SimulationProjectUtilData): void {
+    // Preload util service
     const curatedAlgSubs: AlgorithmSubstitution[] = data.algorithmSubstitutions;
     const simulatorsData: SimulatorsData = data.simulators;
     const params: Params = data.params;
+    console.log(`This is the params: ${params}`);
 
     this.simulatorSpecsMap = simulatorsData.simulatorSpecs;
 
@@ -217,6 +232,14 @@ export class DispatchComponent implements OnInit, OnDestroy {
   }
 
   // Form Submission
+  public onArchiveUpload() {
+    console.log(`Archive uploaded.`);
+  }
+  public onParameterChangeSubmit() {
+    // Log the form data to the console
+    console.log('Form submitted:', this.parametersFormData);
+    // You can also send the form data to a service or API here
+  }
 
   public onFormSubmit(): void {
     this.submitPushed = true;
@@ -389,6 +412,9 @@ export class DispatchComponent implements OnInit, OnDestroy {
       .getSpecsOfSedDocsInCombineArchive(archive)
       .subscribe(this.archiveSedDocSpecsLoaded.bind(this));
     this.subscriptions.push(sub);
+    console.log(`SPECS: ${this.archiveSedDocSpecsLoaded.bind(this)}`);
+    console.log(`FILE LOADED: ${this.fileUploaded}`);
+    this.fileUploaded = true;
   }
 
   public simulatorControlUpdated(): void {
@@ -472,7 +498,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
 
   // Network callbacks
 
-  private archiveSedDocSpecsLoaded(sedDocSpecs?: CombineArchiveSedDocSpecs): void {
+  public archiveSedDocSpecsLoaded(sedDocSpecs?: CombineArchiveSedDocSpecs): void {
     const simulationAlgorithmsMap = this.simulationAlgorithmsMap;
     if (!sedDocSpecs || !simulationAlgorithmsMap) {
       return;
@@ -518,6 +544,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     this.formGroup.controls.simulationAlgorithms.setValue(Array.from(simulationAlgorithms));
 
     this.controlImpactingEligibleSimulatorsUpdated();
+    console.log(`SED DOCS LOADED`);
   }
 
   private processSimulationResponse(
@@ -635,6 +662,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     }
     this.formGroup.controls.projectUrl.setValue(projectUrl);
     this.projectControlUpdated();
+    console.log(`The project is set!`);
   }
 
   private setSimulator(simulator: string, simulatorVersion: string, simulatorSpecsMap: SimulatorSpecsMap): void {
