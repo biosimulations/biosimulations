@@ -523,9 +523,9 @@ export class DispatchComponent implements OnInit, OnDestroy {
     let specsContainUnsupportedAlgorithm = false;
 
     // Confirm that every model and algorithm within the sed doc spec is supported.
-    sedDocSpecs.contents.forEach((content: CombineArchiveSedDocSpecsContent): void => {
+    sedDocSpecs.contents.forEach((content: CombineArchiveSedDocSpecsContent, contentIndex: number): void => {
       const sedDoc: SedDocument = content.location.value;
-      sedDoc.models.forEach((model: SedModel): void => {
+      sedDoc.models.forEach((model: SedModel, modelIndex: number): void => {
         let edamId: string | null = null;
         for (const modelingFormat of BIOSIMULATIONS_FORMATS) {
           const sedUrn = modelingFormat?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn;
@@ -542,8 +542,12 @@ export class DispatchComponent implements OnInit, OnDestroy {
         /* apply available model changes as values for pre-populating model changes card form.
             TODO: expand/expose more overall changes.
         */
-        model.changes.forEach((change: SedModelChange): void => {
-          // this.parametersFormData = {};  // reset the form to assert fresh render. TODO: find alternatives to this
+        model.changes.forEach((change: SedModelChange, changeIndex: number): void => {
+          this.parametersFormData = {}; // reset the form to assert fresh render. TODO: find alternatives to this
+          if ('newValue' in change) {
+            const key = `model${contentIndex}_change${modelIndex}_${changeIndex}`;
+            this.parametersFormData[key] = change.newValue;
+          }
         });
       });
       sedDoc.simulations.forEach((sim: SedSimulation): void => {
