@@ -1,6 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Params } from '@angular/router';
-import { UntypedFormBuilder, UntypedFormGroup, UntypedFormControl, Validators, ValidationErrors } from '@angular/forms';
+import {
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  UntypedFormControl,
+  Validators,
+  ValidationErrors,
+  FormArray,
+} from '@angular/forms';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { CombineApiService } from '../../../services/combine-api/combine-api.service';
@@ -35,7 +42,13 @@ import { ConfigService } from '@biosimulations/config/angular';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { FileInput } from '@biosimulations/material-file-input';
-import { CreateMaxFileSizeValidator, INTEGER_VALIDATOR } from '@biosimulations/shared/ui';
+import {
+  CreateMaxFileSizeValidator,
+  INTEGER_VALIDATOR,
+  SEDML_ID_VALIDATOR,
+  UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR,
+} from '@biosimulations/shared/ui';
+import { SedModelAttributeChangeTypeEnum } from '@biosimulations/combine-api-angular-client';
 
 interface SimulatorIdNameDisabled {
   id: string;
@@ -84,11 +97,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
   public exampleCombineArchivesUrl: string;
   public emailUrl!: string;
   public fileUploaded!: boolean;
-  public parametersFormData: EditParametersForm = {
-    param1: '',
-    param2: '',
-    param3: '',
-  };
+  public parametersFormData!: EditParametersForm;
 
   // Lifecycle state
   public submitPushed = false;
@@ -98,6 +107,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
   private modelFormatsMap?: OntologyTermsMap;
   private simulationAlgorithmsMap?: Record<string, Algorithm>;
   private simulatorSpecsMap?: SimulatorSpecsMap;
+  public formArray!: FormArray;
 
   public constructor(
     private config: ConfigService,
@@ -412,8 +422,8 @@ export class DispatchComponent implements OnInit, OnDestroy {
       .subscribe(this.archiveSedDocSpecsLoaded.bind(this));
     this.subscriptions.push(sub);
     console.log(`SPECS: ${this.archiveSedDocSpecsLoaded.bind(this)}`);
-    console.log(`FILE LOADED: ${this.fileUploaded}`);
     this.fileUploaded = true;
+    console.log(`FILE LOADED: ${this.fileUploaded}`);
   }
 
   public simulatorControlUpdated(): void {
@@ -496,11 +506,53 @@ export class DispatchComponent implements OnInit, OnDestroy {
   }
 
   // Network callbacks
+  public addModelChangeField(modelChange?: Record<string, string | null>): void {
+    const modelChangeForm = this.formBuilder.group({
+      id: [modelChange?.id, [SEDML_ID_VALIDATOR]],
+      name: [modelChange?.name, []],
+      target: [modelChange?.target, [Validators.required]],
+      default: [modelChange?.default, []],
+      newValue: [modelChange?.newValue, []],
+    });
+    modelChangeForm.controls.default.disable();
+    this.formArray.push(modelChangeForm);
+  }
+
+  private addFieldForModelChange(modelChange: SedModelChange): void {
+    // TODO: Support additional change types.
+    if (modelChange && modelChange._type !== SedModelAttributeChangeTypeEnum.SedModelAttributeChange) {
+      return;
+    }
+    this.addModelChangeField({
+      id: modelChange.id || null,
+      name: modelChange.name || null,
+      target: modelChange.target.value || null,
+      default: modelChange.newValue || null,
+      newValue: null,
+    });
+  }
+  public loadIntrospectedModelChanges(introspectedModelChanges: SedModelChange[]): void {
+    if (introspectedModelChanges.length === 0) {
+      return;
+    }
+    this.formArray.clear();
+    introspectedModelChanges.forEach((change: SedModelChange) => {
+      this.addFieldForModelChange(change);
+    });
+  }
+
   private updateParametersForm(): void {
     // clear existing controls
-    Object.keys(this.parametersForm.controls).forEach((key) => {
+    /*Object.keys(this.parametersForm.controls).forEach((key) => {
       this.parametersForm.removeControl(key);
+    });*/
+    this.formArray = this.formBuilder.array([], {
+      validators: [UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR('id')],
     });
+    const defaultRowCount = 3;
+    for (let i = 0; i < defaultRowCount; i++) {
+      this.addModelChangeField();
+    }
 
     // add n controls where n is the number of editable params
     Object.keys(this.parametersFormData).forEach((key) => {
@@ -539,10 +591,18 @@ export class DispatchComponent implements OnInit, OnDestroy {
         // apply available model changes as values for pre-populating model changes card form.
         // TODO: expand/expose more overall changes.
         model.changes.forEach((change: SedModelChange, changeIndex: number): void => {
-          this.parametersFormData = {}; // reset the form to assert fresh render. TODO: find alternatives to this
+          console.log(`THE CURRENT CHANGE: ${change._type}`);
+          // this.parametersFormData = {}; // reset the form to assert fresh render. TODO: find alternatives to this
+          let key = null;
+          if (change.name) {
+            key = change.name;
+          } else {
+            key = `model${contentIndex}_change${modelIndex}_${changeIndex}`;
+          }
           if ('newValue' in change) {
-            const key = `model${contentIndex}_change${modelIndex}_${changeIndex}`;
+            // const key = `model${contentIndex}_change${modelIndex}_${changeIndex}`;
             this.parametersFormData[key] = change.newValue;
+            console.log(`the name: ${change.target.value}`);
           }
         });
       });
