@@ -81,7 +81,7 @@
         </mat-card-content>
       </mat-card>
 
-      <mat-card *ngIf="fileUploaded" class="card-form-section mat-elevation-z3">
+      <!--<mat-card *ngIf="fileUploaded" class="card-form-section mat-elevation-z3">
         <mat-card-header class="card-form-section-title cap">Simulation Parameters</mat-card-header>
         <mat-card-content style="margin-top: 3rem">
           <form (ngSubmit)="onParameterChangeSubmit()">
@@ -94,6 +94,18 @@
             <label for="email">Param3:</label>
             <input type="email" id="param3" name="email" [(ngModel)]="parametersFormData.param3" required>
 
+            <button mat-flat-button type="submit" class="biosimulations-button run update">Update Simulation</button>
+          </form>
+        </mat-card-content>
+      </mat-card>-->
+      <mat-card *ngIf="fileUploaded" class="card-form-section mat-elevation-z3">
+        <mat-card-header class="card-form-section-title cap">Simulation Parameters</mat-card-header>
+        <mat-card-content style="margin-top: 3rem">
+          <form [formGroup]="parametersForm" (ngSubmit)="onParameterChangeSubmit()">
+            <div *ngFor="let controlName of getParameterFormKeys()">
+              <label [for]="controlName">{{ controlName }}:</label>
+              <input type="text" [id]="controlName" [formControlName]="controlName" required>
+            </div>
             <button mat-flat-button type="submit" class="biosimulations-button run update">Update Simulation</button>
           </form>
         </mat-card-content>

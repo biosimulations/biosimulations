@@ -669,6 +669,10 @@ export class DispatchComponent implements OnInit, OnDestroy {
     return this.formGroup.get('parametersForm') as UntypedFormGroup;
   }
 
+  public getParameterFormKeys(): string[] {
+    return Object.keys(this.parametersForm.controls);
+  }
+
   private setControlsFromParams(params: Params, simulatorSpecsMap: SimulatorSpecsMap): void {
     if (!params) {
       return;
