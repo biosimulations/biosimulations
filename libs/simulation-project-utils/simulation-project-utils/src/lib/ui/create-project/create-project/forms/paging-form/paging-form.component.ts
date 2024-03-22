@@ -1,5 +1,5 @@
 import { Subscription } from 'rxjs';
-import { Component, Input, ViewChildren, OnDestroy, AfterViewInit, QueryList } from '@angular/core';
+import { Component, Input, ViewChildren, OnDestroy, AfterViewInit, QueryList, OnInit } from '@angular/core';
 import { IFormStepComponent } from '../form-step-component';
 import { IMultiStepFormDataSource } from '../multi-step-form-datasource';
 import { IMultiStepFormDataTask } from '../multi-step-form-datasource';
@@ -11,7 +11,7 @@ import { FormHostDirective } from '../form-host.directive';
   templateUrl: './paging-form.component.html',
   styleUrls: ['./paging-form.component.scss'],
 })
-export class PagingFormComponent<TStepId extends string> implements OnDestroy, AfterViewInit {
+export class PagingFormComponent<TStepId extends string> implements OnDestroy, AfterViewInit, OnInit {
   @ViewChildren(FormHostDirective) public formHostQuery!: QueryList<FormHostDirective>;
 
   @Input() public dataSource?: IMultiStepFormDataSource<TStepId>;
@@ -22,10 +22,17 @@ export class PagingFormComponent<TStepId extends string> implements OnDestroy, A
 
   private currentFormStepComponent: IFormStepComponent | null = null;
   private formPath: TStepId[] = [];
-  public subscriptions: Subscription[] = [];
+  public subscriptions!: Subscription[];
   @Input() public sharedSubscriptions?: Subscription[];
 
   // Lifecycle
+  public ngOnInit() {
+    if (this.sharedSubscriptions) {
+      this.subscriptions = this.sharedSubscriptions;
+    } else {
+      this.subscriptions = [];
+    }
+  }
 
   public ngOnDestroy(): void {
     this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
