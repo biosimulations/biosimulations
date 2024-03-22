@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, ComponentFactoryResolver } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ComponentFactoryResolver, Output } from '@angular/core';
 import { Params } from '@angular/router';
 import {
   UntypedFormBuilder,
@@ -109,7 +109,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
   private simulatorSpecsMap?: SimulatorSpecsMap;
   @Input() public sharedFormArray?: UntypedFormArray;
   @Input() public sharedFormBuilder?: UntypedFormBuilder;
-  public formArray!: UntypedFormArray;
+  @Output() public formArray!: UntypedFormArray;
 
   public constructor(
     //public formBuilder: UntypedFormBuilder,
