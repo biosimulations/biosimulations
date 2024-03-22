@@ -60,9 +60,7 @@ interface Algorithm {
 }
 
 interface EditParametersForm {
-  param1: string;
-  param2: string;
-  param3: string;
+  [param: string]: string;
 }
 
 @Component({
@@ -79,6 +77,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
   public simulatorVersions: string[] = [];
   public simulationAlgorithms: Algorithm[] = [];
   public algorithmSubstitutionPolicies: AlgorithmSubstitutionPolicy[];
+  public parametersForm: UntypedFormGroup;
 
   // Data loaded from configs
   public exampleCombineArchivesUrl: string;
@@ -152,6 +151,9 @@ export class DispatchComponent implements OnInit, OnDestroy {
     ];
     this.exampleCombineArchivesUrl = exampleCombineArchivesUrlTokens.join('/');
     this.emailUrl = 'mailto:' + config.email;
+
+    // handle params form
+    this.parametersForm = this.formBuilder.group({});
   }
 
   // Life cycle
@@ -306,7 +308,6 @@ export class DispatchComponent implements OnInit, OnDestroy {
       ),
     );
 
-    console.log(`The run to be submitted has envVars: ${envVars}.`);
     this.subscriptions.push(sub);
     window.scrollTo(0, 0);
   }
@@ -497,6 +498,17 @@ export class DispatchComponent implements OnInit, OnDestroy {
   }
 
   // Network callbacks
+  private updateParametersForm(): void {
+    // clear existing controls
+    Object.keys(this.parametersForm.controls).forEach((key) => {
+      this.parametersForm.removeControl(key);
+    });
+
+    // add n controls where n is the number of editable params
+    Object.keys(this.parametersFormData).forEach((key) => {
+      this.parametersForm.addControl(key, this.formBuilder.control(this.parametersFormData[key]));
+    });
+  }
 
   public archiveSedDocSpecsLoaded(sedDocSpecs?: CombineArchiveSedDocSpecs): void {
     const simulationAlgorithmsMap = this.simulationAlgorithmsMap;
@@ -544,6 +556,16 @@ export class DispatchComponent implements OnInit, OnDestroy {
     this.formGroup.controls.simulationAlgorithms.setValue(Array.from(simulationAlgorithms));
 
     this.controlImpactingEligibleSimulatorsUpdated();
+
+    // reset the form
+    this.parametersFormData = {};
+
+    /*sedDocSpecs.forEach((spec, index) => {
+      this.parametersFormData[`param${index + 1}`] = spec.value; // Assuming 'value' is a property of your specs
+    });
+
+    // Now, update the form to reflect these parameters...
+    this.updateParametersForm();*/
     console.log(`SED DOCS LOADED`);
   }
 
