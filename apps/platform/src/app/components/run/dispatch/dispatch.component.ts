@@ -20,6 +20,7 @@ import {
   SedDocument,
   SedModel,
   SedSimulation,
+  SedModelChange,
   Purpose,
   AlgorithmSubstitutionPolicyLevels,
   ALGORITHM_SUBSTITUTION_POLICIES,
@@ -538,6 +539,8 @@ export class DispatchComponent implements OnInit, OnDestroy {
         } else {
           specsContainUnsupportedModel = true;
         }
+        model.changes.forEach((change: SedModelChange): void => {});
+        //this.parametersFormData
       });
       sedDoc.simulations.forEach((sim: SedSimulation): void => {
         const kisaoId = sim.algorithm.kisaoId;
