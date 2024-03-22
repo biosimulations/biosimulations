@@ -98,7 +98,7 @@
             <button mat-flat-button type="submit" class="biosimulations-button run update">Update Simulation</button>
           </form>
         </mat-card-content>
-      </mat-card>-->
+      </mat-card>
       <ng-container *ngIf="fileUploaded" class="params-form-container">
         <mat-card class="card-form-section mat-elevation-z3">
           <mat-card-header class="card-form-section-title cap">Simulation Parameters</mat-card-header>
@@ -115,6 +115,15 @@
                 >Update Simulation
               </button>
             </form>
+          </mat-card-content>
+        </mat-card>
+      </ng-container>-->
+
+      <ng-container *ngIf="fileUploaded" class="params-form-container">
+        <mat-card class="card-form-section mat-elevation-z3">
+          <mat-card-header class="card-form-section-title cap">Simulation Parameters</mat-card-header>
+          <mat-card-content>
+            <create-project-model-changes [formBuilder]="formBuilder"></create-project-model-changes>
           </mat-card-content>
         </mat-card>
       </ng-container>

@@ -110,9 +110,9 @@ export class DispatchComponent implements OnInit, OnDestroy {
   public formArray!: FormArray;
 
   public constructor(
+    public formBuilder: UntypedFormBuilder,
     private config: ConfigService,
     private router: Router,
-    private formBuilder: UntypedFormBuilder,
     private dispatchService: DispatchService,
     private simulationService: SimulationService,
     private combineApiService: CombineApiService,
