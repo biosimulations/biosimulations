@@ -25,13 +25,12 @@ export class ModelChangesComponent implements IFormStepComponent, OnInit {
     }
   }*/
 
-  public constructor(public formBuilder: UntypedFormBuilder) {
+  public constructor(public formBuilder: UntypedFormBuilder) {}
+
+  public ngOnInit() {
     if (this.sharedFormBuilder) {
       this.formBuilder = this.sharedFormBuilder;
     }
-  }
-
-  public ngOnInit() {
     this.formArray = this.formBuilder.array([], {
       validators: [UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR('id')],
     });

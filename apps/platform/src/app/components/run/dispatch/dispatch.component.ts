@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ComponentFactoryResolver, ViewContainerRef } from '@angular/core';
 import { Params } from '@angular/router';
 import {
   UntypedFormBuilder,
@@ -49,6 +49,8 @@ import {
   UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR,
 } from '@biosimulations/shared/ui';
 import { SedModelAttributeChangeTypeEnum } from '@biosimulations/combine-api-angular-client';
+import { IMultiStepFormDataSource } from '@biosimulations/simulation-project-utils';
+import { ModelChangesComponent } from '../../../../../../../libs/simulation-project-utils/simulation-project-utils/src/lib/ui/create-project/form-steps';
 
 interface SimulatorIdNameDisabled {
   id: string;
@@ -113,6 +115,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
 
   public constructor(
     //public formBuilder: UntypedFormBuilder,
+    private resolver: ComponentFactoryResolver,
     private config: ConfigService,
     private router: Router,
     private dispatchService: DispatchService,
