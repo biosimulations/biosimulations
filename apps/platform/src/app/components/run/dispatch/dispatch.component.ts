@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Params } from '@angular/router';
 import {
   UntypedFormBuilder,
@@ -6,7 +6,7 @@ import {
   UntypedFormControl,
   Validators,
   ValidationErrors,
-  FormArray,
+  UntypedFormArray,
 } from '@angular/forms';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { SimulationService } from '../../../services/simulation/simulation.service';
@@ -107,10 +107,12 @@ export class DispatchComponent implements OnInit, OnDestroy {
   private modelFormatsMap?: OntologyTermsMap;
   private simulationAlgorithmsMap?: Record<string, Algorithm>;
   private simulatorSpecsMap?: SimulatorSpecsMap;
-  public formArray!: FormArray;
+  @Input() public sharedFormArray?: UntypedFormArray;
+  @Input() public sharedFormBuilder?: UntypedFormBuilder;
+  public formArray!: UntypedFormArray;
 
   public constructor(
-    public formBuilder: UntypedFormBuilder,
+    //public formBuilder: UntypedFormBuilder,
     private config: ConfigService,
     private router: Router,
     private dispatchService: DispatchService,
@@ -118,7 +120,11 @@ export class DispatchComponent implements OnInit, OnDestroy {
     private combineApiService: CombineApiService,
     private snackBar: MatSnackBar,
     private loader: SimulationProjectUtilLoaderService,
+    public formBuilder: UntypedFormBuilder,
   ) {
+    if (this.sharedFormBuilder) {
+      this.formBuilder = this.sharedFormBuilder;
+    }
     this.formGroup = this.formBuilder.group(
       {
         projectFile: ['', [CreateMaxFileSizeValidator(config)]],
@@ -180,6 +186,10 @@ export class DispatchComponent implements OnInit, OnDestroy {
         this.formGroup.value.emailConsent = true;
       }
     });
+
+    if (this.sharedFormArray) {
+      this.formArray = this.sharedFormArray;
+    }
   }
 
   public ngOnDestroy(): void {
@@ -593,7 +603,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
         model.changes.forEach((change: SedModelChange, changeIndex: number): void => {
           console.log(`THE CURRENT CHANGE: ${change._type}`);
           // this.parametersFormData = {}; // reset the form to assert fresh render. TODO: find alternatives to this
-          let key = null;
+          /* let key = null;
           if (change.name) {
             key = change.name;
           } else {
@@ -603,7 +613,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
             // const key = `model${contentIndex}_change${modelIndex}_${changeIndex}`;
             this.parametersFormData[key] = change.newValue;
             console.log(`the name: ${change.target.value}`);
-          }
+          }*/
         });
       });
       sedDoc.simulations.forEach((sim: SedSimulation): void => {
