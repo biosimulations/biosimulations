@@ -22,6 +22,28 @@ button {
   margin-top: 3rem;
 }
 
+mat-expansion-panel-header {
+  color: white !important;
+}
+
+.advanced-settings-panel {
+  //padding-bottom:
+}
+.advanced-settings-header {
+  //font-weight: normal;
+  font-size: medium;
+  color: white !important;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  align-items: center;
+  border: 2px solid inherit;
+  transition: background-color 0.1s ease-in-out;
+  //background-color: var(--primary-darker-color) !important;
+  border-radius: 3px;
+  height: auto;
+  width: auto;
+}
+
 .card-form-section {
   height: 100%;
   padding-bottom: 1rem;
