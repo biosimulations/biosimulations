@@ -78,7 +78,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
   public simulatorVersions: string[] = [];
   public simulationAlgorithms: Algorithm[] = [];
   public algorithmSubstitutionPolicies: AlgorithmSubstitutionPolicy[];
-  public parametersForm: UntypedFormGroup;
+  // public parametersForm: UntypedFormGroup;
 
   // Data loaded from configs
   public exampleCombineArchivesUrl: string;
@@ -125,6 +125,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
         name: ['', [Validators.required]],
         email: ['', [Validators.email]],
         emailConsent: [false],
+        parametersForm: this.formBuilder.group({}),
       },
       {
         validators: this.formValidator.bind(this),
@@ -152,9 +153,6 @@ export class DispatchComponent implements OnInit, OnDestroy {
     ];
     this.exampleCombineArchivesUrl = exampleCombineArchivesUrlTokens.join('/');
     this.emailUrl = 'mailto:' + config.email;
-
-    // handle params form
-    this.parametersForm = this.formBuilder.group({});
   }
 
   // Life cycle
@@ -183,7 +181,6 @@ export class DispatchComponent implements OnInit, OnDestroy {
     const curatedAlgSubs: AlgorithmSubstitution[] = data.algorithmSubstitutions;
     const simulatorsData: SimulatorsData = data.simulators;
     const params: Params = data.params;
-    console.log(`This is the params: ${params}`);
 
     this.simulatorSpecsMap = simulatorsData.simulatorSpecs;
 
@@ -539,9 +536,8 @@ export class DispatchComponent implements OnInit, OnDestroy {
         } else {
           specsContainUnsupportedModel = true;
         }
-        /* apply available model changes as values for pre-populating model changes card form.
-            TODO: expand/expose more overall changes.
-        */
+        // apply available model changes as values for pre-populating model changes card form.
+        // TODO: expand/expose more overall changes.
         model.changes.forEach((change: SedModelChange, changeIndex: number): void => {
           this.parametersFormData = {}; // reset the form to assert fresh render. TODO: find alternatives to this
           if ('newValue' in change) {
@@ -567,6 +563,9 @@ export class DispatchComponent implements OnInit, OnDestroy {
     this.formGroup.controls.simulationAlgorithms.setValue(Array.from(simulationAlgorithms));
 
     this.controlImpactingEligibleSimulatorsUpdated();
+
+    // update parameters form. TODO: use above penultimate methods as template to replace this.
+    this.updateParametersForm();
     console.log(`SED DOCS LOADED`);
   }
 
@@ -665,6 +664,10 @@ export class DispatchComponent implements OnInit, OnDestroy {
   }
 
   // Setters for preloading form controls from route params
+
+  public get parametersForm(): UntypedFormGroup {
+    return this.formGroup.get('parametersForm') as UntypedFormGroup;
+  }
 
   private setControlsFromParams(params: Params, simulatorSpecsMap: SimulatorSpecsMap): void {
     if (!params) {
