@@ -539,8 +539,12 @@ export class DispatchComponent implements OnInit, OnDestroy {
         } else {
           specsContainUnsupportedModel = true;
         }
-        model.changes.forEach((change: SedModelChange): void => {});
-        //this.parametersFormData
+        /* apply available model changes as values for pre-populating model changes card form.
+            TODO: expand/expose more overall changes.
+        */
+        model.changes.forEach((change: SedModelChange): void => {
+          // this.parametersFormData = {};  // reset the form to assert fresh render. TODO: find alternatives to this
+        });
       });
       sedDoc.simulations.forEach((sim: SedSimulation): void => {
         const kisaoId = sim.algorithm.kisaoId;
@@ -559,16 +563,6 @@ export class DispatchComponent implements OnInit, OnDestroy {
     this.formGroup.controls.simulationAlgorithms.setValue(Array.from(simulationAlgorithms));
 
     this.controlImpactingEligibleSimulatorsUpdated();
-
-    // reset the form
-    this.parametersFormData = {};
-
-    /*sedDocSpecs.forEach((spec, index) => {
-      this.parametersFormData[`param${index + 1}`] = spec.value; // Assuming 'value' is a property of your specs
-    });
-
-    // Now, update the form to reflect these parameters...
-    this.updateParametersForm();*/
     console.log(`SED DOCS LOADED`);
   }
 
