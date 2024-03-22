@@ -22,27 +22,37 @@ button {
   margin-top: 3rem;
 }
 
-mat-expansion-panel-header {
-  color: white !important;
+.advanced {
+  padding-bottom: 0.5rem !important;
+  padding-top: 0.5rem !important;
+
+  &:active {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
 }
 
-.advanced-settings-panel {
-  //padding-bottom:
+.advanced-title {
+  background-color: var(--accent-color) !important;
+  color: black !important;
 }
 
-.advanced-settings-header {
-  //font-weight: normal;
-  font-size: medium;
-  color: white !important;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  align-items: center;
-  border: 2px solid inherit;
-  transition: background-color 0.1s ease-in-out;
-  //background-color: var(--primary-darker-color) !important;
-  border-radius: 3px;
-  height: auto;
-  width: auto;
+.advanced-content {
+  margin-top: 3rem !important;
+  margin-bottom: 3rem !important;
+}
+
+.advanced-panel:active {
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.cap {
+  //margin-top: 3rem !important;
+}
+
+.advanced-container {
+  padding-bottom: 3rem !important;
 }
 
 .card-form-section {
@@ -52,10 +62,6 @@ mat-expansion-panel-header {
   background-color: white;
   overflow: hidden;
 }
-
-/*.card-form-section-title {
-  background-color: var(--primary-color);
-}*/
 
 .input-group {
   height: 100%;
