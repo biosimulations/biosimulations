@@ -109,7 +109,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
   private simulatorSpecsMap?: SimulatorSpecsMap;
   @Input() public sharedFormArray?: UntypedFormArray;
   @Input() public sharedFormBuilder?: UntypedFormBuilder;
-  @Output() public formArray!: UntypedFormArray;
+  public formArray!: UntypedFormArray;
 
   public constructor(
     //public formBuilder: UntypedFormBuilder,
@@ -555,6 +555,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     introspectedModelChanges.forEach((change: SedModelChange) => {
       this.addFieldForModelChange(change);
     });
+    console.log(`THE FORM MODEL CHANGES: ${this.formArray.controls.values()}`);
   }
 
   private updateParametersForm(): void {
@@ -604,12 +605,14 @@ export class DispatchComponent implements OnInit, OnDestroy {
         } else {
           specsContainUnsupportedModel = true;
         }
+        // POPULATE FORM
+        this.loadIntrospectedModelChanges(model.changes);
         // ENUM CHANGES: TODO: expand/expose more overall changes.
-        model.changes.forEach((change: SedModelChange, changeIndex: number): void => {
+        /* model.changes.forEach((change: SedModelChange, changeIndex: number): void => {
           console.log(`THE CURRENT MODEL CHANGE: ${change._type}`);
           this.modelChanges.clear(); // remember, this is an untyped form array
           this.addFieldForModelChange(change);
-        });
+        });*/
       });
       // SET SIMULATION ALGS
       sedDoc.simulations.forEach((sim: SedSimulation): void => {
@@ -631,7 +634,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     this.controlImpactingEligibleSimulatorsUpdated();
 
     // update parameters form. TODO: use above penultimate methods as template to replace this.
-    this.updateParametersForm();
+    // this.updateParametersForm();
     console.log(`SED DOCS LOADED`);
   }
 
