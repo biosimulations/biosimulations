@@ -3,9 +3,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, shareReplay } from 'rxjs/operators';
 import { environment } from '@biosimulations/shared/environments';
-import { CombineArchiveSedDocSpecs } from '@biosimulations/datamodel/common';
+import { CombineArchiveSedDocSpecs, SedDocument } from '@biosimulations/datamodel/common';
 import { Endpoints } from '@biosimulations/config/common';
-import { SedDocument } from '@biosimulations/combine-api-angular-client';
 
 @Injectable({
   providedIn: 'root',
