@@ -246,6 +246,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
   }
 
   // Form Submission
+
   public onFormSubmit(): void {
     this.submitPushed = true;
 
@@ -262,6 +263,8 @@ export class DispatchComponent implements OnInit, OnDestroy {
     const purpose: Purpose = this.formGroup.value.academicPurpose ? Purpose.academic : Purpose.other;
     const name: string = this.formGroup.value.name;
     const email: string | null = this.formGroup.value.email || null;
+    const simulationModelChanges: UntypedFormArray[] = this.formGroup.value.modelChanges;
+    // TODO: do something with the model changes on submit
 
     let simulationResponse: Observable<SimulationRun>;
 
