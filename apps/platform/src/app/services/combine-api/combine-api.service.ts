@@ -94,23 +94,6 @@ export class CombineApiService {
     );
   }
 
-  public postProjectSedDocument(fileOrUrl: File | string): Observable<SedDocument | null> {
-    const formData = new FormData();
-    if (typeof fileOrUrl === 'object') {
-      formData.append('file', fileOrUrl);
-    } else {
-      formData.append('url', fileOrUrl);
-    }
-    return this.http.post<SedDocument>(this.sedmlSpecsEndpoint, formData).pipe(
-      catchError((error: HttpErrorResponse): Observable<null> => {
-        if (!environment.production) {
-          console.error(error);
-        }
-        return of<null>(null);
-      }),
-    );
-  }
-
   public getCustomizableSedData(sedDoc: SedDocument, simulationType: SimulationType): CustomizableSedDocumentData {
     return CreateCustomizableSedDocumentData(sedDoc, simulationType);
   }
@@ -136,6 +119,23 @@ export class CombineApiService {
       errorHandler,
     );
     return introspectionObservable.pipe(map(CreateNewProjectArchiveDataOperator(simMethodData)));
+  }
+
+  public postProjectSedDocument(fileOrUrl: File | string): Observable<SedDocument | null> {
+    const formData = new FormData();
+    if (typeof fileOrUrl === 'object') {
+      formData.append('file', fileOrUrl);
+    } else {
+      formData.append('url', fileOrUrl);
+    }
+    return this.http.post<SedDocument>(this.sedmlSpecsEndpoint, formData).pipe(
+      catchError((error: HttpErrorResponse): Observable<null> => {
+        if (!environment.production) {
+          console.error(error);
+        }
+        return of<null>(null);
+      }),
+    );
   }
 }
 
