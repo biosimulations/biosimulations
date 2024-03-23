@@ -107,9 +107,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
   private modelFormatsMap?: OntologyTermsMap;
   private simulationAlgorithmsMap?: Record<string, Algorithm>;
   private simulatorSpecsMap?: SimulatorSpecsMap;
-  @Input() public sharedFormArray?: UntypedFormArray;
   @Input() public sharedFormBuilder?: UntypedFormBuilder;
-  public formArray!: UntypedFormArray;
 
   public constructor(
     //public formBuilder: UntypedFormBuilder,
@@ -180,7 +178,6 @@ export class DispatchComponent implements OnInit, OnDestroy {
   }
 
   // Life cycle
-
   public ngOnInit(): void {
     this.fileUploaded = false;
     const loadObs = this.loader.loadSimulationUtilData();
@@ -194,17 +191,6 @@ export class DispatchComponent implements OnInit, OnDestroy {
         this.formGroup.value.emailConsent = true;
       }
     });
-
-    if (this.sharedFormArray) {
-      this.formArray = this.sharedFormArray;
-    }
-    this.formArray = this.formBuilder.array([], {
-      validators: [UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR('id')],
-    });
-    const defaultRowCount = 3;
-    for (let i = 0; i < defaultRowCount; i++) {
-      this.addModelChangeField();
-    }
   }
 
   public ngOnDestroy(): void {
@@ -267,15 +253,6 @@ export class DispatchComponent implements OnInit, OnDestroy {
   }
 
   // Form Submission
-  public onArchiveUpload() {
-    console.log(`Archive uploaded.`);
-  }
-  public onParameterChangeSubmit() {
-    // Log the form data to the console
-    console.log('Form submitted:', this.parametersFormData);
-    // You can also send the form data to a service or API here
-  }
-
   public onFormSubmit(): void {
     this.submitPushed = true;
 
@@ -446,9 +423,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
       .getSpecsOfSedDocsInCombineArchive(archive)
       .subscribe(this.archiveSedDocSpecsLoaded.bind(this));
     this.subscriptions.push(sub);
-    console.log(`SPECS: ${this.archiveSedDocSpecsLoaded.bind(this)}`);
     this.fileUploaded = true;
-    console.log(`FILE LOADED: ${this.fileUploaded}`);
   }
 
   public simulatorControlUpdated(): void {
@@ -531,45 +506,6 @@ export class DispatchComponent implements OnInit, OnDestroy {
   }
 
   // Network callbacks
-  public addModelChangeField(modelChange?: Record<string, string | null>): void {
-    const modelChangeForm = this.formBuilder.group({
-      id: [modelChange?.id, [SEDML_ID_VALIDATOR]],
-      name: [modelChange?.name, []],
-      target: [modelChange?.target, [Validators.required]],
-      default: [modelChange?.default, []],
-      newValue: [modelChange?.newValue, []],
-    });
-    modelChangeForm.controls.default.disable();
-    this.modelChanges.push(modelChangeForm);
-  }
-
-  private addFieldForModelChange(modelChange: SedModelChange): void {
-    // TODO: Support additional change types.
-    if (modelChange && modelChange._type !== SedModelAttributeChangeTypeEnum.SedModelAttributeChange) {
-      return;
-    }
-    this.addModelChangeField({
-      id: modelChange.id || null,
-      name: modelChange.name || null,
-      target: modelChange.target.value || null,
-      default: modelChange.newValue || null,
-      newValue: null,
-    });
-  }
-  public loadIntrospectedModelChanges(introspectedModelChanges: SedModelChange[]): void {
-    if (introspectedModelChanges.length === 0) {
-      return;
-    }
-    this.formArray.clear();
-    introspectedModelChanges.forEach((change: SedModelChange) => {
-      this.addFieldForModelChange(change);
-    });
-  }
-
-  public formGroups(): UntypedFormGroup[] {
-    return this.modelChanges.controls as UntypedFormGroup[];
-  }
-
   public archiveSedDocSpecsLoaded(sedDocSpecs?: CombineArchiveSedDocSpecs): void {
     const simulationAlgorithmsMap = this.simulationAlgorithmsMap;
     if (!sedDocSpecs || !simulationAlgorithmsMap) {
@@ -602,11 +538,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
         this.modelChanges.clear();
         this.loadIntrospectedModelChanges(model.changes);
         // ENUM CHANGES: TODO: expand/expose more overall changes.
-        /* model.changes.forEach((change: SedModelChange, changeIndex: number): void => {
-          console.log(`THE CURRENT MODEL CHANGE: ${change._type}`);
-          this.modelChanges.clear(); // remember, this is an untyped form array
-          this.addFieldForModelChange(change);
-        });*/
+        // model.changes.forEach((change: SedModelChange, changeIndex: number): void => {
       });
       // SET SIMULATION ALGS
       sedDoc.simulations.forEach((sim: SedSimulation): void => {
@@ -626,9 +558,6 @@ export class DispatchComponent implements OnInit, OnDestroy {
     this.formGroup.controls.simulationAlgorithms.setValue(Array.from(simulationAlgorithms));
 
     this.controlImpactingEligibleSimulatorsUpdated();
-
-    // update parameters form. TODO: use above penultimate methods as template to replace this.
-    // this.updateParametersForm();
     console.log(`SED DOCS LOADED`);
   }
 
@@ -728,12 +657,47 @@ export class DispatchComponent implements OnInit, OnDestroy {
 
   // Setters for preloading form controls from route params
 
-  public get parametersForm(): UntypedFormGroup {
-    return this.formGroup.get('parametersForm') as UntypedFormGroup;
+  public addModelChangeField(modelChange?: Record<string, string | null>): void {
+    const modelChangeForm = this.formBuilder.group({
+      id: [modelChange?.id, [SEDML_ID_VALIDATOR]],
+      name: [modelChange?.name, []],
+      target: [modelChange?.target, [Validators.required]],
+      default: [modelChange?.default, []],
+      newValue: [modelChange?.newValue, []],
+    });
+    modelChangeForm.controls.default.disable();
+    this.modelChanges.push(modelChangeForm);
   }
 
-  public getParameterFormKeys(): string[] {
-    return Object.keys(this.parametersForm.controls);
+  private addFieldForModelChange(modelChange: SedModelChange): void {
+    // TODO: Support additional change types.
+    if (modelChange && modelChange._type !== SedModelAttributeChangeTypeEnum.SedModelAttributeChange) {
+      return;
+    }
+    this.addModelChangeField({
+      id: modelChange.id || null,
+      name: modelChange.name || null,
+      target: modelChange.target.value || null,
+      default: modelChange.newValue || null,
+      newValue: null,
+    });
+  }
+  public loadIntrospectedModelChanges(introspectedModelChanges: SedModelChange[]): void {
+    if (introspectedModelChanges.length === 0) {
+      return;
+    }
+    this.modelChanges.clear();
+    introspectedModelChanges.forEach((change: SedModelChange) => {
+      this.addFieldForModelChange(change);
+    });
+  }
+
+  public removeModelChangeField(index: number): void {
+    this.modelChanges.removeAt(index);
+  }
+
+  public formGroups(): UntypedFormGroup[] {
+    return this.modelChanges.controls as UntypedFormGroup[];
   }
 
   private setControlsFromParams(params: Params, simulatorSpecsMap: SimulatorSpecsMap): void {
