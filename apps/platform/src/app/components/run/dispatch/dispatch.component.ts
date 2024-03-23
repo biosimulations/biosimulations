@@ -10,7 +10,7 @@ import {
 } from '@angular/forms';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { SimulationService } from '../../../services/simulation/simulation.service';
-import { CombineApiService } from '../../../services/combine-api/combine-api.service';
+import { CombineApiService, CustomizableSedDocumentData } from '../../../services/combine-api/combine-api.service';
 import {
   SimulatorSpecsMap,
   SimulatorSpecs,
@@ -104,6 +104,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   // Data loaded from network
+  public customizableSedDocData!: CustomizableSedDocumentData[];
   private modelFormatsMap?: OntologyTermsMap;
   private simulationAlgorithmsMap?: Record<string, Algorithm>;
   private simulatorSpecsMap?: SimulatorSpecsMap;
@@ -530,10 +531,8 @@ export class DispatchComponent implements OnInit, OnDestroy {
         } else {
           specsContainUnsupportedModel = true;
         }
-        // POPULATE FORM
-        //this.modelChanges.clear();
-        this.loadIntrospectedModelChanges(model.changes);
-        // ENUM CHANGES: TODO: expand/expose more overall changes.
+        // this.modelChanges.clear();
+        // this.loadIntrospectedModelChanges(model.changes);
         /*model.changes.forEach((change: SedModelChange, changeIndex: number): void => {
           const name = change.name | ''
           this.addModelChangeField({
@@ -553,6 +552,10 @@ export class DispatchComponent implements OnInit, OnDestroy {
         } else {
           specsContainUnsupportedAlgorithm = true;
         }
+        const customizableSedData: CustomizableSedDocumentData = this.combineApiService.getCustomizableSedData(
+          sedDoc,
+          sim,
+        );
       });
     });
 
@@ -563,6 +566,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     this.formGroup.controls.simulationAlgorithms.setValue(Array.from(simulationAlgorithms));
 
     this.controlImpactingEligibleSimulatorsUpdated();
+
     console.log(`SED DOCS LOADED`);
   }
 

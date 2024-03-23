@@ -15,6 +15,7 @@ import {
   SedTarget,
   SedAlgorithm,
   SedVariable,
+  SedSimulation,
 } from '@biosimulations/datamodel/common';
 import { Endpoints } from '@biosimulations/config/common';
 import { FormStepData } from '@biosimulations/simulation-project-utils';
@@ -94,7 +95,7 @@ export class CombineApiService {
     );
   }
 
-  public getCustomizableSedData(sedDoc: SedDocument, simulationType: SimulationType): CustomizableSedDocumentData {
+  public getCustomizableSedData(sedDoc: SedDocument, simulationType: SedSimulation): CustomizableSedDocumentData {
     return CreateCustomizableSedDocumentData(sedDoc, simulationType);
   }
 
@@ -187,7 +188,7 @@ function PostNewProjectSedDocument(
 function CreateNewProjectArchiveDataOperator(
   simMethodData: FormStepData,
 ): (doc: SedDocument | null) => CustomizableSedDocumentData | null {
-  const simulationType = simMethodData?.simulationType as SimulationType;
+  const simulationType = simMethodData?.simulationType as SedSimulation;
   return (sedDoc: SedDocument | null) => {
     return sedDoc ? CreateCustomizableSedDocumentData(sedDoc, simulationType) : null;
   };
@@ -195,7 +196,7 @@ function CreateNewProjectArchiveDataOperator(
 
 function CreateCustomizableSedDocumentData(
   sedDoc: SedDocument,
-  simulationType: SimulationType,
+  simulationType: SedSimulation,
 ): CustomizableSedDocumentData {
   const namespaces: Namespace[] = [];
   const modelChanges = GatherModelChanges(sedDoc, namespaces);
@@ -260,16 +261,15 @@ function GatherModelChanges(sedDoc: SedDocument, namespaces: Namespace[]): SedMo
   return changeValues;
 }
 
-function GatherTimeCourseData(
-  sedDoc: SedDocument,
-  simType: SimulationType,
-): SedUniformTimeCourseSimulation | undefined {
+function GatherTimeCourseData(sedDoc: SedDocument, simType: SedSimulation): SedUniformTimeCourseSimulation | undefined {
   const simulation = sedDoc?.simulations?.[0];
-  const selectedType = simType !== SimulationType.SedUniformTimeCourseSimulation;
-  const docType = simulation?._type === SedUniformTimeCourseSimulationTypeEnum.SedUniformTimeCourseSimulation;
-  if (!selectedType || !docType) {
-    return undefined;
-  }
+  /*if (simType as SimulationType) {
+    const selectedType = simType !== SimulationType.SedUniformTimeCourseSimulation;
+    const docType = simulation?._type === SedUniformTimeCourseSimulationTypeEnum.SedUniformTimeCourseSimulation;
+    if (!selectedType || !docType) {
+      return undefined;
+    }
+  }*/
   return simulation as SedUniformTimeCourseSimulation;
 }
 
