@@ -531,10 +531,19 @@ export class DispatchComponent implements OnInit, OnDestroy {
           specsContainUnsupportedModel = true;
         }
         // POPULATE FORM
-        this.modelChanges.clear();
+        //this.modelChanges.clear();
         this.loadIntrospectedModelChanges(model.changes);
         // ENUM CHANGES: TODO: expand/expose more overall changes.
-        // model.changes.forEach((change: SedModelChange, changeIndex: number): void => {
+        /*model.changes.forEach((change: SedModelChange, changeIndex: number): void => {
+          const name = change.name | ''
+          this.addModelChangeField({
+            id: change.name ?,
+            name: target, // Use the target XPath as the name
+            target: target, // The actual target XPath
+            default: '', // You might populate this if you have default values
+            newValue: '' // The value to be changed to
+          });
+        }*/
       });
       // SET SIMULATION ALGS
       sedDoc.simulations.forEach((sim: SedSimulation): void => {

@@ -5,6 +5,7 @@ import { catchError, shareReplay } from 'rxjs/operators';
 import { environment } from '@biosimulations/shared/environments';
 import { CombineArchiveSedDocSpecs } from '@biosimulations/datamodel/common';
 import { Endpoints } from '@biosimulations/config/common';
+import { SedDocument } from '@biosimulations/combine-api-angular-client';
 
 @Injectable({
   providedIn: 'root',
@@ -34,6 +35,23 @@ export class CombineApiService {
         return of<undefined>(undefined);
       }),
       shareReplay(1),
+    );
+  }
+
+  public postNewProjectSedDocument(fileOrUrl: File | string): Observable<SedDocument | null> {
+    const formData = new FormData();
+    if (typeof fileOrUrl === 'object') {
+      formData.append('file', fileOrUrl);
+    } else {
+      formData.append('url', fileOrUrl);
+    }
+    return this.http.post<SedDocument>(this.sedmlSpecsEndpoint, formData).pipe(
+      catchError((error: HttpErrorResponse): Observable<null> => {
+        if (!environment.production) {
+          console.error(error);
+        }
+        return of<null>(null);
+      }),
     );
   }
 }
