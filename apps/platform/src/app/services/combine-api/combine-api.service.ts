@@ -110,6 +110,13 @@ export class CombineApiService {
       }),
     );
   }
+
+  public getCustomizableSedDocumentData(
+    sedDoc: SedDocument,
+    simulationType: SimulationType,
+  ): CustomizableSedDocumentData {
+    return CreateCustomizableSedDocumentData(sedDoc, simulationType);
+  }
 }
 
 export function IntrospectNewProject(
