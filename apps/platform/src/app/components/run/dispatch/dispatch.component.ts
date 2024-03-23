@@ -421,6 +421,10 @@ export class DispatchComponent implements OnInit, OnDestroy {
       .subscribe(this.archiveSedDocSpecsLoaded.bind(this));
     this.subscriptions.push(sub);
     this.fileUploaded = true;
+
+    this.customizableSedDocData.forEach((param: CustomizableSedDocumentData) => {
+      console.log(`THE EDITABLE PARAM FOR THIS DOCUMENT: ${param}`);
+    });
   }
 
   public simulatorControlUpdated(): void {
