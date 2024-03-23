@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, ComponentFactoryResolver, Output } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ComponentFactoryResolver } from '@angular/core';
 import { Params } from '@angular/router';
 import {
   UntypedFormBuilder,
