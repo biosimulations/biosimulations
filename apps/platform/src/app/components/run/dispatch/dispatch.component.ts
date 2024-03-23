@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, ComponentFactoryResolver } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Params } from '@angular/router';
 import {
   UntypedFormBuilder,
@@ -107,11 +107,9 @@ export class DispatchComponent implements OnInit, OnDestroy {
   private modelFormatsMap?: OntologyTermsMap;
   private simulationAlgorithmsMap?: Record<string, Algorithm>;
   private simulatorSpecsMap?: SimulatorSpecsMap;
-  @Input() public sharedFormBuilder?: UntypedFormBuilder;
+  @Input() public sharedFormGroup?: UntypedFormGroup;
 
   public constructor(
-    //public formBuilder: UntypedFormBuilder,
-    private resolver: ComponentFactoryResolver,
     private config: ConfigService,
     private router: Router,
     private dispatchService: DispatchService,
@@ -121,8 +119,8 @@ export class DispatchComponent implements OnInit, OnDestroy {
     private loader: SimulationProjectUtilLoaderService,
     public formBuilder: UntypedFormBuilder,
   ) {
-    if (this.sharedFormBuilder) {
-      this.formBuilder = this.sharedFormBuilder;
+    if (this.sharedFormGroup) {
+      this.formGroup = this.sharedFormGroup;
     }
     this.formGroup = this.formBuilder.group(
       {
@@ -155,7 +153,6 @@ export class DispatchComponent implements OnInit, OnDestroy {
       const maxPolicy = AlgorithmSubstitutionPolicyLevels.SAME_FRAMEWORK;
       return policy.level >= minPolicy && policy.level <= maxPolicy;
     });
-
     this.formGroup.controls.modelFormats.disable();
     this.formGroup.controls.simulationAlgorithms.disable();
     this.formGroup.controls.simulationAlgorithmSubstitutionPolicy.disable();
@@ -171,10 +168,6 @@ export class DispatchComponent implements OnInit, OnDestroy {
     ];
     this.exampleCombineArchivesUrl = exampleCombineArchivesUrlTokens.join('/');
     this.emailUrl = 'mailto:' + config.email;
-  }
-
-  public get modelChanges(): UntypedFormArray {
-    return this.formGroup.get('modelChanges') as UntypedFormArray;
   }
 
   // Life cycle
@@ -656,6 +649,10 @@ export class DispatchComponent implements OnInit, OnDestroy {
   }
 
   // Setters for preloading form controls from route params
+
+  public get modelChanges(): UntypedFormArray {
+    return this.formGroup.get('modelChanges') as UntypedFormArray;
+  }
 
   public addModelChangeField(modelChange?: Record<string, string | null>): void {
     const modelChangeForm = this.formBuilder.group({
