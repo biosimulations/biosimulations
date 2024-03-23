@@ -143,7 +143,9 @@ export class DispatchComponent implements OnInit, OnDestroy {
         email: ['', [Validators.email]],
         emailConsent: [false],
         parametersForm: this.formBuilder.group({}),
-        modelChanges: this.formBuilder.array([]),
+        modelChanges: this.formBuilder.array([], {
+          validators: [UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR('id')],
+        }),
       },
       {
         validators: this.formValidator.bind(this),
@@ -195,6 +197,13 @@ export class DispatchComponent implements OnInit, OnDestroy {
 
     if (this.sharedFormArray) {
       this.formArray = this.sharedFormArray;
+    }
+    this.formArray = this.formBuilder.array([], {
+      validators: [UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR('id')],
+    });
+    const defaultRowCount = 3;
+    for (let i = 0; i < defaultRowCount; i++) {
+      this.addModelChangeField();
     }
   }
 
@@ -531,7 +540,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
       newValue: [modelChange?.newValue, []],
     });
     modelChangeForm.controls.default.disable();
-    this.formArray.push(modelChangeForm);
+    this.modelChanges.push(modelChangeForm);
   }
 
   private addFieldForModelChange(modelChange: SedModelChange): void {
@@ -555,26 +564,10 @@ export class DispatchComponent implements OnInit, OnDestroy {
     introspectedModelChanges.forEach((change: SedModelChange) => {
       this.addFieldForModelChange(change);
     });
-    console.log(`THE FORM MODEL CHANGES: ${this.formArray.controls.values()}`);
   }
 
-  private updateParametersForm(): void {
-    // clear existing controls
-    /*Object.keys(this.parametersForm.controls).forEach((key) => {
-      this.parametersForm.removeControl(key);
-    });*/
-    this.formArray = this.formBuilder.array([], {
-      validators: [UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR('id')],
-    });
-    const defaultRowCount = 3;
-    for (let i = 0; i < defaultRowCount; i++) {
-      this.addModelChangeField();
-    }
-
-    // add n controls where n is the number of editable params
-    Object.keys(this.parametersFormData).forEach((key) => {
-      this.parametersForm.addControl(key, this.formBuilder.control(this.parametersFormData[key]));
-    });
+  public formGroups(): UntypedFormGroup[] {
+    return this.modelChanges.controls as UntypedFormGroup[];
   }
 
   public archiveSedDocSpecsLoaded(sedDocSpecs?: CombineArchiveSedDocSpecs): void {
@@ -606,6 +599,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
           specsContainUnsupportedModel = true;
         }
         // POPULATE FORM
+        this.modelChanges.clear();
         this.loadIntrospectedModelChanges(model.changes);
         // ENUM CHANGES: TODO: expand/expose more overall changes.
         /* model.changes.forEach((change: SedModelChange, changeIndex: number): void => {

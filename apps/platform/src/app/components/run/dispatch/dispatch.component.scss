@@ -14,6 +14,10 @@ button {
   float: right;
 }
 
+.advanced-container {
+  font-size: 8px !important;
+}
+
 .update {
   font-size: small;
 }
@@ -35,6 +39,9 @@ button {
 .advanced-title {
   background-color: var(--accent-darker-color) !important;
   font-weight: bold !important;
+  font-size: 12.75px !important;
+  padding-top: 0.2rem !important;
+  padding-bottom: 0.2rem !important;
 }
 
 .advanced-content {
