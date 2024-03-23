@@ -104,7 +104,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   // Data loaded from network
-  public customizableSedDocData!: CustomizableSedDocumentData[];
+  public customizableSedDocData: CustomizableSedDocumentData[] = [];
   private modelFormatsMap?: OntologyTermsMap;
   private simulationAlgorithmsMap?: Record<string, Algorithm>;
   private simulatorSpecsMap?: SimulatorSpecsMap;
@@ -552,10 +552,14 @@ export class DispatchComponent implements OnInit, OnDestroy {
         } else {
           specsContainUnsupportedAlgorithm = true;
         }
-        const customizableSedData: CustomizableSedDocumentData = this.combineApiService.getCustomizableSedData(
-          sedDoc,
-          sim,
-        );
+        // FILL DATA
+        if (!this.customizableSedDocData.length) {
+          const customizableSedData: CustomizableSedDocumentData = this.combineApiService.getCustomizableSedData(
+            sedDoc,
+            sim,
+          );
+          this.customizableSedDocData.push(customizableSedData);
+        }
       });
     });
 
