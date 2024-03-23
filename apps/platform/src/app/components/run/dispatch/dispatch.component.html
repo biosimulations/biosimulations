@@ -81,8 +81,9 @@
         </mat-card-content>
       </mat-card>
 
-      <!-- EDIT PARAMS CARD -->
-      <!--<mat-card *ngIf="fileUploaded" class="card-form-section mat-elevation-z3">
+      <!-- EDIT PARAMS CARD
+      Solution1: Simple form, manual data
+      <mat-card *ngIf="fileUploaded" class="card-form-section mat-elevation-z3">
         <mat-card-header class="card-form-section-title cap">Simulation Parameters</mat-card-header>
         <mat-card-content style="margin-top: 3rem">
           <form (ngSubmit)="onParameterChangeSubmit()">
@@ -99,31 +100,36 @@
           </form>
         </mat-card-content>
       </mat-card>
-      <ng-container *ngIf="fileUploaded" class="params-form-container">
-        <mat-card class="card-form-section mat-elevation-z3">
-          <mat-card-header class="card-form-section-title cap">Simulation Parameters</mat-card-header>
-          <mat-card-content>
-            <form [formGroup]="parametersForm" (ngSubmit)="onParameterChangeSubmit()" class="edit-params-form">
-              <div *ngFor="let controlName of getParameterFormKeys()">
-                <label [for]="controlName">{{ controlName }}:</label>
-                <input type="text" [id]="controlName" [formControlName]="controlName" required>
-              </div>
-              <button
-                mat-flat-button
-                type="submit"
-                class="biosimulations-button run update-params"
-                >Update Simulation
-              </button>
-            </form>
-          </mat-card-content>
-        </mat-card>
-      </ng-container>-->
 
+      Solution2: reuse model changes (problematic because api and common datamodels are incompatible.
       <ng-container *ngIf="fileUploaded" class="params-form-container">
         <mat-card class="card-form-section mat-elevation-z3">
           <mat-card-header class="card-form-section-title cap">Simulation Parameters</mat-card-header>
           <mat-card-content>
             <create-project-model-changes [sharedFormBuilder]="formBuilder"></create-project-model-changes>
+          </mat-card-content>
+        </mat-card>
+      </ng-container>-->
+
+      <!-- Solution3: Resuse logic and library service to recreate model-changes step -->
+      <ng-container *ngIf="fileUploaded" class="params-form-container">
+        <mat-card class="card-form-section mat-elevation-z3">
+          <mat-card-header class="card-form-section-title cap">Simulation Parameters</mat-card-header>
+          <mat-card-content>
+            <form [formGroup]="formGroup" (ngSubmit)="onFormSubmit()">
+              <!-- Other form fields -->
+              <div formArrayName="modelChanges">
+                <div *ngFor="let changeCtrl of formArray.controls; let i = index" [formGroupName]="i">
+                  <!-- Display your dynamic form fields here -->
+                  <input type="text" formControlName="id">
+                  <input type="text" formControlName="name">
+                  <input type="text" formControlName="target">
+                  <input type="text" formControlName="newValue">
+                  <!-- Add more fields as needed based on your model change structure -->
+                </div>
+              </div>
+              <button type="submit">Apply Changes</button>
+            </form>
           </mat-card-content>
         </mat-card>
       </ng-container>

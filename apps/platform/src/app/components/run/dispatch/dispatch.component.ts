@@ -143,6 +143,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
         email: ['', [Validators.email]],
         emailConsent: [false],
         parametersForm: this.formBuilder.group({}),
+        modelChanges: this.formBuilder.array([]),
       },
       {
         validators: this.formValidator.bind(this),
@@ -170,6 +171,10 @@ export class DispatchComponent implements OnInit, OnDestroy {
     ];
     this.exampleCombineArchivesUrl = exampleCombineArchivesUrlTokens.join('/');
     this.emailUrl = 'mailto:' + config.email;
+  }
+
+  public get modelChanges(): UntypedFormArray {
+    return this.formGroup.get('modelChanges') as UntypedFormArray;
   }
 
   // Life cycle
@@ -582,7 +587,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     let specsContainUnsupportedModel = false;
     let specsContainUnsupportedAlgorithm = false;
 
-    // Confirm that every model and algorithm within the sed doc spec is supported.
+    //  VALIDATE: Confirm that every model and algorithm within the sed doc spec is supported.
     sedDocSpecs.contents.forEach((content: CombineArchiveSedDocSpecsContent, contentIndex: number): void => {
       const sedDoc: SedDocument = content.location.value;
       sedDoc.models.forEach((model: SedModel, modelIndex: number): void => {
@@ -599,24 +604,14 @@ export class DispatchComponent implements OnInit, OnDestroy {
         } else {
           specsContainUnsupportedModel = true;
         }
-        // apply available model changes as values for pre-populating model changes card form.
-        // TODO: expand/expose more overall changes.
+        // ENUM CHANGES: TODO: expand/expose more overall changes.
         model.changes.forEach((change: SedModelChange, changeIndex: number): void => {
-          console.log(`THE CURRENT CHANGE: ${change._type}`);
-          // this.parametersFormData = {}; // reset the form to assert fresh render. TODO: find alternatives to this
-          /* let key = null;
-          if (change.name) {
-            key = change.name;
-          } else {
-            key = `model${contentIndex}_change${modelIndex}_${changeIndex}`;
-          }
-          if ('newValue' in change) {
-            // const key = `model${contentIndex}_change${modelIndex}_${changeIndex}`;
-            this.parametersFormData[key] = change.newValue;
-            console.log(`the name: ${change.target.value}`);
-          }*/
+          console.log(`THE CURRENT MODEL CHANGE: ${change._type}`);
+          this.modelChanges.clear(); // remember, this is an untyped form array
+          this.addFieldForModelChange(change);
         });
       });
+      // SET SIMULATION ALGS
       sedDoc.simulations.forEach((sim: SedSimulation): void => {
         const kisaoId = sim.algorithm.kisaoId;
         if (kisaoId in simulationAlgorithmsMap) {
