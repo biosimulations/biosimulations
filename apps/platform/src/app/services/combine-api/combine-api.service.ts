@@ -94,7 +94,7 @@ export class CombineApiService {
     );
   }
 
-  public postNewProjectSedDocument(fileOrUrl: File | string): Observable<SedDocument | null> {
+  public postProjectSedDocument(fileOrUrl: File | string): Observable<SedDocument | null> {
     const formData = new FormData();
     if (typeof fileOrUrl === 'object') {
       formData.append('file', fileOrUrl);
@@ -111,35 +111,32 @@ export class CombineApiService {
     );
   }
 
-  public getCustomizableSedDocumentData(
-    sedDoc: SedDocument,
-    simulationType: SimulationType,
-  ): CustomizableSedDocumentData {
+  public getCustomizableSedData(sedDoc: SedDocument, simulationType: SimulationType): CustomizableSedDocumentData {
     return CreateCustomizableSedDocumentData(sedDoc, simulationType);
   }
-}
 
-export function IntrospectNewProject(
-  http: HttpClient,
-  modelData: FormStepData,
-  simMethodData: FormStepData,
-  errorHandler: (modelUrl: string) => void,
-): Observable<CustomizableSedDocumentData | null> | null {
-  const formData = CreateNewProjectFormData(modelData, simMethodData);
-  if (!formData) {
-    return null;
+  public introspectProject(
+    http: HttpClient,
+    modelData: FormStepData,
+    simMethodData: FormStepData,
+    errorHandler: (modelUrl: string) => void,
+  ): Observable<CustomizableSedDocumentData | null> | null {
+    const formData = CreateNewProjectFormData(modelData, simMethodData);
+    if (!formData) {
+      return null;
+    }
+    const modelUrl = modelData?.modelUrl as string;
+    const endpoints = new Endpoints();
+    const introspectionEndpoint = endpoints.getModelIntrospectionEndpoint(false);
+    const introspectionObservable = PostNewProjectSedDocument(
+      http,
+      introspectionEndpoint,
+      formData,
+      modelUrl,
+      errorHandler,
+    );
+    return introspectionObservable.pipe(map(CreateNewProjectArchiveDataOperator(simMethodData)));
   }
-  const modelUrl = modelData?.modelUrl as string;
-  const endpoints = new Endpoints();
-  const introspectionEndpoint = endpoints.getModelIntrospectionEndpoint(false);
-  const introspectionObservable = PostNewProjectSedDocument(
-    http,
-    introspectionEndpoint,
-    formData,
-    modelUrl,
-    errorHandler,
-  );
-  return introspectionObservable.pipe(map(CreateNewProjectArchiveDataOperator(simMethodData)));
 }
 
 function CreateNewProjectFormData(modelData: FormStepData, simMethodData: FormStepData): FormData | null {
