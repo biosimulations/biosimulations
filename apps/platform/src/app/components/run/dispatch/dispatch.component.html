@@ -139,20 +139,19 @@
       </mat-card>
 
       <!-- BEGIN ADVANCED -->
-      <div class="input-group">
+      <div class="advanced-container">
         <mat-expansion-panel
           [expanded]="false"
           [disabled]="false"
-          class="advanced-settings-panel">
-          <mat-expansion-panel-header class="advanced-settings-header">
-            <mat-panel-title>
-              <biosimulations-icon icon="columns"></biosimulations-icon>
-              Advanced Settings
-            </mat-panel-title>
+          class="advanced-panel">
+          <mat-expansion-panel-header class="card-form-section-title advanced">
+            <biosimulations-icon icon="columns" style="padding-right: 1rem"></biosimulations-icon>
+            Advanced Settings*
           </mat-expansion-panel-header>
+          <div class="advanced-content">
           <!-- CAPABILITIES CARD -->
           <mat-card class="card-form-section mat-elevation-z3">
-            <mat-card-header class="card-form-section-title cap"
+            <mat-card-header class="card-form-section-title cap advanced-title"
               >Capabilities required to execute your COMBINE/OMEX archive</mat-card-header
             >
 
@@ -214,7 +213,7 @@
           </mat-card>
 
           <mat-card class="card-form-section mat-elevation-z3">
-            <mat-card-header class="card-form-section-title tool">Simulation tool *</mat-card-header>
+            <mat-card-header class="card-form-section-title tool advanced-title">Simulation tool *</mat-card-header>
 
             <div class="input-group">
               <mat-form-field class="card-form-field" appearance="fill">
@@ -280,7 +279,7 @@
           </mat-card>
 
           <mat-card class="card-form-section mat-elevation-z3">
-            <mat-card-header class="card-form-section-title solvers">Commercial solvers</mat-card-header>
+            <mat-card-header class="card-form-section-title solvers advanced-title">Commercial solvers</mat-card-header>
 
             <mat-checkbox formControlName="academicPurpose" color="primary">
               The purpose of this simulation is academic research or education.
@@ -316,7 +315,7 @@
           </mat-card>
 
           <mat-card class="card-form-section mat-elevation-z3">
-            <mat-card-header class="card-form-section-title resources">Computational resources *</mat-card-header>
+            <mat-card-header class="card-form-section-title resources advanced-title">Computational resources *</mat-card-header>
 
             <div class="input-group resources">
               <mat-form-field class="card-form-field" appearance="fill">
@@ -358,7 +357,7 @@
           </mat-card>
 
           <mat-card class="card-form-section mat-elevation-z3">
-            <mat-card-header class="card-form-section-title noti">Notifications</mat-card-header>
+            <mat-card-header class="card-form-section-title noti advanced-title">Notifications</mat-card-header>
 
             <div class="input-group">
               <mat-form-field class="card-form-field" appearance="fill">
@@ -383,12 +382,12 @@
               You must consent to receiving email notifications.
             </mat-error>
           </mat-card>
+          </div>
         </mat-expansion-panel>
       </div>
       <!-- END ADVANCED -->
 
-
-
+      <!-- SUBMIT FORM BUTTON -->
       <button mat-flat-button type="submit" class="biosimulations-button run">Run Simulation</button>
     </form>
   </biosimulations-page>
