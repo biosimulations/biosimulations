@@ -45,7 +45,7 @@ export function IntrospectNewProject(
   }
 
   console.log(`THE SIM METHOD DATA FROM UTILS PROJECT INTROSPECTION: ${Object.keys(simMethodData)}`);
-  console.log(`The framework: ${simMethodData.framework}`);
+  console.log(`The framework and type: ${simMethodData.framework}, ${simMethodData.simulationType}`);
   console.log(`THE MODELDATA FROM UTILS PROJECT INTROSPECTION: ${Object.keys(modelData)}`);
   Object.keys(modelData).forEach((p) => {
     console.log(`THE MODEL DATA KEY VALUE: ${modelData[p]}`);
