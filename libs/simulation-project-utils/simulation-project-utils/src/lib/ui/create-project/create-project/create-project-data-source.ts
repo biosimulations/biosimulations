@@ -39,7 +39,7 @@ export enum CreateProjectFormStep {
 export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateProjectFormStep> {
   public formData: Record<CreateProjectFormStep, FormStepData> = <Record<CreateProjectFormStep, FormStepData>>{};
   public introspectedData?: CustomizableSedDocumentData;
-  public omexFileUploaded: boolean = false;
+  public omexFileUploaded = false;
 
   public constructor(
     private simulatorsData: SimulatorsData,
