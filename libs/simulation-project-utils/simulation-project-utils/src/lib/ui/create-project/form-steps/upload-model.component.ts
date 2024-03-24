@@ -12,7 +12,6 @@ import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import { EdamTerm } from '@biosimulations/datamodel/common';
 import { IFormStepComponent, FormStepData } from '../create-project/forms';
 import { ConfigService } from '@biosimulations/config/angular';
-import { endWith } from 'rxjs';
 
 @Component({
   selector: 'create-project-upload-model',
