@@ -215,7 +215,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
       }
     });
     const introspectionUrl = this.dispatchService.endpoints.getModelIntrospectionEndpoint(false);
-    console.log(`THE URL: ${introspectionUrl}`);
+    console.log(`THE RERUN HAS BEEN TRIGGERED IN DISPATCH: ${this.simulationService.reRunTriggered}`);
   }
 
   public ngOnDestroy(): void {
@@ -282,9 +282,10 @@ export class DispatchComponent implements OnInit, OnDestroy {
   public onFormSubmit(): void {
     this.submitPushed = true;
 
-    if (!this.formGroup.valid) {
+    /*if (!this.formGroup.valid) {
+      console.log(`Not valid.`)
       return;
-    }
+    }*/
 
     const simulator: string = this.formGroup.value.simulator;
     const simulatorVersion: string = this.formGroup.value.simulatorVersion;
@@ -295,7 +296,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     const purpose: Purpose = this.formGroup.value.academicPurpose ? Purpose.academic : Purpose.other;
     const name: string = this.formGroup.value.name;
     const email: string | null = this.formGroup.value.email || null;
-    const simulationModelChanges: UntypedFormArray[] = this.formGroup.value.modelChanges;
+    //const simulationModelChanges: UntypedFormArray[] = this.formGroup.value.modelChanges;
     // TODO: do something with the model changes on submit
 
     let simulationResponse: Observable<SimulationRun>;
@@ -547,15 +548,19 @@ export class DispatchComponent implements OnInit, OnDestroy {
     const modelFile = this.formGroup.get('modelSource')?.value;
     const modelFormat = this.formGroup.get('modelFormats')?.value;
     const _simType = this.formGroup.get('simType')?.value;
+    const _algId = this.formGroup.get('simulationAlgorithms')?.value;
     //const loadedSimulatorIds = Object.keys(this.simulatorSpecsMap?);
 
     console.log(`URL AND FORMAT after: ${modelFormat}, ${modelFile}`);
     console.log(`THE SIM: ${this.formGroup.get('simulator')?.value}`);
+    this.simulationService.reRunObservable.subscribe((item) => {
+      console.log(`What is subscribed: ${item.simulator}`);
+    });
 
     const simMethodData: FormStepData = {
       simulationType: _simType,
       frameworkId: 'SBO_0000624',
-      algorithmId: "this.formGroup.get('simulationAlgorithms')?.value",
+      algorithmId: _algId,
     };
 
     const modelData: FormStepData = {
@@ -695,7 +700,9 @@ export class DispatchComponent implements OnInit, OnDestroy {
     console.log(`THE sims: ${this.formGroup.get('simType')?.value}`);
 
     // introspect editable params from project:
-    this.introspectProject();
+    if (this.simulationService.reRunTriggered) {
+      this.introspectProject();
+    }
 
     console.log(`SED DOCS LOADED`);
   }
@@ -884,6 +891,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     this.setMemory(params.memory);
     this.setMaxTime(params.maxTime);
     this.setRunName(params.runName);
+    console.log(`simulator set!`);
   }
 
   private setProject(projectUrl: string): void {
