@@ -58,10 +58,10 @@ export enum SedReportTypeEnum {
 }
 
 export interface CustomizableSedDocumentData {
-  modelChanges: SedModelChange[];
-  modelVariables: SedVariable[];
-  uniformTimeCourseSimulation?: SedUniformTimeCourseSimulation;
-  namespaces: Namespace[];
+  modelChanges: SedModelChange[] | undefined;
+  modelVariables: SedVariable[] | undefined;
+  uniformTimeCourseSimulation?: SedUniformTimeCourseSimulation | undefined;
+  namespaces: Namespace[] | undefined;
 }
 
 @Injectable({
@@ -96,7 +96,10 @@ export class CombineApiService {
   }
 
   public getCustomizableSedData(sedDoc: SedDocument, simulationType: SedSimulation): CustomizableSedDocumentData {
-    return CreateCustomizableSedDocumentData(sedDoc, simulationType);
+    return CreateCustomizableSedDocumentData(
+      sedDoc,
+      // simulationType
+    );
   }
 
   public introspectProject(
@@ -119,7 +122,8 @@ export class CombineApiService {
       modelUrl,
       errorHandler,
     );
-    return introspectionObservable.pipe(map(CreateNewProjectArchiveDataOperator(simMethodData)));
+    // return introspectionObservable.pipe(map(CreateNewProjectArchiveDataOperator(simMethodData)));
+    return introspectionObservable.pipe(map(CreateNewProjectArchiveDataOperator()));
   }
 
   public postProjectSedDocument(fileOrUrl: File | string): Observable<SedDocument | null> {
@@ -185,23 +189,24 @@ function PostNewProjectSedDocument(
   );
 }
 
-function CreateNewProjectArchiveDataOperator(
-  simMethodData: FormStepData,
-): (doc: SedDocument | null) => CustomizableSedDocumentData | null {
-  const simulationType = simMethodData?.simulationType as SedSimulation;
+function CreateNewProjectArchiveDataOperator(): (doc: SedDocument | null) => CustomizableSedDocumentData | null {
+// simMethodData: FormStepData,
+  // const simulationType = simMethodData?.simulationType as SedSimulation;
   return (sedDoc: SedDocument | null) => {
-    return sedDoc ? CreateCustomizableSedDocumentData(sedDoc, simulationType) : null;
+    // return sedDoc ? CreateCustomizableSedDocumentData(sedDoc, simulationType) : null;
+    return sedDoc ? CreateCustomizableSedDocumentData(sedDoc) : null;
   };
 }
 
 function CreateCustomizableSedDocumentData(
   sedDoc: SedDocument,
-  simulationType: SedSimulation,
+  // simulationType: SedSimulation,
 ): CustomizableSedDocumentData {
   const namespaces: Namespace[] = [];
   const modelChanges = GatherModelChanges(sedDoc, namespaces);
+  // insert changes through outputs
   const modelVariables = GatherModelVariables(sedDoc, namespaces);
-  const uniformTimeCourseSimulation = GatherTimeCourseData(sedDoc, simulationType);
+  // const uniformTimeCourseSimulation = GatherTimeCourseData(sedDoc, simulationType);
   namespaces.sort((a, b): number => {
     return (a.prefix || '').localeCompare(b.prefix || '', undefined, {
       numeric: true,
@@ -210,7 +215,7 @@ function CreateCustomizableSedDocumentData(
   return {
     modelChanges: modelChanges,
     modelVariables: modelVariables,
-    uniformTimeCourseSimulation: uniformTimeCourseSimulation,
+    // uniformTimeCourseSimulation: uniformTimeCourseSimulation,
     namespaces: namespaces,
   };
 }
