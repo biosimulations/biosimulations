@@ -84,11 +84,17 @@ interface EditParametersForm {
   [param: string]: string;
 }
 
-interface SimMethodData {
-  framework: string;
+interface SimMethodFormData extends FormData {
+  frameworkId: string;
   simulationType: string;
-  algorithm: string;
+  algorithmId: string;
   parameters: any;
+}
+
+interface ModelFormData extends FormData {
+  modelFormat: string;
+  modelFile: File; // gets interpreted as Blob in util project introspection
+  modelUrl: string;
 }
 
 @Component({
