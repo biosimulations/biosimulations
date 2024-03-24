@@ -243,6 +243,10 @@ files = [
     {file = "biopython-1.81-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:a51d9c1d1b4b634447535da74a644fae59bc234fbbf9001e2dc6b6fbabb98019"},
     {file = "biopython-1.81-cp311-cp311-win32.whl", hash = "sha256:2f9cfaf16d55ab80d514e7aebe5710dabe4e4ff47ede851031202e33b3249da3"},
     {file = "biopython-1.81-cp311-cp311-win_amd64.whl", hash = "sha256:e41b55edcfd448630e77bf4de66a7235324a8a149621499891da6bd1d5085b9a"},
+    {file = "biopython-1.81-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:175fcddc9f22a070aa6db54755d60c4b31090cc39f5f5f4b0a9a5d1ae3b45cd7"},
+    {file = "biopython-1.81-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:9ec149487f3d1e0cf2b52b6071641c161ed545b0855ff51a71506152e14fc5bb"},
+    {file = "biopython-1.81-cp312-cp312-win32.whl", hash = "sha256:daeab15274bbcc0455cbd378636e14f53bc7c5b1f383e77021d7222e72cc3418"},
+    {file = "biopython-1.81-cp312-cp312-win_amd64.whl", hash = "sha256:22f5741aca91af0a76c0d5617e58e554fd3374bbd16e0c0ac1facf45b107313b"},
     {file = "biopython-1.81-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:3b36ba1bf6395c09a365c53530c9d71f3617763fa2c1d452b3d8948368c0f1de"},
     {file = "biopython-1.81-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:7c5c07123ff5f44c9e6b5369df854a38afd3c0c50ef58498a0ae8f7eb799f3e8"},
     {file = "biopython-1.81-cp37-cp37m-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:97cbdbed01b2512471f36c74b91658d1dfbdcbf39bc038f6ce5a41c3e60a8fc6"},
@@ -311,13 +315,13 @@ tests = ["biosimulators-utils[containers]", "python-dateutil"]
 
 [[package]]
 name = "biosimulators-utils"
-version = "0.1.181"
+version = "0.1.187"
 description = "Command-line program and library for reading, writing, validating and executing modeling projects (COMBINE/OMEX archives with SED-ML files)."
 optional = false
 python-versions = "*"
 files = [
-    {file = "biosimulators_utils-0.1.181-py2.py3-none-any.whl", hash = "sha256:9f7be8d4c21c9ea8fae2aa1272fea830b9e2610fe717c252bd51eb85fd6f7d7f"},
-    {file = "biosimulators_utils-0.1.181.tar.gz", hash = "sha256:3bfd72fad63d768a9f682e2aa668deca8d141a75e178c426579757be91d7f756"},
+    {file = "biosimulators_utils-0.1.187-py2.py3-none-any.whl", hash = "sha256:760a54bb0d78a73be9d8aeac151b3b7cf4d7f62609c4f312e75a8598919d7054"},
+    {file = "biosimulators_utils-0.1.187.tar.gz", hash = "sha256:dca1ae07d5c06673dc5271e44c6d1b1335f81fb8b3bb27a6fc77616d5c61f33a"},
 ]
 
 [package.dependencies]
@@ -328,7 +332,7 @@ capturer = {version = "*", optional = true, markers = "extra == \"logging\""}
 cement = "*"
 evalidate = ">=2.0.0"
 h5py = "*"
-kisao = ">=2.32"
+kisao = ">=2.33"
 libcellml = {version = "*", optional = true, markers = "extra == \"cellml\""}
 libneuroml = {version = "*", optional = true, markers = "extra == \"neuroml\""}
 lxml = "*"
@@ -363,7 +367,7 @@ uritools = "*"
 yamldown = "*"
 
 [package.extras]
-all = ["bezier", "bionetgen (>=0.7.2)", "capturer", "docker (>=4.4)", "flaky", "jsonschema", "libcellml", "libneuroml", "pint", "pylems", "pyneuroml", "pyneuroml (>=0.5.18)", "python-libsbml", "smoldyn (>=2.66)"]
+all = ["bezier", "bionetgen (>=0.7.2)", "capturer", "docker (>=4.4)", "flaky", "jsonschema", "libcellml", "libneuroml", "pint", "pylems", "pyneuroml", "pyneuroml (>=0.5.18)", "python-libsbml", "simulariumio", "smoldyn (>=2.66)"]
 bngl = ["bionetgen (>=0.7.2)"]
 cellml = ["libcellml"]
 containers = ["docker (>=4.4)"]
@@ -372,6 +376,7 @@ lems = ["pint", "pylems", "pyneuroml"]
 logging = ["capturer"]
 neuroml = ["libneuroml", "pyneuroml (>=0.5.18)"]
 sbml = ["python-libsbml"]
+simularium = ["simulariumio"]
 smoldyn = ["smoldyn (>=2.66)"]
 tests = ["capturer", "flaky", "jsonschema"]
 
@@ -2144,13 +2149,13 @@ files = [
 
 [[package]]
 name = "kisao"
-version = "2.32"
+version = "2.33"
 description = "Utilities for working with the Kinetic Simulation Algorithm Ontology (KiSAO)"
 optional = false
 python-versions = "*"
 files = [
-    {file = "kisao-2.32-py2.py3-none-any.whl", hash = "sha256:c08e095bc3631d0a3a55a6edf07c50b29c1387659ce0029bed6fcb9fa205dd58"},
-    {file = "kisao-2.32.tar.gz", hash = "sha256:1e8d82a268e319cf73b753b98d29b2ac17a8463cd26f268aa9d47557c880383f"},
+    {file = "kisao-2.33-py2.py3-none-any.whl", hash = "sha256:4ce7eeb45e3139a76d8bee53f8f40a2d62a85bf0fd2468baeb8149144116cd99"},
+    {file = "kisao-2.33.tar.gz", hash = "sha256:f187aae737de293dd7d699a8a8df940fef96ad470d6b321ce9d26ff2af1245b9"},
 ]
 
 [package.dependencies]
@@ -4236,6 +4241,14 @@ files = [
     {file = "python_libsedml-2.0.32-cp311-cp311-musllinux_1_1_x86_64.whl", hash = "sha256:024902bb5882d5eb61ef5d934d21654d7bacdfc25ec3bd3a8da7b7fbb24ca6d9"},
     {file = "python_libsedml-2.0.32-cp311-cp311-win32.whl", hash = "sha256:ad9fa9d805847671ece7afda5037ea3ebafaa8233a243ba58d65a0937831d0f6"},
     {file = "python_libsedml-2.0.32-cp311-cp311-win_amd64.whl", hash = "sha256:b52bfcb40cc55a76786488c9d007c0b7da03387806ab5a0aad8ba6a8202438e0"},
+    {file = "python_libsedml-2.0.32-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:bf53626d8d23be3cd6fc88dc2cc8a5e9ca38f99d02b7f9009acc98e0a3cacc75"},
+    {file = "python_libsedml-2.0.32-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:c52e827ba8c50dc99f3f19f2f8fd5505e51e8fbb480f418133ef19c0a27484ab"},
+    {file = "python_libsedml-2.0.32-cp312-cp312-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:3e30546ae9075c4270570c4982ecb7453211b71da8d633cfb9afb2f711ae2e5e"},
+    {file = "python_libsedml-2.0.32-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:39adecc47d39b13eee38beed36f635270d46661585d40da30563fb256dfac7c8"},
+    {file = "python_libsedml-2.0.32-cp312-cp312-musllinux_1_1_i686.whl", hash = "sha256:e19b841d80dab2c39eed0a2bd98383dbfd124f05be9c9d98a38c0880f40a6640"},
+    {file = "python_libsedml-2.0.32-cp312-cp312-musllinux_1_1_x86_64.whl", hash = "sha256:b2fe8c0cc6f8beec72733bf987de9fe7880ca638036f64538c4cc3ece78b7c3d"},
+    {file = "python_libsedml-2.0.32-cp312-cp312-win32.whl", hash = "sha256:3195bad01e02316bad1f5a82e83a9467f24555575fffc180861fb65b6f41f50e"},
+    {file = "python_libsedml-2.0.32-cp312-cp312-win_amd64.whl", hash = "sha256:25df3d7954e946ba1fdc868982848a15d84dd0e30ff8ed4ad0f8a617b9639cda"},
     {file = "python_libsedml-2.0.32-cp36-cp36m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:3b2a7321de6906d9e26f58c708c1dddeeaed67e61a080f856aaa19847455040b"},
     {file = "python_libsedml-2.0.32-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:a822c7df4141a4c5e7e9c3487f9d0b2ec39c62b7cc18e7ed2ccd7bc2b543e6ff"},
     {file = "python_libsedml-2.0.32-cp37-cp37m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:b7334678f5a236ed9b4ab6d5f71144d82a3e6aef283455486c82c820e32e7f9f"},
