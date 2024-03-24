@@ -14,7 +14,37 @@ button {
   float: right;
 }
 
-.card-form-section {
+<<<<<<< HEAD ======= .update {
+  font-size: small;
+}
+
+.edit-params-form {
+  margin-top: 3rem;
+}
+
+mat-expansion-panel-header {
+  color: white !important;
+}
+
+.advanced-settings-panel {
+  //padding-bottom:
+}
+.advanced-settings-header {
+  //font-weight: normal;
+  font-size: medium;
+  color: white !important;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  align-items: center;
+  border: 2px solid inherit;
+  transition: background-color 0.1s ease-in-out;
+  //background-color: var(--primary-darker-color) !important;
+  border-radius: 3px;
+  height: auto;
+  width: auto;
+}
+
+>>>>>>>641369493 (style(ui): refactored dispatch form to scaled with advanced) .card-form-section {
   height: 100%;
   padding-bottom: 1rem;
   padding-right: 1rem;
