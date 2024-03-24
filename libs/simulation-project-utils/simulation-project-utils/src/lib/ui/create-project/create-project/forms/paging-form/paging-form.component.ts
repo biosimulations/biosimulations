@@ -26,6 +26,14 @@ export class PagingFormComponent<TStepId extends string> implements OnDestroy, A
   @Input() public sharedSubscriptions?: Subscription[];
 
   // Lifecycle
+  handleFileTypeDetected(fileType: string): void {
+    if (fileType === 'OMEX') {
+      if (this.dataSource) {
+        this.dataSource.omexFileUploaded = true;
+      }
+      // You may need to refresh or reload the form steps based on this new state
+    }
+  }
   public ngOnInit() {
     if (this.sharedSubscriptions) {
       this.subscriptions = this.sharedSubscriptions;

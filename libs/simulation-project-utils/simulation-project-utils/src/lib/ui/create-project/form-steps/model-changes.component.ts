@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { UntypedFormArray, UntypedFormBuilder, Validators, UntypedFormGroup, AbstractControl } from '@angular/forms';
 import { IFormStepComponent, FormStepData } from '../create-project/forms';
 import { UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR, SEDML_ID_VALIDATOR } from '@biosimulations/shared/ui';
@@ -9,29 +9,12 @@ import { SedModelAttributeChangeTypeEnum, SedModelChange } from '@biosimulations
   templateUrl: './model-changes.component.html',
   styleUrls: ['./form-steps.scss'],
 })
-export class ModelChangesComponent implements IFormStepComponent, OnInit {
+export class ModelChangesComponent implements IFormStepComponent {
   public nextClicked = false;
-  public formArray!: UntypedFormArray;
-  @Input() public sharedFormArray?: UntypedFormArray;
-  @Input() public sharedFormBuilder?: UntypedFormBuilder;
+  public formArray: UntypedFormArray;
 
-  /*public constructor(private formBuilder: UntypedFormBuilder) {
+  public constructor(private formBuilder: UntypedFormBuilder) {
     this.formArray = formBuilder.array([], {
-      validators: [UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR('id')],
-    });
-    const defaultRowCount = 3;
-    for (let i = 0; i < defaultRowCount; i++) {
-      this.addModelChangeField();
-    }
-  }*/
-
-  public constructor(public formBuilder: UntypedFormBuilder) {}
-
-  public ngOnInit() {
-    if (this.sharedFormBuilder) {
-      this.formBuilder = this.sharedFormBuilder;
-    }
-    this.formArray = this.formBuilder.array([], {
       validators: [UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR('id')],
     });
     const defaultRowCount = 3;

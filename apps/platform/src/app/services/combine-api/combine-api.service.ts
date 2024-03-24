@@ -58,10 +58,10 @@ export enum SedReportTypeEnum {
 }
 
 export interface CustomizableSedDocumentData {
-  modelChanges: SedModelChange[] | undefined;
-  modelVariables: SedVariable[] | undefined;
-  uniformTimeCourseSimulation?: SedUniformTimeCourseSimulation | undefined;
-  namespaces: Namespace[] | undefined;
+  modelChanges?: SedModelChange[] | undefined;
+  //modelVariables: SedVariable[] | undefined;
+  //uniformTimeCourseSimulation?: SedUniformTimeCourseSimulation | undefined;
+  namespaces?: Namespace[] | undefined;
 }
 
 @Injectable({
@@ -95,20 +95,28 @@ export class CombineApiService {
     );
   }
 
-  public getCustomizableSedData(sedDoc: SedDocument, simulationType: SedSimulation): CustomizableSedDocumentData {
-    return CreateCustomizableSedDocumentData(
-      sedDoc,
-      // simulationType
-    );
+  public getCustomizableSedData(sedDoc: SedDocument): Observable<CustomizableSedDocumentData> {
+    // Assuming CreateCustomizableSedDocumentData is synchronous; otherwise, adapt as needed
+    return new Observable((observer) => {
+      const data = CreateCustomizableSedDocumentData(sedDoc);
+      observer.next(data);
+      observer.complete();
+    });
   }
 
   public introspectProject(
     http: HttpClient,
     modelData: FormStepData,
     simMethodData: FormStepData,
+    fileOrUrl: File | string,
     errorHandler: (modelUrl: string) => void,
   ): Observable<CustomizableSedDocumentData | null> | null {
-    const formData = CreateNewProjectFormData(modelData, simMethodData);
+    const formData = new FormData();
+    if (typeof fileOrUrl === 'object') {
+      formData.append('file', fileOrUrl);
+    } else {
+      formData.append('url', fileOrUrl);
+    }
     if (!formData) {
       return null;
     }
@@ -190,7 +198,7 @@ function PostNewProjectSedDocument(
 }
 
 function CreateNewProjectArchiveDataOperator(): (doc: SedDocument | null) => CustomizableSedDocumentData | null {
-// simMethodData: FormStepData,
+  // simMethodData: FormStepData,
   // const simulationType = simMethodData?.simulationType as SedSimulation;
   return (sedDoc: SedDocument | null) => {
     // return sedDoc ? CreateCustomizableSedDocumentData(sedDoc, simulationType) : null;
@@ -200,12 +208,12 @@ function CreateNewProjectArchiveDataOperator(): (doc: SedDocument | null) => Cus
 
 function CreateCustomizableSedDocumentData(
   sedDoc: SedDocument,
+  //modelVariables: SedVariable[],
   // simulationType: SedSimulation,
 ): CustomizableSedDocumentData {
   const namespaces: Namespace[] = [];
   const modelChanges = GatherModelChanges(sedDoc, namespaces);
   // insert changes through outputs
-  const modelVariables = GatherModelVariables(sedDoc, namespaces);
   // const uniformTimeCourseSimulation = GatherTimeCourseData(sedDoc, simulationType);
   namespaces.sort((a, b): number => {
     return (a.prefix || '').localeCompare(b.prefix || '', undefined, {
@@ -214,7 +222,7 @@ function CreateCustomizableSedDocumentData(
   });
   return {
     modelChanges: modelChanges,
-    modelVariables: modelVariables,
+    // modelVariables: modelVariables,
     // uniformTimeCourseSimulation: uniformTimeCourseSimulation,
     namespaces: namespaces,
   };
