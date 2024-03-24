@@ -11,7 +11,11 @@ import {
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { CombineApiService, CustomizableSedDocumentData } from '../../../services/combine-api/combine-api.service';
-import { CombineApiService as ApiService } from '@biosimulations/simulation-project-utils';
+import {
+  CombineApiService as ApiService,
+  FormStepData,
+  SUPPORTED_SIMULATION_TYPES,
+} from '@biosimulations/simulation-project-utils';
 import {
   SimulatorSpecsMap,
   SimulatorSpecs,
@@ -35,6 +39,7 @@ import {
   AlgorithmSubstitution,
   AlgorithmSubstitutionPolicy,
   AlgorithmSummary,
+  SimulationType,
 } from '@biosimulations/datamodel/common';
 import { SimulationRunStatus, EnvironmentVariable, SimulationRun } from '@biosimulations/datamodel/common';
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
@@ -50,6 +55,7 @@ import {
   UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR,
 } from '@biosimulations/shared/ui';
 import { SedModelAttributeChangeTypeEnum } from '@biosimulations/combine-api-angular-client';
+import { CreateProjectFormStep } from '../../../../../../../libs/simulation-project-utils/simulation-project-utils/src/lib/ui/create-project/create-project/create-project-data-source';
 
 interface SimulatorIdNameDisabled {
   id: string;
@@ -76,6 +82,13 @@ interface Algorithm {
 
 interface EditParametersForm {
   [param: string]: string;
+}
+
+interface SimMethodData {
+  framework: string;
+  simulationType: string;
+  algorithm: string;
+  parameters: any;
 }
 
 @Component({
@@ -141,6 +154,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
         name: ['', [Validators.required]],
         email: ['', [Validators.email]],
         emailConsent: [false],
+        modelSource: ['', []],
         parametersForm: this.formBuilder.group({}),
         modelChanges: this.formBuilder.array([], {
           validators: [UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR('id')],
@@ -187,6 +201,8 @@ export class DispatchComponent implements OnInit, OnDestroy {
         this.formGroup.value.emailConsent = true;
       }
     });
+    const introspectionUrl = this.dispatchService.endpoints.getModelIntrospectionEndpoint(false);
+    console.log(`THE URL: ${introspectionUrl}`);
   }
 
   public ngOnDestroy(): void {
@@ -509,6 +525,81 @@ export class DispatchComponent implements OnInit, OnDestroy {
   }
 
   // Network callbacks
+
+  private introspectProject(): void {
+    /*THE SIM METHOD DATA FROM UTILS PROJECT INTROSPECTION: framework,simulationType,algorithm,parameters
+      project-introspection.ts:48 The framework: SBO_0000624
+      project-introspection.ts:49 THE MODELDATA FROM UTILS PROJECT INTROSPECTION: modelUrl,modelFile,modelFormat*/
+
+    const modelUrl = this.formGroup.get('modelSource')?.value;
+    const modelFormat = this.formGroup.get('modelFormats')?.value;
+    console.log(`URL AND FORMAT after: ${modelFormat}, ${modelUrl}`);
+
+    const simMethodData: FormStepData = {
+      simulationType: this.formGroup.get('simulationAlgorithms')?.value,
+    };
+
+    const modelData: FormStepData = {
+      modelUrl: '',
+      modelFile: '',
+      modelFormat: '',
+    };
+
+    console.log(`THE ALG TYPE: ${simMethodData.simulationType}`);
+  }
+
+  public preloadDataFromParams(params: Params | null, formData: any): void {
+    if (!params) {
+      return;
+    }
+    this.preloadUploadModelData(params.modelUrl, params.modelFormat, formData);
+    this.preloadSimMethodData(params.modelingFramework, params.simulationType, params.simulationAlgorithm, formData);
+  }
+
+  private preloadUploadModelData(modelUrl: string, modelFormat: string, formData: any): void {
+    modelFormat = modelFormat?.toLowerCase();
+    const match = modelFormat?.match(/^(format[:_])?(\d{1,4})$/);
+    if (match) {
+      modelFormat = 'format_' + '0'.repeat(4 - match[2].length) + match[2];
+    }
+    const uploadModelData = formData[CreateProjectFormStep.UploadModel] || {};
+    uploadModelData.modelUrl = modelUrl;
+    uploadModelData.modelFormat = modelFormat;
+    formData[CreateProjectFormStep.UploadModel] = uploadModelData;
+  }
+
+  private preloadSimMethodData(framework: string, simulationType: string, algorithm: string, formData: any): void {
+    framework = framework?.toUpperCase();
+    let match = framework?.match(/^(SBO[:_])?(\d{1,7})$/);
+    if (match) {
+      framework = 'SBO_' + '0'.repeat(7 - match[2].length) + match[2];
+    }
+
+    if (simulationType && !simulationType.startsWith('Sed')) {
+      simulationType = 'Sed' + simulationType;
+    }
+    if (simulationType && !simulationType.endsWith('Simulation')) {
+      simulationType = simulationType + 'Simulation';
+    }
+    SUPPORTED_SIMULATION_TYPES.forEach((simType: SimulationType): void => {
+      if (simulationType && simulationType.toLowerCase() == simType.toLowerCase()) {
+        simulationType = simType;
+      }
+    });
+
+    algorithm = algorithm?.toUpperCase();
+    match = algorithm?.match(/^(KISAO[:_])?(\d{1,7})$/);
+    if (match) {
+      algorithm = 'KISAO_' + '0'.repeat(7 - match[2].length) + match[2];
+    }
+
+    const simMethodData = formData[CreateProjectFormStep.FrameworkSimTypeAndAlgorithm] || {};
+    simMethodData.framework = framework;
+    simMethodData.simulationType = simulationType;
+    simMethodData.algorithm = algorithm;
+    formData[CreateProjectFormStep.FrameworkSimTypeAndAlgorithm] = simMethodData;
+  }
+
   public archiveSedDocSpecsLoaded(sedDocSpecs?: CombineArchiveSedDocSpecs): void {
     const simulationAlgorithmsMap = this.simulationAlgorithmsMap;
     if (!sedDocSpecs || !simulationAlgorithmsMap) {
@@ -516,6 +607,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     }
 
     const modelFormats = new Set<string>();
+    const modelSource: string[] = [];
     const simulationAlgorithms = new Set<string>();
     let specsContainUnsupportedModel = false;
     let specsContainUnsupportedAlgorithm = false;
@@ -539,6 +631,9 @@ export class DispatchComponent implements OnInit, OnDestroy {
         } else {
           specsContainUnsupportedModel = true;
         }
+        // set model source for project introspection
+        modelSource.push(model.source);
+
         // this.modelChanges.clear();
         // this.loadIntrospectedModelChanges(model.changes);
         /*model.changes.forEach((change: SedModelChange, changeIndex: number): void => {
@@ -567,10 +662,18 @@ export class DispatchComponent implements OnInit, OnDestroy {
     this.setUnsupportedModelErrorIsShown(specsContainUnsupportedModel);
     this.setUnsupportedAlgorithmErrorIsShown(specsContainUnsupportedAlgorithm);
 
+    this.formGroup.controls.modelSource.setValue(modelSource);
     this.formGroup.controls.modelFormats.setValue(Array.from(modelFormats));
     this.formGroup.controls.simulationAlgorithms.setValue(Array.from(simulationAlgorithms));
 
     this.controlImpactingEligibleSimulatorsUpdated();
+
+    console.log(`THE model FORMATS: ${this.formGroup.get('modelFormats')?.value}`);
+    console.log(`The model source: ${this.formGroup.get('modelSource')?.value}`);
+    console.log(`THE sims: ${this.formGroup.get('simulator')?.value}`);
+
+    // introspect editable params from project:
+    this.introspectProject();
 
     console.log(`SED DOCS LOADED`);
   }

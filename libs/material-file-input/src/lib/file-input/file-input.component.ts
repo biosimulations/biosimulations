@@ -10,6 +10,8 @@ import {
   Optional,
   Self,
   DoCheck,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { ControlValueAccessor, NgControl, NgForm, FormGroupDirective } from '@angular/forms';
 
@@ -45,6 +47,7 @@ export class FileInputComponent
   @Input() valuePlaceholder!: string;
   @Input() accept: string | null = null;
   @Input() override errorStateMatcher!: ErrorStateMatcher;
+  @Output() fileTypeDetected = new EventEmitter<string>();
 
   @HostBinding() id = `ngx-mat-file-input-${FileInputComponent.nextId++}`;
   @HostBinding('attr.aria-describedby') describedBy = '';
@@ -193,6 +196,9 @@ export class FileInputComponent
     }
     this.value = new FileInput(fileArray);
     this._onChange(this.value);
+    fileArray.forEach((f: File) => {
+      console.log(`File detected!...the file: ${f.name}`);
+    });
   }
 
   @HostListener('focusout')

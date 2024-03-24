@@ -77,6 +77,8 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
     const formatData = dataSource.formData[CreateProjectFormStep.UploadModel];
     const simMethodData = dataSource.formData[CreateProjectFormStep.FrameworkSimTypeAndAlgorithm];
     const introspectionObservable = IntrospectNewProject(this.http, formatData, simMethodData, errorHandler);
+    console.log(`INTROSPECTION PROVIDER EVOKED IN CREATE PROJECT: ${introspectionObservable}`);
+    console.log(`THIS WAS THE DATA TO EVOKE IT: ${dataSource.formData}`);
     if (!introspectionObservable) {
       return null;
     }
