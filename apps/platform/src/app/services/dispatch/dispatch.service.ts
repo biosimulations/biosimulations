@@ -21,7 +21,12 @@ import { SimulationRunService } from '@biosimulations/angular-api-client';
   providedIn: 'root',
 })
 export class DispatchService {
-  private endpoints = new Endpoints();
+  public endpoints = new Endpoints();
+
+  public getModelIntrospection(file: File | string): any {
+    const introspectionUrl = this.endpoints.getModelIntrospectionEndpoint(false);
+    console.log(`${introspectionUrl}`);
+  }
 
   public sumbitJobForURL(
     url: string,

@@ -28,6 +28,7 @@ import {
 
 export enum CreateProjectFormStep {
   UploadModel = 'UploadModel',
+  //UploadArchive = 'UploadArchive',
   FrameworkSimTypeAndAlgorithm = 'FrameworkSimTypeAndAlgorithm',
   UniformTimeCourseSimulationParameters = 'UniformTimeCourseSimulationParameters',
   AlgorithmParameters = 'AlgorithmParameters',
@@ -54,6 +55,7 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
   public formStepIds(): CreateProjectFormStep[] {
     return [
       CreateProjectFormStep.UploadModel,
+      //CreateProjectFormStep.UploadArchive,
       CreateProjectFormStep.FrameworkSimTypeAndAlgorithm,
       CreateProjectFormStep.UniformTimeCourseSimulationParameters,
       CreateProjectFormStep.ModelNamespace,
@@ -67,6 +69,7 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     if (this.omexFileUploaded && stepId === CreateProjectFormStep.ModelChanges) {
       return true; // Directly go to model changes if an OMEX file was uploaded
     }
+    console.log(`The step ID: ${stepId}}`);
     switch (stepId) {
       case CreateProjectFormStep.UniformTimeCourseSimulationParameters:
         return this.shouldShowUniformTimeStep();
@@ -79,6 +82,8 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
 
   public createFormStepComponent(stepId: CreateProjectFormStep, hostView: ViewContainerRef): IFormStepComponent {
     switch (stepId) {
+      //case CreateProjectFormStep.UploadArchive:
+      //return this.createModelChangesForm(hostView);
       case CreateProjectFormStep.UploadModel:
         return this.createUploadModelForm(hostView);
       case CreateProjectFormStep.FrameworkSimTypeAndAlgorithm:

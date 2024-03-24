@@ -17,7 +17,8 @@
       <mat-label>Choose model file</mat-label>
       <biosimulations-ngx-mat-file-input
         formControlName="modelFile"
-        [accept]="supportedFileTypes()"></biosimulations-ngx-mat-file-input>
+        [accept]="supportedFileTypes()"
+        (fileTypeDetected)="onFileSelected($event)"></biosimulations-ngx-mat-file-input>
     </mat-form-field>
 
     <mat-hint>Or</mat-hint>
@@ -33,6 +34,74 @@
         Select a model file in a format such as the BioNetGen Language (<a href="https://bionetgen.org/" blankTarget
           >BNGL</a
         >) or the Systems Biology Markup Language (<a href="http://sbml.org/" blankTarget>SBML</a>). Model files can
+        either be uploaded from your local computer or loaded from a publicly-accessible URL.
+      </p>
+
+      <p>
+        Numerous BNGL models are available from
+        <a href="https://github.com/RuleWorld/RuleHub" blankTarget>RuleHub</a>. Numerous SBML models are available from
+        <a href="http://bigg.ucsd.edu/" blankTarget>BiGG</a>,
+        <a href="https://www.ebi.ac.uk/biomodels/" blankTarget>BioModels</a>, the
+        <a href="https://cellcollective.org/" blankTarget>Cell Collective</a>, and
+        <a href="https://jjj.biochem.sun.ac.za/" blankTarget>JWS Online</a>.
+      </p>
+
+      <p class="alert">Uploaded files are limited to 64 MB. Files up to 1 GB can be submitted via URLs.</p>
+    </mat-hint>
+  </mat-card-content>
+
+  <mat-error *ngIf="nextClicked && formGroup.hasError('required', 'modelFormat')">
+    Please select a model format.
+  </mat-error>
+
+  <mat-error *ngIf="nextClicked && formGroup.hasError('url', 'modelUrl')">Please enter a valid url.</mat-error>
+
+  <mat-error *ngIf="nextClicked && (formGroup.hasError('noModel') || formGroup.hasError('multipleModels'))">
+    Please provide either a model file or valid url.
+  </mat-error>
+
+  <mat-error *ngIf="formGroup.hasError('maxSize', 'modelLocationDetails')">
+    Currently, model file uploads are limited to 256 MB. Larger models must be submitted through URLs.
+  </mat-error>
+</form>
+
+
+<form [formGroup]="formGroup">
+  <mat-card-header class="card-form-title upload">Upload a model</mat-card-header>
+
+  <div class="input-group">
+    <mat-form-field class="card-form-field" appearance="fill">
+      <mat-label>Select the format of the model</mat-label>
+      <mat-select formControlName="modelFormat">
+        <mat-option *ngFor="let format of modelFormats" [value]="format.id" style="background-color: white">
+          {{ format.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="input-group">
+    <mat-form-field class="card-form-field" appearance="fill">
+      <mat-label>Choose model file</mat-label>
+      <biosimulations-ngx-mat-file-input
+        formControlName="modelFile"
+        [accept]="supportedFileTypes()"
+        (fileTypeDetected)="onFileSelected($event)"></biosimulations-ngx-mat-file-input>
+    </mat-form-field>
+
+    <mat-hint>Or</mat-hint>
+
+    <mat-form-field class="card-form-field" appearance="fill">
+      <mat-label>Enter URL for model file</mat-label>
+      <input matInput formControlName="modelUrl" />
+    </mat-form-field>
+  </div>
+  <mat-card-content class="card-hint select-model">
+    <mat-hint>
+      <p>
+        Select a model file in a format such as the BioNetGen Language (<a href="https://bionetgen.org/" blankTarget
+      >BNGL</a
+      >) or the Systems Biology Markup Language (<a href="http://sbml.org/" blankTarget>SBML</a>). Model files can
         either be uploaded from your local computer or loaded from a publicly-accessible URL.
       </p>
 
