@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { Simulation, ISimulation, isUnknownSimulation } from '../../datamodel';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
@@ -12,12 +13,21 @@ import { SimulationRun } from '@biosimulations/datamodel/common';
 import { Endpoints } from '@biosimulations/config/common';
 import { SimulationRunService } from '@biosimulations/angular-api-client';
 
+export interface ReRunQueryParams {
+  projectUrl: string;
+  simulator: string;
+  simulatorVersion: string;
+  runName: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class SimulationService {
   private key = 'simulations';
   private simulations: ISimulation[] = [];
+  public reRunQueryParams: Subject<ReRunQueryParams> = new Subject();
+  public reRunObservable!: Observable<ReRunQueryParams>;
 
   // Memory/HTTP cache
   private simulationsMap$: { [key: string]: BehaviorSubject<ISimulation> } = {};
@@ -63,12 +73,14 @@ export class SimulationService {
     this.httpClient
       .get<SimulationRun>(endpoints.getSimulationRunEndpoint(true, id))
       .subscribe((simulationRun: SimulationRun): void => {
-        const queryParams = {
+        const queryParams: ReRunQueryParams = {
           projectUrl: endpoints.getSimulationRunDownloadEndpoint(true, id),
           simulator: simulationRun.simulator,
           simulatorVersion: simulationRun.simulatorVersion,
           runName: simulationRun.name + ' (rerun)',
         };
+        this.reRunQueryParams.next(queryParams);
+        this.reRunObservable = this.reRunQueryParams.asObservable();
         this.router.navigate(['/runs/new'], { queryParams: queryParams });
       });
   }

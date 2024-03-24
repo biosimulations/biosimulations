@@ -55,7 +55,6 @@ import {
   UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR,
 } from '@biosimulations/shared/ui';
 import { SedModelAttributeChangeTypeEnum } from '@biosimulations/combine-api-angular-client';
-import { CreateProjectFormStep } from '../../../../../../../libs/simulation-project-utils/simulation-project-utils/src/lib/ui/create-project/create-project/create-project-data-source';
 
 interface SimulatorIdNameDisabled {
   id: string;
@@ -95,6 +94,12 @@ interface ModelFormData extends FormData {
   modelFormat: string;
   modelFile: File; // gets interpreted as Blob in util project introspection
   modelUrl: string;
+}
+
+export enum ChangeModelForm {
+  ImportArchive = 'ImportArchive',
+  RenderModelChanges = 'RenderModelChanges',
+  ExportModelChanges = 'ExportModelChanges',
 }
 
 @Component({
@@ -151,6 +156,8 @@ export class DispatchComponent implements OnInit, OnDestroy {
         modelFormats: ['', []],
         simulationAlgorithms: ['', []],
         simulationAlgorithmSubstitutionPolicy: [AlgorithmSubstitutionPolicyLevels.SAME_FRAMEWORK, []],
+        simFrameworkId: ['', []],
+        simType: ['', []],
         simulator: ['', [Validators.required]],
         simulatorVersion: ['', [Validators.required]],
         academicPurpose: [true],
@@ -537,21 +544,27 @@ export class DispatchComponent implements OnInit, OnDestroy {
       project-introspection.ts:48 The framework: SBO_0000624
       project-introspection.ts:49 THE MODELDATA FROM UTILS PROJECT INTROSPECTION: modelUrl,modelFile,modelFormat*/
 
-    const modelUrl = this.formGroup.get('modelSource')?.value;
+    const modelFile = this.formGroup.get('modelSource')?.value;
     const modelFormat = this.formGroup.get('modelFormats')?.value;
-    console.log(`URL AND FORMAT after: ${modelFormat}, ${modelUrl}`);
+    const _simType = this.formGroup.get('simType')?.value;
+    //const loadedSimulatorIds = Object.keys(this.simulatorSpecsMap?);
+
+    console.log(`URL AND FORMAT after: ${modelFormat}, ${modelFile}`);
+    console.log(`THE SIM: ${this.formGroup.get('simulator')?.value}`);
 
     const simMethodData: FormStepData = {
-      simulationType: this.formGroup.get('simulationAlgorithms')?.value,
+      simulationType: _simType,
+      frameworkId: 'SBO_0000624',
+      algorithmId: "this.formGroup.get('simulationAlgorithms')?.value",
     };
 
     const modelData: FormStepData = {
       modelUrl: '',
-      modelFile: '',
+      modelFile: modelFile,
       modelFormat: '',
     };
 
-    console.log(`THE ALG TYPE: ${simMethodData.simulationType}`);
+    //console.log(`THE ALG TYPE: ${simMethodData.simulationType}`);
   }
 
   public preloadDataFromParams(params: Params | null, formData: any): void {
@@ -568,10 +581,10 @@ export class DispatchComponent implements OnInit, OnDestroy {
     if (match) {
       modelFormat = 'format_' + '0'.repeat(4 - match[2].length) + match[2];
     }
-    const uploadModelData = formData[CreateProjectFormStep.UploadModel] || {};
-    uploadModelData.modelUrl = modelUrl;
-    uploadModelData.modelFormat = modelFormat;
-    formData[CreateProjectFormStep.UploadModel] = uploadModelData;
+    // const uploadModelData = formData[CreateProjectFormStep.UploadModel] || {};
+    // uploadModelData.modelUrl = modelUrl;
+    // uploadModelData.modelFormat = modelFormat;
+    // formData[CreateProjectFormStep.UploadModel] = uploadModelData;
   }
 
   private preloadSimMethodData(framework: string, simulationType: string, algorithm: string, formData: any): void {
@@ -599,11 +612,11 @@ export class DispatchComponent implements OnInit, OnDestroy {
       algorithm = 'KISAO_' + '0'.repeat(7 - match[2].length) + match[2];
     }
 
-    const simMethodData = formData[CreateProjectFormStep.FrameworkSimTypeAndAlgorithm] || {};
-    simMethodData.framework = framework;
-    simMethodData.simulationType = simulationType;
-    simMethodData.algorithm = algorithm;
-    formData[CreateProjectFormStep.FrameworkSimTypeAndAlgorithm] = simMethodData;
+    //const simMethodData = formData[CreateProjectFormStep.FrameworkSimTypeAndAlgorithm] || {};
+    //imMethodData.framework = framework;
+    //imMethodData.simulationType = simulationType;
+    //imMethodData.algorithm = algorithm;
+    //ormData[CreateProjectFormStep.FrameworkSimTypeAndAlgorithm] = simMethodData;
   }
 
   public archiveSedDocSpecsLoaded(sedDocSpecs?: CombineArchiveSedDocSpecs): void {
@@ -614,6 +627,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
 
     const modelFormats = new Set<string>();
     const modelSource: string[] = [];
+    const simType: string[] = [];
     const simulationAlgorithms = new Set<string>();
     let specsContainUnsupportedModel = false;
     let specsContainUnsupportedAlgorithm = false;
@@ -661,6 +675,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
         } else {
           specsContainUnsupportedAlgorithm = true;
         }
+        simType.push(sim._type);
         // FILL DATA
       });
     });
@@ -671,12 +686,13 @@ export class DispatchComponent implements OnInit, OnDestroy {
     this.formGroup.controls.modelSource.setValue(modelSource);
     this.formGroup.controls.modelFormats.setValue(Array.from(modelFormats));
     this.formGroup.controls.simulationAlgorithms.setValue(Array.from(simulationAlgorithms));
+    this.formGroup.controls.simType.setValue(simType);
 
     this.controlImpactingEligibleSimulatorsUpdated();
 
     console.log(`THE model FORMATS: ${this.formGroup.get('modelFormats')?.value}`);
     console.log(`The model source: ${this.formGroup.get('modelSource')?.value}`);
-    console.log(`THE sims: ${this.formGroup.get('simulator')?.value}`);
+    console.log(`THE sims: ${this.formGroup.get('simType')?.value}`);
 
     // introspect editable params from project:
     this.introspectProject();
