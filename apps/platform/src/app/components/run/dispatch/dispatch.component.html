@@ -115,51 +115,18 @@
       <ng-container *ngIf="fileUploaded" class="params-form-container">
         <mat-card class="card-form-section mat-elevation-z3">
           <mat-card-header class="card-form-section-title cap">Simulation Parameters</mat-card-header>
-          <mat-card-content class="changes-card-content">
-            <div class="model-changes-grid">
-              <div class="grid-label">Id *</div>
-              <div class="grid-label">Name</div>
-              <div class="grid-label">Target *</div>
-              <div class="grid-label">Default</div>
-              <div class="grid-label">New value</div>
-              <div></div>
-
-              <ng-container *ngFor="let formGroup of formGroups(); index as iModelChange" [formGroup]="formGroup">
-                <input class="grid-input" formControlName="id" />
-                <input class="grid-input" formControlName="name" />
-                <input class="grid-input" formControlName="target" />
-                <input class="grid-input" formControlName="default" />
-                <input class="grid-input" formControlName="newValue" />
-                <button mat-icon-button title="Delete change" (click)="removeModelChangeField(iModelChange)">
-                  <biosimulations-icon icon="trash"></biosimulations-icon>
-                </button>
-              </ng-container>
-
-              <button
-                mat-flat-button
-                class="biosimulations-button text"
-                style="grid-column: 1 / 6"
-                (click)="addModelChangeField()">
-                Additional change
-              </button>
+          <mat-card-content>
+          <form [formGroup]="formGroup">
+            <div formArrayName="modelChanges">
+              <div *ngFor="let change of modelChanges.controls; let i = index" [formGroupName]="i">
+                <input formControlName="id" placeholder="ID">
+                <input formControlName="target" placeholder="Target">
+                <input formControlName="default">
+                <input formControlName="newValue">
+                <!-- Add more fields as needed -->
+              </div>
             </div>
-
-            <mat-hint>
-              <p>
-                Describe the changes that should be applied to the attributes of your model (e.g., set the value of target
-                <code>/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='k1']/@value</code>
-                to the new value <code>2.1</code>). For XML-based model languages such as SBML, targets should be XPaths to XML
-                attributes.
-              </p>
-              <p class="alert">
-                The ids and names data will not be exported to SED-ML because these attributes are not supported by SED-ML L1V3.
-                Once simulation tools update to SED-ML L1V4, we will export this information to SED-ML.
-              </p>
-              <p class="alert">
-                The default value of each attribute is provided as a reference. This information will not be encoded into the
-                generated SED-ML document.
-              </p>
-            </mat-hint>
+          </form>
           </mat-card-content>
         </mat-card>
       </ng-container>

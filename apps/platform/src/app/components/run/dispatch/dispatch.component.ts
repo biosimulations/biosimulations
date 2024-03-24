@@ -11,6 +11,7 @@ import {
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { CombineApiService, CustomizableSedDocumentData } from '../../../services/combine-api/combine-api.service';
+import { CombineApiService as ApiService } from '@biosimulations/simulation-project-utils';
 import {
   SimulatorSpecsMap,
   SimulatorSpecs,
@@ -116,6 +117,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     private dispatchService: DispatchService,
     private simulationService: SimulationService,
     private combineApiService: CombineApiService,
+    public apiService: ApiService,
     private snackBar: MatSnackBar,
     private loader: SimulationProjectUtilLoaderService,
     public formBuilder: UntypedFormBuilder,
@@ -521,6 +523,8 @@ export class DispatchComponent implements OnInit, OnDestroy {
     //  VALIDATE: Confirm that every model and algorithm within the sed doc spec is supported.
     sedDocSpecs.contents.forEach((content: CombineArchiveSedDocSpecsContent, contentIndex: number): void => {
       const sedDoc: SedDocument = content.location.value;
+      //this.loadData(sedDoc);
+      this.fetchCustomizableSedData(sedDoc);
       sedDoc.models.forEach((model: SedModel, modelIndex: number): void => {
         let edamId: string | null = null;
         for (const modelingFormat of BIOSIMULATIONS_FORMATS) {
@@ -557,13 +561,6 @@ export class DispatchComponent implements OnInit, OnDestroy {
           specsContainUnsupportedAlgorithm = true;
         }
         // FILL DATA
-        if (!this.customizableSedDocData.length) {
-          const customizableSedData: CustomizableSedDocumentData = this.combineApiService.getCustomizableSedData(
-            sedDoc,
-            sim,
-          );
-          this.customizableSedDocData.push(customizableSedData);
-        }
       });
     });
 
@@ -576,6 +573,21 @@ export class DispatchComponent implements OnInit, OnDestroy {
     this.controlImpactingEligibleSimulatorsUpdated();
 
     console.log(`SED DOCS LOADED`);
+  }
+
+  private loadData(sedDoc: SedDocument): void {
+    this.subscriptions.push(
+      this.combineApiService.getCustomizableSedData(sedDoc).subscribe((data) => {
+        this.populateForm(data);
+      }),
+    );
+  }
+
+  private populateForm(data: CustomizableSedDocumentData): void {
+    const modelChangesArray = this.formGroup.get('modelChanges') as UntypedFormArray;
+    data.modelChanges?.forEach((change) => {
+      this.addFieldForModelChange(change);
+    });
   }
 
   private processSimulationResponse(
@@ -678,6 +690,21 @@ export class DispatchComponent implements OnInit, OnDestroy {
     return this.formGroup.get('modelChanges') as UntypedFormArray;
   }
 
+  populateFormWithSedData(data: CustomizableSedDocumentData): void {
+    data.modelChanges?.forEach((change) => {
+      this.addFieldForModelChange(change);
+    });
+  }
+
+  fetchCustomizableSedData(sedDoc: SedDocument): void {
+    this.combineApiService.getCustomizableSedData(sedDoc).subscribe({
+      next: (data) => {
+        this.populateFormWithSedData(data);
+      },
+      error: (err) => console.error(err),
+    });
+  }
+
   public addModelChangeField(modelChange?: Record<string, string | null>): void {
     const modelChangeForm = this.formBuilder.group({
       id: [modelChange?.id, [SEDML_ID_VALIDATOR]],
@@ -686,7 +713,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
       default: [modelChange?.default, []],
       newValue: [modelChange?.newValue, []],
     });
-    modelChangeForm.controls.default.disable();
+    //modelChangeForm.controls.default.disable();
     this.modelChanges.push(modelChangeForm);
   }
 

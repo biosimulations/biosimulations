@@ -39,6 +39,7 @@ export enum CreateProjectFormStep {
 export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateProjectFormStep> {
   public formData: Record<CreateProjectFormStep, FormStepData> = <Record<CreateProjectFormStep, FormStepData>>{};
   public introspectedData?: CustomizableSedDocumentData;
+  public omexFileUploaded: boolean = false;
 
   public constructor(
     private simulatorsData: SimulatorsData,
@@ -63,6 +64,9 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
   }
 
   public shouldShowFormStep(stepId: CreateProjectFormStep): boolean {
+    if (this.omexFileUploaded && stepId === CreateProjectFormStep.ModelChanges) {
+      return true; // Directly go to model changes if an OMEX file was uploaded
+    }
     switch (stepId) {
       case CreateProjectFormStep.UniformTimeCourseSimulationParameters:
         return this.shouldShowUniformTimeStep();
@@ -231,6 +235,7 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
   private createModelChangesForm(formContainerRef: ViewContainerRef): IFormStepComponent {
     const hostedComponent = formContainerRef.createComponent(ModelChangesComponent);
     const introspectedChanges = this.introspectedData?.modelChanges;
+    console.log(introspectedChanges);
     if (introspectedChanges) {
       hostedComponent.instance.loadIntrospectedModelChanges(introspectedChanges);
     }
