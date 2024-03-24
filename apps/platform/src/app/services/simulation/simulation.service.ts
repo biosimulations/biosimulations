@@ -28,6 +28,7 @@ export class SimulationService {
   private simulations: ISimulation[] = [];
   public reRunQueryParams: Subject<ReRunQueryParams> = new Subject();
   public reRunObservable!: Observable<ReRunQueryParams>;
+  public reRunTriggered = false;
 
   // Memory/HTTP cache
   private simulationsMap$: { [key: string]: BehaviorSubject<ISimulation> } = {};
@@ -81,6 +82,11 @@ export class SimulationService {
         };
         this.reRunQueryParams.next(queryParams);
         this.reRunObservable = this.reRunQueryParams.asObservable();
+        this.reRunTriggered = true;
+        this.reRunObservable.subscribe((item) => {
+          console.log(`What is subscribed: ${item.simulator}`);
+        });
+        console.log(`RUN OBSERVABLE SET! ${this.reRunObservable}. REURN SET: ${this.reRunTriggered}`);
         this.router.navigate(['/runs/new'], { queryParams: queryParams });
       });
   }
