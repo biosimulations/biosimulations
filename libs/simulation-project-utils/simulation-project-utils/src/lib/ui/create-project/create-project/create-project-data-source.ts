@@ -137,6 +137,7 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     if (!params) {
       return;
     }
+
     this.preloadUploadModelData(params.modelUrl, params.modelFormat);
     this.preloadSimMethodData(params.modelingFramework, params.simulationType, params.simulationAlgorithm);
   }

@@ -5,7 +5,7 @@ import { IntrospectNewProject } from '../../../service/create-project/project-in
 import { CustomizableSedDocumentData } from '../../../service/create-project/project-introspection';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from '@biosimulations/shared/environments';
@@ -30,11 +30,16 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar,
     private config: ConfigService,
     private loader: SimulationProjectUtilLoaderService,
+    private activatedRoute: ActivatedRoute,
   ) {}
 
   // Life cycle
 
   public ngOnInit(): void {
+    // get query params if any:
+    this.activatedRoute.queryParams.subscribe((params) => {
+      this.populateChangesForm(params);
+    });
     const loadObs = this.loader.loadSimulationUtilData();
     const loadSub = loadObs.subscribe(this.loadComplete.bind(this));
     this.subscriptions.push(loadSub);
@@ -45,6 +50,12 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
   }
 
   // Setup
+
+  private populateChangesForm(params: Params): void {
+    if (this.formDataSource) {
+      this.formDataSource.preloadDataFromParams(params);
+    }
+  }
 
   private loadComplete(data: SimulationProjectUtilData): void {
     this.formDataSource = new CreateProjectDataSource(

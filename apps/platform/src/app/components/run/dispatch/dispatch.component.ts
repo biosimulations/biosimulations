@@ -559,6 +559,9 @@ export class DispatchComponent implements OnInit, OnDestroy {
         THE SIM METHOD DATA FROM UTILS PROJECT INTROSPECTION: framework,simulationType,algorithm,parameters
         project-introspection.ts:48 The framework: SBO_0000624
         project-introspection.ts:49 THE MODELDATA FROM UTILS PROJECT INTROSPECTION: modelUrl,modelFile,modelFormat
+
+        WE NEED THE FOLLOWING TO POPULATE CREATE PROJECT:
+          modelUrl, modelFormat, modelingFramework, simulationType, simulationAlgorithm
     */
 
     const modelFile = this.formGroup.get('modelSource')?.value;
