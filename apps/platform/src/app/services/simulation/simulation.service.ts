@@ -8,7 +8,7 @@ import { Storage } from '@ionic/storage-angular';
 import { HttpClient, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { Observable, BehaviorSubject, combineLatest, throwError, of } from 'rxjs';
 import { ConfigService } from '@biosimulations/config/angular';
-import { concatAll, debounceTime, shareReplay, map, catchError, switchMap } from 'rxjs/operators';
+import { concatAll, debounceTime, shareReplay, map, catchError } from 'rxjs/operators';
 import { SimulationRun } from '@biosimulations/datamodel/common';
 import { Endpoints } from '@biosimulations/config/common';
 import { SimulationRunService } from '@biosimulations/angular-api-client';
