@@ -1,6 +1,6 @@
 from combine_api import exceptions
 from flask_cors import CORS
-from connexion.apps.flask_app import FlaskApp
+# from connexion.apps.flask_app import FlaskApp
 from swagger_ui_bundle import swagger_ui_3_path
 import connexion
 import flask.json
@@ -41,7 +41,8 @@ options = {
   "swagger_url": "/"
 }
 
-app: FlaskApp = connexion.App(__name__, specification_dir=spec_dirname, options=options)
+# app = connexion.App(__name__, specification_dir=spec_dirname, options=options)
+app = connexion.App(__name__)
 
 # Set up handlers for APIs
 app.add_api(spec_filename,
