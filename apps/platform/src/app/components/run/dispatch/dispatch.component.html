@@ -1,6 +1,8 @@
 <div class="form-parent-container platform-run">
   <biosimulations-page heading="Run a simulation" *ngIf="simulators.length; else loading">
     <form [formGroup]="formGroup" (ngSubmit)="onFormSubmit()">
+
+      <!-- UPLOADFILE -->
       <mat-card class="card-form-section mat-elevation-z3">
         <mat-card-header class="card-form-section-title omex">COMBINE/OMEX archive*</mat-card-header>
 
@@ -130,7 +132,7 @@
       </ng-container>-->
 
 
-      <!-- Solution3: Resuse logic and library service to recreate model-changes step -->
+      <!-- PARAMS: Solution3: Resuse logic and library service to recreate model-changes step -->
       <ng-container *ngIf="fileUploaded" class="params-form-container">
         <mat-card class="card-form-section mat-elevation-z3">
           <mat-card-header class="card-form-title model"
@@ -185,7 +187,7 @@
         </mat-card>
       </ng-container>
 
-      <!-- TODO: Dynamically prompt for this -->
+      <!-- METADATA: TODO: Dynamically prompt for this -->
       <mat-card class="card-form-section mat-elevation-z3">
         <mat-card-header class="card-form-section-title solvers">Metadata *</mat-card-header>
 
@@ -204,6 +206,7 @@
         <mat-error *ngIf="shouldShowNameRequiredError()">Please enter a name for your project.</mat-error>
       </mat-card>
 
+      <!-- SIMULATION TOOL -->
       <mat-card class="card-form-section mat-elevation-z3 sim-tool">
         <mat-card-header class="card-form-section-title tool">Simulation tool *</mat-card-header>
         <div class="input-group">
