@@ -158,6 +158,66 @@
         <mat-error *ngIf="shouldShowNameRequiredError()">Please enter a name for your project.</mat-error>
       </mat-card>
 
+      <mat-card class="card-form-section mat-elevation-z3 sim-tool">
+        <mat-card-header class="card-form-section-title tool">Simulation tool *</mat-card-header>
+        <div class="input-group">
+          <mat-form-field class="card-form-field" appearance="fill">
+            <mat-label>Simulation tool</mat-label>
+            <mat-select
+              formControlName="simulator"
+              disableOptionCentering
+              placeholder="COPASI"
+              (ngModelChange)="simulatorControlUpdated()"
+              required>
+              <mat-option *ngFor="let simulator of simulators" [value]="simulator.id" [disabled]="simulator.disabled">
+                {{ simulator.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="card-form-field" appearance="fill">
+            <mat-label>Version of the simulation tool</mat-label>
+            <mat-select formControlName="simulatorVersion" disableOptionCentering placeholder="latest" required>
+              <mat-option *ngFor="let simulatorVersion of simulatorVersions" [value]="simulatorVersion">
+                {{ simulatorVersion }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <mat-card-content class="card-hints 2">
+          <mat-hint>
+            <p>
+              Select a simulation tool which is capable of executing your archive and a version of that tool. This tool
+              must support all of the model formats (e.g., BNGL, SED-ML) and simulation algorithms (e.g., ODE, SSA)
+              involved in your archive.
+            </p>
+            <p class="alert">
+              Because each tool supports a different set of formats and algorithms, your archive is likely only
+              compatible with a subset of the available simulation tools.
+            </p>
+            <p>
+              The README for the BioSimulators test suite
+              <a [href]="exampleCombineArchivesUrl" rel="noopener" target="example-projects">
+                <biosimulations-icon icon="link"></biosimulations-icon>
+              </a>
+              outlines the simulator compatibility of several of the example archives in the test suite.
+            </p>
+            <p>
+              BioSimulators
+              <a href="https://biosimulators.org" rel="noopener" target="biosimulators">
+                <biosimulations-icon icon="link"></biosimulations-icon>
+              </a>
+              describes the modeling formats (e.g., COMBINE/OMEX, SBML, SED-ML), modeling frameworks (e.g., logical,
+              FBA, kinetic), and simulation algorithms (e.g., ODE, SSA) that each simulation tool supports. We recommend
+              using BioSimulators to determine which tools are capable of executing your archive.
+            </p>
+          </mat-hint>
+        </mat-card-content>
+        <mat-error *ngIf="shouldShowSimulatorRequiredError()">Please select a simulator.</mat-error>
+        <mat-error *ngIf="shouldShowSimulatorVersionRequiredError()"
+        >Please select a version of the simulator.</mat-error
+        >
+      </mat-card>
+
       <!-- BEGIN ADVANCED -->
       <div class="advanced-container">
         <mat-expansion-panel
@@ -231,72 +291,6 @@
               </mat-error>
             </mat-card-content>
           </mat-card>
-
-            <mat-card class="card-form-section mat-elevation-z3">
-              <mat-card-header class="card-form-section-title tool">Simulation tool *</mat-card-header>
-
-              <div class="input-group">
-                <mat-form-field class="card-form-field" appearance="fill">
-                  <mat-label>Simulation tool</mat-label>
-                  <mat-select
-                    formControlName="simulator"
-                    disableOptionCentering
-                    placeholder="COPASI"
-                    (ngModelChange)="simulatorControlUpdated()"
-                    required>
-                    <mat-option *ngFor="let simulator of simulators" [value]="simulator.id" [disabled]="simulator.disabled">
-                      {{ simulator.name }}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-
-                <mat-form-field class="card-form-field" appearance="fill">
-                  <mat-label>Version of the simulation tool</mat-label>
-                  <mat-select formControlName="simulatorVersion" disableOptionCentering placeholder="latest" required>
-                    <mat-option *ngFor="let simulatorVersion of simulatorVersions" [value]="simulatorVersion">
-                      {{ simulatorVersion }}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-
-              <mat-card-content class="card-hints 2">
-                <mat-hint>
-                  <p>
-                    Select a simulation tool which is capable of executing your archive and a version of that tool. This tool
-                    must support all of the model formats (e.g., BNGL, SED-ML) and simulation algorithms (e.g., ODE, SSA)
-                    involved in your archive.
-                  </p>
-
-                  <p class="alert">
-                    Because each tool supports a different set of formats and algorithms, your archive is likely only
-                    compatible with a subset of the available simulation tools.
-                  </p>
-
-                  <p>
-                    The README for the BioSimulators test suite
-                    <a [href]="exampleCombineArchivesUrl" rel="noopener" target="example-projects">
-                      <biosimulations-icon icon="link"></biosimulations-icon>
-                    </a>
-                    outlines the simulator compatibility of several of the example archives in the test suite.
-                  </p>
-
-                  <p>
-                    BioSimulators
-                    <a href="https://biosimulators.org" rel="noopener" target="biosimulators">
-                      <biosimulations-icon icon="link"></biosimulations-icon>
-                    </a>
-                    describes the modeling formats (e.g., COMBINE/OMEX, SBML, SED-ML), modeling frameworks (e.g., logical,
-                    FBA, kinetic), and simulation algorithms (e.g., ODE, SSA) that each simulation tool supports. We recommend
-                    using BioSimulators to determine which tools are capable of executing your archive.
-                  </p>
-                </mat-hint>
-              </mat-card-content>
-              <mat-error *ngIf="shouldShowSimulatorRequiredError()">Please select a simulator.</mat-error>
-              <mat-error *ngIf="shouldShowSimulatorVersionRequiredError()"
-              >Please select a version of the simulator.</mat-error
-              >
-            </mat-card>
 
           <mat-card class="card-form-section mat-elevation-z3">
             <mat-card-header class="card-form-section-title solvers advanced-title">Commercial solvers</mat-card-header>
