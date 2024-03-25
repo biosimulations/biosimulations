@@ -7,6 +7,7 @@ import {
   Validators,
   ValidationErrors,
   UntypedFormArray,
+  FormArray,
 } from '@angular/forms';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { SimulationService } from '../../../services/simulation/simulation.service';
@@ -462,6 +463,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     }
 
     const archive = urlValue ? urlValue : fileValue;
+    // here we should populate the model changes form
     const sub = this.combineApiService
       .getSpecsOfSedDocsInCombineArchive(archive)
       .subscribe(this.archiveSedDocSpecsLoaded.bind(this));
@@ -837,17 +839,21 @@ export class DispatchComponent implements OnInit, OnDestroy {
 
   // Setters for preloading form controls from route params
 
-  public get modelChanges(): UntypedFormArray {
-    return this.formGroup.get('modelChanges') as UntypedFormArray;
+  public get modelChangesGroup(): UntypedFormGroup[] {
+    return (this.modelChanges as FormArray).controls as UntypedFormGroup[];
   }
 
-  populateFormWithSedData(data: CustomizableSedDocumentData): void {
+  public get modelChanges(): UntypedFormArray {
+    return this.formGroup.get('modelChanges')?.value;
+  }
+
+  private populateFormWithSedData(data: CustomizableSedDocumentData): void {
     data.modelChanges?.forEach((change) => {
       this.addFieldForModelChange(change);
     });
   }
 
-  fetchCustomizableSedData(sedDoc: SedDocument): void {
+  public fetchCustomizableSedData(sedDoc: SedDocument): void {
     this.combineApiService.getCustomizableSedData(sedDoc).subscribe({
       next: (data) => {
         this.populateFormWithSedData(data);
@@ -864,7 +870,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
       default: [modelChange?.default, []],
       newValue: [modelChange?.newValue, []],
     });
-    //modelChangeForm.controls.default.disable();
+    modelChangeForm.controls.default.disable();
     this.modelChanges.push(modelChangeForm);
   }
 
@@ -893,10 +899,6 @@ export class DispatchComponent implements OnInit, OnDestroy {
 
   public removeModelChangeField(index: number): void {
     this.modelChanges.removeAt(index);
-  }
-
-  public formGroups(): UntypedFormGroup[] {
-    return this.modelChanges.controls as UntypedFormGroup[];
   }
 
   private setControlsFromParams(params: Params, simulatorSpecsMap: SimulatorSpecsMap): void {
