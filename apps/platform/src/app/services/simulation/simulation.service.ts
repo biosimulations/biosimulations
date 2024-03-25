@@ -1,23 +1,24 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { forkJoin, Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { Simulation, ISimulation, isUnknownSimulation } from '../../datamodel';
-import { SimulationRunStatus } from '@biosimulations/datamodel/common';
+import { SimulationRunStatus, File as CommonFile } from '@biosimulations/datamodel/common';
 import { SimulationStatusService } from './simulation-status.service';
 import { Storage } from '@ionic/storage-angular';
 import { HttpClient, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { Observable, BehaviorSubject, combineLatest, throwError, of } from 'rxjs';
 import { ConfigService } from '@biosimulations/config/angular';
-import { concatAll, debounceTime, shareReplay, map, catchError } from 'rxjs/operators';
+import { concatAll, debounceTime, shareReplay, map, catchError, switchMap } from 'rxjs/operators';
 import { SimulationRun } from '@biosimulations/datamodel/common';
 import { Endpoints } from '@biosimulations/config/common';
 import { SimulationRunService } from '@biosimulations/angular-api-client';
 
 export interface ReRunQueryParams {
-  projectUrl: string;
-  simulator: string;
-  simulatorVersion: string;
-  runName: string;
+  projectUrl?: string;
+  simulator?: string;
+  simulatorVersion?: string;
+  runName?: string;
+  files?: CommonFile[];
 }
 
 @Injectable({
@@ -68,18 +69,55 @@ export class SimulationService {
   }
 
   // Add the new rerunProject method
-  public rerunProject(id: string): void {
-    const endpoints = new Endpoints();
 
+  public rerunProject(id: string): void {
+    const simulationRun$ = this.httpClient.get<SimulationRun>(this.endpoints.getSimulationRunEndpoint(true, id));
+
+    const filesContent$ = this.httpClient
+      .get(this.endpoints.getSimulationRunFilesEndpoint(true, id), { responseType: 'text' })
+      .pipe(map((content) => JSON.parse(content) as CommonFile[]));
+
+    forkJoin({ simulationRun: simulationRun$, filesContent: filesContent$ }).subscribe(
+      ({ simulationRun, filesContent }) => {
+        const queryParams: ReRunQueryParams = {
+          projectUrl: this.endpoints.getSimulationRunDownloadEndpoint(true, id),
+          simulator: simulationRun.simulator,
+          simulatorVersion: simulationRun.simulatorVersion,
+          runName: simulationRun.name + ' (rerun)',
+          files: filesContent,
+        };
+
+        // Handling the promise returned by navigate
+        this.router
+          .navigate(['/runs/new'], { queryParams: queryParams })
+          .then((success) => {
+            if (success) {
+              console.log('Navigation successful!');
+            } else {
+              console.log('Navigation failed!');
+            }
+          })
+          .catch((error) => console.error('Navigation error:', error));
+
+        filesContent.forEach((item) => {
+          console.log(`AN ITEM: ${item.id}`);
+        });
+      },
+    );
+  }
+
+  public _rerunProject(id: string): void {
+    /* Original iteration! */
     this.httpClient
-      .get<SimulationRun>(endpoints.getSimulationRunEndpoint(true, id))
+      .get<SimulationRun>(this.endpoints.getSimulationRunEndpoint(true, id))
       .subscribe((simulationRun: SimulationRun): void => {
         const queryParams: ReRunQueryParams = {
-          projectUrl: endpoints.getSimulationRunDownloadEndpoint(true, id),
+          projectUrl: this.endpoints.getSimulationRunDownloadEndpoint(true, id),
           simulator: simulationRun.simulator,
           simulatorVersion: simulationRun.simulatorVersion,
           runName: simulationRun.name + ' (rerun)',
         };
+
         this.reRunQueryParams.next(queryParams);
         this.reRunObservable = this.reRunQueryParams.asObservable();
         this.reRunTriggered = true;
@@ -89,6 +127,16 @@ export class SimulationService {
         console.log(`RUN OBSERVABLE SET! ${this.reRunObservable}. REURN SET: ${this.reRunTriggered}`);
         this.router.navigate(['/runs/new'], { queryParams: queryParams });
       });
+  }
+
+  private setReRunEvent(queryParams: ReRunQueryParams) {
+    this.reRunQueryParams.next(queryParams);
+    this.reRunObservable = this.reRunQueryParams.asObservable();
+    this.reRunTriggered = true;
+    this.reRunObservable.subscribe((item) => {
+      console.log(`What is subscribed: ${item.simulator}`);
+    });
+    console.log(`RUN OBSERVABLE SET! ${this.reRunObservable}. REURN SET: ${this.reRunTriggered}`);
   }
 
   private parseDates(simulations: ISimulation[]) {
