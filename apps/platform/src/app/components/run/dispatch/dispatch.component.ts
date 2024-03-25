@@ -217,10 +217,23 @@ export class DispatchComponent implements OnInit, OnDestroy {
         this.formGroup.value.emailConsent = true;
       }
     });
+
+    this.activatedRoute.queryParams.subscribe((params: Params) => {
+      const url = params['projectUrl'];
+      console.log(`query param: ${url}`);
+    });
+
+    const queryParamsSub = this.activatedRoute.queryParams.subscribe();
+    this.subscriptions.push(queryParamsSub);
   }
 
   public ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
+
+  public updateSimulation(): void {
+    // TODO: implement this!
+    console.log('Simulation updated with changes.');
   }
 
   private loadComplete(data: SimulationProjectUtilData): void {

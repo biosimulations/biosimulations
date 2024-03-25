@@ -9,6 +9,15 @@ import {
   SerializedSedOutput as SedOutput,
 } from '../sedml';
 import { LabeledIdentifier, DescribedIdentifier } from './archiveMetadata';
+import { File as CommonFile } from './file';
+
+export interface ReRunQueryParams {
+  projectUrl?: string;
+  simulator?: string;
+  simulatorVersion?: string;
+  runName?: string;
+  files?: CommonFile[];
+}
 
 export enum SimulationRunStatus {
   // The api has created the entry
