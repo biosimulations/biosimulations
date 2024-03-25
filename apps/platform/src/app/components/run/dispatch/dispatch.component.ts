@@ -41,6 +41,7 @@ import {
   AlgorithmSubstitutionPolicy,
   AlgorithmSummary,
   SimulationType,
+  ReRunQueryParams,
 } from '@biosimulations/datamodel/common';
 import { SimulationRunStatus, EnvironmentVariable, SimulationRun } from '@biosimulations/datamodel/common';
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
@@ -123,7 +124,6 @@ export class DispatchComponent implements OnInit, OnDestroy {
   public exampleCombineArchivesUrl: string;
   public emailUrl!: string;
   public fileUploaded!: boolean;
-  public parametersFormData!: EditParametersForm;
 
   // Lifecycle state
   public isReRun = false;
@@ -131,11 +131,11 @@ export class DispatchComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   // Data loaded from network
-  public customizableSedDocData: CustomizableSedDocumentData[] = [];
   private modelFormatsMap?: OntologyTermsMap;
   private simulationAlgorithmsMap?: Record<string, Algorithm>;
   private simulatorSpecsMap?: SimulatorSpecsMap;
-  @Input() public sharedFormGroup?: UntypedFormGroup;
+  public customizableSedDocData: CustomizableSedDocumentData[] = [];
+  public reRunParams!: ReRunQueryParams | null;
 
   public constructor(
     private config: ConfigService,
@@ -149,9 +149,6 @@ export class DispatchComponent implements OnInit, OnDestroy {
     private loader: SimulationProjectUtilLoaderService,
     public formBuilder: UntypedFormBuilder,
   ) {
-    if (this.sharedFormGroup) {
-      this.formGroup = this.sharedFormGroup;
-    }
     this.formGroup = this.formBuilder.group(
       {
         projectFile: ['', [CreateMaxFileSizeValidator(config)]],
@@ -203,6 +200,10 @@ export class DispatchComponent implements OnInit, OnDestroy {
     this.emailUrl = 'mailto:' + config.email;
   }
 
+  public get modelChangesFormArray(): UntypedFormArray {
+    return this.formGroup.get('modelChanges') as UntypedFormArray;
+  }
+
   // Life cycle
   public ngOnInit(): void {
     this.fileUploaded = false;
@@ -218,9 +219,13 @@ export class DispatchComponent implements OnInit, OnDestroy {
       }
     });
 
+    // subscribe to the rerun params from rerun, if any
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       const url = params['projectUrl'];
-      console.log(`query param: ${url}`);
+      this.reRunParams = params;
+      console.log(`query param: ${url} has been set.`);
+      console.log(`The modelchanges form array: ${this.modelChangesFormArray.value}`);
+      // set the form array (modelChanges) value here with params!!
     });
 
     const queryParamsSub = this.activatedRoute.queryParams.subscribe();
@@ -289,11 +294,9 @@ export class DispatchComponent implements OnInit, OnDestroy {
     }
 
     this.setControlsFromParams(params, this.simulatorSpecsMap);
-    console.log(`The url: ${this.formGroup.get('projectUrl')?.value}`);
 
     // handle rerun on load complete:
     this.setIsReRun();
-    console.log(`THE RERUN HAS BEEN TRIGGERED IN DISPATCH and the project url: ${this.isReRun}`);
   }
 
   private setIsReRun(): void {
@@ -301,7 +304,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     const urlHasReRun = projectUrl.includes('biosimulations') && projectUrl.includes('download');
     this.isReRun = this.simulationService.reRunTriggered || urlHasReRun;
     if (this.isReRun) {
-      console.log(`this is rerun!`);
+      console.log(`this is a rerun!`);
     }
   }
 
@@ -476,16 +479,15 @@ export class DispatchComponent implements OnInit, OnDestroy {
     }
 
     const archive = urlValue ? urlValue : fileValue;
+    const sedSpecs: Observable<CombineArchiveSedDocSpecs | undefined> =
+      this.combineApiService.getSpecsOfSedDocsInCombineArchive(archive);
     // here we should populate the model changes form
-    const sub = this.combineApiService
+    /*const sub = this.combineApiService
       .getSpecsOfSedDocsInCombineArchive(archive)
-      .subscribe(this.archiveSedDocSpecsLoaded.bind(this));
+      .subscribe(this.archiveSedDocSpecsLoaded.bind(this));*/
+    const sub = sedSpecs.subscribe(this.archiveSedDocSpecsLoaded.bind(this));
     this.subscriptions.push(sub);
     this.fileUploaded = true;
-
-    this.customizableSedDocData.forEach((param: CustomizableSedDocumentData) => {
-      console.log(`THE EDITABLE PARAM FOR THIS DOCUMENT: ${param}`);
-    });
   }
 
   public simulatorControlUpdated(): void {
