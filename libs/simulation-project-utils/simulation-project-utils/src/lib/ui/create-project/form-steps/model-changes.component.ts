@@ -1,5 +1,12 @@
-import { Component } from '@angular/core';
-import { UntypedFormArray, UntypedFormBuilder, Validators, UntypedFormGroup, AbstractControl } from '@angular/forms';
+import { Component, Input } from '@angular/core';
+import {
+  UntypedFormArray,
+  UntypedFormBuilder,
+  Validators,
+  UntypedFormGroup,
+  AbstractControl,
+  FormArray,
+} from '@angular/forms';
 import { IFormStepComponent, FormStepData } from '../create-project/forms';
 import { UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR, SEDML_ID_VALIDATOR } from '@biosimulations/shared/ui';
 import { SedModelAttributeChangeTypeEnum, SedModelChange } from '@biosimulations/combine-api-angular-client';
@@ -12,11 +19,18 @@ import { SedModelAttributeChangeTypeEnum, SedModelChange } from '@biosimulations
 export class ModelChangesComponent implements IFormStepComponent {
   public nextClicked = false;
   public formArray: UntypedFormArray;
+  @Input() sharedFormArray?: FormArray;
 
   public constructor(private formBuilder: UntypedFormBuilder) {
-    this.formArray = formBuilder.array([], {
-      validators: [UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR('id')],
-    });
+    if (this.sharedFormArray) {
+      this.formArray = this.sharedFormArray;
+      console.log(`SHARED FORM ARRAY DETECTED!`);
+    } else {
+      console.log(`HAVING TO BUILD FORM ARRAY!`);
+      this.formArray = formBuilder.array([], {
+        validators: [UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR('id')],
+      });
+    }
     const defaultRowCount = 3;
     for (let i = 0; i < defaultRowCount; i++) {
       this.addModelChangeField();
@@ -28,6 +42,9 @@ export class ModelChangesComponent implements IFormStepComponent {
    * @param introspectedModelChanges SedModelChange instances parsed out of the uploaded SedDocument.
    */
   public loadIntrospectedModelChanges(introspectedModelChanges: SedModelChange[]): void {
+    introspectedModelChanges.forEach((change: SedModelChange) => {
+      console.log(`A CHANGE IN LOADED INTROSPECTED MODEL CHANGES: ${change._type}`);
+    });
     if (introspectedModelChanges.length === 0) {
       return;
     }
@@ -107,6 +124,7 @@ export class ModelChangesComponent implements IFormStepComponent {
     if (modelChange && modelChange._type !== SedModelAttributeChangeTypeEnum.SedModelAttributeChange) {
       return;
     }
+    console.log(`THE CREATE MODEL CHANGES TYPE: ${modelChange._type}`);
     this.addModelChangeField({
       id: modelChange.id || null,
       name: modelChange.name || null,

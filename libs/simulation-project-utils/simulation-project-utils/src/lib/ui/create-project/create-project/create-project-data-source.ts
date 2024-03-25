@@ -69,7 +69,6 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     if (this.omexFileUploaded && stepId === CreateProjectFormStep.ModelChanges) {
       return true; // Directly go to model changes if an OMEX file was uploaded
     }
-    console.log(`The step ID: ${stepId}}`);
     switch (stepId) {
       case CreateProjectFormStep.UniformTimeCourseSimulationParameters:
         return this.shouldShowUniformTimeStep();
