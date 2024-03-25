@@ -120,6 +120,16 @@
         </mat-card>
       </ng-container>-->
 
+      <ng-container *ngIf="fileUploaded" class="params-form-container">
+        <mat-card class="card-form-section mat-elevation-z3">
+          <mat-card-header class="card-form-section-title cap">Simulation Parameters</mat-card-header>
+          <mat-card-content>
+            <biosimulations-create-project></biosimulations-create-project>
+          </mat-card-content>
+        </mat-card>
+      </ng-container>
+
+
       <!-- Solution3: Resuse logic and library service to recreate model-changes step -->
       <!--<ng-container *ngIf="fileUploaded" class="params-form-container">
         <mat-card class="card-form-section mat-elevation-z3">

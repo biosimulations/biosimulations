@@ -24,6 +24,7 @@ export class PagingFormComponent<TStepId extends string> implements OnDestroy, A
   private formPath: TStepId[] = [];
   public subscriptions!: Subscription[];
   @Input() public sharedSubscriptions?: Subscription[];
+  public fileUploadComponent!: IFormStepComponent;
 
   // Lifecycle
   handleFileTypeDetected(fileType: string): void {
@@ -98,6 +99,10 @@ export class PagingFormComponent<TStepId extends string> implements OnDestroy, A
     }
     this.formPath.push(currentStep);
     const task = this.dataSource.startDataTask(currentStep);
+    console.log(`NEXT CLICK: ${this.fileUploadComponent.archiveDetected}, ${currentStep}`);
+    if (currentStep.includes('uploadfile') && this.fileUploadComponent.archiveDetected) {
+      console.log(`NEXT CLICK DETECTS ARCHIVE!`);
+    }
     if (task) {
       this.showSpinner(task);
     } else {
@@ -154,6 +159,7 @@ export class PagingFormComponent<TStepId extends string> implements OnDestroy, A
     const currentData = this.dataSource.formData[currentStep];
     if (this.currentFormStepComponent && currentData) {
       this.currentFormStepComponent.populateFormFromFormStepData(currentData);
+      this.fileUploadComponent = this.currentFormStepComponent;
     }
   }
 
