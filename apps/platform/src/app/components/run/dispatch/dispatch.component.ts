@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { Params } from '@angular/router';
+import { Params, ActivatedRoute } from '@angular/router';
 import {
   UntypedFormBuilder,
   UntypedFormGroup,
@@ -12,7 +12,7 @@ import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { CombineApiService, CustomizableSedDocumentData } from '../../../services/combine-api/combine-api.service';
 import {
-  CombineApiService as ApiService,
+  CombineApiService as AngularClientCombineService,
   FormStepData,
   SUPPORTED_SIMULATION_TYPES,
 } from '@biosimulations/simulation-project-utils';
@@ -125,7 +125,8 @@ export class DispatchComponent implements OnInit, OnDestroy {
   public parametersFormData!: EditParametersForm;
 
   // Lifecycle state
-  public submitPushed = false;
+  public isReRun = false;
+  public submitPushed!: boolean;
   private subscriptions: Subscription[] = [];
 
   // Data loaded from network
@@ -141,7 +142,8 @@ export class DispatchComponent implements OnInit, OnDestroy {
     private dispatchService: DispatchService,
     private simulationService: SimulationService,
     private combineApiService: CombineApiService,
-    public apiService: ApiService,
+    public angularCombineService: AngularClientCombineService,
+    public activatedRoute: ActivatedRoute,
     private snackBar: MatSnackBar,
     private loader: SimulationProjectUtilLoaderService,
     public formBuilder: UntypedFormBuilder,
@@ -214,8 +216,6 @@ export class DispatchComponent implements OnInit, OnDestroy {
         this.formGroup.value.emailConsent = true;
       }
     });
-    const introspectionUrl = this.dispatchService.endpoints.getModelIntrospectionEndpoint(false);
-    console.log(`THE RERUN HAS BEEN TRIGGERED IN DISPATCH: ${this.simulationService.reRunTriggered}`);
   }
 
   public ngOnDestroy(): void {
@@ -275,6 +275,20 @@ export class DispatchComponent implements OnInit, OnDestroy {
     }
 
     this.setControlsFromParams(params, this.simulatorSpecsMap);
+    console.log(`The url: ${this.formGroup.get('projectUrl')?.value}`);
+
+    // handle rerun on load complete:
+    this.setIsReRun();
+    console.log(`THE RERUN HAS BEEN TRIGGERED IN DISPATCH and the project url: ${this.isReRun}`);
+  }
+
+  private setIsReRun(): void {
+    const projectUrl: string = this.formGroup.get('projectUrl')?.value;
+    const urlHasReRun = projectUrl.includes('biosimulations') && projectUrl.includes('download');
+    this.isReRun = this.simulationService.reRunTriggered || urlHasReRun;
+    if (this.isReRun) {
+      console.log(`this is rerun!`);
+    }
   }
 
   // Form Submission
@@ -541,9 +555,11 @@ export class DispatchComponent implements OnInit, OnDestroy {
   // Network callbacks
 
   private introspectProject(): void {
-    /*THE SIM METHOD DATA FROM UTILS PROJECT INTROSPECTION: framework,simulationType,algorithm,parameters
-      project-introspection.ts:48 The framework: SBO_0000624
-      project-introspection.ts:49 THE MODELDATA FROM UTILS PROJECT INTROSPECTION: modelUrl,modelFile,modelFormat*/
+    /*
+        THE SIM METHOD DATA FROM UTILS PROJECT INTROSPECTION: framework,simulationType,algorithm,parameters
+        project-introspection.ts:48 The framework: SBO_0000624
+        project-introspection.ts:49 THE MODELDATA FROM UTILS PROJECT INTROSPECTION: modelUrl,modelFile,modelFormat
+    */
 
     const modelFile = this.formGroup.get('modelSource')?.value;
     const modelFormat = this.formGroup.get('modelFormats')?.value;
