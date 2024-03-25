@@ -114,7 +114,9 @@
 
       <ng-container *ngIf="fileUploaded" class="params-form-container">
         <mat-card class="card-form-section mat-elevation-z3">
-          <create-project-model-changes></create-project-model-changes>
+          <create-project-model-changes
+            [rerunParams]="reRunParams"
+            [sharedFormArray]="modelChangesFormArray"></create-project-model-changes>
         </mat-card>
       </ng-container>
 
