@@ -137,3 +137,63 @@ mat-option:hover {
     }
   }
 }
+
+.grid-label {
+  font-size: 140%;
+  color: rgb(0, 0, 0, 0.75);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.grid-input {
+  font-size: 125%;
+  color: rgb(0, 0, 0, 0.6);
+  background-color: rgb(0, 0, 0, 0.04);
+  border-style: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.6);
+  padding: 4pt;
+  box-sizing: border-box;
+}
+
+.grid-value {
+  font-size: 125%;
+  color: rgb(0, 0, 0, 0.6);
+  background-color: rgb(0, 0, 0, 0.04);
+  border-bottom: 1px dotted rgba(0, 0, 0, 0.6);
+  justify-content: flex-end;
+  flex-direction: column;
+  display: flex;
+  padding: 4pt;
+}
+
+.simulation-tools-grid {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+  margin-top: 1.5rem;
+}
+
+.model-variables-grid {
+  display: grid;
+  grid-template-columns: repeat(4, auto) 3rem;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+  margin-top: 1.5rem;
+
+  button {
+    margin: 0;
+  }
+}
+
+.model-changes-grid {
+  display: grid;
+  grid-template-columns: repeat(5, auto) 3rem;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+  margin-top: 1.5rem;
+
+  button {
+    margin: 0;
+  }
+}

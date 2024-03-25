@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import {
   UntypedFormArray,
   UntypedFormBuilder,
@@ -7,6 +7,7 @@ import {
   AbstractControl,
   FormArray,
 } from '@angular/forms';
+import { ReRunQueryParams } from '@biosimulations/datamodel/common';
 import { IFormStepComponent, FormStepData } from '../create-project/forms';
 import { UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR, SEDML_ID_VALIDATOR } from '@biosimulations/shared/ui';
 import { SedModelAttributeChangeTypeEnum, SedModelChange } from '@biosimulations/combine-api-angular-client';
@@ -20,6 +21,7 @@ export class ModelChangesComponent implements IFormStepComponent {
   public nextClicked = false;
   public formArray: UntypedFormArray;
   @Input() sharedFormArray?: FormArray;
+  @Input() rerunParams?: ReRunQueryParams | null = null;
 
   public constructor(private formBuilder: UntypedFormBuilder) {
     if (this.sharedFormArray) {
@@ -36,6 +38,18 @@ export class ModelChangesComponent implements IFormStepComponent {
       this.addModelChangeField();
     }
   }
+
+  // LIFE-CYCLE:
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (changes['rerunParams'] && this.rerunParams) {
+      // Process the rerunParams
+      // For example, use them to pre-fill form fields
+      //this.loadIntrospectedModelChanges(this.rerunParams.files);
+    }
+  }
+
+  // FORM STEP INTERFACE IMPLEMENTATION:
 
   /**
    * Preloads any model changes parsed out of the uploaded SedDocument into the form.
