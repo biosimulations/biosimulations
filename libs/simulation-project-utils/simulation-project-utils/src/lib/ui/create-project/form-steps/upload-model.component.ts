@@ -26,6 +26,8 @@ export class UploadModelComponent implements IFormStepComponent, OnInit {
   @Output() fileTypeDetected = new EventEmitter<string>();
   @Input() archiveModelFile?: File;
   public archiveDetected?: boolean;
+  public uploadArchive!: boolean;
+  public stepName = 'uploadFile';
 
   public constructor(private formBuilder: UntypedFormBuilder, private config: ConfigService) {
     // todo: seperate form group here
@@ -53,7 +55,7 @@ export class UploadModelComponent implements IFormStepComponent, OnInit {
   }
 
   public populateFormFromFormStepData(formStepData: FormStepData): void {
-    if (this.archiveDetected) {
+    if (!this.uploadArchive) {
       this.uploadArchiveFormGroup.controls.archiveFile.setValue(formStepData.archiveFile);
     } else {
       this.formGroup.controls.modelFormat.setValue(formStepData.modelFormat);
@@ -144,5 +146,10 @@ export class UploadModelComponent implements IFormStepComponent, OnInit {
     }
     // Add more conditions as needed
     return 'UNKNOWN';
+  }
+
+  archiveIsUploaded(archiveUploaded: boolean) {
+    this.archiveDetected = archiveUploaded;
+    console.log(`Archive is uploaded: ${this.archiveDetected}`);
   }
 }

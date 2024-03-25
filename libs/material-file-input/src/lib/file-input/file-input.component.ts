@@ -37,6 +37,7 @@ export class FileInputComponent
 
   focused = false;
   controlType = 'file-input';
+  isArchive!: boolean;
 
   @Input() autofilled = false;
 
@@ -47,7 +48,8 @@ export class FileInputComponent
   @Input() valuePlaceholder!: string;
   @Input() accept: string | null = null;
   @Input() override errorStateMatcher!: ErrorStateMatcher;
-  @Output() fileTypeDetected = new EventEmitter<string>();
+  @Output() archiveDetected = new EventEmitter<boolean>();
+  @Output() fileDetected = new EventEmitter<string>();
 
   @HostBinding() id = `ngx-mat-file-input-${FileInputComponent.nextId++}`;
   @HostBinding('attr.aria-describedby') describedBy = '';
@@ -196,8 +198,13 @@ export class FileInputComponent
     }
     this.value = new FileInput(fileArray);
     this._onChange(this.value);
-    fileArray.forEach((f: File) => {
+    this.value.files.forEach((f: File) => {
       console.log(`File detected!...the file: ${f.name}`);
+      this.isArchive = f.name.includes('omex');
+      this.archiveDetected.emit(this.isArchive);
+      this.fileDetected.emit(f.name);
+      console.log(`IS ARCHIVE?: ${this.isArchive}`);
+      console.log(`TYPE: ${f.name}`);
     });
   }
 

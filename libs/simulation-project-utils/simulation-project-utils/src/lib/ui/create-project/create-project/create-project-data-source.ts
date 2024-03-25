@@ -208,6 +208,9 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
       this.simulatorsData.modelFormats,
     );
     const hostedComponent = formContainerRef.createComponent(UploadModelComponent);
+    if (this.omexFileUploaded) {
+      hostedComponent.instance.archiveDetected = true;
+    }
     hostedComponent.instance.modelFormats = compatibleFormats;
     return hostedComponent.instance;
   }
