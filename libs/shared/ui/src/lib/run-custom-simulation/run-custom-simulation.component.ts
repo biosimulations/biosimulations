@@ -20,7 +20,7 @@ import {
   FormStepData,
   SEDML_ID_VALIDATOR,
   UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR,
-} from '../shared-simulation-service';
+} from '@biosimulations/shared/services';
 
 @Component({
   selector: 'biosimulations-run-custom-simulation',
