@@ -3,16 +3,14 @@ import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators, Abs
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { SedSimulation, SedUniformTimeCourseSimulation, SimulationType } from '@biosimulations/datamodel/common';
+import { SedSimulation, SimulationType } from '@biosimulations/datamodel/common';
 import {
   CombineArchiveSedDocSpecsContent,
   CombineArchiveSedDocSpecs,
   SedDocument,
-  SedModel,
 } from '@biosimulations/combine-api-angular-client';
 import { SedModelChange, SedModelAttributeChangeTypeEnum } from '@biosimulations/combine-api-angular-client';
-import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
-import { Params, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import {
   SharedSimulationService,
   CustomizableSedDocumentData,
