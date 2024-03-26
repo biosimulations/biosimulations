@@ -51,14 +51,8 @@ import { ConfigService } from '@biosimulations/config/angular';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { FileInput } from '@biosimulations/material-file-input';
-import {
-  CreateMaxFileSizeValidator,
-  INTEGER_VALIDATOR,
-  SEDML_ID_VALIDATOR,
-  UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR,
-} from '@biosimulations/shared/ui';
+import { CreateMaxFileSizeValidator, INTEGER_VALIDATOR, SEDML_ID_VALIDATOR } from '@biosimulations/shared/ui';
 import { SedModelAttributeChangeTypeEnum } from '@biosimulations/combine-api-angular-client';
-import { CreateProjectFormStep } from '../../../../../../../libs/simulation-project-utils/simulation-project-utils/src/lib/ui/create-project/create-project/create-project-data-source';
 
 interface SimulatorIdNameDisabled {
   id: string;
