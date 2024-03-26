@@ -119,14 +119,14 @@ const SEDML_ID_VALIDATOR: ValidatorFn = function (control: AbstractControl): Val
 })
 export class RunCustomSimulationComponent implements OnInit, OnChanges {
   public formGroup: UntypedFormGroup;
-  public introspectionData$?: Observable<CustomizableSedDocumentData | null>;
+  public introspectionData$?: Observable<CustomizableSedDocumentData | null> | any;
   //public introspectedData?: CustomizableSedDocumentData;
   public dataSource!: CustomSimulationDatasource;
-  public formArray: UntypedFormArray;
+  public formArray: UntypedFormArray | any;
   public nextClicked = false;
   public isReRun = false;
   public reRunSedParams!: Observable<CombineArchiveSedDocSpecs | undefined>;
-  public subscriptions!: Subscription[];
+  public subscriptions: Subscription[] = [];
 
   @Input() public archive?: File;
 
@@ -182,6 +182,10 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
       this.subscriptions.push(sub);
     }
 
+    console.log(`THE url val: ${this.formGroup.get('projectUrl')?.value}`);
+
+    this.introspectionData$ = this.introspectionProvider(this.dataSource);
+
     // 1. Set the datasource (CustomSimulationDataSource) by deriving vals from reRunProject query params
     // 2. set this.introspectedData$ = this.introspectionProvider(customDataSource) , coming from file.
     // 3. simply then call this.populateModelChangesForm
@@ -199,7 +203,7 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
     }
   }
 
-  private introspectionProvider(dataSource: CustomSimulationDatasource): Observable<void> | null {
+  private introspectionProvider(dataSource: CustomSimulationDatasource): Observable<void | null> | null {
     const errorHandler = this.showIntrospectionFailedSnackbar.bind(this);
     const formatData = dataSource?.modelData;
     const simMethodData = dataSource?.simMethodData;
