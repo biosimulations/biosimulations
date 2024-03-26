@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { forkJoin, Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { Simulation, ISimulation, isUnknownSimulation } from '../../datamodel';
-import { SimulationRunStatus, File as CommonFile } from '@biosimulations/datamodel/common';
+import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { SimulationStatusService } from './simulation-status.service';
 import { Storage } from '@ionic/storage-angular';
 import { HttpClient, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
@@ -12,6 +12,7 @@ import { concatAll, debounceTime, shareReplay, map, catchError } from 'rxjs/oper
 import { SimulationRun } from '@biosimulations/datamodel/common';
 import { Endpoints } from '@biosimulations/config/common';
 import { SimulationRunService } from '@biosimulations/angular-api-client';
+import { CommonFile } from '@biosimulations/datamodel/common';
 
 export interface ReRunQueryParams {
   projectUrl?: string;
