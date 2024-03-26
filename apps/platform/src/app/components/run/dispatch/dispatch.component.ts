@@ -51,11 +51,7 @@ import { ConfigService } from '@biosimulations/config/angular';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { FileInput } from '@biosimulations/material-file-input';
-import {
-  CreateMaxFileSizeValidator,
-  INTEGER_VALIDATOR,
-  SEDML_ID_VALIDATOR,
-} from '@biosimulations/shared/ui';
+import { CreateMaxFileSizeValidator, INTEGER_VALIDATOR, SEDML_ID_VALIDATOR } from '@biosimulations/shared/ui';
 import { SedModelAttributeChangeTypeEnum } from '@biosimulations/combine-api-angular-client';
 
 interface SimulatorIdNameDisabled {
@@ -126,6 +122,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
   public exampleCombineArchivesUrl: string;
   public emailUrl!: string;
   public fileUploaded!: boolean;
+  public archive!: File;
 
   // Lifecycle state
   public isReRun = false;
@@ -233,6 +230,10 @@ export class DispatchComponent implements OnInit, OnDestroy {
         this.formGroup.value.emailConsent = true;
       }
     });
+
+    if (this.isReRun) {
+      this.archive = this.formGroup.controls.projectUrl.value;
+    }
   }
 
   public setReRunParams(): void {
@@ -524,6 +525,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     }
 
     const archive = urlValue ? urlValue : fileValue;
+    this.archive = archive;
     this.reRunSedParams = this.combineApiService.getSpecsOfSedDocsInCombineArchive(archive);
     // here we should populate the model changes form
     /*const sub = this.combineApiService

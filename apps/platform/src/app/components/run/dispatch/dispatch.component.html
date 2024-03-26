@@ -1,4 +1,4 @@
-<div class="form-parent-container platform-run">
+<div class="form-parent-container platform-run" *ngIf="!isReRun; else reRunForm">
   <biosimulations-page heading="Run a simulation" *ngIf="simulators.length; else loading">
     <form [formGroup]="formGroup" (ngSubmit)="onFormSubmit()">
 
@@ -468,3 +468,15 @@
     <biosimulations-full-page-spinner></biosimulations-full-page-spinner>
   </ng-template>
 </div>
+
+<ng-template #reRunForm>
+  <div class="form-parent-container platform-run">
+    <biosimulations-page heading="ReRun a simulation">
+      <biosimulations-run-custom-simulation [archive]="archive"></biosimulations-run-custom-simulation>
+    </biosimulations-page>
+  </div>
+</ng-template>
+
+
+
+
