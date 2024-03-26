@@ -1,14 +1,9 @@
-import { Component, OnInit, OnChanges, SimpleChanges, Input } from '@angular/core';
 import {
-  UntypedFormArray,
-  UntypedFormBuilder,
-  UntypedFormGroup,
-  Validators,
   AbstractControl,
   ValidatorFn,
   ValidationErrors,
 } from '@angular/forms';
-import { Observable, of, BehaviorSubject, combineLatest, throwError, Subscription } from 'rxjs';
+import { Observable, of, BehaviorSubject, combineLatest, throwError } from 'rxjs';
 import { catchError, map, concatAll, debounceTime, shareReplay } from 'rxjs/operators';
 import { HttpClient, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { SimulationType } from '@biosimulations/datamodel/common';
