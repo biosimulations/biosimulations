@@ -18,7 +18,8 @@ export interface ReRunQueryParams {
   simulator?: string;
   simulatorVersion?: string;
   runName?: string;
-  files: CommonFile[];
+  //files: CommonFile[];
+  files: string;
 }
 
 @Injectable({
@@ -89,9 +90,12 @@ export class SimulationService {
           simulator: simulationRun.simulator,
           simulatorVersion: simulationRun.simulatorVersion,
           runName: simulationRun.name + ' (rerun)',
-          files: filesContent,
+          files: JSON.stringify(filesContent),
         };
 
+        filesContent.forEach((item) => {
+          console.log(`AN ITEM: ${item.id}`);
+        });
         // Handling the promise returned by navigate
         this.router
           .navigate(['/runs/new'], { queryParams: queryParams })
@@ -103,10 +107,6 @@ export class SimulationService {
             }
           })
           .catch((error) => console.error('Navigation error:', error));
-
-        filesContent.forEach((item) => {
-          console.log(`AN ITEM: ${item.id}`);
-        });
       },
     );
   }

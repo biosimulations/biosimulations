@@ -207,6 +207,10 @@ export class DispatchComponent implements OnInit, OnDestroy {
     return this.formGroup.get('modelChanges') as UntypedFormArray;
   }
 
+  public modelChangesFormGroups(): UntypedFormGroup[] {
+    return this.modelChangesFormArray.controls as UntypedFormGroup[];
+  }
+
   public get reRunQueryFiles(): UntypedFormArray {
     return this.formGroup.get('reRunQueryFiles') as UntypedFormArray;
   }
@@ -227,21 +231,73 @@ export class DispatchComponent implements OnInit, OnDestroy {
       }
     });
 
+    // set the form array (modelChanges) value here with sedDoc from reRunFormArray!!
+    //this.setModelChangesFromQuery();
+  }
+
+  public setReRunParams(): void {
+    this.activatedRoute.queryParams.subscribe((params: Params) => {
+      if (params['files']) {
+        try {
+          const filesContent = JSON.parse(params['files'] as string) as CommonFile[];
+          filesContent.forEach((file) => {
+            console.log(`File URL: ${file.url}`);
+          });
+          this.reRunNetworkParams = params;
+
+          // set the reRunQueryData controls with the params (files, project url)
+          const queryParamsForm: UntypedFormGroup = this.formBuilder.group({
+            files: [filesContent, []],
+          });
+          this.reRunQueryFiles.push(queryParamsForm);
+          console.log(`reRunQueryFiles set!`);
+          this.reRunQueryFiles.valueChanges.subscribe((val: any) => {
+            console.log(`Rerun query project files set: ${val}`);
+          });
+        } catch (error) {
+          console.error('Error parsing files from queryParams', error);
+        }
+      }
+    });
+  }
+
+  /*public setReRunParams(): void {
+    console.log(`Setting rerun!`)
     // subscribe to the project files from rerun. The project url etc is set in projectControlUpdated
     this.activatedRoute.queryParams.subscribe((params: ReRunQueryParams) => {
       if (params as ReRunQueryParams) {
-        const projectFiles: CommonFile[] | undefined = params.files as CommonFile[];
+
+        const filesString = params.files as string;
+        try {
+          const projectFiles: CommonFile[] = JSON.parse(filesString);
+          projectFiles.forEach((f) => {
+            console.log(`THE RERUN FILE: ${f.url}`);
+          });
+        //const projectFiles: CommonFile[] = JSON.parse(params.files);
+        //projectFiles.forEach((f) => {console.log(`THE RERUN FILE: ${f.url}`)})
         this.reRunNetworkParams = params;
+
         // set the reRunQueryData controls with the params (files, project url)
-        //this.reRunQueryFiles.setValue(Array.from(projectFiles));
-        this.formGroup.value.reRunQueryFiles = Array.from(projectFiles);
-        // set the form array (modelChanges) value here with sedDoc from reRunFormArray!!
-        //this.modelChangesFormArray.setValue(params)
+        const queryParamsForm: UntypedFormGroup = this.formBuilder.group({
+          files: [projectFiles, []]
+        });
+        this.reRunQueryFiles.push(queryParamsForm);
+        console.log(`reRunQueryFiles set!`)
       }
     });
+    this.reRunQueryFiles.valueChanges.subscribe((val: any) => {
+      console.log(`Rerun query project files set: ${val.value}`);
+    })
 
-    const queryParamsSub = this.activatedRoute.queryParams.subscribe();
-    this.subscriptions.push(queryParamsSub);
+  }*/
+
+  public setModelChangesFromQuery(): void {
+    /*
+    set the model changes form array with addModelChangeField, derived from the sed doc specs, which are
+    fetching using the combinearchive sed doc specs output of this.getSedDocsLoaded.... using
+    the archive file/sed doc files found in the projectFiles...
+     */
+    console.log('ReRun detected, setting model changes from query files...');
   }
 
   public reRunProjectControlUpdated(): void {
@@ -313,6 +369,12 @@ export class DispatchComponent implements OnInit, OnDestroy {
 
     // handle rerun on load complete:
     this.setIsReRun();
+    // subscribe to query params
+    if (this.isReRun) {
+      this.setReRunParams();
+    }
+    const queryParamsSub = this.activatedRoute.queryParams.subscribe();
+    this.subscriptions.push(queryParamsSub);
   }
 
   private setIsReRun(): void {
@@ -709,17 +771,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
         // set model source for project introspection
         modelSource.push(model.source);
 
-        // this.modelChanges.clear();
-        // this.loadIntrospectedModelChanges(model.changes);
         /*model.changes.forEach((change: SedModelChange, changeIndex: number): void => {
-          const name = change.name | ''
-          this.addModelChangeField({
-            id: change.name ?,
-            name: target, // Use the target XPath as the name
-            target: target, // The actual target XPath
-            default: '', // You might populate this if you have default values
-            newValue: '' // The value to be changed to
-          });
         }*/
       });
       // SET SIMULATION ALGS
@@ -745,14 +797,14 @@ export class DispatchComponent implements OnInit, OnDestroy {
 
     this.controlImpactingEligibleSimulatorsUpdated();
 
-    console.log(`THE model FORMATS: ${this.formGroup.get('modelFormats')?.value}`);
-    console.log(`The model source: ${this.formGroup.get('modelSource')?.value}`);
-    console.log(`THE sims: ${this.formGroup.get('simType')?.value}`);
+    console.log(`THE model FORMATS set in group: ${this.formGroup.get('modelFormats')?.value}`);
+    console.log(`The model source set in group: ${this.formGroup.get('modelSource')?.value}`);
+    console.log(`THE sims set in group: ${this.formGroup.get('simType')?.value}`);
 
     // introspect editable params from project:
-    if (this.simulationService.reRunTriggered) {
-      this.introspectProject();
-    }
+    //if (this.simulationService.reRunTriggered) {
+    //this.introspectProject();
+    //}
 
     console.log(`SED DOCS LOADED`);
   }
