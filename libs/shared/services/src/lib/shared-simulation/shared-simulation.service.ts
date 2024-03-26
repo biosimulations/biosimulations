@@ -41,12 +41,14 @@ import { CommonFile } from '@biosimulations/datamodel/common';
 export type FormStepData = Record<string, unknown>;
 
 export interface ReRunQueryParams {
+  /* we will use this to be the common datastore between:
+        overview -> changes -> dispatch(run)
+  */
   projectUrl?: string;
   simulator?: string;
   simulatorVersion?: string;
   runName?: string;
-  //files: CommonFile[];
-  files: string;
+  files?: string; // this needs deserialization when fetched
 }
 
 export interface CustomizableSedDocumentData {
@@ -72,7 +74,8 @@ export interface ModelData extends FormStepData {
 export interface CustomSimulationDatasource {
   simMethodData: SimMethodData;
   modelData: ModelData;
-  introspectedData?: CustomizableSedDocumentData | null;
+  introspectedData?: CustomizableSedDocumentData;
+  reRunParams?: ReRunQueryParams;
 }
 
 // -- SHARED FUNCTIONS
@@ -526,6 +529,27 @@ export class SharedSimulationService {
       errorHandler,
     );
     return introspectionObservable.pipe(map(CreateNewProjectArchiveDataOperator(simMethodData)));
+  }
+
+  public createCustomizableSedDocumentData(
+    sedDoc: SedDocument,
+    simulationType: SimulationType,
+  ): CustomizableSedDocumentData {
+    const namespaces: Namespace[] = [];
+    const modelChanges = GatherModelChanges(sedDoc, namespaces);
+    const modelVariables = GatherModelVariables(sedDoc, namespaces);
+    const uniformTimeCourseSimulation = GatherTimeCourseData(sedDoc, simulationType);
+    namespaces.sort((a, b): number => {
+      return (a.prefix || '').localeCompare(b.prefix || '', undefined, {
+        numeric: true,
+      });
+    });
+    return {
+      modelChanges: modelChanges,
+      modelVariables: modelVariables,
+      uniformTimeCourseSimulation: uniformTimeCourseSimulation,
+      namespaces: namespaces,
+    };
   }
 }
 
