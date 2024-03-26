@@ -239,11 +239,25 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
   public archiveSedDocSpecsLoaded(sedDocSpecs?: CombineArchiveSedDocSpecs): void {
     const simulationAlgorithms = new Set<string>();
     const simulations = new Set<SedSimulation>();
+    const modelFormats = new Set<string>();
 
     //  get the sed doc
     sedDocSpecs?.contents.forEach((content: CombineArchiveSedDocSpecsContent, contentIndex: number): void => {
       const sedDoc: SedDocument = content.location.value;
       this.sedDoc = sedDoc;
+      sedDoc.models.forEach((model: SedModel, modelIndex: number): void => {
+        let edamId: string | null = null;
+        for (const modelingFormat of BIOSIMULATIONS_FORMATS) {
+          const sedUrn = modelingFormat?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn;
+          if (!sedUrn || !modelingFormat.id || !model.language.startsWith(sedUrn)) {
+            continue;
+          }
+          edamId = modelingFormat.id;
+        }
+        if (edamId) {
+          modelFormats.add(edamId);
+        }
+      });
     });
 
     // get the simType
