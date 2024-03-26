@@ -5,7 +5,6 @@ import {
   Validators,
   UntypedFormGroup,
   AbstractControl,
-  FormArray,
 } from '@angular/forms';
 import { ReRunQueryParams } from '@biosimulations/datamodel/common';
 import { IFormStepComponent, FormStepData } from '../create-project/forms';
