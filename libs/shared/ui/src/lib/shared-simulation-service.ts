@@ -33,6 +33,8 @@ import { CommonFile } from '@biosimulations/datamodel/common';
 
 // TODO: Move this shared/services
 
+// -- SHARED INTERFACES
+
 export type FormStepData = Record<string, unknown>;
 
 export interface ReRunQueryParams {
@@ -69,6 +71,8 @@ export interface CustomSimulationDatasource {
   modelData: ModelData;
   introspectedData?: CustomizableSedDocumentData | null;
 }
+
+// -- SHARED FUNCTIONS
 
 export const UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR = function (attrName: string): ValidatorFn {
   return function (control: AbstractControl): ValidationErrors | null {
@@ -522,7 +526,7 @@ export class SharedSimulationService {
   }
 }
 
-// -- INTROSPECTION FUNCTIONS
+// -- PRIVATE INTROSPECTION FUNCTIONS
 
 function CreateNewProjectFormData(modelData: FormStepData, simMethodData: FormStepData): FormData | null {
   const modelFormat = modelData?.modelFormat as string;
