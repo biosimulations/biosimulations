@@ -207,8 +207,8 @@ export class DispatchComponent implements OnInit, OnDestroy {
     return this.formGroup.get('modelChanges') as UntypedFormArray;
   }
 
-  public get reRunQueryFiles(): UntypedFormGroup {
-    return this.formGroup.get('reRunQueryFiles') as UntypedFormGroup;
+  public get reRunQueryFiles(): UntypedFormArray {
+    return this.formGroup.get('reRunQueryFiles') as UntypedFormArray;
   }
 
   // Life cycle
@@ -233,7 +233,8 @@ export class DispatchComponent implements OnInit, OnDestroy {
         const projectFiles: CommonFile[] | undefined = params.files as CommonFile[];
         this.reRunNetworkParams = params;
         // set the reRunQueryData controls with the params (files, project url)
-        this.reRunQueryFiles.setValue(Array.from(projectFiles));
+        //this.reRunQueryFiles.setValue(Array.from(projectFiles));
+        this.formGroup.value.reRunQueryFiles = Array.from(projectFiles);
         // set the form array (modelChanges) value here with sedDoc from reRunFormArray!!
         //this.modelChangesFormArray.setValue(params)
       }
