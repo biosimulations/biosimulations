@@ -52,6 +52,8 @@ import { HammerGestureConfig, HAMMER_GESTURE_CONFIG, HammerModule } from '@angul
 import { HeroBannerUtilButtonComponent } from './hero-banner-util-button/hero-banner-util-button.component';
 import { MatTooltipModule, MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
 import { AppFooterComponent } from './app-footer/app-footer.component';
+import { RunCustomSimulationComponent } from './run-custom-simulation/run-custom-simulation.component';
+import { SimulationProjectUtilsModule } from '@biosimulations/simulation-project-utils';
 
 const TOOLTIP_DELAY = 500;
 
@@ -121,6 +123,7 @@ export class MatCarouselHammerConfig extends HammerGestureConfig {
     BlankTargetDirective,
     HeroBannerUtilButtonComponent,
     AppFooterComponent,
+    RunCustomSimulationComponent,
   ],
   declarations: [
     TopbarComponent,
@@ -169,6 +172,7 @@ export class MatCarouselHammerConfig extends HammerGestureConfig {
     BlankTargetDirective,
     HeroBannerUtilButtonComponent,
     AppFooterComponent,
+    RunCustomSimulationComponent,
   ],
 })
 export class SharedUiModule {}
