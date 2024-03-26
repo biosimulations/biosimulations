@@ -1,12 +1,5 @@
 import { Component, Input, SimpleChanges, OnChanges, OnInit } from '@angular/core';
-import {
-  UntypedFormArray,
-  UntypedFormBuilder,
-  Validators,
-  UntypedFormGroup,
-  AbstractControl,
-  FormArray,
-} from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, Validators, UntypedFormGroup, AbstractControl } from '@angular/forms';
 import { ReRunQueryParams } from '@biosimulations/datamodel/common';
 import { IFormStepComponent, FormStepData } from '../create-project/forms';
 import { UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR, SEDML_ID_VALIDATOR } from '@biosimulations/shared/ui';
