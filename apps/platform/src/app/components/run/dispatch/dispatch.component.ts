@@ -55,10 +55,8 @@ import {
   CreateMaxFileSizeValidator,
   INTEGER_VALIDATOR,
   SEDML_ID_VALIDATOR,
-  UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR,
 } from '@biosimulations/shared/ui';
 import { SedModelAttributeChangeTypeEnum } from '@biosimulations/combine-api-angular-client';
-import { CreateProjectFormStep } from '../../../../../../../libs/simulation-project-utils/simulation-project-utils/src/lib/ui/create-project/create-project/create-project-data-source';
 
 interface SimulatorIdNameDisabled {
   id: string;
