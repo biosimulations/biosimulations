@@ -122,6 +122,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
   public exampleCombineArchivesUrl: string;
   public emailUrl!: string;
   public fileUploaded!: boolean;
+  public archive!: File;
 
   // Lifecycle state
   public isReRun = false;
@@ -229,6 +230,10 @@ export class DispatchComponent implements OnInit, OnDestroy {
         this.formGroup.value.emailConsent = true;
       }
     });
+
+    if (this.isReRun) {
+      this.archive = this.formGroup.controls.projectUrl.value;
+    }
   }
 
   public setReRunParams(): void {
@@ -520,6 +525,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     }
 
     const archive = urlValue ? urlValue : fileValue;
+    this.archive = archive;
     this.reRunSedParams = this.combineApiService.getSpecsOfSedDocsInCombineArchive(archive);
     // here we should populate the model changes form
     /*const sub = this.combineApiService
