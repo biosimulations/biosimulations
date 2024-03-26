@@ -1,8 +1,4 @@
-import {
-  AbstractControl,
-  ValidatorFn,
-  ValidationErrors,
-} from '@angular/forms';
+import { AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { Observable, of, BehaviorSubject, combineLatest, throwError } from 'rxjs';
 import { catchError, map, concatAll, debounceTime, shareReplay } from 'rxjs/operators';
 import { HttpClient, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
@@ -36,6 +32,8 @@ import { SimulationRunService } from '@biosimulations/angular-api-client';
 import { CommonFile } from '@biosimulations/datamodel/common';
 
 // TODO: Move this shared/services
+
+// -- SHARED INTERFACES
 
 export type FormStepData = Record<string, unknown>;
 
@@ -73,6 +71,8 @@ export interface CustomSimulationDatasource {
   modelData: ModelData;
   introspectedData?: CustomizableSedDocumentData | null;
 }
+
+// -- SHARED FUNCTIONS
 
 export const UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR = function (attrName: string): ValidatorFn {
   return function (control: AbstractControl): ValidationErrors | null {
@@ -526,7 +526,7 @@ export class SharedSimulationService {
   }
 }
 
-// -- INTROSPECTION FUNCTIONS
+// -- PRIVATE INTROSPECTION FUNCTIONS
 
 function CreateNewProjectFormData(modelData: FormStepData, simMethodData: FormStepData): FormData | null {
   const modelFormat = modelData?.modelFormat as string;
