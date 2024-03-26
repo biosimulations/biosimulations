@@ -1,12 +1,5 @@
-import { Component, Input, SimpleChanges, OnChanges, OnInit } from '@angular/core';
-import {
-  UntypedFormArray,
-  UntypedFormBuilder,
-  Validators,
-  UntypedFormGroup,
-  AbstractControl,
-} from '@angular/forms';
-import { ReRunQueryParams } from '@biosimulations/datamodel/common';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { UntypedFormArray, UntypedFormBuilder, Validators, UntypedFormGroup, AbstractControl } from '@angular/forms';
 import { IFormStepComponent, FormStepData } from '../create-project/forms';
 import { UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR, SEDML_ID_VALIDATOR } from '@biosimulations/shared/ui';
 import { SedModelAttributeChangeTypeEnum, SedModelChange } from '@biosimulations/combine-api-angular-client';
@@ -19,72 +12,44 @@ import { SedModelAttributeChangeTypeEnum, SedModelChange } from '@biosimulations
 export class ModelChangesComponent implements IFormStepComponent, OnChanges, OnInit {
   public nextClicked = false;
   public formArray!: UntypedFormArray;
-  public formBuilder!: UntypedFormBuilder;
-  public sharedForm = false;
-  @Input() sharedFormArray?: UntypedFormArray | null = null;
-  @Input() rerunParams?: ReRunQueryParams | null = null;
+  public isReRun = false;
+  @Input() public sharedFormArray?: UntypedFormArray;
 
-  /*public constructor(private formBuilder: UntypedFormBuilder) {
-    if (this.sharedFormArray) {
-      this.formArray = this.sharedFormArray;
-      console.log(`SHARED FORM ARRAY DETECTED!`);
-    } else {
-      console.log(`HAVING TO BUILD FORM ARRAY!`);
-      this.formArray = formBuilder.array([], {
-        validators: [UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR('id')],
-      });
-    }
-    const defaultRowCount = 3;
-    for (let i = 0; i < defaultRowCount; i++) {
-      this.addModelChangeField();
-    }
-  }*/
-
-  // LIFE-CYCLE:
+  public constructor(private formBuilder: UntypedFormBuilder) {
+    this.formArray = this.formBuilder.array([], {
+      validators: [UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR('id')],
+    });
+  }
 
   public ngOnInit() {
     if (this.sharedFormArray) {
       this.formArray = this.sharedFormArray;
-      this.sharedForm = true;
-      console.log(`SHARED FORM ARRAY DETECTED!`);
-    } else {
-      console.log(`HAVING TO BUILD FORM ARRAY!`);
-      this.formArray = this.formBuilder.array([], {
-        validators: [UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR('id')],
-      });
+      console.log(`Shared form array set!`);
     }
+    this.addDefaultFields();
+  }
+
+  public ngOnChanges(changes: SimpleChanges) {
+    /* TODO: Extract changes from sharedFormArray here */
+  }
+
+  private addDefaultFields(): void {
+    /* Set placeholder fields on init */
     const defaultRowCount = 3;
     for (let i = 0; i < defaultRowCount; i++) {
       this.addModelChangeField();
     }
   }
-
-  public ngOnChanges(changes: SimpleChanges): void {
-    if (changes['rerunParams'] && this.rerunParams) {
-      // Process the rerunParams
-      // For example, use them to pre-fill form fields
-      //this.loadIntrospectedModelChanges(this.rerunParams.files);
-    }
-  }
-
-  // FORM STEP INTERFACE IMPLEMENTATION:
 
   /**
    * Preloads any model changes parsed out of the uploaded SedDocument into the form.
    * @param introspectedModelChanges SedModelChange instances parsed out of the uploaded SedDocument.
    */
   public loadIntrospectedModelChanges(introspectedModelChanges: SedModelChange[]): void {
-    introspectedModelChanges.forEach((change: SedModelChange) => {
-      console.log(`A CHANGE IN LOADED INTROSPECTED MODEL CHANGES: ${change._type}`);
-    });
     if (introspectedModelChanges.length === 0) {
       return;
     }
-
-    if (this.sharedForm) {
-      this.formArray.clear();
-    }
-
+    this.formArray.clear();
     introspectedModelChanges.forEach((change: SedModelChange) => {
       this.addFieldForModelChange(change);
     });
@@ -100,11 +65,7 @@ export class ModelChangesComponent implements IFormStepComponent, OnChanges, OnI
     if (!modelChanges || modelChanges.length === 0) {
       return;
     }
-
-    if (this.sharedForm) {
-      this.formArray.clear();
-    }
-
+    this.formArray.clear();
     modelChanges.forEach((modelChange: Record<string, string>): void => {
       this.addModelChangeField(modelChange);
     });
@@ -164,7 +125,6 @@ export class ModelChangesComponent implements IFormStepComponent, OnChanges, OnI
     if (modelChange && modelChange._type !== SedModelAttributeChangeTypeEnum.SedModelAttributeChange) {
       return;
     }
-    console.log(`THE CREATE MODEL CHANGES TYPE: ${modelChange._type}`);
     this.addModelChangeField({
       id: modelChange.id || null,
       name: modelChange.name || null,
