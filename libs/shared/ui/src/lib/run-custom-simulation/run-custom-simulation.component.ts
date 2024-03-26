@@ -4,10 +4,12 @@ import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { SedSimulation, SimulationType } from '@biosimulations/datamodel/common';
+import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import {
   CombineArchiveSedDocSpecsContent,
   CombineArchiveSedDocSpecs,
   SedDocument,
+  SedModel,
 } from '@biosimulations/combine-api-angular-client';
 import { SedModelChange, SedModelAttributeChangeTypeEnum } from '@biosimulations/combine-api-angular-client';
 import { ActivatedRoute } from '@angular/router';
@@ -92,6 +94,8 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
     console.log(`THE url val from rerunQuery: ${this.reRunParams.projectUrl}`);
 
     this.introspectionData$ = this.introspectionProvider();
+
+    // ensure that Customed data is properly set and returned to dispatch/router.navigate
 
     // 1. Set the datasource (CustomSimulationDataSource) by deriving vals from reRunProject query params
     // 2. set this.introspectedData$ = this.introspectionProvider(customDataSource) , coming from file.
@@ -268,6 +272,7 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
       this.simType = sim._type as SimulationType;
     });
 
+    // do something here?
     const customizeableData = this.simulationService.createCustomizableSedDocumentData(this.sedDoc, this.simType);
     console.log(`SED DOCS LOADED`);
   }
