@@ -16,7 +16,7 @@ export interface ReRunQueryParams {
   simulator?: string;
   simulatorVersion?: string;
   runName?: string;
-  files?: CommonFile[];
+  files?: CommonFile[] | undefined;
 }
 
 export enum SimulationRunStatus {

@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, Input, SimpleChanges, OnChanges, OnInit } from '@angular/core';
 import {
   UntypedFormArray,
   UntypedFormBuilder,
@@ -17,13 +17,15 @@ import { SedModelAttributeChangeTypeEnum, SedModelChange } from '@biosimulations
   templateUrl: './model-changes.component.html',
   styleUrls: ['./form-steps.scss'],
 })
-export class ModelChangesComponent implements IFormStepComponent {
+export class ModelChangesComponent implements IFormStepComponent, OnChanges, OnInit {
   public nextClicked = false;
-  public formArray: UntypedFormArray;
-  @Input() sharedFormArray?: FormArray;
+  public formArray!: UntypedFormArray;
+  public formBuilder!: UntypedFormBuilder;
+  public sharedForm = false;
+  @Input() sharedFormArray?: UntypedFormArray | null = null;
   @Input() rerunParams?: ReRunQueryParams | null = null;
 
-  public constructor(private formBuilder: UntypedFormBuilder) {
+  /*public constructor(private formBuilder: UntypedFormBuilder) {
     if (this.sharedFormArray) {
       this.formArray = this.sharedFormArray;
       console.log(`SHARED FORM ARRAY DETECTED!`);
@@ -37,9 +39,26 @@ export class ModelChangesComponent implements IFormStepComponent {
     for (let i = 0; i < defaultRowCount; i++) {
       this.addModelChangeField();
     }
-  }
+  }*/
 
   // LIFE-CYCLE:
+
+  public ngOnInit() {
+    if (this.sharedFormArray) {
+      this.formArray = this.sharedFormArray;
+      this.sharedForm = true;
+      console.log(`SHARED FORM ARRAY DETECTED!`);
+    } else {
+      console.log(`HAVING TO BUILD FORM ARRAY!`);
+      this.formArray = this.formBuilder.array([], {
+        validators: [UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR('id')],
+      });
+    }
+    const defaultRowCount = 3;
+    for (let i = 0; i < defaultRowCount; i++) {
+      this.addModelChangeField();
+    }
+  }
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes['rerunParams'] && this.rerunParams) {
@@ -62,7 +81,11 @@ export class ModelChangesComponent implements IFormStepComponent {
     if (introspectedModelChanges.length === 0) {
       return;
     }
-    this.formArray.clear();
+
+    if (this.sharedForm) {
+      this.formArray.clear();
+    }
+
     introspectedModelChanges.forEach((change: SedModelChange) => {
       this.addFieldForModelChange(change);
     });
@@ -78,7 +101,11 @@ export class ModelChangesComponent implements IFormStepComponent {
     if (!modelChanges || modelChanges.length === 0) {
       return;
     }
-    this.formArray.clear();
+
+    if (this.sharedForm) {
+      this.formArray.clear();
+    }
+
     modelChanges.forEach((modelChange: Record<string, string>): void => {
       this.addModelChangeField(modelChange);
     });
