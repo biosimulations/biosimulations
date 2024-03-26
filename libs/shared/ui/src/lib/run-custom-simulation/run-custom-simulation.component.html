@@ -1,15 +1,10 @@
 <div class="container">
-  <input type="file" [accept]="'.omex'" />
-  <div *ngIf="introspectionData$ | async as introspectionData">
-    <form [formGroup]="formGroup">
-      <div formArrayName="modelChanges">
-        <div *ngFor="let change of formArray; let i = index" [formGroupName]="i">
-          <input formControlName="id" placeholder="ID" />
-          <input formControlName="name" placeholder="Name" />
-          <input formControlName="target" placeholder="Target" />
-          <input formControlName="newValue" placeholder="New Value" />
-        </div>
-      </div>
-    </form>
-  </div>
+  <mat-card>
+    <mat-card-header class="multipurpose-card-header">
+      Describe changes to the Simulation Model
+    </mat-card-header>
+    <mat-card-content>
+
+    </mat-card-content>
+  </mat-card>
 </div>
