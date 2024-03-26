@@ -1,1 +1,15 @@
-
+<!-- <div class="container">
+  <input type="file" (change)="onFileSelected($event)" [accept]="'.omex'" />
+  <div *ngIf="introspectionData$ | async as introspectionData">
+    <form [formGroup]="formGroup">
+      <div formArrayName="modelChanges">
+        <div *ngFor="let change of formGroup.get('modelChanges').controls; let i = index" [formGroupName]="i">
+          <input formControlName="id" placeholder="ID" />
+          <input formControlName="name" placeholder="Name" />
+          <input formControlName="target" placeholder="Target" />
+          <input formControlName="newValue" placeholder="New Value" />
+        </div>
+      </div>
+    </form>
+  </div>
+</div> -->

@@ -58,6 +58,7 @@ import {
   UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR,
 } from '@biosimulations/shared/ui';
 import { SedModelAttributeChangeTypeEnum } from '@biosimulations/combine-api-angular-client';
+import { CreateProjectFormStep } from '../../../../../../../libs/simulation-project-utils/simulation-project-utils/src/lib/ui/create-project/create-project/create-project-data-source';
 
 interface SimulatorIdNameDisabled {
   id: string;
@@ -99,8 +100,9 @@ interface ModelFormData extends FormData {
   modelUrl: string;
 }
 
-export enum ChangeModelForm {
+export enum DispatchFormStep {
   ImportArchive = 'ImportArchive',
+  UploadModel = 'UploadModel',
   RenderModelChanges = 'RenderModelChanges',
   ExportModelChanges = 'ExportModelChanges',
 }
@@ -112,6 +114,7 @@ export enum ChangeModelForm {
 })
 export class DispatchComponent implements OnInit, OnDestroy {
   public formGroup: UntypedFormGroup;
+  public dispatchFormData: Record<DispatchFormStep, FormStepData> = <Record<DispatchFormStep, FormStepData>>{};
 
   // Form control option lists
   public modelFormats: OntologyTerm[] = [];
@@ -173,9 +176,10 @@ export class DispatchComponent implements OnInit, OnDestroy {
         modelSource: ['', []],
         parametersForm: this.formBuilder.group({}),
         reRunQueryFiles: this.formBuilder.array([]),
-        modelChanges: this.formBuilder.array([], {
+        modelChanges: this.formBuilder.array([]), // ensure this fits the schema expected by model-changes
+        /*modelChanges: this.formBuilder.array([], {
           validators: [UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR('id')],
-        }),
+        }),*/
       },
       {
         validators: this.formValidator.bind(this),
@@ -665,9 +669,10 @@ export class DispatchComponent implements OnInit, OnDestroy {
       modelFormat = 'format_' + '0'.repeat(4 - match[2].length) + match[2];
     }
     // const uploadModelData = formData[CreateProjectFormStep.UploadModel] || {};
-    // uploadModelData.modelUrl = modelUrl;
-    // uploadModelData.modelFormat = modelFormat;
-    // formData[CreateProjectFormStep.UploadModel] = uploadModelData;
+    const uploadModelData = formData[DispatchFormStep.UploadModel] || {};
+    uploadModelData.modelUrl = modelUrl;
+    uploadModelData.modelFormat = modelFormat;
+    formData[DispatchFormStep.UploadModel] = uploadModelData;
   }
 
   private preloadSimMethodData(framework: string, simulationType: string, algorithm: string, formData: any): void {
