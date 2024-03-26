@@ -23,15 +23,18 @@ import { Injectable } from '@angular/core';
 import { forkJoin, Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
-import { ISimulation, Simulation, isUnknownSimulation, SimulationStatusService } from './shared-datamodel';
+import {
+  ISimulation,
+  Simulation,
+  isUnknownSimulation,
+  SimulationStatusService,
+} from '../shared-simulation-status/shared-simulation-status.service';
 import { Storage } from '@ionic/storage-angular';
 import { ConfigService } from '@biosimulations/config/angular';
 import { SimulationRun } from '@biosimulations/datamodel/common';
 import { Endpoints } from '@biosimulations/config/common';
 import { SimulationRunService } from '@biosimulations/angular-api-client';
 import { CommonFile } from '@biosimulations/datamodel/common';
-
-// TODO: Move this shared/services
 
 // -- SHARED INTERFACES
 

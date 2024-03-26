@@ -63,6 +63,7 @@ export class MatCarouselHammerConfig extends HammerGestureConfig {
     rotate: { enable: false },
   };
 }
+
 @NgModule({
   providers: [
     { provide: HAMMER_GESTURE_CONFIG, useClass: MatCarouselHammerConfig },
