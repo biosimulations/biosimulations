@@ -9,3 +9,9 @@ export interface File {
   size: number | string;
   master: boolean;
 }
+
+export interface CommonFile {
+  id: string;
+  url: string;
+  format?: string;
+}

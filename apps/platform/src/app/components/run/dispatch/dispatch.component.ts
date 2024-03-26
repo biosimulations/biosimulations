@@ -9,7 +9,7 @@ import {
   UntypedFormArray,
   FormArray,
 } from '@angular/forms';
-import { File as CommonFile } from '@biosimulations/datamodel/common';
+import { CommonFile } from '@biosimulations/datamodel/common';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { CombineApiService, CustomizableSedDocumentData } from '../../../services/combine-api/combine-api.service';
@@ -138,6 +138,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
   public customizableSedDocData: CustomizableSedDocumentData[] = [];
   public reRunNetworkParams!: ReRunQueryParams;
   public reRunSedParams!: Observable<CombineArchiveSedDocSpecs | undefined>;
+  public projectFiles!: CommonFile[];
 
   public constructor(
     private config: ConfigService,
@@ -207,7 +208,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     return this.formGroup.get('modelChanges') as UntypedFormArray;
   }
 
-  public modelChangesFormGroups(): UntypedFormGroup[] {
+  public modelChangesFormGroup(): UntypedFormGroup[] {
     return this.modelChangesFormArray.controls as UntypedFormGroup[];
   }
 
@@ -230,9 +231,6 @@ export class DispatchComponent implements OnInit, OnDestroy {
         this.formGroup.value.emailConsent = true;
       }
     });
-
-    // set the form array (modelChanges) value here with sedDoc from reRunFormArray!!
-    //this.setModelChangesFromQuery();
   }
 
   public setReRunParams(): void {
@@ -241,55 +239,24 @@ export class DispatchComponent implements OnInit, OnDestroy {
         try {
           const filesContent = JSON.parse(params['files'] as string) as CommonFile[];
           filesContent.forEach((file) => {
-            console.log(`File URL: ${file.url}`);
+            console.log(`File URL: ${file.id}, ${file.format}`);
+            console.log(Object.keys(file));
+            //this.projectFiles.push(filesContent);
           });
           this.reRunNetworkParams = params;
 
           // set the reRunQueryData controls with the params (files, project url)
           const queryParamsForm: UntypedFormGroup = this.formBuilder.group({
-            files: [filesContent, []],
+            files: [filesContent],
           });
           this.reRunQueryFiles.push(queryParamsForm);
           console.log(`reRunQueryFiles set!`);
-          this.reRunQueryFiles.valueChanges.subscribe((val: any) => {
-            console.log(`Rerun query project files set: ${val}`);
-          });
         } catch (error) {
           console.error('Error parsing files from queryParams', error);
         }
       }
     });
   }
-
-  /*public setReRunParams(): void {
-    console.log(`Setting rerun!`)
-    // subscribe to the project files from rerun. The project url etc is set in projectControlUpdated
-    this.activatedRoute.queryParams.subscribe((params: ReRunQueryParams) => {
-      if (params as ReRunQueryParams) {
-
-        const filesString = params.files as string;
-        try {
-          const projectFiles: CommonFile[] = JSON.parse(filesString);
-          projectFiles.forEach((f) => {
-            console.log(`THE RERUN FILE: ${f.url}`);
-          });
-        //const projectFiles: CommonFile[] = JSON.parse(params.files);
-        //projectFiles.forEach((f) => {console.log(`THE RERUN FILE: ${f.url}`)})
-        this.reRunNetworkParams = params;
-
-        // set the reRunQueryData controls with the params (files, project url)
-        const queryParamsForm: UntypedFormGroup = this.formBuilder.group({
-          files: [projectFiles, []]
-        });
-        this.reRunQueryFiles.push(queryParamsForm);
-        console.log(`reRunQueryFiles set!`)
-      }
-    });
-    this.reRunQueryFiles.valueChanges.subscribe((val: any) => {
-      console.log(`Rerun query project files set: ${val.value}`);
-    })
-
-  }*/
 
   public setModelChangesFromQuery(): void {
     /*
@@ -378,12 +345,10 @@ export class DispatchComponent implements OnInit, OnDestroy {
   }
 
   private setIsReRun(): void {
+    /* Check project url for being a download (rerun). */
     const projectUrl: string = this.formGroup.get('projectUrl')?.value;
     const urlHasReRun = projectUrl.includes('biosimulations') && projectUrl.includes('download');
     this.isReRun = this.simulationService.reRunTriggered || urlHasReRun;
-    if (this.isReRun) {
-      console.log(`this is a rerun!`);
-    }
   }
 
   // Form Submission
