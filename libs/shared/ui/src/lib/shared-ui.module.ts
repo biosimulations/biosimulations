@@ -53,7 +53,6 @@ import { HeroBannerUtilButtonComponent } from './hero-banner-util-button/hero-ba
 import { MatTooltipModule, MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
 import { AppFooterComponent } from './app-footer/app-footer.component';
 import { RunCustomSimulationComponent } from './run-custom-simulation/run-custom-simulation.component';
-import { SimulationProjectUtilsModule } from '@biosimulations/simulation-project-utils';
 
 const TOOLTIP_DELAY = 500;
 
