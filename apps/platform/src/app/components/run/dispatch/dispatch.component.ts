@@ -9,6 +9,7 @@ import {
   UntypedFormArray,
   FormArray,
 } from '@angular/forms';
+import { File as CommonFile } from '@biosimulations/datamodel/common';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { CombineApiService, CustomizableSedDocumentData } from '../../../services/combine-api/combine-api.service';
@@ -135,7 +136,8 @@ export class DispatchComponent implements OnInit, OnDestroy {
   private simulationAlgorithmsMap?: Record<string, Algorithm>;
   private simulatorSpecsMap?: SimulatorSpecsMap;
   public customizableSedDocData: CustomizableSedDocumentData[] = [];
-  public reRunParams!: ReRunQueryParams | null;
+  public reRunNetworkParams!: ReRunQueryParams;
+  public reRunSedParams!: Observable<CombineArchiveSedDocSpecs | undefined>;
 
   public constructor(
     private config: ConfigService,
@@ -169,6 +171,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
         emailConsent: [false],
         modelSource: ['', []],
         parametersForm: this.formBuilder.group({}),
+        reRunQueryFiles: this.formBuilder.array([]),
         modelChanges: this.formBuilder.array([], {
           validators: [UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR('id')],
         }),
@@ -204,6 +207,10 @@ export class DispatchComponent implements OnInit, OnDestroy {
     return this.formGroup.get('modelChanges') as UntypedFormArray;
   }
 
+  public get reRunQueryFiles(): UntypedFormGroup {
+    return this.formGroup.get('reRunQueryFiles') as UntypedFormGroup;
+  }
+
   // Life cycle
   public ngOnInit(): void {
     this.fileUploaded = false;
@@ -211,6 +218,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     const loadSub = loadObs.subscribe(this.loadComplete.bind(this));
     this.subscriptions.push(loadSub);
 
+    // use this to update the simulation if changes are made, perhaps move?
     const userEmailAddress = this.formGroup.value.email;
     this.formGroup.valueChanges.subscribe((values) => {
       const currentEmailAddress = values.email;
@@ -219,17 +227,24 @@ export class DispatchComponent implements OnInit, OnDestroy {
       }
     });
 
-    // subscribe to the rerun params from rerun, if any
-    this.activatedRoute.queryParams.subscribe((params: Params) => {
-      const url = params['projectUrl'];
-      this.reRunParams = params;
-      console.log(`query param: ${url} has been set.`);
-      console.log(`The modelchanges form array: ${this.modelChangesFormArray.value}`);
-      // set the form array (modelChanges) value here with params!!
+    // subscribe to the project files from rerun. The project url etc is set in projectControlUpdated
+    this.activatedRoute.queryParams.subscribe((params: ReRunQueryParams) => {
+      if (params as ReRunQueryParams) {
+        const projectFiles: CommonFile[] | undefined = params.files as CommonFile[];
+        this.reRunNetworkParams = params;
+        // set the reRunQueryData controls with the params (files, project url)
+        this.reRunQueryFiles.setValue(Array.from(projectFiles));
+        // set the form array (modelChanges) value here with sedDoc from reRunFormArray!!
+        //this.modelChangesFormArray.setValue(params)
+      }
     });
 
     const queryParamsSub = this.activatedRoute.queryParams.subscribe();
     this.subscriptions.push(queryParamsSub);
+  }
+
+  public reRunProjectControlUpdated(): void {
+    // here, set the form array with the values derived from the queryParams.projectUrl and/or SedDocSpecs.
   }
 
   public ngOnDestroy(): void {
@@ -479,13 +494,12 @@ export class DispatchComponent implements OnInit, OnDestroy {
     }
 
     const archive = urlValue ? urlValue : fileValue;
-    const sedSpecs: Observable<CombineArchiveSedDocSpecs | undefined> =
-      this.combineApiService.getSpecsOfSedDocsInCombineArchive(archive);
+    this.reRunSedParams = this.combineApiService.getSpecsOfSedDocsInCombineArchive(archive);
     // here we should populate the model changes form
     /*const sub = this.combineApiService
       .getSpecsOfSedDocsInCombineArchive(archive)
       .subscribe(this.archiveSedDocSpecsLoaded.bind(this));*/
-    const sub = sedSpecs.subscribe(this.archiveSedDocSpecsLoaded.bind(this));
+    const sub = this.reRunSedParams.subscribe(this.archiveSedDocSpecsLoaded.bind(this));
     this.subscriptions.push(sub);
     this.fileUploaded = true;
   }
@@ -677,7 +691,6 @@ export class DispatchComponent implements OnInit, OnDestroy {
     sedDocSpecs.contents.forEach((content: CombineArchiveSedDocSpecsContent, contentIndex: number): void => {
       const sedDoc: SedDocument = content.location.value;
       //this.loadData(sedDoc);
-      this.fetchCustomizableSedData(sedDoc);
       sedDoc.models.forEach((model: SedModel, modelIndex: number): void => {
         let edamId: string | null = null;
         for (const modelingFormat of BIOSIMULATIONS_FORMATS) {

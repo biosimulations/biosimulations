@@ -114,11 +114,20 @@
 
       <ng-container *ngIf="fileUploaded" class="params-form-container">
         <mat-card class="card-form-section mat-elevation-z3">
-          <create-project-model-changes
-            [rerunParams]="reRunParams"
-            [sharedFormArray]="modelChangesFormArray"></create-project-model-changes>
+          <!--<create-project-model-changes
+            [sharedFormArray]="modelChangesFormArray">
+          </create-project-model-changes>-->
+          TODO: update this!!!
+          <create-project-model-changes></create-project-model-changes>
+          <mat-card-footer>
+            <button
+              type="submit"
+              class="biosimulations-button changes"
+              (click)="projectControlUpdated()"></button>
+          </mat-card-footer>
         </mat-card>
       </ng-container>
+
 
       <!--<ng-container *ngIf="fileUploaded" class="params-form-container">
         <mat-card class="card-form-section mat-elevation-z3">

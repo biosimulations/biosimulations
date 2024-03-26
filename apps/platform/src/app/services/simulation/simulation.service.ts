@@ -18,7 +18,7 @@ export interface ReRunQueryParams {
   simulator?: string;
   simulatorVersion?: string;
   runName?: string;
-  files?: CommonFile[];
+  files: CommonFile[];
 }
 
 @Injectable({
@@ -71,6 +71,11 @@ export class SimulationService {
   // Add the new rerunProject method
 
   public rerunProject(id: string): void {
+    /*
+      - Get Simulation Run data along with simulation run archive files array
+      - Use fetched data to instantiate router Params as ReRunQueryParams
+      - Navigate to dispatch, emitting ReRunQueryParams
+     */
     const simulationRun$ = this.httpClient.get<SimulationRun>(this.endpoints.getSimulationRunEndpoint(true, id));
 
     const filesContent$ = this.httpClient
@@ -106,8 +111,7 @@ export class SimulationService {
     );
   }
 
-  public _rerunProject(id: string): void {
-    /* Original iteration! */
+  /*public _rerunProject(id: string): void {
     this.httpClient
       .get<SimulationRun>(this.endpoints.getSimulationRunEndpoint(true, id))
       .subscribe((simulationRun: SimulationRun): void => {
@@ -127,7 +131,7 @@ export class SimulationService {
         console.log(`RUN OBSERVABLE SET! ${this.reRunObservable}. REURN SET: ${this.reRunTriggered}`);
         this.router.navigate(['/runs/new'], { queryParams: queryParams });
       });
-  }
+  }*/
 
   private setReRunEvent(queryParams: ReRunQueryParams) {
     this.reRunQueryParams.next(queryParams);
