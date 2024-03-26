@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormattedSimulation } from '../view.model';
+import { SharedSimulationService } from '@biosimulations/shared/services';
 import { SimulationService } from '../../../../services/simulation/simulation.service';
 
 @Component({
@@ -11,11 +12,18 @@ export class OverviewComponent {
   @Input()
   public simulation!: FormattedSimulation;
 
-  public constructor(private simulationService: SimulationService) {
+  public constructor(
+    private sharedSimulationService: SharedSimulationService,
+    private platformSimulationService: SimulationService,
+  ) {
     /* Constructor is empty */
   }
 
   public rerunProject(id: string): void {
-    this.simulationService.rerunProject(id);
+    this.sharedSimulationService.rerunProject(id);
+  }
+
+  public __rerunProject(id: string): void {
+    this.platformSimulationService.rerunProject(id);
   }
 }
