@@ -260,14 +260,8 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
     //  get the sed doc
     sedDocSpecs?.contents.forEach((content: CombineArchiveSedDocSpecsContent, contentIndex: number): void => {
       const sedDoc: SedDocument = content.location.value;
-      console.log(`THE path: ${this.reRunParams.projectUrl}`);
 
       this.sedDoc = sedDoc;
-      sedDoc.dataGenerators.forEach((generator: SedDataGenerator) => {
-        generator.parameters.forEach((parameter: SedParameter) => {
-          console.log(`GENERATOR VAL: ${parameter.value}`);
-        });
-      });
       sedDoc.models.forEach((model: SedModel, modelIndex: number): void => {
         let edamId: string | null = null;
         for (const modelingFormat of BIOSIMULATIONS_FORMATS) {
@@ -280,7 +274,6 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
         if (edamId) {
           modelFormats.add(edamId);
         }
-        //this.modelFile = model?.name;
         this.modelData = {
           modelFile: model?.name as unknown as Blob,
           modelFormat: Array.from(modelFormats)[0],
@@ -296,16 +289,13 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
       this.kisaoId = kisaoId;
       simulationAlgorithms.add(kisaoId);
       simulations.add(sim);
-      //this.simType = sim._type;
       this.simulationType = sim._type;
-      console.log(`THE SIM: ${Array.from(simulations)[0].name}`);
       this.simMethodData = {
         simulationType: this.simType,
         algorithm: kisaoId,
       };
     });
 
-    // set model identifier:
     // introspect:
     const modelingFramework = 'SBO_0000293'; // TODO: Make this dynamic
     this.introspectionData$ = this.simulationService.getIntrospectionData(
@@ -316,6 +306,10 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
       this.kisaoId,
     );
 
+    if (this.introspectionData$) {
+      console.log(`INTROSPECTION SET!`);
+    }
+
     /*this.introspectionData$?.subscribe((sedDoc: SedDocument) => {
       sedDoc.models.forEach((model: SedModel) => {
         model.changes.forEach((change) => {
@@ -325,7 +319,6 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
         });
       });
     });*/
-    // call introspection with formdata
   }
 
   private showIntrospectionFailedSnackbar(modelUrl: string): string | undefined {
