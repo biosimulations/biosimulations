@@ -7,8 +7,6 @@ import {
   CombineArchiveSedDocSpecs,
   CombineArchiveSedDocSpecsContent,
   SedDocument,
-  SedModel,
-  SedSimulation,
 } from '@biosimulations/combine-api-angular-client';
 import {
   SedModelChange,
@@ -23,11 +21,11 @@ import {
   SedDataSet,
   SedUniformTimeCourseSimulationTypeEnum,
 } from '@biosimulations/combine-api-angular-client';
-import { BIOSIMULATIONS_FORMATS, BIOSIMULATIONS_FORMATS_BY_ID } from '@biosimulations/ontology/extra-sources';
+import { BIOSIMULATIONS_FORMATS_BY_ID } from '@biosimulations/ontology/extra-sources';
 import { environment } from '@biosimulations/shared/environments';
 import { Injectable } from '@angular/core';
 import { forkJoin, Subject } from 'rxjs';
-import { Params, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import {
   ISimulation,
