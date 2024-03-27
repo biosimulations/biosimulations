@@ -8,13 +8,11 @@ import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import {
   CombineArchiveSedDocSpecs,
   CombineArchiveSedDocSpecsContent,
-  SedDataGenerator,
   SedDocument,
   SedModel,
   SedSimulation,
   SedModelAttributeChangeTypeEnum,
   SedModelChange,
-  SedParameter,
 } from '@biosimulations/combine-api-angular-client';
 import { ActivatedRoute } from '@angular/router';
 import {
