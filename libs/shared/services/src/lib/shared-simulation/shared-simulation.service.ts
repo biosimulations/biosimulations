@@ -3,7 +3,13 @@ import { Observable, of, BehaviorSubject, combineLatest, throwError } from 'rxjs
 import { catchError, map, concatAll, debounceTime, shareReplay } from 'rxjs/operators';
 import { HttpClient, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { SimulationType, CommonFile } from '@biosimulations/datamodel/common';
-import { CombineArchiveSedDocSpecs, SedDocument } from '@biosimulations/combine-api-angular-client';
+import {
+  CombineArchiveSedDocSpecs,
+  CombineArchiveSedDocSpecsContent,
+  SedDocument,
+  SedModel,
+  SedSimulation,
+} from '@biosimulations/combine-api-angular-client';
 import {
   SedModelChange,
   SedModelAttributeChangeTypeEnum,
@@ -17,11 +23,11 @@ import {
   SedDataSet,
   SedUniformTimeCourseSimulationTypeEnum,
 } from '@biosimulations/combine-api-angular-client';
-import { BIOSIMULATIONS_FORMATS_BY_ID } from '@biosimulations/ontology/extra-sources';
+import { BIOSIMULATIONS_FORMATS, BIOSIMULATIONS_FORMATS_BY_ID } from '@biosimulations/ontology/extra-sources';
 import { environment } from '@biosimulations/shared/environments';
 import { Injectable } from '@angular/core';
 import { forkJoin, Subject } from 'rxjs';
-import { Router } from '@angular/router';
+import { Params, Router } from '@angular/router';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import {
   ISimulation,
@@ -48,6 +54,11 @@ export interface ReRunQueryParams {
   simulatorVersion?: string;
   runName?: string;
   files?: string; // this needs deserialization when fetched
+  modelUrl?: string;
+  modelFormat?: string;
+  simulationType?: string;
+  simulationAlgorithm?: string;
+  modelingFramework?: string;
 }
 
 export interface CustomizableSedDocumentData {
@@ -64,11 +75,11 @@ export interface SimMethodData extends FormStepData {
 }
 
 export interface ModelData extends FormStepData {
-  modelFormat: string;
+  modelFormat?: string;
   modelFile?: Blob | File | string;
   modelUrl?: string;
   modelChanges?: SedModelChange[];
-  modelLanguage: string; // urn identifier
+  modelLanguage?: string; // urn identifier
 }
 
 export interface CustomSimulationDatasource {
@@ -76,6 +87,7 @@ export interface CustomSimulationDatasource {
   modelData: ModelData;
   introspectedData?: CustomizableSedDocumentData;
   reRunParams?: ReRunQueryParams;
+  modelUrl?: string;
 }
 
 // -- SHARED FUNCTIONS
@@ -172,22 +184,67 @@ export class SharedSimulationService {
       .get(this.endpoints.getSimulationRunFilesEndpoint(true, id), { responseType: 'text' })
       .pipe(map((content) => JSON.parse(content) as CommonFile[]));
 
+    const projectUrl = this.endpoints.getSimulationRunDownloadEndpoint(true, id);
     forkJoin({ simulationRun: simulationRun$, filesContent: filesContent$ }).subscribe(
       ({ simulationRun, filesContent }) => {
         const queryParams: ReRunQueryParams = {
-          projectUrl: this.endpoints.getSimulationRunDownloadEndpoint(true, id),
+          projectUrl: projectUrl,
           simulator: simulationRun.simulator,
           simulatorVersion: simulationRun.simulatorVersion,
           runName: simulationRun.name + ' (rerun)',
           files: JSON.stringify(filesContent),
         };
 
-        filesContent.forEach((item) => {
-          console.log(`AN ITEM: ${item.id}`);
+        filesContent.forEach((file: any) => {
+          console.log(`AN ITEM: ${file.id}`);
+          switch (file) {
+            case file as CommonFile:
+              if (file.url.includes('xml') || file.url.includes('sbml')) {
+                queryParams.modelUrl = file.url;
+              }
+          }
+          queryParams.modelFormat = 'format_2585'; // TODO: change this
+
+          const algorithmId = new Set<string>();
+          const simType = new Set<string>();
+          const framework = new Set<string>();
+          this.getSpecsOfSedDocsInCombineArchive(projectUrl as string).subscribe(
+            (sedDocSpecs: CombineArchiveSedDocSpecs | undefined) => {
+              sedDocSpecs?.contents.forEach((content: CombineArchiveSedDocSpecsContent, contentIndex: number): void => {
+                const sedDoc: SedDocument = content.location.value;
+                /*sedDoc.models.forEach((model: SedModel, modelIndex: number): void => {
+                let edamId: string | null = null;
+                for (const modelingFormat of BIOSIMULATIONS_FORMATS) {
+                  const sedUrn = modelingFormat?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn;
+                  if (!sedUrn || !modelingFormat.id || !model.language.startsWith(sedUrn)) {
+                    continue;
+                  }
+                  edamId = modelingFormat.id;
+                }
+                if (edamId) {
+                  queryParams.modelFormat = edamId;
+                }
+              });*/
+                sedDoc.simulations.forEach((sim: any): void => {
+                  algorithmId.add(sim.algorithm?.kisaoId);
+                  simType.add(sim._type);
+                  framework.add('SBO_0000293');
+                  console.log(`alg: ${sim._type}`);
+                  queryParams.simulationAlgorithm = sim.algorithm.kisaoId;
+                  queryParams.simulationType = sim._type;
+                  queryParams.modelingFramework = 'SBO_0000293'; // TODO: make this dynamic
+                });
+              });
+            },
+          );
+          queryParams.simulationAlgorithm = Array.from(algorithmId)[0];
+          console.log(`query params: ${queryParams.simulationAlgorithm}`);
         });
+
         // Handling the promise returned by navigate
         this.router
-          .navigate(['/runs/new'], { queryParams: queryParams })
+          //.navigate(['/runs/new'], { queryParams: queryParams })
+          .navigate(['/utils/create-project'], { queryParams: queryParams })
           .then((success) => {
             if (success) {
               console.log('Navigation successful!');
@@ -198,16 +255,6 @@ export class SharedSimulationService {
           .catch((error) => console.error('Navigation error:', error));
       },
     );
-  }
-
-  private setReRunEvent(queryParams: ReRunQueryParams) {
-    this.reRunQueryParams.next(queryParams);
-    this.reRunObservable = this.reRunQueryParams.asObservable();
-    this.reRunTriggered = true;
-    this.reRunObservable.subscribe((item) => {
-      console.log(`What is subscribed: ${item.simulator}`);
-    });
-    console.log(`RUN OBSERVABLE SET! ${this.reRunObservable}. REURN SET: ${this.reRunTriggered}`);
   }
 
   private parseDates(simulations: ISimulation[]) {
@@ -538,7 +585,25 @@ export class SharedSimulationService {
     simulationType: string,
     modelingFramework: string,
     kisaoId: string,
+    errorHandler?: any,
   ): Observable<SedDocument | null> {
+    /*const modelUrl = modelFile.url as string;
+    const modelForm: ModelData = {
+      modelFormat: modelLanguage,
+      modelFile: modelUrl,
+      modelUrl: modelUrl
+    }
+    const simForm: SimMethodData = {
+      simulationType: simulationType,
+      framework: modelingFramework,
+      algorithm: kisaoId
+    }
+    return this.introspectNewProject(
+      this.httpClient,
+      modelForm,
+      simForm,
+      errorHandler
+    );*/
     const formData = new FormData();
     const modelUrl = modelFile.url as string;
     formData.append('modelFile', modelUrl);
