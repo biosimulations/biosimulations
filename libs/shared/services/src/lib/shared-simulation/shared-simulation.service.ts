@@ -541,13 +541,8 @@ export class SharedSimulationService {
     kisaoId: string,
     modelUrl = null,
   ): Observable<SedDocument | null> {
-    /* modelLanguage ie: urn:sedml:language:sbml
-       modelingFramework ie: SBO_0000293
-       simulationType ie: SedUniformTimeCourseSimulation
-     */
     const formData = new FormData();
-    const _modelUrl = modelUrl;
-    console.log(`MODEL URL ${_modelUrl} IS USED`);
+    const _modelUrl = modelUrl; // ensure this is null!!
     formData.append('modelFile', modelFile);
     formData.append('modelLanguage', modelLanguage);
     formData.append('simulationType', simulationType);
@@ -556,7 +551,6 @@ export class SharedSimulationService {
     formData.append('modelUrl', '');
 
     const introspectionEndpoint = this.endpoints.getModelIntrospectionEndpoint(false);
-    console.log(`Endpoint: ${introspectionEndpoint}`);
     return this.httpClient
       .post<SedDocument>(introspectionEndpoint, formData, { headers: { Accept: 'application/json' } })
       .pipe(
