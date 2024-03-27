@@ -13,6 +13,7 @@ import {
   SedSimulation,
   SedModelAttributeChangeTypeEnum,
   SedModelChange,
+  SedComputeModelChangeTypeEnum,
 } from '@biosimulations/combine-api-angular-client';
 import { ActivatedRoute } from '@angular/router';
 import {
@@ -320,6 +321,7 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
               switch (change) {
                 case change as SedModelAttributeChangeTypeEnum:
                   console.log(`INTROSPECTED CHANGE ${index}: ${change.newValue}`);
+                  break;
               }
             });
             console.log(`THE LEN: ${model.changes.length}`);
