@@ -314,21 +314,21 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
     if (this.introspectionData$) {
       console.log(`INTROSPECTION SET!`);
       this.introspectionData$.subscribe({
-        next: (sedDocument) => {
-          console.log(`The Sed DOC: ${sedDocument}`);
+        next: (sedDocument: SedDocument) => {
+          sedDocument.models.forEach((model: any) => {
+            let index = 0;
+            model.changes.forEach((change: any) => {
+              switch (change) {
+                case change as SedModelAttributeChangeTypeEnum:
+                  console.log(`INTROSPECTED CHANGE ${index}: ${change.newValue}`);
+                  index++;
+              }
+            });
+            console.log(`THE LEN: ${model.changes.length}`);
+          });
         },
       });
     }
-
-    /*this.introspectionData$?.subscribe((sedDoc: SedDocument) => {
-      sedDoc.models.forEach((model: SedModel) => {
-        model.changes.forEach((change) => {
-          if ('newValue' in change) {
-            console.log(`THE CHANGE VAL: ${change.newValue}`);
-          }
-        });
-      });
-    });*/
   }
 
   private showIntrospectionFailedSnackbar(modelUrl: string): string | undefined {
