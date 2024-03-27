@@ -316,12 +316,10 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
       this.introspectionData$.subscribe({
         next: (sedDocument: SedDocument) => {
           sedDocument.models.forEach((model: any) => {
-            let index = 0;
-            model.changes.forEach((change: any) => {
+            model.changes.forEach((change: SedModelChange | any, index: number) => {
               switch (change) {
                 case change as SedModelAttributeChangeTypeEnum:
                   console.log(`INTROSPECTED CHANGE ${index}: ${change.newValue}`);
-                  index++;
               }
             });
             console.log(`THE LEN: ${model.changes.length}`);
