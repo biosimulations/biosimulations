@@ -3,7 +3,7 @@ import { AbstractControl, UntypedFormArray, UntypedFormBuilder, UntypedFormGroup
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { SimulationType } from '@biosimulations/datamodel/common';
+import { CommonFile, SimulationType } from '@biosimulations/datamodel/common';
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import {
   CombineArchiveSedDocSpecs,
@@ -45,9 +45,14 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
   public sedDoc!: SedDocument;
   public simType!: SimulationType;
 
+  public kisaoId!: string;
+  public simulationType!: string;
+
   // network data
   public reRunSedData$!: Observable<CombineArchiveSedDocSpecs | undefined>;
-  public introspectionData$?: Observable<CustomizableSedDocumentData | any>;
+  public introspectionData$?: Observable<SedDocument | any>;
+  public modelFileUrl!: string; // file to introspect!
+  public modelFile!: File | CommonFile;
 
   // lifecycle
   public nextClicked = false;
@@ -69,9 +74,6 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
 
   public ngOnInit() {
     this.addDefaultFields();
-
-    /* 1. Set the datasource(CustomSimulationDataSource) by deriving vals from reRun Query params.
-      These are expected by Dispatch. overview -> changes -> dispatch(with changes)*/
     this.route.queryParams.subscribe((params) => {
       this.reRunParams = {
         projectUrl: params?.projectUrl,
@@ -79,7 +81,17 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
         simulatorVersion: params?.simulatorVersion,
         files: params?.files,
       };
+
+      const projectFiles = JSON.parse(params?.files);
+      projectFiles.forEach((file: CommonFile) => {
+        if (file.id.includes('xml') || file.id.includes('sbml')) {
+          this.modelFile = file;
+          console.log(`URL: ${file.url}`);
+        }
+      });
     });
+
+    //onsole.log(`The file: ${this.modelFile.name}`)
 
     console.log(`RERUN PARAMS RECIEVED FROM QUERY: ${this.reRunParams.projectUrl}, ${this.reRunParams.simulator}`);
 
@@ -88,17 +100,10 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
       // 1. Set the simMethod data and modelData from simService.getspecsofseddocs
       const reRunSedData$ = this.simulationService.getSpecsOfSedDocsInCombineArchive(this.archive);
       reRunSedData$.subscribe((sedDocSpecs: CombineArchiveSedDocSpecs | undefined) => {
+        // 2. Run introspection from sedDocsSpecs
         this.archiveSedDocSpecsLoaded(sedDocSpecs);
       });
-      //const sub = this.reRunSedData$.subscribe(this.archiveSedDocSpecsLoaded.bind(this));
-      //this.subscriptions.push(sub);
     }
-
-    // first, instantiate datasource with rerun params as they are coming from service
-    //this.simulationDataSource = {
-    ///reRunParams: this.reRunParams,
-    //};
-    console.log(`THE url val from rerunQuery: ${this.reRunParams.projectUrl}`);
 
     //this.introspectionData$ = this.introspectionProvider();
 
@@ -143,7 +148,7 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
     );
   }
 
-  private populateModelChangesForm(): void {
+  /*private populateModelChangesForm(): void {
     // remember that here the introspection comes from the model changes
     this.introspectionData$?.subscribe((introspection: CustomizableSedDocumentData | null) => {
       const introspectedChanges: SedModelChange[] | undefined = introspection?.modelChanges;
@@ -152,7 +157,7 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
         console.log(introspectedChanges);
       }
     });
-  }
+  }*/
 
   /**
    * Preloads any model changes parsed out of the uploaded SedDocument into the form.
@@ -256,6 +261,8 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
     //  get the sed doc
     sedDocSpecs?.contents.forEach((content: CombineArchiveSedDocSpecsContent, contentIndex: number): void => {
       const sedDoc: SedDocument = content.location.value;
+      console.log(`THE path: ${this.reRunParams.projectUrl}`);
+
       this.sedDoc = sedDoc;
       sedDoc.dataGenerators.forEach((generator: SedDataGenerator) => {
         generator.parameters.forEach((parameter: SedParameter) => {
@@ -274,11 +281,12 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
         if (edamId) {
           modelFormats.add(edamId);
         }
-        const modelFile = model.name;
+        //this.modelFile = model?.name;
         this.modelData = {
           modelFile: model?.name as unknown as Blob,
           modelFormat: Array.from(modelFormats)[0],
           modelChanges: model.changes,
+          modelLanguage: model.language,
         };
       });
     });
@@ -286,24 +294,39 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
     // get the simType
     this.sedDoc.simulations.forEach((sim: SedSimulation): void => {
       const kisaoId = sim.algorithm.kisaoId;
+      this.kisaoId = kisaoId;
       simulationAlgorithms.add(kisaoId);
       simulations.add(sim);
-      this.simType = sim._type as unknown as SimulationType;
+      //this.simType = sim._type;
+      this.simulationType = sim._type;
       console.log(`THE SIM: ${Array.from(simulations)[0].name}`);
       this.simMethodData = {
         simulationType: this.simType,
-        algorithm: sim.algorithm._type,
+        algorithm: kisaoId,
       };
     });
 
-    const customizeableData = this.simulationService.createCustomizableSedDocumentData(this.sedDoc, this.simType);
-    customizeableData.modelVariables.forEach((changes: SedVariable) => {
-      console.log(`A SED DOC VARIABLEE ${changes.name}`);
-    });
-    console.log(`SED DOCS LOADED`);
+    // set model identifier:
+    // introspect:
+    const modelingFramework = 'SBO_0000293'; // TODO: Make this dynamic
+    this.introspectionData$ = this.simulationService.getIntrospectionData(
+      this.modelFile,
+      this.modelData.modelLanguage,
+      this.simulationType,
+      modelingFramework,
+      this.kisaoId,
+    );
 
+    this.introspectionData$?.subscribe((sedDoc: SedDocument) => {
+      sedDoc.models.forEach((model: SedModel) => {
+        model.changes.forEach((change) => {
+          if ('newValue' in change) {
+            console.log(`THE CHANGE VAL: ${change.newValue}`);
+          }
+        });
+      });
+    });
     // call introspection with formdata
-    this.getFormStepData();
   }
 
   private showIntrospectionFailedSnackbar(modelUrl: string): string | undefined {
