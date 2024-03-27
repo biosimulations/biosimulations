@@ -66,8 +66,8 @@ export interface SimMethodData extends FormStepData {
 
 export interface ModelData extends FormStepData {
   modelFormat: string;
-  modelFile: Blob;
-  modelUrl: string;
+  modelFile?: Blob;
+  modelUrl?: string;
   modelChanges?: SedModelChange[];
 }
 
@@ -529,6 +529,33 @@ export class SharedSimulationService {
       errorHandler,
     );
     return introspectionObservable.pipe(map(CreateNewProjectArchiveDataOperator(simMethodData)));
+  }
+
+  public getIntrospectionData(
+    modelFile: File,
+    modelLanguage: string,
+    simulationType: string,
+    modelingFramework: string,
+    simulationAlgorithm: string,
+    modelUrl: string = '',
+  ): Observable<SedDocument | null> {
+    const formData = new FormData();
+    formData.append('modelFile', modelFile, modelFile.name);
+    formData.append('modelLanguage', modelLanguage);
+    formData.append('simulationType', simulationType);
+    formData.append('modelingFramework', modelingFramework);
+    formData.append('simulationAlgorithm', simulationAlgorithm);
+    if (modelUrl) {
+      formData.append('modelUrl', modelUrl);
+    }
+
+    const introspectionEndpoint = this.endpoints.getModelIntrospectionEndpoint(false);
+    return this.httpClient.post<SedDocument>(introspectionEndpoint, formData).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error('Failed to get introspection data', error);
+        return of(null); // Adjust based on how you want to handle errors
+      }),
+    );
   }
 
   public createCustomizableSedDocumentData(
