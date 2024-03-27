@@ -520,6 +520,7 @@ export class SharedSimulationService {
     });
     // console.log(`THE FILE: ${modelData.modelFile?.name}`);
     const modelUrl = modelData?.modelUrl as string;
+    console.log(`THE MODEL URL BEING USED: ${modelUrl}`);
     const endpoints = new Endpoints();
     const introspectionEndpoint = endpoints.getModelIntrospectionEndpoint(false);
     const introspectionObservable = PostNewProjectSedDocument(
@@ -533,32 +534,37 @@ export class SharedSimulationService {
   }
 
   public getIntrospectionData(
-    modelFile: File | CommonFile,
+    modelFile: File,
     modelLanguage: string,
     simulationType: string,
     modelingFramework: string,
     kisaoId: string,
-    modelUrl = '',
+    modelUrl = null,
   ): Observable<SedDocument | null> {
     /* modelLanguage ie: urn:sedml:language:sbml
        modelingFramework ie: SBO_0000293
        simulationType ie: SedUniformTimeCourseSimulation
      */
     const formData = new FormData();
-    formData.append('modelFile', modelFile as File);
+    const _modelUrl = modelUrl;
+    console.log(`MODEL URL ${_modelUrl} IS USED`);
+    formData.append('modelFile', modelFile);
     formData.append('modelLanguage', modelLanguage);
     formData.append('simulationType', simulationType);
     formData.append('modelingFramework', modelingFramework);
     formData.append('simulationAlgorithm', kisaoId);
-    formData.append('modelUrl', null);
+    formData.append('modelUrl', '');
 
     const introspectionEndpoint = this.endpoints.getModelIntrospectionEndpoint(false);
-    return this.httpClient.post<SedDocument>(introspectionEndpoint, formData).pipe(
-      catchError((error: HttpErrorResponse) => {
-        console.error('Failed to get introspection data', error);
-        return of(null); // Adjust based on how you want to handle errors
-      }),
-    );
+    console.log(`Endpoint: ${introspectionEndpoint}`);
+    return this.httpClient
+      .post<SedDocument>(introspectionEndpoint, formData, { headers: { Accept: 'application/json' } })
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.error('Failed to get introspection data', error);
+          return of(null); // Adjust based on how you want to handle errors
+        }),
+      );
   }
 
   public createCustomizableSedDocumentData(
