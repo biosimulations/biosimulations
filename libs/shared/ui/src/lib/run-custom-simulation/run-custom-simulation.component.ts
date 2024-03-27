@@ -15,7 +15,6 @@ import {
   SedModelAttributeChangeTypeEnum,
   SedModelChange,
   SedParameter,
-  SedVariable,
 } from '@biosimulations/combine-api-angular-client';
 import { ActivatedRoute } from '@angular/router';
 import {
