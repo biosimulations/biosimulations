@@ -1,28 +1,33 @@
-import { Component, OnInit, OnChanges, SimpleChanges, Input } from '@angular/core';
-import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators, AbstractControl } from '@angular/forms';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { AbstractControl, UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { SedSimulation, SimulationType } from '@biosimulations/datamodel/common';
+import { SimulationType } from '@biosimulations/datamodel/common';
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import {
-  CombineArchiveSedDocSpecsContent,
   CombineArchiveSedDocSpecs,
+  CombineArchiveSedDocSpecsContent,
+  SedDataGenerator,
   SedDocument,
   SedModel,
+  SedSimulation,
+  SedModelAttributeChangeTypeEnum,
+  SedModelChange,
+  SedParameter,
+  SedVariable,
 } from '@biosimulations/combine-api-angular-client';
-import { SedModelChange, SedModelAttributeChangeTypeEnum } from '@biosimulations/combine-api-angular-client';
 import { ActivatedRoute } from '@angular/router';
 import {
-  SharedSimulationService,
   CustomizableSedDocumentData,
   CustomSimulationDatasource,
   FormStepData,
+  ModelData,
   ReRunQueryParams,
   SEDML_ID_VALIDATOR,
-  UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR,
+  SharedSimulationService,
   SimMethodData,
-  ModelData,
+  UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR,
 } from '@biosimulations/shared/services';
 
 @Component({
@@ -76,6 +81,8 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
       };
     });
 
+    console.log(`RERUN PARAMS RECIEVED FROM QUERY: ${this.reRunParams.projectUrl}, ${this.reRunParams.simulator}`);
+
     /* 2. Introspect datasource */
     if (this.archive) {
       // 1. Set the simMethod data and modelData from simService.getspecsofseddocs
@@ -83,17 +90,17 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
       reRunSedData$.subscribe((sedDocSpecs: CombineArchiveSedDocSpecs | undefined) => {
         this.archiveSedDocSpecsLoaded(sedDocSpecs);
       });
-      const sub = this.reRunSedData$.subscribe(this.archiveSedDocSpecsLoaded.bind(this));
-      this.subscriptions.push(sub);
+      //const sub = this.reRunSedData$.subscribe(this.archiveSedDocSpecsLoaded.bind(this));
+      //this.subscriptions.push(sub);
     }
 
     // first, instantiate datasource with rerun params as they are coming from service
-    this.simulationDataSource = {
-      reRunParams: this.reRunParams,
-    };
+    //this.simulationDataSource = {
+    ///reRunParams: this.reRunParams,
+    //};
     console.log(`THE url val from rerunQuery: ${this.reRunParams.projectUrl}`);
 
-    this.introspectionData$ = this.introspectionProvider();
+    //this.introspectionData$ = this.introspectionProvider();
 
     // ensure that Customed data is properly set and returned to dispatch/router.navigate
 
@@ -167,6 +174,7 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
    * @param formStepData Data containing the previously entered model changes.
    */
   public populateFormFromFormStepData(formStepData: FormStepData): void {
+    /* Populate form using this.modelData */
     const modelChanges = formStepData.modelChanges as Record<string, string>[];
     if (!modelChanges || modelChanges.length === 0) {
       return;
@@ -249,6 +257,11 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
     sedDocSpecs?.contents.forEach((content: CombineArchiveSedDocSpecsContent, contentIndex: number): void => {
       const sedDoc: SedDocument = content.location.value;
       this.sedDoc = sedDoc;
+      sedDoc.dataGenerators.forEach((generator: SedDataGenerator) => {
+        generator.parameters.forEach((parameter: SedParameter) => {
+          console.log(`GENERATOR VAL: ${parameter.value}`);
+        });
+      });
       sedDoc.models.forEach((model: SedModel, modelIndex: number): void => {
         let edamId: string | null = null;
         for (const modelingFormat of BIOSIMULATIONS_FORMATS) {
@@ -261,6 +274,12 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
         if (edamId) {
           modelFormats.add(edamId);
         }
+        const modelFile = model.name;
+        this.modelData = {
+          modelFile: model?.name as unknown as Blob,
+          modelFormat: Array.from(modelFormats)[0],
+          modelChanges: model.changes,
+        };
       });
     });
 
@@ -269,12 +288,22 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
       const kisaoId = sim.algorithm.kisaoId;
       simulationAlgorithms.add(kisaoId);
       simulations.add(sim);
-      this.simType = sim._type as SimulationType;
+      this.simType = sim._type as unknown as SimulationType;
+      console.log(`THE SIM: ${Array.from(simulations)[0].name}`);
+      this.simMethodData = {
+        simulationType: this.simType,
+        algorithm: sim.algorithm._type,
+      };
     });
 
-    // do something here?
     const customizeableData = this.simulationService.createCustomizableSedDocumentData(this.sedDoc, this.simType);
+    customizeableData.modelVariables.forEach((changes: SedVariable) => {
+      console.log(`A SED DOC VARIABLEE ${changes.name}`);
+    });
     console.log(`SED DOCS LOADED`);
+
+    // call introspection with formdata
+    this.getFormStepData();
   }
 
   private showIntrospectionFailedSnackbar(modelUrl: string): string | undefined {
