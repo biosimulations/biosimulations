@@ -15,7 +15,7 @@ import { CustomizableSedDocumentData } from '../../../service/create-project/pro
 import { SimulatorsData } from '../../../service/dispatch/dispatch.service';
 import { ViewContainerRef } from '@angular/core';
 import { SimulationType, AlgorithmSubstitution } from '@biosimulations/datamodel/common';
-import { Params, Router } from '@angular/router';
+import { Params } from '@angular/router';
 import {
   UploadModelComponent,
   UniformTimeCourseSimulationComponent,
