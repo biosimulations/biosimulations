@@ -3,7 +3,7 @@ import { AbstractControl, UntypedFormArray, UntypedFormBuilder, UntypedFormGroup
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { SimulationType } from '@biosimulations/datamodel/common';
+import { SimulationType, CommonFile } from '@biosimulations/datamodel/common';
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import {
   CombineArchiveSedDocSpecs,
@@ -49,7 +49,7 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
   public reRunSedData$!: Observable<CombineArchiveSedDocSpecs | undefined>;
   public introspectionData$?: Observable<SedDocument | any>;
   public modelFileUrl!: string; // file to introspect!
-  public modelFile!: File;
+  public modelFile!: CommonFile;
 
   // lifecycle
   public nextClicked = false;
@@ -80,10 +80,17 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
       };
 
       const projectFiles = JSON.parse(params?.files);
-      projectFiles.forEach((file: File) => {
-        if (file.name.includes('xml') || file.name.includes('sbml')) {
-          this.modelFile = file;
-          console.log(`URL: ${file.name}`);
+      projectFiles.forEach((file: any) => {
+        switch (file) {
+          case file as CommonFile:
+            console.log(`This is a CommonFile: ${file.url}`);
+            if (file.url.includes('xml') || file.url.includes('sbml')) {
+              this.modelFile = file;
+              console.log(`URL: ${Object.keys(this.modelFile)}`);
+            }
+            break;
+          case file as File:
+            console.log(`Reg File: ${file.name}`);
         }
       });
     });
@@ -306,6 +313,11 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
 
     if (this.introspectionData$) {
       console.log(`INTROSPECTION SET!`);
+      this.introspectionData$.subscribe({
+        next: (sedDocument) => {
+          console.log(`The Sed DOC: ${sedDocument}`);
+        },
+      });
     }
 
     /*this.introspectionData$?.subscribe((sedDoc: SedDocument) => {

@@ -2,7 +2,7 @@ import { AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { Observable, of, BehaviorSubject, combineLatest, throwError } from 'rxjs';
 import { catchError, map, concatAll, debounceTime, shareReplay } from 'rxjs/operators';
 import { HttpClient, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
-import { SimulationType } from '@biosimulations/datamodel/common';
+import { SimulationType, CommonFile } from '@biosimulations/datamodel/common';
 import { CombineArchiveSedDocSpecs, SedDocument } from '@biosimulations/combine-api-angular-client';
 import {
   SedModelChange,
@@ -34,7 +34,6 @@ import { ConfigService } from '@biosimulations/config/angular';
 import { SimulationRun } from '@biosimulations/datamodel/common';
 import { Endpoints } from '@biosimulations/config/common';
 import { SimulationRunService } from '@biosimulations/angular-api-client';
-import { CommonFile } from '@biosimulations/datamodel/common';
 
 // -- SHARED INTERFACES
 
@@ -534,21 +533,20 @@ export class SharedSimulationService {
   }
 
   public getIntrospectionData(
-    modelFile: File,
+    modelFile: CommonFile,
     modelLanguage: string,
     simulationType: string,
     modelingFramework: string,
     kisaoId: string,
-    modelUrl = null,
   ): Observable<SedDocument | null> {
     const formData = new FormData();
-    const _modelUrl = modelUrl; // ensure this is null!!
-    formData.append('modelFile', modelFile);
+    const modelUrl = modelFile.url as string;
+    formData.append('modelFile', modelUrl);
     formData.append('modelLanguage', modelLanguage);
     formData.append('simulationType', simulationType);
     formData.append('modelingFramework', modelingFramework);
     formData.append('simulationAlgorithm', kisaoId);
-    formData.append('modelUrl', '');
+    formData.append('modelUrl', modelUrl);
 
     const introspectionEndpoint = this.endpoints.getModelIntrospectionEndpoint(false);
     return this.httpClient
