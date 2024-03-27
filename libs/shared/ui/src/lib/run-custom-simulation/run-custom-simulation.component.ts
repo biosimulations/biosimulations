@@ -51,7 +51,7 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
   public reRunSedData$!: Observable<CombineArchiveSedDocSpecs | undefined>;
   public introspectionData$?: Observable<SedDocument | any>;
   public modelFileUrl!: string; // file to introspect!
-  public modelFile!: File | CommonFile;
+  public modelFile!: File;
 
   // lifecycle
   public nextClicked = false;
@@ -82,10 +82,10 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
       };
 
       const projectFiles = JSON.parse(params?.files);
-      projectFiles.forEach((file: CommonFile) => {
-        if (file.id.includes('xml') || file.id.includes('sbml')) {
+      projectFiles.forEach((file: File) => {
+        if (file.name.includes('xml') || file.name.includes('sbml')) {
           this.modelFile = file;
-          console.log(`URL: ${file.url}`);
+          console.log(`URL: ${file.name}`);
         }
       });
     });
@@ -316,7 +316,7 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
       this.kisaoId,
     );
 
-    this.introspectionData$?.subscribe((sedDoc: SedDocument) => {
+    /*this.introspectionData$?.subscribe((sedDoc: SedDocument) => {
       sedDoc.models.forEach((model: SedModel) => {
         model.changes.forEach((change) => {
           if ('newValue' in change) {
@@ -324,7 +324,7 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
           }
         });
       });
-    });
+    });*/
     // call introspection with formdata
   }
 
