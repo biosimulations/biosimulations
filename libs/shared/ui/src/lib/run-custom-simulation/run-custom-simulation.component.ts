@@ -1,9 +1,8 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { AbstractControl, UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { SimulationType, CommonFile } from '@biosimulations/datamodel/common';
+import { CommonFile } from '@biosimulations/datamodel/common';
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import {
   CombineArchiveSedDocSpecs,
@@ -16,16 +15,21 @@ import {
 } from '@biosimulations/combine-api-angular-client';
 import { ActivatedRoute } from '@angular/router';
 import {
-  CustomizableSedDocumentData,
   CustomSimulationDatasource,
   FormStepData,
-  ModelData,
   ReRunQueryParams,
   SEDML_ID_VALIDATOR,
   SharedSimulationService,
-  SimMethodData,
   UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR,
 } from '@biosimulations/shared/services';
+
+export interface IntrospectionParams {
+  modelFile?: CommonFile;
+  modelLanguage?: string;
+  simulationType?: string;
+  framework?: string;
+  kisaoId?: string;
+}
 
 @Component({
   selector: 'biosimulations-run-custom-simulation',
@@ -35,22 +39,17 @@ import {
 export class RunCustomSimulationComponent implements OnInit, OnChanges {
   // data loaded from rerun query params
   public reRunParams!: ReRunQueryParams;
-  public simMethodData!: SimMethodData;
-  public modelData!: ModelData;
   public simulationDataSource!: CustomSimulationDatasource;
   public formArray: UntypedFormArray;
   public sedDoc!: SedDocument;
-  public simType!: SimulationType;
-
-  public kisaoId!: string;
-  public simulationType!: string;
 
   // network data
-  public reRunSedData$!: Observable<CombineArchiveSedDocSpecs | undefined>;
   public introspectionData$?: Observable<SedDocument | any>;
-
+  public kisaoId!: string;
+  public simulationType!: string;
   public modelFile!: CommonFile; // set in onInit
   public modelChanges!: SedModelChange[];
+  public modelLanguage!: string;
 
   // lifecycle
   public nextClicked = false;
@@ -72,6 +71,8 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
 
   public ngOnInit() {
     this.addDefaultFields();
+
+    /* 1. Derive and set vals from query params */
     this.route.queryParams.subscribe((params) => {
       this.reRunParams = {
         projectUrl: params?.projectUrl,
@@ -89,7 +90,7 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
             }
             break;
           case file as File:
-            console.log(`Reg File: ${file.name}`);
+            break;
         }
       });
     });
@@ -118,39 +119,6 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
       this.addModelChangeField();
     }
   }
-
-  private introspectionProvider(): Observable<void | null> | null {
-    const errorHandler = this.showIntrospectionFailedSnackbar.bind(this);
-    const formatData = this.simulationDataSource?.modelData;
-    const simMethodData = this.simulationDataSource?.simMethodData;
-    const introspectionObservable = this.simulationService.introspectNewProject(
-      this.httpClient,
-      formatData,
-      simMethodData,
-      errorHandler,
-    );
-    if (!introspectionObservable) {
-      return null;
-    }
-    return introspectionObservable.pipe(
-      map((introspectionData: CustomizableSedDocumentData | null) => {
-        if (introspectionData) {
-          this.simulationDataSource.introspectedData = introspectionData;
-        }
-      }),
-    );
-  }
-
-  /*private populateModelChangesForm(): void {
-    // remember that here the introspection comes from the model changes
-    this.introspectionData$?.subscribe((introspection: CustomizableSedDocumentData | null) => {
-      const introspectedChanges: SedModelChange[] | undefined = introspection?.modelChanges;
-      if (introspectedChanges) {
-        this.loadIntrospectedModelChanges(introspectedChanges);
-        console.log(introspectedChanges);
-      }
-    });
-  }*/
 
   /**
    * Preloads any model changes parsed out of the uploaded SedDocument into the form.
@@ -229,12 +197,14 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
       newValue: [modelChange?.newValue, []],
     });
     modelChangeForm.controls.default.disable();
+    console.log(`ADDED: ${modelChangeForm.get('newValue')?.value}`);
     this.formArray.push(modelChangeForm);
   }
 
   private addFieldForModelChange(modelChange: SedModelChange): void {
     // TODO: Support additional change types.
     if (modelChange && modelChange._type !== SedModelAttributeChangeTypeEnum.SedModelAttributeChange) {
+      console.log('cant');
       return;
     }
     this.addModelChangeField({
@@ -268,39 +238,30 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
         if (edamId) {
           modelFormats.add(edamId);
         }
-        this.modelData = {
-          modelFile: model?.name as unknown as Blob,
-          modelFormat: Array.from(modelFormats)[0],
-          modelChanges: model.changes,
-          modelLanguage: model.language,
-        };
+        this.modelLanguage = model.language;
       });
     });
 
     // get the simType
     this.sedDoc.simulations.forEach((sim: SedSimulation): void => {
-      const kisaoId = sim.algorithm.kisaoId;
-      this.kisaoId = kisaoId;
-      simulationAlgorithms.add(kisaoId);
-      simulations.add(sim);
+      this.kisaoId = sim.algorithm.kisaoId;
       this.simulationType = sim._type;
-      this.simMethodData = {
-        simulationType: this.simType,
-        algorithm: kisaoId,
-      };
     });
 
     // introspect:
     const modelingFramework = 'SBO_0000293'; // TODO: Make this dynamic
     this.introspectionData$ = this.simulationService.getIntrospectionData(
       this.modelFile,
-      this.modelData.modelLanguage,
+      this.modelLanguage,
       this.simulationType,
       modelingFramework,
       this.kisaoId,
     );
-
     // NOTE: we must populate the form during, and only during this subscription!!!
+    this.extractIntrospection();
+  }
+
+  public extractIntrospection(): void {
     if (this.introspectionData$) {
       this.introspectionData$.subscribe({
         next: (sedDocument: SedDocument) => {
@@ -311,11 +272,11 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
                 this.modelChanges = model.changes;
                 modelChanges.push(...model.changes);
                 break;
-              // TODO: now populate the form
             }
           });
-          modelChanges.forEach((c: any) => {
-            console.log(`the change: ${c.newValue}`);
+          // TODO: now populate the form!!!
+          modelChanges.forEach((c: any, i: number) => {
+            console.log(`the introspected change #${i}: ${c.newValue}`);
           });
           console.log(`INTROSPECTION SET FROM QUERY PARAMS AND COMBINE API!`);
         },
