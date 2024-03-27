@@ -86,9 +86,11 @@ export class SimulatorTypeComponent implements IFormStepComponent {
     if (!this.formGroup.valid) {
       return null;
     }
+
     const frameworkId = this.formGroup.value.framework;
     const simulationType = this.formGroup.value.simulationType as SimulationType;
     const algorithmId = this.formGroup.value.algorithm;
+    console.log(`${frameworkId}, ${simulationType}, ${algorithmId}`);
     return {
       framework: frameworkId,
       simulationType: simulationType,

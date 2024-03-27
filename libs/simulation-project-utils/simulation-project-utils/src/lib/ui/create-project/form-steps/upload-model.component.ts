@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { CreateMaxFileSizeValidator, URL_VALIDATOR } from '@biosimulations/shared/ui';
 import { OntologyTerm } from '../../../../index';
 import {
@@ -18,7 +18,7 @@ import { ConfigService } from '@biosimulations/config/angular';
   templateUrl: './upload-model.component.html',
   styleUrls: ['./form-steps.scss'],
 })
-export class UploadModelComponent implements IFormStepComponent, OnInit {
+export class UploadModelComponent implements IFormStepComponent, OnInit, OnChanges {
   public formGroup: UntypedFormGroup;
   public uploadArchiveFormGroup: UntypedFormGroup;
   public modelFormats?: OntologyTerm[];
@@ -28,6 +28,7 @@ export class UploadModelComponent implements IFormStepComponent, OnInit {
   public archiveDetected?: boolean;
   public uploadArchive!: boolean;
   public stepName = 'uploadFile';
+  public uploadedFile!: string;
 
   public constructor(private formBuilder: UntypedFormBuilder, private config: ConfigService) {
     // todo: seperate form group here
@@ -36,7 +37,8 @@ export class UploadModelComponent implements IFormStepComponent, OnInit {
         modelFile: [null, [CreateMaxFileSizeValidator(this.config)]],
         modelUrl: [null, [URL_VALIDATOR]],
         modelFormat: [null, [Validators.required]],
-        archiveUrl: [null],
+        archiveUrl: [null, ''],
+        archiveFile: [null, ''],
       },
       {
         validators: this.formValidator.bind(this),
@@ -44,7 +46,8 @@ export class UploadModelComponent implements IFormStepComponent, OnInit {
     );
 
     this.uploadArchiveFormGroup = this.formBuilder.group({
-      archiveFile: [null],
+      archiveFile: [null, ''],
+      archiveUrl: [null, ''],
     });
   }
 
@@ -54,10 +57,15 @@ export class UploadModelComponent implements IFormStepComponent, OnInit {
     }
   }
 
+  public ngOnChanges(changes: SimpleChanges) {
+    this.onFileSelected(changes);
+  }
+
   public populateFormFromFormStepData(formStepData: FormStepData): void {
-    if (!this.uploadArchive) {
+    if (this.archiveDetected) {
       this.uploadArchiveFormGroup.controls.archiveFile.setValue(formStepData.archiveFile);
     } else {
+      console.log(`the format data: ${formStepData.modelFormat}`);
       this.formGroup.controls.modelFormat.setValue(formStepData.modelFormat);
       this.formGroup.controls.modelUrl.setValue(formStepData.modelUrl);
     }
@@ -84,18 +92,11 @@ export class UploadModelComponent implements IFormStepComponent, OnInit {
       }
     });
 
-    if (this.archiveDetected) {
-      console.log(`returning archive`);
-      return {
-        archiveFile: modelFile,
-      };
-    } else {
-      return {
-        modelUrl: modelUrl,
-        modelFile: modelFile,
-        modelFormat: modelFormat,
-      };
-    }
+    return {
+      modelUrl: modelUrl,
+      modelFile: modelFile,
+      modelFormat: modelFormat,
+    };
   }
 
   public supportedFileTypes(): string {
@@ -130,22 +131,20 @@ export class UploadModelComponent implements IFormStepComponent, OnInit {
     const file = event.target.files[0];
     console.log(`${event.target.files}`);
     if (file) {
+      this.uploadedFile = file;
       const fileType = this.detectFileType(file); // Implement this method based on file name or content
       console.log(`File detected in upload model!: ${fileType}`);
       this.fileTypeDetected.emit(fileType);
+      console.log(`${this.uploadedFile}`);
     }
   }
 
   public detectFileType(file: File): string {
-    // Implement file type detection logic here
-    // This could be as simple as checking the file extension, or more complex analysis
-    const extension = file.name.split('.').pop();
+    const extension = file.name.split('.').pop() as string;
     if (extension === 'omex') {
       this.archiveDetected = true;
-      return 'OMEX';
     }
-    // Add more conditions as needed
-    return 'UNKNOWN';
+    return extension;
   }
 
   archiveIsUploaded(archiveUploaded: boolean) {

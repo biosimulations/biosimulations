@@ -12,6 +12,7 @@ import {
   SedSimulation,
   SedModelAttributeChangeTypeEnum,
   SedModelChange,
+  SedModelAttributeChange,
 } from '@biosimulations/combine-api-angular-client';
 import { ActivatedRoute } from '@angular/router';
 import {
@@ -124,12 +125,12 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
    * Preloads any model changes parsed out of the uploaded SedDocument into the form.
    * @param introspectedModelChanges SedModelChange instances parsed out of the uploaded SedDocument.
    */
-  public loadIntrospectedModelChanges(introspectedModelChanges: SedModelChange[]): void {
+  public loadIntrospectedModelChanges(introspectedModelChanges: SedModelAttributeChange[]): void {
     if (introspectedModelChanges.length === 0) {
       return;
     }
     this.formArray.clear();
-    introspectedModelChanges.forEach((change: SedModelChange) => {
+    introspectedModelChanges.forEach((change: SedModelAttributeChange) => {
       this.addFieldForModelChange(change);
     });
   }
@@ -268,20 +269,31 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
           const modelChanges: any[] = [];
           sedDocument.models?.forEach((model: any) => {
             switch (model?.changes) {
-              case model.changes as SedModelAttributeChangeTypeEnum[]:
-                this.modelChanges = model.changes;
+              case model.changes as SedModelAttributeChange[]:
                 modelChanges.push(...model.changes);
+                modelChanges.forEach((change: SedModelAttributeChange) => {
+                  console.log(`${change.newValue}`);
+                });
                 break;
             }
           });
           // TODO: now populate the form!!!
-          modelChanges.forEach((c: any, i: number) => {
+          modelChanges.forEach((c: SedModelAttributeChange, i: number) => {
             console.log(`the introspected change #${i}: ${c.newValue}`);
           });
+          this.loadIntrospectedModelChanges(modelChanges);
           console.log(`INTROSPECTION SET FROM QUERY PARAMS AND COMBINE API!`);
         },
       });
     }
+  }
+
+  public createChangeForm(modelChange: SedModelAttributeChange): UntypedFormGroup {
+    return this.formBuilder.group({
+      id: [modelChange.id, Validators.required],
+      name: [modelChange.name],
+      newValue: [modelChange.newValue],
+    });
   }
 
   private showIntrospectionFailedSnackbar(modelUrl: string): string | undefined {

@@ -726,6 +726,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
             continue;
           }
           edamId = modelingFormat.id;
+          console.log(`edam: ${edamId}`);
         }
         if (edamId) {
           modelFormats.add(edamId);
