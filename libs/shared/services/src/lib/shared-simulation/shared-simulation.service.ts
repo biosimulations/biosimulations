@@ -537,7 +537,7 @@ export class SharedSimulationService {
     simulationType: string,
     modelingFramework: string,
     simulationAlgorithm: string,
-    modelUrl: string = '',
+    modelUrl = '',
   ): Observable<SedDocument | null> {
     const formData = new FormData();
     formData.append('modelFile', modelFile, modelFile.name);
