@@ -50,8 +50,9 @@ export function IntrospectNewProject(
   Object.keys(modelData).forEach((p) => {
     console.log(`THE MODEL DATA KEY VALUE: ${modelData[p]}`);
   });
-  // console.log(`THE FILE: ${modelData.modelFile?.name}`);
+
   const modelUrl = modelData?.modelUrl as string;
+  console.log(`THE MODEL URL BEING USED: ${modelUrl}`);
   const endpoints = new Endpoints();
   const introspectionEndpoint = endpoints.getModelIntrospectionEndpoint(false);
   const introspectionObservable = PostNewProjectSedDocument(
