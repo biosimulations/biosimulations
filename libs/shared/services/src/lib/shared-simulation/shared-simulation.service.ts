@@ -59,16 +59,17 @@ export interface CustomizableSedDocumentData {
 }
 
 export interface SimMethodData extends FormStepData {
-  simulationType?: SimulationType;
+  simulationType?: SimulationType | string;
   algorithm?: string;
   framework?: string;
 }
 
 export interface ModelData extends FormStepData {
   modelFormat: string;
-  modelFile?: Blob;
+  modelFile?: Blob | File | string;
   modelUrl?: string;
   modelChanges?: SedModelChange[];
+  modelLanguage: string; // urn identifier
 }
 
 export interface CustomSimulationDatasource {
@@ -532,22 +533,24 @@ export class SharedSimulationService {
   }
 
   public getIntrospectionData(
-    modelFile: File,
+    modelFile: File | CommonFile,
     modelLanguage: string,
     simulationType: string,
     modelingFramework: string,
-    simulationAlgorithm: string,
+    kisaoId: string,
     modelUrl = '',
   ): Observable<SedDocument | null> {
+    /* modelLanguage ie: urn:sedml:language:sbml
+       modelingFramework ie: SBO_0000293
+       simulationType ie: SedUniformTimeCourseSimulation
+     */
     const formData = new FormData();
-    formData.append('modelFile', modelFile, modelFile.name);
+    formData.append('modelFile', modelFile as File);
     formData.append('modelLanguage', modelLanguage);
     formData.append('simulationType', simulationType);
     formData.append('modelingFramework', modelingFramework);
-    formData.append('simulationAlgorithm', simulationAlgorithm);
-    if (modelUrl) {
-      formData.append('modelUrl', modelUrl);
-    }
+    formData.append('simulationAlgorithm', kisaoId);
+    formData.append('modelUrl', null);
 
     const introspectionEndpoint = this.endpoints.getModelIntrospectionEndpoint(false);
     return this.httpClient.post<SedDocument>(introspectionEndpoint, formData).pipe(
