@@ -241,13 +241,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
       if (params['files']) {
         try {
           const filesContent = JSON.parse(params['files'] as string) as CommonFile[];
-          filesContent.forEach((file) => {
-            console.log(`File URL: ${file.id}, ${file.format}`);
-            console.log(Object.keys(file));
-            //this.projectFiles.push(filesContent);
-          });
           this.reRunNetworkParams = params;
-
           // set the reRunQueryData controls with the params (files, project url)
           const queryParamsForm: UntypedFormGroup = this.formBuilder.group({
             files: [filesContent],

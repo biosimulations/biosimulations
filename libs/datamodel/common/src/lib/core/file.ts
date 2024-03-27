@@ -10,8 +10,6 @@ export interface File {
   master: boolean;
 }
 
-export interface CommonFile {
-  id: string;
-  url: string;
-  format?: string;
+export interface CommonFile extends File {
+  isReRun?: boolean;
 }
