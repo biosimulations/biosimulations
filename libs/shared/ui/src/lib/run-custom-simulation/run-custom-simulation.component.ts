@@ -300,17 +300,24 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
       this.kisaoId,
     );
 
+    // NOTE: we must populate the form during, and only during this subscription!!!
     if (this.introspectionData$) {
-      console.log(`INTROSPECTION SET!`);
       this.introspectionData$.subscribe({
         next: (sedDocument: SedDocument) => {
+          const modelChanges: any[] = [];
           sedDocument.models?.forEach((model: any) => {
             switch (model?.changes) {
               case model.changes as SedModelAttributeChangeTypeEnum[]:
                 this.modelChanges = model.changes;
+                modelChanges.push(...model.changes);
+                break;
               // TODO: now populate the form
             }
           });
+          modelChanges.forEach((c: any) => {
+            console.log(`the change: ${c.newValue}`);
+          });
+          console.log(`INTROSPECTION SET FROM QUERY PARAMS AND COMBINE API!`);
         },
       });
     }
