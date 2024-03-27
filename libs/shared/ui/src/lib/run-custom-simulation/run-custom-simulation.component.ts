@@ -48,8 +48,9 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
   // network data
   public reRunSedData$!: Observable<CombineArchiveSedDocSpecs | undefined>;
   public introspectionData$?: Observable<SedDocument | any>;
-  public modelFileUrl!: string; // file to introspect!
-  public modelFile!: CommonFile;
+
+  public modelFile!: CommonFile; // set in onInit
+  public modelChanges!: SedModelChange[];
 
   // lifecycle
   public nextClicked = false;
@@ -83,10 +84,8 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
       projectFiles.forEach((file: any) => {
         switch (file) {
           case file as CommonFile:
-            console.log(`This is a CommonFile: ${file.url}`);
             if (file.url.includes('xml') || file.url.includes('sbml')) {
               this.modelFile = file;
-              console.log(`URL: ${Object.keys(this.modelFile)}`);
             }
             break;
           case file as File:
@@ -95,27 +94,17 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
       });
     });
 
-    //onsole.log(`The file: ${this.modelFile.name}`)
-
     console.log(`RERUN PARAMS RECIEVED FROM QUERY: ${this.reRunParams.projectUrl}, ${this.reRunParams.simulator}`);
 
     /* 2. Introspect datasource */
     if (this.archive) {
-      // 1. Set the simMethod data and modelData from simService.getspecsofseddocs
+      // A. Set the simMethod data and modelData from simService.getspecsofseddocs
       const reRunSedData$ = this.simulationService.getSpecsOfSedDocsInCombineArchive(this.archive);
       reRunSedData$.subscribe((sedDocSpecs: CombineArchiveSedDocSpecs | undefined) => {
-        // 2. Run introspection from sedDocsSpecs
+        // B. Run introspection from sedDocsSpecs
         this.archiveSedDocSpecsLoaded(sedDocSpecs);
       });
     }
-
-    //this.introspectionData$ = this.introspectionProvider();
-
-    // ensure that Customed data is properly set and returned to dispatch/router.navigate
-
-    // 1. Set the datasource (CustomSimulationDataSource) by deriving vals from reRunProject query params
-    // 2. set this.introspectedData$ = this.introspectionProvider(customDataSource) , coming from file.
-    // 3. simply then call this.populateModelChangesForm
   }
 
   public ngOnChanges(changes: SimpleChanges) {
@@ -315,15 +304,12 @@ export class RunCustomSimulationComponent implements OnInit, OnChanges {
       console.log(`INTROSPECTION SET!`);
       this.introspectionData$.subscribe({
         next: (sedDocument: SedDocument) => {
-          sedDocument.models.forEach((model: any) => {
-            model.changes.forEach((change: SedModelChange | any, index: number) => {
-              switch (change) {
-                case change as SedModelAttributeChangeTypeEnum:
-                  console.log(`INTROSPECTED CHANGE ${index}: ${change.newValue}`);
-                  break;
-              }
-            });
-            console.log(`THE LEN: ${model.changes.length}`);
+          sedDocument.models?.forEach((model: any) => {
+            switch (model?.changes) {
+              case model.changes as SedModelAttributeChangeTypeEnum[]:
+                this.modelChanges = model.changes;
+              // TODO: now populate the form
+            }
           });
         },
       });
