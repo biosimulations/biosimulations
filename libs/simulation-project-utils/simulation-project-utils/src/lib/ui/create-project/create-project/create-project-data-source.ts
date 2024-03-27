@@ -15,7 +15,7 @@ import { CustomizableSedDocumentData } from '../../../service/create-project/pro
 import { SimulatorsData } from '../../../service/dispatch/dispatch.service';
 import { ViewContainerRef } from '@angular/core';
 import { SimulationType, AlgorithmSubstitution } from '@biosimulations/datamodel/common';
-import { Params } from '@angular/router';
+import { Params, Router } from '@angular/router';
 import {
   UploadModelComponent,
   UniformTimeCourseSimulationComponent,
@@ -137,8 +137,11 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
       return;
     }
 
+    console.log(`Create project got params: ${params.modelUrl}`);
+    console.log(`Got model format: ${params.modelingFramework}`);
     this.preloadUploadModelData(params.modelUrl, params.modelFormat);
     this.preloadSimMethodData(params.modelingFramework, params.simulationType, params.simulationAlgorithm);
+    //this.router.navigate(["create-project/model-changes"], { queryParams: params })
   }
 
   private preloadUploadModelData(modelUrl: string, modelFormat: string): void {
