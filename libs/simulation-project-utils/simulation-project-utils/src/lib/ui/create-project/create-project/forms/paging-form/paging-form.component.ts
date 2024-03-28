@@ -15,6 +15,7 @@ export class PagingFormComponent<TStepId extends string> implements OnDestroy, A
   @ViewChildren(FormHostDirective) public formHostQuery!: QueryList<FormHostDirective>;
 
   @Input() public dataSource?: IMultiStepFormDataSource<TStepId>;
+  @Input() public isReRun? = false;
 
   public shouldShowSpinner = false;
   public loadingText: string | null = null;
@@ -78,12 +79,11 @@ export class PagingFormComponent<TStepId extends string> implements OnDestroy, A
     if (!stepValidated || !this.dataSource || !currentStep) {
       return;
     }
+
     this.formPath.push(currentStep);
     const task = this.dataSource.startDataTask(currentStep);
     console.log(`NEXT CLICK DETECTS: ${this.fileUploadComponent.archiveDetected}, ${currentStep}`);
-    if (currentStep.includes('uploadfile') && this.fileUploadComponent.archiveDetected) {
-      console.log(`NEXT CLICK DETECTS ARCHIVE!`);
-    }
+
     if (task) {
       this.showSpinner(task);
     } else {
@@ -175,7 +175,8 @@ export class PagingFormComponent<TStepId extends string> implements OnDestroy, A
 
     const stepIndex = formSteps.indexOf(currentStep);
     for (let i = stepIndex + 1; i < formSteps.length; i++) {
-      const potentialStep = formSteps[i];
+      const potentialStep =
+        currentStep.includes('UploadModel') && this.isReRun ? ('ModelChanges' as TStepId) : formSteps[i];
       if (this.dataSource.shouldShowFormStep(potentialStep)) {
         return true;
       }
