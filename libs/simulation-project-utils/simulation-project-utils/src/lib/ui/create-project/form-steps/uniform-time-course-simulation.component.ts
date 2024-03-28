@@ -2,7 +2,6 @@ import { Component, OnChanges, SimpleChanges } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { IFormStepComponent, FormStepData } from '../create-project/forms';
 import {
-  POSITIVE_INTEGER_VALIDATOR,
   NON_NEGATIVE_FLOAT_VALIDATOR,
   UNIFORM_TIME_SPAN_VALIDATOR,
 } from '@biosimulations/shared/ui';
