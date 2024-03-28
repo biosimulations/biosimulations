@@ -7,6 +7,8 @@ import {
   CombineArchiveSedDocSpecs,
   CombineArchiveSedDocSpecsContent,
   SedDocument,
+  SedModel,
+  SedSimulation,
 } from '@biosimulations/combine-api-angular-client';
 import {
   SedModelChange,
@@ -21,7 +23,7 @@ import {
   SedDataSet,
   SedUniformTimeCourseSimulationTypeEnum,
 } from '@biosimulations/combine-api-angular-client';
-import { BIOSIMULATIONS_FORMATS_BY_ID } from '@biosimulations/ontology/extra-sources';
+import { BIOSIMULATIONS_FORMATS, BIOSIMULATIONS_FORMATS_BY_ID } from '@biosimulations/ontology/extra-sources';
 import { environment } from '@biosimulations/shared/environments';
 import { Injectable } from '@angular/core';
 import { forkJoin, Subject } from 'rxjs';
@@ -57,6 +59,10 @@ export interface ReRunQueryParams {
   simulationType?: string;
   simulationAlgorithm?: string;
   modelingFramework?: string;
+  initialTime?: string;
+  startTime?: string;
+  endTime?: string;
+  numSteps?: string;
 }
 
 export interface CustomizableSedDocumentData {
@@ -203,15 +209,18 @@ export class SharedSimulationService {
             runName: simulationRun.name + ' (rerun)',
             files: JSON.stringify(filesContent),
             modelUrl: '',
-            modelFormat: 'format_2585',
+            modelFormat: '',
             simulationAlgorithm: '',
             simulationType: '',
-            modelingFramework: 'SBO_0000293',
+            modelingFramework: '',
+            initialTime: '',
+            startTime: '',
+            endTime: '',
+            numSteps: '',
           };
 
           // identify and set modelUrl and potentially other parameters based on filesContent analysis
-          filesContent.forEach((file: any) => {
-            console.log(`AN ITEM: ${file.id}`);
+          filesContent.forEach((file: CommonFile) => {
             switch (file) {
               case file as CommonFile:
                 if (file.url.includes('xml') || file.url.includes('sbml')) {
@@ -220,15 +229,36 @@ export class SharedSimulationService {
                 break;
             }
           });
+
           // fetch SED document specs and update queryParams accordingly
           return this.getSpecsOfSedDocsInCombineArchive(projectUrl).pipe(
             map((sedDocSpecs) => {
               sedDocSpecs?.contents.forEach((content: CombineArchiveSedDocSpecsContent): void => {
                 const sedDoc: SedDocument = content.location.value;
-                sedDoc.simulations.forEach((sim: any): void => {
-                  queryParams.simulationAlgorithm += sim.algorithm.kisaoId;
-                  queryParams.simulationType += sim._type;
-                  //queryParams.modelingFramework = 'SBO_0000293'; // TODO: make this dynamic
+                sedDoc.models.forEach((model: SedModel): void => {
+                  let edamId: string | null = null;
+                  for (const modelingFormat of BIOSIMULATIONS_FORMATS) {
+                    const sedUrn = modelingFormat?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn;
+                    if (!sedUrn || !modelingFormat.id || !model.language.startsWith(sedUrn)) {
+                      continue;
+                    }
+                    edamId = modelingFormat.id;
+                  }
+                  queryParams.modelFormat = edamId ? edamId : 'format_2585'; // default is sbml TODO: Change this
+                });
+
+                sedDoc.simulations.forEach((sim: SedSimulation): void => {
+                  switch (sim) {
+                    case sim as SedUniformTimeCourseSimulation:
+                      queryParams.initialTime = `${sim.initialTime}`;
+                      queryParams.endTime = `${sim.outputEndTime}`;
+                      queryParams.startTime = `${sim.outputStartTime}`;
+                      queryParams.numSteps = `${sim.numberOfSteps};`;
+                      queryParams.simulationAlgorithm = sim.algorithm.kisaoId;
+                      queryParams.simulationType = sim._type;
+                      queryParams.modelingFramework = 'SBO_0000293'; // TODO: make this dynamic
+                      break;
+                  }
                 });
               });
               return queryParams;
@@ -237,8 +267,6 @@ export class SharedSimulationService {
         }),
       )
       .subscribe((queryParams) => {
-        // All data has been fetched and queryParams is fully populated
-        // Navigate with the fully populated queryParams
         this.router.navigate(['/utils/create-project'], { queryParams: queryParams }).then((success) => {
           if (!success) {
             console.error('Navigation failed');
