@@ -345,7 +345,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     /* Check project url for being a download (rerun). */
     const projectUrl: string = this.formGroup.get('projectUrl')?.value;
     const urlHasReRun = projectUrl.includes('biosimulations') && projectUrl.includes('download');
-    this.isReRun = this.simulationService.reRunTriggered || urlHasReRun;
+    //this.isReRun = this.simulationService.reRunTriggered || urlHasReRun;
   }
 
   // Form Submission

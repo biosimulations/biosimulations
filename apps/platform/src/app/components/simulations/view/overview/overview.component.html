@@ -77,9 +77,23 @@
           </tr>
         </table>
         <div class="rerun-button-container-platform">
-          <button (click)="rerunProject(simulation.id)" mat-flat-button class="rerun-project-button">
-            Re-run Project
-            <biosimulations-icon icon="reuse" style="margin-left: 1rem"></biosimulations-icon>
+          <button
+            (click)="rerunProject(simulation.id)"
+            mat-flat-button
+            class="rerun-project-button"
+            matTooltip="Re-run Original Simulation">
+            Re-run Original Simulation
+            <biosimulations-icon icon="reuse" style="margin-left: 0.5rem"></biosimulations-icon>
+          </button>
+        </div>
+        <div class="rerun-button-container-platform custom">
+          <button
+            (click)="rerunCustomProject(simulation.id)"
+            matTooltip="Customize & Re-run Simulation"
+            mat-flat-button
+            class="rerun-project-button">
+            Customize Simulation
+            <biosimulations-icon icon="controls" style="margin-left: 0.5rem"></biosimulations-icon>
           </button>
         </div>
       </ng-container>

@@ -168,9 +168,24 @@ export class SharedSimulationService {
     this.createSimulationsArray();
   }
 
-  // Add the new rerunProject method
-
+  // original rerun project method:
   public rerunProject(id: string): void {
+    const endpoints = new Endpoints();
+
+    this.httpClient
+      .get<SimulationRun>(endpoints.getSimulationRunEndpoint(true, id))
+      .subscribe((simulationRun: SimulationRun): void => {
+        const queryParams = {
+          projectUrl: endpoints.getSimulationRunDownloadEndpoint(true, id),
+          simulator: simulationRun.simulator,
+          simulatorVersion: simulationRun.simulatorVersion,
+          runName: simulationRun.name + ' (rerun)',
+        };
+        this.router.navigate(['/runs/new'], { queryParams: queryParams });
+      });
+  }
+
+  public rerunCustomProject(id: string): void {
     /*
       - Get Simulation Run data along with simulation run archive files array
       - Use fetched data to instantiate router Params as ReRunQueryParams
