@@ -8,7 +8,6 @@ import { map } from 'rxjs/operators';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { environment } from '@biosimulations/shared/environments';
 import { ConfigService } from '@biosimulations/config/angular';
 import { HtmlSnackBarComponent } from '@biosimulations/shared/ui';
 import { CreateSimulationParams, SubmitFormData } from './project-submission';
