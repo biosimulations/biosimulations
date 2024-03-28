@@ -1,5 +1,5 @@
 import { AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
-import { Observable, of, BehaviorSubject, combineLatest, throwError } from 'rxjs';
+import { Observable, of, BehaviorSubject, combineLatest, throwError, switchMap } from 'rxjs';
 import { catchError, map, concatAll, debounceTime, shareReplay } from 'rxjs/operators';
 import { HttpClient, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { SimulationType, CommonFile } from '@biosimulations/datamodel/common';
@@ -186,6 +186,68 @@ export class SharedSimulationService {
   }
 
   public rerunCustomProject(id: string): void {
+    const simulationRun$ = this.httpClient.get<SimulationRun>(this.endpoints.getSimulationRunEndpoint(true, id));
+    const filesContent$ = this.httpClient
+      .get(this.endpoints.getSimulationRunFilesEndpoint(true, id), { responseType: 'text' })
+      .pipe(map((content) => JSON.parse(content) as CommonFile[]));
+
+    forkJoin({ simulationRun: simulationRun$, filesContent: filesContent$ })
+      .pipe(
+        switchMap(({ simulationRun, filesContent }) => {
+          const projectUrl = this.endpoints.getSimulationRunDownloadEndpoint(true, id);
+          const queryParams: ReRunQueryParams = {
+            projectUrl: projectUrl,
+            simulator: simulationRun.simulator,
+            simulatorVersion: simulationRun.simulatorVersion,
+            runName: simulationRun.name + ' (rerun)',
+            files: JSON.stringify(filesContent),
+            // Initialize other fields with default values or nulls if needed
+            modelUrl: '',
+            modelFormat: 'format_2585', // Placeholder, adjust as necessary
+            simulationAlgorithm: '',
+            simulationType: '',
+            modelingFramework: 'SBO_0000293', // Placeholder, adjust as necessary
+          };
+
+          // identify and set modelUrl and potentially other parameters based on filesContent analysis
+          filesContent.forEach((file: any) => {
+            console.log(`AN ITEM: ${file.id}`);
+            switch (file) {
+              case file as CommonFile:
+                if (file.url.includes('xml') || file.url.includes('sbml')) {
+                  queryParams.modelUrl = file.url;
+                }
+                break;
+            }
+          });
+          // fetch SED document specs and update queryParams accordingly
+          return this.getSpecsOfSedDocsInCombineArchive(projectUrl).pipe(
+            map((sedDocSpecs) => {
+              sedDocSpecs?.contents.forEach((content: CombineArchiveSedDocSpecsContent): void => {
+                const sedDoc: SedDocument = content.location.value;
+                sedDoc.simulations.forEach((sim: any): void => {
+                  queryParams.simulationAlgorithm += sim.algorithm.kisaoId;
+                  queryParams.simulationType += sim._type;
+                  //queryParams.modelingFramework = 'SBO_0000293'; // TODO: make this dynamic
+                });
+              });
+              return queryParams;
+            }),
+          );
+        }),
+      )
+      .subscribe((queryParams) => {
+        // All data has been fetched and queryParams is fully populated
+        // Navigate with the fully populated queryParams
+        this.router.navigate(['/utils/create-project'], { queryParams: queryParams }).then((success) => {
+          if (!success) {
+            console.error('Navigation failed');
+          }
+        });
+      });
+  }
+
+  public _rerunCustomProject(id: string): void {
     /*
       - Get Simulation Run data along with simulation run archive files array
       - Use fetched data to instantiate router Params as ReRunQueryParams
@@ -215,6 +277,7 @@ export class SharedSimulationService {
               if (file.url.includes('xml') || file.url.includes('sbml')) {
                 queryParams.modelUrl = file.url;
               }
+              break;
           }
           queryParams.modelFormat = 'format_2585'; // TODO: change this
 

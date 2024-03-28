@@ -137,8 +137,8 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
       return;
     }
 
-    console.log(`Create project got params: ${params.modelUrl}`);
-    console.log(`Got model format: ${params.modelingFramework}`);
+    console.log(`Create project got params modelURL: ${params.modelUrl}`);
+    console.log(`Got modelingFramework param: ${params.modelingFramework}`);
     this.preloadUploadModelData(params.modelUrl, params.modelFormat);
     this.preloadSimMethodData(params.modelingFramework, params.simulationType, params.simulationAlgorithm);
     //this.router.navigate(["create-project/model-changes"], { queryParams: params })
