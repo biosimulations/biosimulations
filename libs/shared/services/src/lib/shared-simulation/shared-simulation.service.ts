@@ -46,9 +46,6 @@ import { SimulationRunService } from '@biosimulations/angular-api-client';
 export type FormStepData = Record<string, unknown>;
 
 export interface ReRunQueryParams {
-  /* we will use this to be the common datastore between:
-        overview -> changes -> dispatch(run)
-  */
   projectUrl?: string;
   simulator?: string;
   simulatorVersion?: string;
@@ -59,10 +56,10 @@ export interface ReRunQueryParams {
   simulationType?: string;
   simulationAlgorithm?: string;
   modelingFramework?: string;
-  initialTime?: string;
-  startTime?: string;
-  endTime?: string;
-  numSteps?: string;
+  initialTime?: string | number;
+  startTime?: string | number;
+  endTime?: string | number;
+  numSteps?: string | number;
 }
 
 export interface CustomizableSedDocumentData {
@@ -250,10 +247,10 @@ export class SharedSimulationService {
                 sedDoc.simulations.forEach((sim: SedSimulation): void => {
                   switch (sim) {
                     case sim as SedUniformTimeCourseSimulation:
-                      queryParams.initialTime = `${sim.initialTime}`;
-                      queryParams.endTime = `${sim.outputEndTime}`;
-                      queryParams.startTime = `${sim.outputStartTime}`;
-                      queryParams.numSteps = `${sim.numberOfSteps};`;
+                      queryParams.initialTime = sim.initialTime;
+                      queryParams.endTime = sim.outputEndTime;
+                      queryParams.startTime = sim.outputStartTime;
+                      queryParams.numSteps = sim.numberOfSteps;
                       queryParams.simulationAlgorithm = sim.algorithm.kisaoId;
                       queryParams.simulationType = sim._type;
                       queryParams.modelingFramework = 'SBO_0000293'; // TODO: make this dynamic

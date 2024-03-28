@@ -140,9 +140,10 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     console.log(`Create project got params modelURL: ${params.modelUrl}`);
     console.log(`Got modelingFramework param: ${params.modelingFramework}`);
     console.log(`Got simtype and alg param: ${params.simulationType}, ${params.simulationAlgorithm}`);
+    console.log(`Got num steps from param: ${params.numSteps}`);
     this.preloadUploadModelData(params.modelUrl, params.modelFormat);
     this.preloadSimMethodData(params.modelingFramework, params.simulationType, params.simulationAlgorithm);
-    //this.router.navigate(["create-project/model-changes"], { queryParams: params })
+    this.preloadTCParams(params.initialTime, params.startTime, params.endTime, params.numSteps);
   }
 
   private preloadUploadModelData(modelUrl: string, modelFormat: string): void {
@@ -187,6 +188,16 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     simMethodData.simulationType = simulationType;
     simMethodData.algorithm = algorithm;
     this.formData[CreateProjectFormStep.FrameworkSimTypeAndAlgorithm] = simMethodData;
+  }
+
+  private preloadTCParams(initialTime: string, startTime: string, endTime: string, numSteps: string): void {
+    const timeCourseData = this.formData[CreateProjectFormStep.UniformTimeCourseSimulationParameters] || {};
+    timeCourseData.initialTime = initialTime;
+    timeCourseData.outputStartTime = startTime;
+    timeCourseData.outputEndTime = endTime;
+    timeCourseData.numberOfSteps = numSteps;
+    console.log(`GOT NUM STEPS FROM PARAMS: ${numSteps}`);
+    this.formData[CreateProjectFormStep.UniformTimeCourseSimulationParameters] = timeCourseData;
   }
 
   // Form step conditions
