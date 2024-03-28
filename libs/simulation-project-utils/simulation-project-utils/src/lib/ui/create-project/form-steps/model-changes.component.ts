@@ -19,6 +19,7 @@ export class ModelChangesComponent implements IFormStepComponent, OnChanges, OnI
     this.formArray = this.formBuilder.array([], {
       validators: [UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR('id')],
     });
+    this.addDefaultFields();
   }
 
   public ngOnInit() {
@@ -26,7 +27,6 @@ export class ModelChangesComponent implements IFormStepComponent, OnChanges, OnI
       this.formArray = this.sharedFormArray;
       console.log(`Shared form array set!`);
     }
-    this.addDefaultFields();
   }
 
   public ngOnChanges(changes: SimpleChanges) {
