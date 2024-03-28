@@ -46,12 +46,19 @@ mat-card-subtitle {
   color: var(--quaternary-darker-color);
 }
 
+.rerun-button-container-platform {
+  //display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .rerun-project-button {
   margin-top: 1rem;
   margin-left: 2rem;
   background-color: var(--accent-darker-color);
   color: white;
   font-weight: 700;
+  height: 50px;
 
   &:hover {
     background-color: var(--tertiary-darker-color);

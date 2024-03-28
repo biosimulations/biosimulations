@@ -23,7 +23,11 @@ export class OverviewComponent {
     this.sharedSimulationService.rerunProject(id);
   }
 
-  public __rerunProject(id: string): void {
+  public rerunCustomProject(id: string): void {
+    this.sharedSimulationService.rerunCustomProject(id);
+  }
+
+  public _rerunProject(id: string): void {
     this.platformSimulationService.rerunProject(id);
   }
 }
