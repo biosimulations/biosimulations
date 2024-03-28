@@ -185,6 +185,7 @@ export class SharedSimulationService {
       });
   }
 
+  // rerun custom method
   public rerunCustomProject(id: string): void {
     const simulationRun$ = this.httpClient.get<SimulationRun>(this.endpoints.getSimulationRunEndpoint(true, id));
     const filesContent$ = this.httpClient
@@ -201,12 +202,11 @@ export class SharedSimulationService {
             simulatorVersion: simulationRun.simulatorVersion,
             runName: simulationRun.name + ' (rerun)',
             files: JSON.stringify(filesContent),
-            // Initialize other fields with default values or nulls if needed
             modelUrl: '',
-            modelFormat: 'format_2585', // Placeholder, adjust as necessary
+            modelFormat: 'format_2585',
             simulationAlgorithm: '',
             simulationType: '',
-            modelingFramework: 'SBO_0000293', // Placeholder, adjust as necessary
+            modelingFramework: 'SBO_0000293',
           };
 
           // identify and set modelUrl and potentially other parameters based on filesContent analysis
@@ -245,92 +245,6 @@ export class SharedSimulationService {
           }
         });
       });
-  }
-
-  public _rerunCustomProject(id: string): void {
-    /*
-      - Get Simulation Run data along with simulation run archive files array
-      - Use fetched data to instantiate router Params as ReRunQueryParams
-      - Navigate to dispatch, emitting ReRunQueryParams
-     */
-    const simulationRun$ = this.httpClient.get<SimulationRun>(this.endpoints.getSimulationRunEndpoint(true, id));
-
-    const filesContent$ = this.httpClient
-      .get(this.endpoints.getSimulationRunFilesEndpoint(true, id), { responseType: 'text' })
-      .pipe(map((content) => JSON.parse(content) as CommonFile[]));
-
-    const projectUrl = this.endpoints.getSimulationRunDownloadEndpoint(true, id);
-    forkJoin({ simulationRun: simulationRun$, filesContent: filesContent$ }).subscribe(
-      ({ simulationRun, filesContent }) => {
-        const queryParams: ReRunQueryParams = {
-          projectUrl: projectUrl,
-          simulator: simulationRun.simulator,
-          simulatorVersion: simulationRun.simulatorVersion,
-          runName: simulationRun.name + ' (rerun)',
-          files: JSON.stringify(filesContent),
-        };
-
-        filesContent.forEach((file: any) => {
-          console.log(`AN ITEM: ${file.id}`);
-          switch (file) {
-            case file as CommonFile:
-              if (file.url.includes('xml') || file.url.includes('sbml')) {
-                queryParams.modelUrl = file.url;
-              }
-              break;
-          }
-          queryParams.modelFormat = 'format_2585'; // TODO: change this
-
-          const algorithmId = new Set<string>();
-          const simType = new Set<string>();
-          const framework = new Set<string>();
-          this.getSpecsOfSedDocsInCombineArchive(projectUrl as string).subscribe(
-            (sedDocSpecs: CombineArchiveSedDocSpecs | undefined) => {
-              sedDocSpecs?.contents.forEach((content: CombineArchiveSedDocSpecsContent, contentIndex: number): void => {
-                const sedDoc: SedDocument = content.location.value;
-                /*sedDoc.models.forEach((model: SedModel, modelIndex: number): void => {
-                let edamId: string | null = null;
-                for (const modelingFormat of BIOSIMULATIONS_FORMATS) {
-                  const sedUrn = modelingFormat?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn;
-                  if (!sedUrn || !modelingFormat.id || !model.language.startsWith(sedUrn)) {
-                    continue;
-                  }
-                  edamId = modelingFormat.id;
-                }
-                if (edamId) {
-                  queryParams.modelFormat = edamId;
-                }
-              });*/
-                sedDoc.simulations.forEach((sim: any): void => {
-                  algorithmId.add(sim.algorithm?.kisaoId);
-                  simType.add(sim._type);
-                  framework.add('SBO_0000293');
-                  console.log(`alg: ${sim._type}`);
-                  queryParams.simulationAlgorithm = sim.algorithm.kisaoId;
-                  queryParams.simulationType = sim._type;
-                  queryParams.modelingFramework = 'SBO_0000293'; // TODO: make this dynamic
-                });
-              });
-            },
-          );
-          queryParams.simulationAlgorithm = Array.from(algorithmId)[0];
-          console.log(`query params: ${queryParams.simulationAlgorithm}`);
-        });
-
-        // Handling the promise returned by navigate
-        this.router
-          //.navigate(['/runs/new'], { queryParams: queryParams })
-          .navigate(['/utils/create-project'], { queryParams: queryParams })
-          .then((success) => {
-            if (success) {
-              console.log('Navigation successful!');
-            } else {
-              console.log('Navigation failed!');
-            }
-          })
-          .catch((error) => console.error('Navigation error:', error));
-      },
-    );
   }
 
   private parseDates(simulations: ISimulation[]) {
