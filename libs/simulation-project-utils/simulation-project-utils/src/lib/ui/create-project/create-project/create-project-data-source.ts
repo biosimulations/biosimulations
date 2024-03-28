@@ -242,6 +242,7 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     const introspectedTimeCourseData = this.introspectedData?.uniformTimeCourseSimulation;
     if (introspectedTimeCourseData) {
       hostedComponent.instance.loadIntrospectedTimeCourseData(introspectedTimeCourseData);
+      hostedComponent.instance.changeUniformTimeCourseSimulationStep();
     }
     return hostedComponent.instance;
   }
