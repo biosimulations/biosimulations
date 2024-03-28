@@ -1,5 +1,5 @@
 import { Subscription } from 'rxjs';
-import { Component, Input, ViewChildren, OnDestroy, AfterViewInit, QueryList, OnInit } from '@angular/core';
+import { Component, Input, ViewChildren, OnDestroy, AfterViewInit, QueryList } from '@angular/core';
 import { IFormStepComponent } from '../form-step-component';
 import { IMultiStepFormDataSource } from '../multi-step-form-datasource';
 import { IMultiStepFormDataTask } from '../multi-step-form-datasource';
@@ -11,7 +11,7 @@ import { FormHostDirective } from '../form-host.directive';
   templateUrl: './paging-form.component.html',
   styleUrls: ['./paging-form.component.scss'],
 })
-export class PagingFormComponent<TStepId extends string> implements OnDestroy, AfterViewInit, OnInit {
+export class PagingFormComponent<TStepId extends string> implements OnDestroy, AfterViewInit {
   @ViewChildren(FormHostDirective) public formHostQuery!: QueryList<FormHostDirective>;
 
   @Input() public dataSource?: IMultiStepFormDataSource<TStepId>;
@@ -22,26 +22,10 @@ export class PagingFormComponent<TStepId extends string> implements OnDestroy, A
 
   private currentFormStepComponent: IFormStepComponent | null = null;
   private formPath: TStepId[] = [];
-  public subscriptions!: Subscription[];
-  @Input() public sharedSubscriptions?: Subscription[];
+  public subscriptions: Subscription[] = [];
   public fileUploadComponent!: IFormStepComponent;
 
   // Lifecycle
-  handleFileTypeDetected(fileType: string): void {
-    if (fileType === 'OMEX') {
-      if (this.dataSource) {
-        this.dataSource.omexFileUploaded = true;
-      }
-      // You may need to refresh or reload the form steps based on this new state
-    }
-  }
-  public ngOnInit() {
-    if (this.sharedSubscriptions) {
-      this.subscriptions = this.sharedSubscriptions;
-    } else {
-      this.subscriptions = [];
-    }
-  }
 
   public ngOnDestroy(): void {
     this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
@@ -51,9 +35,6 @@ export class PagingFormComponent<TStepId extends string> implements OnDestroy, A
     // ngAfterViewInit occurs during the change detection pass, so to make further changes to view it's
     // necessary to push off to the next turn of the run loop via setTimeout.
     // See https://angular.io/errors/NG0100
-    if (this.sharedSubscriptions) {
-      this.subscriptions = this.sharedSubscriptions;
-    }
     const loadContent = (): void => {
       setTimeout(() => {
         this.loadCurrentFormStep();
@@ -99,7 +80,7 @@ export class PagingFormComponent<TStepId extends string> implements OnDestroy, A
     }
     this.formPath.push(currentStep);
     const task = this.dataSource.startDataTask(currentStep);
-    console.log(`NEXT CLICK: ${this.fileUploadComponent.archiveDetected}, ${currentStep}`);
+    console.log(`NEXT CLICK DETECTS: ${this.fileUploadComponent.archiveDetected}, ${currentStep}`);
     if (currentStep.includes('uploadfile') && this.fileUploadComponent.archiveDetected) {
       console.log(`NEXT CLICK DETECTS ARCHIVE!`);
     }
