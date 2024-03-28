@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { UntypedFormArray, UntypedFormBuilder, Validators, UntypedFormGroup, AbstractControl } from '@angular/forms';
 import { IFormStepComponent, FormStepData } from '../create-project/forms';
 import { UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR, SEDML_ID_VALIDATOR } from '@biosimulations/shared/ui';
@@ -9,14 +9,32 @@ import { SedModelAttributeChangeTypeEnum, SedModelChange } from '@biosimulations
   templateUrl: './model-changes.component.html',
   styleUrls: ['./form-steps.scss'],
 })
-export class ModelChangesComponent implements IFormStepComponent {
+export class ModelChangesComponent implements IFormStepComponent, OnChanges, OnInit {
   public nextClicked = false;
-  public formArray: UntypedFormArray;
+  public formArray!: UntypedFormArray;
+  public isReRun = false;
+  @Input() public sharedFormArray?: UntypedFormArray;
 
   public constructor(private formBuilder: UntypedFormBuilder) {
-    this.formArray = formBuilder.array([], {
+    this.formArray = this.formBuilder.array([], {
       validators: [UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR('id')],
     });
+  }
+
+  public ngOnInit() {
+    if (this.sharedFormArray) {
+      this.formArray = this.sharedFormArray;
+      console.log(`Shared form array set!`);
+    }
+    this.addDefaultFields();
+  }
+
+  public ngOnChanges(changes: SimpleChanges) {
+    /* TODO: Extract changes from sharedFormArray here */
+  }
+
+  private addDefaultFields(): void {
+    /* Set placeholder fields on init */
     const defaultRowCount = 3;
     for (let i = 0; i < defaultRowCount; i++) {
       this.addModelChangeField();

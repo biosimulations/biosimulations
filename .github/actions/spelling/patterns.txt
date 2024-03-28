@@ -13,7 +13,7 @@ https?://(?:(?:www\.|)youtube\.com|youtu.be)/(?:channel/|embed/|playlist\?list=|
 <\s*youtube\s+id=['"][-a-zA-Z0-9?_]*['"]
 \bimg\.youtube\.com/vi/[-a-zA-Z0-9?&=_]*
 
-#Github Links 
+#Github Links
 https?://(?:(?:www\.|)github\.com)/[-a-zA-Z0-9?&=_]*
 https?://(?:(?:github\.|)github\.com)/[-a-zA-Z0-9?&=_]*
 
@@ -22,3 +22,7 @@ https?://(?:(?:github\.|)github\.com)/[-a-zA-Z0-9?&=_]*
 /docs\.google\.com/[a-z]+/d/(?:e/|)[0-9a-zA-Z_-]+/?
 # Google Drive
 \bdrive\.google\.com/file/d/[0-9a-zA-Z_?=]*
+
+
+# Pattern to ignore specific CodeFactor commit messages
+\[CodeFactor\] Apply fixes to commit [a-f0-9]{7,40}

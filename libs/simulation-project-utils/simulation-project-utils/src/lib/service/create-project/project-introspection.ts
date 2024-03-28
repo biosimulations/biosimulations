@@ -43,7 +43,16 @@ export function IntrospectNewProject(
   if (!formData) {
     return null;
   }
+
+  console.log(`THE SIM METHOD DATA FROM UTILS PROJECT INTROSPECTION: ${Object.keys(simMethodData)}`);
+  console.log(`The framework and type: ${simMethodData.framework}, ${simMethodData.simulationType}`);
+  console.log(`THE MODELDATA FROM UTILS PROJECT INTROSPECTION: ${Object.keys(modelData)}`);
+  Object.keys(modelData).forEach((p) => {
+    console.log(`THE MODEL DATA KEY VALUE: ${modelData[p]}`);
+  });
+
   const modelUrl = modelData?.modelUrl as string;
+  console.log(`THE MODEL URL BEING USED: ${modelUrl}`);
   const endpoints = new Endpoints();
   const introspectionEndpoint = endpoints.getModelIntrospectionEndpoint(false);
   const introspectionObservable = PostNewProjectSedDocument(

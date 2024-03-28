@@ -28,6 +28,7 @@ import {
 
 export enum CreateProjectFormStep {
   UploadModel = 'UploadModel',
+  //UploadArchive = 'UploadArchive',
   FrameworkSimTypeAndAlgorithm = 'FrameworkSimTypeAndAlgorithm',
   UniformTimeCourseSimulationParameters = 'UniformTimeCourseSimulationParameters',
   AlgorithmParameters = 'AlgorithmParameters',
@@ -39,6 +40,7 @@ export enum CreateProjectFormStep {
 export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateProjectFormStep> {
   public formData: Record<CreateProjectFormStep, FormStepData> = <Record<CreateProjectFormStep, FormStepData>>{};
   public introspectedData?: CustomizableSedDocumentData;
+  public omexFileUploaded = false;
 
   public constructor(
     private simulatorsData: SimulatorsData,
@@ -53,6 +55,7 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
   public formStepIds(): CreateProjectFormStep[] {
     return [
       CreateProjectFormStep.UploadModel,
+      //CreateProjectFormStep.UploadArchive,
       CreateProjectFormStep.FrameworkSimTypeAndAlgorithm,
       CreateProjectFormStep.UniformTimeCourseSimulationParameters,
       CreateProjectFormStep.ModelNamespace,
@@ -63,6 +66,9 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
   }
 
   public shouldShowFormStep(stepId: CreateProjectFormStep): boolean {
+    if (this.omexFileUploaded && stepId === CreateProjectFormStep.ModelChanges) {
+      return true; // Directly go to model changes if an OMEX file was uploaded
+    }
     switch (stepId) {
       case CreateProjectFormStep.UniformTimeCourseSimulationParameters:
         return this.shouldShowUniformTimeStep();
@@ -75,6 +81,8 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
 
   public createFormStepComponent(stepId: CreateProjectFormStep, hostView: ViewContainerRef): IFormStepComponent {
     switch (stepId) {
+      //case CreateProjectFormStep.UploadArchive:
+      //return this.createModelChangesForm(hostView);
       case CreateProjectFormStep.UploadModel:
         return this.createUploadModelForm(hostView);
       case CreateProjectFormStep.FrameworkSimTypeAndAlgorithm:
@@ -128,8 +136,12 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     if (!params) {
       return;
     }
+
+    console.log(`Create project got params: ${params.modelUrl}`);
+    console.log(`Got model format: ${params.modelingFramework}`);
     this.preloadUploadModelData(params.modelUrl, params.modelFormat);
     this.preloadSimMethodData(params.modelingFramework, params.simulationType, params.simulationAlgorithm);
+    //this.router.navigate(["create-project/model-changes"], { queryParams: params })
   }
 
   private preloadUploadModelData(modelUrl: string, modelFormat: string): void {
@@ -198,6 +210,9 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
       this.simulatorsData.modelFormats,
     );
     const hostedComponent = formContainerRef.createComponent(UploadModelComponent);
+    if (this.omexFileUploaded) {
+      hostedComponent.instance.archiveDetected = true;
+    }
     hostedComponent.instance.modelFormats = compatibleFormats;
     return hostedComponent.instance;
   }
@@ -231,6 +246,7 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
   private createModelChangesForm(formContainerRef: ViewContainerRef): IFormStepComponent {
     const hostedComponent = formContainerRef.createComponent(ModelChangesComponent);
     const introspectedChanges = this.introspectedData?.modelChanges;
+    console.log(introspectedChanges);
     if (introspectedChanges) {
       hostedComponent.instance.loadIntrospectedModelChanges(introspectedChanges);
     }
@@ -262,3 +278,5 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     return component;
   }
 }
+
+////

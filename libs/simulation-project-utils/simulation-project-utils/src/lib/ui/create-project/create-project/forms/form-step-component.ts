@@ -8,6 +8,8 @@ export interface IFormStepComponent {
    * but failed to validate input.
    */
   nextClicked: boolean;
+  stepName?: string;
+  archiveDetected?: boolean;
 
   /**
    * Classes implementing IFormStepComponent should populate their form fields with the provided data.

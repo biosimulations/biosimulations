@@ -2,8 +2,8 @@
   <mat-card class="simulation-run-card">
     <mat-card-header class="multipurpose-card-header sim-run">
       <mat-card-title class="sim-run-title-platform-name"> Simulation Run Details </mat-card-title>
-      <mat-card-subtitle> Name: {{ simulation?.name }} </mat-card-subtitle>
-      <mat-card-subtitle class="sim-run-title-platform-id"> Id: #{{ simulation?.id }} </mat-card-subtitle>
+      <mat-card-subtitle> Name: {{ simulation.name }} </mat-card-subtitle>
+      <mat-card-subtitle class="sim-run-title-platform-id"> Id: #{{ simulation.id }} </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content class="overview-content">
       <ng-container *ngIf="simulation">
@@ -77,9 +77,23 @@
           </tr>
         </table>
         <div class="rerun-button-container-platform">
-          <button (click)="rerunProject(simulation.id)" mat-flat-button class="rerun-project-button">
-            Re-run Project
-            <biosimulations-icon icon="reuse" style="margin-left: 1rem"></biosimulations-icon>
+          <button
+            (click)="rerunProject(simulation.id)"
+            mat-flat-button
+            class="rerun-project-button"
+            matTooltip="Re-run Original Simulation">
+            Re-run Original Simulation
+            <biosimulations-icon icon="reuse" style="margin-left: 0.5rem"></biosimulations-icon>
+          </button>
+        </div>
+        <div class="rerun-button-container-platform custom">
+          <button
+            (click)="rerunCustomProject(simulation.id)"
+            matTooltip="Customize & Re-run Simulation"
+            mat-flat-button
+            class="rerun-project-button">
+            Customize Simulation
+            <biosimulations-icon icon="controls" style="margin-left: 0.5rem"></biosimulations-icon>
           </button>
         </div>
       </ng-container>
