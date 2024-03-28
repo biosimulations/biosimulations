@@ -28,7 +28,6 @@ import {
 
 export enum CreateProjectFormStep {
   UploadModel = 'UploadModel',
-  //UploadArchive = 'UploadArchive',
   FrameworkSimTypeAndAlgorithm = 'FrameworkSimTypeAndAlgorithm',
   UniformTimeCourseSimulationParameters = 'UniformTimeCourseSimulationParameters',
   AlgorithmParameters = 'AlgorithmParameters',
@@ -41,6 +40,7 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
   public formData: Record<CreateProjectFormStep, FormStepData> = <Record<CreateProjectFormStep, FormStepData>>{};
   public introspectedData?: CustomizableSedDocumentData;
   public omexFileUploaded = false;
+  public isReRun = false;
 
   public constructor(
     private simulatorsData: SimulatorsData,
@@ -55,7 +55,6 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
   public formStepIds(): CreateProjectFormStep[] {
     return [
       CreateProjectFormStep.UploadModel,
-      //CreateProjectFormStep.UploadArchive,
       CreateProjectFormStep.FrameworkSimTypeAndAlgorithm,
       CreateProjectFormStep.UniformTimeCourseSimulationParameters,
       CreateProjectFormStep.ModelNamespace,
@@ -141,6 +140,8 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     console.log(`Got modelingFramework param: ${params.modelingFramework}`);
     console.log(`Got simtype and alg param: ${params.simulationType}, ${params.simulationAlgorithm}`);
     console.log(`Got num steps from param: ${params.numSteps}`);
+
+    this.isReRun = true;
     this.preloadUploadModelData(params.modelUrl, params.modelFormat);
     this.preloadSimMethodData(params.modelingFramework, params.simulationType, params.simulationAlgorithm);
     this.preloadTCParams(params.initialTime, params.startTime, params.endTime, params.numSteps);
@@ -196,7 +197,6 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     timeCourseData.outputStartTime = startTime;
     timeCourseData.outputEndTime = endTime;
     timeCourseData.numberOfSteps = numSteps;
-    console.log(`GOT NUM STEPS FROM PARAMS: ${numSteps}`);
     this.formData[CreateProjectFormStep.UniformTimeCourseSimulationParameters] = timeCourseData;
   }
 
@@ -242,8 +242,8 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     const introspectedTimeCourseData = this.introspectedData?.uniformTimeCourseSimulation;
     if (introspectedTimeCourseData) {
       hostedComponent.instance.loadIntrospectedTimeCourseData(introspectedTimeCourseData);
-      hostedComponent.instance.changeUniformTimeCourseSimulationStep();
     }
+    hostedComponent.instance.isReRun = this.isReRun;
     return hostedComponent.instance;
   }
 
@@ -259,7 +259,6 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
   private createModelChangesForm(formContainerRef: ViewContainerRef): IFormStepComponent {
     const hostedComponent = formContainerRef.createComponent(ModelChangesComponent);
     const introspectedChanges = this.introspectedData?.modelChanges;
-    console.log(introspectedChanges);
     if (introspectedChanges) {
       hostedComponent.instance.loadIntrospectedModelChanges(introspectedChanges);
     }
