@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnChanges, SimpleChanges } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { IFormStepComponent, FormStepData } from '../create-project/forms';
 import {
@@ -13,7 +13,7 @@ import { SedUniformTimeCourseSimulation } from '@biosimulations/combine-api-angu
   templateUrl: './uniform-time-course-simulation.component.html',
   styleUrls: ['./form-steps.scss'],
 })
-export class UniformTimeCourseSimulationComponent implements IFormStepComponent {
+export class UniformTimeCourseSimulationComponent implements IFormStepComponent, OnChanges {
   public formGroup: UntypedFormGroup;
   public nextClicked = false;
   public stepSize?: number;
@@ -24,13 +24,17 @@ export class UniformTimeCourseSimulationComponent implements IFormStepComponent 
         initialTime: [null, [Validators.required, NON_NEGATIVE_FLOAT_VALIDATOR]],
         outputStartTime: [null, [Validators.required, NON_NEGATIVE_FLOAT_VALIDATOR]],
         outputEndTime: [null, [Validators.required, NON_NEGATIVE_FLOAT_VALIDATOR]],
-        numberOfSteps: [null, [Validators.required, POSITIVE_INTEGER_VALIDATOR]],
+        numberOfSteps: [null],
         step: [null],
       },
       {
         validators: UNIFORM_TIME_SPAN_VALIDATOR,
       },
     );
+  }
+
+  public ngOnChanges(changes: SimpleChanges) {
+    this.changeUniformTimeCourseSimulationStep();
   }
 
   public loadIntrospectedTimeCourseData(timeCourseData: SedUniformTimeCourseSimulation): void {
