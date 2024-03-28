@@ -21,6 +21,7 @@ import { CreateProjectDataSource, CreateProjectFormStep } from './create-project
 export class CreateProjectComponent implements OnInit, OnDestroy {
   public shouldShowSpinner = true;
   public formDataSource?: CreateProjectDataSource;
+  public isReRun!: boolean;
 
   private subscriptions: Subscription[] = [];
 
@@ -37,6 +38,7 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     // get query params if any:
+    this.isReRun = this.formDataSource ? this.formDataSource?.isReRun : false;
     this.activatedRoute.queryParams.subscribe((params) => {
       this.populateChangesForm(params);
     });
