@@ -61,6 +61,7 @@ export class SimulatorTypeComponent implements IFormStepComponent {
 
   public populateFormFromFormStepData(formStepData: FormStepData): void {
     const frameworkId = formStepData.framework as string;
+    console.log(`name of framework: ${frameworkId}`);
     const simulationType = formStepData.simulationType as SimulationType;
     const algorithmId = formStepData.algorithm as string;
     if (!this.isFrameworkCompatible(frameworkId)) {
