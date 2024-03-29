@@ -76,6 +76,7 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
   private onSimulateClicked(): void {
     console.log(`Simulate clicked!`);
     this.submitFormData((projectUrl: string): void => {
+      console.log(`the project url is: ${projectUrl}`);
       this.simulateCreatedCombineArchive(projectUrl);
     });
   }
@@ -108,17 +109,18 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
   // Submission
 
   private simulateCreatedCombineArchive(projectUrl: string): void {
+    console.log(`the project url being simulated: ${projectUrl}`);
     const queryParams = this.formDataSource ? CreateSimulationParams(this.formDataSource, projectUrl) : null;
     if (!queryParams) {
       console.log(`no query params.`);
       return;
     }
-    console.log(`The queryparams: ${queryParams}`);
-    console.log(`app id: ${this.config.appId}`);
+    const queryParamsString = new URLSearchParams(queryParams).toString();
+    console.log(`the query params string: ${queryParamsString}`);
     if (this.config.appId === 'dispatch') {
-      this.router.navigate(['/runs/new'], { queryParams });
+      this.router.navigate(['/runs/new'], { queryParams: queryParams });
     } else if (this.config.appId === 'platform') {
-      this.router.navigate(['/runs/new'], { queryParams });
+      this.router.navigate(['/runs/new'], { queryParams: queryParams });
     } else {
       console.log(`new window`);
       const url = `https://run.biosimulations.${environment.production ? 'org' : 'dev'}/runs/new`;

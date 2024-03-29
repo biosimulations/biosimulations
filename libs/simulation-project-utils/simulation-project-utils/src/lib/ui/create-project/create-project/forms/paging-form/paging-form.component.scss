@@ -31,12 +31,8 @@
 
 .biosimulations-button {
   display: flex !important;
-  &.run {
-    border: 1px solid var(--accent-darker-color);
-  }
   &:hover {
     background-color: var(--accent-darker-color) !important;
-    border: 1px solid var(--quaternary-darker-color) !important;
     transition: background-color 0.5s;
   }
 }
