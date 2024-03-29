@@ -41,6 +41,7 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
   public introspectedData?: CustomizableSedDocumentData;
   public omexFileUploaded = false;
   public isReRun = false;
+  public hasExtraButtons = false;
 
   public constructor(
     private simulatorsData: SimulatorsData,
@@ -115,14 +116,17 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
 
   public extraButtonsForFormStep(formStepId: CreateProjectFormStep): IMultiStepFormButton[] | null {
     if (formStepId === CreateProjectFormStep.AlgorithmParameters) {
+      this.hasExtraButtons = true;
       return [
         {
           label: 'Download',
           onClick: this.downloadHandler,
+          class: 'biosimulations-button run download',
         },
         {
           label: 'Simulate',
           onClick: this.simulateHandler,
+          class: 'biosimulations-button run simulate',
         },
       ];
     }

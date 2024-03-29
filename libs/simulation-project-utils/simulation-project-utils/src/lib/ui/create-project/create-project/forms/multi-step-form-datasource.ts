@@ -17,6 +17,7 @@ export interface IMultiStepFormDataTask {
 export interface IMultiStepFormButton {
   label: string;
   onClick: () => void;
+  class?: string;
 }
 
 /**
@@ -29,6 +30,7 @@ export interface IMultiStepFormDataSource<TStepId extends string> {
    */
   formData: Record<TStepId, FormStepData>;
   omexFileUploaded: boolean;
+  hasExtraButtons?: boolean;
 
   /**
    * The MultiStepFormDataSource should return a list of identifiers representing the steps of the form.

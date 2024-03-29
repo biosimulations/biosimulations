@@ -19,7 +19,7 @@ export class PagingFormComponent<TStepId extends string> implements OnDestroy, A
 
   public shouldShowSpinner = false;
   public loadingText: string | null = null;
-  public currentExtraButtons: IMultiStepFormButton[] | null = null;
+  public currentExtraButtons!: IMultiStepFormButton[] | null | any;
 
   private currentFormStepComponent: IFormStepComponent | null = null;
   private formPath: TStepId[] = [];
@@ -90,6 +90,7 @@ export class PagingFormComponent<TStepId extends string> implements OnDestroy, A
   }
 
   public onExtraButtonClicked(button: IMultiStepFormButton): void {
+    console.log(`extra clicked!`);
     const stepValidated = this.validateAndSaveStepData();
     if (stepValidated) {
       button.onClick();
@@ -135,6 +136,9 @@ export class PagingFormComponent<TStepId extends string> implements OnDestroy, A
     formContainerRef.clear();
     this.currentFormStepComponent = this.dataSource.createFormStepComponent(currentStep, formContainerRef);
     this.currentExtraButtons = this.dataSource.extraButtonsForFormStep(currentStep);
+    this.currentExtraButtons?.forEach((btn: any) => {
+      console.log(`extra btn: ${btn.onClick}, ${btn?.class}`);
+    });
     const currentData = this.dataSource.formData[currentStep];
     if (this.currentFormStepComponent && currentData) {
       this.currentFormStepComponent.populateFormFromFormStepData(currentData);
