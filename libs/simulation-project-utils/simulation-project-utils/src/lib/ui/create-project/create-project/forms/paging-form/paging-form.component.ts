@@ -136,9 +136,6 @@ export class PagingFormComponent<TStepId extends string> implements OnDestroy, A
     formContainerRef.clear();
     this.currentFormStepComponent = this.dataSource.createFormStepComponent(currentStep, formContainerRef);
     this.currentExtraButtons = this.dataSource.extraButtonsForFormStep(currentStep);
-    this.currentExtraButtons?.forEach((btn: any) => {
-      console.log(`extra btn: ${btn.onClick}, ${btn?.class}`);
-    });
     const currentData = this.dataSource.formData[currentStep];
     if (this.currentFormStepComponent && currentData) {
       this.currentFormStepComponent.populateFormFromFormStepData(currentData);
