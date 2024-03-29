@@ -99,6 +99,10 @@ function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData
     return null;
   }
 
+  archive.contents.forEach((item: any) => {
+    console.log(`archive item: ${item.location.path}`);
+  });
+
   const formData = new FormData();
   formData.append('specs', JSON.stringify(archive));
   const modelFile = uploadModelData.modelFile as File;
