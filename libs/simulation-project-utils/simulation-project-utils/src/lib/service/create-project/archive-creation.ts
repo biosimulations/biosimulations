@@ -1,40 +1,41 @@
 import {
   CombineArchive,
-  CombineArchiveTypeEnum,
-  CombineArchiveContentTypeEnum,
   CombineArchiveContentFileTypeEnum,
+  CombineArchiveContentTypeEnum,
   CombineArchiveContentUrlTypeEnum,
-  CombineArchiveLocationValue,
   CombineArchiveLocationTypeEnum,
+  CombineArchiveLocationValue,
+  CombineArchiveTypeEnum,
   Namespace,
+  SedAlgorithm,
+  SedAlgorithmParameterChange,
+  SedAlgorithmParameterChangeTypeEnum,
+  SedAlgorithmTypeEnum,
+  SedDataGenerator,
+  SedDataGeneratorTypeEnum,
+  SedDataSet,
+  SedDataSetTypeEnum,
   SedDocument,
   SedDocumentTypeEnum,
   SedModel,
   SedModelAttributeChangeTypeEnum,
-  SedModelTypeEnum,
   SedModelChange,
-  SedAlgorithm,
-  SedAlgorithmTypeEnum,
-  SedAlgorithmParameterChange,
-  SedAlgorithmParameterChangeTypeEnum,
+  SedModelTypeEnum,
+  SedReportTypeEnum,
   SedSimulation,
   SedSteadyStateSimulationTypeEnum,
-  SedUniformTimeCourseSimulationTypeEnum,
   SedTarget,
   SedTargetTypeEnum,
   SedTask,
   SedTaskTypeEnum,
-  SedDataSet,
-  SedDataSetTypeEnum,
-  SedDataGenerator,
-  SedDataGeneratorTypeEnum,
-  SedReportTypeEnum,
+  SedUniformTimeCourseSimulationTypeEnum,
   SedVariable,
   SedVariableTypeEnum,
 } from '@biosimulations/combine-api-angular-client';
 import { BIOSIMULATIONS_FORMATS_BY_ID } from '@biosimulations/ontology/extra-sources';
 import { SimulationType, ValueType } from '@biosimulations/datamodel/common';
 import { MultipleSimulatorsAlgorithmParameter } from './compatibility';
+import { PostNewProjectSedDocument } from './project-introspection';
 
 /**
  * Builds a CombineArchive instance with the provided parameters.
@@ -71,8 +72,8 @@ export function CreateArchive(
   const dataSets = dataSetGenerators[0];
   const dataGenerators = dataSetGenerators[1];
   const sedDoc = CreateSedDocument(model, simulation, task, dataGenerators, dataSets);
-  const modelContent = CreateArchiveLocationValue(modelFile, modelUrl);
-
+  const modelContent = CreateArchiveModelLocationValue(modelFile, modelUrl);
+  console.log(`the model file and file url in create archive: ${modelUrl}, ${modelFile}`);
   return CompleteArchive(modelFormat, sedDoc, modelContent, model.source);
 }
 
@@ -123,8 +124,13 @@ function CreateSedVariables(modelVariables: Record<string, string>[], namespaces
 }
 
 function CreateSedModel(modelFormat: string, modelChanges: SedModelChange[]): SedModel {
+  console.log(`model format created: ${modelFormat}`);
+  modelChanges.forEach((change: SedModelChange) => {
+    console.log(`change created: ${change.id}, ${change._type}`);
+  });
   const language = BIOSIMULATIONS_FORMATS_BY_ID[modelFormat]?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn;
   const fileExtensions = BIOSIMULATIONS_FORMATS_BY_ID[modelFormat].fileExtensions?.[0];
+  console.log(`file extensions found: ${fileExtensions}`);
   return {
     _type: SedModelTypeEnum.SedModel,
     id: 'model',
@@ -196,6 +202,7 @@ function CreateSedSimulation(
 }
 
 function CreateSedTask(model: SedModel, simulation: SedSimulation): SedTask {
+  console.log(`sed task model to create: ${model.source}`);
   return {
     _type: SedTaskTypeEnum.SedTask,
     id: 'task',
@@ -265,13 +272,15 @@ function CreateSedDocument(
   };
 }
 
-function CreateArchiveLocationValue(modelFile: File, modelUrl: string): CombineArchiveLocationValue {
+function CreateArchiveModelLocationValue(modelFile: File, modelUrl: string): CombineArchiveLocationValue {
   if (modelFile) {
+    console.log(`archive file found for ${modelFile}`);
     return {
       _type: CombineArchiveContentFileTypeEnum.CombineArchiveContentFile,
       filename: modelFile.name,
     };
   }
+  console.log(`archive url found for ${modelUrl}`);
   return {
     _type: CombineArchiveContentUrlTypeEnum.CombineArchiveContentUrl,
     url: modelUrl,
@@ -305,7 +314,7 @@ function CompleteArchive(
         master: true,
         location: {
           _type: CombineArchiveLocationTypeEnum.CombineArchiveLocation,
-          path: 'simulation.sedml',
+          path: './simulation.sedml',
           value: sedDoc,
         },
       },
@@ -313,7 +322,9 @@ function CompleteArchive(
   };
 
   archive.contents.forEach((item: any, i: number) => {
-    console.log(`Item: ${i}: ${item.format}`);
+    console.log(`Item: ${i}: ${Object.keys(item?.location)}`);
   });
+
+  console.log(JSON.stringify(sedDoc));
   return archive;
 }
