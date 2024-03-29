@@ -49,7 +49,10 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     private introspectionProvider: (dataSource: CreateProjectDataSource) => Observable<void> | null,
     private downloadHandler: () => void,
     private simulateHandler: () => void,
-  ) {}
+  ) {
+    this.simulateHandler = this.simulateHandler.bind(this);
+    this.downloadHandler = this.downloadHandler.bind(this);
+  }
 
   // MultiStepFormDataSource
 
@@ -117,6 +120,7 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
   public extraButtonsForFormStep(formStepId: CreateProjectFormStep): IMultiStepFormButton[] | null {
     if (formStepId === CreateProjectFormStep.AlgorithmParameters) {
       this.hasExtraButtons = true;
+      console.log(`has extra btns in paging form: ${this.hasExtraButtons}`);
       return [
         {
           label: 'Download',
