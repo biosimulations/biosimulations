@@ -72,6 +72,7 @@ export function CreateArchive(
   const dataGenerators = dataSetGenerators[1];
   const sedDoc = CreateSedDocument(model, simulation, task, dataGenerators, dataSets);
   const modelContent = CreateArchiveLocationValue(modelFile, modelUrl);
+
   return CompleteArchive(modelFormat, sedDoc, modelContent, model.source);
 }
 
@@ -283,8 +284,9 @@ function CompleteArchive(
   locationValue: CombineArchiveLocationValue,
   modelPath: string,
 ): CombineArchive {
+  console.log(`The archive has a model with a path of: ${modelPath}`);
   const formatUri = BIOSIMULATIONS_FORMATS_BY_ID[modelFormat].biosimulationsMetadata?.omexManifestUris[0];
-  return {
+  const archive = {
     _type: CombineArchiveTypeEnum.CombineArchive,
     contents: [
       {
@@ -309,4 +311,9 @@ function CompleteArchive(
       },
     ],
   };
+
+  archive.contents.forEach((item: any, i: number) => {
+    console.log(`Item: ${i}: ${item.format}`);
+  });
+  return archive;
 }
