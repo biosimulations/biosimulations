@@ -50,12 +50,12 @@ export function SubmitFormData(
   errorHandler: () => void,
 ): Observable<string> | null {
   const formData = CreateSubmissionFormData(dataSource);
+
   if (!formData) {
     return null;
   }
   const endpoints = new Endpoints();
   const url = endpoints.getCombineArchiveCreationEndpoint(true);
-  console.log(`The archive being created from...${url}`);
   return http.post<string>(url, formData, {}).pipe(
     catchError((error: HttpErrorResponse): Observable<string> => {
       console.error(error);
@@ -126,6 +126,8 @@ function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData
 
   const formData = new FormData();
   formData.append('specs', JSON.stringify(archive));
+  console.log(`THE ARCHIVE SPEC: ${JSON.stringify(archive)}`);
+  console.log(`THE MODEL FILE SPEC: ${uploadModelData.modelFile}`);
   const modelFile = uploadModelData.modelFile as File;
   if (modelFile) {
     formData.append('files', modelFile);

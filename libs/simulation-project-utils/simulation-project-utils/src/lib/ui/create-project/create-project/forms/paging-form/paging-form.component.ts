@@ -174,8 +174,7 @@ export class PagingFormComponent<TStepId extends string> implements OnDestroy, A
 
     const stepIndex = formSteps.indexOf(currentStep);
     for (let i = stepIndex + 1; i < formSteps.length; i++) {
-      const potentialStep =
-        currentStep.includes('UploadModel') && this.isReRun ? ('ModelChanges' as TStepId) : formSteps[i];
+      const potentialStep = formSteps[i];
       if (this.dataSource.shouldShowFormStep(potentialStep)) {
         return true;
       }

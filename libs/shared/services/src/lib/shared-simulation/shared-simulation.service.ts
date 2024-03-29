@@ -52,6 +52,7 @@ export interface ReRunQueryParams {
   runName?: string;
   files?: string; // this needs deserialization when fetched
   modelUrl?: string;
+  modelFile?: string;
   modelFormat?: string;
   simulationType?: string;
   simulationAlgorithm?: string;
@@ -206,6 +207,7 @@ export class SharedSimulationService {
             runName: simulationRun.name + ' (rerun)',
             files: JSON.stringify(filesContent),
             modelUrl: '',
+            modelFile: '',
             modelFormat: '',
             simulationAlgorithm: '',
             simulationType: '',
@@ -222,6 +224,7 @@ export class SharedSimulationService {
               case file as CommonFile:
                 if (file.url.includes('xml') || file.url.includes('sbml')) {
                   queryParams.modelUrl = file.url;
+                  queryParams.modelFile = file.location;
                 }
                 break;
             }
@@ -258,6 +261,7 @@ export class SharedSimulationService {
                   }
                 });
               });
+              console.log(`project url: ${queryParams.projectUrl}`);
               return queryParams;
             }),
           );
