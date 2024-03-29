@@ -20,6 +20,10 @@ h3 {
 
 .overview-content {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 
 .icon-list {
@@ -47,9 +51,11 @@ mat-card-subtitle {
 }
 
 .rerun-button-container-platform {
-  //display: flex;
+  display: flex;
   align-items: center;
   justify-content: center;
+  padding-bottom: 1rem;
+  margin-left: -4rem !important;
 }
 
 .rerun-project-button {
