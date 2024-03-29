@@ -70,6 +70,9 @@ export function CreateArchive(
   const dataSetGenerators = CreateSedDataSetAndGenerators(sedVariables, task);
   const dataSets = dataSetGenerators[0];
   const dataGenerators = dataSetGenerators[1];
+  console.log(`Model keys: ${Object.keys(model)}`);
+  console.log(`model file: ${modelFile as unknown as string}`);
+  console.log(`sim keys: ${Object.keys(simulation)}`);
   const sedDoc = CreateSedDocument(model, simulation, task, dataGenerators, dataSets);
   const modelContent = CreateArchiveModelLocationValue(modelFile, modelUrl);
   console.log(`the model file and file url in create archive: ${modelUrl}, ${modelFile}`);
@@ -252,6 +255,7 @@ function CreateSedDocument(
   dataGenerators: SedDataGenerator[],
   dataSets: SedDataSet[],
 ): SedDocument {
+  console.log(`THE model source and id: ${model.source}, ${model.id}`);
   return {
     _type: SedDocumentTypeEnum.SedDocument,
     level: 1,
@@ -324,6 +328,6 @@ function CompleteArchive(
     console.log(`Item: ${i}: ${Object.keys(item?.location)}`);
   });
 
-  console.log(JSON.stringify(sedDoc));
+  console.log(sedDoc._type);
   return archive;
 }

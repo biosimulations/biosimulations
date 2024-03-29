@@ -37,8 +37,6 @@ export class UploadModelComponent implements IFormStepComponent, OnInit, OnChang
         modelFile: [null, [CreateMaxFileSizeValidator(this.config)]],
         modelUrl: [null, [URL_VALIDATOR]],
         modelFormat: [null, [Validators.required]],
-        archiveUrl: [null, ''],
-        archiveFile: [null, ''],
       },
       {
         validators: this.formValidator.bind(this),
@@ -76,15 +74,17 @@ export class UploadModelComponent implements IFormStepComponent, OnInit, OnChang
     if (!this.formGroup.valid) {
       return null;
     }
-    if (this.archiveDetected) {
-      console.log(`archive!`);
-    }
-    const modelFile = this.formGroup.value.modelFile?.files[0];
+
+    const modelFile = this.formGroup.value.modelFile; //? this.formGroup.value.modelFile.files[0] : null;
+    console.log(
+      `the model file in upload model form step data: ${modelFile} versus: ${this.formGroup.value.modelFile?.files[0]}`,
+    );
     const modelUrl = this.formGroup.value.modelUrl;
     const modelFormat = this.formGroup.value.modelFormat;
 
     this.formGroup.value.modelFile?.files.forEach((f: File) => {
       console.log(` form step data going out: ${f.name}`);
+
       if (f.name.includes('.omex')) {
         console.log(`OMEX FOUND: ${f.name}`);
         this.archiveDetected = true;
