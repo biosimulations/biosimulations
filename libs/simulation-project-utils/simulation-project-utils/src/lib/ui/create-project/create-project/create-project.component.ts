@@ -12,6 +12,7 @@ import { ConfigService } from '@biosimulations/config/angular';
 import { HtmlSnackBarComponent } from '@biosimulations/shared/ui';
 import { CreateSimulationParams, SubmitFormData } from './project-submission';
 import { CreateProjectDataSource, CreateProjectFormStep } from './create-project-data-source';
+import { environment } from '@biosimulations/shared/environments';
 
 @Component({
   selector: 'biosimulations-create-project',
@@ -108,19 +109,21 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
   private simulateCreatedCombineArchive(projectUrl: string): void {
     const queryParams = this.formDataSource ? CreateSimulationParams(this.formDataSource, projectUrl) : null;
     if (!queryParams) {
+      console.log(`no query params.`);
       return;
     }
     console.log(`The queryparams: ${queryParams}`);
-    /*if (this.config.appId === 'dispatch') {
+    console.log(`app id: ${this.config.appId}`);
+    if (this.config.appId === 'dispatch') {
       this.router.navigate(['/runs/new'], { queryParams });
     } else if (this.config.appId === 'platform') {
       this.router.navigate(['/runs/new'], { queryParams });
     } else {
+      console.log(`new window`);
       const url = `https://run.biosimulations.${environment.production ? 'org' : 'dev'}/runs/new`;
       const queryParamsString = new URLSearchParams(queryParams).toString();
       window.open(`${url}?${queryParamsString}`, 'runbiosimulations');
-    }*/
-    this.router.navigate(['/runs/new'], { queryParams });
+    }
     this.showArchiveCreatedSnackbar();
   }
 
