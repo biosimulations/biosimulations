@@ -74,6 +74,7 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
   // Control callbacks
 
   private onSimulateClicked(): void {
+    console.log(`Simulate clicked!`);
     this.submitFormData((projectUrl: string): void => {
       this.simulateCreatedCombineArchive(projectUrl);
     });
@@ -136,6 +137,7 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
   }
 
   private submitFormData(completionHandler: (projectUrl: string) => void): void {
+    console.log(`form being submitted...`);
     if (!this.formDataSource) {
       return;
     }

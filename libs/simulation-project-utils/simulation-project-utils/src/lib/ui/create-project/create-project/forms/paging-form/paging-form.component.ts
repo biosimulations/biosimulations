@@ -82,8 +82,6 @@ export class PagingFormComponent<TStepId extends string> implements OnDestroy, A
 
     this.formPath.push(currentStep);
     const task = this.dataSource.startDataTask(currentStep);
-    console.log(`NEXT CLICK DETECTS: ${this.fileUploadComponent.archiveDetected}, ${currentStep}`);
-
     if (task) {
       this.showSpinner(task);
     } else {

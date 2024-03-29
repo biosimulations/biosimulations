@@ -42,6 +42,7 @@ export function CreateSimulationParams(
  * @param http An http client to use for posting the request.
  * @param errorHandler An error handler that will be called if the post fails.
  */
+
 export function SubmitFormData(
   dataSource: CreateProjectDataSource,
   http: HttpClient,
@@ -53,6 +54,7 @@ export function SubmitFormData(
   }
   const endpoints = new Endpoints();
   const url = endpoints.getCombineArchiveCreationEndpoint(true);
+  console.log(`The archive being created from...${url}`);
   return http.post<string>(url, formData, {}).pipe(
     catchError((error: HttpErrorResponse): Observable<string> => {
       console.error(error);
@@ -93,6 +95,7 @@ function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData
   );
 
   if (!archive) {
+    console.log(`there is no archive`);
     return null;
   }
 

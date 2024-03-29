@@ -199,12 +199,9 @@ export class FileInputComponent
     this.value = new FileInput(fileArray);
     this._onChange(this.value);
     this.value.files.forEach((f: File) => {
-      console.log(`File detected!...the file: ${f.name}`);
       this.isArchive = f.name.includes('omex');
       this.archiveDetected.emit(this.isArchive);
       this.fileDetected.emit(f.name);
-      console.log(`IS ARCHIVE?: ${this.isArchive}`);
-      console.log(`TYPE: ${f.name}`);
     });
   }
 
