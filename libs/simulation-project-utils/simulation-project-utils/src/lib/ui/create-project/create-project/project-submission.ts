@@ -23,6 +23,7 @@ export function CreateSimulationParams(
   const uploadData = dataSource.formData[CreateProjectFormStep.UploadModel];
   const simMethodData = dataSource.formData[CreateProjectFormStep.FrameworkSimTypeAndAlgorithm];
   if (!uploadData || !simMethodData) {
+    console.log(`not valid.`);
     return null;
   }
   return {
@@ -77,6 +78,26 @@ function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData
   if (!uploadModelData || !simulationMethodData || !modelChangesData || !variablesData || !namespacesData) {
     return null;
   }
+
+  const submissionFormData = [
+    uploadModelData.modelFormat as string,
+    uploadModelData.modelUrl as string,
+    uploadModelData.modelFile as string,
+    simulationMethodData.algorithm as string,
+    //simulationMethodData.simulationType as SimulationType,
+    timeCourseData?.initialTime as number,
+    timeCourseData?.outputStartTime as number,
+    timeCourseData?.outputEndTime as number,
+    timeCourseData?.numberOfSteps as number,
+    //algorithmParamData?.algorithmParameters as Record<string, MultipleSimulatorsAlgorithmParameter>,
+    //modelChangesData.modelChanges as Record<string, string>[],
+    //variablesData.modelVariables as Record<string, string>[],
+    //namespacesData.namespaces as Namespace[],
+  ];
+
+  submissionFormData.forEach((item: string | number) => {
+    console.log(`submission form item: ${item}`);
+  });
 
   const archive = CreateArchive(
     uploadModelData.modelFormat as string,

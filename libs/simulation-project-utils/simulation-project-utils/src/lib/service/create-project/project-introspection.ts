@@ -84,7 +84,7 @@ function CreateNewProjectFormData(modelData: FormStepData, simMethodData: FormSt
   return formData;
 }
 
-function PostNewProjectSedDocument(
+export function PostNewProjectSedDocument(
   http: HttpClient,
   postEndpoint: string,
   formData: FormData,

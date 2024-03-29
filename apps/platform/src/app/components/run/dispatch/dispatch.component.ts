@@ -1,23 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Params, ActivatedRoute } from '@angular/router';
-import {
-  UntypedFormBuilder,
-  UntypedFormGroup,
-  UntypedFormControl,
-  Validators,
-  ValidationErrors,
-  UntypedFormArray,
-  FormArray,
-} from '@angular/forms';
-import { CommonFile } from '@biosimulations/datamodel/common';
+import { Params } from '@angular/router';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, ValidationErrors } from '@angular/forms';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { SimulationService } from '../../../services/simulation/simulation.service';
-import { CombineApiService, CustomizableSedDocumentData } from '../../../services/combine-api/combine-api.service';
-import {
-  CombineApiService as AngularClientCombineService,
-  FormStepData,
-  SUPPORTED_SIMULATION_TYPES,
-} from '@biosimulations/simulation-project-utils';
+import { CombineApiService } from '../../../services/combine-api/combine-api.service';
 import {
   SimulatorSpecsMap,
   SimulatorSpecs,
@@ -34,15 +20,12 @@ import {
   SedDocument,
   SedModel,
   SedSimulation,
-  SedModelChange,
   Purpose,
   AlgorithmSubstitutionPolicyLevels,
   ALGORITHM_SUBSTITUTION_POLICIES,
   AlgorithmSubstitution,
   AlgorithmSubstitutionPolicy,
   AlgorithmSummary,
-  SimulationType,
-  ReRunQueryParams,
 } from '@biosimulations/datamodel/common';
 import { SimulationRunStatus, EnvironmentVariable, SimulationRun } from '@biosimulations/datamodel/common';
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
@@ -51,8 +34,7 @@ import { ConfigService } from '@biosimulations/config/angular';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { FileInput } from '@biosimulations/material-file-input';
-import { CreateMaxFileSizeValidator, INTEGER_VALIDATOR, SEDML_ID_VALIDATOR } from '@biosimulations/shared/ui';
-import { SedModelAttributeChangeTypeEnum } from '@biosimulations/combine-api-angular-client';
+import { CreateMaxFileSizeValidator, INTEGER_VALIDATOR } from '@biosimulations/shared/ui';
 
 interface SimulatorIdNameDisabled {
   id: string;
@@ -77,30 +59,6 @@ interface Algorithm {
   disabled: boolean;
 }
 
-interface EditParametersForm {
-  [param: string]: string;
-}
-
-interface SimMethodFormData extends FormData {
-  frameworkId: string;
-  simulationType: string;
-  algorithmId: string;
-  parameters: any;
-}
-
-interface ModelFormData extends FormData {
-  modelFormat: string;
-  modelFile: File; // gets interpreted as Blob in util project introspection
-  modelUrl: string;
-}
-
-export enum DispatchFormStep {
-  ImportArchive = 'ImportArchive',
-  UploadModel = 'UploadModel',
-  RenderModelChanges = 'RenderModelChanges',
-  ExportModelChanges = 'ExportModelChanges',
-}
-
 @Component({
   selector: 'biosimulations-dispatch',
   templateUrl: './dispatch.component.html',
@@ -108,7 +66,6 @@ export enum DispatchFormStep {
 })
 export class DispatchComponent implements OnInit, OnDestroy {
   public formGroup: UntypedFormGroup;
-  public dispatchFormData: Record<DispatchFormStep, FormStepData> = <Record<DispatchFormStep, FormStepData>>{};
 
   // Form control option lists
   public modelFormats: OntologyTerm[] = [];
@@ -116,39 +73,29 @@ export class DispatchComponent implements OnInit, OnDestroy {
   public simulatorVersions: string[] = [];
   public simulationAlgorithms: Algorithm[] = [];
   public algorithmSubstitutionPolicies: AlgorithmSubstitutionPolicy[];
-  // public parametersForm: UntypedFormGroup;
 
   // Data loaded from configs
   public exampleCombineArchivesUrl: string;
   public emailUrl!: string;
-  public fileUploaded!: boolean;
-  public archive!: File;
 
   // Lifecycle state
-  public isReRun = false;
-  public submitPushed!: boolean;
+  public submitPushed = false;
   private subscriptions: Subscription[] = [];
 
   // Data loaded from network
   private modelFormatsMap?: OntologyTermsMap;
   private simulationAlgorithmsMap?: Record<string, Algorithm>;
   private simulatorSpecsMap?: SimulatorSpecsMap;
-  public customizableSedDocData: CustomizableSedDocumentData[] = [];
-  public reRunNetworkParams!: ReRunQueryParams;
-  public reRunSedParams!: Observable<CombineArchiveSedDocSpecs | undefined>;
-  public projectFiles!: CommonFile[];
 
   public constructor(
     private config: ConfigService,
     private router: Router,
+    private formBuilder: UntypedFormBuilder,
     private dispatchService: DispatchService,
     private simulationService: SimulationService,
     private combineApiService: CombineApiService,
-    public angularCombineService: AngularClientCombineService,
-    public activatedRoute: ActivatedRoute,
     private snackBar: MatSnackBar,
     private loader: SimulationProjectUtilLoaderService,
-    public formBuilder: UntypedFormBuilder,
   ) {
     this.formGroup = this.formBuilder.group(
       {
@@ -157,8 +104,6 @@ export class DispatchComponent implements OnInit, OnDestroy {
         modelFormats: ['', []],
         simulationAlgorithms: ['', []],
         simulationAlgorithmSubstitutionPolicy: [AlgorithmSubstitutionPolicyLevels.SAME_FRAMEWORK, []],
-        simFrameworkId: ['', []],
-        simType: ['', []],
         simulator: ['', [Validators.required]],
         simulatorVersion: ['', [Validators.required]],
         academicPurpose: [true],
@@ -168,13 +113,6 @@ export class DispatchComponent implements OnInit, OnDestroy {
         name: ['', [Validators.required]],
         email: ['', [Validators.email]],
         emailConsent: [false],
-        modelSource: ['', []],
-        parametersForm: this.formBuilder.group({}),
-        reRunQueryFiles: this.formBuilder.array([]),
-        modelChanges: this.formBuilder.array([]), // ensure this fits the schema expected by model-changes
-        /*modelChanges: this.formBuilder.array([], {
-          validators: [UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR('id')],
-        }),*/
       },
       {
         validators: this.formValidator.bind(this),
@@ -186,6 +124,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
       const maxPolicy = AlgorithmSubstitutionPolicyLevels.SAME_FRAMEWORK;
       return policy.level >= minPolicy && policy.level <= maxPolicy;
     });
+
     this.formGroup.controls.modelFormats.disable();
     this.formGroup.controls.simulationAlgorithms.disable();
     this.formGroup.controls.simulationAlgorithmSubstitutionPolicy.disable();
@@ -203,26 +142,13 @@ export class DispatchComponent implements OnInit, OnDestroy {
     this.emailUrl = 'mailto:' + config.email;
   }
 
-  public get modelChangesFormArray(): UntypedFormArray {
-    return this.formGroup.get('modelChanges') as UntypedFormArray;
-  }
-
-  public modelChangesFormGroup(): UntypedFormGroup[] {
-    return this.modelChangesFormArray.controls as UntypedFormGroup[];
-  }
-
-  public get reRunQueryFiles(): UntypedFormArray {
-    return this.formGroup.get('reRunQueryFiles') as UntypedFormArray;
-  }
-
   // Life cycle
+
   public ngOnInit(): void {
-    this.fileUploaded = false;
     const loadObs = this.loader.loadSimulationUtilData();
     const loadSub = loadObs.subscribe(this.loadComplete.bind(this));
     this.subscriptions.push(loadSub);
 
-    // use this to update the simulation if changes are made, perhaps move?
     const userEmailAddress = this.formGroup.value.email;
     this.formGroup.valueChanges.subscribe((values) => {
       const currentEmailAddress = values.email;
@@ -230,55 +156,13 @@ export class DispatchComponent implements OnInit, OnDestroy {
         this.formGroup.value.emailConsent = true;
       }
     });
-
-    if (this.isReRun) {
-      this.archive = this.formGroup.controls.projectUrl.value;
-    }
-  }
-
-  public setReRunParams(): void {
-    this.activatedRoute.queryParams.subscribe((params: Params) => {
-      if (params['files']) {
-        try {
-          const filesContent = JSON.parse(params['files'] as string) as CommonFile[];
-          this.reRunNetworkParams = params;
-          // set the reRunQueryData controls with the params (files, project url)
-          const queryParamsForm: UntypedFormGroup = this.formBuilder.group({
-            files: [filesContent],
-          });
-          this.reRunQueryFiles.push(queryParamsForm);
-          console.log(`reRunQueryFiles set!`);
-        } catch (error) {
-          console.error('Error parsing files from queryParams', error);
-        }
-      }
-    });
-  }
-
-  public setModelChangesFromQuery(): void {
-    /*
-    set the model changes form array with addModelChangeField, derived from the sed doc specs, which are
-    fetching using the combinearchive sed doc specs output of this.getSedDocsLoaded.... using
-    the archive file/sed doc files found in the projectFiles...
-     */
-    console.log('ReRun detected, setting model changes from query files...');
-  }
-
-  public reRunProjectControlUpdated(): void {
-    // here, set the form array with the values derived from the queryParams.projectUrl and/or SedDocSpecs.
   }
 
   public ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  public updateSimulation(): void {
-    // TODO: implement this!
-    console.log('Simulation updated with changes.');
-  }
-
   private loadComplete(data: SimulationProjectUtilData): void {
-    // Preload util service
     const curatedAlgSubs: AlgorithmSubstitution[] = data.algorithmSubstitutions;
     const simulatorsData: SimulatorsData = data.simulators;
     const params: Params = data.params;
@@ -330,22 +214,6 @@ export class DispatchComponent implements OnInit, OnDestroy {
     }
 
     this.setControlsFromParams(params, this.simulatorSpecsMap);
-
-    // handle rerun on load complete:
-    this.setIsReRun();
-    // subscribe to query params
-    if (this.isReRun) {
-      this.setReRunParams();
-    }
-    const queryParamsSub = this.activatedRoute.queryParams.subscribe();
-    this.subscriptions.push(queryParamsSub);
-  }
-
-  private setIsReRun(): void {
-    /* Check project url for being a download (rerun). */
-    const projectUrl: string = this.formGroup.get('projectUrl')?.value;
-    const urlHasReRun = projectUrl.includes('biosimulations') && projectUrl.includes('download');
-    //this.isReRun = this.simulationService.reRunTriggered || urlHasReRun;
   }
 
   // Form Submission
@@ -353,10 +221,9 @@ export class DispatchComponent implements OnInit, OnDestroy {
   public onFormSubmit(): void {
     this.submitPushed = true;
 
-    /*if (!this.formGroup.valid) {
-      console.log(`Not valid.`)
+    if (!this.formGroup.valid) {
       return;
-    }*/
+    }
 
     const simulator: string = this.formGroup.value.simulator;
     const simulatorVersion: string = this.formGroup.value.simulatorVersion;
@@ -367,8 +234,6 @@ export class DispatchComponent implements OnInit, OnDestroy {
     const purpose: Purpose = this.formGroup.value.academicPurpose ? Purpose.academic : Purpose.other;
     const name: string = this.formGroup.value.name;
     const email: string | null = this.formGroup.value.email || null;
-    //const simulationModelChanges: UntypedFormArray[] = this.formGroup.value.modelChanges;
-    // TODO: do something with the model changes on submit
 
     let simulationResponse: Observable<SimulationRun>;
 
@@ -418,6 +283,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
       ),
     );
 
+    console.log(`The run to be submitted has envVars: ${envVars}.`);
     this.subscriptions.push(sub);
     window.scrollTo(0, 0);
   }
@@ -519,15 +385,10 @@ export class DispatchComponent implements OnInit, OnDestroy {
     }
 
     const archive = urlValue ? urlValue : fileValue;
-    this.archive = archive;
-    this.reRunSedParams = this.combineApiService.getSpecsOfSedDocsInCombineArchive(archive);
-    // here we should populate the model changes form
-    /*const sub = this.combineApiService
+    const sub = this.combineApiService
       .getSpecsOfSedDocsInCombineArchive(archive)
-      .subscribe(this.archiveSedDocSpecsLoaded.bind(this));*/
-    const sub = this.reRunSedParams.subscribe(this.archiveSedDocSpecsLoaded.bind(this));
+      .subscribe(this.archiveSedDocSpecsLoaded.bind(this));
     this.subscriptions.push(sub);
-    this.fileUploaded = true;
   }
 
   public simulatorControlUpdated(): void {
@@ -611,114 +472,21 @@ export class DispatchComponent implements OnInit, OnDestroy {
 
   // Network callbacks
 
-  private introspectProject(): void {
-    /*
-        THE SIM METHOD DATA FROM UTILS PROJECT INTROSPECTION: framework,simulationType,algorithm,parameters
-        project-introspection.ts:48 The framework: SBO_0000624
-        project-introspection.ts:49 THE MODELDATA FROM UTILS PROJECT INTROSPECTION: modelUrl,modelFile,modelFormat
-
-        WE NEED THE FOLLOWING TO POPULATE CREATE PROJECT:
-          modelUrl, modelFormat, modelingFramework, simulationType, simulationAlgorithm
-    */
-
-    const modelFile = this.formGroup.get('modelSource')?.value;
-    const modelFormat = this.formGroup.get('modelFormats')?.value;
-    const _simType = this.formGroup.get('simType')?.value;
-    const _algId = this.formGroup.get('simulationAlgorithms')?.value;
-    //const loadedSimulatorIds = Object.keys(this.simulatorSpecsMap?);
-
-    console.log(`URL AND FORMAT after: ${modelFormat}, ${modelFile}`);
-    console.log(`THE SIM: ${this.formGroup.get('simulator')?.value}`);
-    this.simulationService.reRunObservable.subscribe((item) => {
-      console.log(`What is subscribed: ${item.simulator}`);
-    });
-
-    const simMethodData: FormStepData = {
-      simulationType: _simType,
-      frameworkId: 'SBO_0000624',
-      algorithmId: _algId,
-    };
-
-    const modelData: FormStepData = {
-      modelUrl: '',
-      modelFile: modelFile,
-      modelFormat: '',
-    };
-
-    //console.log(`THE ALG TYPE: ${simMethodData.simulationType}`);
-  }
-
-  public preloadDataFromParams(params: Params | null, formData: any): void {
-    if (!params) {
-      return;
-    }
-    this.preloadUploadModelData(params.modelUrl, params.modelFormat, formData);
-    this.preloadSimMethodData(params.modelingFramework, params.simulationType, params.simulationAlgorithm, formData);
-  }
-
-  private preloadUploadModelData(modelUrl: string, modelFormat: string, formData: any): void {
-    modelFormat = modelFormat?.toLowerCase();
-    const match = modelFormat?.match(/^(format[:_])?(\d{1,4})$/);
-    if (match) {
-      modelFormat = 'format_' + '0'.repeat(4 - match[2].length) + match[2];
-    }
-    // const uploadModelData = formData[CreateProjectFormStep.UploadModel] || {};
-    const uploadModelData = formData[DispatchFormStep.UploadModel] || {};
-    uploadModelData.modelUrl = modelUrl;
-    uploadModelData.modelFormat = modelFormat;
-    formData[DispatchFormStep.UploadModel] = uploadModelData;
-  }
-
-  private preloadSimMethodData(framework: string, simulationType: string, algorithm: string, formData: any): void {
-    framework = framework?.toUpperCase();
-    let match = framework?.match(/^(SBO[:_])?(\d{1,7})$/);
-    if (match) {
-      framework = 'SBO_' + '0'.repeat(7 - match[2].length) + match[2];
-    }
-
-    if (simulationType && !simulationType.startsWith('Sed')) {
-      simulationType = 'Sed' + simulationType;
-    }
-    if (simulationType && !simulationType.endsWith('Simulation')) {
-      simulationType = simulationType + 'Simulation';
-    }
-    SUPPORTED_SIMULATION_TYPES.forEach((simType: SimulationType): void => {
-      if (simulationType && simulationType.toLowerCase() == simType.toLowerCase()) {
-        simulationType = simType;
-      }
-    });
-
-    algorithm = algorithm?.toUpperCase();
-    match = algorithm?.match(/^(KISAO[:_])?(\d{1,7})$/);
-    if (match) {
-      algorithm = 'KISAO_' + '0'.repeat(7 - match[2].length) + match[2];
-    }
-
-    //const simMethodData = formData[CreateProjectFormStep.FrameworkSimTypeAndAlgorithm] || {};
-    //imMethodData.framework = framework;
-    //imMethodData.simulationType = simulationType;
-    //imMethodData.algorithm = algorithm;
-    //ormData[CreateProjectFormStep.FrameworkSimTypeAndAlgorithm] = simMethodData;
-  }
-
-  public archiveSedDocSpecsLoaded(sedDocSpecs?: CombineArchiveSedDocSpecs): void {
+  private archiveSedDocSpecsLoaded(sedDocSpecs?: CombineArchiveSedDocSpecs): void {
     const simulationAlgorithmsMap = this.simulationAlgorithmsMap;
     if (!sedDocSpecs || !simulationAlgorithmsMap) {
       return;
     }
 
     const modelFormats = new Set<string>();
-    const modelSource: string[] = [];
-    const simType: string[] = [];
     const simulationAlgorithms = new Set<string>();
     let specsContainUnsupportedModel = false;
     let specsContainUnsupportedAlgorithm = false;
 
-    //  VALIDATE: Confirm that every model and algorithm within the sed doc spec is supported.
-    sedDocSpecs.contents.forEach((content: CombineArchiveSedDocSpecsContent, contentIndex: number): void => {
+    // Confirm that every model and algorithm within the sed doc spec is supported.
+    sedDocSpecs.contents.forEach((content: CombineArchiveSedDocSpecsContent): void => {
       const sedDoc: SedDocument = content.location.value;
-      //this.loadData(sedDoc);
-      sedDoc.models.forEach((model: SedModel, modelIndex: number): void => {
+      sedDoc.models.forEach((model: SedModel): void => {
         let edamId: string | null = null;
         for (const modelingFormat of BIOSIMULATIONS_FORMATS) {
           const sedUrn = modelingFormat?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn;
@@ -726,20 +494,13 @@ export class DispatchComponent implements OnInit, OnDestroy {
             continue;
           }
           edamId = modelingFormat.id;
-          console.log(`edam: ${edamId}`);
         }
         if (edamId) {
           modelFormats.add(edamId);
         } else {
           specsContainUnsupportedModel = true;
         }
-        // set model source for project introspection
-        modelSource.push(model.source);
-
-        /*model.changes.forEach((change: SedModelChange, changeIndex: number): void => {
-        }*/
       });
-      // SET SIMULATION ALGS
       sedDoc.simulations.forEach((sim: SedSimulation): void => {
         const kisaoId = sim.algorithm.kisaoId;
         if (kisaoId in simulationAlgorithmsMap) {
@@ -747,46 +508,16 @@ export class DispatchComponent implements OnInit, OnDestroy {
         } else {
           specsContainUnsupportedAlgorithm = true;
         }
-        simType.push(sim._type);
-        // FILL DATA
       });
     });
 
     this.setUnsupportedModelErrorIsShown(specsContainUnsupportedModel);
     this.setUnsupportedAlgorithmErrorIsShown(specsContainUnsupportedAlgorithm);
 
-    this.formGroup.controls.modelSource.setValue(modelSource);
     this.formGroup.controls.modelFormats.setValue(Array.from(modelFormats));
     this.formGroup.controls.simulationAlgorithms.setValue(Array.from(simulationAlgorithms));
-    this.formGroup.controls.simType.setValue(simType);
 
     this.controlImpactingEligibleSimulatorsUpdated();
-
-    console.log(`THE model FORMATS set in group: ${this.formGroup.get('modelFormats')?.value}`);
-    console.log(`The model source set in group: ${this.formGroup.get('modelSource')?.value}`);
-    console.log(`THE sims set in group: ${this.formGroup.get('simType')?.value}`);
-
-    // introspect editable params from project:
-    //if (this.simulationService.reRunTriggered) {
-    //this.introspectProject();
-    //}
-
-    console.log(`SED DOCS LOADED`);
-  }
-
-  private loadData(sedDoc: SedDocument): void {
-    this.subscriptions.push(
-      this.combineApiService.getCustomizableSedData(sedDoc).subscribe((data) => {
-        this.populateForm(data);
-      }),
-    );
-  }
-
-  private populateForm(data: CustomizableSedDocumentData): void {
-    const modelChangesArray = this.formGroup.get('modelChanges') as UntypedFormArray;
-    data.modelChanges?.forEach((change) => {
-      this.addFieldForModelChange(change);
-    });
   }
 
   private processSimulationResponse(
@@ -885,68 +616,6 @@ export class DispatchComponent implements OnInit, OnDestroy {
 
   // Setters for preloading form controls from route params
 
-  public get modelChangesGroup(): UntypedFormGroup[] {
-    return (this.modelChanges as FormArray).controls as UntypedFormGroup[];
-  }
-
-  public get modelChanges(): UntypedFormArray {
-    return this.formGroup.get('modelChanges')?.value;
-  }
-
-  private populateFormWithSedData(data: CustomizableSedDocumentData): void {
-    data.modelChanges?.forEach((change) => {
-      this.addFieldForModelChange(change);
-    });
-  }
-
-  public fetchCustomizableSedData(sedDoc: SedDocument): void {
-    this.combineApiService.getCustomizableSedData(sedDoc).subscribe({
-      next: (data) => {
-        this.populateFormWithSedData(data);
-      },
-      error: (err) => console.error(err),
-    });
-  }
-
-  public addModelChangeField(modelChange?: Record<string, string | null>): void {
-    const modelChangeForm = this.formBuilder.group({
-      id: [modelChange?.id, [SEDML_ID_VALIDATOR]],
-      name: [modelChange?.name, []],
-      target: [modelChange?.target, [Validators.required]],
-      default: [modelChange?.default, []],
-      newValue: [modelChange?.newValue, []],
-    });
-    modelChangeForm.controls.default.disable();
-    this.modelChanges.push(modelChangeForm);
-  }
-
-  private addFieldForModelChange(modelChange: SedModelChange): void {
-    // TODO: Support additional change types.
-    if (modelChange && modelChange._type !== SedModelAttributeChangeTypeEnum.SedModelAttributeChange) {
-      return;
-    }
-    this.addModelChangeField({
-      id: modelChange.id || null,
-      name: modelChange.name || null,
-      target: modelChange.target.value || null,
-      default: modelChange.newValue || null,
-      newValue: null,
-    });
-  }
-  public loadIntrospectedModelChanges(introspectedModelChanges: SedModelChange[]): void {
-    if (introspectedModelChanges.length === 0) {
-      return;
-    }
-    this.modelChanges.clear();
-    introspectedModelChanges.forEach((change: SedModelChange) => {
-      this.addFieldForModelChange(change);
-    });
-  }
-
-  public removeModelChangeField(index: number): void {
-    this.modelChanges.removeAt(index);
-  }
-
   private setControlsFromParams(params: Params, simulatorSpecsMap: SimulatorSpecsMap): void {
     if (!params) {
       return;
@@ -958,7 +627,6 @@ export class DispatchComponent implements OnInit, OnDestroy {
     this.setMemory(params.memory);
     this.setMaxTime(params.maxTime);
     this.setRunName(params.runName);
-    console.log(`simulator set!`);
   }
 
   private setProject(projectUrl: string): void {
@@ -967,7 +635,6 @@ export class DispatchComponent implements OnInit, OnDestroy {
     }
     this.formGroup.controls.projectUrl.setValue(projectUrl);
     this.projectControlUpdated();
-    console.log(`The project is set!`);
   }
 
   private setSimulator(simulator: string, simulatorVersion: string, simulatorSpecsMap: SimulatorSpecsMap): void {
@@ -1059,11 +726,11 @@ export class DispatchComponent implements OnInit, OnDestroy {
       errors['multipleProjects'] = true;
     }
 
-    const email = formGroup.controls.email as UntypedFormControl;
+    /*  const email = formGroup.controls.email as UntypedFormControl;
     const emailConsent = formGroup.controls.emailConsent as UntypedFormControl;
-    if (email.value && !email.hasError('email') && !emailConsent.value) {
+    if (email.value && !email.hasError('email')) { //&& !emailConsent.value) {
       errors['emailNotConsented'] = true;
-    }
+    }  */
     return Object.keys(errors).length ? errors : null;
   }
 }
