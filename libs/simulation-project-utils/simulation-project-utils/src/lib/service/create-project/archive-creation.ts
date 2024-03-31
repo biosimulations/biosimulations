@@ -24,7 +24,6 @@ import {
   SedReportTypeEnum,
   SedSimulation,
   SedSteadyStateSimulationTypeEnum,
-  SedStyleTypeEnum,
   SedTarget,
   SedTargetTypeEnum,
   SedTask,
@@ -36,9 +35,6 @@ import {
 import { BIOSIMULATIONS_FORMATS_BY_ID } from '@biosimulations/ontology/extra-sources';
 import { SimulationType, ValueType } from '@biosimulations/datamodel/common';
 import { MultipleSimulatorsAlgorithmParameter } from './compatibility';
-import { PostNewProjectSedDocument, IntrospectNewProject } from './project-introspection';
-import { Endpoints } from '@biosimulations/config/common';
-import FormData from 'form-data';
 import { HttpClient } from '@angular/common/http';
 
 /**
