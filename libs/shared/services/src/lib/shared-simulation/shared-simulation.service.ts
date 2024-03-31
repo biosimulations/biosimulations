@@ -9,7 +9,6 @@ import {
   SedDocument,
   SedModel,
   SedSimulation,
-  SedStyle,
 } from '@biosimulations/combine-api-angular-client';
 import {
   SedModelChange,
