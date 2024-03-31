@@ -45,17 +45,20 @@ export class ModelChangesComponent implements IFormStepComponent {
   public populateFormFromFormStepData(formStepData: FormStepData): void {
     const modelChanges = formStepData.modelChanges as Record<string, string>[];
     if (!modelChanges || modelChanges.length === 0) {
+      console.log(`no model changes, returning`);
       return;
     }
-    this.formArray.clear();
+    /*this.formArray.clear();
     modelChanges.forEach((modelChange: Record<string, string>): void => {
+      console.log(`a change getting added: ${modelChange}`)
       this.addModelChangeField(modelChange);
-    });
+    });*/
   }
 
   public getFormStepData(): FormStepData | null {
     this.formArray.updateValueAndValidity();
     if (!this.formArray.valid) {
+      console.log(`change not valid.`);
       return null;
     }
     const modelChanges: Record<string, string>[] = [];
@@ -105,6 +108,7 @@ export class ModelChangesComponent implements IFormStepComponent {
   private addFieldForModelChange(modelChange: SedModelChange): void {
     // TODO: Support additional change types.
     if (modelChange && modelChange._type !== SedModelAttributeChangeTypeEnum.SedModelAttributeChange) {
+      console.log(`change not added**********************`);
       return;
     }
     this.addModelChangeField({

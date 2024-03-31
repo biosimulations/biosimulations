@@ -9,6 +9,7 @@ import {
   SedDocument,
   SedModel,
   SedSimulation,
+  SedStyle,
 } from '@biosimulations/combine-api-angular-client';
 import {
   SedModelChange,
@@ -52,7 +53,7 @@ export interface ReRunQueryParams {
   runName?: string;
   files?: string; // this needs deserialization when fetched
   modelUrl?: string;
-  modelFile?: string;
+  modelFile?: string | null;
   modelFormat?: string;
   simulationType?: string;
   simulationAlgorithm?: string;
