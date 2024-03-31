@@ -24,6 +24,7 @@ import {
   SedReportTypeEnum,
   SedSimulation,
   SedSteadyStateSimulationTypeEnum,
+  SedStyleTypeEnum,
   SedTarget,
   SedTargetTypeEnum,
   SedTask,
@@ -35,6 +36,10 @@ import {
 import { BIOSIMULATIONS_FORMATS_BY_ID } from '@biosimulations/ontology/extra-sources';
 import { SimulationType, ValueType } from '@biosimulations/datamodel/common';
 import { MultipleSimulatorsAlgorithmParameter } from './compatibility';
+import { PostNewProjectSedDocument, IntrospectNewProject } from './project-introspection';
+import { Endpoints } from '@biosimulations/config/common';
+import FormData from 'form-data';
+import { HttpClient } from '@angular/common/http';
 
 /**
  * Builds a CombineArchive instance with the provided parameters.
@@ -53,9 +58,10 @@ export function CreateArchive(
   changesData: Record<string, string>[],
   variablesData: Record<string, string>[],
   namespaces: Namespace[],
+  http?: HttpClient,
 ): CombineArchive {
   const sedChanges = CreateSedModelChanges(changesData, namespaces);
-  const model = CreateSedModel(modelFormat, sedChanges);
+  const model = CreateSedModel(modelFormat, sedChanges, modelUrl);
   const algorithm = CreateSedAlgorithm(algorithmId, algorithmParameters);
   const simulation = CreateSedSimulation(
     simulationType,
@@ -70,21 +76,22 @@ export function CreateArchive(
   const dataSetGenerators = CreateSedDataSetAndGenerators(sedVariables, task);
   const dataSets = dataSetGenerators[0];
   const dataGenerators = dataSetGenerators[1];
-  console.log(`Model keys: ${Object.keys(model)}`);
-  console.log(`model file: ${modelFile as unknown as string}`);
-  console.log(`sim keys: ${Object.keys(simulation)}`);
+
+  // below we should get the sed doc from a post new project request:
+  //const sedDoc = IntrospectNewProject(http, model, simulation, )
   const sedDoc = CreateSedDocument(model, simulation, task, dataGenerators, dataSets);
   const modelContent = CreateArchiveModelLocationValue(modelFile, modelUrl);
-  console.log(`the model file and file url in create archive: ${modelUrl}, ${modelFile}`);
   return CompleteArchive(modelFormat, sedDoc, modelContent, model.source);
 }
 
 function CreateSedModelChanges(modelChanges: Record<string, string>[], namespaces: Namespace[]): SedModelChange[] {
   const changes: SedModelChange[] = [];
-  modelChanges.forEach((changeData: Record<string, string>): void => {
+  modelChanges.forEach((changeData: Record<string, string>, i: number): void => {
     if (!changeData.newValue || changeData.newValue.length === 0) {
-      return;
+      console.log(`***********${i}: no change available!`);
+      //return;
     }
+    console.log(`the change type: ${changeData._type}`);
     changes.push({
       _type: SedModelAttributeChangeTypeEnum.SedModelAttributeChange,
       id: changeData.id,
@@ -97,6 +104,9 @@ function CreateSedModelChanges(modelChanges: Record<string, string>[], namespace
       },
     });
   });
+  if (changes.length) {
+    console.log(`----- changes: ${changes.length}`);
+  }
   return changes;
 }
 
@@ -125,21 +135,34 @@ function CreateSedVariables(modelVariables: Record<string, string>[], namespaces
   return variables;
 }
 
-function CreateSedModel(modelFormat: string, modelChanges: SedModelChange[]): SedModel {
+function CreateSedModel(modelFormat: string, modelChanges: SedModelChange[], modelUrl?: string): SedModel {
   console.log(`model format created: ${modelFormat}`);
   modelChanges.forEach((change: SedModelChange) => {
     console.log(`change created: ${change.id}, ${change._type}`);
   });
   const language = BIOSIMULATIONS_FORMATS_BY_ID[modelFormat]?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn;
   const fileExtensions = BIOSIMULATIONS_FORMATS_BY_ID[modelFormat].fileExtensions?.[0];
-  console.log(`file extensions found: ${fileExtensions}`);
-  return {
-    _type: SedModelTypeEnum.SedModel,
-    id: 'model',
-    language: language || '',
-    source: 'model.' + fileExtensions,
-    changes: modelChanges,
-  };
+  if (modelUrl) {
+    console.log(`found model url!`);
+    const sourcePathNames = new URL(modelUrl).pathname;
+    const parts = sourcePathNames.split('/').filter((part) => part !== '');
+    const modelSource = parts[parts.length - 1];
+    return {
+      _type: SedModelTypeEnum.SedModel,
+      id: 'model',
+      language: language || '',
+      source: modelSource,
+      changes: modelChanges,
+    };
+  } else {
+    return {
+      _type: SedModelTypeEnum.SedModel,
+      id: 'model',
+      language: language || '',
+      source: 'model.' + fileExtensions,
+      changes: modelChanges,
+    };
+  }
 }
 
 function CreateSedAlgorithm(
