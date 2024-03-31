@@ -41,6 +41,7 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
   public introspectedData?: CustomizableSedDocumentData;
   public omexFileUploaded = false;
   public isReRun = false;
+  public projectUrl!: string;
   public hasExtraButtons = false;
   public reRunModelFile?: string;
 
@@ -150,15 +151,17 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     console.log(`Got simtype and alg param: ${params.simulationType}, ${params.simulationAlgorithm}`);
     console.log(`Got num steps from param: ${params.numSteps}`);
     console.log(`Got model file from param: ${params.modelFile}`);
+    console.log(`Got url from param: ${params.projectUrl}`);
 
     this.isReRun = true;
     this.reRunModelFile = params.modelFile;
-    this.preloadUploadModelData(params.modelUrl, params.modelFormat);
+    this.projectUrl = params.projectUrl;
+    this.preloadUploadModelData(params.modelUrl, params.modelFormat, params.modelFile);
     this.preloadSimMethodData(params.modelingFramework, params.simulationType, params.simulationAlgorithm);
     this.preloadTCParams(params.initialTime, params.startTime, params.endTime, params.numSteps);
   }
 
-  private preloadUploadModelData(modelUrl: string, modelFormat: string): void {
+  private preloadUploadModelData(modelUrl: string, modelFormat: string, modelFile?: string): void {
     modelFormat = modelFormat?.toLowerCase();
     const match = modelFormat?.match(/^(format[:_])?(\d{1,4})$/);
     if (match) {
@@ -167,6 +170,11 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     const uploadModelData = this.formData[CreateProjectFormStep.UploadModel] || {};
     uploadModelData.modelUrl = modelUrl;
     uploadModelData.modelFormat = modelFormat;
+    if (modelFile) {
+      uploadModelData.modelFile = modelFile;
+      this.reRunModelFile = modelFile;
+      console.log(`model file went into form! ${uploadModelData.modelFile}`);
+    }
     this.formData[CreateProjectFormStep.UploadModel] = uploadModelData;
   }
 
@@ -233,9 +241,6 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
       this.simulatorsData.modelFormats,
     );
     const hostedComponent = formContainerRef.createComponent(UploadModelComponent);
-    if (this.omexFileUploaded) {
-      hostedComponent.instance.archiveDetected = true;
-    }
     hostedComponent.instance.modelFormats = compatibleFormats;
     return hostedComponent.instance;
   }

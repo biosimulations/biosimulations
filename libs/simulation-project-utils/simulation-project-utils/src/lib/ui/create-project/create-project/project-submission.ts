@@ -26,6 +26,7 @@ export function CreateSimulationParams(
     console.log(`not valid.`);
     return null;
   }
+  console.log(`the project url in params form: ${projectUrl}`);
   return {
     projectUrl: projectUrl,
     modelFormat: uploadData.modelFormat as string,
@@ -50,6 +51,8 @@ export function SubmitFormData(
   errorHandler: () => void,
 ): Observable<string> | null {
   const formData = CreateSubmissionFormData(dataSource);
+
+  console.log(`this is the form data: ${JSON.stringify(formData)}`);
 
   if (!formData) {
     return null;
@@ -76,28 +79,9 @@ function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData
 
   // AlgorithmParameters and UniformTimeCourseSimulationParameters are conditional steps, so their data may be null.
   if (!uploadModelData || !simulationMethodData || !modelChangesData || !variablesData || !namespacesData) {
+    console.log(`----- NULL`);
     return null;
   }
-
-  const submissionFormData = [
-    uploadModelData.modelFormat as string,
-    uploadModelData.modelUrl as string,
-    uploadModelData.modelFile as string,
-    simulationMethodData.algorithm as string,
-    //simulationMethodData.simulationType as SimulationType,
-    timeCourseData?.initialTime as number,
-    timeCourseData?.outputStartTime as number,
-    timeCourseData?.outputEndTime as number,
-    timeCourseData?.numberOfSteps as number,
-    //algorithmParamData?.algorithmParameters as Record<string, MultipleSimulatorsAlgorithmParameter>,
-    //modelChangesData.modelChanges as Record<string, string>[],
-    //variablesData.modelVariables as Record<string, string>[],
-    //namespacesData.namespaces as Namespace[],
-  ];
-
-  submissionFormData.forEach((item: string | number) => {
-    console.log(`submission form item: ${item}`);
-  });
 
   const archive = CreateArchive(
     uploadModelData.modelFormat as string,
@@ -126,11 +110,16 @@ function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData
 
   const formData = new FormData();
   formData.append('specs', JSON.stringify(archive));
-  console.log(`THE ARCHIVE SPEC: ${JSON.stringify(archive)}`);
-  console.log(`THE MODEL FILE SPEC: ${uploadModelData.modelFile}`);
+  console.log(`THE ARCHIVE SED SPEC: ${JSON.stringify(archive.contents[1])}`);
+
   const modelFile = uploadModelData.modelFile as File;
   if (modelFile) {
     formData.append('files', modelFile);
+    console.log(`appending model file!: ${modelFile.name}`);
+  } else {
+    console.log(`NO MODEL FILE`);
+    console.log(`NO MODEL FILE`);
   }
+  console.log(`This IS THE FORM DATAAA: ${Object.keys(formData)}`);
   return formData;
 }

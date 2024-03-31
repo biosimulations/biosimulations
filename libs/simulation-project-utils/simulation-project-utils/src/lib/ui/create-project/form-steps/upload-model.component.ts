@@ -56,17 +56,13 @@ export class UploadModelComponent implements IFormStepComponent, OnInit, OnChang
   }
 
   public ngOnChanges(changes: SimpleChanges) {
-    this.onFileSelected(changes);
+    //this.onFileSelected(changes);
+    console.log(`A change! ${changes}`);
   }
 
   public populateFormFromFormStepData(formStepData: FormStepData): void {
-    if (this.archiveDetected) {
-      this.uploadArchiveFormGroup.controls.archiveFile.setValue(formStepData.archiveFile);
-    } else {
-      console.log(`the format data: ${formStepData.modelFormat}`);
-      this.formGroup.controls.modelFormat.setValue(formStepData.modelFormat);
-      this.formGroup.controls.modelUrl.setValue(formStepData.modelUrl);
-    }
+    this.formGroup.controls.modelFormat.setValue(formStepData.modelFormat);
+    this.formGroup.controls.modelUrl.setValue(formStepData.modelUrl);
   }
 
   public getFormStepData(): FormStepData | null {
@@ -75,7 +71,7 @@ export class UploadModelComponent implements IFormStepComponent, OnInit, OnChang
       return null;
     }
 
-    const modelFile = this.formGroup.value.modelFile; //? this.formGroup.value.modelFile.files[0] : null;
+    const modelFile = this.formGroup.value.modelFile?.files[0];
     console.log(
       `the model file in upload model form step data: ${modelFile} versus: ${this.formGroup.value.modelFile?.files[0]}`,
     );
@@ -84,12 +80,6 @@ export class UploadModelComponent implements IFormStepComponent, OnInit, OnChang
 
     this.formGroup.value.modelFile?.files.forEach((f: File) => {
       console.log(` form step data going out: ${f.name}`);
-
-      if (f.name.includes('.omex')) {
-        console.log(`OMEX FOUND: ${f.name}`);
-        this.archiveDetected = true;
-        console.log(`${this.archiveDetected}`);
-      }
     });
 
     return {
