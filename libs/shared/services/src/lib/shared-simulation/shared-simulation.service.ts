@@ -263,7 +263,6 @@ export class SharedSimulationService {
                   }
                 });
               });
-              console.log(`project url: ${queryParams.projectUrl}`);
               return queryParams;
             }),
           );
