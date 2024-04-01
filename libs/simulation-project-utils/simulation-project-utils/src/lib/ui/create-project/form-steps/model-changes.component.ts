@@ -48,11 +48,11 @@ export class ModelChangesComponent implements IFormStepComponent {
       console.log(`no model changes, returning`);
       return;
     }
-    /*this.formArray.clear();
+    this.formArray.clear();
     modelChanges.forEach((modelChange: Record<string, string>): void => {
-      console.log(`a change getting added: ${modelChange}`)
+      console.log(`a change getting added: ${modelChange}`);
       this.addModelChangeField(modelChange);
-    });*/
+    });
   }
 
   public getFormStepData(): FormStepData | null {
@@ -64,6 +64,7 @@ export class ModelChangesComponent implements IFormStepComponent {
     const modelChanges: Record<string, string>[] = [];
     this.formArray.controls.forEach((control: AbstractControl): void => {
       const formGroup = control as UntypedFormGroup;
+      console.log(`--- THE MODEL CHANGES IN FORM STEP DDATA: ${formGroup.controls.default.value}`);
       modelChanges.push({
         id: formGroup.value.id,
         name: formGroup.value.name,
@@ -94,6 +95,7 @@ export class ModelChangesComponent implements IFormStepComponent {
   }
 
   public addModelChangeField(modelChange?: Record<string, string | null>): void {
+    console.log(`---- A MODEL CHANGE IS: ${modelChange?.newValue}`);
     const modelChangeForm = this.formBuilder.group({
       id: [modelChange?.id, [SEDML_ID_VALIDATOR]],
       name: [modelChange?.name, []],
