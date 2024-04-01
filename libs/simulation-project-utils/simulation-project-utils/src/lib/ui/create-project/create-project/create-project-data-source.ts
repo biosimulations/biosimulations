@@ -42,6 +42,7 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
   public omexFileUploaded = false;
   public isReRun = false;
   public projectUrl!: string;
+  public reRunModelId?: string;
   public hasExtraButtons = false;
   public reRunModelFile?: string;
 
@@ -155,10 +156,13 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
 
     this.isReRun = true;
     this.reRunModelFile = params.modelFile;
+    this.reRunModelId = params.modelId;
     this.projectUrl = params.projectUrl;
     this.preloadUploadModelData(params.modelUrl, params.modelFormat, params.modelFile);
     this.preloadSimMethodData(params.modelingFramework, params.simulationType, params.simulationAlgorithm);
     this.preloadTCParams(params.initialTime, params.startTime, params.endTime, params.numSteps);
+
+    console.log(`--- GOT RERUN MODEL ID: ${this.reRunModelId}`);
   }
 
   private preloadUploadModelData(modelUrl: string, modelFormat: string, modelFile?: string): void {

@@ -54,10 +54,10 @@ export function CreateArchive(
   changesData: Record<string, string>[],
   variablesData: Record<string, string>[],
   namespaces: Namespace[],
-  http?: HttpClient,
+  rerunModelId?: string,
 ): CombineArchive {
   const sedChanges = CreateSedModelChanges(changesData, namespaces);
-  const model = CreateSedModel(modelFormat, sedChanges, modelUrl);
+  const model = CreateSedModel(modelFormat, sedChanges, modelUrl, rerunModelId);
   const algorithm = CreateSedAlgorithm(algorithmId, algorithmParameters);
   const simulation = CreateSedSimulation(
     simulationType,
@@ -131,34 +131,44 @@ function CreateSedVariables(modelVariables: Record<string, string>[], namespaces
   return variables;
 }
 
-function CreateSedModel(modelFormat: string, modelChanges: SedModelChange[], modelUrl?: string): SedModel {
+function CreateSedModel(
+  modelFormat: string,
+  modelChanges: SedModelChange[],
+  modelUrl?: string,
+  rerunId?: string,
+): SedModel {
   console.log(`model format created: ${modelFormat}`);
   modelChanges.forEach((change: SedModelChange) => {
     console.log(`change created: ${change.id}, ${change._type}`);
   });
   const language = BIOSIMULATIONS_FORMATS_BY_ID[modelFormat]?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn;
   const fileExtensions = BIOSIMULATIONS_FORMATS_BY_ID[modelFormat].fileExtensions?.[0];
+
+  let modelId = '';
+  if (rerunId) {
+    modelId = rerunId;
+  } else {
+    modelId = 'model';
+  }
+
+  let modelSource = '';
   if (modelUrl) {
     console.log(`found model url!`);
     const sourcePathNames = new URL(modelUrl).pathname;
     const parts = sourcePathNames.split('/').filter((part) => part !== '');
-    const modelSource = parts[parts.length - 1];
-    return {
-      _type: SedModelTypeEnum.SedModel,
-      id: 'model',
-      language: language || '',
-      source: modelSource,
-      changes: modelChanges,
-    };
+    modelSource = parts[parts.length - 1];
   } else {
-    return {
-      _type: SedModelTypeEnum.SedModel,
-      id: 'model',
-      language: language || '',
-      source: 'model.' + fileExtensions,
-      changes: modelChanges,
-    };
+    modelSource = 'model.' + fileExtensions;
   }
+
+  console.log(`*****model source and id: ${modelSource}, ${modelId}`);
+  return {
+    _type: SedModelTypeEnum.SedModel,
+    id: modelId,
+    language: language || '',
+    source: modelSource,
+    changes: modelChanges,
+  };
 }
 
 function CreateSedAlgorithm(

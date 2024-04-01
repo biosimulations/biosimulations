@@ -45,8 +45,7 @@ export function IntrospectNewProject(
   }
 
   const modelUrl = modelData?.modelUrl as string;
-  console.log(`The model data for introspection: ${Object.keys(modelData)}`);
-  console.log(`-- ${modelData.modelFile}`);
+  console.log(`The keys of model data for introspection: ${Object.keys(modelData)}`);
   const endpoints = new Endpoints();
   const introspectionEndpoint = endpoints.getModelIntrospectionEndpoint(false);
   const introspectionObservable = PostNewProjectSedDocument(

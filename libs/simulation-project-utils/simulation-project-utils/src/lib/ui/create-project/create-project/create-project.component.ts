@@ -110,15 +110,13 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
 
   private simulateCreatedCombineArchive(projectUrl: string): void {
     const url = this.formDataSource?.projectUrl;
-    if (this.formDataSource?.projectUrl) {
-      const runUrl = this.formDataSource?.projectUrl;
-      console.log(`the run URL: ${runUrl}`);
-      const queryParams = this.formDataSource ? CreateSimulationParams(this.formDataSource, runUrl) : null;
+    if (url) {
+      const queryParams = this.formDataSource ? CreateSimulationParams(this.formDataSource, url) : null;
       if (!queryParams) {
         console.log(`no query params.`);
         return;
       }
-      if (this.config.appId === 'dispatch') {
+      /*if (this.config.appId === 'dispatch') {
         this.router.navigate(['/runs/new'], { queryParams: queryParams });
       } else if (this.config.appId === 'platform') {
         this.router.navigate(['/runs/new'], { queryParams: queryParams });
@@ -127,7 +125,14 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
         const url = `https://run.biosimulations.${environment.production ? 'org' : 'dev'}/runs/new`;
         const queryParamsString = new URLSearchParams(queryParams).toString();
         window.open(`${url}?${queryParamsString}`, 'runbiosimulations');
-      }
+      }*/
+      this.router.navigate(['/runs/new'], { queryParams: queryParams }).then((success) => {
+        if (success) {
+          console.log(`Navigation to dispatch successful!`);
+        } else {
+          console.log(`Navigation unsuccessful.`);
+        }
+      });
       this.showArchiveCreatedSnackbar();
     } else {
       const queryParams = this.formDataSource ? CreateSimulationParams(this.formDataSource, projectUrl) : null;
