@@ -116,7 +116,7 @@ function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData
   const archive = CreateArchive(
     uploadModelData.modelFormat as string,
     uploadModelData.modelUrl as string,
-    uploadModelData.modelFile as File,
+    uploadModelData.modelFile as CommonFile,
     simulationMethodData.algorithm as string,
     simulationMethodData.simulationType as SimulationType,
     timeCourseData?.initialTime as number,
@@ -127,8 +127,9 @@ function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData
     modelChangesData.modelChanges as Record<string, string>[],
     variablesData.modelVariables as Record<string, string>[],
     namespacesData.namespaces as Namespace[],
-    dataSource.reRunMetadataFile as CommonFile,
-    dataSource.reRunModelId,
+    dataSource.reRunMetadataFile as string,
+    dataSource.reRunSedFile as string,
+    dataSource.reRunModelId as string,
   );
 
   if (!archive) {
@@ -140,10 +141,13 @@ function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData
   // formData.append('specs', JSON.stringify(archive));
   formData.set('specs', JSON.stringify(archive));
   formData.set('download', 'true');
+
+  console.log(`METADATA FILE: ${(dataSource.reRunMetadataFile as File).name}`);
   formData.set('files', dataSource.reRunMetadataFile as File);
 
   const modelFile = uploadModelData.modelFile as File;
   if (modelFile) {
+    console.log(`---FOUND MODEL FILE`);
     formData.append('files', modelFile);
   }
 

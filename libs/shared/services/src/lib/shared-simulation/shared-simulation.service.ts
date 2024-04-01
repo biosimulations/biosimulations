@@ -52,7 +52,7 @@ export interface ReRunQueryParams {
   runName?: string;
   files?: string; // this needs deserialization when fetched
   modelUrl?: string;
-  modelFile?: string | null;
+  modelFile?: string | null | File | CommonFile;
   modelFormat?: string;
   modelId?: string;
   simulationType?: string;
@@ -63,6 +63,9 @@ export interface ReRunQueryParams {
   endTime?: string | number;
   numSteps?: string | number;
   metadataFile?: string | File | CommonFile;
+  metadataFileUrl?: string;
+  sedFile?: string | File | CommonFile;
+  sedFileUrl?: string;
 }
 
 export interface CustomizableSedDocumentData {
@@ -219,6 +222,9 @@ export class SharedSimulationService {
             endTime: '',
             numSteps: '',
             metadataFile: '',
+            metadataFileUrl: '',
+            sedFile: '',
+            sedFileUrl: '',
           };
 
           // identify and set modelUrl and potentially other parameters based on filesContent analysis
@@ -227,10 +233,15 @@ export class SharedSimulationService {
               case file as CommonFile:
                 if (file.url.includes('xml') || file.url.includes('sbml')) {
                   queryParams.modelUrl = file.url;
-                  queryParams.modelFile = file.location;
+                  queryParams.modelFile = JSON.stringify(file);
                 }
                 if (file.url.includes('metadata')) {
                   queryParams.metadataFile = JSON.stringify(file);
+                  queryParams.metadataFileUrl = file.url;
+                }
+                if (file.url.includes('sedml')) {
+                  queryParams.sedFile = JSON.stringify(file);
+                  queryParams.sedFileUrl = file.url;
                 }
                 break;
             }
