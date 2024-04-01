@@ -230,7 +230,7 @@ export class SharedSimulationService {
                   queryParams.modelFile = file.location;
                 }
                 if (file.url.includes('metadata')) {
-                  queryParams.metadataFile = file;
+                  queryParams.metadataFile = JSON.stringify(file);
                 }
                 break;
             }
