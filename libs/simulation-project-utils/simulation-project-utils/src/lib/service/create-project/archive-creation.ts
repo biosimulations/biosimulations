@@ -43,7 +43,7 @@ import { MultipleSimulatorsAlgorithmParameter } from './compatibility';
 export function CreateArchive(
   modelFormat: string,
   modelUrl: string,
-  modelFile: File,
+  modelFile: CommonFile,
   algorithmId: string,
   simulationType: SimulationType,
   initialTime: number,
@@ -54,7 +54,8 @@ export function CreateArchive(
   changesData: Record<string, string>[],
   variablesData: Record<string, string>[],
   namespaces: Namespace[],
-  metadataFile: CommonFile,
+  metadataFile: string,
+  sedFile: string,
   rerunModelId?: string,
 ): CombineArchive {
   const sedChanges = CreateSedModelChanges(changesData, namespaces);
@@ -78,7 +79,7 @@ export function CreateArchive(
   //const sedDoc = IntrospectNewProject(http, model, simulation, )
   const sedDoc = CreateSedDocument(model, simulation, task, dataGenerators, dataSets);
   const modelContent = CreateArchiveModelLocationValue(modelFile, modelUrl);
-  return CompleteArchive(modelFormat, sedDoc, modelContent, model.source, metadataFile);
+  return CompleteArchive(modelFormat, sedDoc, modelContent, model.source, metadataFile, sedFile);
 }
 
 function CreateSedModelChanges(modelChanges: Record<string, string>[], namespaces: Namespace[]): SedModelChange[] {
@@ -312,12 +313,12 @@ function CreateSedDocument(
   };
 }
 
-function CreateArchiveModelLocationValue(modelFile: File, modelUrl: string): CombineArchiveLocationValue {
-  if (modelFile) {
+function CreateArchiveModelLocationValue(modelFile: CommonFile, modelUrl: string): CombineArchiveLocationValue {
+  if (modelFile as CommonFile) {
     console.log(`archive file found for ${modelFile}`);
     return {
       _type: CombineArchiveContentFileTypeEnum.CombineArchiveContentFile,
-      filename: modelFile.name,
+      filename: modelFile.location,
     };
   }
   console.log(`archive url found for ${modelUrl}`);
@@ -332,7 +333,8 @@ function CompleteArchive(
   sedDoc: SedDocument,
   locationValue: CombineArchiveLocationValue,
   modelPath: string,
-  metadataFile: CommonFile,
+  metadataFile: string,
+  sedFile: string,
 ): CombineArchive {
   console.log(`The archive has a model with a path of: ${modelPath}`);
   const formatUri = BIOSIMULATIONS_FORMATS_BY_ID[modelFormat].biosimulationsMetadata?.omexManifestUris[0];
@@ -358,11 +360,55 @@ function CompleteArchive(
         location: {
           _type: CombineArchiveLocationTypeEnum.CombineArchiveLocation,
           path: 'simulation_1.sedml',
-          value: sedDoc,
+          value: {
+            _type: CombineArchiveContentUrlTypeEnum.CombineArchiveContentUrl,
+            url: sedFile,
+          },
+        },
+      },
+      {
+        _type: CombineArchiveContentTypeEnum.CombineArchiveContent,
+        format: 'https://identifiers.org/combine.specifications/omex-metadata',
+        master: false,
+        location: {
+          _type: CombineArchiveLocationTypeEnum.CombineArchiveLocation,
+          path: 'metadata.rdf',
+          value: {
+            _type: CombineArchiveContentUrlTypeEnum.CombineArchiveContentUrl,
+            url: metadataFile,
+          },
         },
       },
     ],
   };
+
+  /*if (sedFile) {
+    console.log(`GOT SED FILE`)
+    archive.contents.push({
+      _type: CombineArchiveContentTypeEnum.CombineArchiveContent,
+      format: 'https://identifiers.org/combine.specifications/sed-ml',
+      master: true,
+      location: {
+        _type: CombineArchiveLocationTypeEnum.CombineArchiveLocation,
+        path: sedFile.location,
+        value: {
+          _type: CombineArchiveContentUrlTypeEnum.CombineArchiveContentUrl,
+          url: sedFile.url
+        },
+      }
+    });
+  } else {
+    archive.contents.push({
+      _type: CombineArchiveContentTypeEnum.CombineArchiveContent,
+      format: 'https://identifiers.org/combine.specifications/sed-ml',
+      master: true,
+      location: {
+        _type: CombineArchiveLocationTypeEnum.CombineArchiveLocation,
+        path: 'simulation_1.sedml',
+        value: sedDoc,
+      }
+    });
+  }
 
   if (metadataFile) {
     archive.contents.push({
@@ -375,10 +421,10 @@ function CompleteArchive(
         value: {
           _type: CombineArchiveContentUrlTypeEnum.CombineArchiveContentUrl,
           url: metadataFile.url,
-        },
-      },
+        }
+      }
     });
-  }
+  }*/
 
   console.log(`${JSON.stringify(archive)}`);
   return archive;

@@ -44,11 +44,12 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
   public projectUrl!: string;
   public reRunModelId?: string;
   public hasExtraButtons = false;
-  public reRunModelFile?: string;
+  public reRunModelFile?: string | File | CommonFile;
   public reRunSimulator?: string;
   public reRunSimulatorVersion?: string;
   public reRunName?: string;
-  public reRunMetadataFile?: CommonFile | File;
+  public reRunMetadataFile?: CommonFile | File | string;
+  public reRunSedFile?: CommonFile | File | string;
 
   public constructor(
     private simulatorsData: SimulatorsData,
@@ -158,6 +159,7 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     console.log(`Got model file from param: ${params.modelFile}`);
     console.log(`Got url from param: ${params.projectUrl}`);
     console.log(`Got file from param: ${params.metadataFile.id}`);
+    console.log(`Got sed file from param ${params.sedFile.id}`);
 
     this.isReRun = true;
     this.reRunModelFile = params.modelFile;
@@ -166,15 +168,16 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     this.reRunSimulator = params.simulator;
     this.reRunSimulatorVersion = params.simulatorVersion;
     this.reRunName = params.runName;
-    this.reRunMetadataFile = JSON.parse(params.metadataFile);
-    this.preloadUploadModelData(params.modelUrl, params.modelFormat, params.modelFile);
+    this.reRunMetadataFile = params.metadataFileUrl;
+    this.reRunSedFile = params.sedFileUrl;
+    this.preloadUploadModelData(params.modelUrl, params.modelFormat);
     this.preloadSimMethodData(params.modelingFramework, params.simulationType, params.simulationAlgorithm);
     this.preloadTCParams(params.initialTime, params.startTime, params.endTime, params.numSteps);
 
     console.log(`--- GOT RERUN MODEL ID: ${this.reRunModelId}`);
   }
 
-  private preloadUploadModelData(modelUrl: string, modelFormat: string, modelFile?: string): void {
+  private preloadUploadModelData(modelUrl: string, modelFormat: string): void {
     modelFormat = modelFormat?.toLowerCase();
     const match = modelFormat?.match(/^(format[:_])?(\d{1,4})$/);
     if (match) {
@@ -183,11 +186,8 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     const uploadModelData = this.formData[CreateProjectFormStep.UploadModel] || {};
     uploadModelData.modelUrl = modelUrl;
     uploadModelData.modelFormat = modelFormat;
-    if (modelFile) {
-      uploadModelData.modelFile = modelFile;
-      this.reRunModelFile = modelFile;
-      console.log(`model file went into form! ${uploadModelData.modelFile}`);
-    }
+    //uploadModelData.modelFile = this.reRunModelFile;
+    console.log(`model file went into form! ${uploadModelData}`);
     this.formData[CreateProjectFormStep.UploadModel] = uploadModelData;
   }
 
