@@ -214,6 +214,9 @@ export class DispatchComponent implements OnInit, OnDestroy {
       );
     }
 
+    Object.keys(params).forEach((key) => {
+      console.log(`A KEY: ${key}, ${params[key]}`);
+    });
     this.setControlsFromParams(params, this.simulatorSpecsMap);
   }
 
@@ -283,8 +286,6 @@ export class DispatchComponent implements OnInit, OnDestroy {
         email,
       ),
     );
-
-    console.log(`The run to be submitted has envVars: ${envVars}.`);
     this.subscriptions.push(sub);
     window.scrollTo(0, 0);
   }
