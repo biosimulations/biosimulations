@@ -35,7 +35,6 @@ import {
 import { BIOSIMULATIONS_FORMATS_BY_ID } from '@biosimulations/ontology/extra-sources';
 import { SimulationType, ValueType } from '@biosimulations/datamodel/common';
 import { MultipleSimulatorsAlgorithmParameter } from './compatibility';
-import { HttpClient } from '@angular/common/http';
 
 /**
  * Builds a CombineArchive instance with the provided parameters.
