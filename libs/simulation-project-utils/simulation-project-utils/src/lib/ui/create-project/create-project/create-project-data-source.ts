@@ -45,6 +45,8 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
   public reRunModelId?: string;
   public hasExtraButtons = false;
   public reRunModelFile?: string;
+  public reRunSimulator?: string;
+  public reRunSimulatorVersion?: string;
 
   public constructor(
     private simulatorsData: SimulatorsData,
@@ -158,6 +160,8 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     this.reRunModelFile = params.modelFile;
     this.reRunModelId = params.modelId;
     this.projectUrl = params.projectUrl;
+    this.reRunSimulator = params.simulator;
+    this.reRunSimulatorVersion = params.simulatorVersion;
     this.preloadUploadModelData(params.modelUrl, params.modelFormat, params.modelFile);
     this.preloadSimMethodData(params.modelingFramework, params.simulationType, params.simulationAlgorithm);
     this.preloadTCParams(params.initialTime, params.startTime, params.endTime, params.numSteps);

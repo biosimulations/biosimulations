@@ -116,6 +116,7 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
         console.log(`no query params.`);
         return;
       }
+
       /*if (this.config.appId === 'dispatch') {
         this.router.navigate(['/runs/new'], { queryParams: queryParams });
       } else if (this.config.appId === 'platform') {
@@ -162,6 +163,10 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
     a.download = 'archive.omex';
     a.click();
     this.showArchiveDownloadedSnackbar();
+    const queryParams = {
+      projectFile: a,
+    };
+    this.router.navigate(['/runs/new'], { queryParams: queryParams });
   }
 
   private submitFormData(completionHandler: (projectUrl: string) => void): void {
