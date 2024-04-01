@@ -140,7 +140,7 @@ function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData
   const formData = new FormData();
   // formData.append('specs', JSON.stringify(archive));
   formData.set('specs', JSON.stringify(archive));
-  formData.set('download', 'false');
+  formData.set('download', 'true');
 
   const modelFile = uploadModelData.modelFile as File;
   if (modelFile) {
