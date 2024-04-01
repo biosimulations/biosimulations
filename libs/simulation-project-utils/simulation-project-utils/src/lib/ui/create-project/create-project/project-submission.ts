@@ -127,8 +127,8 @@ function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData
     modelChangesData.modelChanges as Record<string, string>[],
     variablesData.modelVariables as Record<string, string>[],
     namespacesData.namespaces as Namespace[],
-    dataSource.reRunModelId,
     dataSource.reRunMetadataFile as CommonFile,
+    dataSource.reRunModelId,
   );
 
   if (!archive) {
