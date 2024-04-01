@@ -336,6 +336,8 @@ function CompleteArchive(
 
   console.log(`The sed doc spec is: ${JSON.stringify(sedDoc)}`);
   const formatUri = BIOSIMULATIONS_FORMATS_BY_ID[modelFormat].biosimulationsMetadata?.omexManifestUris[0];
+
+  // HERE ADD METADATA
   const archive = {
     _type: CombineArchiveTypeEnum.CombineArchive,
     contents: [
