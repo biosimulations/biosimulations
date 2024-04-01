@@ -54,6 +54,7 @@ export interface ReRunQueryParams {
   modelUrl?: string;
   modelFile?: string | null;
   modelFormat?: string;
+  modelId?: string;
   simulationType?: string;
   simulationAlgorithm?: string;
   modelingFramework?: string;
@@ -236,6 +237,7 @@ export class SharedSimulationService {
               sedDocSpecs?.contents.forEach((content: CombineArchiveSedDocSpecsContent): void => {
                 const sedDoc: SedDocument = content.location.value;
                 sedDoc.models.forEach((model: SedModel): void => {
+                  queryParams.modelId = model.id;
                   let edamId: string | null = null;
                   for (const modelingFormat of BIOSIMULATIONS_FORMATS) {
                     const sedUrn = modelingFormat?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn;

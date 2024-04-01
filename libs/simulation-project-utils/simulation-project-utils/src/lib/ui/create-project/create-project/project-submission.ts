@@ -52,9 +52,8 @@ export function SubmitFormData(
 ): Observable<string> | null {
   const formData = CreateSubmissionFormData(dataSource);
 
-  console.log(`this is the form data: ${JSON.stringify(formData)}`);
-
   if (!formData) {
+    console.log(`There is no form data. Returning null.`);
     return null;
   }
   const endpoints = new Endpoints();
@@ -99,14 +98,12 @@ function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData
     namespacesData.namespaces as Namespace[],
   );
 
+  console.log(`--- A RERUN MODEL ID: ${dataSource?.reRunModelId}`);
+
   if (!archive) {
     console.log(`there is no archive`);
     return null;
   }
-
-  archive.contents.forEach((item: any) => {
-    console.log(`archive item: ${item.location.path}`);
-  });
 
   const formData = new FormData();
   formData.append('specs', JSON.stringify(archive));
@@ -118,8 +115,11 @@ function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData
     console.log(`appending model file!: ${modelFile.name}`);
   } else {
     console.log(`NO MODEL FILE`);
-    console.log(`NO MODEL FILE`);
   }
-  console.log(`This IS THE FORM DATAAA: ${Object.keys(formData)}`);
+
+  formData.getAll('specs').forEach((entry: FormDataEntryValue) => {
+    console.log(`THE ENTRY FOR SPECS: ${entry}`);
+  });
+
   return formData;
 }
