@@ -31,14 +31,16 @@ export function CreateSimulationParams(
     projectUrl: projectUrl,
     simulator: '',
     simulatorVersion: '',
+    runName: '',
     modelFormat: uploadData.modelFormat as string,
     modelingFramework: simMethodData.framework as string,
     simulationAlgorithm: simMethodData.algorithm as string,
   };
 
-  if (dataSource.reRunSimulator && dataSource.reRunSimulatorVersion) {
+  if (dataSource.reRunSimulator && dataSource.reRunSimulatorVersion && dataSource.reRunName) {
     params.simulator = dataSource.reRunSimulator;
     params.simulatorVersion = dataSource.reRunSimulatorVersion;
+    params.runName = 'customized-' + dataSource.reRunName;
   }
 
   return params;
