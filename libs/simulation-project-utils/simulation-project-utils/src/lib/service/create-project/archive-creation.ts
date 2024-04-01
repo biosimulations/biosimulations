@@ -81,12 +81,13 @@ export function CreateArchive(
 
 function CreateSedModelChanges(modelChanges: Record<string, string>[], namespaces: Namespace[]): SedModelChange[] {
   const changes: SedModelChange[] = [];
-  modelChanges.forEach((changeData: Record<string, string>, i: number): void => {
+  modelChanges.forEach((changeData: Record<string, string>): void => {
     if (!changeData.newValue || changeData.newValue.length === 0) {
-      console.log(`***********${i}: no change available!`);
       //return;
     }
-    console.log(`the change type: ${changeData._type}`);
+    if (!changeData.newValue) {
+      changeData.newValue = changeData.default;
+    }
     changes.push({
       _type: SedModelAttributeChangeTypeEnum.SedModelAttributeChange,
       id: changeData.id,
@@ -215,13 +216,13 @@ function CreateSedSimulation(
   if (simulationType === SimulationType.SedSteadyStateSimulation) {
     return {
       _type: SedSteadyStateSimulationTypeEnum.SedSteadyStateSimulation,
-      id: 'simulation',
+      id: 'simulation_1',
       algorithm: algorithm,
     };
   } else {
     return {
       _type: SedUniformTimeCourseSimulationTypeEnum.SedUniformTimeCourseSimulation,
-      id: 'simulation',
+      id: 'simulation_1',
       initialTime: initialTime as number,
       outputStartTime: outputStartTime as number,
       outputEndTime: outputEndTime as number,
@@ -235,7 +236,7 @@ function CreateSedTask(model: SedModel, simulation: SedSimulation): SedTask {
   console.log(`sed task model to create: ${model.source}`);
   return {
     _type: SedTaskTypeEnum.SedTask,
-    id: 'task',
+    id: 'task_1',
     model: model.id,
     simulation: simulation.id,
   };
@@ -259,13 +260,14 @@ function CreateSedDataSetAndGenerators(
       parameters: [],
       variables: [variable],
       math: variable.id,
-      name: variable.name,
+      //name: variable.name,
     };
     dataGenerators.push(dataGen);
 
+    console.log(`THE RAW ID: ${rawId} ---- THE LABEL: ${variable.name}`);
     const dataSet: SedDataSet = {
       _type: SedDataSetTypeEnum.SedDataSet,
-      id: rawId,
+      id: 'data_set_' + rawId,
       label: variable.name || rawId,
       dataGenerator: dataGen.id,
       name: variable.name,
@@ -345,7 +347,7 @@ function CompleteArchive(
         master: true,
         location: {
           _type: CombineArchiveLocationTypeEnum.CombineArchiveLocation,
-          path: './simulation.sedml',
+          path: 'simulation_1.sedml',
           value: sedDoc,
         },
       },
