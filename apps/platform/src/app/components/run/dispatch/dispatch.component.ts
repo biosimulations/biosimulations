@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Params } from '@angular/router';
+import { Params, ActivatedRoute } from '@angular/router';
 import { UntypedFormBuilder, UntypedFormGroup, Validators, ValidationErrors } from '@angular/forms';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { SimulationService } from '../../../services/simulation/simulation.service';
@@ -96,6 +96,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     private combineApiService: CombineApiService,
     private snackBar: MatSnackBar,
     private loader: SimulationProjectUtilLoaderService,
+    private activateRoute: ActivatedRoute,
   ) {
     this.formGroup = this.formBuilder.group(
       {
@@ -627,6 +628,10 @@ export class DispatchComponent implements OnInit, OnDestroy {
     this.setMemory(params.memory);
     this.setMaxTime(params.maxTime);
     this.setRunName(params.runName);
+
+    this.activateRoute.paramMap.subscribe((_params) => {
+      console.log(_params.keys);
+    });
   }
 
   private setProject(projectUrl: string): void {

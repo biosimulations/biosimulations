@@ -27,12 +27,21 @@ export function CreateSimulationParams(
     return null;
   }
   console.log(`the project url in params form: ${projectUrl}`);
-  return {
+  const params = {
     projectUrl: projectUrl,
+    simulator: '',
+    simulatorVersion: '',
     modelFormat: uploadData.modelFormat as string,
     modelingFramework: simMethodData.framework as string,
     simulationAlgorithm: simMethodData.algorithm as string,
   };
+
+  if (dataSource.reRunSimulator && dataSource.reRunSimulatorVersion) {
+    params.simulator = dataSource.reRunSimulator;
+    params.simulatorVersion = dataSource.reRunSimulatorVersion;
+  }
+
+  return params;
 }
 
 /**
@@ -75,7 +84,7 @@ export function SubmitFormData(
   );
 }
 
-function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData | null {
+function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData | null | any {
   const uploadModelData: FormStepData = dataSource.formData[CreateProjectFormStep.UploadModel];
   const simulationMethodData: FormStepData = dataSource.formData[CreateProjectFormStep.FrameworkSimTypeAndAlgorithm];
   const algorithmParamData: FormStepData = dataSource.formData[CreateProjectFormStep.AlgorithmParameters];
@@ -118,17 +127,26 @@ function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData
     return null;
   }
 
-  const formData = new FormData();
-  formData.append('specs', JSON.stringify(archive));
+  /*const formData = new FormData();
+  // formData.append('specs', JSON.stringify(archive));
+  formData.set('specs', JSON.stringify(archive));
 
   const modelFile = uploadModelData.modelFile as File;
   if (modelFile) {
-    formData.append('files', modelFile);
+    // formData.append('files', modelFile);
+    formData.set('files', modelFile);
   }
 
   formData.getAll('specs').forEach((entry: FormDataEntryValue) => {
     console.log(`THE ENTRY FOR SPECS: ${entry}`);
   });
+
+  return formData;*/
+
+  const formData = {
+    specs: JSON.stringify(archive),
+    download: false,
+  };
 
   return formData;
 }
