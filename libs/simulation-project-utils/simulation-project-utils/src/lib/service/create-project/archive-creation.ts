@@ -34,7 +34,7 @@ import {
   SedVariableTypeEnum,
 } from '@biosimulations/combine-api-angular-client';
 import { BIOSIMULATIONS_FORMATS_BY_ID } from '@biosimulations/ontology/extra-sources';
-import { SimulationType, ValueType } from '@biosimulations/datamodel/common';
+import { CommonFile, SimulationType, ValueType } from '@biosimulations/datamodel/common';
 import { MultipleSimulatorsAlgorithmParameter } from './compatibility';
 
 /**
@@ -55,6 +55,7 @@ export function CreateArchive(
   variablesData: Record<string, string>[],
   namespaces: Namespace[],
   rerunModelId?: string,
+  metadataFile?: CommonFile | File | string,
 ): CombineArchive {
   const sedChanges = CreateSedModelChanges(changesData, namespaces);
   const model = CreateSedModel(modelFormat, sedChanges, modelUrl, rerunModelId);
@@ -77,7 +78,7 @@ export function CreateArchive(
   //const sedDoc = IntrospectNewProject(http, model, simulation, )
   const sedDoc = CreateSedDocument(model, simulation, task, dataGenerators, dataSets);
   const modelContent = CreateArchiveModelLocationValue(modelFile, modelUrl);
-  return CompleteArchive(modelFormat, sedDoc, modelContent, model.source);
+  return CompleteArchive(modelFormat, sedDoc, modelContent, model.source, metadataFile);
 }
 
 function CreateSedModelChanges(modelChanges: Record<string, string>[], namespaces: Namespace[]): SedModelChange[] {
@@ -331,6 +332,7 @@ function CompleteArchive(
   sedDoc: SedDocument,
   locationValue: CombineArchiveLocationValue,
   modelPath: string,
+  metadataFile?: CommonFile | File | string,
 ): CombineArchive {
   console.log(`The archive has a model with a path of: ${modelPath}`);
 
