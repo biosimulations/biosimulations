@@ -48,7 +48,7 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
   public reRunSimulator?: string;
   public reRunSimulatorVersion?: string;
   public reRunName?: string;
-  public reRunMetadataFile?: CommonFile;
+  public reRunMetadataFile?: CommonFile | File;
 
   public constructor(
     private simulatorsData: SimulatorsData,

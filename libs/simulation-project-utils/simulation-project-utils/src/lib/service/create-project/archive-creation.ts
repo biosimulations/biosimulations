@@ -335,8 +335,6 @@ function CompleteArchive(
   metadataFile?: CommonFile,
 ): CombineArchive {
   console.log(`The archive has a model with a path of: ${modelPath}`);
-
-  console.log(`The sed doc spec is: ${JSON.stringify(sedDoc)}`);
   const formatUri = BIOSIMULATIONS_FORMATS_BY_ID[modelFormat].biosimulationsMetadata?.omexManifestUris[0];
 
   // HERE ADD METADATA
@@ -366,10 +364,6 @@ function CompleteArchive(
     ],
   };
 
-  archive.contents.forEach((item: any, i: number) => {
-    console.log(`Item: ${i}: ${Object.keys(item?.location)}`);
-  });
-
   if (metadataFile) {
     archive.contents.push({
       _type: CombineArchiveContentTypeEnum.CombineArchiveContent,
@@ -386,6 +380,6 @@ function CompleteArchive(
     });
   }
 
-  console.log(sedDoc._type);
+  console.log(`${JSON.stringify(archive)}`);
   return archive;
 }
