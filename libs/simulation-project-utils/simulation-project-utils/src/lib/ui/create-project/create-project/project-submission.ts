@@ -5,7 +5,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { CreateArchive } from '../../../service/create-project/archive-creation';
 import { MultipleSimulatorsAlgorithmParameter } from '../../../service/create-project/compatibility';
 import { FormStepData } from './forms';
-import { SimulationType } from '@biosimulations/datamodel/common';
+import { CommonFile, SimulationType } from '@biosimulations/datamodel/common';
 import { CreateProjectDataSource, CreateProjectFormStep } from './create-project-data-source';
 import { Namespace } from '@biosimulations/combine-api-angular-client';
 
@@ -128,10 +128,8 @@ function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData
     variablesData.modelVariables as Record<string, string>[],
     namespacesData.namespaces as Namespace[],
     dataSource.reRunModelId,
-    dataSource.reRunMetadataFile,
+    dataSource.reRunMetadataFile as CommonFile,
   );
-
-  console.log(`--- A RERUN MODEL ID: ${dataSource?.reRunModelId}`);
 
   if (!archive) {
     console.log(`there is no archive`);
@@ -142,11 +140,11 @@ function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData
   // formData.append('specs', JSON.stringify(archive));
   formData.set('specs', JSON.stringify(archive));
   formData.set('download', 'true');
+  formData.set('files', dataSource.reRunMetadataFile as File);
 
   const modelFile = uploadModelData.modelFile as File;
   if (modelFile) {
-    // formData.append('files', modelFile);
-    formData.set('files', modelFile);
+    formData.append('files', modelFile);
   }
 
   return formData;
