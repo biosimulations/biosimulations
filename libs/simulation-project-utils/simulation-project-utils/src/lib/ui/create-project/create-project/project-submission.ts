@@ -1,7 +1,7 @@
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Endpoints } from '@biosimulations/config/common';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { CreateArchive } from '../../../service/create-project/archive-creation';
 import { MultipleSimulatorsAlgorithmParameter } from '../../../service/create-project/compatibility';
 import { FormStepData } from './forms';
@@ -57,8 +57,16 @@ export function SubmitFormData(
     return null;
   }
   const endpoints = new Endpoints();
-  const url = endpoints.getCombineArchiveCreationEndpoint(true);
-  return http.post<string>(url, formData, {}).pipe(
+  const createArchiveUrl = endpoints.getCombineArchiveCreationEndpoint(true);
+  const newSedDocUrl = endpoints.getSedmlSpecificationsEndpoint(true);
+
+  const httpOptions = {
+    headers: new HttpHeaders({
+      Accept: 'application/json',
+    }),
+  };
+
+  return http.post<string>(createArchiveUrl, formData, httpOptions).pipe(
     catchError((error: HttpErrorResponse): Observable<string> => {
       console.error(error);
       errorHandler();
@@ -82,6 +90,10 @@ function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData
     return null;
   }
 
+  (modelChangesData.modelChanges as Record<string, string>[]).forEach((item: any, i: number) => {
+    console.log(`--- MODEL CHANGES TO BE SUBMITTED: ${i}: ${JSON.stringify(item)}`);
+  });
+
   const archive = CreateArchive(
     uploadModelData.modelFormat as string,
     uploadModelData.modelUrl as string,
@@ -96,6 +108,7 @@ function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData
     modelChangesData.modelChanges as Record<string, string>[],
     variablesData.modelVariables as Record<string, string>[],
     namespacesData.namespaces as Namespace[],
+    dataSource.reRunModelId,
   );
 
   console.log(`--- A RERUN MODEL ID: ${dataSource?.reRunModelId}`);
@@ -107,14 +120,10 @@ function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData
 
   const formData = new FormData();
   formData.append('specs', JSON.stringify(archive));
-  console.log(`THE ARCHIVE SED SPEC: ${JSON.stringify(archive.contents[1])}`);
 
   const modelFile = uploadModelData.modelFile as File;
   if (modelFile) {
     formData.append('files', modelFile);
-    console.log(`appending model file!: ${modelFile.name}`);
-  } else {
-    console.log(`NO MODEL FILE`);
   }
 
   formData.getAll('specs').forEach((entry: FormDataEntryValue) => {
