@@ -327,6 +327,8 @@ function CompleteArchive(
   modelPath: string,
 ): CombineArchive {
   console.log(`The archive has a model with a path of: ${modelPath}`);
+
+  console.log(`The sed doc spec is: ${JSON.stringify(sedDoc)}`);
   const formatUri = BIOSIMULATIONS_FORMATS_BY_ID[modelFormat].biosimulationsMetadata?.omexManifestUris[0];
   const archive = {
     _type: CombineArchiveTypeEnum.CombineArchive,

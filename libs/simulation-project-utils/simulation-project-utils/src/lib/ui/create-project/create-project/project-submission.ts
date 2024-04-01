@@ -19,12 +19,12 @@ import { Namespace } from '@biosimulations/combine-api-angular-client';
 export function CreateSimulationParams(
   dataSource: CreateProjectDataSource,
   projectUrl: string,
-): Record<string, string> | null {
+): Record<string, string> {
   const uploadData = dataSource.formData[CreateProjectFormStep.UploadModel];
   const simMethodData = dataSource.formData[CreateProjectFormStep.FrameworkSimTypeAndAlgorithm];
   if (!uploadData || !simMethodData) {
     console.log(`not valid.`);
-    return null;
+    //return null;
   }
   console.log(`the project url in params form: ${projectUrl}`);
   const params = {
@@ -68,13 +68,21 @@ export function SubmitFormData(
     return null;
   }
   const endpoints = new Endpoints();
-  const createArchiveUrl = endpoints.getCombineArchiveCreationEndpoint(true);
+  const createArchiveUrl = endpoints.getCombineArchiveCreationEndpoint(false);
   const newSedDocUrl = endpoints.getSedmlSpecificationsEndpoint(true);
 
-  const httpOptions = {
+  /*const httpOptions = {
     headers: new HttpHeaders({
       Accept: 'application/json',
     }),
+    content: ''
+  };*/
+
+  const headers = new HttpHeaders();
+  headers.append('Accept', 'application/json');
+  headers.append('Content-Type', 'application/json'); // 'multipart/form-data');
+  const httpOptions = {
+    headers: headers,
   };
 
   return http.post<string>(createArchiveUrl, formData, httpOptions).pipe(
@@ -129,26 +137,16 @@ function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData
     return null;
   }
 
-  /*const formData = new FormData();
+  const formData = new FormData();
   // formData.append('specs', JSON.stringify(archive));
   formData.set('specs', JSON.stringify(archive));
+  formData.set('download', 'false');
 
   const modelFile = uploadModelData.modelFile as File;
   if (modelFile) {
     // formData.append('files', modelFile);
     formData.set('files', modelFile);
   }
-
-  formData.getAll('specs').forEach((entry: FormDataEntryValue) => {
-    console.log(`THE ENTRY FOR SPECS: ${entry}`);
-  });
-
-  return formData;*/
-
-  const formData = {
-    specs: JSON.stringify(archive),
-    download: false,
-  };
 
   return formData;
 }
