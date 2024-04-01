@@ -24,6 +24,7 @@ import {
   SedReportTypeEnum,
   SedSimulation,
   SedSteadyStateSimulationTypeEnum,
+  SedStyleTypeEnum,
   SedTarget,
   SedTargetTypeEnum,
   SedTask,
@@ -270,7 +271,7 @@ function CreateSedDataSetAndGenerators(
       id: 'data_set_' + rawId,
       label: variable.name || rawId,
       dataGenerator: dataGen.id,
-      name: variable.name,
+      //name: variable.name,
     };
     dataSets.push(dataSet);
   });
@@ -290,7 +291,12 @@ function CreateSedDocument(
     _type: SedDocumentTypeEnum.SedDocument,
     level: 1,
     version: 3,
-    styles: [],
+    styles: [
+      {
+        _type: SedStyleTypeEnum.SedStyle,
+        id: model.id + '_style',
+      },
+    ],
     models: [model],
     simulations: [simulation],
     tasks: [task],

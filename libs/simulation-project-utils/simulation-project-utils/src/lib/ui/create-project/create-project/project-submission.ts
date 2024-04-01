@@ -80,7 +80,7 @@ export function SubmitFormData(
 
   const headers = new HttpHeaders();
   headers.append('Accept', 'application/json');
-  headers.append('Content-Type', 'application/json'); // 'multipart/form-data');
+  headers.append('Content-Type', 'multipart/form-data');
   const httpOptions = {
     headers: headers,
   };
