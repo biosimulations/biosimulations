@@ -55,7 +55,7 @@ export function CreateArchive(
   variablesData: Record<string, string>[],
   namespaces: Namespace[],
   rerunModelId?: string,
-  metadataFile?: CommonFile | File | string,
+  metadataFile?: CommonFile,
 ): CombineArchive {
   const sedChanges = CreateSedModelChanges(changesData, namespaces);
   const model = CreateSedModel(modelFormat, sedChanges, modelUrl, rerunModelId);
@@ -332,7 +332,7 @@ function CompleteArchive(
   sedDoc: SedDocument,
   locationValue: CombineArchiveLocationValue,
   modelPath: string,
-  metadataFile?: CommonFile | File | string,
+  metadataFile?: CommonFile,
 ): CombineArchive {
   console.log(`The archive has a model with a path of: ${modelPath}`);
 
@@ -369,6 +369,22 @@ function CompleteArchive(
   archive.contents.forEach((item: any, i: number) => {
     console.log(`Item: ${i}: ${Object.keys(item?.location)}`);
   });
+
+  if (metadataFile) {
+    archive.contents.push({
+      _type: CombineArchiveContentTypeEnum.CombineArchiveContent,
+      format: 'https://identifiers.org/combine.specifications/omex-metadata',
+      master: false,
+      location: {
+        _type: CombineArchiveLocationTypeEnum.CombineArchiveLocation,
+        path: metadataFile.name,
+        value: {
+          _type: CombineArchiveContentUrlTypeEnum.CombineArchiveContentUrl,
+          url: metadataFile.url,
+        },
+      },
+    });
+  }
 
   console.log(sedDoc._type);
   return archive;

@@ -128,6 +128,7 @@ function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData
     variablesData.modelVariables as Record<string, string>[],
     namespacesData.namespaces as Namespace[],
     dataSource.reRunModelId,
+    dataSource.reRunMetadataFile,
   );
 
   console.log(`--- A RERUN MODEL ID: ${dataSource?.reRunModelId}`);
