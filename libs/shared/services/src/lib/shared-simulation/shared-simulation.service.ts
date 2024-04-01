@@ -62,6 +62,7 @@ export interface ReRunQueryParams {
   startTime?: string | number;
   endTime?: string | number;
   numSteps?: string | number;
+  metadataFile?: string | File | CommonFile;
 }
 
 export interface CustomizableSedDocumentData {
@@ -217,6 +218,7 @@ export class SharedSimulationService {
             startTime: '',
             endTime: '',
             numSteps: '',
+            metadataFile: '',
           };
 
           // identify and set modelUrl and potentially other parameters based on filesContent analysis
@@ -226,6 +228,9 @@ export class SharedSimulationService {
                 if (file.url.includes('xml') || file.url.includes('sbml')) {
                   queryParams.modelUrl = file.url;
                   queryParams.modelFile = file.location;
+                }
+                if (file.url.includes('metadata')) {
+                  queryParams.metadataFile = file;
                 }
                 break;
             }

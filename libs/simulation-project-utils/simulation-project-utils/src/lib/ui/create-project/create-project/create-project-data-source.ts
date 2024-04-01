@@ -14,7 +14,7 @@ import {
 import { CustomizableSedDocumentData } from '../../../service/create-project/project-introspection';
 import { SimulatorsData } from '../../../service/dispatch/dispatch.service';
 import { ViewContainerRef } from '@angular/core';
-import { SimulationType, AlgorithmSubstitution } from '@biosimulations/datamodel/common';
+import { SimulationType, AlgorithmSubstitution, CommonFile } from '@biosimulations/datamodel/common';
 import { Params } from '@angular/router';
 import {
   UploadModelComponent,
@@ -48,6 +48,7 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
   public reRunSimulator?: string;
   public reRunSimulatorVersion?: string;
   public reRunName?: string;
+  public reRunMetadataFile?: File | CommonFile;
 
   public constructor(
     private simulatorsData: SimulatorsData,
@@ -156,6 +157,7 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     console.log(`Got num steps from param: ${params.numSteps}`);
     console.log(`Got model file from param: ${params.modelFile}`);
     console.log(`Got url from param: ${params.projectUrl}`);
+    console.log(`Got file from param: ${params.metadataFile.id}`);
 
     this.isReRun = true;
     this.reRunModelFile = params.modelFile;
@@ -164,6 +166,7 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     this.reRunSimulator = params.simulator;
     this.reRunSimulatorVersion = params.simulatorVersion;
     this.reRunName = params.runName;
+    this.reRunMetadataFile = params.metadataFile;
     this.preloadUploadModelData(params.modelUrl, params.modelFormat, params.modelFile);
     this.preloadSimMethodData(params.modelingFramework, params.simulationType, params.simulationAlgorithm);
     this.preloadTCParams(params.initialTime, params.startTime, params.endTime, params.numSteps);
