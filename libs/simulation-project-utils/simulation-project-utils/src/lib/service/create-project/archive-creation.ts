@@ -54,8 +54,8 @@ export function CreateArchive(
   changesData: Record<string, string>[],
   variablesData: Record<string, string>[],
   namespaces: Namespace[],
+  metadataFile: CommonFile,
   rerunModelId?: string,
-  metadataFile?: CommonFile,
 ): CombineArchive {
   const sedChanges = CreateSedModelChanges(changesData, namespaces);
   const model = CreateSedModel(modelFormat, sedChanges, modelUrl, rerunModelId);
@@ -332,7 +332,7 @@ function CompleteArchive(
   sedDoc: SedDocument,
   locationValue: CombineArchiveLocationValue,
   modelPath: string,
-  metadataFile?: CommonFile,
+  metadataFile: CommonFile,
 ): CombineArchive {
   console.log(`The archive has a model with a path of: ${modelPath}`);
   const formatUri = BIOSIMULATIONS_FORMATS_BY_ID[modelFormat].biosimulationsMetadata?.omexManifestUris[0];
