@@ -166,7 +166,7 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     this.reRunSimulator = params.simulator;
     this.reRunSimulatorVersion = params.simulatorVersion;
     this.reRunName = params.runName;
-    this.reRunMetadataFile = params.metadataFile;
+    this.reRunMetadataFile = JSON.parse(params.metadataFile);
     this.preloadUploadModelData(params.modelUrl, params.modelFormat, params.modelFile);
     this.preloadSimMethodData(params.modelingFramework, params.simulationType, params.simulationAlgorithm);
     this.preloadTCParams(params.initialTime, params.startTime, params.endTime, params.numSteps);
