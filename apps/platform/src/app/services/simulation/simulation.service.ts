@@ -1,18 +1,16 @@
 import { Injectable } from '@angular/core';
-import { forkJoin } from 'rxjs';
 import { Router } from '@angular/router';
 import { Simulation, ISimulation, isUnknownSimulation } from '../../datamodel';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { SimulationStatusService } from './simulation-status.service';
 import { Storage } from '@ionic/storage-angular';
 import { HttpClient, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
-import { Observable, BehaviorSubject, combineLatest, throwError, of } from 'rxjs';
+import { Observable, BehaviorSubject, combineLatest, throwError, of, forkJoin } from 'rxjs';
 import { ConfigService } from '@biosimulations/config/angular';
 import { concatAll, debounceTime, shareReplay, map, catchError } from 'rxjs/operators';
-import { SimulationRun } from '@biosimulations/datamodel/common';
 import { Endpoints } from '@biosimulations/config/common';
 import { SimulationRunService } from '@biosimulations/angular-api-client';
-import { CommonFile } from '@biosimulations/datamodel/common';
+import { CommonFile, SimulationRun } from '@biosimulations/datamodel/common';
 
 export interface ReRunQueryParams {
   projectUrl?: string;
