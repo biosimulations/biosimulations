@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { forkJoin, Subject } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { Router } from '@angular/router';
 import { Simulation, ISimulation, isUnknownSimulation } from '../../datamodel';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
@@ -19,7 +19,6 @@ export interface ReRunQueryParams {
   simulator?: string;
   simulatorVersion?: string;
   runName?: string;
-  //files: CommonFile[];
   files: string;
 }
 
@@ -29,9 +28,6 @@ export interface ReRunQueryParams {
 export class SimulationService {
   private key = 'simulations';
   private simulations: ISimulation[] = [];
-  public reRunQueryParams: Subject<ReRunQueryParams> = new Subject();
-  public reRunObservable!: Observable<ReRunQueryParams>;
-  public reRunTriggered = false;
 
   // Memory/HTTP cache
   private simulationsMap$: { [key: string]: BehaviorSubject<ISimulation> } = {};
@@ -56,7 +52,7 @@ export class SimulationService {
     this.initStorage();
   }
 
-  public async initStorage() {
+  public async initStorage(): Promise<void> {
     this._storage = await this.storage.create();
 
     if ((await this._storage.keys()).includes(this.key)) {
@@ -65,9 +61,10 @@ export class SimulationService {
       this.initSimulations(simulations);
     } else {
       this.initSimulations([]);
+      return;
     }
-
     this.createSimulationsArray();
+    return;
   }
 
   // Add the new rerunProject method
@@ -112,36 +109,82 @@ export class SimulationService {
     );
   }
 
-  /*public _rerunProject(id: string): void {
-    this.httpClient
-      .get<SimulationRun>(this.endpoints.getSimulationRunEndpoint(true, id))
-      .subscribe((simulationRun: SimulationRun): void => {
-        const queryParams: ReRunQueryParams = {
-          projectUrl: this.endpoints.getSimulationRunDownloadEndpoint(true, id),
-          simulator: simulationRun.simulator,
-          simulatorVersion: simulationRun.simulatorVersion,
-          runName: simulationRun.name + ' (rerun)',
-        };
+  /**
+   * Delete a simulation
+   */
+  public removeSimulation(id: string): void {
+    const simulation: ISimulation = this.simulationsMap[id];
+    const iSimulation = this.simulations.indexOf(simulation);
+    this.simulations.splice(iSimulation, 1);
+    delete this.simulationsMap[id];
+    delete this.simulationsMap$[id];
+    this.simulationsMapSubject.next(this.simulationsMap$);
 
-        this.reRunQueryParams.next(queryParams);
-        this.reRunObservable = this.reRunQueryParams.asObservable();
-        this.reRunTriggered = true;
-        this.reRunObservable.subscribe((item) => {
-          console.log(`What is subscribed: ${item.simulator}`);
-        });
-        console.log(`RUN OBSERVABLE SET! ${this.reRunObservable}. REURN SET: ${this.reRunTriggered}`);
-        this.router.navigate(['/runs/new'], { queryParams: queryParams });
-      });
-  }*/
+    this.storeSimulations([]);
+  }
 
-  private setReRunEvent(queryParams: ReRunQueryParams) {
-    this.reRunQueryParams.next(queryParams);
-    this.reRunObservable = this.reRunQueryParams.asObservable();
-    this.reRunTriggered = true;
-    this.reRunObservable.subscribe((item) => {
-      console.log(`What is subscribed: ${item.simulator}`);
+  /**
+   * Delete all simulations
+   */
+  public removeSimulations(): void {
+    while (this.simulations.length) {
+      const simulation: ISimulation = this.simulations.pop() as ISimulation;
+      delete this.simulationsMap[simulation.id];
+      delete this.simulationsMap$[simulation.id];
+    }
+    this.simulationsMapSubject.next(this.simulationsMap$);
+    this.storeSimulations([]);
+  }
+
+  public getSimulations(): Observable<ISimulation[]> {
+    return this.simulationsArrSubject.asObservable().pipe(shareReplay(1));
+  }
+
+  public storeNewLocalSimulation(simulation: Simulation): void {
+    this.storeSimulations([simulation]);
+    this.addSimulation(simulation);
+  }
+
+  public storeExistingExternalSimulations(simulations: ISimulation[]): void {
+    simulations = this.parseDates(simulations);
+    simulations.forEach((simulation) => {
+      simulation.submittedLocally = false;
+      this.addSimulation(simulation);
+      this.storeSimulations([simulation]);
     });
-    console.log(`RUN OBSERVABLE SET! ${this.reRunObservable}. REURN SET: ${this.reRunTriggered}`);
+    this.storeSimulations(simulations);
+  }
+
+  /**
+   * @author Bilal
+   * @param uuid The id of the simulation
+   * If we have the simulations in cache(a map of behavior subjects), return it, and trigger an update
+   * If not, then get it via http, store it to cache, trigger an update (to start polling), and return
+   * the simulator from cache. In both cases we want to return from cache. This is because the cache contains
+   * behavior subjects already configured to poll the api. The recieving method can simply pipe or subscribe
+   * to have the latest data.
+   */
+  public getSimulation(uuid: string): Observable<ISimulation> {
+    if (uuid in this.simulationsMap$) {
+      return this.getSimulationFromCache(uuid);
+    } else {
+      const sim = this.getSimulationHttp(uuid).pipe(
+        map((value: ISimulation) => {
+          if (isUnknownSimulation(value)) {
+            return of(value);
+          } else {
+            // LOCAL Storage
+            this.storeSimulations([value]);
+            this.addSimulation(value);
+            return this.getSimulationFromCache(uuid);
+          }
+        }),
+        concatAll(),
+        shareReplay(1),
+      );
+
+      return sim;
+    }
   }
 
   private parseDates(simulations: ISimulation[]) {
@@ -199,21 +242,6 @@ export class SimulationService {
     }
   }
 
-  public storeNewLocalSimulation(simulation: Simulation): void {
-    this.storeSimulations([simulation]);
-    this.addSimulation(simulation);
-  }
-
-  public storeExistingExternalSimulations(simulations: ISimulation[]): void {
-    simulations = this.parseDates(simulations);
-    simulations.forEach((simulation) => {
-      simulation.submittedLocally = false;
-      this.addSimulation(simulation);
-      this.storeSimulations([simulation]);
-    });
-    this.storeSimulations(simulations);
-  }
-
   /**
    * @Author Jonathan Karr
    * @param newSimulations An array of Simulations
@@ -247,37 +275,6 @@ export class SimulationService {
     for (const sim of this.simulations) {
       this.updateSimulation(sim.id);
     }
-  }
-
-  /**
-   * Delete a simulation
-   */
-  public removeSimulation(id: string): void {
-    const simulation: ISimulation = this.simulationsMap[id];
-    const iSimulation = this.simulations.indexOf(simulation);
-    this.simulations.splice(iSimulation, 1);
-    delete this.simulationsMap[id];
-    delete this.simulationsMap$[id];
-    this.simulationsMapSubject.next(this.simulationsMap$);
-
-    this.storeSimulations([]);
-  }
-
-  /**
-   * Delete all simulations
-   */
-  public removeSimulations(): void {
-    while (this.simulations.length) {
-      const simulation: ISimulation = this.simulations.pop() as ISimulation;
-      delete this.simulationsMap[simulation.id];
-      delete this.simulationsMap$[simulation.id];
-    }
-    this.simulationsMapSubject.next(this.simulationsMap$);
-    this.storeSimulations([]);
-  }
-
-  public getSimulations(): Observable<ISimulation[]> {
-    return this.simulationsArrSubject.asObservable().pipe(shareReplay(1));
   }
 
   /**
@@ -378,38 +375,6 @@ export class SimulationService {
       return true;
     } else {
       return false;
-    }
-  }
-
-  /**
-   * @author Bilal
-   * @param uuid The id of the simulation
-   * If we have the simulations in cache(a map of behavior subjects), return it, and trigger an update
-   * If not, then get it via http, store it to cache, trigger an update (to start polling), and return
-   * the simulator from cache. In both cases we want to return from cache. This is because the cache contains
-   * behavior subjects already configured to poll the api. The recieving method can simply pipe or subscribe
-   * to have the latest data.
-   */
-  public getSimulation(uuid: string): Observable<ISimulation> {
-    if (uuid in this.simulationsMap$) {
-      return this.getSimulationFromCache(uuid);
-    } else {
-      const sim = this.getSimulationHttp(uuid).pipe(
-        map((value: ISimulation) => {
-          if (isUnknownSimulation(value)) {
-            return of(value);
-          } else {
-            // LOCAL Storage
-            this.storeSimulations([value]);
-            this.addSimulation(value);
-            return this.getSimulationFromCache(uuid);
-          }
-        }),
-        concatAll(),
-        shareReplay(1),
-      );
-
-      return sim;
     }
   }
 }
