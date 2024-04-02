@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormattedSimulation } from '../view.model';
 import { SharedSimulationService } from '@biosimulations/shared/services';
-import { SimulationService } from '../../../../services/simulation/simulation.service';
 
 @Component({
   selector: 'biosimulations-simulation-run-overview',

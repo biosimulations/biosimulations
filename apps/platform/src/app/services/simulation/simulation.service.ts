@@ -5,12 +5,12 @@ import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { SimulationStatusService } from './simulation-status.service';
 import { Storage } from '@ionic/storage-angular';
 import { HttpClient, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
-import { Observable, BehaviorSubject, combineLatest, throwError, of, forkJoin } from 'rxjs';
+import { Observable, BehaviorSubject, combineLatest, throwError, of } from 'rxjs';
 import { ConfigService } from '@biosimulations/config/angular';
 import { concatAll, debounceTime, shareReplay, map, catchError } from 'rxjs/operators';
 import { Endpoints } from '@biosimulations/config/common';
 import { SimulationRunService } from '@biosimulations/angular-api-client';
-import { CommonFile, SimulationRun } from '@biosimulations/datamodel/common';
+import { SimulationRun } from '@biosimulations/datamodel/common';
 
 export interface ReRunQueryParams {
   projectUrl?: string;
