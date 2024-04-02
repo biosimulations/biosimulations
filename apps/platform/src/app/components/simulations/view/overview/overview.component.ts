@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormattedSimulation } from '../view.model';
 import { SharedSimulationService } from '@biosimulations/shared/services';
 import { MatSnackBar, MatSnackBarRef, TextOnlySnackBar } from '@angular/material/snack-bar';
@@ -8,15 +8,13 @@ import { MatSnackBar, MatSnackBarRef, TextOnlySnackBar } from '@angular/material
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.scss'],
 })
-export class OverviewComponent implements OnInit {
+export class OverviewComponent {
   @Input() public simulation!: FormattedSimulation;
   @Input() public hasSbml!: boolean;
 
   public constructor(private sharedSimulationService: SharedSimulationService, public snackBar: MatSnackBar) {
     /* Constructor is empty */
   }
-
-  public ngOnInit(): void {}
 
   public rerunProject(id: string): void {
     this.sharedSimulationService.rerunProject(id);
