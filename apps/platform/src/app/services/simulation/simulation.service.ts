@@ -38,8 +38,6 @@ export class SimulationService {
 
   private _storage: Storage | null = null;
 
-  private endpoints = new Endpoints();
-
   public constructor(
     private config: ConfigService,
     private storage: Storage,
@@ -68,43 +66,18 @@ export class SimulationService {
   // Add the new rerunProject method
 
   public rerunProject(id: string): void {
-    /*
-      - Get Simulation Run data along with simulation run archive files array
-      - Use fetched data to instantiate router Params as ReRunQueryParams
-      - Navigate to dispatch, emitting ReRunQueryParams
-     */
-    const simulationRun$ = this.httpClient.get<SimulationRun>(this.endpoints.getSimulationRunEndpoint(true, id));
-
-    const filesContent$ = this.httpClient
-      .get(this.endpoints.getSimulationRunFilesEndpoint(true, id), { responseType: 'text' })
-      .pipe(map((content) => JSON.parse(content) as CommonFile[]));
-
-    forkJoin({ simulationRun: simulationRun$, filesContent: filesContent$ }).subscribe(
-      ({ simulationRun, filesContent }) => {
-        const queryParams: ReRunQueryParams = {
-          projectUrl: this.endpoints.getSimulationRunDownloadEndpoint(true, id),
+    const runEndpoints = new Endpoints();
+    this.httpClient
+      .get<SimulationRun>(runEndpoints.getSimulationRunEndpoint(true, id))
+      .subscribe((simulationRun: SimulationRun): void => {
+        const queryParams = {
+          projectUrl: runEndpoints.getSimulationRunDownloadEndpoint(true, id),
           simulator: simulationRun.simulator,
           simulatorVersion: simulationRun.simulatorVersion,
           runName: simulationRun.name + ' (rerun)',
-          files: JSON.stringify(filesContent),
         };
-
-        filesContent.forEach((item) => {
-          console.log(`AN ITEM: ${item.id}`);
-        });
-        // Handling the promise returned by navigate
-        this.router
-          .navigate(['/runs/new'], { queryParams: queryParams })
-          .then((success) => {
-            if (success) {
-              console.log('Navigation successful!');
-            } else {
-              console.log('Navigation failed!');
-            }
-          })
-          .catch((error) => console.error('Navigation error:', error));
-      },
-    );
+        this.router.navigate(['/runs/new'], { queryParams: queryParams });
+      });
   }
 
   /**
