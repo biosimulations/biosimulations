@@ -206,11 +206,18 @@ export class SharedSimulationService {
         }),
       )
       .subscribe((queryParams) => {
-        this.router.navigate(['/utils/create-project'], { queryParams: queryParams }).then((success) => {
-          if (!success) {
-            console.error('Navigation failed');
-          }
-        });
+        this.router
+          .navigate(['/utils/create-project'], { queryParams: queryParams })
+          .then((success) => {
+            if (!success) {
+              console.error('Navigation failed');
+              return false;
+            }
+            return success;
+          })
+          .catch((error) => {
+            throw error;
+          });
       });
   }
 
