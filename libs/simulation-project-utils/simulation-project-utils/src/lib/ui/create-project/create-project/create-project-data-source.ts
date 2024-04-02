@@ -48,8 +48,9 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
   public reRunSimulator?: string;
   public reRunSimulatorVersion?: string;
   public reRunName?: string;
-  public reRunMetadataFile?: CommonFile | File | string;
+  public reRunMetadataFileUrl = '';
   public reRunSedFile?: CommonFile | File | string;
+  public reRunSedFileUrl = '';
 
   public constructor(
     private simulatorsData: SimulatorsData,
@@ -151,15 +152,6 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
       return;
     }
 
-    console.log(`Create project got params modelURL: ${params.modelUrl}`);
-    console.log(`Got modelingFramework param: ${params.modelingFramework}`);
-    console.log(`Got simtype and alg param: ${params.simulationType}, ${params.simulationAlgorithm}`);
-    console.log(`Got num steps from param: ${params.numSteps}`);
-    console.log(`Got model file from param: ${params.modelFile}`);
-    console.log(`Got url from param: ${params.projectUrl}`);
-    console.log(`Got file from param: ${params.metadataFile.id}`);
-    console.log(`Got sed file from param ${params.sedFile.id}`);
-
     this.isReRun = true;
     this.reRunModelFile = params.modelFile;
     this.reRunModelId = params.modelId;
@@ -167,8 +159,9 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     this.reRunSimulator = params.simulator;
     this.reRunSimulatorVersion = params.simulatorVersion;
     this.reRunName = params.runName;
-    this.reRunMetadataFile = params.metadataFileUrl;
-    this.reRunSedFile = params.sedFileUrl;
+    this.reRunMetadataFileUrl += params.metadataFileUrl;
+    console.log(`got params metadata file url: ${this.reRunMetadataFileUrl}`);
+    this.reRunSedFileUrl += params.sedFileUrl;
     this.preloadUploadModelData(params.modelUrl, params.modelFormat);
     this.preloadSimMethodData(params.modelingFramework, params.simulationType, params.simulationAlgorithm);
     this.preloadTCParams(params.initialTime, params.startTime, params.endTime, params.numSteps);
