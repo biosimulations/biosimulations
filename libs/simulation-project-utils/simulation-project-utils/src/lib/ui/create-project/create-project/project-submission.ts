@@ -67,14 +67,6 @@ export function SubmitFormData(
   }
   const endpoints = new Endpoints();
   const createArchiveUrl = endpoints.getCombineArchiveCreationEndpoint(false);
-  const newSedDocUrl = endpoints.getSedmlSpecificationsEndpoint(true);
-
-  /*const httpOptions = {
-    headers: new HttpHeaders({
-      Accept: 'application/json',
-    }),
-    content: ''
-  };*/
 
   const headers = new HttpHeaders();
   headers.append('Accept', 'application/json');
@@ -92,7 +84,7 @@ export function SubmitFormData(
   );
 }
 
-function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData | null | any {
+function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData | null {
   const uploadModelData: FormStepData = dataSource.formData[CreateProjectFormStep.UploadModel];
   const simulationMethodData: FormStepData = dataSource.formData[CreateProjectFormStep.FrameworkSimTypeAndAlgorithm];
   const algorithmParamData: FormStepData = dataSource.formData[CreateProjectFormStep.AlgorithmParameters];
