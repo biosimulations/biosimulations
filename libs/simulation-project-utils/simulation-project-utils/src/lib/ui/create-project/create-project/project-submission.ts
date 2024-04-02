@@ -5,7 +5,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { CreateArchive } from '../../../service/create-project/archive-creation';
 import { MultipleSimulatorsAlgorithmParameter } from '../../../service/create-project/compatibility';
 import { FormStepData } from './forms';
-import { CommonFile, SimulationType } from '@biosimulations/datamodel/common';
+import { SimulationType } from '@biosimulations/datamodel/common';
 import { CreateProjectDataSource, CreateProjectFormStep } from './create-project-data-source';
 import { Namespace } from '@biosimulations/combine-api-angular-client';
 
@@ -70,7 +70,6 @@ export function SubmitFormData(
 
   const headers = new HttpHeaders();
   headers.append('Accept', 'application/json');
-  headers.append('Content-Type', 'multipart/form-data');
   const httpOptions = {
     headers: headers,
   };
@@ -79,12 +78,12 @@ export function SubmitFormData(
     catchError((error: HttpErrorResponse): Observable<string> => {
       console.error(error);
       errorHandler();
-      return of<string>('');
+      return of<string>(`${error}`);
     }),
   );
 }
 
-function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData | null {
+function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData | null | any {
   const uploadModelData: FormStepData = dataSource.formData[CreateProjectFormStep.UploadModel];
   const simulationMethodData: FormStepData = dataSource.formData[CreateProjectFormStep.FrameworkSimTypeAndAlgorithm];
   const algorithmParamData: FormStepData = dataSource.formData[CreateProjectFormStep.AlgorithmParameters];
@@ -101,7 +100,7 @@ function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData
   const archive = CreateArchive(
     uploadModelData.modelFormat as string,
     uploadModelData.modelUrl as string,
-    uploadModelData.modelFile as CommonFile,
+    uploadModelData.modelFile as File,
     simulationMethodData.algorithm as string,
     simulationMethodData.simulationType as SimulationType,
     timeCourseData?.initialTime as number,
@@ -112,8 +111,8 @@ function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData
     modelChangesData.modelChanges as Record<string, string>[],
     variablesData.modelVariables as Record<string, string>[],
     namespacesData.namespaces as Namespace[],
-    dataSource.reRunMetadataFile as string,
-    dataSource.reRunSedFile as string,
+    dataSource.reRunMetadataFileUrl as string,
+    dataSource.reRunSedFileUrl as string,
     dataSource.reRunModelId as string,
   );
 
@@ -124,7 +123,6 @@ function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData
   const formData = new FormData();
   formData.append('specs', JSON.stringify(archive));
   formData.append('download', 'true');
-  formData.append('files', dataSource.reRunMetadataFile as File);
 
   const modelFile = uploadModelData.modelFile as File;
   if (modelFile) {

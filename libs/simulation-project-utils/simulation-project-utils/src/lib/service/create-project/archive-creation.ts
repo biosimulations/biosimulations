@@ -43,7 +43,7 @@ import { MultipleSimulatorsAlgorithmParameter } from './compatibility';
 export function CreateArchive(
   modelFormat: string,
   modelUrl: string,
-  modelFile: CommonFile,
+  modelFile: File,
   algorithmId: string,
   simulationType: SimulationType,
   initialTime: number,
@@ -54,8 +54,8 @@ export function CreateArchive(
   changesData: Record<string, string>[],
   variablesData: Record<string, string>[],
   namespaces: Namespace[],
-  metadataFile: string,
-  sedFile: string,
+  metadataFileUrl: string,
+  sedFileUrl: string,
   rerunModelId?: string,
 ): CombineArchive {
   const sedChanges = CreateSedModelChanges(changesData, namespaces);
@@ -70,23 +70,20 @@ export function CreateArchive(
     algorithm,
   );
   const task = CreateSedTask(model, simulation);
-  const sedVariables = CreateSedVariables(variablesData, namespaces);
+  const sedVariables = CreateSedVariables(variablesData, namespaces, model, task);
   const dataSetGenerators = CreateSedDataSetAndGenerators(sedVariables, task);
   const dataSets = dataSetGenerators[0];
   const dataGenerators = dataSetGenerators[1];
-
-  // below we should get the sed doc from a post new project request:
-  //const sedDoc = IntrospectNewProject(http, model, simulation, )
   const sedDoc = CreateSedDocument(model, simulation, task, dataGenerators, dataSets);
   const modelContent = CreateArchiveModelLocationValue(modelFile, modelUrl);
-  return CompleteArchive(modelFormat, sedDoc, modelContent, model.source, metadataFile, sedFile);
+  return CompleteArchive(modelFormat, sedDoc, modelContent, model.source, metadataFileUrl, sedFileUrl);
 }
 
 function CreateSedModelChanges(modelChanges: Record<string, string>[], namespaces: Namespace[]): SedModelChange[] {
   const changes: SedModelChange[] = [];
   modelChanges.forEach((changeData: Record<string, string>): void => {
     if (!changeData.newValue || changeData.newValue.length === 0) {
-      //return;
+      return;
     }
     if (!changeData.newValue) {
       changeData.newValue = changeData.default;
@@ -106,7 +103,12 @@ function CreateSedModelChanges(modelChanges: Record<string, string>[], namespace
   return changes;
 }
 
-function CreateSedVariables(modelVariables: Record<string, string>[], namespaces: Namespace[]): SedVariable[] {
+function CreateSedVariables(
+  modelVariables: Record<string, string>[],
+  namespaces: Namespace[],
+  model: SedModel,
+  task: SedTask,
+): SedVariable[] {
   const variables: SedVariable[] = [];
   modelVariables.forEach((variableData: Record<string, string>): void => {
     const symbolType = variableData.type === 'symbol';
@@ -124,8 +126,8 @@ function CreateSedVariables(modelVariables: Record<string, string>[], namespaces
       name: variableData.name,
       symbol: symbolType ? variableData.symbolOrTarget : undefined,
       target: target,
-      model: undefined,
-      task: '',
+      model: model.id,
+      task: task.id,
     });
   });
   return variables;
@@ -254,7 +256,7 @@ function CreateSedDataSetAndGenerators(
       parameters: [],
       variables: [variable],
       math: variable.id,
-      //name: variable.name,
+      name: variable.name,
     };
     dataGenerators.push(dataGen);
 
@@ -263,7 +265,7 @@ function CreateSedDataSetAndGenerators(
       id: 'data_set_' + rawId,
       label: variable.name || rawId,
       dataGenerator: dataGen.id,
-      //name: variable.name,
+      name: variable.name,
     };
     dataSets.push(dataSet);
   });
@@ -303,15 +305,13 @@ function CreateSedDocument(
   };
 }
 
-function CreateArchiveModelLocationValue(modelFile: CommonFile, modelUrl: string): CombineArchiveLocationValue {
-  if (modelFile as CommonFile) {
-    console.log(`archive file found for ${modelFile}`);
+function CreateArchiveModelLocationValue(modelFile: File, modelUrl: string): CombineArchiveLocationValue {
+  if (modelFile) {
     return {
       _type: CombineArchiveContentFileTypeEnum.CombineArchiveContentFile,
-      filename: modelFile.location,
+      filename: modelFile.name,
     };
   }
-  console.log(`archive url found for ${modelUrl}`);
   return {
     _type: CombineArchiveContentUrlTypeEnum.CombineArchiveContentUrl,
     url: modelUrl,
@@ -319,6 +319,60 @@ function CreateArchiveModelLocationValue(modelFile: CommonFile, modelUrl: string
 }
 
 function CompleteArchive(
+  modelFormat: string,
+  sedDoc: SedDocument,
+  locationValue: CombineArchiveLocationValue,
+  modelPath: string,
+  metadataFileUrl: string,
+  sedFileUrl: string,
+): CombineArchive {
+  console.log(`The archive has a model with a path of: ${modelPath}`);
+  console.log(`THE ARCHIVE HAS SEDFILE URL: ${sedFileUrl}, ${metadataFileUrl}`);
+  const formatUri = BIOSIMULATIONS_FORMATS_BY_ID[modelFormat].biosimulationsMetadata?.omexManifestUris[0];
+  return {
+    _type: CombineArchiveTypeEnum.CombineArchive,
+    contents: [
+      {
+        _type: CombineArchiveContentTypeEnum.CombineArchiveContent,
+        format: formatUri as string,
+        master: false,
+        location: {
+          _type: CombineArchiveLocationTypeEnum.CombineArchiveLocation,
+          path: modelPath,
+          value: locationValue,
+        },
+      },
+      {
+        _type: CombineArchiveContentTypeEnum.CombineArchiveContent,
+        format: 'https://identifiers.org/combine.specifications/sed-ml',
+        master: true,
+        location: {
+          _type: CombineArchiveLocationTypeEnum.CombineArchiveLocation,
+          path: 'simulation_1.sedml',
+          value: {
+            _type: CombineArchiveContentUrlTypeEnum.CombineArchiveContentUrl,
+            url: sedFileUrl,
+          },
+        },
+      },
+      {
+        _type: CombineArchiveContentTypeEnum.CombineArchiveContent,
+        format: 'https://identifiers.org/combine.specifications/omex-metadata',
+        master: false,
+        location: {
+          _type: CombineArchiveLocationTypeEnum.CombineArchiveLocation,
+          path: 'metadata.rdf',
+          value: {
+            _type: CombineArchiveContentUrlTypeEnum.CombineArchiveContentUrl,
+            url: metadataFileUrl,
+          },
+        },
+      },
+    ],
+  };
+}
+
+/*function CompleteArchive(
   modelFormat: string,
   sedDoc: SedDocument,
   locationValue: CombineArchiveLocationValue,
@@ -414,6 +468,6 @@ function CompleteArchive(
         }
       }
     });
-  }*/
+  }
   return archive;
-}
+}*/
