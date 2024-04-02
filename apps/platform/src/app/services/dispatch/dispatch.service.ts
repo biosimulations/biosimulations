@@ -3,7 +3,6 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, catchError, shareReplay } from 'rxjs/operators';
 import { Endpoints } from '@biosimulations/config/common';
-
 import { UploadSimulationRun, UploadSimulationRunUrl } from '@biosimulations/datamodel/common';
 import { SimulationLogs } from '../../simulation-logs-datamodel';
 import {
@@ -13,7 +12,6 @@ import {
   SimulationRun,
   CombineArchiveLog,
 } from '@biosimulations/datamodel/common';
-import { OntologyService } from '@biosimulations/ontology/client';
 import { environment } from '@biosimulations/shared/environments';
 import { SimulationRunService } from '@biosimulations/angular-api-client';
 
@@ -23,12 +21,7 @@ import { SimulationRunService } from '@biosimulations/angular-api-client';
 export class DispatchService {
   public endpoints = new Endpoints();
 
-  public getModelIntrospection(file: File | string): any {
-    const introspectionUrl = this.endpoints.getModelIntrospectionEndpoint(false);
-    console.log(`${introspectionUrl}`);
-  }
-
-  public sumbitJobForURL(
+  public submitJobForURL(
     url: string,
     simulator: string,
     simulatorVersion: string,
@@ -87,8 +80,7 @@ export class DispatchService {
     formData.append('file', fileToUpload, fileToUpload.name);
     formData.append('simulationRun', JSON.stringify(run));
 
-    const response = this.http.post<SimulationRun>(this.endpoints.getSimulationRunEndpoint(false), formData);
-    return response;
+    return this.http.post<SimulationRun>(this.endpoints.getSimulationRunEndpoint(false), formData);
   }
 
   public getSimulationLogs(uuid: string): Observable<SimulationLogs | undefined | false> {
@@ -120,9 +112,7 @@ export class DispatchService {
     );
   }
 
-  public constructor(
-    private http: HttpClient,
-    private simRunService: SimulationRunService,
-    private ontologyService: OntologyService,
-  ) {}
+  public constructor(private http: HttpClient, private simRunService: SimulationRunService) {
+    /* Constructor is empty */
+  }
 }
