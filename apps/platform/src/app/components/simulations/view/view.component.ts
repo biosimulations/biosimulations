@@ -36,9 +36,6 @@ export class ViewComponent implements OnInit {
 
   public id!: string;
   public archiveUrl!: string;
-
-  private simulation$!: Observable<Simulation>;
-  private statusCompleted$!: Observable<boolean>;
   public statusSucceeded$!: Observable<boolean>;
 
   public formattedSimulation$!: Observable<FormattedSimulation>;
@@ -63,6 +60,10 @@ export class ViewComponent implements OnInit {
   public viewVisualizationTabDisabled = true;
   public selectVisualizationTabIndex = 1;
   public visualizationTabIndex = 2;
+  public hasSbml!: boolean;
+
+  private simulation$!: Observable<Simulation>;
+  private statusCompleted$!: Observable<boolean>;
 
   public constructor(
     private simulationService: SimulationService,
@@ -198,11 +199,23 @@ export class ViewComponent implements OnInit {
           if (value === undefined) {
             return false;
           }
+          console.log(`a value!`);
         }
         return values[0];
       }),
       shareReplay(1),
     );
+
+    this.files$.subscribe((path: Path[] | null | undefined | false) => {
+      switch (path) {
+        case path as Path[]:
+          path.forEach((path: Path) => {
+            if (path.location.includes('.xml') || path.location.includes('sbml')) {
+              this.hasSbml = true;
+            }
+          });
+      }
+    });
   }
 
   private initSimulationRun(): void {

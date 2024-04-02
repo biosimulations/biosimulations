@@ -88,7 +88,7 @@
         <biosimulations-icon icon="reuse" style="margin-left: 0.5rem"></biosimulations-icon>
       </button>
       <button
-        (click)="rerunCustomProject(simulation.id)"
+        (click)="hasSbml ? rerunCustomProject(simulation.id) : rerunNotSupported()"
         matTooltip="Customize & Re-run Simulation"
         mat-flat-button
         class="rerun-project-button">
