@@ -5,7 +5,7 @@ import { IntrospectNewProject } from '../../../service/create-project/project-in
 import { CustomizableSedDocumentData } from '../../../service/create-project/project-introspection';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfigService } from '@biosimulations/config/angular';
@@ -31,17 +31,12 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar,
     private config: ConfigService,
     private loader: SimulationProjectUtilLoaderService,
-    private activatedRoute: ActivatedRoute,
   ) {}
 
   // Life cycle
 
   public ngOnInit(): void {
-    // get query params if any:
     this.isReRun = this.formDataSource ? this.formDataSource?.isReRun : false;
-    /*this.activatedRoute.queryParams.subscribe((params) => {
-      this.populateChangesForm(params);
-    });*/
     const loadObs = this.loader.loadSimulationUtilData();
     const loadSub = loadObs.subscribe(this.loadComplete.bind(this));
     this.subscriptions.push(loadSub);
@@ -52,12 +47,6 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
   }
 
   // Setup
-
-  private populateChangesForm(params: Params): void {
-    if (this.formDataSource) {
-      this.formDataSource.preloadDataFromParams(params);
-    }
-  }
 
   private loadComplete(data: SimulationProjectUtilData): void {
     this.formDataSource = new CreateProjectDataSource(
@@ -112,13 +101,18 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
         console.log(`no query params.`);
         return;
       }
-      this.router.navigate(['/runs/new'], { queryParams: queryParams }).then((success) => {
-        if (success) {
-          console.log(`Navigation to dispatch successful!`);
-        } else {
-          console.log(`Navigation unsuccessful.`);
-        }
-      });
+      this.router
+        .navigate(['/runs/new'], { queryParams: queryParams })
+        .then((success) => {
+          if (!success) {
+            console.error('Navigation failed');
+            return false;
+          }
+          return success;
+        })
+        .catch((error) => {
+          throw error;
+        });
       this.showArchiveCreatedSnackbar();
     } else {
       const queryParams = this.formDataSource ? CreateSimulationParams(this.formDataSource, projectUrl) : null;
@@ -192,7 +186,7 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
       msg += ` Please check that ${modelUrl} is an accessible URL.`;
     }
     this.snackBar.open(msg, 'Ok', {
-      duration: 5000,
+      duration: 15000,
       horizontalPosition: 'center',
       verticalPosition: 'bottom',
     });
