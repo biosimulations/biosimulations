@@ -26,7 +26,6 @@ export class UploadModelComponent implements IFormStepComponent, OnInit {
   public modelFormats?: OntologyTerm[];
   public nextClicked = false;
   public archiveDetected?: boolean;
-  public uploadArchive!: boolean;
   public stepName = 'uploadFile';
 
   public constructor(private formBuilder: UntypedFormBuilder, private config: ConfigService) {
