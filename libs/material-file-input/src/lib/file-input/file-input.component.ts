@@ -33,28 +33,25 @@ export class FileInputComponent
   extends FileInputMixinBase
   implements MatFormFieldControl<FileInput>, ControlValueAccessor, OnInit, OnDestroy, DoCheck
 {
-  static nextId = 0;
+  public static nextId = 0;
+  @HostBinding() public id = `ngx-mat-file-input-${FileInputComponent.nextId++}`;
+  @HostBinding('attr.aria-describedby') public describedBy = '';
+  @Input() public autofilled = false;
+  @Input() public valuePlaceholder!: string;
+  @Input() public accept: string | null = null;
+  @Input() public override errorStateMatcher!: ErrorStateMatcher;
+  @Output() public archiveDetected = new EventEmitter<boolean>();
+  @Output() public fileDetected = new EventEmitter<string>();
 
-  focused = false;
-  controlType = 'file-input';
-  isArchive!: boolean;
-
-  @Input() autofilled = false;
+  public focused = false;
+  public controlType = 'file-input';
+  public isArchive!: boolean;
 
   private _placeholder!: string;
   private _required = false;
   private _multiple!: boolean;
 
-  @Input() valuePlaceholder!: string;
-  @Input() accept: string | null = null;
-  @Input() override errorStateMatcher!: ErrorStateMatcher;
-  @Output() archiveDetected = new EventEmitter<boolean>();
-  @Output() fileDetected = new EventEmitter<string>();
-
-  @HostBinding() id = `ngx-mat-file-input-${FileInputComponent.nextId++}`;
-  @HostBinding('attr.aria-describedby') describedBy = '';
-
-  setDescribedByIds(ids: string[]) {
+  public setDescribedByIds(ids: string[]): void {
     this.describedBy = ids.join(' ');
   }
 
@@ -133,15 +130,15 @@ export class FileInputComponent
    * @see https://angular.io/api/forms/ControlValueAccessor
    */
   constructor(
-    private fm: FocusMonitor,
-    private _elementRef: ElementRef,
-    private _renderer: Renderer2,
     public override _defaultErrorStateMatcher: ErrorStateMatcher,
     @Optional()
     @Self()
     public override ngControl: NgControl,
     @Optional() public override _parentForm: NgForm,
     @Optional() public override _parentFormGroup: FormGroupDirective,
+    private fm: FocusMonitor,
+    private _elementRef: ElementRef,
+    private _renderer: Renderer2,
   ) {
     super(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl, new Subject<void>());
 
