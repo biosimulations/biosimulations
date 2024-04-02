@@ -34,7 +34,7 @@ import {
   SedVariableTypeEnum,
 } from '@biosimulations/combine-api-angular-client';
 import { BIOSIMULATIONS_FORMATS_BY_ID } from '@biosimulations/ontology/extra-sources';
-import { CommonFile, SimulationType, ValueType } from '@biosimulations/datamodel/common';
+import { SimulationType, ValueType } from '@biosimulations/datamodel/common';
 import { MultipleSimulatorsAlgorithmParameter } from './compatibility';
 
 /**
