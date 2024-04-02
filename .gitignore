@@ -136,3 +136,5 @@ apps/simdata-api/.idea/
 /apps/simdata-api/.venv/
 
 apps/combine-api/.idea/
+
+semantic-commits.yaml
