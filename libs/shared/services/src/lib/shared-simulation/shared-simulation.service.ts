@@ -58,10 +58,12 @@ export interface ReRunQueryParams {
 export class SharedSimulationService {
   private key = 'simulations';
   private simulations: ISimulation[] = [];
+
   // Memory/HTTP cache
   private simulationsMap$: { [key: string]: BehaviorSubject<ISimulation> } = {};
   private simulationsMapSubject = new BehaviorSubject(this.simulationsMap$);
   private simulationsArrSubject = new BehaviorSubject<ISimulation[]>([]);
+
   // Local Storage Map
   private simulationsMap: { [key: string]: ISimulation } = {};
   private storageInitialized = false;
@@ -212,6 +214,31 @@ export class SharedSimulationService {
       });
   }
 
+  public getSpecsOfSedDocsInCombineArchive(
+    fileOrUrl: File | string,
+  ): Observable<CombineArchiveSedDocSpecs | undefined> {
+    const formData = new FormData();
+    if (typeof fileOrUrl === 'object') {
+      formData.append('file', fileOrUrl);
+    } else {
+      formData.append('url', fileOrUrl);
+    }
+
+    return this.httpClient.post<CombineArchiveSedDocSpecs>(this.sedmlSpecsEndpoint, formData).pipe(
+      catchError((error: HttpErrorResponse): Observable<undefined> => {
+        if (!environment.production) {
+          console.error(error);
+        }
+        return of<undefined>(undefined);
+      }),
+      shareReplay(1),
+    );
+  }
+
+  public getSimulations(): Observable<ISimulation[]> {
+    return this.simulationsArrSubject.asObservable().pipe(shareReplay(1));
+  }
+
   /**
    * Subscribes to the map of the simulators creates and observable list of simulators.
    * This simplifies returning the simulators.
@@ -302,10 +329,6 @@ export class SharedSimulationService {
     }
   }
 
-  public getSimulations(): Observable<ISimulation[]> {
-    return this.simulationsArrSubject.asObservable().pipe(shareReplay(1));
-  }
-
   /**
    * @author Bilal
    * @param uuid The id of the simulation
@@ -389,26 +412,5 @@ export class SharedSimulationService {
    */
   private getSimulationFromCache(uuid: string): Observable<ISimulation> {
     return this.simulationsMap$[uuid].asObservable().pipe(shareReplay(1));
-  }
-
-  public getSpecsOfSedDocsInCombineArchive(
-    fileOrUrl: File | string,
-  ): Observable<CombineArchiveSedDocSpecs | undefined> {
-    const formData = new FormData();
-    if (typeof fileOrUrl === 'object') {
-      formData.append('file', fileOrUrl);
-    } else {
-      formData.append('url', fileOrUrl);
-    }
-
-    return this.httpClient.post<CombineArchiveSedDocSpecs>(this.sedmlSpecsEndpoint, formData).pipe(
-      catchError((error: HttpErrorResponse): Observable<undefined> => {
-        if (!environment.production) {
-          console.error(error);
-        }
-        return of<undefined>(undefined);
-      }),
-      shareReplay(1),
-    );
   }
 }
