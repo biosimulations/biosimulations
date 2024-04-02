@@ -103,9 +103,6 @@ function CreateSedModelChanges(modelChanges: Record<string, string>[], namespace
       },
     });
   });
-  if (changes.length) {
-    console.log(`----- changes: ${changes.length}`);
-  }
   return changes;
 }
 
@@ -140,10 +137,6 @@ function CreateSedModel(
   modelUrl?: string,
   rerunId?: string,
 ): SedModel {
-  console.log(`model format created: ${modelFormat}`);
-  modelChanges.forEach((change: SedModelChange) => {
-    console.log(`change created: ${change.id}, ${change._type}`);
-  });
   const language = BIOSIMULATIONS_FORMATS_BY_ID[modelFormat]?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn;
   const fileExtensions = BIOSIMULATIONS_FORMATS_BY_ID[modelFormat].fileExtensions?.[0];
 
@@ -163,8 +156,6 @@ function CreateSedModel(
   } else {
     modelSource = 'model.' + fileExtensions;
   }
-
-  console.log(`*****model source and id: ${modelSource}, ${modelId}`);
   return {
     _type: SedModelTypeEnum.SedModel,
     id: modelId,
@@ -267,7 +258,6 @@ function CreateSedDataSetAndGenerators(
     };
     dataGenerators.push(dataGen);
 
-    console.log(`THE RAW ID: ${rawId} ---- THE LABEL: ${variable.name}`);
     const dataSet: SedDataSet = {
       _type: SedDataSetTypeEnum.SedDataSet,
       id: 'data_set_' + rawId,
@@ -425,7 +415,5 @@ function CompleteArchive(
       }
     });
   }*/
-
-  console.log(`${JSON.stringify(archive)}`);
   return archive;
 }

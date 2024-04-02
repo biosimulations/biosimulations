@@ -213,10 +213,6 @@ export class DispatchComponent implements OnInit, OnDestroy {
         AlgorithmSubstitutionPolicyLevels.SAME_METHOD,
       );
     }
-
-    Object.keys(params).forEach((key) => {
-      console.log(`A KEY: ${key}, ${params[key]}`);
-    });
     this.setControlsFromParams(params, this.simulatorSpecsMap);
   }
 
@@ -629,10 +625,6 @@ export class DispatchComponent implements OnInit, OnDestroy {
     this.setMemory(params.memory);
     this.setMaxTime(params.maxTime);
     this.setRunName(params.runName);
-
-    this.activateRoute.paramMap.subscribe((_params) => {
-      console.log(_params.keys);
-    });
   }
 
   private setProject(projectUrl: string): void {
