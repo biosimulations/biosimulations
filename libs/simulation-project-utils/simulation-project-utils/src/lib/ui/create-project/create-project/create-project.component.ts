@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfigService } from '@biosimulations/config/angular';
 import { HtmlSnackBarComponent } from '@biosimulations/shared/ui';
-import { CreateSimulationParams, SubmitFormData } from './project-submission';
+import { CreateSimulationParams, SubmitFormData, SubmitFormDataForArchive } from './project-submission';
 import { CreateProjectDataSource, CreateProjectFormStep } from './create-project-data-source';
 import { environment } from '@biosimulations/shared/environments';
 
@@ -69,9 +69,10 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
   }
 
   private onDownloadClicked(): void {
-    this.submitFormData((projectUrl: string): void => {
+    /*this.submitFormData((projectUrl: string): void => {
       this.downloadCreatedCombineArchive(projectUrl);
-    });
+    });*/
+    this.downloadCreatedCombineArchive();
   }
 
   private introspectionProvider(dataSource: CreateProjectDataSource): Observable<void> | null {
@@ -136,18 +137,37 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
     }
   }
 
-  private downloadCreatedCombineArchive(projectUrl: string): void {
-    const a = document.createElement('a');
-    a.href = projectUrl;
-    a.download = 'archive.omex';
-    a.click();
-    this.showArchiveDownloadedSnackbar();
-    const queryParams = {
-      projectFile: a,
-    };
-    this.router.navigate(['/runs/new'], { queryParams: queryParams });
+  private downloadCreatedCombineArchive(): void {
+    this.downloadArchiveUrl();
   }
 
+  public downloadArchiveUrl() {
+    if (!this.formDataSource) {
+      return;
+    }
+    const errorHandler = this.showProjectCreationErrorSnackbar.bind(this);
+
+    SubmitFormDataForArchive(this.formDataSource, errorHandler)
+      .then((url) => {
+        if (url) {
+          console.log(`GOT THE URL: ${url}`);
+          const link = document.createElement('a');
+          link.href = url;
+          link.setAttribute('download', 'custom-archive.omex');
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          this.router.navigate(['runs/new'], {
+            queryParams: this.snackBar.open('Your archive has been created. Please download it and run here.'),
+          });
+        } else {
+          console.log('No URL was generated or an error occurred.');
+        }
+      })
+      .catch((error) => {
+        console.error(`An error occurred while submitting the form data: ${error}`);
+      });
+  }
   private submitFormData(completionHandler: (projectUrl: string) => void): void {
     if (!this.formDataSource) {
       return;
