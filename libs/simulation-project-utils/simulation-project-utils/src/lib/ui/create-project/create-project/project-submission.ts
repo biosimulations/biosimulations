@@ -83,7 +83,7 @@ export function SubmitFormData(
   );
 }
 
-function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData | null | any {
+function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData | null {
   const uploadModelData: FormStepData = dataSource.formData[CreateProjectFormStep.UploadModel];
   const simulationMethodData: FormStepData = dataSource.formData[CreateProjectFormStep.FrameworkSimTypeAndAlgorithm];
   const algorithmParamData: FormStepData = dataSource.formData[CreateProjectFormStep.AlgorithmParameters];
