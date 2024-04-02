@@ -8,18 +8,17 @@ import {
   SedDocument,
   SedModel,
   SedSimulation,
+  SedUniformTimeCourseSimulation,
 } from '@biosimulations/combine-api-angular-client';
-import { SedUniformTimeCourseSimulation } from '@biosimulations/combine-api-angular-client';
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import { environment } from '@biosimulations/shared/environments';
 import { Injectable } from '@angular/core';
 import { forkJoin } from 'rxjs';
 import { Router } from '@angular/router';
-import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { ISimulation, SimulationStatusService } from '../shared-simulation-status/shared-simulation-status.service';
 import { Storage } from '@ionic/storage-angular';
 import { ConfigService } from '@biosimulations/config/angular';
-import { SimulationRun } from '@biosimulations/datamodel/common';
+import { SimulationRun, SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { Endpoints } from '@biosimulations/config/common';
 import { SimulationRunService } from '@biosimulations/angular-api-client';
 
