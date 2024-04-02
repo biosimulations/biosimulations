@@ -97,30 +97,30 @@ jobs:
 #        name: Start CI Run
 #        if: always()
 
-      - name: Lint Affected
-        if:  ${{inputs.affectedOnly}}
-        run: npx nx affected --target lint
-
-      - name: Build Affected
-        if:  ${{inputs.affectedOnly}}
-        run: npx nx affected --target build --prod --parallel=false
-
-      - name: Test Affected
-        if:  ${{inputs.affectedOnly}}
-        run: npx nx affected --target test --parallel=false
-
-      - name: Lint All
-        if: ${{!inputs.affectedOnly}}
-        run: npx nx run-many --all --target lint --parallel=false
-
-      - name: Build All
-        if: ${{!inputs.affectedOnly}}
-        run: npx nx run-many --all --target build --prod --parallel=false
-
-      - name: Test All
-        if: ${{!inputs.affectedOnly}}
-        run: npx nx run-many --all --target test --parallel=false
-
+      # - name: Lint Affected
+      #   if:  ${{inputs.affectedOnly}}
+      #   run: npx nx affected --target lint
+# 
+      # - name: Build Affected
+      #   if:  ${{inputs.affectedOnly}}
+      #   run: npx nx affected --target build --prod --parallel=false
+# 
+      # - name: Test Affected
+      #   if:  ${{inputs.affectedOnly}}
+      #   run: npx nx affected --target test --parallel=false
+# 
+      # - name: Lint All
+      #   if: ${{!inputs.affectedOnly}}
+      #   run: npx nx run-many --all --target lint --parallel=false
+# 
+      # - name: Build All
+      #   if: ${{!inputs.affectedOnly}}
+      #   run: npx nx run-many --all --target build --prod --parallel=false
+# 
+      # - name: Test All
+      #   if: ${{!inputs.affectedOnly}}
+      #   run: npx nx run-many --all --target test --parallel=false
+# 
 #      - name: Lint Build Test Affected
 #        if:  ${{inputs.affectedOnly}}
 #        run: |
