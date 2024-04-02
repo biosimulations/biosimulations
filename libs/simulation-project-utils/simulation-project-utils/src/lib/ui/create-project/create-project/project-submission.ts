@@ -19,14 +19,12 @@ import { Namespace } from '@biosimulations/combine-api-angular-client';
 export function CreateSimulationParams(
   dataSource: CreateProjectDataSource,
   projectUrl: string,
-): Record<string, string> {
+): Record<string, string> | null {
   const uploadData = dataSource.formData[CreateProjectFormStep.UploadModel];
   const simMethodData = dataSource.formData[CreateProjectFormStep.FrameworkSimTypeAndAlgorithm];
   if (!uploadData || !simMethodData) {
-    console.log(`not valid.`);
-    //return null;
+    return null;
   }
-  console.log(`the project url in params form: ${projectUrl}`);
   const params = {
     projectUrl: projectUrl,
     simulator: '',
@@ -105,13 +103,8 @@ function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData
 
   // AlgorithmParameters and UniformTimeCourseSimulationParameters are conditional steps, so their data may be null.
   if (!uploadModelData || !simulationMethodData || !modelChangesData || !variablesData || !namespacesData) {
-    console.log(`----- NULL`);
     return null;
   }
-
-  (modelChangesData.modelChanges as Record<string, string>[]).forEach((item: any, i: number) => {
-    console.log(`--- MODEL CHANGES TO BE SUBMITTED: ${i}: ${JSON.stringify(item)}`);
-  });
 
   const archive = CreateArchive(
     uploadModelData.modelFormat as string,
@@ -133,23 +126,17 @@ function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData
   );
 
   if (!archive) {
-    console.log(`there is no archive`);
     return null;
   }
 
   const formData = new FormData();
-  // formData.append('specs', JSON.stringify(archive));
-  formData.set('specs', JSON.stringify(archive));
-  formData.set('download', 'true');
-
-  console.log(`METADATA FILE: ${(dataSource.reRunMetadataFile as File).name}`);
-  formData.set('files', dataSource.reRunMetadataFile as File);
+  formData.append('specs', JSON.stringify(archive));
+  formData.append('download', 'true');
+  formData.append('files', dataSource.reRunMetadataFile as File);
 
   const modelFile = uploadModelData.modelFile as File;
   if (modelFile) {
-    console.log(`---FOUND MODEL FILE`);
     formData.append('files', modelFile);
   }
-
   return formData;
 }

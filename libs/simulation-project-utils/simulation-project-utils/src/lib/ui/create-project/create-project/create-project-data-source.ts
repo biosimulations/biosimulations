@@ -128,7 +128,6 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
   public extraButtonsForFormStep(formStepId: CreateProjectFormStep): IMultiStepFormButton[] | null {
     if (formStepId === CreateProjectFormStep.AlgorithmParameters) {
       this.hasExtraButtons = true;
-      console.log(`has extra btns in paging form: ${this.hasExtraButtons}`);
       return [
         {
           label: 'Download',
@@ -173,8 +172,6 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     this.preloadUploadModelData(params.modelUrl, params.modelFormat);
     this.preloadSimMethodData(params.modelingFramework, params.simulationType, params.simulationAlgorithm);
     this.preloadTCParams(params.initialTime, params.startTime, params.endTime, params.numSteps);
-
-    console.log(`--- GOT RERUN MODEL ID: ${this.reRunModelId}`);
   }
 
   private preloadUploadModelData(modelUrl: string, modelFormat: string): void {
