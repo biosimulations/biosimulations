@@ -39,7 +39,7 @@
               },
               {
                 "sourceTag": "scope:shared",
-                "onlyDependOnLibsWithTags": ["scope:shared", "scope:config"]
+                "onlyDependOnLibsWithTags": ["scope:shared", "scope:config", "scope:simulation-project-utils"]
               },
 
               {
