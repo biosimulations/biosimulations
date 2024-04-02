@@ -38,16 +38,6 @@
                 "onlyDependOnLibsWithTags": ["platform:server", "platform:any"]
               },
               {
-                "sourceTag": "scope:shared",
-                "onlyDependOnLibsWithTags": [
-                  "scope:shared",
-                  "scope:config",
-                  "scope:simulation-project-utils",
-                  "scope:any"
-                ]
-              },
-
-              {
                 "sourceTag": "*",
                 "onlyDependOnLibsWithTags": ["*"]
               }
