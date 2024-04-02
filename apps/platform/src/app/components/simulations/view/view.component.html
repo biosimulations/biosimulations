@@ -9,7 +9,10 @@
         <!-- Simulation Run Overview -->
         <ng-container *ngIf="formattedSimulation$ | async as formattedSimulation">
           <div class="overview-container">
-            <biosimulations-simulation-run-overview [simulation]="formattedSimulation">
+            <biosimulations-simulation-run-overview
+              [simulation]="formattedSimulation"
+              [hasSbml]="hasSbml"
+            >
             </biosimulations-simulation-run-overview>
             <div class="run-files">
               <ng-container *ngTemplateOutlet="resultsTabContent; context: { $implicit: filesContent }"> </ng-container>
