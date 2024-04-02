@@ -12,10 +12,7 @@ export class OverviewComponent {
   @Input()
   public simulation!: FormattedSimulation;
 
-  public constructor(
-    private sharedSimulationService: SharedSimulationService,
-    private platformSimulationService: SimulationService,
-  ) {
+  public constructor(private sharedSimulationService: SharedSimulationService) {
     /* Constructor is empty */
   }
 
@@ -25,9 +22,5 @@ export class OverviewComponent {
 
   public rerunCustomProject(id: string): void {
     this.sharedSimulationService.rerunCustomProject(id);
-  }
-
-  public _rerunProject(id: string): void {
-    this.platformSimulationService.rerunProject(id);
   }
 }
