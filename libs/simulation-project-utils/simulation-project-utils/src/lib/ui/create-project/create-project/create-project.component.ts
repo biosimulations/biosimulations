@@ -148,7 +148,7 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
     const errorHandler = this.showProjectCreationErrorSnackbar.bind(this);
 
     SubmitFormDataForArchive(this.formDataSource, errorHandler)
-      .then((url) => {
+      .then((url): boolean => {
         if (url) {
           console.log(`GOT THE URL: ${url}`);
           const link = document.createElement('a');
@@ -160,8 +160,10 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
           this.router.navigate(['runs/new'], {
             queryParams: this.snackBar.open('Your archive has been created. Please download it and run here.'),
           });
+          return true
         } else {
           console.log('No URL was generated or an error occurred.');
+          return false;
         }
       })
       .catch((error) => {
