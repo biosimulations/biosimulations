@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Output, Input, OnInit } from '@angular/core';
 import { CreateMaxFileSizeValidator, URL_VALIDATOR } from '@biosimulations/shared/ui';
 import { OntologyTerm } from '../../../../index';
 import {
@@ -18,20 +18,18 @@ import { ConfigService } from '@biosimulations/config/angular';
   templateUrl: './upload-model.component.html',
   styleUrls: ['./form-steps.scss'],
 })
-export class UploadModelComponent implements IFormStepComponent, OnInit, OnChanges {
+export class UploadModelComponent implements IFormStepComponent, OnInit {
+  @Input() public archiveModelFile?: File;
+  @Output() public fileTypeDetected = new EventEmitter<string>();
   public formGroup: UntypedFormGroup;
   public uploadArchiveFormGroup: UntypedFormGroup;
   public modelFormats?: OntologyTerm[];
   public nextClicked = false;
-  @Output() fileTypeDetected = new EventEmitter<string>();
-  @Input() archiveModelFile?: File;
   public archiveDetected?: boolean;
   public uploadArchive!: boolean;
   public stepName = 'uploadFile';
-  public uploadedFile!: string;
 
   public constructor(private formBuilder: UntypedFormBuilder, private config: ConfigService) {
-    // todo: seperate form group here
     this.formGroup = this.formBuilder.group(
       {
         modelFile: [null, [CreateMaxFileSizeValidator(this.config)]],
@@ -49,15 +47,10 @@ export class UploadModelComponent implements IFormStepComponent, OnInit, OnChang
     });
   }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     if (this.archiveModelFile) {
       this.archiveDetected = true;
     }
-  }
-
-  public ngOnChanges(changes: SimpleChanges) {
-    //this.onFileSelected(changes);
-    console.log(`A change! ${changes}`);
   }
 
   public populateFormFromFormStepData(formStepData: FormStepData): void {
@@ -72,15 +65,8 @@ export class UploadModelComponent implements IFormStepComponent, OnInit, OnChang
     }
 
     const modelFile = this.formGroup.value.modelFile?.files[0];
-    console.log(
-      `the model file in upload model form step data: ${modelFile} versus: ${this.formGroup.value.modelFile?.files[0]}`,
-    );
     const modelUrl = this.formGroup.value.modelUrl;
     const modelFormat = this.formGroup.value.modelFormat;
-
-    this.formGroup.value.modelFile?.files.forEach((f: File) => {
-      console.log(` form step data going out: ${f.name}`);
-    });
 
     return {
       modelUrl: modelUrl,
@@ -106,6 +92,11 @@ export class UploadModelComponent implements IFormStepComponent, OnInit, OnChang
     return Array.from(specifierSet).join(',');
   }
 
+  public archiveIsUploaded(archiveUploaded: boolean): void {
+    this.archiveDetected = archiveUploaded;
+    console.log(`Archive is uploaded: ${this.archiveDetected}`);
+  }
+
   private formValidator(formGroup: UntypedFormGroup): ValidationErrors | null {
     const errors: ValidationErrors = {};
     if (!formGroup.value.modelFile && !formGroup.value.modelUrl) {
@@ -115,30 +106,5 @@ export class UploadModelComponent implements IFormStepComponent, OnInit, OnChang
       errors['multipleModels'] = true;
     }
     return Object.keys(errors).length ? errors : null;
-  }
-
-  public onFileSelected(event: any): void {
-    const file = event.target.files[0];
-    console.log(`${event.target.files}`);
-    if (file) {
-      this.uploadedFile = file;
-      const fileType = this.detectFileType(file); // Implement this method based on file name or content
-      console.log(`File detected in upload model!: ${fileType}`);
-      this.fileTypeDetected.emit(fileType);
-      console.log(`${this.uploadedFile}`);
-    }
-  }
-
-  public detectFileType(file: File): string {
-    const extension = file.name.split('.').pop() as string;
-    if (extension === 'omex') {
-      this.archiveDetected = true;
-    }
-    return extension;
-  }
-
-  archiveIsUploaded(archiveUploaded: boolean) {
-    this.archiveDetected = archiveUploaded;
-    console.log(`Archive is uploaded: ${this.archiveDetected}`);
   }
 }
