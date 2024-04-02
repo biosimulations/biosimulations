@@ -239,7 +239,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
 
     const projectUrl: string = this.formGroup.value.projectUrl;
     if (projectUrl) {
-      simulationResponse = this.dispatchService.sumbitJobForURL(
+      simulationResponse = this.dispatchService.submitJobForURL(
         projectUrl,
         simulator,
         simulatorVersion,
