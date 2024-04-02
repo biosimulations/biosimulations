@@ -74,9 +74,7 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
   // Control callbacks
 
   private onSimulateClicked(): void {
-    console.log(`Simulate clicked!`);
     this.submitFormData((projectUrl: string): void => {
-      console.log(`the project url is: ${projectUrl}`);
       this.simulateCreatedCombineArchive(projectUrl);
     });
   }
@@ -92,7 +90,6 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
     const formatData = dataSource.formData[CreateProjectFormStep.UploadModel];
     const simMethodData = dataSource.formData[CreateProjectFormStep.FrameworkSimTypeAndAlgorithm];
     const introspectionObservable = IntrospectNewProject(this.http, formatData, simMethodData, errorHandler);
-    console.log(`THIS WAS THE DATA TO EVOKE IT: ${Object.keys(dataSource.formData)}`);
     if (!introspectionObservable) {
       return null;
     }
@@ -100,7 +97,6 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
       map((introspectionData: CustomizableSedDocumentData | null) => {
         if (introspectionData) {
           dataSource.introspectedData = introspectionData;
-          console.log(`GOT INTROSPECTION DATA: ${Object.keys(dataSource.introspectedData)}`);
         }
       }),
     );
@@ -116,17 +112,6 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
         console.log(`no query params.`);
         return;
       }
-
-      /*if (this.config.appId === 'dispatch') {
-        this.router.navigate(['/runs/new'], { queryParams: queryParams });
-      } else if (this.config.appId === 'platform') {
-        this.router.navigate(['/runs/new'], { queryParams: queryParams });
-      } else {
-        console.log(`new window`);
-        const url = `https://run.biosimulations.${environment.production ? 'org' : 'dev'}/runs/new`;
-        const queryParamsString = new URLSearchParams(queryParams).toString();
-        window.open(`${url}?${queryParamsString}`, 'runbiosimulations');
-      }*/
       this.router.navigate(['/runs/new'], { queryParams: queryParams }).then((success) => {
         if (success) {
           console.log(`Navigation to dispatch successful!`);
@@ -170,7 +155,6 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
   }
 
   private submitFormData(completionHandler: (projectUrl: string) => void): void {
-    console.log(`form being submitted...`);
     if (!this.formDataSource) {
       return;
     }

@@ -50,7 +50,6 @@ export class ModelChangesComponent implements IFormStepComponent {
     }
     this.formArray.clear();
     modelChanges.forEach((modelChange: Record<string, string>): void => {
-      console.log(`a change getting added: ${modelChange}`);
       this.addModelChangeField(modelChange);
     });
   }
@@ -58,13 +57,11 @@ export class ModelChangesComponent implements IFormStepComponent {
   public getFormStepData(): FormStepData | null {
     this.formArray.updateValueAndValidity();
     if (!this.formArray.valid) {
-      console.log(`change not valid.`);
       return null;
     }
     const modelChanges: Record<string, string>[] = [];
     this.formArray.controls.forEach((control: AbstractControl): void => {
       const formGroup = control as UntypedFormGroup;
-      console.log(`--- THE MODEL CHANGES IN FORM STEP DDATA: ${formGroup.controls.default.value}`);
       modelChanges.push({
         id: formGroup.value.id,
         name: formGroup.value.name,
@@ -95,7 +92,6 @@ export class ModelChangesComponent implements IFormStepComponent {
   }
 
   public addModelChangeField(modelChange?: Record<string, string | null>): void {
-    console.log(`---- A MODEL CHANGE IS: ${modelChange?.newValue}`);
     const modelChangeForm = this.formBuilder.group({
       id: [modelChange?.id, [SEDML_ID_VALIDATOR]],
       name: [modelChange?.name, []],
@@ -110,7 +106,6 @@ export class ModelChangesComponent implements IFormStepComponent {
   private addFieldForModelChange(modelChange: SedModelChange): void {
     // TODO: Support additional change types.
     if (modelChange && modelChange._type !== SedModelAttributeChangeTypeEnum.SedModelAttributeChange) {
-      console.log(`change not added**********************`);
       return;
     }
     this.addModelChangeField({
