@@ -58,7 +58,7 @@ export function SubmitFormData(
   dataSource: CreateProjectDataSource,
   http: HttpClient,
   errorHandler: () => void,
-): Observable<string> | null {
+): Observable<string> | null | void | string | any {
   const formData = CreateSubmissionFormData(dataSource);
 
   if (!formData) {
@@ -81,6 +81,47 @@ export function SubmitFormData(
       return of<string>(`${error}`);
     }),
   );
+}
+
+export function SubmitFormDataForArchive(
+  dataSource: CreateProjectDataSource,
+  errorHandler: () => void,
+): Promise<string | null> {
+  const formData = CreateSubmissionFormData(dataSource);
+
+  if (!formData) {
+    console.log(`There is no form data. Returning null.`);
+    return Promise.resolve(null);
+  }
+
+  const createArchiveUrl = 'https://combine.api.biosimulations.dev/combine/create';
+  const headers = {
+    Accept: 'application/json',
+  };
+
+  // Return a promise that resolves with the URL
+  return fetch(createArchiveUrl, {
+    method: 'POST',
+    body: formData,
+    headers: headers,
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.blob();
+    })
+    .then((blob) => {
+      // Generate the URL
+      const url = window.URL.createObjectURL(blob);
+      console.log(`Generated URL: ${url}`);
+      return url; // This will be the resolved value of the promise returned by SubmitFormData
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      errorHandler(); // Invoke the error handler
+      return null; // Resolve the promise with null in case of error
+    });
 }
 
 function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData | null {

@@ -76,7 +76,8 @@ export function CreateArchive(
   const dataGenerators = dataSetGenerators[1];
   const sedDoc = CreateSedDocument(model, simulation, task, dataGenerators, dataSets);
   const modelContent = CreateArchiveModelLocationValue(modelFile, modelUrl);
-  return CompleteArchive(modelFormat, sedDoc, modelContent, model.source, metadataFileUrl, sedFileUrl);
+  //return CompleteArchive(modelFormat, sedDoc, modelContent, model.source);
+  return _CompleteArchive(modelFormat, sedDoc, modelContent, model.source, metadataFileUrl, sedFileUrl);
 }
 
 function CreateSedModelChanges(modelChanges: Record<string, string>[], namespaces: Namespace[]): SedModelChange[] {
@@ -318,7 +319,7 @@ function CreateArchiveModelLocationValue(modelFile: File, modelUrl: string): Com
   };
 }
 
-function CompleteArchive(
+function _CompleteArchive(
   modelFormat: string,
   sedDoc: SedDocument,
   locationValue: CombineArchiveLocationValue,
@@ -372,19 +373,14 @@ function CompleteArchive(
   };
 }
 
-/*function CompleteArchive(
+function CompleteArchive(
   modelFormat: string,
   sedDoc: SedDocument,
   locationValue: CombineArchiveLocationValue,
   modelPath: string,
-  metadataFile: string,
-  sedFile: string,
 ): CombineArchive {
-  console.log(`The archive has a model with a path of: ${modelPath}`);
   const formatUri = BIOSIMULATIONS_FORMATS_BY_ID[modelFormat].biosimulationsMetadata?.omexManifestUris[0];
-
-  // HERE ADD METADATA
-  const archive = {
+  return {
     _type: CombineArchiveTypeEnum.CombineArchive,
     contents: [
       {
@@ -403,71 +399,10 @@ function CompleteArchive(
         master: true,
         location: {
           _type: CombineArchiveLocationTypeEnum.CombineArchiveLocation,
-          path: 'simulation_1.sedml',
-          value: {
-            _type: CombineArchiveContentUrlTypeEnum.CombineArchiveContentUrl,
-            url: sedFile,
-          },
-        },
-      },
-      {
-        _type: CombineArchiveContentTypeEnum.CombineArchiveContent,
-        format: 'https://identifiers.org/combine.specifications/omex-metadata',
-        master: false,
-        location: {
-          _type: CombineArchiveLocationTypeEnum.CombineArchiveLocation,
-          path: 'metadata.rdf',
-          value: {
-            _type: CombineArchiveContentUrlTypeEnum.CombineArchiveContentUrl,
-            url: metadataFile,
-          },
+          path: 'simulation.sedml',
+          value: sedDoc,
         },
       },
     ],
   };
-
-  /*if (sedFile) {
-    console.log(`GOT SED FILE`)
-    archive.contents.push({
-      _type: CombineArchiveContentTypeEnum.CombineArchiveContent,
-      format: 'https://identifiers.org/combine.specifications/sed-ml',
-      master: true,
-      location: {
-        _type: CombineArchiveLocationTypeEnum.CombineArchiveLocation,
-        path: sedFile.location,
-        value: {
-          _type: CombineArchiveContentUrlTypeEnum.CombineArchiveContentUrl,
-          url: sedFile.url
-        },
-      }
-    });
-  } else {
-    archive.contents.push({
-      _type: CombineArchiveContentTypeEnum.CombineArchiveContent,
-      format: 'https://identifiers.org/combine.specifications/sed-ml',
-      master: true,
-      location: {
-        _type: CombineArchiveLocationTypeEnum.CombineArchiveLocation,
-        path: 'simulation_1.sedml',
-        value: sedDoc,
-      }
-    });
-  }
-
-  if (metadataFile) {
-    archive.contents.push({
-      _type: CombineArchiveContentTypeEnum.CombineArchiveContent,
-      format: 'https://identifiers.org/combine.specifications/omex-metadata',
-      master: false,
-      location: {
-        _type: CombineArchiveLocationTypeEnum.CombineArchiveLocation,
-        path: metadataFile.name,
-        value: {
-          _type: CombineArchiveContentUrlTypeEnum.CombineArchiveContentUrl,
-          url: metadataFile.url,
-        }
-      }
-    });
-  }
-  return archive;
-}*/
+}
