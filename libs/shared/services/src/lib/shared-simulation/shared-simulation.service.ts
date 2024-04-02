@@ -150,7 +150,7 @@ export class SharedSimulationService {
           filesContent.forEach((file: CommonFile) => {
             switch (file) {
               case file as CommonFile:
-                if (file.url.includes('xml') || file.url.includes('sbml')) {
+                if (file.url.includes('xml') || file.url.includes('sbml') || file.url.includes('vcml')) {
                   queryParams.modelUrl = file.url;
                   queryParams.modelFile = JSON.stringify(file);
                 }
@@ -180,8 +180,10 @@ export class SharedSimulationService {
                       continue;
                     }
                     edamId = modelingFormat.id;
+                    console.log(`edamid: ${edamId}`);
+                    queryParams.modelFormat = edamId;
                   }
-                  queryParams.modelFormat = edamId ? edamId : 'format_2585';
+                  // queryParams.modelFormat = edamId ? edamId : 'format_2585';
                 });
 
                 sedDoc.simulations.forEach((sim: SedSimulation): void => {
