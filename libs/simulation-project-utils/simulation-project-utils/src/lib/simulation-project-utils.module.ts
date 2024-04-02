@@ -57,6 +57,5 @@ const routes: Routes = [
     SharedUiModule,
     BiosimulationsIconsModule,
   ],
-  exports: [ModelChangesComponent, UploadModelComponent, CreateProjectComponent],
 })
 export class SimulationProjectUtilsModule {}
