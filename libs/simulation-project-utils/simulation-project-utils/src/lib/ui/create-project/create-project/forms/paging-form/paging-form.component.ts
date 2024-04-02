@@ -19,12 +19,12 @@ export class PagingFormComponent<TStepId extends string> implements OnDestroy, A
 
   public shouldShowSpinner = false;
   public loadingText: string | null = null;
-  public currentExtraButtons!: IMultiStepFormButton[] | null | any;
+  public currentExtraButtons!: IMultiStepFormButton[] | null;
+  public subscriptions: Subscription[] = [];
+  public fileUploadComponent!: IFormStepComponent;
 
   private currentFormStepComponent: IFormStepComponent | null = null;
   private formPath: TStepId[] = [];
-  public subscriptions: Subscription[] = [];
-  public fileUploadComponent!: IFormStepComponent;
 
   // Lifecycle
 
@@ -90,7 +90,6 @@ export class PagingFormComponent<TStepId extends string> implements OnDestroy, A
   }
 
   public onExtraButtonClicked(button: IMultiStepFormButton): void {
-    console.log(`extra clicked!`);
     const stepValidated = this.validateAndSaveStepData();
     if (stepValidated) {
       button.onClick();

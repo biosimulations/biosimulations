@@ -84,7 +84,7 @@ export class SharedSimulationService {
     this.initStorage();
   }
 
-  public async initStorage() {
+  public async initStorage(): Promise<void> {
     this._storage = await this.storage.create();
 
     if ((await this._storage.keys()).includes(this.key)) {
@@ -93,20 +93,18 @@ export class SharedSimulationService {
       this.initSimulations(simulations);
     } else {
       this.initSimulations([]);
+      return;
     }
-
     this.createSimulationsArray();
   }
 
   // original rerun project method:
   public rerunProject(id: string): void {
-    const endpoints = new Endpoints();
-
     this.httpClient
-      .get<SimulationRun>(endpoints.getSimulationRunEndpoint(true, id))
+      .get<SimulationRun>(this.endpoints.getSimulationRunEndpoint(true, id))
       .subscribe((simulationRun: SimulationRun): void => {
         const queryParams = {
-          projectUrl: endpoints.getSimulationRunDownloadEndpoint(true, id),
+          projectUrl: this.endpoints.getSimulationRunDownloadEndpoint(true, id),
           simulator: simulationRun.simulator,
           simulatorVersion: simulationRun.simulatorVersion,
           runName: simulationRun.name + ' (rerun)',
@@ -289,7 +287,7 @@ export class SharedSimulationService {
     }
   }
 
-  private parseDates(simulations: ISimulation[]) {
+  private parseDates(simulations: ISimulation[]): ISimulation[] {
     simulations.forEach((simulation: ISimulation): void => {
       if (typeof simulation.submitted === 'string') {
         simulation.submitted = new Date(simulation.submitted);
