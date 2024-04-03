@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { MatCardModule } from '@angular/material/card';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { SharedUiModule } from '@biosimulations/shared/ui';
@@ -33,6 +33,7 @@ import { PublishComponent } from './publish/publish.component';
     SimulationLogModule,
     SharedAngularModule,
     SimulationLogModule,
+    MatCardModule,
   ],
 })
 export class SimulationsModule {}
