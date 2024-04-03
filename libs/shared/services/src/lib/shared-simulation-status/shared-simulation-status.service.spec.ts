@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SharedSimulationStatusService } from './shared-simulation-status.service';
+import { SimulationStatusService } from '@biosimulations/shared/services';
 
 describe('SharedSimulationStatusService', () => {
-  let service: SharedSimulationStatusService;
+  let service: SimulationStatusService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(SharedSimulationStatusService);
+    service = TestBed.inject(SimulationStatusService);
   });
 
   it('should be created', () => {
