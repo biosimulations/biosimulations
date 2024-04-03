@@ -29,7 +29,6 @@ export interface IMultiStepFormDataSource<TStepId extends string> {
    * This data will be used by the MultiStepFormComponent to preload data into each new form step.
    */
   formData: Record<TStepId, FormStepData>;
-  omexFileUploaded: boolean;
   hasExtraButtons?: boolean;
 
   /**
