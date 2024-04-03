@@ -18,22 +18,30 @@ import { OverviewComponent } from './view/overview/overview.component';
 import { SimulationLogModule } from './view/simulation-log/simulation-log.module';
 import { PublishComponent } from './publish/publish.component';
 
+
 @NgModule({
-  declarations: [BrowseComponent, DeleteSimulationsDialogComponent, ViewComponent, OverviewComponent, PublishComponent],
-  imports: [
-    MatCardModule,
-    CommonModule,
-    SimulationsRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    SharedUiModule,
-    SimulationRunsVizModule,
-    SimulationRunsUiModule,
-    BiosimulationsIconsModule,
-    MatDialogModule,
-    SimulationLogModule,
-    SharedAngularModule,
+  declarations: [
+    BrowseComponent,
+    DeleteSimulationsDialogComponent,
+    ViewComponent,
+    OverviewComponent,
+    PublishComponent
   ],
+  imports: [
+        MatCardModule,
+        CommonModule,
+        SimulationsRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        SharedUiModule,
+        SimulationRunsVizModule,
+        SimulationRunsUiModule,
+        BiosimulationsIconsModule,
+        MatDialogModule,
+        SimulationLogModule,
+        SharedAngularModule,
+        SimulationLogModule,
+    ],
 })
 export class SimulationsModule {}

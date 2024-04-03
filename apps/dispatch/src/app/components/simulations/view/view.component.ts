@@ -36,9 +36,6 @@ export class ViewComponent implements OnInit {
 
   public id!: string;
   public archiveUrl!: string;
-
-  private simulation$!: Observable<Simulation>;
-  private statusCompleted$!: Observable<boolean>;
   public statusSucceeded$!: Observable<boolean>;
 
   public formattedSimulation$!: Observable<FormattedSimulation>;
@@ -50,7 +47,8 @@ export class ViewComponent implements OnInit {
   public outputs$!: Observable<File[] | null | undefined | false>;
 
   public visualizations$!: Observable<VisualizationList[] | null | undefined | false>;
-  public visualization: Visualization | null = null;
+  public visualization?: Visualization | null;
+  // public visualization: Visualization | null = null;
 
   public logs$!: Observable<SimulationLogs | null | undefined | false>;
 
@@ -60,8 +58,12 @@ export class ViewComponent implements OnInit {
 
   public selectedTabIndex = 0;
   public viewVisualizationTabDisabled = true;
-  public selectVizTabIndex = 1;
-  public vizTabIndex = 2;
+  public selectVisualizationTabIndex = 1;
+  public visualizationTabIndex = 2;
+  public hasSbml!: boolean;
+
+  private simulation$!: Observable<Simulation>;
+  private statusCompleted$!: Observable<boolean>;
 
   public constructor(
     private simulationService: SimulationService,
@@ -197,15 +199,23 @@ export class ViewComponent implements OnInit {
           if (value === undefined) {
             return false;
           }
+          console.log(`a value!`);
         }
         return values[0];
       }),
       shareReplay(1),
     );
-  }
 
-  public rerunProject(id: string): void {
-    this.simulationService.rerunSimulationProject(id);
+    this.files$.subscribe((path: Path[] | null | undefined | false) => {
+      switch (path) {
+        case path as Path[]:
+          path.forEach((path: Path) => {
+            if (path.location.includes('.xml') || path.location.includes('sbml')) {
+              this.hasSbml = true;
+            }
+          });
+      }
+    });
   }
 
   private initSimulationRun(): void {
@@ -252,14 +262,15 @@ export class ViewComponent implements OnInit {
 
   public renderVisualization(visualization: Visualization): void {
     this.visualization = visualization;
+    console.log('Received visualization for rendering:', visualization);
     this.viewVisualizationTabDisabled = false;
-    this.selectedTabIndex = this.vizTabIndex;
+    this.selectedTabIndex = this.visualizationTabIndex;
   }
 
   public selectedTabChange($event: MatTabChangeEvent): void {
-    if ($event.index == this.vizTabIndex) {
+    if ($event.index == this.visualizationTabIndex) {
       if (this.viewVisualizationTabDisabled) {
-        this.selectedTabIndex = this.selectVizTabIndex;
+        this.selectedTabIndex = this.selectVisualizationTabIndex;
         return;
       }
     }
