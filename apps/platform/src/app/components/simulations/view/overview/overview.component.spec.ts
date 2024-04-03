@@ -5,6 +5,9 @@ import { ConfigService } from '@biosimulations/config/angular';
 import { SimulationService } from '../../../../services/simulation/simulation.service';
 import { Storage } from '@ionic/storage-angular';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+// Import the Angular Material modules
+import { MatCardModule } from '@angular/material/card';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 describe('OverviewComponent', () => {
   let component: OverviewComponent;
@@ -13,8 +16,19 @@ describe('OverviewComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [OverviewComponent],
-      imports: [BiosimulationsIconsModule, HttpClientTestingModule],
-      providers: [ConfigService, SimulationService, Storage],
+      imports: [
+        BiosimulationsIconsModule,
+        HttpClientTestingModule,
+        // Add the Angular Material modules here
+        MatCardModule,
+        MatSnackBarModule,
+      ],
+      providers: [
+        ConfigService,
+        SimulationService,
+        Storage,
+        // If you have any service that needs to be mocked, add it here
+      ],
     }).compileComponents();
   }));
 
