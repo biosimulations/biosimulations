@@ -65,7 +65,7 @@
               <biosimulations-icon icon="status"></biosimulations-icon>
             </th>
             <td>
-              <div class="status-container">
+              <div class="status-container success" *ngIf="!simulation.statusFailed; else simulationError">
                 <span class="heading">Status:</span>{{ ' '
                 }}<span [ngClass]="{ error: simulation.statusFailed }">{{ simulation.statusLabel }}</span>
                 <span *ngIf="simulation.statusRunning"
@@ -73,6 +73,16 @@
                   <biosimulations-icon icon="spinner"></biosimulations-icon>
                 </span>
               </div>
+              <ng-template #simulationError>
+                <div class="status-container fail">
+                  <span class="heading">Status:</span>{{ ' '
+                  }}<span [ngClass]="{ error: simulation.statusFailed }">{{ simulation.statusLabel }}</span>
+                  <span *ngIf="simulation.statusRunning"
+                  >{{ ' ' }}
+                    <biosimulations-icon icon="spinner"></biosimulations-icon>
+                  </span>
+                </div>
+              </ng-template>
             </td>
           </tr>
         </table>

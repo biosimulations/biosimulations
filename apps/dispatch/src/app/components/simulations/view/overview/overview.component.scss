@@ -46,7 +46,12 @@ mat-card-subtitle {
 
 .status-container {
   font-size: 18px;
-  color: var(--warn-darker-color);
+  &.success {
+    color: var(--tertiary-darker-color) !important;
+  }
+  &.fail {
+    color: var(--warn-darker-color) !important;
+  }
 }
 
 .rerun-button-container-dispatch {

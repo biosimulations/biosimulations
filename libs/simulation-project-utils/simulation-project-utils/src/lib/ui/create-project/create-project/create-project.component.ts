@@ -157,10 +157,16 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
+          const msg = 'Your COMBINE/OMEX archive as been created. Please download it and run here.';
+
           this.router.navigate(['runs/new'], {
-            queryParams: this.snackBar.open('Your archive has been created. Please download it and run here.'),
+            queryParams: this.snackBar.open(msg, 'Ok', {
+              duration: 10000,
+              horizontalPosition: 'center',
+              verticalPosition: 'bottom',
+            }),
           });
-          return true
+          return true;
         } else {
           console.log('No URL was generated or an error occurred.');
           return false;
