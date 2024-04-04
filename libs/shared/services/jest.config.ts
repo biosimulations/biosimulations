@@ -12,25 +12,27 @@
 
 /* eslint-disable */
 export default {
-  preset: 'jest-preset-angular',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  globals: {
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-      stringifyContentPathRegex: '\\.html$',
-      diagnostics: false,
-    },
-  },
-  transform: {
-    '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
-  },
-  moduleFileExtensions: ['ts', 'html', 'js', 'json', 'mjs'],
-  moduleNameMapper: {
-    '^@core/(.*)$': '<rootDir>/src/app/core/$1',
-    '^@state/(.*)$': '<rootDir>/src/app/state/$1',
-    // Map more paths as necessary
-  },
-  transformIgnorePatterns: ['node_modules/(?!@angular)'],
+  globals: {},
   coverageDirectory: '../../../coverage/libs/shared/services',
+
   displayName: 'shared-services',
+  snapshotSerializers: [
+    'jest-preset-angular/build/serializers/no-ng-attributes',
+    'jest-preset-angular/build/serializers/ng-snapshot',
+    'jest-preset-angular/build/serializers/html-comment',
+  ],
+  transform: {
+    '^.+.(ts|mjs|js|html)$': [
+      'jest-preset-angular',
+      {
+        stringifyContentPathRegex: '\\.(html|svg)$',
+
+        tsconfig: '<rootDir>/tsconfig.spec.json',
+      },
+    ],
+  },
+  transformIgnorePatterns: ['node_modules/(?!.*.mjs$)'],
+  testTimeout: 10000,
+  preset: '../../jest.preset.js',
 };
