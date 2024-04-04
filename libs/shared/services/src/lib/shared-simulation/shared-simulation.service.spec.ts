@@ -1,23 +1,11 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClient, HttpHandler } from '@angular/common/http';
-import { IonicStorageModule } from '@ionic/storage-angular';
-import { Drivers } from '@ionic/storage';
-import { Storage } from '@ionic/storage-angular';
 import { SharedSimulationService } from '@biosimulations/shared/services';
-import { ConfigService } from '@biosimulations/config/angular';
 
-describe('SimulationService', () => {
+describe('SharedSimulationStatusService', () => {
   let service: SharedSimulationService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [HttpClient, HttpHandler, ConfigService, Storage],
-      imports: [
-        IonicStorageModule.forRoot({
-          driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage],
-        }),
-      ],
-    });
+    TestBed.configureTestingModule({});
     service = TestBed.inject(SharedSimulationService);
   });
 
