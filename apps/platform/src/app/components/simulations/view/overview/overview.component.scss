@@ -31,7 +31,6 @@ h3 {
 }
 
 .simulation-run-card-header {
-  background-color: var(--accent-darker-color);
   border-radius: 4px 4px 0 0;
 }
 
@@ -47,7 +46,7 @@ mat-card-subtitle {
 
 .status-container {
   font-size: 18px;
-  color: var(--quaternary-darker-color);
+  color: var(--warn-darker-color);
 }
 
 .rerun-button-container-platform {
@@ -55,19 +54,31 @@ mat-card-subtitle {
   align-items: center;
   justify-content: center;
   padding-bottom: 1rem;
-  margin-left: -4rem !important;
 }
 
 .rerun-project-button {
   margin-top: 1rem;
   margin-left: 2rem;
-  background-color: var(--accent-darker-color);
   color: white;
   font-weight: 700;
   height: 50px;
 
+  &.original {
+    background-color: var(--tertiary-darker-color) !important;
+    margin-right: 2rem !important;
+  }
+
+  &.custom {
+    background-color: var(--quaternary-darker-color) !important;
+    margin-left: 2rem !important;
+  }
+
   &:hover {
-    background-color: var(--tertiary-darker-color);
+    background-color: var(--accent-darker-color) !important;
     transition: background-color 0.3s ease-in-out;
   }
+}
+
+.sim-run {
+  background-color: var(--primary-darker-color) !important;
 }

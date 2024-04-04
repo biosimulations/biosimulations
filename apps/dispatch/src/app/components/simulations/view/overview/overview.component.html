@@ -1,4 +1,4 @@
-<div class="run-overview-parent-container-platform">
+<div class="run-overview-parent-container-dispatch">
   <mat-card class="simulation-run-card">
     <mat-card-header class="multipurpose-card-header sim-run">
       <mat-card-title class="sim-run-title-platform-name"> Simulation Run Details </mat-card-title>
@@ -78,11 +78,11 @@
         </table>
       </ng-container>
     </mat-card-content>
-    <mat-card-footer class="rerun-button-container-platform">
+    <mat-card-footer class="rerun-button-container-dispatch">
       <button
         (click)="rerunProject(simulation.id)"
         mat-flat-button
-        class="rerun-project-button"
+        class="rerun-project-button-dispatch original"
         matTooltip="Re-run Original Simulation">
         Re-run Original Simulation
         <biosimulations-icon icon="reuse" style="margin-left: 0.5rem"></biosimulations-icon>
@@ -91,8 +91,8 @@
         (click)="hasSbml ? rerunCustomProject(simulation.id) : rerunNotSupported()"
         matTooltip="Customize & Re-run Simulation"
         mat-flat-button
-        class="rerun-project-button">
-        Customize Simulation
+        class="rerun-project-button-dispatch custom">
+        Customize and Run Simulation
         <biosimulations-icon icon="controls" style="margin-left: 0.5rem"></biosimulations-icon>
       </button>
     </mat-card-footer>
