@@ -36,10 +36,10 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
   // Life cycle
 
   public ngOnInit(): void {
-    this.isReRun = this.formDataSource ? this.formDataSource?.isReRun : false;
     const loadObs = this.loader.loadSimulationUtilData();
     const loadSub = loadObs.subscribe(this.loadComplete.bind(this));
     this.subscriptions.push(loadSub);
+    this.isReRun = this.formDataSource ? this.formDataSource?.isReRun : false;
   }
 
   public ngOnDestroy(): void {
