@@ -14,7 +14,7 @@ import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import { environment } from '@biosimulations/shared/environments';
 import { Injectable } from '@angular/core';
 import { forkJoin } from 'rxjs';
-import { Router } from '@angular/router';
+import { Params, Router } from '@angular/router';
 import { ISimulation, SimulationStatusService } from '../shared-simulation-status/shared-simulation-status.service';
 import { Storage } from '@ionic/storage-angular';
 import { ConfigService } from '@biosimulations/config/angular';
@@ -113,7 +113,7 @@ export class SharedSimulationService {
   }
 
   // rerun custom method
-  public rerunCustomProject(id: string): void {
+  public rerunCustomProject(id: string, rerunQueryParams?: Params | ReRunQueryParams): void {
     const simulationRun$ = this.httpClient.get<SimulationRun>(this.endpoints.getSimulationRunEndpoint(true, id));
     const filesContent$ = this.httpClient
       .get(this.endpoints.getSimulationRunFilesEndpoint(true, id), { responseType: 'text' })
@@ -205,8 +205,9 @@ export class SharedSimulationService {
         }),
       )
       .subscribe((queryParams) => {
+        const params = { queryParams: rerunQueryParams ? rerunQueryParams : queryParams };
         this.router
-          .navigate(['/utils/create-project'], { queryParams: queryParams })
+          .navigate(['/utils/create-project'], params)
           .then((success) => {
             if (!success) {
               console.error('Navigation failed');
