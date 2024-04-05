@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatTabChangeEvent } from '@angular/material/tabs';
-import { Observable, of, combineLatest, map, pluck, mergeMap, iif } from 'rxjs';
-import { shareReplay, catchError, concatAll } from 'rxjs/operators';
+import { Observable, of, combineLatest, map, pluck, mergeMap, iif, Subject } from 'rxjs';
+import { shareReplay, catchError, concatAll, takeUntil } from 'rxjs/operators';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import {
   ProjectMetadata,
@@ -64,6 +64,7 @@ export class ViewComponent implements OnInit {
 
   private simulation$!: Observable<Simulation>;
   private statusCompleted$!: Observable<boolean>;
+  private destroyed$ = new Subject<void>();
 
   public constructor(
     private simulationService: SimulationService,
@@ -206,14 +207,37 @@ export class ViewComponent implements OnInit {
       shareReplay(1),
     );
 
+    this.initFilesSubscription();
+    console.log(` ---- THIS SIMULATION HAS sbml: ${this.hasSbml}`);
+  }
+
+  public setHasSbml(): void {
     this.files$.subscribe((path: Path[] | null | undefined | false) => {
       switch (path) {
+        case (path as null) || (path as undefined) || (path as false):
+          console.log(`Path is not full!`);
+          break;
         case path as Path[]:
           path.forEach((path: Path) => {
             if (path.location.includes('.xml') || path.location.includes('sbml')) {
+              console.log(`Has SBML!`);
               this.hasSbml = true;
             }
           });
+          break;
+      }
+    });
+  }
+
+  public ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
+  }
+
+  private initFilesSubscription(): void {
+    this.files$.pipe(takeUntil(this.destroyed$)).subscribe((files: Path[] | null | undefined | false) => {
+      if (files) {
+        this.hasSbml = files.some((file: Path) => file.location.includes('.xml') || file.location.includes('sbml'));
       }
     });
   }
