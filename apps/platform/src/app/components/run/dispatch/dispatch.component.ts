@@ -327,7 +327,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
           minPolicy: {
             id: 'SAME_METHOD',
             name: 'Same method',
-            level: AlgorithmSubstitutionPolicyLevels.SAME_METHOD,
+            level: AlgorithmSubstitutionPolicyLevels.ANY,
             _type: substitutionPolicy._type,
           },
           simulator: simulator,
