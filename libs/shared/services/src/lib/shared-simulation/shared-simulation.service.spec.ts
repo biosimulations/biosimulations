@@ -5,7 +5,9 @@ describe('SharedSimulationStatusService', () => {
   let service: SharedSimulationService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [SharedSimulationService],
+    });
     service = TestBed.inject(SharedSimulationService);
   });
 
