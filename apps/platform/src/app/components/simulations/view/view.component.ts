@@ -200,7 +200,6 @@ export class ViewComponent implements OnInit {
           if (value === undefined) {
             return false;
           }
-          console.log(`a value!`);
         }
         return values[0];
       }),
