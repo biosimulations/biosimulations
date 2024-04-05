@@ -34,5 +34,5 @@ export default {
   },
   transformIgnorePatterns: ['node_modules/(?!.*.mjs$)'],
   testTimeout: 10000,
-  preset: '../../jest.preset.js',
+  preset: '../../../jest.preset.js',
 };
