@@ -14,15 +14,17 @@
         </button>
       </div>
       <div class="next">
-        <button
-          *ngIf="shouldShowNextButton()"
-          mat-flat-button
-          class="biosimulations-button run"
-          id="multi-step-form-next"
-          type="submit"
-          (click)="onNextClicked()">
-          Next
-        </button>
+        <ng-container *ngIf="shouldShowNextButton()">
+          <button
+            #nextButton
+            mat-flat-button
+            class="biosimulations-button run"
+            id="multi-step-form-next"
+            type="submit"
+            (click)="onNextClicked()">
+            Next
+          </button>
+        </ng-container>
       </div>
 
       <ng-container *ngIf="dataSource?.hasExtraButtons">

@@ -1,5 +1,15 @@
 import { Subscription } from 'rxjs';
-import { Component, Input, ViewChildren, OnDestroy, AfterViewInit, QueryList } from '@angular/core';
+import {
+  Component,
+  Input,
+  ViewChildren,
+  OnDestroy,
+  AfterViewInit,
+  QueryList,
+  ViewChild,
+  ElementRef,
+  OnInit,
+} from '@angular/core';
 import { IFormStepComponent } from '../form-step-component';
 import { IMultiStepFormDataSource } from '../multi-step-form-datasource';
 import { IMultiStepFormDataTask } from '../multi-step-form-datasource';
@@ -11,8 +21,9 @@ import { FormHostDirective } from '../form-host.directive';
   templateUrl: './paging-form.component.html',
   styleUrls: ['./paging-form.component.scss'],
 })
-export class PagingFormComponent<TStepId extends string> implements OnDestroy, AfterViewInit {
+export class PagingFormComponent<TStepId extends string> implements OnDestroy, OnInit, AfterViewInit {
   @ViewChildren(FormHostDirective) public formHostQuery!: QueryList<FormHostDirective>;
+  @ViewChild('nextButton') nextButton!: ElementRef;
 
   @Input() public dataSource?: IMultiStepFormDataSource<TStepId>;
   @Input() public isReRun? = false;
@@ -28,6 +39,8 @@ export class PagingFormComponent<TStepId extends string> implements OnDestroy, A
 
   // Lifecycle
 
+  public ngOnInit() {}
+
   public ngOnDestroy(): void {
     this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
   }
@@ -39,6 +52,10 @@ export class PagingFormComponent<TStepId extends string> implements OnDestroy, A
     const loadContent = (): void => {
       setTimeout(() => {
         this.loadCurrentFormStep();
+        if (this.isReRun) {
+          console.log(`starting. Is rerun: ${this.isReRun}`);
+          this.clickNextButton();
+        }
       });
     };
     loadContent();
@@ -46,6 +63,20 @@ export class PagingFormComponent<TStepId extends string> implements OnDestroy, A
       loadContent();
     });
     this.subscriptions.push(subscription);
+
+    if (!this.nextButton) {
+      console.log(`no next button!`);
+    }
+  }
+
+  private clickNextButton(): void {
+    // Ensure that nextButton is defined and accessible
+    if (this.nextButton && this.nextButton.nativeElement) {
+      this.nextButton.nativeElement.click();
+    } else {
+      // Optionally, handle the case where the button is not available
+      console.warn('Next button was not available to click programmatically.');
+    }
   }
 
   // Template callbacks
@@ -140,6 +171,8 @@ export class PagingFormComponent<TStepId extends string> implements OnDestroy, A
       this.currentFormStepComponent.populateFormFromFormStepData(currentData);
       this.fileUploadComponent = this.currentFormStepComponent;
     }
+    console.log(`load current form step!`);
+    console.log(`form step: ${this.isReRun}`);
   }
 
   private currentFormStep(): TStepId | null {

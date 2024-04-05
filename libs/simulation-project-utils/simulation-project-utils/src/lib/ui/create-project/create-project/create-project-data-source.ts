@@ -81,6 +81,10 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     if (this.omexFileUploaded && stepId === CreateProjectFormStep.ModelChanges) {
       return true; // Directly go to model changes if an OMEX file was uploaded
     }
+
+    if (this.isReRun) {
+      return true;
+    }
     switch (stepId) {
       case CreateProjectFormStep.UniformTimeCourseSimulationParameters:
         return this.shouldShowUniformTimeStep();
@@ -135,11 +139,11 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
           onClick: this.downloadHandler,
           class: 'biosimulations-button run download',
         },
-        {
+        /*{
           label: 'Simulate',
           onClick: this.simulateHandler,
           class: 'biosimulations-button run simulate',
-        },
+        },*/
       ];
     }
     return null;
