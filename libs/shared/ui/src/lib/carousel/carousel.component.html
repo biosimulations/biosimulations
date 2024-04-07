@@ -1,6 +1,7 @@
 <div class="container" [class.single-thumbnail]="images.length === 1">
   <div class="image-container">
     <mat-carousel
+      *ngIf="images.length > 1; else singleThumbnail"
       timings="1000ms ease-in"
       [autoplay]="true"
       [interval]="5000"
@@ -15,7 +16,7 @@
       [lazyLoad]="true"
       slideHeight="100%"
       [maintainAspectRatio]="false"
-      *ngIf="images.length > 1; else singleThumbnail">
+    >
       <mat-carousel-slide
         [hideOverlay]="true"
         *ngFor="let thumbnail of images"

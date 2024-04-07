@@ -61,6 +61,7 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
   ) {
     this.simulateHandler = this.simulateHandler.bind(this);
     this.downloadHandler = this.downloadHandler.bind(this);
+    //this.clickSimulate = this.clickSimulate.bind(this)
   }
 
   // MultiStepFormDataSource
@@ -130,20 +131,25 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     };
   }
 
+  public clickSimulate(): void {
+    console.log(`simulate clicked!`);
+  }
+
   public extraButtonsForFormStep(formStepId: CreateProjectFormStep): IMultiStepFormButton[] | null {
     if (formStepId === CreateProjectFormStep.AlgorithmParameters) {
       this.hasExtraButtons = true;
       return [
-        {
+        /*{
           label: 'Download',
           onClick: this.downloadHandler,
           class: 'biosimulations-button run download',
-        },
-        /*{
+        },*/
+        {
           label: 'Simulate',
           onClick: this.simulateHandler,
+          // onClick: this.clickSimulate,
           class: 'biosimulations-button run simulate',
-        },*/
+        },
       ];
     }
     return null;

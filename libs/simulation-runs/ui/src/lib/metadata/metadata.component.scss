@@ -235,3 +235,9 @@ $ACCENT: var(--accent-darker-color) !important;
 .description-column {
   margin-top: -4rem;
 }
+
+.thumbnail-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
