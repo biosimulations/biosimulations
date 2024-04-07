@@ -77,7 +77,7 @@ export function CreateArchive(
   const sedDoc = CreateSedDocument(model, simulation, task, dataGenerators, dataSets);
   const modelContent = CreateArchiveModelLocationValue(modelFile, modelUrl);
   //return CompleteArchive(modelFormat, sedDoc, modelContent, model.source);
-  return _CompleteArchive(modelFormat, sedDoc, modelContent, model.source, metadataFileUrl, sedFileUrl);
+  return CompleteArchiveFromFiles(modelFormat, modelContent, model.source, metadataFileUrl, sedFileUrl);
 }
 
 function CreateSedModelChanges(modelChanges: Record<string, string>[], namespaces: Namespace[]): SedModelChange[] {
@@ -319,9 +319,8 @@ function CreateArchiveModelLocationValue(modelFile: File, modelUrl: string): Com
   };
 }
 
-function _CompleteArchive(
+function CompleteArchiveFromFiles(
   modelFormat: string,
-  sedDoc: SedDocument,
   locationValue: CombineArchiveLocationValue,
   modelPath: string,
   metadataFileUrl: string,
