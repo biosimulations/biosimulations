@@ -87,24 +87,24 @@
           </tr>
         </table>
       </ng-container>
+      <div class="rerun-button-container-platform">
+        <button
+          (click)="rerunProject(simulation.id)"
+          mat-flat-button
+          class="rerun-button original"
+          matTooltip="Re-run Original Simulation">
+          Re-run Original Simulation
+          <biosimulations-icon icon="reuse" style="margin-left: 0.5rem"></biosimulations-icon>
+        </button>
+        <button
+          (click)="hasSbml ? rerunCustomProject(simulation.id) : rerunNotSupported()"
+          matTooltip="Customize & Re-run Simulation"
+          mat-flat-button
+          class="rerun-button custom">
+          Customize and Run Simulation
+          <biosimulations-icon icon="controls" style="margin-left: 0.5rem"></biosimulations-icon>
+        </button>
+      </div>
     </mat-card-content>
-    <mat-card-footer class="rerun-button-container-platform">
-      <button
-        (click)="rerunProject(simulation.id)"
-        mat-flat-button
-        class="rerun-project-button original"
-        matTooltip="Re-run Original Simulation">
-        Re-run Original Simulation
-        <biosimulations-icon icon="reuse" style="margin-left: 0.5rem"></biosimulations-icon>
-      </button>
-      <button
-        (click)="hasSbml ? rerunCustomProject(simulation.id) : rerunNotSupported()"
-        matTooltip="Customize & Re-run Simulation"
-        mat-flat-button
-        class="rerun-project-button custom">
-        Customize and Run Simulation
-        <biosimulations-icon icon="controls" style="margin-left: 0.5rem"></biosimulations-icon>
-      </button>
-    </mat-card-footer>
   </mat-card>
 </div>
