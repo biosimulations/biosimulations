@@ -5,7 +5,7 @@ import { IntrospectNewProject } from '../../../service/create-project/project-in
 import { CustomizableSedDocumentData } from '../../../service/create-project/project-introspection';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { Params, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfigService } from '@biosimulations/config/angular';
@@ -31,7 +31,9 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar,
     private config: ConfigService,
     private loader: SimulationProjectUtilLoaderService,
-  ) {}
+  ) {
+    /* Constructor is empty. */
+  }
 
   // Life cycle
 
@@ -63,9 +65,10 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
   // Control callbacks
 
   private onSimulateClicked(): void {
-    this.submitFormData((projectUrl: string): void => {
+    this.downloadCreatedCombineArchive();
+    /*this.submitFormData((projectUrl: string): void => {
       this.simulateCreatedCombineArchive(projectUrl);
-    });
+    });*/
   }
 
   private onDownloadClicked(): void {
@@ -157,18 +160,26 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
-          const msg = 'Your COMBINE/OMEX archive as been created. Please download it and run here.';
+
+          this.snackBar.open('Your COMBINE/OMEX archive as been created. Please download it and run here.', 'Ok', {
+            duration: 10000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+          });
+
+          const params: Params = {
+            //projectUrl: url,
+            projectFile: url as string,
+          };
 
           this.router.navigate(['runs/new'], {
-            queryParams: this.snackBar.open(msg, 'Ok', {
-              duration: 10000,
-              horizontalPosition: 'center',
-              verticalPosition: 'bottom',
-            }),
+            queryParams: params,
           });
+
           return true;
         } else {
           console.log('No URL was generated or an error occurred.');
+
           return false;
         }
       })

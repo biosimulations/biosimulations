@@ -7,18 +7,16 @@
   fxLayoutGap="1rem"
   fxLayoutGap.lt-lg="1rem">
   <!-- Begin thumbnails Display-->
-  <div class="thumbnails-column" *ngIf="project" fxFlex fxLayout="column">
-    <div *ngIf="project?.thumbnails?.length == 1" fxGrid>
+  <div class="thumbnails-column" *ngIf="project?.thumbnails" fxFlex fxLayout="column">
+    <div *ngIf="project.thumbnails.length" fxGrid>
       <mat-card class="image-card">
         <mat-card-header class="multipurpose-card-header project">
           {{ project.title }}
         </mat-card-header>
         <mat-card-content>
-          <ng-container #thumbnailCard>
-            <div class="image-container">
-              <biosimulations-carousel class="img-carousel" [images]="project.thumbnails"> </biosimulations-carousel>
-            </div>
-          </ng-container>
+          <div class="thumbnail-container">
+            <img [src]="project.thumbnails[0]" [alt]="project.title">
+          </div>
         </mat-card-content>
       </mat-card>
     </div>

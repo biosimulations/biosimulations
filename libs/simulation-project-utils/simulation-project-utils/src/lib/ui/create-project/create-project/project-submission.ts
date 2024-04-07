@@ -83,7 +83,7 @@ export function SubmitFormData(
   );
 }
 
-export function SubmitFormDataForArchive(
+export async function SubmitFormDataForArchive(
   dataSource: CreateProjectDataSource,
   errorHandler: () => void,
 ): Promise<string | null> {
@@ -99,27 +99,24 @@ export function SubmitFormDataForArchive(
     Accept: 'application/json',
   };
 
-  return fetch(createArchiveUrl, {
-    method: 'POST',
-    body: formData,
-    headers: headers,
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.blob();
-    })
-    .then((blob) => {
-      const url = window.URL.createObjectURL(blob);
-      console.log(`Generated URL: ${url}`);
-      return url;
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-      errorHandler();
-      return null;
+  try {
+    const response = await fetch(createArchiveUrl, {
+      method: 'POST',
+      body: formData,
+      headers: headers,
     });
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    console.log(`Generated URL: ${url}`);
+    return url;
+  } catch (error) {
+    console.error('Error:', error);
+    errorHandler();
+    return null;
+  }
 }
 
 function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData | null {

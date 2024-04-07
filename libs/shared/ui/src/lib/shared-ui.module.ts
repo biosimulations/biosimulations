@@ -124,6 +124,8 @@ export class MatCarouselHammerConfig extends HammerGestureConfig {
     HeroBannerUtilButtonComponent,
     AppFooterComponent,
     RunCustomSimulationComponent,
+    MatCarouselComponent,
+    MatCarouselSlideComponent,
   ],
   declarations: [
     TopbarComponent,

@@ -37,22 +37,10 @@ export class MetadataComponent {
   @Input()
   public useDefaultImagePlaceholder = false;
 
-  public panelOpenState = false;
-
-  public noThumbnailImageUrl = 'https://biosimulations.org/assets/images/biosimulations-logo/logo-white.svg';
-
   public enlarge = false;
-
-  public isEnlarged = false;
-
-  private listener!: () => void;
 
   constructor(private renderer: Renderer2) {
     /* constructor is empty */
-  }
-
-  public toggleImageSize() {
-    this.isEnlarged = !this.isEnlarged;
   }
 
   public onClick(event: MouseEvent): void {
@@ -62,11 +50,6 @@ export class MetadataComponent {
     } else {
       this.enlarge = true;
     }
-  }
-
-  public togglePanel(event: Event): void {
-    event.stopPropagation();
-    this.panelOpenState = !this.panelOpenState;
   }
 
   public biologyList(projectSummary: ProjectSummary): string[] | undefined {
