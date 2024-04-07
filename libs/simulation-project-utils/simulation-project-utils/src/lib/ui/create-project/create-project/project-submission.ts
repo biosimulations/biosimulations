@@ -99,7 +99,6 @@ export function SubmitFormDataForArchive(
     Accept: 'application/json',
   };
 
-  // Return a promise that resolves with the URL
   return fetch(createArchiveUrl, {
     method: 'POST',
     body: formData,
@@ -112,15 +111,14 @@ export function SubmitFormDataForArchive(
       return response.blob();
     })
     .then((blob) => {
-      // Generate the URL
       const url = window.URL.createObjectURL(blob);
       console.log(`Generated URL: ${url}`);
-      return url; // This will be the resolved value of the promise returned by SubmitFormData
+      return url;
     })
     .catch((error) => {
       console.error('Error:', error);
-      errorHandler(); // Invoke the error handler
-      return null; // Resolve the promise with null in case of error
+      errorHandler();
+      return null;
     });
 }
 
