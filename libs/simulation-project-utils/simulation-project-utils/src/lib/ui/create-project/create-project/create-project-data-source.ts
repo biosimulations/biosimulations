@@ -49,7 +49,6 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
   public reRunSimulatorVersion?: string;
   public reRunName?: string;
   public reRunMetadataFileUrl = '';
-  public reRunSedFile?: CommonFile | File | string;
   public reRunSedFileUrl = '';
 
   public constructor(
@@ -170,8 +169,8 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     this.reRunSimulatorVersion = params.simulatorVersion;
     this.reRunName = params.runName;
     this.reRunMetadataFileUrl += params.metadataFileUrl;
-    console.log(`got params metadata file url: ${this.reRunMetadataFileUrl}`);
     this.reRunSedFileUrl += params.sedFileUrl;
+
     this.preloadUploadModelData(params.modelUrl, params.modelFormat);
     this.preloadSimMethodData(params.modelingFramework, params.simulationType, params.simulationAlgorithm);
     this.preloadTCParams(params.initialTime, params.startTime, params.endTime, params.numSteps);
@@ -186,8 +185,6 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     const uploadModelData = this.formData[CreateProjectFormStep.UploadModel] || {};
     uploadModelData.modelUrl = modelUrl;
     uploadModelData.modelFormat = modelFormat;
-    //uploadModelData.modelFile = this.reRunModelFile;
-    console.log(`model file went into form! ${uploadModelData}`);
     this.formData[CreateProjectFormStep.UploadModel] = uploadModelData;
   }
 
@@ -317,6 +314,12 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
       this.algSubstitutions,
     );
     return component;
+  }
+
+  private getProjectFilename(url: string): string | undefined {
+    const urlObj = new URL(url);
+    const parts = urlObj.pathname.split('/');
+    return parts.pop();
   }
 }
 

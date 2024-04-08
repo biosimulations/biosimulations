@@ -18,36 +18,13 @@ import { Params, Router } from '@angular/router';
 import { ISimulation, SimulationStatusService } from '../shared-simulation-status/shared-simulation-status.service';
 import { Storage } from '@ionic/storage-angular';
 import { ConfigService } from '@biosimulations/config/angular';
-import { SimulationRun, SimulationRunStatus } from '@biosimulations/datamodel/common';
+import { SimulationRun, SimulationRunStatus, ReRunQueryParams } from '@biosimulations/datamodel/common';
 import { Endpoints } from '@biosimulations/config/common';
 import { SimulationRunService } from '@biosimulations/angular-api-client';
 
 // -- SHARED INTERFACES
 
 export type FormStepData = Record<string, unknown>;
-
-export interface ReRunQueryParams {
-  projectUrl?: string;
-  simulator?: string;
-  simulatorVersion?: string;
-  runName?: string;
-  files?: string; // this needs deserialization when fetched
-  modelUrl?: string;
-  modelFile?: string | null | File | CommonFile;
-  modelFormat?: string;
-  modelId?: string;
-  simulationType?: string;
-  simulationAlgorithm?: string;
-  modelingFramework?: string;
-  initialTime?: string | number;
-  startTime?: string | number;
-  endTime?: string | number;
-  numSteps?: string | number;
-  metadataFile?: string | File | CommonFile;
-  metadataFileUrl?: string;
-  sedFile?: string | File | CommonFile;
-  sedFileUrl?: string;
-}
 
 // -- SHARED SIMULATION SERVICE IMPLEMENTATION
 
@@ -122,12 +99,15 @@ export class SharedSimulationService {
     forkJoin({ simulationRun: simulationRun$, filesContent: filesContent$ })
       .pipe(
         switchMap(({ simulationRun, filesContent }) => {
+          console.log(`rerun name: ${simulationRun.name}`);
           const projectUrl = this.endpoints.getSimulationRunDownloadEndpoint(true, id);
           const queryParams: ReRunQueryParams = {
             projectUrl: projectUrl,
+            projectFileName: simulationRun.name,
             simulator: simulationRun.simulator,
             simulatorVersion: simulationRun.simulatorVersion,
             runName: simulationRun.name + ' (rerun)',
+            originalRunName: simulationRun.name,
             files: JSON.stringify(filesContent),
             modelUrl: '',
             modelFile: '',

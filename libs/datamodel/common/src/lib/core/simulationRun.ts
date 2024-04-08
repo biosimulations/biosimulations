@@ -13,10 +13,27 @@ import { File as CommonFile } from './file';
 
 export interface ReRunQueryParams {
   projectUrl?: string;
+  projectFileName?: string;
   simulator?: string;
   simulatorVersion?: string;
   runName?: string;
-  files?: CommonFile[] | undefined;
+  originalRunName?: string;
+  files?: string; // this needs deserialization when fetched
+  modelUrl?: string;
+  modelFile?: string | null | File | CommonFile;
+  modelFormat?: string;
+  modelId?: string;
+  simulationType?: string;
+  simulationAlgorithm?: string;
+  modelingFramework?: string;
+  initialTime?: string | number;
+  startTime?: string | number;
+  endTime?: string | number;
+  numSteps?: string | number;
+  metadataFile?: string | File | CommonFile;
+  metadataFileUrl?: string;
+  sedFile?: string | File | CommonFile;
+  sedFileUrl?: string;
 }
 
 export enum SimulationRunStatus {
