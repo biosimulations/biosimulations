@@ -1,6 +1,8 @@
 /* eslint-disable */
 export default {
-  globals: {},
+  globals: {
+    useESM: true,
+  },
   coverageDirectory: '../../coverage/apps/api',
   testEnvironment: 'node',
   displayName: 'api',
