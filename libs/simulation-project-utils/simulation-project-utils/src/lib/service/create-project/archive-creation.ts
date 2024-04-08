@@ -24,7 +24,6 @@ import {
   SedReportTypeEnum,
   SedSimulation,
   SedSteadyStateSimulationTypeEnum,
-  SedStyleTypeEnum,
   SedTarget,
   SedTargetTypeEnum,
   SedTask,
@@ -56,6 +55,7 @@ export function CreateArchive(
   namespaces: Namespace[],
   metadataFileUrl: string,
   sedFileUrl: string,
+  imageUrls: string[],
   rerunModelId?: string,
 ): CombineArchive {
   const sedChanges = CreateSedModelChanges(changesData, namespaces);
@@ -76,8 +76,9 @@ export function CreateArchive(
   const dataGenerators = dataSetGenerators[1];
   const sedDoc = CreateSedDocument(model, simulation, task, dataGenerators, dataSets);
   const modelContent = CreateArchiveModelLocationValue(modelFile, modelUrl);
-  //return CompleteArchive(modelFormat, sedDoc, modelContent, model.source);
-  return CompleteArchiveFromFiles(modelFormat, modelContent, model.source, metadataFileUrl, sedFileUrl);
+  // return CompleteArchive(modelFormat, sedDoc, modelContent, model.source);
+  // return AddImagesToArchive(imageUrls, archive);
+  return CompleteArchiveFromFiles(modelFormat, modelContent, model.source, metadataFileUrl, sedFileUrl, imageUrls);
 }
 
 function CreateSedModelChanges(modelChanges: Record<string, string>[], namespaces: Namespace[]): SedModelChange[] {
@@ -281,17 +282,11 @@ function CreateSedDocument(
   dataGenerators: SedDataGenerator[],
   dataSets: SedDataSet[],
 ): SedDocument {
-  console.log(`THE model source and id: ${model.source}, ${model.id}`);
   return {
     _type: SedDocumentTypeEnum.SedDocument,
     level: 1,
     version: 3,
-    styles: [
-      {
-        _type: SedStyleTypeEnum.SedStyle,
-        id: model.id + '_style',
-      },
-    ],
+    styles: [],
     models: [model],
     simulations: [simulation],
     tasks: [task],
@@ -325,11 +320,10 @@ function CompleteArchiveFromFiles(
   modelPath: string,
   metadataFileUrl: string,
   sedFileUrl: string,
+  imgUrls: string[],
 ): CombineArchive {
-  console.log(`The archive has a model with a path of: ${modelPath}`);
-  console.log(`THE ARCHIVE HAS SEDFILE URL: ${sedFileUrl}, ${metadataFileUrl}`);
   const formatUri = BIOSIMULATIONS_FORMATS_BY_ID[modelFormat].biosimulationsMetadata?.omexManifestUris[0];
-  return {
+  const archive = {
     _type: CombineArchiveTypeEnum.CombineArchive,
     contents: [
       {
@@ -344,32 +338,48 @@ function CompleteArchiveFromFiles(
       },
       {
         _type: CombineArchiveContentTypeEnum.CombineArchiveContent,
-        format: 'https://identifiers.org/combine.specifications/sed-ml',
+        format: 'http://identifiers.org/combine.specifications/sed-ml',
         master: true,
         location: {
           _type: CombineArchiveLocationTypeEnum.CombineArchiveLocation,
-          path: 'simulation_1.sedml',
+          path: 'simulation.sedml',
           value: {
             _type: CombineArchiveContentUrlTypeEnum.CombineArchiveContentUrl,
             url: sedFileUrl,
           },
         },
       },
-      {
-        _type: CombineArchiveContentTypeEnum.CombineArchiveContent,
-        format: 'https://identifiers.org/combine.specifications/omex-metadata',
-        master: false,
-        location: {
-          _type: CombineArchiveLocationTypeEnum.CombineArchiveLocation,
-          path: 'metadata.rdf',
-          value: {
-            _type: CombineArchiveContentUrlTypeEnum.CombineArchiveContentUrl,
-            url: metadataFileUrl,
-          },
-        },
-      },
     ],
   };
+  return AddImagesToArchive(imgUrls, archive);
+}
+
+function AddImagesToArchive(urls: string[], archive: CombineArchive): CombineArchive {
+  urls.forEach((url: string) => {
+    const imgPath = getFileNameFromUrl(url) as string;
+    console.log(`img path: ${imgPath}`);
+    const archiveContent = {
+      _type: CombineArchiveContentTypeEnum.CombineArchiveContent,
+      format: 'http://purl.org/NET/mediatypes/image/jpeg',
+      master: false,
+      location: {
+        _type: CombineArchiveLocationTypeEnum.CombineArchiveLocation,
+        path: imgPath,
+        value: {
+          _type: CombineArchiveContentUrlTypeEnum.CombineArchiveContentUrl,
+          url: url,
+        },
+      },
+    };
+    archive.contents.push(archiveContent);
+  });
+  return archive;
+}
+
+function getFileNameFromUrl(url: string): string | undefined {
+  const urlObj = new URL(url);
+  const parts = urlObj.pathname.split('/');
+  return parts.pop();
 }
 
 function CompleteArchive(
@@ -394,7 +404,7 @@ function CompleteArchive(
       },
       {
         _type: CombineArchiveContentTypeEnum.CombineArchiveContent,
-        format: 'https://identifiers.org/combine.specifications/sed-ml',
+        format: 'http://identifiers.org/combine.specifications/sed-ml',
         master: true,
         location: {
           _type: CombineArchiveLocationTypeEnum.CombineArchiveLocation,

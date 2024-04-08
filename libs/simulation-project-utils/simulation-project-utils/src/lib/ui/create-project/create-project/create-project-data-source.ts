@@ -50,6 +50,7 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
   public reRunName?: string;
   public reRunMetadataFileUrl = '';
   public reRunSedFileUrl = '';
+  public reRunImageUrls!: string[];
 
   public constructor(
     private simulatorsData: SimulatorsData,
@@ -144,7 +145,7 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
           class: 'biosimulations-button run download',
         },*/
         {
-          label: 'Simulate',
+          label: 'Download and Simulate COMBINE Archive',
           onClick: this.simulateHandler,
           // onClick: this.clickSimulate,
           class: 'biosimulations-button run simulate',
@@ -170,6 +171,7 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     this.reRunName = params.runName;
     this.reRunMetadataFileUrl += params.metadataFileUrl;
     this.reRunSedFileUrl += params.sedFileUrl;
+    this.reRunImageUrls = params.imageFileUrls;
 
     this.preloadUploadModelData(params.modelUrl, params.modelFormat);
     this.preloadSimMethodData(params.modelingFramework, params.simulationType, params.simulationAlgorithm);

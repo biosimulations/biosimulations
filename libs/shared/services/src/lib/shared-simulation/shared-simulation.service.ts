@@ -123,6 +123,7 @@ export class SharedSimulationService {
             metadataFileUrl: '',
             sedFile: '',
             sedFileUrl: '',
+            imageFileUrls: [],
           };
 
           // identify and set modelUrl and potentially other parameters based on filesContent analysis
@@ -140,6 +141,9 @@ export class SharedSimulationService {
                 if (file.url.includes('sedml')) {
                   queryParams.sedFile = JSON.stringify(file);
                   queryParams.sedFileUrl = file.url;
+                }
+                if (file.url.includes('jpg')) {
+                  queryParams.imageFileUrls?.push(file.url);
                 }
                 break;
             }

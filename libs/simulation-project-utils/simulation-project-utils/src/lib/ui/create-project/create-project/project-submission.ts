@@ -149,6 +149,7 @@ function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData
     namespacesData.namespaces as Namespace[],
     dataSource.reRunMetadataFileUrl as string,
     dataSource.reRunSedFileUrl as string,
+    dataSource.reRunImageUrls as string[],
     dataSource.reRunModelId as string,
   );
 
