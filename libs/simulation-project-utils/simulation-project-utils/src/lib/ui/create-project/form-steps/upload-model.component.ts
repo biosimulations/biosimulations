@@ -34,6 +34,7 @@ export class UploadModelComponent implements IFormStepComponent, OnInit {
         modelFile: [null, [CreateMaxFileSizeValidator(this.config)]],
         modelUrl: [null, [URL_VALIDATOR]],
         modelFormat: [null, [Validators.required]],
+        archiveName: ['my-custom-archive', Validators.required],
       },
       {
         validators: this.formValidator.bind(this),
@@ -66,11 +67,13 @@ export class UploadModelComponent implements IFormStepComponent, OnInit {
     const modelFile = this.formGroup.value.modelFile?.files[0];
     const modelUrl = this.formGroup.value.modelUrl;
     const modelFormat = this.formGroup.value.modelFormat;
+    const archiveName = this.formGroup.value.archiveName;
 
     return {
       modelUrl: modelUrl,
       modelFile: modelFile,
       modelFormat: modelFormat,
+      archiveName: archiveName,
     };
   }
 

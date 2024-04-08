@@ -3,6 +3,13 @@
 
   <div class="input-group">
     <mat-form-field class="card-form-field" appearance="fill">
+      <mat-label>Enter the name of this new Archive</mat-label>
+      <input matInput formControlName="archiveName" />
+    </mat-form-field>
+  </div>
+
+  <div class="input-group">
+    <mat-form-field class="card-form-field" appearance="fill">
       <mat-label>Select the format of the model</mat-label>
       <mat-select formControlName="modelFormat">
         <mat-option *ngFor="let format of modelFormats" [value]="format.id" style="background-color: white">

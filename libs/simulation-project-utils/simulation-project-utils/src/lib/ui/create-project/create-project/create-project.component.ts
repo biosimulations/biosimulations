@@ -22,6 +22,8 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
   public shouldShowSpinner = true;
   public formDataSource?: CreateProjectDataSource;
   public isReRun!: boolean;
+  public lastStep = false;
+  public newArchiveName = '';
 
   private subscriptions: Subscription[] = [];
 
@@ -141,22 +143,21 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
   }
 
   private downloadCreatedCombineArchive(): void {
-    this.downloadArchiveUrl();
+    this.downloadProjectFile();
   }
 
-  public downloadArchiveUrl() {
+  public downloadProjectFile() {
     if (!this.formDataSource) {
       return;
     }
     const errorHandler = this.showProjectCreationErrorSnackbar.bind(this);
-
+    const archiveName = this.formDataSource.formData[CreateProjectFormStep.UploadModel].archiveName as string;
     SubmitFormDataForArchive(this.formDataSource, errorHandler)
       .then((url): boolean => {
         if (url) {
-          console.log(`GOT THE URL: ${url}`);
           const link = document.createElement('a');
           link.href = url;
-          link.setAttribute('download', 'custom-archive.omex');
+          link.setAttribute('download', archiveName + '.omex');
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
@@ -170,6 +171,8 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
           const params: Params = {
             //projectUrl: url,
             projectFile: url as string,
+            simulator: this.formDataSource?.reRunSimulator,
+            runName: archiveName,
           };
 
           this.router.navigate(['runs/new'], {
@@ -187,6 +190,7 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
         console.error(`An error occurred while submitting the form data: ${error}`);
       });
   }
+
   private submitFormData(completionHandler: (projectUrl: string) => void): void {
     if (!this.formDataSource) {
       return;
