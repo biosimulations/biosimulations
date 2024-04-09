@@ -61,6 +61,7 @@ export class ViewComponent implements OnInit {
   public selectVisualizationTabIndex = 1;
   public visualizationTabIndex = 2;
   public hasSbml!: boolean;
+  public projectImageUrl?: string;
 
   private simulation$!: Observable<Simulation>;
   private statusCompleted$!: Observable<boolean>;
@@ -236,6 +237,15 @@ export class ViewComponent implements OnInit {
   private initFilesSubscription(): void {
     this.files$.pipe(takeUntil(this.destroyed$)).subscribe((files: Path[] | null | undefined | false) => {
       if (files) {
+        files.forEach((file: Path) => {
+          if (file.location.includes('jpg')) {
+            switch (file) {
+              case file as File:
+                this.projectImageUrl = file.url;
+                break;
+            }
+          }
+        });
         this.hasSbml = files.some((file: Path) => file.location.includes('.xml') || file.location.includes('sbml'));
       }
     });
