@@ -37,7 +37,10 @@ export default {
     ],
     '^.+\\.[tj]sx?$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.spec.json' }],
   },
-  transformIgnorePatterns: ['node_modules/(?!.*.mjs$)'],
+  transformIgnorePatterns: ['node_modules/(?!.*.mjs$)', 'node_modules/(?!@angular)'],
+  moduleNameMapper: {
+    '^(\\.{1,2}/.*)\\.js$': '$1',
+  },
   testTimeout: 10000,
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
   preset: '../../../jest.preset.js',
