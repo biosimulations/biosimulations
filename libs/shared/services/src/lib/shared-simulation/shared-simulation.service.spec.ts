@@ -13,7 +13,7 @@ describe('SharedSimulationStatusService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [SharedSimulationService, ConfigService, SimulationRunService, HttpClient, Storage, HttpHandler],
+      providers: [ConfigService, SimulationRunService, HttpClient, Storage, HttpHandler],
       imports: [
         IonicStorageModule.forRoot({
           driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage],
