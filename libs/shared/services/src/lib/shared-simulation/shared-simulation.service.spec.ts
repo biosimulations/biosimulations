@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { IonicStorageModule, Storage } from '@ionic/storage-angular';
-import { HttpClient, HttpHandler } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { Drivers } from '@ionic/storage';
 
 import { SimulationRunService } from '@biosimulations/angular-api-client';
@@ -13,8 +13,9 @@ describe('SharedSimulationStatusService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ConfigService, SimulationRunService, HttpClient, Storage, HttpHandler],
+      providers: [ConfigService, SimulationRunService, Storage],
       imports: [
+        HttpClientModule,
         IonicStorageModule.forRoot({
           driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage],
         }),
