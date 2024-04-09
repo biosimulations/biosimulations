@@ -22,9 +22,10 @@ module.exports = {
     '^(\\.{1,2}/.*)\\.js$': '$1',
   },
   extensionsToTreatAsEsm: ['.ts'],
-  globals: {
+  /*globals: {
     'ts-jest': {
       useESM: true,
     },
-  },
+  },*/
+  globals: {},
 };
