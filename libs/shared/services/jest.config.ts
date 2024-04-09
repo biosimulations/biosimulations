@@ -13,7 +13,11 @@
 /* eslint-disable */
 export default {
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  globals: {},
+  globals: {
+    'ts-jest': {
+      useESM: true,
+    },
+  },
   coverageDirectory: '../../../coverage/libs/shared/services',
 
   displayName: 'shared-services',
