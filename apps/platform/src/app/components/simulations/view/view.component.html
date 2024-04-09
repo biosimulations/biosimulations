@@ -90,45 +90,6 @@
               *ngIf="projectMetadata$ | async as projectMetadata; else metadataError"
               [project]="projectMetadata">
             </biosimulations-project-metadata>
-            <!--<ng-template #metadataError>
-              <div class="info-message">
-                <p>
-                  Sorry! No metadata could be loaded either because the project did not contain metadata in RDF-XML
-                  format, the metadata was invalid, or an error occurred. Metadata is not required for simulation.
-                  However, metadata is required for publication to BioSimulations. Information about BioSimulations
-                  metadata requirements is available
-                  <a
-                    href="https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/"
-                    rel="noopener"
-                    target="biosimulations-docs"
-                    >here</a
-                  >.
-                </p>
-                <p>
-                  Click
-                  <a
-                    [routerLink]="['/utils', 'validate-project']"
-                    [queryParams]="{
-                      archiveUrl: archiveUrl,
-                      validateSedml: '0',
-                      validateSedmlModels: '0',
-                      autoRun: '1'
-                    }"
-                    >here</a
-                  >
-                  to obtain information about errors in the metadata for this project.
-                </p>
-                <p>
-                  If the metadata is valid, please refresh to try again. If the error persists, please submit an issue
-                  <a
-                    href="https://github.com/biosimulations/biosimulations/issues/new/choose"
-                    rel="noopener"
-                    target="githubissues"
-                    ><biosimulations-icon icon="link"></biosimulations-icon></a
-                  >.
-                </p>
-              </div>
-            </ng-template>-->
             <ng-template #metadataError>
               <div
                 class="thumbnails-column"
@@ -147,7 +108,7 @@
                       </div>
                       <div class="info-message">
                         <p>
-                          Sorry! No metadata could be loaded either because the project did not contain metadata in RDF-XML
+                          No metadata could be loaded either because the project did not contain metadata in RDF-XML
                           format, the metadata was invalid, or an error occurred. Metadata is not required for simulation.
                           However, metadata is required for publication to BioSimulations. Information about BioSimulations
                           metadata requirements is available
