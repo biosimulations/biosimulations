@@ -1,6 +1,12 @@
+import { HttpClient, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Params, Router } from '@angular/router';
+
+import { Storage } from '@ionic/storage-angular';
 import { Observable, of, BehaviorSubject, combineLatest, throwError, switchMap } from 'rxjs';
 import { catchError, map, debounceTime, shareReplay } from 'rxjs/operators';
-import { HttpClient, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
+import { forkJoin } from 'rxjs';
+
 import { CommonFile } from '@biosimulations/datamodel/common';
 import {
   CombineArchiveSedDocSpecs,
@@ -12,11 +18,7 @@ import {
 } from '@biosimulations/combine-api-angular-client';
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import { environment } from '@biosimulations/shared/environments';
-import { Injectable } from '@angular/core';
-import { forkJoin } from 'rxjs';
-import { Params, Router } from '@angular/router';
 import { ISimulation, SimulationStatusService } from '../shared-simulation-status/shared-simulation-status.service';
-import { Storage } from '@ionic/storage-angular';
 import { ConfigService } from '@biosimulations/config/angular';
 import { SimulationRun, SimulationRunStatus, ReRunQueryParams } from '@biosimulations/datamodel/common';
 import { Endpoints } from '@biosimulations/config/common';
