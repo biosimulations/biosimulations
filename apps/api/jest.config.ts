@@ -5,5 +5,9 @@ export default {
   displayName: 'api',
   preset: '../../jest.preset.js',
   transformIgnorePatterns: ['node_modules/(?!.*.mjs$)', 'node_modules/(?!@angular/common/)'],
-  globals: {},
+  globals: {
+    'ts-jest': {
+      useESM: true,
+    },
+  },
 };
