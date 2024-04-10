@@ -2,10 +2,8 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-    "module": "ESNext",
-    "types": ["jest", "node"],
-    "resolveJsonModule": true,
-    "esModuleInterop": true
+    "module": "commonjs",
+    "types": ["jest", "node"]
   },
   "include": ["**/*.spec.ts", "**/*.d.ts", "jest.config.ts"]
 }
