@@ -20,12 +20,12 @@ module.exports = {
   snapshotFormat: { escapeString: true, printBasicPrototype: true },
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1',
+    '^(\\.{1,2}/.*)\\.mjs$': '$1',
   },
-  extensionsToTreatAsEsm: ['.ts'],
-  /*globals: {
+  extensionsToTreatAsEsm: ['.ts', '.js', '.mjs'],
+  globals: {
     'ts-jest': {
       useESM: true,
     },
-  },*/
-  globals: {},
+  },
 };
