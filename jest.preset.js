@@ -22,7 +22,7 @@ module.exports = {
     '^(\\.{1,2}/.*)\\.js$': '$1',
     '^(\\.{1,2}/.*)\\.mjs$': '$1',
   },
-  extensionsToTreatAsEsm: ['.ts', '.js', '.mjs'],
+  extensionsToTreatAsEsm: ['.ts'],
   globals: {
     'ts-jest': {
       useESM: true,
