@@ -5,7 +5,8 @@
     "types": [],
     "emitDecoratorMetadata": true,
     "resolveJsonModule": true,
-    "target": "es2016"
+    "target": "es2016",
+    "module": "CommonJS"
   },
   "exclude": ["**/*.spec.ts", "jest.config.ts"],
   "include": ["**/*.ts"],
