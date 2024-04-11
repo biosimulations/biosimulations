@@ -4,8 +4,7 @@
     "outDir": "../../dist/out-tsc",
     "types": ["jest", "node"],
     "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "target": "es2016"
+    "module": "CommonJS"
   },
   "include": ["**/*.spec.ts", "**/*.d.ts", "../../declarations.d.ts", "jest.config.ts"]
 }
