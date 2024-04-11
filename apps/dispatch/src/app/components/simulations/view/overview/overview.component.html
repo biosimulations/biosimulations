@@ -15,8 +15,8 @@
             <td>
               <span class="heading">Simulator:</span>{{ ' '
               }}<a [href]="simulation.simulatorUrl" rel="noopener" target="biosimulators"
-            >{{ simulation.simulator }} {{ simulation.simulatorVersion }}</a
-            >
+                >{{ simulation.simulator }} {{ simulation.simulatorVersion }}</a
+              >
             </td>
           </tr>
           <tr>
@@ -69,7 +69,7 @@
                 <span class="heading">Status:</span>{{ ' '
                 }}<span [ngClass]="{ error: simulation.statusFailed }">{{ simulation.statusLabel }}</span>
                 <span *ngIf="simulation.statusRunning"
-                >{{ ' ' }}
+                  >{{ ' ' }}
                   <biosimulations-icon icon="spinner"></biosimulations-icon>
                 </span>
               </div>
@@ -78,7 +78,7 @@
                   <span class="heading">Status:</span>{{ ' '
                   }}<span [ngClass]="{ error: simulation.statusFailed }">{{ simulation.statusLabel }}</span>
                   <span *ngIf="simulation.statusRunning"
-                  >{{ ' ' }}
+                    >{{ ' ' }}
                     <biosimulations-icon icon="spinner"></biosimulations-icon>
                   </span>
                 </div>

@@ -78,7 +78,7 @@
                   <span class="heading">Status:</span>{{ ' '
                   }}<span [ngClass]="{ error: simulation.statusFailed }">{{ simulation.statusLabel }}</span>
                   <span *ngIf="simulation.statusRunning"
-                  >{{ ' ' }}
+                    >{{ ' ' }}
                     <biosimulations-icon icon="spinner"></biosimulations-icon>
                   </span>
                 </div>

@@ -29,11 +29,7 @@
 
       <ng-container *ngIf="dataSource?.hasExtraButtons">
         <ng-container *ngFor="let extraButton of currentExtraButtons">
-          <button
-            mat-flat-button
-            [class]="extraButton.class"
-            type="submit"
-            (click)="onExtraButtonClicked(extraButton)">
+          <button mat-flat-button [class]="extraButton.class" type="submit" (click)="onExtraButtonClicked(extraButton)">
             {{ extraButton.label }}
           </button>
         </ng-container>

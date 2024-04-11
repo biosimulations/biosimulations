@@ -9,10 +9,7 @@
         <!-- Simulation Run Overview -->
         <ng-container *ngIf="formattedSimulation$ | async as formattedSimulation">
           <div class="overview-container">
-            <biosimulations-simulation-run-overview
-              [simulation]="formattedSimulation"
-              [hasSbml]="hasSbml"
-            >
+            <biosimulations-simulation-run-overview [simulation]="formattedSimulation" [hasSbml]="hasSbml">
             </biosimulations-simulation-run-overview>
             <div class="run-files">
               <ng-container *ngTemplateOutlet="resultsTabContent; context: { $implicit: filesContent }"> </ng-container>
@@ -95,8 +92,7 @@
                 class="thumbnails-column"
                 fxFlex
                 fxLayout="column"
-                *ngIf="formattedSimulation$ | async as formattedSimulation"
-              >
+                *ngIf="formattedSimulation$ | async as formattedSimulation">
                 <div fxGrid *ngIf="files$ | async as archiveFiles">
                   <mat-card class="image-card">
                     <mat-card-header class="multipurpose-card-header project">
@@ -104,19 +100,19 @@
                     </mat-card-header>
                     <mat-card-content>
                       <div class="thumbnail-container">
-                        <img [src]="projectImageUrl" [alt]="formattedSimulation.name">
+                        <img [src]="projectImageUrl" [alt]="formattedSimulation.name" />
                       </div>
                       <div class="info-message">
                         <p>
                           No metadata could be loaded either because the project did not contain metadata in RDF-XML
-                          format, the metadata was invalid, or an error occurred. Metadata is not required for simulation.
-                          However, metadata is required for publication to BioSimulations. Information about BioSimulations
-                          metadata requirements is available
+                          format, the metadata was invalid, or an error occurred. Metadata is not required for
+                          simulation. However, metadata is required for publication to BioSimulations. Information about
+                          BioSimulations metadata requirements is available
                           <a
                             href="https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/"
                             rel="noopener"
                             target="biosimulations-docs"
-                          >here</a
+                            >here</a
                           >.
                         </p>
                         <p>
@@ -124,22 +120,23 @@
                           <a
                             [routerLink]="['/utils', 'validate-project']"
                             [queryParams]="{
-                      archiveUrl: archiveUrl,
-                      validateSedml: '0',
-                      validateSedmlModels: '0',
-                      autoRun: '1'
-                    }"
-                          >here</a
+                              archiveUrl: archiveUrl,
+                              validateSedml: '0',
+                              validateSedmlModels: '0',
+                              autoRun: '1'
+                            }"
+                            >here</a
                           >
                           to obtain information about errors in the metadata for this project.
                         </p>
                         <p>
-                          If the metadata is valid, please refresh to try again. If the error persists, please submit an issue
+                          If the metadata is valid, please refresh to try again. If the error persists, please submit an
+                          issue
                           <a
                             href="https://github.com/biosimulations/biosimulations/issues/new/choose"
                             rel="noopener"
                             target="githubissues"
-                          ><biosimulations-icon icon="link"></biosimulations-icon></a
+                            ><biosimulations-icon icon="link"></biosimulations-icon></a
                           >.
                         </p>
                       </div>
