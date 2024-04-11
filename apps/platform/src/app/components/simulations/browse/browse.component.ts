@@ -16,7 +16,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteSimulationsDialogComponent } from './delete-simulations-dialog.component';
-import { FormatService, SharedSimulationService } from '@biosimulations/shared/services';
+import { FormatService } from '@biosimulations/shared/services';
 import { ClipboardService } from '@biosimulations/shared/angular';
 
 @Component({
@@ -667,7 +667,6 @@ export class BrowseComponent implements OnInit {
   public constructor(
     //private config: ConfigService,
     private simulationService: SimulationService,
-    private sharedSimulationService: SharedSimulationService,
     private snackBar: MatSnackBar,
     private activatedRoute: ActivatedRoute,
     private router: Router,

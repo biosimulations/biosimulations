@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormattedSimulation } from '../view.model';
-import { SharedSimulationService } from '@biosimulations/shared/services';
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { SharedSimulationService } from '../../../../../../../../libs/shared/services/src/lib/shared-simulation/shared-simulation.service';
 import { MatSnackBar, MatSnackBarRef, TextOnlySnackBar } from '@angular/material/snack-bar';
 
 @Component({

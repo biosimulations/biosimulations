@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SimulationStatusService } from '@biosimulations/shared/services';
+import { SimulationStatusService } from './shared-simulation-status.service';
 import { ConfigService } from '@biosimulations/config/angular';
 
 describe('SharedSimulationStatusService', () => {

@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Drivers } from '@ionic/storage';
 
 import { SimulationRunService } from '@biosimulations/angular-api-client';
-import { SharedSimulationService } from '@biosimulations/shared/services';
+import { SharedSimulationService } from './shared-simulation.service';
 import { ConfigService } from '@biosimulations/config/angular';
 
 describe('SharedSimulationStatusService', () => {
