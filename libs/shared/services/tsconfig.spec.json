@@ -3,9 +3,7 @@
   "compilerOptions": {
     "outDir": "../../../dist/out-tsc",
     "types": ["jest", "node"],
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "target": "es2015"
+    "module": "CommonJS"
   },
   "files": ["src/test-setup.ts"],
   "include": ["**/*.spec.ts", "**/*.d.ts", "jest.config.ts"]
