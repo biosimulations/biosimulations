@@ -1,6 +1,5 @@
 import { Endpoints } from '@biosimulations/config/common';
 import { PLATFORM_APP_ROUTES } from '../../../app.component';
-//import { ConfigService } from '@biosimulations/config/angular';
 import { Component, ViewChild, OnInit, ElementRef } from '@angular/core';
 import { ISimulation, isUnknownSimulation } from '../../../datamodel';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
@@ -24,12 +23,9 @@ import { ClipboardService } from '@biosimulations/shared/angular';
   styleUrls: ['./browse.component.scss'],
 })
 export class BrowseComponent implements OnInit {
-  private endpoints = new Endpoints();
-
   @ViewChild(TableComponent) public table!: TableComponent;
-
-  @ViewChild('tableContainer', { static: false }) tableContainer: ElementRef | undefined;
-  collapsed = false;
+  @ViewChild('tableContainer', { static: false }) public tableContainer: ElementRef | undefined;
+  public collapsed = false;
 
   public columns: Column[] = [
     {
@@ -242,7 +238,7 @@ export class BrowseComponent implements OnInit {
       id: 'updated',
       heading: 'Last updated',
       key: 'updated',
-      formatter: (value: Date | undefined | undefined): string => {
+      formatter: (value: Date | undefined): string => {
         if (value) {
           return FormatService.formatDate(value);
         } else {
@@ -663,6 +659,7 @@ export class BrowseComponent implements OnInit {
     },
   ];
   public simulations!: Observable<ISimulation[]>;
+  private endpoints = new Endpoints();
 
   public constructor(
     //private config: ConfigService,
@@ -685,7 +682,7 @@ export class BrowseComponent implements OnInit {
     });
   }
 
-  collapseTable(): void {
+  public collapseTable(): void {
     this.collapsed = !this.collapsed;
   }
 

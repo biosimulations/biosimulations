@@ -9,3 +9,7 @@ export interface File {
   size: number | string;
   master: boolean;
 }
+
+export interface CommonFile extends File {
+  isReRun?: boolean;
+}

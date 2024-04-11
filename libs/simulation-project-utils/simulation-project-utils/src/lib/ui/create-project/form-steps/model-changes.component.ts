@@ -45,6 +45,7 @@ export class ModelChangesComponent implements IFormStepComponent {
   public populateFormFromFormStepData(formStepData: FormStepData): void {
     const modelChanges = formStepData.modelChanges as Record<string, string>[];
     if (!modelChanges || modelChanges.length === 0) {
+      console.log(`no model changes, returning`);
       return;
     }
     this.formArray.clear();

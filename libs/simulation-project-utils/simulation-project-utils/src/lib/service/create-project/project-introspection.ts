@@ -43,7 +43,9 @@ export function IntrospectNewProject(
   if (!formData) {
     return null;
   }
+
   const modelUrl = modelData?.modelUrl as string;
+  console.log(`The keys of model data for introspection: ${Object.keys(modelData)}`);
   const endpoints = new Endpoints();
   const introspectionEndpoint = endpoints.getModelIntrospectionEndpoint(false);
   const introspectionObservable = PostNewProjectSedDocument(
@@ -83,7 +85,7 @@ function CreateNewProjectFormData(modelData: FormStepData, simMethodData: FormSt
   return formData;
 }
 
-function PostNewProjectSedDocument(
+export function PostNewProjectSedDocument(
   http: HttpClient,
   postEndpoint: string,
   formData: FormData,

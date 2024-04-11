@@ -38,11 +38,6 @@
                 "onlyDependOnLibsWithTags": ["platform:server", "platform:any"]
               },
               {
-                "sourceTag": "scope:shared",
-                "onlyDependOnLibsWithTags": ["scope:shared", "scope:config"]
-              },
-
-              {
                 "sourceTag": "*",
                 "onlyDependOnLibsWithTags": ["*"]
               }

@@ -5,14 +5,14 @@ import { IntrospectNewProject } from '../../../service/create-project/project-in
 import { CustomizableSedDocumentData } from '../../../service/create-project/project-introspection';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { Params, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { environment } from '@biosimulations/shared/environments';
 import { ConfigService } from '@biosimulations/config/angular';
 import { HtmlSnackBarComponent } from '@biosimulations/shared/ui';
-import { CreateSimulationParams, SubmitFormData } from './project-submission';
+import { CreateSimulationParams, SubmitFormData, SubmitFormDataForArchive } from './project-submission';
 import { CreateProjectDataSource, CreateProjectFormStep } from './create-project-data-source';
+import { environment } from '@biosimulations/shared/environments';
 
 @Component({
   selector: 'biosimulations-create-project',
@@ -21,6 +21,9 @@ import { CreateProjectDataSource, CreateProjectFormStep } from './create-project
 export class CreateProjectComponent implements OnInit, OnDestroy {
   public shouldShowSpinner = true;
   public formDataSource?: CreateProjectDataSource;
+  public isReRun!: boolean;
+  public lastStep = false;
+  public newArchiveName = '';
 
   private subscriptions: Subscription[] = [];
 
@@ -30,7 +33,9 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar,
     private config: ConfigService,
     private loader: SimulationProjectUtilLoaderService,
-  ) {}
+  ) {
+    /* Constructor is empty. */
+  }
 
   // Life cycle
 
@@ -38,6 +43,7 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
     const loadObs = this.loader.loadSimulationUtilData();
     const loadSub = loadObs.subscribe(this.loadComplete.bind(this));
     this.subscriptions.push(loadSub);
+    this.isReRun = this.formDataSource ? this.formDataSource?.isReRun : false;
   }
 
   public ngOnDestroy(): void {
@@ -61,15 +67,17 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
   // Control callbacks
 
   private onSimulateClicked(): void {
-    this.submitFormData((projectUrl: string): void => {
+    this.downloadCreatedCombineArchive();
+    /*this.submitFormData((projectUrl: string): void => {
       this.simulateCreatedCombineArchive(projectUrl);
-    });
+    });*/
   }
 
   private onDownloadClicked(): void {
-    this.submitFormData((projectUrl: string): void => {
+    /*this.submitFormData((projectUrl: string): void => {
       this.downloadCreatedCombineArchive(projectUrl);
-    });
+    });*/
+    this.downloadCreatedCombineArchive();
   }
 
   private introspectionProvider(dataSource: CreateProjectDataSource): Observable<void> | null {
@@ -92,28 +100,95 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
   // Submission
 
   private simulateCreatedCombineArchive(projectUrl: string): void {
-    const queryParams = this.formDataSource ? CreateSimulationParams(this.formDataSource, projectUrl) : null;
-    if (!queryParams) {
-      return;
-    }
-    if (this.config.appId === 'dispatch') {
-      this.router.navigate(['/runs/new'], { queryParams });
-    } else if (this.config.appId === 'platform') {
-      this.router.navigate(['/runs/new'], { queryParams });
+    const url = this.formDataSource?.projectUrl;
+    if (url) {
+      const queryParams = this.formDataSource ? CreateSimulationParams(this.formDataSource, url) : null;
+      if (!queryParams) {
+        console.log(`no query params.`);
+        return;
+      }
+      this.router
+        .navigate(['/runs/new'], { queryParams: queryParams })
+        .then((success) => {
+          if (!success) {
+            console.error('Navigation failed');
+            return false;
+          }
+          return success;
+        })
+        .catch((error) => {
+          throw error;
+        });
+      this.showArchiveCreatedSnackbar();
     } else {
-      const url = `https://run.biosimulations.${environment.production ? 'org' : 'dev'}/runs/new`;
+      const queryParams = this.formDataSource ? CreateSimulationParams(this.formDataSource, projectUrl) : null;
+      if (!queryParams) {
+        console.log(`no query params.`);
+        return;
+      }
       const queryParamsString = new URLSearchParams(queryParams).toString();
-      window.open(`${url}?${queryParamsString}`, 'runbiosimulations');
+      console.log(`the query params string: ${queryParamsString}`);
+      if (this.config.appId === 'dispatch') {
+        this.router.navigate(['/runs/new'], { queryParams: queryParams });
+      } else if (this.config.appId === 'platform') {
+        this.router.navigate(['/runs/new'], { queryParams: queryParams });
+      } else {
+        console.log(`new window`);
+        const url = `https://run.biosimulations.${environment.production ? 'org' : 'dev'}/runs/new`;
+        const queryParamsString = new URLSearchParams(queryParams).toString();
+        window.open(`${url}?${queryParamsString}`, 'runbiosimulations');
+      }
+      this.showArchiveCreatedSnackbar();
     }
-    this.showArchiveCreatedSnackbar();
   }
 
-  private downloadCreatedCombineArchive(projectUrl: string): void {
-    const a = document.createElement('a');
-    a.href = projectUrl;
-    a.download = 'archive.omex';
-    a.click();
-    this.showArchiveDownloadedSnackbar();
+  private downloadCreatedCombineArchive(): void {
+    this.downloadProjectFile();
+  }
+
+  public downloadProjectFile() {
+    if (!this.formDataSource) {
+      return;
+    }
+    const errorHandler = this.showProjectCreationErrorSnackbar.bind(this);
+    const archiveName = this.formDataSource.formData[CreateProjectFormStep.UploadModel].archiveName as string;
+    SubmitFormDataForArchive(this.formDataSource, errorHandler)
+      .then((url): boolean => {
+        if (url) {
+          const link = document.createElement('a');
+          link.href = url;
+          link.setAttribute('download', archiveName + '.omex');
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+
+          this.snackBar.open('Your COMBINE/OMEX archive as been created. Please download it and run here.', 'Ok', {
+            duration: 10000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+          });
+
+          const params: Params = {
+            //projectUrl: url,
+            projectFile: url as string,
+            simulator: this.formDataSource?.reRunSimulator,
+            runName: archiveName,
+          };
+
+          this.router.navigate(['runs/new'], {
+            queryParams: params,
+          });
+
+          return true;
+        } else {
+          console.log('No URL was generated or an error occurred.');
+
+          return false;
+        }
+      })
+      .catch((error) => {
+        console.error(`An error occurred while submitting the form data: ${error}`);
+      });
   }
 
   private submitFormData(completionHandler: (projectUrl: string) => void): void {
@@ -154,7 +229,7 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
       msg += ` Please check that ${modelUrl} is an accessible URL.`;
     }
     this.snackBar.open(msg, 'Ok', {
-      duration: 5000,
+      duration: 15000,
       horizontalPosition: 'center',
       verticalPosition: 'bottom',
     });

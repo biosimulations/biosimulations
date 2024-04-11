@@ -14,7 +14,7 @@ import {
 import { CustomizableSedDocumentData } from '../../../service/create-project/project-introspection';
 import { SimulatorsData } from '../../../service/dispatch/dispatch.service';
 import { ViewContainerRef } from '@angular/core';
-import { SimulationType, AlgorithmSubstitution } from '@biosimulations/datamodel/common';
+import { SimulationType, AlgorithmSubstitution, CommonFile } from '@biosimulations/datamodel/common';
 import { Params } from '@angular/router';
 import {
   UploadModelComponent,
@@ -39,6 +39,18 @@ export enum CreateProjectFormStep {
 export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateProjectFormStep> {
   public formData: Record<CreateProjectFormStep, FormStepData> = <Record<CreateProjectFormStep, FormStepData>>{};
   public introspectedData?: CustomizableSedDocumentData;
+  public omexFileUploaded = false;
+  public isReRun = false;
+  public projectUrl!: string;
+  public reRunModelId?: string;
+  public hasExtraButtons = false;
+  public reRunModelFile?: string | File | CommonFile;
+  public reRunSimulator?: string;
+  public reRunSimulatorVersion?: string;
+  public reRunName?: string;
+  public reRunMetadataFileUrl = '';
+  public reRunSedFileUrl = '';
+  public reRunImageUrls!: string[];
 
   public constructor(
     private simulatorsData: SimulatorsData,
@@ -46,7 +58,11 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     private introspectionProvider: (dataSource: CreateProjectDataSource) => Observable<void> | null,
     private downloadHandler: () => void,
     private simulateHandler: () => void,
-  ) {}
+  ) {
+    this.simulateHandler = this.simulateHandler.bind(this);
+    this.downloadHandler = this.downloadHandler.bind(this);
+    //this.clickSimulate = this.clickSimulate.bind(this)
+  }
 
   // MultiStepFormDataSource
 
@@ -63,6 +79,13 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
   }
 
   public shouldShowFormStep(stepId: CreateProjectFormStep): boolean {
+    if (this.omexFileUploaded && stepId === CreateProjectFormStep.ModelChanges) {
+      return true; // Directly go to model changes if an OMEX file was uploaded
+    }
+
+    if (this.isReRun) {
+      return true;
+    }
     switch (stepId) {
       case CreateProjectFormStep.UniformTimeCourseSimulationParameters:
         return this.shouldShowUniformTimeStep();
@@ -75,6 +98,8 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
 
   public createFormStepComponent(stepId: CreateProjectFormStep, hostView: ViewContainerRef): IFormStepComponent {
     switch (stepId) {
+      //case CreateProjectFormStep.UploadArchive:
+      //return this.createModelChangesForm(hostView);
       case CreateProjectFormStep.UploadModel:
         return this.createUploadModelForm(hostView);
       case CreateProjectFormStep.FrameworkSimTypeAndAlgorithm:
@@ -106,16 +131,24 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     };
   }
 
+  public clickSimulate(): void {
+    console.log(`simulate clicked!`);
+  }
+
   public extraButtonsForFormStep(formStepId: CreateProjectFormStep): IMultiStepFormButton[] | null {
     if (formStepId === CreateProjectFormStep.AlgorithmParameters) {
+      this.hasExtraButtons = true;
       return [
-        {
+        /*{
           label: 'Download',
           onClick: this.downloadHandler,
-        },
+          class: 'biosimulations-button run download',
+        },*/
         {
-          label: 'Simulate',
+          label: 'Download and Simulate COMBINE Archive',
           onClick: this.simulateHandler,
+          // onClick: this.clickSimulate,
+          class: 'biosimulations-button run simulate',
         },
       ];
     }
@@ -128,8 +161,21 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     if (!params) {
       return;
     }
+
+    this.isReRun = true;
+    this.reRunModelFile = params.modelFile;
+    this.reRunModelId = params.modelId;
+    this.projectUrl = params.projectUrl;
+    this.reRunSimulator = params.simulator;
+    this.reRunSimulatorVersion = params.simulatorVersion;
+    this.reRunName = params.runName;
+    this.reRunMetadataFileUrl += params.metadataFileUrl;
+    this.reRunSedFileUrl += params.sedFileUrl;
+    this.reRunImageUrls = params.imageFileUrls;
+
     this.preloadUploadModelData(params.modelUrl, params.modelFormat);
     this.preloadSimMethodData(params.modelingFramework, params.simulationType, params.simulationAlgorithm);
+    this.preloadTCParams(params.initialTime, params.startTime, params.endTime, params.numSteps);
   }
 
   private preloadUploadModelData(modelUrl: string, modelFormat: string): void {
@@ -176,6 +222,15 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     this.formData[CreateProjectFormStep.FrameworkSimTypeAndAlgorithm] = simMethodData;
   }
 
+  private preloadTCParams(initialTime: string, startTime: string, endTime: string, numSteps: string): void {
+    const timeCourseData = this.formData[CreateProjectFormStep.UniformTimeCourseSimulationParameters] || {};
+    timeCourseData.initialTime = initialTime;
+    timeCourseData.outputStartTime = startTime;
+    timeCourseData.outputEndTime = endTime;
+    timeCourseData.numberOfSteps = numSteps;
+    this.formData[CreateProjectFormStep.UniformTimeCourseSimulationParameters] = timeCourseData;
+  }
+
   // Form step conditions
 
   private shouldShowUniformTimeStep(): boolean {
@@ -216,6 +271,7 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     if (introspectedTimeCourseData) {
       hostedComponent.instance.loadIntrospectedTimeCourseData(introspectedTimeCourseData);
     }
+    hostedComponent.instance.isReRun = this.isReRun;
     return hostedComponent.instance;
   }
 
@@ -261,4 +317,12 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     );
     return component;
   }
+
+  private getProjectFilename(url: string): string | undefined {
+    const urlObj = new URL(url);
+    const parts = urlObj.pathname.split('/');
+    return parts.pop();
+  }
 }
+
+////

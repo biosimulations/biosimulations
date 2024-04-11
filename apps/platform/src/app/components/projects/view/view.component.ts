@@ -1,13 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
-
+import { ActivatedRoute } from '@angular/router';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 
 import { Observable, combineLatest, map, shareReplay, mergeMap, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
+
 import {
   ProjectMetadata,
   SimulationRunMetadata,
@@ -15,6 +13,7 @@ import {
   File,
   VisualizationList,
   Visualization,
+  ListItem,
 } from '@biosimulations/datamodel-simulation-runs';
 import { ViewService } from '@biosimulations/simulation-runs/service';
 import { ProjectService } from '@biosimulations/angular-api-client';
@@ -52,10 +51,8 @@ export class ViewComponent implements OnInit {
   public visualizations$!: Observable<VisualizationList[]>;
   public plotVisualizations$!: Observable<Visualization[]>;
 
-  public themeColor = 'accent';
   public jsonLdData$!: Observable<WithContext<Dataset>>;
   public cards: any[] = [];
-  public draggedIndex = -1;
   public panelExpandedStatus: { [key: string]: boolean } = {};
   private id!: string;
 
@@ -63,8 +60,6 @@ export class ViewComponent implements OnInit {
     private service: ViewService,
     private projService: ProjectService,
     private route: ActivatedRoute,
-    private router: Router,
-    private snackBar: MatSnackBar,
   ) {}
 
   public ngOnInit(): void {
@@ -148,6 +143,8 @@ export class ViewComponent implements OnInit {
         );
       }),
     );
+
+    this.transformRunUrl();
     this.handleExpansionPanels();
   }
 
@@ -164,22 +161,26 @@ export class ViewComponent implements OnInit {
     return visualizations;
   }
 
-  public drop(event: CdkDragDrop<number[]>): void {
-    moveItemInArray(this.cards, event.previousIndex, event.currentIndex);
+  private transformRunUrl(): void {
+    this.simulationRun$.subscribe((run: SimulationRunMetadata) => {
+      run.forEach((value, key) => {
+        value.items.forEach((val: ListItem) => {
+          if (val.url?.includes('run.biosimulations')) {
+            const runUrl = val.url;
+            val.url = this.convertRunUrl(runUrl);
+          }
+        });
+      });
+    });
   }
 
-  private setupSnackbarConfig(cssClass: string[], data: null, dur: number): MatSnackBarConfig {
-    const config = new MatSnackBarConfig();
-    config.panelClass = cssClass;
-    config.duration = dur;
-    config.verticalPosition = 'top';
-    config.data = data;
-    return config;
-  }
-
-  public promptReRun(data = null, confirmActionMessage = 'Close', duration = 6000): void {
-    const snackbarConfig = this.setupSnackbarConfig(['coming-soon-snackbar'], data, duration);
-    this.snackBar.open(this.featureComingSoonMessage, confirmActionMessage, snackbarConfig);
+  private convertRunUrl(url: string): string {
+    /* Converts dispatch runs to platform url */
+    const runUrl = new URL(url);
+    const ext = runUrl.hostname.split('.').slice(-2).join('.');
+    const seg = runUrl.pathname.split('/');
+    const runId = seg.pop();
+    return `https://${ext}/runs/${runId}`;
   }
 
   private handleExpansionPanels(): void {

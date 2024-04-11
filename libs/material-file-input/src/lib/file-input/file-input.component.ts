@@ -10,6 +10,8 @@ import {
   Optional,
   Self,
   DoCheck,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { ControlValueAccessor, NgControl, NgForm, FormGroupDirective } from '@angular/forms';
 
@@ -31,25 +33,25 @@ export class FileInputComponent
   extends FileInputMixinBase
   implements MatFormFieldControl<FileInput>, ControlValueAccessor, OnInit, OnDestroy, DoCheck
 {
-  static nextId = 0;
+  public static nextId = 0;
+  @HostBinding() public id = `ngx-mat-file-input-${FileInputComponent.nextId++}`;
+  @HostBinding('attr.aria-describedby') public describedBy = '';
+  @Input() public autofilled = false;
+  @Input() public valuePlaceholder!: string;
+  @Input() public accept: string | null = null;
+  @Input() public override errorStateMatcher!: ErrorStateMatcher;
+  @Output() public archiveDetected = new EventEmitter<boolean>();
+  @Output() public fileDetected = new EventEmitter<string>();
 
-  focused = false;
-  controlType = 'file-input';
-
-  @Input() autofilled = false;
+  public focused = false;
+  public controlType = 'file-input';
+  public isArchive!: boolean;
 
   private _placeholder!: string;
   private _required = false;
   private _multiple!: boolean;
 
-  @Input() valuePlaceholder!: string;
-  @Input() accept: string | null = null;
-  @Input() override errorStateMatcher!: ErrorStateMatcher;
-
-  @HostBinding() id = `ngx-mat-file-input-${FileInputComponent.nextId++}`;
-  @HostBinding('attr.aria-describedby') describedBy = '';
-
-  setDescribedByIds(ids: string[]) {
+  public setDescribedByIds(ids: string[]): void {
     this.describedBy = ids.join(' ');
   }
 
@@ -128,15 +130,15 @@ export class FileInputComponent
    * @see https://angular.io/api/forms/ControlValueAccessor
    */
   constructor(
-    private fm: FocusMonitor,
-    private _elementRef: ElementRef,
-    private _renderer: Renderer2,
     public override _defaultErrorStateMatcher: ErrorStateMatcher,
     @Optional()
     @Self()
     public override ngControl: NgControl,
     @Optional() public override _parentForm: NgForm,
     @Optional() public override _parentFormGroup: FormGroupDirective,
+    private fm: FocusMonitor,
+    private _elementRef: ElementRef,
+    private _renderer: Renderer2,
   ) {
     super(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl, new Subject<void>());
 
@@ -193,6 +195,11 @@ export class FileInputComponent
     }
     this.value = new FileInput(fileArray);
     this._onChange(this.value);
+    this.value.files.forEach((f: File) => {
+      this.isArchive = f.name.includes('omex');
+      this.archiveDetected.emit(this.isArchive);
+      this.fileDetected.emit(f.name);
+    });
   }
 
   @HostListener('focusout')

@@ -1,9 +1,7 @@
 @import 'biosimulations-colors';
 
 .spinner-container {
-  display: flex;
   align-items: center;
-  justify-content: center;
 }
 
 .view-viz {
@@ -11,6 +9,7 @@
 }
 
 biosimulations-tab-page ::ng-deep .icon-list {
+  &:not(.overview-container),
   & > li:not(:first-child) {
     margin-top: 0.125rem;
   }
@@ -30,11 +29,15 @@ biosimulations-tab-page ::ng-deep .icon-list {
   }
 }
 
-.spec-container {
-  margin-top: 3rem;
+.spec-container,
+.spinner-container {
   display: flex;
-  align-items: center;
   justify-content: center;
+}
+
+.spec-container {
+  align-items: flex-start;
+  max-width: 100%;
 }
 
 .project-metadata-container {
@@ -55,15 +58,20 @@ biosimulations-tab-page ::ng-deep .icon-list {
   margin-left: auto;
   font-weight: 600;
   width: fit-content;
-  margin-top: 3rem;
 }
 
 .overview-container {
-  margin-right: 3rem;
+  margin-right: 5rem;
+  padding-right: 3rem !important;
   max-width: 800px;
-  height: 100%;
 }
 
+.files,
+.spec-container,
 .info-message {
   margin-top: 3rem;
+}
+
+.thumbnail-container {
+  margin-top: 1rem;
 }

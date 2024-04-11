@@ -14,25 +14,23 @@
   text-align: center;
 }
 
-.extra-button-container {
+.button-container {
   display: flex;
-  gap: 16px;
+  align-items: center !important;
+  justify-content: center !important;
+  padding-bottom: 1rem;
+}
+
+.next {
+  padding-left: 3rem !important;
+}
+
+.back {
+  padding-right: 3rem !important;
 }
 
 .biosimulations-button {
-  &.run,
-  &.back,
-  &.extra {
-    margin-bottom: 1rem !important;
-    margin-right: 1rem !important;
-    display: flex;
-    margin-left: auto;
-  }
-
-  &.back {
-    margin-top: 2rem;
-  }
-
+  display: flex !important;
   &:hover {
     background-color: var(--accent-darker-color) !important;
     transition: background-color 0.5s;

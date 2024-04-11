@@ -9,6 +9,33 @@ import {
   SerializedSedOutput as SedOutput,
 } from '../sedml';
 import { LabeledIdentifier, DescribedIdentifier } from './archiveMetadata';
+import { File as CommonFile } from './file';
+
+export interface ReRunQueryParams {
+  projectUrl?: string;
+  projectFileName?: string;
+  simulator?: string;
+  simulatorVersion?: string;
+  runName?: string;
+  originalRunName?: string;
+  files?: string; // this needs deserialization when fetched
+  modelUrl?: string;
+  modelFile?: string | null | File | CommonFile;
+  modelFormat?: string;
+  modelId?: string;
+  simulationType?: string;
+  simulationAlgorithm?: string;
+  modelingFramework?: string;
+  initialTime?: string | number;
+  startTime?: string | number;
+  endTime?: string | number;
+  numSteps?: string | number;
+  metadataFile?: string | File | CommonFile;
+  metadataFileUrl?: string;
+  sedFile?: string | File | CommonFile;
+  sedFileUrl?: string;
+  imageFileUrls?: string[];
+}
 
 export enum SimulationRunStatus {
   // The api has created the entry

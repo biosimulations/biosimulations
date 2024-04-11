@@ -6,17 +6,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./carousel.component.scss'],
 })
 export class CarouselComponent {
-  @Input()
-  public images: string[] = [];
-
-  @Input()
-  public downloadFileName = 'simulation_profile_image.jpg';
-
-  public expandedImage?: string;
-
-  public expandImage(image: string): void {
-    this.expandedImage = image;
-  }
+  @Input() public images: string[] = [];
+  @Input() public downloadFileName = 'simulation_profile_image.jpg';
 
   public downloadImage(imageIndex = 0): void {
     const imageUrl = this.images[imageIndex];

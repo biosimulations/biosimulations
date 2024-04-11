@@ -152,7 +152,6 @@ export class EndpointLoader {
 
         break;
     }
-    console.log(this.endpointsTemplate.dispatchApp);
     return this.endpointsTemplate;
   }
 

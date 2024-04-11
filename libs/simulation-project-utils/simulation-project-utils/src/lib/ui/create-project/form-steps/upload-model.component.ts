@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output, Input, OnInit } from '@angular/core';
 import { CreateMaxFileSizeValidator, URL_VALIDATOR } from '@biosimulations/shared/ui';
 import { OntologyTerm } from '../../../../index';
 import {
@@ -18,10 +18,15 @@ import { ConfigService } from '@biosimulations/config/angular';
   templateUrl: './upload-model.component.html',
   styleUrls: ['./form-steps.scss'],
 })
-export class UploadModelComponent implements IFormStepComponent {
+export class UploadModelComponent implements IFormStepComponent, OnInit {
+  @Input() public archiveModelFile?: File;
+  @Output() public fileTypeDetected = new EventEmitter<string>();
   public formGroup: UntypedFormGroup;
+  public uploadArchiveFormGroup: UntypedFormGroup;
   public modelFormats?: OntologyTerm[];
   public nextClicked = false;
+  public archiveDetected?: boolean;
+  public stepName = 'uploadFile';
 
   public constructor(private formBuilder: UntypedFormBuilder, private config: ConfigService) {
     this.formGroup = this.formBuilder.group(
@@ -29,11 +34,23 @@ export class UploadModelComponent implements IFormStepComponent {
         modelFile: [null, [CreateMaxFileSizeValidator(this.config)]],
         modelUrl: [null, [URL_VALIDATOR]],
         modelFormat: [null, [Validators.required]],
+        archiveName: ['my-custom-archive', Validators.required],
       },
       {
         validators: this.formValidator.bind(this),
       } as AbstractControlOptions,
     );
+
+    this.uploadArchiveFormGroup = this.formBuilder.group({
+      archiveFile: [null, ''],
+      archiveUrl: [null, ''],
+    });
+  }
+
+  public ngOnInit(): void {
+    if (this.archiveModelFile) {
+      this.archiveDetected = true;
+    }
   }
 
   public populateFormFromFormStepData(formStepData: FormStepData): void {
@@ -46,13 +63,17 @@ export class UploadModelComponent implements IFormStepComponent {
     if (!this.formGroup.valid) {
       return null;
     }
+
     const modelFile = this.formGroup.value.modelFile?.files[0];
     const modelUrl = this.formGroup.value.modelUrl;
     const modelFormat = this.formGroup.value.modelFormat;
+    const archiveName = this.formGroup.value.archiveName;
+
     return {
       modelUrl: modelUrl,
       modelFile: modelFile,
       modelFormat: modelFormat,
+      archiveName: archiveName,
     };
   }
 
@@ -67,9 +88,15 @@ export class UploadModelComponent implements IFormStepComponent {
       format.mediaTypes.forEach((mediaType: string): void => {
         result.add(mediaType);
       });
+      result.add('.omex');
       return result;
     }, new Set<string>());
     return Array.from(specifierSet).join(',');
+  }
+
+  public archiveIsUploaded(archiveUploaded: boolean): void {
+    this.archiveDetected = archiveUploaded;
+    console.log(`Archive is uploaded: ${this.archiveDetected}`);
   }
 
   private formValidator(formGroup: UntypedFormGroup): ValidationErrors | null {

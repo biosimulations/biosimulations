@@ -1446,7 +1446,8 @@ a.status-label {
 
 /* snackbar */
 .mat-simple-snackbar {
-  text-align: center;
+  //text-align: center;
+  //width: 100% !important;
 }
 
 /* select */

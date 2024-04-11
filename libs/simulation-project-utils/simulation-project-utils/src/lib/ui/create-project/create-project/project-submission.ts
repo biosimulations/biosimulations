@@ -1,7 +1,7 @@
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Endpoints } from '@biosimulations/config/common';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { CreateArchive } from '../../../service/create-project/archive-creation';
 import { MultipleSimulatorsAlgorithmParameter } from '../../../service/create-project/compatibility';
 import { FormStepData } from './forms';
@@ -25,12 +25,23 @@ export function CreateSimulationParams(
   if (!uploadData || !simMethodData) {
     return null;
   }
-  return {
+  const params = {
     projectUrl: projectUrl,
+    simulator: '',
+    simulatorVersion: '',
+    runName: '',
     modelFormat: uploadData.modelFormat as string,
     modelingFramework: simMethodData.framework as string,
     simulationAlgorithm: simMethodData.algorithm as string,
   };
+
+  if (dataSource.reRunSimulator && dataSource.reRunSimulatorVersion && dataSource.reRunName) {
+    params.simulator = dataSource.reRunSimulator;
+    params.simulatorVersion = dataSource.reRunSimulatorVersion;
+    params.runName = 'customized-' + dataSource.reRunName;
+  }
+
+  return params;
 }
 
 /**
@@ -42,24 +53,70 @@ export function CreateSimulationParams(
  * @param http An http client to use for posting the request.
  * @param errorHandler An error handler that will be called if the post fails.
  */
+
 export function SubmitFormData(
   dataSource: CreateProjectDataSource,
   http: HttpClient,
   errorHandler: () => void,
-): Observable<string> | null {
+): Observable<string> | null | void | string | any {
   const formData = CreateSubmissionFormData(dataSource);
+
   if (!formData) {
+    console.log(`There is no form data. Returning null.`);
     return null;
   }
   const endpoints = new Endpoints();
-  const url = endpoints.getCombineArchiveCreationEndpoint(true);
-  return http.post<string>(url, formData, {}).pipe(
+  const createArchiveUrl = endpoints.getCombineArchiveCreationEndpoint(false);
+
+  const headers = new HttpHeaders();
+  headers.append('Accept', 'application/json');
+  const httpOptions = {
+    headers: headers,
+  };
+
+  return http.post<string>(createArchiveUrl, formData, httpOptions).pipe(
     catchError((error: HttpErrorResponse): Observable<string> => {
       console.error(error);
       errorHandler();
-      return of<string>('');
+      return of<string>(`${error}`);
     }),
   );
+}
+
+export async function SubmitFormDataForArchive(
+  dataSource: CreateProjectDataSource,
+  errorHandler: () => void,
+): Promise<string | null> {
+  const formData = CreateSubmissionFormData(dataSource);
+
+  if (!formData) {
+    console.log(`There is no form data. Returning null.`);
+    return Promise.resolve(null);
+  }
+
+  const createArchiveUrl = 'https://combine.api.biosimulations.dev/combine/create';
+  const headers = {
+    Accept: 'application/json',
+  };
+
+  try {
+    const response = await fetch(createArchiveUrl, {
+      method: 'POST',
+      body: formData,
+      headers: headers,
+    });
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    console.log(`Generated URL: ${url}`);
+    return url;
+  } catch (error) {
+    console.error('Error:', error);
+    errorHandler();
+    return null;
+  }
 }
 
 function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData | null {
@@ -90,6 +147,10 @@ function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData
     modelChangesData.modelChanges as Record<string, string>[],
     variablesData.modelVariables as Record<string, string>[],
     namespacesData.namespaces as Namespace[],
+    dataSource.reRunMetadataFileUrl as string,
+    dataSource.reRunSedFileUrl as string,
+    dataSource.reRunImageUrls as string[],
+    dataSource.reRunModelId as string,
   );
 
   if (!archive) {
@@ -98,6 +159,8 @@ function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData
 
   const formData = new FormData();
   formData.append('specs', JSON.stringify(archive));
+  formData.append('download', 'true');
+
   const modelFile = uploadModelData.modelFile as File;
   if (modelFile) {
     formData.append('files', modelFile);

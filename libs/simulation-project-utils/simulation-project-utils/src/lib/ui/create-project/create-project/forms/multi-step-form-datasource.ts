@@ -17,6 +17,7 @@ export interface IMultiStepFormDataTask {
 export interface IMultiStepFormButton {
   label: string;
   onClick: () => void;
+  class?: string;
 }
 
 /**
@@ -28,6 +29,7 @@ export interface IMultiStepFormDataSource<TStepId extends string> {
    * This data will be used by the MultiStepFormComponent to preload data into each new form step.
    */
   formData: Record<TStepId, FormStepData>;
+  hasExtraButtons?: boolean;
 
   /**
    * The MultiStepFormDataSource should return a list of identifiers representing the steps of the form.

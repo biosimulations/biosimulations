@@ -2,35 +2,42 @@
   <ng-container *ngIf="!shouldShowSpinner; else loading">
     <div formHost></div>
     <div class="button-container">
-      <button
-        *ngIf="shouldShowBackButton()"
-        mat-flat-button
-        class="biosimulations-button run back"
-        id="multi-step-form-back"
-        type="reset"
-        (click)="onBackClicked()">
-        Back
-      </button>
-      <button
-        *ngIf="shouldShowNextButton()"
-        mat-flat-button
-        class="biosimulations-button run next"
-        id="multi-step-form-next"
-        type="submit"
-        (click)="onNextClicked()">
-        Next
-      </button>
-      <div class="extra-button-container">
+      <div class="back">
+        <button
+          *ngIf="shouldShowBackButton()"
+          mat-flat-button
+          class="biosimulations-button run"
+          id="multi-step-form-back"
+          type="reset"
+          (click)="onBackClicked()">
+          Back
+        </button>
+      </div>
+      <div class="next">
+        <ng-container *ngIf="shouldShowNextButton()">
+          <button
+            #nextButton
+            mat-flat-button
+            class="biosimulations-button run"
+            id="multi-step-form-next"
+            type="submit"
+            (click)="onNextClicked()">
+            Next
+          </button>
+        </ng-container>
+      </div>
+
+      <ng-container *ngIf="dataSource?.hasExtraButtons">
         <ng-container *ngFor="let extraButton of currentExtraButtons">
           <button
             mat-flat-button
-            class="biosimulations-button run extra"
+            [class]="extraButton.class"
             type="submit"
             (click)="onExtraButtonClicked(extraButton)">
             {{ extraButton.label }}
           </button>
         </ng-container>
-      </div>
+      </ng-container>
     </div>
   </ng-container>
 </mat-card>

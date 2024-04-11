@@ -1,4 +1,5 @@
 import logging
+import sys
 
 
 def setup_logging():
@@ -10,7 +11,7 @@ def setup_logging():
     uvicorn_logger = logging.getLogger("uvicorn.access")
 
     # Create a console handler
-    console_handler = logging.StreamHandler()
+    console_handler = logging.StreamHandler(stream=sys.stdout)
     console_handler.setLevel(logging.INFO)
 
     # Create a formatter

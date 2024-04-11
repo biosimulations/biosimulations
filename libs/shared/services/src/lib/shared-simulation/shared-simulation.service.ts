@@ -1,29 +1,39 @@
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { Simulation, ISimulation, isUnknownSimulation } from '../../datamodel';
-import { SimulationRunStatus } from '@biosimulations/datamodel/common';
-import { SimulationStatusService } from './simulation-status.service';
-import { Storage } from '@ionic/storage-angular';
 import { HttpClient, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
-import { Observable, BehaviorSubject, combineLatest, throwError, of } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Params, Router } from '@angular/router';
+
+import { Storage } from '@ionic/storage-angular';
+import { Observable, of, BehaviorSubject, combineLatest, throwError, switchMap } from 'rxjs';
+import { catchError, map, debounceTime, shareReplay } from 'rxjs/operators';
+import { forkJoin } from 'rxjs';
+
+import { CommonFile } from '@biosimulations/datamodel/common';
+import {
+  CombineArchiveSedDocSpecs,
+  CombineArchiveSedDocSpecsContent,
+  SedDocument,
+  SedModel,
+  SedSimulation,
+  SedUniformTimeCourseSimulation,
+} from '@biosimulations/combine-api-angular-client';
+import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
+import { environment } from '@biosimulations/shared/environments';
+import { ISimulation, SimulationStatusService } from '../shared-simulation-status/shared-simulation-status.service';
 import { ConfigService } from '@biosimulations/config/angular';
-import { concatAll, debounceTime, shareReplay, map, catchError } from 'rxjs/operators';
+import { SimulationRun, SimulationRunStatus, ReRunQueryParams } from '@biosimulations/datamodel/common';
 import { Endpoints } from '@biosimulations/config/common';
 import { SimulationRunService } from '@biosimulations/angular-api-client';
-import { SimulationRun } from '@biosimulations/datamodel/common';
 
-export interface ReRunQueryParams {
-  projectUrl?: string;
-  simulator?: string;
-  simulatorVersion?: string;
-  runName?: string;
-  files: string;
-}
+// -- SHARED INTERFACES
+
+export type FormStepData = Record<string, unknown>;
+
+// -- SHARED SIMULATION SERVICE IMPLEMENTATION
 
 @Injectable({
   providedIn: 'root',
 })
-export class SimulationService {
+export class SharedSimulationService {
   private key = 'simulations';
   private simulations: ISimulation[] = [];
 
@@ -31,12 +41,16 @@ export class SimulationService {
   private simulationsMap$: { [key: string]: BehaviorSubject<ISimulation> } = {};
   private simulationsMapSubject = new BehaviorSubject(this.simulationsMap$);
   private simulationsArrSubject = new BehaviorSubject<ISimulation[]>([]);
+
   // Local Storage Map
   private simulationsMap: { [key: string]: ISimulation } = {};
   private storageInitialized = false;
   private simulationsAddedBeforeStorageInitialized: ISimulation[] = [];
 
   private _storage: Storage | null = null;
+
+  private endpoints = new Endpoints();
+  private sedmlSpecsEndpoint = this.endpoints.getSedmlSpecificationsEndpoint(false);
 
   public constructor(
     private config: ConfigService,
@@ -60,18 +74,15 @@ export class SimulationService {
       return;
     }
     this.createSimulationsArray();
-    return;
   }
 
-  // Add the new rerunProject method
-
+  // original rerun project method:
   public rerunProject(id: string): void {
-    const runEndpoints = new Endpoints();
     this.httpClient
-      .get<SimulationRun>(runEndpoints.getSimulationRunEndpoint(true, id))
+      .get<SimulationRun>(this.endpoints.getSimulationRunEndpoint(true, id))
       .subscribe((simulationRun: SimulationRun): void => {
         const queryParams = {
-          projectUrl: runEndpoints.getSimulationRunDownloadEndpoint(true, id),
+          projectUrl: this.endpoints.getSimulationRunDownloadEndpoint(true, id),
           simulator: simulationRun.simulator,
           simulatorVersion: simulationRun.simulatorVersion,
           runName: simulationRun.name + ' (rerun)',
@@ -80,94 +91,145 @@ export class SimulationService {
       });
   }
 
-  /**
-   * Delete a simulation
-   */
-  public removeSimulation(id: string): void {
-    const simulation: ISimulation = this.simulationsMap[id];
-    const iSimulation = this.simulations.indexOf(simulation);
-    this.simulations.splice(iSimulation, 1);
-    delete this.simulationsMap[id];
-    delete this.simulationsMap$[id];
-    this.simulationsMapSubject.next(this.simulationsMap$);
+  // rerun custom method
+  public rerunCustomProject(id: string, rerunQueryParams?: Params | ReRunQueryParams): void {
+    const simulationRun$ = this.httpClient.get<SimulationRun>(this.endpoints.getSimulationRunEndpoint(true, id));
+    const filesContent$ = this.httpClient
+      .get(this.endpoints.getSimulationRunFilesEndpoint(true, id), { responseType: 'text' })
+      .pipe(map((content) => JSON.parse(content) as CommonFile[]));
 
-    this.storeSimulations([]);
+    forkJoin({ simulationRun: simulationRun$, filesContent: filesContent$ })
+      .pipe(
+        switchMap(({ simulationRun, filesContent }) => {
+          console.log(`rerun name: ${simulationRun.name}`);
+          const projectUrl = this.endpoints.getSimulationRunDownloadEndpoint(true, id);
+          const queryParams: ReRunQueryParams = {
+            projectUrl: projectUrl,
+            projectFileName: simulationRun.name,
+            simulator: simulationRun.simulator,
+            simulatorVersion: simulationRun.simulatorVersion,
+            runName: simulationRun.name + ' (rerun)',
+            originalRunName: simulationRun.name,
+            files: JSON.stringify(filesContent),
+            modelUrl: '',
+            modelFile: '',
+            modelFormat: '',
+            simulationAlgorithm: '',
+            simulationType: '',
+            modelingFramework: '',
+            initialTime: '',
+            startTime: '',
+            endTime: '',
+            numSteps: '',
+            metadataFile: '',
+            metadataFileUrl: '',
+            sedFile: '',
+            sedFileUrl: '',
+            imageFileUrls: [],
+          };
+
+          // identify and set modelUrl and potentially other parameters based on filesContent analysis
+          filesContent.forEach((file: CommonFile) => {
+            switch (file) {
+              case file as CommonFile:
+                if (file.url.includes('xml') || file.url.includes('sbml') || file.url.includes('vcml')) {
+                  queryParams.modelUrl = file.url;
+                  queryParams.modelFile = JSON.stringify(file);
+                }
+                if (file.url.includes('metadata')) {
+                  queryParams.metadataFile = JSON.stringify(file);
+                  queryParams.metadataFileUrl = file.url;
+                }
+                if (file.url.includes('sedml')) {
+                  queryParams.sedFile = JSON.stringify(file);
+                  queryParams.sedFileUrl = file.url;
+                }
+                if (file.url.includes('jpg')) {
+                  queryParams.imageFileUrls?.push(file.url);
+                }
+                break;
+            }
+          });
+
+          // fetch SED document specs and update queryParams accordingly
+          return this.getSpecsOfSedDocsInCombineArchive(projectUrl).pipe(
+            map((sedDocSpecs) => {
+              sedDocSpecs?.contents.forEach((content: CombineArchiveSedDocSpecsContent): void => {
+                const sedDoc: SedDocument = content.location.value;
+                sedDoc.models.forEach((model: SedModel): void => {
+                  queryParams.modelId = model.id;
+                  let edamId: string | null = null;
+                  for (const modelingFormat of BIOSIMULATIONS_FORMATS) {
+                    const sedUrn = modelingFormat?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn;
+                    if (!sedUrn || !modelingFormat.id || !model.language.startsWith(sedUrn)) {
+                      continue;
+                    }
+                    edamId = modelingFormat.id;
+                    console.log(`edamid: ${edamId}`);
+                    queryParams.modelFormat = edamId;
+                  }
+                  // queryParams.modelFormat = edamId ? edamId : 'format_2585';
+                });
+
+                sedDoc.simulations.forEach((sim: SedSimulation): void => {
+                  switch (sim) {
+                    case sim as SedUniformTimeCourseSimulation:
+                      queryParams.initialTime = sim.initialTime;
+                      queryParams.endTime = sim.outputEndTime;
+                      queryParams.startTime = sim.outputStartTime;
+                      queryParams.numSteps = sim.numberOfSteps;
+                      queryParams.simulationAlgorithm = sim.algorithm.kisaoId;
+                      queryParams.simulationType = sim._type;
+                      queryParams.modelingFramework = 'SBO_0000293'; // TODO: make this dynamic
+                      break;
+                  }
+                });
+              });
+              return queryParams;
+            }),
+          );
+        }),
+      )
+      .subscribe((queryParams) => {
+        const params = { queryParams: rerunQueryParams ? rerunQueryParams : queryParams };
+        this.router
+          .navigate(['/utils/create-project'], params)
+          .then((success) => {
+            if (!success) {
+              console.error('Navigation failed');
+              return false;
+            }
+            return success;
+          })
+          .catch((error) => {
+            throw error;
+          });
+      });
   }
 
-  /**
-   * Delete all simulations
-   */
-  public removeSimulations(): void {
-    while (this.simulations.length) {
-      const simulation: ISimulation = this.simulations.pop() as ISimulation;
-      delete this.simulationsMap[simulation.id];
-      delete this.simulationsMap$[simulation.id];
+  public getSpecsOfSedDocsInCombineArchive(
+    fileOrUrl: File | string,
+  ): Observable<CombineArchiveSedDocSpecs | undefined> {
+    const formData = new FormData();
+    if (typeof fileOrUrl === 'object') {
+      formData.append('file', fileOrUrl);
+    } else {
+      formData.append('url', fileOrUrl);
     }
-    this.simulationsMapSubject.next(this.simulationsMap$);
-    this.storeSimulations([]);
+
+    return this.httpClient.post<CombineArchiveSedDocSpecs>(this.sedmlSpecsEndpoint, formData).pipe(
+      catchError((error: HttpErrorResponse): Observable<undefined> => {
+        if (!environment.production) {
+          console.error(error);
+        }
+        return of<undefined>(undefined);
+      }),
+      shareReplay(1),
+    );
   }
 
   public getSimulations(): Observable<ISimulation[]> {
     return this.simulationsArrSubject.asObservable().pipe(shareReplay(1));
-  }
-
-  public storeNewLocalSimulation(simulation: Simulation): void {
-    this.storeSimulations([simulation]);
-    this.addSimulation(simulation);
-  }
-
-  public storeExistingExternalSimulations(simulations: ISimulation[]): void {
-    simulations = this.parseDates(simulations);
-    simulations.forEach((simulation) => {
-      simulation.submittedLocally = false;
-      this.addSimulation(simulation);
-      this.storeSimulations([simulation]);
-    });
-    this.storeSimulations(simulations);
-  }
-
-  /**
-   * @author Bilal
-   * @param uuid The id of the simulation
-   * If we have the simulations in cache(a map of behavior subjects), return it, and trigger an update
-   * If not, then get it via http, store it to cache, trigger an update (to start polling), and return
-   * the simulator from cache. In both cases we want to return from cache. This is because the cache contains
-   * behavior subjects already configured to poll the api. The recieving method can simply pipe or subscribe
-   * to have the latest data.
-   */
-  public getSimulation(uuid: string): Observable<ISimulation> {
-    if (uuid in this.simulationsMap$) {
-      return this.getSimulationFromCache(uuid);
-    } else {
-      const sim = this.getSimulationHttp(uuid).pipe(
-        map((value: ISimulation) => {
-          if (isUnknownSimulation(value)) {
-            return of(value);
-          } else {
-            // LOCAL Storage
-            this.storeSimulations([value]);
-            this.addSimulation(value);
-            return this.getSimulationFromCache(uuid);
-          }
-        }),
-        concatAll(),
-        shareReplay(1),
-      );
-
-      return sim;
-    }
-  }
-
-  private parseDates(simulations: ISimulation[]) {
-    simulations.forEach((simulation: ISimulation): void => {
-      if (typeof simulation.submitted === 'string') {
-        simulation.submitted = new Date(simulation.submitted);
-      }
-      if (typeof simulation.updated === 'string') {
-        simulation.updated = new Date(simulation.updated);
-      }
-    });
-    return simulations;
   }
 
   /**
@@ -211,6 +273,18 @@ export class SimulationService {
     if (this.simulationsAddedBeforeStorageInitialized.length) {
       (this._storage as Storage).set(this.key, this.simulations);
     }
+  }
+
+  private parseDates(simulations: ISimulation[]): ISimulation[] {
+    simulations.forEach((simulation: ISimulation): void => {
+      if (typeof simulation.submitted === 'string') {
+        simulation.submitted = new Date(simulation.submitted);
+      }
+      if (typeof simulation.updated === 'string') {
+        simulation.updated = new Date(simulation.updated);
+      }
+    });
+    return simulations;
   }
 
   /**
@@ -331,21 +405,5 @@ export class SimulationService {
    */
   private getSimulationFromCache(uuid: string): Observable<ISimulation> {
     return this.simulationsMap$[uuid].asObservable().pipe(shareReplay(1));
-  }
-
-  /**
-   * Add a simulation to the http cache
-   * @param simulation
-   */
-  private addSimulation(simulation: ISimulation): boolean {
-    if (!(simulation.id in this.simulationsMap$)) {
-      const simSubject = new BehaviorSubject(simulation);
-      this.simulationsMap$[simulation.id] = simSubject;
-      this.simulationsMapSubject.next(this.simulationsMap$);
-      this.updateSimulation(simulation.id);
-      return true;
-    } else {
-      return false;
-    }
   }
 }

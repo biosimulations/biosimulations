@@ -61,6 +61,7 @@ export class SimulatorTypeComponent implements IFormStepComponent {
 
   public populateFormFromFormStepData(formStepData: FormStepData): void {
     const frameworkId = formStepData.framework as string;
+    console.log(`name of framework: ${frameworkId}`);
     const simulationType = formStepData.simulationType as SimulationType;
     const algorithmId = formStepData.algorithm as string;
     if (!this.isFrameworkCompatible(frameworkId)) {
@@ -86,9 +87,11 @@ export class SimulatorTypeComponent implements IFormStepComponent {
     if (!this.formGroup.valid) {
       return null;
     }
+
     const frameworkId = this.formGroup.value.framework;
     const simulationType = this.formGroup.value.simulationType as SimulationType;
     const algorithmId = this.formGroup.value.algorithm;
+    console.log(`${frameworkId}, ${simulationType}, ${algorithmId}`);
     return {
       framework: frameworkId,
       simulationType: simulationType,

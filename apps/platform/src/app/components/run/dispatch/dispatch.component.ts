@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Params } from '@angular/router';
+import { Params, ActivatedRoute } from '@angular/router';
 import { UntypedFormBuilder, UntypedFormGroup, Validators, ValidationErrors } from '@angular/forms';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { SimulationService } from '../../../services/simulation/simulation.service';
@@ -96,6 +96,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     private combineApiService: CombineApiService,
     private snackBar: MatSnackBar,
     private loader: SimulationProjectUtilLoaderService,
+    private activateRoute: ActivatedRoute,
   ) {
     this.formGroup = this.formBuilder.group(
       {
@@ -212,7 +213,6 @@ export class DispatchComponent implements OnInit, OnDestroy {
         AlgorithmSubstitutionPolicyLevels.SAME_METHOD,
       );
     }
-
     this.setControlsFromParams(params, this.simulatorSpecsMap);
   }
 
@@ -239,7 +239,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
 
     const projectUrl: string = this.formGroup.value.projectUrl;
     if (projectUrl) {
-      simulationResponse = this.dispatchService.sumbitJobForURL(
+      simulationResponse = this.dispatchService.submitJobForURL(
         projectUrl,
         simulator,
         simulatorVersion,
@@ -282,8 +282,6 @@ export class DispatchComponent implements OnInit, OnDestroy {
         email,
       ),
     );
-
-    console.log(`The run to be submitted has envVars: ${envVars}.`);
     this.subscriptions.push(sub);
     window.scrollTo(0, 0);
   }
@@ -329,7 +327,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
           minPolicy: {
             id: 'SAME_METHOD',
             name: 'Same method',
-            level: AlgorithmSubstitutionPolicyLevels.SAME_METHOD,
+            level: AlgorithmSubstitutionPolicyLevels.ANY,
             _type: substitutionPolicy._type,
           },
           simulator: simulator,
@@ -362,7 +360,8 @@ export class DispatchComponent implements OnInit, OnDestroy {
       return {
         _type: 'KisaoAlgorithmSubstitution',
         algorithms: [alg, alg],
-        minPolicy: ALGORITHM_SUBSTITUTION_POLICIES[AlgorithmSubstitutionPolicyLevels.SAME_METHOD],
+        //minPolicy: ALGORITHM_SUBSTITUTION_POLICIES[AlgorithmSubstitutionPolicyLevels.SAME_METHOD],
+        minPolicy: ALGORITHM_SUBSTITUTION_POLICIES[AlgorithmSubstitutionPolicyLevels.ANY],
       };
     });
   }

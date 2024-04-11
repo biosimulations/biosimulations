@@ -1,4 +1,4 @@
-<div class="simulation-run-view-parent-container dispatch">
+<div class="simulation-run-view-parent-container platform">
   <biosimulations-tab-page
     *ngIf="(loaded$ | async) === true; else runLoading"
     [selectedTabIndex]="selectedTabIndex"
@@ -9,12 +9,13 @@
         <!-- Simulation Run Overview -->
         <ng-container *ngIf="formattedSimulation$ | async as formattedSimulation">
           <div class="overview-container">
-            <biosimulations-simulation-run-overview [simulation]="formattedSimulation">
+            <biosimulations-simulation-run-overview
+              [simulation]="formattedSimulation"
+              [hasSbml]="hasSbml"
+            >
             </biosimulations-simulation-run-overview>
-
             <div class="run-files">
               <ng-container *ngTemplateOutlet="resultsTabContent; context: { $implicit: filesContent }"> </ng-container>
-
               <ng-template #filesContent>
                 <div
                   *ngIf="(projectFiles$ | async) && (files$ | async) && (outputs$ | async); else filesError"
@@ -43,7 +44,6 @@
                     </biosimulations-project-files>
                   </mat-expansion-panel>
                 </div>
-
                 <ng-template #filesError>
                   <div class="info-message">
                     <p>
@@ -63,7 +63,7 @@
                           validateImages: '0',
                           autoRun: '1'
                         }"
-                        >here</a
+                      >here</a
                       >
                       to obtain information about errors in the manifest for this project.
                     </p>
@@ -74,7 +74,7 @@
                         href="https://github.com/biosimulations/biosimulations/issues/new/choose"
                         rel="noopener"
                         target="githubissues"
-                        ><biosimulations-icon icon="link"></biosimulations-icon></a
+                      ><biosimulations-icon icon="link"></biosimulations-icon></a
                       >.
                     </p>
                   </div>
@@ -101,7 +101,7 @@
                     href="https://docs.biosimulations.org/concepts/conventions/simulation-project-metadata/"
                     rel="noopener"
                     target="biosimulations-docs"
-                    >here</a
+                  >here</a
                   >.
                 </p>
                 <p>
@@ -114,7 +114,7 @@
                       validateSedmlModels: '0',
                       autoRun: '1'
                     }"
-                    >here</a
+                  >here</a
                   >
                   to obtain information about errors in the metadata for this project.
                 </p>
@@ -124,7 +124,7 @@
                     href="https://github.com/biosimulations/biosimulations/issues/new/choose"
                     rel="noopener"
                     target="githubissues"
-                    ><biosimulations-icon icon="link"></biosimulations-icon></a
+                  ><biosimulations-icon icon="link"></biosimulations-icon></a
                   >.
                 </p>
               </div>
@@ -161,7 +161,7 @@
               <a
                 href="https://docs.biosimulations.org/concepts/conventions/simulation-experiments/"
                 target="biosimulations-docs"
-                >here</a
+              >here</a
               >.
             </p>
             <p>
@@ -175,7 +175,7 @@
                   validateImages: '0',
                   autoRun: '1'
                 }"
-                >here</a
+              >here</a
               >
               to obtain information about errors in the simulation experiments for this project.
             </p>
@@ -185,7 +185,7 @@
                 href="https://github.com/biosimulations/biosimulations/issues/new/choose"
                 rel="noopener"
                 target="githubissues"
-                ><biosimulations-icon icon="link"></biosimulations-icon></a
+              ><biosimulations-icon icon="link"></biosimulations-icon></a
               >.
             </p>
           </div>
@@ -229,7 +229,7 @@
                 href="https://github.com/biosimulations/biosimulations/issues/new/choose"
                 rel="noopener"
                 target="githubissues"
-                ><biosimulations-icon icon="link"></biosimulations-icon></a
+              ><biosimulations-icon icon="link"></biosimulations-icon></a
               >.
             </p>
           </div>
