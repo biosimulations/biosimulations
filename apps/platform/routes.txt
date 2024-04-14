@@ -1390,12 +1390,3 @@
 /projects/ten-Tusscher-Noble-Noble-Panfilov-2006
 /projects/ten-Tusscher-Panfilov-2006
 /projects/van-Capelle-Durrer-1980
-/runs
-/runs/new
-/utils/convert-file
-/utils/create-project
-/utils/suggest-simulator
-/utils/validate-metadata
-/utils/validate-model
-/utils/validate-project
-/utils/validate-simulation
