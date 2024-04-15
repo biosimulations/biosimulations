@@ -242,3 +242,26 @@ $ACCENT: var(--accent-darker-color) !important;
   justify-content: center;
   margin-top: 1rem !important;
 }
+
+img {
+  width: fit-content !important;
+}
+
+.fullSizeIframe {
+  width: 100%;
+  height: 2300px;
+}
+
+.thumbnail-container,
+.portal-container,
+.fullSizeIframe {
+  overflow: hidden !important;
+}
+
+.portal-view-container {
+  margin-top: 1rem !important;
+}
+
+.portal-url-container {
+  margin-top: 2rem;
+}

@@ -15,14 +15,15 @@
         </mat-card-header>
         <mat-card-content class="thumbnail-container">
           <img [src]="project.thumbnails[0]" [alt]="project.title" />
-          <!--<a
+        </mat-card-content>
+        <mat-card-footer class="portal-url-container">
+          <a
             *ngIf="portalUrl"
             [href]="portalUrl"
-            class="portal-url-container"
             target="_blank"
           >View this project in  the Reproducibility Portal
-          </a>-->
-        </mat-card-content>
+          </a>
+        </mat-card-footer>
       </mat-card>
     </div>
   </div>
