@@ -8,13 +8,14 @@
 
 <ng-container *ngIf="projectMetadata$ | async as projectMetadata">
   <ng-container *ngIf="simulationRun$ | async as simulationRun">
-    <div class="display-data">
+    <div class="display-data" *ngIf="!usePortal">
       <!-- Start Left Column-->
       <div class="metadata-container">
         <biosimulations-project-metadata
           [project]="projectMetadata"
           [simulationRun]="simulationRun"
-          [projectSummary]="projectSummary$ | async">
+          [projectSummary]="projectSummary$ | async"
+          [portalUrl]="portalUrl">
         </biosimulations-project-metadata>
       </div>
       <!-- End Left Column -->
@@ -23,46 +24,18 @@
       <mat-card class="viz-card">
         <mat-card-content class="viz-card-content">
           <!-- Start ReRun Simulation Button -->
-          <mat-card-header class="viz-card-header"> </mat-card-header>
+          <mat-card-header class="viz-card-header"></mat-card-header>
           <!-- End ReRun Simulation Button -->
 
-          <mat-tab-group #tabGroup preserveContent="true" [dynamicHeight]="true" [selectedIndex]="selectedTabIndex">
+          <mat-tab-group
+            #tabGroup
+            preserveContent="true"
+            [dynamicHeight]="true"
+            [selectedIndex]="selectedTabIndex"
+          >
+
             <!-- Start Visualizations Tab -->
-            <!-- FOR FUTURE IMPLEMENTATIONS: cdkdrag of plot position
-            <mat-tab class="right-col-tab figures">
-              <ng-template mat-tab-label>
-                <biosimulations-icon icon="write"></biosimulations-icon>
-                <div style="width: 5px"></div>
-                Figures
-              </ng-template>
-              <mat-card class="plots-card">
-                <mat-grid-list
-                  *ngFor="let plotVisualization of plotVisualizations$ | async"
-                  cols="1"
-                  rowHeight="525px"
-                  gutterSize="20"
-                  cdkDropList
-                  (cdkDropListDropped)="drop($event)">
-                  <mat-grid-tile class="figure-card" cdkDrag>
-                    <mat-grid-tile-header
-                      class="figure-card-header"
-                      style="background-color: #2196f3; height: 6%"
-                      cdkDragHandle>
-                      {{ plotVisualization.name }}
-                    </mat-grid-tile-header>
-                    <div class="plotparent">
-                      <div class="figure-card-placeholder" *cdkDragPlaceholder></div>
-                      <biosimulations-project-visualization
-                        [visualization]="plotVisualization"
-                        [plotTitle]="plotVisualization.name"
-                        [projectTitle]="projectMetadata.title">
-                      </biosimulations-project-visualization>
-                    </div>
-                  </mat-grid-tile>
-                </mat-grid-list>
-              </mat-card>
-            </mat-tab> -->
-            <mat-tab class="right-col-tab figures">
+            <!--<mat-tab class="right-col-tab figures">
               <ng-template mat-tab-label>
                 <biosimulations-icon icon="write"></biosimulations-icon>
                 <div style="width: 5px"></div>
@@ -88,7 +61,7 @@
                   </mat-grid-tile>
                 </mat-grid-list>
               </mat-card>
-            </mat-tab>
+            </mat-tab>-->
             <!-- End Visualizations Tab -->
 
             <!-- Begin Project files Tab -->
@@ -96,7 +69,7 @@
               <ng-template mat-tab-label>
                 <biosimulations-icon icon="project"></biosimulations-icon>
                 <div style="width: 5px"></div>
-                Download
+                Project Files
               </ng-template>
               <mat-card class="files-card">
                 <mat-card-content>
@@ -120,7 +93,7 @@
                   <div class="divider files-item-0"></div>
 
                   <!-- Spec Files (sbml, manifest, etc) -->
-                  <mat-expansion-panel class="files-item specContent">
+                  <mat-expansion-panel class="files-item specContent" expanded="true">
                     <mat-expansion-panel-header class="item-expansion-header files-sim-spec"
                       >Contents of simulation specification (Model and Metadata files)</mat-expansion-panel-header
                     >
@@ -139,7 +112,7 @@
                   <div class="divider files-item-1"></div>
 
                   <!-- Output Data Files -->
-                  <mat-expansion-panel class="files-item outputs">
+                  <mat-expansion-panel class="files-item outputs" expanded="true">
                     <mat-expansion-panel-header class="item-expansion-header files-sim-outputs"
                       >Simulation outputs (Results, Plots, Logs)</mat-expansion-panel-header
                     >

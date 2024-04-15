@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
 import { Component, Input, ElementRef, ViewChild, Renderer2 } from '@angular/core';
+import { SafeResourceUrl } from '@angular/platform-browser';
 import { ProjectMetadata, SimulationRunMetadata } from '@biosimulations/datamodel-simulation-runs';
 import {
   ProjectSummary,
@@ -36,6 +37,9 @@ export class MetadataComponent {
 
   @Input()
   public useDefaultImagePlaceholder = false;
+
+  @Input()
+  public portalUrl?: SafeResourceUrl;
 
   public enlarge = false;
 
