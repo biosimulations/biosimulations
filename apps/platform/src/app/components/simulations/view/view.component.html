@@ -85,7 +85,8 @@
           <div class="project-metadata-container">
             <biosimulations-project-metadata
               *ngIf="projectMetadata$ | async as projectMetadata; else metadataError"
-              [project]="projectMetadata">
+              [project]="projectMetadata"
+              [inProjects]="false">
             </biosimulations-project-metadata>
             <ng-template #metadataError>
               <div

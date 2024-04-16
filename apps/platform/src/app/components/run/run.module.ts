@@ -10,9 +10,10 @@ import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { RunRoutingModule } from './run-routing.module';
 import { DispatchComponent } from './dispatch/dispatch.component';
 import { SimulationProjectUtilsModule } from '@biosimulations/simulation-project-utils';
+import { CustomizeSimulationComponent } from './customize-simulation/customize-simulation.component';
 
 @NgModule({
-  declarations: [DispatchComponent],
+  declarations: [DispatchComponent, CustomizeSimulationComponent],
   imports: [
     CommonModule,
     RunRoutingModule,

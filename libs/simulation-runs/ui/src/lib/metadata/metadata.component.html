@@ -16,19 +16,11 @@
         <mat-card-content class="thumbnail-container">
           <img [src]="project.thumbnails[0]" [alt]="project.title" />
         </mat-card-content>
-        <mat-card-footer class="portal-url-container">
-          <a
-            *ngIf="portalUrl"
-            [href]="portalUrl"
-            target="_blank"
-          >View this project in  the Reproducibility Portal
-          </a>
-        </mat-card-footer>
       </mat-card>
     </div>
   </div>
 
-  <div class="portal-view-container" *ngIf="portalUrl">
+  <div class="portal-view-container" *ngIf="inProjects && portalUrl">
     <mat-card class="portal-view-card">
       <mat-card-header class="multipurpose-card-header">Reproducibility Portal View</mat-card-header>
       <div class="portal-container">
@@ -36,10 +28,18 @@
           [src]="portalUrl"
           class="fullSizeIframe"></iframe>
       </div>
+      <mat-card-footer class="portal-url-container">
+        <a
+          *ngIf="portalUrl"
+          [href]="portalUrl"
+          target="_blank"
+        >View this project in  the Reproducibility Portal
+        </a>
+      </mat-card-footer>
     </mat-card>
   </div>
 
-  <!--<div class="description-column" *ngIf="project" fxflex fxLayout="column">
+  <div class="description-column" *ngIf="!inProjects && project" fxflex fxLayout="column">
     <mat-card class="metadata-card">
       <mat-card-header class="multipurpose-card-header meta"> Project Description </mat-card-header>
       <mat-card-content>
@@ -107,5 +107,5 @@
         </tr>
       </table>
     </mat-expansion-panel>
-  </div> -->
+  </div>
 </div>

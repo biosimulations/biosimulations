@@ -41,6 +41,9 @@ export class MetadataComponent {
   @Input()
   public portalUrl?: SafeResourceUrl;
 
+  @Input()
+  public inProjects?: boolean;
+
   public enlarge = false;
 
   constructor(private renderer: Renderer2) {
