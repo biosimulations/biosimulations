@@ -26,6 +26,7 @@ import {
   AlgorithmSubstitution,
   AlgorithmSubstitutionPolicy,
   AlgorithmSummary,
+  ReRunQueryParams,
 } from '@biosimulations/datamodel/common';
 import { SimulationRunStatus, EnvironmentVariable, SimulationRun } from '@biosimulations/datamodel/common';
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
@@ -77,6 +78,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
   // Data loaded from configs
   public exampleCombineArchivesUrl: string;
   public emailUrl!: string;
+  public isReRun = false;
 
   // Lifecycle state
   public submitPushed = false;
@@ -155,6 +157,12 @@ export class DispatchComponent implements OnInit, OnDestroy {
       const currentEmailAddress = values.email;
       if (currentEmailAddress != userEmailAddress) {
         this.formGroup.value.emailConsent = true;
+      }
+    });
+
+    this.activateRoute.queryParams.subscribe((params: ReRunQueryParams) => {
+      if (params.projectUrl) {
+        this.isReRun = true;
       }
     });
   }

@@ -1,0 +1,123 @@
+@media screen and (max-width: 959px) {
+  .parent-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-form-section {
+    overflow-x: visible;
+  }
+}
+
+button {
+  float: right;
+}
+
+.update {
+  font-size: small;
+}
+
+.edit-params-form {
+  margin-top: 3rem;
+}
+
+.advanced {
+  padding-bottom: 0.5rem !important;
+  padding-top: 0.5rem !important;
+
+  &:active {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+}
+
+.advanced-title {
+  background-color: var(--accent-darker-color) !important;
+  font-weight: bold !important;
+  font-size: 12.75px !important;
+  padding-top: 0.2rem !important;
+  padding-bottom: 0.2rem !important;
+}
+
+.advanced-content {
+  margin-top: 3rem !important;
+  margin-bottom: 3rem !important;
+}
+
+.advanced-panel:active {
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.advanced-container {
+  padding-bottom: 3rem !important;
+  font-size: 8px !important;
+}
+
+.card-form-section {
+  height: 100%;
+  padding-bottom: 1rem;
+  padding-right: 1rem;
+  background-color: white;
+  overflow: hidden;
+}
+
+.input-group {
+  height: 100%;
+  padding-top: 3rem;
+}
+
+.resources {
+  input {
+    padding-top: 3rem;
+  }
+}
+
+.card-form-field {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+
+  &:first-child {
+    margin-left: 1rem;
+  }
+
+  &:active {
+    height: fit-content;
+  }
+}
+
+.card-form-section,
+mat-option {
+  background-color: white !important;
+}
+
+mat-option:hover {
+  background-color: var(--accent-darker-color) !important;
+  color: white !important;
+}
+
+.message {
+  margin-top: 1rem;
+
+  &.success {
+    color: var(--primary-color);
+    a {
+      text-decoration: underline;
+    }
+  }
+}
+
+.header {
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.row input {
+  flex-grow: 2; /* Inputs might be slightly wider */
+}
+
+.headertitle {
+  padding-right: 1rem;
+}

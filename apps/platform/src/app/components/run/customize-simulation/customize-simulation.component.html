@@ -1,1 +1,258 @@
-<p>customize-simulation works!</p>
+<div class="form-parent-container platform-run">
+  <biosimulations-page heading="Customize Simulation" *ngIf="simulators.length; else loading">
+    <form [formGroup]="formGroup" (ngSubmit)="onFormSubmit()">
+      <!-- SIMULATION SETTINGS -->
+      <mat-card class="card-form-section mat-elevation-z3">
+        <mat-card-header class="card-form-section-title solvers">Simulation Settings *</mat-card-header>
+
+        <!-- simulation name -->
+        <div class="input-group">
+          <mat-form-field class="card-form-field" appearance="fill">
+            <mat-label>Descriptive simulation name</mat-label>
+            <input matInput formControlName="name" placeholder="Knockout of gene A" required />
+          </mat-form-field>
+        </div>
+
+        <!-- simulator -->
+        <div class="input-group">
+          <mat-form-field class="card-form-field" appearance="fill">
+            <mat-label>Simulation tool</mat-label>
+            <mat-select
+              formControlName="simulator"
+              disableOptionCentering
+              placeholder="COPASI"
+              (ngModelChange)="simulatorControlUpdated()"
+              required>
+              <mat-option *ngFor="let simulator of simulators" [value]="simulator.id" [disabled]="simulator.disabled">
+                {{ simulator.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="card-form-field" appearance="fill">
+            <mat-label>Version of the simulation tool</mat-label>
+            <mat-select formControlName="simulatorVersion" disableOptionCentering placeholder="latest" required>
+              <mat-option *ngFor="let simulatorVersion of simulatorVersions" [value]="simulatorVersion">
+                {{ simulatorVersion }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </mat-card>
+
+      <!-- SIMULATION VARIABLES -->
+      <mat-card class="card-form-section mat-elevation-z3">
+        <mat-card-header class="card-form-section-title solvers">Simulation Variables *</mat-card-header>
+        <mat-card-content class="sim-variables-container">
+          <form [formGroup]="variablesFormGroup" (ngSubmit)="onFormSubmit()">
+            <div formArrayName="rows">
+              <div class="row header">
+                <div class="headertitle">Name</div>
+                <div class="headertitle">Default Value</div>
+                <div class="headertitle">New Value</div>
+              </div>
+              <div *ngFor="let row of rows.controls; let i = index" [formGroupName]="i">
+                <input type="text" formControlName="name">
+                <input type="text" formControlName="defaultValue">
+                <input type="text" formControlName="newValue">
+              </div>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- BEGIN ADVANCED -->
+      <div class="advanced-container">
+        <mat-expansion-panel [expanded]="false" [disabled]="false" class="advanced-panel">
+          <mat-expansion-panel-header class="card-form-section-title advanced">
+            <biosimulations-icon icon="columns" style="padding-right: 1rem"></biosimulations-icon>
+            Advanced Settings*
+          </mat-expansion-panel-header>
+          <div class="advanced-content">
+
+            <!-- CAPABILITIES CARD -->
+            <mat-expansion-panel class="card-form-section mat-elevation-z3 inner-advanced">
+              <mat-expansion-panel-header class="card-form-section-title cap advanced-title"
+              >Capabilities required to execute your COMBINE/OMEX archive</mat-expansion-panel-header
+              >
+
+              <div class="input-group">
+                <mat-form-field class="card-form-field" appearance="fill">
+                  <mat-label>Model formats involved in the archive</mat-label>
+                  <mat-select
+                    formControlName="modelFormats"
+                    (ngModelChange)="controlImpactingEligibleSimulatorsUpdated()"
+                    multiple>
+                    <mat-option *ngFor="let format of modelFormats" [value]="format.id" [disabled]="format.disabled">
+                      {{ format.name }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="card-form-field" appearance="fill">
+                  <mat-label>Algorithms involved in the archive</mat-label>
+                  <mat-select
+                    formControlName="simulationAlgorithms"
+                    (ngModelChange)="controlImpactingEligibleSimulatorsUpdated()"
+                    multiple>
+                    <mat-option
+                      *ngFor="let algorithm of simulationAlgorithms"
+                      [value]="algorithm.id"
+                      [disabled]="algorithm.disabled">
+                      {{ algorithm.name }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="card-form-field" appearance="fill">
+                  <mat-label>Algorithm substitution policy level</mat-label>
+                  <mat-select
+                    formControlName="simulationAlgorithmSubstitutionPolicy"
+                    (ngModelChange)="controlImpactingEligibleSimulatorsUpdated()">
+                    <mat-option *ngFor="let policy of algorithmSubstitutionPolicies" [value]="policy.level">
+                      {{ policy.level }}. {{ policy.name }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="card-hints 1">
+                <mat-hint>
+                  Use the above menus to narrow the list of simulation tools below to those tools which have the
+                  capabilities to execute your COMBINE/OMEX archive (tools which support the model formats and
+                  simulation algorithms of the models and simulations described by your COMBINE/OMEX archive).
+                </mat-hint>
+
+                <mat-error *ngIf="shouldShowUnsupportedModelError()">
+                  Your COMBINE/OMEX archive involves model formats that are not supported by any simulation tool
+                  available through runBioSimulations.
+                </mat-error>
+                <mat-error *ngIf="shouldShowUnsupportedAlgorithmError()">
+                  Your COMBINE/OMEX archive involves simulation algorithms that are not supported by any simulation tool
+                  available through runBioSimulations.
+                </mat-error>
+              </div>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel class="card-form-section mat-elevation-z3">
+              <mat-expansion-panel-header class="card-form-section-title solvers advanced-title"
+              >Commercial solvers</mat-expansion-panel-header
+              >
+
+              <mat-checkbox formControlName="academicPurpose" color="primary">
+                The purpose of this simulation is academic research or education.
+              </mat-checkbox>
+
+              <mat-card-content class="card-hints 3">
+                <mat-hint>
+                  <p>
+                    Some simulation tools, such as COBRApy and RBApy, can optionally execute simulations using
+                    commercial solvers such as Gurobi
+                    <a href="https://www.gurobi.com/products/gurobi-optimizer/" rel="noopener" target="_blank">
+                      <biosimulations-icon icon="link"></biosimulations-icon>
+                    </a>
+                    . These commercial solvers are often more accurate and more performant. However, these commercial
+                    solvers are not required to execute any of the available simulation tools. All of the available
+                    simulation tools can be run with freely available solvers.
+                  </p>
+
+                  <p>
+                    Optionally, users can use these commercial solvers for academic research and education. To use these
+                    commercial solvers, check the box above to confirm that you are using runBioSimulations for academic
+                    research or education.
+                  </p>
+
+                  <p>
+                    Non-academic users can execute simulations with commercial solvers by (a) running simulations
+                    through runBioSimulations' API and providing license keys through environment variables or (b) using
+                    the Docker images, command-line programs, or Python APIs for simulation tools on their own machines
+                    with their own license key environment variables or license files.
+                  </p>
+                </mat-hint>
+              </mat-card-content>
+            </mat-expansion-panel>
+
+            <mat-card class="card-form-section mat-elevation-z3">
+              <mat-card-header class="card-form-section-title resources advanced-title"
+              >Computational resources *</mat-card-header
+              >
+
+              <div class="input-group resources">
+                <mat-form-field class="card-form-field" appearance="fill">
+                  <mat-label>CPUs</mat-label>
+                  <input matInput formControlName="cpus" type="number" min="1" max="24" step="1" required />
+                  <span matSuffix>cores</span>
+                </mat-form-field>
+
+                <mat-form-field class="card-form-field" appearance="fill">
+                  <mat-label>Memory</mat-label>
+                  <input matInput formControlName="memory" type="number" min="1" max="192" step="0.01" required />
+                  <span matSuffix>GB</span>
+                </mat-form-field>
+
+                <mat-form-field class="card-form-field" appearance="fill">
+                  <mat-label>Time</mat-label>
+                  <input matInput formControlName="maxTime" type="number" min="1" max="28800" step="1" required />
+                  <span matSuffix>min</span>
+                </mat-form-field>
+              </div>
+              <mat-card-content class="card-hints 4">
+                <mat-hint>
+                  Configure the amount of resources needed to execute your project. Currently, users can request up to
+                  24 CPU cores, 192 GB RAM, and 20 days. if additional resources are needed, please contact the
+                  runBioSimulations Team
+                  <a [href]="emailUrl"><biosimulations-icon icon="email"></biosimulations-icon></a>
+                  to discuss additional options.
+                </mat-hint>
+              </mat-card-content>
+              <mat-error *ngIf="formGroup.hasError('min', 'cpus')">Jobs must request at least 1 core.</mat-error>
+              <mat-error *ngIf="formGroup.hasError('max', 'cpus')">Jobs are limited to 24 CPU cores.</mat-error>
+              <mat-error *ngIf="formGroup.hasError('integer', 'cpus')">
+                Jobs must request an integer number of CPU cores.
+              </mat-error>
+              <mat-error *ngIf="formGroup.hasError('min', 'memory')">Jobs must request at least 1 GB RAM.</mat-error>
+              <mat-error *ngIf="formGroup.hasError('max', 'memory')">Jobs are limited to 192 GB RAM.</mat-error>
+              <mat-error *ngIf="formGroup.hasError('min', 'maxTime')">Jobs must request at least 1 minute.</mat-error>
+              <mat-error *ngIf="formGroup.hasError('max', 'maxTime')">Jobs are limited to 20 days.</mat-error>
+            </mat-card>
+
+            <mat-card class="card-form-section mat-elevation-z3">
+              <mat-card-header class="card-form-section-title noti advanced-title">Notifications</mat-card-header>
+
+              <div class="input-group">
+                <mat-form-field class="card-form-field" appearance="fill">
+                  <mat-label>Email address</mat-label>
+                  <input matInput formControlName="email" placeholder="investigator@uni.edu" />
+                </mat-form-field>
+              </div>
+              <mat-card-content class="card-hints 6">
+                <mat-hint>
+                  Optionally, enter your email address to receive notification of the completion of your simulation.
+                  After submitting your simulation, you will also receive a URL where you will be able to check the
+                  status of your simulation and retrieve its results.
+                </mat-hint>
+              </mat-card-content>
+              <mat-error *ngIf="formGroup.hasError('email', 'email')">Please enter a valid email address.</mat-error>
+
+              <mat-checkbox formControlName="emailConsent" color="primary" [checked]="formGroup.value.email !== ''">
+                I consent to receiving an email notification about the completion of my simulation.
+              </mat-checkbox>
+
+              <mat-error *ngIf="formGroup.hasError('emailNotConsented')">
+                You must consent to receiving email notifications.
+              </mat-error>
+            </mat-card>
+          </div>
+        </mat-expansion-panel>
+      </div>
+      <!-- END ADVANCED -->
+
+      <!-- SUBMIT FORM BUTTON -->
+      <button mat-flat-button type="submit" class="biosimulations-button run">Run Simulation</button>
+    </form>
+  </biosimulations-page>
+
+  <ng-template #loading>
+    <biosimulations-full-page-spinner></biosimulations-full-page-spinner>
+  </ng-template>
+</div>
+

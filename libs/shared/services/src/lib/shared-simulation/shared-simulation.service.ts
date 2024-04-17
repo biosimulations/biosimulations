@@ -228,7 +228,8 @@ export class SharedSimulationService {
       .subscribe((queryParams) => {
         const params = { queryParams: rerunQueryParams ? rerunQueryParams : queryParams };
         this.router
-          .navigate(['/utils/create-project'], params)
+          // .navigate(['/utils/create-project'], params)
+          .navigate(['/runs/customize'], params)
           .then((success) => {
             if (!success) {
               console.error('Navigation failed');
