@@ -37,6 +37,34 @@
             </mat-select>
           </mat-form-field>
         </div>
+
+        <!-- get notifications -->
+        <ng-container *ngIf="emailEnabled">
+          <div class="input-group">
+            <mat-form-field class="card-form-field" appearance="fill">
+              <mat-label>Email address</mat-label>
+              <input matInput formControlName="email" placeholder="investigator@uni.edu" />
+            </mat-form-field>
+          </div>
+          <mat-card-content class="card-hints 6">
+            <mat-hint>
+              Optionally, enter your email address to receive notification of the completion of your simulation.
+              After submitting your simulation, you will also receive a URL where you will be able to check the
+              status of your simulation and retrieve its results.
+            </mat-hint>
+          </mat-card-content>
+          <mat-error *ngIf="formGroup.hasError('email', 'email')">Please enter a valid email address.</mat-error>
+          <mat-error *ngIf="formGroup.hasError('emailNotConsented')">
+            You must consent to receiving email notifications.
+          </mat-error>
+        </ng-container>
+
+        <mat-checkbox
+          formControlName="emailConsent"
+          color="primary"
+          (change)="enableEmail($event.checked)">
+          I consent to receiving an email notification about the completion of my simulation.
+        </mat-checkbox>
       </mat-card>
 
       <!-- simulation params -->
@@ -44,16 +72,16 @@
         <mat-card-header class="card-form-section-title sim-variables">2. Simulation Parameters *</mat-card-header>
         <mat-card-content class="sim-variables-container">
           <form [formGroup]="variablesFormGroup" (ngSubmit)="onFormSubmit()">
-            <div formArrayName="rows">
+            <div formArrayName="rows" class="model-changes-grid">
               <div class="row header">
-                <h3 class="headertitle">Name</h3>
-                <h3 class="headertitle">Default Value</h3>
-                <h3 class="headertitle">New Value</h3>
+                <h3 class="grid-label">Name</h3>
+                <h3 class="grid-label">Default Value</h3>
+                <h3 class="grid-label">New Value</h3>
               </div>
               <div *ngFor="let row of rows.controls; let i = index" [formGroupName]="i">
-                <input type="text" formControlName="name">
-                <input type="text" formControlName="defaultValue">
-                <input type="text" formControlName="newValue">
+                <input type="text" formControlName="name" class="grid-input">
+                <input type="text" formControlName="default" class="grid-input">
+                <input type="text" formControlName="newValue" class="grid-input">
               </div>
             </div>
           </form>

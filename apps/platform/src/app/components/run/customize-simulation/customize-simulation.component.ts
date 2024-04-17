@@ -85,6 +85,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
 
   // Lifecycle state
   public submitPushed = false;
+  public emailEnabled = false;
   private subscriptions: Subscription[] = [];
 
   // Data loaded from network
@@ -177,8 +178,8 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
 
   public addParameterRow(): void {
     const newRow = this.formBuilder.group({
-      name: [''],
-      defaultValue: [''],
+      name: ['Alex'],
+      default: [''],
       newValue: [''],
     });
     this.rows.push(newRow);
@@ -198,12 +199,20 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     });
   }
 
+  public enableEmail(checked: boolean): void {
+    this.emailEnabled = checked;
+  }
+
   public onSubmit() {
     console.log(this.variablesFormGroup.value);
   }
 
   public ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
+
+  public paramsFormGroups(): UntypedFormGroup[] {
+    return this.rows.controls as UntypedFormGroup[];
   }
 
   private isLicensed(simulator: string): boolean {
