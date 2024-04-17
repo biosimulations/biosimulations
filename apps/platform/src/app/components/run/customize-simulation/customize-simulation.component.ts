@@ -1,39 +1,40 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Params, ActivatedRoute } from '@angular/router';
-import { UntypedFormBuilder, UntypedFormGroup, Validators, ValidationErrors, UntypedFormArray } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { CombineApiService } from '../../../services/combine-api/combine-api.service';
 import {
-  SimulatorSpecsMap,
-  SimulatorSpecs,
-  SimulatorsData,
-  OntologyTermsMap,
   OntologyTerm,
-  SimulationProjectUtilLoaderService,
+  OntologyTermsMap,
   SimulationProjectUtilData,
+  SimulationProjectUtilLoaderService,
+  SimulatorsData,
+  SimulatorSpecs,
+  SimulatorSpecsMap,
 } from '@biosimulations/simulation-project-utils';
 import { Simulation } from '../../../datamodel';
 import {
-  CombineArchiveSedDocSpecs,
-  CombineArchiveSedDocSpecsContent,
-  SedDocument,
-  SedModel,
-  SedSimulation,
-  Purpose,
-  AlgorithmSubstitutionPolicyLevels,
   ALGORITHM_SUBSTITUTION_POLICIES,
   AlgorithmSubstitution,
   AlgorithmSubstitutionPolicy,
+  AlgorithmSubstitutionPolicyLevels,
   AlgorithmSummary,
+  CombineArchiveSedDocSpecs,
+  CombineArchiveSedDocSpecsContent,
+  EnvironmentVariable,
+  Purpose,
   ReRunQueryParams,
+  SedDocument,
+  SedModel,
+  SedSimulation,
+  SimulationRun,
+  SimulationRunStatus,
 } from '@biosimulations/datamodel/common';
-import { SimulationRunStatus, EnvironmentVariable, SimulationRun } from '@biosimulations/datamodel/common';
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import { Observable, Subscription } from 'rxjs';
 import { ConfigService } from '@biosimulations/config/angular';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
 import { FileInput } from '@biosimulations/material-file-input';
 import { CreateMaxFileSizeValidator, INTEGER_VALIDATOR } from '@biosimulations/shared/ui';
 
@@ -80,6 +81,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
   public exampleCombineArchivesUrl: string;
   public emailUrl!: string;
   public isReRun = false;
+  public needsLicense = false;
 
   // Lifecycle state
   public submitPushed = false;
@@ -89,6 +91,8 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
   private modelFormatsMap?: OntologyTermsMap;
   private simulationAlgorithmsMap?: Record<string, Algorithm>;
   private simulatorSpecsMap?: SimulatorSpecsMap;
+
+  private licensedSimulators = ['cobra', 'rba'];
 
   public constructor(
     private config: ConfigService,
@@ -161,25 +165,17 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.activateRoute.queryParams.subscribe((params: ReRunQueryParams) => {
-      if (params.projectUrl) {
-        this.isReRun = true;
-      }
-    });
-
     this.variablesFormGroup = this.formBuilder.group({
       rows: this.formBuilder.array([]),
     });
-    this.addRowToVariables();
-
-    console.log(`customize is a rerun: ${this.isReRun}`);
+    this.addParameterRow();
   }
 
   get rows(): UntypedFormArray {
     return this.variablesFormGroup.get('rows') as UntypedFormArray;
   }
 
-  public addRowToVariables(): void {
+  public addParameterRow(): void {
     const newRow = this.formBuilder.group({
       name: [''],
       defaultValue: [''],
@@ -192,12 +188,26 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     this.rows.removeAt(index);
   }
 
+  public setAttributesFromQueryParams(): void {
+    this.activateRoute.queryParams.subscribe((params: ReRunQueryParams) => {
+      if (params.projectUrl) {
+        this.isReRun = true;
+      }
+
+      this.needsLicense = (params.simulator?.includes('cobra') || params.simulator?.includes('rba')) as boolean;
+    });
+  }
+
   public onSubmit() {
     console.log(this.variablesFormGroup.value);
   }
 
   public ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
+
+  private isLicensed(simulator: string): boolean {
+    return simulator in this.licensedSimulators;
   }
 
   private loadComplete(data: SimulationProjectUtilData): void {
@@ -251,6 +261,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
       );
     }
     this.setControlsFromParams(params, this.simulatorSpecsMap);
+    this.setAttributesFromQueryParams();
   }
 
   // Form Submission
@@ -663,6 +674,11 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     this.setMemory(params.memory);
     this.setMaxTime(params.maxTime);
     this.setRunName(params.runName);
+    this.setSimulationParams(params.simulationParams);
+  }
+
+  private setSimulationParams(simParams: any): void {
+    // TODO: Update the model changes form.
   }
 
   private setProject(projectUrl: string): void {
