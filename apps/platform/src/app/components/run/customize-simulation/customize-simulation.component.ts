@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import {
+  AbstractControl,
   Form,
   UntypedFormArray,
   UntypedFormBuilder,
@@ -119,6 +120,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
   public simMethodData!: FormStepData;
   public modelData!: FormStepData;
   public introspectionData$!: Observable<CustomizableSedDocumentData>;
+  public options!: any[];
 
   // Lifecycle state
   public submitPushed = false;
@@ -207,7 +209,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     this.variablesFormGroup = this.formBuilder.group({
       rows: this.formBuilder.array([]),
     });
-    this.addDefaultRow();
+    //this.addDefaultRow();
   }
 
   get rows(): UntypedFormArray {
@@ -225,8 +227,8 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
 
   public addParameterRow(modelChange: SedModelAttributeChange): void {
     const newRow = this.formBuilder.group({
-      name: [modelChange.name],
-      default: [modelChange.newValue],
+      name: [{ value: modelChange.name, disabled: true }],
+      default: [{ value: modelChange.newValue, disabled: true }],
       newValue: [''],
     });
     this.rows.push(newRow);
@@ -277,7 +279,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  public paramsFormGroups(): UntypedFormGroup[] {
+  public get paramsFormGroups(): UntypedFormGroup[] {
     return this.rows.controls as UntypedFormGroup[];
   }
 
@@ -343,12 +345,12 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     this.setAttributesFromQueryParams();
 
     // Gather introspection data and populate model changes form
-    this.rows.clear();
     this.introspectionData$.subscribe((data: CustomizableSedDocumentData) => {
       data.modelChanges.forEach((change: ClientSedChange) => {
         switch (change) {
           case change as SedModelAttributeChange:
             this.addParameterRow(change);
+          // this.options.push(change as SedModelAttributeChange);
         }
       });
     });
@@ -639,6 +641,10 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
         } else {
           specsContainUnsupportedModel = true;
         }
+
+        model.changes.forEach((changes: SedModelChange, i: number) => {
+          console.log(`Change: ${i}`);
+        });
       });
       sedDoc.simulations.forEach((sim: SedSimulation): void => {
         const kisaoId = sim.algorithm.kisaoId;
