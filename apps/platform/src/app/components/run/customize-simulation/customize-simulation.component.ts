@@ -207,17 +207,26 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     this.variablesFormGroup = this.formBuilder.group({
       rows: this.formBuilder.array([]),
     });
-    this.addParameterRow();
+    this.addDefaultRow();
   }
 
   get rows(): UntypedFormArray {
     return this.variablesFormGroup.get('rows') as UntypedFormArray;
   }
 
-  public addParameterRow(): void {
+  public addDefaultRow(): void {
     const newRow = this.formBuilder.group({
-      name: ['Alex'],
+      name: [''],
       default: [''],
+      newValue: [''],
+    });
+    this.rows.push(newRow);
+  }
+
+  public addParameterRow(modelChange: SedModelAttributeChange): void {
+    const newRow = this.formBuilder.group({
+      name: [modelChange.name],
+      default: [modelChange.newValue],
       newValue: [''],
     });
     this.rows.push(newRow);
@@ -334,12 +343,12 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     this.setAttributesFromQueryParams();
 
     // Gather introspection data and populate model changes form
+    this.rows.clear();
     this.introspectionData$.subscribe((data: CustomizableSedDocumentData) => {
-      data.modelChanges.forEach((change: ClientSedChange, i: number) => {
+      data.modelChanges.forEach((change: ClientSedChange) => {
         switch (change) {
           case change as SedModelAttributeChange:
-            console.log(`THE CHANGE VALUE: ${change.newValue}`);
-          // TODO: POPULATE FIELDS HERE! USE MODEL CHANGES FORM METHOD
+            this.addParameterRow(change);
         }
       });
     });
@@ -630,10 +639,6 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
         } else {
           specsContainUnsupportedModel = true;
         }
-
-        model.changes.forEach((changes: SedModelChange, i: number) => {
-          console.log(`Change: ${i}`);
-        });
       });
       sedDoc.simulations.forEach((sim: SedSimulation): void => {
         const kisaoId = sim.algorithm.kisaoId;
