@@ -39,8 +39,8 @@ import {
   SedSimulation,
   SimulationRun,
   SimulationRunStatus,
-  SedModelChange,
   SimulationType,
+  SedModelChange,
 } from '@biosimulations/datamodel/common';
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import { Observable, Subscription } from 'rxjs';
@@ -49,6 +49,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { FileInput } from '@biosimulations/material-file-input';
 import { CreateMaxFileSizeValidator, INTEGER_VALIDATOR } from '@biosimulations/shared/ui';
 import { FormStepData, CustomizableSedDocumentData } from '@biosimulations/simulation-project-utils';
+import { SedModelChange as ClientSedChange, SedModelAttributeChange } from '@biosimulations/combine-api-angular-client';
 
 interface SimulatorIdNameDisabled {
   id: string;
@@ -332,8 +333,15 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     this.setControlsFromParams(params, this.simulatorSpecsMap);
     this.setAttributesFromQueryParams();
 
+    // Gather introspection data and populate model changes form
     this.introspectionData$.subscribe((data: CustomizableSedDocumentData) => {
-      console.log(`THE DATA: ${JSON.stringify(data)}`);
+      data.modelChanges.forEach((change: ClientSedChange, i: number) => {
+        switch (change) {
+          case change as SedModelAttributeChange:
+            console.log(`THE CHANGE VALUE: ${change.newValue}`);
+          // TODO: POPULATE FIELDS HERE! USE MODEL CHANGES FORM METHOD
+        }
+      });
     });
   }
 
