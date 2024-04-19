@@ -1,6 +1,7 @@
 <div class="form-parent-container platform-run">
   <biosimulations-page heading="Customize Simulation" *ngIf="simulators.length; else loading">
     <form [formGroup]="formGroup" (ngSubmit)="onFormSubmit()">
+
       <!-- SIMULATION SETTINGS -->
       <mat-card class="card-form-section mat-elevation-z3">
         <mat-card-header class="card-form-section-title solvers">1. Simulation Settings *</mat-card-header>
@@ -135,8 +136,6 @@
             Advanced Settings*
           </mat-expansion-panel-header>
           <div class="advanced-content">
-
-
 
             <!-- get notifications -->
             <mat-card class="card-form-section mat-elevation-z3">

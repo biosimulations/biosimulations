@@ -1,9 +1,18 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import {
+  Form,
+  UntypedFormArray,
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { CombineApiService } from '../../../services/combine-api/combine-api.service';
+import { IntrospectNewProject } from '@biosimulations/simulation-project-utils';
 import {
   OntologyTerm,
   OntologyTermsMap,
@@ -30,6 +39,8 @@ import {
   SedSimulation,
   SimulationRun,
   SimulationRunStatus,
+  SedModelChange,
+  SimulationType,
 } from '@biosimulations/datamodel/common';
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import { Observable, Subscription } from 'rxjs';
@@ -37,6 +48,7 @@ import { ConfigService } from '@biosimulations/config/angular';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FileInput } from '@biosimulations/material-file-input';
 import { CreateMaxFileSizeValidator, INTEGER_VALIDATOR } from '@biosimulations/shared/ui';
+import { FormStepData, CustomizableSedDocumentData } from '@biosimulations/simulation-project-utils';
 
 interface SimulatorIdNameDisabled {
   id: string;
@@ -61,6 +73,27 @@ interface Algorithm {
   disabled: boolean;
 }
 
+interface IntrospectionModelData extends FormStepData {
+  modelFormat: string;
+  modelFile?: string;
+  modelUrl?: string;
+}
+
+interface IntrospectionMethodData extends FormStepData {
+  frameworkId: string;
+  simulationType: string;
+  algorithmId: string;
+}
+
+interface ArchiveFormData {
+  modelFormat: string;
+  modelFile?: string;
+  modelUrl?: string;
+  frameworkId: string;
+  simulationType: string;
+  algorithmId: string;
+}
+
 @Component({
   selector: 'biosimulations-customize-simulation',
   templateUrl: './customize-simulation.component.html',
@@ -82,6 +115,9 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
   public emailUrl!: string;
   public isReRun = false;
   public needsLicense = false;
+  public simMethodData!: FormStepData;
+  public modelData!: FormStepData;
+  public introspectionData$!: Observable<CustomizableSedDocumentData>;
 
   // Lifecycle state
   public submitPushed = false;
@@ -105,6 +141,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar,
     private loader: SimulationProjectUtilLoaderService,
     private activateRoute: ActivatedRoute,
+    private httpClient: HttpClient,
   ) {
     this.formGroup = this.formBuilder.group(
       {
@@ -195,8 +232,27 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
         this.isReRun = true;
       }
 
+      this.modelData = {
+        modelUrl: params.modelUrl as string,
+        modelFormat: params.modelFormat as string,
+      };
+
+      this.simMethodData = {
+        simulationType: params.simulationType as SimulationType,
+        framework: params.modelingFramework as string,
+        algorithm: params.simulationAlgorithm as string,
+      };
+
       this.needsLicense = (params.simulator?.includes('cobra') || params.simulator?.includes('rba')) as boolean;
     });
+
+    const handler = this.archiveError.bind(this);
+    this.introspectionData$ = IntrospectNewProject(
+      this.httpClient,
+      this.modelData,
+      this.simMethodData,
+      handler,
+    ) as Observable<CustomizableSedDocumentData>;
   }
 
   public enableEmail(checked: boolean): void {
@@ -217,6 +273,10 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
 
   private isLicensed(simulator: string): boolean {
     return simulator in this.licensedSimulators;
+  }
+
+  private archiveError(modelUrl: string): void {
+    console.log(`Archive error: ${modelUrl}`);
   }
 
   private loadComplete(data: SimulationProjectUtilData): void {
@@ -271,12 +331,18 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     }
     this.setControlsFromParams(params, this.simulatorSpecsMap);
     this.setAttributesFromQueryParams();
+
+    this.introspectionData$.subscribe((data: CustomizableSedDocumentData) => {
+      console.log(`THE DATA: ${JSON.stringify(data)}`);
+    });
   }
 
   // Form Submission
 
   public onFormSubmit(): void {
     this.submitPushed = true;
+
+    this.onSubmit();
 
     if (!this.formGroup.valid) {
       return;
@@ -556,6 +622,10 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
         } else {
           specsContainUnsupportedModel = true;
         }
+
+        model.changes.forEach((changes: SedModelChange, i: number) => {
+          console.log(`Change: ${i}`);
+        });
       });
       sedDoc.simulations.forEach((sim: SedSimulation): void => {
         const kisaoId = sim.algorithm.kisaoId;

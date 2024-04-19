@@ -55,19 +55,38 @@ export function IntrospectNewProject(
     modelUrl,
     errorHandler,
   );
+
   return introspectionObservable.pipe(map(CreateNewProjectArchiveDataOperator(simMethodData)));
 }
 
-function CreateNewProjectFormData(modelData: FormStepData, simMethodData: FormStepData): FormData | null {
-  const modelFormat = modelData?.modelFormat as string;
+interface ArchiveFormData {
+  modelFormat: string;
+  modelFile?: string;
+  modelUrl?: string;
+  modelLanguage: string;
+  modelingFramework: string;
+  simulationType: string;
+  simulationAlgorithm: string;
+}
+
+function CreateNewProjectFormData(
+  modelData: FormStepData,
+  simMethodData: FormStepData,
+): FormData | null | ArchiveFormData {
+  const modelFormat = modelData.modelFormat as string;
   const modelFile = modelData?.modelFile as Blob;
   const modelUrl = modelData?.modelUrl as string;
-  const frameworkId = simMethodData?.framework as string;
-  const simulationType = simMethodData?.simulationType as SimulationType;
-  const algorithmId = simMethodData?.algorithm as string;
+  const frameworkId = simMethodData.framework as string;
+  const simulationType = simMethodData.simulationType as SimulationType;
+  const algorithmId = simMethodData.algorithm as string;
+
+  console.log(`THE FRAMEWORK ID: ${frameworkId}`);
+
   if (!modelFormat || (!modelUrl && !modelFile) || !frameworkId || !simulationType || !algorithmId) {
+    console.log(`RETURNING....`);
     return null;
   }
+
   const formData = new FormData();
   if (modelFile) {
     formData.append('modelFile', modelFile);
@@ -82,13 +101,25 @@ function CreateNewProjectFormData(modelData: FormStepData, simMethodData: FormSt
   formData.append('modelingFramework', frameworkId);
   formData.append('simulationType', simulationType);
   formData.append('simulationAlgorithm', algorithmId);
+
+  const form: ArchiveFormData = {
+    modelUrl: modelUrl,
+    modelFile: '',
+    modelFormat: modelFormat,
+    modelLanguage: modelLanguage as string,
+    modelingFramework: frameworkId,
+    simulationType: simulationType,
+    simulationAlgorithm: algorithmId,
+  };
+
   return formData;
+  //return form;
 }
 
 export function PostNewProjectSedDocument(
   http: HttpClient,
   postEndpoint: string,
-  formData: FormData,
+  formData: FormData | ArchiveFormData,
   modelUrl: string,
   errorHandler: (modelUrl: string) => void,
 ): Observable<SedDocument | null> {

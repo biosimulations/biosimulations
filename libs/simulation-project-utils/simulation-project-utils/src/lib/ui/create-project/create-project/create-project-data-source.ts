@@ -45,8 +45,6 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
   public reRunModelId?: string;
   public hasExtraButtons = false;
   public reRunModelFile?: string | File | CommonFile;
-  public reRunModelUrl?: string;
-  public reRunModelFormat?: string;
   public reRunSimulator?: string;
   public reRunSimulatorVersion?: string;
   public reRunName?: string;
@@ -69,24 +67,15 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
   // MultiStepFormDataSource
 
   public formStepIds(): CreateProjectFormStep[] {
-    if (!this.isReRun) {
-      return [
-        CreateProjectFormStep.UploadModel,
-        CreateProjectFormStep.FrameworkSimTypeAndAlgorithm,
-        CreateProjectFormStep.UniformTimeCourseSimulationParameters,
-        CreateProjectFormStep.ModelNamespace,
-        CreateProjectFormStep.ModelChanges,
-        CreateProjectFormStep.Observables,
-        CreateProjectFormStep.AlgorithmParameters,
-      ];
-    } else {
-      this.preloadUploadModelData(this.reRunModelUrl as string, this.reRunModelFormat as string);
-      return [
-        CreateProjectFormStep.UniformTimeCourseSimulationParameters,
-        CreateProjectFormStep.ModelNamespace,
-        CreateProjectFormStep.ModelChanges,
-      ];
-    }
+    return [
+      CreateProjectFormStep.UploadModel,
+      CreateProjectFormStep.FrameworkSimTypeAndAlgorithm,
+      CreateProjectFormStep.UniformTimeCourseSimulationParameters,
+      CreateProjectFormStep.ModelNamespace,
+      CreateProjectFormStep.ModelChanges,
+      CreateProjectFormStep.Observables,
+      CreateProjectFormStep.AlgorithmParameters,
+    ];
   }
 
   public shouldShowFormStep(stepId: CreateProjectFormStep): boolean {
@@ -94,6 +83,9 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
       return true; // Directly go to model changes if an OMEX file was uploaded
     }
 
+    if (this.isReRun) {
+      return true;
+    }
     switch (stepId) {
       case CreateProjectFormStep.UniformTimeCourseSimulationParameters:
         return this.shouldShowUniformTimeStep();
@@ -109,7 +101,6 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
       //case CreateProjectFormStep.UploadArchive:
       //return this.createModelChangesForm(hostView);
       case CreateProjectFormStep.UploadModel:
-        console.log('creating form!');
         return this.createUploadModelForm(hostView);
       case CreateProjectFormStep.FrameworkSimTypeAndAlgorithm:
         return this.createSimulatorTypeForm(hostView);
@@ -170,7 +161,7 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     if (!params) {
       return;
     }
-    console.log('everything loaded');
+
     this.isReRun = true;
     this.reRunModelFile = params.modelFile;
     this.reRunModelId = params.modelId;
@@ -181,8 +172,6 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     this.reRunMetadataFileUrl += params.metadataFileUrl;
     this.reRunSedFileUrl += params.sedFileUrl;
     this.reRunImageUrls = params.imageFileUrls;
-    this.reRunModelUrl = params.modelUrl;
-    this.reRunModelFormat = params.modelFormat;
 
     this.preloadUploadModelData(params.modelUrl, params.modelFormat);
     this.preloadSimMethodData(params.modelingFramework, params.simulationType, params.simulationAlgorithm);
@@ -230,6 +219,7 @@ export class CreateProjectDataSource implements IMultiStepFormDataSource<CreateP
     simMethodData.framework = framework;
     simMethodData.simulationType = simulationType;
     simMethodData.algorithm = algorithm;
+    console.log(`-- THE FRAMEWORK TYPE AND ALG: ${framework}, ${simulationType}, ${algorithm}`);
     this.formData[CreateProjectFormStep.FrameworkSimTypeAndAlgorithm] = simMethodData;
   }
 
