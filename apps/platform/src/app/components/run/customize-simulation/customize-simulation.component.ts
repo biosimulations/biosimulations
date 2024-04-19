@@ -122,7 +122,8 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
   public simMethodData!: FormStepData;
   public modelData!: FormStepData;
   public introspectionData$!: Observable<CustomizableSedDocumentData>;
-  public options!: any[];
+  public options: SedModelAttributeChange[] = [];
+  public modelChanges: UntypedFormGroup[] = [];
 
   // Lifecycle state
   public submitPushed = false;
@@ -227,6 +228,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     });
 
     this.rows.push(newRow);
+    this.modelChanges.push(newRow);
   }
 
   public removeRow(index: number): void {
@@ -340,22 +342,50 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     this.setAttributesFromQueryParams();
 
     // Gather introspection data and populate model changes form
-    this.introspectionData$.subscribe((data: CustomizableSedDocumentData) => {
+    /*this.introspectionData$.subscribe((data: CustomizableSedDocumentData) => {
       data.modelChanges.forEach((change: ClientSedChange) => {
         switch (change) {
           case change as SedModelAttributeChange:
             this.addParameterRow(change);
-          // this.options.push(change as SedModelAttributeChange);
+            this.options.push(change);
         }
       });
       this.rows.controls.forEach((val: AbstractControl<any, any>) => {
         const value = val as UntypedFormGroup;
         console.log(`------ A CONTROL VAL: ${Object.keys(value.value)}`);
       });
+    });*/
+
+    this.parseIntrospection();
+
+    this.options.forEach((option: SedModelAttributeChange, i: number) => {
+      console.log(`${i}: ${option.newValue}`);
     });
   }
 
   // Form Submission
+
+  public parseIntrospection(): void {
+    // Gather introspection data and populate model changes form
+    this.introspectionData$.subscribe((data: CustomizableSedDocumentData) => {
+      data.modelChanges.forEach((change: ClientSedChange) => {
+        switch (change) {
+          case change as SedModelAttributeChange:
+            this.addParameterRow(change);
+        }
+      });
+      this.rows.controls.forEach((val: AbstractControl<any, any>) => {
+        const value = val as UntypedFormGroup;
+        console.log(`------ A CONTROL VAL: ${Object.keys(value.value)}`);
+      });
+
+      this.modelChanges.forEach((changeGroup: UntypedFormGroup) => {
+        console.log(Object.keys(changeGroup.controls));
+
+        // TODO: update this and create the sed model changes here
+      });
+    });
+  }
 
   public getSimulationParamsData(): FormStepData | null {
     const modelChanges: Record<string, string>[] = [];
