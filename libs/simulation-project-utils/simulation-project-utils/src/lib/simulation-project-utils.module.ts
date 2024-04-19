@@ -44,5 +44,6 @@ import { FormHostDirective, PagingFormComponent } from './ui/create-project/crea
     PagingFormComponent,
   ],
   imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule, SharedUiModule, BiosimulationsIconsModule],
+  exports: [ModelChangesComponent],
 })
 export class SimulationProjectUtilsModule {}

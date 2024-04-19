@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import {
   AbstractControl,
+  AbstractFormGroupDirective,
   Form,
   UntypedFormArray,
   UntypedFormBuilder,
@@ -51,6 +52,7 @@ import { FileInput } from '@biosimulations/material-file-input';
 import { CreateMaxFileSizeValidator, INTEGER_VALIDATOR } from '@biosimulations/shared/ui';
 import { FormStepData, CustomizableSedDocumentData } from '@biosimulations/simulation-project-utils';
 import { SedModelChange as ClientSedChange, SedModelAttributeChange } from '@biosimulations/combine-api-angular-client';
+import { CreateArchive } from '@biosimulations/simulation-project-utils';
 
 interface SimulatorIdNameDisabled {
   id: string;
@@ -209,28 +211,21 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     this.variablesFormGroup = this.formBuilder.group({
       rows: this.formBuilder.array([]),
     });
-    //this.addDefaultRow();
   }
 
   get rows(): UntypedFormArray {
     return this.variablesFormGroup.get('rows') as UntypedFormArray;
   }
 
-  public addDefaultRow(): void {
-    const newRow = this.formBuilder.group({
-      name: [''],
-      default: [''],
-      newValue: [''],
-    });
-    this.rows.push(newRow);
-  }
-
   public addParameterRow(modelChange: SedModelAttributeChange): void {
     const newRow = this.formBuilder.group({
       name: [{ value: modelChange.name, disabled: true }],
       default: [{ value: modelChange.newValue, disabled: true }],
+      target: [modelChange.target],
+      id: [modelChange.id],
       newValue: [''],
     });
+
     this.rows.push(newRow);
   }
 
@@ -279,7 +274,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  public get paramsFormGroups(): UntypedFormGroup[] {
+  public get paramsFormGroups(): UntypedFormGroup[] | AbstractControl<any, any>[] {
     return this.rows.controls as UntypedFormGroup[];
   }
 
@@ -353,15 +348,43 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
           // this.options.push(change as SedModelAttributeChange);
         }
       });
+      this.rows.controls.forEach((val: AbstractControl<any, any>) => {
+        const value = val as UntypedFormGroup;
+        console.log(`------ A CONTROL VAL: ${Object.keys(value.value)}`);
+      });
     });
   }
 
   // Form Submission
 
+  public getSimulationParamsData(): FormStepData | null {
+    const modelChanges: Record<string, string>[] = [];
+    this.rows.controls.forEach((control: AbstractControl<any, any>): void => {
+      const formGroup = control as UntypedFormGroup;
+
+      modelChanges.push({
+        id: formGroup.value.id,
+        name: formGroup.value.name,
+        newValue: formGroup.value.newValue,
+        target: formGroup.value.target,
+        default: formGroup.value.default.value,
+      });
+    });
+
+    const changes = {
+      modelChanges: modelChanges,
+    };
+
+    console.log(`THE CHANGES: ${JSON.stringify(changes)}`);
+    return changes;
+  }
+
   public onFormSubmit(): void {
     this.submitPushed = true;
 
     this.onSubmit();
+
+    // TODO: CREATE THE NEW ARCHIVE FROM THE MODEL CHANGES HERE
 
     if (!this.formGroup.valid) {
       return;

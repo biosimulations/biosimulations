@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { UntypedFormArray, UntypedFormBuilder, Validators, UntypedFormGroup, AbstractControl } from '@angular/forms';
 import { IFormStepComponent, FormStepData } from '../create-project/forms';
 import { UNIQUE_ATTRIBUTE_VALIDATOR_CREATOR, SEDML_ID_VALIDATOR } from '@biosimulations/shared/ui';
@@ -12,6 +12,7 @@ import { SedModelAttributeChangeTypeEnum, SedModelChange } from '@biosimulations
 export class ModelChangesComponent implements IFormStepComponent {
   public nextClicked = false;
   public formArray: UntypedFormArray;
+  @Input() public sharedFormArray?: UntypedFormArray;
 
   public constructor(private formBuilder: UntypedFormBuilder) {
     this.formArray = formBuilder.array([], {
@@ -32,6 +33,7 @@ export class ModelChangesComponent implements IFormStepComponent {
       return;
     }
     this.formArray.clear();
+
     introspectedModelChanges.forEach((change: SedModelChange) => {
       this.addFieldForModelChange(change);
     });

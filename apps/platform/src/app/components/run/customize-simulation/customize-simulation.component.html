@@ -81,7 +81,7 @@
               </div>
               <div *ngFor="let row of rows.controls; let i = index" [formGroupName]="i">
                 <input type="text" formControlName="name" class="grid-input">
-                <input type="text" formControlName="default" class="grid-input" [disabled]="true">
+                <input type="text" formControlName="default" class="grid-input">
                 <input matInput type="text" formControlName="newValue" class="grid-input">
               </div>
             </div>

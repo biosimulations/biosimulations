@@ -76,9 +76,9 @@ export function CreateArchive(
   const dataGenerators = dataSetGenerators[1];
   const sedDoc = CreateSedDocument(model, simulation, task, dataGenerators, dataSets);
   const modelContent = CreateArchiveModelLocationValue(modelFile, modelUrl);
-  // return CompleteArchive(modelFormat, sedDoc, modelContent, model.source);
   // return AddImagesToArchive(imageUrls, archive);
-  return CompleteArchiveFromFiles(modelFormat, modelContent, model.source, metadataFileUrl, sedFileUrl, imageUrls);
+  // return CompleteArchiveFromFiles(modelFormat, modelContent, model.source, metadataFileUrl, sedFileUrl, imageUrls);
+  return CompleteArchive(modelFormat, sedDoc, modelContent, model.source, imageUrls);
 }
 
 function CreateSedModelChanges(modelChanges: Record<string, string>[], namespaces: Namespace[]): SedModelChange[] {
@@ -387,9 +387,10 @@ function CompleteArchive(
   sedDoc: SedDocument,
   locationValue: CombineArchiveLocationValue,
   modelPath: string,
+  imageUrls: string[],
 ): CombineArchive {
   const formatUri = BIOSIMULATIONS_FORMATS_BY_ID[modelFormat].biosimulationsMetadata?.omexManifestUris[0];
-  return {
+  const archive = {
     _type: CombineArchiveTypeEnum.CombineArchive,
     contents: [
       {
@@ -414,4 +415,6 @@ function CompleteArchive(
       },
     ],
   };
+
+  return AddImagesToArchive(imageUrls, archive);
 }
