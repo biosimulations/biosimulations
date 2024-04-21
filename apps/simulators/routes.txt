@@ -135,6 +135,7 @@
 /simulators/vcell/7.4.0.68
 /simulators/vcell/7.5.0.108
 /simulators/vcell/7.5.0.121
+/simulators/vcell/7.5.0.127
 /simulators/vcell/7.5.0.28
 /simulators/vcell/7.5.0.30
 /simulators/vcell/7.5.0.34
