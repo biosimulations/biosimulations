@@ -357,30 +357,31 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     });*/
 
     this.parseIntrospection();
-
-    this.options.forEach((option: SedModelAttributeChange, i: number) => {
-      console.log(`${i}: ${option.newValue}`);
-    });
   }
 
   // Form Submission
 
-  public parseIntrospection(): void {
+  public parseIntrospection(sedDoc?: SedDocument): void {
+    // TODO: Return SED Document
     // Gather introspection data and populate model changes form
     this.introspectionData$.subscribe((data: CustomizableSedDocumentData) => {
       data.modelChanges.forEach((change: ClientSedChange) => {
         switch (change) {
           case change as SedModelAttributeChange:
             this.addParameterRow(change);
+            sedDoc?.models.forEach((model: SedModel) => {
+              model.changes.push(change);
+            });
         }
       });
-      this.rows.controls.forEach((val: AbstractControl<any, any>) => {
+      this.rows.controls.forEach((val: AbstractControl<any, any>, i: number) => {
         const value = val as UntypedFormGroup;
-        console.log(`------ A CONTROL VAL: ${Object.keys(value.value)}`);
+        console.log(`------ A CONTROL VAL: ${i}: ${Object.keys(value.value)}`);
       });
 
       this.modelChanges.forEach((changeGroup: UntypedFormGroup) => {
-        console.log(Object.keys(changeGroup.controls));
+        Object.keys(changeGroup.controls).forEach((key: string) => {});
+        const modelChange = {};
 
         // TODO: update this and create the sed model changes here
       });
@@ -680,6 +681,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     // Confirm that every model and algorithm within the sed doc spec is supported.
     sedDocSpecs.contents.forEach((content: CombineArchiveSedDocSpecsContent): void => {
       const sedDoc: SedDocument = content.location.value;
+      console.log(`THE SED: ${Object.keys(sedDoc)}`);
       sedDoc.models.forEach((model: SedModel): void => {
         let edamId: string | null = null;
         for (const modelingFormat of BIOSIMULATIONS_FORMATS) {
