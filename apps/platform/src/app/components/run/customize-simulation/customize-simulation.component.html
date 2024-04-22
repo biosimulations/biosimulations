@@ -4,7 +4,7 @@
 
       <!-- SIMULATION SETTINGS -->
       <mat-card class="card-form-section mat-elevation-z3">
-        <mat-card-header class="card-form-section-title solvers">1. Simulation Settings*</mat-card-header>
+        <mat-card-header class="card-form-section-title solvers">1. Adjust Simulation Settings*</mat-card-header>
 
         <!-- simulation name -->
         <div class="input-group">
@@ -70,7 +70,7 @@
 
       <!-- simulation params -->
       <mat-card class="card-form-section mat-elevation-z3">
-        <mat-card-header class="card-form-section-title sim-variables">2. Simulation Parameters To Change*</mat-card-header>
+        <mat-card-header class="card-form-section-title sim-variables">2. Adjust Simulation Parameters*</mat-card-header>
         <mat-card-content class="sim-variables-container">
           <form [formGroup]="variablesFormGroup" (ngSubmit)="onFormSubmit()">
 
@@ -192,7 +192,7 @@
         <mat-expansion-panel [expanded]="false" [disabled]="false" class="advanced-panel">
           <mat-expansion-panel-header class="card-form-section-title advanced">
             <biosimulations-icon icon="columns" style="padding-right: 1rem"></biosimulations-icon>
-            3. Advanced Settings*
+            3. View Advanced Settings*
           </mat-expansion-panel-header>
           <div class="advanced-content">
 
