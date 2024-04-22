@@ -73,31 +73,61 @@
         <mat-card-header class="card-form-section-title sim-variables">2. Simulation Parameters*</mat-card-header>
         <mat-card-content class="sim-variables-container">
           <form [formGroup]="variablesFormGroup" (ngSubmit)="onFormSubmit()">
-            <div formArrayName="rows" class="model-changes-grid">
-              <div class="row header">
-                <h3 class="grid-label">Name</h3>
-                <h3 class="grid-label">Default Value</h3>
-                <h3 class="grid-label">New Value</h3>
-              </div>
-              <div *ngFor="let row of rows.controls; let i = index" [formGroupName]="i">
-                <input type="text" formControlName="name" class="grid-input">
-                <input type="text" formControlName="default" class="grid-input">
-                <input matInput type="text" formControlName="newValue" class="grid-input">
-              </div>
 
-              <!-- style for non-form -->
-              <!--<ng-container *ngFor="let row of rows.controls; let i = index" [formGroupName]="i">
-                <mat-expansion-panel expanded="false">
-                  <mat-expansion-panel-header>{{ row.get('name')?.value }}</mat-expansion-panel-header>
-                  <h3 class="grid-label">Name</h3>
-                  <input type="text" formControlName="name" class="grid-input">
-                  <h3 class="grid-label">Default Value</h3>
-                  <input type="text" formControlName="default" class="grid-input">
-                  <h3 class="grid-label">New Value</h3>
-                  <input matInput type="text" formControlName="newValue" class="grid-input">
-                </mat-expansion-panel>
-              </ng-container>-->
+            <!-- A. dropdown style implementation -->
+            <div class="parameter-selection" *ngIf="useDropdown; else changesGrid">
+              <div formArrayName="parameterSelections">
+                <div *ngFor="let selection of parameterSelections.controls; let i = index" [formGroupName]="i" class="parameter-selection">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Choose a parameter</mat-label>
+                    <mat-select formControlName="selectedRowIndex">
+                      <mat-option *ngFor="let row of rows.controls; index as idx" [value]="idx">
+                        {{ row.get('name')?.value }} - {{ row.get('default')?.value }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <ng-container *ngIf="selection.get('selectedRowIndex')?.value !== null">
+                    <mat-form-field appearance="fill" class="parameter-default-value">
+                      <mat-label>Default Value</mat-label>
+                      <input matInput [value]="getDefault(i)" disabled>
+                    </mat-form-field>
+
+                    <mat-form-field
+                      appearance="fill"
+                      class="parameter-new-value">
+                      <mat-label>New Value</mat-label>
+                      <input matInput [formControl]="getNewValueControl(i)">
+                    </mat-form-field>
+                  </ng-container>
+                </div>
+
+                <button
+                  mat-flat-button
+                  type="button"
+                  class="biosimulations-button add-change"
+                  (click)="addParameterSelection()"
+                >+ Add Another Change
+                </button>
+              </div>
             </div>
+
+
+            <!-- B. form style implementation -->
+            <ng-template #changesGrid>
+              <div formArrayName="rows" class="model-changes-grid">
+                <div class="row header">
+                  <h3 class="grid-label">Name</h3>
+                  <h3 class="grid-label">Default Value</h3>
+                  <h3 class="grid-label">New Value</h3>
+                </div>
+                <div *ngFor="let row of rows.controls; let i = index" [formGroupName]="i">
+                  <input type="text" formControlName="name" class="grid-input">
+                  <input type="text" formControlName="default" class="grid-input">
+                  <input matInput type="text" formControlName="newValue" class="grid-input">
+                </div>
+              </div>
+            </ng-template>
           </form>
         </mat-card-content>
       </mat-card>

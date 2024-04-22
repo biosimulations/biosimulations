@@ -4,6 +4,9 @@ import { HttpClient } from '@angular/common/http';
 import {
   AbstractControl,
   Form,
+  FormArray,
+  FormControl,
+  FormGroup,
   UntypedFormArray,
   UntypedFormBuilder,
   UntypedFormGroup,
@@ -131,6 +134,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
   public simParams!: ReRunQueryParams;
   public uploadedSedDoc!: SedDocument;
   public containsSimulationChanges = false;
+  public useDropdown = true;
 
   // Lifecycle state
   public submitPushed = false;
@@ -202,6 +206,8 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
 
     this.variablesFormGroup = this.formBuilder.group({
       rows: this.formBuilder.array([]),
+      selectedRowIndex: [null],
+      parameterSelections: this.formBuilder.array([]),
     });
   }
 
@@ -227,6 +233,11 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
 
   public get rows(): UntypedFormArray {
     return this.variablesFormGroup.get('rows') as UntypedFormArray;
+  }
+
+  public getSelectedRowNewValueControl(): FormControl {
+    const index = this.variablesFormGroup.get('selectedRowIndex')?.value;
+    return this.rows.at(index).get('newValue') as FormControl;
   }
 
   public addParameterRow(modelChange: SedModelAttributeChange): void {
@@ -283,6 +294,28 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     ) as Observable<CustomizableSedDocumentData>;
   }
 
+  public get parameterSelections(): FormArray {
+    return this.variablesFormGroup.get('parameterSelections') as FormArray;
+  }
+
+  public getDefault(index: number): any {
+    const selectedRowIndex = this.parameterSelections.at(index).get('selectedRowIndex')?.value;
+    return selectedRowIndex !== null ? this.rows.at(selectedRowIndex).get('default')?.value : '';
+  }
+
+  public addParameterSelection(): void {
+    const newParameterSelection = this.formBuilder.group({
+      selectedRowIndex: [null],
+      newValue: [''],
+    });
+
+    this.parameterSelections.push(newParameterSelection);
+  }
+
+  public getNewValueControl(index: number): FormControl {
+    return this.parameterSelections.at(index).get('newValue') as FormControl;
+  }
+
   public populateParamsForm(): void {
     /* Populate form with introspected data */
     this.introspectionData$.subscribe((data: CustomizableSedDocumentData) => {
@@ -299,6 +332,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
         //console.log(`------ A CONTROL VAL: ${i}: ${Object.keys(modelChangeVal)}`);
       });
     });
+    this.addParameterSelection();
   }
 
   private archiveError(modelUrl: string): void {
@@ -368,27 +402,62 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
 
   public gatherModelChanges(): void {
     // TODO: more accurately handle the number of models
+    console.log(`Uploaded model changes before: ${this.uploadedSedDoc.models[0].changes.length}`);
     const sedModel: SedModel = this.uploadedSedDoc.models.pop() as SedModel;
 
-    this.rows.controls.forEach((val: AbstractControl<any, any>, i: number) => {
-      const rowValueGroup = val as UntypedFormGroup;
-      const newVal = rowValueGroup.controls.newValue.value;
+    // get values from form grid
+    if (!this.useDropdown) {
+      this.rows.controls.forEach((val: AbstractControl<any, any>, i: number) => {
+        const rowValueGroup = val as UntypedFormGroup;
+        const newVal = rowValueGroup.controls.newValue.value;
 
-      if (newVal) {
-        this.containsSimulationChanges = true;
-        const paramChange: SedModelAttributeChange = {
-          _type: rowValueGroup.controls._type.value,
-          newValue: newVal,
-          target: rowValueGroup.controls.target.value,
-          id: rowValueGroup.controls.id.value,
-          name: rowValueGroup.controls.name.value,
-        };
+        if (newVal) {
+          this.containsSimulationChanges = true;
+          const paramChange: SedModelAttributeChange = {
+            _type: rowValueGroup.controls._type.value,
+            newValue: newVal,
+            target: rowValueGroup.controls.target.value,
+            id: rowValueGroup.controls.id.value,
+            name: rowValueGroup.controls.name.value,
+          };
+          sedModel.changes.push(paramChange);
+        } else {
+          return;
+        }
+      });
+    } else {
+      // get values from dropdown
+      const allParams = this.getAllParameterSelections();
+      allParams.forEach((paramChange: SedModelAttributeChange, i: number) => {
+        console.log(`A PARAM: ${i}: ${JSON.stringify(paramChange)}`);
         sedModel.changes.push(paramChange);
-      } else {
-        return;
+      });
+    }
+
+    // update the uploaded document
+    this.uploadedSedDoc.models.push(sedModel);
+
+    console.log(`Uploaded model changes AFTER: ${this.uploadedSedDoc.models[0].changes.length}`);
+  }
+
+  public getAllParameterSelections(): SedModelAttributeChange[] | any[] {
+    return this.parameterSelections.controls.map((group: AbstractControl<any, any>) => {
+      const selectedIndex = group.get('selectedRowIndex')?.value;
+      const selectedRow = selectedIndex !== null ? this.rows.at(selectedIndex).value : null;
+      const newValue = group.get('newValue')?.value;
+
+      if (selectedRow && newValue) {
+        const selection: SedModelAttributeChange = {
+          name: selectedRow.name,
+          target: selectedRow.target,
+          id: selectedRow.id,
+          _type: selectedRow._type,
+          newValue: selectedRow.newValue,
+        };
+
+        return selection as SedModelAttributeChange;
       }
     });
-    this.uploadedSedDoc.models.push(sedModel);
   }
 
   public createNewArchive(queryParams: ReRunQueryParams): void {
