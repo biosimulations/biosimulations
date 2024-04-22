@@ -49,7 +49,7 @@ export function CreateArchive(
   outputStartTime: number,
   outputEndTime: number,
   numberOfSteps: number,
-  algorithmParameters: Record<string, MultipleSimulatorsAlgorithmParameter>,
+  algorithmParameters: Record<string, MultipleSimulatorsAlgorithmParameter> | null,
   changesData: Record<string, string>[],
   variablesData: Record<string, string>[],
   namespaces: Namespace[],
@@ -57,28 +57,50 @@ export function CreateArchive(
   sedFileUrl: string,
   imageUrls: string[],
   rerunModelId?: string,
+  uploadedSedDoc?: SedDocument,
 ): CombineArchive {
-  const sedChanges = CreateSedModelChanges(changesData, namespaces);
-  const model = CreateSedModel(modelFormat, sedChanges, modelUrl, rerunModelId);
-  const algorithm = CreateSedAlgorithm(algorithmId, algorithmParameters);
-  const simulation = CreateSedSimulation(
-    simulationType,
-    initialTime,
-    outputStartTime,
-    outputEndTime,
-    numberOfSteps,
-    algorithm,
-  );
-  const task = CreateSedTask(model, simulation);
-  const sedVariables = CreateSedVariables(variablesData, namespaces, model, task);
-  const dataSetGenerators = CreateSedDataSetAndGenerators(sedVariables, task);
-  const dataSets = dataSetGenerators[0];
-  const dataGenerators = dataSetGenerators[1];
-  const sedDoc = CreateSedDocument(model, simulation, task, dataGenerators, dataSets);
+  let sedDoc: SedDocument;
+  let model: SedModel;
+
+  if (!uploadedSedDoc) {
+    const sedChanges = CreateSedModelChanges(changesData, namespaces);
+    model = CreateSedModel(modelFormat, sedChanges, modelUrl, rerunModelId);
+    const algorithm = CreateSedAlgorithm(algorithmId, algorithmParameters);
+    const simulation = CreateSedSimulation(
+      simulationType,
+      initialTime,
+      outputStartTime,
+      outputEndTime,
+      numberOfSteps,
+      algorithm,
+    );
+    const task = CreateSedTask(model, simulation);
+    const sedVariables = CreateSedVariables(variablesData, namespaces, model, task);
+    const dataSetGenerators = CreateSedDataSetAndGenerators(sedVariables, task);
+    const dataSets = dataSetGenerators[0];
+    const dataGenerators = dataSetGenerators[1];
+    sedDoc = CreateSedDocument(model, simulation, task, dataGenerators, dataSets);
+  } else {
+    sedDoc = uploadedSedDoc;
+    model = sedDoc.models[0] as SedModel;
+  }
+
   const modelContent = CreateArchiveModelLocationValue(modelFile, modelUrl);
   // return AddImagesToArchive(imageUrls, archive);
   // return CompleteArchiveFromFiles(modelFormat, modelContent, model.source, metadataFileUrl, sedFileUrl, imageUrls);
   return CompleteArchive(modelFormat, sedDoc, modelContent, model.source, imageUrls);
+}
+
+export function CreateArchiveFromSedDoc(
+  sedDoc: SedDocument,
+  modelUrl: string,
+  modelFormat: string,
+  modelFile: File,
+  imageUrls?: string[],
+): CombineArchive {
+  const model = sedDoc.models[0] as SedModel;
+  const modelContent = CreateArchiveModelLocationValue(modelFile, modelUrl);
+  return CompleteArchive(modelFormat, sedDoc, modelContent, model.source, imageUrls as string[]);
 }
 
 function CreateSedModelChanges(modelChanges: Record<string, string>[], namespaces: Namespace[]): SedModelChange[] {
@@ -171,7 +193,7 @@ function CreateSedModel(
 
 function CreateSedAlgorithm(
   algorithmId: string,
-  algorithmParameters: Record<string, MultipleSimulatorsAlgorithmParameter> | undefined,
+  algorithmParameters: Record<string, MultipleSimulatorsAlgorithmParameter> | undefined | any,
 ): SedAlgorithm {
   let algorithmChanges: SedAlgorithmParameterChange[];
   if (algorithmParameters) {
@@ -389,13 +411,15 @@ function CompleteArchive(
   modelPath: string,
   imageUrls: string[],
 ): CombineArchive {
-  const formatUri = BIOSIMULATIONS_FORMATS_BY_ID[modelFormat].biosimulationsMetadata?.omexManifestUris[0];
+  const modelFormatUri = BIOSIMULATIONS_FORMATS_BY_ID[modelFormat].biosimulationsMetadata?.omexManifestUris[0];
+  const sedUri = 'http://identifiers.org/combine.specifications/sed-ml';
+
   const archive = {
     _type: CombineArchiveTypeEnum.CombineArchive,
     contents: [
       {
         _type: CombineArchiveContentTypeEnum.CombineArchiveContent,
-        format: formatUri as string,
+        format: modelFormatUri as string,
         master: false,
         location: {
           _type: CombineArchiveLocationTypeEnum.CombineArchiveLocation,
@@ -405,7 +429,7 @@ function CompleteArchive(
       },
       {
         _type: CombineArchiveContentTypeEnum.CombineArchiveContent,
-        format: 'http://identifiers.org/combine.specifications/sed-ml',
+        format: sedUri,
         master: true,
         location: {
           _type: CombineArchiveLocationTypeEnum.CombineArchiveLocation,

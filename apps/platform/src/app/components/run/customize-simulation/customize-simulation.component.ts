@@ -16,7 +16,7 @@ import {
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { CombineApiService } from '../../../services/combine-api/combine-api.service';
-import { IntrospectNewProject } from '@biosimulations/simulation-project-utils';
+import { CreateArchiveFromSedDoc, IntrospectNewProject } from '@biosimulations/simulation-project-utils';
 import {
   OntologyTerm,
   OntologyTermsMap,
@@ -395,6 +395,8 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     // Gather introspection data and populate model form
     this.setAttributesFromQueryParams();
     this.populateParamsForm();
+
+    console.log(`RERUN PARAMS: ${Object.keys(this.simParams)}`);
     console.log(`LOADED IN LOAD COMPLETE`);
   }
 
@@ -436,8 +438,6 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
 
     // update the uploaded document
     this.uploadedSedDoc.models.push(sedModel);
-
-    console.log(`Uploaded model changes AFTER: ${this.uploadedSedDoc.models[0].changes.length}`);
   }
 
   public getAllParameterSelections(): SedModelAttributeChange[] | any[] {
@@ -461,15 +461,17 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
   }
 
   public createNewArchive(queryParams: ReRunQueryParams): void {
-    /*
-      1. this.gatherModelChanges()
-      2. create a new archive
-      3. set this.formGroup.controls.projectUrl.setValue(URL from #3)
-    */
+    const archive = CreateArchiveFromSedDoc;
+    console.log(`NEW ARCHIVE: ${JSON.stringify(archive)}`);
   }
 
   public handleSimulationParams(): void {
     // goal is to set project url to the customized archive return url
+    /*
+      1. this.gatherModelChanges() -> this.uploadedSedDoc
+      2. create a new archive
+      3. set this.formGroup.controls.projectUrl.setValue(URL from #3)
+    */
 
     // 1. update this.uploadedSedDoc if there are changes
     this.gatherModelChanges();
