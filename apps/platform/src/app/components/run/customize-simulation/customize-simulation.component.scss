@@ -150,6 +150,11 @@ mat-option:hover {
   }
 }
 
+.parameter-dropdown {
+  display: inline-flex;
+  justify-content: space-around;
+}
+
 .parameter-selection {
   padding-top: 1rem;
   height: fit-content;
@@ -157,9 +162,28 @@ mat-option:hover {
 
 .biosimulations-button {
   &.add-change {
-    background-color: var(--quaternary-darker-color) !important;
+    background-color: var(--accent-darker-color) !important;
     color: white !important;
     margin-right: auto !important;
-    font-size: small !important;
+    font-size: medium !important;
+    font-weight: bold !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
+}
+
+.remove-change {
+  margin-left: 2rem !important;
+  background-color: var(--warn-darker-color);
+  color: white !important;
+}
+
+.selection-control {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+}
+
+.remove-override {
+  margin-left: 3rem !important;
 }

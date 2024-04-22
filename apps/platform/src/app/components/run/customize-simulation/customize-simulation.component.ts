@@ -45,6 +45,7 @@ import {
   SimulationRun,
   SimulationRunStatus,
   SimulationType,
+  SedModelAttributeChange as CommonAttributeChange,
 } from '@biosimulations/datamodel/common';
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import { Observable, Subscription } from 'rxjs';
@@ -240,7 +241,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     return this.rows.at(index).get('newValue') as FormControl;
   }
 
-  public addParameterRow(modelChange: SedModelAttributeChange): void {
+  public addParameterRow(modelChange: SedModelAttributeChange | CommonAttributeChange): void {
     const newRow = this.formBuilder.group({
       name: [{ value: modelChange.name, disabled: true }],
       default: [{ value: modelChange.newValue, disabled: true }],
@@ -260,6 +261,15 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
 
   public enableEmail(checked: boolean): void {
     this.emailEnabled = checked;
+  }
+
+  public clearOverrides(checked: boolean): void {
+    if (checked) {
+      this.uploadedSedDoc.models.forEach((model: SedModel) => {
+        model.changes = [];
+        console.log(`Uploaded overrides removed!`);
+      });
+    }
   }
 
   public setAttributesFromQueryParams(): void {
@@ -303,7 +313,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     return selectedRowIndex !== null ? this.rows.at(selectedRowIndex).get('default')?.value : '';
   }
 
-  public addParameterSelection(): void {
+  public addNewParameterSelection(): void {
     const newParameterSelection = this.formBuilder.group({
       selectedRowIndex: [null],
       newValue: [''],
@@ -332,7 +342,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
         //console.log(`------ A CONTROL VAL: ${i}: ${Object.keys(modelChangeVal)}`);
       });
     });
-    this.addParameterSelection();
+    this.addNewParameterSelection();
   }
 
   private archiveError(modelUrl: string): void {
@@ -400,6 +410,9 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     console.log(`LOADED IN LOAD COMPLETE`);
   }
 
+  public removeModelChangeField(index: number): void {
+    this.parameterSelections.removeAt(index);
+  }
   // Form Submission
 
   public gatherModelChanges(): void {
@@ -775,6 +788,24 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
         } else {
           specsContainUnsupportedModel = true;
         }
+
+        const unloadedLen = this.rows.length;
+        model.changes.forEach((change: SedModelChange) => {
+          switch (change) {
+            case change as CommonAttributeChange:
+              console.log(`Common attribute change!`);
+              this.addParameterRow(change);
+          }
+        });
+
+        const loadedLen = this.rows.length;
+
+        console.log(`UNLOADED: ${unloadedLen}, LOADED: ${loadedLen}`);
+        this.rows.controls.forEach((control: AbstractControl<any, any>, i: number) => {
+          if (i === this.rows.length - 1) {
+            console.log(`THE LAAST CHANGE: ${control.valueChanges}`);
+          }
+        });
       });
 
       sedDoc.simulations.forEach((sim: SedSimulation): void => {
@@ -794,7 +825,6 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     this.formGroup.controls.simulationAlgorithms.setValue(Array.from(simulationAlgorithms));
 
     this.controlImpactingEligibleSimulatorsUpdated();
-
     console.log(`LOADED IN SED DOC SPECS LOADED`);
   }
 

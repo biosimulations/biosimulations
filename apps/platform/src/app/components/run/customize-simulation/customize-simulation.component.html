@@ -70,12 +70,18 @@
 
       <!-- simulation params -->
       <mat-card class="card-form-section mat-elevation-z3">
-        <mat-card-header class="card-form-section-title sim-variables">2. Simulation Parameters*</mat-card-header>
+        <mat-card-header class="card-form-section-title sim-variables">2. Simulation Parameters To Change*</mat-card-header>
         <mat-card-content class="sim-variables-container">
           <form [formGroup]="variablesFormGroup" (ngSubmit)="onFormSubmit()">
 
+            <mat-checkbox
+              color="primary"
+              (change)="clearOverrides($event.checked)">
+              Clear existing overrides
+            </mat-checkbox>
+
             <!-- A. dropdown style implementation -->
-            <div class="parameter-selection" *ngIf="useDropdown; else changesGrid">
+            <div class="parameter-dropdown" *ngIf="useDropdown; else changesGrid">
               <div formArrayName="parameterSelections">
                 <div *ngFor="let selection of parameterSelections.controls; let i = index" [formGroupName]="i" class="parameter-selection">
                   <mat-form-field appearance="fill">
@@ -99,16 +105,26 @@
                       <mat-label>New Value</mat-label>
                       <input matInput [formControl]="getNewValueControl(i)">
                     </mat-form-field>
+                    <button
+                      mat-flat-button
+                      type="button"
+                      (click)="removeModelChangeField(i)"
+                      matTooltip="Remove parameter change"
+                      class="biosimulations-button remove-change">
+                      <biosimulations-icon icon="trash"></biosimulations-icon>
+                    </button>
                   </ng-container>
                 </div>
-
-                <button
-                  mat-flat-button
-                  type="button"
-                  class="biosimulations-button add-change"
-                  (click)="addParameterSelection()"
-                >+ Add Another Change
-                </button>
+                <div class="selection-control">
+                  <button
+                    mat-flat-button
+                    type="button"
+                    class="biosimulations-button add-change"
+                    matTooltip="Add a new parameter change"
+                    (click)="addNewParameterSelection()"
+                  >+
+                  </button>
+                </div>
               </div>
             </div>
 
