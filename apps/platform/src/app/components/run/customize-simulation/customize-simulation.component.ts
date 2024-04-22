@@ -58,9 +58,13 @@ import {
   SedModelChange as ClientSedChange,
   SedModelAttributeChange,
   SedDocument as ClientSedDoc,
+  CombineArchive,
 } from '@biosimulations/combine-api-angular-client';
 import { CreateArchive } from '@biosimulations/simulation-project-utils';
-import { SubmitArchiveFormData } from '../../../../../../../libs/simulation-project-utils/simulation-project-utils/src/lib/ui/create-project/create-project/project-submission';
+import {
+  SubmitArchiveFormData,
+  _SubmitFormData,
+} from '../../../../../../../libs/simulation-project-utils/simulation-project-utils/src/lib/ui/create-project/create-project/project-submission';
 
 interface SimulatorIdNameDisabled {
   id: string;
@@ -345,8 +349,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     this.addNewParameterSelection();
   }
 
-  private archiveError(modelUrl: string): void {
-    console.log(`Archive error: ${modelUrl}`);
+  private archiveError(): void {
     this.snackBar.open('There was an error while creating your custom archive.');
   }
 
@@ -443,6 +446,8 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     } else {
       // get values from dropdown
       const allParams = this.getAllParameterSelections();
+
+      this.containsSimulationChanges = allParams.length >= 1;
       allParams.forEach((paramChange: SedModelAttributeChange, i: number) => {
         console.log(`A PARAM: ${i}: ${JSON.stringify(paramChange)}`);
         sedModel.changes.push(paramChange);
@@ -474,14 +479,38 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
   }
 
   public createNewArchive(queryParams: ReRunQueryParams): void {
+    console.log(`THE SED DOCUMENT: ${JSON.stringify(this.uploadedSedDoc)}`);
     const archive = CreateArchiveFromSedDoc(
-      this.uploadedSedDoc as unknown as ClientSedDoc,
+      this.uploadedSedDoc as SedDocument,
       queryParams.modelUrl as string,
       queryParams.modelFormat as string,
       queryParams.modelFile as File,
-      queryParams.imageFileUrls,
+      queryParams.imageFileUrls as string[],
     );
-    console.log(`NEW ARCHIVE: ${JSON.stringify(archive)}`);
+
+    console.log(`Archive: ${JSON.stringify(archive)}`);
+
+    if (!archive) {
+      console.log(`No archive created.`);
+    } else {
+      console.log(`The archive keys: ${Object.keys(archive)}`);
+    }
+
+    const errorHandler = this.archiveError.bind(this);
+    const formData = new FormData();
+    formData.append('specs', JSON.stringify(archive));
+    formData.append('download', 'true');
+    const archiveSubmission$ = _SubmitFormData(formData, this.httpClient, errorHandler);
+
+    if (archiveSubmission$) {
+      console.log(`Archive submission successful!`);
+
+      archiveSubmission$.subscribe((response: string) => {
+        console.log(`Here is the response: ${response}`);
+      });
+    } else {
+      console.log(`Not successfull`);
+    }
   }
 
   public handleSimulationParams(): void {
@@ -496,12 +525,12 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     this.gatherModelChanges();
 
     if (!this.containsSimulationChanges) {
+      console.log(`No changes.`);
       return;
     }
 
     // 2. create a new archive using BOTH the rerun query params and the uploadedSedDoc
     this.createNewArchive(this.simParams);
-    // TODO: CREATE THE NEW ARCHIVE FROM THE MODEL CHANGES HERE
   }
 
   public onFormSubmit(): void {

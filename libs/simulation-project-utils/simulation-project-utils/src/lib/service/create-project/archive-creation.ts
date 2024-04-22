@@ -33,7 +33,7 @@ import {
   SedVariableTypeEnum,
 } from '@biosimulations/combine-api-angular-client';
 import { BIOSIMULATIONS_FORMATS_BY_ID } from '@biosimulations/ontology/extra-sources';
-import { SimulationType, ValueType } from '@biosimulations/datamodel/common';
+import { SimulationType, ValueType, SedDocument as CommonSedDoc } from '@biosimulations/datamodel/common';
 import { MultipleSimulatorsAlgorithmParameter } from './compatibility';
 
 /**
@@ -92,14 +92,20 @@ export function CreateArchive(
 }
 
 export function CreateArchiveFromSedDoc(
-  sedDoc: SedDocument,
+  sedDoc: SedDocument | CommonSedDoc,
   modelUrl: string,
   modelFormat: string,
   modelFile: File,
   imageUrls?: string[],
 ): CombineArchive {
   const model = sedDoc.models[0] as SedModel;
-  const modelContent = CreateArchiveModelLocationValue(modelFile, modelUrl);
+  //const modelContent = CreateArchiveModelLocationValue(modelFile, modelUrl);
+  const modelContent = {
+    _type: CombineArchiveContentUrlTypeEnum.CombineArchiveContentUrl,
+    url: modelUrl,
+  };
+
+  console.log(`Model content: ${JSON.stringify(modelContent)}`);
   return CompleteArchive(modelFormat, sedDoc, modelContent, model.source, imageUrls as string[]);
 }
 
@@ -406,7 +412,7 @@ function getFileNameFromUrl(url: string): string | undefined {
 
 function CompleteArchive(
   modelFormat: string,
-  sedDoc: SedDocument,
+  sedDoc: SedDocument | CommonSedDoc,
   locationValue: CombineArchiveLocationValue,
   modelPath: string,
   imageUrls: string[],
@@ -434,7 +440,7 @@ function CompleteArchive(
         location: {
           _type: CombineArchiveLocationTypeEnum.CombineArchiveLocation,
           path: 'simulation.sedml',
-          value: sedDoc,
+          value: sedDoc as SedDocument,
         },
       },
     ],

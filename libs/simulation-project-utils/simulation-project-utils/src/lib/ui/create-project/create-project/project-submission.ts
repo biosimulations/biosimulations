@@ -83,6 +83,29 @@ export function SubmitFormData(
   );
 }
 
+export function _SubmitFormData(
+  formData: FormData,
+  http: HttpClient,
+  errorHandler: () => void,
+): Observable<string> | null {
+  const endpoints = new Endpoints();
+  const createArchiveUrl = endpoints.getCombineArchiveCreationEndpoint(false);
+
+  const headers = new HttpHeaders();
+  headers.append('Accept', 'application/json');
+  const httpOptions = {
+    headers: headers,
+  };
+
+  return http.post<string>(createArchiveUrl, formData, httpOptions).pipe(
+    catchError((error: HttpErrorResponse): Observable<string> => {
+      console.error(error);
+      errorHandler();
+      return of<string>(`${error}`);
+    }),
+  );
+}
+
 export async function SubmitFormDataForArchive(
   dataSource: CreateProjectDataSource,
   errorHandler: () => void,
@@ -119,7 +142,7 @@ export async function SubmitFormDataForArchive(
   }
 }
 
-export async function SubmitArchiveFormData(archive: CombineArchive, errorHandler: () => void): Promise<Blob | null> {
+export async function SubmitArchiveFormData(archive: CombineArchive): Promise<Blob | null> {
   const formData = new FormData();
   formData.append('specs', JSON.stringify(archive));
   formData.append('download', 'true');
@@ -130,15 +153,15 @@ export async function SubmitArchiveFormData(archive: CombineArchive, errorHandle
   }
 
   const createArchiveUrl = 'https://combine.api.biosimulations.dev/combine/create';
-  const headers = {
+  /*const headers = {
     Accept: 'application/json',
-  };
+  };*/
 
   try {
     const response = await fetch(createArchiveUrl, {
       method: 'POST',
       body: formData,
-      headers: headers,
+      //headers: headers,
     });
     if (!response.ok) {
       throw new Error('Network response was not ok');
@@ -149,7 +172,6 @@ export async function SubmitArchiveFormData(archive: CombineArchive, errorHandle
     return blob;
   } catch (error) {
     console.error('Error:', error);
-    errorHandler();
     return null;
   }
 }
