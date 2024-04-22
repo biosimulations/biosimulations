@@ -3,8 +3,6 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import {
   AbstractControl,
-  AbstractFormGroupDirective,
-  Form,
   UntypedFormArray,
   UntypedFormBuilder,
   UntypedFormGroup,
@@ -42,7 +40,6 @@ import {
   SimulationRun,
   SimulationRunStatus,
   SimulationType,
-  SedModelChange,
 } from '@biosimulations/datamodel/common';
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import { Observable, Subscription } from 'rxjs';
@@ -51,8 +48,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { FileInput } from '@biosimulations/material-file-input';
 import { CreateMaxFileSizeValidator, INTEGER_VALIDATOR } from '@biosimulations/shared/ui';
 import { FormStepData, CustomizableSedDocumentData } from '@biosimulations/simulation-project-utils';
-import { SedModelChange as ClientSedChange, SedModelAttributeChange } from '@biosimulations/combine-api-angular-client';
+import {
+  SedModelChange as ClientSedChange,
+  SedModelAttributeChange,
+  SedDocument as ClientSedDoc,
+} from '@biosimulations/combine-api-angular-client';
 import { CreateArchive } from '@biosimulations/simulation-project-utils';
+import { SubmitArchiveFormData } from '../../../../../../../libs/simulation-project-utils/simulation-project-utils/src/lib/ui/create-project/create-project/project-submission';
 
 interface SimulatorIdNameDisabled {
   id: string;
@@ -105,7 +107,7 @@ interface ArchiveFormData {
 })
 export class CustomizeSimulationComponent implements OnInit, OnDestroy {
   public formGroup: UntypedFormGroup;
-  public variablesFormGroup!: UntypedFormGroup;
+  public variablesFormGroup: UntypedFormGroup;
 
   // Form control option lists
   public modelFormats: OntologyTerm[] = [];
@@ -124,6 +126,8 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
   public introspectionData$!: Observable<CustomizableSedDocumentData>;
   public options: SedModelAttributeChange[] = [];
   public modelChanges: UntypedFormGroup[] = [];
+  public simParams!: ReRunQueryParams;
+  public uploadedSedDoc!: SedDocument | ClientSedDoc;
 
   // Lifecycle state
   public submitPushed = false;
@@ -192,6 +196,10 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     ];
     this.exampleCombineArchivesUrl = exampleCombineArchivesUrlTokens.join('/');
     this.emailUrl = 'mailto:' + config.email;
+
+    this.variablesFormGroup = this.formBuilder.group({
+      rows: this.formBuilder.array([]),
+    });
   }
 
   // Life cycle
@@ -208,13 +216,13 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
         this.formGroup.value.emailConsent = true;
       }
     });
-
-    this.variablesFormGroup = this.formBuilder.group({
-      rows: this.formBuilder.array([]),
-    });
   }
 
-  get rows(): UntypedFormArray {
+  public ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
+
+  public get rows(): UntypedFormArray {
     return this.variablesFormGroup.get('rows') as UntypedFormArray;
   }
 
@@ -224,6 +232,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
       default: [{ value: modelChange.newValue, disabled: true }],
       target: [modelChange.target],
       id: [modelChange.id],
+      _type: [modelChange._type],
       newValue: [''],
     });
 
@@ -235,8 +244,15 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     this.rows.removeAt(index);
   }
 
+  public enableEmail(checked: boolean): void {
+    this.emailEnabled = checked;
+  }
+
   public setAttributesFromQueryParams(): void {
+    /* Set component attributes from Query params */
     this.activateRoute.queryParams.subscribe((params: ReRunQueryParams) => {
+      this.simParams = params;
+
       if (params.projectUrl) {
         this.isReRun = true;
       }
@@ -264,28 +280,27 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     ) as Observable<CustomizableSedDocumentData>;
   }
 
-  public enableEmail(checked: boolean): void {
-    this.emailEnabled = checked;
-  }
+  public populateParamsForm(): void {
+    /* Populate form with introspected data */
+    this.introspectionData$.subscribe((data: CustomizableSedDocumentData) => {
+      data.modelChanges.forEach((change: ClientSedChange) => {
+        switch (change) {
+          case change as SedModelAttributeChange:
+            this.addParameterRow(change);
+        }
+      });
 
-  public onSubmit() {
-    console.log(this.variablesFormGroup.value);
-  }
-
-  public ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
-  }
-
-  public get paramsFormGroups(): UntypedFormGroup[] | AbstractControl<any, any>[] {
-    return this.rows.controls as UntypedFormGroup[];
-  }
-
-  private isLicensed(simulator: string): boolean {
-    return simulator in this.licensedSimulators;
+      this.rows.controls.forEach((val: AbstractControl<any, any>, i: number) => {
+        const value = val as UntypedFormGroup;
+        const modelChangeVal = value.value;
+        //console.log(`------ A CONTROL VAL: ${i}: ${Object.keys(modelChangeVal)}`);
+      });
+    });
   }
 
   private archiveError(modelUrl: string): void {
     console.log(`Archive error: ${modelUrl}`);
+    this.snackBar.open('There was an error while creating your custom archive.');
   }
 
   private loadComplete(data: SimulationProjectUtilData): void {
@@ -339,81 +354,54 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
       );
     }
     this.setControlsFromParams(params, this.simulatorSpecsMap);
+
+    // Gather introspection data and populate model form
     this.setAttributesFromQueryParams();
-
-    // Gather introspection data and populate model changes form
-    /*this.introspectionData$.subscribe((data: CustomizableSedDocumentData) => {
-      data.modelChanges.forEach((change: ClientSedChange) => {
-        switch (change) {
-          case change as SedModelAttributeChange:
-            this.addParameterRow(change);
-            this.options.push(change);
-        }
-      });
-      this.rows.controls.forEach((val: AbstractControl<any, any>) => {
-        const value = val as UntypedFormGroup;
-        console.log(`------ A CONTROL VAL: ${Object.keys(value.value)}`);
-      });
-    });*/
-
-    this.parseIntrospection();
+    this.populateParamsForm();
+    console.log(`LOADED IN LOAD COMPLETE`);
   }
 
   // Form Submission
 
-  public parseIntrospection(sedDoc?: SedDocument): void {
-    // TODO: Return SED Document
-    // Gather introspection data and populate model changes form
-    this.introspectionData$.subscribe((data: CustomizableSedDocumentData) => {
-      data.modelChanges.forEach((change: ClientSedChange) => {
-        switch (change) {
-          case change as SedModelAttributeChange:
-            this.addParameterRow(change);
-            sedDoc?.models.forEach((model: SedModel) => {
-              model.changes.push(change);
-            });
-        }
-      });
-      this.rows.controls.forEach((val: AbstractControl<any, any>, i: number) => {
-        const value = val as UntypedFormGroup;
-        console.log(`------ A CONTROL VAL: ${i}: ${Object.keys(value.value)}`);
-      });
-
-      this.modelChanges.forEach((changeGroup: UntypedFormGroup) => {
-        Object.keys(changeGroup.controls).forEach((key: string) => {});
-        const modelChange = {};
-
-        // TODO: update this and create the sed model changes here
-      });
-    });
-  }
-
-  public getSimulationParamsData(): FormStepData | null {
-    const modelChanges: Record<string, string>[] = [];
-    this.rows.controls.forEach((control: AbstractControl<any, any>): void => {
-      const formGroup = control as UntypedFormGroup;
-
-      modelChanges.push({
-        id: formGroup.value.id,
-        name: formGroup.value.name,
-        newValue: formGroup.value.newValue,
-        target: formGroup.value.target,
-        default: formGroup.value.default.value,
-      });
-    });
-
-    const changes = {
-      modelChanges: modelChanges,
-    };
-
-    console.log(`THE CHANGES: ${JSON.stringify(changes)}`);
-    return changes;
+  public submitParams(): void {
+    console.log(`SUBMIT CLICKED`);
+    console.log(`--- QUERY PARAMS: ${Object.keys(this.simParams)}`);
   }
 
   public onFormSubmit(): void {
+    /* Create customized archive and Submit the form for simulation */
     this.submitPushed = true;
 
-    this.onSubmit();
+    const inputChanges: ClientSedChange[] = [];
+    this.rows.controls.forEach((val: AbstractControl<any, any>, i: number) => {
+      const rowValueGroup = val as UntypedFormGroup;
+      const defaultVal = rowValueGroup.controls.default.value;
+      const newVal = rowValueGroup.controls.newValue.value;
+
+      if (newVal) {
+        console.log(`User input for ${i} detected!`);
+        const paramChange: SedModelAttributeChange = {
+          _type: rowValueGroup.controls._type.value,
+          newValue: newVal,
+          target: rowValueGroup.controls.target.value,
+          id: rowValueGroup.controls.id.value,
+          name: rowValueGroup.controls.name.value,
+        };
+
+        inputChanges.push(paramChange);
+      }
+
+      const submitVal = newVal ? newVal : defaultVal;
+      console.log(`THE SUBMIT VAL FOR ${i}: ${submitVal}`);
+      console.log(`***---> PARAMS FORM ROW KEYS: ${Object.keys(rowValueGroup.controls)}`);
+      console.log(`--- QUERY PARAMS: ${Object.keys(this.simParams)}`);
+
+      /*const archive = CreateArchive(
+        this.modelFormat,
+        this.
+
+      ) */ // TODO: FILL THIS IN HERE
+    });
 
     // TODO: CREATE THE NEW ARCHIVE FROM THE MODEL CHANGES HERE
 
@@ -681,7 +669,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     // Confirm that every model and algorithm within the sed doc spec is supported.
     sedDocSpecs.contents.forEach((content: CombineArchiveSedDocSpecsContent): void => {
       const sedDoc: SedDocument = content.location.value;
-      console.log(`THE SED: ${Object.keys(sedDoc)}`);
+      this.uploadedSedDoc = sedDoc;
       sedDoc.models.forEach((model: SedModel): void => {
         let edamId: string | null = null;
         for (const modelingFormat of BIOSIMULATIONS_FORMATS) {
@@ -696,11 +684,8 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
         } else {
           specsContainUnsupportedModel = true;
         }
-
-        model.changes.forEach((changes: SedModelChange, i: number) => {
-          console.log(`Change: ${i}`);
-        });
       });
+
       sedDoc.simulations.forEach((sim: SedSimulation): void => {
         const kisaoId = sim.algorithm.kisaoId;
         if (kisaoId in simulationAlgorithmsMap) {
@@ -718,6 +703,8 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     this.formGroup.controls.simulationAlgorithms.setValue(Array.from(simulationAlgorithms));
 
     this.controlImpactingEligibleSimulatorsUpdated();
+
+    console.log(`LOADED IN SED DOC SPECS LOADED`);
   }
 
   private processSimulationResponse(

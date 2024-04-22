@@ -4,7 +4,7 @@
 
       <!-- SIMULATION SETTINGS -->
       <mat-card class="card-form-section mat-elevation-z3">
-        <mat-card-header class="card-form-section-title solvers">1. Simulation Settings *</mat-card-header>
+        <mat-card-header class="card-form-section-title solvers">1. Simulation Settings*</mat-card-header>
 
         <!-- simulation name -->
         <div class="input-group">
@@ -70,7 +70,7 @@
 
       <!-- simulation params -->
       <mat-card class="card-form-section mat-elevation-z3">
-        <mat-card-header class="card-form-section-title sim-variables">2. Simulation Parameters *</mat-card-header>
+        <mat-card-header class="card-form-section-title sim-variables">2. Simulation Parameters*</mat-card-header>
         <mat-card-content class="sim-variables-container">
           <form [formGroup]="variablesFormGroup" (ngSubmit)="onFormSubmit()">
             <div formArrayName="rows" class="model-changes-grid">
@@ -84,6 +84,19 @@
                 <input type="text" formControlName="default" class="grid-input">
                 <input matInput type="text" formControlName="newValue" class="grid-input">
               </div>
+
+              <!-- style for non-form -->
+              <!--<ng-container *ngFor="let row of rows.controls; let i = index" [formGroupName]="i">
+                <mat-expansion-panel expanded="false">
+                  <mat-expansion-panel-header>{{ row.get('name')?.value }}</mat-expansion-panel-header>
+                  <h3 class="grid-label">Name</h3>
+                  <input type="text" formControlName="name" class="grid-input">
+                  <h3 class="grid-label">Default Value</h3>
+                  <input type="text" formControlName="default" class="grid-input">
+                  <h3 class="grid-label">New Value</h3>
+                  <input matInput type="text" formControlName="newValue" class="grid-input">
+                </mat-expansion-panel>
+              </ng-container>-->
             </div>
           </form>
         </mat-card-content>
@@ -133,7 +146,7 @@
         <mat-expansion-panel [expanded]="false" [disabled]="false" class="advanced-panel">
           <mat-expansion-panel-header class="card-form-section-title advanced">
             <biosimulations-icon icon="columns" style="padding-right: 1rem"></biosimulations-icon>
-            Advanced Settings*
+            3. Advanced Settings*
           </mat-expansion-panel-header>
           <div class="advanced-content">
 

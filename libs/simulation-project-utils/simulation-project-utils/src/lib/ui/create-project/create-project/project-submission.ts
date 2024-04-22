@@ -7,7 +7,7 @@ import { MultipleSimulatorsAlgorithmParameter } from '../../../service/create-pr
 import { FormStepData } from './forms';
 import { SimulationType } from '@biosimulations/datamodel/common';
 import { CreateProjectDataSource, CreateProjectFormStep } from './create-project-data-source';
-import { Namespace } from '@biosimulations/combine-api-angular-client';
+import { CombineArchive, Namespace } from '@biosimulations/combine-api-angular-client';
 
 /**
  * Creates parameters that can be used to launch the /runs/new endpoint configured to simulate
@@ -112,6 +112,41 @@ export async function SubmitFormDataForArchive(
     const url = window.URL.createObjectURL(blob);
     console.log(`Generated URL: ${url}`);
     return url;
+  } catch (error) {
+    console.error('Error:', error);
+    errorHandler();
+    return null;
+  }
+}
+
+export async function SubmitArchiveFormData(archive: CombineArchive, errorHandler: () => void): Promise<Blob | null> {
+  const formData = new FormData();
+  formData.append('specs', JSON.stringify(archive));
+  formData.append('download', 'true');
+
+  if (!formData) {
+    console.log(`There is no form data. Returning null.`);
+    return Promise.resolve(null);
+  }
+
+  const createArchiveUrl = 'https://combine.api.biosimulations.dev/combine/create';
+  const headers = {
+    Accept: 'application/json',
+  };
+
+  try {
+    const response = await fetch(createArchiveUrl, {
+      method: 'POST',
+      body: formData,
+      headers: headers,
+    });
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    console.log(`Generated URL: ${url}`);
+    return blob;
   } catch (error) {
     console.error('Error:', error);
     errorHandler();
