@@ -69,6 +69,17 @@ interface ArchiveFormData {
   simulationAlgorithm: string;
 }
 
+export function _IntrospectNewProject(
+  http: HttpClient,
+  formData: FormData,
+  modelUrl: string,
+  errorHandler: () => void,
+): Observable<SedDocument | null> {
+  const endpoints = new Endpoints();
+  const introspectionEndpoint = endpoints.getModelIntrospectionEndpoint(false);
+  return PostNewProjectSedDocument(http, introspectionEndpoint, formData, modelUrl, errorHandler);
+}
+
 function CreateNewProjectFormData(
   modelData: FormStepData,
   simMethodData: FormStepData,

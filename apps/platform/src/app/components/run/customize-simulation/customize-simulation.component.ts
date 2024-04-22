@@ -16,7 +16,11 @@ import {
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { CombineApiService } from '../../../services/combine-api/combine-api.service';
-import { CreateArchiveFromSedDoc, IntrospectNewProject } from '@biosimulations/simulation-project-utils';
+import {
+  _IntrospectNewProject,
+  CreateArchiveFromSedDoc,
+  IntrospectNewProject,
+} from '@biosimulations/simulation-project-utils';
 import {
   OntologyTerm,
   OntologyTermsMap,
@@ -59,6 +63,7 @@ import {
   SedModelAttributeChange,
   SedDocument as ClientSedDoc,
   CombineArchive,
+  CombineArchiveContent,
 } from '@biosimulations/combine-api-angular-client';
 import { CreateArchive } from '@biosimulations/simulation-project-utils';
 import {
@@ -246,17 +251,23 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
   }
 
   public addParameterRow(modelChange: SedModelAttributeChange | CommonAttributeChange): void {
-    const newRow = this.formBuilder.group({
-      name: [{ value: modelChange.name, disabled: true }],
-      default: [{ value: modelChange.newValue, disabled: true }],
-      target: [modelChange.target],
-      id: [modelChange.id],
-      _type: [modelChange._type],
-      newValue: [''],
-    });
+    modelChange = modelChange as SedModelAttributeChange;
 
-    this.rows.push(newRow);
-    this.modelChanges.push(newRow);
+    if (modelChange.id) {
+      const newRow = this.formBuilder.group({
+        name: [{ value: modelChange.name as string, disabled: true }],
+        default: [{ value: modelChange.newValue, disabled: true }],
+        target: [modelChange.target],
+        id: [modelChange.id as string],
+        _type: [modelChange._type],
+        newValue: [''],
+      });
+
+      this.rows.push(newRow);
+      this.modelChanges.push(newRow);
+    } else {
+      console.log('null id');
+    }
   }
 
   public removeRow(index: number): void {
@@ -408,8 +419,6 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     // Gather introspection data and populate model form
     this.setAttributesFromQueryParams();
     this.populateParamsForm();
-
-    console.log(`RERUN PARAMS: ${Object.keys(this.simParams)}`);
     console.log(`LOADED IN LOAD COMPLETE`);
   }
 
@@ -420,7 +429,6 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
 
   public gatherModelChanges(): void {
     // TODO: more accurately handle the number of models
-    console.log(`Uploaded model changes before: ${this.uploadedSedDoc.models[0].changes.length}`);
     const sedModel: SedModel = this.uploadedSedDoc.models.pop() as SedModel;
 
     // get values from form grid
@@ -449,8 +457,8 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
 
       this.containsSimulationChanges = allParams.length >= 1;
       allParams.forEach((paramChange: SedModelAttributeChange, i: number) => {
-        console.log(`A PARAM: ${i}: ${JSON.stringify(paramChange)}`);
         sedModel.changes.push(paramChange);
+        console.log(`Model changes pushed`);
       });
     }
 
@@ -464,7 +472,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
       const selectedRow = selectedIndex !== null ? this.rows.at(selectedIndex).value : null;
       const newValue = group.get('newValue')?.value;
 
-      if (selectedRow && newValue) {
+      if (selectedRow && newValue && selectedRow.id !== null) {
         const selection: SedModelAttributeChange = {
           name: selectedRow.name,
           target: selectedRow.target,
@@ -478,8 +486,23 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     });
   }
 
-  public createNewArchive(queryParams: ReRunQueryParams): void {
+  public createNewArchive(queryParams: ReRunQueryParams): Observable<string> | null {
     console.log(`THE SED DOCUMENT: ${JSON.stringify(this.uploadedSedDoc)}`);
+    const errorHandler = this.archiveError.bind(this);
+
+    const form = new FormData();
+    form.append('modelUrl', queryParams.modelUrl as string);
+    form.append('modelingFramework', queryParams.modelingFramework as string);
+    form.append('simulationType', queryParams.simulationType as string);
+    form.append('simulationAlgorithm', queryParams.simulationAlgorithm as string);
+
+    const introspectedSedDoc$ = _IntrospectNewProject(
+      this.httpClient,
+      form,
+      queryParams.modelUrl as string,
+      errorHandler,
+    );
+
     const archive = CreateArchiveFromSedDoc(
       this.uploadedSedDoc as SedDocument,
       queryParams.modelUrl as string,
@@ -490,26 +513,25 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
 
     console.log(`Archive: ${JSON.stringify(archive)}`);
 
+    archive.contents.forEach((content: CombineArchiveContent) => {});
+
     if (!archive) {
       console.log(`No archive created.`);
     } else {
       console.log(`The archive keys: ${Object.keys(archive)}`);
     }
 
-    const errorHandler = this.archiveError.bind(this);
     const formData = new FormData();
     formData.append('specs', JSON.stringify(archive));
-    formData.append('download', 'true');
+    // formData.append('download', 'true');
     const archiveSubmission$ = _SubmitFormData(formData, this.httpClient, errorHandler);
 
     if (archiveSubmission$) {
       console.log(`Archive submission successful!`);
-
-      archiveSubmission$.subscribe((response: string) => {
-        console.log(`Here is the response: ${response}`);
-      });
+      return archiveSubmission$;
     } else {
       console.log(`Not successfull`);
+      return null;
     }
   }
 
@@ -530,7 +552,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     }
 
     // 2. create a new archive using BOTH the rerun query params and the uploadedSedDoc
-    this.createNewArchive(this.simParams);
+    const archiveResponse$ = this.createNewArchive(this.simParams) as Observable<string>;
   }
 
   public onFormSubmit(): void {
@@ -539,9 +561,6 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
 
     // Read simulation params form and create a new archive if there are changes detected
     this.handleSimulationParams();
-
-    console.log(`--- RERUN QUERY PARAMS: ${Object.keys(this.simParams)}`);
-    console.log(`CHANGES LENGTH AFTER: ${this.uploadedSedDoc.models[0].changes.length}`);
 
     // ***Existing content:
     if (!this.formGroup.valid) {
