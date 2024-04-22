@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import {
   AbstractControl,
+  Form,
   UntypedFormArray,
   UntypedFormBuilder,
   UntypedFormGroup,
@@ -36,6 +37,7 @@ import {
   ReRunQueryParams,
   SedDocument,
   SedModel,
+  SedModelChange,
   SedSimulation,
   SimulationRun,
   SimulationRunStatus,
@@ -91,7 +93,7 @@ interface IntrospectionMethodData extends FormStepData {
   algorithmId: string;
 }
 
-interface ArchiveFormData {
+interface ArchiveFormData extends FormStepData {
   modelFormat: string;
   modelFile?: string;
   modelUrl?: string;
@@ -127,7 +129,8 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
   public options: SedModelAttributeChange[] = [];
   public modelChanges: UntypedFormGroup[] = [];
   public simParams!: ReRunQueryParams;
-  public uploadedSedDoc!: SedDocument | ClientSedDoc;
+  public uploadedSedDoc!: SedDocument;
+  public containsSimulationChanges = false;
 
   // Lifecycle state
   public submitPushed = false;
@@ -363,23 +366,16 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
 
   // Form Submission
 
-  public submitParams(): void {
-    console.log(`SUBMIT CLICKED`);
-    console.log(`--- QUERY PARAMS: ${Object.keys(this.simParams)}`);
-  }
+  public gatherModelChanges(): void {
+    // TODO: more accurately handle the number of models
+    const sedModel: SedModel = this.uploadedSedDoc.models.pop() as SedModel;
 
-  public onFormSubmit(): void {
-    /* Create customized archive and Submit the form for simulation */
-    this.submitPushed = true;
-
-    const inputChanges: ClientSedChange[] = [];
     this.rows.controls.forEach((val: AbstractControl<any, any>, i: number) => {
       const rowValueGroup = val as UntypedFormGroup;
-      const defaultVal = rowValueGroup.controls.default.value;
       const newVal = rowValueGroup.controls.newValue.value;
 
       if (newVal) {
-        console.log(`User input for ${i} detected!`);
+        this.containsSimulationChanges = true;
         const paramChange: SedModelAttributeChange = {
           _type: rowValueGroup.controls._type.value,
           newValue: newVal,
@@ -387,24 +383,48 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
           id: rowValueGroup.controls.id.value,
           name: rowValueGroup.controls.name.value,
         };
-
-        inputChanges.push(paramChange);
+        sedModel.changes.push(paramChange);
+      } else {
+        return;
       }
-
-      const submitVal = newVal ? newVal : defaultVal;
-      console.log(`THE SUBMIT VAL FOR ${i}: ${submitVal}`);
-      console.log(`***---> PARAMS FORM ROW KEYS: ${Object.keys(rowValueGroup.controls)}`);
-      console.log(`--- QUERY PARAMS: ${Object.keys(this.simParams)}`);
-
-      /*const archive = CreateArchive(
-        this.modelFormat,
-        this.
-
-      ) */ // TODO: FILL THIS IN HERE
     });
+    this.uploadedSedDoc.models.push(sedModel);
+  }
 
+  public createNewArchive(queryParams: ReRunQueryParams): void {
+    /*
+      1. this.gatherModelChanges()
+      2. create a new archive
+      3. set this.formGroup.controls.projectUrl.setValue(URL from #3)
+    */
+  }
+
+  public handleSimulationParams(): void {
+    // goal is to set project url to the customized archive return url
+
+    // 1. update this.uploadedSedDoc if there are changes
+    this.gatherModelChanges();
+
+    if (!this.containsSimulationChanges) {
+      return;
+    }
+
+    // 2. create a new archive using BOTH the rerun query params and the uploadedSedDoc
+    this.createNewArchive(this.simParams);
     // TODO: CREATE THE NEW ARCHIVE FROM THE MODEL CHANGES HERE
+  }
 
+  public onFormSubmit(): void {
+    /* Create customized archive and Submit the form for simulation */
+    this.submitPushed = true;
+
+    // Read simulation params form and create a new archive if there are changes detected
+    this.handleSimulationParams();
+
+    console.log(`--- RERUN QUERY PARAMS: ${Object.keys(this.simParams)}`);
+    console.log(`CHANGES LENGTH AFTER: ${this.uploadedSedDoc.models[0].changes.length}`);
+
+    // ***Existing content:
     if (!this.formGroup.valid) {
       return;
     }
