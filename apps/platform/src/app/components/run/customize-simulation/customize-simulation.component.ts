@@ -474,7 +474,13 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
   }
 
   public createNewArchive(queryParams: ReRunQueryParams): void {
-    const archive = CreateArchiveFromSedDoc;
+    const archive = CreateArchiveFromSedDoc(
+      this.uploadedSedDoc as unknown as ClientSedDoc,
+      queryParams.modelUrl as string,
+      queryParams.modelFormat as string,
+      queryParams.modelFile as File,
+      queryParams.imageFileUrls,
+    );
     console.log(`NEW ARCHIVE: ${JSON.stringify(archive)}`);
   }
 
