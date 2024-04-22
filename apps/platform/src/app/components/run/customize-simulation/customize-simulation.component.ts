@@ -498,10 +498,18 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
 
     const introspectedSedDoc$ = _IntrospectNewProject(
       this.httpClient,
-      form,
+      form as FormData,
       queryParams.modelUrl as string,
       errorHandler,
     );
+
+    introspectedSedDoc$.subscribe((sedDoc: ClientSedDoc | null) => {
+      if (sedDoc) {
+        console.log(`The introspected sed doc: ${JSON.stringify(sedDoc)}`);
+      } else {
+        console.log(`Could not introspect********`);
+      }
+    });
 
     const archive = CreateArchiveFromSedDoc(
       this.uploadedSedDoc as SedDocument,

@@ -3,7 +3,7 @@ import { catchError, map } from 'rxjs/operators';
 import { FormStepData } from '../../ui/create-project/create-project/forms';
 import { BIOSIMULATIONS_FORMATS_BY_ID } from '@biosimulations/ontology/extra-sources';
 import { Endpoints } from '@biosimulations/config/common';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import {
   SedModelChange,
   SedVariable,
