@@ -3,41 +3,46 @@
     <form [formGroup]="formGroup" (ngSubmit)="onFormSubmit()">
 
       <!-- SIMULATION SETTINGS -->
-      <mat-card class="card-form-section mat-elevation-z3">
-        <mat-card-header class="card-form-section-title solvers">1. Adjust Simulation Settings*</mat-card-header>
+      <mat-card class="card-form-section mat-elevation-z3 sim-settings">
+        <mat-card-header
+          class="card-form-section-title solvers"
+        ><span class="aster">*</span>Step 1: Adjust Your Simulation Settings
+        </mat-card-header>
+        <mat-card-content>
+          <!-- simulation name -->
+          <div class="input-group">
+            <mat-form-field class="card-form-field" appearance="fill">
+              <mat-label>Descriptive simulation name</mat-label>
+              <input matInput formControlName="name" placeholder="Knockout of gene A" required />
+            </mat-form-field>
+          </div>
 
-        <!-- simulation name -->
-        <div class="input-group">
-          <mat-form-field class="card-form-field" appearance="fill">
-            <mat-label>Descriptive simulation name</mat-label>
-            <input matInput formControlName="name" placeholder="Knockout of gene A" required />
-          </mat-form-field>
-        </div>
+          <!-- simulator -->
+          <div class="input-group">
+            <mat-form-field class="card-form-field tool sim" appearance="fill">
+              <mat-label>Simulation tool</mat-label>
+              <mat-select
+                formControlName="simulator"
+                disableOptionCentering
+                placeholder="COPASI"
+                (ngModelChange)="simulatorControlUpdated()"
+                required>
+                <mat-option *ngFor="let simulator of simulators" [value]="simulator.id" [disabled]="simulator.disabled">
+                  {{ simulator.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="card-form-field tool version" appearance="fill">
+              <mat-label>Version of the simulation tool</mat-label>
+              <mat-select formControlName="simulatorVersion" disableOptionCentering placeholder="latest" required>
+                <mat-option *ngFor="let simulatorVersion of simulatorVersions" [value]="simulatorVersion">
+                  {{ simulatorVersion }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </mat-card-content>
 
-        <!-- simulator -->
-        <div class="input-group">
-          <mat-form-field class="card-form-field" appearance="fill">
-            <mat-label>Simulation tool</mat-label>
-            <mat-select
-              formControlName="simulator"
-              disableOptionCentering
-              placeholder="COPASI"
-              (ngModelChange)="simulatorControlUpdated()"
-              required>
-              <mat-option *ngFor="let simulator of simulators" [value]="simulator.id" [disabled]="simulator.disabled">
-                {{ simulator.name }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field class="card-form-field" appearance="fill">
-            <mat-label>Version of the simulation tool</mat-label>
-            <mat-select formControlName="simulatorVersion" disableOptionCentering placeholder="latest" required>
-              <mat-option *ngFor="let simulatorVersion of simulatorVersions" [value]="simulatorVersion">
-                {{ simulatorVersion }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
 
         <!-- get notifications -->
         <ng-container *ngIf="emailEnabled">
@@ -47,9 +52,8 @@
               <input matInput formControlName="email" placeholder="investigator@uni.edu" />
             </mat-form-field>
           </div>
-          <mat-card-content class="card-hints 6">
+          <mat-card-content class="card-hints 6 email-hint">
             <mat-hint>
-              Optionally, enter your email address to receive notification of the completion of your simulation.
               After submitting your simulation, you will also receive a URL where you will be able to check the
               status of your simulation and retrieve its results.
             </mat-hint>
@@ -60,17 +64,21 @@
           </mat-error>
         </ng-container>
 
-        <mat-checkbox
-          formControlName="emailConsent"
-          color="primary"
-          (change)="enableEmail($event.checked)">
-          I consent to receiving an email notification about the completion of my simulation.
-        </mat-checkbox>
+        <div class="email">
+          <mat-checkbox
+            class="checkbox-group"
+            formControlName="emailConsent"
+            color="primary"
+            (change)="enableEmail($event.checked)">
+            I consent to receiving an email notification about the completion of my simulation.
+          </mat-checkbox>
+        </div>
       </mat-card>
 
       <!-- simulation params -->
       <mat-card class="card-form-section mat-elevation-z3">
-        <mat-card-header class="card-form-section-title sim-variables">2. Adjust Simulation Parameters*</mat-card-header>
+        <mat-card-header class="card-form-section-title sim-variables"
+        ><span class="aster">*</span>Step 2: Adjust Simulation Parameters</mat-card-header>
         <mat-card-content class="sim-variables-container">
           <form [formGroup]="variablesFormGroup" (ngSubmit)="onFormSubmit()">
 
@@ -194,15 +202,13 @@
       </mat-card>
 
       <!-- BEGIN ADVANCED -->
-      <div class="advanced-container">
+      <!--<div class="advanced-container">
         <mat-expansion-panel [expanded]="false" [disabled]="false" class="advanced-panel">
           <mat-expansion-panel-header class="card-form-section-title advanced">
-            <biosimulations-icon icon="columns" style="padding-right: 1rem"></biosimulations-icon>
-            3. View Advanced Settings*
+            <biosimulations-icon icon="columns" style="padding-right: 0.5rem"></biosimulations-icon>
+            Optional: Adjust Advanced Settings
           </mat-expansion-panel-header>
           <div class="advanced-content">
-
-            <!-- get notifications -->
             <mat-card class="card-form-section mat-elevation-z3">
               <mat-card-header class="card-form-section-title noti advanced-title">Notifications</mat-card-header>
 
@@ -231,7 +237,7 @@
             </mat-card>
           </div>
         </mat-expansion-panel>
-      </div>
+      </div>-->
       <!-- END ADVANCED -->
 
       <!-- SUBMIT FORM BUTTON -->

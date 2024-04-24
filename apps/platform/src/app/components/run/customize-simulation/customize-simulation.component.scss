@@ -14,6 +14,16 @@ button:not(.add-change) {
   float: right;
 }
 
+.email-hint,
+.checkbox-group {
+  padding-left: 4rem !important;
+}
+
+.email-hint {
+  color: var(--quaternary-darker-color);
+  padding-bottom: 1rem;
+}
+
 .update {
   font-size: small;
 }
@@ -61,11 +71,18 @@ button:not(.add-change) {
   padding-right: 1rem;
   background-color: white;
   overflow: hidden;
+  max-width: 1000px;
+  width: 1000px;
 }
 
 .input-group {
   height: 100%;
   padding-top: 3rem;
+  //margin-left: 3rem !important;
+
+  &.field-title {
+    padding-right: 1rem !important;
+  }
 }
 
 .resources {
@@ -192,4 +209,13 @@ mat-option:hover {
   &.select-parameters {
     width: 400px !important;
   }
+}
+
+.aster {
+  color: var(--warn-lighter-color) !important;
+  padding-right: 0.25rem !important;
+}
+
+.version {
+  margin-left: 0.93rem !important;
 }
