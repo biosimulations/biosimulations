@@ -27,11 +27,15 @@
                 placeholder="COPASI"
                 (ngModelChange)="simulatorControlUpdated()"
                 required>
-                <mat-option *ngFor="let simulator of simulators" [value]="simulator.id" [disabled]="simulator.disabled">
+                <mat-option
+                  *ngFor="let simulator of simulators"
+                  [value]="simulator.id"
+                  [disabled]="simulator.disabled">
                   {{ simulator.name }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
+
             <mat-form-field class="card-form-field tool version" appearance="fill">
               <mat-label>Version of the simulation tool</mat-label>
               <mat-select formControlName="simulatorVersion" disableOptionCentering placeholder="latest" required>
@@ -78,7 +82,26 @@
       <!-- simulation params -->
       <mat-card class="card-form-section mat-elevation-z3">
         <mat-card-header class="card-form-section-title sim-variables"
-        ><span class="aster">*</span>Step 2: Adjust Simulation Parameters</mat-card-header>
+        ><span class="aster">*</span>Step 2: Adjust Your Simulation Parameters
+          <div class="change-view">
+            <button
+              type="button"
+              (click)="changeParamsLayoutButton()"
+              mat-flat-button
+              class="biosimulations-button toggle-view-button">
+              <div *ngIf="useDropdown; else gridView" class="change-view-text">
+                <biosimulations-icon class="change-icon grid" icon="columns"></biosimulations-icon>
+                Toggle Grid View
+              </div>
+              <ng-template #gridView>
+                <span class="change-view-text"
+                ><biosimulations-icon class="change-icon drop" icon="browse"></biosimulations-icon>
+                  Toggle Dropdown View
+                </span>
+              </ng-template>
+            </button>
+          </div>
+        </mat-card-header>
         <mat-card-content class="sim-variables-container">
           <form [formGroup]="variablesFormGroup" (ngSubmit)="onFormSubmit()">
 
@@ -89,14 +112,23 @@
             </mat-checkbox>-->
 
             <!-- A. dropdown style implementation -->
-            <div class="parameter-dropdown" *ngIf="useDropdown; else changesGrid">
+            <div class="parameter-dropdown" *ngIf="useDropdown">
               <div formArrayName="parameterSelections" class="selection-fields">
                 <div
                   *ngFor="let selection of parameterSelections.controls; let i = index"
                   [formGroupName]="i"
                   class="parameter-selection">
+
+                  <!--<mat-form-field appearance="fill" class="search-parameters params">
+                    <mat-label>Search Parameters</mat-label>
+                    <input
+                      matInput
+                      placeholder="Type to filter..."
+                      formControlName="searchControl">
+                  </mat-form-field>-->
+
                   <mat-form-field appearance="fill" class="select-parameters params">
-                    <mat-label>Select a parameter to adjust</mat-label>
+                    <mat-label>Select a parameter</mat-label>
                     <mat-select formControlName="selectedRowIndex">
                       <mat-option
                         *ngFor="let row of rows.controls; index as idx"
@@ -136,7 +168,7 @@
                     class="biosimulations-button add-change"
                     matTooltip="Add a new parameter change"
                     (click)="addNewParameterSelection()"
-                  >+
+                  >+ Add Parameter Change
                   </button>
                 </div>
               </div>
@@ -144,23 +176,47 @@
 
 
             <!-- B. form style implementation -->
-            <ng-template #changesGrid>
+            <div *ngIf="!useDropdown">
               <div formArrayName="rows" class="model-changes-grid">
-                <div class="row header">
-                  <h3 class="grid-label">Name</h3>
-                  <h3 class="grid-label">Default Value</h3>
-                  <h3 class="grid-label">New Value</h3>
-                </div>
                 <div *ngFor="let row of rows.controls; let i = index" [formGroupName]="i">
-                  <input type="text" formControlName="name" class="grid-input">
-                  <input type="text" formControlName="default" class="grid-input">
-                  <input matInput type="text" formControlName="newValue" class="grid-input">
+                  <mat-form-field appearance="fill" class="grid-input">
+                    <mat-label>Parameter Name</mat-label>
+                    <input matInput type="text" formControlName="name">
+                  </mat-form-field>
+
+                  <mat-form-field appearance="fill" class="grid-input">
+                    <mat-label>Default Value</mat-label>
+                    <input matInput type="text" formControlName="default">
+                  </mat-form-field>
+
+                  <mat-form-field appearance="fill" class="grid-input">
+                    <mat-label>Enter a New Value</mat-label>
+                    <input matInput type="text" formControlName="newValue">
+                  </mat-form-field>
+
                 </div>
               </div>
-            </ng-template>
+            </div>
           </form>
         </mat-card-content>
       </mat-card>
+
+      <!--<mat-card class="card-form-section mat-elevation-z3">
+        <mat-card-header class="card-form-section-title">Infer Original Simulation Run Output</mat-card-header>
+        <mat-card-content>
+          <ng-container class="existing-viz" *ngIf="viz$ | async as visualizations">
+            <div class="existing-viz">
+              <biosimulations-project-select-visualization
+                [visualizations]="visualizations"
+                (renderVisualization)="renderViz($event)">
+              </biosimulations-project-select-visualization>
+            </div>
+            <biosimulations-project-visualization *ngIf="visualization" [visualization]="visualization">
+            </biosimulations-project-visualization>
+          </ng-container>
+
+        </mat-card-content>
+      </mat-card>-->
 
       <!-- commercial solver -->
       <mat-card class="card-form-section mat-elevation-z3" *ngIf="needsLicense">
@@ -241,7 +297,12 @@
       <!-- END ADVANCED -->
 
       <!-- SUBMIT FORM BUTTON -->
-      <button mat-flat-button type="submit" class="biosimulations-button run">Run Simulation</button>
+      <button
+        mat-flat-button
+        type="submit"
+        class="biosimulations-button run"
+      >Run Simulation<biosimulations-icon style="padding-left: 1rem !important;" icon="simulation"></biosimulations-icon>
+      </button>
     </form>
   </biosimulations-page>
 

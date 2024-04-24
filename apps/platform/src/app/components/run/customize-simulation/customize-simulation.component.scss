@@ -14,6 +14,11 @@ button:not(.add-change) {
   float: right;
 }
 
+.card-form-section-title {
+  display: flex !important;
+  align-items: center !important;
+}
+
 .email-hint,
 .checkbox-group {
   padding-left: 4rem !important;
@@ -71,8 +76,7 @@ button:not(.add-change) {
   padding-right: 1rem;
   background-color: white;
   overflow: hidden;
-  max-width: 1000px;
-  width: 1000px;
+  //width: 1000px;
 }
 
 .input-group {
@@ -152,8 +156,16 @@ mat-option:hover {
   border-bottom: 1px solid rgba(0, 0, 0, 0.6);
   padding: 4pt;
   box-sizing: border-box;
-  width: 300px !important;
+
   margin-right: 2rem;
+
+  &:not(.name) {
+    width: 300px !important;
+  }
+
+  &.name {
+    width: 500px !important;
+  }
 }
 
 .model-changes-grid {
@@ -165,6 +177,35 @@ mat-option:hover {
   button:not(.add-change) {
     margin: 0;
   }
+}
+
+.change-view {
+  display: flex;
+  margin-left: auto;
+  align-items: center;
+}
+
+.toggle-view-button {
+  background-color: var(--accent-darker-color);
+  margin-top: -0.12rem !important;
+}
+
+.change-view-text {
+  font-weight: 500;
+  color: white !important;
+  display: flex;
+  align-items: center;
+  font-size: 10px !important;
+}
+
+.change-icon {
+  padding-right: 0.4rem !important;
+  transform: scale(1.2) !important;
+}
+
+.sim-variables {
+  display: flex;
+  align-items: center;
 }
 
 .parameter-dropdown {
@@ -180,9 +221,13 @@ mat-option:hover {
 .biosimulations-button {
   &.add-change {
     background-color: var(--accent-darker-color) !important;
+  }
+
+  &.run,
+  &.add-change {
     color: white !important;
     margin-right: auto !important;
-    font-size: medium !important;
+    font-size: small !important;
     font-weight: bold !important;
     align-items: center !important;
     justify-content: center !important;
@@ -218,4 +263,8 @@ mat-option:hover {
 
 .version {
   margin-left: 0.93rem !important;
+}
+
+.param-option {
+  padding-bottom: 1rem !important;
 }

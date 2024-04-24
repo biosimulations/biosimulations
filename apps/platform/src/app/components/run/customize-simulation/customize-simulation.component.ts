@@ -3,12 +3,11 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import {
   AbstractControl,
-  Form,
   FormArray,
   FormControl,
-  FormGroup,
   UntypedFormArray,
   UntypedFormBuilder,
+  UntypedFormControl,
   UntypedFormGroup,
   ValidationErrors,
   Validators,
@@ -19,9 +18,9 @@ import { CombineApiService } from '../../../services/combine-api/combine-api.ser
 import {
   _IntrospectNewProject,
   CreateArchiveFromSedDoc,
+  CustomizableSedDocumentData,
+  FormStepData,
   IntrospectNewProject,
-} from '@biosimulations/simulation-project-utils';
-import {
   OntologyTerm,
   OntologyTermsMap,
   SimulationProjectUtilData,
@@ -44,12 +43,12 @@ import {
   ReRunQueryParams,
   SedDocument,
   SedModel,
+  SedModelAttributeChange as CommonAttributeChange,
   SedModelChange,
   SedSimulation,
   SimulationRun,
   SimulationRunStatus,
   SimulationType,
-  SedModelAttributeChange as CommonAttributeChange,
 } from '@biosimulations/datamodel/common';
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import { Observable, Subscription } from 'rxjs';
@@ -57,19 +56,17 @@ import { ConfigService } from '@biosimulations/config/angular';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FileInput } from '@biosimulations/material-file-input';
 import { CreateMaxFileSizeValidator, INTEGER_VALIDATOR } from '@biosimulations/shared/ui';
-import { FormStepData, CustomizableSedDocumentData } from '@biosimulations/simulation-project-utils';
 import {
-  SedModelChange as ClientSedChange,
-  SedModelAttributeChange,
-  SedDocument as ClientSedDoc,
-  CombineArchive,
   CombineArchiveContent,
+  SedDocument as ClientSedDoc,
+  SedModelAttributeChange,
+  SedModelAttributeChangeTypeEnum,
+  SedModelChange as ClientSedChange,
+  SedTarget,
 } from '@biosimulations/combine-api-angular-client';
-import { CreateArchive } from '@biosimulations/simulation-project-utils';
-import {
-  SubmitArchiveFormData,
-  _SubmitFormData,
-} from '../../../../../../../libs/simulation-project-utils/simulation-project-utils/src/lib/ui/create-project/create-project/project-submission';
+import { _SubmitFormData } from '../../../../../../../libs/simulation-project-utils/simulation-project-utils/src/lib/ui/create-project/create-project/project-submission';
+import { ViewService } from '@biosimulations/simulation-runs/service';
+import { Visualization, VisualizationList } from '@biosimulations/datamodel-simulation-runs';
 
 interface SimulatorIdNameDisabled {
   id: string;
@@ -146,18 +143,21 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
   public containsSimulationChanges = false;
   public useDropdown = true;
   public originalModelChanges: SedModelChange[] = [];
+  public reRunId!: string;
+  public vizList: Visualization[] = [];
+  public viz$!: Observable<VisualizationList[]>;
+  public visualization!: Visualization;
 
   // Lifecycle state
   public submitPushed = false;
   public emailEnabled = false;
+  public filteredRows: any[][] = [];
   private subscriptions: Subscription[] = [];
 
   // Data loaded from network
   private modelFormatsMap?: OntologyTermsMap;
   private simulationAlgorithmsMap?: Record<string, Algorithm>;
   private simulatorSpecsMap?: SimulatorSpecsMap;
-
-  private licensedSimulators = ['cobra', 'rba'];
 
   public constructor(
     private config: ConfigService,
@@ -170,6 +170,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     private loader: SimulationProjectUtilLoaderService,
     private activateRoute: ActivatedRoute,
     private httpClient: HttpClient,
+    private sharedViewService: ViewService,
   ) {
     this.formGroup = this.formBuilder.group(
       {
@@ -243,6 +244,44 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
+  public renderViz(visualization: Visualization): void {
+    this.visualization = visualization;
+  }
+
+  public setupSearchFilter(index: number) {
+    const searchControl = this.parameterSelections.at(index).get('searchControl') as FormControl;
+    searchControl.valueChanges.subscribe((value) => {
+      this.filterRows(value, index);
+    });
+  }
+
+  public filterRows(searchValue: string, index: number): void {
+    // TODO: complete this implementation
+    const rowsArray = this.rows.value as Array<any>;
+    if (!searchValue) {
+      this.filteredRows[index] = rowsArray; // Reset back to original
+    } else {
+      this.filteredRows[index] = rowsArray.filter(
+        (row) =>
+          row.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+          row.default.toString().toLowerCase().includes(searchValue.toLowerCase()),
+      );
+    }
+  }
+
+  public changeParamsLayout(checked: boolean): void {
+    console.log(`CHECKED: ${checked}`);
+    if (checked) {
+      this.useDropdown = false;
+    } else {
+      this.useDropdown = true;
+    }
+  }
+
+  public changeParamsLayoutButton(): void {
+    this.useDropdown = !this.useDropdown;
+  }
+
   public get rows(): UntypedFormArray {
     return this.variablesFormGroup.get('rows') as UntypedFormArray;
   }
@@ -252,10 +291,8 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     return this.rows.at(index).get('newValue') as FormControl;
   }
 
-  public addParameterRow(modelChange: SedModelAttributeChange | CommonAttributeChange): void {
-    modelChange = modelChange as SedModelAttributeChange;
-
-    if (modelChange.id) {
+  public addParameterRow(modelChange: SedModelAttributeChange): void {
+    if (modelChange.id !== null) {
       const newRow = this.formBuilder.group({
         name: [{ value: modelChange.name as string, disabled: true }],
         default: [{ value: +modelChange.newValue, disabled: true }],
@@ -299,6 +336,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
       this.simParams = params;
 
       // TODO: set urls here
+      this.reRunId = params.runId as string;
 
       if (params.projectUrl) {
         this.isReRun = true;
@@ -339,10 +377,12 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
   public addNewParameterSelection(): void {
     const newParameterSelection = this.formBuilder.group({
       selectedRowIndex: [null],
+      searchControl: [''],
       newValue: [''],
     });
 
     this.parameterSelections.push(newParameterSelection);
+    this.setupSearchFilter(this.parameterSelections.length - 1);
   }
 
   public getNewValueControl(index: number): FormControl {
@@ -436,6 +476,17 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     this.populateParamsForm();
 
     console.log(`THE PARAMS: ${JSON.stringify(this.simParams)}`);
+    const viz$ = this.sharedViewService.getVisualizations(this.reRunId);
+    this.viz$ = viz$;
+    if (viz$) {
+      viz$.subscribe((value: VisualizationList[]) => {
+        value.forEach((vizList: VisualizationList) => {
+          vizList.visualizations.forEach((visualization: Visualization) => {
+            this.vizList.push(visualization);
+          });
+        });
+      });
+    }
     console.log(`LOADED IN LOAD COMPLETE`);
   }
 
@@ -603,6 +654,13 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     const purpose: Purpose = this.formGroup.value.academicPurpose ? Purpose.academic : Purpose.other;
     const name: string = this.formGroup.value.name;
     const email: string | null = this.formGroup.value.email || null;
+
+    if (this.emailEnabled && !email) {
+      this.snackBar.open('You must provide a valid email address when consenting to email communication.', 'Ok', {
+        duration: 5000,
+      });
+      return;
+    }
 
     let simulationResponse: Observable<SimulationRun>;
 
@@ -871,11 +929,20 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
         }
 
         const unloadedLen = this.rows.length;
+
+        let apiChange: SedModelAttributeChange;
         model.changes.forEach((change: SedModelChange) => {
           switch (change) {
             case change as CommonAttributeChange:
               console.log(`Common attribute change!`);
-              this.addParameterRow(change);
+              apiChange = {
+                _type: SedModelAttributeChangeTypeEnum.SedModelAttributeChange,
+                newValue: change.newValue,
+                target: change.target as SedTarget,
+                id: change.id as string,
+                name: change.name,
+              };
+              this.addParameterRow(apiChange);
           }
         });
       });
@@ -1110,11 +1177,14 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
       errors['multipleProjects'] = true;
     }
 
-    /*  const email = formGroup.controls.email as UntypedFormControl;
-    const emailConsent = formGroup.controls.emailConsent as UntypedFormControl;
-    if (email.value && !email.hasError('email')) { //&& !emailConsent.value) {
-      errors['emailNotConsented'] = true;
-    }  */
+    if (this.emailEnabled) {
+      const email = formGroup.controls.email as UntypedFormControl;
+      const emailConsent = formGroup.controls.emailConsent as UntypedFormControl;
+      if (email.value && !email.hasError('email') && !emailConsent.value) {
+        errors['emailNotConsented'] = true;
+      }
+    }
+
     return Object.keys(errors).length ? errors : null;
   }
 }

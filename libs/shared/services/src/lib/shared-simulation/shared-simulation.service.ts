@@ -162,6 +162,7 @@ export class SharedSimulationService {
             sedFileUrl: '',
             imageFileUrls: [],
             modelUrls: [],
+            runId: id,
           };
 
           // identify and set modelUrl and potentially other parameters based on filesContent analysis
