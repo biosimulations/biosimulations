@@ -187,3 +187,9 @@ mat-option:hover {
 .remove-override {
   margin-left: 3rem !important;
 }
+
+.params {
+  &.select-parameters {
+    width: 400px !important;
+  }
+}

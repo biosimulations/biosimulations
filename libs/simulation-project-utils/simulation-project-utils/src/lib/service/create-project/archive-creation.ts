@@ -86,9 +86,8 @@ export function CreateArchive(
   }
 
   const modelContent = CreateArchiveModelLocationValue(modelFile, modelUrl);
-  // return AddImagesToArchive(imageUrls, archive);
-  // return CompleteArchiveFromFiles(modelFormat, modelContent, model.source, metadataFileUrl, sedFileUrl, imageUrls);
-  return CompleteArchive(modelFormat, sedDoc, modelContent, model.source, imageUrls);
+  // return CompleteArchive(modelFormat, sedDoc, modelContent, model.source, imageUrls);
+  return CompleteArchiveFromFiles(modelFormat, modelContent, model.source, metadataFileUrl, sedFileUrl, imageUrls);
 }
 
 export function CreateArchiveFromSedDoc(
@@ -96,7 +95,7 @@ export function CreateArchiveFromSedDoc(
   modelUrl: string,
   modelFormat: string,
   modelFile: File,
-  imageUrls?: string[],
+  imageUrls: string[],
 ): CombineArchive {
   const model = sedDoc.models[0] as SedModel;
   //const modelContent = CreateArchiveModelLocationValue(modelFile, modelUrl);
@@ -106,7 +105,7 @@ export function CreateArchiveFromSedDoc(
   };
 
   console.log(`Model content: ${JSON.stringify(modelContent)}`);
-  return CompleteArchive(modelFormat, sedDoc, modelContent, model.source, imageUrls as string[]);
+  return CompleteArchive(modelFormat, sedDoc, modelContent, model.source, imageUrls);
 }
 
 function CreateSedModelChanges(modelChanges: Record<string, string>[], namespaces: Namespace[]): SedModelChange[] {
@@ -383,24 +382,25 @@ function CompleteArchiveFromFiles(
 }
 
 function AddImagesToArchive(urls: string[], archive: CombineArchive): CombineArchive {
-  urls.forEach((url: string) => {
-    const imgPath = getFileNameFromUrl(url) as string;
-    console.log(`img path: ${imgPath}`);
-    const archiveContent = {
-      _type: CombineArchiveContentTypeEnum.CombineArchiveContent,
-      format: 'http://purl.org/NET/mediatypes/image/jpeg',
-      master: false,
-      location: {
-        _type: CombineArchiveLocationTypeEnum.CombineArchiveLocation,
-        path: imgPath,
-        value: {
-          _type: CombineArchiveContentUrlTypeEnum.CombineArchiveContentUrl,
-          url: url,
+  if (urls.length >= 1) {
+    urls.forEach((url: string) => {
+      const imgPath = getFileNameFromUrl(url) as string;
+      const archiveContent = {
+        _type: CombineArchiveContentTypeEnum.CombineArchiveContent,
+        format: 'http://purl.org/NET/mediatypes/image/jpeg',
+        master: false,
+        location: {
+          _type: CombineArchiveLocationTypeEnum.CombineArchiveLocation,
+          path: imgPath,
+          value: {
+            _type: CombineArchiveContentUrlTypeEnum.CombineArchiveContentUrl,
+            url: url,
+          },
         },
-      },
-    };
-    archive.contents.push(archiveContent);
-  });
+      };
+      archive.contents.push(archiveContent);
+    });
+  }
   return archive;
 }
 
@@ -446,5 +446,6 @@ function CompleteArchive(
     ],
   };
 
-  return AddImagesToArchive(imageUrls, archive);
+  // return AddImagesToArchive(imageUrls, archive);
+  return archive;
 }

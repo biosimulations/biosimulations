@@ -74,34 +74,40 @@
         <mat-card-content class="sim-variables-container">
           <form [formGroup]="variablesFormGroup" (ngSubmit)="onFormSubmit()">
 
-            <mat-checkbox
+            <!--<mat-checkbox
               color="primary"
               (change)="clearOverrides($event.checked)">
               Clear existing overrides
-            </mat-checkbox>
+            </mat-checkbox>-->
 
             <!-- A. dropdown style implementation -->
             <div class="parameter-dropdown" *ngIf="useDropdown; else changesGrid">
-              <div formArrayName="parameterSelections">
-                <div *ngFor="let selection of parameterSelections.controls; let i = index" [formGroupName]="i" class="parameter-selection">
-                  <mat-form-field appearance="fill">
-                    <mat-label>Choose a parameter</mat-label>
+              <div formArrayName="parameterSelections" class="selection-fields">
+                <div
+                  *ngFor="let selection of parameterSelections.controls; let i = index"
+                  [formGroupName]="i"
+                  class="parameter-selection">
+                  <mat-form-field appearance="fill" class="select-parameters params">
+                    <mat-label>Select a parameter to adjust</mat-label>
                     <mat-select formControlName="selectedRowIndex">
-                      <mat-option *ngFor="let row of rows.controls; index as idx" [value]="idx">
+                      <mat-option
+                        *ngFor="let row of rows.controls; index as idx"
+                        [value]="idx"
+                        [disabled]="isOptionSelected(idx, i)">
                         {{ row.get('name')?.value }} - {{ row.get('default')?.value }}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
 
                   <ng-container *ngIf="selection.get('selectedRowIndex')?.value !== null">
-                    <mat-form-field appearance="fill" class="parameter-default-value">
+                    <mat-form-field appearance="fill" class="parameter-default-value params">
                       <mat-label>Default Value</mat-label>
                       <input matInput [value]="getDefault(i)" disabled>
                     </mat-form-field>
 
                     <mat-form-field
                       appearance="fill"
-                      class="parameter-new-value">
+                      class="parameter-new-value params">
                       <mat-label>New Value</mat-label>
                       <input matInput [formControl]="getNewValueControl(i)">
                     </mat-form-field>
@@ -110,7 +116,7 @@
                       type="button"
                       (click)="removeModelChangeField(i)"
                       matTooltip="Remove parameter change"
-                      class="biosimulations-button remove-change">
+                      class="biosimulations-button remove-change params">
                       <biosimulations-icon icon="trash"></biosimulations-icon>
                     </button>
                   </ng-container>

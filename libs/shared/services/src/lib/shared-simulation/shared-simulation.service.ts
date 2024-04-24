@@ -161,15 +161,22 @@ export class SharedSimulationService {
             sedFile: '',
             sedFileUrl: '',
             imageFileUrls: [],
+            modelUrls: [],
           };
 
           // identify and set modelUrl and potentially other parameters based on filesContent analysis
-          filesContent.forEach((file: CommonFile) => {
+          const modelFiles = [];
+          filesContent.forEach((file: CommonFile, i: number) => {
             switch (file) {
               case file as CommonFile:
-                if (file.url.includes('xml') || file.url.includes('sbml') || file.url.includes('vcml')) {
+                //if (file.url.includes('xml') || file.url.includes('sbml') || file.url.includes('vcml')) {
+                if (file.url.includes('xml') || file.url.includes('sbml')) {
                   queryParams.modelUrl = file.url;
-                  queryParams.modelFile = JSON.stringify(file);
+                  queryParams.modelUrls?.push(file.url);
+
+                  const stringFile = JSON.stringify(file);
+                  modelFiles.push(stringFile);
+                  queryParams.modelFile = stringFile;
                 }
                 if (file.url.includes('metadata')) {
                   queryParams.metadataFile = JSON.stringify(file);
@@ -179,7 +186,7 @@ export class SharedSimulationService {
                   queryParams.sedFile = JSON.stringify(file);
                   queryParams.sedFileUrl = file.url;
                 }
-                if (file.url.includes('jpg')) {
+                if (file.url.includes('jpg') || file.url.includes('png')) {
                   queryParams.imageFileUrls?.push(file.url);
                 }
                 break;

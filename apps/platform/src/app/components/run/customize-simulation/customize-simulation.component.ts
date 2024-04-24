@@ -145,6 +145,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
   public uploadedSedDoc!: SedDocument;
   public containsSimulationChanges = false;
   public useDropdown = true;
+  public originalModelChanges: SedModelChange[] = [];
 
   // Lifecycle state
   public submitPushed = false;
@@ -218,6 +219,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
       rows: this.formBuilder.array([]),
       selectedRowIndex: [null],
       parameterSelections: this.formBuilder.array([]),
+      modelFiles: this.formBuilder.array([]),
     });
   }
 
@@ -256,7 +258,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     if (modelChange.id) {
       const newRow = this.formBuilder.group({
         name: [{ value: modelChange.name as string, disabled: true }],
-        default: [{ value: modelChange.newValue, disabled: true }],
+        default: [{ value: +modelChange.newValue, disabled: true }],
         target: [modelChange.target],
         id: [modelChange.id as string],
         _type: [modelChange._type],
@@ -279,10 +281,14 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
   }
 
   public clearOverrides(checked: boolean): void {
+    /* Clear original simulation parameter changes/overrides if checked */
     if (checked) {
-      this.uploadedSedDoc.models.forEach((model: SedModel) => {
-        model.changes = [];
-        console.log(`Uploaded overrides removed!`);
+      this.parameterSelections.removeAt(this.parameterSelections.length - 1);
+      const originalChange = this.uploadedSedDoc.models[0].changes.pop();
+      this.originalModelChanges.push(originalChange as SedModelChange);
+    } else {
+      this.originalModelChanges.forEach((change: SedModelChange): void => {
+        this.uploadedSedDoc.models[0].changes.push(change as any);
       });
     }
   }
@@ -291,6 +297,8 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     /* Set component attributes from Query params */
     this.activateRoute.queryParams.subscribe((params: ReRunQueryParams) => {
       this.simParams = params;
+
+      // TODO: set urls here
 
       if (params.projectUrl) {
         this.isReRun = true;
@@ -360,8 +368,15 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     this.addNewParameterSelection();
   }
 
+  public isOptionSelected(idx: number, currentIndex: number): boolean {
+    return this.parameterSelections.controls.some((control: any, i) => {
+      return i !== currentIndex && control.value.selectedRowIndex === idx;
+    });
+  }
+
   private archiveError(): void {
-    this.snackBar.open('There was an error while creating your custom archive.');
+    console.log(`error.`);
+    //this.snackBar.open('There was an error while creating your custom archive.');
   }
 
   private loadComplete(data: SimulationProjectUtilData): void {
@@ -419,6 +434,8 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     // Gather introspection data and populate model form
     this.setAttributesFromQueryParams();
     this.populateParamsForm();
+
+    console.log(`THE PARAMS: ${JSON.stringify(this.simParams)}`);
     console.log(`LOADED IN LOAD COMPLETE`);
   }
 
@@ -472,14 +489,16 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
       const selectedRow = selectedIndex !== null ? this.rows.at(selectedIndex).value : null;
       const newValue = group.get('newValue')?.value;
 
-      if (selectedRow && newValue && selectedRow.id !== null) {
+      if (selectedRow && newValue) {
         const selection: SedModelAttributeChange = {
           name: selectedRow.name,
           target: selectedRow.target,
           id: selectedRow.id,
           _type: selectedRow._type,
-          newValue: selectedRow.newValue,
+          newValue: newValue,
         };
+
+        console.log(`A selected change: ${JSON.stringify(selection)}`);
 
         return selection as SedModelAttributeChange;
       }
@@ -519,20 +538,20 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
       queryParams.imageFileUrls as string[],
     );
 
-    console.log(`Archive: ${JSON.stringify(archive)}`);
-
     archive.contents.forEach((content: CombineArchiveContent) => {});
 
     if (!archive) {
       console.log(`No archive created.`);
-    } else {
-      console.log(`The archive keys: ${Object.keys(archive)}`);
     }
 
     const formData = new FormData();
     formData.append('specs', JSON.stringify(archive));
     // formData.append('download', 'true');
     const archiveSubmission$ = _SubmitFormData(formData, this.httpClient, errorHandler);
+
+    archiveSubmission$?.subscribe((val: string) => {
+      console.log(`archive submission: ${JSON.stringify(val)}`);
+    });
 
     if (archiveSubmission$) {
       console.log(`Archive submission successful!`);
@@ -859,15 +878,6 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
               this.addParameterRow(change);
           }
         });
-
-        const loadedLen = this.rows.length;
-
-        console.log(`UNLOADED: ${unloadedLen}, LOADED: ${loadedLen}`);
-        this.rows.controls.forEach((control: AbstractControl<any, any>, i: number) => {
-          if (i === this.rows.length - 1) {
-            console.log(`THE LAAST CHANGE: ${control.valueChanges}`);
-          }
-        });
       });
 
       sedDoc.simulations.forEach((sim: SedSimulation): void => {
@@ -887,7 +897,6 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     this.formGroup.controls.simulationAlgorithms.setValue(Array.from(simulationAlgorithms));
 
     this.controlImpactingEligibleSimulatorsUpdated();
-    console.log(`LOADED IN SED DOC SPECS LOADED`);
   }
 
   private processSimulationResponse(

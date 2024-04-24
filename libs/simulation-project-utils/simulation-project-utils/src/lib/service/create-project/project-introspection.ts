@@ -3,7 +3,7 @@ import { catchError, map } from 'rxjs/operators';
 import { FormStepData } from '../../ui/create-project/create-project/forms';
 import { BIOSIMULATIONS_FORMATS_BY_ID } from '@biosimulations/ontology/extra-sources';
 import { Endpoints } from '@biosimulations/config/common';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import {
   SedModelChange,
   SedVariable,
@@ -113,7 +113,7 @@ function CreateNewProjectFormData(
   formData.append('simulationType', simulationType);
   formData.append('simulationAlgorithm', algorithmId);
 
-  const form: ArchiveFormData = {
+  /*const form: ArchiveFormData = {
     modelUrl: modelUrl,
     modelFile: '',
     modelFormat: modelFormat,
@@ -123,8 +123,8 @@ function CreateNewProjectFormData(
     simulationAlgorithm: algorithmId,
   };
 
+  return form;*/
   return formData;
-  //return form;
 }
 
 export function PostNewProjectSedDocument(
