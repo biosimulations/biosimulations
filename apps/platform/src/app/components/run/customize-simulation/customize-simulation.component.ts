@@ -154,11 +154,14 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
   @ViewChild('sidenav') sidenav!: MatSidenav;
   public introspectionBtnColor = 'var(--accent-darker-color)';
   public viewBtnColor = 'var(--accent-darker-color)';
+  public viewToggleMsg!: string;
 
   // Lifecycle state
   public submitPushed = false;
   public emailEnabled = false;
   public filteredRows: any[][] = [];
+  public isRtl = true;
+  public shouldDisplayCard = true;
   private subscriptions: Subscription[] = [];
 
   // Data loaded from network
@@ -245,6 +248,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
         this.formGroup.value.emailConsent = true;
       }
     });
+    this.changeBtnTooltip();
   }
 
   public ngOnDestroy(): void {
@@ -309,6 +313,15 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
       this.viewBtnColor = 'var(--accent-darker-color)';
     } else {
       this.viewBtnColor = 'var(--tertiary-darker-color)';
+    }
+    this.changeBtnTooltip();
+  }
+
+  private changeBtnTooltip(): void {
+    if (this.useDropdown) {
+      this.viewToggleMsg = 'Toggle Grid View';
+    } else {
+      this.viewToggleMsg = 'Toggle Dropdown View';
     }
   }
 

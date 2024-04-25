@@ -45,7 +45,6 @@ export function IntrospectNewProject(
   }
 
   const modelUrl = modelData?.modelUrl as string;
-  console.log(`The keys of model data for introspection: ${Object.keys(modelData)}`);
   const endpoints = new Endpoints();
   const introspectionEndpoint = endpoints.getModelIntrospectionEndpoint(false);
   const introspectionObservable = PostNewProjectSedDocument(
@@ -59,16 +58,6 @@ export function IntrospectNewProject(
   return introspectionObservable.pipe(map(CreateNewProjectArchiveDataOperator(simMethodData)));
 }
 
-interface ArchiveFormData {
-  modelFormat: string;
-  modelFile?: string;
-  modelUrl?: string;
-  modelLanguage: string;
-  modelingFramework: string;
-  simulationType: string;
-  simulationAlgorithm: string;
-}
-
 export function _IntrospectNewProject(
   http: HttpClient,
   formData: FormData,
@@ -80,10 +69,7 @@ export function _IntrospectNewProject(
   return PostNewProjectSedDocument(http, introspectionEndpoint, formData, modelUrl, errorHandler);
 }
 
-function CreateNewProjectFormData(
-  modelData: FormStepData,
-  simMethodData: FormStepData,
-): FormData | null | ArchiveFormData {
+function CreateNewProjectFormData(modelData: FormStepData, simMethodData: FormStepData): FormData | null {
   const modelFormat = modelData.modelFormat as string;
   const modelFile = modelData?.modelFile as Blob;
   const modelUrl = modelData?.modelUrl as string;
@@ -91,10 +77,7 @@ function CreateNewProjectFormData(
   const simulationType = simMethodData.simulationType as SimulationType;
   const algorithmId = simMethodData.algorithm as string;
 
-  console.log(`THE FRAMEWORK ID: ${frameworkId}`);
-
   if (!modelFormat || (!modelUrl && !modelFile) || !frameworkId || !simulationType || !algorithmId) {
-    console.log(`RETURNING....`);
     return null;
   }
 
@@ -112,25 +95,13 @@ function CreateNewProjectFormData(
   formData.append('modelingFramework', frameworkId);
   formData.append('simulationType', simulationType);
   formData.append('simulationAlgorithm', algorithmId);
-
-  /*const form: ArchiveFormData = {
-    modelUrl: modelUrl,
-    modelFile: '',
-    modelFormat: modelFormat,
-    modelLanguage: modelLanguage as string,
-    modelingFramework: frameworkId,
-    simulationType: simulationType,
-    simulationAlgorithm: algorithmId,
-  };
-
-  return form;*/
   return formData;
 }
 
 export function PostNewProjectSedDocument(
   http: HttpClient,
   postEndpoint: string,
-  formData: FormData | ArchiveFormData,
+  formData: FormData,
   modelUrl: string,
   errorHandler: (modelUrl: string) => void,
 ): Observable<SedDocument | null> {

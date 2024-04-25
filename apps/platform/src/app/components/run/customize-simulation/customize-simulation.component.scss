@@ -206,10 +206,6 @@ mat-option:hover {
   font-size: 10px !important;
 }
 
-.change-icon {
-  transform: scale(1.2) !important;
-}
-
 .sim-variables {
   display: flex;
   align-items: center;
@@ -261,6 +257,7 @@ mat-option:hover {
 }
 
 .params {
+  margin-top: 1rem !important;
   &.select-parameters {
     width: 400px !important;
   }
@@ -277,4 +274,20 @@ mat-option:hover {
 
 .param-option {
   padding-bottom: 1rem !important;
+}
+
+.rtl-card {
+  direction: rtl;
+  text-align: right;
+}
+
+.ltr-card {
+  direction: ltr;
+  text-align: left;
+}
+
+.header-button-content {
+  color: white !important;
+  display: flex !important;
+  align-items: center;
 }

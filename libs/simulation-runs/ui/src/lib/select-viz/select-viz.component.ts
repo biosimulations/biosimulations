@@ -45,6 +45,9 @@ export class SelectVisualizationComponent implements OnInit, OnDestroy {
   @Input()
   runSucceeded = true;
 
+  @Input()
+  isCustomReRun = false;
+
   @Output()
   renderVisualization = new EventEmitter<Visualization>();
 

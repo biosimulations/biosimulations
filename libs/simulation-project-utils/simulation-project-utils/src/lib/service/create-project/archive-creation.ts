@@ -59,6 +59,7 @@ export function CreateArchive(
   rerunModelId?: string,
   uploadedSedDoc?: SedDocument,
 ): CombineArchive {
+  /* To be used in create-project */
   let sedDoc: SedDocument;
   let model: SedModel;
 
@@ -86,7 +87,6 @@ export function CreateArchive(
   }
 
   const modelContent = CreateArchiveModelLocationValue(modelFile, modelUrl);
-  // return CompleteArchive(modelFormat, sedDoc, modelContent, model.source, imageUrls);
   return CompleteArchiveFromFiles(modelFormat, modelContent, model.source, metadataFileUrl, sedFileUrl, imageUrls);
 }
 
@@ -97,14 +97,12 @@ export function CreateArchiveFromSedDoc(
   modelFile: File,
   imageUrls: string[],
 ): CombineArchive {
+  /* To be used in customize-simulation */
   const model = sedDoc.models[0] as SedModel;
-  //const modelContent = CreateArchiveModelLocationValue(modelFile, modelUrl);
   const modelContent = {
     _type: CombineArchiveContentUrlTypeEnum.CombineArchiveContentUrl,
     url: modelUrl,
   };
-
-  console.log(`Model content: ${JSON.stringify(modelContent)}`);
   return CompleteArchive(modelFormat, sedDoc, modelContent, model.source, imageUrls);
 }
 
@@ -420,7 +418,7 @@ function CompleteArchive(
   const modelFormatUri = BIOSIMULATIONS_FORMATS_BY_ID[modelFormat].biosimulationsMetadata?.omexManifestUris[0];
   const sedUri = 'http://identifiers.org/combine.specifications/sed-ml';
 
-  const archive = {
+  return {
     _type: CombineArchiveTypeEnum.CombineArchive,
     contents: [
       {
@@ -445,7 +443,4 @@ function CompleteArchive(
       },
     ],
   };
-
-  // return AddImagesToArchive(imageUrls, archive);
-  return archive;
 }

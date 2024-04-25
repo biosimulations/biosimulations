@@ -1,13 +1,13 @@
-import { Observable, of } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Endpoints } from '@biosimulations/config/common';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CreateArchive } from '../../../service/create-project/archive-creation';
 import { MultipleSimulatorsAlgorithmParameter } from '../../../service/create-project/compatibility';
 import { FormStepData } from './forms';
 import { SimulationType } from '@biosimulations/datamodel/common';
 import { CreateProjectDataSource, CreateProjectFormStep } from './create-project-data-source';
-import { CombineArchive, Namespace } from '@biosimulations/combine-api-angular-client';
+import { Namespace } from '@biosimulations/combine-api-angular-client';
 
 /**
  * Creates parameters that can be used to launch the /runs/new endpoint configured to simulate
@@ -68,7 +68,8 @@ export function SubmitFormData(
   const endpoints = new Endpoints();
   const createArchiveUrl = endpoints.getCombineArchiveCreationEndpoint(false);
 
-  const headers = new HttpHeaders();
+  // TODO: remove this soon
+  /* const headers = new HttpHeaders();
   headers.append('Accept', 'application/json');
   const httpOptions = {
     headers: headers,
@@ -80,7 +81,8 @@ export function SubmitFormData(
       errorHandler();
       return of<string>(`${error}`);
     }),
-  );
+  ); */
+  return httpRequest(http, createArchiveUrl, 'POST', formData, new HttpHeaders({ Accept: 'application/json' }));
 }
 
 export function _SubmitFormData(
@@ -89,21 +91,17 @@ export function _SubmitFormData(
   errorHandler: () => void,
 ): Observable<string> | null {
   const endpoints = new Endpoints();
-  const createArchiveUrl = endpoints.getCombineArchiveCreationEndpoint(false);
+  const headers = new HttpHeaders({ Accept: 'application/json' });
 
-  const headers = new HttpHeaders();
-  headers.append('Accept', 'application/json');
-  const httpOptions = {
-    headers: headers,
-  };
-
-  return http.post<string>(createArchiveUrl, formData, httpOptions).pipe(
+  // TODO: remove this
+  /* return http.post<string>(createArchiveUrl, formData, httpOptions).pipe(
     catchError((error: HttpErrorResponse): Observable<string> => {
       console.error(error);
       errorHandler();
       return of<string>(`${error}`);
     }),
-  );
+  ); */
+  return httpRequest(http, endpoints.getCombineArchiveCreationEndpoint(false), 'POST', formData, headers);
 }
 
 export async function SubmitFormDataForArchive(
@@ -142,38 +140,20 @@ export async function SubmitFormDataForArchive(
   }
 }
 
-export async function SubmitArchiveFormData(archive: CombineArchive): Promise<Blob | null> {
-  const formData = new FormData();
-  formData.append('specs', JSON.stringify(archive));
-  formData.append('download', 'true');
-
-  if (!formData) {
-    console.log(`There is no form data. Returning null.`);
-    return Promise.resolve(null);
-  }
-
-  const createArchiveUrl = 'https://combine.api.biosimulations.dev/combine/create';
-  /*const headers = {
-    Accept: 'application/json',
-  };*/
-
-  try {
-    const response = await fetch(createArchiveUrl, {
-      method: 'POST',
-      body: formData,
-      //headers: headers,
-    });
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    const blob = await response.blob();
-    const url = window.URL.createObjectURL(blob);
-    console.log(`Generated URL: ${url}`);
-    return blob;
-  } catch (error) {
-    console.error('Error:', error);
-    return null;
-  }
+function httpRequest(
+  http: HttpClient,
+  url: string,
+  method: string,
+  body: FormData,
+  headers: HttpHeaders,
+): Observable<any> {
+  const options = { headers, body, method };
+  return http.request(method, url, options).pipe(
+    catchError((error) => {
+      console.error('HTTP error:', error);
+      return throwError(() => new Error('HTTP request failed'));
+    }),
+  );
 }
 
 function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData | null {

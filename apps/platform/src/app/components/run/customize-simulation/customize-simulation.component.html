@@ -6,7 +6,7 @@
       <mat-card class="card-form-section mat-elevation-z3 sim-settings">
         <mat-card-header
           class="card-form-section-title solvers"
-        ><span class="aster">*</span>Step 1: Adjust Your Simulation Settings
+        ><span class="aster">*</span>Step 1: Adjust Simulation Settings
         </mat-card-header>
         <mat-card-content>
           <!-- simulation name -->
@@ -80,8 +80,9 @@
 
       <!-- simulation params -->
       <mat-card class="card-form-section mat-elevation-z3">
+
         <mat-card-header class="card-form-section-title sim-variables"
-        ><span class="aster">*</span>Step 2: Adjust Your Simulation Parameters
+        ><span class="aster">*</span>Step 2: Adjust Simulation Parameters
           <div class="change-view">
               <button
                 type="button"
@@ -90,8 +91,17 @@
                 matToolTip="Introspect Original Simulation Output"
                 class="biosimulations-button toggle-view-button introspect"
                 [style.background-color]="introspectionBtnColor">
-                <span matTooltip="Introspect Original Simulation Output">
-                  <biosimulations-icon icon="simulation" style="color: white !important;"></biosimulations-icon>
+                <span
+                  matTooltip="Introspect Original Simulation Output"
+                  matTooltipPosition="above"
+                  class="header-button-content">
+                  <biosimulations-icon
+                    icon="simulation"
+                    style="color: white !important; padding-right: 0.5rem !important;">
+                  </biosimulations-icon>
+                  Introspection
+                  <ng-container *ngIf="!triggerViz; else vizIsOn">Off</ng-container>
+                  <ng-template #vizIsOn>On</ng-template>
                 </span>
               </button>
 
@@ -99,33 +109,38 @@
                 type="button"
                 (click)="changeParamsLayoutButton()"
                 mat-flat-button
-                matTooltip="Toggle Grid View"
-                class="biosimulations-button toggle-view-button view"
+                [matTooltip]="viewToggleMsg"
+                matTooltipPosition="above"
+                class="biosimulations-button toggle-view-button"
                 [style.background-color]="viewBtnColor">
-                <div
-                  *ngIf="useDropdown; else gridView"
-                  class="change-view-text">
-                  <biosimulations-icon class="change-icon grid" icon="columns"></biosimulations-icon>
-                </div>
-                <ng-template #gridView>
-                  <span class="change-view-text" matTooltip="Toggle Dropdown View"
-                  ><biosimulations-icon class="change-icon drop" icon="browse"></biosimulations-icon>
-                  </span>
-                </ng-template>
+
+                <span class="header-button-content">
+                  <ng-container *ngIf="!useDropdown; else cols">
+                    <biosimulations-icon icon="browse"></biosimulations-icon>
+                  </ng-container>
+                  <ng-template #cols>
+                    <biosimulations-icon icon="columns"></biosimulations-icon>
+                  </ng-template>
+                </span>
               </button>
           </div>
         </mat-card-header>
+
         <mat-card-content class="sim-variables-container">
           <ng-container class="existing-viz" *ngIf="triggerViz">
             <div class="existing-viz" *ngIf="viz$ | async as visualizations" >
-              <h4>Introspect Original Simulation Output: </h4>
-              <biosimulations-project-select-visualization
-                [visualizations]="visualizations"
-                (renderVisualization)="renderViz($event)">
-              </biosimulations-project-select-visualization>
+              <biosimulations-page heading="Introspect Original Simulation Output">
+                <biosimulations-project-select-visualization
+                  [visualizations]="visualizations"
+                  (renderVisualization)="renderViz($event)"
+                  [isCustomReRun]="false">
+                </biosimulations-project-select-visualization>
+                <biosimulations-project-visualization
+                  *ngIf="visualization"
+                  [visualization]="visualization">
+                </biosimulations-project-visualization>
+              </biosimulations-page>
             </div>
-            <biosimulations-project-visualization *ngIf="visualization" [visualization]="visualization">
-            </biosimulations-project-visualization>
           </ng-container>
           <form [formGroup]="variablesFormGroup" (ngSubmit)="onFormSubmit()">
 
@@ -143,6 +158,7 @@
                   *ngFor="let selection of parameterSelections.controls; let i = index"
                   [formGroupName]="i"
                   class="parameter-selection">
+
                   <!-- TODO: implement this -->
                   <!-- <mat-form-field appearance="fill" class="search-parameters params">
                     <mat-label>Search Parameters</mat-label>
@@ -152,8 +168,8 @@
                       formControlName="searchControl">
                   </mat-form-field> -->
 
-                  <mat-form-field appearance="fill" class="select-parameters params">
-                    <mat-label>Select a parameter</mat-label>
+                  <mat-form-field appearance="outline" class="select-parameters params">
+                    <mat-label>Select a parameter to adjust</mat-label>
                     <mat-select formControlName="selectedRowIndex">
                       <mat-option
                         *ngFor="let row of rows.controls; index as idx"
@@ -165,17 +181,18 @@
                   </mat-form-field>
 
                   <ng-container *ngIf="selection.get('selectedRowIndex')?.value !== null">
-                    <mat-form-field appearance="fill" class="parameter-default-value params">
+                    <mat-form-field appearance="outline" class="parameter-default-value params">
                       <mat-label>Default Value</mat-label>
                       <input matInput [value]="getDefault(i)" disabled>
                     </mat-form-field>
 
                     <mat-form-field
-                      appearance="fill"
+                      appearance="outline"
                       class="parameter-new-value params">
                       <mat-label>New Value</mat-label>
                       <input matInput [formControl]="getNewValueControl(i)">
                     </mat-form-field>
+
                     <button
                       mat-flat-button
                       type="button"
@@ -275,6 +292,7 @@
     </form>
 
     <!-- TODO: Implement this -->
+    <mat-sidenav-container class="sidenav-container"></mat-sidenav-container>
     <!-- <mat-sidenav-container class="sidenav-container">
       <mat-sidenav #sidenav mode="over" position="end">
         <mat-card class="card-form-section right-col" *ngIf="triggerViz" [ngClass]="{'active': triggerViz}">
