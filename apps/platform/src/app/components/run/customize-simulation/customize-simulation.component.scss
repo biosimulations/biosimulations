@@ -152,9 +152,7 @@ mat-option:hover {
   font-size: 125%;
   color: rgb(0, 0, 0, 0.6);
   background-color: rgb(0, 0, 0, 0.04);
-  border-style: none;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.6);
-  padding: 4pt;
+  padding: 3pt;
   box-sizing: border-box;
 
   margin-right: 2rem;
@@ -183,11 +181,21 @@ mat-option:hover {
   display: flex;
   margin-left: auto;
   align-items: center;
+  color: white !important;
 }
 
 .toggle-view-button {
   background-color: var(--accent-darker-color);
   margin-top: -0.12rem !important;
+
+  &.introspect {
+    margin-right: 1rem !important;
+  }
+
+  &:hover {
+    color: var(--primary-darker-color) !important;
+    transition: 0.5s color ease-in-out;
+  }
 }
 
 .change-view-text {
@@ -199,7 +207,6 @@ mat-option:hover {
 }
 
 .change-icon {
-  padding-right: 0.4rem !important;
   transform: scale(1.2) !important;
 }
 
@@ -208,9 +215,8 @@ mat-option:hover {
   align-items: center;
 }
 
-.parameter-dropdown {
-  display: inline-flex;
-  justify-content: space-around;
+.existing-viz {
+  max-width: 1000px !important;
 }
 
 .parameter-selection {
@@ -232,6 +238,10 @@ mat-option:hover {
     align-items: center !important;
     justify-content: center !important;
   }
+}
+
+.param-button {
+  color: white !important;
 }
 
 .remove-change {

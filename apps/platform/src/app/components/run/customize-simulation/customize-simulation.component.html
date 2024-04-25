@@ -47,7 +47,6 @@
           </div>
         </mat-card-content>
 
-
         <!-- get notifications -->
         <ng-container *ngIf="emailEnabled">
           <div class="input-group">
@@ -79,37 +78,63 @@
         </div>
       </mat-card>
 
+      <mat-card class="card-form-section introspection" *ngIf="triggerViz" [ngClass]="{'active': triggerViz}">
+        <ng-container class="existing-viz" *ngIf="viz$ | async as visualizations">
+          <div class="existing-viz">
+            <biosimulations-project-select-visualization
+              [visualizations]="visualizations"
+              (renderVisualization)="renderViz($event)">
+            </biosimulations-project-select-visualization>
+          </div>
+          <biosimulations-project-visualization *ngIf="visualization" [visualization]="visualization">
+          </biosimulations-project-visualization>
+        </ng-container>
+      </mat-card>
+
       <!-- simulation params -->
       <mat-card class="card-form-section mat-elevation-z3">
         <mat-card-header class="card-form-section-title sim-variables"
         ><span class="aster">*</span>Step 2: Adjust Your Simulation Parameters
           <div class="change-view">
-            <button
-              type="button"
-              (click)="changeParamsLayoutButton()"
-              mat-flat-button
-              class="biosimulations-button toggle-view-button">
-              <div *ngIf="useDropdown; else gridView" class="change-view-text">
-                <biosimulations-icon class="change-icon grid" icon="columns"></biosimulations-icon>
-                Toggle Grid View
-              </div>
-              <ng-template #gridView>
-                <span class="change-view-text"
-                ><biosimulations-icon class="change-icon drop" icon="browse"></biosimulations-icon>
-                  Toggle Dropdown View
+              <button
+                type="button"
+                (click)="navigateToRun()"
+                mat-flat-button
+                matToolTip="Introspect Original Simulation Output"
+                class="biosimulations-button toggle-view-button introspect">
+                <span matTooltip="Introspect Original Simulation Output">
+                  <biosimulations-icon icon="simulation" style="color: white !important;"></biosimulations-icon>
                 </span>
-              </ng-template>
-            </button>
+              </button>
+
+              <button
+                type="button"
+                (click)="changeParamsLayoutButton()"
+                mat-flat-button
+                matTooltip="Toggle Grid View"
+                class="biosimulations-button toggle-view-button view">
+                <div
+                  *ngIf="useDropdown; else gridView"
+                  class="change-view-text">
+                  <biosimulations-icon class="change-icon grid" icon="columns"></biosimulations-icon>
+                </div>
+                <ng-template #gridView>
+                  <span class="change-view-text" matTooltip="Toggle Dropdown View"
+                  ><biosimulations-icon class="change-icon drop" icon="browse"></biosimulations-icon>
+                  </span>
+                </ng-template>
+              </button>
           </div>
         </mat-card-header>
         <mat-card-content class="sim-variables-container">
           <form [formGroup]="variablesFormGroup" (ngSubmit)="onFormSubmit()">
 
-            <!--<mat-checkbox
+            <!-- TODO: implement this -->
+            <!-- <mat-checkbox
               color="primary"
               (change)="clearOverrides($event.checked)">
               Clear existing overrides
-            </mat-checkbox>-->
+            </mat-checkbox> -->
 
             <!-- A. dropdown style implementation -->
             <div class="parameter-dropdown" *ngIf="useDropdown">
@@ -118,14 +143,14 @@
                   *ngFor="let selection of parameterSelections.controls; let i = index"
                   [formGroupName]="i"
                   class="parameter-selection">
-
-                  <!--<mat-form-field appearance="fill" class="search-parameters params">
+                  <!-- TODO: implement this -->
+                  <!-- <mat-form-field appearance="fill" class="search-parameters params">
                     <mat-label>Search Parameters</mat-label>
                     <input
                       matInput
                       placeholder="Type to filter..."
                       formControlName="searchControl">
-                  </mat-form-field>-->
+                  </mat-form-field> -->
 
                   <mat-form-field appearance="fill" class="select-parameters params">
                     <mat-label>Select a parameter</mat-label>
@@ -168,7 +193,7 @@
                     class="biosimulations-button add-change"
                     matTooltip="Add a new parameter change"
                     (click)="addNewParameterSelection()"
-                  >+ Add Parameter Change
+                  >+
                   </button>
                 </div>
               </div>
@@ -179,17 +204,17 @@
             <div *ngIf="!useDropdown">
               <div formArrayName="rows" class="model-changes-grid">
                 <div *ngFor="let row of rows.controls; let i = index" [formGroupName]="i">
-                  <mat-form-field appearance="fill" class="grid-input">
-                    <mat-label>Parameter Name</mat-label>
-                    <input matInput type="text" formControlName="name">
+                  <mat-form-field appearance="outline" class="grid-input">
+                    <mat-label class="grid-label">Parameter Name</mat-label>
+                    <input matInput type="text" formControlName="name" class="grid-label">
                   </mat-form-field>
 
-                  <mat-form-field appearance="fill" class="grid-input">
+                  <mat-form-field appearance="outline" class="grid-input">
                     <mat-label>Default Value</mat-label>
                     <input matInput type="text" formControlName="default">
                   </mat-form-field>
 
-                  <mat-form-field appearance="fill" class="grid-input">
+                  <mat-form-field appearance="outline" class="grid-input">
                     <mat-label>Enter a New Value</mat-label>
                     <input matInput type="text" formControlName="newValue">
                   </mat-form-field>
@@ -200,23 +225,6 @@
           </form>
         </mat-card-content>
       </mat-card>
-
-      <!--<mat-card class="card-form-section mat-elevation-z3">
-        <mat-card-header class="card-form-section-title">Infer Original Simulation Run Output</mat-card-header>
-        <mat-card-content>
-          <ng-container class="existing-viz" *ngIf="viz$ | async as visualizations">
-            <div class="existing-viz">
-              <biosimulations-project-select-visualization
-                [visualizations]="visualizations"
-                (renderVisualization)="renderViz($event)">
-              </biosimulations-project-select-visualization>
-            </div>
-            <biosimulations-project-visualization *ngIf="visualization" [visualization]="visualization">
-            </biosimulations-project-visualization>
-          </ng-container>
-
-        </mat-card-content>
-      </mat-card>-->
 
       <!-- commercial solver -->
       <mat-card class="card-form-section mat-elevation-z3" *ngIf="needsLicense">

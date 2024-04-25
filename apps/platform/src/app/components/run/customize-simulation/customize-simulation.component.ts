@@ -147,6 +147,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
   public vizList: Visualization[] = [];
   public viz$!: Observable<VisualizationList[]>;
   public visualization!: Visualization;
+  public triggerViz = false;
 
   // Lifecycle state
   public submitPushed = false;
@@ -267,6 +268,10 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
           row.default.toString().toLowerCase().includes(searchValue.toLowerCase()),
       );
     }
+  }
+
+  public navigateToRun(): void {
+    this.triggerViz = !this.triggerViz;
   }
 
   public changeParamsLayout(checked: boolean): void {
