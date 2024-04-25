@@ -28,13 +28,7 @@
           <mat-card-header class="viz-card-header"></mat-card-header>
           <!-- End ReRun Simulation Button -->
 
-          <mat-tab-group
-            #tabGroup
-            preserveContent="true"
-            [dynamicHeight]="true"
-            [selectedIndex]="selectedTabIndex"
-          >
-
+          <mat-tab-group #tabGroup preserveContent="true" [dynamicHeight]="true" [selectedIndex]="selectedTabIndex">
             <!-- Start Visualizations Tab -->
             <mat-tab class="right-col-tab figures">
               <ng-template mat-tab-label>
