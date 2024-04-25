@@ -7,22 +7,20 @@
   fxLayoutGap="1rem"
   fxLayoutGap.lt-lg="1rem">
   <!-- Begin thumbnails Display-->
-  <div class="thumbnails-column" *ngIf="project?.thumbnails" fxFlex fxLayout="column">
+  <div *ngIf="project?.thumbnails" fxFlex fxLayout="column">
     <div *ngIf="project.thumbnails.length" fxGrid>
       <mat-card class="image-card">
         <mat-card-header class="multipurpose-card-header project">
           {{ project.title }}
         </mat-card-header>
-        <mat-card-content>
-          <div class="thumbnail-container">
-            <img [src]="project.thumbnails[0]" [alt]="project.title" />
-          </div>
+        <mat-card-content class="thumbnail-container">
+          <img [src]="project.thumbnails[0]" [alt]="project.title" />
         </mat-card-content>
       </mat-card>
     </div>
   </div>
-  <div class="description-column" *ngIf="project" fxflex fxLayout="column">
-    <!-- Begin Project Description Container -->
+
+  <div class="description-column" *ngIf="!inProjects && project" fxflex fxLayout="column">
     <mat-card class="metadata-card">
       <mat-card-header class="multipurpose-card-header meta"> Project Description </mat-card-header>
       <mat-card-content>
@@ -30,8 +28,6 @@
           <div class="abstract" *ngIf="project.abstract">
             {{ project.abstract }}
           </div>
-          <!-- Begin creators/contributers-->
-          <!-- TODO create ORCID people list component -->
           <ul class="creators comma-separated ampersand-separator" *ngIf="project?.creators?.length">
             <li *ngFor="let creator of project.creators">
               {{ creator.label }}{{ creator.uri ? ' ' : ''
@@ -40,18 +36,12 @@
               </a>
             </li>
           </ul>
-          <!-- End creators/contributers -->
-          <!-- description -->
           <markdown [data]="project.description" class="description" *ngIf="project.description"> </markdown>
         </biosimulations-text-page-content-section>
       </mat-card-content>
     </mat-card>
-    <!-- End Project Description Container -->
-    <!-- End summary/text data -->
   </div>
-  <!-- End thumbnails Display -->
 
-  <!-- Start Summary Display -->
   <div *ngIf="projectSummary" fxGrid>
     <mat-expansion-panel class="summary-card" expanded="true" hideToggle="true" disabled="true">
       <mat-expansion-panel-header class="card-header">Project Summary</mat-expansion-panel-header>
@@ -97,7 +87,13 @@
           </td>
         </tr>
       </table>
+      <a
+        *ngIf="portalUrl"
+        class="portal-view-container"
+        [href]="portalUrl"
+        target="_blank"
+      >View in Reproducibility Portal >
+      </a>
     </mat-expansion-panel>
   </div>
-  <!-- End Summary Display -->
 </div>

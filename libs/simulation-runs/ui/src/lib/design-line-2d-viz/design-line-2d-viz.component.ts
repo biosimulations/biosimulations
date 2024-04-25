@@ -122,6 +122,27 @@ export class DesignLine2DVisualizationComponent implements OnInit {
     }
   }
 
+  public clearAllSelections(): void {
+    this.curvesFormGroups.forEach((curveFormGroup) => {
+      /*curveFormGroup.get('xData')?.setValue([]);
+      curveFormGroup.get('yData')?.setValue([]);
+      curveFormGroup.get('name')?.reset();*/
+      this.clearSelectionData('xData');
+      this.clearSelectionData('yData');
+      this.clearSelectionData('name');
+    });
+  }
+
+  public clearSelectionData(controlName: string): void {
+    this.curvesFormGroups.forEach((curveFormGroup) => {
+      if (controlName.includes('name')) {
+        return curveFormGroup.get(controlName)?.reset();
+      } else {
+        return curveFormGroup.get(controlName)?.setValue([]);
+      }
+    });
+  }
+
   private integerValidator(control: UntypedFormControl): ValidationErrors | null {
     if (control.value && control.value != Math.round(control.value)) {
       return {

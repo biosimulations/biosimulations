@@ -112,6 +112,9 @@ export class PagingFormComponent<TStepId extends string> implements OnDestroy, O
     }
 
     this.formPath.push(currentStep);
+    this.formPath.forEach((stepId: TStepId, i: number) => {
+      console.log(`THE FORM PATH: ${i}: ${stepId}`);
+    });
     const task = this.dataSource.startDataTask(currentStep);
     if (task) {
       this.showSpinner(task);

@@ -23,7 +23,7 @@
         <biosimulations-icon icon="report" matPrefix></biosimulations-icon>
       </mat-form-field>
       <mat-hint
-        >runBioSimulations can display one or more curves per subplots. Select the number of curves that you would like
+        >BioSimulations can display one or more curves per subplots. Select the number of curves that you would like
         to display.</mat-hint
       >
     </div>
@@ -50,6 +50,9 @@
                     </mat-optgroup>
                   </mat-optgroup>
                 </mat-select>
+                <button type="button" mat-flat-button (click)="clearSelectionData('xData')">
+                  clear
+                </button>
               </div>
               <div class="input-row">
                 <mat-select formControlName="yData" required disableOptionCentering multiple>
@@ -63,6 +66,9 @@
                     </mat-optgroup>
                   </mat-optgroup>
                 </mat-select>
+                <button type="button" mat-flat-button (click)="clearSelectionData('yData')">
+                  clear
+                </button>
               </div>
               <div class="input-row">
                 <input matInput formControlName="name" />

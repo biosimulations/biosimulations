@@ -17,7 +17,7 @@
                 <div
                   *ngIf="(projectFiles$ | async) && (files$ | async) && (outputs$ | async); else filesError"
                   class="files">
-                  <mat-expansion-panel expanded="false" *ngIf="projectFiles$ | async as files">
+                  <mat-expansion-panel expanded="true" *ngIf="projectFiles$ | async as files">
                     <mat-expansion-panel-header class="multipurpose-card-header panel-header omex">
                       Simulation Specification (COMBINE/OMEX archive)
                     </mat-expansion-panel-header>
@@ -85,7 +85,8 @@
           <div class="project-metadata-container">
             <biosimulations-project-metadata
               *ngIf="projectMetadata$ | async as projectMetadata; else metadataError"
-              [project]="projectMetadata">
+              [project]="projectMetadata"
+              [inProjects]="false">
             </biosimulations-project-metadata>
             <ng-template #metadataError>
               <div

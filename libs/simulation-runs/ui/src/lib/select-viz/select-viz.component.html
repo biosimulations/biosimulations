@@ -31,11 +31,6 @@
           </p>
 
           <p>
-            SED-ML L1V3 provides basic capabilities for 2D line plots. SED-ML L1V4 will provide capabilities for several
-            additional types of plots. We aim to support L1V4 once it is approved.
-          </p>
-
-          <p>
             Vega is a powerful format for describing data visualizations. By capturing how data should be used to paint
             visual elements, Vega enables reusable visualizations that can be re-painted with data from multiple
             simulations. Vega can also capture interactive and publication-quality graphics.
@@ -94,14 +89,18 @@
       Export to Vega
     </button>
 
-    <button
-      *ngIf="formGroup.value.visualization?.userDesigned"
-      type="button"
-      mat-flat-button
-      class="multipurpose-flat-button export"
-      [disabled]="!formGroup.valid"
-      (click)="exportVisualization('archive')">
-      Export in archive
-    </button>
+    <!-- TODO: Fully implement this -->
+    <!-- <ng-container *ngIf="!isCustomReRun">
+      <button
+        *ngIf="formGroup.value.visualization?.userDesigned"
+        type="button"
+        mat-flat-button
+        class="multipurpose-flat-button export"
+        [disabled]="!formGroup.valid"
+        (click)="exportVisualization('archive')">
+        Export in archive
+      </button>
+    </ng-container> -->
+
   </div>
 </form>

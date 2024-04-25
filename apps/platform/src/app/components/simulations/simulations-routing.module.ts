@@ -60,6 +60,10 @@ const routes: Routes = [
     component: BrowseComponent,
   },
   {
+    path: '', // Catch-all for /runs/* to the RunModule, potentially adjust or refine this setup
+    loadChildren: () => import('../run/run.module').then((m) => m.RunModule),
+  },
+  {
     path: 'new',
     loadChildren: () => import('../run/run.module').then((m) => m.RunModule),
     data: {

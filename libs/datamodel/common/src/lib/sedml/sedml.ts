@@ -1,3 +1,32 @@
+export interface ClientSedChange {
+  _type: SedModelAttributeChangeTypeEnum;
+  newValue: string;
+  target: ClientSedTarget;
+  id?: string;
+  name?: string;
+}
+export enum SedModelAttributeChangeTypeEnum {
+  SedModelAttributeChange = 'SedModelAttributeChange',
+}
+
+export interface ClientSedTarget {
+  _type: SedTargetTypeEnum;
+  value: string;
+  namespaces?: Array<ClientNamespace>;
+}
+export enum SedTargetTypeEnum {
+  SedTarget = 'SedTarget',
+}
+
+export interface ClientNamespace {
+  prefix?: string;
+  uri: string;
+  _type: NamespaceTypeEnum;
+}
+export enum NamespaceTypeEnum {
+  Namespace = 'Namespace',
+}
+
 export type SedColor = string;
 
 export enum SedLineStyleType {
@@ -147,7 +176,7 @@ export interface SedModel {
   name?: string;
   language: string;
   source: string;
-  changes: SedModelChange[];
+  changes: SedModelChange[] | ClientSedChange[];
 }
 
 export interface SerializedSedModel extends Omit<SedModel, 'changes'> {

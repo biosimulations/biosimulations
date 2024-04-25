@@ -46,6 +46,7 @@ export class DispatchService {
       purpose,
       projectId: undefined,
     };
+
     return this.http.post<SimulationRun>(this.endpoints.getSimulationRunEndpoint(false), body, {
       headers: { 'Content-Type': 'application/json' },
     });

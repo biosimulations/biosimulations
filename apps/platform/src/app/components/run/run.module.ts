@@ -10,9 +10,12 @@ import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { RunRoutingModule } from './run-routing.module';
 import { DispatchComponent } from './dispatch/dispatch.component';
 import { SimulationProjectUtilsModule } from '@biosimulations/simulation-project-utils';
+import { CustomizeSimulationComponent } from './customize-simulation/customize-simulation.component';
+import { SimulationRunsUiModule } from '@biosimulations/simulation-runs/ui';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
-  declarations: [DispatchComponent],
+  declarations: [DispatchComponent, CustomizeSimulationComponent],
   imports: [
     CommonModule,
     RunRoutingModule,
@@ -23,6 +26,8 @@ import { SimulationProjectUtilsModule } from '@biosimulations/simulation-project
     SharedUiModule,
     BiosimulationsIconsModule,
     SimulationProjectUtilsModule,
+    SimulationRunsUiModule,
+    MatSlideToggleModule,
   ],
 })
 export class RunModule {}

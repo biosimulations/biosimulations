@@ -76,6 +76,41 @@ export class SharedSimulationService {
     this.createSimulationsArray();
   }
 
+  public prepareModelFile() {
+    // TODO: Use model file url from ReRunQueryParams to return CombineArchiveContentUrl
+  }
+
+  public prepareSedDoc() {
+    /* TODO:
+        a.) make a call to introspect original sed file
+        b.) use output of a to make another call to introspect editable params (params variables)
+        c.) use b to populate the form (default value, new value, etc)
+        d.) On user submit, detect changes if any and replace those values in c
+        e.) Replace original model changes field in a with d
+        f.) Return a
+    */
+  }
+
+  public compileArchive() {
+    // TODO: gather archive members and prepare API call submission form here.
+    const formData = new FormData();
+    const modelFile = this.prepareModelFile();
+    const sedDoc = this.prepareSedDoc();
+  }
+
+  public createCustomArchive() {
+    // TODO: make a call to combine-api/create using the output of this.compileArchive, return url/file
+    this.compileArchive();
+  }
+
+  public runCustomSimulation() {
+    /* TODO:
+        a.) create custom archive
+        b.) use a to make a call to api/run and navigate to runs/<ID>/view
+    */
+    const archive = this.createCustomArchive();
+  }
+
   // original rerun project method:
   public rerunProject(id: string): void {
     this.httpClient
@@ -126,15 +161,23 @@ export class SharedSimulationService {
             sedFile: '',
             sedFileUrl: '',
             imageFileUrls: [],
+            modelUrls: [],
+            runId: id,
           };
 
           // identify and set modelUrl and potentially other parameters based on filesContent analysis
-          filesContent.forEach((file: CommonFile) => {
+          const modelFiles = [];
+          filesContent.forEach((file: CommonFile, i: number) => {
             switch (file) {
               case file as CommonFile:
-                if (file.url.includes('xml') || file.url.includes('sbml') || file.url.includes('vcml')) {
+                //if (file.url.includes('xml') || file.url.includes('sbml') || file.url.includes('vcml')) {
+                if (file.url.includes('xml') || file.url.includes('sbml')) {
                   queryParams.modelUrl = file.url;
-                  queryParams.modelFile = JSON.stringify(file);
+                  queryParams.modelUrls?.push(file.url);
+
+                  const stringFile = JSON.stringify(file);
+                  modelFiles.push(stringFile);
+                  queryParams.modelFile = stringFile;
                 }
                 if (file.url.includes('metadata')) {
                   queryParams.metadataFile = JSON.stringify(file);
@@ -144,7 +187,7 @@ export class SharedSimulationService {
                   queryParams.sedFile = JSON.stringify(file);
                   queryParams.sedFileUrl = file.url;
                 }
-                if (file.url.includes('jpg')) {
+                if (file.url.includes('jpg') || file.url.includes('png')) {
                   queryParams.imageFileUrls?.push(file.url);
                 }
                 break;
@@ -193,7 +236,8 @@ export class SharedSimulationService {
       .subscribe((queryParams) => {
         const params = { queryParams: rerunQueryParams ? rerunQueryParams : queryParams };
         this.router
-          .navigate(['/utils/create-project'], params)
+          // .navigate(['/utils/create-project'], params)
+          .navigate(['/runs/customize'], params)
           .then((success) => {
             if (!success) {
               console.error('Navigation failed');

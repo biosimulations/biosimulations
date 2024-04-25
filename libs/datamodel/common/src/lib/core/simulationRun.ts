@@ -35,6 +35,8 @@ export interface ReRunQueryParams {
   sedFile?: string | File | CommonFile;
   sedFileUrl?: string;
   imageFileUrls?: string[];
+  modelUrls?: string[];
+  runId?: string;
 }
 
 export enum SimulationRunStatus {

@@ -1,41 +1,72 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Params, ActivatedRoute } from '@angular/router';
-import { UntypedFormBuilder, UntypedFormGroup, Validators, ValidationErrors } from '@angular/forms';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { MatSidenav } from '@angular/material/sidenav';
+import {
+  AbstractControl,
+  FormArray,
+  FormControl,
+  UntypedFormArray,
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { CombineApiService } from '../../../services/combine-api/combine-api.service';
 import {
-  SimulatorSpecsMap,
-  SimulatorSpecs,
-  SimulatorsData,
-  OntologyTermsMap,
+  _IntrospectNewProject,
+  CreateArchiveFromSedDoc,
+  CustomizableSedDocumentData,
+  FormStepData,
+  IntrospectNewProject,
   OntologyTerm,
-  SimulationProjectUtilLoaderService,
+  OntologyTermsMap,
   SimulationProjectUtilData,
+  SimulationProjectUtilLoaderService,
+  SimulatorsData,
+  SimulatorSpecs,
+  SimulatorSpecsMap,
 } from '@biosimulations/simulation-project-utils';
 import { Simulation } from '../../../datamodel';
 import {
-  CombineArchiveSedDocSpecs,
-  CombineArchiveSedDocSpecsContent,
-  SedDocument,
-  SedModel,
-  SedSimulation,
-  Purpose,
-  AlgorithmSubstitutionPolicyLevels,
   ALGORITHM_SUBSTITUTION_POLICIES,
   AlgorithmSubstitution,
   AlgorithmSubstitutionPolicy,
+  AlgorithmSubstitutionPolicyLevels,
   AlgorithmSummary,
+  CombineArchiveSedDocSpecs,
+  CombineArchiveSedDocSpecsContent,
+  EnvironmentVariable,
+  Purpose,
   ReRunQueryParams,
+  SedDocument,
+  SedModel,
+  SedModelAttributeChange as CommonAttributeChange,
+  SedModelChange,
+  SedSimulation,
+  SimulationRun,
+  SimulationRunStatus,
+  SimulationType,
 } from '@biosimulations/datamodel/common';
-import { SimulationRunStatus, EnvironmentVariable, SimulationRun } from '@biosimulations/datamodel/common';
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import { Observable, Subscription } from 'rxjs';
 import { ConfigService } from '@biosimulations/config/angular';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
 import { FileInput } from '@biosimulations/material-file-input';
 import { CreateMaxFileSizeValidator, INTEGER_VALIDATOR } from '@biosimulations/shared/ui';
+import {
+  SedModelAttributeChange,
+  SedModelAttributeChangeTypeEnum,
+  SedModelChange as ClientSedChange,
+  SedTarget,
+} from '@biosimulations/combine-api-angular-client';
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { _SubmitFormData } from '../../../../../../../libs/simulation-project-utils/simulation-project-utils/src/lib/ui/create-project/create-project/project-submission';
+import { ViewService } from '@biosimulations/simulation-runs/service';
+import { Visualization, VisualizationList } from '@biosimulations/datamodel-simulation-runs';
 
 interface SimulatorIdNameDisabled {
   id: string;
@@ -60,13 +91,35 @@ interface Algorithm {
   disabled: boolean;
 }
 
+interface IntrospectionModelData extends FormStepData {
+  modelFormat: string;
+  modelFile?: string;
+  modelUrl?: string;
+}
+
+interface IntrospectionMethodData extends FormStepData {
+  frameworkId: string;
+  simulationType: string;
+  algorithmId: string;
+}
+
+interface ArchiveFormData extends FormStepData {
+  modelFormat: string;
+  modelFile?: string;
+  modelUrl?: string;
+  frameworkId: string;
+  simulationType: string;
+  algorithmId: string;
+}
+
 @Component({
-  selector: 'biosimulations-dispatch',
-  templateUrl: './dispatch.component.html',
-  styleUrls: ['./dispatch.component.scss'],
+  selector: 'biosimulations-customize-simulation',
+  templateUrl: './customize-simulation.component.html',
+  styleUrls: ['./customize-simulation.component.scss'],
 })
-export class DispatchComponent implements OnInit, OnDestroy {
+export class CustomizeSimulationComponent implements OnInit, OnDestroy {
   public formGroup: UntypedFormGroup;
+  public variablesFormGroup: UntypedFormGroup;
 
   // Form control option lists
   public modelFormats: OntologyTerm[] = [];
@@ -79,9 +132,36 @@ export class DispatchComponent implements OnInit, OnDestroy {
   public exampleCombineArchivesUrl: string;
   public emailUrl!: string;
   public isReRun = false;
+  public needsLicense = false;
+  public simMethodData!: FormStepData;
+  public modelData!: FormStepData;
+  public introspectionData$!: Observable<CustomizableSedDocumentData>;
+  public options: SedModelAttributeChange[] = [];
+  public modelChanges: UntypedFormGroup[] = [];
+  public simParams!: ReRunQueryParams;
+  public uploadedSedDoc!: SedDocument;
+  public containsSimulationChanges = false;
+  public useDropdown = true;
+  public originalModelChanges: SedModelChange[] = [];
+  public reRunId!: string;
+  public vizList: Visualization[] = [];
+  public viz$!: Observable<VisualizationList[]>;
+  public visualization!: Visualization;
+  public triggerViz = false;
+  public gridLayout = false;
+  public grid = 'grid';
+  public auto = 'auto';
+  @ViewChild('sidenav') sidenav!: MatSidenav;
+  public introspectionBtnColor = 'var(--accent-darker-color)';
+  public viewBtnColor = 'var(--accent-darker-color)';
+  public viewToggleMsg!: string;
 
   // Lifecycle state
   public submitPushed = false;
+  public emailEnabled = false;
+  public filteredRows: any[][] = [];
+  public isRtl = true;
+  public shouldDisplayCard = true;
   private subscriptions: Subscription[] = [];
 
   // Data loaded from network
@@ -99,6 +179,8 @@ export class DispatchComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar,
     private loader: SimulationProjectUtilLoaderService,
     private activateRoute: ActivatedRoute,
+    private httpClient: HttpClient,
+    private sharedViewService: ViewService,
   ) {
     this.formGroup = this.formBuilder.group(
       {
@@ -143,6 +225,13 @@ export class DispatchComponent implements OnInit, OnDestroy {
     ];
     this.exampleCombineArchivesUrl = exampleCombineArchivesUrlTokens.join('/');
     this.emailUrl = 'mailto:' + config.email;
+
+    this.variablesFormGroup = this.formBuilder.group({
+      rows: this.formBuilder.array([]),
+      selectedRowIndex: [null],
+      parameterSelections: this.formBuilder.array([]),
+      modelFiles: this.formBuilder.array([]),
+    });
   }
 
   // Life cycle
@@ -159,16 +248,207 @@ export class DispatchComponent implements OnInit, OnDestroy {
         this.formGroup.value.emailConsent = true;
       }
     });
-
-    this.activateRoute.queryParams.subscribe((params: ReRunQueryParams) => {
-      if (params.projectUrl) {
-        this.isReRun = true;
-      }
-    });
+    this.changeBtnTooltip();
   }
 
   public ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
+
+  public renderViz(visualization: Visualization): void {
+    this.visualization = visualization;
+  }
+
+  public setupSearchFilter(index: number) {
+    const searchControl = this.parameterSelections.at(index).get('searchControl') as FormControl;
+    searchControl.valueChanges.subscribe((value) => {
+      this.filterRows(value, index);
+    });
+  }
+
+  public toggleSidenav() {
+    this.sidenav.toggle();
+  }
+
+  public filterRows(searchValue: string, index: number): void {
+    // TODO: complete this implementation
+    const rowsArray = this.rows.value as Array<any>;
+    if (!searchValue) {
+      this.filteredRows[index] = rowsArray;
+    } else {
+      this.filteredRows[index] = rowsArray.filter(
+        (row) =>
+          row.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+          row.default.toString().toLowerCase().includes(searchValue.toLowerCase()),
+      );
+    }
+  }
+
+  public navigateToRun(): void {
+    this.triggerViz = !this.triggerViz;
+    this.gridLayout = !this.gridLayout;
+    this.handleBtnColor();
+  }
+
+  private handleBtnColor(): void {
+    if (this.triggerViz) {
+      this.introspectionBtnColor = 'var(--tertiary-darker-color)';
+    } else {
+      this.introspectionBtnColor = 'var(--accent-darker-color)';
+    }
+  }
+
+  public changeParamsLayout(checked: boolean): void {
+    console.log(`CHECKED: ${checked}`);
+    if (checked) {
+      this.useDropdown = false;
+    } else {
+      this.useDropdown = true;
+    }
+  }
+
+  public changeParamsLayoutButton(): void {
+    this.useDropdown = !this.useDropdown;
+    if (this.useDropdown) {
+      this.viewBtnColor = 'var(--accent-darker-color)';
+    } else {
+      this.viewBtnColor = 'var(--tertiary-darker-color)';
+    }
+    this.changeBtnTooltip();
+  }
+
+  private changeBtnTooltip(): void {
+    if (this.useDropdown) {
+      this.viewToggleMsg = 'Toggle Grid View';
+    } else {
+      this.viewToggleMsg = 'Toggle Dropdown View';
+    }
+  }
+
+  public get rows(): UntypedFormArray {
+    return this.variablesFormGroup.get('rows') as UntypedFormArray;
+  }
+
+  public getSelectedRowNewValueControl(): FormControl {
+    const index = this.variablesFormGroup.get('selectedRowIndex')?.value;
+    return this.rows.at(index).get('newValue') as FormControl;
+  }
+
+  public addParameterRow(modelChange: SedModelAttributeChange): void {
+    if (modelChange.id !== null) {
+      const newRow = this.formBuilder.group({
+        name: [{ value: modelChange.name as string, disabled: true }],
+        default: [{ value: +modelChange.newValue, disabled: true }],
+        target: [modelChange.target],
+        id: [modelChange.id as string],
+        _type: [modelChange._type],
+        newValue: [''],
+      });
+
+      this.rows.push(newRow);
+      this.modelChanges.push(newRow);
+    } else {
+      console.log('null id');
+    }
+  }
+
+  public enableEmail(checked: boolean): void {
+    this.emailEnabled = checked;
+  }
+
+  public clearOverrides(checked: boolean): void {
+    /* Clear original simulation parameter changes/overrides if checked */
+    if (checked) {
+      this.parameterSelections.removeAt(this.parameterSelections.length - 1);
+      const originalChange = this.uploadedSedDoc.models[0].changes.pop();
+      this.originalModelChanges.push(originalChange as SedModelChange);
+    } else {
+      this.originalModelChanges.forEach((change: SedModelChange): void => {
+        this.uploadedSedDoc.models[0].changes.push(change as any);
+      });
+    }
+  }
+
+  public setAttributesFromQueryParams(): void {
+    /* Set component attributes from Query params */
+    this.activateRoute.queryParams.subscribe((params: ReRunQueryParams) => {
+      this.simParams = params;
+
+      // TODO: set urls here
+      this.reRunId = params.runId as string;
+
+      if (params.projectUrl) {
+        this.isReRun = true;
+      }
+
+      this.modelData = {
+        modelUrl: params.modelUrl as string,
+        modelFormat: params.modelFormat as string,
+      };
+
+      this.simMethodData = {
+        simulationType: params.simulationType as SimulationType,
+        framework: params.modelingFramework as string,
+        algorithm: params.simulationAlgorithm as string,
+      };
+
+      this.needsLicense = (params.simulator?.includes('cobra') || params.simulator?.includes('rba')) as boolean;
+    });
+
+    const handler = this.archiveError.bind(this);
+    this.introspectionData$ = IntrospectNewProject(
+      this.httpClient,
+      this.modelData,
+      this.simMethodData,
+      handler,
+    ) as Observable<CustomizableSedDocumentData>;
+  }
+
+  public get parameterSelections(): FormArray {
+    return this.variablesFormGroup.get('parameterSelections') as FormArray;
+  }
+
+  public getDefault(index: number): any {
+    const selectedRowIndex = this.parameterSelections.at(index).get('selectedRowIndex')?.value;
+    return selectedRowIndex !== null ? this.rows.at(selectedRowIndex).get('default')?.value : '';
+  }
+
+  public addNewParameterSelection(): void {
+    const newParameterSelection = this.formBuilder.group({
+      selectedRowIndex: [null],
+      searchControl: [''],
+      newValue: [''],
+    });
+
+    this.parameterSelections.push(newParameterSelection);
+    this.setupSearchFilter(this.parameterSelections.length - 1);
+  }
+
+  public getNewValueControl(index: number): FormControl {
+    return this.parameterSelections.at(index).get('newValue') as FormControl;
+  }
+
+  public populateParamsForm(): void {
+    /* Populate form with introspected data */
+    this.introspectionData$.subscribe((data: CustomizableSedDocumentData) => {
+      data.modelChanges.forEach((change: ClientSedChange) => {
+        switch (change) {
+          case change as SedModelAttributeChange:
+            this.addParameterRow(change);
+        }
+      });
+    });
+    this.addNewParameterSelection();
+  }
+
+  public isOptionSelected(idx: number, currentIndex: number): boolean {
+    return this.parameterSelections.controls.some((control: any, i) => {
+      return i !== currentIndex && control.value.selectedRowIndex === idx;
+    });
+  }
+
+  private archiveError(): void {
+    console.log(`error.`);
   }
 
   private loadComplete(data: SimulationProjectUtilData): void {
@@ -222,13 +502,149 @@ export class DispatchComponent implements OnInit, OnDestroy {
       );
     }
     this.setControlsFromParams(params, this.simulatorSpecsMap);
+
+    // Gather introspection data and populate model form
+    this.setAttributesFromQueryParams();
+    this.populateParamsForm();
+
+    const viz$ = this.sharedViewService.getVisualizations(this.reRunId);
+    this.viz$ = viz$;
+    if (viz$) {
+      viz$.subscribe((value: VisualizationList[]) => {
+        value.forEach((vizList: VisualizationList) => {
+          vizList.visualizations.forEach((visualization: Visualization) => {
+            this.vizList.push(visualization);
+          });
+        });
+      });
+    }
   }
 
+  public removeModelChangeField(index: number): void {
+    this.parameterSelections.removeAt(index);
+  }
   // Form Submission
 
+  public gatherModelChanges(): void {
+    // TODO: more accurately handle the number of models
+    const sedModel: SedModel = this.uploadedSedDoc.models.pop() as SedModel;
+
+    // get values from form grid
+    if (!this.useDropdown) {
+      this.rows.controls.forEach((val: AbstractControl<any, any>, i: number) => {
+        const rowValueGroup = val as UntypedFormGroup;
+        const newVal = rowValueGroup.controls.newValue.value;
+
+        if (newVal) {
+          this.containsSimulationChanges = true;
+          const paramChange: SedModelAttributeChange = {
+            _type: rowValueGroup.controls._type.value,
+            newValue: newVal,
+            target: rowValueGroup.controls.target.value,
+            id: rowValueGroup.controls.id.value,
+            name: rowValueGroup.controls.name.value,
+          };
+          sedModel.changes.push(paramChange);
+        } else {
+          return;
+        }
+      });
+    } else {
+      // get values from dropdown
+      const allParams = this.getAllParameterSelections();
+
+      this.containsSimulationChanges = allParams.length >= 1;
+      allParams.forEach((paramChange: SedModelAttributeChange, i: number) => {
+        sedModel.changes.push(paramChange);
+      });
+    }
+
+    // update the uploaded document
+    this.uploadedSedDoc.models.push(sedModel);
+  }
+
+  public getAllParameterSelections(): SedModelAttributeChange[] | any[] {
+    return this.parameterSelections.controls.map((group: AbstractControl<any, any>) => {
+      const selectedIndex = group.get('selectedRowIndex')?.value;
+      const selectedRow = selectedIndex !== null ? this.rows.at(selectedIndex).value : null;
+      const newValue = group.get('newValue')?.value;
+
+      if (selectedRow && newValue) {
+        const selection: SedModelAttributeChange = {
+          name: selectedRow.name,
+          target: selectedRow.target,
+          id: selectedRow.id,
+          _type: selectedRow._type,
+          newValue: newValue,
+        };
+
+        return selection as SedModelAttributeChange;
+      }
+    });
+  }
+
+  public createNewArchive(queryParams: ReRunQueryParams): Observable<string> | null {
+    const errorHandler = this.archiveError.bind(this);
+
+    const form = new FormData();
+    form.append('modelUrl', queryParams.modelUrl as string);
+    form.append('modelingFramework', queryParams.modelingFramework as string);
+    form.append('simulationType', queryParams.simulationType as string);
+    form.append('simulationAlgorithm', queryParams.simulationAlgorithm as string);
+
+    const introspectedSedDoc$ = _IntrospectNewProject(
+      this.httpClient,
+      form as FormData,
+      queryParams.modelUrl as string,
+      errorHandler,
+    );
+
+    const archive = CreateArchiveFromSedDoc(
+      this.uploadedSedDoc as SedDocument,
+      queryParams.modelUrl as string,
+      queryParams.modelFormat as string,
+      queryParams.modelFile as File,
+      queryParams.imageFileUrls as string[],
+    );
+
+    if (!archive) {
+      return null;
+    }
+
+    const formData = new FormData();
+    formData.append('specs', JSON.stringify(archive));
+    const archiveSubmission$ = _SubmitFormData(formData, this.httpClient, errorHandler);
+
+    if (archiveSubmission$) {
+      console.log(`Archive submission successful!`);
+      return archiveSubmission$;
+    } else {
+      console.log(`Not successfull`);
+      return null;
+    }
+  }
+
+  public handleSimulationParams(): void {
+    // 1. update this.uploadedSedDoc if there are changes
+    this.gatherModelChanges();
+
+    if (!this.containsSimulationChanges) {
+      console.log(`No changes.`);
+      return;
+    }
+
+    // 2. create a new archive using BOTH the rerun query params and the uploadedSedDoc
+    const archiveResponse$ = this.createNewArchive(this.simParams) as Observable<string>;
+  }
+
   public onFormSubmit(): void {
+    /* Create customized archive and Submit the form for simulation */
     this.submitPushed = true;
 
+    // Read simulation params form and create a new archive if there are changes detected
+    this.handleSimulationParams();
+
+    // ***Existing content:
     if (!this.formGroup.valid) {
       return;
     }
@@ -242,6 +658,13 @@ export class DispatchComponent implements OnInit, OnDestroy {
     const purpose: Purpose = this.formGroup.value.academicPurpose ? Purpose.academic : Purpose.other;
     const name: string = this.formGroup.value.name;
     const email: string | null = this.formGroup.value.email || null;
+
+    if (this.emailEnabled && !email) {
+      this.snackBar.open('You must provide a valid email address when consenting to email communication.', 'Ok', {
+        duration: 5000,
+      });
+      return;
+    }
 
     let simulationResponse: Observable<SimulationRun>;
 
@@ -493,6 +916,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     // Confirm that every model and algorithm within the sed doc spec is supported.
     sedDocSpecs.contents.forEach((content: CombineArchiveSedDocSpecsContent): void => {
       const sedDoc: SedDocument = content.location.value;
+      this.uploadedSedDoc = sedDoc;
       sedDoc.models.forEach((model: SedModel): void => {
         let edamId: string | null = null;
         for (const modelingFormat of BIOSIMULATIONS_FORMATS) {
@@ -507,7 +931,24 @@ export class DispatchComponent implements OnInit, OnDestroy {
         } else {
           specsContainUnsupportedModel = true;
         }
+
+        let apiChange: SedModelAttributeChange;
+        model.changes.forEach((change: SedModelChange) => {
+          switch (change) {
+            case change as CommonAttributeChange:
+              console.log(`Common attribute change!`);
+              apiChange = {
+                _type: SedModelAttributeChangeTypeEnum.SedModelAttributeChange,
+                newValue: change.newValue,
+                target: change.target as SedTarget,
+                id: change.id as string,
+                name: change.name,
+              };
+              this.addParameterRow(apiChange);
+          }
+        });
       });
+
       sedDoc.simulations.forEach((sim: SedSimulation): void => {
         const kisaoId = sim.algorithm.kisaoId;
         if (kisaoId in simulationAlgorithmsMap) {
@@ -634,6 +1075,11 @@ export class DispatchComponent implements OnInit, OnDestroy {
     this.setMemory(params.memory);
     this.setMaxTime(params.maxTime);
     this.setRunName(params.runName);
+    this.setSimulationParams(params.simulationParams);
+  }
+
+  private setSimulationParams(simParams: any): void {
+    // TODO: Update the model changes form.
   }
 
   private setProject(projectUrl: string): void {
@@ -733,11 +1179,14 @@ export class DispatchComponent implements OnInit, OnDestroy {
       errors['multipleProjects'] = true;
     }
 
-    /*  const email = formGroup.controls.email as UntypedFormControl;
-    const emailConsent = formGroup.controls.emailConsent as UntypedFormControl;
-    if (email.value && !email.hasError('email')) { //&& !emailConsent.value) {
-      errors['emailNotConsented'] = true;
-    }  */
+    if (this.emailEnabled) {
+      const email = formGroup.controls.email as UntypedFormControl;
+      const emailConsent = formGroup.controls.emailConsent as UntypedFormControl;
+      if (email.value && !email.hasError('email') && !emailConsent.value) {
+        errors['emailNotConsented'] = true;
+      }
+    }
+
     return Object.keys(errors).length ? errors : null;
   }
 }

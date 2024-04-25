@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 import { Observable, combineLatest, map, shareReplay, mergeMap, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -54,12 +55,15 @@ export class ViewComponent implements OnInit {
   public jsonLdData$!: Observable<WithContext<Dataset>>;
   public cards: any[] = [];
   public panelExpandedStatus: { [key: string]: boolean } = {};
+  public portalUrl!: SafeResourceUrl;
+  public usePortal = false;
   private id!: string;
 
   public constructor(
     private service: ViewService,
     private projService: ProjectService,
     private route: ActivatedRoute,
+    private sanitizer: DomSanitizer,
   ) {}
 
   public ngOnInit(): void {
@@ -180,7 +184,13 @@ export class ViewComponent implements OnInit {
     const ext = runUrl.hostname.split('.').slice(-2).join('.');
     const seg = runUrl.pathname.split('/');
     const runId = seg.pop();
+    this.generatePortalUrl(runId as string);
     return `https://${ext}/runs/${runId}`;
+  }
+
+  private generatePortalUrl(runId: string): void {
+    const portalUrl = `https://reproducibilityportal.org/model/${runId}`;
+    this.portalUrl = this.sanitizer.bypassSecurityTrustResourceUrl(portalUrl);
   }
 
   private handleExpansionPanels(): void {

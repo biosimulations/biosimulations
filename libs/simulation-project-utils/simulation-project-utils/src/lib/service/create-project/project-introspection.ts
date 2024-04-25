@@ -45,7 +45,6 @@ export function IntrospectNewProject(
   }
 
   const modelUrl = modelData?.modelUrl as string;
-  console.log(`The keys of model data for introspection: ${Object.keys(modelData)}`);
   const endpoints = new Endpoints();
   const introspectionEndpoint = endpoints.getModelIntrospectionEndpoint(false);
   const introspectionObservable = PostNewProjectSedDocument(
@@ -55,19 +54,33 @@ export function IntrospectNewProject(
     modelUrl,
     errorHandler,
   );
+
   return introspectionObservable.pipe(map(CreateNewProjectArchiveDataOperator(simMethodData)));
 }
 
+export function _IntrospectNewProject(
+  http: HttpClient,
+  formData: FormData,
+  modelUrl: string,
+  errorHandler: () => void,
+): Observable<SedDocument | null> {
+  const endpoints = new Endpoints();
+  const introspectionEndpoint = endpoints.getModelIntrospectionEndpoint(false);
+  return PostNewProjectSedDocument(http, introspectionEndpoint, formData, modelUrl, errorHandler);
+}
+
 function CreateNewProjectFormData(modelData: FormStepData, simMethodData: FormStepData): FormData | null {
-  const modelFormat = modelData?.modelFormat as string;
+  const modelFormat = modelData.modelFormat as string;
   const modelFile = modelData?.modelFile as Blob;
   const modelUrl = modelData?.modelUrl as string;
-  const frameworkId = simMethodData?.framework as string;
-  const simulationType = simMethodData?.simulationType as SimulationType;
-  const algorithmId = simMethodData?.algorithm as string;
+  const frameworkId = simMethodData.framework as string;
+  const simulationType = simMethodData.simulationType as SimulationType;
+  const algorithmId = simMethodData.algorithm as string;
+
   if (!modelFormat || (!modelUrl && !modelFile) || !frameworkId || !simulationType || !algorithmId) {
     return null;
   }
+
   const formData = new FormData();
   if (modelFile) {
     formData.append('modelFile', modelFile);

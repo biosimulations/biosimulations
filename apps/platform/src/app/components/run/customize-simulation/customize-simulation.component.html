@@ -1,0 +1,325 @@
+<div class="form-parent-container platform-run">
+  <biosimulations-page heading="Customize Simulation" *ngIf="simulators.length; else loading">
+    <form [formGroup]="formGroup" (ngSubmit)="onFormSubmit()">
+
+      <!-- SIMULATION SETTINGS -->
+      <mat-card class="card-form-section mat-elevation-z3 sim-settings">
+        <mat-card-header
+          class="card-form-section-title solvers"
+        ><span class="aster">*</span>Step 1: Adjust Simulation Settings
+        </mat-card-header>
+        <mat-card-content>
+          <!-- simulation name -->
+          <div class="input-group">
+            <mat-form-field class="card-form-field" appearance="fill">
+              <mat-label>Descriptive simulation name</mat-label>
+              <input matInput formControlName="name" placeholder="Knockout of gene A" required />
+            </mat-form-field>
+          </div>
+
+          <!-- simulator -->
+          <div class="input-group">
+            <mat-form-field class="card-form-field tool sim" appearance="fill">
+              <mat-label>Simulation tool</mat-label>
+              <mat-select
+                formControlName="simulator"
+                disableOptionCentering
+                placeholder="COPASI"
+                (ngModelChange)="simulatorControlUpdated()"
+                required>
+                <mat-option
+                  *ngFor="let simulator of simulators"
+                  [value]="simulator.id"
+                  [disabled]="simulator.disabled">
+                  {{ simulator.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="card-form-field tool version" appearance="fill">
+              <mat-label>Version of the simulation tool</mat-label>
+              <mat-select formControlName="simulatorVersion" disableOptionCentering placeholder="latest" required>
+                <mat-option *ngFor="let simulatorVersion of simulatorVersions" [value]="simulatorVersion">
+                  {{ simulatorVersion }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+
+        <!-- get notifications -->
+        <ng-container *ngIf="emailEnabled">
+          <div class="input-group">
+            <mat-form-field class="card-form-field" appearance="fill">
+              <mat-label>Email address</mat-label>
+              <input matInput formControlName="email" placeholder="investigator@uni.edu" />
+            </mat-form-field>
+          </div>
+          <mat-card-content class="card-hints 6 email-hint">
+            <mat-hint>
+              After submitting your simulation, you will also receive a URL where you will be able to check the
+              status of your simulation and retrieve its results.
+            </mat-hint>
+          </mat-card-content>
+          <mat-error *ngIf="formGroup.hasError('email', 'email')">Please enter a valid email address.</mat-error>
+          <mat-error *ngIf="formGroup.hasError('emailNotConsented')">
+            You must consent to receiving email notifications.
+          </mat-error>
+        </ng-container>
+
+        <div class="email">
+          <mat-checkbox
+            class="checkbox-group"
+            formControlName="emailConsent"
+            color="primary"
+            (change)="enableEmail($event.checked)">
+            I consent to receiving an email notification about the completion of my simulation.
+          </mat-checkbox>
+        </div>
+      </mat-card>
+
+      <!-- simulation params -->
+      <mat-card class="card-form-section mat-elevation-z3">
+
+        <mat-card-header class="card-form-section-title sim-variables"
+        ><span class="aster">*</span>Step 2: Adjust Simulation Parameters
+          <div class="change-view">
+              <button
+                type="button"
+                (click)="navigateToRun()"
+                mat-flat-button
+                matToolTip="Introspect Original Simulation Output"
+                class="biosimulations-button toggle-view-button introspect"
+                [style.background-color]="introspectionBtnColor">
+                <span
+                  matTooltip="Introspect Original Simulation Output"
+                  matTooltipPosition="above"
+                  class="header-button-content">
+                  <biosimulations-icon
+                    icon="simulation"
+                    style="color: white !important; padding-right: 0.5rem !important;">
+                  </biosimulations-icon>
+                  Introspection
+                  <ng-container *ngIf="!triggerViz; else vizIsOn">Off</ng-container>
+                  <ng-template #vizIsOn>On</ng-template>
+                </span>
+              </button>
+
+              <button
+                type="button"
+                (click)="changeParamsLayoutButton()"
+                mat-flat-button
+                [matTooltip]="viewToggleMsg"
+                matTooltipPosition="above"
+                class="biosimulations-button toggle-view-button"
+                [style.background-color]="viewBtnColor">
+
+                <span class="header-button-content">
+                  <ng-container *ngIf="!useDropdown; else cols">
+                    <biosimulations-icon icon="browse"></biosimulations-icon>
+                  </ng-container>
+                  <ng-template #cols>
+                    <biosimulations-icon icon="columns"></biosimulations-icon>
+                  </ng-template>
+                </span>
+              </button>
+          </div>
+        </mat-card-header>
+
+        <mat-card-content class="sim-variables-container">
+          <ng-container class="existing-viz" *ngIf="triggerViz">
+            <div class="existing-viz" *ngIf="viz$ | async as visualizations" >
+              <biosimulations-page heading="Introspect Original Simulation Output">
+                <biosimulations-project-select-visualization
+                  [visualizations]="visualizations"
+                  (renderVisualization)="renderViz($event)"
+                  [isCustomReRun]="false">
+                </biosimulations-project-select-visualization>
+                <biosimulations-project-visualization
+                  *ngIf="visualization"
+                  [visualization]="visualization">
+                </biosimulations-project-visualization>
+              </biosimulations-page>
+            </div>
+          </ng-container>
+          <form [formGroup]="variablesFormGroup" (ngSubmit)="onFormSubmit()">
+
+            <!-- TODO: implement this -->
+            <!-- <mat-checkbox
+              color="primary"
+              (change)="clearOverrides($event.checked)">
+              Clear existing overrides
+            </mat-checkbox> -->
+
+            <!-- A. dropdown style implementation -->
+            <div class="parameter-dropdown" *ngIf="useDropdown">
+              <div formArrayName="parameterSelections" class="selection-fields">
+                <div
+                  *ngFor="let selection of parameterSelections.controls; let i = index"
+                  [formGroupName]="i"
+                  class="parameter-selection">
+
+                  <!-- TODO: implement this -->
+                  <!-- <mat-form-field appearance="fill" class="search-parameters params">
+                    <mat-label>Search Parameters</mat-label>
+                    <input
+                      matInput
+                      placeholder="Type to filter..."
+                      formControlName="searchControl">
+                  </mat-form-field> -->
+
+                  <mat-form-field appearance="outline" class="select-parameters params">
+                    <mat-label>Select a parameter to adjust</mat-label>
+                    <mat-select formControlName="selectedRowIndex">
+                      <mat-option
+                        *ngFor="let row of rows.controls; index as idx"
+                        [value]="idx"
+                        [disabled]="isOptionSelected(idx, i)">
+                        {{ row.get('name')?.value }} - {{ row.get('default')?.value }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <ng-container *ngIf="selection.get('selectedRowIndex')?.value !== null">
+                    <mat-form-field appearance="outline" class="parameter-default-value params">
+                      <mat-label>Default Value</mat-label>
+                      <input matInput [value]="getDefault(i)" disabled>
+                    </mat-form-field>
+
+                    <mat-form-field
+                      appearance="outline"
+                      class="parameter-new-value params">
+                      <mat-label>New Value</mat-label>
+                      <input matInput [formControl]="getNewValueControl(i)">
+                    </mat-form-field>
+
+                    <button
+                      mat-flat-button
+                      type="button"
+                      (click)="removeModelChangeField(i)"
+                      matTooltip="Remove parameter change"
+                      class="biosimulations-button remove-change params">
+                      <biosimulations-icon icon="trash"></biosimulations-icon>
+                    </button>
+                  </ng-container>
+                </div>
+                <div class="selection-control">
+                  <button
+                    mat-flat-button
+                    type="button"
+                    class="biosimulations-button add-change"
+                    matTooltip="Add a new parameter change"
+                    (click)="addNewParameterSelection()"
+                  >+
+                  </button>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- B. form style implementation -->
+            <div *ngIf="!useDropdown">
+              <div formArrayName="rows" class="model-changes-grid">
+                <div *ngFor="let row of rows.controls; let i = index" [formGroupName]="i">
+                  <mat-form-field appearance="outline" class="grid-input">
+                    <mat-label class="grid-label">Parameter Name</mat-label>
+                    <input matInput type="text" formControlName="name" class="grid-label">
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" class="grid-input">
+                    <mat-label>Default Value</mat-label>
+                    <input matInput type="text" formControlName="default">
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" class="grid-input">
+                    <mat-label>Enter a New Value</mat-label>
+                    <input matInput type="text" formControlName="newValue">
+                  </mat-form-field>
+
+                </div>
+              </div>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- commercial solver -->
+      <mat-card class="card-form-section mat-elevation-z3" *ngIf="needsLicense">
+        <mat-card-header class="card-form-section-title solvers"
+        >Commercial solvers</mat-card-header
+        >
+
+        <mat-checkbox formControlName="academicPurpose" color="primary">
+          The purpose of this simulation is academic research or education.
+        </mat-checkbox>
+
+        <mat-card-content class="card-hints 3">
+          <mat-hint>
+            <p>
+              Some simulation tools, such as COBRApy and RBApy, can optionally execute simulations using
+              commercial solvers such as Gurobi
+              <a href="https://www.gurobi.com/products/gurobi-optimizer/" rel="noopener" target="_blank">
+                <biosimulations-icon icon="link"></biosimulations-icon>
+              </a>
+              . These commercial solvers are often more accurate and more performant. However, these commercial
+              solvers are not required to execute any of the available simulation tools. All of the available
+              simulation tools can be run with freely available solvers.
+            </p>
+
+            <p>
+              Optionally, users can use these commercial solvers for academic research and education. To use these
+              commercial solvers, check the box above to confirm that you are using runBioSimulations for academic
+              research or education.
+            </p>
+
+            <p>
+              Non-academic users can execute simulations with commercial solvers by (a) running simulations
+              through runBioSimulations' API and providing license keys through environment variables or (b) using
+              the Docker images, command-line programs, or Python APIs for simulation tools on their own machines
+              with their own license key environment variables or license files.
+            </p>
+          </mat-hint>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- SUBMIT FORM BUTTON -->
+      <button
+        mat-flat-button
+        type="submit"
+        class="biosimulations-button run"
+      >Run Simulation<biosimulations-icon style="padding-left: 1rem !important;" icon="logicalSimulation"></biosimulations-icon>
+      </button>
+    </form>
+
+    <!-- TODO: Implement this -->
+    <mat-sidenav-container class="sidenav-container"></mat-sidenav-container>
+    <!-- <mat-sidenav-container class="sidenav-container">
+      <mat-sidenav #sidenav mode="over" position="end">
+        <mat-card class="card-form-section right-col" *ngIf="triggerViz" [ngClass]="{'active': triggerViz}">
+          <mat-card-content>
+            <ng-container class="existing-viz" *ngIf="viz$ | async as visualizations">
+              <div class="existing-viz">
+                <biosimulations-project-select-visualization
+                  [visualizations]="visualizations"
+                  (renderVisualization)="renderViz($event)">
+                </biosimulations-project-select-visualization>
+              </div>
+              <biosimulations-project-visualization *ngIf="visualization" [visualization]="visualization">
+              </biosimulations-project-visualization>
+            </ng-container>
+          </mat-card-content>
+        </mat-card>
+      </mat-sidenav>
+      <mat-sidenav-content>
+        <button mat-icon-button (click)="sidenav.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </mat-sidenav-content>
+    </mat-sidenav-container> -->
+  </biosimulations-page>
+
+  <ng-template #loading>
+    <biosimulations-full-page-spinner></biosimulations-full-page-spinner>
+  </ng-template>
+</div>
+
