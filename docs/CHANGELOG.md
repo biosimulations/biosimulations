@@ -1,5 +1,33 @@
 # Changelog
 
+## [9.59.0](https://github.com/biosimulations/biosimulations/compare/v9.58.0...v9.59.0) (2024-04-25)
+
+
+### Bug Fixes
+
+* accessed sed model changes ([ae573c0](https://github.com/biosimulations/biosimulations/commit/ae573c05c00539d7da90582e0b0178832046baee))
+* added combine archive return ([c88f40e](https://github.com/biosimulations/biosimulations/commit/c88f40ea8d39c7a9de94359becdc529b9e0e0dd1))
+* added config service injector for calls ([a2aecda](https://github.com/biosimulations/biosimulations/commit/a2aecda836bca1d53f149546a9d5a75b371817e6))
+* added http client to mockup ([dbc19b1](https://github.com/biosimulations/biosimulations/commit/dbc19b1fc03dbfc184adc89f85cbabaa6a412895))
+* added objects to custom spec ([840dcfd](https://github.com/biosimulations/biosimulations/commit/840dcfd666c4754886e1d55c40c432bc7ece9599))
+* added providers remaining to customize simulation ([384fc05](https://github.com/biosimulations/biosimulations/commit/384fc0515caf18ecea9805850e694d4340908d9a))
+* added snackbar to spec ([1c4fff1](https://github.com/biosimulations/biosimulations/commit/1c4fff113f2aec18ec8d4f35ef487b6c9cefb432))
+* removed console for sonarcloud logging detect ([54bf7e5](https://github.com/biosimulations/biosimulations/commit/54bf7e5d6af40ee11d80dd258af6686849a178ec))
+* revert iframe ([a469e5f](https://github.com/biosimulations/biosimulations/commit/a469e5f6d7972845eee54cd7c05286ad9d6c44f4))
+* updated disable eslint for line ([eb65fe3](https://github.com/biosimulations/biosimulations/commit/eb65fe36b0232bfd6df444a29949d3adcfa1bbee))
+* updated method to receive sim params ([ee6f468](https://github.com/biosimulations/biosimulations/commit/ee6f46809169310f10919a96c5a908e366b2dc41))
+* updated providers mockup for custom ([5c25a27](https://github.com/biosimulations/biosimulations/commit/5c25a277f9ec1891b3a64a82706568b4152de75d))
+* updated sim override handler and checkbox ([aa20214](https://github.com/biosimulations/biosimulations/commit/aa20214df60e1576070c6817f9b4583ea271274b))
+
+
+### Features
+
+* added customize component to platform ([98f76c7](https://github.com/biosimulations/biosimulations/commit/98f76c742bc38ca0b9310ba4763c12d44b03f627))
+* copied content from dispatch ([7c10895](https://github.com/biosimulations/biosimulations/commit/7c1089539a7dbcd057d1840aaa68eab80324218e))
+* implemented model changes form in custom component ([6ab77c3](https://github.com/biosimulations/biosimulations/commit/6ab77c3c8c6ea31c110e4b36fbeacfe283c26721))
+* refactored custom form and optional renders ([7d35b45](https://github.com/biosimulations/biosimulations/commit/7d35b4510e2c808d7b5802c5b585ac6e51200e3f))
+* updated archive creation handler ([fc6b5b7](https://github.com/biosimulations/biosimulations/commit/fc6b5b79109b70d931f0e740837c77683c6cfb56))
+
 ## [9.58.0](https://github.com/biosimulations/biosimulations/compare/v9.57.0...v9.58.0) (2024-04-11)
 
 
