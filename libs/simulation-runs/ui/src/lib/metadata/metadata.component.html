@@ -20,25 +20,6 @@
     </div>
   </div>
 
-  <div class="portal-view-container" *ngIf="inProjects && portalUrl">
-    <mat-card class="portal-view-card">
-      <mat-card-header class="multipurpose-card-header">Reproducibility Portal View</mat-card-header>
-      <div class="portal-container">
-        <iframe
-          [src]="portalUrl"
-          class="fullSizeIframe"></iframe>
-      </div>
-      <mat-card-footer class="portal-url-container">
-        <a
-          *ngIf="portalUrl"
-          [href]="portalUrl"
-          target="_blank"
-        >View this project in  the Reproducibility Portal
-        </a>
-      </mat-card-footer>
-    </mat-card>
-  </div>
-
   <div class="description-column" *ngIf="!inProjects && project" fxflex fxLayout="column">
     <mat-card class="metadata-card">
       <mat-card-header class="multipurpose-card-header meta"> Project Description </mat-card-header>
@@ -106,6 +87,13 @@
           </td>
         </tr>
       </table>
+      <a
+        *ngIf="portalUrl"
+        class="portal-view-container"
+        [href]="portalUrl"
+        target="_blank"
+      >View in Reproducibility Portal >
+      </a>
     </mat-expansion-panel>
   </div>
 </div>
