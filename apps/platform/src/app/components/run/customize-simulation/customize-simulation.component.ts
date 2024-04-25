@@ -1,6 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { MatSidenav } from '@angular/material/sidenav';
 import {
   AbstractControl,
   FormArray,
@@ -148,6 +149,12 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
   public viz$!: Observable<VisualizationList[]>;
   public visualization!: Visualization;
   public triggerViz = false;
+  public gridLayout = false;
+  public grid = 'grid';
+  public auto = 'auto';
+  @ViewChild('sidenav') sidenav!: MatSidenav;
+  public introspectionBtnColor = 'var(--accent-darker-color)';
+  public viewBtnColor = 'var(--accent-darker-color)';
 
   // Lifecycle state
   public submitPushed = false;
@@ -256,6 +263,10 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     });
   }
 
+  public toggleSidenav() {
+    this.sidenav.toggle();
+  }
+
   public filterRows(searchValue: string, index: number): void {
     // TODO: complete this implementation
     const rowsArray = this.rows.value as Array<any>;
@@ -272,6 +283,16 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
 
   public navigateToRun(): void {
     this.triggerViz = !this.triggerViz;
+    this.gridLayout = !this.gridLayout;
+    this.handleBtnColor();
+  }
+
+  private handleBtnColor(): void {
+    if (this.triggerViz) {
+      this.introspectionBtnColor = 'var(--tertiary-darker-color)';
+    } else {
+      this.introspectionBtnColor = 'var(--accent-darker-color)';
+    }
   }
 
   public changeParamsLayout(checked: boolean): void {
@@ -285,6 +306,11 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
 
   public changeParamsLayoutButton(): void {
     this.useDropdown = !this.useDropdown;
+    if (this.useDropdown) {
+      this.viewBtnColor = 'var(--accent-darker-color)';
+    } else {
+      this.viewBtnColor = 'var(--tertiary-darker-color)';
+    }
   }
 
   public get rows(): UntypedFormArray {

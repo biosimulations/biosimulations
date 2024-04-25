@@ -78,19 +78,6 @@
         </div>
       </mat-card>
 
-      <mat-card class="card-form-section introspection" *ngIf="triggerViz" [ngClass]="{'active': triggerViz}">
-        <ng-container class="existing-viz" *ngIf="viz$ | async as visualizations">
-          <div class="existing-viz">
-            <biosimulations-project-select-visualization
-              [visualizations]="visualizations"
-              (renderVisualization)="renderViz($event)">
-            </biosimulations-project-select-visualization>
-          </div>
-          <biosimulations-project-visualization *ngIf="visualization" [visualization]="visualization">
-          </biosimulations-project-visualization>
-        </ng-container>
-      </mat-card>
-
       <!-- simulation params -->
       <mat-card class="card-form-section mat-elevation-z3">
         <mat-card-header class="card-form-section-title sim-variables"
@@ -101,7 +88,8 @@
                 (click)="navigateToRun()"
                 mat-flat-button
                 matToolTip="Introspect Original Simulation Output"
-                class="biosimulations-button toggle-view-button introspect">
+                class="biosimulations-button toggle-view-button introspect"
+                [style.background-color]="introspectionBtnColor">
                 <span matTooltip="Introspect Original Simulation Output">
                   <biosimulations-icon icon="simulation" style="color: white !important;"></biosimulations-icon>
                 </span>
@@ -112,7 +100,8 @@
                 (click)="changeParamsLayoutButton()"
                 mat-flat-button
                 matTooltip="Toggle Grid View"
-                class="biosimulations-button toggle-view-button view">
+                class="biosimulations-button toggle-view-button view"
+                [style.background-color]="viewBtnColor">
                 <div
                   *ngIf="useDropdown; else gridView"
                   class="change-view-text">
@@ -127,6 +116,17 @@
           </div>
         </mat-card-header>
         <mat-card-content class="sim-variables-container">
+          <ng-container class="existing-viz" *ngIf="triggerViz">
+            <div class="existing-viz" *ngIf="viz$ | async as visualizations" >
+              <h4>Introspect Original Simulation Output: </h4>
+              <biosimulations-project-select-visualization
+                [visualizations]="visualizations"
+                (renderVisualization)="renderViz($event)">
+              </biosimulations-project-select-visualization>
+            </div>
+            <biosimulations-project-visualization *ngIf="visualization" [visualization]="visualization">
+            </biosimulations-project-visualization>
+          </ng-container>
           <form [formGroup]="variablesFormGroup" (ngSubmit)="onFormSubmit()">
 
             <!-- TODO: implement this -->
@@ -265,53 +265,39 @@
         </mat-card-content>
       </mat-card>
 
-      <!-- BEGIN ADVANCED -->
-      <!--<div class="advanced-container">
-        <mat-expansion-panel [expanded]="false" [disabled]="false" class="advanced-panel">
-          <mat-expansion-panel-header class="card-form-section-title advanced">
-            <biosimulations-icon icon="columns" style="padding-right: 0.5rem"></biosimulations-icon>
-            Optional: Adjust Advanced Settings
-          </mat-expansion-panel-header>
-          <div class="advanced-content">
-            <mat-card class="card-form-section mat-elevation-z3">
-              <mat-card-header class="card-form-section-title noti advanced-title">Notifications</mat-card-header>
-
-              <div class="input-group">
-                <mat-form-field class="card-form-field" appearance="fill">
-                  <mat-label>Email address</mat-label>
-                  <input matInput formControlName="email" placeholder="investigator@uni.edu" />
-                </mat-form-field>
-              </div>
-              <mat-card-content class="card-hints 6">
-                <mat-hint>
-                  Optionally, enter your email address to receive notification of the completion of your simulation.
-                  After submitting your simulation, you will also receive a URL where you will be able to check the
-                  status of your simulation and retrieve its results.
-                </mat-hint>
-              </mat-card-content>
-              <mat-error *ngIf="formGroup.hasError('email', 'email')">Please enter a valid email address.</mat-error>
-
-              <mat-checkbox formControlName="emailConsent" color="primary" [checked]="formGroup.value.email !== ''">
-                I consent to receiving an email notification about the completion of my simulation.
-              </mat-checkbox>
-
-              <mat-error *ngIf="formGroup.hasError('emailNotConsented')">
-                You must consent to receiving email notifications.
-              </mat-error>
-            </mat-card>
-          </div>
-        </mat-expansion-panel>
-      </div>-->
-      <!-- END ADVANCED -->
-
       <!-- SUBMIT FORM BUTTON -->
       <button
         mat-flat-button
         type="submit"
         class="biosimulations-button run"
-      >Run Simulation<biosimulations-icon style="padding-left: 1rem !important;" icon="simulation"></biosimulations-icon>
+      >Run Simulation<biosimulations-icon style="padding-left: 1rem !important;" icon="logicalSimulation"></biosimulations-icon>
       </button>
     </form>
+
+    <!-- TODO: Implement this -->
+    <!-- <mat-sidenav-container class="sidenav-container">
+      <mat-sidenav #sidenav mode="over" position="end">
+        <mat-card class="card-form-section right-col" *ngIf="triggerViz" [ngClass]="{'active': triggerViz}">
+          <mat-card-content>
+            <ng-container class="existing-viz" *ngIf="viz$ | async as visualizations">
+              <div class="existing-viz">
+                <biosimulations-project-select-visualization
+                  [visualizations]="visualizations"
+                  (renderVisualization)="renderViz($event)">
+                </biosimulations-project-select-visualization>
+              </div>
+              <biosimulations-project-visualization *ngIf="visualization" [visualization]="visualization">
+              </biosimulations-project-visualization>
+            </ng-container>
+          </mat-card-content>
+        </mat-card>
+      </mat-sidenav>
+      <mat-sidenav-content>
+        <button mat-icon-button (click)="sidenav.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </mat-sidenav-content>
+    </mat-sidenav-container> -->
   </biosimulations-page>
 
   <ng-template #loading>
