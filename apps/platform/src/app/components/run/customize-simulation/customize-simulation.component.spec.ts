@@ -12,6 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MaterialFileInputModule } from '@biosimulations/material-file-input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClient, HttpHandler } from '@angular/common/http';
+import config from '../../../../assets/config.json';
 
 describe('CustomizeSimulationComponent', () => {
   let component: CustomizeSimulationComponent;
@@ -20,7 +21,14 @@ describe('CustomizeSimulationComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [CustomizeSimulationComponent],
-      providers: [ConfigService, Storage, HttpClient, HttpHandler],
+      providers: [
+        ConfigService,
+        Storage,
+        HttpClient,
+        HttpHandler,
+        { provide: ConfigService, useValue: config },
+        Storage,
+      ],
       imports: [
         RouterTestingModule,
         FormsModule,
