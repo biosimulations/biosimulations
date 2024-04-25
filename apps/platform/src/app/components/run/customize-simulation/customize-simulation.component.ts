@@ -58,8 +58,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { FileInput } from '@biosimulations/material-file-input';
 import { CreateMaxFileSizeValidator, INTEGER_VALIDATOR } from '@biosimulations/shared/ui';
 import {
-  CombineArchiveContent,
-  SedDocument as ClientSedDoc,
   SedModelAttributeChange,
   SedModelAttributeChangeTypeEnum,
   SedModelChange as ClientSedChange,
@@ -272,7 +270,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     // TODO: complete this implementation
     const rowsArray = this.rows.value as Array<any>;
     if (!searchValue) {
-      this.filteredRows[index] = rowsArray; // Reset back to original
+      this.filteredRows[index] = rowsArray;
     } else {
       this.filteredRows[index] = rowsArray.filter(
         (row) =>
@@ -339,10 +337,6 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     } else {
       console.log('null id');
     }
-  }
-
-  public removeRow(index: number): void {
-    this.rows.removeAt(index);
   }
 
   public enableEmail(checked: boolean): void {
@@ -430,12 +424,6 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
             this.addParameterRow(change);
         }
       });
-
-      this.rows.controls.forEach((val: AbstractControl<any, any>, i: number) => {
-        const value = val as UntypedFormGroup;
-        const modelChangeVal = value.value;
-        //console.log(`------ A CONTROL VAL: ${i}: ${Object.keys(modelChangeVal)}`);
-      });
     });
     this.addNewParameterSelection();
   }
@@ -448,7 +436,6 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
 
   private archiveError(): void {
     console.log(`error.`);
-    //this.snackBar.open('There was an error while creating your custom archive.');
   }
 
   private loadComplete(data: SimulationProjectUtilData): void {
@@ -507,7 +494,6 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     this.setAttributesFromQueryParams();
     this.populateParamsForm();
 
-    console.log(`THE PARAMS: ${JSON.stringify(this.simParams)}`);
     const viz$ = this.sharedViewService.getVisualizations(this.reRunId);
     this.viz$ = viz$;
     if (viz$) {
@@ -519,7 +505,6 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
         });
       });
     }
-    console.log(`LOADED IN LOAD COMPLETE`);
   }
 
   public removeModelChangeField(index: number): void {
@@ -558,7 +543,6 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
       this.containsSimulationChanges = allParams.length >= 1;
       allParams.forEach((paramChange: SedModelAttributeChange, i: number) => {
         sedModel.changes.push(paramChange);
-        console.log(`Model changes pushed`);
       });
     }
 
@@ -581,15 +565,12 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
           newValue: newValue,
         };
 
-        console.log(`A selected change: ${JSON.stringify(selection)}`);
-
         return selection as SedModelAttributeChange;
       }
     });
   }
 
   public createNewArchive(queryParams: ReRunQueryParams): Observable<string> | null {
-    console.log(`THE SED DOCUMENT: ${JSON.stringify(this.uploadedSedDoc)}`);
     const errorHandler = this.archiveError.bind(this);
 
     const form = new FormData();
@@ -605,14 +586,6 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
       errorHandler,
     );
 
-    introspectedSedDoc$.subscribe((sedDoc: ClientSedDoc | null) => {
-      if (sedDoc) {
-        console.log(`The introspected sed doc: ${JSON.stringify(sedDoc)}`);
-      } else {
-        console.log(`Could not introspect********`);
-      }
-    });
-
     const archive = CreateArchiveFromSedDoc(
       this.uploadedSedDoc as SedDocument,
       queryParams.modelUrl as string,
@@ -621,20 +594,13 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
       queryParams.imageFileUrls as string[],
     );
 
-    archive.contents.forEach((content: CombineArchiveContent) => {});
-
     if (!archive) {
-      console.log(`No archive created.`);
+      return null;
     }
 
     const formData = new FormData();
     formData.append('specs', JSON.stringify(archive));
-    // formData.append('download', 'true');
     const archiveSubmission$ = _SubmitFormData(formData, this.httpClient, errorHandler);
-
-    archiveSubmission$?.subscribe((val: string) => {
-      console.log(`archive submission: ${JSON.stringify(val)}`);
-    });
 
     if (archiveSubmission$) {
       console.log(`Archive submission successful!`);
@@ -646,13 +612,6 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
   }
 
   public handleSimulationParams(): void {
-    // goal is to set project url to the customized archive return url
-    /*
-      1. this.gatherModelChanges() -> this.uploadedSedDoc
-      2. create a new archive
-      3. set this.formGroup.controls.projectUrl.setValue(URL from #3)
-    */
-
     // 1. update this.uploadedSedDoc if there are changes
     this.gatherModelChanges();
 
@@ -959,8 +918,6 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
         } else {
           specsContainUnsupportedModel = true;
         }
-
-        const unloadedLen = this.rows.length;
 
         let apiChange: SedModelAttributeChange;
         model.changes.forEach((change: SedModelChange) => {
