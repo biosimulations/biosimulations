@@ -103,6 +103,7 @@
 /simulators/pysb/1.13.0
 /simulators/pysces
 /simulators/pysces/1.0.0
+/simulators/pysces/1.2.1
 /simulators/raven
 /simulators/raven/2.4.0
 /simulators/raven/2.4.3
