@@ -6769,13 +6769,6 @@
   }, {
     "@id" : "_:b585",
     "@type" : "owl:Axiom",
-    "rdfs:comment" : "EXACT",
-    "owl:annotatedProperty" : "http://www.w3.org/2004/02/skos/core#altLabel",
-    "owl:annotatedSource" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000074",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : "BtauL"
-  }, {
-    "@id" : "_:b586",
-    "@type" : "owl:Axiom",
     "rdfs:comment" : "Marquez-Lago T., Burrage K. Binomial tau-leap spatial stochastic simulation algorithm for applications in chemical kinetics. The Journal of Chemical Physics, Vol. 127 (10) (2007).",
     "owl:annotatedProperty" : "rdfs:seeAlso",
     "owl:annotatedSource" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000074",
@@ -6784,12 +6777,19 @@
       "@value" : "http://identifiers.org/doi/10.1063/1.2771548"
     }
   }, {
-    "@id" : "_:b587",
+    "@id" : "_:b586",
     "@type" : "owl:Axiom",
     "rdfs:comment" : "EXACT",
     "owl:annotatedProperty" : "http://www.w3.org/2004/02/skos/core#altLabel",
     "owl:annotatedSource" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000074",
     "http://www.w3.org/2002/07/owl#annotatedTarget" : "binomial tau-leap spatial stochastic simulation algorithm"
+  }, {
+    "@id" : "_:b587",
+    "@type" : "owl:Axiom",
+    "rdfs:comment" : "EXACT",
+    "owl:annotatedProperty" : "http://www.w3.org/2004/02/skos/core#altLabel",
+    "owl:annotatedSource" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000074",
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : "BtauL"
   }, {
     "@id" : "_:b588",
     "@type" : "owl:Axiom",
@@ -6819,12 +6819,12 @@
     "@id" : "_:b590",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000360",
-    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000334"
+    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000029"
   }, {
     "@id" : "_:b591",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000360",
-    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000029"
+    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000334"
   }, {
     "@id" : "_:b592",
     "@type" : "owl:Axiom",
@@ -6838,7 +6838,7 @@
     "rdfs:comment" : "EXACT",
     "owl:annotatedProperty" : "http://www.w3.org/2004/02/skos/core#altLabel",
     "owl:annotatedSource" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000075",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : "GMP"
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : "Gillespie's multi-particle method"
   }, {
     "@id" : "_:b594",
     "@type" : "owl:Axiom",
@@ -6855,23 +6855,16 @@
     "rdfs:comment" : "EXACT",
     "owl:annotatedProperty" : "http://www.w3.org/2004/02/skos/core#altLabel",
     "owl:annotatedSource" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000075",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : "Gillespie's multi-particle method"
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : "GMP"
   }, {
     "@id" : "_:b596",
     "@type" : "owl:Axiom",
     "rdfs:comment" : "EXACT",
     "owl:annotatedProperty" : "http://www.w3.org/2004/02/skos/core#altLabel",
     "owl:annotatedSource" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000076",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : "reaction-diffusion stochastic simulation algorithm"
-  }, {
-    "@id" : "_:b597",
-    "@type" : "owl:Axiom",
-    "rdfs:comment" : "EXACT",
-    "owl:annotatedProperty" : "http://www.w3.org/2004/02/skos/core#altLabel",
-    "owl:annotatedSource" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000076",
     "http://www.w3.org/2002/07/owl#annotatedTarget" : "RD SSA"
   }, {
-    "@id" : "_:b598",
+    "@id" : "_:b597",
     "@type" : "owl:Axiom",
     "rdfs:comment" : "Stundzia AB, Lumsden CJ. Stochastic simulation of coupled reaction-diffusion processes. J Comput Phys, Vol. 127 (1), pages 196-207 (1996).",
     "owl:annotatedProperty" : "rdfs:seeAlso",
@@ -6880,6 +6873,13 @@
       "@type" : "xsd:anyURI",
       "@value" : "http://identifiers.org/doi/10.1006/jcph.1996.0168"
     }
+  }, {
+    "@id" : "_:b598",
+    "@type" : "owl:Axiom",
+    "rdfs:comment" : "EXACT",
+    "owl:annotatedProperty" : "http://www.w3.org/2004/02/skos/core#altLabel",
+    "owl:annotatedSource" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000076",
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : "reaction-diffusion stochastic simulation algorithm"
   }, {
     "@id" : "_:b599",
     "@type" : "owl:Restriction",
@@ -6920,13 +6920,13 @@
   }, {
     "@id" : "_:b603",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000359",
-    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000039"
+    "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000245",
+    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000237"
   }, {
     "@id" : "_:b604",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000245",
-    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000237"
+    "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000359",
+    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000039"
   }, {
     "@id" : "_:b605",
     "@type" : "owl:Axiom",
@@ -6945,14 +6945,14 @@
   }, {
     "@id" : "_:b607",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000245",
-    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000239"
-  }, {
-    "@id" : "_:b608",
-    "@type" : "owl:Restriction",
     "owl:onClass" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000249",
     "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000259",
     "owl:qualifiedCardinality" : "1"
+  }, {
+    "@id" : "_:b608",
+    "@type" : "owl:Restriction",
+    "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000245",
+    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000239"
   }, {
     "@id" : "_:b609",
     "@type" : "owl:Axiom",
