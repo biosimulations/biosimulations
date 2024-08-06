@@ -12,7 +12,7 @@ connexion = {extras = ["swagger-ui","flask"],version = ">=2.14.2"}
 openapi-core = ">=0.17.0"
 openapi-spec-validator = ">=0.5.5"
 openapi-schema-validator = ">=0.4.3"
-requests = ">=2.28.2"
+requests = ">=2.31.0"
 biosimulators-utils = {version = ">=0.1.168", extras = ["logging"]}
 python-dateutil = "*"
 gunicorn = {extras = ["gthread"], version = "*"}
