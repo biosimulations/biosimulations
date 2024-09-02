@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.60.1](https://github.com/biosimulations/biosimulations/compare/v9.60.0...v9.60.1) (2024-09-02)
+
+
+### Bug Fixes
+
+* accommodate undefined image url array in create project from sbml ([0d3b834](https://github.com/biosimulations/biosimulations/commit/0d3b83483a50f4227798996efd4a0407305721e1))
+
 ## [9.59.0](https://github.com/biosimulations/biosimulations/compare/v9.58.0...v9.59.0) (2024-04-25)
 
 
