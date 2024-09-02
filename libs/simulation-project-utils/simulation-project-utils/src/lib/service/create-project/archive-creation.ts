@@ -380,7 +380,7 @@ function CompleteArchiveFromFiles(
 }
 
 function AddImagesToArchive(urls: string[], archive: CombineArchive): CombineArchive {
-  if (urls.length >= 1) {
+  if (urls?.length >= 1) {
     urls.forEach((url: string) => {
       const imgPath = getFileNameFromUrl(url) as string;
       const archiveContent = {
