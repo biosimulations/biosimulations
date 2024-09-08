@@ -6470,9 +6470,8 @@
   }, {
     "@id" : "_:b538",
     "@type" : "owl:Restriction",
-    "owl:onClass" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000260",
-    "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000259",
-    "owl:qualifiedCardinality" : "1"
+    "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000245",
+    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000105"
   }, {
     "@id" : "_:b539",
     "@type" : "owl:AllDisjointClasses",
@@ -6484,12 +6483,13 @@
   }, {
     "@id" : "_:b540",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000245",
-    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000102"
+    "owl:onClass" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000260",
+    "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000259",
+    "owl:qualifiedCardinality" : "1"
   }, {
     "@id" : "_:b541",
     "@type" : "owl:Restriction",
-    "owl:onClass" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000254",
+    "owl:onClass" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000257",
     "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000259",
     "owl:qualifiedCardinality" : "1"
   }, {
@@ -6512,13 +6512,12 @@
   }, {
     "@id" : "_:b546",
     "@type" : "owl:Restriction",
-    "owl:onClass" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000258",
-    "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000259",
-    "owl:qualifiedCardinality" : "1"
+    "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000245",
+    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000108"
   }, {
     "@id" : "_:b547",
     "@type" : "owl:Restriction",
-    "owl:onClass" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000257",
+    "owl:onClass" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000258",
     "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000259",
     "owl:qualifiedCardinality" : "1"
   }, {
@@ -6528,8 +6527,9 @@
   }, {
     "@id" : "_:b549",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000245",
-    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000108"
+    "owl:onClass" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000254",
+    "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000259",
+    "owl:qualifiedCardinality" : "1"
   }, {
     "@id" : "_:b55",
     "@type" : "owl:Restriction",
@@ -6539,7 +6539,7 @@
     "@id" : "_:b550",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000245",
-    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000105"
+    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000102"
   }, {
     "@id" : "_:b551",
     "@type" : "owl:AllDisjointClasses",
@@ -6562,7 +6562,7 @@
     "@id" : "_:b554",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000245",
-    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000102"
+    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000107"
   }, {
     "@id" : "_:b555",
     "@type" : "owl:AllDisjointClasses",
@@ -6575,17 +6575,17 @@
     "@id" : "_:b557",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000245",
-    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000107"
+    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000105"
   }, {
     "@id" : "_:b558",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000245",
-    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000105"
+    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000237"
   }, {
     "@id" : "_:b559",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000245",
-    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000237"
+    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000102"
   }, {
     "@id" : "_:b56",
     "@type" : "owl:Axiom",
@@ -6610,7 +6610,7 @@
     "rdfs:comment" : "EXACT",
     "owl:annotatedProperty" : "http://www.w3.org/2004/02/skos/core#altLabel",
     "owl:annotatedSource" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000058",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : "GFRD"
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : "Green's function reaction dynamics"
   }, {
     "@id" : "_:b563",
     "@type" : "owl:AllDisjointClasses",
@@ -6618,13 +6618,10 @@
   }, {
     "@id" : "_:b564",
     "@type" : "owl:Axiom",
-    "rdfs:comment" : "Van Zon JS, Ten Wolde PR. Green's-function reaction dynamics: A particle-based approach for simulating biochemical networks in time and space. Journal of Chemical Physics, Volume 123 (23) (2005).",
-    "owl:annotatedProperty" : "rdfs:seeAlso",
+    "rdfs:comment" : "EXACT",
+    "owl:annotatedProperty" : "http://www.w3.org/2004/02/skos/core#altLabel",
     "owl:annotatedSource" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000058",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : {
-      "@type" : "xsd:anyURI",
-      "@value" : "http://identifiers.org/doi/10.1063/1.2137716"
-    }
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : "GFRD"
   }, {
     "@id" : "_:b565",
     "@type" : "owl:AllDisjointClasses",
@@ -6636,10 +6633,13 @@
   }, {
     "@id" : "_:b567",
     "@type" : "owl:Axiom",
-    "rdfs:comment" : "EXACT",
-    "owl:annotatedProperty" : "http://www.w3.org/2004/02/skos/core#altLabel",
+    "rdfs:comment" : "Van Zon JS, Ten Wolde PR. Green's-function reaction dynamics: A particle-based approach for simulating biochemical networks in time and space. Journal of Chemical Physics, Volume 123 (23) (2005).",
+    "owl:annotatedProperty" : "rdfs:seeAlso",
     "owl:annotatedSource" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000058",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : "Green's function reaction dynamics"
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : {
+      "@type" : "xsd:anyURI",
+      "@value" : "http://identifiers.org/doi/10.1063/1.2137716"
+    }
   }, {
     "@id" : "_:b568",
     "@type" : "owl:AllDisjointClasses",
@@ -6647,8 +6647,8 @@
   }, {
     "@id" : "_:b569",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000245",
-    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000108"
+    "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000275",
+    "owl:someValuesFrom" : "xsd:integer"
   }, {
     "@id" : "_:b57",
     "@type" : "owl:Axiom",
@@ -6662,8 +6662,8 @@
   }, {
     "@id" : "_:b570",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000275",
-    "owl:someValuesFrom" : "xsd:integer"
+    "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000245",
+    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000108"
   }, {
     "@id" : "_:b571",
     "@type" : "owl:Restriction",
@@ -6705,7 +6705,7 @@
     "@id" : "_:b576",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000360",
-    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000364"
+    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000288"
   }, {
     "@id" : "_:b577",
     "@type" : "owl:Axiom",
@@ -6716,13 +6716,13 @@
   }, {
     "@id" : "_:b578",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000245",
-    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000239"
+    "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000360",
+    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000364"
   }, {
     "@id" : "_:b579",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000360",
-    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000288"
+    "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000245",
+    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000239"
   }, {
     "@id" : "_:b58",
     "@type" : "owl:Restriction",
@@ -6730,23 +6730,6 @@
     "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000030"
   }, {
     "@id" : "_:b580",
-    "@type" : "owl:Axiom",
-    "rdfs:comment" : "EXACT",
-    "owl:annotatedProperty" : "http://www.w3.org/2004/02/skos/core#altLabel",
-    "owl:annotatedSource" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000071",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : "Livermore solver for ordinary differential equations"
-  }, {
-    "@id" : "_:b581",
-    "@type" : "owl:Axiom",
-    "rdfs:comment" : "Radhakrishnan K, Hindmarsh AC. Description and Use of LSODE, the Livermore Solver for Ordinary Differential Equations. Lawrence Livermore National Laboratory Report, Vol. UCRL-ID-113855 (1993).",
-    "owl:annotatedProperty" : "rdfs:seeAlso",
-    "owl:annotatedSource" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000071",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : {
-      "@type" : "xsd:anyURI",
-      "@value" : "citeulike:1774586"
-    }
-  }, {
-    "@id" : "_:b582",
     "@type" : "owl:Axiom",
     "rdfs:comment" : "Hindmarsh AC. LSODE and LSODI, two new initial value ordinary differential equation solvers. SIGNUM Newsletter, Volume 15 (4), pages 10-11 (1980).",
     "owl:annotatedProperty" : "rdfs:seeAlso",
@@ -6756,18 +6739,42 @@
       "@value" : "http://identifiers.org/doi/10.1145/1218052.1218054"
     }
   }, {
+    "@id" : "_:b581",
+    "@type" : "owl:Axiom",
+    "rdfs:comment" : "EXACT",
+    "owl:annotatedProperty" : "http://www.w3.org/2004/02/skos/core#altLabel",
+    "owl:annotatedSource" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000071",
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : "Livermore solver for ordinary differential equations"
+  }, {
+    "@id" : "_:b582",
+    "@type" : "owl:Axiom",
+    "rdfs:comment" : "Radhakrishnan K, Hindmarsh AC. Description and Use of LSODE, the Livermore Solver for Ordinary Differential Equations. Lawrence Livermore National Laboratory Report, Vol. UCRL-ID-113855 (1993).",
+    "owl:annotatedProperty" : "rdfs:seeAlso",
+    "owl:annotatedSource" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000071",
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : {
+      "@type" : "xsd:anyURI",
+      "@value" : "citeulike:1774586"
+    }
+  }, {
     "@id" : "_:b583",
+    "@type" : "owl:Restriction",
+    "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000359",
+    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000095"
+  }, {
+    "@id" : "_:b584",
     "@type" : "owl:Restriction",
     "owl:onClass" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000253",
     "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000259",
     "owl:qualifiedCardinality" : "1"
   }, {
-    "@id" : "_:b584",
-    "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000359",
-    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000095"
-  }, {
     "@id" : "_:b585",
+    "@type" : "owl:Axiom",
+    "rdfs:comment" : "EXACT",
+    "owl:annotatedProperty" : "http://www.w3.org/2004/02/skos/core#altLabel",
+    "owl:annotatedSource" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000074",
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : "BtauL"
+  }, {
+    "@id" : "_:b586",
     "@type" : "owl:Axiom",
     "rdfs:comment" : "Marquez-Lago T., Burrage K. Binomial tau-leap spatial stochastic simulation algorithm for applications in chemical kinetics. The Journal of Chemical Physics, Vol. 127 (10) (2007).",
     "owl:annotatedProperty" : "rdfs:seeAlso",
@@ -6777,19 +6784,12 @@
       "@value" : "http://identifiers.org/doi/10.1063/1.2771548"
     }
   }, {
-    "@id" : "_:b586",
-    "@type" : "owl:Axiom",
-    "rdfs:comment" : "EXACT",
-    "owl:annotatedProperty" : "http://www.w3.org/2004/02/skos/core#altLabel",
-    "owl:annotatedSource" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000074",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : "binomial tau-leap spatial stochastic simulation algorithm"
-  }, {
     "@id" : "_:b587",
     "@type" : "owl:Axiom",
     "rdfs:comment" : "EXACT",
     "owl:annotatedProperty" : "http://www.w3.org/2004/02/skos/core#altLabel",
     "owl:annotatedSource" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000074",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : "BtauL"
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : "binomial tau-leap spatial stochastic simulation algorithm"
   }, {
     "@id" : "_:b588",
     "@type" : "owl:Axiom",
@@ -6819,12 +6819,12 @@
     "@id" : "_:b590",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000360",
-    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000029"
+    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000334"
   }, {
     "@id" : "_:b591",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000360",
-    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000334"
+    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000029"
   }, {
     "@id" : "_:b592",
     "@type" : "owl:Axiom",
@@ -6838,7 +6838,7 @@
     "rdfs:comment" : "EXACT",
     "owl:annotatedProperty" : "http://www.w3.org/2004/02/skos/core#altLabel",
     "owl:annotatedSource" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000075",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : "Gillespie's multi-particle method"
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : "GMP"
   }, {
     "@id" : "_:b594",
     "@type" : "owl:Axiom",
@@ -6855,16 +6855,23 @@
     "rdfs:comment" : "EXACT",
     "owl:annotatedProperty" : "http://www.w3.org/2004/02/skos/core#altLabel",
     "owl:annotatedSource" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000075",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : "GMP"
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : "Gillespie's multi-particle method"
   }, {
     "@id" : "_:b596",
     "@type" : "owl:Axiom",
     "rdfs:comment" : "EXACT",
     "owl:annotatedProperty" : "http://www.w3.org/2004/02/skos/core#altLabel",
     "owl:annotatedSource" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000076",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : "RD SSA"
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : "reaction-diffusion stochastic simulation algorithm"
   }, {
     "@id" : "_:b597",
+    "@type" : "owl:Axiom",
+    "rdfs:comment" : "EXACT",
+    "owl:annotatedProperty" : "http://www.w3.org/2004/02/skos/core#altLabel",
+    "owl:annotatedSource" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000076",
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : "RD SSA"
+  }, {
+    "@id" : "_:b598",
     "@type" : "owl:Axiom",
     "rdfs:comment" : "Stundzia AB, Lumsden CJ. Stochastic simulation of coupled reaction-diffusion processes. J Comput Phys, Vol. 127 (1), pages 196-207 (1996).",
     "owl:annotatedProperty" : "rdfs:seeAlso",
@@ -6873,13 +6880,6 @@
       "@type" : "xsd:anyURI",
       "@value" : "http://identifiers.org/doi/10.1006/jcph.1996.0168"
     }
-  }, {
-    "@id" : "_:b598",
-    "@type" : "owl:Axiom",
-    "rdfs:comment" : "EXACT",
-    "owl:annotatedProperty" : "http://www.w3.org/2004/02/skos/core#altLabel",
-    "owl:annotatedSource" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000076",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : "reaction-diffusion stochastic simulation algorithm"
   }, {
     "@id" : "_:b599",
     "@type" : "owl:Restriction",
@@ -6920,13 +6920,13 @@
   }, {
     "@id" : "_:b603",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000245",
-    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000237"
+    "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000359",
+    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000039"
   }, {
     "@id" : "_:b604",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000359",
-    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000039"
+    "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000245",
+    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000237"
   }, {
     "@id" : "_:b605",
     "@type" : "owl:Axiom",
@@ -6945,14 +6945,14 @@
   }, {
     "@id" : "_:b607",
     "@type" : "owl:Restriction",
-    "owl:onClass" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000249",
-    "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000259",
-    "owl:qualifiedCardinality" : "1"
+    "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000245",
+    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000239"
   }, {
     "@id" : "_:b608",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000245",
-    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000239"
+    "owl:onClass" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000249",
+    "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000259",
+    "owl:qualifiedCardinality" : "1"
   }, {
     "@id" : "_:b609",
     "@type" : "owl:Axiom",
@@ -6977,39 +6977,22 @@
   }, {
     "@id" : "_:b611",
     "@type" : "owl:Axiom",
-    "rdfs:comment" : "EXACT",
-    "owl:annotatedProperty" : "http://www.w3.org/2004/02/skos/core#altLabel",
+    "rdfs:comment" : "JSim",
+    "owl:annotatedProperty" : "http://www.biomodels.net/kisao/KISAO#isImplementedIn",
     "owl:annotatedSource" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000086",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : "RKF45"
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : {
+      "@type" : "xsd:anyURI",
+      "@value" : "http://identifiers.org/biosimulators/jsim"
+    }
   }, {
     "@id" : "_:b612",
-    "@type" : "owl:Axiom",
-    "rdfs:comment" : "Takahashi K, Kaizu K, Hu B, Tomita M. A multi-algorithm, multi-timescale method for cell simulation. Bioinformatics volume 20(4), pages 538-46 (2004).",
-    "owl:annotatedProperty" : "rdfs:seeAlso",
-    "owl:annotatedSource" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000086",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : {
-      "@type" : "xsd:anyURI",
-      "@value" : "http://identifiers.org/pubmed/14990450"
-    }
-  }, {
-    "@id" : "_:b613",
-    "@type" : "owl:Axiom",
-    "rdfs:comment" : "Erwin Fehlberg (1970). Klassische Runge-Kutta-Formeln vierter und niedrigerer Ordnung mit Schrittweiten-Kontrolle und ihre Anwendung auf Wärmeleitungsprobleme, Computing (Arch. Elektron. Rechnen), vol. 6, pp. 61-71.",
-    "owl:annotatedProperty" : "rdfs:seeAlso",
-    "owl:annotatedSource" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000086",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : {
-      "@type" : "xsd:anyURI",
-      "@value" : "http://identifiers.org/doi/10.1007/BF02241732"
-    }
-  }, {
-    "@id" : "_:b614",
     "@type" : "owl:Axiom",
     "rdfs:comment" : "EXACT",
     "owl:annotatedProperty" : "http://www.w3.org/2004/02/skos/core#altLabel",
     "owl:annotatedSource" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000086",
     "http://www.w3.org/2002/07/owl#annotatedTarget" : "Runge-Kutta-Fehlberg method"
   }, {
-    "@id" : "_:b615",
+    "@id" : "_:b613",
     "@type" : "owl:Axiom",
     "rdfs:comment" : "VCell",
     "owl:annotatedProperty" : "http://www.biomodels.net/kisao/KISAO#isImplementedIn",
@@ -7019,14 +7002,31 @@
       "@value" : "http://identifiers.org/biosimulators/vcell"
     }
   }, {
-    "@id" : "_:b616",
+    "@id" : "_:b614",
     "@type" : "owl:Axiom",
-    "rdfs:comment" : "JSim",
+    "rdfs:comment" : "iBioSim",
     "owl:annotatedProperty" : "http://www.biomodels.net/kisao/KISAO#isImplementedIn",
     "owl:annotatedSource" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000086",
     "http://www.w3.org/2002/07/owl#annotatedTarget" : {
       "@type" : "xsd:anyURI",
-      "@value" : "http://identifiers.org/biosimulators/jsim"
+      "@value" : "http://identifiers.org/biosimulators/ibiosim"
+    }
+  }, {
+    "@id" : "_:b615",
+    "@type" : "owl:Axiom",
+    "rdfs:comment" : "EXACT",
+    "owl:annotatedProperty" : "http://www.w3.org/2004/02/skos/core#altLabel",
+    "owl:annotatedSource" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000086",
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : "RKF45"
+  }, {
+    "@id" : "_:b616",
+    "@type" : "owl:Axiom",
+    "rdfs:comment" : "Takahashi K, Kaizu K, Hu B, Tomita M. A multi-algorithm, multi-timescale method for cell simulation. Bioinformatics volume 20(4), pages 538-46 (2004).",
+    "owl:annotatedProperty" : "rdfs:seeAlso",
+    "owl:annotatedSource" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000086",
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : {
+      "@type" : "xsd:anyURI",
+      "@value" : "http://identifiers.org/pubmed/14990450"
     }
   }, {
     "@id" : "_:b617",
@@ -7041,18 +7041,18 @@
   }, {
     "@id" : "_:b618",
     "@type" : "owl:Axiom",
-    "rdfs:comment" : "iBioSim",
-    "owl:annotatedProperty" : "http://www.biomodels.net/kisao/KISAO#isImplementedIn",
+    "rdfs:comment" : "Erwin Fehlberg (1970). Klassische Runge-Kutta-Formeln vierter und niedrigerer Ordnung mit Schrittweiten-Kontrolle und ihre Anwendung auf Wärmeleitungsprobleme, Computing (Arch. Elektron. Rechnen), vol. 6, pp. 61-71.",
+    "owl:annotatedProperty" : "rdfs:seeAlso",
     "owl:annotatedSource" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000086",
     "http://www.w3.org/2002/07/owl#annotatedTarget" : {
       "@type" : "xsd:anyURI",
-      "@value" : "http://identifiers.org/biosimulators/ibiosim"
+      "@value" : "http://identifiers.org/doi/10.1007/BF02241732"
     }
   }, {
     "@id" : "_:b619",
     "@type" : "owl:Restriction",
     "owl:maxQualifiedCardinality" : "1",
-    "owl:onClass" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000539",
+    "owl:onClass" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000540",
     "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000259"
   }, {
     "@id" : "_:b62",
@@ -7068,7 +7068,7 @@
     "@id" : "_:b620",
     "@type" : "owl:Restriction",
     "owl:maxQualifiedCardinality" : "1",
-    "owl:onClass" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000540",
+    "owl:onClass" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000541",
     "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000259"
   }, {
     "@id" : "_:b621",
@@ -7080,7 +7080,7 @@
     "@id" : "_:b622",
     "@type" : "owl:Restriction",
     "owl:maxQualifiedCardinality" : "1",
-    "owl:onClass" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000541",
+    "owl:onClass" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000559",
     "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000259"
   }, {
     "@id" : "_:b623",
@@ -7092,7 +7092,7 @@
     "@id" : "_:b624",
     "@type" : "owl:Restriction",
     "owl:maxQualifiedCardinality" : "1",
-    "owl:onClass" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000559",
+    "owl:onClass" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000539",
     "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000259"
   }, {
     "@id" : "_:b625",
@@ -7117,6 +7117,13 @@
   }, {
     "@id" : "_:b627",
     "@type" : "owl:Axiom",
+    "rdfs:comment" : "EXACT",
+    "owl:annotatedProperty" : "http://www.w3.org/2004/02/skos/core#altLabel",
+    "owl:annotatedSource" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000087",
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : "Prince-Dormand method"
+  }, {
+    "@id" : "_:b628",
+    "@type" : "owl:Axiom",
     "rdfs:comment" : "JSim",
     "owl:annotatedProperty" : "http://www.biomodels.net/kisao/KISAO#isImplementedIn",
     "owl:annotatedSource" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000087",
@@ -7125,7 +7132,7 @@
       "@value" : "http://identifiers.org/biosimulators/jsim"
     }
   }, {
-    "@id" : "_:b628",
+    "@id" : "_:b629",
     "@type" : "owl:Axiom",
     "rdfs:comment" : "iBioSim",
     "owl:annotatedProperty" : "http://www.biomodels.net/kisao/KISAO#isImplementedIn",
@@ -7134,13 +7141,6 @@
       "@type" : "xsd:anyURI",
       "@value" : "http://identifiers.org/biosimulators/ibiosim"
     }
-  }, {
-    "@id" : "_:b629",
-    "@type" : "owl:Axiom",
-    "rdfs:comment" : "EXACT",
-    "owl:annotatedProperty" : "http://www.w3.org/2004/02/skos/core#altLabel",
-    "owl:annotatedSource" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000087",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : "Prince-Dormand method"
   }, {
     "@id" : "_:b63",
     "@type" : "owl:Axiom",
@@ -7188,14 +7188,14 @@
   }, {
     "@id" : "_:b636",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000360",
-    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000288"
-  }, {
-    "@id" : "_:b637",
-    "@type" : "owl:Restriction",
     "owl:onClass" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000211",
     "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000259",
     "owl:qualifiedCardinality" : "1"
+  }, {
+    "@id" : "_:b637",
+    "@type" : "owl:Restriction",
+    "owl:onProperty" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000360",
+    "owl:someValuesFrom" : "http://www.biomodels.net/kisao/KISAO#KISAO_0000288"
   }, {
     "@id" : "_:b638",
     "@type" : "owl:Restriction",
