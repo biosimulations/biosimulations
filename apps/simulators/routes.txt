@@ -104,6 +104,7 @@
 /simulators/pysces
 /simulators/pysces/1.0.0
 /simulators/pysces/1.2.1
+/simulators/pysces/1.2.2
 /simulators/raven
 /simulators/raven/2.4.0
 /simulators/raven/2.4.3
@@ -147,6 +148,7 @@
 /simulators/vcell/7.5.0.86-dev1
 /simulators/vcell/7.5.0.89
 /simulators/vcell/7.5.0.99
+/simulators/vcell/7.6.0.40
 /simulators/winbestkit
 /simulators/winbestkit/2.0.9
 /simulators/xpp

@@ -621,7 +621,7 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/pysces</loc>
-    <lastmod>2024-05-10</lastmod>
+    <lastmod>2024-09-20</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -634,6 +634,12 @@
   <url>
     <loc>https://biosimulators.org/simulators/pysces/1.2.1</loc>
     <lastmod>2024-05-10</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/pysces/1.2.2</loc>
+    <lastmod>2024-09-20</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -771,7 +777,7 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/vcell</loc>
-    <lastmod>2024-02-14</lastmod>
+    <lastmod>2024-09-17</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -892,6 +898,12 @@
   <url>
     <loc>https://biosimulators.org/simulators/vcell/7.5.0.99</loc>
     <lastmod>2024-02-14</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/vcell/7.6.0.40</loc>
+    <lastmod>2024-09-17</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
