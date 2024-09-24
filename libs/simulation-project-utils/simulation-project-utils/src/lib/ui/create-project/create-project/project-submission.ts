@@ -16,6 +16,7 @@ import { Namespace } from '@biosimulations/combine-api-angular-client';
  * @param dataSource The datasource for the form used to create the new project.
  * @param projectUrl The url of the created project.
  */
+
 export function CreateSimulationParams(
   dataSource: CreateProjectDataSource,
   projectUrl: string,
@@ -125,15 +126,12 @@ export async function SubmitFormDataForArchive(
       body: formData,
       headers: headers,
     });
-    // const responseText = await response.text();
-    // console.log(`Response Status: ${response.status}`);
-    // console.log(`Response Text: ${responseText}`);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
     const blob = await response.blob();
     const url = window.URL.createObjectURL(blob);
-    console.log(`Generated URL: ${url}`);
+    console.log(`Generated URL: ${Object.keys(blob)}`);
     return url;
   } catch (error) {
     console.error('Error:', error);
