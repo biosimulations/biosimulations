@@ -104,12 +104,12 @@ export function _SubmitFormData(
   return httpRequest(http, endpoints.getCombineArchiveCreationEndpoint(false), 'POST', formData, headers);
 }
 
-export async function SubmitFormDataForArchive(
+export async function _SubmitFormDataForArchive(
   dataSource: CreateProjectDataSource,
   errorHandler: () => void,
 ): Promise<string | null> {
   const formData = CreateSubmissionFormData(dataSource);
-
+  console.log(`FORM DATA: ${JSON.stringify(formData)}`);
   if (!formData) {
     console.log(`There is no form data. Returning null.`);
     return Promise.resolve(null);
@@ -117,7 +117,8 @@ export async function SubmitFormDataForArchive(
 
   const createArchiveUrl = 'https://combine.api.biosimulations.dev/combine/create';
   const headers = {
-    Accept: 'application/json',
+    accept: 'application/json',
+    'Content-Type': 'multipart/form-data',
   };
 
   try {
@@ -138,6 +139,111 @@ export async function SubmitFormDataForArchive(
     errorHandler();
     return null;
   }
+}
+
+export async function SubmitFormDataForArchive(
+  dataSource: CreateProjectDataSource,
+  errorHandler: () => void,
+): Promise<string | null> {
+  // Prepare the FormData object
+  const formData = new FormData();
+  const uploadData = dataSource.formData[CreateProjectFormStep.UploadModel];
+  if (uploadData && uploadData['modelFile']) {
+    if (uploadData['modelFile'] instanceof File) {
+      console.log(`Filename: ${uploadData['modelFile'].name}`);
+      console.log(`File size: ${uploadData['modelFile'].size} bytes`);
+      formData.append('files', uploadData['modelFile']);
+      // Step 1: Add the 'specs' as a JSON string
+      const specs = {
+        _type: 'CombineArchive',
+        contents: [
+          {
+            _type: 'CombineArchiveContent',
+            location: {
+              _type: 'CombineArchiveLocation',
+              path: 'model.xml',
+              value: {
+                _type: 'CombineArchiveContentFile',
+                filename: uploadData['modelFile'].name,
+              },
+            },
+            format: 'http://identifiers.org/combine.specifications/sbml',
+            master: false,
+          },
+          {
+            _type: 'CombineArchiveContent',
+            location: {
+              _type: 'CombineArchiveLocation',
+              path: 'simulation.sedml',
+              value: {
+                _type: 'CombineArchiveContentUrl',
+                url: 'https://simulation.org/simulation.sedml',
+              },
+            },
+            format: 'http://identifiers.org/combine.specifications/sed-ml',
+            master: true,
+          },
+        ],
+      };
+      formData.append('specs', JSON.stringify(specs));
+      formData.append('download', 'true');
+      const createArchiveUrl = 'https://combine.api.biosimulations.dev/combine/create';
+      const headers = {
+        Accept: 'application/json',
+      };
+      try {
+        const response = await fetch(createArchiveUrl, {
+          method: 'POST',
+          body: formData,
+          headers: headers,
+        });
+        // const responseText = await response.text();
+        // console.log(`Response Status: ${response.status}`);
+        // console.log(`Response Text: ${responseText}`);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        console.log(`Generated URL: ${url}`);
+        return url;
+      } catch (error) {
+        console.error('Error:', error);
+        errorHandler();
+        return null;
+      }
+    }
+  } else {
+    console.log('No model file found in uploadData.');
+  }
+
+  // Make the POST request
+  // const createArchiveUrl = 'https://combine.api.biosimulations.dev/combine/create';
+  // const headers = {
+  //   Accept: 'application/json',
+  // };
+  // try {
+  //   const response = await fetch(createArchiveUrl, {
+  //     method: 'POST',
+  //     body: formData,
+  //     headers: headers,
+  //   });
+  //   const responseText = await response.text();
+  //   console.log(`Response Status: ${response.status}`);
+  //   console.log(`Response Text: ${responseText}`);
+  //   if (!response.ok) {
+  //     throw new Error('Network response was not ok');
+  //   }
+  //   const blob = await response.blob();
+  //   const url = window.URL.createObjectURL(blob);
+  //   console.log(`Generated URL: ${url}`);
+  //   return url;
+  // } catch (error) {
+  //   console.error('Error:', error);
+  //   errorHandler();
+  //   return null;
+  // }
+  return null;
 }
 
 function httpRequest(
