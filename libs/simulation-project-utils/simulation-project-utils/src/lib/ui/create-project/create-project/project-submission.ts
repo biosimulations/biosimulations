@@ -104,12 +104,11 @@ export function _SubmitFormData(
   return httpRequest(http, endpoints.getCombineArchiveCreationEndpoint(false), 'POST', formData, headers);
 }
 
-export async function _SubmitFormDataForArchive(
+export async function SubmitFormDataForArchive(
   dataSource: CreateProjectDataSource,
   errorHandler: () => void,
 ): Promise<string | null> {
   const formData = CreateSubmissionFormData(dataSource);
-  console.log(`FORM DATA: ${JSON.stringify(formData)}`);
   if (!formData) {
     console.log(`There is no form data. Returning null.`);
     return Promise.resolve(null);
@@ -117,8 +116,7 @@ export async function _SubmitFormDataForArchive(
 
   const createArchiveUrl = 'https://combine.api.biosimulations.dev/combine/create';
   const headers = {
-    accept: 'application/json',
-    'Content-Type': 'multipart/form-data',
+    Accept: 'application/json',
   };
 
   try {
@@ -127,6 +125,9 @@ export async function _SubmitFormDataForArchive(
       body: formData,
       headers: headers,
     });
+    // const responseText = await response.text();
+    // console.log(`Response Status: ${response.status}`);
+    // console.log(`Response Text: ${responseText}`);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
@@ -141,7 +142,7 @@ export async function _SubmitFormDataForArchive(
   }
 }
 
-export async function SubmitFormDataForArchive(
+export async function _SubmitFormDataForArchive(
   dataSource: CreateProjectDataSource,
   errorHandler: () => void,
 ): Promise<string | null> {
@@ -302,6 +303,7 @@ function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData
 
   const formData = new FormData();
   formData.append('specs', JSON.stringify(archive));
+  console.log(`Archive spec: ${JSON.stringify(archive)}`);
   formData.append('download', 'true');
 
   const modelFile = uploadModelData.modelFile as File;
