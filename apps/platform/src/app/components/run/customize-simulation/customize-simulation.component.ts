@@ -588,7 +588,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     });
   }
 
-  public createNewArchive(queryParams: ReRunQueryParams): void | null {
+  public _createNewArchive(queryParams: ReRunQueryParams): void | null {
     console.log('CREATING NEW ARCHIVE');
     const errorHandler = this.archiveError.bind(this);
 
@@ -653,6 +653,64 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     }
   }
 
+  public createNewArchive(queryParams: ReRunQueryParams): Promise<Blob | null> {
+    return new Promise((resolve, reject) => {
+      console.log('CREATING NEW ARCHIVE');
+      const errorHandler = this.archiveError.bind(this);
+
+      const form = new FormData();
+      form.append('modelUrl', queryParams.modelUrl as string);
+      form.append('modelingFramework', queryParams.modelingFramework as string);
+      form.append('simulationType', queryParams.simulationType as string);
+      form.append('simulationAlgorithm', queryParams.simulationAlgorithm as string);
+
+      const introspectedSedDoc$ = _IntrospectNewProject(
+        this.httpClient,
+        form as FormData,
+        queryParams.modelUrl as string,
+        errorHandler,
+      );
+
+      const archive = CreateArchiveFromSedDoc(
+        this.uploadedSedDoc as SedDocument,
+        queryParams.modelUrl as string,
+        queryParams.modelFormat as string,
+        queryParams.modelFile as File,
+        queryParams.imageFileUrls as string[],
+      );
+
+      if (!archive) {
+        resolve(null);
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('specs', JSON.stringify(archive));
+      formData.append('download', 'true');
+      if (queryParams.modelFile) {
+        formData.append('files', queryParams.modelFile as Blob);
+      }
+
+      const createArchiveUrl = this.endpoints.getCombineArchiveCreationEndpoint(false);
+      this.httpClient.post(createArchiveUrl, formData, { responseType: 'blob' }).subscribe(
+        (blob: Blob) => {
+          if (blob) {
+            console.log('Archive generated successfully');
+            resolve(blob); // Return the blob instead of triggering download
+          } else {
+            console.error('Failed to generate the archive.');
+            resolve(null);
+          }
+        },
+        (error: HttpErrorResponse) => {
+          console.error('Error creating archive:', error.message);
+          console.error('Full error details:', error);
+          reject(error);
+        },
+      );
+    });
+  }
+
   public async handleSimulationParams(): Promise<void> {
     // update this.uploadedSedDoc if there are changes
     this.gatherModelChanges();
@@ -708,27 +766,94 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     document.body.removeChild(link);
   }
 
-  public submitSimulationRequest(): void {
-    // Check if the file input and file exist
-    const fileInput: FileInput = this.formGroup.value.projectFile;
-    if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
-      console.error('No file selected.');
+  public downloadBlob(archiveBlob: Blob): void {
+    const url = window.URL.createObjectURL(archiveBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'customCombineArchive.omex');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    // free up memory
+    window.URL.revokeObjectURL(url);
+  }
+
+  public async onFormSubmit(): Promise<void> {
+    /* Create customized archive and Submit the form for simulation */
+    this.submitPushed = true;
+
+    // Ensure that the form is valid
+    if (!this.formGroup.valid) {
       return;
     }
 
-    const projectFile: File = fileInput.files[0];
+    // Generate the archive and set it as projectFile
+    const archiveBlob = await this.createNewArchive(this.simParams);
+    if (archiveBlob) {
+      // set form val to created archive
+      const archiveFile = new File([archiveBlob], 'combineArchive.omex', { type: archiveBlob.type });
+      this.formGroup.patchValue({ projectFile: { files: [archiveFile] } });
+
+      // download archive
+      this.downloadBlob(archiveBlob);
+    }
+
+    // Proceed with form submission
     const simulator: string = this.formGroup.value.simulator;
     const simulatorVersion: string = this.formGroup.value.simulatorVersion;
     const cpus: number = this.formGroup.value.cpus;
     const memory: number = this.formGroup.value.memory; // in GB
-    const maxTime: number = this.formGroup.value.maxTime; // in minutes
-    const envVars: EnvironmentVariable[] = []; // You can customize this if needed
-    const purpose: Purpose = Purpose.academic; // or Purpose.other based on your form
+    const maxTime: number = this.formGroup.value.maxTime; // in min
+    const envVars: EnvironmentVariable[] = [];
+    const purpose: Purpose = this.formGroup.value.academicPurpose ? Purpose.academic : Purpose.other;
     const name: string = this.formGroup.value.name;
     const email: string | null = this.formGroup.value.email || null;
 
-    // Submit the updated simulation configuration
-    const simulationResponse: Observable<SimulationRun> = this.dispatchService.submitJobForFile(
+    if (this.emailEnabled && !email) {
+      this.snackBar.open('You must provide a valid email address when consenting to email communication.', 'Ok', {
+        duration: 5000,
+      });
+      return;
+    }
+
+    let simulationResponse: Observable<SimulationRun>;
+
+    // const projectUrl: string = this.formGroup.value.projectUrl;
+    // console.log(`USING A PROJECT URL: ${projectUrl}`);
+    // if (projectUrl) {
+    //   simulationResponse = this.dispatchService.submitJobForURL(
+    //     projectUrl,
+    //     simulator,
+    //     simulatorVersion,
+    //     cpus,
+    //     memory,
+    //     maxTime,
+    //     envVars,
+    //     purpose,
+    //     name,
+    //     email,
+    //   );
+    // } else {
+    //   const fileInput: FileInput = this.formGroup.value.projectFile;
+    //   const projectFile: File = fileInput.files[0];
+    //   simulationResponse = this.dispatchService.submitJobForFile(
+    //     projectFile,
+    //     simulator,
+    //     simulatorVersion,
+    //     cpus,
+    //     memory,
+    //     maxTime,
+    //     envVars,
+    //     purpose,
+    //     name,
+    //     email,
+    //   );
+    // }
+
+    const fileInput: FileInput = this.formGroup.value.projectFile;
+    const projectFile: File = fileInput.files[0];
+    simulationResponse = this.dispatchService.submitJobForFile(
       projectFile,
       simulator,
       simulatorVersion,
@@ -741,9 +866,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
       email,
     );
 
-    // Handle the response
-    const sub = simulationResponse.subscribe((data: SimulationRun) => {
-      // Handle the success response
+    const sub = simulationResponse.subscribe((data: SimulationRun) =>
       this.processSimulationResponse(
         data,
         name,
@@ -755,25 +878,13 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
         envVars,
         purpose,
         email,
-      );
-    });
+      ),
+    );
     this.subscriptions.push(sub);
+    window.scrollTo(0, 0);
   }
 
   public async _onFormSubmit(): Promise<void> {
-    // Ensure that the form is valid
-    if (!this.formGroup.valid) {
-      return;
-    }
-
-    // gather model changes and create a new archive
-    await this.handleSimulationParams();
-
-    // Submit the updated simulation request
-    //this.submitSimulationRequest();
-  }
-
-  public async onFormSubmit(): Promise<void> {
     /* Create customized archive and Submit the form for simulation */
     this.submitPushed = true;
 
