@@ -52,7 +52,7 @@ import {
   SimulationType,
 } from '@biosimulations/datamodel/common';
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
-import { lastValueFrom, Observable, Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ConfigService } from '@biosimulations/config/angular';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FileInput } from '@biosimulations/material-file-input';
@@ -64,7 +64,6 @@ import {
   SedTarget,
 } from '@biosimulations/combine-api-angular-client';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { _SubmitFormData } from '../../../../../../../libs/simulation-project-utils/simulation-project-utils/src/lib/ui/create-project/create-project/project-submission';
 import { ViewService } from '@biosimulations/simulation-runs/service';
 import { Visualization, VisualizationList } from '@biosimulations/datamodel-simulation-runs';
 import { Endpoints } from '@biosimulations/config/common';
