@@ -301,7 +301,6 @@ function CreateSubmissionFormData(dataSource: CreateProjectDataSource): FormData
 
   const formData = new FormData();
   formData.append('specs', JSON.stringify(archive));
-  console.log(`Archive spec: ${JSON.stringify(archive)}`);
   formData.append('download', 'true');
 
   const modelFile = uploadModelData.modelFile as File;

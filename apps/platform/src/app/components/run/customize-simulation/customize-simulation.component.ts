@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { MatSidenav } from '@angular/material/sidenav';
 import {
   AbstractControl,
@@ -52,7 +52,7 @@ import {
   SimulationType,
 } from '@biosimulations/datamodel/common';
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
-import { Observable, Subscription } from 'rxjs';
+import { lastValueFrom, Observable, Subscription } from 'rxjs';
 import { ConfigService } from '@biosimulations/config/angular';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FileInput } from '@biosimulations/material-file-input';
@@ -67,6 +67,7 @@ import {
 import { _SubmitFormData } from '../../../../../../../libs/simulation-project-utils/simulation-project-utils/src/lib/ui/create-project/create-project/project-submission';
 import { ViewService } from '@biosimulations/simulation-runs/service';
 import { Visualization, VisualizationList } from '@biosimulations/datamodel-simulation-runs';
+import { Endpoints } from '@biosimulations/config/common';
 
 interface SimulatorIdNameDisabled {
   id: string;
@@ -162,6 +163,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
   public filteredRows: any[][] = [];
   public isRtl = true;
   public shouldDisplayCard = true;
+  public endpoints = new Endpoints();
   private subscriptions: Subscription[] = [];
 
   // Data loaded from network
@@ -557,7 +559,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
       this.containsSimulationChanges = allParams.length >= 1;
       allParams.forEach((paramChange: SedModelAttributeChange, i: number) => {
         // paramChange attrs: name, target, id, _type, newValue
-        console.log(`Got param change: ${paramChange.name}, ${paramChange.target}, ${paramChange.newValue}`);
+        console.log(`Got param change: ${paramChange.newValue}`);
         sedModel.changes.push(paramChange);
       });
     }
@@ -586,7 +588,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     });
   }
 
-  public createNewArchive(queryParams: ReRunQueryParams): Observable<string> | null {
+  public createNewArchive(queryParams: ReRunQueryParams): void | null {
     console.log('CREATING NEW ARCHIVE');
     const errorHandler = this.archiveError.bind(this);
 
@@ -617,40 +619,84 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
 
     const formData = new FormData();
     formData.append('specs', JSON.stringify(archive));
-    const archiveSubmission$ = _SubmitFormData(formData, this.httpClient, errorHandler);
+    formData.append('download', 'true');
+    if (queryParams.modelFile) {
+      formData.append('files', queryParams.modelFile as Blob);
+    }
+
+    // const archiveSubmission$ = _SubmitFormData(formData, this.httpClient, errorHandler);
+    const createArchiveUrl = this.endpoints.getCombineArchiveCreationEndpoint(false);
+    const archiveSubmission$ = this.httpClient.post(createArchiveUrl, formData, {
+      responseType: 'blob', // This tells Angular to handle the response as binary
+    });
 
     if (archiveSubmission$) {
       console.log(`Archive submission successful!`);
-      return archiveSubmission$;
+      archiveSubmission$.subscribe(
+        (blob: Blob) => {
+          if (blob) {
+            // Create a URL for the blob and trigger the download
+            const url = window.URL.createObjectURL(blob);
+            this.downloadArchive(url);
+          } else {
+            console.error('Failed to generate the archive.');
+          }
+        },
+        (error: HttpErrorResponse) => {
+          console.error('Error creating archive:', error.message);
+          console.error('Full error details:', error);
+        },
+      );
     } else {
       console.log(`Not successfull`);
       return null;
     }
   }
 
-  public handleSimulationParams(): void {
-    // 1. update this.uploadedSedDoc if there are changes
+  public async handleSimulationParams(): Promise<void> {
+    // update this.uploadedSedDoc if there are changes
     this.gatherModelChanges();
 
+    // skip if no changes
     if (!this.containsSimulationChanges) {
       console.log(`No changes.`);
       return;
     }
 
+    // create and download the new archive
+    this.createNewArchive(this.simParams);
+
     // 2. create a new archive using BOTH the rerun query params and the uploadedSedDoc
-    const archiveResponse$ = this.createNewArchive(this.simParams) as Observable<string>;
-    archiveResponse$.subscribe(
-      (archiveUrl: string) => {
-        if (archiveUrl) {
-          this.downloadArchive(archiveUrl); // Trigger download
-        } else {
-          console.error('Failed to generate the archive.');
-        }
-      },
-      (error) => {
-        console.error('Error creating archive:', error);
-      },
-    );
+    // const archiveResponse$ = this.createNewArchive(this.simParams) as Observable<string>;
+    // const archiveUrl: string | null = await lastValueFrom(archiveResponse$);
+    // if (archiveUrl) {
+    //   this.downloadArchive(archiveUrl); // Trigger download
+    //   } else {
+    //     console.error('Failed to generate the archive.');
+    //   }
+    // } catch (error: any) {
+    //   console.error('Error creating archive:', error);
+    //   this.errorHandler(); // Handle the error via error handler
+
+    // archiveResponse$.subscribe(
+    //   (archiveUrl: string) => {
+    //     if (archiveUrl) {
+    //       this.downloadArchive(archiveUrl);
+    //     } else {
+    //       console.error('Failed to generate the archive.');
+    //     }
+    //   },
+    //   (error: HttpErrorResponse) => {
+    //     console.error('Error creating archive:', error.message);
+    //     console.error('Full error details:', error);
+    //   }
+    // );
+  }
+
+  private errorHandler(): void {
+    this.snackBar.open('An error occurred while processing your request. Please try again.', 'Ok', {
+      duration: 5000,
+    });
   }
 
   public downloadArchive(archiveUrl: string): void {
@@ -714,20 +760,20 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     this.subscriptions.push(sub);
   }
 
-  public _onFormSubmit(): void {
+  public async _onFormSubmit(): Promise<void> {
     // Ensure that the form is valid
     if (!this.formGroup.valid) {
       return;
     }
 
     // gather model changes and create a new archive
-    this.handleSimulationParams();
+    await this.handleSimulationParams();
 
     // Submit the updated simulation request
     //this.submitSimulationRequest();
   }
 
-  public onFormSubmit(): void {
+  public async onFormSubmit(): Promise<void> {
     /* Create customized archive and Submit the form for simulation */
     this.submitPushed = true;
 
@@ -737,7 +783,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     }
 
     // Read simulation params form and create a new archive if there are changes detected
-    this.handleSimulationParams();
+    await this.handleSimulationParams();
 
     const simulator: string = this.formGroup.value.simulator;
     const simulatorVersion: string = this.formGroup.value.simulatorVersion;
@@ -759,6 +805,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     let simulationResponse: Observable<SimulationRun>;
 
     const projectUrl: string = this.formGroup.value.projectUrl;
+    console.log(`USING A PROJECT URL: ${projectUrl}`);
     if (projectUrl) {
       simulationResponse = this.dispatchService.submitJobForURL(
         projectUrl,
