@@ -527,7 +527,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
   }
   // Form Submission
 
-  public gatherModelChanges(): void {
+  public _gatherModelChanges(): void {
     // TODO: more accurately handle the number of models
     const sedModel: SedModel = this.uploadedSedDoc.models.pop() as SedModel;
 
@@ -566,6 +566,42 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
 
     // update the uploaded document
     this.uploadedSedDoc.models.push(sedModel);
+  }
+
+  public gatherModelChanges(): void {
+    const sedModel = this.uploadedSedDoc.models.find((m) => m.id === this.uploadedSedDoc.models[0].id) as SedModel;
+
+    if (!this.useDropdown) {
+      this.rows.controls.forEach((val: AbstractControl<any, any>, i: number) => {
+        const rowValueGroup = val as UntypedFormGroup;
+        const newVal = rowValueGroup.controls.newValue.value;
+
+        if (newVal) {
+          this.containsSimulationChanges = true;
+          const paramChange: SedModelAttributeChange = {
+            _type: rowValueGroup.controls._type.value,
+            newValue: newVal,
+            target: rowValueGroup.controls.target.value,
+            id: rowValueGroup.controls.id.value,
+            name: rowValueGroup.controls.name.value,
+          };
+          // Add the parameter change to the sedModel
+          sedModel.changes.push(paramChange);
+        }
+      });
+    } else {
+      const allParams = this.getAllParameterSelections();
+      this.containsSimulationChanges = allParams.length >= 1;
+      allParams.forEach((paramChange: SedModelAttributeChange) => {
+        sedModel.changes.push(paramChange);
+      });
+    }
+
+    // Update the model in its place in the uploadedSedDoc
+    const modelIndex = this.uploadedSedDoc.models.findIndex((m) => m.id === sedModel.id);
+    if (modelIndex > -1) {
+      this.uploadedSedDoc.models[modelIndex] = sedModel; // Update the model in place
+    }
   }
 
   public getAllParameterSelections(): SedModelAttributeChange[] | any[] {
@@ -654,6 +690,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
   }
 
   public createNewArchive(queryParams: ReRunQueryParams): Promise<Blob | null> {
+    this.gatherModelChanges();
     return new Promise((resolve, reject) => {
       console.log('CREATING NEW ARCHIVE');
       const errorHandler = this.archiveError.bind(this);
