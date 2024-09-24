@@ -12,7 +12,6 @@ platformBrowserDynamic()
   .bootstrapModule(AppModule)
   .catch((err) => console.error(err));
 
-console.log(`WINDOW HOST: ${window.location.hostname}`);
 if (window.location.hostname === 'run.biosimulations.org') {
   window.location.href = 'https://biosimulations.org';
 }
