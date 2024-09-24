@@ -807,7 +807,9 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     const url = window.URL.createObjectURL(archiveBlob);
     const link = document.createElement('a');
     link.href = url;
-    link.setAttribute('download', 'customCombineArchive.omex');
+    const customName: string = this.formGroup.value.name;
+    const formattedName: string = customName.replace(/\s+/g, '-');
+    link.setAttribute('download', `${formattedName}.omex`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
