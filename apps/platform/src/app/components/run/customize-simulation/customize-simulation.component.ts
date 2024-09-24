@@ -534,6 +534,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
       this.rows.controls.forEach((val: AbstractControl<any, any>, i: number) => {
         const rowValueGroup = val as UntypedFormGroup;
         const newVal = rowValueGroup.controls.newValue.value;
+        console.log(`GOT USER SPECIFIED PARAM CHANGE: ${newVal}`);
 
         if (newVal) {
           this.containsSimulationChanges = true;
@@ -555,6 +556,8 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
 
       this.containsSimulationChanges = allParams.length >= 1;
       allParams.forEach((paramChange: SedModelAttributeChange, i: number) => {
+        // paramChange attrs: name, target, id, _type, newValue
+        console.log(`Got param change: ${paramChange.name}, ${paramChange.target}, ${paramChange.newValue}`);
         sedModel.changes.push(paramChange);
       });
     }
@@ -584,6 +587,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
   }
 
   public createNewArchive(queryParams: ReRunQueryParams): Observable<string> | null {
+    console.log('CREATING NEW ARCHIVE');
     const errorHandler = this.archiveError.bind(this);
 
     const form = new FormData();
@@ -635,19 +639,105 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
 
     // 2. create a new archive using BOTH the rerun query params and the uploadedSedDoc
     const archiveResponse$ = this.createNewArchive(this.simParams) as Observable<string>;
+    archiveResponse$.subscribe(
+      (archiveUrl: string) => {
+        if (archiveUrl) {
+          this.downloadArchive(archiveUrl); // Trigger download
+        } else {
+          console.error('Failed to generate the archive.');
+        }
+      },
+      (error) => {
+        console.error('Error creating archive:', error);
+      },
+    );
+  }
+
+  public downloadArchive(archiveUrl: string): void {
+    const link = document.createElement('a');
+    link.href = archiveUrl;
+    link.setAttribute('download', 'combineArchive.omex'); // You can change the file name if needed
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  public submitSimulationRequest(): void {
+    // Check if the file input and file exist
+    const fileInput: FileInput = this.formGroup.value.projectFile;
+    if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
+      console.error('No file selected.');
+      return;
+    }
+
+    const projectFile: File = fileInput.files[0];
+    const simulator: string = this.formGroup.value.simulator;
+    const simulatorVersion: string = this.formGroup.value.simulatorVersion;
+    const cpus: number = this.formGroup.value.cpus;
+    const memory: number = this.formGroup.value.memory; // in GB
+    const maxTime: number = this.formGroup.value.maxTime; // in minutes
+    const envVars: EnvironmentVariable[] = []; // You can customize this if needed
+    const purpose: Purpose = Purpose.academic; // or Purpose.other based on your form
+    const name: string = this.formGroup.value.name;
+    const email: string | null = this.formGroup.value.email || null;
+
+    // Submit the updated simulation configuration
+    const simulationResponse: Observable<SimulationRun> = this.dispatchService.submitJobForFile(
+      projectFile,
+      simulator,
+      simulatorVersion,
+      cpus,
+      memory,
+      maxTime,
+      envVars,
+      purpose,
+      name,
+      email,
+    );
+
+    // Handle the response
+    const sub = simulationResponse.subscribe((data: SimulationRun) => {
+      // Handle the success response
+      this.processSimulationResponse(
+        data,
+        name,
+        simulator,
+        simulatorVersion,
+        cpus,
+        memory,
+        maxTime,
+        envVars,
+        purpose,
+        email,
+      );
+    });
+    this.subscriptions.push(sub);
+  }
+
+  public _onFormSubmit(): void {
+    // Ensure that the form is valid
+    if (!this.formGroup.valid) {
+      return;
+    }
+
+    // gather model changes and create a new archive
+    this.handleSimulationParams();
+
+    // Submit the updated simulation request
+    //this.submitSimulationRequest();
   }
 
   public onFormSubmit(): void {
     /* Create customized archive and Submit the form for simulation */
     this.submitPushed = true;
 
-    // Read simulation params form and create a new archive if there are changes detected
-    this.handleSimulationParams();
-
     // ***Existing content:
     if (!this.formGroup.valid) {
       return;
     }
+
+    // Read simulation params form and create a new archive if there are changes detected
+    this.handleSimulationParams();
 
     const simulator: string = this.formGroup.value.simulator;
     const simulatorVersion: string = this.formGroup.value.simulatorVersion;
@@ -1068,7 +1158,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     if (!params) {
       return;
     }
-
+    console.log(`Project url: ${params.projectUrl}`);
     this.setProject(params.projectUrl);
     this.setSimulator(params.simulator, params.simulatorVersion, simulatorSpecsMap);
     this.setCpuCount(params.cpus);
