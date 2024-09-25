@@ -51,7 +51,7 @@
     "@nestjs/bullmq": "1.1.0",
     "@nestjs/common": "9.3.11",
     "@nestjs/config": "2.3.1",
-    "@nestjs/core": "9.3.11",
+    "@nestjs/core": "9.3.12",
     "@nestjs/microservices": "9.3.12",
     "@nestjs/mongoose": "9.2.2",
     "@nestjs/passport": "9.0.3",
