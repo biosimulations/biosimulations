@@ -2,31 +2,44 @@
 <div class="form-parent-container platform-run">
   <biosimulations-page heading="Simulator Result Verification">
     <mat-card class="card-form-section mat-elevation-z3">
-      <mat-card-header class="card-form-section-title solvers">SBML Verification</mat-card-header>
+      <mat-card-header class="card-form-section-title solvers">Verification Parameters</mat-card-header>
       <div class="input-group" [formGroup]="verificationFormGroup">
-        <!-- Regular input for file upload, no mat-form-field -->
-        <div class="file-input">
+        <!--<div class="file-input">
           <label for="fileInput">SBML File</label>
           <input id="fileInput" type="file" (change)="onFileSelected($event)" />
-        </div>
+        </div>-->
+        <mat-form-field class="card-form-field" appearance="fill">
+          <mat-label>Choose SBML File</mat-label>
+          <biosimulations-ngx-mat-file-input
+            accept=".xml"
+            (change)="onFileSelected($event)">
+          </biosimulations-ngx-mat-file-input>
+        </mat-form-field>
+
         <mat-form-field class="card-form-field" appearance="fill">
           <mat-label>Start Time</mat-label>
           <input matInput formControlName="startTime" />
         </mat-form-field>
+
         <mat-form-field class="card-form-field" appearance="fill">
           <mat-label>End Time</mat-label>
           <input matInput formControlName="endTime" />
         </mat-form-field>
+
         <mat-form-field class="card-form-field" appearance="fill">
           <mat-label>Steps</mat-label>
           <input matInput formControlName="steps" />
         </mat-form-field>
       </div>
+
       <mat-card-content class="card-hints 5">
         <mat-hint>
           Provide the required details for the model file verification.
         </mat-hint>
-        <button mat-flat-button (click)="onSubmitVerification()" class="biosimulations-button run">Verify Simulation</button>
+        <button mat-flat-button (click)="onSubmitVerification()" class="biosimulations-button run">
+          Run Verification
+          <biosimulations-icon style="padding-left: 1rem !important" icon="experiment"></biosimulations-icon>
+        </button>
       </mat-card-content>
       <mat-error *ngIf="verificationFormGroup.invalid">Please fill out all fields for verification.</mat-error>
     </mat-card>
@@ -39,16 +52,17 @@
           <biosimulations-spinner></biosimulations-spinner>
         </div>
       </div>
-      <div *ngIf="!isLoading && outputData" class="verification-results-container">
-        <div class="verification-result-pane source">
-          <h3>Model Source</h3>
-          <h4> {{ outputData.content.source | json }} </h4>
-        </div>
 
-        <div class="verification-result-pane rmse">
-          <h3>RMSE</h3>
+      <div *ngIf="!isLoading && outputData" class="verification-results-container">
+        <mat-card class="verification-result-pane source">
+          <h3>Model Source</h3>
+          <mat-card-content> {{ outputData.content.source | json }} </mat-card-content>
+        </mat-card>
+
+        <mat-card class="verification-result-pane rmse">
+          <h3>Root-mean-square error scores</h3>
           <!--<pre> {{ outputData.content.results.rmse | json }}</pre>-->
-          <div *ngIf="rmseMatrix" class="matrix-table-container">
+          <mat-card-content *ngIf="rmseMatrix" class="matrix-table-container">
             <table class="matrix-table">
               <thead>
                 <tr>
@@ -63,15 +77,17 @@
                 </tr>
               </tbody>
             </table>
-          </div>
-        </div>
+          </mat-card-content>
+        </mat-card>
 
-        <div class="verification-result-pane simulators">
+        <mat-card class="verification-result-pane simulators">
           <h3>RequestedSimulators</h3>
-          <div *ngFor="let simulator of outputData.content.requested_simulators">
-            <h4> {{ simulator }}</h4>
-          </div>
-        </div>
+          <mat-card-content>
+            <div *ngFor="let simulator of outputData.content.requested_simulators">
+              {{ simulator }}
+            </div>
+          </mat-card-content>
+        </mat-card>
       </div>
     </mat-card>
   </biosimulations-page>
