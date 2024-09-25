@@ -229,7 +229,7 @@
     "nx": "15.9.4",
     "openapi-examples-validator": "4.6.0",
     "plotly.js": "2.25.2",
-    "postcss": "8.4.31",
+    "postcss": "8.4.32",
     "postcss-import": "14.1.0",
     "postcss-preset-env": "~7.5.0",
     "postcss-url": "10.1.3",
