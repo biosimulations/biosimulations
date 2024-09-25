@@ -15,3 +15,4 @@ export * from './lib/ui/validate-simulation/validate-simulation.component';
 export * from './lib/ui/validate-metadata/validate-metadata.component';
 export * from './lib/ui/validate-project/validate-project.component';
 export * from './lib/ui/create-project/create-project/create-project.component';
+export * from './lib/ui/verify-model/verify-model.component';

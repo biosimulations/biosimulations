@@ -1,0 +1,78 @@
+<!-- MODEL FILE VERIFICATION -->
+<div class="form-parent-container platform-run">
+  <biosimulations-page heading="Model Verification">
+    <mat-card class="card-form-section mat-elevation-z3">
+      <mat-card-header class="card-form-section-title solvers">Verify Model File</mat-card-header>
+      <div class="input-group" [formGroup]="verificationFormGroup">
+        <!-- Regular input for file upload, no mat-form-field -->
+        <div class="file-input">
+          <label for="fileInput">SBML File</label>
+          <input id="fileInput" type="file" (change)="onFileSelected($event)" />
+        </div>
+        <mat-form-field class="card-form-field" appearance="fill">
+          <mat-label>Start Time</mat-label>
+          <input matInput formControlName="startTime" />
+        </mat-form-field>
+        <mat-form-field class="card-form-field" appearance="fill">
+          <mat-label>End Time</mat-label>
+          <input matInput formControlName="endTime" />
+        </mat-form-field>
+        <mat-form-field class="card-form-field" appearance="fill">
+          <mat-label>Steps</mat-label>
+          <input matInput formControlName="steps" />
+        </mat-form-field>
+      </div>
+      <mat-card-content class="card-hints 5">
+        <mat-hint>
+          Provide the required details for the model file verification.
+        </mat-hint>
+        <button mat-flat-button (click)="onSubmitVerification()" class="biosimulations-button run">Verify Simulation</button>
+      </mat-card-content>
+      <mat-error *ngIf="verificationFormGroup.invalid">Please fill out all fields for verification.</mat-error>
+    </mat-card>
+
+    <mat-card *ngIf="isSubmitted" class="card-form-section mat-elevation-z3">
+      <mat-card-header class="card-form-section-title verification">Verification Result Breakdown</mat-card-header>
+      <div *ngIf="isLoading && !outputData" class="verification-result-pane loading">
+        <div>
+          <h3>Loading... Please wait while the simulation is verified. This may take a moment.</h3>
+          <biosimulations-spinner></biosimulations-spinner>
+        </div>
+      </div>
+      <div *ngIf="!isLoading && outputData" class="verification-results-container">
+        <div class="verification-result-pane source">
+          <h3>Model Source</h3>
+          <h4> {{ outputData.content.source | json }} </h4>
+        </div>
+
+        <div class="verification-result-pane rmse">
+          <h3>RMSE</h3>
+          <!--<pre> {{ outputData.content.results.rmse | json }}</pre>-->
+          <div *ngIf="rmseMatrix" class="matrix-table-container">
+            <table class="matrix-table">
+              <thead>
+                <tr>
+                  <th></th> <!-- Empty corner cell -->
+                  <th *ngFor="let header of tableHeaders">{{ header }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let rowKey of tableHeaders">
+                  <td>{{ rowKey }}</td> <!-- Row label -->
+                  <td *ngFor="let colKey of tableHeaders">{{ rmseMatrix[rowKey][colKey] }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="verification-result-pane simulators">
+          <h3>RequestedSimulators</h3>
+          <div *ngFor="let simulator of outputData.content.requested_simulators">
+            <h4> {{ simulator }}</h4>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </biosimulations-page>
+</div>

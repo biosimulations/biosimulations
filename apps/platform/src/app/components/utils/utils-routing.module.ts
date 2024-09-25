@@ -9,9 +9,54 @@ import {
   ValidateProjectComponent,
   SuggestSimulatorComponent,
   CreateProjectComponent,
+  VerifyModelComponent,
 } from '@biosimulations/simulation-project-utils';
 
 const routes: Routes = [
+  {
+    path: 'verify-model',
+    component: VerifyModelComponent,
+    data: {
+      breadcrumb: 'Verify a model file',
+      contextButtons: [
+        {
+          route: ['/utils', 'convert-file'],
+          icon: 'convert',
+          label: 'Convert a file',
+        },
+        {
+          route: ['/utils', 'create-project'],
+          icon: 'write',
+          label: 'Create a project',
+        },
+        {
+          route: ['/utils', 'validate-model'],
+          icon: 'review',
+          label: 'Validate a model',
+        },
+        {
+          route: ['/utils', 'validate-simulation'],
+          icon: 'review',
+          label: 'Validate a simulation',
+        },
+        {
+          route: ['/utils', 'validate-metadata'],
+          icon: 'review',
+          label: 'Validate metadata',
+        },
+        {
+          route: ['/utils', 'validate-project'],
+          icon: 'review',
+          label: 'Validate a project',
+        },
+        {
+          route: ['/utils', 'suggest-simulator'],
+          icon: 'idea',
+          label: 'Suggest a simulator',
+        },
+      ],
+    },
+  },
   {
     path: 'convert-file',
     component: ConvertFileComponent,

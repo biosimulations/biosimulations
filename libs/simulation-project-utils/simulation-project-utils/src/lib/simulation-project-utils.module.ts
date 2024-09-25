@@ -13,6 +13,7 @@ import { ValidateMetadataComponent } from './ui/validate-metadata/validate-metad
 import { ValidateProjectComponent } from './ui/validate-project/validate-project.component';
 import { SuggestSimulatorComponent } from './ui/suggest-simulator/suggest-simulator.component';
 import { CreateProjectComponent } from './ui/create-project/create-project/create-project.component';
+import { VerifyModelComponent } from './ui/verify-model/verify-model.component';
 import {
   AlgorithmParametersComponent,
   ModelChangesComponent,
@@ -26,6 +27,7 @@ import { FormHostDirective, PagingFormComponent } from './ui/create-project/crea
 
 @NgModule({
   declarations: [
+    VerifyModelComponent,
     ConvertFileComponent,
     ValidateModelComponent,
     ValidateSimulationComponent,
