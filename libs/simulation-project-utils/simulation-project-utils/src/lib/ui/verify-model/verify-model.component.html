@@ -1,9 +1,9 @@
 <!-- MODEL FILE VERIFICATION -->
-<div class="form-parent-container platform-run">
-  <biosimulations-page heading="Simulator Result Verification">
-    <mat-card class="card-form-section mat-elevation-z3">
+<div class="form-parent-container">
+  <biosimulations-page heading="Simulator Verification">
+    <mat-card class="card-form-section mat-elevation-z3" [formGroup]="verificationFormGroup">
       <mat-card-header class="card-form-section-title solvers">Verification Parameters</mat-card-header>
-      <div class="input-group" [formGroup]="verificationFormGroup">
+      <div class="input-group">
         <!--<div class="file-input">
           <label for="fileInput">SBML File</label>
           <input id="fileInput" type="file" (change)="onFileSelected($event)" />
@@ -15,6 +15,7 @@
             (change)="onFileSelected($event)">
           </biosimulations-ngx-mat-file-input>
         </mat-form-field>
+
 
         <mat-form-field class="card-form-field" appearance="fill">
           <mat-label>Start Time</mat-label>
@@ -29,6 +30,18 @@
         <mat-form-field class="card-form-field" appearance="fill">
           <mat-label>Steps</mat-label>
           <input matInput formControlName="steps" />
+        </mat-form-field>
+
+        <mat-form-field class="simulators-dropdown">
+          <mat-label>Select Simulators</mat-label>
+          <mat-select formControlName="simulators" multiple>
+            <mat-select-trigger>
+              {{ verificationFormGroup.get('simulators')?.value?.join(', ') || 'None' }}
+            </mat-select-trigger>
+            <mat-option *ngFor="let simulator of defaultSimulators" [value]="simulator">
+              {{ simulator }}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
       </div>
 
@@ -53,6 +66,7 @@
         </div>
       </div>
 
+      <!-- Results container -->
       <div *ngIf="!isLoading && outputData" class="verification-results-container">
         <mat-card class="verification-result-pane source">
           <h3>Model Source</h3>
@@ -61,7 +75,6 @@
 
         <mat-card class="verification-result-pane rmse">
           <h3>Root-mean-square error scores</h3>
-          <!--<pre> {{ outputData.content.results.rmse | json }}</pre>-->
           <mat-card-content *ngIf="rmseMatrix" class="matrix-table-container">
             <table class="matrix-table">
               <thead>
@@ -78,6 +91,12 @@
               </tbody>
             </table>
           </mat-card-content>
+          <mat-card-content>
+            <p>
+              <strong>Minimum error score:</strong>
+              <span *ngIf="optimalSimulator"> {{ optimalSimulator }}</span>
+            </p>
+          </mat-card-content>
         </mat-card>
 
         <mat-card class="verification-result-pane simulators">
@@ -88,7 +107,53 @@
             </div>
           </mat-card-content>
         </mat-card>
+
+        <mat-expansion-panel expanded="false">
+          <mat-expansion-panel-header>Observables Data</mat-expansion-panel-header>
+          <pre>
+            {{ outputData.content.results | json }}
+          </pre>
+        </mat-expansion-panel>
+
+        <div class="plot-container">
+          <ng-container *ngFor="let graphConfig of graphConfigs; let i = index">
+            <mat-expansion-panel [expanded]="i === 0">
+              <mat-expansion-panel-header>{{ graphConfig.layout.title | json }}</mat-expansion-panel-header>
+              <plotly-plot
+                #plotly
+                class="plotly-visualization"
+                [data]="graphConfig.data"
+                [layout]="graphConfig.layout">
+              </plotly-plot>
+            </mat-expansion-panel>
+          </ng-container>
+        </div>
+
+
+        <!--<plotly-plot
+          #plotly
+          *ngIf="!loading && errors.length === 0"
+          fxFlex
+          class="plotly-visualization"
+          [data]="data"
+          [layout]="layout"
+          [config]="config"
+          [useResizeHandler]="visible"
+          (onResize)="handleResize($event)"
+          (sliderEnabled)="(true)">
+        </plotly-plot>-->
       </div>
     </mat-card>
+
+    <div class="example-container">
+      <button mat-flat-button (click)="enableExamplePlot()">Show Example Plot</button>
+      <plotly-plot
+      #plotly
+      *ngIf="showExamplePlot"
+      class="plotly-visualization"
+      [data]="graph.data"
+      [layout]="graph.layout"></plotly-plot>
+    </div>
+
   </biosimulations-page>
 </div>

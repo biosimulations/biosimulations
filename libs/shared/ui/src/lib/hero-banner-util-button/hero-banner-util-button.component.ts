@@ -14,7 +14,7 @@ export class HeroBannerUtilButtonComponent {
   public docsUrl = 'https://docs.biosimulations.org';
   public routerLinkMenuConfig = [
     { heading: 'Create a project', routerLink: ['/utils', 'create-project'] },
-    { heading: 'Verify simulator results', routerLink: ['/utils', 'verify-model'] },
+    // { heading: 'Verify simulator results', routerLink: ['/utils', 'verify-model'] },
     { heading: 'Validate a model', routerLink: ['/utils', 'validate-model'] },
     { heading: 'Validate a simulation', routerLink: ['/utils', 'validate-simulation'] },
     { heading: 'Validate metadata', routerLink: ['/utils', 'validate-metadata'] },

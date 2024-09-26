@@ -24,6 +24,10 @@ import {
   UploadModelComponent,
 } from './ui/create-project/form-steps';
 import { FormHostDirective, PagingFormComponent } from './ui/create-project/create-project/forms';
+import * as PlotlyJS from 'plotly.js-dist-min';
+import { PlotlyModule } from 'angular-plotly.js';
+
+PlotlyModule.plotlyjs = PlotlyJS;
 
 @NgModule({
   declarations: [
@@ -45,7 +49,15 @@ import { FormHostDirective, PagingFormComponent } from './ui/create-project/crea
     FormHostDirective,
     PagingFormComponent,
   ],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule, SharedUiModule, BiosimulationsIconsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    SharedUiModule,
+    BiosimulationsIconsModule,
+    PlotlyModule,
+  ],
   exports: [ModelChangesComponent],
 })
 export class SimulationProjectUtilsModule {}
