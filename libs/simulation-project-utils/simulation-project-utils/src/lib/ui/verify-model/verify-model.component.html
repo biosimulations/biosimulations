@@ -115,7 +115,7 @@
           </pre>
         </mat-expansion-panel>
 
-        <div class="plot-container">
+        <!--<div class="plot-container">
           <ng-container *ngFor="let graphConfig of graphConfigs; let i = index">
             <mat-expansion-panel [expanded]="i === 0">
               <mat-expansion-panel-header>{{ graphConfig.layout.title | json }}</mat-expansion-panel-header>
@@ -127,7 +127,7 @@
               </plotly-plot>
             </mat-expansion-panel>
           </ng-container>
-        </div>
+        </div>-->
 
 
         <!--<plotly-plot
@@ -145,7 +145,7 @@
       </div>
     </mat-card>
 
-    <div class="example-container">
+    <!--<div class="example-container">
       <button mat-flat-button (click)="enableExamplePlot()">Show Example Plot</button>
       <plotly-plot
       #plotly
@@ -153,7 +153,7 @@
       class="plotly-visualization"
       [data]="graph.data"
       [layout]="graph.layout"></plotly-plot>
-    </div>
+    </div>-->
 
   </biosimulations-page>
 </div>

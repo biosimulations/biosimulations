@@ -127,7 +127,6 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
         return;
       }
       const queryParamsString = new URLSearchParams(queryParams).toString();
-      console.log(`the query params string: ${queryParamsString}`);
       if (this.config.appId === 'dispatch') {
         this.router.navigate(['/runs/new'], { queryParams: queryParams });
       } else if (this.config.appId === 'platform') {
@@ -162,11 +161,16 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
           link.click();
           document.body.removeChild(link);
 
-          this.snackBar.open('Your COMBINE/OMEX archive as been created. Please download it and run here.', 'Ok', {
-            duration: 10000,
-            horizontalPosition: 'center',
-            verticalPosition: 'bottom',
-          });
+          // eslint-disable-next-line max-len
+          this.snackBar.open(
+            'Your COMBINE/OMEX archive as been downloaded. Please retrieve it from your downloads and run with this form.',
+            'Ok',
+            {
+              duration: 15000,
+              horizontalPosition: 'center',
+              verticalPosition: 'bottom',
+            },
+          );
 
           const params: Params = {
             //projectUrl: url,

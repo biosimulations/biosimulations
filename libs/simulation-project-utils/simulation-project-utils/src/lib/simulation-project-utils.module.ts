@@ -24,10 +24,10 @@ import {
   UploadModelComponent,
 } from './ui/create-project/form-steps';
 import { FormHostDirective, PagingFormComponent } from './ui/create-project/create-project/forms';
-import * as PlotlyJS from 'plotly.js-dist-min';
-import { PlotlyModule } from 'angular-plotly.js';
+// import * as PlotlyJS from 'plotly.js-dist-min';
+// import { PlotlyModule } from 'angular-plotly.js';
 
-PlotlyModule.plotlyjs = PlotlyJS;
+// PlotlyModule.plotlyjs = PlotlyJS;
 
 @NgModule({
   declarations: [
@@ -56,7 +56,7 @@ PlotlyModule.plotlyjs = PlotlyJS;
     RouterModule,
     SharedUiModule,
     BiosimulationsIconsModule,
-    PlotlyModule,
+    // PlotlyModule,
   ],
   exports: [ModelChangesComponent],
 })
