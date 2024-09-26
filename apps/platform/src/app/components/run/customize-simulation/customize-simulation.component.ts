@@ -855,8 +855,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
       return;
     }
 
-    let simulationResponse: Observable<SimulationRun>;
-
+    // let simulationResponse: Observable<SimulationRun>;
     // const projectUrl: string = this.formGroup.value.projectUrl;
     // console.log(`USING A PROJECT URL: ${projectUrl}`);
     // if (projectUrl) {
@@ -891,7 +890,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
 
     const fileInput: FileInput = this.formGroup.value.projectFile;
     const projectFile: File = fileInput.files[0];
-    simulationResponse = this.dispatchService.submitJobForFile(
+    const simulationResponse: Observable<SimulationRun> = this.dispatchService.submitJobForFile(
       projectFile,
       simulator,
       simulatorVersion,
