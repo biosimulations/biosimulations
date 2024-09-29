@@ -286,13 +286,10 @@
   }, {
     "@id" : "_:b111",
     "@type" : "owl:Axiom",
-    "rdfs:comment" : "In very unusual cases.",
-    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#isCyclic",
+    "rdfs:comment" : "'OBO_REL:has_participant' is narrower in the sense that it only relates ontological categories (concepts) that are a 'process' (span:Process) with ontological categories that are a 'continuant' (snap:Continuant), and broader in the sense that it relates with any participating objects not just inputs or input arguments of the subject.",
+    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym",
     "owl:annotatedSource" : "http://edamontology.org/has_input",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : {
-      "@type" : "xsd:boolean",
-      "@value" : "true"
-    }
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : "OBO_REL:has_participant"
   }, {
     "@id" : "_:b112",
     "@type" : "owl:Restriction",
@@ -372,12 +369,12 @@
     "@id" : "_:b125",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1255"
+    "owl:someValuesFrom" : "http://edamontology.org/data_3108"
   }, {
     "@id" : "_:b126",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1772"
+    "owl:someValuesFrom" : "http://edamontology.org/data_2044"
   }, {
     "@id" : "_:b127",
     "@type" : "owl:Restriction",
@@ -387,12 +384,12 @@
     "@id" : "_:b128",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2044"
+    "owl:someValuesFrom" : "http://edamontology.org/data_1255"
   }, {
     "@id" : "_:b129",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_3108"
+    "owl:someValuesFrom" : "http://edamontology.org/data_1772"
   }, {
     "@id" : "_:b13",
     "@type" : "owl:Axiom",
@@ -480,10 +477,10 @@
   }, {
     "@id" : "_:b144",
     "@type" : "owl:Axiom",
-    "rdfs:comment" : "EDAM does not distinguish a data record (a tool-understandable information artefact) from data or datum (its content, the tool-understandable encoding of an information).",
-    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym",
+    "rdfs:comment" : "EDAM does not distinguish the multiplicity of data, such as one data item (datum) versus a collection of data (data set).",
+    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#hasNarrowSynonym",
     "owl:annotatedSource" : "http://edamontology.org/data_0006",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : "Data record"
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : "Data set"
   }, {
     "@id" : "_:b145",
     "@type" : "owl:Restriction",
@@ -542,10 +539,10 @@
   }, {
     "@id" : "_:b155",
     "@type" : "owl:Axiom",
-    "rdfs:comment" : "EDAM does not distinguish the multiplicity of data, such as one data item (datum) versus a collection of data (data set).",
-    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#hasNarrowSynonym",
+    "rdfs:comment" : "EDAM does not distinguish a data record (a tool-understandable information artefact) from data or datum (its content, the tool-understandable encoding of an information).",
+    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym",
     "owl:annotatedSource" : "http://edamontology.org/data_0006",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : "Data set"
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : "Data record"
   }, {
     "@id" : "_:b156",
     "@type" : "owl:Restriction",
@@ -565,7 +562,7 @@
     "@id" : "_:b159",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1255"
+    "owl:someValuesFrom" : "http://edamontology.org/data_0863"
   }, {
     "@id" : "_:b16",
     "@type" : "owl:Restriction",
@@ -580,12 +577,12 @@
     "@id" : "_:b161",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2044"
+    "owl:someValuesFrom" : "http://edamontology.org/data_1255"
   }, {
     "@id" : "_:b162",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0863"
+    "owl:someValuesFrom" : "http://edamontology.org/data_2044"
   }, {
     "@id" : "_:b163",
     "@type" : "owl:Restriction",
@@ -595,12 +592,12 @@
     "@id" : "_:b164",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_3108"
+    "owl:someValuesFrom" : "http://edamontology.org/data_0863"
   }, {
     "@id" : "_:b165",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1255"
+    "owl:someValuesFrom" : "http://edamontology.org/data_3108"
   }, {
     "@id" : "_:b166",
     "@type" : "owl:Axiom",
@@ -617,12 +614,12 @@
     "@id" : "_:b168",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1772"
+    "owl:someValuesFrom" : "http://edamontology.org/data_1255"
   }, {
     "@id" : "_:b169",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0863"
+    "owl:someValuesFrom" : "http://edamontology.org/data_1772"
   }, {
     "@id" : "_:b17",
     "@type" : "owl:Restriction",
@@ -724,7 +721,7 @@
     "@id" : "_:b187",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2535"
+    "owl:someValuesFrom" : "http://edamontology.org/data_3112"
   }, {
     "@id" : "_:b188",
     "@type" : "owl:Restriction",
@@ -734,7 +731,7 @@
     "@id" : "_:b189",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_3112"
+    "owl:someValuesFrom" : "http://edamontology.org/data_2535"
   }, {
     "@id" : "_:b19",
     "@type" : "owl:Restriction",
@@ -744,12 +741,12 @@
     "@id" : "_:b190",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_3112"
+    "owl:someValuesFrom" : "http://edamontology.org/data_2535"
   }, {
     "@id" : "_:b191",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2535"
+    "owl:someValuesFrom" : "http://edamontology.org/data_3112"
   }, {
     "@id" : "_:b192",
     "@type" : "owl:Restriction",
@@ -785,10 +782,10 @@
   }, {
     "@id" : "_:b198",
     "@type" : "owl:Axiom",
-    "rdfs:comment" : "Computational tool provides one or more operations.",
-    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym",
+    "rdfs:comment" : "Operation is a function that is computational. It typically has input(s) and output(s), which are always data.",
+    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#hasBroadSynonym",
     "owl:annotatedSource" : "http://edamontology.org/operation_0004",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : "Computational tool"
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : "Function"
   }, {
     "@id" : "_:b199",
     "@type" : "owl:Axiom",
@@ -811,10 +808,10 @@
   }, {
     "@id" : "_:b200",
     "@type" : "owl:Axiom",
-    "rdfs:comment" : "Operation is a function that is computational. It typically has input(s) and output(s), which are always data.",
-    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#hasBroadSynonym",
+    "rdfs:comment" : "Computational tool provides one or more operations.",
+    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym",
     "owl:annotatedSource" : "http://edamontology.org/operation_0004",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : "Function"
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : "Computational tool"
   }, {
     "@id" : "_:b201",
     "@type" : "owl:Restriction",
@@ -833,38 +830,38 @@
   }, {
     "@id" : "_:b204",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0157"
-  }, {
-    "@id" : "_:b205",
-    "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_output",
     "owl:someValuesFrom" : "http://edamontology.org/data_1259"
   }, {
+    "@id" : "_:b205",
+    "@type" : "owl:Restriction",
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0157"
+  }, {
     "@id" : "_:b206",
+    "@type" : "owl:Restriction",
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0157"
+  }, {
+    "@id" : "_:b207",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_output",
     "owl:someValuesFrom" : "http://edamontology.org/data_1260"
   }, {
-    "@id" : "_:b207",
+    "@id" : "_:b208",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
     "owl:someValuesFrom" : "http://edamontology.org/topic_0157"
   }, {
-    "@id" : "_:b208",
+    "@id" : "_:b209",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_output",
     "owl:someValuesFrom" : "http://edamontology.org/data_1261"
   }, {
-    "@id" : "_:b209",
-    "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0157"
-  }, {
     "@id" : "_:b21",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1598"
+    "owl:someValuesFrom" : "http://edamontology.org/data_1597"
   }, {
     "@id" : "_:b210",
     "@type" : "owl:Restriction",
@@ -878,23 +875,23 @@
   }, {
     "@id" : "_:b212",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0858"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0160"
   }, {
     "@id" : "_:b213",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0160"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_0858"
   }, {
     "@id" : "_:b214",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0160"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_0858"
   }, {
     "@id" : "_:b215",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0858"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0160"
   }, {
     "@id" : "_:b216",
     "@type" : "owl:Restriction",
@@ -919,7 +916,7 @@
     "@id" : "_:b22",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1597"
+    "owl:someValuesFrom" : "http://edamontology.org/data_1598"
   }, {
     "@id" : "_:b220",
     "@type" : "owl:Restriction",
@@ -928,10 +925,13 @@
   }, {
     "@id" : "_:b221",
     "@type" : "owl:Axiom",
-    "rdfs:comment" : "'OBO_REL:has_participant' is narrower in the sense that it only relates ontological categories (concepts) that are a 'process' (span:Process) with ontological categories that are a 'continuant' (snap:Continuant), and broader in the sense that it relates with any participating objects not just inputs or input arguments of the subject.",
-    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym",
+    "rdfs:comment" : "In very unusual cases.",
+    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#isCyclic",
     "owl:annotatedSource" : "http://edamontology.org/has_input",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : "OBO_REL:has_participant"
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : {
+      "@type" : "xsd:boolean",
+      "@value" : "true"
+    }
   }, {
     "@id" : "_:b222",
     "@type" : "owl:Restriction",
@@ -955,23 +955,23 @@
   }, {
     "@id" : "_:b226",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0160"
-  }, {
-    "@id" : "_:b227",
-    "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_output",
     "owl:someValuesFrom" : "http://edamontology.org/data_1255"
   }, {
-    "@id" : "_:b228",
-    "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_input",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1255"
-  }, {
-    "@id" : "_:b229",
+    "@id" : "_:b227",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
     "owl:someValuesFrom" : "http://edamontology.org/topic_0160"
+  }, {
+    "@id" : "_:b228",
+    "@type" : "owl:Restriction",
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0160"
+  }, {
+    "@id" : "_:b229",
+    "@type" : "owl:Restriction",
+    "owl:onProperty" : "http://edamontology.org/has_input",
+    "owl:someValuesFrom" : "http://edamontology.org/data_1255"
   }, {
     "@id" : "_:b23",
     "@type" : "owl:Restriction",
@@ -1030,13 +1030,10 @@
   }, {
     "@id" : "_:b24",
     "@type" : "owl:Axiom",
-    "rdfs:comment" : "In very unusual cases.",
-    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#isCyclic",
+    "rdfs:comment" : "Is defined anywhere? Not in the 'unknown' version of RO. 'OBO_REL:function_of' only relates subjects that are a 'function' (snap:Function) with objects that are an 'independent_continuant' (snap:IndependentContinuant), so for example no processes. It does not define explicitly that the subject is a function of the object.",
+    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#hasNarrowSynonym",
     "owl:annotatedSource" : "http://edamontology.org/is_function_of",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : {
-      "@type" : "xsd:boolean",
-      "@value" : "true"
-    }
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : "OBO_REL:function_of"
   }, {
     "@id" : "_:b240",
     "@type" : "owl:Restriction",
@@ -1075,18 +1072,18 @@
   }, {
     "@id" : "_:b247",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0203"
+    "owl:onProperty" : "http://edamontology.org/has_input",
+    "owl:someValuesFrom" : "http://edamontology.org/data_1597"
   }, {
     "@id" : "_:b248",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1597"
+    "owl:onProperty" : "http://edamontology.org/has_input",
+    "owl:someValuesFrom" : "http://edamontology.org/data_2977"
   }, {
     "@id" : "_:b249",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0914"
+    "owl:someValuesFrom" : "http://edamontology.org/data_1597"
   }, {
     "@id" : "_:b25",
     "@type" : "owl:Restriction",
@@ -1095,23 +1092,23 @@
   }, {
     "@id" : "_:b250",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_input",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2977"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0203"
   }, {
     "@id" : "_:b251",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_input",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1597"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_0914"
   }, {
     "@id" : "_:b252",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0114"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_1263"
   }, {
     "@id" : "_:b253",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1263"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0114"
   }, {
     "@id" : "_:b254",
     "@type" : "owl:Restriction",
@@ -1155,8 +1152,8 @@
   }, {
     "@id" : "_:b261",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0160"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_1354"
   }, {
     "@id" : "_:b262",
     "@type" : "owl:Restriction",
@@ -1165,13 +1162,13 @@
   }, {
     "@id" : "_:b263",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1354"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0160"
   }, {
     "@id" : "_:b264",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_input",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0883"
+    "owl:someValuesFrom" : "http://edamontology.org/data_0886"
   }, {
     "@id" : "_:b265",
     "@type" : "owl:Restriction",
@@ -1186,7 +1183,7 @@
     "@id" : "_:b267",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_input",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0886"
+    "owl:someValuesFrom" : "http://edamontology.org/data_0883"
   }, {
     "@id" : "_:b268",
     "@type" : "owl:Restriction",
@@ -1220,23 +1217,23 @@
   }, {
     "@id" : "_:b273",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_input",
-    "owl:someValuesFrom" : "http://edamontology.org/data_3671"
-  }, {
-    "@id" : "_:b274",
-    "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
     "owl:someValuesFrom" : "http://edamontology.org/topic_0218"
   }, {
-    "@id" : "_:b275",
+    "@id" : "_:b274",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_output",
     "owl:someValuesFrom" : "http://edamontology.org/data_0972"
   }, {
+    "@id" : "_:b275",
+    "@type" : "owl:Restriction",
+    "owl:onProperty" : "http://edamontology.org/has_input",
+    "owl:someValuesFrom" : "http://edamontology.org/data_3671"
+  }, {
     "@id" : "_:b276",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0632"
+    "owl:onProperty" : "http://edamontology.org/has_input",
+    "owl:someValuesFrom" : "http://edamontology.org/data_2977"
   }, {
     "@id" : "_:b277",
     "@type" : "owl:Restriction",
@@ -1245,13 +1242,13 @@
   }, {
     "@id" : "_:b278",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_input",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2977"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_1240"
   }, {
     "@id" : "_:b279",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1240"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0632"
   }, {
     "@id" : "_:b28",
     "@type" : "owl:Restriction",
@@ -1261,7 +1258,7 @@
     "@id" : "_:b280",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0632"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0203"
   }, {
     "@id" : "_:b281",
     "@type" : "owl:Restriction",
@@ -1270,23 +1267,23 @@
   }, {
     "@id" : "_:b282",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2717"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0632"
   }, {
     "@id" : "_:b283",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0203"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_2717"
   }, {
     "@id" : "_:b284",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0196"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_0925"
   }, {
     "@id" : "_:b285",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0925"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0196"
   }, {
     "@id" : "_:b286",
     "@type" : "owl:Restriction",
@@ -1296,7 +1293,7 @@
     "@id" : "_:b287",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_2814"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_1317"
   }, {
     "@id" : "_:b288",
     "@type" : "owl:Restriction",
@@ -1306,7 +1303,7 @@
     "@id" : "_:b289",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_1317"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_2814"
   }, {
     "@id" : "_:b29",
     "@type" : "owl:Restriction",
@@ -1325,23 +1322,23 @@
   }, {
     "@id" : "_:b292",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_2275"
-  }, {
-    "@id" : "_:b293",
-    "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_output",
     "owl:someValuesFrom" : "http://edamontology.org/data_1539"
   }, {
-    "@id" : "_:b294",
+    "@id" : "_:b293",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0872"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_2275"
   }, {
-    "@id" : "_:b295",
+    "@id" : "_:b294",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
     "owl:someValuesFrom" : "http://edamontology.org/topic_0080"
+  }, {
+    "@id" : "_:b295",
+    "@type" : "owl:Restriction",
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_0872"
   }, {
     "@id" : "_:b296",
     "@type" : "owl:Restriction",
@@ -1390,18 +1387,18 @@
   }, {
     "@id" : "_:b303",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2024"
-  }, {
-    "@id" : "_:b304",
-    "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
     "owl:someValuesFrom" : "http://edamontology.org/topic_0821"
   }, {
+    "@id" : "_:b304",
+    "@type" : "owl:Restriction",
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_2024"
+  }, {
     "@id" : "_:b305",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_input",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2968"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0092"
   }, {
     "@id" : "_:b306",
     "@type" : "owl:Restriction",
@@ -1410,8 +1407,8 @@
   }, {
     "@id" : "_:b307",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0092"
+    "owl:onProperty" : "http://edamontology.org/has_input",
+    "owl:someValuesFrom" : "http://edamontology.org/data_2968"
   }, {
     "@id" : "_:b308",
     "@type" : "owl:Restriction",
@@ -1435,12 +1432,12 @@
   }, {
     "@id" : "_:b311",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_input",
+    "owl:onProperty" : "http://edamontology.org/has_output",
     "owl:someValuesFrom" : "http://edamontology.org/data_0849"
   }, {
     "@id" : "_:b312",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:onProperty" : "http://edamontology.org/has_input",
     "owl:someValuesFrom" : "http://edamontology.org/data_0849"
   }, {
     "@id" : "_:b313",
@@ -1450,13 +1447,13 @@
   }, {
     "@id" : "_:b314",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1238"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0121"
   }, {
     "@id" : "_:b315",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0121"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_1238"
   }, {
     "@id" : "_:b316",
     "@type" : "owl:Restriction",
@@ -1522,13 +1519,13 @@
   }, {
     "@id" : "_:b327",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1519"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0121"
   }, {
     "@id" : "_:b328",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0121"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_1519"
   }, {
     "@id" : "_:b329",
     "@type" : "owl:Restriction",
@@ -1542,20 +1539,23 @@
   }, {
     "@id" : "_:b330",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0123"
-  }, {
-    "@id" : "_:b331",
-    "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_output",
     "owl:someValuesFrom" : "http://edamontology.org/data_0897"
   }, {
+    "@id" : "_:b331",
+    "@type" : "owl:Restriction",
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0123"
+  }, {
     "@id" : "_:b332",
     "@type" : "owl:Axiom",
-    "rdfs:comment" : "'OBO_REL:has_participant' is narrower in the sense that it only relates ontological categories (concepts) that are a 'process' (span:Process) with ontological categories that are a 'continuant' (snap:Continuant), and broader in the sense that it relates with any participating objects not just outputs or output arguments of the subject. It is also not clear whether an output (result) actually participates in the process that generates it.",
-    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym",
+    "rdfs:comment" : "In very unusual cases.",
+    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#isCyclic",
     "owl:annotatedSource" : "http://edamontology.org/has_output",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : "OBO_REL:has_participant"
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : {
+      "@type" : "xsd:boolean",
+      "@value" : "true"
+    }
   }, {
     "@id" : "_:b333",
     "@type" : "owl:Restriction",
@@ -1649,10 +1649,13 @@
   }, {
     "@id" : "_:b35",
     "@type" : "owl:Axiom",
-    "rdfs:comment" : "Is defined anywhere? Not in the 'unknown' version of RO. 'OBO_REL:function_of' only relates subjects that are a 'function' (snap:Function) with objects that are an 'independent_continuant' (snap:IndependentContinuant), so for example no processes. It does not define explicitly that the subject is a function of the object.",
-    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#hasNarrowSynonym",
+    "rdfs:comment" : "In very unusual cases.",
+    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#isCyclic",
     "owl:annotatedSource" : "http://edamontology.org/is_function_of",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : "OBO_REL:function_of"
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : {
+      "@type" : "xsd:boolean",
+      "@value" : "true"
+    }
   }, {
     "@id" : "_:b350",
     "@type" : "owl:Restriction",
@@ -1826,13 +1829,13 @@
   }, {
     "@id" : "_:b381",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_input",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0880"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_0881"
   }, {
     "@id" : "_:b382",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0881"
+    "owl:onProperty" : "http://edamontology.org/has_input",
+    "owl:someValuesFrom" : "http://edamontology.org/data_0880"
   }, {
     "@id" : "_:b383",
     "@type" : "owl:Restriction",
@@ -1906,13 +1909,13 @@
   }, {
     "@id" : "_:b396",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_input",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2044"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_2969"
   }, {
     "@id" : "_:b397",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2969"
+    "owl:onProperty" : "http://edamontology.org/has_input",
+    "owl:someValuesFrom" : "http://edamontology.org/data_2044"
   }, {
     "@id" : "_:b398",
     "@type" : "owl:Restriction",
@@ -1927,12 +1930,12 @@
     "@id" : "_:b4",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0152"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0153"
   }, {
     "@id" : "_:b40",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1462"
+    "owl:someValuesFrom" : "http://edamontology.org/data_2313"
   }, {
     "@id" : "_:b400",
     "@type" : "owl:Restriction",
@@ -1987,7 +1990,7 @@
     "@id" : "_:b41",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2313"
+    "owl:someValuesFrom" : "http://edamontology.org/data_1462"
   }, {
     "@id" : "_:b410",
     "@type" : "owl:Restriction",
@@ -2026,13 +2029,13 @@
   }, {
     "@id" : "_:b417",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_input",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1460"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_2814"
   }, {
     "@id" : "_:b418",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_2814"
+    "owl:onProperty" : "http://edamontology.org/has_input",
+    "owl:someValuesFrom" : "http://edamontology.org/data_1460"
   }, {
     "@id" : "_:b419",
     "@type" : "owl:Restriction",
@@ -2091,8 +2094,8 @@
   }, {
     "@id" : "_:b429",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_1775"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_3754"
   }, {
     "@id" : "_:b43",
     "@type" : "owl:Restriction",
@@ -2101,8 +2104,8 @@
   }, {
     "@id" : "_:b430",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_3754"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_1775"
   }, {
     "@id" : "_:b431",
     "@type" : "owl:Restriction",
@@ -2126,13 +2129,13 @@
   }, {
     "@id" : "_:b435",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_input",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2044"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_2955"
   }, {
     "@id" : "_:b436",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2955"
+    "owl:onProperty" : "http://edamontology.org/has_input",
+    "owl:someValuesFrom" : "http://edamontology.org/data_2044"
   }, {
     "@id" : "_:b437",
     "@type" : "owl:Restriction",
@@ -2146,8 +2149,8 @@
   }, {
     "@id" : "_:b439",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0906"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0128"
   }, {
     "@id" : "_:b44",
     "@type" : "owl:Restriction",
@@ -2156,13 +2159,13 @@
   }, {
     "@id" : "_:b440",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0128"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_0906"
   }, {
     "@id" : "_:b441",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0883"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0176"
   }, {
     "@id" : "_:b442",
     "@type" : "owl:Restriction",
@@ -2171,13 +2174,10 @@
   }, {
     "@id" : "_:b443",
     "@type" : "owl:Axiom",
-    "rdfs:comment" : "In very unusual cases.",
-    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#isCyclic",
+    "rdfs:comment" : "'OBO_REL:has_participant' is narrower in the sense that it only relates ontological categories (concepts) that are a 'process' (span:Process) with ontological categories that are a 'continuant' (snap:Continuant), and broader in the sense that it relates with any participating objects not just outputs or output arguments of the subject. It is also not clear whether an output (result) actually participates in the process that generates it.",
+    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym",
     "owl:annotatedSource" : "http://edamontology.org/has_output",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : {
-      "@type" : "xsd:boolean",
-      "@value" : "true"
-    }
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : "OBO_REL:has_participant"
   }, {
     "@id" : "_:b444",
     "@type" : "owl:Restriction",
@@ -2186,8 +2186,8 @@
   }, {
     "@id" : "_:b445",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0176"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_0883"
   }, {
     "@id" : "_:b446",
     "@type" : "owl:Restriction",
@@ -2201,13 +2201,13 @@
   }, {
     "@id" : "_:b448",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0078"
+    "owl:onProperty" : "http://edamontology.org/has_input",
+    "owl:someValuesFrom" : "http://edamontology.org/data_2976"
   }, {
     "@id" : "_:b449",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_input",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2976"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0078"
   }, {
     "@id" : "_:b45",
     "@type" : "owl:Restriction",
@@ -2221,13 +2221,13 @@
   }, {
     "@id" : "_:b451",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_input",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1459"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0097"
   }, {
     "@id" : "_:b452",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0097"
+    "owl:onProperty" : "http://edamontology.org/has_input",
+    "owl:someValuesFrom" : "http://edamontology.org/data_1459"
   }, {
     "@id" : "_:b453",
     "@type" : "owl:Restriction",
@@ -2266,13 +2266,10 @@
   }, {
     "@id" : "_:b46",
     "@type" : "owl:Axiom",
-    "rdfs:comment" : "In very unusual cases.",
-    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#isCyclic",
+    "rdfs:comment" : "'OBO_REL:participates_in' is narrower in the sense that it only relates ontological categories (concepts) that are a 'continuant' (snap:Continuant) with ontological categories that are a 'process' (span:Process), and broader in the sense that it relates any participating subjects not just inputs or input arguments.",
+    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym",
     "owl:annotatedSource" : "http://edamontology.org/is_input_of",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : {
-      "@type" : "xsd:boolean",
-      "@value" : "true"
-    }
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : "OBO_REL:participates_in"
   }, {
     "@id" : "_:b460",
     "@type" : "owl:Restriction",
@@ -2297,12 +2294,12 @@
     "@id" : "_:b464",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0102"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0196"
   }, {
     "@id" : "_:b465",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0196"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_1274"
   }, {
     "@id" : "_:b466",
     "@type" : "owl:Restriction",
@@ -2311,23 +2308,23 @@
   }, {
     "@id" : "_:b467",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1274"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0102"
   }, {
     "@id" : "_:b468",
-    "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0123"
-  }, {
-    "@id" : "_:b469",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_output",
     "owl:someValuesFrom" : "http://edamontology.org/data_2970"
   }, {
+    "@id" : "_:b469",
+    "@type" : "owl:Restriction",
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0123"
+  }, {
     "@id" : "_:b47",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2850"
+    "owl:someValuesFrom" : "http://edamontology.org/data_2879"
   }, {
     "@id" : "_:b470",
     "@type" : "owl:Restriction",
@@ -2356,13 +2353,13 @@
   }, {
     "@id" : "_:b475",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0128"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_0906"
   }, {
     "@id" : "_:b476",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0906"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0128"
   }, {
     "@id" : "_:b477",
     "@type" : "owl:Restriction",
@@ -2382,7 +2379,7 @@
     "@id" : "_:b48",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2879"
+    "owl:someValuesFrom" : "http://edamontology.org/data_2850"
   }, {
     "@id" : "_:b480",
     "@type" : "owl:Restriction",
@@ -2397,27 +2394,27 @@
     "@id" : "_:b482",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0078"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0160"
   }, {
     "@id" : "_:b483",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0160"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0078"
   }, {
     "@id" : "_:b484",
-    "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_3181"
-  }, {
-    "@id" : "_:b485",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
     "owl:someValuesFrom" : "http://edamontology.org/topic_0196"
   }, {
-    "@id" : "_:b486",
+    "@id" : "_:b485",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_input",
     "owl:someValuesFrom" : "http://edamontology.org/data_0925"
+  }, {
+    "@id" : "_:b486",
+    "@type" : "owl:Restriction",
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_3181"
   }, {
     "@id" : "_:b487",
     "@type" : "owl:Restriction",
@@ -2466,22 +2463,22 @@
   }, {
     "@id" : "_:b495",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0925"
-  }, {
-    "@id" : "_:b496",
-    "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
     "owl:someValuesFrom" : "http://edamontology.org/topic_0196"
   }, {
-    "@id" : "_:b497",
+    "@id" : "_:b496",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_0925"
+  }, {
+    "@id" : "_:b497",
+    "@type" : "owl:Restriction",
+    "owl:onProperty" : "http://edamontology.org/has_input",
     "owl:someValuesFrom" : "http://edamontology.org/data_2012"
   }, {
     "@id" : "_:b498",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_input",
+    "owl:onProperty" : "http://edamontology.org/has_output",
     "owl:someValuesFrom" : "http://edamontology.org/data_2012"
   }, {
     "@id" : "_:b499",
@@ -2492,7 +2489,7 @@
     "@id" : "_:b5",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0153"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0152"
   }, {
     "@id" : "_:b50",
     "@type" : "owl:Restriction",
@@ -2539,17 +2536,17 @@
     "@id" : "_:b507",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_3068"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0219"
   }, {
     "@id" : "_:b508",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_3382"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_3068"
   }, {
     "@id" : "_:b509",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_2229"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_3382"
   }, {
     "@id" : "_:b51",
     "@type" : "owl:Restriction",
@@ -2569,42 +2566,42 @@
     "@id" : "_:b512",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_1317"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_2229"
   }, {
     "@id" : "_:b513",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_1775"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_1317"
   }, {
     "@id" : "_:b514",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_3301"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_1775"
   }, {
     "@id" : "_:b515",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0121"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_3301"
   }, {
     "@id" : "_:b516",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0097"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0121"
   }, {
     "@id" : "_:b517",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0084"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0097"
   }, {
     "@id" : "_:b518",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_3301"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0084"
   }, {
     "@id" : "_:b519",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_3753"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_3301"
   }, {
     "@id" : "_:b52",
     "@type" : "owl:Restriction",
@@ -2613,8 +2610,8 @@
   }, {
     "@id" : "_:b520",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_1775"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_3753"
   }, {
     "@id" : "_:b521",
     "@type" : "owl:Restriction",
@@ -2624,12 +2621,12 @@
     "@id" : "_:b522",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_3382"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_1775"
   }, {
     "@id" : "_:b523",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_input",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0943"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_3382"
   }, {
     "@id" : "_:b524",
     "@type" : "owl:Restriction",
@@ -2653,8 +2650,8 @@
   }, {
     "@id" : "_:b528",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0121"
+    "owl:onProperty" : "http://edamontology.org/has_input",
+    "owl:someValuesFrom" : "http://edamontology.org/data_0943"
   }, {
     "@id" : "_:b529",
     "@type" : "owl:Restriction",
@@ -2669,12 +2666,12 @@
     "@id" : "_:b530",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_2259"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0121"
   }, {
     "@id" : "_:b531",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0602"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_2259"
   }, {
     "@id" : "_:b532",
     "@type" : "owl:Restriction",
@@ -2683,13 +2680,13 @@
   }, {
     "@id" : "_:b533",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_input",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0943"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0602"
   }, {
     "@id" : "_:b534",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_3068"
+    "owl:onProperty" : "http://edamontology.org/has_input",
+    "owl:someValuesFrom" : "http://edamontology.org/data_0943"
   }, {
     "@id" : "_:b535",
     "@type" : "owl:Restriction",
@@ -2698,13 +2695,13 @@
   }, {
     "@id" : "_:b536",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_3779"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_3068"
   }, {
     "@id" : "_:b537",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_input",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0943"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_3779"
   }, {
     "@id" : "_:b538",
     "@type" : "owl:Restriction",
@@ -2713,8 +2710,8 @@
   }, {
     "@id" : "_:b539",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2162"
+    "owl:onProperty" : "http://edamontology.org/has_input",
+    "owl:someValuesFrom" : "http://edamontology.org/data_0943"
   }, {
     "@id" : "_:b54",
     "@type" : "owl:Restriction",
@@ -2724,7 +2721,7 @@
     "@id" : "_:b540",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1439"
+    "owl:someValuesFrom" : "http://edamontology.org/data_2162"
   }, {
     "@id" : "_:b541",
     "@type" : "owl:Restriction",
@@ -2733,8 +2730,8 @@
   }, {
     "@id" : "_:b542",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0128"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_1439"
   }, {
     "@id" : "_:b543",
     "@type" : "owl:Restriction",
@@ -2748,8 +2745,8 @@
   }, {
     "@id" : "_:b545",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0906"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0128"
   }, {
     "@id" : "_:b546",
     "@type" : "owl:Restriction",
@@ -2758,18 +2755,18 @@
   }, {
     "@id" : "_:b547",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0128"
-  }, {
-    "@id" : "_:b548",
-    "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_output",
     "owl:someValuesFrom" : "http://edamontology.org/data_0906"
   }, {
-    "@id" : "_:b549",
+    "@id" : "_:b548",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_3301"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0128"
+  }, {
+    "@id" : "_:b549",
+    "@type" : "owl:Restriction",
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_0906"
   }, {
     "@id" : "_:b55",
     "@type" : "owl:Restriction",
@@ -2779,7 +2776,7 @@
     "@id" : "_:b550",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0622"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_3301"
   }, {
     "@id" : "_:b551",
     "@type" : "owl:Restriction",
@@ -2788,8 +2785,8 @@
   }, {
     "@id" : "_:b552",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_input",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2600"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0622"
   }, {
     "@id" : "_:b553",
     "@type" : "owl:Restriction",
@@ -2807,8 +2804,8 @@
   }, {
     "@id" : "_:b556",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_2259"
+    "owl:onProperty" : "http://edamontology.org/has_input",
+    "owl:someValuesFrom" : "http://edamontology.org/data_2600"
   }, {
     "@id" : "_:b557",
     "@type" : "owl:Restriction",
@@ -2818,12 +2815,12 @@
     "@id" : "_:b558",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0602"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_2259"
   }, {
     "@id" : "_:b559",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_2259"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0602"
   }, {
     "@id" : "_:b56",
     "@type" : "owl:Restriction",
@@ -2832,8 +2829,8 @@
   }, {
     "@id" : "_:b560",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_input",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0943"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_2259"
   }, {
     "@id" : "_:b561",
     "@type" : "owl:Restriction",
@@ -2842,23 +2839,23 @@
   }, {
     "@id" : "_:b562",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0121"
+    "owl:onProperty" : "http://edamontology.org/has_input",
+    "owl:someValuesFrom" : "http://edamontology.org/data_0943"
   }, {
     "@id" : "_:b563",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_input",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0943"
-  }, {
-    "@id" : "_:b564",
-    "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
     "owl:someValuesFrom" : "http://edamontology.org/topic_0121"
   }, {
-    "@id" : "_:b565",
+    "@id" : "_:b564",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_input",
     "owl:someValuesFrom" : "http://edamontology.org/data_0943"
+  }, {
+    "@id" : "_:b565",
+    "@type" : "owl:Restriction",
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0121"
   }, {
     "@id" : "_:b566",
     "@type" : "owl:Restriction",
@@ -2867,8 +2864,8 @@
   }, {
     "@id" : "_:b567",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1461"
+    "owl:onProperty" : "http://edamontology.org/has_input",
+    "owl:someValuesFrom" : "http://edamontology.org/data_0943"
   }, {
     "@id" : "_:b568",
     "@type" : "owl:Restriction",
@@ -2877,50 +2874,53 @@
   }, {
     "@id" : "_:b569",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0084"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_1461"
   }, {
     "@id" : "_:b57",
     "@type" : "owl:Axiom",
-    "rdfs:comment" : "'OBO_REL:participates_in' is narrower in the sense that it only relates ontological categories (concepts) that are a 'continuant' (snap:Continuant) with ontological categories that are a 'process' (span:Process), and broader in the sense that it relates any participating subjects not just inputs or input arguments.",
-    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym",
+    "rdfs:comment" : "In very unusual cases.",
+    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#isCyclic",
     "owl:annotatedSource" : "http://edamontology.org/is_input_of",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : "OBO_REL:participates_in"
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : {
+      "@type" : "xsd:boolean",
+      "@value" : "true"
+    }
   }, {
     "@id" : "_:b570",
+    "@type" : "owl:Restriction",
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0084"
+  }, {
+    "@id" : "_:b571",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_output",
     "owl:someValuesFrom" : "http://edamontology.org/data_1439"
   }, {
-    "@id" : "_:b571",
+    "@id" : "_:b572",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
     "owl:someValuesFrom" : "http://edamontology.org/topic_0804"
   }, {
-    "@id" : "_:b572",
-    "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_input",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2042"
-  }, {
     "@id" : "_:b573",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0951"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_2269"
   }, {
     "@id" : "_:b574",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_3365"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_3572"
   }, {
     "@id" : "_:b575",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_3572"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_0951"
   }, {
     "@id" : "_:b576",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_2269"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_3365"
   }, {
     "@id" : "_:b577",
     "@type" : "owl:Restriction",
@@ -2930,12 +2930,12 @@
     "@id" : "_:b578",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_input",
-    "owl:someValuesFrom" : "http://edamontology.org/data_3494"
+    "owl:someValuesFrom" : "http://edamontology.org/data_2042"
   }, {
     "@id" : "_:b579",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1772"
+    "owl:someValuesFrom" : "http://edamontology.org/data_1276"
   }, {
     "@id" : "_:b58",
     "@type" : "owl:Restriction",
@@ -2944,38 +2944,38 @@
   }, {
     "@id" : "_:b580",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0160"
+    "owl:onProperty" : "http://edamontology.org/has_input",
+    "owl:someValuesFrom" : "http://edamontology.org/data_3494"
   }, {
     "@id" : "_:b581",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1276"
+    "owl:someValuesFrom" : "http://edamontology.org/data_1772"
   }, {
     "@id" : "_:b582",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_3295"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0160"
   }, {
     "@id" : "_:b583",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_3305"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_3295"
   }, {
     "@id" : "_:b584",
-    "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_3324"
-  }, {
-    "@id" : "_:b585",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_output",
     "owl:someValuesFrom" : "http://edamontology.org/data_2048"
   }, {
+    "@id" : "_:b585",
+    "@type" : "owl:Restriction",
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_3324"
+  }, {
     "@id" : "_:b586",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_3932"
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_3305"
   }, {
     "@id" : "_:b587",
     "@type" : "owl:Restriction",
@@ -3000,52 +3000,52 @@
     "@id" : "_:b590",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_output",
-    "owl:someValuesFrom" : "http://edamontology.org/data_4040"
+    "owl:someValuesFrom" : "http://edamontology.org/data_3932"
   }, {
     "@id" : "_:b591",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_3071"
+    "owl:onProperty" : "http://edamontology.org/has_output",
+    "owl:someValuesFrom" : "http://edamontology.org/data_4040"
   }, {
     "@id" : "_:b592",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_4011"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_3071"
   }, {
     "@id" : "_:b593",
+    "@type" : "owl:Restriction",
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_4011"
+  }, {
+    "@id" : "_:b594",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://www.w3.org/2004/02/skos/core#related",
     "owl:someValuesFrom" : "http://edamontology.org/topic_3923"
   }, {
-    "@id" : "_:b594",
+    "@id" : "_:b595",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
     "owl:someValuesFrom" : "http://edamontology.org/data_0889"
   }, {
-    "@id" : "_:b595",
+    "@id" : "_:b596",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
     "owl:someValuesFrom" : "http://edamontology.org/data_0886"
   }, {
-    "@id" : "_:b596",
+    "@id" : "_:b597",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
     "owl:someValuesFrom" : "http://edamontology.org/data_1501"
   }, {
-    "@id" : "_:b597",
+    "@id" : "_:b598",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
     "owl:someValuesFrom" : "http://edamontology.org/data_0906"
   }, {
-    "@id" : "_:b598",
-    "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/is_identifier_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0907"
-  }, {
     "@id" : "_:b599",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1597"
+    "owl:someValuesFrom" : "http://edamontology.org/data_0907"
   }, {
     "@id" : "_:b6",
     "@type" : "owl:Restriction",
@@ -3060,52 +3060,52 @@
     "@id" : "_:b600",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1598"
+    "owl:someValuesFrom" : "http://edamontology.org/data_1597"
   }, {
     "@id" : "_:b601",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2531"
+    "owl:someValuesFrom" : "http://edamontology.org/data_1598"
   }, {
     "@id" : "_:b602",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_3805"
+    "owl:someValuesFrom" : "http://edamontology.org/data_2531"
   }, {
     "@id" : "_:b603",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_3111"
+    "owl:someValuesFrom" : "http://edamontology.org/data_3805"
   }, {
     "@id" : "_:b604",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0920"
+    "owl:someValuesFrom" : "http://edamontology.org/data_3111"
   }, {
     "@id" : "_:b605",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2600"
+    "owl:someValuesFrom" : "http://edamontology.org/data_0920"
   }, {
     "@id" : "_:b606",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0950"
+    "owl:someValuesFrom" : "http://edamontology.org/data_2600"
   }, {
     "@id" : "_:b607",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0962"
+    "owl:someValuesFrom" : "http://edamontology.org/data_0950"
   }, {
     "@id" : "_:b608",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0971"
+    "owl:someValuesFrom" : "http://edamontology.org/data_0962"
   }, {
     "@id" : "_:b609",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2976"
+    "owl:someValuesFrom" : "http://edamontology.org/data_0971"
   }, {
     "@id" : "_:b61",
     "@type" : "owl:Restriction",
@@ -3115,37 +3115,37 @@
     "@id" : "_:b610",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_2977"
+    "owl:someValuesFrom" : "http://edamontology.org/data_2976"
   }, {
     "@id" : "_:b611",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1235"
+    "owl:someValuesFrom" : "http://edamontology.org/data_2977"
   }, {
     "@id" : "_:b612",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1353"
+    "owl:someValuesFrom" : "http://edamontology.org/data_1235"
   }, {
     "@id" : "_:b613",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1354"
+    "owl:someValuesFrom" : "http://edamontology.org/data_1353"
   }, {
     "@id" : "_:b614",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1364"
+    "owl:someValuesFrom" : "http://edamontology.org/data_1354"
   }, {
     "@id" : "_:b615",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0874"
+    "owl:someValuesFrom" : "http://edamontology.org/data_1364"
   }, {
     "@id" : "_:b616",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_1355"
+    "owl:someValuesFrom" : "http://edamontology.org/data_0874"
   }, {
     "@id" : "_:b617",
     "@type" : "owl:Restriction",
@@ -3160,7 +3160,7 @@
     "@id" : "_:b619",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0957"
+    "owl:someValuesFrom" : "http://edamontology.org/data_1355"
   }, {
     "@id" : "_:b62",
     "@type" : "owl:Restriction",
@@ -3168,6 +3168,11 @@
     "owl:someValuesFrom" : "http://edamontology.org/topic_0199"
   }, {
     "@id" : "_:b620",
+    "@type" : "owl:Restriction",
+    "owl:onProperty" : "http://edamontology.org/is_identifier_of",
+    "owl:someValuesFrom" : "http://edamontology.org/data_0957"
+  }, {
+    "@id" : "_:b621",
     "@type" : "owl:Axiom",
     "rdfs:comment" : "In very unusual cases.",
     "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#isCyclic",
@@ -3177,42 +3182,37 @@
       "@value" : "true"
     }
   }, {
-    "@id" : "_:b621",
-    "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/is_identifier_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0957"
-  }, {
     "@id" : "_:b622",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_identifier_of",
     "owl:someValuesFrom" : "http://edamontology.org/data_0957"
   }, {
     "@id" : "_:b623",
+    "@type" : "owl:Restriction",
+    "owl:onProperty" : "http://edamontology.org/is_identifier_of",
+    "owl:someValuesFrom" : "http://edamontology.org/data_0957"
+  }, {
+    "@id" : "_:b624",
     "@type" : "owl:Axiom",
     "rdfs:comment" : "A protein entity has the MIRIAM data type 'UniProt', and an enzyme has the MIRIAM data type 'Enzyme Nomenclature'.",
     "owl:annotatedProperty" : "http://edamontology.org/example",
     "owl:annotatedSource" : "http://edamontology.org/data_1165",
     "http://www.w3.org/2002/07/owl#annotatedTarget" : "UniProt|Enzyme Nomenclature"
   }, {
-    "@id" : "_:b624",
+    "@id" : "_:b625",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
     "owl:someValuesFrom" : "http://edamontology.org/topic_0623"
   }, {
-    "@id" : "_:b625",
+    "@id" : "_:b626",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
     "owl:someValuesFrom" : "http://edamontology.org/topic_0121"
   }, {
-    "@id" : "_:b626",
-    "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0102"
-  }, {
     "@id" : "_:b627",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0160"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0102"
   }, {
     "@id" : "_:b628",
     "@type" : "owl:Restriction",
@@ -3222,7 +3222,7 @@
     "@id" : "_:b629",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
-    "owl:someValuesFrom" : "http://edamontology.org/topic_0199"
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0160"
   }, {
     "@id" : "_:b63",
     "@type" : "owl:Restriction",
@@ -3230,6 +3230,11 @@
     "owl:someValuesFrom" : "http://edamontology.org/data_1622"
   }, {
     "@id" : "_:b630",
+    "@type" : "owl:Restriction",
+    "owl:onProperty" : "http://edamontology.org/has_topic",
+    "owl:someValuesFrom" : "http://edamontology.org/topic_0199"
+  }, {
+    "@id" : "_:b631",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/has_topic",
     "owl:someValuesFrom" : "http://edamontology.org/topic_0097"
@@ -3256,13 +3261,10 @@
   }, {
     "@id" : "_:b68",
     "@type" : "owl:Axiom",
-    "rdfs:comment" : "In very unusual cases.",
-    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#isCyclic",
+    "rdfs:comment" : "'OBO_REL:participates_in' is narrower in the sense that it only relates ontological categories (concepts) that are a 'continuant' (snap:Continuant) with ontological categories that are a 'process' (span:Process), and broader in the sense that it relates any participating subjects not just outputs or output arguments. It is also not clear whether an output (result) actually participates in the process that generates it.",
+    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym",
     "owl:annotatedSource" : "http://edamontology.org/is_output_of",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : {
-      "@type" : "xsd:boolean",
-      "@value" : "true"
-    }
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : "OBO_REL:participates_in"
   }, {
     "@id" : "_:b69",
     "@type" : "owl:Restriction",
@@ -3292,12 +3294,12 @@
     "@id" : "_:b73",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_0883"
+    "owl:someValuesFrom" : "http://edamontology.org/data_3870"
   }, {
     "@id" : "_:b74",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://edamontology.org/is_format_of",
-    "owl:someValuesFrom" : "http://edamontology.org/data_3870"
+    "owl:someValuesFrom" : "http://edamontology.org/data_0883"
   }, {
     "@id" : "_:b75",
     "@type" : "owl:Restriction",
@@ -3316,17 +3318,20 @@
   }, {
     "@id" : "_:b78",
     "@type" : "owl:Axiom",
-    "rdfs:comment" : "A defined data format has its implicit or explicit data model, and EDAM does not distinguish the two. Some data models, however, do not have any standard way of serialisation into an exchange format, and those are thus not considered formats in EDAM. (Remark: even broader - or closely related - term to 'Data model' would be an 'Information model'.)",
+    "rdfs:comment" : "File format denotes only formats of a computer file, but the same formats apply also to data blobs or exchanged messages.",
     "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym",
     "owl:annotatedSource" : "http://edamontology.org/format_1915",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : "Data model"
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : "File format"
   }, {
     "@id" : "_:b79",
     "@type" : "owl:Axiom",
-    "rdfs:comment" : "'OBO_REL:participates_in' is narrower in the sense that it only relates ontological categories (concepts) that are a 'continuant' (snap:Continuant) with ontological categories that are a 'process' (span:Process), and broader in the sense that it relates any participating subjects not just outputs or output arguments. It is also not clear whether an output (result) actually participates in the process that generates it.",
-    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym",
+    "rdfs:comment" : "In very unusual cases.",
+    "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#isCyclic",
     "owl:annotatedSource" : "http://edamontology.org/is_output_of",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : "OBO_REL:participates_in"
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : {
+      "@type" : "xsd:boolean",
+      "@value" : "true"
+    }
   }, {
     "@id" : "_:b8",
     "@type" : "owl:Restriction",
@@ -3335,10 +3340,10 @@
   }, {
     "@id" : "_:b80",
     "@type" : "owl:Axiom",
-    "rdfs:comment" : "File format denotes only formats of a computer file, but the same formats apply also to data blobs or exchanged messages.",
+    "rdfs:comment" : "A defined data format has its implicit or explicit data model, and EDAM does not distinguish the two. Some data models, however, do not have any standard way of serialisation into an exchange format, and those are thus not considered formats in EDAM. (Remark: even broader - or closely related - term to 'Data model' would be an 'Information model'.)",
     "owl:annotatedProperty" : "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym",
     "owl:annotatedSource" : "http://edamontology.org/format_1915",
-    "http://www.w3.org/2002/07/owl#annotatedTarget" : "File format"
+    "http://www.w3.org/2002/07/owl#annotatedTarget" : "Data model"
   }, {
     "@id" : "_:b81",
     "@type" : "owl:Restriction",
@@ -3449,16 +3454,16 @@
     }, {
       "@id" : "http://edamontology.org/format_3261"
     } ],
-    "http://edamontology.org/next_id" : "4046",
+    "http://edamontology.org/next_id" : "4048",
     "http://edamontology.org/repository" : {
       "@id" : "https://github.com/edamontology/edamontology"
     },
-    "http://purl.obolibrary.org/obo/date" : "20.09.2024 12:40 UTC",
+    "http://purl.obolibrary.org/obo/date" : "24.09.2024 00:27 UTC",
     "http://purl.obolibrary.org/obo/idspace" : [ "EDAM http://edamontology.org/ \"EDAM relations, concept properties, and subsets\"", "EDAM_data http://edamontology.org/data_ \"EDAM types of data\"", "EDAM_format http://edamontology.org/format_ \"EDAM data formats\"", "EDAM_operation http://edamontology.org/operation_ \"EDAM operations\"", "EDAM_topic http://edamontology.org/topic_ \"EDAM topics\"" ],
     "http://purl.obolibrary.org/obo/remark" : [ "EDAM is a community project and its development can be followed and contributed to at https://github.com/edamontology/edamontology.", "EDAM is particularly suitable for semantic annotations and categorisation of diverse resources related to data analysis and management: e.g. tools, workflows, learning materials, or standards. EDAM is also useful in data management itself, for recording provenance metadata of processed data." ],
     "http://purl.org/dc/elements/1.1/contributor" : "https://github.com/edamontology/edamontology/graphs/contributors and many more!",
     "http://purl.org/dc/elements/1.1/creator" : [ "Federico Bianchini", "Hervé Ménager", "Jon Ison", "Matúš Kalaš" ],
-    "http://purl.org/dc/elements/1.1/description" : "EDAM is a domain ontology of data analysis and data management in bio- and other sciences, and science-based applications. It comprises concepts related to analysis, modelling, optimisation, and data life-cycle. Targetting usability by diverse users, the structure of EDAM is relatively simple, divided into 4 main sections: Topic, Operation, Data (incl. Identifier), and Format.",
+    "http://purl.org/dc/elements/1.1/description" : "EDAM is a domain ontology of data analysis and data management in bio- and other sciences, and science-based applications. It comprises concepts related to analysis, modelling, optimisation, and data life cycle. Targetting usability by diverse users, the structure of EDAM is relatively simple, divided into 4 main sections: Topic, Operation, Data (incl. Identifier), and Format.",
     "http://purl.org/dc/elements/1.1/format" : "application/rdf+xml",
     "http://purl.org/dc/elements/1.1/title" : "EDAM - The ontology of data analysis and management",
     "http://purl.org/dc/terms/format" : {
@@ -3490,9 +3495,9 @@
     "rdfs:isDefinedBy" : {
       "@id" : "http://edamontology.org/EDAM.owl"
     },
-    "owl:priorVersion" : "http://edamontology.org/EDAM_1.25",
-    "owl:versionIRI" : "http://edamontology.org/EDAM_1.25-20240920T1240Z-unstable(1.26)",
-    "owl:versionInfo" : "1.25-20240920T1240Z-unstable(1.26)",
+    "owl:priorVersion" : "http://edamontology.org/1.25",
+    "owl:versionIRI" : "http://edamontology.org/1.25-20240924T0027Z-unstable(1.26)",
+    "owl:versionInfo" : "1.25-20240924T0027Z-unstable(1.26)",
     "http://xmlns.com/foaf/0.1/logo" : {
       "@id" : "https://raw.githubusercontent.com/edamontology/edamontology/main/EDAM-logo-square.svg"
     },
@@ -7345,7 +7350,7 @@
       "@id" : "http://edamontology.org/identifiers"
     } ],
     "rdfs:label" : "Structural (3D) profile ID",
-    "rdfs:subClassOf" : [ "http://edamontology.org/data_0976", "_:b594" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/data_0976", "_:b595" ]
   }, {
     "@id" : "http://edamontology.org/data_1072",
     "@type" : "owl:Class",
@@ -7363,7 +7368,7 @@
       "@id" : "http://edamontology.org/identifiers"
     } ],
     "rdfs:label" : "Structure alignment ID",
-    "rdfs:subClassOf" : [ "http://edamontology.org/data_0976", "_:b595" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/data_0976", "_:b596" ]
   }, {
     "@id" : "http://edamontology.org/data_1073",
     "@type" : "owl:Class",
@@ -7381,7 +7386,7 @@
       "@id" : "http://edamontology.org/identifiers"
     } ],
     "rdfs:label" : "Amino acid index ID",
-    "rdfs:subClassOf" : [ "http://edamontology.org/data_0976", "http://edamontology.org/data_3036", "_:b596" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/data_0976", "http://edamontology.org/data_3036", "_:b597" ]
   }, {
     "@id" : "http://edamontology.org/data_1074",
     "@type" : "owl:Class",
@@ -7400,7 +7405,7 @@
       "@id" : "http://edamontology.org/identifiers"
     } ],
     "rdfs:label" : "Protein interaction ID",
-    "rdfs:subClassOf" : [ "http://edamontology.org/data_0976", "_:b597" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/data_0976", "_:b598" ]
   }, {
     "@id" : "http://edamontology.org/data_1075",
     "@type" : "owl:Class",
@@ -7419,7 +7424,7 @@
       "@id" : "http://edamontology.org/identifiers"
     } ],
     "rdfs:label" : "Protein family identifier",
-    "rdfs:subClassOf" : [ "http://edamontology.org/data_0976", "_:b598" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/data_0976", "_:b599" ]
   }, {
     "@id" : "http://edamontology.org/data_1076",
     "@type" : "owl:Class",
@@ -7433,7 +7438,7 @@
       "@id" : "http://edamontology.org/identifiers"
     } ],
     "rdfs:label" : "Codon usage table name",
-    "rdfs:subClassOf" : [ "http://edamontology.org/data_2099", "http://edamontology.org/data_2111", "_:b599", "_:b600" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/data_2099", "http://edamontology.org/data_2111", "_:b600", "_:b601" ]
   }, {
     "@id" : "http://edamontology.org/data_1077",
     "@type" : "owl:Class",
@@ -7469,7 +7474,7 @@
       "@id" : "http://edamontology.org/identifiers"
     } ],
     "rdfs:label" : "Experiment annotation ID",
-    "rdfs:subClassOf" : [ "http://edamontology.org/data_0976", "_:b601" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/data_0976", "_:b602" ]
   }, {
     "@id" : "http://edamontology.org/data_1079",
     "@type" : "owl:Class",
@@ -7487,7 +7492,7 @@
       "@id" : "http://edamontology.org/identifiers"
     } ],
     "rdfs:label" : "Electron microscopy model ID",
-    "rdfs:subClassOf" : [ "http://edamontology.org/data_0976", "_:b602" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/data_0976", "_:b603" ]
   }, {
     "@id" : "http://edamontology.org/data_1080",
     "@type" : "owl:Class",
@@ -7506,7 +7511,7 @@
       "@id" : "http://edamontology.org/identifiers"
     } ],
     "rdfs:label" : "Gene expression report ID",
-    "rdfs:subClassOf" : [ "http://edamontology.org/data_0976", "_:b603" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/data_0976", "_:b604" ]
   }, {
     "@id" : "http://edamontology.org/data_1081",
     "@type" : "owl:Class",
@@ -7524,7 +7529,7 @@
       "@id" : "http://edamontology.org/identifiers"
     } ],
     "rdfs:label" : "Genotype and phenotype annotation ID",
-    "rdfs:subClassOf" : [ "http://edamontology.org/data_0976", "_:b604" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/data_0976", "_:b605" ]
   }, {
     "@id" : "http://edamontology.org/data_1082",
     "@type" : "owl:Class",
@@ -7542,7 +7547,7 @@
       "@id" : "http://edamontology.org/identifiers"
     } ],
     "rdfs:label" : "Pathway or network identifier",
-    "rdfs:subClassOf" : [ "http://edamontology.org/data_0976", "_:b605" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/data_0976", "_:b606" ]
   }, {
     "@id" : "http://edamontology.org/data_1083",
     "@type" : "owl:Class",
@@ -7598,7 +7603,7 @@
       "@id" : "http://edamontology.org/identifiers"
     } ],
     "rdfs:label" : "Biological model ID",
-    "rdfs:subClassOf" : [ "http://edamontology.org/data_0976", "_:b606" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/data_0976", "_:b607" ]
   }, {
     "@id" : "http://edamontology.org/data_1086",
     "@type" : "owl:Class",
@@ -7617,7 +7622,7 @@
       "@id" : "http://edamontology.org/identifiers"
     } ],
     "rdfs:label" : "Compound identifier",
-    "rdfs:subClassOf" : [ "http://edamontology.org/data_0982", "_:b607" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/data_0982", "_:b608" ]
   }, {
     "@id" : "http://edamontology.org/data_1087",
     "@type" : "owl:Class",
@@ -7650,7 +7655,7 @@
       "@id" : "http://edamontology.org/identifiers"
     } ],
     "rdfs:label" : "Article ID",
-    "rdfs:subClassOf" : [ "http://edamontology.org/data_0976", "_:b608" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/data_0976", "_:b609" ]
   }, {
     "@id" : "http://edamontology.org/data_1089",
     "@type" : "owl:Class",
@@ -7769,7 +7774,7 @@
       "@id" : "http://edamontology.org/identifiers"
     } ],
     "rdfs:label" : "Sequence accession (protein)",
-    "rdfs:subClassOf" : [ "http://edamontology.org/data_1093", "_:b609" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/data_1093", "_:b610" ]
   }, {
     "@id" : "http://edamontology.org/data_1097",
     "@type" : "owl:Class",
@@ -7788,7 +7793,7 @@
       "@id" : "http://edamontology.org/identifiers"
     } ],
     "rdfs:label" : "Sequence accession (nucleic acid)",
-    "rdfs:subClassOf" : [ "http://edamontology.org/data_1093", "_:b610" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/data_1093", "_:b611" ]
   }, {
     "@id" : "http://edamontology.org/data_1098",
     "@type" : "owl:Class",
@@ -7996,7 +8001,7 @@
       "@id" : "http://edamontology.org/identifiers"
     } ],
     "rdfs:label" : "Sequence cluster ID",
-    "rdfs:subClassOf" : [ "http://edamontology.org/data_1064", "_:b611" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/data_1064", "_:b612" ]
   }, {
     "@id" : "http://edamontology.org/data_1113",
     "@type" : "owl:Class",
@@ -8029,7 +8034,7 @@
       "@id" : "http://edamontology.org/identifiers"
     } ],
     "rdfs:label" : "Sequence motif identifier",
-    "rdfs:subClassOf" : [ "http://edamontology.org/data_0976", "_:b612" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/data_0976", "_:b613" ]
   }, {
     "@id" : "http://edamontology.org/data_1115",
     "@type" : "owl:Class",
@@ -8048,7 +8053,7 @@
     } ],
     "rdfs:comment" : "A sequence profile typically represents a sequence alignment.",
     "rdfs:label" : "Sequence profile ID",
-    "rdfs:subClassOf" : [ "http://edamontology.org/data_0976", "_:b613" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/data_0976", "_:b614" ]
   }, {
     "@id" : "http://edamontology.org/data_1116",
     "@type" : "owl:Class",
@@ -8092,7 +8097,7 @@
       "@id" : "http://edamontology.org/identifiers"
     } ],
     "rdfs:label" : "HMMER hidden Markov model ID",
-    "rdfs:subClassOf" : [ "http://edamontology.org/data_1115", "http://edamontology.org/data_2091", "_:b614" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/data_1115", "http://edamontology.org/data_2091", "_:b615" ]
   }, {
     "@id" : "http://edamontology.org/data_1119",
     "@type" : "owl:Class",
@@ -8237,7 +8242,7 @@
     } ],
     "rdfs:comment" : "See for example http://www.ebi.ac.uk/Tools/webservices/help/matrix.",
     "rdfs:label" : "Comparison matrix name",
-    "rdfs:subClassOf" : [ "http://edamontology.org/data_1069", "http://edamontology.org/data_2099", "_:b615" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/data_1069", "http://edamontology.org/data_2099", "_:b616" ]
   }, {
     "@id" : "http://edamontology.org/data_1127",
     "@type" : "owl:Class",
@@ -8325,7 +8330,7 @@
       "@id" : "http://edamontology.org/identifiers"
     } ],
     "rdfs:label" : "InterPro entry name",
-    "rdfs:subClassOf" : [ "http://edamontology.org/data_1131", "_:b616" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/data_1131", "_:b617" ]
   }, {
     "@id" : "http://edamontology.org/data_1133",
     "@type" : "owl:Class",
@@ -8343,7 +8348,7 @@
     } ],
     "rdfs:comment" : "Every InterPro entry has a unique accession number to provide a persistent citation of database records.",
     "rdfs:label" : "InterPro accession",
-    "rdfs:subClassOf" : [ "http://edamontology.org/data_2091", "http://edamontology.org/data_2910", "_:b617" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/data_2091", "http://edamontology.org/data_2910", "_:b618" ]
   }, {
     "@id" : "http://edamontology.org/data_1134",
     "@type" : "owl:Class",
@@ -8358,7 +8363,7 @@
       "@id" : "http://edamontology.org/identifiers"
     } ],
     "rdfs:label" : "InterPro secondary accession",
-    "rdfs:subClassOf" : [ "http://edamontology.org/data_1133", "_:b618" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/data_1133", "_:b619" ]
   }, {
     "@id" : "http://edamontology.org/data_1135",
     "@type" : "owl:Class",
@@ -8793,7 +8798,7 @@
     } ],
     "rdfs:comment" : "This is the identifier used internally by MIRIAM for a data type.",
     "rdfs:label" : "MIRIAM identifier",
-    "rdfs:subClassOf" : [ "http://edamontology.org/data_2091", "http://edamontology.org/data_2902", "_:b619" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/data_2091", "http://edamontology.org/data_2902", "_:b620" ]
   }, {
     "@id" : "http://edamontology.org/data_1163",
     "@type" : "owl:Class",
@@ -8807,7 +8812,7 @@
       "@id" : "http://edamontology.org/identifiers"
     } ],
     "rdfs:label" : "MIRIAM data type name",
-    "rdfs:subClassOf" : [ "http://edamontology.org/data_2253", "_:b621" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/data_2253", "_:b622" ]
   }, {
     "@id" : "http://edamontology.org/data_1164",
     "@type" : "owl:Class",
@@ -8824,7 +8829,7 @@
     } ],
     "rdfs:comment" : "A MIRIAM URI consists of the URI of the MIRIAM data type (PubMed, UniProt etc) followed by the identifier of an element of that data type, for example PMID for a publication or an accession number for a GO term.",
     "rdfs:label" : "MIRIAM URI",
-    "rdfs:subClassOf" : [ "http://edamontology.org/data_1047", "http://edamontology.org/data_2091", "http://edamontology.org/data_2902", "_:b622" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/data_1047", "http://edamontology.org/data_2091", "http://edamontology.org/data_2902", "_:b623" ]
   }, {
     "@id" : "http://edamontology.org/data_1165",
     "@type" : "owl:Class",
@@ -9360,7 +9365,7 @@
     } ],
     "rdfs:comment" : "The cluster might include sequences identifiers, short descriptions, alignment and summary information.",
     "rdfs:label" : "Sequence cluster",
-    "rdfs:subClassOf" : [ "http://edamontology.org/data_0850", "_:b624" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/data_0850", "_:b625" ]
   }, {
     "@id" : "http://edamontology.org/data_1236",
     "@type" : "owl:Class",
@@ -9415,7 +9420,7 @@
       "@id" : "http://edamontology.org/data"
     } ],
     "rdfs:label" : "Proteolytic digest",
-    "rdfs:subClassOf" : [ "http://edamontology.org/data_1233", "_:b625" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/data_1233", "_:b626" ]
   }, {
     "@id" : "http://edamontology.org/data_1239",
     "@type" : "owl:Class",
@@ -9924,7 +9929,7 @@
       "@id" : "http://edamontology.org/data"
     } ],
     "rdfs:label" : "Map",
-    "rdfs:subClassOf" : [ "http://edamontology.org/data_0006", "_:b626" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/data_0006", "_:b627" ]
   }, {
     "@id" : "http://edamontology.org/data_1276",
     "@type" : "owl:Class",
@@ -10848,7 +10853,7 @@
       "@id" : "http://edamontology.org/data"
     } ],
     "rdfs:label" : "Sequence motif",
-    "rdfs:subClassOf" : [ "http://edamontology.org/data_0860", "_:b627" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/data_0860", "_:b628" ]
   }, {
     "@id" : "http://edamontology.org/data_1354",
     "@type" : "owl:Class",
@@ -10861,7 +10866,7 @@
     } ],
     "rdfs:label" : "Sequence profile",
     "http://www.w3.org/2000/01/rdf-schema#seeAlso" : "http://semanticscience.org/resource/SIO_010531",
-    "rdfs:subClassOf" : [ "http://edamontology.org/data_0860", "_:b628" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/data_0860", "_:b629" ]
   }, {
     "@id" : "http://edamontology.org/data_1355",
     "@type" : "owl:Class",
@@ -11913,7 +11918,7 @@
       "@id" : "http://edamontology.org/data"
     } ],
     "rdfs:label" : "Phylogenetic invariants",
-    "rdfs:subClassOf" : [ "http://edamontology.org/data_2523", "_:b629" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/data_2523", "_:b630" ]
   }, {
     "@id" : "http://edamontology.org/data_1438",
     "@type" : "owl:Class",
@@ -12201,7 +12206,7 @@
       "@id" : "http://edamontology.org/data"
     } ],
     "rdfs:label" : "Nucleic acid structure",
-    "rdfs:subClassOf" : [ "http://edamontology.org/data_0883", "_:b630" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/data_0883", "_:b631" ]
   }, {
     "@id" : "http://edamontology.org/data_1460",
     "@type" : "owl:Class",
@@ -40999,10 +41004,6 @@
     "http://edamontology.org/repository" : {
       "@id" : "https://github.com/RDA-DMP-Common/RDA-DMP-Common-Standard"
     },
-    "http://www.geneontology.org/formats/oboInOwl#creation_date" : {
-      "@type" : "xsd:dateTime",
-      "@value" : "2023-03-06T15:32:37.480761Z"
-    },
     "http://www.geneontology.org/formats/oboInOwl#hasDefinition" : "A standard for DMPs developed by the Research Data Alliance",
     "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym" : [ "Machine-actionable data management plan", "RDA Common Standard for Machine-Actionable Data Management Plans (maDMPS)", "RDA DMP" ],
     "http://www.geneontology.org/formats/oboInOwl#inSubset" : [ {
@@ -52138,16 +52139,18 @@
     "@id" : "http://edamontology.org/operation_3431",
     "@type" : "owl:Class",
     "http://edamontology.org/created_in" : "1.6",
-    "http://www.geneontology.org/formats/oboInOwl#hasDefinition" : "Deposit some data in a database or some other type of repository or software system.",
-    "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym" : [ "Data deposition", "Data submission", "Database deposition", "Database submission", "Submission" ],
+    "http://edamontology.org/related_term" : "Data publication",
+    "http://www.geneontology.org/formats/oboInOwl#hasDefinition" : "Data deposition is the submission and upload of data to a dedicated repository, archive, or deposition database, usually with accompanying metadata.",
+    "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym" : [ "Data submission", "Database deposition", "Database submission" ],
+    "http://www.geneontology.org/formats/oboInOwl#hasNarrowSynonym" : [ "Data brokering", "Data deposition brokering" ],
+    "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym" : "Data publishing",
     "http://www.geneontology.org/formats/oboInOwl#inSubset" : [ {
       "@id" : "http://edamontology.org/bio"
     }, {
       "@id" : "http://edamontology.org/operations"
     } ],
-    "rdfs:comment" : "For non-analytical operations, see the 'Processing' branch.",
-    "rdfs:label" : "Deposition",
-    "rdfs:subClassOf" : "http://edamontology.org/operation_2409"
+    "rdfs:label" : "Data deposition",
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2409", "_:b507" ]
   }, {
     "@id" : "http://edamontology.org/operation_3432",
     "@type" : "owl:Class",
@@ -52238,7 +52241,7 @@
       "@id" : "http://edamontology.org/operations"
     } ],
     "rdfs:label" : "Article comparison",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2424", "_:b507" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2424", "_:b508" ]
   }, {
     "@id" : "http://edamontology.org/operation_3438",
     "@type" : "owl:Class",
@@ -52336,7 +52339,7 @@
     } ],
     "rdfs:label" : "Image analysis",
     "rdfs:seeAlso" : "https://en.wikipedia.org/wiki/Image_analysis",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2945", "_:b508" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2945", "_:b509" ]
   }, {
     "@id" : "http://edamontology.org/operation_3445",
     "@type" : "owl:Class",
@@ -52361,7 +52364,7 @@
     } ],
     "rdfs:label" : "Cell migration analysis",
     "rdfs:seeAlso" : "https://en.wikipedia.org/wiki/Cell_migration",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_3443", "_:b509" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_3443", "_:b511" ]
   }, {
     "@id" : "http://edamontology.org/operation_3447",
     "@type" : "owl:Class",
@@ -52385,7 +52388,7 @@
       "@id" : "http://edamontology.org/operations"
     } ],
     "rdfs:label" : "Neurite measurement",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_3443", "_:b511" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_3443", "_:b512" ]
   }, {
     "@id" : "http://edamontology.org/operation_3453",
     "@type" : "owl:Class",
@@ -52450,7 +52453,7 @@
     "rdfs:comment" : "Single particle analysis is used to improve the information that can be obtained by relatively low resolution techniques, , e.g. an image of a protein or virus from transmission electron microscopy (TEM).",
     "rdfs:label" : "Single particle analysis",
     "rdfs:seeAlso" : "https://en.wikipedia.org/wiki/Single_particle_analysis",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2480", "http://edamontology.org/operation_3443", "_:b512" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2480", "http://edamontology.org/operation_3443", "_:b513" ]
   }, {
     "@id" : "http://edamontology.org/operation_3458",
     "@type" : "owl:Class",
@@ -52481,7 +52484,7 @@
       "@id" : "http://edamontology.org/operations"
     } ],
     "rdfs:label" : "Functional clustering",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_0291", "_:b513" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_0291", "_:b514" ]
   }, {
     "@id" : "http://edamontology.org/operation_3460",
     "@type" : "owl:Class",
@@ -52508,7 +52511,7 @@
       "@id" : "http://edamontology.org/operations"
     } ],
     "rdfs:label" : "Virulence prediction",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2403", "http://edamontology.org/operation_2423", "_:b514" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2403", "http://edamontology.org/operation_2423", "_:b515" ]
   }, {
     "@id" : "http://edamontology.org/operation_3463",
     "@type" : "owl:Class",
@@ -52538,7 +52541,7 @@
       "@id" : "http://edamontology.org/operations"
     } ],
     "rdfs:label" : "Correlation",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_0004", "_:b515" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_0004", "_:b516" ]
   }, {
     "@id" : "http://edamontology.org/operation_3469",
     "@type" : "owl:Class",
@@ -52550,7 +52553,7 @@
       "@id" : "http://edamontology.org/operations"
     } ],
     "rdfs:label" : "RNA structure covariance model generation",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2439", "http://edamontology.org/operation_3429", "_:b516" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2439", "http://edamontology.org/operation_3429", "_:b517" ]
   }, {
     "@id" : "http://edamontology.org/operation_3470",
     "@type" : "owl:Class",
@@ -52620,7 +52623,7 @@
     } ],
     "rdfs:comment" : "Note that this is somewhat different from simply analysing an existing tree or constructing a completely new one.",
     "rdfs:label" : "Phylogenetic reconstruction",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_0323", "_:b517" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_0323", "_:b518" ]
   }, {
     "@id" : "http://edamontology.org/operation_3480",
     "@type" : "owl:Class",
@@ -52656,7 +52659,7 @@
       "@id" : "http://edamontology.org/operations"
     } ],
     "rdfs:label" : "Antimicrobial resistance prediction",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2403", "http://edamontology.org/operation_2423", "_:b518" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2403", "http://edamontology.org/operation_2423", "_:b519" ]
   }, {
     "@id" : "http://edamontology.org/operation_3501",
     "@type" : "owl:Class",
@@ -52671,7 +52674,7 @@
     } ],
     "rdfs:comment" : "Categories from a relevant ontology can be used. The input is typically a set of genes or other biological objects, possibly represented by their identifiers, and the output of the analysis is typically a ranked list of categories, each associated with a statistical metric of over-/under-representation within the studied data.",
     "rdfs:label" : "Enrichment analysis",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2945", "_:b519" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2945", "_:b520" ]
   }, {
     "@id" : "http://edamontology.org/operation_3502",
     "@type" : "owl:Class",
@@ -52684,7 +52687,7 @@
       "@id" : "http://edamontology.org/operations"
     } ],
     "rdfs:label" : "Chemical similarity enrichment",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_3501", "_:b520" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_3501", "_:b522" ]
   }, {
     "@id" : "http://edamontology.org/operation_3503",
     "@type" : "owl:Class",
@@ -52742,7 +52745,7 @@
       "@id" : "http://edamontology.org/operations"
     } ],
     "rdfs:label" : "Microscope image visualisation",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_0337", "_:b522" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_0337", "_:b523" ]
   }, {
     "@id" : "http://edamontology.org/operation_3553",
     "@type" : "owl:Class",
@@ -52903,7 +52906,7 @@
       "@id" : "http://edamontology.org/operations"
     } ],
     "rdfs:label" : "Mass spectra calibration",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_3214", "_:b523" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_3214", "_:b524" ]
   }, {
     "@id" : "http://edamontology.org/operation_3628",
     "@type" : "owl:Class",
@@ -52915,7 +52918,7 @@
       "@id" : "http://edamontology.org/operations"
     } ],
     "rdfs:label" : "Chromatographic alignment",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_3214", "_:b524" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_3214", "_:b525" ]
   }, {
     "@id" : "http://edamontology.org/operation_3629",
     "@type" : "owl:Class",
@@ -52929,7 +52932,7 @@
     } ],
     "rdfs:comment" : "Deisotoping is commonly done to reduce complexity, and done in conjunction with the charge state deconvolution.",
     "rdfs:label" : "Deisotoping",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_3214", "_:b525" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_3214", "_:b526" ]
   }, {
     "@id" : "http://edamontology.org/operation_3630",
     "@type" : "owl:Class",
@@ -52942,7 +52945,7 @@
       "@id" : "http://edamontology.org/operations"
     } ],
     "rdfs:label" : "Protein quantification",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_3214", "http://edamontology.org/operation_3799", "_:b526" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_3214", "http://edamontology.org/operation_3799", "_:b527" ]
   }, {
     "@id" : "http://edamontology.org/operation_3631",
     "@type" : "owl:Class",
@@ -52955,7 +52958,7 @@
       "@id" : "http://edamontology.org/operations"
     } ],
     "rdfs:label" : "Peptide identification",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_3214", "_:b527" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_3214", "_:b528" ]
   }, {
     "@id" : "http://edamontology.org/operation_3632",
     "@type" : "owl:Class",
@@ -52967,7 +52970,7 @@
       "@id" : "http://edamontology.org/operations"
     } ],
     "rdfs:label" : "Isotopic distributions calculation",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_3438", "_:b528", "_:b529" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_3438", "_:b529", "_:b530" ]
   }, {
     "@id" : "http://edamontology.org/operation_3633",
     "@type" : "owl:Class",
@@ -53229,7 +53232,7 @@
     "rdfs:comment" : "The terms and synyonyms here reflect that for practical intents and purposes, \"pathway\" and \"network\" can be treated the same.",
     "rdfs:label" : "Metabolic network modelling",
     "rdfs:seeAlso" : "https://en.wikipedia.org/wiki/Metabolic_network_modelling",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_3927", "http://edamontology.org/operation_3928", "_:b530" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_3927", "http://edamontology.org/operation_3928", "_:b531" ]
   }, {
     "@id" : "http://edamontology.org/operation_3661",
     "@type" : "owl:Class",
@@ -53582,7 +53585,7 @@
       "@id" : "http://edamontology.org/operations"
     } ],
     "rdfs:label" : "Weighted correlation network analysis",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_3927", "_:b531" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_3927", "_:b533" ]
   }, {
     "@id" : "http://edamontology.org/operation_3767",
     "@type" : "owl:Class",
@@ -53595,7 +53598,7 @@
       "@id" : "http://edamontology.org/operations"
     } ],
     "rdfs:label" : "Protein identification",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2423", "http://edamontology.org/operation_3214", "_:b533" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2423", "http://edamontology.org/operation_3214", "_:b534" ]
   }, {
     "@id" : "http://edamontology.org/operation_3778",
     "@type" : "owl:Class",
@@ -53609,7 +53612,7 @@
     } ],
     "rdfs:label" : "Text annotation",
     "rdfs:seeAlso" : "https://en.wikipedia.org/wiki/Text_annotation",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_0226", "_:b534", "_:b535", "_:b536" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_0226", "_:b535", "_:b536", "_:b537" ]
   }, {
     "@id" : "http://edamontology.org/operation_3791",
     "@type" : "owl:Class",
@@ -53731,7 +53734,7 @@
       "@id" : "http://edamontology.org/operations"
     } ],
     "rdfs:label" : "Spectral library search",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_3631", "_:b537" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_3631", "_:b538" ]
   }, {
     "@id" : "http://edamontology.org/operation_3802",
     "@type" : "owl:Class",
@@ -53801,7 +53804,7 @@
       "@id" : "http://edamontology.org/operations"
     } ],
     "rdfs:label" : "Spectrum calculation",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_0250", "http://edamontology.org/operation_3214", "_:b538" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_0250", "http://edamontology.org/operation_3214", "_:b539" ]
   }, {
     "@id" : "http://edamontology.org/operation_3890",
     "@type" : "owl:Class",
@@ -53813,7 +53816,7 @@
       "@id" : "http://edamontology.org/operations"
     } ],
     "rdfs:label" : "Trajectory visualization",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_0570", "_:b539" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_0570", "_:b540" ]
   }, {
     "@id" : "http://edamontology.org/operation_3891",
     "@type" : "owl:Class",
@@ -53840,7 +53843,7 @@
       "@id" : "http://edamontology.org/operations"
     } ],
     "rdfs:label" : "Forcefield parameterisation",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2426", "_:b540", "_:b541" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2426", "_:b541", "_:b542" ]
   }, {
     "@id" : "http://edamontology.org/operation_3894",
     "@type" : "owl:Class",
@@ -53904,7 +53907,7 @@
       "@id" : "http://edamontology.org/operations"
     } ],
     "rdfs:label" : "Protein-protein docking",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_0478", "_:b542", "_:b544" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_0478", "_:b544", "_:b545" ]
   }, {
     "@id" : "http://edamontology.org/operation_3900",
     "@type" : "owl:Class",
@@ -53917,7 +53920,7 @@
       "@id" : "http://edamontology.org/operations"
     } ],
     "rdfs:label" : "DNA-binding protein prediction",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_0389", "_:b545", "_:b546" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_0389", "_:b546", "_:b547" ]
   }, {
     "@id" : "http://edamontology.org/operation_3901",
     "@type" : "owl:Class",
@@ -53930,7 +53933,7 @@
       "@id" : "http://edamontology.org/operations"
     } ],
     "rdfs:label" : "RNA-binding protein prediction",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_0389", "_:b547", "_:b548" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_0389", "_:b548", "_:b549" ]
   }, {
     "@id" : "http://edamontology.org/operation_3902",
     "@type" : "owl:Class",
@@ -53970,7 +53973,7 @@
     } ],
     "rdfs:label" : "Protein disorder prediction",
     "rdfs:seeAlso" : "https://en.wikipedia.org/wiki/Intrinsically_disordered_proteins",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2423", "http://edamontology.org/operation_3092", "_:b549" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2423", "http://edamontology.org/operation_3092", "_:b550" ]
   }, {
     "@id" : "http://edamontology.org/operation_3907",
     "@type" : "owl:Class",
@@ -54008,7 +54011,7 @@
     "http://www.geneontology.org/formats/oboInOwl#hasDefinition" : "Study of genomic feature structure, variation, function and evolution at a genomic scale.",
     "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym" : "Genomic analysis",
     "rdfs:label" : "Genome analysis",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2478", "_:b550" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2478", "_:b551" ]
   }, {
     "@id" : "http://edamontology.org/operation_3919",
     "@type" : "owl:Class",
@@ -54035,7 +54038,7 @@
     "rdfs:comment" : "This can include indirect methods which reveal the results of genetic changes, such as RNA analysis to indicate gene expression, or biochemical analysis to identify expressed proteins.",
     "rdfs:label" : "DNA testing",
     "rdfs:seeAlso" : "https://en.wikipedia.org/wiki/Genetic_testing",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2478", "_:b551" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2478", "_:b552" ]
   }, {
     "@id" : "http://edamontology.org/operation_3921",
     "@type" : "owl:Class",
@@ -54056,7 +54059,7 @@
     "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym" : "Network rendering",
     "http://www.geneontology.org/formats/oboInOwl#hasNarrowSynonym" : [ "Protein interaction network rendering", "Protein interaction network visualisation" ],
     "rdfs:label" : "Network visualisation",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_0337", "http://edamontology.org/operation_3927", "_:b552" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_0337", "http://edamontology.org/operation_3927", "_:b553" ]
   }, {
     "@id" : "http://edamontology.org/operation_3926",
     "@type" : "owl:Class",
@@ -54069,7 +54072,7 @@
       "@id" : "http://edamontology.org/operations"
     } ],
     "rdfs:label" : "Pathway visualisation",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_0337", "http://edamontology.org/operation_3928", "_:b553" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_0337", "http://edamontology.org/operation_3928", "_:b556" ]
   }, {
     "@id" : "http://edamontology.org/operation_3927",
     "@type" : "owl:Class",
@@ -54084,7 +54087,7 @@
     } ],
     "rdfs:label" : "Network analysis",
     "rdfs:seeAlso" : "https://en.wikipedia.org/wiki/Network_theory#Biological_network_analysis",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2945", "_:b556", "_:b557" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2945", "_:b557", "_:b558" ]
   }, {
     "@id" : "http://edamontology.org/operation_3928",
     "@type" : "owl:Class",
@@ -54099,7 +54102,7 @@
     } ],
     "rdfs:label" : "Pathway analysis",
     "rdfs:seeAlso" : "https://en.wikipedia.org/wiki/Pathway_analysis",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2945", "_:b558", "_:b559" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2945", "_:b559", "_:b560" ]
   }, {
     "@id" : "http://edamontology.org/operation_3929",
     "@type" : "owl:Class",
@@ -54139,7 +54142,7 @@
     } ],
     "rdfs:label" : "Dimensionality reduction",
     "rdfs:seeAlso" : "https://en.wikipedia.org/wiki/Dimensionality_reduction",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_3438", "_:b560", "_:b561" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_3438", "_:b561", "_:b562" ]
   }, {
     "@id" : "http://edamontology.org/operation_3936",
     "@type" : "owl:Class",
@@ -54153,7 +54156,7 @@
     } ],
     "rdfs:label" : "Feature selection",
     "rdfs:seeAlso" : "https://en.wikipedia.org/wiki/Feature_selection",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_3935", "_:b562", "_:b563" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_3935", "_:b563", "_:b564" ]
   }, {
     "@id" : "http://edamontology.org/operation_3937",
     "@type" : "owl:Class",
@@ -54166,7 +54169,7 @@
       "@id" : "http://edamontology.org/operations"
     } ],
     "rdfs:label" : "Feature extraction",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_3935", "_:b564", "_:b565" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_3935", "_:b565", "_:b567" ]
   }, {
     "@id" : "http://edamontology.org/operation_3938",
     "@type" : "owl:Class",
@@ -54180,7 +54183,7 @@
     } ],
     "rdfs:comment" : "Virtual screening is widely used for lead identification, lead optimization, and scaffold hopping during drug design and discovery.",
     "rdfs:label" : "Virtual screening",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_0482", "http://edamontology.org/operation_4009", "_:b567", "_:b568" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_0482", "http://edamontology.org/operation_4009", "_:b568", "_:b569" ]
   }, {
     "@id" : "http://edamontology.org/operation_3942",
     "@type" : "owl:Class",
@@ -54205,7 +54208,7 @@
       "@id" : "http://edamontology.org/operations"
     } ],
     "rdfs:label" : "Ecological modelling",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_0286", "http://edamontology.org/operation_2426", "_:b569", "_:b570" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_0286", "http://edamontology.org/operation_2426", "_:b570", "_:b571" ]
   }, {
     "@id" : "http://edamontology.org/operation_3947",
     "@type" : "owl:Class",
@@ -54318,7 +54321,7 @@
     } ],
     "rdfs:comment" : "An adhesin is a cell-surface component that facilitate the adherence of a microorganism to a cell or surface. They are important virulence factors during establishment of infection and thus are targeted during vaccine development approaches that seek to block adhesin function and prevent adherence to host cell.",
     "rdfs:label" : "Adhesin prediction",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2429", "http://edamontology.org/operation_3092", "_:b571" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2429", "http://edamontology.org/operation_3092", "_:b572" ]
   }, {
     "@id" : "http://edamontology.org/operation_4008",
     "@type" : "owl:Class",
@@ -54358,7 +54361,7 @@
     } ],
     "rdfs:label" : "Power test",
     "rdfs:seeAlso" : "https://en.wikipedia.org/wiki/Power_of_a_test",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2238", "_:b572", "_:b573", "_:b574", "_:b575", "_:b576" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2238", "_:b573", "_:b574", "_:b575", "_:b576", "_:b578" ]
   }, {
     "@id" : "http://edamontology.org/operation_4032",
     "@type" : "owl:Class",
@@ -54370,7 +54373,7 @@
       "@id" : "http://edamontology.org/operations"
     } ],
     "rdfs:label" : "DNA modification prediction",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_0415", "_:b578", "_:b579", "_:b580", "_:b581", "_:b582" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_0415", "_:b579", "_:b580", "_:b581", "_:b582", "_:b583" ]
   }, {
     "@id" : "http://edamontology.org/operation_4033",
     "@type" : "owl:Class",
@@ -54382,7 +54385,7 @@
       "@id" : "http://edamontology.org/operations"
     } ],
     "rdfs:label" : "Disease transmission analysis",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2426", "http://edamontology.org/operation_2945", "http://edamontology.org/operation_3664", "_:b583", "_:b584", "_:b585" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2426", "http://edamontology.org/operation_2945", "http://edamontology.org/operation_3664", "_:b584", "_:b585", "_:b586" ]
   }, {
     "@id" : "http://edamontology.org/operation_4034",
     "@type" : "owl:Class",
@@ -54396,7 +54399,7 @@
     } ],
     "rdfs:label" : "Multiple testing correction",
     "rdfs:seeAlso" : "https://en.wikipedia.org/wiki/Multiple_comparisons_problem",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2238", "_:b586", "_:b587", "_:b589" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2238", "_:b587", "_:b589", "_:b590" ]
   }, {
     "@id" : "http://edamontology.org/operation_4042",
     "@type" : "owl:Class",
@@ -54409,11 +54412,12 @@
     } ],
     "rdfs:comment" : [ "Good data management planning prevents unexpected legal issues or extra costs related to usage, sharing, storage, or archival of data.", "Policies often require the submission of a data management plan (DMP) together with a project proposal. A detailed, revised version of the DMP may be required as part of the project's final report." ],
     "rdfs:label" : "Data management planning",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_0004", "_:b590", "_:b591" ]
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_0004", "_:b591", "_:b592" ]
   }, {
     "@id" : "http://edamontology.org/operation_4043",
     "@type" : "owl:Class",
     "http://edamontology.org/created_in" : "1.26",
+    "http://edamontology.org/related_term" : "Digital preservation",
     "http://www.geneontology.org/formats/oboInOwl#hasDefinition" : "Data digitisation is the process of converting analog data, text, or information into a digital format, appropriate for computational analysis and preservation.",
     "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym" : [ "Data digitalisation", "Data digitalization" ],
     "http://www.geneontology.org/formats/oboInOwl#hasNarrowSynonym" : "Digital reformatting",
@@ -54423,11 +54427,14 @@
       "@id" : "http://edamontology.org/operations"
     } ],
     "rdfs:label" : "Data digitisation",
-    "rdfs:seeAlso" : "http://en.wikipedia.org/wiki/Digitization",
-    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2409", "_:b592" ],
+    "rdfs:seeAlso" : [ "http://en.wikipedia.org/wiki/Digitization", "https://en.wikipedia.org/wiki/Digital_preservation" ],
+    "rdfs:subClassOf" : [ "http://edamontology.org/operation_2409", "_:b593" ],
     "http://www.w3.org/2004/02/skos/core#editorialNote" : "Data digitization",
     "http://www.w3.org/2004/02/skos/core#exactMatch" : {
       "@id" : "https://www.wikidata.org/wiki/Q843958"
+    },
+    "http://www.w3.org/2004/02/skos/core#relatedMatch" : {
+      "@id" : "https://www.wikidata.org/wiki/Q632897"
     }
   }, {
     "@id" : "http://edamontology.org/operations",
@@ -56327,9 +56334,10 @@
     "@id" : "http://edamontology.org/topic_0219",
     "@type" : "owl:Class",
     "http://edamontology.org/created_in" : "beta12orEarlier",
-    "http://www.geneontology.org/formats/oboInOwl#hasDefinition" : "Deposition and curation of database accessions, including annotation, typically with terms from a controlled vocabulary.",
-    "http://www.geneontology.org/formats/oboInOwl#hasHumanReadableId" : "Data_submission_annotation_and_curation",
-    "http://www.geneontology.org/formats/oboInOwl#hasNarrowSynonym" : [ "Data curation", "Data provenance", "Database curation" ],
+    "http://edamontology.org/related_term" : [ "Data archive", "Data library", "Data provenance", "Data registry", "Data repository", "Data storage", "Deposition database", "Research data archive", "Research data repository" ],
+    "http://www.geneontology.org/formats/oboInOwl#hasDefinition" : "Data curation and archival includes the preservation of data in a repository, archive, or a deposition database; and curation of data and metadata, database accessions, annotation, and data provenance.",
+    "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym" : [ "Data archival", "Data archiving", "Data curation", "Data preservation" ],
+    "http://www.geneontology.org/formats/oboInOwl#hasNarrowSynonym" : [ "Database curation", "Research data archiving" ],
     "http://www.geneontology.org/formats/oboInOwl#inSubset" : [ {
       "@id" : "http://edamontology.org/bio"
     }, {
@@ -56337,8 +56345,23 @@
     }, {
       "@id" : "http://edamontology.org/topics"
     } ],
-    "rdfs:label" : "Data submission, annotation, and curation",
-    "rdfs:subClassOf" : "http://edamontology.org/topic_3071"
+    "rdfs:comment" : [ "Note that biocuration is a more specific concept than simply curation and archival of bioscientific data.", "The purpose of data curation and preservation is ensuring permanent access to the data and enabling its future analysis. Enabling reanalysis of the data in unexpected future contexts requires that the data is findable and reusable (see also FAIR data, topic_4012)." ],
+    "rdfs:label" : "Data curation and archival",
+    "rdfs:seeAlso" : [ "https://en.wikipedia.org/wiki/Data_curation", "https://en.wikipedia.org/wiki/Data_preservation", "https://en.wikipedia.org/wiki/Research_data_archiving" ],
+    "rdfs:subClassOf" : "http://edamontology.org/topic_3071",
+    "http://www.w3.org/2004/02/skos/core#exactMatch" : [ {
+      "@id" : "https://www.wikidata.org/wiki/Q15088675"
+    }, {
+      "@id" : "https://www.wikidata.org/wiki/Q48797981"
+    }, {
+      "@id" : "https://www.wikidata.org/wiki/Q65769313"
+    } ],
+    "http://www.w3.org/2004/02/skos/core#narrowMatch" : {
+      "@id" : "https://www.wikidata.org/wiki/Q17155735"
+    },
+    "http://www.w3.org/2004/02/skos/core#relatedMatch" : {
+      "@id" : "https://www.wikidata.org/wiki/Q5227240"
+    }
   }, {
     "@id" : "http://edamontology.org/topic_0220",
     "@type" : "owl:Class",
@@ -59622,7 +59645,7 @@
       "@type" : "xsd:boolean",
       "@value" : "true"
     },
-    "http://edamontology.org/related_term" : [ "Data life cycle", "Data lifecycle", "Data stewardship" ],
+    "http://edamontology.org/related_term" : [ "Data life cycle", "Data lifecycle" ],
     "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : "VT 1.3.1 Data management",
     "http://www.geneontology.org/formats/oboInOwl#hasDefinition" : "Data management comprises the practices and principles of taking care of data, other than analysing them. This includes for example taking care of the associated metadata, data formats, storage, preservation/archiving, access, and legal aspects related to using and sharing data.",
     "http://www.geneontology.org/formats/oboInOwl#hasNarrowSynonym" : [ "Metadata management", "Research data management (RDM)" ],
@@ -59633,7 +59656,7 @@
     }, {
       "@id" : "http://edamontology.org/topics"
     } ],
-    "rdfs:comment" : "The purpose of data management is keeping data consistent, easy to access and use, while ensuring a required level of data privacy. Good data management improves the visibility, impact, and lifetime of data.",
+    "rdfs:comment" : "The purpose of data management is keeping data consistent, easy to access and use, while ensuring a required level of data protection. Good data management improves the visibility, impact, and lifetime of data.",
     "rdfs:label" : "Data management",
     "rdfs:seeAlso" : [ "https://en.wikipedia.org/wiki/Data_management", "https://en.wikipedia.org/wiki/Metadata_management" ],
     "rdfs:subClassOf" : "http://edamontology.org/topic_0003",
@@ -62852,21 +62875,25 @@
     "@id" : "http://edamontology.org/topic_3571",
     "@type" : "owl:Class",
     "http://edamontology.org/created_in" : "1.10",
-    "http://www.geneontology.org/formats/oboInOwl#hasDefinition" : "The control of data entry and maintenance to ensure the data meets defined standards, qualities or constraints.",
+    "http://www.geneontology.org/formats/oboInOwl#hasDefinition" : "Data governance is the control of data entry and maintenance to ensure the data meets defined standards, qualities, or constraints.",
     "http://www.geneontology.org/formats/oboInOwl#hasHumanReadableId" : "Data_governance",
-    "http://www.geneontology.org/formats/oboInOwl#hasNarrowSynonym" : "Data stewardship",
+    "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym" : "Data stewardship",
     "http://www.geneontology.org/formats/oboInOwl#inSubset" : [ {
       "@id" : "http://edamontology.org/bio"
     }, {
       "@id" : "http://edamontology.org/topics"
     } ],
     "rdfs:label" : "Data governance",
-    "http://www.w3.org/2000/01/rdf-schema#seeAlso" : "http://purl.bioontology.org/ontology/MSH/D030541",
-    "rdfs:seeAlso" : "https://en.wikipedia.org/wiki/Data_governance",
+    "rdfs:seeAlso" : [ "https://en.wikipedia.org/wiki/Data_governance", "https://en.wikipedia.org/wiki/Data_steward" ],
     "rdfs:subClassOf" : "http://edamontology.org/topic_3071",
     "http://www.w3.org/2004/02/skos/core#exactMatch" : {
       "@id" : "https://www.wikidata.org/wiki/Q872685"
-    }
+    },
+    "http://www.w3.org/2004/02/skos/core#relatedMatch" : [ {
+      "@id" : "https://www.wikidata.org/wiki/Q1172231"
+    }, {
+      "@id" : "https://www.wikidata.org/wiki/Q57450885"
+    } ]
   }, {
     "@id" : "http://edamontology.org/topic_3572",
     "@type" : "owl:Class",
@@ -63531,7 +63558,7 @@
     "@type" : "owl:Class",
     "http://edamontology.org/created_in" : "1.26",
     "http://edamontology.org/related_term" : [ "FAIR data principles", "FAIR principles", "FAIRification" ],
-    "http://www.geneontology.org/formats/oboInOwl#hasDefinition" : "FAIR data is data that meets the principles of being findable, accessible, interoperable, and reusable.",
+    "http://www.geneontology.org/formats/oboInOwl#hasDefinition" : "FAIR data is scientific data that meets the principles of being findable, accessible, interoperable, and reusable.",
     "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym" : "Findable, accessible, interoperable, reusable data",
     "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym" : "Open data",
     "http://www.geneontology.org/formats/oboInOwl#inSubset" : [ {
@@ -63539,7 +63566,7 @@
     }, {
       "@id" : "http://edamontology.org/topics"
     } ],
-    "rdfs:comment" : "A substantially overlapping term is 'open data', i.e. publicly available data that is free to use, distribute, and create derivative work from, without restrictions. Open data does not automatically have to be FAIR (e.g. findable or interoperable), while FAIR data does in some cases not have to be publicly available without restrictions (especially sensitive personal data).",
+    "rdfs:comment" : "A substantially overlapping term is 'open data', i.e. publicly available data that is free to use, distribute, and create derivative work from, without restrictions. Open data does not automatically have to be FAIR (e.g. findable or interoperable), while FAIR data does in some cases not have to be publicly available without restrictions (especially sensitive, protected data, topic_4044).",
     "rdfs:label" : "FAIR data",
     "rdfs:seeAlso" : [ "https://en.wikipedia.org/wiki/FAIR_data", "https://en.wikipedia.org/wiki/Open_data" ],
     "rdfs:subClassOf" : [ "http://edamontology.org/topic_3071", "http://edamontology.org/topic_4010" ],
@@ -63735,7 +63762,7 @@
     "rdfs:comment" : "Typically, high-throughput sequencing is performed and the resulting sequence reads are matched to DNA barcodes in a reference database.",
     "rdfs:label" : "Metabarcoding",
     "rdfs:seeAlso" : [ "https://en.wikipedia.org/wiki/Environmental_DNA", "https://en.wikipedia.org/wiki/Metabarcoding" ],
-    "rdfs:subClassOf" : [ "http://edamontology.org/topic_0080", "http://edamontology.org/topic_3697", "_:b593" ],
+    "rdfs:subClassOf" : [ "http://edamontology.org/topic_0080", "http://edamontology.org/topic_3697", "_:b594" ],
     "http://www.w3.org/2004/02/skos/core#exactMatch" : {
       "@id" : "https://www.wikidata.org/wiki/Q51237016"
     },
@@ -63746,7 +63773,7 @@
     "@id" : "http://edamontology.org/topic_4044",
     "@type" : "owl:Class",
     "http://edamontology.org/created_in" : "1.26",
-    "http://edamontology.org/related_term" : [ "Classified information", "Confidential information", "Information privacy", "Information sensitivity", "Personal data", "Private data", "Sensitive data", "Sensitive human data", "Sensitive information", "Special category data" ],
+    "http://edamontology.org/related_term" : [ "Classified information", "Confidential information", "Data privacy", "Information privacy", "Information sensitivity", "Personal data", "Private data", "Sensitive data", "Sensitive human data", "Sensitive information", "Special category data" ],
     "http://www.geneontology.org/formats/oboInOwl#hasDefinition" : "Data protection is a topic concerning data that should be protected from disclosure, damage, or unauthorised access, due to its sensitive nature.",
     "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym" : "Management of sensitive data",
     "http://www.geneontology.org/formats/oboInOwl#inSubset" : [ {
@@ -63754,7 +63781,7 @@
     }, {
       "@id" : "http://edamontology.org/topics"
     } ],
-    "rdfs:comment" : [ "Note that the term information security (https://en.wikipedia.org/wiki/Information_security) covers both the data management aspect for protected data (this topic_4044), and the technical aspect of cybersecurity (topic_4045).", "Sensitive data includes not only personal and commercial data, but also information about e.g. localisation of endangered species that could be exploited." ],
+    "rdfs:comment" : [ "Note that the term information security (https://en.wikipedia.org/wiki/Information_security) covers both the data management aspect for protected data (this topic_4044), and the technical aspect of cybersecurity (topic_4045).", "Sensitive data includes not only personal and commercial data, but also information about e.g. localisation of endangered biological species that could be exploited." ],
     "rdfs:label" : "Data protection",
     "rdfs:seeAlso" : [ "https://en.wikipedia.org/wiki/General_Data_Protection_Regulation", "https://en.wikipedia.org/wiki/Information_privacy", "https://en.wikipedia.org/wiki/Information_sensitivity" ],
     "rdfs:subClassOf" : "http://edamontology.org/topic_3071",
@@ -63789,6 +63816,44 @@
     } ],
     "http://www.w3.org/2004/02/skos/core#relatedMatch" : {
       "@id" : "https://www.wikidata.org/wiki/Q189900"
+    }
+  }, {
+    "@id" : "http://edamontology.org/topic_4046",
+    "@type" : "owl:Class",
+    "http://edamontology.org/created_in" : "1.26",
+    "http://www.geneontology.org/formats/oboInOwl#hasBroadSynonym" : "Version tracking",
+    "http://www.geneontology.org/formats/oboInOwl#hasDefinition" : "Version control is a technology for consistent management, storing, and sharing of evolving versions of digital artefacts, such as computer programs, scripts, documents, data, or media files.",
+    "http://www.geneontology.org/formats/oboInOwl#hasNarrowSynonym" : "Source control",
+    "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym" : [ "Source control system", "Version control system", "Versioning system" ],
+    "http://www.geneontology.org/formats/oboInOwl#inSubset" : [ {
+      "@id" : "http://edamontology.org/bio"
+    }, {
+      "@id" : "http://edamontology.org/topics"
+    } ],
+    "rdfs:comment" : [ "Distributed version control is particularly useful for open, collaborative development of software and other creative work, enabling global communities to work cohesively.", "Version control originates from software engineering, with the purpose of managing source code. However, version control is applicable to other digital artefacts, especially any kind of text-based files. With certain limitations, version control can also be applied to binary files." ],
+    "rdfs:label" : "Version control",
+    "rdfs:seeAlso" : "https://en.wikipedia.org/wiki/Version_control",
+    "rdfs:subClassOf" : "http://edamontology.org/topic_0605",
+    "http://www.w3.org/2004/02/skos/core#exactMatch" : {
+      "@id" : "https://www.wikidata.org/wiki/Q189439"
+    }
+  }, {
+    "@id" : "http://edamontology.org/topic_4047",
+    "@type" : "owl:Class",
+    "http://edamontology.org/created_in" : "1.26",
+    "http://edamontology.org/related_term" : [ "Code stewardship", "Service curation", "Service registry", "Software archive", "Software curation", "Software registry", "Software stewardship", "Tool curation", "Tool registry", "Workflow curation", "Workflow registry" ],
+    "http://www.geneontology.org/formats/oboInOwl#hasDefinition" : "Software management comprises the practices and principles of taking care of software and software-based or software-like services, other than programming and maintenance. This includes for example taking care of the associated information and documentation, and the processes of contribution, validation, release/publication, or deployment.",
+    "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym" : "Service management",
+    "http://www.geneontology.org/formats/oboInOwl#inSubset" : [ {
+      "@id" : "http://edamontology.org/bio"
+    }, {
+      "@id" : "http://edamontology.org/topics"
+    } ],
+    "rdfs:comment" : "The purpose of software management is keeping software or service consistent, easy to use, to update, and to expand. Good software management improves the visibility, impact, and lifetime of software and software-based or software-like services.",
+    "rdfs:label" : "Software management",
+    "rdfs:subClassOf" : "http://edamontology.org/topic_0605",
+    "http://www.w3.org/2004/02/skos/core#relatedMatch" : {
+      "@id" : "https://www.wikidata.org/wiki/Q947779"
     }
   }, {
     "@id" : "http://edamontology.org/topics",
@@ -63862,9 +63927,6 @@
     "@type" : "owl:AnnotationProperty"
   }, {
     "@id" : "http://www.geneontology.org/formats/oboInOwl#consider",
-    "@type" : "owl:AnnotationProperty"
-  }, {
-    "@id" : "http://www.geneontology.org/formats/oboInOwl#creation_date",
     "@type" : "owl:AnnotationProperty"
   }, {
     "@id" : "http://www.geneontology.org/formats/oboInOwl#hasAlternativeId",
