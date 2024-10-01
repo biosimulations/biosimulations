@@ -163,10 +163,12 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
 
           // eslint-disable-next-line max-len
           this.snackBar.open(
-            'Your COMBINE/OMEX archive as been downloaded. Please retrieve it from your downloads and run with this form.',
+            `Your COMBINE/OMEX archive as been downloaded as ${
+              archiveName + '.omex'
+            }. Please retrieve it from your downloads and run with this form.`,
             'Ok',
             {
-              duration: 15000,
+              duration: 30000,
               horizontalPosition: 'center',
               verticalPosition: 'bottom',
             },
