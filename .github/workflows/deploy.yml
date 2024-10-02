@@ -136,7 +136,7 @@ jobs:
         run: npm install -g netlify-cli
 
       - name: Download build for app
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: ${{matrix.app}}-dev
 
@@ -238,7 +238,7 @@ jobs:
             node-version: '18'
 
         - name: Download build for app
-          uses: actions/download-artifact@v2
+          uses: actions/download-artifact@v4
           with:
             name: ${{matrix.app}}-prod
 
