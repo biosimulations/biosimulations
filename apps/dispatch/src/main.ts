@@ -15,3 +15,7 @@ platformBrowserDynamic()
 if (window.location.hostname === 'run.biosimulations.org') {
   window.location.href = 'https://biosimulations.org';
 }
+
+if (window.location.hostname === 'run.biosimulations.dev') {
+  window.location.href = 'https://biosimulations.dev';
+}
