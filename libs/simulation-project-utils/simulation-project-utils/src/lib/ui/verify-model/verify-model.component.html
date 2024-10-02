@@ -10,12 +10,9 @@
         </div>-->
         <mat-form-field class="card-form-field" appearance="fill">
           <mat-label>Choose SBML File</mat-label>
-          <biosimulations-ngx-mat-file-input
-            accept=".xml"
-            (change)="onFileSelected($event)">
+          <biosimulations-ngx-mat-file-input accept=".xml" (change)="onFileSelected($event)">
           </biosimulations-ngx-mat-file-input>
         </mat-form-field>
-
 
         <mat-form-field class="card-form-field" appearance="fill">
           <mat-label>Start Time</mat-label>
@@ -46,9 +43,7 @@
       </div>
 
       <mat-card-content class="card-hints 5">
-        <mat-hint>
-          Provide the required details for the model file verification.
-        </mat-hint>
+        <mat-hint> Provide the required details for the model file verification. </mat-hint>
         <button mat-flat-button (click)="onSubmitVerification()" class="biosimulations-button run">
           Run Verification
           <biosimulations-icon style="padding-left: 1rem !important" icon="experiment"></biosimulations-icon>
@@ -79,13 +74,15 @@
             <table class="matrix-table">
               <thead>
                 <tr>
-                  <th></th> <!-- Empty corner cell -->
+                  <th></th>
+                  <!-- Empty corner cell -->
                   <th *ngFor="let header of tableHeaders">{{ header }}</th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let rowKey of tableHeaders">
-                  <td>{{ rowKey }}</td> <!-- Row label -->
+                  <td>{{ rowKey }}</td>
+                  <!-- Row label -->
                   <td *ngFor="let colKey of tableHeaders">{{ rmseMatrix[rowKey][colKey] }}</td>
                 </tr>
               </tbody>
@@ -129,7 +126,6 @@
           </ng-container>
         </div>-->
 
-
         <!--<plotly-plot
           #plotly
           *ngIf="!loading && errors.length === 0"
@@ -154,6 +150,5 @@
       [data]="graph.data"
       [layout]="graph.layout"></plotly-plot>
     </div>-->
-
   </biosimulations-page>
 </div>
