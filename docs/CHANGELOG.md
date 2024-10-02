@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.61.1](https://github.com/biosimulations/biosimulations/compare/v9.61.0...v9.61.1) (2024-10-02)
+
+
+### Bug Fixes
+
+* update download artifact version in deploy workflow ([469581d](https://github.com/biosimulations/biosimulations/commit/469581d823105d28c7ee9d9d565e917ad5266ac6))
+
 ## [9.61.0](https://github.com/biosimulations/biosimulations/compare/v9.60.1...v9.61.0) (2024-10-02)
 
 
