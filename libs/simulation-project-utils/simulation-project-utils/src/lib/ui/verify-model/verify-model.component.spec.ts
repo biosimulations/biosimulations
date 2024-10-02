@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MaterialFileInputModule } from '@biosimulations/material-file-input';
-import { DispatchComponent } from './dispatch.component';
+import { VerifyModelComponent } from './verify-model.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { SharedUiModule } from '@biosimulations/shared/ui';
@@ -13,11 +13,10 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
 import { Storage } from '@ionic/storage-angular';
 import { ConfigService } from '@biosimulations/config/angular';
-import config from '../../../../assets/config.json';
 
 describe('DispatchComponent', () => {
-  let component: DispatchComponent;
-  let fixture: ComponentFixture<DispatchComponent>;
+  let component: VerifyModelComponent;
+  let fixture: ComponentFixture<VerifyModelComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -35,13 +34,13 @@ describe('DispatchComponent', () => {
           driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage],
         }),
       ],
-      declarations: [DispatchComponent],
-      providers: [HttpClient, HttpHandler, { provide: ConfigService, useValue: config }, Storage],
+      declarations: [VerifyModelComponent],
+      providers: [HttpClient, HttpHandler, Storage],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DispatchComponent);
+    fixture = TestBed.createComponent(VerifyModelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

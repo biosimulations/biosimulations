@@ -116,6 +116,8 @@
                 </ng-template>
               </span>
             </button>
+
+
           </div>
         </mat-card-header>
 
@@ -134,13 +136,6 @@
             </div>
           </ng-container>
           <form [formGroup]="variablesFormGroup" (ngSubmit)="onFormSubmit()">
-            <!-- TODO: implement this -->
-            <!-- <mat-checkbox
-              color="primary"
-              (change)="clearOverrides($event.checked)">
-              Clear existing overrides
-            </mat-checkbox> -->
-
             <!-- A. dropdown style implementation -->
             <div class="parameter-dropdown" *ngIf="useDropdown">
               <div formArrayName="parameterSelections" class="selection-fields">

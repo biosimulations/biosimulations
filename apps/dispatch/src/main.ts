@@ -11,3 +11,7 @@ if (environment.production) {
 platformBrowserDynamic()
   .bootstrapModule(AppModule)
   .catch((err) => console.error(err));
+
+if (window.location.hostname === 'run.biosimulations.org') {
+  window.location.href = 'https://biosimulations.org';
+}

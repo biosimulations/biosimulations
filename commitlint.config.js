@@ -9,7 +9,7 @@ module.exports = {
       [
         'api',
         'platform',
-        'projex',
+        // 'projex',
         'dispatch',
         'dispatch-service',
         'simulators',

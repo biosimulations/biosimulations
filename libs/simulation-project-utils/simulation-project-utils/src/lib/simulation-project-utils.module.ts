@@ -13,6 +13,7 @@ import { ValidateMetadataComponent } from './ui/validate-metadata/validate-metad
 import { ValidateProjectComponent } from './ui/validate-project/validate-project.component';
 import { SuggestSimulatorComponent } from './ui/suggest-simulator/suggest-simulator.component';
 import { CreateProjectComponent } from './ui/create-project/create-project/create-project.component';
+import { VerifyModelComponent } from './ui/verify-model/verify-model.component';
 import {
   AlgorithmParametersComponent,
   ModelChangesComponent,
@@ -23,9 +24,14 @@ import {
   UploadModelComponent,
 } from './ui/create-project/form-steps';
 import { FormHostDirective, PagingFormComponent } from './ui/create-project/create-project/forms';
+// import * as PlotlyJS from 'plotly.js-dist-min';
+// import { PlotlyModule } from 'angular-plotly.js';
+
+// PlotlyModule.plotlyjs = PlotlyJS;
 
 @NgModule({
   declarations: [
+    VerifyModelComponent,
     ConvertFileComponent,
     ValidateModelComponent,
     ValidateSimulationComponent,
@@ -43,7 +49,15 @@ import { FormHostDirective, PagingFormComponent } from './ui/create-project/crea
     FormHostDirective,
     PagingFormComponent,
   ],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule, SharedUiModule, BiosimulationsIconsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    SharedUiModule,
+    BiosimulationsIconsModule,
+    // PlotlyModule,
+  ],
   exports: [ModelChangesComponent],
 })
 export class SimulationProjectUtilsModule {}

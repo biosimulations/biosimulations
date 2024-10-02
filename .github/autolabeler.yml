@@ -6,7 +6,7 @@ docker: Dockerfile
 combine-api: app/combine-api
 runBiosimulations: apps/dispatch
 BioSimulations: apps/platform
-BioSimulationsBrowse: apps/projex
+# BioSimulationsBrowse: apps/projex
 BioSimulators: apps/simulators
 BioSimulations-API: ["apps/api" , "libs/api"]
 BioSimulators-API: apps/simulators-api

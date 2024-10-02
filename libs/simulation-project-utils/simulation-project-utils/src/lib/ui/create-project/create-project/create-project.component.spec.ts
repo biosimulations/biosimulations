@@ -18,6 +18,10 @@ describe('CreateProjectComponent', () => {
   let component: CreateProjectComponent;
   let fixture: ComponentFixture<CreateProjectComponent>;
 
+  beforeAll(() => {
+    window.URL.createObjectURL = jest.fn();
+  });
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [

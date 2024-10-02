@@ -21,7 +21,7 @@ jobs:
           - platform
           - simulators
           - dispatch
-          - projex
+          # - projex
 
     steps:
       - name: Checkout repository
@@ -49,7 +49,7 @@ jobs:
           && npx nx build ${{matrix.app}} --prod
 
       - name: Upload build
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: ${{matrix.app}}-dev
           path: dist/apps/${{matrix.app}}
@@ -70,7 +70,7 @@ jobs:
           - platform
           - simulators
           - dispatch
-          - projex
+          # - projex
 
     steps:
       - name: Checkout repository
@@ -96,7 +96,7 @@ jobs:
         run:  npx nx build ${{matrix.app}} --prod
 
       - name: Upload build
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: ${{matrix.app}}-prod
           path: dist/apps/${{matrix.app}}
@@ -124,7 +124,7 @@ jobs:
           - platform
           - simulators
           - dispatch
-          - projex
+          # - projex
 
     steps:
       - name: Install Node.js
@@ -229,7 +229,7 @@ jobs:
             - platform
             - simulators
             - dispatch
-            - projex
+            # - projex
 
       steps:
         - name: Install Node.js

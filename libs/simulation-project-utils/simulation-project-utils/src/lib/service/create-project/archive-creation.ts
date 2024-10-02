@@ -33,7 +33,7 @@ import {
   SedVariableTypeEnum,
 } from '@biosimulations/combine-api-angular-client';
 import { BIOSIMULATIONS_FORMATS_BY_ID } from '@biosimulations/ontology/extra-sources';
-import { SimulationType, ValueType, SedDocument as CommonSedDoc } from '@biosimulations/datamodel/common';
+import { SedDocument as CommonSedDoc, SimulationType, ValueType } from '@biosimulations/datamodel/common';
 import { MultipleSimulatorsAlgorithmParameter } from './compatibility';
 
 /**
@@ -87,7 +87,7 @@ export function CreateArchive(
   }
 
   const modelContent = CreateArchiveModelLocationValue(modelFile, modelUrl);
-  return CompleteArchiveFromFiles(modelFormat, modelContent, model.source, metadataFileUrl, sedFileUrl, imageUrls);
+  return CompleteArchiveFromFiles(modelFormat, modelContent, model.source, metadataFileUrl, sedDoc, imageUrls);
 }
 
 export function CreateArchiveFromSedDoc(
@@ -344,7 +344,7 @@ function CompleteArchiveFromFiles(
   locationValue: CombineArchiveLocationValue,
   modelPath: string,
   metadataFileUrl: string,
-  sedFileUrl: string,
+  sedDoc: SedDocument,
   imgUrls: string[],
 ): CombineArchive {
   const formatUri = BIOSIMULATIONS_FORMATS_BY_ID[modelFormat].biosimulationsMetadata?.omexManifestUris[0];
@@ -368,10 +368,7 @@ function CompleteArchiveFromFiles(
         location: {
           _type: CombineArchiveLocationTypeEnum.CombineArchiveLocation,
           path: 'simulation.sedml',
-          value: {
-            _type: CombineArchiveContentUrlTypeEnum.CombineArchiveContentUrl,
-            url: sedFileUrl,
-          },
+          value: sedDoc,
         },
       },
     ],

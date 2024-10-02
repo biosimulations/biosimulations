@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { MatSidenav } from '@angular/material/sidenav';
 import {
   AbstractControl,
@@ -64,9 +64,9 @@ import {
   SedTarget,
 } from '@biosimulations/combine-api-angular-client';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { _SubmitFormData } from '../../../../../../../libs/simulation-project-utils/simulation-project-utils/src/lib/ui/create-project/create-project/project-submission';
 import { ViewService } from '@biosimulations/simulation-runs/service';
 import { Visualization, VisualizationList } from '@biosimulations/datamodel-simulation-runs';
+import { Endpoints } from '@biosimulations/config/common';
 
 interface SimulatorIdNameDisabled {
   id: string;
@@ -89,27 +89,6 @@ interface Algorithm {
   name: string;
   simulatorPolicies: { [simulator: string]: SimulatorPolicy };
   disabled: boolean;
-}
-
-interface IntrospectionModelData extends FormStepData {
-  modelFormat: string;
-  modelFile?: string;
-  modelUrl?: string;
-}
-
-interface IntrospectionMethodData extends FormStepData {
-  frameworkId: string;
-  simulationType: string;
-  algorithmId: string;
-}
-
-interface ArchiveFormData extends FormStepData {
-  modelFormat: string;
-  modelFile?: string;
-  modelUrl?: string;
-  frameworkId: string;
-  simulationType: string;
-  algorithmId: string;
 }
 
 @Component({
@@ -160,8 +139,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
   public submitPushed = false;
   public emailEnabled = false;
   public filteredRows: any[][] = [];
-  public isRtl = true;
-  public shouldDisplayCard = true;
+  public endpoints = new Endpoints();
   private subscriptions: Subscription[] = [];
 
   // Data loaded from network
@@ -266,10 +244,6 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     });
   }
 
-  public toggleSidenav() {
-    this.sidenav.toggle();
-  }
-
   public filterRows(searchValue: string, index: number): void {
     // TODO: complete this implementation
     const rowsArray = this.rows.value as Array<any>;
@@ -298,15 +272,6 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     }
   }
 
-  public changeParamsLayout(checked: boolean): void {
-    console.log(`CHECKED: ${checked}`);
-    if (checked) {
-      this.useDropdown = false;
-    } else {
-      this.useDropdown = true;
-    }
-  }
-
   public changeParamsLayoutButton(): void {
     this.useDropdown = !this.useDropdown;
     if (this.useDropdown) {
@@ -327,11 +292,6 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
 
   public get rows(): UntypedFormArray {
     return this.variablesFormGroup.get('rows') as UntypedFormArray;
-  }
-
-  public getSelectedRowNewValueControl(): FormControl {
-    const index = this.variablesFormGroup.get('selectedRowIndex')?.value;
-    return this.rows.at(index).get('newValue') as FormControl;
   }
 
   public addParameterRow(modelChange: SedModelAttributeChange): void {
@@ -523,13 +483,12 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
   public removeModelChangeField(index: number): void {
     this.parameterSelections.removeAt(index);
   }
+
   // Form Submission
 
   public gatherModelChanges(): void {
-    // TODO: more accurately handle the number of models
-    const sedModel: SedModel = this.uploadedSedDoc.models.pop() as SedModel;
+    const sedModel = this.uploadedSedDoc.models.find((m) => m.id === this.uploadedSedDoc.models[0].id) as SedModel;
 
-    // get values from form grid
     if (!this.useDropdown) {
       this.rows.controls.forEach((val: AbstractControl<any, any>, i: number) => {
         const rowValueGroup = val as UntypedFormGroup;
@@ -544,23 +503,23 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
             id: rowValueGroup.controls.id.value,
             name: rowValueGroup.controls.name.value,
           };
+          // Add the parameter change to the sedModel
           sedModel.changes.push(paramChange);
-        } else {
-          return;
         }
       });
     } else {
-      // get values from dropdown
       const allParams = this.getAllParameterSelections();
-
       this.containsSimulationChanges = allParams.length >= 1;
-      allParams.forEach((paramChange: SedModelAttributeChange, i: number) => {
+      allParams.forEach((paramChange: SedModelAttributeChange) => {
         sedModel.changes.push(paramChange);
       });
     }
 
-    // update the uploaded document
-    this.uploadedSedDoc.models.push(sedModel);
+    // Update the model in its place in the uploadedSedDoc
+    const modelIndex = this.uploadedSedDoc.models.findIndex((m) => m.id === sedModel.id);
+    if (modelIndex > -1) {
+      this.uploadedSedDoc.models[modelIndex] = sedModel; // Update the model in place
+    }
   }
 
   public getAllParameterSelections(): SedModelAttributeChange[] | any[] {
@@ -583,72 +542,100 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     });
   }
 
-  public createNewArchive(queryParams: ReRunQueryParams): Observable<string> | null {
-    const errorHandler = this.archiveError.bind(this);
-
-    const form = new FormData();
-    form.append('modelUrl', queryParams.modelUrl as string);
-    form.append('modelingFramework', queryParams.modelingFramework as string);
-    form.append('simulationType', queryParams.simulationType as string);
-    form.append('simulationAlgorithm', queryParams.simulationAlgorithm as string);
-
-    const introspectedSedDoc$ = _IntrospectNewProject(
-      this.httpClient,
-      form as FormData,
-      queryParams.modelUrl as string,
-      errorHandler,
-    );
-
-    const archive = CreateArchiveFromSedDoc(
-      this.uploadedSedDoc as SedDocument,
-      queryParams.modelUrl as string,
-      queryParams.modelFormat as string,
-      queryParams.modelFile as File,
-      queryParams.imageFileUrls as string[],
-    );
-
-    if (!archive) {
-      return null;
-    }
-
-    const formData = new FormData();
-    formData.append('specs', JSON.stringify(archive));
-    const archiveSubmission$ = _SubmitFormData(formData, this.httpClient, errorHandler);
-
-    if (archiveSubmission$) {
-      console.log(`Archive submission successful!`);
-      return archiveSubmission$;
-    } else {
-      console.log(`Not successfull`);
-      return null;
-    }
-  }
-
-  public handleSimulationParams(): void {
-    // 1. update this.uploadedSedDoc if there are changes
+  public createNewArchive(queryParams: ReRunQueryParams): Promise<Blob | null> {
     this.gatherModelChanges();
+    return new Promise((resolve, reject) => {
+      const errorHandler = this.archiveError.bind(this);
 
-    if (!this.containsSimulationChanges) {
-      console.log(`No changes.`);
-      return;
-    }
+      const form = new FormData();
+      form.append('modelUrl', queryParams.modelUrl as string);
+      form.append('modelingFramework', queryParams.modelingFramework as string);
+      form.append('simulationType', queryParams.simulationType as string);
+      form.append('simulationAlgorithm', queryParams.simulationAlgorithm as string);
 
-    // 2. create a new archive using BOTH the rerun query params and the uploadedSedDoc
-    const archiveResponse$ = this.createNewArchive(this.simParams) as Observable<string>;
+      const introspectedSedDoc$ = _IntrospectNewProject(
+        this.httpClient,
+        form as FormData,
+        queryParams.modelUrl as string,
+        errorHandler,
+      );
+
+      const archive = CreateArchiveFromSedDoc(
+        this.uploadedSedDoc as SedDocument,
+        queryParams.modelUrl as string,
+        queryParams.modelFormat as string,
+        queryParams.modelFile as File,
+        queryParams.imageFileUrls as string[],
+      );
+
+      if (!archive) {
+        resolve(null);
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('specs', JSON.stringify(archive));
+      formData.append('download', 'true');
+      if (queryParams.modelFile) {
+        formData.append('files', queryParams.modelFile as Blob);
+      }
+
+      const createArchiveUrl = this.endpoints.getCombineArchiveCreationEndpoint(false);
+      this.httpClient.post(createArchiveUrl, formData, { responseType: 'blob' }).subscribe(
+        (blob: Blob) => {
+          if (blob) {
+            console.log('Archive generated successfully');
+            resolve(blob); // Return the blob instead of triggering download
+          } else {
+            console.error('Failed to generate the archive.');
+            resolve(null);
+          }
+        },
+        (error: HttpErrorResponse) => {
+          console.error('Error creating archive:', error.message);
+          console.error('Full error details:', error);
+          reject(error);
+        },
+      );
+    });
   }
 
-  public onFormSubmit(): void {
+  public downloadBlob(archiveBlob: Blob): void {
+    const url = window.URL.createObjectURL(archiveBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    const customName: string = this.formGroup.value.name;
+    const formattedName: string = customName.replace(/\s+/g, '-');
+    link.setAttribute('download', `${formattedName}.omex`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    // free up memory
+    window.URL.revokeObjectURL(url);
+  }
+
+  public async onFormSubmit(): Promise<void> {
     /* Create customized archive and Submit the form for simulation */
     this.submitPushed = true;
 
-    // Read simulation params form and create a new archive if there are changes detected
-    this.handleSimulationParams();
-
-    // ***Existing content:
+    // Ensure that the form is valid
     if (!this.formGroup.valid) {
       return;
     }
 
+    // Generate the archive and set it as projectFile
+    const archiveBlob = await this.createNewArchive(this.simParams);
+    if (archiveBlob) {
+      // set form val to created archive
+      const archiveFile = new File([archiveBlob], 'combineArchive.omex', { type: archiveBlob.type });
+      this.formGroup.patchValue({ projectFile: { files: [archiveFile] } });
+
+      // download archive
+      this.downloadBlob(archiveBlob);
+    }
+
+    // Proceed with form submission
     const simulator: string = this.formGroup.value.simulator;
     const simulatorVersion: string = this.formGroup.value.simulatorVersion;
     const cpus: number = this.formGroup.value.cpus;
@@ -666,38 +653,20 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
       return;
     }
 
-    let simulationResponse: Observable<SimulationRun>;
-
-    const projectUrl: string = this.formGroup.value.projectUrl;
-    if (projectUrl) {
-      simulationResponse = this.dispatchService.submitJobForURL(
-        projectUrl,
-        simulator,
-        simulatorVersion,
-        cpus,
-        memory,
-        maxTime,
-        envVars,
-        purpose,
-        name,
-        email,
-      );
-    } else {
-      const fileInput: FileInput = this.formGroup.value.projectFile;
-      const projectFile: File = fileInput.files[0];
-      simulationResponse = this.dispatchService.submitJobForFile(
-        projectFile,
-        simulator,
-        simulatorVersion,
-        cpus,
-        memory,
-        maxTime,
-        envVars,
-        purpose,
-        name,
-        email,
-      );
-    }
+    const fileInput: FileInput = this.formGroup.value.projectFile;
+    const projectFile: File = fileInput.files[0];
+    const simulationResponse: Observable<SimulationRun> = this.dispatchService.submitJobForFile(
+      projectFile,
+      simulator,
+      simulatorVersion,
+      cpus,
+      memory,
+      maxTime,
+      envVars,
+      purpose,
+      name,
+      email,
+    );
 
     const sub = simulationResponse.subscribe((data: SimulationRun) =>
       this.processSimulationResponse(
@@ -752,8 +721,6 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
           name: simulatorsData.simulatorSpecs[simulatorId].name,
         };
 
-        // All simulators returned for the main algorithm can be used with the main algorithm when the
-        // policy is at least SAME_METHOD (always).
         simulationAlgorithmsMap[mainAlg.id].simulatorPolicies[simulatorId] = {
           minPolicy: {
             id: 'SAME_METHOD',
@@ -764,9 +731,6 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
           simulator: simulator,
         };
 
-        // All simulators returned for the main algorithm can be used with the alt algorithm when the
-        // policy is at least as lenient as the policy for which the alt algorithm can switch with the main
-        // algorithm.
         const currentAltAlgPolicy = simulationAlgorithmsMap[altAlg.id].simulatorPolicies[simulatorId];
         if (!currentAltAlgPolicy || substitutionPolicy.level < currentAltAlgPolicy.minPolicy.level) {
           simulationAlgorithmsMap[altAlg.id].simulatorPolicies[simulatorId] = {
@@ -791,8 +755,7 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
       return {
         _type: 'KisaoAlgorithmSubstitution',
         algorithms: [alg, alg],
-        //minPolicy: ALGORITHM_SUBSTITUTION_POLICIES[AlgorithmSubstitutionPolicyLevels.SAME_METHOD],
-        minPolicy: ALGORITHM_SUBSTITUTION_POLICIES[AlgorithmSubstitutionPolicyLevels.ANY],
+        minPolicy: ALGORITHM_SUBSTITUTION_POLICIES[AlgorithmSubstitutionPolicyLevels.SAME_FRAMEWORK],
       };
     });
   }
@@ -1009,32 +972,6 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
 
   // Error handling
 
-  public shouldShowNoProjectError(): boolean {
-    return this.formGroup.hasError('noProject') && this.submitPushed;
-  }
-
-  public shouldShowUnsupportedModelError(): boolean {
-    const hasUnsupportedModel = this.formGroup.hasError('unsupportedFormats', 'modelFormats');
-    return (this.submitPushed || this.formGroup.controls.modelFormats.touched) && hasUnsupportedModel;
-  }
-
-  public shouldShowUnsupportedAlgorithmError(): boolean {
-    const hasUnsupportedAlgorithm = this.formGroup.hasError('unsupportedAlgorithms', 'simulationAlgorithms');
-    return (this.submitPushed || this.formGroup.controls.simulationAlgorithms.touched) && hasUnsupportedAlgorithm;
-  }
-
-  public shouldShowSimulatorRequiredError(): boolean {
-    return this.submitPushed && this.formGroup.hasError('required', 'simulator');
-  }
-
-  public shouldShowSimulatorVersionRequiredError(): boolean {
-    return this.submitPushed && this.formGroup.hasError('required', 'simulatorVersion');
-  }
-
-  public shouldShowNameRequiredError(): boolean {
-    return this.submitPushed && this.formGroup.hasError('required', 'name');
-  }
-
   private resetProjectErrors(): void {
     this.formGroup.controls.modelFormats.setErrors({ unsupportedFormats: null });
     this.formGroup.controls.modelFormats.updateValueAndValidity();
@@ -1068,7 +1005,6 @@ export class CustomizeSimulationComponent implements OnInit, OnDestroy {
     if (!params) {
       return;
     }
-
     this.setProject(params.projectUrl);
     this.setSimulator(params.simulator, params.simulatorVersion, simulatorSpecsMap);
     this.setCpuCount(params.cpus);
