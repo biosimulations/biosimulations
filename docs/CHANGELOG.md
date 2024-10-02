@@ -1,5 +1,29 @@
 # Changelog
 
+## [9.61.0](https://github.com/biosimulations/biosimulations/compare/v9.60.1...v9.61.0) (2024-10-02)
+
+
+### Bug Fixes
+
+* added run biosimulations handler ([bfcfcf7](https://github.com/biosimulations/biosimulations/commit/bfcfcf7379875483fce8a920535a10731e407606))
+* const over let for lint ([485e449](https://github.com/biosimulations/biosimulations/commit/485e449220e8a76d99af0d8719518e64a1e45f94))
+* finally updated and fixed custom project param setters ([df42912](https://github.com/biosimulations/biosimulations/commit/df429126c1c4970359b5cea8f5754c3b472ebfa4))
+* remove offending line for lint ([83742d1](https://github.com/biosimulations/biosimulations/commit/83742d11f595b27ea251b438714025584bb0b3aa))
+* remove unused imports for lint ([fde31bb](https://github.com/biosimulations/biosimulations/commit/fde31bbaf2743f5e90e29facd7d7870350c282f2))
+* update project forms ([256a039](https://github.com/biosimulations/biosimulations/commit/256a0390c01a688de21a01f51e8b57ba7598f5ba))
+* update to create project handlers ([5441da5](https://github.com/biosimulations/biosimulations/commit/5441da5bc70b13d84463aa6b75107a2f1bb47dc1))
+* update to custom rerun ([e48826c](https://github.com/biosimulations/biosimulations/commit/e48826c752dbb447354890d5f971594dd6f14b0b))
+* update to new project submission handler ([05e4554](https://github.com/biosimulations/biosimulations/commit/05e4554515651ae23c5344052ff380ddc8fd4ec8))
+* updated spec ([ab94c82](https://github.com/biosimulations/biosimulations/commit/ab94c8251cb2c86e7e15fd96910aa08b5a21c815))
+* upgraded upload artifact action version and rem log ([578462d](https://github.com/biosimulations/biosimulations/commit/578462d5d9d7ef58b36756068d2ec505b33e4b63))
+
+
+### Features
+
+* added download of custom archive ([ba7f976](https://github.com/biosimulations/biosimulations/commit/ba7f976882284b227fb2e47dbb89c2706110ae2f))
+* added model verification component for site utils ([2e2b1c2](https://github.com/biosimulations/biosimulations/commit/2e2b1c278db27404a90aed4b4747ccd0c89554ef))
+* added placeholder verification content ([e3379fa](https://github.com/biosimulations/biosimulations/commit/e3379fa0888e5c52f7efec6be159bcb27cc485f3))
+
 ## [9.60.1](https://github.com/biosimulations/biosimulations/compare/v9.60.0...v9.60.1) (2024-09-02)
 
 
