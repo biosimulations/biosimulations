@@ -2002,6 +2002,11 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: TJ Holowaychuk
 │  ├─ email: tj@vision-media.ca
 │  └─ licenseFile: pause/Readme.md
+├─ plotly.js-dist-min@2.35.2
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/plotly/plotly.js
+│  ├─ publisher: Plotly, Inc.
+│  └─ licenseFile: plotly.js-dist-min/LICENSE
 ├─ prebuild-install@7.1.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/prebuild/prebuild-install
