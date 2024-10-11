@@ -6,6 +6,9 @@ import { UpdateService } from '@biosimulations/shared/pwa';
 import { AppRoutes } from '@biosimulations/config/common';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { CookieConsentComponent } from '../../../../libs/analytics/angular-analytics/src/lib/cookie-consent/cookie-consent.component';
+import { cookieConsentType } from '../../../../libs/analytics/angular-analytics/src/lib/datamodel';
 
 export const PLATFORM_APP_ROUTES = new AppRoutes();
 @Component({
@@ -20,10 +23,12 @@ export class AppComponent implements OnInit, AfterViewInit {
   private checkForHealth = true;
   public mobileLinkTarget = '_blank';
   public mobileLink?: string;
+  public debugCookies = true;
   private _appRoutes: AppRoutes;
 
   public constructor(
     public config: ConfigService,
+    public dialog: MatDialog,
     private scrollService: ScrollService,
     private updateService: UpdateService,
     private healthService: HealthService,
@@ -46,10 +51,22 @@ export class AppComponent implements OnInit, AfterViewInit {
       console.log(this.healthy$);
     }
     this.checkClientScreenSimulations();
+
+    if (this.debugCookies) {
+      this.openCookieConsentDialog();
+    }
   }
 
   public ngAfterViewInit(): void {
     this.scrollService.init();
+  }
+
+  public openCookieConsentDialog(): void {
+    this.dialog.open(CookieConsentComponent, {
+      width: '625px',
+      position: { bottom: '1.5rem', left: '0' },
+      panelClass: 'cookies-container',
+    });
   }
 
   private checkClientScreenSimulations(): void {
