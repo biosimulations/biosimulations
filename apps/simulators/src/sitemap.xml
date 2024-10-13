@@ -195,7 +195,7 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/copasi</loc>
-    <lastmod>2024-10-04</lastmod>
+    <lastmod>2024-10-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -231,7 +231,7 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/copasi/4.44.295</loc>
-    <lastmod>2024-10-04</lastmod>
+    <lastmod>2024-10-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -772,6 +772,12 @@
   <url>
     <loc>https://biosimulators.org/simulators/tellurium/2.2.1</loc>
     <lastmod>2021-12-22</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/tellurium/2.2.10</loc>
+    <lastmod>2024-10-10</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
