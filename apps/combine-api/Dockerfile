@@ -251,18 +251,7 @@ RUN apt-get install -y --no-install-recommends \
         libc6-dev \
         libx11-6 \
         libc6 \
-    \
-    && cd /tmp \
-    && wget https://web.archive.org/web/20210425172021/http://www.math.pitt.edu/~bard/bardware/xppaut_latest.tar.gz \
-    && mkdir xpp \
-    && tar zxvf xppaut_latest.tar.gz --directory xpp \
-    && cd xpp \
-    && make \
-    && make install \
-    \
-    && cd /tmp \
-    && rm xppaut_latest.tar.gz \
-    && rm -r xpp
+        xppaut 
 
 ###################################
 # setup headless for NEURON, Smoldyn
