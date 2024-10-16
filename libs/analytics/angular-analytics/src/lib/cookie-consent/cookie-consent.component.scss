@@ -24,17 +24,36 @@
 }
 
 .cookies-container {
-  padding: 3rem;
+  padding: 1rem;
   font-family: 'Roboto', sans-serif;
+  width: 600px;
+  font-size: 12px;
 }
 
 .submit-button {
-  float: right;
+  // float: right;
+  margin-left: 0.5rem;
 }
+
+.cookies-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .notice {
   margin-bottom: 1rem;
 }
+
 .terms-agreement {
   margin-top: 1rem;
   margin-bottom: 1rem;
+}
+
+.mat-dialog-container {
+  position: fixed; /* to ensure it stays at the bottom left */
+  bottom: 1rem;
+  left: 0;
+  margin: 0;
+  max-width: 1000px; /* set custom width */
 }

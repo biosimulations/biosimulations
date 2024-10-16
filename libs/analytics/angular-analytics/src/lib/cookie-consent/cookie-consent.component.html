@@ -6,7 +6,7 @@
     you. This allows us to improve the site and gather usage information for funding and development. Because we respect
     your right to privacy, you can opt-out of this data.
   </p>
-  <mat-accordion>
+  <mat-accordion *ngIf="termsShowing">
     <mat-expansion-panel *ngFor="let cookie of cookies">
       <mat-expansion-panel-header class="cookie-header">
         <mat-panel-title>{{ cookie.displayName }}</mat-panel-title>
@@ -51,5 +51,11 @@
     <a href="https://docs.biosimulations.org/about/privacy/" target="biosimulations-docs">privacy policy</a>, and
     <a href="https://docs.biosimulations.org/about/cookies/" target="biosimulations-docs">use of cookies</a>.
   </p>
-  <button mat-raised-button color="primary" class="submit-button" (click)="submitConsent()">Save</button>
+  <div class="cookies-button-container">
+    <button mat-raised-button color="primary" class="submit-button" (click)="submitConsent()">Accept</button>
+    <button mat-raised-button color="primary" class="submit-button" (click)="declineCookies()">Decline</button>
+    <button mat-raised-button color="primary" class="submit-button" (click)="showTerms()">
+      {{ termsShowing ? "Hide Cookies" : "Show Cookies" }}
+    </button>
+  </div>
 </div>

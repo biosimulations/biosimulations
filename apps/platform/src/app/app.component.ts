@@ -6,6 +6,7 @@ import { UpdateService } from '@biosimulations/shared/pwa';
 import { AppRoutes } from '@biosimulations/config/common';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
 
 export const PLATFORM_APP_ROUTES = new AppRoutes();
 @Component({
@@ -24,6 +25,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   public constructor(
     public config: ConfigService,
+    public dialog: MatDialog,
     private scrollService: ScrollService,
     private updateService: UpdateService,
     private healthService: HealthService,
