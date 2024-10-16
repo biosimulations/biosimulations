@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-flask = ">=2"
+flask = ">=2.2.5"
 flask-cors = ">=3.0.10"
 # types-flask-cors = ">=3.0.10.3"
 types-flask = ">=1.1.6"
