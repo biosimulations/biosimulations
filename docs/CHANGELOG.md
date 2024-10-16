@@ -1,5 +1,13 @@
 # Changelog
 
+## [9.61.2](https://github.com/biosimulations/biosimulations/compare/v9.61.1...v9.61.2) (2024-10-16)
+
+
+### Bug Fixes
+
+* add needed imports for hpc singularity builder unit test ([5f8bfba](https://github.com/biosimulations/biosimulations/commit/5f8bfba0d787efbc844c668e65cad0dc916d44b0))
+* throw exception with error message if fail to process sedml ([65efa6a](https://github.com/biosimulations/biosimulations/commit/65efa6a82dc09095416b8f975712b39ed3334005))
+
 ## [9.61.1](https://github.com/biosimulations/biosimulations/compare/v9.61.0...v9.61.1) (2024-10-02)
 
 
