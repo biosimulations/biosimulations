@@ -2,18 +2,19 @@ import { Endpoints } from '@biosimulations/config/common';
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { CombineWrapperService } from '../combineWrapper.service';
-import { map, Observable, pluck } from 'rxjs';
+import { map, Observable, pluck, throwError } from 'rxjs';
 import {
-  SedDocument,
-  SedStyle,
-  SedModel,
-  SedSimulation,
+  CombineArchiveSedDocSpecsContent,
   SedAbstractTask,
   SedDataGenerator,
+  SedDocument,
+  SedModel,
   SedOutput,
-  CombineArchiveSedDocSpecsContent,
+  SedSimulation,
+  SedStyle,
 } from '@biosimulations/combine-api-nest-client';
 import { SimulationRunSedDocumentInput } from '@biosimulations/ontology/datamodel';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class SedmlService {
@@ -28,10 +29,17 @@ export class SedmlService {
   public processSedml(id: string): Observable<SimulationRunSedDocumentInput[]> {
     this.logger.log(`Processing SED-ML documents for simulation run '${id}' ...`);
     const url = this.endpoints.getSimulationRunDownloadEndpoint(true, id);
-    const sedml = this.combine
-      .getSedMlSpecs(undefined, url)
-      .pipe(pluck('data'), pluck('contents'), map(this.getSpecsFromArchiveContent.bind(this)));
-
+    const sedml = this.combine.getSedMlSpecs(undefined, url).pipe(
+      pluck('data'),
+      pluck('contents'),
+      map(this.getSpecsFromArchiveContent.bind(this)),
+      catchError((error) => {
+        this.logger.error(`Error processing SED-ML documents for simulation run '${id}': ${error.message}`);
+        return throwError(
+          () => new Error(`Error processing SED-ML documents for simulation run '${id}': ${error.message}`),
+        );
+      }),
+    );
     return sedml;
   }
 

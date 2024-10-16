@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { Endpoints } from '@biosimulations/config/common';
 import { FilePaths, OutputFileName } from '@biosimulations/shared/storage';
 import { ConfigService } from '@nestjs/config';
-import { generateImageUpdateSbatch } from '@biosimulations/hpc/singularityBuilder';
+import { generateImageUpdateSbatch } from './hpc-singularity-builder';
 import { EnvironmentVariable, Purpose, ConsoleFormatting } from '@biosimulations/datamodel/common';
 
 @Injectable()
