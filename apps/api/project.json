@@ -60,6 +60,7 @@
         "build-args": ["app=api"],
         "cache-from": ["type=registry,ref=ghcr.io/biosimulations/api:buildcache"],
         "cache-to": ["type=registry,ref=ghcr.io/biosimulations/api:buildcache,mode=max"],
+        "platforms": ["linux/amd64"],
         "metadata": {
           "enabled": true,
           "images": ["ghcr.io/biosimulations/api"],

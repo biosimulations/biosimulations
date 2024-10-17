@@ -54,6 +54,7 @@
         "context": "./apps/combine-api",
         "push": true,
         "build-args": ["app=combine-api"],
+        "platforms": ["linux/amd64"],
         "metadata": {
           "enabled": true,
           "images": ["ghcr.io/biosimulations/combine-api"],

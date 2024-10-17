@@ -58,6 +58,7 @@
         "file": "./Dockerfile",
         "push": true,
         "build-args": ["app=dispatch-service"],
+        "platforms": ["linux/amd64"],
         "cache-from": ["type=registry,ref=ghcr.io/biosimulations/simulation-service:buildcache"],
         "cache-to": ["type=registry,ref=ghcr.io/biosimulations/simulation-service:buildcache,mode=max"],
         "metadata": {
