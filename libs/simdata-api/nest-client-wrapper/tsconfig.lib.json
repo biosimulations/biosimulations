@@ -9,7 +9,6 @@
     "forceConsistentCasingInFileNames": true,
     "strict": false,
     "noImplicitAny": false,
-    "suppressImplicitAnyIndexErrors": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true
   },
