@@ -3,24 +3,6 @@
   "affected": {
     "defaultBase": "dev"
   },
-  "implicitDependencies": {
-    "angular.json": "*",
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
-    },
-    ".github/workflows/nxCi.yml": "*",
-    "apps/combine-api/pyproject.toml": ["combine-api"],
-    "apps/combine-api/poetry.lock": ["combine-api"],
-    "apps/simdata-api/pyproject.toml": ["simdata-api"],
-    "apps/simdata-api/poetry.lock": ["simdata-api"],
-    "tsconfig.base.json": "*",
-    ".eslintrc.json": "*",
-    "nx.json": "*",
-    "Dockerfile": "*",
-    "apps/combine-api/Dockerfile": ["combine-api"],
-    "apps/simdata-api/Dockerfile": ["simdata-api"]
-  },
   "tasksRunnerOptions": {
     "default": {
       "runner": "nx-cloud",
@@ -107,6 +89,11 @@
   "namedInputs": {
     "default": ["{projectRoot}/**/*", "sharedGlobals", "projectSpecificFiles"],
     "sharedGlobals": [
+      "{workspaceRoot}/.github/workflows/nxCi.yml",
+      "{workspaceRoot}/tsconfig.base.json",
+      "{workspaceRoot}/nx.json",
+      "{workspaceRoot}/Dockerfile",
+      "{workspaceRoot}/angular.json",
       "{workspaceRoot}/.github/workflows/nxCi.yml",
       "{workspaceRoot}/tsconfig.base.json",
       "{workspaceRoot}/nx.json",

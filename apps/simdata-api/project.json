@@ -117,7 +117,9 @@
     "projectSpecificFiles": [
       "{workspaceRoot}/apps/simdata-api/Dockerfile-assets/Pipfile",
       "{workspaceRoot}/apps/simdata-api/Dockerfile-assets/Pipfile.lock",
-      "{workspaceRoot}/apps/simdata-api/Dockerfile"
+      "{workspaceRoot}/apps/simdata-api/Dockerfile",
+      "{workspaceRoot}/apps/simdata-api/pyproject.toml",
+      "{workspaceRoot}/apps/simdata-api/poetry.lock"
     ]
   }
 }

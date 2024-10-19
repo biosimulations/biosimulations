@@ -118,7 +118,9 @@
     "projectSpecificFiles": [
       "{workspaceRoot}/apps/combine-api/Dockerfile-assets/Pipfile",
       "{workspaceRoot}/apps/combine-api/Dockerfile-assets/Pipfile.lock",
-      "{workspaceRoot}/apps/combine-api/Dockerfile"
+      "{workspaceRoot}/apps/combine-api/Dockerfile",
+      "{workspaceRoot}/apps/combine-api/pyproject.toml",
+      "{workspaceRoot}/apps/combine-api/poetry.lock"
     ]
   }
 }
