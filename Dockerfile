@@ -18,7 +18,7 @@ WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 
 # install nx cli
-RUN npm install -g @nx
+RUN npm install -g nx
 
 # install dependencies needed to compile canvas (needed for Vega-embed)
 ENV PYTHONUNBUFFERED=1

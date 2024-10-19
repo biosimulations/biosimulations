@@ -11,8 +11,7 @@
         "outputPath": "dist/libs/statistics/datamodel",
         "main": "libs/statistics/datamodel/src/index.ts",
         "tsConfig": "libs/statistics/datamodel/tsconfig.lib.json",
-        "assets": ["libs/statistics/datamodel/*.md"],
-        "updateBuildableProjectDepsInPackageJson": true
+        "assets": ["libs/statistics/datamodel/*.md"]
       }
     },
     "publish": {

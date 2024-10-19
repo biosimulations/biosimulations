@@ -23,8 +23,7 @@
       "executor": "@nx/angular:ng-packagr-lite",
       "options": {
         "tsConfig": "libs/statistics/summary-page/tsconfig.lib.json",
-        "project": "libs/statistics/summary-page/ng-package.json",
-        "updateBuildableProjectDepsInPackageJson": true
+        "project": "libs/statistics/summary-page/ng-package.json"
       },
       "configurations": {
         "": {

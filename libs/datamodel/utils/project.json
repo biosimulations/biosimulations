@@ -26,8 +26,7 @@
         "tsConfig": "libs/datamodel/utils/tsconfig.lib.json",
         "packageJson": "libs/datamodel/utils/package.json",
         "main": "libs/datamodel/utils/src/index.ts",
-        "assets": ["libs/datamodel/utils/*.md"],
-        "updateBuildableProjectDepsInPackageJson": true
+        "assets": ["libs/datamodel/utils/*.md"]
       }
     }
   },

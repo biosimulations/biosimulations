@@ -12,8 +12,7 @@
         "tsConfig": "libs/combine-api/nest-client/tsconfig.lib.json",
         "packageJson": "libs/combine-api/nest-client/package.json",
         "main": "libs/combine-api/nest-client/src/index.ts",
-        "assets": ["libs/combine-api/nest-client/*.md"],
-        "updateBuildableProjectDepsInPackageJson": true
+        "assets": ["libs/combine-api/nest-client/*.md"]
       }
     },
     "lint": {

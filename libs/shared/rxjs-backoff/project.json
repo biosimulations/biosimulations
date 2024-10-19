@@ -11,8 +11,7 @@
         "outputPath": "dist/libs/shared/rxjs-backoff",
         "main": "libs/shared/rxjs-backoff/src/index.ts",
         "tsConfig": "libs/shared/rxjs-backoff/tsconfig.lib.json",
-        "assets": ["libs/shared/rxjs-backoff/*.md"],
-        "updateBuildableProjectDepsInPackageJson": true
+        "assets": ["libs/shared/rxjs-backoff/*.md"]
       }
     },
     "lint": {

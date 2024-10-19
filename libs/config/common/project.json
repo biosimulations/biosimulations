@@ -26,8 +26,7 @@
         "tsConfig": "libs/config/common/tsconfig.lib.json",
         "packageJson": "libs/config/common/package.json",
         "main": "libs/config/common/src/index.ts",
-        "assets": ["libs/config/common/*.md"],
-        "updateBuildableProjectDepsInPackageJson": true
+        "assets": ["libs/config/common/*.md"]
       }
     }
   },

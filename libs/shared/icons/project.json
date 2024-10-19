@@ -22,8 +22,7 @@
       "executor": "@nx/angular:ng-packagr-lite",
       "options": {
         "tsConfig": "libs/shared/icons/tsconfig.lib.json",
-        "project": "libs/shared/icons/ng-package.json",
-        "updateBuildableProjectDepsInPackageJson": true
+        "project": "libs/shared/icons/ng-package.json"
       },
       "configurations": {
         "": {

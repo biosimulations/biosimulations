@@ -12,8 +12,7 @@
         "tsConfig": "libs/statistics/api/tsconfig.lib.json",
         "packageJson": "libs/statistics/api/package.json",
         "main": "libs/statistics/api/src/index.ts",
-        "assets": ["libs/statistics/api/*.md"],
-        "updateBuildableProjectDepsInPackageJson": true
+        "assets": ["libs/statistics/api/*.md"]
       }
     },
     "publish": {

@@ -9,8 +9,7 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/analytics/angular-analytics"],
       "options": {
-        "project": "libs/analytics/angular-analytics/ng-package.json",
-        "updateBuildableProjectDepsInPackageJson": true
+        "project": "libs/analytics/angular-analytics/ng-package.json"
       },
       "configurations": {
         "production": {

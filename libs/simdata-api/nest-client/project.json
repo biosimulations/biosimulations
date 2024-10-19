@@ -12,8 +12,7 @@
         "tsConfig": "libs/simdata-api/nest-client/tsconfig.lib.json",
         "packageJson": "libs/simdata-api/nest-client/package.json",
         "main": "libs/simdata-api/nest-client/src/index.ts",
-        "assets": ["libs/simdata-api/nest-client/*.md"],
-        "updateBuildableProjectDepsInPackageJson": true
+        "assets": ["libs/simdata-api/nest-client/*.md"]
       }
     },
     "lint": {

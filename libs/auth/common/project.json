@@ -26,8 +26,7 @@
         "tsConfig": "libs/auth/common/tsconfig.lib.json",
         "packageJson": "libs/auth/common/package.json",
         "main": "libs/auth/common/src/index.ts",
-        "assets": ["libs/auth/common/*.md"],
-        "updateBuildableProjectDepsInPackageJson": true
+        "assets": ["libs/auth/common/*.md"]
       }
     }
   },

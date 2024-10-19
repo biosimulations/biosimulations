@@ -9,8 +9,7 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/material-file-input"],
       "options": {
-        "project": "libs/material-file-input/ng-package.json",
-        "updateBuildableProjectDepsInPackageJson": true
+        "project": "libs/material-file-input/ng-package.json"
       },
       "configurations": {
         "production": {
