@@ -6,10 +6,11 @@
   "prefix": "biosimulations",
   "targets": {
     "build": {
-      "executor": "@nrwl/angular:package",
+      "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/material-file-input"],
       "options": {
-        "project": "libs/material-file-input/ng-package.json"
+        "project": "libs/material-file-input/ng-package.json",
+        "updateBuildableProjectDepsInPackageJson": true
       },
       "configurations": {
         "production": {
@@ -22,7 +23,7 @@
       "defaultConfiguration": "production"
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/material-file-input"],
       "options": {
         "jestConfig": "libs/material-file-input/jest.config.ts",
@@ -30,7 +31,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": ["libs/material-file-input/**/*.ts", "libs/material-file-input/**/*.html"]
       }

@@ -5,7 +5,7 @@
     "types": ["node"],
     "outDir": "../../../dist/out-tsc",
     "rootDir": "./src",
-    "target": "es6"
+    "target": "es2021"
   },
   "exclude": ["**/*.spec.ts", "jest.config.ts"],
   "include": ["**/*.ts"],

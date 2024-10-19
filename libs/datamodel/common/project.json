@@ -6,27 +6,28 @@
   "generators": {},
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": ["libs/datamodel/common/**/*.ts"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "libs/datamodel/common/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "build": {
-      "executor": "@nrwl/js:tsc",
+      "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/datamodel/common",
         "tsConfig": "libs/datamodel/common/tsconfig.lib.json",
         "packageJson": "libs/datamodel/common/package.json",
         "main": "libs/datamodel/common/src/index.ts",
-        "assets": ["libs/datamodel/common/*.md"]
+        "assets": ["libs/datamodel/common/*.md"],
+        "updateBuildableProjectDepsInPackageJson": true
       }
     }
   },

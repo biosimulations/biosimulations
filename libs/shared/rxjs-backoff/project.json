@@ -5,24 +5,25 @@
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nrwl/js:tsc",
+      "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/shared/rxjs-backoff",
         "main": "libs/shared/rxjs-backoff/src/index.ts",
         "tsConfig": "libs/shared/rxjs-backoff/tsconfig.lib.json",
-        "assets": ["libs/shared/rxjs-backoff/*.md"]
+        "assets": ["libs/shared/rxjs-backoff/*.md"],
+        "updateBuildableProjectDepsInPackageJson": true
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["libs/shared/rxjs-backoff/**/*.ts"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/shared/rxjs-backoff"],
       "options": {
         "jestConfig": "libs/shared/rxjs-backoff/jest.config.ts",

@@ -6,7 +6,7 @@
   "prefix": "biosimulations",
   "targets": {
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/ontology/client"],
       "options": {
         "jestConfig": "libs/ontology/client/jest.config.ts",
@@ -14,7 +14,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": ["libs/ontology/client/src/**/*.ts", "libs/ontology/client/src/**/*.html"]
       }

@@ -17,8 +17,8 @@ WORKDIR /app
 # add `/app/node_modules/.bin` to $PATH
 ENV PATH /app/node_modules/.bin:$PATH
 
-# install nrwl cli
-RUN npm install -g @nrwl/cli
+# install nx cli
+RUN npm install -g @nx
 
 # install dependencies needed to compile canvas (needed for Vega-embed)
 ENV PYTHONUNBUFFERED=1

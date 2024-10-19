@@ -43,7 +43,8 @@
       "options": {
         "commands": ["poetry run flake8"],
         "cwd": "apps/combine-api",
-        "parallel": false
+        "parallel": false,
+        "lintFilePatterns": ["combine-api/**/*.py", "tests/**/*.py"]
       }
     },
     "docker": {

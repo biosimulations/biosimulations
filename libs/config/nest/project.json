@@ -6,27 +6,28 @@
   "generators": {},
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": ["libs/config/nest/**/*.ts"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "libs/config/nest/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "build": {
-      "executor": "@nrwl/js:tsc",
+      "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/config/nest",
         "tsConfig": "libs/config/nest/tsconfig.lib.json",
         "packageJson": "libs/config/nest/package.json",
         "main": "libs/config/nest/src/index.ts",
-        "assets": ["libs/config/nest/*.md"]
+        "assets": ["libs/config/nest/*.md"],
+        "updateBuildableProjectDepsInPackageJson": true
       }
     }
   },

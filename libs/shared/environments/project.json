@@ -6,32 +6,33 @@
   "prefix": "biosimulations",
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": ["libs/shared/environments/**/*.ts"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "libs/shared/environments/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "build": {
-      "executor": "@nrwl/js:tsc",
+      "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/shared/environments",
         "tsConfig": "libs/shared/environments/tsconfig.lib.json",
         "packageJson": "libs/shared/environments/package.json",
         "main": "libs/shared/environments/src/index.ts",
-        "assets": ["libs/shared/environments/*.md"]
+        "assets": ["libs/shared/environments/*.md"],
+        "updateBuildableProjectDepsInPackageJson": true
       }
     }
   },
   "generators": {
-    "@nrwl/angular:component": {
+    "@nx/angular:component": {
       "style": "scss"
     }
   },

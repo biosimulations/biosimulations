@@ -5,13 +5,14 @@
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nrwl/js:tsc",
+      "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/statistics/datamodel",
         "main": "libs/statistics/datamodel/src/index.ts",
         "tsConfig": "libs/statistics/datamodel/tsconfig.lib.json",
-        "assets": ["libs/statistics/datamodel/*.md"]
+        "assets": ["libs/statistics/datamodel/*.md"],
+        "updateBuildableProjectDepsInPackageJson": true
       }
     },
     "publish": {
@@ -21,20 +22,19 @@
       },
       "dependsOn": [
         {
-          "projects": "self",
           "target": "build"
         }
       ]
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["libs/statistics/datamodel/**/*.ts"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/statistics/datamodel"],
       "options": {
         "jestConfig": "libs/statistics/datamodel/jest.config.ts",

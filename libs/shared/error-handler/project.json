@@ -6,13 +6,13 @@
   "prefix": "biosimulations",
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": ["libs/shared/error-handler/src/**/*.ts", "libs/shared/error-handler/src/**/*.html"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/shared/error-handler"],
       "options": {
         "jestConfig": "libs/shared/error-handler/jest.config.ts",

@@ -6,7 +6,7 @@
   "prefix": "biosimulations",
   "targets": {
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/statistics/summary-page"],
       "options": {
         "jestConfig": "libs/statistics/summary-page/jest.config.ts",
@@ -14,16 +14,17 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": ["libs/statistics/summary-page/**/*.ts", "libs/statistics/summary-page/**/*.html"]
       }
     },
     "build": {
-      "executor": "@nrwl/angular:ng-packagr-lite",
+      "executor": "@nx/angular:ng-packagr-lite",
       "options": {
         "tsConfig": "libs/statistics/summary-page/tsconfig.lib.json",
-        "project": "libs/statistics/summary-page/ng-package.json"
+        "project": "libs/statistics/summary-page/ng-package.json",
+        "updateBuildableProjectDepsInPackageJson": true
       },
       "configurations": {
         "": {
