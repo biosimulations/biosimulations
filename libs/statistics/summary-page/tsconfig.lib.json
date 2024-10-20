@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
+    "target": "es2021",
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
     "types": [],
-    "lib": ["dom", "es2018"],
+    "lib": ["dom", "es2021"],
     "outDir": "../../../dist/out-tsc",
     "useDefineForClassFields": false
   },

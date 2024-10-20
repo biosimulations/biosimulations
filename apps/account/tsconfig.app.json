@@ -9,7 +9,7 @@
     "outDir": "../../dist/out-tsc",
     "types": ["node"],
     "strict": true,
-    "target": "ES2022",
+    "target": "es2021",
     "useDefineForClassFields": false
   },
   "files": ["src/main.ts", "src/polyfills.ts", "../../declarations.d.ts"],

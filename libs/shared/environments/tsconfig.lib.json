@@ -4,9 +4,9 @@
     "declaration": true,
     "types": ["node"],
     "outDir": "../../../dist/out-tsc",
-    "target": "es2015",
+    "target": "es2021",
     "inlineSources": true,
-    "lib": ["dom", "es2018"]
+    "lib": ["dom", "es2021"]
   },
   "exclude": ["src/test-setup.ts", "**/*.spec.ts", "jest.config.ts"],
   "include": ["**/*.ts"],
