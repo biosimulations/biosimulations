@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, shareReplay } from 'rxjs/operators';
 import { environment } from '@biosimulations/shared/environments';
-import { CombineArchiveSedDocSpecs } from '@biosimulations/datamodel/common';
+import { CombineArchiveSedDocSpecs } from '@biosimulations/combine-api-angular-client';
 import { Endpoints } from '@biosimulations/config/common';
 
 @Injectable({
