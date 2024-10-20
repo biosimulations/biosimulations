@@ -23,7 +23,7 @@ import { OntologyApiModule } from '@biosimulations/ontology/api';
 import { FilesModule } from '../files/files.module';
 import { SpecificationsModule } from '../specifications/specifications.module';
 import { ProjectsModule } from '../projects/projects.module';
-import * as redisStore from 'cache-manager-redis-store';
+import { redisStore } from 'cache-manager-redis-yet';
 import { HealthModule } from '../health/health.module';
 import { StatisticsApiModule } from '@biosimulations/NestSatisticsAPI';
 import { RouterModule } from '@nestjs/core';
@@ -38,11 +38,18 @@ import { RouterModule } from '@nestjs/core';
     CacheModule.registerAsync({
       isGlobal: true,
       imports: [BiosimulationsConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        store: redisStore,
-        host: configService.get('cache.host'),
-        port: configService.get('cache.port'),
-      }),
+      useFactory: async (configService: ConfigService) => {
+        const store = await redisStore({
+          socket: {
+            host: configService.get('cache.host'),
+            port: configService.get('cache.port'),
+          },
+        });
+        return {
+          store,
+          // ttl: 3 * 60000, // 3 minutes
+        };
+      },
       inject: [ConfigService],
     }),
     HealthModule,

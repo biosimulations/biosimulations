@@ -24,7 +24,7 @@ import {
 } from '@nestjs/swagger';
 import { OntologyTerm, OntologyIdsContainer, OntologyId, ErrorResponseDocument } from '@biosimulations/datamodel/api';
 import { OntologyInfo } from '@biosimulations/datamodel/api';
-import { CACHE_MANAGER } from '@nestjs/common/cache';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 
 @Controller('ontologies')
 @ApiTags('Ontologies')
