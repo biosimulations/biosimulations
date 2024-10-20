@@ -85,7 +85,7 @@
     "is-url": "1.2.4",
     "json5": "2.2.3",
     "jwks-rsa": "2.1.5",
-    "mongoose": "6.1.7",
+    "mongoose": "6.11.3",
     "nats": "2.7.1",
     "nestjs-s3": "1.0.1",
     "ng2-charts": "3.0.11",
