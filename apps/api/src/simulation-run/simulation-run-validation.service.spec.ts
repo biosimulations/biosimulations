@@ -23,7 +23,7 @@ import { LogsService } from '../logs/logs.service';
 import { MetadataService } from '../metadata/metadata.service';
 
 import { OntologyApiService } from '@biosimulations/ontology/api';
-import { BadRequestException, CacheModule, NotFoundException } from '@nestjs/common';
+import { CacheModule } from '@nestjs/cache-manager';
 import { ProjectsService } from '../projects/projects.service';
 import { Model } from 'mongoose';
 import { beforeEach, it, describe, expect } from '@jest/globals';

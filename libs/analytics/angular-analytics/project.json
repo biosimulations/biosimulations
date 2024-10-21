@@ -6,7 +6,7 @@
   "prefix": "biosimulations",
   "targets": {
     "build": {
-      "executor": "@nrwl/angular:package",
+      "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/analytics/angular-analytics"],
       "options": {
         "project": "libs/analytics/angular-analytics/ng-package.json"
@@ -22,7 +22,7 @@
       "defaultConfiguration": "production"
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/analytics/angular-analytics"],
       "options": {
         "jestConfig": "libs/analytics/angular-analytics/jest.config.ts",
@@ -30,7 +30,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "libs/analytics/angular-analytics/src/**/*.ts",

@@ -13,10 +13,10 @@ import {
   Logger,
   NotFoundException,
   BadRequestException,
-  CACHE_MANAGER,
   HttpStatus,
   forwardRef,
 } from '@nestjs/common';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { InjectModel } from '@nestjs/mongoose';
 
 import { Model, mongo } from 'mongoose';
@@ -332,7 +332,7 @@ export class SimulationRunService {
     } else {
       const value = await this._getRunSummary(id);
       if (value.run.status === SimulationRunStatus.SUCCEEDED || value.run.status === SimulationRunStatus.FAILED) {
-        await this.cacheManager.set(cacheKey, value, { ttl: 0 });
+        await this.cacheManager.set(cacheKey, value, 0 /* no expiration */);
       }
       return value;
     }

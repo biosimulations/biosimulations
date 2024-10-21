@@ -21,7 +21,7 @@ import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 import { SimulationStorageService, FilePaths } from '@biosimulations/shared/storage';
 
 import { OntologyApiService } from '@biosimulations/ontology/api';
-import { CacheModule } from '@nestjs/common';
+import { CacheModule } from '@nestjs/cache-manager';
 import { ManagementService as AccountManagementService } from '@biosimulations/account/management';
 import { beforeEach, it, describe, expect, jest } from '@jest/globals';
 

@@ -7,7 +7,7 @@
   "generators": {},
   "targets": {
     "build": {
-      "executor": "@nrwl/webpack:webpack",
+      "executor": "@nx/webpack:webpack",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/simulators-api",
@@ -32,19 +32,19 @@
       }
     },
     "serve": {
-      "executor": "@nrwl/node:node",
+      "executor": "@nx/js:node",
       "options": {
         "buildTarget": "simulators-api:build"
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": ["apps/simulators-api/**/*.ts"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "apps/simulators-api/jest.config.ts",
         "passWithNoTests": true
@@ -56,6 +56,7 @@
         "file": "./Dockerfile",
         "push": true,
         "build-args": ["app=simulators-api"],
+        "platforms": ["linux/amd64"],
         "cache-from": ["type=registry,ref=ghcr.io/biosimulations/simulators-api:buildcache"],
         "cache-to": ["type=registry,ref=ghcr.io/biosimulations/simulators-api:buildcache,mode=max"],
         "metadata": {

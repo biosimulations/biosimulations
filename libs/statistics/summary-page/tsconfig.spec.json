@@ -7,7 +7,7 @@
     "noPropertyAccessFromIndexSignature": false,
     "noImplicitOverride": false,
     "allowJs": true,
-    "target": "es2016"
+    "target": "es2021"
   },
   "files": ["src/test-setup.ts"],
   "include": ["jest.config.ts", "**/*.test.ts", "**/*.spec.ts", "**/*.d.ts"]

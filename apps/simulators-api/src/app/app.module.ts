@@ -1,4 +1,5 @@
-import { Module, CacheModule } from '@nestjs/common';
+import { Module } from '@nestjs/common';
+import { CacheModule } from '@nestjs/cache-manager';
 
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 
@@ -11,7 +12,7 @@ import { SharedExceptionsFiltersModule } from '@biosimulations/shared/exceptions
 import * as mongoose from 'mongoose';
 import { HealthModule } from '../health/health.module';
 import { OntologyApiModule } from '@biosimulations/ontology/api';
-import * as redisStore from 'cache-manager-redis-store';
+import { redisStore } from 'cache-manager-redis-yet';
 
 mongoose.set('strict', 'throw');
 @Module({
@@ -34,11 +35,18 @@ mongoose.set('strict', 'throw');
     CacheModule.registerAsync({
       isGlobal: true,
       imports: [BiosimulationsConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        store: redisStore,
-        host: configService.get('cache.host'),
-        port: configService.get('cache.port'),
-      }),
+      useFactory: async (configService: ConfigService) => {
+        const store = await redisStore({
+          socket: {
+            host: configService.get('cache.host'),
+            port: configService.get('cache.port'),
+          },
+        });
+        return {
+          store,
+          // ttl: 3 * 60000, // 3 minutes
+        };
+      },
       inject: [ConfigService],
     }),
   ],

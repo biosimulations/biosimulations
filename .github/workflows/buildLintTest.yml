@@ -33,13 +33,13 @@ jobs:
   main:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         name: Checkout
         with:
           fetch-depth: 0
 
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
-        uses: nrwl/nx-set-shas@v2
+        uses: nrwl/nx-set-shas@v4
         with:
           main-branch-name: 'dev'
 
@@ -71,9 +71,6 @@ jobs:
         run: |
           node --version
           npm --version
-
-      - name: remove ngcc_lock_file
-        run: rm node_modules/.ngcc_lock_file || true
 
       - name: Install npm dependencies
         uses: bahmutov/npm-install@v1

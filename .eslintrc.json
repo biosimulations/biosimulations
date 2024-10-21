@@ -2,7 +2,7 @@
   "root": true,
   "ignorePatterns": ["**/*"],
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@nrwl/nx", "unused-imports", "promise", "@typescript-eslint"],
+  "plugins": ["@nx", "unused-imports", "promise", "@typescript-eslint"],
   "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
   "settings": {
     "import/resolver": {
@@ -23,7 +23,7 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
-        "@nrwl/nx/enforce-module-boundaries": [
+        "@nx/enforce-module-boundaries": [
           "error",
           {
             "enforceBuildableLibDependency": true,
@@ -49,7 +49,7 @@
     {
       "files": ["*.ts", "*.tsx"],
       "extends": [
-        "plugin:@nrwl/nx/typescript",
+        "plugin:@nx/typescript",
         "prettier",
         "plugin:promise/recommended",
         "eslint:recommended",
@@ -84,7 +84,7 @@
     },
     {
       "files": ["*.js", "*.jsx"],
-      "extends": ["plugin:@nrwl/nx/javascript"],
+      "extends": ["plugin:@nx/javascript"],
       "rules": {}
     }
   ]

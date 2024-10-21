@@ -8,4 +8,4 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 
 RUN su node -c "git config --global pull.rebase true"
 
-RUN su node -c "npm install -g @nrwl/cli commitizen"
+RUN su node -c "npm install -g @nx commitizen"

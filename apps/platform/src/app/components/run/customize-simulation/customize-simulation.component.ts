@@ -63,7 +63,7 @@ import {
   SedModelChange as ClientSedChange,
   SedTarget,
 } from '@biosimulations/combine-api-angular-client';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { ViewService } from '@biosimulations/simulation-runs/service';
 import { Visualization, VisualizationList } from '@biosimulations/datamodel-simulation-runs';
 import { Endpoints } from '@biosimulations/config/common';
