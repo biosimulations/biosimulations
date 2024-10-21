@@ -45,6 +45,8 @@
   },
   "private": true,
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.675.0",
+    "@aws-sdk/s3-request-presigner": "^3.675.0",
     "@bull-board/express": "3.11.1",
     "@d4c/numjs": "0.17.34",
     "@nestjs/axios": "3.0.3",
@@ -64,7 +66,7 @@
     "@sendgrid/mail": "7.7.0",
     "@stoplight/json-ref-resolver": "3.1.5",
     "auth0": "2.42.0",
-    "aws-sdk": "2.1152.0",
+    "aws-sdk": "2.1691.0",
     "axios": "1.6.0",
     "bullmq": "3.10.3",
     "cache-manager": "5.7.6",
@@ -87,7 +89,6 @@
     "jwks-rsa": "2.1.5",
     "mongoose": "6.1.7",
     "nats": "2.7.1",
-    "nestjs-s3": "1.0.1",
     "ng2-charts": "3.0.11",
     "passport": "0.6.0",
     "passport-jwt": "4.0.0",
@@ -144,6 +145,7 @@
     "@nx-python/nx-python": "0.1.7",
     "@nx-tools/docker-metadata": "3.0.8",
     "@nx-tools/nx-docker": "3.0.8",
+    "@nx/angular": "16.9.1",
     "@nx/cypress": "16.9.1",
     "@nx/devkit": "16.9.1",
     "@nx/eslint-plugin": "16.9.1",
@@ -184,8 +186,7 @@
     "@types/jest": "29.5.0",
     "@types/lunr": "2.3.4",
     "@types/mongoose": "5.11.96",
-    "@types/multer": "1.4.7",
-    "@types/node": "18.15.11",
+    "@types/multer": "1.4.12",
     "@types/passport-jwt": "3.0.6",
     "@types/plotly.js": "1.54.20",
     "@types/plotly.js-dist-min": "^2.3.4",
@@ -243,8 +244,7 @@
     "vega": "5.23.0",
     "vega-embed": "6.20.8",
     "vega-lite": "5.2.0",
-    "webpack": "5.76.0",
-    "@nx/angular": "16.9.1"
+    "webpack": "5.76.0"
   },
   "config": {
     "commitizen": {

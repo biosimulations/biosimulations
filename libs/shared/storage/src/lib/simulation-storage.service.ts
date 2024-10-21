@@ -1,14 +1,13 @@
-import { Injectable, Logger, InternalServerErrorException, HttpStatus } from '@nestjs/common';
+import { HttpStatus, Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
 import S3 from 'aws-sdk/clients/s3';
 import * as AWS from 'aws-sdk';
 import { SharedStorageService } from './shared-storage.service';
-import { Thumbnail, ThumbnailType, THUMBNAIL_WIDTH } from '@biosimulations/datamodel/common';
+import { Thumbnail, THUMBNAIL_WIDTH, ThumbnailType } from '@biosimulations/datamodel/common';
 import { ConfigService } from '@nestjs/config';
 import { Readable } from 'stream';
 
 // hack to get typing to work see https://github.com/DefinitelyTyped/DefinitelyTyped/issues/47780
 // eslint-disable-next-line unused-imports/no-unused-imports-ts
-import multer from 'multer';
 import { from, map, Observable, pluck } from 'rxjs';
 import { FileInfo, OutputFileName } from './datamodel';
 import { FilePaths } from './file-paths';
@@ -142,7 +141,7 @@ export class SimulationStorageService {
       false,
       length,
     );
-    return s3File.Location;
+    return this.filePaths.getSimulationRunCombineArchivePath(runId);
   }
 
   public async uploadSimulationRunThumbnail(
@@ -151,13 +150,9 @@ export class SimulationStorageService {
     thumbnailType: ThumbnailType,
     thumbnail: Buffer,
   ): Promise<string> {
-    const upload = await this.storage.putObject(
-      this.filePaths.getSimulationRunContentFilePath(runId, location, thumbnailType),
-      thumbnail,
-      false,
-      thumbnail.length,
-    );
-    return upload.Location;
+    const simulationRunContentFilePath = this.filePaths.getSimulationRunContentFilePath(runId, location, thumbnailType);
+    const upload = await this.storage.putObject(simulationRunContentFilePath, thumbnail, false, thumbnail.length);
+    return simulationRunContentFilePath;
   }
   public async uploadSimulationRunFile(runId: string, fileLocation: string, file: Buffer): Promise<void> {
     await this.storage.putObject(
