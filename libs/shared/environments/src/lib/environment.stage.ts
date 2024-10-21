@@ -14,7 +14,7 @@ export const endpoints: endpointType = {
   combine_api: 'https://combine.api.biosimulations.dev',
   simdata_api: 'https://simdata.api.biosimulations.dev',
   simulators_app: 'https://biosimulators.dev',
-  platform_app: 'https://biosimulators.dev',
+  platform_app: 'https://biosimulations.dev',
   dispatch_app: 'https://run.biosimulations.dev',
   external_api: 'https://api.biosimulations.dev',
   external_simulators_api: 'https://api.biosimulators.dev',

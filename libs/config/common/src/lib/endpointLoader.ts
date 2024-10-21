@@ -1,5 +1,11 @@
-import { envs, endpoints as endpointConfigs } from '@biosimulations/shared/environments';
-
+import {
+  devEndpoints as devEndpointConfigs,
+  endpointType,
+  envs,
+  localEndpoints as localEndpointConfigs,
+  prodEndpoints as prodEndpointConfigs,
+  stageEndpoints as stageEndpointConfigs,
+} from '@biosimulations/shared/environments';
 /* eslint-disable max-len */
 export type Endpoint =
   | 'api'
@@ -46,6 +52,21 @@ export class EndpointLoader {
   public loadEndpoints(): LoadedEndpoints {
     // const dynamicEndpoints = this.getDynamicEndpoints();
     this.setDispatchAppEndpoints();
+    switch (this.env) {
+      case 'prod':
+        return this.setEndpoints(prodEndpointConfigs);
+      case 'stage':
+        return this.setEndpoints(stageEndpointConfigs);
+      case 'local':
+        return this.setEndpoints(localEndpointConfigs);
+      case 'dev':
+        return this.setEndpoints(devEndpointConfigs);
+      default:
+        return this.endpointsTemplate;
+    }
+  }
+
+  private setEndpoints(endpointConfigs: endpointType): LoadedEndpoints {
     this.endpointsTemplate.api = endpointConfigs.api;
     this.endpointsTemplate.simulatorsApi = endpointConfigs.simulators_api;
     this.endpointsTemplate.combineApi = endpointConfigs.combine_api;
