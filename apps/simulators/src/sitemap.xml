@@ -950,6 +950,12 @@
   </url>
    
   <url>
+    <loc>https://biosimulators.org/simulators/vcell/7.7.0.20</loc>
+    <lastmod>2025-03-06</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
     <loc>https://biosimulators.org/simulators/vcell/7.7.0.7</loc>
     <lastmod>2024-11-15</lastmod>
     <changefreq>monthly</changefreq>
