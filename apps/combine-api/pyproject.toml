@@ -10,7 +10,7 @@ packages = [{include = "combine_api"}]
 python = "^3.10"
 flask = ">=2"
 connexion = {extras = ["swagger-ui"], version = "^2.14.2"}
-requests = "2.31.0"
+requests = "2.32.4"
 botocore = "^1.29.89"
 python-dotenv = "^0.14.0"
 orjson = "^3.8.7"
