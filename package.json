@@ -50,7 +50,7 @@
     "@d4c/numjs": "0.17.34",
     "@nestjs/axios": "2.0.0",
     "@nestjs/bullmq": "1.1.0",
-    "@nestjs/common": "9.3.11",
+    "@nestjs/common": "10.4.16",
     "@nestjs/config": "2.3.1",
     "@nestjs/core": "9.3.11",
     "@nestjs/microservices": "9.3.12",
