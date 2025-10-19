@@ -398,14 +398,14 @@
   }, {
     "@id" : "_:b133",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000028",
-    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000520"
-  }, {
-    "@id" : "_:b134",
-    "@type" : "owl:Restriction",
     "owl:maxQualifiedCardinality" : "2",
     "owl:onClass" : "http://semanticscience.org/resource/SIO_000520",
     "owl:onProperty" : "http://semanticscience.org/resource/SIO_000369"
+  }, {
+    "@id" : "_:b134",
+    "@type" : "owl:Restriction",
+    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000028",
+    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000520"
   }, {
     "@id" : "_:b135",
     "@type" : "owl:Restriction",
@@ -547,12 +547,12 @@
   }, {
     "@id" : "_:b160",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000229",
+    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000230",
     "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000069"
   }, {
     "@id" : "_:b161",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000230",
+    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000229",
     "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000069"
   }, {
     "@id" : "_:b162",
@@ -640,13 +640,13 @@
     "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000006"
   }, {
     "@id" : "_:b178",
+    "@type" : "owl:Class",
+    "owl:intersectionOf" : [ "http://semanticscience.org/resource/SIO_000115", "_:b179" ]
+  }, {
+    "@id" : "_:b179",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://semanticscience.org/resource/SIO_000674",
     "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000000"
-  }, {
-    "@id" : "_:b179",
-    "@type" : "owl:Class",
-    "owl:intersectionOf" : [ "http://semanticscience.org/resource/SIO_000115", "_:b180" ]
   }, {
     "@id" : "_:b18",
     "@type" : "owl:AllDisjointClasses",
@@ -679,8 +679,8 @@
   }, {
     "@id" : "_:b185",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000697",
-    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000702"
+    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000668",
+    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000000"
   }, {
     "@id" : "_:b186",
     "@type" : "owl:Restriction",
@@ -689,18 +689,18 @@
   }, {
     "@id" : "_:b187",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000668",
-    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000000"
+    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000697",
+    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000702"
   }, {
     "@id" : "_:b188",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000697",
-    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000701"
+    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000668",
+    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000000"
   }, {
     "@id" : "_:b189",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000668",
-    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000000"
+    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000697",
+    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000701"
   }, {
     "@id" : "_:b19",
     "@type" : "owl:AllDisjointClasses",
@@ -718,13 +718,13 @@
   }, {
     "@id" : "_:b192",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000227",
-    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000404"
+    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000710",
+    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000707"
   }, {
     "@id" : "_:b193",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000710",
-    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000707"
+    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000227",
+    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000404"
   }, {
     "@id" : "_:b194",
     "@type" : "owl:Restriction",
@@ -802,13 +802,13 @@
   }, {
     "@id" : "_:b208",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000355",
-    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000337"
+    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000312",
+    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000776"
   }, {
     "@id" : "_:b209",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000312",
-    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000776"
+    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000355",
+    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000337"
   }, {
     "@id" : "_:b21",
     "@type" : "owl:AllDisjointClasses",
@@ -821,13 +821,13 @@
   }, {
     "@id" : "_:b211",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000053",
-    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000755"
+    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000671",
+    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000115"
   }, {
     "@id" : "_:b212",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000671",
-    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000115"
+    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000053",
+    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000755"
   }, {
     "@id" : "_:b213",
     "@type" : "owl:Restriction",
@@ -928,18 +928,18 @@
     "owl:someValuesFrom" : "rdfs:Literal"
   }, {
     "@id" : "_:b231",
-    "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000674",
-    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000752"
+    "@type" : "owl:Class",
+    "owl:complementOf" : "_:b232"
   }, {
     "@id" : "_:b232",
-    "@type" : "owl:Class",
-    "owl:complementOf" : "_:b233"
-  }, {
-    "@id" : "_:b233",
     "@type" : "owl:Restriction",
     "owl:hasValue" : "null",
     "owl:onProperty" : "http://semanticscience.org/resource/SIO_000300"
+  }, {
+    "@id" : "_:b233",
+    "@type" : "owl:Restriction",
+    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000674",
+    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000752"
   }, {
     "@id" : "_:b234",
     "@type" : "owl:Restriction",
@@ -1063,7 +1063,7 @@
   }, {
     "@id" : "_:b257",
     "@type" : "owl:Class",
-    "owl:complementOf" : "_:b259"
+    "owl:complementOf" : "_:b261"
   }, {
     "@id" : "_:b258",
     "@type" : "owl:Class",
@@ -1071,21 +1071,21 @@
   }, {
     "@id" : "_:b259",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000217",
-    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_001210"
+    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000062",
+    "owl:someValuesFrom" : "_:b260"
   }, {
     "@id" : "_:b26",
     "@type" : "owl:Class",
     "owl:intersectionOf" : [ "http://semanticscience.org/resource/SIO_000342", "_:b27" ]
   }, {
     "@id" : "_:b260",
-    "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000062",
-    "owl:someValuesFrom" : "_:b261"
-  }, {
-    "@id" : "_:b261",
     "@type" : "owl:Class",
     "owl:intersectionOf" : [ "http://semanticscience.org/resource/SIO_000006", "_:b269" ]
+  }, {
+    "@id" : "_:b261",
+    "@type" : "owl:Restriction",
+    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000217",
+    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_001210"
   }, {
     "@id" : "_:b262",
     "@type" : "owl:Restriction",
@@ -1121,7 +1121,7 @@
     "@id" : "_:b268",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://semanticscience.org/resource/SIO_000273",
-    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_010043"
+    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_010010"
   }, {
     "@id" : "_:b269",
     "@type" : "owl:Restriction",
@@ -1136,7 +1136,7 @@
     "@id" : "_:b270",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://semanticscience.org/resource/SIO_000273",
-    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_010010"
+    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_010043"
   }, {
     "@id" : "_:b271",
     "@type" : "owl:Restriction",
@@ -1187,12 +1187,12 @@
   }, {
     "@id" : "_:b280",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000229",
+    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000291",
     "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000776"
   }, {
     "@id" : "_:b281",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000291",
+    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000229",
     "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000776"
   }, {
     "@id" : "_:b282",
@@ -1250,12 +1250,12 @@
     "@id" : "_:b292",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://semanticscience.org/resource/SIO_000628",
-    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_010035"
+    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_010299"
   }, {
     "@id" : "_:b293",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://semanticscience.org/resource/SIO_000628",
-    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_010299"
+    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_010035"
   }, {
     "@id" : "_:b294",
     "@type" : "owl:Restriction",
@@ -1356,17 +1356,17 @@
   }, {
     "@id" : "_:b311",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000229",
-    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_001003"
+    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000230",
+    "owl:someValuesFrom" : "_:b312"
   }, {
     "@id" : "_:b312",
-    "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000230",
-    "owl:someValuesFrom" : "_:b313"
-  }, {
-    "@id" : "_:b313",
     "@type" : "owl:Class",
     "owl:intersectionOf" : [ "http://semanticscience.org/resource/SIO_010046", "_:b314" ]
+  }, {
+    "@id" : "_:b313",
+    "@type" : "owl:Restriction",
+    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000229",
+    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_001003"
   }, {
     "@id" : "_:b314",
     "@type" : "owl:Restriction",
@@ -1499,30 +1499,30 @@
   }, {
     "@id" : "_:b339",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000230",
-    "owl:someValuesFrom" : "_:b340"
+    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000229",
+    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000070"
   }, {
     "@id" : "_:b34",
     "@type" : "owl:Class",
     "owl:complementOf" : "_:b35"
   }, {
     "@id" : "_:b340",
+    "@type" : "owl:Restriction",
+    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000230",
+    "owl:someValuesFrom" : "_:b341"
+  }, {
+    "@id" : "_:b341",
     "@type" : "owl:Class",
     "owl:unionOf" : [ "http://semanticscience.org/resource/SIO_000005", "http://semanticscience.org/resource/SIO_000006", "http://semanticscience.org/resource/SIO_000776" ]
   }, {
-    "@id" : "_:b341",
-    "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000229",
-    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000070"
-  }, {
     "@id" : "_:b342",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000229",
+    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000230",
     "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000000"
   }, {
     "@id" : "_:b343",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000230",
+    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000229",
     "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000000"
   }, {
     "@id" : "_:b344",
@@ -1737,13 +1737,13 @@
     "owl:qualifiedCardinality" : "2"
   }, {
     "@id" : "_:b383",
+    "@type" : "owl:Class",
+    "owl:unionOf" : [ "http://semanticscience.org/resource/SIO_001175", "http://semanticscience.org/resource/SIO_001176" ]
+  }, {
+    "@id" : "_:b384",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://semanticscience.org/resource/SIO_000093",
     "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_001177"
-  }, {
-    "@id" : "_:b384",
-    "@type" : "owl:Class",
-    "owl:unionOf" : [ "http://semanticscience.org/resource/SIO_001175", "http://semanticscience.org/resource/SIO_001176" ]
   }, {
     "@id" : "_:b385",
     "@type" : "owl:Restriction",
@@ -1779,17 +1779,17 @@
   }, {
     "@id" : "_:b390",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://semanticscience.org/resource/SIO_001156",
-    "owl:someValuesFrom" : "_:b391"
-  }, {
-    "@id" : "_:b391",
-    "@type" : "owl:Class",
-    "owl:intersectionOf" : [ "http://semanticscience.org/resource/SIO_000592", "_:b393" ]
-  }, {
-    "@id" : "_:b392",
-    "@type" : "owl:Restriction",
     "owl:onProperty" : "http://semanticscience.org/resource/SIO_000217",
     "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000640"
+  }, {
+    "@id" : "_:b391",
+    "@type" : "owl:Restriction",
+    "owl:onProperty" : "http://semanticscience.org/resource/SIO_001156",
+    "owl:someValuesFrom" : "_:b392"
+  }, {
+    "@id" : "_:b392",
+    "@type" : "owl:Class",
+    "owl:intersectionOf" : [ "http://semanticscience.org/resource/SIO_000592", "_:b393" ]
   }, {
     "@id" : "_:b393",
     "@type" : "owl:Restriction",
@@ -1851,17 +1851,17 @@
   }, {
     "@id" : "_:b403",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000008",
-    "owl:someValuesFrom" : "_:b404"
-  }, {
-    "@id" : "_:b404",
-    "@type" : "owl:Class",
-    "owl:intersectionOf" : [ "http://semanticscience.org/resource/SIO_000794", "_:b406" ]
-  }, {
-    "@id" : "_:b405",
-    "@type" : "owl:Restriction",
     "owl:onProperty" : "http://semanticscience.org/resource/SIO_000668",
     "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000592"
+  }, {
+    "@id" : "_:b404",
+    "@type" : "owl:Restriction",
+    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000008",
+    "owl:someValuesFrom" : "_:b405"
+  }, {
+    "@id" : "_:b405",
+    "@type" : "owl:Class",
+    "owl:intersectionOf" : [ "http://semanticscience.org/resource/SIO_000794", "_:b406" ]
   }, {
     "@id" : "_:b406",
     "@type" : "owl:Restriction",
@@ -1927,12 +1927,12 @@
     "@id" : "_:b418",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://semanticscience.org/resource/SIO_000628",
-    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_001107"
+    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_010004"
   }, {
     "@id" : "_:b419",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://semanticscience.org/resource/SIO_000628",
-    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_010004"
+    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_001107"
   }, {
     "@id" : "_:b42",
     "@type" : "owl:Restriction",
@@ -1961,13 +1961,13 @@
   }, {
     "@id" : "_:b424",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000628",
-    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000000"
+    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000975",
+    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000150"
   }, {
     "@id" : "_:b425",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000975",
-    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000150"
+    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000628",
+    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000000"
   }, {
     "@id" : "_:b426",
     "@type" : "owl:Class",
@@ -2063,13 +2063,13 @@
     "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000337"
   }, {
     "@id" : "_:b444",
-    "@type" : "owl:Class",
-    "owl:intersectionOf" : [ "http://semanticscience.org/resource/SIO_000111", "_:b445" ]
-  }, {
-    "@id" : "_:b445",
     "@type" : "owl:Restriction",
     "owl:onProperty" : "http://semanticscience.org/resource/SIO_000093",
     "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_000106"
+  }, {
+    "@id" : "_:b445",
+    "@type" : "owl:Class",
+    "owl:intersectionOf" : [ "http://semanticscience.org/resource/SIO_000111", "_:b446" ]
   }, {
     "@id" : "_:b446",
     "@type" : "owl:Restriction",
@@ -2167,13 +2167,13 @@
   }, {
     "@id" : "_:b463",
     "@type" : "owl:Restriction",
-    "owl:allValuesFrom" : "http://semanticscience.org/resource/SIO_001431",
-    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000053"
+    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000068",
+    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_001432"
   }, {
     "@id" : "_:b464",
     "@type" : "owl:Restriction",
-    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000068",
-    "owl:someValuesFrom" : "http://semanticscience.org/resource/SIO_001432"
+    "owl:allValuesFrom" : "http://semanticscience.org/resource/SIO_001431",
+    "owl:onProperty" : "http://semanticscience.org/resource/SIO_000053"
   }, {
     "@id" : "_:b465",
     "@type" : "owl:Restriction",
@@ -4339,7 +4339,7 @@
       "@id" : "http://semanticscience.org/ontology/sio.owl"
     },
     "rdfs:label" : "data item",
-    "rdfs:subClassOf" : [ "http://semanticscience.org/resource/SIO_000602", "_:b260" ]
+    "rdfs:subClassOf" : [ "http://semanticscience.org/resource/SIO_000602", "_:b259" ]
   }, {
     "@id" : "http://semanticscience.org/resource/SIO_000070",
     "@type" : "owl:Class",
@@ -10433,8 +10433,8 @@
       "@id" : "http://semanticscience.org/ontology/sio.owl"
     },
     "rdfs:label" : "unique identifier",
-    "rdfs:subClassOf" : [ "http://semanticscience.org/resource/SIO_000115", "_:b178" ],
-    "owl:equivalentClass" : "_:b179"
+    "rdfs:subClassOf" : [ "http://semanticscience.org/resource/SIO_000115", "_:b180" ],
+    "owl:equivalentClass" : "_:b178"
   }, {
     "@id" : "http://semanticscience.org/resource/SIO_000676",
     "@type" : "owl:Class",
@@ -11305,7 +11305,7 @@
       "@id" : "http://semanticscience.org/ontology/sio.owl"
     },
     "rdfs:label" : "primary database key",
-    "rdfs:subClassOf" : [ "http://semanticscience.org/resource/SIO_000762", "_:b231", "_:b232" ]
+    "rdfs:subClassOf" : [ "http://semanticscience.org/resource/SIO_000762", "_:b231", "_:b233" ]
   }, {
     "@id" : "http://semanticscience.org/resource/SIO_000764",
     "@type" : "owl:Class",
@@ -13665,7 +13665,7 @@
       "@id" : "http://semanticscience.org/ontology/sio.owl"
     },
     "rdfs:label" : "medical diagnosis",
-    "rdfs:subClassOf" : [ "http://semanticscience.org/resource/SIO_001024", "_:b311", "_:b312" ]
+    "rdfs:subClassOf" : [ "http://semanticscience.org/resource/SIO_001024", "_:b311", "_:b313" ]
   }, {
     "@id" : "http://semanticscience.org/resource/SIO_001002",
     "@type" : "owl:Class",
@@ -14205,7 +14205,7 @@
       "@id" : "http://semanticscience.org/ontology/sio.owl"
     },
     "rdfs:label" : "measuring",
-    "rdfs:subClassOf" : [ "http://semanticscience.org/resource/SIO_000593", "_:b339", "_:b341" ]
+    "rdfs:subClassOf" : [ "http://semanticscience.org/resource/SIO_000593", "_:b339", "_:b340" ]
   }, {
     "@id" : "http://semanticscience.org/resource/SIO_001055",
     "@type" : "owl:Class",
@@ -15436,8 +15436,8 @@
       "@id" : "http://semanticscience.org/ontology/sio.owl"
     },
     "rdfs:label" : "nucleic acid strand",
-    "rdfs:subClassOf" : [ "http://semanticscience.org/resource/SIO_010008", "_:b383" ],
-    "owl:equivalentClass" : "_:b384"
+    "rdfs:subClassOf" : [ "http://semanticscience.org/resource/SIO_010008", "_:b384" ],
+    "owl:equivalentClass" : "_:b383"
   }, {
     "@id" : "http://semanticscience.org/resource/SIO_001175",
     "@type" : "owl:Class",
@@ -15739,7 +15739,7 @@
       "@id" : "http://semanticscience.org/ontology/sio.owl"
     },
     "rdfs:label" : "decreased molecular degradation from increased regulation",
-    "rdfs:subClassOf" : [ "http://semanticscience.org/resource/SIO_001129", "_:b390", "_:b392" ]
+    "rdfs:subClassOf" : [ "http://semanticscience.org/resource/SIO_001129", "_:b390", "_:b391" ]
   }, {
     "@id" : "http://semanticscience.org/resource/SIO_001203",
     "@type" : "owl:Class",
@@ -15799,7 +15799,7 @@
       "@id" : "http://semanticscience.org/ontology/sio.owl"
     },
     "rdfs:label" : "decreased chemical destruction",
-    "rdfs:subClassOf" : [ "http://semanticscience.org/resource/SIO_000592", "_:b402", "_:b403", "_:b405" ]
+    "rdfs:subClassOf" : [ "http://semanticscience.org/resource/SIO_000592", "_:b402", "_:b403", "_:b404" ]
   }, {
     "@id" : "http://semanticscience.org/resource/SIO_001209",
     "@type" : "owl:Class",
@@ -17514,8 +17514,8 @@
       "@id" : "http://semanticscience.org/ontology/sio.owl"
     },
     "rdfs:label" : "book section",
-    "rdfs:subClassOf" : [ "http://semanticscience.org/resource/SIO_000111", "_:b446" ],
-    "owl:equivalentClass" : "_:b444"
+    "rdfs:subClassOf" : [ "http://semanticscience.org/resource/SIO_000111", "_:b444" ],
+    "owl:equivalentClass" : "_:b445"
   }, {
     "@id" : "http://semanticscience.org/resource/SIO_001376",
     "@type" : "owl:Class",
