@@ -1,7 +1,7 @@
 #############
 ### base ###
 #############
-FROM python:3.10-buster as base
+FROM python:3.10-bullseye as base
 
 WORKDIR /app
 
@@ -79,7 +79,7 @@ RUN mkdir -p /usr/share/man/man1/ \
         wget \
     \
     && cd /tmp \
-    && pip install ginsim \
+    && pip install ginsim conda-package-handling \
     && wget https://raw.githubusercontent.com/GINsim/GINsim-python/master/ginsim_setup.py \
     && python ginsim_setup.py \
     \
