@@ -7,7 +7,7 @@ export const expectedValue = `#!/bin/bash
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=1000M
 #SBATCH --time=1:00
-#SBATCH --constraint=
+
 #SBATCH --partition=undefined
 #SBATCH --qos=undefined
 
@@ -20,8 +20,8 @@ echo -e '\\033[0;36mThank you for using runBioSimulations!\\033[0m'
 
 echo -e ''
 echo -e '\\033[0;36m================================================ Loading Singularity ================================================\\033[0m'
-export MODULEPATH=undefined
-source undefined
+
+
 export undefined
 module load undefined
 export SINGULARITY_CACHEDIR=undefined
