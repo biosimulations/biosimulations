@@ -24,7 +24,7 @@ jobs:
   Release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           token: ${{secrets.GH_RELEASE_TOKEN}}
           ref: ${{inputs.branch}}
@@ -37,7 +37,7 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
 
-      - uses: actions/setup-node@v3.3.0
+      - uses: actions/setup-node@v4
         with:
           node-version: '18'
 
