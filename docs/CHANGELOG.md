@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.65.1](https://github.com/biosimulations/biosimulations/compare/v9.65.0...v9.65.1) (2026-03-10)
+
+
+### Bug Fixes
+
+* **deps:** add Node 18 setup to frontend build jobs in deploy workflow ([eec4f60](https://github.com/biosimulations/biosimulations/commit/eec4f6054082f1f64509530302d17f49577d7d6f))
+
 ## [9.65.0](https://github.com/biosimulations/biosimulations/compare/v9.64.0...v9.65.0) (2026-03-10)
 
 
