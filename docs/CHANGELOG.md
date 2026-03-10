@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.65.3](https://github.com/biosimulations/biosimulations/compare/v9.65.2...v9.65.3) (2026-03-10)
+
+
+### Bug Fixes
+
+* **config:** convert literal \n in SSH private key to real newlines ([ec20342](https://github.com/biosimulations/biosimulations/commit/ec2034237324ddbc7bdc620798341a1edff8fc13))
+
 ## [9.65.2](https://github.com/biosimulations/biosimulations/compare/v9.65.1...v9.65.2) (2026-03-10)
 
 
