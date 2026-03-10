@@ -97,6 +97,7 @@ RUN apt-get install --no-install-recommends -y \
     \
     && wget https://master.dl.sourceforge.net/project/sbml/libsbml/${LIBSBML_VERSION}/stable/Linux/64-bit/libSBML-${LIBSBML_VERSION}-Linux-x64.deb \
     && dpkg -i libSBML-${LIBSBML_VERSION}-Linux-x64.deb \
+    && ln -sf /usr/lib64/libsbml.so.5 /usr/lib64/libsbml.so \
     \
     && rm libSBML-${LIBSBML_VERSION}-Linux-x64.deb
 ENV LD_LIBRARY_PATH=/usr/lib64:$LD_LIBRARY_PATH
@@ -126,6 +127,7 @@ RUN apt-get install --no-install-recommends -y \
         -D PYTHON_EXECUTABLE:FILEPATH=${PY_EXEC_PATH} \
         -D PYTHON_INCLUDE_DIR:PATH=/usr/local/include/python${PYTHON_MAJOR_MINOR_VERSION} \
         -D PYTHON_LIBRARY:FILEPATH=/usr/local/lib/libpython${PYTHON_MAJOR_MINOR_VERSION}.so \
+        -D CMAKE_C_FLAGS="-fcommon" \
         .. \
     \
     && make \
@@ -257,6 +259,7 @@ RUN apt-get install -y --no-install-recommends \
     && mkdir xpp \
     && tar zxvf xppaut_latest.tar.gz --directory xpp \
     && cd xpp \
+    && sed -i 's/^CFLAGS=/CFLAGS= -fcommon /' Makefile \
     && make \
     && make install \
     \
@@ -307,7 +310,7 @@ RUN curl -sSL https://install.python-poetry.org | python3 - \
     && chmod 755 poetry.toml
 
 # Copy over dependency list
-# COPY ./poetry.lock /app/poetry.lock
+COPY ./poetry.lock /app/poetry.lock
 COPY ./pyproject.toml /app/pyproject.toml
 COPY ./combine_api/ /app/combine_api/
 COPY ./vendor/ /app/vendor/
