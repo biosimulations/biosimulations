@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.65.4](https://github.com/biosimulations/biosimulations/compare/v9.65.3...v9.65.4) (2026-03-10)
+
+
+### Bug Fixes
+
+* **release:** add missing Netlify CLI install to prod frontend deploy ([a30ce24](https://github.com/biosimulations/biosimulations/commit/a30ce2429e9579e5b995bfed3fb3336949dff692))
+
 ## [9.65.3](https://github.com/biosimulations/biosimulations/compare/v9.65.2...v9.65.3) (2026-03-10)
 
 
