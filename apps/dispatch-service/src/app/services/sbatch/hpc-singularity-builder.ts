@@ -27,7 +27,7 @@ export function generateImageUpdateSbatch(data: GenerateImageUpdateSbatchOptions
 #SBATCH --cpus-per-task=${data.cpus}
 #SBATCH --mem=${data.memory}
 #SBATCH --time=${data.maxTime}
-#SBATCH --constraint=${data.slurmConstraints}
+${data.slurmConstraints ? `#SBATCH --constraint=${data.slurmConstraints}` : ''}
 #SBATCH --partition=${data.slurmPartition}
 #SBATCH --qos=${data.slurmQos}
 
@@ -35,8 +35,8 @@ export function generateImageUpdateSbatch(data: GenerateImageUpdateSbatchOptions
 set -e
 
 # load Singularity
-export MODULEPATH=${data.modulePath}
-source ${data.moduleInitScript}
+${data.modulePath ? `export MODULEPATH=${data.modulePath}` : ''}
+${data.moduleInitScript ? `source ${data.moduleInitScript}` : ''}
 export ${data.executablesPath}
 module load ${data.singularityModule}
 

@@ -147,7 +147,7 @@ export class SbatchService {
 #SBATCH --cpus-per-task=${cpus}
 #SBATCH --mem=${memoryFormatted}M
 #SBATCH --time=${maxTimeFormatted}
-#SBATCH --constraint=${slurmConstraints}
+${slurmConstraints ? `#SBATCH --constraint=${slurmConstraints}` : ''}
 #SBATCH --partition=${slurmPartition}
 #SBATCH --qos=${slurmQos}
 
@@ -160,8 +160,8 @@ echo -e '${cyan}Thank you for using runBioSimulations!${nc}'
 
 echo -e ''
 echo -e '${cyan}================================================ Loading Singularity ================================================${nc}'
-export MODULEPATH=${modulePath}
-source ${moduleInitScript}
+${modulePath ? `export MODULEPATH=${modulePath}` : ''}
+${moduleInitScript ? `source ${moduleInitScript}` : ''}
 export ${executablesPath}
 module load ${singularityModule}
 export SINGULARITY_CACHEDIR=${singularityCacheDir}
