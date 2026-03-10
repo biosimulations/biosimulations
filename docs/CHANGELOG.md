@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.65.2](https://github.com/biosimulations/biosimulations/compare/v9.65.1...v9.65.2) (2026-03-10)
+
+
+### Bug Fixes
+
+* **release:** use pre-built output for Netlify deploys ([fee6e98](https://github.com/biosimulations/biosimulations/commit/fee6e9853db0016f319a65272363fb38d244cdd5))
+
 ## [9.65.1](https://github.com/biosimulations/biosimulations/compare/v9.65.0...v9.65.1) (2026-03-10)
 
 
