@@ -157,7 +157,7 @@ jobs:
         run: |
           export NETLIFY_SITE_ID=${{secrets[env.idKey]}}
           export NETLIFY_AUTH_TOKEN=${{secrets.NETLIFY_AUTH_TOKEN}}
-          netlify deploy --prod
+          netlify deploy --no-build --prod --dir .
 
   triggerDevDeployment:
     name: Trigger a new deployment of the dev backend
@@ -259,7 +259,7 @@ jobs:
           run: |
             export NETLIFY_SITE_ID=${{secrets[env.idKey]}}
             export NETLIFY_AUTH_TOKEN=${{secrets.NETLIFY_AUTH_TOKEN}}
-            netlify deploy --prod
+            netlify deploy --no-build --prod --dir .
 
   triggerProdDeployment:
     name: Trigger a new deployment of the production backend
