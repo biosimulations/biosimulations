@@ -247,6 +247,9 @@ jobs:
           with:
             node-version: '18'
 
+        - name: Install Netlify CLI
+          run: npm install -g netlify-cli
+
         - name: Download build for app
           uses: actions/download-artifact@v4
           with:
