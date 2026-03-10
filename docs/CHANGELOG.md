@@ -1,5 +1,20 @@
 # Changelog
 
+## [9.65.0](https://github.com/biosimulations/biosimulations/compare/v9.64.0...v9.65.0) (2026-03-10)
+
+
+### Bug Fixes
+
+* **combine-api:** fix Dockerfile for Bullseye compatibility ([da0c127](https://github.com/biosimulations/biosimulations/commit/da0c127ce2ec1d1325bbba352646bd685efda779))
+* **combine-api:** upgrade Dockerfile base from buster to bullseye ([c641890](https://github.com/biosimulations/biosimulations/commit/c6418903f0690a041dd1d5d6029915afb972c546))
+* **deps:** update docs poetry.lock to resolve PyYAML 6.0 PEP 517 build failure ([eef19dd](https://github.com/biosimulations/biosimulations/commit/eef19dd7119fce6704a030dfcaff15ad756429ba))
+* **dispatch-service:** update expected sbatch test output for optional constraints and module init ([055bd43](https://github.com/biosimulations/biosimulations/commit/055bd431d3cd730cd27ac4a5121964fa0ea1d3fa))
+
+
+### Features
+
+* **dispatch-service:** make SLURM constraints and module init optional in sbatch templates ([1da9755](https://github.com/biosimulations/biosimulations/commit/1da9755611ae2bc8231012ab50de9e26d37ed4db))
+
 ## [9.64.0](https://github.com/biosimulations/biosimulations/compare/v9.63.0...v9.64.0) (2025-01-09)
 
 
