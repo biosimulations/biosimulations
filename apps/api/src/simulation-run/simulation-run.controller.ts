@@ -73,7 +73,7 @@ import { scopes } from '@biosimulations/auth/common';
 // eslint-disable-next-line unused-imports/no-unused-imports-ts
 import multer from 'multer';
 import { SimulationRunValidationService } from './simulation-run-validation.service';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { FormatService } from '../../../../libs/shared/services/src/lib/format/format.service';
 
 type multipartSimulationRunBody = { simulationRun: string };

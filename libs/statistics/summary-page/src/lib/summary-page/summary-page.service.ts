@@ -15,15 +15,6 @@ export class SummaryPageService {
 
   public constructor(private http: HttpClient) {}
 
-  private getStat(id: string, topCount = 0, includeOther = false): Observable<StatisticType> {
-    return this.http.get<StatisticType>(`${this.apiEndpoint}/${id}`, {
-      params: {
-        top: topCount.toString(),
-        group: includeOther.toString(),
-      },
-    });
-  }
-
   public getSourceStatItems(): Observable<StatItem[]> {
     const contributors = this.getStat('contributors', 10, false);
     const repositories = this.getStat('repositories', 10, false);
@@ -80,12 +71,6 @@ export class SummaryPageService {
     );
 
     return items;
-  }
-
-  private processFramework(framework: string): string {
-    let label = framework.replace('framework', '');
-    label = label.replace('simulation', '');
-    return label;
   }
 
   public getSimulationStatItems(): Observable<StatItem[]> {
@@ -224,6 +209,21 @@ export class SummaryPageService {
     );
 
     return items;
+  }
+
+  private getStat(id: string, topCount = 0, includeOther = false): Observable<StatisticType> {
+    return this.http.get<StatisticType>(`${this.apiEndpoint}/${id}`, {
+      params: {
+        top: topCount.toString(),
+        group: includeOther.toString(),
+      },
+    });
+  }
+
+  private processFramework(framework: string): string {
+    let label = framework.replace('framework', '');
+    label = label.replace('simulation', '');
+    return label;
   }
 
   private formatSize = (size: string): string => {

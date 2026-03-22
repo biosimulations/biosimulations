@@ -5,7 +5,6 @@
     "outDir": "../../../dist/out-tsc",
     "declaration": true,
     "noImplicitAny": false,
-    "suppressImplicitAnyIndexErrors": true,
     "types": ["node"]
   },
   "exclude": ["**/*.spec.ts", "jest.config.ts"],

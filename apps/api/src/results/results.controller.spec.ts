@@ -8,7 +8,7 @@ import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 import { SimulationHDFService } from '@biosimulations/simdata-api/nest-client-wrapper';
 import { SimulationStorageService } from '@biosimulations/shared/storage';
-import { CacheModule } from '@nestjs/common';
+import { CacheModule } from '@nestjs/cache-manager';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ResultsController } from './results.controller';
 import { ResultsService } from './results.service';

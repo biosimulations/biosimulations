@@ -88,30 +88,29 @@ This project uses [Nx](https://nx.dev). Below is a brief introduction to using N
 
 ### Generate a skeleton for an application
 
-Run `nx g @nrwl/angular:app my-app` to generate an Angular application (front-end).
+Run `nx g @nx/angular:app my-app` to generate an Angular application (front-end).
 
-Run `nx g @nrwl/nest:app my-nest-app` to generate a NestJS application (back-end).
-
+Run `nx g @nx/nest:app my-nest-app` to generate a NestJS application (back-end).
 
 ### Generate a skeleton for a library
 
-Run `nx g @nrwl/angular:lib my-lib` to generate an Angular library.
+Run `nx g @nx/angular:lib my-lib` to generate an Angular library.
 
-Run `nx g @nrwl/nest:lib my-nest-lib` to generate a NestJS library.
+Run `nx g @nx/nest:lib my-nest-lib` to generate a NestJS library.
 
-Run `nx g @nrwl/node:lib my-node-lib` to generate a NodeJS library.
+Run `nx g @nx/node:lib my-node-lib` to generate a NodeJS library.
 
-Run `nx g @nrwl/js:library --name=my-ts-lib --buildable` to generate a platform agnostic typescript library
+Run `nx g @nx/js:library --name=my-ts-lib --buildable` to generate a platform agnostic typescript library
 
 Libraries are sharable across libraries and applications. They can be imported as `@biosimulations/mylib`.
 
 ### Generate skeletons for application components
 
 Nx can be used to generate skeletons for components as well. This includes front-end components, backend-end controllers, services, and various Angular and NesJS structures. For more information on generating components, see the [Nx documentation]https://nx.dev/generators/using-schematics).
-  
+
 ### Run a development server
 
-Run `ng serve my-app` to run a development server for the application. 
+Run `ng serve my-app` to run a development server for the application.
 
 To run an front end application that connects to a locally running backend service, run both applications in two different terminals. The [endpoints documentation](./endpoints.md) describes how the applications determine which endpoints to connect to.
 

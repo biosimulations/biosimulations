@@ -5,6 +5,7 @@ import { SharedStorageService } from './shared-storage.service';
 import { Response } from 'express';
 
 import { Readable } from 'stream';
+
 @ApiTags('S3 Storage')
 @Controller('s3test')
 export class s3TestController {
@@ -12,7 +13,7 @@ export class s3TestController {
   @Get('/:id')
   public async getFile(@Param('id') id: string, @Res({ passthrough: false }) res: Response): Promise<void> {
     const data = await this.service.getObject(id);
-    if (data.Body) {
+    if (data.Body instanceof Buffer) {
       const stream = Readable.from(data.Body as Buffer);
       res.setHeader('Content-Disposition', `attachment; filename="${id.split('/').reverse()[0]}"`);
       res.setHeader('Content-Type', `${data.ContentType || 'application/octet-stream'}`);

@@ -1,5 +1,4 @@
 import {
-  CACHE_MANAGER,
   Inject,
   Controller,
   Get,
@@ -25,14 +24,15 @@ import {
 } from '@nestjs/swagger';
 import { OntologyTerm, OntologyIdsContainer, OntologyId, ErrorResponseDocument } from '@biosimulations/datamodel/api';
 import { OntologyInfo } from '@biosimulations/datamodel/api';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 
 @Controller('ontologies')
 @ApiTags('Ontologies')
 export class OntologyApiController {
-  public constructor(private service: OntologyApiService, @Inject(CACHE_MANAGER) private cacheManager: Cache) {}
-
   private static cacheTtl = 60 * 24 * 7; // 1 week
   private static version = 1;
+
+  public constructor(private service: OntologyApiService, @Inject(CACHE_MANAGER) private cacheManager: Cache) {}
 
   @Get()
   @ApiOperation({
@@ -48,7 +48,7 @@ export class OntologyApiController {
 
     return this.getWithCache<string[]>(cacheKey, async (): Promise<string[]> => {
       const ontologiesIds = new Set<string>();
-      for (const [key, val] of Object.entries(Ontologies)) {
+      for (const [key, _val] of Object.entries(Ontologies)) {
         ontologiesIds.add(key);
       }
       return [...ontologiesIds].sort();
@@ -225,9 +225,7 @@ export class OntologyApiController {
       return cachedValue;
     } else {
       const value = await valueFunc();
-      await this.cacheManager.set(key, value, {
-        ttl: OntologyApiController.cacheTtl,
-      });
+      await this.cacheManager.set(key, value, OntologyApiController.cacheTtl);
       return value;
     }
   }

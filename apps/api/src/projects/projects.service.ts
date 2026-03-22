@@ -10,7 +10,6 @@ import {
 import { AccountType, getProjectSummaryScore } from '@biosimulations/datamodel/common';
 import {
   BadRequestException,
-  CACHE_MANAGER,
   ForbiddenException,
   forwardRef,
   HttpStatus,
@@ -21,6 +20,7 @@ import {
   NotFoundException,
   OnModuleInit,
 } from '@nestjs/common';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -587,7 +587,7 @@ export class ProjectsService implements OnModuleInit {
       return cachedValue;
     } else {
       const value = await valueFunc();
-      await this.cacheManager.set(key, value, { ttl }); // 1 day; to enable users and organizations to change their names
+      await this.cacheManager.set(key, value, ttl); // 1 day; to enable users and organizations to change their names
       return value;
     }
   }

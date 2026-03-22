@@ -43,7 +43,8 @@
       "options": {
         "commands": ["poetry run flake8"],
         "cwd": "apps/combine-api",
-        "parallel": false
+        "parallel": false,
+        "lintFilePatterns": ["combine-api/**/*.py", "tests/**/*.py"]
       }
     },
     "docker": {
@@ -54,6 +55,7 @@
         "context": "./apps/combine-api",
         "push": true,
         "build-args": ["app=combine-api"],
+        "platforms": ["linux/amd64"],
         "metadata": {
           "enabled": true,
           "images": ["ghcr.io/biosimulations/combine-api"],
@@ -116,7 +118,9 @@
     "projectSpecificFiles": [
       "{workspaceRoot}/apps/combine-api/Dockerfile-assets/Pipfile",
       "{workspaceRoot}/apps/combine-api/Dockerfile-assets/Pipfile.lock",
-      "{workspaceRoot}/apps/combine-api/Dockerfile"
+      "{workspaceRoot}/apps/combine-api/Dockerfile",
+      "{workspaceRoot}/apps/combine-api/pyproject.toml",
+      "{workspaceRoot}/apps/combine-api/poetry.lock"
     ]
   }
 }

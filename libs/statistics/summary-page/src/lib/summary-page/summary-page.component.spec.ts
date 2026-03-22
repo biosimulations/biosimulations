@@ -29,7 +29,7 @@ describe('SummaryPageComponent', () => {
         {
           provide: 'PaletteService',
           useValue: {
-            getColorPalette: (count: number): string[] => ['#000000', '#ffffff'],
+            getColorPalette: (_count: number): string[] => ['#000000', '#ffffff'],
           },
         },
       ],

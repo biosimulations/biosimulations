@@ -55,8 +55,13 @@ import { ConfigService } from '@biosimulations/config/angular';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FileInput } from '@biosimulations/material-file-input';
 import { CreateMaxFileSizeValidator, INTEGER_VALIDATOR } from '@biosimulations/shared/ui';
-import { SedModelAttributeChange, SedModelChange as ClientSedChange } from '@biosimulations/combine-api-angular-client';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import {
+  SedModelAttributeChange,
+  SedModelAttributeChangeTypeEnum,
+  SedModelChange as ClientSedChange,
+  SedTarget,
+} from '@biosimulations/combine-api-angular-client';
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { ViewService } from '@biosimulations/simulation-runs/service';
 import { Visualization, VisualizationList } from '@biosimulations/datamodel-simulation-runs';
 import { Endpoints } from '@biosimulations/config/common';

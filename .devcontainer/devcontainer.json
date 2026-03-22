@@ -15,7 +15,7 @@
     "angular.ng-template",
     "aaron-bond.better-comments",
     "ms-kubernetes-tools.vscode-kubernetes-tools",
-    "nrwl.angular-console",
+    "nx.angular-console",
     "msjsdiag.debugger-for-chrome",
     "firefox-devtools.vscode-firefox-debug",
     "esbenp.prettier-vscode",

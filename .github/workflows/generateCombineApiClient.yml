@@ -39,8 +39,8 @@ jobs:
         with:
           useRollingCache: true
 
-      - name: Install Nrwl CLI
-        run: npm install -g @nrwl/cli
+      - name: Install nx CLI
+        run: npm install -g @nx
 
       - name: Build Nest client
         run: tools/generate-combine-api-nest-client

@@ -2,3 +2,4 @@
 max-line-length = 150
 exclude =
     test_*.py
+    .venv
