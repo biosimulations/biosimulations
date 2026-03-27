@@ -246,7 +246,7 @@
     "vega": "5.23.0",
     "vega-embed": "6.20.8",
     "vega-lite": "5.2.0",
-    "webpack": "5.76.0"
+    "webpack": "5.104.1"
   },
   "config": {
     "commitizen": {
