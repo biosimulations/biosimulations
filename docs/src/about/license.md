@@ -1534,12 +1534,23 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/auth0/node-jsonwebtoken
 │  ├─ publisher: auth0
 │  └─ licenseFile: jsonwebtoken/LICENSE
+├─ jsonwebtoken@9.0.3
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/auth0/node-jsonwebtoken
+│  ├─ publisher: auth0
+│  └─ licenseFile: passport-jwt/node_modules/jsonwebtoken/LICENSE
 ├─ jwa@1.4.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/brianloveswords/node-jwa
 │  ├─ publisher: Brian J. Brennan
 │  ├─ email: brianloveswords@gmail.com
 │  └─ licenseFile: jwa/LICENSE
+├─ jwa@2.0.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/brianloveswords/node-jwa
+│  ├─ publisher: Brian J. Brennan
+│  ├─ email: brianloveswords@gmail.com
+│  └─ licenseFile: passport-jwt/node_modules/jwa/LICENSE
 ├─ jwks-rsa@1.12.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/auth0/node-jwks-rsa
@@ -1555,6 +1566,11 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/brianloveswords/node-jws
 │  ├─ publisher: Brian J Brennan
 │  └─ licenseFile: jws/LICENSE
+├─ jws@4.0.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/brianloveswords/node-jws
+│  ├─ publisher: Brian J Brennan
+│  └─ licenseFile: passport-jwt/node_modules/jws/LICENSE
 ├─ kareem@2.3.3
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/vkarpov15/kareem
@@ -2023,9 +2039,9 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: hello@blakeembrey.com
 │  ├─ url: http://blakeembrey.me
 │  └─ licenseFile: change-case/node_modules/pascal-case/LICENSE
-├─ passport-jwt@4.0.0
+├─ passport-jwt@4.0.1
 │  ├─ licenses: MIT
-│  ├─ repository: https://github.com/themikenicholson/passport-jwt
+│  ├─ repository: https://github.com/mikenicholson/passport-jwt
 │  ├─ publisher: Mike Nicholson
 │  └─ licenseFile: passport-jwt/LICENSE
 ├─ passport-strategy@1.0.0
@@ -2338,6 +2354,11 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ repository: https://github.com/npm/node-semver
 │  ├─ publisher: GitHub Inc.
 │  └─ licenseFile: sharp/node_modules/semver/LICENSE
+├─ semver@7.7.4
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/npm/node-semver
+│  ├─ publisher: GitHub Inc.
+│  └─ licenseFile: passport-jwt/node_modules/semver/LICENSE
 ├─ send@0.17.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/pillarjs/send
