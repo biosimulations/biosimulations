@@ -47,7 +47,7 @@
   "private": true,
   "dependencies": {
     "@bull-board/express": "3.11.1",
-    "@d4c/numjs": "0.17.34",
+    "@d4c/numjs": "0.17.35",
     "@nestjs/axios": "2.0.0",
     "@nestjs/bullmq": "1.1.0",
     "@nestjs/common": "9.3.11",
