@@ -1,0 +1,405 @@
+[
+  {
+    "additions": 31,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2026-06-19T23:20:17Z",
+    "deletions": 30,
+    "labels": [
+      {
+        "id": "LA_kwDOSJy_k88AAAACgXwuiQ",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDOSJy_k88AAAACgXwuiw",
+        "name": "python:uv",
+        "description": "Pull requests that update python:uv code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 16,
+    "state": "OPEN",
+    "title": "Bump cryptography from 46.0.5 to 48.0.1"
+  },
+  {
+    "additions": 14,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2026-06-17T18:04:59Z",
+    "deletions": 15,
+    "labels": [
+      {
+        "id": "LA_kwDOSJy_k88AAAACgXwuiQ",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDOSJy_k88AAAACgXwuiw",
+        "name": "python:uv",
+        "description": "Pull requests that update python:uv code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 15,
+    "state": "OPEN",
+    "title": "Bump tornado from 6.5.4 to 6.5.7"
+  },
+  {
+    "additions": 14,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": "2026-06-17T18:05:03Z",
+    "createdAt": "2026-06-12T22:02:04Z",
+    "deletions": 15,
+    "labels": [
+      {
+        "id": "LA_kwDOSJy_k88AAAACgXwuiQ",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDOSJy_k88AAAACgXwuiw",
+        "name": "python:uv",
+        "description": "Pull requests that update python:uv code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 14,
+    "state": "CLOSED",
+    "title": "Bump tornado from 6.5.4 to 6.5.6"
+  },
+  {
+    "additions": 23,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2026-05-29T21:29:51Z",
+    "deletions": 21,
+    "labels": [
+      {
+        "id": "LA_kwDOSJy_k88AAAACgXwuiQ",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDOSJy_k88AAAACgXwuiw",
+        "name": "python:uv",
+        "description": "Pull requests that update python:uv code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 13,
+    "state": "OPEN",
+    "title": "Bump uv from 0.10.6 to 0.11.15"
+  },
+  {
+    "additions": 4,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2026-05-19T23:55:13Z",
+    "deletions": 3,
+    "labels": [
+      {
+        "id": "LA_kwDOSJy_k88AAAACgXwuiQ",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDOSJy_k88AAAACgXwuiw",
+        "name": "python:uv",
+        "description": "Pull requests that update python:uv code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 12,
+    "state": "OPEN",
+    "title": "Bump idna from 3.11 to 3.15"
+  },
+  {
+    "additions": 4,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2026-05-19T21:01:49Z",
+    "deletions": 3,
+    "labels": [
+      {
+        "id": "LA_kwDOSJy_k88AAAACgXwuiQ",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDOSJy_k88AAAACgXwuiw",
+        "name": "python:uv",
+        "description": "Pull requests that update python:uv code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 11,
+    "state": "OPEN",
+    "title": "Bump pymdown-extensions from 10.21 to 10.21.3"
+  },
+  {
+    "additions": 4,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2026-05-11T19:38:46Z",
+    "deletions": 3,
+    "labels": [
+      {
+        "id": "LA_kwDOSJy_k88AAAACgXwuiQ",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDOSJy_k88AAAACgXwuiw",
+        "name": "python:uv",
+        "description": "Pull requests that update python:uv code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 10,
+    "state": "OPEN",
+    "title": "Bump urllib3 from 2.6.3 to 2.7.0"
+  },
+  {
+    "additions": 6,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2026-05-09T03:15:37Z",
+    "deletions": 0,
+    "labels": [],
+    "mergedAt": null,
+    "number": 9,
+    "state": "OPEN",
+    "title": "Configure Renovate"
+  },
+  {
+    "additions": 66,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2026-04-22T17:13:56Z",
+    "deletions": 65,
+    "labels": [
+      {
+        "id": "LA_kwDOSJy_k88AAAACgXwuiQ",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDOSJy_k88AAAACgXwuiw",
+        "name": "python:uv",
+        "description": "Pull requests that update python:uv code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 8,
+    "state": "OPEN",
+    "title": "Bump pillow from 12.1.1 to 12.2.0"
+  },
+  {
+    "additions": 23,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": "2026-05-29T21:29:53Z",
+    "createdAt": "2026-04-22T17:13:46Z",
+    "deletions": 21,
+    "labels": [
+      {
+        "id": "LA_kwDOSJy_k88AAAACgXwuiQ",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDOSJy_k88AAAACgXwuiw",
+        "name": "python:uv",
+        "description": "Pull requests that update python:uv code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 7,
+    "state": "CLOSED",
+    "title": "Bump uv from 0.10.6 to 0.11.6"
+  },
+  {
+    "additions": 4,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2026-04-22T17:13:40Z",
+    "deletions": 3,
+    "labels": [
+      {
+        "id": "LA_kwDOSJy_k88AAAACgXwuiQ",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDOSJy_k88AAAACgXwuiw",
+        "name": "python:uv",
+        "description": "Pull requests that update python:uv code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 6,
+    "state": "OPEN",
+    "title": "Bump pytest from 9.0.2 to 9.0.3"
+  },
+  {
+    "additions": 4,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2026-04-22T17:13:37Z",
+    "deletions": 3,
+    "labels": [
+      {
+        "id": "LA_kwDOSJy_k88AAAACgXwuiQ",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDOSJy_k88AAAACgXwuiw",
+        "name": "python:uv",
+        "description": "Pull requests that update python:uv code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 5,
+    "state": "OPEN",
+    "title": "Bump pygments from 2.19.2 to 2.20.0"
+  },
+  {
+    "additions": 77,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2026-04-22T17:13:35Z",
+    "deletions": 76,
+    "labels": [
+      {
+        "id": "LA_kwDOSJy_k88AAAACgXwuiQ",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDOSJy_k88AAAACgXwuiw",
+        "name": "python:uv",
+        "description": "Pull requests that update python:uv code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4,
+    "state": "OPEN",
+    "title": "Bump lxml from 6.0.2 to 6.1.0"
+  },
+  {
+    "additions": 31,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": "2026-06-19T23:20:19Z",
+    "createdAt": "2026-04-22T17:13:34Z",
+    "deletions": 30,
+    "labels": [
+      {
+        "id": "LA_kwDOSJy_k88AAAACgXwuiQ",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDOSJy_k88AAAACgXwuiw",
+        "name": "python:uv",
+        "description": "Pull requests that update python:uv code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 3,
+    "state": "CLOSED",
+    "title": "Bump cryptography from 46.0.5 to 46.0.7"
+  },
+  {
+    "additions": 4,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2026-04-22T17:13:33Z",
+    "deletions": 3,
+    "labels": [
+      {
+        "id": "LA_kwDOSJy_k88AAAACgXwuiQ",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDOSJy_k88AAAACgXwuiw",
+        "name": "python:uv",
+        "description": "Pull requests that update python:uv code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 2,
+    "state": "OPEN",
+    "title": "Bump requests from 2.32.5 to 2.33.0"
+  },
+  {
+    "additions": 14,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": "2026-06-12T22:02:07Z",
+    "createdAt": "2026-04-22T17:13:31Z",
+    "deletions": 15,
+    "labels": [
+      {
+        "id": "LA_kwDOSJy_k88AAAACgXwuiQ",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDOSJy_k88AAAACgXwuiw",
+        "name": "python:uv",
+        "description": "Pull requests that update python:uv code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 1,
+    "state": "CLOSED",
+    "title": "Bump tornado from 6.5.4 to 6.5.5"
+  }
+]

@@ -1,0 +1,893 @@
+[
+  {
+    "additions": 3799,
+    "author": { "id": "MDQ6VXNlcjQzMDQ3NzE0", "is_bot": false, "login": "HarrisonCreates", "name": "Harrison Burr" },
+    "changedFiles": 21,
+    "closedAt": null,
+    "createdAt": "2026-06-09T15:36:44Z",
+    "deletions": 3755,
+    "labels": [],
+    "mergedAt": null,
+    "number": 57,
+    "state": "OPEN",
+    "title": "Feature/runs page"
+  },
+  {
+    "additions": 6,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 4,
+    "closedAt": "2026-06-05T15:02:55Z",
+    "createdAt": "2026-06-05T14:58:40Z",
+    "deletions": 6,
+    "labels": [],
+    "mergedAt": "2026-06-05T15:02:55Z",
+    "number": 56,
+    "state": "MERGED",
+    "title": "Bump backend to 0.5.0 and repoint prod overlays"
+  },
+  {
+    "additions": 323,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 4,
+    "closedAt": "2026-06-05T15:00:40Z",
+    "createdAt": "2026-06-05T14:57:57Z",
+    "deletions": 13,
+    "labels": [],
+    "mergedAt": "2026-06-05T15:00:40Z",
+    "number": 55,
+    "state": "MERGED",
+    "title": "Add release CI: tag-triggered image publish + GitHub Release"
+  },
+  {
+    "additions": 70,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 3,
+    "closedAt": "2026-06-05T13:42:13Z",
+    "createdAt": "2026-06-05T13:28:13Z",
+    "deletions": 24,
+    "labels": [],
+    "mergedAt": "2026-06-05T13:42:13Z",
+    "number": 54,
+    "state": "MERGED",
+    "title": "Docs: post-PR #53 status + frontend wire-up reality on main"
+  },
+  {
+    "additions": 340,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 9,
+    "closedAt": "2026-06-05T12:10:25Z",
+    "createdAt": "2026-06-04T16:56:23Z",
+    "deletions": 32,
+    "labels": [],
+    "mergedAt": "2026-06-05T12:10:25Z",
+    "number": 53,
+    "state": "MERGED",
+    "title": "Cleanup: four high-severity findings from PR #52 review"
+  },
+  {
+    "additions": 431,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 13,
+    "closedAt": "2026-06-04T16:38:27Z",
+    "createdAt": "2026-06-04T14:15:26Z",
+    "deletions": 94,
+    "labels": [],
+    "mergedAt": "2026-06-04T16:38:27Z",
+    "number": 52,
+    "state": "MERGED",
+    "title": "Split per-run activity + early biosim_run_id DB write (convergence PR2.5)"
+  },
+  {
+    "additions": 516,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 7,
+    "closedAt": "2026-06-04T13:52:49Z",
+    "createdAt": "2026-05-29T19:26:05Z",
+    "deletions": 236,
+    "labels": [],
+    "mergedAt": "2026-06-04T13:52:49Z",
+    "number": 51,
+    "state": "MERGED",
+    "title": "Converge SimulationRunWorkflow onto OmexSimWorkflow child (convergence PR2)"
+  },
+  {
+    "additions": 139,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 6,
+    "closedAt": "2026-05-29T19:06:35Z",
+    "createdAt": "2026-05-29T18:57:38Z",
+    "deletions": 16,
+    "labels": [],
+    "mergedAt": "2026-05-29T19:06:35Z",
+    "number": 50,
+    "state": "MERGED",
+    "title": "Enrich BiosimSimulationRun with biosimulations.org run metadata (convergence PR1)"
+  },
+  {
+    "additions": 83,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 4,
+    "closedAt": "2026-05-29T18:29:28Z",
+    "createdAt": "2026-05-29T18:17:05Z",
+    "deletions": 2,
+    "labels": [],
+    "mergedAt": "2026-05-29T18:29:28Z",
+    "number": 49,
+    "state": "MERGED",
+    "title": "Re-expose cache_buster on POST /simulations/run (convergence PR0)"
+  },
+  {
+    "additions": 1128,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 17,
+    "closedAt": "2026-05-29T18:19:18Z",
+    "createdAt": "2026-05-29T18:08:28Z",
+    "deletions": 12,
+    "labels": [],
+    "mergedAt": "2026-05-29T18:19:18Z",
+    "number": 48,
+    "state": "MERGED",
+    "title": "Add POST /simulations/runs listing endpoint + convergence plan"
+  },
+  {
+    "additions": 15,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": "2026-05-20T19:11:53Z",
+    "createdAt": "2026-05-20T16:02:39Z",
+    "deletions": 11,
+    "labels": [],
+    "mergedAt": "2026-05-20T19:11:53Z",
+    "number": 47,
+    "state": "MERGED",
+    "title": "fix: header SSR hydration + nav-menu route bugs"
+  },
+  {
+    "additions": 58,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 6,
+    "closedAt": "2026-05-20T15:55:18Z",
+    "createdAt": "2026-05-20T15:24:05Z",
+    "deletions": 42,
+    "labels": [],
+    "mergedAt": "2026-05-20T15:55:18Z",
+    "number": 46,
+    "state": "MERGED",
+    "title": "fix: per-service .env files (resolves local-dev 404), Windows note, stale README line"
+  },
+  {
+    "additions": 48,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 6,
+    "closedAt": "2026-05-20T15:23:29Z",
+    "createdAt": "2026-05-20T14:26:57Z",
+    "deletions": 41,
+    "labels": [],
+    "mergedAt": null,
+    "number": 45,
+    "state": "CLOSED",
+    "title": "Split .env.example per service; fix the local-dev /compatibility/check 404"
+  },
+  {
+    "additions": 11,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 2,
+    "closedAt": "2026-05-20T15:28:38Z",
+    "createdAt": "2026-05-20T14:04:47Z",
+    "deletions": 2,
+    "labels": [],
+    "mergedAt": null,
+    "number": 44,
+    "state": "CLOSED",
+    "title": "Windows local-dev note + dev-up.sh bash 3.2 fix + stale path-filter line"
+  },
+  {
+    "additions": 153,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 19,
+    "closedAt": "2026-05-19T15:44:02Z",
+    "createdAt": "2026-05-19T15:14:55Z",
+    "deletions": 47,
+    "labels": [],
+    "mergedAt": "2026-05-19T15:44:02Z",
+    "number": 43,
+    "state": "MERGED",
+    "title": "Fix deploy-time gotchas from GKE subdomain-split cutover"
+  },
+  {
+    "additions": 359,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 7,
+    "closedAt": "2026-05-16T03:15:39Z",
+    "createdAt": "2026-05-16T02:15:29Z",
+    "deletions": 12,
+    "labels": [],
+    "mergedAt": "2026-05-16T03:15:39Z",
+    "number": 42,
+    "state": "MERGED",
+    "title": "Phase 3: integration_local tests + joint-stack smoke workflow"
+  },
+  {
+    "additions": 2408,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 65,
+    "closedAt": "2026-05-15T22:20:11Z",
+    "createdAt": "2026-05-15T20:15:37Z",
+    "deletions": 1384,
+    "labels": [],
+    "mergedAt": "2026-05-15T22:20:11Z",
+    "number": 41,
+    "state": "MERGED",
+    "title": "Phase 2: joint deployment (Kubernetes, ingress, multi-arch images)"
+  },
+  {
+    "additions": 182,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 8,
+    "closedAt": "2026-05-15T19:06:03Z",
+    "createdAt": "2026-05-15T18:55:06Z",
+    "deletions": 10,
+    "labels": [],
+    "mergedAt": "2026-05-15T19:06:02Z",
+    "number": 40,
+    "state": "MERGED",
+    "title": "Phase 1: local development stack"
+  },
+  {
+    "additions": 5286,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 24,
+    "closedAt": "2026-05-15T18:59:30Z",
+    "createdAt": "2026-05-15T18:38:52Z",
+    "deletions": 13993,
+    "labels": [],
+    "mergedAt": "2026-05-15T18:59:30Z",
+    "number": 39,
+    "state": "MERGED",
+    "title": "Frontend/backend integration: plan + pre-work"
+  },
+  {
+    "additions": 407,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 118,
+    "closedAt": "2026-05-08T20:03:17Z",
+    "createdAt": "2026-05-08T20:00:06Z",
+    "deletions": 251,
+    "labels": [],
+    "mergedAt": "2026-05-08T20:03:17Z",
+    "number": 38,
+    "state": "MERGED",
+    "title": "Restructure to monorepo: move backend to backend/, bump to 0.4.0"
+  },
+  {
+    "additions": 4601,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 44,
+    "closedAt": "2026-03-27T16:24:01Z",
+    "createdAt": "2026-02-26T04:53:27Z",
+    "deletions": 251,
+    "labels": [],
+    "mergedAt": "2026-03-27T16:24:01Z",
+    "number": 37,
+    "state": "MERGED",
+    "title": "Add compatibility checking and simulation run endpoints for new webapp"
+  },
+  {
+    "additions": 153,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2026-02-11T01:58:05Z",
+    "deletions": 114,
+    "labels": [
+      {
+        "id": "LA_kwDONhdRzs8AAAAB5Vfs2w",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDONhdRzs8AAAACEM86BA",
+        "name": "python",
+        "description": "Pull requests that update python code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 36,
+    "state": "OPEN",
+    "title": "Bump cryptography from 44.0.2 to 46.0.5"
+  },
+  {
+    "additions": 15,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 2,
+    "closedAt": null,
+    "createdAt": "2026-01-26T23:38:29Z",
+    "deletions": 7,
+    "labels": [
+      {
+        "id": "LA_kwDONhdRzs8AAAAB5Vfs2w",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDONhdRzs8AAAACEM86BA",
+        "name": "python",
+        "description": "Pull requests that update python code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 35,
+    "state": "OPEN",
+    "title": "Bump python-multipart from 0.0.20 to 0.0.22"
+  },
+  {
+    "additions": 12,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2026-01-16T19:29:47Z",
+    "deletions": 4,
+    "labels": [
+      {
+        "id": "LA_kwDONhdRzs8AAAAB5Vfs2w",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDONhdRzs8AAAACEM86BA",
+        "name": "python",
+        "description": "Pull requests that update python code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 34,
+    "state": "OPEN",
+    "title": "Bump pyasn1 from 0.6.1 to 0.6.2"
+  },
+  {
+    "additions": 14,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2026-01-08T04:41:16Z",
+    "deletions": 6,
+    "labels": [
+      {
+        "id": "LA_kwDONhdRzs8AAAAB5Vfs2w",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDONhdRzs8AAAACEM86BA",
+        "name": "python",
+        "description": "Pull requests that update python code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 33,
+    "state": "OPEN",
+    "title": "Bump urllib3 from 2.3.0 to 2.6.3"
+  },
+  {
+    "additions": 138,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 2,
+    "closedAt": null,
+    "createdAt": "2026-01-05T23:58:09Z",
+    "deletions": 91,
+    "labels": [
+      {
+        "id": "LA_kwDONhdRzs8AAAAB5Vfs2w",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDONhdRzs8AAAACEM86BA",
+        "name": "python",
+        "description": "Pull requests that update python code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 32,
+    "state": "OPEN",
+    "title": "Bump aiohttp from 3.11.14 to 3.13.3"
+  },
+  {
+    "additions": 1,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2025-12-11T10:14:49Z",
+    "deletions": 1,
+    "labels": [],
+    "mergedAt": null,
+    "number": 31,
+    "state": "OPEN",
+    "title": "[Snyk] Security upgrade python from 3.13.2-slim-bookworm to 3.14.2-slim-bookworm"
+  },
+  {
+    "additions": 1,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2025-12-09T11:26:59Z",
+    "deletions": 1,
+    "labels": [],
+    "mergedAt": null,
+    "number": 30,
+    "state": "OPEN",
+    "title": "[Snyk] Security upgrade python from 3.13.2-slim-bookworm to 3.14.2-slim-bookworm"
+  },
+  {
+    "additions": 14,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": "2026-01-08T04:41:18Z",
+    "createdAt": "2025-12-06T03:32:37Z",
+    "deletions": 6,
+    "labels": [
+      {
+        "id": "LA_kwDONhdRzs8AAAAB5Vfs2w",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDONhdRzs8AAAACEM86BA",
+        "name": "python",
+        "description": "Pull requests that update python code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 29,
+    "state": "CLOSED",
+    "title": "Bump urllib3 from 2.3.0 to 2.6.0"
+  },
+  {
+    "additions": 1,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2025-12-04T14:24:35Z",
+    "deletions": 1,
+    "labels": [],
+    "mergedAt": null,
+    "number": 28,
+    "state": "OPEN",
+    "title": "[Snyk] Security upgrade python from 3.13.2-slim-bookworm to 3.14.1-slim-bookworm"
+  },
+  {
+    "additions": 1,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2025-11-25T15:12:10Z",
+    "deletions": 1,
+    "labels": [],
+    "mergedAt": null,
+    "number": 27,
+    "state": "OPEN",
+    "title": "[Snyk] Security upgrade python from 3.13.2-slim-bookworm to 3.14.0-slim-bookworm"
+  },
+  {
+    "additions": 1,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2025-11-11T10:38:43Z",
+    "deletions": 1,
+    "labels": [],
+    "mergedAt": null,
+    "number": 26,
+    "state": "OPEN",
+    "title": "[Snyk] Security upgrade python from 3.13.2-slim-bookworm to 3.13.9-slim-bookworm"
+  },
+  {
+    "additions": 1,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2025-11-08T19:10:22Z",
+    "deletions": 1,
+    "labels": [],
+    "mergedAt": null,
+    "number": 25,
+    "state": "OPEN",
+    "title": "[Snyk] Security upgrade python from 3.13.2-slim-bookworm to 3.13.9-slim-bookworm"
+  },
+  {
+    "additions": 24,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 9,
+    "closedAt": "2025-10-28T15:53:10Z",
+    "createdAt": "2025-10-28T15:37:37Z",
+    "deletions": 10,
+    "labels": [],
+    "mergedAt": "2025-10-28T15:53:10Z",
+    "number": 24,
+    "state": "MERGED",
+    "title": "change broken cdn for swagger-ui"
+  },
+  {
+    "additions": 37,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 10,
+    "closedAt": null,
+    "createdAt": "2025-10-28T15:36:11Z",
+    "deletions": 15,
+    "labels": [
+      {
+        "id": "LA_kwDONhdRzs8AAAAB5Vfs2w",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDONhdRzs8AAAACEM86BA",
+        "name": "python",
+        "description": "Pull requests that update python code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 23,
+    "state": "OPEN",
+    "title": "Bump requests from 2.32.3 to 2.32.4"
+  },
+  {
+    "additions": 43,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 10,
+    "closedAt": null,
+    "createdAt": "2025-10-28T15:36:07Z",
+    "deletions": 21,
+    "labels": [
+      {
+        "id": "LA_kwDONhdRzs8AAAAB5Vfs2w",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDONhdRzs8AAAACEM86BA",
+        "name": "python",
+        "description": "Pull requests that update python code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 22,
+    "state": "OPEN",
+    "title": "Bump protobuf from 6.30.2 to 6.31.1"
+  },
+  {
+    "additions": 41,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 10,
+    "closedAt": null,
+    "createdAt": "2025-10-28T15:36:01Z",
+    "deletions": 19,
+    "labels": [
+      {
+        "id": "LA_kwDONhdRzs8AAAAB5Vfs2w",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDONhdRzs8AAAACEM86BA",
+        "name": "python",
+        "description": "Pull requests that update python code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 21,
+    "state": "OPEN",
+    "title": "Bump h11 from 0.14.0 to 0.16.0"
+  },
+  {
+    "additions": 1,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2025-10-14T11:44:40Z",
+    "deletions": 1,
+    "labels": [],
+    "mergedAt": null,
+    "number": 20,
+    "state": "OPEN",
+    "title": "[Snyk] Security upgrade python from 3.13.2-slim-bookworm to 3.14.0-slim-bookworm"
+  },
+  {
+    "additions": 1,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2025-10-09T11:23:08Z",
+    "deletions": 1,
+    "labels": [],
+    "mergedAt": null,
+    "number": 19,
+    "state": "OPEN",
+    "title": "[Snyk] Security upgrade python from 3.13.2-slim-bookworm to 3.14.0-slim-bookworm"
+  },
+  {
+    "additions": 1,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2025-09-25T08:52:44Z",
+    "deletions": 1,
+    "labels": [],
+    "mergedAt": null,
+    "number": 18,
+    "state": "OPEN",
+    "title": "[Snyk] Security upgrade python from 3.13.2-slim-bookworm to 3.14.0rc3-slim-bookworm"
+  },
+  {
+    "additions": 1,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2025-09-23T08:23:13Z",
+    "deletions": 1,
+    "labels": [],
+    "mergedAt": null,
+    "number": 17,
+    "state": "OPEN",
+    "title": "[Snyk] Security upgrade python from 3.13.2-slim-bookworm to 3.14.0rc3-slim-bookworm"
+  },
+  {
+    "additions": 1,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2025-08-21T09:08:41Z",
+    "deletions": 1,
+    "labels": [],
+    "mergedAt": null,
+    "number": 16,
+    "state": "OPEN",
+    "title": "[Snyk] Security upgrade python from 3.13.2-slim-bookworm to 3.14.0rc2-slim-bookworm"
+  },
+  {
+    "additions": 1,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2025-08-19T20:39:09Z",
+    "deletions": 1,
+    "labels": [],
+    "mergedAt": null,
+    "number": 15,
+    "state": "OPEN",
+    "title": "[Snyk] Security upgrade python from 3.13.2-slim-bookworm to 3.14.0rc2-slim-bookworm"
+  },
+  {
+    "additions": 1,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2025-07-31T09:47:20Z",
+    "deletions": 1,
+    "labels": [],
+    "mergedAt": null,
+    "number": 14,
+    "state": "OPEN",
+    "title": "[Snyk] Security upgrade python from 3.13.2-slim-bookworm to 3.14.0rc1-slim-bookworm"
+  },
+  {
+    "additions": 1,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2025-07-29T10:15:04Z",
+    "deletions": 1,
+    "labels": [],
+    "mergedAt": null,
+    "number": 13,
+    "state": "OPEN",
+    "title": "[Snyk] Security upgrade python from 3.13.2-slim-bookworm to 3.14.0rc1-slim-bookworm"
+  },
+  {
+    "additions": 103,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 2,
+    "closedAt": "2026-01-05T23:58:12Z",
+    "createdAt": "2025-07-15T09:49:56Z",
+    "deletions": 90,
+    "labels": [
+      {
+        "id": "LA_kwDONhdRzs8AAAAB5Vfs2w",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDONhdRzs8AAAACEM86BA",
+        "name": "python",
+        "description": "Pull requests that update python code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 12,
+    "state": "CLOSED",
+    "title": "Bump aiohttp from 3.11.14 to 3.12.14"
+  },
+  {
+    "additions": 1,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2025-07-14T10:38:09Z",
+    "deletions": 1,
+    "labels": [],
+    "mergedAt": null,
+    "number": 11,
+    "state": "OPEN",
+    "title": "[Snyk] Security upgrade python from 3.13.2-slim-bookworm to 3.13.5-slim-bookworm"
+  },
+  {
+    "additions": 11,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": "2025-12-06T03:32:39Z",
+    "createdAt": "2025-07-01T14:19:01Z",
+    "deletions": 3,
+    "labels": [
+      {
+        "id": "LA_kwDONhdRzs8AAAAB5Vfs2w",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDONhdRzs8AAAACEM86BA",
+        "name": "python",
+        "description": "Pull requests that update python code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 10,
+    "state": "CLOSED",
+    "title": "Bump urllib3 from 2.3.0 to 2.5.0"
+  },
+  {
+    "additions": 1,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2025-06-18T11:57:42Z",
+    "deletions": 1,
+    "labels": [],
+    "mergedAt": null,
+    "number": 9,
+    "state": "OPEN",
+    "title": "[Snyk] Security upgrade python from 3.13.2-slim-bookworm to 3.13.5-slim-bookworm"
+  },
+  {
+    "additions": 1,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2025-06-10T11:21:20Z",
+    "deletions": 1,
+    "labels": [],
+    "mergedAt": null,
+    "number": 8,
+    "state": "OPEN",
+    "title": "[Snyk] Security upgrade python from 3.13.2-slim-bookworm to 3.13.4-slim-bookworm"
+  },
+  {
+    "additions": 1,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2025-06-05T09:13:44Z",
+    "deletions": 1,
+    "labels": [],
+    "mergedAt": null,
+    "number": 7,
+    "state": "OPEN",
+    "title": "[Snyk] Security upgrade python from 3.13.2-slim-bookworm to 3.13.4-slim-bookworm"
+  },
+  {
+    "additions": 1260,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 8,
+    "closedAt": "2025-03-27T21:13:10Z",
+    "createdAt": "2025-03-27T15:55:39Z",
+    "deletions": 1143,
+    "labels": [],
+    "mergedAt": "2025-03-27T21:13:10Z",
+    "number": 6,
+    "state": "MERGED",
+    "title": "[Snyk] Security upgrade python from 3.11-slim to python:3.13.2-slim-bookworm"
+  },
+  {
+    "additions": 4,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": "2025-03-27T16:07:56Z",
+    "createdAt": "2025-03-27T15:27:44Z",
+    "deletions": 4,
+    "labels": [],
+    "mergedAt": "2025-03-27T16:07:56Z",
+    "number": 5,
+    "state": "MERGED",
+    "title": "Repair repo after move and rename"
+  },
+  {
+    "additions": 6,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 1,
+    "closedAt": "2026-03-31T11:59:39Z",
+    "createdAt": "2025-03-27T15:18:59Z",
+    "deletions": 0,
+    "labels": [],
+    "mergedAt": null,
+    "number": 4,
+    "state": "CLOSED",
+    "title": "Configure Renovate"
+  },
+  {
+    "additions": 42,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": "2025-03-26T16:03:53Z",
+    "createdAt": "2025-02-13T04:44:13Z",
+    "deletions": 30,
+    "labels": [
+      {
+        "id": "LA_kwDONhdRzs8AAAAB5Vfs2w",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": "2025-03-26T16:03:53Z",
+    "number": 3,
+    "state": "MERGED",
+    "title": "Bump cryptography from 44.0.0 to 44.0.1"
+  },
+  {
+    "additions": 3066,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 96,
+    "closedAt": "2025-02-13T04:42:55Z",
+    "createdAt": "2025-02-06T18:32:19Z",
+    "deletions": 2006,
+    "labels": [],
+    "mergedAt": "2025-02-13T04:42:55Z",
+    "number": 2,
+    "state": "MERGED",
+    "title": "persistence and caching and refactoring"
+  },
+  {
+    "additions": 1881,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 48,
+    "closedAt": "2025-01-29T19:27:06Z",
+    "createdAt": "2025-01-29T19:24:17Z",
+    "deletions": 1822,
+    "labels": [],
+    "mergedAt": "2025-01-29T19:27:05Z",
+    "number": 1,
+    "state": "MERGED",
+    "title": "S3 to GCS, use runutils scoring function"
+  }
+]

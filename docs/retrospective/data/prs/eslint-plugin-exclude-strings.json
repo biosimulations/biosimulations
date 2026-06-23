@@ -1,0 +1,42 @@
+[
+  {
+    "additions": 4,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2023-01-07T08:15:17Z",
+    "deletions": 7,
+    "labels": [
+      {
+        "id": "LA_kwDOFmH_cc7JFeA-",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 9,
+    "state": "OPEN",
+    "title": "chore(deps): bump json5 from 2.2.0 to 2.2.3"
+  },
+  {
+    "additions": 5,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2022-11-11T16:57:52Z",
+    "deletions": 17,
+    "labels": [
+      {
+        "id": "LA_kwDOFmH_cc7JFeA-",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 8,
+    "state": "OPEN",
+    "title": "chore(deps): bump minimatch from 3.0.4 to 3.1.2"
+  }
+]

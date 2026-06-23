@@ -1,0 +1,62 @@
+[
+  {
+    "additions": 3,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2023-01-24T09:20:56Z",
+    "deletions": 3,
+    "labels": [
+      {
+        "id": "LA_kwDODah1aM7egmri",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 8,
+    "state": "OPEN",
+    "title": "Bump cookiejar from 2.1.3 to 2.1.4"
+  },
+  {
+    "additions": 366,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 2,
+    "closedAt": null,
+    "createdAt": "2023-01-10T08:55:12Z",
+    "deletions": 353,
+    "labels": [
+      {
+        "id": "LA_kwDODah1aM7egmri",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 7,
+    "state": "OPEN",
+    "title": "Bump jsonwebtoken and auth0-deploy-cli"
+  },
+  {
+    "additions": 3,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2022-12-06T15:57:05Z",
+    "deletions": 3,
+    "labels": [
+      {
+        "id": "LA_kwDODah1aM7egmri",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 6,
+    "state": "OPEN",
+    "title": "Bump qs from 6.10.1 to 6.11.0"
+  }
+]
