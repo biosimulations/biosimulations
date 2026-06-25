@@ -71,3 +71,4 @@ A compositional, multiscale modeling framework:
 - **[catalog.md](catalog.md)** — full repo catalog with caveats and links.
 - **[repos/](repos/)** — one detailed entry per repo/group (background, themed timeline, notable PRs, tech notes).
 - **[data/prs/](data/prs/)** — raw PR metadata (provenance) for every repo.
+- **[METHODOLOGY.md](METHODOLOGY.md)** — how this retrospective was made + a reusable playbook for repeating it on another GitHub org.
