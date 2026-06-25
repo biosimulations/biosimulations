@@ -207,13 +207,71 @@ Then:
 10. **Caveat honestly:** flag direct-commit repos, renames, "bootstrapped-from" predecessors, and any unresolved questions as explicit open items.
 11. **Ship:** branch → commit (include `data/` for provenance) → push → draft PR → review → ready.
 
-### Quick-start parameter block
+### Quick-start
+
+There are two ways to run Phase 0 — **use both as you see fit**: the one-command
+helper to get moving fast, and the raw commands when you need to understand or adjust
+the procedure. On a new org, running the manual steps is recommended: they reinforce
+what's actually happening and let you tweak filters/scope mid-flight, since `run.sh`
+may not fit every repo layout.
+
+#### Option A — one command (`run.sh`)
+
+Steps 1–4 (auth check, inventory, sizing, data pull, half-year histogram) are
+automated by **[`run.sh`](run.sh)**:
 
 ```bash
-ORG=<org>
-CUTOFF=2022-09-01
-OUT=docs/retrospective
-mkdir -p $OUT/repos $OUT/data/prs
-gh repo list $ORG --limit 300 --json name,description,isArchived,isFork,pushedAt,createdAt,primaryLanguage > $OUT/data/repos.json
-# → review, pick active repos, then loop the PR-metadata pull and proceed per §4.
+./run.sh <ORG> [CUTOFF=2022-09-01] [OUTDIR=.]
+
+# e.g.
+./run.sh my-org 2022-09-01 docs/retrospective
 ```
+
+It writes `data/repos.json` + `data/prs/<repo>.json`, prints a total-vs-substantive
+PR table per active repo and the org-wide PR-by-half-year histogram, then prints the
+exact Phase-1 commands to continue. From there, proceed by hand/agent through steps
+7–11 (group repos → per-repo entries → synthesis → caveats → ship).
+
+`run.sh` is **read-only against GitHub** (only `gh repo list` / `gh pr list`) and
+re-runnable; it overwrites `data/` in `OUTDIR`, so point `OUTDIR` at a scratch dir
+first if you want to preview without touching committed provenance. Works on macOS
+Bash 3.2 (no `mapfile`). Requires `gh` (authenticated) + `jq`.
+
+#### Option B — the same steps, by hand
+
+`run.sh` is just a wrapper around the §4 commands. When the helper isn't enough — a
+weird repo layout, a non-standard noise filter, a different in-window definition —
+run them yourself. This is also the better way to *learn* the procedure before
+adapting it. The full commands live in
+**[§4](#4-step-by-step-implementation-with-commands)**; the minimal skeleton:
+
+```bash
+ORG=<org>; CUTOFF=2022-09-01; OUT=docs/retrospective
+mkdir -p "$OUT/repos" "$OUT/data/prs"
+
+# 1. inventory every repo
+gh repo list "$ORG" --limit 1000 \
+  --json name,description,isArchived,isFork,pushedAt,createdAt,primaryLanguage \
+  > "$OUT/data/repos.json"
+
+# 2. eyeball active repos (last push >= cutoff), pick the ones to pull
+jq -r --arg c "$CUTOFF" 'sort_by(.pushedAt)|reverse|.[]
+  | select(.pushedAt[0:10] >= $c)
+  | [.pushedAt[0:10], (if .isArchived then "ARCH" else "live" end),
+     (if .isFork then "fork" else "----" end), (.primaryLanguage.name // "-"), .name]
+  | @tsv' "$OUT/data/repos.json" | column -t -s$'\t'
+
+# 3+4. pull PRs per repo + size it (list the repos you chose in step 2)
+for r in <repo1> <repo2> ...; do
+  gh pr list -R "$ORG/$r" --state all --limit 1000 --search "created:>=$CUTOFF" \
+    --json number,title,state,createdAt,mergedAt,closedAt,author,labels,additions,deletions,changedFiles \
+    > "$OUT/data/prs/$r.json"
+  echo -e "$(jq 'length' "$OUT/data/prs/$r.json")\t$r"
+done | sort -rn
+
+# org-wide PR volume by half-year (reveals the eras)
+cat "$OUT"/data/prs/*.json | jq -r '.[] | .createdAt[0:4] + "-H" +
+  (if (.createdAt[5:7]|tonumber)<=6 then "1" else "2" end)' | sort | uniq -c
+```
+
+Then continue with the Phase-1 / Phase-2 commands in §4.
