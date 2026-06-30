@@ -38,16 +38,23 @@ jobs:
 
       - name: Resolve tag, date, and prerelease flag
         id: meta
+        # All GitHub-context/user-controlled values are passed via env (never
+        # interpolated into the run script) to avoid shell script injection.
         env:
           GH_TOKEN: ${{ github.token }}
+          EVENT_NAME: ${{ github.event_name }}
+          REL_TAG: ${{ github.event.release.tag_name }}
+          REL_PRERELEASE: ${{ github.event.release.prerelease }}
+          REL_PUBDATE: ${{ github.event.release.published_at }}
+          INPUT_TAG: ${{ inputs.tag }}
         run: |
           set -euo pipefail
-          if [ "${{ github.event_name }}" = "release" ]; then
-            tag='${{ github.event.release.tag_name }}'
-            prerelease='${{ github.event.release.prerelease }}'
-            pubdate='${{ github.event.release.published_at }}'
+          if [ "$EVENT_NAME" = "release" ]; then
+            tag="$REL_TAG"
+            prerelease="$REL_PRERELEASE"
+            pubdate="$REL_PUBDATE"
           else
-            tag='${{ inputs.tag }}'
+            tag="$INPUT_TAG"
             prerelease=$(gh release view "$tag" --json isPrerelease --jq '.isPrerelease')
             pubdate=$(gh release view "$tag" --json publishedAt --jq '.publishedAt')
           fi
@@ -60,7 +67,9 @@ jobs:
 
       - name: Skip prereleases
         if: steps.meta.outputs.prerelease == 'true'
-        run: echo "Skipping prerelease ${{ steps.meta.outputs.tag }}."
+        env:
+          TAG: ${{ steps.meta.outputs.tag }}
+        run: echo "Skipping prerelease $TAG."
 
       - name: Archive to Zenodo
         if: steps.meta.outputs.prerelease != 'true'
