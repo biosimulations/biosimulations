@@ -1,0 +1,103 @@
+name: Zenodo archive drift check
+
+# Verifies that the latest GitHub release has actually been archived to Zenodo.
+#
+# Reads ONLY public APIs (GitHub releases + Zenodo records) — no secrets, so this
+# monitor cannot itself break from an expired credential. It opens/updates a
+# tracking issue and fails the run when archiving has drifted, so a silently
+# broken release->Zenodo pipeline can't go unnoticed (as it did from v9.57.0
+# through v9.65.4, ~2 years, when the Zenodo GitHub webhook was removed).
+
+on:
+  schedule:
+    - cron: '0 12 * * 1' # weekly, Mondays 12:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+env:
+  # Concept (all-versions) record id for the BioSimulations DOI lineage.
+  # Concept DOI: 10.5281/zenodo.21053715
+  ZENODO_CONCEPT_RECID: '21053715'
+
+jobs:
+  drift-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Compare latest GitHub release with latest Zenodo version
+        id: compare
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+
+          # Latest published (non-prerelease, non-draft) GitHub release.
+          gh_tag=$(gh api "repos/${{ github.repository }}/releases/latest" --jq '.tag_name')
+
+          # Latest version archived in the Zenodo concept. Requesting the concept
+          # record id with redirects returns the latest version's record (public).
+          zen=$(curl -fsSL -H 'Accept: application/json' \
+            "https://zenodo.org/api/records/${ZENODO_CONCEPT_RECID}")
+          zen_ver=$(echo "$zen" | jq -r '.metadata.version // "none"')
+          zen_id=$(echo "$zen" | jq -r '.id')
+
+          echo "Latest GitHub release : $gh_tag"
+          echo "Latest Zenodo version : $zen_ver (record $zen_id)"
+
+          {
+            echo "gh_tag=$gh_tag"
+            echo "zen_ver=$zen_ver"
+            echo "zen_id=$zen_id"
+          } >> "$GITHUB_OUTPUT"
+
+          if [ "$gh_tag" = "$zen_ver" ]; then
+            echo "drift=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::In sync — $gh_tag is archived on Zenodo."
+          else
+            echo "drift=true" >> "$GITHUB_OUTPUT"
+            echo "::warning::Drift — GitHub latest ($gh_tag) != latest Zenodo version ($zen_ver)."
+          fi
+
+      - name: Open or update tracking issue
+        if: steps.compare.outputs.drift == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_TAG: ${{ steps.compare.outputs.gh_tag }}
+          ZEN_VER: ${{ steps.compare.outputs.zen_ver }}
+          ZEN_ID: ${{ steps.compare.outputs.zen_id }}
+        run: |
+          set -euo pipefail
+          title="Zenodo release archiving has drifted"
+
+          {
+            echo "The latest GitHub release is **not** the latest version archived on Zenodo."
+            echo ""
+            echo "| | Version |"
+            echo "|---|---|"
+            echo "| Latest GitHub release | \`${GH_TAG}\` |"
+            echo "| Latest Zenodo version | \`${ZEN_VER}\` (record ${ZEN_ID}) |"
+            echo ""
+            echo "Concept DOI: https://doi.org/10.5281/zenodo.21053715"
+            echo ""
+            echo "This usually means the release->Zenodo archiving pipeline has stopped"
+            echo "working (an expired token, a revoked OAuth grant, or a disabled integration)."
+            echo ""
+            echo "_Filed automatically by the \`zenodo-archive-drift\` workflow._"
+          } > issue_body.md
+
+          num=$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')
+          if [ -n "$num" ]; then
+            gh issue comment "$num" --body "Still drifting: GitHub \`${GH_TAG}\` vs Zenodo \`${ZEN_VER}\`."
+            echo "Updated existing issue #$num"
+          else
+            gh issue create --title "$title" --body-file issue_body.md
+            echo "Opened a new drift issue"
+          fi
+
+      - name: Fail the run if drifted
+        if: steps.compare.outputs.drift == 'true'
+        run: |
+          echo "Marking the run red so the drift is visible."
+          exit 1

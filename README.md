@@ -24,7 +24,7 @@
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-1.4-4baaaa.svg)](CODE_OF_CONDUCT.md)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
-[![DOI](https://zenodo.org/badge/207730765.svg)](https://zenodo.org/badge/latestdoi/207730765) 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21053715.svg)](https://doi.org/10.5281/zenodo.21053715)
 
 # BioSimulations 🧬
 
@@ -60,8 +60,8 @@ If you find this project interesting or useful, please give our repo a ⭐ and s
 
 ```
 @software{Shaikh_BioSimulations,
-author = {Shaikh, Bilal and Marupilla, Gnaneswara and Wilson, Mike and Michael, Blinov L. and Moraru, Ion I. and Karr, Jonathan R.},
-doi = {10.5281/zenodo.5057108},
+author = {Shaikh, Bilal and Patrie, Alexander and Schaff, James C. and Marupilla, Gnaneswara and Wilson, Mike and Blinov, Michael L. and Agmon, Eran and Karr, Jonathan R. and Moraru, Ion I.},
+doi = {10.5281/zenodo.21053715},
 license = {MIT},
 title = {{BioSimulations}},
 url = {https://github.com/biosimulations/biosimulations}
