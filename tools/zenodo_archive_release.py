@@ -102,7 +102,10 @@ def main():
     md['version'] = TAG
     md['publication_date'] = PUBDATE
     md['related_identifiers'] = [
-        {'relation': 'isNewVersionOf', 'identifier': OLD_CONCEPT_DOI, 'scheme': 'doi'},
+        # This lineage continues the pre-fork archive (frozen at v9.57.0). Kept on
+        # every version so it stays visible on the concept DOI page, which always
+        # shows the latest version's metadata.
+        {'relation': 'continues', 'identifier': OLD_CONCEPT_DOI, 'scheme': 'doi'},
         {'relation': 'isSupplementTo',
          'identifier': f'https://github.com/{REPO}/tree/{TAG}', 'scheme': 'url'},
     ]
