@@ -15,24 +15,37 @@ authors:
     given-names: Bilal
     orcid: 'https://orcid.org/0000-0001-5801-5510'
   - affiliation: 'University of Connecticut School of Medicine'
+    family-names: Patrie
+    given-names: Alexander
+    orcid: 'https://orcid.org/0009-0002-6886-2291'
+  - affiliation: 'University of Connecticut School of Medicine'
+    family-names: Schaff
+    given-names: James C.
+    orcid: 'https://orcid.org/0000-0003-3286-7736'
+  - affiliation: 'University of Connecticut School of Medicine'
     family-names: Marupilla
     given-names: Gnaneswara
+    orcid: 'https://orcid.org/0000-0002-6030-8707'
   - affiliation: 'University of Connecticut School of Medicine'
     family-names: Wilson
     given-names: Mike
     orcid: 'https://orcid.org/0000-0001-5892-6074'
   - affiliation: 'University of Connecticut School of Medicine'
-    family-names: Michael
-    given-names: Blinov L.
+    family-names: Blinov
+    given-names: Michael L.
     orcid: 'https://orcid.org/0000-0002-9363-9705'
   - affiliation: 'University of Connecticut School of Medicine'
-    family-names: Moraru
-    given-names: Ion I.
-    orcid: 'https://orcid.org/0000-0002-3746-9676'
+    family-names: Agmon
+    given-names: Eran
+    orcid: 'https://orcid.org/0000-0003-1279-2474'
   - affiliation: 'Icahn School of Medicine at Mount Sinai'
     family-names: Karr
     given-names: Jonathan R.
     orcid: 'https://orcid.org/0000-0002-2605-5080'
+  - affiliation: 'University of Connecticut School of Medicine'
+    family-names: Moraru
+    given-names: Ion I.
+    orcid: 'https://orcid.org/0000-0002-3746-9676'
 cff-version: '1.2.0'
 keywords:
   - numerical simulation
@@ -55,17 +68,20 @@ keywords:
   - biochemical networks
   - biosimulations
   - biosimulators
-doi: '10.5281/zenodo.5057108'
+doi: '10.5281/zenodo.21053715'
 identifiers:
   - type: url
     description: The repository for the software
     value: http://identifiers.org/github/biosimulations/biosimulations
   - type: url
     description: The Zenodo entry for the software
-    value: http://identifiers.org/doi/10.5281/zenodo.5057108
+    value: http://identifiers.org/doi/10.5281/zenodo.21053715
+  - type: doi
+    value: 10.5281/zenodo.21053715
+    description: The concept DOI of the work.
   - type: doi
     value: 10.5281/zenodo.5057108
-    description: The concept DOI of the work.
+    description: The original concept DOI (archived versions through v9.57.0).
   - type: other
     value: biocatalogue.service:4043
     description: BioCatalogue entry for BioSimulations
