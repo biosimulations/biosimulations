@@ -1,15 +1,11 @@
 name: Archive release to Zenodo
 
-# On each published (non-prerelease) GitHub release, add it as a new version of
-# the BioSimulations Zenodo concept record (concept DOI 10.5281/zenodo.21053715),
-# keeping the DOI lineage and author metadata consistent with prior versions.
-#
-# Replaces the old Zenodo<->GitHub webhook (which was tied to a single account's
-# OAuth grant and silently broke). Requires a repo/org secret ZENODO_TOKEN
-# (scopes: deposit:write, deposit:actions) from the account that owns the concept
-# record. The companion `zenodo-archive-drift` workflow alerts if archiving ever
-# silently stops. The archive script is idempotent and no-ops if the secret is
-# absent, so this is safe to merge before the secret is configured.
+# Thin caller of the reusable workflow in virtualcell/zenodo-maint. Archives each
+# published (non-prerelease) release as a new version of the BioSimulations Zenodo
+# concept (DOI 10.5281/zenodo.21053715). The reusable workflow handles prerelease
+# skipping, per-repo concurrency, and the archiving itself via the maintained
+# zenodo-maint CLI — so the logic lives in one place instead of a copy here.
+# Requires the ZENODO_TOKEN secret (the account that owns the concept record).
 
 on:
   release:
@@ -24,59 +20,12 @@ on:
 permissions:
   contents: read
 
-# Versions must be created sequentially (each branches off the latest), so never
-# run two archiving jobs at once; queue instead of cancelling.
-concurrency:
-  group: zenodo-archive
-  cancel-in-progress: false
-
 jobs:
   archive:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Resolve tag, date, and prerelease flag
-        id: meta
-        # All GitHub-context/user-controlled values are passed via env (never
-        # interpolated into the run script) to avoid shell script injection.
-        env:
-          GH_TOKEN: ${{ github.token }}
-          EVENT_NAME: ${{ github.event_name }}
-          REL_TAG: ${{ github.event.release.tag_name }}
-          REL_PRERELEASE: ${{ github.event.release.prerelease }}
-          REL_PUBDATE: ${{ github.event.release.published_at }}
-          INPUT_TAG: ${{ inputs.tag }}
-        run: |
-          set -euo pipefail
-          if [ "$EVENT_NAME" = "release" ]; then
-            tag="$REL_TAG"
-            prerelease="$REL_PRERELEASE"
-            pubdate="$REL_PUBDATE"
-          else
-            tag="$INPUT_TAG"
-            prerelease=$(gh release view "$tag" --json isPrerelease --jq '.isPrerelease')
-            pubdate=$(gh release view "$tag" --json publishedAt --jq '.publishedAt')
-          fi
-          {
-            echo "tag=$tag"
-            echo "prerelease=$prerelease"
-            echo "pubdate=${pubdate:0:10}"
-          } >> "$GITHUB_OUTPUT"
-          echo "Resolved: tag=$tag pubdate=${pubdate:0:10} prerelease=$prerelease"
-
-      - name: Skip prereleases
-        if: steps.meta.outputs.prerelease == 'true'
-        env:
-          TAG: ${{ steps.meta.outputs.tag }}
-        run: echo "Skipping prerelease $TAG."
-
-      - name: Archive to Zenodo
-        if: steps.meta.outputs.prerelease != 'true'
-        env:
-          ZENODO_TOKEN: ${{ secrets.ZENODO_TOKEN }}
-          TAG: ${{ steps.meta.outputs.tag }}
-          PUBDATE: ${{ steps.meta.outputs.pubdate }}
-          CONCEPT_RECID: '21053715'
-          REPO: ${{ github.repository }}
-        run: python3 tools/zenodo_archive_release.py
+    uses: virtualcell/zenodo-maint/.github/workflows/archive.reusable.yml@v1 # NOSONAR(S7637): first-party org action; intentional moving @v1 tag
+    with:
+      tag: ${{ github.event.release.tag_name || inputs.tag }}
+      concept_recid: '21053715'
+      ref: v1
+    secrets:
+      ZENODO_TOKEN: ${{ secrets.ZENODO_TOKEN }}
