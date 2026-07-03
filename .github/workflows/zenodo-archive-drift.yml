@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   drift:
-    uses: virtualcell/zenodo-maint/.github/workflows/drift.reusable.yml@v1
+    uses: virtualcell/zenodo-maint/.github/workflows/drift.reusable.yml@v1 # NOSONAR(S7637): first-party org action; intentional moving @v1 tag
     with:
       concept_recid: '21053715'
       ref: v1
