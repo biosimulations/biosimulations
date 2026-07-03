@@ -1,0 +1,82 @@
+{
+  "upload_type": "software",
+  "title": "BioSimulations",
+  "description": "More comprehensive and more predictive models have the potential to advance biology, bioengineering, and medicine. Building more predictive models will likely require the collaborative efforts of many investigators. This requires teams to be able to share and reuse model components and simulations. Despite extensive efforts to develop standards such as COMBINE/OMEX, SBML, and SED-ML, it remains difficult to reuse many models and simulations. One challenge to reusing models and simulations is the diverse array of incompatible modeling formats and simulation tools.\n\nThis package provides three tools which address this challenge:\n\nBioSimulators is a registry of containerized simulation tools that provide consistent interfaces. BioSimulators makes it easier to find and run simulations.\nrunBioSimulations is a simple web application for using the BioSimulators containers to run simulations. This tool makes it easy to run a broad range of simulations without having to install any software.\nBioSimulations is a platform for sharing and running modeling studies. BioSimulations provides a central place for investigators to exchange studies. BioSimulations uses the BioSimulators simulation tools, and builds on the functionality of runBioSimulations.\nThis package provides the code for the BioSimulations, runBioSimulations, and BioSimulations websites, as well as the code for the backend services for all three applications. The package is implemented in TypeScript using Angular, NestJS, MongoDB, and Mongoose.",
+  "license": "MIT",
+  "creators": [
+    {
+      "name": "Shaikh, Bilal",
+      "orcid": "0000-0001-5801-5510",
+      "affiliation": "Icahn School of Medicine at Mount Sinai"
+    },
+    {
+      "name": "Patrie, Alexander",
+      "orcid": "0009-0002-6886-2291",
+      "affiliation": "University of Connecticut School of Medicine"
+    },
+    {
+      "name": "Schaff, James C.",
+      "orcid": "0000-0003-3286-7736",
+      "affiliation": "University of Connecticut School of Medicine"
+    },
+    {
+      "name": "Marupilla, Gnaneswara",
+      "orcid": "0000-0002-6030-8707",
+      "affiliation": "University of Connecticut School of Medicine"
+    },
+    {
+      "name": "Wilson, Mike",
+      "orcid": "0000-0001-5892-6074",
+      "affiliation": "University of Connecticut School of Medicine"
+    },
+    {
+      "name": "Blinov, Michael L.",
+      "orcid": "0000-0002-9363-9705",
+      "affiliation": "University of Connecticut School of Medicine"
+    },
+    {
+      "name": "Agmon, Eran",
+      "orcid": "0000-0003-1279-2474",
+      "affiliation": "University of Connecticut School of Medicine"
+    },
+    {
+      "name": "Karr, Jonathan R.",
+      "orcid": "0000-0002-2605-5080",
+      "affiliation": "Icahn School of Medicine at Mount Sinai"
+    },
+    {
+      "name": "Moraru, Ion I.",
+      "orcid": "0000-0002-3746-9676",
+      "affiliation": "University of Connecticut School of Medicine"
+    }
+  ],
+  "keywords": [
+    "numerical simulation",
+    "systems biology",
+    "computational biology",
+    "mathematical modeling",
+    "standards",
+    "Vega",
+    "reproducibility",
+    "Systems Biology Markup Language",
+    "SBML",
+    "Simulation Experiment Description Markup Language",
+    "SED-ML",
+    "Kinetic Simulation Algorithm Ontology",
+    "KiSAO",
+    "Systems Biology Ontology",
+    "SBO",
+    "COMBINE",
+    "OMEX",
+    "biochemical networks",
+    "biosimulations",
+    "biosimulators"
+  ],
+  "related_identifiers": [
+    {
+      "relation": "continues",
+      "identifier": "10.5281/zenodo.5057108",
+      "scheme": "doi"
+    }
+  ]
+}
