@@ -1192,7 +1192,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ email: felix@debuggable.com
 │  ├─ url: http://debuggable.com/
 │  └─ licenseFile: auth0/node_modules/form-data/License
-├─ form-data@4.0.5
+├─ form-data@4.0.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/form-data/form-data
 │  ├─ publisher: Felix Geisendörfer
@@ -1316,7 +1316,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ publisher: Thiago de Arruda
 │  ├─ email: tpadilha84@gmail.com
 │  └─ licenseFile: has/LICENSE-MIT
-├─ hasown@2.0.2
+├─ hasown@2.0.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/inspect-js/hasOwn
 │  ├─ publisher: Jordan Harband
