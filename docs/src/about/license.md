@@ -2795,7 +2795,7 @@ Below are the licenses of the dependencies of the BioSimulations and BioSimulato
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/uuidjs/uuid
 │  └─ licenseFile: @nestjs/config/node_modules/uuid/LICENSE.md
-├─ validator@13.7.0
+├─ validator@13.15.22
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/validatorjs/validator.js
 │  ├─ publisher: Chris O'Hara
