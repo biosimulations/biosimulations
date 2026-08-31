@@ -1,0 +1,267 @@
+[
+  {
+    "additions": 135,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": "2026-04-22T18:58:22Z",
+    "createdAt": "2026-04-14T13:18:28Z",
+    "deletions": 135,
+    "labels": [
+      {
+        "id": "LA_kwDORW-MN88AAAACbDc4Pg",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDORW-MN88AAAACbDc4Pw",
+        "name": "python:uv",
+        "description": "Pull requests that update python:uv code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 19,
+    "state": "CLOSED",
+    "title": "Bump the uv group across 1 directory with 6 updates"
+  },
+  {
+    "additions": 4,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": "2026-04-14T13:18:43Z",
+    "createdAt": "2026-04-14T02:58:05Z",
+    "deletions": 3,
+    "labels": [
+      {
+        "id": "LA_kwDORW-MN88AAAACbDc4Pg",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDORW-MN88AAAACbDc4Pw",
+        "name": "python:uv",
+        "description": "Pull requests that update python:uv code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 18,
+    "state": "CLOSED",
+    "title": "Bump pytest from 9.0.2 to 9.0.3 in /pbsim_common"
+  },
+  {
+    "additions": 66,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": "2026-04-14T13:18:41Z",
+    "createdAt": "2026-04-13T23:46:53Z",
+    "deletions": 65,
+    "labels": [
+      {
+        "id": "LA_kwDORW-MN88AAAACbDc4Pg",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDORW-MN88AAAACbDc4Pw",
+        "name": "python:uv",
+        "description": "Pull requests that update python:uv code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 17,
+    "state": "CLOSED",
+    "title": "Bump pillow from 12.1.1 to 12.2.0 in /pbsim_common"
+  },
+  {
+    "additions": 23,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": "2026-04-14T13:18:38Z",
+    "createdAt": "2026-04-10T19:41:15Z",
+    "deletions": 21,
+    "labels": [
+      {
+        "id": "LA_kwDORW-MN88AAAACbDc4Pg",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDORW-MN88AAAACbDc4Pw",
+        "name": "python:uv",
+        "description": "Pull requests that update python:uv code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 16,
+    "state": "CLOSED",
+    "title": "Bump uv from 0.10.6 to 0.11.6 in /pbsim_common"
+  },
+  {
+    "additions": 31,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": "2026-04-14T13:18:36Z",
+    "createdAt": "2026-04-08T21:16:14Z",
+    "deletions": 30,
+    "labels": [
+      {
+        "id": "LA_kwDORW-MN88AAAACbDc4Pg",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDORW-MN88AAAACbDc4Pw",
+        "name": "python:uv",
+        "description": "Pull requests that update python:uv code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 15,
+    "state": "CLOSED",
+    "title": "Bump cryptography from 46.0.5 to 46.0.7 in /pbsim_common"
+  },
+  {
+    "additions": 4,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": "2026-04-22T18:58:29Z",
+    "createdAt": "2026-03-30T20:22:24Z",
+    "deletions": 3,
+    "labels": [
+      {
+        "id": "LA_kwDORW-MN88AAAACbDc4Pg",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDORW-MN88AAAACbDc4Pw",
+        "name": "python:uv",
+        "description": "Pull requests that update python:uv code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 14,
+    "state": "CLOSED",
+    "title": "Bump pygments from 2.19.2 to 2.20.0 in /pbsim_common"
+  },
+  {
+    "additions": 31,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": "2026-04-08T21:16:17Z",
+    "createdAt": "2026-03-29T04:38:10Z",
+    "deletions": 30,
+    "labels": [
+      {
+        "id": "LA_kwDORW-MN88AAAACbDc4Pg",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDORW-MN88AAAACbDc4Pw",
+        "name": "python:uv",
+        "description": "Pull requests that update python:uv code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 13,
+    "state": "CLOSED",
+    "title": "Bump cryptography from 46.0.5 to 46.0.6 in /pbsim_common"
+  },
+  {
+    "additions": 4,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": "2026-04-14T13:18:34Z",
+    "createdAt": "2026-03-26T15:06:25Z",
+    "deletions": 3,
+    "labels": [
+      {
+        "id": "LA_kwDORW-MN88AAAACbDc4Pg",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDORW-MN88AAAACbDc4Pw",
+        "name": "python:uv",
+        "description": "Pull requests that update python:uv code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 12,
+    "state": "CLOSED",
+    "title": "Bump requests from 2.32.5 to 2.33.0 in /pbsim_common"
+  },
+  {
+    "additions": 315,
+    "author": {
+      "id": "MDQ6VXNlcjY4NTA3MjE0",
+      "is_bot": false,
+      "login": "Ezequiel-Valencia",
+      "name": "Ezequiel Valencia"
+    },
+    "changedFiles": 9,
+    "closedAt": "2026-03-13T13:50:03Z",
+    "createdAt": "2026-03-13T13:47:34Z",
+    "deletions": 306,
+    "labels": [],
+    "mergedAt": "2026-03-13T13:50:03Z",
+    "number": 10,
+    "state": "MERGED",
+    "title": "Update readdy pt2"
+  },
+  {
+    "additions": 13,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": "2026-04-14T13:18:31Z",
+    "createdAt": "2026-03-12T00:32:31Z",
+    "deletions": 15,
+    "labels": [
+      {
+        "id": "LA_kwDORW-MN88AAAACbDc4Pg",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDORW-MN88AAAACbDc4Pw",
+        "name": "python:uv",
+        "description": "Pull requests that update python:uv code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 9,
+    "state": "CLOSED",
+    "title": "Bump tornado from 6.5.4 to 6.5.5 in /pbsim_common"
+  },
+  {
+    "additions": 6,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2026-03-01T12:48:04Z",
+    "deletions": 0,
+    "labels": [],
+    "mergedAt": null,
+    "number": 1,
+    "state": "OPEN",
+    "title": "Configure Renovate"
+  }
+]
