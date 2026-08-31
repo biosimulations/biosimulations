@@ -488,12 +488,6 @@ export interface CombineArchiveLocation {
   value: SedDocument | CombineArchiveContentFile;
 }
 
-export interface CombineArchiveSedDocSpecsLocation {
-  _type: 'CombineArchiveSedDocSpecsLocation';
-  path: string;
-  value: SedDocument;
-}
-
 export interface CombineArchiveContent {
   _type: 'CombineArchiveContent';
   location: CombineArchiveLocation;
@@ -501,21 +495,9 @@ export interface CombineArchiveContent {
   master: boolean;
 }
 
-export interface CombineArchiveSedDocSpecsContent {
-  _type: 'CombineArchiveSedDocSpecsContent';
-  location: CombineArchiveSedDocSpecsLocation;
-  format: string;
-  master: boolean;
-}
-
 export interface CombineArchive {
   _type: 'CombineArchive';
   contents: CombineArchiveContent[];
-}
-
-export interface CombineArchiveSedDocSpecs {
-  _type: 'CombineArchiveSedDocSpecs';
-  contents: CombineArchiveSedDocSpecsContent[];
 }
 
 export interface SedDocumentReports {
