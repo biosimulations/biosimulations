@@ -24,6 +24,8 @@ jobs:
     name: Run example simulations
     runs-on: ubuntu-latest
     timeout-minutes: 75
+    outputs:
+      verdict: ${{ steps.probe.outputs.verdict }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -38,26 +40,53 @@ jobs:
         run: python -m pip install -r tools/submit-example-simulation-runs.requirements.txt
 
       - name: Run test against API
+        id: probe
         run: |
+          set +e
           ./tools/submit-example-simulation-runs \
             --runbiosimulations-deployment org \
             --biosimulators-deployment org \
             --test true \
             --timeout 3600 \
             --example "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; CVODE; tellurium)"
+          code=$?
+          set -e
+
+          # 0 -> every run succeeded and validated
+          # 2 -> a run had not finished within --timeout. The queue is slow, which
+          #      is not the same as the service being broken.
+          # 1 -> a run failed, or the API could not be used at all
+          case "$code" in
+            0) verdict=success ;;
+            2) verdict=timeout ;;
+            *) verdict=failure ;;
+          esac
+          echo "verdict=$verdict" >> "$GITHUB_OUTPUT"
+          echo "Probe exited $code -> verdict '$verdict'"
+
+      - name: Flag a slow queue
+        if: ${{ steps.probe.outputs.verdict == 'timeout' }}
+        run: echo "::warning::A simulation did not finish within the timeout; reporting nothing to the uptime monitor."
+
+      - name: Fail on a real failure
+        if: ${{ steps.probe.outputs.verdict == 'failure' }}
+        run: exit 1
 
   reportHeartbeat:
     name: Report heartbeat
     needs: testSimulations
     runs-on: ubuntu-latest
-    # Report only a real pass or a real fail. A run cancelled by the concurrency
-    # group never exercised the API, so it must not be reported either way.
-    if: ${{ always() && contains(fromJSON('["success", "failure"]'), needs.testSimulations.result) }}
+    # Report only a verdict the probe actually reached. A run cancelled by the
+    # concurrency group, a queue too slow to finish inside the timeout, and a job
+    # that died before the probe ran (a broken checkout, a failed pip install) are
+    # all "we do not know" -- reporting either way would be a guess. Stay silent
+    # and let the monitor's grace period absorb it.
+    if: ${{ always() && contains(fromJSON('["success", "failure"]'), needs.testSimulations.outputs.verdict) }}
     steps:
       - name: Report result to uptime monitor
         env:
           HEARTBEAT_URL: ${{ secrets.SIMULATIONS_HEARTBEAT }}
-          RESULT: ${{ needs.testSimulations.result }}
+          VERDICT: ${{ needs.testSimulations.outputs.verdict }}
         run: |
           if [ -z "$HEARTBEAT_URL" ]; then
             echo "::error::SIMULATIONS_HEARTBEAT secret is not set"
@@ -67,11 +96,11 @@ jobs:
           # Posting /fail makes a broken service page immediately, instead of
           # waiting for the monitor to notice a missing heartbeat -- which it
           # cannot distinguish from GitHub having skipped the schedule.
-          if [ "$RESULT" = "success" ]; then
+          if [ "$VERDICT" = "success" ]; then
             url="$HEARTBEAT_URL"
           else
             url="$HEARTBEAT_URL/fail"
           fi
 
-          echo "Reporting '$RESULT' to the uptime monitor"
+          echo "Reporting '$VERDICT' to the uptime monitor"
           curl -fsS --max-time 30 --retry 3 --retry-all-errors -o /dev/null "$url"
