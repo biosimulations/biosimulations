@@ -443,18 +443,19 @@ test = ["autoflake", "black", "isort", "pytest"]
 
 [[package]]
 name = "mkdocs-same-dir"
-version = "0.1.2"
+version = "0.1.4"
 description = "MkDocs plugin to allow placing mkdocs.yml in the same directory as documentation"
 optional = false
-python-versions = ">=3.6,<4.0"
+python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "mkdocs-same-dir-0.1.2.tar.gz", hash = "sha256:dfb0d8e8b4930a8c7fc3f8ad558d647e8243cd4e1b6e6178e5fa8c1423b0ee45"},
-    {file = "mkdocs_same_dir-0.1.2-py3-none-any.whl", hash = "sha256:627991894d51a9fcc54e7d3f0c48a2be3c0a248e015bbeb8e90d4f95f1ac59ba"},
+    {file = "mkdocs_same_dir-0.1.4-py3-none-any.whl", hash = "sha256:75103f722b2ab86a860c1a850d52ab2867b2e334f6b0c0dbe1c6d09ccd9c9897"},
+    {file = "mkdocs_same_dir-0.1.4.tar.gz", hash = "sha256:68e8a6cd023833d1b797563b57c0bc732156170a00f615404f1d0e8544ed7e39"},
 ]
 
 [package.dependencies]
-mkdocs = ">=1.0.3,<2.0.0"
+mkdocs = ">=1.2,<=1.6.1"
+properdocs = ">=1.6.5"
 
 [[package]]
 name = "natsort"
@@ -483,6 +484,70 @@ files = [
     {file = "packaging-23.0-py3-none-any.whl", hash = "sha256:714ac14496c3e68c99c29b00845f7a2b85f3bb6f1078fd9f72fd20f0570002b2"},
     {file = "packaging-23.0.tar.gz", hash = "sha256:b6ad297f8907de0fa2fe1ccbd26fdaf387f5f47c7275fedf8cce89f99446cf97"},
 ]
+
+[[package]]
+name = "pathspec"
+version = "1.1.1"
+description = "Utility library for gitignore style pattern matching of file paths."
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "pathspec-1.1.1-py3-none-any.whl", hash = "sha256:a00ce642f577bf7f473932318056212bc4f8bfdf53128c78bbd5af0b9b20b189"},
+    {file = "pathspec-1.1.1.tar.gz", hash = "sha256:17db5ecd524104a120e173814c90367a96a98d07c45b2e10c2f3919fff91bf5a"},
+]
+
+[package.extras]
+hyperscan = ["hyperscan (>=0.7)"]
+optional = ["typing-extensions (>=4)"]
+re2 = ["google-re2 (>=1.1)"]
+
+[[package]]
+name = "platformdirs"
+version = "4.4.0"
+description = "A small Python package for determining appropriate platform-specific dirs, e.g. a `user data dir`."
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "platformdirs-4.4.0-py3-none-any.whl", hash = "sha256:abd01743f24e5287cd7a5db3752faf1a2d65353f38ec26d98e25a6db65958c85"},
+    {file = "platformdirs-4.4.0.tar.gz", hash = "sha256:ca753cf4d81dc309bc67b0ea38fd15dc97bc30ce419a7f58d13eb3bf14c4febf"},
+]
+
+[package.extras]
+docs = ["furo (>=2024.8.6)", "proselint (>=0.14)", "sphinx (>=8.1.3)", "sphinx-autodoc-typehints (>=3)"]
+test = ["appdirs (==1.4.4)", "covdefaults (>=2.3)", "pytest (>=8.3.4)", "pytest-cov (>=6)", "pytest-mock (>=3.14)"]
+type = ["mypy (>=1.14.1)"]
+
+[[package]]
+name = "properdocs"
+version = "1.6.7"
+description = "Project documentation with Markdown."
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "properdocs-1.6.7-py3-none-any.whl", hash = "sha256:6fa0cfa2e01bf338f684892c8a506cf70ea88ae7f3479c933b6fa20168101cbd"},
+    {file = "properdocs-1.6.7.tar.gz", hash = "sha256:adc7b16e562890af0e098a7e5b02e3a81c20894a87d6a28d345c9300de73c26e"},
+]
+
+[package.dependencies]
+click = ">=7.0"
+colorama = {version = ">=0.4", markers = "platform_system == \"Windows\""}
+ghp-import = ">=1.0"
+importlib-metadata = {version = ">=4.4", markers = "python_version < \"3.10\""}
+jinja2 = ">=2.11.1"
+markdown = ">=3.3.6"
+markupsafe = ">=2.0.1"
+packaging = ">=20.5"
+pathspec = ">=0.11.1"
+platformdirs = ">=2.2.0"
+pyyaml = ">=5.1"
+pyyaml-env-tag = ">=0.1"
+watchdog = ">=2.0"
+
+[package.extras]
+i18n = ["babel (>=2.9.0)"]
 
 [[package]]
 name = "pygments"
