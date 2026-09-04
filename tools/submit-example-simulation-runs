@@ -1,17 +1,13 @@
 #!/usr/bin/env python3
 
-import datetime
-from tracemalloc import start
-from unittest import mock
 import argparse
+import datetime
 import enum
 import json
-import json.decoder
 import natsort
 import os
 import requests
 import shutil
-import subprocess
 import tempfile
 import time
 import webbrowser
@@ -35,6 +31,143 @@ class BColors(str, enum.Enum):
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
+
+
+# Exit codes. These are distinct so that a caller -- notably the
+# `testSimulationsWorking` workflow, which reports to an uptime monitor -- can
+# tell a broken service apart from a merely slow one, and page only for the
+# former.
+EXIT_OK = 0
+EXIT_FAILED = 1
+EXIT_TIMED_OUT = 2
+
+#: Seconds to wait on any single API request before giving up on it. Without a
+#: timeout a hung connection would stall the probe until the CI job is killed.
+REQUEST_TIMEOUT_SECONDS = 30
+
+
+class SubmissionError(RuntimeError):
+    """ A simulation run could not be submitted to the API. """
+
+
+class TransientPollError(RuntimeError):
+    """ A run's status could not be read, but the condition may clear. """
+
+
+class PollError(RuntimeError):
+    """ A run's status could not be read, and retrying will not help. """
+
+
+def body_excerpt(response, limit=500):
+    """ Summarize a response body for an error message.
+
+    Args:
+        response (:obj:`requests.Response`): response whose body should be summarized
+        limit (:obj:`int`, optional): maximum number of characters to include
+
+    Returns:
+        :obj:`str`: the body, truncated, or a placeholder if it is empty. An empty
+        body is worth naming explicitly: it is what an unreachable service behind a
+        proxy looks like, and reporting it as an empty string is what made these
+        failures unreadable in the first place.
+    """
+    body = (response.text or '').strip()
+    if not body:
+        return '<empty body>'
+    if len(body) > limit:
+        return body[:limit] + ' ... (truncated)'
+    return body
+
+
+def submit_run(submit_endpoint, run_spec):
+    """ Submit one simulation run.
+
+    Args:
+        submit_endpoint (:obj:`str`): URL of the API's ``runs`` endpoint
+        run_spec (:obj:`dict`): body of the submission request
+
+    Returns:
+        :obj:`dict`: the API's response, which contains at least an ``id``
+
+    Raises:
+        :obj:`SubmissionError`: if the run could not be submitted. The message always
+            names what actually went wrong -- an unreachable host, an HTTP status, an
+            unreadable body, or an error the API reported -- so that a network blip is
+            never reported the same way as the service being down.
+    """
+    # Deliberately not retried: this POST creates a run, so retrying after a lost
+    # response would submit the same simulation twice.
+    try:
+        response = requests.post(
+            submit_endpoint,
+            json=run_spec,
+            headers={'Accept': 'application/json'},
+            timeout=REQUEST_TIMEOUT_SECONDS,
+        )
+    except requests.exceptions.RequestException as exception:
+        raise SubmissionError('could not reach {}: {}'.format(submit_endpoint, exception))
+
+    if not response.ok:
+        raise SubmissionError('{} responded {} {}: {}'.format(
+            submit_endpoint, response.status_code, response.reason, body_excerpt(response)))
+
+    try:
+        simulation_run = response.json()
+    except ValueError:
+        raise SubmissionError('{} responded {} with a body that is not JSON: {}'.format(
+            submit_endpoint, response.status_code, body_excerpt(response)))
+
+    if not isinstance(simulation_run, dict) or 'id' not in simulation_run:
+        detail = None
+        if isinstance(simulation_run, dict):
+            detail = simulation_run.get('error') or simulation_run.get('message')
+        raise SubmissionError('{} responded {} without a run id: {}'.format(
+            submit_endpoint, response.status_code, detail or body_excerpt(response)))
+
+    return simulation_run
+
+
+def poll_run_status(api_host, run_id):
+    """ Read the status of one simulation run.
+
+    Args:
+        api_host (:obj:`str`): URL of the API's ``runs`` endpoint
+        run_id (:obj:`str`): id of the run to check
+
+    Returns:
+        :obj:`str`: the run's status (e.g. ``QUEUED``, ``RUNNING``, ``SUCCEEDED``, ``FAILED``)
+
+    Raises:
+        :obj:`TransientPollError`: the status could not be read now, but the condition
+            may clear -- a transport failure, a 429, or a 5xx. The caller should leave
+            the run pending and try again; the overall timeout bounds the wait.
+        :obj:`PollError`: the status will not become readable -- any other 4xx, or a
+            body with no status in it.
+    """
+    try:
+        response = requests.get(api_host + "/" + run_id, timeout=REQUEST_TIMEOUT_SECONDS)
+    except requests.exceptions.RequestException as exception:
+        raise TransientPollError('could not reach {}: {}'.format(api_host, exception))
+
+    if response.status_code == 429 or response.status_code >= 500:
+        raise TransientPollError('{} responded {} {}'.format(
+            api_host, response.status_code, response.reason))
+
+    if not response.ok:
+        raise PollError('{} responded {} {}: {}'.format(
+            api_host, response.status_code, response.reason, body_excerpt(response)))
+
+    try:
+        sim = response.json()
+    except ValueError:
+        raise PollError('{} responded {} with a body that is not JSON: {}'.format(
+            api_host, response.status_code, body_excerpt(response)))
+
+    if not isinstance(sim, dict) or 'status' not in sim:
+        raise PollError('{} responded {} without a status: {}'.format(
+            api_host, response.status_code, body_excerpt(response)))
+
+    return sim['status']
 
 
 def get_simulators_endpoint(biosimulators_deployment):
@@ -156,54 +289,39 @@ def main(runbiosimulations_deployment='dev', biosimulators_deployment='prod',
         # submit simulation
         start_time = time.time()
         submit_endpoint = get_submit_run_endpoint(runbiosimulations_deployment)
-        if not dry_run:
-            process = subprocess.run(['curl',
-                                      '-X', 'POST', submit_endpoint,
-                                      '-H', "accept: application/json",
-                                      '-H', "Content-Type: application/json",
-                                      '-d', json.dumps({
-                                          "name": name,
-                                          'simulator': simulator,
-                                          "simulatorVersion": simulator_version,
-                                          "cpus": 1,
-                                          "memory": 8,
-                                          "maxTime": 20,
-                                          "envVars": [],
-                                          "purpose": "academic",
-                                          "email": None,
-                                          "public": simulation['publishToBioSimulations'],
-                                          "url": url,
-                                      }),
-                                      ], capture_output=True)
-        else:
-            process = mock.Mock(stdout=mock.Mock(decode=lambda: json.dumps({
+        run_spec = {
+            "name": name,
+            'simulator': simulator,
+            "simulatorVersion": simulator_version,
+            "cpus": 1,
+            "memory": 8,
+            "maxTime": 20,
+            "envVars": [],
+            "purpose": "academic",
+            "email": None,
+            "public": simulation['publishToBioSimulations'],
+            "url": url,
+        }
+
+        if dry_run:
+            simulation_run = {
                 'id': 'XXXXXXXXX',
                 'submitted': 'XXXXXXXXX',
                 'updated': 'XXXXXXXXX',
-            })))
-
-        stdout = process.stdout.decode()
-        try:
-            simulation_run = json.loads(stdout)
-        except json.decoder.JSONDecodeError as exception:
-            simulation_run = None
-            print(BColors.FAIL + "Failed to submit simulation: " + name + BColors.ENDC)
-            raise RuntimeError('Simulation could not be run on {}: {}'.format(
-                submit_endpoint,
-                stdout))
-
-        if 'id' in simulation_run:
-            print("Submitted simulation {}: {} ({})".format(i_simulation + 1, name, simulation_run['id']))
-            get_simulation_run_view_url
-            sim_url = get_simulation_run_view_url(runbiosimulations_deployment, simulation_run['id'])
-            print("View: " + sim_url)
-            if browser:
-                webbrowser.open(sim_url)
+            }
         else:
-            print(BColors.FAIL + "Failed to submit simulation: " + name + BColors.ENDC)
-            raise RuntimeError('Simulation could not be run on {}: {}'.format(
-                submit_endpoint,
-                simulation_run['error']))
+            try:
+                simulation_run = submit_run(submit_endpoint, run_spec)
+            except SubmissionError as exception:
+                print(BColors.FAIL + "Failed to submit simulation: " + name + BColors.ENDC)
+                raise RuntimeError('Simulation "{}" could not be submitted -- {}'.format(
+                    name, exception))
+
+        print("Submitted simulation {}: {} ({})".format(i_simulation + 1, name, simulation_run['id']))
+        sim_url = get_simulation_run_view_url(runbiosimulations_deployment, simulation_run['id'])
+        print("View: " + sim_url)
+        if browser:
+            webbrowser.open(sim_url)
 
         # log run
         simulation_runs[name] = {
@@ -229,11 +347,13 @@ def main(runbiosimulations_deployment='dev', biosimulators_deployment='prod',
 
     # test or save runs
     if test_mode:
-        passed = monitor_runs(new_simulation_runs, runbiosimulations_deployment, start_time, timeout)
-        if not passed:
-            exit(1)
-        else:
-            return
+        failed_count, timed_out_count = monitor_runs(
+            new_simulation_runs, runbiosimulations_deployment, start_time, timeout)
+        if failed_count:
+            exit(EXIT_FAILED)
+        if timed_out_count:
+            exit(EXIT_TIMED_OUT)
+        return
 
     else:
         sorted_simulation_runs = natsort.natsorted(list(simulation_runs.values()),
@@ -244,134 +364,156 @@ def main(runbiosimulations_deployment='dev', biosimulators_deployment='prod',
 
 
 def monitor_runs(simulation_runs, runbiosimulations_deployment, start_time, timeout=9999):
+    """ Poll simulation runs until they succeed, fail, or the timeout expires.
+
+    Args:
+        simulation_runs (:obj:`list` of :obj:`dict`): runs to watch
+        runbiosimulations_deployment (:obj:`str`): deployment the runs were submitted to
+        start_time (:obj:`float`): when the runs were submitted, per :obj:`time.time`
+        timeout (:obj:`int`, optional): seconds to wait before giving up on a run
+
+    Returns:
+        :obj:`tuple` of :obj:`int`: the number of failed runs, and the number still
+        pending when the timeout expired. The two are counted separately because
+        "the simulation broke" and "the queue is slower than ``timeout``" warrant
+        different responses from the caller -- only the first is worth paging on.
+    """
+    api_host = get_submit_run_endpoint(runbiosimulations_deployment)
     total = len(simulation_runs)
-    pending_runs = simulation_runs
+    # Copy: this list is drained as runs settle, and the caller's list should not be.
+    pending_runs = list(simulation_runs)
     failed_runs = []
     passed_runs = []
     timed_out_runs = []
-    start_time = start_time
     current_time = time.time()
     timeout_occurred = False
-    print(BColors.HEADER + "Monitoring simulation runs with timeout" + BColors.BOLD + str(timeout) + BColors.ENDC)
+    print(BColors.HEADER + "Monitoring simulation runs with timeout " +
+          BColors.BOLD + str(timeout) + "s" + BColors.ENDC)
     while(not timeout_occurred):
         print(BColors.HEADER + "Getting runs from API" + BColors.ENDC)
         if len(pending_runs) == 0:
             break
         for run in pending_runs[:]:
-
-            api_host = get_submit_run_endpoint(runbiosimulations_deployment)
             print("Checking status of {} ({})".format(run['name'], run['id']))
-            response = requests.get(api_host + "/" + run['id'])
+
             try:
-                response.raise_for_status()
-            except requests.exceptions.HTTPError as e:
+                status = poll_run_status(api_host, run['id'])
+            except TransientPollError as exception:
+                # Leave the run pending and look again next pass. A blip on the way
+                # to the API is not the simulation failing, and the overall timeout
+                # already bounds how long this can go on.
+                print(BColors.WARNING + "UNAVAILABLE " + BColors.ENDC +
+                      run['name'] + ": " + str(exception))
+                continue
+            except PollError as exception:
+                print(BColors.FAIL + "ERROR " + BColors.ENDC +
+                      run['name'] + ": " + str(exception))
                 pending_runs.remove(run)
                 failed_runs.append(run)
+                continue
 
-            sim = response.json()
-            if sim['status'] == 'SUCCEEDED':
+            if status == 'SUCCEEDED':
                 print(BColors.OKGREEN + "SUCCEEDED " + BColors.ENDC + run['name'])
                 pending_runs.remove(run)
                 passed_runs.append(run)
-            elif sim['status'] == 'FAILED':
+            elif status == 'FAILED':
                 print(BColors.FAIL + "FAILED " + BColors.ENDC + run['name'])
                 pending_runs.remove(run)
                 failed_runs.append(run)
-            elif sim['status'] == 'RUNNING':
-                print(BColors.OKCYAN + "RUNNING " + BColors.ENDC + run['name'])
-
-            elif sim['status'] == 'PROCESSING':
-                print(BColors.OKCYAN + "PROCESSING " + BColors.ENDC + run['name'])
-
-            elif sim['status'] == 'CREATED':
-                print(BColors.OKBLUE + " CREATED " + BColors.ENDC + run['name'])
-
-            elif sim['status'] == 'QUEUED':
+            elif status in ('RUNNING', 'PROCESSING'):
+                print(BColors.OKCYAN + status + " " + BColors.ENDC + run['name'])
+            elif status == 'CREATED':
+                print(BColors.OKBLUE + "CREATED " + BColors.ENDC + run['name'])
+            elif status == 'QUEUED':
                 print(BColors.WARNING + "QUEUED " + BColors.ENDC + run['name'])
             else:
-                print(BColors.WARNING + "UNKNOWN " + BColors.ENDC + run['name'])
+                print(BColors.WARNING + "UNKNOWN " + BColors.ENDC +
+                      run['name'] + " (" + str(status) + ")")
 
         current_time = time.time()
-        total_failed_runs = len(failed_runs)
-        total_passed = len(passed_runs)
-        total_timedout = len(timed_out_runs)
-        total_pending = len(pending_runs)
-        if(current_time-start_time > timeout):
+        if(current_time - start_time > timeout):
             timeout_occurred = True
-            for run in pending_runs:
-                timed_out_runs.append(run)
+            timed_out_runs.extend(pending_runs)
+            pending_runs = []
+
         print()
         print(BColors.HEADER + "Total Number of runs: " + str(total) + BColors.ENDC)
         print(BColors.HEADER + "Total time: " + str(datetime.timedelta(seconds=(current_time-start_time))) + BColors.ENDC)
-        print(BColors.OKBLUE + "Total Number of pending runs: " + str(total_pending) + BColors.ENDC)
-        print(BColors.OKGREEN + "Total Number of passed runs: " + str(total_passed) + BColors.ENDC)
-        print(BColors.WARNING + "Total Number of timed out runs: " + str(total_timedout) + BColors.ENDC)
-        print(BColors.FAIL + "Total Number of failed runs: " + str(total_failed_runs) + BColors.ENDC)
+        print(BColors.OKBLUE + "Total Number of pending runs: " + str(len(pending_runs)) + BColors.ENDC)
+        print(BColors.OKGREEN + "Total Number of passed runs: " + str(len(passed_runs)) + BColors.ENDC)
+        print(BColors.WARNING + "Total Number of timed out runs: " + str(len(timed_out_runs)) + BColors.ENDC)
+        print(BColors.FAIL + "Total Number of failed runs: " + str(len(failed_runs)) + BColors.ENDC)
         print()
-        if(total_pending == 0):
+
+        if len(pending_runs) == 0:
             break
 
         time.sleep(5)
 
-    passed = True
-    if len(failed_runs) > 0:
+    if failed_runs:
         print(BColors.FAIL + "One or more simulations failed" + BColors.ENDC)
-        passed = False
         for run in failed_runs:
-            api_host = get_submit_run_endpoint(runbiosimulations_deployment)
-            response = requests.get(api_host + "/" + run['id'])
-            sim = response.json()
-
             print(BColors.FAIL + "FAILED {} --- {}".format(run['id'], run['name']) + BColors.ENDC)
 
-    if len(timed_out_runs) > 0:
-        print(BColors.WARNING + "One or more simulations timed-out" + BColors.ENDC)
-        passed = False
+    if timed_out_runs:
+        print(BColors.WARNING + "One or more simulations did not finish within {}s".format(timeout) + BColors.ENDC)
         for run in timed_out_runs:
             print(BColors.WARNING + "TIMEOUT {} --- {}".format(run['id'], run['name']) + BColors.ENDC)
 
-    if passed:
-        print(BColors.OKGREEN + "All runs passed" + BColors.ENDC)
+    invalid_run_count = 0
+    if not failed_runs and not timed_out_runs:
         print(BColors.OKBLUE + "Starting validation" + BColors.ENDC)
         invalid_run_count = validate_runs(passed_runs, runbiosimulations_deployment)
-        if invalid_run_count > 0:
-            total_passed -= invalid_run_count
-            total_failed_runs += invalid_run_count
+
+    total_failed = len(failed_runs) + invalid_run_count
 
     print()
     print(BColors.HEADER + "Number of runs: " + str(total) + BColors.ENDC)
     print(BColors.HEADER + "Total time (s): " + str(datetime.timedelta(seconds=(current_time-start_time))) + BColors.ENDC)
-    print(BColors.OKGREEN + "Passed runs: " + str(total_passed) + BColors.ENDC)
-    print(BColors.OKBLUE + "Pending runs: " + str(total_pending) + BColors.ENDC)
-    print(BColors.WARNING + "Timed out runs: " + str(total_timedout) + BColors.ENDC)
-    print(BColors.FAIL + "Failed runs: " + str(total_failed_runs) + BColors.ENDC)
+    print(BColors.OKGREEN + "Passed runs: " + str(len(passed_runs) - invalid_run_count) + BColors.ENDC)
+    print(BColors.WARNING + "Timed out runs: " + str(len(timed_out_runs)) + BColors.ENDC)
+    print(BColors.FAIL + "Failed runs: " + str(total_failed) + BColors.ENDC)
     print()
 
-    return passed
+    if not total_failed and not timed_out_runs:
+        print(BColors.OKGREEN + "All runs passed" + BColors.ENDC)
+
+    return total_failed, len(timed_out_runs)
 
 
-def validate_runs(runs,  deployment):
+def validate_runs(runs, deployment):
+    """ Check that each run's outputs validate.
+
+    Args:
+        runs (:obj:`list` of :obj:`dict`): runs that reported ``SUCCEEDED``
+        deployment (:obj:`str`): deployment the runs were submitted to
+
+    Returns:
+        :obj:`int`: the number of runs that did not validate. Always an :obj:`int`:
+        this used to return :obj:`False` when runs were invalid, which the caller
+        compared with ``> 0`` and so silently discarded every validation failure.
+    """
     api_host = get_submit_run_endpoint(deployment)
-    valid_runs = []
     invalid_runs = []
     for run in runs:
-        print("Checking status of {} ({})".format(run['name'], run['id']))
-        response = requests.get(api_host + "/" + run['id'] + "/validate")
+        print("Validating {} ({})".format(run['name'], run['id']))
         try:
+            response = requests.get(api_host + "/" + run['id'] + "/validate",
+                                    timeout=REQUEST_TIMEOUT_SECONDS)
             response.raise_for_status()
-            print(BColors.OKGREEN + "VALID " + BColors.ENDC + run['name'] + " (" + run['id'] + ")")
-            valid_runs.append(run)
-        except requests.exceptions.HTTPError as e:
-            print(BColors.FAIL + "INVALID " + BColors.ENDC + run['name'] + " (" + run['id'] + ")")
+        except requests.exceptions.RequestException as exception:
+            print(BColors.FAIL + "INVALID " + BColors.ENDC +
+                  run['name'] + " (" + run['id'] + "): " + str(exception))
             invalid_runs.append(run)
-    if len(invalid_runs) > 0:
-        print(BColors.FAIL + "One or more simulations failed" + BColors.ENDC)
+            continue
+        print(BColors.OKGREEN + "VALID " + BColors.ENDC + run['name'] + " (" + run['id'] + ")")
+
+    if invalid_runs:
+        print(BColors.FAIL + "One or more simulations did not validate" + BColors.ENDC)
         for run in invalid_runs:
-            print(BColors.FAIL + "FAILED {} --- {}".format(run['id'], run['name']) + BColors.ENDC)
-        return False
-    else:
-        print(BColors.OKGREEN + "All runs passed" + BColors.ENDC)
-        return len(invalid_runs)
+            print(BColors.FAIL + "INVALID {} --- {}".format(run['id'], run['name']) + BColors.ENDC)
+
+    return len(invalid_runs)
 
 
 if __name__ == '__main__':
@@ -415,7 +557,7 @@ if __name__ == '__main__':
         '--timeout',
         type=int,
         default=999,
-        help='Timeout in minutes for waiting for simulations to complete. Default: 999',
+        help='Seconds to wait for simulations to complete before giving up. Default: 999',
         dest='timeout',
     )
     parser.add_argument(
