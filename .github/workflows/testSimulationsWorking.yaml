@@ -1,8 +1,21 @@
 name: Test simulation functionality
 on:
   schedule:
-    - cron: '*/5 * * * *'
+    # GitHub delivers only a fraction of scheduled triggers on free-tier public
+    # repos. Measured against the previous '*/5' cron (288/day nominal) this
+    # workflow actually ran 25-100 times/day (9-34%) over Jun-Aug 2026, with
+    # observed gaps up to 4 hours. A tighter interval is fiction, and every
+    # trigger submits a real simulation run to production, so ask for less.
+    - cron: '*/15 * * * *'
   workflow_dispatch:
+
+# Each run submits a real simulation to production and then polls it, so a slow
+# queue can stretch a run well past the schedule interval. Serialize rather than
+# piling probes on top of each other.
+concurrency:
+  group: test-simulations-working
+  cancel-in-progress: false
+
 env:
   NX_SKIP_NX_CACHE: ${{ vars.NX_SKIP_NX_CACHE_VALUE }}
 
@@ -10,6 +23,7 @@ jobs:
   testSimulations:
     name: Run example simulations
     runs-on: ubuntu-latest
+    timeout-minutes: 75
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -29,11 +43,35 @@ jobs:
             --runbiosimulations-deployment org \
             --biosimulators-deployment org \
             --test true \
+            --timeout 3600 \
             --example "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; CVODE; tellurium)"
-  sendHeartbeat:
-    name: Send Success Hearbeat
+
+  reportHeartbeat:
+    name: Report heartbeat
     needs: testSimulations
     runs-on: ubuntu-latest
+    # Report only a real pass or a real fail. A run cancelled by the concurrency
+    # group never exercised the API, so it must not be reported either way.
+    if: ${{ always() && contains(fromJSON('["success", "failure"]'), needs.testSimulations.result) }}
     steps:
-        - if: ${{ success() }}
-          run: curl ${{secrets.SIMULATIONS_HEARTBEAT}}
+      - name: Report result to uptime monitor
+        env:
+          HEARTBEAT_URL: ${{ secrets.SIMULATIONS_HEARTBEAT }}
+          RESULT: ${{ needs.testSimulations.result }}
+        run: |
+          if [ -z "$HEARTBEAT_URL" ]; then
+            echo "::error::SIMULATIONS_HEARTBEAT secret is not set"
+            exit 1
+          fi
+
+          # Posting /fail makes a broken service page immediately, instead of
+          # waiting for the monitor to notice a missing heartbeat -- which it
+          # cannot distinguish from GitHub having skipped the schedule.
+          if [ "$RESULT" = "success" ]; then
+            url="$HEARTBEAT_URL"
+          else
+            url="$HEARTBEAT_URL/fail"
+          fi
+
+          echo "Reporting '$RESULT' to the uptime monitor"
+          curl -fsS --max-time 30 --retry 3 --retry-all-errors -o /dev/null "$url"
