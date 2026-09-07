@@ -4699,6 +4699,12 @@ files = [
     {file = "python_libcombine-0.2.20-cp313-cp313-musllinux_1_2_x86_64.whl", hash = "sha256:5f750f9c97fe01a8e4bff7e67995dfc5352b43836e11368abadee3cbc8770e14"},
     {file = "python_libcombine-0.2.20-cp313-cp313-win32.whl", hash = "sha256:4d9a060e43e6e19643a381a6b3e2be5a4f577677cdc695eae6558212b4d0ffe0"},
     {file = "python_libcombine-0.2.20-cp313-cp313-win_amd64.whl", hash = "sha256:aa40bab49d97a9dcfb3c4d928b73a1f7b6a839a9c280ac644cb506a8d062713a"},
+    {file = "python_libcombine-0.2.20-cp314-cp314-macosx_10_15_x86_64.whl", hash = "sha256:68adcb3332accf09f5db340444a937401f82030f3b5a1ceec40d1823739e0109"},
+    {file = "python_libcombine-0.2.20-cp314-cp314-macosx_11_0_arm64.whl", hash = "sha256:0c43218540fb98b82c66922e3137c94c5eb700ba4c228af1cf101f3f3db47d46"},
+    {file = "python_libcombine-0.2.20-cp314-cp314-manylinux_2_24_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:ae1041e9fbf5927c69948ba2f3528c261533fecfc1eb96b984ea79a6e986efd4"},
+    {file = "python_libcombine-0.2.20-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:f3ff6d2ca8f2207817a67fc256c947401edea8c466396a661a648d29714e5216"},
+    {file = "python_libcombine-0.2.20-cp314-cp314-win_amd64.whl", hash = "sha256:1506830a84426d4552ea310bbeb200731d9b35c410e62c1dfbcf6b0c2a3746b7"},
+    {file = "python_libcombine-0.2.20-cp314-cp314-win_arm64.whl", hash = "sha256:0a03c957214366a178e10e3ad002e8ac096bf60a8c15796e03d773d9bc767a3e"},
     {file = "python_libcombine-0.2.20-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:78793c7c34138fcc091e0fce41ae80a29bf03ed9574c6f0ecec28eb49ba6ae5f"},
     {file = "python_libcombine-0.2.20-cp37-cp37m-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:52ba93087f3fa5478ee2be7cdeaa885334d56e6092ba21061e5606e59cd02712"},
     {file = "python_libcombine-0.2.20-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:a281dc3cd6fbcdcab73c1a670bda94f5b0b9cd9186d6db1968212c8e9191e9b2"},
@@ -5263,24 +5269,25 @@ files = [
 
 [[package]]
 name = "requests"
-version = "2.31.0"
+version = "2.33.0"
 description = "Python HTTP for Humans."
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.10"
 files = [
-    {file = "requests-2.31.0-py3-none-any.whl", hash = "sha256:58cd2187c01e70e6e26505bca751777aa9f2ee0b7f4300988b709f44e013003f"},
-    {file = "requests-2.31.0.tar.gz", hash = "sha256:942c5a758f98d790eaed1a29cb6eefc7ffb0d1cf7af05c3d2791656dbd6ad1e1"},
+    {file = "requests-2.33.0-py3-none-any.whl", hash = "sha256:3324635456fa185245e24865e810cecec7b4caf933d7eb133dcde67d48cee69b"},
+    {file = "requests-2.33.0.tar.gz", hash = "sha256:c7ebc5e8b0f21837386ad0e1c8fe8b829fa5f544d8df3b2253bff14ef29d7652"},
 ]
 
 [package.dependencies]
-certifi = ">=2017.4.17"
-charset-normalizer = ">=2,<4"
+certifi = ">=2023.5.7"
+charset_normalizer = ">=2,<4"
 idna = ">=2.5,<4"
-urllib3 = ">=1.21.1,<3"
+urllib3 = ">=1.26,<3"
 
 [package.extras]
 socks = ["PySocks (>=1.5.6,!=1.5.7)"]
-use-chardet-on-py3 = ["chardet (>=3.0.2,<6)"]
+test = ["PySocks (>=1.5.6,!=1.5.7)", "pytest (>=3)", "pytest-cov", "pytest-httpbin (==2.1.0)", "pytest-mock", "pytest-xdist"]
+use-chardet-on-py3 = ["chardet (>=3.0.2,<8)"]
 
 [[package]]
 name = "rfc3339-validator"
@@ -6293,4 +6300,4 @@ pyYaml = "*"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "a32dce30ba555baa1eb0db65aef02860c7533f4cb71bc3c1ed4b4806af4a7d85"
+content-hash = "481e30248fbd14a9a8eb98b46e25729c24620ae598d27ef524eebd502293ac15"
