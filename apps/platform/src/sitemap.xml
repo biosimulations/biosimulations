@@ -20,6 +20,12 @@
   </url>
    
   <url>
+    <loc>https://biosimulations.org/projects/6aaf19a72733f0d8957e1554</loc>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
     <loc>https://biosimulations.org/projects/A-0D-model-of-the-Heart</loc>
     <lastmod>2022-04-22</lastmod>
     <changefreq>monthly</changefreq>
@@ -8356,6 +8362,12 @@
   <url>
     <loc>https://biosimulations.org/projects/ten-Tusscher-Panfilov-2006</loc>
     <lastmod>2022-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulations.org/projects/test-project-pynml-123</loc>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
