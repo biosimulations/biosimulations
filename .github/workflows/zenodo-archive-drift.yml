@@ -5,6 +5,8 @@ name: Zenodo archive drift check
 # BioSimulations concept (DOI 10.5281/zenodo.21053715); opens/updates a tracking
 # issue and fails the run on drift. Public APIs only — no secrets.
 
+# Releases wait up to a month for the rollup (zenodo-archive), so drift means one has waited
+# longer than that: the rollup stopped.
 on:
   schedule:
     - cron: '0 12 * * 1' # weekly, Mondays 12:00 UTC
@@ -20,3 +22,4 @@ jobs:
     with:
       concept_recid: '21053715'
       ref: v1
+      max_lag_days: 35
