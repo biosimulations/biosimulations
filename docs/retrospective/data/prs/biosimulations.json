@@ -1,0 +1,5607 @@
+[
+  {
+    "additions": 155,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": null,
+    "createdAt": "2026-03-27T13:51:49Z",
+    "deletions": 107,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4893,
+    "state": "OPEN",
+    "title": "chore(deps): update dependency pyyaml to v6.0.3"
+  },
+  {
+    "additions": 6,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 1,
+    "closedAt": "2026-03-27T13:48:21Z",
+    "createdAt": "2026-03-27T13:27:44Z",
+    "deletions": 7,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": "2026-03-27T13:48:21Z",
+    "number": 4892,
+    "state": "MERGED",
+    "title": "chore(deps): update dependency plotly.js-dist-min to v2.35.3"
+  },
+  {
+    "additions": 104,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2026-03-27T10:30:07Z",
+    "createdAt": "2026-03-27T09:54:39Z",
+    "deletions": 10,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": "2026-03-27T10:30:07Z",
+    "number": 4891,
+    "state": "MERGED",
+    "title": "chore(deps): update dependency passport-jwt to v4.0.1"
+  },
+  {
+    "additions": 1421,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2026-03-27T09:47:48Z",
+    "createdAt": "2026-03-27T09:12:19Z",
+    "deletions": 126,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": "2026-03-27T09:47:48Z",
+    "number": 4890,
+    "state": "MERGED",
+    "title": "chore(deps): update dependency nx to v15.9.7"
+  },
+  {
+    "additions": 70,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2026-03-27T06:38:55Z",
+    "deletions": 5,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNTQ5Mjg1Nzgx",
+        "name": "documentation",
+        "description": "Improvements or additions to documentation",
+        "color": "0075ca"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4889,
+    "state": "OPEN",
+    "title": "chore(deps): update dependency mkdocs-same-dir to v0.1.5"
+  },
+  {
+    "additions": 5,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2026-03-27T06:38:43Z",
+    "deletions": 9,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNTQ5Mjg1Nzgx",
+        "name": "documentation",
+        "description": "Improvements or additions to documentation",
+        "color": "0075ca"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4888,
+    "state": "OPEN",
+    "title": "chore(deps): update dependency mkdocs-redirects to v1.2.3"
+  },
+  {
+    "additions": 239,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2026-03-27T05:52:05Z",
+    "createdAt": "2026-03-27T05:15:43Z",
+    "deletions": 55,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": "2026-03-27T05:52:05Z",
+    "number": 4887,
+    "state": "MERGED",
+    "title": "chore(deps): update dependency form-data to v4.0.5"
+  },
+  {
+    "additions": 40,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2026-03-27T05:51:42Z",
+    "createdAt": "2026-03-27T05:15:09Z",
+    "deletions": 28,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": "2026-03-27T05:51:42Z",
+    "number": 4886,
+    "state": "MERGED",
+    "title": "chore(deps): update dependency @stoplight/json-ref-resolver to v3.1.6"
+  },
+  {
+    "additions": 9,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2026-03-27T05:07:39Z",
+    "createdAt": "2026-03-27T04:32:01Z",
+    "deletions": 9,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": "2026-03-27T05:07:39Z",
+    "number": 4885,
+    "state": "MERGED",
+    "title": "chore(deps): update dependency @d4c/numjs to v0.17.35"
+  },
+  {
+    "additions": 834,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2026-03-27T06:33:42Z",
+    "createdAt": "2026-03-27T04:31:15Z",
+    "deletions": 292,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": "2026-03-27T06:33:42Z",
+    "number": 4884,
+    "state": "MERGED",
+    "title": "chore(deps): update dependency webpack to v5.104.1 [security]"
+  },
+  {
+    "additions": 8,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2026-03-27T03:01:56Z",
+    "createdAt": "2026-03-27T02:26:23Z",
+    "deletions": 21,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": "2026-03-27T03:01:56Z",
+    "number": 4883,
+    "state": "MERGED",
+    "title": "chore(deps): update dependency yaml to v1.10.3 [security]"
+  },
+  {
+    "additions": 1,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 1,
+    "closedAt": "2026-03-27T02:23:38Z",
+    "createdAt": "2026-03-27T02:10:57Z",
+    "deletions": 1,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDgxMDUy",
+        "name": "CI/CD",
+        "description": "Issues with continuous integration and deployment",
+        "color": "d4c5f9"
+      }
+    ],
+    "mergedAt": "2026-03-27T02:23:38Z",
+    "number": 4882,
+    "state": "MERGED",
+    "title": "chore(deps): update check-spelling/check-spelling action to v0.0.25"
+  },
+  {
+    "additions": 12,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2026-03-27T02:10:49Z",
+    "deletions": 12,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4881,
+    "state": "OPEN",
+    "title": "chore(deps): update angular monorepo"
+  },
+  {
+    "additions": 3,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": "2026-03-10T19:25:47Z",
+    "createdAt": "2026-03-10T19:25:07Z",
+    "deletions": 0,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDgxMDUy",
+        "name": "CI/CD",
+        "description": "Issues with continuous integration and deployment",
+        "color": "d4c5f9"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2026-03-10T19:25:46Z",
+    "number": 4880,
+    "state": "MERGED",
+    "title": "fix(release): add missing Netlify CLI install to prod frontend deploy"
+  },
+  {
+    "additions": 1,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": "2026-03-10T17:12:06Z",
+    "createdAt": "2026-03-10T17:11:14Z",
+    "deletions": 1,
+    "labels": [{ "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }],
+    "mergedAt": "2026-03-10T17:12:06Z",
+    "number": 4879,
+    "state": "MERGED",
+    "title": "fix(config): convert SSH private key \\n literals to real newlines"
+  },
+  {
+    "additions": 2,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": "2026-03-10T13:41:26Z",
+    "createdAt": "2026-03-10T13:39:13Z",
+    "deletions": 2,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDgxMDUy",
+        "name": "CI/CD",
+        "description": "Issues with continuous integration and deployment",
+        "color": "d4c5f9"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2026-03-10T13:41:26Z",
+    "number": 4878,
+    "state": "MERGED",
+    "title": "fix(release): use pre-built output for Netlify deploys"
+  },
+  {
+    "additions": 10,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": "2026-03-10T03:58:42Z",
+    "createdAt": "2026-03-10T03:45:15Z",
+    "deletions": 0,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDgxMDUy",
+        "name": "CI/CD",
+        "description": "Issues with continuous integration and deployment",
+        "color": "d4c5f9"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2026-03-10T03:58:42Z",
+    "number": 4877,
+    "state": "MERGED",
+    "title": "fix(deps): add Node 18 setup to frontend build jobs in deploy workflow"
+  },
+  {
+    "additions": 45,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 20,
+    "closedAt": "2026-03-10T03:28:21Z",
+    "createdAt": "2026-03-10T03:12:05Z",
+    "deletions": 45,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDgxMDUy",
+        "name": "CI/CD",
+        "description": "Issues with continuous integration and deployment",
+        "color": "d4c5f9"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2026-03-10T03:28:21Z",
+    "number": 4876,
+    "state": "MERGED",
+    "title": "chore(deps): upgrade GitHub Actions to latest major versions"
+  },
+  {
+    "additions": 137,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 6,
+    "closedAt": "2026-03-10T02:58:11Z",
+    "createdAt": "2026-03-09T18:19:06Z",
+    "deletions": 99,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNTQ5Mjg1Nzgx",
+        "name": "documentation",
+        "description": "Improvements or additions to documentation",
+        "color": "0075ca"
+      },
+      {
+        "id": "MDU6TGFiZWwyNDQ4NDI2OTg5",
+        "name": "docker",
+        "description": "Pull requests that update Docker code",
+        "color": "21ceff"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7kPcHP", "name": "simulation-service", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2026-03-10T02:58:11Z",
+    "number": 4875,
+    "state": "MERGED",
+    "title": "feat(dispatch-service): make SLURM constraints and module init optional in sbatch templates"
+  },
+  {
+    "additions": 12,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": null,
+    "createdAt": "2026-02-05T19:03:31Z",
+    "deletions": 6,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4874,
+    "state": "OPEN",
+    "title": "chore(deps): update dependency requests to v2.32.2 [security]"
+  },
+  {
+    "additions": 1,
+    "author": { "is_bot": true, "login": "app/github-actions" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2026-01-01T03:30:17Z",
+    "deletions": 1,
+    "labels": [],
+    "mergedAt": null,
+    "number": 4873,
+    "state": "OPEN",
+    "title": "Update license copyright year(s)"
+  },
+  {
+    "additions": 1,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 1,
+    "closedAt": "2025-10-15T22:35:33Z",
+    "createdAt": "2025-08-13T11:55:19Z",
+    "deletions": 1,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4872,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency @nestjs/common to v10 [security] - autoclosed"
+  },
+  {
+    "additions": 706,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2025-10-15T22:35:37Z",
+    "createdAt": "2025-08-13T11:55:01Z",
+    "deletions": 273,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4871,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency webpack to v5.94.0 [security] - autoclosed"
+  },
+  {
+    "additions": 526,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2025-10-15T22:35:35Z",
+    "createdAt": "2025-08-13T11:54:46Z",
+    "deletions": 407,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4870,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency vega to v5.32.0 [security] - autoclosed"
+  },
+  {
+    "additions": 7,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2025-10-15T22:35:39Z",
+    "createdAt": "2025-08-13T11:54:27Z",
+    "deletions": 7,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4869,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency requests to v2.32.4 [security] - autoclosed"
+  },
+  {
+    "additions": 272,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2025-10-15T22:35:29Z",
+    "createdAt": "2025-08-13T11:53:13Z",
+    "deletions": 78,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4868,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency axios to v1.12.0 [security] - autoclosed"
+  },
+  {
+    "additions": 239,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2025-10-15T22:35:32Z",
+    "createdAt": "2025-08-13T11:52:56Z",
+    "deletions": 68,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4867,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency form-data to v4.0.4 [security] - autoclosed"
+  },
+  {
+    "additions": 1702,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 13,
+    "closedAt": "2025-01-09T19:07:38Z",
+    "createdAt": "2025-01-09T16:05:57Z",
+    "deletions": 1057,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjIyNjI4ODIz",
+        "name": "testing",
+        "description": "Issues relating to tests",
+        "color": "ef8c83"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2025-01-09T19:07:38Z",
+    "number": 4864,
+    "state": "MERGED",
+    "title": "feat: support NaN and Infinity in HDF5 processed by simdata-api "
+  },
+  {
+    "additions": 1,
+    "author": { "is_bot": true, "login": "app/github-actions" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2025-01-01T03:08:32Z",
+    "deletions": 1,
+    "labels": [],
+    "mergedAt": null,
+    "number": 4863,
+    "state": "OPEN",
+    "title": "Update license copyright year(s)"
+  },
+  {
+    "additions": 23,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 42,
+    "closedAt": "2024-12-30T14:43:51Z",
+    "createdAt": "2024-12-20T19:48:44Z",
+    "deletions": 3221,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDgxMDUy",
+        "name": "CI/CD",
+        "description": "Issues with continuous integration and deployment",
+        "color": "d4c5f9"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2024-12-30T14:43:51Z",
+    "number": 4862,
+    "state": "MERGED",
+    "title": "feat: remove /run endpoints from combine-api"
+  },
+  {
+    "additions": 3,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 3,
+    "closedAt": "2024-12-13T00:23:00Z",
+    "createdAt": "2024-12-12T21:29:57Z",
+    "deletions": 3,
+    "labels": [{ "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }],
+    "mergedAt": "2024-12-13T00:23:00Z",
+    "number": 4861,
+    "state": "MERGED",
+    "title": "fix: use lowercase containers in simulator container URLs"
+  },
+  {
+    "additions": 1,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 1,
+    "closedAt": "2024-12-13T00:54:06Z",
+    "createdAt": "2024-12-08T18:57:55Z",
+    "deletions": 1,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2024-12-13T00:54:06Z",
+    "number": 4860,
+    "state": "MERGED",
+    "title": "chore(deps): update check-spelling/check-spelling action to v0.0.24"
+  },
+  {
+    "additions": 434,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 33,
+    "closedAt": "2024-12-05T21:12:21Z",
+    "createdAt": "2024-12-03T17:25:05Z",
+    "deletions": 235,
+    "labels": [{ "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }],
+    "mergedAt": "2024-12-05T21:12:21Z",
+    "number": 4859,
+    "state": "MERGED",
+    "title": "feat: implement data caching in dispatch"
+  },
+  {
+    "additions": 644,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 25,
+    "closedAt": null,
+    "createdAt": "2024-12-03T07:47:33Z",
+    "deletions": 151,
+    "labels": [],
+    "mergedAt": null,
+    "number": 4858,
+    "state": "OPEN",
+    "title": "feat: update dispatch and projects loading"
+  },
+  {
+    "additions": 1,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": "2024-12-02T22:17:42Z",
+    "createdAt": "2024-12-02T22:05:28Z",
+    "deletions": 1,
+    "labels": [{ "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }],
+    "mergedAt": "2024-12-02T22:17:42Z",
+    "number": 4857,
+    "state": "MERGED",
+    "title": "fix: correct log from simdata api client wrapper module"
+  },
+  {
+    "additions": 3,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 2,
+    "closedAt": "2024-12-02T21:22:35Z",
+    "createdAt": "2024-12-02T21:06:17Z",
+    "deletions": 1,
+    "labels": [{ "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }],
+    "mergedAt": "2024-12-02T21:22:35Z",
+    "number": 4856,
+    "state": "MERGED",
+    "title": "fix: synch kisao terms between combine-api and api services to fix runtime error"
+  },
+  {
+    "additions": 555,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 18,
+    "closedAt": "2024-12-03T15:36:05Z",
+    "createdAt": "2024-11-26T18:05:58Z",
+    "deletions": 40,
+    "labels": [],
+    "mergedAt": null,
+    "number": 4855,
+    "state": "CLOSED",
+    "title": "fix: update dev container configs and sedml post proc handlers"
+  },
+  {
+    "additions": 15,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": null,
+    "createdAt": "2024-11-25T18:19:42Z",
+    "deletions": 8,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4854,
+    "state": "OPEN",
+    "title": "chore(deps): update dependency gunicorn to v22 [security]"
+  },
+  {
+    "additions": 11,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": null,
+    "createdAt": "2024-11-25T18:19:20Z",
+    "deletions": 6,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4853,
+    "state": "OPEN",
+    "title": "chore(deps): update dependency flask-cors to v4 [security]"
+  },
+  {
+    "additions": 3908,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 31,
+    "closedAt": "2024-11-25T18:15:20Z",
+    "createdAt": "2024-11-19T15:54:58Z",
+    "deletions": 2964,
+    "labels": [
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7aak8c", "name": "deployment", "description": "", "color": "fbca04" }
+    ],
+    "mergedAt": "2024-11-25T18:15:20Z",
+    "number": 4850,
+    "state": "MERGED",
+    "title": "feat: remaining items as required by the Biosimulations 1.0 release"
+  },
+  {
+    "additions": 26809,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 251,
+    "closedAt": null,
+    "createdAt": "2024-10-19T20:11:52Z",
+    "deletions": 16000,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjIyNjI4ODIz",
+        "name": "testing",
+        "description": "Issues relating to tests",
+        "color": "ef8c83"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDgxMDUy",
+        "name": "CI/CD",
+        "description": "Issues with continuous integration and deployment",
+        "color": "d4c5f9"
+      },
+      {
+        "id": "MDU6TGFiZWwyNDQ4NDI2OTg5",
+        "name": "docker",
+        "description": "Pull requests that update Docker code",
+        "color": "21ceff"
+      },
+      { "id": "LA_kwDODGG4Tc7kPcHJ", "name": "BioSimulations-API", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7kPcHP", "name": "simulation-service", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7ubgqS", "name": "build", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": null,
+    "number": 4844,
+    "state": "OPEN",
+    "title": "chore: upgrade frameworks nx, angular, nestjs"
+  },
+  {
+    "additions": 20,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 14,
+    "closedAt": "2024-10-16T13:44:43Z",
+    "createdAt": "2024-10-11T21:38:27Z",
+    "deletions": 156,
+    "labels": [{ "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }],
+    "mergedAt": "2024-10-16T13:44:43Z",
+    "number": 4842,
+    "state": "MERGED",
+    "title": "chore: improve logging on sedml failures"
+  },
+  {
+    "additions": 310,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 19,
+    "closedAt": "2024-10-30T14:39:59Z",
+    "createdAt": "2024-10-02T17:13:17Z",
+    "deletions": 117,
+    "labels": [{ "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }],
+    "mergedAt": "2024-10-30T14:39:59Z",
+    "number": 4841,
+    "state": "MERGED",
+    "title": "chore: redirect for run biosimulations to point to biosimulations and GUI updates"
+  },
+  {
+    "additions": 2,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 1,
+    "closedAt": "2024-10-02T16:42:05Z",
+    "createdAt": "2024-10-02T16:24:43Z",
+    "deletions": 2,
+    "labels": [{ "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }],
+    "mergedAt": "2024-10-02T16:42:05Z",
+    "number": 4840,
+    "state": "MERGED",
+    "title": "fix: update download artifact version in deploy workflow"
+  },
+  {
+    "additions": 16,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2024-09-25T20:34:29Z",
+    "createdAt": "2024-09-25T13:33:26Z",
+    "deletions": 29,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4839,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency postcss to v8.4.32 [security] - autoclosed"
+  },
+  {
+    "additions": 8,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2024-09-25T20:34:25Z",
+    "createdAt": "2024-09-25T13:33:10Z",
+    "deletions": 21,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4838,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency axios to v1.6.1 [security] - autoclosed"
+  },
+  {
+    "additions": 8,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2024-09-25T20:34:27Z",
+    "createdAt": "2024-09-25T13:32:56Z",
+    "deletions": 21,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4837,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency @nestjs/core to v9.3.12 [security] - autoclosed"
+  },
+  {
+    "additions": 951,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 137,
+    "closedAt": "2024-10-02T00:35:12Z",
+    "createdAt": "2024-09-24T06:57:18Z",
+    "deletions": 14554,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDgxMDUy",
+        "name": "CI/CD",
+        "description": "Issues with continuous integration and deployment",
+        "color": "d4c5f9"
+      },
+      {
+        "id": "MDU6TGFiZWwyMzAxMDM5MDEw",
+        "name": "runBiosimulations",
+        "description": "Issues pertaining to runBiosimulations frontend",
+        "color": "e99695"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2024-10-02T00:35:12Z",
+    "number": 4835,
+    "state": "MERGED",
+    "title": "fix: project utils and simulation runs"
+  },
+  {
+    "additions": 1,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": "2024-09-02T16:58:21Z",
+    "createdAt": "2024-09-02T16:21:49Z",
+    "deletions": 1,
+    "labels": [{ "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }],
+    "mergedAt": "2024-09-02T16:58:21Z",
+    "number": 4833,
+    "state": "MERGED",
+    "title": "fix: accommodate undefined image url array in create project from sbml"
+  },
+  {
+    "additions": 27,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": null,
+    "createdAt": "2024-08-06T07:49:33Z",
+    "deletions": 27,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4832,
+    "state": "OPEN",
+    "title": "chore(deps): update dependency black to v24 [security]"
+  },
+  {
+    "additions": 68,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 1,
+    "closedAt": "2024-11-25T18:19:52Z",
+    "createdAt": "2024-08-06T07:48:16Z",
+    "deletions": 51,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4831,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency orjson to v3.9.15 [security] - autoclosed"
+  },
+  {
+    "additions": 2516,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 3,
+    "closedAt": "2024-11-25T18:19:51Z",
+    "createdAt": "2024-08-06T07:46:12Z",
+    "deletions": 3163,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4830,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency flask to v2.2.5 [security] - autoclosed"
+  },
+  {
+    "additions": 1038,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 1,
+    "closedAt": "2024-09-23T21:36:20Z",
+    "createdAt": "2024-08-06T07:42:36Z",
+    "deletions": 1037,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4829,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency fastapi to v0.109.1 [security] - autoclosed"
+  },
+  {
+    "additions": 2513,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2024-09-29T01:36:19Z",
+    "createdAt": "2024-06-17T15:15:09Z",
+    "deletions": 3160,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4828,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency requests to >=2.31.0 [security] - autoclosed"
+  },
+  {
+    "additions": 1,
+    "author": { "id": "MDQ6VXNlcjE3MzYxNTA=", "is_bot": false, "login": "luciansmith", "name": "Lucian Smith" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2024-06-06T19:31:32Z",
+    "deletions": 12,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNDQ4NDI2OTg5",
+        "name": "docker",
+        "description": "Pull requests that update Docker code",
+        "color": "21ceff"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4827,
+    "state": "OPEN",
+    "title": "refactor: Install xppaut via apt-get."
+  },
+  {
+    "additions": 1,
+    "author": { "id": "MDQ6VXNlcjE3MzYxNTA=", "is_bot": false, "login": "luciansmith", "name": "Lucian Smith" },
+    "changedFiles": 1,
+    "closedAt": "2024-06-06T19:31:06Z",
+    "createdAt": "2024-06-06T19:29:32Z",
+    "deletions": 12,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNDQ4NDI2OTg5",
+        "name": "docker",
+        "description": "Pull requests that update Docker code",
+        "color": "21ceff"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4826,
+    "state": "CLOSED",
+    "title": "Install xppaut via apt-get."
+  },
+  {
+    "additions": 3,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 1,
+    "closedAt": "2024-06-18T00:52:01Z",
+    "createdAt": "2024-06-06T15:57:57Z",
+    "deletions": 3,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4825,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency flask to v2.2.5 [security] - autoclosed"
+  },
+  {
+    "additions": 2527,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 2,
+    "closedAt": "2024-06-06T15:55:37Z",
+    "createdAt": "2024-06-05T22:57:42Z",
+    "deletions": 2336,
+    "labels": [],
+    "mergedAt": "2024-06-06T15:55:37Z",
+    "number": 4824,
+    "state": "MERGED",
+    "title": "chore: update biosimulations-utils version and kisao"
+  },
+  {
+    "additions": 2028,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2024-05-21T23:21:28Z",
+    "createdAt": "2024-05-21T10:38:09Z",
+    "deletions": 2016,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4823,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency requests to v2.32.0 [security] - autoclosed"
+  },
+  {
+    "additions": 2229,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 31,
+    "closedAt": "2024-04-25T19:31:25Z",
+    "createdAt": "2024-04-17T17:05:05Z",
+    "deletions": 140,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjIyNjI4ODIz",
+        "name": "testing",
+        "description": "Issues relating to tests",
+        "color": "ef8c83"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQyNzQ0",
+        "name": "datamodel",
+        "description": "Changes needed to the shared datamodel",
+        "color": "f9cac0"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2024-04-25T19:31:25Z",
+    "number": 4808,
+    "state": "MERGED",
+    "title": "fix: update project metadata thumbnail container and fix customized form"
+  },
+  {
+    "additions": 5284,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 86,
+    "closedAt": "2024-04-11T20:23:11Z",
+    "createdAt": "2024-04-08T14:47:41Z",
+    "deletions": 3799,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjIyNjI4ODIz",
+        "name": "testing",
+        "description": "Issues relating to tests",
+        "color": "ef8c83"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDgxMDUy",
+        "name": "CI/CD",
+        "description": "Issues with continuous integration and deployment",
+        "color": "d4c5f9"
+      },
+      {
+        "id": "MDU6TGFiZWwyMzAxMDM5MDEw",
+        "name": "runBiosimulations",
+        "description": "Issues pertaining to runBiosimulations frontend",
+        "color": "e99695"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7kPcHJ", "name": "BioSimulations-API", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7kPcHP", "name": "simulation-service", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2024-04-11T20:23:11Z",
+    "number": 4805,
+    "state": "MERGED",
+    "title": "feat: implemented archive simulation edit for custom project rerun"
+  },
+  {
+    "additions": 5118,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 77,
+    "closedAt": "2024-04-08T14:48:08Z",
+    "createdAt": "2024-03-21T16:24:35Z",
+    "deletions": 3723,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjIyNjI4ODIz",
+        "name": "testing",
+        "description": "Issues relating to tests",
+        "color": "ef8c83"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQyNzQ0",
+        "name": "datamodel",
+        "description": "Changes needed to the shared datamodel",
+        "color": "f9cac0"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDgxMDUy",
+        "name": "CI/CD",
+        "description": "Issues with continuous integration and deployment",
+        "color": "d4c5f9"
+      },
+      {
+        "id": "MDU6TGFiZWwyMzAxMDM5MDEw",
+        "name": "runBiosimulations",
+        "description": "Issues pertaining to runBiosimulations frontend",
+        "color": "e99695"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "LA_kwDODGG4Tc7kPcHJ", "name": "BioSimulations-API", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": null,
+    "number": 4804,
+    "state": "CLOSED",
+    "title": "feat: add simulation edit functionality to dispatch component within platform"
+  },
+  {
+    "additions": 35,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 12,
+    "closedAt": "2024-02-02T20:41:23Z",
+    "createdAt": "2024-02-02T20:09:39Z",
+    "deletions": 48,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      {
+        "id": "MDU6TGFiZWwyMzAxMDM5MDEw",
+        "name": "runBiosimulations",
+        "description": "Issues pertaining to runBiosimulations frontend",
+        "color": "e99695"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2024-02-02T20:41:23Z",
+    "number": 4802,
+    "state": "MERGED",
+    "title": "fix: minor style checkups and additions"
+  },
+  {
+    "additions": 51,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 10,
+    "closedAt": "2024-02-02T05:02:15Z",
+    "createdAt": "2024-02-02T00:21:45Z",
+    "deletions": 30,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2024-02-02T05:02:15Z",
+    "number": 4801,
+    "state": "MERGED",
+    "title": "fix: allow for all plots to render regardless of title"
+  },
+  {
+    "additions": 39,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 2,
+    "closedAt": "2024-01-30T12:33:40Z",
+    "createdAt": "2024-01-30T01:22:43Z",
+    "deletions": 5,
+    "labels": [
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7kPcHJ", "name": "BioSimulations-API", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2024-01-30T12:33:40Z",
+    "number": 4800,
+    "state": "MERGED",
+    "title": "fix: use async DynamicModule with config to initialize simdata-api path"
+  },
+  {
+    "additions": 2,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": "2024-01-29T12:12:45Z",
+    "createdAt": "2024-01-29T11:34:01Z",
+    "deletions": 4,
+    "labels": [
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7kPcHJ", "name": "BioSimulations-API", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2024-01-29T12:12:45Z",
+    "number": 4799,
+    "state": "MERGED",
+    "title": "fix: correct usage of NdArray in results.service"
+  },
+  {
+    "additions": 64,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 5,
+    "closedAt": "2024-01-29T02:34:14Z",
+    "createdAt": "2024-01-29T00:22:54Z",
+    "deletions": 34,
+    "labels": [{ "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }],
+    "mergedAt": "2024-01-29T02:34:14Z",
+    "number": 4798,
+    "state": "MERGED",
+    "title": "fix: look for reports.h5 in both contents and outputs S3 paths"
+  },
+  {
+    "additions": 27,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 2,
+    "closedAt": "2024-01-27T15:17:19Z",
+    "createdAt": "2024-01-27T14:49:56Z",
+    "deletions": 1,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNDQ4NDI2OTg5",
+        "name": "docker",
+        "description": "Pull requests that update Docker code",
+        "color": "21ceff"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2024-01-27T15:17:19Z",
+    "number": 4797,
+    "state": "MERGED",
+    "title": "fix: add CORS support for simdata-api"
+  },
+  {
+    "additions": 2,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": "2024-01-26T20:56:12Z",
+    "createdAt": "2024-01-26T20:54:30Z",
+    "deletions": 1,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDgxMDUy",
+        "name": "CI/CD",
+        "description": "Issues with continuous integration and deployment",
+        "color": "d4c5f9"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2024-01-26T20:56:12Z",
+    "number": 4796,
+    "state": "MERGED",
+    "title": "fix: disable updatesitemaps again"
+  },
+  {
+    "additions": 5,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": "2024-01-26T20:44:47Z",
+    "createdAt": "2024-01-26T20:38:25Z",
+    "deletions": 5,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDgxMDUy",
+        "name": "CI/CD",
+        "description": "Issues with continuous integration and deployment",
+        "color": "d4c5f9"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2024-01-26T20:44:47Z",
+    "number": 4795,
+    "state": "MERGED",
+    "title": "fix: disable broken UpdateSitemaps step of Continuous integration"
+  },
+  {
+    "additions": 609,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 5,
+    "closedAt": "2024-01-26T19:49:46Z",
+    "createdAt": "2024-01-26T19:08:26Z",
+    "deletions": 85,
+    "labels": [
+      { "id": "MDU6TGFiZWwxNTQ5Mjg1Nzc5", "name": "bug", "description": "Something isn't working", "color": "d73a4a" },
+      {
+        "id": "MDU6TGFiZWwxNjIyNjI4ODIz",
+        "name": "testing",
+        "description": "Issues relating to tests",
+        "color": "ef8c83"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7kPcHJ", "name": "BioSimulations-API", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2024-01-26T19:49:46Z",
+    "number": 4794,
+    "state": "MERGED",
+    "title": "fix: simdata-api deployment"
+  },
+  {
+    "additions": 180,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 21,
+    "closedAt": "2024-02-01T18:42:17Z",
+    "createdAt": "2024-01-16T05:12:21Z",
+    "deletions": 128,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      {
+        "id": "MDU6TGFiZWwyNDQ4NDI2OTg5",
+        "name": "docker",
+        "description": "Pull requests that update Docker code",
+        "color": "21ceff"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc73Emsc", "name": "BioSimulators", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2024-02-01T18:42:17Z",
+    "number": 4792,
+    "state": "MERGED",
+    "title": "feat: integrated simularium file generation in combine-api"
+  },
+  {
+    "additions": 5972,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 203,
+    "closedAt": "2024-01-26T05:25:54Z",
+    "createdAt": "2024-01-13T13:39:00Z",
+    "deletions": 6240,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjIyNjI4ODIz",
+        "name": "testing",
+        "description": "Issues relating to tests",
+        "color": "ef8c83"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDgxMDUy",
+        "name": "CI/CD",
+        "description": "Issues with continuous integration and deployment",
+        "color": "d4c5f9"
+      },
+      {
+        "id": "MDU6TGFiZWwyNDQ4NDI2OTg5",
+        "name": "docker",
+        "description": "Pull requests that update Docker code",
+        "color": "21ceff"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7kPcHJ", "name": "BioSimulations-API", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7kPcHP", "name": "simulation-service", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7ubgqS", "name": "build", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2024-01-26T05:25:54Z",
+    "number": 4791,
+    "state": "MERGED",
+    "title": "feat: replace HSDS with new simdata-api service"
+  },
+  {
+    "additions": 15,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": "2024-01-06T22:09:10Z",
+    "createdAt": "2024-01-06T21:56:35Z",
+    "deletions": 15,
+    "labels": [
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7kPcHP", "name": "simulation-service", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2024-01-06T22:09:10Z",
+    "number": 4790,
+    "state": "MERGED",
+    "title": "fix: job status is now tolerant of Slurm Job HSDS upload retries"
+  },
+  {
+    "additions": 2,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 2,
+    "closedAt": "2024-01-06T00:41:13Z",
+    "createdAt": "2024-01-06T00:40:11Z",
+    "deletions": 2,
+    "labels": [
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7kPcHP", "name": "simulation-service", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2024-01-06T00:41:13Z",
+    "number": 4789,
+    "state": "MERGED",
+    "title": "fix: missing space in bash script"
+  },
+  {
+    "additions": 59,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2024-01-06T00:21:53Z",
+    "createdAt": "2024-01-05T23:32:00Z",
+    "deletions": 729,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2024-01-06T00:21:53Z",
+    "number": 4788,
+    "state": "MERGED",
+    "title": "chore(deps): update dependency plotly.js to v2.25.2 [security]"
+  },
+  {
+    "additions": 577,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 3,
+    "closedAt": "2024-01-05T23:22:07Z",
+    "createdAt": "2024-01-05T19:57:01Z",
+    "deletions": 159,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjIyNjI4ODIz",
+        "name": "testing",
+        "description": "Issues relating to tests",
+        "color": "ef8c83"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7kPcHP", "name": "simulation-service", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2024-01-05T23:22:07Z",
+    "number": 4787,
+    "state": "MERGED",
+    "title": "fix: more informative slurm script and always upload final rawLog.txt"
+  },
+  {
+    "additions": 17,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 6,
+    "closedAt": "2024-01-10T18:07:07Z",
+    "createdAt": "2024-01-03T16:19:20Z",
+    "deletions": 7,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyMzAxMDM5MDEw",
+        "name": "runBiosimulations",
+        "description": "Issues pertaining to runBiosimulations frontend",
+        "color": "e99695"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7kPcHP", "name": "simulation-service", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2024-01-10T18:07:07Z",
+    "number": 4786,
+    "state": "MERGED",
+    "title": "fix: updated structured log to include more extensive message"
+  },
+  {
+    "additions": 1,
+    "author": { "is_bot": true, "login": "app/github-actions" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2024-01-01T03:00:41Z",
+    "deletions": 1,
+    "labels": [],
+    "mergedAt": null,
+    "number": 4785,
+    "state": "OPEN",
+    "title": "Update license copyright year(s)"
+  },
+  {
+    "additions": 6,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 1,
+    "closedAt": "2023-12-31T04:40:34Z",
+    "createdAt": "2023-12-29T18:24:21Z",
+    "deletions": 1,
+    "labels": [
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-12-31T04:40:34Z",
+    "number": 4784,
+    "state": "MERGED",
+    "title": "fix: adjusted overflow for side bar content"
+  },
+  {
+    "additions": 283,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 10,
+    "closedAt": "2023-12-27T20:08:59Z",
+    "createdAt": "2023-12-20T21:06:53Z",
+    "deletions": 165,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "MDU6TGFiZWwyMzAxMDM5MDEw",
+        "name": "runBiosimulations",
+        "description": "Issues pertaining to runBiosimulations frontend",
+        "color": "e99695"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      {
+        "id": "MDU6TGFiZWwyNDQ4NDI2OTg5",
+        "name": "docker",
+        "description": "Pull requests that update Docker code",
+        "color": "21ceff"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc8AAAABTEldEA", "name": "BioSimulationsBrowse", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-12-27T20:08:59Z",
+    "number": 4783,
+    "state": "MERGED",
+    "title": "fix: connected simulation run output pipe with dropdown"
+  },
+  {
+    "additions": 158,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-12-27T20:10:10Z",
+    "createdAt": "2023-11-16T19:11:27Z",
+    "deletions": 29,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4782,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency sharp to v0.32.6 [security] - autoclosed"
+  },
+  {
+    "additions": 8,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-11-11T13:31:21Z",
+    "createdAt": "2023-11-11T12:19:26Z",
+    "deletions": 8,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-11-11T13:31:21Z",
+    "number": 4781,
+    "state": "MERGED",
+    "title": "chore(deps): update dependency axios to v1.6.0 [security]"
+  },
+  {
+    "additions": 586,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 41,
+    "closedAt": "2023-11-10T02:24:20Z",
+    "createdAt": "2023-11-03T17:52:57Z",
+    "deletions": 380,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjIyNjI4ODIz",
+        "name": "testing",
+        "description": "Issues relating to tests",
+        "color": "ef8c83"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDgxMDUy",
+        "name": "CI/CD",
+        "description": "Issues with continuous integration and deployment",
+        "color": "d4c5f9"
+      },
+      {
+        "id": "MDU6TGFiZWwyMzAxMDM5MDEw",
+        "name": "runBiosimulations",
+        "description": "Issues pertaining to runBiosimulations frontend",
+        "color": "e99695"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-11-10T02:24:20Z",
+    "number": 4780,
+    "state": "MERGED",
+    "title": "feat: update ui with rerun simulation functionality"
+  },
+  {
+    "additions": 19,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 3,
+    "closedAt": "2024-02-01T19:47:50Z",
+    "createdAt": "2023-10-17T16:58:12Z",
+    "deletions": 2,
+    "labels": [],
+    "mergedAt": null,
+    "number": 4778,
+    "state": "CLOSED",
+    "title": "Add biosimulators-simularium to combine-api"
+  },
+  {
+    "additions": 26,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-10-06T23:20:08Z",
+    "createdAt": "2023-10-06T22:28:13Z",
+    "deletions": 86,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-10-06T23:20:08Z",
+    "number": 4777,
+    "state": "MERGED",
+    "title": "chore(deps): update dependency postcss to v8.4.31 [security]"
+  },
+  {
+    "additions": 58,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 5,
+    "closedAt": "2023-09-27T14:23:48Z",
+    "createdAt": "2023-09-20T15:34:56Z",
+    "deletions": 41,
+    "labels": [
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc73Emsc", "name": "BioSimulators", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-09-27T14:23:48Z",
+    "number": 4776,
+    "state": "MERGED",
+    "title": "chore: added local dev dir and added dir to ignore files"
+  },
+  {
+    "additions": 102,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 13,
+    "closedAt": "2023-09-05T20:05:59Z",
+    "createdAt": "2023-09-01T12:23:47Z",
+    "deletions": 24,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc73Emsc", "name": "BioSimulators", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-09-05T20:05:59Z",
+    "number": 4773,
+    "state": "MERGED",
+    "title": "fix: adjustments to view component family and more"
+  },
+  {
+    "additions": 682,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 42,
+    "closedAt": "2023-09-01T01:45:55Z",
+    "createdAt": "2023-08-31T01:40:14Z",
+    "deletions": 575,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      {
+        "id": "MDU6TGFiZWwyMzAxMDM5MDEw",
+        "name": "runBiosimulations",
+        "description": "Issues pertaining to runBiosimulations frontend",
+        "color": "e99695"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-09-01T01:45:55Z",
+    "number": 4770,
+    "state": "MERGED",
+    "title": "fix: multiapp ui fixes"
+  },
+  {
+    "additions": 32,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": "2023-08-30T00:00:19Z",
+    "createdAt": "2023-08-29T23:34:57Z",
+    "deletions": 1,
+    "labels": [
+      { "id": "MDU6TGFiZWwxNTQ5Mjg1Nzc5", "name": "bug", "description": "Something isn't working", "color": "d73a4a" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7kPcHP", "name": "simulation-service", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-08-30T00:00:19Z",
+    "number": 4760,
+    "state": "MERGED",
+    "title": "fix: HSDS upload HPC Jobs to retry randomly many times upon failure"
+  },
+  {
+    "additions": 0,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": "2023-08-29T21:07:10Z",
+    "createdAt": "2023-08-29T20:44:10Z",
+    "deletions": 1,
+    "labels": [
+      { "id": "MDU6TGFiZWwxNTQ5Mjg1Nzc5", "name": "bug", "description": "Something isn't working", "color": "d73a4a" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7kPcHP", "name": "simulation-service", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-08-29T21:07:10Z",
+    "number": 4759,
+    "state": "MERGED",
+    "title": "fix: removed other switch"
+  },
+  {
+    "additions": 1,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": "2023-08-29T18:44:15Z",
+    "createdAt": "2023-08-29T18:11:19Z",
+    "deletions": 1,
+    "labels": [
+      { "id": "MDU6TGFiZWwxNTQ5Mjg1Nzc5", "name": "bug", "description": "Something isn't working", "color": "d73a4a" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7kPcHP", "name": "simulation-service", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-08-29T18:44:15Z",
+    "number": 4758,
+    "state": "MERGED",
+    "title": "fix: update hsload args for h5pyd 0.14.1 to upload to HSDS from Slurm"
+  },
+  {
+    "additions": 140,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 13,
+    "closedAt": "2023-08-30T10:23:17Z",
+    "createdAt": "2023-08-29T13:07:16Z",
+    "deletions": 110,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-08-30T10:23:17Z",
+    "number": 4757,
+    "state": "MERGED",
+    "title": "fix: repo touch-ups"
+  },
+  {
+    "additions": 3,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 2,
+    "closedAt": "2023-08-28T22:26:53Z",
+    "createdAt": "2023-08-28T22:07:34Z",
+    "deletions": 1,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDgxMDUy",
+        "name": "CI/CD",
+        "description": "Issues with continuous integration and deployment",
+        "color": "d4c5f9"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7aak8c", "name": "deployment", "description": "", "color": "fbca04" }
+    ],
+    "mergedAt": "2023-08-28T22:26:53Z",
+    "number": 4756,
+    "state": "MERGED",
+    "title": "fix: force build test deploy workflow for merged PR 4755"
+  },
+  {
+    "additions": 3,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": "2023-08-28T19:41:43Z",
+    "createdAt": "2023-08-26T23:44:26Z",
+    "deletions": 3,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDgxMDUy",
+        "name": "CI/CD",
+        "description": "Issues with continuous integration and deployment",
+        "color": "d4c5f9"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7aak8c", "name": "deployment", "description": "", "color": "fbca04" }
+    ],
+    "mergedAt": "2023-08-28T19:41:43Z",
+    "number": 4755,
+    "state": "MERGED",
+    "title": "fix: disable COBRApy and RBApy deploy tests until new Gurobi license"
+  },
+  {
+    "additions": 939,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 25,
+    "closedAt": "2023-08-28T18:30:09Z",
+    "createdAt": "2023-08-25T10:26:01Z",
+    "deletions": 879,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjIyNjI4ODIz",
+        "name": "testing",
+        "description": "Issues relating to tests",
+        "color": "ef8c83"
+      },
+      {
+        "id": "MDU6TGFiZWwyMzAxMDM5MDEw",
+        "name": "runBiosimulations",
+        "description": "Issues pertaining to runBiosimulations frontend",
+        "color": "e99695"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc73Emsc", "name": "BioSimulators", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-08-28T18:30:09Z",
+    "number": 4754,
+    "state": "MERGED",
+    "title": "style(ui): adjusted dispatch run header and submit button styles"
+  },
+  {
+    "additions": 590,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 29,
+    "closedAt": "2023-08-24T18:49:33Z",
+    "createdAt": "2023-08-22T13:32:23Z",
+    "deletions": 495,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      {
+        "id": "MDU6TGFiZWwyMzAxMDM5MDEw",
+        "name": "runBiosimulations",
+        "description": "Issues pertaining to runBiosimulations frontend",
+        "color": "e99695"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc73Emsc", "name": "BioSimulators", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-08-24T18:49:33Z",
+    "number": 4752,
+    "state": "MERGED",
+    "title": "fix: cross-repo style and behavior adjustment "
+  },
+  {
+    "additions": 30,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 5,
+    "closedAt": "2023-08-22T13:32:43Z",
+    "createdAt": "2023-08-22T13:28:45Z",
+    "deletions": 12,
+    "labels": [{ "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" }],
+    "mergedAt": null,
+    "number": 4751,
+    "state": "CLOSED",
+    "title": "fix: cross-repo style and behavior adjustment"
+  },
+  {
+    "additions": 163,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 13,
+    "closedAt": "2023-08-22T12:10:58Z",
+    "createdAt": "2023-08-21T19:10:09Z",
+    "deletions": 319,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjIyNjI4ODIz",
+        "name": "testing",
+        "description": "Issues relating to tests",
+        "color": "ef8c83"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      {
+        "id": "MDU6TGFiZWwyMzAxMDM5MDEw",
+        "name": "runBiosimulations",
+        "description": "Issues pertaining to runBiosimulations frontend",
+        "color": "e99695"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc73Emsc", "name": "BioSimulators", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-08-22T12:10:58Z",
+    "number": 4750,
+    "state": "MERGED",
+    "title": "feat(ui): implemented shared ui footer component"
+  },
+  {
+    "additions": 29,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 6,
+    "closedAt": "2023-08-18T19:17:42Z",
+    "createdAt": "2023-08-18T16:19:53Z",
+    "deletions": 19,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      {
+        "id": "MDU6TGFiZWwyMzAxMDM5MDEw",
+        "name": "runBiosimulations",
+        "description": "Issues pertaining to runBiosimulations frontend",
+        "color": "e99695"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc73Emsc", "name": "BioSimulators", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-08-18T19:17:42Z",
+    "number": 4749,
+    "state": "MERGED",
+    "title": "fix: adjustment to platform specific home page styling"
+  },
+  {
+    "additions": 157,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 14,
+    "closedAt": "2023-08-18T15:09:47Z",
+    "createdAt": "2023-08-18T00:37:06Z",
+    "deletions": 69,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc73Emsc", "name": "BioSimulators", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-08-18T15:09:47Z",
+    "number": 4748,
+    "state": "MERGED",
+    "title": "fix: adjusted hero banner color for simulators app to align with logo color"
+  },
+  {
+    "additions": 582,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 35,
+    "closedAt": "2023-08-17T20:39:47Z",
+    "createdAt": "2023-08-15T18:19:04Z",
+    "deletions": 537,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      {
+        "id": "MDU6TGFiZWwyMzAxMDM5MDEw",
+        "name": "runBiosimulations",
+        "description": "Issues pertaining to runBiosimulations frontend",
+        "color": "e99695"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc73Emsc", "name": "BioSimulators", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc8AAAABTEldEA", "name": "BioSimulationsBrowse", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-08-17T20:39:47Z",
+    "number": 4747,
+    "state": "MERGED",
+    "title": "fix: cross-repo content adjustments"
+  },
+  {
+    "additions": 251,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 41,
+    "closedAt": "2023-08-14T23:05:17Z",
+    "createdAt": "2023-08-13T14:58:01Z",
+    "deletions": 388,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      {
+        "id": "MDU6TGFiZWwyMzAxMDM5MDEw",
+        "name": "runBiosimulations",
+        "description": "Issues pertaining to runBiosimulations frontend",
+        "color": "e99695"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7ubgqS", "name": "build", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc73Emsc", "name": "BioSimulators", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc8AAAABTEldEA", "name": "BioSimulationsBrowse", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-08-14T23:05:17Z",
+    "number": 4744,
+    "state": "MERGED",
+    "title": "fix: removed comments and unused code to appease CI/CD"
+  },
+  {
+    "additions": 0,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 1,
+    "closedAt": "2023-08-13T14:38:15Z",
+    "createdAt": "2023-08-13T12:50:40Z",
+    "deletions": 5,
+    "labels": [
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-08-13T14:38:15Z",
+    "number": 4743,
+    "state": "MERGED",
+    "title": "fix: removed unused code in notice css file"
+  },
+  {
+    "additions": 314,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 32,
+    "closedAt": "2023-08-12T20:26:19Z",
+    "createdAt": "2023-08-10T20:31:41Z",
+    "deletions": 347,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjIyNjI4ODIz",
+        "name": "testing",
+        "description": "Issues relating to tests",
+        "color": "ef8c83"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      {
+        "id": "MDU6TGFiZWwyMzAxMDM5MDEw",
+        "name": "runBiosimulations",
+        "description": "Issues pertaining to runBiosimulations frontend",
+        "color": "e99695"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc73Emsc", "name": "BioSimulators", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc8AAAABTEldEA", "name": "BioSimulationsBrowse", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-08-12T20:26:19Z",
+    "number": 4742,
+    "state": "MERGED",
+    "title": "feat: cross repo app routing implementation"
+  },
+  {
+    "additions": 1042,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 21,
+    "closedAt": "2023-08-10T19:16:21Z",
+    "createdAt": "2023-08-08T18:15:24Z",
+    "deletions": 933,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      {
+        "id": "MDU6TGFiZWwyMzAxMDM5MDEw",
+        "name": "runBiosimulations",
+        "description": "Issues pertaining to runBiosimulations frontend",
+        "color": "e99695"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc73Emsc", "name": "BioSimulators", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc8AAAABTEldEA", "name": "BioSimulationsBrowse", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-08-10T19:16:21Z",
+    "number": 4741,
+    "state": "MERGED",
+    "title": "style(ui): adjustments to simulators home and global styles"
+  },
+  {
+    "additions": 617,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 23,
+    "closedAt": "2023-08-08T02:19:44Z",
+    "createdAt": "2023-08-07T02:20:11Z",
+    "deletions": 243,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjIyNjI4ODIz",
+        "name": "testing",
+        "description": "Issues relating to tests",
+        "color": "ef8c83"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      {
+        "id": "MDU6TGFiZWwyMzAxMDM5MDEw",
+        "name": "runBiosimulations",
+        "description": "Issues pertaining to runBiosimulations frontend",
+        "color": "e99695"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc73Emsc", "name": "BioSimulators", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-08-08T02:19:44Z",
+    "number": 4740,
+    "state": "MERGED",
+    "title": "fix: repo qa"
+  },
+  {
+    "additions": 1575,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 59,
+    "closedAt": "2023-08-06T05:03:38Z",
+    "createdAt": "2023-08-04T15:31:18Z",
+    "deletions": 1618,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjIyNjI4ODIz",
+        "name": "testing",
+        "description": "Issues relating to tests",
+        "color": "ef8c83"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      {
+        "id": "MDU6TGFiZWwyMzAxMDM5MDEw",
+        "name": "runBiosimulations",
+        "description": "Issues pertaining to runBiosimulations frontend",
+        "color": "e99695"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7kPcHP", "name": "simulation-service", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7ubgqS", "name": "build", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc73Emsc", "name": "BioSimulators", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-08-06T05:03:38Z",
+    "number": 4739,
+    "state": "MERGED",
+    "title": "fix: adjustments to repo pointing styles and behavior"
+  },
+  {
+    "additions": 55,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 4,
+    "closedAt": "2023-08-03T19:21:01Z",
+    "createdAt": "2023-08-03T15:43:37Z",
+    "deletions": 25,
+    "labels": [
+      { "id": "MDU6TGFiZWwxNTQ5Mjg1Nzc5", "name": "bug", "description": "Something isn't working", "color": "d73a4a" },
+      {
+        "id": "MDU6TGFiZWwyMzAxMDM5MDEw",
+        "name": "runBiosimulations",
+        "description": "Issues pertaining to runBiosimulations frontend",
+        "color": "e99695"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "MDU6TGFiZWwzMjQ3NTg3MjA5", "name": "combine-api", "description": "", "color": "fef2c0" }
+    ],
+    "mergedAt": "2023-08-03T19:21:01Z",
+    "number": 4737,
+    "state": "MERGED",
+    "title": "fix: create project fails in combine-api"
+  },
+  {
+    "additions": 1533,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 23,
+    "closedAt": "2023-08-04T14:46:45Z",
+    "createdAt": "2023-07-31T17:33:44Z",
+    "deletions": 1322,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc73Emsc", "name": "BioSimulators", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc8AAAABTEldEA", "name": "BioSimulationsBrowse", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-08-04T14:46:44Z",
+    "number": 4735,
+    "state": "MERGED",
+    "title": "feat: adjustments to simulators dispatch and platform apps across repo"
+  },
+  {
+    "additions": 1086,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 13,
+    "closedAt": "2023-07-31T17:06:38Z",
+    "createdAt": "2023-07-28T12:36:40Z",
+    "deletions": 1017,
+    "labels": [
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7ubgqS", "name": "build", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc73Emsc", "name": "BioSimulators", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-07-31T17:06:38Z",
+    "number": 4734,
+    "state": "MERGED",
+    "title": "feat: cross repo app adjustments"
+  },
+  {
+    "additions": 215,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 21,
+    "closedAt": "2023-07-28T12:01:47Z",
+    "createdAt": "2023-07-26T18:01:33Z",
+    "deletions": 303,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjIyNjI4ODIz",
+        "name": "testing",
+        "description": "Issues relating to tests",
+        "color": "ef8c83"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      {
+        "id": "MDU6TGFiZWwyMzAxMDM5MDEw",
+        "name": "runBiosimulations",
+        "description": "Issues pertaining to runBiosimulations frontend",
+        "color": "e99695"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc73Emsc", "name": "BioSimulators", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-07-28T12:01:47Z",
+    "number": 4733,
+    "state": "MERGED",
+    "title": "feat: changes to `simulators` `dispatch` and `platform` apps"
+  },
+  {
+    "additions": 38,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 3,
+    "closedAt": "2023-07-26T17:04:34Z",
+    "createdAt": "2023-07-25T20:28:57Z",
+    "deletions": 34,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyMzAxMDM5MDEw",
+        "name": "runBiosimulations",
+        "description": "Issues pertaining to runBiosimulations frontend",
+        "color": "e99695"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-07-26T17:04:34Z",
+    "number": 4732,
+    "state": "MERGED",
+    "title": "style(ui): swapped position of nav buttons in hero banner"
+  },
+  {
+    "additions": 974,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 33,
+    "closedAt": "2023-07-25T20:30:00Z",
+    "createdAt": "2023-07-21T20:33:29Z",
+    "deletions": 1049,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyMzAxMDM5MDEw",
+        "name": "runBiosimulations",
+        "description": "Issues pertaining to runBiosimulations frontend",
+        "color": "e99695"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "LA_kwDODGG4Tc73Emsc", "name": "BioSimulators", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": null,
+    "number": 4731,
+    "state": "CLOSED",
+    "title": "feat: complete implementation of `simulators` app"
+  },
+  {
+    "additions": 598,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 25,
+    "closedAt": "2023-07-21T20:35:59Z",
+    "createdAt": "2023-07-20T18:13:54Z",
+    "deletions": 646,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyMzAxMDM5MDEw",
+        "name": "runBiosimulations",
+        "description": "Issues pertaining to runBiosimulations frontend",
+        "color": "e99695"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-07-21T20:35:59Z",
+    "number": 4730,
+    "state": "MERGED",
+    "title": "feat: full implementation of `dispatch` app"
+  },
+  {
+    "additions": 51,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 6,
+    "closedAt": "2023-07-20T18:14:50Z",
+    "createdAt": "2023-07-19T21:02:46Z",
+    "deletions": 386,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjIyNjI4ODIz",
+        "name": "testing",
+        "description": "Issues relating to tests",
+        "color": "ef8c83"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "LA_kwDODGG4Tc73Emsc", "name": "BioSimulators", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": null,
+    "number": 4729,
+    "state": "CLOSED",
+    "title": "style(ui): implementing standard styling across all apps"
+  },
+  {
+    "additions": 1642,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": null,
+    "createdAt": "2023-07-18T18:22:17Z",
+    "deletions": 125,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4728,
+    "state": "OPEN",
+    "title": "chore(deps): update dependency mongoose to v6.11.3 [security]"
+  },
+  {
+    "additions": 118,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 13,
+    "closedAt": "2023-07-19T21:07:13Z",
+    "createdAt": "2023-07-10T16:26:41Z",
+    "deletions": 779,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      {
+        "id": "MDU6TGFiZWwyMzAxMDM5MDEw",
+        "name": "runBiosimulations",
+        "description": "Issues pertaining to runBiosimulations frontend",
+        "color": "e99695"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "LA_kwDODGG4Tc73Emsc", "name": "BioSimulators", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": null,
+    "number": 4727,
+    "state": "CLOSED",
+    "title": "style(ui): implementing `platform` styles in `simulators` and `dispatch`"
+  },
+  {
+    "additions": 2029,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 1,
+    "closedAt": "2024-06-06T15:59:20Z",
+    "createdAt": "2023-07-10T10:24:31Z",
+    "deletions": 2016,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4726,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency biosimulators_utils to v0.1.187 - autoclosed"
+  },
+  {
+    "additions": 1152,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 4,
+    "closedAt": "2023-07-06T18:42:03Z",
+    "createdAt": "2023-07-06T18:09:41Z",
+    "deletions": 1,
+    "labels": [
+      { "id": "MDU6TGFiZWwxNTQ5Mjg1Nzc5", "name": "bug", "description": "Something isn't working", "color": "d73a4a" },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-07-06T18:42:03Z",
+    "number": 4725,
+    "state": "MERGED",
+    "title": "fix: s3 import in combine-api and updated create-project unit tests"
+  },
+  {
+    "additions": 142,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 7,
+    "closedAt": "2023-07-07T16:15:01Z",
+    "createdAt": "2023-07-06T17:03:46Z",
+    "deletions": 128,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-07-07T16:15:01Z",
+    "number": 4724,
+    "state": "MERGED",
+    "title": "fix: pointing and layout"
+  },
+  {
+    "additions": 293,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 11,
+    "closedAt": "2023-07-06T02:50:41Z",
+    "createdAt": "2023-07-05T16:51:58Z",
+    "deletions": 242,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjIyNjI4ODIz",
+        "name": "testing",
+        "description": "Issues relating to tests",
+        "color": "ef8c83"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-07-06T02:50:41Z",
+    "number": 4723,
+    "state": "MERGED",
+    "title": "fix: adjustments to `platform` and `dispatch`"
+  },
+  {
+    "additions": 1410,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 26,
+    "closedAt": "2023-07-03T22:13:20Z",
+    "createdAt": "2023-06-28T12:11:06Z",
+    "deletions": 657,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-07-03T22:13:19Z",
+    "number": 4722,
+    "state": "MERGED",
+    "title": "feat: implementing structure and styles of `view` and `projects` components from `projex` in `platform`"
+  },
+  {
+    "additions": 746,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 9,
+    "closedAt": "2023-06-27T22:17:41Z",
+    "createdAt": "2023-06-26T23:11:30Z",
+    "deletions": 582,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjIyNjI4ODIz",
+        "name": "testing",
+        "description": "Issues relating to tests",
+        "color": "ef8c83"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc8AAAABTEldEA", "name": "BioSimulationsBrowse", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-06-27T22:17:41Z",
+    "number": 4721,
+    "state": "MERGED",
+    "title": "feat: added routing logic to featured component on home teaser"
+  },
+  {
+    "additions": 149,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 3,
+    "closedAt": "2023-06-26T18:28:53Z",
+    "createdAt": "2023-06-26T11:50:21Z",
+    "deletions": 300,
+    "labels": [
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc8AAAABTEldEA", "name": "BioSimulationsBrowse", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-06-26T18:28:53Z",
+    "number": 4720,
+    "state": "MERGED",
+    "title": "feat(ui/routing): enhance UI and improve external routing handling"
+  },
+  {
+    "additions": 1,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": "2023-06-25T15:28:28Z",
+    "createdAt": "2023-06-25T14:52:20Z",
+    "deletions": 1,
+    "labels": [
+      { "id": "MDU6TGFiZWwxNTQ5Mjg1Nzc5", "name": "bug", "description": "Something isn't working", "color": "d73a4a" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7kPcHJ", "name": "BioSimulations-API", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-06-25T15:28:28Z",
+    "number": 4719,
+    "state": "MERGED",
+    "title": "fix: project list pagination with filtering showed no projects"
+  },
+  {
+    "additions": 250,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 12,
+    "closedAt": "2023-06-24T22:50:57Z",
+    "createdAt": "2023-06-23T16:03:01Z",
+    "deletions": 173,
+    "labels": [
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc8AAAABTEldEA", "name": "BioSimulationsBrowse", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-06-24T22:50:57Z",
+    "number": 4718,
+    "state": "MERGED",
+    "title": "fix: remaining items on projex app"
+  },
+  {
+    "additions": 3,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 1,
+    "closedAt": "2023-07-10T08:31:39Z",
+    "createdAt": "2023-06-23T01:50:53Z",
+    "deletions": 7,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4717,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency openapi-spec-validator to v0.5.7 - autoclosed"
+  },
+  {
+    "additions": 30,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 1,
+    "closedAt": "2023-07-10T10:24:36Z",
+    "createdAt": "2023-06-23T01:50:07Z",
+    "deletions": 11,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4716,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency openapi-core to v0.17.2 - autoclosed"
+  },
+  {
+    "additions": 104,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 6,
+    "closedAt": "2023-06-22T05:28:50Z",
+    "createdAt": "2023-06-22T02:06:05Z",
+    "deletions": 24,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNTQ5Mjg1Nzgx",
+        "name": "documentation",
+        "description": "Improvements or additions to documentation",
+        "color": "0075ca"
+      },
+      {
+        "id": "MDU6TGFiZWwxNTQ5Mjg1Nzg2",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQyNzQ0",
+        "name": "datamodel",
+        "description": "Changes needed to the shared datamodel",
+        "color": "f9cac0"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDgxMDUy",
+        "name": "CI/CD",
+        "description": "Issues with continuous integration and deployment",
+        "color": "d4c5f9"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7kPcHJ", "name": "BioSimulations-API", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-06-22T05:28:50Z",
+    "number": 4714,
+    "state": "MERGED",
+    "title": "feat: improved project sort order"
+  },
+  {
+    "additions": 10,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 2,
+    "closedAt": "2023-06-21T16:01:52Z",
+    "createdAt": "2023-06-21T14:45:04Z",
+    "deletions": 9,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTMyNTk3", "name": "ontologies", "description": "", "color": "816cdd" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "MDU6TGFiZWwzMjQ3NTg3MjA5", "name": "combine-api", "description": "", "color": "fef2c0" }
+    ],
+    "mergedAt": "2023-06-21T16:01:52Z",
+    "number": 4713,
+    "state": "MERGED",
+    "title": "chore: update to biosimulators_utils 0.1.180 with new KISAO_0000694 term"
+  },
+  {
+    "additions": 382,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 19,
+    "closedAt": "2023-06-23T01:46:24Z",
+    "createdAt": "2023-06-21T11:54:21Z",
+    "deletions": 236,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNTQ5Mjg1Nzgx",
+        "name": "documentation",
+        "description": "Improvements or additions to documentation",
+        "color": "0075ca"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQyNzQ0",
+        "name": "datamodel",
+        "description": "Changes needed to the shared datamodel",
+        "color": "f9cac0"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc8AAAABTEldEA", "name": "BioSimulationsBrowse", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-06-23T01:46:24Z",
+    "number": 4712,
+    "state": "MERGED",
+    "title": "fix: projex ui and behavior fixes"
+  },
+  {
+    "additions": 4629,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 27,
+    "closedAt": "2023-06-21T10:52:35Z",
+    "createdAt": "2023-06-19T15:14:18Z",
+    "deletions": 3398,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNTQ5Mjg1Nzgx",
+        "name": "documentation",
+        "description": "Improvements or additions to documentation",
+        "color": "0075ca"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjIyNjI4ODIz",
+        "name": "testing",
+        "description": "Issues relating to tests",
+        "color": "ef8c83"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQyNzQ0",
+        "name": "datamodel",
+        "description": "Changes needed to the shared datamodel",
+        "color": "f9cac0"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "LA_kwDODGG4Tc7ubgqS", "name": "build", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc73Emsc", "name": "BioSimulators", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc8AAAABTEldEA", "name": "BioSimulationsBrowse", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": null,
+    "number": 4711,
+    "state": "CLOSED",
+    "title": "feat: added binder notebook linked to interactive notebook test repo"
+  },
+  {
+    "additions": 153,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2023-06-17T21:51:15Z",
+    "deletions": 107,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNTQ5Mjg1Nzgx",
+        "name": "documentation",
+        "description": "Improvements or additions to documentation",
+        "color": "0075ca"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4710,
+    "state": "OPEN",
+    "title": "chore(deps): update dependency mkdocs-material to v9.7.6"
+  },
+  {
+    "additions": 45,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 1,
+    "closedAt": "2023-06-23T01:50:58Z",
+    "createdAt": "2023-06-17T21:50:48Z",
+    "deletions": 5,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNTQ5Mjg1Nzgx",
+        "name": "documentation",
+        "description": "Improvements or additions to documentation",
+        "color": "0075ca"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4709,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency mkdocs-awesome-pages-plugin to v2.9.1 - autoclosed"
+  },
+  {
+    "additions": 978,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 49,
+    "closedAt": "2023-06-17T21:48:31Z",
+    "createdAt": "2023-06-14T22:04:11Z",
+    "deletions": 639,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjIyNjI4ODIz",
+        "name": "testing",
+        "description": "Issues relating to tests",
+        "color": "ef8c83"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQyNzQ0",
+        "name": "datamodel",
+        "description": "Changes needed to the shared datamodel",
+        "color": "f9cac0"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7ubgqS", "name": "build", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc8AAAABTEldEA", "name": "BioSimulationsBrowse", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-06-17T21:48:31Z",
+    "number": 4708,
+    "state": "MERGED",
+    "title": "fix: projex app fixes"
+  },
+  {
+    "additions": 140,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 16,
+    "closedAt": "2023-06-14T22:04:29Z",
+    "createdAt": "2023-06-14T15:35:34Z",
+    "deletions": 64,
+    "labels": [
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "LA_kwDODGG4Tc8AAAABTEldEA", "name": "BioSimulationsBrowse", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": null,
+    "number": 4707,
+    "state": "CLOSED",
+    "title": "fix: projex fixes"
+  },
+  {
+    "additions": 62,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-06-21T17:13:49Z",
+    "createdAt": "2023-06-13T20:43:35Z",
+    "deletions": 42,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-06-21T17:13:49Z",
+    "number": 4705,
+    "state": "MERGED",
+    "title": "chore(deps): update dependency jwks-rsa to v2.1.5"
+  },
+  {
+    "additions": 1,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": "2023-06-10T17:24:33Z",
+    "createdAt": "2023-06-10T16:29:19Z",
+    "deletions": 1,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTA3ODY5ODQw",
+        "name": "security",
+        "description": "Pull requests that address a security vulnerability",
+        "color": "ee0701"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDgxMDUy",
+        "name": "CI/CD",
+        "description": "Issues with continuous integration and deployment",
+        "color": "d4c5f9"
+      },
+      { "id": "MDU6TGFiZWwzMTY2MzExODM3", "name": "dev", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7aak8c", "name": "deployment", "description": "", "color": "fbca04" }
+    ],
+    "mergedAt": null,
+    "number": 4704,
+    "state": "CLOSED",
+    "title": "fix: bot pushes to main branch should not trigger deploys"
+  },
+  {
+    "additions": 993,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 21,
+    "closedAt": "2023-06-13T20:40:50Z",
+    "createdAt": "2023-06-10T13:12:02Z",
+    "deletions": 697,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "MDU6TGFiZWwyMzAxMDM5MDEw",
+        "name": "runBiosimulations",
+        "description": "Issues pertaining to runBiosimulations frontend",
+        "color": "e99695"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7ubgqS", "name": "build", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc8AAAABTEldEA", "name": "BioSimulationsBrowse", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-06-13T20:40:50Z",
+    "number": 4703,
+    "state": "MERGED",
+    "title": "style(ui): dispatch ui styling"
+  },
+  {
+    "additions": 8,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-06-13T20:43:43Z",
+    "createdAt": "2023-06-10T07:58:19Z",
+    "deletions": 46,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4702,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency json5 to v2.2.3 - autoclosed"
+  },
+  {
+    "additions": 6,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 1,
+    "closedAt": "2023-06-10T07:56:56Z",
+    "createdAt": "2023-06-10T03:55:42Z",
+    "deletions": 6,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-06-10T07:56:56Z",
+    "number": 4701,
+    "state": "MERGED",
+    "title": "chore(deps): update dependency immer to v10.0.2"
+  },
+  {
+    "additions": 835,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 28,
+    "closedAt": "2023-06-10T03:51:32Z",
+    "createdAt": "2023-06-07T15:10:42Z",
+    "deletions": 491,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDgxMDUy",
+        "name": "CI/CD",
+        "description": "Issues with continuous integration and deployment",
+        "color": "d4c5f9"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7ubgqS", "name": "build", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc8AAAABTEldEA", "name": "BioSimulationsBrowse", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-06-10T03:51:32Z",
+    "number": 4700,
+    "state": "MERGED",
+    "title": "fix: updating projex app to include corrections"
+  },
+  {
+    "additions": 148,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 9,
+    "closedAt": "2023-06-07T12:24:27Z",
+    "createdAt": "2023-06-06T14:45:03Z",
+    "deletions": 108,
+    "labels": [
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc8AAAABTEldEA", "name": "BioSimulationsBrowse", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-06-07T12:24:26Z",
+    "number": 4699,
+    "state": "MERGED",
+    "title": "fix: implement fixes for projex "
+  },
+  {
+    "additions": 8,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-06-10T03:55:52Z",
+    "createdAt": "2023-06-06T04:32:38Z",
+    "deletions": 21,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4698,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency husky to v8.0.3 - autoclosed"
+  },
+  {
+    "additions": 20,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-06-10T03:55:50Z",
+    "createdAt": "2023-06-06T04:32:17Z",
+    "deletions": 21,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4697,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency compare-versions to v4.1.4 - autoclosed"
+  },
+  {
+    "additions": 8,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-06-13T20:43:41Z",
+    "createdAt": "2023-06-06T00:59:23Z",
+    "deletions": 8,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4696,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency zone.js to v0.13.1 - autoclosed"
+  },
+  {
+    "additions": 27683,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 19,
+    "closedAt": "2023-06-06T04:29:36Z",
+    "createdAt": "2023-06-05T17:59:31Z",
+    "deletions": 36272,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc8AAAABTEldEA", "name": "BioSimulationsBrowse", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-06-06T04:29:36Z",
+    "number": 4695,
+    "state": "MERGED",
+    "title": "fix: implementation of dev site fixes in patch"
+  },
+  {
+    "additions": 1872,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 18,
+    "closedAt": "2023-06-04T18:57:14Z",
+    "createdAt": "2023-06-02T20:29:51Z",
+    "deletions": 623,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      {
+        "id": "MDU6TGFiZWwyMzAxMDM5MDEw",
+        "name": "runBiosimulations",
+        "description": "Issues pertaining to runBiosimulations frontend",
+        "color": "e99695"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-06-04T18:57:14Z",
+    "number": 4694,
+    "state": "MERGED",
+    "title": "fix: adjust nav button behavior in app"
+  },
+  {
+    "additions": 10,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 2,
+    "closedAt": "2023-06-02T20:19:27Z",
+    "createdAt": "2023-06-02T19:43:36Z",
+    "deletions": 1,
+    "labels": [
+      { "id": "MDU6TGFiZWwxNTQ5Mjg1Nzc5", "name": "bug", "description": "Something isn't working", "color": "d73a4a" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7kPcHJ", "name": "BioSimulations-API", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-06-02T20:19:27Z",
+    "number": 4693,
+    "state": "MERGED",
+    "title": "fix: path for new summary_filtered and old summary api endpoints"
+  },
+  {
+    "additions": 13660,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 112,
+    "closedAt": "2023-06-02T01:13:17Z",
+    "createdAt": "2023-06-01T23:42:58Z",
+    "deletions": 6,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjIyNjI4ODIz",
+        "name": "testing",
+        "description": "Issues relating to tests",
+        "color": "ef8c83"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDgxMDUy",
+        "name": "CI/CD",
+        "description": "Issues with continuous integration and deployment",
+        "color": "d4c5f9"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      {
+        "id": "MDU6TGFiZWwyNTgxMTEwNjk5",
+        "name": "Architecture:system",
+        "description": "Organization and communication between apps",
+        "color": "13e0fb"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7kPcHJ", "name": "BioSimulations-API", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7ubgqS", "name": "build", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-06-02T01:13:17Z",
+    "number": 4692,
+    "state": "MERGED",
+    "title": "feat: add projex app to patch project browsing"
+  },
+  {
+    "additions": 221,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 30,
+    "closedAt": "2023-06-02T16:48:18Z",
+    "createdAt": "2023-06-01T15:49:10Z",
+    "deletions": 84,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQyNzQ0",
+        "name": "datamodel",
+        "description": "Changes needed to the shared datamodel",
+        "color": "f9cac0"
+      },
+      {
+        "id": "MDU6TGFiZWwyMzAxMDM5MDEw",
+        "name": "runBiosimulations",
+        "description": "Issues pertaining to runBiosimulations frontend",
+        "color": "e99695"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7kPcHJ", "name": "BioSimulations-API", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7kPcHP", "name": "simulation-service", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7ubgqS", "name": "build", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7ubgqX", "name": "BioSimulators-API", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc73Emsc", "name": "BioSimulators", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc8AAAABTEldEA", "name": "BioSimulationsBrowse", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-06-02T16:48:18Z",
+    "number": 4691,
+    "state": "MERGED",
+    "title": "fix: simulation profile page formatting improvements"
+  },
+  {
+    "additions": 25,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 5,
+    "closedAt": "2023-06-01T15:49:39Z",
+    "createdAt": "2023-06-01T00:26:32Z",
+    "deletions": 10,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" }
+    ],
+    "mergedAt": null,
+    "number": 4690,
+    "state": "CLOSED",
+    "title": "UI Adjustments"
+  },
+  {
+    "additions": 22,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 9,
+    "closedAt": null,
+    "createdAt": "2023-05-31T16:32:05Z",
+    "deletions": 15,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "LA_kwDODGG4Tc7ubgqS", "name": "build", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc73Emsc", "name": "BioSimulators", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": null,
+    "number": 4689,
+    "state": "OPEN",
+    "title": "fix: patch to production app for dev projects page - DO NOT MERGE"
+  },
+  {
+    "additions": 135,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 23,
+    "closedAt": "2023-05-31T21:37:28Z",
+    "createdAt": "2023-05-31T10:39:40Z",
+    "deletions": 543,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc73Emsc", "name": "BioSimulators", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-05-31T21:37:28Z",
+    "number": 4687,
+    "state": "MERGED",
+    "title": "fix: ui adjustments and linking out to prod site"
+  },
+  {
+    "additions": 3,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 1,
+    "closedAt": "2023-05-31T10:21:03Z",
+    "createdAt": "2023-05-30T18:34:14Z",
+    "deletions": 4,
+    "labels": [
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "LA_kwDODGG4Tc73Emsc", "name": "BioSimulators", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": null,
+    "number": 4686,
+    "state": "CLOSED",
+    "title": "Standardize BioSimulators UI"
+  },
+  {
+    "additions": 30,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 4,
+    "closedAt": "2023-05-30T02:16:25Z",
+    "createdAt": "2023-05-29T20:35:57Z",
+    "deletions": 14,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQyNzQ0",
+        "name": "datamodel",
+        "description": "Changes needed to the shared datamodel",
+        "color": "f9cac0"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-05-30T02:16:25Z",
+    "number": 4685,
+    "state": "MERGED",
+    "title": "fix: sytling for project detail view with citations in Simulation Summary"
+  },
+  {
+    "additions": 57,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 19,
+    "closedAt": "2023-05-29T16:12:47Z",
+    "createdAt": "2023-05-27T19:14:04Z",
+    "deletions": 68,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc73Emsc", "name": "BioSimulators", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-05-29T16:12:46Z",
+    "number": 4684,
+    "state": "MERGED",
+    "title": "style(ui): adjusted create-project-breadcrumb button layout"
+  },
+  {
+    "additions": 323,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 17,
+    "closedAt": "2023-05-27T07:14:15Z",
+    "createdAt": "2023-05-26T14:40:58Z",
+    "deletions": 243,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjIyNjI4ODIz",
+        "name": "testing",
+        "description": "Issues relating to tests",
+        "color": "ef8c83"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQyNzQ0",
+        "name": "datamodel",
+        "description": "Changes needed to the shared datamodel",
+        "color": "f9cac0"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7kPcHJ", "name": "BioSimulations-API", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-05-27T07:14:15Z",
+    "number": 4683,
+    "state": "MERGED",
+    "title": "style(ui): adjusted figure headers"
+  },
+  {
+    "additions": 213,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 14,
+    "closedAt": "2023-05-26T05:31:18Z",
+    "createdAt": "2023-05-25T21:58:58Z",
+    "deletions": 192,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc73Emsc", "name": "BioSimulators", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-05-26T05:31:18Z",
+    "number": 4682,
+    "state": "MERGED",
+    "title": "style(ui): adjusted profile layout"
+  },
+  {
+    "additions": 507,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 25,
+    "closedAt": "2023-05-25T14:25:51Z",
+    "createdAt": "2023-05-23T13:50:47Z",
+    "deletions": 214,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNTQ5Mjg1Nzgx",
+        "name": "documentation",
+        "description": "Improvements or additions to documentation",
+        "color": "0075ca"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjIyNjI4ODIz",
+        "name": "testing",
+        "description": "Issues relating to tests",
+        "color": "ef8c83"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7ubgqS", "name": "build", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-05-25T14:25:51Z",
+    "number": 4681,
+    "state": "MERGED",
+    "title": "fix(ui): Simulation page layout "
+  },
+  {
+    "additions": 1,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 1,
+    "closedAt": "2023-06-23T01:51:02Z",
+    "createdAt": "2023-05-23T07:30:44Z",
+    "deletions": 1,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4680,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency requests to v2.31.0 [security] - autoclosed"
+  },
+  {
+    "additions": 1618,
+    "author": { "id": "U_kgDOBkolqw", "is_bot": false, "login": "AlexPatrie", "name": "A.P." },
+    "changedFiles": 65,
+    "closedAt": "2023-05-23T03:51:37Z",
+    "createdAt": "2023-05-14T12:42:36Z",
+    "deletions": 876,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDgxMDUy",
+        "name": "CI/CD",
+        "description": "Issues with continuous integration and deployment",
+        "color": "d4c5f9"
+      },
+      {
+        "id": "MDU6TGFiZWwyMzAxMDM5MDEw",
+        "name": "runBiosimulations",
+        "description": "Issues pertaining to runBiosimulations frontend",
+        "color": "e99695"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7ubgqS", "name": "build", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc73Emsc", "name": "BioSimulators", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-05-23T03:51:37Z",
+    "number": 4679,
+    "state": "MERGED",
+    "title": "style(ui): added styling and pagination buttons"
+  },
+  {
+    "additions": 62,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 27,
+    "closedAt": "2023-05-08T13:52:57Z",
+    "createdAt": "2023-05-08T03:27:02Z",
+    "deletions": 9,
+    "labels": [
+      { "id": "MDU6TGFiZWwxNTQ5Mjg1Nzc5", "name": "bug", "description": "Something isn't working", "color": "d73a4a" },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDgxMDUy",
+        "name": "CI/CD",
+        "description": "Issues with continuous integration and deployment",
+        "color": "d4c5f9"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7ubgqS", "name": "build", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-05-08T13:52:57Z",
+    "number": 4678,
+    "state": "MERGED",
+    "title": "fix: env NX_SKIP_NX_CACHE in all actions to var NX_SKIP_NX_CACHE_VALUE"
+  },
+  {
+    "additions": 2,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 2,
+    "closedAt": "2023-05-08T02:31:03Z",
+    "createdAt": "2023-05-08T02:11:12Z",
+    "deletions": 0,
+    "labels": [
+      { "id": "MDU6TGFiZWwxNTQ5Mjg1Nzc5", "name": "bug", "description": "Something isn't working", "color": "d73a4a" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "MDU6TGFiZWwzMTY2MzExODM3", "name": "dev", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7ubgqS", "name": "build", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-05-08T02:31:03Z",
+    "number": 4677,
+    "state": "MERGED",
+    "title": "fix: disable nx caching to fix nondeterminism in github actions"
+  },
+  {
+    "additions": 2025,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 1,
+    "closedAt": "2024-05-21T10:38:43Z",
+    "createdAt": "2023-05-02T04:15:55Z",
+    "deletions": 2013,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4676,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency flask to v2.2.5 [security] - autoclosed"
+  },
+  {
+    "additions": 1177,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 35,
+    "closedAt": "2023-05-07T09:03:12Z",
+    "createdAt": "2023-04-25T02:10:06Z",
+    "deletions": 320,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjIyNjI4ODIz",
+        "name": "testing",
+        "description": "Issues relating to tests",
+        "color": "ef8c83"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQyNzQ0",
+        "name": "datamodel",
+        "description": "Changes needed to the shared datamodel",
+        "color": "f9cac0"
+      },
+      {
+        "id": "MDU6TGFiZWwyMzAxMDM5MDEw",
+        "name": "runBiosimulations",
+        "description": "Issues pertaining to runBiosimulations frontend",
+        "color": "e99695"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7kPcHJ", "name": "BioSimulations-API", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7ubgqS", "name": "build", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc73Emsc", "name": "BioSimulators", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-05-07T09:03:12Z",
+    "number": 4675,
+    "state": "MERGED",
+    "title": "feat: server side filtering of project table"
+  },
+  {
+    "additions": 3,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 2,
+    "closedAt": "2023-04-24T05:11:45Z",
+    "createdAt": "2023-04-23T22:00:48Z",
+    "deletions": 1,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjIyNjI4ODIz",
+        "name": "testing",
+        "description": "Issues relating to tests",
+        "color": "ef8c83"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-04-24T05:11:45Z",
+    "number": 4674,
+    "state": "MERGED",
+    "title": "feat: added link from project table to project detail"
+  },
+  {
+    "additions": 1015,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 36,
+    "closedAt": "2023-04-23T06:31:41Z",
+    "createdAt": "2023-04-21T20:44:47Z",
+    "deletions": 1312,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjIyNjI4ODIz",
+        "name": "testing",
+        "description": "Issues relating to tests",
+        "color": "ef8c83"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQyNzQ0",
+        "name": "datamodel",
+        "description": "Changes needed to the shared datamodel",
+        "color": "f9cac0"
+      },
+      {
+        "id": "MDU6TGFiZWwyMzAxMDM5MDEw",
+        "name": "runBiosimulations",
+        "description": "Issues pertaining to runBiosimulations frontend",
+        "color": "e99695"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7fGtb-", "name": "performance", "description": "", "color": "1E6400" },
+      { "id": "LA_kwDODGG4Tc7kPcHJ", "name": "BioSimulations-API", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7ubgqS", "name": "build", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc73Emsc", "name": "BioSimulators", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-04-23T06:31:41Z",
+    "number": 4673,
+    "state": "MERGED",
+    "title": "feat: scalable project browsing"
+  },
+  {
+    "additions": 29,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 1,
+    "closedAt": "2024-11-25T18:19:49Z",
+    "createdAt": "2023-04-18T00:49:43Z",
+    "deletions": 18,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4671,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency botocore to v1.35.68 - autoclosed"
+  },
+  {
+    "additions": 2,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": "2023-04-17T22:38:04Z",
+    "createdAt": "2023-04-17T21:08:43Z",
+    "deletions": 0,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "MDU6TGFiZWwzMjQ3NTg3MjA5", "name": "combine-api", "description": "", "color": "fef2c0" }
+    ],
+    "mergedAt": "2023-04-17T22:38:04Z",
+    "number": 4670,
+    "state": "MERGED",
+    "title": "fix: combine-api CORS to allow biosimulations.org/dev"
+  },
+  {
+    "additions": 29,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 1,
+    "closedAt": "2024-11-25T18:19:47Z",
+    "createdAt": "2023-04-17T20:57:56Z",
+    "deletions": 18,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4669,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency boto3 to v1.35.68 - autoclosed"
+  },
+  {
+    "additions": 8,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-04-17T20:55:01Z",
+    "createdAt": "2023-04-17T14:30:42Z",
+    "deletions": 21,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-04-17T20:55:01Z",
+    "number": 4668,
+    "state": "MERGED",
+    "title": "chore(deps): update dependency axios to v1.3.5"
+  },
+  {
+    "additions": 17,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-05-23T10:49:07Z",
+    "createdAt": "2023-04-17T09:57:53Z",
+    "deletions": 30,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-05-23T10:49:07Z",
+    "number": 4667,
+    "state": "MERGED",
+    "title": "chore(deps): update angularmaterial monorepo to v15.2.9"
+  },
+  {
+    "additions": 172,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-04-18T00:47:20Z",
+    "createdAt": "2023-04-17T09:57:33Z",
+    "deletions": 524,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-04-18T00:47:19Z",
+    "number": 4666,
+    "state": "MERGED",
+    "title": "chore(deps): update angular-cli monorepo"
+  },
+  {
+    "additions": 9433,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 106,
+    "closedAt": "2023-04-17T17:40:51Z",
+    "createdAt": "2023-04-14T06:30:41Z",
+    "deletions": 81,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjIyNjI4ODIz",
+        "name": "testing",
+        "description": "Issues relating to tests",
+        "color": "ef8c83"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDgxMDUy",
+        "name": "CI/CD",
+        "description": "Issues with continuous integration and deployment",
+        "color": "d4c5f9"
+      },
+      {
+        "id": "MDU6TGFiZWwyMzAxMDM5MDEw",
+        "name": "runBiosimulations",
+        "description": "Issues pertaining to runBiosimulations frontend",
+        "color": "e99695"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      {
+        "id": "MDU6TGFiZWwyNTgxMTA5NDc5",
+        "name": "Architecture:code",
+        "description": "Organization of libraries and applications",
+        "color": "13e0f7"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7kPcHJ", "name": "BioSimulations-API", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7kPcHP", "name": "simulation-service", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7ubgqS", "name": "build", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-04-17T17:40:51Z",
+    "number": 4665,
+    "state": "MERGED",
+    "title": "feat: integrate runBiosimulations into main platform webapp"
+  },
+  {
+    "additions": 2,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 1,
+    "closedAt": "2023-04-12T17:18:52Z",
+    "createdAt": "2023-04-12T17:03:13Z",
+    "deletions": 2,
+    "labels": [
+      { "id": "MDU6TGFiZWwxNTQ5Mjg1Nzc5", "name": "bug", "description": "Something isn't working", "color": "d73a4a" },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDgxMDUy",
+        "name": "CI/CD",
+        "description": "Issues with continuous integration and deployment",
+        "color": "d4c5f9"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7aak8c", "name": "deployment", "description": "", "color": "fbca04" }
+    ],
+    "mergedAt": "2023-04-12T17:18:52Z",
+    "number": 4662,
+    "state": "MERGED",
+    "title": "fix: continuous deployment action fails"
+  },
+  {
+    "additions": 844,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 183,
+    "closedAt": "2023-04-12T15:28:28Z",
+    "createdAt": "2023-04-12T13:38:35Z",
+    "deletions": 54,
+    "labels": [
+      { "id": "MDU6TGFiZWwxNTQ5Mjg1Nzc5", "name": "bug", "description": "Something isn't working", "color": "d73a4a" },
+      {
+        "id": "MDU6TGFiZWwxNTQ5Mjg1Nzgx",
+        "name": "documentation",
+        "description": "Improvements or additions to documentation",
+        "color": "0075ca"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDgxMDUy",
+        "name": "CI/CD",
+        "description": "Issues with continuous integration and deployment",
+        "color": "d4c5f9"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7ubgqS", "name": "build", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-04-12T15:28:28Z",
+    "number": 4660,
+    "state": "MERGED",
+    "title": "fix: mkdocs action, mv to docs/src, build on PR, deploy on release"
+  },
+  {
+    "additions": 107,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-04-23T11:29:57Z",
+    "createdAt": "2023-04-12T01:56:19Z",
+    "deletions": 120,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-04-23T11:29:57Z",
+    "number": 4658,
+    "state": "MERGED",
+    "title": "chore(deps): update angular monorepo to v15.2.8"
+  },
+  {
+    "additions": 3139,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 69,
+    "closedAt": "2023-04-11T17:06:54Z",
+    "createdAt": "2023-04-10T23:52:44Z",
+    "deletions": 832,
+    "labels": [
+      { "id": "MDU6TGFiZWwxNTQ5Mjg1Nzc5", "name": "bug", "description": "Something isn't working", "color": "d73a4a" },
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDgxMDUy",
+        "name": "CI/CD",
+        "description": "Issues with continuous integration and deployment",
+        "color": "d4c5f9"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7kPcHP", "name": "simulation-service", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-04-11T17:06:54Z",
+    "number": 4657,
+    "state": "MERGED",
+    "title": "fix: failures for template format, docs and openapi-client gen actions"
+  },
+  {
+    "additions": 77,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-05-28T10:48:23Z",
+    "createdAt": "2023-04-10T23:08:21Z",
+    "deletions": 42,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4655,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency xml2js to 0.5.0 [security] - autoclosed"
+  },
+  {
+    "additions": 43,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-05-04T00:04:06Z",
+    "createdAt": "2023-04-10T23:07:51Z",
+    "deletions": 91,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4654,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency d3-color to 3.1.0 [security] - autoclosed"
+  },
+  {
+    "additions": 3,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 1,
+    "closedAt": "2023-06-06T04:32:44Z",
+    "createdAt": "2023-04-03T09:43:47Z",
+    "deletions": 4,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4651,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency biosimulators_utils to v0.1.179 - autoclosed"
+  },
+  {
+    "additions": 8,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-04-11T21:15:26Z",
+    "createdAt": "2023-04-03T09:42:47Z",
+    "deletions": 8,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-04-11T21:15:26Z",
+    "number": 4650,
+    "state": "MERGED",
+    "title": "chore(deps): update dependency @stoplight/json-ref-resolver to v3.1.5"
+  },
+  {
+    "additions": 8,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-04-11T09:50:20Z",
+    "createdAt": "2023-04-03T02:58:31Z",
+    "deletions": 21,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-04-11T09:50:20Z",
+    "number": 4649,
+    "state": "MERGED",
+    "title": "chore(deps): update dependency @scullyio/ng-lib to v2.1.41"
+  },
+  {
+    "additions": 26,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-04-12T01:53:08Z",
+    "createdAt": "2023-04-03T02:58:26Z",
+    "deletions": 26,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      { "id": "MDU6TGFiZWwzMDkzMzg5MDQz", "name": "released", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-04-12T01:53:08Z",
+    "number": 4648,
+    "state": "MERGED",
+    "title": "chore(deps): update dependency @auth0/auth0-spa-js to v1.22.6"
+  },
+  {
+    "additions": 1424,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-04-10T23:09:26Z",
+    "createdAt": "2023-04-02T17:02:08Z",
+    "deletions": 1334,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4647,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency terser [security] - autoclosed"
+  },
+  {
+    "additions": 2776,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-05-28T10:48:22Z",
+    "createdAt": "2023-04-02T17:02:04Z",
+    "deletions": 1562,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4646,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency loader-utils to 2.0.3 [security] - autoclosed"
+  },
+  {
+    "additions": 8,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-04-10T23:09:24Z",
+    "createdAt": "2023-04-02T17:02:03Z",
+    "deletions": 8,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4645,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency json5 [security] - autoclosed"
+  },
+  {
+    "additions": 1424,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-04-02T16:59:47Z",
+    "createdAt": "2023-04-02T16:56:44Z",
+    "deletions": 1334,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4643,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency terser [security]"
+  },
+  {
+    "additions": 2776,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-04-02T16:59:46Z",
+    "createdAt": "2023-04-02T16:56:39Z",
+    "deletions": 1562,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4642,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency loader-utils [security]"
+  },
+  {
+    "additions": 8,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-04-02T16:59:46Z",
+    "createdAt": "2023-04-02T16:56:37Z",
+    "deletions": 8,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4641,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency json5 [security]"
+  },
+  {
+    "additions": 49025,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 427,
+    "closedAt": "2023-04-10T20:29:14Z",
+    "createdAt": "2023-04-01T07:36:43Z",
+    "deletions": 65868,
+    "labels": [
+      { "id": "MDU6TGFiZWwxNTQ5Mjg1Nzc5", "name": "bug", "description": "Something isn't working", "color": "d73a4a" },
+      {
+        "id": "MDU6TGFiZWwxNjIyNjI4ODIz",
+        "name": "testing",
+        "description": "Issues relating to tests",
+        "color": "ef8c83"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDgxMDUy",
+        "name": "CI/CD",
+        "description": "Issues with continuous integration and deployment",
+        "color": "d4c5f9"
+      },
+      {
+        "id": "MDU6TGFiZWwyMzAxMDM5MDEw",
+        "name": "runBiosimulations",
+        "description": "Issues pertaining to runBiosimulations frontend",
+        "color": "e99695"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      {
+        "id": "MDU6TGFiZWwyNDQ4NDI2OTg5",
+        "name": "docker",
+        "description": "Pull requests that update Docker code",
+        "color": "21ceff"
+      },
+      { "id": "MDU6TGFiZWwyODc0MjI2NTMz", "name": "bug in dependency", "description": "", "color": "c2e0c6" },
+      { "id": "LA_kwDODGG4Tc7kPcHJ", "name": "BioSimulations-API", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7kPcHP", "name": "simulation-service", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7ubgqS", "name": "build", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-04-10T20:29:14Z",
+    "number": 4640,
+    "state": "MERGED",
+    "title": "build: update dependencies and repair CI lint/build/test"
+  },
+  {
+    "additions": 2748,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-04-02T16:54:58Z",
+    "createdAt": "2023-03-28T17:22:59Z",
+    "deletions": 1640,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4639,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency webpack to 5.76.0 [security]"
+  },
+  {
+    "additions": 8,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 2,
+    "closedAt": "2023-04-02T16:54:58Z",
+    "createdAt": "2023-03-28T10:52:39Z",
+    "deletions": 8,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDODGG4Tc7hzkjJ",
+        "name": "javascript",
+        "description": "Pull requests that update Javascript code",
+        "color": "168700"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4638,
+    "state": "CLOSED",
+    "title": "build(deps-dev): bump webpack from 5.76.0 to 5.76.1"
+  },
+  {
+    "additions": 6,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": "2023-04-02T16:54:57Z",
+    "createdAt": "2023-03-27T23:28:08Z",
+    "deletions": 19,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDODGG4Tc7hzkjJ",
+        "name": "javascript",
+        "description": "Pull requests that update Javascript code",
+        "color": "168700"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4637,
+    "state": "CLOSED",
+    "title": "build(deps): bump moment from 2.29.3 to 2.29.4"
+  },
+  {
+    "additions": 12,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 2,
+    "closedAt": "2023-04-02T16:54:57Z",
+    "createdAt": "2023-03-27T23:27:06Z",
+    "deletions": 25,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDODGG4Tc7hzkjJ",
+        "name": "javascript",
+        "description": "Pull requests that update Javascript code",
+        "color": "168700"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4636,
+    "state": "CLOSED",
+    "title": "build(deps): bump @nestjs/core from 8.4.7 to 9.0.5"
+  },
+  {
+    "additions": 14,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 2,
+    "closedAt": "2023-03-28T10:52:43Z",
+    "createdAt": "2023-03-27T23:27:05Z",
+    "deletions": 27,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDODGG4Tc7hzkjJ",
+        "name": "javascript",
+        "description": "Pull requests that update Javascript code",
+        "color": "168700"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4635,
+    "state": "CLOSED",
+    "title": "build(deps-dev): bump webpack from 5.73.0 to 5.76.0"
+  },
+  {
+    "additions": 6431,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 90,
+    "closedAt": "2023-03-27T23:24:40Z",
+    "createdAt": "2023-03-24T21:21:09Z",
+    "deletions": 713,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDgxMDUy",
+        "name": "CI/CD",
+        "description": "Issues with continuous integration and deployment",
+        "color": "d4c5f9"
+      },
+      {
+        "id": "MDU6TGFiZWwyNDQ4NDI2OTg5",
+        "name": "docker",
+        "description": "Pull requests that update Docker code",
+        "color": "21ceff"
+      },
+      { "id": "MDU6TGFiZWwzMjQ3NTg3MjA5", "name": "combine-api", "description": "", "color": "fef2c0" },
+      { "id": "LA_kwDODGG4Tc7ubgqS", "name": "build", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": "2023-03-27T23:24:40Z",
+    "number": 4634,
+    "state": "MERGED",
+    "title": "chore(combine-api): simplify and update to fix build/test in CI"
+  },
+  {
+    "additions": 3,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-04-02T16:54:56Z",
+    "createdAt": "2023-03-22T19:37:31Z",
+    "deletions": 5,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4632,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency @nestjs/core to v9 [security]"
+  },
+  {
+    "additions": 12,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 1,
+    "closedAt": "2023-03-28T10:50:02Z",
+    "createdAt": "2023-03-22T19:37:11Z",
+    "deletions": 25,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": "2023-03-28T10:50:02Z",
+    "number": 4631,
+    "state": "MERGED",
+    "title": "chore(deps): update dependency webpack to v5.76.0 [security]"
+  },
+  {
+    "additions": 940,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-04-02T16:54:55Z",
+    "createdAt": "2023-03-22T19:36:49Z",
+    "deletions": 779,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4630,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency vega to v5.23.0 [security]"
+  },
+  {
+    "additions": 12,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-04-02T16:54:55Z",
+    "createdAt": "2023-03-22T19:36:28Z",
+    "deletions": 10,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4629,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency passport to v0.6.0 [security]"
+  },
+  {
+    "additions": 78,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-04-02T16:54:54Z",
+    "createdAt": "2023-03-22T19:36:06Z",
+    "deletions": 100,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4628,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency mongoose to v6.4.6 [security]"
+  },
+  {
+    "additions": 30,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-04-02T16:54:53Z",
+    "createdAt": "2023-03-22T19:35:44Z",
+    "deletions": 16,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4627,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency class-validator to v0.14.0 [security]"
+  },
+  {
+    "additions": 9,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-04-02T03:50:17Z",
+    "createdAt": "2023-03-21T21:33:07Z",
+    "deletions": 8,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4626,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency @angular/flex-layout to v14.0.0-beta.41"
+  },
+  {
+    "additions": 2,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 1,
+    "closedAt": "2023-03-28T17:23:03Z",
+    "createdAt": "2023-03-21T21:32:45Z",
+    "deletions": 2,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDgxMDUy",
+        "name": "CI/CD",
+        "description": "Issues with continuous integration and deployment",
+        "color": "d4c5f9"
+      }
+    ],
+    "mergedAt": "2023-03-28T17:23:03Z",
+    "number": 4625,
+    "state": "MERGED",
+    "title": "chore(deps): update char0n/swagger-editor-validate action to v1.3.2"
+  },
+  {
+    "additions": 58287,
+    "author": { "id": "MDQ6VXNlcjMyNDkwMTQ0", "is_bot": false, "login": "bilalshaikh42", "name": "Bilal Shaikh" },
+    "changedFiles": 242,
+    "closedAt": "2023-04-02T17:09:47Z",
+    "createdAt": "2023-03-21T19:35:18Z",
+    "deletions": 45904,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyMzAxMDM5MDEw",
+        "name": "runBiosimulations",
+        "description": "Issues pertaining to runBiosimulations frontend",
+        "color": "e99695"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      { "id": "LA_kwDODGG4Tc7kPcHJ", "name": "BioSimulations-API", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7kPcHP", "name": "simulation-service", "description": "", "color": "ededed" },
+      { "id": "LA_kwDODGG4Tc7ubgqS", "name": "build", "description": "", "color": "ededed" }
+    ],
+    "mergedAt": null,
+    "number": 4624,
+    "state": "CLOSED",
+    "title": "chore: build update dependencies and migrate apps"
+  },
+  {
+    "additions": 1424,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-04-02T16:54:53Z",
+    "createdAt": "2023-03-21T18:19:11Z",
+    "deletions": 1334,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4623,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency terser [security]"
+  },
+  {
+    "additions": 2776,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-04-02T16:54:52Z",
+    "createdAt": "2023-03-21T18:19:00Z",
+    "deletions": 1562,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4622,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency loader-utils [security]"
+  },
+  {
+    "additions": 8,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-04-02T16:54:51Z",
+    "createdAt": "2023-03-21T18:18:55Z",
+    "deletions": 8,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4621,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency json5 to v2.2.2 [security]"
+  },
+  {
+    "additions": 6973,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 107,
+    "closedAt": "2023-06-16T14:44:32Z",
+    "createdAt": "2023-03-17T20:33:37Z",
+    "deletions": 1296,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNTQ5Mjg1Nzgx",
+        "name": "documentation",
+        "description": "Improvements or additions to documentation",
+        "color": "0075ca"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQxODIw",
+        "name": "BioSimulations",
+        "description": "Changes needed on the main front end platform",
+        "color": "006b75"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" },
+      {
+        "id": "MDU6TGFiZWwyNDQ4NDI2OTg5",
+        "name": "docker",
+        "description": "Pull requests that update Docker code",
+        "color": "21ceff"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4620,
+    "state": "CLOSED",
+    "title": "feat(platform): simplify project browsing in UI for large number of models"
+  },
+  {
+    "additions": 3,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-03-21T18:17:23Z",
+    "createdAt": "2023-03-08T05:30:59Z",
+    "deletions": 5,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4615,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency @nestjs/core to 9.0.5 [security]"
+  },
+  {
+    "additions": 62,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-03-21T18:17:22Z",
+    "createdAt": "2023-03-07T00:21:40Z",
+    "deletions": 510,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4614,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency minimist to 1.2.6 [security]"
+  },
+  {
+    "additions": 187,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 2,
+    "closedAt": "2023-03-21T18:13:30Z",
+    "createdAt": "2023-03-06T15:32:19Z",
+    "deletions": 464,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDODGG4Tc7hzkjJ",
+        "name": "javascript",
+        "description": "Pull requests that update Javascript code",
+        "color": "168700"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4613,
+    "state": "CLOSED",
+    "title": "build(deps): bump minimist and commitizen"
+  },
+  {
+    "additions": 969,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-03-21T18:17:21Z",
+    "createdAt": "2023-03-03T02:09:04Z",
+    "deletions": 701,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4611,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency vega-functions to 5.13.1 [security]"
+  },
+  {
+    "additions": 940,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-03-21T18:17:20Z",
+    "createdAt": "2023-03-03T02:07:35Z",
+    "deletions": 792,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4610,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency vega to 5.23.0 [security]"
+  },
+  {
+    "additions": 940,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 2,
+    "closedAt": "2023-03-21T18:13:29Z",
+    "createdAt": "2023-03-02T23:16:18Z",
+    "deletions": 792,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDODGG4Tc7hzkjJ",
+        "name": "javascript",
+        "description": "Pull requests that update Javascript code",
+        "color": "168700"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4609,
+    "state": "CLOSED",
+    "title": "build(deps): bump vega-functions and vega"
+  },
+  {
+    "additions": 940,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 2,
+    "closedAt": "2023-03-21T18:13:29Z",
+    "createdAt": "2023-03-02T23:14:56Z",
+    "deletions": 792,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDODGG4Tc7hzkjJ",
+        "name": "javascript",
+        "description": "Pull requests that update Javascript code",
+        "color": "168700"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4608,
+    "state": "CLOSED",
+    "title": "build(deps-dev): bump vega from 5.21.0 to 5.23.0"
+  },
+  {
+    "additions": 3,
+    "author": { "id": "MDQ6VXNlcjE3NjgxOA==", "is_bot": false, "login": "p-", "name": "Peter Stöckli" },
+    "changedFiles": 1,
+    "closedAt": "2023-02-28T21:26:22Z",
+    "createdAt": "2023-02-09T08:33:00Z",
+    "deletions": 3,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjIyNjI4ODIz",
+        "name": "testing",
+        "description": "Issues relating to tests",
+        "color": "ef8c83"
+      }
+    ],
+    "mergedAt": "2023-02-28T21:26:22Z",
+    "number": 4607,
+    "state": "MERGED",
+    "title": "build: fix typo in container registry domain"
+  },
+  {
+    "additions": 6,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": "2023-03-21T18:13:28Z",
+    "createdAt": "2023-02-04T01:34:29Z",
+    "deletions": 19,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDODGG4Tc7hzkjJ",
+        "name": "javascript",
+        "description": "Pull requests that update Javascript code",
+        "color": "168700"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4606,
+    "state": "CLOSED",
+    "title": "build(deps): bump http-cache-semantics from 4.1.0 to 4.1.1"
+  },
+  {
+    "additions": 6,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": "2023-03-21T18:13:27Z",
+    "createdAt": "2023-01-24T09:22:22Z",
+    "deletions": 19,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDODGG4Tc7hzkjJ",
+        "name": "javascript",
+        "description": "Pull requests that update Javascript code",
+        "color": "168700"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4605,
+    "state": "CLOSED",
+    "title": "build(deps): bump cookiejar from 2.1.3 to 2.1.4"
+  },
+  {
+    "additions": 79,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-03-21T18:17:19Z",
+    "createdAt": "2023-01-12T01:16:56Z",
+    "deletions": 54,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4602,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency class-validator to 0.14.0 [security]"
+  },
+  {
+    "additions": 79,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 2,
+    "closedAt": "2023-03-21T18:13:26Z",
+    "createdAt": "2023-01-11T23:26:03Z",
+    "deletions": 54,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDODGG4Tc7hzkjJ",
+        "name": "javascript",
+        "description": "Pull requests that update Javascript code",
+        "color": "168700"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4601,
+    "state": "CLOSED",
+    "title": "build(deps): bump class-validator from 0.13.2 to 0.14.0"
+  },
+  {
+    "additions": 145,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 2,
+    "closedAt": "2023-03-21T18:13:25Z",
+    "createdAt": "2023-01-10T08:40:54Z",
+    "deletions": 238,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDODGG4Tc7hzkjJ",
+        "name": "javascript",
+        "description": "Pull requests that update Javascript code",
+        "color": "168700"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4600,
+    "state": "CLOSED",
+    "title": "build(deps): bump jsonwebtoken, auth0 and passport-jwt"
+  },
+  {
+    "additions": 6,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": "2023-03-21T18:13:23Z",
+    "createdAt": "2023-01-09T15:05:41Z",
+    "deletions": 19,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDODGG4Tc7hzkjJ",
+        "name": "javascript",
+        "description": "Pull requests that update Javascript code",
+        "color": "168700"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4599,
+    "state": "CLOSED",
+    "title": "build(deps): bump luxon from 2.4.0 to 2.5.2"
+  },
+  {
+    "additions": 8,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-03-21T18:17:18Z",
+    "createdAt": "2023-01-08T15:47:44Z",
+    "deletions": 21,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4598,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency json5 [security]"
+  },
+  {
+    "additions": 8,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 2,
+    "closedAt": "2023-03-21T18:13:22Z",
+    "createdAt": "2023-01-02T07:26:18Z",
+    "deletions": 21,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDODGG4Tc7hzkjJ",
+        "name": "javascript",
+        "description": "Pull requests that update Javascript code",
+        "color": "168700"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4597,
+    "state": "CLOSED",
+    "title": "build(deps): bump json5 from 2.2.1 to 2.2.2"
+  },
+  {
+    "additions": 1,
+    "author": { "is_bot": true, "login": "app/github-actions" },
+    "changedFiles": 1,
+    "closedAt": "2023-02-07T02:47:25Z",
+    "createdAt": "2023-01-01T03:05:50Z",
+    "deletions": 1,
+    "labels": [],
+    "mergedAt": "2023-02-07T02:47:25Z",
+    "number": 4596,
+    "state": "MERGED",
+    "title": "Update license copyright year(s)"
+  },
+  {
+    "additions": 16,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 2,
+    "closedAt": "2023-03-21T18:13:21Z",
+    "createdAt": "2022-12-30T17:33:19Z",
+    "deletions": 29,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDODGG4Tc7hzkjJ",
+        "name": "javascript",
+        "description": "Pull requests that update Javascript code",
+        "color": "168700"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4595,
+    "state": "CLOSED",
+    "title": "build(deps): bump json-pointer and openapi-examples-validator"
+  },
+  {
+    "additions": 145,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-03-21T18:17:18Z",
+    "createdAt": "2022-12-24T07:22:42Z",
+    "deletions": 238,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4594,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency jsonwebtoken to 9.0.0 [security]"
+  },
+  {
+    "additions": 6,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": "2023-03-21T18:13:20Z",
+    "createdAt": "2022-12-07T22:55:35Z",
+    "deletions": 19,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDODGG4Tc7hzkjJ",
+        "name": "javascript",
+        "description": "Pull requests that update Javascript code",
+        "color": "168700"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4589,
+    "state": "CLOSED",
+    "title": "build(deps): bump decode-uri-component from 0.2.0 to 0.2.2"
+  },
+  {
+    "additions": 12,
+    "author": { "id": "MDQ6VXNlcjE0MTgzODk=", "is_bot": false, "login": "jmdetloff", "name": "John Detloff" },
+    "changedFiles": 3,
+    "closedAt": null,
+    "createdAt": "2022-11-21T03:07:39Z",
+    "deletions": 26,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxOTY2MDQyNzQ0",
+        "name": "datamodel",
+        "description": "Changes needed to the shared datamodel",
+        "color": "f9cac0"
+      },
+      {
+        "id": "MDU6TGFiZWwyMzAxMDM5MDEw",
+        "name": "runBiosimulations",
+        "description": "Issues pertaining to runBiosimulations frontend",
+        "color": "e99695"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" }
+    ],
+    "mergedAt": null,
+    "number": 4588,
+    "state": "OPEN",
+    "title": "refactor(dispatch): use combine-api datamodel in dispatch component"
+  },
+  {
+    "additions": 14110,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 2,
+    "closedAt": "2023-03-21T18:13:18Z",
+    "createdAt": "2022-11-17T01:05:20Z",
+    "deletions": 8039,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDODGG4Tc7hzkjJ",
+        "name": "javascript",
+        "description": "Pull requests that update Javascript code",
+        "color": "168700"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4587,
+    "state": "CLOSED",
+    "title": "build(deps): bump loader-utils, @angular-devkit/build-angular and @nrwl/angular"
+  },
+  {
+    "additions": 2737,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 2,
+    "closedAt": "2023-03-21T18:17:16Z",
+    "createdAt": "2022-11-13T11:01:17Z",
+    "deletions": 1645,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4586,
+    "state": "CLOSED",
+    "title": "chore(deps): update dependency loader-utils [security]"
+  },
+  {
+    "additions": 8173,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 2,
+    "closedAt": "2023-03-21T18:13:17Z",
+    "createdAt": "2022-11-08T22:52:33Z",
+    "deletions": 2956,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDODGG4Tc7hzkjJ",
+        "name": "javascript",
+        "description": "Pull requests that update Javascript code",
+        "color": "168700"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4585,
+    "state": "CLOSED",
+    "title": "build(deps): bump loader-utils and @nrwl/angular"
+  },
+  {
+    "additions": 762,
+    "author": { "id": "MDQ6VXNlcjIxMTkyMTI=", "is_bot": false, "login": "jsoref", "name": "Josh Soref" },
+    "changedFiles": 15,
+    "closedAt": null,
+    "createdAt": "2022-10-09T15:29:55Z",
+    "deletions": 137,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNTQ5Mjg1Nzgx",
+        "name": "documentation",
+        "description": "Improvements or additions to documentation",
+        "color": "0075ca"
+      },
+      {
+        "id": "MDU6TGFiZWwxOTY2MDgxMDUy",
+        "name": "CI/CD",
+        "description": "Issues with continuous integration and deployment",
+        "color": "d4c5f9"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4583,
+    "state": "OPEN",
+    "title": "chore: Update check spelling workflow"
+  },
+  {
+    "additions": 2717,
+    "author": { "id": "MDQ6VXNlcjE0MTgzODk=", "is_bot": false, "login": "jmdetloff", "name": "John Detloff" },
+    "changedFiles": 68,
+    "closedAt": null,
+    "createdAt": "2022-09-26T12:03:43Z",
+    "deletions": 988,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyMzAxMDM5MDEw",
+        "name": "runBiosimulations",
+        "description": "Issues pertaining to runBiosimulations frontend",
+        "color": "e99695"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" }
+    ],
+    "mergedAt": null,
+    "number": 4582,
+    "state": "OPEN",
+    "title": "[WIP] Add the modify archive flow to the dispatch form"
+  },
+  {
+    "additions": 23,
+    "author": { "id": "MDQ6VXNlcjE0MTgzODk=", "is_bot": false, "login": "jmdetloff", "name": "John Detloff" },
+    "changedFiles": 13,
+    "closedAt": "2022-10-14T01:54:15Z",
+    "createdAt": "2022-09-25T02:04:18Z",
+    "deletions": 32,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjIyNjI4ODIz",
+        "name": "testing",
+        "description": "Issues relating to tests",
+        "color": "ef8c83"
+      },
+      { "id": "MDU6TGFiZWwyNDIzMTI0MDAy", "name": "ui", "description": "", "color": "db608b" }
+    ],
+    "mergedAt": "2022-10-14T01:54:15Z",
+    "number": 4581,
+    "state": "MERGED",
+    "title": "refactor(dispatch): consolidate forms modules into a single directory"
+  },
+  {
+    "additions": 6,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": "2023-03-21T18:13:17Z",
+    "createdAt": "2022-09-16T18:16:53Z",
+    "deletions": 19,
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjMwMDY2MTkx",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDODGG4Tc7hzkjJ",
+        "name": "javascript",
+        "description": "Pull requests that update Javascript code",
+        "color": "168700"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4580,
+    "state": "CLOSED",
+    "title": "build(deps): bump jose from 2.0.5 to 2.0.6"
+  }
+]

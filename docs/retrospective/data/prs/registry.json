@@ -1,0 +1,15 @@
+[
+  {
+    "additions": 6,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2026-05-09T08:47:43Z",
+    "deletions": 0,
+    "labels": [],
+    "mergedAt": null,
+    "number": 1,
+    "state": "OPEN",
+    "title": "Configure Renovate"
+  }
+]

@@ -1,0 +1,252 @@
+[
+  {
+    "additions": 35,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2026-01-08T03:47:16Z",
+    "deletions": 8,
+    "labels": [
+      {
+        "id": "LA_kwDOLaaKFM8AAAABlh0MsA",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDOLaaKFM8AAAACCgGqEQ",
+        "name": "python",
+        "description": "Pull requests that update python code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 13,
+    "state": "OPEN",
+    "title": "Bump urllib3 from 2.2.2 to 2.6.3"
+  },
+  {
+    "additions": 35,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": "2026-01-08T03:47:19Z",
+    "createdAt": "2025-12-06T02:38:40Z",
+    "deletions": 8,
+    "labels": [
+      {
+        "id": "LA_kwDOLaaKFM8AAAABlh0MsA",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDOLaaKFM8AAAACCgGqEQ",
+        "name": "python",
+        "description": "Pull requests that update python code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 12,
+    "state": "CLOSED",
+    "title": "Bump urllib3 from 2.2.2 to 2.6.0"
+  },
+  {
+    "additions": 34,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": "2025-12-06T02:38:43Z",
+    "createdAt": "2025-06-19T03:49:39Z",
+    "deletions": 7,
+    "labels": [
+      {
+        "id": "LA_kwDOLaaKFM8AAAABlh0MsA",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDOLaaKFM8AAAACCgGqEQ",
+        "name": "python",
+        "description": "Pull requests that update python code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 10,
+    "state": "CLOSED",
+    "title": "Bump urllib3 from 2.2.2 to 2.5.0"
+  },
+  {
+    "additions": 36,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 2,
+    "closedAt": null,
+    "createdAt": "2025-06-10T08:18:20Z",
+    "deletions": 9,
+    "labels": [
+      {
+        "id": "LA_kwDOLaaKFM8AAAABlh0MsA",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDOLaaKFM8AAAACCgGqEQ",
+        "name": "python",
+        "description": "Pull requests that update python code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 9,
+    "state": "OPEN",
+    "title": "Bump requests from 2.32.0 to 2.32.4"
+  },
+  {
+    "additions": 77,
+    "author": { "id": "MDQ6VXNlcjE3MzYxNTA=", "is_bot": false, "login": "luciansmith", "name": "Lucian Smith" },
+    "changedFiles": 4,
+    "closedAt": "2025-01-11T00:15:48Z",
+    "createdAt": "2024-09-24T00:45:59Z",
+    "deletions": 26,
+    "labels": [],
+    "mergedAt": null,
+    "number": 8,
+    "state": "CLOSED",
+    "title": "Add score to comparison"
+  },
+  {
+    "additions": 138,
+    "author": { "id": "MDQ6VXNlcjE3MzYxNTA=", "is_bot": false, "login": "luciansmith", "name": "Lucian Smith" },
+    "changedFiles": 9,
+    "closedAt": "2025-01-23T00:29:56Z",
+    "createdAt": "2024-09-23T20:45:50Z",
+    "deletions": 58,
+    "labels": [
+      {
+        "id": "LA_kwDOLaaKFM8AAAABi3_N9Q",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      }
+    ],
+    "mergedAt": "2025-01-23T00:29:56Z",
+    "number": 7,
+    "state": "MERGED",
+    "title": "Allow multiple simulators to run, and picking up where you left off."
+  },
+  {
+    "additions": 5,
+    "author": { "id": "MDQ6VXNlcjIwNjE2NzI0", "is_bot": false, "login": "jcschaff", "name": "Jim Schaff" },
+    "changedFiles": 2,
+    "closedAt": "2024-09-23T20:01:19Z",
+    "createdAt": "2024-09-20T17:53:16Z",
+    "deletions": 3,
+    "labels": [
+      {
+        "id": "LA_kwDOLaaKFM8AAAABi3_N9Q",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      }
+    ],
+    "mergedAt": "2024-09-23T20:01:19Z",
+    "number": 6,
+    "state": "MERGED",
+    "title": "specify simulator version"
+  },
+  {
+    "additions": 4,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2024-07-06T01:38:33Z",
+    "deletions": 4,
+    "labels": [
+      {
+        "id": "LA_kwDOLaaKFM8AAAABlh0MsA",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 5,
+    "state": "OPEN",
+    "title": "Bump certifi from 2024.2.2 to 2024.7.4"
+  },
+  {
+    "additions": 4,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": "2025-01-11T00:14:38Z",
+    "createdAt": "2024-06-17T22:58:20Z",
+    "deletions": 4,
+    "labels": [
+      {
+        "id": "LA_kwDOLaaKFM8AAAABlh0MsA",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": "2025-01-11T00:14:38Z",
+    "number": 4,
+    "state": "MERGED",
+    "title": "Bump urllib3 from 2.2.1 to 2.2.2"
+  },
+  {
+    "additions": 7,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 2,
+    "closedAt": "2025-01-11T00:14:28Z",
+    "createdAt": "2024-05-21T07:47:50Z",
+    "deletions": 7,
+    "labels": [
+      {
+        "id": "LA_kwDOLaaKFM8AAAABlh0MsA",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": "2025-01-11T00:14:28Z",
+    "number": 3,
+    "state": "MERGED",
+    "title": "Bump requests from 2.31.0 to 2.32.0"
+  },
+  {
+    "additions": 4,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": "2025-01-11T00:13:56Z",
+    "createdAt": "2024-04-12T04:48:58Z",
+    "deletions": 4,
+    "labels": [
+      {
+        "id": "LA_kwDOLaaKFM8AAAABlh0MsA",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      }
+    ],
+    "mergedAt": "2025-01-11T00:13:56Z",
+    "number": 2,
+    "state": "MERGED",
+    "title": "Bump idna from 3.6 to 3.7"
+  },
+  {
+    "additions": 6,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 1,
+    "closedAt": "2026-01-28T04:14:33Z",
+    "createdAt": "2024-03-01T21:22:44Z",
+    "deletions": 0,
+    "labels": [],
+    "mergedAt": null,
+    "number": 1,
+    "state": "CLOSED",
+    "title": "Configure Renovate"
+  }
+]
