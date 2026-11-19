@@ -15,19 +15,23 @@ import {
 } from '@biosimulations/simulation-project-utils';
 import { Simulation } from '../../../datamodel';
 import {
-  CombineArchiveSedDocSpecs,
-  CombineArchiveSedDocSpecsContent,
-  SedDocument,
-  SedModel,
-  SedSimulation,
-  Purpose,
   AlgorithmSubstitutionPolicyLevels,
   ALGORITHM_SUBSTITUTION_POLICIES,
   AlgorithmSubstitution,
   AlgorithmSubstitutionPolicy,
   AlgorithmSummary,
+  EnvironmentVariable,
+  Purpose,
+  SimulationRun,
+  SimulationRunStatus,
 } from '@biosimulations/datamodel/common';
-import { SimulationRunStatus, EnvironmentVariable, SimulationRun } from '@biosimulations/datamodel/common';
+import {
+  CombineArchiveSedDocSpecs,
+  CombineArchiveSedDocSpecsContent,
+  SedDocument,
+  SedModel,
+  SedSimulation,
+} from '@biosimulations/combine-api-angular-client';
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import { Observable, Subscription } from 'rxjs';
 import { ConfigService } from '@biosimulations/config/angular';
