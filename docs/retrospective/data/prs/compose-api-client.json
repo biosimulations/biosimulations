@@ -1,0 +1,93 @@
+[
+  {
+    "additions": 3,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2026-05-19T22:19:39Z",
+    "deletions": 3,
+    "labels": [
+      {
+        "id": "LA_kwDORHJtLM8AAAACeu2zIQ",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDORHJtLM8AAAACeu2zIw",
+        "name": "python:uv",
+        "description": "Pull requests that update python:uv code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 4,
+    "state": "OPEN",
+    "title": "Bump idna from 3.11 to 3.15"
+  },
+  {
+    "additions": 3,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2026-04-14T03:15:35Z",
+    "deletions": 3,
+    "labels": [
+      {
+        "id": "LA_kwDORHJtLM8AAAACeu2zIQ",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDORHJtLM8AAAACeu2zIw",
+        "name": "python:uv",
+        "description": "Pull requests that update python:uv code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 3,
+    "state": "OPEN",
+    "title": "Bump pytest from 9.0.2 to 9.0.3"
+  },
+  {
+    "additions": 3,
+    "author": { "is_bot": true, "login": "app/dependabot" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2026-04-09T18:43:42Z",
+    "deletions": 3,
+    "labels": [
+      {
+        "id": "LA_kwDORHJtLM8AAAACeu2zIQ",
+        "name": "dependencies",
+        "description": "Pull requests that update a dependency file",
+        "color": "0366d6"
+      },
+      {
+        "id": "LA_kwDORHJtLM8AAAACeu2zIw",
+        "name": "python:uv",
+        "description": "Pull requests that update python:uv code",
+        "color": "2b67c6"
+      }
+    ],
+    "mergedAt": null,
+    "number": 2,
+    "state": "OPEN",
+    "title": "Bump pygments from 2.19.2 to 2.20.0"
+  },
+  {
+    "additions": 6,
+    "author": { "is_bot": true, "login": "app/renovate" },
+    "changedFiles": 1,
+    "closedAt": null,
+    "createdAt": "2026-03-01T09:14:27Z",
+    "deletions": 0,
+    "labels": [],
+    "mergedAt": null,
+    "number": 1,
+    "state": "OPEN",
+    "title": "Configure Renovate"
+  }
+]
