@@ -1,20 +1,20 @@
 name: Archive release to Zenodo
 
-# Thin caller of the reusable workflow in virtualcell/zenodo-maint. Archives each
-# published (non-prerelease) release as a new version of the BioSimulations Zenodo
-# concept (DOI 10.5281/zenodo.21053715). The reusable workflow handles prerelease
-# skipping, per-repo concurrency, and the archiving itself via the maintained
-# zenodo-maint CLI — so the logic lives in one place instead of a copy here.
-# Requires the ZENODO_TOKEN secret (the account that owns the concept record).
+# Monthly rollup (virtualcell/zenodo-maint v1.8): archives the latest release if it is not on
+# Zenodo yet. Frequent releases become at most one Zenodo version a month instead of one per
+# tag, and a tag that is already archived is skipped. A schedule also does not depend on
+# `release` events, which never fire for releases created with GITHUB_TOKEN.
+# Run it by hand to archive now (e.g. for a paper); `tag` defaults to the latest release.
 
 on:
-  release:
-    types: [published]
+  schedule:
+    - cron: '0 11 1 * *' # 1st of the month, 11:00 UTC
   workflow_dispatch:
     inputs:
       tag:
-        description: 'Release tag to archive (e.g. v9.66.0)'
-        required: true
+        description: 'Release tag to archive (default: the latest release)'
+        required: false
+        default: 'latest'
         type: string
 
 permissions:
@@ -24,7 +24,7 @@ jobs:
   archive:
     uses: virtualcell/zenodo-maint/.github/workflows/archive.reusable.yml@v1 # NOSONAR(S7637): first-party org action; intentional moving @v1 tag
     with:
-      tag: ${{ github.event.release.tag_name || inputs.tag }}
+      tag: ${{ inputs.tag || 'latest' }}
       concept_recid: '21053715'
       ref: v1
     secrets:
